@@ -1,0 +1,1389 @@
+XOOPS Changelog
+
+
+===============================
+2010/07/12: Version 2.4.5 Final
+===============================
+- Formulated coding style and restored author/copyright information in header blocks (phppp)
+- Fixed bug #3025455: return value was missing in {@XoopsObject} getVar method (phppp/catzwolf)
+
+===============================
+2010/06/19: Version 2.4.5 RC3
+===============================
+- Reverted calendar realted functionality to XOOPS 2.3 series due to license conflicts (phppp/mamba)
+- Improved file inclusion for Framework in XoopsLoad: stop including a file if it is not detected (phppp)
+
+===============================
+2010/05/22: Version 2.4.5 RC2
+===============================
+Updates upon community:
+- Reverted: Added Support for unicode object vars (trabis)
+- Added: .htaccess into uploads folder for extra security (mamba)
+- Fixed: _CM_RE renamed to _RE (trabis/mowaffaq)
+
+===============================
+2010/02/10: Version 2.4.5 RC
+===============================
+Updates upon community:
+- Fixed: Flash banners are not displayed in the expected position (kris_fr/trabis)
+- Improved current link in system block : mainmenu and usermenu (trabis/kris_fr)
+- Reverted: Support for unicode object vars, reverting object behavior to 2.3.x (trabis)
+- Reverted: Changes in module textsanitizer related to the code box fix (trabis)
+
+Removed Language defines:
+- Please refer to modules/profile/changelog.txt (trabis)
+
+===============================
+2010/02/04: Version 2.4.5 beta
+===============================
+Updates upon community:
+- Fixed: Adding missing constructor classes for php4 compatibility (trabis)
+- Fixed: Problems with & a m p ; character (trabis)
+
+
+===============================
+2010/01/16: Version 2.4.4
+===============================
+Updates upon community:
+- Added: Frameworks/textsanitizer (beckmi/culex)
+- Added: New logger for deprecated API (trabis)
+- Fixed: Functions for getting and setting system and module configs, no cleaning should be made (trabis)
+- Fixed: Changing &copy; into @ in some config values (trabis)
+- Fixed: Notifications box not including comments language (trabis)
+- Fixed: Profile module Field weight: > 9 incorrect display (trabis) 
+- Improved: Cache file 'system_modules_active' is automatically created without need to update system module (trabis)
+
+Updates from Sourceforge trackers:
+- Fixed bug #2928289 : XOOPS object behaviour modified (trabis/ghia)
+
+Added Language defines:
+  language/english/logger.php _LOGGER_DEPRECATED
+
+===============================
+2009/12/26: Version 2.4.3
+===============================
+Updates upon community:
+- Added: Ability to assign display elements to a specific group of users (ghia)
+- Added: Smarty variable for xoops_avatar (kris_fr/trabis)
+- Added: Cache supported functions: xoops_getActiveModules(), xoops_setActiveModules(), xoops_isActiveModule() (trabis)
+- Added: XoopsMailer - Adding method to set 'allow html' parameter (Wishcraft)
+- Improved: Preloads are only loaded for modules installed and active, this will reduce queries and improve performance (trabis)
+- Fixed : XoopsLoad class (xoops calendar not found and other issues) (trabis)
+- Fixed : Database images not loading when using php 5.3 (trabis)
+- Fixed : Cross-Site Scripting vulnerability in PM module (trabis/secunia.com)
+- Fixed : SQL Injection vulnerability in kernel/notification.php (trabis/secunia.com)
+
+Updates from Sourceforge trackers:
+- Fixed bug #2917631 : Double frame around BBcode quotes in zetagenesis (kris_fr/ghia)
+- Fixed bug #2923867 : Website Row is displayed even value is empty (trabis/maxxy)
+- Fixed bug #2909312 : Layout of XoopsForms is changed (trabis/ghia)
+- Fixed bug #2904777 : preload including not installed module's preloads (trabis/bandit-x)
+- Fixed bug #2908887 : User can not select system avatars (trabis/ghia)
+- Fixed bug #2911944 : Users can see other users profile in edit profile (trabis/ghia)
+- Fixed bug #2910495 : BBcode code tag handles code worse than quote tag (trabis/ghia)
+- Fixed bug #2914175 : code tags translate to double tags and alter first line (trabis/ghia)
+- Fixed bug #2915970 : Banner white page on IE (trabis/ghia)
+
+Added Language defines:
+  language/english/banners.php _BANNERS_NO_LOGIN_DATA
+  language/english/banners.php _BANNERS_NO_REFERER
+  language/english/banners.php _BANNERS_NO_ID
+
+===============================
+2009/11/28: Version 2.4.2
+===============================
+Updates upon community:
+- Fixed : "embed" is deprecated in banners (kris_fr)
+- Fixed : bug flash banner (display and count) (kris_fr)
+- Fixed : Duplicate notifications (trabis)
+- Fixed : Cannot delete multiple pms in PM module (trabis)
+- Fixed : removed dependency on Framework Captcha (mamba, ghia)
+- Fixed : Language problem in xoops mailer (dhcst)
+- Fixed : XoopsPersistableObjectHandler::get() not allowing getting objects with id=0 (trabis)
+- Fixed : Cannot redeclare class xoopscaptchaimage (trabis)
+- Fixed : problem with module menus(article, tags) in oxygen admin gui (trabis)
+- Added : missing index.html files (mamba, Culex)
+- Added : Frameworks/compat (trabis)
+- Added : define language for banner client ID (kris_fr)
+- Added : users real name can now be used in themes <{$xoops_name}> (kris_fr) 
+- Added : comment for download module and theme in last page "xoops installer" (kris_fr)
+- Improved : rtl style in oxygen GUI (voltan)
+
+Updates from Sourceforge trackers:
+- Fixed bug #2904049: xoopsform/formfile.php (mamba, Frankblack)
+
+Added Language defines:
+  modules/system/language/english/admin/banners.php _AM_CLIENTID
+  
+Modified Language file:
+  install/language/english/finish.php
+
+===============================
+2009/10/27: Version 2.4.1
+===============================
+Updates upon community:
+- Fixed : image.php not returning images (trabis)
+- Fixed : some deprecated files are loading incorrect files (trabis)
+- Fixed : form for selecting user not working (trabis)
+- Fixed : Left blocks expanding in default theme in some browsers (Runeher)
+- Fixed : Banners opening on a blank IE page (trabis)
+- Fixed : Xoops forms not including xoopsform correctly (trabis, Alekska)
+- Fixed : Blocks preview not working (trabis)
+- Added : Preload hook in index.php (trabis)
+
+Updates from Sourceforge trackers:
+- Fixed bug #2864474: 2.4.0 RC Registration Emails Duplicated (trabis)
+
+===============================
+2009/10/23: Version 2.4.0
+===============================
+Updates from Sourceforge trackers:
+- Fixed bug #2872644 : Find users bug - MAX_JOIN_SIZE (trabis/ghia/mowaffak)
+- Fixed bug #2877987 : setExtra of XoopsFormElement is unusable (trabis/instantzero) 
+- Fixed bug #2720792 : Hardcoded "Re:" in pmlite.php (trabis/arabxoops)
+
+Removed language defines:
+  /language/english/comment.php _CM_RE
+
+Added Language defines:
+  /language/english/global.php _RE
+
+===============================
+2009/09/10: Version 2.4.0 RC
+===============================
+Updates upon community:
+- Removed soap authentication and classes(trabis)
+- Removed extra databases support (trabis)
+
+Removed language defines:
+  /modules/system/language/english/admin/preferences.php _MD_AM_AUTH_CONFOPTION_SOAP
+  /modules/system/language/english/admin/preferences.php _MD_AM_SOAP_*
+
+===============================
+2009/09/6: Version 2.4.0 Beta 2
+===============================
+Updates from Sourceforge trackers:
+- Fixed bug #2586854: date format is hardcoded in form elements (dugris/marco)
+- Fixed bug #2835056: ldap / soap syntax error (frankblack/julionc)
+- Fixed bug #2723428: Search Results - SEO (arabxoops/julionc)
+- Fixed bug #2838534: Error in oxygen orange css file (tititou/julionc)
+- Fixed bug #2839949: Wrong display of mandatory fields in oxygen GUI theme (tititou)
+- Added patch #2838667 : HTML syntax error + various formating in oxygen GUI, and clean up! (tititou/julionc)
+- Added feature request #2816381: Images Manager Sorting(trabis/Slyss)
+
+Updates upon community:
+- Fixed   : some php4 related bugs in installer and xoopslogger (trabis)
+- Removed : System key (trabis)
+- Changed : Admin GUI's are now using a theme factory, modules can make use of $xoTheme and $xoopsTpl (trabis)
++ Added   : Preload system, modules can now respond to system events(trabis)
++ Added   : Support to php5.3 (trabis)
++ Added   : jquery support. If you need to use jquery.js, please use $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js'); (trabis/phppp)
+
+Modified Language files:
+  /modules/system/class/gui/oxygen/language/english/admin.php _AD_XOOPSMODULES, _AD_LOCALSUPPORT
+
+Removed language defines:
+  /modules/system/language/english/admin/preferences.php _MD_AM_SYSTEMKEY
+  /modules/system/language/english/admin/preferences.php _MD_AM_SYSTEMKEYDSC
+  upgrade/upd-2.0.18-to-2-3-0/language/english.php LEGEND_XOOPS_MAINFILE_FORPROTECTOR
+  upgrade/upd-2.0.18-to-2-3-0/language/english.php XOOPS_MAINFILE_LABEL_FORPROTECTOR
+
+Added Language File:
+  /language/english/localsupport.php
+  /class/calendar/JSCal2/JSCal2/src/js/lang/en.js
+  /class/calendar/JSCal2/language/english.php
+
+Third-party updates:
+
+
+============================
+2009/08/12: Version 2.4.0 Beta 1
+============================
+Updates from Sourceforge trackers:
+- Fixed bug #2761876: Indexes issues/improvements (trabis/Instant-Zero)
+- Fixed bug #2788739: missing language definition _XOOPS_FORM_ALTYOUTUBE (trabis/voltan)
+- Added feature req #2414148 : removing harcoded 'administration' from cpanels (trabis/mowaffaq)
+- Fixed bug #2782360: Profile Module - Registration steps and user creation (trabis/instantzero)
+- Fixed bug #2730373: Removing content from homepage template (trabis/instantzero)
+- Fixed bug #2704179: CaritaFoto and Link to image with a space in the dir name (trabis)
+- Fixed bug #2624953: Can't save value of DATE and LONGDATE in profile module (trabis)
+- Fixed bug #2691957: Images not given in the image manager (trabis)
+- Fixed bug #2661850: Bug on [mp3] tags and update player.swf (trabis)
+
+Updates upon community:
+- Fixed bug: Updating countries list and moving harcoded names to language folder (trabis)
+- Fixed bug: Parsing issues with Oxigen(class mapper) (trabis/mamba)
+- Fixed bug: Blocksadmin - Cookies for remembering display list settings (trabis)
+- Fixed bug: Undefined 'OS' in logger/render.php (trabis)
+- Fixed bug: Inclusion of custom config file for text sanitizer (trabis)
+- Fixed bug: XoopsList.php (Timezone return is not true must be array) (wishcraft)
+- Fixed bug: Xoops Captcha Class This class would call third party Framewok Files. If the file was not found, this would either report no error or cause a WSOD. (Catzwolf)
+- Fixed bug: class/captcha/xoopscaptcha: Fixed many suppression errors that would lead to either WSOD or report no error. (Catzwolf)
+- Fixed bug: Can not delete notifications. Cache was being used and Token validation was failing. (trabis)
+- Fixed bug: Cookie Domain Dope now has constant set in common.php - XOOPS_COOKIE_DOMAIN (wishcraft)
+- Fixed bug: XoopsCache - XOOPS URL Include with Cache Filename (Cause issue with multiple domains) (wishcraft)
+- Fixed bug: XoopsTpl - XOOPS URL Include with Cache Filename (Cause issue with multiple domains) (wishcraft)
+- Fixed bug: XoopsObject - $this->vars[$key]['changed'] not set to true if value is the same and unchanged. (wishcraft)
+- Fixed bug: XoopsAuth - Some installs of xoops } would physically be missing from auth_ldap.php, xoops_ads.php [rep: brandonheyer] (wishcraft)
+
+- Changed: Xoops Captcha Config: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops Captcha Image: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops Captcha Text: Cleaned and Formatted code for consistency. (Catzwolf)
+- Chanded: XoopsDatabase: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: XoopsDatabaseFactory: Cleaned and Formatted code for consistency. Added error checking on file inclusion with error reporting. (Catzwolf)
+- Changed: XoopsFormCheckBox: Added check to see if class has already been loaded and changed include to use xoops_load function. (Catzwolf)
+- Changed: XoopsFormDhtmlTextArea: Added check to see if class has already been loaded and changed include to use xoops_load function. (Catzwolf)
+- Changed: XoopsGroupPermForm: Added Check to see if form have been loaded ppreviously nad changed includes to use xoops_load function (Catzwolf)
+- Changed: XoopsLists: Cleaned and Formatted Code. (Catzwolf)
+- Changed: Xoops ThemeForm and TableForm: Fixed the tables td to a fixed width 40%. (catzwolf)
+- Changed: XoopsForm: ThemeForm and TableForm: Replaced htmlspecialchar to a preg_replace to remove any malious code rather than just changing it to a readable form. (Catzwolf)
+- Changed: Auth Classes: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops Model Classes: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops Cache Classes: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops File Classes: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops Logger: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Xoops MultiMailer: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Functions,php: Cleaned and Formatted code for consistency. (Catzwolf)
+- Changed: Moved xos_kernel_Xoops2 Class from common.php to its own class file in /class (Catzwolf)
+- Changed: Common.php: Moved Many items into xos_kernel_Xoops2. (Catzwolf)
+- Changed: Moved Defines into own file called defines.php in include directory. (Catzwolf)
+- Chanded: refactored xoops_loadLanguage in function.php This was due to the way that this classed used error suppression and now also checks for $xoopsOption and sanitizes it. (Catzwolf)
+- Changed: Removed extra globals from module.errorhandler.php (do we really need this class now). (Catzwolf)
+- Changed: Change class Xoopstree function. Added 'extra' to the selection to allow for onchange etc (Catzwolf)
+- Changed: Formatted code and headers to conform to the Xoops coding standards. (Catzwolf)
+- Changed: Changed global calls to the database ($GLOBALS['xoopsDB'] To &XoopsDatabaseFactory::getDatabaseConnection(); which is the correct method of calling the database.
+- Changed: Changed initVar calls to the XoopsObject class to support enumeration array for XOBJ_DTYPE_ENUM (wishcraft)
+- Changed: Default Control Panel Theme set to oxygen by voltan (tnx Iran) [wishcraft]
+- Changed: Profile Module (Support for new Object Types and Refactorised Authentication Library)
+
++ Added: SOAP Authenication Installation Variables - see: makedata.php (wishcraft)
++ Added: XOOPS System Key (XOOPS Server Key for Unique Identified Systems) - see: makedata.php (wishcraft)
++ Added: SOAP Factory - Simple Object Access Protocol [Notice: Php Soap is crashing apache] (wishcraft)
++ Added: SOAP Authentication and Provisionning - User Network Management (wishcraft)
++ Added: Database Factory - mSQL Supporting Class - see /class/database/msqldatabase.php (wishcraft)
++ Added: Database Factory - Microsoft SQL Server Supporting Class - see /class/database/mssqldatabase.php (wishcraft)
++ Added: Database Factory - MaxDB Supporting Class - see /class/database/maxdbdatabase.php (wishcraft)
++ Added: Database Factory - Ingres Supporting Class - see /class/database/ingresdatabase.php (wishcraft)
++ Added: Database Factory - Oracle OCI Supporting Class - see /class/database/ocidatabase.php (wishcraft)
++ Added: Database Factory - iBase Supporting Class - see /class/database/ibasedatabase.php (wishcraft)
++ Added: Database Factory - FBSql Supporting Class - see /class/database/fbsqldatabase.php (wishcraft)
++ Added: Database Factory - DB2 Supporting Class - see /class/database/db2database.php (wishcraft)
++ Added: Query timers to logger (trabis)
++ Added: Blocksadmin - groups selection to block forms (trabis)
++ Added: Deprecated methods on kernel/module.php (trabis)
++ Added: XOBJ_DTYPE_FLOAT - Object Type for Floating Points (php4) - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_DECIMAL - Object Type for Decimals/Doubles (php4) - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_ENUM - Object Type for Enumerators (Database Support) - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_UNICODE_TXTBOX - Object Type for Unicode and Escaped Characters - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_UNICODE_TXTAREA - Object Type for Unicode and Escaped Characters - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_UNICODE_URL - Object Type for Unicode and Escaped Characters - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_UNICODE_EMAIL - Object Type for Unicode and Escaped Characters - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_UNICODE_ARRAY - Object Type for Unicode and Escaped Characters - see /class/object.php (wishcraft)
++ Added: XOBJ_DTYPE_UNICODE_OTHER - Object Type for Unicode and Escaped Characters - see /class/object.php (wishcraft)
++ Added: xoops_base_domain - Function for retrieving TLD of domain of any URL - see /include/functions.php (wishcraft)
++ Added: xoops_convert_encode - Function for Converting Bit Strings Storage in any format database in a string - see /include/functions.php (wishcraft)
++ Added: xoops_convert_decode - Function for Converting Bit Strings Storage in any format database in a string  - see /include/functions.php (wishcraft)
++ Added: xoops_hex2bin - Function for Unicode Storage in any format database with hex - see /include/functions.php (wishcraft)
++ Added: xoops_hex2bin - Function for Unicode Storage in any format database with hex - see /include/functions.php (wishcraft)
++ Added: xoops_ishexstr - Function for Checking for a hex string with length limiting - see /include/functions.php (wishcraft)
++ Added: xoops_aw_decode - Array Walking Function for Unicode Storage see func: xoops_bin2hex - see /include/functions.php (wishcraft)
++ Added: xoops_aw_encode - Array Walking Function for Unicode Storage see func: xoops_hex2bin - see /include/functions.php (wishcraft)
++ Added: WCAG 2.0 - Sight Impaired Assisted Forms (Disability Access - Form Objects) - see /class/xoopsforms/ (wishcraft)
++ Added: getTitle - WCAG 2.0 - Object HTML Title Tag (Text to Speach 4 Prompted Forms) - see /class/xoopsforms/formelement.php  (wishcraft)
++ Added: WCAG 2.0 - Label Associations with WCAG1/2 - see form objects render (wishcraft)
++ Added: New Class to XoopsForms: XoopsFormTree Class. The ability to add XoopsTree directly into any form. (Catzwolf)
++ Added: New Class to XoopsForms: XoopsFormSelectCheckGroup. This class will allow developers to add Xoops Groups into forms for permissions. (Catwolf)
++ Added: Class XoopsMySQLDatabase: Added the ability to take items from the database as an object and cleaned and formatted code. (Catzwolf)
++ Added: New Admin Theme "Oxygen" (Voltan)
+
+Updates upon community:
++ Added: Added functionality where items in the Xoops Form Element can span over two columns rather than into one. This was done for items such as tinymce to prevent cramping into one little box (Catzwolf)
++ Added: XoopsLists: Added correct method to connect to database. Changed from using the $GLOBAL and added file check when including language file.
+Editors like tiny mce were not cramped into one little box. (Catzwolf)
++ Added: New XoopsForm Class: XoopsFormButtonTray: This will allow developers to quicker add Cancel, Reset and Submit (Delete is used with a Switch) buttons in form with just one line. (Catzwolf)
++ Added: Two new defines in common.php NWLINE to insert newlines and DS as a shortcut of DIRECTORY_SEPARATOR. We should be using this method with XOOPS_ROOT_PATH when dealing with paths correctly. (Catzwolf)
++ Added: Auth Class: Added some class and file checks with error_triggers to prevent white pages (Catwolf)
++ Added: Xoops File Classes: Added file and class inclusion checks and added error reporting. (Catzwolf)
++ Added: Xoops Logger: Added check to see if error number was 2048 and return true as this error is not required to be checked and helps speeds up the logger class (Catzwolf)
++ Added: Xoops MultiMailer: Added file check . (Catzwolf)
++ Added: Module Helper Function: In Functions called xoops_getModuleOption. This will allow module developers to quickly Access $xoopsModuleConfig across all modules. Based on News Module Version (Catzwolf, Herve)
++ Added: New Core function in functions.php xoops_getConfigOption. Allow to get $xoopsConfig() in a safer and static version. (Catzwolf)
++ Added: New Core function in functions.php xoops_setConfigOption. Allow to set $xoopsConfig() in a safer. (Catzwolf)
++ Added: New function to xos_kernel_Xoops2 called pathExists. When using $xoops->path($file), this call will check that the file exists or throw friendly error (Catzwolf)
++ Added: New Function: triggerError. To allow Core and modules to add errors with custom messages. (Catzwolf)
+
+Modified language files:
+  /modules/profile/language/english/modinfo.php : Fixed typo in "PROFILE_MI_NEVER_LOGED_IN" - it should be "LOGGED_IN" (mamba)
+  /upgrade/language/english/upgrade.php : "_NO_NEED_UPGRADE" (trabis)
+
+Added Language defines:
+  /modules/system/language/english/cpanel.php : Added _MD_CPANEL_SITE_ADMINISTRATION (trabis/mowaffaq)
+  /language/english/formdhtmltextarea.php : Added _XOOPS_FORM_ALTYOUTUBE (trabis/voltan)
+  /language/english/banners.php : Added _BANNERS_CHANGE to defines (trabis)
+  /language/english/global.php : Added _RESET
+  /language/english/global.php : Added _XO_AD_USERBENNED_HEADER
+  /language/english/global.php : Added _XO_AD_USERBENNED_TEXT
+  /upgrade/language/english/upgrade.php : Added '_UPDATE_SYSTEM_MODULE' (trabis)
+
+Removed language defines:
+  /language/english/admin.php : _AD_PRESSGEN
+  
+Added Language File:
+  /language/english/countries.php (trabis)
+  /language/english/logger.php (trabis)
+  /language/english/errors.php (Catzwolf)
+  
+Third-party updates:
+- Added nuSoap - sourceforge (wishcraft)
+- Upgraded Smarty to 2.6.26 (trabis)
+
+============================
+2009/02/02: Version 2.3.3
+============================
+Updates from Sourceforge trackers:
+- Fixed bug #2414112: Hardcoded Style (mowaffak/dugris)
+- Fixed bug #2419532: maxlength (25) for adminname and display strong password generator (bandit/dugris)
+- Fixed bug #2501237: merger complete configuration files (default and custom) (zoullou/dugris)
+- Fixed bug #2426129: XoopsFormEditor class uses the selected XoopsEditor customized renderValidationJS method when exists (luciorota)
+- Fixed bug #2164522: Last login date display fixed for user had never logged (julionc/marco/colossus)
+- Fixed bug #2164510: "Url" field in Profile module isn't a link (julionc/marco/colossus)
+- Fixed bug #2217070: CSS Language files were not adequately loaded in Cpanel GUI and wrong css file (julionc/tititou)
+- Fixed bug #2331727: rank image was not required in edit form but checked upon submission (phppp/burning/marco)
+- Fixed bug #2163373: removed extra ':' from smilie form (phppp/tititou)
+- Fixed bug #2341118: blank page only guests (dhcst)
+- Fixed bug #1193857: UTF-8 for non-english Websites(dhcst)
+- Fixed bug #2340000: display *=required for the required fields (dhcst)
+- Fixed bug #2172528: Fatal error: Call to a member function isAdmin() (dhcst)
+- Fixed bug #2378095: module pm - wrong start values (mcleines)
+- Fixed bug #2332106: exm css warning (dhcst)
+- Fixed bug #2158984: Remember me checkbox set to on by default (dhcst)
+- Fixed bug #2344245: module pm - prune function
+- Fixed bug #2494356: Upgrade Smarty 2.6.22 (dhcst)
+- Fixed bug #2340215: [img] and [url] (dhcst)
+- Fixed bug #2192934: PM - Can't delete
+- Fixed bug #2414383: Blocks were not sorted correctly once data are not reconciled (phppp/mcleines/dejadingo)
+- Fixed bug #2571592: Element id is not recognized in XoopsFormCheckBox (phppp/madreus)
+- Fixed bug #2579969: typo in config "filterxss_on_display" (phppp/marco/grandoc)
+- Fixed bug #2549140: CAPTCHA image is not displayed with some IE browsers (phppp/saba/dhcst)
+- Fixed bug #2489130: element id is not used correctly (phppp/trabis)
+- Fixed bug #2573097: request parameters are not stored in block admin (phppp/sabahan)
+- Fixed bug #2380971: display informative message for notification options (phppp/bandit-x)
+- Fixed bug #2483646: caption for username is missing (phppp/sabahan/mcleines)
+- Fixed bug #2340302: username is truncated when editing a user by admin (phppp/GPboarder)
+- Fixed bug #2602337: variable "XOOPS_VAR_PATH" is wrongly typed in upgrader 2.0.18 to 2.3.0 (phppp/mcleines)
+- Fixed bug #2340700: improvement on readme (phppp/ghia/Phmo)
+- Fixed bug #2637832: content is missing in function xoopsCodeTarea (phppp/mamba/ToloXoop/Ghia)
+
++ Implemented feature #2154340 or meta tags for register, user and userinfo files for SEO Optimization (julionc/kerkyra)
++ Implemented feature #2193964 or localization in Installer system (julionc/voltan)
+
+Updates upon community:
+- Fixed pagenav - extra parameter contains an anchor (dugris)
+- Fixed sort categories - module profile (dhcst/trabis)
+- Fixed permission for Usergroups - module profile (dhcst)
+- Fixed bug in user.php: page is not accessible due to infinitive redirect loop if profile module is installed but permission is not set properly (phppp/AAAAAgg)
+- Refactoring XoopsLogger in /class/logger/xoopslogger.php (julionc/phppp/tititou)
+- Changed language folder from 'dutch' to 'nederlands' in upgrade (phppp)
+- Improved installer (dugris/phppp/ezsky/marco)
+- Improved system_siteclosed.html in default and Zetagenesis Theme (mamba/aph3x/kris/dugris)
+- Improved system_redirect.html in defautl and Zetagenesis theme (kris)
+- Improved template cache handler to allow module-wide cache update (phppp)
++ Added search field groups - module profile (only for webmasters)
++ Added checks for XOOPS_TRUST_PATH outside DocumentRoot, Xoops_Cache is writable (dhcst)
++ Implemented template to homepage (phppp)
++ Implemented localization support for content rendering (phppp/julionc/rowdie/irmtfan/mamba/voltan)
++ Implemented localization support for RSS feeds (phppp/dugris)
++ Added module names to not installed module list (phppp)
++ Added module preference entrance to system preference list (phppp/herve)
++ Added double_encode support to MyTextSanitizer::htmlSpecialChars (phppp/dugris/dhcst)
++ Added Stylesheet for pagenav (burning/kris)
+
+Third-party updates:
+- Upgraded Snoopy Class to 1.2.4 (julionc)
+- Upgraded Smarty to 2.6.22 (dhcst)
+
+Modified language files:
+  /language/english/global.php added: "_REQUIRED" (dhcst)
+  /language/english/admin.php added: "_AD_WARNINGINSTALL", "_AD_WARNINGWRITEABLE", "_AD_WARNINGNOTWRITEABLE" and "_AD_WARNINGXOOPSLIBINSIDE" (phppp/dhcst)
+  /language/english/user.php (julionc)
+  /modules/system/language/english/admin/preferences.php added: "_MD_AM_MODULEPREF" (phppp)
+  /modules/profile/language/english/modinfo.php added: "_PROFILE_MI_NEVER_LOGED_IN" (julionc)
+  /modules/profile/language/english/main.php added: "_PROFILE_MA_ACTUS" and "_PROFILE_MA_FOUNDUSER" (dhcst)
+  /install/language/english/install.php (phppp)
+  /install/language/english/welcome.php (phppp)
+  /install/language/english/finish.php (phppp)
+
+Added language files:
+  /language/english/backend.php (phppp)
+  /language/english/style.css (phppp)
+  /themes/zetagenesis/language/english/ (phppp)
+  /themes/zetagenesis/language/english/main.php (phppp)
+  /themes/zetagenesis/language/english/script.js (phppp)
+  /themes/zetagenesis/language/english/style.css (phppp)
+  /upgrade/language/english/style.css (phppp)
+  /install/language/english/support.php (dugris)
+  /install/language/english/support.png (dugris)
+
+============================
+2008/11/28: Version 2.3.2b
+============================
+- Improved fixes for XSS vulnerability (phppp/DSRG)
+
+============================
+2008/11/26: Version 2.3.2(a)
+============================
+- Fixed XSS vulnerability in xoopscode and potential text (phppp/DSG)
+- Fixed security vulnerability in autologin (phppp/Dylian/alfred)
+- Improved protector module for potential local file inclusion (DSG/GIJOE/phppp/)
+- Modified /model/sync.php for backward compatibility (phppp/boy0917)
+- Fixed bug in xoopmailer that $xoopsUser is not checked for anonymous (phppp/ezsky)
+
+
+============================
+2008/10/11: Version 2.3.1
+============================
+- Fixed bug #2147303 for xoops.js as well as missing revision #1281 (phppp/cpks)
+- Fixed bug #2147607: admin tab menus are not rendered (phppp/marco)
+- Fixed bug #2148598: removed extra spaces and lines after PHP close tag (phppp/igomen)
+- Fixed bug #2148589: corrected prompting messages in module install/uninstall (phppp/igomen)
+- Fixed bug #2148257 by extending range of js calendar (phppp/marco)
+- Fixed wrong regdate in adding user (bug #2154326) (phppp/trabis/Alian/marco)
+- Fixed bug #2154335: page is not redirected correctly after deleting a visibility item (phppp/Reintjan/marco)
+- Fixed bug #2155512: paths were wrongly configured for koivi editor (phppp/dnprossi/marco)
+- Fixed bug #2151858: Added missing index files to prevent directory traversal (phppp/phmo/marco)
+- Fixed bug #2154367: title attribute is not properly rendered in case there are bbcode tags inside url tag (phppp/blueteen/marco)
+- Fixed bug #2101426: required select field is not adequately validated in profile module (phppp/marco/RC78)
+- Improved xoops.css mainly for positioning img elements (phppp/Ianez)
+- Improved CAPTCHA verification to return true value when CAPTCHA is disabled (phppp/dongzhi)
+- Improved tinyMCE editor (luciorota/phppp)
+- Improved debug information visibility suggested in tracker #2106895. Log renderer is redesigned in XOOPS 3.0 but we also added a temporary solution for XOOPS 2.3 (phppp/trabis/marco)
+
+
+============================
+2008/10/05: Version 2.3.1 RC
+============================
+- Fixed bug #2130117: wrong class was used to instanciate GUI (phppp/InstantZero)
+- Fixed bug #2137120: new primary key is not created if there are duplicated entries in db (phppp/jdseymour)
+- Fixed bug in comment_view: if a user's com_mode is not set, he won't see the comments (phppp/mamba)
+- Fixed bug in model/sync: if field_object is not set, field_link should be used (phppp)
+- Fixed bug in upgrade script 2.0.18-to-2.30: new primary key was not able created if block_id key did not exist (phppp/suisss)
+- Improved XOOPS news aggregator in admin.php: adding encoding conversion for non UTF-8 charset, enabling mutliple feeds (phppp/marco/DCrussader)
+- Improved backend.php: sanitized webmaster's email, added new logo for feed (phppp/Ianez)
+- Improved XOOPS 2.2* related upgrade scripts: utf-8 is considered for language detection; user login for XOOPS 2.2 is added (phppp)
+- Added upgrade scripts from 2.30 to 2.31, corrected XOOPS installation sql scripts to be MySQL 5 strict mode compliant (phppp)
+- Improved image handling in XOOPS core: removed deprecated align attribute, added missing js scripts for dhtml editor preview (phppp/Ianez/Drieben)
+- Improved xhtml compliance for XOOPS core (phppp/Ianez)
+- Set "autocomplete" property for password form element to "off" explicitly by default to clear some mysterious bugs with certain browsers addressed in bug #2144588 (phppp/trabis/marco)
+- Added two methods to XoopsObject for experimental purposes: destroyVars, loadFilters (phppp)
+
+- Fixed bug #2121674: some sensitive profile fields were visible to public by default (phppp/marco)
+- Fixed bug #2121674: core user fields are marked with "delete" which are not allowed to delete (phppp/marco)
+- Fixed bug #2133657: display name was lost after upgrading from 2.2 to 2.3 (phppp/marco)
+- Fixed bug #2133697: profile object is not instantiated if user creation is not performed from profile admin (phppp/marco/nick77)
+- Improved profile upgrade to keep existent fields and corresponding permissions (phppp/deka87)
+- Improved profile field visibility according to bug tracker #2139562: webmasters have access to all fields (phppp/mamba)
+- Upgraded profile module version to 1.51 (phppp)
+- Added synchronization scripts for profile module on update (phppp)
+
+- Modified language files:
+  /modules/profile/english/admin.php added one item: "_PROFILE_AM_CANNOTDELETEADMIN"
+
+
+============================
+2008/09/20: Version 2.3.0
+============================
+- Fixed bug #2117339/#2117349: uid was not assigned for administrator activation; some operations were skipped in user admin (phppp/willemd/marco)
+- Fixed bug #2120749: template path was not correctly detected for XoopsMailer thus email content was not localized (phppp/Choucas/marco)
+- Fixed bug #2120818: user_uid is not properly assigned to template in profile module (phppp/RC78/marco)
+- Improved custom block management which caused lost of custom blocks from XOOPS 2.2 to 2.3 (phppp/wilden/maxxy)
+- Fixed profile access bug in case extensible profile module is not installed (phppp/marco)
+- Fixed email notification bug: notification was not sent out after activation of a new user (phppp/marco)
+
+
+============================
+2008/09/15: Version 2.3.0 RC3
+============================
+- Fixed bug in profile visibility admin: visibility items were not correctly fetched (phppp)
+- Added missing images in profile templates (phppp/julionc)
+- Fixed bug in formelement getClass: variable was overwritten (suico)
+- Improved permission control in profile (phppp/dongzhi)
+- Added new subject icons images (julionc/mr-reda04_fr)
+- Fixed bug #2087085/#2091410: variable $xoTheme is not checked properly (phppp/trabis/Saba)
+- Changed default theme to hide blocktitle in case block title is not set (phppp)
+- Fixed bug #2100779: custom blocks were missing from group admin (phppp/trabis)
+- Fixed bug #2100804: templatedir was not wrongly set by a typo, compat with 2.2 was broken (phppp/trabis/ghia_/AHLIS)
+- Improved upgrade message suggested in tracker #2101446 (phppp/marco)
+- Fixed bug #2106222: groupby was not properly implemented in model (phppp/trabis)
+- Improved XoopsObject and model classes, added XoopsObject::toArray method for backward compat with XOOPS 2.2 (phppp)
+- Added blockinstance.php for backward compat with XOOPS 2.2, PHP 5.0+ required (phppp)
+- Added special version of mainfile.dist.php file to extras folder for protector module (phppp)
+- Added readme to deprecated folders /cache/ and /template_c/ (phppp)
+- Fixed bug #2105325: align attribute is not properly parsed (phppp/ianez)
+- Improved option management in profile module related to bug #2101426: simultaneous adding multiple options; blank option to prevent any default value (phppp/marco)
+- Added ValidationJS for formselect and formcheckbox (phppp)
+- Fixed bug #2109967: new user was automatically activated even manual activation is set (phppp/Choucas/marco)
+- Fixed bug #2110396: xoops.js was not properly cleaned and some required js functions were moved out (phppp/Saba)
+- Improved installation and upgrade process, including mainfile modification for protector module and proposal from tracker #2109986 (phppp/marco)
+- Moved /extras/ folder out of htdocs (phppp)
+- Fixed icon links on administration homepage (phppp/ezsky)
+
+
+============================
+2008/08/15: Version 2.3.0 RC2
+============================
+- Added EXM admin gui (BitC3R0/mamba/phppp/sabaM/trabis)
+- Added extended profile module (phppp/mamba/marco)
+- Added private message module (phppp/mamba/marco)
+- Added preprocessing for parameters from user input in user edit area (trabis)
+- Improved xoops.js to allow multiple window.onload (phppp)
+- Fixed a bug in MySQL query with DISTINCT in kernel/block.php (phppp)
+- Fixed redirect problem reported in bug #2037384 (phppp/hervet)
+- Fixed rank image false alert problem reported in bug #2037384 (phppp/hervet)
+- Fixed problem reported in bug #2037384: sql file existence was not properly detected (phppp/hervet)
+- Fixed array unserialize problem reported in bug #2037384 (phppp/hervet)
+- Improved group management interface suggested in bug tracker #2037384 (phppp/hervet)
+- Fixed an infinite loop bug in formdhtmltextarea when dhtmltextarea editor is called in xoopseditor (phppp/hervet)
+- Added index files to prevent directory listing (julioNC)
+- Added allowAnonymous parameter to groupperm form, fetched from XOOPS 2.2 (phppp)
+- Improved templateDir handling in xoopsmailer for language check (phppp)
+- Modified language directory name for GUI (phppp/julionc)
+- Completed XOOPS 2.2 to 2.3 upgrade scripts (phppp)
+- Synchronized xoopscodes functions with formdhtmltextarea class to unify XOOPS dhtml editor (phppp)
+- Improved homepage mask (phppp/mamba)
+- Improved textsanitizer to make it a real extensible handler (phppp)
+- Adopted extensible dhtmltextarea as default dhtmltextarea editor, plus instant privew and mp3 player (phppp/Vinod/urbanspacema/ezksy)
+- Added /extras/altsys_functions.php to provide compatibility with GIJOE's modules (phppp/mamba)
+
+
+============================
+2008/07/26: Version 2.3.0 RC
+============================
+- Fixed bug #2011644 which Smarty cache path was wrongly configured, cleaned up deprecated paths (phppp/admin@sfp-apa.fr)
+- Fixed bug #2006730: Permissions were not adequately checked for some actions in imagemanager (dugris/beckmi)
+- Fixed a bug in path permission check for installer: xoops_lib should not be checked (phppp/ncnynl)
+- Added permission check to user profile page (phppp/peterr)
+- Filtered input parameter 'fct' in /modules/system/admin.php (phppp)
+
+- Modified language files:
+ /modules/system/language/english/admin/preferences.php (phppp)
+
+
+============================
+2008/06/30: Version 2.3.0 Beta
+============================
+- Improved criteria classes mainly for coding style and multi-criteria rendering (phppp)
+- Added path identifiers "var", "lib" for forward compat (phppp)
+- Added "configs" folder and file in XOOPS data (phppp)
+- Enabled default visual editor upon community's high demand (phppp)
+- Implemented feature #1968736 or tooltips to formdhtmltextarea (phppp/mamba/wizanda/jimmyx)
+- Added upgrade scripts from 2.2.* to 2.3.0 (phppp)
+- Improved upgrade scripts to allow informative messages and confirmations (phppp)
+
+- Added langauge files:
+ /language/english/formdhtmltextarea.php (phppp)
+
+
+============================
+2008/04/18: Version 2.3.0 Alpha 3
+============================
+- Fixed bug #1954797: User can set session expiration to zero (phppp/Alex_Grey)
+- Fixed bug #1941250: tags inside [code][/code] are rendered (phppp/Dona_Brasil)
+- Fixed PHP4 compliance error (phppp/mamba/tzvook)
+- Fixed reference related errors (phppp/marco)
+- Fixed bug in CAPTCHA render: SESSION data were not registered for CAPTCHA triggered by logged in members (phppp/mamba)
+- Added prefix to cache_model field names to avoid potential conflicts (phppp)
+- Added property "columns" to formcheckbox and formradio for better rendering control (phppp)
+- Used property "columns" to improve readability for groupform (phppp)
+- Improved XoopsLoad to cover module classes (phppp)
+- Changed default charset encoding to UTF-8 (phppp)
+- Added temporary solution for URL mask in startpage redirection (phppp)
+- Improved search presentation page (phppp/mamba)
+- Added XoopsUserUtility for user related methods (phppp)
+- Added functions to send welcoming message to a user upon his successful registration (phppp/mamba)
+- Changed activation link from user.php to register.php (phppp)
+- Added installation guide for XOOPS directories (phppp)
+- Moved cache directory and smarty compile directory into XOOPS data folder (phppp)
+- Added xoops_loadLanguage function (phppp)
+- Enabled scripts for xoops_module_pre_install (phppp)
+- Enabled scripts for xoops_module_pre_uninstall, fixing an issue reported in tracker #1930399 (phppp/akitson)
+- (X)HTML compliance fix and improvement (kris/phppp)
+- Changed default banner to a new swf one (mamba)
+- Updated default logo to fix transparency problem with IE (kris)
+- Changed session expiration time to session.gc_maxlifetime (phppp/marco)
+
+- Improved upgrader
+- Added upgrade abstract class (phppp)
+- Highlightened uncertainty of using custom character set and collation for mysql (phppp)
+- Added local language file for each upgrader (phppp)
+
+- Improved blockadmin
+- Added more variables in filter browser for blocks (phppp/Steven Li/domecc)
+- Activated block clone (phppp/encouraged by altsys from GIJOE)
+
+- Added XOOPS Cpanel GUI handling multiple GUIs for backend (phppp)
+- Legacy admin interface is moved to gui/legacy/ (phppp)
+- A new default GUI is added as starting point for further improvement (phppp)
+- Adapter for TheAdmin module is the first custom GUI (Andricq Nicolas/phppp)
+- Preference parameter is added to allow on-fly switch (phppp/marco)
+
+- Reorganized functions (phppp)
+- Moved deprecated functions into funcitons.legacy.php
+- Changed getMailer to xoops_getMailer
+
+- Modified language files:
+ /language/english/global.php (julionc/phppp)
+ /language/english/user.php (phppp)
+ /modules/system/language/english/admin/modulesadmin.php (julionc)
+ /modules/system/language/english/admin/blockadmin.php (phppp)
+ /modules/system/language/english/admin/preferences.php (phppp)
+
+- Added langauge files:
+ /modules/system/language/english/cpanel.php (phppp)
+
+
+============================
+2008/03/10: Version 2.3.0 alpha2
+============================
+- Fixed syntax error in model.php (phppp/baisword)
+- Fixed syntax error for PHP 4 (phppp/marcofr)
+- Fixed custom session error (phppp/CreepyGnome/)
+- Deprecated code cleaning up (phppp)
+- Code cleaning up, removed duplicated code (phppp/Vexed)
+- Added missing CSS for banners.php (Kris/phppp)
+- (X)HTML compliance improvement for target attribute in anchors (Kris/phppp)
+- Improved default theme with forward compat (Kris)
+
+- Added table for database storage cache engine (phppp)
+- Added parameter to control database modification (phppp)
+
+- Improved installation
+- Added XOOPS library directory and XOOPS data file directory for forward compatibility (phppp)
+- Added XOOPS_TRUST_PATH for compatibility (phppp)
+- Improved database character set selection (phppp/ncnynl)
+- Template/Interface improvement (Kris)
+
+- Added updater 2.0.18-to-2.3.0, including database character set conversion (phppp)
+- Added multi-task update, to be generalized (phppp)
+- Removed deprecated patch in 2.0.13-to-2.0.14 (phppp)
+
+============================
+2008/03/03: Version 2.3.0 alpha1
+============================
+- Imported new installer (restored changelog for Revision #1018)
+- Restored xoPageNav plugin (restored changelog for Revision #1019)
+- Improved installer: removed unnecessary steps for user experience consideration (phppp/domecc)
+- Improved installer: removed shadow effect which is not IE compliant (phppp)
+- Improved xoops.js: fixed bug #1627536, improved image selection (phppp/dbritton217)
+- Improved functions of xoops_result(), xoops_error() to enable handling of objects (phppp)
+- Improved XOOPS MySQL database: added charset and collation support (phppp)
+- Merged resource.db.php from extras for module template compatibility (phppp)
+- Upgraded smarty to 2.6.19 (phppp/mowaffak)
+- Upgraded phpmailer to 2.0.0 (phppp)
+
+- Enabled "Remember me" for login (phppp)
+
+- Added Frameworks folder for third-party frameworks before being merged into XOOPS core package (phppp)
+
+- Added Xoops Autoload (phppp)
+- Added XoopsLocal (phppp)
+
+- Enable XOOPS CAPTCHA with extensible methods (phppp)
+- Added CAPTCHA to comment (phppp)
+- Added CAPTCHA to registration (phppp)
+
+- Added XoopsPersistableObjectHandler (phppp)
+- Added predefined extendded model handlers for XoopsPersistableObjectHandler (phppp)
+- Added API to XoopsPersistableObjectHandler to allow custom handler (phppp)
+
+- Added extensions to textsanitizer (phppp)
+- Added API to textsanitizer to allow custom extensions and configurations (phppp)
+- Moved censor words handle to an extension (phppp)
+- Added automatic text filtering to XoopsObject handler via textsanitizer extension (phppp)
+
+- Added xoopseditor package (phppp)
+
+- Added file package (phppp)
+- Added XoopsFile: File engine For XOOPS (phppp)
+- Added XoopsFolder: Folder engine For XOOPS (phppp)
+
+- Added cache engien package (phppp)
+- Added utility package (phppp)
+
+- Added PEAR and GeShi to Frameworks (phppp)
+
+
+
+============================
+2008/02/16: Version 2.0.18.1
+============================
+- Fixed #1854203 : XoopsTree::getNicePathFromId Add separator only if necessary (dugris)
+- Fixed #1854392 : Add missing index.html files (edomch/dugris)
+- Fixed bug #1847253 : Display the website url in profil (dugris)
+- Fixed bug #1867242 : HTML was sanitized improperly (phppp/mcdonald3072)
+- Fixed bugs in theme zetagenesis css files (kris_fr/phppp/mowaffak)
+- Fixed bug #1867843: can't login to banner page (phppp/mowaffak)
+- Fixed bug #1880146: javascript variables are declared without "var" (phppp/cpks)
+- Fixed bug #1881197: Function does not always return a value (phppp/cpks)
+- Fixed bug #1881236: URL Redirection phishing (phppp/dsec.ru)
+- Fixed bug #1881236: local file inclusion (phppp/dsec.ru)
+- Fixed bug #1890044: redirect page is not well handled upon failure of avatar upload (phppp)
+
+- Improved: cosmetic update for administration (dugris)
+- Improved: use xoops_error to display the error, in upload avatar (dugris)
+- Improved: Show the error message for uploads ranks (dugris)
+- Improved: Xoops Installer, xhtml/css compliance (julionc)
+- Improved: Turned enableRegenerateId off in XOOPS session to avoid problems with IEs (phppp)
+- Improved: formulating smiley display (phppp/skinnali/mowaffak)
+- Improved: fixed assigned by reference warnings (phppp/marco/blackrx)
+
+
+============================
+2007/12/04: Version 2.0.18
+============================
+- Fixed bug #1829581 : Comments template error (kris/phelim)
+- Fixed bug #1656457 : SMTP recipient address error should be non-fatal (dave_l/phelim)
+- Fixed bug #1824377 : _MA_USER_SENDMAIL not defined (Garrath/dugris)
+- Fixed bug #1540480 : $modversion constant language truncated (zoullou/dugris/phppp)
+- Fixed bug #1779344 : City renamed (young-pee)
+- Fixed bug #1333337 : Grp memberships lost when usr w. no Group perm edits usr act (jegelstaff/dugris)
+- Fixed bug #1821846 : mistake on RpcDateTimeHandle (Garrath/dugris)
+- Fixed bug #1808484 : Check modules permissions before displaying "Recent comments blocks" (herve/dugris)
+- Fixed bug #1779352 : Hardcoded language, Secure and improve code, Removal style/css (young-pee/dugris)
+- Fixed bug #1774929 : cannot herit methods from kernel's class (Garrath/dugris)
+- Fixed bug #1415777 : xml feed is not working when debug mode is activated (DuGris/phppp)
+- Fixed bug #1784816 : XoopsTree::getNicePathFromId Add separator only if necessary (dugris)
+- Fixed: Do not display the comment form if the option module "Allow anonymous post in comments?" is disabled (dugris)
+- Fixed: array was misinterpreted as string in upgrade scripts (phppp)
+- Fixed bug #1851732: language constants were missing (phppp/marco)
+
+- Improved: themes, Cascading, xhtml/css compliance; keep default theme as close to current default theme as possible (kris_fr/DuGris/phppp)
+- Improved: Corrected a line hardcoded (young-pee)
+- Improved: Making sure params used in queries are properly sanitized with intval() when they are integer (herve/malanciault)
+- Improved: In XoopsUser::getUnameFromId, if usereal, then making sure the real name is not just an empty space (herve/malanciault)
+- Improved: Check if $_SERVER[$key] AND $_ENV[$key] exists before turning over the value (xoops_getenv) (dugris)
+- Improved: XoopsSecurity, personalize the variable of session and the variable of form (dugris/phppp)
+- Improved: html and css in installer (dugris)
+- Improved: xoops form text sanitizer related to bug report #1841194 (phppp/omer_singer)
+- Improved: Updated docs related to system requirements (phppp/marco)
+
+- Improved: smiley renderer in module.textsanitizer.php (phppp/sarahmx)
+- Improved: restoring stripslashes handling in file mediaName for uploader class (phppp/herve)
+
+- Updated: added theme "zetagenesis" by Kris as a step towards XOOPS 3.0 theme engine (phppp/Kris)
+- Updated favicon.ico
+
+- Removed themes of "phpkaox" and "x2t"
+
+============================
+2007/10/01: Version 2.0.17.1
+============================
+- Fixed bug #1783807: login failure in some browsers caused by session_regenerate_id (phppp/web-M/mrphilong/incama)
+- Fixed bug #1792982: user list is not populated when user count is less than a limit (phppp/dugris/alainternet01)
+- Fixed bug #1800795 by reverting revision #898: host value type error in SMTP method (phppp)
+- Fixed bug #1805158: existing cache/index.html causes warning message when trying to recreate it (phppp/dave_l/script_fu)
+- Added denied mimetype check to uploader class as well as restored returning false upon checkmimetype failure (phppp)
+- Replacing extras/resource.db.php with the file provided by Gijoe (malanciault)
+- Changed The XOOPS Project homepage link to XOOPS project homepage at SourceForge (XOOPS Core Dev Team)
+
+============================
+2007/08/24: Version 2.0.17
+============================
+- Fixed deprecated js captureEvents method and style property errors (phppp/skenow)
+- Fixed xhtml/css compliance errors (phppp/skenow/kris_fr/studioC/malanciault)
+- Fixed bug #1656854 - Missing quotes and Id in XoopsObjectTree->makeSelBox (hthouzard/dugris)
+- Fixed bug #1716980 - Sitename with contraction is truncated in mail users form (rowd/dugris)
+- Fixed bug #1763214 - Color Module Preference field issue (zoullou/dugris)
+- Fixed bug #1707436 - gzip compression not working correctly (rowd/young-pee/dugris/phppp)
+- Fix : writing templates with prefix (template_set-theme_set) during modules installation and update (dugris)
+- Fixed bug #1767284 view template code in template admin (dugris/Kris_fr)
+- Fixed bug #1744332 fixing how we loop into the blocks array defined module xoops_version.php (malanciault/dave_l/dugris)
+- Fixed bug #1767457 combined {X_SITEURL} and [URL] in custom blocks is not correctly compiled (phppp/domecc)
+- Fixed bug #1767018 the popup menu is not correctly rewritten when the default language has been changed in General Settings - complete rewriting of the function : xoops_module_get_admin_menu (dugris/phppp)
+- Fix: save the real version of system module during install (dugris)
+- Fixed bug #1746179 BBCode Interpretation Incorrect for Images with ID and Alt (dugris/mboyden)
+- Fixed bug #1751011 Add compatibility with plugin smarty for xoops for redirect page and close site page, Add smarties variables for redirect page and close site page, Add Meta for closed site (dugris/phppp)
+- Fixed permission assignment problem in module installation and block management, which only granted permissions to groups of the user who installs the module; now module/block access permissions will be assigned to the three basic groups (admin, member, anonymous) by default (phppp/dugris/alainternet01)
+- Fixed a problem in authfactory: configuration for authentication method was not checked properly (phppp)
+- Fixed a bug in page redirect after user login with no access permission, which caused infinite loop (phppp)
+- Fix bug #1734811: popen command execution in phpmailer::sendmail (phppp/larholm/judas_iscariote/m0nty_)
+- Fixed wrong value for "disposition-type" in Content-Disposition header field of downloader class: inline => attachment (ref: http://www.ietf.org/rfc/rfc2183.txt) (phppp)
+- Fixed bug #1745032: Group Assignement problem when creating new user from admin (phppp/malanciault/dugris/felix)
+- Fixed bug #1745057 and improved group selection for large count of user accounts (phppp/malanciault)
+- Fixed bug in XoopsMultiMailer for setting $xoopsMailerConfig['smtphost'] which is a string instead of array (phppp/domecc)
+- Fixed bug #1748019 : LDAP auth problem with Euro sign (pemen)
+- Fixed bug #1764107 : Authentication problems with AD on Windows 2003. Added LDAP_OPT_REFERRALS option (pemen)
+- Fixed bug #1610461 : edituser problem removing the url from the profile 2.0.16 (rowd/malanciault)
+- Fixed bug #1610461 : unable to remove 'always attach my signature' once selected (rowd/malanciault)
+- Fixed bug #1610461 : 4 x PHP 'undefined variable' notices; two for fields which are no longer used, two for checkbox fields (rowd/malanciault)
+- Fixed bug #1626243 : when the site was closed and the Smarty Debug activated, the debug popup was displayed to anonymous users (rowd/malanciault)
+- Fixed bug #1015557 : problem of undoHtmlSpecialChars when converting &amp;nbsp; (phpp/malanciault)
+- Fixed bug #1689884 : Confusing Rank Code In EditUser Form In Admin Section (rowd/malanciault)
+- Fixed syntax error in banner management (phppp/gibaphp)
+- Fixed bug in XOOPS form checking if an element is required (phppp)
+- Fixed bug in XOOPS form that an element added to a container as required is not counted by form (phppp)
+
++ Update smarty class (version 2.6.18) (dugris)
++ Update snoopy class (version 1.2.3) (dugris)
+
++ Improved system preference management: use register_shutdown_function to guarantee cached file cleaning up (phppp)
++ Improved: add delimiter for XoopsFormRadio and XoopsFormCheckBox (dugris)
++ Improved: add folder css for themes (dugris)
++ Improved cache ID generation: protecting group or language sensitive contents (phppp)
++ Improved XOOPS plugin for SMARTY: skip fetching tpl resource from DB for "default" template set (phppp)
++ Improved: cosmetic update for error message display in register (phppp)
++ Improved uploader class: localization of error messages (phppp)
++ Improved user selection to handle large amount of user accounts (phppp/ncnynl/huzhenghui)
++ Improved localization of navigation in system admin (phppp)
++ Improved session handling: added IP check and session_regenerate_id for each request (phppp/intron)
++ Implemented feature request #1745040 (temporarily) by enabling group selection (phppp/malanciault)
++ Implemented: leave form renderValidationJS method to each element for better control of validation code (phppp/dugris)
+
++ Added email as required and disclaimer if is required in registerform (phppp/dugris)
++ Added mark for required elements in XOOPS themeform (phppp)
++ Added block bid to block data assigned to templates (similar as in XOOPS 2.2*) as workaround for manipulating specific blocks. (phppp)
++ Added extra garbage collector for cases that gc function registered in session handler is not executed as expected (phppp/skalpa)
++ Added form element type check to form renderer which causes fatal error if an element is a string (phppp)
++ Added "required" flag to form elements that are required but not marked properly (phppp)
++ Added "name" parameter to form label element to allow positioning when template is used (phppp/ncnynl)
++ Added "overflow" property for XoopsCode in /themes/default/style.css (phppp)
++ Added TLS support for LDAP authentication with new config option #1697107 (pemen)
++ Add new constant in config Database for TLS (pemen)
++ Added upd-2.0.16-to-2.0.17 program (pemen)
++ Added _NOT_NOTHINGTODELETE constant that was missing (malanciault)
+
+- Removed "list-style" parameter from li class in /themes/default/style.css which makes trouble to ol'ed li (phppp/huzhenghui)
+- Modified installation procedure and add TLS (pemen)
+- Code cleaning up for upgrade scripts, removed unused folders and files (phppp)
+
++ Added language files:
+ /language/english/findusers.php (phppp)
+ /language/english/uploader.php (phppp)
+
+- Modified language files:
+ /modules/system/language/english/admin/findusers.php (malanciault)
+ /modules/system/language/english/admin.php (phppp)
+ /modules/system/language/english/admin/users.php (phppp)
+ /modules/system/language/english/admin/preferences.php (pemen)
+ /languages/english/auth.php (pemen)
+ /languages/english/notification.php (malanciault)
+
+
+============================
+2006/11/12: Version 2.0.16
+============================
+- Fixed bug #1538291 : Mailer Return-Path header is not set correctly (skalpa/alienhand)
+- Fixed bug #1548771 : Criteria doesn't handle IS NULL correctly (skalpa/garrath)
+- Fixed bug #1589652 : XoopsTopic::getNiceTopicPathFromId not working (skalpa/dugris)
+- Fixed bug #1559119 : Activation key appended to the login form URL (skalpa/bandit-x)
+- Fixed bug #1551559 : PHP 5.0.x fatal error in userinfo.php (skalpa/rowd)
+- Fixed bug #1570396 : Checkbox doesnt work in the user notifications page (skalpa/bandit-x)
+- Fixed bug #1565746 : Installer does not accept mysql passwords with $ in them (skalpa/Ann O. Neemous)
+- Fixed bug #1546415 : XoopsForm::getElements broken with insertBreak() (skalpa/dugris)
+- Fixed bug #1549803 : XoopsObject errors are not translated (skalpa/giba+wcrwcr)
+- Fixed bug #1529039 : Add auth.php english language file. Forgotten in the 2.0.14 (pemen)
+- Fixed bug #1525206 : ldap provisioning problems - timezone_offset (pemen)
+- Fixed bug #1554972 : Auth provisionning maintain (option) after user creation (pemen)
+- Fixed bug #1591544: XOOPS session is not destroyed properly when custom session is enabled (phppp/xuser)
+- Fixed a bug that causes reset of block options over module update (phppp)
++ Added fields mapping between Xoops User Database and Auth Server atttribute. The user
+can choose wich field to synchronize. (pemen)
+
+
+============================
+2006/08/24: Version 2.0.15
+============================
+
++ Added XoopsObject::getValues() to get several values in an array (skalpa)
++ Added backtrace support to the error handler and killed the useless blank page (skalpa)
++ Added a new XoopsFormColorPicker element (Patch #1535023: skalpa/zoullou)
++ Added support for 'hidden' and 'color' config values in the preferences admin (skalpa/zoullou)
++ Added multiple redirect handling after login (phppp)
++ Gave XoopsForm elements the possibility to render custom validation code (patch #1545445, skalpa+zoullou)
++ Added global WYSIWYG extensions support [experimental, see release notes] (skalpa)
+
+- Fixed sanitation in edituser.php (skalpa/Omid)
+- Removed more references related notices (skalpa/chappy+herko)
+- Fixed external rewriting support (skalpa)
+- Fixed bug #1517865: Sanitizer changes parameters values (skalpa)
+- Fixed bug #1513533: mysql extension availability isn't checked (skalpa/dave_l)
+- Fixed bug #1520277: Error reporting is enabled in the installer (skalpa/)
+- Fixed bug #1542899: HTML banner display error on admin side (skalpa/zoullou)
+- Fixed bug #1537937: Banner client change doesn't work (skalpa/topet05)
+- Fixed bug #1534594: Maintenance is mispelled as maintainance (skalpa/Ann O. Neemous)
+- Fixed bug #1517269: Bad login redirection when XOOPS is inside a subfolder (skalpa/Ann O. Neemous)
+
+============================
+2006/06/26: Version 2.0.14
+============================
+
+- Added md5 checksumming script to allow the verification of system files upload (skalpa)
+- Re-implemented ignore list to Xoops directory list (ignore list from patch #1488216) (phppp/epaulin)
+- Rebuilt the upgrade script to make it extensible for future releases (skalpa)
+- Updated the upgrade script appearance (skalpa/snowinmyhands+leostotch)
+- Enabled manual launch of the Smarty console using ?SMARTY_DEBUG in all debug modes (skalpa)
+
+- Fixed theme dereferencing problem with old PHP versions (skalpa)
+- Fix against the potential loss of homepage blocks with some misconfigured servers (skalpa)
+- Fixed support for additional canvas templates in the theme class (skalpa)
+- Re-implemented the "criteria can't retrieve empty values" bug for BC purposes :-( (skalpa/gabybob)
+- Fixed Smarty debug mode that was segfaulting the webserver on 2.0.14-RC1 (skalpa)
+- Fixed xoAppUrl wrongly compiling URI when using the "current page" (.) parameter (skalpa)
+
+- Fixed bug #1510193: xoInboxCount assign does not work when using PHP4 (rowd)
+- Fixed bug #1496546: 2.0.14rc1 UTF-8 compatibility problems (skalpa/irmtfan)
+- Fixed bug #1494064: Troubleshooting blank page link is invalid (skalpa/alexdusty)
+- Fixed bug #1500892: System module version has not been updated (skalpa/herkocoomans)
+- Fixed bug #1496252: Invalid default footer date on fresh installs (skalpa/davidledbury)
+- Fixed bug #1498685: Some page metas are duplicated (skalpa/zoullou)
+- Fixed bug #1507645: Logger tabs do not work when using popup mode (skalpa/rowd)
+- Fixed bug #1500616: New logger incompatible with old PHP versions (skalpa)
+- Fixed bug #1496691: Bottom Blocks Group Permission Problem (skalpa/snowinmyhands)
+- Fixed bug #1496697: Some configurations cannot access authentication options (skalpa/chappy)
+- Fixed bug #1495178: Sanitizer treats internal links as external ones (skalpa/dugris)
+- Fixed bug #1503700: The auth error message is display only in debug mode.
+  The authentication method is now assigned to the to class variable for Xoops Authentication Method (pemen/rowd)
+- Fixed bug #1494883: Admin module icons not visible after deleting user (rowd/zoullou)
+
+============================
+2006/05/26: Version 2.0.14-RC1
+============================
+
+- Fixed bug #1476719: GroupPermForm client validation problem (skalpa)
+- Fixed bug #1456176: PHP 5 installation problems (skalpa)
+- Fixed debug mode support from the administration interface (skalpa)
+- Fixed the "update templates from file" feature (skalpa)
+- Fixed bug #1477969: wrong version for module (phppp)
+- Fixed bug for template path (phppp/wenmingpig)
+- Fixed bug for redirect after login (phppp)
+- Several XHTML compliance fixes (skalpa)
+- Several MySQL 4.1/5 strict mode fixes (phppp+skalpa)
+- Enhanced columns criterias check (skalpa/report by gijoe)
+- Applied the protector module comouflaged image check to the uploader (skalpa/code by gijoe)
+
+- Added new authentication system. Support for XOOPS Database, standard LDAP Directory, Microsoft Active Directory (pemen)
+- New upgrade installer (pemen)
+- Enhanced MySQL 4.1+ foreign encodings support (skalpa)
+- Added avatar check to prevent unexpected avatar deletion (phppp)
+- Added multiple file extensions sanitizing and image type check for uploader (phppp)
+- Added ".svn" to preserved directory name; Removed unnecessary preg_match for directory/file name check (phppp+epaulin)
+- Added xoops_redirect support to the closed site feature [patch #1206162/king] (skalpa)
+- Added xoops_redirect support to history.go() (phppp)
+- Added the possibility to display blocks below content (skalpa, original patch from McNaz)
+- Backported the theme class from the 2.2/2.3 branches (skalpa)
+- Added templates overloading capability to themes (skalpa)
+- Added files resources overloading capability to themes (skalpa)
+- Backported the URL generation Smarty plug-ins xoAppUrl and xoImgUrl from the 2.3 branch (skalpa)
+- Backported the quick foreach and quick include Smarty plug-ins from the 2.3 branch (skalpa)
+- Added the xoInboxCount Smarty plug-in (skalpa)
+- Added text sanitizing to multiple files for $xoopsConfig['sitename'] and $xoopsConfig['slogan'] (phppp)
+- Added localization for "Re" in comment (phppp)
+
+- Re-ordered user menu items to something more logical [patch #1264900/rabideau] (skalpa)
+- Gave modules the possibility to return a message for diplay during the oninstall function [patch #1352943/bruno2000] (skalpa)
+- Merged/optimized the logger and error handling classes (skalpa)
+- Merged the PHP Debug and MySQL debug modes (skalpa)
+- Changed private message list to new-first order (phppp)
+- Updated 3rd party libraries: Smarty 2.6.13, PHPMailer 1.73 (skalpa)
+
+Changes for translators:
+- Added 3 new constants to the system/admin/blocksadmin (_AM_CBBOTTOM, _AM_CBBOTTOMLEFT, _AM_CBBOTTOMRIGHT)
+- Several constants changed in system/admin/preferences (_MD_AM_DEBUGMODE1,_MD_AM_DEBUGMODE2,_MD_AM_THEMEFILE,_MD_AM_THEMEFILEDSC)
+- Added one constant to language/english/comment.php (_CM_RE)
+
+============================
+2005/10/28: Version 2.0.13.2
+============================
+- SECURITY: Fix to prevent mail headers injection (Skalpa/XOOPS Cube)
+- SECURITY: Fix to prevent endless loop in PHPMailer (Skalpa/Minahito)
+- SECURITY: Fix to prevent XSS in the textsanitizer (Skalpa/XOOPS Cube)
+- SECURITY: Fix to prevent XSS in newbb and the comments system (Skalpa/Keigo Yamazaki of Little eArth Corporation Co., Ltd.)
+- SECURITY: Vaporfix to prevent uploading of invalid images (Skalpa/XOOPS Cube)
+
+============================
+2005/08/15: Version 2.0.13.1
+============================
+- Fixed server path disclosure issues on systems with error_reporting enabled (Mithrandir/ajaxbr,Dave_l)
+
+============================
+2005/07/02: Version 2.0.13
+============================
+- Fixed security hole in XML-RPC for both magic_quotes_gpc on and off (Mithrandir/James@Gulftech, Onokazu)
+- Fixed sanitation in Criteria class for both magic_quotes_gcp on and off (Mithrandir/Onokazu)
+- Fixed sanitation bug in include/checklogin.php (Mithrandir)
+
+============================
+2005/06/29: Version 2.0.12a
+============================
+- Fixed bug in comments, where editing a comment would post a new one
+- Removed PHP parsing in Saxparser's handleProcessingInstruction() method (Thanks to GIJOE)
+- Fixed parse error in modules/newbb/post.php
+
+============================
+2005/06/28: Version 2.0.12
+============================
+- Fixed sanitation bug in include/comment_form.php and include/comment_post.php (Mithrandir/James@Gulftech)
+- Fixed sanitation bug in class/xml/rpc/xmlrpcapi.php and class/criteria.php (Mithrandir/James@Gulftech/XOOPS JP)
+- Changed admin.php to fetch news from xoops.org via Snoopy (Mithrandir/XOOPS JP)
+- Fixed possible XSS hole in redirect_header (Mithrandir/XOOPS JP)
+- Security fixes in pda.php and misc.php (Mithrandir/XOOPS JP)
+- Fixed typos in kernel/object.php (Mithrandir/brandycoke)
+
+============================
+2005/06/24: Version 2.0.11
+============================
+- Fixed bug where lostpass.php would not accept emails and send new password (Ackbarr)
+- Fixed bug where search result links would be wrong if the item was in another module than the searched one (Ackbarr)
+- Fixed bug in groups admin where it was impossible to add users to a group if the site had 200+ users (Ackbarr)
+- Fixed bug with uploading smilies (Ackbarr)
+
+============================
+2005/04/23: Version 2.0.10
+============================
+- Fixed typo in newbb/post.php
+
+============================
+2005/04/03: Version 2.0.10 RC
+============================
+- Implemented new token system for validating form origination and increased protection against CSRF (Mithrandir/Onokazu)
+- Security fix to avoid the usage of fopen and unlink when previewing (Onokazu)
+- Fixed bug - Missing </a> in news/templates/blocks/news_block_bigstory.html (Mithrandir/blacKurd)
+- Fixed bug in header.php ?assign $xoops_lblocks (Mithrandir/phppp)
+- Fixed bug #1087786 Can"t assign to $this in PHP5 (Mithrandir)
+- Included 2.0.9.3 fixes in 2.0.10 patch for easy upgrade from 2.0.9.2 (Mithrandir/rowd)
+- Fixed bug #1157029 - Bug in include/checklogin.php (Onokazu/sudhaker)
+- Fixed bug #1060061 - renderValidationJS showing htmlentities instead of intended characters (Onokazu/theCat)
+
+2005/03/20: Version 2.0.9.3
+===============================
+- Security fix to prevent uploading of executable files (pokleyzz, GIJOE and the JP XOOPS community)
+
+2004/12/30: Version 2.0.9.2
+===============================
+- Security fix to prevent session hijacking (thanks goes to GIJOE and the JP XOOPS community)
+- Fixed duplicated blocks bug on module update
+- phpmailer back to the version included in 2.0.7.3, as it is more stable (onokazu)
+
+
+2004/12/25: Version 2.0.9
+===============================
+- Security fix in the newbb module for PHP version < 4.3.10 (GIJOE & onokazu)
+- Security fix in the newbb module to prevent XSS attacks (minahito)
+- Fixed various problems related to XoopsUser::isAdmin() and $xoops_isadmin patch in 2.0.7.1 (bugs #1014203/#1014403) (onokazu)
+- Fixed incorrect parameters being passed to CriteriaCompo in modulesadmin.php (onokazu)
+- Fixed incorrect parameters being passed to XoopsXmlRpcStruct::add() in BloggerApi::getUserInfo() (onokazu)
+- Fixed Bug #1023022 - XoopsFormDhtmlTextArea and array_push() error (Mithrandir)
+- Fixed Bug #1013989 - Inbox title shoud be plural "Private Messages" (Mithrandir)
+- Fixed Bug #1004998 - readpmsg.php typo:</th> html tag of subject is nothing (Mithrandir)
+- Fixed Bug #1035707 - Enable array type options in blocks (Mithrandir)
+- Fixed a typo in include/comment_form.php, patch #1041993 (Dave_l)
+- Fixed Bug #1044957 - xoopsmultimailer.php Username typo when SMTP-Auth (Mithrandir)
+- Fixed RFE #900348 - Sort user list alphabetically in System -> Groups. Also changed the way it fetches the users in the group so it fetches all of them with 2 queries instead of 1 + (1 per user in the group) (Mithrandir
+)
+- Added patch #1048384 - mysql_field_name and others, added (Mithrandir)
+- Fixed bug #1049017 - Blocks sharing a template are cached wrong (Mithrandir)
+- Added patch #1048382 - Module onUpdate function (Mithrandir)
+- Fixed bug #989462 - Handler object caching not working (Mithrandir)
+- Added RFE #900345 - View/Edit group membership in Admin -> System -> Edit User (Mithrandir)
+- Fixed Bug #1055901 - group.php(IN phrase is used ,query) (Mithrandir)
+- Fixed bug #1052403 - block update in module update (Mithrandir)
+- More fixes for register_globals off in the top 10 page of mylinks/mydownloads modules
+- Fixed a typo in modules/xoopsheadline/admin/index.php (onokazu)
+- Fixed bug where 2 headline forms were using the same form name/id, causing JS error (onokazu)
+- Fixed some html problems in mylinks/mydownloads admin page (onokazu)
+- Secured mainfile.dist.php from disclosing paths (Mithrandir)
+- Fixed bug #1073029 (onokazu)
+- Fixed bug #1073532 (onokazu)
+- Fixed bug #1080791 (onokazu)
+- Fixed lang phrase _NOT_ACTIVENOTIFICATIONS not being assing to template (onokazu)
+- Some PHP5 fixes (Mithrandir)
+- Updated Smarty to version 2.6.5
+- Updated PHPMailer to version 1.72
+
+
+2004/09/11: Version 2.0.7.3
+===============================
+!! SECURITY FIX !! fixed more bugs that allowed session hijacking under a certain circumstance (onokazu)
+
+
+2004/09/10: Version 2.0.7.2
+===============================
+!! SECURITY FIX !! fixed bugs that allowed session hijacking under a certain circumstance (onokazu)
+
+
+2004/08/21: Version 2.0.7.1
+===============================
+Fixed bug #1006511 about $xoops_isadmin misuse (skalpa/the jp.xoops.org community):
+- Changed XoopsUser::isAdmin() behavior to prevent problems with modules that misuse this function
+- Fixed permission checking in user profile page, to only show admin links to people who are supposed to see them
+- Fixed permission checking in the comments system, to only show admin links to people who are supposed to see them
+Fixed incorrect escaping of configuration values in 2.0.7 (skalpa)
+Changed db proxy class error message from "Action not allowed" to "Database update not allowed during a GET request" (skalpa)
+Fixed bug #964084: if comment title is long multi-byte character.last byte loss (Mithrandir/domifara)
+Fixed bug #977360: Wrong icon in comment bloc (Mithrandir/zoullou)
+Fixed bug #976534: modules incompatibilities in 2.0.7 (Mithrandir/gijoe_peak)
+Fixed bug #975803: Typo in class/pagenav.php (Mithrandir/Dave_l)
+Fixed bug #974655: slogan variable with Xoops 2.0.7 (Mithrandir/brashquido)
+Fixed bug #987171: typo in edituser.php (Mithrandir)
+Applied patch #928503: Search results for modules with granted permissions optimised (Mithrandir/malanciault)
+Applied patch #988715: cp_header.php language (Mithrandir/phppp)
+Fixed MyTextSanitizer PHP notices (Mithrandir)
+Fixed XoopsForm PHP Notices about an unset _extra property (Mithrandir)
+
+
+2004/06/14: Version 2.0.7
+===============================
+!! SECURITY FIX !! preventing code injection in media uploader (skalpa)
+!! SECURITY FIX !! preventing execution of external scripts in shared environments (skalpa/ackbarr)
+
+Fixed bug #963937: Typo in modules/system/admin/findusers/main.php (mithrandir/tom_g3x)
+Fixed typo in x2t theme css colteaser class definition (w4z004)
+Set formButton class to Xoops popups buttons (w4z004)
+Fixed bug #960970: Incorrect display of the graphical pagenav (w4z004)
+Modified the Word Censoring fix (#962025) for MySQL 4.x compat (skalpa + quick thx 2 hervet 4 help)
+Ensured page title and slogan are escaped for HTML (onokazu)
+Fixed bug #961565: Search form keywords not checked by JS (mithrandir/tom_g3x)
+Fixed bug #961118 in XoopsFormElementTray::getElements() (mithrandir/luckec)
+Fixed bug #961311: Incorrect definition of headers var in XoopsMailer class (mithrandir/tom_g3x)
+XoopsForm::assign() now indexes elements by name if possible (mithrandir/kerkness)
+Fixed bug #963197: xoopsHiddenText is hardcoded in formdhtmlarea (mithrandir/tom_g3x)
+Fixed bug #963301: XoopsMediaUploader checkMaxHeight() doesn't work (skalpa/onokazu)
+Fixed bug #963327: XoopsImageHandler delete() keeps rows in imagebody table (skalpa/tom_g3x)
+Fixed bug #962025: Word censoring can mess db config options up (skalpa/tom_g3x)
+Fixed bug #961313: XoopsMailer custom headers are duplicated (skalpa/tom_g3x)
+Fixed bug #960683: [code] wrong translation (skalpa/ryuji+gi_joe)
+Fixed snoopy bug due to language specific characters (onokazu)
+Fixed a bug preventing deletion of users from the admin user search results (onokazu)
+Fixed a bug preventing deletion of admin users (onokazu)
+Fixed bug #915976: module onInstall feature doesn't display module messages correctly (skalpa/feugy+dave_l)
+Fixed bug #898776: Xoops module resolution for www.host.com and host.com (wulff_dk)
+Fixed bug #906282: XoopsGroupPermForm::render() - throws Undefined variable (mithrandir)
+Fixed bug #946621: Comments system extra_param not working with register_globals off (mithrandir/gstarrett)
+Fixed bug #932200: Admin > Edit user shows wrong username :-(mithrandir)
+Fixed bug #936753: $xoops_module_header not in all themes (w4z004)
+Fixed bug #921930: SQL queries with leading whitespace don't work (mithrandir)
+Fixed bug #920480: xoops_substr always adds three dots (skalpa)
+Fixed bug #921448: Undefined variable in xoopscodes.php (skalpa/dave_l)
+Applied patch #953063: js Calendar first popup date bug fix (mithrandir/venezia)
+Applied patch #953060: xoopstree.php selbox - subcategories not ordered (mithrandir/venezia)
+Applied patch #928503: Only show search results for modules with granted permissions (mithrandir/malanciault)
+Fixed bug #922152 preventing notifications to work with some Windows configurations (skalpa/robekras)
+Fixed bug #930351 preventing XoopsThemeForm::insertBreak() to work
+Corrected the content of $xoopsRequestUri on IIS fixing bug #895984 (skalpa)
+
+
+2/6/2004: Version 2.0.6
+===============================
+- Removed calls to XoopsHandlerRegistry class (onokazu)
+- Fixed loop problem after retrieving a lost password (onokazu)
+- Changed all include() calls to include_once() for xoopscodes.php (onokazu)
+- Added routines to remove users from the online member list when a user is deleted (onokazu)
+- Added parameters to the Critreria class constructor to allow the use of DB functions in SQL criteria (skalpa)
+- Added fetchBoth() method to the XoopsDatabase class (skalpa)
+- Fixed typos in class/smarty/plugins/resource.db.php (skalpa)
+- Refactoring in /class/xoopsform/form.php (skalpa)
+- Added some methods to /class/xoopsform/formelement.php to allow the use of accesskey and class attributes in form element tags (skalpa)
+- Fixed extra HTML tags not being displayed when using the XoopsThemeForm::insertBreak() method (Catzwolf)
+- Changed the default HTTP method of the search form to GET (onokazu)
+- Fixed notification constants not being included during installation (onokazu)
+- Fixed session data not being properly escaped before inserting to the database (onokazu)
+- Some useful changes to the group permission form (onokazu)
+- Fixed the block cachetime selection being reset after preview (onokazu)
+- Fixed invalid regex patterns used for username filtering, also added fix to allow the safe use of multi-byte characters in username (contributed by GIJOE)
+- Fixed bug where some blocks were not being displayed in block admin page on certain occasions (onokazu)
+- Fixed the problem of system admin icon disappearing on certain occasions (onokazu)
+- Fixed the errorhandler class to check the current error_reporting level before handleing errors (onokazu)
+- Re-activated the errorhandler class (onokazu)
+- Updated class/Snoopy.php to the latest version, v1.01 (onokazu)
+- Fixed a typo in kernel/online.php (onokazu)
+- Added some useful functions to include/xoops.js (skalpa)
+- Fix for Opera in include/xoops.js (onokazu)
+- Fixed user bio and signature values causing corruption in the edit profile form on certain occasions (onokazu)
+- Fixed the module name being reset to the default value after module update (onokazu)
+- Fixed invalid regex patterns in xoopslists.php (onokazu)
+- Fixed a few issues with register_globals setting
+- Fix for the auto-login feature (not activated)
+- Fixed image categories not being displayed in the order set by admin (onokazu)- Fixed a typo in kernel/config.php (onokazu)
+- Fixed comments not being displayed in the order as requested (onokazu)
+- Fixed the mailer class not setting some header values (onokazu)
+- Fixed chmod problem in class/uploader.php
+- Fixed magic_quotes related problems in class/uploader.php
+- Fixed notification routines causing a fatal error while trying to notify non-existent users (onokazu)
+- Added fix to convert &amp; to & within mail messages (onokazu)
+- Fixed html special characters causing problem when submitting a new module name (onokazu)
+- Fixed javascript error in mailuser form (onokazu)
+- Fixed javascript error in calendar date select form
+- Added a new Smarty function <{xoops_link}> (skalpa)
+- Added check to prevent webmaster user/group from being removed completely (contributed by Ryuji)
+
+newbb
+- Security fix in modules/newbb/viewtopic.php (onokazu)
+- Security fix in modules/newbb/viewforum.php (onokazu)
+- Added register_globals related fix to topicmanager.php (onokazu)
+- Fixed topic moderation icons not being displayed for moderators in templates/newbb_thread.html (onokazu)
+- Fixed topic time not being displayed in recent posts block on certain occasions in blocks/newbb_new.php (onokazu)
+- Added fix to correctly navigate to the requested post even when the post is not on the first page of flat view (contrib by GIJOE in class/forumpost.php, viewtopic.php, viewforum.php)
+
+sections
+- Added missing global variable declarations to index.php (onokazu)
+
+mydownloads
+- Added register_globals related fix to modfile.php (onokazu)
+
+news
+- Added fix to always display published date in each article (onokazu)
+- Added missing ?> at the end of file in xoops_version.php (onokazu)
+- Some fixes in admin/index.php
+
+xoopspolls
+- Fixed color bar selections not working when creating/editing a new poll (onokazu)
+
+xoopsmembers
+- Fixed 'more than X posts' not working when set to 0 (onokazu)
+- Added a new language constant to language/english/main.php (Catzwolf)
+- Removed invalid HTML tags in templates/xoopsmembers_searchresults.html (Catzwolf)
+
+
+1/5/2004: Version 2.0.5.2
+===============================
+- Security fix in modules/mylinks/myheader.php
+- Security fix in modules/mylinks/visit.php
+- Security fix in modules/mylinks/admin/index.php
+
+
+11/22/2003: Version 2.0.5.1
+===============================
+- Added $option parameter to xoops_gethandler function (skalpa)
+- Security fix in banners.php (onokazu)
+- Security fix in modules/newss/include/forumform.inc.php (onokazu)
+- Security fix in include/common.php (onokazu)
+- Temporarily disabled XoopsErrorHandler class (onokazu)
+- Security fix in include/functions.php (onokazu)
+- Removed XoopsHandlerRegistry class (onokazu)
+- Added fix for preventing users entering infinite loop when recovering a lost password (onokazu)
+
+
+10/8/2003: Version 2.0.5
+===============================
+- Fixed template files not being updated even when the 'allow update from themes directory' option was enabled in preferences
+- Fixed RSS channel title being cutoff at special characters
+- Minor bug fix in pagenav.php
+- Fixed blocks disappearing from the block admin page on certain occasion
+- Additional fixes to work with register_globals off
+- Fixed problem with XoopsCode Img button not working on certain occasion
+- Added missing SQL query in kernel/avatar.php
+- Fixed problem with the newbb module where users could post without a thread title on certain occasion
+- Fixed problem in banner admin page where banner edit form not being displayed on certain occasion
+- Fixed group selection option in the blocks admin page not being selected on certain occasion
+- Fixed poll option textbox forms not displaying the correct values
+- Fixed show all link in user profile page not working in 2.0.5RC
+- Additional phrases in language/english/global.php(_NOTITLE), language/english/search.php(_SR_IGNOREDWORDS), install/language/english/install.php(_INSTALL_L128, _INSTALL_L200)
+- Added check in install/index.php to read $HTTP_ACCEPT_LANGUAGE on initial load
+
+
+9/30/2003: Version 2.0.5 RC
+===============================
+- Fixed email checking bug mentioned in http://www.xoops.org/modules/newbb/viewtopic.php?topic_id=12288&forum=2 (mvandam)
+- Fixed a number of bugs in blocks admin page (onokazu)
+- More usability fix in blocks admin page (onokazu)
+- Fixed forum topic links to correctly use the # feature in url (onokazu)
+- Fixed password checking bug mentioned in http://www.xoops.org/modules/newbb/viewtopic.php?topic_id=12301&post_id=49369&order=0&viewmode=flat&pid=49203&forum=21#forumpost49369
+- Fixed database connection error when creating database during install (onokazu)
+- Fixed mb_output_handler causing problems in backend.php/image.php/downloader (onokazu)
+- Fixed search feature to use GET requests for prev/next/showall links (onokazu)
+- Register_globals related fix in /include/comment_post.php (contrib by gstarrett)
+- Added $xoopsUserIsAdmin global variable (onokazu)
+- Added xoops_getLinkedUnameById function to /include/functions.php (Catzwolf)
+- Fixed invalid Smarty tags in /modules/system/templates/system_siteclosed.html, /modules/system/templates/system_redirect.html, /modules/system/templates/system_imagemanager2.html (onokazu)
+
+
+9/19/2003: Version 2.0.4
+===============================
+- XOOPS_CACHE_PATH, XOOPS_UPLOAD_PATH, XOOPS_THEME_PATH", XOOPS_COMPILE_PATH, XOOPS_THEME_URL, XOOPS_UPLOAD_URL are now set in include/common.php (onokazu)
+- Added [siteurl][/siteurl] tag to XoopsCode (mvandam)
+- Fixed a typo in class/uploader.php (onokazu)
+- Fixed some redirect problems after login (onokazu)
+- registre_globals fix in include/comment_view.php (onokazu)
+- Xoops.org news is disabled by default in the admin section (onokazu)
+- Added a new error handler class (class/errorhandler.php) (mvandam)
+- Fixed XoopsGroupPermHandler returning duplicate permissions (onokazu)
+- Fixed block-disappearing problem in blocks admin (onokazu)
+- Fixed typo in kernel/notification.php (mvandam)
+- Added XoopsGuestUser class in kernel/user.php (onokazu)
+- Fixed newbb module to correctly use the # feature in URL (onokazu)
+- Improved usability in blocks admin section
+- Reduced number of users to display in group/edituser page to max 200 users (onokazu)
+- Fixed bug where admins could add users with a existing username (onokazu)
+- Added files for module developers to easily add group permisson feature (modules/system/groupperm.php, class/xoopsform/groupperm.php) (onokazu)
+- Fixed typo in register.php (onokazu)
+
+
+6/17/2003: Version 2.0.3
+===============================
+- fixed CSS related bug in global search page
+- register_globals bug fix in comments
+- Smarty updated to 2.5.0
+- fixed typo in kernel/object.php
+- fixed group permission bug
+- fixed bug where image categories were deleted after group permission update
+- fixed bug where user votes could not be deleted in the mylinks module
+- fixed some language typos
+- changed XoopsGroupPermHandler::getItemIds to accept an array fot the second parameter (gperm_groupid), which was required in certain places..
+- removed avatar image files
+
+
+4/25/2003: Version 2.0.2
+===============================
+- security fix to prevent malicious cross site scripting attacks (onokazu)
+- fixed character encoding problem for some languages when using the mailer class (onokazu)
+- fixed some major bugs in the xoopsheadline module (onokazu)
+- fixed some cookie related problems in the forums module (mvandam)
+
+
+4/18/2003: Version 2.0.1
+===============================
+- fixed bug where notification feature could not be turned on
+- fixed character encoding problem for some languages when using the mailer class (onokazu)
+- fixed the theme selection block to work again
+- fixed typo in kernel/module.php
+- fixed incorrect table name in xoops_version.php of the new headline module
+- changed max limit size of some columns in the configoption table
+- fixed image manager bug when using db store method
+- xoops.org can now be disabled by adding nonews=1
+
+
+4/16/2003: Version 2.0.0
+===============================
+- xoopsheadlines module replaced with xoopsheadline module to fix character encoding problems
+- numerous bug fixes
+
+
+3/19/2003: Version 2.0.0 RC3
+===============================
+- a major change in the handling of theme files, the detail of which you can read in this [url=http://www.xoops.org/modules/news/article.php?storyid=677]article[/url] (onokazu)
+- a new global notification feature that can easily be incorporated into modules (that use Smarty) by only modifying xoops_version.php and template files (mvandam)
+- SMTP support using phpMailer (bunny)
+- group permission tables merged into one table (onokazu)
+- code refactoring
+
+
+2/9/2003: Version 2.0.0 RC2
+===============================
+A bug fix release..
+- avatar upload bug
+- themeset image upload bug
+- register_globals fix
+- recommend us block error
+- error message displayed upon submit of news article
+- page navigation bug in some modules
+- blank page bug on some servers
+- SQL displayed in blocks admin
+
+
+1/31/2003: Version 2.0.0 RC1
+===============================
+The first public release of 2.0 series.
+For new features that have been added from 1.3.x, please refer to
+the articles listed below:
+http://www.xoops.org/modules/news/article.php?storyid=486
+http://www.xoops.org/modules/news/article.php?storyid=549
+http://www.xoops.org/modules/xoopsdocs/index.php?cat_id=6

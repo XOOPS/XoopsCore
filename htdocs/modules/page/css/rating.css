@@ -1,0 +1,43 @@
+#page #rating {
+    float:                  right;
+    font-size:              2em;
+}
+#page #button-stars {
+    background:             none;
+    border:                 none;
+    color:                  #000;
+    cursor:                 pointer;
+    width :                 14px;
+    font-size:              .6em;
+    line-height:            2em;
+    float:                  left;
+}
+#page #button-stars:after {    border-right:            10px solid #ccc;
+}
+#page .stars {
+    background-image:       url('../icons/16/star_d.png');
+    background-repeat:      no-repeat;
+    background-size:        12px 12px;
+    height:                 12px;
+    width:                  12px;
+    position:               relative;
+    display:                block;
+    clear:                  right;
+    float:                  left;
+}
+
+#page .stars:hover {
+    background-image:       url('../icons/16/star_o.png');
+}
+#page #stats {
+    float:                  left;
+    margin-right:           10px;
+}
+#page .average {
+    font-weight:            bold;
+    margin-left:            10px;
+}
+#page .vote {
+    font-weight:            bold;
+    color:                  #F00;
+}

@@ -1,0 +1,309 @@
+/* Menu */
+.xo-module-menu {
+    width: 20%;
+}
+#xo-module-sort {
+    list-style-type: none;
+    float: left;
+    margin: 0;
+    padding-top: 10px;
+    width: 100%;
+}
+#xo-module-sort li {
+    cursor: move; list-style-type: none; margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.1em; height: 18px; }
+#xo-module-sort li span { position: absolute; margin-left: -1.3em; }
+#xo-module-sort li a {margin-right: 1em;}
+
+/* Messages */
+.modal-data {
+    margin: 0;
+    padding: 10px 3px;
+    font-family: arial,helvetica,sans-serif;
+}
+.modal-data .name {
+    border-bottom: 1px dashed #CCCCCC;
+    color: #333333;
+    display: block;
+    font-family: georgia,times,serif;
+    font-size: 1em;
+    height:20px;
+    padding: 3px 0 0;
+}
+.modal-data .module_image {
+    float: left;
+    width: 52px;
+}
+.modal-data .module_image a {
+    border: 1px solid #CCCCCC;
+    display: block;
+    height: 48px;
+    width: 48px;
+}
+.modal-data .module_image a span {
+    border: 1px solid #FFFFFF;
+    display: block;
+    height: 46px;
+    width: 46px;
+}
+.modal-data .module_data {
+    line-height: 130%;
+    margin-left: 60px;
+    cursor: default;
+}
+.modal-data .xo-module .module_data .name {
+    background: none;
+    border-bottom: 1px dashed #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    font-family: georgia,times,serif;
+    height:20px;
+    padding: 3px 0 0;
+}
+.modal-data .module_data .data {
+    color: #666666;
+    font-size: 0.9em;
+    padding: 5px 0 0;
+}
+.modal-data .module_detail {
+    background: none;
+    border-top: 1px dashed #CCCCCC;
+    color: #666666;
+    font-size: 0.8em;
+    padding: 5px 3px;
+}
+
+/* Modules View */
+.xo-module-installed {
+    float: left;
+    width: 76%;
+}
+.xo-module-install {
+    float: right;
+    width: 22%;
+}
+.xo-module-view {
+    float: right;
+    padding: 0 0 6px 6px;
+}
+.xo-content {
+    width: 100%;
+}
+.xo-content-table, .xo-content-card {
+    float: left;
+    width: 100%;
+}
+.xo-module-installed .xo-window-data {
+    padding: 0;
+    margin: 0;
+}
+
+/* Line View */
+.xo-content-table .table {
+    margin-top: 8px;
+}
+.xo-content-table .name {
+    color: #333333;
+    display: block;
+    float: left;
+    font-family: georgia,times,serif;
+    padding: 2px 4px 0 0;
+    width: 100%;
+}
+.xo-content-table .rename {
+    background: url('../images/edit_mini.png') right no-repeat;
+    cursor: pointer;
+    display: block;
+    padding: 0;
+    width: 95%;
+}
+
+.xo-content ul li .version {
+    border-right: 1px dashed #CCCCCC;
+    color: #333333;
+    display: block;
+    float: left;
+    height:20px;
+    padding: 2px 0 0 10px;
+    margin: 0 0 0 3px;
+    width: 6%;
+}
+.xo-content-table .options {
+    color: #333333;
+    display: block;
+    float: left;
+    height: 20px;
+    padding-top: 2px;
+    margin: 0 0 0 3px;
+    width: 100%;
+}
+
+
+/* Card View */
+.xo-module-list .xo-module {
+    background: none repeat scroll 0 0 #F4F4F4;
+    border: 1px solid #CCCCCC;
+    float: left;
+    font-family: arial,helvetica,sans-serif;
+    margin: 3px 3px 5px;
+    overflow: hidden;
+    width: 244px;
+}
+.xo-module-list .system {
+    background: none repeat scroll 0 0 #faeaea;
+}
+.xo-module-list .module_card {
+    margin: 10px;
+    padding: 5px 3px;
+}
+.xo-module-list .module_image {
+    float: left;
+    width: 52px;
+}
+.xo-module-list .module_image a {
+    border: 1px solid #CCCCCC;
+    display: block;
+    height: 48px;
+    width: 48px;
+}
+.xo-module-list .module_image a span {
+    border: 1px solid #FFFFFF;
+    display: block;
+    height: 46px;
+    width: 46px;
+}
+.xo-module-list .module_data {
+    line-height: 130%;
+    margin-left: 60px;
+    cursor: default;
+}
+.xo-module-list .xo-module .module_data .name {
+    background: url('../images/edit_mini.png') right no-repeat;
+    border-bottom: 1px dashed #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    font-family: georgia,times,serif;
+    /*font-size: 1.1em;*/
+    height:20px;
+    padding: 3px 0 0;
+}
+.xo-module-list .xo-detail .module_data .name {
+    background: none;
+    cursor: default;
+}
+
+.xo-module-list .module_data .data {
+    color: #666666;
+    font-size: 0.8em;
+    padding: 5px 0 0;
+}
+.xo-module-list .xo-module .module_detail {
+    background: none repeat scroll 0 0 #E8E8E8;
+    border-top: 1px solid #CCCCCC;
+    color: #666666;
+    font-size: 0.8em;
+    padding: 5px 3px;
+}
+
+.xo-module-list .module_options {
+    position: relative;
+    bottom:0;
+    left:0;
+    font-size: 0.7em;
+    margin: 0;
+    text-align: right;
+    background: none repeat scroll 0 0 #EAF3FA;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #FFFFFF;
+    overflow: hidden;
+    padding: 2px 5px;
+}
+.xo-module-list .system .module_options {
+    background: none repeat scroll 0 0 #f7d2d2;
+}
+.xo-module-list .module_options a {
+    padding: 2px 2px 2px 18px;
+}
+.xo-module-list .module_options a {
+    border-left: 1px solid #B8D8EF;
+    display: block;
+    float: right;
+    padding: 0 3px;
+}
+
+
+/* Available modules */
+.xo-module-install .xo-module-list .xo-module {
+    background: none;
+    border:none;
+    border-radius: 0;
+    border-bottom: 1px dashed #CCCCCC;
+    margin: 0 0 3px;
+    width: 100%;
+}
+.xo-module-install .xo-module-list .module_card {
+    margin: 2px;
+    padding: 2px 1px;
+}
+.xo-module-install .xo-module-list .xo-module .module_data .name {
+    background: none;
+}
+.xo-module-install .xo-module-list .module_options {
+    background: none;
+    border-top: none;
+    padding: 2px;
+}
+
+
+/* Logger */
+.xo-module-logger {
+    font-family: arial,helvetica,sans-serif;
+    margin: 10px auto;
+    width: 600px;
+}
+.xo-module-logger .xo-module-head {
+    padding: 20px 5px;
+}
+.xo-module-logger .module_image {
+    float: left;
+}
+.xo-module-logger .module_data {
+    line-height: 130%;
+    margin-left: 100px;
+    cursor: default;
+}
+.xo-module-logger .module_data .name {
+    border-bottom: 1px dashed #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    font-family: georgia,times,serif;
+    font-size: 1.1em;
+    height:20px;
+    padding: 3px 0 0;
+}
+.xo-module-logger .module_data .data {
+    color: #666666;
+    font-size: 0.8em;
+    padding: 5px 0 0;
+}
+.xo-module-logger .xo-module-log {
+    border: dashed 1px #CCCCCC;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 0.9em;
+    margin: 5px;
+    min-height: 50px;
+    overflow: auto;
+}
+.xo-module-logger .xo-module-log ul {
+    margin: 3px 0 3px 6px;
+}
+.xo-module-logger .xo-module-log ul li {
+    list-style: none;
+    margin-left: 6px;
+}
+.xo-module-logger .xo-module-log ul li ul li {
+    list-style: none;
+    margin-left: 6px;
+}

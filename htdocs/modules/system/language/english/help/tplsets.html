@@ -1,0 +1,27 @@
+<h1>Help: Templates</h1>
+
+<h4>Description</h4>
+<p>
+XOOPS allows for some separation between the actual presentation of the site (the “<em>skin</em>” or user interface) and the code that runs in the back. The first one is handled by a sophisticated mechanism based on graphical themes. A theme may include, in its basic form, the essential HTML templates that define the visual interface of the site, as well as the style sheets and images needed to complement that visual interface. Themes are switchable in the administrative interface, so changing the whole appearance of a XOOPS site it’s just a matter of changing the value of a selector and clicking on “Accept”. XOOPS also provides site administrators with the ability to let users choose among some available themes.<br /><br />
+
+Generally speaking, a <strong><em>theme</em></strong> is the high level visual framework of a site: the theme defines, for instance, the general layout of the site; on the other hand, it does not usually define the specific distribution of content within a block. This is handled by a different entity called a <em><strong>template set</strong></em>. A template set<em> </em>is an ensemble of HTML templates that define the presentation of content within all the blocks that form a XOOPS Web site. If we want a more clear metaphor for this, we could say that the theme is like the architect of a house, while the template set is like the interiors decorator. The first one sets the walls and defines the general distribution, but it’s the second one who’s in charge of “<em>dressing</em>” those walls.<br /><br />
+
+If the active theme is a simple one that only includes a theme file, CSS files and some images, XOOPS employs the default template set to define the presentation of blocks. However, some complex themes are sophisticated enough to include their own template set. In this case, the site administrator must use the administrative interface to set both the theme and the template set. <br /><br />
+
+How is the theme <em>magic</em> accomplished? That is, how can HTML templates include dynamic content? This is done not with mirrors and smoke, but with a clever template engine called 
+<strong><a rel="external" href="http://www.smarty.net/">Smarty</a></strong> that makes the function of what used to be called 
+<em><strong>variable interpolation</strong></em>. Expressed in a simple way, we could say that the XOOPS system uses PHP files to hold the logic of the modules (access to the database, allocation of variables, management of rights...), HTML files with Smarty variables inserted to manage the actual visual interface, and the Smarty engine to insert values and strings in specific places within the HTML that builds the pages seen by the end user. All in all, what this means to you can be easily summarized: thanks to its theming system, XOOPS lets site designers build more interesting and visually stunning sites without much concern about what happens under the hood.
+
+<h4>Cloning and downloading template sets</h4>
+<p>
+If you would like to create a custom template set you can make a copy of the default set (or any other) by selecting the ‘<em>clone</em>’ link (you will be prompted to give the new set a name). Unlike the default, other template sets can be freely edited. You can also save a copy of a template set to disk by selecting the ‘<em>download</em>’ link, or remove it with the ‘<em>delete</em>’ link. You may also sometimes see an additional ‘<em>Generate</em>’ link next to new modules for which templates have not yet been created.
+</p>
+
+<h4>Editing templates</h4>
+<p>
+You can see a full list of available templates by browsing the directory treeview. When you select a template, XOOPS will open it in an editor where you can edit it. <br /><br />
+
+While editing templates you must enable a preference that automatically updates module template .html files if there are newer files under the themes/your theme/templates directory for the current theme (System Module -> Preferences  -> General Settings -> Update module template .html files from themes/your theme/templates directory? -> ‘<em>Yes</em>’). This should be turned off once the site goes public.<br /><br />
+If you accidentally mess up a template don’t forget that you can retrieve a ‘<em>good</em>’ copy from the default template set. If you are working with non-standard templates it may be a good idea to save a copy to disk before you start modifying them.
+
+</p>

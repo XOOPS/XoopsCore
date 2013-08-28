@@ -1,0 +1,4 @@
+Credits
+===============
+
+Originally developed by Ricardo Costa (Trabis, www.xuups.org)

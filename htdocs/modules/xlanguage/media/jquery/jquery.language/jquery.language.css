@@ -1,0 +1,115 @@
+#country-select {/*
+    position:            absolute;
+    top:                 0;
+    right:               0;
+    width:               auto;
+*/
+}
+
+/* rought form styles for when JS is disabled */
+
+#country-select form {    width:               auto;
+    padding:             0;
+}
+
+#country-select select, #country-select input {    display:             inline;
+    padding:             0;
+    margin:              0;
+}
+
+/* JS-created definition list */
+
+.dropdown {    margin:             0 auto;
+}
+.dropdown dd {
+    position:           relative;
+    margin:             0;
+    padding:            0;
+    background-color:   #ffffff;
+    border:             1px solid #ccc;
+    border:             1px solid rgba(0, 0, 0, 0.2);
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+            background-clip: padding-box;
+
+}
+
+.dropdown a {    text-decoration:     none;
+    outline:             0;
+    display:             block;
+    width:               100px;
+    overflow:            hidden;
+}
+
+.dropdown dt a {    background:          transparent;
+    padding:             0;
+    color:               #999999;
+    line-height:         18px;
+}
+
+.dropdown dt a.active, .dropdown dt a.hover {    background:          transparent;
+    color:               #ffffff;
+}
+
+.dropdown dd ul {    background:          #ffffff;
+    color:               #543a6a;
+    display:             none;
+    position:            absolute;
+    z-index:             999;
+    top:                 5px;
+    left:                0;
+    padding:             0;
+    list-style:          none;
+    border-top:          none;
+    margin:              0;
+    border:              1px solid #ccc;
+    border:              1px solid rgba(0, 0, 0, 0.2);
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+            background-clip: padding-box;
+}
+
+.dropdown dd ul li a {    padding:             2px 10px;
+    color:               #333333;
+}
+
+.dropdown dd ul li a span, .dropdown dt a span {    float:               left;
+    width:               24px;
+    height:              24px;
+    margin:              2px 6px 0 0;
+    background-size:     24px 24px;
+    background-repeat:   no-repeat;
+    cursor:              pointer;
+}
+
+.dropdown dd ul li a em, .dropdown dt a em {    font-style:          normal;
+    float:               left;
+    width:               auto;
+    cursor:              pointer;
+    margin:              5px;
+}
+
+.dropdown dd ul li a em {    color:               #543a6a;
+}
+
+.dropdown dd ul li a:hover {    color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+}
+.dropdown dd ul li a:hover em { color: #fff; }

@@ -1,0 +1,33 @@
+/*
+ * $Id: seo.txt,v 1.1 2007/08/25 14:37:47 marcan Exp $
+ * Module: Publisher
+ * Author: Sudhaker Raj <http://xoops.biz>
+ * Licence: GNU
+ */
+
+What is SEO for Publisher?
+=============================
+
+See following URL
+  http://www.xuups.com/modules/publisher/item.php?itemid=62
+
+If you are using path-info method, SEO-friendly URL (non-working example)
+  http://www.xuups.com/modules/publisher/item.62/holiday-time.html
+
+If you are using htaccess method, SEO-friendly URL (non-working example)
+  http://www.xuups.com/publisher.item.62/holiday-time.html
+
+It is found that latter is more liked by search engines. It can significantly boost search engine traffic on your site. 
+
+Just try it!!!
+
+
+How can I enable SEO for Publisher?
+======================================
+Core SEO functionality for this module can be enable in module preferences. You can shoose either to use htaccess or path-info
+
+if you choose htaccess then you must copy (or merge) extra/seo/sample.htaccess to <xoops_root>/.htaccess (for rewrite). If your web server does not support rewrite then path-info should be used.
+
+If you are using htaccess and want some different name, like 'articles' for publisher, change module name in preferences and make similar modification in <xoops_root>/.htaccess 
+  http://www.xuups.com/articles.item.62/holiday-time.html
+

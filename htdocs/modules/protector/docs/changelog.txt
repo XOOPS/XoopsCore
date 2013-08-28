@@ -1,0 +1,229 @@
+= CHANGES =
+3.51 RC (2011/10/10)
+- database patch check ok if XOOPS_VERSION > 2.4.x (trabis)
+- changed Database::getInstance() to XoopsDatabaseFactory::getDatabaseConnection();
+
+3.51 beta (2011/10/08) Trabis
+- added check with StopForumSpam against spammers (trabis)
+- converted to ModuleAdmin GUI (mamba)
+
+3.50 beta (2009/11/17)
+- modified filters can be turned on/off by preferences of Protector
+- moved filters under filters_disabled/ into filters_byconfig/
+- added manipulation checker against ftp worms or silent raiders
+
+3.41 (2009/11/17)
+- fixed some swf/swc files are confused often
+- added language files
+-- polish_utf8 (thx jagi)
+
+3.40 (2009/09/16)
+- numbered as a STABLE version
+- renamed from "Xoops Protector" to "Protector" simply
+- modified module icons for some forked cores (thx rene)
+
+3.36 beta (2009/08/27)
+- updated HTMLPurifier into 4.0.0
+- added a filter postcommon_post_htmlpurify4everyone.php
+- added a filter postcommon_post_register_moratorium.php 3.36a
+- updated language files
+-- persian (thx voltan) 3.36a
+
+3.35 beta (2009/08/13)
+- fixed english modinfo.php is always loaded. (thx Phoenyx)
+- modified comment attacking detection of DBL anti-SQL-Injection again
+- defined some constants for detecting Protector's mode for module maintainers
+-- PROTECTOR_ENABLED_ANTI_SQL_INJECTION
+-- PROTECTOR_ENABLED_ANTI_XSS
+- updated language files
+-- arabic (thx Onasre) 3.35a
+
+3.34 beta (2009/07/06)
+- modified comment attacking detection of DBL anti-SQL-Injection
+- added an option for some environment always enables DBL trapping
+
+3.33 beta (2009/04/03)
+- stopped to force rewriting PHP_SELF and PATH_INFO (thx nao-pon)
+- added checking PHP_SELF into bigumbrella anti-XSS
+- added a constant PROTECTOR_VERSION
+- modified compatibities with ImpressCMS (thx vaughan)
+- fixed "none" option for F5Attack and Crawler cannot work finen (thx ChaFx)
+- turned default value of bugumbrella anti-XSS on
+
+3.32 beta (2009/01/27)
+- fixed DBL anti-SQL-Injection is skipped on condition nocommon=1 (thx naao)
+- updated language files
+-- persian (thx voltan)
+-- de_utf8 (ths Rene) 3.32a
+
+3.31 beta (2009/01/20)
+- fixed DBL anti-SQL-Injection's wrong detection by db->quiteString() with "
+- updated language files
+-- spanish (thx Colossus)
+
+3.30 beta (2009/01/14)
+- added DBLayer trapping anti-SQL-Injection
+- added a filter precommon_bwlimit_errorlog.php
+- added a filter precommon_badip_errorlog.php
+- updated language files
+-- spanish (thx Colossus)
+- modified precommon_bwlimit_*.php returns 503 error (thx Colossus) 3.30a
+
+3.22 (2008/12/03)
+- modified the condition the cookie 'deleted' is sent as autologin_uname
+- added a checker for the privacy of XOOPS_TRUST_PATH into the Advisory
+- added language files
+-- nederlands (thx Cath)
+- updated language files
+-- persian (thx voltan) 3.22a
+- modified page navigation (thx McDonald) 3.22a
+
+3.21 (2008/11/21)
+- added a preferences for bandwidth limitation
+- enabled precommon_badip_message.php as default
+- modified messages by precommon filter
+- updated language files
+-- spanish (thx Colossus) 3.21a
+- fixed fatal typo in protector.php (thx rohi) 3.21a
+
+3.20 (2008/09/17)
+- numbered as a stable version
+- updated language files
+-- arabic (onasre)
+- fixed language files
+-- de_utf8
+- added language files
+-- italian (thx Defcon1) 3.20a
+- added a method isMobile() into ProtectorFilterAbstract 3.20b
+
+3.17 beta (2008/04/24)
+- modified URLs with the same hostname as XOOPS_URL are not counted as URI SPAM
+- updated language files
+-- persian (thx stranger and voltan) 3.17a
+- added language files
+-- de_utf8 (thx wuddel) 3.17a
+
+3.16 beta (2008/01/08)
+- added a filter postcommon_post_deny_by_httpbl for antispam by honeypotproject
+- updated language files
+-- polish (thx kurak_bu)
+
+3.15 beta (2007/10/18)
+- added "compact log"
+- added "remove all log"
+- added language files
+-- fr_utf8 (thx gigamaster)
+
+3.14 beta (2007/09/17)
+- imported HTMLPurifier (special thx! Edward Z. Yang) PHP5 only
+- added filtering point (spamcheck, crawler, f5attack, bruteforce, purge)
+- added filter plugins
+-- postcommon_post_htmlpurify4guest (guest's post will be purified) only PHP5
+-- spamcheck_overrun_message
+-- crawler_overrun_message
+-- f5attack_overrun_message
+-- bruteforce_overrun_message
+-- prepurge_exit_message
+
+3.13 beta (2007/08/22)
+- modified the filter structure from function to class
+- added filtering point (badip, register)
+- added filter plugins
+-- postcommon_register_insert_js_check (against registering SPAM)
+-- precommon_badip_message (displays a message on rejecting the IP)
+-- precommon_badip_redirection (redirects somewhere on rejecting the IP)
+
+3.12 beta (2007/08/16)
+- fixed for controllers with $xoopsOption['nocommon']=true
+
+3.11 beta (2007/08/16)
+- modified ordering precheck and postcheck
+- removed a rbl server from postcommon_post_deny_by_rbl.php
+- added language files
+-- french (thx Christian)
+
+3.10 beta (2007/07/30)
+- modified precheck getting config via local cache
+- modified precheck does not connect MySQL as possible
+- fixed "reliable IP" does not work well
+- modified mainfile patch can be inserted before protector installation
+- added a logic to check some folder's permission on installing protector
+- modified IP denying pattern. 'full', 'foward match', and 'preg match'
+- added denied IP moratorium
+- added a warning if the directory for configs is not writable
+
+3.04 (2007/06/13)
+- added a check against the phpmailer command-injection vulnerability.
+- modified postcommon_post_need_multibyte (3.04a)
+
+3.03 (2007/06/03)
+- added a protection against installer attack
+- changed language name
+-- ja_utf8 (formerly japaneseutf) 3.03a
+
+3.02 (2007/04/08)
+- modified compatibility of the option "force_intval"
+- fixed wrong link in advisory.php (thx genet)
+- added a method module can skip DoS/crawler check (define a constant)
+- updated D3 system
+- added language files
+-- persian (thx voltan)
+-- russian (thx West) 3.02a
+-- arabic (thx onasre) 3.02b
+-- japaneseutf 3.02c
+
+3.01 (2007/02/10)
+- modified the rule for sorting IPs
+- added language files
+-- portuguesebr (thx beduino)
+-- spanish (thx PepeMty)
+-- polish (thx kurak_bu) 3.01a
+-- german (thx wuddel) 3.01b
+- modified module_icon.php 3.01c
+- fixed typo in module_icon.php 3.01d
+
+3.00 (2007/02/06)
+- marked as a stable version
+- fixed typo in log level
+- fixed multibyte plugin never denies registered users (thx mizukami)
+- modified compatibility with 2.2.x from xoops.org 3.00a
+
+3.00beta2 (2007/01/31)
+- added plugin system (just postcommon_post_*)
+- added filtering-plugins
+-- postcommon_post_deny_by_rbl.php (deny SPAM by RBL)
+-- postcommon_post_need_multibyte.php (deny SPAM by character type)
+
+3.00beta (2007/01/30)
+- moved almost files under XOOPS_TRUST_PATH
+- modified denying IP from DB to a file under configs
+- removed rescue feature (just remove a file via FTP)
+- added allowed IPs for user of group=1
+- modified table structures (compatible MySQL5)
+- added BigUmbrella anti-XSS system
+- added anti-SPAM feature
+
+= THANKS =
+ - Kikuchi  (Traditional Chinese language files)
+ - Marcelo Yuji Himoro (Brazilian Portuguese and Spanish language files)
+ - HMN (French language files)
+ - Defkon1 (Italian language files)
+ - Dirk Louwers (Dutch language files)
+ - Rene (German language files)
+ - kokko (Finnish language files)
+ - Tomasz (Polski language files)
+ - Sergey (Russian language files)
+ - Bezoops (Spanish language files)
+These contributions was made for v2.x
+I'm appreciated new language files for v3.0 :-)
+
+Moreover, I thank to JM2 and minahito -zx team- about having taught me kindly.
+You are very great programmers!
+
+------------------------------------------------------------
+
+GIJ=CHECKMATE <gij@peak.ne.jp>
+2004-2009
+
+PEAK XOOPS  http://xoops.peak.ne.jp/
+

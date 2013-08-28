@@ -1,0 +1,157 @@
+@font-face {
+	font-family: 		'Stroke';
+	src: 				url('font/stroke.eot');
+	src: 				local('☺'), url('font/stroke.ttf') format('truetype'), url('../font/stroke.svg#iconic') format('svg');
+	font-weight: 		normal;
+	font-style: 		normal;
+}
+html, body {	margin:	0; padding:0; height: 100%; font-size:100.01%;}
+html  {}
+body  { background-color: #f0f0f0; text-align: center; font:	75% Lucida Grande, tahoma, osaka,taipei,verdana, arial, helvetica, sans-serif;}
+#xo-content {
+	border: 			1px solid #C0C4C0;
+	width: 				575px;
+	min-height: 			518px;
+	margin: 			100px auto;
+	text-align: 		center;
+	background-color: 	#fff;
+	background-image: 	url(img/xoops_logo.png);
+	background-repeat: 	no-repeat;
+	background-position: 55px 70px;
+	padding-left: 		300px;
+	padding-right: 		30px;
+	border-radius: 		15px;
+		-moz-border-radius: 15px;
+		-webkit-border-radius: 15px;
+}
+h1 {
+	clear:				both;
+	margin-top:			40px;
+	font-size:			1.9em;
+	color:				#666F7D;
+	text-shadow: 		1px 1px 2px #ccc;
+}
+h2 {font-size: 1.3em; margin: 0 0 30px 0;}
+h1, h2 {font-weight: normal;}
+a, a:hover,  a:visited {color: #333; text-decoration: none;}
+p { font-size: 1; margin-top: 12px; line-height: 2em;}
+.bold {font-weight: bold !important;}
+#check_results { width:30em; margin-left:70px;}
+#xo-loginupdate { padding-top: 2.5em;}
+#xo-loginupdate button {margin-top: 2em;}
+img	{ border:0;}
+.xo-formfield { margin-bottom: .2em;}
+.xo-formfield.required label:after { content: '*'; color: #ff0000;}
+input, textarea { border:	1px solid; border-color: #aaa #ccc #ccc #aaa;}
+input[type=text], input[type=password], textarea {
+	margin:				2px 0;
+	background-color:	#fff;
+}
+input[type=text], input[type=password] {text-align: center;}
+button, input[type="submit"], input[type="button"], input[type="reset"]  {}
+button  {
+	margin-top: 		1em;
+	background: 		#e3e3e3;
+	border: 			1px solid #ccc;
+	border-radius: 		3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	box-shadow: 		inset 0 0 1px 1px #f6f6f6;
+		-moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
+		-webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+	color: 				#333;
+	font-size: 			12px;
+	font-weight: 		bold;
+	line-height: 		1;
+	padding: 			8px 0 9px;
+	text-align: 		center;
+	text-shadow: 		0 1px 0 #fff;
+	width: 				150px;
+}
+button:hover, #link-next:hover   {
+	background: 		#d9d9d9;
+	box-shadow: 		inset 0 0 1px 1px #eaeaea;
+		-moz-box-shadow: inset 0 0 1px 1px #eaeaea;
+		-webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+	color: 				#222;
+}
+button:active {
+	background: 		#d0d0d0;
+	box-shadow: 		inset 0 0 1px 1px #e3e3e3;
+		-moz-box-shadow: inset 0 0 1px 1px #e3e3e3;
+		-webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
+	color: 				#000;
+}
+button { padding-right: 14px;}
+button:before {
+	color: 				#333;
+	content: 			"Y";
+	display: 			inline;
+	font-size: 			18px;
+	font-family: 		"Stroke";
+	font-weight: 		normal;
+	position: 			relative;
+	left: 				-16px;
+	line-height: 		10px;
+	text-shadow: 		0 1px 0 #fff;
+	top: 				2px;
+	visibility: 		hidden;
+}
+button:hover:before { visibility: visible;}
+button:active:before { color: #0589C8;}
+.x2-note {
+	margin:				1em .5em;
+	padding:			.5em;
+	background-color:	#F4FAFF;
+	border:				1px solid #E4EAEF;
+}
+.x2-note a { color: #333; font-weight: bold; font-style: italic;}
+.x2-note ul li { color: #ff0000; font-weight: bold; list-style : none;}
+#link-next {
+	display: 			block;
+	margin: 			2em auto;
+	background: 		#e3e3e3;
+	border: 			1px solid #ccc;
+	border-radius: 		3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+	box-shadow: inset 0 0 1px 1px #f6f6f6;
+		-moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
+		-webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+	color: 				333;
+	font-size: 			12px;
+	font-weight: 		bold;
+	line-height: 		1.4em;
+	padding: 			8px 0 9px;
+	text-align: 		center;
+	text-shadow: 		0 1px 0 #fff;
+	width: 				160px;
+}
+fieldset {
+	margin-top:			.75em;
+	margin-bottom:		.75em;
+	border:				0 none transparent;
+	padding:			.5em 1em;
+}
+legend {
+	font-size:			1.2;
+	font-weight:		bold;
+	padding:			0 1em;
+	display:			block;
+	margin:				0;
+}
+label { display: block; padding: .5em 0; font-style: italic; margin-top: 1em;}
+.xoform-help { display: block; margin: 0; padding: .5em; font-size: .9em;}
+td.result-y, span.result-y {
+	font-size: 			18px;
+	font-family: 		"Stroke";
+	font-weight: 		normal;
+	color:				green;
+}
+td.result-x, span.result-x {
+	font-size: 			18px;
+	font-family: 		"Stroke";
+	font-weight: 		normal;
+	color:				red;
+}
+table.outer {max-width: 80%; margin: 1em auto; text-align: left;}

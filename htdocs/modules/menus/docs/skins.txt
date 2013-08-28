@@ -1,0 +1,100 @@
+Theory of operation:
+
+Menus separates logic from presentation almost 100%!
+It is menus task to generate an array with menus information and let each skin
+decide what to do with that information.
+
+How can skin know when to open a new <li> or <ul> and when to close it?
+-Menus append that information to each menu item, that way you can know if that item
+should be prefixed with a <li> or not.
+
+This is the composition of an item array:
+[id] => 3 (id of the menu item)
+            [pid] => 0 (id of the parent menu item)
+            [mid] => 2 (id of the menu package)
+            [title] => Home (title of the menu item)
+            [alt_title] => Home (alt/title of the menu item)
+            [visible] => 1 (visibility of the menu item, it will be 1 for all menus,you can disregard it)
+            [link] => http://localhost/xoops-2.4.5/htdocs/ (alt/title of the menu item)
+            [weight] => 1 (this is for internal usage of the builder class, you can disregard it)
+            [target] => _self (to be used in link target element, it can be _self, _blank, etc..)
+            [groups] => Array (holds the groups who can view this link, you can disregard it)
+                (
+                    [0] => 2
+                    [1] => 3
+                )
+
+            [hooks] => Array (holds the hooks available to render the menu, you can disregard it)
+                (
+                )
+
+            [image] => (image to be used in the link, you can choose not to support it in your skin)
+            [css] =>  (this is inline css for this item, it goes inside <a style="$item.css">)
+            [oul] => 1 (IMPORTANT! Open UL -> this menu item requires skin to prepend <ul> open element tag)
+            [oli] => 1 (IMPORTANT! Open LI -> this menu item requires skin to prepend <li> open element tag)
+            [close] => (IMPORTANT! this holds closing tags, it will automatically generate </li></ul> tags for you)
+            [cul] => (IMPORTANT! Close UL -> this menu item requires skin to apend </ul> close element tag, you should use [close] instead, unless you are not suporting multilevel menus)
+            [cli] => (IMPORTANT! Close LI -> this menu item requires skin to apend </li> close element tag, you should use [close] instead, unless you are not suporting multilevel menus)
+            [hassub] => 1 (informs if this menu item has submenus, 1 for true, 0 for false)
+            [level] => 0 (informs the level of nesting of the menu item, 0 is for root, 1 for second level, etc..)
+            [down_weight] => 3 (for usage in menu sorting in admin side, you can ignore it)
+            [selected] => 1 (IMPORTANT, this tells the skin to highlight this item)
+            [topselected] => 1 (Important, this informs the skin that the menu is of level 0(root) and it is selected, you should higlight it)
+        )
+
+-- Skin structure:
+Skins go into
+"menus/skins" folder or
+"public_html/themes/yourtheme/menu" folder
+and they should have a skin_version.php file in it
+
+skin_version.php structure:
+//informs where to find the template for this skin(relative to skin folder)
+$skinversion['template'] = 'templates/template.html';
+
+//informs where to find css file/files
+$skinversion['css'] = 'css/superfish.css';
+or
+$skinversion['css'] = array('css/superfish.css', css/anotherone.css);
+
+//informs where to find js file/files
+$skinversion['js'] = '../../js/jquery-1.3.2.min.js';
+or
+$skinversion['js'] = array('../../js/jquery-1.3.2.min.js',
+                             '../../js/hoverIntent.js',
+                             '../../js/superfish.js'
+                             );
+
+//code to be appended in the <head> theme tag
+$header  = "\n" . '<script type="text/javascript">';
+$header .= "\n" . '  var $sf = jQuery.noConflict()';
+$header .= "\n" . '  $sf(function(){';
+$header .= "\n" . '    $sf(\'ul.sf-menu\').superfish({';
+$header .= "\n" . '       delay:       1000,';
+$header .= "\n" . '       animation:   {opacity:\'show\',height:\'show\'},';
+$header .= "\n" . '       speed:       \'fast\'';
+$header .= "\n" . '    });';
+$header .= "\n" . '  });';
+$header .= "\n" . '</script>';
+$skinversion['header'] = $header;
+
+//you can pass any configuration from this file to the template using ['config']
+example:
+$skinversion['config']['home'] = true;
+$skinversion['config']['iconset'] = 'default';
+This can be fetched in template with <{$config.home}> and <{$config.iconset}>
+
+
+-- Smarty variables available in the template:
+$block - holds an array of menu items
+$config - holds configuration set in skin_version.php
+$skinurl - holds the url of the skin
+$skinpath - holds the path of the skin
+
+-- For Theme designers:
+Since users can choose the smarty variable for each menu,
+I would advise you to use <{$xoops_menu_navbar}> as a place holder.
+If you provide a skin for your theme, ask users to:
+-- --enter "navbar" as unique_id in block settings.
+-- --set "render to smarty variable" in block settings.
+-- --set "use skin from theme" in block settings.

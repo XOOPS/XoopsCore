@@ -1,0 +1,229 @@
+/* ================================================================ 
+This copyright notice must be kept untouched in the stylesheet at 
+all times.
+
+The original version of this stylesheet and the associated (x)html
+is available at http://www.stunicholls.com/menu/pro_dropdown_3.html
+Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+This stylesheet and the associated (x)html may be modified in any 
+way to fit your requirements.
+=================================================================== */
+.default_preload1 { /*background: url(three_0a.gif);*/
+	
+}
+
+.default_preload2 { /*background: url(three_1a.gif);*/
+	
+}
+
+#default_nav {
+	padding: 0;
+	margin: 0;
+	height: 30px;
+	min-height: 30px;
+	background: #846add url(navbar-bg.png) repeat-x left bottom;
+	/*#846add*/
+	color: #fff;
+	font-size: 1.1em;
+	text-align: center;
+	list-style-type: none;
+	position: relative;
+	z-index: 500;
+}
+
+#default_nav li.default_top {
+	display: block;
+	float: left;
+}
+
+#default_nav li a.default_top_link {
+	display: block;
+	float: left;
+	height: 23px;
+	line-height: 20px;
+	color: #fff;
+	text-decoration: none;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 0 0 0 12px;
+	cursor: pointer;
+	/*background-color:#ddd;*/ /*background: url(three_0.gif);*/
+}
+
+#default_nav li a.default_top_link span {
+	float: left;
+	display: block;
+	padding: 0 24px 0 12px;
+	height: 23px;
+	/*background: url(three_0.gif) right top no-repeat;*/
+}
+
+#default_nav li a.default_top_link span.default_down {
+	float: left;
+	display: block;
+	padding: 0 24px 0 12px;
+	height: 23px;
+	background: url(arrow_down_white.gif) 90% 50% no-repeat;
+}
+
+#default_nav li:hover a.default_top_link,#default_nav li a.default_selected
+	{
+	color: #846add;
+	background-color: #ddd;
+	border-bottom: 3px solid #846add;
+}
+
+#default_nav li:hover a.default_top_link span,#default_nav li a.default_selected span
+	{
+	background-color: #ddd;
+}
+
+#default_nav li:hover a.default_top_link span.default_down,#default_nav li a.default_selected span.default_down
+	{
+	background-color: #ddd;
+	background: url(arrow_down_purple.gif) 90% 50% no-repeat;
+}
+
+/* Default list styling */
+#default_nav li:hover {
+	position: relative;
+	z-index: 200;
+}
+
+#default_nav li:hover ul.default_sub {
+	left: 1px;
+	top: 26px;
+	background-color: #846add;
+	color: #fff;
+	white-space: nowrap;
+	width: auto;
+	height: auto;
+	z-index: 300;
+}
+
+#default_nav li:hover ul.default_sub li {
+	display: block;
+	height: 23px;
+	position: relative;
+	float: left;
+	width: 90px;
+	text-align: left;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+#default_nav li:hover ul.default_sub li a {
+	display: block;
+	font-size: 11px;
+	height: 23px;
+	width: 90px;
+	background-color: #846add;
+	color: #fff;
+	line-height: 20px;
+	padding: 0 5px;
+	text-decoration: none;
+}
+
+#default_nav li ul.default_sub li a.default_fly {
+	background: #e9e9e9 url(arrow.gif) 80px 6px no-repeat;
+}
+
+#default_nav li:hover ul.default_sub li a:hover {
+	background-color: #ddd;
+	color: #846add;
+}
+
+#default_nav li:hover ul.default_sub li a.default_fly:hover {
+	background: #c6c7c9 url(arrow_over.gif) 80px 6px no-repeat;
+	color: #fff;
+}
+
+/*couleur des titres dans les menus déroulés*/
+#default_nav li b {
+	display: block;
+	font-size: 11px;
+	height: 18px;
+	width: 88px;
+	line-height: 18px;
+	margin-bottom: 3px;
+	text-indent: 6px;
+	color: #000;
+	border-bottom: 1px solid #000;
+	cursor: default;
+}
+
+#default_nav li:hover li:hover ul,#default_nav li:hover li:hover li:hover ul,#default_nav li:hover li:hover li:hover li:hover ul,#default_nav li:hover li:hover li:hover li:hover li:hover ul
+	{
+	left: 90px;
+	top: -4px;
+	background: #e9e9e9;
+	padding: 3px;
+	border: 1px solid #0b4d97;
+	white-space: nowrap;
+	width: 90px;
+	z-index: 400;
+	height: auto;
+}
+
+#default_nav ul,#default_nav li:hover ul ul,#default_nav li:hover li:hover ul ul,#default_nav li:hover li:hover li:hover ul ul,#default_nav li:hover li:hover li:hover li:hover ul ul
+	{
+	position: absolute;
+	left: -9999px;
+	top: -9999px;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#default_nav li:hover li:hover a.default_fly,#default_nav li:hover li:hover li:hover a.default_fly,#default_nav li:hover li:hover li:hover li:hover a.default_fly,#default_nav li:hover li:hover li:hover li:hover li:hover a.default_fly
+	{
+	background: #c6c7c9 url(arrow_over.gif) 80px 6px no-repeat;
+	color: #fff;
+	border-color: #fff;
+}
+
+#default_nav li:hover li:hover li a.default_fly,#default_nav li:hover li:hover li:hover li a.default_fly,#default_nav li:hover li:hover li:hover li:hover li a.default_fly
+	{
+	background: #e9e9e9 url(arrow.gif) 80px 6px no-repeat;
+	color: #000;
+	border-color: #e9e9e9;
+}
+/*
+#xo-globalnav {
+    min-height:             28px;
+    margin:                 0;
+    background:             #846add url(../img/navbar-bg.png) repeat-x left bottom;
+    padding:                2px 0 0;
+    color:                  #fff;
+    font-size:              1.1em;
+    text-align:             center;
+    list-style-type:        none;
+}
+* html #xo-globalnav {
+    height:                 28px;
+}
+
+#xo-globalnav .x2-label {
+    display:                none;
+}
+
+#xo-globalnav li {
+    display:                inline;
+    margin:                 0;
+    padding-left:           .5em;
+    padding-right:          .5em;
+}
+
+#xo-globalnav a {
+    background-color:       inherit;
+    color:                  #fff;
+    text-decoration:        none;
+}
+
+#xo-globalnav a:hover {
+    background-color:       inherit;
+    color:                  #b3aaec;
+    text-decoration:        none;
+}*/

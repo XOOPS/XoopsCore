@@ -1,0 +1,20 @@
+.xo-moduleadmin-icon {
+    width: 100%!important;
+    max-width:39%;
+}
+.xo-moduleadmin-box {
+    width: 60% !important;
+}
+
+.errorMsg,.confirmMsg, .resultMsg  { padding: .8em; text-align:center; margin-bottom: 1em; border: 2px solid #ddd;}
+.errorMsg      { background-color: #FBE3E4; color: #D12F19; border-color: #FBC2C4; }
+.confirmMsg     { background-color: #FFF6BF; color: #817134; border-color: #FFD324; }
+.resultMsg    { background-color: #E6EFC2; color: #529214; border-color: #C6D880; }
+.errorMsg a    { background-color: transparent; color: #D12F19; }
+.confirmMsg a   { background-color: transparent; color: #817134; }
+.successMsg a  { background-color: transparent; color: #529214; }
+
+img.flag {
+    width:24px;
+}
+.xo-window-data {    width: 100%;}

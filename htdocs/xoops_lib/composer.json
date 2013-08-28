@@ -1,0 +1,10 @@
+{
+    "name": "xoops/xoops-library",
+    "license": "GPL-2.0+",
+    "type": "project",
+    "description": "The XOOPS Library distribution",
+    "require": {
+        "php": ">=5.3.3",
+        "doctrine/dbal": "2.3.4"
+    }
+}

@@ -1,0 +1,9 @@
+<{includeq file="module:profile|profile_breadcrumbs.html"}>
+
+
+<{if $stop}>
+    <div class='errorMsg txtleft'><{$stop}></div>
+    <br class='clear'/>
+<{/if}>
+
+<{includeq file="module:profile|profile_form.html" xoForm=$userinfo}>

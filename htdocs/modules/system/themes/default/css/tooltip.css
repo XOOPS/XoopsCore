@@ -1,0 +1,44 @@
+/*
+ * Default Admin Theme
+ *
+ * @copyright       Xoops Project <http://www.xoops.org/>
+ * @license         http://www.fsf.org/copyleft/gpl.html GNU public license 3.0
+ * @package         themes
+ * @since           2.5.x
+ * @author          Xoops Design Theme <http://www.xoops.org/>
+ * @maintained      Xoops Design Theme <http://www.xoops.org/>
+ *
+ * @version         $Id
+*/
+#tooltip {
+	position: absolute;
+	background: #D2E2F9;
+	padding: 10px;
+	color: #333;
+	display: none;
+	border: 1px solid #A4C3EF;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	border-radius: 3px;
+	box-shadow: 			3px 2px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 		3px 2px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 	3px 2px 3px rgba(0,0,0,0.5);
+	-khtml-box-shadow: 	3px 2px 3px rgba(0,0,0,0.5);
+	filter: alpha(opacity = 80);
+	-moz-opacity: 0.8;
+	-webkit-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+}
+
+#tooltip span {
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center !important;
+}
+
+#tooltip img {
+  padding-bottom: 10px !important;
+  text-align: center !important;
+}

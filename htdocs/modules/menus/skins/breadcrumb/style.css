@@ -1,0 +1,36 @@
+.menus-breadcrumb {
+    font: 11px Arial, Helvetica, sans-serif;
+    background-repeat: repeat-x;
+    height: 30px;
+    line-height: 30px;
+    color: #9b9b9b;
+    border: solid 1px #cacaca;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.menus-breadcrumb li {
+    list-style-type: none;
+    float: left;
+    padding-left: 10px;
+}
+
+.menus-breadcrumb a {
+    height: 30px;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 15px;
+    text-decoration: none;
+    color: #454545;
+}
+
+.menus-breadcrumb a:hover {
+    color: #35acc5;
+}
+
+.menus-breadcrumb-home {
+    border: none;
+    margin: 8px 0px;
+}

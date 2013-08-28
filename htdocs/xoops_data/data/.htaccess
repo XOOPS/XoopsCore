@@ -1,0 +1,3 @@
+<Files "secure.php">
+Deny from all
+</Files>

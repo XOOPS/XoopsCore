@@ -1,0 +1,27 @@
+input:required, textarea:required{
+    background:url(../images/required.png) right center no-repeat;
+}
+input:focus:invalid, textarea:focus:invalid{
+    background-image:none;
+}
+
+.dsc_pattern_vertical{display:none;}
+
+input:focus:invalid + span + .dsc_pattern_vertical{
+    display:block;
+    color: #b94a48;
+}
+
+.dsc_pattern_horizontal{display:none;}
+
+input:focus:invalid + .dsc_pattern_horizontal{
+    display:inline;
+    color: #b94a48;
+}
+
+.caption-required{color: #b94a48;}
+
+.break{
+    font-size: 1.2em;
+    font-weight: bold;
+}

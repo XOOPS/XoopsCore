@@ -1,0 +1,10 @@
+LANGUAGE DIFFERENCES
+=====================
+
+Below are language differences from a version to next version.
+
+Version 1.07
+----------------
+modinfo.php
+----------
+define("_PM_MI_ABOUT", "About")

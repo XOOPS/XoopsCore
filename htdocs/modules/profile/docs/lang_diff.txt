@@ -1,0 +1,19 @@
+LANGUAGE DIFFERENCES
+=====================
+
+Below are language differences from a version to next version.
+
+Release 1.62
+=================
+
+admin.php
+-----------
+define('_PROFILE_AM_ACTION', 'Action');
+
+
+main.php
+-----------
+
+define("_PROFILE_MI_ABOUT", "About");
+define("_PROFILE_MI_HOME", "Home");
+

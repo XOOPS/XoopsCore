@@ -1,0 +1,26 @@
+= CHANGES = 
+
+<b>xlanguage 4.00</b>
+- rewrite for Xoops 2.6.x Laurent JEN (aka DuGris)
+
+<b>xlanguage 3.02</b>
+- xolanguage plugin added (see www.dugris.info)
+- italian translation added (thanks to Lupin)
+
+<b>xlanguage 2.04</b>
+- capable for different language cache, reported by suico @ xoops.org
+
+<b>xlanguage 2.03</b>
+- "input" parse improvement, reported by irmtfan @ xoops.org
+
+<b>xlanguage 2.02</b>
+- Thanks domifara @ dev.xoops.org
+
+<b>xlanguage 2.01</b>
+
+Credits:
+1 - Adi Chiributa - webmaster@artistic.ro, language handler
+2 - wjue - http://www.wjue.org, ziling BIG5-GB2312 conversion
+3 - GIJOE - http://www.peak.ne.jp, easiest multilanguage hack
+4 - D.J.(phppp) - http://www.xoopsforge.com
+5 - trabis - Xoops Module Developer

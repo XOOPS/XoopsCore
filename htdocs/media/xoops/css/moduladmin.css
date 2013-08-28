@@ -1,0 +1,196 @@
+@import url(icons.css);
+/* Area style */
+.xo-window {
+    background-color: #222222;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#333333), to(#222222));
+    background-image: -moz-linear-gradient(top, #333333, #222222);
+    background-image: -ms-linear-gradient(top, #333333, #222222);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #222222));
+    background-image: -webkit-linear-gradient(top, #333333, #222222);
+    background-image: -o-linear-gradient(top, #333333, #222222);
+    background-image: linear-gradient(top, #333333, #222222);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    -moz-border-radius: 5px 5px 0 0;
+    -khtml-border-top-left-radius: 5px;
+    -khtml-border-top-right-radius: 5px;
+    -webkit-border-radius-topleft: 5px;
+    -webkit-border-radius-topright: 5px;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #2D4760;
+    padding: 4px 6px 6px 4px;
+    height: 20px;
+}
+.xo-window-title {
+    padding: 2px 6px 6px 6px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 2px #000;
+    font-family: tahoma, verdana, arial, sans-serif;
+}
+.xo-window-data {
+    float: left;
+    min-height: 50px;
+    padding: 6px;
+    width: auto;
+}
+/* Tips */
+.tips{
+    background-color: #f3fdf3;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#eff8ef), to(#f3fdf3));
+    background-image: -moz-linear-gradient(top, #eff8ef, #f3fdf3);
+    background-image: -ms-linear-gradient(top, #eff8ef, #f3fdf3);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eff8ef), color-stop(100%, #f3fdf3));
+    background-image: -webkit-linear-gradient(top, #eff8ef, #f3fdf3);
+    background-image: -o-linear-gradient(top, #eff8ef, #f3fdf3);
+    background-image: linear-gradient(top, #eff8ef, #f3fdf3);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eff8ef', endColorstr='#f3fdf3', GradientType=0);
+    border-color: #00cc00 #00cc00 #00cc00;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border:1px solid #00cc00;
+    color:#000;
+    padding: 10px;
+}
+.tips img {
+   width:22px;
+   height:22px;
+}
+.tips ul {
+    padding: 0;
+    margin: 0 0 0 20px;
+}
+.tips ul li img {
+    width: 16px;
+    height: 16px;
+}
+.tips .close {
+  margin-top: 1px;
+  *margin-top: 0;
+}
+.tips a {
+  font-weight: bold;
+  color: #404040;
+}
+/* Index page */
+.xo-moduleadmin-icon {
+    float: left;
+    width: 59%;
+}
+.moduleadmin-icon {
+    font-family: tahoma, Helvetica, sans-serif;
+    text-align: center;
+}
+.moduleadmin-icon a {
+    background-color: #f4f4f4;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    box-shadow: 0 20px 10px -10px rgba(255, 255, 255, 0.3) inset;
+    color: #666666;
+    display: block;
+    float: left;
+    height: 75px !important;
+    margin: 3px;
+    padding: 2px;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 68px !important;
+}
+.moduleadmin-icon a:hover {
+    background-color: #D2E2F9;
+    border: 1px solid #A4C3EF;
+}
+.moduleadmin-icon a img {
+    margin: 6px 0;
+}
+.moduleadmin-icon span {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+}
+/* Box */
+.xo-moduleadmin-box {
+    float: right;
+    width: 38%;
+}
+/* Config */
+.xo-moduleadmin-config {
+    margin-top: 20px;
+}
+.xo-moduleadmin-config .xo-window-data ul {
+    padding-top: 10px;
+    list-style-type: none;
+}
+.xo-moduleadmin-infobox .xo-window-data ul {
+    padding-top: 10px;
+    list-style-type: none;
+}
+.xo-moduleadmin-button a img {
+    width: 16px;
+    height: 16px;
+}
+/* About */
+.xo-moduleadmin-about td {
+    border: 0;
+}
+.xo-module-img {
+    width: 100px;
+}
+.xo-module-name {
+    margin-top: 1px;
+    margin-bottom: 4px;
+    font-size: 18px;
+    line-height: 18px;
+    color: #2F5376;
+    font-weight: bold;
+}
+#xo-about ul {
+    padding-bottom: 20px;
+    list-style-type: none;
+}
+#xo-about label, #xo-about text {
+    display: block;
+    float: left;
+}
+#xo-about text {
+    line-height: 18px;
+    padding-top: 6px;
+}
+#xo-about label {
+    text-align: right;
+    width: 200px;
+    padding-right: 20px;
+}
+#xo-about br {
+    clear: both;
+}
+.txtchangelog {
+    height: 350px;
+    overflow: auto;
+}
+/* Other */
+.outer{
+    border: 1px solid #CCC;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 1px;
+}
+.rounded {
+    border-radius: 5px 5px 5px 5px;
+}
+.xo-actions button img, .xo-actions a img, .xo-actions img, .xo-buttons button img, .xo-buttons a img {
+    margin: 0 3px -3px 0 !important;
+    padding: 0;
+    border: none;
+    width: 16px;
+    height: 16px;
+}

@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="<{xoImgUrl modules/xlanguage/css/block.css}>" type="text/css" media="screen" />
+
+<{if $block.display == "text"}>
+    <{include file="block:xlanguage|xlanguage_block_text.html"}>
+<{elseif $block.display == "select"}>
+    <{include file="block:xlanguage|xlanguage_block_select.html"}>
+<{elseif $block.display == "jquery"}>
+    <{include file="block:xlanguage|xlanguage_block_jquery.html"}>
+<{elseif $block.display == "bootstrap"}>
+    <{include file="block:xlanguage|xlanguage_block_bootstrap.html"}>
+<{else}>
+    <{include file="block:xlanguage|xlanguage_block_images.html"}>
+<{/if}>

@@ -1,0 +1,111 @@
+XOOPS 2.6.0 Alpha 1 
+
+The XOOPS Development Team is pleased to announce the release of XOOPS 2.6.0 Alpha 1. 
+
+This is a brand new 2.6.x series, with several major changes and enhancements to the Core. 
+
+You can review the current Roadmap here:
+http://xoops.org/modules/news/article.php?storyid=6339
+
+The main goal of the 2.6 series is to update the XOOPS Core and all classes to PHP5 (public, protected, static) and E_STRICT, and to remove / clean up old legacy code and remove all HTML code found in the PHP files. 
+
+Some of the main changes in Alpha 1:
+
+· Central class "xoops" to simplify the development of XOOPS modules, giving developers direct access to XOOPS API 
+· Removal of unused folders in XOOPS.(cache and template_c).
+· Only one theme for the administration and user interface. 
+· Automatic loading of all XOOPS classes
+· Removal of global variables, these variables can be used from XOOPS class (e.g. "$xoopsModule" becomes "$xoops->module").
+· Cental folder for all multimedia public frameworks (jQuery, CSS, JS, images, ...).
+· Module Class Admin to give the same admin interface for all modules, this class already exists in such frameworks, but now it is included in the core and uses HTML templates.
+· moving of some libraries, such as Smarty, to the xoops_lib folder.
+· Refactoring the system module.
+· Adding a new feature: System Extensions. Some parts of the system module are now separate "system extensions" (eg. Banners, Avatars, Smilies). 
+· Some modules in the Admin will also become Extensions (eg. Protector). All these Extensions are runing as modules, but they cannot be renamed, and they will be shown in a separate menu module
+· Integration of CSS Framework: Bootstrap from Twitter. 
+· Removal of all queries for the block templates and modules. Now, XOOPS reads directly the templates for each part. 
+· Reduction of queries in all pages.
+· New theme in the Admin interface.
+
+There will be more changes in Alpha 2 and Alpha 3, but for now we would appreciate your help in testing existing features. 
+
+
+Download XOOPS 2.5.0 Alpha 1 from [url=https://sourceforge.net/projects/xoops/files/XOOPS%20Core%20%28Beta%20Releases%29/XOOPS_2.6.0_Alpha1/]Sourceforge repository[/url].
+
+System requirements
+-----------------------------------
+
+PHP:
+Any PHP version >= 5.2 (PHP 5.3+ is strongly recommended)
+
+MySQL:
+MySQL server 5.0+
+
+Web server:
+Any server supporting the required PHP version (Apache highly recommended)
+
+
+Downloading XOOPS
+-----------------------------------
+
+Your can get this release package from the sourceforge.net file repository.
+There are .zip and .gz archives provided.
+
+
+Installing XOOPS
+-----------------------------------
+
+    1. Copy the content of the htdocs/ folder where it can be accessed by your server
+    2. Ensure mainfile.php and uploads/ are writable by the web server
+    3. For security considerations, you are encouraged to move directories "/xoops_lib" (for XOOPS libraries) and "/xoops_data" (for XOOPS data) out of Document Root, and change the folder names.
+    4. Make the directory xoops_data/ writable; Create (if not already present) and make the directories xoops_data/caches/, xoops_data/caches/xoops_cache/, xoops_data/caches/smarty_cache/ and  xoops_data/caches/smarty_compile/ writable.
+    5. Access the folder where you installed the htdocs/ files using your web browser to launch the installation wizard
+
+
+Installing Protector in XOOPS
+-----------------------------------
+We also highly recommend the installation of the PROTECTOR extension which will bring additional security protection and logging capabilities to your site.
+
+
+Upgrading from a previous version
+-----------------------------------
+
+NOT available in Alpha
+
+Debug information display level
+-----------------------------------
+
+Debug information display level is enabled to show debug information to different level of users: to all users, to members or to admins only.
+The configuration can be set in /xoops_data/configs/xoopsconfig.php
+The default is for Admin only.
+
+
+Files integrity check
+-----------------------------------
+
+The full XOOPS package is released with a script able to check if all the system files have been correctly uploaded to the server. To use it, follow these instructions:
+
+    1. Upload the checksum.php and checksum.md5 files located in the XOOPS package root to your XOOPS server folder (putting them next to mainfile.php).
+    2. Execute checksum.php with your browser
+    3. If necessary, re-upload the missing or corrupted system files
+    4. Remove checksum.php and checksum.md5 from your server
+
+
+Modules
+-----------------------------------
+
+This release contains only the "system-related modules and extensions". 
+
+Unless specifically stated by the module Author, current modules will NOT work properly with XOOPS 2.6.0 Alpha. 
+
+
+How to contribute
+-----------------------------------
+Bug report: http://sourceforge.net/tracker/?group_id=41586&atid=430840
+Patch and enhancement: http://sourceforge.net/tracker/?group_id=41586&atid=430842
+Feature design: http://sourceforge.net/tracker/?group_id=41586&atid=430843
+Release announcement: https://lists.sourceforge.net/lists/listinfo/xoops-announcement
+
+
+XOOPS Development Team
+August 17th, 2012

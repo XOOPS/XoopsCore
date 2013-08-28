@@ -1,0 +1,14 @@
+ALTER TABLE `cache_model`  MODIFY `cache_data` text;
+ALTER TABLE `banner`  MODIFY `htmlcode` text;
+ALTER TABLE `bannerclient`  MODIFY `extrainfo` text;
+ALTER TABLE `xoopscomments`  MODIFY `com_text` text;
+ALTER TABLE `config`  MODIFY `conf_value` text;
+ALTER TABLE `groups`  MODIFY `description` text;
+ALTER TABLE `imgsetimg`  MODIFY `imgsetimg_body` blob;
+ALTER TABLE `newblocks`  MODIFY `content` text;
+ALTER TABLE `priv_msgs`  MODIFY `msg_text` text;
+ALTER TABLE `session`  MODIFY `sess_data` text;
+ALTER TABLE `tplset`  MODIFY `tplset_credits` text;
+ALTER TABLE `tplsource`  MODIFY `tpl_source` mediumtext;
+ALTER TABLE `users`  MODIFY `user_sig` tinytext;
+ALTER TABLE `users`  MODIFY `bio` tinytext;

@@ -1,0 +1,47 @@
+p {
+   text-align:justify;
+}
+
+.system-help {
+    float: left;
+    width: 100%;
+}
+
+.help-menu {
+    float: left;
+    width: 20%;
+}
+
+.help-content {
+    float: right;
+    width: 79%;
+}
+/*.xo-help-menu { 
+   border:1px solid #ccc; 
+   padding: 5px;
+   margin: 5px auto;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+}
+
+#help-template {
+   width: 98% !important;
+   border:1px solid #ccc;
+   padding: 5px;
+}
+
+/*.help-content {
+   width: 98% !important;
+   margin: 0 auto;
+}
+
+#non-modhelp {
+    padding: 20px;
+    background-color: #dfdfdf;
+    border:1px solid #ccc;
+    font-style: 12px;
+    font-weight: bold;
+    
+}*/

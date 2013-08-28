@@ -1,0 +1,156 @@
+(Unobtusive) AJAX Rating Bars v 1.2.2 (March 18 2007)
+ryan masuga, ryan@masugadesign.com (http://www.masugadesign.com)
+
+Homepage for this script:
+http://www.masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/
+=============================================================================
+This (Unobtusive) AJAX Rating Bar script is licensed under the 
+Creative Commons Attribution 3.0 License - http://creativecommons.org/licenses/by/3.0/
+
+What that means is: Use these files however you want, but don't redistribute 
+without the proper credits, please. I'd appreciate hearing from you if you're
+using this script. Credits should include:
+- Masuga Design (http://masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/)
+- Komodo Media (http://komodomedia.com) 
+- Climax Designs (http://slim.climaxdesigns.com/).
+- Ben Nolan (http://bennolan.com/behaviour/) for Behavio(u)r!
+
+Suggestions or improvements welcome - they only serve to make the script better.
+=============================================================================
+-----------------------------------------------------------------------------
+The necessary files:
+
+PHP Files:
+  _config-rating.php
+  _drawrating.php
+  db.php
+  rpc.php
+
+CSS File:
+  rating.css (can mix into your own stylesheet(s))
+
+Javascript files:
+  behaviour.js
+  rating.js
+
+Image files:
+  starrating.gif
+  working.gif
+
+
+CHANGELOG:
+-----------------------------------------------------------------------------
+v 1.2.2 Updates (March 18, 2007):
+
+ * ADDED: prefixed DB calls with $rating_dbname for better separation from other scripts
+          This will really help with Wordpress installs - As of 1.2.2 I don't think
+          you need to do any special tweaks.
+
+ * UPDATED: changed some variable names so as not to confuse with other scripts
+
+-----------------------------------------------------------------------------
+v 1.2.1 Updates (March 18, 2007):
+
+ * ADDED: a new check to keep voters from faking the vote to something very high
+ * ADDED: a check to stop people from voting multiple times
+ * ADDED: example of using 'static' to the Read Me
+
+ * UPDATED: Use echo now to render your star rater, because I'm using 'return' 
+            instead of echo in the function
+
+ * FIXED: bug where you couldn't have letters in your id. Now, letters and numbers only
+ * FIXED: issue with number of votes cast (i.e. '0') not showing up for new IDs
+
+-----------------------------------------------------------------------------
+v 1.2 Updates (March 11, 2007):
+
+ * ADDED: a couple checks to stop possible SQL injection hacks
+ * ADDED: 'rel="nofollow"' to the rendered rating bar links
+ * ADDED: Automatic inserting of ID's in the DB
+ * ADDED: New variables to make it easier to fix your paths!
+ * ADDED: Ability to call a rater "static" so you can't vote
+          (Might come in handy if someone needs to be logged in to vote...)
+
+ * FIXED: SQL in this readme to use backticks for easier copy-n-paste
+ * FIXED: modified a couple CSS styles that were giving people headaches
+
+-----------------------------------------------------------------------------
+v 1.1 Features:
+ * Uses unobtrusive Javascript, so ratings will still work if the user has Javascript off
+   (the script has been tested in IE 6, Safari, and FF).
+ * keeps Javascript out of the HTML, resulting in cleaner markup
+ * There are now some checks in place to discourage monkey-business, like negative numbers, or funky IP's
+ * IP lockout is now in the script
+ * You can now specify the number of units! If you want 5 stars, just add a 5, otherwise the script defaults to 10.
+ * Enter database info in one place rather than three places
+ * This script only uses ONE image
+-------------------------------------------------------------
+
+INSTALLATION:
+
+=============================================================================
+1. Make your table for the ratings in your db (you should be able to copy
+   and paste the following SQL)
+=============================================================================
+CREATE TABLE `ratings` (
+  `id` varchar(11) NOT NULL,
+  `total_votes` int(11) NOT NULL default 0,
+  `total_value` int(11) NOT NULL default 0,
+  `used_ips` longtext,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3;
+
+
+=============================================================================
+2. Enter your specific info into _config-rating.php
+=============================================================================
+	$dbhost        = 'localhost';
+	$dbuser        = '###';
+	$dbpass        = '###';
+	$dbname        = '###';
+	$tableName     = 'ratings';
+	$rating_unitwidth     = 30;
+
+
+=============================================================================
+3. Enter this line at the top of any page where you want
+   to have rating bars.
+=============================================================================
+<?php require('_drawrating.php'); ?>
+
+
+=============================================================================
+4. Point to the right Javascript and CSS files (you need 
+   behavior.js, rating.js, and rating.css)
+=============================================================================
+<script type="text/javascript" language="javascript" src="js/behavior.js"></script>
+<script type="text/javascript" language="javascript" src="js/rating.js"></script>
+<link rel="stylesheet" type="text/css" href="css/rating.css" />
+
+Remember to make sure to fix paths for the images as well. I kept behavior.js separate
+from rating.js, because you can use it for other things!
+
+
+=============================================================================
+5. Drop the function wherever you want a rating bar to appear
+=============================================================================
+NOTE: As of version 1.2.1, use the echo statement! Also, if you use the static
+parameter, you should always specify the 2nd parameter (number of units), even if
+it is blank (which will default to 10 units)
+
+<?php echo rating_bar('8'); ?> - 10 stars (default), ID of 8
+<?php echo rating_bar('8xxa','5'); ?> - 5 stars, ID of 8xxa
+<?php echo rating_bar('9a','5','static'); ?> - 5 stars, ID of 9a, static (non votable)
+<?php echo rating_bar('9b',''); ?> - 10 stars, ID of 9b
+<?php echo rating_bar('9c','8','static'); ?> - 8 stars, ID of 9c, static (non votable)
+
+
+If you want to change how the rating bar is rendered, you will need to edit
+the _drawrating.php file. Also, you might need to edit the bottom of the rpc.php
+file at about line 52, where the $newback variable is.
+
+
+
+
+
+

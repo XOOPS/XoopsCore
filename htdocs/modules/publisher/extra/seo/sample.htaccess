@@ -1,0 +1,4 @@
+RewriteEngine   On
+RewriteRule     ^publisher\.([a-z]+)\.([0-9.]+)/  modules/publisher/index.php?seoOp=$1&seoArg=$2
+
+# RewriteRule     ^ss\.([a-z]+)\.([0-9.]+)/  modules/publisher/index.php?seoOp=$1&seoArg=$2
