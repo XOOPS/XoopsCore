@@ -515,7 +515,5 @@ class XoopsLoad
 if (!defined('XOOPS_AUTOLOAD')) {
     define('XOOPS_AUTOLOAD', true);
     spl_autoload_register(array('XoopsLoad', 'load'));
-    if (!XOOPS_PATH == '') {
-        include XOOPS_PATH . '/vendor/autoload.php';
-    }
+    include XOOPS_PATH . '/vendor/autoload.php';
 }
