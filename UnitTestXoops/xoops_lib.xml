@@ -1,4 +1,6 @@
 ﻿<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
     colors="false"
     verbose="false"
     stopOnError="false"
