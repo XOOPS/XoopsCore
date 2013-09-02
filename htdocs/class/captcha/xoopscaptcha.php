@@ -14,17 +14,17 @@
  *
  * Based on DuGris' SecurityImage
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      captcha
- * @since           2.3.0
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
+ * PHP 5.3
+ *
+ * @category  Xoops\Class\Captcha\Captcha
+ * @package   Captcha
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsCaptcha
 {
     /**
@@ -99,6 +99,7 @@ class XoopsCaptcha
      * XoopsCaptcha::loadConfig()
      *
      * @param string $filename
+     *
      * @return array
      */
     function loadConfig( $name = 'config') {
@@ -118,6 +119,7 @@ class XoopsCaptcha
      * XoopsCaptcha::loadBasicConfig()
      *
      * @param string $filename
+     *
      * @return array
      */
     function loadBasicConfig($filename = null)
@@ -143,6 +145,7 @@ class XoopsCaptcha
      * XoopsCaptcha::readConfig()
      *
      * @param string $filename
+     *
      * @return array
      */
     function readConfig( $filename = 'config')
@@ -158,6 +161,7 @@ class XoopsCaptcha
      *
      * @param string $filename
      * @param array $config
+     *
      * @return array
      */
     function writeConfig($filename = 'config', $config)
@@ -199,6 +203,7 @@ class XoopsCaptcha
      * XoopsCaptcha::loadHandler()
      *
      * @param string $name
+     *
      * @return XoopsCatchaMethod
      */
     public function loadHandler($name = null)
@@ -234,6 +239,7 @@ class XoopsCaptcha
      * XoopsCaptcha::setConfigs()
      *
      * @param mixed $configs
+     *
      * @return bool
      */
     public function setConfigs($configs)
@@ -249,6 +255,7 @@ class XoopsCaptcha
      *
      * @param mixed $name
      * @param mixed $val
+     *
      * @return bool
      */
     public function setConfig($name, $val)
@@ -268,6 +275,7 @@ class XoopsCaptcha
      *
      * @param bool $skipMember
      * @param string $name
+     *
      * @return bool
      */
     public function verify($skipMember = null, $name = null)
@@ -333,6 +341,7 @@ class XoopsCaptcha
      * Destory historical stuff
      *
      * @param bool $clearSession
+     *
      * @return bool
      */
     public function destroyGarbage($clearSession = false)
@@ -396,6 +405,7 @@ class XoopsCaptcha
      * XoopsCaptcha::setCode()
      *
      * @param mixed $code
+     *
      * @return bool
      */
     public function setCode($code = null)
@@ -419,120 +429,4 @@ class XoopsCaptcha
         $this->setCode();
         return $form;
     }
-}
-
-/**
- * Abstract class for CAPTCHA method
- *
- * Currently there are two types of CAPTCHA forms, text and image
- * The default mode is "text", it can be changed in the priority:
- * 1 If mode is set through XoopsFormCaptcha::setConfig("mode", $mode), take it
- * 2 Elseif mode is set though captcha/config.php, take it
- * 3 Else, take "text"
- */
-class XoopsCaptchaMethod
-{
-    /**
-     * @var XoopsCaptcha
-     */
-    public $handler;
-
-    /**
-     * @var array
-     */
-    public $config;
-
-    /**
-     * @var string
-     */
-    public $code;
-
-    /**
-     * XoopsCaptchaMethod::__construct()
-     *
-     * @param mixed $handler
-     */
-    public function __construct($handler = null)
-    {
-        $this->handler = $handler;
-    }
-
-    /**
-     * XoopsCaptchaMethod::isActive()
-     *
-     * @return bool
-     */
-    public function isActive()
-    {
-        return true;
-    }
-
-    /**
-     * XoopsCaptchaMethod::loadConfig()
-     *
-     * @param string $name
-     * @return array
-     */
-    public function loadConfig($name = '')
-    {
-		if (!is_object($this->handler))
-			$this->config = array();
-		else
-			$this->config = empty($name)
-				? $this->handler->config
-				: array_merge($this->handler->config, $this->handler->loadConfig($name));
-    }
-
-    /**
-     * XoopsCaptchaMethod::getCode()
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return strval($this->code);
-    }
-
-    /**
-     * XoopsCaptchaMethod::render()
-     *
-     * @return string
-     */
-    public function render()
-    {
-        return '';
-    }
-
-    /**
-     * @return string
-     */
-    public function renderValidationJS()
-    {
-        return '';
-    }
-
-    /**
-     * XoopsCaptchaMethod::verify()
-     *
-     * @param mixed $sessionName
-     * @return bool
-     */
-    public function verify($sessionName = null)
-    {
-        $is_valid = false;
-        if (!empty($_SESSION["{$sessionName}_code"])) {
-            $func = !empty($this->config['casesensitive']) ? 'strcmp' : 'strcasecmp';
-            $is_valid = !$func(trim(@$_POST[$sessionName]), $_SESSION["{$sessionName}_code"]);
-        }
-        return $is_valid;
-    }
-
-    /**
-     * @return bool
-     */
-    public function destroyGarbage()
-    {
-        return true;
-    }
-
 }

@@ -54,12 +54,12 @@ class XoopsDatabaseFactory
                 'user' => XOOPS_DB_USER,
                 'password' => XOOPS_DB_PASS,
                 'host' => XOOPS_DB_HOST,
-//                'port' => '',
-//                'unix_socket' => '',
+                // 'port' => '',
+                // 'unix_socket' => '',
                 'charset' => XOOPS_DB_CHARSET,
                 'driver' => 'pdo_mysql',
                 'wrapperClass' => 'XoopsConnection',
-//                'driverOptions' => array('')
+                // 'driverOptions' => array('')
             );
             $instance
                 = \Doctrine\DBAL\DriverManager::getConnection(

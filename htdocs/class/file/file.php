@@ -9,25 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * File engine For XOOPS
- *
- * @copyright       The XOOPS project http://www.xoops.org/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      file
- * @since           2.3.0
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * Convenience class for reading, writing and appending to files.
- *
- * PHP versions 4 and 5
- *
+/*
  * CakePHP(tm) :  Rapid Development Framework <http://www.cakephp.org/>
  * Copyright 2005-2008, Cake Software Foundation, Inc.
  *                                     1785 E. Sahara Avenue, Suite 490-204
@@ -36,23 +18,21 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright Copyright 2005-2008, Cake Software Foundation, Inc.
- * @link http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
- * @package cake
- * @subpackage cake.cake.libs
- * @since CakePHP(tm) v 0.2.9
- * @version $Revision$
- * @modifiedby $LastChangedBy$
- * @lastmodified $Date$
- * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
 /**
+ * File engine For XOOPS
  * Convenience class for reading, writing and appending to files.
+ * PHP 5.3
  *
- * @package cake
- * @subpackage cake.cake.libs
+ * @category  Xoops\Class\File\File
+ * @package   File
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2005-2008 Cake Software Foundation, Inc.
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @version   $Id$
+ * @link      http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @since     CakePHP(tm) v 0.2.9
  */
 class XoopsFileHandler
 {
@@ -99,12 +79,13 @@ class XoopsFileHandler
     /**
      * Constructor
      *
-     * @param string $path Path to file
+     * @param string  $path   Path to file
      * @param boolean $create Create file if it does not exist (if true)
-     * @param integer $mode Mode to apply to the folder holding the file
+     * @param integer $mode   Mode to apply to the folder holding the file
+     *
      * @access private
      */
-    function __construct($path, $create = false, $mode = 0755)
+    public function __construct($path, $create = false, $mode = 0755)
     {
         $this->folder = XoopsFile::getHandler('folder', dirname($path), $create, $mode);
         if (!is_dir($path)) {
@@ -151,8 +132,10 @@ class XoopsFileHandler
     /**
      * Opens the current file with a given $mode
      *
-     * @param string $mode A valid 'fopen' mode string (r|w|a ...)
-     * @param boolean $force If true then the file will be re-opened even if its already opened, otherwise it won't
+     * @param string  $mode  A valid 'fopen' mode string (r|w|a ...)
+     * @param boolean $force If true then the file will be re-opened even if
+     * its already opened, otherwise it won't
+     *
      * @return boolean True on success, false on failure
      * @access public
      */
@@ -177,8 +160,9 @@ class XoopsFileHandler
      * Return the contents of this File as a string.
      *
      * @param string|bool $bytes where to start
-     * @param string $mode
-     * @param boolean $force If true then the file will be re-opened even if its already opened, otherwise it won't
+     * @param string      $mode  mode of file access
+     * @param boolean     $force If true then the file will be re-opened even if its already opened, otherwise it won't
+     *
      * @return mixed string on success, false on failure
      * @access public
      */
@@ -214,9 +198,11 @@ class XoopsFileHandler
     /**
      * Sets or gets the offset for the currently opened file.
      *
-     * @param mixed $offset The $offset in bytes to seek. If set to false then the current offset is returned.
-     * @param integer $seek PHP Constant SEEK_SET | SEEK_CUR | SEEK_END determining what the $offset is relative to
-     * @return mixed True on success, false on failure (set mode), false on failure or integer offset on success (get mode)
+     * @param mixed   $offset The $offset in bytes to seek. If set to false then the current offset is returned.
+     * @param integer $seek   PHP Constant SEEK_SET | SEEK_CUR | SEEK_END determining what the $offset is relative to
+     *
+     * @return mixed True on success, false on failure (set mode),
+     * false on failure or integer offset on success (get mode)
      * @access public
      */
     public function offset($offset = false, $seek = SEEK_SET)
@@ -238,6 +224,7 @@ class XoopsFileHandler
      * fixes line endings
      *
      * @param string $data Data to prepare for writing.
+     *
      * @return string
      * @access public
      */
@@ -253,9 +240,10 @@ class XoopsFileHandler
     /**
      * Write given data to this File.
      *
-     * @param string $data Data to write to this File.
-     * @param string $mode Mode of writing. {@link http://php.net/fwrite See fwrite()}.
-     * @param bool $force force the file to open
+     * @param string $data  Data to write to this File.
+     * @param string $mode  Mode of writing. {@link http://php.net/fwrite See fwrite()}.
+     * @param bool   $force force the file to open
+     *
      * @return bool Success
      * @access public
      */
@@ -281,8 +269,9 @@ class XoopsFileHandler
     /**
      * Append given data string to this File.
      *
-     * @param string $data Data to write
-     * @param bool $force force the file to open
+     * @param string $data  Data to write
+     * @param bool   $force force the file to open
+     *
      * @return bool Success
      * @access public
      */
@@ -376,7 +365,8 @@ class XoopsFileHandler
      * makes filename safe for saving
      *
      * @param string $name the name of the file to make safe if different from $this->name
-     * @param string $ext the extension of the file
+     * @param string $ext  the extension of the file
+     *
      * @return mixed
      */
     public function safe($name = null, $ext = null)
@@ -394,6 +384,7 @@ class XoopsFileHandler
      * Get md5 Checksum of file with previous check of Filesize
      *
      * @param mixed $maxsize in MB or true to force
+     *
      * @return string md5 Checksum {@link http://php.net/md5_file See md5_file()}
      * @access public
      */

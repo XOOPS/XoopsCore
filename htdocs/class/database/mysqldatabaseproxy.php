@@ -46,13 +46,11 @@ class XoopsMySQLDatabaseProxy extends XoopsMySQLDatabase
      */
     public function query($sql, $limit = 0, $start = 0)
     {
+        $xoops = Xoops::getInstance();
+        $xoops->deprecated('XoopsDB->query() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
         $sql = ltrim($sql);
         if (!$this->allowWebChanges && strtolower(substr($sql, 0, 6)) != 'select') {
-            trigger_error(
-                'Database updates are not allowed'
-                .'during processing of a GET request',
-                E_USER_WARNING
-            );
+            //trigger_error('Database updates are not allowed during processing of a GET request', E_USER_WARNING);
             return false;
         }
         return $this->queryF($sql, $limit, $start);
