@@ -251,6 +251,7 @@ class XoopsLoad
             'xoopscachemodelobject' => XOOPS_ROOT_PATH . '/kernel/cachemodel.php',
             'xoopscalendar' => XOOPS_ROOT_PATH . '/class/calendar/xoopscalendar.php',
             'xoopscaptcha' => XOOPS_ROOT_PATH . '/class/captcha/xoopscaptcha.php',
+            'xoopscaptchamethod' => XOOPS_ROOT_PATH . '/class/captcha/xoopscaptchamethod.php',
             'xoopscomment' => XOOPS_ROOT_PATH . '/kernel/comment.php',
             'xoopscommenthandler' => XOOPS_ROOT_PATH . '/kernel/comment.php',
             'xoopscommentrenderer' => XOOPS_ROOT_PATH . '/class/commentrenderer.php',

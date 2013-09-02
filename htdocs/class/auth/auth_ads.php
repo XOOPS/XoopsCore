@@ -10,27 +10,18 @@
 */
 
 /**
- * XOOPS Authentication base class
- *
- * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package class
- * @subpackage auth
- * @since 2.0
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @version $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
  * XoopsAuthAds
  *
- * @package class
- * @subpackage auth
- * @description Authentication class for Active Directory
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * PHP 5.3
+ *
+ * @category  Xoops\Class\Auth\AuthAds
+ * @package   AuthAds
+ * @author    Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
 class XoopsAuthAds extends Xoops_Auth_Ads
 {

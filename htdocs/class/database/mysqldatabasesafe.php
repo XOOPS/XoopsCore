@@ -42,6 +42,8 @@ class XoopsMySQLDatabaseSafe extends XoopsMySQLDatabase
      */
     public function query($sql, $limit = 0, $start = 0)
     {
+        $xoops = Xoops::getInstance();
+        $xoops->deprecated('XoopsDB->query() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
         return $this->queryF($sql, $limit, $start);
     }
 }

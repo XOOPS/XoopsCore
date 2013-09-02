@@ -42,6 +42,7 @@ define("RECAPTCHA_VERIFY_SERVER", "www.google.com");
 /**
  * Encodes the given data into a query string format
  * @param $data - array of string elements to be encoded
+ *
  * @return string - encoded request
  */
 function _recaptcha_qsencode($data)
@@ -63,6 +64,7 @@ function _recaptcha_qsencode($data)
  * @param string $path
  * @param array $data
  * @param int $port
+ *
  * @return array|string response
  */
 function _recaptcha_http_post($host, $path, $data, $port = 80)
@@ -147,6 +149,7 @@ class ReCaptchaResponse
  * @param string $challenge
  * @param string $response
  * @param array $extra_params an array of extra variables to post to the server
+ *
  * @return ReCaptchaResponse
  */
 function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $extra_params = array())

@@ -12,18 +12,6 @@
 /**
  * Xoops MultiMailer Base Class
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      mail
- * @since           2.0.0
- * @author          Author: Jochen Büînagel (job@buennagel.com)
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
  * Mailer Class.
  *
  * At the moment, this does nothing but send email through PHP's "mail()" function,
@@ -33,23 +21,31 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * to suit your setting. Later this will be possible through the admin panel.
  *
  * @todo Make a page in the admin panel for setting mailer preferences.
- * @package class
- * @subpackage mail
- * @author Jochen Buennagel <job@buennagel.com>
+ *
+ * PHP 5.3
+ *
+ * @category  Xoops\Class\Cache\MultiMailer
+ * @package   MultiMailer
+ * @author    Author: Jochen Bï¿½ï¿½nagel <job@buennagel.com>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
 class XoopsMultiMailer extends PHPMailer
 {
     /**
      * 'from' address
      *
-     * @var string
+     * @var string from address
      */
     public $From = '';
 
     /**
      * 'from' name
      *
-     * @var string
+     * @var string from name
      */
     public $FromName = '';
 
@@ -65,7 +61,7 @@ class XoopsMultiMailer extends PHPMailer
      * <li>sendmail (manually set the path to your sendmail program
      * to something different than 'mail()' uses in {@link $Sendmail})
      *
-     * @var string
+     * @var string type of mailer
      */
     public $Mailer = 'mail';
 
@@ -75,7 +71,7 @@ class XoopsMultiMailer extends PHPMailer
      * Only used if {@link $Mailer} is set to 'sendmail'.
      * Contains the full path to your sendmail program or replacement.
      *
-     * @var string
+     * @var string sendmail configuration
      */
     public $Sendmail = '/usr/sbin/sendmail';
 
@@ -84,14 +80,14 @@ class XoopsMultiMailer extends PHPMailer
      *
      * Only used if {@link $Mailer} is set to 'smtp'
      *
-     * @var string
+     * @var string SMTP host name
      */
     public $Host = '';
 
     /**
      * Does your SMTP host require SMTPAuth authentication?
      *
-     * @var boolean
+     * @var boolean authorized?
      */
     public $SMTPAuth = false;
 
@@ -100,7 +96,7 @@ class XoopsMultiMailer extends PHPMailer
      *
      * Only used if {@link $Mailer} is 'smtp' and {@link $SMTPAuth} is TRUE
      *
-     * @var string
+     * @var string user name for SMTP authentication
      */
     public $Username = '';
 
@@ -109,7 +105,7 @@ class XoopsMultiMailer extends PHPMailer
      *
      * Only used if {@link $Mailer} is 'smtp' and {@link $SMTPAuth} is TRUE
      *
-     * @var string
+     * @var string password for smtp authentication
      */
     public $Password = '';
 
@@ -142,10 +138,14 @@ class XoopsMultiMailer extends PHPMailer
     }
 
     /**
-     * Formats an address correctly. This overrides the default addr_format method which does not seem to encode $FromName correctly
+     * Formats an address correctly. This overrides the default addr_format method which
+     * does not seem to encode $FromName correctly
      *
-     * @param $addr
-     * @return string
+     * This function over rides one in PHPmailer
+     *
+     * @param $addr address to send to
+     *
+     * @return string properly formatted address
      */
     public function AddrFormat($addr)
     {
@@ -163,15 +163,20 @@ class XoopsMultiMailer extends PHPMailer
      * bad MAIL FROM, or DATA input.
      * Rebuild Header if there is a bad RCPT
      *
-     * @access protected
-     * @param $header
-     * @param $body
+     * This function over rides one in PHPmailer
+     *
+     * @param $header mail header
+     * @param $body   mail body
+     *
      * @return bool
      */
     public function SmtpSend($header, $body)
     {
         if (!XoopsLoad::fileExists($file = $this->PluginDir . 'class.smtp.php')) {
-            trigger_error('Required File  ' . $file . ' was not found in file ' . __FILE__ . ' at line ' . __LINE__, E_USER_WARNING);
+            trigger_error(
+                'Required File  ' . $file . ' was not found in file ' . __FILE__ . ' at line ' . __LINE__,
+                E_USER_WARNING
+            );
             return false;
         }
         include_once $file;

@@ -2,3 +2,6 @@
 *~
 \#*
 *.bck
+desktop.ini
+Git XoopsCore.lnk
+.gitignore

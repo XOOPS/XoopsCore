@@ -50,7 +50,7 @@ class SqlUtility
         for ($i = 0; $i < $sql_len; ++$i) {
             $char = $sql[$i];
             if ($in_string) {
-                for (; ;) {
+                while (true) {
                     $i = strpos($sql, $string_start, $i);
                     if (!$i) {
                         $ret[] = $sql;

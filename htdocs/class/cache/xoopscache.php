@@ -12,18 +12,16 @@
 /**
  * Cache engine For XOOPS
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      cache
- * @since           2.3.0
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
+ * PHP 5.3
+ *
+ * @category   Xoops\Class\Cache\Cache
+ * @package    Cache
+ * @author     Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright  2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version    $Id$
+ * @link       http://xoops.org
+ * @since      2.6.0
  * @deprecated
  */
 class XoopsCache extends Xoops_Cache
@@ -34,7 +32,7 @@ class XoopsCache extends Xoops_Cache
      * @return Xoops_Cache
      * @deprecated
      */
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -45,6 +43,18 @@ class XoopsCache extends Xoops_Cache
 }
 
 /**
+ * Cache engine For XOOPS
+ *
+ * PHP 5.3
+ *
+ * @category   Xoops\Class\Cache\CacheEngine
+ * @package    CacheEngine
+ * @author     Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright  2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version    $Id$
+ * @link       http://xoops.org
+ * @since      2.6.0
  * @deprecated
  */
 abstract class XoopsCacheEngine extends Xoops_Cache_Abstract

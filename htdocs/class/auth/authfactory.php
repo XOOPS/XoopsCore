@@ -12,24 +12,15 @@
 /**
  * Authentication class factory
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      auth
- * @since           2.0
- * @author          Pierre-Eric MENUET <pemphp@free.fr>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
+ * PHP 5.3
  *
- * @package kernel
- * @subpackage auth
- * @description Authentication class factory
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2005 XOOPS.org
+ * @category  Xoops\Class\Auth\AuthFactory
+ * @package   AuthFactory
+ * @author    Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
  */
 class XoopsAuthFactory extends Xoops_Auth_Factory
 {
