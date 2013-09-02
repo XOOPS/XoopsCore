@@ -8,23 +8,9 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
-
-/**
- * Folder engine For XOOPS
- *
- * @copyright       The XOOPS project http://www.xoops.org/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      file
- * @since           2.3.0
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
- */
-
-/**
+/*
  * Convenience class for handling directories.
  *
- * PHP versions 4 and 5
  *
  * CakePHP(tm) :  Rapid Development Framework <http://www.cakephp.org/>
  * Copyright 2005-2008, Cake Software Foundation, Inc.
@@ -33,27 +19,21 @@
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
- *
- * @filesource
- * @copyright Copyright 2005-2008, Cake Software Foundation, Inc.
- * @link http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
- * @package cake
- * @subpackage cake.cake.libs
- * @since CakePHP(tm) v 0.2.9
- * @version $Revision$
- * @modifiedby $LastChangedBy$
- * @lastmodified $Date$
- * @license http://www.opensource.org/licenses/mit-license.php The MIT License
- */
-/**
- * Folder structure browser, lists folders and files.
- *
- * Long description for class
- *
- * @package cake
- * @subpackage cake.cake.libs
  */
 
+/**
+ * Folder engine For XOOPS
+ *
+ * @category  Xoops\Class\File\Folder
+ * @package   Folder
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2005-2008 Cake Software Foundation, Inc.
+ * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @version   $Id$
+ * @link      http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
+ * @since     CakePHP(tm) v 0.2.9
+ *
+ */
 class XoopsFolderHandler
 {
     /**
@@ -115,9 +95,9 @@ class XoopsFolderHandler
     /**
      * Constructor.
      *
-     * @param string $path Path to folder
-     * @param bool $create Create folder if not found
-     * @param mixed $mode Mode (CHMOD) to apply to created folder, false to ignore
+     * @param string $path   Path to folder
+     * @param bool   $create Create folder if not found
+     * @param mixed  $mode   Mode (CHMOD) to apply to created folder, false to ignore
      */
     public function __construct($path = '', $create = true, $mode = false)
     {
@@ -151,6 +131,7 @@ class XoopsFolderHandler
      * Change directory to $desired_path.
      *
      * @param string $path Path to the directory to change to
+     *
      * @return bool|string The new path. Returns false on failure
      * @access public
      */
@@ -167,8 +148,9 @@ class XoopsFolderHandler
      * Returns an array of the contents of the current directory, or false on failure.
      * The returned array holds two arrays: one of dirs and one of files.
      *
-     * @param boolean $sort
-     * @param mixed $exceptions either an array or boolean true will no grab dot files
+     * @param boolean $sort       sort list or not
+     * @param mixed   $exceptions either an array or boolean true will no grab dot files
+     *
      * @return mixed Contents of current directory as an array, false on failure
      * @access public
      */
@@ -184,7 +166,9 @@ class XoopsFolderHandler
                         $item = $n;
                     }
                 } else {
-                    if ((!preg_match('/^\\.+$/', $n) && $exceptions == false) || ($exceptions == true && !preg_match('/^\\.(.*)$/', $n))) {
+                    if ((!preg_match('/^\\.+$/', $n) && $exceptions == false)
+                        || ($exceptions == true && !preg_match('/^\\.(.*)$/', $n))
+                    ) {
                         $item = $n;
                     }
                 }
@@ -211,7 +195,8 @@ class XoopsFolderHandler
      * Returns an array of all matching files in current directory.
      *
      * @param string $regexp_pattern Preg_match pattern (Defaults to: .*)
-     * @param bool $sort
+     * @param bool   $sort           sort file list or not
+     *
      * @return array Files that match given pattern
      * @access public
      */
@@ -235,14 +220,15 @@ class XoopsFolderHandler
      * Returns an array of all matching files in and below current directory.
      *
      * @param string $pattern Preg_match pattern (Defaults to: .*)
-     * @param bool $sort
+     * @param bool   $sort    sort files or not
+     *
      * @return array Files matching $pattern
      * @access public
      */
     public function findRecursive($pattern = '.*', $sort = false)
     {
         $startsOn = $this->path;
-        $out = $this->_findRecursive($pattern, $sort);
+        $out = $this->findRecursiveHelper($pattern, $sort);
         $this->cd($startsOn);
         return $out;
     }
@@ -251,11 +237,12 @@ class XoopsFolderHandler
      * Private helper function for findRecursive.
      *
      * @param string $pattern Pattern to match against
-     * @param bool $sort
+     * @param bool   $sort    sort files or not.
+     *
      * @return array Files matching pattern
      * @access private
      */
-    private function _findRecursive($pattern, $sort = false)
+    private function findRecursiveHelper($pattern, $sort = false)
     {
         list ($dirs, $files) = $this->read($sort);
         $found = array();
@@ -276,11 +263,12 @@ class XoopsFolderHandler
      * Returns true if given $path is a Windows path.
      *
      * @param string $path Path to check
+     *
      * @return boolean true if windows path, false otherwise
      * @access public
      * @static
      */
-    static function isWindowsPath($path)
+    public static function isWindowsPath($path)
     {
         if (preg_match('/^[A-Z]:\\\\/i', $path)) {
             return true;
@@ -292,11 +280,12 @@ class XoopsFolderHandler
      * Returns true if given $path is an absolute path.
      *
      * @param string $path Path to check
+     *
      * @return bool
      * @access public
      * @static
      */
-    static function isAbsolute($path)
+    public static function isAbsolute($path)
     {
         $match = preg_match('/^\\//', $path) || preg_match('/^[A-Z]:\\//i', $path);
         return $match;
@@ -306,11 +295,12 @@ class XoopsFolderHandler
      * Returns a correct set of slashes for given $path. (\\ for Windows paths and / for other paths.)
      *
      * @param string $path Path to check
+     *
      * @return string Set of slashes ("\\" or "/")
      * @access public
      * @static
      */
-    static function normalizePath($path)
+    public static function normalizePath($path)
     {
         if (self::isWindowsPath($path)) {
             return '\\';
@@ -322,11 +312,12 @@ class XoopsFolderHandler
      * Returns a correct set of slashes for given $path. (\\ for Windows paths and / for other paths.)
      *
      * @param string $path Path to check
+     *
      * @return string Set of slashes ("\\" or "/")
      * @access public
      * @static
      */
-    static function correctSlashFor($path)
+    public static function correctSlashFor($path)
     {
         if (self::isWindowsPath($path)) {
             return '\\';
@@ -338,11 +329,12 @@ class XoopsFolderHandler
      * Returns $path with added terminating slash (corrected for Windows or other OS).
      *
      * @param string $path Path to check
+     *
      * @return string Path with ending slash
      * @access public
      * @static
      */
-    static function slashTerm($path)
+    public static function slashTerm($path)
     {
         if (self::isSlashTerm($path)) {
             return $path;
@@ -353,13 +345,14 @@ class XoopsFolderHandler
     /**
      * Returns $path with $element added, with correct slash in-between.
      *
-     * @param string $path Path
+     * @param string $path    Path
      * @param string $element Element to and at end of path
+     *
      * @return string Combined path
      * @access public
      * @static
      */
-    static function addPathElement($path, $element)
+    public static function addPathElement($path, $element)
     {
         return self::slashTerm($path) . $element;
     }
@@ -367,7 +360,7 @@ class XoopsFolderHandler
     /**
      * Returns true if the File is in a given XoopsPath.
      *
-     * @param string $path
+     * @param string $path path to look for file in
      *
      * @return bool
      * @access public
@@ -382,8 +375,9 @@ class XoopsFolderHandler
     /**
      * Returns true if the File is in given path.
      *
-     * @param string $path
-     * @param bool $reverse
+     * @param string $path    Path to search
+     * @param bool   $reverse reverse lookup
+     *
      * @return bool
      */
     public function inPath($path = '', $reverse = false)
@@ -405,10 +399,11 @@ class XoopsFolderHandler
     /**
      * Change the mode on a directory structure recursively.
      *
-     * @param string $path The path to chmod
-     * @param int|bool  $mode octal value 0755
-     * @param bool $recursive chmod recursively
-     * @param array $exceptions array of files, directories to skip
+     * @param string   $path       The path to chmod
+     * @param int|bool $mode       octal value 0755
+     * @param bool     $recursive  chmod recursively
+     * @param array    $exceptions array of files, directories to skip
+     *
      * @return bool Returns TRUE on success, FALSE on failure
      * @access public
      */
@@ -452,9 +447,10 @@ class XoopsFolderHandler
     /**
      * Returns an array of nested directories and files in each directory
      *
-     * @param string $path the directory path to build the tree from
+     * @param string  $path   the directory path to build the tree from
      * @param boolean $hidden return hidden files and directories
-     * @param string $type either file or dir. null returns both files and directories
+     * @param string  $type   either file or dir. null returns both files and directories
+     *
      * @return mixed array of nested directories and files in each directory
      * @access public
      */
@@ -468,7 +464,7 @@ class XoopsFolderHandler
         $directories = array();
         while (count($this->directories)) {
             $dir = array_pop($this->directories);
-            $this->_tree($dir, $hidden);
+            $this->treeHelper($dir, $hidden);
             array_push($directories, $dir);
         }
         if ($type === null) {
@@ -485,17 +481,22 @@ class XoopsFolderHandler
     /**
      * Private method to list directories and files in each directory
      *
-     * @param string $path
-     * @param  boolean $hidden
+     * @param string  $path   path name of directory
+     * @param boolean $hidden show hidden files
+     *
      * @access private
+     *
+     * @return void
      */
-    private function _tree($path, $hidden)
+    private function treeHelper($path, $hidden)
     {
         if (is_dir($path)) {
             $dirHandle = opendir($path);
             while (false !== ($item = readdir($dirHandle))) {
                 $found = false;
-                if (($hidden === true && $item != '.' && $item != '..') || ($hidden === false && !preg_match('/^\\.(.*)$/', $item))) {
+                if (($hidden === true && $item != '.' && $item != '..')
+                    || ($hidden === false && !preg_match('/^\\.(.*)$/', $item))
+                ) {
                     $found = $path . '/' . $item;
                 }
                 if ($found !== false) {
@@ -513,8 +514,9 @@ class XoopsFolderHandler
     /**
      * Create a directory structure recursively.
      *
-     * @param string $pathname The directory structure to create
-     * @param int|bool $mode octal value 0755
+     * @param string   $pathname The directory structure to create
+     * @param int|bool $mode     octal value 0755
+     *
      * @return bool Returns TRUE on success, FALSE on failure
      * @access public
      */
@@ -586,6 +588,7 @@ class XoopsFolderHandler
      * Recursively Remove directories if system allow.
      *
      * @param string $path Path of directory to delete
+     *
      * @return boolean Success
      * @access public
      */
@@ -631,6 +634,7 @@ class XoopsFolderHandler
      * Recursive directory copy.
      *
      * @param array $options (to, from, chmod, skip)
+     *
      * @return bool
      * @access public
      */
@@ -642,7 +646,14 @@ class XoopsFolderHandler
             $options = array();
         }
         $options = array_merge(
-            array('to' => $to, 'from' => $this->path, 'mode' => $this->mode, 'skip' => array()), $options);
+            array(
+                'to' => $to,
+                'from' => $this->path,
+                'mode' => $this->mode,
+                'skip' => array()
+            ),
+            $options
+        );
 
         $fromDir = $options['from'];
         $toDir = $options['to'];
@@ -700,6 +711,7 @@ class XoopsFolderHandler
      * Recursive directory move.
      *
      * @param array $options (to, from, chmod, skip)
+     *
      * @return boolean Success
      * @access public
      */
@@ -711,7 +723,14 @@ class XoopsFolderHandler
             $options = (array)$options;
         }
         $options = array_merge(
-            array('to' => $to, 'from' => $this->path, 'mode' => $this->mode, 'skip' => array()), $options);
+            array(
+                'to' => $to,
+                'from' => $this->path,
+                'mode' => $this->mode,
+                'skip' => array()
+            ),
+            $options
+        );
         if ($this->copy($options)) {
             if ($this->delete($options['from'])) {
                 return $this->cd($options['to']);
@@ -746,6 +765,7 @@ class XoopsFolderHandler
      * Get the real path (taking ".." and such into account)
      *
      * @param string $path Path to resolve
+     *
      * @return string The resolved path
      */
     public function realpath($path)
@@ -785,11 +805,12 @@ class XoopsFolderHandler
      * Returns true if given $path ends in a slash (i.e. is slash-terminated).
      *
      * @param string $path Path to check
+     *
      * @return boolean true if path ends with slash, false otherwise
      * @access public
      * @static
      */
-    static function isSlashTerm($path)
+    public static function isSlashTerm($path)
     {
         if (preg_match('/[\/\\\]$/', $path)) {
             return true;

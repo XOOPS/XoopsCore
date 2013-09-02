@@ -12,17 +12,17 @@
 /**
  * CAPTCHA for Recaptcha mode
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      captcha
- * @since           2.5.2
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * PHP 5.3
+ *
+ * @category  Xoops\Class\Captcha\CaptchaRecaptcha
+ * @package   CaptchaRecaptcha
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsCaptchaRecaptcha extends XoopsCaptchaMethod
 {
     /**
@@ -42,14 +42,14 @@ class XoopsCaptchaRecaptcha extends XoopsCaptchaMethod
      */
     public function render()
     {
-        require_once dirname(__FILE__) . '/recaptcha/recaptchalib.php';
+        include_once dirname(__FILE__) . '/recaptcha/recaptchalib.php';
         $form = "<script type=\"text/javascript\">
             var RecaptchaOptions = {
             theme : '" . (empty($this->config['theme']) ? '' : $this->config['theme']) . "',
             lang : '" . (empty($this->config['lang']) ? '' : $this->config['lang']) . "'
             };
             </script>";
-		$public_key = empty($this->config['public_key']) ? '' : $this->config['public_key'];
+        $public_key = empty($this->config['public_key']) ? '' : $this->config['public_key'];
         $form .= recaptcha_get_html($public_key);
         return $form;
     }
@@ -57,13 +57,13 @@ class XoopsCaptchaRecaptcha extends XoopsCaptchaMethod
     /**
      * XoopsCaptchaRecaptcha::verify()
      *
-     * @param $sessionName
+     * @param $sessionName name of session
      * @return bool
      */
     public function verify($sessionName = null)
     {
         $is_valid = false;
-        require_once dirname(__FILE__) . '/recaptcha/recaptchalib.php';
+        include_once dirname(__FILE__) . '/recaptcha/recaptchalib.php';
         if (!empty($_POST['recaptcha_response_field'])) {
             $resp = recaptcha_check_answer($this->config['private_key'], $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
             if (!$resp->is_valid) {

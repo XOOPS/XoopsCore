@@ -12,24 +12,16 @@
 /**
  * XOOPS Authentication base class
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      auth
- * @since           2.0
- * @author          Pierre-Eric MENUET <pemphp@free.fr>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
+ * PHP 5.3
  *
- * @package class
- * @subpackage auth
- * @description Authentication base class
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @category  Xoops\Class\Auth\Auth
+ * @package   Auth
+ * @author    Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
 class XoopsAuth extends Xoops_Auth
 {

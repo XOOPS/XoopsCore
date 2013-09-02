@@ -14,7 +14,7 @@
  *
  * PHP version 5.3
  *
- * @category  Xoops\Database\Connection
+ * @category  Xoops\Class\Database\Connection
  * @package   Connection
  * @author    readheadedrod <redheadedrod@hotmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
@@ -27,17 +27,74 @@
 class XoopsConnection extends \Doctrine\DBAL\Connection
 {
     /**
-     * @var bool $safe true means it is safe to update pages or write to database
+     * @var bool $safe true means it is safe to write to database
      * removed allowedWebChanges as unnecessary. Using this instead.
      */
-    private $safe = true;
+    protected static $safe;
 
 
     /**
-     * @var bool $force true means force SQL even if safe is not true.
+     * @var bool $force true means force writing to database even if safe is not true.
      */
-    private $force = false;
+    protected static $force;
 
+    /**
+     * @var bool $transactionActive true means a transaction is in process.
+     */
+    protected static $transactionActive;
+
+
+    /**
+     * this is a public setter for the safe variable
+     *
+     * @param bool $safe set safe to true if safe to write data to database
+     *
+     * @return void
+     */
+    public static function setSafe($safe = true)
+    {
+        if (is_bool($safe)) {
+            self::$safe = $safe;
+        }
+    }
+
+    /**
+     * this is a public getter for the safe variable
+     *
+     * @param bool $safe true if safe to write data to database
+     *
+     * @return void
+     */
+    public static function getSafe()
+    {
+        return self::$safe;
+    }
+
+    /**
+     * this is a public setter for the $force variable
+     *
+     * @param bool $force when true will force a write to database when safe is false.
+     *
+     * @return void
+     */
+    public static function setForce($force = false)
+    {
+        if (is_bool($force)) {
+            self::$force = $force;
+        }
+    }
+
+    /**
+     * this is a public getter for the $force variable
+     *
+     * @param bool $force true if safe to write data to database
+     *
+     * @return void
+     */
+    public static function getForce()
+    {
+        return self::$force;
+    }
 
     /**
      * Initializes a new instance of the Connection class.
@@ -56,10 +113,12 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
         \Doctrine\Common\EventManager $eventManager = null
     ) {
         if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] != 'GET')) {
-            $this->safe = true;
+            self::setSafe(true);
         } else {
-            $this->safe = false;
+            self::setSafe(false);
         }
+        self::setForce(false);
+        self::$transactionActive = false;
         parent::__construct($params, $driver, $config, $eventManager);
     }
 
@@ -95,7 +154,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
     public function insertPrefix($tableName, array $data, array $types = array())
     {
         $tableName = $this->prefix($tableName);
-        return $this->insert($tableName, $data, $types);
+        return $this->update($tableName, $data, $types);
     }
 
 
@@ -119,17 +178,17 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
         return $this->update($tableName, $data, $identifier, $types);
     }
 
-
     /**
      * Executes an SQL DELETE statement on a table.
      *
-     * Adds prefix to the name of the table then passes to normal function.
+     * Adds prefix to the name of the table then passes to delete function.
      *
      * @param string $tableName  The name of the table on which to delete.
      * @param array  $identifier The deletion criteria.
      * An associative array containing column-value pairs.
      *
      * @return integer The number of affected rows.
+     *
      */
     public function deletePrefix($tableName, array $identifier)
     {
@@ -137,58 +196,148 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
         return $this->delete($tableName, $identifier);
     }
 
-
+    /**
+     * Executes an, optionally parameterized, SQL query.
+     *
+     * If the query is parameterized, a prepared statement is used.
+     * If an SQLLogger is configured, the execution is logged.
+     *
+     * @param string            $query  The SQL query to execute.
+     * @param array             $params The parameters to bind to the query, if any.
+     * @param array             $types  The types the previous parameters are in.
+     * @param QueryCacheProfile $qcp    The query Cache profile
+     *
+     * @return \Doctrine\DBAL\Driver\Statement The executed statement.
+     *
+     * @internal PERF: Directly prepares a driver statement, not a wrapper.
+     */
+    public function executeQuery(
+        $query,
+        array $params = array(),
+        $types = array(),
+        \Doctrine\DBAL\Cache\QueryCacheProfile $qcp = null
+    ) {
+        return parent::executeQuery($query, $params, $types, $qcp);
+    }
 
     /**
-     * perform a query on the database
-     * Always performs query and triggers timer to time it
+     * Executes an SQL INSERT/UPDATE/DELETE query with the given parameters
+     * and returns the number of affected rows.
      *
-     * @return bool|resource query result or FALSE if not successful
-     * or TRUE if successful and no result
+     * This method supports PDO binding types as well as DBAL mapping types.
+     *
+     * This over ridding process checks to make sure it is safe to do these.
+     * If force is active then it will over ride the safe setting.
+     *
+     * @param string $query  The SQL query.
+     * @param array  $params The query parameters.
+     * @param array  $types  The parameter types.
+     *
+     * @return integer The number of affected rows.
+     *
+     * @internal PERF: Directly prepares a driver statement, not a wrapper.
+     *
+     * @todo build a better exception catching system.
      */
-    public function queryForce()
+    public function executeUpdate($query, array $params = array(), array $types = array())
     {
-        $sql = func_get_arg(0);
+        $result = 0;
         $xoopsPreload = XoopsPreload::getInstance();
-        $xoopsPreload->triggerEvent('core.database.query.start');
-        try {
-            $result = call_user_func_array(array('parent', 'query'), func_get_args());
-        } catch (Exception $e) {
-            $result=false;
+        if (self::getSafe() || self::getForce()) {
+            if (!self::$transactionActive) {
+                self::setForce(false);
+            };
+            $xoopsPreload->triggerEvent('core.database.query.start');
+            try {
+                $result = parent::executeUpdate($query, $params, $types);
+            } catch (Exception $e) {
+                $result = 0;
+            }
+            $xoopsPreload->triggerEvent('core.database.query.end');
+        } else {
+            //$xoopsPreload->triggerEvent('core.database.query.failure', (array('Not safe:')));
+            return 0;
         }
-        /* if(is_object($result)) {
-            $this->_lastResult = clone $result;
-        } */  // Remove if not using getAffectedRows
-        $xoopsPreload->triggerEvent('core.database.query.end');
-
-        if ($result) {
-            $xoopsPreload->triggerEvent('core.database.query.success', (array($sql)));
+        if ($result != 0) {
+            //$xoopsPreload->triggerEvent('core.database.query.success', (array($query)));
             return $result;
         } else {
-            $xoopsPreload->triggerEvent('core.database.query.failure', (array($sql, $this)));
-            return false;
+            //$xoopsPreload->triggerEvent('core.database.query.failure', (array($query)));
+            return 0;
         }
+    }
+
+    /**
+     * Starts a transaction by suspending auto-commit mode.
+     *
+     * @return void
+     */
+    public function beginTransaction()
+    {
+        self::$transactionActive = true;
+        parent::beginTransaction();
+    }
+
+    /**
+     * Commits the current transaction.
+     *
+     * @return void
+     */
+    public function commit()
+    {
+        self::$transactionActive = false;
+        self::setForce(false);
+        parent::commit();
+    }
+
+    /**
+     * rolls back the current transaction.
+     *
+     * @return void
+     */
+    public function rollBack()
+    {
+        self::$transactionActive = false;
+        self::setForce(false);
+        parent::rollBack();
     }
 
     /**
      * perform a safe query if allowed
      * can receive variable number of arguments
      *
-     * @return returns the value received from queryForce
+     * @return returns the value received or null if nothing received.
+     *
+     * @todo add error report for using non select while not safe.
+     * @todo need to check if doctrine allows more than one query to be sent.
+     * This code assumes only one query is sent and anything else sent is not
+     * a query. This will have to be readdressed if this is wrong.
+     *
      */
     public function query()
     {
-        if ($this->safe) {
-            return call_user_func_array(array($this, "queryForce"), func_get_args());
-        } else {
+        $xoopsPreload = XoopsPreload::getInstance();
+        if (!self::getSafe() && !self::getForce()) {
             $sql = ltrim(func_get_arg(0));
-            if (!$this->safe && strtolower(substr($sql, 0, 6))!= 'select') {
-                //trigger_error('Database updates are not allowed
-                //during processing of a GET request', E_USER_WARNING);
-                //needs to be replaced with standard error
-                return false;
+            if (!self::getSafe() && strtolower(substr($sql, 0, 6))!= 'select') {
+                // $xoopsPreload->triggerEvent('core.database.query.failure', (array('Not safe:')));
+                return null;
             }
-            return call_user_func_array(array($this, "queryForce"), func_get_args());
+        }
+        self::setForce(false); // resets $force back to false
+        $xoopsPreload->triggerEvent('core.database.query.start');
+        try {
+            $result = call_user_func_array(array('parent', 'query'), func_get_args());
+        } catch (Exception $e) {
+            $result=null;
+        }
+        $xoopsPreload->triggerEvent('core.database.query.end');
+        if ($result) {
+            //$xoopsPreload->triggerEvent('core.database.query.success', (array('')));
+            return $result;
+        } else {
+            //$xoopsPreload->triggerEvent('core.database.query.failure', (array('')));
+            return null;
         }
     }
 
@@ -206,12 +355,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
             $sql_queries = trim(fread($fp, filesize($file)));
             SqlUtility::splitMySqlFile($pieces, $sql_queries);
             foreach ($pieces as $query) {
-                // [0] contains the prefixed query
-                // [4] contains unprefixed table name
-                $prefixed_query = SqlUtility::prefixQuery(
-                    trim($query),
-                    $this->prefix()
-                );
+                $prefixed_query = SqlUtility::prefixQuery(trim($query), $this->prefix());
                 if ($prefixed_query != false) {
                     $this->query($prefixed_query[0]);
                 }
@@ -220,6 +364,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
         }
         return false;
     }
+
 
     /**
      * Create a new instance of a SQL query builder.

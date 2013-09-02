@@ -10,38 +10,34 @@
 */
 
 /**
- * File factory For XOOPS
- *
- * @copyright   The XOOPS project http://www.xoops.org/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package     class
- * @subpackage  file
- * @since       2.3.0
- * @author      Taiwen Jiang <phppp@users.sourceforge.net>
- * @version     $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
  * XoopsFile
  *
- * @package
- * @author Taiwen Jiang <phppp@users.sourceforge.net>
- * @access public
+ * File factory For XOOPS
+ *
+ * PHP 5.3
+ *
+ * @category  Xoops\Class\Cache\CacheApc
+ * @package   CacheApc
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   $Id$
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
 class XoopsFile
 {
     /**
      * XoopsFile::getHandler()
      *
-     * @param string $name
-     * @param mixed $path
-     * @param mixed $create
-     * @param mixed $mode
+     * @param string $name   name of file
+     * @param mixed  $path   path file is in
+     * @param mixed  $create create file if needed
+     * @param mixed  $mode   mode on file created
+     *
      * @return XoopsFileHandler|XoopsFolderHandler|bool
      */
-    static function getHandler($name = 'file', $path = false, $create = false, $mode = null)
+    public static function getHandler($name = 'file', $path = false, $create = false, $mode = null)
     {
         $handler = null;
         $name = strtolower(trim($name));
@@ -49,7 +45,10 @@ class XoopsFile
         if (in_array($name, array('file', 'folder'))) {
             $handler = new $class($path, $create, $mode);
         } else {
-            trigger_error('Class ' . $class . ' not exist in File ' . __FILE__ . ' at Line ' . __LINE__, E_USER_WARNING);
+            trigger_error(
+                'Class ' . $class . ' not exist in File ' . __FILE__ . ' at Line ' . __LINE__,
+                E_USER_WARNING
+            );
             return false;
         }
         return $handler;
