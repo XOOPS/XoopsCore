@@ -9,3 +9,5 @@ htdocs/xoops_data/caches/xoops_cache/*.php
 htdocs/xoops_data/configs/*.php
 htdocs/xoops_data/data/secure.php
 htdocs/xoops_lib/vendor/
+htdocs/xoops_lib/composer.lock
+htdocs/uploads/banners/
