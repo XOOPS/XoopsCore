@@ -1,4 +1,11 @@
 # no backup files, editor temp
 *~
 \#*
-*.bck
+*.bak
+htdocs/mainfile.php
+htdocs/xoops_data/caches/smarty_cache/*.php
+htdocs/xoops_data/caches/smarty_compile/*.php
+htdocs/xoops_data/caches/xoops_cache/*.php
+htdocs/xoops_data/configs/*.php
+htdocs/xoops_data/data/secure.php
+htdocs/xoops_lib/vendor/
