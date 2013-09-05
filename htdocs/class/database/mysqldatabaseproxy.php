@@ -1,5 +1,5 @@
 <?php
-/**
+/*
   You may not change or alter any portion of this comment or credits
   of supporting developers from this source code or any supporting source code
   which is considered copyrighted (c) material of the original comment or credit authors.
@@ -46,8 +46,7 @@ class XoopsMySQLDatabaseProxy extends XoopsMySQLDatabase
      */
     public function query($sql, $limit = 0, $start = 0)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->query() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
         $sql = ltrim($sql);
         if (!$this->allowWebChanges && strtolower(substr($sql, 0, 6)) != 'select') {
             //trigger_error('Database updates are not allowed during processing of a GET request', E_USER_WARNING);

@@ -58,7 +58,21 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     private $selectdb;
 
-
+    /**
+     * Issue a deprecated warning once per session
+     * 
+     * @return void
+     */
+    protected function deprecated()
+    {
+        static $warning_issued = false;
+        if (!$warning_issued) {
+            $warning_issued = true;
+            Xoops::getInstance()->deprecated(
+                'Legacy XoopsDB is deprecated since 2.6.0. Now using Doctrine through $xoops->db()'
+            );
+        }
+    }
 
 
     /**
@@ -71,8 +85,6 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function connect($selectdb = true)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->connect() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
         $this->connect = (is_object($this->conn));
         $this->selectdb = $selectdb;
         $this->allowWebChanges = ($_SERVER['REQUEST_METHOD'] != 'GET');
@@ -93,8 +105,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function genId($sequence)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
         return 0; // will use auto_increment
     }
 
@@ -108,8 +119,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function fetchRow($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->fetchRow() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
         if (!is_object($result)) {
             return null;
         }
@@ -126,8 +136,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function fetchArray($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->fetchArray() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         if (!is_object($result)) {
             return null;
@@ -145,8 +154,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function fetchBoth($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->fetchBoth() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         if (!is_object($result)) {
             return null;
@@ -164,8 +172,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function fetchObject($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->fetchObject() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         if (!is_object($result)) {
             return null;
@@ -181,8 +188,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getInsertId()
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->getInsertID() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
         return $this->conn->lastInsertId();
     }
 
@@ -196,8 +202,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getRowsNum($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->getRowsNum() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
         return $result->rowCount();
     }
 
@@ -209,11 +214,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getAffectedRows()
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated(
-            'XoopsDB->getAffectedRows() is deprecated since 2.6.0.'
-            .' Now using Doctrine through $xoops->db()'
-        );
+        $this->deprecated();
 
         if (!is_object($this->lastResult)) {
             return null;
@@ -229,8 +230,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function close()
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->close() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         $this->conn->close();
     }
@@ -245,10 +245,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function freeRecordSet($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated(
-            'XoopsDB->freeRecordSet() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()'
-        );
+        $this->deprecated();
 
         return $result->closeCursor();
     }
@@ -262,8 +259,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function error()
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->error() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         return $this->conn->errorInfo();
     }
@@ -278,8 +274,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function errno()
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->errno() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         return $this->conn->errorCode();
     }
@@ -295,8 +290,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function quoteString($str)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->quoteString() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         return $this->quote($str);
     }
@@ -311,8 +305,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function quote($string)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->quote() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         return  str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $this->conn->quote($string)));
     }
@@ -330,8 +323,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function queryF($sql, $limit = 0, $start = 0)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->queryF() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
         if (!empty($limit)) {
             if (empty($start)) {
@@ -375,8 +367,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function query($sql, $limit = 0, $start = 0)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->query() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
 
     }
 
@@ -391,10 +382,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function queryFromFile($file)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated(
-            'XoopsDB->queryFromFile() is deprecated since 2.6.0. Use $xoops->db()->queryFromFile()'
-        );
+        $this->deprecated();
 
         if (false !== ($fp = fopen($file, 'r'))) {
             $sql_queries = trim(fread($fp, filesize($file)));
@@ -424,10 +412,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getFieldName($result, $offset)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated(
-            'XoopsDB->getFieldName() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()'
-        );
+        $this->deprecated();
 
         try {
             $temp = $result->getColumnMeta($offset);
@@ -449,10 +434,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getFieldType($result, $offset)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated(
-            'XoopsDB->getFieldType() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()'
-        );
+        $this->deprecated();
 
         try {
             $temp = ($result->getColumnMeta($offset));
@@ -489,10 +471,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getFieldsNum($result)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated(
-            'XoopsDB->getFieldsNum() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()'
-        );
+        $this->deprecated();
 
         return $result->columnCount();
     }

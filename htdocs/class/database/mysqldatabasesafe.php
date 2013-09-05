@@ -1,5 +1,5 @@
 <?php
-/**
+/*
   You may not change or alter any portion of this comment or credits
   of supporting developers from this source code or any supporting source code
   which is considered copyrighted (c) material of the original comment or credit authors.
@@ -42,8 +42,7 @@ class XoopsMySQLDatabaseSafe extends XoopsMySQLDatabase
      */
     public function query($sql, $limit = 0, $start = 0)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated('XoopsDB->query() is deprecated since 2.6.0. Now using Doctrine through $xoops->db()');
+        $this->deprecated();
         return $this->queryF($sql, $limit, $start);
     }
 }
