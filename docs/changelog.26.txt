@@ -5,8 +5,177 @@ XOOPS 2.6 Changelog
 ==================================
 
 Updated:
- - jQuery to 1.9.0 (mamba)
+ - jQuery to 1.10.2 with map (geekwright)
  - jQueryUI to 1.10.0 (mamba)
+
+Add composer struture to xoops_lib, with vendor directory and composer.json
+Ongoing add Doctrine/DBAL as main database component (geekwright, redheadedrod)
+Various PSR-2 conformance improvements (redheadedrod, geekwright)
+PHPUnit testing (alain91)
+
+68c21f7 | geekwright | Tone down deprecated warnings on legacy xoopsDB support
+3fdddbe | geekwright | Another tweak to ignore list
+c67b0c7 | geekwright | Add some data locations to ignore
+4c260af | Rodney | Removed reference to class not yet added to commit.
+29f6822 | Rodney | PSR2 related stuff with some minor bug fixes.
+a11dcf9 | Rodney | Updated xml files for unit tests so they would run with Doctrine. a0fb5df | Mamba | Fixing issue #1: missing definition of XOOPS_PATH in Installation
+b7625e2 | geekwright | Fresh start import of XoopsCore 2.6.0 from Sourceforge SVN
+     --- Switch from Sourceforge SVN to GitHub ---
+r11976 | redheadedrod | Updated all files in the class/database - code sniffer
+r11967 | redheadedrod | Updated 2.6 database connectors. 
+r11966 | rgriffith | Fix for legacy DB support, Not seeing $GLOBALS['xoopsDB']
+r11965 | rgriffith | Add Prefix and PSR cleanup
+r11964 | redheadedrod | Updated protector/include/postcheck_functions.php
+r11961 | rgriffith | Error on login - Xoops_Auth_Xoops using typed dao
+r11958 | rgriffith | Add just enough error checking to limp through install.
+r11957 | rgriffith | XoopsConnection now autoloads, remove require of class file
+r11956 | rgriffith | Add xoopsconnection to autoloader map
+r11955 | rgriffith | Rename from xoopsdatabase to connection
+r11954 | rgriffith | From redheadedrod - All core db calls are explicitly legacy
+r11953 | rgriffith | Doctrine DBAL Implementation
+r11934 | beckmi | Fixing preg_replace /e in textsanitizer for PHP 5.5.x
+r11933 | beckmi | adding logger to Extensions to be installed by default
+r11932 | beckmi | bug: in XOOPS installation, preloads couldn't find Logger
+r11931 | beckmi | Moving _PROFILE_MA_THEME to modinfo.php (not visible during install)
+r11929 | rgriffith | Remove random number appended to id of hidden elements.
+r11928 | rgriffith | Fix Strict error -  Only variables should be passed by reference
+r11927 | rgriffith | Absolute links were ignored
+r11926 | rgriffith | Expose debug and log in Dummy module helper
+r11925 | rgriffith | Fix misplaced parentheses tcaused fatal error in firephp logger
+r11874 | beckmi | replacing deprecated preg_replace for PHP 5.5
+r11703 | beckmi | Replacing Tabs with spaces
+r11461 | beckmi | improving protection against spam by turning off registration's 1st step saving (timgno)
+r11371 | txmodxoops | fix bug for keywords
+r11324 | mageg | Change RenderImageNav to RenderImage
+r11294 | mageg | fix temporary the problem of displaying icons
+r11182 | beckmi | Adding two more new error messages
+r11181 | beckmi | Adding new error message
+r11162 | beckmi | Updating minimum PHP version to 5.3
+r11082 | mageg | Fix error in banners module
+r11055 | mageg | change local in avatars extensions
+r11051 | mageg | Fix error. Trabis you can confirm me if I can remove it
+r11049 | mageg | Modification of icons.html change. (this is not the best solution, to change later)
+r11048 | mageg | add message if you doen't have banners
+r11047 | mageg | add default title for alert
+r11046 | mageg | add blank.gif for TDMCreate
+r11043 | trabis | Deleting userconfigs on module uninstall
+r11042 | trabis | Fixing tooltip in blocks admin
+r11041 | mageg | fix error image in block
+r11040 | mageg | fix error with local
+r11039 | mageg | fix error with icon menu in admin theme
+r11038 | mageg | Fix error in admin menu
+r11037 | mageg | Delete uploads/banners.
+r11015 | trabis | Forgot to add this file in last update
+r11014 | trabis | Adding locale for themes
+r11012 | trabis | Integrating locale in xoops configs
+r11011 | trabis | Removing some unused constants
+r11010 | trabis | Localizing system users
+r11007 | trabis | Localizing tplsets
+r10993 | trabis | Localizing group
+r10992 | trabis | Fixing security issues.
+r10971 | trabis | Localizing system modulesadmin.php
+r10970 | trabis | Localizing system blocksadmin.php
+r10968 | trabis | Localizing system admin.php
+r10966 | trabis | Updating system cpanel locale
+r10965 | trabis | Updating locale for system blocks
+r10964 | trabis | Adding locale to system xoops_version and preferences page
+r10962 | dugris | Fix template use XoopsLocale::translate
+r10959 | mageg | fixe error in installation of avatar
+r10958 | dugris | Fix plugin
+r10956 | trabis | Temporary fix for locale during install
+r10950 | dugris | update jquery.jgrowl.js and css
+r10949 | dugris | Fix : return false if not insert/update
+r10946 | dugris | use Xoopslocale
+r10945 | dugris | change logo path
+r10944 | dugris | Refactoring page module
+r10943 | dugris | Fix : Add id (module dirname)
+r10942 | dugris | Fix : blockform (add hidden element)
+r10941 | trabis | Updating user language
+r10940 | mageg | fix error with prelods for userinfo.php
+r10935 | mageg | Fix errors when you synchronize a user (in page and in comments)
+r10934 | mageg | Add templates for readpmsg.php and fix some errors
+r10933 | txmodxoops | Added more leight width
+r10928 | trabis | Partial update of user languages...
+r10925 | trabis | Updating mailerlocal
+r10924 | trabis | Adding css and image folder
+r10923 | trabis | Adding mail templates
+r10922 | trabis | Updating uploader language
+r10921 | trabis | Fixing locale inclusion
+r10920 | trabis | Updating timezone language
+r10919 | mageg | Improving call to notifications handler
+r10918 | trabis | Improving call to comments handler
+r10917 | trabis | Updating search language
+r10916 | mageg | update page
+r10915 | trabis | Improving call for notification handler
+r10914 | trabis | Some more languages...
+r10913 | mageg | fix error in comments extenions with notifcations
+r10911 | mageg | remove codex from user menu
+r10910 | mageg | fix error in checklogin.php
+r10909 | trabis | More language updates...
+r10905 | trabis | Updating some more language files...
+r10904 | trabis | Updating findusers language
+r10903 | trabis | Updating more languages...
+r10902 | trabis | Deleting unused files. Updating calls from XoopsLocal to XoopsLocale
+r10900 | trabis | Updating captcha language
+r10899 | trabis | Updating auth and calendar languages
+r10898 | trabis | Reverting jQuery, accidentally committed in last revision
+r10897 | trabis | Using XoopsLocale instead of 'admin.php'
+r10892 | trabis | Updating avatars locale
+r10891 | mageg | update avatar extensions
+r10890 | trabis | Adding and removing some constants.
+r10889 | trabis | Using locale on avatars module for testing proposes
+r10888 | trabis | Translate using dirname instead of class
+r10886 | trabis | Lazy loading module locales
+r10885 | trabis | Updating languages. Adding smarty function.
+r10877 | mageg | Delete uploads/avatars.
+r10876 | mageg | now profile use avatar extension
+r10873 | txmodxoops | Added two new icons for fields
+r10869 | beckmi | Updating jQueryUI to 1.10.0
+r10866 | trabis | Forgot to add this file yesterday, sorry :)
+r10865 | mageg | -Fix verry old bug (since 2.5) with the management of avatars. Avatar is now independent of the core. User management is now in avatar.php.
+r10863 | trabis | Adding some locale files.
+r10860 | beckmi | Fixing info for PHP 5.3 as requirement (currently it's PHP 5.2)
+r10859 | mageg | fix bug in avatars extensions. the system could remove blank.gif
+r10858 | mageg | update avatars extension with $xoops->alert(), refactor popup.html and fix somes bugs
+r10856 | mageg | Little changes in smilies
+r10855 | beckmi | Fixing check for PHP 5.3 (currently users can keep installing with PHP 5.2)
+r10854 | mageg | add alert in smilies extension and fix bug with size of smilie when you upload a smilie too large.
+r10853 | mageg | fix bug in admin_tips.html
+r10851 | mageg | change $xoops->error() to $xoops->alert()
+r10850 | mageg | change $xoops->result() to $xoops->alert()
+r10849 | mageg | add alert.php in codex
+r10848 | mageg | add new function in xoops.php. $xoops->alert(). Now $xoops->error() and $xoops->result() are deprecated
+r10847 | trabis | Fixing typo in smilies template
+r10840 | trabis | missing / in system xoops_version.php
+r10839 | dugris | delete jquery ui duplicate content in modules/system/css
+r10837 | mageg | Sommes fix
+r10836 | mageg | Fix bug with imagemaner (upload size and save). Add messages errors. Fix templates 
+r10835 | mageg | Remove $maxfilesize from formfile.php. This is deprecated and generates a bug when the file size is too big. The class uploader now works correctly.
+r10834 | beckmi | Updating jQuery to 1.9.0 Final
+r10832 | trabis | Publisher - fixing popeye
+r10831 | trabis | publisher - fixing image preview in form
+r10830 | trabis | Xlanguage - Using 'common' preload instead of 'header' to avoid errors
+r10829 | trabis | removing extra space
+r10828 | trabis | reverting XoopsLoad::fileExists() for thumbs class
+r10826 | dugris | Fix : Initializing metas (
+r10823 | trabis | changing getNotificationHandler to getHandlerNotification for convention
+r10822 | trabis | Changing file name for convention
+r10821 | trabis | Updating notifications and comments to allow install/uninstall/update without having to update other modules 
+r10820 | mageg | Add template for pmlite.php
+r10819 | mageg | Add uninstall (text and icon) in "large View" in module manager
+r10818 | mageg | use bootstrap for system_confirm
+r10817 | mageg | update pm module (through all the templates)
+r10816 | trabis | Adding preloads to simpleheader to avoid errors on popup. Fixing undefined variable.
+r10815 | trabis | Fixing bug in publisher
+r10814 | mageg | remove ranks table
+r10813 | mageg | fix validation W3C
+r10812 | mageg | fix error in pm (form)
+r10811 | mageg | Fix simpleHeader
+r10810 | mageg | fix error in formdhtmltextarea.php and formpassword.php
+r10808 | beckmi | Changing version to Alpha 3
+r10806 | beckmi | Updating changelog.26.txt
+r10805 | trabis | Removing tcpdf from publisher
+r10804 | beckmi | Adding TinyMCE 3.5.8 Editor
 
 ==================================
 2013/01/15: Version 2.6.0 Alpha 2
@@ -59,7 +228,7 @@ Updated:
 10730 Add codex samples and icons (dugris)
 10729 fix templates (dugris)
 10724 Comments unused define in all modules and extensions  (mage)
-10714 Note pour DuGris. Afin de simplifier l’installation et la mise à niveaux de xoops dans le futur, nous avons décidé de faire en sorte que les extensions soient complément autonomes. Nous devons donc garder ces lignes et surtout ne pas les tr... (mage)
+10714 Note pour DuGris. Afin de simplifier l?installation et la mise ? niveaux de xoops dans le futur, nous avons d?cid? de faire en sorte que les extensions soient compl?ment autonomes. Nous devons donc garder ces lignes et surtout ne pas les tr... (mage)
 10712 Add things for tinymce (dugris)
 10708 Fix and tinymce add (dugris)
 10707 Fix and tinymce add (dogris)
@@ -698,3 +867,4 @@ if (!$tpl->is_cached('module:system|system_rss.html'))
 
 Languages
  - modules/system/language/admin/avatars.php _AM_SYSTEM_AVATAR_CAT
+ 
