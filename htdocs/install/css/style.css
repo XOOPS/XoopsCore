@@ -116,6 +116,7 @@ img {
     text-shadow: -1px -1px 0px #367599;
 }
 #xo-header ul li span{
+    display:inline-block;
     border-radius: 4px;
     border: 1px solid #FFF;
     background:#FF4400;
