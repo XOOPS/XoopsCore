@@ -256,6 +256,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const EF_IMAGE_SIZE_NOT_FETCHED = "'%s' image size was not fetched, skipping max dimension check...";
     const EF_INVALID_SQL = "SQL '%s' is invalid!";
     const EF_KEYWORDS_MUST_BE_GREATER_THAN = "Keywords must be at least <strong>%s</strong> characters long!";
+    const EF_LOGGER_FILELINE = "%s in file %s line %s";
     const EF_NOTIFICATION_EMAIL_NOT_SENT_TO = "Notification email was not sent to '%s'!";
     const EF_NOT_CREATED = "'%s' was not created!";
     const EF_NOT_DELETED = "'%s' was not deleted!";
@@ -337,6 +338,11 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const E_INVALID_IMAGE_FILE = "Invalid image file!";
     const E_INVALID_USERNAME = "Invalid username!";
     const E_LOADING_MIME_TYPES_DEFINITION = "Error loading mime types definition!";
+    const E_LOGGER_ERROR = "Error";
+    const E_LOGGER_NOTICE = "Notice";
+    const E_LOGGER_STRICT = "Strict";
+    const E_LOGGER_UNKNOWN = "Unknown";
+    const E_LOGGER_WARNING = "Warning";
     const E_MESSAGE_BODY_NOT_SET = "Message body is not set!";
     const E_MESSAGE_TO_LONG = "Your message is too long!";
     const E_MOVE_OUT_OF_DOCUMENT_ROOT = "For security considerations it is highly suggested to move it out of DocumentRoot!";
