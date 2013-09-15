@@ -26,7 +26,7 @@ $modversion['version']     = '1.0';
 $modversion['description'] = SystemLocale::EXTENSIONS_DESC;
 $modversion['author']      = '';
 $modversion['credits']     = 'The XOOPS Project; Andricq Nicolas (AKA MusS)';
-$modversion['help']        = 'page=extension';
+$modversion['help']        = 'page=extensions';
 $modversion['license']     = "GPL see LICENSE";
 $modversion['official']    = 1;
 $modversion['image']       = 'extensions.png';
