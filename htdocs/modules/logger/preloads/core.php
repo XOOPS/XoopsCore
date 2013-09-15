@@ -17,194 +17,415 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
- * Logger core preloads
+ * LegacyLogger core preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @category  LegacyLogger
+ * @package   LegacyLogger
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @version   Release: 1.0
+ * @link      http://xoops.org
+ * @since     1.0
  */
 class LoggerCorePreload extends XoopsPreloadItem
 {
-    static $registry = array();
-
-    static function eventCoreIncludeCommonStart($args)
-    {
-        //Load may fail is cache was erased
-        XoopsLoad::addMap(array('logger' => dirname(dirname(__FILE__)) . '/class/logger.php'));
-        Logger::getInstance()->enable();//until we get a db connection debug is enabled
-        Logger::getInstance()->startTime();
-        Logger::getInstance()->startTime('XOOPS Boot');
-    }
-
+    private static $query_start_time = 0;
+    private static $query_stop_time = 0;
 
     /**
-     * @static
+     * getConfigs
      *
-     * @param $args
+     * @return array of config options
      */
-    static function eventCoreDatabaseNoconn($args)
+    private static function getConfigs()
     {
-        if (!class_exists('logger')) return;
+        static $configs = null;
+
+        if (is_null($configs)) {
+            $xoops = Xoops::getInstance();
+            $user_groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+            $moduleperm_handler = $xoops->getHandlerGroupperm();
+            $helper = $xoops->getModuleHelper('logger');
+            $mid = $helper->getModule()->getVar('mid');
+            if ($moduleperm_handler->checkRight('use_logger', 0, $user_groups, $mid)) {
+                // get default settings
+                $configs['logger_enable'] = $helper->getConfig('logger_enable');
+                $configs['logger_popup'] = $helper->getConfig('logger_popup');
+                $configs['debug_smarty_enable'] = $helper->getConfig('debug_smarty_enable');
+                // override with settings
+                $uchelper = $xoops->getModuleHelper('userconfigs');
+                if ($xoops->isUser() && $uchelper) {
+                    $config_handler = $uchelper->getHandlerConfig();
+                    $user_configs =
+                        $config_handler->getConfigsByUser($xoops->user->getVar('uid'), $mid);
+                    if (array_key_exists('logger_enable', $user_configs)) {
+                        $configs['logger_enable'] = $user_configs['logger_enable'];
+                    }
+                    if (array_key_exists('logger_popup', $user_configs)) {
+                        $configs['logger_popup'] = $user_configs['logger_popup'];
+                    }
+                    if (array_key_exists('debug_smarty_enable', $user_configs)) {
+                        $configs['debug_smarty_enable'] = $user_configs['debug_smarty_enable'];
+                    }
+                }
+            } else {
+                // user has no permissions, turn everything off
+                $configs['logger_enable'] = 0;
+                $configs['logger_popup'] = 0;
+                $configs['debug_smarty_enable'] = 0;
+            }
+        }
+
+        return $configs;
+    }
+
+    /**
+     * eventCoreException
+     *
+     * @param Exception $e an exception
+     *
+     * @return void
+     */
+    public static function eventCoreException($e)
+    {
+        LegacyLogger::getInstance()->addException($e);
+    }
+
+    /**
+     * eventCoreIncludeCommonStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonStart($args)
+    {
+        //Load may fail is cache was erased
+        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
+        LegacyLogger::getInstance()->enable();//until we get a db connection debug is enabled
+        LegacyLogger::getInstance()->startTime();
+        LegacyLogger::getInstance()->startTime('XOOPS Boot');
+    }
+
+    /**
+     * core.database.noconn
+     *
+     * @param array $args arguments
+     *
+     * @return void
+     */
+    public static function eventCoreDatabaseNoconn($args)
+    {
+        if (!class_exists('LegacyLogger')) {
+            return;
+        }
         /* @var $db XoopsConnection */
         $db = $args[0];
-        Logger::getInstance()->addQuery('', $db->error(), $db->errno());
+        LegacyLogger::getInstance()->addQuery('', $db->error(), $db->errno());
     }
 
-    static function eventCoreDatabaseNodb($args)
+    /**
+     * eventCoreDatabaseNodb
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDatabaseNodb($args)
     {
-        if (!class_exists('logger')) return;
+        if (!class_exists('LegacyLogger')) {
+            return;
+        }
         /* @var $db XoopsConnection */
         $db = $args[0];
-        Logger::getInstance()->addQuery('', $db->error(), $db->errno());
+        LegacyLogger::getInstance()->addQuery('', $db->error(), $db->errno());
     }
 
-    static function eventCoreDatabaseQueryStart($args)
+    /**
+     * eventCoreDatabaseQueryStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDatabaseQueryStart($args)
     {
-        Logger::getInstance()->startTime('query_time');
+        self::$query_start_time = microtime(true);
     }
 
-    static function eventCoreDatabaseQueryEnd($args)
+    /**
+     * eventCoreDatabaseQueryEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDatabaseQueryEnd($args)
     {
-        Logger::getInstance()->stopTime('query_time');
-        self::$registry['query_time'] = Logger::getInstance()->dumpTime('query_time', true);
+        self::$query_stop_time = microtime(true);
     }
 
-    static function eventCoreDatabaseQuerySuccess($args)
+    /**
+     * eventCoreDatabaseQuerySuccess
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDatabaseQuerySuccess($args)
     {
         $sql = $args[0];
-        Logger::getInstance()->addQuery($sql, null, null, self::$registry['query_time']);
+        LegacyLogger::getInstance()
+            ->addQuery($sql, null, null, self::$query_stop_time - self::$query_start_time);
     }
 
-    static function eventCoreDatabaseQueryFailure($args)
+    /**
+     * eventCoreDatabaseQueryFailure
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDatabaseQueryFailure($args)
     {
         /* @var $db XoopsConnection */
         $sql = $args[0];
         $db = $args[1];
-        if(method_exists($db, 'error')) {
-            Logger::getInstance()->addQuery($sql, $db->error(), $db->errno(), self::$registry['query_time']);
+        if (method_exists($db, 'error')) {
+            LegacyLogger::getInstance()->addQuery($sql, $db->error(), $db->errno(), self::$registry['query_time']);
         } else {
-                Logger::getInstance()->addQuery($sql, $db->errorInfo(), $db->errorCode(), self::$registry['query_time']);        
+            LegacyLogger::getInstance()
+                ->addQuery($sql, $db->errorInfo(), $db->errorCode(), self::$registry['query_time']);
         }
     }
 
-    static function eventCoreIncludeCommonConfigsSuccess($args)
+    /**
+     * eventCoreIncludeCommonConfigsSuccess
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonConfigsSuccess($args)
     {
+        /*
         $xoops = Xoops::getInstance();
-        $logger = Logger::getInstance();
-        $debug_mode = $xoops->getModuleConfig('debug_mode', 'logger');
-
-        if ($debug_mode == 1 || $debug_mode == 2) {
+        $logger = LegacyLogger::getInstance();
+        $configs = self::getConfigs();
+        if ($configs['logger_enable']) {
             $xoops->loadLocale();
             $xoops->loadLanguage('main', 'logger');
             $logger->enable();
         } else {
             $xoops->disableErrorReporting();
         }
+        */
     }
 
-    static function eventCoreIncludeCommonAuthSuccess($args)
+    /**
+     * eventCoreIncludeCommonAuthSuccess
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonAuthSuccess($args)
     {
         $xoops = Xoops::getInstance();
-        $logger = Logger::getInstance();
-        if ($logger->isEnable()) {
-            $level = $xoops->getModuleConfig('debug_level','logger');
-            if (($level == 2 && !$xoops->userIsAdmin) || ($level == 1 && !$xoops->isUser())) {
-                $xoops->disableErrorReporting();
-            }
+        $logger = LegacyLogger::getInstance();
+        $configs = self::getConfigs();
+        if ($configs['logger_enable']) {
+            $xoops->loadLocale();
+            $xoops->loadLanguage('main', 'logger');
+            $logger->setConfigs($configs);
+            $logger->enable();
+        } else {
+            $logger->disable();
         }
     }
 
-    static function eventCoreIncludeCommonEnd($args)
+    /**
+     * eventCoreIncludeCommonEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonEnd($args)
     {
         XoopsLoad::addMap(array('logger' => dirname(dirname(__FILE__)) . '/class/logger.php'));
 
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
         $logger->startTime('Module init');
     }
 
-    static function eventCoreTemplateConstructStart($args)
+    /**
+     * eventCoreTemplateConstructStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreTemplateConstructStart($args)
     {
-        $xoops = Xoops::getInstance();
         $tpl = $args[0];
-        $debug_mode = $xoops->getModuleConfig('debug_mode', 'logger');
-        if ($debug_mode) {
+        $configs = self::getConfigs();
+        if ($configs['logger_enable']) {
             $tpl->debugging_ctrl = 'URL';
-            if ($debug_mode == 3) {
+        }
+        if ($configs['debug_smarty_enable']) {
                 $tpl->debugging = true;
-            }
         }
     }
 
-    static function eventCoreThemeRenderStart($args)
+    /**
+     * eventCoreThemeRenderStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreThemeRenderStart($args)
     {
-        Logger::getInstance()->startTime('Page rendering');
+        LegacyLogger::getInstance()->startTime('Page rendering');
     }
 
-    static function eventCoreThemeRenderEnd($args)
+    /**
+     * eventCoreThemeRenderEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreThemeRenderEnd($args)
     {
-        Logger::getInstance()->stopTime('Page rendering');
+        LegacyLogger::getInstance()->stopTime('Page rendering');
     }
 
-    static function eventCoreThemeCheckcacheSuccess($args)
+    /**
+     * eventCoreThemeCheckcacheSuccess
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreThemeCheckcacheSuccess($args)
     {
         $template = $args[0];
         $theme = $args[1];
-        Logger::getInstance()->addExtra($template, sprintf('Cached (regenerates every %d seconds)', $theme->contentCacheLifetime));
+        LegacyLogger::getInstance()
+            ->addExtra($template, sprintf('Cached (regenerates every %d seconds)', $theme->contentCacheLifetime));
     }
 
-    static function eventCoreThemeblocksBuildblockStart($args)
+    /**
+     * eventCoreThemeblocksBuildblockStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreThemeblocksBuildblockStart($args)
     {
         /* @var $block XoopsBlock */
         $block = $args[0];
         $isCached= $args[1];
-        Logger::getInstance()->addBlock($block->getVar('name'), $isCached, $block->getVar('bcachetime'));
+        LegacyLogger::getInstance()->addBlock($block->getVar('name'), $isCached, $block->getVar('bcachetime'));
     }
 
-    static function eventCoreDeprecated($args)
+    /**
+     * eventCoreDeprecated
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDeprecated($args)
     {
         $message = $args[0];
-        Logger::getInstance()->addDeprecated($message);
+        LegacyLogger::getInstance()->addDeprecated($message);
     }
 
-    static function eventCoreDisableerrorreporting($args)
+    /**
+     * eventCoreDisableerrorreporting
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreDisableerrorreporting($args)
     {
-        Logger::getInstance()->disable();
+        LegacyLogger::getInstance()->disable();
     }
 
-    static function eventCoreHeaderStart($args)
+    /**
+     * eventCoreHeaderStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreHeaderStart($args)
     {
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $logger->stopTime('Module init');
         $logger->startTime('XOOPS output init');
     }
 
-    static function eventCoreHeaderEnd($args)
+    /**
+     * eventCoreHeaderEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreHeaderEnd($args)
     {
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $logger->stopTime('XOOPS output init');
         $logger->startTime('Module display');
     }
 
-    static function eventCoreFooterStart($args)
+    /**
+     * eventCoreFooterStart
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreFooterStart($args)
     {
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $logger->stopTime('Module display');
     }
 
-    static function eventCoreFooterEnd($args)
+    /**
+     * eventCoreFooterEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreFooterEnd($args)
     {
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $logger->stopTime();
     }
 
-    static function eventCoreIncludeFunctionsRedirectheaderEnd($args)
+    /**
+     * eventCoreIncludeFunctionsRedirectheaderEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeFunctionsRedirectheaderEnd($args)
     {
         $xoops = Xoops::getInstance();
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $debug_mode = $xoops->getModuleConfig('debug_mode', 'logger');
         if ($debug_mode == 2) {
             //Should we give extra time ?
@@ -213,17 +434,31 @@ class LoggerCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventCoreSecurityValidatetokenEnd($args)
+    /**
+     * eventCoreSecurityValidatetokenEnd
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreSecurityValidatetokenEnd($args)
     {
-        $logger = Logger::getInstance();
+        $logger = LegacyLogger::getInstance();
         $logs = $args[0];
         foreach ($logs as $log) {
             $logger->addExtra($log[0], $log[1]);
         }
     }
 
-    static function eventCoreModuleAddlog($args)
+    /**
+     * eventCoreModuleAddlog
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreModuleAddlog($args)
     {
-        Logger::getInstance()->addExtra($args[0], $args[1]);
+        LegacyLogger::getInstance()->addExtra($args[0], $args[1]);
     }
 }

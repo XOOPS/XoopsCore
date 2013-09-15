@@ -22,15 +22,19 @@
  * @author     Taiwen Jiang <phppp@users.sourceforge.net>
  * @copyright  2013 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version    $Id$
  * @link       http://xoops.org
- * @since      2.6.0
- * @deprecated
+ * @see        Xoops\Logger
+ * @deprecated since 2.6.0
  *
  */
 class XoopsLogger
 {
-
+    /**
+     * getInstance - get only instance of this class
+     * 
+     * @return object XoopsLogger
+     * @depreciated
+     */
     public static function getInstance()
     {
         static $instance;
@@ -41,45 +45,54 @@ class XoopsLogger
         return $instance;
     }
 
+    /**
+     * deprecatedWarning - centralized warning for all methods
+     * 
+     * @return void
+     */
+    private function deprecatedWarning()
+    {
+        Xoops::getInstance()->deprecated('XoopsLogger is deprecated since 2.6.0, see Xoops\\Core\\Logger');
+    }
 
     /**
-     *
-     * @param $var does nothing
-     * @param $val does nothing
+     * magic set method
+     * 
+     * @param string $var does nothing
+     * @param mixed  $val does nothing
      *
      * @return void
      * @depreciated
      */
     public function __set($var, $val)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated("XoopsLogger is deprecated since 2.6.0, use the module 'logger' instead");
+        $this->deprecatedWarning();
     }
 
     /**
+     * magic get method
      *
-     * @param $var does nothing
+     * @param mixed $var does nothing
      *
      * @return void
      * @depreciated
      */
     public function __get($var)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated("XoopsLogger is deprecated since 2.6.0, use the module 'logger' instead");
+        $this->deprecatedWarning();
     }
 
     /**
-     *
-     * @param $method does nothing
-     * @param $args   does nothing
+     * magic call method
+     * 
+     * @param string $method does nothing
+     * @param mixed  $args   does nothing
      *
      * @return void
      * @depreciated
      */
     public function __call($method, $args)
     {
-        $xoops = Xoops::getInstance();
-        $xoops->deprecated("XoopsLogger is deprecated since 2.6.0, use the module 'logger' instead");
+        $this->deprecatedWarning();
     }
 }
