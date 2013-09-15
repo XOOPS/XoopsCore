@@ -29,11 +29,20 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class LoggerSystemPreload extends XoopsPreloadItem
 {
 
+    /**
+     * eventSystemPreferencesSave
+     * 
+     * @param mixed $args arguments supplied to triggerEvent
+     * 
+     * @return void
+     */
     static function eventSystemPreferencesSave($args)
     {
+        /*
         if (isset($_REQUEST['debug_plugin'])) {
-            Xoops_Cache::delete('module_logger_plugin');
+            Xoops_Cache::delete('module_debugbar_plugin');
         }
+        */
     }
 
 }
