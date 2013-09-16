@@ -23,9 +23,7 @@ include_once dirname(__FILE__) . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
-$xoops->db();
-global $xoopsDB;
-$db = $xoopsDB;
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 $db->prefix('protector_log');
 $rs = $db->query("SELECT count(lid) FROM " . $db->prefix('protector_log'));
 list($numrows) = $db->fetchRow($rs);

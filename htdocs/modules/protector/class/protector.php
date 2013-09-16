@@ -930,9 +930,7 @@ class Protector
     function check_dos_attack($uid = 0, $can_ban = false)
     {
         $xoops = Xoops::getInstance();
-        $xoops->db();
-        global $xoopsDB;
-        $db = $xoopsDB;
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
 
         if ($this->_done_dos) {
             return true;
@@ -1073,8 +1071,7 @@ class Protector
     function check_brute_force()
     {
         $xoops = Xoops::getInstance();
-        $xoops->db();
-        global $xoopsDB;
+        global $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
         $ip = @$_SERVER['REMOTE_ADDR'];
         $uri = @$_SERVER['REQUEST_URI'];
         $ip4sql = addslashes($ip);

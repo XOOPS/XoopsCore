@@ -72,7 +72,7 @@ class PageCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Comment
      */
     public function update($item_id, $total_num)
     {
-        $db = Xoops::getInstance()->db();
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'UPDATE ' . $db->prefix('page_content') . ' SET content_comments = ' . intval($total_num) . ' WHERE content_id = ' . intval($item_id);
         $db->query($sql);
     }

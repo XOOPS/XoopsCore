@@ -24,8 +24,7 @@ include dirname(__FILE__) . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
-$xoops->db();
-global $xoopsDB;
+$xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
 
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');

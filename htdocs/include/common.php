@@ -14,8 +14,6 @@
  * @package kernel
  * @version $Id$
  */
-
-
 defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
 
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
@@ -25,6 +23,8 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 global $xoops;
 $GLOBALS['xoops'] =& $xoops;
 
+global $xoopsDB; // Legacy support
+$GLOBALS['xoopsDB'] =& $xoopsDB; // Legacy support
 /**
  * YOU SHOULD NEVER USE THE FOLLOWING TO CONSTANTS, THEY WILL BE REMOVED
  */
@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XO
  * Requires XOOPS_DB_PROXY;
  */
     $xoops->db();
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();  
 /**
  * Get xoops configs
  * Requires functions and database loaded

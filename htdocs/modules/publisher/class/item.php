@@ -871,8 +871,7 @@ class PublisherItem extends XoopsObject
             //Todo: get a better image class for xoops!
             //Image hack
             $image_item_ids = array();
-            $xoops->db();
-            global $xoopsDB;
+            $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
             $sql = 'SELECT image_id, image_name FROM ' . $xoopsDB->prefix('image');
             $result = $xoopsDB->query($sql, 0, 0);
             while ($myrow = $xoopsDB->fetchArray($result)) {

@@ -23,9 +23,7 @@ include_once dirname(__FILE__) . '/header.php';
 
 require_once dirname(dirname(__FILE__)) . '/class/gtickets.php';
 
-$xoops->db();
-global $xoopsDB;
-$db = $xoopsDB;
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 
 // GET vars
 $pos = empty($_GET['pos']) ? 0 : intval($_GET['pos']);
