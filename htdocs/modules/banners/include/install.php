@@ -22,9 +22,7 @@
 
 function xoops_module_install_banners(&$module)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     XoopsLoad::addMap(array('banners' => dirname(dirname(__FILE__)) . '/class/helper.php'));
     $helper = Banners::getInstance();
     // Get handler

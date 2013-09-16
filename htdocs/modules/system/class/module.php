@@ -157,8 +157,7 @@ class SystemModule
     {
         $queryFunc = (bool)$force ? "queryF" : "query";
         $xoops = Xoops::getInstance();
-        $xoops->db();
-        global $xoopsDB;
+        $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
         $module_handler = $xoops->getHandlerModule();
         $mod = trim($mod);
         if ($module_handler->getCount(new Criteria('dirname', $mod)) == 0) {
@@ -352,8 +351,7 @@ class SystemModule
     public function uninstall($mod = '')
     {
         $xoops = Xoops::getInstance();
-        $xoops->db();
-        global $xoopsDB;
+        $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
         $module_handler = $xoops->getHandlerModule();
         $module = $module_handler->getByDirname($mod);
         $xoops->templateClearModuleCache($module->getVar('mid'));

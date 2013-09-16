@@ -20,9 +20,7 @@
  */
 
 include_once dirname(__FILE__) . '/header.php';
-$xoops->db();
-global $xoopsDB;
-$db = $xoopsDB;
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 
 // Call header
 $xoops->header('protector_advisory.html');

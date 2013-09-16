@@ -71,9 +71,7 @@ function xoops_module_install_profile($module)
 
 function profile_install_initializeProfiles()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     $module_id = $xoops->registry()->get('profile_id');
 
     $xoopsDB->queryF("INSERT INTO " . $xoopsDB->prefix("profile_profile") . " (profile_id) " . " SELECT uid " . " FROM " . $xoopsDB->prefix("users"));
@@ -150,9 +148,7 @@ function profile_install_addField($name, $title, $description, $category, $type,
 
 function profile_install_setPermissions($field_id, $module_id, $canedit, $visible)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     $gperm_itemid = $field_id;
     $gperm_modid = $module_id;
     $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . ($canedit
@@ -169,16 +165,12 @@ function profile_install_setPermissions($field_id, $module_id, $canedit, $visibl
 
 function profile_install_addCategory($name, $weight)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     $xoopsDB->query("INSERT INTO " . $xoopsDB->prefix("profile_category") . " VALUES (0, " . $xoopsDB->quote($name) . ", '', {$weight})");
 }
 
 function profile_install_addStep($name, $desc, $order, $save)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     $xoopsDB->query("INSERT INTO " . $xoopsDB->prefix("profile_regstep") . " VALUES (0, " . $xoopsDB->quote($name) . ", " . $xoopsDB->quote($desc) . ", {$order}, {$save})");
 }

@@ -58,9 +58,7 @@ switch ($op) {
         $cache = $system->cleanVars($_REQUEST, 'cache', array(), 'array');
         $tables = $system->cleanVars($_REQUEST, 'tables', array(), 'array');
         $tables_op = $system->cleanVars($_REQUEST, 'maintenance', array(), 'array');
-        $xoops->db();
-        global $xoopsDB;
-        $db = $xoopsDB;
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         //Cache
         $res_cache = $system->CleanCache($cache);
         if (!empty($cache)) {

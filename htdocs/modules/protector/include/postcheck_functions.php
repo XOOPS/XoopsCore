@@ -28,8 +28,7 @@ function protector_postcheck()
 {
 
     $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     // patch for 2.2.x from xoops.org (I know this is not so beautiful...)
     if (substr(@XOOPS_VERSION, 6, 3) > 2.0 && stristr(@$_SERVER['REQUEST_URI'], 'modules/system/admin.php?fct=preferences')) {
         $module_handler = $xoops->getHandlerModule();

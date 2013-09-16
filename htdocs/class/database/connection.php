@@ -154,7 +154,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
     public function insertPrefix($tableName, array $data, array $types = array())
     {
         $tableName = $this->prefix($tableName);
-        return $this->update($tableName, $data, $types);
+        return $this->insert($tableName, $data, $types);
     }
 
 
@@ -363,6 +363,19 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
             return true;
         }
         return false;
+    }
+
+    /**
+     * Duplicates original xoops quote.
+     * Name changed to not confuse normal usage of quote.
+     *
+     * @param $input test to convert
+     *
+     * @return mixed converted text
+     */
+    public function quoteSlash($input)
+    {
+        return str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $this->quote($input)));
     }
 
 

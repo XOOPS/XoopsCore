@@ -89,7 +89,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      *
      * @return QueryBuilder This QueryBuilder instance.
      */
-    public function fromPrefix($from, $alias)
+    public function fromPrefix($from, $alias = null)
     {
         $from = XoopsConnection::prefix($from);
         return $this->from($from, $alias);

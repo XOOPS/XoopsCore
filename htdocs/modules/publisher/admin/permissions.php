@@ -24,8 +24,7 @@ include_once dirname(__FILE__) . '/admin_header.php';
 $xoops = Xoops::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
-$xoops->db();
-global $xoopsDB;
+$xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
 
 PublisherUtils::cpHeader();
 //publisher_adminMenu(3, _AM_PUBLISHER_PERMISSIONS);

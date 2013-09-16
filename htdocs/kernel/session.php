@@ -72,8 +72,7 @@ class XoopsSessionHandler
      */
     public function __construct($db)
     {
-        global $xoopsDB;
-        $this->db = $xoopsDB;
+        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
     }
 
     /**

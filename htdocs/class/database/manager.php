@@ -56,10 +56,7 @@ class XoopsDatabaseManager
      */
     public function __construct()
     {
-        $xoops = Xoops::getInstance();
-        $xoops->db();
-        global $xoopsDB;
-        $this->db = $xoopsDB;
+        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
         $this->db->setPrefix(XOOPS_DB_PREFIX);
         $this->successStrings = array(
             'create' => XoopsLocale::SF_TABLE_CREATED,

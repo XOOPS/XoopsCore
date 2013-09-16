@@ -74,7 +74,7 @@ class PublisherCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Co
      */
     public function update($item_id, $total_num)
     {
-        $db = Xoops::getInstance()->db();
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'UPDATE ' . $db->prefix('publisher_items') . ' SET comments = ' . intval($total_num) . ' WHERE itemid = ' . intval($item_id);
         $db->query($sql);
     }

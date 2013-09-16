@@ -34,6 +34,8 @@ class XoopsDatabaseFactory
      * if the class has not been instantiated yet, this will also take
      * care of that
      *
+     * Legacy support function
+     *
      * NOTE: Persistance connection is not included. XOOPS_DB_PCONNECT is ignored.
      *       allowWebChanges also needs to be addressed
      *
@@ -44,7 +46,45 @@ class XoopsDatabaseFactory
      */
     public static function getDatabaseConnection()
     {
-        global $xoopsDB;
+        static $legacy;
+        if (!isset($legacy)) {
+                include_once XOOPS_ROOT_PATH . '/class/database/mysqldatabase.php';
+                if (!defined('XOOPS_DB_PROXY')) {
+                    $class = 'Xoops' . ucfirst(XOOPS_DB_TYPE) . 'DatabaseSafe';
+                } else {
+                    $class = 'Xoops' . ucfirst(XOOPS_DB_TYPE) . 'DatabaseProxy';
+                }
+                $xoopsPreload = XoopsPreload::getInstance();
+                $xoopsPreload->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
+                $legacy = new $class();
+                $legacy->setPrefix(XOOPS_DB_PREFIX);
+                $legacy->conn = XoopsDatabaseFactory::getConnection();
+           // } else {
+            if (is_null($legacy->conn)) {
+                trigger_error('notrace:Unable to connect to database', E_USER_ERROR);
+            }
+        }
+        return $legacy;
+    }
+
+    /**
+     * Get a reference to the only instance of database class and connects to DB
+     *
+     * if the class has not been instantiated yet, this will also take
+     * care of that
+     *
+     * Doctrine connection function
+     *
+     * NOTE: Persistance connection is not included. XOOPS_DB_PCONNECT is ignored.
+     *       allowWebChanges also needs to be addressed
+     *
+     * @static
+     * @staticvar XoopsDatabase The only instance of database class
+     *
+     * @return XoopsDatabase Reference to the only instance of database class
+     */
+    public static function getConnection()
+    {
         static $instance;
         if (!isset($instance)) {
             //New database connector
@@ -63,27 +103,9 @@ class XoopsDatabaseFactory
             );
             $instance
                 = \Doctrine\DBAL\DriverManager::getConnection(
-                    $connectionParams,
-                    $config
-                );
-             // Legacy support
-            if (isset($instance)) {
-                include_once XOOPS_ROOT_PATH . '/class/database/mysqldatabase.php';
-                if (!defined('XOOPS_DB_PROXY')) {
-                    $class = 'Xoops' . ucfirst(XOOPS_DB_TYPE) . 'DatabaseSafe';
-                } else {
-                    $class = 'Xoops' . ucfirst(XOOPS_DB_TYPE) . 'DatabaseProxy';
-                }
-                $xoopsPreload = XoopsPreload::getInstance();
-                $xoopsPreload->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
-                $xoopsDB = new $class();
-                $xoopsDB->setPrefix(XOOPS_DB_PREFIX);
-                $xoopsDB->conn = $instance;
-            } else {
-                $xoopsDB = null;
-                $xoopsPreload = XoopsPreload::getInstance();
-                $xoopsPreload->trigger_error('notrace:Unable to connect to database', E_USER_ERROR);
-            }
+                $connectionParams,
+                $config
+            );
         }
         return $instance;
     }

@@ -24,9 +24,7 @@ include_once dirname(__FILE__) . '/header.php';
 require_once dirname(dirname(__FILE__)) . '/class/gtickets.php';
 
 $xoops = Xoops::getInstance();
-$xoops->db();
-global $xoopsDB;
-$db = $xoopsDB;
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 $xoops->header('protector_prefix.html');
 
 $error = '';
