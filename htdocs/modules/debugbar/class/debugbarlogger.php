@@ -303,6 +303,20 @@ class DebugbarLogger implements LoggerInterface
     }
 
     /**
+     * stackData - stash log data before a redirect
+     *
+     * @return void
+     */
+    public function stackData()
+    {
+        if ($this->activated) {
+            $this->debugbar->stackData();
+            $this->activated=false;
+            $this->renderingEnabled = false;
+        }
+    }
+
+    /**
      * Enable logger output rendering
      * When output rendering is enabled, the logger will insert its output within the page content.
      * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
