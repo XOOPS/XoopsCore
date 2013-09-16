@@ -20,9 +20,14 @@ From the htdocs/xoops_lib folder run:
 
      composer install
 
+if you are installing for the first time. Otherwise run:
+
+     composer update
+
 This should download some required libraries that XOOPS depends on.
 
-Now proceed with a standard XOOPS install.
+Now you can proceed with a standard XOOPS install.
 
 When your changes are complete and tested, send us a Pull Request
 on GitHub and we will take a look.
+

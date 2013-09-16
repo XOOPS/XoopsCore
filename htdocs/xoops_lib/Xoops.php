@@ -161,6 +161,16 @@ class Xoops
     }
 
     /**
+     * get the system logger instance
+     * 
+     * @return \Xoops\Core\Logger
+     */
+    public function logger()
+    {
+        return \Xoops\Core\Logger::getInstance();
+    }
+
+    /**
      * @return XoopsPreload
      */
     public function preload()

@@ -14,6 +14,8 @@
  * @package kernel
  * @version $Id$
  */
+
+
 defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
 
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
@@ -40,7 +42,6 @@ include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
  */
 require_once XOOPS_ROOT_PATH . DS . 'class' . DS . 'xoopsload.php';
 
-
 /**
  *  Create Instance of Preload Object
  */
@@ -62,10 +63,9 @@ $xoops->option =& $GLOBALS['xoopsOption'];
 $xoopsSecurity = $xoops->security();
 
 /**
- * Create Instance XoopsLogger Object for legacy
+ * Create Instance Xoops\Core\Logger Object, the logger manager
  */
-$xoopsLogger = XoopsLogger::getInstance();
-
+$xoopsLogger = $xoops->logger();
 
 /**
  * Include Required Files not handled by autoload
@@ -142,11 +142,16 @@ setlocale(LC_ALL, XoopsLocale::getLocale());
 $member_handler = $xoops->getHandlerMember();
 $sess_handler = $xoops->getHandlerSession();
 
-if ($xoops->getConfig('use_ssl') && isset($_POST[$xoops->getConfig('sslpost_name')]) && $_POST[$xoops->getConfig('sslpost_name')] != ''
+if ($xoops->getConfig('use_ssl')
+    && isset($_POST[$xoops->getConfig('sslpost_name')])
+    && $_POST[$xoops->getConfig('sslpost_name')] != ''
 ) {
     session_id($_POST[$xoops->getConfig('sslpost_name')]);
 } else {
-    if ($xoops->getConfig('use_mysession') && $xoops->getConfig('session_name') != '' && $xoops->getConfig('session_expire') > 0) {
+    if ($xoops->getConfig('use_mysession')
+        && $xoops->getConfig('session_name') != ''
+        && $xoops->getConfig('session_expire') > 0
+    ) {
         if (isset($_COOKIE[$xoops->getConfig('session_name')])) {
             session_id($_COOKIE[$xoops->getConfig('session_name')]);
         }
@@ -157,14 +162,22 @@ if ($xoops->getConfig('use_ssl') && isset($_POST[$xoops->getConfig('sslpost_name
     }
 }
 session_set_save_handler(
-    array(&$sess_handler, 'open'), array(&$sess_handler, 'close'), array(&$sess_handler, 'read'),
-    array(&$sess_handler, 'write'), array(&$sess_handler, 'destroy'), array(&$sess_handler, 'gc'));
+    array(&$sess_handler, 'open'),
+    array(&$sess_handler, 'close'),
+    array(&$sess_handler, 'read'),
+    array(&$sess_handler, 'write'),
+    array(&$sess_handler, 'destroy'),
+    array(&$sess_handler, 'gc')
+);
 session_start();
 
 /**
  * Remove expired session for xoopsUserId
  */
-if ($xoops->getConfig('use_mysession') && $xoops->getConfig('session_name') != '' && !isset($_COOKIE[$xoops->getConfig('session_name')]) && !empty($_SESSION['xoopsUserId'])
+if ($xoops->getConfig('use_mysession')
+    && $xoops->getConfig('session_name') != ''
+    && !isset($_COOKIE[$xoops->getConfig('session_name')])
+    && !empty($_SESSION['xoopsUserId'])
 ) {
     unset($_SESSION['xoopsUserId']);
 }
@@ -172,7 +185,9 @@ if ($xoops->getConfig('use_mysession') && $xoops->getConfig('session_name') != '
 /**
  * Load xoopsUserId from cookie if "Remember me" is enabled.
  */
-if (empty($_SESSION['xoopsUserId']) && $xoops->getConfig('usercookie') != '' && !empty($_COOKIE[$xoops->getConfig('usercookie')])
+if (empty($_SESSION['xoopsUserId'])
+    && $xoops->getConfig('usercookie') != ''
+    && !empty($_COOKIE[$xoops->getConfig('usercookie')])
 ) {
     $hash_data = @explode("-", $_COOKIE[$xoops->getConfig('usercookie')], 2);
     list($_SESSION['xoopsUserId'], $hash_login) = array($hash_data[0], strval(@$hash_data[1]));
@@ -184,7 +199,10 @@ if (empty($_SESSION['xoopsUserId']) && $xoops->getConfig('usercookie') != '' && 
  */
 if (!empty($_SESSION['xoopsUserId'])) {
     $xoops->user = $member_handler->getUser($_SESSION['xoopsUserId']);
-    if (!is_object($xoops->user) || (isset($hash_login) && md5($xoops->user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX) != $hash_login)) {
+    if (!is_object($xoops->user)
+        || (isset($hash_login)
+            && md5($xoops->user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX) != $hash_login)
+    ) {
         $xoops->user = '';
         $_SESSION = array();
         session_destroy();
@@ -244,7 +262,11 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
-            $xoops->redirect(XOOPS_URL . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(
+                XOOPS_URL . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
+                1,
+                XoopsLocale::E_NO_ACCESS_PERMISSION
+            );
         }
     }
 
@@ -253,7 +275,10 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         $xoops->loadLocale($xoops->module->getVar('dirname', 'n'));
     }
 
-    if ($xoops->module->getVar('hasconfig') == 1 || $xoops->module->getVar('hascomments') == 1 || $xoops->module->getVar('hasnotification') == 1) {
+    if ($xoops->module->getVar('hasconfig') == 1
+        || $xoops->module->getVar('hascomments') == 1
+        || $xoops->module->getVar('hasnotification') == 1
+    ) {
         $xoops->getModuleConfigs();
     }
 } else {

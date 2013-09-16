@@ -18,21 +18,20 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-define('_MI_LOGGER_NAME', 'Logger');
-define('_MI_LOGGER_DSC', 'Error reporting and performance analysis');
+define('_MI_LOGGER_NAME','Logger');
+define('_MI_LOGGER_DSC','Legacy style error reporting and performance analysis');
 
-define('_MI_LOGGER_DEBUGMODE' , "Debug Mode");
-define('_MI_LOGGER_DEBUGMODE0', "Off");
-define('_MI_LOGGER_DEBUGMODE1', "Enable debug (inline mode)");
-define('_MI_LOGGER_DEBUGMODE2', "Enable debug (popup mode)");
-define('_MI_LOGGER_DEBUGMODE3', "Smarty Templates Debug");
+define('_MI_LOGGER_ENABLE',"Display Legacy Logger");
+define('_MI_LOGGER_POPUP',"Use Popup Window");
+define('_MI_LOGGER_SMARTYDEBUG',"Enable Smarty Debug");
 
-define('_MI_LOGGER_DEBUGLEVEL' , "Debug Level");
-define('_MI_LOGGER_DEBUGLEVEL0', "Anonymous");
-define('_MI_LOGGER_DEBUGLEVEL1', "Registered Users");
-define('_MI_LOGGER_DEBUGLEVEL2', "Administrators");
+define('_MI_LOGGER_UCONF_CAT_OPT','Options');
+define('_MI_LOGGER_UCONF_CAT_OPT_DESC','Legacy Logger Options');
 
-define('_MI_LOGGER_DEBUGPLUGIN' , "Debug Plugin");
-define('_MI_LOGGER_DEBUGPLUGIN_LEGACY' , "Legacy");
-define('_MI_LOGGER_DEBUGPLUGIN_PQP', "PHP Quick Profiler");
-define('_MI_LOGGER_DEBUGPLUGIN_FIREPHP', "FirePHP");
+define('_MI_LOGGER_UCONF_ENABLE_BAR','Display Legacy Logger');
+define('_MI_LOGGER_UCONF_POPUP',"Use Popup Window");
+define('_MI_LOGGER_UCONF_ENABLE_SMARTY','Enable Smarty Debug');
+
+define('_MI_LOGGER_ADMENU1','Home');
+define('_MI_LOGGER_ADMENU2','About');
+define('_MI_LOGGER_ADMENU3','Permissions');

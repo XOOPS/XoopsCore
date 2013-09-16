@@ -3,8 +3,21 @@
     "license": "GPL-2.0+",
     "type": "project",
     "description": "The XOOPS Library distribution",
+    "autoload": {
+        "psr-0": {
+            "Xoops\\": "",
+            "Xmf\\": ""
+        }
+    },
     "require": {
-        "php": ">=5.3.3",
-        "doctrine/dbal": "2.3.4"
+        "php": ">=5.3.7",
+        "doctrine/dbal": "2.3.4",
+        "psr/log": "1.0.0",
+        "symfony/process": "v2.3.4",
+        "monolog/monolog": "1.6.0",
+        "maximebf/debugbar": "1.6",
+        "kriswallsmith/assetic": "v1.1.2",
+        "oodle/krumo": "*",
+        "symfony/yaml": "~2.0"
     }
 }
