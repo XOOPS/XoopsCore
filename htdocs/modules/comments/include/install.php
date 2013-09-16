@@ -21,6 +21,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 function xoops_module_install_comments(&$module)
 {
     $xoops = Xoops::getInstance();
+    global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopscomments");
     $result = $xoopsDB->queryF($sql);
     if (($rows = $xoopsDB->getRowsNum($result)) == 20) {
@@ -48,6 +49,7 @@ function xoops_module_install_comments(&$module)
 function xoops_module_uninstall_comments(&$module)
 {
     $xoops = Xoops::getInstance();
+    XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));
     $helper = Comments::getInstance();
     $plugins = Xoops_Module_Plugin::getPlugins('comments');
     foreach (array_keys($plugins) as $dirname) {

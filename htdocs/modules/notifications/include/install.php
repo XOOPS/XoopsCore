@@ -21,6 +21,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 function xoops_module_install_notifications(&$module)
 {
     $xoops = Xoops::getInstance();
+    global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopsnotifications");
     $result = $xoopsDB->queryF($sql);
     if (($rows = $xoopsDB->getRowsNum($result)) == 7) {
@@ -48,6 +49,7 @@ function xoops_module_install_notifications(&$module)
 function xoops_module_uninstall_notifications(&$module)
 {
     $xoops = Xoops::getInstance();
+    XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
     $plugins = Xoops_Module_Plugin::getPlugins('notifications');
     foreach (array_keys($plugins) as $dirname) {

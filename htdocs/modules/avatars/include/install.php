@@ -21,6 +21,7 @@
  */
 function xoops_module_install_avatars(&$module)
 {
+    global $xoopsDB;
     // delete avatar_allow_upload, avatar_width, avatar_height, avatar_maxsize and avatar_minposts
     $xoops = Xoops::getInstance();
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'avatar_allow_upload'";
