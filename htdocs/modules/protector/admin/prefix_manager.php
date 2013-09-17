@@ -90,7 +90,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
         $_SESSION['protector_logger'] = Logger::getInstance()->dump('queries');
     }
 
-    if ( $error != '' ) {
+    if ($error != '') {
         $xoops->tpl()->assign('error', $error);
         $xoops->footer();
     } else {
@@ -278,8 +278,7 @@ foreach ($prefixes as $prefix) {
     $table_count = 0;
     $has_xoopscomments = false;
     foreach ($tables as $table) {
-        if ($table == $prefix['name'] . '_xoopscomments')
-                {
+        if ($table == $prefix['name'] . '_xoopscomments') {
                     $has_xoopscomments = true;
                 }
         if (substr($table, 0, strlen($prefix['name']) + 1) === $prefix['name'] . '_')

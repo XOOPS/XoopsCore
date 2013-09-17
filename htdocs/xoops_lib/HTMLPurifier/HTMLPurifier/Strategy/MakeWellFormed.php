@@ -36,8 +36,8 @@ class HTMLPurifier_Strategy_MakeWellFormed extends HTMLPurifier_Strategy
      */
     protected $context;
 
-    public function execute($tokens, $config, $context) {
-
+    public function execute($tokens, $config, $context)
+    {
         $definition = $config->getHTMLDefinition();
 
         // local variables
@@ -380,6 +380,7 @@ class HTMLPurifier_Strategy_MakeWellFormed extends HTMLPurifier_Strategy
         $context->destroy('CurrentToken');
 
         unset($this->injectors, $this->stack, $this->tokens, $this->t);
+
         return $tokens;
     }
 
@@ -403,8 +404,8 @@ class HTMLPurifier_Strategy_MakeWellFormed extends HTMLPurifier_Strategy
      * @param $injector Injector that performed the substitution; default is if
      *        this is not an injector related operation.
      */
-    protected function processToken($token, $injector = -1) {
-
+    protected function processToken($token, $injector = -1)
+    {
         // normalize forms of token
         if (is_object($token)) $token = array(1, $token);
         if (is_int($token))    $token = array($token);
@@ -433,7 +434,8 @@ class HTMLPurifier_Strategy_MakeWellFormed extends HTMLPurifier_Strategy
     /**
      * Inserts a token before the current token. Cursor now points to this token
      */
-    private function insertBefore($token) {
+    private function insertBefore($token)
+    {
         array_splice($this->tokens, $this->t, 0, array($token));
     }
 
@@ -441,14 +443,16 @@ class HTMLPurifier_Strategy_MakeWellFormed extends HTMLPurifier_Strategy
      * Removes current token. Cursor now points to new token occupying previously
      * occupied space.
      */
-    private function remove() {
+    private function remove()
+    {
         array_splice($this->tokens, $this->t, 1);
     }
 
     /**
      * Swap current token with new token. Cursor points to new token (no change).
      */
-    private function swap($token) {
+    private function swap($token)
+    {
         $this->tokens[$this->t] = $token;
     }
 

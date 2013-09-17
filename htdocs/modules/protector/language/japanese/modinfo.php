@@ -3,7 +3,7 @@
 if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'protector' ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
-if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
+if ( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
 
 define('_MI_PROTECTOR_LOADED' , 1 ) ;
 
@@ -114,7 +114,4 @@ define('_MI_PROTECTOR_SPAMURI4UDSC','�����԰ʳ��ΰ��̥桼��
 define('_MI_PROTECTOR_SPAMURI4G','SPAM�к�:�����Ȥ˵���URL��');
 define('_MI_PROTECTOR_SPAMURI4GDSC','�����Ȥ�������Ƥˡ����ο�ʾ��URL�����ä���SPAM�ȸ��ʤ��ޤ���0�ʤ�̵���µ��ĤǤ���');
 
-
 }
-
-?>

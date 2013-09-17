@@ -47,7 +47,6 @@ class XoopsXmlRpcApi
 
     var $isadmin = false;
 
-
     function XoopsXmlRpcApi(&$params, &$response, &$module)
     {
         $this->params = $params;
@@ -73,13 +72,16 @@ class XoopsXmlRpcApi
         $this->user = $member_handler->loginUser(addslashes($username), addslashes($password));
         if (!is_object($this->user)) {
             unset($this->user);
+
             return false;
         }
         $moduleperm_handler = $xoops->getHandlerGroupperm();
         if (!$moduleperm_handler->checkRight('module_read', $this->module->getVar('mid'), $this->user->getGroups())) {
             unset($this->user);
+
             return false;
         }
+
         return true;
     }
 
@@ -95,6 +97,7 @@ class XoopsXmlRpcApi
             return false;
         }
         $this->isadmin = true;
+
         return true;
     }
 
@@ -118,6 +121,7 @@ class XoopsXmlRpcApi
         $this->section = $sectman->get($blog_id);
         $ret = $this->section->getVar('sect_fields');
         */
+
         return $ret;
     }
 
@@ -133,6 +137,7 @@ class XoopsXmlRpcApi
         if (isset($this->xoopsTagMap[$xoopstag])) {
             return $this->xoopsTagMap[$xoopstag];
         }
+
         return $xoopstag;
     }
 
@@ -146,6 +151,7 @@ class XoopsXmlRpcApi
             }
             $ret = $match[1];
         }
+
         return $ret;
     }
 
@@ -155,11 +161,10 @@ class XoopsXmlRpcApi
     {
         if (strtolower(get_class($this)) != 'xoopsapi') {
             require_once(XOOPS_ROOT_PATH . '/class/xml/rpc/xoopsapi.php');
+
             return new XoopsApi($params, $this->response, $this->module);
         } else {
             return $this;
         }
     }
 }
-
-?>

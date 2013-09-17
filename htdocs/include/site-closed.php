@@ -83,5 +83,3 @@ if (!$allowed) {
 unset($allowed, $group);
 
 return true;
-
-?>

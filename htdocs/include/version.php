@@ -20,5 +20,3 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *  Define XOOPS version
  */
 define('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');
-
-?>

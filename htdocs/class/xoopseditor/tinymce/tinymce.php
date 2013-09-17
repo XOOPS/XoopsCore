@@ -53,6 +53,7 @@ class TinyMCE
         } else {
             $instance->setConfig($config);
         }
+
         return $instance;
     }
 
@@ -97,7 +98,7 @@ class TinyMCE
         $this->setting["plugins"] = implode(",", $this->loadPlugins());
         $configured[] = "plugins";
 
-        if ( $this->setting["theme"] != "simple" ) {
+        if ($this->setting["theme"] != "simple") {
             if (empty($this->config["buttons"])) {
                 $this->config["buttons"][] = array(
                     "before"    => "",
@@ -166,11 +167,11 @@ class TinyMCE
                 $configured[] = "fonts";
             }
 
-            for ($i=1 ; $i <= 4 ; $i++ ) {
+            for ($i=1 ; $i <= 4 ; $i++) {
                 $buttons = array();
                 if ( isset($this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"]) ) {
                     $checklist = explode(",", $this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"] );
-                    foreach ( $checklist as $plugin ) {
+                    foreach ($checklist as $plugin) {
                         if ( strpos( strtolower($plugin), "xoops") != false ) {
                             if ( in_array( $plugin, $this->xoopsPlugins ) ) {
                                 $buttons[] = $plugin;
@@ -217,20 +218,23 @@ class TinyMCE
         if (!empty($this->config["plugins"])) {
             $plugins = array_merge($plugins, $this->config["plugins"]);
         }
+
         return $plugins;
     }
 
     // return all xoops plugins
-    function get_xoopsPlugins() {
+    function get_xoopsPlugins()
+    {
         $xoopsPlugins = array();
         $allplugins = XoopsLists::getDirListAsArray( XOOPS_ROOT_PATH . $this->rootpath . "/plugins" );
-        foreach ( $allplugins as $plugin ) {
+        foreach ($allplugins as $plugin) {
             if ( strpos( strtolower($plugin), "xoops") != false && file_exists(XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php") ) {
-                if ( $right = @include XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php" ) {
+                if ($right = @include XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php") {
                     $xoopsPlugins[$plugin] = $plugin;
                 }
             }
         }
+
         return $xoopsPlugins;
     }
 
@@ -249,10 +253,11 @@ class TinyMCE
 
         // get all import css files
         if ( preg_match_all("~\@import url\((.*\.css)\);~sUi", $css_content, $matches, PREG_PATTERN_ORDER) ) {
-            foreach( $matches[1] as $key => $css_import ) {
+            foreach ($matches[1] as $key => $css_import) {
                 $css = array_merge( $css, $this->loadCss( $css_import) );
             }
         }
+
         return $css;
     }
 
@@ -309,4 +314,3 @@ class TinyMCE
         return $ret ;
     }
 }
-?>

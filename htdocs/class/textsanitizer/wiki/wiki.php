@@ -26,41 +26,44 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MytsWiki extends MyTextSanitizerExtension
 {
     /**
-     * @param int $textarea_id
+     * @param  int   $textarea_id
      * @return array
      */
     public function encode($textarea_id)
     {
         $code = "<img src='{$this->image_path}/wiki.gif' alt='" .XoopsLocale::WIKI . "' onclick='xoopsCodeWiki(\"{$textarea_id}\",\"" . htmlspecialchars(XoopsLocale::WIKI_WORD_TO_LINK, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $javascript = <<<EOH
-            function xoopsCodeWiki(id, enterWikiPhrase){
+            function xoopsCodeWiki(id, enterWikiPhrase)
+            {
                 if (enterWikiPhrase == null) {
                     enterWikiPhrase = "Enter the word to be linked to Wiki:";
                 }
                 var selection = xoopsGetSelect(id);
                 if (selection.length > 0) {
                     var text = selection;
-                }else {
+                } else {
                     var text = prompt(enterWikiPhrase, "");
                 }
                 var domobj = xoopsGetElementById(id);
-                if ( text != null && text != "" ) {
+                if (text != null && text != "") {
                     var result = "[[" + text + "]]";
                     xoopsInsertText(domobj, result);
                 }
                 domobj.focus();
             }
 EOH;
+
         return array(
             $code, $javascript
         );
     }
 
-    static function myCallback($match) {
+    static function myCallback($match)
+    {
         return  self::decode( $match[1] );
     }
     /**
-     * @param MyTextSanitizer $ts
+     * @param  MyTextSanitizer $ts
      * @return void
      */
     public function load(MyTextSanitizer &$ts)
@@ -74,7 +77,7 @@ EOH;
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public static function decode($text)
@@ -85,6 +88,7 @@ EOH;
         }
         $charset = !empty($config['charset']) ? $config['charset'] : "UTF-8";
         $ret = "<a href='" . sprintf($config['link'], urlencode(XoopsLocale::convert_encoding($text, $charset))) . "' rel='external' title=''>{$text}</a>";
+
         return $ret;
     }
 }

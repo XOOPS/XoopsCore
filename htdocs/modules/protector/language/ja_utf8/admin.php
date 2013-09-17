@@ -32,13 +32,11 @@ define("_AM_MSG_GROUP1IPSCANTOPEN" , "管理者用IPリストファイルが開�
 define("_AM_MSG_REMOVED" , "削除しました" ) ;
 //define("_AM_FMT_CONFIGSNOTWRITABLE" , "configsディレクトリが書込許可されていません: %s" ) ;
 
-
 // prefix_manager.php
 define("_AM_H3_PREFIXMAN" , "PREFIX マネージャ" ) ;
 define("_AM_MSG_DBUPDATED" , "データベースが更新されました" ) ;
 define("_AM_CONFIRM_DELETE" , "全テーブルが削除されますがよろしいですか?" ) ;
 define("_AM_TXT_HOWTOCHANGEDB" , "prefixを変更する場合は、%s/mainfile.php 内の以下の部分を書き換えてください<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
-
 
 // advisory.php
 define("_AM_ADV_NOTSECURE","非推奨");
@@ -57,6 +55,3 @@ define("_AM_ADV_DBFACTORYUNPATCHED","データベースファクトリクラス�
 define("_AM_ADV_SUBTITLECHECK","Protectorの動作チェック");
 define("_AM_ADV_CHECKCONTAMI","変数汚染");
 define("_AM_ADV_CHECKISOCOM","孤立コメント");
-
-
-?>

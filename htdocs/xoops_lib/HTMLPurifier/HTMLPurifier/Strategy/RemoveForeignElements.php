@@ -11,7 +11,8 @@
 class HTMLPurifier_Strategy_RemoveForeignElements extends HTMLPurifier_Strategy
 {
 
-    public function execute($tokens, $config, $context) {
+    public function execute($tokens, $config, $context)
+    {
         $definition = $config->getHTMLDefinition();
         $generator = new HTMLPurifier_Generator($config, $context);
         $result = array();
@@ -48,7 +49,7 @@ class HTMLPurifier_Strategy_RemoveForeignElements extends HTMLPurifier_Strategy
             $e = $context->get('ErrorCollector');
         }
 
-        foreach($tokens as $token) {
+        foreach ($tokens as $token) {
             if ($remove_until) {
                 if (empty($token->is_tag) || $token->name !== $remove_until) {
                     continue;

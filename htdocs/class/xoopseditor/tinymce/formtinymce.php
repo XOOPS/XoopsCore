@@ -33,7 +33,7 @@ class XoopsFormTinymce extends XoopsEditor
     /**
      * Constructor
      *
-     * @param    array   $configs  Editor Options
+     * @param array $configs Editor Options
      */
     function __construct($configs)
     {
@@ -66,7 +66,7 @@ class XoopsFormTinymce extends XoopsEditor
      * I'VE USED THIS EXAMPLE TO WRITE VALIDATION CODE
      * http://tinymce.moxiecode.com/punbb/viewtopic.php?id=12616
      *
-     * @return    string
+     * @return string
      */
     function renderValidationJS()
     {
@@ -78,15 +78,17 @@ class XoopsFormTinymce extends XoopsEditor
             $ret = "\n";
             $ret .= "if ( tinyMCE.get('{$eltname}').getContent() == \"\" || tinyMCE.get('{$eltname}').getContent() == null) ";
             $ret .= "{ window.alert(\"{$eltmsg}\"); tinyMCE.get('{$eltname}').focus(); return false; }";
+
             return $ret;
         }
+
         return '';
     }
 
     /**
      * get language
      *
-     * @return    string
+     * @return string
      */
     function getLanguage()
     {
@@ -117,7 +119,7 @@ class XoopsFormTinymce extends XoopsEditor
     /**
      * prepare HTML for output
      *
-     * @return    sting HTML
+     * @return sting HTML
      */
     function render()
     {
@@ -137,4 +139,3 @@ class XoopsFormTinymce extends XoopsEditor
         return is_readable(XOOPS_ROOT_PATH . $this->rootPath . "/tinymce.php");
     }
 }
-?>

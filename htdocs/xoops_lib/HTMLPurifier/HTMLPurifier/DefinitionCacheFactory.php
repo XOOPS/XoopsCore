@@ -13,14 +13,16 @@ class HTMLPurifier_DefinitionCacheFactory
     /**
      * Initialize default decorators
      */
-    public function setup() {
+    public function setup()
+    {
         $this->addDecorator('Cleanup');
     }
 
     /**
      * Retrieves an instance of global definition cache factory.
      */
-    public static function instance($prototype = null) {
+    public static function instance($prototype = null)
+    {
         static $instance;
         if ($prototype !== null) {
             $instance = $prototype;
@@ -28,6 +30,7 @@ class HTMLPurifier_DefinitionCacheFactory
             $instance = new HTMLPurifier_DefinitionCacheFactory();
             $instance->setup();
         }
+
         return $instance;
     }
 
@@ -36,7 +39,8 @@ class HTMLPurifier_DefinitionCacheFactory
      * @param $short Short name of cache object, for reference
      * @param $long Full class name of cache object, for construction
      */
-    public function register($short, $long) {
+    public function register($short, $long)
+    {
         $this->implementations[$short] = $long;
     }
 
@@ -45,7 +49,8 @@ class HTMLPurifier_DefinitionCacheFactory
      * @param $name Name of definitions handled by cache
      * @param $config Instance of HTMLPurifier_Config
      */
-    public function create($type, $config) {
+    public function create($type, $config)
+    {
         $method = $config->get('Cache.DefinitionImpl');
         if ($method === null) {
             return new HTMLPurifier_DefinitionCache_Null($type);
@@ -71,6 +76,7 @@ class HTMLPurifier_DefinitionCacheFactory
             $cache = $new_cache;
         }
         $this->caches[$method][$type] = $cache;
+
         return $this->caches[$method][$type];
     }
 
@@ -78,7 +84,8 @@ class HTMLPurifier_DefinitionCacheFactory
      * Registers a decorator to add to all new cache objects
      * @param
      */
-    public function addDecorator($decorator) {
+    public function addDecorator($decorator)
+    {
         if (is_string($decorator)) {
             $class = "HTMLPurifier_DefinitionCache_Decorator_$decorator";
             $decorator = new $class;

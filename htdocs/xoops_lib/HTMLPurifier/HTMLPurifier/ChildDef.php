@@ -28,7 +28,8 @@ abstract class HTMLPurifier_ChildDef
      * Get lookup of tag names that should not close this element automatically.
      * All other elements will do so.
      */
-    public function getAllowedElements($config) {
+    public function getAllowedElements($config)
+    {
         return $this->elements;
     }
 
@@ -38,8 +39,8 @@ abstract class HTMLPurifier_ChildDef
      * @param $tokens_of_children Array of HTMLPurifier_Token
      * @param $config HTMLPurifier_Config object
      * @param $context HTMLPurifier_Context object
-     * @return bool true to leave nodes as is
-     * @return bool false to remove parent node
+     * @return bool  true to leave nodes as is
+     * @return bool  false to remove parent node
      * @return array of replacement child tokens
      */
     abstract public function validateChildren($tokens_of_children, $config, $context);

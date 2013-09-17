@@ -14,12 +14,13 @@ class HTMLPurifier_AttrDef_CSS_Percentage extends HTMLPurifier_AttrDef
     /**
      * @param Bool indicating whether to forbid negative values
      */
-    public function __construct($non_negative = false) {
+    public function __construct($non_negative = false)
+    {
         $this->number_def = new HTMLPurifier_AttrDef_CSS_Number($non_negative);
     }
 
-    public function validate($string, $config, $context) {
-
+    public function validate($string, $config, $context)
+    {
         $string = $this->parseCDATA($string);
 
         if ($string === '') return false;

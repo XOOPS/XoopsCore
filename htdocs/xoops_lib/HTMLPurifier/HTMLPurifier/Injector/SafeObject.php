@@ -22,11 +22,13 @@ class HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector
         'movie' => true,
     );
 
-    public function prepare($config, $context) {
+    public function prepare($config, $context)
+    {
         parent::prepare($config, $context);
     }
 
-    public function handleElement(&$token) {
+    public function handleElement(&$token)
+    {
         if ($token->name == 'object') {
             $this->objectStack[] = $token;
             $this->paramStack[] = array();
@@ -41,6 +43,7 @@ class HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector
                 $i = count($this->objectStack) - 1;
                 if (!isset($token->attr['name'])) {
                     $token = false;
+
                     return;
                 }
                 $n = $token->attr['name'];
@@ -72,7 +75,8 @@ class HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector
         }
     }
 
-    public function handleEnd(&$token) {
+    public function handleEnd(&$token)
+    {
         // This is the WRONG way of handling the object and param stacks;
         // we should be inserting them directly on the relevant object tokens
         // so that the global stack handling handles it.

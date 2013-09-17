@@ -20,15 +20,14 @@ class HTML2PDF_exception extends exception
     /**
      * generate a HTML2PDF exception
      *
-     * @param    int     $err error number
-     * @param    mixed   $other additionnal informations
-     * @return   string  $html optionnal code HTML associated to the error
+     * @param  int    $err   error number
+     * @param  mixed  $other additionnal informations
+     * @return string $html optionnal code HTML associated to the error
      */
     final public function __construct($err = 0, $other = null, $html = '')
     {
         // read the error
-        switch($err)
-        {
+        switch ($err) {
             case 1: // Unsupported tag
                 $msg = (HTML2PDF_locale::get('err01'));
                 $msg = str_replace('[[OTHER]]', $other, $msg);

@@ -16,7 +16,6 @@
 //if (!class_exists("ArtObject")):
 if (class_exists("ArtObject")) return;
 
-
 /**
  * Art Object
  *
@@ -79,7 +78,7 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
     /**
      * get MySQL server version
      *
-     * @return     string
+     * @return string
      */
     function mysql_server_version($conn = null)
     {
@@ -93,7 +92,7 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
     /**
      * get MySQL major version
      *
-     * @return     integer    : 3 - 4.1-; 4 - 4.1+; 5 - 5.0+
+     * @return integer : 3 - 4.1-; 4 - 4.1+; 5 - 5.0+
      */
     function mysql_major_version()
     {
@@ -109,8 +108,8 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
         if ($ret = parent::insert($object, $force)) {
             $object->unsetNew();
         }
+
         return $ret;
     }
 }
 //endif;
-?>

@@ -35,11 +35,11 @@ class XoopsFormSelectUser extends XoopsFormElementTray
      *
      * @param string $caption
      * @param string $name
-     * @param mixed $value Pre-selected value (or array of them).
+     * @param mixed  $value   Pre-selected value (or array of them).
      *                                                 For an item with massive members, such as "Registered Users", "$value" should be used to store selected temporary users only instead of all members of that item
      * @param bool $include_anon Include user "anonymous"?
-     * @param int $size Number or rows. "1" makes a drop-down-list.
-     * @param bool $multiple Allow multiple selections?
+     * @param int  $size         Number or rows. "1" makes a drop-down-list.
+     * @param bool $multiple     Allow multiple selections?
      */
     public function __construct($caption, $name, $include_anon = false, $value = null, $size = 1, $multiple = false)
     {
@@ -65,11 +65,13 @@ class XoopsFormSelectUser extends XoopsFormElementTray
         if ($user_count <= $limit) {
             parent::__construct($caption, "", $name);
             $this->addElement($select_element);
+
             return;
         }
 
         $js_addusers = "<script type='text/javascript'>
-            function addusers(opts){
+            function addusers(opts)
+            {
                 var num = opts.substring(0, opts.indexOf(':'));
                 opts = opts.substring(opts.indexOf(':')+1, opts.length);
                 var sel = xoopsGetElementById('" . $name . "');
@@ -83,7 +85,7 @@ class XoopsFormSelectUser extends XoopsFormElementTray
                     opts = opts.substring(nm - val.length, opts.length);
                     var added = false;
                     for (var k = 0; k < sel.options.length; k++) {
-                        if(sel.options[k].value == val){
+                        if (sel.options[k].value == val) {
                             added = true;
                             break;
                         }
@@ -93,6 +95,7 @@ class XoopsFormSelectUser extends XoopsFormElementTray
                         sel.options[k].selected = true;
                     }
                 }
+
                 return true;
             }
             </script>";

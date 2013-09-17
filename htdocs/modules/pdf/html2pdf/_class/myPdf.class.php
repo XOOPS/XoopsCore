@@ -231,10 +231,10 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * start to use a rectangular Cliping Path with radius corners
      *
-     * @param float $x (top left corner)
-     * @param float $y (top left corner)
-     * @param float $w (x+w  = botom rigth corner)
-     * @param float $h (y+h = botom rigth corner)
+     * @param float $x        (top left corner)
+     * @param float $y        (top left corner)
+     * @param float $w        (x+w  = botom rigth corner)
+     * @param float $h        (y+h = botom rigth corner)
      * @param array $cornerTL radius of the Top Left corner
      * @param array $cornerTR radius of the Top Right corner
      * @param array $cornerBL radius of the Bottom Left corner
@@ -692,10 +692,10 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * SVG - make a Rectangle
      *
-     * @param float $x
-     * @param float $y
-     * @param float $w
-     * @param float $h
+     * @param float  $x
+     * @param float  $y
+     * @param float  $w
+     * @param float  $h
      * @param string $style PDF Style
      * @access public
      */
@@ -749,10 +749,10 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * SVG - make a Ellipse
      *
-     * @param float  $x0 x Center
-     * @param float  $y0 y Center
-     * @param float  $rx x radius
-     * @param float  $ry y radius
+     * @param float  $x0    x Center
+     * @param float  $y0    y Center
+     * @param float  $rx    x radius
+     * @param float  $ry    y radius
      * @param string $style PDF Style
      * @access public
      */
@@ -772,7 +772,7 @@ class HTML2PDF_myPdf extends TCPDF
      * SVG - make a Advanced Polygone
      *
      * @param array  $actions list of actions
-     * @param string $style PDF Style
+     * @param string $style   PDF Style
      * @access public
      */
     public function svgPolygone($actions, $style)
@@ -787,8 +787,7 @@ class HTML2PDF_myPdf extends TCPDF
         $last = array(0, 0, 0, 0);
 
         foreach ($actions as $action) {
-            switch($action[0])
-            {
+            switch ($action[0]) {
                 // Start the Path
                 case 'M':
                 case 'm':
@@ -942,12 +941,12 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * SVG - make a bezier curve from the last point to (xf,yf), with the 2 direction points (x1,y1) and (x2,y2)
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param float $xf
-     * @param float $yf
+     * @param float   $x1
+     * @param float   $y1
+     * @param float   $x2
+     * @param float   $y2
+     * @param float   $xf
+     * @param float   $yf
      * @param boolean $trans apply transformation
      * @access protected
      */
@@ -964,15 +963,15 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * SVG - make a arc with Center, Radius, from angleBegin to angleEnd
      *
-     * @param float $xc
-     * @param float $yc
-     * @param float $rx
-     * @param float $ry
-     * @param float $angleBegin in radians
-     * @param float $angleEng in radians
+     * @param float   $xc
+     * @param float   $yc
+     * @param float   $rx
+     * @param float   $ry
+     * @param float   $angleBegin in radians
+     * @param float   $angleEng   in radians
      * @param boolean $direction
      * @param boolean $drawFirst, true => add the first point
-     * @param boolean $trans apply transformation
+     * @param boolean $trans      apply transformation
      * @access protected
      */
     protected function _Arc(
@@ -1034,15 +1033,15 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * SVG - make a arc from Pt1 to Pt2, with Radius
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
-     * @param float $rx
-     * @param float $ry
-     * @param float $angle deviation angle of the axis X
-     * @param boolean $l large-arc-flag
-     * @param boolean $s sweep-flag
+     * @param float   $x1
+     * @param float   $y1
+     * @param float   $x2
+     * @param float   $y2
+     * @param float   $rx
+     * @param float   $ry
+     * @param float   $angle deviation angle of the axis X
+     * @param boolean $l     large-arc-flag
+     * @param boolean $s     sweep-flag
      * @param boolean $trans apply transformation
      * @access protected
      */
@@ -1077,6 +1076,7 @@ class HTML2PDF_myPdf extends TCPDF
         // if |vector| is Null, or if |vector| > 2 : impossible to make a arc => Line
         if ($v['D']==0 || $v['D']>4) {
             $this->_Line($x2, $y2, $trans);
+
             return false;
         }
 
@@ -1139,9 +1139,9 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * SVG - transform the point (reference)
      *
-     * @param float &$x
-     * @param float &$y
-     * @param boolean $trans true => convert into PDF unit
+     * @param  float   &$x
+     * @param  float   &$y
+     * @param  boolean $trans true => convert into PDF unit
      * @return boolean
      * @access public
      */
@@ -1204,14 +1204,14 @@ class HTML2PDF_myPdf extends TCPDF
     /**
      * Convert a HTML2PDF barcode in a TCPDF barcode
      *
-     * @param string $code code to print
-     * @param string $type type of barcode (see tcpdf/barcodes.php for supported formats)
-     * @param int $x x position in user units
-     * @param int $y y position in user units
-     * @param int $w width in user units
-     * @param int $h height in user units
-     * @param int $labelFontsize of the Test Label. If false : no Label
-     * @param array $color color of the foreground
+     * @param string $code          code to print
+     * @param string $type          type of barcode (see tcpdf/barcodes.php for supported formats)
+     * @param int    $x             x position in user units
+     * @param int    $y             y position in user units
+     * @param int    $w             width in user units
+     * @param int    $h             height in user units
+     * @param int    $labelFontsize of the Test Label. If false : no Label
+     * @param array  $color         color of the foreground
      * @access public
      */
     public function myBarcode($code, $type, $x, $y, $w, $h, $labelFontsize, $color)
@@ -1243,7 +1243,7 @@ class HTML2PDF_myPdf extends TCPDF
      * @param integer  $sizeBookmark  Font size for the bookmarks
      * @param boolean  $bookmarkTitle Bookmark the Title
      * @param boolean  $displayPage   Display the page number for each bookmark
-     * @param integer  $page draw the automatic Index on a specific Page. if null => add a page at the end
+     * @param integer  $page          draw the automatic Index on a specific Page. if null => add a page at the end
      * @param string   $fontName      FontName to use
      * @access public
      */
@@ -1340,7 +1340,7 @@ class HTML2PDF_myPdf extends TCPDF
      * Returns the current page number.
      *
      * @access public
-     * @param  integer $page
+     * @param  integer  $page
      * @return integer;
      */
     public function getMyNumPage($page=null)

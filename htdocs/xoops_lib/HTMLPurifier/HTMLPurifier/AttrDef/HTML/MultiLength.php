@@ -9,8 +9,8 @@
 class HTMLPurifier_AttrDef_HTML_MultiLength extends HTMLPurifier_AttrDef_HTML_Length
 {
 
-    public function validate($string, $config, $context) {
-
+    public function validate($string, $config, $context)
+    {
         $string = trim($string);
         if ($string === '') return false;
 

@@ -12,11 +12,13 @@
  * @param $config Configuration to use, can be any value accepted by
  *        HTMLPurifier_Config::create()
  */
-function HTMLPurifier($html, $config = null) {
+function HTMLPurifier($html, $config = null)
+{
     static $purifier = false;
     if (!$purifier) {
         $purifier = new HTMLPurifier();
     }
+
     return $purifier->purify($html, $config);
 }
 

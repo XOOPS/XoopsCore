@@ -4,9 +4,7 @@
 if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'protector' ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
-if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
-
-
+if ( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
 
 // Appended by Xoops Language Checker -GIJOE- in 2009-07-06 05:46:52
 define('_MI_PROTECTOR_DBTRAPWOSRV','Never checking _SERVER for anti-SQL-Injection');
@@ -124,5 +122,3 @@ define('_MI_PROTECTOR_SPAMURI4G','Contra SPAM: URLs para anónimos');
 define('_MI_PROTECTOR_SPAMURI4GDSC','Si esta cantidad de URLs es hallada en datos ENVIADOS por anónimos, el ENVÍO es considerado como SPAM. Cero (0) significa deshabilitar esta característica.');
 
 }
-
-?>

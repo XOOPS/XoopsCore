@@ -17,4 +17,3 @@ $xoops = Xoops::getInstance();
 if ($xoops->isActiveModule('images')) {    return true;
 }
 return false;
-?>

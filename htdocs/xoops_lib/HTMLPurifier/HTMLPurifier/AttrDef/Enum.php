@@ -33,7 +33,8 @@ class HTMLPurifier_AttrDef_Enum extends HTMLPurifier_AttrDef
         $this->case_sensitive = $case_sensitive;
     }
 
-    public function validate($string, $config, $context) {
+    public function validate($string, $config, $context)
+    {
         $string = trim($string);
         if (!$this->case_sensitive) {
             // we may want to do full case-insensitive libraries
@@ -49,7 +50,8 @@ class HTMLPurifier_AttrDef_Enum extends HTMLPurifier_AttrDef
      *      valid values. Example: "foo,bar,baz". Prepend "s:" to make
      *      case sensitive
      */
-    public function make($string) {
+    public function make($string)
+    {
         if (strlen($string) > 2 && $string[0] == 's' && $string[1] == ':') {
             $string = substr($string, 2);
             $sensitive = true;
@@ -57,6 +59,7 @@ class HTMLPurifier_AttrDef_Enum extends HTMLPurifier_AttrDef
             $sensitive = false;
         }
         $values = explode(',', $string);
+
         return new HTMLPurifier_AttrDef_Enum($values, $sensitive);
     }
 

@@ -40,7 +40,8 @@ class HTMLPurifier_Generator
      * @param $config Instance of HTMLPurifier_Config
      * @param $context Instance of HTMLPurifier_Context
      */
-    public function __construct($config, $context) {
+    public function __construct($config, $context)
+    {
         $this->config = $config;
         $this->_scriptFix = $config->get('Output.CommentScriptContents');
         $this->_sortAttr = $config->get('Output.SortAttr');
@@ -54,7 +55,8 @@ class HTMLPurifier_Generator
      * @param $config HTMLPurifier_Config object
      * @return Generated HTML
      */
-    public function generateFromTokens($tokens) {
+    public function generateFromTokens($tokens)
+    {
         if (!$tokens) return '';
 
         // Basic algorithm
@@ -97,13 +99,16 @@ class HTMLPurifier_Generator
      * @param $token HTMLPurifier_Token object.
      * @return Generated HTML
      */
-    public function generateFromToken($token) {
+    public function generateFromToken($token)
+    {
         if (!$token instanceof HTMLPurifier_Token) {
             trigger_error('Cannot generate HTML from non-HTMLPurifier_Token object', E_USER_WARNING);
+
             return '';
 
         } elseif ($token instanceof HTMLPurifier_Token_Start) {
             $attr = $this->generateAttributes($token->attr, $token->name);
+
             return '<' . $token->name . ($attr ? ' ' : '') . $attr . '>';
 
         } elseif ($token instanceof HTMLPurifier_Token_End) {
@@ -111,6 +116,7 @@ class HTMLPurifier_Generator
 
         } elseif ($token instanceof HTMLPurifier_Token_Empty) {
             $attr = $this->generateAttributes($token->attr, $token->name);
+
              return '<' . $token->name . ($attr ? ' ' : '') . $attr .
                 ( $this->_xhtml ? ' /': '' ) // <br /> v. <br>
                 . '>';
@@ -131,10 +137,12 @@ class HTMLPurifier_Generator
      * @warning This runs into problems if there's already a literal
      *          --> somewhere inside the script contents.
      */
-    public function generateScriptFromToken($token) {
+    public function generateScriptFromToken($token)
+    {
         if (!$token instanceof HTMLPurifier_Token_Text) return $this->generateFromToken($token);
         // Thanks <http://lachy.id.au/log/2005/05/script-comments>
         $data = preg_replace('#//\s*$#', '', $token->data);
+
         return '<!--//--><![CDATA[//><!--' . "\n" . trim($data) . "\n" . '//--><!]]>';
     }
 
@@ -146,7 +154,8 @@ class HTMLPurifier_Generator
      *        attribute minimization.
      * @return Generate HTML fragment for insertion.
      */
-    public function generateAttributes($assoc_array_of_attributes, $element = false) {
+    public function generateAttributes($assoc_array_of_attributes, $element = false)
+    {
         $html = '';
         if ($this->_sortAttr) ksort($assoc_array_of_attributes);
         foreach ($assoc_array_of_attributes as $key => $value) {
@@ -161,6 +170,7 @@ class HTMLPurifier_Generator
             }
             $html .= $key.'="'.$this->escape($value).'" ';
         }
+
         return rtrim($html);
     }
 
@@ -174,7 +184,8 @@ class HTMLPurifier_Generator
      *               permissible for non-attribute output.
      * @return String escaped data.
      */
-    public function escape($string, $quote = ENT_COMPAT) {
+    public function escape($string, $quote = ENT_COMPAT)
+    {
         return htmlspecialchars($string, $quote, 'UTF-8');
     }
 

@@ -53,13 +53,16 @@ class HTMLPurifier_DoctypeRegistry
      * @param $doctype Name of doctype
      * @return Editable doctype object
      */
-    public function get($doctype) {
+    public function get($doctype)
+    {
         if (isset($this->aliases[$doctype])) $doctype = $this->aliases[$doctype];
         if (!isset($this->doctypes[$doctype])) {
             trigger_error('Doctype ' . htmlspecialchars($doctype) . ' does not exist', E_USER_ERROR);
             $anon = new HTMLPurifier_Doctype($doctype);
+
             return $anon;
         }
+
         return $this->doctypes[$doctype];
     }
 
@@ -71,14 +74,16 @@ class HTMLPurifier_DoctypeRegistry
      *       Generator whether or not the current document is XML
      *       based or not).
      */
-    public function make($config) {
+    public function make($config)
+    {
         return clone $this->get($this->getDoctypeFromConfig($config));
     }
 
     /**
      * Retrieves the doctype from the configuration object
      */
-    public function getDoctypeFromConfig($config) {
+    public function getDoctypeFromConfig($config)
+    {
         // recommended test
         $doctype = $config->get('HTML.Doctype');
         if (!empty($doctype)) return $doctype;
@@ -95,6 +100,7 @@ class HTMLPurifier_DoctypeRegistry
         } else {
             $doctype .= ' Transitional';
         }
+
         return $doctype;
     }
 

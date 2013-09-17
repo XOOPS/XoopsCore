@@ -12,12 +12,14 @@ class HTMLPurifier_AttrDef_CSS_Length extends HTMLPurifier_AttrDef
      * @param HTMLPurifier_Length $max Minimum length, or null for no bound. String is also acceptable.
      * @param HTMLPurifier_Length $max Maximum length, or null for no bound. String is also acceptable.
      */
-    public function __construct($min = null, $max = null) {
+    public function __construct($min = null, $max = null)
+    {
         $this->min = $min !== null ? HTMLPurifier_Length::make($min) : null;
         $this->max = $max !== null ? HTMLPurifier_Length::make($max) : null;
     }
 
-    public function validate($string, $config, $context) {
+    public function validate($string, $config, $context)
+    {
         $string = $this->parseCDATA($string);
 
         // Optimizations

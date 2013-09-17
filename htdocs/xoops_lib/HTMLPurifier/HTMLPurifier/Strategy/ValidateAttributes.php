@@ -7,8 +7,8 @@
 class HTMLPurifier_Strategy_ValidateAttributes extends HTMLPurifier_Strategy
 {
 
-    public function execute($tokens, $config, $context) {
-
+    public function execute($tokens, $config, $context)
+    {
         // setup validator
         $validator = new HTMLPurifier_AttrValidator();
 

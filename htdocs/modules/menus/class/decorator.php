@@ -33,6 +33,7 @@ class MenusDecorator
         if (!in_array($dirname, array_keys($available))) {
             return false;
         }
+
         return $available[$dirname];
     }
 
@@ -57,6 +58,7 @@ class MenusDecorator
                 }
             }
         }
+
         return $decorators;
     }
 }
@@ -80,12 +82,13 @@ class MenusDecoratorAbstract
         if (!$ret = XoopsLoad::loadFile("{$path}/{$language}/decorator.php")) {
             $ret = XoopsLoad::loadFile("{$path}/english/decorator.php");
         }
+
         return $ret;
     }
 }
 
-interface MenusDecoratorInterface {
-
+interface MenusDecoratorInterface
+{
     function start();
 
     function end(&$menus);

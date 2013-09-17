@@ -54,7 +54,7 @@ function smarty_compiler_includeq($tag_args, &$comp)
         if ($arg_name == 'file') {
             $include_file = $arg_value;
             continue;
-        } else if ($arg_name == 'assign') {
+        } elseif ($arg_name == 'assign') {
             $assign_var = $arg_value;
             continue;
         }
@@ -71,7 +71,7 @@ function smarty_compiler_includeq($tag_args, &$comp)
     }
 
     //$output .= "\$_smarty_tpl_vars = \$this->_tpl_vars;\n";
-    $_params = "array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(" . implode(',', (array)$arg_list) . "))";
+    $_params = "array('smarty_include_tpl_file' => " . $include_file . ", 'smarty_include_vars' => array(" . implode(',', (array) $arg_list) . "))";
     $output .= "\$this->_smarty_include($_params);\n";
     //"\$this->_tpl_vars = \$_smarty_tpl_vars;\n" .
     //"unset(\$_smarty_tpl_vars);\n";
@@ -82,5 +82,3 @@ function smarty_compiler_includeq($tag_args, &$comp)
     //$output .= '';
     return $output;
 }
-
-?>

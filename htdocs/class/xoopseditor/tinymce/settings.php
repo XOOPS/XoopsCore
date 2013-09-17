@@ -342,4 +342,3 @@ return array (
         ."|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|style"
         ."|title]",
 );
-?>

@@ -224,7 +224,6 @@ if ($op == 'go') {
             }
         }
 
-
         // Saving category permissions
         $groupsIds = $gperm_handler->getGroupIds('news_view', $arrCat['topic_id'], $news_module_id);
         PublisherUtils::saveCategoryPermissions($groupsIds, $categoryObj->getVar('categoryid'), 'category_read');
@@ -279,5 +278,3 @@ if ($op == 'go') {
     PublisherUtils::closeCollapsableBar('newsimportgo', 'newsimportgoicon');
     $xoops->footer();
 }
-
-?>

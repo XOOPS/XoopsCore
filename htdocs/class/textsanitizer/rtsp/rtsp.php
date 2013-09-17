@@ -26,14 +26,15 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MytsRtsp extends MyTextSanitizerExtension
 {
     /**
-     * @param int $textarea_id
+     * @param  int   $textarea_id
      * @return array
      */
     public function encode($textarea_id)
     {
         $code = "<img src='{$this->image_path}/rtspimg.gif' alt='" . XoopsLocale::REAL_PLAYER . "' onclick='xoopsCodeRtsp(\"{$textarea_id}\",\"" . htmlspecialchars(XoopsLocale::RTSP_URL, ENT_QUOTES) . "\",\"" . htmlspecialchars(XoopsLocale::HEIGHT, ENT_QUOTES) . "\",\"" . htmlspecialchars(XoopsLocale::WIDTH, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $javascript = <<<EOH
-            function xoopsCodeRtsp(id,enterRtspPhrase, enterRtspHeightPhrase, enterRtspWidthPhrase){
+            function xoopsCodeRtsp(id,enterRtspPhrase, enterRtspHeightPhrase, enterRtspWidthPhrase)
+            {
                 var selection = xoopsGetSelect(id);
                 if (selection.length > 0) {
                         var selection = "rtsp://"+selection;
@@ -42,7 +43,7 @@ class MytsRtsp extends MyTextSanitizerExtension
                         var text = prompt(enterRtspPhrase+"       Rtsp or http", "Rtsp://");
                     }
                 var domobj = xoopsGetElementById(id);
-                if ( text.length > 0 && text!="rtsp://") {
+                if (text.length > 0 && text!="rtsp://") {
                     var text2 = prompt(enterRtspWidthPhrase, "480");
                     var text3 = prompt(enterRtspHeightPhrase, "330");
                     var result = "[rtsp="+text2+","+text3+"]" + text + "[/rtsp]";
@@ -51,11 +52,12 @@ class MytsRtsp extends MyTextSanitizerExtension
                 domobj.focus();
             }
 EOH;
+
         return array($code, $javascript);
     }
 
     /**
-     * @param MyTextSanitizer $ts
+     * @param  MyTextSanitizer $ts
      * @return void
      */
     public function load(MyTextSanitizer &$ts)

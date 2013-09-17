@@ -21,7 +21,8 @@ class HTMLPurifier_ConfigSchema_Interchange
     /**
      * Adds a directive array to $directives
      */
-    public function addDirective($directive) {
+    public function addDirective($directive)
+    {
         if (isset($this->directives[$i = $directive->id->toString()])) {
             throw new HTMLPurifier_ConfigSchema_Exception("Cannot redefine directive '$i'");
         }
@@ -32,8 +33,10 @@ class HTMLPurifier_ConfigSchema_Interchange
      * Convenience function to perform standard validation. Throws exception
      * on failed validation.
      */
-    public function validate() {
+    public function validate()
+    {
         $validator = new HTMLPurifier_ConfigSchema_Validator();
+
         return $validator->validate($this);
     }
 

@@ -23,8 +23,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     /**
      * Load declaration of an object handler
      *
-     * @param string $handler
-     * @param string $dirname
+     * @param  string $handler
+     * @param  string $dirname
      * @return bool
      */
     function load_objectHandler($handler = "", $dirname = "art")
@@ -38,6 +38,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         }
 
         class_exists($handlerClass) || require_once FRAMEWORKS_ROOT_PATH . "/{$dirname}/{$fileName}";
+
         return class_exists($handlerClass);
     }
 
@@ -52,8 +53,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     /**
      * Load a collective functions of Frameworks
      *
-     * @param string $group name of  the collective functions, empty for functions.php
-     * @param string $dirname
+     * @param  string     $group   name of  the collective functions, empty for functions.php
+     * @param  string     $dirname
      * @return bool|mixed
      */
     function load_functions($group = "", $dirname = "art")
@@ -63,9 +64,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         if (defined($constant)) {
             return true;
         }
+
         return include_once FRAMEWORKS_ROOT_PATH . "/{$dirname}/functions.{$group}" . (empty($group) ? "" : ".") . "php";
     }
-
 
     /**
      * Load a collective functions of a module
@@ -75,9 +76,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
      *
      * The function is going to be formulated to use Xoops::loadService() in XOOPS 2.3+
      *
-     * @param    string    $group        name of  the collective functions, empty for functions.php
-     * @param    string    $dirname    module dirname, optional
-     * @return    bool
+     * @param  string $group   name of  the collective functions, empty for functions.php
+     * @param  string $dirname module dirname, optional
+     * @return bool
      */
     function mod_loadFunctions($group = "", $dirname = "")
     {
@@ -89,6 +90,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
             return true;
         }
         $filename = XOOPS_ROOT_PATH . "/modules/{$dirname}/include/functions.{$group}" . (empty($group) ? "" : ".") . "php";
+
         return include_once $filename;
     }
 
@@ -98,9 +100,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
      * The class file should be located in /modules/MODULE/{$class}.renderer.php
      * The classf name should be defined as Capitalized(module_dirname)Capitalized(class_name)Renderer
      *
-     * @param    string    $class        name of  the classname
-     * @param    string    $dirname    module dirname, optional
-     * @return    bool
+     * @param  string $class   name of  the classname
+     * @param  string $dirname module dirname, optional
+     * @return bool
      */
     function mod_loadRenderer($class, $dirname = "")
     {
@@ -111,9 +113,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
             require_once XOOPS_ROOT_PATH . "/modules/{$dirname}/class/{$class}.renderer.php";
         }
         $instance = eval("{$renderer}::instance()");
+
         return $instance;
     }
-
 
     if (!function_exists("mod_constant")) {
         /**
@@ -152,6 +154,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
             if ($isRel) {
                 return $relative_name;
             }
+
             return $xoopsDB->prefix($relative_name);
         }
     }
@@ -206,14 +209,15 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
                 echo "<div>$message</div>";
             }
         }
+
         return true;
     }
 
     /**
      * Get dirname of a module according to current path
      *
-     * @param    string    $current_path    path to where the function is called
-     * @return    string    $dirname
+     * @param  string $current_path path to where the function is called
+     * @return string $dirname
      */
     function mod_getDirname($current_path = null)
     {
@@ -222,6 +226,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
                     : DIRECTORY_SEPARATOR, '/', $current_path);
         }
         $url_arr = explode('/', strstr($current_path, '/modules/'));
+
         return $url_arr[2];
     }
 
@@ -231,8 +236,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
      *
      * The function should be in functions.admin.php, however it requires extra inclusion in xoops_version.php if so
      *
-     * @param    string    $dirname    dirname of current module
-     * @return    bool
+     * @param  string $dirname dirname of current module
+     * @return bool
      */
     function mod_isModuleAction($dirname = "system")
     {
@@ -242,8 +247,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
             ($dirname == $_POST["dirname"] || $dirname == $_POST["module"]) && // current op
             ("update_ok" == $_POST["op"] || "install_ok" == $_POST["op"] || "uninstall_ok" == $_POST["op"]) && // current action
             "modulesadmin" == $_POST["fct"]);
+
         return $ret;
     }
 
 endif;
-?>

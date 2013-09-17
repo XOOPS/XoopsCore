@@ -58,7 +58,8 @@ class HTMLPurifier_VarParser
      * @param $allow_null Whether or not to permit null as a value
      * @return Validated and type-coerced variable
      */
-    final public function parse($var, $type, $allow_null = false) {
+    final public function parse($var, $type, $allow_null = false)
+    {
         if (is_string($type)) {
             if (!isset(HTMLPurifier_VarParser::$types[$type])) {
                 throw new HTMLPurifier_VarParserException("Invalid type '$type'");
@@ -97,6 +98,7 @@ class HTMLPurifier_VarParser
                     $keys = array_keys($var);
                     if (array_keys($keys) !== $keys) $this->error('Indices for list are not uniform');
                 }
+
                 return $var;
             case (self::MIXED):
                 return $var;
@@ -110,14 +112,16 @@ class HTMLPurifier_VarParser
      * Actually implements the parsing. Base implementation is to not
      * do anything to $var. Subclasses should overload this!
      */
-    protected function parseImplementation($var, $type, $allow_null) {
+    protected function parseImplementation($var, $type, $allow_null)
+    {
         return $var;
     }
 
     /**
      * Throws an exception.
      */
-    protected function error($msg) {
+    protected function error($msg)
+    {
         throw new HTMLPurifier_VarParserException($msg);
     }
 
@@ -127,19 +131,22 @@ class HTMLPurifier_VarParser
      *       extend the allowed values of HTMLPurifier_VarParser without
      *       updating subclasses.
      */
-    protected function errorInconsistent($class, $type) {
+    protected function errorInconsistent($class, $type)
+    {
         throw new HTMLPurifier_Exception("Inconsistency in $class: ".HTMLPurifier_VarParser::getTypeName($type)." not implemented");
     }
 
     /**
      * Generic error for if a type didn't work.
      */
-    protected function errorGeneric($var, $type) {
+    protected function errorGeneric($var, $type)
+    {
         $vtype = gettype($var);
         $this->error("Expected type ".HTMLPurifier_VarParser::getTypeName($type).", got $vtype");
     }
 
-    static public function getTypeName($type) {
+    static public function getTypeName($type)
+    {
         static $lookup;
         if (!$lookup) {
             // Lazy load the alternative lookup table

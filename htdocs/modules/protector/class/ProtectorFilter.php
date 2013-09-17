@@ -45,6 +45,7 @@ class ProtectorFilterAbstract
         if (class_exists('Wizin_User')) {
             // WizMobile (gusagi)
             $user = Wizin_User::getSingleton();
+
             return $user->bIsMobile;
         } else {
             if (defined('HYP_K_TAI_RENDER') && HYP_K_TAI_RENDER) {
@@ -76,6 +77,7 @@ class ProtectorFilterHandler
         if (!isset($instance)) {
             $instance = new ProtectorFilterHandler();
         }
+
         return $instance;
     }
 
@@ -106,5 +108,3 @@ class ProtectorFilterHandler
         return $ret;
     }
 }
-
-?>

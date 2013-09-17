@@ -10,29 +10,34 @@ class HTMLPurifier_DefinitionCache_Decorator_Cleanup extends
 
     public $name = 'Cleanup';
 
-    public function copy() {
+    public function copy()
+    {
         return new HTMLPurifier_DefinitionCache_Decorator_Cleanup();
     }
 
-    public function add($def, $config) {
+    public function add($def, $config)
+    {
         $status = parent::add($def, $config);
         if (!$status) parent::cleanup($config);
         return $status;
     }
 
-    public function set($def, $config) {
+    public function set($def, $config)
+    {
         $status = parent::set($def, $config);
         if (!$status) parent::cleanup($config);
         return $status;
     }
 
-    public function replace($def, $config) {
+    public function replace($def, $config)
+    {
         $status = parent::replace($def, $config);
         if (!$status) parent::cleanup($config);
         return $status;
     }
 
-    public function get($config) {
+    public function get($config)
+    {
         $ret = parent::get($config);
         if (!$ret) parent::cleanup($config);
         return $ret;

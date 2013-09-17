@@ -38,7 +38,8 @@ class Publisher extends Xoops_Module_Helper_Abstract
     /**
      * @return Publisher
      */
-    static function getInstance() {
+    static function getInstance()
+    {
         return parent::getInstance();
     }
 

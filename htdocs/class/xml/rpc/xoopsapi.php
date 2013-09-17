@@ -24,9 +24,9 @@ defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 class XoopsApi extends XoopsXmlRpcApi
 {
     /**
-     * @param array $params
+     * @param array               $params
      * @param XoopsXmlRpcResponse $response
-     * @param XoopsModule $module
+     * @param XoopsModule         $module
      */
     public function __construct(&$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
     {
@@ -48,7 +48,7 @@ class XoopsApi extends XoopsXmlRpcApi
                 foreach ($fields as $tag => $detail) {
                     if (!isset($this->params[3][$tag])) {
                         $data = $this->_getTagCdata($this->params[3]['xoops_text'], $tag, true);
-                        if (trim($data) == ''){
+                        if (trim($data) == '') {
                             if ($detail['required']) {
                                 $missing[] = $tag;
                             }
@@ -135,7 +135,7 @@ class XoopsApi extends XoopsXmlRpcApi
                 foreach ($fields as $tag => $detail) {
                     if (!isset($this->params[3][$tag])) {
                         $data = $this->_getTagCdata($this->params[3]['xoops_text'], $tag, true);
-                        if (trim($data) == ''){
+                        if (trim($data) == '') {
                             if ($detail['required']) {
                                 $missing[] = $tag;
                             }
@@ -226,7 +226,7 @@ class XoopsApi extends XoopsXmlRpcApi
                     $struct = new XoopsXmlRpcStruct();
                     $content = '';
                     foreach ($ret as $key => $value) {
-                        switch($key) {
+                        switch ($key) {
                         case 'uid':
                             $struct->add('userid', new XoopsXmlRpcString($value));
                             break;
@@ -280,8 +280,8 @@ class XoopsApi extends XoopsXmlRpcApi
                     for ($i = 0; $i < $count; $i++) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
-                        foreach($ret[$i] as $key => $value) {
-                            switch($key) {
+                        foreach ($ret[$i] as $key => $value) {
+                            switch ($key) {
                             case 'uid':
                                 $struct->add('userid', new XoopsXmlRpcString($value));
                                 break;
@@ -342,4 +342,3 @@ class XoopsApi extends XoopsXmlRpcApi
         }
     }
 }
-?>

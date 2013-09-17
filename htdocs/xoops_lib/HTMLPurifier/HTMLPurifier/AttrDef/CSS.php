@@ -14,8 +14,8 @@
 class HTMLPurifier_AttrDef_CSS extends HTMLPurifier_AttrDef
 {
 
-    public function validate($css, $config, $context) {
-
+    public function validate($css, $config, $context)
+    {
         $css = $this->parseCDATA($css);
 
         $definition = $config->getCSSDefinition();
@@ -53,7 +53,7 @@ class HTMLPurifier_AttrDef_CSS extends HTMLPurifier_AttrDef
                     $ok = true;
                     break;
                 }
-            } while(0);
+            } while (0);
             if (!$ok) continue;
             // inefficient call, since the validator will do this again
             if (strtolower(trim($value)) !== 'inherit') {

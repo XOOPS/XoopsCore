@@ -15,7 +15,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     define("FRAMEWORKS_ART_FUNCTIONS_CACHE", true);
 
     /**
-     * @param null|array $groups
+     * @param  null|array $groups
      * @return string
      */
     function mod_generateCacheId_byGroup($groups = null)
@@ -37,7 +37,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     }
 
     /**
-     * @param null|array $groups
+     * @param  null|array $groups
      * @return string
      */
     function mod_generateCacheId($groups = null)
@@ -47,9 +47,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
 
     /**
      * @param $data
-     * @param null|string $name
-     * @param null|string $dirname
-     * @param string $root_path
+     * @param  null|string $name
+     * @param  null|string $dirname
+     * @param  string      $root_path
      * @return bool
      */
     function mod_createFile($data, $name = null, $dirname = null, $root_path = XOOPS_CACHE_PATH)
@@ -60,13 +60,14 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
 
         $key = "{$dirname}_{$name}";
+
         return Xoops_Cache::write($key, $data);
     }
 
     /**
      * @param $data
-     * @param null|string $name
-     * @param null|string $dirname
+     * @param  null|string $name
+     * @param  null|string $dirname
      * @return bool
      */
     function mod_createCacheFile($data, $name = null, $dirname = null)
@@ -76,21 +77,22 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
 
     /**
      * @param $data
-     * @param null|string $name
-     * @param null|string $dirname
-     * @param null|array $groups
+     * @param  null|string $name
+     * @param  null|string $dirname
+     * @param  null|array  $groups
      * @return bool
      */
     function mod_createCacheFile_byGroup($data, $name = null, $dirname = null, $groups = null)
     {
         $name .= mod_generateCacheId_byGroup();
+
         return mod_createCacheFile($data, $name, $dirname);
     }
 
     /**
      * @param $name
-     * @param null|string $dirname
-     * @param string $root_path
+     * @param  null|string $dirname
+     * @param  string      $root_path
      * @return mixed|null
      */
     function mod_loadFile($name, $dirname = null, $root_path = XOOPS_CACHE_PATH)
@@ -105,38 +107,41 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
 
         $key = "{$dirname}_{$name}";
+
         return Xoops_Cache::read($key);
     }
 
     /**
      * @param $name
-     * @param null|string $dirname
+     * @param  null|string $dirname
      * @return mixed|null
      */
     function mod_loadCacheFile($name, $dirname = null)
     {
         $data = mod_loadFile($name, $dirname);
+
         return $data;
     }
 
     /**
      * @param $name
-     * @param null|string $dirname
-     * @param null|array $groups
+     * @param  null|string $dirname
+     * @param  null|array  $groups
      * @return mixed|null
      */
     function mod_loadCacheFile_byGroup($name, $dirname = null, $groups = null)
     {
         $name .= mod_generateCacheId_byGroup();
         $data = mod_loadFile($name, $dirname);
+
         return $data;
     }
 
     /* Shall we use the function of glob for better performance ? */
     /**
-     * @param string $name
-     * @param null|string $dirname
-     * @param string $root_path
+     * @param  string      $name
+     * @param  null|string $dirname
+     * @param  string      $root_path
      * @return bool
      */
     function mod_clearFile($name = "", $dirname = null, $root_path = XOOPS_CACHE_PATH)
@@ -152,17 +157,18 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
                 closedir($handle);
             }
         } else {
-            $files = (array)glob($root_path . "/*{$dirname}_{$name}*.php");
+            $files = (array) glob($root_path . "/*{$dirname}_{$name}*.php");
             foreach ($files as $file) {
                 @unlink($file);
             }
         }
+
         return true;
     }
 
     /**
-     * @param string $name
-     * @param null|string $dirname
+     * @param  string      $name
+     * @param  null|string $dirname
      * @return bool
      */
     function mod_clearCacheFile($name = "", $dirname = null)
@@ -171,7 +177,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     }
 
     /**
-     * @param string $pattern
+     * @param  string $pattern
      * @return bool
      */
     function mod_clearSmartyCache($pattern = "")
@@ -190,8 +196,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             }
             closedir($handle);
         }
+
         return true;
     }
 
 endif;
-?>

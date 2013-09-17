@@ -14,7 +14,8 @@ class HTMLPurifier_AttrTypes
      * Constructs the info array, supplying default implementations for attribute
      * types.
      */
-    public function __construct() {
+    public function __construct()
+    {
         // pseudo-types, must be instantiated via shorthand
         $this->info['Enum']    = new HTMLPurifier_AttrDef_Enum();
         $this->info['Bool']    = new HTMLPurifier_AttrDef_HTML_Bool();
@@ -49,14 +50,15 @@ class HTMLPurifier_AttrTypes
      * @param $type String type name
      * @return Object AttrDef for type
      */
-    public function get($type) {
-
+    public function get($type)
+    {
         // determine if there is any extra info tacked on
         if (strpos($type, '#') !== false) list($type, $string) = explode('#', $type, 2);
         else $string = '';
 
         if (!isset($this->info[$type])) {
             trigger_error('Cannot retrieve undefined attribute type ' . $type, E_USER_ERROR);
+
             return;
         }
 
@@ -69,7 +71,8 @@ class HTMLPurifier_AttrTypes
      * @param $type String type name
      * @param $impl Object AttrDef for type
      */
-    public function set($type, $impl) {
+    public function set($type, $impl)
+    {
         $this->info[$type] = $impl;
     }
 }

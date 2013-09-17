@@ -21,7 +21,8 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-function xoops_module_update_search(XoopsModule &$module) {
+function xoops_module_update_search(XoopsModule &$module)
+{
     $xoops = Xoops::getInstance();
     // Copy old configs in new configs and delete old configs
     $config_handler = $xoops->getHandlerConfig();
@@ -30,14 +31,14 @@ function xoops_module_update_search(XoopsModule &$module) {
     $criteria->add(new Criteria('conf_catid', 5));
     $configs = $config_handler->getConfigs($criteria);
     $confcount = count($configs);
-    if ($confcount > 0){
+    if ($confcount > 0) {
         for ($i = 0; $i < $confcount; $i++) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('conf_modid', $module->getVar('mid')));
             $criteria->add(new Criteria('conf_name', $configs[$i]->getvar('conf_name')));
             $new_configs = $config_handler->getConfigs($criteria);
             $new_confcount = count($new_configs);
-            if ($new_confcount > 0){
+            if ($new_confcount > 0) {
                 for ($j = 0; $j < $new_confcount; $j++) {
                     $obj = $config_handler->getConfig($new_configs[$j]->getvar('conf_id'));
                 }
@@ -49,6 +50,7 @@ function xoops_module_update_search(XoopsModule &$module) {
         }
 
     }
+
     return true;
 
 }
