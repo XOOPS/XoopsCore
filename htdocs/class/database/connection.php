@@ -61,8 +61,6 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
     /**
      * this is a public getter for the safe variable
      *
-     * @param bool $safe true if safe to write data to database
-     *
      * @return void
      */
     public static function getSafe()
@@ -86,8 +84,6 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
 
     /**
      * this is a public getter for the $force variable
-     *
-     * @param bool $force true if safe to write data to database
      *
      * @return void
      */
@@ -154,7 +150,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
     public function insertPrefix($tableName, array $data, array $types = array())
     {
         $tableName = $this->prefix($tableName);
-        return $this->update($tableName, $data, $types);
+        return $this->insert($tableName, $data, $types);
     }
 
 
@@ -363,6 +359,19 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
             return true;
         }
         return false;
+    }
+
+    /**
+     * Duplicates original xoops quote.
+     * Name changed to not confuse normal usage of quote.
+     *
+     * @param string $input test to convert
+     *
+     * @return mixed converted text
+     */
+    public function quoteSlash($input)
+    {
+        return str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $this->quote($input)));
     }
 
 
