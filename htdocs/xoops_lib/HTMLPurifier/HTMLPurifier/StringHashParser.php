@@ -33,19 +33,22 @@ class HTMLPurifier_StringHashParser
     /**
      * Parses a file that contains a single string-hash.
      */
-    public function parseFile($file) {
+    public function parseFile($file)
+    {
         if (!file_exists($file)) return false;
         $fh = fopen($file, 'r');
         if (!$fh) return false;
         $ret = $this->parseHandle($fh);
         fclose($fh);
+
         return $ret;
     }
 
     /**
      * Parses a file that contains multiple string-hashes delimited by '----'
      */
-    public function parseMultiFile($file) {
+    public function parseMultiFile($file)
+    {
         if (!file_exists($file)) return false;
         $ret = array();
         $fh = fopen($file, 'r');
@@ -54,6 +57,7 @@ class HTMLPurifier_StringHashParser
             $ret[] = $this->parseHandle($fh);
         }
         fclose($fh);
+
         return $ret;
     }
 
@@ -65,7 +69,8 @@ class HTMLPurifier_StringHashParser
      * @param $fh File handle with pointer at start of valid string-hash
      *            block.
      */
-    protected function parseHandle($fh) {
+    protected function parseHandle($fh)
+    {
         $state   = false;
         $single  = false;
         $ret     = array();
@@ -102,6 +107,7 @@ class HTMLPurifier_StringHashParser
                 $ret[$state] .= "$line\n";
             }
         } while (!feof($fh));
+
         return $ret;
     }
 

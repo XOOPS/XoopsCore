@@ -24,12 +24,13 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
      * Callback function for script CDATA fudge
      * @param $matches, in form of array(opening tag, contents, closing tag)
      */
-    protected function scriptCallback($matches) {
+    protected function scriptCallback($matches)
+    {
         return $matches[1] . htmlspecialchars($matches[2], ENT_COMPAT, 'UTF-8') . $matches[3];
     }
 
-    public function tokenizeHTML($html, $config, $context) {
-
+    public function tokenizeHTML($html, $config, $context)
+    {
         // special normalization for script tags without any armor
         // our "armor" heurstic is a < sign any number of whitespaces after
         // the first script tag
@@ -77,7 +78,7 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
         // for testing synchronization
         $loops = 0;
 
-        while(++$loops) {
+        while (++$loops) {
 
             // $cursor is either at the start of a token, or inside of
             // a tag (i.e. there was a < immediately before it), as indicated
@@ -314,19 +315,22 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
 
         $context->destroy('CurrentLine');
         $context->destroy('CurrentCol');
+
         return $array;
     }
 
     /**
      * PHP 5.0.x compatible substr_count that implements offset and length
      */
-    protected function substrCount($haystack, $needle, $offset, $length) {
+    protected function substrCount($haystack, $needle, $offset, $length)
+    {
         static $oldVersion;
         if ($oldVersion === null) {
             $oldVersion = version_compare(PHP_VERSION, '5.1', '<');
         }
         if ($oldVersion) {
             $haystack = substr($haystack, $offset, $length);
+
             return substr_count($haystack, $needle);
         } else {
             return substr_count($haystack, $needle, $offset, $length);
@@ -339,7 +343,8 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
      * @param $string Inside of tag excluding name.
      * @returns Assoc array of attributes.
      */
-    public function parseAttributeString($string, $config, $context) {
+    public function parseAttributeString($string, $config, $context)
+    {
         $string = (string) $string; // quick typecast
 
         if ($string == '') return array(); // no attributes
@@ -371,7 +376,7 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
             $same_quote = ($first_char == $last_char);
             $open_quote = ($first_char == '"' || $first_char == "'");
 
-            if ( $same_quote && $open_quote) {
+            if ($same_quote && $open_quote) {
                 // well behaved
                 $value = substr($quoted_value, 1, strlen($quoted_value) - 2);
             } else {
@@ -396,7 +401,7 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
         // space, so let's guarantee that there's always a terminating space.
         $string .= ' ';
 
-        while(true) {
+        while (true) {
 
             if ($cursor >= $size) {
                 break;
@@ -482,6 +487,7 @@ class HTMLPurifier_Lexer_DirectLex extends HTMLPurifier_Lexer
 
             }
         }
+
         return $array;
     }
 

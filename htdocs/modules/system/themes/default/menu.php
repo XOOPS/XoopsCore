@@ -60,4 +60,3 @@ foreach ($dirlist as $file) {
     $index++;
 }
 unset($dirlist);
-?>

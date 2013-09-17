@@ -33,5 +33,3 @@ define('_AM_XMF_ABOUT_MODULESTATUS','Состояние:');
 define('_AM_XMF_ABOUT_UPDATEDATE','Дата обновления:');
 define('_AM_XMF_ABOUT_WEBSITE',"Веб-сайт:");
 define('_AM_XMF_ABOUT_DESCRIPTION','Описание');
-
-?>

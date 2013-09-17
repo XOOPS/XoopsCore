@@ -57,5 +57,3 @@ define('_AM_ADV_DBFACTORYUNPATCHED','Il file databasefactory non &egrave; pronto
 define("_AM_ADV_SUBTITLECHECK","Controlla se Protector funziona correttamente");
 define("_AM_ADV_CHECKCONTAMI","Contaminazioni");
 define("_AM_ADV_CHECKISOCOM","Commenti isolati");
-
-?>

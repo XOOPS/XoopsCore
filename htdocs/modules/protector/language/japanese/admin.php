@@ -32,13 +32,11 @@ define("_AM_MSG_GROUP1IPSCANTOPEN" , "��������IP�ꥹ�ȥե�
 define("_AM_MSG_REMOVED" , "������ޤ���" ) ;
 //define("_AM_FMT_CONFIGSNOTWRITABLE" , "configs�ǥ��쥯�ȥ꤬������Ĥ���Ƥ��ޤ���: %s" ) ;
 
-
 // prefix_manager.php
 define("_AM_H3_PREFIXMAN" , "PREFIX �ޥ͡�����" ) ;
 define("_AM_MSG_DBUPDATED" , "�ǡ����١�������������ޤ���" ) ;
 define("_AM_CONFIRM_DELETE" , "���ơ��֥뤬�������ޤ����������Ǥ���?" ) ;
 define("_AM_TXT_HOWTOCHANGEDB" , "prefix���ѹ�������ϡ�%s/mainfile.php ��ΰʲ�����ʬ��񤭴����Ƥ�������<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
-
 
 // advisory.php
 define("_AM_ADV_NOTSECURE","��侩");
@@ -57,6 +55,3 @@ define("_AM_ADV_DBFACTORYUNPATCHED","�ǡ����١����ե����
 define("_AM_ADV_SUBTITLECHECK","Protector��ư������å�");
 define("_AM_ADV_CHECKCONTAMI","�ѿ����");
 define("_AM_ADV_CHECKISOCOM","��Ω������");
-
-
-?>

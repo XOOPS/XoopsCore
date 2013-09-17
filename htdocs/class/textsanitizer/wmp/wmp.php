@@ -26,14 +26,15 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MytsWmp extends MyTextSanitizerExtension
 {
     /**
-     * @param int $textarea_id
+     * @param  int   $textarea_id
      * @return array
      */
     public function encode($textarea_id)
     {
         $code = "<img src='{$this->image_path}/wmp.gif' alt='" . XoopsLocale::WMP . "' onclick='xoopsCodeWmp(\"{$textarea_id}\",\"" . htmlspecialchars(XoopsLocale::WMP_URL, ENT_QUOTES) . "\",\"" . htmlspecialchars(XoopsLocale::HEIGHT, ENT_QUOTES) . "\",\"" . htmlspecialchars(XoopsLocale::WIDTH, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $javascript = <<<EOH
-            function xoopsCodeWmp(id, enterWmpPhrase, enterWmpHeightPhrase, enterWmpWidthPhrase) {
+            function xoopsCodeWmp(id, enterWmpPhrase, enterWmpHeightPhrase, enterWmpWidthPhrase)
+            {
                 var selection = xoopsGetSelect(id);
                 if (selection.length > 0) {
                     var text = selection;
@@ -41,7 +42,7 @@ class MytsWmp extends MyTextSanitizerExtension
                     var text = prompt(enterWmpPhrase, "");
                 }
                 var domobj = xoopsGetElementById(id);
-                if ( text.length > 0 ) {
+                if (text.length > 0) {
                     var text2 = prompt(enterWmpWidthPhrase, "480");
                     var text3 = prompt(enterWmpHeightPhrase, "330");
                     var result = "[wmp="+text2+","+text3+"]" + text + "[/wmp]";
@@ -50,13 +51,14 @@ class MytsWmp extends MyTextSanitizerExtension
                 domobj.focus();
             }
 EOH;
+
         return array(
             $code, $javascript
         );
     }
 
     /**
-     * @param MyTextSanitizer $ts
+     * @param  MyTextSanitizer $ts
      * @return void
      */
     public function load(MyTextSanitizer &$ts)

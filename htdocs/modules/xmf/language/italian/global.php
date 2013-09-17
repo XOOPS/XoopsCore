@@ -181,5 +181,3 @@ define ('_XMF_URLLINK_BLANK', "Nuova finestra");
 define ('_XMF_ANY', "Any");
 define ('_XMF_EDITOR', "Editor di testo preferito");
 define ('_XMF_WITH_SELECTED', "Con i selezionati:");
-
-?>

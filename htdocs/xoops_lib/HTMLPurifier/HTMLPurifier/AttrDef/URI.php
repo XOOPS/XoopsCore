@@ -13,18 +13,21 @@ class HTMLPurifier_AttrDef_URI extends HTMLPurifier_AttrDef
     /**
      * @param $embeds_resource_resource Does the URI here result in an extra HTTP request?
      */
-    public function __construct($embeds_resource = false) {
+    public function __construct($embeds_resource = false)
+    {
         $this->parser = new HTMLPurifier_URIParser();
         $this->embedsResource = (bool) $embeds_resource;
     }
 
-    public function make($string) {
+    public function make($string)
+    {
         $embeds = (bool) $string;
+
         return new HTMLPurifier_AttrDef_URI($embeds);
     }
 
-    public function validate($uri, $config, $context) {
-
+    public function validate($uri, $config, $context)
+    {
         if ($config->get('URI.Disable')) return false;
 
         $uri = $this->parseCDATA($uri);

@@ -17,4 +17,3 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * Associated with editor_registry.php
  */
 define("_XOOPS_EDITOR_TEXTAREA", "Plain Text");
-?>

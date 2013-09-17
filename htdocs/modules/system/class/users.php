@@ -73,6 +73,7 @@ class SystemUsers extends XoopsUser
         $form->addElement(new XoopsFormHidden('avatar_id', $this->getVar('avatar_id', 'e')));
         $form->addElement(new XoopsFormButton('', 'avt_button', _SUBMIT, 'submit'));
 */
+
         return $form;
     }
 
@@ -97,5 +98,3 @@ class SystemUsersHandler extends XoopsUserHandler
     }
 
 }
-
-?>

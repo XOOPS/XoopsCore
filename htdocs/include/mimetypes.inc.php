@@ -129,5 +129,3 @@ return array(
     'wmv' => 'video/x-ms-wmv' ,
     'webm' => 'video/webm' ,
     '3gp' => 'video/quicktime' );
-
-?>

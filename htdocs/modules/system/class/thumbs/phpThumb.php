@@ -23,7 +23,8 @@ if (phpversion() < '4.1.0') {
     $_GET    = $HTTP_GET_VARS;
 }
 
-function SendSaveAsFileHeaderIfNeeded() {
+function SendSaveAsFileHeaderIfNeeded()
+{
     if (headers_sent()) {
         return false;
     }
@@ -33,19 +34,23 @@ function SendSaveAsFileHeaderIfNeeded() {
         $phpThumb->DebugMessage('SendSaveAsFileHeaderIfNeeded() sending header: Content-Disposition: '.(@$_GET['down'] ? 'attachment' : 'inline').'; filename="'.$downloadfilename.'"', __FILE__, __LINE__);
         header('Content-Disposition: '.(@$_GET['down'] ? 'attachment' : 'inline').'; filename="'.$downloadfilename.'"');
     }
+
     return true;
 }
 
-function PasswordStrength($password) {
+function PasswordStrength($password)
+{
     $strength = 0;
     $strength += strlen(preg_replace('#[^a-z]#',       '', $password)) * 0.5; // lowercase characters are weak
     $strength += strlen(preg_replace('#[^A-Z]#',       '', $password)) * 0.8; // uppercase characters are somewhat better
     $strength += strlen(preg_replace('#[^0-9]#',       '', $password)) * 1.0; // numbers are somewhat better
     $strength += strlen(preg_replace('#[a-zA-Z0-9]#',  '', $password)) * 2.0; // other non-alphanumeric characters are best
+
     return $strength;
 }
 
-function RedirectToCachedFile() {
+function RedirectToCachedFile()
+{
     global $phpThumb, $PHPTHUMB_CONFIG;
 
     $nice_cachefile = str_replace(DIRECTORY_SEPARATOR, '/', $phpThumb->cache_filename);
@@ -100,10 +105,9 @@ function RedirectToCachedFile() {
         exit;
 
     }
+
     return true;
 }
-
-
 
 // instantiate a new phpThumb() object
 ob_start();
@@ -622,5 +626,3 @@ if (isset($_GET['phpThumbDebug']) && ($_GET['phpThumbDebug'] == '10')) {
     $phpThumb->phpThumbDebug();
 }
 ////////////////////////////////////////////////////////////////
-
-?>

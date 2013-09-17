@@ -5,7 +5,8 @@ class HTMLPurifier_Injector_RemoveEmpty extends HTMLPurifier_Injector
 
     private $context, $config, $attrValidator, $removeNbsp, $removeNbspExceptions;
 
-    public function prepare($config, $context) {
+    public function prepare($config, $context)
+    {
         parent::prepare($config, $context);
         $this->config = $config;
         $this->context = $context;
@@ -14,7 +15,8 @@ class HTMLPurifier_Injector_RemoveEmpty extends HTMLPurifier_Injector
         $this->attrValidator = new HTMLPurifier_AttrValidator();
     }
 
-    public function handleElement(&$token) {
+    public function handleElement(&$token)
+    {
         if (!$token instanceof HTMLPurifier_Token_Start) return;
         $next = false;
         for ($i = $this->inputIndex + 1, $c = count($this->inputTokens); $i < $c; $i++) {
@@ -42,6 +44,7 @@ class HTMLPurifier_Injector_RemoveEmpty extends HTMLPurifier_Injector
             }
             // This is safe because we removed the token that triggered this.
             $this->rewind($b - 1);
+
             return;
         }
     }

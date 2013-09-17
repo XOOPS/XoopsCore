@@ -46,4 +46,3 @@ if (! headers_sent()) {
     header('Pragma: no-cache');
 }
 echo "<div>" . $content . "</div>";
-?>

@@ -17,7 +17,8 @@ abstract class HTMLPurifier_DefinitionCache
      * @param $name Type of definition objects this instance of the
      *      cache will handle.
      */
-    public function __construct($type) {
+    public function __construct($type)
+    {
         $this->type = $type;
     }
 
@@ -25,7 +26,8 @@ abstract class HTMLPurifier_DefinitionCache
      * Generates a unique identifier for a particular configuration
      * @param Instance of HTMLPurifier_Config
      */
-    public function generateKey($config) {
+    public function generateKey($config)
+    {
         return $config->version . ',' . // possibly replace with function calls
                $config->getBatchSerial($this->type) . ',' .
                $config->get($this->type . '.DefinitionRev');
@@ -37,7 +39,8 @@ abstract class HTMLPurifier_DefinitionCache
      * @param $key Key to test
      * @param $config Instance of HTMLPurifier_Config to test against
      */
-    public function isOld($key, $config) {
+    public function isOld($key, $config)
+    {
         if (substr_count($key, ',') < 2) return true;
         list($version, $hash, $revision) = explode(',', $key, 3);
         $compare = version_compare($version, $config->version);
@@ -48,6 +51,7 @@ abstract class HTMLPurifier_DefinitionCache
             $hash == $config->getBatchSerial($this->type) &&
             $revision < $config->get($this->type . '.DefinitionRev')
         ) return true;
+
         return false;
     }
 
@@ -57,11 +61,14 @@ abstract class HTMLPurifier_DefinitionCache
      * @param $def Definition object to check
      * @return Boolean true if good, false if not
      */
-    public function checkDefType($def) {
+    public function checkDefType($def)
+    {
         if ($def->type !== $this->type) {
             trigger_error("Cannot use definition of type {$def->type} in cache for {$this->type}");
+
             return false;
         }
+
         return true;
     }
 

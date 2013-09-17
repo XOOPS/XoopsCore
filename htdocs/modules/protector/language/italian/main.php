@@ -9,5 +9,3 @@ define('_MD_PROTECTOR_BANDWIDTHLIMITED','Troppe connessioni al sito in questo mo
 define('_MD_PROTECTOR_TURNJAVASCRIPTON','Impostare JavaScript su ON') ;
 define('_MD_PROTECTOR_DENYBYRBL','Protector rifiuta il tuo messaggio, perch&acute; il tuo IP &egrave; registrato in RBL') ;
 define('_MD_PROTECTOR_FMT_REGISTER_MORATORIUM','Reinvia ancora il messaggio tra %s minuti. (spiacenti, procedura Anti-SPAMMING)');
-
-?>

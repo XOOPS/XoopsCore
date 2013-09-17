@@ -11,7 +11,8 @@ class HTMLPurifier_ChildDef_Optional extends HTMLPurifier_ChildDef_Required
 {
     public $allow_empty = true;
     public $type = 'optional';
-    public function validateChildren($tokens_of_children, $config, $context) {
+    public function validateChildren($tokens_of_children, $config, $context)
+    {
         $result = parent::validateChildren($tokens_of_children, $config, $context);
         // we assume that $tokens_of_children is not modified
         if ($result === false) {
@@ -19,6 +20,7 @@ class HTMLPurifier_ChildDef_Optional extends HTMLPurifier_ChildDef_Required
             elseif ($this->whitespace) return $tokens_of_children;
             else return array();
         }
+
         return $result;
     }
 }

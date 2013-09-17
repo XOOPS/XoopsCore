@@ -58,6 +58,7 @@ class System
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
@@ -74,14 +75,15 @@ class System
         } else {
             return false;
         }
+
         return true;
     }
 
     /**
      * @param $global
      * @param $key
-     * @param string $default
-     * @param string $type
+     * @param  string           $default
+     * @param  string           $type
      * @return int|mixed|string
      */
     public function cleanVars(&$global, $key, $default = '', $type = 'int')
@@ -104,16 +106,17 @@ class System
         if ($ret === false) {
             return $default;
         }
+
         return $ret;
     }
 
     /**
      * System language loader wrapper
      *
-     * @param   string  $name       Name of language file to be loaded, without extension
-     * @param   string  $domain     Module dirname; global language file will be loaded if $domain is set to 'global' or not specified
-     * @param   string  $language   Language to be loaded, current language content will be loaded if not specified
-     * @return  boolean
+     * @param  string  $name     Name of language file to be loaded, without extension
+     * @param  string  $domain   Module dirname; global language file will be loaded if $domain is set to 'global' or not specified
+     * @param  string  $language Language to be loaded, current language content will be loaded if not specified
+     * @return boolean
      * @todo    expand domain to multiple categories, e.g. module:system, framework:filter, etc.
      *
      */
@@ -133,12 +136,13 @@ class System
         } else {
             $ret = include_once $xoops->path($path . 'english/admin/' . $name . '.php');
         }
+
         return $ret;
     }
 
     /**
-     * @param string $version
-     * @param string $value
+     * @param  string $version
+     * @param  string $value
      * @return string
      */
     public function adminVersion($version, $value = '')
@@ -154,8 +158,10 @@ class System
             include $path;
             $retvalue = $modversion[$value];
             $tblVersion[$version . '.' . $value] = $retvalue;
+
             return $retvalue;
         }
+
         return '';
     }
     /**
@@ -164,7 +170,8 @@ class System
      * @param array cache
      * @return
      */
-    function CleanCache($cache) {
+    function CleanCache($cache)
+    {
         $total_smarty_cache = 0;
         $total_smarty_compile = 0;
         $total_xoops_cache = 0;
@@ -208,6 +215,7 @@ class System
             $ret['smarty_cache'] = $total_smarty_cache;
             $ret['smarty_compile'] = $total_smarty_compile;
             $ret['xoops_cache'] = $total_xoops_cache;
+
             return $ret;
         } else {
             return false;

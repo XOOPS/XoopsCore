@@ -32,8 +32,8 @@ class XoopsFormTextDateSelect extends XoopsFormText
     /**
      * @param string $caption
      * @param string $name
-     * @param int $size
-     * @param int $value
+     * @param int    $size
+     * @param int    $value
      */
     public function __construct($caption, $name, $size = 2, $value = 0)
     {
@@ -64,16 +64,19 @@ class XoopsFormTextDateSelect extends XoopsFormText
             $xoops->theme()->addScript('','', '
                 var calendar = null;
 
-                function selected(cal, date) {
+                function selected(cal, date)
+                {
                 cal.sel.value = date;
                 }
 
-                function closeHandler(cal) {
+                function closeHandler(cal)
+                {
                 cal.hide();
                 Calendar.removeEvent(document, "mousedown", checkCalendar);
                 }
 
-                function checkCalendar(ev) {
+                function checkCalendar(ev)
+                {
                 var el = Calendar.is_ie ? Calendar.getElement(ev) : Calendar.getTargetElement(ev);
                 for (; el != null; el = el.parentNode)
                 if (el == calendar.element || el.tagName == "A") break;
@@ -81,7 +84,8 @@ class XoopsFormTextDateSelect extends XoopsFormText
                 calendar.callCloseHandler(); Calendar.stopEvent(ev);
                 }
                 }
-                function showCalendar(id) {
+                function showCalendar(id)
+                {
                 var el = xoopsGetElementById(id);
                 if (calendar != null) {
                 calendar.hide();
@@ -95,6 +99,7 @@ class XoopsFormTextDateSelect extends XoopsFormText
                 calendar.parseDate(el.value);
                 calendar.showAtElement(el);
                 Calendar.addEvent(document, "mousedown", checkCalendar);
+
                 return false;
                 }
 
@@ -151,6 +156,7 @@ class XoopsFormTextDateSelect extends XoopsFormText
         $class = ($this->getClass() != '' ? " class='span" . $maxcols . " " . $this->getClass() . "'" : " class='span" . $maxcols . "'");
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $required = ($this->isRequired() ? ' required' : '');
+
         return "<input type='text' name='" . $ele_name . "' id='" . $ele_name . "'" . $class ."' maxlength='" . $this->getMaxlength() . "' value='" . $display_value . "'" . $extra . $required . " /><button class='btn' type='button' onclick='return showCalendar(\"" . $this->getName() . "\");'> ... </button>" ;
     }
 }

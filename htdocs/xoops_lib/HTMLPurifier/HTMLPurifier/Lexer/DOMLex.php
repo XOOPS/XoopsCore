@@ -29,14 +29,15 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
 
     private $factory;
 
-    public function __construct() {
+    public function __construct()
+    {
         // setup the factory
         parent::__construct();
         $this->factory = new HTMLPurifier_TokenFactory();
     }
 
-    public function tokenizeHTML($html, $config, $context) {
-
+    public function tokenizeHTML($html, $config, $context)
+    {
         $html = $this->normalize($html, $config, $context);
 
         // attempt to armor stray angled brackets that cannot possibly
@@ -68,6 +69,7 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
                   getElementsByTagName('body')->item(0)-> //   <body>
                   getElementsByTagName('div')->item(0)    //     <div>
             , $tokens);
+
         return $tokens;
     }
 
@@ -81,13 +83,14 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      *                  tag you're dealing with.
      * @returns Tokens of node appended to previously passed tokens.
      */
-    protected function tokenizeDOM($node, &$tokens, $collect = false) {
-
+    protected function tokenizeDOM($node, &$tokens, $collect = false)
+    {
         // intercept non element nodes. WE MUST catch all of them,
         // but we're not getting the character reference nodes because
         // those should have been preprocessed
         if ($node->nodeType === XML_TEXT_NODE) {
             $tokens[] = $this->factory->createText($node->data);
+
             return;
         } elseif ($node->nodeType === XML_CDATA_SECTION_NODE) {
             // undo libxml's special treatment of <script> and <style> tags
@@ -106,12 +109,14 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
                 }
             }
             $tokens[] = $this->factory->createText($this->parseData($data));
+
             return;
         } elseif ($node->nodeType === XML_COMMENT_NODE) {
             // this is code is only invoked for comments in script/style in versions
             // of libxml pre-2.6.28 (regular comments, of course, are still
             // handled regularly)
             $tokens[] = $this->factory->createComment($node->data);
+
             return;
         } elseif (
             // not-well tested: there may be other nodes we have to grab
@@ -154,7 +159,8 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      * @param $attribute_list DOMNamedNodeMap of DOMAttr objects.
      * @returns Associative array of attributes.
      */
-    protected function transformAttrToAssoc($node_map) {
+    protected function transformAttrToAssoc($node_map)
+    {
         // NamedNodeMap is documented very well, so we're using undocumented
         // features, namely, the fact that it implements Iterator and
         // has a ->length attribute
@@ -163,6 +169,7 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
         foreach ($node_map as $attr) {
             $array[$attr->name] = $attr->value;
         }
+
         return $array;
     }
 
@@ -175,7 +182,8 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      * Callback function for undoing escaping of stray angled brackets
      * in comments
      */
-    public function callbackUndoCommentSubst($matches) {
+    public function callbackUndoCommentSubst($matches)
+    {
         return '<!--' . strtr($matches[1], array('&amp;'=>'&','&lt;'=>'<')) . $matches[2];
     }
 
@@ -183,14 +191,16 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      * Callback function that entity-izes ampersands in comments so that
      * callbackUndoCommentSubst doesn't clobber them
      */
-    public function callbackArmorCommentEntities($matches) {
+    public function callbackArmorCommentEntities($matches)
+    {
         return '<!--' . str_replace('&', '&amp;', $matches[1]) . $matches[2];
     }
 
     /**
      * Wraps an HTML fragment in the necessary HTML
      */
-    protected function wrapHTML($html, $config, $context) {
+    protected function wrapHTML($html, $config, $context)
+    {
         $def = $config->getDefinition('HTML');
         $ret = '';
 
@@ -205,6 +215,7 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
         $ret .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
         // No protection if $html contains a stray </div>!
         $ret .= '</head><body><div>'.$html.'</div></body></html>';
+
         return $ret;
     }
 

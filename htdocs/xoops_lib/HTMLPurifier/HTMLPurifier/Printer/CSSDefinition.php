@@ -5,7 +5,8 @@ class HTMLPurifier_Printer_CSSDefinition extends HTMLPurifier_Printer
 
     protected $def;
 
-    public function render($config) {
+    public function render($config)
+    {
         $this->def = $config->getCSSDefinition();
         $ret = '';
 

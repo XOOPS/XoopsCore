@@ -28,12 +28,11 @@ class PageSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPlu
         $xoops = Xoops::getInstance();
         $sql = "SELECT content_id, content_title, content_shorttext, content_text, content_author, content_create FROM " . $xoopsDB->prefix("page_content") . " WHERE content_status != 0";
 
-        if ( $uid != 0 ) {
+        if ($uid != 0) {
             $sql .= " AND content_author=" . intval($uid);
         }
 
-        if ( is_array($queries) && $count = count($queries) )
-        {
+        if ( is_array($queries) && $count = count($queries) ) {
             $sql .= " AND ((content_title LIKE '%$queries[0]%' OR content_text LIKE '%$queries[0]%' OR content_shorttext LIKE '%$queries[0]%')";
 
             for ($i=1; $i < $count; $i++) {
@@ -47,7 +46,7 @@ class PageSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPlu
 
         $ret = array();
         $i = 0;
-        while($myrow = $xoopsDB->fetchArray($result)) {
+        while ($myrow = $xoopsDB->fetchArray($result)) {
             $ret[$i]["image"] = "images/logo_small.png";
             $ret[$i]["link"] = "viewpage.php?id=" . $myrow["content_id"];
             $ret[$i]["title"] = $myrow["content_title"];
@@ -56,6 +55,7 @@ class PageSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPlu
             $ret[$i]["uid"] = $myrow["content_author"];
             $i++;
         }
+
         return $ret;
     }
 }

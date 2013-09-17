@@ -9,7 +9,8 @@ class HTMLPurifier_Injector_Linkify extends HTMLPurifier_Injector
     public $name = 'Linkify';
     public $needed = array('a' => array('href'));
 
-    public function handleText(&$token) {
+    public function handleText(&$token)
+    {
         if (!$this->allowsElement('a')) return;
 
         if (strpos($token->data, '://') === false) {

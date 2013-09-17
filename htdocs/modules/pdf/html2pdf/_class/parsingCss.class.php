@@ -29,7 +29,7 @@ class HTML2PDF_parsingCss
     /**
      * Constructor
      *
-     * @param  &HTML2PDF_myPdf reference to the PDF $object
+     * @param &HTML2PDF_myPdf reference to the PDF $object
      * @access public
      */
     public function __construct(&$pdf)
@@ -41,7 +41,7 @@ class HTML2PDF_parsingCss
     /**
      * Set the HTML2PDF parent object
      *
-     * @param  &HTML2PDF reference to the HTML2PDF parent $object
+     * @param &HTML2PDF reference to the HTML2PDF parent $object
      * @access public
      */
     public function setPdfParent(&$pdf)
@@ -175,7 +175,6 @@ class HTML2PDF_parsingCss
             '1px' => $this->convertToMM('1px'),
             '5px' => $this->convertToMM('5px'),
         );
-
 
         // prepare the Collapse attribute
         $collapse = isset($this->value['border']['collapse']) ? $this->value['border']['collapse'] : false;
@@ -530,7 +529,6 @@ class HTML2PDF_parsingCss
         if (isset($styles['stroke-width']))  $this->value['svg']['stroke-width'] = $this->convertToMM($styles['stroke-width']);
         if (isset($styles['fill']))          $this->value['svg']['fill']         = $this->convertToColor($styles['fill'], $res);
         if (isset($styles['fill-opacity']))  $this->value['svg']['fill-opacity'] = 1.*$styles['fill-opacity'];
-
         return $this->value['svg'];
     }
 
@@ -538,9 +536,9 @@ class HTML2PDF_parsingCss
      * analyse the css properties from the HTML parsing
      *
      * @access public
-     * @param  string  $tagName
-     * @param  array   $param
-     * @param  array   $legacy
+     * @param string $tagName
+     * @param array  $param
+     * @param array  $legacy
      */
     public function analyse($tagName, &$param, $legacy = null)
     {
@@ -607,8 +605,7 @@ class HTML2PDF_parsingCss
 
         // read all the css styles
         foreach ($styles as $nom => $val) {
-            switch($nom)
-            {
+            switch ($nom) {
                 case 'font-family':
                     $val = explode(',', $val);
                     $val = trim($val[0]);
@@ -1071,7 +1068,6 @@ class HTML2PDF_parsingCss
 
         if ($this->value['top'] && $this->value['bottom'] && $this->value['height'])    $this->value['bottom']  = null;
         if ($this->value['left'] && $this->value['right'] && $this->value['width'])     $this->value['right']   = null;
-
         return $return;
     }
 
@@ -1093,7 +1089,7 @@ class HTML2PDF_parsingCss
      *
      * @access public
      * @param  boolean $mode true => adding padding and border
-     * @return float $width in mm
+     * @return float   $width in mm
      */
     public function getLastWidth($mode = false)
     {
@@ -1104,9 +1100,11 @@ class HTML2PDF_parsingCss
                     $w+= $this->table[$k]['border']['l']['width'] + $this->table[$k]['padding']['l'] + 0.02;
                     $w+= $this->table[$k]['border']['r']['width'] + $this->table[$k]['padding']['r'] + 0.02;
                 }
+
                 return $w;
             }
         }
+
         return $this->_pdf->getW() - $this->_pdf->getlMargin() - $this->_pdf->getrMargin();
     }
 
@@ -1115,7 +1113,7 @@ class HTML2PDF_parsingCss
      *
      * @access public
      * @param  boolean $mode true => adding padding and border
-     * @return float $height in mm
+     * @return float   $height in mm
      */
     public function getLastHeight($mode = false)
     {
@@ -1126,9 +1124,11 @@ class HTML2PDF_parsingCss
                     $h+= $this->table[$k]['border']['t']['width'] + $this->table[$k]['padding']['t'] + 0.02;
                     $h+= $this->table[$k]['border']['b']['width'] + $this->table[$k]['padding']['b'] + 0.02;
                 }
+
                 return $h;
             }
         }
+
         return $this->_pdf->getH() - $this->_pdf->gettMargin() - $this->_pdf->getbMargin();
     }
 
@@ -1173,6 +1173,7 @@ class HTML2PDF_parsingCss
         for ($k=count($this->table)-1; $k>=0; $k--) {
             if ($this->table[$k]['x'] && $this->table[$k]['position']) return $this->table[$k]['x'];
         }
+
         return $this->_pdf->getlMargin();
     }
 
@@ -1187,6 +1188,7 @@ class HTML2PDF_parsingCss
         for ($k=count($this->table)-1; $k>=0; $k--) {
             if ($this->table[$k]['y'] && $this->table[$k]['position']) return $this->table[$k]['y'];
         }
+
         return $this->_pdf->gettMargin();
     }
 
@@ -1232,9 +1234,9 @@ class HTML2PDF_parsingCss
      * identify if the selector $key match with the list of tag selectors
      *
      * @access protected
-     * @param  string   $key CSS selector to analyse
-     * @param  array    $lst list of the selectors of each tags
-     * @param  string   $next next step of parsing the selector
+     * @param  string  $key  CSS selector to analyse
+     * @param  array   $lst  list of the selectors of each tags
+     * @param  string  $next next step of parsing the selector
      * @return boolean
      */
     protected function _getReccursiveStyle($key, $lst, $next = null)
@@ -1277,8 +1279,8 @@ class HTML2PDF_parsingCss
      * Analyse a border
      *
      * @access  public
-     * @param   string $css css border properties
-     * @return  array  border properties
+     * @param  string $css css border properties
+     * @return array  border properties
      */
     public function readBorder($css)
     {
@@ -1315,7 +1317,7 @@ class HTML2PDF_parsingCss
             if ($tmp!==null) {
                 $width = $tmp;
             // else, it could be the type
-            } else if (in_array($value, array('solid', 'dotted', 'dashed', 'double'))) {
+            } elseif (in_array($value, array('solid', 'dotted', 'dashed', 'double'))) {
                 $type = $value;
             // else, it could be the color
             } else {
@@ -1335,7 +1337,7 @@ class HTML2PDF_parsingCss
      * duplicate the borders if needed
      *
      * @access protected
-     * @param  &array $val
+     * @param &array $val
      */
     protected function _duplicateBorder(&$val)
     {
@@ -1345,11 +1347,11 @@ class HTML2PDF_parsingCss
             $val[2] = $val[0];
             $val[3] = $val[0];
         // 2 values => L => R & T => B
-        } else if (count($val)==2) {
+        } elseif (count($val)==2) {
             $val[2] = $val[0];
             $val[3] = $val[1];
         // 3 values => T => B
-        } else if (count($val)==3) {
+        } elseif (count($val)==3) {
             $val[3] = $val[1];
         }
     }
@@ -1358,8 +1360,8 @@ class HTML2PDF_parsingCss
      * Analyse a background
      *
      * @access public
-     * @param  string $css css background properties
-     * @param  &array $value parsed values (by reference, because, ther is a legacy of the parent CSS properties)
+     * @param string $css   css background properties
+     * @param &array $value parsed values (by reference, because, ther is a legacy of the parent CSS properties)
      */
     public function convertBackground($css, &$value)
     {
@@ -1393,7 +1395,7 @@ class HTML2PDF_parsingCss
             if ($ok) {
                 $value['color'] = $color;
             // else if transparent => no coloàr
-            } else if ($val=='transparent') {
+            } elseif ($val=='transparent') {
                 $value['color'] = null;
             // else
             } else {
@@ -1453,9 +1455,9 @@ class HTML2PDF_parsingCss
      * parse a background position
      *
      * @access public
-     * @param  string $css
+     * @param  string   $css
      * @param  &boolean $res flag if conver is ok or not
-     * @return array ($x, $y)
+     * @return array    ($x, $y)
      */
     public function convertBackgroundPosition($css, &$res)
     {
@@ -1510,8 +1512,7 @@ class HTML2PDF_parsingCss
      */
     public function convertBackgroundRepeat($css)
     {
-        switch($css)
-        {
+        switch ($css) {
             case 'repeat':
                 return array(true, true);
             case 'repeat-x':
@@ -1521,6 +1522,7 @@ class HTML2PDF_parsingCss
             case 'no-repeat':
                 return array(false, false);
         }
+
         return null;
     }
 
@@ -1542,7 +1544,6 @@ class HTML2PDF_parsingCss
         else if (preg_match('/^[0-9\.\-]+mm$/isU', $css)) $css = 1.*str_replace('mm', '', $css);
         else if (preg_match('/^[0-9\.\-]+%$/isU', $css))  $css = 1.*$old*str_replace('%', '', $css)/100.;
         else                                              $css = null;
-
         return $css;
     }
 
@@ -1579,9 +1580,9 @@ class HTML2PDF_parsingCss
      * convert a css color
      *
      * @access public
-     * @param  string $css
+     * @param  string   $css
      * @param  &boolean $res
-     * @return array (r,g, b)
+     * @return array    (r,g, b)
      */
     public function convertToColor($css, &$res)
     {
@@ -1598,6 +1599,7 @@ class HTML2PDF_parsingCss
             $r = floatVal(hexdec(substr($css, 0, 2)));
             $v = floatVal(hexdec(substr($css, 2, 2)));
             $b = floatVal(hexdec(substr($css, 4, 2)));
+
             return array($r, $v, $b);
         }
 
@@ -1606,6 +1608,7 @@ class HTML2PDF_parsingCss
             $r = floatVal(hexdec(substr($css, 1, 2)));
             $v = floatVal(hexdec(substr($css, 3, 2)));
             $b = floatVal(hexdec(substr($css, 5, 2)));
+
             return array($r, $v, $b);
         }
 
@@ -1614,6 +1617,7 @@ class HTML2PDF_parsingCss
             $r = floatVal(hexdec(substr($css, 1, 1).substr($css, 1, 1)));
             $v = floatVal(hexdec(substr($css, 2, 1).substr($css, 2, 1)));
             $b = floatVal(hexdec(substr($css, 3, 1).substr($css, 3, 1)));
+
             return array($r, $v, $b);
         }
 
@@ -1622,6 +1626,7 @@ class HTML2PDF_parsingCss
             $r = $this->_convertSubColor($match[1]);
             $v = $this->_convertSubColor($match[2]);
             $b = $this->_convertSubColor($match[3]);
+
             return array($r*255., $v*255., $b*255.);
         }
 
@@ -1631,10 +1636,12 @@ class HTML2PDF_parsingCss
             $m = $this->_convertSubColor($match[2]);
             $y = $this->_convertSubColor($match[3]);
             $k = $this->_convertSubColor($match[4]);
+
             return array($c*100., $m*100., $y*100., $k*100.);
         }
 
         $res = false;
+
         return array(0., 0., 0.);
     }
 
@@ -1643,7 +1650,7 @@ class HTML2PDF_parsingCss
      *
      * @access protected
      * @param  string $c
-     * @return float $c 0.->1.
+     * @return float  $c 0.->1.
      */
     protected function _convertSubColor($c)
     {
@@ -1661,7 +1668,7 @@ class HTML2PDF_parsingCss
      * read a css content
      *
      * @access protected
-     * @param  &string $code
+     * @param &string $code
      */
     protected function _analyseStyle(&$code)
     {
@@ -1724,7 +1731,7 @@ class HTML2PDF_parsingCss
      * Extract the css files from a html code
      *
      * @access public
-     * @param  string   &$html
+     * @param string &$html
      */
     public function readStyle(&$html)
     {

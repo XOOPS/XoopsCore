@@ -17,8 +17,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
     defined("FRAMEWORKS_ART_FUNCTIONS_INI") || include_once dirname(__FILE__) . "/functions.ini.php";
 
     /**
-     * @param int $currentoption
-     * @param string $breadcrumb
+     * @param  int    $currentoption
+     * @param  string $breadcrumb
      * @return bool
      */
     function loadModuleAdminMenu($currentoption = -1, $breadcrumb = "")
@@ -80,7 +80,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
     <br style="clear:both;" />';
 
         echo $adminmenu_text;
+
         return true;
     }
 endif;
-?>

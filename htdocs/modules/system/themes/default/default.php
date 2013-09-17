@@ -9,7 +9,6 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-
 /*
  * Xoops Cpanel default GUI class
  *
@@ -170,5 +169,3 @@ class XoopsGuiDefault
 
     }
 }
-
-?>

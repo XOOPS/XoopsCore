@@ -98,14 +98,12 @@ ob_start();
     $content = ob_get_clean();
 
     require_once(dirname(__FILE__) . '/../html2pdf.class.php');
-    try
-    {
+    try {
         $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', 0);
         $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
         $html2pdf->createIndex('Sommaire', 25, 12, false, true, 1);
         $html2pdf->Output('bookmark.pdf');
-    }
-    catch(HTML2PDF_exception $e) {
+    } catch (HTML2PDF_exception $e) {
         echo $e;
         exit;
     }

@@ -64,7 +64,7 @@ class MyTextSanitizerExtension
     /**
      * loadConfig
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     static function loadConfig($path = null)
@@ -89,14 +89,15 @@ class MyTextSanitizerExtension
         if (XoopsLoad::fileExists($path . '/config.custom.php')) {
             $config_custom = include $path . '/config.custom.php';
         }
+
         return self::mergeConfig($config_default, $config_custom);
     }
 
     /**
      * Merge Config
      *
-     * @param array $config_default
-     * @param array $config_custom
+     * @param  array $config_default
+     * @param  array $config_custom
      * @return array
      */
     static function mergeConfig($config_default, $config_custom)
@@ -110,6 +111,7 @@ class MyTextSanitizerExtension
                 }
             }
         }
+
         return $config_default;
     }
 
@@ -117,7 +119,7 @@ class MyTextSanitizerExtension
      * to be implemented by the extending class
      *
      * @abstract
-     * @param mixed $value
+     * @param  mixed $value
      * @return array
      */
     public function encode($value)
@@ -131,9 +133,9 @@ class MyTextSanitizerExtension
      * to be implemented by the extending class
      * @abstract
      *
-     * @param string $url
-     * @param string $width
-     * @param string $height
+     * @param  string $url
+     * @param  string $width
+     * @param  string $height
      * @return string
      */
     public static function decode($url, $width, $height)
@@ -209,7 +211,7 @@ class MyTextSanitizer
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return array
      */
     public function loadConfig($name = null)
@@ -222,12 +224,13 @@ class MyTextSanitizer
         if (XoopsLoad::fileExists($file = $this->path_basic . '/config.custom.php')) {
             $config_custom = include $file;
         }
+
         return $this->mergeConfig($config_default, $config_custom);
     }
 
     /**
-     * @param array $config_default
-     * @param array $config_custom
+     * @param  array $config_default
+     * @param  array $config_custom
      * @return array
      */
     public function mergeConfig($config_default, $config_custom)
@@ -241,6 +244,7 @@ class MyTextSanitizer
                 }
             }
         }
+
         return $config_default;
     }
 
@@ -257,35 +261,36 @@ class MyTextSanitizer
             $class = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
     /**
      * Get the smileys
      *
-     * @param bool $isAll TRUE for all smileys, FALSE for smileys with display = 1
+     * @param  bool  $isAll TRUE for all smileys, FALSE for smileys with display = 1
      * @return array return array
      */
     public function getSmileys($isAll = true)
     {
         $smileys = array();
         XoopsPreload::getInstance()->triggerEvent('core.class.module.textsanitizer.getSmileys', array($isAll, &$smileys, &$this));
+
         return $smileys;
     }
 
     /**
      * Replace emoticons in the message with smiley images
      *
-     * @param string $message
+     * @param  string $message
      * @return string
      */
     public function smiley($message)
     {
         XoopsPreload::getInstance()->triggerEvent('core.class.module.textsanitizer.smiley', array(&$message));
+
         return $message;
     }
-
-
 
      function makeClickableCallback01($match)
        {
@@ -307,14 +312,14 @@ class MyTextSanitizer
                return $match[1]. "<a href=\"mailto:$match[2]@$match[3]\" title=\"$match[2]@$match[3]\">" .$this->truncate($match[2]."@".$match[3]) .'</a>';
            }
 
-
     /**
      * Make links in the text clickable
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
-    public function makeClickable(&$text) {
+    public function makeClickable(&$text)
+    {
         $valid_chars = "a-z0-9\/\-_+=.~!%@?#&;:$\|";
         $end_chars   = "a-z0-9\/\-_+=~!%@?#&;:$\|";
 
@@ -338,13 +343,11 @@ class MyTextSanitizer
 //
 //----------------------------------------------------------------------------------
 
-
        $pattern     = "/(^|[^]_a-z0-9-=\"'\/])([a-z]+?):\/\/([{$valid_chars}]+[{$end_chars}])/i";
         $text = preg_replace_callback($pattern, 'self::makeClickableCallback01', $text);
 
         $pattern     = "/(^|[^]_a-z0-9-=\"'\/:\.])www\.((([a-zA-Z0-9\-]*\.){1,}){1}([a-zA-Z]{2,6}){1})((\/([a-zA-Z0-9\-\._\?\,\'\/\\+&%\$#\=~])*)*)/i";
         $text = preg_replace_callback($pattern, 'self::makeClickableCallback02', $text);
-
 
          $pattern     = "/(^|[^]_a-z0-9-=\"'\/])ftp\.([a-z0-9\-]+)\.([{$valid_chars}]+[{$end_chars}])/i";
         $text = preg_replace_callback($pattern, 'self::makeClickableCallback03', $text);
@@ -358,7 +361,7 @@ class MyTextSanitizer
     /**
      * MyTextSanitizer::truncate()
      *
-     * @param mixed $text
+     * @param  mixed  $text
      * @return string
      */
     static function truncate($text)
@@ -372,6 +375,7 @@ class MyTextSanitizer
             $ret = substr($text, 0, $len) . ' ... ' . substr($text, -$len);
         else
             $ret = substr($text,0,$instance->config['truncate_length']);
+
         return $ret;
     }
 
@@ -379,7 +383,7 @@ class MyTextSanitizer
      * Replace XoopsCodes with their equivalent HTML formatting
      *
      * @param string $text
-     * @param int $allowimage Allow images in the text?
+     * @param int    $allowimage Allow images in the text?
      *                                                           On FALSE, uses links to images.
      * @return string
      */
@@ -435,13 +439,14 @@ class MyTextSanitizer
         }
 //------------------------------------------------------------------------------
         $text = $this->quoteConv($text);
+
         return $text;
     }
 
     /**
      * Convert quote tags
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function quoteConv($text)
@@ -480,13 +485,14 @@ class MyTextSanitizer
         $patterns[] = "/\bx{$c}s{$c}s{$c}[\s]*:/si";
         $replacements[] = "xss;";
         $text = preg_replace($patterns, $replacements, $text);
+
         return $text;
     }
 
     /**
      * Convert linebreaks to <br /> tags
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function nl2Br($text)
@@ -497,7 +503,7 @@ class MyTextSanitizer
     /**
      * Add slashes to the text if magic_quotes_gpc is turned off.
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function addSlashes($text)
@@ -505,13 +511,14 @@ class MyTextSanitizer
         if (!get_magic_quotes_gpc()) {
             $text = addslashes($text);
         }
+
         return $text;
     }
 
     /**
      * if magic_quotes_gpc is on, stirip back slashes
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function stripSlashesGPC($text)
@@ -519,16 +526,17 @@ class MyTextSanitizer
         if (get_magic_quotes_gpc()) {
             $text = stripslashes($text);
         }
+
         return $text;
     }
 
     /**
      * Convert special characters to HTML entities
      *
-     * @param string $text string being converted
-     * @param int $quote_style
-     * @param string $charset character set used in conversion
-     * @param bool $double_encode
+     * @param  string $text          string being converted
+     * @param  int    $quote_style
+     * @param  string $charset       character set used in conversion
+     * @param  bool   $double_encode
      * @return string
      */
     public function htmlSpecialChars($text, $quote_style = ENT_QUOTES, $charset = null, $double_encode = true)
@@ -538,13 +546,14 @@ class MyTextSanitizer
         } else {
             $text = htmlspecialchars($text, $quote_style);
         }
+
         return preg_replace(array('/&amp;/i' , '/&nbsp;/i'), array('&' , '&amp;nbsp;'), $text);
      }
 
     /**
      * Reverses {@link htmlSpecialChars()}
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function undoHtmlSpecialChars($text)
@@ -555,12 +564,12 @@ class MyTextSanitizer
     /**
      * Filters textarea form data in DB for display
      *
-     * @param string $text
-     * @param int $html allow html?
-     * @param int $smiley allow smileys?
-     * @param int $xcode allow xoopscode?
-     * @param int $image allow inline images?
-     * @param int $br convert linebreaks?
+     * @param  string $text
+     * @param  int    $html   allow html?
+     * @param  int    $smiley allow smileys?
+     * @param  int    $xcode  allow xoopscode?
+     * @param  int    $image  allow inline images?
+     * @param  int    $br     convert linebreaks?
      * @return string
      */
     public function displayTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1)
@@ -592,31 +601,33 @@ class MyTextSanitizer
         if (!empty($this->config['filterxss_on_display'])) {
             $text = $this->filterXss($text);
         }
+
         return $text;
     }
 
     /**
      * Filters textarea form data submitted for preview
      *
-     * @param string $text
-     * @param int $html allow html?
-     * @param int $smiley allow smileys?
-     * @param int $xcode allow xoopscode?
-     * @param int $image allow inline images?
-     * @param int $br convert linebreaks?
+     * @param  string $text
+     * @param  int    $html   allow html?
+     * @param  int    $smiley allow smileys?
+     * @param  int    $xcode  allow xoopscode?
+     * @param  int    $image  allow inline images?
+     * @param  int    $br     convert linebreaks?
      * @return string
      */
     public function previewTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1)
     {
         $text = $this->stripSlashesGPC($text);
         $text = $this->displayTarea($text, $html, $smiley, $xcode, $image, $br);
+
         return $text;
     }
 
     /**
      * Replaces banned words in a string with their replacements
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function censorString(&$text)
@@ -625,14 +636,15 @@ class MyTextSanitizer
         if ($ret === false) {
             return $text;
         }
+
         return $ret;
     }
 
     /**
      * MyTextSanitizer::codePreConv()
      *
-     * @param string $text
-     * @param int $xcode
+     * @param  string $text
+     * @param  int    $xcode
      * @return string
      */
     public function codePreConv($text, $xcode = 1)
@@ -643,21 +655,20 @@ class MyTextSanitizer
             $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
             $text = preg_replace_callback($patterns, create_function('$matches',"return '[code'.\$matches[1].']' . base64_encode(\$matches[2]). '[/code]';"),$text);
         }
+
         return $text;
     }
-
 
 function codeConvCallback($match)
        {
            return '<div class=\"xoopsCode\">'. $this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode($match[2])), $match[1]).'</div>';
        }
 
-
     /**
      * MyTextSanitizer::codeConv()
      *
-     * @param string $text
-     * @param int $xcode
+     * @param  string $text
+     * @param  int    $xcode
      * @return string
      */
     public function codeConv($text, $xcode = 1)
@@ -668,7 +679,7 @@ function codeConvCallback($match)
            $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
 //        $replacements = "'<div class=\"xoopsCode\">'.\$this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode('$2')), '$1').'</div>'";
            $text = preg_replace_callback($patterns, array($this,'codeConvCallback'), $text);
-        
+
         return $text;
     }
 
@@ -686,20 +697,21 @@ function codeConvCallback($match)
         foreach (array_keys($extensions) as $extension) {
             $this->executeExtension($extension);
         }
+
         return true;
     }
 
     /**
      * MyTextSanitizer::loadExtension()
      *
-     * @param string $name
+     * @param  string                         $name
      * @return MyTextSanitizerExtension|false
      */
     public function loadExtension($name)
     {
         if (XoopsLoad::fileExists($file = $this->path_basic . '/' . $name . '/' . $name . '.php')) {
             include_once $file;
-        } else if (XoopsLoad::fileExists($file = $this->path_plugin . '/' . $name . '/' . $name . '.php')) {
+        } elseif (XoopsLoad::fileExists($file = $this->path_plugin . '/' . $name . '/' . $name . '.php')) {
             include_once $file;
         } else {
             return false;
@@ -707,17 +719,19 @@ function codeConvCallback($match)
         $class = 'Myts' . ucfirst($name);
         if (!class_exists($class,false)) {
             trigger_error("Extension '{$name}' does not exist", E_USER_WARNING);
+
             return false;
         }
         $extension = null;
         $extension = new $class($this);
+
         return $extension;
     }
 
     /**
      * MyTextSanitizer::executeExtension()
      *
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function executeExtension($name)
@@ -725,6 +739,7 @@ function codeConvCallback($match)
         $extension = $this->loadExtension($name);
         if (!$extension) return false;
         $args = array_slice(func_get_args(), 1);
+
         return call_user_func_array(array($extension , 'load'), array_merge(array(&$this), $args));
     }
 
@@ -732,8 +747,8 @@ function codeConvCallback($match)
      * Filter out possible malicious text
      * kses project at SF could be a good solution to check
      *
-     * @param string $text text to filter
-     * @param bool $force force filtering
+     * @param  string $text  text to filter
+     * @param  bool   $force force filtering
      * @return string filtered text
      */
     public function textFilter($text, $force = false)
@@ -742,6 +757,7 @@ function codeConvCallback($match)
         if ($ret === false) {
             return $text;
         }
+
         return $ret;
     }
 }

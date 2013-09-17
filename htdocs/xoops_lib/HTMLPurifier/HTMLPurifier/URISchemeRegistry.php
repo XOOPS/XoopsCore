@@ -13,13 +13,15 @@ class HTMLPurifier_URISchemeRegistry
      * @note Pass a registry object $prototype with a compatible interface and
      *       the function will copy it and return it all further times.
      */
-    public static function instance($prototype = null) {
+    public static function instance($prototype = null)
+    {
         static $instance = null;
         if ($prototype !== null) {
             $instance = $prototype;
         } elseif ($instance === null || $prototype == true) {
             $instance = new HTMLPurifier_URISchemeRegistry();
         }
+
         return $instance;
     }
 
@@ -34,7 +36,8 @@ class HTMLPurifier_URISchemeRegistry
      * @param $config HTMLPurifier_Config object
      * @param $config HTMLPurifier_Context object
      */
-    public function getScheme($scheme, $config, $context) {
+    public function getScheme($scheme, $config, $context)
+    {
         if (!$config) $config = HTMLPurifier_Config::createDefault();
 
         // important, otherwise attacker could include arbitrary file
@@ -51,6 +54,7 @@ class HTMLPurifier_URISchemeRegistry
         $class = 'HTMLPurifier_URIScheme_' . $scheme;
         if (!class_exists($class)) return;
         $this->schemes[$scheme] = new $class();
+
         return $this->schemes[$scheme];
     }
 
@@ -59,7 +63,8 @@ class HTMLPurifier_URISchemeRegistry
      * @param $scheme Scheme name
      * @param $scheme_obj HTMLPurifier_URIScheme object
      */
-    public function register($scheme, $scheme_obj) {
+    public function register($scheme, $scheme_obj)
+    {
         $this->schemes[$scheme] = $scheme_obj;
     }
 

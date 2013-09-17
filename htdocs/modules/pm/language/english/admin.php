@@ -13,5 +13,3 @@ define("_PM_AM_NOTIFYUSERS", "Notify affected users about the prune?");
 
 define("_PM_AM_MESSAGESPRUNED", "%u Messages Pruned");
 define("_PM_AM_ERRORWHILEPRUNING", "An error occurred during prune");
-
-?>

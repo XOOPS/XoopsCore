@@ -39,15 +39,18 @@ class XoopsLoad
      *
      * @return array
      */
-    static function addMap(array $map) {
+    static function addMap(array $map)
+    {
         XoopsLoad::$map = array_merge(XoopsLoad::$map, $map);
+
         return XoopsLoad::$map;
     }
 
     /**
      * @return array
      */
-    static function getMap() {
+    static function getMap()
+    {
         return XoopsLoad::$map;
     }
 
@@ -85,6 +88,7 @@ class XoopsLoad
 
         if (class_exists($lname, false)) {
             $loaded[$type][$lname] = true;
+
             return true;
         }
         switch ($type) {
@@ -104,6 +108,7 @@ class XoopsLoad
                 break;
         }
         $loaded[$type][$lname] = $isloaded;
+
         return $loaded[$type][$lname];
     }
 
@@ -111,7 +116,7 @@ class XoopsLoad
      * Load core class
      *
      * @static
-     * @param string $name
+     * @param  string      $name
      * @return bool|string
      */
     static private function loadCore($name)
@@ -123,6 +128,7 @@ class XoopsLoad
             if (class_exists($name) && method_exists($name, '__autoload')) {
                 call_user_func(array($name, '__autoload'));
             }
+
             return true;
         } elseif (self::fileExists($file = XOOPS_ROOT_PATH . '/class/' . $name . '.php')) {
             //attempt loading from file
@@ -134,6 +140,7 @@ class XoopsLoad
                 trigger_error('Class ' . $name . ' not found in file ' . __FILE__ . 'at line ' . __LINE__, E_USER_WARNING);
             }
         }
+
         return false;
     }
 
@@ -141,13 +148,14 @@ class XoopsLoad
      * Load Framework class
      *
      * @static
-     * @param string $name
+     * @param  string      $name
      * @return bool|string
      */
     static private function loadFramework($name)
     {
         if (!self::fileExists($file = XOOPS_ROOT_PATH . '/Frameworks/' . $name . '/xoops' . $name . '.php')) {
             trigger_error('File ' . str_replace(XOOPS_ROOT_PATH, '', $file) . ' not found in file ' . __FILE__ . ' at line ' . __LINE__, E_USER_WARNING);
+
             return false;
         }
         include $file;
@@ -155,6 +163,7 @@ class XoopsLoad
         if (class_exists($class, false)) {
             return $class;
         }
+
         return false;
     }
 
@@ -162,8 +171,8 @@ class XoopsLoad
      * Load module class
      *
      * @static
-     * @param string $name
-     * @param string|null $dirname
+     * @param  string      $name
+     * @param  string|null $dirname
      * @return bool
      */
     static private function loadModule($name, $dirname = null)
@@ -177,6 +186,7 @@ class XoopsLoad
                 return true;
             }
         }
+
         return false;
     }
 
@@ -406,7 +416,7 @@ class XoopsLoad
      * XoopsLoad::loadConfig()
      *
      * @static
-     * @param mixed $data
+     * @param  mixed      $data
      * @return array|bool
      */
     static function loadConfig($data = null)
@@ -429,6 +439,7 @@ class XoopsLoad
                 }
             }
         }
+
         return array_merge(XoopsLoad::loadCoreConfig(), $configs);
     }
 
@@ -447,8 +458,10 @@ class XoopsLoad
             } else {
                 include $file;
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -476,6 +489,7 @@ class XoopsLoad
         if (method_exists($class, '__autoload')) {
             call_user_func(array($class, '__autoload'));
         }
+
         return true;
     }
 
@@ -492,13 +506,14 @@ class XoopsLoad
         if (!isset($included[$file])) {
             $included[$file] = file_exists($file);
         }
+
         return $included[$file];
     }
 
     /**
      * Ensure that filename does not contain exploits
      *
-     * @param  string $filename
+     * @param string $filename
      *
      * @return void
      */

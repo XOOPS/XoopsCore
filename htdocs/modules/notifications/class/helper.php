@@ -60,8 +60,8 @@ class Notifications extends Xoops_Module_Helper_Abstract
     }
 
     /**
-     * @param string       $style
-     * @param null|string  $module_dirname
+     * @param string      $style
+     * @param null|string $module_dirname
      *
      * @return bool
      */
@@ -91,7 +91,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
     /**
      * @param string $category
      * @param int    $item_id
-     * @param string $dirname Module dirname
+     * @param string $dirname  Module dirname
      *
      * @return array!bool
      */
@@ -106,6 +106,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
         if ($plugin = Xoops_Module_Plugin::getPlugin($dirname, 'notifications')) {
             return $plugin->item($category, intval($item_id));
         }
+
         return false;
     }
 
@@ -113,7 +114,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * @param string $category
      * @param int    $item_id
      * @param string $event
-     * @param string $dirname Module dirname
+     * @param string $dirname  Module dirname
      *
      * @return array!bool
      */
@@ -128,6 +129,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
         if ($plugin = Xoops_Module_Plugin::getPlugin($dirname, 'notifications')) {
             return $plugin->tags($category, intval($item_id), $event, $dirname);
         }
+
         return array();
     }
 
@@ -136,8 +138,8 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * category in the selected module.  If no category is selected,
      * return an array of info for all categories.
      *
-     * @param  string     $category_name           Category name (default all categories)
-     * @param  string     $dirname                 ID of the module (default current module)
+     * @param string $category_name Category name (default all categories)
+     * @param string $dirname       ID of the module (default current module)
      *
      * @return mixed
      */
@@ -160,6 +162,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                 }
             }
         }
+
         return false;
     }
 
@@ -169,9 +172,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      *
      * todo, this belongs in the comment module no? - trabis
      *
-     * @param  string $dirname  Dirname of the module (default current module)
+     * @param string $dirname Dirname of the module (default current module)
      *
-     * @return mixed            Associative array of category info
+     * @return mixed Associative array of category info
      */
     public function getCommentsCategory($dirname = null)
     {
@@ -191,6 +194,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                 }
             }
         }
+
         return $ret;
     }
 
@@ -200,9 +204,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * Get an array of info for all events (each event has associative array)
      * in the selected category of the selected module.
      *
-     * @param  string  $category_name   Category name
-     * @param  bool    $enabled_only    If true, return only enabled events
-     * @param  string  $dirname         Dirname of the module (default current module)
+     * @param string $category_name Category name
+     * @param bool   $enabled_only  If true, return only enabled events
+     * @param string $dirname       Dirname of the module (default current module)
      *
      * @return mixed
      */
@@ -342,6 +346,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
 
             return $event_array;
         }
+
         return array();
     }
 
@@ -352,9 +357,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * @todo  Check that this works correctly for comment and other
      *        events which depend on additional config options...
      *
-     * @param  array       $category   Category info array
-     * @param  array       $event      Event info array
-     * @param  string      $dirname    Module
+     * @param array  $category Category info array
+     * @param array  $event    Event info array
+     * @param string $dirname  Module
      *
      * @return bool
      **/
@@ -370,6 +375,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -377,9 +383,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * Get associative array of info for the selected event in the selected
      * category (for the selected module).
      *
-     * @param  string     $category_name      Notification category
-     * @param  string     $event_name         Notification event
-     * @param  string     $module_dirname     Dirname of the module (default current module)
+     * @param string $category_name  Notification category
+     * @param string $event_name     Notification event
+     * @param string $module_dirname Dirname of the module (default current module)
      *
      * @return mixed
      */
@@ -391,6 +397,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                 return $event;
             }
         }
+
         return false;
     }
 
@@ -398,7 +405,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * Get an array of associative info arrays for subscribable categories
      * for the selected module.
      *
-     * @param  string  $module_dirname  ID of the module
+     * @param string $module_dirname ID of the module
      *
      * @return mixed
      */
@@ -444,6 +451,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                 }
             }
         }
+
         return $sub_categories;
     }
 
@@ -454,9 +462,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * and event titles.  These are pieced together in this function in
      * case we wish to alter the syntax.
      *
-     * @param  array  $category  Array of category info
-     * @param  array  $event     Array of event info
-     * @param  string $type      The particular name to generate
+     * @param array  $category Array of category info
+     * @param array  $event    Array of event info
+     * @param string $type     The particular name to generate
      *
      * @return bool|string
      */
@@ -519,7 +527,6 @@ class Notifications extends Xoops_Module_Helper_Abstract
         $xoops = Xoops::getInstance();
         $this->getHandlerNotification()->unsubscribeByModule($module->getVar('mid'));
 
-
         $configNames = array('notifications_enabled', 'notification_events');
         $config_handler = $xoops->getHandlerConfig();
 
@@ -539,7 +546,8 @@ class Notifications extends Xoops_Module_Helper_Abstract
      *
      * @return array
      */
-    public function getPluginableConfigs(XoopsModule $module) {
+    public function getPluginableConfigs(XoopsModule $module)
+    {
         $configs = array();
             $options['_MD_NOTIFICATIONS_CONFIG_DISABLE'] = NOTIFICATIONS_DISABLE;
             $options['_MD_NOTIFICATIONS_CONFIG_ENABLEBLOCK'] = NOTIFICATIONS_ENABLEBLOCK;
@@ -581,6 +589,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                 'default'     => array_values($options),
                 'options'     => $options
             );
+
         return $configs;
     }
 }

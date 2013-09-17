@@ -32,13 +32,11 @@ define("_AM_MSG_GROUP1IPSCANTOPEN" , "בד הÊד‗ה ÝÊÍ דבÝÇÊ ÇבÇםÈםוÇÊ בבÇÏÇÑÉ" ) ;
 define("_AM_MSG_REMOVED" , "Êד ÍÐÝ ÇבÓÌבÇÊ" ) ;
 //define("_AM_FMT_CONFIGSNOTWRITABLE" , "ÇÚØם ÇבÊÕÑÍ 777 בדÌבÏ Çב‗זהÝםÌ Ýם: %s" ) ;
 
-
 // prefix_manager.php
 define("_AM_H3_PREFIXMAN" , "ÇÏÇÑÉ ÍÞב ÇבÞÇÚÏÉ" ) ;
 define("_AM_MSG_DBUPDATED" , "Êד ÊÍÏםË ÞÇÚÏÉ ÇבÈםÇהÇÊ" ) ;
 define("_AM_CONFIRM_DELETE" , "ÓםÊד ÍÐÝ ‗ב ÇבÈםÇהÇÊ" ) ;
 define("_AM_TXT_HOWTOCHANGEDB" , "ÇÐ ÑÛÈÊ ÈÊÛםÑ ÇÓד ÌÏזב ÞÇÚÏÉ ÇבÈםÇהÇÊ,<br /> ÚÏב דבÝ  %s/mainfile.php <br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
-
 
 // advisory.php
 define("_AM_ADV_NOTSECURE","ÛםÑ דÍדם");
@@ -57,7 +55,3 @@ define("_AM_ADV_DBFACTORYUNPATCHED","    ÞÇÚÏÉ ÇבÈםÇהÇÊ ÛםÑ דÍדםÉ ÈדÇÓ‗ דÇהÚ ÇבÍ
 define("_AM_ADV_SUBTITLECHECK","ÊÇ‗Ï Çה ‗Çה דזÏםב ÇבÍÇÑÓ םÚדב");
 define("_AM_ADV_CHECKCONTAMI","ÊבזםË");
 define("_AM_ADV_CHECKISOCOM","ÊÚבםÞÇÊ דÊÝÑÞÉ");
-
-
-
-?>

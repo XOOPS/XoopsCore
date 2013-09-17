@@ -12,7 +12,8 @@ class HTMLPurifier_AttrDef_HTML_LinkTypes extends HTMLPurifier_AttrDef
     /** Name config attribute to pull. */
     protected $name;
 
-    public function __construct($name) {
+    public function __construct($name)
+    {
         $configLookup = array(
             'rel' => 'AllowedRel',
             'rev' => 'AllowedRev'
@@ -20,13 +21,14 @@ class HTMLPurifier_AttrDef_HTML_LinkTypes extends HTMLPurifier_AttrDef
         if (!isset($configLookup[$name])) {
             trigger_error('Unrecognized attribute name for link '.
                 'relationship.', E_USER_ERROR);
+
             return;
         }
         $this->name = $configLookup[$name];
     }
 
-    public function validate($string, $config, $context) {
-
+    public function validate($string, $config, $context)
+    {
         $allowed = $config->get('Attr.' . $this->name);
         if (empty($allowed)) return false;
 
