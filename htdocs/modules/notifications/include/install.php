@@ -24,7 +24,7 @@ function xoops_module_install_notifications(&$module)
     global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopsnotifications");
     $result = $xoopsDB->queryF($sql);
-    if (($rows = $xoopsDB->getRowsNum($result)) == 7) {
+    if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 7) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopsnotifications");
         $result = $xoopsDB->query($sql);
         while ($myrow = $xoopsDB->fetchArray($result)) {
@@ -43,6 +43,7 @@ function xoops_module_install_notifications(&$module)
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }
 
@@ -55,5 +56,6 @@ function xoops_module_uninstall_notifications(&$module)
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }

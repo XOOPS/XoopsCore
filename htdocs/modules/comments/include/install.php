@@ -24,7 +24,7 @@ function xoops_module_install_comments(&$module)
     global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopscomments");
     $result = $xoopsDB->queryF($sql);
-    if (($rows = $xoopsDB->getRowsNum($result)) == 20) {
+    if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 20) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopscomments");
         $result = $xoopsDB->query($sql);
         while ($myrow = $xoopsDB->fetchArray($result)) {
@@ -43,6 +43,7 @@ function xoops_module_install_comments(&$module)
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }
 
@@ -55,5 +56,6 @@ function xoops_module_uninstall_comments(&$module)
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }

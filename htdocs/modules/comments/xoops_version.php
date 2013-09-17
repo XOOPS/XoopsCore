@@ -18,6 +18,8 @@
  * @version         $Id$
  */
 
+$xoops->loadLanguage('modinfo', $dirname);
+
 $modversion = array();
 $modversion['name'] = _MI_COMMENTS_NAME;
 $modversion['description'] = _MI_COMMENTS_DSC;
@@ -89,7 +91,7 @@ $modversion['config'][$i]['title'] = '_MI_COMMENTS_MODE';
 $modversion['config'][$i]['description'] = '_MI_COMMENTS_MODEDSC';
 $modversion['config'][$i]['formtype'] = 'select';
 $modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['options'] = array('_NESTED' => 'nest', '_FLAT' => 'flat', '_THREADED' => 'thread');
+$modversion['config'][$i]['options'] = array('XoopsLocale::NESTED' => 'nest', 'XoopsLocale::FLAT' => 'flat', 'XoopsLocale::THREADED' => 'thread');
 $modversion['config'][$i]['default'] = 'nest';
 $i++;
 $modversion['config'][$i]['name'] = 'com_order';
@@ -97,7 +99,7 @@ $modversion['config'][$i]['title'] = '_MI_COMMENTS_ORDER';
 $modversion['config'][$i]['description'] = '_MI_COMMENTS_ORDERDSC';
 $modversion['config'][$i]['formtype'] = 'select';
 $modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['options'] = array('_OLDESTFIRST' => 0, '_NEWESTFIRST' => 1);
+$modversion['config'][$i]['options'] = array('XoopsLocale::OLDEST_FIRST' => 0, 'XoopsLocale::NEWEST_FIRST' => 1);
 $modversion['config'][$i]['default'] = 0;
 $i++;
 $editors = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
