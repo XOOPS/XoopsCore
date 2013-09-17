@@ -1337,6 +1337,11 @@ class Xoops
      */
     public function redirect($url, $time = 3, $message = '', $addredirect = true, $allowExternalLink = false)
     {
+        $this->preload()->triggerEvent('core.include.functions.redirectheader.start', array(
+            $url, $time, $message, $addredirect, $allowExternalLink
+        ));
+        // if conditions are right, system preloads will exit on this call
+        // so don't use it if you want to be called, use start version above.
         $this->preload()->triggerEvent('core.include.functions.redirectheader', array(
             $url, $time, $message, $addredirect, $allowExternalLink
         ));

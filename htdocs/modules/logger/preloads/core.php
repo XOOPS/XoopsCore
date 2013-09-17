@@ -195,10 +195,11 @@ class LoggerCorePreload extends XoopsPreloadItem
         $sql = $args[0];
         $db = $args[1];
         if (method_exists($db, 'error')) {
-            LegacyLogger::getInstance()->addQuery($sql, $db->error(), $db->errno(), self::$registry['query_time']);
+            LegacyLogger::getInstance()
+                ->addQuery($sql, $db->error(), $db->errno(), self::$query_stop_time - self::$query_start_time);
         } else {
             LegacyLogger::getInstance()
-                ->addQuery($sql, $db->errorInfo(), $db->errorCode(), self::$registry['query_time']);
+                ->addQuery($sql, $db->errorInfo(), $db->errorCode(), self::$query_stop_time - self::$query_start_time);
         }
     }
 

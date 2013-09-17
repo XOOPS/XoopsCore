@@ -429,24 +429,15 @@ class DebugbarCorePreload extends XoopsPreloadItem
     }
 
     /**
-     * eventCoreIncludeFunctionsRedirectheaderEnd
+     * eventCoreIncludeFunctionsRedirectheader
      * 
      * @param mixed $args arguments supplied to triggerEvent
      * 
      * @return void
      */
-    public static function eventCoreIncludeFunctionsRedirectheaderEnd($args)
+    public static function eventCoreIncludeFunctionsRedirectheaderStart($args)
     {
-        /*
-        $xoops = Xoops::getInstance();
-        $logger = DebugbarLogger::getInstance();
-        $debug_mode = $xoops->getModuleConfig('debug_mode', 'debugbar');
-        if ($debug_mode == 2) {
-            //Should we give extra time ?
-            //$xoops->tpl()->assign('time', 300);
-            $xoops->tpl()->assign('xoops_logdump', $logger->dump());
-        }
-        */
+        DebugbarLogger::getInstance()->stackData();
     }
 
     /**
