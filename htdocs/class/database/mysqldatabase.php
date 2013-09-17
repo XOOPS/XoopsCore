@@ -1,5 +1,5 @@
 <?php
-/**
+/*
   You may not change or alter any portion of this comment or credits
   of supporting developers from this source code or any supporting source code
   which is considered copyrighted (c) material of the original comment or credit authors.
@@ -31,18 +31,16 @@ class XoopsMySQLDatabase extends XoopsDatabase
 {
 
     /**
-     * Database connection
-     *
-     * @var resource
+     * @var object keep track of last result since we need it for getAffectedRows
      */
-    public $conn;
+    private $lastResult = null;
 
     /**
      * Database connection
      *
      * @var resource
      */
-    private $lastResult;
+    public $conn;
 
     /**
      * Database connection
@@ -215,10 +213,6 @@ class XoopsMySQLDatabase extends XoopsDatabase
     public function getAffectedRows()
     {
         $this->deprecated();
-
-        if (!is_object($this->lastResult)) {
-            return null;
-        }
         return $this->lastResult->rowCount();
     }
 
@@ -231,8 +225,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
     public function close()
     {
         $this->deprecated();
-
-        $this->conn->close();
+        return $this->conn->close();
     }
 
     /**
@@ -338,9 +331,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
         } catch (Exception $e) {
             $result=false;
         }
-        if (is_object($result)) {
-            $this->lastResult = clone $result;
-        }
+        $this->lastResult = $result;
         $xoopsPreload->triggerEvent('core.database.query.end');
 
         if ($result) {
