@@ -178,6 +178,7 @@ class LoggerCorePreload extends XoopsPreloadItem
     public static function eventCoreDatabaseQuerySuccess($args)
     {
         $sql = $args[0];
+        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
         LegacyLogger::getInstance()
             ->addQuery($sql, null, null, self::$query_stop_time - self::$query_start_time);
     }
@@ -257,7 +258,7 @@ class LoggerCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        XoopsLoad::addMap(array('logger' => dirname(dirname(__FILE__)) . '/class/logger.php'));
+        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
 
         $logger = LegacyLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
