@@ -468,17 +468,6 @@ class MonologCorePreload extends XoopsPreloadItem
     }
 
     /**
-     * eventCoreIncludeFunctionsRedirectheaderEnd
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreIncludeFunctionsRedirectheaderEnd($args)
-    {
-    }
-
-    /**
      * eventCoreSecurityValidatetokenEnd
      * 
      * @param mixed $args arguments supplied to triggerEvent
