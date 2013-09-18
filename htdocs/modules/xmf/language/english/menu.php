@@ -8,3 +8,4 @@ define('_MENU_XMF_BLOCKS', 'Blocks');
 define('_MENU_XMF_IMPORT', 'Import');
 define('_MENU_XMF_CLONE', 'Clone');
 define('_MENU_XMF_HELP', 'Help');
+?>

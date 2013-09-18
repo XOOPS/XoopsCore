@@ -71,7 +71,6 @@ class Comments extends Xoops_Module_Helper_Abstract
             $configs = $config_handler->getConfigsByUser($this->xoops()->user->getVar('uid'), $this->getModule()->getVar('mid'));
         }
         $fetched = true;
-
         return isset($configs[$config]) ? $configs[$config] : $this->getConfig($config);
     }
 
@@ -517,7 +516,6 @@ class Comments extends Xoops_Module_Helper_Abstract
         }
         $ret .= _MD_COMMENTS_POSTED . ': <strong>' . XoopsLocale::formatTimestamp($timestamp) . '</strong><br /><br />' . $text . '<br /></td></tr>';
         $ret .= '</table>';
-
         return $ret;
     }
 
@@ -960,6 +958,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         $xoops = Xoops::getInstance();
         $this->getHandlerComment()->deleteByModule($module->getVar('mid'));
 
+
         $configNames = array('com_rule', 'com_anonpost');
         $config_handler = $xoops->getHandlerConfig();
 
@@ -977,8 +976,7 @@ class Comments extends Xoops_Module_Helper_Abstract
     /**
      * @return array
      */
-    public function getPluginableConfigs()
-    {
+    public function getPluginableConfigs() {
         $configs = array();
         array_push($configs, array(
             'name'        => 'com_rule',
@@ -1002,7 +1000,6 @@ class Comments extends Xoops_Module_Helper_Abstract
             'valuetype'   => 'int',
             'default'     => 0
         ));
-
         return $configs;
     }
 }

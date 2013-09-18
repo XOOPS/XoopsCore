@@ -25,8 +25,7 @@ class HTMLPurifier_ErrorCollector
 
     protected $lines = array();
 
-    public function __construct($context)
-    {
+    public function __construct($context) {
         $this->locale    = $context->get('Locale');
         $this->context   = $context;
         $this->_current  = $this->_stacks[0];
@@ -40,8 +39,8 @@ class HTMLPurifier_ErrorCollector
      * @param $subst1 string First substitution for $msg
      * @param $subst2 string ...
      */
-    public function send($severity, $msg)
-    {
+    public function send($severity, $msg) {
+
         $args = array();
         if (func_num_args() > 2) {
             $args = func_get_args();
@@ -133,8 +132,7 @@ class HTMLPurifier_ErrorCollector
      *        error severity, error message,
      *        recursive sub-errors array)
      */
-    public function getRaw()
-    {
+    public function getRaw() {
         return $this->errors;
     }
 
@@ -143,8 +141,7 @@ class HTMLPurifier_ErrorCollector
      * @param $config Configuration array, vital for HTML output nature
      * @param $errors Errors array to display; used for recursion.
      */
-    public function getHTMLFormatted($config, $errors = null)
-    {
+    public function getHTMLFormatted($config, $errors = null) {
         $ret = array();
 
         $this->generator = new HTMLPurifier_Generator($config, $this->context);
@@ -171,8 +168,7 @@ class HTMLPurifier_ErrorCollector
 
     }
 
-    private function _renderStruct(&$ret, $struct, $line = null, $col = null)
-    {
+    private function _renderStruct(&$ret, $struct, $line = null, $col = null) {
         $stack = array($struct);
         $context_stack = array(array());
         while ($current = array_pop($stack)) {

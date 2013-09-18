@@ -14,14 +14,12 @@ class HTMLPurifier_TagTransform_Simple extends HTMLPurifier_TagTransform
      * @param $transform_to Tag name to transform to.
      * @param $style CSS style to add to the tag
      */
-    public function __construct($transform_to, $style = null)
-    {
+    public function __construct($transform_to, $style = null) {
         $this->transform_to = $transform_to;
         $this->style = $style;
     }
 
-    public function transform($tag, $config, $context)
-    {
+    public function transform($tag, $config, $context) {
         $new_tag = clone $tag;
         $new_tag->name = $this->transform_to;
         if (!is_null($this->style) &&
@@ -29,7 +27,6 @@ class HTMLPurifier_TagTransform_Simple extends HTMLPurifier_TagTransform
         ) {
             $this->prependCSS($new_tag->attr, $this->style);
         }
-
         return $new_tag;
     }
 

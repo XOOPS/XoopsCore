@@ -43,7 +43,7 @@ class XoopsTplset extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     function id($format = 'n')
@@ -52,7 +52,7 @@ class XoopsTplset extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     function tplset_id($format = '')
@@ -61,7 +61,7 @@ class XoopsTplset extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     function tplset_name($format = '')
@@ -70,7 +70,7 @@ class XoopsTplset extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     function tplset_desc($format = '')
@@ -79,7 +79,7 @@ class XoopsTplset extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     function tplset_credits($format = '')
@@ -88,7 +88,7 @@ class XoopsTplset extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     function tplset_created($format = '')
@@ -119,7 +119,7 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * @param  string                     $tplset_name of the block to retrieve
+     * @param string $tplset_name of the block to retrieve
      * @return XoopsTplset|falsereference to the tplsets
      */
     public function getByName($tplset_name)
@@ -137,24 +137,23 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
                 $tplset->assignVars($this->db->fetchArray($result));
             }
         }
-
         return $tplset;
     }
 
     /**
      * get a list of tplsets matching certain conditions
      *
-     * @param  CriteriaElement|null $criteria conditions to match
-     * @return array                array of tplsets matching the conditions
+     * @param CriteriaElement|null $criteria conditions to match
+     * @return array array of tplsets matching the conditions
      **/
     public function getNameList(CriteriaElement $criteria = null)
     {
         $ret = array();
         $tplsets = $this->getObjects($criteria, true);
-        foreach (array_keys($tplsets) as $i) {
+        foreach(array_keys($tplsets) as $i) {
             $ret[$tplsets[$i]->getVar('tplset_name')] = $tplsets[$i]->getVar('tplset_name');
         }
-
         return $ret;
     }
 }
+?>

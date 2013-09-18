@@ -32,17 +32,20 @@ define("_AM_MSG_GROUP1IPSCANTOPEN" , "管理员组（ group=1 ）IP地址访问�
 define("_AM_MSG_REMOVED" , "记录已被删除" ) ;
 //define("_AM_FMT_CONFIGSNOTWRITABLE" , "设置配置文件目录: %s 属性为可写。" ) ;
 
+
 // prefix_manager.php
 define("_AM_H3_PREFIXMAN" , "数据表前缀管理" ) ;
 define("_AM_MSG_DBUPDATED" , "数据库更新成功" ) ;
 define("_AM_CONFIRM_DELETE" , "所有数据将被删除" ) ;
 define("_AM_TXT_HOWTOCHANGEDB" , "如果你想改变前缀,<br /> 请手动编辑 %s/mainfile.php .<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
 
+
 // advisory.php
 define("_AM_ADV_NOTSECURE","不安全");
 
 define("_AM_ADV_TRUSTPATHPUBLIC","如果你可以看到显示 -NG- 的图片或返回页面是正常的, 说明 XOOPS_TRUST_PATH 目录位置有安全问题. 最好把 XOOPS_TRUST_PATH 目录转移到网站根目录以外.如果你不能执行这一步操作, 你必须放置一个名为 .htaccess (内容为: DENY FROM ALL)的文件在 XOOPS_TRUST_PATH 目录下.");
 define("_AM_ADV_TRUSTPATHPUBLICLINK","检测在 TRUST_PATH 目录下的文件是否安全 (你所看到的必须是404,403或500 错误提示,否则请按照下列提示调整)");
+
 
 define("_AM_ADV_REGISTERGLOBALS","该设置存在注入式攻击的漏洞.<br />If you can put .htaccess, edit or create...");
 define("_AM_ADV_ALLOWURLFOPEN","该设置允许攻击者执行远程服务器上的任意代码.<br />只有系统管理员才能修改次选项.<br />如果你是系统管理员,请编辑 php.ini 或 httpd.conf.<br /><b>例子 httpd.conf:<br /> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br />否则, 请联系您的系统管理员.");
@@ -62,3 +65,6 @@ define("_AM_EZ_COPY","复制");
 define("_AM_EZ_ACTIONS","操作");
 define("_AM_EZ_BACKUP","备份");
 define("_AM_EZ_DELETE","删除");
+
+
+?>

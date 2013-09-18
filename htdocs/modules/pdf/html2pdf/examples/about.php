@@ -17,7 +17,8 @@
      include(dirname('__FILE__').'/res/about.php');
     $content = ob_get_clean();
 
-    try {
+    try
+    {
         // init HTML2PDF
         $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(0, 0, 0, 0));
 
@@ -32,7 +33,8 @@
 
         // send the PDF
         $html2pdf->Output('about.pdf');
-    } catch (HTML2PDF_exception $e) {
+    }
+    catch(HTML2PDF_exception $e) {
         echo $e;
         exit;
     }

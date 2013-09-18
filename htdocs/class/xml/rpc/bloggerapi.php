@@ -45,7 +45,7 @@ class BloggerApi extends XoopsXmlRpcApi
                 foreach ($fields as $tag => $detail) {
                     $maptag = $this->_getXoopsTagMap($tag);
                     $data = $this->_getTagCdata($this->params[4], $maptag, true);
-                    if (trim($data) == '') {
+                    if (trim($data) == ''){
                         if ($detail['required']) {
                             $missing[] = $maptag;
                         }
@@ -90,7 +90,7 @@ class BloggerApi extends XoopsXmlRpcApi
                 $post = array();
                 foreach ($fields as $tag => $detail) {
                     $data = $this->_getTagCdata($this->params[4], $tag, true);
-                    if (trim($data) == '') {
+                    if (trim($data) == ''){
                         if ($detail['required']) {
                             $missing[] = $tag;
                         }
@@ -152,7 +152,7 @@ class BloggerApi extends XoopsXmlRpcApi
                 $content = '';
                 foreach ($ret as $key => $value) {
                     $maptag = $this->_getXoopsTagMap($key);
-                    switch ($maptag) {
+                    switch($maptag) {
                     case 'userid':
                         $struct->add('userid', new XoopsXmlRpcString($value));
                         break;
@@ -194,9 +194,9 @@ class BloggerApi extends XoopsXmlRpcApi
                     for ($i = 0; $i < $count; $i++) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
-                        foreach ($ret[$i] as $key => $value) {
+                        foreach($ret[$i] as $key => $value) {
                             $maptag = $this->_getXoopsTagMap($key);
-                            switch ($maptag) {
+                            switch($maptag) {
                             case 'userid':
                                 $struct->add('userid', new XoopsXmlRpcString($value));
                                 break;
@@ -282,3 +282,4 @@ class BloggerApi extends XoopsXmlRpcApi
         }
     }
 }
+?>

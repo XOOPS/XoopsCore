@@ -13,7 +13,7 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Grégory Mage (Aka Mage)
  */
-
+ 
 // Traslaction by timgno
 
 // Info
@@ -24,6 +24,7 @@ define ('_AM_XMF_CONFIG_FOLDEROK', "'%s' La cartella esiste");
 define ('_AM_XMF_CONFIG_PHP', 'PHP minima richiesto: %s (la versione &#232; %s)');
 define ('_AM_XMF_CONFIG_XOOPS', 'XOOPS minimo richiesto: %s (la versione &#232; %s)');
 
+
 // Chi
 define ('_AM_XMF_ABOUT_CHANGELOG', 'Cambio codice');
 define ('_AM_XMF_ABOUT_DESCRIPTION', 'Descrizione');
@@ -31,3 +32,5 @@ define ('_AM_XMF_ABOUT_MODULEINFO', 'Informazioni Modulo');
 define ('_AM_XMF_ABOUT_MODULESTATUS', 'Stato:');
 define ('_AM_XMF_ABOUT_UPDATEDATE', 'Data di aggiornamento:');
 define ('_AM_XMF_ABOUT_WEBSITE', "Sito Web:");
+
+?>

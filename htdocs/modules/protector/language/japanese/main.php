@@ -7,3 +7,5 @@ define('_MD_PROTECTOR_BANDWIDTHLIMITED','¸½ºß¤³¤Î¥µ¥¤¥È¤Ïº®»¨¤·¤Æ¤¤¤Þ¤¹¡£´Ö¤ò¶õ¤
 define('_MD_PROTECTOR_TURNJAVASCRIPTON','JavaScript¤òON¤Ë¤·¤Æ¤¯¤À¤µ¤¤') ;
 define('_MD_PROTECTOR_DENYBYRBL','¤¢¤Ê¤¿¤ÎIP¤ÏRBL¥µ¡¼¥Ð¤ËÉÔÀµ¤Ê¥¢¥¯¥»¥¹¤ò¹Ô¤¦IP¤È¤·¤ÆÅÐÏ¿¤µ¤ì¤Æ¤¤¤ë¤¿¤á¤Ë¡¢¥¢¥¯¥»¥¹¤¬µñÈÝ¤µ¤ì¤Þ¤·¤¿¡£¤ª¼ê¿ô¤Ç¤¹¤¬¡¢¥µ¥¤¥È´ÉÍý¼Ô¤Þ¤ÇÏ¢Íí¤·¤Æ¤¯¤À¤µ¤¤¡£') ;
 define('_MD_PROTECTOR_FMT_REGISTER_MORATORIUM','SPAMËÉ»ß¤Î¤¿¤á¤Ë¥æ¡¼¥¶ÅÐÏ¿Ä¾¸å¤ÎURLÉÕÅê¹Æ¤Ï¤ªÃÇ¤ê¤·¤Æ¤¤¤Þ¤¹¡£¤ª¼ê¿ô¤Ç¤¹¤¬%sÊ¬¸å¤ËºÆÅÙÅê¹Æ¤·¤Æ¤¯¤À¤µ¤¤¡£') ;
+
+?>

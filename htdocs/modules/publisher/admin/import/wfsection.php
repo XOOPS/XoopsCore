@@ -272,3 +272,5 @@ if ($op == 'go') {
     PublisherUtils::closeCollapsableBar('wfsectionimportgo', 'wfsectionimportgoicon');
     $xoops->footer();
 }
+
+?>

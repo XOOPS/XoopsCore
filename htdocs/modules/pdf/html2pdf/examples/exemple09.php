@@ -52,12 +52,14 @@ Bonjour <b><?php echo $nom; ?></b>, ton nom peut s'écrire : <br>
     if ($generate) {
         $content = ob_get_clean();
         require_once(dirname(__FILE__) . '/../html2pdf.class.php');
-        try {
+        try
+        {
             $html2pdf = new HTML2PDF('P', 'A4', 'fr');
             $html2pdf->writeHTML($content);
             $html2pdf->Output('exemple09.pdf');
             exit;
-        } catch (HTML2PDF_exception $e) {
+        }
+        catch(HTML2PDF_exception $e) {
             echo $e;
             exit;
         }

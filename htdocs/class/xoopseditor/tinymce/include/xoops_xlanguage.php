@@ -17,3 +17,4 @@ $xoops = Xoops::getInstance();
 if ($xoops->isActiveModule('xlanguage')) {    return true;
 }
 return false;
+?>

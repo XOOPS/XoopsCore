@@ -226,7 +226,7 @@ class HTML2PDF_parsingHtml
      *
      * @param   string texte
      * @param   boolean true => replace multiple space+\t+\r+\n by a single space
-     * @return string texte
+     * @return  string texte
      * @access  protected
      */
     protected function _prepareTxt($txt, $spaces = true)
@@ -234,7 +234,6 @@ class HTML2PDF_parsingHtml
         if ($spaces) $txt = preg_replace('/\s+/is', ' ', $txt);
         $txt = str_replace('&euro;', '€', $txt);
         $txt = html_entity_decode($txt, ENT_QUOTES, $this->_encoding);
-
         return $txt;
     }
 
@@ -242,7 +241,7 @@ class HTML2PDF_parsingHtml
      * parse the HTML code
      *
      * @param    &array    array's result
-     * @return null
+     * @return   null
      */
     protected function _searchCode(&$tmp)
     {
@@ -286,7 +285,7 @@ class HTML2PDF_parsingHtml
      * analise a HTML tag
      *
      * @param   string   HTML code to analise
-     * @return array corresponding action
+     * @return  array    corresponding action
      */
     protected function _analiseCode($code)
     {
@@ -331,7 +330,8 @@ class HTML2PDF_parsingHtml
         $border = null;
         foreach ($param as $key => $val) {
             $key = strtolower($key);
-            switch ($key) {
+            switch($key)
+            {
                 case 'width':
                     unset($param[$key]);
                     $param['style'] .= 'width: '.$val.'px; ';
@@ -439,7 +439,7 @@ class HTML2PDF_parsingHtml
      * get a full level of HTML, between an opening and closing corresponding
      *
      * @param   integer key
-     * @return array actions
+     * @return  array   actions
      */
     public function getLevel($k)
     {
@@ -511,7 +511,7 @@ class HTML2PDF_parsingHtml
      * @param   integer position
      * @param   integer take before
      * @param   integer take after
-     * @return string part of the html code
+     * @return  string  part of the html code
      */
     public function getHtmlErrorCode($pos, $before=30, $after=40)
     {

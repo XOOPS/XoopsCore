@@ -3,6 +3,7 @@
 
 // mymenu
 
+
 // Appended by Xoops Language Checker -GIJOE- in 2009-01-14 11:10:54
 define('_AM_ADV_DBFACTORYPATCHED','Your databasefactory is ready for DBLayer Trapping anti-SQL-Injection');
 define('_AM_ADV_DBFACTORYUNPATCHED','Your databasefactory is not ready for DBLayer Trapping anti-SQL-Injection. Some patches are required.');
@@ -42,11 +43,13 @@ define("_AM_MSG_GROUP1IPSCANTOPEN" , "Het bestand voor groep=1 permissies kan ni
 define("_AM_MSG_REMOVED" , "Records zijn verwijderd" ) ;
 //define("_AM_FMT_CONFIGSNOTWRITABLE" , "Maak de configs directory schrijfbaar: %s" ) ;
 
+
 // prefix_manager.php
 define("_AM_H3_PREFIXMAN" , "Prefix Manager" ) ;
 define("_AM_MSG_DBUPDATED" , "Database succesvol bijgewerkt!" ) ;
 define("_AM_CONFIRM_DELETE" , "Alle data wordt gewist. OK?" ) ;
 define("_AM_TXT_HOWTOCHANGEDB" , "Als u de prefix wilt veranderen,<br />pas dan ook %s/mainfile.php aan.<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
+
 
 // advisory.php
 define("_AM_ADV_NOTSECURE","Onveilig");
@@ -70,3 +73,5 @@ define("_AM_EZ_COPY","Kopieer");
 define("_AM_EZ_ACTIONS","Handelingen");
 define("_AM_EZ_BACKUP","Backup");
 define("_AM_EZ_DELETE","Verwijder");
+
+?>

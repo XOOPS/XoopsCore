@@ -3,7 +3,12 @@
 if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'protector' ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
-if ( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
+if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
+
+
+
+
+
 
 // Appended by Xoops Language Checker -GIJOE- in 2009-07-06 05:46:53
 define('_MI_PROTECTOR_DBTRAPWOSRV','Never checking _SERVER for anti-SQL-Injection');
@@ -127,3 +132,5 @@ define('_MI_PROTECTOR_SPAMURI4G','anti-SPAM: Колличество ссылок для гостей');
 define('_MI_PROTECTOR_SPAMURI4GDSC','Если колличество ссылок  в сообщениях от гостей, превышает указанное, сообщение определяется как СПАМ.<br />  0 - отключено.');
 
 }
+
+?>

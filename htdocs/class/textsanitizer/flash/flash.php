@@ -26,7 +26,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MytsFlash extends MyTextSanitizerExtension
 {
     /**
-     * @param  int   $textarea_id
+     * @param int $textarea_id
      * @return array
      */
     public function encode($textarea_id)
@@ -43,7 +43,7 @@ class MytsFlash extends MyTextSanitizerExtension
                     var text = prompt(enterFlashPhrase, "");
                 }
                 var domobj = xoopsGetElementById(id);
-                if (text.length > 0) {
+                if ( text.length > 0 ) {
                     var text2 = enableDimensionDetect ? "" : prompt(enterFlashWidthPhrase, "");
                     var text3 = enableDimensionDetect ? "" : prompt(enterFlashHeightPhrase, "");
                     var result = "[flash="+text2+","+text3+"]" + text + "[/flash]";
@@ -57,13 +57,12 @@ EOF;
             $code, $javascript
         );
     }
-    static function myCallback($match)
-    {
+    static function myCallback($match) {
     return self::decode( $match[5], $match[3], $match[4] );
     }
 
     /**
-     * @param  MyTextSanitizer $ts
+     * @param MyTextSanitizer $ts
      * @return bool
      */
     public function load(MyTextSanitizer &$ts)
@@ -75,13 +74,14 @@ EOF;
         $ts->callbackPatterns[] = "/\[(swf|flash)=(['\"]?)([^\"']*),([^\"']*)\\2]([^\"]*)\[\/\\1\]/sU";
         $ts->callbacks[] = __CLASS__ . "::myCallback";
 //mb------------------------------
+
         return true;
     }
 
     /**
-     * @param  string $url
-     * @param  int    $width
-     * @param  int    $height
+     * @param string $url
+     * @param int $width
+     * @param int $height
      * @return string
      */
     public static function decode($url, $width, $height)
@@ -111,7 +111,6 @@ EOF;
         $rp .= "<param name='wmode' value='transparent'>";
         $rp .= "<embed src='{$url}' width='{$width}' height='{$height}' quality='high' bgcolor='#FFFFFF' wmode='transparent'  pluginspage='http://www.macromedia.com/go/getflashplayer' type='application/x-shockwave-flash'></embed>";
         $rp .= "</object>";
-
         return $rp;
     }
 }

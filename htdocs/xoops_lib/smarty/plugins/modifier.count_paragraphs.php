@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty count_paragraphs modifier plugin
  *
@@ -24,3 +25,5 @@ function smarty_modifier_count_paragraphs($string)
 }
 
 /* vim: set expandtab: */
+
+?>

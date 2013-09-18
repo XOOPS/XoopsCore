@@ -45,8 +45,7 @@ class HTMLPurifier_Language
      */
     protected $config, $context;
 
-    public function __construct($config, $context)
-    {
+    public function __construct($config, $context) {
         $this->config  = $config;
         $this->context = $context;
     }
@@ -55,8 +54,7 @@ class HTMLPurifier_Language
      * Loads language object with necessary info from factory cache
      * @note This is a lazy loader
      */
-    public function load()
-    {
+    public function load() {
         if ($this->_loaded) return;
         $factory = HTMLPurifier_LanguageFactory::instance();
         $factory->loadLanguage($this->code);
@@ -71,8 +69,7 @@ class HTMLPurifier_Language
      * @param $key string identifier of message
      * @return string localised message
      */
-    public function getMessage($key)
-    {
+    public function getMessage($key) {
         if (!$this->_loaded) $this->load();
         if (!isset($this->messages[$key])) return "[$key]";
         return $this->messages[$key];
@@ -84,8 +81,7 @@ class HTMLPurifier_Language
      *             reporting
      * @return string localised message
      */
-    public function getErrorName($int)
-    {
+    public function getErrorName($int) {
         if (!$this->_loaded) $this->load();
         if (!isset($this->errorNames[$int])) return "[Error: $int]";
         return $this->errorNames[$int];
@@ -94,8 +90,7 @@ class HTMLPurifier_Language
     /**
      * Converts an array list into a string readable representation
      */
-    public function listify($array)
-    {
+    public function listify($array) {
         $sep      = $this->getMessage('Item separator');
         $sep_last = $this->getMessage('Item separator last');
         $ret = '';
@@ -108,7 +103,6 @@ class HTMLPurifier_Language
             }
             $ret .= $array[$i];
         }
-
         return $ret;
     }
 
@@ -120,8 +114,7 @@ class HTMLPurifier_Language
      * @todo Implement conditionals? Right now, some messages make
      *     reference to line numbers, but those aren't always available
      */
-    public function formatMessage($key, $args = array())
-    {
+    public function formatMessage($key, $args = array()) {
         if (!$this->_loaded) $this->load();
         if (!isset($this->messages[$key])) return "[$key]";
         $raw = $this->messages[$key];
@@ -162,7 +155,6 @@ class HTMLPurifier_Language
             }
             $subst['$' . $i] = $value;
         }
-
         return strtr($raw, $subst);
     }
 

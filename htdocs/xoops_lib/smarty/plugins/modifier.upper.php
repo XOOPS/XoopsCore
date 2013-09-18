@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty upper modifier plugin
  *
@@ -21,3 +22,5 @@ function smarty_modifier_upper($string)
 {
     return strtoupper($string);
 }
+
+?>

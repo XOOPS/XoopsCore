@@ -31,8 +31,7 @@
 class HTMLPurifier_Strategy_FixNesting extends HTMLPurifier_Strategy
 {
 
-    public function execute($tokens, $config, $context)
-    {
+    public function execute($tokens, $config, $context) {
         //####################################################################//
         // Pre-processing
 
@@ -205,7 +204,7 @@ class HTMLPurifier_Strategy_FixNesting extends HTMLPurifier_Strategy
                 // move cursor to next possible start node
                 $i++;
 
-            } elseif ($result === false) {
+            } elseif($result === false) {
                 // remove entire node
 
                 if ($e) {
@@ -319,6 +318,7 @@ class HTMLPurifier_Strategy_FixNesting extends HTMLPurifier_Strategy
 
         //####################################################################//
         // Return
+
         return $tokens;
 
     }

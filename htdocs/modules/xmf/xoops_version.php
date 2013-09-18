@@ -41,3 +41,4 @@ $modversion['hasAdmin'] = 0;
 $modversion['hasSearch'] = 0;
 // Menu
 $modversion['hasMain'] = 0;
+?>

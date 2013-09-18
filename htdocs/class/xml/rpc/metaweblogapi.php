@@ -47,7 +47,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                     $maptag = $this->_getXoopsTagMap($tag);
                     if (!isset($this->params[3][$maptag])) {
                         $data = $this->_getTagCdata($this->params[3]['description'], $maptag, true);
-                        if (trim($data) == '') {
+                        if (trim($data) == ''){
                             if ($detail['required']) {
                                 $missing[] = $maptag;
                             }
@@ -101,7 +101,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                     $maptag = $this->_getXoopsTagMap($tag);
                     if (!isset($this->params[3][$maptag])) {
                         $data = $this->_getTagCdata($this->params[3]['description'], $maptag, true);
-                        if (trim($data) == '') {
+                        if (trim($data) == ''){
                             if ($detail['required']) {
                                 $missing[] = $tag;
                             }
@@ -155,7 +155,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                 $content = '';
                 foreach ($ret as $key => $value) {
                     $maptag = $this->_getXoopsTagMap($key);
-                    switch ($maptag) {
+                    switch($maptag) {
                     case 'userid':
                         $struct->add('userid', new XoopsXmlRpcString($value));
                         break;
@@ -200,9 +200,9 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                     for ($i = 0; $i < $count; $i++) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
-                        foreach ($ret[$i] as $key => $value) {
+                        foreach($ret[$i] as $key => $value) {
                             $maptag = $this->_getXoopsTagMap($key);
-                            switch ($maptag) {
+                            switch($maptag) {
                             case 'userid':
                                 $struct->add('userid', new XoopsXmlRpcString($value));
                                 break;
@@ -262,3 +262,4 @@ class MetaWeblogApi extends XoopsXmlRpcApi
         }
     }
 }
+?>

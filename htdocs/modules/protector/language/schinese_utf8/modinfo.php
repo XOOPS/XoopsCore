@@ -3,7 +3,7 @@
 if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'protector' ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
-if ( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
+if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
 
 define('_MI_PROTECTOR_LOADED' , 1 ) ;
 
@@ -106,3 +106,5 @@ define('_MI_PROTECTOR_SPAMURI4G','反垃圾邮件（anti-SPAM）: URLs for guest
 define('_MI_PROTECTOR_SPAMURI4GDSC','If this number of URLs are found in POST data from guests, the POST is considered as SPAM. 填0表示禁用此功能.');
 
 }
+
+?>

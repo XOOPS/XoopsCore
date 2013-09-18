@@ -34,20 +34,17 @@ class HTMLPurifier_Bootstrap
      * Autoload function for HTML Purifier
      * @param $class Class to load
      */
-    public static function autoload($class)
-    {
+    public static function autoload($class) {
         $file = HTMLPurifier_Bootstrap::getPath($class);
         if (!$file) return false;
         require HTMLPURIFIER_PREFIX . '/' . $file;
-
         return true;
     }
 
     /**
      * Returns the path for a specific class.
      */
-    public static function getPath($class)
-    {
+    public static function getPath($class) {
         if (strncmp('HTMLPurifier', $class, 12) !== 0) return false;
         // Custom implementations
         if (strncmp('HTMLPurifier_Language_', $class, 22) === 0) {
@@ -63,8 +60,7 @@ class HTMLPurifier_Bootstrap
     /**
      * "Pre-registers" our autoloader on the SPL stack.
      */
-    public static function registerAutoload()
-    {
+    public static function registerAutoload() {
         $autoload = array('HTMLPurifier_Bootstrap', 'autoload');
         if ( ($funcs = spl_autoload_functions()) === false ) {
             spl_autoload_register($autoload);

@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty spacify modifier plugin
  *
@@ -25,3 +26,5 @@ function smarty_modifier_spacify($string, $spacify_char = ' ')
 }
 
 /* vim: set expandtab: */
+
+?>

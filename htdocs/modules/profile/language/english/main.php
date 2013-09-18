@@ -15,6 +15,7 @@ define("_PROFILE_MA_ERRORDURINGSAVE", "Error during save");
 define("_PROFILE_MA_NOSTEPSAVAILABLE", "Registration is not allowed at this moment, please come back later.");
 define("_PROFILE_MA_EXPIRED", "The process has been expired, please go back to try again.");
 
+
 define("_PROFILE_MA_RECENTACTIVITY","Recent Activities");
 define("_PROFILE_MA_ACTIVATE","Activate");
 define("_PROFILE_MA_DEACTIVATE","Deactivate");
@@ -53,3 +54,4 @@ define("_PROFILE_MA_REGISTER","Registration form");
 
 define("_PROFILE_MA_ACTUS", "Active Users: %s");
 define("_PROFILE_MA_FOUNDUSER", "%s users found");
+?>

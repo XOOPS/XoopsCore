@@ -103,6 +103,7 @@ if ($op == 'go') {
 
     $parentId = $_POST['parent_category'];
 
+
     $sql = "SELECT * FROM " . $xoopsDB->prefix("xfs_category") . " ORDER by orders";
 
     $resultCat = $xoopsDB->query($sql);
@@ -270,3 +271,5 @@ if ($op == 'go') {
     PublisherUtils::closeCollapsableBar('xfsectionimportgo', 'xfsectionimportgoicon');
     $xoops->footer();
 }
+
+?>

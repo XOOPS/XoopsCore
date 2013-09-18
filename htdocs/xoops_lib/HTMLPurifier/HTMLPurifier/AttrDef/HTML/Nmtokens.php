@@ -6,8 +6,8 @@
 class HTMLPurifier_AttrDef_HTML_Nmtokens extends HTMLPurifier_AttrDef
 {
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
+
         $string = trim($string);
 
         // early abort: '' and '0' (strings that convert to false) are invalid
@@ -23,8 +23,7 @@ class HTMLPurifier_AttrDef_HTML_Nmtokens extends HTMLPurifier_AttrDef
     /**
      * Splits a space separated list of tokens into its constituent parts.
      */
-    protected function split($string, $config, $context)
-    {
+    protected function split($string, $config, $context) {
         // OPTIMIZABLE!
         // do the preg_match, capture all subpatterns for reformulation
 
@@ -36,7 +35,6 @@ class HTMLPurifier_AttrDef_HTML_Nmtokens extends HTMLPurifier_AttrDef
                    '((?:--|-?[A-Za-z_])[A-Za-z_\-0-9]*)'.
                    '(?:(?=\s)|\z)/'; // look ahead for space or string end
         preg_match_all($pattern, $string, $matches);
-
         return $matches[1];
     }
 
@@ -45,8 +43,7 @@ class HTMLPurifier_AttrDef_HTML_Nmtokens extends HTMLPurifier_AttrDef
      * @note If we wanted to be really functional, we'd do an array_filter
      *       with a callback. But... we're not.
      */
-    protected function filter($tokens, $config, $context)
-    {
+    protected function filter($tokens, $config, $context) {
         return $tokens;
     }
 

@@ -46,6 +46,7 @@ $PHPTHUMB_CONFIG['cache_disable_warning'] = false; // If [cache_directory] is no
 
 $PHPTHUMB_CONFIG['cache_directory_depth'] = 4; // If this larger than zero, cache structure will be broken into a broad directory structure based on cache filename. For example "cache_src012345..." will be stored in "/0/01/012/0123/cache_src012345..." when (cache_directory_depth = 4)
 
+
 // * Cache culling: phpThumb can automatically limit the contents of the cache directory
 //   based on last-access date and/or number of files and/or total filesize.
 
@@ -131,6 +132,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
     $PHPTHUMB_CONFIG['imagemagick_path'] = null;
 }
 
+
+
 // * Default output configuration:
 $PHPTHUMB_CONFIG['output_format']    = 'png'; // default output format ('jpeg', 'png' or 'gif') - thumbnail will be output in this format (if available in your version of GD or ImageMagick). This is only used if the "f" parameter is not specified, and if the thumbnail can't be output in the input format.
 $PHPTHUMB_CONFIG['output_maxwidth']  = 0;      // default maximum thumbnail width.  If this is zero then default width  is the width  of the source image. This is always overridden by ?w=___ GETstring parameter
@@ -186,6 +189,7 @@ $PHPTHUMB_CONFIG['mysql_username'] = '';
 $PHPTHUMB_CONFIG['mysql_password'] = '';
 $PHPTHUMB_CONFIG['mysql_database'] = '';
 
+
 // * Security configuration
 $PHPTHUMB_CONFIG['high_security_enabled']    = false;  // if enabled, requires 'high_security_password' set to be set and requires the use of phpThumbURL() function (at the bottom of phpThumb.config.php) to generate hashed URLs
 $PHPTHUMB_CONFIG['high_security_password']   = '';     // required if 'high_security_enabled' is true, and must be at complex (uppercase, lowercase, numbers, punctuation, etc -- punctuation is strongest, lowercase is weakest; see PasswordStrength() in phpThumb.php). You can use a password generator like http://silisoftware.com/tools/password-random.php to generate a strong password
@@ -195,19 +199,23 @@ $PHPTHUMB_CONFIG['allow_src_above_phpthumb'] = true;   // if true (default), all
 $PHPTHUMB_CONFIG['allow_parameter_file']     = false;  // if true, allow use of 'file' parameter; if false (default) the 'file' parameter is disabled/ignored
 $PHPTHUMB_CONFIG['allow_parameter_goto']     = false;  // if true, allow use of 'goto' parameter; if false (default) the 'goto' parameter is disabled/ignored
 
+
 // * HTTP UserAgent configuration
 //$PHPTHUMB_CONFIG['http_user_agent'] = '';                                                                                      // PHP default: none
 //$PHPTHUMB_CONFIG['http_user_agent'] = 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)';                                    // Windows XP, Internet Explorer
 $PHPTHUMB_CONFIG['http_user_agent'] = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7'; // Windows XP, Firefox
+
 
 // * Compatability settings
 $PHPTHUMB_CONFIG['disable_pathinfo_parsing']        = false;  // if true, $_SERVER[PATH_INFO] is not parsed. May be needed on some server configurations to allow normal behavior.
 $PHPTHUMB_CONFIG['disable_imagecopyresampled']      = false;  // if true, ImageCopyResampled is replaced with ImageCopyResampleBicubic. May be needed for buggy versions of PHP-GD.
 $PHPTHUMB_CONFIG['disable_onlycreateable_passthru'] = true;   // if true, any image that can be parsed by GetImageSize() can be passed through; if false, only images that can be converted to GD by ImageCreateFrom(JPEG|GIF|PNG) functions are allowed
 
+
 // * HTTP remote file opening settings
 $PHPTHUMB_CONFIG['http_fopen_timeout']              = 10;   // timeout (in seconds) for fopen / curl / fsockopen
 $PHPTHUMB_CONFIG['http_follow_redirect']            = true; // if true (default), follow "302 Found" redirects to new URL; if false, return error message
+
 
 // * Speed optimizations configuration
 $PHPTHUMB_CONFIG['use_exif_thumbnail_for_speed'] = true; // If true, and EXIF thumbnail is available, and is larger or equal to output image dimensions, use EXIF thumbnail rather than actual source image for generating thumbnail. Benefit is only speed, avoiding resizing large image.
@@ -227,7 +235,10 @@ $PHPTHUMB_DEFAULTS_DISABLEGETPARAMS  = false; // if true, GETstring parameters w
 //$PHPTHUMB_DEFAULTS['fltr'] = array('blur|10');
 //$PHPTHUMB_DEFAULTS['q']    =  90;
 
+
 // END DEFAULT PARAMETERS SECTION
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Function for generating hashed calls to phpThumb if 'high_security_enabled'
@@ -235,11 +246,11 @@ $PHPTHUMB_DEFAULTS_DISABLEGETPARAMS  = false; // if true, GETstring parameters w
 //   require_once($_SERVER['DOCUMENT_ROOT'].'/phpThumb/phpThumb.config.php');
 //   echo '<img src="'.phpThumbURL('src=/images/pic.jpg&w=50').'">';
 
-function phpThumbURL($ParameterString)
-{
+function phpThumbURL($ParameterString) {
     global $PHPTHUMB_CONFIG;
-
     return str_replace(@$PHPTHUMB_CONFIG['document_root'], '', dirname(__FILE__)).DIRECTORY_SEPARATOR.'phpThumb.php?'.$ParameterString.'&hash='.md5($ParameterString.@$PHPTHUMB_CONFIG['high_security_password']);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+
+?>

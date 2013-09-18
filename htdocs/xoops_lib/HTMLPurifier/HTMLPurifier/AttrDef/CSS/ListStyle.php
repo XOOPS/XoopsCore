@@ -13,16 +13,15 @@ class HTMLPurifier_AttrDef_CSS_ListStyle extends HTMLPurifier_AttrDef
      */
     protected $info;
 
-    public function __construct($config)
-    {
+    public function __construct($config) {
         $def = $config->getCSSDefinition();
         $this->info['list-style-type']     = $def->info['list-style-type'];
         $this->info['list-style-position'] = $def->info['list-style-position'];
         $this->info['list-style-image'] = $def->info['list-style-image'];
     }
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
+
         // regular pre-processing
         $string = $this->parseCDATA($string);
         if ($string === '') return false;

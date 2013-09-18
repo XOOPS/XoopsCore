@@ -8,13 +8,11 @@
 class HTMLPurifier_AttrTransform_NameSync extends HTMLPurifier_AttrTransform
 {
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->idDef = new HTMLPurifier_AttrDef_HTML_ID();
     }
 
-    public function transform($attr, $config, $context)
-    {
+    public function transform($attr, $config, $context) {
         if (!isset($attr['name'])) return $attr;
         $name = $attr['name'];
         if (isset($attr['id']) && $attr['id'] === $name) return $attr;

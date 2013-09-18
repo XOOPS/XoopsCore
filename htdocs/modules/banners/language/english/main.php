@@ -40,4 +40,4 @@ define("_MD_BANNERS_INDEX_MAIL_OK", "Available Banner statistics for the selecte
 define("_MD_BANNERS_INDEX_MAIL_SUBJECT", "Your Banner Statistics at %s");
 define("_MD_BANNERS_INDEX_NOMAIL", "Failed to send: E-Mail address does not exist.");
 define("_MD_BANNERS_INDEX_NOBANNER", "You have no banners");
-include_once 'admin.php';
+include_once('admin.php');

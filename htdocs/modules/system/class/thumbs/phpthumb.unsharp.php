@@ -40,10 +40,10 @@ Any suggenstions for improvement of the algorithm, expecially regarding the spee
 and the roundoff errors in the Gaussian blur process, are welcome.
 */
 
-class phpUnsharpMask
-{
-    function applyUnsharpMask(&$img, $amount, $radius, $threshold)
-    {
+class phpUnsharpMask {
+
+    function applyUnsharpMask(&$img, $amount, $radius, $threshold) {
+
         // $img is an image that is already created within php using
         // imgcreatetruecolor. No url! $img must be a truecolor image.
 
@@ -80,7 +80,7 @@ class phpUnsharpMask
 
             // Move copies of the image around one pixel at the time and merge them with weight
             // according to the matrix. The same matrix is simply repeated for higher radii.
-            for ($i = 0; $i < $radius; $i++) {
+            for ($i = 0; $i < $radius; $i++)    {
                 ImageCopy(     $imgBlur,   $img,       0, 0, 1, 0, $w - 1, $h);               // left
                 ImageCopyMerge($imgBlur,   $img,       1, 0, 0, 0, $w    , $h,     50);       // right
                 ImageCopyMerge($imgBlur,   $img,       0, 0, 0, 0, $w    , $h,     50);       // center
@@ -90,11 +90,11 @@ class phpUnsharpMask
             }
         }
 
-        if ($threshold > 0) {
+        if ($threshold > 0){
             // Calculate the difference between the blurred pixels and the original
             // and set the pixels
-            for ($x = 0; $x < $w-1; $x++) { // each row
-                for ($y = 0; $y < $h; $y++) { // each pixel
+            for ($x = 0; $x < $w-1; $x++)    { // each row
+                for ($y = 0; $y < $h; $y++)    { // each pixel
 
                     $rgbOrig = ImageColorAt($img, $x, $y);
                     $rOrig = (($rgbOrig >> 16) & 0xFF);
@@ -120,8 +120,8 @@ class phpUnsharpMask
                 }
             }
         } else {
-            for ($x = 0; $x < $w; $x++) { // each row
-                for ($y = 0; $y < $h; $y++) { // each pixel
+            for ($x = 0; $x < $w; $x++)    { // each row
+                for ($y = 0; $y < $h; $y++)    { // each pixel
                     $rgbOrig = ImageColorAt($img, $x, $y);
                     $rOrig = (($rgbOrig >> 16) & 0xFF);
                     $gOrig = (($rgbOrig >>  8) & 0xFF);
@@ -143,7 +143,7 @@ class phpUnsharpMask
         }
         ImageDestroy($imgCanvas);
         ImageDestroy($imgBlur);
-
         return true;
     }
 }
+?>

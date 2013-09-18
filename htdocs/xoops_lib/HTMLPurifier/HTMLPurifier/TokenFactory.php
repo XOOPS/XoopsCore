@@ -24,8 +24,7 @@ class HTMLPurifier_TokenFactory
     /**
      * Generates blank prototypes for cloning.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->p_start  = new HTMLPurifier_Token_Start('', array());
         $this->p_end    = new HTMLPurifier_Token_End('');
         $this->p_empty  = new HTMLPurifier_Token_Empty('', array());
@@ -39,11 +38,9 @@ class HTMLPurifier_TokenFactory
      * @param $attr Associative array of attributes
      * @return Generated HTMLPurifier_Token_Start
      */
-    public function createStart($name, $attr = array())
-    {
+    public function createStart($name, $attr = array()) {
         $p = clone $this->p_start;
         $p->__construct($name, $attr);
-
         return $p;
     }
 
@@ -52,11 +49,9 @@ class HTMLPurifier_TokenFactory
      * @param $name Tag name
      * @return Generated HTMLPurifier_Token_End
      */
-    public function createEnd($name)
-    {
+    public function createEnd($name) {
         $p = clone $this->p_end;
         $p->__construct($name);
-
         return $p;
     }
 
@@ -66,11 +61,9 @@ class HTMLPurifier_TokenFactory
      * @param $attr Associative array of attributes
      * @return Generated HTMLPurifier_Token_Empty
      */
-    public function createEmpty($name, $attr = array())
-    {
+    public function createEmpty($name, $attr = array()) {
         $p = clone $this->p_empty;
         $p->__construct($name, $attr);
-
         return $p;
     }
 
@@ -79,11 +72,9 @@ class HTMLPurifier_TokenFactory
      * @param $data Data of text token
      * @return Generated HTMLPurifier_Token_Text
      */
-    public function createText($data)
-    {
+    public function createText($data) {
         $p = clone $this->p_text;
         $p->__construct($data);
-
         return $p;
     }
 
@@ -92,11 +83,9 @@ class HTMLPurifier_TokenFactory
      * @param $data Data of comment token
      * @return Generated HTMLPurifier_Token_Comment
      */
-    public function createComment($data)
-    {
+    public function createComment($data) {
         $p = clone $this->p_comment;
         $p->__construct($data);
-
         return $p;
     }
 

@@ -7,8 +7,7 @@
 class HTMLPurifier_ConfigSchema_Builder_ConfigSchema
 {
 
-    public function build($interchange)
-    {
+    public function build($interchange) {
         $schema = new HTMLPurifier_ConfigSchema();
         foreach ($interchange->directives as $d) {
             $schema->add(
@@ -37,7 +36,6 @@ class HTMLPurifier_ConfigSchema_Builder_ConfigSchema
             }
         }
         $schema->postProcess();
-
         return $schema;
     }
 

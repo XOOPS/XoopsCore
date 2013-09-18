@@ -3,10 +3,10 @@
 /**
  * Pre-transform that changes deprecated bgcolor attribute to CSS.
  */
-class HTMLPurifier_AttrTransform_BgColor extends HTMLPurifier_AttrTransform
-{
-    public function transform($attr, $config, $context)
-    {
+class HTMLPurifier_AttrTransform_BgColor extends HTMLPurifier_AttrTransform {
+
+    public function transform($attr, $config, $context) {
+
         if (!isset($attr['bgcolor'])) return $attr;
 
         $bgcolor = $this->confiscateAttr($attr, 'bgcolor');

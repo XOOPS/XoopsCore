@@ -30,11 +30,12 @@
     //html PNG location prefix
     $PNG_WEB_DIR = 'temp/';
 
-    include 'qrlib.php';
+    include "qrlib.php";
 
     //ofcourse we need rights to create temp dir
     if (!XoopsLoad::fileExists($PNG_TEMP_DIR))
         mkdir($PNG_TEMP_DIR);
+
 
     $filename = $PNG_TEMP_DIR.'test.png';
 
@@ -46,7 +47,8 @@
 
     $matrixPointSize = 4;
     if (isset($_REQUEST['size']))
-        $matrixPointSize = min(max((int) $_REQUEST['size'], 1), 10);
+        $matrixPointSize = min(max((int)$_REQUEST['size'], 1), 10);
+
 
     if (isset($_REQUEST['data'])) {
 
@@ -88,3 +90,4 @@
 
     // benchmark
     QRtools::timeBenchmark();
+

@@ -27,8 +27,8 @@ class HTMLPurifier_Lexer_PEARSax3 extends HTMLPurifier_Lexer
      */
     protected $tokens = array();
 
-    public function tokenizeHTML($string, $config, $context)
-    {
+    public function tokenizeHTML($string, $config, $context) {
+
         $this->tokens = array();
 
         $string = $this->normalize($string, $config, $context);
@@ -51,8 +51,7 @@ class HTMLPurifier_Lexer_PEARSax3 extends HTMLPurifier_Lexer
     /**
      * Open tag event handler, interface is defined by PEAR package.
      */
-    public function openHandler(&$parser, $name, $attrs, $closed)
-    {
+    public function openHandler(&$parser, $name, $attrs, $closed) {
         // entities are not resolved in attrs
         foreach ($attrs as $key => $attr) {
             $attrs[$key] = $this->parseData($attr);
@@ -62,15 +61,13 @@ class HTMLPurifier_Lexer_PEARSax3 extends HTMLPurifier_Lexer
         } else {
             $this->tokens[] = new HTMLPurifier_Token_Start($name, $attrs);
         }
-
         return true;
     }
 
     /**
      * Close tag event handler, interface is defined by PEAR package.
      */
-    public function closeHandler(&$parser, $name)
-    {
+    public function closeHandler(&$parser, $name) {
         // HTMLSax3 seems to always send empty tags an extra close tag
         // check and ignore if you see it:
         // [TESTME] to make sure it doesn't overreach
@@ -78,25 +75,21 @@ class HTMLPurifier_Lexer_PEARSax3 extends HTMLPurifier_Lexer
             return true;
         }
         $this->tokens[] = new HTMLPurifier_Token_End($name);
-
         return true;
     }
 
     /**
      * Data event handler, interface is defined by PEAR package.
      */
-    public function dataHandler(&$parser, $data)
-    {
+    public function dataHandler(&$parser, $data) {
         $this->tokens[] = new HTMLPurifier_Token_Text($data);
-
         return true;
     }
 
     /**
      * Escaped text handler, interface is defined by PEAR package.
      */
-    public function escapeHandler(&$parser, $data)
-    {
+    public function escapeHandler(&$parser, $data) {
         if (strpos($data, '--') === 0) {
             $this->tokens[] = new HTMLPurifier_Token_Comment($data);
         }

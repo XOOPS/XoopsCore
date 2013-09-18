@@ -16,8 +16,7 @@ class HTMLPurifier_URI
     /**
      * @note Automatically normalizes scheme and port
      */
-    public function __construct($scheme, $userinfo, $host, $port, $path, $query, $fragment)
-    {
+    public function __construct($scheme, $userinfo, $host, $port, $path, $query, $fragment) {
         $this->scheme = is_null($scheme) || ctype_lower($scheme) ? $scheme : strtolower($scheme);
         $this->userinfo = $userinfo;
         $this->host = $host;
@@ -33,8 +32,7 @@ class HTMLPurifier_URI
      * @param $context Instance of HTMLPurifier_Context
      * @return Scheme object appropriate for validating this URI
      */
-    public function getSchemeObj($config, $context)
-    {
+    public function getSchemeObj($config, $context) {
         $registry = HTMLPurifier_URISchemeRegistry::instance();
         if ($this->scheme !== null) {
             $scheme_obj = $registry->getScheme($this->scheme, $config, $context);
@@ -49,11 +47,9 @@ class HTMLPurifier_URI
                     'Default scheme object "' . $def->defaultScheme . '" was not readable',
                     E_USER_WARNING
                 );
-
                 return false;
             }
         }
-
         return $scheme_obj;
     }
 
@@ -64,8 +60,8 @@ class HTMLPurifier_URI
      * @param $context Instance of HTMLPurifier_Context
      * @return True if validation/filtering succeeds, false if failure
      */
-    public function validate($config, $context)
-    {
+    public function validate($config, $context) {
+
         // ABNF definitions from RFC 3986
         $chars_sub_delims = '!$&\'()*+,;=';
         $chars_gen_delims = ':/?#[]@';
@@ -151,8 +147,7 @@ class HTMLPurifier_URI
      * Convert URI back to string
      * @return String URI appropriate for output
      */
-    public function toString()
-    {
+    public function toString() {
         // reconstruct authority
         $authority = null;
         if (!is_null($this->host)) {
@@ -169,6 +164,7 @@ class HTMLPurifier_URI
         $result .= $this->path;
         if (!is_null($this->query))     $result .= '?' . $this->query;
         if (!is_null($this->fragment))  $result .= '#' . $this->fragment;
+
         return $result;
     }
 

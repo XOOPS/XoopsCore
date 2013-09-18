@@ -115,7 +115,6 @@ class SystemMenuHandler
                 $return_str .= ' &gt; <a href="' . $bc_site . $arr . '/">' . $bc_label[$arr] . '</a>';
             }
         }
-
         return $return_str;
     }
 
@@ -189,3 +188,5 @@ class SystemMenuHandler
         }
     }
 }
+
+?>

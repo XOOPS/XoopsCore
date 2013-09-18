@@ -30,14 +30,12 @@ class HTMLPurifier_AttrDef_CSS_Multiple extends HTMLPurifier_AttrDef
      * @param $single HTMLPurifier_AttrDef to multiply
      * @param $max Max number of values allowed (usually four)
      */
-    public function __construct($single, $max = 4)
-    {
+    public function __construct($single, $max = 4) {
         $this->single = $single;
         $this->max = $max;
     }
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
         $string = $this->parseCDATA($string);
         if ($string === '') return false;
         $parts = explode(' ', $string); // parseCDATA replaced \r, \t and \n

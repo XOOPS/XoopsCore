@@ -7,13 +7,11 @@ class HTMLPurifier_URIFilter_MakeAbsolute extends HTMLPurifier_URIFilter
     public $name = 'MakeAbsolute';
     protected $base;
     protected $basePathStack = array();
-    public function prepare($config)
-    {
+    public function prepare($config) {
         $def = $config->getDefinition('URI');
         $this->base = $def->base;
         if (is_null($this->base)) {
             trigger_error('URI.MakeAbsolute is being ignored due to lack of value for URI.Base configuration', E_USER_WARNING);
-
             return false;
         }
         $this->base->fragment = null; // fragment is invalid for base URI
@@ -21,11 +19,9 @@ class HTMLPurifier_URIFilter_MakeAbsolute extends HTMLPurifier_URIFilter
         array_pop($stack); // discard last segment
         $stack = $this->_collapseStack($stack); // do pre-parsing
         $this->basePathStack = $stack;
-
         return true;
     }
-    public function filter(&$uri, $config, $context)
-    {
+    public function filter(&$uri, $config, $context) {
         if (is_null($this->base)) return true; // abort early
         if (
             $uri->path === '' && is_null($uri->scheme) &&
@@ -33,7 +29,6 @@ class HTMLPurifier_URIFilter_MakeAbsolute extends HTMLPurifier_URIFilter
         ) {
             // reference to current document
             $uri = clone $this->base;
-
             return true;
         }
         if (!is_null($uri->scheme)) {
@@ -80,8 +75,7 @@ class HTMLPurifier_URIFilter_MakeAbsolute extends HTMLPurifier_URIFilter
     /**
      * Resolve dots and double-dots in a path stack
      */
-    private function _collapseStack($stack)
-    {
+    private function _collapseStack($stack) {
         $result = array();
         $is_folder = false;
         for ($i = 0; isset($stack[$i]); $i++) {

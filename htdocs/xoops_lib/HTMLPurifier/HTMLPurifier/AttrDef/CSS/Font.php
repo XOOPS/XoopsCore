@@ -16,8 +16,7 @@ class HTMLPurifier_AttrDef_CSS_Font extends HTMLPurifier_AttrDef
      */
     protected $info = array();
 
-    public function __construct($config)
-    {
+    public function __construct($config) {
         $def = $config->getCSSDefinition();
         $this->info['font-style']   = $def->info['font-style'];
         $this->info['font-variant'] = $def->info['font-variant'];
@@ -27,8 +26,8 @@ class HTMLPurifier_AttrDef_CSS_Font extends HTMLPurifier_AttrDef
         $this->info['font-family']  = $def->info['font-family'];
     }
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
+
         static $system_fonts = array(
             'caption' => true,
             'icon' => true,
@@ -126,7 +125,6 @@ class HTMLPurifier_AttrDef_CSS_Font extends HTMLPurifier_AttrDef
                         $stage = 2;
                         break;
                     }
-
                     return false;
 
                 // attempting to catch font-family
@@ -140,11 +138,9 @@ class HTMLPurifier_AttrDef_CSS_Font extends HTMLPurifier_AttrDef
                         // processing completed successfully
                         return rtrim($final);
                     }
-
                     return false;
             }
         }
-
         return false;
     }
 

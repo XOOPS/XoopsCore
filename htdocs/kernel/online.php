@@ -42,7 +42,7 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     public function online_uid($format = 'n')
@@ -51,7 +51,7 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     public function online_uname($format = '')
@@ -60,7 +60,7 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     public function online_updated($format = '')
@@ -69,7 +69,7 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     public function online_module($format = '')
@@ -78,7 +78,7 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param  string $format
+     * @param string $format
      * @return mixed
      */
     public function online_ip($format = '')
@@ -110,12 +110,12 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     /**
      * Write online information to the database
      *
-     * @param  int    $uid    UID of the active user
-     * @param  string $uname  Username
-     * @param  string $time
-     * @param  string $module Current module
-     * @param  string $ip     User's IP adress
-     * @return bool   TRUE on success
+     * @param    int     $uid    UID of the active user
+     * @param    string  $uname  Username
+     * @param    string  $time
+     * @param    string  $module Current module
+     * @param    string  $ip     User's IP adress
+     * @return    bool    TRUE on success
      */
     public function write($uid, $uname, $time, $module, $ip)
     {
@@ -137,15 +137,14 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         if (!$this->db->queryF($sql)) {
             return false;
         }
-
         return true;
     }
 
     /**
      * Delete online information for a user
      *
-     * @param  int  $uid UID
-     * @return bool TRUE on success
+     * @param    int $uid    UID
+     * @return    bool    TRUE on success
      */
     public function destroy($uid)
     {
@@ -153,7 +152,6 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         if (!$this->deleteAll($criteria)) {
             return false;
         }
-
         return true;
     }
 
@@ -162,7 +160,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      *
      * Delete all online information that has not been updated for a certain time
      *
-     * @param  int  $expire Expiration time in seconds
+     * @param  int $expire Expiration time in seconds
      * @return bool
      */
     public function gc($expire)
@@ -171,8 +169,9 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         if (!$this->deleteAll($criteria)) {
             return false;
         }
-
         return true;
     }
 
 }
+
+?>

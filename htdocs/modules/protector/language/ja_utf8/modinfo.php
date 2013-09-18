@@ -3,7 +3,7 @@
 if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'protector' ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
-if ( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
+if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
 
 define('_MI_PROTECTOR_LOADED' , 1 ) ;
 
@@ -114,4 +114,7 @@ define('_MI_PROTECTOR_SPAMURI4UDSC','管理者以外の一般ユーザの投稿�
 define('_MI_PROTECTOR_SPAMURI4G','SPAM対策:ゲストに許すURL数');
 define('_MI_PROTECTOR_SPAMURI4GDSC','ゲストの投稿内容に、この数以上のURLがあったらSPAMと見なします。0なら無制限許可です。');
 
+
 }
+
+?>

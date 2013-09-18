@@ -10,8 +10,8 @@
 class HTMLPurifier_AttrDef_HTML_Length extends HTMLPurifier_AttrDef_HTML_Pixels
 {
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
+
         $string = trim($string);
         if ($string === '') return false;
 
@@ -31,6 +31,7 @@ class HTMLPurifier_AttrDef_HTML_Length extends HTMLPurifier_AttrDef_HTML_Pixels
 
         if ($points < 0) return '0%';
         if ($points > 100) return '100%';
+
         return ((string) $points) . '%';
 
     }

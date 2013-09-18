@@ -41,8 +41,8 @@
  * {/foreach}
  * </code>
  */
-function smarty_compiler_foreachq( $argStr, &$comp )
-{
+function smarty_compiler_foreachq( $argStr, &$comp ) {
+
     $comp->_push_tag('foreach');
 
     $attrs = $comp->_parse_attrs( $argStr, false );
@@ -96,6 +96,9 @@ function smarty_compiler_foreachq( $argStr, &$comp )
         //$output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
     }
     //$output .= '';
+
     return $output;
 
 }
+
+?>

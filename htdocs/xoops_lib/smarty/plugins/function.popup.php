@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty {popup} function plugin
  *
@@ -27,7 +28,7 @@ function smarty_function_popup($params, &$smarty)
             case 'trigger':
             case 'function':
             case 'inarray':
-                $$_key = (string) $_value;
+                $$_key = (string)$_value;
                 if ($_key == 'function' || $_key == 'inarray')
                     $append .= ',' . strtoupper($_key) . ",'$_value'";
                 break;
@@ -99,7 +100,6 @@ function smarty_function_popup($params, &$smarty)
 
     if (empty($text) && !isset($inarray) && empty($function)) {
         $smarty->trigger_error("overlib: attribute 'text' or 'inarray' or 'function' required");
-
         return false;
     }
 
@@ -110,7 +110,10 @@ function smarty_function_popup($params, &$smarty)
     if ($trigger == 'onmouseover')
        $retval .= ' onmouseout="nd();"';
 
+
     return $retval;
 }
 
 /* vim: set expandtab: */
+
+?>

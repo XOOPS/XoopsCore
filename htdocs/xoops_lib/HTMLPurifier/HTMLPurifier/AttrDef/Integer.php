@@ -38,8 +38,8 @@ class HTMLPurifier_AttrDef_Integer extends HTMLPurifier_AttrDef
         $this->positive = $positive;
     }
 
-    public function validate($integer, $config, $context)
-    {
+    public function validate($integer, $config, $context) {
+
         $integer = $this->parseCDATA($integer);
         if ($integer === '') return false;
 
@@ -47,10 +47,10 @@ class HTMLPurifier_AttrDef_Integer extends HTMLPurifier_AttrDef
         // certain fringe cases that must not return an integer.
 
         // clip leading sign
-        if ($this->negative && $integer[0] === '-') {
+        if ( $this->negative && $integer[0] === '-' ) {
             $digits = substr($integer, 1);
             if ($digits === '0') $integer = '0'; // rm minus sign for zero
-        } elseif ($this->positive && $integer[0] === '+') {
+        } elseif( $this->positive && $integer[0] === '+' ) {
             $digits = $integer = substr($integer, 1); // rm unnecessary plus
         } else {
             $digits = $integer;
@@ -63,6 +63,7 @@ class HTMLPurifier_AttrDef_Integer extends HTMLPurifier_AttrDef
         if (!$this->zero     && $integer == 0) return false;
         if (!$this->positive && $integer > 0) return false;
         if (!$this->negative && $integer < 0) return false;
+
         return $integer;
 
     }

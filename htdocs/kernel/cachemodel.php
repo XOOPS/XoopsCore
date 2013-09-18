@@ -54,3 +54,6 @@ class XoopsCachemodelHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'cache_model', 'XoopsCachemodelObject', 'cache_key', 'cache_data');
     }
 }
+
+?>
+

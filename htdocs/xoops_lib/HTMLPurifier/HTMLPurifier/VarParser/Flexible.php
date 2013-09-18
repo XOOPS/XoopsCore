@@ -8,8 +8,7 @@
 class HTMLPurifier_VarParser_Flexible extends HTMLPurifier_VarParser
 {
 
-    protected function parseImplementation($var, $type, $allow_null)
-    {
+    protected function parseImplementation($var, $type, $allow_null) {
         if ($allow_null && $var === null) return null;
         switch ($type) {
             // Note: if code "breaks" from the switch, it triggers a generic
@@ -39,7 +38,6 @@ class HTMLPurifier_VarParser_Flexible extends HTMLPurifier_VarParser
                         throw new HTMLPurifier_VarParserException("Unrecognized value '$var' for $type");
                     }
                 }
-
                 return $var;
             case self::ALIST :
             case self::HASH :
@@ -78,7 +76,6 @@ class HTMLPurifier_VarParser_Flexible extends HTMLPurifier_VarParser
                         foreach ($var as $key) {
                             $new[$key] = true;
                         }
-
                         return $new;
                     } else break;
                 }
@@ -87,7 +84,6 @@ class HTMLPurifier_VarParser_Flexible extends HTMLPurifier_VarParser
                         $var[$key] = true;
                     }
                 }
-
                 return $var;
             default:
                 $this->errorInconsistent(__CLASS__, $type);

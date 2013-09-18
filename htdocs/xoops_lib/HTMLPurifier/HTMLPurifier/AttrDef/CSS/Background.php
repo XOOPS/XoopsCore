@@ -13,8 +13,7 @@ class HTMLPurifier_AttrDef_CSS_Background extends HTMLPurifier_AttrDef
      */
     protected $info;
 
-    public function __construct($config)
-    {
+    public function __construct($config) {
         $def = $config->getCSSDefinition();
         $this->info['background-color'] = $def->info['background-color'];
         $this->info['background-image'] = $def->info['background-image'];
@@ -23,8 +22,8 @@ class HTMLPurifier_AttrDef_CSS_Background extends HTMLPurifier_AttrDef
         $this->info['background-position'] = $def->info['background-position'];
     }
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
+
         // regular pre-processing
         $string = $this->parseCDATA($string);
         if ($string === '') return false;

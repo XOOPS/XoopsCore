@@ -22,6 +22,7 @@ define('_AM_XMF_CONFIG_FOLDEROK',"The folder '%s' exists");
 define('_AM_XMF_CONFIG_PHP','Minimum PHP required: %s (your version is %s)');
 define('_AM_XMF_CONFIG_XOOPS','Minimum XOOPS required: %s (your version is %s)');
 
+
 // About
 define('_AM_XMF_ABOUT_CHANGELOG','Change log');
 define('_AM_XMF_ABOUT_DESCRIPTION','Description');
@@ -33,3 +34,6 @@ define('_AM_XMF_ABOUT_WEBSITE',"Website:");
 // checkModuleVersion
 define('_AM_XMF_DEMOMVC_MODULE_NOTFOUND','Please install or reactivate %1$s module. Minimum version required: %2$s');
 define('_AM_XMF_DEMOMVC_MODULE_VERSION','Minimum %1$s module version required: %2$s (your version is %3$s)');
+
+
+?>

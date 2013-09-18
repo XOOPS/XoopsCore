@@ -179,3 +179,5 @@ define('_XMF_URLLINK_BLANK', "new window");
 define('_XMF_ANY', "Any");
 define('_XMF_EDITOR', "Prefered text editor");
 define('_XMF_WITH_SELECTED', "With selected: ");
+
+?>

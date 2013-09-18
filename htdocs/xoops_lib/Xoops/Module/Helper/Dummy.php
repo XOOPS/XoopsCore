@@ -32,16 +32,14 @@ class Xoops_Module_Helper_Dummy extends Xoops_Module_Helper_Abstract
     /**
      * @return void|Xoops_Module_Helper_Dummy
      */
-    static function getInstance()
-    {
+    static function getInstance() {
         return parent::getInstance();
     }
 
     /**
      * @param string $dirname dirname of the module
      */
-    public function setDirname($dirname)
-    {
+    public function setDirname($dirname) {
         parent::setDirname($dirname);
     }
 

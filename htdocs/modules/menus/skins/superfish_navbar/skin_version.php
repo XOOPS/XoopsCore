@@ -39,3 +39,5 @@ $skinversion['css'] = array('css/superfish.css',
                              $header .= "\n" . '</script>';
 
                              $skinversion['header'] = $header;
+
+                             ?>

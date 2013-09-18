@@ -26,7 +26,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MytsMp3 extends MyTextSanitizerExtension
 {
     /**
-     * @param  int   $textarea_id
+     * @param int $textarea_id
      * @return array
      */
     public function encode($textarea_id)
@@ -42,7 +42,7 @@ class MytsMp3 extends MyTextSanitizerExtension
                     var text = prompt(enterMp3Phrase, "");
                 }
                 var domobj = xoopsGetElementById(id);
-                if (text.length > 0) {
+                if ( text.length > 0 ) {
                     var result = "[mp3]" + text + "[/mp3]";
                     xoopsInsertText(domobj, result);
                 }
@@ -55,8 +55,7 @@ EOF;
         );
     }
 
-    static function myCallback($match)
-    {
+    static function myCallback($match) {
         return  self::decode($match[1]);
     }
 
@@ -68,17 +67,17 @@ EOF;
         $ts->callbackPatterns[] = "/\[mp3\](.*?)\[\/mp3\]/s";
         $ts->callbacks[] = __CLASS__ . "::myCallback";
 //mb------------------------------
+
         return true;
     }
 
     /**
-     * @param  string $url
+     * @param string $url
      * @return string
      */
     public static function decode ($url)
     {
         $rp = "<embed flashvars=\"playerID=1&amp;bg=0xf8f8f8&amp;leftbg=0x3786b3&amp;lefticon=0x78bee3&amp;rightbg=0x3786b3&amp;rightbghover=0x78bee3&amp;righticon=0x78bee3&amp;righticonhover=0x3786b3&amp;text=0x666666&amp;slider=0x3786b3&amp;track=0xcccccc&amp;border=0x666666&amp;loader=0x78bee3&amp;loop=no&amp;soundFile={$url}\" quality='high' menu='false' wmode='transparent' pluginspage='http://www.macromedia.com/go/getflashplayer' src='" . XOOPS_URL . "/images/form/player.swf'  width=290 height=24 type='application/x-shockwave-flash'></embed>";
-
         return $rp;
     }
 }

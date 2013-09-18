@@ -46,6 +46,7 @@ function mod_getMysqlVersion($conn = null)
     } else {
         $mysql_version = mysql_get_server_info();
     }
-
     return $mysql_version;
 }
+
+?>

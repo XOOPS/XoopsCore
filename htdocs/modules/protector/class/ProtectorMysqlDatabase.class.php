@@ -21,7 +21,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-if ( XoopsLoad::fileExists( XOOPS_ROOT_PATH.'/class/database/drivers/'.XOOPS_DB_TYPE.'/database.php' ) ) {
+if( XoopsLoad::fileExists( XOOPS_ROOT_PATH.'/class/database/drivers/'.XOOPS_DB_TYPE.'/database.php' ) ) {
     require_once XOOPS_ROOT_PATH.'/class/database/drivers/'.XOOPS_DB_TYPE.'/database.php';
 } else {
     require_once XOOPS_ROOT_PATH.'/class/database/'.XOOPS_DB_TYPE.'database.php';
@@ -44,12 +44,14 @@ var $doubtful_needles = array(
     '#' ,
 ) ;
 
+
 function ProtectorMySQLDatabase()
 {
     $protector = Protector::getInstance() ;
     $this->doubtful_requests = $protector->getDblayertrapDoubtfuls() ;
     $this->doubtful_needles = array_merge( $this->doubtful_needles , $this->doubtful_requests ) ;
 }
+
 
 function injectionFound( $sql )
 {
@@ -60,6 +62,7 @@ function injectionFound( $sql )
     $protector->output_log( $protector->last_error_type ) ;
     die( 'SQL Injection found' ) ;
 }
+
 
 function separateStringsInSQL( $sql )
 {
@@ -72,16 +75,16 @@ function separateStringsInSQL( $sql )
     $strings = array() ;
     $current_string = '' ;
 
-    for ($i = 0 ; $i < $sql_len ; $i ++) {
+    for( $i = 0 ; $i < $sql_len ; $i ++ ) {
         $char = $sql[$i] ;
-        if ($in_string) {
-            while (1) {
+        if( $in_string ) {
+            while( 1 ) {
                 $new_i = strpos( $sql , $string_start , $i ) ;
                 $current_string .= substr( $sql , $i , $new_i - $i + 1 ) ;
                 $i = $new_i ;
-                if ($i === false) {
+                if( $i === false ) {
                     break 2 ;
-                } elseif (/* $string_start == '`' || */ $sql[$i-1] != '\\') {
+                } else if( /* $string_start == '`' || */ $sql[$i-1] != '\\' ) {
                     $string_start = '' ;
                     $in_string = false ;
                     $strings[] = $current_string ;
@@ -89,7 +92,7 @@ function separateStringsInSQL( $sql )
                 } else {
                     $j = 2 ;
                     $escaped_backslash = false ;
-                    while ($i - $j > 0 && $sql[$i-$j] == '\\') {
+                    while( $i - $j > 0 && $sql[$i-$j] == '\\' ) {
                         $escaped_backslash = ! $escaped_backslash ;
                         $j++;
                     }
@@ -103,7 +106,7 @@ function separateStringsInSQL( $sql )
                     }
                 }
             }
-        } elseif ($char == '"' || $char == "'") { // dare to ignore ``
+        } else if( $char == '"' || $char == "'" ) { // dare to ignore ``
             $in_string = true ;
             $string_start = $char ;
             $current_string = $char ;
@@ -124,18 +127,18 @@ function checkSql( $sql )
     list( $sql_wo_strings , $strings ) = $this->separateStringsInSQL( $sql ) ;
 
     // stage1: addslashes() processed or not
-    foreach ($this->doubtful_requests as $request) {
-        if ( addslashes( $request ) != $request ) {
-            if ( stristr( $sql , trim( $request ) ) ) {
+    foreach( $this->doubtful_requests as $request ) {
+        if( addslashes( $request ) != $request ) {
+            if( stristr( $sql , trim( $request ) ) ) {
                 // check the request stayed inside of strings as whole
                 $ok_flag = false ;
-                foreach ($strings as $string) {
-                    if ( strstr( $string , $request ) ) {
+                foreach( $strings as $string ) {
+                    if( strstr( $string , $request ) ) {
                         $ok_flag = true ;
                         break ;
                     }
                 }
-                if (! $ok_flag) {
+                if( ! $ok_flag ) {
                     $this->injectionFound( $sql ) ;
                 }
             }
@@ -148,39 +151,41 @@ function checkSql( $sql )
     // OK: select a from b where c='$d_escaped'
     // $_GET['d'] = '(select ... FROM)'
     // NG: select a from b where c=(select ... from)
-    foreach ($this->doubtful_requests as $request) {
-        if ( strstr( $sql_wo_strings , trim( $request ) ) ) {
+    foreach( $this->doubtful_requests as $request ) {
+        if( strstr( $sql_wo_strings , trim( $request ) ) ) {
             $this->injectionFound( $sql ) ;
         }
     }
 
     // stage3: comment exists or not without quoted strings (too sensitive?)
-    if ( preg_match( '/(\/\*|\-\-|\#)/' , $sql_wo_strings , $regs ) ) {
-        foreach ($this->doubtful_requests as $request) {
-            if ( strstr( $request , $regs[1] ) ) {
+    if( preg_match( '/(\/\*|\-\-|\#)/' , $sql_wo_strings , $regs ) ) {
+        foreach( $this->doubtful_requests as $request ) {
+            if( strstr( $request , $regs[1] ) ) {
                 $this->injectionFound( $sql ) ;
             }
         }
     }
 }
 
+
 function query( $sql , $limit = 0 , $start = 0 )
 {
     $sql4check = substr( $sql , 7 ) ;
-    foreach ($this->doubtful_needles as $needle) {
-        if ( stristr( $sql4check , $needle ) ) {
+    foreach( $this->doubtful_needles as $needle ) {
+        if( stristr( $sql4check , $needle ) ) {
             $this->checkSql( $sql ) ;
             break ;
         }
     }
 
-    if ( ! defined( 'XOOPS_DB_PROXY' ) ) {
+    if( ! defined( 'XOOPS_DB_PROXY' ) ) {
         $ret = parent::queryF( $sql , $limit , $start ) ;
     } else {
         $ret = parent::query( $sql , $limit , $start ) ;
     }
-
     return $ret ;
 }
 
 }
+
+?>

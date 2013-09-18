@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty strip modifier plugin
  *
@@ -28,3 +29,5 @@ function smarty_modifier_strip($text, $replace = ' ')
 }
 
 /* vim: set expandtab: */
+
+?>

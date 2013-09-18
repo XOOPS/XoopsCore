@@ -15,8 +15,7 @@ class HTMLPurifier_HTMLModule_StyleAttribute extends HTMLPurifier_HTMLModule
         'Core' => array(0 => array('Style'))
     );
 
-    public function setup($config)
-    {
+    public function setup($config) {
         $this->attr_collections['Style']['style'] = new HTMLPurifier_AttrDef_CSS();
     }
 

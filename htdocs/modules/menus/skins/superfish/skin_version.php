@@ -39,3 +39,5 @@ $header .= "\n" . '  });';
 $header .= "\n" . '</script>';
 
 $skinversion['header'] = $header;
+
+?>

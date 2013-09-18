@@ -26,7 +26,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MytsYoutube extends MyTextSanitizerExtension
 {
     /**
-     * @param  int   $textarea_id
+     * @param int $textarea_id
      * @return array
      */
     public function encode($textarea_id)
@@ -42,7 +42,7 @@ class MytsYoutube extends MyTextSanitizerExtension
                     var text = prompt(enterFlashPhrase, "");
                 }
                 var domobj = xoopsGetElementById(id);
-                if (text.length > 0) {
+                if ( text.length > 0 ) {
                     var text2 = prompt(enterFlashWidthPhrase, "425");
                     var text3 = prompt(enterFlashHeightPhrase, "350");
                     var result = "[youtube="+text2+","+text3+"]" + text + "[/youtube]";
@@ -55,13 +55,12 @@ EOH;
         return array($code, $javascript);
     }
 
-static function myCallback($match)
-{
+static function myCallback($match) {
     return  self::decode( $match[4], $match[2], $match[3] );
 }
 
     /**
-     * @param  MyTextSanitizer $ts
+     * @param MyTextSanitizer $ts
      * @return void
      */
     public function load(MyTextSanitizer &$ts)
@@ -77,16 +76,15 @@ static function myCallback($match)
     }
 
     /**
-     * @param  string $url
-     * @param  string $width
-     * @param  string $height
+     * @param string $url
+     * @param string $width
+     * @param string $height
      * @return string
      */
     public static function decode($url, $width, $height)
     {
         if (!preg_match("/^http:\/\/(www\.)?youtube\.com\/watch\?v=(.*)/i", $url, $matches)) {
             trigger_error("Not matched: {$url} {$width} {$height}", E_USER_WARNING);
-
             return "";
         }
         $src = "http://www.youtube.com/v/" . $matches[2];
@@ -105,7 +103,6 @@ static function myCallback($match)
             }
         }
         $code = "<object width='{$width}' height='{$height}'><param name='movie' value='{$src}'></param>" . "<param name='wmode' value='transparent'></param>" . "<embed src='{$src}' type='application/x-shockwave-flash' wmode='transparent' width='425' height='350'></embed>" . "</object>";
-
         return $code;
     }
 }

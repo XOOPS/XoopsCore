@@ -34,8 +34,7 @@ class HTMLPurifier_Length
      * @param number $n Magnitude
      * @param string $u Unit
      */
-    public function __construct($n = '0', $u = false)
-    {
+    public function __construct($n = '0', $u = false) {
         $this->n = (string) $n;
         $this->unit = $u !== false ? (string) $u : false;
     }
@@ -44,8 +43,7 @@ class HTMLPurifier_Length
      * @param string $s Unit string, like '2em' or '3.4in'
      * @warning Does not perform validation.
      */
-    static public function make($s)
-    {
+    static public function make($s) {
         if ($s instanceof HTMLPurifier_Length) return $s;
         $n_length = strspn($s, '1234567890.+-');
         $n = substr($s, 0, $n_length);
@@ -57,8 +55,7 @@ class HTMLPurifier_Length
     /**
      * Validates the number and unit.
      */
-    protected function validate()
-    {
+    protected function validate() {
         // Special case:
         if ($this->n === '+0' || $this->n === '-0') $this->n = '0';
         if ($this->n === '0' && $this->unit === false) return true;
@@ -69,15 +66,13 @@ class HTMLPurifier_Length
         $result = $def->validate($this->n, false, false);
         if ($result === false) return false;
         $this->n = $result;
-
         return true;
     }
 
     /**
      * Returns string representation of number.
      */
-    public function toString()
-    {
+    public function toString() {
         if (!$this->isValid()) return false;
         return $this->n . $this->unit;
     }
@@ -95,8 +90,7 @@ class HTMLPurifier_Length
     /**
      * Returns true if this length unit is valid.
      */
-    public function isValid()
-    {
+    public function isValid() {
         if ($this->isValid === null) $this->isValid = $this->validate();
         return $this->isValid;
     }
@@ -106,15 +100,13 @@ class HTMLPurifier_Length
      * @warning If both values are too large or small, this calculation will
      *          not work properly
      */
-    public function compareTo($l)
-    {
+    public function compareTo($l) {
         if ($l === false) return false;
         if ($l->unit !== $this->unit) {
             $converter = new HTMLPurifier_UnitConverter();
             $l = $converter->convert($l, $this->unit);
             if ($l === false) return false;
         }
-
         return $this->n - $l->n;
     }
 

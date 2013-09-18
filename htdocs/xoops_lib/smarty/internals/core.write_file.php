@@ -30,7 +30,6 @@ function smarty_core_write_file($params, &$smarty)
         $_tmp_file = $_dirname . DIRECTORY_SEPARATOR . uniqid('wrt');
         if (!($fd = @fopen($_tmp_file, 'wb'))) {
             $smarty->trigger_error("problem writing temporary file '$_tmp_file'");
-
             return false;
         }
     }
@@ -39,7 +38,7 @@ function smarty_core_write_file($params, &$smarty)
     fclose($fd);
 
     if (DIRECTORY_SEPARATOR == '\\' || !@rename($_tmp_file, $params['filename'])) {
-        // On platforms and filesystems that cannot overwrite with rename()
+        // On platforms and filesystems that cannot overwrite with rename() 
         // delete the file before renaming it -- because windows always suffers
         // this, it is short-circuited to avoid the initial rename() attempt
         @unlink($params['filename']);
@@ -51,3 +50,5 @@ function smarty_core_write_file($params, &$smarty)
 }
 
 /* vim: set expandtab: */
+
+?>

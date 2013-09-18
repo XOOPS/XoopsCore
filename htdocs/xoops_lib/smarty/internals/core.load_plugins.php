@@ -42,7 +42,7 @@ function smarty_core_load_plugins($params, &$smarty)
                 }
             }
             continue;
-        } elseif ($_type == 'insert') {
+        } else if ($_type == 'insert') {
             /*
              * For backwards compatibility, we check for insert functions in
              * the symbol table before trying to load them as a plugin.
@@ -103,7 +103,7 @@ function smarty_core_load_plugins($params, &$smarty)
                         $_found = true;
                     }
                 }
-            } elseif ($_type == 'function') {
+            } else if ($_type == 'function') {
                 /*
                  * This is a catch-all situation.
                  */
@@ -121,3 +121,5 @@ function smarty_core_load_plugins($params, &$smarty)
 }
 
 /* vim: set expandtab: */
+
+?>

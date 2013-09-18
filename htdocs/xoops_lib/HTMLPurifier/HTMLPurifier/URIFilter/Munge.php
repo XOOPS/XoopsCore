@@ -8,17 +8,14 @@ class HTMLPurifier_URIFilter_Munge extends HTMLPurifier_URIFilter
 
     protected $replace = array();
 
-    public function prepare($config)
-    {
+    public function prepare($config) {
         $this->target    = $config->get('URI.' . $this->name);
         $this->parser    = new HTMLPurifier_URIParser();
         $this->doEmbed   = $config->get('URI.MungeResources');
         $this->secretKey = $config->get('URI.MungeSecretKey');
-
         return true;
     }
-    public function filter(&$uri, $config, $context)
-    {
+    public function filter(&$uri, $config, $context) {
         if ($context->get('EmbeddedURI', true) && !$this->doEmbed) return true;
 
         $scheme_obj = $uri->getSchemeObj($config, $context);
@@ -40,12 +37,10 @@ class HTMLPurifier_URIFilter_Munge extends HTMLPurifier_URIFilter
         // starting host
         if ($uri->host === $new_uri->host) return true;
         $uri = $new_uri; // overwrite
-
         return true;
     }
 
-    protected function makeReplace($uri, $config, $context)
-    {
+    protected function makeReplace($uri, $config, $context) {
         $string = $uri->toString();
         // always available
         $this->replace['%s'] = $string;

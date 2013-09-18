@@ -60,3 +60,4 @@ $modversion['adminmenu'] = 'admin/menu.php';
 
 // Scripts to run upon installation or update
 $modversion['onInstall'] = '';
+?>

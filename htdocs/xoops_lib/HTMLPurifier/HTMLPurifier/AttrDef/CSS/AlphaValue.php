@@ -3,13 +3,11 @@
 class HTMLPurifier_AttrDef_CSS_AlphaValue extends HTMLPurifier_AttrDef_CSS_Number
 {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct(false); // opacity is non-negative, but we will clamp it
     }
 
-    public function validate($number, $config, $context)
-    {
+    public function validate($number, $config, $context) {
         $result = parent::validate($number, $config, $context);
         if ($result === false) return $result;
         $float = (float) $result;

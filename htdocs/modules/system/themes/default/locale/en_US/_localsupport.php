@@ -35,3 +35,4 @@ $menu[] = array(
 */
 
 return $menu;
+?>

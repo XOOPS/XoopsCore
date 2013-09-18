@@ -10,8 +10,7 @@ class HTMLPurifier_HTMLModule_Image extends HTMLPurifier_HTMLModule
 
     public $name = 'Image';
 
-    public function setup($config)
-    {
+    public function setup($config) {
         $max = $config->get('HTML.MaxImgLength');
         $img = $this->addElement(
             'img', 'Inline', 'Empty', 'Common',

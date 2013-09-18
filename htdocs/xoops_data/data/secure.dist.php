@@ -45,3 +45,5 @@ define("XOOPS_DB_NAME", "");
 // Use persistent connection? (Yes=1 No=0)
 // Default is "Yes". Choose "Yes" if you are unsure.
 define("XOOPS_DB_PCONNECT", 0);
+
+?>

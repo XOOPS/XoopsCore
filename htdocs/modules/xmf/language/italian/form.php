@@ -23,3 +23,6 @@ define ('_FORM_XMF_ADD_SUCCESS', "Voce aggiunta!");
 
 define ('_FORM_XMF_URLLINK_URL', "Link URL");
 define ('_FORM_XMF_URLLINK_TARGET', "Target Url");
+
+
+?>

@@ -11,8 +11,8 @@ class HTMLPurifier_HTMLModule_SafeObject extends HTMLPurifier_HTMLModule
 
     public $name = 'SafeObject';
 
-    public function setup($config)
-    {
+    public function setup($config) {
+
         // These definitions are not intrinsically safe: the attribute transforms
         // are a vital part of ensuring safety.
 

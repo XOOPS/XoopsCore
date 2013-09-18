@@ -4,17 +4,15 @@
  * Performs miscellaneous cross attribute validation and filtering for
  * input elements. This is meant to be a post-transform.
  */
-class HTMLPurifier_AttrTransform_Input extends HTMLPurifier_AttrTransform
-{
+class HTMLPurifier_AttrTransform_Input extends HTMLPurifier_AttrTransform {
+
     protected $pixels;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->pixels = new HTMLPurifier_AttrDef_HTML_Pixels();
     }
 
-    public function transform($attr, $config, $context)
-    {
+    public function transform($attr, $config, $context) {
         if (!isset($attr['type'])) $t = 'text';
         else $t = strtolower($attr['type']);
         if (isset($attr['checked']) && $t !== 'radio' && $t !== 'checkbox') {
@@ -34,7 +32,6 @@ class HTMLPurifier_AttrTransform_Input extends HTMLPurifier_AttrTransform
         if (!isset($attr['value']) && ($t === 'radio' || $t === 'checkbox')) {
             $attr['value'] = '';
         }
-
         return $attr;
     }
 

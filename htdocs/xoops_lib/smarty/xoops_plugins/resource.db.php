@@ -29,7 +29,6 @@ function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
         $tpl_source = ($filesize > 0) ? fread($fp, $filesize) : '';
         fclose($fp);
     }
-
     return true;
 }
 
@@ -44,7 +43,6 @@ function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
     } else {
         $tpl_timestamp = filemtime($tpl);
     }
-
     return true;
 }
 
@@ -113,6 +111,7 @@ function smarty_resource_db_tplinfo($tpl_name)
             return $cache[$tpl_name] = $tplobj ;
         }
     }
-
     return $cache[$tpl_name] = $filepath;
 }
+
+?>

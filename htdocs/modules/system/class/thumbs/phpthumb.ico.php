@@ -8,15 +8,15 @@
 //                                                         ///
 //////////////////////////////////////////////////////////////
 
-class phpthumb_ico
-{
-    function phpthumb_ico()
-    {
+
+class phpthumb_ico {
+
+    function phpthumb_ico() {
         return true;
     }
 
-    function GD2ICOstring(&$gd_image_array)
-    {
+
+    function GD2ICOstring(&$gd_image_array) {
         foreach ($gd_image_array as $key => $gd_image) {
 
             $ImageWidths[$key]  = ImageSX($gd_image);
@@ -79,6 +79,7 @@ class phpthumb_ico
             $BitmapInfoHeader[$key] .= "\x00\x00\x00\x00";                              // DWORD  biClrImportant;
         }
 
+
         $icondata  = "\x00\x00";                                      // idReserved;   // Reserved (must be 0)
         $icondata .= "\x01\x00";                                      // idType;       // Resource Type (1 for icons)
         $icondata .= phpthumb_functions::LittleEndian2String(count($gd_image_array), 2);  // idCount;      // How many images?
@@ -114,3 +115,5 @@ class phpthumb_ico
     }
 
 }
+
+?>

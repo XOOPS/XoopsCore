@@ -8,13 +8,12 @@ class HTMLPurifier_AttrDef_HTML_Pixels extends HTMLPurifier_AttrDef
 
     protected $max;
 
-    public function __construct($max = null)
-    {
+    public function __construct($max = null) {
         $this->max = $max;
     }
 
-    public function validate($string, $config, $context)
-    {
+    public function validate($string, $config, $context) {
+
         $string = trim($string);
         if ($string === '0') return $string;
         if ($string === '')  return false;
@@ -32,16 +31,15 @@ class HTMLPurifier_AttrDef_HTML_Pixels extends HTMLPurifier_AttrDef
         // WARNING, above link WILL crash you if you're using Windows
 
         if ($this->max !== null && $int > $this->max) return (string) $this->max;
+
         return (string) $int;
 
     }
 
-    public function make($string)
-    {
+    public function make($string) {
         if ($string === '') $max = null;
         else $max = (int) $string;
         $class = get_class($this);
-
         return new $class($max);
     }
 

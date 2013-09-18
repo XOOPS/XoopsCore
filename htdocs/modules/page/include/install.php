@@ -20,8 +20,8 @@
  * @version         $Id$
  */
 
-function xoops_module_install_page()
-{
+function xoops_module_install_page() {
+
     /*$namemodule = 'page';
 
     //Create dir '.$namemodule.'/
@@ -43,6 +43,5 @@ function xoops_module_install_page()
 
     //Copy blank.gif
     $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/blank.gif';*/
-
     return true;
 }

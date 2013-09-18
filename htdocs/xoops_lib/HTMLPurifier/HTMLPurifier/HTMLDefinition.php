@@ -86,6 +86,8 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
      */
     public $doctype;
 
+
+
     // RAW CUSTOMIZATION STUFF --------------------------------------------
 
     /**
@@ -97,8 +99,7 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
      * @param $def Attribute definition, can be string or object, see
      *             HTMLPurifier_AttrTypes for details
      */
-    public function addAttribute($element_name, $attr_name, $def)
-    {
+    public function addAttribute($element_name, $attr_name, $def) {
         $module = $this->getAnonymousModule();
         if (!isset($module->info[$element_name])) {
             $element = $module->addBlankElement($element_name);
@@ -113,13 +114,11 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
      * @note See HTMLPurifier_HTMLModule::addElement for detailed
      *       parameter and return value descriptions.
      */
-    public function addElement($element_name, $type, $contents, $attr_collections, $attributes = array())
-    {
+    public function addElement($element_name, $type, $contents, $attr_collections, $attributes = array()) {
         $module = $this->getAnonymousModule();
         // assume that if the user is calling this, the element
         // is safe. This may not be a good idea
         $element = $module->addElement($element_name, $type, $contents, $attr_collections, $attributes);
-
         return $element;
     }
 
@@ -129,11 +128,9 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
      * @note See HTMLPurifier_HTMLModule::addBlankElement for detailed
      *       parameter and return value descriptions.
      */
-    public function addBlankElement($element_name)
-    {
+    public function addBlankElement($element_name) {
         $module  = $this->getAnonymousModule();
         $element = $module->addBlankElement($element_name);
-
         return $element;
     }
 
@@ -142,17 +139,16 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
      * bust out advanced features without having to make your own
      * module.
      */
-    public function getAnonymousModule()
-    {
+    public function getAnonymousModule() {
         if (!$this->_anonModule) {
             $this->_anonModule = new HTMLPurifier_HTMLModule();
             $this->_anonModule->name = 'Anonymous';
         }
-
         return $this->_anonModule;
     }
 
     private $_anonModule;
+
 
     // PUBLIC BUT INTERNAL VARIABLES --------------------------------------
 
@@ -162,13 +158,11 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
     /**
      * Performs low-cost, preliminary initialization.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->manager = new HTMLPurifier_HTMLModuleManager();
     }
 
-    protected function doSetup($config)
-    {
+    protected function doSetup($config) {
         $this->processModules($config);
         $this->setupConfigStuff($config);
         unset($this->manager);
@@ -183,8 +177,8 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
     /**
      * Extract out the information from the manager
      */
-    protected function processModules($config)
-    {
+    protected function processModules($config) {
+
         if ($this->_anonModule) {
             // for user specific changes
             // this is late-loaded so we don't have to deal with PHP4
@@ -197,15 +191,15 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
         $this->doctype = $this->manager->doctype;
 
         foreach ($this->manager->modules as $module) {
-            foreach ($module->info_tag_transform as $k => $v) {
+            foreach($module->info_tag_transform as $k => $v) {
                 if ($v === false) unset($this->info_tag_transform[$k]);
                 else $this->info_tag_transform[$k] = $v;
             }
-            foreach ($module->info_attr_transform_pre as $k => $v) {
+            foreach($module->info_attr_transform_pre as $k => $v) {
                 if ($v === false) unset($this->info_attr_transform_pre[$k]);
                 else $this->info_attr_transform_pre[$k] = $v;
             }
-            foreach ($module->info_attr_transform_post as $k => $v) {
+            foreach($module->info_attr_transform_post as $k => $v) {
                 if ($v === false) unset($this->info_attr_transform_post[$k]);
                 else $this->info_attr_transform_post[$k] = $v;
             }
@@ -223,8 +217,8 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
     /**
      * Sets up stuff based on config. We need a better way of doing this.
      */
-    protected function setupConfigStuff($config)
-    {
+    protected function setupConfigStuff($config) {
+
         $block_wrapper = $config->get('HTML.BlockWrapper');
         if (isset($this->info_content_sets['Block'][$block_wrapper])) {
             $this->info_block_wrapper = $block_wrapper;
@@ -390,8 +384,8 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
      * @param array($allowed_elements, $allowed_attributes)
      * @todo Give this its own class, probably static interface
      */
-    public function parseTinyMCEAllowedList($list)
-    {
+    public function parseTinyMCEAllowedList($list) {
+
         $list = str_replace(array(' ', "\t"), '', $list);
 
         $elements = array();
@@ -419,6 +413,7 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
         return array($elements, $attributes);
 
     }
+
 
 }
 

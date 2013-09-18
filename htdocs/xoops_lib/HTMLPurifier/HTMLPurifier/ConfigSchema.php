@@ -3,8 +3,8 @@
 /**
  * Configuration definition, defines directives and their defaults.
  */
-class HTMLPurifier_ConfigSchema
-{
+class HTMLPurifier_ConfigSchema {
+
     /**
      * Defaults of the directives and namespaces.
      * @note This shares the exact same structure as HTMLPurifier_Config::$conf
@@ -52,30 +52,26 @@ class HTMLPurifier_ConfigSchema
      */
     static protected $singleton;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->defaultPlist = new HTMLPurifier_PropertyList();
     }
 
     /**
      * Unserializes the default ConfigSchema.
      */
-    public static function makeFromSerial()
-    {
+    public static function makeFromSerial() {
         return unserialize(file_get_contents(HTMLPURIFIER_PREFIX . '/HTMLPurifier/ConfigSchema/schema.ser'));
     }
 
     /**
      * Retrieves an instance of the application-wide configuration definition.
      */
-    public static function instance($prototype = null)
-    {
+    public static function instance($prototype = null) {
         if ($prototype !== null) {
             HTMLPurifier_ConfigSchema::$singleton = $prototype;
         } elseif (HTMLPurifier_ConfigSchema::$singleton === null || $prototype === true) {
             HTMLPurifier_ConfigSchema::$singleton = HTMLPurifier_ConfigSchema::makeFromSerial();
         }
-
         return HTMLPurifier_ConfigSchema::$singleton;
     }
 
@@ -91,8 +87,7 @@ class HTMLPurifier_ConfigSchema
      *      HTMLPurifier_DirectiveDef::$type for allowed values
      * @param $allow_null Whether or not to allow null values
      */
-    public function add($key, $default, $type, $allow_null)
-    {
+    public function add($key, $default, $type, $allow_null) {
         $obj = new stdclass();
         $obj->type = is_int($type) ? $type : HTMLPurifier_VarParser::$types[$type];
         if ($allow_null) $obj->allow_null = true;
@@ -110,8 +105,7 @@ class HTMLPurifier_ConfigSchema
      * @param $name Name of Directive
      * @param $aliases Hash of aliased values to the real alias
      */
-    public function addValueAliases($key, $aliases)
-    {
+    public function addValueAliases($key, $aliases) {
         if (!isset($this->info[$key]->aliases)) {
             $this->info[$key]->aliases = array();
         }
@@ -128,8 +122,7 @@ class HTMLPurifier_ConfigSchema
      * @param $name Name of directive
      * @param $allowed Lookup array of allowed values
      */
-    public function addAllowedValues($key, $allowed)
-    {
+    public function addAllowedValues($key, $allowed) {
         $this->info[$key]->allowed = $allowed;
     }
 
@@ -140,8 +133,7 @@ class HTMLPurifier_ConfigSchema
      * @param $new_namespace
      * @param $new_name Directive that the alias will be to
      */
-    public function addAlias($key, $new_key)
-    {
+    public function addAlias($key, $new_key) {
         $obj = new stdclass;
         $obj->key = $new_key;
         $obj->isAlias = true;
@@ -151,8 +143,7 @@ class HTMLPurifier_ConfigSchema
     /**
      * Replaces any stdclass that only has the type property with type integer.
      */
-    public function postProcess()
-    {
+    public function postProcess() {
         foreach ($this->info as $key => $v) {
             if (count((array) $v) == 1) {
                 $this->info[$key] = $v->type;

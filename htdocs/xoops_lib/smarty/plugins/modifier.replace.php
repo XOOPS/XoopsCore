@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+
 /**
  * Smarty replace modifier plugin
  *
@@ -25,3 +26,5 @@ function smarty_modifier_replace($string, $search, $replace)
 }
 
 /* vim: set expandtab: */
+
+?>

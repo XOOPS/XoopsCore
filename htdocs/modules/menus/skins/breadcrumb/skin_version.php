@@ -29,3 +29,5 @@ $skinversion['css'] = 'style.css';
 
 $skinversion['config']['home'] = true;
 $skinversion['config']['iconset'] = 'default';
+
+?>

@@ -12,16 +12,13 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
     public $name = 'AutoParagraph';
     public $needed = array('p');
 
-    private function _pStart()
-    {
+    private function _pStart() {
         $par = new HTMLPurifier_Token_Start('p');
         $par->armor['MakeWellFormed_TagClosedError'] = true;
-
         return $par;
     }
 
-    public function handleText(&$token)
-    {
+    public function handleText(&$token) {
         $text = $token->data;
         // Does the current parent allow <p> tags?
         if ($this->allowsElement('p')) {
@@ -92,8 +89,7 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
         }
     }
 
-    public function handleElement(&$token)
-    {
+    public function handleElement(&$token) {
         // We don't have to check if we're already in a <p> tag for block
         // tokens, because the tag would have been autoclosed by MakeWellFormed.
         if ($this->allowsElement('p')) {
@@ -207,8 +203,7 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
      * @param $config Instance of HTMLPurifier_Config
      * @param $context Instance of HTMLPurifier_Context
      */
-    private function _splitText($data, &$result)
-    {
+    private function _splitText($data, &$result) {
         $raw_paragraphs = explode("\n\n", $data);
         $paragraphs  = array(); // without empty paragraphs
         $needs_start = false;
@@ -219,7 +214,6 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
             // There were no double-newlines, abort quickly. In theory this
             // should never happen.
             $result[] = new HTMLPurifier_Token_Text($data);
-
             return;
         }
         for ($i = 0; $i < $c; $i++) {
@@ -293,8 +287,7 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
      * Returns true if passed token is inline (and, ergo, allowed in
      * paragraph tags)
      */
-    private function _isInline($token)
-    {
+    private function _isInline($token) {
         return isset($this->htmlDefinition->info['p']->child->elements[$token->name]);
     }
 
@@ -302,8 +295,7 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
      * Looks ahead in the token list and determines whether or not we need
      * to insert a <p> tag.
      */
-    private function _pLookAhead()
-    {
+    private function _pLookAhead() {
         $this->current($i, $current);
         if ($current instanceof HTMLPurifier_Token_Start) $nesting = 1;
         else $nesting = 0;
@@ -315,7 +307,6 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
                 break;
             }
         }
-
         return $ok;
     }
 
@@ -323,9 +314,8 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
      * Determines if a particular token requires an earlier inline token
      * to get a paragraph. This should be used with _forwardUntilEndToken
      */
-    private function _checkNeedsP($current)
-    {
-        if ($current instanceof HTMLPurifier_Token_Start) {
+    private function _checkNeedsP($current) {
+        if ($current instanceof HTMLPurifier_Token_Start){
             if (!$this->_isInline($current)) {
                 // <div>PAR1<div>
                 //      ----
@@ -342,7 +332,6 @@ class HTMLPurifier_Injector_AutoParagraph extends HTMLPurifier_Injector
                 //      ----
             }
         }
-
         return null;
     }
 

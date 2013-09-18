@@ -3,8 +3,8 @@
 class HTMLPurifier_HTMLModule_Tidy_XHTMLAndHTML4 extends HTMLPurifier_HTMLModule_Tidy
 {
 
-    public function makeFixes()
-    {
+    public function makeFixes() {
+
         $r = array();
 
         // == deprecated tag transforms ===================================

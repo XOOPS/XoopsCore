@@ -18,12 +18,14 @@
     $content = '<page style="font-family: freeserif"><br />'.nl2br($content).'</page>';
 
     // convert to PDF
-    try {
+    try
+    {
         $html2pdf = new HTML2PDF('P', 'A4', 'fr');
         $html2pdf->pdf->SetDisplayMode('real');
         $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
         $html2pdf->Output('utf8.pdf');
-    } catch (HTML2PDF_exception $e) {
+    }
+    catch(HTML2PDF_exception $e) {
         echo $e;
         exit;
     }

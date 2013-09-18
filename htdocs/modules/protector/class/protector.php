@@ -104,7 +104,7 @@ class Protector
         }
 
         // die if PHP_SELF XSS found (disabled in 2.53)
-        //  if ( preg_match( '/[<>\'";\n ]/' , @$_SERVER['PHP_SELF'] ) ) {
+        //  if( preg_match( '/[<>\'";\n ]/' , @$_SERVER['PHP_SELF'] ) ) {
         //      $this->message .= "Invalid PHP_SELF '{$_SERVER['PHP_SELF']}' found.\n" ;
         //      $this->output_log( 'PHP_SELF XSS' ) ;
         //      die( 'invalid PHP_SELF' ) ;
@@ -124,7 +124,6 @@ class Protector
         $this->_initial_recursive($_GET, 'G');
         $this->_initial_recursive($_POST, 'P');
         $this->_initial_recursive($_COOKIE, 'C');
-
         return true;
     }
 
@@ -163,7 +162,6 @@ class Protector
         if (!isset($instance)) {
             $instance = new Protector();
         }
-
         return $instance;
     }
 
@@ -190,7 +188,6 @@ class Protector
             fclose($fp);
             $this->_conf = $db_conf;
         }
-
         return true;
     }
 
@@ -271,14 +268,12 @@ class Protector
             list($last_ip, $last_type) = mysql_fetch_row($result);
             if ($last_ip == $ip && $last_type == $type) {
                 $this->_logged = true;
-
                 return true;
             }
         }
 
         mysql_query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . intval($uid) . "',timestamp=NOW()", $this->_conn);
         $this->_logged = true;
-
         return true;
     }
 
@@ -292,7 +287,6 @@ class Protector
             fwrite($fp, $expire . "\n");
             @flock($fp, LOCK_UN);
             fclose($fp);
-
             return true;
         } else {
             return false;
@@ -322,7 +316,6 @@ class Protector
             fwrite($fp, serialize($bad_ips) . "\n");
             @flock($fp, LOCK_UN);
             fclose($fp);
-
             return true;
         } else {
             return false;
@@ -408,7 +401,6 @@ class Protector
                         // foward match
                         if (substr(@$_SERVER['REMOTE_ADDR'], 0, strlen($ip)) == $ip) {
                             $this->ip_matched_info = $info;
-
                             return true;
                         }
                         break;
@@ -425,7 +417,6 @@ class Protector
                         // full match
                         if (@$_SERVER['REMOTE_ADDR'] == $ip) {
                             $this->ip_matched_info = $info;
-
                             return true;
                         }
                         break;
@@ -433,7 +424,6 @@ class Protector
                         // perl regex
                         if (@preg_match($ip, @$_SERVER['REMOTE_ADDR'])) {
                             $this->ip_matched_info = $info;
-
                             return true;
                         }
                         break;
@@ -441,7 +431,6 @@ class Protector
             }
         }
         $this->ip_matched_info = null;
-
         return false;
     }
 
@@ -590,7 +579,6 @@ class Protector
                 return "XSS found by Protector.";
             }
         }
-
         return $s;
     }
 
@@ -663,30 +651,30 @@ class Protector
                 }
             }
         }
-        /*  foreach ($_POST as $key => $val) {
+        /*  foreach( $_POST as $key => $val ) {
           if( is_array( $_POST[ $key ] ) ) continue ;
-          if ( substr( trim( $val ) , 0 , 3 ) == '../' || strstr( $val , '../../' ) ) {
+          if( substr( trim( $val ) , 0 , 3 ) == '../' || strstr( $val , '../../' ) ) {
               $this->last_error_type = 'ParentDir' ;
               $this->message .= "Doubtful file specification '$val' found.\n" ;
               $this->output_log( $this->last_error_type , 0 , false , 128 ) ;
               $sanitized_val = str_replace( chr(0) , '' , $val ) ;
               if( substr( $sanitized_val , -2 ) != ' .' ) $sanitized_val .= ' .' ;
               $_POST[ $key ] = $HTTP_POST_VARS[ $key ] = $sanitized_val ;
-              if ($_REQUEST[ $key ] == $_POST[ $key ]) {
+              if( $_REQUEST[ $key ] == $_POST[ $key ] ){
                   $_REQUEST[ $key ] = $sanitized_val ;
               }
           }
       }
-      foreach ($_COOKIE as $key => $val) {
+      foreach( $_COOKIE as $key => $val ) {
           if( is_array( $_COOKIE[ $key ] ) ) continue ;
-          if ( substr( trim( $val ) , 0 , 3 ) == '../' || strstr( $val , '../../' ) ) {
+          if( substr( trim( $val ) , 0 , 3 ) == '../' || strstr( $val , '../../' ) ) {
               $this->last_error_type = 'ParentDir' ;
               $this->message .= "Doubtful file specification '$val' found.\n" ;
               $this->output_log( $this->last_error_type , 0 , false , 128 ) ;
               $sanitized_val = str_replace( chr(0) , '' , $val ) ;
               if( substr( $sanitized_val , -2 ) != ' .' ) $sanitized_val .= ' .' ;
               $_COOKIE[ $key ] = $HTTP_COOKIE_VARS[ $key ] = $sanitized_val ;
-              if ($_REQUEST[ $key ] == $_COOKIE[ $key ]) {
+              if( $_REQUEST[ $key ] == $_COOKIE[ $key ] ){
                   $_REQUEST[ $key ] = $sanitized_val ;
               }
           }
@@ -704,7 +692,6 @@ class Protector
             }
             $current =& $current[$index];
         }
-
         return $current;
     }
 
@@ -815,8 +802,8 @@ class Protector
         /*  if( $this->_done_contami ) return $this->_safe_contami ;
       else $this->_done_contami = true ; */
 
-        /*  foreach ($this->_bad_globals as $bad_global) {
-          if ( isset( $_REQUEST[ $bad_global ] ) ) {
+        /*  foreach( $this->_bad_globals as $bad_global ) {
+          if( isset( $_REQUEST[ $bad_global ] ) ) {
               $this->message .= "Attempt to inject '$bad_global' was found.\n" ;
               $this->_safe_contami = false ;
               $this->last_error_type = 'CONTAMI' ;
@@ -848,7 +835,6 @@ class Protector
                 }
             }
         }
-
         return $this->_safe_isocom;
     }
 
@@ -872,7 +858,6 @@ class Protector
                 $this->last_error_type = 'UNION';
             }
         }
-
         return $this->_safe_union;
     }
 
@@ -967,7 +952,6 @@ class Protector
         // for older versions before updating this module
         if ($result === false) {
             $this->_done_dos = true;
-
             return true;
         }
 
@@ -1007,7 +991,6 @@ class Protector
                     exit;
                 case 'none' :
                     $this->output_log($this->last_error_type, $uid, true, 16);
-
                     return true;
                 case 'biptime0' :
                     if ($can_ban) {
@@ -1028,7 +1011,6 @@ class Protector
                     sleep(5);
                     break;
             }
-
             return false;
         }
 
@@ -1036,7 +1018,6 @@ class Protector
         if (trim($this->_conf['dos_crsafe']) != '' && preg_match($this->_conf['dos_crsafe'], @$_SERVER['HTTP_USER_AGENT'])) {
             // welcomed crawler
             $this->_done_dos = true;
-
             return true;
         }
 
@@ -1062,7 +1043,6 @@ class Protector
                     exit;
                 case 'none' :
                     $this->output_log($this->last_error_type, $uid, true, 16);
-
                     return true;
                 case 'biptime0' :
                     if ($can_ban) {
@@ -1083,7 +1063,6 @@ class Protector
                     sleep(5);
                     break;
             }
-
             return false;
         }
 
@@ -1280,3 +1259,5 @@ class Protector
         return $ret;
     }
 }
+
+?>

@@ -2,6 +2,9 @@
 
 // mymenu
 
+
+
+
 // Appended by Xoops Language Checker -GIJOE- in 2009-01-14 11:10:53
 define('_AM_ADV_DBFACTORYPATCHED','Your databasefactory is ready for DBLayer Trapping anti-SQL-Injection');
 define('_AM_ADV_DBFACTORYUNPATCHED','Your databasefactory is not ready for DBLayer Trapping anti-SQL-Injection. Some patches are required.');
@@ -47,11 +50,13 @@ define("_AM_MSG_GROUP1IPSCANTOPEN" , "файл для доступа group=1 не может быть отк
 define("_AM_MSG_PRUPDATED" , "Настройки успешно обновлены!" ) ;
 define("_AM_MSG_REMOVED" , "Записи удалены" ) ;
 
+
 // prefix_manager.php
 define("_AM_H3_PREFIXMAN" , "Управление префиксом таблиц" ) ;
 define("_AM_MSG_DBUPDATED" , "База данных успешно обновлена!" ) ;
 define("_AM_CONFIRM_DELETE" , "Все данные будут уничтожены. Продолжать?" ) ;
 define("_AM_TXT_HOWTOCHANGEDB" , "Если вы хотите изменить префикс таблиц, отредактируйте ваш конфигурационный файл %s/mainfile.php вручную внеся изменения в строку указаную ниже.<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
+
 
 // advisory.php
 define("_AM_ADV_NOTSECURE","Тест НЕ пройден");
@@ -71,3 +76,7 @@ define("_AM_ADV_SUBTITLECHECK","Проверка работоспособности");
 //define("_AM_ADV_AT1STSETPASSWORD","Установите ваш резервный пароль перед проверкой.");
 define("_AM_ADV_CHECKCONTAMI","Порча переменных");
 define("_AM_ADV_CHECKISOCOM","Изолированые комментарии");
+
+
+
+?>

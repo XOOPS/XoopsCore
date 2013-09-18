@@ -16,9 +16,9 @@ if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
 /*
 $xoops = Xoops::getInstance();
 if ($xoops->isActiveModule('smilies')) {*/
-
     return true;
 /*
 }
 */
 return false;
+?>

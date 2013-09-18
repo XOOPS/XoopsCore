@@ -27,7 +27,6 @@ function gif_loadFile($lpszFileName, $iIndex = 0)
     if ($gif->loadFile($lpszFileName, $iIndex)) {
         return $gif;
     }
-
     return false;
 }
 
@@ -60,7 +59,6 @@ function gif_loadFileToGDimageResource($gifFilename, $bgColor = -1)
 
         }
     }
-
     return false;
 }
 
@@ -83,7 +81,6 @@ function gif_outputAsBmp($gif, $lpszFileName, $bgColor = -1)
     @fwrite($fh, $fd, strlen($fd));
     @fflush($fh);
     @fclose($fh);
-
     return true;
 }
 
@@ -106,7 +103,6 @@ function gif_outputAsPng($gif, $lpszFileName, $bgColor = -1)
     @fwrite($fh, $fd, strlen($fd));
     @fflush($fh);
     @fclose($fh);
-
     return true;
 }
 
@@ -240,7 +236,6 @@ class CGIFLZW
             }
 
             $this->sp = 0;
-
             return 1;
         }
 
@@ -257,7 +252,6 @@ class CGIFLZW
 
         if ($this->sp > 0) {
             $this->sp--;
-
             return $this->Stack[$this->sp];
         }
 
@@ -322,7 +316,6 @@ class CGIFLZW
             $this->OldCode = $InCode;
             if ($this->sp > 0) {
                 $this->sp--;
-
                 return $this->Stack[$this->sp];
             }
         }
@@ -339,7 +332,6 @@ class CGIFLZW
             $this->LastBit  = 0;
             $this->Done     = 0;
             $this->LastByte = 2;
-
             return 1;
         }
 
@@ -349,7 +341,6 @@ class CGIFLZW
                     // Ran off the end of my bits
                     return 0;
                 }
-
                 return -1;
             }
 
@@ -379,7 +370,6 @@ class CGIFLZW
         }
 
         $this->CurBit += $this->CodeSize;
-
         return $iRet;
     }
 }
@@ -667,7 +657,7 @@ class CGIFIMAGE
             $data = substr($data, 1);
             $datLen++;
 
-            switch ($b) {
+            switch($b) {
             case 0x21: // Extension
                 if (!$this->skipExt($data, $len = 0)) {
                     return false;
@@ -693,7 +683,6 @@ class CGIFIMAGE
                 if ($this->m_gih->m_bInterlace) {
                     $this->deInterlace();
                 }
-
                 return true;
 
             case 0x3B: // EOF
@@ -701,7 +690,6 @@ class CGIFIMAGE
                 return false;
             }
         }
-
         return false;
     }
 
@@ -715,7 +703,7 @@ class CGIFIMAGE
         $data = substr($data, 1);
         $extLen++;
 
-        switch ($b) {
+        switch($b) {
         case 0xF9: // Graphic Control
             $b = ord($data{1});
             $this->m_disp   = ($b & 0x1C) >> 2;
@@ -747,7 +735,6 @@ class CGIFIMAGE
             $data = substr($data, 1);
             $extLen++;
         }
-
         return true;
     }
 
@@ -765,7 +752,7 @@ class CGIFIMAGE
         $data = $this->m_data;
 
         for ($i = 0; $i < 4; $i++) {
-            switch ($i) {
+            switch($i) {
             case 0:
                 $s = 8;
                 $y = 0;
@@ -848,10 +835,10 @@ class CGIF
                 return false;
             }
             $this->m_lpData = substr($this->m_lpData, $imgLen);
-        } while ($iIndex-- > 0);
+        }
+        while ($iIndex-- > 0);
 
         $this->m_bLoaded = true;
-
         return true;
     }
 
@@ -872,7 +859,6 @@ class CGIF
 
         $width  = $gfh->m_nWidth;
         $height = $gfh->m_nHeight;
-
         return true;
     }
 
@@ -1142,7 +1128,6 @@ class CGIF
     function dword($val)
     {
         $val = intval($val);
-
         return chr($val & 0xFF).chr(($val & 0xFF00) >> 8).chr(($val & 0xFF0000) >> 16).chr(($val & 0xFF000000) >> 24);
     }
 
@@ -1151,7 +1136,6 @@ class CGIF
     function ndword($val)
     {
         $val = intval($val);
-
         return chr(($val & 0xFF000000) >> 24).chr(($val & 0xFF0000) >> 16).chr(($val & 0xFF00) >> 8).chr($val & 0xFF);
     }
 
@@ -1185,3 +1169,5 @@ class CGIF
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+?>

@@ -63,6 +63,8 @@ class HTMLPurifier_ElementDef
      */
     public $content_model_type;
 
+
+
     /**
      * Does the element have a content model (#PCDATA | Inline)*? This
      * is important for chameleon ins and del processing in
@@ -104,13 +106,11 @@ class HTMLPurifier_ElementDef
     /**
      * Low-level factory constructor for creating new standalone element defs
      */
-    public static function create($content_model, $content_model_type, $attr)
-    {
+    public static function create($content_model, $content_model_type, $attr) {
         $def = new HTMLPurifier_ElementDef();
         $def->content_model = $content_model;
         $def->content_model_type = $content_model_type;
         $def->attr = $attr;
-
         return $def;
     }
 
@@ -119,10 +119,10 @@ class HTMLPurifier_ElementDef
      * Values from the new element def take precedence if a value is
      * not mergeable.
      */
-    public function mergeIn($def)
-    {
+    public function mergeIn($def) {
+
         // later keys takes precedence
-        foreach ($def->attr as $k => $v) {
+        foreach($def->attr as $k => $v) {
             if ($k === 0) {
                 // merge in the includes
                 // sorry, no way to override an include
@@ -141,12 +141,12 @@ class HTMLPurifier_ElementDef
         $this->_mergeAssocArray($this->attr_transform_post, $def->attr_transform_post);
         $this->_mergeAssocArray($this->excludes, $def->excludes);
 
-        if (!empty($def->content_model)) {
+        if(!empty($def->content_model)) {
             $this->content_model =
                 str_replace("#SUPER", $this->content_model, $def->content_model);
             $this->child = false;
         }
-        if (!empty($def->content_model_type)) {
+        if(!empty($def->content_model_type)) {
             $this->content_model_type = $def->content_model_type;
             $this->child = false;
         }
@@ -161,8 +161,7 @@ class HTMLPurifier_ElementDef
      * @param $a1 Array by reference that is merged into
      * @param $a2 Array that merges into $a1
      */
-    private function _mergeAssocArray(&$a1, $a2)
-    {
+    private function _mergeAssocArray(&$a1, $a2) {
         foreach ($a2 as $k => $v) {
             if ($v === false) {
                 if (isset($a1[$k])) unset($a1[$k]);
