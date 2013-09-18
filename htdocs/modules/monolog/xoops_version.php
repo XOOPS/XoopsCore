@@ -154,6 +154,6 @@ $modversion['config'][] = array(
     'description' => '',
     'formtype' => 'textbox',
     'valuetype' => 'text',
-    'default' => XOOPS_VAR_PATH . '/xoops_monolog.log',
+    'default' => XOOPS_VAR_PATH . '/logs/xoops_monolog.log',
     'options' => array(),
 );
