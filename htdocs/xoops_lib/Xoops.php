@@ -171,11 +171,21 @@ class Xoops
     }
 
     /**
+     * get the event processor
+     * 
+     * @return \Xoops\Core\Events instance
+     */
+    public function events()
+    {
+        return \Xoops\Core\Events::getInstance();
+    }
+
+    /**
      * @return XoopsPreload
      */
     public function preload()
     {
-        return XoopsPreload::getInstance();
+        return $this->events();
     }
 
     /**
@@ -467,7 +477,7 @@ class Xoops
         }
         $included = true;
 
-        $this->preload()->triggerEvent('core.header.start');
+        $this->events()->triggerEvent('core.header.start');
 
         //For legacy
         if (!$tpl_name && isset($this->option['template_main'])) {
@@ -478,12 +488,12 @@ class Xoops
         $this->tpl()->assign('xoops', $this);
 
         if ($this->isAdminSide) {
-            $this->preload()->triggerEvent('system.class.gui.header');
+            $this->events()->triggerEvent('system.class.gui.header');
             include_once $this->path('modules/system/themes/default/default.php');
             $gui = new XoopsGuiDefault();
             $gui->header();
         } else {
-            $this->preload()->triggerEvent('core.header.addmeta');
+            $this->events()->triggerEvent('core.header.addmeta');
             // Temporary solution for start page redirection
             if (defined("XOOPS_STARTPAGE_REDIRECTED")) {
                 $smarty = $repeat = null;
@@ -515,7 +525,7 @@ class Xoops
                     // $this->theme->contentCacheLifetime = 604800;
                 }
             }
-            $this->preload()->triggerEvent('core.header.checkcache');
+            $this->events()->triggerEvent('core.header.checkcache');
             if ($this->theme()->checkCache()) {
                 exit();
             }
@@ -525,7 +535,7 @@ class Xoops
             ob_start();
         }
 
-        $this->preload()->triggerEvent('core.header.end');
+        $this->events()->triggerEvent('core.header.end');
         return true;
     }
 
@@ -540,7 +550,7 @@ class Xoops
         }
         $included = true;
 
-        $this->preload()->triggerEvent('core.footer.start');
+        $this->events()->triggerEvent('core.footer.start');
 
         if (!headers_sent()) {
             header('Content-Type:text/html; charset=' . XoopsLocale::getCharset());
@@ -554,7 +564,7 @@ class Xoops
             $this->theme()->contentTemplate = $this->tpl_name;
         }
         $this->theme()->render();
-        $this->preload()->triggerEvent('core.footer.end');
+        $this->events()->triggerEvent('core.footer.end');
         exit();
     }
 
@@ -1031,7 +1041,7 @@ class Xoops
      */
     public function simpleHeader($closehead = true)
     {
-        $this->preload()->triggerEvent('core.header.start');
+        $this->events()->triggerEvent('core.header.start');
         $this->theme();
         $xoopsConfigMetaFooter = $this->getConfigs();
 
@@ -1076,7 +1086,7 @@ class Xoops
      */
     public function simpleFooter()
     {
-        $this->preload()->triggerEvent('core.header.footer');
+        $this->events()->triggerEvent('core.header.footer');
         echo '</body></html>';
         ob_end_flush();
     }
@@ -1320,7 +1330,7 @@ class Xoops
     public function getBanner()
     {
         $options = '';
-        $this->preload()->triggerEvent('core.banner.display', array(&$options));
+        $this->events()->triggerEvent('core.banner.display', array(&$options));
         return $options;
     }
 
@@ -1337,12 +1347,12 @@ class Xoops
      */
     public function redirect($url, $time = 3, $message = '', $addredirect = true, $allowExternalLink = false)
     {
-        $this->preload()->triggerEvent('core.include.functions.redirectheader.start', array(
+        $this->events()->triggerEvent('core.include.functions.redirectheader.start', array(
             $url, $time, $message, $addredirect, $allowExternalLink
         ));
         // if conditions are right, system preloads will exit on this call
         // so don't use it if you want to be called, use start version above.
-        $this->preload()->triggerEvent('core.include.functions.redirectheader', array(
+        $this->events()->triggerEvent('core.include.functions.redirectheader', array(
             $url, $time, $message, $addredirect, $allowExternalLink
         ));
 
@@ -1403,7 +1413,7 @@ class Xoops
         $this->tpl()->assign('message', $message);
         $this->tpl()->assign('lang_ifnotreload', sprintf(XoopsLocale::F_IF_PAGE_NOT_RELOAD_CLICK_HERE, $url));
 
-        $this->preload()->triggerEvent('core.include.functions.redirectheader.end');
+        $this->events()->triggerEvent('core.include.functions.redirectheader.end');
         $this->tpl()->display('module:system|system_redirect.html');
         exit();
     }
@@ -1829,7 +1839,7 @@ class Xoops
      */
     public function deprecated($message)
     {
-        $this->preload()->triggerEvent('core.deprecated', array($message));
+        $this->events()->triggerEvent('core.deprecated', array($message));
     }
 
     /**
@@ -1838,6 +1848,6 @@ class Xoops
     public function disableErrorReporting()
     {
         error_reporting(0);
-        $this->preload()->triggerEvent('core.disableerrorreporting');
+        $this->events()->triggerEvent('core.disableerrorreporting');
     }
 }
