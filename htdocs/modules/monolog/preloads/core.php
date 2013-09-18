@@ -134,7 +134,7 @@ class MonologCorePreload extends XoopsPreloadItem
             self::$configs['include_queries'] = false;
             self::$configs['include_timers'] = false;
         }
-        $logger->setConfigs($configs);
+        $logger->setConfigs(self::$configs);
         $logger->startTime();
         $logger->startTime('XOOPS Boot');
     }
