@@ -10,7 +10,6 @@
 */
 
 use Psr\Log\LogLevel;
-use Xoops\Core\Psr0ClassLoader;
 
 /**
  * MonologLogger core preloads
@@ -113,8 +112,6 @@ class MonologCorePreload extends XoopsPreloadItem
     public static function eventCoreIncludeCommonStart($args)
     {
         XoopsLoad::addMap(array('monologlogger' => dirname(dirname(__FILE__)) . '/class/monologlogger.php'));
-        //$loader = new Psr0ClassLoader('DebugBar', dirname(dirname(__FILE__)) . '/vendor/maximebf/debugbar/src/');
-        //$loader->register();
 
         $cache_key = 'module_monolog_configs';
         self::$configs=array();
