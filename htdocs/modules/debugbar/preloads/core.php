@@ -10,7 +10,6 @@
 */
 
 use Psr\Log\LogLevel;
-use Xoops\Core\Psr0ClassLoader;
 
 /**
  * DebugbarLogger core preloads
@@ -96,10 +95,6 @@ class DebugbarCorePreload extends XoopsPreloadItem
     public static function eventCoreIncludeCommonStart($args)
     {
         XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
-        //Psr0ClassLoader::addLoader(
-        //    'DebugBar',
-        //    dirname(dirname(__FILE__)) . '/vendor/maximebf/debugbar/src/'
-        //);
         DebugbarLogger::getInstance()->enable();//until we get a db connection debug is enabled
         DebugbarLogger::getInstance()->startTime();
         DebugbarLogger::getInstance()->startTime('XOOPS Boot');

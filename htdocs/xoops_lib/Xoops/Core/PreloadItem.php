@@ -9,25 +9,10 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Compatibility layer - Xoops Event processing, including preload mechanism
- *
- * @category  Xoops\Core\Events
- * @package   Xoops\Core
- * @author    trabis <lusopoemas@gmail.com>
- * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
- * @link      http://xoops.org
- * @since     1.0
- */
-class XoopsPreload extends \Xoops\Core\Events
-{
-}
+namespace Xoops\Core;
 
 /**
- * Compatibility layer - PreloadItem used by modules to define preload event listeners
+ * PreloadItem used by modules to define preload event listeners
  *
  * @category  Xoops\Core\PreloadItem
  * @package   Xoops\Core
@@ -38,6 +23,6 @@ class XoopsPreload extends \Xoops\Core\Events
  * @link      http://xoops.org
  * @since     1.0
  */
-class XoopsPreloadItem extends \Xoops\Core\PreloadItem
+class PreloadItem
 {
 }

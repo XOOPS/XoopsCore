@@ -10,14 +10,6 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         logger
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-/**
  * LegacyLogger core preloads
  *
  * @category  LegacyLogger
@@ -105,9 +97,11 @@ class LoggerCorePreload extends XoopsPreloadItem
     {
         //Load may fail is cache was erased
         XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
-        LegacyLogger::getInstance()->enable();//until we get a db connection debug is enabled
-        LegacyLogger::getInstance()->startTime();
-        LegacyLogger::getInstance()->startTime('XOOPS Boot');
+        if (class_exists('LegacyLogger')) {
+            LegacyLogger::getInstance()->enable();//until we get a db connection debug is enabled
+            LegacyLogger::getInstance()->startTime();
+            LegacyLogger::getInstance()->startTime('XOOPS Boot');
+        }
     }
 
     /**
