@@ -10,39 +10,33 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         logger
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * Logger system preloads
+ * Debugbar system preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @category  Debugbar
+ * @package   Debugbar
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @version   Release: 1.0
+ * @link      http://xoops.org
+ * @since     1.0
  */
 class DebugbarSystemPreload extends XoopsPreloadItem
 {
-
     /**
      * eventSystemPreferencesSave
-     * 
+     *
      * @param mixed $args arguments supplied to triggerEvent
-     * 
+     *
      * @return void
      */
-    static function eventSystemPreferencesSave($args)
+    public static function eventSystemPreferencesSave($args)
     {
         /*
         if (isset($_REQUEST['debug_plugin'])) {
             Xoops_Cache::delete('module_debugbar_plugin');
         }
         */
+        XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
     }
-
 }
