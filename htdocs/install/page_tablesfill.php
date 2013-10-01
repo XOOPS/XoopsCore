@@ -50,7 +50,7 @@ if (!$res) {
     exit();
 }
 
-list ($count) = $dbm->db->fetchRow( $res );
+list ($count) = $dbm->db->fetchRow($res);
 $process = $count ? '' : 'insert';
 $update = false;
 
@@ -66,9 +66,9 @@ if ($process) {
 
     $temp = md5($adminpass);
     $regdate = time();
-    $dbm->insert('users', " VALUES (1,'','" . addslashes($adminname) . "','" . addslashes($adminmail) . "','" . XOOPS_URL . "/','avatars/blank.gif','" . $regdate . "','','','',1,'','','','','" . $temp . "',0,0,7,5,'default','0.0'," . time() . ",'flat',0,1,0,'','','',0)");
+    $dbm->insert('users', " VALUES (1,'','" . addslashes($adminname) . "','" . addslashes($adminmail) . "','" . XOOPS_URL . "/','blank.gif','" . $regdate . "','','','',1,'','','','','" . $temp . "',0,0,7,5,'default','0.0'," . time() . ",'flat',0,1,0,'','','',0)");
     $content = '<div class="x2-note successMsg">' . DATA_INSERTED . "</div><br />" . $dbm->report();
-} else if ($update) {
+} elseif ($update) {
     $sql = "UPDATE " . $dbm->db->prefix("users") . " SET `uname` = '" . addslashes($adminname) . "', `email` = '" . addslashes($adminmail) . "', `user_regdate` = '" . time() . "', `pass` = '" . md5($adminpass) . "', `last_login` = '" . time() . "' WHERE uid = 1";
     $dbm->db->queryF($sql);
     $content = '';
