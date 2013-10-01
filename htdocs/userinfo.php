@@ -77,9 +77,9 @@ if ($xoops->isUser() && $isAdmin) {
     $xoops->tpl()->assign('user_uid', $thisUser->getVar('uid'));
 }
 
-// Add navigation boutton in user
+// Let extensions add navigation button(s)
 $btn = array();
-$xoops->preload()->triggerEvent('core.userinfo.button', array(&$btn));
+$xoops->events()->triggerEvent('core.userinfo.button', array($thisUser, &$btn));
 if (!empty($btn)) {
     $xoops->tpl()->assign('btn', $btn);
 }
@@ -88,9 +88,8 @@ $xoops->tpl()->assign('xoops_pagetitle', sprintf(XoopsLocale::F_ALL_ABOUT, $this
 $xoops->tpl()->assign('lang_allaboutuser', sprintf(XoopsLocale::F_ALL_ABOUT, $thisUser->getVar('uname')));
 
 $avatar = "";
-if ($thisUser->getVar('user_avatar') && "blank.gif" != $thisUser->getVar('user_avatar')) {
-    $avatar = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
-}
+$xoops->events()->triggerEvent('core.userinfo.avatar', array($thisUser, &$avatar));
+
 $xoops->tpl()->assign('user_avatarurl', $avatar);
 $xoops->tpl()->assign('lang_realname', XoopsLocale::REAL_NAME);
 $xoops->tpl()->assign('user_realname', $thisUser->getVar('name'));
@@ -98,7 +97,10 @@ $xoops->tpl()->assign('lang_website', XoopsLocale::WEBSITE);
 if ($thisUser->getVar('url', 'E') == '') {
     $xoops->tpl()->assign('user_websiteurl', '');
 } else {
-    $xoops->tpl()->assign('user_websiteurl', '<a href="' . $thisUser->getVar('url', 'E') . '" rel="external">' . $thisUser->getVar('url') . '</a>');
+    $xoops->tpl()->assign(
+        'user_websiteurl',
+        '<a href="' . $thisUser->getVar('url', 'E') . '" rel="external">' . $thisUser->getVar('url') . '</a>'
+    );
 }
 $xoops->tpl()->assign('lang_email', XoopsLocale::EMAIL);
 $xoops->tpl()->assign('lang_privmsg', XoopsLocale::PM);
@@ -138,7 +140,8 @@ if ($thisUser->getVar('user_viewemail') == 1) {
     $xoops->tpl()->assign('user_email', $thisUser->getVar('email', 'E'));
 } else {
     if ($xoops->isUser()) {
-        // All admins will be allowed to see emails, even those that are not allowed to edit users (I think it's ok like this)
+        // All admins will be allowed to see emails, even those that are not allowed
+        // to edit users (I think it's ok like this)
         if ($xoops->userIsAdmin || ($xoops->user->getVar("uid") == $thisUser->getVar("uid"))) {
             $xoops->tpl()->assign('user_email', $thisUser->getVar('email', 'E'));
         } else {
@@ -147,14 +150,23 @@ if ($thisUser->getVar('user_viewemail') == 1) {
     }
 }
 if ($xoops->isUser()) {
-    $xoops->tpl()->assign('user_pmlink', "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/pmlite.php?send2=1&amp;to_userid=" . $thisUser->getVar('uid') . "', 'pmlite', 450, 380);\"><img src=\"" . XOOPS_URL . "/images/icons/pm.gif\" alt=\"" . sprintf(XoopsLocale::F_SEND_PRIVATE_MESSAGE_TO, $thisUser->getVar('uname')) . "\" /></a>");
+    $xoops->tpl()->assign(
+        'user_pmlink',
+        "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/pmlite.php?send2=1&amp;to_userid="
+        . $thisUser->getVar('uid') . "', 'pmlite', 450, 380);\"><img src=\"" . XOOPS_URL
+        . "/images/icons/pm.gif\" alt=\""
+        . sprintf(XoopsLocale::F_SEND_PRIVATE_MESSAGE_TO, $thisUser->getVar('uname')) . "\" /></a>"
+    );
 } else {
     $xoops->tpl()->assign('user_pmlink', '');
 }
 if ($xoops->isActiveModule('userrank')) {
     $userrank = $thisUser->rank();
     if (isset($userrank['image']) && $userrank['image']) {
-        $xoops->tpl()->assign('user_rankimage', '<img src="' . XOOPS_UPLOAD_URL . '/' . $userrank['image'] . '" alt="" />');
+        $xoops->tpl()->assign(
+            'user_rankimage',
+            '<img src="' . XOOPS_UPLOAD_URL . '/' . $userrank['image'] . '" alt="" />'
+        );
     }
     $xoops->tpl()->assign('user_ranktitle', $userrank['title']);
 }
@@ -184,13 +196,15 @@ foreach (array_keys($modules) as $i) {
 
                 foreach ($results as $k => $result) {
                     if (isset($result['image']) && $result['image'] != '') {
-                        $results[$k]['image'] = $xoops->url('modules/' . $modules[$i]->getVar('dirname') . '/' . $result['image']);
+                        $results[$k]['image']
+                            = $xoops->url('modules/' . $modules[$i]->getVar('dirname') . '/' . $result['image']);
                     } else {
                         $results[$k]['image'] = $xoops->url('images/icons/posticon2.gif');
                     }
 
                     if (!preg_match("/^http[s]*:\/\//i", $result['link'])) {
-                        $results[$k]['link'] = $xoops->url("modules/" . $modules[$i]->getVar('dirname') . "/" . $result['link']);
+                        $results[$k]['link']
+                            = $xoops->url("modules/" . $modules[$i]->getVar('dirname') . "/" . $result['link']);
                     }
 
                     $results[$k]['title'] = $myts->htmlspecialchars($result['title']);
@@ -204,16 +218,21 @@ foreach (array_keys($modules) as $i) {
                     }
                 }
                 if ($count == 5) {
-                    $showall_link = '<a href="search.php?action=showallbyuser&amp;mid=' . $modules[$i]->getVar('mid') . '&amp;uid=' . $thisUser->getVar('uid') . '">' . XoopsLocale::SHOW_ALL . '</a>';
+                    $showall_link = '<a href="search.php?action=showallbyuser&amp;mid='
+                        . $modules[$i]->getVar('mid') . '&amp;uid=' . $thisUser->getVar('uid')
+                        . '">' . XoopsLocale::SHOW_ALL . '</a>';
                 } else {
                     $showall_link = '';
                 }
-                $xoops->tpl()->append('modules', array(
+                $xoops->tpl()->append(
+                    'modules',
+                    array(
                         'name' => $modules[$i]->getVar('name'),
                         'image' => $xoops->url('modules/' . $modules[$i]->getVar('dirname') . '/icons/logo_large.png'),
                         'result' => $results,
                         'showall_link' => $showall_link
-                    ));
+                    )
+                );
 
             }
         }
