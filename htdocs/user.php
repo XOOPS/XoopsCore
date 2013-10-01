@@ -20,24 +20,38 @@
  * @package         core
  * @since           2.0.0
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
- * @version         $Id$
  */
 
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
-$xoopsPreload = XoopsPreload::getInstance();
-$xoopsPreload->triggerEvent('core.user.start');
 
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.user.start');
+$xoops->events()->triggerEvent('core.user.start');
 
 $xoops->loadLanguage('user');
 
-$op = 'main';
-if (isset($_POST['op'])) {
-    $op = trim($_POST['op']);
-} elseif (isset($_GET['op'])) {
-    $op = trim($_GET['op']);
+// from $_POST we use keys: op, ok
+$clean_input = XoopsFilterInput::gather(
+    'post',
+    array(
+        array('op','string'),
+        array('ok', 'boolean', 0, false),
+    ),
+    'op' // require op parameter to return results
+);
+if (!$clean_input) {
+    // no valid $_POST, use $_GET and set defaults
+    // from $_GET we use keys: op, xoops_redirect, id, actkey
+    $clean_input = XoopsFilterInput::gather(
+        'get',
+        array(
+            array('op','string','main',true),
+            array('xoops_redirect', 'weburl', '', true),
+            array('id', 'int', 0, false),
+            array('actkey', 'string', '', true),
+        )
+    );
 }
+$op = $clean_input['op'];
 
 if ($op == 'login') {
     include_once $xoops->path('include/checklogin.php');
@@ -48,12 +62,20 @@ if ($op == 'main') {
     if (!$xoops->isUser()) {
         $xoops->header('system_userform.html');
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::A_LOGIN);
-        $xoops->theme()->addMeta('meta', 'keywords', XoopsLocale::USERNAME . ", " . XoopsLocale::PASSWORD . ", " . XoopsLocale::Q_LOST_YOUR_PASSWORD);
-        $xoops->theme()->addMeta('meta', 'description', XoopsLocale::Q_LOST_YOUR_PASSWORD . " " . XoopsLocale::NO_PROBLEM_ENTER_EMAIL_WE_HAVE_ON_FILE);
+        $xoops->theme()->addMeta(
+            'meta',
+            'keywords',
+            XoopsLocale::USERNAME . ", " . XoopsLocale::PASSWORD . ", " . XoopsLocale::Q_LOST_YOUR_PASSWORD
+        );
+        $xoops->theme()->addMeta(
+            'meta',
+            'description',
+            XoopsLocale::Q_LOST_YOUR_PASSWORD . " " . XoopsLocale::NO_PROBLEM_ENTER_EMAIL_WE_HAVE_ON_FILE
+        );
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
         $xoops->tpl()->assign('lang_username', XoopsLocale::C_USERNAME);
-        if (isset($_GET['xoops_redirect'])) {
-            $xoops->tpl()->assign('redirect_page', htmlspecialchars(trim($_GET['xoops_redirect']), ENT_QUOTES));
+        if (isset($clean_input['xoops_redirect'])) {
+            $xoops->tpl()->assign('redirect_page', htmlspecialchars($clean_input['xoops_redirect']), ENT_QUOTES);
         }
         if ($xoops->getConfig('usercookie')) {
             $xoops->tpl()->assign('lang_rememberme', XoopsLocale::REMEMBER_ME);
@@ -66,8 +88,8 @@ if ($op == 'main') {
         $xoops->tpl()->assign('mailpasswd_token', $xoops->security()->createToken());
         $xoops->footer();
     }
-    if (!empty($_GET['xoops_redirect'])) {
-        $redirect = trim($_GET['xoops_redirect']);
+    if (!empty($clean_input['xoops_redirect'])) {
+        $redirect = $clean_input['xoops_redirect'];
         $isExternal = false;
         if ($pos = strpos($redirect, '://')) {
             $xoopsLocation = substr(XOOPS_URL, strpos(XOOPS_URL, '://') + 3);
@@ -109,10 +131,14 @@ if ($op == 'delete') {
             // users in the webmasters group may not be deleted
             $xoops->redirect('user.php', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }
-        $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
+        $ok = !isset($clean_input['ok']) ? 0 : $clean_input['ok'];
         if ($ok != 1) {
             $xoops->header();
-            $xoops->confirm(array('op' => 'delete', 'ok' => 1), 'user.php', XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO);
+            $xoops->confirm(
+                array('op' => 'delete', 'ok' => 1),
+                'user.php',
+                XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO
+            );
             $xoops->footer();
         } else {
             $del_uid = $xoops->user->getVar("uid");

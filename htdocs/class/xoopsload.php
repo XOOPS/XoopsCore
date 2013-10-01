@@ -9,19 +9,19 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+defined('XOOPS_ROOT_PATH') or die('Restricted access');
+
 /**
  * Xoops Autoload class
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package     class
- * @since       2.3.0
- * @author      Taiwen Jiang <phppp@users.sourceforge.net>
- * @version     $Id$
+ * @category  XoopsLoad
+ * @package   Xoops\Core
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.3.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsLoad
 {
     /**
@@ -29,37 +29,42 @@ class XoopsLoad
      *
      * @var array
      */
-    static protected $map = array();
+    protected static $map = array();
 
     /**
      * Allow modules/preloads/etc to add their own maps
      * Use XoopsLoad::addMap(array('classname', 'path/to/class');
      *
-     * @param array $map
+     * @param array $map class map array
      *
      * @return array
      */
-    static function addMap(array $map) {
+    public static function addMap(array $map)
+    {
         XoopsLoad::$map = array_merge(XoopsLoad::$map, $map);
+
         return XoopsLoad::$map;
     }
 
     /**
+     * getMap - return class map
+     * 
      * @return array
      */
-    static function getMap() {
+    public static function getMap()
+    {
         return XoopsLoad::$map;
     }
 
     /**
-     * @static
+     * load - load file based on type
      *
-     * @param string $name
-     * @param string $type
+     * @param string $name class name
+     * @param string $type type core, framework, class, module
      *
      * @return bool
      */
-    static function load($name, $type = "core")
+    public static function load($name, $type = "core")
     {
         static $loaded;
         static $deprecated;
@@ -74,7 +79,10 @@ class XoopsLoad
 
         $lname = strtolower($name);
         if (in_array($type, array('core','class')) && array_key_exists($lname, $deprecated)) {
-            trigger_error("xoops_load('{$lname}') is deprecated, use xoops_load('{$deprecated[$lname]}')", E_USER_WARNING);
+            trigger_error(
+                "xoops_load('{$lname}') is deprecated, use xoops_load('{$deprecated[$lname]}')",
+                E_USER_WARNING
+            );
             $lname = $deprecated[$lname];
         }
 
@@ -85,6 +93,7 @@ class XoopsLoad
 
         if (class_exists($lname, false)) {
             $loaded[$type][$lname] = true;
+
             return true;
         }
         switch ($type) {
@@ -104,17 +113,18 @@ class XoopsLoad
                 break;
         }
         $loaded[$type][$lname] = $isloaded;
+
         return $loaded[$type][$lname];
     }
 
     /**
      * Load core class
      *
-     * @static
-     * @param string $name
+     * @param string $name class name
+     *
      * @return bool|string
      */
-    static private function loadCore($name)
+    private static function loadCore($name)
     {
         $map = XoopsLoad::addMap(XoopsLoad::loadCoreConfig());
         if (isset($map[$name])) {
@@ -123,6 +133,7 @@ class XoopsLoad
             if (class_exists($name) && method_exists($name, '__autoload')) {
                 call_user_func(array($name, '__autoload'));
             }
+
             return true;
         } elseif (self::fileExists($file = XOOPS_ROOT_PATH . '/class/' . $name . '.php')) {
             //attempt loading from file
@@ -131,23 +142,32 @@ class XoopsLoad
             if (class_exists($class)) {
                 return $class;
             } else {
-                trigger_error('Class ' . $name . ' not found in file ' . __FILE__ . 'at line ' . __LINE__, E_USER_WARNING);
+                trigger_error(
+                    'Class ' . $name . ' not found in file ' . __FILE__ . 'at line ' . __LINE__,
+                    E_USER_WARNING
+                );
             }
         }
+
         return false;
     }
 
     /**
      * Load Framework class
      *
-     * @static
-     * @param string $name
+     * @param string $name framework class name
+     * 
      * @return bool|string
      */
-    static private function loadFramework($name)
+    private static function loadFramework($name)
     {
         if (!self::fileExists($file = XOOPS_ROOT_PATH . '/Frameworks/' . $name . '/xoops' . $name . '.php')) {
-            trigger_error('File ' . str_replace(XOOPS_ROOT_PATH, '', $file) . ' not found in file ' . __FILE__ . ' at line ' . __LINE__, E_USER_WARNING);
+            trigger_error(
+                'File ' . str_replace(XOOPS_ROOT_PATH, '', $file)
+                . ' not found in file ' . __FILE__ . ' at line ' . __LINE__,
+                E_USER_WARNING
+            );
+
             return false;
         }
         include $file;
@@ -155,18 +175,19 @@ class XoopsLoad
         if (class_exists($class, false)) {
             return $class;
         }
+
         return false;
     }
 
     /**
      * Load module class
      *
-     * @static
-     * @param string $name
-     * @param string|null $dirname
+     * @param string      $name    class name
+     * @param string|null $dirname module dirname
+     * 
      * @return bool
      */
-    static private function loadModule($name, $dirname = null)
+    private static function loadModule($name, $dirname = null)
     {
         if (empty($dirname)) {
             return false;
@@ -177,6 +198,7 @@ class XoopsLoad
                 return true;
             }
         }
+
         return false;
     }
 
@@ -186,7 +208,7 @@ class XoopsLoad
      * @static
      * @return array
      */
-    static function loadCoreConfig()
+    public static function loadCoreConfig()
     {
         return array(
             'bloggerapi' => XOOPS_ROOT_PATH . '/class/xml/rpc/bloggerapi.php',
@@ -291,6 +313,7 @@ class XoopsLoad
             'xoopseditorhandler' => XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php',
             'xoopsfile' => XOOPS_ROOT_PATH . '/class/file/xoopsfile.php',
             'xoopsfilehandler' => XOOPS_ROOT_PATH . '/class/file/file.php',
+            'xoopsfilterinput' => XOOPS_ROOT_PATH . '/class/xoopsfilterinput.php',
             'xoopsfolderhandler' => XOOPS_ROOT_PATH . '/class/file/folder.php',
             'xoopsform' => XOOPS_ROOT_PATH . '/class/xoopsform/form.php',
             'xoopsformbutton' => XOOPS_ROOT_PATH . '/class/xoopsform/formbutton.php',
@@ -405,11 +428,11 @@ class XoopsLoad
     /**
      * XoopsLoad::loadConfig()
      *
-     * @static
-     * @param mixed $data
+     * @param mixed $data array of configs or dirname of module
+     * 
      * @return array|bool
      */
-    static function loadConfig($data = null)
+    public static function loadConfig($data = null)
     {
         $xoops = Xoops::getInstance();
         $configs = array();
@@ -429,31 +452,38 @@ class XoopsLoad
                 }
             }
         }
+
         return array_merge(XoopsLoad::loadCoreConfig(), $configs);
     }
 
     /**
-     * @param string $file
-     * @param bool   $once
+     * loadFile
+     * 
+     * @param string $file file to load
+     * @param bool   $once true to use include_once, false for include
      *
      * @return bool
      */
     public static function loadFile($file, $once = true)
     {
-        self::_securityCheck($file);
+        self::securityCheck($file);
         if (self::fileExists($file)) {
             if ($once) {
                 include_once $file;
             } else {
                 include $file;
             }
+
             return true;
         }
+
         return false;
     }
 
     /**
-     * @param string $class
+     * loadClass
+     * 
+     * @param string $class class to load
      *
      * @return bool
      */
@@ -469,20 +499,20 @@ class XoopsLoad
         }
 
         if (!class_exists($class, false) && !interface_exists($class, false)) {
-            //trigger_error("File \"$file\" does not exist or class \"$class\" was not found in the file", E_USER_WARNING);
             return false;
         }
 
         if (method_exists($class, '__autoload')) {
             call_user_func(array($class, '__autoload'));
         }
+
         return true;
     }
 
     /**
      * Use this method instead of XoopsLoad::fileExists for increasing performance
      *
-     * @param string $file
+     * @param string $file file name
      *
      * @return mixed
      */
@@ -492,17 +522,18 @@ class XoopsLoad
         if (!isset($included[$file])) {
             $included[$file] = file_exists($file);
         }
+
         return $included[$file];
     }
 
     /**
      * Ensure that filename does not contain exploits
      *
-     * @param  string $filename
+     * @param string $filename file name
      *
      * @return void
      */
-    protected static function _securityCheck($filename)
+    protected static function securityCheck($filename)
     {
         /**
          * Security check
