@@ -20,6 +20,13 @@
  * @version         $Id: $
  */
 
+/**
+ * banner module install suplement
+ *
+ * @param XoopsModule &$module module being installed
+ *
+ * @return boolean true if no error
+ */
 function xoops_module_install_banners(&$module)
 {
     $xoops = Xoops::getInstance();
@@ -69,34 +76,38 @@ function xoops_module_install_banners(&$module)
         }
     }*/
 
+/* this should be in system upgrade, not module install
+    TODO: Add to upgrade script and remove from here
     // delete banners and my_ip
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'banners'";
     $xoopsDB->queryF($sql);
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'my_ip'";
     $xoopsDB->queryF($sql);
-
+*/
     // create folder "banners"
     $dir = XOOPS_ROOT_PATH . "/uploads/banners";
-    if(!is_dir($dir)) {
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
         chmod($dir, 0777);
     }
     //Copy index.html
     $file = XOOPS_ROOT_PATH . "/uploads/banners/index.html";
-    if(!is_file($file)) {
+    if (!is_file($file)) {
         copy(XOOPS_ROOT_PATH . "/modules/banners/images/index.html", $file);
     }
     //Copy blank.gif
     $file = XOOPS_ROOT_PATH . "/uploads/banners/blank.gif";
-    if(!is_file($file)) {
+    if (!is_file($file)) {
         copy(XOOPS_ROOT_PATH . "/uploads/blank.gif", $file);
     }
     //Copy .htaccess
     $file = XOOPS_ROOT_PATH . "/uploads/banners/.htaccess";
-    if(!is_file($file)) {
+    if (!is_file($file)) {
         copy(XOOPS_ROOT_PATH . "/uploads/.htaccess", $file);
     }
 
+/* this should be in system upgrade, not module install
+    TODO: Add to upgrade script and remove from here
     // Copy banner to banners_banner
     $dbManager = new XoopsDatabaseManager();
     $map = array(
@@ -137,6 +148,7 @@ function xoops_module_install_banners(&$module)
         $obj->setVar("banner_status", 1);
         $banner_Handler->insert($obj);
     }
+*/
 
     // create XOOPS client
     $client_name = 'XOOPS';
@@ -144,7 +156,7 @@ function xoops_module_install_banners(&$module)
     $criteria->add(new Criteria('bannerclient_name', $client_name));
     $criteria->setLimit(1);
     $client_arr = $client_Handler->getall($criteria);
-    if (count($client_arr) == 0){
+    if (count($client_arr) == 0) {
         $obj = $client_Handler->create();
         $obj->setVar("bannerclient_uid", 0);
         $obj->setVar("bannerclient_name", $client_name);
@@ -166,7 +178,7 @@ function xoops_module_install_banners(&$module)
         //Copy banner
         $file = XOOPS_ROOT_PATH . "/uploads/banners/" . $k;
         $copy_file = XOOPS_ROOT_PATH . "/modules/banners/images/" . $k;
-        if(!is_file($file) && is_file($copy_file)) {
+        if (!is_file($file) && is_file($copy_file)) {
             copy($copy_file, $file);
             $obj = $banner_Handler->create();
             $obj->setVar("banner_cid", $newclient_id);
