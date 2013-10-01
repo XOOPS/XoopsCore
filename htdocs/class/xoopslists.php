@@ -26,17 +26,17 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *
  * @author     John Neill <catzwolf@xoops.org>
  * @copyright  copyright (c) XOOPS.org
- * @package    kernel
- * @subpackage form
+ * @package    Xoops\Core
+ * @subpackage Lists
  * @access public
  */
-class XoopsLists
+class xoopslists
 {
     /**
      * @static
      * @return array
      */
-    static function getTimeZoneList()
+    public static function getTimeZoneList()
     {
         $time_zone_list = array(
             '-12'  => XoopsLocale::L_TZ_GMTM12,
@@ -80,7 +80,7 @@ class XoopsLists
      * @static
      * @return array
      */
-    static function getThemesList()
+    public static function getThemesList()
     {
         return XoopsLists::getDirListAsArray(XOOPS_THEME_PATH . '/');
     }
@@ -91,7 +91,7 @@ class XoopsLists
      * @static
      * @return array
      */
-    static function getModulesList()
+    public static function getModulesList()
     {
         return XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/');
     }
@@ -102,7 +102,7 @@ class XoopsLists
      * @static
      * @return array
      */
-    static function getEditorList()
+    public static function getEditorList()
     {
         return XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
     }
@@ -116,7 +116,7 @@ class XoopsLists
      *
      * @return array
      */
-    static function getDirListAsArray($dirname)
+    public static function getDirListAsArray($dirname)
     {
         $ignored = array(
             'cvs',
@@ -139,6 +139,7 @@ class XoopsLists
             asort($list);
             reset($list);
         }
+
         return $list;
     }
 
@@ -152,7 +153,7 @@ class XoopsLists
      *
      * @return array
      */
-    static function getFileListAsArray($dirname, $prefix = '')
+    public static function getFileListAsArray($dirname, $prefix = '')
     {
         $filelist = array();
         if (substr($dirname, -1) == '/') {
@@ -169,6 +170,7 @@ class XoopsLists
             asort($filelist);
             reset($filelist);
         }
+
         return $filelist;
     }
 
@@ -182,7 +184,7 @@ class XoopsLists
      *
      * @return array
      */
-    static function getImgListAsArray($dirname, $prefix = '')
+    public static function getImgListAsArray($dirname, $prefix = '')
     {
         $filelist = array();
         if ($handle = opendir($dirname)) {
@@ -196,6 +198,7 @@ class XoopsLists
             asort($filelist);
             reset($filelist);
         }
+
         return $filelist;
     }
 
@@ -209,7 +212,7 @@ class XoopsLists
      *
      * @return array
      */
-    static function getHtmlListAsArray($dirname, $prefix = '')
+    public static function getHtmlListAsArray($dirname, $prefix = '')
     {
         $filelist = array();
         if ($handle = opendir($dirname)) {
@@ -223,6 +226,7 @@ class XoopsLists
             asort($filelist);
             reset($filelist);
         }
+
         return $filelist;
     }
 
@@ -236,13 +240,14 @@ class XoopsLists
      *
      * @return array
      */
-    static function getAvatarsList($avatar_dir = '')
+    public static function getAvatarsList($avatar_dir = '')
     {
         if ($avatar_dir != '') {
             $avatars = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/avatar/' . $avatar_dir . '/', $avatar_dir . '/');
         } else {
             $avatars = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/avatar/');
         }
+
         return $avatars;
     }
 
@@ -252,7 +257,7 @@ class XoopsLists
      * @static
      * @return array|bool
      */
-    static function getAllAvatarsList()
+    public static function getAllAvatarsList()
     {
         $avatars = array();
         $dirlist = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/images/avatar/');
@@ -263,6 +268,7 @@ class XoopsLists
         } else {
             return false;
         }
+
         return $avatars;
     }
 
@@ -276,13 +282,14 @@ class XoopsLists
      *
      * @return array
      */
-    static function getSubjectsList($sub_dir = '')
+    public static function getSubjectsList($sub_dir = '')
     {
         if ($sub_dir != '') {
             $subjects = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/subject/' . $sub_dir, $sub_dir . '/');
         } else {
             $subjects = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/subject/');
         }
+
         return $subjects;
     }
 
@@ -295,6 +302,7 @@ class XoopsLists
     public static function getLangList()
     {
         $lang_list = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/language/');
+
         return $lang_list;
     }
 
@@ -307,6 +315,7 @@ class XoopsLists
     public static function getLocaleList()
     {
         $lang_list = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/locale/');
+
         return $lang_list;
     }
 
@@ -316,7 +325,7 @@ class XoopsLists
      * @static
      * @return array
      */
-    static function getCountryList()
+    public static function getCountryList()
     {
         $country_list = array(
             ""   => "-",
@@ -576,6 +585,7 @@ class XoopsLists
         );
         asort($country_list);
         reset($country_list);
+
         return $country_list;
     }
 
@@ -586,7 +596,7 @@ class XoopsLists
      * @static
      * @return array
      */
-    static function getHtmlList()
+    public static function getHtmlList()
     {
         $html_list = array(
             'a'          => '&lt;a&gt;',
@@ -650,6 +660,7 @@ class XoopsLists
         );
         asort($html_list);
         reset($html_list);
+
         return $html_list;
     }
 
@@ -660,17 +671,27 @@ class XoopsLists
      * @static
      * @return array
      */
-    static function getUserRankList()
+    public static function getUserRankList()
     {
-        global $xoopsDB;
-        $db = $xoopsDB;
+        $db = Xoops::getInstance()->db();
         $myts = MyTextSanitizer::getInstance();
-        $sql = sprintf('SELECT rank_id, rank_title FROM ' . $db->prefix('ranks') . ' WHERE rank_special = %u', 1);
+
         $ret = array();
-        $result = $db->query($sql);
-        while ($myrow = $db->fetchArray($result)) {
+
+        $sql = $db->createXoopsQueryBuilder();
+        $eb = $sql->expr();
+        $sql->select('rank_id')
+            ->addSelect('rank_title')
+            ->fromPrefix('ranks', 'r')
+            ->where($eb->eq('rank_special', ':rankspecial'))
+            ->orderBy('rank_title')
+            ->setParameter(':rankspecial', 1);
+
+        $result = $sql->execute();
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
             $ret[$myrow['rank_id']] = $myts->htmlspecialchars($myrow['rank_title']);
         }
+
         return $ret;
     }
 }

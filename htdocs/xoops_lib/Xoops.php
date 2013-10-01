@@ -939,7 +939,7 @@ class Xoops
      */
     public static function loadLocale($domain = 'xoops', $locale = null)
     {
-        Xoops_Locale::loadLocale($domain, $locale);
+        return Xoops_Locale::loadLocale($domain, $locale);
     }
 
     /**
@@ -1224,7 +1224,7 @@ class Xoops
             }
         }
         $usertimestamp = intval($time) + (floatval($timeoffset) - $this->getConfig('server_TZ')) * 3600;
-        return $usertimestamp;
+        return (int)$usertimestamp;
     }
 
     /**
@@ -1241,7 +1241,7 @@ class Xoops
             $userTZ = $this->getConfig('default_TZ');
         }
         $timestamp = $timestamp - (($userTZ - $this->getConfig('server_TZ')) * 3600);
-        return $timestamp;
+        return (int)$timestamp;
     }
 
     /**
@@ -1337,7 +1337,7 @@ class Xoops
     /**
      * Function to redirect a user to certain pages
      *
-     * @param        $url
+     * @param string $url
      * @param int    $time
      * @param string $message
      * @param bool   $addredirect
@@ -1493,8 +1493,10 @@ class Xoops
     }
 
     /**
-     * @param integer $rank_id
-     * @param int     $posts
+     * getRank - retrieve user rank
+     * 
+     * @param integer $rank_id specified rank for user
+     * @param int     $posts   number of posts for user
      *
      * @return array
      */
@@ -1503,17 +1505,28 @@ class Xoops
         $myts = MyTextSanitizer::getInstance();
         $rank_id = intval($rank_id);
         $posts = intval($posts);
+
+        $sql = $this->_db->createXoopsQueryBuilder()
+            ->select('r.rank_title AS title')
+            ->addSelect('r.rank_image AS image')
+            ->fromPrefix('ranks', 'r');
+        $eb = $sql->expr();
         if ($rank_id != 0) {
-            $sql = "SELECT rank_title AS title, rank_image AS image FROM " . $this->db()
-                    ->prefix('ranks') . " WHERE rank_id = " . $rank_id;
+            $sql->where($eb->eq('r.rank_id', ':rank'))
+                ->setParameter(':rank', $rank_id, \PDO::PARAM_INT);
         } else {
-            $sql = "SELECT rank_title AS title, rank_image AS image FROM " . $this->db()
-                    ->prefix('ranks') . " WHERE rank_min <= " . $posts . " AND rank_max >= " . $posts . " AND rank_special = 0";
+            $sql->where($eb->lte('r.rank_min', ':posts'))
+                ->andWhere($eb->gte('r.rank_max', ':posts'))
+                ->andWhere($eb->eq('r.rank_special', 0))
+                ->setParameter(':posts', $posts, \PDO::PARAM_INT);
         }
-        $rank = $this->db()->fetchArray($this->db()->query($sql));
+
+        $rank = $this->_db->fetchAssoc($sql->getSql(), $sql->getParameters());
+
         $rank['title'] = $myts->htmlspecialchars($rank['title']);
         $rank['id'] = $rank_id;
         return $rank;
+
     }
 
     /**
@@ -1782,7 +1795,7 @@ class Xoops
         $domain = '';
         $_URL = parse_url($url);
 
-        if (!empty($_URL) || !empty($_URL['host'])) {
+        if (!empty($_URL['host'])) {
             $domain = $_URL['host'];
         }
         return $domain;

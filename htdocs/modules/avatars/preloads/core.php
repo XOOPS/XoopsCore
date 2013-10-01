@@ -29,18 +29,32 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class AvatarsCorePreload extends XoopsPreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'avatars' => $path . '/class/helper.php',
         ));
     }
-    static function eventCoreUserinfoButton($args)
+
+    public static function eventCoreUserinfoButton($args)
     {
+        // args 0 => user, 1 = button definition
         $link = 'modules/avatars/editavatar.php';
         $title = XoopsLocale::AVATAR;
         $icon = 'icon-fire';
-        $args[0][] = array( 'link' => $link, 'title' => $title, 'icon' => $icon);
+        $args[1][] = array( 'link' => $link, 'title' => $title, 'icon' => $icon);
+    }
+
+    public static function eventCoreUserinfoAvatar($args)
+    {
+        $thisUser = $args[0];
+        if (method_exists($thisUser, 'getVar')) {
+            if ($thisUser->getVar('user_avatar')
+                && "blank.gif" != $thisUser->getVar('user_avatar')
+            ) {
+                $args[1] = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
+            }
+        }
     }
 }
