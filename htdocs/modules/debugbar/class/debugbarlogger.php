@@ -138,7 +138,8 @@ class DebugbarLogger implements LoggerInterface
      */
     public function quiet()
     {
-        $this->activated = false;
+        $this->debugbar->sendDataInHeaders();
+        //$this->activated = false;
     }
 
     /**
