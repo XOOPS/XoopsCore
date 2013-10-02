@@ -40,9 +40,11 @@ class AvatarsCorePreload extends XoopsPreloadItem
     public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-            'avatars' => $path . '/class/helper.php',
-        ));
+        XoopsLoad::addMap(
+            array(
+                'avatars' => $path . '/class/helper.php',
+            )
+        );
     }
 
     /**
@@ -52,7 +54,8 @@ class AvatarsCorePreload extends XoopsPreloadItem
      *                    $arg[1] - reference to array of button arrays
      *
      * @return void - array in arg[1] will be button link
-     */    public static function eventCoreUserinfoButton($args)
+     */
+    public static function eventCoreUserinfoButton($args)
     {
         // args 0 => user, 1 = button definition
         $link = 'modules/avatars/editavatar.php';
@@ -63,8 +66,8 @@ class AvatarsCorePreload extends XoopsPreloadItem
 
     /**
      * listen for core.userinfo.avatar event
-     * 
-     * @param array $args $arg[0] - current user object
+     *
+     * @param array $args $arg[0] - current user object or array with user info
      *                    $arg[1] - reference to avatar image url
      *
      * @return void - string in arg[1] will be avatar image url if avaiable
@@ -72,11 +75,17 @@ class AvatarsCorePreload extends XoopsPreloadItem
     public static function eventCoreUserinfoAvatar($args)
     {
         $thisUser = $args[0];
-        if (method_exists($thisUser, 'getVar')) {
-            if ($thisUser->getVar('user_avatar')
-                && "blank.gif" != $thisUser->getVar('user_avatar')
-            ) {
-                $args[1] = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
+        if (is_object($thisUser)) {
+            if (method_exists($thisUser, 'getVar')) {
+                if ($thisUser->getVar('user_avatar')
+                    && 'blank.gif' != $thisUser->getVar('user_avatar')
+                ) {
+                    $args[1] = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
+                }
+            }
+        } elseif (is_array($thisUser)) {
+            if (isset($thisUser['user_avatar']) && $thisUser['user_avatar'] != 'blank.gif') {
+                $args[1] = XOOPS_UPLOAD_URL . "/" . $thisUser['user_avatar'];
             }
         }
     }
