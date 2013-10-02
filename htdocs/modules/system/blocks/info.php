@@ -48,7 +48,6 @@ function b_system_info_show($options)
             $prev_caption = "";
             $i = 0;
             while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
-                \Kint::dump($userinfo);
                 $avatar = "";
                 $xoops->events()->triggerEvent('core.userinfo.avatar', array($userinfo, &$avatar));
                 if ($prev_caption != $userinfo['groupname']) {
