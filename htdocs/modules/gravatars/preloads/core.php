@@ -84,8 +84,8 @@ class GravatarsCorePreload extends XoopsPreloadItem
     /**
      * listen for core.userinfo.avatar event
      * 
-     * @param array $args $arg[0] - current user object
-     *                   $arg[1] - reference to avatar image url
+     * @param array $args $arg[0] - current user object or array with user info
+     *                    $arg[1] - reference to avatar image url
      *
      * @return void - string in arg[1] will be avatar image url if avaiable
      */
@@ -95,6 +95,16 @@ class GravatarsCorePreload extends XoopsPreloadItem
         if (method_exists($thisUser, 'getVar')) {
             $email = $thisUser->getVar('email', 'e');
             $args[1] = self::getGravatar($email);
+        }
+        if (is_object($thisUser)) {
+            if (method_exists($thisUser, 'getVar')) {
+                $email = $thisUser->getVar('email', 'e');
+                $args[1] = self::getGravatar($email);
+            }
+        } elseif (is_array($thisUser)) {
+            if (!empty($thisUser['email'])) {
+                $args[1] = self::getGravatar($thisUser['email']);
+            }
         }
     }
 }

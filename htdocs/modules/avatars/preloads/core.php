@@ -49,7 +49,7 @@ class AvatarsCorePreload extends XoopsPreloadItem
      * listen for core.userinfo.button event
      * 
      * @param array $args $arg[0] - current user object
-     *                   $arg[1] - reference to array of button arrays
+     *                    $arg[1] - reference to array of button arrays
      *
      * @return void - array in arg[1] will be button link
      */    public static function eventCoreUserinfoButton($args)
@@ -65,7 +65,7 @@ class AvatarsCorePreload extends XoopsPreloadItem
      * listen for core.userinfo.avatar event
      * 
      * @param array $args $arg[0] - current user object
-     *                   $arg[1] - reference to avatar image url
+     *                    $arg[1] - reference to avatar image url
      *
      * @return void - string in arg[1] will be avatar image url if avaiable
      */
