@@ -24,5 +24,5 @@ $xoops = Xoops::getInstance();
 $xoops->header();
 $aboutAdmin = new XoopsModuleAdmin();
 $aboutAdmin->displayNavigation('about.php');
-$aboutAdmin->displayAbout('6KJ7RW5DR3VTJ', true);
+$aboutAdmin->displayAbout();
 $xoops->footer();

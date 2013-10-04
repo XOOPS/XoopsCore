@@ -20,54 +20,13 @@
  * @version         $Id$
  */
 include dirname(__FILE__) . '/header.php';
-// Get avatars handler
+
 $xoops = Xoops::getInstance();
-$helper = Avatars::getInstance();
-$avatar_Handler = $helper->getHandlerAvatar();
 
 $xoops->header();
-// avatars not display system
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('avatar_display', 0));
-$criteria->add(new Criteria('avatar_type', 'S'));
-$avatars_notdisplay_s = $avatar_Handler->getCount($criteria);
-// avatars display system
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('avatar_display', 0, '!='));
-$criteria->add(new Criteria('avatar_type', 'S'));
-$avatars_display_s = $avatar_Handler->getCount($criteria);
-// total avatars system
-$avatars_total_s = $avatars_notdisplay_s + $avatars_display_s;
-// avatars not display custom
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('avatar_display', 0));
-$criteria->add(new Criteria('avatar_type', 'C'));
-$avatars_notdisplay_c = $avatar_Handler->getCount($criteria);
-// avatars display custom
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('avatar_display', 0, '!='));
-$criteria->add(new Criteria('avatar_type', 'C'));
-$avatars_display_c = $avatar_Handler->getCount($criteria);
-// total avatars custom
-$avatars_total_c = $avatars_notdisplay_c + $avatars_display_c;
-// folder path
-$folder_path = XOOPS_ROOT_PATH . '/uploads/avatars';
 
 $admin_page = new XoopsModuleAdmin();
 $admin_page->displayNavigation('index.php');
-
-$admin_page->addInfoBox(AvatarsLocale::SYSTEM, 'avatar_system');
-$admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBTOTAL_S, $avatars_total_s), 'avatar_system');
-$admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBDISPLAY_S, '<span class="green">' . $avatars_display_s . '</span>'), 'avatar_system');
-$admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBNOTDISPLAY_S, '<span class="red">' . $avatars_notdisplay_s . '</span>'), 'avatar_system');
-
-$admin_page->addInfoBox(AvatarsLocale::CUSTOM, 'avatar_custom');
-$admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBTOTAL_C, $avatars_total_c), 'avatar_custom');
-$admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBDISPLAY_C, '<span class="green">' . $avatars_display_c . '</span>'), 'avatar_custom');
-$admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBNOTDISPLAY_C, '<span class="red">' . $avatars_notdisplay_c . '</span>'), 'avatar_custom');
-
-$admin_page->addConfigBoxLine($folder_path, 'folder');
-$admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
 
 $admin_page->displayIndex();
 
