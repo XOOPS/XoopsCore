@@ -28,9 +28,6 @@ class DebugbarCorePreload extends XoopsPreloadItem
 {
     private static $registry = array();
 
-    private static $query_start_time = 0;
-    private static $query_stop_time = 0;
-
     /**
      * getConfigs
      * 
@@ -130,79 +127,6 @@ class DebugbarCorePreload extends XoopsPreloadItem
             $db = $args[0];
             DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
         }
-    }
-
-    /**
-     * eventCoreDatabaseQueryStart
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryStart($args)
-    {
-        self::$query_start_time = microtime(true);
-    }
-
-    /**
-     * eventCoreDatabaseQueryEnd
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryEnd($args)
-    {
-        self::$query_stop_time = microtime(true);
-    }
-
-    /**
-     * eventCoreDatabaseQuerySuccess
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQuerySuccess($args)
-    {
-        $sql = $args[0];
-        $context = array(
-            'channel'=>'Queries',
-            'error'=>null,
-            'errno'=>null,
-            'query_time'=> self::$query_stop_time - self::$query_start_time
-        );
-
-        DebugbarLogger::getInstance()->log(LogLevel::INFO, $sql, $context);
-    }
-
-    /**
-     * eventCoreDatabaseQueryFailure
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryFailure($args)
-    {
-        /* @var $db XoopsConnection */
-        $sql = $args[0];
-        $db = $args[1];
-        if (method_exists($db, 'error')) {
-            $error = $db->error();
-            $errno = $db->errno();
-        } else {
-            $error = $db->errorInfo();
-            $errno = $db->errorCode();
-        }
-        $context = array(
-            'channel'=>'Queries',
-            'error'=>$error,
-            'errno'=>$errno,
-            'query_time'=> self::$query_stop_time - self::$query_start_time
-        );
-
-        DebugbarLogger::getInstance()->log(LogLevel::ERROR, $sql, $context);
     }
 
     /**
