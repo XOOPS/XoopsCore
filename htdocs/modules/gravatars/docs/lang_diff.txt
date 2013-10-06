@@ -1,0 +1,7 @@
+LANGUAGE DIFFERENCES
+-------------------
+
+Below are language differences from a version to next version.
+
+Release xxx
+-------------------

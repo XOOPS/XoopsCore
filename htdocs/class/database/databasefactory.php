@@ -9,6 +9,8 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Database\Logging\XoopsDebugStack;
+
 /**
  * XoopsDatabaseFactory class
  *
@@ -24,7 +26,6 @@
  * @link      http://xoops.org
  * @since     2.6.0
  */
-
 class XoopsDatabaseFactory
 {
 
@@ -49,6 +50,7 @@ class XoopsDatabaseFactory
         if (!isset($instance)) {
             //New database connector
             $config = new \Doctrine\DBAL\Configuration();
+            $config->setSQLLogger(new XoopsDebugStack());
             $connectionParams = array(
                 'dbname' => XOOPS_DB_NAME,
                 'user' => XOOPS_DB_USER,

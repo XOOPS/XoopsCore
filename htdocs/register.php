@@ -126,7 +126,7 @@ switch ($op) {
             if ($url != '') {
                 $newuser->setVar('url', $xoops->formatURL($url), true);
             }
-            $newuser->setVar('user_avatar', 'avatars/blank.gif', true);
+            $newuser->setVar('user_avatar', 'blank.gif', true);
             $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
             $newuser->setVar('actkey', $actkey, true);
             $newuser->setVar('pass', md5($pass), true);
