@@ -27,9 +27,6 @@ class MonologCorePreload extends XoopsPreloadItem
 {
     private static $registry = array();
 
-    private static $query_start_time = 0;
-    private static $query_stop_time = 0;
-
     private static $configs = null;
 
     /**
@@ -169,76 +166,23 @@ class MonologCorePreload extends XoopsPreloadItem
     }
 
     /**
-     * eventCoreDatabaseQueryStart
+     * eventCoreDatabaseQueryComplete
      * 
      * @param mixed $args arguments supplied to triggerEvent
      * 
      * @return void
      */
-    public static function eventCoreDatabaseQueryStart($args)
+    public static function eventCoreDatabaseQueryComplete($args)
     {
-        self::$query_start_time = microtime(true);
-    }
-
-    /**
-     * eventCoreDatabaseQueryEnd
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryEnd($args)
-    {
-        self::$query_stop_time = microtime(true);
-    }
-
-    /**
-     * eventCoreDatabaseQuerySuccess
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQuerySuccess($args)
-    {
-        $sql = $args[0];
+        $sql = $args['sql'];
         $context = array(
             'channel'=>'Queries',
-            'error'=>null,
-            'errno'=>null,
-            'query_time'=> self::$query_stop_time - self::$query_start_time
+            'query_time'=>$args['executionMS'],
+            'params'=>$args['params'],
+            'types'=>$args['types'],
         );
 
         MonologLogger::getInstance()->log(LogLevel::INFO, $sql, $context);
-    }
-
-    /**
-     * eventCoreDatabaseQueryFailure
-     * 
-     * @param mixed $args arguments supplied to triggerEvent
-     * 
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryFailure($args)
-    {
-        /* @var $db XoopsConnection */
-        $sql = $args[0];
-        $db = $args[1];
-        if (method_exists($db, 'error')) {
-            $error = $db->error();
-            $errno = $db->errno();
-        } else {
-            $error = $db->errorInfo();
-            $errno = $db->errorCode();
-        }
-        $context = array(
-            'channel'=>'Queries',
-            'error'=>$error,
-            'errno'=>$errno,
-            'query_time'=> self::$query_stop_time - self::$query_start_time
-        );
-
-        MonologLogger::getInstance()->log(LogLevel::ERROR, $sql, $context);
     }
 
     /**
