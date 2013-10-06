@@ -24,9 +24,6 @@
  */
 class LoggerCorePreload extends XoopsPreloadItem
 {
-    private static $query_start_time = 0;
-    private static $query_stop_time = 0;
-
     /**
      * getConfigs
      *
@@ -139,63 +136,17 @@ class LoggerCorePreload extends XoopsPreloadItem
     }
 
     /**
-     * eventCoreDatabaseQueryStart
+     * eventCoreDatabaseQueryComplete
      *
      * @param mixed $args arguments supplied to triggerEvent
      *
      * @return void
      */
-    public static function eventCoreDatabaseQueryStart($args)
+    public static function eventCoreDatabaseQueryComplete($args)
     {
-        self::$query_start_time = microtime(true);
-    }
-
-    /**
-     * eventCoreDatabaseQueryEnd
-     *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryEnd($args)
-    {
-        self::$query_stop_time = microtime(true);
-    }
-
-    /**
-     * eventCoreDatabaseQuerySuccess
-     *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
-     * @return void
-     */
-    public static function eventCoreDatabaseQuerySuccess($args)
-    {
-        $sql = $args[0];
+        $sql = $args['sql'];
         XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
-        LegacyLogger::getInstance()
-            ->addQuery($sql, null, null, self::$query_stop_time - self::$query_start_time);
-    }
-
-    /**
-     * eventCoreDatabaseQueryFailure
-     *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
-     * @return void
-     */
-    public static function eventCoreDatabaseQueryFailure($args)
-    {
-        /* @var $db XoopsConnection */
-        $sql = $args[0];
-        $db = $args[1];
-        if (method_exists($db, 'error')) {
-            LegacyLogger::getInstance()
-                ->addQuery($sql, $db->error(), $db->errno(), self::$query_stop_time - self::$query_start_time);
-        } else {
-            LegacyLogger::getInstance()
-                ->addQuery($sql, $db->errorInfo(), $db->errorCode(), self::$query_stop_time - self::$query_start_time);
-        }
+        LegacyLogger::getInstance()->addQuery($sql, null, null, $args['executionMS']);
     }
 
     /**

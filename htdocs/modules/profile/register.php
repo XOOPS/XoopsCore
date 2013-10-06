@@ -208,7 +208,7 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
         $newuser->setVar('uorder', $xoops->getConfig('com_order'), true);
         $newuser->setVar('umode', $xoops->getConfig('com_mode'), true);
         $newuser->setVar('theme', $xoops->getConfig('theme_set'), true);
-        $newuser->setVar('user_avatar', 'avatars/blank.gif', true);
+        $newuser->setVar('user_avatar', 'blank.gif', true);
         if ($xoops->getConfig('activation_type') == 1) {
             $newuser->setVar('level', 1, true);
         } else {

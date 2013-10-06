@@ -312,9 +312,12 @@ class XoopsTheme
         ));
 
         if ($xoops->isUser()) {
+            $avatar = "";
+            $xoops->events()->triggerEvent('core.userinfo.avatar', array($xoops->user, &$avatar));
+
             $this->template->assign(array(
                 'xoops_isuser'     => true,
-                'xoops_avatar'     => XOOPS_UPLOAD_URL . "/" . $xoops->user->getVar('user_avatar'),
+                'xoops_avatar'     => $avatar,
                 'xoops_userid'     => $xoops->user->getVar('uid'), 'xoops_uname' => $xoops->user->getVar('uname'),
                 'xoops_name'       => $xoops->user->getVar('name'), 'xoops_isadmin' => $xoops->isAdmin(),
                 'xoops_usergroups' => $xoops->user->getGroups()
@@ -434,7 +437,7 @@ class XoopsTheme
             }
             $this->contentCacheId = $this->generateCacheId('page_' . substr(md5($uri), 0, 8));
             if ($this->template->is_cached($template, $this->contentCacheId)) {
-                Xoops::getInstance()->preload()->triggerEvent('core.theme.checkcache.success', array($template, $this));
+                Xoops::getInstance()->events()->triggerEvent('core.theme.checkcache.success', array($template, $this));
                 $this->render(null, null, $template);
                 return true;
             }
@@ -462,7 +465,7 @@ class XoopsTheme
             return false;
         }
         $xoops = Xoops::getInstance();
-        $xoops->preload()->triggerEvent('core.theme.render.start', array($this));
+        $xoops->events()->triggerEvent('core.theme.render.start', array($this));
 
         //Get meta information for cached pages
         if ($this->contentCacheLifetime && $this->contentCacheId && $content = Xoops_Cache::read($this->contentCacheId, $this->headersCacheEngine)) {
@@ -524,7 +527,7 @@ class XoopsTheme
         $this->template->caching = 0;
         $this->template->display($this->path . '/' . $this->canvasTemplate);
         $this->renderCount++;
-        $xoops->preload()->triggerEvent('core.theme.render.end', array($this));
+        $xoops->events()->triggerEvent('core.theme.render.end', array($this));
         return true;
     }
 

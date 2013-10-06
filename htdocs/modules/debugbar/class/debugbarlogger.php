@@ -109,14 +109,11 @@ class DebugbarLogger implements LoggerInterface
                 $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
                 $this->debugbar->addCollector(new MessagesCollector('Blocks'));
                 $this->debugbar->addCollector(new MessagesCollector('Extra'));
-                $this->debugbar->addCollector(new MessagesCollector('Queries'));
-    
-                /*
+                //$this->debugbar->addCollector(new MessagesCollector('Queries'));
+
                 $xoops = Xoops::getInstance();
-                $debugStack = new Doctrine\DBAL\Logging\DebugStack();
-                $xoops->db()->getConfiguration()->setSQLLogger($debugStack);
+                $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
                 $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
-                */
         }
         $this->addToTheme();
     }
@@ -138,7 +135,8 @@ class DebugbarLogger implements LoggerInterface
      */
     public function quiet()
     {
-        $this->activated = false;
+        $this->debugbar->sendDataInHeaders();
+        //$this->activated = false;
     }
 
     /**

@@ -48,7 +48,9 @@ switch ($op) {
     case 'list':
     default:
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+        $xoops->theme()->addStylesheet(
+            'media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css'
+        );
         // Define scripts
         $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
         $xoops->theme()->addScript('modules/system/js/admin.js');
@@ -78,16 +80,16 @@ switch ($op) {
                 $client['cid'] = $client_arr[$i]->getVar("bannerclient_cid");
                 $client['uid'] = $client_arr[$i]->getVar("bannerclient_uid");
                 $client['banner_active'] = $banner_active;
-                if ( $client_arr[$i]->getVar("bannerclient_uid") == 0) {
+                if ($client_arr[$i]->getVar("bannerclient_uid") == 0) {
                     $client['uname'] = '/';
                     $client['email'] = '/';
-                }else{
+                } else {
                     $user = $member_handler->getUser($client_arr[$i]->getVar("bannerclient_uid"));
                     $client['uname'] = $user->getVar("uname");
                     $client['email'] = $user->getVar("email");
-                    $client['avatar'] = ($user->getVar("user_avatar") == 'blank.gif')
-                        ? XOOPS_URL . 'modules/system/images/icons/default/anonymous.png'
-                        : XOOPS_URL . '/uploads/' . $user->getVar("user_avatar");
+                    $avatar = "";
+                    $xoops->events()->triggerEvent('core.userinfo.avatar', array($user, &$avatar));
+                    $client['avatar'] = $avatar;
                     $client['url'] = $user->getVar("bannerclient_url");
                 }
                 $client['name'] = $client_arr[$i]->getVar("bannerclient_name");
@@ -107,7 +109,10 @@ switch ($op) {
     case 'new':
         $admin_page->addItemButton(_AM_BANNERS_CLIENTS_LIST, 'clients.php', 'application-view-detail');
         $admin_page->renderButton();
-        $xoops->tpl()->assign('info_msg', $xoops->alert('info', _AM_BANNERS_ALERT_INFO_CLIENT_ADDEDIT, _AM_BANNERS_ALERT_INFO_TITLE));
+        $xoops->tpl()->assign(
+            'info_msg',
+            $xoops->alert('info', _AM_BANNERS_ALERT_INFO_CLIENT_ADDEDIT, _AM_BANNERS_ALERT_INFO_TITLE)
+        );
         $obj = $client_Handler->create();
         $form = $helper->getForm($obj, 'bannerclient');
         $xoops->tpl()->assign('form', $form->render());
@@ -116,7 +121,10 @@ switch ($op) {
     case 'edit':
         $admin_page->addItemButton(_AM_BANNERS_CLIENTS_LIST, 'clients.php', 'application-view-detail');
         $admin_page->renderButton();
-        $xoops->tpl()->assign('info_msg', $xoops->alert('info', _AM_BANNERS_ALERT_INFO_CLIENT_ADDEDIT, _AM_BANNERS_ALERT_INFO_TITLE));
+        $xoops->tpl()->assign(
+            'info_msg',
+            $xoops->alert('info', _AM_BANNERS_ALERT_INFO_CLIENT_ADDEDIT, _AM_BANNERS_ALERT_INFO_TITLE)
+        );
         $cid = $request->asInt('cid', 0);
         if ($cid > 0) {
             $obj = $client_Handler->get($cid);
@@ -138,7 +146,7 @@ switch ($op) {
             $obj = $client_Handler->create();
         }
         $obj->setVar("bannerclient_name", $request->asStr('name', ''));
-        if ($_POST["user"] == 'Y'){
+        if ($_POST["user"] == 'Y') {
             $obj->setVar("bannerclient_uid", $request->asInt('uid', 0));
         } else {
             $obj->setVar("bannerclient_uid", 0);
@@ -165,11 +173,16 @@ switch ($op) {
                     $banner_arr = $banner_Handler->getall(new Criteria('banner_cid', $cid));
                     foreach (array_keys($banner_arr) as $i) {
                         $obj = $banner_Handler->get($banner_arr[$i]->getVar('banner_bid'));
-                        $namefile = substr_replace($banner_arr[$i]->getVar('banner_imageurl'),'',0,strlen(XOOPS_URL . '/uploads/banners/'));
+                        $namefile = substr_replace(
+                            $banner_arr[$i]->getVar('banner_imageurl'),
+                            '',
+                            0,
+                            strlen(XOOPS_URL . '/uploads/banners/')
+                        );
                         $urlfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
                         if ($banner_Handler->delete($obj)) {
                             // delete banner
-                            if (is_file($urlfile)){
+                            if (is_file($urlfile)) {
                                 chmod($urlfile, 0777);
                                 unlink($urlfile);
                             }
@@ -182,7 +195,11 @@ switch ($op) {
                     echo $xoops->alert('error', $obj->getHtmlErrors());
                 }
             } else {
-                $xoops->confirm(array("ok" => 1, "cid" => $cid, "op" => "delete"), 'clients.php', sprintf(_AM_BANNERS_CLIENTS_SUREDEL, $obj->getVar("bannerclient_name")) . '<br />');
+                $xoops->confirm(
+                    array("ok" => 1, "cid" => $cid, "op" => "delete"),
+                    'clients.php',
+                    sprintf(_AM_BANNERS_CLIENTS_SUREDEL, $obj->getVar("bannerclient_name")) . '<br />'
+                );
             }
         } else {
             $xoops->redirect('clients.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);
