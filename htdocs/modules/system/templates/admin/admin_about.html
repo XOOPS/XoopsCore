@@ -10,7 +10,7 @@
                         <div class="spacer xo-module-name"><{$module->getVar('name')}>&nbsp;<{$module->getInfo('version')}>&nbsp;<{$module->getInfo('module_status')}>&nbsp;(<{$module->getInfo('release_date')}>)</div>
                         <div class="spacer marg5 bold"><{$module->getInfo('author_list')}></div>
                         <{if $module->getInfo('license_url')}>
-                        <div class="spacer marg5"><a href="http://<{$module->getInfo('license_url')}>" target="_blank"><{$module->getInfo('license')}></a></div>
+                        <div class="spacer marg5"><a href="<{$module->getInfo('license_url')}>" target="_blank"><{$module->getInfo('license')}></a></div>
                         <{/if}>
                         <{if $module->getInfo('website')}>
                         <div class="spacer marg5"><a href="http://<{$module->getInfo('website')}>" target="_blank"><{$module->getInfo('website')}></a></div>

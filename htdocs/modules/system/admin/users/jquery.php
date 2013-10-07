@@ -28,7 +28,8 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
+//$xoops->disableErrorReporting();
 
 if (isset($_REQUEST["op"])) {
     $op = $_REQUEST["op"];
@@ -53,11 +54,14 @@ switch ($op) {
             }
         }
 
-        $sql = "UPDATE " . $xoopsDB->prefix("users") . " SET posts = '" . $total_posts . "' WHERE uid = '" . $uid . "'";
-        if (!$result = $xoopsDB->queryF($sql)) {
-            $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_NOT_UPDATED);
-        } else {
-            echo $total_posts;
-        }
+        $qb = $xoops->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $sql = $qb->updatePrefix('users', 'u')
+            ->set('u.posts', ':posts')
+            ->where('u.uid = :uid')
+            ->setParameter(':posts', $total_posts)
+            ->setParameter(':uid', $uid);
+        $row_count = $sql->execute();
+        echo $row_count;
         break;
 }
