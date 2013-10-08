@@ -19,9 +19,6 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class BannerRender
 {
     /**
@@ -34,10 +31,10 @@ class BannerRender
     /**
      * Display banner
      *
-     * @param $nb_banner
-     * @param $align
-     * @param $client
-     * @param $ids
+     * @param int    $nb_banner number of banners
+     * @param string $align     alignment H,V
+     * @param array  $client    client ids to include
+     * @param string $ids       SQL IN clause for banner_bid column
      *
      * @return string
      */
@@ -100,10 +97,25 @@ class BannerRender
                          * Check if this impression is the last one
                          */
                         $impmade = $impmade + 1;
+                        $qb = $xoops->db()->createXoopsQueryBuilder();
                         if ($imptotal > 0 && $impmade >= $imptotal) {
-                            $xoopsDB->queryF(sprintf('UPDATE %s SET banner_status = %u, banner_dateend = %u WHERE banner_bid = %u', $xoopsDB->prefix('banners_banner'), 0, time(), $bid));
+                            $query = $qb->updatePrefix('banners_banner', 'b')
+                                ->set('b.banner_impmade', ':impr')
+                                ->set('b.banner_status', ':stat')
+                                ->set('b.banner_dateend', ':dateend')
+                                ->where('b.banner_bid = :bid')
+                                ->setParameter(':impr', $impmade, \PDO::PARAM_INT)
+                                ->setParameter(':stat', 0, \PDO::PARAM_INT)
+                                ->setParameter(':dateend', time(), \PDO::PARAM_INT)
+                                ->setParameter(':bid', $bid, \PDO::PARAM_INT);
+                            $result = $query->execute();
                         } else {
-                            $xoopsDB->queryF(sprintf('UPDATE %s SET banner_impmade = %u WHERE banner_bid = %u', $xoopsDB->prefix('banners_banner'), $impmade, $bid));
+                            $query = $qb->updatePrefix('banners_banner', 'b')
+                                ->set('b.banner_impmade', ':impr')
+                                ->where('b.banner_bid = :bid')
+                                ->setParameter(':impr', $impmade, \PDO::PARAM_INT)
+                                ->setParameter(':bid', $bid, \PDO::PARAM_INT);
+                            $result = $query->execute();
                         }
                     }
                 }
