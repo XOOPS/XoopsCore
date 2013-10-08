@@ -41,7 +41,11 @@ $xoops->header('avatars_admin_system.html');
 $admin_page = new XoopsModuleAdmin();
 $admin_page->renderNavigation('avatar_system.php');
 
-$info_msg = array(sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(AvatarsLocale::ALERT_INFO_MAXFILE , $upload_size / 1000), sprintf(AvatarsLocale::ALERT_INFO_PIXELS , $width, $height));
+$info_msg = array(
+    sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)),
+    sprintf(AvatarsLocale::ALERT_INFO_MAXFILE, $upload_size / 1000),
+    sprintf(AvatarsLocale::ALERT_INFO_PIXELS, $width, $height)
+);
 
 switch ($op) {
 
@@ -113,7 +117,8 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('avatar_system.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $uploader_avatars_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
+        $uploader_avatars_img =
+            new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
         // Get avatar id
         $avatar_id = $request->asInt('avatar_id', 0);
         if ($avatar_id > 0) {
@@ -123,7 +128,7 @@ switch ($op) {
         }
         $error_msg = '';
         $obj->setVars($_POST);
-        if (preg_match('/^\d+$/', $_POST["avatar_weight"]) == false){
+        if (preg_match('/^\d+$/', $_POST["avatar_weight"]) == false) {
             $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br />';
             $obj->setVar("avatar_weight", 0);
         } else {
@@ -144,7 +149,7 @@ switch ($op) {
             $file = $request->asStr('avatar_file', 'blank.gif');
             $obj->setVar('avatar_file', 'avatars/' . $file);
         }
-        if ($error_msg == ''){
+        if ($error_msg == '') {
             if ($avatar_Handler->insert($obj)) {
                 $xoops->redirect('avatar_system.php', 2, XoopsLocale::S_ITEM_SAVED);
             }
@@ -175,8 +180,14 @@ switch ($op) {
                         unlink(XOOPS_UPLOAD_PATH . '/' . $file);
                     }
                 }
-                // Update member profil
-                $xoopsDB->query("UPDATE " . $xoopsDB->prefix('users') . " SET user_avatar='blank.gif' WHERE user_avatar='" . $file . "'");
+                // Update member profiles
+                $qb = $xoops->db()->createXoopsQueryBuilder();
+                $eb = $qb->expr();
+                $query = $qb->updatePrefix('users', 'u')
+                    ->set('u.user_avatar', 'blank.gif')
+                    ->where($eb->eq('u.user_avatar', ':file '))
+                    ->setParameter(':file', $file);
+                $result = $query->execute();
                 $xoops->redirect("avatar_system.php", 2, XoopsLocale::S_ITEM_SAVED);
             } else {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
@@ -185,9 +196,17 @@ switch ($op) {
             if ($avatar_id > 0) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-                $msg = '<div class="spacer"><img src="' . XOOPS_UPLOAD_URL . '/' . $obj->getVar('avatar_file', 's') . '" alt="" /></div><div class="txtcenter bold">' . $obj->getVar('avatar_name', 's') . '</div>' . XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM;
+                $msg = '<div class="spacer"><img src="' . XOOPS_UPLOAD_URL . '/'
+                    . $obj->getVar('avatar_file', 's')
+                    . '" alt="" /></div><div class="txtcenter bold">'
+                    . $obj->getVar('avatar_name', 's') . '</div>'
+                    . XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM;
                 // Display message
-                $xoops->confirm(array('ok' => 1, 'op' => 'delete', 'avatar_id' => $avatar_id), 'avatar_system.php', $msg);
+                $xoops->confirm(
+                    array('ok' => 1, 'op' => 'delete', 'avatar_id' => $avatar_id),
+                    'avatar_system.php',
+                    $msg
+                );
             } else {
                 $xoops->redirect('avatar_system.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);
             }
