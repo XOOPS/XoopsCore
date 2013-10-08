@@ -20,9 +20,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 define('_MD_DEBUGBAR_DEBUG', "Debug");
 define('_MD_DEBUGBAR_INCLUDED_FILES', "Included files");
-define('_MD_DEBUGBAR_FILES', "%s files");
-define('_MD_DEBUGBAR_MEM_USAGE', "Memory usage");
-define('_MD_DEBUGBAR_MEM_ESTIMATED', "%s [Estimated]");
+define('_MD_DEBUGBAR_PHP_VERSION', "PHP Version");
 define('_MD_DEBUGBAR_NONE', "None");
 //define('_MD_DEBUGBAR_ALL', "All");
 define('_MD_DEBUGBAR_ERRORS', "Errors");
