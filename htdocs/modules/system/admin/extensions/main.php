@@ -61,7 +61,10 @@ switch ($op) {
         // Define Breadcrumb and tips
         $admin_page = new XoopsModuleAdmin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::EXTENSIONS_ADMINISTRATION, $system->adminVersion('extensions', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::EXTENSIONS_ADMINISTRATION,
+            $system->adminVersion('extensions', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::MAIN);
         $admin_page->addTips(SystemLocale::EXTENSION_TIPS);
         $admin_page->renderBreadcrumb();
@@ -86,7 +89,10 @@ switch ($op) {
         // Define Breadcrumb and tips
         $admin_page = new XoopsModuleAdmin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::EXTENSIONS_ADMINISTRATION, $system->adminVersion('extensions', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::EXTENSIONS_ADMINISTRATION,
+            $system->adminVersion('extensions', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::A_INSTALL);
         $admin_page->renderBreadcrumb();
 
@@ -121,7 +127,10 @@ switch ($op) {
         // Define Breadcrumb and tips
         $admin_page = new XoopsModuleAdmin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::EXTENSIONS_ADMINISTRATION, $system->adminVersion('extensions', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::EXTENSIONS_ADMINISTRATION,
+            $system->adminVersion('extensions', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::A_UNINSTALL);
         $admin_page->renderBreadcrumb();
 
@@ -135,7 +144,7 @@ switch ($op) {
             $xoops->tpl()->assign('title', XoopsLocale::A_UNINSTALL);
             $xoops->tpl()->assign('log', $system_extension->trace);
         }
-        $folder = array(1, 3);
+        $folder = array(1, 2, 3);
         $system->CleanCache($folder);
          //Set active modules in cache folder
         $xoops->setActiveModules();
@@ -155,7 +164,10 @@ switch ($op) {
         // Define Breadcrumb and tips
         $admin_page = new XoopsModuleAdmin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::EXTENSIONS_ADMINISTRATION, $system->adminVersion('extensions', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::EXTENSIONS_ADMINISTRATION,
+            $system->adminVersion('extensions', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::A_UPDATE);
         $admin_page->renderBreadcrumb();
 
@@ -170,7 +182,7 @@ switch ($op) {
             $xoops->tpl()->assign('title', XoopsLocale::A_UPDATE);
             $xoops->tpl()->assign('log', $system_extension->trace);
         }
-        $folder = array(1, 3);
+        $folder = array(1, 2, 3);
         $system->CleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
