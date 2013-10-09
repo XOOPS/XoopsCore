@@ -11,7 +11,7 @@
     >
 
 <testsuites>
-    <testsuite name="My Test Suite">
+    <testsuite name="My Test Suite for Xoops_lib">
         <directory>xoops_lib</directory>
     </testsuite>
 </testsuites>
@@ -34,7 +34,7 @@
 </filter>
 
 <logging>
-    <log type="coverage-html" target="xoops_lib-test-report" charset="UTF-8" yui="true" />
+    <log type="coverage-html" target="test-report-xoops_lib" charset="UTF-8" yui="true" />
 </logging>
 
 </phpunit>
