@@ -294,6 +294,18 @@ class DebugbarLogger implements LoggerInterface
     {
         if ($this->activated) {
             $data = Xoops::getInstance()->tpl()->get_template_vars();
+            // fix values that don't display properly
+            foreach ($data as $k => $v) {
+                if ($v === '') {
+                    $data[$k] = '(empty string)';
+                } elseif ($v === null) {
+                    $data[$k] = 'NULL';
+                } elseif ($v === true) { // just to be consistent with false
+                    $data[$k] = 'bool TRUE';
+                } elseif ($v === false) {
+                    $data[$k] = 'bool FALSE';
+                }
+            }
             $this->debugbar->addCollector(
                 new DebugBar\DataCollector\ConfigCollector($data, 'Smarty')
             );
@@ -362,7 +374,8 @@ class DebugbarLogger implements LoggerInterface
     public function __destruct()
     {
         if ($this->activated) {
-            $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, sprintf(_MD_DEBUGBAR_FILES, count(get_included_files())));
+            $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
+            $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
             $log = $this->renderer->render();
     
             echo $log;

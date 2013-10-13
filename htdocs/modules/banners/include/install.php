@@ -30,8 +30,8 @@
 function xoops_module_install_banners(&$module)
 {
     $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
+    //$xoops->db();
+    //global $xoopsDB;
     XoopsLoad::addMap(array('banners' => dirname(dirname(__FILE__)) . '/class/helper.php'));
     $helper = Banners::getInstance();
     // Get handler
@@ -180,18 +180,18 @@ function xoops_module_install_banners(&$module)
         $copy_file = XOOPS_ROOT_PATH . "/modules/banners/images/" . $k;
         if (!is_file($file) && is_file($copy_file)) {
             copy($copy_file, $file);
-            $obj = $banner_Handler->create();
-            $obj->setVar("banner_cid", $newclient_id);
-            $obj->setVar("banner_clickurl", $v);
-            $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $k);
-            $obj->setVar("banner_datestart", time());
-            $obj->setVar("banner_dateend", 0);
-            $obj->setVar("banner_status", 1);
-            $obj->setVar("banner_imptotal", 0);
-            $obj->setVar("banner_htmlbanner", 0);
-            $obj->setVar("banner_htmlcode", '');
-            $banner_Handler->insert($obj);
         }
+        $obj = $banner_Handler->create();
+        $obj->setVar("banner_cid", $newclient_id);
+        $obj->setVar("banner_clickurl", $v);
+        $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $k);
+        $obj->setVar("banner_datestart", time());
+        $obj->setVar("banner_dateend", 0);
+        $obj->setVar("banner_status", 1);
+        $obj->setVar("banner_imptotal", 0);
+        $obj->setVar("banner_htmlbanner", 0);
+        $obj->setVar("banner_htmlcode", '');
+        $banner_Handler->insert($obj);
     }
     return true;
 }

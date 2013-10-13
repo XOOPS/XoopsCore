@@ -5,7 +5,7 @@
  which is considered copyrighted (c) material of the original comment or credit authors.
 
  This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
+ but WITHOUT ANY WARRANTY, without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
@@ -59,967 +59,1173 @@ $modversion['onInstall'] = 'include/install.php';
 // JQuery
 $modversion['jquery'] = 1;
 
-// Mysql file
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+// table definitions
+$modversion['schema'] = 'sql/schema.yml';
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
-// Tables created by sql file (without prefix!)
-
-//todo, are we using all these tables?
-$i = 1;
-$modversion['tables'][$i] = "block_module_link";
-$i++;
-$modversion['tables'][$i] = "config";
-$i++;
-$modversion['tables'][$i] = "configoption";
-$i++;
-$modversion['tables'][$i] = "groups";
-$i++;
-$modversion['tables'][$i] = "group_permission";
-$i++;
-$modversion['tables'][$i] = "groups_users_link";
-$i++;
-$modversion['tables'][$i] = "imgset";
-$i++;
-$modversion['tables'][$i] = "imgset_tplset_link";
-$i++;
-$modversion['tables'][$i] = "imgsetimg";
-$i++;
-$modversion['tables'][$i] = "modules";
-$i++;
-$modversion['tables'][$i] = "newblocks";
-$i++;
-$modversion['tables'][$i] = "online";
-$i++;
-$modversion['tables'][$i] = "priv_msgs";
-$i++;
-$modversion['tables'][$i] = "ranks";
-$i++;
-$modversion['tables'][$i] = "session";
-$i++;
-$modversion['tables'][$i] = "tplset";
-$i++;
-$modversion['tables'][$i] = "tplfile";
-$i++;
-$modversion['tables'][$i] = "tplsource";
-$i++;
-$modversion['tables'][$i] = "users";
-$i++;
-$modversion['tables'][$i] = "cache_model";
+// Tables created by sql file or schema (without prefix!)
+$modversion['tables'] = array(
+    'block_module_link',
+    'config',
+    'configoption',
+    'groups',
+    'group_permission',
+    'groups_users_link',
+    'imgset',
+    'imgset_tplset_link',
+    'imgsetimg',
+    'modules',
+    'newblocks',
+    'online',
+    'priv_msgs',
+    'ranks',
+    'session',
+    'tplset',
+    'tplfile',
+    'tplsource',
+    'users',
+    'cache_model',
+);
 
 // Admin Templates
 // Blocks
-$i = 0;
-$modversion['blocks'][$i]['file'] = 'user.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_USER_MENU;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_USER_MENU_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_user_show';
-$modversion['blocks'][$i]['template'] = 'system_block_user.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'login.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_LOGIN;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_LOGIN_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_login_show';
-$modversion['blocks'][$i]['template'] = 'system_block_login.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'waiting.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_WAITING_CONTENTS;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_WAITING_CONTENTS_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_waiting_show';
-$modversion['blocks'][$i]['template'] = 'system_block_waiting.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'main.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_MAIN_MENU;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_MAIN_MENU_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_main_show';
-$modversion['blocks'][$i]['edit_func'] = 'b_system_main_edit';
-$modversion['blocks'][$i]['template'] = 'system_block_mainmenu.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'info.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_SITE_INFORMATION;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_SITE_INFORMATION;
-$modversion['blocks'][$i]['show_func'] = 'b_system_info_show';
-$modversion['blocks'][$i]['edit_func'] = 'b_system_info_edit';
-$modversion['blocks'][$i]['options'] = '320|190|s_poweredby.gif|1';
-$modversion['blocks'][$i]['template'] = 'system_block_siteinfo.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'online.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_WHO_IS_ONLINE;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_WHO_IS_ONLINE_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_online_show';
-$modversion['blocks'][$i]['template'] = 'system_block_online.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'topposters.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_TOP_POSTERS;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_TOP_POSTERS_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_topposters_show';
-$modversion['blocks'][$i]['edit_func'] = 'b_system_topposters_edit';
-$modversion['blocks'][$i]['options'] = '10|1';
-$modversion['blocks'][$i]['template'] = 'system_block_topusers.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'newmembers.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_NEW_MEMBERS;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_NEW_MEMBERS_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_newmembers_show';
-$modversion['blocks'][$i]['options'] = '10|1';
-$modversion['blocks'][$i]['edit_func'] = 'b_system_newmembers_edit';
-$modversion['blocks'][$i]['template'] = 'system_block_newusers.html';
-$i++;
-$modversion['blocks'][$i]['file'] = 'themes.php';
-$modversion['blocks'][$i]['name'] = SystemLocale::BLOCK_THEMES;
-$modversion['blocks'][$i]['description'] = SystemLocale::BLOCK_THEMES_DESC;
-$modversion['blocks'][$i]['show_func'] = 'b_system_themes_show';
-$modversion['blocks'][$i]['options'] = '0|80';
-$modversion['blocks'][$i]['edit_func'] = 'b_system_themes_edit';
-$modversion['blocks'][$i]['template'] = 'system_block_themes.html';
+$modversion['blocks'][] = array(
+    'file' => 'user.php',
+    'name' => SystemLocale::BLOCK_USER_MENU,
+    'description' => SystemLocale::BLOCK_USER_MENU_DESC,
+    'show_func' => 'b_system_user_show',
+    'template' => 'system_block_user.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'login.php',
+    'name' => SystemLocale::BLOCK_LOGIN,
+    'description' => SystemLocale::BLOCK_LOGIN_DESC,
+    'show_func' => 'b_system_login_show',
+    'template' => 'system_block_login.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'waiting.php',
+    'name' => SystemLocale::BLOCK_WAITING_CONTENTS,
+    'description' => SystemLocale::BLOCK_WAITING_CONTENTS_DESC,
+    'show_func' => 'b_system_waiting_show',
+    'template' => 'system_block_waiting.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'main.php',
+    'name' => SystemLocale::BLOCK_MAIN_MENU,
+    'description' => SystemLocale::BLOCK_MAIN_MENU_DESC,
+    'show_func' => 'b_system_main_show',
+    'edit_func' => 'b_system_main_edit',
+    'template' => 'system_block_mainmenu.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'info.php',
+    'name' => SystemLocale::BLOCK_SITE_INFORMATION,
+    'description' => SystemLocale::BLOCK_SITE_INFORMATION,
+    'show_func' => 'b_system_info_show',
+    'edit_func' => 'b_system_info_edit',
+    'options' => '320|190|s_poweredby.gif|1',
+    'template' => 'system_block_siteinfo.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'online.php',
+    'name' => SystemLocale::BLOCK_WHO_IS_ONLINE,
+    'description' => SystemLocale::BLOCK_WHO_IS_ONLINE_DESC,
+    'show_func' => 'b_system_online_show',
+    'template' => 'system_block_online.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'topposters.php',
+    'name' => SystemLocale::BLOCK_TOP_POSTERS,
+    'description' => SystemLocale::BLOCK_TOP_POSTERS_DESC,
+    'show_func' => 'b_system_topposters_show',
+    'edit_func' => 'b_system_topposters_edit',
+    'options' => '10|1',
+    'template' => 'system_block_topusers.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'newmembers.php',
+    'name' => SystemLocale::BLOCK_NEW_MEMBERS,
+    'description' => SystemLocale::BLOCK_NEW_MEMBERS_DESC,
+    'show_func' => 'b_system_newmembers_show',
+    'options' => '10|1',
+    'edit_func' => 'b_system_newmembers_edit',
+    'template' => 'system_block_newusers.html',
+);
+
+$modversion['blocks'][] = array(
+    'file' => 'themes.php',
+    'name' => SystemLocale::BLOCK_THEMES,
+    'description' => SystemLocale::BLOCK_THEMES_DESC,
+    'show_func' => 'b_system_themes_show',
+    'options' => '0|80',
+    'edit_func' => 'b_system_themes_edit',
+    'template' => 'system_block_themes.html',
+);
 
 // Menu
 $modversion['hasMain'] = 0;
 
 // Config categories
-$i = 0;
-$modversion['configcat']['general']['name'] = SystemLocale::GENERAL_SETTINGS;
-$modversion['configcat']['general']['description'] = '';
-$i++;
-$modversion['configcat']['user']['name'] = XoopsLocale::USER;
-$modversion['configcat']['user']['description'] = '';
-$i++;
-$modversion['configcat']['meta']['name'] = SystemLocale::META_TAGS_AND_FOOTER;
-$modversion['configcat']['meta']['description'] = '';
-$i++;
-$modversion['configcat']['mail']['name'] = XoopsLocale::EMAIL;
-$modversion['configcat']['mail']['description'] = '';
-$i++;
-$modversion['configcat']['censor']['name'] = SystemLocale::WORD_CENSORING;
-$modversion['configcat']['censor']['description'] = '';
-$i++;
-$modversion['configcat']['authentication']['name'] = SystemLocale::AUTHENTICATION;
-$modversion['configcat']['authentication']['description'] = '';
-$i = 0;
+$modversion['configcat']['general'] = array(
+    'name' => SystemLocale::GENERAL_SETTINGS,
+    'description' => '',
+);
+
+$modversion['configcat']['user'] = array(
+    'name' => XoopsLocale::USER,
+    'description' => '',
+);
+
+$modversion['configcat']['meta'] = array(
+    'name' => SystemLocale::META_TAGS_AND_FOOTER,
+    'description' => '',
+);
+
+$modversion['configcat']['mail'] = array(
+    'name' => XoopsLocale::EMAIL,
+    'description' => '',
+);
+
+$modversion['configcat']['censor'] = array(
+    'name' => SystemLocale::WORD_CENSORING,
+    'description' => '',
+);
+
+$modversion['configcat']['authentication'] = array(
+    'name' => SystemLocale::AUTHENTICATION,
+    'description' => '',
+);
+
 // Site preferences
 // Category general
-$modversion['config'][$i]['name'] = 'sitename';
-$modversion['config'][$i]['title'] = 'CONF_SITE_NAME';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = SystemLocale::CONF_SITE_NAME_DEFAULT;
-$i++;
-$modversion['config'][$i]['name'] = 'slogan';
-$modversion['config'][$i]['title'] = 'CONF_SLOGAN';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = SystemLocale::CONF_SLOGAN_DEFAULT;
-$i++;
-$modversion['config'][$i]['name'] = 'adminmail';
-$modversion['config'][$i]['title'] = 'CONF_ADMIN_EMAIL';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'locale';
-$modversion['config'][$i]['title'] = 'CONF_LOCALE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'locale';
-$modversion['config'][$i]['valuetype'] = 'other';
-$modversion['config'][$i]['default'] = 'en_US';
-$i++;
-$modversion['config'][$i]['name'] = 'startpage';
-$modversion['config'][$i]['title'] = 'CONF_START_PAGE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'startpage';
-$modversion['config'][$i]['valuetype'] = 'other';
-$modversion['config'][$i]['default'] = '--';
-$i++;
-$modversion['config'][$i]['name'] = 'server_TZ';
-$modversion['config'][$i]['title'] = 'CONF_SERVER_TIMEZONE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'timezone';
-$modversion['config'][$i]['valuetype'] = 'float';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'default_TZ';
-$modversion['config'][$i]['title'] = 'CONF_DEFAULT_TIMEZONE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'timezone';
-$modversion['config'][$i]['valuetype'] = 'float';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'theme_set';
-$modversion['config'][$i]['title'] = 'CONF_THEME_SET';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'theme';
-$modversion['config'][$i]['valuetype'] = 'other';
-$modversion['config'][$i]['default'] = 'default';
-$i++;
-$modversion['config'][$i]['name'] = 'cpanel';
-$modversion['config'][$i]['title'] = 'CONF_CONTROL_PANEL';
-$modversion['config'][$i]['description'] = 'CONF_CONTROL_PANEL_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'cpanel';
-$modversion['config'][$i]['valuetype'] = 'other';
-$modversion['config'][$i]['default'] = 'default';
-$i++;
-$modversion['config'][$i]['name'] = 'redirect_message_ajax';
-$modversion['config'][$i]['title'] = 'CONF_REDIRECT';
-$modversion['config'][$i]['description'] = 'CONF_REDIRECT_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'theme_set_allowed';
-$modversion['config'][$i]['title'] = 'CONF_THEME_SET_ALLOWED';
-$modversion['config'][$i]['description'] = 'CONF_THEME_SET_ALLOWED_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'theme_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('default' => 'default');
-$i++;
-$modversion['config'][$i]['name'] = 'theme_fromfile';
-$modversion['config'][$i]['title'] = 'CONF_THEME_FILE';
-$modversion['config'][$i]['description'] = 'CONF_THEME_FILE_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'template_set';
-$modversion['config'][$i]['title'] = 'CONF_TEMPLATE_SET';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'tplset';
-$modversion['config'][$i]['valuetype'] = 'other';
-$modversion['config'][$i]['default'] = 'default';
-$i++;
-$modversion['config'][$i]['name'] = 'anonymous';
-$modversion['config'][$i]['title'] = 'CONF_ANONYMOUS';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = XoopsLocale::ANONYMOUS;
-$i++;
-$modversion['config'][$i]['name'] = 'gzip_compression';
-$modversion['config'][$i]['title'] = 'CONF_GZIP_COMPRESSION';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'usercookie';
-$modversion['config'][$i]['title'] = 'CONF_USER_COOKIE';
-$modversion['config'][$i]['description'] = 'CONF_USER_COOKIE_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'xoops_user';
-$i++;
-$modversion['config'][$i]['name'] = 'use_mysession';
-$modversion['config'][$i]['title'] = 'CONF_USE_MY_SESSION';
-$modversion['config'][$i]['description'] = 'CONF_USE_MY_SESSION_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'session_name';
-$modversion['config'][$i]['title'] = 'CONF_SESSION_NAME';
-$modversion['config'][$i]['description'] = 'CONF_SESSION_NAME_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'xoops_session';
-$i++;
-$modversion['config'][$i]['name'] = 'session_expire';
-$modversion['config'][$i]['title'] = 'CONF_SESSION_EXPIRE';
-$modversion['config'][$i]['description'] = 'CONF_SESSION_EXPIRE_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 15;
-$i++;
-$modversion['config'][$i]['name'] = 'closesite';
-$modversion['config'][$i]['title'] = 'CONF_CLOSE_SITE';
-$modversion['config'][$i]['description'] = 'CONF_CLOSE_SITE_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'closesite_okgrp';
-$modversion['config'][$i]['title'] = 'CONF_CLOSE_SITE_GROUP';
-$modversion['config'][$i]['description'] = 'CONF_CLOSE_SITE_GROUP_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'group_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('1');
-$i++;
-$modversion['config'][$i]['name'] = 'closesite_text';
-$modversion['config'][$i]['title'] = 'CONF_CLOSE_SITE';
-$modversion['config'][$i]['description'] = 'CONF_CLOSE_SITE_TEXT_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = SystemLocale::CONF_CLOSE_SITE_DEFAULT;
-$i++;
-$modversion['config'][$i]['name'] = 'use_ssl';
-$modversion['config'][$i]['title'] = 'CONF_USE_SSL';
-$modversion['config'][$i]['description'] = 'CONF_USE_SSL_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'sslpost_name';
-$modversion['config'][$i]['title'] = 'CONF_SSL_POST_NAME';
-$modversion['config'][$i]['description'] = 'CONF_SSL_POST_NAME_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'xoops_ssl';
-$i++;
-$modversion['config'][$i]['name'] = 'sslloginlink';
-$modversion['config'][$i]['title'] = 'CONF_SSL_LINK';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'https://';
-$i++;
-$modversion['config'][$i]['name'] = 'enable_badips';
-$modversion['config'][$i]['title'] = 'CONF_ENABLE_BAD_IPS';
-$modversion['config'][$i]['description'] = 'CONF_ENABLE_BAD_IPS_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'bad_ips';
-$modversion['config'][$i]['title'] = 'CONF_BAD_IPS';
-$modversion['config'][$i]['description'] = 'CONF_BAD_IPS_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('127.0.0.1');
-$i++;
-$modversion['config'][$i]['name'] = 'module_cache';
-$modversion['config'][$i]['title'] = 'CONF_MODULE_CACHE';
-$modversion['config'][$i]['description'] = 'CONF_MODULE_CACHE_DESC';
-$modversion['config'][$i]['category'] = 'general';
-$modversion['config'][$i]['formtype'] = 'module_cache';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = '';
-$i++;
-// Category user
-$modversion['config'][$i]['name'] = 'allow_register';
-$modversion['config'][$i]['title'] = 'CONF_ALLOW_REGISTRATION';
-$modversion['config'][$i]['description'] = 'CONF_ALLOW_REGISTRATION_DESC';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'minpass';
-$modversion['config'][$i]['title'] = 'CONF_MIN_PASS';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 8;
-$i++;
-$modversion['config'][$i]['name'] = 'minuname';
-$modversion['config'][$i]['title'] = 'CONF_MIN_USERNAME';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 3;
-$i++;
-$modversion['config'][$i]['name'] = 'maxuname';
-$modversion['config'][$i]['title'] = 'CONF_MAX_USERNAME';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 10;
-$i++;
-$modversion['config'][$i]['name'] = 'allow_chgmail';
-$modversion['config'][$i]['title'] = 'CONF_ALLOW_CHANGE_EMAIL';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'welcome_type';
-$modversion['config'][$i]['title'] = 'CONF_WELCOME_TYPE';
-$modversion['config'][$i]['description'] = 'CONF_WELCOME_TYPE_DESC';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['options'] = array(
-    'CONF_WELCOME_TYPE_NONE' => 0,
-    'CONF_WELCOME_TYPE_EMAIL' => 1,
-    'CONF_WELCOME_TYPE_PM' => 2,
-    'CONF_WELCOME_TYPE_BOTH'  => 3
+$modversion['config'][] = array(
+    'name' => 'sitename',
+    'title' => 'CONF_SITE_NAME',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => SystemLocale::CONF_SITE_NAME_DEFAULT,
 );
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'new_user_notify';
-$modversion['config'][$i]['title'] = 'CONF_NEW_USER_NOTIFY';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'new_user_notify_group';
-$modversion['config'][$i]['title'] = 'CONF_NOTIFY_TO';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'group';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'activation_type';
-$modversion['config'][$i]['title'] = 'CONF_ACTIVATION_TYPE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['options'] = array(
-    'CONF_USER_ACTIVATION'  => 0,
-    'CONF_AUTO_ACTIVATION'  => 1,
-    'CONF_ADMIN_ACTIVATION' => 2
-);
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'activation_group';
-$modversion['config'][$i]['title'] = 'CONF_ACTIVATION_GROUP';
-$modversion['config'][$i]['description'] = 'CONF_ACTIVATION_GROUP_DESC';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'group';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'uname_test_level';
-$modversion['config'][$i]['title'] = 'CONF_USERNAME_LEVEL';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['options'] = array(
-    'CONF_LEVEL_STRICT' => 0,
-    'CONF_LEVEL_MEDIUM' => 1,
-    'CONF_LEVEL_LIGHT'  => 2
-);
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'self_delete';
-$modversion['config'][$i]['title'] = 'CONF_SELF_DELETE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'bad_unames';
-$modversion['config'][$i]['title'] = 'CONF_BAD_USERNAMES';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('webmaster', '^xoops', '^admin');
-$i++;
-$modversion['config'][$i]['name'] = 'bad_emails';
-$modversion['config'][$i]['title'] = 'CONF_BAD_EMAILS';
-$modversion['config'][$i]['description'] = 'CONF_BAD_EMAILS_DESC';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('xoops.org$');
-$i++;
-$modversion['config'][$i]['name'] = 'reg_dispdsclmr';
-$modversion['config'][$i]['title'] = 'CONF_DSPDSCLMR';
-$modversion['config'][$i]['description'] = 'CONF_DSPDSCLMR_DESC';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'reg_disclaimer';
-$modversion['config'][$i]['title'] = 'CONF_REGDSCLMR';
-$modversion['config'][$i]['description'] = 'CONF_DSPDSCLMR_DESC';
-$modversion['config'][$i]['category'] = 'user';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'CONF_DISCLAIMER_DEFAULT';
-$i++;
-// Category meta
-$modversion['config'][$i]['name'] = 'meta_keywords';
-$modversion['config'][$i]['title'] = 'CONF_METAKEY';
-$modversion['config'][$i]['description'] = 'CONF_METAKEY_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = SystemLocale::CONF_METAKEY_DEFAULT;
-$i++;
-$modversion['config'][$i]['name'] = 'meta_description';
-$modversion['config'][$i]['title'] = 'CONF_METADESC';
-$modversion['config'][$i]['description'] = 'CONF_METADESC_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = SystemLocale::CONF_METADESC_DEFAULT;
-$i++;
-$modversion['config'][$i]['name'] = 'meta_robots';
-$modversion['config'][$i]['title'] = 'CONF_METAROBOTS';
-$modversion['config'][$i]['description'] = 'CONF_METAROBOTS_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['options'] = array(
-    'CONF_INDEXFOLLOW'     => 'index,follow',
-    'CONF_NOINDEXFOLLOW'   => 'noindex,follow',
-    'CONF_INDEXNOFOLLOW'   => 'index,nofollow',
-    'CONF_NOINDEXNOFOLLOW' => 'noindex,nofollow'
-);
-$modversion['config'][$i]['default'] = 'index,follow';
-$i++;
-$modversion['config'][$i]['name'] = 'meta_rating';
-$modversion['config'][$i]['title'] = 'CONF_METARATING';
-$modversion['config'][$i]['description'] = 'CONF_METARATING_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['options'] = array(
-    'CONF_METAOGEN'   => 'general',
-    'CONF_METAO14YRS' => '14 years',
-    'CONF_METAOREST'  => 'restricted',
-    'CONF_METAOMAT'   => 'mature'
-);
-$modversion['config'][$i]['default'] = 'general';
-$i++;
-$modversion['config'][$i]['name'] = 'meta_author';
-$modversion['config'][$i]['title'] = 'CONF_METAAUTHOR';
-$modversion['config'][$i]['description'] = 'CONF_METAAUTHOR_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'XOOPS';
-$i++;
-$modversion['config'][$i]['name'] = 'meta_copyright';
-$modversion['config'][$i]['title'] = 'CONF_METACOPYR';
-$modversion['config'][$i]['description'] = 'CONF_METACOPYR_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = sprintf(SystemLocale::CONF_METACOPYR_DEFAULT, date('Y', time()));
-$i++;
-$modversion['config'][$i]['name'] = 'footer';
-$modversion['config'][$i]['title'] = 'CONF_FOOTER';
-$modversion['config'][$i]['description'] = 'CONF_FOOTER_DESC';
-$modversion['config'][$i]['category'] = 'meta';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = sprintf(SystemLocale::CONF_FOOTER_DEFAULT, date('Y', time()));
-$i++;
-// Category mail
-$modversion['config'][$i]['name'] = 'from';
-$modversion['config'][$i]['title'] = 'CONF_MAILFROM';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'fromname';
-$modversion['config'][$i]['title'] = 'CONF_MAILFROMNAME';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'fromuid';
-$modversion['config'][$i]['title'] = 'CONF_MAILFROMUID';
-$modversion['config'][$i]['description'] = 'CONF_MAILFROMUID_DESC';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'user';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'mailmethod';
-$modversion['config'][$i]['title'] = 'CONF_MAILERMETHOD';
-$modversion['config'][$i]['description'] = 'CONF_MAILERMETHOD_DESC';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['options'] = array(
-    'PHP mail()' => 'mail',
-    'sendmail'   => 'sendmail',
-    'SMTP'       => 'smtp',
-    'SMTPAuth'   => 'smtpauth'
-);
-$modversion['config'][$i]['default'] = 'mail';
-$i++;
-$modversion['config'][$i]['name'] = 'sendmailpath';
-$modversion['config'][$i]['title'] = 'CONF_SENDMAILPATH';
-$modversion['config'][$i]['description'] = 'CONF_SENDMAILPATH_DESC';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '/usr/sbin/sendmail';
-$i++;
-$modversion['config'][$i]['name'] = 'smtphost';
-$modversion['config'][$i]['title'] = 'CONF_SMTPHOST';
-$modversion['config'][$i]['description'] = 'CONF_SMTPHOST_DESC';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = 'a:1:{i:0;s:0:\"\";}';
-$i++;
-$modversion['config'][$i]['name'] = 'smtpuser';
-$modversion['config'][$i]['title'] = 'CONF_SMTPUSER';
-$modversion['config'][$i]['description'] = 'CONF_SMTPUSER_DESC';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'smtppass';
-$modversion['config'][$i]['title'] = 'CONF_SMTPPASS';
-$modversion['config'][$i]['description'] = 'CONF_SMTPPASS_DESC';
-$modversion['config'][$i]['category'] = 'mail';
-$modversion['config'][$i]['formtype'] = 'password';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-// Category censor
-$modversion['config'][$i]['name'] = 'censor_enable';
-$modversion['config'][$i]['title'] = 'CONF_DOCENSOR';
-$modversion['config'][$i]['description'] = 'CONF_DOCENSOR_DESC';
-$modversion['config'][$i]['category'] = 'censor';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'censor_words';
-$modversion['config'][$i]['title'] = 'CONF_CENSORWRD';
-$modversion['config'][$i]['description'] = 'CONF_CENSORWRD_DESC';
-$modversion['config'][$i]['category'] = 'censor';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('fuck', 'shit');
-$i++;
-$modversion['config'][$i]['name'] = 'censor_replace';
-$modversion['config'][$i]['title'] = 'CONF_CENSORRPLC';
-$modversion['config'][$i]['description'] = 'CONF_CENSORRPLC_DESC';
-$modversion['config'][$i]['category'] = 'censor';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '#OOPS#';
-$i++;
-// Category authentication
-$modversion['config'][$i]['name'] = 'auth_method';
-$modversion['config'][$i]['title'] = 'CONF_AUTHMETHOD';
-$modversion['config'][$i]['description'] = 'CONF_AUTHMETHOD_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['options'] = array(
-    'CONF_AUTH_CONFOPTION_XOOPS' => 'xoops',
-    'CONF_AUTH_CONFOPTION_LDAP'  => 'ldap',
-    'CONF_AUTH_CONFOPTION_AD'    => 'ads'
-);
-$modversion['config'][$i]['default'] = 'xoops';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_port';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_PORT';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 389;
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_server';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_SERVER';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_SERVER_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'your directory server';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_base_dn';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_BASE_DN';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_BASE_DN_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'dc=xoops,dc=org';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_manager_dn';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_MANAGER_DN';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_MANAGER_DN_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'manager_dn';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_manager_pass';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_MANAGER_PASS';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_MANAGER_PASS_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'password';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'manager_pass';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_version';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_VERSION';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_VERSION_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '3';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_users_bypass';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_USERS_BYPASS';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_USERS_BYPASS_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = array('admin');
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_loginname_asdn';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_LOGINNAME_ASDN';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_LOGINNAME_ASDN_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_loginldap_attr';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_LOGINLDAP_ATTR';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_LOGINLDAP_ATTR_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'uid';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_filter_person';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_FILTER_PERSON';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_FILTER_PERSON_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_domain_name';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_DOMAIN_NAME';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_DOMAIN_NAME_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'mydomain';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_provisionning';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_PROVIS';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_PROVIS_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_provisionning_group';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_PROVIS_GROUP';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_PROVIS_GROUP_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'group_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['default'] = 'a:1:{i:0;s:1:\"2\";}';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_mail_attr';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_MAIL_ATTR';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_MAIL_ATTR_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'mail';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_givenname_attr';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_GIVENNAME_ATTR';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_GIVENNAME_ATTR_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'givenname';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_surname_attr';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_SURNAME_ATTR';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_SURNAME_ATTR_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'sn';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_field_mapping';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_FIELD_MAPPING_ATTR';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_FIELD_MAPPING_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'email=mail|name=displayname';
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_provisionning_upd';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_PROVIS_UPD';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_PROVIS_UPD_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'ldap_use_TLS';
-$modversion['config'][$i]['title'] = 'CONF_LDAP_USETLS';
-$modversion['config'][$i]['description'] = 'CONF_LDAP_USETLS_DESC';
-$modversion['config'][$i]['category'] = 'authentication';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
 
-$i++;
-$modversion['config'][$i]['name'] = 'usetips';
-$modversion['config'][$i]['title'] = 'CONF_HELP_ONLINE';
-$modversion['config'][$i]['description'] = 'CONF_HELP_ONLINE_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
+$modversion['config'][] = array(
+    'name' => 'slogan',
+    'title' => 'CONF_SLOGAN',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => SystemLocale::CONF_SLOGAN_DEFAULT,
+);
+
+$modversion['config'][] = array(
+    'name' => 'adminmail',
+    'title' => 'CONF_ADMIN_EMAIL',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '',
+);
+
+$modversion['config'][] = array(
+    'name' => 'locale',
+    'title' => 'CONF_LOCALE',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'locale',
+    'valuetype' => 'other',
+    'default' => 'en_US',
+);
+
+$modversion['config'][] = array(
+    'name' => 'startpage',
+    'title' => 'CONF_START_PAGE',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'startpage',
+    'valuetype' => 'other',
+    'default' => '--',
+);
+
+$modversion['config'][] = array(
+    'name' => 'server_TZ',
+    'title' => 'CONF_SERVER_TIMEZONE',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'timezone',
+    'valuetype' => 'float',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'default_TZ',
+    'title' => 'CONF_DEFAULT_TIMEZONE',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'timezone',
+    'valuetype' => 'float',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'theme_set',
+    'title' => 'CONF_THEME_SET',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'theme',
+    'valuetype' => 'other',
+    'default' => 'default',
+);
+
+$modversion['config'][] = array(
+    'name' => 'cpanel',
+    'title' => 'CONF_CONTROL_PANEL',
+    'description' => 'CONF_CONTROL_PANEL_DESC',
+    'category' => 'general',
+    'formtype' => 'cpanel',
+    'valuetype' => 'other',
+    'default' => 'default',
+);
+
+$modversion['config'][] = array(
+    'name' => 'redirect_message_ajax',
+    'title' => 'CONF_REDIRECT',
+    'description' => 'CONF_REDIRECT_DESC',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'theme_set_allowed',
+    'title' => 'CONF_THEME_SET_ALLOWED',
+    'description' => 'CONF_THEME_SET_ALLOWED_DESC',
+    'category' => 'general',
+    'formtype' => 'theme_multi',
+    'valuetype' => 'array',
+    'default' => array('default' => 'default'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'theme_fromfile',
+    'title' => 'CONF_THEME_FILE',
+    'description' => 'CONF_THEME_FILE_DESC',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'template_set',
+    'title' => 'CONF_TEMPLATE_SET',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'tplset',
+    'valuetype' => 'other',
+    'default' => 'default',
+);
+
+$modversion['config'][] = array(
+    'name' => 'anonymous',
+    'title' => 'CONF_ANONYMOUS',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => XoopsLocale::ANONYMOUS,
+);
+
+$modversion['config'][] = array(
+    'name' => 'gzip_compression',
+    'title' => 'CONF_GZIP_COMPRESSION',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'usercookie',
+    'title' => 'CONF_USER_COOKIE',
+    'description' => 'CONF_USER_COOKIE_DESC',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'xoops_user' . dechex(time()),
+);
+
+$modversion['config'][] = array(
+    'name' => 'use_mysession',
+    'title' => 'CONF_USE_MY_SESSION',
+    'description' => 'CONF_USE_MY_SESSION_DESC',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'session_name',
+    'title' => 'CONF_SESSION_NAME',
+    'description' => 'CONF_SESSION_NAME_DESC',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'xoops_session',
+);
+
+$modversion['config'][] = array(
+    'name' => 'session_expire',
+    'title' => 'CONF_SESSION_EXPIRE',
+    'description' => 'CONF_SESSION_EXPIRE_DESC',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 15,
+);
+
+$modversion['config'][] = array(
+    'name' => 'closesite',
+    'title' => 'CONF_CLOSE_SITE',
+    'description' => 'CONF_CLOSE_SITE_DESC',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'closesite_okgrp',
+    'title' => 'CONF_CLOSE_SITE_GROUP',
+    'description' => 'CONF_CLOSE_SITE_GROUP_DESC',
+    'category' => 'general',
+    'formtype' => 'group_multi',
+    'valuetype' => 'array',
+    'default' => array('1'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'closesite_text',
+    'title' => 'CONF_CLOSE_SITE',
+    'description' => 'CONF_CLOSE_SITE_TEXT_DESC',
+    'category' => 'general',
+    'formtype' => 'textarea',
+    'valuetype' => 'text',
+    'default' => SystemLocale::CONF_CLOSE_SITE_DEFAULT,
+);
+
+$modversion['config'][] = array(
+    'name' => 'use_ssl',
+    'title' => 'CONF_USE_SSL',
+    'description' => 'CONF_USE_SSL_DESC',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'sslpost_name',
+    'title' => 'CONF_SSL_POST_NAME',
+    'description' => 'CONF_SSL_POST_NAME_DESC',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'xoops_ssl',
+);
+
+$modversion['config'][] = array(
+    'name' => 'sslloginlink',
+    'title' => 'CONF_SSL_LINK',
+    'description' => '',
+    'category' => 'general',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'https://',
+);
+
+$modversion['config'][] = array(
+    'name' => 'enable_badips',
+    'title' => 'CONF_ENABLE_BAD_IPS',
+    'description' => 'CONF_ENABLE_BAD_IPS_DESC',
+    'category' => 'general',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'bad_ips',
+    'title' => 'CONF_BAD_IPS',
+    'description' => 'CONF_BAD_IPS_DESC',
+    'category' => 'general',
+    'formtype' => 'textarea',
+    'valuetype' => 'array',
+    'default' => array('127.0.0.1'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'module_cache',
+    'title' => 'CONF_MODULE_CACHE',
+    'description' => 'CONF_MODULE_CACHE_DESC',
+    'category' => 'general',
+    'formtype' => 'module_cache',
+    'valuetype' => 'array',
+    'default' => '',
+);
+
+// Category user
+
+$modversion['config'][] = array(
+    'name' => 'allow_register',
+    'title' => 'CONF_ALLOW_REGISTRATION',
+    'description' => 'CONF_ALLOW_REGISTRATION_DESC',
+    'category' => 'user',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'minpass',
+    'title' => 'CONF_MIN_PASS',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 8,
+);
+
+$modversion['config'][] = array(
+    'name' => 'minuname',
+    'title' => 'CONF_MIN_USERNAME',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 3,
+);
+
+$modversion['config'][] = array(
+    'name' => 'maxuname',
+    'title' => 'CONF_MAX_USERNAME',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 10,
+);
+
+$modversion['config'][] = array(
+    'name' => 'allow_chgmail',
+    'title' => 'CONF_ALLOW_CHANGE_EMAIL',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'welcome_type',
+    'title' => 'CONF_WELCOME_TYPE',
+    'description' => 'CONF_WELCOME_TYPE_DESC',
+    'category' => 'user',
+    'formtype' => 'select',
+    'valuetype' => 'int',
+    'options' => array(
+        'CONF_WELCOME_TYPE_NONE' => 0,
+        'CONF_WELCOME_TYPE_EMAIL' => 1,
+        'CONF_WELCOME_TYPE_PM' => 2,
+        'CONF_WELCOME_TYPE_BOTH'  => 3
+    ),
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'new_user_notify',
+    'title' => 'CONF_NEW_USER_NOTIFY',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'new_user_notify_group',
+    'title' => 'CONF_NOTIFY_TO',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'group',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'activation_type',
+    'title' => 'CONF_ACTIVATION_TYPE',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'select',
+    'valuetype' => 'int',
+    'options' => array(
+        'CONF_USER_ACTIVATION'  => 0,
+        'CONF_AUTO_ACTIVATION'  => 1,
+        'CONF_ADMIN_ACTIVATION' => 2
+    ),
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'activation_group',
+    'title' => 'CONF_ACTIVATION_GROUP',
+    'description' => 'CONF_ACTIVATION_GROUP_DESC',
+    'category' => 'user',
+    'formtype' => 'group',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'uname_test_level',
+    'title' => 'CONF_USERNAME_LEVEL',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'select',
+    'valuetype' => 'int',
+    'options' => array(
+        'CONF_LEVEL_STRICT' => 0,
+        'CONF_LEVEL_MEDIUM' => 1,
+        'CONF_LEVEL_LIGHT'  => 2
+    ),
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'self_delete',
+    'title' => 'CONF_SELF_DELETE',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'bad_unames',
+    'title' => 'CONF_BAD_USERNAMES',
+    'description' => '',
+    'category' => 'user',
+    'formtype' => 'textarea',
+    'valuetype' => 'array',
+    'default' => array('webmaster', '^xoops', '^admin'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'bad_emails',
+    'title' => 'CONF_BAD_EMAILS',
+    'description' => 'CONF_BAD_EMAILS_DESC',
+    'category' => 'user',
+    'formtype' => 'textarea',
+    'valuetype' => 'array',
+    'default' => array('xoops.org$'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'reg_dispdsclmr',
+    'title' => 'CONF_DSPDSCLMR',
+    'description' => 'CONF_DSPDSCLMR_DESC',
+    'category' => 'user',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'reg_disclaimer',
+    'title' => 'CONF_REGDSCLMR',
+    'description' => 'CONF_DSPDSCLMR_DESC',
+    'category' => 'user',
+    'formtype' => 'textarea',
+    'valuetype' => 'text',
+    'default' => 'CONF_DISCLAIMER_DEFAULT',
+);
+
+// Category meta
+
+$modversion['config'][] = array(
+    'name' => 'meta_keywords',
+    'title' => 'CONF_METAKEY',
+    'description' => 'CONF_METAKEY_DESC',
+    'category' => 'meta',
+    'formtype' => 'textarea',
+    'valuetype' => 'text',
+    'default' => SystemLocale::CONF_METAKEY_DEFAULT,
+);
+
+$modversion['config'][] = array(
+    'name' => 'meta_description',
+    'title' => 'CONF_METADESC',
+    'description' => 'CONF_METADESC_DESC',
+    'category' => 'meta',
+    'formtype' => 'textarea',
+    'valuetype' => 'text',
+    'default' => SystemLocale::CONF_METADESC_DEFAULT,
+);
+
+$modversion['config'][] = array(
+    'name' => 'meta_robots',
+    'title' => 'CONF_METAROBOTS',
+    'description' => 'CONF_METAROBOTS_DESC',
+    'category' => 'meta',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => array(
+        'CONF_INDEXFOLLOW'     => 'index,follow',
+        'CONF_NOINDEXFOLLOW'   => 'noindex,follow',
+        'CONF_INDEXNOFOLLOW'   => 'index,nofollow',
+        'CONF_NOINDEXNOFOLLOW' => 'noindex,nofollow'
+    ),
+    'default' => 'index,follow',
+);
+
+$modversion['config'][] = array(
+    'name' => 'meta_rating',
+    'title' => 'CONF_METARATING',
+    'description' => 'CONF_METARATING_DESC',
+    'category' => 'meta',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => array(
+        'CONF_METAOGEN'   => 'general',
+        'CONF_METAO14YRS' => '14 years',
+        'CONF_METAOREST'  => 'restricted',
+        'CONF_METAOMAT'   => 'mature'
+    ),
+    'default' => 'general',
+);
+
+$modversion['config'][] = array(
+    'name' => 'meta_author',
+    'title' => 'CONF_METAAUTHOR',
+    'description' => 'CONF_METAAUTHOR_DESC',
+    'category' => 'meta',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'XOOPS',
+);
+
+$modversion['config'][] = array(
+    'name' => 'meta_copyright',
+    'title' => 'CONF_METACOPYR',
+    'description' => 'CONF_METACOPYR_DESC',
+    'category' => 'meta',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => sprintf(SystemLocale::CONF_METACOPYR_DEFAULT, date('Y', time())),
+);
+
+$modversion['config'][] = array(
+    'name' => 'footer',
+    'title' => 'CONF_FOOTER',
+    'description' => 'CONF_FOOTER_DESC',
+    'category' => 'meta',
+    'formtype' => 'textarea',
+    'valuetype' => 'text',
+    'default' => sprintf(SystemLocale::CONF_FOOTER_DEFAULT, date('Y', time())),
+);
+
+// Category mail
+
+$modversion['config'][] = array(
+    'name' => 'from',
+    'title' => 'CONF_MAILFROM',
+    'description' => '',
+    'category' => 'mail',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '',
+);
+
+$modversion['config'][] = array(
+    'name' => 'fromname',
+    'title' => 'CONF_MAILFROMNAME',
+    'description' => '',
+    'category' => 'mail',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '',
+);
+
+$modversion['config'][] = array(
+    'name' => 'fromuid',
+    'title' => 'CONF_MAILFROMUID',
+    'description' => 'CONF_MAILFROMUID_DESC',
+    'category' => 'mail',
+    'formtype' => 'user',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'mailmethod',
+    'title' => 'CONF_MAILERMETHOD',
+    'description' => 'CONF_MAILERMETHOD_DESC',
+    'category' => 'mail',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => array(
+        'PHP mail()' => 'mail',
+        'sendmail'   => 'sendmail',
+        'SMTP'       => 'smtp',
+        'SMTPAuth'   => 'smtpauth'
+    ),
+    'default' => 'mail',
+);
+
+$modversion['config'][] = array(
+    'name' => 'sendmailpath',
+    'title' => 'CONF_SENDMAILPATH',
+    'description' => 'CONF_SENDMAILPATH_DESC',
+    'category' => 'mail',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '/usr/sbin/sendmail',
+);
+
+$modversion['config'][] = array(
+    'name' => 'smtphost',
+    'title' => 'CONF_SMTPHOST',
+    'description' => 'CONF_SMTPHOST_DESC',
+    'category' => 'mail',
+    'formtype' => 'textarea',
+    'valuetype' => 'array',
+    'default' => 'a:1:{i:0,s:0:\"\",}',
+);
+
+$modversion['config'][] = array(
+    'name' => 'smtpuser',
+    'title' => 'CONF_SMTPUSER',
+    'description' => 'CONF_SMTPUSER_DESC',
+    'category' => 'mail',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '',
+);
+
+$modversion['config'][] = array(
+    'name' => 'smtppass',
+    'title' => 'CONF_SMTPPASS',
+    'description' => 'CONF_SMTPPASS_DESC',
+    'category' => 'mail',
+    'formtype' => 'password',
+    'valuetype' => 'text',
+    'default' => '',
+);
+
+// Category censor
+
+$modversion['config'][] = array(
+    'name' => 'censor_enable',
+    'title' => 'CONF_DOCENSOR',
+    'description' => 'CONF_DOCENSOR_DESC',
+    'category' => 'censor',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'censor_words',
+    'title' => 'CONF_CENSORWRD',
+    'description' => 'CONF_CENSORWRD_DESC',
+    'category' => 'censor',
+    'formtype' => 'textarea',
+    'valuetype' => 'array',
+    'default' => array('fuck', 'shit'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'censor_replace',
+    'title' => 'CONF_CENSORRPLC',
+    'description' => 'CONF_CENSORRPLC_DESC',
+    'category' => 'censor',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '#OOPS#',
+);
+
+// Category authentication
+
+$modversion['config'][] = array(
+    'name' => 'auth_method',
+    'title' => 'CONF_AUTHMETHOD',
+    'description' => 'CONF_AUTHMETHOD_DESC',
+    'category' => 'authentication',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => array(
+        'CONF_AUTH_CONFOPTION_XOOPS' => 'xoops',
+        'CONF_AUTH_CONFOPTION_LDAP'  => 'ldap',
+        'CONF_AUTH_CONFOPTION_AD'    => 'ads'
+    ),
+    'default' => 'xoops',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_port',
+    'title' => 'CONF_LDAP_PORT',
+    'description' => '',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 389,
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_server',
+    'title' => 'CONF_LDAP_SERVER',
+    'description' => 'CONF_LDAP_SERVER_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'your directory server',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_base_dn',
+    'title' => 'CONF_LDAP_BASE_DN',
+    'description' => 'CONF_LDAP_BASE_DN_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'dc=xoops,dc=org',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_manager_dn',
+    'title' => 'CONF_LDAP_MANAGER_DN',
+    'description' => 'CONF_LDAP_MANAGER_DN_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'manager_dn',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_manager_pass',
+    'title' => 'CONF_LDAP_MANAGER_PASS',
+    'description' => 'CONF_LDAP_MANAGER_PASS_DESC',
+    'category' => 'authentication',
+    'formtype' => 'password',
+    'valuetype' => 'text',
+    'default' => 'manager_pass',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_version',
+    'title' => 'CONF_LDAP_VERSION',
+    'description' => 'CONF_LDAP_VERSION_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '3',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_users_bypass',
+    'title' => 'CONF_LDAP_USERS_BYPASS',
+    'description' => 'CONF_LDAP_USERS_BYPASS_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textarea',
+    'valuetype' => 'array',
+    'default' => array('admin'),
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_loginname_asdn',
+    'title' => 'CONF_LDAP_LOGINNAME_ASDN',
+    'description' => 'CONF_LDAP_LOGINNAME_ASDN_DESC',
+    'category' => 'authentication',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_loginldap_attr',
+    'title' => 'CONF_LDAP_LOGINLDAP_ATTR',
+    'description' => 'CONF_LDAP_LOGINLDAP_ATTR_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'uid',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_filter_person',
+    'title' => 'CONF_LDAP_FILTER_PERSON',
+    'description' => 'CONF_LDAP_FILTER_PERSON_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => '',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_domain_name',
+    'title' => 'CONF_LDAP_DOMAIN_NAME',
+    'description' => 'CONF_LDAP_DOMAIN_NAME_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'mydomain',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_provisionning',
+    'title' => 'CONF_LDAP_PROVIS',
+    'description' => 'CONF_LDAP_PROVIS_DESC',
+    'category' => 'authentication',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_provisionning_group',
+    'title' => 'CONF_LDAP_PROVIS_GROUP',
+    'description' => 'CONF_LDAP_PROVIS_GROUP_DESC',
+    'category' => 'authentication',
+    'formtype' => 'group_multi',
+    'valuetype' => 'array',
+    'default' => 'a:1:{i:0,s:1:\"2\",}',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_mail_attr',
+    'title' => 'CONF_LDAP_MAIL_ATTR',
+    'description' => 'CONF_LDAP_MAIL_ATTR_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'mail',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_givenname_attr',
+    'title' => 'CONF_LDAP_GIVENNAME_ATTR',
+    'description' => 'CONF_LDAP_GIVENNAME_ATTR_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'givenname',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_surname_attr',
+    'title' => 'CONF_LDAP_SURNAME_ATTR',
+    'description' => 'CONF_LDAP_SURNAME_ATTR_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textbox',
+    'valuetype' => 'text',
+    'default' => 'sn',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_field_mapping',
+    'title' => 'CONF_LDAP_FIELD_MAPPING_ATTR',
+    'description' => 'CONF_LDAP_FIELD_MAPPING_DESC',
+    'category' => 'authentication',
+    'formtype' => 'textarea',
+    'valuetype' => 'text',
+    'default' => 'email=mail|name=displayname',
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_provisionning_upd',
+    'title' => 'CONF_LDAP_PROVIS_UPD',
+    'description' => 'CONF_LDAP_PROVIS_UPD_DESC',
+    'category' => 'authentication',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'ldap_use_TLS',
+    'title' => 'CONF_LDAP_USETLS',
+    'description' => 'CONF_LDAP_USETLS_DESC',
+    'category' => 'authentication',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 0,
+);
+
+// no category?
+
+$modversion['config'][] = array(
+    'name' => 'usetips',
+    'title' => 'CONF_HELP_ONLINE',
+    'description' => 'CONF_HELP_ONLINE_DESC',
+    'formtype' => 'yesno',
+    'valuetype' => 'int',
+    'default' => 1,
+);
 
 $icons = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/system/images/icons');
-$modversion['config'][$i]['name'] = 'typeicons';
-$modversion['config'][$i]['title'] = 'CONF_ICONS';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'default';
-$modversion['config'][$i]['options'] = $icons;
-$i++;
+$modversion['config'][] = array(
+    'name' => 'typeicons',
+    'title' => 'CONF_ICONS',
+    'description' => '',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'default',
+    'options' => $icons,
+);
+
 $breadcrumb = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/system/images/breadcrumb');
-$modversion['config'][$i]['name'] = 'typebreadcrumb';
-$modversion['config'][$i]['title'] = 'CONF_BREADCRUMB';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'default';
-$modversion['config'][$i]['options'] = $breadcrumb;
-$i++;
+$modversion['config'][] = array(
+    'name' => 'typebreadcrumb',
+    'title' => 'CONF_BREADCRUMB',
+    'description' => '',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'default',
+    'options' => $breadcrumb,
+);
+
 $jquery_theme = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/media/jquery/ui');
-$modversion['config'][$i]['name'] = 'jquery_theme';
-$modversion['config'][$i]['title'] = 'CONF_JQUERY_THEME';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'base';
-$modversion['config'][$i]['options'] = $jquery_theme;
+$modversion['config'][] = array(
+    'name' => 'jquery_theme',
+    'title' => 'CONF_JQUERY_THEME',
+    'description' => '',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'base',
+    'options' => $jquery_theme,
+);
 
-$i++;
-$modversion['config'][$i]['name'] = 'active_blocksadmin';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'active_filemanager';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'active_groups';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'active_modulesadmin';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'active_preferences';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'active_tplsets';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'active_users';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
+$modversion['config'][] = array(
+    'name' => 'active_blocksadmin',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
 
-$i++;
-$modversion['config'][$i]['name'] = 'groups_pager';
-$modversion['config'][$i]['title'] = 'CONF_GROUPS_PER_PAGE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 15;
-$i++;
-$modversion['config'][$i]['name'] = 'users_pager';
-$modversion['config'][$i]['title'] = 'CONF_USERS_PER_PAGE';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 20;
+$modversion['config'][] = array(
+    'name' => 'active_filemanager',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
 
-$i++;
+$modversion['config'][] = array(
+    'name' => 'active_groups',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'active_modulesadmin',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'active_preferences',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'active_tplsets',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'active_users',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'groups_pager',
+    'title' => 'CONF_GROUPS_PER_PAGE',
+    'description' => '',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 15,
+);
+
+$modversion['config'][] = array(
+    'name' => 'users_pager',
+    'title' => 'CONF_USERS_PER_PAGE',
+    'description' => '',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 20,
+);
+
 $editors = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
-$modversion['config'][$i]['name'] = 'blocks_editor';
-$modversion['config'][$i]['title'] = 'CONF_BLOCKS_EDITOR';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'dhtmltextarea';
-$modversion['config'][$i]['options'] = $editors;
-$i++;
-$modversion['config'][$i]['name'] = 'general_editor';
-$modversion['config'][$i]['title'] = 'CONF_GENERAL_EDITOR';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'dhtmltextarea';
-$modversion['config'][$i]['options'] = $editors;
-$i++;
-$modversion['config'][$i]['name'] = 'redirect';
-$modversion['config'][$i]['title'] = '';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'hidden';
-$modversion['config'][$i]['valuetype'] = 'textbox';
-$modversion['config'][$i]['default'] = 'admin.php?fct=preferences';
+$modversion['config'][] = array(
+    'name' => 'blocks_editor',
+    'title' => 'CONF_BLOCKS_EDITOR',
+    'description' => '',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'dhtmltextarea',
+    'options' => $editors,
+);
+
+$modversion['config'][] = array(
+    'name' => 'general_editor',
+    'title' => 'CONF_GENERAL_EDITOR',
+    'description' => '',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'dhtmltextarea',
+    'options' => $editors,
+);
+
+$modversion['config'][] = array(
+    'name' => 'redirect',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'textbox',
+    'default' => 'admin.php?fct=preferences',
+);

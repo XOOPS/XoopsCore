@@ -67,12 +67,15 @@ $modversion['adminmenu']  = 'admin/menu.php';
 // Scripts to run upon installation or update
 $modversion['onInstall'] = 'include/install.php';
 
-// Mysql file
+// Table definitions
+$modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
-// Tables created by sql file (without prefix!)
-$modversion['tables'][1] = "avatars_avatar";
-$modversion['tables'][2] = "avatars_user_link";
+// Tables created by sql file or schema (without prefix!)
+$modversion['tables'] = array(
+    'avatars_avatar',
+    'avatars_user_link',
+);
 
 // JQuery
 $modversion['jquery'] = 1;

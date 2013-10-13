@@ -50,7 +50,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_id
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function id($format = 'n')
@@ -59,7 +62,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_id
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_id($format = '')
@@ -68,7 +74,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_file
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_file($format = '')
@@ -77,7 +86,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_name
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_name($format = '')
@@ -86,7 +98,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_mimetype
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_mimetype($format = '')
@@ -95,7 +110,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_created
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_created($format = '')
@@ -104,7 +122,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_display
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_display($format = '')
@@ -113,7 +134,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_weight
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_weight($format = '')
@@ -122,7 +146,10 @@ class AvatarsAvatar extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * get avatar_type
+     * 
+     * @param string $format return format code
+     *
      * @return mixed
      */
     public function avatar_type($format = '')
@@ -133,7 +160,9 @@ class AvatarsAvatar extends XoopsObject
     /**
      * Set User Count
      *
-     * @param int $value
+     * @param int $value user count
+     *
+     * @return void
      */
     public function setUserCount($value)
     {
@@ -171,15 +200,19 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     /**
      * Fetch a row of objects from the database
      *
-     * @param CriteriaElement|null $criteria
-     * @param bool $id_as_key
+     * @param CriteriaElement|null $criteria  criteria object
+     * @param bool                 $id_as_key if true, use avatar_id as array key
+     *
      * @return array
      */
     public function getObjectsWithCount(CriteriaElement $criteria = null, $id_as_key = false)
     {
         $ret = array();
         $limit = $start = 0;
-        $sql = 'SELECT a.*, COUNT(u.user_id) AS count FROM ' . $this->db->prefix('avatars_avatar') . ' a LEFT JOIN ' . $this->db->prefix('avatars_user_link') . ' u ON u.avatar_id=a.avatar_id';
+        $sql = 'SELECT a.*, COUNT(u.user_id) AS count FROM '
+            . $this->db->prefix('avatars_avatar') . ' a LEFT JOIN '
+            . $this->db->prefix('avatars_user_link')
+            . ' u ON u.avatar_id=a.avatar_id';
         if (isset($criteria)) {
             $sql .= ' ' . $criteria->renderWhere();
             $sql .= ' GROUP BY a.avatar_id ORDER BY avatar_weight, avatar_id';
@@ -205,10 +238,11 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Add user
+     * Add user to avatars_user_link
      *
-     * @param int $avatar_id
-     * @param int $user_id
+     * @param int $avatar_id avatar id
+     * @param int $user_id   user id
+     *
      * @return bool
      */
     public function addUser($avatar_id, $user_id)
@@ -220,7 +254,12 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         }
         $sql = sprintf("DELETE FROM %s WHERE user_id = %u", $this->db->prefix('avatars_user_link'), $user_id);
         $this->db->query($sql);
-        $sql = sprintf("INSERT INTO %s (avatar_id, user_id) VALUES (%u, %u)", $this->db->prefix('avatars_user_link'), $avatar_id, $user_id);
+        $sql = sprintf(
+            "INSERT INTO %s (avatar_id, user_id) VALUES (%u, %u)",
+            $this->db->prefix('avatars_user_link'),
+            $avatar_id,
+            $user_id
+        );
         if (!$this->db->query($sql)) {
             return false;
         }
@@ -228,15 +267,17 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Get User
+     * getUser - get avatars_user_link for an avatar
      *
-     * @param AvatarsAvatar $avatar
+     * @param AvatarsAvatar $avatar avatar object
+     * 
      * @return array
      */
     public function getUser(AvatarsAvatar $avatar)
     {
         $ret = array();
-        $sql = 'SELECT user_id FROM ' . $this->db->prefix('avatars_user_link') . ' WHERE avatar_id=' . $avatar->getVar('avatar_id');
+        $sql = 'SELECT user_id FROM ' . $this->db->prefix('avatars_user_link')
+        . ' WHERE avatar_id=' . $avatar->getVar('avatar_id');
         if (!$result = $this->db->query($sql)) {
             return $ret;
         }
@@ -249,8 +290,9 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     /**
      * Get a list of Avatars
      *
-     * @param string $avatar_type
-     * @param string $avatar_display
+     * @param string $avatar_type    'C' for custom, 'S' for system
+     * @param bool   $avatar_display display avatar
+     * 
      * @return array
      */
     public function getListByType($avatar_type = null, $avatar_display = null)

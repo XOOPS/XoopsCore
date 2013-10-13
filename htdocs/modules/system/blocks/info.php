@@ -23,7 +23,6 @@ function b_system_info_show($options)
 {
     $xoops = Xoops::getInstance();
     $xoops->db();
-    global $xoopsDB;
     $myts = MyTextSanitizer::getInstance();
     $block = array();
     if (!empty($options[3])) {

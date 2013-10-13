@@ -6,6 +6,10 @@ if (typeof(PhpDebugBar) == 'undefined') {
 
 (function($) {
 
+    var csscls = function(cls) {
+        return PhpDebugBar.utils.csscls(cls, 'phpdebugbar-openhandler-');
+    };
+
     PhpDebugBar.OpenHandler = PhpDebugBar.Widget.extend({
 
         className: 'phpdebugbar-openhandler',
@@ -20,9 +24,9 @@ if (typeof(PhpDebugBar) == 'undefined') {
             this.$el.appendTo('body').hide();
             this.$closebtn = $('<a href="javascript:"><i class="icon-remove"></i></a>');
             this.$table = $('<tbody />');
-            $('<div class="header">PHP DebugBar | Open</div>').append(this.$closebtn).appendTo(this.$el);
+            $('<div>PHP DebugBar | Open</div>').addClass(csscls('header')).append(this.$closebtn).appendTo(this.$el);
             $('<table><thead><tr><th>ID</th><th>URL</th><th>Date</th><th>IP</th></tr></thead></table>').append(this.$table).appendTo(this.$el);
-            this.$actions = $('<div class="actions" />').appendTo(this.$el);
+            this.$actions = $('<div />').addClass(csscls('actions')).appendTo(this.$el);
 
             this.$closebtn.on('click', function() {
                 self.hide();
@@ -55,7 +59,7 @@ if (typeof(PhpDebugBar) == 'undefined') {
                     });
                 });
 
-            this.$overlay = $('<div class="phpdebugbar-openhandler-overlay" />').hide().appendTo('body');
+            this.$overlay = $('<div />').addClass(csscls('overlay')).hide().appendTo('body');
             this.$overlay.on('click', function() {
                 self.hide();
             });
@@ -107,15 +111,25 @@ if (typeof(PhpDebugBar) == 'undefined') {
         find: function(filters, offset, callback) {
             var data = $.extend({}, filters, {max: this.get('items_per_page'), offset: offset || 0});
             this.last_find_request = data;
-            $.getJSON(this.get('url'), data, callback);
+            this.ajax(data, callback);
         },
 
         load: function(id, callback) {
-            $.getJSON(this.get('url'), {op: "get", id: id}, callback);
+            this.ajax({op: "get", id: id}, callback);
         },
 
         clear: function(callback) {
-            $.getJSON(this.get('url'), {op: "clear"}, callback);
+            this.ajax({op: "clear"}, callback);
+        },
+
+        ajax: function(data, callback) {
+            $.ajax({
+                dataType: 'json',
+                url: this.get('url'),
+                data: data,
+                success: callback,
+                ignoreDebugBarAjaxHandler: true
+            });
         }
 
     });
