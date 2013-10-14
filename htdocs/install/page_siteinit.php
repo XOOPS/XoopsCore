@@ -26,6 +26,8 @@
 
 require_once dirname(__FILE__) . '/include/common.inc.php';
 
+set_time_limit(0); // don't want this to timeout
+
 $xoops = Xoops::getInstance();
 //Set active modules in cache folder, delete caches is existing
 $xoops->setActiveModules();
