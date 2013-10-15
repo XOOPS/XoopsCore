@@ -25,6 +25,9 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 global $xoops;
 $GLOBALS['xoops'] =& $xoops;
 
+//Legacy support
+global $xoopsDB;
+$GLOBALS['xoopsDB'] =& $xoopsDB;
 /**
  * YOU SHOULD NEVER USE THE FOLLOWING TO CONSTANTS, THEY WILL BE REMOVED
  */
@@ -95,6 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XO
  * Requires XOOPS_DB_PROXY;
  */
     $xoops->db();
+    //For Legacy support
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
 /**
  * Get xoops configs
  * Requires functions and database loaded

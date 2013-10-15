@@ -118,6 +118,7 @@ class Xoops
      */
     private $_db;
 
+
     /**
      * Actual Xoops OS
      */
@@ -134,6 +135,8 @@ class Xoops
         $this->pathTranslation();
 
         $this->_db = $this->db();
+
+
     }
 
     /**
@@ -154,10 +157,11 @@ class Xoops
 
     /**
      * @return XoopsConnection
+     * @todo remove legacy database lines
      */
     public function db()
     {
-        return XoopsDatabaseFactory::getDatabaseConnection();
+        return XoopsDatabaseFactory::getConnection();
     }
 
     /**

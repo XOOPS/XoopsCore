@@ -220,7 +220,7 @@ class GenericHelper
             $class = ucfirst(strtolower($this->dirname))
                 . ucfirst(strtolower($name)) . 'Handler';
             if (class_exists($class)) {
-                $db = \XoopsDatabaseFactory::getDatabaseConnection();
+                $db = \XoopsDatabaseFactory::getConnection();
                 $this->_handlers[$name] = new $class($db);
                 $this->addLog("Loading class '{$class}'");
             } else {
