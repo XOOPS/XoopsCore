@@ -37,12 +37,8 @@ class XoopsDatabaseFactory
      *
      * Legacy support function
      *
-     * NOTE: Persistance connection is not included. XOOPS_DB_PCONNECT is ignored.
-     *       
-     * NOTE: retLegacy was added as a temporary stop gap to return getDatabaseConnection back to legacy.
-     *       it will be removed once the core is seperated properly and getConnection is for new database
-     *       and getDatabaseConnection is set for legacy support. Get database is depreciated and will be
-     *       removed.
+     * NOTE: Persistance connection is not supported nor needed with Doctrine.
+     *       XOOPS_DB_PCONNECT is ignored.
      *
      *
      * @static
@@ -50,7 +46,7 @@ class XoopsDatabaseFactory
      *
      * @return XoopsDatabase Reference to the only instance of database class
      */
-    public static function getDatabaseConnection($retLegacy = false)
+    public static function getDatabaseConnection()
     {
         static $legacy;
         $file = XOOPS_ROOT_PATH . '/class/database/' . XOOPS_DB_TYPE . 'database.php';
@@ -70,16 +66,7 @@ class XoopsDatabaseFactory
         if (is_null($legacy->conn)) {
             trigger_error('notrace:Unable to connect to database', E_USER_ERROR);
         }
-        // Following lines are temporary as mentioned in note 2.
-       if ($retLegacy) {
-            return $legacy;
-        } else {
-        //Will remove next 3 lines once included in proper location.
-           global $xoopsDB; // Legacy support
-           $GLOBALS['xoopsDB'] =& $xoopsDB;
-           $xoopsDB = $legacy;
-            return $legacy->conn;
-        } 
+        return $legacy;
     }
 
 
@@ -106,16 +93,17 @@ class XoopsDatabaseFactory
         if (!isset($instance)) {
             $config = new \Doctrine\DBAL\Configuration();
             $config->setSQLLogger(new XoopsDebugStack());
+            $driver = 'pdo_' . XOOPS_DB_TYPE;
             $connectionParams = array(
                 'dbname' => XOOPS_DB_NAME,
                 'user' => XOOPS_DB_USER,
                 'password' => XOOPS_DB_PASS,
                 'host' => XOOPS_DB_HOST,
                 'charset' => XOOPS_DB_CHARSET,
-                'driver' => 'pdo_' . XOOPS_DB_TYPE,
+                'driver' => $driver,
                 'wrapperClass' => 'XoopsConnection',
             );
-            // Support for all of doctrine connector
+            // Support for other doctrine databases
             if (defined('XOOPS_DB_PORT')){
                 $connectionParams['port'] = XOOPS_DB_PORT;
             }
