@@ -29,6 +29,10 @@ require_once dirname(__FILE__) . '/include/common.inc.php';
 set_time_limit(0); // don't want this to timeout
 
 $xoops = Xoops::getInstance();
+
+// setup legacy db support
+$GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
+
 //Set active modules in cache folder, delete caches is existing
 $xoops->setActiveModules();
 $root = dirname(dirname(__FILE__));
