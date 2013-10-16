@@ -67,7 +67,7 @@ class Permission extends AbstractHelper
         }
         $this->mid = $this->module->getVar('mid');
         $this->dirname = $this->module->getVar('dirname');
-        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getConnection();
         $this->perm = new \XoopsGroupPermHandler($this->db);
         if (class_exists('Xoops', false)) {
             $this->xoops = \Xoops::getInstance();

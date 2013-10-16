@@ -26,6 +26,7 @@ class PageSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPlu
     public function search($queries, $andor, $limit, $start, $uid)
     {
         $xoops = Xoops::getInstance();
+        global $xoopsDB;
         $sql = "SELECT content_id, content_title, content_shorttext, content_text, content_author, content_create FROM " . $xoopsDB->prefix("page_content") . " WHERE content_status != 0";
 
         if ( $uid != 0 ) {

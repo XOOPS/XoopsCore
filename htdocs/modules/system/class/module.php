@@ -334,24 +334,24 @@ class SystemModule
                     unset($module);
                     unset($created_tables);
                     return false;
-                } else {
-                    unset($created_tables);
-                    $this->trace[] = XoopsLocale::S_DATA_INSERTED . sprintf(
-                        SystemLocale::F_MODULE_ID,
-                        '<strong>' . $module->getVar('mid') . '</strong>'
-                    );
-
-                    // install Templates
-                    $this->installTemplates($module);
-
-                    $xoops->templateClearModuleCache($module->getVar('mid'));
-
-                    // install blocks
-                    $this->installBlocks($module);
-
-                    // Install Configs
-                    $this->installConfigs($module, 'add');
                 }
+                unset($created_tables);
+                $this->trace[] = XoopsLocale::S_DATA_INSERTED . sprintf(
+                    SystemLocale::F_MODULE_ID,
+                    '<strong>' . $module->getVar('mid') . '</strong>'
+                );
+                $xoops->db()->beginTransaction();
+                // install Templates
+                $this->installTemplates($module);
+
+                $xoops->templateClearModuleCache($module->getVar('mid'));
+
+                // install blocks
+                $this->installBlocks($module);
+
+                // Install Configs
+                $this->installConfigs($module, 'add');
+                
                 if ($module->getInfo('hasMain')) {
                     $groups = array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS);
                 } else {
@@ -439,6 +439,9 @@ class SystemModule
                     '<strong>' . $module->getVar('name', 's') . '</strong>'
                 );
                 unset($blocks);
+
+                $xoops->db()->commit();
+
                 XoopsPreload::getInstance()->triggerEvent('onModuleInstall', array(&$module, &$this));
                 return $module;
             }

@@ -28,6 +28,10 @@ $xoopsOption['hascommon'] = true;
 require_once dirname(__FILE__) . '/include/common.inc.php';
 
 $xoops = Xoops::getInstance();
+
+// setup legacy db support
+$GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
+
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
 $xoops->loadLocale('system');
