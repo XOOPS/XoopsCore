@@ -7,7 +7,7 @@ defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);
 }
-$xoopsOption['nocommon'] = true;
+
 require_once dirname(__FILE__) . '/../htdocs/mainfile.UnitTest.php';
 
 require_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
