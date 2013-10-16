@@ -15,3 +15,4 @@ htdocs/xoops_lib/vendor/
 htdocs/xoops_lib/composer.lock
 htdocs/uploads/avatars/
 htdocs/uploads/banners/
+/UnitTestXoops/*.lnk
