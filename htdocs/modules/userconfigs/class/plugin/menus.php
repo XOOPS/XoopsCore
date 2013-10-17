@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 class UserconfigsMenusPlugin extends Xoops_Module_Plugin_Abstract implements MenusPluginInterface
 {
     /**
@@ -40,7 +38,7 @@ class UserconfigsMenusPlugin extends Xoops_Module_Plugin_Abstract implements Men
             foreach (array_keys($plugins) as $dirname) {
                 $mHelper = $xoops->getModuleHelper($dirname);
                 $ret[$dirname]['name'] = $mHelper->getModule()->getVar('name');
-                $ret[$dirname]['url'] = 'index.php?modid=' . $mHelper->getModule()->getVar('modid');
+                $ret[$dirname]['url'] = 'index.php?op=showmod&mid=' . $mHelper->getModule()->getVar('mid');
             }
         }
 
