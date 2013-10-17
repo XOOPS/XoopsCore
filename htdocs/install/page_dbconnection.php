@@ -31,37 +31,71 @@ $wizard = $_SESSION['wizard'];
 
 $settings = $_SESSION['settings'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $params = array('DB_TYPE', 'DB_HOST', 'DB_USER', 'DB_PASS');
-    foreach ($params as $name) {
-        $settings[$name] = $_POST[$name];
+// clear any old list
+if (array_key_exists('DB_PARAMETERS', $settings)) {
+    unset($settings['DB_PARAMETERS']);
+}
+// get list of parameters the selected drive accepts
+$driver_info = $wizard->configs['db_types'][$settings['DB_DRIVER']];
+$driver_params=explode(',', $driver_info['params']);
+$settings['DB_TYPE'] = $driver_info['type'];
+
+// get settings name and value (post, session or default) for each parameter
+foreach ($driver_params as $param) {
+    $name=false;
+    if (!empty($wizard->configs['db_param_names'][$param])) {
+        $name=$wizard->configs['db_param_names'][$param];
+        switch ($param) {
+            case 'host':
+                $default = empty($settings[$name]) ? 'localhost' : $settings[$name];
+                break;
+            case 'user':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+            case 'password':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+            case 'port':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+            case 'unix_socket':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+            case 'path':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+            case 'service':
+                $default = empty($settings[$name]) ? false : $settings[$name];
+                break;
+            case 'pooled':
+                $default = empty($settings[$name]) ? false : $settings[$name];
+                break;
+            case 'protocol':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+            case 'dbname':
+                $default = empty($settings[$name]) ? '' : $settings[$name];
+                break;
+        }
+        $value = $default;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $value = empty($_POST[$name]) ? $default : $_POST[$name];
+        }
+        $settings[$name]=$value;
     }
-    $settings['DB_PCONNECT'] = @$_POST['DB_PCONNECT'] ? 1 : 0;
 }
 
+// if a POST, try to connect to the database using the parameters 
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($settings['DB_HOST']) && !empty($settings['DB_USER'])) {
-    $func_connect = empty($settings['DB_PCONNECT']) ? "mysql_connect" : "mysql_pconnect";
-    if (!($link = @$func_connect($settings['DB_HOST'], $settings['DB_USER'], $settings['DB_PASS'], true))) {
-        $error = ERR_NO_DBCONNECTION;
-    }
-    if (empty($error)) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $instance = getDbConnection($error);
+    if ($instance && empty($error)) {
         $_SESSION['settings'] = $settings;
         $wizard->redirectToPage('+1');
         exit();
     }
 }
 
-if (@empty($settings['DB_HOST'])) {
-    // Fill with default values
-    $settings = array_merge($settings, array(
-            'DB_TYPE'     => 'mysql',
-            'DB_HOST'     => 'localhost',
-            'DB_USER'     => 'root',
-            'DB_PASS'     => '',
-            'DB_PCONNECT' => 0,
-        ));
-}
 ob_start();
 ?>
 <?php if (!empty($error)) {
@@ -71,19 +105,41 @@ ob_start();
     <legend><?php echo LEGEND_CONNECTION; ?></legend>
     <label class="xolabel" for="DB_DATABASE_LABEL" class="center">
         <?php echo DB_DATABASE_LABEL; ?>
-        <select size="1" name="DB_TYPE">
-            <?php
-            foreach ($wizard->configs['db_types'] as $db_type) {
-                $selected = ($settings['DB_TYPE'] == $db_type) ? 'selected' : '';
-                echo "<option value='$db_type' selected='$selected'>$db_type</option>";
-            }
-            ?>
-        </select>
+        <span>
+            <?php echo $wizard->configs['db_types'][$settings['DB_DRIVER']]['desc']; ?>
+        </span>
     </label>
-    <?php echo xoFormField('DB_HOST', $settings['DB_HOST'], DB_HOST_LABEL, DB_HOST_HELP); ?>
-    <?php echo xoFormField('DB_USER', $settings['DB_USER'], DB_USER_LABEL, DB_USER_HELP); ?>
-    <?php echo xoPassField('DB_PASS', $settings['DB_PASS'], DB_PASS_LABEL, DB_PASS_HELP); ?>
+<?php
+foreach ($driver_params as $param) {
+    $name = $wizard->configs['db_param_names'][$param];
+    if ($wizard->configs['db_param_types'][$param]=='string') {
+        echo xoFormField(
+            $name,
+            $settings[$name],
+            constant($name . '_LABEL'),
+            constant($name . '_HELP')
+        );
+    } elseif ($wizard->configs['db_param_types'][$param]=='boolean') {
+        echo xoBoolField(
+            $name,
+            $settings[$name],
+            constant($name . '_LABEL'),
+            constant($name . '_HELP')
+        );
+    } elseif ($wizard->configs['db_param_types'][$param]=='password') {
+        echo xoPassField(
+            $name,
+            $settings[$name],
+            constant($name . '_LABEL'),
+            constant($name . '_HELP')
+        );
+    }
+}
+?>
+</fieldset>
 
+<?php
+/*
     <label class="xolabel" for="DB_PCONNECT" class="center">
         <?php echo DB_PCONNECT_LABEL; ?>
         <input class="checkbox" type="checkbox" name="DB_PCONNECT"
@@ -91,9 +147,7 @@ ob_start();
 
         <div class="xoform-help"><?php echo DB_PCONNECT_HELP; ?></div>
     </label>
-</fieldset>
-
-<?php
+*/
 $content = ob_get_contents();
 ob_end_clean();
 

@@ -31,85 +31,138 @@ $wizard = $_SESSION['wizard'];
 
 $settings = $_SESSION['settings'];
 
-$func_connect = empty($settings['DB_PCONNECT']) ? "mysql_connect" : "mysql_pconnect";
-if (!($link = @$func_connect($settings['DB_HOST'], $settings['DB_USER'], $settings['DB_PASS'], true))) {
-    $error = ERR_NO_DBCONNECTION;
-    $wizard->redirectToPage('-1', $error);
-    exit();
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['charset']) && @$_GET['action'] == 'updateCollation') {
-    echo xoFormFieldCollation('DB_COLLATION', $settings['DB_COLLATION'], DB_COLLATION_LABEL, DB_COLLATION_HELP, $link, $_GET['charset']);
-    exit();
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $params = array('DB_NAME', 'DB_CHARSET', 'DB_COLLATION', 'DB_PREFIX');
+    $params = array('DB_NAME');
     foreach ($params as $name) {
         $settings[$name] = isset($_POST[$name]) ? $_POST[$name] : "";
     }
 }
 
+$platform=false;
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($settings['DB_NAME'])) {
-    $error = validateDbCharset($link, $settings['DB_CHARSET'], $settings['DB_COLLATION']);
-    $db_exist = true;
-    if (empty($error)) {
-        if (!@mysql_select_db($settings['DB_NAME'], $link)) {
-            // Database not here: try to create it
-            $result = mysql_query("CREATE DATABASE `" . $settings['DB_NAME'] . '`');
-            if (!$result) {
-                $error = ERR_NO_DATABASE;
-                $db_exist = false;
+$availableDatabases = array();
+
+$tried_create = false;
+$connection = null;
+$connection = getDbConnection($error);
+// if we specified the dbname and failed, try again without it
+// we will try and create it later
+if (!$connection && !empty($settings['DB_NAME'])) {
+    $hold_name=$settings['DB_NAME'];
+    unset($settings['DB_NAME']);
+    $_SESSION['settings'] = $settings;
+    $hold_error = $error;
+    $error='';
+    $connection = getDbConnection($error);
+    $settings['DB_NAME'] = $hold_name;
+    $_SESSION['settings'] = $settings;
+    if ($connection) {
+        // we have a database name and did not connect
+        if (!empty($settings['DB_NAME']) && !$tried_create) {
+            $platform = $connection->getDatabasePlatform();
+            $canCreate = $platform->supportsCreateDropDatabase();
+            if ($canCreate) {
+                $tried_create = true;
+                try {
+                    $sql = $platform->getCreateDatabaseSQL($connection->quoteIdentifier($settings['DB_NAME']));
+                    $result = $connection->exec($sql);
+                    if ($result) {
+                        // try to reconnect with the database specified
+                        $connection = null;
+                        $connection = getDbConnection($error);
+                    } else {
+                        $error = ERR_NO_DATABASE;
+                    }
+                } catch (Exception $e) {
+                    $error = $e->getMessage();
+                }
+            } else {
+                $error = ERR_NO_CREATEDB;
             }
         }
-        if ($db_exist && $settings['DB_CHARSET']) {
-            $sql = "ALTER DATABASE `" . $settings['DB_NAME'] . "` DEFAULT CHARACTER SET " . mysql_real_escape_string($settings['DB_CHARSET']) . ($settings['DB_COLLATION']
-                    ? " COLLATE " . mysql_real_escape_string($settings['DB_COLLATION']) : "");
-            if (!mysql_query($sql)) {
-                $error = ERR_CHARSET_NOT_SET . $sql;
-            }
-        }
+    } else { // keep original error
+        $error = $hold_error;
     }
-    if (empty($error)) {
+}
+
+// leave if we are already connected to a database from earlier input
+if ($connection && empty($error)) {
+    $currentDb = $connection->getDatabase();
+    if (!empty($currentDb)) {
+        $settings['DB_PARAMETERS'] = serialize(getDbConnectionParams());
         $_SESSION['settings'] = $settings;
         $wizard->redirectToPage('+1');
         exit();
     }
 }
+    
+if ($connection) {
+    $platform = $connection->getDatabasePlatform();
+    try {
+        $sql = $platform->getListDatabasesSQL();
+        $dbResults = $connection->fetchAll($sql);
+    } catch (Exception $e) {
+        $dbResults = false;
+    }
 
-if (@empty($settings['DB_NAME'])) {
-    // Fill with default values
-    $settings = array_merge($settings, array(
-                                    'DB_NAME' => 'xoops', 'DB_CHARSET' => 'utf8', 'DB_COLLATION' => '',
-                                    'DB_PREFIX' => 'x' . substr(md5(time()), 0, 3),
-                               ));
+    $dbIgnored = $wizard->configs['db_types'][$settings['DB_DRIVER']]['ignoredb'];
+    if ($dbResults) {
+        foreach ($dbResults as $dbrow) {
+            if (is_array($dbrow)) {
+                $dbase = reset($dbrow); // get first value in array
+            } else {
+                $dbase = $dbrow;
+            }
+            if (!in_array($dbase, $dbIgnored)) {
+                $availableDatabases[] = $dbase;
+            }
+        }
+    }
 }
+
+if (is_array($availableDatabases) && count($availableDatabases)==1) {
+    if (empty($settings['DB_NAME'])) {
+        $settings['DB_NAME'] = $availableDatabases[0];
+    }
+}
+
+$_SESSION['settings'] = $settings;
 
 ob_start();
 ?>
-<?php if (!empty($error)) {
+<?php
+if (!empty($error)) {
     echo '<div class="x2-note errorMsg">' . $error . "</div>\n";
-} ?>
-
+}
+?>
 <script type="text/javascript">
-    function setFormFieldCollation(id, val)
-    {
-        var display = (val == '') ? 'none' : '';
-        $(id).style.display = display;
-        new Ajax.Updater(
-                id, '<?php echo $_SERVER['PHP_SELF']; ?>',
-                { method:'get',parameters:'action=updateCollation&charset=' + val }
-        );
-    }
-</script>
+function updateDbName(){
+var e = document.getElementById("DB_AVAILABLE");
+var dbSelected = e.options[e.selectedIndex].text;
 
+document.getElementById("DB_NAME").value=dbSelected;
+}    
+</script> 
 <fieldset>
-    <legend><?php echo LEGEND_DATABASE; ?></legend>
+<?php
+if (!empty($availableDatabases)) {
+    echo '<legend>' . LEGEND_DATABASE . '</legend>';
+    echo '<div class="xoform-help">' . DB_AVAILABLE_HELP . '</div>';
+    echo '<label class="xolabel" for="DB_DATABASE_LABEL" class="center">';
+    echo DB_AVAILABLE_LABEL;
+    echo ' <select size="1" name="DB_AVAILABLE" id="DB_AVAILABLE" onchange="updateDbName();">';
+    $selected = ($settings['DB_NAME'] == '') ? 'selected' : '';
+    echo '<option value="" {$selected}>-----------</option>';
+    foreach ($availableDatabases as $dbase) {
+        $selected = ($settings['DB_NAME'] == $dbase) ? 'selected' : '';
+        echo "<option value=\"{$dbase}\" {$selected}>{$dbase}</option>";
+    }
+}
+?>
+        </select>
+    </label>
+
     <?php echo xoFormField('DB_NAME', $settings['DB_NAME'], DB_NAME_LABEL, DB_NAME_HELP); ?>
-    <?php echo xoFormField('DB_PREFIX', $settings['DB_PREFIX'], DB_PREFIX_LABEL, DB_PREFIX_HELP); ?>
-    <?php echo xoFormFieldCharset('DB_CHARSET', $settings['DB_CHARSET'], DB_CHARSET_LABEL, DB_CHARSET_HELP, $link); ?>
-    <?php echo xoFormBlockCollation('DB_COLLATION', $settings['DB_COLLATION'], DB_COLLATION_LABEL, DB_COLLATION_HELP, $link, $settings['DB_CHARSET']); ?>
 </fieldset>
 
 <?php

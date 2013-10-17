@@ -126,6 +126,7 @@ if ($current == 0) {
     <form id='<?php echo $wizard->pages[$wizard->currentPage]['name']; ?>' action='<?php echo $_SERVER['PHP_SELF']; ?>'
           method='post'>
         <div id="xo-page-title">
+            <?php if (@$pageHasHelp) { echo "<img id=\"help_button\" src=\"./img/help.png\" alt=\"" . HELP_BUTTON_ALT . "\" title=\"" . HELP_BUTTON_ALT . "\" onclick=\"document.body.className = 'show-help';\" />"; }; ?>
             <span class="index"><?php echo $wizard->pageIndex + 1; ?></span>
             <span class="setup"><?php echo XOOPS_INSTALL_WIZARD; ?></span>
             <span class="title"><?php echo $wizard->pages[$wizard->currentPage]['title']; ?></span>

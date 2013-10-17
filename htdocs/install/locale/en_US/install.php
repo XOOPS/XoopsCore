@@ -35,6 +35,7 @@ define("NONE", "None");
 define("SUCCESS", "Success");
 define("WARNING", "Warning");
 define("FAILED", "Failed");
+define("ENABLE", "Enable");
 
 // Titles (main and pages)
 define("XOOPS_INSTALL_WIZARD", "XOOPS Setup Wizard");
@@ -47,6 +48,8 @@ define("CONFIGURATION_CHECK", "Configuration check");
 define("CONFIGURATION_CHECK_TITLE", "Checking your server configuration");
 define("PATHS_SETTINGS", "Paths settings");
 define("PATHS_SETTINGS_TITLE", "Paths settings");
+define("DATABASE_DRIVER", "Database driver");
+define("DATABASE_DRIVER_TITLE", "Database driver selection");
 define("DATABASE_CONNECTION", "Database connection");
 define("DATABASE_CONNECTION_TITLE", "Database connection");
 define("DATABASE_CONFIG", "Database configuration");
@@ -59,6 +62,7 @@ define("DATA_INSERTION", "Data insertion");
 define("DATA_INSERTION_TITLE", "Saving your settings to the database");
 define("WELCOME", "Welcome");
 define("WELCOME_TITLE", "Welcome to your XOOPS site"); // L0
+define("HELP_BUTTON_ALT", "Turn on help messages");
 
 
 
@@ -73,6 +77,7 @@ define("XOOPS_DATA_PATH_HELP", "Physical path to the XOOPS datafiles (writable) 
 define("XOOPS_URL_LABEL", "Website location (URL)"); // L56
 define("XOOPS_URL_HELP", "Main URL that will be used to access your XOOPS installation"); // L58
 
+define("LEGEND_DRIVER", "Server driver");
 define("LEGEND_CONNECTION", "Server connection");
 define("LEGEND_DATABASE", "Database"); // L51
 
@@ -93,6 +98,22 @@ define("DB_PREFIX_HELP", "This prefix will be added to all new tables created to
 define("DB_PCONNECT_LABEL", "Use persistent connection"); // L54
 define("DB_PCONNECT_HELP", "Default is 'No'. Leave it blank if you are unsure"); // L69
 define("DB_DATABASE_LABEL", "Database");
+define("DB_DRIVER_LABEL", "Driver");
+define("DB_DRIVER_HELP", "Select the driver to use to communicate with your database.");
+define("DB_PORT_LABEL", "Port");
+define("DB_PORT_HELP", "The connection port for your database. This is often optional.");
+define("DB_SOCK_LABEL", "Socket");
+define("DB_SOCK_HELP", "UNIX Socket used to connect to the server. Only specify if required.");
+define("DB_PATH_LABEL", "Path");
+define("DB_PATH_HELP", "The full filesystem path to the database file.");
+define("DB_SERVICE_LABEL", "Service");
+define("DB_SERVICE_HELP", "Use service mode");
+define("DB_POOLED_LABEL", "Pooled");
+define("DB_POOLED_HELP", "Use pooled connections");
+define("DB_PROTOCOL_LABEL", "Protocol");
+define("DB_PROTOCOL_HELP", "Connection protocol");
+define("DB_AVAILABLE_LABEL", "Available databases");
+define("DB_AVAILABLE_HELP", "You can select a database from this list, or enter a new name to create a new one.");
 
 define("LEGEND_ADMIN_ACCOUNT", "Administrator account");
 define("ADMIN_LOGIN_LABEL", "Admin login"); // L37
@@ -119,8 +140,8 @@ define("DATA_INSERTED", "Initial data have been inserted into database.<br />Pre
 
 
 // Error messages
-define("ERR_COULD_NOT_ACCESS", "Could not access the specified folder. Please verify that it exists and is readable by the server.");
-define("ERR_NO_XOOPS_FOUND", "No XOOPS installation could be found in the specified folder.");
+define("ERR_COULD_NOT_ACCESS", "Can not access the folder.");
+define("ERR_NO_XOOPS_FOUND", "No instalable XOOPS found.");
 define("ERR_INVALID_EMAIL", "Invalid Email"); // L73
 define("ERR_REQUIRED", "Information is required."); // L41
 define("ERR_PASSWORD_MATCH", "The two passwords do not match");
@@ -128,6 +149,7 @@ define("ERR_NEED_WRITE_ACCESS", "The server must be given write access to the fo
 define("ERR_NO_DATABASE", "Could not create database. Contact the server administrator for details."); // L31
 define("ERR_NO_DBCONNECTION", "Could not connect to the database server."); // L106
 define("ERR_WRITING_CONSTANT", "Failed writing constant %s."); // L122
+define("ERR_NO_CREATEDB", "Cannot create database on this platform.");
 
 define("ERR_COPY_MAINFILE", "Could not copy the distribution file to mainfile.php");
 define("ERR_WRITE_MAINFILE", "Could not write into mainfile.php. Please check the file permission and try again.");
@@ -195,4 +217,3 @@ define("PASSWORD_BETTER", "Better");
 define("PASSWORD_MEDIUM", "Medium");
 define("PASSWORD_STRONG", "Strong");
 define("PASSWORD_STRONGEST", "Strongest");
-?>

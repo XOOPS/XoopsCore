@@ -40,9 +40,9 @@ if (empty($xoopsOption['hascommon'])) {
 include_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
 if (!defined("XOOPS_ROOT_PATH")) {
     define("XOOPS_ROOT_PATH", str_replace("\\", "/", realpath('../')));
-    define("XOOPS_PATH", "");
-    define("XOOPS_VAR_PATH", "");
-    define("XOOPS_URL", "");
+    define("XOOPS_PATH", isset($_SESSION['settings']['PATH']) ? $_SESSION['settings']['PATH']:"");
+    define("XOOPS_VAR_PATH", isset($_SESSION['settings']['VAR_PATH']) ? $_SESSION['settings']['VAR_PATH']:"");
+    define("XOOPS_URL", isset($_SESSION['settings']['URL']) ? $_SESSION['settings']['URL']:"");
 }
 
 include XOOPS_INSTALL_PATH . '/class/installwizard.php';

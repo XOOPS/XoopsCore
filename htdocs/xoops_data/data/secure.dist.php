@@ -39,11 +39,15 @@ define("XOOPS_DB_USER", "");
 define("XOOPS_DB_PASS", "");
 
 // Database Name
-// The name of database on the host. The installer will attempt to create the database if not exist
+// The name of database on the host.
 define("XOOPS_DB_NAME", "");
 
 // Use persistent connection? (Yes=1 No=0)
-// Default is "Yes". Choose "Yes" if you are unsure.
+// Default is "No". Choose "No" if you are unsure.
 define("XOOPS_DB_PCONNECT", 0);
+
+// Serialized connection parameter
+// This is built by the installer and includes all connection parameters
+define("XOOPS_DB_PARAMETERS", "");
 
 ?>

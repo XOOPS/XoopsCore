@@ -27,7 +27,7 @@
 require_once dirname(__FILE__) . '/include/common.inc.php';
 
 $_SESSION['error'] = array();
-$_SESSION['settings'] = array();
+//$_SESSION['settings'] = array();
 $_SESSION['siteconfig'] = array(
     'adminname'  => '',
     'adminmail'  => '',
