@@ -52,17 +52,21 @@ class Debug
      */
     public static function dump($var, $echo = true, $html = true, $exit = false)
     {
-        self::$config['css'] = array('url' => XOOPS_URL . '/modules/xmf/css/krumo/');
-        if (!$html) {
-            $msg = var_export($var, true);
+        if ($html && $echo && class_exists("\\Kint")) {
+            \Kint::dump(func_get_arg(0));
         } else {
-            \krumo::setConfig(self::$config);
-            $msg = \krumo::dump($var);
+            self::$config['css'] = array('url' => XOOPS_URL . '/modules/xmf/css/krumo/');
+            if (!$html) {
+                $msg = var_export($var, true);
+            } else {
+                \krumo::setConfig(self::$config);
+                $msg = \krumo::dump($var);
+            }
+            if (!$echo) {
+                return $msg;
+            }
+            echo $msg;
         }
-        if (!$echo) {
-            return $msg;
-        }
-        echo $msg;
         if ($exit) {
             die();
         }
@@ -81,6 +85,13 @@ class Debug
      */
     public static function backtrace($echo = true, $html = true, $exit = false)
     {
-        return self::dump(debug_backtrace(), $echo, $html, $exit);
+        if ($html && class_exists("\\Kint")) {
+            \Kint::trace(debug_backtrace());
+            if ($exit) {
+                die();
+            }
+        } else {
+            return self::dump(debug_backtrace(), $echo, $html, $exit);
+        }
     }
 }

@@ -46,17 +46,6 @@ include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
 require_once XOOPS_ROOT_PATH . DS . 'class' . DS . 'xoopsload.php';
 
 /**
- * Create Instance Xoops\Core\Logger Object, the logger manager
- */
-$xoopsLogger = Xoops::getInstance()->logger();
-
-/**
- *  Create Instance of Preload Object
- */
-$xoopsPreload = XoopsPreload::getInstance();
-$xoopsPreload->triggerEvent('core.include.common.start');
-
-/**
  * Create Instance of Xoops Object
  * Atention, not all methods can be used at this point
  */
@@ -64,6 +53,17 @@ $xoopsPreload->triggerEvent('core.include.common.start');
 $xoops = Xoops::getInstance();
 
 $xoops->option =& $GLOBALS['xoopsOption'];
+
+/**
+ * Create Instance Xoops\Core\Logger Object, the logger manager
+ */
+$xoopsLogger = $xoops->logger();
+
+/**
+ *  Create Instance of Preload Object
+ */
+$xoopsPreload = XoopsPreload::getInstance();
+$xoopsPreload->triggerEvent('core.include.common.start');
 
 /**
  * Create Instance of xoopsSecurity Object and check super globals
