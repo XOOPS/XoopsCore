@@ -50,6 +50,18 @@ $clean_input = XoopsFilterInput::gather(
         array('agree_disc','boolean', false, false),
     )
 );
+
+// from $_GET we use keys: op, id, actkey
+$clean_get_input = XoopsFilterInput::gather(
+    'get',
+    array(
+        array('op','string', 'register', true),
+        array('id','int'),
+        array('actkey','string', '', true),
+    ),
+    'actkey'
+);
+
 // move clean array to individual variables
 $op=$clean_input['op'];
 $uname=$clean_input['uname'];
@@ -61,6 +73,12 @@ $timezone_offset=$clean_input['timezone_offset'];
 $user_viewemail=$clean_input['user_viewemail'];
 $user_mailok=$clean_input['user_mailok'];
 $agree_disc=$clean_input['agree_disc'];
+// if this is an activation, use get
+if ($clean_get_input!==false) {
+    $op = $clean_get_input['op'];
+    $id = $clean_get_input['id'];
+    $actkey = $clean_get_input['actkey'];
+}
 
 switch ($op) {
     case 'newuser':
@@ -227,8 +245,8 @@ switch ($op) {
 
     case 'actv':
     case 'activate':
-        $id = intval($_GET['id']);
-        $actkey = trim($_GET['actkey']);
+        $id = $id;
+        $actkey = $actkey;
         if (empty($id)) {
             $xoops->redirect('index.php', 1, '');
             exit();

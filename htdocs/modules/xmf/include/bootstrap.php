@@ -24,7 +24,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 // DO NOT depend on these in your - they will change or be removed
-if (!defined('XMF_EXEC')) {
+if (false & !defined('XMF_EXEC')) {
     define('XMF_EXEC', true);
 
     define('XMF_URL', XOOPS_URL . '/modules/xmf');

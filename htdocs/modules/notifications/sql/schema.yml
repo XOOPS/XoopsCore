@@ -1,0 +1,126 @@
+tables:
+    notifications:
+        options: {  }
+        columns:
+            id:
+                name: id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            modid:
+                name: modid
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            itemid:
+                name: itemid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            category:
+                name: category
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            event:
+                name: event
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            uid:
+                name: uid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            mode:
+                name: mode
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [id]
+                unique: true
+                primary: true
+            modid:
+                name: modid
+                columns: [modid]
+                unique: false
+                primary: false
+            itemid:
+                name: itemid
+                columns: [itemid]
+                unique: false
+                primary: false
+            class:
+                name: class
+                columns: [category]
+                unique: false
+                primary: false
+            uid:
+                name: uid
+                columns: [uid]
+                unique: false
+                primary: false
+            event:
+                name: event
+                columns: [event]
+                unique: false
+                primary: false

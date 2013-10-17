@@ -41,4 +41,7 @@ $modversion['hasAdmin'] = 0;
 $modversion['hasSearch'] = 0;
 // Menu
 $modversion['hasMain'] = 0;
-?>
+
+// extension
+$modversion['extension'] = 1;
+$modversion['extension_module'][] = 'system';
