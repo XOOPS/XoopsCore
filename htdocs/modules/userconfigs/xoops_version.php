@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
 
 
 $modversion = array();
@@ -45,11 +45,12 @@ $modversion['min_xoops'] = '2.6.0';
 $modversion['min_db'] = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 
 // paypal
-$modversion['paypal'] = array();
-$modversion['paypal']['business'] = 'lusopoemas@gmail.com';
-$modversion['paypal']['item_name'] = '';
-$modversion['paypal']['amount'] = 0;
-$modversion['paypal']['currency_code'] = 'EUR';
+$modversion['paypal'] = array(
+    'business' => 'lusopoemas@gmail.com',
+    'item_name' => '',
+    'amount' => 0,
+    'currency_code' => 'EUR',
+);
 
 // Admin things
 $modversion['hasAdmin'] = 0;
@@ -59,8 +60,10 @@ $modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
 // Sql
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$i= 0;
-$modversion['tables'][$i] = "userconfigs_item";
-$i++;
-$modversion['tables'][$i] = "userconfigs_option";
+$modversion['schema'] = 'sql/schema.yml';
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+
+$modversion['tables'] = array(
+    'userconfigs_item',
+    'userconfigs_option',
+);

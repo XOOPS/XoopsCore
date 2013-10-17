@@ -1,0 +1,216 @@
+tables:
+    userconfigs_item:
+        options: {  }
+        columns:
+            conf_id:
+                name: conf_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            conf_modid:
+                name: conf_modid
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_uid:
+                name: conf_uid
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_name:
+                name: conf_name
+                type: string
+                default: ''
+                notnull: true
+                length: 25
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_title:
+                name: conf_title
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_value:
+                name: conf_value
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_desc:
+                name: conf_desc
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_formtype:
+                name: conf_formtype
+                type: string
+                default: ''
+                notnull: true
+                length: 15
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_valuetype:
+                name: conf_valuetype
+                type: string
+                default: ''
+                notnull: true
+                length: 10
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_order:
+                name: conf_order
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [conf_id]
+                unique: true
+                primary: true
+            conf_mod_cat_id:
+                name: conf_mod_cat_id
+                columns: [conf_modid, conf_uid]
+                unique: false
+                primary: false
+            conf_order:
+                name: conf_order
+                columns: [conf_order]
+                unique: false
+                primary: false
+    userconfigs_option:
+        options: {  }
+        columns:
+            confop_id:
+                name: confop_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            confop_name:
+                name: confop_name
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            confop_value:
+                name: confop_value
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            conf_id:
+                name: conf_id
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [confop_id]
+                unique: true
+                primary: true
+            conf_id:
+                name: conf_id
+                columns: [conf_id]
+                unique: false
+                primary: false
