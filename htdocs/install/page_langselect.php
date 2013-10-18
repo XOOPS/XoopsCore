@@ -29,6 +29,7 @@ require_once dirname(__FILE__) . '/include/common.inc.php';
 
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
+$_SESSION['settings'] = array();
 
 setcookie('xo_install_lang', 'en_US', null, null, null);
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['lang'])) {
@@ -53,7 +54,7 @@ foreach ($languages as $lang) {
 
 $content .= "</div>";
 
-$_SESSION['pageHasHelp'] = true;
+$_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = true;
 $_SESSION['content'] = $content;
 include XOOPS_INSTALL_PATH . '/include/install_tpl.php';

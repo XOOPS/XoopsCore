@@ -3,7 +3,8 @@
 html { margin:    0;    padding:    0;    height: 100%;}
 body {
     padding:            0;
-    background:         url(../img/bg.png) repeat-x #7BCAF4;
+/*    background:         url(../img/bg.png) repeat-x #7BCAF4; */
+    background-color:   #7BCAF4;
     color:              #666;
     font:               10pt tahoma, osaka,taipei,verdana, arial, helvetica, sans-serif;
 }
@@ -111,7 +112,9 @@ img {
 }
 #xo-header ul{padding: 0; margin: 0; list-style: none;height: 56px;width: 2000px;}
 #xo-header ul li{
-    list-style: none; float: left; background: url(../img/step-sep.png) no-repeat right; position: relative; padding: 15px 5px 15px 24px;
+    list-style: none; float: left;
+    /* background: url(../img/step-sep.png) no-repeat right; */
+    position: relative; padding: 15px 5px 15px 24px;
     color: #98B8CB;
     text-shadow: -1px -1px 0px #367599;
 }
@@ -341,11 +344,11 @@ legend {
 
 .xoform-help {
     display:                    none;
-    margin:                     5px;
+    margin:                     -5px;
     padding:                    5px;
     color:                      #333;
     list-style-type:            none;
-	background-color:	#F4FAFF;
+	background-color:	#F4F4FF;
 	border:				1px solid #89BAD3;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -383,7 +386,7 @@ ul.diags, ul.log {
 ul.diags li, ul.log li {
     color:                      #000;
     padding: 2px 0 2px 20px;
-    background: url(../img/item.png) no-repeat left;
+/*    background: url(../img/item.png) no-repeat left; */
 }
 ul.diags li.success, ul.log li.success { background-image: url(../img/yes.png); }
 ul.diags li.failure, ul.log li.failure {
@@ -414,8 +417,8 @@ ul.diags li.failure, ul.log li.failure {
 
 /* ===== messages ===== */
 .pathmessage {
-    position:                   absolute;
-    float:                      right;
+/*    position:                   absolute; */
+/*    float:                      right; */
     margin-left:                5px;
     width:                      220px;
 }
@@ -553,7 +556,7 @@ textarea {
 }
 #passwordmetter {
     position :                  absolute;
-    right:                      -7px;
+    right:                      -1px;
     top:                        -50px;
     width:                      200px;
     padding:                    0 5px 5px 5px;

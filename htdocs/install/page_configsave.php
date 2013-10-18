@@ -34,13 +34,10 @@ $settings = $_SESSION['settings'];
 if (empty($settings['ROOT_PATH'])) {
     $wizard->redirectToPage('pathsettings');
     exit();
-} else {
-    if (empty($settings['DB_HOST'])) {
-        $wizard->redirectToPage('dbsettings');
-        exit();
-    }
+} elseif (empty($settings['DB_PARAMETERS'])) {
+    $wizard->redirectToPage('dbdriver');
+    exit();
 }
-
 $error = '';
 if (!@copy($settings['ROOT_PATH'] . '/mainfile.dist.php', $settings['ROOT_PATH'] . '/mainfile.php')) {
     $error = ERR_COPY_MAINFILE;
@@ -106,7 +103,7 @@ if (!@copy($rewrite['VAR_PATH'] . '/data/secure.dist.php', $rewrite['VAR_PATH'] 
             } else {
                 if (preg_match("/(define\()([\"'])(XOOPS_{$key})\\2,\s*([\"'])(.*?)\\4\s*\)/", $content)) {
                     $val = str_replace('$', '\$', addslashes($val));
-                    $content = preg_replace("/(define\()([\"'])(XOOPS_{$key})\\2,\s*([\"'])(.*?)\\4\s*\)/", "define('XOOPS_{$key}', '{$val}')", $content);
+                    $content = preg_replace("/(define\()([\"'])(XOOPS_{$key})\\2,\s*([\"'])(.*?)\\4\s*\)/", "define('XOOPS_{$key}', \"{$val}\")", $content);
                 }
             }
         }

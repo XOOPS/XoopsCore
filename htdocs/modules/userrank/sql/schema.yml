@@ -1,0 +1,108 @@
+tables:
+    ranks:
+        options: {  }
+        columns:
+            rank_id:
+                name: rank_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            rank_title:
+                name: rank_title
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            rank_min:
+                name: rank_min
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            rank_max:
+                name: rank_max
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            rank_special:
+                name: rank_special
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            rank_image:
+                name: rank_image
+                type: string
+                default: null
+                notnull: false
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [rank_id]
+                unique: true
+                primary: true
+            rank_min:
+                name: rank_min
+                columns: [rank_min]
+                unique: false
+                primary: false
+            rank_max:
+                name: rank_max
+                columns: [rank_max]
+                unique: false
+                primary: false
+            rankminrankmaxranspecial:
+                name: rankminrankmaxranspecial
+                columns: [rank_min, rank_max, rank_special]
+                unique: false
+                primary: false
+            rankspecial:
+                name: rankspecial
+                columns: [rank_special]
+                unique: false
+                primary: false

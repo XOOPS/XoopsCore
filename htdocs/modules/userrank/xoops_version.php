@@ -47,6 +47,8 @@ $modversion['min_php']             = '5.3';
 $modversion['min_xoops']           = '2.6.0';
 $modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
+$modversion['onInstall'] = 'include/install.php';
+
 // paypal
 $modversion['paypal']                  = array();
 $modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
@@ -70,14 +72,17 @@ $modversion['extension_module'][] = 'system';
  Admin things
 */
 $modversion['hasAdmin'] = 1;
-$modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminindex'] = 'admin/index.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
 // Mysql file
-$modversion['sqlfile']['mysql'] = "sql/mysql." . Xoops::getInstance()->getConfig('language') . ".sql";
+$modversion['schema'] = 'sql/schema.yml';
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'][1] = "ranks";
+$modversion['tables'] = array(
+    'ranks',
+);
 
 /*
  JQuery
@@ -89,15 +94,20 @@ $modversion['jquery_plugin'][] = 'jquery.ui.js';
 /*
  Admin Templates
 */
-$modversion['templates'][] = array('file' => 'userrank.html', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array(
+    'file' => 'userrank.html',
+    'description' => '',
+    'type' => 'admin'
+);
 
 /*
  Preferences
 */
-$i = 0;
-$modversion['config'][$i]['name']        = 'userrank_pager';
-$modversion['config'][$i]['title']       = '_MI_USERRANK_PREFERENCE_PAGER';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 20;
+$modversion['config'][] = array(
+    'name'        => 'userrank_pager',
+    'title'       => '_MI_USERRANK_PREFERENCE_PAGER',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 20,
+);

@@ -56,8 +56,8 @@ ob_start();
 </tr>
 
 <tr>
-    <th><?php printf(PHP_EXTENSION,'MySQL'); ?></th>
-    <td><?php echo xoDiag(function_exists('mysql_connect') ? 1 : -1, @mysql_get_client_info()); ?></td>
+    <th><?php printf(PHP_EXTENSION,'PDO'); ?></th>
+    <td><?php echo xoDiag(extension_loaded('PDO') ? 1 : -1, 'PDO::getAvailableDrivers() = ' . @implode(', ',PDO::getAvailableDrivers())); ?></td>
 </tr>
 
 <tr>
