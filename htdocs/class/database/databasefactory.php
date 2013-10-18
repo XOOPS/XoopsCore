@@ -25,7 +25,6 @@ use Xoops\Core\Database\Logging\XoopsDebugStack;
  * @link      http://xoops.org
  * @since     2.6.0
  */
-
 class XoopsDatabaseFactory
 {
 
@@ -49,13 +48,13 @@ class XoopsDatabaseFactory
     public static function getDatabaseConnection()
     {
         static $legacy;
-        $file = XOOPS_ROOT_PATH . '/class/database/' . XOOPS_DB_TYPE . 'database.php';
+        $file = XOOPS_ROOT_PATH . '/class/database/mysqldatabase.php';
         if (!isset($legacy) && file_exists($file)) {
             require_once $file;
             if (!defined('XOOPS_DB_PROXY')) {
-                $class = 'Xoops' . ucfirst(XOOPS_DB_TYPE) . 'DatabaseSafe';
+                $class = 'XoopsMysqlDatabaseSafe';
             } else {
-                $class = 'Xoops' . ucfirst(XOOPS_DB_TYPE) . 'DatabaseProxy';
+                $class = 'XoopsMysqlDatabaseProxy';
             }
             $xoopsPreload = XoopsPreload::getInstance();
             $xoopsPreload->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
@@ -93,27 +92,31 @@ class XoopsDatabaseFactory
         if (!isset($instance)) {
             $config = new \Doctrine\DBAL\Configuration();
             $config->setSQLLogger(new XoopsDebugStack());
-            $driver = 'pdo_' . XOOPS_DB_TYPE;
-            $connectionParams = array(
-                'dbname' => XOOPS_DB_NAME,
-                'user' => XOOPS_DB_USER,
-                'password' => XOOPS_DB_PASS,
-                'host' => XOOPS_DB_HOST,
-                'charset' => XOOPS_DB_CHARSET,
-                'driver' => $driver,
-                'wrapperClass' => 'XoopsConnection',
-            );
-            // Support for other doctrine databases
-            if (defined('XOOPS_DB_PORT')){
-                $connectionParams['port'] = XOOPS_DB_PORT;
+            if (defined('XOOPS_DB_PARAMETERS')) {
+                $connectionParams = unserialize(XOOPS_DB_PARAMETERS);
+                $connectionParams['wrapperClass'] = 'XoopsConnection';
+            } else {
+                $driver = 'pdo_' . XOOPS_DB_TYPE;
+                $connectionParams = array(
+                    'dbname' => XOOPS_DB_NAME,
+                    'user' => XOOPS_DB_USER,
+                    'password' => XOOPS_DB_PASS,
+                    'host' => XOOPS_DB_HOST,
+                    'charset' => XOOPS_DB_CHARSET,
+                    'driver' => $driver,
+                    'wrapperClass' => 'XoopsConnection',
+                );
+                // Support for other doctrine databases
+                if (defined('XOOPS_DB_PORT')) {
+                    $connectionParams['port'] = XOOPS_DB_PORT;
+                }
+                if (defined('XOOPS_DB_SOCKET')) {
+                    $connectionParams['unix_socket'] = XOOPS_DB_SOCKET;
+                }
+                if (!is_null($options) && is_array($options)) {
+                    $connectionParams['driverOptions'] = $options;
+                }
             }
-            if (defined('XOOPS_DB_SOCKET')){
-                $connectionParams['unix_socket'] = XOOPS_DB_SOCKET;;
-            }
-            if (!is_null($options) && is_array($options)){
-                $connectionParams['driverOptions'] = $options;
-            }
-
             $instance
                 = \Doctrine\DBAL\DriverManager::getConnection(
                 $connectionParams,

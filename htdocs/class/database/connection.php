@@ -104,7 +104,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
      */
     public function __construct(
         array $params,
-        \Doctrine\DBAL\Driver\PDOMySql\Driver $driver,
+        \Doctrine\DBAL\Driver $driver,
         \Doctrine\DBAL\Configuration $config = null,
         \Doctrine\Common\EventManager $eventManager = null
     ) {

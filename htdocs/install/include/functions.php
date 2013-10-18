@@ -64,10 +64,13 @@ function install_finalize($installer_modified)
 }
 
 /**
- * @param string $name
- * @param string $value
- * @param string $label
- * @param string $help
+ * xoFormField - display an input field
+ *
+ * @param string $name  field name
+ * @param string $value value
+ * @param string $label label
+ * @param string $help  help text
+ * 
  * @return void
  */
 function xoFormField($name, $value, $label, $help = '')
@@ -88,10 +91,13 @@ function xoFormField($name, $value, $label, $help = '')
 }
 
 /**
- * @param string $name
- * @param string $value
- * @param string $label
- * @param string $help
+ * xoPassField - display a password field
+ *
+ * @param string $name  field name
+ * @param string $value value
+ * @param string $label label
+ * @param string $help  help text
+ * 
  * @return void
  */
 function xoPassField($name, $value, $label, $help = '')
@@ -110,6 +116,31 @@ function xoPassField($name, $value, $label, $help = '')
     } else {
         echo "<input type='password' name='{$name}' id='{$name}' value='{$value}' />";
     }
+}
+
+/**
+ * xoBoolField - display a boolean checkbox field
+ *
+ * @param string $name  field name
+ * @param string $value value
+ * @param string $label label
+ * @param string $help  help text
+ * 
+ * @return void
+ */
+function xoBoolField($name, $value, $label, $help = '')
+{
+    $myts = MyTextSanitizer::getInstance();
+    $label = $myts->htmlspecialchars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $name = $myts->htmlspecialchars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $value = $myts->htmlspecialchars($value, ENT_QUOTES);
+    echo "<label class='xolabel' for='$name'>$label</label>\n";
+    if ($help) {
+        echo '<div class="xoform-help">' . $help . "</div>\n";
+    }
+    $checked = $value ? 'checked' : '';
+    echo "<input type=\"checkbox\" name=\"{$name}\" value=\"1\" {$checked} />"
+        . ENABLE . "<br />";
 }
 
 /*
@@ -194,7 +225,7 @@ function xoDiagIfWritable($path)
  */
 function xoPhpVersion()
 {
-    if (version_compare(phpversion(), '5.3.0', '>=')) {
+    if (version_compare(phpversion(), '5.3.7', '>=')) {
         return xoDiag(1, phpversion());
     } else {
         if (version_compare(phpversion(), '5.2.0', '>=')) {
@@ -399,7 +430,7 @@ function xoFormBlockCollation($name, $value, $label, $help, $link, $charset)
  * @param resource $link
  * @return string
  */
-function xoFormFieldCharset($name, $value, $label, $help = '', $link)
+function xoFormFieldCharset($name, $value, $label, $help, $link)
 {
     if (version_compare(mysql_get_server_info($link), "4.1.0", "lt")) {
         return "";
@@ -434,4 +465,66 @@ function xoFormFieldCharset($name, $value, $label, $help = '', $link)
     $field .= "</select>";
 
     return $field;
+}
+
+/**
+ * getDbConnectionParams - build array of connection parameters from collected
+ * DB_* session variables
+ * 
+ * @return array of Doctrine Connection parameters
+ */
+function getDbConnectionParams()
+{
+    $wizard = $_SESSION['wizard'];
+    $settings = $_SESSION['settings'];
+
+    // get list of parameters the selected driver accepts
+    $driver_info = $wizard->configs['db_types'][$settings['DB_DRIVER']];
+    $driver_params=explode(',', $driver_info['params']);
+
+    $connectionParams = array(
+        'driver' => $settings['DB_DRIVER'],
+        'charset' => 'utf8',
+    );
+    
+    foreach ($driver_params as $param) {
+        if (!empty($settings[$wizard->configs['db_param_names'][$param]])) {
+            $connectionParams[$param] = $settings[$wizard->configs['db_param_names'][$param]];
+        }
+    }
+
+    return $connectionParams;
+}
+
+/**
+ * getDbConnection - get database connection based on current setting
+ *
+ * @param string &$error will be set with any error encountered
+ *
+ * @return Connection a database connection instance
+ */
+function getDbConnection(&$error)
+{
+    //New database connector
+    $config = new \Doctrine\DBAL\Configuration();
+    $connectionParams = getDbConnectionParams();
+
+    try {
+        $instance = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+    } catch (Exception $e) {
+            $error = $e->getMessage();
+            return false;
+    }
+    if (!$instance) {
+        $error = ERR_NO_DBCONNECTION;
+        return false;
+    } else {
+        try {
+            $instance->connect();
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            return false;
+        }
+    }
+    return $instance;
 }
