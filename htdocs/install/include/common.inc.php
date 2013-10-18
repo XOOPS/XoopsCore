@@ -37,7 +37,10 @@ if (empty($xoopsOption['hascommon'])) {
     $xoopsOption['nocommon'] = true;
     session_start();
 }
-include_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
+$mainfile = dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
+if (file_exists($mainfile)) {
+    include $mainfile;
+}
 if (!defined("XOOPS_ROOT_PATH")) {
     define("XOOPS_ROOT_PATH", str_replace("\\", "/", realpath('../')));
     define("XOOPS_PATH", isset($_SESSION['settings']['PATH']) ? $_SESSION['settings']['PATH']:"");
