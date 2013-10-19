@@ -22,7 +22,14 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+$mainfile = dirname(__FILE__) . '/mainfile.php';
+if (file_exists($mainfile)) {
+    include $mainfile;
+} elseif (file_exists(dirname(__FILE__) . '/install/index.php')) {
+    header('Location: install/index.php');
+    exit;
+}
+
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.index.start');
@@ -49,7 +56,10 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
             $xoops->redirect(XOOPS_URL . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }
-    if ($xoops->module->getVar('hasconfig') == 1 || $xoops->module->getVar('hascomments') == 1 || $xoops->module->getVar('hasnotification') == 1) {
+    if ($xoops->module->getVar('hasconfig') == 1
+        || $xoops->module->getVar('hascomments') == 1
+        || $xoops->module->getVar('hasnotification') == 1
+    ) {
         $xoops->moduleConfig = $xoops->getModuleConfigs();
     }
 
@@ -66,7 +76,8 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
         $url .= $_SERVER['HTTP_HOST'];
     }
 
-    $_SERVER['REQUEST_URI'] = substr(XOOPS_URL, strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
+    $_SERVER['REQUEST_URI'] =
+        substr(XOOPS_URL, strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
     include $xoops->path('modules/' . $xoops->getConfig('startpage') . '/index.php');
     exit();
 } else {

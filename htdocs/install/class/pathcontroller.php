@@ -96,7 +96,7 @@ class XoopsPathController
             if (substr($path, -1) == '/') {
                 $path = substr($path, 0, -1);
             }
-            if (file_exists("$path/mainfile.php")) {
+            if (file_exists("$path/mainfile.dist.php")) {
                 $this->xoopsPath['root'] = $path;
             }
             // Firstly, locate XOOPS lib folder out of XOOPS root folder
@@ -202,7 +202,7 @@ class XoopsPathController
             $path = 'root';
             if (is_dir($this->xoopsPath[$path]) && is_readable($this->xoopsPath[$path])) {
                 @include_once "{$this->xoopsPath[$path]}/include/version.php";
-                if (file_exists("{$this->xoopsPath[$path]}/mainfile.php") && defined('XOOPS_VERSION')) {
+                if (file_exists("{$this->xoopsPath[$path]}/mainfile.dist.php") && defined('XOOPS_VERSION')) {
                     $this->validPath[$path] = 1;
                 }
             }
