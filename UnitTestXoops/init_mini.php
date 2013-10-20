@@ -8,7 +8,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);
 }
 
-require_once dirname(__FILE__) . '/../htdocs/mainfile.UnitTest.php';
+require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
 
 require_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
 require_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
