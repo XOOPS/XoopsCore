@@ -16,14 +16,10 @@ class DatabaseFactoryTest extends MY_UnitTestCase
 	
     public function test_100() {
 		$instance = XoopsDatabaseFactory::getDatabaseConnection();
-		$this->assertInstanceOf('XoopsConnection', $instance);
+		$this->assertInstanceOf('XoopsMySQLDatabaseProxy', $instance);
 		$instance2 = XoopsDatabaseFactory::getDatabaseConnection();
 		$this->assertSame($instance, $instance2);
-        if (!defined('XOOPS_DB_PROXY')) {
-            $this->assertTrue($instance->getSafe());
-        } else {
-            $this->assertFalse($instance->getSafe());
-        }
+		$this->assertInstanceOf('XoopsConnection', $instance->conn);
         $this->assertSame(XOOPS_DB_PREFIX.'_test', $instance->prefix('test'));
         $this->assertSame(XOOPS_DB_PREFIX, $instance->prefix());
 

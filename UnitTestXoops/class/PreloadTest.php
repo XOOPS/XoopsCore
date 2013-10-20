@@ -10,7 +10,7 @@ class PreloadTest extends MY_UnitTestCase
     
     public function test_100() {
         $value = XoopsPreload::getInstance();
-        $this->assertInstanceOf($this->myclass, $value);
+        $this->assertInstanceOf('\Xoops\Core\Events', $value);
         $value2 = XoopsPreload::getInstance();
         $this->assertSame($value2, $value);
     }
