@@ -19,6 +19,22 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class SystemCorePreload extends XoopsPreloadItem
 {
+    public static function initialize()
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+			'cookie' => $path . '/class/cookie.php',
+			'systemextension' => $path . '/class/extension.php',
+			'cookie' => $path . '/class/cookie.php',
+			'systemmenuhandler' => $path . '/class/menu.php',
+			'systemmodule' => $path . '/class/module.php',
+			'system' => $path . '/class/system.php',
+			'systembreadcrumb' => $path . '/class/systembreadcrumb.php',
+			'systemusers' => $path . '/class/users.php',
+			'systemusershandler' => $path . '/class/users.php',
+			));
+    }
+	
     static function eventCoreIncludeFunctionsRedirectheader($args)
     {
         $xoops = Xoops::getInstance();
@@ -79,3 +95,4 @@ class SystemCorePreload extends XoopsPreloadItem
         }
     }
 }
+SystemCorePreload::initialize();

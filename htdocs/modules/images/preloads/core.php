@@ -29,11 +29,14 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class ImagesCorePreload extends XoopsPreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    static function initialize()
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'images' => $path . '/class/helper.php',
+            'imagescategory' => $path . '/class/category.php',
+            'imagesimage' => $path . '/class/image.php',
+            'imagesimagebody' => $path . '/class/imagebody.php',
         ));
     }
 
@@ -62,3 +65,4 @@ class ImagesCorePreload extends XoopsPreloadItem
         Xoops::getInstance()->redirect("modules/images/imagemanager.php?{$uri}", 0);
     }
 }
+ImagesCorePreload::initialize();

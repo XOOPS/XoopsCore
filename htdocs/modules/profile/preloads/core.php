@@ -31,6 +31,23 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class ProfileCorePreload extends XoopsPreloadItem
 {
+    static function initialize()
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'profilecategory' => $path . '/class/category.php',
+            'profilecategoryhandler' => $path . '/class/category.php',
+            'profilefield' => $path . '/class/field.php',
+            'profilefieldhandler' => $path . '/class/field.php',
+            'profileprofile' => $path . '/class/profile.php',
+            'profileprofilehandler' => $path . '/class/profile.php',
+            'profileregstep' => $path . '/class/regstep.php',
+            'profileregstephandler' => $path . '/class/regstep.php',
+            'profilevisibility' => $path . '/class/visibility.php',
+            'profilevisibilityhandler' => $path . '/class/visibility.php',
+        ));
+    }
+	
     /**
      * @param array $args
      * @return void
@@ -96,3 +113,4 @@ class ProfileCorePreload extends XoopsPreloadItem
     }
 
 }
+ProfileCorePreload::initialize();

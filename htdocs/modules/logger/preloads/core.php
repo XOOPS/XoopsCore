@@ -24,6 +24,14 @@
  */
 class LoggerCorePreload extends XoopsPreloadItem
 {
+    static function initialize()
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'legacylogger' => $path . '/class/legacylogger.php',
+        ));
+    }
+	
     /**
      * getConfigs
      *
@@ -92,13 +100,9 @@ class LoggerCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
-        //Load may fail is cache was erased
-        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
-        if (class_exists('LegacyLogger')) {
-            LegacyLogger::getInstance()->enable();//until we get a db connection debug is enabled
-            LegacyLogger::getInstance()->startTime();
-            LegacyLogger::getInstance()->startTime('XOOPS Boot');
-        }
+		LegacyLogger::getInstance()->enable();//until we get a db connection debug is enabled
+		LegacyLogger::getInstance()->startTime();
+		LegacyLogger::getInstance()->startTime('XOOPS Boot');
     }
 
     /**
@@ -110,9 +114,6 @@ class LoggerCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreDatabaseNoconn($args)
     {
-        if (!class_exists('LegacyLogger')) {
-            return;
-        }
         /* @var $db XoopsConnection */
         $db = $args[0];
         LegacyLogger::getInstance()->addQuery('', $db->error(), $db->errno());
@@ -127,9 +128,6 @@ class LoggerCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreDatabaseNodb($args)
     {
-        if (!class_exists('LegacyLogger')) {
-            return;
-        }
         /* @var $db XoopsConnection */
         $db = $args[0];
         LegacyLogger::getInstance()->addQuery('', $db->error(), $db->errno());
@@ -145,7 +143,6 @@ class LoggerCorePreload extends XoopsPreloadItem
     public static function eventCoreDatabaseQueryComplete($args)
     {
         $sql = $args['sql'];
-        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
         LegacyLogger::getInstance()->addQuery($sql, null, null, $args['executionMS']);
     }
 
@@ -203,8 +200,6 @@ class LoggerCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
-
         $logger = LegacyLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
         $logger->startTime('Module init');
@@ -409,3 +404,4 @@ class LoggerCorePreload extends XoopsPreloadItem
         LegacyLogger::getInstance()->addExtra($args[0], $args[1]);
     }
 }
+LoggerCorePreload::initialize();

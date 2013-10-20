@@ -27,6 +27,16 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class XlanguageCorePreload extends XoopsPreloadItem
 {
+    static function initialize()
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'xlanguage' => $path . '/class/helper.php',
+            'xlanguagelanguage' => $path . '/class/xlanguage.php',
+            'xlanguagexlanguagehandler' => $path . '/class/xlanguage.php',
+        ));
+    }
+	
     /**
      * @param array $args
      */
@@ -46,3 +56,4 @@ class XlanguageCorePreload extends XoopsPreloadItem
         xlanguage_select_show(explode('|', $xoops->registry()->get('XLANGUAGE_THEME_OPTIONS')));
     }
 }
+XlanguageCorePreload::initialize();

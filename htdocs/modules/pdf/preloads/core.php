@@ -29,9 +29,12 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class PdfCorePreload extends XoopsPreloadItem
 {
 
-    static function eventCoreIncludeCommonEnd($args)
+    static function initialize()
     {
-        XoopsLoad::addMap(array('pdf' => dirname(dirname(__FILE__)) . '/class/pdf.php'));
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'pdf' => $path . '/class/pdf.php',
+        ));
     }
-
 }
+PdfCorePreload::initialize();

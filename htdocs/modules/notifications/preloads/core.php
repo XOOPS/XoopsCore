@@ -27,11 +27,12 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class NotificationsCorePreload extends XoopsPreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    static function initialize()
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'notifications' => $path . '/class/helper.php',
+            'notificationsnotification' => $path . '/class/notification.php',
         ));
     }
 
@@ -153,3 +154,4 @@ class NotificationsCorePreload extends XoopsPreloadItem
         }
     }
 }
+NotificationsCorePreload::initialize();

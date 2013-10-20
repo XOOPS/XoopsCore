@@ -29,11 +29,16 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class UserconfigsCorePreload extends XoopsPreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    static function initialize()
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'userconfigs' => $path . '/class/helper.php',
+            'userconfigsconfighandler' => $path . '/class/config.php',
+            'userconfigsitem' => $path . '/class/item.php',
+            'userconfigsitemhandler' => $path . '/class/item.php',
+            'userconfigsoption' => $path . '/class/option.php',
+            'userconfigsoptionhandler' => $path . '/class/option.php',
         ));
     }
 
@@ -46,3 +51,4 @@ class UserconfigsCorePreload extends XoopsPreloadItem
         }
     }
 }
+UserconfigsCorePreload::initialize();
