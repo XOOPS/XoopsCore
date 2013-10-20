@@ -14,7 +14,7 @@ if (defined('IS_PHPUNIT')) {
 	define('XOOPS_XMLRPC',0);
 }
 
-require_once dirname(__FILE__) . '/../hodocs/mainfile.UnitTest.php';
+require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
 
 if (!defined('IS_PHPUNIT')) {

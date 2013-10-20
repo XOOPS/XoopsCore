@@ -115,7 +115,6 @@ class XoopsTest extends MY_UnitTestCase
 		$value = $instance->theme();
 		$this->assertSame($theme, $value);
 
-		$instance->_theme = null;
 		$value = $instance->theme('default');
 		$this->assertInstanceOf('XoopsTheme', $value);
 
@@ -513,7 +512,7 @@ class XoopsTest extends MY_UnitTestCase
 
 		$value = $instance->getHandler('user');
 		$this->assertInstanceOf('XoopsUserHandler', $value);
-		
+
 		if (defined('IS_PHPUNIT')) {
 			$WarningEnabledOrig = PHPUnit_Framework_Error_Warning::$enabled;
 			PHPUnit_Framework_Error_Warning::$enabled = false;
@@ -662,7 +661,7 @@ class XoopsTest extends MY_UnitTestCase
 		$msg = 'alert_info';
 		$value = $instance->alert($msg);
 		$this->assertTrue(is_string($value) AND strlen($value)>0);
-		
+
 		$msg = 'alert_info';
 		$value = $instance->alert($msg, 'dummy');
 		$this->assertTrue(is_string($value) AND strlen($value)>0);
@@ -740,7 +739,7 @@ class XoopsTest extends MY_UnitTestCase
 
 		$value = $instance->getUserTimestamp(time());
 		$this->assertTrue(is_int($value));
-		
+
 		$instance->user = new XoopsUser();
 		$instance->user->setVar('timezone_offset',10);
 		$value = $instance->getUserTimestamp(time());
@@ -881,31 +880,31 @@ class XoopsTest extends MY_UnitTestCase
 		$_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
 		$value = $instance->getCss();
 		$this->assertSame(XOOPS_THEME_URL . '/default/css/style.css', $value);
-		
+
 		$_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
 		$value = $instance->getCss('default');
 		$this->assertTrue(basename($value) == 'style.css');
 		$this->assertTrue(basename(dirname($value)) == 'css');
-		
+
 		$_SERVER['HTTP_USER_AGENT'] = 'XXXX';
 		$value = $instance->getCss('default');
 		$this->assertTrue(basename($value) == 'style.css');
 		$this->assertTrue(basename(dirname($value)) == 'css');
-		
+
 		$_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
 		$value = $instance->getCss('default/css');
 		$this->assertTrue(basename($value) == 'style.css');
 		$this->assertTrue(basename(dirname($value)) == 'css');
-		
+
 		$_SERVER['HTTP_USER_AGENT'] = 'XXXX';
 		$value = $instance->getCss('default/css');
 		$this->assertTrue(basename($value) == 'style.css');
 		$this->assertTrue(basename(dirname($value)) == 'css');
-		
+
 		$_SERVER['HTTP_USER_AGENT'] = 'XXXX';
 		$value = $instance->getCss('xxxx');
 		$this->assertSame('', $value);
-		
+
 		$_SERVER['HTTP_USER_AGENT'] = $save;
 	}
 
