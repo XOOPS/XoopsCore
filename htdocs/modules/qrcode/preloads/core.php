@@ -28,13 +28,9 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class QrcodeCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
-    {
-        $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-            'xoops_qrcode' => $path . '/class/xoops_qrcode.php',
-        ));
+
+    static function eventCoreIncludeCommonEnd($args)
+    {        XoopsLoad::addMap(array('xoops_qrcode' => dirname(dirname(__FILE__)) . '/class/xoops_qrcode.php'));
     }
 
 }
-QrcodeCorePreload::initialize();

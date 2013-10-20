@@ -27,7 +27,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class CommentsCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
+    static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
@@ -84,4 +84,3 @@ class CommentsCorePreload extends XoopsPreloadItem
         }
     }
 }
-CommentsCorePreload::initialize();

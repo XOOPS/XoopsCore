@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
- * @author          Mage Gregory (AKA Mage)
+ * @author          Mage Gr�gory (AKA Mage)
  * @version         $Id$
  */
 
@@ -27,21 +27,17 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Mage Gregory (AKA Mage)
+ * @author          Mage Gr�gory (AKA Mage)
  */
 class BannersCorePreload extends XoopsPreloadItem
 {
-    public static function initialize()
+    static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
-			'banners' => $path . '/class/helper.php',
-			'bannersbanner' => $path . '/class/banner.php',
-			'bannersbannerclient' => $path . '/class/bannerclient.php',
-			'bannerrender' => $path . '/class/bannerrender.php',
-			));
+            'banners' => $path . '/class/helper.php',
+        ));
     }
-	
     static public function eventCoreBannerDisplay($args)
     {
         require_once dirname(dirname(__FILE__)) . '/class/bannerrender.php';
@@ -49,4 +45,3 @@ class BannersCorePreload extends XoopsPreloadItem
         $args[0] = $render->displayBanner();
     }
 }
-BannersCorePreload::initialize();

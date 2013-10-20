@@ -29,13 +29,12 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class SmiliesCorePreload extends XoopsPreloadItem
 {
-    public static function initialize()
+    static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
-			'smilies' => $path . '/class/helper.php',
-			'smiliessmiley' => $path . '/class/smiley.php',
-			));
+            'smilies' => $path . '/class/helper.php',
+        ));
     }
 
     static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
@@ -77,4 +76,3 @@ class SmiliesCorePreload extends XoopsPreloadItem
         return true;
     }
 }
-SmiliesCorePreload::initialize();

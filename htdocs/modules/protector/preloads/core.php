@@ -31,18 +31,6 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class ProtectorCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
-    {
-        $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-            'xoopsgticket' => $path . '/class/gtickets.php',
-            'protector' => $path . '/class/protector.php',
-            'protectorfilterabstract' => $path . '/class/ProtectorFilter.php',
-            'protectorfilterhandler' => $path . '/class/ProtectorFilter.php',
-            'protectormysqldatabase' => $path . '/class/ProtectorMysqlDatabase.class.php',
-        ));
-    }
-	
     /**
      * @static
      *
@@ -90,4 +78,3 @@ class ProtectorCorePreload extends XoopsPreloadItem
         }
     }
 }
-ProtectorCorePreload::initialize();
