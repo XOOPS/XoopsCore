@@ -142,10 +142,9 @@ class Xoops
     /**
      * Access the only instance of this class
      *
-     * @staticvar Xoops
      * @return Xoops
      */
-    static public function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -156,6 +155,8 @@ class Xoops
     }
 
     /**
+     * get database connection instance
+     * 
      * @return XoopsConnection
      * @todo remove legacy database lines
      */
@@ -185,6 +186,8 @@ class Xoops
     }
 
     /**
+     * Deprecated - use events() instead
+     * 
      * @return XoopsPreload
      */
     public function preload()
@@ -193,6 +196,22 @@ class Xoops
     }
 
     /**
+     * get the service manager
+     * 
+     * @return \Xoops\Core\Service\Manager instance
+     */
+    public function service()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new \Xoops\Core\Service\Manager();
+        }
+        return $instance;
+    }
+
+    /**
+     * provide registry instance
+     * 
      * @return Xoops_Registry
      */
     public function registry()
@@ -201,6 +220,8 @@ class Xoops
     }
 
     /**
+     * get security instance
+     * 
      * @return XoopsSecurity
      */
     public function security()
@@ -214,6 +235,8 @@ class Xoops
     }
 
     /**
+     * get current template engine
+     * 
      * @return null|XoopsTpl
      */
     public function tpl()
@@ -222,6 +245,8 @@ class Xoops
     }
 
     /**
+     * set curent template engine
+     * 
      * @param XoopsTpl $tpl
      *
      * @return XoopsTpl
@@ -1101,7 +1126,7 @@ class Xoops
      *
      * @return string
      */
-    public function alert($msg, $type = 'info', $title = '/')
+    public function alert($type = 'info', $msg, $title = '/')
     {
         $alert_msg = '';
         switch ($type) {
@@ -1318,7 +1343,7 @@ class Xoops
     {
         $url = trim($url);
         if ($url != '') {
-            if ((!preg_match('/^https?:\/\/.*/i', $url)) && (!preg_match('/^ftps?:\/\/.*/i', $url)) && (!preg_match('/^ed2k:\/\/.*/i', $url))
+            if ((!preg_match('/^http[s]*:\/\//i', $url)) && (!preg_match('/^ftp*:\/\//i', $url)) && (!preg_match('/^ed2k*:\/\//i', $url))
             ) {
                 $url = 'http://' . $url;
             }
