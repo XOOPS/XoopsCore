@@ -15,7 +15,7 @@ class ImageTest extends MY_UnitTestCase
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
         $value = $instance->isActive();
-		$this->assertTrue($value);
+		$this->assertFalse($value);
     }
 	
     public function test_120() {

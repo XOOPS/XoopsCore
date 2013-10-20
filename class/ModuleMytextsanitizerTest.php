@@ -286,7 +286,8 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $sanitizer = MyTextSanitizer::getInstance();
         $text = '[codephp]tototiti[/code]';
         $message = $sanitizer->codeConv($text);
-        $this->assertSame("<div class=\"xoopsCode\"><code><span style=\"color: #000000\">\n<span style=\"color: #0000BB\">¶‹h¶</span><span style=\"color: #007700\">+</span><span style=\"color: #0000BB\">b</span>\n</span>\n</code></div>",$message);
+        $result = preg_match('/^\<div class=\\"xoopsCode\\"\>/',$message);
+        $this->assertSame($result,0);	
     }
     
     public function test_560() {
