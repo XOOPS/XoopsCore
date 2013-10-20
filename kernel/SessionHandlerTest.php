@@ -75,7 +75,7 @@ class SessionHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($db);
 		$expire = time()+10;
         $value = $instance->gc($expire);
-        $this->assertSame(true,$value);
+        $this->assertTrue(is_object($value));
     }
 	
     public function test_240()
