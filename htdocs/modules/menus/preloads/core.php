@@ -29,16 +29,13 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class MenusCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
+    static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'menus' => $path . '/class/helper.php',
             'menusbuilder' => $path . '/class/builder.php',
             'menusdecorator' => $path . '/class/decorator.php',
-            'menusmenu' => $path . '/class/menu.php',
-            'menusmenus' => $path . '/class/menus.php',
         ));
     }
 }
-MenusCorePreload::initialize();

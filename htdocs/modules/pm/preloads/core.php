@@ -32,14 +32,6 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class PmCorePreload extends XoopsPreloadItem
 {
 
-    static function initialize()
-    {
-        $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-            'pmmessage' => $path . '/class/message.php',
-        ));
-    }
-
     /**
      * @static
      * @param array $args
@@ -84,4 +76,3 @@ class PmCorePreload extends XoopsPreloadItem
     }
 
 }
-PmCorePreload::initialize();

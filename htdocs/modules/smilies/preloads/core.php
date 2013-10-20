@@ -37,6 +37,14 @@ class SmiliesCorePreload extends XoopsPreloadItem
 			'smiliessmiley' => $path . '/class/smiley.php',
 			));
     }
+	
+    static function eventCoreIncludeCommonEnd($args)
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'smilies' => $path . '/class/helper.php',
+        ));
+    }
 
     static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
     {

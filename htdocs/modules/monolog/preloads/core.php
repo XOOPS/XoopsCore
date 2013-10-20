@@ -25,14 +25,6 @@ use Psr\Log\LogLevel;
  */
 class MonologCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
-    {
-        $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-            'monologlogger' => $path . '/class/monologlogger.php',
-        ));
-    }
-	
     private static $registry = array();
 
     private static $configs = null;
@@ -116,6 +108,8 @@ class MonologCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
+        XoopsLoad::addMap(array('monologlogger' => dirname(dirname(__FILE__)) . '/class/monologlogger.php'));
+
         $cache_key = 'module_monolog_configs';
         self::$configs=array();
         self::$configs['monolog_enable'] = false;
@@ -234,6 +228,8 @@ class MonologCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
+        XoopsLoad::addMap(array('monologlogger' => dirname(dirname(__FILE__)) . '/class/monologlogger.php'));
+
         $logger = MonologLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
         $logger->startTime('Module init');
@@ -443,4 +439,3 @@ class MonologCorePreload extends XoopsPreloadItem
 
     }
 }
-MonologCorePreload::initialize();

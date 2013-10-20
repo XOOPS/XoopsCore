@@ -29,16 +29,24 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class AvatarsCorePreload extends XoopsPreloadItem
 {
-    public static function initialize()
+    /**
+     * listen for core.include.common.end event
+     * Add module classes to class map autoloader
+     * 
+     * @param mixed $args not used
+     * 
+     * @return void
+     */
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-			'avatars' => $path . '/class/helper.php',
-			'avatarsavatar' => $path . '/class/avatar.php',
-			'avatarsuserlink' => $path . '/class/userlink.php',
-			));
+        XoopsLoad::addMap(
+            array(
+                'avatars' => $path . '/class/helper.php',
+            )
+        );
     }
-	
+
     /**
      * listen for core.userinfo.button event
      * 
@@ -82,4 +90,3 @@ class AvatarsCorePreload extends XoopsPreloadItem
         }
     }
 }
-AvatarsCorePreload::initialize();

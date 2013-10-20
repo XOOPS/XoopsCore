@@ -26,14 +26,6 @@ use Psr\Log\LogLevel;
  */
 class DebugbarCorePreload extends XoopsPreloadItem
 {
-    public static function initialize()
-    {
-        $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(array(
-            'debugbarlogger' => $path . '/class/debugbarlogger.php',
-        ));
-    }
-	
     private static $registry = array();
 
     /**
@@ -99,6 +91,7 @@ class DebugbarCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
+        XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
         DebugbarLogger::getInstance()->enable();//until we get a db connection debug is enabled
         DebugbarLogger::getInstance()->startTime();
         DebugbarLogger::getInstance()->startTime('XOOPS Boot');
@@ -189,6 +182,8 @@ class DebugbarCorePreload extends XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
+        XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
+
         $logger = DebugbarLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
         $logger->startTime('Module init');
@@ -397,4 +392,3 @@ class DebugbarCorePreload extends XoopsPreloadItem
 
     }
 }
-DebugbarCorePreload::initialize();

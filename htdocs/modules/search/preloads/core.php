@@ -27,7 +27,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class SearchCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
+    static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
@@ -35,4 +35,3 @@ class SearchCorePreload extends XoopsPreloadItem
         ));
     }
 }
-SearchCorePreload::initialize();
