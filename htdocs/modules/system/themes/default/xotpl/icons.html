@@ -7,7 +7,7 @@
             <img src='<{$op.icon|default:"$theme_icons/icon_options.png"}>' alt="<{$op.title}>"/>
         </a></li>
     <{/foreach}>
-    <{foreach item=plug from=$extension_mod}>
+    <{foreach item=plug from=$extension_mod_disable}>
     <{if $moddir == 'system' && $mod_options}>
     <{if $plug->getInfo('hasAdmin') || !is_array($plug->getInfo('config'))}>
     <li>
