@@ -129,10 +129,14 @@ class SystemModule
                     $module->setInfo('options', $module->getAdminMenu());
                 }
 
+				$groups = array();
+				if (is_object($xoops->user))
+					$groups = $xoops->user->getGroups();
+					
                 $sadmin = $moduleperm_handler->checkRight(
                     'module_admin',
                     $module->getVar('mid'),
-                    $xoops->user->getGroups()
+                    $groups
                 );
                 if ($sadmin && ($module->getVar('hasnotification')
                     || is_array($module->getInfo('config')) || is_array($module->getInfo('comments')))

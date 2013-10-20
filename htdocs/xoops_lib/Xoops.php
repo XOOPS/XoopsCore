@@ -1101,7 +1101,7 @@ class Xoops
      *
      * @return string
      */
-    public function alert($type = 'info', $msg, $title = '/')
+    public function alert($msg, $type = 'info', $title = '/')
     {
         $alert_msg = '';
         switch ($type) {
@@ -1318,7 +1318,7 @@ class Xoops
     {
         $url = trim($url);
         if ($url != '') {
-            if ((!preg_match('/^http[s]*:\/\//i', $url)) && (!preg_match('/^ftp*:\/\//i', $url)) && (!preg_match('/^ed2k*:\/\//i', $url))
+            if ((!preg_match('/^https?:\/\/.*/i', $url)) && (!preg_match('/^ftps?:\/\/.*/i', $url)) && (!preg_match('/^ed2k:\/\/.*/i', $url))
             ) {
                 $url = 'http://' . $url;
             }

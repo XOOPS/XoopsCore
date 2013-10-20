@@ -49,7 +49,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$db = $instance->db();
-		$this->assertInstanceOf('XoopsDatabase', $db);
+		$this->assertInstanceOf('XoopsConnection', $db);
 
 		$db1 = $instance->db();
 		$this->assertSame($db, $db1);
@@ -60,7 +60,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$value = $instance->preload();
-		$this->assertInstanceOf('XoopsPreload', $value);
+		$this->assertInstanceOf('\Xoops\Core\Events', $value);
 
 		$value1 = $instance->preload();
 		$this->assertSame($value, $value1);
@@ -127,7 +127,7 @@ class XoopsTest extends MY_UnitTestCase
 		require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/en_US.php';
 		require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/locale.php';
 
-		$instance->_theme = null;
+		$instance->setTheme(null);
         $instance->isAdminSide = true;
 		$value = $instance->theme();
 		$this->assertInstanceOf('XoopsTheme', $value);
@@ -142,7 +142,8 @@ class XoopsTest extends MY_UnitTestCase
 
 		$value = $instance->path('class');
 		$this->assertEquals('class', basename($value));
-		$this->assertEquals(XOOPS_ROOT_PATH, dirname($value));
+		$path = str_replace('/',DIRECTORY_SEPARATOR,XOOPS_ROOT_PATH);
+		$this->assertEquals($path, dirname($value));
 	}
 
     public function test_900()
@@ -583,10 +584,6 @@ class XoopsTest extends MY_UnitTestCase
 
 		$value = $instance->getActiveModules();
 		$this->assertTrue(is_array($value) AND count($value)>0);
-
-		$instance->_activeModules = null;
-		$value = $instance->getActiveModules();
-		$this->assertTrue(is_array($value) AND count($value)>0);
 	}
 
     public function test_4900()
@@ -820,10 +817,6 @@ class XoopsTest extends MY_UnitTestCase
 		$value = $instance->formatURL($url);
 		$this->assertSame($url, $value);
 
-		$url = 'ed2ks://localhost/xoops';
-		$value = $instance->formatURL($url);
-		$this->assertSame($url, $value);
-
 		$url = 'localhost/xoops';
 		$value = $instance->formatURL($url);
 		$this->assertSame('http://'.$url, $value);
@@ -834,7 +827,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$value = $instance->getBanner();
-		$this->assertSame(null, $value);
+		$this->assertTrue(is_string($value));
 	}
 
     public function test_6500()

@@ -85,8 +85,11 @@ class SystemExtension extends SystemModule
                         if (round($module->getInfo('version'), 2) != $extension->getVar('version')) {
                             $module->setInfo('warning_update', true);
                         }
+						$groups = array();
+						if (is_object($xoops->user))
+							$groups = $xoops->user->getGroups();
                         $sadmin = $moduleperm_handler
-                            ->checkRight('module_admin', $module->getInfo('mid'), $xoops->user->getGroups());
+                            ->checkRight('module_admin', $module->getInfo('mid'), $groups);
                         if ($sadmin && ($module->getVar('hasnotification')
                             || is_array($module->getInfo('config'))
                             || is_array($module->getInfo('comments')))

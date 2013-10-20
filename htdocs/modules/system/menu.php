@@ -22,7 +22,9 @@
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
-$groups = $xoops->user->getGroups();
+$groups = array();
+if (is_object($xoops->user))
+    $groups = $xoops->user->getGroups();
 
 $all_ok = false;
 if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {

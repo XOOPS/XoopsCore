@@ -336,11 +336,16 @@ class XoopsBlock extends XoopsObject
             if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file'))) {
                 $xoops->loadLanguage('blocks', $this->getVar('dirname'));
                 include_once XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file');
-                $options = explode('|', $this->getVar('options'));
-                $edit_form = $edit_func($options);
-                if (!$edit_form) {
-                    return false;
-                }
+				if (function_exists($edit_func)) {
+					// execute the function
+					$options = explode('|', $this->getVar('options'));
+					$edit_form = $edit_func($options);
+					if (!$edit_form) {
+						return false;
+					}
+				} else {
+					return false;
+				}
                 return $edit_form;
             } else {
                 return false;

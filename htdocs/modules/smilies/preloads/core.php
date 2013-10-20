@@ -29,7 +29,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class SmiliesCorePreload extends XoopsPreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    static function initialize()
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
@@ -76,3 +76,4 @@ class SmiliesCorePreload extends XoopsPreloadItem
         return true;
     }
 }
+SmiliesCorePreload::initialize();
