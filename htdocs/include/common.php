@@ -302,4 +302,4 @@ $xoopsModuleConfig =& $xoops->moduleConfig;
 //Creates 'system_modules_active' cache file if it has been deleted.
 $xoops->getActiveModules();
 
-//$xoops->preload()->triggerEvent('core.include.common.end');
+$xoops->preload()->triggerEvent('core.include.common.end');
