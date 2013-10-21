@@ -106,7 +106,7 @@ class Xoops
     /**
      * @var array
      */
-    public $_moduleConfigs = array();
+    private $_moduleConfigs = array();
 
     /**
      * @var bool
