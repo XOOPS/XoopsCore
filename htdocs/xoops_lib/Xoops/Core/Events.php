@@ -109,6 +109,9 @@ class Events
             if (!class_exists($class_name)) {
                 continue;
             }
+            if (class_exists($class_name) && method_exists($class_name, '__autoload')) {
+                call_user_func(array($class_name, '__autoload'));
+            }
             $class_methods = get_class_methods($class_name);
             foreach ($class_methods as $method) {
                 if (strpos($method, 'event') === 0) {

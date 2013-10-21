@@ -29,11 +29,12 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class SmiliesCorePreload extends XoopsPreloadItem
 {
-    static function initialize()
+    static function __autoload()
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'smilies' => $path . '/class/helper.php',
+            'smiliessmiley' => $path . '/class/smiley.php',
         ));
     }
 
@@ -76,4 +77,3 @@ class SmiliesCorePreload extends XoopsPreloadItem
         return true;
     }
 }
-SmiliesCorePreload::initialize();
