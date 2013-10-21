@@ -945,7 +945,8 @@ class XoopsTest extends MY_UnitTestCase
 	{
         $instance = Xoops::getInstance();
 
-		$value = $instance->getConfig('dummy');
+		$invalidKey = md5( uniqid() );
+		$value = $instance->getConfig($invalidKey);
 		$this->assertSame('', $value);
 	}
 
