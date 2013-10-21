@@ -106,7 +106,7 @@ class Xoops
     /**
      * @var array
      */
-    private $_moduleConfigs = array();
+    public $_moduleConfigs = array();
 
     /**
      * @var bool
@@ -166,7 +166,7 @@ class Xoops
 
     /**
      * get the system logger instance
-     * 
+     *
      * @return \Xoops\Core\Logger
      */
     public function logger()
@@ -176,7 +176,7 @@ class Xoops
 
     /**
      * get the event processor
-     * 
+     *
      * @return \Xoops\Core\Events instance
      */
     public function events()
@@ -1498,7 +1498,7 @@ class Xoops
 
     /**
      * getRank - retrieve user rank
-     * 
+     *
      * @param integer $rank_id specified rank for user
      * @param int     $posts   number of posts for user
      *
@@ -1591,6 +1591,7 @@ class Xoops
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
         $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        Xoops_Cache::write("{$dirname}_configs", $this->_moduleConfigs[$dirname]);
     }
 
     /**
@@ -1608,6 +1609,7 @@ class Xoops
                 $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
             }
             $this->_moduleConfigs[$dirname][$key] =& $value;
+			Xoops_Cache::write("{$dirname}_configs", $this->_moduleConfigs[$dirname]);
         }
     }
 
@@ -1619,19 +1621,25 @@ class Xoops
      *
      * @return void
      */
-    public function appendConfig($key, array $values, $appendWithKey = false, $dirname = 'system')
+    public function appendConfig($key, $values, $appendWithKey = false, $dirname = 'system')
     {
         $dirname = trim(strtolower($dirname));
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
         if ($appendWithKey) {
-            foreach ($values as $key2 => $value) {
-                $this->_moduleConfigs[$dirname][$key][$key2] =& $value;
-            }
+            if (is_array($values)) {
+				$this->_moduleConfigs[$dirname][$key] = array();
+				foreach ($values as $key2 => $value) {
+					$this->_moduleConfigs[$dirname][$key][$key2] =& $value;
+				}
+			}
+			else
+				$this->_moduleConfigs[$dirname][$key][] =& $values;
         } else {
             $this->_moduleConfigs[$dirname][$key][] =& $values;
         }
+        Xoops_Cache::write("{$dirname}_configs", $this->_moduleConfigs[$dirname]);
     }
 
     /**
@@ -1646,7 +1654,6 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
-
         if (isset($this->_moduleConfigs[$dirname][$key])) {
             return $this->_moduleConfigs[$dirname][$key];
         }
