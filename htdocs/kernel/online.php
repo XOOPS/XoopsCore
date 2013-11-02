@@ -32,7 +32,7 @@ class XoopsOnline extends XoopsObject
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->initVar('online_uid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('online_uname', XOBJ_DTYPE_TXTBOX, null, true);
@@ -110,41 +110,71 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     /**
      * Write online information to the database
      *
-     * @param    int     $uid    UID of the active user
-     * @param    string  $uname  Username
-     * @param    string  $time
-     * @param    string  $module Current module
-     * @param    string  $ip     User's IP adress
-     * @return    bool    TRUE on success
+     * @param int    $uid    UID of the active user
+     * @param string $uname  Username
+     * @param string $time   time
+     * @param string $module Current module
+     * @param string $ip     User's IP adress
+     *
+     * @return bool TRUE on success
      */
     public function write($uid, $uname, $time, $module, $ip)
     {
-        $uid = intval($uid);
+
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
+        $qb ->select('COUNT(*)')
+            ->fromPrefix('online', null)
+            ->where($eb->eq('online_uid', ':uid'))
+            ->setParameter(':uid', $uid, \PDO::PARAM_INT);
+
         if ($uid > 0) {
-            $sql = "SELECT COUNT(*) FROM " . $this->db->prefix('online') . " WHERE online_uid=" . $uid;
-        } else {
-            $sql = "SELECT COUNT(*) FROM " . $this->db->prefix('online') . " WHERE online_uid=" . $uid . " AND online_ip='" . $ip . "'";
+            $qb ->where($eb->eq('online_ip', ':ip'))
+                ->setParameter(':ip', $ip, \PDO::PARAM_STR);
         }
-        list ($count) = $this->db->fetchRow($this->db->queryF($sql));
+
+        $result = $qb->execute();
+        $count = $result->fetchColumn(0);
+
         if ($count > 0) {
-            $sql = "UPDATE " . $this->db->prefix('online') . " SET online_updated=" . $time . ", online_module = " . $module . " WHERE online_uid = " . $uid;
+            $identifier = array();
+            $identifier['online_uid'] = $uid;
             if ($uid == 0) {
-                $sql .= " AND online_ip='" . $ip . "'";
+                $identifier['online_ip'] = $ip;
             }
+            $rows = $this->db->updatePrefix(
+                'online',
+                array(
+                    'online_uid'     => $uid,
+                    'online_uname'   => $uname,
+                    'online_updated' => $time,
+                    'online_ip'      => $ip,
+                    'online_module'  => $module,
+                ),
+                $identifier
+            );
         } else {
-            $sql = sprintf("INSERT INTO %s (online_uid, online_uname, online_updated, online_ip, online_module) VALUES (%u, %s, %u, %s, %u)", $this->db->prefix('online'), $uid, $this->db->quoteString($uname), $time, $this->db->quoteString($ip), $module);
+            $rows = $this->db->insertPrefix(
+                'online',
+                array(
+                    'online_uid'     => $uid,
+                    'online_uname'   => $uname,
+                    'online_updated' => $time,
+                    'online_ip'      => $ip,
+                    'online_module'  => $module,
+                )
+            );
         }
-        if (!$this->db->queryF($sql)) {
-            return false;
-        }
-        return true;
+        return ($rows>0);
     }
 
     /**
      * Delete online information for a user
      *
-     * @param    int $uid    UID
-     * @return    bool    TRUE on success
+     * @param int $uid UID
+     *
+     * @return bool TRUE on success
      */
     public function destroy($uid)
     {
@@ -160,7 +190,8 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      *
      * Delete all online information that has not been updated for a certain time
      *
-     * @param  int $expire Expiration time in seconds
+     * @param int $expire Expiration time in seconds
+     *
      * @return bool
      */
     public function gc($expire)
@@ -171,7 +202,4 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         }
         return true;
     }
-
 }
-
-?>

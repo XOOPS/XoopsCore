@@ -61,15 +61,21 @@ class XoopsModelJoint extends XoopsModelAbstract
     /**
      * get a list of objects matching a condition joint with another related object
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
-     * @param array $fields variables to fetch
-     * @param bool $asObject flag indicating as object, otherwise as array
-     * @param string $field_link field of linked object for JOIN; deprecated, for backward compat
-     * @param string $field_object field of current object for JOIN; deprecated, for backward compat
+     * @param CriteriaElement|null $criteria     {@link CriteriaElement} to match
+     * @param array                $fields       variables to fetch
+     * @param bool                 $asObject     flag indicating as object, otherwise as array
+     * @param string               $field_link   field of linked object for JOIN; deprecated, for backward compat
+     * @param string               $field_object field of current object for JOIN; deprecated, for backward compat
+     *
      * @return array of objects {@link XoopsObject}
      */
-    public function getByLink(CriteriaElement $criteria = null, $fields = null, $asObject = true, $field_link = null, $field_object = null)
-    {
+    public function getByLink(
+        CriteriaElement $criteria = null,
+        $fields = null,
+        $asObject = true,
+        $field_link = null,
+        $field_object = null
+    ) {
         if (!empty($field_link)) {
             $this->handler->field_link = $field_link;
         }
@@ -80,37 +86,35 @@ class XoopsModelJoint extends XoopsModelAbstract
             return null;
         }
 
+        $qb = $this->handler->db->createXoopsQueryBuilder();
         if (is_array($fields) && count($fields)) {
             if (!in_array("o." . $this->handler->keyName, $fields)) {
                 $fields[] = "o." . $this->handler->keyName;
             }
-            $select = implode(",", $fields);
+            $first = true;
+            foreach ($fields as $field) {
+                if ($first) {
+                    $first = false;
+                    $qb->select($field);
+                } else {
+                    $qb->addSelect($field);
+                }
+            }
         } else {
-            $select = "o.*, l.*";
+            $qb ->select('*', 'o')
+                ->addSelect('*', 'l');
         }
-        $limit = null;
-        $start = null;
-        // $field_object = empty($field_object) ? $field_link : $field_object;
-        $sql = " SELECT {$select}" . " FROM {$this->handler->table} AS o" . " LEFT JOIN {$this->handler->table_link} AS l ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+        $qb ->from($this->handler->table, 'o')
+            ->leftJoin('o', $this->handler->table_link, 'l',
+                "o.{$this->handler->field_object} = l.{$this->handler->field_link}"
+            );
         if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
-            $sql .= " " . $criteria->renderWhere();
-            if ($criteria->getGroupby() != '') {
-                $sql .= ' GROUP BY (' . $criteria->getGroupby() . ')';
-            }
-            if ($sort = $criteria->getSort()) {
-                $sql .= " ORDER BY {$sort} " . $criteria->getOrder();
-                $orderSet = true;
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+            $qb = $criteria->renderQb($qb);
         }
-        if (empty($orderSet)) {
-            $sql .= " ORDER BY o.{$this->handler->keyName} DESC";
-        }
-        $result = $this->handler->db->query($sql, $limit, $start);
+        $result = $this->handler->db->executeQuery($sql);
         $ret = array();
         if ($asObject) {
-            while ($myrow = $this->handler->db->fetchArray($result)) {
+            while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
                 $object = $this->handler->create(false);
                 $object->assignVars($myrow);
                 $ret[$myrow[$this->handler->keyName]] = $object;
@@ -118,7 +122,7 @@ class XoopsModelJoint extends XoopsModelAbstract
             }
         } else {
             $object = $this->handler->create(false);
-            while ($myrow = $this->handler->db->fetchArray($result)) {
+            while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
                 $object->assignVars($myrow);
                 $ret[$myrow[$this->handler->keyName]] = $object->getValues();
             }
@@ -131,6 +135,7 @@ class XoopsModelJoint extends XoopsModelAbstract
      * Count of objects matching a condition
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     *
      * @return int count of objects
      */
     public function getCountByLink(CriteriaElement $criteria = null)
@@ -139,24 +144,24 @@ class XoopsModelJoint extends XoopsModelAbstract
             return null;
         }
 
-        $sql = " SELECT COUNT(DISTINCT {$this->handler->keyName}) AS count" . " FROM {$this->handler->table} AS o" . " LEFT JOIN {$this->handler->table_link} AS l ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+        $sql = " SELECT COUNT(DISTINCT {$this->handler->keyName}) AS count"
+            . " FROM {$this->handler->table} AS o"
+            . " LEFT JOIN {$this->handler->table_link} AS l "
+            . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
         if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
             $sql .= " " . $criteria->renderWhere();
             if ($criteria->getGroupby() != '') {
                 $sql .= ' GROUP BY (' . $criteria->getGroupby() . ')';
             }
         }
-        if (!$result = $this->handler->db->query($sql)) {
-            return false;
-        }
-        $myrow = $this->handler->db->fetchArray($result);
-        return intval($myrow["count"]);
+        return $this->handler->db->fetchColumn($sql);
     }
 
     /**
      * array of count of objects matching a condition of, groupby linked object keyname
      *
      * @param CriteriaElement $criteria {@link CriteriaElement} to match
+     *
      * @return int count of objects
      */
     public function getCountsByLink(CriteriaElement $criteria = null)
@@ -164,16 +169,19 @@ class XoopsModelJoint extends XoopsModelAbstract
         if (!$this->validateLinks()) {
             return null;
         }
-        $sql = " SELECT l.{$this->handler->keyName_link}, COUNT(*)" . " FROM {$this->handler->table} AS o" . " LEFT JOIN {$this->handler->table_link} AS l ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+        $sql = " SELECT l.{$this->handler->keyName_link}, COUNT(*)"
+            . " FROM {$this->handler->table} AS o"
+            . " LEFT JOIN {$this->handler->table_link} AS l "
+            . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
         if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
             $sql .= " " . $criteria->renderWhere();
         }
         $sql .= " GROUP BY l.{$this->handler->keyName_link}";
-        if (!$result = $this->handler->db->query($sql)) {
+        if (!$result = $this->handler->db->executeQuery($sql)) {
             return false;
         }
         $ret = array();
-        while (list ($id, $count) = $this->handler->db->fetchRow($result)) {
+        while (list ($id, $count) = $result->fetch(PDO::FETCH_NUM)) {
             $ret[$id] = $count;
         }
         return $ret;
@@ -182,8 +190,9 @@ class XoopsModelJoint extends XoopsModelAbstract
     /**
      * update objects matching a condition against linked objects
      *
-     * @param array $data array of key => value
+     * @param array                $data     array of key => value
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     *
      * @return int count of objects
      */
     public function updateByLink($data, CriteriaElement $criteria = null)
@@ -195,17 +204,20 @@ class XoopsModelJoint extends XoopsModelAbstract
         foreach ($data as $key => $val) {
             $set[] = "o.{$key}=" . $this->handler->db->quoteString($val);
         }
-        $sql = " UPDATE {$this->handler->table} AS o" . " SET " . implode(", ", $set) . " LEFT JOIN {$this->handler->table_link} AS l ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+        $sql = " UPDATE {$this->handler->table} AS o" . " SET " . implode(", ", $set)
+            . " LEFT JOIN {$this->handler->table_link} AS l "
+            . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
         if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
             $sql .= " " . $criteria->renderWhere();
         }
-        return $this->handler->db->query($sql);
+        return $this->handler->db->executeUpdate($sql);
     }
 
     /**
      * Delete objects matching a condition against linked objects
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     *
      * @return int count of objects
      */
     public function deleteByLink(CriteriaElement $criteria = null)
@@ -213,10 +225,12 @@ class XoopsModelJoint extends XoopsModelAbstract
         if (!$this->validateLinks()) {
             return null;
         }
-        $sql = "DELETE FROM {$this->handler->table} AS o " . " LEFT JOIN {$this->handler->table_link} AS l ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+        $sql = "DELETE FROM {$this->handler->table} AS o "
+            . "LEFT JOIN {$this->handler->table_link} AS l "
+            . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
         if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
             $sql .= " " . $criteria->renderWhere();
         }
-        return $this->handler->db->query($sql);
+        return $this->handler->db->executeUpdate($sql);
     }
 }

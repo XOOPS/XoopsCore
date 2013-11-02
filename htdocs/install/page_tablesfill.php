@@ -43,7 +43,7 @@ $xoops->loadLocale();
 
 $dbm = $xoops->db();
 $count = $dbm->fetchColumn('SELECT COUNT(*) FROM ' . $dbm->prefix("users"));
-$process = $count ? '' : 'insert';
+$process = $count ? false : true;
 $update = false;
 
 $siteconfig = $_SESSION['siteconfig'];
@@ -53,13 +53,13 @@ $adminmail = $siteconfig['adminmail'];
 
 
 $wizard->loadLangFile('install2');
-$temp = md5($adminpass);
+$temp = password_hash($adminpass, PASSWORD_DEFAULT);
 $regdate = time();
 if ($process) {
     $dbm->insertPrefix(
         'users',
         array(
-            'uid'             => 1,             // mediumint(8) unsigned NOT NULL auto_increment,
+            //'uid'             => 1,             // mediumint(8) unsigned NOT NULL auto_increment,
             'name'            => '',            // varchar(60) NOT NULL default '',
             'uname'           => $adminname,    // varchar(25) NOT NULL default '',
             'email'           => $adminmail,    // varchar(60) NOT NULL default '',
@@ -74,7 +74,7 @@ if ($process) {
             'user_aim'        => '',            // varchar(18) NOT NULL default '',
             'user_yim'        => '',            // varchar(25) NOT NULL default '',
             'user_msnm'       => '',            // varchar(100) NOT NULL default '',
-            'pass'            => $temp,         // varchar(32) NOT NULL default '',
+            'pass'            => $temp,         // varchar(255) NOT NULL default '',
             'posts'           => 0,             // mediumint(8) unsigned NOT NULL default '0',
             'attachsig'       => 0,             // tinyint(1) unsigned NOT NULL default '0',
             'rank'            => 7,             // smallint(5) unsigned NOT NULL default '0',
@@ -116,7 +116,7 @@ setcookie('xo_install_user', '', null, null, null);
 if (isset( $settings['authorized'] ) && !empty($adminname) && !empty($adminpass)) {
     setcookie(
         'xo_install_user',
-        addslashes($adminname) . '-' . md5(md5($adminpass) . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX),
+        addslashes($adminname) . '-' . md5($temp . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX),
         null,
         null,
         null

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\Query\QueryBuilder;
+
 /**
  * Object write handler class.
  *
@@ -40,7 +42,7 @@ class XoopsModelWrite extends XoopsModelAbstract
      * CleanVars only contains changed and cleaned variables
      * Reference is used for PHP4 compliance
      *
-     * @param XoopsObject $object
+     * @param XoopsObject &$object {@link XoopsObject} reference to object
      *
      * @return bool true if successful
      * @access public
@@ -53,7 +55,7 @@ class XoopsModelWrite extends XoopsModelAbstract
             if (!$v["changed"]) {
                 continue;
             }
-            $object->cleanVars[$k] = Xoops_Object_Dtype::cleanVar($object, $k);
+            $object->cleanVars[$k] = Xoops_Object_Dtype::cleanVar($object, $k, false);
         }
         $object->unsetDirty();
         $errors = $object->getErrors();
@@ -63,51 +65,58 @@ class XoopsModelWrite extends XoopsModelAbstract
     /**
      * insert an object into the database
      *
-     * @param XoopsObject $object {@link XoopsObject} reference to object
-     * @param bool $force flag to force the query execution despite security settings
+     * @param XoopsObject &$object {@link XoopsObject} reference to object
+     * @param bool        $force   flag to force the query execution despite security settings
+     *
      * @return mixed object ID
      */
     public function insert(XoopsObject &$object, $force = true)
     {
         if (!(class_exists($this->handler->className) && $object instanceof $this->handler->className)) {
-            trigger_error("Object '" . get_class($object) . "' is not an instance of '" . $this->handler->className . "'", E_USER_NOTICE);
+            trigger_error(
+                "Object '" . get_class($object) . "' is not an instance of '" . $this->handler->className . "'",
+                E_USER_NOTICE
+            );
             return false;
         }
         if (!$object->isDirty()) {
-            trigger_error("Data entry is not inserted - the object '" . get_class($object) . "' is not dirty", E_USER_NOTICE);
+            trigger_error(
+                "Data entry is not inserted - the object '" . get_class($object) . "' is not dirty",
+                E_USER_NOTICE
+            );
             return false;
         }
         if (!$this->cleanVars($object)) {
-            trigger_error("Insert failed in method 'cleanVars' of object '" . get_class($object) . "'" . $object->getHtmlErrors(), E_USER_WARNING);
+            trigger_error(
+                "Insert failed in method 'cleanVars' of object '" . get_class($object) . "'" . $object->getHtmlErrors(),
+                E_USER_WARNING
+            );
             return false;
         }
-        $queryFunc = empty($force) ? "query" : "queryF";
+        //$queryFunc = empty($force) ? "query" : "queryF";
 
         if ($object->isNew()) {
-            $sql = "INSERT INTO `" . $this->handler->table . "`";
-            if (!empty($object->cleanVars)) {
-                $keys = array_keys($object->cleanVars);
-                $vals = array_values($object->cleanVars);
-                $sql .= " (`" . implode("`, `", $keys) . "`) VALUES (" . implode(",", $vals) . ")";
-            } else {
-                trigger_error("Data entry is not inserted - no variable is changed in object of '" . get_class($object) . "'", E_USER_NOTICE);
+            if (empty($object->cleanVars)) {
+                trigger_error(
+                    "Data entry is not inserted - no variable is changed in object of '" . get_class($object) . "'",
+                    E_USER_NOTICE
+                );
                 return false;
             }
-            if (!$this->handler->db->$queryFunc($sql)) {
+            if (!$this->handler->db->insert($this->handler->table, $object->cleanVars)) {
                 return false;
             }
-            if (!$object->getVar($this->handler->keyName) && $object_id = $this->handler->db->getInsertId()) {
+            if (!$object->getVar($this->handler->keyName) && $object_id = $this->handler->db->lastInsertId()) {
                 $object->assignVar($this->handler->keyName, $object_id);
             }
-			$object->unsetNew(); // object is no longer New
+            $object->unsetNew(); // object is no longer New
         } else {
             if (!empty($object->cleanVars)) {
-                $keys = array();
-                foreach ($object->cleanVars as $k => $v) {
-                    $keys[] = " `{$k}` = {$v}";
-                }
-                $sql = "UPDATE `" . $this->handler->table . "` SET " . implode(",", $keys) . " WHERE `" . $this->handler->keyName . "` = " . $this->handler->db->quote($object->getVar($this->handler->keyName));
-                if (!$this->handler->db->$queryFunc($sql)) {
+                if (!$this->handler->db->update(
+                    $this->handler->table,
+                    $object->cleanVars,
+                    array($this->handler->keyName => $object->getVar($this->handler->keyName))
+                )) {
                     return false;
                 }
             }
@@ -118,28 +127,52 @@ class XoopsModelWrite extends XoopsModelAbstract
     /**
      * delete an object from the database
      *
-     * @param XoopsObject $object {@link XoopsObject} reference to the object to delete
-     * @param bool $force
+     * @param XoopsObject &$object {@link XoopsObject} reference to the object to delete
+     * @param bool        $force   force to delete
+     *
      * @return bool FALSE if failed.
      */
     public function delete(XoopsObject &$object, $force = false)
     {
         if (!(class_exists($this->handler->className) && $object instanceof $this->handler->className)) {
-            trigger_error("Object '" . get_class($object) . "' is not an instance of '" . $this->handler->className . "'", E_USER_NOTICE);
+            trigger_error(
+                "Object '" . get_class($object) . "' is not an instance of '" . $this->handler->className . "'",
+                E_USER_NOTICE
+            );
             return $object->getVar($this->handler->keyName);
         }
+
+        $qb = $this->handler->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
+        $qb->delete($this->handler->table);
         if (is_array($this->handler->keyName)) {
-            $clause = array();
             for ($i = 0; $i < count($this->handler->keyName); $i++) {
-                $clause[] = "`" . $this->handler->keyName[$i] . "` = " . $this->handler->db->quote($object->getVar($this->handler->keyName[$i]));
+                if ($i == 0) {
+                    $qb->where(
+                        $eb->eq(
+                            $this->handler->keyName[$i],
+                            $qb->createNamedParameter($object->getVar($this->handler->keyName[$i]))
+                        )
+                    );
+                } else {
+                    $qb->andWhere(
+                        $eb->eq(
+                            $this->handler->keyName[$i],
+                            $qb->createNamedParameter($object->getVar($this->handler->keyName[$i]))
+                        )
+                    );
+                }
             }
-            $whereclause = implode(" AND ", $clause);
         } else {
-            $whereclause = "`" . $this->handler->keyName . "` = " . $this->handler->db->quote($object->getVar($this->handler->keyName));
+            $qb->where(
+                $eb->eq(
+                    $this->handler->keyName,
+                    $qb->createNamedParameter($object->getVar($this->handler->keyName))
+                )
+            );
         }
-        $sql = "DELETE FROM `" . $this->handler->table . "` WHERE " . $whereclause;
-        $queryFunc = empty($force) ? "query" : "queryF";
-        $result = $this->handler->db->$queryFunc($sql);
+        $result = $qb->execute();
         return empty($result) ? false : true;
     }
 
@@ -147,8 +180,9 @@ class XoopsModelWrite extends XoopsModelAbstract
      * delete all objects matching the conditions
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} with conditions to meet
-     * @param bool $force force to delete
-     * @param bool $asObject delete in object way: instantiate all objects and delte one by one
+     * @param bool                 $force    force to delete
+     * @param bool                 $asObject delete in object way: instantiate all objects and delte one by one
+     *
      * @return bool
      */
     public function deleteAll(CriteriaElement $criteria = null, $force = true, $asObject = false)
@@ -162,44 +196,36 @@ class XoopsModelWrite extends XoopsModelAbstract
             unset($objects);
             return $num;
         }
-        $queryFunc = empty($force) ? 'query' : 'queryF';
-        $sql = 'DELETE FROM ' . $this->handler->table;
-        if (!empty($criteria)) {
-            $sql .= ' ' . $criteria->renderWhere();
+        //$queryFunc = empty($force) ? 'query' : 'queryF';
+        $qb = $this->handler->db->createXoopsQueryBuilder();
+        $qb->delete($this->handler->table);
+        if (isset($criteria)) {
+            $qb = $criteria->renderQb($qb);
         }
-        if (!$this->handler->db->$queryFunc($sql)) {
-            return false;
-        }
-        return $this->handler->db->getAffectedRows();
+        return $qb->execute();
     }
 
     /**
      * Change a field for objects with a certain criteria
      *
-     * @param string $fieldname Name of the field
-     * @param mixed $fieldvalue Value to write
-     * @param CriteriaElement|null $criteria {@link CriteriaElement}
-     * @param bool $force force to query
+     * @param string               $fieldname  Name of the field
+     * @param mixed                $fieldvalue Value to write
+     * @param CriteriaElement|null $criteria   {@link CriteriaElement}
+     * @param bool                 $force      force to query
+     *
      * @return bool
      */
     public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria = null, $force = false)
     {
-        $set_clause = "`{$fieldname}` = ";
-        if (is_numeric($fieldvalue)) {
-            $set_clause .= $fieldvalue;
-        } else {
-            if (is_array($fieldvalue)) {
-                $set_clause .= $this->handler->db->quote(implode(',', $fieldvalue));
-            } else {
-                $set_clause .= $this->handler->db->quote($fieldvalue);
-            }
-        }
-        $sql = 'UPDATE `' . $this->handler->table . '` SET ' . $set_clause;
+        $qb = $this->handler->db->createXoopsQueryBuilder();
+
+        //$queryFunc = empty($force) ? 'query' : 'queryF';
+        $qb->update($this->handler->table);
         if (isset($criteria)) {
-            $sql .= ' ' . $criteria->renderWhere();
+            $qb = $criteria->renderQb($qb);
         }
-        $queryFunc = empty($force) ? 'query' : 'queryF';
-        $result = $this->handler->db->$queryFunc($sql);
-        return empty($result) ? false : true;
+        $qb->set($fieldname, $qb->createNamedParameter($fieldvalue));
+
+        return $qb->execute();
     }
 }

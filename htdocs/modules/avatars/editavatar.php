@@ -123,9 +123,9 @@ switch ($op) {
                             }
                         }
                         $sql = $xoops->db()->createXoopsQueryBuilder()
-                            ->updatePrefix('users', 'u')
-                            ->set('u.user_avatar', ':avatar')
-                            ->where('u.uid = :uid')
+                            ->updatePrefix('users')
+                            ->set('user_avatar', ':avatar')
+                            ->where('uid = :uid')
                             ->setParameter(':uid', $xoops->user->getVar('uid'), \PDO::PARAM_INT)
                             ->setParameter(
                                 ':avatar',

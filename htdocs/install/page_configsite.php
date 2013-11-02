@@ -35,12 +35,11 @@ $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
 $xoops->loadLocale('system');
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $config_handler = $xoops->getHandlerConfig();
     if (array_key_exists('conf_ids', $_REQUEST)) {
         foreach ($_REQUEST['conf_ids'] as $key => $conf_id) {
-            $config =& $config_handler->getConfig($conf_id);
+            $config = $config_handler->getConfig($conf_id);
             $new_value = $_REQUEST[$config->getVar('conf_name')];
             $config->setConfValueForInput($new_value);
             $config_handler->insertConfig($config);
@@ -58,7 +57,7 @@ foreach ($wizard->configs['conf_names'] as $conf_name) {
     $criteria2->add(new Criteria('conf_name', $conf_name), 'OR');
 }
 $criteria->add($criteria2);
-$criteria->setSort('conf_catid ASC, conf_order ASC');
+$criteria->setSort('conf_catid ASC, conf_order');
 $configs = $config_handler->getConfigs($criteria);
 
 include XOOPS_INSTALL_PATH . '/include/createconfigform.php';

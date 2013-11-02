@@ -91,7 +91,8 @@ switch ($op) {
         break;
 
     case 'rename':
-        $xoops->disableErrorReporting();
+        $xoops->logger()->quiet();
+        //$xoops->disableErrorReporting();
 
         $mid = $system->cleanVars($_POST, 'id', 0, 'int');
         $value = $system->cleanVars($_POST, 'value', '', 'string');
@@ -129,7 +130,8 @@ switch ($op) {
         break;
 
     case 'active':
-        $xoops->disableErrorReporting();
+        $xoops->logger()->quiet();
+        //$xoops->disableErrorReporting();
         // Get module handler
         $module_handler = $xoops->getHandlerModule();
         $block_handler = $xoops->getHandlerBlock();
@@ -155,7 +157,8 @@ switch ($op) {
         break;
 
     case 'display_in_menu':
-        $xoops->disableErrorReporting();
+        $xoops->logger()->quiet();
+        //$xoops->disableErrorReporting();
         // Get module handler
         $module_handler = $xoops->getHandlerModule();
         $module_id = $system->cleanVars($_POST, 'mid', 0, 'int');

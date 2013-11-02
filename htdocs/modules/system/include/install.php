@@ -74,7 +74,7 @@ function xoops_module_install_system(&$module)
     }
     // Make system block visible
     $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
-    $block_handler = new XoopsBlockHandler();
+    $block_handler = new XoopsBlockHandler($xoops->db());
     $blocks = $block_handler->getByModule(1);
     foreach ($blocks as $block) {
         if (in_array($block->getVar('template'), array(

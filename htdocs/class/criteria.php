@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\Query\QueryBuilder;
+
 /**
  * XOOPS Criteria parser for database query
  *
@@ -21,8 +23,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * A criteria (grammar?) for a database query.
@@ -68,22 +68,41 @@ abstract class CriteriaElement
 
     /**
      * Render the criteria element
+     *
+     * @return string
      */
-    abstract function render();
+    abstract public function render();
 
     /**
      * Make the criteria into a SQL "WHERE" clause
+     *
+     * @return string
      */
-    abstract function renderWhere();
+    abstract public function renderWhere();
 
     /**
      * Generate an LDAP filter from criteria
+     *
+     * @return string
      */
-    abstract function renderLdap();
+    abstract public function renderLdap();
+
+    /**
+     * Render as Doctrine QueryBuilder instructions
+     *
+     * @param QueryBuilder $qb        query builder instance
+     * @param string       $whereMode how does this fit in the passed in QueryBuilder?
+     *                                '' = as where,'and'= as andWhere, 'or' = as orWhere
+     *
+     * @return QueryBuilder query builder instance
+     */
+    abstract public function renderQb(QueryBuilder $qb = null, $whereMode = '');
 
     /**
      *
-     * @param string $sort
+     * @param string $sort sort column
+     *
+     * @return void
      */
     public function setSort($sort)
     {
@@ -91,7 +110,7 @@ abstract class CriteriaElement
     }
 
     /**
-     * @return string
+     * @return string sort column
      */
     public function getSort()
     {
@@ -99,7 +118,9 @@ abstract class CriteriaElement
     }
 
     /**
-     * @param string $order
+     * @param string $order sort order ASC or DESC
+     *
+     * @return void
      */
     public function setOrder($order)
     {
@@ -109,7 +130,7 @@ abstract class CriteriaElement
     }
 
     /**
-     * @return string
+     * @return string sort order
      */
     public function getOrder()
     {
@@ -117,7 +138,9 @@ abstract class CriteriaElement
     }
 
     /**
-     * @param int $limit
+     * @param int $limit row limit
+     *
+     * @return void
      */
     public function setLimit($limit = 0)
     {
@@ -125,7 +148,7 @@ abstract class CriteriaElement
     }
 
     /**
-     * @return int
+     * @return int row limit
      */
     public function getLimit()
     {
@@ -133,7 +156,9 @@ abstract class CriteriaElement
     }
 
     /**
-     * @param int $start
+     * @param int $start offset of first row
+     *
+     * @return void
      */
     public function setStart($start = 0)
     {
@@ -141,7 +166,7 @@ abstract class CriteriaElement
     }
 
     /**
-     * @return int
+     * @return int start row offset
      */
     public function getStart()
     {
@@ -149,7 +174,9 @@ abstract class CriteriaElement
     }
 
     /**
-     * @param string $group
+     * @param string $group group by
+     *
+     * @return void
      */
     public function setGroupby($group)
     {
@@ -157,7 +184,7 @@ abstract class CriteriaElement
     }
 
     /**
-     * @return string
+     * @return string group by
      */
     public function getGroupby()
     {
@@ -267,6 +294,46 @@ class CriteriaCompo extends CriteriaElement
         }
         return $ret;
     }
+
+    /**
+     * Render as Doctrine QueryBuilder instructions
+     *
+     * @param QueryBuilder $qb        query builder instance
+     * @param string       $whereMode how does this fit in the passed in QueryBuilder?
+     *                                '' = as where,'and'= as andWhere, 'or' = as orWhere
+     *
+     * @return QueryBuilder query builder instance
+     */
+    public function renderQb(QueryBuilder $qb = null, $whereMode = '')
+    {
+        if ($qb==null) {
+            $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+            $whereMode = ''; // first entry in new instance must be where
+        }
+        $eb = $qb->expr();
+
+        foreach ($this->criteriaElements as $i => $element) {
+            if ($i == 0) {
+                $qb = $element->renderQb($qb, $whereMode);
+            } else {
+                $qb = $element->renderQb($qb, $this->conditions[$i]);
+            }
+        }
+
+        if ($this->limit!=0 || $this->start!=0) {
+            $qb->setFirstResult($this->start)
+                ->setMaxResults($this->limit);
+        }
+
+        if (!empty($this->groupby)) {
+            $qb->groupBy($groupby);
+        }
+
+        if (!empty($this->sort)) {
+            $qb->orderBy($this->sort, $this->order);
+        }
+        return $qb;
+    }
 }
 
 /**
@@ -304,11 +371,11 @@ class Criteria extends CriteriaElement
     /**
      * Constructor
      *
-     * @param string $column
-     * @param string $value
-     * @param string $operator
-     * @param string $prefix
-     * @param string $function
+     * @param string $column   column criteria applies to
+     * @param string $value    value to compare to column
+     * @param string $operator operator to apply to column
+     * @param string $prefix   prefix to append to column
+     * @param string $function sprintf string taking one string argument applied to column
      */
     public function __construct($column, $value = '', $operator = '=', $prefix = '', $function = '')
     {
@@ -347,6 +414,7 @@ class Criteria extends CriteriaElement
             }
             $clause .= " {$this->operator} {$value}";
         }
+
         return $clause;
     }
 
@@ -393,5 +461,123 @@ class Criteria extends CriteriaElement
     {
         $cond = $this->render();
         return empty($cond) ? '' : "WHERE {$cond}";
+    }
+
+    /**
+     * Render criteria as Doctrine QueryBuilder instructions
+     *
+     * @param QueryBuilder $qb        query builder instance
+     * @param string       $whereMode how does this fit in the passed in QueryBuilder?
+     *                                '' = as where,'and'= as andWhere, 'or' = as orWhere
+     *
+     * @return QueryBuilder query builder instance
+     */
+    public function renderQb(QueryBuilder $qb = null, $whereMode = '')
+    {
+        if ($qb==null) { // initialize querybuilder if not passed in
+            $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+            $whereMode = ''; // first entry in new instance must be where
+        }
+        $eb = $qb->expr();
+
+        $column = (empty($this->prefix) ? "" : $this->prefix.'.') . $this->column;
+
+        // this should be done using portability functions
+        if (!empty($this->function)) {
+            $column = sprintf($this->function, $column);
+        }
+
+        $value=trim($this->value);
+
+        $operator = strtolower($this->operator);
+        $expr = '';
+
+        // handle special case of value
+        if (in_array($operator, array('is null', 'is not null', 'in', 'not in'))) {
+            switch ($operator) {
+                case 'is null':
+                    $expr = $eb->isNull($column);
+                    break;
+                case 'is not null':
+                    $expr = $eb->isNotNull($column);
+                    break;
+                case 'in':
+                    $expr = $column . ' IN ' . $value;
+                    break;
+                case 'not in':
+                    $expr = $column . ' NOT IN '.$value;
+                    break;
+            }
+
+        } elseif (empty($column)) { // no value is a nop (bug: this should be a valid value)
+            $whereMode='none';
+            $expr = '2=2';
+        } else {
+            $colvalue = $qb->createNamedParameter($value);
+            switch ($operator) {
+                case '=':
+                case 'eq':
+                    $expr = $eb->eq($column, $colvalue);
+                    break;
+                case '!=':
+                case '<>':
+                case 'neq':
+                    $expr = $eb->neq($column, $colvalue);
+                    break;
+                case '<':
+                case 'lt':
+                    $expr = $eb->lt($column, $colvalue);
+                    break;
+                case '<=':
+                case 'lte':
+                    $expr = $eb->lte($column, $colvalue);
+                    break;
+                case '>':
+                case 'gt':
+                    $expr = $eb->gt($column, $colvalue);
+                    break;
+                case '>=':
+                case 'gte':
+                    $expr = $eb->gte($column, $colvalue);
+                    break;
+                case 'like':
+                    $expr = $eb->like($column, $colvalue);
+                    break;
+                case 'not like':
+                    $expr = $eb->notLike($column, $colvalue);
+                    break;
+                default:
+                    $expr = $eb->comparison($column, strtoupper($operator), $colvalue);
+                    break;
+            }
+        }
+
+        switch (strtolower($whereMode)) {
+            case 'and':
+                $qb->andWhere($expr);
+                break;
+            case 'or':
+                $qb->orWhere($expr);
+                break;
+            case '':
+//            default:
+                $qb->where($expr);
+                break;
+        }
+
+        if ($this->limit!=0 || $this->start!=0) {
+            $qb->setFirstResult($start)
+                ->setMaxResults($limit);
+        }
+
+        if (!empty($this->groupby)) {
+            $qb->groupBy($groupby);
+        }
+
+        if (!empty($this->sort)) {
+            $qb->orderBy($this->sort, $this->order);
+        }
+
+        return $qb;
     }
 }

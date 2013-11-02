@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\Query\QueryBuilder;
+
 /**
  * Object render handler class.
  *
@@ -35,47 +37,46 @@ class XoopsModelRead extends XoopsModelAbstract
     /**
      * get all objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
-     * @param array $fields variables to fetch
-     * @param bool $asObject flag indicating as object, otherwise as array
-     * @param bool $id_as_key use the ID as key for the array
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement} to match
+     * @param array                $fields    variables to fetch
+     * @param bool                 $asObject  flag indicating as object, otherwise as array
+     * @param bool                 $id_as_key use the ID as key for the array
+     *
      * @return array of objects/array {@link XoopsObject}
      */
     public function getAll(CriteriaElement $criteria = null, $fields = null, $asObject = true, $id_as_key = true)
     {
+        $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
         if (is_array($fields) && count($fields) > 0) {
             if (!in_array($this->handler->keyName, $fields)) {
                 $fields[] = $this->handler->keyName;
             }
-            $select = "`" . implode("`, `", $fields) . "`";
+            $first=true;
+            foreach ($fields as $field) {
+                if ($first) {
+                    $first=false;
+                    $qb->select($field);
+                } else {
+                    $qb->addSelect($field);
+                }
+            }
         } else {
-            $select = "*";
+            $qb->select('*');
         }
-        $limit = null;
-        $start = null;
-        $sql = "SELECT {$select} FROM `{$this->handler->table}`";
+        $qb->from($this->handler->table, null);
         if (isset($criteria)) {
-            $sql .= " " . $criteria->renderWhere();
-            if ($groupby = $criteria->getGroupby()) {
-                $sql .= ' GROUP BY (' . $groupby . ')';
-            }
-            if ($sort = $criteria->getSort()) {
-                $sql .= " ORDER BY {$sort} " . $criteria->getOrder();
-                $orderSet = true;
-            } else if ($order = $criteria->getOrder()) {
-                $sql .= " ORDER BY {$this->handler->keyName} " . $order;
-                $orderSet = true;
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+            $qb = $criteria->renderQb($qb);
         }
-        if (empty($orderSet)) {
-            //$sql .= " ORDER BY `{$this->handler->keyName}` DESC";
-        }
-        $result = $this->handler->db->query($sql, $limit, $start);
+
         $ret = array();
+        $result = $qb->execute();
+        if (!$result) {
+            return $ret;
+        }
         if ($asObject) {
-            while ($myrow = $this->handler->db->fetchArray($result)) {
+            while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
                 $object = $this->handler->create(false);
                 $object->assignVars($myrow);
                 if ($id_as_key) {
@@ -87,7 +88,7 @@ class XoopsModelRead extends XoopsModelAbstract
             }
         } else {
             $object = $this->handler->create(false);
-            while ($myrow = $this->handler->db->fetchArray($result)) {
+            while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
                 $object->assignVars($myrow);
                 if ($id_as_key) {
                     $ret[$myrow[$this->handler->keyName]] = $object->getValues();
@@ -105,9 +106,10 @@ class XoopsModelRead extends XoopsModelAbstract
      *
      * For performance consideration, getAll() is recommended
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} conditions to be met
-     * @param bool $id_as_key use the ID as key for the array
-     * @param bool $as_object return an array of objects?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement} conditions to be met
+     * @param bool                 $id_as_key use the ID as key for the array
+     * @param bool                 $as_object return an array of objects?
+     *
      * @return array
      */
     public function getObjects(CriteriaElement $criteria = null, $id_as_key = false, $as_object = true)
@@ -120,42 +122,34 @@ class XoopsModelRead extends XoopsModelAbstract
      * Retrieve a list of objects data
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} conditions to be met
-     * @param int $limit Max number of objects to fetch
-     * @param int $start Which record to start at
+     * @param int                  $limit    Max number of objects to fetch
+     * @param int                  $start    Which record to start at
+     *
      * @return array
      */
     public function getList(CriteriaElement $criteria = null, $limit = 0, $start = 0)
     {
-        $ret = array();
-        if ($criteria == null) {
-            $criteria = new CriteriaCompo();
-        }
+        $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
 
-        $sql = "SELECT `{$this->handler->keyName}`";
+        $ret = array();
+
+        $qb->select($this->handler->keyName);
         if (!empty($this->handler->identifierName)) {
-            $sql .= ", `{$this->handler->identifierName}`";
+            $qb->addSelect($this->handler->identifierName);
         }
-        $sql .= " FROM `{$this->handler->table}`";
-        if (isset($criteria)) {
-            $sql .= ' ' . $criteria->renderWhere();
-            if ($groupby = $criteria->getGroupby()) {
-                $sql .= ' GROUP BY (' . $groupby . ')';
-            }
-            if ($sort = $criteria->getSort()) {
-                $sql .= ' ORDER BY ' . $sort . ' ' . $criteria->getOrder();
-            } else if ($order = $criteria->getOrder()) {
-                $sql .= " ORDER BY {$this->handler->keyName} " . $order;
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+        $qb->from($this->handler->table, null);
+        $qb->orderBy($this->handler->keyName); // any criteria order will override
+        if (!empty($criteria)) {
+            $qb = $criteria->renderQb($qb);
         }
-        $result = $this->handler->db->query($sql, $limit, $start);
+        $result = $qb->execute();
         if (!$result) {
             return $ret;
         }
 
         $myts = MyTextSanitizer::getInstance();
-        while ($myrow = $this->handler->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
             // identifiers should be textboxes, so sanitize them like that
             $ret[$myrow[$this->handler->keyName]] = empty($this->handler->identifierName) ? 1
                 : $myts->htmlSpecialChars($myrow[$this->handler->identifierName]);
@@ -167,22 +161,29 @@ class XoopsModelRead extends XoopsModelAbstract
      * get IDs of objects matching a condition
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     *
      * @return array of object IDs
      */
-    function getIds(CriteriaElement $criteria = null)
+    public function getIds(CriteriaElement $criteria = null)
     {
+        $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
         $ret = array();
+
+        $qb->select($this->handler->keyName);
+        $qb->from($this->handler->table, null);
         $sql = "SELECT `{$this->handler->keyName}` FROM `{$this->handler->table}`";
         $limit = $start = null;
-        if (isset($criteria)) {
-            $sql .= ' ' . $criteria->renderWhere();
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+        if (!empty($criteria)) {
+            $qb = $criteria->renderQb($qb);
         }
-        if (!$result = $this->handler->db->query($sql, $limit, $start)) {
+        $result = $qb->execute();
+        if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->handler->db->fetchArray($result)) {
+
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
             $ret[] = $myrow[$this->handler->keyName];
         }
         return $ret;

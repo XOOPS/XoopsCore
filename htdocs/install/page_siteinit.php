@@ -28,13 +28,24 @@ require_once dirname(__FILE__) . '/include/common.inc.php';
 
 set_time_limit(0); // don't want this to timeout
 
+function exception_handler($exception)
+{
+    echo "Uncaught exception: " , $exception->getMessage(), "\n";
+    var_dump($exception->getTrace());
+}
+
+set_exception_handler('exception_handler');
+
 $xoops = Xoops::getInstance();
 
 // setup legacy db support
 $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 
 //Set active modules in cache folder, delete caches is existing
-$xoops->setActiveModules();
+//$xoops->setActiveModules();
+$modules_active = array();
+Xoops_Cache::write('system_modules_active', $modules_active);
+
 $root = dirname(dirname(__FILE__));
 $language = $wizard->language;
 $xoops->setConfig('locale', $language);
@@ -47,7 +58,11 @@ include_once $root . "/modules/system/class/system.php";
 
 $system_module = new SystemModule();
 $system = System::getInstance();
-$system_module->install('system', true);
+$status = $system_module->install('system', true);
+if (!$status) {
+    $_SESSION['error'] = $system_module->error;
+    $sql = $xoops->db()->getConfiguration()->getSQLLogger()->queries;
+}
 
 $pageHasForm = true;
 $pageHasHelp = false;

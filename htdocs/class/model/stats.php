@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Object stats handler class.
  *
@@ -30,42 +28,54 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *
  * {@link XoopsObjectAbstract}
  */
-
 class XoopsModelStats extends XoopsModelAbstract
 {
     /**
      * count objects matching a condition
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     *
      * @return int count of objects
      */
     public function getCount(CriteriaElement $criteria = null)
     {
+        $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
         $field = '';
         $groupby = false;
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            if ($criteria->getGroupby() != '') {
+            $temp = $criteria->getGroupby();
+            if (!empty($temp)) {
+                $qb->select($temp);
                 $groupby = true;
-                $field = $criteria->getGroupby() . ", ";
             }
         }
-        $sql = "SELECT {$field} COUNT(*) FROM `{$this->handler->table}`";
+        if (!$groupby) {
+            $qb->select('COUNT(*)');
+        } else {
+            $qb->addSelect('COUNT(*)');
+        }
+
+        $qb->from($this->handler->table, null);
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            if ($criteria->getGroupby() != '') {
-                $sql .= ' GROUP BY (' . $criteria->getGroupby() . ')';
-            }
+            $qb = $criteria->renderQb($qb);
         }
-        $result = $this->handler->db->query($sql);
-        if (!$result) {
+        try {
+            $result = $qb->execute();
+            if (!$result) {
+                return 0;
+            }
+        } catch (Exception $e) {
             return 0;
         }
+
         if ($groupby == false) {
-            list ($count) = $this->handler->db->fetchRow($result);
+            list ($count) = $result->fetch(PDO::FETCH_NUM);
             return $count;
         } else {
             $ret = array();
-            while (list ($id, $count) = $this->handler->db->fetchRow($result)) {
+            while (list ($id, $count) = $result->fetch(PDO::FETCH_NUM)) {
                 $ret[$id] = $count;
             }
             return $ret;
@@ -76,28 +86,36 @@ class XoopsModelStats extends XoopsModelAbstract
      * get counts matching a condition
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     *
      * @return array of counts
      */
     public function getCounts(CriteriaElement $criteria = null)
     {
+        $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
         $ret = array();
         $sql_where = '';
         $limit = null;
         $start = null;
         $groupby_key = $this->handler->keyName;
         if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
-            $sql_where = $criteria->renderWhere();
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
             if ($groupby = $criteria->getGroupby()) {
                 $groupby_key = $groupby;
             }
         }
-        $sql = "SELECT {$groupby_key}, COUNT(*) AS count" . " FROM `{$this->handler->table}`" . " {$sql_where}" . " GROUP BY {$groupby_key}";
-        if (!$result = $this->handler->db->query($sql, $limit, $start)) {
+        $qb->select($groupby_key)
+            ->addSelect('COUNT(*)')
+            ->from($this->handler->table, null);
+
+        if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
+            $qb = $criteria->renderQb($qb);
+        }
+        $result = $qb->execute();
+        if (!$result) {
             return $ret;
         }
-        while (list ($id, $count) = $this->handler->db->fetchRow($result)) {
+        while (list ($id, $count) = $result->fetch(PDO::FETCH_NUM)) {
             $ret[$id] = $count;
         }
         return $ret;

@@ -27,7 +27,7 @@ $modversion['author']         = 'Andricq Nicolas,Mage Gregory';
 $modversion['nickname']       = 'MusS,Mage';
 $modversion['credits']        = 'The XOOPS Project';
 $modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['license_url']    = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
 $modversion['image']          = 'images/logo.png';

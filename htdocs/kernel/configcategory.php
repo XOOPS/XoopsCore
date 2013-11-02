@@ -111,24 +111,27 @@ class XoopsConfigCategoryHandler extends XoopsPersistableObjectHandler
      */
     public function getCategoryObjects(CriteriaElement $criteria = null, $id_as_key = false)
     {
-        $ret = array();
-        $limit = $start = 0;
-        $sql = 'SELECT * FROM ' . $this->db->prefix('configcategory');
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
+        $qb ->select('*')
+            ->fromPrefix('configcategory', null);
+
+        // Original contined this logic - Why can't we trust criteria?
+        // $sort = !in_array($criteria->getSort(),
+        // array('confcat_id', 'confcat_name', 'confcat_order')) ? 'confcat_order' : $criteria->getSort();
+
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            $sort = !in_array($criteria->getSort(), array(
-                                                         'confcat_id',
-                                                         'confcat_name',
-                                                         'confcat_order')) ? 'confcat_order' : $criteria->getSort();
-            $sql .= ' ORDER BY ' . $sort . ' ' . $criteria->getOrder();
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+            $criteria->renderQb($qb);
         }
-        $result = $this->db->query($sql, $limit, $start);
+
+        $ret = array();
+
+        $result = $qb->execute();
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
             $confcat = new XoopsConfigCategory();
             $confcat->assignVars($myrow, false);
             if (!$id_as_key) {

@@ -75,7 +75,7 @@ $modversion['config'][] = array(
     'description' => '',
     'formtype' => 'yesno',
     'valuetype' => 'int',
-    'default' => 0,  // default to off to give chance to review module access rights
+    'default' => 1,  // default to off to give chance to review module access rights
 );
 
 $modversion['config'][] = array(

@@ -36,14 +36,14 @@ class BannersBannerclient extends XoopsObject
     }
     public function get_new_id()
     {
-        return Xoops::getInstance()->db()->getInsertId();
+        return Xoops::getInstance()->db()->lastInsertId();
     }
 }
 
 class BannersBannerclientHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|XoopsConnection $db database
      */
     public function __construct(XoopsConnection $db = null)
     {

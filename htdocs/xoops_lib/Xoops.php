@@ -156,7 +156,7 @@ class Xoops
 
     /**
      * get database connection instance
-     * 
+     *
      * @return XoopsConnection
      * @todo remove legacy database lines
      */
@@ -167,7 +167,7 @@ class Xoops
 
     /**
      * get the system logger instance
-     * 
+     *
      * @return \Xoops\Core\Logger
      */
     public function logger()
@@ -177,7 +177,7 @@ class Xoops
 
     /**
      * get the event processor
-     * 
+     *
      * @return \Xoops\Core\Events instance
      */
     public function events()
@@ -187,7 +187,7 @@ class Xoops
 
     /**
      * Deprecated - use events() instead
-     * 
+     *
      * @return XoopsPreload
      */
     public function preload()
@@ -197,7 +197,7 @@ class Xoops
 
     /**
      * get the service manager
-     * 
+     *
      * @return \Xoops\Core\Service\Manager instance
      */
     public function service()
@@ -211,7 +211,7 @@ class Xoops
 
     /**
      * provide registry instance
-     * 
+     *
      * @return Xoops_Registry
      */
     public function registry()
@@ -221,7 +221,7 @@ class Xoops
 
     /**
      * get security instance
-     * 
+     *
      * @return XoopsSecurity
      */
     public function security()
@@ -236,7 +236,7 @@ class Xoops
 
     /**
      * get current template engine
-     * 
+     *
      * @return null|XoopsTpl
      */
     public function tpl()
@@ -246,7 +246,7 @@ class Xoops
 
     /**
      * set curent template engine
-     * 
+     *
      * @param XoopsTpl $tpl
      *
      * @return XoopsTpl
@@ -298,7 +298,9 @@ class Xoops
     }
 
     /**
-     * @param XoopsTheme $theme
+     * set theme
+     *
+     * @param XoopsTheme $theme theme
      *
      * @return XoopsTheme
      */
@@ -961,8 +963,10 @@ class Xoops
     }
 
     /**
-     * @param   mixed    $domain     string: Module dirname; global language file will be loaded if $domain is set to 'global' or not specified
-     * @param   string   $locale     Locale to be loaded, current language content will be loaded if not specified
+     * loadLocale
+     *
+     * @param string $domain Module dirname; global language file will be loaded if set to 'global' or not specified
+     * @param string $locale Locale to be loaded, current language content will be loaded if not specified
      *
      * @return  boolean
      */
@@ -993,8 +997,12 @@ class Xoops
             return $this->_activeModules;
         }
 
-        if (!$this->_activeModules = Xoops_Cache::read('system_modules_active')) {
-            $this->_activeModules = $this->setActiveModules();
+        try {
+            if (!$this->_activeModules = Xoops_Cache::read('system_modules_active')) {
+                $this->_activeModules = $this->setActiveModules();
+            }
+        } catch (Exception $e) {
+            $this->_activeModules = array();
         }
         return $this->_activeModules;
     }
@@ -1019,7 +1027,7 @@ class Xoops
     /**
      * Checks is module is installed and active
      *
-     * @param $dirname
+     * @param string $dirname module directory
      *
      * @return bool
      */
@@ -1523,7 +1531,7 @@ class Xoops
 
     /**
      * getRank - retrieve user rank
-     * 
+     *
      * @param integer $rank_id specified rank for user
      * @param int     $posts   number of posts for user
      *
@@ -1734,6 +1742,8 @@ class Xoops
     }
 
     /**
+     * getBaseDomain
+     *
      * @param string $url
      * @param int    $debug
      *
@@ -1868,7 +1878,11 @@ class Xoops
             /* @var XoopsBlock $block */
             foreach ($block_arr as $block) {
                 if ($block->getVar('template') != '') {
-                    $xoopsTpl->clear_cache(XOOPS_ROOT_PATH . "/modules/" . $block->getVar('dirname') . "/templates/blocks/" . $block->getVar('template'), 'blk_' . $block->getVar('bid'));
+                    $xoopsTpl->clear_cache(
+                        XOOPS_ROOT_PATH . "/modules/" . $block->getVar('dirname')
+                        . "/templates/blocks/" . $block->getVar('template'),
+                        'blk_' . $block->getVar('bid')
+                    );
                 }
             }
         }
@@ -1877,7 +1891,9 @@ class Xoops
     /**
      * Support for deprecated messages events
      *
-     * @param $message
+     * @param string $message message
+     *
+     * @return void
      */
     public function deprecated($message)
     {
@@ -1886,6 +1902,8 @@ class Xoops
 
     /**
      * Support for disabling error reporting
+     *
+     * @return void
      */
     public function disableErrorReporting()
     {

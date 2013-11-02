@@ -179,7 +179,7 @@ if ($current_step == 1) {
 
     $newuser->setVar('uname', $uname);
     $newuser->setVar('email', $email);
-    $newuser->setVar('pass', $pass ? md5($pass) : '');
+    $newuser->setVar('pass', $pass ? password_hash($pass, PASSWORD_DEFAULT) : '');
     $stop .= XoopsUserUtility::validate($newuser, $pass, $vpass);
 
     $xoopsCaptcha = XoopsCaptcha::getInstance();
@@ -201,7 +201,7 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
         $pass = isset($_POST['pass']) ? $myts->stripSlashesGPC(trim($_POST['pass'])) : '';
         $newuser->setVar('uname', $uname);
         $newuser->setVar('email', $email);
-        $newuser->setVar('pass', $pass ? md5($pass) : '');
+        $newuser->setVar('pass', $pass ? password_hash($pass, PASSWORD_DEFAULT) : '');
         $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
         $newuser->setVar('actkey', $actkey, true);
         $newuser->setVar('user_regdate', time(), true);

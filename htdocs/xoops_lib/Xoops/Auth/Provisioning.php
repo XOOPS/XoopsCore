@@ -153,7 +153,7 @@ class Xoops_Auth_Provisioning
         // Create XOOPS Database User
         $newuser = $member_handler->createUser();
         $newuser->setVar('uname', $uname);
-        $newuser->setVar('pass', md5(stripslashes($pwd)));
+        $newuser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
         $newuser->setVar('rank', 0);
         $newuser->setVar('level', 1);
         $newuser->setVar('timezone_offset', $this->default_TZ);
@@ -193,7 +193,7 @@ class Xoops_Auth_Provisioning
         $xoops = Xoops::getInstance();
         $ret = false;
         $member_handler = $xoops->getHandlerMember();
-        $xoopsUser->setVar('pass', md5(stripslashes($pwd)));
+        $xoopsUser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
         $tab_mapping = explode('|', $this->ldap_field_mapping);
         foreach ($tab_mapping as $mapping) {
             $fields = explode('=', trim($mapping));

@@ -61,7 +61,7 @@ if (!isset($_POST['submit'])) {
         $msg = implode('<br />', $errors);
     } else {
         //update password
-        $xoops->user->setVar('pass', md5($password));
+        $xoops->user->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
         if ($xoops->getHandlerMember()->insertUser($xoops->user)) {
             $msg = _PROFILE_MA_PASSWORDCHANGED;
         } else {

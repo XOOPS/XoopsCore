@@ -80,7 +80,7 @@ class SystemModule
 
     /**
      * getModuleList
-     * 
+     *
      * @return array of modules
      */
     public function getModuleList()
@@ -132,7 +132,7 @@ class SystemModule
 				$groups = array();
 				if (is_object($xoops->user))
 					$groups = $xoops->user->getGroups();
-					
+
                 $sadmin = $moduleperm_handler->checkRight(
                     'module_admin',
                     $module->getVar('mid'),
@@ -156,7 +156,7 @@ class SystemModule
 
     /**
      * getModuleInstall
-     * 
+     *
      * @return array of installed modules
      */
     public function getModuleInstall()
@@ -190,7 +190,7 @@ class SystemModule
 
     /**
      * install a module
-     * 
+     *
      * @param string  $mod   module dirname
      * @param boolean $force force query
      *
@@ -320,6 +320,10 @@ class SystemModule
                 }
             }
             // Save module info, blocks, templates and perms
+//ini_set('xdebug.collect_params', '3');
+//ini_set('xdebug.collect_return', 'On');
+//xdebug_start_trace(XOOPS_VAR_PATH . '/logs/php_trace');
+//xdebug_stop_trace();
             if (count($this->error) == 0) {
                 if (!$module_handler->insertModule($module)) {
                     $this->error[] = sprintf(
@@ -355,7 +359,7 @@ class SystemModule
 
                 // Install Configs
                 $this->installConfigs($module, 'add');
-                
+
                 if ($module->getInfo('hasMain')) {
                     $groups = array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS);
                 } else {
@@ -461,7 +465,7 @@ class SystemModule
 
     /**
      * uninstall
-     * 
+     *
      * @param string $mod module dirname
      *
      * @return bool|XoopsModule false on failure, module context on success
@@ -584,9 +588,9 @@ class SystemModule
 
     /**
      * update
-     * 
+     *
      * @param string $mod module dirname
-     * 
+     *
      * @return mixed boolean false if failed, XoopsModule if success
      */
     public function update($mod = '')
@@ -648,7 +652,7 @@ class SystemModule
 
     /**
      * getTemplate
-     * 
+     *
      * @param string $dirname  module directory
      * @param string $template template name
      * @param string $type     template type - blocks, admin
@@ -685,9 +689,9 @@ class SystemModule
 
     /**
      * installTemplates
-     * 
+     *
      * @param XoopsModule $module module context
-     * 
+     *
      * @return void
      */
     public function installTemplates(XoopsModule $module)
@@ -769,9 +773,9 @@ class SystemModule
 
     /**
      * deleteTemplates
-     * 
+     *
      * @param XoopsModule $module module context
-     * 
+     *
      * @return void
      */
     public function deleteTemplates(XoopsModule $module)
@@ -793,9 +797,9 @@ class SystemModule
 
     /**
      * installBlocks
-     * 
+     *
      * @param XoopsModule $module module context
-     * 
+     *
      * @return void
      */
     public function installBlocks(XoopsModule $module)
@@ -971,9 +975,9 @@ class SystemModule
 
     /**
      * deleteBlocks
-     * 
+     *
      * @param XoopsModule $module module
-     * 
+     *
      * @return void
      */
     public function deleteBlocks(XoopsModule $module)
@@ -1033,9 +1037,9 @@ class SystemModule
 
     /**
      * deleteConfigs
-     * 
+     *
      * @param XoopsModule $module module
-     * 
+     *
      * @return void
      */
     public function deleteConfigs(XoopsModule $module)
@@ -1068,9 +1072,9 @@ class SystemModule
 
     /**
      * installconfigs
-     * 
+     *
      * @param XoopsModule $module module being installed
-     *  
+     *
      * @return void
      */
     public function installconfigs(XoopsModule $module)

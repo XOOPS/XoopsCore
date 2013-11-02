@@ -25,7 +25,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * Handler for a session
- * 
+ *
  * @package   kernel
  * @author    Kazumi Ono    <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
@@ -109,17 +109,17 @@ class XoopsSessionHandler
     {
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $query = $qb->select('s.sess_data')
+        $qb ->select('s.sess_data')
             ->addSelect('s.sess_ip')
             ->fromPrefix('session', 's')
             ->where($eb->eq('s.sess_id', ':sessid'))
             ->setParameter(':sessid', $sess_id, \PDO::PARAM_STR);
 
-        if (false != $result = $query->execute()) {
+        if ($result = $qb->execute()) {
             if (list ($sess_data, $sess_ip) = $result->fetch(\PDO::FETCH_NUM)) {
                 if ($this->securityLevel > 1) {
-                    $pos = strpos($sess_ip, ".", $this->securityLevel - 1);
-                    if (strncmp($sess_ip, $_SERVER['REMOTE_ADDR'], $pos)) {
+                    $pos = strrpos($sess_ip, '.'); //, $this->securityLevel - 1);
+                    if (strncmp($sess_ip, $_SERVER['REMOTE_ADDR'], $pos-1)) {
                         $sess_data = '';
                     }
                 }
@@ -141,14 +141,14 @@ class XoopsSessionHandler
     {
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $query = $qb->updatePrefix('session', 's')
-            ->set('s.sess_updated', ':sessupd')
-            ->set('s.sess_data', ':sessdata')
-            ->where($eb->eq('s.sess_id', ':sessid'))
+        $qb ->updatePrefix('session')
+            ->set('sess_updated', ':sessupd')
+            ->set('sess_data', ':sessdata')
+            ->where($eb->eq('sess_id', ':sessid'))
             ->setParameter(':sessid', $sess_id, \PDO::PARAM_STR)
             ->setParameter(':sessupd', time(), \PDO::PARAM_INT)
             ->setParameter(':sessdata', $sess_data, \PDO::PARAM_STR);
-        $result = $query->execute();
+        $result = $qb->execute();
         if ($result<=0) {
             $this->db->insertPrefix(
                 'session',
@@ -161,7 +161,7 @@ class XoopsSessionHandler
             );
         }
 
-        return (false !== $result);
+        return ($result);
     }
 
     /**
@@ -175,17 +175,17 @@ class XoopsSessionHandler
     {
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $query = $qb->deletePrefix('session', 's')
+        $qb ->deletePrefix('session', 's')
             ->where($eb->eq('s.sess_id', ':sessid'))
             ->setParameter(':sessid', $sess_id, \PDO::PARAM_STR);
-        return $query->execute();
+        return $qb->execute();
     }
 
     /**
      * Garbage Collector
      *
      * @param int $expire Time in seconds until a session expires
-     * 
+     *
      * @return bool
      **/
     public function gc($expire)
@@ -197,15 +197,15 @@ class XoopsSessionHandler
         $mintime = time() - intval($expire);
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $query = $qb->deletePrefix('session', 's')
+        $qb ->deletePrefix('session', 's')
             ->where($eb->lt('s.sess_updated', ':sessupd'))
             ->setParameter(':sess_updated', $mintime, \PDO::PARAM_INT);
-        return $query->execute();
+        return $qb->execute();
     }
 
     /**
      * Force gc for situations where gc is registered but not executed
-     * 
+     *
      * @return void
      **/
     public function gc_force()
@@ -223,7 +223,7 @@ class XoopsSessionHandler
      * To be refactored
      *
      * @param bool $delete_old_session passed to session_regenerate_id
-     * 
+     *
      * @return bool
      **/
     public function regenerate_id($delete_old_session = false)
@@ -252,7 +252,7 @@ class XoopsSessionHandler
      *
      * @param string $sess_id session ID
      * @param int    $expire  Time in seconds until a session expires
-     * 
+     *
      * @return bool
      **/
     public function update_cookie($sess_id = null, $expire = null)

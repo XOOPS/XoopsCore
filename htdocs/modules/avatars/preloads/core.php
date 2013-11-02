@@ -27,7 +27,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author          trabis <lusopoemas@gmail.com>
  */
-class AvatarsCorePreload extends XoopsPreloadItem
+class AvatarsCorePreload extends \Xoops\Core\PreloadItem
 {
     /**
      * listen for core.include.common.end event

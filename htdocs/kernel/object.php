@@ -529,7 +529,7 @@ class XoopsObjectHandler
      * @param XoopsConnection $db reference to the {@link XoopsConnection} object
      * @access protected
      */
-    public function __construct($db)
+    public function __construct(XoopsConnection $db)
     {
         $this->db = $db;
     }
@@ -661,18 +661,16 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler
      * Constructor
      *
      * @access protected
-     * @param null|XoopsConnection $db {@link XoopsConnection} object
-     * @param string $table Name of database table
-     * @param string $className Name of Class, this handler is managing
-     * @param string $keyName  Name of the property holding the key
-     * @param string $identifierName Name of the property holding an identifier name (title, name ...), used on getList()
+     * @param null|XoopsConnection $db             {@link XoopsConnection} object
+     * @param string               $table          Name of database table
+     * @param string               $className      Name of Class, this handler is managing
+     * @param string               $keyName        Name of the property holding the key
+     * @param string               $identifierName Name of the property holding an identifier name (title, name ...), used on getList()
      */
     public function __construct(XoopsConnection $db = null, $table = '', $className = '', $keyName = '', $identifierName = '')
     {
-        global $xoopsDB;
-        $table = $xoopsDB->prefix($table);
-        parent::__construct($xoopsDB);
-        $this->table = $table;
+        parent::__construct($db);
+        $this->table = $this->db->prefix($table);
         $this->keyName = $keyName;
         $this->className = $className;
         if ($identifierName) {
@@ -799,23 +797,36 @@ class XoopsPersistableObjectHandler extends XoopsObjectHandler
             $object = $this->create();
             return $object;
         }
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
         if (is_array($fields) && count($fields) > 0) {
-            $select = implode(',', $fields);
             if (!in_array($this->keyName, $fields)) {
-                $select .= ', ' . $this->keyName;
+                $fields[] = $this->keyName;
+            }
+            $first=true;
+            foreach ($fields as $field) {
+                if ($first) {
+                    $first=false;
+                    $qb->select($field);
+                } else {
+                    $qb->addSelect($field);
+                }
             }
         } else {
-            $select = '*';
+            $qb->select('*');
         }
-        $sql = sprintf('SELECT %s FROM %s WHERE %s = %s', $select, $this->table, $this->keyName, $this->db->quote($id));
-        if (!$result = $this->db->query($sql)) {
+        $qb->from($this->table, null)
+            ->where($eb->eq($this->keyName, ':id'))
+            ->setParameter(':id', $id, \PDO::PARAM_INT);
+        if (!$result = $qb->execute()) {
             return $object;
         }
-        if (!$this->db->getRowsNum($result)) {
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
             return $object;
         }
         $object = $this->create(false);
-        $object->assignVars($this->db->fetchArray($result));
+        $object->assignVars($row);
 
         return $object;
     }

@@ -200,7 +200,8 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getRowsNum($result)
     {
-        $this->deprecated();
+        Xoops::getInstance()->deprecated('getRowsNum is deprecated and not dependable.');
+        //$this->deprecated();
         return $result->rowCount();
     }
 

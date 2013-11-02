@@ -13,9 +13,10 @@
         "php": ">=5.3.7",
         "doctrine/dbal": "2.4.0",
         "psr/log": "1.0.0",
+        "ircmaxell/password-compat": "~1.0",
         "symfony/process": "v2.3.4",
         "monolog/monolog": "1.6.0",
-        "maximebf/debugbar": "1.7.0",
+        "maximebf/debugbar": "1.7.1",
         "kriswallsmith/assetic": "v1.1.2",
         "oodle/krumo": "*",
         "symfony/yaml": "~2.0"

@@ -38,7 +38,7 @@ class BannersCorePreload extends XoopsPreloadItem
             'banners' => $path . '/class/helper.php',
         ));
     }
-    static public function eventCoreBannerDisplay($args)
+    static public function eventCoreBannerDisplayx($args)
     {
         require_once dirname(dirname(__FILE__)) . '/class/bannerrender.php';
         $render = new BannerRender();

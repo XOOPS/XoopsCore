@@ -92,7 +92,7 @@ tables:
         columns:
             conf_id:
                 name: conf_id
-                type: smallint
+                type: integer
                 default: null
                 notnull: true
                 length: null
@@ -396,7 +396,7 @@ tables:
         columns:
             groupid:
                 name: groupid
-                type: smallint
+                type: integer
                 default: null
                 notnull: true
                 length: null
@@ -515,7 +515,7 @@ tables:
         columns:
             imgset_id:
                 name: imgset_id
-                type: smallint
+                type: integer
                 default: null
                 notnull: true
                 length: null
@@ -669,7 +669,7 @@ tables:
         columns:
             mid:
                 name: mid
-                type: smallint
+                type: integer
                 default: null
                 notnull: true
                 length: null
@@ -741,7 +741,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -767,7 +767,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -780,7 +780,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -793,7 +793,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -806,7 +806,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -819,7 +819,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -832,7 +832,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -918,14 +918,14 @@ tables:
                 comment: ''
             func_num:
                 name: func_num
-                type: boolean
+                type: smallint
                 default: '0'
                 notnull: true
                 length: null
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -983,14 +983,14 @@ tables:
                 comment: ''
             side:
                 name: side
-                type: boolean
+                type: smallint
                 default: '0'
                 notnull: true
                 length: null
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1016,7 +1016,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1055,7 +1055,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1363,7 +1363,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1376,7 +1376,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1389,7 +1389,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1402,7 +1402,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1415,7 +1415,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -1443,113 +1443,6 @@ tables:
             prune:
                 name: prune
                 columns: [msg_time, read_msg, from_save, to_delete]
-                unique: false
-                primary: false
-    ranks:
-        options: {  }
-        columns:
-            rank_id:
-                name: rank_id
-                type: smallint
-                default: null
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: ''
-            rank_title:
-                name: rank_title
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            rank_min:
-                name: rank_min
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            rank_max:
-                name: rank_max
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            rank_special:
-                name: rank_special
-                type: boolean
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            rank_image:
-                name: rank_image
-                type: string
-                default: null
-                notnull: false
-                length: 255
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [rank_id]
-                unique: true
-                primary: true
-            rank_min:
-                name: rank_min
-                columns: [rank_min]
-                unique: false
-                primary: false
-            rank_max:
-                name: rank_max
-                columns: [rank_max]
-                unique: false
-                primary: false
-            rankminrankmaxranspecial:
-                name: rankminrankmaxranspecial
-                columns: [rank_min, rank_max, rank_special]
-                unique: false
-                primary: false
-            rankspecial:
-                name: rankspecial
-                columns: [rank_special]
                 unique: false
                 primary: false
     session:
@@ -2005,7 +1898,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -2066,7 +1959,7 @@ tables:
                 type: string
                 default: ''
                 notnull: true
-                length: 32
+                length: 255
                 precision: 10
                 scale: 0
                 fixed: false
@@ -2096,7 +1989,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -2115,14 +2008,14 @@ tables:
                 comment: ''
             level:
                 name: level
-                type: boolean
+                type: smallint
                 default: '1'
                 notnull: true
                 length: null
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
@@ -2142,11 +2035,11 @@ tables:
             timezone_offset:
                 name: timezone_offset
                 type: float
-                default: '0.0'
+                default: '0'
                 notnull: true
                 length: null
-                precision: 3
-                scale: 1
+                precision: 10
+                scale: 0
                 fixed: false
                 unsigned: false
                 autoincrement: false
@@ -2180,20 +2073,20 @@ tables:
                 comment: ''
             uorder:
                 name: uorder
-                type: boolean
+                type: smallint
                 default: '0'
                 notnull: true
                 length: null
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
             notify_method:
                 name: notify_method
-                type: boolean
+                type: smallint
                 default: '1'
                 notnull: true
                 length: null
@@ -2206,7 +2099,7 @@ tables:
                 comment: ''
             notify_mode:
                 name: notify_mode
-                type: boolean
+                type: smallint
                 default: '0'
                 notnull: true
                 length: null
@@ -2265,7 +2158,7 @@ tables:
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
+                unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
