@@ -179,6 +179,7 @@ define("ICONV_CONVERSION", "Character set conversion");
 define("ZLIB_COMPRESSION", "Zlib Compression");
 define("IMAGE_FUNCTIONS", "Image functions");
 define("IMAGE_METAS", "Image meta data (exif)");
+define("CURL_HTTP", "Client URL Library (cURL)");
 
 define("ADMIN_EXIST", "The administrator account already exists.<br />Press <strong>next</strong> to go to the next step.");
 
