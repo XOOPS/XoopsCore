@@ -62,31 +62,36 @@ $modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = 'admin/index.php';
 $modversion['adminmenu']  = 'admin/menu.php';
 
-// Mysql file
+// Table definitions
+$modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'][1] = "image";
-$modversion['tables'][2] = "imagebody";
-$modversion['tables'][3] = "imagecategory";
+$modversion['tables'] = array(
+    'image',
+    'imagebody',
+    'imagecategory',
+);
 
 // JQuery
 $modversion['jquery'] = 1;
 
-$i = 0;
-$modversion['config'][$i]['name'] = 'images_pager';
-$modversion['config'][$i]['title'] = '_MI_IMAGES_PAGER';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 15;
 
+$modversion['config'][] = array(
+    'name' => 'images_pager',
+    'title' => '_MI_IMAGES_PAGER',
+    'description' => '',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 15,
+);
 /*
-$i++;
-$modversion['config'][$i]['name'] = 'categories_pager';
-$modversion['config'][$i]['title'] = '_MI_CATEGORIES_PAGER';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 15;
+$modversion['config'][] = array(
+    'name' => 'categories_pager',
+    'title' => '_MI_CATEGORIES_PAGER',
+    'description' => '',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 15,
+);
 */

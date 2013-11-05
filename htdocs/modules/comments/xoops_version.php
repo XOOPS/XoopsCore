@@ -67,53 +67,71 @@ $modversion['hasMain'] = 0;
 $modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
-// Mysql file
+// Table definitions
+$modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'][1] = "comments";
+$modversion['tables'] = array(
+    'comments'
+);
 
 /*
  Blocks
 */
-$modversion['blocks'][1]['file'] = 'comments_blocks.php';
-$modversion['blocks'][1]['name'] = _MI_COMMENTS_BNAME1;
-$modversion['blocks'][1]['description'] = _MI_COMMENTS_BNAME1_DSC;
-$modversion['blocks'][1]['show_func'] = 'b_comments_show';
-$modversion['blocks'][1]['options'] = '10';
-$modversion['blocks'][1]['edit_func'] = 'b_comments_edit';
-$modversion['blocks'][1]['template'] = 'comments.html';
+$modversion['blocks'][] = array(
+    'file' => 'comments_blocks.php',
+    'name' => _MI_COMMENTS_BNAME1,
+    'description' => _MI_COMMENTS_BNAME1_DSC,
+    'show_func' => 'b_comments_show',
+    'options' => '10',
+    'edit_func' => 'b_comments_edit',
+    'template' => 'comments.html',
+);
 
 // Preferences
-$i = 0;
-$modversion['config'][$i]['name'] = 'com_mode';
-$modversion['config'][$i]['title'] = '_MI_COMMENTS_MODE';
-$modversion['config'][$i]['description'] = '_MI_COMMENTS_MODEDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['options'] = array('XoopsLocale::NESTED' => 'nest', 'XoopsLocale::FLAT' => 'flat', 'XoopsLocale::THREADED' => 'thread');
-$modversion['config'][$i]['default'] = 'nest';
-$i++;
-$modversion['config'][$i]['name'] = 'com_order';
-$modversion['config'][$i]['title'] = '_MI_COMMENTS_ORDER';
-$modversion['config'][$i]['description'] = '_MI_COMMENTS_ORDERDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['options'] = array('XoopsLocale::OLDEST_FIRST' => 0, 'XoopsLocale::NEWEST_FIRST' => 1);
-$modversion['config'][$i]['default'] = 0;
-$i++;
+
+$modversion['config'][] = array(
+    'name' => 'com_mode',
+    'title' => '_MI_COMMENTS_MODE',
+    'description' => '_MI_COMMENTS_MODEDSC',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'options' => array(
+        'XoopsLocale::NESTED' => 'nest',
+        'XoopsLocale::FLAT' => 'flat',
+        'XoopsLocale::THREADED' => 'thread'
+    ),
+    'default' => 'nest',
+);
+
+$modversion['config'][] = array(
+    'name' => 'com_order',
+    'title' => '_MI_COMMENTS_ORDER',
+    'description' => '_MI_COMMENTS_ORDERDSC',
+    'formtype' => 'select',
+    'valuetype' => 'int',
+    'options' => array('XoopsLocale::OLDEST_FIRST' => 0, 'XoopsLocale::NEWEST_FIRST' => 1),
+    'default' => 0,
+);
+
 $editors = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
-$modversion['config'][$i]['name'] = 'com_editor';
-$modversion['config'][$i]['title'] = '_MI_COMMENTS_EDITOR';
-$modversion['config'][$i]['description'] = '_MI_COMMENTS_EDITORDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'dhtmltextarea';
-$modversion['config'][$i]['options'] = $editors;
-$i++;
-$modversion['config'][$i]['name'] = 'com_pager';
-$modversion['config'][$i]['title'] = '_MI_COMMENTS_PAGER';
-$modversion['config'][$i]['description'] = '_MI_COMMENTS_PAGERDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 20;
+
+$modversion['config'][] = array(
+    'name' => 'com_editor',
+    'title' => '_MI_COMMENTS_EDITOR',
+    'description' => '_MI_COMMENTS_EDITORDSC',
+    'formtype' => 'select',
+    'valuetype' => 'text',
+    'default' => 'dhtmltextarea',
+    'options' => $editors,
+);
+
+$modversion['config'][] = array(
+    'name' => 'com_pager',
+    'title' => '_MI_COMMENTS_PAGER',
+    'description' => '_MI_COMMENTS_PAGERDSC',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 20,
+);
