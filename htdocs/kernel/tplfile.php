@@ -214,7 +214,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 $qb->select('f.*')
                     ->addSelect('s.tpl_source')
                     ->fromPrefix('tplfile', 'f')
-                    ->leftJoin('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'))
+                    ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'))
                     ->where($eb->eq('f.tpl_id', ':tplid'))
                     ->setParameter(':tplid', $id, \PDO::PARAM_INT);
             }
@@ -420,7 +420,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
             $qb->select('f.*')
                 ->addSelect('s.tpl_source')
                 ->fromPrefix('tplfile', 'f')
-                ->leftJoin('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'));
+                ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'));
         }
         $criteria->renderQb($qb);
         $result = $qb->execute();

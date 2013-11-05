@@ -472,7 +472,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $qb ->select('DISTINCT(b.bid)')
             ->addSelect('b.*')
             ->fromPrefix('newblocks', 'b')
-            ->leftJoin('b', 'block_module_link', 'l', $eb->eq('b.bid', 'l.block_id'));
+            ->leftJoinPrefix('b', 'block_module_link', 'l', $eb->eq('b.bid', 'l.block_id'));
 
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
             $criteria->renderQb($qb);
@@ -483,8 +483,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             return $ret;
         }
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
-            $tplfile = new XoopsBlock();
-            $tplfile->assignVars($myrow);
+            $block = new XoopsBlock();
+            $block->assignVars($myrow);
             if (!$id_as_key) {
                 $ret[] = $block;
             } else {
@@ -541,7 +541,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             $qb ->select('b.bid');
         }
         $qb ->fromPrefix('newblocks', 'b')
-            ->leftJoin('b', 'group_permission', 'l', $eb->eq('b.bid', 'l.gperm_itemid'))
+            ->leftJoinPrefix('b', 'group_permission', 'l', $eb->eq('b.bid', 'l.gperm_itemid'))
             ->where($eb->eq('gperm_name', $eb->literal('block_read')))
             ->andWhere($eb->eq('gperm_modid', 1));
 
