@@ -44,6 +44,7 @@ define('_MI_MONOLOG_INCLUDE_QUERIES','Include queries');
 define('_MI_MONOLOG_INCLUDE_TIMERS','Include timers');
 
 define('_MI_MONOLOG_LOG_FILE_PATH','Absolute path and name of log file');
+define('_MI_MONOLOG_LOG_MAX_VERSIONS','Maximum number of daily versions of the log to keep. (Use 0 for no versioning.)');
 
 define('_MI_MONOLOG_HELP','Help');
 define('_MI_MONOLOG_HACKING','Hacking');
