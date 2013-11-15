@@ -9,23 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
 
 /**
  * Search core preloads
  *
+ * @author          trabis <lusopoemas@gmail.com>
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
  */
-class SearchCorePreload extends XoopsPreloadItem
+class SearchPreload extends PreloadItem
 {
     static function eventCoreIncludeCommonEnd($args)
     {

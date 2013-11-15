@@ -19,7 +19,7 @@ namespace Xoops\Core;
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     1.0
@@ -99,13 +99,34 @@ class Events
     /**
      * Add all preload declared listeners to eventListeners
      *
+     * Preload classes contain methods based on event names. We extract those method
+     * names and store to compare against when an event is triggered.
+     *
+     * Example:
+     * An event is triggered as 'core.include.common.end'
+     * A PreloadItem class can listen for this event by declaring a method
+     * 'eventCoreIncludeCommonEnd()'
+     *
+     * PreloadItem class files can be named for the specific source of the
+     * events, such as core.php, system.php, etc. In such case the class name is
+     * built from the concatenation of the module name, the source and the literal
+     * 'Preload'. This mechanism is now considered deprecated. As an example,
+     * a module named Example can listen for 'core' events with a file named
+     * preloads/core.php, containing a class ExampleCorePreload
+     *
+     * The prefered preload definition is the unified preloads/preload.php file
+     * containing a single PreloadItem class name concatenating the module name and
+     * the literal 'Preload'. This class can listen for events from any source.
+     *
      * @return void
      */
     protected function setEvents()
     {
         foreach ($this->preloadList as $preload) {
             include_once XOOPS_ROOT_PATH . '/modules/' . $preload['module'] . '/preloads/' . $preload['file']. '.php';
-            $class_name = ucfirst($preload['module']) . ucfirst($preload['file']) . 'Preload';
+            $class_name = ucfirst($preload['module'])
+                . ($preload['file'] == 'preload' ? '' : ucfirst($preload['file']) )
+                . 'Preload';
             if (!class_exists($class_name)) {
                 continue;
             }
@@ -121,7 +142,7 @@ class Events
     }
 
     /**
-     * Triggers a specific event
+     * Trigger a specific event
      *
      * @param string $event_name Name of the event to trigger
      * @param array  $args       Method arguments
@@ -133,7 +154,7 @@ class Events
         if ($this->checkAgain) {
             $this->__construct();
         }
-        $event_name = $this->internalEventName($event_name);
+        $event_name = $this->toInternalEventName($event_name);
         if (isset($this->eventListeners[$event_name])) {
             foreach ($this->eventListeners[$event_name] as $event) {
                 call_user_func($event, $args);
@@ -142,29 +163,29 @@ class Events
     }
 
     /**
-     * internalEventName - convert event name to internal form
+     * toInternalEventName - convert event name to internal form
      * i.e. core.include.common.end becomes coreincludecommonend
-     * 
+     *
      * @param string $event_name the event name
-     * 
+     *
      * @return string converted name
      */
-    protected function internalEventName($event_name)
+    protected function toInternalEventName($event_name)
     {
         return strtolower(str_replace('.', '', $event_name));
     }
 
     /**
      * addListener - add a listener, providing a callback for a specific event.
-     *  
+     *
      * @param string   $event_name the event name
      * @param callable $callback   any callable acceptable for call_user_func
-     *  
+     *
      * @return void
      */
     public function addListener($event_name, $callback)
     {
-        $event_name = $this->internalEventName($event_name);
+        $event_name = $this->toInternalEventName($event_name);
         $this->eventListeners[$event_name][]=$callback;
     }
 

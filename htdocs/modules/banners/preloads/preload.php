@@ -9,36 +9,27 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\PreloadItem;
+
 /**
- * banners module
+ * banners module preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
- * @version         $Id$
+ * @author          Mage Grégory (AKA Mage)
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * Banners core preloads
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Mage Gr�gory (AKA Mage)
- */
-class BannersCorePreload extends XoopsPreloadItem
+class BannersPreload extends PreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'banners' => $path . '/class/helper.php',
         ));
     }
-    static public function eventCoreBannerDisplayx($args)
+    public static function eventCoreBannerDisplay($args)
     {
         require_once dirname(dirname(__FILE__)) . '/class/bannerrender.php';
         $render = new BannerRender();

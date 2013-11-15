@@ -9,32 +9,23 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Avatars
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
 
 /**
- * Avatars core preloads
+ * Avatars module preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
  */
-class AvatarsCorePreload extends \Xoops\Core\PreloadItem
+class AvatarsPreload extends PreloadItem
 {
     /**
      * listen for core.include.common.end event
      * Add module classes to class map autoloader
-     * 
+     *
      * @param mixed $args not used
-     * 
+     *
      * @return void
      */
     public static function eventCoreIncludeCommonEnd($args)
@@ -49,7 +40,7 @@ class AvatarsCorePreload extends \Xoops\Core\PreloadItem
 
     /**
      * listen for core.userinfo.button event
-     * 
+     *
      * @param array $args $arg[0] - current user object
      *                    $arg[1] - reference to array of button arrays
      *

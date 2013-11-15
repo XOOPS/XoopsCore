@@ -9,18 +9,17 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\PreloadItem;
+
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         Xmf
- * @since           0.1
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: core.php 8065 2011-11-06 02:02:32Z beckmi $
+ * XMF module preloads
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package   Xmf
+ * @since     0.1
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class XmfCorePreload extends XoopsPreloadItem
+class XmfPreload extends PreloadItem
 {
     public static function eventCoreIncludeCommonEnd($args)
     {

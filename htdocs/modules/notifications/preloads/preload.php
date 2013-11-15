@@ -9,25 +9,18 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
 
 /**
  * Notifications core preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
  */
-class NotificationsCorePreload extends XoopsPreloadItem
+class NotificationsPreload extends PreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
@@ -35,7 +28,7 @@ class NotificationsCorePreload extends XoopsPreloadItem
         ));
     }
 
-    static function eventCoreFooterStart($args)
+    public static function eventCoreFooterStart($args)
     {
         $xoops = Xoops::getInstance();
         $helper = Notifications::getInstance();
@@ -111,7 +104,7 @@ class NotificationsCorePreload extends XoopsPreloadItem
         $xoops->tpl()->assign('notifications', $notifications);
     }
 
-    static function eventOnModuleUpdateConfigs($args)
+    public static function eventOnModuleUpdateConfigs($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
@@ -126,7 +119,7 @@ class NotificationsCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventOnModuleInstallConfigs($args)
+    public static function eventOnModuleInstallConfigs($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
@@ -135,7 +128,7 @@ class NotificationsCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventOnModuleUnistall($args)
+    public static function eventOnModuleUnistall($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
@@ -144,7 +137,7 @@ class NotificationsCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventOnSystemPreferencesForm($args)
+    public static function eventOnSystemPreferencesForm($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];

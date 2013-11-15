@@ -9,25 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Avatars
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
 
 /**
- * Avatars core preloads
+ * Gravatars preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author          trabis <lusopoemas@gmail.com>
  */
-class GravatarsCorePreload extends XoopsPreloadItem
+class GravatarsPreload extends PreloadItem
 {
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.
@@ -38,9 +29,9 @@ class GravatarsCorePreload extends XoopsPreloadItem
      * @param string  $r     Maximum rating (inclusive) [ g | pg | r | x ]
      * @param boolean $img   True to return a complete IMG tag False for just the URL
      * @param array   $atts  Optional, additional key/value attributes to include in the IMG tag
-     * 
+     *
      * @return String containing either just a URL or a complete image tag
-     * 
+     *
      * @source http://gravatar.com/site/implement/images/php/
      */
     private static function getGravatar($email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array())
@@ -62,13 +53,12 @@ class GravatarsCorePreload extends XoopsPreloadItem
     /**
      * listen for core.userinfo.button event
      * builds button to add to profile page
-     * 
+     *
      * @param array $args $arg[0] - current user object
      *                   $arg[1] - reference to array of button arrays
      *
      * @return void - array in arg[1] will be button link
      */
-    /* profile page can't handle a full url in the link yet, so no externals
     public static function eventCoreUserinfoButton($args)
     {
         $thisUser = $args[0];
@@ -79,11 +69,11 @@ class GravatarsCorePreload extends XoopsPreloadItem
             $icon = 'icon-user';
             $args[1][] = array( 'link' => $link, 'title' => $title, 'icon' => $icon);
         }
-    } */
+    }
 
     /**
      * listen for core.userinfo.avatar event
-     * 
+     *
      * @param array $args $arg[0] - current user object or array with user info
      *                    $arg[1] - reference to avatar image url
      *
@@ -92,10 +82,6 @@ class GravatarsCorePreload extends XoopsPreloadItem
     public static function eventCoreUserinfoAvatar($args)
     {
         $thisUser = $args[0];
-        if (method_exists($thisUser, 'getVar')) {
-            $email = $thisUser->getVar('email', 'e');
-            $args[1] = self::getGravatar($email);
-        }
         if (is_object($thisUser)) {
             if (method_exists($thisUser, 'getVar')) {
                 $email = $thisUser->getVar('email', 'e');
