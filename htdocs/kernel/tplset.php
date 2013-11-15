@@ -24,7 +24,6 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *
  * @author Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000 XOOPS.org
- *
  * @package kernel
  **/
 class XoopsTplset extends XoopsObject
@@ -33,7 +32,7 @@ class XoopsTplset extends XoopsObject
     /**
      * constructor
      **/
-    function __construct()
+    public function __construct()
     {
         $this->initVar('tplset_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('tplset_name', XOBJ_DTYPE_OTHER, null, false);
@@ -46,7 +45,7 @@ class XoopsTplset extends XoopsObject
      * @param string $format
      * @return mixed
      */
-    function id($format = 'n')
+    public function id($format = 'n')
     {
         return $this->getVar('tplset_id', $format);
     }
@@ -55,7 +54,7 @@ class XoopsTplset extends XoopsObject
      * @param string $format
      * @return mixed
      */
-    function tplset_id($format = '')
+    public function tplset_id($format = '')
     {
         return $this->getVar('tplset_id', $format);
     }
@@ -64,7 +63,7 @@ class XoopsTplset extends XoopsObject
      * @param string $format
      * @return mixed
      */
-    function tplset_name($format = '')
+    public function tplset_name($format = '')
     {
         return $this->getVar('tplset_name', $format);
     }
@@ -73,7 +72,7 @@ class XoopsTplset extends XoopsObject
      * @param string $format
      * @return mixed
      */
-    function tplset_desc($format = '')
+    public function tplset_desc($format = '')
     {
         return $this->getVar('tplset_desc', $format);
     }
@@ -82,7 +81,7 @@ class XoopsTplset extends XoopsObject
      * @param string $format
      * @return mixed
      */
-    function tplset_credits($format = '')
+    public function tplset_credits($format = '')
     {
         return $this->getVar('tplset_credits', $format);
     }
@@ -91,11 +90,10 @@ class XoopsTplset extends XoopsObject
      * @param string $format
      * @return mixed
      */
-    function tplset_created($format = '')
+    public function tplset_created($format = '')
     {
         return $this->getVar('tplset_created', $format);
     }
-
 }
 
 /**
@@ -119,22 +117,32 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
     }
 
     /**
+     * getByName
+     *
      * @param string $tplset_name of the block to retrieve
-     * @return XoopsTplset|falsereference to the tplsets
+     *
+     * @return XoopsTplset|false reference to the tplsets
      */
     public function getByName($tplset_name)
     {
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
         $tplset = false;
         $tplset_name = trim($tplset_name);
         if ($tplset_name != '') {
-            $sql = 'SELECT * FROM ' . $this->db->prefix('tplset') . ' WHERE tplset_name=' . $this->db->quoteString($tplset_name);
-            if (!$result = $this->db->query($sql)) {
+            $qb->select('*')
+                ->fromPrefix('tplset', null)
+                ->where($eb->eq('tplset_name', ':tplsetname'))
+                ->setParameter(':tplsetname', $tplset_name, \PDO::PARAM_STR);
+            $result = $qb->execute();
+            if (!$result) {
                 return false;
             }
-            $numrows = $this->db->getRowsNum($result);
-            if ($numrows == 1) {
+            $allrows = $result->fetchAll();
+            if (count($allrows) == 1) {
                 $tplset = new XoopsTplset();
-                $tplset->assignVars($this->db->fetchArray($result));
+                $tplset->assignVars(reset($allrows));
             }
         }
         return $tplset;
@@ -144,16 +152,16 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
      * get a list of tplsets matching certain conditions
      *
      * @param CriteriaElement|null $criteria conditions to match
+     *
      * @return array array of tplsets matching the conditions
      **/
     public function getNameList(CriteriaElement $criteria = null)
     {
         $ret = array();
         $tplsets = $this->getObjects($criteria, true);
-        foreach(array_keys($tplsets) as $i) {
+        foreach (array_keys($tplsets) as $i) {
             $ret[$tplsets[$i]->getVar('tplset_name')] = $tplsets[$i]->getVar('tplset_name');
         }
         return $ret;
     }
 }
-?>
