@@ -42,7 +42,7 @@ define('XOBJ_DTYPE_ENUM', 15);
 /**
  * Base class for all objects in the Xoops kernel (and beyond)
  */
-class XoopsObject
+abstract class XoopsObject
 {
     /**
      * holds all variables(properties) of an object
@@ -512,7 +512,7 @@ class XoopsObject
  * @author Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright &copy; 2000 The XOOPS Project
  */
-class XoopsObjectHandler
+abstract class XoopsObjectHandler
 {
     /**
      * holds referenced to {@link XoopsConnection} class object
@@ -541,7 +541,6 @@ class XoopsObjectHandler
      */
     public function create()
     {
-
     }
 
     /**
@@ -552,7 +551,6 @@ class XoopsObjectHandler
      */
     public function get($int_id)
     {
-
     }
 
     /**
@@ -588,7 +586,7 @@ class XoopsObjectHandler
  * @copyright copyright (c) The XOOPS project
  * @package kernel
  */
-class XoopsPersistableObjectHandler extends XoopsObjectHandler
+abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
 {
     /**
      * holds reference to custom extended object handler
