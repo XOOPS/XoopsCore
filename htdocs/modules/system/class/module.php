@@ -25,7 +25,7 @@ use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
  * @category  SystemModule
  * @package   SystemModule
  * @author    Andricq Nicolas (AKA MusS)
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -129,9 +129,10 @@ class SystemModule
                     $module->setInfo('options', $module->getAdminMenu());
                 }
 
-				$groups = array();
-				if (is_object($xoops->user))
-					$groups = $xoops->user->getGroups();
+                $groups = array();
+                if (is_object($xoops->user)) {
+                    $groups = $xoops->user->getGroups();
+                }
 
                 $sadmin = $moduleperm_handler->checkRight(
                     'module_admin',
@@ -198,11 +199,15 @@ class SystemModule
      */
     public function install($mod = '', $force = false)
     {
-        $queryFunc = (bool)$force ? "queryF" : "query";
         $xoops = Xoops::getInstance();
         $module_handler = $xoops->getHandlerModule();
         $mod = trim($mod);
-        if ($module_handler->getCount(new Criteria('dirname', $mod)) == 0) {
+        try {
+            $cnt = $module_handler->getCount(new Criteria('dirname', $mod));
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $cnt = 0;
+        }
+        if ($cnt == 0) {
             /* @var $module XoopsModule */
             $module = $module_handler->create();
             $module->loadInfoAsVar($mod);
@@ -320,10 +325,6 @@ class SystemModule
                 }
             }
             // Save module info, blocks, templates and perms
-//ini_set('xdebug.collect_params', '3');
-//ini_set('xdebug.collect_return', 'On');
-//xdebug_start_trace(XOOPS_VAR_PATH . '/logs/php_trace');
-//xdebug_stop_trace();
             if (count($this->error) == 0) {
                 if (!$module_handler->insertModule($module)) {
                     $this->error[] = sprintf(

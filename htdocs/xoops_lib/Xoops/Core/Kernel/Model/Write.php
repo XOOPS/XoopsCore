@@ -107,11 +107,12 @@ class Write extends XoopsModelAbstract
             $object->unsetNew(); // object is no longer New
         } else {
             if (!empty($object->cleanVars)) {
-                if (!$this->handler->db2->update(
+                $result = $this->handler->db2->update(
                     $this->handler->table,
                     $object->cleanVars,
                     array($this->handler->keyName => $object->getVar($this->handler->keyName))
-                )) {
+                );
+                if (!$result && intval($this->handler->db2->errorCode())) {
                     return false;
                 }
             }

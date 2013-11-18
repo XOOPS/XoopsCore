@@ -114,7 +114,7 @@ class Joint extends XoopsModelAbstract
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $qb = $criteria->renderQb($qb);
         }
-        $result = $this->handler->db2->executeQuery($sql);
+        $result = $qb->execute();
         $ret = array();
         if ($asObject) {
             while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
@@ -147,17 +147,24 @@ class Joint extends XoopsModelAbstract
             return null;
         }
 
-        $sql = " SELECT COUNT(DISTINCT {$this->handler->keyName}) AS count"
-            . " FROM {$this->handler->table} AS o"
-            . " LEFT JOIN {$this->handler->table_link} AS l "
-            . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+        $qb = $this->handler->db2->createXoopsQueryBuilder();
+
+        $qb ->select("COUNT(DISTINCT {$this->handler->keyName})")
+            ->from($this->handler->table, 'o')
+            ->leftJoin(
+                'o',
+                $this->handler->table_link,
+                'l',
+                "o.{$this->handler->field_object} = l.{$this->handler->field_link}"
+            );
+
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
-            $sql .= " " . $criteria->renderWhere();
-            if ($criteria->getGroupby() != '') {
-                $sql .= ' GROUP BY (' . $criteria->getGroupby() . ')';
-            }
+            $criteria->renderQb($qb);
         }
-        return $this->handler->db2->fetchColumn($sql);
+
+        $result = $qb->execute();
+        return $result->fetchColumn(0);
+
     }
 
     /**
@@ -172,17 +179,27 @@ class Joint extends XoopsModelAbstract
         if (!$this->validateLinks()) {
             return null;
         }
-        $sql = " SELECT l.{$this->handler->keyName_link}, COUNT(*)"
-            . " FROM {$this->handler->table} AS o"
-            . " LEFT JOIN {$this->handler->table_link} AS l "
-            . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
+
+        $qb = $this->handler->db2->createXoopsQueryBuilder();
+
+        $qb ->select("l.{$this->handler->keyName_link}")
+            ->addSelect('COUNT(*)')
+            ->from($this->handler->table, 'o')
+            ->leftJoin(
+                'o',
+                $this->handler->table_link,
+                'l',
+                "o.{$this->handler->field_object} = l.{$this->handler->field_link}"
+            );
+
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
-            $sql .= " " . $criteria->renderWhere();
+            $criteria->renderQb($qb);
         }
-        $sql .= " GROUP BY l.{$this->handler->keyName_link}";
-        if (!$result = $this->handler->db2->executeQuery($sql)) {
-            return false;
-        }
+
+        $qb ->groupBy("l.{$this->handler->keyName_link}");
+
+        $result = $qb->execute();
+
         $ret = array();
         while (list ($id, $count) = $result->fetch(\PDO::FETCH_NUM)) {
             $ret[$id] = $count;
@@ -197,6 +214,8 @@ class Joint extends XoopsModelAbstract
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
      *
      * @return int count of objects
+     *
+     * @todo UPDATE ... LEFT JOIN is not portable
      */
     public function updateByLink($data, CriteriaElement $criteria = null)
     {
@@ -222,6 +241,8 @@ class Joint extends XoopsModelAbstract
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
      *
      * @return int count of objects
+     *
+     * @todo DELETE ... LEFT JOIN is not portable
      */
     public function deleteByLink(CriteriaElement $criteria = null)
     {

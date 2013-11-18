@@ -61,7 +61,7 @@ $system = System::getInstance();
 $status = $system_module->install('system', true);
 if (!$status) {
     $_SESSION['error'] = $system_module->error;
-    $sql = $xoops->db()->getConfiguration()->getSQLLogger()->queries;
+    //$sql = $xoops->db()->getConfiguration()->getSQLLogger()->queries;
 }
 
 $pageHasForm = true;
@@ -163,7 +163,7 @@ if ($isadmin) {
     <div id="password">
         <div id="passwordinput">
     <?php
-                echo xoPassField('adminpass', '', ADMIN_PASS_LABEL);
+        echo xoPassField('adminpass', '', ADMIN_PASS_LABEL);
         echo xoPassField('adminpass2', '', ADMIN_CONFIRMPASS_LABEL);
         if (!empty($error["pass"])) {
             echo '<ul class="diags1">';
