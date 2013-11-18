@@ -9,18 +9,22 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Core\Kernel\Dtype;
+
+use Xoops\Core\Kernel\XoopsObject;
+
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         class
- * @since           2.6.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * DtypeAbstract
+ *
+ * @category  Xoops\Core\Kernel\Dtype\DtypeAbstract
+ * @package   Xoops\Core\Kernel
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-abstract class Xoops_Object_Dtype_Abstract
+abstract class DtypeAbstract
 {
     /**
      * @var XoopsConnection
@@ -37,10 +41,8 @@ abstract class Xoops_Object_Dtype_Abstract
      */
     public function init()
     {
-        global $xoopsDB;
-
-        $this->db = $xoopsDB;
-        $this->ts = MyTextSanitizer::getInstance();
+        $this->db = \Xoops::getInstance()->db();
+        $this->ts = \MyTextSanitizer::getInstance();
     }
 
     /**

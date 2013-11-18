@@ -17,6 +17,10 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+
 /**
  * XOOPS member handler class.
  * This class provides simple interface (a facade class) for handling groups/users/
@@ -460,7 +464,7 @@ class XoopsMemberHandler
         $id_as_key = false
     ) {
 
-        $qb = $this->_uHandler->db->createXoopsQueryBuilder();
+        $qb = $this->_uHandler->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->select('DISTINCT ' . ($asobject ? 'u.*' : 'u.uid'))
@@ -472,7 +476,7 @@ class XoopsMemberHandler
             $qb->where($eb->in('m.groupid', $groups));
             $where = true;
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $whereMode = $where ? 'AND' : '';
             $sql[] = $criteria->renderQb($qb, $whereMode);
         }
@@ -511,7 +515,7 @@ class XoopsMemberHandler
      */
     public function getUserCountByGroupLink($groups, $criteria = null)
     {
-        $qb = $this->_uHandler->db->createXoopsQueryBuilder();
+        $qb = $this->_uHandler->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->select('COUNT(DISTINCT u.uid)')
@@ -523,7 +527,7 @@ class XoopsMemberHandler
             $qb->where($eb->in('m.groupid', $groups));
             $where = true;
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $whereMode = $where ? 'AND' : '';
             $criteria->renderQb($qb, $whereMode);
         }

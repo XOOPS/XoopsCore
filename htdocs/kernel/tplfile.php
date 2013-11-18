@@ -17,7 +17,12 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A Template File
@@ -200,7 +205,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      */
     public function getById($id, $getsource = false)
     {
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $tplfile = false;
         $id = intval($id);
@@ -238,7 +243,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     public function loadSource(XoopsTplFile &$tplfile)
     {
         if (!$tplfile->getVar('tpl_source')) {
-            $qb = $this->db->createXoopsQueryBuilder();
+            $qb = $this->db2->createXoopsQueryBuilder();
             $eb = $qb->expr();
             $qb->select('tpl_source')
                 ->fromPrefix('tplsource', null)
@@ -283,22 +288,22 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db->insertPrefix('tplfile', $values)) {
+            if (!$this->db2->insertPrefix('tplfile', $values)) {
                 return false;
             }
             if (empty($tpl_id)) {
-                $tpl_id = $this->db->lastInsertId();
+                $tpl_id = $this->db2->lastInsertId();
             }
             if (isset($tpl_source) && $tpl_source != '') {
                 $values = array(
                     'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if (!$this->db->insertPrefix('tplsource', $values)) {
+                if (!$this->db2->insertPrefix('tplsource', $values)) {
                     $values = array(
                         'tpl_id' => $tpl_id,
                     );
-                    $this->db->deletePrefix('tplfile', array('tpl_id' => $tpl_id));
+                    $this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id));
                     return false;
                 }
             }
@@ -316,7 +321,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db->updatePrefix('tplfile', $values, array('tpl_id', $tpl_id))) {
+            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id', $tpl_id))) {
                 return false;
             }
 
@@ -326,7 +331,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                     // 'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if ($this->db->updatePrefix('tplsource', $values, array('tpl_id', $tpl_id))) {
+                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id', $tpl_id))) {
                     return false;
                 }
             }
@@ -363,7 +368,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db->updatePrefix('tplfile', $values, array('tpl_id', $tpl_id))) {
+            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id', $tpl_id))) {
                 return false;
             }
 
@@ -373,7 +378,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                     // 'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if ($this->db->updatePrefix('tplsource', $values, array('tpl_id', $tpl_id))) {
+                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id', $tpl_id))) {
                     return false;
                 }
             }
@@ -393,10 +398,10 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     public function deleteTpl(XoopsTplfile &$tplfile)
     {
         $tpl_id = $tplfile->getVar('tpl_id');
-        if (!$this->db->deletePrefix('tplfile', array('tpl_id' => $tpl_id))) {
+        if (!$this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id))) {
             return false;
         }
-        $this->db->deletePrefix('tplsource', array('tpl_id' => $tpl_id));
+        $this->db2->deletePrefix('tplsource', array('tpl_id' => $tpl_id));
         return true;
     }
 
@@ -408,7 +413,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      */
     public function getTplObjects(CriteriaElement $criteria = null, $getsource = false, $id_as_key = false)
     {
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $ret = array();
@@ -448,7 +453,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      */
     public function getModuleTplCount($tplset)
     {
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb->select('tpl_module')

@@ -9,66 +9,72 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Core\Kernel;
+
+use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         class
- * @since           2.6.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * Dtype
+ *
+ * @category  Xoops\Core\Kernel\Dtype
+ * @package   Xoops\Core\Kernel
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class Xoops_Object_Dtype
+class Dtype
 {
     /**
-     * @param XoopsObject $obj
-     * @param             $key
-     * @param bool        $quote
+     * cleanVar
+     *
+     * @param XoopsObject $obj   object
+     * @param mixed       $key   key
+     * @param bool        $quote quote result
      *
      * @return mixed
      */
     public static function cleanVar(XoopsObject $obj, $key, $quote = true)
     {
-        return Xoops_Object_Dtype::_loadDtype(Xoops_Object_Dtype::_getDtypeName($obj, $key))->cleanVar($obj, $key, $quote);
+        return Dtype::loadDtype(Dtype::getDtypeName($obj, $key))->cleanVar($obj, $key, $quote);
     }
 
     /**
-     * @param XoopsObject       $obj
-     * @param string            $key
-     * @param string            $format
+     * getVar
+     *
+     * @param XoopsObject $obj    object
+     * @param string      $key    key
+     * @param string      $format format
      *
      * @return mixed
      */
     public static function getVar(XoopsObject $obj, $key, $format)
     {
-        return Xoops_Object_Dtype::_loadDtype(Xoops_Object_Dtype::_getDtypeName($obj, $key))
+        return Dtype::loadDtype(Dtype::getDtypeName($obj, $key))
                 ->getVar($obj, $key, $format);
     }
 
     /**
-     * @param string $name
+     * loadDtype
      *
-     * @return null|Xoops_Object_Dtype_Abstract
+     * @param string $name dtype name to load
+     *
+     * @return null|DtypeAbstract
      */
-    private static function _loadDtype($name)
+    private static function loadDtype($name)
     {
         static $dtypes;
 
         $name = ucfirst(strtolower($name));
         $dtype = null;
         if (!isset($dtypes[$name])) {
-            if (XoopsLoad::fileExists($file = dirname(__FILE__) . "/Dtype/{$name}.php")) {
-                include_once $file;
-                $className = "Xoops_Object_Dtype_" . ucfirst($name);
-                $dtype = new $className();
-            }
-
-            if (!$dtype instanceof Xoops_Object_Dtype_Abstract) {
+            $className = 'Xoops\Core\Kernel\Dtype\Dtype' . ucfirst($name);
+            @$dtype = new $className();
+            if (!$dtype instanceof DtypeAbstract) {
                 trigger_error("Dtype '{$name}' not found", E_USER_WARNING);
                 $name = 'other';
-                $dtype = new Xoops_Object_Dtype_Other();
+                $dtype = new Xoops\Core\Kernel\Dtype\DtypeOther();
             }
             $dtype->init();
             $dtypes[$name] = $dtype;
@@ -78,15 +84,17 @@ class Xoops_Object_Dtype
     }
 
     /**
-     * @param XoopsObject $obj
-     * @param             $key
+     * getDtypeName
+     *
+     * @param XoopsObject $obj object
+     * @param mixed       $key key
      *
      * @return string
      */
-    private static function _getDtypeName(XoopsObject $obj, $key)
+    private static function getDtypeName(XoopsObject $obj, $key)
     {
         $name = $obj->vars[$key]['data_type'];
-        $lNames = Xoops_Object_Dtype::_getLegacyNames();
+        $lNames = Dtype::getLegacyNames();
         if (isset($lNames[$name])) {
             return $lNames[$name];
         }
@@ -98,7 +106,7 @@ class Xoops_Object_Dtype
      *
      * @return array
      */
-    private static function _getLegacyNames()
+    private static function getLegacyNames()
     {
         return array(
             1 => 'textbox', 2 => 'textarea', 3 => 'int', 4 => 'url', 5 => 'email', 6 => 'array', 7 => 'other',

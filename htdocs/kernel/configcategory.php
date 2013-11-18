@@ -16,7 +16,11 @@
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A category of configs
@@ -111,7 +115,7 @@ class XoopsConfigCategoryHandler extends XoopsPersistableObjectHandler
      */
     public function getCategoryObjects(CriteriaElement $criteria = null, $id_as_key = false)
     {
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->select('*')
@@ -121,7 +125,7 @@ class XoopsConfigCategoryHandler extends XoopsPersistableObjectHandler
         // $sort = !in_array($criteria->getSort(),
         // array('confcat_id', 'confcat_name', 'confcat_order')) ? 'confcat_order' : $criteria->getSort();
 
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $criteria->renderQb($qb);
         }
 

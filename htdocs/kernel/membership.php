@@ -17,7 +17,9 @@
  * @version         $Id$
  */
 
-use Doctrine\DBAL\Query\QueryBuilder;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * membership of a user in a group
@@ -64,21 +66,21 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
     /**
      * retrieve groups for a user
      *
-     * @param int $uid ID of the user
-     * objects? FALSE returns associative array.
+     * @param int $uid ID of the user objects? FALSE returns associative array.
+     *
      * @return array array of groups the user belongs to
      */
     public function getGroupsByUser($uid)
     {
         $ret = array();
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->select('groupid')
             ->fromPrefix('groups_users_link', 'g')
             ->where($eb->eq('g.uid', ':uid'))
             ->setParameter(':uid', $uid, \PDO::PARAM_INT);
         $result = $qb->execute();
-        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['groupid'];
         }
 
@@ -98,7 +100,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
     public function getUsersByGroup($groupid, $limit = 0, $start = 0)
     {
         $ret = array();
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->select('uid')
             ->fromPrefix('groups_users_link', 'g')
@@ -109,7 +111,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
                 ->setMaxResults($limit);
         }
         $result = $qb->execute();
-        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['uid'];
         }
 

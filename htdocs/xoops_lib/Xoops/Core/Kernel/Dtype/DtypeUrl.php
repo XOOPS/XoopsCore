@@ -9,18 +9,23 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Core\Kernel\Dtype;
+
+use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+use Xoops\Core\Kernel\XoopsObject;
+
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         class
- * @since           2.6.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * DtypeUrl
+ *
+ * @category  Xoops\Core\Kernel\Dtype\DtypeUrl
+ * @package   Xoops\Core\Kernel
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class Xoops_Object_Dtype_Email extends Xoops_Object_Dtype_Abstract
+class DtypeUrl extends DtypeAbstract
 {
     /**
      * @param XoopsObject $obj
@@ -29,17 +34,15 @@ class Xoops_Object_Dtype_Email extends Xoops_Object_Dtype_Abstract
      *
      * @return string
      */
-    public function cleanVar(XoopsObject $obj, $key, $quote = true)
+    function cleanVar(XoopsObject $obj, $key, $quote = true)
     {
         $value = trim($obj->vars[$key]['value']);
-
         if ($obj->vars[$key]['required'] && $value == '') {
             $obj->setErrors(sprintf(XoopsLocale::F_IS_REQUIRED, $key));
             return $value;
         }
-        if ($value != '' && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $value)) {
-            $obj->setErrors("Invalid Email");
-            return $value;
+        if ($value != '' && !preg_match("/^http[s]*:\/\//i", $value)) {
+            $value = 'http://' . $value;
         }
         if (!$obj->vars[$key]['not_gpc']) {
             $value = $this->ts->stripSlashesGPC($value);

@@ -9,6 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * XOOPS Kernel Class
  *
@@ -442,7 +447,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         if (!parent::delete($obj)) {
             return false;
         }
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->deletePrefix('group_permission', null)
             ->where($eb->eq('gperm_name', $eb->literal('block_read')))
@@ -467,14 +472,14 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
 
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->select('DISTINCT(b.bid)')
             ->addSelect('b.*')
             ->fromPrefix('newblocks', 'b')
             ->leftJoinPrefix('b', 'block_module_link', 'l', $eb->eq('b.bid', 'l.block_id'));
 
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $criteria->renderQb($qb);
         }
 
@@ -533,7 +538,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     public function getAllBlocksByGroup($groupid, $asobject = true, $side = null, $visible = null, $orderby = "b.weight,b.bid", $isactive = 1)
     {
         $ret = array();
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         if ($asobject) {
             $qb ->select('b.*');
@@ -597,7 +602,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     public function getAllBlocks($rettype = "object", $side = null, $visible = null, $orderby = "side,weight,bid", $isactive = 1)
     {
         $ret = array();
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->fromPrefix('newblocks')
@@ -653,7 +658,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      */
     public function getByModule($moduleid, $asobject = true)
     {
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->fromPrefix('newblocks', null)
@@ -697,7 +702,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     ) {
         $ret = array();
 
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $blockids=null;
@@ -776,7 +781,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
 
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->select('DISTINCT(bid)')
@@ -864,7 +869,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             return 0;
         }
 
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->select('COUNT(*)')

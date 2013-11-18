@@ -16,7 +16,11 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A Module
@@ -529,7 +533,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         }
 
         // delete admin and read permissions assigned for this module
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->deletePrefix('group_permission')
             ->where(
@@ -615,9 +619,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
         $limit = $start = 0;
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $qb->select('*')->fromPrefix('modules', null);
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $criteria->setSort('weight');
             $criteria->renderQb($qb);
             $qb->addOrderBy('mid', 'ASC');

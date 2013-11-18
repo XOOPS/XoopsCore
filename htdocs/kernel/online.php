@@ -17,7 +17,10 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Online object
@@ -121,7 +124,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     public function write($uid, $uname, $time, $module, $ip)
     {
 
-        $qb = $this->db->createXoopsQueryBuilder();
+        $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $qb ->select('COUNT(*)')
@@ -143,7 +146,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
             if ($uid == 0) {
                 $identifier['online_ip'] = $ip;
             }
-            $rows = $this->db->updatePrefix(
+            $rows = $this->db2->updatePrefix(
                 'online',
                 array(
                     'online_uid'     => $uid,
@@ -155,7 +158,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
                 $identifier
             );
         } else {
-            $rows = $this->db->insertPrefix(
+            $rows = $this->db2->insertPrefix(
                 'online',
                 array(
                     'online_uid'     => $uid,

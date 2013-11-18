@@ -135,8 +135,6 @@ class Xoops
         $this->pathTranslation();
 
         $this->_db = $this->db();
-
-
     }
 
     /**
@@ -158,7 +156,6 @@ class Xoops
      * get database connection instance
      *
      * @return XoopsConnection
-     * @todo remove legacy database lines
      */
     public function db()
     {
