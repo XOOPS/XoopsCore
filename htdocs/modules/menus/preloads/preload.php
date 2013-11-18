@@ -9,27 +9,18 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Menus
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
 
 /**
- * Menus core preloads
+ * Menus preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author          trabis <lusopoemas@gmail.com>
  */
-class MenusCorePreload extends XoopsPreloadItem
+class MenusPreload extends PreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(

@@ -9,70 +9,81 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * Private Messages
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         pm
- * @since           2.4.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
 
 /**
- * PM core preloads
+ * Private Messages preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
+ * @package   Pm
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.4.0
  */
-class PmCorePreload extends XoopsPreloadItem
+class PmPreload extends PreloadItem
 {
 
     /**
-     * @static
+     * core.pmlite.start
+     *
      * @param array $args
+     *
      * @return void
      */
-    static public function eventCorePmliteStart($args)
+    public static function eventCorePmliteStart($args)
     {
         header("location: ./modules/pm/pmlite.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
         exit();
     }
 
     /**
-     * @static
+     * core.readpmsg.start
+     *
      * @param array $args
+     *
      * @return void
      */
-    static public function eventCoreReadpmsgStart($args)
+    public static function eventCoreReadpmsgStart($args)
     {
         header("location: ./modules/pm/readpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
         exit();
     }
 
     /**
-     * @static
+     * core.viewpmsg.start
+     *
      * @param array $args
+     *
      * @return void
      */
-    static public function eventCoreViewpmsgStart($args)
+    public static function eventCoreViewpmsgStart($args)
     {
         header("location: ./modules/pm/viewpmsg.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
         exit();
     }
 
     /**
-     * @static
+     * core.Class.smarty.xoops_plugins.xoinboxcount
+     *
      * @param array $args
+     *
      * @return void
      */
-    static public function eventCoreClassSmartyXoops_pluginsXoinboxcount($args)
+    public static function eventCoreClassSmartyXoops_pluginsXoinboxcount($args)
     {
         $args[0] = Xoops::getInstance()->getModuleHandler('message', 'pm');
     }
 
+    /**
+     * system.blocks.system_blocks.usershow
+     *
+     * @param array $args
+     *
+     * @return void
+     */
+    public static function eventSystemBlocksSystem_blocksUsershow($args)
+    {
+        $args[0] = Xoops::getInstance()->getModuleHandler('message', 'pm');
+    }
 }

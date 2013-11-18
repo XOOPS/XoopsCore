@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\PreloadItem;
+
 /**
  * LegacyLogger core preloads
  *
@@ -22,7 +24,7 @@
  * @link      http://xoops.org
  * @since     1.0
  */
-class LoggerCorePreload extends XoopsPreloadItem
+class LoggerPreload extends PreloadItem
 {
     /**
      * getConfigs
@@ -407,5 +409,17 @@ class LoggerCorePreload extends XoopsPreloadItem
     public static function eventCoreModuleAddlog($args)
     {
         LegacyLogger::getInstance()->addExtra($args[0], $args[1]);
+    }
+
+    /**
+     * system.preferences.save
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventSystemPreferencesSave($args)
+    {
+        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
     }
 }
