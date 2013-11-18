@@ -9,6 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
@@ -16,9 +23,6 @@
  * @author
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class SmiliesSmiley extends XoopsObject
 {
     /**

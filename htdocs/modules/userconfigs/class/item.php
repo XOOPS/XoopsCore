@@ -18,7 +18,9 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * @author        Kazumi Ono    <onokazu@xoops.org>
