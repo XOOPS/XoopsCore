@@ -95,6 +95,20 @@ abstract class CriteriaElement
     abstract public function renderQb(QueryBuilder $qb = null, $whereMode = '');
 
     /**
+     * Build an expression to be included in a Doctrine QueryBuilder instance.
+     *
+     * This method will build an expression, adding any parameters to the query,
+     * but the caller is responsible for adding the expression to the query, for
+     * example as where() parameter. This allows the caller to handle all context,
+     * such as parenthetical groupings.
+     *
+     * @param QueryBuilder $qb query builder instance
+     *
+     * @return string expression
+     */
+    abstract public function buildExpressionQb(QueryBuilder $qb);
+
+    /**
      * set sort column
      *
      * @param string $sort sort column

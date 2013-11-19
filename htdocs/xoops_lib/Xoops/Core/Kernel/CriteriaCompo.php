@@ -143,13 +143,32 @@ class CriteriaCompo extends CriteriaElement
             $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $whereMode = ''; // first entry in new instance must be where
         }
-        $eb = $qb->expr();
 
+        $expr = '';
         foreach ($this->criteriaElements as $i => $element) {
-            if ($i == 0) {
-                $qb = $element->renderQb($qb, $whereMode);
-            } else {
-                $qb = $element->renderQb($qb, $this->conditions[$i]);
+            $expr_part = $element->buildExpressionQb($qb);
+            if ($expr_part !== false) {
+                if ($i == 0) {
+                    $expr = $expr_part;
+                } else {
+                    $expr .= ' ' . strtoupper($this->conditions[$i]) . ' ' . $expr_part;
+                }
+            }
+        }
+
+        if (!empty($expr)) {
+            $expr = '(' . $expr . ')'; // group all condtions in this compo
+
+            switch (strtolower($whereMode)) {
+                case 'and':
+                    $qb->andWhere($expr);
+                    break;
+                case 'or':
+                    $qb->orWhere($expr);
+                    break;
+                case '':
+                    $qb->where($expr);
+                    break;
             }
         }
 
@@ -166,5 +185,55 @@ class CriteriaCompo extends CriteriaElement
             $qb->orderBy($this->sort, $this->order);
         }
         return $qb;
+    }
+
+    /**
+     * Build an expression to be included in a Doctrine QueryBuilder instance.
+     *
+     * This method will build an expression, adding any parameters to the query,
+     * but the caller is responsible for adding the expression to the query, for
+     * example as where() parameter. This allows the caller to handle all context,
+     * such as parenthetical groupings.
+     *
+     * @param QueryBuilder $qb query builder instance
+     *
+     * @return string expression
+     */
+    public function buildExpressionQb(QueryBuilder $qb)
+    {
+        if ($qb==null) {
+            return false;
+        }
+        $eb = $qb->expr();
+        $expr = '';
+        foreach ($this->criteriaElements as $i => $element) {
+            $expr_part = $element->buildExpressionQb($qb);
+            if ($expr_part !== false) {
+                if ($i == 0) {
+                    $expr = $expr_part;
+                } else {
+                    $expr .= ' ' . strtoupper($this->conditions[$i]) . ' ' . $expr_part;
+                }
+            }
+        }
+
+        $expr = '(' . $expr . ')'; // group all condtions in this compo
+
+        $expr = '';
+        foreach ($this->criteriaElements as $i => $element) {
+            $expr_part = $element->buildExpressionQb($qb);
+            if ($expr_part !== false) {
+                if ($i == 0) {
+                    $expr = $expr_part;
+                } else {
+                    $expr .= ' ' . strtoupper($this->conditions[$i]) . ' ' . $expr_part;
+                }
+            }
+        }
+
+        if (!empty($expr)) {
+            $expr = '(' . $expr . ')'; // group all condtions in this compo
+        }
+        return $expr;
     }
 }

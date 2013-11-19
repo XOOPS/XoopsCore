@@ -164,7 +164,8 @@ class Criteria extends CriteriaElement
             $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $whereMode = ''; // first entry in new instance must be where
         }
-        $eb = $qb->expr();
+        $expr = $this->buildExpressionQb($qb);
+        /* $eb = $qb->expr();
 
         $column = (empty($this->prefix) ? "" : $this->prefix.'.') . $this->column;
 
@@ -237,6 +238,7 @@ class Criteria extends CriteriaElement
                     break;
             }
         }
+        */
 
         switch (strtolower($whereMode)) {
             case 'and':
@@ -264,5 +266,94 @@ class Criteria extends CriteriaElement
         }
 
         return $qb;
+    }
+
+    /**
+     * Build an expression to be included in a Doctrine QueryBuilder instance.
+     *
+     * This method will build an expression, adding any parameters to the query,
+     * but the caller is responsible for adding the expression to the query, for
+     * example as where() parameter. This allows the caller to handle all context,
+     * such as parenthetical groupings.
+     *
+     * @param QueryBuilder $qb query builder instance
+     *
+     * @return string expression
+     */
+    public function buildExpressionQb(QueryBuilder $qb)
+    {
+        if ($qb==null) {
+            return false;
+        }
+        $eb = $qb->expr();
+
+        $column = (empty($this->prefix) ? "" : $this->prefix.'.') . $this->column;
+
+        // this should be done using portability functions
+        if (!empty($this->function)) {
+            $column = sprintf($this->function, $column);
+        }
+
+        $value=trim($this->value);
+
+        $operator = strtolower($this->operator);
+        $expr = '';
+
+        // handle special case of value
+        if (in_array($operator, array('is null', 'is not null', 'in', 'not in'))) {
+            switch ($operator) {
+                case 'is null':
+                    $expr = $eb->isNull($column);
+                    break;
+                case 'is not null':
+                    $expr = $eb->isNotNull($column);
+                    break;
+                case 'in':
+                    $expr = $column . ' IN ' . $value;
+                    break;
+                case 'not in':
+                    $expr = $column . ' NOT IN '.$value;
+                    break;
+            }
+        } elseif (!empty($column)) { // no value is a nop (bug: this should be a valid value)
+            $colvalue = $qb->createNamedParameter($value);
+            switch ($operator) {
+                case '=':
+                case 'eq':
+                    $expr = $eb->eq($column, $colvalue);
+                    break;
+                case '!=':
+                case '<>':
+                case 'neq':
+                    $expr = $eb->neq($column, $colvalue);
+                    break;
+                case '<':
+                case 'lt':
+                    $expr = $eb->lt($column, $colvalue);
+                    break;
+                case '<=':
+                case 'lte':
+                    $expr = $eb->lte($column, $colvalue);
+                    break;
+                case '>':
+                case 'gt':
+                    $expr = $eb->gt($column, $colvalue);
+                    break;
+                case '>=':
+                case 'gte':
+                    $expr = $eb->gte($column, $colvalue);
+                    break;
+                case 'like':
+                    $expr = $eb->like($column, $colvalue);
+                    break;
+                case 'not like':
+                    $expr = $eb->notLike($column, $colvalue);
+                    break;
+                default:
+                    $expr = $eb->comparison($column, strtoupper($operator), $colvalue);
+                    break;
+            }
+        }
+        return $expr;
     }
 }
