@@ -172,6 +172,7 @@ switch ($op) {
             echo $xoops->alert('error', $group->getHtmlErrors());
             $xoops->footer();
         } else {
+            $xoops->db()->beginTransaction();
             $groupid = $group->getVar('groupid');
             $gperm_handler = $xoops->getHandlerGroupperm();
             if (count($system_catids) > 0) {
@@ -210,6 +211,7 @@ switch ($op) {
                 $blockperm->setVar('gperm_modid', 1);
                 $gperm_handler->insert($blockperm);
             }
+            $xoops->db()->commit();
             $xoops->redirect('admin.php?fct=groups', 1, XoopsLocale::S_DATABASE_UPDATED);
         }
         break;
@@ -244,6 +246,7 @@ switch ($op) {
                 echo $group->getHtmlErrors();
                 $xoops->footer();
             } else {
+                $xoops->db()->beginTransaction();
                 $groupid = $group->getVar('groupid');
                 $gperm_handler = $xoops->getHandlerGroupperm();
                 $criteria = new CriteriaCompo(new Criteria('gperm_groupid', $groupid));
@@ -257,7 +260,7 @@ switch ($op) {
                 if (count($system_catids) > 0) {
                     array_push($admin_mids, 1);
                     foreach ($system_catids as $s_cid) {
-                        $sysperm = & $gperm_handler->create();
+                        $sysperm = $gperm_handler->create();
                         $sysperm->setVar('gperm_groupid', $groupid);
                         $sysperm->setVar('gperm_itemid', $s_cid);
                         $sysperm->setVar('gperm_name', 'system_admin');
@@ -290,6 +293,7 @@ switch ($op) {
                     $blockperm->setVar('gperm_modid', 1);
                     $gperm_handler->insert($blockperm);
                 }
+                $xoops->db()->commit();
                 $xoops->redirect("admin.php?fct=groups", 1, XoopsLocale::S_DATABASE_UPDATED);
             }
         } else {
