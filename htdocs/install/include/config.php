@@ -181,6 +181,7 @@ $configs['modules'] = array(
     'banners',
     'page',
     'search',
+    'userconfigs',
 );
 
 // Extensions to be installed by default
@@ -195,7 +196,6 @@ $configs['ext'] = array(
     'notifications',
     'protector',
     'smilies',
-    'userconfigs',
     'xmf',
 );
 
