@@ -405,10 +405,10 @@ abstract class XoopsObject
         $loaded = 1;
 
         $path = empty($this->plugin_path) ? dirname(__FILE__) . '/filters' : $this->plugin_path;
-        if (XoopsLoad::fileExists($file = $path . '/filter.php')) {
+        if (\XoopsLoad::fileExists($file = $path . '/filter.php')) {
             include_once $file;
             foreach ($this->_filters as $f) {
-                if (XoopsLoad::fileExists($file = $path . '/' . strtolower($f) . 'php')) {
+                if (\XoopsLoad::fileExists($file = $path . '/' . strtolower($f) . 'php')) {
                     include_once $file;
                 }
             }
@@ -434,8 +434,8 @@ abstract class XoopsObject
 
 
         $class = get_class($this);
-        if (!$modules_active = Xoops_Cache::read('system_modules_active')) {
-            $xoops = Xoops::getInstance();
+        if (!$modules_active = \Xoops_Cache::read('system_modules_active')) {
+            $xoops = \Xoops::getInstance();
             $module_handler = $xoops->getHandlerModule();
             $modules_obj = $module_handler->getObjectsArray(new Criteria('isactive', 1));
             $modules_active = array();
@@ -444,10 +444,10 @@ abstract class XoopsObject
                 $modules_active[] = $module_obj->getVar('dirname');
             }
             unset($modules_obj, $module_obj);
-            Xoops_Cache::write('system_modules_active', $modules_active);
+            \Xoops_Cache::write('system_modules_active', $modules_active);
         }
         foreach ($modules_active as $dirname) {
-            if (XoopsLoad::fileExists(
+            if (\XoopsLoad::fileExists(
                 $file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php'
             )) {
                 include_once $file;
