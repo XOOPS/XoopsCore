@@ -309,10 +309,17 @@ class Criteria extends CriteriaElement
                     $expr = $eb->isNotNull($column);
                     break;
                 case 'in':
-                    $expr = $column . ' IN ' . $value;
+                    if (!empty($value) && $value!='()') {
+                        $expr = $column . ' IN ' . $value;
+                    } else {
+                        // odd case of a null set - this won't match anything
+                        $expr = $eb->neq($column, $column);
+                    }
                     break;
                 case 'not in':
-                    $expr = $column . ' NOT IN '.$value;
+                    if (!empty($value) && $value!='()') {
+                        $expr = $column . ' NOT IN ' . $value;
+                    }
                     break;
             }
         } elseif (!empty($column)) { // no value is a nop (bug: this should be a valid value)
