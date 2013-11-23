@@ -46,6 +46,13 @@ include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
 require_once XOOPS_ROOT_PATH . DS . 'class' . DS . 'xoopsload.php';
 
 /**
+ * We now have autoloader, so start Patchwork\UTF8
+ */
+\Patchwork\Utf8\Bootup::initAll(); // Enables the portablity layer and configures PHP for UTF-8
+\Patchwork\Utf8\Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
+\Patchwork\Utf8\Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
+
+/**
  * Create Instance of Xoops Object
  * Atention, not all methods can be used at this point
  */
@@ -255,9 +262,8 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
     unset($url_arr);
 
     if (!$xoops->module || !$xoops->module->getVar('isactive')) {
-        $xoops->header();
-        echo '<h4>' . XoopsLocale::E_NO_MODULE . '</h4>';
-        $xoops->footer();
+        $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_MODULE);
+        exit();
     }
     $moduleperm_handler = $xoops->getHandlerGroupperm();
     if ($xoops->isUser()) {
