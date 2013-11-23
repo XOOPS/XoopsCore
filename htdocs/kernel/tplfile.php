@@ -309,7 +309,6 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
             }
             $tplfile->assignVar('tpl_id', $tpl_id);
         } else {
-            $tpl_id = 0;
             $values = array(
                 // 'tpl_id' => $tpl_id,
                 'tpl_module' => $tpl_module,
@@ -321,17 +320,16 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id', $tpl_id))) {
+            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id' => $tpl_id))) {
                 return false;
             }
 
             if (isset($tpl_source) && $tpl_source != '') {
-                $tpl_id = 0;
                 $values = array(
                     // 'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id', $tpl_id))) {
+                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id' => $tpl_id))) {
                     return false;
                 }
             }
@@ -368,7 +366,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id', $tpl_id))) {
+            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id' => $tpl_id))) {
                 return false;
             }
 
@@ -378,7 +376,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                     // 'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id', $tpl_id))) {
+                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id' => $tpl_id))) {
                     return false;
                 }
             }
