@@ -45,7 +45,7 @@ abstract class XoopsObjectHandler
     protected function __construct(XoopsConnection $db)
     {
         if (!($db instanceof XoopsConnection)) {
-            \Xmf\Debug::backtrace();
+            $db = \Xoops::getInstance()->db();
         }
         $this->db2 = $db;
     }

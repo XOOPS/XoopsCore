@@ -204,22 +204,7 @@ class CriteriaCompo extends CriteriaElement
         if ($qb==null) {
             return false;
         }
-        $eb = $qb->expr();
-        $expr = '';
-        foreach ($this->criteriaElements as $i => $element) {
-            $expr_part = $element->buildExpressionQb($qb);
-            if ($expr_part !== false) {
-                if ($i == 0) {
-                    $expr = $expr_part;
-                } else {
-                    $expr .= ' ' . strtoupper($this->conditions[$i]) . ' ' . $expr_part;
-                }
-            }
-        }
-
-        $expr = '(' . $expr . ')'; // group all condtions in this compo
-
-        $expr = '';
+        $expr = false;
         foreach ($this->criteriaElements as $i => $element) {
             $expr_part = $element->buildExpressionQb($qb);
             if ($expr_part !== false) {
