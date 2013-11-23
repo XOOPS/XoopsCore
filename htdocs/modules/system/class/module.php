@@ -612,6 +612,38 @@ class SystemModule
             $this->error[] = sprintf(XoopsLocale::EF_NOT_UPDATED, "<strong>" . $module->getVar('name') . "</strong>");
             return false;
         } else {
+            // execute module specific preupdate script if any
+            $update_script = $module->getInfo('onUpdate');
+            if (false != $update_script && trim($update_script) != '') {
+                XoopsLoad::loadFile($xoops->path('modules/' . $mod . '/' . trim($update_script)));
+                $func = 'xoops_module_preupdate_' . $mod;
+                if (function_exists($func)) {
+                    $result = $func($module, $prev_version);
+                    if (!$result) {
+                        $this->trace[] = sprintf(XoopsLocale::EF_NOT_EXECUTED, $func);
+                        $this->trace = array_merge($this->error, $module->getErrors());
+                    } else {
+                        $this->trace[] = sprintf(XoopsLocale::SF_EXECUTED, "<strong>{$func}</strong>");
+                        $this->trace = array_merge($this->trace, $module->getMessages());
+                    }
+                }
+            }
+
+            // update schema
+            $schema_file = $module->getInfo('schema');
+            if (!empty($schema_file)) {
+                $schema_file_path = XOOPS_ROOT_PATH . '/modules/' . $mod . '/' . $schema_file;
+                if (!XoopsLoad::fileExists($schema_file_path)) {
+                    $this->error[] =
+                        sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$schema_file}</strong>");
+                    return false;
+                }
+                $importer = new ImportSchema;
+                $importSchema = $importer->importSchemaArray(Yaml::read($schema_file_path));
+                $synchronizer = new SingleDatabaseSynchronizer($xoops->db());
+                $synchronizer->updateSchema($importSchema, true);
+            }
+
             // delete templates
             $this->deleteTemplates($module);
 
