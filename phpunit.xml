@@ -1,0 +1,26 @@
+﻿<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    colors="false"
+    verbose="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    bootstrap="bootstrap.php"
+    >
+
+<testsuites>
+    <testsuite name="My Test Suite for Xoops_lib">
+        <directory>xoops_lib</directory>
+    </testsuite>
+</testsuites>
+
+<groups>
+    <exclude>
+        <group>slow</group>
+    </exclude>
+</groups>
+
+
+</phpunit>

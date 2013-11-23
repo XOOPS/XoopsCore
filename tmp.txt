@@ -1,0 +1,422 @@
+
+D:\MesApp\EasyPHP\www\XoopsCore\UnitTestXoops>D:\MesApp\EasyPHP\php\php539x130819191620\php.exe D:\MesApp\EasyPHP\php\php539x130819191620\phpunit.phar  
+int(311)
+object(Xoops\Core\Events)#38 (3) {
+  ["preloadList":protected]=>
+  array(13) {
+    [0]=>
+    array(2) {
+      ["module"]=>
+      string(6) "system"
+      ["file"]=>
+      string(4) "core"
+    }
+    [1]=>
+    array(2) {
+      ["module"]=>
+      string(7) "banners"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [2]=>
+    array(2) {
+      ["module"]=>
+      string(4) "page"
+      ["file"]=>
+      string(4) "core"
+    }
+    [3]=>
+    array(2) {
+      ["module"]=>
+      string(6) "search"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [4]=>
+    array(2) {
+      ["module"]=>
+      string(7) "avatars"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [5]=>
+    array(2) {
+      ["module"]=>
+      string(8) "comments"
+      ["file"]=>
+      string(4) "core"
+    }
+    [6]=>
+    array(2) {
+      ["module"]=>
+      string(6) "images"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [7]=>
+    array(2) {
+      ["module"]=>
+      string(5) "menus"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [8]=>
+    array(2) {
+      ["module"]=>
+      string(13) "notifications"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [9]=>
+    array(2) {
+      ["module"]=>
+      string(9) "protector"
+      ["file"]=>
+      string(4) "core"
+    }
+    [10]=>
+    array(2) {
+      ["module"]=>
+      string(7) "smilies"
+      ["file"]=>
+      string(4) "core"
+    }
+    [11]=>
+    array(2) {
+      ["module"]=>
+      string(11) "userconfigs"
+      ["file"]=>
+      string(7) "preload"
+    }
+    [12]=>
+    array(2) {
+      ["module"]=>
+      string(3) "xmf"
+      ["file"]=>
+      string(7) "preload"
+    }
+  }
+  ["eventListeners":protected]=>
+  array(22) {
+    ["coreincludefunctionsredirectheader"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(17) "SystemCorePreload"
+        [1]=>
+        string(39) "eventCoreIncludeFunctionsRedirectheader"
+      }
+    }
+    ["coreheadercheckcache"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(17) "SystemCorePreload"
+        [1]=>
+        string(25) "eventCoreHeaderCheckcache"
+      }
+    }
+    ["coreheaderaddmeta"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(17) "SystemCorePreload"
+        [1]=>
+        string(22) "eventCoreHeaderAddmeta"
+      }
+    }
+    ["systemclassguiheader"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(17) "SystemCorePreload"
+        [1]=>
+        string(25) "eventSystemClassGuiHeader"
+      }
+    }
+    ["coreincludecommonend"]=>
+    array(10) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(14) "BannersPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [1]=>
+      array(2) {
+        [0]=>
+        string(15) "PageCorePreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [2]=>
+      array(2) {
+        [0]=>
+        string(13) "SearchPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [3]=>
+      array(2) {
+        [0]=>
+        string(14) "AvatarsPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [4]=>
+      array(2) {
+        [0]=>
+        string(13) "ImagesPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [5]=>
+      array(2) {
+        [0]=>
+        string(12) "MenusPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [6]=>
+      array(2) {
+        [0]=>
+        string(20) "NotificationsPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [7]=>
+      array(2) {
+        [0]=>
+        string(20) "ProtectorCorePreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [8]=>
+      array(2) {
+        [0]=>
+        string(18) "UserconfigsPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+      [9]=>
+      array(2) {
+        [0]=>
+        string(10) "XmfPreload"
+        [1]=>
+        string(25) "eventCoreIncludeCommonEnd"
+      }
+    }
+    ["corebannerdisplay"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(14) "BannersPreload"
+        [1]=>
+        string(22) "eventCoreBannerDisplay"
+      }
+    }
+    ["coreuserinfobutton"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(14) "AvatarsPreload"
+        [1]=>
+        string(23) "eventCoreUserinfoButton"
+      }
+    }
+    ["coreuserinfoavatar"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(14) "AvatarsPreload"
+        [1]=>
+        string(23) "eventCoreUserinfoAvatar"
+      }
+    }
+    ["corefooterstart"]=>
+    array(2) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(19) "CommentsCorePreload"
+        [1]=>
+        string(20) "eventCoreFooterStart"
+      }
+      [1]=>
+      array(2) {
+        [0]=>
+        string(20) "NotificationsPreload"
+        [1]=>
+        string(20) "eventCoreFooterStart"
+      }
+    }
+    ["onmoduleupdateconfigs"]=>
+    array(2) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(19) "CommentsCorePreload"
+        [1]=>
+        string(26) "eventOnModuleUpdateConfigs"
+      }
+      [1]=>
+      array(2) {
+        [0]=>
+        string(20) "NotificationsPreload"
+        [1]=>
+        string(26) "eventOnModuleUpdateConfigs"
+      }
+    }
+    ["onmoduleinstall"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(19) "CommentsCorePreload"
+        [1]=>
+        string(20) "eventOnModuleInstall"
+      }
+    }
+    ["onmoduleuninstall"]=>
+    array(2) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(19) "CommentsCorePreload"
+        [1]=>
+        string(22) "eventOnModuleUninstall"
+      }
+      [1]=>
+      array(2) {
+        [0]=>
+        string(18) "UserconfigsPreload"
+        [1]=>
+        string(22) "eventOnModuleUninstall"
+      }
+    }
+    ["onsystempreferencesform"]=>
+    array(2) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(19) "CommentsCorePreload"
+        [1]=>
+        string(28) "eventOnSystemPreferencesForm"
+      }
+      [1]=>
+      array(2) {
+        [0]=>
+        string(20) "NotificationsPreload"
+        [1]=>
+        string(28) "eventOnSystemPreferencesForm"
+      }
+    }
+    ["coreclassxoopsformformdhtmltextareacodeicon"]=>
+    array(2) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(13) "ImagesPreload"
+        [1]=>
+        string(48) "eventCoreClassXoopsformFormdhtmltextareaCodeicon"
+      }
+      [1]=>
+      array(2) {
+        [0]=>
+        string(18) "SmiliesCorePreload"
+        [1]=>
+        string(48) "eventCoreClassXoopsformFormdhtmltextareaCodeicon"
+      }
+    }
+    ["coreimage"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(13) "ImagesPreload"
+        [1]=>
+        string(14) "eventCoreImage"
+      }
+    }
+    ["coreimagemanager"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(13) "ImagesPreload"
+        [1]=>
+        string(21) "eventCoreImagemanager"
+      }
+    }
+    ["onmoduleinstallconfigs"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(20) "NotificationsPreload"
+        [1]=>
+        string(27) "eventOnModuleInstallConfigs"
+      }
+    }
+    ["onmoduleunistall"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(20) "NotificationsPreload"
+        [1]=>
+        string(21) "eventOnModuleUnistall"
+      }
+    }
+    ["coreincludecommonstart"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(20) "ProtectorCorePreload"
+        [1]=>
+        string(27) "eventCoreIncludeCommonStart"
+      }
+    }
+    ["coreclassdatabasedatabasefactoryconnection"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(20) "ProtectorCorePreload"
+        [1]=>
+        string(47) "eventCoreClassDatabaseDatabasefactoryConnection"
+      }
+    }
+    ["coreclassmoduletextsanitizersmiley"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(18) "SmiliesCorePreload"
+        [1]=>
+        string(39) "eventCoreClassModuleTextsanitizerSmiley"
+      }
+    }
+    ["coreclassmoduletextsanitizergetsmileys"]=>
+    array(1) {
+      [0]=>
+      array(2) {
+        [0]=>
+        string(18) "SmiliesCorePreload"
+        [1]=>
+        string(43) "eventCoreClassModuleTextsanitizerGetSmileys"
+      }
+    }
+  }
+  ["checkAgain":protected]=>
+  bool(false)
+}
