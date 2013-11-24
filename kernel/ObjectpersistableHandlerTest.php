@@ -1,9 +1,18 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+class ObjectpersistableHandler_XoopsObject extends XoopsObject
+{
+}
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ObjectpersistableHandler extends MY_UnitTestCase
 {
-    var $myclass='XoopsPersistableObjectHandler';
+    public $myclass = 'XoopsGroupHandler';
 
     public function SetUp() {
     }
@@ -39,7 +48,7 @@ class ObjectpersistableHandler extends MY_UnitTestCase
     
     public function test_200() {
         $instance=new $this->myclass();
-		$obj=new XoopsObject();
+		$obj=new ObjectpersistableHandler_XoopsObject();
 		$obj->setDirty();
 		$instance->className=get_class($obj);
         $value=$instance->insert($obj);
@@ -48,7 +57,7 @@ class ObjectpersistableHandler extends MY_UnitTestCase
     
     public function test_220() {
         $instance=new $this->myclass();
-		$obj=new XoopsObject();
+		$obj=new ObjectpersistableHandler_XoopsObject();
 		$instance->className=get_class($obj);
         $value=$instance->delete($obj);
         $this->assertSame(false,$value);

@@ -1,9 +1,22 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+class ObjecthandlerTest_XoopsObjectHandler extends XoopsObjectHandler
+{
+}
+
+class ObjecthandlerTest_XoopsObject extends XoopsObject
+{
+}
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ObjecthandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsObjectHandler';
+    var $myclass='ObjecthandlerTest_XoopsObjectHandler';
 
     public function SetUp() {
     }
@@ -31,7 +44,7 @@ class ObjecthandlerTest extends MY_UnitTestCase
     public function test_160() {
 		$db=XoopsDatabaseFactory::getDatabaseConnection();
         $instance=new $this->myclass($db);
-		$object=new XoopsObject();
+		$object=new ObjecthandlerTest_XoopsObject();
 		$instance->insert($object);
         $this->assertTrue(true);
     }
@@ -39,7 +52,7 @@ class ObjecthandlerTest extends MY_UnitTestCase
     public function test_180() {
 		$db=XoopsDatabaseFactory::getDatabaseConnection();
         $instance=new $this->myclass($db);
-		$object=new XoopsObject();
+		$object=new ObjecthandlerTest_XoopsObject();
 		$instance->delete($object);
         $this->assertTrue(true);
     }

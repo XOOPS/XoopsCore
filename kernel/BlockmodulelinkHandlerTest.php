@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class BlockmodulelinkHandlerTest extends MY_UnitTestCase
 {
     var $myclass='XoopsBlockmodulelinkHandler';

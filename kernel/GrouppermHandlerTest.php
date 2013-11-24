@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class GrouppermHandlerTest extends MY_UnitTestCase
 {
     var $myclass='XoopsGroupPermHandler';

@@ -3,6 +3,11 @@ require_once(dirname(__FILE__).'/../../init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/captcha/xoopscaptcha.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class XoopsCaptchaMethodTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCaptchaMethod';

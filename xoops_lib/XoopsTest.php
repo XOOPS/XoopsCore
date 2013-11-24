@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../init_mini.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class XoopsTest extends MY_UnitTestCase
 {
 
@@ -657,31 +662,31 @@ class XoopsTest extends MY_UnitTestCase
 
 		$msg = 'alert_info';
 		$value = $instance->alert($msg);
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_info';
 		$value = $instance->alert($msg, 'dummy');
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_error';
 		$value = $instance->alert($msg, 'error');
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_success';
 		$value = $instance->alert($msg, 'success');
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_warning';
 		$value = $instance->alert($msg, 'warning');
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 
 		$msg = new XoopsModule();
 		$value = $instance->alert($msg);
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 
 		$msg = array('text_1', 'text_2');
 		$value = $instance->alert($msg);
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
 	}
 
     public function test_5600()

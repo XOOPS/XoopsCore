@@ -1,8 +1,4 @@
 <?php
-/**
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 require_once(dirname(__FILE__).'/../../init_mini.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/xoopsload.php');
@@ -11,6 +7,11 @@ require_once(XOOPS_ROOT_PATH.'/class/database/databasefactory.php');
 require_once(XOOPS_ROOT_PATH.'/xoops_lib/Xoops/Cache.php');
 require_once(XOOPS_ROOT_PATH.'/xoops_data/data/secure.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class DatabaseFactoryTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsDatabaseFactory';

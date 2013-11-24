@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ModuleadminTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsModuleAdmin';

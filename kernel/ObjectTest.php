@@ -1,9 +1,18 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+class ObjectTest_XoopsObject extends XoopsObject
+{
+}
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ObjectTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsObject';
+    var $myclass='ObjectTest_XoopsObject';
 
     public function SetUp()
 	{

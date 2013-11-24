@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class UploaderTest extends MY_UnitTestCase
 {
 	protected $myclass = 'XoopsMediaUploader';

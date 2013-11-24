@@ -3,7 +3,12 @@ require_once(dirname(__FILE__).'/../../init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/captcha/xoopscaptcha.php');
 require_once(XOOPS_ROOT_PATH.'/class/captcha/image.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ImageTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCaptchaImage';

@@ -2,7 +2,12 @@
 require_once(dirname(__FILE__).'/../init_mini.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/xoopsload.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class XoopsloadTest extends MY_UnitTestCase
 {
     

@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../../init.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/ 
 class LoggerTest extends MY_UnitTestCase
 {
 	// "XoopsLogger is deprecated since 2.6.0, use the module 'logger' instead"

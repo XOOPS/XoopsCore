@@ -1,4 +1,5 @@
 <?php
+
 require_once(dirname(__FILE__).'/../../init.php');
 
 function myFunction($a)
@@ -7,6 +8,11 @@ function myFunction($a)
 	return 2*$a;
 }
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class UtilityTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsUtility';
