@@ -143,10 +143,10 @@ class XoopsUserUtility
         }
         // Check uname settings if current operator is not an administrator
         if (!$xoops->userIsAdmin) {
-            if (strlen($uname) > $xoops->getConfig('maxuname')) {
+            if (mb_strlen($uname) > $xoops->getConfig('maxuname')) {
                 $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_LESS_THAN, $xoops->getConfig('maxuname')) . '<br />';
             }
-            if (strlen($uname) < $xoops->getConfig('minuname')) {
+            if (mb_strlen($uname) < $xoops->getConfig('minuname')) {
                 $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_MORE_THAN, $xoops->getConfig('minuname')) . '<br />';
             }
             foreach ($xoops->getConfig('bad_unames') as $bu) {
@@ -191,7 +191,7 @@ class XoopsUserUtility
         if ((isset($pass)) && ($pass != $vpass)) {
             $stop .= XoopsLocale::E_PASSWORDS_MUST_MATCH . '<br />';
         } else {
-            if (($pass != '') && (strlen($pass) < $xoops->getConfig('minpass'))) {
+            if (($pass != '') && (mb_strlen($pass) < $xoops->getConfig('minpass'))) {
                 $stop .= sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass')) . '<br />';
             }
         }

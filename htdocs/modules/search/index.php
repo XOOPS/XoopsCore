@@ -86,7 +86,7 @@ if ($action != 'showallbyuser') {
         $temp_queries = preg_split('/[\s,]+/', $query);
         foreach ($temp_queries as $q) {
             $q = trim($q);
-            if (strlen($q) >= $search->getConfig('keyword_min')) {
+            if (mb_strlen($q) >= $search->getConfig('keyword_min')) {
                 $queries[] = $myts->addSlashes($q);
                 $queries_pattern[] = '~(' . $q . ')~sUi';
             } else {
@@ -98,7 +98,7 @@ if ($action != 'showallbyuser') {
         }
     } else {
         $query = trim($query);
-        if (strlen($query) < $search->getConfig('keyword_min')) {
+        if (mb_strlen($query) < $search->getConfig('keyword_min')) {
             $xoops->redirect('index.php', 2, sprintf(_MD_SEARCH_KEYTOOSHORT, $search->getConfig('keyword_min')));
         }
         $queries = array($myts->addSlashes($query));
