@@ -1,7 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../../init.php');
 
-require_once(XOOPS_ROOT_PATH . '/class/model/xoopsmodel.php');
 require_once(XOOPS_ROOT_PATH . '/class/model/joint.php');
 
 /**
@@ -21,7 +20,7 @@ class JointTest extends MY_UnitTestCase
     public function test_100() {
         $instance=new XoopsModelJoint();
         $this->assertInstanceOf('XoopsModelJoint', $instance);
-        $this->assertInstanceOf('XoopsModelAbstract', $instance);	
+        $this->assertInstanceOf('Xoops\Core\Kernel\XoopsModelAbstract', $instance);	
 		$handler = new XoopsConfigItemHandler($this->conn);
 		$result = $instance->setHandler($handler);
 		$this->assertTrue($result);
@@ -36,7 +35,7 @@ class JointTest extends MY_UnitTestCase
 		$this->assertTrue($result);
 		
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-		$handler->table_link=$db->prefix('groups_user_link');
+		$handler->table_link=$db->prefix('groups_users_link');
 		$handler->field_link='groupid';
 		
 		$result = $instance->getByLink(null, null, true);
