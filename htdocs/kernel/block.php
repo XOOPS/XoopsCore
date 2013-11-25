@@ -811,8 +811,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
                 $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
             }
 
-            $sql = 'SELECT b.* FROM ' . $db->prefix('newblocks') . ' b, '
-            . $db->prefix('block_module_link') . ' m';
+            $sql = 'SELECT b.* FROM ' . $this->db2->prefix('newblocks') . ' b, '
+            . $this->db2->prefix('block_module_link') . ' m';
             $sql .= ' WHERE b.isactive=' . intval($isactive);
             if (isset($visible)) {
                 $sql .= ' AND b.visible=' . intval($visible);
@@ -940,6 +940,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
         if (isset($groupid)) {
+            $qb = $this->db2->createXoopsQueryBuilder();
+            $eb = $qb->expr();
+
             $qb ->select('DISTINCT(gperm_itemid)')
                 ->fromPrefix('group_permission', 'p')
                 ->fromPrefix('groups', 'g')
