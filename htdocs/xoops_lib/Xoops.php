@@ -1340,7 +1340,9 @@ class Xoops
     }
 
     /**
-     * @param string $url
+     * formatURL - add default http:// if no valid protocol specified
+     *
+     * @param string $url full or partial url
      *
      * @return string
      */
@@ -1348,8 +1350,7 @@ class Xoops
     {
         $url = trim($url);
         if ($url != '') {
-            if ((!preg_match('/^http[s]*:\/\//i', $url)) && (!preg_match('/^ftp*:\/\//i', $url)) && (!preg_match('/^ed2k*:\/\//i', $url))
-            ) {
+            if (!preg_match('/^(https?|ftps?|ed2k)\:\/\//i', $url)) {
                 $url = 'http://' . $url;
             }
         }
