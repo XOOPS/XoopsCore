@@ -88,7 +88,7 @@ class Stats extends XoopsModelAbstract
      */
     public function getCounts(CriteriaElement $criteria = null)
     {
-        $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+        $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
         $ret = array();
