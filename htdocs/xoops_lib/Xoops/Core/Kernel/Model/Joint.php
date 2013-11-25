@@ -101,8 +101,8 @@ class Joint extends XoopsModelAbstract
                 }
             }
         } else {
-            $qb ->select('*', 'o')
-                ->addSelect('*', 'l');
+            $qb ->select('o.*')
+                ->addSelect('l.*');
         }
         $qb ->from($this->handler->table, 'o')
             ->leftJoin(
