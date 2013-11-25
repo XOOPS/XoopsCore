@@ -224,7 +224,7 @@ class Joint extends XoopsModelAbstract
         }
         $set = array();
         foreach ($data as $key => $val) {
-            $set[] = "o.{$key}=" . $this->handler->db2->quoteString($val);
+            $set[] = "o.{$key}=" . $this->handler->db2->quote($val);
         }
         $sql = " UPDATE {$this->handler->table} AS o" . " SET " . implode(", ", $set)
             . " LEFT JOIN {$this->handler->table_link} AS l "
