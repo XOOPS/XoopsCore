@@ -14,10 +14,6 @@ class Xoops_CacheTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
-	{
-    }
-	
 	public function test_200()
 	{
 		// config
