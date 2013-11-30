@@ -14,8 +14,10 @@ if (defined('IS_PHPUNIT')) {
 	define('XOOPS_XMLRPC',0);
 }
 
-$xoopsOption["nocommon"]= true;
+$xoopsOption["nocommon"]= true; // don't include common.php file
 require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
+
+// Get the beginning of include/common.php file but not all
 
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
     die("XOOP check: PHP version require 5.3.0 or more");

@@ -1,8 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../../init.php');
 
-use Xoops\Core\Kernel\Model\Read;
-
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -11,12 +9,15 @@ use Xoops\Core\Kernel\Model\Read;
 class ReadTest extends MY_UnitTestCase
 {
 
+	protected $myClass = 'Xoops\Core\Kernel\Model\Read';
+	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
+	
     public function SetUp() {
     }
 
     public function test_100() {
-        $instance=new Read();
-        $this->assertInstanceOf('Xoops\Core\Kernel\Model\Read', $instance);
-        $this->assertInstanceOf('Xoops\Core\Kernel\XoopsModelAbstract', $instance);
+        $instance=new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+        $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
 }

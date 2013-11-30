@@ -17,17 +17,18 @@ class FilterInputTest extends MY_UnitTestCase
 	public function test_100()
 	{
 		// __construct devrait etre protected ?
+		$class = $this->myclass;
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
 		
-		$instance = Xoops\Core\FilterInput::getInstance();
-		$this->assertInstanceOf($this->myclass, $instance);
-		
-		$instance1 = Xoops\Core\FilterInput::getInstance();
+		$instance1 = $class::getInstance();
 		$this->assertSame($instance1, $instance);
 	}
 	
 	public function test_200()
 	{
 		// 
+        $this->markTestIncomplete('to do');
 	}
 
 }

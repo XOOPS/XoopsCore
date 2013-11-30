@@ -1,101 +1,117 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_CacheTest extends MY_UnitTestCase
+class LoggerTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Cache';
+    protected $myclass = 'Xoops\Core\Logger';
     
     public function SetUp()
 	{
     }
+
+	public function test_100()
+	{
+		$class = $this->myclass;
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
+		
+		$instance1 = $class::getInstance();
+		$this->assertSame($instance1, $instance);
+	}
 	
 	public function test_200()
 	{
-		// config
+		// handleError($errno, $errstr, $errfile, $errline)
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_300()
 	{
-		// configured
+		// addLogger($logger)
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_400()
 	{
-		// drop
+		// emergency($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_500()
 	{
-		// set
+		// alert($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_600()
 	{
-		// gc
+		// critical($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_700()
 	{
-		// write
+		// error($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_800()
 	{
-		// read
+		// warning($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_900()
 	{
-		// increment
+		// notice($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1000()
 	{
-		// decrement
+		// info($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1100()
 	{
-		// delete
+		// debug($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1200()
 	{
-		// clear
+		// log($level, $message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1300()
 	{
-		// clearGroup
+		// quiet()
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1400()
 	{
-		// isInitialized
+		// __set()
         $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1500()
 	{
-		// settings
+		// __get()
         $this->markTestIncomplete('to do');
 	}
-		
+	
+	public function test_1600()
+	{
+		// __call()
+        $this->markTestIncomplete('to do');
+	}
+	
 }

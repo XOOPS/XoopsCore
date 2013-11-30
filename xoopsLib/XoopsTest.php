@@ -132,10 +132,12 @@ class XoopsTest extends MY_UnitTestCase
 		require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/en_US.php';
 		require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/locale.php';
 
+		/*
 		$instance->setTheme(null);
         $instance->isAdminSide = true;
 		$value = $instance->theme();
 		$this->assertInstanceOf('XoopsTheme', $value);
+		*/
 
 		$value = $instance->theme('default');
 		$this->assertInstanceOf('XoopsTheme', $value);
@@ -291,17 +293,17 @@ class XoopsTest extends MY_UnitTestCase
 
 		$path = 'path';
 		$value = $instance->getTplInfo($path);
-		$this->assertSame('admin', $value['type']);
+		$this->assertSame('module', $value['type']);
 		$this->assertSame('system', $value['module']);
 		$this->assertSame('path', $value['file']);
-		$this->assertSame('admin:system|path', $value['tpl_name']);
+		$this->assertSame('module:system|path', $value['tpl_name']);
 
 		$path = 'db:path';
 		$value = $instance->getTplInfo($path);
-		$this->assertSame('admin', $value['type']);
+		$this->assertSame('module', $value['type']);
 		$this->assertSame('system', $value['module']);
 		$this->assertSame('path', $value['file']);
-		$this->assertSame('admin:system|path', $value['tpl_name']);
+		$this->assertSame('module:system|path', $value['tpl_name']);
 	}
 
     public function test_1600()
@@ -518,17 +520,9 @@ class XoopsTest extends MY_UnitTestCase
 
 		$value = $instance->getHandler('user');
 		$this->assertInstanceOf('XoopsUserHandler', $value);
-
-		if (defined('IS_PHPUNIT')) {
-			$WarningEnabledOrig = PHPUnit_Framework_Error_Warning::$enabled;
-			PHPUnit_Framework_Error_Warning::$enabled = false;
-		}
-		$this->expectError();
+		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
 		$value = $instance->getHandler('dummy', true);
 		$this->assertSame(false, $value);
-		if (defined('IS_PHPUNIT')) {
-			PHPUnit_Framework_Error_Warning::$enabled = $WarningEnabledOrig;
-		}
 	}
 
     public function test_4200()

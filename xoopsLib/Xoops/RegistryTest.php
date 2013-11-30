@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 */
 class Xoops_RegistryTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Registry';
+    protected $myClass = 'Xoops_Registry';
     
     public function SetUp()
 	{
@@ -16,71 +16,80 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 	
     public function test_100()
 	{
-		$instance = Xoops_Registry::getInstance();
-		$this->assertInstanceOf($this->myclass, $instance);
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
 		
-		$instance1 = Xoops_Registry::getInstance();
+		$instance1 = $class::getInstance();
 		$this->assertSame($instance1, $instance);
     }
 	
 	public function test_200()
 	{
-		$registry = new Xoops_Registry();
-		Xoops_Registry::_unsetInstance();
-		Xoops_Registry::setInstance($registry);
-		$instance = Xoops_Registry::getInstance();
-		$this->assertInstanceOf($this->myclass, $instance);
+		$class = $this->myClass;
+		$registry = new $class();
+		$class::_unsetInstance();
+		$class::setInstance($registry);
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
 	}
 
-	/**
-	* @expectedException PHPUnit_Framework_Error
-	*/	
 	public function test_400()
 	{
-		$x = Xoops_Registry::setClassName();
+		$class = $this->myClass;
+		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
+		$x = $class::setClassName();
 		$this->assertFalse($x);
 	}
 	
-	/**
-	* @expectedException PHPUnit_Framework_Error
-	*/	
+	/*
+	public function test_410()
+	{
+		$class = $this->myClass;
+		$this->setExpectedException('PHPUnit_Framework_Error_Notice');
+		$x = $class::setClassName();
+	}
+	*/
+	
 	public function test_420()
 	{
-		Xoops_Registry::_unsetInstance();
-		$x = Xoops_Registry::setClassName(1);
+		$class = $this->myClass;
+		$class::_unsetInstance();
+		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
+		$x = $class::setClassName(1);
 		$this->assertFalse($x);
 	}
 	
 	public function test_440()
 	{
-		Xoops_Registry::_unsetInstance();		
-		$x = Xoops_Registry::setClassName();
+		$class = $this->myClass;
+		$class::_unsetInstance();		
+		$x = $class::setClassName();
 		$this->assertTrue($x);
-	}
-	
-	public function test_600()
-	{
-		// _unsetInstance
 	}
 	
 	public function test_700()
 	{
 		// get
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_800()
 	{
 		// set
+        $this->markTestIncomplete('to do');
 	}
 
 	public function test_900()
 	{
 		// isRegistered
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_1000()
 	{
 		// offsetExists
+        $this->markTestIncomplete('to do');
 	}
 
 }

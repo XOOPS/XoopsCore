@@ -16,26 +16,30 @@ class EventsTest extends MY_UnitTestCase
 
 	public function test_100()
 	{
-		$instance = Xoops\Core\Events::getInstance();
-		$this->assertInstanceOf($this->myclass, $instance);
+		$class = $this->myclass;
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
 		
-		$instance1 = Xoops\Core\Events::getInstance();
+		$instance1 = $class::getInstance();
 		$this->assertSame($instance1, $instance);
 	}
 	
 	public function test_200()
 	{
 		// triggerEvent
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_300()
 	{
 		// addListener
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_400()
 	{
 		// getEvents
+        $this->markTestIncomplete('to do');
 	}
 
 }

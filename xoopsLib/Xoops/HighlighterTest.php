@@ -21,31 +21,37 @@ class Xoops_HighlighterTest extends MY_UnitTestCase
 	public function test_200()
 	{
 		// setSimple
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_300()
 	{
 		// setWholeWords
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_400()
 	{
 		// setCaseSens
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_500()
 	{
 		// setStripLinks
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_600()
 	{
 		// SetReplacementString
+        $this->markTestIncomplete('to do');
 	}
 	
 	public function test_700()
 	{
 		// highlight
+        $this->markTestIncomplete('to do');
 	}
 
 }

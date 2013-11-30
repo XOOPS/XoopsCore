@@ -12,7 +12,7 @@
 
 <testsuites>
     <testsuite name="My Test Suite for Xoops_lib">
-        <directory>xoops_lib</directory>
+        <directory>xoopsLib</directory>
     </testsuite>
 </testsuites>
 

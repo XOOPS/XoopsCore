@@ -1,9 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../../init.php');
 
-use Xoops\Core\Kernel\XoopsModelAbstract;
-use Xoops\Core\Kernel\Model\Joint;
-
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -12,6 +9,9 @@ use Xoops\Core\Kernel\Model\Joint;
 class JointTest extends MY_UnitTestCase
 {
 	protected $conn = null;
+	
+	protected $myClass = 'Xoops\Core\Kernel\Model\Joint';
+	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
     public function SetUp() {
 		$db = XoopsDatabaseFactory::getDatabaseConnection();
@@ -19,17 +19,17 @@ class JointTest extends MY_UnitTestCase
     }
 
     public function test_100() {
-        $instance=new Joint();
-        $this->assertInstanceOf('Xoops\Core\Kernel\Model\Joint', $instance);
-        $this->assertInstanceOf('Xoops\Core\Kernel\XoopsModelAbstract', $instance);	
+        $instance=new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+        $this->assertInstanceOf($this->myAbstractClass, $instance);	
 		$handler = new XoopsConfigItemHandler($this->conn);
 		$result = $instance->setHandler($handler);
 		$this->assertTrue($result);
 	}
 	
     public function test_120() {
-        $instance=new Joint();
-        $this->assertinstanceOf('Xoops\Core\Kernel\Model\Joint', $instance);
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
 		
 		$handler = new XoopsGroupHandler($this->conn);
 		$result = $instance->setHandler($handler);

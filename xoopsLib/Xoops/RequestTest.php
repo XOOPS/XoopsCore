@@ -16,7 +16,11 @@ class Xoops_RequestTest extends MY_UnitTestCase
 	
     public function test_100()
 	{
-		// getInstance
+		$instance = Xoops_Request::getInstance();
+		$this->assertInstanceOf('Xoops_Request_Http', $instance);
+		
+		$instance1 = Xoops_Request::getInstance();
+		$this->assertSame($instance1, $instance);
     }
 
 }

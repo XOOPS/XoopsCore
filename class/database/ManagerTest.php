@@ -12,12 +12,13 @@ class XoopsDatabaseManagerTest extends MY_UnitTestCase
     
     public function SetUp()
 	{
+		global $xoopsDB;
+		$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
+
     }
 	
     public function test_100()
 	{
-		global $xoopsDB;
-		
 		$instance = new $this->myclass();
     }
 	
