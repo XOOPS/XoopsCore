@@ -14,87 +14,73 @@ class Xoops_CacheTest extends MY_UnitTestCase
 	{
     }
 	
-	public function test_200()
+	public function test_config()
 	{
-		// config
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_300()
+	public function test_configured()
 	{
-		// configured
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_400()
+	public function test_drop()
 	{
-		// drop
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_500()
+	public function test_set()
 	{
-		// set
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_600()
+	public function test_gc()
 	{
-		// gc
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_700()
+	public function test_write()
 	{
-		// write
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_800()
+	public function test_read()
 	{
-		// read
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_900()
+	public function test_increment()
 	{
-		// increment
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1000()
+	public function test_decrement()
 	{
-		// decrement
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1100()
+	public function test_delete()
 	{
-		// delete
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1200()
+	public function test_clear()
 	{
-		// clear
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1300()
+	public function test_clearGroup()
 	{
-		// clearGroup
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1400()
+	public function test_isInitialized()
 	{
-		// isInitialized
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1500()
+	public function test_settings()
 	{
-		// settings
         $this->markTestIncomplete('to do');
 	}
 		

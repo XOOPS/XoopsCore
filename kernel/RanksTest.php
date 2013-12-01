@@ -10,10 +10,12 @@ class RanksTest extends MY_UnitTestCase
 {
     var $myclass='XoopsRanks';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();

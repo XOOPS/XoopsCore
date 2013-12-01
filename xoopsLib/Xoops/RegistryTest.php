@@ -14,7 +14,7 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test_getInstance()
 	{
 		$class = $this->myClass;
 		$instance = $class::getInstance();
@@ -24,7 +24,7 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 		$this->assertSame($instance1, $instance);
     }
 	
-	public function test_200()
+	public function test_setInstance()
 	{
 		$class = $this->myClass;
 		$registry = new $class();
@@ -34,7 +34,7 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 		$this->assertInstanceOf($class, $instance);
 	}
 
-	public function test_400()
+	public function test_setClassName()
 	{
 		$class = $this->myClass;
 		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
@@ -43,7 +43,7 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 	}
 	
 	/*
-	public function test_410()
+	public function test_setClassName100()
 	{
 		$class = $this->myClass;
 		$this->setExpectedException('PHPUnit_Framework_Error_Notice');
@@ -51,7 +51,7 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 	}
 	*/
 	
-	public function test_420()
+	public function test_setClassName200()
 	{
 		$class = $this->myClass;
 		$class::_unsetInstance();
@@ -60,7 +60,7 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 		$this->assertFalse($x);
 	}
 	
-	public function test_440()
+	public function test_setClassName300()
 	{
 		$class = $this->myClass;
 		$class::_unsetInstance();		
@@ -68,27 +68,23 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 		$this->assertTrue($x);
 	}
 	
-	public function test_700()
+	public function test___get()
 	{
-		// get
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_800()
+	public function test___set()
 	{
-		// set
         $this->markTestIncomplete('to do');
 	}
 
-	public function test_900()
+	public function test_isRegistered()
 	{
-		// isRegistered
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1000()
+	public function test_offsetExists()
 	{
-		// offsetExists
         $this->markTestIncomplete('to do');
 	}
 

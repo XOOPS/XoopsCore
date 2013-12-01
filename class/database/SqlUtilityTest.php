@@ -14,42 +14,42 @@ class SqlUtilityTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
 		$instance = new $this->myclass();
     }
 	
-	public function test_1000()
+	public function test_splitMySqlFile()
 	{
 		// splitMySqlFile
 	}
 	
-	public function test_2000()
+	public function test_prefixQuery()
 	{
 		// prefixQuery
 	}
 	
-	public function test_400()
+	public function test_fromPrefix()
 	{
 		// fromPrefix
 	}
 	
-	public function test_500()
+	public function test_joinPrefix()
 	{
 		//  joinPrefix
 	}
 	
-	public function test_600()
+	public function test_innerJoinPrefix()
 	{
 		//  innerJoinPrefix
 	}
 	
-	public function test_700()
+	public function test_leftJoinPrefix()
 	{
 		//  leftJoinPrefix
 	}
 	
-	public function test_800()
+	public function test_rightJoinPrefix()
 	{
 		// rightJoinPrefix
 	}

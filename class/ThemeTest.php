@@ -10,10 +10,12 @@ class ThemeTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsTheme';
 	
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
 		$theme = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
         $this->assertSame(true, $theme->renderBanner);

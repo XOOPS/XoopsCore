@@ -14,7 +14,7 @@ class XoopsModelFactoryTest extends MY_UnitTestCase
 	{
     }
 
-    public function test_100()
+    public function test_getInstance()
 	{
 		$class = $this->myClass;
         $instance = $class::getInstance();

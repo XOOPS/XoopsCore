@@ -10,13 +10,17 @@ use Xoops\Core\Kernel\Model\Sync;
 */
 class SyncTest extends MY_UnitTestCase
 {
+	protected $myClass = 'Xoops\Core\Kernel\Model\Sync';
+	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
-        $instance=new Sync();
-        $this->assertInstanceOf('Xoops\Core\Kernel\Model\Sync', $instance);
-        $this->assertInstanceOf('Xoops\Core\Kernel\XoopsModelAbstract', $instance);
+    public function test___construct()
+	{
+        $instance=new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+        $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
 }

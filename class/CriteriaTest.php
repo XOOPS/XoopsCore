@@ -10,10 +10,12 @@ class CriteriaTest extends MY_UnitTestCase
 {
     protected $myclass = 'Criteria';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
         $column = 'column';
         $value = 'value';
         $operator = 'operator';
@@ -27,7 +29,7 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals($function, $criteria->function);
     }
     
-    public function test_120() {
+    public function test___construct100() {
         $column = 'column';
         $value = '';
         $operator = '=';
@@ -41,7 +43,8 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals($function, $criteria->function);
     }
     
-    public function test_140() {
+    public function test_render()
+	{
         $column = 'column';
         $value = '';
         $operator = '=';
@@ -52,7 +55,8 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals('', $clause);
     }
     
-    public function test_160() {
+    public function test_render100()
+	{
         $column = 'column';
         $value = 'value';
         $operator = 'operator';
@@ -63,7 +67,8 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals("$column $operator '$value'", $clause);
     }
     
-    public function test_180() {
+    public function test_render200()
+	{
         $column = 'column';
         $value = 'value';
         $operator = 'is null';
@@ -74,7 +79,8 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals("$prefix.$column $operator", $clause);
     }
     
-    public function test_200() {
+    public function test_render300()
+	{
         $column = 'column';
         $value = 'value';
         $operator = 'is NOT null';
@@ -85,7 +91,8 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals("$prefix.$column $operator", $clause);
     }
     
-    public function test_220() {
+    public function test_render400()
+	{
         $column = 'column';
         $value = '(0,10)';
         $operator = 'in';
@@ -96,7 +103,8 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertEquals("$prefix.$column $operator $value", $clause);
     }
     
-    public function test_240() {
+    public function test_render500()
+	{
         $column = 'column';
         $value = '(0,10)';
         $operator = 'NOT in';

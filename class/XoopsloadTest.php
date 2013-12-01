@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../init_mini.php');
 
-require_once(XOOPS_ROOT_PATH.'/class/xoopsload.php');
+//require_once(XOOPS_ROOT_PATH.'/class/xoopsload.php');
 
 /**
 * PHPUnit special settings :
@@ -10,24 +10,29 @@ require_once(XOOPS_ROOT_PATH.'/class/xoopsload.php');
 */
 class XoopsloadTest extends MY_UnitTestCase
 {
-    
+	protected $myClass = 'XoopsLoad';
+	
     public function SetUp() {
     }
     
-	public function test_100() {
+	public function test_getMap()
+	{
+		$class = $this->myClass;
 		$map = array('zzzclassname' => 'path/to/class');
-		$value = XoopsLoad::getMap();
+		$value = $class::getMap();
 		$this->assertTrue(is_array($value));
 		$count = count($value);
 		
-		$value = XoopsLoad::addMap($map);
+		$value = $class::addMap($map);
 		$this->assertTrue(is_array($value));
 		$this->assertEquals($count+1, count($value));
 		
 	}
 	
-    public function test_1000() {
-		$value = XoopsLoad::loadCoreConfig();
+    public function test_loadCoreConfig()
+	{
+		$class = $this->myClass;
+		$value = $class::loadCoreConfig();
 		$this->assertTrue(is_array($value));
 		$this->assertTrue(count($value)>0);
         foreach($value as $k => $v){

@@ -12,10 +12,12 @@ class LoggerTest extends MY_UnitTestCase
 	
     protected $myclass = 'XoopsLogger';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 	
-    public function test_100() {
+    public function test_getInstance()
+	{
 		$instance = XoopsLogger::getInstance();
 		$this->assertInstanceOf($this->myclass, $instance);
 		
@@ -24,14 +26,14 @@ class LoggerTest extends MY_UnitTestCase
 		$this->assertSame($instance, $instance1);
     }
 	
-    public function test_120() {
+    public function test___get() {
 		$instance = XoopsLogger::getInstance();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$value = $instance->toto;
 		$this->assertSame(null, $value);
     }
 	
-    public function test_140() {
+    public function test___class() {
 		$instance = XoopsLogger::getInstance();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$value = $instance->tutu('tutu');

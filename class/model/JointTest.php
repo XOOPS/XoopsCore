@@ -12,12 +12,14 @@ class JointTest extends MY_UnitTestCase
 {
 	protected $conn = null;
 
-    public function SetUp() {
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-		$this->conn = $db->conn;
+    public function SetUp()
+	{	
+		if (empty($this->conn)) {
+			$this->conn = Xoops::getInstance()->db();
+		}
     }
 
-    public function test_100() {
+    public function test___construct() {
         $instance=new XoopsModelJoint();
         $this->assertInstanceOf('XoopsModelJoint', $instance);
         $this->assertInstanceOf('Xoops\Core\Kernel\XoopsModelAbstract', $instance);	
@@ -26,7 +28,8 @@ class JointTest extends MY_UnitTestCase
 		$this->assertTrue($result);
 	}
 	
-    public function test_120() {
+    public function test_setHandler()
+	{
         $instance=new XoopsModelJoint();
         $this->assertinstanceOf('XoopsModelJoint', $instance);
 		
@@ -40,6 +43,10 @@ class JointTest extends MY_UnitTestCase
 		
 		$result = $instance->getByLink(null, null, true);
 		$this->assertTrue(is_array($result) AND empty($result));
+	}
+	
+    public function test_getByLink()
+	{
 	}
 
 }

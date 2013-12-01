@@ -14,7 +14,7 @@ class LoggerTest extends MY_UnitTestCase
 	{
     }
 
-	public function test_100()
+	public function test_getInstance()
 	{
 		$class = $this->myclass;
 		$instance = $class::getInstance();
@@ -24,91 +24,91 @@ class LoggerTest extends MY_UnitTestCase
 		$this->assertSame($instance1, $instance);
 	}
 	
-	public function test_200()
+	public function test_handleError()
 	{
 		// handleError($errno, $errstr, $errfile, $errline)
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_300()
+	public function test_addLogger()
 	{
 		// addLogger($logger)
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_400()
+	public function test_emergency()
 	{
 		// emergency($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_500()
+	public function test_alert()
 	{
 		// alert($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_600()
+	public function test_critical()
 	{
 		// critical($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_700()
+	public function test_error()
 	{
 		// error($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_800()
+	public function test_warning()
 	{
 		// warning($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_900()
+	public function test_notice()
 	{
 		// notice($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1000()
+	public function test_info()
 	{
 		// info($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1100()
+	public function test_debug()
 	{
 		// debug($message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1200()
+	public function test_log()
 	{
 		// log($level, $message, array $context = array())
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1300()
+	public function test_quiet()
 	{
 		// quiet()
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1400()
+	public function test___set()
 	{
 		// __set()
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1500()
+	public function test___get()
 	{
 		// __get()
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1600()
+	public function test___call()
 	{
 		// __call()
         $this->markTestIncomplete('to do');

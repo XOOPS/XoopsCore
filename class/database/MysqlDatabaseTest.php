@@ -18,18 +18,18 @@ class XoopsMySQLDatabaseTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
 		$instance = new $this->myclass();
     }
 	
-	public function test_200()
+	public function test_connect()
 	{
 		$instance = new $this->myclass();
 		// connect
 	}
 	
-	public function test_300()
+	public function test_genId()
 	{
 		$instance = new $this->myclass();
 		$sequence = 0;
@@ -37,115 +37,115 @@ class XoopsMySQLDatabaseTest extends MY_UnitTestCase
 		$this->assertSame(0,$x);
 	}
 	
-	public function test_400()
+	public function test_fetchRow()
 	{
 		$instance = new $this->myclass();
 		// fetchRow
 	}
 	
-	public function test_500()
+	public function test_fetchArray()
 	{
 		$instance = new $this->myclass();
 		// fetchArray
 	}
 	
-	public function test_600()
+	public function test_fetchBoth()
 	{
 		$instance = new $this->myclass();
 		// fetchBoth
 	}
 	
-	public function test_700()
+	public function test_fetchObject()
 	{
 		$instance = new $this->myclass();
 		// fetchObject
 	}
 	
-	public function test_800()
+	public function test_getInsertId()
 	{
 		$instance = new $this->myclass();
 		// getInsertId
 	}
 	
-	public function test_900()
+	public function test_getRowsNum()
 	{
 		$instance = new $this->myclass();
 		// getRowsNum
 	}
 	
-	public function test_1000()
+	public function test_getAffectedRows()
 	{
 		$instance = new $this->myclass();
 		// getAffectedRows
 	}
 	
-	public function test_1100()
+	public function test_close()
 	{
 		$instance = new $this->myclass();
 		// close
 	}
 	
-	public function test_1200()
+	public function test_freeRecordSet()
 	{
 		$instance = new $this->myclass();
 		// freeRecordSet
 	}
 	
-	public function test_1300()
+	public function test_error()
 	{
 		$instance = new $this->myclass();
 		// error
 	}
 	
-	public function test_1400()
+	public function test_errno()
 	{
 		$instance = new $this->myclass();
 		// errno
 	}
 	
-	public function test_1500()
+	public function test_quoteString()
 	{
 		$instance = new $this->myclass();
 		// quoteString
 	}
 	
-	public function test_1600()
+	public function test_quote()
 	{
 		$instance = new $this->myclass();
 		// quote
 	}
 	
-	public function test_1700()
+	public function test_queryF()
 	{
 		$instance = new $this->myclass();
 		// queryF
 	}
 	
-	public function test_1800()
+	public function test_query()
 	{
 		$instance = new $this->myclass();
 		// query
 	}
 	
-	public function test_1900()
+	public function test_queryFromFile()
 	{
 		$instance = new $this->myclass();
 		// queryFromFile
 	}
 	
-	public function test_2000()
+	public function test_getFieldName()
 	{
 		$instance = new $this->myclass();
 		// getFieldName
 	}
 	
-	public function test_2100()
+	public function test_getFieldType()
 	{
 		$instance = new $this->myclass();
 		// getFieldType
 	}
 	
-	public function test_2200()
+	public function test_getFieldsNum()
 	{
 		$instance = new $this->myclass();
 		// getFieldsNum

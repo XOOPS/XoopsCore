@@ -8,13 +8,17 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class ConfigItemHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsConfigItemHandler';
+    protected $myclass='XoopsConfigItemHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass, $instance);
 		$this->assertRegExp('/^.*config$/', $instance->table);
 		$this->assertSame('XoopsConfigItem', $instance->className);

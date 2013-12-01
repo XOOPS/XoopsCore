@@ -8,13 +8,17 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class GrouppermHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsGroupPermHandler';
+    protected $myclass='XoopsGroupPermHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*group_permission$/',$instance->table);
 		$this->assertSame('XoopsGroupPerm',$instance->className);
@@ -22,8 +26,9 @@ class GrouppermHandlerTest extends MY_UnitTestCase
 		$this->assertSame('gperm_name',$instance->identifierName);
     }
     
-    public function test_120() {
-        $instance=new $this->myclass();
+    public function test_deleteByGroup()
+	{
+        $instance=new $this->myclass($this->conn);
         $groupid=1;
         $value=$instance->deleteByGroup($groupid);
         $this->assertSame(1,$value);
@@ -32,8 +37,9 @@ class GrouppermHandlerTest extends MY_UnitTestCase
         $this->assertSame(0,$value);
     }
     
-    public function test_140() {
-        $instance=new $this->myclass();
+    public function test_deleteByModule()
+	{
+        $instance=new $this->myclass($this->conn);
         $modid=1;
         $value=$instance->deleteByModule($modid);
         $this->assertSame(0,$value);
@@ -45,8 +51,9 @@ class GrouppermHandlerTest extends MY_UnitTestCase
         $this->assertSame(0,$value);
     }
     
-    public function test_160() {
-        $instance=new $this->myclass();
+    public function test_checkRight()
+	{
+        $instance=new $this->myclass($this->conn);
         $name='name';
         $itemid=1;
         $groupid=1;
@@ -63,8 +70,9 @@ class GrouppermHandlerTest extends MY_UnitTestCase
         $this->assertSame(false,$value);
     }
     
-    public function test_180() {
-        $instance=new $this->myclass();
+    public function test_addRight()
+	{
+        $instance=new $this->myclass($this->conn);
         $name='name';
         $itemid=1;
         $groupid=1;
@@ -72,8 +80,9 @@ class GrouppermHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_numeric($value));
     }
     
-    public function test_200() {
-        $instance=new $this->myclass();
+    public function test_getItemIds()
+	{
+        $instance=new $this->myclass($this->conn);
         $name='name';
         $groupid=1;
         $value=$instance->getItemIds($name,$groupid);
@@ -83,8 +92,9 @@ class GrouppermHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
     
-    public function test_220() {
-        $instance=new $this->myclass();
+    public function test_getGroupIds()
+	{
+        $instance=new $this->myclass($this->conn);
         $name='name';
         $itemid=1;
         $value=$instance->getGroupIds($name,$itemid);

@@ -14,7 +14,7 @@ class FilterInputTest extends MY_UnitTestCase
 	{
     }
 
-	public function test_100()
+	public function test_getInstance()
 	{
 		// __construct devrait etre protected ?
 		$class = $this->myclass;
@@ -27,7 +27,6 @@ class FilterInputTest extends MY_UnitTestCase
 	
 	public function test_200()
 	{
-		// 
         $this->markTestIncomplete('to do');
 	}
 

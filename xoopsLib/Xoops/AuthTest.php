@@ -14,14 +14,14 @@ class Xoops_AuthTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
 		$dao = 'dao';
 		$instance = new $this->myclass($dao);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
 	
-	public function test_200()
+	public function test_authenticate()
 	{
 		$dao = 'dao';
 		$instance = new $this->myclass($dao);
@@ -31,7 +31,7 @@ class Xoops_AuthTest extends MY_UnitTestCase
 		$this->assertFalse($x);
 	}
 
-	public function test_300()
+	public function test_setErrors()
 	{
 		$dao = 'dao';
 		$instance = new $this->myclass($dao);
@@ -42,8 +42,13 @@ class Xoops_AuthTest extends MY_UnitTestCase
 		$this->assertTrue(is_array($x));
 		$this->assertTrue($x[$errno]==$error);		
 	}
+	
+	public function test_getErrors()
+	{
+		$this->assertTrue(true); // allready tested in previous test
+	}
 
-	public function test_400()
+	public function test_getHtmlErrors()
 	{
 		$dao = 'dao';
 		$instance = new $this->myclass($dao);

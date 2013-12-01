@@ -13,17 +13,24 @@ class RecaptchaTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCaptchaRecaptcha';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
         $value = $instance->isActive();
 		$this->assertTrue($value);
     }
 	
-    public function test_120() {
+    public function test_config()
+	{
+    }
+	
+    public function test_render()
+	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
 		$instance->config['public_key'] = 'public_key';
@@ -31,7 +38,8 @@ class RecaptchaTest extends MY_UnitTestCase
 		$this->assertTrue(is_string($value));
     }
 	
-    public function test_140() {
+    public function test_verify()
+	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
 		$instance->config['public_key'] = 'public_key';
@@ -39,7 +47,7 @@ class RecaptchaTest extends MY_UnitTestCase
 		$this->assertFalse($value);
     }
 	
-    public function test_160() {
+    public function test_verify100() {
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
 		$instance->config['private_key'] = 'private_key';

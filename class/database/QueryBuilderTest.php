@@ -9,47 +9,51 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 class XoopsQueryBuilderTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsQueryBuilder';
+	protected $conn = null;
     
     public function SetUp()
 	{
+		if (empty($this->conn)) {
+			$this->conn = Xoops::getInstance()->db();
+		}
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
-		$instance = new $this->myclass();
+		$instance = new $this->myclass($this->conn);
     }
 	
-	public function test_200()
+	public function test_deletePrefix()
 	{
 		// deletePrefix
 	}
 	
-	public function test_300()
+	public function test_updatePrefix()
 	{
 		// updatePrefix
 	}
 	
-	public function test_400()
+	public function test_fromPrefix()
 	{
 		// fromPrefix
 	}
 	
-	public function test_500()
+	public function test_joinPrefix()
 	{
 		//  joinPrefix
 	}
 	
-	public function test_600()
+	public function test_innerJoinPrefix()
 	{
 		//  innerJoinPrefix
 	}
 	
-	public function test_700()
+	public function test_leftJoinPrefix()
 	{
 		//  leftJoinPrefix
 	}
 	
-	public function test_800()
+	public function test_rightJoinPrefix()
 	{
 		// rightJoinPrefix
 	}

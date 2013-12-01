@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../init.php');
 
-require_once(XOOPS_ROOT_PATH.'/class/captcha/xoopscaptcha.php');
+//require_once(XOOPS_ROOT_PATH.'/class/captcha/xoopscaptcha.php');
 require_once(XOOPS_ROOT_PATH.'/class/captcha/image.php');
 
 /**
@@ -13,24 +13,28 @@ class ImageTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCaptchaImage';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
         $value = $instance->isActive();
-		$this->assertFalse($value);
+		$this->assertTrue($value);
     }
 	
-    public function test_120() {
+    public function test_loadImage()
+	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
-        $value = $instance->LoadImage();
+        $value = $instance->loadImage();
 		$this->assertTrue(is_string($value));
     }
 
-    public function test_140() {
+    public function test_render()
+	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
         $value = $instance->render();

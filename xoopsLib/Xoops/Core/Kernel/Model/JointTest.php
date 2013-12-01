@@ -13,12 +13,21 @@ class JointTest extends MY_UnitTestCase
 	protected $myClass = 'Xoops\Core\Kernel\Model\Joint';
 	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
-    public function SetUp() {
+    public function SetUp()
+	{
 		$db = XoopsDatabaseFactory::getDatabaseConnection();
 		$this->conn = $db->conn;
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
+        $instance=new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+        $this->assertInstanceOf($this->myAbstractClass, $instance);	
+	}
+	
+    public function test_setHandler()
+	{
         $instance=new $this->myClass();
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf($this->myAbstractClass, $instance);	
@@ -27,7 +36,8 @@ class JointTest extends MY_UnitTestCase
 		$this->assertTrue($result);
 	}
 	
-    public function test_120() {
+    public function test_getByLink()
+	{
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
 		

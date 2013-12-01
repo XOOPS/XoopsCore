@@ -8,103 +8,91 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class SessionHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsSessionHandler';
+    protected $myclass='XoopsSessionHandler';
+	protected $conn = null;
 
     public function SetUp()
 	{
+		$this->conn = Xoops::getInstance()->db();
     }
 
-    public function test_100()
+    public function test___construct()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
     }
     
-    public function test_120()
+    public function test_open()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
         $value = $instance->open('save_path','session_name');
         $this->assertSame(true,$value);
     }
 	
-    public function test_140()
+    public function test_close()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
         $value = $instance->close();
         $this->assertSame(true,$value);
     }
 	
-    public function test_160()
+    public function test_read()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
 		$sess_id = 1;
         $value = $instance->read($sess_id);
-        $this->assertSame('',$value);
+        $this->assertSame('data',$value);
     }
 	
-    public function test_180()
+    public function test_write()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
 		$sess_id = 1;
 		$sess_data = 'data';
         $value = $instance->write($sess_id,$sess_data);
-        $this->assertSame(true,$value);
+        $this->assertSame(1,$value);
     }
 	
-    public function test_200()
+    public function test_destroy()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
 		$sess_id = 1;
         $value = $instance->destroy($sess_id);
-        $this->assertSame(true,$value);
+        $this->assertSame(0,$value);
     }
 	
-    public function test_220()
+    public function test_gc()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
 		$expire = null;
         $value = $instance->gc($expire);
-        $this->assertSame(true,$value);
-    }
-	
-    public function test_230()
-	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $this->assertTrue($value);
+
+        $instance = new $this->myclass($this->conn);
 		$expire = time()+10;
         $value = $instance->gc($expire);
-        $this->assertTrue(is_object($value));
+        $this->assertSame(0,$value);
     }
 	
-    public function test_240()
+    public function test_gc_force()
 	{
-		$db = XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
 		for ($i = 1; $i <= 20; $i++) {
 			$instance->gc_force();
 		}
 		$this->assertTrue(true);
     }
 
-    public function test_260()
+    public function test_regenerate_id()
 	{
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
         $value = $instance->regenerate_id();
         $this->assertSame(true,$value);
     }
 	
-    public function test_280()
+    public function test_update_cookie()
 	{
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance = new $this->myclass($db);
+        $instance = new $this->myclass($this->conn);
         $value = $instance->update_cookie();
         $this->assertSame(null,$value);
     }

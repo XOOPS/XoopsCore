@@ -10,13 +10,16 @@ class XoopsCaptchaTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCaptcha';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
-        $value = XoopsCaptcha::getInstance();
-        $this->assertInstanceOf($this->myclass, $value);
-        $value2 = XoopsCaptcha::getInstance();
+    public function test___construct()
+	{
+		$class = $this->myclass;
+        $value = $class::getInstance();
+        $this->assertInstanceOf($class, $value);
+        $value2 = $class::getInstance();
         $this->assertSame($value2, $value);
     }
 

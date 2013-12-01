@@ -9,10 +9,12 @@ require_once(dirname(__FILE__).'/../init.php');
 class TreeTest extends MY_UnitTestCase
 {
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
         $myId = 'Id';
         $parentId = 'parentId';
         $rootId = 'rootId';
@@ -41,4 +43,12 @@ class TreeTest extends MY_UnitTestCase
         $ret=$instance->getByKey(72);
         $this->assertEquals(72, $ret->getVar('Id'));        
     }
+	
+	public function test_getTree()
+	{
+	}
+	
+	public function test_getByKey()
+	{
+	}
 }

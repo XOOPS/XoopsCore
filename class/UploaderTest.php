@@ -10,10 +10,12 @@ class UploaderTest extends MY_UnitTestCase
 {
 	protected $myclass = 'XoopsMediaUploader';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -49,7 +51,7 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($imageExtensions, $theme->imageExtensions);
     }
 	
-    public function test_150() {
+    public function test___construct100() {
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$maxFileSize = 71;
@@ -62,7 +64,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($maxHeight, $theme->maxHeight);
     }
 	
-    public function test_200() {
+    public function test_fetchMedia()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -70,7 +73,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_250() {
+    public function test_setTargetFileName()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -79,7 +83,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($nom, $theme->targetFileName);
 	}
 	
-    public function test_300() {
+    public function test_setPrefix()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -88,7 +93,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($nom, $theme->prefix);
 	}
 	
-    public function test_350() {
+    public function test_getMediaName()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -98,7 +104,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($name, $value);
 	}
 	
-    public function test_400() {
+    public function test_getMediaType()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -108,7 +115,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($name, $value);
 	}
 	
-    public function test_450() {
+    public function test_getMediaSize()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -118,7 +126,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($size, $value);
 	}
 	
-    public function test_500() {
+    public function test_getMediaTmpName()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -128,7 +137,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($name, $value);
 	}
 	
-    public function test_550() {
+    public function test_getSavedFileName()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -138,7 +148,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($name, $value);
 	}
 	
-    public function test_600() {
+    public function test_getSavedDestination()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -148,7 +159,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->assertSame($name, $value);
 	}
 	
-    public function test_650() {
+    public function test_upload()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -156,7 +168,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_660() {
+    public function test__copyFile()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -164,7 +177,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_700() {
+    public function test_checkMaxFileSize()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -172,7 +186,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_750() {
+    public function test_checkMaxWidth()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -180,7 +195,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_800() {
+    public function test_checkMaxHeight()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -188,7 +204,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_850() {
+    public function test_checkMimeType()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -196,7 +213,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_900() {
+    public function test_checkImageType()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -204,7 +222,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_950() {
+    public function test_sanitizeMultipleExtensions()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -212,7 +231,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_1000() {
+    public function test_setErrors()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
@@ -220,7 +240,8 @@ class UploaderTest extends MY_UnitTestCase
 		$this->markTestSkipped('');
 	}
 	
-    public function test_1050() {
+    public function test_getErrors()
+	{
 		$upload_dir = 'upload_dir';
 		$allowed_mime_types = array('toto');
 		$theme = new  $this->myclass($upload_dir, $allowed_mime_types);

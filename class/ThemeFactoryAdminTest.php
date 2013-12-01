@@ -10,10 +10,12 @@ class ThemeFactoryAdminTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsAdminThemeFactory';
 	
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
         $this->assertSame('XoopsThemeFactory', $themefactory->xoBundleIdentifier);
@@ -22,14 +24,16 @@ class ThemeFactoryAdminTest extends MY_UnitTestCase
         $this->assertSame(true, $themefactory->allowUserSelection);
     }
 	
-    public function test_120() {
+    public function test_createInstance()
+	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
 		$value = $themefactory->createInstance();
         $this->assertInstanceOf('XoopsTheme', $value);
     }
 	
-    public function test_140() {
+    public function test_createInstance100()
+	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
 		$value = $themefactory->createInstance(array('titi'=>'toto'));

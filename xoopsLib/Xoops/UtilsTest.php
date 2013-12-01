@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 */
 class Xoops_UtilsTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Utils';
+    protected $myClass = 'Xoops_Utils';
     
     public function SetUp()
 	{
@@ -19,56 +19,57 @@ class Xoops_UtilsTest extends MY_UnitTestCase
         $this->markTestIncomplete('to do');
     }
 	
-	public function test_200()
+	public function test_dumpVar()
 	{
 		/*
+		$class = $this->myClass;
 		$var = array(1 => 'test');
-		$x = Xoops_Utils::dumpVar($var, false, false);
+		$x = $class::dumpVar($var, false, false);
 		$this->assertTrue(is_string($x));
 		*/
 	}
 	
-	public function test_300()
+	public function test_dumpFile()
 	{
+		$class = $this->myClass;
 		$file = __FILE__;
-		$x = Xoops_Utils::dumpFile($file, false, false);
+		$x = $class::dumpFile($file, false, false);
 		$this->assertTrue(is_string($x));
 	}
 	
-	public function test_400()
+	public function test_arrayRecursiveDiff()
 	{
-		// arrayRecursiveDiff
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_500()
+	public function test_arrayRecursiveMerge()
 	{
-		// arrayRecursiveMerge
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_600()
+	public function test_getEnv()
 	{
+		$class = $this->myClass;
 		unset($_SERVER['HTTPS']);
-		$x = Xoops_Utils::getEnv('HTTPS');
+		$x = $class::getEnv('HTTPS');
 		$this->assertFalse($x);
 
 		$_SERVER['HTTPS'] = 'off';
-		$x = Xoops_Utils::getEnv('HTTPS');
+		$x = $class::getEnv('HTTPS');
 		$this->assertFalse($x);
 		
 		$_SERVER['HTTPS'] = 'on';
-		$x = Xoops_Utils::getEnv('HTTPS');
+		$x = $class::getEnv('HTTPS');
 		$this->assertTrue($x);
 		
 		$_SERVER['SCRIPT_URI'] = 'https://localhost/test';
 		unset($_SERVER['HTTPS']);
-		$x = Xoops_Utils::getEnv('HTTPS');
+		$x = $class::getEnv('HTTPS');
 		$this->assertTrue($x);
 		
 		$_SERVER['SCRIPT_URI'] = 'http://localhost/test';
 		unset($_SERVER['HTTPS']);
-		$x = Xoops_Utils::getEnv('HTTPS');
+		$x = $class::getEnv('HTTPS');
 		$this->assertFalse($x);
 	}
 

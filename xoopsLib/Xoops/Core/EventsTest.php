@@ -14,7 +14,7 @@ class EventsTest extends MY_UnitTestCase
 	{
     }
 
-	public function test_100()
+	public function test_getInstance()
 	{
 		$class = $this->myclass;
 		$instance = $class::getInstance();
@@ -24,21 +24,18 @@ class EventsTest extends MY_UnitTestCase
 		$this->assertSame($instance1, $instance);
 	}
 	
-	public function test_200()
+	public function test_triggerEvent()
 	{
-		// triggerEvent
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_300()
+	public function test_addListener()
 	{
-		// addListener
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_400()
+	public function test_getEvents()
 	{
-		// getEvents
         $this->markTestIncomplete('to do');
 	}
 

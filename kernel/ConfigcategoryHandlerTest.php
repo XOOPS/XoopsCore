@@ -8,13 +8,17 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class ConfigcategoryHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsConfigCategoryHandler';
+    protected $myclass='XoopsConfigCategoryHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance = new $this->myclass();
+    public function test___construct()
+	{
+        $instance = new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*configcategory$/',$instance->table);
 		$this->assertSame('XoopsConfigCategory',$instance->className);
@@ -22,14 +26,13 @@ class ConfigcategoryHandlerTest extends MY_UnitTestCase
 		$this->assertSame('confcat_name',$instance->identifierName);
     }
     
-    public function test_120() {
-        $instance=new $this->myclass();
+    public function test_getCategoryObjects()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->getCategoryObjects();
         $this->assertTrue(is_array($value));
-    }
-	
-    public function test_140() {
-        $instance = new $this->myclass();
+
+        $instance = new $this->myclass($this->conn);
 		$criteria = new Criteria('confcat_id');
         $value=$instance->getCategoryObjects($criteria);
         $this->assertTrue(is_array($value));

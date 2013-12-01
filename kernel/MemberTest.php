@@ -10,10 +10,12 @@ class MemberTest extends MY_UnitTestCase
 {
     var $myclass='XoopsMember';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
     }
 
 }

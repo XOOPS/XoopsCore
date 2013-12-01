@@ -17,72 +17,72 @@ class XoopsDatabaseManagerTest extends MY_UnitTestCase
 
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
 		$instance = new $this->myclass();
     }
 	
-	public function test_200()
+	public function test_isConnectable()
 	{
 		// isConnectable
 	}
 	
-	public function test_300()
+	public function test_dbExists()
 	{
 		// dbExists
 	}
 	
-	public function test_400()
+	public function test_createDB()
 	{
 		// createDB
 	}
 	
-	public function test_500()
+	public function test_queryFromFile()
 	{
 		//  queryFromFile
 	}
 	
-	public function test_600()
+	public function test_report()
 	{
 		//  report
 	}
 	
-	public function test_700()
+	public function test_query()
 	{
 		//  query
 	}
 	
-	public function test_800()
+	public function test_prefix()
 	{
 		// prefix
 	}
 	
-	public function test_900()
+	public function test_fetchArray()
 	{
 		//  fetchArray
 	}
 	
-	public function test_1000()
+	public function test_insert()
 	{
 		//  insert
 	}
 	
-	public function test_1100()
+	public function test_isError()
 	{
 		//  isError
 	}
 	
-	public function test_1200()
+	public function test_deleteTables()
 	{
 		//  deleteTables
 	}
 	
-	public function test_1300()
+	public function test_tableExists()
 	{
 		//  tableExists
 	}
 	
-	public function test_1400()
+	public function test_copyFields()
 	{
 		//  copyFields
 	}

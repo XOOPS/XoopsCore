@@ -8,39 +8,28 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 */
 class XoopsDatabaseFactoryTest extends MY_UnitTestCase
 {
-    protected $myclass = 'XoopsDatabaseFactory';
+    protected $myClass = 'XoopsDatabaseFactory';
     
     public function SetUp()
 	{
     }
 	
-    public function test_100()
+    public function test_getDatabaseConnection()
 	{
-		$instance = XoopsDatabaseFactory::getDatabaseConnection();
-		$this->assertInstanceOf('XoopsMySQLDatabaseProxy', $instance);
-		$instance2 = XoopsDatabaseFactory::getDatabaseConnection();
+		$class = $this->myClass;
+		$instance = $class::getDatabaseConnection();
+        if (!defined('XOOPS_DB_PROXY'))
+			$this->assertInstanceOf('XoopsMySQLDatabaseSafe', $instance);
+		else
+			$this->assertInstanceOf('XoopsMySQLDatabaseProxy', $instance);	
+		$instance2 = $class::getDatabaseConnection();
 		$this->assertSame($instance, $instance2);
 		$this->assertInstanceOf('XoopsConnection', $instance->conn);
 		$driver = $instance->conn->getDriver();
-		$driver_conn = $driver->connect();
+		$driver_conn = $driver->connect(array());
 		$this->assertInstanceOf('\Doctrine\DBAL\Driver\PDOConnection', $driver_conn);
         $this->assertSame(XOOPS_DB_PREFIX.'_test', $instance->prefix('test'));
         $this->assertSame(XOOPS_DB_PREFIX, $instance->prefix());
     }
-
-	/*
-	public function test_200()
-	{
-        // removed because this function will be removed all together.
-		$instance = XoopsDatabaseFactory::getDatabase();
-		if (!defined('XOOPS_DB_PROXY'))
-			$this->assertInstanceOf('XoopsMySQLDatabaseSafe', $instance);
-		else
-			$this->assertInstanceOf('XoopsMySQLDatabaseProxy', $instance);
-			
-		$instance2 = XoopsDatabaseFactory::getDatabase();
-		$this->assertSame($instance, $instance2);
-    }
-	*/
 	
 }

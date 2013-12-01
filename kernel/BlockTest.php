@@ -13,7 +13,7 @@ class BlockTest extends MY_UnitTestCase
 	{
     }
     
-    public function test_100()
+    public function test___construct()
 	{
         $instance = new XoopsBlock();
         $this->assertInstanceOf('XoopsBlock',$instance);
@@ -40,159 +40,159 @@ class BlockTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['last_modified']));
     }
 	
-    public function test_110()
+    public function test___construct100()
 	{
         $instance = new XoopsBlock(1);
         $this->assertInstanceOf('XoopsBlock',$instance);
 	}
     
-    public function test_120()
+    public function test_id()
 	{
         $instance = new XoopsBlock();
         $value = $instance->id();
         $this->assertSame(null,$value);
     }
     
-    public function test_140()
+    public function test_bid()
 	{
         $instance = new XoopsBlock();
         $value = $instance->bid();
         $this->assertSame(null,$value);
     }
     
-    public function test_160()
+    public function test_mid()
 	{
         $instance = new XoopsBlock();
         $value = $instance->mid();
         $this->assertSame(0,$value);
     }
     
-    public function test_180()
+    public function test_func_num()
 	{
         $instance = new XoopsBlock();
         $value = $instance->func_num();
         $this->assertSame(0,$value);
     }
     
-    public function test_200()
+    public function test_options()
 	{
         $instance = new XoopsBlock();
         $value = $instance->options();
         $this->assertSame(null,$value);
     }
     
-    public function test_220()
+    public function test_name()
 	{
         $instance = new XoopsBlock();
         $value = $instance->name();
         $this->assertSame(null,$value);
     }
     
-    public function test_240()
+    public function test_title()
 	{
         $instance = new XoopsBlock();
         $value = $instance->title();
         $this->assertSame(null,$value);
     }
     
-    public function test_260()
+    public function test_content()
 	{
         $instance = new XoopsBlock();
         $value = $instance->content();
         $this->assertSame(null,$value);
     }
     
-    public function test_280()
+    public function test_side()
 	{
         $instance = new XoopsBlock();
         $value = $instance->side();
         $this->assertSame(0,$value);
     }
 
-    public function test_300()
+    public function test_weight()
 	{
         $instance = new XoopsBlock();
         $value = $instance->weight();
         $this->assertSame(0,$value);
     }
     
-    public function test_320()
+    public function test_visible()
 	{
         $instance = new XoopsBlock();
         $value = $instance->visible();
         $this->assertSame(0,$value);
     }
     
-    public function test_340()
+    public function test_block_type()
 	{
         $instance = new XoopsBlock();
         $value = $instance->block_type();
         $this->assertSame(null,$value);
     }
     
-    public function test_360()
+    public function test_c_type()
 	{
         $instance = new XoopsBlock();
         $value = $instance->c_type();
         $this->assertSame(null,$value);
     }
     
-    public function test_380()
+    public function test_isactive()
 	{
         $instance = new XoopsBlock();
         $value = $instance->isactive();
         $this->assertSame(null,$value);
     }
     
-    public function test_400()
+    public function test_dirname()
 	{
         $instance = new XoopsBlock();
         $value = $instance->dirname();
         $this->assertSame(null,$value);
     }
     
-    public function test_420() {
+    public function test_func_file() {
         $instance=new XoopsBlock();
         $value = $instance->func_file();
         $this->assertSame(null,$value);
     }
     
-    public function test_440()
+    public function test_show_func()
 	{
         $instance = new XoopsBlock();
         $value = $instance->show_func();
         $this->assertSame(null,$value);
     }
     
-    public function test_460()
+    public function test_edit_func()
 	{
         $instance = new XoopsBlock();
         $value = $instance->edit_func();
         $this->assertSame(null,$value);
     }
 
-    public function test_480()
+    public function test_template()
 	{
         $instance = new XoopsBlock();
         $value = $instance->template();
         $this->assertSame($value,null);
     }
     
-    public function test_500()
+    public function test_bcachetime()
 	{
         $instance = new XoopsBlock();
         $value = $instance->bcachetime();
         $this->assertSame(0,$value);
     }
     
-    public function test_520()
+    public function test_last_modified()
 	{
         $instance = new XoopsBlock();
         $value = $instance->last_modified();
         $this->assertSame(0,$value);
     }
     
-    public function test_540()
+    public function test_getContent()
 	{
         $instance = new XoopsBlock();
         $value = $instance->getContent();
@@ -211,7 +211,7 @@ class BlockTest extends MY_UnitTestCase
         $this->assertSame(null,$value);
     }
     
-    public function test_560()
+    public function test_getOptions()
 	{
         $instance = new XoopsBlock();
         $value = $instance->getOptions();
@@ -242,7 +242,7 @@ class BlockTest extends MY_UnitTestCase
         $this->assertSame(false, $value);
     }
     
-    public function test_580()
+    public function test_isCustom()
 	{
         $instance = new XoopsBlock();
         $value = $instance->isCustom();
@@ -257,7 +257,7 @@ class BlockTest extends MY_UnitTestCase
         $this->assertTrue($value);
     }
     
-    public function test_600()
+    public function test_buildBlock()
 	{
         $instance = new XoopsBlock();
         $value = $instance->buildBlock();

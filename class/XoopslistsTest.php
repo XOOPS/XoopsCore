@@ -8,83 +8,103 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class XoopslistsTest extends MY_UnitTestCase
 {
+	protected $myClass = 'XoopsLists';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		if (empty($this->conn)) {
+			$this->conn = Xoops::getInstance()->db();
+		}
     }
 		
-    public function test_100() {
-		$value = XoopsLists::getTimeZoneList();
+    public function test_getTimeZoneList()
+	{
+		$class = $this->myClass;
+		$value = $class::getTimeZoneList();
 		foreach($value as $k => $v) {
 			$this->assertTrue(is_numeric($k));
 			$this->assertTrue(is_string($v));
 		}
     }
 	
-    public function test_120() {
-		$list_ref = XoopsLists::getDirListAsArray(XOOPS_THEME_PATH . '/');
-		$value = XoopsLists::getThemesList();
+    public function test_getDirListAsArray()
+	{
+	}
+	
+	public function test_getThemesList()
+	{
+		$class = $this->myClass;
+		$list_ref = $class::getDirListAsArray(XOOPS_THEME_PATH . '/');
+		$value = $class::getThemesList();
         $this->assertSame($list_ref, $value);
 		
-		$list_ref = XoopsLists::getDirListAsArray(XOOPS_THEME_PATH );
-		$value = XoopsLists::getThemesList();
+		$list_ref = $class::getDirListAsArray(XOOPS_THEME_PATH );
+		$value = $class::getThemesList();
         $this->assertSame($list_ref, $value);
 	}
 	
-    public function test_140() {
-		$list_ref = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/');
-		$value = XoopsLists::getModulesList();
+    public function test_getModulesList()
+	{
+		$class = $this->myClass;
+		$list_ref = $class::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/');
+		$value = $class::getModulesList();
         $this->assertSame($list_ref, $value);
 	}
 	
-    public function test_160() {
-		$list_ref = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
-		$value = XoopsLists::getEditorList();
+    public function test_getEditorList()
+	{
+		$class = $this->myClass;
+		$list_ref = $class::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
+		$value = $class::getEditorList();
         $this->assertSame($list_ref, $value);
 	}
 	
-    public function test_180() {
-		$value = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
-		$list_ref = XoopsLists::getEditorList();
-        $this->assertSame($list_ref, $value);
-	}
-	
-    public function test_200() {
-		$value = XoopsLists::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
+    public function test_getFileListAsArray()
+	{
+		$class = $this->myClass;
+		$value = $class::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 		$prefix='toto';
-		$value = XoopsLists::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/',$prefix);
+		$value = $class::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
 	
-    public function test_220() {
-		$value = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/');
+    public function test_getImgListAsArray()
+	{
+		$class = $this->myClass;
+		$value = $class::getImgListAsArray(XOOPS_ROOT_PATH . '/images/');
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 		$prefix='toto';
-		$value = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/',$prefix);
+		$value = $class::getImgListAsArray(XOOPS_ROOT_PATH . '/images/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
 	
-    public function test_240() {
-		$value = XoopsLists::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/');
+    public function test_getHtmlListAsArray()
+	{
+		$class = $this->myClass;
+		$value = $class::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/');
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 		$prefix='toto';
-		$value = XoopsLists::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/',$prefix);
+		$value = $class::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
 	
-    public function test_260() {
+    public function test_getAvatarsList()
+	{
+		$class = $this->myClass;
 		$d_avatar = XOOPS_ROOT_PATH . '/images/avatar/';
 		$is_dir = is_dir($d_avatar);
 		if ($is_dir) {
-			$value = XoopsLists::getAvatarsList();
+			$value = $class::getAvatarsList();
 			$this->assertTrue(is_array($value));
 			$this->assertTrue(count($value)>0);
 			$sdir = 'toto';
 			$is_sdir = is_dir($d_avatar.$sdir);
-			$value = XoopsLists::getAvatarsList($sdir);
+			$value = $class::getAvatarsList($sdir);
 			if ($is_sdir) {
 				$this->assertTrue(is_array($value));
 			} else {
@@ -95,48 +115,58 @@ class XoopslistsTest extends MY_UnitTestCase
 		}
 	}
 	
-    public function test_280() {
-		$value = XoopsLists::getAllAvatarsList();
+    public function test_getAllAvatarsList()
+	{
+		$class = $this->myClass;
+		$value = $class::getAllAvatarsList();
 		if ($value !== false) {
 			$this->assertTrue(is_array($value));
 			$this->assertTrue(count($value)>0);
 		}
 	}
 	
-    public function test_300() {
+    public function test_getSubjectsList()
+	{
+		$class = $this->myClass;
 		$d_subject = XOOPS_ROOT_PATH . '/images/subject/';
 		$is_dir = is_dir($d_subject);
 		if ($is_dir) {
-			$value = XoopsLists::getSubjectsList();
+			$value = $class::getSubjectsList();
 			$this->assertTrue(is_array($value));
 			$this->assertTrue(count($value)>0);
 			$sdir = 'toto';
 			$is_sdir = is_dir($d_subject.$sdir);
-			$value = XoopsLists::getSubjectsList($sdir);
+			$value = $class::getSubjectsList($sdir);
 			if ($is_sdir) {
 				$this->assertTrue(is_array($value));
 			} else {
-			$this->markTestSkipped('Directory not found : '.$$d_subject.$sdir);
+			$this->markTestSkipped('Directory not found : '.$d_subject.$sdir);
 			}
 		} else {
 			$this->markTestSkipped('Directory not found : '.$d_subject);
 		}
 	}
 	
-    public function test_320() {
-		$value = XoopsLists::getLangList();
+    public function test_getLangList()
+	{
+		$class = $this->myClass;
+		$value = $class::getLangList();
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 	}
 	
-    public function test_330() {
-		$value = XoopsLists::getLocaleList();
+    public function test_getLocaleList()
+	{
+		$class = $this->myClass;
+		$value = $class::getLocaleList();
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 	}
 	
-    public function test_340() {
-		$value = XoopsLists::getCountryList();
+    public function test_340()
+	{
+		$class = $this->myClass;
+		$value = $class::getCountryList();
         $this->assertTrue(is_array($value));
 		foreach($value as $k => $v) {
 			if (empty($k)) {
@@ -148,8 +178,10 @@ class XoopslistsTest extends MY_UnitTestCase
 		}
 	}
 	
-    public function test_360() {
-		$value = XoopsLists::getHtmlList();
+    public function test_getHtmlList()
+	{
+		$class = $this->myClass;
+		$value = $class::getHtmlList();
         $this->assertTrue(is_array($value));
 		foreach($value as $k => $v) {
 			$this->assertRegExp('/^[a-z0-9]+$/',$k);
@@ -157,17 +189,20 @@ class XoopslistsTest extends MY_UnitTestCase
 		}
 	}
 	
-    public function test_380() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new XoopsRanksHandler($db);
+    public function test_getUserRankList()
+	{
+		$class = $this->myClass;
+        $instance=new XoopsRanksHandler($this->conn);
 		$obj=new XoopsRanks();
 		$obj->setDirty();
 		$obj->setNew();
 		$obj->setVar('rank_special',1);
         $value = $instance->insert($obj);
+		$this->markTestSkipped('');
 		$this->assertTrue(is_string($value));
-		$value = XoopsLists::getUserRankList();
+		$value = $class::getUserRankList();
 		$this->assertTrue(is_array($value));
 		$this->assertTrue(count($value)>0);
 	}
+	
 }

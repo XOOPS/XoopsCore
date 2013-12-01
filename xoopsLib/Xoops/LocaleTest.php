@@ -14,62 +14,53 @@ class Xoops_LocaleTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
         $this->markTestIncomplete('to do');
     }
 	
-	public function test_200()
+	public function test_loadLanguage()
 	{
-		// loadLanguage
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_300()
+	public function test_loadLocale()
 	{
-		// loadLocale
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_400()
+	public function test_loadThemeLocale()
 	{
-		// loadThemeLocale
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_500()
+	public function test_loadMailerLocale()
 	{
-		// loadMailerLocale
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_600()
+	public function test_translate()
 	{
-		// translate
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_700()
+	public function test_translateTheme()
 	{
-		// translateTheme
         $this->markTestIncomplete('to do');
 	}
 
-	public function test_800()
+	public function test_getClassFromDirname()
 	{
-		// getClassFromDirname
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_900()
+	public function test_getThemeClassFromDirname()
 	{
-		// getThemeClassFromDirname
         $this->markTestIncomplete('to do');
 	}
 	
-	public function test_1000()
+	public function test_getUserLocales()
 	{
-		// getUserLocales
         $this->markTestIncomplete('to do');
 	}
 	

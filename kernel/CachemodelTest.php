@@ -10,10 +10,12 @@ class CachemodelTest extends MY_UnitTestCase
 {
     var $myclass='XoopsCachemodelObject';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();

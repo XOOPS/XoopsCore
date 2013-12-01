@@ -8,18 +8,23 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class UserguestTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsGuestUser';
+    protected $myclass='XoopsGuestUser';
+	protected $conn = null;
 
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
 
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
     }
 
-    public function test_120() {
-        $instance=new $this->myclass();
+    public function test_isGuest()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->isGuest();
         $this->assertSame(true,$value);
     }

@@ -4,29 +4,35 @@ require_once('../init.php');
 
 class TestOfRegistry extends UnitTestCase
 {
-    protected $myclass = 'XoopsRegistry';
+    protected $myClass = 'XoopsRegistry';
 
     public function SetUp() {
     }
 
-    public function tearDown() {
-		XoopsRegistry::_unsetInstance();
+    public function tearDown()
+	{
+		$class = $this->myClass;
+		$class::_unsetInstance();
     }
 
-    public function test_100() {
-        $value = XoopsRegistry::getInstance();
-        $this->assertIsA($value, $this->myclass);
-        $value2 = XoopsRegistry::getInstance();
-        $this->assertIdentical($value, $value2);
+    public function test_getInstance()
+	{
+		$class = $this->myClass;
+        $value = $class::getInstance();
+        $this->assertInstanceOf($class, $value);
+        $value2 = $class::getInstance();
+        $this->assertSame($value, $value2);
     }
 
-    public function test_120() {
-        $registry = new $this->myclass(); // Dont use getInstance there
-        $this->assertIsA($registry, $this->myclass);
-		XoopsRegistry::setInstance($registry);
+    public function test_setInstance()
+	{
+		$class = $this->myClass;
+        $registry = new $class(); // Dont use getInstance there
+        $this->assertIsA($registry, $class);
+		$class::setInstance($registry);
         $this->assertIdentical($registry::$_registry, $registry);
 		$this->expectError();
-		XoopsRegistry::setInstance($registry);		
+		$class::setInstance($registry);		
     }
 
 }

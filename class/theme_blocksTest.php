@@ -10,51 +10,59 @@ class ThemeBlocksTest extends MY_UnitTestCase
 {
 	protected $myclass = 'XoopsThemeBlocksPlugin';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
 		$this->assertSame(false, $theme->theme);
 		$this->assertSame(array(), $theme->blocks);
     }
 	
-    public function test_150() {
+    public function test_xoInit()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
-		// $theme->xoInit()
+		$this->markTestSkipped('');
     }
 	
-    public function test_200() {
+    public function test_preRender()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
 		$value = $theme->preRender();
 		$this->assertSame(null, $value);
     }
 	
-    public function test_250() {
+    public function test_postRender()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
 		$value = $theme->postRender();
 		$this->assertSame(null, $value);
     }
 	
-    public function test_300() {
+    public function test_retrieveBlocks()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
 		// $value = $theme->retrieveBlocks();
 		$this->markTestSkipped('');
     }
 	
-    public function test_350() {
+    public function test_generateCacheId()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
 		$value = $theme->generateCacheId(1);
 		$this->assertSame(1, $value);
     }
 	
-    public function test_400() {
+    public function test_buildBlock()
+	{
 		$theme = new  $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
 		// $value = $theme->buildBlock();

@@ -8,15 +8,17 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class TplfileHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsTplfileHandler';
+    protected $myclass='XoopsTplfileHandler';
+	protected $conn = null;
 
     public function SetUp()
 	{
+		$this->conn = Xoops::getInstance()->db();
     }
 
-    public function test_100()
+    public function test___construct()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*tplfile$/',$instance->table);
 		$this->assertSame('XoopsTplfile',$instance->className);
@@ -24,9 +26,9 @@ class TplfileHandlerTest extends MY_UnitTestCase
 		$this->assertSame('tpl_refid',$instance->identifierName);
     }
 
-    public function test_120()
+    public function test_getById()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
 		$id = 1;
         $value = $instance->getById($id);
         $this->assertInstanceOf('XoopsTplfile',$value);
@@ -35,9 +37,9 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $this->assertInstanceOf('XoopsTplfile',$value);
     }
 
-    public function test_140()
+    public function test_loadSource()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
         $value = $instance->loadSource($source);
         $this->assertSame(false, $value);
@@ -49,33 +51,33 @@ class TplfileHandlerTest extends MY_UnitTestCase
 		$this->assertTrue(!empty($tmp));
     }
 
-    public function test_160()
+    public function test_insertTpl()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
         $value = $instance->insertTpl($source);
         $this->assertSame(true,$value);
     }
 
-    public function test_180()
+    public function test_forceUpdate()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
         $value = $instance->forceUpdate($source);
         $this->assertSame(true,$value);
     }
 
-    public function test_200()
+    public function test_deleteTpl()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
         $value = $instance->deleteTpl($source);
         $this->assertSame(true,$value);
     }
 
-    public function test_220()
+    public function test_getTplObjects()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
         $value = $instance->getTplObjects();
         $this->assertTrue(is_array($value));
 		
@@ -90,9 +92,9 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value) AND empty($value));
     }
 
-    public function test_240()
+    public function test_getModuleTplCount()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
         $value = $instance->getModuleTplCount('toto');
         $this->assertTrue(empty($value));
 		
@@ -101,9 +103,9 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value) AND count($value) > 0);
     }
 
-    public function test_260()
+    public function test_find()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
         $value = $instance->find();
         $this->assertTrue(is_array($value));
 		
@@ -125,9 +127,9 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $value = $instance->find(null, array(1,2,3));
     }
 
-    public function test_280()
+    public function test_templateExists()
 	{
-        $instance = new $this->myclass();
+        $instance = new $this->myclass($this->conn);
 		
         $value = $instance->templateExists('dummy.html','dummy');
         $this->assertSame(false, $value);

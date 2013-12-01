@@ -10,10 +10,12 @@ class UserTest extends MY_UnitTestCase
 {
     var $myclass='XoopsUser';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();
@@ -50,226 +52,266 @@ class UserTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['user_mailok']));
     }
     
-    public function test_120() {
+    public function test_isGuest()
+	{
         $instance=new $this->myclass();
         $value=$instance->isGuest();
         $this->assertSame(false,$value);
     }
 
-    public function test_140() {
-        $instance=new $this->myclass();
-        $value=XoopsUser::getUnameFromId(1);
+    public function test_getUnameFromId()
+	{
+		$class = $this->myclass;
+        $value=$class::getUnameFromId(1);
         $this->assertSame('admin',$value);
     }
 
-    public function test_160() {
+    public function test_incrementPost()
+	{
         $instance=new $this->myclass();
         $value=$instance->incrementPost();
         $this->assertSame('',$value);
     }
 
-    public function test_180() {
+    public function test_getGroups()
+	{
         $instance=new $this->myclass();
         $group=$instance->getGroups();
         $value=$instance->setGroups($group);
         $this->assertSame(null,$value);
     }
+	
+    public function test_setGroups()
+	{
+    }
 
-    public function test_200() {
+    public function test_groups()
+	{
         $instance=new $this->myclass();
         $group1=$instance->getGroups();
         $group2=$instance->groups();
         $this->assertSame($group1,$group2);
     }
 
-    public function test_220() {
+    public function test_isAdmin()
+	{
         $instance=new $this->myclass();
         $value=$instance->isAdmin();
         $this->assertSame(false,$value);
     }
 
-    public function test_240() {
+    public function test_rank()
+	{
         $instance=new $this->myclass();
         $value=$instance->rank();
         $this->assertSame(null,$value);
     }
 
-    public function test_260() {
+    public function test_isActive()
+	{
         $instance=new $this->myclass();
         $value=$instance->isActive();
         $this->assertSame(false,$value);
     }
 
-    public function test_280() {
+    public function test_isOnline()
+	{
         $instance=new $this->myclass();
         $value=$instance->isOnline();
 		$this->markTestSkipped('');
         $this->assertSame(false,$value);
     }
 
-    public function test_300() {
+    public function test_uid()
+	{
         $instance=new $this->myclass();
         $value=$instance->uid();
         $this->assertSame(null,$value);
     }
 
-    public function test_320() {
+    public function test_id()
+	{
         $instance=new $this->myclass();
         $value=$instance->id();
         $this->assertSame($instance->uid(),$value);
     }
 
-    public function test_340() {
+    public function test_name()
+	{
         $instance=new $this->myclass();
         $value=$instance->name();
         $this->assertSame(null,$value);
     }
 
-    public function test_360() {
+    public function test_email()
+	{
         $instance=new $this->myclass();
         $value=$instance->email();
         $this->assertSame(null,$value);
     }
 
-    public function test_380() {
+    public function test_url()
+	{
         $instance=new $this->myclass();
         $value=$instance->url();
         $this->assertSame(null,$value);
     }
 
-    public function test_400() {
+    public function test_user_avatar()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_avatar();
         $this->assertSame(null,$value);
     }
 
-    public function test_420() {
+    public function test_user_regdate()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_regdate();
         $this->assertSame(null,$value);
     }
 
-    public function test_440() {
+    public function test_user_icq()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_icq();
         $this->assertSame('',$value);
     }
 
-    public function test_460() {
+    public function test_user_from()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_from();
         $this->assertSame(null,$value);
     }
 
-    public function test_480() {
+    public function test_user_sig()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_sig();
         $this->assertSame(null,$value);
     }
 
-    public function test_500() {
+    public function test_user_viewemail()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_viewemail();
         $this->assertSame(0,$value);
     }
 
-    public function test_520() {
+    public function test_actkey()
+	{
         $instance=new $this->myclass();
         $value=$instance->actkey();
         $this->assertSame(null,$value);
     }
 
-    public function test_530() {
+    public function test_user_aim()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_aim();
         $this->assertSame(null,$value);
     }
 
-    public function test_540() {
+    public function test_user_yim()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_yim();
         $this->assertSame(null,$value);
     }
 
-    public function test_560() {
+    public function test_user_msnm()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_msnm();
         $this->assertSame(null,$value);
     }
 
-    public function test_580() {
+    public function test_pass()
+	{
         $instance=new $this->myclass();
         $value=$instance->pass();
         $this->assertSame(null,$value);
     }
 
-    public function test_600() {
+    public function test_posts()
+	{
         $instance=new $this->myclass();
         $value=$instance->posts();
         $this->assertSame(null,$value);
     }
 
-    public function test_620() {
+    public function test_attachsig()
+	{
         $instance=new $this->myclass();
         $value=$instance->attachsig();
         $this->assertSame(0,$value);
     }
 
-    public function test_640() {
+    public function test_level()
+	{
         $instance=new $this->myclass();
         $value=$instance->level();
         $this->assertSame(0,$value);
     }
 
-    public function test_660() {
+    public function test_theme()
+	{
         $instance=new $this->myclass();
         $value=$instance->theme();
         $this->assertSame(null,$value);
     }
 
-    public function test_680() {
+    public function test_timezone()
+	{
         $instance=new $this->myclass();
         $value=$instance->timezone();
         $this->assertSame('0.0',$value);
     }
 
-    public function test_700() {
+    public function test_umode()
+	{
         $instance=new $this->myclass();
         $value=$instance->umode();
         $this->assertSame(null,$value);
     }
 
-    public function test_720() {
+    public function test_uorder()
+	{
         $instance=new $this->myclass();
         $value=$instance->uorder();
         $this->assertSame(1,$value);
     }
 
-    public function test_740() {
+    public function test_notify_method()
+	{
         $instance=new $this->myclass();
         $value=$instance->notify_method();
         $this->assertSame(1,$value);
     }
 
-    public function test_760() {
+    public function test_notify_mode()
+	{
         $instance=new $this->myclass();
         $value=$instance->notify_mode();
         $this->assertSame(0,$value);
     }
 
-    public function test_780() {
+    public function test_user_occ()
+	{
         $instance=new $this->myclass();
         $value=$instance->user_occ();
         $this->assertSame(null,$value);
     }
 
-    public function test_800() {
+    public function test_bio()
+	{
         $instance=new $this->myclass();
         $value=$instance->bio();
         $this->assertSame(null,$value);
     }
 
-    public function test_820() {
+    public function test_user_intrest() {
         $instance=new $this->myclass();
         $value=$instance->user_intrest();
         $this->assertSame(null,$value);

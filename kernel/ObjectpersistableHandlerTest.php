@@ -1,10 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
-class ObjectpersistableHandler_XoopsObject extends XoopsObject
-{
-}
-
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -12,154 +8,184 @@ class ObjectpersistableHandler_XoopsObject extends XoopsObject
 */
 class ObjectpersistableHandler extends MY_UnitTestCase
 {
-    public $myclass = 'XoopsGroupHandler';
+    protected $myclass = 'XoopsGroupHandler'; // for example
+	protected $conn = null;
 
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
 
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
     }
     
-    public function test_120() {
-        $instance=new $this->myclass();
+    public function test_sethandler()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->sethandler();
         $this->assertSame(null,$value);
     }
     
-    public function test_140() {
-        $instance=new $this->myclass();
+    public function test_loadhandler()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->loadhandler('read');
         $this->assertTrue(is_object($value));
     }
 
-    public function test_160() {
-        $instance=new $this->myclass(null, '', 'XoopsBlock');
+    public function test_create()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->create();
-        $this->assertInstanceOf('XoopsBlock',$value);
+        $this->assertInstanceOf('XoopsGroup',$value);
     }
     
-    public function test_180() {
-        $instance=new $this->myclass(null, '', 'XoopsBlock');
+    public function test_get()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->get();
-        $this->assertInstanceOf('XoopsBlock',$value);
+        $this->assertInstanceOf('XoopsGroup',$value);
     }
     
-    public function test_200() {
-        $instance=new $this->myclass();
-		$obj=new ObjectpersistableHandler_XoopsObject();
+    public function test_insert()
+	{
+        $instance=new $this->myclass($this->conn);
+		$obj=new XoopsGroup();
 		$obj->setDirty();
-		$instance->className=get_class($obj);
         $value=$instance->insert($obj);
-        $this->assertSame(null,$value);
+        $this->assertSame('',$value);
     }
     
-    public function test_220() {
-        $instance=new $this->myclass();
-		$obj=new ObjectpersistableHandler_XoopsObject();
-		$instance->className=get_class($obj);
+    public function test_delete()
+	{
+        $instance=new $this->myclass($this->conn);
+		$obj=new XoopsGroup();
         $value=$instance->delete($obj);
         $this->assertSame(false,$value);
     }
     
-    public function test_240() {
-        $instance=new $this->myclass();
+    public function test_deleteAll()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->deleteAll();
-        $this->assertSame(false,$value);
+        $this->assertSame(0,$value);
     }
     
-    public function test_260() {
-        $instance=new $this->myclass();
+    public function test_updateAll()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->updateAll('name','value');
-        $this->assertSame(false,$value);
+        $this->assertSame(0,$value);
     }
     
-    public function test_280() {
-        $instance=new $this->myclass();
+    public function test_getObjects()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->getObjects();
         $this->assertSame(array(),$value);
     }
     
-    public function test_300() {
-        $instance=new $this->myclass();
+    public function test_getAll()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->getAll();
         $this->assertSame(array(),$value);
     }
     
-    public function test_320() {
-        $instance=new $this->myclass();
+    public function test_getList()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->getList();
         $this->assertSame(array(),$value);
     }
     
-    public function test_340() {
-        $instance=new $this->myclass();
+    public function test_getIds()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->getIds();
         $this->assertSame(array(),$value);
     }
     
-    public function test_360() {
-        $instance=new $this->myclass();
+    public function test_getCount()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->getCount();
+        $this->assertSame('0',$value);
+    }
+    
+    public function test_getCounts()
+	{
+        $instance=new $this->myclass($this->conn);
+        $value=$instance->getCounts();
+        $this->assertTrue(is_array($value));
+    }
+    
+    public function test_getByLink()
+	{
+        $instance=new $this->myclass($this->conn);
+		$instance->field_object='groupid';
+		$instance->table_link=$this->conn->prefix('group_permission');
+		$instance->field_link='gperm_groupid';
+        $value=$instance->getByLink();
+        $this->assertTrue(is_array($value));
+    }
+    
+    public function test_getCountByLink()
+	{
+        $instance=new $this->myclass($this->conn);
+		$instance->keyName_link='gperm_name';
+		$instance->field_object='groupid';
+		$instance->table_link=$this->conn->prefix('group_permission');
+		$instance->field_link='gperm_groupid';
+        $value=$instance->getCountByLink();
+        $this->assertSame('0',$value);
+    }
+    
+    public function test_getCountsByLink()
+	{
+        $instance=new $this->myclass($this->conn);
+		$instance->keyName_link='gperm_name';
+		$instance->field_object='groupid';
+		$instance->table_link=$this->conn->prefix('group_permission');
+		$instance->field_link='gperm_groupid';
+        $value=$instance->getCountsByLink();
+        $this->assertTrue(is_array($value));
+    }
+    
+    public function test_updateByLink()
+	{
+        $instance=new $this->myclass($this->conn);
+		$instance->field_object='groupid';
+		$instance->table_link=$this->conn->prefix('group_permission');
+		$instance->field_link='gperm_groupid';
+        $value=$instance->updateByLink(array('key'=>'value'));
         $this->assertSame(0,$value);
     }
     
-    public function test_380() {
-        $instance=new $this->myclass();
-        $value=$instance->getCounts();
-        $this->assertSame(array(),$value);
-    }
-    
-    public function test_400() {
-        $instance=new $this->myclass();
-		$instance->table_link='table';
-		$instance->field_link='field';
-        $value=$instance->getByLink();
-        $this->assertSame(array(),$value);
-    }
-    
-    public function test_420() {
-        $instance=new $this->myclass();
-		$instance->table_link='table';
-		$instance->field_link='field';
-        $value=$instance->getCountByLink();
-        $this->assertSame(false,$value);
-    }
-    
-    public function test_440() {
-        $instance=new $this->myclass();
-		$instance->table_link='table';
-		$instance->field_link='field';
-        $value=$instance->getCountsByLink();
-        $this->assertSame(false,$value);
-    }
-    
-    public function test_460() {
-        $instance=new $this->myclass();
-		$instance->table_link='table';
-		$instance->field_link='field';
-        $value=$instance->updateByLink(array('key'=>'value'));
-        $this->assertSame(false,$value);
-    }
-    
-    public function test_470() {
-        $instance=new $this->myclass();
-		$instance->table_link='table';
-		$instance->field_link='field';
+    public function test_deleteByLink()
+	{
+        $instance=new $this->myclass($this->conn);
+		$instance->field_object='groupid';
+		$instance->table_link=$this->conn->prefix('group_permission');
+		$instance->field_link='gperm_groupid';
         $value=$instance->deleteByLink();
-        $this->assertSame(false,$value);
+        $this->assertSame(0,$value);
     }
     
-    public function test_480() {
-        $instance=new $this->myclass();
-        $value=$instance->cleanOrphan('table','field','object');
-        $this->assertSame(false,$value);
+    public function test_cleanOrphan()
+	{
+        $instance=new $this->myclass($this->conn);
+        $value=$instance->cleanOrphan($this->conn->prefix('group_permission'),'gperm_groupid','groupid');
+        $this->assertSame(0,$value);
     }
     
-    public function test_500() {
-        $instance=new $this->myclass();
-        $value=$instance->sinchronization();
+    public function test_synchronization()
+	{
+        $instance=new $this->myclass($this->conn);
+        $value=$instance->synchronization();
         $this->assertSame(null,$value);
     }
 

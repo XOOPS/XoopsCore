@@ -14,12 +14,12 @@ class XoopsMySQLDatabaseSafeTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test___construct()
 	{	
 		$instance = new $this->myclass();
     }
 	
-	public function test_200()
+	public function test_query()
 	{
 		// query
 	}

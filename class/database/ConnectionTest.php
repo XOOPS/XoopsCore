@@ -18,7 +18,7 @@ class XoopsConnectionTest extends MY_UnitTestCase
 	{
     }
 	
-    public function test_100()
+    public function test___construct()
 	{
 		$params = array();
 		$config = new Configuration();
@@ -29,62 +29,73 @@ class XoopsConnectionTest extends MY_UnitTestCase
 		$this->assertInstanceOf('XoopsConnection', $instance);
     }
 	
-	public function test_200()
+	public function test_setSafe()
 	{
-		XoopsConnection::setSafe(true);
-		$x = XoopsConnection::getSafe();
+		$class = $this->myclass;
+		$class::setSafe(true);
+		$x = $class::getSafe();
 		$this->assertTrue($x);
 
-		XoopsConnection::setSafe(0);  // arg is not boolean => ignore
-		$x = XoopsConnection::getSafe();
+		$class::setSafe(0);  // arg is not boolean => ignore
+		$x = $class::getSafe();
 		$this->assertTrue($x);
 		
-		XoopsConnection::setSafe(false);
-		$x = XoopsConnection::getSafe();
+		$class::setSafe(false);
+		$x = $class::getSafe();
 		$this->assertFalse($x);
 	}
 	
-	public function test_300()
+	public function test_getSafe()
 	{
-		XoopsConnection::setForce(true);
-		$x = XoopsConnection::getForce();
+	}
+	
+	public function test_setForce()
+	{
+		$class = $this->myclass;
+		$class::setForce(true);
+		$x = $class::getForce();
 		$this->assertTrue($x);
 
-		XoopsConnection::setForce(0);  // arg is not boolean => ignore
-		$x = XoopsConnection::getForce();
+		$class::setForce(0);  // arg is not boolean => ignore
+		$x = $class::getForce();
 		$this->assertTrue($x);
 		
-		XoopsConnection::setForce(false);
-		$x = XoopsConnection::getForce();
+		$class::setForce(false);
+		$x = $class::getForce();
 		$this->assertFalse($x);
 	}
 	
-	public function test_400()
+	public function test_getForce()
 	{
-		$x = XoopsConnection::prefix('');
+	}
+	
+	public function test_prefix()
+	{
+		$class = $this->myclass;
+		$x = $class::prefix('');
 		$this->assertSame(XOOPS_DB_PREFIX,$x);
 
 		$table = 'toto';
-		$x = XoopsConnection::prefix($table);
+		$x = $class::prefix($table);
 		$this->assertSame(XOOPS_DB_PREFIX.'_'.$table,$x);
 	}
 	
-	public function test_500()
+	public function test_insertPrefix()
 	{
 		//  insertPrefix($tableName, array $data, array $types = array())
 	}
 	
-	public function test_600()
+	public function test_updatePrefix()
 	{
 		//  updatePrefix($tableName, array $data, array $identifier, array $types = array())
 	}
 	
-	public function test_700()
+	public function test_deletePrefix()
 	{
 		//  deletePrefix($tableName, array $identifier)
 	}
 	
-	public function test_800()
+	public function test_executeQuery()
 	{
 		/*
 		executeQuery(
@@ -95,46 +106,44 @@ class XoopsConnectionTest extends MY_UnitTestCase
 		*/
 	}
 	
-	public function test_900()
+	public function test_executeUpdate()
 	{
 		//  executeUpdate($query, array $params = array(), array $types = array())
 	}
 	
-	public function test_1000()
+	public function test_beginTransaction()
 	{
 		//  beginTransaction()
 	}
 	
-	public function test_1100()
+	public function test_commit()
 	{
 		//  commit()
 	}
 	
-	public function test_1200()
+	public function test_rollBack()
 	{
 		//  rollBack()
 	}
 	
-	public function test_1300()
+	public function test_query()
 	{
 		//  query()
 	}
 	
-	public function test_1400()
+	public function test_queryFromFile()
 	{
 		//  queryFromFile($file)
 	}
 	
-	public function test_1500()
+	public function test_quoteSlash()
 	{
 		//  quoteSlash($input)
 	}
 	
-	public function test_1600()
+	public function test_createXoopsQueryBuilder()
 	{
 		//  createXoopsQueryBuilder()
 	}
-	
-	
 	
 }

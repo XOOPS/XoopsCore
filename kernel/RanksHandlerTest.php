@@ -8,14 +8,17 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class RanksHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsRanksHandler';
+    protected $myclass='XoopsRanksHandler';
+	protected $conn = null;
 
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
 
-    public function test_100() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*ranks$/',$instance->table);
 		$this->assertSame('XoopsRanks',$instance->className);
@@ -23,64 +26,64 @@ class RanksHandlerTest extends MY_UnitTestCase
 		$this->assertSame('rank_title',$instance->identifierName);
     }
     
-    public function test_120() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_setHandler()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->setHandler();
         $this->assertSame(null,$value);
     }
     
-    public function test_140() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_loadHandler()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->loadHandler('write');
         $this->assertTrue(is_object($value));
     }
     
-    public function test_160() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_create()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->create(false);
         $this->assertInstanceOf('XoopsRanks',$value);
         $value=$instance->create(true);
         $this->assertInstanceOf('XoopsRanks',$value);
     }
     
-    public function test_180() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_get()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->get();
         $this->assertInstanceOf('XoopsRanks',$value);
     }
     
-    public function test_200() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_insert()
+	{
+        $instance=new $this->myclass($this->conn);
 		$obj=new XoopsRanks();
 		$obj->setDirty();
         $value=$instance->insert($obj);
         $this->assertSame('',$value);
     }
     
-    public function test_220() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_delete()
+	{
+        $instance=new $this->myclass($this->conn);
 		$obj=new XoopsRanks();
         $value=$instance->delete($obj);
         $this->assertSame(true,$value);
     }
     
-    public function test_240() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_deleteAll()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->deleteAll();
 		$this->markTestSkipped('');
         $this->assertSame(1,$value);
     }
     
-    public function test_260() {
-		$db=XoopsDatabaseFactory::getDatabaseConnection();
-        $instance=new $this->myclass($db);
+    public function test_updateAll()
+	{
+        $instance=new $this->myclass($this->conn);
         $value=$instance->updateAll('name','value');
         $this->assertSame(false,$value);
     }

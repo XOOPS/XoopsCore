@@ -12,7 +12,7 @@ class BlockmodulelinkTest extends MY_UnitTestCase
     public function SetUp() {
     }
     
-    public function test_100() {
+    public function test___construct() {
         $instance=new XoopsBlockmodulelink();
         $this->assertInstanceOf('XoopsBlockmodulelink',$instance);
 		$value=$instance->getVars();
@@ -20,13 +20,13 @@ class BlockmodulelinkTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['module_id']));
     }
 
-    public function test_120() {
+    public function test_getVar100() {
         $instance=new XoopsBlockmodulelink();
         $value = $instance->getVar('block_id', '');
         $this->assertSame(null,$value);
     }
     
-    public function test_140() {
+    public function test_getVar200() {
         $instance=new XoopsBlockmodulelink();
         $value = $instance->getVar('module_id', '');
         $this->assertSame(null,$value);

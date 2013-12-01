@@ -10,9 +10,11 @@ class SessionTest extends MY_UnitTestCase
 {
     var $myclass='XoopsSession';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
     }
 }
