@@ -57,7 +57,7 @@ if ($op == 'saveuser') {
     $password = $request->asStr('password', '');
     $password = $myts->stripSlashesGPC(trim($password));
     if ($password != '') {
-        if (strlen($password) < $xoops->getConfig('minpass')) {
+        if (mb_strlen($password) < $xoops->getConfig('minpass')) {
             $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
         }
         $vpass = $request->asStr('vpass', '');
