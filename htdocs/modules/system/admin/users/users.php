@@ -42,10 +42,10 @@ if (!$xoops->getModuleConfig('active_users', 'system')) {
 /*********************************************************/
 /**
  * synchronize number of posts credited to user
- * 
+ *
  * @param int    $uid  uid of user row
  * @param string $type type of processing, 'user' for one user, 'all users' for all
- * 
+ *
  * @return void
  */
 function synchronize($uid, $type)
@@ -65,9 +65,9 @@ function synchronize($uid, $type)
             }
 
             $query = $db->createXoopsQueryBuilder()
-                ->updatePrefix('users', 'u')
-                ->set('u.posts', ':posts')
-                ->where('u.uid = :uid')
+                ->updatePrefix('users')
+                ->set('posts', ':posts')
+                ->where('uid = :uid')
                 ->setParameter(':posts', $total_posts)
                 ->setParameter(':uid', $uid);
 

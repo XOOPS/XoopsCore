@@ -78,7 +78,6 @@ $modversion['tables'] = array(
     'newblocks',
     'online',
     'priv_msgs',
-    'ranks',
     'session',
     'tplset',
     'tplfile',
@@ -657,11 +656,11 @@ $modversion['config'][] = array(
 $modversion['config'][] = array(
     'name' => 'reg_disclaimer',
     'title' => 'CONF_REGDSCLMR',
-    'description' => 'CONF_DSPDSCLMR_DESC',
+    'description' => 'CONF_REGDSCLMR_DESC',
     'category' => 'user',
     'formtype' => 'textarea',
     'valuetype' => 'text',
-    'default' => 'CONF_DISCLAIMER_DEFAULT',
+    'default' => SystemLocale::CONF_DISCLAIMER_DEFAULT,
 );
 
 // Category meta
@@ -813,7 +812,7 @@ $modversion['config'][] = array(
     'category' => 'mail',
     'formtype' => 'textarea',
     'valuetype' => 'array',
-    'default' => 'a:1:{i:0,s:0:\"\",}',
+    'default' => '',
 );
 
 $modversion['config'][] = array(
@@ -1012,7 +1011,7 @@ $modversion['config'][] = array(
     'category' => 'authentication',
     'formtype' => 'group_multi',
     'valuetype' => 'array',
-    'default' => 'a:1:{i:0,s:1:\"2\",}',
+    'default' => '2',
 );
 
 $modversion['config'][] = array(

@@ -56,6 +56,11 @@ ob_start();
 </tr>
 
 <tr>
+    <th><?php echo COMPOSER; ?></th>
+    <td><?php echo xoDiag(class_exists('\Composer\Autoload\ClassLoader') ? 1 : -1, COMPOSER_ENVIRONMENT); ?></td>
+</tr>
+
+<tr>
     <th><?php printf(PHP_EXTENSION,'PDO'); ?></th>
     <td><?php echo xoDiag(extension_loaded('PDO') ? 1 : -1, 'PDO::getAvailableDrivers() = ' . @implode(', ',PDO::getAvailableDrivers())); ?></td>
 </tr>

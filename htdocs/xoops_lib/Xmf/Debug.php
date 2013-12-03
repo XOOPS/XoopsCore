@@ -30,7 +30,7 @@ class Debug
      * configuration ini for krumo
      *
      * @var string
-     * 
+     *
      * @todo implement resource asset for css
      */
     private static $config = array(
@@ -92,6 +92,45 @@ class Debug
             }
         } else {
             return self::dump(debug_backtrace(), $echo, $html, $exit);
+        }
+    }
+
+    /**
+     * start_trace - turn on xdebug trace
+     *
+     * Requires xdebug extension
+     *
+     * @param type $tracefile      file name for trace file
+     * @param type $collect_params argument for ini_set('xdebug.collect_params',?)
+     *                             Controls display of parameters in trace output
+     * @param type $collect_return argument for ini_set('xdebug.collect_return',?)
+     *                             Controls display of function return value in trace
+     *
+     * @return void
+     */
+    public static function startTrace($tracefile = '', $collect_params = '3', $collect_return = 'On')
+    {
+        if (function_exists('xdebug_start_trace')) {
+            ini_set('xdebug.collect_params', $collect_params);
+            ini_set('xdebug.collect_return', $collect_return);
+            if ($tracefile == '') {
+                $tracefile = XOOPS_VAR_PATH . '/logs/php_trace';
+            }
+            xdebug_start_trace($tracefile);
+        }
+    }
+
+    /**
+     * stop_trace - turn off xdebug trace
+     *
+     * Requires xdebug extension
+     *
+     * @return void
+     */
+    public static function stopTrace()
+    {
+        if (function_exists('xdebug_stop_trace')) {
+            xdebug_stop_trace();
         }
     }
 }

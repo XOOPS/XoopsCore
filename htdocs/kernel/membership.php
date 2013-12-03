@@ -17,7 +17,9 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * membership of a user in a group
@@ -64,21 +66,24 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
     /**
      * retrieve groups for a user
      *
-     * @param int $uid ID of the user
-     * objects? FALSE returns associative array.
+     * @param int $uid ID of the user objects? FALSE returns associative array.
+     *
      * @return array array of groups the user belongs to
      */
     public function getGroupsByUser($uid)
     {
         $ret = array();
-        $sql = 'SELECT groupid FROM ' . $this->db->prefix('groups_users_link') . ' WHERE uid=' . intval($uid);
-        $result = $this->db->query($sql);
-        if (!$result) {
-            return $ret;
-        }
-        while ($myrow = $this->db->fetchArray($result)) {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->select('groupid')
+            ->fromPrefix('groups_users_link', 'g')
+            ->where($eb->eq('g.uid', ':uid'))
+            ->setParameter(':uid', $uid, \PDO::PARAM_INT);
+        $result = $qb->execute();
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['groupid'];
         }
+
         return $ret;
     }
 
@@ -89,19 +94,27 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      * FALSE will return arrays
      * @param int $limit number of entries to return
      * @param int $start offset of first entry to return
+     *
      * @return array array of users belonging to the group
      */
     public function getUsersByGroup($groupid, $limit = 0, $start = 0)
     {
         $ret = array();
-        $sql = 'SELECT uid FROM ' . $this->db->prefix('groups_users_link') . ' WHERE groupid=' . intval($groupid);
-        $result = $this->db->query($sql, $limit, $start);
-        if (!$result) {
-            return $ret;
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->select('uid')
+            ->fromPrefix('groups_users_link', 'g')
+            ->where($eb->eq('g.groupid', ':gid'))
+            ->setParameter(':gid', $groupid, \PDO::PARAM_INT);
+        if ($limit!=0 || $start!=0) {
+            $qb->setFirstResult($start)
+                ->setMaxResults($limit);
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        $result = $qb->execute();
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['uid'];
         }
+
         return $ret;
     }
 }

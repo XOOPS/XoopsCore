@@ -157,3 +157,13 @@ $modversion['config'][] = array(
     'default' => XOOPS_VAR_PATH . '/logs/xoops_monolog.log',
     'options' => array(),
 );
+
+$modversion['config'][] = array(
+    'name' => 'max_versions',
+    'title' => '_MI_MONOLOG_LOG_MAX_VERSIONS',
+    'description' => '',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 7,
+    'options' => array(),
+);

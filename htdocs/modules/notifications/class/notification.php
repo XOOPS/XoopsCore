@@ -9,24 +9,25 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package         Notifications
- * @author          trabis <lusopoemas@gmail.com>
- * @author          Michael van Dam <mvandam@caltech.edu>
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A Notification
  *
- * @package       Notifications
- * @author        Michael van Dam    <mvandam@caltech.edu>
- * @copyright     copyright (c) 2000-2003 XOOPS.org
+ * @category  Module
+ * @package   Notifications
+ * @author    Michael van Dam <mvandam@caltech.edu>
+ * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.0.0
  */
 class NotificationsNotification extends XoopsObject
 {
@@ -35,8 +36,8 @@ class NotificationsNotification extends XoopsObject
      **/
     public function __construct()
     {
-        $this->initVar('id', XOBJ_DTYPE_INT, NULL, false);
-        $this->initVar('modid', XOBJ_DTYPE_INT, NULL, false);
+        $this->initVar('id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('modid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('category', XOBJ_DTYPE_TXTBOX, null, false, 30);
         $this->initVar('itemid', XOBJ_DTYPE_INT, 0, false);
         $this->initVar('event', XOBJ_DTYPE_TXTBOX, null, false, 30);
@@ -54,12 +55,12 @@ class NotificationsNotification extends XoopsObject
     /**
      * Send a notification message to the user
      *
-     * @param  string  $template_dir  Template directory
-     * @param  string  $template      Template name
-     * @param  string  $subject       Subject line for notification message
-     * @param  array   $tags          Array of substitutions for template variables
+     * @param string $template_dir Template directory
+     * @param string $template     Template name
+     * @param string $subject      Subject line for notification message
+     * @param array  $tags         Array of substitutions for template variables
      *
-     * @return  bool    true if success, false if error
+     * @return bool true if success, false if error
      **/
     public function notifyUser($template_dir, $template, $subject, $tags)
     {
@@ -148,28 +149,25 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Get some {@link NotificationsNotification}s
      *
-     * @param   CriteriaElement|null $criteria
-     * @param   bool                 $id_as_key  Use IDs as keys into the array?
+     * @param CriteriaElement|null $criteria  criteria object
+     * @param bool                 $id_as_key Use IDs as keys into the array?
      *
      * @return  array   Array of {@link NotificationsNotification} objects
      */
     public function getObjectsArray(CriteriaElement $criteria = null, $id_as_key = false)
     {
-        $ret = array();
-        $limit = $start = 0;
-        $sql = 'SELECT * FROM ' . $this->db->prefix('notifications');
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            $sort = ($criteria->getSort() != '') ? $criteria->getSort() : 'id';
-            $sql .= ' ORDER BY ' . $sort . ' ' . $criteria->getOrder();
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+        $qb = $this->db2->createXoopsQueryBuilder()
+            ->select('*')
+            ->from($this->table, null);
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
+            $criteria->renderQb($qb);
         }
-        $result = $this->db->query($sql, $limit, $start);
+        $result = $qb->execute();
+        $ret = array();
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $notification = new NotificationsNotification();
             $notification->assignVars($myrow);
             if (!$id_as_key) {
@@ -183,24 +181,26 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * @todo rename this
-     * @todo Also, should we have get by module, get by category, etc...??
+     * getNotification
      *
-     * @param int    $module_id
-     * @param string $category
-     * @param int    $item_id
-     * @param string $event
-     * @param int    $user_id
+     * @param int    $module_id module
+     * @param string $category  category
+     * @param int    $item_id   item
+     * @param string $event     event
+     * @param int    $user_id   user
      *
      * @return NotificationsNotification|bool
+     *
+     * @todo rename this
+     * @todo Also, should we have get by module, get by category, etc...??
      */
     public function getNotification($module_id, $category, $item_id, $event, $user_id)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('category', mysql_real_escape_string($category)));
+        $criteria->add(new Criteria('category', $category));
         $criteria->add(new Criteria('itemid', intval($item_id)));
-        $criteria->add(new Criteria('event', mysql_real_escape_string($event)));
+        $criteria->add(new Criteria('event', $event));
         $criteria->add(new Criteria('uid', intval($user_id)));
         $objects = $this->getObjectsArray($criteria);
         if (count($objects) == 1) {
@@ -214,11 +214,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
      * Determine if a user is subscribed to a particular event in
      * a particular module.
      *
-     * @param  string  $category  Category of notification event
-     * @param  int     $item_id   Item ID of notification event
-     * @param  string  $event     Event
-     * @param  int     $module_id ID of module (default current module)
-     * @param  int     $user_id   ID of user (default current user)
+     * @param string $category  Category of notification event
+     * @param int    $item_id   Item ID of notification event
+     * @param string $event     Event
+     * @param int    $module_id ID of module (default current module)
+     * @param int    $user_id   ID of user (default current user)
      *
      * @return int  0 if not subscribe; non-zero if subscribed
      */
@@ -226,9 +226,9 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('category', mysql_real_escape_string($category)));
+        $criteria->add(new Criteria('category', $category));
         $criteria->add(new Criteria('itemid', intval($item_id)));
-        $criteria->add(new Criteria('event', mysql_real_escape_string($event)));
+        $criteria->add(new Criteria('event', $event));
         $criteria->add(new Criteria('uid', intval($user_id)));
         return $this->getCount($criteria);
     }
@@ -236,19 +236,19 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Subscribe for notification for an event(s)
      *
+     * @param string $category  category of notification
+     * @param int    $item_id   ID of the item
+     * @param mixed  $events    event string or array of events
+     * @param int    $mode      force a particular notification mode
+     *                          (e.g. once_only) (default to current user preference)
+     * @param int    $module_id ID of the module (default to current module)
+     * @param int    $user_id   ID of the user (default to current user)
+     *
+     * @return bool
+     *
      * @todo: how about a function to subscribe a whole group of users???
      *      e.g. if we want to add all moderators to be notified of subscription
      *      of new threads...
-     *
-     * @param  string $category    category of notification
-     * @param  int    $item_id     ID of the item
-     * @param  mixed  $events      event string or array of events
-     * @param  int    $mode        force a particular notification mode
-     *                             (e.g. once_only) (default to current user preference)
-     * @param  int    $module_id   ID of the module (default to current module)
-     * @param  int    $user_id     ID of the user (default to current user)
-     *
-     * @return bool
      */
     public function subscribe($category, $item_id, $events, $mode = null, $module_id = null, $user_id = null)
     {
@@ -296,14 +296,14 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Get a list of notifications by user ID
      *
+     * @param int $user_id ID of the user
+     *
+     * @return array Array of {@link NotificationsNotification} objects
+     *
      * @todo this will be to provide a list of everything a particular
      *       user has subscribed to... e.g. for on the 'Profile' page, similar
      *       to how we see the various posts etc. that the user has made.
      *       We may also want to have a function where we can specify module id
-     *
-     * @param  int  $user_id  ID of the user
-     *
-     * @return array  Array of {@link NotificationsNotification} objects
      **/
     public function getByUser($user_id)
     {
@@ -314,20 +314,20 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Get a list of notification events for the current item/mod/user
      *
-     * @todo rename this?
-     *
-     * @param string $category
-     * @param int    $item_id
-     * @param int    $module_id
-     * @param int    $user_id
+     * @param string $category  caategory
+     * @param int    $item_id   id
+     * @param int    $module_id module
+     * @param int    $user_id   user
      *
      * @return array
+     *
+     * @todo rename this?
      */
     public function getSubscribedEvents($category, $item_id, $module_id, $user_id)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('category', mysql_real_escape_string($category)));
+        $criteria->add(new Criteria('category', $category));
         if ($item_id) {
             $criteria->add(new Criteria('itemid', intval($item_id)));
         }
@@ -344,14 +344,14 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Retrieve items by their ID
      *
-     * @todo is this a useful function?? (Copied from comment_handler)
-     *
-     * @param   int     $module_id  Module ID
-     * @param   int     $item_id    Item ID
-     * @param   string  $order      Sort order
-     * @param   int     $status
+     * @param int    $module_id Module ID
+     * @param int    $item_id   Item ID
+     * @param string $order     Sort order
+     * @param int    $status    status
      *
      * @return  array   Array of {@link NotificationsNotification} objects
+     *
+     * @todo is this a useful function?? (Copied from comment_handler)
      */
     public function getByItemId($module_id, $item_id, $order = null, $status = null)
     {
@@ -369,24 +369,34 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Send notifications to users
      *
+     * @param string $category     notification category
+     * @param int    $item_id      ID of the item
+     * @param string $events       notification event
+     * @param array  $extra_tags   array of substitutions for template to be
+     *                             merged with the one from function..
+     * @param array  $user_list    only notify the selected users
+     * @param int    $module_id    ID of the module
+     * @param int    $omit_user_id ID of the user to omit from notifications. (default to
+     *                              current user).  set to 0 for all users to receive notification.
+     *
+     * @return void
+     *
      * @todo(?) - pass in an event LIST.  This will help to avoid
      *      problem of sending people multiple emails for similar events.
      *      BUT, then we need an array of mail templates, etc...  Unless
      *      mail templates can include logic in the future, then we can
      *      tailor the mail so it makes sense for any of the possible
-     * (or combination of) events.
-     *
-     * @param  string  $category        notification category
-     * @param  int     $item_id         ID of the item
-     * @param  string  $events          notification event
-     * @param  array   $extra_tags      array of substitutions for template to be
-     *                                  merged with the one from function..
-     * @param  array   $user_list       only notify the selected users
-     * @param  int     $module_id       ID of the module
-     * @param  int     $omit_user_id    ID of the user to omit from notifications. (default to current user).  set to 0 for all users to receive notification.
+     *      (or combination of) events.
      */
-    public function triggerEvents($category, $item_id, $events, $extra_tags = array(), $user_list = array(), $module_id = null, $omit_user_id = null)
-    {
+    public function triggerEvents(
+        $category,
+        $item_id,
+        $events,
+        $extra_tags = array(),
+        $user_list = array(),
+        $module_id = null,
+        $omit_user_id = null
+    ) {
         if (!is_array($events)) {
             $events = array($events);
         }
@@ -396,18 +406,27 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * @param int   $category
-     * @param int   $item_id
-     * @param int   $event
-     * @param array $extra_tags
-     * @param array $user_list
-     * @param int   $module_id
-     * @param int   $omit_user_id
+     * triggerEvent
+     *
+     * @param int   $category     notification category
+     * @param int   $item_id      ID of the item
+     * @param int   $event        notification event
+     * @param array $extra_tags   array of substitutions for template
+     * @param array $user_list    users to notify
+     * @param int   $module_id    module
+     * @param int   $omit_user_id users to not notify
      *
      * @return bool
      */
-    public function triggerEvent($category, $item_id, $event, $extra_tags = array(), $user_list = array(), $module_id = null, $omit_user_id = null)
-    {
+    public function triggerEvent(
+        $category,
+        $item_id,
+        $event,
+        $extra_tags = array(),
+        $user_list = array(),
+        $module_id = null,
+        $omit_user_id = null
+    ) {
         $xoops = xoops::getInstance();
         $helper = Notifications::getInstance();
 
@@ -425,7 +444,10 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         }
         $category_info = $helper->getCategory($category, $module->getVar('dirname'));
         $event_info = $helper->getEvent($category, $event, $module->getVar('dirname'));
-        if (!in_array($helper->generateConfig($category_info, $event_info, 'option_name'), $mod_config['notification_events']) && empty($event_info['invisible'])) {
+        if (!in_array(
+            $helper->generateConfig($category_info, $event_info, 'option_name'),
+            $mod_config['notification_events']
+        ) && empty($event_info['invisible'])) {
             return false;
         }
 
@@ -438,9 +460,9 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         }
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('category', mysql_real_escape_string($category)));
+        $criteria->add(new Criteria('category', $category));
         $criteria->add(new Criteria('itemid', intval($item_id)));
-        $criteria->add(new Criteria('event', mysql_real_escape_string($event)));
+        $criteria->add(new Criteria('event', $event));
         $mode_criteria = new CriteriaCompo();
         $mode_criteria->add(new Criteria('mode', NOTIFICATIONS_MODE_SENDALWAYS), 'OR');
         $mode_criteria->add(new Criteria('mode', NOTIFICATIONS_MODE_SENDONCETHENDELETE), 'OR');
@@ -463,9 +485,13 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         // Add some tag substitutions here
         $tags = $helper->getTags($category, $item_id, $event, $module->getVar('dirname'));
 
-        $tags['X_ITEM_NAME'] = !empty($item_info['name']) ? $item_info['name'] : '[' . _MD_NOTIFICATIONS_ITEMNAMENOTAVAILABLE . ']';
-        $tags['X_ITEM_URL'] = !empty($item_info['url']) ? $item_info['url'] : '[' . _MD_NOTIFICATIONS_ITEMURLNOTAVAILABLE . ']';
-        $tags['X_ITEM_TYPE'] = !empty($category_info['item_name']) ? $category_info['title'] : '[' . _MD_NOTIFICATIONS_ITEMTYPENOTAVAILABLE . ']';
+        $tags['X_ITEM_NAME']
+            = !empty($item_info['name']) ? $item_info['name'] : '[' . _MD_NOTIFICATIONS_ITEMNAMENOTAVAILABLE . ']';
+        $tags['X_ITEM_URL']
+            = !empty($item_info['url']) ? $item_info['url'] : '[' . _MD_NOTIFICATIONS_ITEMURLNOTAVAILABLE . ']';
+        $tags['X_ITEM_TYPE']
+            = !empty($category_info['item_name']) ? $category_info['title'] : '['
+            . _MD_NOTIFICATIONS_ITEMTYPENOTAVAILABLE . ']';
         $tags['X_MODULE'] = $module->getVar('name');
         $tags['X_MODULE_URL'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/';
         $tags['X_NOTIFY_CATEGORY'] = $category;
@@ -492,7 +518,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Delete all notifications for one user
      *
-     * @param   int $user_id  ID of the user
+     * @param int $user_id ID of the user
      *
      * @return  bool
      **/
@@ -505,15 +531,15 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Unsubscribe notifications for an event(s).
      *
-     * @todo allow these to use current module, etc...
-     *
-     * @param  string  $category    category of the events
-     * @param  int     $item_id     ID of the item
-     * @param  mixed   $events      event string or array of events
-     * @param  int     $module_id   ID of the module (default current module)
-     * @param  int     $user_id     UID of the user (default current user)
+     * @param string $category  category of the events
+     * @param int    $item_id   ID of the item
+     * @param mixed  $events    event string or array of events
+     * @param int    $module_id ID of the module (default current module)
+     * @param int    $user_id   UID of the user (default current user)
      *
      * @return bool
+     *
+     * @todo allow these to use current module, etc...
      */
     public function unsubscribe($category, $item_id, $events, $module_id = null, $user_id = null)
     {
@@ -530,7 +556,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         }
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('category', mysql_real_escape_string($category)));
+        $criteria->add(new Criteria('category', $category));
         $criteria->add(new Criteria('itemid', intval($item_id)));
         $criteria->add(new Criteria('uid', intval($user_id)));
         if (!is_array($events)) {
@@ -538,7 +564,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         }
         $event_criteria = new CriteriaCompo();
         foreach ($events as $event) {
-            $event_criteria->add(new Criteria('event', mysql_real_escape_string($event)), 'OR');
+            $event_criteria->add(new Criteria('event', $event), 'OR');
         }
         $criteria->add($event_criteria);
         return $this->deleteAll($criteria);
@@ -547,11 +573,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Delete all notifications for a particular module
      *
-     * @todo When 'update' a module, may need to switch around some
-     *
-     * @param   int $module_id  ID of the module
+     * @param int $module_id ID of the module
      *
      * @return  bool
+     *
+     * @todo When 'update' a module, may need to switch around some
      **/
     public function unsubscribeByModule($module_id)
     {
@@ -562,9 +588,9 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Delete all subscriptions for a particular item.
      *
-     * @param  int    $module_id  ID of the module to which item belongs
-     * @param  string $category   Notification category of the item
-     * @param  int    $item_id    ID of the item
+     * @param int    $module_id ID of the module to which item belongs
+     * @param string $category  Notification category of the item
+     * @param int    $item_id   ID of the item
      *
      * @return bool
      **/
@@ -572,7 +598,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('category', mysql_real_escape_string($category)));
+        $criteria->add(new Criteria('category', $category));
         $criteria->add(new Criteria('itemid', intval($item_id)));
         return $this->deleteAll($criteria);
     }
@@ -583,7 +609,9 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
      * user with mode NOTIFICATIONS_MODE_WAITFORLOGIN are
      * switched to mode NOTIFICATIONS_MODE_SENDONCETHENWAIT.
      *
-     * @param  int  $user_id  ID of the user being logged in
+     * @param int $user_id ID of the user being logged in
+     *
+     * @return void
      **/
     public function doLoginMaintenance($user_id)
     {
@@ -602,11 +630,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     /**
      * Update
      *
-     * @param   NotificationsNotification  &$notification  {@link NotificationsNotification} object
-     * @param   string             $field_name     Name of the field
-     * @param   mixed              $field_value    Value to write
+     * @param NotificationsNotification $notification {@link NotificationsNotification} object
+     * @param string                    $field_name   Name of the field
+     * @param mixed                     $field_value  Value to write
      *
-     * @return  bool
+     * @return bool
      **/
     public function updateByField(NotificationsNotification $notification, $field_name, $field_value)
     {

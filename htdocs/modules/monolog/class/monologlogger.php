@@ -11,9 +11,9 @@
 
 use Monolog\Logger as MLogger;
 use Monolog\Formatter\LineFormatter;
-use Monolog\Formatter\LogstashFormatter;
 use Monolog\Handler\ChromePHPHandler;
 use Monolog\Handler\FirePHPHandler;
+use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\WebProcessor;
 use Psr\Log\LoggerInterface;
@@ -82,7 +82,7 @@ class MonologLogger implements LoggerInterface
 
     /**
      * disable logging
-     * 
+     *
      * @return void
      */
     public function disable()
@@ -92,14 +92,14 @@ class MonologLogger implements LoggerInterface
     }
 
     /**
-     * Enable logger output 
-     * 
+     * Enable logger output
+     *
      * @return void
      */
     public function enable()
     {
         error_reporting(E_ALL | E_STRICT);
-        
+
         $this->activated = true;
 
         if (!$this->monolog) {
@@ -126,7 +126,15 @@ class MonologLogger implements LoggerInterface
                     $threshold=MLogger::DEBUG;
                     break;
             }
-            $stream = new StreamHandler($this->configs['log_file_path'], $threshold);
+            if (intval($this->configs['max_versions']) == 0) {
+                $stream = new StreamHandler($this->configs['log_file_path'], $threshold);
+            } else {
+                $stream = new RotatingFileHandler(
+                    $this->configs['log_file_path'],
+                    $this->configs['max_versions'],
+                    $threshold
+                );
+            }
             $stream->setFormatter($formatter);
             $this->monolog->pushHandler($stream);
         }
@@ -138,9 +146,9 @@ class MonologLogger implements LoggerInterface
 
     /**
      * adds Xoops specific information to the log record
-     * 
+     *
      * @param array $record log record contents
-     * 
+     *
      * @return void
      */
     public function xoopsDataProcessor($record)
@@ -153,9 +161,9 @@ class MonologLogger implements LoggerInterface
 
     /**
      * set configuration items
-     * 
+     *
      * @param array $configs module/user configuration items
-     * 
+     *
      * @return void
      */
     public function setConfigs($configs)
@@ -165,7 +173,7 @@ class MonologLogger implements LoggerInterface
 
     /**
      * report enabled status
-     * 
+     *
      * @return bool
      */
     public function isEnable()
@@ -175,7 +183,7 @@ class MonologLogger implements LoggerInterface
 
     /**
      * disable output for the benefit of ajax scripts
-     * 
+     *
      * @return void
      */
     public function quiet()
@@ -187,7 +195,7 @@ class MonologLogger implements LoggerInterface
      * Start a timer
      *
      * @param string $name name of the timer
-     * 
+     *
      * @return void
      */
     public function startTime($name = 'XOOPS')
@@ -199,7 +207,7 @@ class MonologLogger implements LoggerInterface
      * Stop a timer
      *
      * @param string $name name of the timer
-     * 
+     *
      * @return void
      */
     public function stopTime($name = 'XOOPS')
@@ -249,7 +257,7 @@ class MonologLogger implements LoggerInterface
      * @param string $name      name of the block
      * @param bool   $cached    was the block cached?
      * @param int    $cachetime cachetime of the block
-     * 
+     *
      * @return void
      */
     public function addBlock($name, $cached = false, $cachetime = 0)
@@ -265,7 +273,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $name name for the entry
      * @param string $msg  text message for the entry
-     * 
+     *
      * @return void
      */
     public function addExtra($name, $msg)
@@ -280,7 +288,7 @@ class MonologLogger implements LoggerInterface
      * Log messages for deprecated functions
      *
      * @param string $msg name for the entry
-     * 
+     *
      * @return void
      */
     public function addDeprecated($msg)
@@ -294,7 +302,7 @@ class MonologLogger implements LoggerInterface
      * Log exceptions
      *
      * @param Exception $e name for the entry
-     * 
+     *
      * @return void
      */
     public function addException($e)
@@ -314,9 +322,9 @@ class MonologLogger implements LoggerInterface
 
     /**
      * sanitizePath
-     * 
+     *
      * @param string $path path name to sanitize
-     * 
+     *
      * @return string path with top levels removed
      */
     public function sanitizePath($path)
@@ -334,7 +342,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function emergency($message, array $context = array())
@@ -352,7 +360,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function alert($message, array $context = array())
@@ -369,7 +377,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function critical($message, array $context = array())
@@ -385,7 +393,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function error($message, array $context = array())
@@ -403,7 +411,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function warning($message, array $context = array())
@@ -418,7 +426,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function notice($message, array $context = array())
@@ -435,7 +443,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function info($message, array $context = array())
@@ -450,7 +458,7 @@ class MonologLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function debug($message, array $context = array())
@@ -464,10 +472,10 @@ class MonologLogger implements LoggerInterface
      * messageTag returns the value of a language constant if it is defined,
      * or the supplied default if the constant is not defined. This is needed
      * because logging code can run before locale is established.
-     * 
+     *
      * @param string $tag     the constant name
      * @param string $default a default value
-     * 
+     *
      * @return string constant or default value
      */
     private function messageTag($tag, $default)
@@ -481,7 +489,7 @@ class MonologLogger implements LoggerInterface
      * @param mixed  $level   logging level
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function log($level, $message, array $context = array())

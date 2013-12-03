@@ -31,7 +31,7 @@ $modversion['credits'] = 'The XOOPS Project';
 $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 1;
-//$modversion['help']           = 'page=help';
+$modversion['help']           = 'page=help';
 $modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = 'userconfigs';
 
@@ -42,22 +42,27 @@ $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'ALPHA 1';
 $modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = '2.6.0';
-$modversion['min_db'] = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 
 // paypal
 $modversion['paypal'] = array(
-    'business' => 'lusopoemas@gmail.com',
-    'item_name' => '',
-    'amount' => 0,
-    'currency_code' => 'EUR',
+    'business'      => 'xoopsfoundation@gmail.com',
+    'item_name'     => 'Donation : ' . _MI_USERCONFIGS_NAME,
+    'amount'        => 0,
+    'currency_code' => 'USD',
 );
 
 // Admin things
-$modversion['hasAdmin'] = 0;
+$modversion['hasAdmin'] = 1;
+$modversion['system_menu'] = 1;
+$modversion['adminindex'] = "admin/index.php";
+$modversion['adminmenu']  = "admin/menu.php";
 
 // Manage extension
-$modversion['extension'] = 1;
-$modversion['extension_module'][] = 'system';
+//$modversion['extension'] = 1;
+//$modversion['extension_module'][] = 'system';
+
+// Menu
+$modversion['hasMain'] = 1;
 
 // Sql
 $modversion['schema'] = 'sql/schema.yml';

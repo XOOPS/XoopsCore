@@ -24,7 +24,7 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 $modversion['name'] = 'XMF';
 $modversion['version'] = 1.0;
-$modversion['description'] = '';
+$modversion['description'] = 'XOOPS Module Framework';
 $modversion['author'] = "XMF";
 $modversion['credits'] = "trabis";
 $modversion['help'] = "";

@@ -6,7 +6,12 @@
     </a>
     <{if $btn}>
     <{foreach item=btn from=$btn}>
+    <{assign var="absurl" value=$btn.link|strpos:"//"}>
+    <{if $absurl}>
+    <a class="btn" href="<{$btn.link}>">
+    <{else}>
     <a class="btn" href="<{xoAppUrl}><{$btn.link}>">
+    <{/if}>
         <i class="<{$btn.icon}>"></i>
         <{$btn.title}>
     </a>

@@ -20,7 +20,9 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 class BannersBannerclient extends XoopsObject
 {
@@ -36,14 +38,14 @@ class BannersBannerclient extends XoopsObject
     }
     public function get_new_id()
     {
-        return Xoops::getInstance()->db()->getInsertId();
+        return Xoops::getInstance()->db()->lastInsertId();
     }
 }
 
 class BannersBannerclientHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|XoopsConnection $db database
      */
     public function __construct(XoopsConnection $db = null)
     {

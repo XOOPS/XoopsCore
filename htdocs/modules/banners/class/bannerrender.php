@@ -99,20 +99,20 @@ class BannerRender
                         $impmade = $impmade + 1;
                         $qb = $xoops->db()->createXoopsQueryBuilder();
                         if ($imptotal > 0 && $impmade >= $imptotal) {
-                            $query = $qb->updatePrefix('banners_banner', 'b')
-                                ->set('b.banner_impmade', ':impr')
-                                ->set('b.banner_status', ':stat')
-                                ->set('b.banner_dateend', ':dateend')
-                                ->where('b.banner_bid = :bid')
+                            $query = $qb->updatePrefix('banners_banner')
+                                ->set('banner_impmade', ':impr')
+                                ->set('banner_status', ':stat')
+                                ->set('banner_dateend', ':dateend')
+                                ->where('banner_bid = :bid')
                                 ->setParameter(':impr', $impmade, \PDO::PARAM_INT)
                                 ->setParameter(':stat', 0, \PDO::PARAM_INT)
                                 ->setParameter(':dateend', time(), \PDO::PARAM_INT)
                                 ->setParameter(':bid', $bid, \PDO::PARAM_INT);
                             $result = $query->execute();
                         } else {
-                            $query = $qb->updatePrefix('banners_banner', 'b')
-                                ->set('b.banner_impmade', ':impr')
-                                ->where('b.banner_bid = :bid')
+                            $query = $qb->updatePrefix('banners_banner')
+                                ->set('banner_impmade', ':impr')
+                                ->where('banner_bid = :bid')
                                 ->setParameter(':impr', $impmade, \PDO::PARAM_INT)
                                 ->setParameter(':bid', $bid, \PDO::PARAM_INT);
                             $result = $query->execute();

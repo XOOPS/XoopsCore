@@ -147,7 +147,7 @@ switch ($op) {
             $newuser->setVar('user_avatar', 'blank.gif', true);
             $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
             $newuser->setVar('actkey', $actkey, true);
-            $newuser->setVar('pass', md5($pass), true);
+            $newuser->setVar('pass', password_hash($pass, PASSWORD_DEFAULT), true);
             $newuser->setVar('timezone_offset', $timezone_offset, true);
             $newuser->setVar('user_regdate', time(), true);
             $newuser->setVar('uorder', $xoops->getConfig('com_order'), true);

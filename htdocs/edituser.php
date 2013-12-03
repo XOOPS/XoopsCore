@@ -49,7 +49,7 @@ if ($op == 'saveuser') {
     $errors = array();
     if ($xoops->getConfig('allow_chgmail') == 1) {
         $email = $request->asStr('email', '');
-        $email = $myts->stripSlashesGPC(trim($email));;
+        $email = $myts->stripSlashesGPC(trim($email));
         if ($email == '' || ! $xoops->checkEmail($email)) {
             $errors[] = XoopsLocale::E_INVALID_EMAIL;
         }
@@ -57,7 +57,7 @@ if ($op == 'saveuser') {
     $password = $request->asStr('password', '');
     $password = $myts->stripSlashesGPC(trim($password));
     if ($password != '') {
-        if (strlen($password) < $xoops->getConfig('minpass')) {
+        if (mb_strlen($password) < $xoops->getConfig('minpass')) {
             $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
         }
         $vpass = $request->asStr('vpass', '');
@@ -82,7 +82,7 @@ if ($op == 'saveuser') {
             $edituser->setVar('email', $email, true);
         }
         if ($password != '') {
-            $edituser->setVar('pass', md5($password), true);
+            $edituser->setVar('pass', password_hash($password, PASSWORD_DEFAULT), true);
         }
         $edituser->setVar('url', $xoops->formatURL($request->asStr('url', '')));
         $edituser->setVar('user_icq', $request->asStr('user_icq', ''));

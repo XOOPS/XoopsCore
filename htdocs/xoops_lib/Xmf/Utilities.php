@@ -26,6 +26,14 @@ namespace Xmf;
 class Utilities
 {
 
+    /**
+     * purifyText
+     *
+     * @param string  $text    text to clean
+     * @param boolean $keyword replace some punctuation with white space
+     *
+     * @return string cleaned text
+     */
     public static function purifyText($text, $keyword = false)
     {
         $myts = \MyTextSanitizer::getInstance();
@@ -59,14 +67,17 @@ class Utilities
         return $text;
     }
 
+    /**
+     * html2text
+     * This will remove HTML tags, javascript sections and white space. It will also
+     * convert some common HTML entities to their text equivalent. Credits to newbb2
+     *
+     * @param string $document HTML to be converted
+     *
+     * @return string Text version of $documnent parameter
+     */
     public static function html2text($document)
     {
-        // PHP Manual:: function preg_replace
-        // $document should contain an HTML document.
-        // This will remove HTML tags, javascript sections
-        // and white space. It will also convert some
-        // common HTML entities to their text equivalent.
-        // Credits : newbb2
         $search = array ("'<script[^>]*?>.*?</script>'si",  // Strip out javascript
         "'<img.*?/>'si",       // Strip out img tags
         "'<[\/\!]*?[^<>]*?>'si",          // Strip out HTML tags
@@ -79,8 +90,7 @@ class Utilities
         "'&(iexcl|#161);'i",
         "'&(cent|#162);'i",
         "'&(pound|#163);'i",
-        "'&(copy|#169);'i",
-        "'&#(\d+);'e");                    // evaluate as php
+        "'&(copy|#169);'i");
 
         $replace = array ("",
         "",
@@ -94,10 +104,17 @@ class Utilities
         chr(161),
         chr(162),
         chr(163),
-        chr(169),
-        "chr(\\1)");
+        chr(169));
 
         $text = preg_replace($search, $replace, $document);
+
+        preg_replace_callback(
+            '/&#(\d+);/',
+            function ($matches) {
+                return chr($matches[1]);
+            },
+            $document
+        );
 
         return $text;
     }

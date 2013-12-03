@@ -162,6 +162,7 @@ $configs['extensions'] = array(
         sprintf(PHP_EXTENSION, IMAGE_FUNCTIONS)
     ),
     'exif' => array('Exif', sprintf(PHP_EXTENSION, IMAGE_METAS)),
+    'curl' => array('Curl', sprintf(PHP_EXTENSION, CURL_HTTP)),
 );
 
 // Writable files and directories
@@ -180,6 +181,7 @@ $configs['modules'] = array(
     'banners',
     'page',
     'search',
+    'userconfigs',
 );
 
 // Extensions to be installed by default
@@ -194,7 +196,6 @@ $configs['ext'] = array(
     'notifications',
     'protector',
     'smilies',
-    'userconfigs',
     'xmf',
 );
 

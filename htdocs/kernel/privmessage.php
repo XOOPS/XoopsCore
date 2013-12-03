@@ -17,7 +17,9 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Private Messages
@@ -160,8 +162,15 @@ class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
      **/
     public function setRead(XoopsPrivmessage &$pm)
     {
-        $sql = sprintf("UPDATE %s SET read_msg = 1 WHERE msg_id = %u", $this->db->prefix('priv_msgs'), $pm->getVar('msg_id'));
-        if (!$this->db->queryF($sql)) {
+        $qb = $this->db2->createXoopsQueryBuilder()
+            ->updatePrefix('priv_msgs', 'pm')
+            ->set('pm.read_msg', ':readmsg')
+            ->where('pm.msg_id = :msgid')
+            ->setParameter(':readmsg', 1, \PDO::PARAM_INT)
+            ->setParameter(':msgid', $pm->getVar('msg_id'), \PDO::PARAM_INT);
+        $result = $qb->execute();
+
+        if (!$result) {
             return false;
         }
         return true;

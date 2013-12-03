@@ -58,7 +58,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
 
     /**
      * Issue a deprecated warning once per session
-     * 
+     *
      * @return void
      */
     protected function deprecated()
@@ -66,8 +66,11 @@ class XoopsMySQLDatabase extends XoopsDatabase
         static $warning_issued = false;
         if (!$warning_issued) {
             $warning_issued = true;
+            $stack = debug_backtrace();
+            $frame = $stack[1];
             Xoops::getInstance()->deprecated(
-                'Legacy XoopsDB is deprecated since 2.6.0. Now using Doctrine through $xoops->db()'
+                'Legacy XoopsDB is deprecated since 2.6.0; all calls should be using Doctrine through $xoops->db(). '
+                . 'Called from ' . $frame['function'] . '() in ' . $frame['file'] . ' line '. $frame['line']
             );
         }
     }
@@ -200,7 +203,8 @@ class XoopsMySQLDatabase extends XoopsDatabase
      */
     public function getRowsNum($result)
     {
-        $this->deprecated();
+        Xoops::getInstance()->deprecated('getRowsNum is deprecated and not dependable.');
+        //$this->deprecated();
         return $result->rowCount();
     }
 

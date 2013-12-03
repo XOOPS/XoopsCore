@@ -47,10 +47,17 @@ if (!isset($_POST['submit'])) {
     $password = @$myts->stripSlashesGPC(trim($_POST['newpass']));
     $vpass = @$myts->stripSlashesGPC(trim($_POST['vpass']));
     $errors = array();
-    if (md5($oldpass) != $xoops->user->getVar('pass', 'n')) {
-        $errors[] = _PROFILE_MA_WRONGPASSWORD;
+    $hash = $xoops->user->getVar('pass', 'n');
+    $type = substr($hash, 0, 1);
+    // see if we have a crypt like signature, old md5 hash is just hex digits
+    if ($type=='$') {
+        if (!password_verify($oldpass, $hash)) {
+                $errors[] = _PROFILE_MA_WRONGPASSWORD;
+        }
+    } elseif ($hash!=md5($oldpass)) {
+            $errors[] = _PROFILE_MA_WRONGPASSWORD;
     }
-    if (strlen($password) < $xoops->getConfig('minpass')) {
+    if (mb_strlen($password) < $xoops->getConfig('minpass')) {
         $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
     }
     if ($password != $vpass) {
@@ -61,7 +68,7 @@ if (!isset($_POST['submit'])) {
         $msg = implode('<br />', $errors);
     } else {
         //update password
-        $xoops->user->setVar('pass', md5($password));
+        $xoops->user->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
         if ($xoops->getHandlerMember()->insertUser($xoops->user)) {
             $msg = _PROFILE_MA_PASSWORDCHANGED;
         } else {

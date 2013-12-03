@@ -25,7 +25,7 @@ use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
  * @category  SystemModule
  * @package   SystemModule
  * @author    Andricq Nicolas (AKA MusS)
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -80,7 +80,7 @@ class SystemModule
 
     /**
      * getModuleList
-     * 
+     *
      * @return array of modules
      */
     public function getModuleList()
@@ -129,10 +129,11 @@ class SystemModule
                     $module->setInfo('options', $module->getAdminMenu());
                 }
 
-				$groups = array();
-				if (is_object($xoops->user))
-					$groups = $xoops->user->getGroups();
-					
+                $groups = array();
+                if (is_object($xoops->user)) {
+                    $groups = $xoops->user->getGroups();
+                }
+
                 $sadmin = $moduleperm_handler->checkRight(
                     'module_admin',
                     $module->getVar('mid'),
@@ -156,7 +157,7 @@ class SystemModule
 
     /**
      * getModuleInstall
-     * 
+     *
      * @return array of installed modules
      */
     public function getModuleInstall()
@@ -190,7 +191,7 @@ class SystemModule
 
     /**
      * install a module
-     * 
+     *
      * @param string  $mod   module dirname
      * @param boolean $force force query
      *
@@ -198,11 +199,15 @@ class SystemModule
      */
     public function install($mod = '', $force = false)
     {
-        $queryFunc = (bool)$force ? "queryF" : "query";
         $xoops = Xoops::getInstance();
         $module_handler = $xoops->getHandlerModule();
         $mod = trim($mod);
-        if ($module_handler->getCount(new Criteria('dirname', $mod)) == 0) {
+        try {
+            $cnt = $module_handler->getCount(new Criteria('dirname', $mod));
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $cnt = 0;
+        }
+        if ($cnt == 0) {
             /* @var $module XoopsModule */
             $module = $module_handler->create();
             $module->loadInfoAsVar($mod);
@@ -355,7 +360,7 @@ class SystemModule
 
                 // Install Configs
                 $this->installConfigs($module, 'add');
-                
+
                 if ($module->getInfo('hasMain')) {
                     $groups = array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS);
                 } else {
@@ -461,7 +466,7 @@ class SystemModule
 
     /**
      * uninstall
-     * 
+     *
      * @param string $mod module dirname
      *
      * @return bool|XoopsModule false on failure, module context on success
@@ -584,9 +589,9 @@ class SystemModule
 
     /**
      * update
-     * 
+     *
      * @param string $mod module dirname
-     * 
+     *
      * @return mixed boolean false if failed, XoopsModule if success
      */
     public function update($mod = '')
@@ -607,6 +612,38 @@ class SystemModule
             $this->error[] = sprintf(XoopsLocale::EF_NOT_UPDATED, "<strong>" . $module->getVar('name') . "</strong>");
             return false;
         } else {
+            // execute module specific preupdate script if any
+            $update_script = $module->getInfo('onUpdate');
+            if (false != $update_script && trim($update_script) != '') {
+                XoopsLoad::loadFile($xoops->path('modules/' . $mod . '/' . trim($update_script)));
+                $func = 'xoops_module_preupdate_' . $mod;
+                if (function_exists($func)) {
+                    $result = $func($module, $prev_version);
+                    if (!$result) {
+                        $this->trace[] = sprintf(XoopsLocale::EF_NOT_EXECUTED, $func);
+                        $this->trace = array_merge($this->error, $module->getErrors());
+                    } else {
+                        $this->trace[] = sprintf(XoopsLocale::SF_EXECUTED, "<strong>{$func}</strong>");
+                        $this->trace = array_merge($this->trace, $module->getMessages());
+                    }
+                }
+            }
+
+            // update schema
+            $schema_file = $module->getInfo('schema');
+            if (!empty($schema_file)) {
+                $schema_file_path = XOOPS_ROOT_PATH . '/modules/' . $mod . '/' . $schema_file;
+                if (!XoopsLoad::fileExists($schema_file_path)) {
+                    $this->error[] =
+                        sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$schema_file}</strong>");
+                    return false;
+                }
+                $importer = new ImportSchema;
+                $importSchema = $importer->importSchemaArray(Yaml::read($schema_file_path));
+                $synchronizer = new SingleDatabaseSynchronizer($xoops->db());
+                $synchronizer->updateSchema($importSchema, true);
+            }
+
             // delete templates
             $this->deleteTemplates($module);
 
@@ -648,7 +685,7 @@ class SystemModule
 
     /**
      * getTemplate
-     * 
+     *
      * @param string $dirname  module directory
      * @param string $template template name
      * @param string $type     template type - blocks, admin
@@ -685,9 +722,9 @@ class SystemModule
 
     /**
      * installTemplates
-     * 
+     *
      * @param XoopsModule $module module context
-     * 
+     *
      * @return void
      */
     public function installTemplates(XoopsModule $module)
@@ -769,9 +806,9 @@ class SystemModule
 
     /**
      * deleteTemplates
-     * 
+     *
      * @param XoopsModule $module module context
-     * 
+     *
      * @return void
      */
     public function deleteTemplates(XoopsModule $module)
@@ -793,9 +830,9 @@ class SystemModule
 
     /**
      * installBlocks
-     * 
+     *
      * @param XoopsModule $module module context
-     * 
+     *
      * @return void
      */
     public function installBlocks(XoopsModule $module)
@@ -971,9 +1008,9 @@ class SystemModule
 
     /**
      * deleteBlocks
-     * 
+     *
      * @param XoopsModule $module module
-     * 
+     *
      * @return void
      */
     public function deleteBlocks(XoopsModule $module)
@@ -1033,9 +1070,9 @@ class SystemModule
 
     /**
      * deleteConfigs
-     * 
+     *
      * @param XoopsModule $module module
-     * 
+     *
      * @return void
      */
     public function deleteConfigs(XoopsModule $module)
@@ -1068,9 +1105,9 @@ class SystemModule
 
     /**
      * installconfigs
-     * 
+     *
      * @param XoopsModule $module module being installed
-     *  
+     *
      * @return void
      */
     public function installconfigs(XoopsModule $module)

@@ -56,9 +56,9 @@ switch ($op) {
 
         $qb = $xoops->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $sql = $qb->updatePrefix('users', 'u')
-            ->set('u.posts', ':posts')
-            ->where('u.uid = :uid')
+        $sql = $qb->updatePrefix('users')
+            ->set('posts', ':posts')
+            ->where('uid = :uid')
             ->setParameter(':posts', $total_posts)
             ->setParameter(':uid', $uid);
         $row_count = $sql->execute();

@@ -85,7 +85,7 @@ foreach ($driver_params as $param) {
     }
 }
 
-// if a POST, try to connect to the database using the parameters 
+// if a POST, try to connect to the database using the parameters
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $instance = getDbConnection($error);
@@ -102,13 +102,9 @@ ob_start();
     echo '<div class="x2-note errorMsg">' . $error . "</div>\n";
 } ?>
 <fieldset>
-    <legend><?php echo LEGEND_CONNECTION; ?></legend>
-    <label class="xolabel" for="DB_DATABASE_LABEL" class="center">
-        <?php echo DB_DATABASE_LABEL; ?>
-        <span>
-            <?php echo $wizard->configs['db_types'][$settings['DB_DRIVER']]['desc']; ?>
-        </span>
-    </label>
+    <legend><?php echo LEGEND_CONNECTION; ?>
+        <?php echo $wizard->configs['db_types'][$settings['DB_DRIVER']]['desc']; ?>
+    </legend>
 <?php
 foreach ($driver_params as $param) {
     $name = $wizard->configs['db_param_names'][$param];

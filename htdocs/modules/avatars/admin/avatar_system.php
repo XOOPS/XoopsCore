@@ -183,9 +183,9 @@ switch ($op) {
                 // Update member profiles
                 $qb = $xoops->db()->createXoopsQueryBuilder();
                 $eb = $qb->expr();
-                $query = $qb->updatePrefix('users', 'u')
-                    ->set('u.user_avatar', 'blank.gif')
-                    ->where($eb->eq('u.user_avatar', ':file '))
+                $query = $qb->updatePrefix('users')
+                    ->set('user_avatar', 'blank.gif')
+                    ->where($eb->eq('user_avatar', ':file '))
                     ->setParameter(':file', $file);
                 $result = $query->execute();
                 $xoops->redirect("avatar_system.php", 2, XoopsLocale::S_ITEM_SAVED);

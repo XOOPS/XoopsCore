@@ -29,6 +29,9 @@ define("_PHP_VERSION", "PHP version");
 define("RECOMMENDED_EXTENSIONS", "Recommended extensions");
 define("RECOMMENDED", "Recommended");
 define("CURRENT", "Current");
+define("COMPOSER","Composer");
+define("COMPOSER_ENVIRONMENT",'Composer required. <a href="http://getcomposer.org/" target="_blank">http://getcomposer.org/</a>');
+
 define("RECOMMENDED_EXTENSIONS_MSG", "These extensions are not required for normal use, but may be necessary to exploit
     some specific features (like the multi-language or RSS support). Thus, it is recommended to have them installed.");
 define("NONE", "None");
@@ -179,6 +182,7 @@ define("ICONV_CONVERSION", "Character set conversion");
 define("ZLIB_COMPRESSION", "Zlib Compression");
 define("IMAGE_FUNCTIONS", "Image functions");
 define("IMAGE_METAS", "Image meta data (exif)");
+define("CURL_HTTP", "Client URL Library (cURL)");
 
 define("ADMIN_EXIST", "The administrator account already exists.<br />Press <strong>next</strong> to go to the next step.");
 

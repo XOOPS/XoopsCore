@@ -44,14 +44,14 @@ $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'ALPHA';
 $modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = '2.6.0';
-$modversion['min_db'] = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
 // paypal
-$modversion['paypal'] = array();
-$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name'] = 'Donation : ' . _MI_SMILIES_DESC;
-$modversion['paypal']['amount'] = 0;
-$modversion['paypal']['currency_code'] = 'USD';
+$modversion['paypal'] = array(
+    'business'      => 'xoopsfoundation@gmail.com',
+    'item_name'     => 'Donation : ' . _MI_SMILIES_DESC,
+    'amount'        => 0,
+    'currency_code' => 'USD',
+);
 
 // Admin menu
 $modversion['system_menu'] = 1;
@@ -65,21 +65,27 @@ $modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = 'admin/index.php';
 $modversion['adminmenu'] = 'admin/menu.php';
 
-// Mysql file
+// Scripts to run upon installation or update
+$modversion['onInstall'] = 'include/install.php';
+
+// sql
+$modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = 'sql/mysql.' . Xoops::getInstance()->getConfig('language') . '.sql';
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'][1] = 'smilies';
+$modversion['tables'] = array(
+    'smilies',
+);
 
 // JQuery
 $modversion['jquery'] = 1;
 
 // Preferences
-$i = 0;
-$modversion['config'][$i]['name'] = 'smilies_pager';
-$modversion['config'][$i]['title'] = '_MI_SMILIES_PREFERENCE_PAGER';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 20;
-$i++;
+$modversion['config'][] = array(
+    'name' => 'smilies_pager',
+    'title' => '_MI_SMILIES_PREFERENCE_PAGER',
+    'description' => '',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 20,
+);

@@ -1,0 +1,290 @@
+tables:
+    image:
+        options: {  }
+        columns:
+            image_id:
+                name: image_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            image_name:
+                name: image_name
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            image_nicename:
+                name: image_nicename
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            image_mimetype:
+                name: image_mimetype
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            image_created:
+                name: image_created
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            image_display:
+                name: image_display
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            image_weight:
+                name: image_weight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_id:
+                name: imgcat_id
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [image_id]
+                unique: true
+                primary: true
+            imgcat_id:
+                name: imgcat_id
+                columns: [imgcat_id]
+                unique: false
+                primary: false
+            image_display:
+                name: image_display
+                columns: [image_display]
+                unique: false
+                primary: false
+    imagebody:
+        options: {  }
+        columns:
+            image_id:
+                name: image_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            image_body:
+                name: image_body
+                type: blob
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            image_id:
+                name: image_id
+                columns: [image_id]
+                unique: false
+                primary: false
+    imagecategory:
+        options: {  }
+        columns:
+            imgcat_id:
+                name: imgcat_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            imgcat_name:
+                name: imgcat_name
+                type: string
+                default: ''
+                notnull: true
+                length: 100
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_maxsize:
+                name: imgcat_maxsize
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_maxwidth:
+                name: imgcat_maxwidth
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_maxheight:
+                name: imgcat_maxheight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_display:
+                name: imgcat_display
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_weight:
+                name: imgcat_weight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_type:
+                name: imgcat_type
+                type: string
+                default: ''
+                notnull: true
+                length: 1
+                precision: 10
+                scale: 0
+                fixed: true
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            imgcat_storetype:
+                name: imgcat_storetype
+                type: string
+                default: ''
+                notnull: true
+                length: 5
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [imgcat_id]
+                unique: true
+                primary: true
+            imgcat_display:
+                name: imgcat_display
+                columns: [imgcat_display]
+                unique: false
+                primary: false
