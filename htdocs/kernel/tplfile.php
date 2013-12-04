@@ -27,11 +27,10 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * A Template File
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000 XOOPS.org
- *
- * @package kernel
- **/
+ * @package   kernel
+ */
 class XoopsTplfile extends XoopsObject
 {
     /**
@@ -54,7 +53,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * id
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function id($format = 'n')
@@ -63,7 +65,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_id
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_id($format = '')
@@ -72,7 +77,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_refid
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_refid($format = '')
@@ -81,7 +89,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_tplset
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_tplset($format = '')
@@ -90,7 +101,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_file
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_file($format = '')
@@ -99,7 +113,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_desc
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_desc($format = '')
@@ -108,7 +125,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_lastmodified
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_lastmodified($format = '')
@@ -117,7 +137,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_lastimported
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_lastimported($format = '')
@@ -126,7 +149,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_module
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_module($format = '')
@@ -135,7 +161,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_type
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_type($format = '')
@@ -144,7 +173,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_source
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_source($format = '')
@@ -237,7 +269,10 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * @param XoopsTplfile $tplfile
+     * loadSource
+     *
+     * @param XoopsTplfile &$tplfile
+     *
      * @return bool
      */
     public function loadSource(XoopsTplFile &$tplfile)
@@ -262,6 +297,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      * write a new Tplfile into the database
      *
      * @param XoopsTplfile|XoopsObject $tplfile
+     *
      * @return bool
      */
     public function insertTpl(XoopsTplfile &$tplfile)
@@ -339,7 +375,10 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     }
 
     /**
+     * forceUpdate
+     *
      * @param XoopsTplfile $tplfile
+     *
      * @return bool
      */
     public function forceUpdate(XoopsTplfile &$tplfile)
@@ -391,6 +430,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      * delete a block from the database
      *
      * @param XoopsTplfile $tplfile
+     *
      * @return bool
      */
     public function deleteTpl(XoopsTplfile &$tplfile)
@@ -404,9 +444,12 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     }
 
     /**
+     * getTplObjects
+     *
      * @param CriteriaElement|null $criteria
-     * @param bool $getsource
-     * @param bool $id_as_key
+     * @param bool                 $getsource
+     * @param bool                 $id_as_key
+     *
      * @return array
      */
     public function getTplObjects(CriteriaElement $criteria = null, $getsource = false, $id_as_key = false)
@@ -425,7 +468,9 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                 ->fromPrefix('tplfile', 'f')
                 ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'));
         }
-        $criteria->renderQb($qb);
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
+            $criteria->renderQb($qb);
+        }
         $result = $qb->execute();
         if (!$result) {
             return $ret;
@@ -447,6 +492,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      * getModuleTplCount
      *
      * @param string $tplset
+     *
      * @return array
      */
     public function getModuleTplCount($tplset)
