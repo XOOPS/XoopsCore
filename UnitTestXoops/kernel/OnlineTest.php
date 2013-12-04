@@ -1,14 +1,21 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class OnlineTest extends MY_UnitTestCase
 {
     var $myclass='XoopsOnline';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();
@@ -19,31 +26,36 @@ class OnlineTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['online_ip']));
     }
     
-    public function test_120() {
+    public function test_online_uid()
+	{
         $instance=new $this->myclass();
         $value=$instance->online_uid();
         $this->assertSame(null,$value);
     }
     
-    public function test_140() {
+    public function test_online_uname()
+	{
         $instance=new $this->myclass();
         $value=$instance->online_uname();
         $this->assertSame(null,$value);
     }
     
-    public function test_160() {
+    public function test_online_updated()
+	{
         $instance=new $this->myclass();
         $value=$instance->online_updated();
         $this->assertSame(null,$value);
     }
     
-    public function test_180() {
+    public function test_online_module()
+	{
         $instance=new $this->myclass();
         $value=$instance->online_module();
         $this->assertSame(null,$value);
     }
     
-    public function test_200() {
+    public function test_online_ip()
+	{
         $instance=new $this->myclass();
         $value=$instance->online_ip();
         $this->assertSame(null,$value);

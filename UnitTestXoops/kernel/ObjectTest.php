@@ -1,15 +1,24 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+class ObjectTest_XoopsObject extends XoopsObject
+{
+}
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ObjectTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsObject';
+    var $myclass='ObjectTest_XoopsObject';
 
     public function SetUp()
 	{
     }
     
-    public function test_120()
+    public function test_setNew()
 	{
         $instance = new $this->myclass();
         $value = $instance->isNew();
@@ -19,8 +28,16 @@ class ObjectTest extends MY_UnitTestCase
         $value = $instance->unsetNew();
         $this->assertSame(null,$value);
     }
+	
+    public function test_isNew()
+	{
+    }
+	
+    public function test_unsetNew()
+	{
+    }
 
-    public function test_140()
+    public function test_setDirty()
 	{
         $instance = new $this->myclass();
         $value = $instance->isDirty();
@@ -31,7 +48,15 @@ class ObjectTest extends MY_UnitTestCase
         $this->assertSame(null,$value);
     }
 	
-	public function test_160()
+    public function test_isDirty()
+	{
+    }
+	
+    public function test_unsetDirty()
+	{
+    }
+	
+	public function test_initVar()
 	{
 		$instance = new $this->myclass();
 		$instance->initVar('dummyVar', XOBJ_DTYPE_INT, 0);
@@ -59,7 +84,7 @@ class ObjectTest extends MY_UnitTestCase
 		$this->assertSame(false, $value['changed']);
 	}
 	
-	public function test_180()
+	public function test_assignVar()
 	{
 		$instance = new $this->myclass();
 		$instance->initVar('dummyVar', XOBJ_DTYPE_INT, 0);
@@ -74,7 +99,7 @@ class ObjectTest extends MY_UnitTestCase
 		$this->assertTrue(!isset($instance->vars['dummyVar_not_found']));
 	}
 	
-	public function test_200()
+	public function test_assignVars()
 	{
 		$instance = new $this->myclass();
 		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
@@ -92,7 +117,7 @@ class ObjectTest extends MY_UnitTestCase
 		$this->assertEquals(3, $instance->vars['dummyVar3']['value']);
 	}
 	
-	public function test_220()
+	public function test_setVar()
 	{
 		$instance = new $this->myclass();
 		$instance->initVar('dummyVar', XOBJ_DTYPE_INT, 0);
@@ -115,7 +140,7 @@ class ObjectTest extends MY_UnitTestCase
 		
 	}
 	
-	public function test_240()
+	public function test_setVars()
 	{
 		$instance = new $this->myclass();
 		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);

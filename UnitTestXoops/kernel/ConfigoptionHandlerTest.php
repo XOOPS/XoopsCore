@@ -1,15 +1,24 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ConfigoptionHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsConfigOptionHandler';
+    protected $myclass='XoopsConfigOptionHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass, $instance);
 		$this->assertRegExp('/^.*configoption$/',$instance->table);
 		$this->assertSame('XoopsConfigOption',$instance->className);

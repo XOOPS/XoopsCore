@@ -1,15 +1,24 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class GroupHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsGroupHandler';
+    protected $myclass='XoopsGroupHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*groups$/',$instance->table);
 		$this->assertSame('XoopsGroup',$instance->className);

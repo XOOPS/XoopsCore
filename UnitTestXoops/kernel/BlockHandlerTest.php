@@ -1,14 +1,24 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class BlockHandlerTest extends MY_UnitTestCase
 {
+    protected $myclass='XoopsBlockHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance = new XoopsBlockHandler();
+    public function test___construct()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $this->assertInstanceOf('XoopsBlockHandler',$instance);
 		$this->assertRegExp('/^.*newblocks$/',$instance->table);
 		$this->assertSame('bid',$instance->keyName);
@@ -20,10 +30,11 @@ class BlockHandlerTest extends MY_UnitTestCase
 		$this->assertSame(null,$instance->keyName_link);
     }
     
-    public function test_120() {
+    public function test_insertBlock()
+	{
         $block = new XoopsBlock();
 		$block->setNew();
-        $instance = new XoopsBlockHandler();
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->insertBlock($block);
 		$bid = $block->bid();
         $this->assertEquals($bid,$value);
@@ -35,28 +46,44 @@ class BlockHandlerTest extends MY_UnitTestCase
 		$value = $instance->get($bid);
         $this->assertSame(null,$value);
     }
+	
+    public function test_bid()
+	{
+	}
+	
+    public function test_get()
+	{
+	}
+	
+    public function test_deleteBlock()
+	{
+	}
     
-    public function test_160() {
-        $instance = new XoopsBlockHandler();
+    public function test_getDistinctObjects()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getDistinctObjects();
         $this->assertTrue(is_array($value));
     }
     
-    public function test_180() {
-        $instance = new XoopsBlockHandler();
+    public function test_getDistinctObjects100()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
 		$criteria = new Criteria('bid');
         $value = $instance->getDistinctObjects($criteria);
         $this->assertTrue(is_array($value));
     }
 	
-    public function test_200() {
-        $instance = new XoopsBlockHandler();
+    public function test_getNameList()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getNameList();
         $this->assertTrue(is_array($value));
     }
     
-    public function test_220() {
-        $instance = new XoopsBlockHandler();
+    public function test_getAllBlocksByGroup()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getAllBlocksByGroup(1);
         $this->assertTrue(is_array($value));
 		
@@ -79,8 +106,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
     
-    public function test_240() {
-        $instance = new XoopsBlockHandler();
+    public function test_getAllBlocks()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getAllBlocks();
         $this->assertTrue(is_array($value));
 		
@@ -103,8 +131,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
     
-    public function test_260() {
-        $instance=new XoopsBlockHandler();
+    public function test_getByModule()
+	{
+        $instance=new XoopsBlockHandler($this->conn);
         $value = $instance->getByModule('module');
         $this->assertTrue(is_array($value));
 		
@@ -112,8 +141,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
     
-    public function test_280() {
-        $instance = new XoopsBlockHandler();
+    public function test_getAllByGroupModule()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getAllByGroupModule(1);
         $this->assertTrue(is_array($value));
 		
@@ -127,8 +157,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
     
-    public function test_300() {
-        $instance = new XoopsBlockHandler();
+    public function test_getNonGroupedBlocks()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getNonGroupedBlocks();
         $this->assertTrue(is_array($value));
 		
@@ -142,8 +173,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
     
-    public function test_320() {
-        $instance = new XoopsBlockHandler();
+    public function test_countSimilarBlocks()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->countSimilarBlocks(1, 1);
         $this->assertEquals(1 ,$value);
 		
@@ -151,8 +183,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertEquals(0 ,$value);
     }
     
-    public function test_340() {
-        $instance = new XoopsBlockHandler();
+    public function test_buildContent()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->buildContent(0, 'titi', 'toto');
         $this->assertSame('tototiti',$value);
 		
@@ -163,8 +196,9 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertSame('',$value);
     }
     
-    public function test_360() {
-        $instance = new XoopsBlockHandler();
+    public function test_buildTitle()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $title = 'original';
         $value = $instance->buildTitle($title);
         $this->assertEquals($title,$value);
@@ -174,14 +208,13 @@ class BlockHandlerTest extends MY_UnitTestCase
         $this->assertEquals($new,$value);
     }
     
-    public function test_380() {
-        $instance = new XoopsBlockHandler();
+    public function test_getBlockByPerm()
+	{
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getBlockByPerm(null);
         $this->assertTrue(empty($value) AND is_array($value));
-    }
-	
-    public function test_400() {
-        $instance = new XoopsBlockHandler();
+
+        $instance = new XoopsBlockHandler($this->conn);
         $value = $instance->getBlockByPerm(1);
         $this->assertTrue(is_array($value));
     }

@@ -1,18 +1,25 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class OnlineHandlerTest extends MY_UnitTestCase
 {
     protected $myclass='XoopsOnlineHandler';
 	protected $myId = null;
+	protected $conn = null;
 
     public function SetUp()
 	{
+		$this->conn = Xoops::getInstance()->db();
     }
 
-    public function test_100()
+    public function test___construct()
 	{
-        $instance=new $this->myclass();
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*online$/',$instance->table);
 		$this->assertSame('XoopsOnline',$instance->className);
@@ -20,9 +27,9 @@ class OnlineHandlerTest extends MY_UnitTestCase
 		$this->assertSame('online_uname',$instance->identifierName);
     }
     
-	public function test_200()
+	public function test_write()
 	{
-        $instance=new $this->myclass();
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		
 		$this->myId = (int)(microtime(true)%10000000);
@@ -30,9 +37,9 @@ class OnlineHandlerTest extends MY_UnitTestCase
 		$this->assertSame(true, $value);		
 	}
 	
-	public function test_300()
+	public function test_destroy()
 	{
-        $instance=new $this->myclass();
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		
 		$value = $instance->destroy($this->myId);
@@ -40,9 +47,9 @@ class OnlineHandlerTest extends MY_UnitTestCase
 		$this->assertSame(true, $value);		
 	}
 	
-	public function test_400()
+	public function test_gc()
 	{
-        $instance=new $this->myclass();
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		
 		$value = $instance->gc(time()+10);

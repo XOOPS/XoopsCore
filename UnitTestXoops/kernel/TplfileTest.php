@@ -1,14 +1,21 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class TplfileTest extends MY_UnitTestCase
 {
     var $myclass='XoopsTplfile';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();
@@ -24,79 +31,91 @@ class TplfileTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['tpl_source']));
     }
 
-    public function test_120() {
+    public function test_id()
+	{
         $instance=new $this->myclass();
         $value=$instance->id();
         $this->assertSame(null,$value);
     }
 
-    public function test_140() {
+    public function test_tpl_id()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_id();
         $this->assertSame(null,$value);
     }
 
-    public function test_160() {
+    public function test_tpl_refid()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_refid();
         $this->assertSame(0,$value);
     }
 
-    public function test_180() {
+    public function test_tpl_tplset()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_tplset();
         $this->assertSame(null,$value);
     }
 
-    public function test_200() {
+    public function test_tpl_file()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_file();
         $this->assertSame(null,$value);
     }
 
-    public function test_220() {
+    public function test_tpl_desc()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_desc();
         $this->assertSame(null,$value);
     }
 
-    public function test_240() {
+    public function test_tpl_lastmodified()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_lastmodified();
         $this->assertSame(0,$value);
     }
 
-    public function test_260() {
+    public function test_tpl_lastimported()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_lastimported();
         $this->assertSame(0,$value);
     }
 
-    public function test_280() {
+    public function tpl_module()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_module();
         $this->assertSame(null,$value);
     }
 
-    public function test_300() {
+    public function test_tpl_type()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_type();
         $this->assertSame(null,$value);
     }
 
-    public function test_320() {
+    public function test_tpl_source()
+	{
         $instance=new $this->myclass();
         $value=$instance->tpl_source();
         $this->assertSame(null,$value);
     }
 
-    public function test_340() {
+    public function test_getSource()
+	{
         $instance=new $this->myclass();
         $value=$instance->getSource();
         $this->assertSame(null,$value);
     }
 
-    public function test_360() {
+    public function test_getLastModified() {
         $instance=new $this->myclass();
         $value=$instance->getLastModified();
         $this->assertSame('0',$value);

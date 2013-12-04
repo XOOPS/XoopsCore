@@ -1,14 +1,21 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class PrivmessageTest extends MY_UnitTestCase
 {
     var $myclass='XoopsPrivmessage';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test___construct()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();
@@ -22,55 +29,64 @@ class PrivmessageTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['read_msg']));
     }
     
-    public function test_120() {
+    public function test_id()
+	{
         $instance=new $this->myclass();
         $value=$instance->id();
         $this->assertSame(null,$value);
     }
     
-    public function test_140() {
+    public function test_msg_id()
+	{
         $instance=new $this->myclass();
         $value=$instance->msg_id();
         $this->assertSame(null,$value);
     }
     
-    public function test_180() {
+    public function test_msg_image()
+	{
         $instance=new $this->myclass();
         $value=$instance->msg_image();
         $this->assertSame(null,$value);
     }
     
-    public function test_200() {
+    public function test_subject()
+	{
         $instance=new $this->myclass();
         $value=$instance->subject();
         $this->assertSame(null,$value);
     }
     
-    public function test_220() {
+    public function test_from_userid()
+	{
         $instance=new $this->myclass();
         $value=$instance->from_userid();
         $this->assertSame(null,$value);
     }
 
-    public function test_240() {
+    public function test_to_userid()
+	{
         $instance=new $this->myclass();
         $value=$instance->to_userid();
         $this->assertSame(null,$value);
     }
     
-    public function test_260() {
+    public function test_msg_time()
+	{
         $instance=new $this->myclass();
         $value=$instance->msg_time();
         $this->assertTrue(is_numeric($value));
     }
     
-    public function test_280() {
+    public function test_msg_text()
+	{
         $instance=new $this->myclass();
         $value=$instance->msg_text();
         $this->assertSame(null,$value);
     }
     
-    public function test_300() {
+    public function test_read_msg()
+	{
         $instance=new $this->myclass();
         $value=$instance->read_msg();
         $this->assertSame(0,$value);

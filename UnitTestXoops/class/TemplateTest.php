@@ -1,14 +1,21 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class TemplateTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsTpl';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test__construct()
+	{
 		$object = new $this->myclass();
 		$this->assertInstanceOf($this->myclass,$object);
 		$xoops = Xoops::getInstance();
@@ -27,7 +34,8 @@ class TemplateTest extends MY_UnitTestCase
 		$this->assertSame(XOOPS_UPLOAD_URL, $object->get_template_vars('xoops_upload_url'));
     }
 	
-    public function test_120() {
+    public function test_fetchFromData()
+	{
 		$object = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $object);
 		$value = $object->fetchFromData('toto');

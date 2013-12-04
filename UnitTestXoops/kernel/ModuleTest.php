@@ -1,14 +1,21 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class ModuleTest extends MY_UnitTestCase
 {
     var $myclass='XoopsModule';
 
-    public function SetUp() {
+    public function SetUp()
+	{
     }
 
-    public function test_100() {
+    public function test_100()
+	{
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass,$instance);
 		$value=$instance->getVars();
@@ -27,13 +34,19 @@ class ModuleTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['hasnotification']));
     }
 
-    public function test_120() {
+    public function test_loadInfoAsVar()
+	{
         $instance=new $this->myclass();
         $value=$instance->loadInfoAsVar('');
         $this->assertSame(null,$value);
     }
 
-    public function test_140() {
+    public function test_getMessages() 
+	{
+		$this->assertTrue(true); // see next test
+    }
+	
+    public function test_setMessage() {
         $instance=new $this->myclass();
         $msgs=array(' toto ','titi');
         foreach($msgs as $msg)
@@ -41,8 +54,8 @@ class ModuleTest extends MY_UnitTestCase
         $value=$instance->getMessages();
         $this->assertTrue(is_array($value));
     }
-
-    public function test_160() {
+	
+    public function test_setInfo() {
         $instance=new $this->myclass();
         $name='name';
         $val='value';
@@ -51,7 +64,8 @@ class ModuleTest extends MY_UnitTestCase
         $this->assertSame($val,$value);
     }
 
-    public function test_180() {
+    public function test_setInfo100()
+	{
         $instance=new $this->myclass();
         $name='name';
         $val='value';
@@ -60,146 +74,163 @@ class ModuleTest extends MY_UnitTestCase
         $this->assertSame('',$value);
     }
 
-    public function test_200() {
+    public function test_getInfo()
+	{
         $instance=new $this->myclass();
         $value=$instance->getInfo();
         $this->assertSame(null,$value);
     }
 
-    public function test_220() {
+    public function test_getInfo100()
+	{
         $instance=new $this->myclass();
         $name='name';
         $value=$instance->getInfo($name);
         $this->assertSame(false,$value);
     }
 
-    public function test_260() {
+    public function test_mainLink()
+	{
         $instance=new $this->myclass();
         $value=$instance->mainLink();
         $this->assertSame(false,$value);
     }
 
-    public function test_280() {
+    public function test_mainLink100()
+	{
         $instance=new $this->myclass();
         $instance->setVar('hasmain',1);
         $value=$instance->mainLink();
         $this->assertTrue(is_string($value));
     }
 
-    public function test_300() {
+    public function test_subLink()
+	{
         $instance=new $this->myclass();
         $value=$instance->subLink();
         $this->assertTrue(is_array($value));
     }
 
-    public function test_320() { // test en reserve
-        $this->assertTrue(true);
-    }
-
-    public function test_340() {
+    public function test_loadAdminMenu()
+	{
         $instance=new $this->myclass();
         $instance->loadAdminMenu();
         $value=$instance->getAdminMenu();
         $this->assertSame(null,$value);
     }
 
-    public function test_360() {
+    public function test_getAdminMenu()
+	{
+		$this->assertTrue(true); // see previous test
+    }
+	
+    public function test_loadInfo()
+	{
         $instance=new $this->myclass();
         $value=$instance->loadInfo('avatars');
         $this->assertSame(true,$value);
     }
 
-    public function test_380() {
+    public function test_search()
+	{
         $instance=new $this->myclass();
         $value=$instance->search();
         $this->assertSame(false,$value);
     }
 
-    public function test_400() {
+    public function test_id()
+	{
         $instance=new $this->myclass();
         $value=$instance->id();
         $this->assertSame(null,$value);
     }
 
-    public function test_420() {
+    public function test_mid()
+	{
         $instance=new $this->myclass();
         $value=$instance->mid();
         $this->assertSame(null,$value);
     }
 
-    public function test_440() {
+    public function test_name()
+	{
         $instance=new $this->myclass();
         $value=$instance->name();
         $this->assertSame(null,$value);
     }
 
-    public function test_460() {
+    public function test_version()
+	{
         $instance=new $this->myclass();
         $value=$instance->version();
         $this->assertSame(100,$value);
     }
 
-    public function test_480() {
+    public function test_last_update()
+	{
         $instance=new $this->myclass();
         $value=$instance->last_update();
         $this->assertSame(null,$value);
     }
 
-    public function test_500() {
+    public function test_weight()
+	{
         $instance=new $this->myclass();
         $value=$instance->weight();
         $this->assertSame(0,$value);
     }
 
-    public function test_520() {
+    public function test_isactive()
+	{
         $instance=new $this->myclass();
         $value=$instance->isactive();
         $this->assertSame(1,$value);
     }
 
-    public function test_540() {
+    public function test_dirname()
+	{
         $instance=new $this->myclass();
         $value=$instance->dirname();
         $this->assertSame(null,$value);
     }
 
-    public function test_560() {
+    public function test_hasmain()
+	{
         $instance=new $this->myclass();
         $value=$instance->hasmain();
         $this->assertSame(0,$value);
     }
 
-    public function test_580() {
-        $instance=new $this->myclass();
-        $value=$instance->hasadmin();
-        $this->assertSame(0,$value);
-    }
-
-    public function test_600() {
+    public function test_hassearch()
+	{
         $instance=new $this->myclass();
         $value=$instance->hassearch();
         $this->assertSame(0,$value);
     }
 
-    public function test_620() {
+    public function test_hasconfig()
+	{
         $instance=new $this->myclass();
         $value=$instance->hasconfig();
         $this->assertSame(0,$value);
     }
 
-    public function test_640() {
+    public function test_hascomments()
+	{
         $instance=new $this->myclass();
         $value=$instance->hascomments();
         $this->assertSame(0,$value);
     }
 
-    public function test_660() {
+    public function test_hasnotification()
+	{
         $instance=new $this->myclass();
         $value=$instance->hasnotification();
         $this->assertSame(0,$value);
     }
 
-    public function test_680() {
+    public function test_getByDirName()
+	{
         $instance=new $this->myclass();
         $value=$instance->getByDirName('.');
         $this->assertSame(false,$value);

@@ -15,8 +15,3 @@ if (defined('IS_PHPUNIT')) {
 }
 
 require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
-require_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
-
-if (!defined('IS_PHPUNIT')) {
-	require_once dirname(__FILE__) . '/common_simpletest.php';
-}

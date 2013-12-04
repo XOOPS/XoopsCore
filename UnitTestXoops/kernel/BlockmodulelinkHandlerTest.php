@@ -1,15 +1,24 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class BlockmodulelinkHandlerTest extends MY_UnitTestCase
 {
-    var $myclass='XoopsBlockmodulelinkHandler';
+    protected $myclass='XoopsBlockmodulelinkHandler';
+	protected $conn = null;
     
-    public function SetUp() {
+    public function SetUp()
+	{
+		$this->conn = Xoops::getInstance()->db();
     }
     
-    public function test_100() {
-        $instance=new $this->myclass();
+    public function test___construct()
+	{
+        $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*block_module_link$/',$instance->table);
 		$this->assertSame('XoopsBlockmodulelink',$instance->className);

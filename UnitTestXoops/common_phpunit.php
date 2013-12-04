@@ -23,10 +23,19 @@ if (empty($_SERVER["HTTP_HOST"])) {
     $_SERVER["REQUEST_URI"]="/XoopsCore/UnitTestXoops/xoops_lib/XoopsTest.php";
 }
 
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class MY_UnitTestCase extends PHPUnit_Framework_TestCase
 {
 
-	function expectError()
+	public function expectError()
+	{
+	}
+	
+	public function testBase()
 	{
 	}
 }

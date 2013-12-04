@@ -1,19 +1,27 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
- 
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
 class XoopssecurityTest extends MY_UnitTestCase
 {
 	protected $myclass = 'XoopsSecurity';
     
-    public function SetUp() {
+    public function SetUp()
+	{
     }
     
-    public function test_100() {
+    public function test___construct()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
     }
 	
-    public function test_120() {
+    public function test_createToken()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$token=$instance->createToken();
@@ -26,15 +34,21 @@ class XoopssecurityTest extends MY_UnitTestCase
 		}
     }
 	
+	public function test_check()
+	{
+	}
+	
 	// this test clear all token in global $_SESSION
-    public function test_140() {
+    public function test_clearTokens()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$token=$instance->clearTokens();
 		$this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
     }
 	
-    public function test_160() {
+    public function test_filterToken()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$token=$instance->createToken();
@@ -46,7 +60,8 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$this->assertSame(true, $expire);
     }
 	
-    public function test_180() {
+    public function test_garbageCollection()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$_SESSION['XOOPS_TOKEN_SESSION'][] = array('expire' => time() + 10);
@@ -56,7 +71,8 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$this->assertTrue(!empty($_SESSION['XOOPS_TOKEN_SESSION']));
     }
 	
-    public function test_200() {
+    public function test_checkReferer()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$value=$instance->checkReferer(0);
@@ -66,7 +82,8 @@ class XoopssecurityTest extends MY_UnitTestCase
     }
 	
 	
-    public function test_300() {
+    public function test_getTokenHTML()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$value=$instance->getTokenHTML();
@@ -76,7 +93,8 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$this->assertTrue(strpos($value,'id="XOOPS_TOKEN_REQUEST')>0);
     }
 	
-    public function test_320() {
+    public function test_setErrors()
+	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$error="   error   ";
@@ -84,4 +102,9 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$errors=$instance->getErrors();
 		$this->assertSame(trim($error), $errors[0]);
     }
+	
+	public function test_getErrors()
+	{
+	}
+	
 }
