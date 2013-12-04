@@ -16,22 +16,22 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Xoops\Core\Logger - dispatch log requests to any registered loggers.
- * 
+ *
  * No logging is done in this class, but any logger, implemented as a
  * module or extension, can register as a logger using the addLogger()
  * method. Multiple loggers can be registered, and each will be
- * invoked in turn for each log() call. 
- * 
+ * invoked in turn for each log() call.
+ *
  * Such loggers are expected to implement the PSR-3 LoggerInterface.
- * In addition, any logger that generates output as part of the XOOPS 
+ * In addition, any logger that generates output as part of the XOOPS
  * delivered page should implement the quiet() method, to disable output.
- * 
+ *
  * Loggers are managed this way so that any routine may easily add a
  * log entry without needing to know any details of the implemention.
- * 
+ *
  * Not all events are published through this mechanism, only specifc requests
  * to log() or related methods. Individual loggers may connect to preload
- * events or other sources and gain access to detailed debugging style 
+ * events or other sources and gain access to detailed debugging style
  * information.
  *
  * @category  Xoops\Core\Logger
@@ -62,7 +62,7 @@ class Logger implements LoggerInterface
 
     /**
      * Get the Xoops\Core\Logger instance
-     * 
+     *
      * @return Xoops\Core\Logger object
      */
     public static function getInstance()
@@ -80,8 +80,8 @@ class Logger implements LoggerInterface
 
     /**
      * Error handling callback.
-     * 
-     * This will 
+     *
+     * This will
      *
      * @param integer $errno   error number
      * @param string  $errstr  error message
@@ -107,7 +107,7 @@ class Logger implements LoggerInterface
             switch ($errno) {
                 case E_USER_NOTICE:
                     $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error') . $msg;
-                    $this->log(LogLevel::ERROR, $msg);
+                    $this->log(LogLevel::NOTICE, $msg);
                     break;
                 case E_NOTICE:
                     $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_NOTICE : '*Notice') . $msg;
@@ -121,6 +121,10 @@ class Logger implements LoggerInterface
                     $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_STRICT : '*Strict') . $msg;
                     $this->log(LogLevel::WARNING, $msg);
                     break;
+                case E_USER_ERROR:
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error') . $msg;
+                    @$this->log(LogLevel::CRITICAL, $msg);
+                    break;
                 default:
                     $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_UNKNOWN : '*Unknown') . $msg;
                     $this->log(LogLevel::ERROR, $msg);
@@ -129,6 +133,7 @@ class Logger implements LoggerInterface
         }
 
         if ($errno == E_USER_ERROR) {
+            //@$this->log(LogLevel::CRITICAL, $msg);
             $trace = true;
             if (substr($errstr, 0, '8') == 'notrace:') {
                 $trace = false;
@@ -153,9 +158,9 @@ class Logger implements LoggerInterface
 
     /**
      * clean a path to remove sensitive details
-     * 
+     *
      * @param string $path path to sanitize
-     * 
+     *
      * @return string sanitized path
      */
     protected function sanitizePath($path)
@@ -170,9 +175,9 @@ class Logger implements LoggerInterface
 
     /**
      * add a PSR-3 compatible logger to the chain
-     * 
+     *
      * @param object $logger a PSR-3 compatible logger object
-     * 
+     *
      * @return void
      */
     public function addLogger($logger)
@@ -188,7 +193,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function emergency($message, array $context = array())
@@ -204,7 +209,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function alert($message, array $context = array())
@@ -219,7 +224,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function critical($message, array $context = array())
@@ -233,7 +238,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function error($message, array $context = array())
@@ -249,7 +254,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function warning($message, array $context = array())
@@ -262,7 +267,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function notice($message, array $context = array())
@@ -277,7 +282,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function info($message, array $context = array())
@@ -290,7 +295,7 @@ class Logger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function debug($message, array $context = array())
@@ -304,7 +309,7 @@ class Logger implements LoggerInterface
      * @param mixed  $level   PSR-3 LogLevel constant
      * @param string $message message
      * @param array  $context array of context data for this log entry
-     * 
+     *
      * @return null
      */
     public function log($level, $message, array $context = array())
@@ -326,10 +331,10 @@ class Logger implements LoggerInterface
      * quiet - turn off output if output is rendered in XOOPS page output.
      * This is intended to assist ajax code that may fail with any extra
      * content the logger may introduce.
-     * 
+     *
      * It should have no effect on loggers using other methods, such a write
      * to file.
-     * 
+     *
      * @return type
      */
     public function quiet()
@@ -346,17 +351,17 @@ class Logger implements LoggerInterface
             }
         }
     }
-    
+
     // Deprecated uses
 
     /**
      * Keep deprecated calls from failing
-     * 
+     *
      * @param string $var property
      * @param string $val value
-     * 
+     *
      * @return void
-     * 
+     *
      * @deprecated
      */
     public function __set($var, $val)
@@ -366,11 +371,11 @@ class Logger implements LoggerInterface
 
     /**
      * Keep deprecated calls from failing
-     * 
+     *
      * @param string $var property
-     * 
+     *
      * @return void
-     * 
+     *
      * @deprecated
      */
     public function __get($var)
@@ -380,12 +385,12 @@ class Logger implements LoggerInterface
 
     /**
      * Keep deprecated calls from failing
-     * 
+     *
      * @param string $method method
      * @param string $args   arguments
-     * 
+     *
      * @return void
-     * 
+     *
      * @deprecated
     */
     public function __call($method, $args)
@@ -395,12 +400,12 @@ class Logger implements LoggerInterface
 
     /**
      * issue a deprecated warning
-     * 
+     *
      * @return void
      */
     private function deprecatedMessage()
     {
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         $xoops->deprecated('This use of XoopsLogger is deprecated since 2.6.0.');
     }
 }
