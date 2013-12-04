@@ -605,20 +605,20 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
-        $qb ->fromPrefix('newblocks')
+        $qb ->fromPrefix('newblocks', null)
             ->where($eb->eq('isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
         if (isset($side)) {
             // get both sides in sidebox? (some themes need this)
             if ($side == XOOPS_SIDEBLOCK_BOTH) {
-                $qb->andWhere($eb->in('b.side', array(0,1)));
+                $qb->andWhere($eb->in('side', array(0,1)));
             } elseif ($side == XOOPS_CENTERBLOCK_ALL) {
-                $qb->andWhere($eb->in('b.side', array(3,4,5,7,8,9)));
+                $qb->andWhere($eb->in('side', array(3,4,5,7,8,9)));
             } else {
-                $qb->andWhere($eb->eq('b.side', $qb->createNamedParameter($side, \PDO::PARAM_INT)));
+                $qb->andWhere($eb->eq('side', $qb->createNamedParameter($side, \PDO::PARAM_INT)));
             }
         }
         if (isset($visible)) {
-            $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
+            $qb->andWhere($eb->eq('visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
         }
         $qb->orderBy($orderby);
         switch ($rettype) {

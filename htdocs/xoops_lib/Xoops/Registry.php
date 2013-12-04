@@ -102,7 +102,7 @@ class Xoops_Registry extends ArrayObject
      * for the next time you instantiate.
      *
      * @param string $registryClassName
-     * @return void
+     * @return bool true on success, otherwise false
      */
     public static function setClassName($registryClassName = 'Xoops_Registry')
     {
@@ -117,6 +117,7 @@ class Xoops_Registry extends ArrayObject
         }
 
         self::$_registryClassName = $registryClassName;
+        return true;
     }
 
     /**
