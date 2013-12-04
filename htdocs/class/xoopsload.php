@@ -48,7 +48,7 @@ class XoopsLoad
 
     /**
      * getMap - return class map
-     * 
+     *
      * @return array
      */
     public static function getMap()
@@ -72,7 +72,7 @@ class XoopsLoad
         if (!isset($deprecated)) {
             $deprecated = array(
                 'uploader' => 'xoopsmediauploader', 'utility' => 'xoopsutility', 'captcha' => 'xoopscaptcha',
-                'cache'    => 'xoopscache', 'file' => 'xoopsfile', 'model' => 'xoopsmodelfactory',
+                'cache'    => 'xoopscache', 'file' => 'xoopsfile', // 'model' => 'xoopsmodelfactory',
                 'calendar' => 'xoopscalendar', 'userutility' => 'xoopsuserutility',
             );
         }
@@ -156,7 +156,7 @@ class XoopsLoad
      * Load Framework class
      *
      * @param string $name framework class name
-     * 
+     *
      * @return bool|string
      */
     private static function loadFramework($name)
@@ -184,7 +184,7 @@ class XoopsLoad
      *
      * @param string      $name    class name
      * @param string|null $dirname module dirname
-     * 
+     *
      * @return bool
      */
     private static function loadModule($name, $dirname = null)
@@ -363,7 +363,7 @@ class XoopsLoad
             'xoopsmemberhandler' => XOOPS_ROOT_PATH . '/kernel/member.php',
             'xoopsmembership' => XOOPS_ROOT_PATH . '/kernel/membership.php',
             'xoopsmembershiphandler' => XOOPS_ROOT_PATH . '/kernel/membership.php',
-            'xoopsmodelfactory' => XOOPS_ROOT_PATH . '/class/model/xoopsmodel.php',
+            //'xoopsmodelfactory' => XOOPS_ROOT_PATH . '/class/model/xoopsmodel.php',
             'xoopsmoduleadmin' => XOOPS_ROOT_PATH . '/class/moduleadmin.php',
             'xoopsmodule' => XOOPS_ROOT_PATH . '/kernel/module.php',
             'xoopsmodulehandler' => XOOPS_ROOT_PATH . '/kernel/module.php',
@@ -429,7 +429,7 @@ class XoopsLoad
      * XoopsLoad::loadConfig()
      *
      * @param mixed $data array of configs or dirname of module
-     * 
+     *
      * @return array|bool
      */
     public static function loadConfig($data = null)
@@ -458,7 +458,7 @@ class XoopsLoad
 
     /**
      * loadFile
-     * 
+     *
      * @param string $file file to load
      * @param bool   $once true to use include_once, false for include
      *
@@ -482,7 +482,7 @@ class XoopsLoad
 
     /**
      * loadClass
-     * 
+     *
      * @param string $class class to load
      *
      * @return bool
