@@ -126,7 +126,7 @@ class xoopslists
         if (substr($dirname, -1) != '/') {
             $dirname .= '/';
         }
-        if ($handle = opendir($dirname)) {
+        if (is_dir($dirname) AND $handle = opendir($dirname)) {
             while ($file = readdir($handle)) {
                 if (substr($file, 0, 1) == '.' || in_array(strtolower($file), $ignored)) {
                     continue;
@@ -187,7 +187,7 @@ class xoopslists
     public static function getImgListAsArray($dirname, $prefix = '')
     {
         $filelist = array();
-        if ($handle = opendir($dirname)) {
+        if (is_dir($dirname) AND $handle = opendir($dirname)) {
             while (false !== ($file = readdir($handle))) {
                 if (preg_match('/\.(gif|jpg|jpeg|png|swf)$/i', $file)) {
                     $file = $prefix . $file;
@@ -215,7 +215,7 @@ class xoopslists
     public static function getHtmlListAsArray($dirname, $prefix = '')
     {
         $filelist = array();
-        if ($handle = opendir($dirname)) {
+        if (is_dir($dirname) AND $handle = opendir($dirname)) {
             while (false !== ($file = readdir($handle))) {
                 if ((preg_match('/\.(htm|html|xhtml)$/i', $file) && !is_dir($file))) {
                     $file = $prefix . $file;
