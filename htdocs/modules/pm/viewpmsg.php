@@ -45,13 +45,16 @@ if (isset($_POST['delete_messages']) && isset($_POST['msg_id'])) {
         if (empty($_REQUEST['ok'])) {
             $xoops->confirm(array(
                                  'ok' => 1, 'delete_messages' => 1, 'op' => $_REQUEST['op'],
-                                 'msg_id' => serialize(array_map("intval", $_POST['msg_id']))
+                                 'msg_id' => json_encode(array_map("intval", $_POST['msg_id']))
                             ), $_SERVER['REQUEST_URI'], XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES);
             $xoops->footer();
         } else {
-            $_POST['msg_id'] = unserialize($_REQUEST['msg_id']);
-            $size = count($_POST['msg_id']);
-            $msg = $_POST['msg_id'];
+            $clean_msg_id = json_decode($_POST['msg_id'], true, 2);
+            if (!empty($clean_msg_id)) {
+                $clean_msg_id = array_map("intval", $clean_msg_id);
+            }
+            $size = count($clean_msg_id);
+            $msg =& $clean_msg_id;
             for ($i = 0; $i < $size; $i++) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
