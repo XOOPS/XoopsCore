@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
@@ -65,8 +65,11 @@ class PagePage_relatedForm extends XoopsThemeForm
         $contents = $content_Handler->getPageTitle(1);
 
         $related_links_form = new XoopsFormSelect(PageLocale::RELATED_MAIN, 'datas', $related_links, $size = 20, $multiple = true);
-        foreach ($contents as $k => $content) {            if (!in_array($content['content_id'], $contents_used) || in_array($content['content_id'], $related_links)) {                $related_links_form->addOption($content['content_id'], $content['content_title']);
-            }        }
+        foreach ($contents as $k => $content) {
+            if (!in_array($content['content_id'], $contents_used) || in_array($content['content_id'], $related_links)) {
+                $related_links_form->addOption($content['content_id'], $content['content_title']);
+            }
+        }
         $this->addElement($related_links_form, true);
 
         $this->addElement(new XoopsFormHidden('related_id', $obj->getVar('related_id')));

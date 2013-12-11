@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 include dirname(__FILE__) . '/header.php';
@@ -93,13 +93,16 @@ switch ($op) {
         $obj->setVar('related_domenu', $request->asInt('related_domenu', 1));
         $obj->setVar('related_navigation', $request->asInt('related_navigation', 1));
 
-        if ( $related_newid = $related_Handler->insert($obj)) {            $related_id = $related_id != 0 ? $related_id : $related_newid;            $datas = $request->asArray('datas');
+        if ( $related_newid = $related_Handler->insert($obj)) {
+            $related_id = $related_id != 0 ? $related_id : $related_newid;
+            $datas = $request->asArray('datas');
             $datas_exists = $link_Handler->getContentByRelated($related_newid);
             $datas_delete = array_diff(array_values($datas_exists), $datas);
             $datas_add = array_diff($datas, array_values($datas_exists));
 
             // delete
-            if (count($datas_delete) != 0 ) {                $criteria = $criteria = new CriteriaCompo();
+            if (count($datas_delete) != 0 ) {
+                $criteria = $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('link_related_id', $related_id));
                 $criteria->add(new Criteria('link_content_id', '(' . implode(', ', $datas_delete) . ')', 'IN'));
                 $links_ids =  $link_Handler->getIds($criteria);
@@ -108,15 +111,19 @@ switch ($op) {
             }
             // Add
             if (count($datas_add) != 0 ) {
-                foreach ($datas_add as $weight => $content_id) {                    $obj = $link_Handler->create();
+                foreach ($datas_add as $weight => $content_id) {
+                    $obj = $link_Handler->create();
                     $obj->setVar('link_related_id', $related_id);
                     $obj->setVar('link_content_id', $content_id);
                     $obj->setVar('link_weight', $weight);
-                    if (!$link_Handler->insert($obj)) {                    }
+                    if (!$link_Handler->insert($obj)) {
+                    }
                 }
             }
             //update
-            if (count($datas) != 0 ) {                foreach ($datas as $weight => $content_id) {                    $criteria = $criteria = new CriteriaCompo();
+            if (count($datas) != 0 ) {
+                foreach ($datas as $weight => $content_id) {
+                    $criteria = $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('link_related_id', $related_id));
                     $criteria->add(new Criteria('link_content_id', $content_id));
                     $links_ids = $link_Handler->getIds($criteria);
@@ -125,7 +132,8 @@ switch ($op) {
                     $obj->setVar('link_weight', $weight);
                     if (!$link_Handler->insert($obj)) {
                     }
-                }            }
+                }
+            }
 
             $xoops->redirect('related.php', 2, XoopsLocale::S_DATABASE_UPDATED);
         } else {

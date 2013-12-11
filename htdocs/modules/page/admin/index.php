@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 include dirname(__FILE__) . '/header.php';
@@ -50,7 +50,9 @@ $extensions = array('comments' => 'extension',
                     'xoosocialnetwork' => 'extension',
                     );
 
-foreach ($extensions as $module => $type) {    $admin_page->addConfigBoxLine(array($module, 'warning'), $type);}
+foreach ($extensions as $module => $type) {
+    $admin_page->addConfigBoxLine(array($module, 'warning'), $type);
+}
 
 $admin_page->displayIndex();
 $xoops->footer();

@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
@@ -43,7 +43,8 @@ class PagePage_contentForm extends XoopsThemeForm //XoopsSimpleForm
         $tab1 = new XoopsFormTab(PageLocale::TAB_MAIN, 'main');
 
         //Author
-//        if ($helper->isUserAdmin()) {            $content_author = $obj->isNew() ? $xoops->user->getVar('uid') : $obj->getVar('content_author');
+//        if ($helper->isUserAdmin()) {
+            $content_author = $obj->isNew() ? $xoops->user->getVar('uid') : $obj->getVar('content_author');
             $tab1->addElement(new XoopsFormSelectUser(XoopsLocale::AUTHOR, 'content_author', true, $content_author, 1, false), true);
 //        }
         //date
@@ -94,7 +95,8 @@ class PagePage_contentForm extends XoopsThemeForm //XoopsSimpleForm
         $content_option = $obj->getOptions();
         $checkbox = new XoopsFormCheckbox(XoopsLocale::OPTIONS, 'content_option', $content_option, false);
         $checkbox->setDescription(PageLocale::CONTENT_OPTIONS_DSC);
-        foreach ($obj->options as $option) {            $checkbox->addOption($option, Xoops_Locale::translate('L_CONTENT_DO' . strtoupper($option), 'page'));
+        foreach ($obj->options as $option) {
+            $checkbox->addOption($option, Xoops_Locale::translate('L_CONTENT_DO' . strtoupper($option), 'page'));
         }
         $tab3->addElement($checkbox);
         //maindisplay

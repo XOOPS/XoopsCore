@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 include dirname(__FILE__) . '/header.php';
@@ -99,10 +99,13 @@ switch ($op) {
         $obj->setVar('content_mdescription', $request->asStr('content_mdescription', ''));
 
         $date_create = $request->asArray('content_create', array());
-        if (count($date_create) == 1) {            $content_create = strtotime($date_create['date']);
+        if (count($date_create) == 1) {
+            $content_create = strtotime($date_create['date']);
         } elseif (count($date_create) == 2) {
             $content_create = strtotime($date_create['date']) + $date_create['time'];
-        } else {            $content_create = time();        }
+        } else {
+            $content_create = time();
+        }
         $obj->setVar('content_create', $content_create);
 
         $obj->setVar('content_author', $request->asInt('content_author', $helper->xoops()->user->getVar('uid')));
@@ -171,7 +174,8 @@ switch ($op) {
                 $xoops->redirect('content.php', 3, implode(',', $xoops->security()->getErrors()));
             }
             // Deleting the content
-            if ($content_Handler->delete($obj)) {                // update permissions
+            if ($content_Handler->delete($obj)) {
+                // update permissions
                 $gperm_Handler->updatePerms($content_id);
 
                 // deleting page_related_link
@@ -180,7 +184,8 @@ switch ($op) {
                 $link_Handler->deleteAll($criteria);
 
                 // deleting comments
-                if ($xoops->isActiveModule('comments')) {                    $comment_handler = Comments::getInstance()->getHandlerComment()->deleteByItemId($helper->getModule()->getVar('mid'), $content_id);                }
+                if ($xoops->isActiveModule('comments')) {
+                    $comment_handler = Comments::getInstance()->getHandlerComment()->deleteByItemId($helper->getModule()->getVar('mid'), $content_id);                }
 
                 $xoops->redirect('content.php', 2, XoopsLocale::S_DATABASE_UPDATED);
             } else {
@@ -223,7 +228,8 @@ switch ($op) {
         $content_id = $request->asInt('content_id', 0);
         $obj = $content_Handler->getClone($content_id);
 
-        if ($newcontent_id = $content_Handler->insert($obj)) {            $gperm_arr = $gperm_Handler->getGroupIds('page_view_item', $content_id, $module_id);
+        if ($newcontent_id = $content_Handler->insert($obj)) {
+            $gperm_arr = $gperm_Handler->getGroupIds('page_view_item', $content_id, $module_id);
             $gperm_Handler->updatePerms($newcontent_id, array_values($gperm_arr));
             $xoops->redirect('content.php', 2, XoopsLocale::S_DATABASE_UPDATED);
         }
