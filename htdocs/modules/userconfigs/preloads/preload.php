@@ -22,7 +22,15 @@ use Xoops\Core\PreloadItem;
  */
 class UserconfigsPreload extends PreloadItem
 {
-    public static function eventCoreIncludeCommonEnd($args)
+
+    /**
+     * add any module specific class map entries
+     *
+     * @param mixed $args not used
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
@@ -30,6 +38,13 @@ class UserconfigsPreload extends PreloadItem
         ));
     }
 
+    /**
+     * remove any userconfigs for module being uninstalled
+     *
+     * @param array $args index 0 is module object
+     *
+     * @return void
+     */
     public static function eventOnModuleUninstall($args)
     {
         /* @var $module XoopsModule */

@@ -995,10 +995,10 @@ class Xoops
         }
 
         try {
-            if (!$this->_activeModules = Xoops_Cache::read('system_modules_active')) {
+            if (!$this->_activeModules = \Xoops_Cache::read('system_modules_active')) {
                 $this->_activeModules = $this->setActiveModules();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_activeModules = array();
         }
         return $this->_activeModules;
@@ -1017,7 +1017,7 @@ class Xoops
         foreach ($modules_array as $module) {
             $modules_active[$module['mid']] = $module['dirname'];
         }
-        Xoops_Cache::write('system_modules_active', $modules_active);
+        \Xoops_Cache::write('system_modules_active', $modules_active);
         return $modules_active;
     }
 
