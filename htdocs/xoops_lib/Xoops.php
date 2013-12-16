@@ -671,16 +671,6 @@ class Xoops
     /**
      * @param mixed $optional
      *
-     * @return XoopsConfigcategoryHandler
-     */
-    public function getHandlerConfigcategory($optional = false)
-    {
-        return $this->getHandler('configcategory', $optional);
-    }
-
-    /**
-     * @param mixed $optional
-     *
      * @return XoopsConfigitemHandler
      */
     public function getHandlerConfigitem($optional = false)
