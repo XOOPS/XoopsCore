@@ -67,19 +67,19 @@ class Highlighter
             '#((?:(?!<[/a-z]).)*)([^>]*>|$)#si',
             function ($capture) use ($needle, $pre, $post) {
                 $haystack=$capture[1];
-                $p1=stripos($haystack, $needle);
-                $l1=strlen($needle);
+                $p1=mb_stripos($haystack, $needle);
+                $l1=mb_strlen($needle);
                 $ret='';
                 while ($p1!==false) {
-                    $ret .= substr($haystack, 0, $p1) . $pre
-                        . substr($haystack, $p1, $l1) . $post;
-                    $haystack=substr($haystack, $p1+$l1);
-                    $p1=stripos($haystack, $needle);
+                    $ret .= mb_substr($haystack, 0, $p1) . $pre
+                        . mb_substr($haystack, $p1, $l1) . $post;
+                    $haystack=mb_substr($haystack, $p1+$l1);
+                    $p1=mb_stripos($haystack, $needle);
                 }
                 $ret.=$haystack.$capture[2];
 
                 return $ret;
-                
+
             },
             $haystack
         );

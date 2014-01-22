@@ -101,7 +101,7 @@ class Metagen
      * @param mixed  $forceKeys array of keywords to force use, or null for none
      * @param int    $count     number of keywords to use
      * @param int    $minLength minimum length of word to consider as a keyword
-     * 
+     *
      * @return array of keywords
      */
     public static function generateKeywords(
@@ -136,37 +136,33 @@ class Metagen
                     if (self::checkStopWords($secondRoundKeyword)
                         && strlen($secondRoundKeyword) >= $minLength
                     ) {
-                        if (!in_array($secondRoundKeyword, $keywords)) {
-                            $key[$secondRoundKeyword] = $secondRoundKeyword;
-                            if (empty($keycnt[$secondRoundKeyword])) {
-                                $keycnt[$secondRoundKeyword] = 0;
-                            }
-                             $keycnt[$secondRoundKeyword] += 1;
-                            //$keywords[] = trim($secondRoundKeyword);
+                        if (empty($keycnt[$secondRoundKeyword])) {
+                            $keycnt[$secondRoundKeyword] = 1;
                         }
+                        $keycnt[$secondRoundKeyword] += 1;
                     }
                 }
             }
         }
 
-        array_multisort($keycnt, SORT_DESC, $key, SORT_ASC);
         while (!empty($forceKeys)) {
-            $tempkey = array_pop($forceKeys);
-            array_unshift($key, $tempkey);
+            $tempkey = strtolower(array_pop($forceKeys));
+            $keycnt[$tempkey] = 999999;
         }
 
+        arsort($keycnt, SORT_NUMERIC);
+        $key = array_keys($keycnt);
         $keywords = array_slice($key, 0, $count);
-        //$keywords = $key;
 
         return $keywords;
     }
-    
+
     /**
      * checkStopWords - look up a word in a list of stop words and
      * classify it as a significant word or a stop word.
-     * 
+     *
      * @param string $key the word to check
-     *  
+     *
      * @return bool True if word is significant, false if it is a stop word
      */
     protected static function checkStopWords($key)
@@ -192,11 +188,11 @@ class Metagen
 
     /**
      * generateDescription - generate a short description from a body of text
-     * 
+     *
      * @param string $body      body text
      * @param string $wordCount maximum word count for description
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public static function generateDescription($body, $wordCount = 100)
     {
@@ -233,14 +229,14 @@ class Metagen
 
     /**
      * generateMetaTags - generate and assign all meta tags
-     * 
+     *
      * @param string $title     title
      * @param string $body      body text
-     * @param array  $forceKeys associative array of keywords to force use 
+     * @param array  $forceKeys associative array of keywords to force use
      * @param int    $count     maximum keywords to use
      * @param int    $minLength minimum length of word to consider as keyword
      * @param int    $wordCount maximum word count for description summary
-     *  
+     *
      * @return void
      */
     public static function generateMetaTags(
@@ -262,7 +258,7 @@ class Metagen
      * Return true if the string is length > 0
      *
      * @param string $var to test
-     * 
+     *
      * @return boolean
      *
      * @author psylove
@@ -279,7 +275,7 @@ class Metagen
      * @param bool   $withExt do we add an html extension or not
      *
      * @return string sort_url for the article
-     * 
+     *
      * @author psylove
      */
     public static function generateSeoTitle($title = '', $withExt = true)

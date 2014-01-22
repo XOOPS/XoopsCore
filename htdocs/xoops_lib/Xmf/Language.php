@@ -28,53 +28,34 @@ namespace Xmf;
 class Language
 {
     /**
-     * Returns a translated string
-     *
-     * @param string $string string to translate
-     * @param string $domain language domain
-     * 
-     * @return mixed|string translated string
-     */
-    public static function _($string, $domain = null)
-    {
-        if (defined(strtoupper($string))) {
-            return constant(strtoupper($string));
-        } else {
-            return self::translate($string, $domain);
-        }
-    }
-
-    /**
      * Attempt a translation of a simple string
      *
      * @param string $string string to translate
      * @param string $domain language domain
-     * 
+     *
      * @return string translated string
-     * 
+     *
      * @todo do something useful
      */
     public static function translate($string, $domain = null)
     {
-        if (isset($domain)) {
-            //$string = ;
-        }
-
         return $string;
     }
 
     /**
      * load - load a language file
-     * 
+     *
      * @param string $name     name of the language file
      * @param string $domain   domain or module supplying language file
      * @param string $language laguage folder name
-     * 
+     *
      * @return bool true if loaded, otherwise false
      */
     public static function load($name, $domain = '', $language = null)
     {
-        if(!isset($GLOBALS['xoopsConfig']) && empty($language)) $language = 'english';
+        if (!isset($GLOBALS['xoopsConfig']) && empty($language)) {
+            $language = 'english';
+        }
         $language = empty($language) ? $GLOBALS['xoopsConfig']['language'] : $language;
         $path = XOOPS_ROOT_PATH . '/' . ((empty($domain) || 'global' == $domain) ? ''
             : "modules/{$domain}/") . 'language';

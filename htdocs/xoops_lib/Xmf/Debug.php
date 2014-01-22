@@ -34,10 +34,13 @@ class Debug
      * @todo implement resource asset for css
      */
     private static $config = array(
-        // 'skin' => array('selected' => 'schablon.com'),
         'skin' => array('selected' => 'modern'),
-        'css'  => array('url' => '/modules/xmf/css/krumo/'),
-        'display' => array('show_version' => false, 'show_call_info' => false)
+        'css'  => array('url' => XMF_KRUMO_URL),
+        'display' => array(
+            'show_version' => false,
+            'show_call_info' => false,
+            'sort_arrays' => false,
+            ),
         );
 
     /**
