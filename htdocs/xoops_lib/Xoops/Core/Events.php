@@ -38,17 +38,15 @@ class Events
     protected $eventListeners = array();
 
     /**
-     * @var bool in case of cache miss, try get to get active modules again
+     * @type bool $eventsEnabled
      */
-    protected $checkAgain = false;
+    protected $eventsEnabled = true;
 
     /**
      * Constructor
      */
     protected function __construct()
     {
-        $this->setPreloads();
-        $this->setEvents();
     }
 
     /**
@@ -68,50 +66,72 @@ class Events
     }
 
     /**
-     * Get available preloads information and set them to go!
+     * initializePreloads - Initialize listeners with preload mapped events.
+     *
+     * We supress event processing during establishing listener map. A a cache miss (on
+     * system_modules_active, for example) triggers regeneration, which may trigger events
+     * that listeners are not prepared to handle. In such circumstances, module level class
+     * mapping will not have been done.
+     *
+     * @return void
+     */
+    public function initializeListeners()
+    {
+        $this->eventsEnabled = false;
+        $this->setPreloads();
+        $this->setEvents();
+        $this->eventsEnabled = true;
+    }
+
+    /**
+     * Get list of all available preload files
      *
      * @return void
      */
     protected function setPreloads()
     {
-        $this->checkAgain = false;
-        $modules_list = \Xoops_Cache::read('system_modules_active');
-        if (!$modules_list) {
-            $modules_list = array ('system');
-            $this->checkAgain = true;
-        }
-        $i = 0;
-        foreach ($modules_list as $module) {
-            if (is_dir($dir = XOOPS_ROOT_PATH . "/modules/{$module}/preloads/")) {
-                $file_list = \XoopsLists::getFileListAsArray($dir);
-                foreach ($file_list as $file) {
-                    if (preg_match('/(\.php)$/i', $file)) {
-                        $file = substr($file, 0, -4);
-                        $this->preloadList[$i]['module'] = $module;
-                        $this->preloadList[$i]['file'] = $file;
-                        $i++;
+        if (!$this->preloadList = \Xoops_Cache::read('system_modules_preloads')) {
+            // get active modules from the xoops instance
+            $modules_list = \Xoops::getInstance()->getActiveModules();
+            if (empty($modules_list)) {
+                // this should only happen if an exception was thrown in setActiveModules()
+                $modules_list = array ('system');
+            }
+            $this->preloadList =array();
+            $i = 0;
+            foreach ($modules_list as $module) {
+                if (is_dir($dir = XOOPS_ROOT_PATH . "/modules/{$module}/preloads/")) {
+                    $file_list = \XoopsLists::getFileListAsArray($dir);
+                    foreach ($file_list as $file) {
+                        if (preg_match('/(\.php)$/i', $file)) {
+                            $file = substr($file, 0, -4);
+                            $this->preloadList[$i]['module'] = $module;
+                            $this->preloadList[$i]['file'] = $file;
+                            $i++;
+                        }
                     }
                 }
             }
+            \Xoops_Cache::write('system_modules_preloads', $this->preloadList);
         }
     }
 
     /**
-     * Add all preload declared listeners to eventListeners
+     * Load all preload files and add all listener methods to eventListeners
      *
      * Preload classes contain methods based on event names. We extract those method
      * names and store to compare against when an event is triggered.
      *
      * Example:
      * An event is triggered as 'core.include.common.end'
-     * A PreloadItem class can listen for this event by declaring a method
+     * A PreloadItem class can listen for this event by declaring a static method
      * 'eventCoreIncludeCommonEnd()'
      *
      * PreloadItem class files can be named for the specific source of the
      * events, such as core.php, system.php, etc. In such case the class name is
      * built from the concatenation of the module name, the source and the literal
      * 'Preload'. This mechanism is now considered deprecated. As an example,
-     * a module named Example can listen for 'core' events with a file named
+     * a module named 'Example' can listen for 'core' events with a file named
      * preloads/core.php, containing a class ExampleCorePreload
      *
      * The prefered preload definition is the unified preloads/preload.php file
@@ -151,13 +171,14 @@ class Events
      */
     public function triggerEvent($event_name, $args = array())
     {
-        if ($this->checkAgain) {
-            $this->__construct();
-        }
-        $event_name = $this->toInternalEventName($event_name);
-        if (isset($this->eventListeners[$event_name])) {
-            foreach ($this->eventListeners[$event_name] as $event) {
-                call_user_func($event, $args);
+        if ($this->eventsEnabled) {
+            $event_name = $this->toInternalEventName($event_name);
+            if (isset($this->eventListeners[$event_name])) {
+                foreach ($this->eventListeners[$event_name] as $event) {
+                    if (method_exists($event[0], $event[1])) {
+                        call_user_func($event, $args);
+                    }
+                }
             }
         }
     }

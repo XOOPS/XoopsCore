@@ -84,6 +84,21 @@ class DebugbarPreload extends PreloadItem
     }
 
     /**
+     * add any module specific class map entries
+     *
+     * @param mixed $args not used
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonClassmaps($args)
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'debugbarlogger' => $path . '/class/debugbarlogger.php',
+        ));
+    }
+
+    /**
      * eventCoreIncludeCommonStart
      *
      * @param mixed $args arguments supplied to triggerEvent
@@ -92,7 +107,6 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
-        XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
         DebugbarLogger::getInstance()->enable();//until we get a db connection debug is enabled
         DebugbarLogger::getInstance()->startTime();
         DebugbarLogger::getInstance()->startTime('XOOPS Boot');
@@ -183,8 +197,6 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
-
         $logger = DebugbarLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
         $logger->startTime('Module init');
@@ -407,6 +419,5 @@ class DebugbarPreload extends PreloadItem
             Xoops_Cache::delete('module_debugbar_plugin');
         }
         */
-        XoopsLoad::addMap(array('debugbarlogger' => dirname(dirname(__FILE__)) . '/class/debugbarlogger.php'));
     }
 }

@@ -73,7 +73,7 @@ class DebugbarLogger implements LoggerInterface
 
     /**
      * disable logging
-     * 
+     *
      * @return void
      */
     public function disable()
@@ -87,13 +87,13 @@ class DebugbarLogger implements LoggerInterface
      * When output rendering is enabled, the logger will insert its output within the page content.
      * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
      * replace it, otherwise it will be inserted after all the page output.
-     * 
+     *
      * @return void
      */
     public function enable()
     {
         error_reporting(E_ALL | E_STRICT);
-        
+
         $this->activated = true;
 
         $this->enableRendering();
@@ -101,10 +101,10 @@ class DebugbarLogger implements LoggerInterface
         if (!$this->debugbar) {
                 $this->debugbar = new StandardDebugBar();
                 $this->renderer = $this->debugbar->getJavascriptRenderer();
-    
+
                 $this->renderer->setBaseUrl(XOOPS_URL . '/modules/debugbar/resources');
                 $this->renderer->setIncludeVendors('css');
-    
+
                 //$this->debugbar->addCollector(new MessagesCollector('Errors'));
                 $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
                 $this->debugbar->addCollector(new MessagesCollector('Blocks'));
@@ -120,7 +120,7 @@ class DebugbarLogger implements LoggerInterface
 
     /**
      * report enabled status
-     * 
+     *
      * @return bool
      */
     public function isEnable()
@@ -130,7 +130,7 @@ class DebugbarLogger implements LoggerInterface
 
     /**
      * disable output for the benefit of ajax scripts
-     * 
+     *
      * @return void
      */
     public function quiet()
@@ -141,7 +141,7 @@ class DebugbarLogger implements LoggerInterface
 
     /**
      * Add our resources to the theme as soon as it is available, otherwise return
-     * 
+     *
      * @return void
      */
     private function addToTheme()
@@ -163,7 +163,7 @@ class DebugbarLogger implements LoggerInterface
      * Start a timer
      *
      * @param string $name name of the timer
-     * 
+     *
      * @return void
      */
     public function startTime($name = 'XOOPS')
@@ -181,7 +181,7 @@ class DebugbarLogger implements LoggerInterface
      * Stop a timer
      *
      * @param string $name name of the timer
-     * 
+     *
      * @return void
      */
     public function stopTime($name = 'XOOPS')
@@ -230,7 +230,7 @@ class DebugbarLogger implements LoggerInterface
      * @param string $name      name of the block
      * @param bool   $cached    was the block cached?
      * @param int    $cachetime cachetime of the block
-     * 
+     *
      * @return void
      */
     public function addBlock($name, $cached = false, $cachetime = 0)
@@ -246,7 +246,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $name name for the entry
      * @param string $msg  text message for the entry
-     * 
+     *
      * @return void
      */
     public function addExtra($name, $msg)
@@ -261,7 +261,7 @@ class DebugbarLogger implements LoggerInterface
      * Log messages for deprecated functions
      *
      * @param string $msg name for the entry
-     * 
+     *
      * @return void
      */
     public function addDeprecated($msg)
@@ -275,7 +275,7 @@ class DebugbarLogger implements LoggerInterface
      * Log exceptions
      *
      * @param Exception $e name for the entry
-     * 
+     *
      * @return void
      */
     public function addException($e)
@@ -331,7 +331,7 @@ class DebugbarLogger implements LoggerInterface
      * When output rendering is enabled, the logger will insert its output within the page content.
      * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
      * replace it, otherwise it will be inserted after all the page output.
-     * 
+     *
      * @return void
      */
     public function enableRendering()
@@ -341,9 +341,9 @@ class DebugbarLogger implements LoggerInterface
 
     /**
      * Output buffering callback inserting logger dump in page output
-     * 
+     *
      * @param string $output output buffer to add logger rendering to
-     * 
+     *
      * @return string output
      */
     public function render($output)
@@ -377,7 +377,7 @@ class DebugbarLogger implements LoggerInterface
             $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
             $log = $this->renderer->render();
-    
+
             echo $log;
         }
     }
@@ -387,7 +387,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function emergency($message, array $context = array())
@@ -405,7 +405,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function alert($message, array $context = array())
@@ -422,7 +422,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function critical($message, array $context = array())
@@ -438,7 +438,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function error($message, array $context = array())
@@ -456,7 +456,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function warning($message, array $context = array())
@@ -471,7 +471,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function notice($message, array $context = array())
@@ -488,7 +488,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function info($message, array $context = array())
@@ -503,7 +503,7 @@ class DebugbarLogger implements LoggerInterface
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function debug($message, array $context = array())
@@ -519,7 +519,7 @@ class DebugbarLogger implements LoggerInterface
      * @param mixed  $level   logging level
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function log($level, $message, array $context = array())

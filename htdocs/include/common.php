@@ -15,7 +15,6 @@
  * @version $Id$
  */
 
-
 defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
 
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
@@ -67,14 +66,16 @@ $xoops->option =& $GLOBALS['xoopsOption'];
 $xoopsLogger = $xoops->logger();
 
 /**
- *  Create Instance of Preload Object
+ * initialize events
  */
-$xoopsPreload = XoopsPreload::getInstance();
-$xoopsPreload->triggerEvent('core.include.common.start');
+$xoops->events()->initializeListeners();
+$xoops->events()->triggerEvent('core.include.common.classmaps');
+$xoops->events()->triggerEvent('core.include.common.start');
 
 /**
  * Create Instance of xoopsSecurity Object and check super globals
  */
+$xoops->events()->triggerEvent('core.include.common.security');
 $xoopsSecurity = $xoops->security();
 
 /**
@@ -104,9 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XO
  * Will also setup $xoopsDB for legacy support.
  * Requires XOOPS_DB_PROXY;
  */
-    $xoops->db();
-    //For Legacy support
-    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
+$xoops->db();
+//For Legacy support
+$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
+
 /**
  * Get xoops configs
  * Requires functions and database loaded
@@ -125,7 +127,7 @@ if (XoopsLoad::fileExists($file = $xoops->path('var/configs/system_configs.php')
     trigger_error('File Path Error: ' . 'var/configs/system_configs.php' . ' does not exist.');
 }
 
-$xoopsPreload->triggerEvent('core.include.common.configs.success');
+$xoops->events()->triggerEvent('core.include.common.configs.success');
 
 /**
  * Enable Gzip compression,
@@ -236,7 +238,7 @@ if (!empty($_SESSION['xoopsUserId'])) {
     }
 }
 
-$xoopsPreload->triggerEvent('core.include.common.auth.success');
+$xoops->events()->triggerEvent('core.include.common.auth.success');
 
 /**
  * Theme Selection
@@ -308,4 +310,4 @@ $xoopsModuleConfig =& $xoops->moduleConfig;
 //Creates 'system_modules_active' cache file if it has been deleted.
 $xoops->getActiveModules();
 
-$xoops->preload()->triggerEvent('core.include.common.end');
+$xoops->events()->triggerEvent('core.include.common.end');

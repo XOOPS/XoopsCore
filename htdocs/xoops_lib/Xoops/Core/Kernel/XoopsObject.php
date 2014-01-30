@@ -434,18 +434,7 @@ abstract class XoopsObject
 
 
         $class = get_class($this);
-        if (!$modules_active = \Xoops_Cache::read('system_modules_active')) {
-            $xoops = \Xoops::getInstance();
-            $module_handler = $xoops->getHandlerModule();
-            $modules_obj = $module_handler->getObjectsArray(new Criteria('isactive', 1));
-            $modules_active = array();
-            /* @var XoopsModule $module_obj */
-            foreach ($modules_obj as $module_obj) {
-                $modules_active[] = $module_obj->getVar('dirname');
-            }
-            unset($modules_obj, $module_obj);
-            \Xoops_Cache::write('system_modules_active', $modules_active);
-        }
+        $modules_active = \Xoops::getInstance()->getActiveModules();
         foreach ($modules_active as $dirname) {
             if (\XoopsLoad::fileExists(
                 $file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php'

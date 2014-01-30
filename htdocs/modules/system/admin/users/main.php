@@ -215,7 +215,7 @@ switch ($op) {
                         $xoops->footer();
                         exit();
                     }
-                    $edituser->setVar("pass", md5($_REQUEST['password']));
+                    $edituser->setVar("pass", password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
                 }
                 if (!$member_handler->insertUser($edituser)) {
                     $xoops->header();
@@ -280,7 +280,7 @@ switch ($op) {
                             $xoops->footer();
                             exit();
                         }
-                        $newuser->setVar("pass", md5($_REQUEST['password']));
+                        $newuser->setVar("pass", password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
                     }
                     $newuser->setVar("timezone_offset", $_REQUEST['timezone_offset']);
                     //$newuser->setVar("uorder", $_REQUEST['uorder']);

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\PreloadItem;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -21,13 +23,21 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 /**
  * Comments core preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @author    trabis <lusopoemas@gmail.com>
  */
-class CommentsCorePreload extends XoopsPreloadItem
+class CommentsPreload extends PreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    /**
+     * listen for core.include.common.classmaps
+     * add any module specific class map entries
+     *
+     * @param mixed $args not used
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
@@ -36,13 +46,13 @@ class CommentsCorePreload extends XoopsPreloadItem
         ));
     }
 
-    static function eventCoreFooterStart($args)
+    public static function eventCoreFooterStart($args)
     {
         $helper = Comments::getInstance();
         $helper->renderView();
     }
 
-    static function eventOnModuleUpdateConfigs($args)
+    public static function eventOnModuleUpdateConfigs($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
@@ -57,7 +67,7 @@ class CommentsCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventOnModuleInstall($args)
+    public static function eventOnModuleInstall($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
@@ -66,7 +76,7 @@ class CommentsCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventOnModuleUninstall($args)
+    public static function eventOnModuleUninstall($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
@@ -75,7 +85,7 @@ class CommentsCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventOnSystemPreferencesForm($args)
+    public static function eventOnSystemPreferencesForm($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];

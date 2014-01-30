@@ -22,13 +22,22 @@ use Xoops\Core\PreloadItem;
  */
 class BannersPreload extends PreloadItem
 {
-    public static function eventCoreIncludeCommonEnd($args)
+    /**
+     * listen for core.include.common.classmaps
+     * add any module specific class map entries
+     *
+     * @param mixed $args not used
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(dirname(__FILE__));
         XoopsLoad::addMap(array(
             'banners' => $path . '/class/helper.php',
         ));
     }
+
     public static function eventCoreBannerDisplay($args)
     {
         require_once dirname(dirname(__FILE__)) . '/class/bannerrender.php';

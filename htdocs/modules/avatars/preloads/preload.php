@@ -21,21 +21,19 @@ use Xoops\Core\PreloadItem;
 class AvatarsPreload extends PreloadItem
 {
     /**
-     * listen for core.include.common.end event
-     * Add module classes to class map autoloader
+     * listen for core.include.common.classmaps
+     * add any module specific class map entries
      *
      * @param mixed $args not used
      *
      * @return void
      */
-    public static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(dirname(__FILE__));
-        XoopsLoad::addMap(
-            array(
-                'avatars' => $path . '/class/helper.php',
-            )
-        );
+        XoopsLoad::addMap(array(
+            'avatars' => $path . '/class/helper.php',
+        ));
     }
 
     /**

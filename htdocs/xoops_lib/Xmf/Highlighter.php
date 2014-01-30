@@ -18,7 +18,7 @@ namespace Xmf;
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     1.0
@@ -67,19 +67,19 @@ class Highlighter
             '#((?:(?!<[/a-z]).)*)([^>]*>|$)#si',
             function ($capture) use ($needle, $pre, $post) {
                 $haystack=$capture[1];
-                $p1=stripos($haystack, $needle);
-                $l1=strlen($needle);
+                $p1=mb_stripos($haystack, $needle);
+                $l1=mb_strlen($needle);
                 $ret='';
                 while ($p1!==false) {
-                    $ret .= substr($haystack, 0, $p1) . $pre
-                        . substr($haystack, $p1, $l1) . $post;
-                    $haystack=substr($haystack, $p1+$l1);
-                    $p1=stripos($haystack, $needle);
+                    $ret .= mb_substr($haystack, 0, $p1) . $pre
+                        . mb_substr($haystack, $p1, $l1) . $post;
+                    $haystack=mb_substr($haystack, $p1+$l1);
+                    $p1=mb_stripos($haystack, $needle);
                 }
                 $ret.=$haystack.$capture[2];
 
                 return $ret;
-                
+
             },
             $haystack
         );

@@ -9,28 +9,33 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\PreloadItem;
+
 /**
- * avatars extension
+ * Page core preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         avatar
+ * @package         page
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          DuGris (aka Laurent JEN)
  * @version         $Id$
  */
-
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
-
-$xoops = Xoops::getInstance();
-$xoops->disableErrorReporting();
-
-$xoops->simpleHeader(false);
-
-$criteria = new Criteria('avatar_type', 'S');
-$tpl = new XoopsTpl();
-$tpl->assign('avatars', Avatars::getInstance()->getHandlerAvatar()->getObjects($criteria, false, false));
-$tpl->assign('closebutton', 1);
-$tpl->display('module:avatars|avatars_popup.html');
-
-$xoops->simpleFooter();
+class PagePreload extends PreloadItem
+{
+    /**
+     * listen for core.include.common.classmaps
+     * add any module specific class map entries
+     *
+     * @param mixed $args not used
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonClassmaps($args)
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'page' => $path . '/class/helper.php',
+        ));
+    }
+}
