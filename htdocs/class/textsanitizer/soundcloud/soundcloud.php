@@ -4,11 +4,13 @@ class MytsSoundcloud extends MyTextSanitizerExtension
 {
     public function encode($textarea_id)
     {
-        $config = parent::loadConfig( dirname(__FILE__) );
-        $code = "<img src='{$this->image_path}/soundcloud.png' alt='SoundCloud' "
-            . "onclick='xoopsCodeSoundCloud(\"{$textarea_id}\",\""
-            . htmlspecialchars('Enter SoundCloud Profile URL', ENT_QUOTES)
-            . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $config = parent::loadConfig(dirname(__FILE__));
+        $alttxt = htmlspecialchars('SoundCloud', ENT_QUOTES);
+        $prompt = htmlspecialchars('Enter SoundCloud Profile URL', ENT_QUOTES);
+        $code = "<img src='{$this->image_path}/soundcloud.png' "
+            . " alt='{$alttxt}' title='{$alttxt}' "
+            . " onclick='xoopsCodeSoundCloud(\"{$textarea_id}\",\"{$prompt}\");' "
+            . " onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $javascript = <<<EOH
             function xoopsCodeSoundCloud(id, enterSoundCloud)
             {
@@ -20,7 +22,9 @@ class MytsSoundcloud extends MyTextSanitizerExtension
                 }
 
                 var domobj = xoopsGetElementById(id);
-                xoopsInsertText(domobj, "[soundcloud]"+text+"[/soundcloud]");
+                if (text.length > 0) {
+                    xoopsInsertText(domobj, "[soundcloud]"+text+"[/soundcloud]");
+                }
                 domobj.focus();
             }
 EOH;
@@ -32,7 +36,6 @@ EOH;
     {
         $ts->callbackPatterns[] = "/\[soundcloud\](http[s]?:\/\/[^\"'<>]*)(.*)\[\/soundcloud\]/sU";
         $ts->callbacks[] = __CLASS__ . "::myCallback";
-
     }
 
     public static function myCallback($match)
@@ -55,9 +58,4 @@ EOH;
 
         return $code;
     }
-
-//   public static function decode($url1, $url2)
-//   {
-//   }
-
 }
