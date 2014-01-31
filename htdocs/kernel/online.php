@@ -25,10 +25,9 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * Online object
  *
- * @author trabis <lusopoemas@gmail.com>
+ * @author    trabis <lusopoemas@gmail.com>
  * @copyright copyright (c) 2000 XOOPS.org
- *
- * @package kernel
+ * @package   kernel
  */
 class XoopsOnline extends XoopsObject
 {
@@ -42,6 +41,15 @@ class XoopsOnline extends XoopsObject
         $this->initVar('online_updated', XOBJ_DTYPE_INT, null, true);
         $this->initVar('online_module', XOBJ_DTYPE_INT, null, true);
         $this->initVar('online_ip', XOBJ_DTYPE_TXTBOX, null, true);
+    }
+
+    /**
+     * @param string $format
+     * @return mixed
+     */
+    public function id($format = 'n')
+    {
+        return $this->online_uid($format);
     }
 
     /**
@@ -88,15 +96,14 @@ class XoopsOnline extends XoopsObject
     {
         return $this->getVar('online_ip', $format);
     }
-
 }
+
 /**
  * A handler for "Who is Online?" information
  *
- * @package     kernel
- *
- * @author        Kazumi Ono    <onokazu@xoops.org>
- * @copyright    copyright (c) 2000-2003 XOOPS.org
+ * @package   kernel
+ * @author    Kazumi Ono    <onokazu@xoops.org>
+ * @copyright copyright (c) 2000-2003 XOOPS.org
  */
 class XoopsOnlineHandler extends XoopsPersistableObjectHandler
 {
