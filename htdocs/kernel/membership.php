@@ -24,9 +24,9 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * membership of a user in a group
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package kernel
+ * @package   kernel
  */
 class XoopsMembership extends XoopsObject
 {
@@ -39,6 +39,37 @@ class XoopsMembership extends XoopsObject
         $this->initVar('groupid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('uid', XOBJ_DTYPE_INT, null, false);
     }
+
+    /**
+    * getter for id generic key
+     * @param string $format
+     * @return mixed
+     */
+    public function id($format = 'n')
+    {
+        return $this->linkid($format);
+    }
+
+    /**
+    * getter for linkid field
+     * @param string $format
+     * @return mixed
+     */
+    public function linkid($format = '')
+    {
+        return $this->getVar('linkid', $format);
+    }
+
+    /**
+    * getter for uid field
+     * @param string $format
+     * @return mixed
+     */
+    public function uid($format = '')
+    {
+        return $this->getVar('uid', $format);
+    }
+
 }
 
 /**
@@ -47,9 +78,9 @@ class XoopsMembership extends XoopsObject
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS group membership class objects.
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package kernel
+ * @package   kernel
  */
 class XoopsMembershipHandler extends XoopsPersistableObjectHandler
 {
@@ -66,7 +97,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
     /**
      * retrieve groups for a user
      *
-     * @param int $uid ID of the user objects? FALSE returns associative array.
+     * @param int $uid ID of the user objects
      *
      * @return array array of groups the user belongs to
      */
@@ -91,9 +122,8 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      * retrieve users belonging to a group
      *
      * @param int $groupid ID of the group
-     * FALSE will return arrays
-     * @param int $limit number of entries to return
-     * @param int $start offset of first entry to return
+     * @param int $limit   number of entries to return
+     * @param int $start   offset of first entry to return
      *
      * @return array array of users belonging to the group
      */
