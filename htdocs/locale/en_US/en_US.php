@@ -449,6 +449,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const F_WELCOME_TO = "Welcome to %s";
     const F_YES_DELETE_ALL = "Yes, delete all %s";
     const F_YOUR_ACCOUNT_AT = "Your account at %s";
+    const F_EXTENSION_PHP_NOT_LOADED = "PHP %s extension not loaded (verify your PHP configuration file php.ini)";
     const GO_BACK = "Go back";
     const GO_TO = "Go to";
     const GO_TODAY = "Go today";

@@ -130,41 +130,24 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function write($uid, $uname, $time, $module, $ip)
     {
-
-        $qb = $this->db2->createXoopsQueryBuilder();
-        $eb = $qb->expr();
-
-        $qb ->select('COUNT(*)')
-            ->fromPrefix('online', null)
-            ->where($eb->eq('online_uid', ':uid'))
-            ->setParameter(':uid', $uid, \PDO::PARAM_INT);
-
-        if ($uid > 0) {
-            $qb ->where($eb->eq('online_ip', ':ip'))
-                ->setParameter(':ip', $ip, \PDO::PARAM_STR);
+        $criteria = array();
+        $criteria['online_uid'] = $uid;
+        if ($uid == 0) {
+            $criteria['online_ip'] = $ip;
         }
-
-        $result = $qb->execute();
-        $count = $result->fetchColumn(0);
-
-        if ($count > 0) {
-            $identifier = array();
-            $identifier['online_uid'] = $uid;
-            if ($uid == 0) {
-                $identifier['online_ip'] = $ip;
-            }
-            $rows = $this->db2->updatePrefix(
-                'online',
-                array(
-                    'online_uid'     => $uid,
-                    'online_uname'   => $uname,
-                    'online_updated' => $time,
-                    'online_ip'      => $ip,
-                    'online_module'  => $module,
-                ),
-                $identifier
-            );
-        } else {
+        $rows = $this->db2->updatePrefix(
+            'online',
+            array(
+               'online_uname'   => $uname,
+               'online_updated' => $time,
+               'online_module'  => $module,
+            ),
+            $criteria
+        );
+        if ($rows === false) {
+            return false;
+        }
+        if ($rows == 0) {
             $rows = $this->db2->insertPrefix(
                 'online',
                 array(
@@ -175,6 +158,9 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
                     'online_module'  => $module,
                 )
             );
+        }
+        if ($rows === false) {
+            return false;
         }
         return ($rows>0);
     }
@@ -189,7 +175,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     public function destroy($uid)
     {
         $criteria = new Criteria('online_uid', intval($uid));
-        if (!$this->deleteAll($criteria)) {
+        if (false === $this->deleteAll($criteria)) {
             return false;
         }
         return true;
@@ -207,7 +193,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     public function gc($expire)
     {
         $criteria = new Criteria('online_updated', time() - intval($expire), '<');
-        if (!$this->deleteAll($criteria)) {
+        if (false === $this->deleteAll($criteria)) {
             return false;
         }
         return true;

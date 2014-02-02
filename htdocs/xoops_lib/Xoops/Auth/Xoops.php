@@ -38,7 +38,7 @@ class Xoops_Auth_Xoops extends Xoops_Auth
      *
      * @param XoopsConnection|null $dao
      */
-    public function __construct(XoopsDatabase $dao = null)
+    public function __construct(XoopsConnection $dao = null)
     {
         $this->_dao = $dao;
         $this->auth_method = 'xoops';
@@ -47,18 +47,22 @@ class Xoops_Auth_Xoops extends Xoops_Auth
     /**
      * Authenticate user
      *
-     * @param string $uname
-     * @param string $pwd
+     * @param  string $uname
+     * @param  string $pwd
      * @return bool
      */
     public function authenticate($uname, $pwd = null)
     {
         $xoops = Xoops::getInstance();
         $member_handler = $xoops->getHandlerMember();
-        $user = $member_handler->loginUser($uname, $pwd);
-        if ($user == false) {
-            $this->setErrors(1, XoopsLocale::E_INCORRECT_LOGIN);
-        }
+       $user = false;
+       if ($member_handler) {
+           $user = $member_handler->loginUser($uname, $pwd);
+           if ($user == false) {
+               $this->setErrors(1, XoopsLocale::E_INCORRECT_LOGIN);
+           }
+       }
+
         return $user;
     }
 }

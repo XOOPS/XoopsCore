@@ -80,6 +80,9 @@ class CriteriaCompo extends CriteriaElement
     {
         $ret = '';
         foreach ($this->criteriaElements as $i => $element) {
+            if (!is_object($element)) {
+                continue;
+            }
             /* @var $element CriteriaElement */
             if ($i == 0) {
                 $ret = $element->render();
@@ -87,10 +90,11 @@ class CriteriaCompo extends CriteriaElement
                 if (!$render = $element->render()) {
                     continue;
                 }
-                $ret .= ' ' . $this->conditions[$i] . ' ' . $render;
+                $ret .= ' ' . $this->conditions[$i] . ' (' . $render . ')';
             }
             $ret = "({$ret})";
         }
+        $ret = ($ret=='()') ? '(1)' : $ret;
         return $ret;
     }
 
