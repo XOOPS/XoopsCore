@@ -26,98 +26,44 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 /**
  * Xoops_Auth_Ldap
  *
- * @package class
+ * Authentication class for standard LDAP Server V2 or V3
+ *
+ * @package    class
  * @subpackage auth
- * @description Authentication class for standard LDAP Server V2 or V3
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @author     Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright  copyright (c) 2000-2003 XOOPS.org
  */
 class Xoops_Auth_Ldap extends Xoops_Auth
 {
     public $cp1252_map = array(
-        "\xc2\x80" => "\xe2\x82\xac", /**
-         * EURO SIGN
-         */
-        "\xc2\x82" => "\xe2\x80\x9a", /**
-         * SINGLE LOW-9 QUOTATION MARK
-         */
-        "\xc2\x83" => "\xc6\x92", /**
-         * LATIN SMALL LETTER F WITH HOOK
-         */
-        "\xc2\x84" => "\xe2\x80\x9e", /**
-         * DOUBLE LOW-9 QUOTATION MARK
-         */
-        "\xc2\x85" => "\xe2\x80\xa6", /**
-         * HORIZONTAL ELLIPSIS
-         */
-        "\xc2\x86" => "\xe2\x80\xa0", /**
-         * DAGGER
-         */
-        "\xc2\x87" => "\xe2\x80\xa1", /**
-         * DOUBLE DAGGER
-         */
-        "\xc2\x88" => "\xcb\x86", /**
-         * MODIFIER LETTER CIRCUMFLEX ACCENT
-         */
-        "\xc2\x89" => "\xe2\x80\xb0", /**
-         * PER MILLE SIGN
-         */
-        "\xc2\x8a" => "\xc5\xa0", /**
-         * LATIN CAPITAL LETTER S WITH CARON
-         */
-        "\xc2\x8b" => "\xe2\x80\xb9", /**
-         * SINGLE LEFT-POINTING ANGLE QUOTATION
-         */
-        "\xc2\x8c" => "\xc5\x92", /**
-         * LATIN CAPITAL LIGATURE OE
-         */
-        "\xc2\x8e" => "\xc5\xbd", /**
-         * LATIN CAPITAL LETTER Z WITH CARON
-         */
-        "\xc2\x91" => "\xe2\x80\x98", /**
-         * LEFT SINGLE QUOTATION MARK
-         */
-        "\xc2\x92" => "\xe2\x80\x99", /**
-         * RIGHT SINGLE QUOTATION MARK
-         */
-        "\xc2\x93" => "\xe2\x80\x9c", /**
-         * LEFT DOUBLE QUOTATION MARK
-         */
-        "\xc2\x94" => "\xe2\x80\x9d", /**
-         * RIGHT DOUBLE QUOTATION MARK
-         */
-        "\xc2\x95" => "\xe2\x80\xa2", /**
-         * BULLET
-         */
-        "\xc2\x96" => "\xe2\x80\x93", /**
-         * EN DASH
-         */
-        "\xc2\x97" => "\xe2\x80\x94", /**
-         * EM DASH
-         */
-        "\xc2\x98" => "\xcb\x9c", /**
-         * SMALL TILDE
-         */
-        "\xc2\x99" => "\xe2\x84\xa2", /**
-         * TRADE MARK SIGN
-         */
-        "\xc2\x9a" => "\xc5\xa1", /**
-         * LATIN SMALL LETTER S WITH CARON
-         */
-        "\xc2\x9b" => "\xe2\x80\xba", /**
-         * SINGLE RIGHT-POINTING ANGLE QUOTATION
-         */
-        "\xc2\x9c" => "\xc5\x93", /**
-         * LATIN SMALL LIGATURE OE
-         */
-        "\xc2\x9e" => "\xc5\xbe", /**
-         * LATIN SMALL LETTER Z WITH CARON
-         */
-        "\xc2\x9f" => "\xc5\xb8"
+        "\xc2\x80" => "\xe2\x82\xac", // EURO SIGN
+        "\xc2\x82" => "\xe2\x80\x9a", // SINGLE LOW-9 QUOTATION MARK
+        "\xc2\x83" => "\xc6\x92",     // LATIN SMALL LETTER F WITH HOOK
+        "\xc2\x84" => "\xe2\x80\x9e", // DOUBLE LOW-9 QUOTATION MARK
+        "\xc2\x85" => "\xe2\x80\xa6", // HORIZONTAL ELLIPSIS
+        "\xc2\x86" => "\xe2\x80\xa0", // DAGGER
+        "\xc2\x87" => "\xe2\x80\xa1", // DOUBLE DAGGER
+        "\xc2\x88" => "\xcb\x86",     // MODIFIER LETTER CIRCUMFLEX ACCENT
+        "\xc2\x89" => "\xe2\x80\xb0", // PER MILLE SIGN
+        "\xc2\x8a" => "\xc5\xa0",     // LATIN CAPITAL LETTER S WITH CARON
+        "\xc2\x8b" => "\xe2\x80\xb9", // SINGLE LEFT-POINTING ANGLE QUOTATION
+        "\xc2\x8c" => "\xc5\x92",     // LATIN CAPITAL LIGATURE OE
+        "\xc2\x8e" => "\xc5\xbd",     // LATIN CAPITAL LETTER Z WITH CARON
+        "\xc2\x91" => "\xe2\x80\x98", // LEFT SINGLE QUOTATION MARK
+        "\xc2\x92" => "\xe2\x80\x99", // RIGHT SINGLE QUOTATION MARK
+        "\xc2\x93" => "\xe2\x80\x9c", // LEFT DOUBLE QUOTATION MARK
+        "\xc2\x94" => "\xe2\x80\x9d", // RIGHT DOUBLE QUOTATION MARK
+        "\xc2\x95" => "\xe2\x80\xa2", // BULLET
+        "\xc2\x96" => "\xe2\x80\x93", // EN DASH
+        "\xc2\x97" => "\xe2\x80\x94", // EM DASH
+        "\xc2\x98" => "\xcb\x9c",     // SMALL TILDE
+        "\xc2\x99" => "\xe2\x84\xa2", // TRADE MARK SIGN
+        "\xc2\x9a" => "\xc5\xa1",     // LATIN SMALL LETTER S WITH CARON
+        "\xc2\x9b" => "\xe2\x80\xba", // SINGLE RIGHT-POINTING ANGLE QUOTATION
+        "\xc2\x9c" => "\xc5\x93",     // LATIN SMALL LIGATURE OE
+        "\xc2\x9e" => "\xc5\xbe",     // LATIN SMALL LETTER Z WITH CARON
+        "\xc2\x9f" => "\xc5\xb8",     // LATIN CAPITAL LETTER Y WITH DIAERESIS
     );
-    /**
-     * LATIN CAPITAL LETTER Y WITH DIAERESIS
-     */
 
     /**
      * @var
@@ -206,6 +152,11 @@ class Xoops_Auth_Ldap extends Xoops_Auth
      */
     public function __construct(XoopsConnection $dao = null)
     {
+        if (!extension_loaded('ldap')) {
+            trigger_error(sprintf(XoopsLocale::F_EXTENSION_PHP_NOT_LOADED, 'LDAP'), E_USER_ERROR);
+            return;
+        }
+
         $xoops = Xoops::getInstance();
         $this->_dao = $dao;
         //Configuration options that are stored in the database
@@ -219,6 +170,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
      * Xoops_Auth_Ldap::cp1252_to_utf8()
      *
      * @param string $str
+     *
      * @return string
      */
     public function cp1252_to_utf8($str)
@@ -233,16 +185,13 @@ class Xoops_Auth_Ldap extends Xoops_Auth
      *         Authenticate with manager, search the dn
      *
      * @param string $uname Username
-     * @param string $pwd Password
+     * @param string $pwd   Password
+     *
      * @return bool
      */
     public function authenticate($uname, $pwd = null)
     {
         $authenticated = false;
-        if (!extension_loaded('ldap')) {
-            $this->setErrors(0, XoopsLocale::E_EXTENSION_PHP_LDAP_NOT_LOADED);
-            return $authenticated;
-        }
         $this->_ds = ldap_connect($this->ldap_server, $this->ldap_port);
         if ($this->_ds) {
             ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, $this->ldap_version);
@@ -269,13 +218,15 @@ class Xoops_Auth_Ldap extends Xoops_Auth
             $this->setErrors(0, XoopsLocale::E_CANNOT_CONNECT_TO_SERVER);
         }
         @ldap_close($this->_ds);
+
         return $authenticated;
     }
 
     /**
      * Compose the user DN with the configuration.
      *
-     * @param $uname
+     * @param string $uname
+     *
      * @return bool|string userDN or false
      */
     public function getUserDN($uname)
@@ -285,6 +236,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
             // Bind with the manager
             if (!ldap_bind($this->_ds, $this->ldap_manager_dn, stripslashes($this->ldap_manager_pass))) {
                 $this->setErrors(ldap_errno($this->_ds), ldap_err2str(ldap_errno($this->_ds)) . '(' . $this->ldap_manager_dn . ')');
+
                 return false;
             }
             $filter = $this->getFilter($uname);
@@ -298,6 +250,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
         } else {
             $userDN = $this->ldap_loginldap_attr . '=' . $uname . ',' . $this->ldap_base_dn;
         }
+
         return $userDN;
     }
 
@@ -305,6 +258,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
      * Load user from XOOPS Database
      *
      * @param string $uname
+     *
      * @return mixed|string
      */
     public function getFilter($uname)
@@ -314,6 +268,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
         } else {
             $filter = $this->ldap_loginldap_attr . '=' . $uname;
         }
+
         return $filter;
     }
 
@@ -323,6 +278,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
      * @param string $userdn
      * @param string $uname
      * @param string $pwd
+     *
      * @return bool|XoopsUser
      */
     public function loadXoopsUser($userdn, $uname, $pwd = null)
@@ -336,6 +292,7 @@ class Xoops_Auth_Ldap extends Xoops_Auth
         } else {
             $this->setErrors(0, sprintf('loadXoopsUser - ' . XoopsLocale::EF_ENTRY_NOT_READ, $userdn));
         }
+
         return $xoopsUser;
     }
 }
