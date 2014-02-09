@@ -92,7 +92,7 @@ class XoopsDatabaseFactory
         if (!isset($instance)) {
             $config = new \Doctrine\DBAL\Configuration();
             $config->setSQLLogger(new XoopsDebugStack());
-            if (defined('XOOPS_DB_PARAMETERS')) {
+            if (defined('XOOPS_DB_PARAMETERS') AND $x = XOOPS_DB_PARAMETERS AND !empty($x)) {
                 $connectionParams = unserialize(XOOPS_DB_PARAMETERS);
                 $connectionParams['wrapperClass'] = 'XoopsConnection';
             } else {
@@ -117,6 +117,7 @@ class XoopsDatabaseFactory
                     $connectionParams['driverOptions'] = $options;
                 }
             }
+
             $instance
                 = \Doctrine\DBAL\DriverManager::getConnection(
                 $connectionParams,
