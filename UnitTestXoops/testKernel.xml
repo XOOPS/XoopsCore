@@ -30,8 +30,9 @@
     </whitelist>
 </filter>
 
+<!--
 <logging>
     <log type="coverage-html" target="test-report-kernel" charset="UTF-8" yui="true" />
 </logging>
-
+-->
 </phpunit>

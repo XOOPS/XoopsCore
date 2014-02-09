@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../init_mini.php');
-
+ 
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -394,6 +394,7 @@ class XoopsTest extends MY_UnitTestCase
 		$this->assertInstanceOf('XoopsConfigHandler', $value);
 	}
 
+	/* getHandlerConfigcategory no longer exists
     public function test_2600()
 	{
         $instance = Xoops::getInstance();
@@ -401,6 +402,7 @@ class XoopsTest extends MY_UnitTestCase
 		$value = $instance->getHandlerConfigcategory();
 		$this->assertInstanceOf('XoopsConfigCategoryHandler', $value);
 	}
+	*/
 
     public function test_2700()
 	{
