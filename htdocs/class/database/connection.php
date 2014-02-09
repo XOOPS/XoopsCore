@@ -252,14 +252,14 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
             $xoopsPreload->triggerEvent('core.database.query.end');
         } else {
             //$xoopsPreload->triggerEvent('core.database.query.failure', (array('Not safe:')));
-            return 0;
+            return (int) 0;
         }
         if ($result != 0) {
             //$xoopsPreload->triggerEvent('core.database.query.success', (array($query)));
-            return $result;
+            return (int) $result;
         } else {
             //$xoopsPreload->triggerEvent('core.database.query.failure', (array($query)));
-            return 0;
+            return (int) 0;
         }
     }
 
