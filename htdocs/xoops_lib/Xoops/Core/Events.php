@@ -175,7 +175,7 @@ class Events
             $event_name = $this->toInternalEventName($event_name);
             if (isset($this->eventListeners[$event_name])) {
                 foreach ($this->eventListeners[$event_name] as $event) {
-                    if (method_exists($event[0], $event[1])) {
+                    if (is_callable($event)) {
                         call_user_func($event, $args);
                     }
                 }
