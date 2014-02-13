@@ -197,13 +197,13 @@ class Xoops
      *
      * @return \Xoops\Core\Service\Manager instance
      */
-    public function service()
+    public function service($service)
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new \Xoops\Core\Service\Manager();
+            $instance = \Xoops\Core\Service\Manager::getInstance();
         }
-        return $instance;
+        return $instance->locate($service);
     }
 
     /**
@@ -826,8 +826,7 @@ class Xoops
         }
         if (!isset($this->_kernelHandlers[$name])) {
             trigger_error('Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
-        }
-        if (isset($this->_kernelHandlers[$name])) {
+        } else {
             return $this->_kernelHandlers[$name];
         }
         return false;
@@ -1121,7 +1120,7 @@ class Xoops
      *
      * @return string
      */
-    public function alert($type = 'info', $msg, $title = '/')
+    public function alert($type, $msg, $title = '/')
     {
         $alert_msg = '';
         switch ($type) {
