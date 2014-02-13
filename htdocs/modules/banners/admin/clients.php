@@ -87,8 +87,9 @@ switch ($op) {
                     $user = $member_handler->getUser($client_arr[$i]->getVar("bannerclient_uid"));
                     $client['uname'] = $user->getVar("uname");
                     $client['email'] = $user->getVar("email");
-                    $avatar = "";
-                    $xoops->events()->triggerEvent('core.userinfo.avatar', array($user, &$avatar));
+                    $response = $xoops->service("Avatar")->getAvatarUrl($user);
+                    $avatar = $response->getValue();
+                    $avatar = empty($avatar) ? '' : $avatar;
                     $client['avatar'] = $avatar;
                     $client['url'] = $user->getVar("bannerclient_url");
                 }

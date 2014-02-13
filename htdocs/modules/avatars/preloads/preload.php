@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\PreloadItem;
+use Xoops\Core\Service\Provider;
 
 /**
  * Avatars module preloads
@@ -37,45 +38,19 @@ class AvatarsPreload extends PreloadItem
     }
 
     /**
-     * listen for core.userinfo.button event
+     * listen for core.service.locate.avatar event
      *
-     * @param array $args $arg[0] - current user object
-     *                    $arg[1] - reference to array of button arrays
-     *
-     * @return void - array in arg[1] will be button link
-     */
-    public static function eventCoreUserinfoButton($args)
-    {
-        // args 0 => user, 1 = button definition
-        $link = 'modules/avatars/editavatar.php';
-        $title = XoopsLocale::AVATAR;
-        $icon = 'icon-fire';
-        $args[1][] = array( 'link' => $link, 'title' => $title, 'icon' => $icon);
-    }
-
-    /**
-     * listen for core.userinfo.avatar event
-     *
-     * @param array $args $arg[0] - current user object or array with user info
-     *                    $arg[1] - reference to avatar image url
+     * @param Provider $provider - provider object for requested service
      *
      * @return void - string in arg[1] will be avatar image url if avaiable
      */
-    public static function eventCoreUserinfoAvatar($args)
+    public static function eventCoreServiceLocateAvatar(Provider $provider)
     {
-        $thisUser = $args[0];
-        if (is_object($thisUser)) {
-            if (method_exists($thisUser, 'getVar')) {
-                if ($thisUser->getVar('user_avatar')
-                    && 'blank.gif' != $thisUser->getVar('user_avatar')
-                ) {
-                    $args[1] = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
-                }
-            }
-        } elseif (is_array($thisUser)) {
-            if (isset($thisUser['user_avatar']) && $thisUser['user_avatar'] != 'blank.gif') {
-                $args[1] = XOOPS_UPLOAD_URL . "/" . $thisUser['user_avatar'];
-            }
+        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
+            $path = dirname(dirname(__FILE__)) . '/class/AvatarsProvider.php';
+            require $path;
+            $object = new AvatarsProvider();
+            $provider->register($object);
         }
     }
 }
