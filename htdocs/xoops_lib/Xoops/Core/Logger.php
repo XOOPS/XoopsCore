@@ -367,6 +367,11 @@ class Logger implements LoggerInterface
     public function __set($var, $val)
     {
         $this->deprecatedMessage();
+        // legacy compatibility: turn off logger display for $xoopsLogger->activated = false; usage
+        if ($var=='activated' && !$val) {
+            $this->quiet();
+        }
+
     }
 
     /**
