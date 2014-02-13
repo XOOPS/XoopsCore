@@ -37,7 +37,7 @@
             </form>
         <{/if}>
         <{foreach item=btn from=$btn}>
-        <input class="btn" type="button" value="<{$btn.title}>" onclick="location='<{$xoops_url}>/<{$btn.link}>'" />
+        <input class="btn" type="button" value="<{$btn.title}>" onclick="location='<{$btn.link}>'" />
         <{/foreach}>
         <input class="btn" type="button" value="<{$lang_inbox}>" onclick="location='<{$xoops_url}>/viewpmsg.php'" />
         <input class="btn" type="button" value="<{$lang_logout}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=logout'" />

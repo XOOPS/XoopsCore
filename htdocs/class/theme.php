@@ -312,8 +312,9 @@ class XoopsTheme
         ));
 
         if ($xoops->isUser()) {
-            $avatar = "";
-            $xoops->events()->triggerEvent('core.userinfo.avatar', array($xoops->user, &$avatar));
+            $response = $xoops->service("Avatar")->getAvatarUrl($xoops->user);
+            $avatar = $response->getValue();
+            $avatar = empty($avatar) ? '' : $avatar;
 
             $this->template->assign(array(
                 'xoops_isuser'     => true,

@@ -78,19 +78,21 @@ if ($xoops->isUser() && $isAdmin) {
 }
 
 // Let extensions add navigation button(s)
-$btn = array();
-$xoops->events()->triggerEvent('core.userinfo.button', array($thisUser, &$btn));
-if (!empty($btn)) {
+//$xoops->events()->triggerEvent('core.userinfo.button', array($thisUser, &$btn));
+$response = $xoops->service("Avatar")->getAvatarEditUrl($thisUser);
+$link=$response->getValue();
+if (!empty($link)) {
+    $btn[] = array( 'link' => $link, 'title' => XoopsLocale::AVATAR, 'icon' => 'icon-user');
     $xoops->tpl()->assign('btn', $btn);
 }
 
 $xoops->tpl()->assign('xoops_pagetitle', sprintf(XoopsLocale::F_ALL_ABOUT, $thisUser->getVar('uname')));
 $xoops->tpl()->assign('lang_allaboutuser', sprintf(XoopsLocale::F_ALL_ABOUT, $thisUser->getVar('uname')));
 
-$avatar = "";
-$xoops->events()->triggerEvent('core.userinfo.avatar', array($thisUser, &$avatar));
+$response = $xoops->service("Avatar")->getAvatarUrl($thisUser);
+$avatar = $response->getValue();
 
-$xoops->tpl()->assign('user_avatarurl', $avatar);
+$xoops->tpl()->assign('user_avatarurl', empty($avatar) ? '' : $avatar);
 $xoops->tpl()->assign('lang_realname', XoopsLocale::REAL_NAME);
 $xoops->tpl()->assign('user_realname', $thisUser->getVar('name'));
 $xoops->tpl()->assign('lang_website', XoopsLocale::WEBSITE);

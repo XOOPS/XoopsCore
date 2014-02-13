@@ -394,8 +394,9 @@ class CommentsCommentRenderer
                 $poster_rank = $user->rank();
                 $poster['rank_image'] = ($poster_rank['image'] != '') ? $poster_rank['image'] : 'blank.gif';
                 $poster['rank_title'] = $poster_rank['title'];
-                $avatar = "";
-                Xoops::getInstance()->events()->triggerEvent('core.userinfo.avatar', array($user, &$avatar));
+                $response = $xoops->service("Avatar")->getAvatarUrl($user);
+                $avatar = $response->getValue();
+                $avatar = empty($avatar) ? '' : $avatar;
                 $poster['avatar'] = $avatar;
                 $poster['regdate'] = XoopsLocale::formatTimestamp($user->getVar('user_regdate'), 's');
                 $poster['from'] = $user->getVar('user_from');

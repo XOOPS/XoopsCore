@@ -73,7 +73,7 @@ if ($action == "showpopups") {
 
                 $tpl->assign('closebutton', 0);
                 $tpl->assign('form', $form->render());
-            } else if ($_POST['op'] == "sendsite") {
+            } elseif ($_POST['op'] == "sendsite") {
                 $myts = MyTextsanitizer::getInstance();
                 if ($xoops->isUser()) {
                     $ymail = $xoops->user->getVar("email");
@@ -133,8 +133,9 @@ if ($action == "showpopups") {
                 $onlineUsers[$i]['module'] = ($onlines[$i]['online_module'] > 0) ? $modules[$onlines[$i]['online_module']] : '';
                 if ($onlines[$i]['online_uid'] != 0 && is_object($user = new XoopsUser($onlines[$i]['online_uid']))) {
                     $onlineUsers[$i]['name'] = $user->getVar('uname');
-                    $avatar = "";
-                    $xoops->events()->triggerEvent('core.userinfo.avatar', array($user, &$avatar));
+                    $response = $xoops->service("Avatar")->getAvatarUrl($user);
+                    $avatar = $response->getValue();
+                    $avatar = empty($avatar) ? '' : $avatar;
                     $onlineUsers[$i]['avatar'] = $avatar;
                 } else {
                     $onlineUsers[$i]['name'] = $xoops->getConfig('anonymous');

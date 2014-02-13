@@ -47,8 +47,9 @@ function b_system_info_show($options)
             $prev_caption = "";
             $i = 0;
             while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
-                $avatar = "";
-                $xoops->events()->triggerEvent('core.userinfo.avatar', array($userinfo, &$avatar));
+                $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
+                $avatar = $response->getValue();
+                $avatar = empty($avatar) ? '' : $avatar;
                 if ($prev_caption != $userinfo['groupname']) {
                     $prev_caption = $userinfo['groupname'];
                     $block['groups'][$i]['name'] = $myts->htmlSpecialChars($userinfo['groupname']);
