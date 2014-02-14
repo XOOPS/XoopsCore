@@ -308,6 +308,21 @@ class XoopsMySQLDatabase extends XoopsDatabase
     }
 
     /**
+     * Escapes a string for use in a query. Does not add quotes.
+     *
+     * @param string $string string to escape
+     *
+     * @return string
+     * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
+     */
+    public function escape($string)
+    {
+        $this->deprecated();
+
+        return  str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $string));
+    }
+
+    /**
      * perform a query on the database
      *
      * @param string $sql   a valid MySQL query
