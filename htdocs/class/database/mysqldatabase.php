@@ -304,7 +304,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
     {
         $this->deprecated();
 
-        return  str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $this->conn->quote($string)));
+        return  $this->conn->quote($string);
     }
 
     /**
@@ -319,7 +319,8 @@ class XoopsMySQLDatabase extends XoopsDatabase
     {
         $this->deprecated();
 
-        return  str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $string));
+        $string = $this->quote($input);
+        return substr($string, 1, -1);
     }
 
     /**
