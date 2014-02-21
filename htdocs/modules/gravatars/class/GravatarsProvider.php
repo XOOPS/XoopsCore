@@ -18,7 +18,7 @@ use Xoops\Core\Service\Contract\AvatarInterface;
  * @category  class
  * @package   GravatarsProvider
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -80,8 +80,8 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      * getAvatarUrl - given user info return absolute URL to avatar image
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array     user info, 'uid', 'uname' and 'email' required
+     * @param array    $args     [0] = XoopsUser object for user or
+     *                                 array of user info, 'uid', 'uname' and 'email' required
      *
      * @return void - response->value set to absolute URL to avatar image
      */
@@ -110,8 +110,8 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array     user info, 'uid', 'uname' and 'email' required
+     * @param array    $args     [0] = XoopsUser object for user or
+     *                                 array of user info, 'uid', 'uname' and 'email' required
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */

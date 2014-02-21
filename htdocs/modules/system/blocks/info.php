@@ -49,7 +49,7 @@ function b_system_info_show($options)
             while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
                 $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
                 $avatar = $response->getValue();
-                $avatar = empty($avatar) ? '' : $avatar;
+                $avatar = empty($avatar) ? XOOPS_UPLOAD_URL . '/blank.gif' : $avatar;
                 if ($prev_caption != $userinfo['groupname']) {
                     $prev_caption = $userinfo['groupname'];
                     $block['groups'][$i]['name'] = $myts->htmlSpecialChars($userinfo['groupname']);

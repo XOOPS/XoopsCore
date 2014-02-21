@@ -48,15 +48,4 @@ interface AvatarInterface
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
     public function getAvatarEditUrl($response, $userinfo);
-
-    /**
-     * deleteUser - user is being deleted, clean up any resources releated to user
-     *
-     * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array     user info, 'uid', 'uname' and 'email' required
-     *
-     * @return void
-     */
-    //public function deleteUser($response, $userinfo);
 }

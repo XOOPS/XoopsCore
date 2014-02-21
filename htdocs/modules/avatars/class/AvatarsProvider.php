@@ -13,7 +13,7 @@ use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\AvatarInterface;
 
 /**
- * Gravatars provider for service manager
+ * Avatars provider for service manager
  *
  * @category  class
  * @package   AvatarsProvider
@@ -50,8 +50,8 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
      * getAvatarUrl - given user info return absolute URL to avatar image
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array     user info, 'uid', 'uname' and 'email' required
+     * @param array    $args     [0] = XoopsUser object for user or
+     *                                 array of user info, 'uid', 'uname' and 'email' required
      *
      * @return void - response->value set to absolute URL to avatar image
      */
@@ -64,7 +64,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                 if ($userinfo->getVar('user_avatar')
                     && 'blank.gif' != $userinfo->getVar('user_avatar')
                 ) {
-                    $response->setValue( XOOPS_UPLOAD_URL . "/" . $userinfo->getVar('user_avatar'));
+                    $response->setValue(XOOPS_UPLOAD_URL . "/" . $userinfo->getVar('user_avatar'));
                 }
                 $noInfo = false;
             }
@@ -83,8 +83,8 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array     user info, 'uid', 'uname' and 'email' required
+     * @param array    $args     [0] = XoopsUser object for user or
+     *                                 array of user info, 'uid', 'uname' and 'email' required
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */

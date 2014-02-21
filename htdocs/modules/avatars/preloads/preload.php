@@ -42,7 +42,7 @@ class AvatarsPreload extends PreloadItem
      *
      * @param Provider $provider - provider object for requested service
      *
-     * @return void - string in arg[1] will be avatar image url if avaiable
+     * @return void
      */
     public static function eventCoreServiceLocateAvatar(Provider $provider)
     {
