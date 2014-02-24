@@ -9,6 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Assetic\AssetManager;
+use Assetic\FilterManager;
+use Assetic\Filter;
+use Assetic\Factory\AssetFactory;
+use Assetic\Factory\LazyAssetManager;
+use Assetic\Factory\Worker\CacheBustingWorker;
+use Assetic\AssetWriter;
 use DebugBar\StandardDebugBar;
 use DebugBar\JavascriptRenderer;
 use DebugBar\DataCollector\MessagesCollector;
@@ -142,6 +149,59 @@ class DebugbarLogger implements LoggerInterface
         $this->quietmode = true;
     }
 
+
+    /**
+     * getUrlToAssets
+     *
+     * Create an asset file from a list of assets
+     *
+     * @param array  $assets list of source files to process
+     * @param string $type   type of asset, css or js
+     *
+     * @return string URL to asset file
+     */
+    private function getUrlToAssets($assets, $type)
+    {
+        $xoops = \Xoops::getInstance();
+        $target_path = $xoops->path('assets');
+        $am = new AssetManager();
+        $fm = new FilterManager();
+        if ($type == 'css') {
+            $fm->set('cssembed', new Filter\PhpCssEmbedFilter());
+            $fm->set('cssmin', new Filter\CssMinFilter());
+            $filters = array('cssembed','cssmin');
+            $output = 'css/*.css';
+        } elseif ($type == 'js') {
+            $fm->set('jsmin', new Filter\JSMinFilter());
+            $filters = array('jsmin');
+            $output = 'js/*.js';
+        }
+
+        // Factory setup
+        $factory = new AssetFactory($target_path);
+        $factory->setAssetManager($am);
+        $factory->setFilterManager($fm);
+        $factory->setDefaultOutput($output);
+        $factory->setDebug(false);
+        $lam = new LazyAssetManager($factory);
+        $factory->addWorker(new CacheBustingWorker($lam));
+
+        // Prepare the assets writer
+        $writer = new AssetWriter($target_path);
+
+        // Create the asset
+        $asset = $factory->createAsset($assets, $filters);
+
+        $asset_path = $asset->getTargetPath();
+        if (!is_readable($target_path . $asset_path)) {
+            $oldumask = umask(0002);
+            $writer->writeAsset($asset);
+            umask($oldumask);
+        }
+
+        return $xoops->url('assets/' . $asset_path);
+    }
+
     /**
      * Add our resources to the theme as soon as it is available, otherwise return
      *
@@ -156,31 +216,14 @@ class DebugbarLogger implements LoggerInterface
                 // get asset information provided by debugbar
                 // don't include vendors - jquery already available, need workaround for font-awesome
                 $this->renderer->setIncludeVendors(false);
-                list($cssCollection, $jsCollection) = $this->renderer->getAsseticCollection();
-
-                $cssFilters = new \Assetic\Filter\FilterCollection(array(
-                    new \Assetic\Filter\PhpCssEmbedFilter(),
-                    new \Assetic\Filter\CssMinFilter(),
-                ));
-                $cssCollection->ensureFilter($cssFilters);
-                $cssCache = new \Assetic\Asset\AssetCache(
-                    $cssCollection,
-                    new \Assetic\Cache\FilesystemCache(XOOPS_VAR_PATH . '/caches/asset_cache')
-                );
-
-                $jsFilters = new \Assetic\Filter\FilterCollection(array(
-                    new \Assetic\Filter\JSMinFilter(),
-                ));
-                $jsCollection->ensureFilter($jsFilters);
-                $jsCache = new \Assetic\Asset\AssetCache(
-                    $jsCollection,
-                    new \Assetic\Cache\FilesystemCache(XOOPS_VAR_PATH . '/caches/asset_cache')
-                );
+                list($cssAssets, $jsAssets) = $this->renderer->getAssets();
+                $cssUrl = $this->getUrlToAssets($cssAssets, 'css');
+                $jsUrl = $this->getUrlToAssets($jsAssets, 'js');
 
                 $xoops = Xoops::getInstance();
                 // dump assets inline
-                $xoops->theme()->addStylesheet(null, null, $cssCache->dump());
-                $xoops->theme()->addScript(null, null, $jsCache->dump());
+                $xoops->theme()->addStylesheet($cssUrl);
+                $xoops->theme()->addScript($jsUrl);
                 // also need to include our own simplified font-awesome css
                 // debugbar only uses font, and full css creates conflicts with default theme
                 $xoops->theme()->addStylesheet(XOOPS_URL . '/modules/debugbar/resources/css/font-awesome-fontonly.css');

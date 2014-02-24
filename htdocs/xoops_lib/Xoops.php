@@ -131,6 +131,7 @@ class Xoops
         $this->paths['modules'] = array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules');
         $this->paths['themes'] = array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes');
         $this->paths['media'] = array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media');
+        $this->paths['assets'] = array(XOOPS_ROOT_PATH . '/assets', XOOPS_URL . '/assets');
 
         $this->pathTranslation();
 
