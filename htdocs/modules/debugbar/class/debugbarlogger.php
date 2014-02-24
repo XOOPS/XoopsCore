@@ -48,6 +48,11 @@ class DebugbarLogger implements LoggerInterface
     private $activated = false;
 
     /**
+     * @var object
+     */
+    private $quietmode = false;
+
+    /**
      * constructor
      */
     public function __construct()
@@ -102,9 +107,6 @@ class DebugbarLogger implements LoggerInterface
                 $this->debugbar = new StandardDebugBar();
                 $this->renderer = $this->debugbar->getJavascriptRenderer();
 
-                $this->renderer->setBaseUrl(XOOPS_URL . '/modules/debugbar/resources');
-                $this->renderer->setIncludeVendors('css');
-
                 //$this->debugbar->addCollector(new MessagesCollector('Errors'));
                 $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
                 $this->debugbar->addCollector(new MessagesCollector('Blocks'));
@@ -114,6 +116,7 @@ class DebugbarLogger implements LoggerInterface
                 $xoops = Xoops::getInstance();
                 $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
                 $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
+                //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(XOOPS_VAR_PATH.'/debugbar'));
         }
         $this->addToTheme();
     }
@@ -135,8 +138,8 @@ class DebugbarLogger implements LoggerInterface
      */
     public function quiet()
     {
-        $this->debugbar->sendDataInHeaders();
-        //$this->activated = false;
+        //$this->debugbar->sendDataInHeaders();
+        $this->quietmode = true;
     }
 
     /**
@@ -150,10 +153,38 @@ class DebugbarLogger implements LoggerInterface
 
         if ($this->activated && !$addedResource) {
             if (isset($GLOBALS['xoTheme'])) {
+                // get asset information provided by debugbar
+                // don't include vendors - jquery already available, need workaround for font-awesome
+                $this->renderer->setIncludeVendors(false);
+                list($cssCollection, $jsCollection) = $this->renderer->getAsseticCollection();
+
+                $cssFilters = new \Assetic\Filter\FilterCollection(array(
+                    new \Assetic\Filter\PhpCssEmbedFilter(),
+                    new \Assetic\Filter\CssMinFilter(),
+                ));
+                $cssCollection->ensureFilter($cssFilters);
+                $cssCache = new \Assetic\Asset\AssetCache(
+                    $cssCollection,
+                    new \Assetic\Cache\FilesystemCache(XOOPS_VAR_PATH . '/caches/asset_cache')
+                );
+
+                $jsFilters = new \Assetic\Filter\FilterCollection(array(
+                    new \Assetic\Filter\JSMinFilter(),
+                ));
+                $jsCollection->ensureFilter($jsFilters);
+                $jsCache = new \Assetic\Asset\AssetCache(
+                    $jsCollection,
+                    new \Assetic\Cache\FilesystemCache(XOOPS_VAR_PATH . '/caches/asset_cache')
+                );
+
                 $xoops = Xoops::getInstance();
-                $head = '</style>' . $this->renderer->renderHead()
-                    . '<style>';// .icon-tags:before { content: ""; width: 16px;}';
-                $xoops->theme()->addStylesheet(null, null, $head);
+                // dump assets inline
+                $xoops->theme()->addStylesheet(null, null, $cssCache->dump());
+                $xoops->theme()->addScript(null, null, $jsCache->dump());
+                // also need to include our own simplified font-awesome css
+                // debugbar only uses font, and full css creates conflicts with default theme
+                $xoops->theme()->addStylesheet(XOOPS_URL . '/modules/debugbar/resources/css/font-awesome-fontonly.css');
+
                 $addedResource = true;
             }
         }
@@ -376,9 +407,12 @@ class DebugbarLogger implements LoggerInterface
         if ($this->activated) {
             $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
-            $log = $this->renderer->render();
-
-            echo $log;
+            if (false === $this->quietmode) {
+                $log = $this->renderer->render();
+                echo $log;
+            } else {
+                $this->debugbar->sendDataInHeaders();
+            }
         }
     }
 
