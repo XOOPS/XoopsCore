@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * Extended User Profile
  *

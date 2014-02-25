@@ -135,7 +135,7 @@ if ($action == "showpopups") {
                     $onlineUsers[$i]['name'] = $user->getVar('uname');
                     $response = $xoops->service("Avatar")->getAvatarUrl($user);
                     $avatar = $response->getValue();
-                    $avatar = empty($avatar) ? '' : $avatar;
+                    $avatar = empty($avatar) ? XOOPS_UPLOAD_URL . '/blank.gif' : $avatar;
                     $onlineUsers[$i]['avatar'] = $avatar;
                 } else {
                     $onlineUsers[$i]['name'] = $xoops->getConfig('anonymous');

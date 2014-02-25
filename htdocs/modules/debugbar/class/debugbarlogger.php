@@ -9,6 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Assetic\AssetManager;
+use Assetic\FilterManager;
+use Assetic\Filter;
+use Assetic\Factory\AssetFactory;
+use Assetic\Factory\LazyAssetManager;
+use Assetic\Factory\Worker\CacheBustingWorker;
+use Assetic\AssetWriter;
 use DebugBar\StandardDebugBar;
 use DebugBar\JavascriptRenderer;
 use DebugBar\DataCollector\MessagesCollector;
@@ -46,6 +53,11 @@ class DebugbarLogger implements LoggerInterface
      * @var object
      */
     private $activated = false;
+
+    /**
+     * @var object
+     */
+    private $quietmode = false;
 
     /**
      * constructor
@@ -102,9 +114,6 @@ class DebugbarLogger implements LoggerInterface
                 $this->debugbar = new StandardDebugBar();
                 $this->renderer = $this->debugbar->getJavascriptRenderer();
 
-                $this->renderer->setBaseUrl(XOOPS_URL . '/modules/debugbar/resources');
-                $this->renderer->setIncludeVendors('css');
-
                 //$this->debugbar->addCollector(new MessagesCollector('Errors'));
                 $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
                 $this->debugbar->addCollector(new MessagesCollector('Blocks'));
@@ -114,6 +123,7 @@ class DebugbarLogger implements LoggerInterface
                 $xoops = Xoops::getInstance();
                 $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
                 $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
+                //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(XOOPS_VAR_PATH.'/debugbar'));
         }
         $this->addToTheme();
     }
@@ -135,8 +145,61 @@ class DebugbarLogger implements LoggerInterface
      */
     public function quiet()
     {
-        $this->debugbar->sendDataInHeaders();
-        //$this->activated = false;
+        //$this->debugbar->sendDataInHeaders();
+        $this->quietmode = true;
+    }
+
+
+    /**
+     * getUrlToAssets
+     *
+     * Create an asset file from a list of assets
+     *
+     * @param array  $assets list of source files to process
+     * @param string $type   type of asset, css or js
+     *
+     * @return string URL to asset file
+     */
+    private function getUrlToAssets($assets, $type)
+    {
+        $xoops = \Xoops::getInstance();
+        $target_path = $xoops->path('assets');
+        $am = new AssetManager();
+        $fm = new FilterManager();
+        if ($type == 'css') {
+            $fm->set('cssembed', new Filter\PhpCssEmbedFilter());
+            $fm->set('cssmin', new Filter\CssMinFilter());
+            $filters = array('cssembed','cssmin');
+            $output = 'css/*.css';
+        } elseif ($type == 'js') {
+            $fm->set('jsmin', new Filter\JSMinFilter());
+            $filters = array('jsmin');
+            $output = 'js/*.js';
+        }
+
+        // Factory setup
+        $factory = new AssetFactory($target_path);
+        $factory->setAssetManager($am);
+        $factory->setFilterManager($fm);
+        $factory->setDefaultOutput($output);
+        $factory->setDebug(false);
+        $lam = new LazyAssetManager($factory);
+        $factory->addWorker(new CacheBustingWorker($lam));
+
+        // Prepare the assets writer
+        $writer = new AssetWriter($target_path);
+
+        // Create the asset
+        $asset = $factory->createAsset($assets, $filters);
+
+        $asset_path = $asset->getTargetPath();
+        if (!is_readable($target_path . $asset_path)) {
+            $oldumask = umask(0002);
+            $writer->writeAsset($asset);
+            umask($oldumask);
+        }
+
+        return $xoops->url('assets/' . $asset_path);
     }
 
     /**
@@ -150,10 +213,21 @@ class DebugbarLogger implements LoggerInterface
 
         if ($this->activated && !$addedResource) {
             if (isset($GLOBALS['xoTheme'])) {
+                // get asset information provided by debugbar
+                // don't include vendors - jquery already available, need workaround for font-awesome
+                $this->renderer->setIncludeVendors(false);
+                list($cssAssets, $jsAssets) = $this->renderer->getAssets();
+                $cssUrl = $this->getUrlToAssets($cssAssets, 'css');
+                $jsUrl = $this->getUrlToAssets($jsAssets, 'js');
+
                 $xoops = Xoops::getInstance();
-                $head = '</style>' . $this->renderer->renderHead()
-                    . '<style>';// .icon-tags:before { content: ""; width: 16px;}';
-                $xoops->theme()->addStylesheet(null, null, $head);
+                // dump assets inline
+                $xoops->theme()->addStylesheet($cssUrl);
+                $xoops->theme()->addScript($jsUrl);
+                // also need to include our own simplified font-awesome css
+                // debugbar only uses font, and full css creates conflicts with default theme
+                $xoops->theme()->addStylesheet(XOOPS_URL . '/modules/debugbar/resources/css/font-awesome-fontonly.css');
+
                 $addedResource = true;
             }
         }
@@ -376,9 +450,12 @@ class DebugbarLogger implements LoggerInterface
         if ($this->activated) {
             $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
-            $log = $this->renderer->render();
-
-            echo $log;
+            if (false === $this->quietmode) {
+                $log = $this->renderer->render();
+                echo $log;
+            } else {
+                $this->debugbar->sendDataInHeaders();
+            }
         }
     }
 
