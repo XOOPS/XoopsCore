@@ -205,6 +205,8 @@ switch ($op) {
             print_r($system_module->error);
             //print_r($system_module->trace);
         }
+        $folder = array(1, 2, 3);
+        $system->CleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer

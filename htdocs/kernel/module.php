@@ -220,15 +220,23 @@ class XoopsModule extends XoopsObject
      * Load the module info for this module
      *
      * @param string $dirname Module directory
-     * @param bool $verbose Give an error on fail?
+     * @param bool   $verbose Give an error on fail?
+     *
      * @return bool
+     *
+     * @todo the $modVersions array should be built once when modules are installed/updated and then cached
      */
     public function loadInfo($dirname, $verbose = true)
     {
+        static $modVersions;
         if (empty($dirname)) {
             return false;
         }
-        global $xoopsConfig; //for legacy
+        $dirname = basename($dirname);
+        if (isset($modVersions[$dirname])) {
+            $this->modinfo = $modVersions[$dirname];
+            return true;
+        }
         $xoops = xoops::getInstance();
         $dirname = basename($dirname);
         $xoops->loadLanguage('modinfo', $dirname);
@@ -242,7 +250,8 @@ class XoopsModule extends XoopsObject
         }
         $modversion = array();
         include $file;
-        $this->modinfo = $modversion;
+        $modVersions[$dirname] = $modversion;
+        $this->modinfo = $modVersions[$dirname];
         return true;
     }
 

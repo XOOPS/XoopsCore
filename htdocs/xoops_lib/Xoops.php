@@ -131,6 +131,7 @@ class Xoops
         $this->paths['modules'] = array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules');
         $this->paths['themes'] = array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes');
         $this->paths['media'] = array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media');
+        $this->paths['assets'] = array(XOOPS_ROOT_PATH . '/assets', XOOPS_URL . '/assets');
 
         $this->pathTranslation();
 
@@ -197,13 +198,13 @@ class Xoops
      *
      * @return \Xoops\Core\Service\Manager instance
      */
-    public function service()
+    public function service($service)
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new \Xoops\Core\Service\Manager();
+            $instance = \Xoops\Core\Service\Manager::getInstance();
         }
-        return $instance;
+        return $instance->locate($service);
     }
 
     /**
@@ -671,16 +672,6 @@ class Xoops
     /**
      * @param mixed $optional
      *
-     * @return XoopsConfigcategoryHandler
-     */
-    public function getHandlerConfigcategory($optional = false)
-    {
-        return $this->getHandler('configcategory', $optional);
-    }
-
-    /**
-     * @param mixed $optional
-     *
      * @return XoopsConfigitemHandler
      */
     public function getHandlerConfigitem($optional = false)
@@ -836,8 +827,7 @@ class Xoops
         }
         if (!isset($this->_kernelHandlers[$name])) {
             trigger_error('Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
-        }
-        if (isset($this->_kernelHandlers[$name])) {
+        } else {
             return $this->_kernelHandlers[$name];
         }
         return false;
@@ -995,10 +985,10 @@ class Xoops
         }
 
         try {
-            if (!$this->_activeModules = Xoops_Cache::read('system_modules_active')) {
+            if (!$this->_activeModules = \Xoops_Cache::read('system_modules_active')) {
                 $this->_activeModules = $this->setActiveModules();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_activeModules = array();
         }
         return $this->_activeModules;
@@ -1017,7 +1007,7 @@ class Xoops
         foreach ($modules_array as $module) {
             $modules_active[$module['mid']] = $module['dirname'];
         }
-        Xoops_Cache::write('system_modules_active', $modules_active);
+        \Xoops_Cache::write('system_modules_active', $modules_active);
         return $modules_active;
     }
 
@@ -1131,7 +1121,7 @@ class Xoops
      *
      * @return string
      */
-    public function alert($type = 'info', $msg, $title = '/')
+    public function alert($type, $msg, $title = '/')
     {
         $alert_msg = '';
         switch ($type) {

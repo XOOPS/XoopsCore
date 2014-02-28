@@ -72,7 +72,7 @@ class DtypeArray extends DtypeAbstract
             }
         }
         // TODO: Not encoding safe, should try base64_encode -- phppp
-        $value = "'" . serialize($value) . "'";
+        $value = serialize($value);
         return $value;
     }
 }

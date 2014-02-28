@@ -216,9 +216,9 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * Assign one or more {@link XoopsConfigItemOption}s
+     * Assign one or more {@link XoopsConfigOption}s
      *
-     * @param    mixed   $option either a {@link XoopsConfigItemOption} object or an array of them
+     * @param    mixed   $option either a {@link XoopsConfigOption} object or an array of them
      */
     public function setConfOptions($option)
     {
@@ -235,9 +235,9 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * Get the {@link XoopsConfigItemOption}s of this Config
+     * Get the {@link XoopsConfigOption}s of this Config
      *
-     * @return    array   array of {@link XoopsConfigItemOption}
+     * @return    array   array of {@link XoopsConfigOption}
      */
     public function getConfOptions()
     {

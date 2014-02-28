@@ -37,32 +37,12 @@ class MonologPreload extends PreloadItem
      */
     private static function getConfigs()
     {
-        $cache_key = 'module_monolog_configs';
+        $xoops = \Xoops::getInstance();
         if (array_key_exists('monolog_default_configs', self::$configs)
             && self::$configs['monolog_default_configs'] == true) {
-            self::$configs = null;
-        }
-        if (is_null(self::$configs)) {
-            if (!$monolog_configs = Xoops_Cache::read($cache_key)) {
-                $helper = \Xoops::getInstance()->getModuleHelper('monolog');
-                self::$configs['monolog_enable'] = (bool) $helper->getConfig('monolog_enable');
-                self::$configs['include_blocks'] = (bool) $helper->getConfig('include_blocks');
-                self::$configs['include_deprecated'] = (bool) $helper->getConfig('include_deprecated');
-                self::$configs['include_extra'] = (bool) $helper->getConfig('include_extra');
-                self::$configs['include_queries'] = (bool) $helper->getConfig('include_queries');
-                self::$configs['include_timers'] = (bool) $helper->getConfig('include_timers');
-                self::$configs['logging_threshold'] = $helper->getConfig('logging_threshold');
-                self::$configs['log_file_path'] = $helper->getConfig('log_file_path');
-                self::$configs['max_versions'] = (int) $helper->getConfig('max_versions');
-
-                $monolog_configs=serialize(self::$configs);
-                Xoops_Cache::write($cache_key, $monolog_configs);
-            } else {
-                self::$configs = unserialize($monolog_configs);
-            }
+            self::$configs = $xoops->getModuleConfigs('monolog');
         }
         if (!array_key_exists('phpfire_enable', self::$configs)) {
-            $xoops = \Xoops::getInstance();
             $user_groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
             $moduleperm_handler = $xoops->getHandlerGroupperm();
             $helper = $xoops->getModuleHelper('monolog');
@@ -102,6 +82,21 @@ class MonologPreload extends PreloadItem
     }
 
     /**
+     * add any module specific class map entries
+     *
+     * @param mixed $args not used
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCommonClassmaps($args)
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'monologlogger' => $path . '/class/monologlogger.php',
+        ));
+    }
+
+    /**
      * eventCoreIncludeCommonStart
      *
      * @param mixed $args arguments supplied to triggerEvent
@@ -110,27 +105,27 @@ class MonologPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
-        XoopsLoad::addMap(array('monologlogger' => dirname(dirname(__FILE__)) . '/class/monologlogger.php'));
-
-        $cache_key = 'module_monolog_configs';
         self::$configs=array();
         self::$configs['monolog_enable'] = false;
         self::$configs['monolog_default_configs']=true;
-        if ($monolog_configs = Xoops_Cache::read('module_logger_plugin')) {
-            self::$configs = unserialize($monolog_configs);
+        // we will not regenerate this on a miss - will wait until auth is complete
+        if ($monolog_configs = Xoops_Cache::read('monolog_config')) {
+            self::$configs = $monolog_configs;
         }
         $logger = MonologLogger::getInstance();
 
         if (self::$configs['monolog_enable']) {
-            $logger->enable(); //until we get a db connection debug is enabled
+            $logger->setConfigs(self::$configs);
+            $logger->enable();
         } else {
+            // turn everything off
             self::$configs['include_blocks'] = false;
             self::$configs['include_deprecated'] = false;
             self::$configs['include_extra'] = false;
             self::$configs['include_queries'] = false;
             self::$configs['include_timers'] = false;
+            $logger->setConfigs(self::$configs);
         }
-        $logger->setConfigs(self::$configs);
         $logger->startTime();
         $logger->startTime('XOOPS Boot');
     }
@@ -230,8 +225,6 @@ class MonologPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        XoopsLoad::addMap(array('monologlogger' => dirname(dirname(__FILE__)) . '/class/monologlogger.php'));
-
         $logger = MonologLogger::getInstance();
         $logger->stopTime('XOOPS Boot');
         $logger->startTime('Module init');

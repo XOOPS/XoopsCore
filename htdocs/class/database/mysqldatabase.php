@@ -304,7 +304,23 @@ class XoopsMySQLDatabase extends XoopsDatabase
     {
         $this->deprecated();
 
-        return  str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $this->conn->quote($string)));
+        return  $this->conn->quote($string);
+    }
+
+    /**
+     * Escapes a string for use in a query. Does not add quotes.
+     *
+     * @param string $string string to escape
+     *
+     * @return string
+     * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
+     */
+    public function escape($string)
+    {
+        $this->deprecated();
+
+        $string = $this->quote($input);
+        return substr($string, 1, -1);
     }
 
     /**

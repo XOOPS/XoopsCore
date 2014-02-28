@@ -110,6 +110,8 @@ switch ($op) {
             print_r($system_extension->error);
             //print_r($system_extension->trace);
         }
+        $folder = array(1, 2, 3);
+        $system->CleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer

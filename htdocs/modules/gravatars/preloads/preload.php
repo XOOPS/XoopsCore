@@ -10,87 +10,36 @@
 */
 
 use Xoops\Core\PreloadItem;
+use Xoops\Core\Service\Provider;
 
 /**
  * Gravatars preloads
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @category  preloads
+ * @package   GravatarsPreload
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.6.0
  */
 class GravatarsPreload extends PreloadItem
 {
     /**
-     * Get either a Gravatar URL or complete image tag for a specified email address.
+     * listen for core.service.locate.avatar event
      *
-     * @param string  $email The email address
-     * @param string  $s     Size in pixels, defaults to 80px [ 1 - 2048 ]
-     * @param string  $d     Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
-     * @param string  $r     Maximum rating (inclusive) [ g | pg | r | x ]
-     * @param boolean $img   True to return a complete IMG tag False for just the URL
-     * @param array   $atts  Optional, additional key/value attributes to include in the IMG tag
-     *
-     * @return String containing either just a URL or a complete image tag
-     *
-     * @source http://gravatar.com/site/implement/images/php/
-     */
-    private static function getGravatar($email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array())
-    {
-        $url = 'http://www.gravatar.com/avatar/';
-        $url .= md5(strtolower(trim($email)));
-        $url .= "?s=$s&d=$d&r=$r";
-        if ($img) {
-            $url = '<img src="' . $url . '"';
-            foreach ($atts as $key => $val) {
-                $url .= ' ' . $key . '="' . $val . '"';
-            }
-            $url .= ' />';
-        }
-
-        return $url;
-    }
-
-    /**
-     * listen for core.userinfo.button event
-     * builds button to add to profile page
-     *
-     * @param array $args $arg[0] - current user object
-     *                   $arg[1] - reference to array of button arrays
-     *
-     * @return void - array in arg[1] will be button link
-     */
-    public static function eventCoreUserinfoButton($args)
-    {
-        $thisUser = $args[0];
-        if (method_exists($thisUser, 'getVar')) {
-            $email = $thisUser->getVar('email', 'e');
-            $link = 'http://www.gravatar.com/' . md5(strtolower(trim($email)));
-            $title = XoopsLocale::AVATAR;
-            $icon = 'icon-user';
-            $args[1][] = array( 'link' => $link, 'title' => $title, 'icon' => $icon);
-        }
-    }
-
-    /**
-     * listen for core.userinfo.avatar event
-     *
-     * @param array $args $arg[0] - current user object or array with user info
-     *                    $arg[1] - reference to avatar image url
+     * @param Provider $provider - provider object for requested service
      *
      * @return void - string in arg[1] will be avatar image url if avaiable
      */
-    public static function eventCoreUserinfoAvatar($args)
+    public static function eventCoreServiceLocateAvatar(Provider $provider)
     {
-        $thisUser = $args[0];
-        if (is_object($thisUser)) {
-            if (method_exists($thisUser, 'getVar')) {
-                $email = $thisUser->getVar('email', 'e');
-                $args[1] = self::getGravatar($email);
-            }
-        } elseif (is_array($thisUser)) {
-            if (!empty($thisUser['email'])) {
-                $args[1] = self::getGravatar($thisUser['email']);
-            }
+        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
+            $path = dirname(dirname(__FILE__)) . '/class/GravatarsProvider.php';
+            require $path;
+            $object = new GravatarsProvider();
+            $provider->register($object);
+//        echo "<br /><br /><br />"; \Kint::dump($provider, $path);
         }
     }
 }
