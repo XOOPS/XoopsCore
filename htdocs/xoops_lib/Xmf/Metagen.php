@@ -98,19 +98,22 @@ class Metagen
      * generateKeywords builds a set of keywords from text body
      *
      * @param string $body      text to extract keywords from
-     * @param mixed  $forceKeys array of keywords to force use, or null for none
      * @param int    $count     number of keywords to use
      * @param int    $minLength minimum length of word to consider as a keyword
+     * @param mixed  $forceKeys array of keywords to force use, or null for none
      *
      * @return array of keywords
      */
     public static function generateKeywords(
         $body,
-        $forceKeys = null,
         $count = 20,
-        $minLength = 4
+        $minLength = 4,
+        $forceKeys = null
     ) {
         $keywords = array();
+        if (!is_array($forceKeys)) {
+            $forceKeys = array();
+        }
 
         $text = trim($body);
         $text = strtolower($text);
@@ -232,22 +235,23 @@ class Metagen
      *
      * @param string $title     title
      * @param string $body      body text
-     * @param array  $forceKeys associative array of keywords to force use
      * @param int    $count     maximum keywords to use
      * @param int    $minLength minimum length of word to consider as keyword
      * @param int    $wordCount maximum word count for description summary
+     * @param array  $forceKeys associative array of keywords to force use
      *
      * @return void
      */
     public static function generateMetaTags(
         $title,
         $body,
-        $forceKeys = null,
         $count = 20,
         $minLength = 4,
-        $wordCount = 100
+        $wordCount = 100,
+        $forceKeys = null
     ) {
-        $keywords = self::generateKeywords($body, $forceKeys, $count, $minLength);
+        $title_keywords = self::generateKeywords($title, $count, 3, $forceKeys);
+        $keywords = self::generateKeywords($body, $count, $minLength, $title_keywords);
         $description = self::generateDescription($body, $wordCount);
         self::assignTitle($title);
         self::assignKeywords($keywords);
@@ -301,6 +305,7 @@ class Metagen
 
         $tableau = explode("-", $title);
         $tableau = array_filter($tableau, 'self::nonEmptyString');
+        $tableau = array_filter($tableau, 'self::checkStopWords');
         $title = implode("-", $tableau);
 
         if (sizeof($title) > 0) {
