@@ -61,7 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $content = "<div class='x2-note confirmMsg'>" . NO_INSTALLED_MODULES . "</div>";
     }
 
-    //Set active modules in cache folder
+    //Reset module lists in cache folder
+    \Xoops_Cache::delete('system_modules_active');
+    \Xoops_Cache::delete('system_modules_preloads');
     $xoops->setActiveModules();
 } else {
     if (!$xoops->getConfig('locale')) {
