@@ -11,41 +11,44 @@
     </thead>
     <tbody>
     <{foreach item=security from=$security}>
-    <tr class="<{cycle values='even,odd'}>">
-        <td class="txtcenter"><{$security.type}></td>
-        <td class="xo-actions txtcenter">
-            <{if $security.status == '1'}>
-            <img src="<{xoModuleIcons16 1.png}>" alt="OK" />
-            <{/if}>
-            <{if $security.status == '0'}>
-            <img src="<{xoModuleIcons16 0.png}>" alt="<{$smarty.const._AM_ADV_NOTSECURE}>"/>
-            <{/if}>
-            <{if $security.status == '-'}>
-                <{$security.status}>
-            <{/if}>
-        </td>
-        <td class="txtleft"><{$security.info}></td>
-        <td class="xo-actions txtcenter">
-            <{if $security.text != ''}>
-            <img class="xo-tooltip" onclick="display_dialog(<{$security.id}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoModuleIcons16 info.png}>" title="<{$smarty.const._AM_ADV_VIEW}>" alt="<{$smarty.const._AM_ADV_VIEW}>" />
-            <{/if}>
-        </td>
-    </tr>
+        <tr class="<{cycle values='even,odd'}>">
+            <td class="txtcenter"><{$security.type}></td>
+            <td class="xo-actions txtcenter">
+                <{if $security.status == '1'}>
+                    <img src="<{xoModuleIcons16 1.png}>" alt="OK"/>
+                <{/if}>
+                <{if $security.status == '0'}>
+                    <img src="<{xoModuleIcons16 0.png}>" alt="<{$smarty.const._AM_ADV_NOTSECURE}>"/>
+                <{/if}>
+                <{if $security.status == '-'}>
+                    <{$security.status}>
+                <{/if}>
+            </td>
+            <td class="txtleft"><{$security.info}></td>
+            <td class="xo-actions txtcenter">
+                <{if $security.text != ''}>
+                    <img class="xo-tooltip" onclick="display_dialog(<{$security.id}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoModuleIcons16 info.png}>" title="<{$smarty.const._AM_ADV_VIEW}>" alt="<{$smarty.const._AM_ADV_VIEW}>"/>
+                <{/if}>
+            </td>
+        </tr>
     <{/foreach}>
     </tbody>
 </table>
 
+
 <!--Pop-pup-->
 <{foreach item=security from=$popup_security}>
-<div id="dialog<{$security.id}>" title="<{$security.type}>" style='display:none;'>
-    <{$security.text}>
-</div>
+    <div id="dialog<{$security.id}>" title="<{$security.type}>" style='display:none;'>
+        <{$security.text}>
+    </div>
 <{/foreach}>
 <!--Pop-pup-->
+
+
 <div class="xo-moduleadmin-infobox outer">
     <div class="xo-window">
         <div class="xo-window-title">
-            <img src="<{xoModuleIcons16 info.png}>" alt="" />&nbsp;<{$smarty.const._AM_ADV_SUBTITLECHECK}>
+            <img src="<{xoModuleIcons16 info.png}>" alt=""/>&nbsp;<{$smarty.const._AM_ADV_SUBTITLECHECK}>
             <a class="down" href="javascript:;">&nbsp;</a>
         </div>
         <div class="xo-window-data">
@@ -58,3 +61,115 @@
     </div>
     <div class="clear"></div>
 </div>
+
+
+<{foreach from=$securitytest item=item key=key}>
+    <{if $item|is_array}>
+        <{if 'test_results' == $key}>
+            <h3>Security Information About PHP</h3>
+            <{foreach from=$item item=core key=key}>
+                <{if $core|is_array}>
+                    <h3><{$key}></h3>
+
+                    <table class="outer tablesorter" width='95%'>
+                    <thead>
+                    <tr>
+                        <th><{$smarty.const._AM_PROTECTOR_TEST}></th>
+                        <th><{$smarty.const._AM_PROTECTOR_RESULT}></th>
+                        <th><{$smarty.const._AM_PROTECTOR_NOTE}></th>
+                        <th><{$smarty.const._AM_PROTECTOR_CURRENT_VALUE}></th>
+                        <th><{$smarty.const._AM_PROTECTOR_RECOMMENDED_VALUE}></th>
+                        <th><{$smarty.const._AM_PROTECTOR_MORE_INFO}></th>
+                    </tr>
+                    </thead>
+                    <{foreach from=$core item=test key=key}>
+
+                        <{if $test|is_array}>
+                            <tr>
+                                <td><{$key}></td>
+
+                                <{foreach name=zname from=$test item=citem }>
+
+
+                                    <{if $smarty.foreach.zname.iteration eq 1}>
+                                        <{if $citem eq -1}>
+                                            <td><img src="<{xoModuleIcons16 1.png}>" alt="OK"/></td>
+                                        <{elseif $citem eq -2}>
+                                            <td><img src="<{xoModuleIcons16 error.png}>" alt="OK"/></td>
+                                        <{else}>
+                                            <td><img src="<{xoModuleIcons16 0.png}>" alt="<{$smarty.const._AM_ADV_NOTSECURE}>"/></td>
+                                        <{/if}>
+
+                                    <{elseif $smarty.foreach.zname.iteration eq 5}>
+                                        <td><a href="<{$citem}>"><{$smarty.const._AM_PROTECTOR_MORE_INFO}></a></td>
+                                    <{else}>
+                                        <td><{$citem}></td>
+                                    <{/if}>
+                                <{/foreach}>
+                            </tr>
+                        <{/if}>
+                    <{/foreach}>
+
+                <{/if}>
+                </table>
+            <{/foreach}>
+        <{elseif 'tests_not_run' == $key}>
+            <h3>Test Not Run</h3>
+            <table class="outer tablesorter" width='95%'>
+                <thead>
+                <tr>
+                    <th><{$smarty.const._AM_PROTECTOR_TEST}></th>
+                    <th><{$smarty.const._AM_PROTECTOR_RESULT}></th>
+                    <th><{$smarty.const._AM_PROTECTOR_NOTE}></th>
+                    <th><{$smarty.const._AM_PROTECTOR_CURRENT_VALUE}></th>
+                    <th><{$smarty.const._AM_PROTECTOR_RECOMMENDED_VALUE}></th>
+                    <th><{$smarty.const._AM_PROTECTOR_MORE_INFO}></th>
+                </tr>
+                </thead>
+                <{foreach from=$item item=bitem key=key}>
+
+                    <{if $bitem|is_array}>
+                        <tr>
+                            <td><{$key}></td>
+                            <{foreach name=zname from=$bitem item=citem }>
+                                <{if $smarty.foreach.zname.iteration eq 5}>
+                                    <td><a href="<{$citem}>"><{$smarty.const._AM_PROTECTOR_MORE_INFO}></a></td>
+                                <{else}>
+                                    <td><{$citem}></td>
+                                <{/if}>
+                            <{/foreach}>
+                        </tr>
+                    <{/if}>
+                <{/foreach}>
+            </table>
+        <{elseif 'result_counts' == $key}>
+            <h3>Test Results Summary</h3>
+            <table class="outer tablesorter" width='95%'>
+                <thead>
+                <tr>
+                    <th><{$smarty.const._AM_PROTECTOR_TEST}></th>
+                    <th><{$smarty.const._AM_PROTECTOR_RESULT}></th>
+                </tr>
+                </thead>
+                <{foreach from=$item item=bitem key=key}>
+
+                    <{if $bitem|is_array}>
+                        <tr>
+                            <td><{$key}></td>
+                            <{foreach from=$bitem item=citem }>
+                                <td><{$citem}></td>
+                            <{/foreach}>
+                        </tr>
+                    <{else}>
+                        <tr>
+                            <td><{$key}></td>
+                            <td><{$bitem}></td>
+                        </tr>
+                    <{/if}>
+
+                <{/foreach}>
+            </table>
+        <{/if}>
+    <{/if}>
+<{/foreach}>
+

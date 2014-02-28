@@ -40,11 +40,11 @@ $modversion['dirname']     = 'protector';
 /*
  Settings for configs
 */
-$modversion['release_date']        = '2011/10/08';
+$modversion['release_date']        = '2014/02/28';
 $modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "RC";
-$modversion['min_php'] = '5.3';
+$modversion["module_status"]       = "Beta 1";
+$modversion['min_php'] = '5.3.7';
 $modversion['min_xoops']           = "2.6.0";
 $modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
