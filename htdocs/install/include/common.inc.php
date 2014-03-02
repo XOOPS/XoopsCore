@@ -33,6 +33,9 @@ define('XOOPS_INSTALL', 1);
 define('XOOPS_INSTALL_PATH', dirname(dirname(__FILE__)));
 
 // options for mainfile.php
+if (false === date_default_timezone_set(@date_default_timezone_get())) {
+    date_default_timezone_set('UTC'); // use this until properly set
+}
 if (empty($xoopsOption['hascommon'])) {
     $xoopsOption['nocommon'] = true;
     session_start();
