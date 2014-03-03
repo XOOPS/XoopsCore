@@ -9,17 +9,12 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 class XoopsCacheFileTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCacheFile';
-    
-    public function SetUp()
+	
+    public function test__construct()
 	{
+		$instance = new $this->myclass(null);
+		$this->assertInstanceOf($this->myclass, $instance);
+		$this->assertInstanceOf('Xoops_Cache_File', $instance);
     }
 	
-    public function test_100()
-	{
-    }
-	
-	public function test_200()
-	{
-	}
-		
 }

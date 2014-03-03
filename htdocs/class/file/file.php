@@ -83,14 +83,16 @@ class XoopsFileHandler
      * @param boolean $create Create file if it does not exist (if true)
      * @param integer $mode   Mode to apply to the folder holding the file
      *
-     * @access private
+     * @access public
      */
     public function __construct($path, $create = false, $mode = 0755)
     {
         $this->folder = XoopsFile::getHandler('folder', dirname($path), $create, $mode);
         if (!is_dir($path)) {
             $this->name = basename($path);
-        }
+        } else {
+			return false;
+		}
         if (!$this->exists()) {
             if ($create === true) {
                 if ($this->safe($path) && $this->create() === false) {

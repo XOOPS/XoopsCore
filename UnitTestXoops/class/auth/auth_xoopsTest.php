@@ -6,15 +6,15 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsAuthTest extends MY_UnitTestCase
+class XoopsAuthXoopsTest extends MY_UnitTestCase
 {
-    protected $myclass = 'XoopsAuth';
+    protected $myclass = 'XoopsAuthXoops';
 	
     public function test__construct()
 	{
 		$instance = new $this->myclass(null);
 		$this->assertInstanceOf($this->myclass, $instance);
-		$this->assertInstanceOf('Xoops_Auth', $instance);
+		$this->assertInstanceOf('Xoops_Auth_Xoops', $instance);
     }
 	
 }
