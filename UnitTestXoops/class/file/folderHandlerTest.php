@@ -6,13 +6,13 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsFileHandlerTest extends MY_UnitTestCase
+class XoopsFolderHandlerTest extends MY_UnitTestCase
 {
-    protected $myclass = 'XoopsFileHandler';
+    protected $myclass = 'XoopsFolderHandler';
 	
     public function test___construct()
 	{
-		$instance = new $this->myclass(__FILE__);
+		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
     }
 }

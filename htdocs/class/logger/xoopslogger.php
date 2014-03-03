@@ -33,7 +33,7 @@ class XoopsLogger
      * getInstance - get only instance of this class
      * 
      * @return object XoopsLogger
-     * @depreciated
+     * @deprecated
      */
     public static function getInstance()
     {
