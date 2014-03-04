@@ -9,7 +9,7 @@ function verify($file, $path)
 	$founds = glob($pattern);
 	$ok = !empty($founds);
 	$tmp = $ok ? 'Test OK :' : 'Test not found : ';
-	if (!$ok) printf ("%s %s\n", $tmp, $pattern);
+	if (!$ok) printf ("%s %s\n", $tmp, $path.DS.$file);
 }
 
 function browse($path=null)
