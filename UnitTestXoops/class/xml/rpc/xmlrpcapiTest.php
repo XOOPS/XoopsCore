@@ -1,7 +1,21 @@
 <?php
+require_once(dirname(__FILE__).'/../../../init.php');
 
-class XoopsXmlRpcApi
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
+class XoopsXmlRpcApiTest extends MY_UnitTestCase
 {
+    protected $myclass = 'XoopsXmlRpcApi';
+    
+    public function test___construct()
+	{
+		$x = new $this->myclass();
+		$this->assertInstanceof($this->myclass, $x);
+	}
+
     function test_XoopsXmlRpcApi(&$params, &$response, &$module)
     {
     }

@@ -1,7 +1,21 @@
 <?php
+require_once(dirname(__FILE__).'/../../../init.php');
 
-class BloggerApi extends XoopsXmlRpcApi
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
+class BloggerApiTest extends MY_UnitTestCase
 {
+    protected $myclass = 'BloggerApi';
+    
+    public function test___construct()
+	{
+		$x = new $this->myclass();
+		$this->assertInstanceof($this->myclass, $x);
+		$this->assertInstanceof('XoopsXmlRpcApi', $x);
+	}
 
     function test_BloggerApi(&$params, &$response, &$module)
     {
