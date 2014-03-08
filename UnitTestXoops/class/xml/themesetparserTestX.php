@@ -1,499 +1,367 @@
 <?php
-/*
- You may not change or alter any portion of this comment or credits
- of supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit authors.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*/
+require_once(dirname(__FILE__).'/../../init.php');
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xml
- * @since           1.0.0
- * @author          Kazumi Ono (AKA onokazu)
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class XoopsThemeSetParser extends SaxParser
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
+class XoopsThemeSetParserTest extends MY_UnitTestCase
 {
-    /**
-     * @var array
-     */
-    public $tempArr = array();
+    protected $myclass = 'XoopsThemeSetParser';
 
-    /**
-     * @var array
-     */
-    public $themeSetData = array();
-
-    /**
-     * @var array
-     */
-    public $imagesData = array();
-
-    /**
-     * @var array
-     */
-    public $templatesData = array();
-
-    /**
-     * @param string $input
-     */
-    public function __construct(&$input)
+    public function test___construct()
     {
-        parent::__construct($input);
-        $this->addTagHandler(new ThemeSetDateCreatedHandler());
-        $this->addTagHandler(new ThemeSetAuthorHandler());
-        $this->addTagHandler(new ThemeSetDescriptionHandler());
-        $this->addTagHandler(new ThemeSetGeneratorHandler());
-        $this->addTagHandler(new ThemeSetNameHandler());
-        $this->addTagHandler(new ThemeSetEmailHandler());
-        $this->addTagHandler(new ThemeSetLinkHandler());
-        $this->addTagHandler(new ThemeSetTemplateHandler());
-        $this->addTagHandler(new ThemeSetImageHandler());
-        $this->addTagHandler(new ThemeSetModuleHandler());
-        $this->addTagHandler(new ThemeSetFileTypeHandler());
-        $this->addTagHandler(new ThemeSetTagHandler());
+		$instance = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $instance);
+		$this->assertInstanceOf('SaxParser', $instance);
     }
 
-    /**
-     * @param string $name
-     * @param string $value
-     * @return void
-     */
-    public function setThemeSetData($name, &$value)
+    public function test_setThemeSetData()
     {
-        $this->themeSetData[$name] = $value;
     }
 
-    /**
-     * @param string $name
-     * @return array|bool
-     */
-    public function getThemeSetData($name = null)
+    public function test_getThemeSetData()
     {
-        if (isset($name)) {
-            if (isset($this->themeSetData[$name])) {
-                return $this->themeSetData[$name];
-            }
-            return false;
-        }
-        return $this->themeSetData;
     }
 
-    /**
-     * @param array $imagearr
-     * @return void
-     */
-    public function setImagesData(&$imagearr)
+    public function test_setImagesData()
     {
-        $this->imagesData[] = $imagearr;
     }
 
-    /**
-     * @return array
-     */
-    public function getImagesData()
+    public function test_getImagesData()
     {
-        return $this->imagesData;
     }
 
-
-    /**
-     * @param array $tplarr
-     * @return void
-     */
-    public function setTemplatesData(&$tplarr)
+    public function test_setTemplatesData()
     {
-        $this->templatesData[] = $tplarr;
     }
 
-    /**
-     * @return array
-     */
-    public function getTemplatesData()
+    public function test_getTemplatesData()
     {
-        return $this->templatesData;
     }
 
-    /**
-     * @param string $name
-     * @param string $value
-     * @param string $delim
-     * @return void
-     */
-    public function setTempArr($name, &$value, $delim = '')
+    public function test_setTempArr()
     {
-        if (!isset($this->tempArr[$name])) {
-            $this->tempArr[$name] = $value;
-        } else {
-            $this->tempArr[$name] .= $delim . $value;
-        }
     }
 
-    /**
-     * @return array
-     */
-    public function getTempArr()
+    public function test_getTempArr()
     {
-        return $this->tempArr;
     }
 
-    /**
-     * @return void
-     */
-    public function resetTempArr()
+    public function test_resetTempArr()
     {
-        unset($this->tempArr);
-        $this->tempArr = array();
     }
-}
-
-class ThemeSetDateCreatedHandler extends XmlTagHandler
-{
-
-    /**
-     * @return string
-     */
-    public function getName()
+	
+    public function test_ThemeSetDateCreatedHandler()
     {
-        return 'dateCreated';
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetDateCreatedHandler();
+		$this->assertInstanceOf('ThemeSetDateCreatedHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_ThemeSetDateCreatedHandler_getName()
     {
-        switch ($parser->getParentTag()) {
-            case 'themeset':
-                $parser->setThemeSetData('date', $data);
-                break;
-            default:
-                break;
-        }
-    }
-}
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetDateCreatedHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetDateCreatedHandler_handleCharacterData()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetDateCreatedHandler();
+		$instance->handleCharacterData(&$parser, &$data);
+	}
 
-class ThemeSetAuthorHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
+    public function test_ThemeSetAuthorHandler()
     {
-        return 'author';
-    }
-
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $attributes
-     * @return void
-     */
-    public function handleBeginElement(&$parser, &$attributes)
-    {
-        $parser->resetTempArr();
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetAuthorHandler();
+		$this->assertInstanceOf('ThemeSetAuthorHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @return void
-     */
-    public function handleEndElement(&$parser)
+    public function test_ThemeSetAuthorHandler_getName()
     {
-        //todo where does this method come from??
-        $parser->setCreditsData($parser->getTempArr());
-    }
-}
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetAuthorHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetAuthorHandler_handleBeginElement()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetAuthorHandler();
+		$instance->handleBeginElement(&$parser, &$attributes);
+	}
 
-class ThemeSetDescriptionHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
+    public function test_ThemeSetAuthorHandler_handleEndElement()
     {
-        return 'description';
-    }
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetAuthorHandler();
+		$instance->handleEndElement(&$parser, &$attributes);
+	}
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_ThemeSetDescriptionHandler()
     {
-        switch ($parser->getParentTag()) {
-            case 'template':
-                $parser->setTempArr('description', $data);
-                break;
-            case 'image':
-                $parser->setTempArr('description', $data);
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-class ThemeSetGeneratorHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'generator';
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetDescriptionHandler();
+		$this->assertInstanceOf('ThemeSetDescriptionHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_ThemeSetDescriptionHandler_getName()
     {
-        switch ($parser->getParentTag()) {
-            case 'themeset':
-                $parser->setThemeSetData('generator', $data);
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-class ThemeSetNameHandler extends XmlTagHandler
-{
-
-    public function getName()
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetDescriptionHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetDescriptionHandler_handleCharacterData()
     {
-        return 'name';
-    }
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetDescriptionHandler();
+		$instance->handleCharacterData(&$parser, &$data);
+	}
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_ThemeSetGeneratorHandler()
     {
-        switch ($parser->getParentTag()) {
-            case 'themeset':
-                $parser->setThemeSetData('name', $data);
-                break;
-            case 'author':
-                $parser->setTempArr('name', $data);
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-class ThemeSetEmailHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'email';
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetGeneratorHandler();
+		$this->assertInstanceOf('ThemeSetGeneratorHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_ThemeSetGeneratorHandler_getName()
     {
-        switch ($parser->getParentTag()) {
-            case 'author':
-                $parser->setTempArr('email', $data);
-                break;
-            default:
-                break;
-        }
-    }
-}
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetGeneratorHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetGeneratorHandler_handleCharacterData()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetGeneratorHandler();
+		$instance->handleCharacterData(&$parser, &$data);
+	}
 
-class ThemeSetLinkHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
+    public function test_ThemeSetNameHandler()
     {
-        return 'link';
-    }
-
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
-    {
-        switch ($parser->getParentTag()) {
-            case 'author':
-                $parser->setTempArr('link', $data);
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-class ThemeSetTemplateHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'template';
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetNameHandler();
+		$this->assertInstanceOf('ThemeSetNameHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $attributes
-     * @return void
-     */
-    public function handleBeginElement(&$parser, &$attributes)
+    public function test_ThemeSetNameHandler_getName()
     {
-        $parser->resetTempArr();
-        $parser->setTempArr('name', $attributes['name']);
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetNameHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetNameHandler_handleCharacterData()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetNameHandler();
+		$instance->handleCharacterData(&$parser, &$data);
+	}
+
+    public function test_ThemeSetEmailHandler()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetEmailHandler();
+		$this->assertInstanceOf('ThemeSetEmailHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @return void
-     */
-    public function handleEndElement(&$parser)
+    public function test_ThemeSetEmailHandler_getName()
     {
-        $parser->setTemplatesData($parser->getTempArr());
-    }
-}
-
-class ThemeSetImageHandler extends XmlTagHandler
-{
-    /**
-     * @return string
-     */
-    public function getName()
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetEmailHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetEmailHandler_handleCharacterData()
     {
-        return 'image';
-    }
-
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $attributes
-     * @return void
-     */
-    public function handleBeginElement(&$parser, &$attributes)
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetEmailHandler();
+		$instance->handleCharacterData(&$parser, &$data);
+	}
+	
+    public function test_ThemeSetLinkHandler()
     {
-        $parser->resetTempArr();
-        $parser->setTempArr('name', $attributes[0]);
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetLinkHandler();
+		$this->assertInstanceOf('ThemeSetLinkHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @return void
-     */
-    public function handleEndElement(&$parser)
+    public function test_ThemeSetLinkHandler_getName()
     {
-        $parser->setImagesData($parser->getTempArr());
-    }
-}
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetLinkHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetLinkHandler_handleCharacterData()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetLinkHandler();
+		$instance->handleCharacterData(&$parser, &$data);
+	}
 
+    public function test_ThemeSetTemplateHandler()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetTemplateHandler();
+		$this->assertInstanceOf('ThemeSetTemplateHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
+    }
+
+    public function test_ThemeSetTemplateHandler_getName()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetTemplateHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetTemplateHandler_handleBeginElement()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetTemplateHandler();
+		$instance->handleBeginElement(&$parser, &$attributes);
+	}
+
+    public function test_ThemeSetTemplateHandler_handleEndElement()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetTemplateHandler();
+		$instance->handleEndElement(&$parser, &$attributes);
+	}
+
+    public function test_ThemeSetImageHandler()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetImageHandler();
+		$this->assertInstanceOf('ThemeSetImageHandler', $instance);
+		$this->assertInstanceOf('XmlTagHandler', $instance);
+    }
+
+    public function test_ThemeSetImageHandler_getName()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetImageHandler();
+		$instance->getName();
+	}
+	
+    public function test_ThemeSetImageHandler_handleBeginElement()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetImageHandler();
+		$instance->handleBeginElement(&$parser, &$attributes);
+	}
+
+    public function test_ThemeSetImageHandler_handleEndElement()
+    {
+		$x = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $x);
+		
+		$instance = new ThemeSetImageHandler();
+		$instance->handleEndElement(&$parser, &$attributes);
+	}
+	
+	
 class ThemeSetModuleHandler extends XmlTagHandler
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function test_getName()
     {
-        return 'module';
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_handleCharacterData(&$parser, &$data)
     {
-        switch ($parser->getParentTag()) {
-            case 'template':
-            case 'image':
-                $parser->setTempArr('module', $data);
-                break;
-            default:
-                break;
-        }
     }
 }
 
 class ThemeSetFileTypeHandler extends XmlTagHandler
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function test_getName()
     {
-        return 'fileType';
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_handleCharacterData(&$parser, &$data)
     {
-        switch ($parser->getParentTag()) {
-            case 'template':
-                $parser->setTempArr('type', $data);
-                break;
-            default:
-                break;
-        }
     }
 }
 
 class ThemeSetTagHandler extends XmlTagHandler
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function test_getName()
     {
-        return 'tag';
     }
 
-    /**
-     * @param XoopsThemeSetParser $parser
-     * @param array $data
-     * @return void
-     */
-    public function handleCharacterData(&$parser, &$data)
+    public function test_handleCharacterData(&$parser, &$data)
     {
-        switch ($parser->getParentTag()) {
-            case 'image':
-                $parser->setTempArr('tag', $data);
-                break;
-            default:
-                break;
-        }
     }
 }
