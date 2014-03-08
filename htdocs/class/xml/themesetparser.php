@@ -174,6 +174,7 @@ class ThemeSetDateCreatedHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('date', $data);
@@ -201,7 +202,7 @@ class ThemeSetAuthorHandler extends XmlTagHandler
      */
     public function handleBeginElement(&$parser, &$attributes)
     {
-        $parser->resetTempArr();
+        if ($parser) $parser->resetTempArr();
     }
 
     /**
@@ -211,7 +212,7 @@ class ThemeSetAuthorHandler extends XmlTagHandler
     public function handleEndElement(&$parser)
     {
         //todo where does this method come from??
-        $parser->setCreditsData($parser->getTempArr());
+        if ($parser) $parser->setCreditsData($parser->getTempArr());
     }
 }
 
@@ -232,6 +233,7 @@ class ThemeSetDescriptionHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('description', $data);
@@ -262,6 +264,7 @@ class ThemeSetGeneratorHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('generator', $data);
@@ -287,6 +290,7 @@ class ThemeSetNameHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('name', $data);
@@ -317,6 +321,7 @@ class ThemeSetEmailHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('email', $data);
@@ -344,6 +349,7 @@ class ThemeSetLinkHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('link', $data);
@@ -371,6 +377,7 @@ class ThemeSetTemplateHandler extends XmlTagHandler
      */
     public function handleBeginElement(&$parser, &$attributes)
     {
+		if (!$parser) return;
         $parser->resetTempArr();
         $parser->setTempArr('name', $attributes['name']);
     }
@@ -381,6 +388,7 @@ class ThemeSetTemplateHandler extends XmlTagHandler
      */
     public function handleEndElement(&$parser)
     {
+		if (!$parser) return;
         $parser->setTemplatesData($parser->getTempArr());
     }
 }
@@ -402,6 +410,7 @@ class ThemeSetImageHandler extends XmlTagHandler
      */
     public function handleBeginElement(&$parser, &$attributes)
     {
+		if (!$parser) return;
         $parser->resetTempArr();
         $parser->setTempArr('name', $attributes[0]);
     }
@@ -412,6 +421,7 @@ class ThemeSetImageHandler extends XmlTagHandler
      */
     public function handleEndElement(&$parser)
     {
+		if (!$parser) return;
         $parser->setImagesData($parser->getTempArr());
     }
 }
@@ -433,6 +443,7 @@ class ThemeSetModuleHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'template':
             case 'image':
@@ -461,6 +472,7 @@ class ThemeSetFileTypeHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('type', $data);
@@ -488,6 +500,7 @@ class ThemeSetTagHandler extends XmlTagHandler
      */
     public function handleCharacterData(&$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'image':
                 $parser->setTempArr('tag', $data);
