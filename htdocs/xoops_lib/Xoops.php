@@ -1895,7 +1895,7 @@ class Xoops
      */
     public function disableErrorReporting()
     {
-        error_reporting(0);
+        //error_reporting(0);
         $this->events()->triggerEvent('core.disableerrorreporting');
     }
 }
