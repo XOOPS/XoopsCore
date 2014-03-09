@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../init.php');
 
+require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -9,40 +11,39 @@ require_once(dirname(__FILE__).'/../../init.php');
 class ThemeSetTemplateHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetTemplateHandler';
-	
-	function setUp()
-	{
-		$x = new XoopsThemeSetParser();
-	}
 
     public function test___construct()
     {
-		$instance = new $this->myclass();
+		$input = 'input';
+		$instance = new $this->myclass($input);
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
     public function test_getName()
     {
-		$instance = new $this->myclass();
+		$input = 'input';
+		$instance = new $this->myclass($input);
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		$instance->getName();
+		//$instance->getName();
 	}
 	
     public function test_handleBeginElement()
     {
-		$instance = new $this->myclass();
+		$input = 'input';
+		$instance = new $this->myclass($input);
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		$instance->handleBeginElement();
+		//$instance->handleBeginElement();
 	}
 
     public function test_handleEndElement()
     {
-		$instance = new $this->myclass();
+		$input = 'input';
+		$instance = new $this->myclass($input);
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		$instance->handleEndElement();
+		//$instance->handleEndElement();
 	}
 }

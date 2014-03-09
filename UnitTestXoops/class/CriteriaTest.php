@@ -12,9 +12,10 @@ class CriteriaTest extends MY_UnitTestCase
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
+		$column = 'column';
+		$x = new $this->myclass($column);
         $this->assertInstanceOf($this->myclass, $x);
-        $this->assertInstanceOf('Xoops\Core\Kernel\Criteria', $x);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Criteria', $x);
     }
         
 }

@@ -15,6 +15,7 @@ class Editor_registryTest extends MY_UnitTestCase
     {
 		global $config;
 		$config = null;
+		require_once(XOOPS_ROOT_PATH.'/class/xoopseditor/dhtmltextarea/language/english.php');
 		require_once(XOOPS_ROOT_PATH.'/class/xoopseditor/dhtmltextarea/editor_registry.php');
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['class']));		

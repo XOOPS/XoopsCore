@@ -17,6 +17,7 @@ class Textarea_Editor_registryTest extends MY_UnitTestCase
 		global $config;
 		
 		ob_start();
+		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/textarea/language/english.php');
 		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/textarea/editor_registry.php');
 		$x = ob_get_clean();
 		$this->assertTrue(is_array($config));

@@ -14,7 +14,8 @@ class MytsIframeTest extends MY_UnitTestCase
 	
     public function test___construct()
 	{
-		$instance = new $this->myclass();
+		$ts = new MyTextSanitizer();
+		$instance = new $this->myclass($ts);
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('MyTextSanitizerExtension', $instance);
     }

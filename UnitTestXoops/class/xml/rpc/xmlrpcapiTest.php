@@ -12,19 +12,22 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
+		$params = array('p1'=>'one');
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$x = new $this->myclass($params, $response, $module);
 		$this->assertInstanceof($this->myclass, $x);
 	}
 
-    function test_XoopsXmlRpcApi(&$params, &$response, &$module)
+    function test_XoopsXmlRpcApi()
     {
     }
 
-    function test__setUser(&$user, $isadmin = false)
+    function test__setUser()
     {
     }
 
-    function test__checkUser($username, $password)
+    function test__checkUser()
     {
     }
 
@@ -32,23 +35,23 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     {
     }
 
-    function test__getPostFields($post_id = null, $blog_id = null)
+    function test__getPostFields()
     {
     }
 
-    function test__setXoopsTagMap($xoopstag, $blogtag)
+    function test__setXoopsTagMap()
     {
     }
 
-    function test__getXoopsTagMap($xoopstag)
+    function test__getXoopsTagMap()
     {
     }
 
-    function test__getTagCdata(&$text, $tag, $remove = true)
+    function test__getTagCdata()
     {
     }
 
-    function test__getXoopsApi(&$params)
+    function test__getXoopsApi()
     {
     }
 }

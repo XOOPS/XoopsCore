@@ -12,7 +12,9 @@ class XoopsXmlRpcFaultTest extends MY_UnitTestCase
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
+		$code = 109;
+		$str = 'string';
+		$x = new $this->myclass($code, $str);
 		$this->assertInstanceof($this->myclass, $x);
 		$this->assertInstanceof('XoopsXmlRpcTag', $x);
 	}

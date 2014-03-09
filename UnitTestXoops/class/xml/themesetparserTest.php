@@ -12,7 +12,8 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test___construct()
     {
-		$instance = new $this->myclass();
+		$input = 'input';
+		$instance = new $this->myclass($input);
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('SaxParser', $instance);
     }

@@ -12,7 +12,8 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
+		$input = 'input';
+		$x = new $this->myclass($input);
 		$this->assertInstanceof($this->myclass, $x);
 		$this->assertInstanceof('SaxParser', $x);
 	}
@@ -97,7 +98,7 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
     {
     }
 
-    function test_setParam($value)
+    function test_setParam()
     {
     }
 

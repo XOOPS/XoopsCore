@@ -12,7 +12,10 @@ class MetaWeblogApiTest extends MY_UnitTestCase
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
+		$params = array('p1'=>'one');
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$x = new $this->myclass($params, $response, $module);
 		$this->assertInstanceof($this->myclass, $x);
 		$this->assertInstanceof('XoopsXmlRpcApi', $x);
 	}
