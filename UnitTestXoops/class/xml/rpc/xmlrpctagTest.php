@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init.php');
 
+require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
+
 class XoopsXmlRpcTagTestInstance extends XoopsXmlRpcTag
 {
 	function render() {}
@@ -14,11 +16,6 @@ class XoopsXmlRpcTagTestInstance extends XoopsXmlRpcTag
 class XoopsXmlRpcTagTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcTagTestInstance';
-	
-	function setUp()
-	{
-		$x = new XoopsXmlRpcParser();
-	}
     
     public function test___construct()
 	{

@@ -240,7 +240,7 @@ class Xoops_Cache_Redis extends Xoops_Cache_Abstract
      **/
     public function __destruct()
     {
-        if (!$this->settings['persistent']) {
+        if (!empty($this->settings['persistent'])) {
             $this->_Redis->close();
         }
     }

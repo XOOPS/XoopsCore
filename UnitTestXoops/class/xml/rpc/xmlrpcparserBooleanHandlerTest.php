@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init.php');
 
+require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -9,11 +11,6 @@ require_once(dirname(__FILE__).'/../../../init.php');
 class RpcBooleanHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcBooleanHandler';
-	
-	function setUp()
-	{
-		$x = new XoopsXmlRpcParser();
-	}
     
     public function test___construct()
 	{

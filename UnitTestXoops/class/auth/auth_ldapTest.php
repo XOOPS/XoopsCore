@@ -12,6 +12,8 @@ class XoopsAuthLdapTest extends MY_UnitTestCase
 	
     public function test__construct()
 	{
+		if (!extension_loaded('LDAP')) return;
+		
 		$instance = new $this->myclass(null);
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('Xoops_Auth_Ldap', $instance);

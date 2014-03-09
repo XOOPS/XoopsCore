@@ -25,14 +25,14 @@ class XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    function handleBeginElement(&$parser, &$attributes) {}
+    function handleBeginElement(XoopsXmlRpcParser &$parser, &$attributes) {}
 
     /**
      * @abstract
      * @param SaxParser $parser
      * @return void
      */
-    function handleEndElement(&$parser) {}
+    function handleEndElement(XoopsXmlRpcParser &$parser) {}
 
     /**
      * @abstract
@@ -40,5 +40,5 @@ class XmlTagHandler
      * @param $data
      * @return void
      */
-    function handleCharacterData(&$parser, &$data) {}
+    function handleCharacterData(XoopsXmlRpcParser &$parser, &$data) {}
 }
