@@ -51,18 +51,20 @@ class XoopsEditor extends XoopsFormTextArea
         $args = func_get_args();
         $configs = array();
         // For backward compatibility
-        if (!is_array($args[0])) {
-            $i = 0;
-            foreach (array('caption', 'name', 'value', 'rows', 'cols', 'hiddentext') as $key) {
-                if (isset($args[$i])) {
-                    $configs[$key] = $args[$i];
-                }
-                $i++;
-            }
-            $configs = (isset($args[$i]) && is_array($args[$i])) ? array_merge($configs, $args[$i]) : $configs;
-        } else {
-            $configs = $args[0];
-        }
+		if (!empty($args)) {
+			if (!is_array($args[0])) {
+				$i = 0;
+				foreach (array('caption', 'name', 'value', 'rows', 'cols', 'hiddentext') as $key) {
+					if (isset($args[$i])) {
+						$configs[$key] = $args[$i];
+					}
+					$i++;
+				}
+				$configs = (isset($args[$i]) && is_array($args[$i])) ? array_merge($configs, $args[$i]) : $configs;
+			} else {
+				$configs = $args[0];
+			}
+		}
         // TODO: switch to property_exists() as of PHP 5.1.0
         $vars = get_class_vars(__CLASS__);
         foreach ($configs as $key => $val) {
