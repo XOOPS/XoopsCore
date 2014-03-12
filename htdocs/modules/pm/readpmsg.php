@@ -160,6 +160,8 @@ if (is_object($pm) && !empty($pm)) {
         $xoops->tpl()->assign('anonymous', $xoopsConfig['anonymous']);
     } else {
         $xoops->tpl()->assign('poster', $poster);
+        $avatar = $xoops->service('avatar')->getAvatarUrl($poster)->getValue();
+        $xoops->tpl()->assign('poster_avatar', $avatar);
     }
 
     if ($pm->getVar("to_userid") == $xoops->user->getVar("uid") && $pm->getVar('read_msg') == 0) {
