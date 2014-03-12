@@ -47,58 +47,16 @@ foreach ($root_paths as $i => $rpath) {
     }
 }
 $relative_path = str_repeat('../', count($root_paths) - $i) . implode('/', array_slice($trust_paths, $i));
-$security_arr[$i]['id'] = $i + 1;
+$security_arr[$i]['id'] = ++$i;
 $security_arr[$i]['type'] = 'XOOPS_TRUST_PATH';
 $security_arr[$i]['status'] = '-';
 $security_arr[$i]['info'] = "<img src='" . XOOPS_URL . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.png' width='40' height='20' alt='' style='border:1px solid black;' /> <a href='" . XOOPS_URL . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.php'>" . _AM_ADV_TRUSTPATHPUBLICLINK . "</a>";
 $security_arr[$i]['text'] = _AM_ADV_TRUSTPATHPUBLIC;
-$i++;
-
-// register_globals
-$safe = !ini_get("register_globals");
-$security_arr[$i]['id'] = $i + 1;
-$security_arr[$i]['type'] = 'register_globals';
-if ($safe) {
-    $security_arr[$i]['status'] = '1';
-    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>register_globals: off</span>";
-} else {
-    $security_arr[$i]['status'] = '0';
-    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>register_globals: on</span>";
-}
-$security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br /><br />" . XOOPS_ROOT_PATH . "/.htaccess<br /><br />" . _AM_ADV_REGISTERGLOBALS2 . "<br /><br /><b>php_flag &nbsp; register_globals &nbsp; off</b>";
-$i++;
-
-// allow_url_fopen
-$safe = !ini_get("allow_url_fopen");
-$security_arr[$i]['id'] = $i + 1;
-$security_arr[$i]['type'] = 'allow_url_fopen';
-if ($safe) {
-    $security_arr[$i]['status'] = '1';
-    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>allow_url_fopen: off</span>";
-} else {
-    $security_arr[$i]['status'] = '0';
-    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>allow_url_fopen: on</span>";
-}
-$security_arr[$i]['text'] = _AM_ADV_ALLOWURLFOPEN;
-$i++;
-
-// session.use_trans_sid
-$safe = !ini_get("session.use_trans_sid");
-$security_arr[$i]['id'] = $i + 1;
-$security_arr[$i]['type'] = 'session.use_trans_sid';
-if ($safe) {
-    $security_arr[$i]['status'] = '1';
-    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>session.use_trans_sid: off</span>";
-} else {
-    $security_arr[$i]['status'] = '0';
-    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>session.use_trans_sid: on</span>";
-}
-$security_arr[$i]['text'] = _AM_ADV_USETRANSSID;
-$i++;
+++$i;
 
 // XOOPS_DB_PREFIX
 $safe = strtolower(XOOPS_DB_PREFIX) != 'xoops';
-$security_arr[$i]['id'] = $i + 1;
+$security_arr[$i]['id'] = ++$i;
 $security_arr[$i]['type'] = 'XOOPS_DB_PREFIX';
 if ($safe) {
     $security_arr[$i]['status'] = '1';
@@ -108,11 +66,11 @@ if ($safe) {
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>XOOPS_DB_PREFIX: " . XOOPS_DB_PREFIX . "</span>&nbsp;<a href='prefix_manager.php'>" . _AM_ADV_LINK_TO_PREFIXMAN . "</a>";
 }
 $security_arr[$i]['text'] = _AM_ADV_DBPREFIX;
-$i++;
+++$i;
 
 // patch to mainfile.php
-$security_arr[$i]['id'] = $i + 1;
-$security_arr[$i]['type'] = 'mainfile.php';
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'XOOPS mainfile.php';
 if (!defined('PROTECTOR_PRECHECK_INCLUDED')) {
     $security_arr[$i]['status'] = '0';
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>missing precheck</span>";
@@ -127,11 +85,11 @@ if (!defined('PROTECTOR_PRECHECK_INCLUDED')) {
 
 }
 $security_arr[$i]['text'] = _AM_ADV_MAINUNPATCHED;
-$i++;
+++$i;
 
 // databasefactory.php
-$security_arr[$i]['id'] = $i + 1;
-$security_arr[$i]['type'] = 'databasefactory.php';
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'XOOPS databasefactory.php';
 if (substr(@XOOPS_VERSION, 6, 3) < 2.4 && strtolower(get_class($db)) != 'protectormysqldatabase') {
     $security_arr[$i]['status'] = '0';
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>" . _AM_ADV_DBFACTORYUNPATCHED . "</span>";
@@ -140,7 +98,113 @@ if (substr(@XOOPS_VERSION, 6, 3) < 2.4 && strtolower(get_class($db)) != 'protect
     $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>" . _AM_ADV_DBFACTORYPATCHED . "</span>";
 }
 $security_arr[$i]['text'] = '';
-$i++;
+++$i;
+
+/*
+// register_globals
+$safe = !ini_get("register_globals");
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'register_globals';
+if ($safe) {
+    $security_arr[$i]['status'] = '1';
+    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>register_globals: off</span>";
+} else {
+    $security_arr[$i]['status'] = '0';
+    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>register_globals: on</span>";
+}
+$security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br /><br />" . XOOPS_ROOT_PATH . "/.htaccess<br /><br />" . _AM_ADV_REGISTERGLOBALS2 . "<br /><br /><b>php_flag &nbsp; register_globals &nbsp; off</b>";
+++$i;
+
+// allow_url_fopen
+$safe = !ini_get("allow_url_fopen");
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'allow_url_fopen';
+if ($safe) {
+    $security_arr[$i]['status'] = '1';
+    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>allow_url_fopen: off</span>";
+} else {
+    $security_arr[$i]['status'] = '0';
+    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>allow_url_fopen: on</span>";
+}
+$security_arr[$i]['text'] = _AM_ADV_ALLOWURLFOPEN;
+++$i;
+
+// session.use_trans_sid
+$safe = !ini_get("session.use_trans_sid");
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'session.use_trans_sid';
+if ($safe) {
+    $security_arr[$i]['status'] = '1';
+    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>session.use_trans_sid: off</span>";
+} else {
+    $security_arr[$i]['status'] = '0';
+    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>session.use_trans_sid: on</span>";
+}
+$security_arr[$i]['text'] = _AM_ADV_USETRANSSID;
+++$i;
+*/
+
+
+// --------- added  Security Checks from PhpSecInfo  ---------------
+
+// additional security tests with PhpSecInfo
+require_once $xoops->path('lib/PhpSecInfo/PhpSecInfo.php');
+// instantiate the class
+$psi = new PhpSecInfo();
+
+// load and run all tests
+$psi->loadAndRun();
+
+// grab the results as a multidimensional array
+$PhpSecInfoResults = $psi->getResultsAsArray();
+//echo "<pre>"; echo print_r($results, true); echo "</pre>";
+
+// grab the standard results output as a string
+//$html = $psi->getOutput();
+
+// send it to the browser
+//echo $html;
+
+$xoops->tpl()->assign('securitytest',$PhpSecInfoResults);
+
+/*
+
+// allow_url_include
+//----------------------
+$safe = ($PhpSecInfoResults['test_results']['Core']['allow_url_include']['result'] == -1) ? 1 : 0;
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'allow_url_include';
+if ($safe) {
+    $security_arr[$i]['status'] = '1';
+    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>"._AM_PROTECTOR_ALLOW_URL_INCLUDED_OK."</span>";
+} else {
+    $security_arr[$i]['status'] = '0';
+    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>allow_url_include: on</span>";
+}
+$security_arr[$i]['text'] = _AM_PROTECTOR_ALLOW_URL_INCLUDE;
+++$i;
+
+// display_errors
+//----------------------
+$safe = ($PhpSecInfoResults['test_results']['Core']['display_errors']['result'] == -1) ? 1 : 0;
+$security_arr[$i]['id'] = ++$i;
+$security_arr[$i]['type'] = 'isplay_errors';
+if ($safe) {
+    $security_arr[$i]['status'] = '1';
+    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>"._AM_PROTECTOR_ALLOW_URL_INCLUDED_OK."</span>";
+} else {
+    $security_arr[$i]['status'] = '0';
+    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>allow_url_include: on</span>";
+}
+$security_arr[$i]['text'] = _AM_PROTECTOR_ALLOW_URL_INCLUDE;
+++$i;
+
+*/
+
+
+// --------- End of  Security Checks from PhpSecInfo  ---------------
+//======================================================================
+
 
 foreach (array_keys($security_arr) as $i) {
     $xoops->tpl()->append_by_ref('security', $security_arr[$i]);

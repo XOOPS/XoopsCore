@@ -1,0 +1,82 @@
+v0.2.2
+- requires are now resolved relative to base phpsecinfo path, so PhpSecInfo does
+  not need to be in php's include path
+- allow_url_fopen now will not throw a warning if enabled and PHP version >= 5.2
+- Added simple View system; moved HTML views out of PhpSecInfo class.  You can
+  use PhpSecInfo->setViewDirectory($path) to set the path to your own custom
+  views (your view files need to mirror the structure of the default views).
+- Added cli, CSV, JSON and RSS views
+- Added examples directory to demonstrate more advanced usage of views system
+- PHPSecInfo_Test::getUnixId() now handles failure better and tries alternate
+  methods before giving up
+- Minor CSS fixes in HTML view <Thomas Corbiere>
+
+v0.2.1
+- uid and gid tests now correctly test the user and group that PHP is executing as
+  (requires that exec() or posix functions are enabled)
+- Changed upload_max_filesize and post_max_size return "OK" if current value is
+  equal to recommended value
+- fixed nonstandard naming with a couple locally used constants
+- fixed problem with XHTML validity in cases of not run tests <Thomas Corbiere>
+
+v0.2.0
+- Changes to output code to avoid licensing problems with PHP (CSS was derived code)
+- New test: PhpSecInfo_Test_Session_Save_Path <Thomas Corbiere>
+- API changes!  Read the API docs if you're a test developer, and ask questions on the
+  mailing list.
+- rewrote all tests to adapt to API changes (displaying and use current and recommended
+  settings in tests)
+- Added display of "current" and "recommended" settings in test result output
+- Added link to "more info" in output (see Test::getMoreInfoURL)
+- Modified CSS to improve readability
+- added Test::getMoreInfoURL() to generate link to detailed info on external site
+- added PHPSECINFO_TEST_MOREINFO_BASEURL and set to
+  http://phpsec.org/projects/phpsecinfo/tests/
+- Changed Test_Curl::isTestable() to use extension_loaded.  (Thx Thomas Corbiere)
+- Changed Test_CGI::isTestable() to use strpos() instead of preg_match() (Thx Thomas Corbiere)
+- Added isTestable() checks for magic_quotes_gpc and register_globals where
+  tests are not executed if PHP_VERSION >= 6 (Thx Thomas Corbiere)
+- Fixed bug in use_trans_sid.php where parent::_setMessages() wasn't being called.
+  (Thx Thomas Corbiere)
+- Fixed bug in SVN version Test_CGI.php where searching for 'php' instead of 'cgi' in
+  sapi output (what the hell was I thinking? Thx Thomas Corbiere)
+- Fixed potential redeclare weirdness in PhpSecInfo::renderOutput() with PHP5
+- added meta tag to output telling compliant search engines to not index the page
+- Added PhpSecInfo_Test::setTestGroup
+- Fixed memory_limit test to properly report if the option has not been enabled
+  at compile time
+- Added PhpSecInfo_Test::osIsWindows() for checking the OS
+- Fixed NOTICE for undefined string offset in returnBytes when input is 0
+- Fixed NOTICE for undefined offset in table output where $test_results['moreinfo_url']
+  is not set
+
+
+
+v0.1.2
+- Code is now licensed under "New BSD" license.  See LICENSE
+- Added PhpSecInfo_Test_Core_Allow_Url_Include to test for allow_url_include in PHP5.2 and
+  above
+- fix bug in post_max_size check where upload_max_size value was being checked
+- change curl file_support test to recommend upgrading to newest version of PHP
+  rather than disabling support in cURL for 'file://' protocol
+- removed =& calls that force pass by reference in PHP4, so as to not throw PHP5 STRICT notices.
+  It means passing objects by value in PHP4, but this seems acceptable for our purposes (memory
+  usage isn't terribly high).
+- Fixed bug in PhpSecInfo_Test_Session_Use_Trans_Sid where wrong ini key was requested
+  (Thanks Mark Wallert)
+
+v0.1.1a
+- fix bug in phpsecinfo() where debugging code was left in release.  ugh.
+- modified test result output to include text version of result type.  Color-only results
+  don't work in text-based browsers or cases where browser is overriding styles.
+
+v0.1.1
+- Added PhpSecInfo::getOutput(), PhpSecInfo::loadAndRun() and PhpSecInfo::getResultsAsArray()
+  methods
+- Modified PhpSecInfo::runTests() to fix undefined offset notices
+- Modified PhpSecInfo_Test::setMessageForResult() to fix undefined offset notices
+- Modified PhpSecInfo_Test_Curl_File_Support to skip if PHP version is < 5 (detection of
+  file protocol support relies on PHP5 version of curl_version)
+
+v0.1
+- Initial public release
