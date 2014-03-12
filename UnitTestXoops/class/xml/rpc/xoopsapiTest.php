@@ -22,29 +22,36 @@ class XoopsApiTest extends MY_UnitTestCase
 
     function test___construct100()
     {
+		$this->markTestIncomplete();
     }
 
     function test_newPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_editPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_deletePost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getRecentPosts()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getCategories()
     {
+		$this->markTestIncomplete();
     }
 }

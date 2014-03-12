@@ -25,14 +25,17 @@ class XoopsXmlRpcTagTest extends MY_UnitTestCase
 
     public function test_encode()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_setFault()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_isFault()
     {
+		$this->markTestIncomplete();
     }
 
 }

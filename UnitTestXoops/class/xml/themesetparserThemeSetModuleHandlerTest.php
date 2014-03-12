@@ -22,9 +22,11 @@ class ThemeSetModuleHandlerTest extends MY_UnitTestCase
 
     public function test_getName()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_handleCharacterData()
     {
+		$this->markTestIncomplete();
     }
 }

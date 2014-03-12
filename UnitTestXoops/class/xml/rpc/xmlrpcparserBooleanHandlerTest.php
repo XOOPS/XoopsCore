@@ -21,9 +21,11 @@ class RpcBooleanHandlerTest extends MY_UnitTestCase
 
     function test_getName()
     {
+		$this->markTestIncomplete();
     }
 
     function test_handleCharacterData()
     {
+		$this->markTestIncomplete();
     }
 }

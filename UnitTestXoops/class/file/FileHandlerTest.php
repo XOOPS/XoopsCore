@@ -15,4 +15,14 @@ class XoopsFileHandlerTest extends MY_UnitTestCase
 		$instance = new $this->myclass(__FILE__);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
+	
+    public function test___publicProperties()
+	{
+		$items = array('folder', 'name', 'info', 'handle', 'lock');
+		foreach($items as $item) {
+			$prop = new ReflectionProperty($this->myclass,$item);
+			$this->assertTrue($prop->isPublic());
+		}
+    }
+	
 }

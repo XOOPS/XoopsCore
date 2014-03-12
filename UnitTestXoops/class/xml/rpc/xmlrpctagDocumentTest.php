@@ -23,6 +23,7 @@ class XoopsXmlRpcDocumentTest extends MY_UnitTestCase
 	
     public function test_add()
     {
+		$this->markTestIncomplete();
     }
 
 }

@@ -20,37 +20,46 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test_setThemeSetData()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_getThemeSetData()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_setImagesData()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_getImagesData()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_setTemplatesData()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_getTemplatesData()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_setTempArr()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_getTempArr()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_resetTempArr()
     {
+		$this->markTestIncomplete();
     }
 }

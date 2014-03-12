@@ -21,9 +21,11 @@ class XoopsXmlRpcArrayTest extends MY_UnitTestCase
 
     public function test_add()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_render()
     {
+		$this->markTestIncomplete();
     }
 }

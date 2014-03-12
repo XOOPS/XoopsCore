@@ -22,41 +22,51 @@ class BloggerApiTest extends MY_UnitTestCase
 
     function test_BloggerApi()
     {
+		$this->markTestIncomplete();
     }
 
     function test_newPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_editPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_deletePost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getRecentPosts()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getUsersBlogs()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getUserInfo()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getTemplate()
     {
+		$this->markTestIncomplete();
     }
 
     function test_setTemplate()
     {
+		$this->markTestIncomplete();
     }
 }

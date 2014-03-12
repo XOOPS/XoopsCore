@@ -19,4 +19,9 @@ class ThemeSetImageHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
+	
+    public function test_100()
+    {
+		$this->markTestIncomplete();
+	}
 }
