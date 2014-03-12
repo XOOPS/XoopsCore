@@ -1162,7 +1162,7 @@ class Xoops
             $msg = (array)$msg;
         }
         if (is_array($msg)) {
-            $alert_msg = implode("<br />", $msg);
+            $alert_msg = str_replace("\n","<br />",var_export($msg,true));
         } else {
             $alert_msg = $msg;;
         }
@@ -1611,7 +1611,8 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
-        $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+		if (!empty($dirname))
+			$this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
     }
 
     /**
@@ -1648,6 +1649,7 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
+				if (!is_array($this->_moduleConfigs[$dirname][$key])) $this->_moduleConfigs[$dirname][$key] = array();
                 $this->_moduleConfigs[$dirname][$key][$key2] =& $value;
             }
         } else {

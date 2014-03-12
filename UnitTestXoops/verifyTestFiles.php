@@ -5,7 +5,8 @@ require_once(dirname(__FILE__).'/init_mini.php');
 function verify($file, $path)
 {
 	$tmp = basename($file,'.php');
-	$pattern = dirname(__FILE__).DS.$path.DS.$tmp.'*Test*.php';
+	$path1 = str_replace('xoops_lib','xoopsLib',$path);
+	$pattern = dirname(__FILE__).DS.$path1.DS.$tmp.'*Test*.php';
 	$founds = glob($pattern);
 	$ok = !empty($founds);
 	$tmp = $ok ? 'Test OK :' : 'Test not found : ';
@@ -20,6 +21,9 @@ function browse($path=null)
 		if ($file=='.' OR $file=='..') continue;
 		if (is_dir($root.DS.$file)) {
 			$path1 = $path.DS.$file;
+			$excludes = array('xoops_lib'.DS.'vendor', 'xoops_lib'.DS.'smarty', 'xoops_lib'.DS.'Xmf',
+				'xoops_lib'.DS.'HTMLPurifier', 'class'.DS.'mail'.DS.'phpmailer');
+			if (in_array($path1,$excludes)) continue;
 			browse($path1);
 		} else {
 			$index = strrpos($file, '.php');
