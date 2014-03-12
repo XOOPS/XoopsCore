@@ -162,12 +162,13 @@ class XoopsLoad
     private static function loadFramework($name)
     {
         if (!self::fileExists($file = XOOPS_ROOT_PATH . '/Frameworks/' . $name . '/xoops' . $name . '.php')) {
+/*
             trigger_error(
                 'File ' . str_replace(XOOPS_ROOT_PATH, '', $file)
                 . ' not found in file ' . __FILE__ . ' at line ' . __LINE__,
                 E_USER_WARNING
             );
-
+*/
             return false;
         }
         include $file;
