@@ -105,7 +105,7 @@ $modversion['config'][] = array(
     'description' => '',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 120,
+    'default'     => 128,
 );
 
 $modversion['config'][] = array(
@@ -114,7 +114,7 @@ $modversion['config'][] = array(
     'description' => '',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 120,
+    'default'     => 128,
 );
 
 $modversion['config'][] = array(
