@@ -103,7 +103,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
         if (isset($storetype)) {
             $criteria->add(new Criteria('imgcat_storetype', $storetype));
         }
-        $categories = $this->getPermittedObjects($criteria, true);
+        $categories = $this->getPermittedObjects($criteria, 0, 0, true);
         $ret = array();
         foreach (array_keys($categories) as $i) {
             $ret[$i] = $categories[$i]->getVar('imgcat_name');

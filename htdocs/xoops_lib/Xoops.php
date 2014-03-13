@@ -1116,7 +1116,7 @@ class Xoops
     }
     /**
      * @param string $type (info, error, success or warning)
-     * @param mixed  $msg
+     * @param mixed  $msg - string or array of strings
      * @param string $title
      *
      * @return string
@@ -1158,16 +1158,14 @@ class Xoops
         if ($title != '') {
             $this->tpl()->assign('alert_title', $title);
         }
-        if (is_object($msg)) {
-            $msg = (array)$msg;
-			$alert_msg = str_replace("\n", '<br />', var_export($msg, true));
+        if (!is_scalar($msg) && !is_array($msg)) {
+            $msg = ''; // don't know what to do with this, so make it blank
         }
-        elseif (is_array($msg)) {
-			foreach ($msg as $item) {
-				if (is_string($item) OR is_numeric($item)) $alert_msg .= $item.'<br />';
-			}
+        if (is_array($msg)) {
+            // if this is not a simple array of strings, this might not work
+            $alert_msg = @implode("<br />", $msg);
         } else {
-            $alert_msg = $msg;;
+            $alert_msg = $msg;
         }
         if ($alert_msg == '' ){
             return '';
@@ -1614,8 +1612,9 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
-		if (!empty($dirname))
-			$this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        if (!empty($dirname)) {
+            $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        }
     }
 
     /**
@@ -1652,7 +1651,9 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
-				if (!is_array($this->_moduleConfigs[$dirname][$key])) $this->_moduleConfigs[$dirname][$key] = array();
+                if (!is_array($this->_moduleConfigs[$dirname][$key])) {
+                    $this->_moduleConfigs[$dirname][$key] = array();
+                }
                 $this->_moduleConfigs[$dirname][$key][$key2] =& $value;
             }
         } else {
@@ -1708,7 +1709,7 @@ class Xoops
                 Xoops_Cache::write("{$dirname}_configs", $configs);
                 $this->_moduleConfigs[$dirname] =& $configs;
             }
-        }  else {
+        } else {
             $this->_moduleConfigs[$dirname] =& $configs;
         }
 
