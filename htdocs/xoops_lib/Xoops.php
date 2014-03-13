@@ -1160,9 +1160,12 @@ class Xoops
         }
         if (is_object($msg)) {
             $msg = (array)$msg;
+			$alert_msg = str_replace("\n", '<br />', var_export($msg, true));
         }
-        if (is_array($msg)) {
-            $alert_msg = str_replace("\n","<br />",var_export($msg,true));
+        elseif (is_array($msg)) {
+			foreach ($msg as $item) {
+				if (is_string($item) OR is_numeric($item)) $alert_msg .= $item.'<br />';
+			}
         } else {
             $alert_msg = $msg;;
         }
