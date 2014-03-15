@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class CriteriaTest extends MY_UnitTestCase
+class Kernel_CriteriaTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops\Core\Kernel\Criteria';
     

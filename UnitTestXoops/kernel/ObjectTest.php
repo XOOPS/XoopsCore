@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../init.php');
 
-class ObjectTest_XoopsObject extends XoopsObject
+class ObjectTestInstance extends XoopsObject
 {
 }
 
@@ -12,7 +12,7 @@ class ObjectTest_XoopsObject extends XoopsObject
 */
 class ObjectTest extends MY_UnitTestCase
 {
-    var $myclass='ObjectTest_XoopsObject';
+    var $myclass='ObjectTestInstance';
 
     public function SetUp()
 	{

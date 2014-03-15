@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
-class Xoops_Request_AbstractInstance extends Xoops_Request_Abstract
+class Xoops_Request_AbstractTestInstance extends Xoops_Request_Abstract
 {
 	function __construct(array $params)
 	{
@@ -16,7 +16,7 @@ class Xoops_Request_AbstractInstance extends Xoops_Request_Abstract
 */
 class Xoops_Request_AbstractTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Request_AbstractInstance';
+    protected $myclass = 'Xoops_Request_AbstractTestInstance';
     
     public function test___construct()
 	{

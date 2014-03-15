@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../init_mini.php');
 
-class XoopsDatabaseInstance extends XoopsDatabase
+class XoopsDatabaseTestInstance extends XoopsDatabase
 {
 	function connect($selectdb = true) {}
 	function genId($sequence) {}
@@ -33,7 +33,7 @@ class XoopsDatabaseInstance extends XoopsDatabase
 */
 class XoopsDatabaseTest extends MY_UnitTestCase
 {
-    protected $myclass = 'XoopsDatabaseInstance';
+    protected $myclass = 'XoopsDatabaseTestInstance';
 	
     public function test___construct()
 	{
