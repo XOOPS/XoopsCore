@@ -21,9 +21,11 @@ class XoopsXmlRpcFaultTest extends MY_UnitTestCase
 
     public function test___construct100()
     {
+		$this->markTestIncomplete();
     }
 
     public function test_render()
     {
+		$this->markTestIncomplete();
     }
 }

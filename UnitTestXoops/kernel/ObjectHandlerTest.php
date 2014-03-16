@@ -3,6 +3,10 @@ require_once(dirname(__FILE__).'/../init.php');
 
 class ObjecthandlerTest_XoopsObjectHandler extends XoopsObjectHandler
 {
+	function __construct(XoopsConnection $db)
+	{
+		parent::__construct($db);
+	}
 }
 
 class ObjecthandlerTest_XoopsObject extends XoopsObject

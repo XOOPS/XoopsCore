@@ -21,37 +21,46 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
 
     function test_XoopsXmlRpcApi()
     {
+		$this->markTestIncomplete();
     }
 
     function test__setUser()
     {
+		$this->markTestIncomplete();
     }
 
     function test__checkUser()
     {
+		$this->markTestIncomplete();
     }
 
     function test__checkAdmin()
     {
+		$this->markTestIncomplete();
     }
 
     function test__getPostFields()
     {
+		$this->markTestIncomplete();
     }
 
     function test__setXoopsTagMap()
     {
+		$this->markTestIncomplete();
     }
 
     function test__getXoopsTagMap()
     {
+		$this->markTestIncomplete();
     }
 
     function test__getTagCdata()
     {
+		$this->markTestIncomplete();
     }
 
     function test__getXoopsApi()
     {
+		$this->markTestIncomplete();
     }
 }

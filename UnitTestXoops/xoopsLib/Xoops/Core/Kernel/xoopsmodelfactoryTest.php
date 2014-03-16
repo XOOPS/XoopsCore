@@ -23,4 +23,9 @@ class XoopsModelFactoryTest extends MY_UnitTestCase
         $instance2 = $class::getInstance();
         $this->assertSame($instance,$instance2);
 	}
+	
+    public function test_loadHandler()
+	{
+		$this->markTestIncomplete();
+    }
 }

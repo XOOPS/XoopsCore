@@ -26,6 +26,7 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 
 		//$instance->getName();
+		$this->markTestIncomplete();
 	}
 	
     public function test_handleBeginElement()
@@ -34,6 +35,7 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 
 		//$instance->handleBeginElement();
+		$this->markTestIncomplete();
 	}
 
     public function test_handleEndElement()
@@ -42,5 +44,6 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		
 		//$instance->handleEndElement();
+		$this->markTestIncomplete();
 	}
 }

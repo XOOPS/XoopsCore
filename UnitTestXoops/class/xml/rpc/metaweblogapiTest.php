@@ -22,25 +22,31 @@ class MetaWeblogApiTest extends MY_UnitTestCase
 	
     function test_MetaWeblogApi()
     {
+		$this->markTestIncomplete();
     }
 
     function test_newPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_editPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getPost()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getRecentPosts()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getCategories()
     {
+		$this->markTestIncomplete();
     }
 }

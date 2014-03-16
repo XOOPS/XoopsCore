@@ -26,6 +26,7 @@ class ThemeSetDateCreatedHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		
 		//$instance->getName();
+		$this->markTestIncomplete();
 	}
 	
     public function test_handleCharacterData()
@@ -34,5 +35,6 @@ class ThemeSetDateCreatedHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		
 		//$instance->handleCharacterData();
+		$this->markTestIncomplete();
 	}
 }

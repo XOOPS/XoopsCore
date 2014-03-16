@@ -26,6 +26,7 @@ class ThemeSetDescriptionHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		
 		//$instance->getName();
+		$this->markTestIncomplete();
 	}
 	
     public function test_handleCharacterData()
@@ -34,5 +35,6 @@ class ThemeSetDescriptionHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		
 		//$instance->handleCharacterData($parser, $data);
+		$this->markTestIncomplete();
 	}
 }

@@ -3,7 +3,7 @@ require_once(dirname(__FILE__).'/../init.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
-class CriteriaElementInstance extends CriteriaElement
+class CriteriaElementTestInstance extends CriteriaElement
 {
 	function render() {}
 	function renderWhere() {}
@@ -19,7 +19,7 @@ class CriteriaElementInstance extends CriteriaElement
 */
 class CriteriaElementTest extends MY_UnitTestCase
 {
-    protected $myclass = 'CriteriaElementInstance';
+    protected $myclass = 'CriteriaElementTestInstance';
     
     public function test___construct()
 	{

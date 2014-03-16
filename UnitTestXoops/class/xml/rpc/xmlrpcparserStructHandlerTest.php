@@ -21,10 +21,12 @@ class RpcStructHandlerTest extends MY_UnitTestCase
 
     function test_getName()
     {
+		$this->markTestIncomplete();
     }
 
     function test_handleBeginElement()
     {
+		$this->markTestIncomplete();
     }
 
     function test_handleEndElement()

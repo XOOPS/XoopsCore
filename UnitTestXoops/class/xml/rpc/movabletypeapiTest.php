@@ -22,21 +22,26 @@ class MovableTypeApiTest extends MY_UnitTestCase
 
     function test_MovableTypeApi()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getCategoryList()
     {
+		$this->markTestIncomplete();
     }
 
     function test_getPostCategories()
     {
+		$this->markTestIncomplete();
     }
 
     function test_setPostCategories()
     {
+		$this->markTestIncomplete();
     }
 
     function test_supportedMethods()
     {
+		$this->markTestIncomplete();
     }
 }

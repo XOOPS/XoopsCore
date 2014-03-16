@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
-class Xoops_Locale_AbstractInstance extends Xoops_Locale_Abstract
+class Xoops_Locale_AbstractTestInstance extends Xoops_Locale_Abstract
 {
 }
 
@@ -12,7 +12,7 @@ class Xoops_Locale_AbstractInstance extends Xoops_Locale_Abstract
 */
 class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Locale_AbstractInstance';
+    protected $myclass = 'Xoops_Locale_AbstractTestInstance';
     
     public function test___construct()
 	{

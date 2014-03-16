@@ -19,5 +19,6 @@ class XoopsXmlRpcResponseTest extends MY_UnitTestCase
 
     public function test_render100()
     {
+		$this->markTestIncomplete();
     }
 }
