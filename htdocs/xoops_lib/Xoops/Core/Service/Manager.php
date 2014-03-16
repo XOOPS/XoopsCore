@@ -11,6 +11,8 @@
 
 namespace Xoops\Core\Service;
 
+use Xoops\Core\Yaml;
+
 /**
  * Xoops services manager, locate, register, choose and dispatch
  *
@@ -34,15 +36,22 @@ class Manager
     /**
      * Service Mode constant - Choice mode where one service from potentially
      * many located services will be used. The service dispatched will be selected
-     * by user preference or system default.
+     * by system default.
      */
     const MODE_CHOICE = 2;
+
+    /**
+     * Service Mode constant - Choice mode where one service from potentially many
+     * located services will be used. The service dispatched will be selected by user
+     * preference, or system default if no user valid preference is available.
+     */
+    const MODE_PREFERENCE = 4;
 
     /**
      * Service Mode constant - Multiple mode where all located services will be
      * dispatched in priority order.
      */
-    const MODE_MULTIPLE  = 4;
+    const MODE_MULTIPLE  = 8;
 
     /**
      * Provider priorities
@@ -60,10 +69,29 @@ class Manager
     protected $services = array();
 
     /**
+     * Provider Preferences - array keyed on service name, where each element is
+     * an array of provider name => priority entries
+     *
+     * @var array|null
+     */
+    protected $provider_prefs = null;
+
+    /**
+     * @var string config file with provider prefs
+     */
+    private $provider_prefs_file = 'var/configs/system_provider_prefs.yml';
+
+    /**
+     * @var string config cache key
+     */
+    private $provider_prefs_cache = 'system_provider_prefs';
+
+    /**
      * __construct
      */
     protected function __construct()
     {
+        $this->provider_prefs = $this->readProviderPrefs();
     }
 
     /**
@@ -84,10 +112,85 @@ class Manager
 
 
     /**
+     * readProviderPrefs - read configured provider preferences
+     *
+     * @return array of configured provider preferences
+     */
+    protected function readProviderPrefs()
+    {
+        $xoops = \Xoops::getInstance();
+
+        $provider_prefs = array();
+
+        try {
+            if (!$provider_prefs = \Xoops_Cache::read($this->provider_prefs_cache)) {
+                $file = $xoops->path($this->provider_prefs_file);
+                if (file_exists($file)) {
+                    $provider_prefs = Yaml::read($xoops->path($file));
+                }
+                if ($provider_prefs!==false && is_array($provider_prefs)) {
+                    \Xoops_Cache::write($this->provider_prefs_cache, $provider_prefs);
+                } else {
+                    $provider_prefs = array();
+                }
+            }
+        } catch (\Exception $e) {
+            $xoops->events()->triggerEvent('core.exception', $e);
+            $provider_prefs = array();
+        }
+        return $provider_prefs;
+
+    }
+
+    /**
+     * saveProviderPrefs - record array of provider preferences in config file, and
+     * update cache
+     *
+     * @param array $provider_prefs array of provider preferences to save
+     *
+     * @return void
+     */
+    protected function saveProviderPrefs($provider_prefs)
+    {
+        if (is_array($provider_prefs)) {
+            $xoops = \Xoops::getInstance();
+            try {
+                Yaml::save($provider_prefs, $xoops->path($this->provider_prefs_file));
+                \Xoops_Cache::write($this->provider_prefs_cache, $provider_prefs);
+            } catch (\Exception $e) {
+                $xoops->events()->triggerEvent('core.exception', $e);
+            }
+        }
+    }
+
+    /**
+     * saveChoice - record priority choices for service providers
+     *
+     * This registers a permanent choice (i.e. setting system default) that will
+     * persist after the lifetime of this service manager.
+     *
+     * @param string $service the service name being set
+     * @param array  $choices array of priorities for each of the named service providers
+     *
+     * @return void
+     */
+    public function saveChoice($service, $choices)
+    {
+        // read current preferences
+        $prefs = $this->readProviderPrefs();
+        // replace prefs for selected service
+        $prefs[$service] = $choices;
+        // save the changes
+        $this->saveProviderPrefs($prefs);
+        // apply to current manager instance
+        $this->registerChoice($service, $choices);
+    }
+
+    /**
      * registerChoice - record priority choices for service providers
      *
-     * For MODE_CHOICE services, the default choice is recorded by invoking this
-     * method.
+     * This registers a temporary choice (i.e. applying user preferences) for the
+     * lifetime of this service manager only.
      *
      * @param string $service the service name being set
      * @param array  $choices array of priorities for each of the named service providers
@@ -96,7 +199,15 @@ class Manager
      */
     public function registerChoice($service, $choices)
     {
-        // not yet implemented - will record choices array  in current objects
+        $provider = $this->locate($service);
+        $providers = $provider->getRegistered();
+        foreach ($providers as $p) {
+            $name = strtolower($p->getName());
+            if (isset($choices[$name])) {
+                $p->setPriority($choices[$name]);
+            }
+        }
+        $provider->sortProviders();
     }
 
     /**
@@ -112,7 +223,7 @@ class Manager
      */
     public function listChoices($service)
     {
-        $providers = $this->locate()->getRegistered();
+        $providers = $this->locate($service)->getRegistered();
         return $providers;
     }
 
@@ -138,13 +249,14 @@ class Manager
             // get reference to the list of providers and prioritize it.
             $registered=$provider->getRegistered();
             if (count($registered)) {
-                uasort($registered, function ($a, $b) {
-                    if ($a->getPriority() != $b->getPriority()) {
-                        return ($a->getPriority() > $b->getPriority()) ? -1 : 1;
-                    } else {
-                        return 0;
+                $choices = isset($this->provider_prefs[$service]) ? $this->provider_prefs[$service] : array();
+                foreach ($registered as $p) {
+                    $name = strtolower($p->getName());
+                    if (isset($choices[$name])) {
+                        $p->setPriority($choices[$name]);
                     }
-                });
+                }
+                $provider->sortProviders();
             } else {
                 // replace with a null provider since no contract implementers were
                 $provider = new NullProvider($this, $service);

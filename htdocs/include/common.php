@@ -180,22 +180,14 @@ session_set_save_handler(
     array(&$sess_handler, 'gc')
 );
 
-/**
- * @return bool
- */
-function is_session_started()
-{
-    if ( php_sapi_name() !== 'cli' ) {
-        if ( version_compare(phpversion(), '5.4.0', '>=') ) {
-            return (session_status() === PHP_SESSION_ACTIVE) ? TRUE : FALSE;
-        } else {
-            return (session_id() === '') ? FALSE : TRUE;
-        }
+if (function_exists('session_status')) {
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
     }
-    return FALSE;
+} else {
+    // this should silently fail if session has already started (for PHP 5.3)
+    @session_start();
 }
-
-if ( is_session_started() === FALSE ) session_start();
 
 /**
  * Remove expired session for xoopsUserId

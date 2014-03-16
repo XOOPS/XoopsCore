@@ -868,7 +868,8 @@ switch ($op) {
                     $users['uname'] = $user->getVar("uname");
                     $users['email'] = $user->getVar("email");
                     $users['url'] = $user->getVar("url");
-                    $users['user_avatar'] = ($user->getVar("user_avatar") == 'blank.gif') ? system_AdminIcons('anonymous.png') : XOOPS_URL . '/uploads/' . $user->getVar("user_avatar");
+                    $avatar = $xoops->service('avatar')->getAvatarUrl($user)->getValue();
+                    $users['user_avatar'] = (empty($avatar) ? system_AdminIcons('anonymous.png') : $avatar);
                     $users['reg_date'] = XoopsLocale::formatTimestamp($user->getVar("user_regdate"), "m");
                     if ($user->getVar("last_login") > 0) {
                         $users['last_login'] = XoopsLocale::formatTimestamp($user->getVar("last_login"), "m");

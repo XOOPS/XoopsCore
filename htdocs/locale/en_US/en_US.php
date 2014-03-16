@@ -977,6 +977,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const SEND_EMAIL = "Send email";
     const SEND_PASSWORD = "Send password";
     const SENT = "Sent";
+    const SERVICES = "Services";
     const SETTINGS = "Settings";
     const SF_DATA_INSERTED_TO_TABLE = "Data inserted to table '%s'!";
     const SF_EMAIL_SENT_TO = "Email sent to %s!";
