@@ -236,6 +236,7 @@ class Manager
      */
     public function locate($service)
     {
+        $service = strtolower($service);
         if (isset($this->services[$service])) {
             // service already located
             $provider = $this->services[$service];
