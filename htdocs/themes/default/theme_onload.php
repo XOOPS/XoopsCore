@@ -3,5 +3,6 @@
  * so you can add all script and css needed
  */
 $xoops = Xoops::getInstance();
-$xoops->theme()->addScript('media/jquery/jquery.js');
-$xoops->theme()->addScript('media/bootstrap/js/bootstrap.min.js');
+$xoops->theme()->addScriptAssets(
+    array('media/jquery/jquery.js', 'media/bootstrap/js/bootstrap.min.js')
+);

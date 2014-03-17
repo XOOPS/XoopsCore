@@ -74,16 +74,44 @@ function smarty_block_assetic($params, $content, $template, &$repeat)
             $asset_url = 'asset_url';
         }
 
+        if (isset($params['filters'])) {
+            $filters = explode(',', str_replace(' ', '', $params['filters']));
+        } else {
+            $filters = array();
+        }
+
         try {
             $am = new AssetManager();
             $fm = new FilterManager();
-            $fm->set('cssembed', new Filter\PhpCssEmbedFilter());
-            $fm->set('cssmin', new Filter\CssMinFilter());
-            $fm->set('cssimport', new Filter\CssImportFilter());
-            $fm->set('cssrewrite', new Filter\CssRewriteFilter());
-            $fm->set('lessphp', new Filter\LessphpFilter());
-            $fm->set('scssphp', new Filter\ScssphpFilter());
-            $fm->set('jsmin', new Filter\JSMinFilter());
+
+            foreach ($filters as $filter) {
+                switch (ltrim($filter, '?')) {
+                    case 'cssembed':
+                        $fm->set('cssembed', new Filter\PhpCssEmbedFilter());
+                        break;
+                    case 'cssmin':
+                        $fm->set('cssmin', new Filter\CssMinFilter());
+                        break;
+                    case 'cssimport':
+                        $fm->set('cssimport', new Filter\CssImportFilter());
+                        break;
+                    case 'cssrewrite':
+                        $fm->set('cssrewrite', new Filter\CssRewriteFilter());
+                        break;
+                    case 'lessphp':
+                        $fm->set('lessphp', new Filter\LessphpFilter());
+                        break;
+                    case 'scssphp':
+                        $fm->set('scssphp', new Filter\ScssphpFilter());
+                        break;
+                    case 'jsmin':
+                        $fm->set('jsmin', new Filter\JSMinFilter());
+                        break;
+                    default:
+                        throw new \Exception(sprintf('%s filter not implemented.', $filter));
+                        break;
+                }
+            }
 
             // Factory setup
             $factory = new AssetFactory($target_path);
@@ -102,12 +130,6 @@ function smarty_block_assetic($params, $content, $template, &$repeat)
             $factory->setDebug($debug);
             $lam = new LazyAssetManager($factory);
             $factory->addWorker(new CacheBustingWorker($lam));
-
-            if (isset($params['filters'])) {
-                $filters = explode(',', $params['filters']);
-            } else {
-                $filters = array();
-            }
 
             // Prepare the assets writer
             $writer = new AssetWriter($target_path);
