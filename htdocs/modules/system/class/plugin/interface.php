@@ -67,4 +67,3 @@ interface SystemPluginInterface
      */
     public function userMenus();
 }
-

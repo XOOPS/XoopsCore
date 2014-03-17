@@ -1128,6 +1128,15 @@ $modversion['config'][] = array(
 );
 
 $modversion['config'][] = array(
+    'name' => 'active_extensions',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
     'name' => 'active_filemanager',
     'title' => '',
     'description' => '',
@@ -1156,6 +1165,15 @@ $modversion['config'][] = array(
 
 $modversion['config'][] = array(
     'name' => 'active_preferences',
+    'title' => '',
+    'description' => '',
+    'formtype' => 'hidden',
+    'valuetype' => 'int',
+    'default' => 1,
+);
+
+$modversion['config'][] = array(
+    'name' => 'active_services',
     'title' => '',
     'description' => '',
     'formtype' => 'hidden',

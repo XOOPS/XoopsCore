@@ -77,6 +77,7 @@ if ($system->checkRight()) {
 if (false != $error) {
     $op = $system->cleanVars($_REQUEST, 'op', '', 'string');
     if ($op == 'system_activate') {
+        \Xoops::getInstance()->logger()->quiet();
         $part = $system->cleanVars($_REQUEST, 'type', '', 'string');
         $config_handler = $xoops->getHandlerConfig();
 
@@ -116,7 +117,7 @@ if (false != $error) {
 
     $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin';
     $dirlist = XoopsLists::getDirListAsArray($admin_dir);
-    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions');
+    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions', 'users', 'services');
     foreach ($dirlist as $directory) {
         if (XoopsLoad::fileExists($file = $admin_dir . '/' . $directory . '/xoops_version.php')) {
             require $file;

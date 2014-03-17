@@ -98,6 +98,24 @@ class Provider
     }
 
     /**
+     * sortProviders - sort providers into priority order
+     *
+     * @return void
+     */
+    public function sortProviders()
+    {
+        $sortable = $this->providers;
+        $s = usort($sortable, function ($a, $b) {
+            if ($a->getPriority() != $b->getPriority()) {
+                return ($a->getPriority() > $b->getPriority()) ? 1 : -1;
+            } else {
+                return 0;
+            }
+        });
+        $this->providers = $sortable;
+    }
+
+    /**
      * All contract specified methods go here
      *
      * @param type $name      method to call
