@@ -133,7 +133,9 @@ class Provider
         $response = new Response();
         if (is_callable($method)) {
             try {
-                $object->$name($response, $arguments);
+                //$object->$name($response, $arguments);
+                array_unshift($arguments, $response);
+                call_user_func_array($method, $arguments);
             } catch (\Exception $e) {
                 \XoopsPreload::getInstance()->triggerEvent('core.exception', $e);
                 $response->setSuccess(false)->addErrorMessage($e->getMessage());
