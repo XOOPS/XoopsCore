@@ -194,7 +194,7 @@ class PublisherUtils
     }
 
     /**
-    .* @credits Thanks to the NewBB2 Development Team
+     * @credits Thanks to the NewBB2 Development Team
      * @param string $item
      * @param bool   $getStatus
      *
@@ -1005,7 +1005,7 @@ class PublisherUtils
         }
 
         // Transformation de la chaine en minuscule
-        // Codage de la chaine afin d'éviter les erreurs 500 en cas de caractères imprévus
+        // Codage de la chaine afin d'Ã©viter les erreurs 500 en cas de caractÃ¨res imprÃ©vus
         $title = rawurlencode(strtolower($title));
 
         // Transformation des ponctuations
@@ -1021,8 +1021,8 @@ class PublisherUtils
         );
         $title = preg_replace($pattern, $rep_pat, $title);
 
-        // Transformation des caractères accentués
-        //                  è        é        ê        ë        ç        à        â        ä        î        ï        ù        ü        û        ô        ö
+        // Transformation des caractÃ¨res accentuÃ©s
+        //                  Ã¨        Ã©        Ãª        Ã«        Ã§        Ã         Ã¢        Ã¤        Ã®        Ã¯        Ã¹        Ã¼        Ã»        Ã´        Ã¶
         $pattern = array(
             "/%B0/", "/%E8/", "/%E9/", "/%EA/", "/%EB/", "/%E7/", "/%E0/", "/%E2/", "/%E4/", "/%EE/", "/%EF/", "/%F9/",
             "/%FC/", "/%FB/", "/%F4/", "/%F6/"

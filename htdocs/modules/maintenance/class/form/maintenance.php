@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
+ * @author          Mage GrÃ©gory (AKA Mage), Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
 

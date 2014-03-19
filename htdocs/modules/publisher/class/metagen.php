@@ -250,7 +250,7 @@ class PublisherMetagen
      * Return true if the string is length > 0
      *
      * @credit psylove
-     * @var string $string Chaine de caractère
+     * @var string $string Chaine de caractÃ¨re
      * @return boolean
      */
     static public function emptyString($var)
@@ -271,21 +271,21 @@ class PublisherMetagen
     static  function generateSeoTitle($title = '', $withExt = true)
     {
         // Transformation de la chaine en minuscule
-        // Codage de la chaine afin d'éviter les erreurs 500 en cas de caractères imprévus
+        // Codage de la chaine afin d'Ã©viter les erreurs 500 en cas de caractÃ¨res imprÃ©vus
         $title = rawurlencode(strtolower($title));
         // Transformation des ponctuations
         //                 Tab     Space      !        "        #        %        &        '        (        )        ,        /        :        ;        <        =        >        ?        @        [        \        ]        ^        {        |        }        ~       .
         $pattern = array("/%09/", "/%20/", "/%21/", "/%22/", "/%23/", "/%25/", "/%26/", "/%27/", "/%28/", "/%29/", "/%2C/", "/%2F/", "/%3A/", "/%3B/", "/%3C/", "/%3D/", "/%3E/", "/%3F/", "/%40/", "/%5B/", "/%5C/", "/%5D/", "/%5E/", "/%7B/", "/%7C/", "/%7D/", "/%7E/", "/\./");
         $rep_pat = array("-", "-", "-", "-", "-", "-100", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-at-", "-", "-", "-", "-", "-", "-", "-", "-", "-");
         $title = preg_replace($pattern, $rep_pat, $title);
-        // Transformation des caractères accentués
-        //                  °        è        é        ê        ë        ç        à        â        ä        î        ï        ù        ü        û        ô        ö
+        // Transformation des caractÃ¨res accentuÃ©s
+        //                  Â°        Ã¨        Ã©        Ãª        Ã«        Ã§        Ã         Ã¢        Ã¤        Ã®        Ã¯        Ã¹        Ã¼        Ã»        Ã´        Ã¶
         $pattern = array("/%B0/", "/%E8/", "/%E9/", "/%EA/", "/%EB/", "/%E7/", "/%E0/", "/%E2/", "/%E4/", "/%EE/", "/%EF/", "/%F9/", "/%FC/", "/%FB/", "/%F4/", "/%F6/");
         $rep_pat = array("-", "e", "e", "e", "e", "c", "a", "a", "a", "i", "i", "u", "u", "u", "o", "o");
         $title = preg_replace($pattern, $rep_pat, $title);
-        $tableau = explode("-", $title); // Transforme la chaine de caractères en tableau
+        $tableau = explode("-", $title); // Transforme la chaine de caractÃ¨res en tableau
         $tableau = array_filter($tableau, array('PublisherMetagen', 'emptyString')); // Supprime les chaines vides du tableau
-        $title = implode("-", $tableau); // Transforme un tableau en chaine de caractères séparé par un tiret
+        $title = implode("-", $tableau); // Transforme un tableau en chaine de caractÃ¨res sÃ©parÃ© par un tiret
         if (sizeof($title) > 0) {
             if ($withExt) {
                 $title .= '.html';

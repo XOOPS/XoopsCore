@@ -16,9 +16,9 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          Mage GrÃ©gory (AKA Mage)
  * @version         $Id$
- */ 
+ */
 
 // Info module
 define("_MI_BANNERS_NAME", "Banners");
