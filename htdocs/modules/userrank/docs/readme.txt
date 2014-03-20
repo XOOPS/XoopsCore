@@ -3,31 +3,28 @@ Read Me First
 
 Description
 ------------
-The UserRank Module is for managing all ranks.
+The UserRank Extension is for managing user ranks based on posting history or by adminstrator assignment.
 
- Requirements
+Requirements
  _____________________________________________________________________
- 
+
 - PHP version >= 5.3
 - XOOPS 2.6.0+
 
 Install/uninstall
 ------------------
-No special measures necessary, follow the standard installation process � extract the xoopspartners folder into the ../modules directory. Install the module through Admin -> System Module -> Modules.
+No special measures necessary, follow the standard installation process & extract the userranks folder into the modules/ directory. Install the extension through Admin -> Extensions administration.
 
-Detailed instructions on installing modules are available in the XOOPS Operations Manual (http://goo.gl/adT2i)
+Detailed instructions on installing modules and extensions are available in the XOOPS Operations Manual (http://goo.gl/adT2i)
 
 Operating instructions
 ------------------------
-To set up this module you need to:
+To set up this extension you need to:
 
-i)   Enter your partner�s details � including a URL for their website and (optionally) logo plus a short description (see �Adding a partner�)
+i)   Verify or customize the ranks in the extension administration user ranks tab.
 
-ii)  Configure your preferences for the module (see �Preferences�) and optionally the Partners block if you intend to use it (see �Blocks�)
+ii)  Configure your preferences for the module (see "Preferences")
 
-iii) Check that you have given your user groups the necessary module and block access rights to use this module. Group permissions are set through the Administration Menu -> System -> Groups.
-
-Detailed instructions on configuring the access rights for user groups are available in the XOOPS Operations Manual (http://goo.gl/adT2i)
 
 Tutorial
 -----------
