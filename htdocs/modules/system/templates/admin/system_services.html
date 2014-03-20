@@ -31,6 +31,7 @@ $(function() {
         request.done(function (response, textStatus, jqXHR){
             // log a message to the console
             console.log("Hooray, it worked! "+response);
+            history.go(-1);
         });
 
         // callback handler that will be called on failure
