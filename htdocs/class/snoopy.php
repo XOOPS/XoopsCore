@@ -713,13 +713,13 @@ class Snoopy
                             chr(176),
                             chr(39),
                             chr(128),
-                            "ä",
-                            "ö",
-                            "ü",
-                            "Ä",
-                            "Ö",
-                            "Ü",
-                            "ß",
+                            "Ã¤",
+                            "Ã¶",
+                            "Ã¼",
+                            "Ã„",
+                            "Ã–",
+                            "Ãœ",
+                            "ÃŸ",
                         );
 
         $text = preg_replace($search,$replace,$document);
@@ -1246,5 +1246,3 @@ class Snoopy
         return $postdata;
     }
 }
-
-?>

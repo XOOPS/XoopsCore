@@ -3,7 +3,7 @@
 if( defined( 'FOR_XOOPS_LANG_CHECKER' ) ) $mydirname = 'protector' ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
-if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) ) {
+if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( $constpref.'_LOADED' ) ) {
 
 
 
@@ -11,126 +11,124 @@ if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( '_MI_PROTECTOR_LOADED' ) )
 
 
 // Appended by Xoops Language Checker -GIJOE- in 2009-07-06 05:46:53
-define('_MI_PROTECTOR_DBTRAPWOSRV','Never checking _SERVER for anti-SQL-Injection');
-define('_MI_PROTECTOR_DBTRAPWOSRVDSC','Some servers always enable DB Layer trapping. It causes wrong detections as SQL Injection attack. If you got such errors, turn this option on. You should know this option weakens the security of DB Layer trapping anti-SQL-Injection.');
+define($constpref.'_DBTRAPWOSRV','Never checking _SERVER for anti-SQL-Injection');
+define($constpref.'_DBTRAPWOSRVDSC','Some servers always enable DB Layer trapping. It causes wrong detections as SQL Injection attack. If you got such errors, turn this option on. You should know this option weakens the security of DB Layer trapping anti-SQL-Injection.');
 
 // Appended by Xoops Language Checker -GIJOE- in 2009-01-14 11:10:53
-define('_MI_PROTECTOR_DBLAYERTRAP','Enable DB Layer trapping anti-SQL-Injection');
-define('_MI_PROTECTOR_DBLAYERTRAPDSC','Almost SQL Injection attacks will be canceled by this feature. This feature is required a support from databasefactory. You can check it on Security Advisory page.');
+define($constpref.'_DBLAYERTRAP','Enable DB Layer trapping anti-SQL-Injection');
+define($constpref.'_DBLAYERTRAPDSC','Almost SQL Injection attacks will be canceled by this feature. This feature is required a support from databasefactory. You can check it on Security Advisory page.');
 
 // Appended by Xoops Language Checker -GIJOE- in 2008-11-21 04:44:31
-define('_MI_PROTECTOR_DEFAULT_LANG','Default language');
-define('_MI_PROTECTOR_DEFAULT_LANGDSC','Specify the language set to display messages before processing common.php');
-define('_MI_PROTECTOR_BWLIMIT_COUNT','Bandwidth limitation');
-define('_MI_PROTECTOR_BWLIMIT_COUNTDSC','Specify the max access to mainfile.php during watching time. This value should be 0 for normal environments which have enough CPU bandwidth. The number fewer than 10 will be ignored.');
+define($constpref.'_DEFAULT_LANG','Default language');
+define($constpref.'_DEFAULT_LANGDSC','Specify the language set to display messages before processing common.php');
+define($constpref.'_BWLIMIT_COUNT','Bandwidth limitation');
+define($constpref.'_BWLIMIT_COUNTDSC','Specify the max access to mainfile.php during watching time. This value should be 0 for normal environments which have enough CPU bandwidth. The number fewer than 10 will be ignored.');
 
 // Appended by Xoops Language Checker -GIJOE- in 2007-07-30 16:31:33
-define('_MI_PROTECTOR_BANIP_TIME0','Banned IP suspension time (sec)');
-define('_MI_PROTECTOR_OPT_BIPTIME0','Ban the IP (moratorium)');
-define('_MI_PROTECTOR_DOSOPT_BIPTIME0','Ban the IP (moratorium)');
+define($constpref.'_BANIP_TIME0','Banned IP suspension time (sec)');
+define($constpref.'_OPT_BIPTIME0','Ban the IP (moratorium)');
+define($constpref.'_DOSOPT_BIPTIME0','Ban the IP (moratorium)');
 
 // Appended by Xoops Language Checker -GIJOE- in 2007-04-11 05:08:26
-//define('_MI_PROTECTOR_ADMENU_MYBLOCKSADMIN','Permissions');
+define($constpref.'_ADMENU_MYBLOCKSADMIN','Permissions');
 
-define('_MI_PROTECTOR_LOADED' , 1 ) ;
+define( $constpref.'_LOADED' , 1 ) ;
 
 // The name of this module
-define("_MI_PROTECTOR_NAME","Стор");
+define($constpref."_NAME","РЎС‚РѕСЂ");
 
 // A brief description of this module
-define("_MI_PROTECTOR_DESC","Этот модуль защищает ваш сайт на базе XOOPS от различного вида атак, таких как: DoS, SQL Injection и порчи переменных.");
+define($constpref."_DESC","Р­С‚РѕС‚ РјРѕРґСѓР»СЊ Р·Р°С‰РёС‰Р°РµС‚ РІР°С€ СЃР°Р№С‚ РЅР° Р±Р°Р·Рµ XOOPS РѕС‚ СЂР°Р·Р»РёС‡РЅРѕРіРѕ РІРёРґР° Р°С‚Р°Рє, С‚Р°РєРёС… РєР°Рє: DoS, SQL Injection Рё РїРѕСЂС‡Рё РїРµСЂРµРјРµРЅРЅС‹С….");
 
 // Menu
-define("_MI_PROTECTOR_ADMININDEX","Главная");
-define("_MI_PROTECTOR_ADVISORY","Подсказки");
-define("_MI_PROTECTOR_PREFIXMANAGER","Управление префиксом БД");
+define($constpref."_ADMININDEX","Р“Р»Р°РІРЅР°СЏ");
+define($constpref."_ADVISORY","РџРѕРґСЃРєР°Р·РєРё");
+define($constpref."_PREFIXMANAGER","РЈРїСЂР°РІР»РµРЅРёРµ РїСЂРµС„РёРєСЃРѕРј Р‘Р”");
 
 // Configs
-define('_MI_PROTECTOR_GLOBAL_DISBL','Временно выключен');
-define('_MI_PROTECTOR_GLOBAL_DISBLDSC','Все системы защиты временно отключены.<br />Не забудьте включить их после разрешения ваших проблем с безопасностью');
+define($constpref.'_GLOBAL_DISBL','Р’СЂРµРјРµРЅРЅРѕ РІС‹РєР»СЋС‡РµРЅ');
+define($constpref.'_GLOBAL_DISBLDSC','Р’СЃРµ СЃРёСЃС‚РµРјС‹ Р·Р°С‰РёС‚С‹ РІСЂРµРјРµРЅРЅРѕ РѕС‚РєР»СЋС‡РµРЅС‹.<br />РќРµ Р·Р°Р±СѓРґСЊС‚Рµ РІРєР»СЋС‡РёС‚СЊ РёС… РїРѕСЃР»Рµ СЂР°Р·СЂРµС€РµРЅРёСЏ РІР°С€РёС… РїСЂРѕР±Р»РµРј СЃ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚СЊСЋ');
 
-define('_MI_PROTECTOR_RELIABLE_IPS','Доверенные адреса');
-define('_MI_PROTECTOR_RELIABLE_IPSDSC','Установите адреса при заходе для которых проверки безопасности не проводятся. Разделяйте каждый адрес знаком "|". "^" соответствует началу строки, "$" соответствует концу строки.');
+define($constpref.'_RELIABLE_IPS','Р”РѕРІРµСЂРµРЅРЅС‹Рµ Р°РґСЂРµСЃР°');
+define($constpref.'_RELIABLE_IPSDSC','РЈСЃС‚Р°РЅРѕРІРёС‚Рµ Р°РґСЂРµСЃР° РїСЂРё Р·Р°С…РѕРґРµ РґР»СЏ РєРѕС‚РѕСЂС‹С… РїСЂРѕРІРµСЂРєРё Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё РЅРµ РїСЂРѕРІРѕРґСЏС‚СЃСЏ. Р Р°Р·РґРµР»СЏР№С‚Рµ РєР°Р¶РґС‹Р№ Р°РґСЂРµСЃ Р·РЅР°РєРѕРј "|". "^" СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РЅР°С‡Р°Р»Сѓ СЃС‚СЂРѕРєРё, "$" СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РєРѕРЅС†Сѓ СЃС‚СЂРѕРєРё.');
 
-define('_MI_PROTECTOR_LOG_LEVEL','Журнал событий');
-//define('_MI_PROTECTOR_LOG_LEVELDSC','');
+define($constpref.'_LOG_LEVEL','Р–СѓСЂРЅР°Р» СЃРѕР±С‹С‚РёР№');
+define($constpref.'_LOG_LEVELDSC','');
 
-define('_MI_PROTECTOR_LOGLEVEL0','Журнал отключен');
-define('_MI_PROTECTOR_LOGLEVEL15','Минимум событий');
-define('_MI_PROTECTOR_LOGLEVEL63','Минимум событий');
-define('_MI_PROTECTOR_LOGLEVEL255','Все события');
+define($constpref.'_LOGLEVEL0','Р–СѓСЂРЅР°Р» РѕС‚РєР»СЋС‡РµРЅ');
+define($constpref.'_LOGLEVEL15','РњРёРЅРёРјСѓРј СЃРѕР±С‹С‚РёР№');
+define($constpref.'_LOGLEVEL63','РњРёРЅРёРјСѓРј СЃРѕР±С‹С‚РёР№');
+define($constpref.'_LOGLEVEL255','Р’СЃРµ СЃРѕР±С‹С‚РёСЏ');
 
-define('_MI_PROTECTOR_HIJACK_TOPBIT','Защищенные биты IP для сеанса');
-define('_MI_PROTECTOR_HIJACK_TOPBITDSC','Анти-Налет Сеанса:<br />Значение по умолчанию 32 (бит).
- (Все биты защищены)<br />Когда ваш IP не устойчив, установите диапазон IP числом битов.<br />(пример) Если ваш IP может двигаться в диапазон 192.168.0.0-192.168.0.255, установите 24 (бит) здесь');
-define('_MI_PROTECTOR_HIJACK_DENYGP','Группы для которых изменение адреса в рамках одной сессии запрещено');
-define('_MI_PROTECTOR_HIJACK_DENYGPDSC','Борется с подстановкой сессий:<br />
-    Выберите группы для которых адрес в пределах одной сессии постоянен.<br />
-    (Рекомендуется всегда включать в список групп группу Администраторов сайта.)');
-define('_MI_PROTECTOR_SAN_NULLBYTE','Вычищать символ с нулевым кодом');
-define('_MI_PROTECTOR_SAN_NULLBYTEDSC','Заверщающий символ "\\0" часто используется в различных видах атак.<br />
-    Этот символ будет заменен на пробел.<br />(рекомендуется всегда включать данную настройку)');
-define('_MI_PROTECTOR_DIE_NULLBYTE','Вычищать символ с нулевым кодом');
-define('_MI_PROTECTOR_DIE_NULLBYTEDSC','Заверщающий символ "\0" часто используется в различных видах атак.<br />(рекомендуется всегда включать данную настройку)');
-define('_MI_PROTECTOR_DIE_BADEXT','Прервать выполнение при загрузке опасного файла');
-define('_MI_PROTECTOR_DIE_BADEXTDSC','В случае когда кто-либо попытается загрузить на сайт файл имеющий опасное расширение (например .php) - загрузка страницы будет прервана. Если вам часто приходится загружать такие файлы (например для модулей B-Wiki или PukiWikiMod) - отключите данный параметр.');
-define('_MI_PROTECTOR_CONTAMI_ACTION','Действие при обнаружении "грязных" переменных');
-define('_MI_PROTECTOR_CONTAMI_ACTIONDS','Выберите действие выполняемое в случае когда кто-либо пытается передать вашему скрипту "грязные" системные переменные XOOPS. (Рекомендуется: пустой экран)');
-define('_MI_PROTECTOR_ISOCOM_ACTION','Действие при обнаружении изолированного комментария');
-define('_MI_PROTECTOR_ISOCOM_ACTIONDSC','Выберите действие выполняемое при обнаружении строки "/*" без экранировния.<br />"Очистка" подразумевает добавление экранирующих символов "*/".<br />(Рекомендуется: Очистить)');
-define('_MI_PROTECTOR_UNION_ACTION','Действие при обнаружении ключевого слова UNION');
-define('_MI_PROTECTOR_UNION_ACTIONDSC','Выберите действие выполняемое при обнаружении ключевого слова UNION. "Очистка" предполагает заменение всех вхождений данного слова "UNI-ON". (Рекомендуется: Очистить)');
-define('_MI_PROTECTOR_ID_INTVAL','Принудительное преобразование целочисленых переменных (например id)');
-define('_MI_PROTECTOR_ID_INTVALDSC','Все запросы вида: "*id" будут возвращены как целые числа.<br />Этот параметр защищает вас от некоторых видов XSS и SQL Injections атак.<br />
-    Рекомендуется включить этот параметр и отключать только при возникновении проблем в использовании каких-либо модулей.');
-define('_MI_PROTECTOR_FILE_DOTDOT','Защита от Directroy Traversals');
-define('_MI_PROTECTOR_FILE_DOTDOTDSC','Удаляет все вхождения последовательности ".." из всех запросов выглядящих как Directory Traversals');
+define($constpref.'_HIJACK_TOPBIT','Р—Р°С‰РёС‰РµРЅРЅС‹Рµ Р±РёС‚С‹ IP РґР»СЏ СЃРµР°РЅСЃР°');
+define($constpref.'_HIJACK_TOPBITDSC','РђРЅС‚Рё-РќР°Р»РµС‚ РЎРµР°РЅСЃР°:<br />Р—РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ 32 (Р±РёС‚).
+ (Р’СЃРµ Р±РёС‚С‹ Р·Р°С‰РёС‰РµРЅС‹)<br />РљРѕРіРґР° РІР°С€ IP РЅРµ СѓСЃС‚РѕР№С‡РёРІ, СѓСЃС‚Р°РЅРѕРІРёС‚Рµ РґРёР°РїР°Р·РѕРЅ IP С‡РёСЃР»РѕРј Р±РёС‚РѕРІ.<br />(РїСЂРёРјРµСЂ) Р•СЃР»Рё РІР°С€ IP РјРѕР¶РµС‚ РґРІРёРіР°С‚СЊСЃСЏ РІ РґРёР°РїР°Р·РѕРЅ 192.168.0.0-192.168.0.255, СѓСЃС‚Р°РЅРѕРІРёС‚Рµ 24 (Р±РёС‚) Р·РґРµСЃСЊ');
+define($constpref.'_HIJACK_DENYGP','Р“СЂСѓРїРїС‹ РґР»СЏ РєРѕС‚РѕСЂС‹С… РёР·РјРµРЅРµРЅРёРµ Р°РґСЂРµСЃР° РІ СЂР°РјРєР°С… РѕРґРЅРѕР№ СЃРµСЃСЃРёРё Р·Р°РїСЂРµС‰РµРЅРѕ');
+define($constpref.'_HIJACK_DENYGPDSC','Р‘РѕСЂРµС‚СЃСЏ СЃ РїРѕРґСЃС‚Р°РЅРѕРІРєРѕР№ СЃРµСЃСЃРёР№:<br />
+    Р’С‹Р±РµСЂРёС‚Рµ РіСЂСѓРїРїС‹ РґР»СЏ РєРѕС‚РѕСЂС‹С… Р°РґСЂРµСЃ РІ РїСЂРµРґРµР»Р°С… РѕРґРЅРѕР№ СЃРµСЃСЃРёРё РїРѕСЃС‚РѕСЏРЅРµРЅ.<br />
+    (Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РІСЃРµРіРґР° РІРєР»СЋС‡Р°С‚СЊ РІ СЃРїРёСЃРѕРє РіСЂСѓРїРї РіСЂСѓРїРїСѓ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРІ СЃР°Р№С‚Р°.)');
+define($constpref.'_SAN_NULLBYTE','Р’С‹С‡РёС‰Р°С‚СЊ СЃРёРјРІРѕР» СЃ РЅСѓР»РµРІС‹Рј РєРѕРґРѕРј');
+define($constpref.'_SAN_NULLBYTEDSC','Р—Р°РІРµСЂС‰Р°СЋС‰РёР№ СЃРёРјРІРѕР» "\\0" С‡Р°СЃС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ СЂР°Р·Р»РёС‡РЅС‹С… РІРёРґР°С… Р°С‚Р°Рє.<br />
+    Р­С‚РѕС‚ СЃРёРјРІРѕР» Р±СѓРґРµС‚ Р·Р°РјРµРЅРµРЅ РЅР° РїСЂРѕР±РµР».<br />(СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РІСЃРµРіРґР° РІРєР»СЋС‡Р°С‚СЊ РґР°РЅРЅСѓСЋ РЅР°СЃС‚СЂРѕР№РєСѓ)');
+define($constpref.'_DIE_NULLBYTE','Р’С‹С‡РёС‰Р°С‚СЊ СЃРёРјРІРѕР» СЃ РЅСѓР»РµРІС‹Рј РєРѕРґРѕРј');
+define($constpref.'_DIE_NULLBYTEDSC','Р—Р°РІРµСЂС‰Р°СЋС‰РёР№ СЃРёРјРІРѕР» "\0" С‡Р°СЃС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ СЂР°Р·Р»РёС‡РЅС‹С… РІРёРґР°С… Р°С‚Р°Рє.<br />(СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РІСЃРµРіРґР° РІРєР»СЋС‡Р°С‚СЊ РґР°РЅРЅСѓСЋ РЅР°СЃС‚СЂРѕР№РєСѓ)');
+define($constpref.'_DIE_BADEXT','РџСЂРµСЂРІР°С‚СЊ РІС‹РїРѕР»РЅРµРЅРёРµ РїСЂРё Р·Р°РіСЂСѓР·РєРµ РѕРїР°СЃРЅРѕРіРѕ С„Р°Р№Р»Р°');
+define($constpref.'_DIE_BADEXTDSC','Р’ СЃР»СѓС‡Р°Рµ РєРѕРіРґР° РєС‚Рѕ-Р»РёР±Рѕ РїРѕРїС‹С‚Р°РµС‚СЃСЏ Р·Р°РіСЂСѓР·РёС‚СЊ РЅР° СЃР°Р№С‚ С„Р°Р№Р» РёРјРµСЋС‰РёР№ РѕРїР°СЃРЅРѕРµ СЂР°СЃС€РёСЂРµРЅРёРµ (РЅР°РїСЂРёРјРµСЂ .php) - Р·Р°РіСЂСѓР·РєР° СЃС‚СЂР°РЅРёС†С‹ Р±СѓРґРµС‚ РїСЂРµСЂРІР°РЅР°. Р•СЃР»Рё РІР°Рј С‡Р°СЃС‚Рѕ РїСЂРёС…РѕРґРёС‚СЃСЏ Р·Р°РіСЂСѓР¶Р°С‚СЊ С‚Р°РєРёРµ С„Р°Р№Р»С‹ (РЅР°РїСЂРёРјРµСЂ РґР»СЏ РјРѕРґСѓР»РµР№ B-Wiki РёР»Рё PukiWikiMod) - РѕС‚РєР»СЋС‡РёС‚Рµ РґР°РЅРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ.');
+define($constpref.'_CONTAMI_ACTION','Р”РµР№СЃС‚РІРёРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё "РіСЂСЏР·РЅС‹С…" РїРµСЂРµРјРµРЅРЅС‹С…');
+define($constpref.'_CONTAMI_ACTIONDS','Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ РІС‹РїРѕР»РЅСЏРµРјРѕРµ РІ СЃР»СѓС‡Р°Рµ РєРѕРіРґР° РєС‚Рѕ-Р»РёР±Рѕ РїС‹С‚Р°РµС‚СЃСЏ РїРµСЂРµРґР°С‚СЊ РІР°С€РµРјСѓ СЃРєСЂРёРїС‚Сѓ "РіСЂСЏР·РЅС‹Рµ" СЃРёСЃС‚РµРјРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ XOOPS. (Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ: РїСѓСЃС‚РѕР№ СЌРєСЂР°РЅ)');
+define($constpref.'_ISOCOM_ACTION','Р”РµР№СЃС‚РІРёРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё РёР·РѕР»РёСЂРѕРІР°РЅРЅРѕРіРѕ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ');
+define($constpref.'_ISOCOM_ACTIONDSC','Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ РІС‹РїРѕР»РЅСЏРµРјРѕРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё СЃС‚СЂРѕРєРё "/*" Р±РµР· СЌРєСЂР°РЅРёСЂРѕРІРЅРёСЏ.<br />"РћС‡РёСЃС‚РєР°" РїРѕРґСЂР°Р·СѓРјРµРІР°РµС‚ РґРѕР±Р°РІР»РµРЅРёРµ СЌРєСЂР°РЅРёСЂСѓСЋС‰РёС… СЃРёРјРІРѕР»РѕРІ "*/".<br />(Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ: РћС‡РёСЃС‚РёС‚СЊ)');
+define($constpref.'_UNION_ACTION','Р”РµР№СЃС‚РІРёРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё РєР»СЋС‡РµРІРѕРіРѕ СЃР»РѕРІР° UNION');
+define($constpref.'_UNION_ACTIONDSC','Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ РІС‹РїРѕР»РЅСЏРµРјРѕРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё РєР»СЋС‡РµРІРѕРіРѕ СЃР»РѕРІР° UNION. "РћС‡РёСЃС‚РєР°" РїСЂРµРґРїРѕР»Р°РіР°РµС‚ Р·Р°РјРµРЅРµРЅРёРµ РІСЃРµС… РІС…РѕР¶РґРµРЅРёР№ РґР°РЅРЅРѕРіРѕ СЃР»РѕРІР° "UNI-ON". (Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ: РћС‡РёСЃС‚РёС‚СЊ)');
+define($constpref.'_ID_INTVAL','РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С†РµР»РѕС‡РёСЃР»РµРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… (РЅР°РїСЂРёРјРµСЂ id)');
+define($constpref.'_ID_INTVALDSC','Р’СЃРµ Р·Р°РїСЂРѕСЃС‹ РІРёРґР°: "*id" Р±СѓРґСѓС‚ РІРѕР·РІСЂР°С‰РµРЅС‹ РєР°Рє С†РµР»С‹Рµ С‡РёСЃР»Р°.<br />Р­С‚РѕС‚ РїР°СЂР°РјРµС‚СЂ Р·Р°С‰РёС‰Р°РµС‚ РІР°СЃ РѕС‚ РЅРµРєРѕС‚РѕСЂС‹С… РІРёРґРѕРІ XSS Рё SQL Injections Р°С‚Р°Рє.<br />
+    Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РІРєР»СЋС‡РёС‚СЊ СЌС‚РѕС‚ РїР°СЂР°РјРµС‚СЂ Рё РѕС‚РєР»СЋС‡Р°С‚СЊ С‚РѕР»СЊРєРѕ РїСЂРё РІРѕР·РЅРёРєРЅРѕРІРµРЅРёРё РїСЂРѕР±Р»РµРј РІ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё РєР°РєРёС…-Р»РёР±Рѕ РјРѕРґСѓР»РµР№.');
+define($constpref.'_FILE_DOTDOT','Р—Р°С‰РёС‚Р° РѕС‚ Directroy Traversals');
+define($constpref.'_FILE_DOTDOTDSC','РЈРґР°Р»СЏРµС‚ РІСЃРµ РІС…РѕР¶РґРµРЅРёСЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё ".." РёР· РІСЃРµС… Р·Р°РїСЂРѕСЃРѕРІ РІС‹РіР»СЏРґСЏС‰РёС… РєР°Рє Directory Traversals');
 
-define('_MI_PROTECTOR_BF_COUNT','Защита от подбора пароля');
-define('_MI_PROTECTOR_BF_COUNTDSC','Установите максимальное количество попыток входа пользователя за 10 минут. В случае если кто-либо попытается залогиниться большее чем указано количество раз - его адрес будет занесен в черный список.');
+define($constpref.'_BF_COUNT','Р—Р°С‰РёС‚Р° РѕС‚ РїРѕРґР±РѕСЂР° РїР°СЂРѕР»СЏ');
+define($constpref.'_BF_COUNTDSC','РЈСЃС‚Р°РЅРѕРІРёС‚Рµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРїС‹С‚РѕРє РІС…РѕРґР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Р·Р° 10 РјРёРЅСѓС‚. Р’ СЃР»СѓС‡Р°Рµ РµСЃР»Рё РєС‚Рѕ-Р»РёР±Рѕ РїРѕРїС‹С‚Р°РµС‚СЃСЏ Р·Р°Р»РѕРіРёРЅРёС‚СЊСЃСЏ Р±РѕР»СЊС€РµРµ С‡РµРј СѓРєР°Р·Р°РЅРѕ РєРѕР»РёС‡РµСЃС‚РІРѕ СЂР°Р· - РµРіРѕ Р°РґСЂРµСЃ Р±СѓРґРµС‚ Р·Р°РЅРµСЃРµРЅ РІ С‡РµСЂРЅС‹Р№ СЃРїРёСЃРѕРє.');
 
-define('_MI_PROTECTOR_DOS_SKIPMODS','Исключения модулей от DoS/Crawler защиты');
-define('_MI_PROTECTOR_DOS_SKIPMODSDSC','Введите имена каталогов разделенные символом "|" для модулей в которых можно отключить DoS/Crawler защиту. Этот параметр в частности широко применим в модулях чата и других модулях для которых частое обращение к стараницам модулей является нормой.');
+define($constpref.'_DOS_SKIPMODS','РСЃРєР»СЋС‡РµРЅРёСЏ РјРѕРґСѓР»РµР№ РѕС‚ DoS/Crawler Р·Р°С‰РёС‚С‹');
+define($constpref.'_DOS_SKIPMODSDSC','Р’РІРµРґРёС‚Рµ РёРјРµРЅР° РєР°С‚Р°Р»РѕРіРѕРІ СЂР°Р·РґРµР»РµРЅРЅС‹Рµ СЃРёРјРІРѕР»РѕРј "|" РґР»СЏ РјРѕРґСѓР»РµР№ РІ РєРѕС‚РѕСЂС‹С… РјРѕР¶РЅРѕ РѕС‚РєР»СЋС‡РёС‚СЊ DoS/Crawler Р·Р°С‰РёС‚Сѓ. Р­С‚РѕС‚ РїР°СЂР°РјРµС‚СЂ РІ С‡Р°СЃС‚РЅРѕСЃС‚Рё С€РёСЂРѕРєРѕ РїСЂРёРјРµРЅРёРј РІ РјРѕРґСѓР»СЏС… С‡Р°С‚Р° Рё РґСЂСѓРіРёС… РјРѕРґСѓР»СЏС… РґР»СЏ РєРѕС‚РѕСЂС‹С… С‡Р°СЃС‚РѕРµ РѕР±СЂР°С‰РµРЅРёРµ Рє СЃС‚Р°СЂР°РЅРёС†Р°Рј РјРѕРґСѓР»РµР№ СЏРІР»СЏРµС‚СЃСЏ РЅРѕСЂРјРѕР№.');
 
-define('_MI_PROTECTOR_DOS_EXPIRE','Время ожидания для определения высокой нагрузки (сек)');
-define('_MI_PROTECTOR_DOS_EXPIREDSC','Данное значение указывает время ожидания до обнуления счетчика запросов страницы ("Атака F5" и Роботы перегружающие сервер)');
+define($constpref.'_DOS_EXPIRE','Р’СЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РІС‹СЃРѕРєРѕР№ РЅР°РіСЂСѓР·РєРё (СЃРµРє)');
+define($constpref.'_DOS_EXPIREDSC','Р”Р°РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СѓРєР°Р·С‹РІР°РµС‚ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ РґРѕ РѕР±РЅСѓР»РµРЅРёСЏ СЃС‡РµС‚С‡РёРєР° Р·Р°РїСЂРѕСЃРѕРІ СЃС‚СЂР°РЅРёС†С‹ ("РђС‚Р°РєР° F5" Рё Р РѕР±РѕС‚С‹ РїРµСЂРµРіСЂСѓР¶Р°СЋС‰РёРµ СЃРµСЂРІРµСЂ)');
 
-define('_MI_PROTECTOR_DOS_F5COUNT','Счетчик для "Атаки F5"');
-define('_MI_PROTECTOR_DOS_F5COUNTDSC','Защищает от DoS атак.<br />
-    Это значение указывает количество запросов страницы превышение которого за установленое ранее время ожидания распознается как преднамеренная атака.');
-define('_MI_PROTECTOR_DOS_F5ACTION','Действие при обнаружении попытки перегрузки сервера');
+define($constpref.'_DOS_F5COUNT','РЎС‡РµС‚С‡РёРє РґР»СЏ "РђС‚Р°РєРё F5"');
+define($constpref.'_DOS_F5COUNTDSC','Р—Р°С‰РёС‰Р°РµС‚ РѕС‚ DoS Р°С‚Р°Рє.<br />
+    Р­С‚Рѕ Р·РЅР°С‡РµРЅРёРµ СѓРєР°Р·С‹РІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїСЂРѕСЃРѕРІ СЃС‚СЂР°РЅРёС†С‹ РїСЂРµРІС‹С€РµРЅРёРµ РєРѕС‚РѕСЂРѕРіРѕ Р·Р° СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕРµ СЂР°РЅРµРµ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ СЂР°СЃРїРѕР·РЅР°РµС‚СЃСЏ РєР°Рє РїСЂРµРґРЅР°РјРµСЂРµРЅРЅР°СЏ Р°С‚Р°РєР°.');
+define($constpref.'_DOS_F5ACTION','Р”РµР№СЃС‚РІРёРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё РїРѕРїС‹С‚РєРё РїРµСЂРµРіСЂСѓР·РєРё СЃРµСЂРІРµСЂР°');
 
-define('_MI_PROTECTOR_DOS_CRCOUNT','Счетчик для Роботов');
-define('_MI_PROTECTOR_DOS_CRCOUNTDSC','Предупреждает высокую загрузку сервера роботами поисковых систем. Указаное значение задает количество запросов превышение которого за установленое ранее время ожидания распознается как посещение "Неправильным" Роботом');
-define('_MI_PROTECTOR_DOS_CRACTION','Действие при обнаружении "Плохих" Роботов.');
+define($constpref.'_DOS_CRCOUNT','РЎС‡РµС‚С‡РёРє РґР»СЏ Р РѕР±РѕС‚РѕРІ');
+define($constpref.'_DOS_CRCOUNTDSC','РџСЂРµРґСѓРїСЂРµР¶РґР°РµС‚ РІС‹СЃРѕРєСѓСЋ Р·Р°РіСЂСѓР·РєСѓ СЃРµСЂРІРµСЂР° СЂРѕР±РѕС‚Р°РјРё РїРѕРёСЃРєРѕРІС‹С… СЃРёСЃС‚РµРј. РЈРєР°Р·Р°РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ Р·Р°РґР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїСЂРѕСЃРѕРІ РїСЂРµРІС‹С€РµРЅРёРµ РєРѕС‚РѕСЂРѕРіРѕ Р·Р° СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕРµ СЂР°РЅРµРµ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ СЂР°СЃРїРѕР·РЅР°РµС‚СЃСЏ РєР°Рє РїРѕСЃРµС‰РµРЅРёРµ "РќРµРїСЂР°РІРёР»СЊРЅС‹Рј" Р РѕР±РѕС‚РѕРј');
+define($constpref.'_DOS_CRACTION','Р”РµР№СЃС‚РІРёРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё "РџР»РѕС…РёС…" Р РѕР±РѕС‚РѕРІ.');
 
-define('_MI_PROTECTOR_DOS_CRSAFE','Агенты пользователя (User-Agent) не опознаваемые как "Плохие"');
-define('_MI_PROTECTOR_DOS_CRSAFEDSC','Регулярное выражение perl для поля Агента Пользователя (User-Agent).<br />В случае совпадения агента посетителя с указаным выражением - Робот никогда не распознается как "Плохой".<br />Пример: /(msnbot|Googlebot|Yandex|Yahoo! Slurp|StackRambler)/i');
+define($constpref.'_DOS_CRSAFE','РђРіРµРЅС‚С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (User-Agent) РЅРµ РѕРїРѕР·РЅР°РІР°РµРјС‹Рµ РєР°Рє "РџР»РѕС…РёРµ"');
+define($constpref.'_DOS_CRSAFEDSC','Р РµРіСѓР»СЏСЂРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ perl РґР»СЏ РїРѕР»СЏ РђРіРµРЅС‚Р° РџРѕР»СЊР·РѕРІР°С‚РµР»СЏ (User-Agent).<br />Р’ СЃР»СѓС‡Р°Рµ СЃРѕРІРїР°РґРµРЅРёСЏ Р°РіРµРЅС‚Р° РїРѕСЃРµС‚РёС‚РµР»СЏ СЃ СѓРєР°Р·Р°РЅС‹Рј РІС‹СЂР°Р¶РµРЅРёРµРј - Р РѕР±РѕС‚ РЅРёРєРѕРіРґР° РЅРµ СЂР°СЃРїРѕР·РЅР°РµС‚СЃСЏ РєР°Рє "РџР»РѕС…РѕР№".<br />РџСЂРёРјРµСЂ: /(msnbot|Googlebot|Yandex|Yahoo! Slurp|StackRambler)/i');
 
-define('_MI_PROTECTOR_OPT_NONE','Ничего (только запись в журнале)');
-define('_MI_PROTECTOR_OPT_SAN','Очистка');
-define('_MI_PROTECTOR_OPT_EXIT','Пустой экран');
-define('_MI_PROTECTOR_OPT_BIP','Добавить адрес в черный список');
+define($constpref.'_OPT_NONE','РќРёС‡РµРіРѕ (С‚РѕР»СЊРєРѕ Р·Р°РїРёСЃСЊ РІ Р¶СѓСЂРЅР°Р»Рµ)');
+define($constpref.'_OPT_SAN','РћС‡РёСЃС‚РєР°');
+define($constpref.'_OPT_EXIT','РџСѓСЃС‚РѕР№ СЌРєСЂР°РЅ');
+define($constpref.'_OPT_BIP','Р”РѕР±Р°РІРёС‚СЊ Р°РґСЂРµСЃ РІ С‡РµСЂРЅС‹Р№ СЃРїРёСЃРѕРє');
 
-define('_MI_PROTECTOR_DOSOPT_NONE','Ничего (только запись в журнале)');
-define('_MI_PROTECTOR_DOSOPT_SLEEP','Заснуть');
-define('_MI_PROTECTOR_DOSOPT_EXIT','Пустой экран');
-define('_MI_PROTECTOR_DOSOPT_BIP','Добавить адрес в черный список');
-define('_MI_PROTECTOR_DOSOPT_HTA','Запретить доступ используя .htaccess (экспериментально)');
+define($constpref.'_DOSOPT_NONE','РќРёС‡РµРіРѕ (С‚РѕР»СЊРєРѕ Р·Р°РїРёСЃСЊ РІ Р¶СѓСЂРЅР°Р»Рµ)');
+define($constpref.'_DOSOPT_SLEEP','Р—Р°СЃРЅСѓС‚СЊ');
+define($constpref.'_DOSOPT_EXIT','РџСѓСЃС‚РѕР№ СЌРєСЂР°РЅ');
+define($constpref.'_DOSOPT_BIP','Р”РѕР±Р°РІРёС‚СЊ Р°РґСЂРµСЃ РІ С‡РµСЂРЅС‹Р№ СЃРїРёСЃРѕРє');
+define($constpref.'_DOSOPT_HTA','Р—Р°РїСЂРµС‚РёС‚СЊ РґРѕСЃС‚СѓРї РёСЃРїРѕР»СЊР·СѓСЏ .htaccess (СЌРєСЃРїРµСЂРёРјРµРЅС‚Р°Р»СЊРЅРѕ)');
 
-define('_MI_PROTECTOR_BIP_EXCEPT','Групы пользователей никогда не попадающие в черный список.');
-define('_MI_PROTECTOR_BIP_EXCEPTDSC','Рекомендуется всегда добавлять в этот список группу Администраторов сайта.');
+define($constpref.'_BIP_EXCEPT','Р“СЂСѓРїС‹ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РЅРёРєРѕРіРґР° РЅРµ РїРѕРїР°РґР°СЋС‰РёРµ РІ С‡РµСЂРЅС‹Р№ СЃРїРёСЃРѕРє.');
+define($constpref.'_BIP_EXCEPTDSC','Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РІСЃРµРіРґР° РґРѕР±Р°РІР»СЏС‚СЊ РІ СЌС‚РѕС‚ СЃРїРёСЃРѕРє РіСЂСѓРїРїСѓ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРІ СЃР°Р№С‚Р°.');
 
-define('_MI_PROTECTOR_DISABLES','Деактивировать потенциально опасные функции XOOPS');
+define($constpref.'_DISABLES','Р”РµР°РєС‚РёРІРёСЂРѕРІР°С‚СЊ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕ РѕРїР°СЃРЅС‹Рµ С„СѓРЅРєС†РёРё XOOPS');
 
-define('_MI_PROTECTOR_BIGUMBRELLA','Включить anti-XSS (BigUmbrella)');
-define('_MI_PROTECTOR_BIGUMBRELLADSC','Это помогает защитить Вас от нападений через уязвимость XSS. Гарантия не 100%!!');
+define($constpref.'_BIGUMBRELLA','Р’РєР»СЋС‡РёС‚СЊ anti-XSS (BigUmbrella)');
+define($constpref.'_BIGUMBRELLADSC','Р­С‚Рѕ РїРѕРјРѕРіР°РµС‚ Р·Р°С‰РёС‚РёС‚СЊ Р’Р°СЃ РѕС‚ РЅР°РїР°РґРµРЅРёР№ С‡РµСЂРµР· СѓСЏР·РІРёРјРѕСЃС‚СЊ XSS. Р“Р°СЂР°РЅС‚РёСЏ РЅРµ 100%!!');
 
-define('_MI_PROTECTOR_SPAMURI4U','anti-SPAM: Колличество ссылок для пользователей');
-define('_MI_PROTECTOR_SPAMURI4UDSC','Если колличество ссылок  в сообщениях от пользователей (кроме Администраторов), превышает указанное, сообщение определяется как СПАМ.<br /> 0 - отключено.');
-define('_MI_PROTECTOR_SPAMURI4G','anti-SPAM: Колличество ссылок для гостей');
-define('_MI_PROTECTOR_SPAMURI4GDSC','Если колличество ссылок  в сообщениях от гостей, превышает указанное, сообщение определяется как СПАМ.<br />  0 - отключено.');
+define($constpref.'_SPAMURI4U','anti-SPAM: РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃСЃС‹Р»РѕРє РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№');
+define($constpref.'_SPAMURI4UDSC','Р•СЃР»Рё РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃСЃС‹Р»РѕРє  РІ СЃРѕРѕР±С‰РµРЅРёСЏС… РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ (РєСЂРѕРјРµ РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРІ), РїСЂРµРІС‹С€Р°РµС‚ СѓРєР°Р·Р°РЅРЅРѕРµ, СЃРѕРѕР±С‰РµРЅРёРµ РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РєР°Рє РЎРџРђРњ.<br /> 0 - РѕС‚РєР»СЋС‡РµРЅРѕ.');
+define($constpref.'_SPAMURI4G','anti-SPAM: РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃСЃС‹Р»РѕРє РґР»СЏ РіРѕСЃС‚РµР№');
+define($constpref.'_SPAMURI4GDSC','Р•СЃР»Рё РєРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃСЃС‹Р»РѕРє  РІ СЃРѕРѕР±С‰РµРЅРёСЏС… РѕС‚ РіРѕСЃС‚РµР№, РїСЂРµРІС‹С€Р°РµС‚ СѓРєР°Р·Р°РЅРЅРѕРµ, СЃРѕРѕР±С‰РµРЅРёРµ РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РєР°Рє РЎРџРђРњ.<br />  0 - РѕС‚РєР»СЋС‡РµРЅРѕ.');
 
 }
-
-?>
