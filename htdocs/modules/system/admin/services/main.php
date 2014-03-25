@@ -62,10 +62,12 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     exit("Token error");
 }
 
-$xoops->theme()->addStylesheet('media/jquery/ui/base/ui.all.css');
+//$xoops->theme()->addStylesheet('media/jquery/ui/base/ui.all.css');
+$xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addScript('media/jquery/plugins/jquery.ui.js');
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js', 'media/jquery/plugins/jquery.jgrowl.js');
+//$xoops->theme()->addScript('modules/system/js/admin.js');
+//$xoops->theme()->addScript('media/jquery/plugins/jquery.jgrowl.js');
 
 $xoops->header('system_services.html');
 

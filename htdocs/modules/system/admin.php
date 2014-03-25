@@ -95,10 +95,10 @@ if (false != $error) {
     // Define main template
     $xoops->header('system_index.html');
     // Define Stylesheet
-    $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+    $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
     // Define scripts
-    $xoops->theme()->addScript('media/jquery/jquery.js');
-    $xoops->theme()->addScript('modules/system/js/admin.js');
+    $xoops->theme()->addBaseScriptAssets('@jquery.');
+    $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
     // Define Breadcrumb and tips
     $admin_page = new XoopsModuleAdmin();
     $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);

@@ -38,9 +38,11 @@ class XoopsGuiDefault
         $xoops->theme()->addStylesheet('media/xoops/css/moduladmin.css');
         $xoops->theme()->addStylesheet(XOOPS_ADMINTHEME_URL . '/default/css/style.css');
 
-        $xoops->theme()->addScript($xoops->url('/media/jquery/jquery.js'));
-        $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-        $xoops->theme()->addScript($xoops->url('/media/bootstrap/js/bootstrap.min.js'));
+        $xoops->theme()->addBaseScriptAssets('@jquery');
+        // bootstrap has to come before jquery.ui or dialog close buttons are blank
+        $xoops->theme()->addBaseScriptAssets('media/bootstrap/js/bootstrap.min.js');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui');
+        $xoops->theme()->addBaseScriptAssets('@jgrowl');
         // ddsmoothmenu
         $xoops->theme()->addScript(XOOPS_ADMINTHEME_URL . '/default/js/ddsmoothmenu.js');
         $xoops->theme()->addScript(XOOPS_ADMINTHEME_URL . '/default/js/tooltip.js');
@@ -170,5 +172,3 @@ class XoopsGuiDefault
 
     }
 }
-
-?>

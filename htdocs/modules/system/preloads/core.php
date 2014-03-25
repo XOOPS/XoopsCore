@@ -48,9 +48,9 @@ class SystemCorePreload extends XoopsPreloadItem
     {
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
-            $xoops->theme()->addStylesheet('xoops.css');
-            $xoops->theme()->addScript('media/jquery/jquery.js');
-            $xoops->theme()->addScript('media/jquery/plugins/jquery.jgrowl.js');
+            $xoops->theme()->addBaseStylesheetAssets('xoops.css');
+            $xoops->theme()->addBaseScriptAssets('@jquery');
+            $xoops->theme()->addBaseScriptAssets('@jgrowl');
             $xoops->theme()->addScript('', array('type' => 'text/javascript'), '
             (function($){
                 $(document).ready(function(){
@@ -65,9 +65,9 @@ class SystemCorePreload extends XoopsPreloadItem
     {
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
-            $xoops->theme()->addStylesheet('xoops.css');
-            $xoops->theme()->addScript('media/jquery/jquery.js');
-            $xoops->theme()->addScript('media/jquery/plugins/jquery.jgrowl.js');
+            $xoops->theme()->addBaseStylesheetAssets('xoops.css');
+            $xoops->theme()->addBaseScriptAssets('@jquery');
+            $xoops->theme()->addBaseScriptAssets('@jgrowl');
             $xoops->theme()->addScript('', array('type' => 'text/javascript'), '
             (function($){
             $(document).ready(function(){
