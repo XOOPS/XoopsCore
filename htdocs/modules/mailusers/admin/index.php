@@ -32,28 +32,12 @@ $admin_page->displayNavigation('index.php');
 $admin_page->addInfoBox(_MI_MAILUSERS_MAILUSER_MANAGER);
 
 $tplString = "%1\$s : <span class='red'>%2\$s</span>";
-$admin_page->addInfoBoxLine(sprintf($tplString,_MD_AM_MAILFROM,$xoops->getConfig('from')));
-
-$admin_page->addInfoBoxLine(sprintf($tplString,_MD_AM_MAILERMETHOD,$xoops->getConfig('mailmethod')));
-$admin_page->addInfoBoxLine(sprintf($tplString,_MD_AM_SENDMAILPATH,$xoops->getConfig('sendmailpath')));
-$admin_page->addInfoBoxLine(sprintf($tplString,_MD_AM_SMTPHOST, implode(';', $xoops->getConfig('smtphost'))));
-$admin_page->addInfoBoxLine(sprintf($tplString,_MD_AM_SMTPUSER,$xoops->getConfig('smtpuser')));
+$admin_page->addInfoBoxLine(sprintf($tplString,_AM_MAILUSERS_MAILFROM,$xoops->getConfig('from')));
+$admin_page->addInfoBoxLine(sprintf($tplString,_AM_MAILUSERS_MAILERMETHOD,$xoops->getConfig('mailmethod')));
+$admin_page->addInfoBoxLine(sprintf($tplString,_AM_MAILUSERS_SENDMAILPATH,$xoops->getConfig('sendmailpath')));
+$admin_page->addInfoBoxLine(sprintf($tplString,_AM_MAILUSERS_SMTPHOST, implode(';', $xoops->getConfig('smtphost'))));
+$admin_page->addInfoBoxLine(sprintf($tplString,_AM_MAILUSERS_SMTPUSER,$xoops->getConfig('smtpuser')));
 
 $admin_page->displayIndex();
 
 $xoops->footer();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

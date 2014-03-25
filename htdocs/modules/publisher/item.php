@@ -45,9 +45,9 @@ $xoops->header('publisher_item.html');
 $xoopsTpl = $xoops->tpl();
 $xoTheme = $xoops->theme();
 $xoTheme->addStylesheet(PUBLISHER_URL . '/css/jquery.popeye.style.css');
-$xoTheme->addScript(XOOPS_URL . '/media/jquery/jquery.js');
+$xoTheme->addBaseScriptAssets('@jquery');
 $xoTheme->addScript(PUBLISHER_URL . '/js/jquery.popeye-2.0.4.js');
-$xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
+$xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
 
 XoopsLoad::LoadFile($publisher->path('footer.php'));
 
@@ -66,17 +66,17 @@ if (!$xoops->isUser() || (PublisherUtils::IsUserAdmin() && $publisher->getConfig
 
 // creating the Item objects that belong to the selected category
 switch ($publisher->getConfig('format_order_by')) {
-    case 'title' :
+    case 'title':
         $sort = 'title';
         $order = 'ASC';
         break;
 
-    case 'date' :
+    case 'date':
         $sort = 'datesub';
         $order = 'DESC';
         break;
 
-    default :
+    default:
         $sort = 'weight';
         $order = 'ASC';
         break;
@@ -217,7 +217,7 @@ if ($xoops->isActiveModule('comments') && (($itemObj->getVar('cancomment') == 1)
         'deletecomment_link' => PUBLISHER_URL . '/comment_delete.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode . $link_extra,
         'replycomment_link' => PUBLISHER_URL . '/comment_reply.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode . $link_extra));
     $xoopsTpl->_tpl_vars['commentsnav'] = str_replace("self.location.href='", "self.location.href='" . PUBLISHER_URL . '/', $xoopsTpl->_tpl_vars['commentsnav']);
- */
+    */
 }
 
 // Include support for AJAX rating

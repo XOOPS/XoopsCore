@@ -376,7 +376,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const SECURE_LOGIN = "Secure login";
     const SERVICES_DESC = "From here you can manage service<br />providers and priorities.";
     const SERVICES_MANAGER = "Service Management";
-    const SERVICES_TIPS = "<ul><li>Services allow you to customize your system</li><li>Set service provider preferences by selecting the service, and then puttin the providers in the desired order.</li></ul>";
+    const SERVICES_TIPS = "<ul><li>Services allow you to customize your system</li><li>Set service provider preferences by selecting the service, and then putting the providers in the desired order.</li></ul>";
     const SF_ADDED_PERMISSION_FOR_GROUP = "Added %s permission to %s for group %s!";
     const SF_BLOCK_DELETED = "Block %s deleted!";
     const SF_BLOCK_TEMPLATE_DELETED = "Block template %s deleted!";

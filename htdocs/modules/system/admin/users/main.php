@@ -48,7 +48,8 @@ $xoops->header('system_users.html');
 $myts = MyTextSanitizer::getInstance();
 // Define Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+$xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
+//$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
 $xoops->theme()->addScript('modules/system/js/admin.js');
 // Define Breadcrumb and tips
@@ -344,10 +345,10 @@ switch ($op) {
     default:
         // Search and Display
         // Define scripts
-        $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js');
         //table sorting does not work with select boxes
         //$xoops->theme()->addScript('media/jquery/plugins/jquery.tablesorter.js');
-        $xoops->theme()->addScript('modules/system/js/admin.js');
+        //$xoops->theme()->addScript('modules/system/js/admin.js');
         //Recherche approfondie
 
         if (isset($_REQUEST['complet_search'])) {

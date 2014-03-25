@@ -30,8 +30,8 @@ $(function() {
         // callback handler that will be called on success
         request.done(function (response, textStatus, jqXHR){
             // log a message to the console
-            console.log("Hooray, it worked! "+response);
-            history.go(-1);
+            //window.location.href = "admin.php?fct=services";
+            $.jGrowl("Provider preferences saved", {  life:3000 , position: "center", speed: "slow" });
         });
 
         // callback handler that will be called on failure
@@ -40,6 +40,7 @@ $(function() {
                 "The following error occured: "+
                 textStatus, errorThrown
             );
+            $.jGrowl("Error during save: " + textStatus, {  life:3000 , position: "center", speed: "slow" });
         });
     });
 });
