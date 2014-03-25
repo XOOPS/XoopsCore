@@ -18,6 +18,9 @@ use Assetic\Factory\AssetFactory;
 use Assetic\Factory\LazyAssetManager;
 use Assetic\Factory\Worker\CacheBustingWorker;
 use Assetic\AssetWriter;
+use Assetic\Asset\AssetCollection;
+use Assetic\Asset\FileAsset;
+use Assetic\Asset\GlobAsset;
 
 /**
  * Provides a standarized asset strategy
@@ -55,6 +58,24 @@ class Assets
     );
 
     /**
+     * @var AssetManager
+     */
+    private $assetManager = null;
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->assetManager = new AssetManager();
+        if (isset($_REQUEST['ASSET_DEBUG'])) {
+            $this->setDebug(true);
+        }
+    }
+
+    /**
      * getUrlToAssets
      *
      * Create an asset file from a list of assets
@@ -68,6 +89,9 @@ class Assets
      */
     public function getUrlToAssets($type, $assets, $filters = 'default', $target = null)
     {
+        if (is_scalar($assets)) { // just a single path name
+            $assets = array($assets);
+        }
 
         if ($filters=='default') {
             if (isset($this->default_filters[$type])) {
@@ -100,7 +124,7 @@ class Assets
         $target_url = $xoops->url($target_path);
 
         try {
-            $am = new AssetManager();
+            $am = $this->assetManager;
             $fm = new FilterManager();
 
             foreach ($filters as $filter) {
@@ -144,19 +168,24 @@ class Assets
             // Prepare the assets writer
             $writer = new AssetWriter($target_path);
 
-            // Create the asset
+            // Translate asset paths, remove duplicates
+            $translated_assets = array();
             foreach ($assets as $k => $v) {
-                if (substr_compare($v, '/', 0, 1) != 0) {
-                    $assets[$k] = $xoops->path($v);
+                // translate path if not a reference or absolute path
+                if ((substr_compare($v, '@', 0, 1) != 0)
+                    && (substr_compare($v, '/', 0, 1) != 0)) {
+                    $v = $xoops->path($v);
+                }
+                if (!in_array($v, $translated_assets)) {
+                    $translated_assets[] = $v;
                 }
             }
 
             // Create the asset
             $asset = $factory->createAsset(
-                $assets,
+                $translated_assets,
                 $filters
             );
-
             $asset_path = $asset->getTargetPath();
             if (!is_readable($target_path . $asset_path)) {
                 $oldumask = umask(0002);
@@ -183,5 +212,82 @@ class Assets
     public function setDebug($debug)
     {
         $this->debug = (boolean) $debug;
+    }
+
+    /**
+     * Add an asset reference to the asset manager
+     *
+     * @param string $name    the name of the reference to be added
+     * @param mixed  $assets  a string asset path, or an array of asset paths, may include wildcard
+     * @param string $filters comma separated list of filters
+     *
+     * @return boolean true if asset registers, false on error
+     */
+    public function registerAssetReference($name, $assets, $filters = null)
+    {
+        $xoops = \Xoops::getInstance();
+
+        $assetArray = array();
+        $filterArray = array();
+
+        try {
+            if (is_scalar($assets)) { // just a single path name
+                $assets = array($assets);
+            }
+            foreach ($assets as $a) {
+                // translate path if not a reference or absolute path
+                if ((substr_compare($a, '@', 0, 1) != 0)
+                    && (substr_compare($a, '/', 0, 1) != 0)) {
+                    $a = $xoops->path($a);
+                }
+                if (false===strpos($a, '*')) {
+                    $assetArray[] = new FileAsset($a); // single file
+                } else {
+                    $assetArray[] = new GlobAsset($a);  // wild card match
+                }
+            }
+
+            if (empty($filters)) {
+                $filters = array();
+            } else {
+                $filters = explode(',', str_replace(' ', '', $filters));
+            }
+            foreach ($filters as $filter) {
+                switch (ltrim($filter, '?')) {
+                    case 'cssembed':
+                        $filterArray[] = new Filter\PhpCssEmbedFilter();
+                        break;
+                    case 'cssmin':
+                        $filterArray[] = new Filter\CssMinFilter();
+                        break;
+                    case 'cssimport':
+                        $filterArray[] = new Filter\CssImportFilter();
+                        break;
+                    case 'cssrewrite':
+                        $filterArray[] = new Filter\CssRewriteFilter();
+                        break;
+                    case 'lessphp':
+                        $filterArray[] = new Filter\LessphpFilter();
+                        break;
+                    case 'scssphp':
+                        $filterArray[] = new Filter\ScssphpFilter();
+                        break;
+                    case 'jsmin':
+                        $filterArray[] = new Filter\JSMinFilter();
+                        break;
+                    default:
+                        throw new \Exception(sprintf('%s filter not implemented.', $filter));
+                        break;
+                }
+            }
+
+            $collection = new AssetCollection($assetArray, $filterArray);
+            $this->assetManager->set($name, $collection);
+
+            return true;
+        } catch (\Exception $e) {
+            $xoops->events()->triggerEvent('core.exception', $e);
+            return false;
+        }
     }
 }

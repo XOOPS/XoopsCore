@@ -299,13 +299,18 @@ class Xoops
                 //$this->theme()->loadLocalization('admin');
                 list($cssAssets, $jsAssets) = $this->theme()->getLocalizationAssets('admin');
                 if (!empty($cssAssets)) {
-                    $this->theme()->addStylesheetAssets($cssAssets);
+                    $this->theme()->addBaseStylesheetAssets($cssAssets);
                 }
                 if (!empty($jsAssets)) {
-                    $this->theme()->addScriptAssets($jsAssets);
+                    $this->theme()->addBaseScriptAssets($jsAssets);
                 }
 
             }
+            $this->theme()->setNamedAsset('jquery', 'media/jquery/jquery.js');
+            $this->theme()->setNamedAsset('jqueryui', 'media/jquery/plugins/jquery.ui.js');
+            //$this->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/' . $this->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+            $this->theme()->setNamedAsset('jgrowl', 'media/jquery/plugins/jquery.jgrowl.js');
+
         } else {
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);

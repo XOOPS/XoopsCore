@@ -68,11 +68,10 @@ switch ($op) {
         // Call header
         $xoops->header('banners_client.html');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-        $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+        $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
+        $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         // Define scripts
-        $xoops->theme()->addScript($xoops->url('/media/jquery/jquery.js'));
-        $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
+        $xoops->theme()->addBaseScriptAssets(array('@jquery', '@jqueryui'));
         $xoops->theme()->addScript('modules/system/js/admin.js');
 
         // Display banner

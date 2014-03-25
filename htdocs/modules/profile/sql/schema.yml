@@ -1,0 +1,456 @@
+tables:
+    profile_category:
+        options: {  }
+        columns:
+            cat_id:
+                name: cat_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            cat_title:
+                name: cat_title
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            cat_description:
+                name: cat_description
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            cat_weight:
+                name: cat_weight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [cat_id]
+                unique: true
+                primary: true
+    profile_field:
+        options: {  }
+        columns:
+            field_id:
+                name: field_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            cat_id:
+                name: cat_id
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_type:
+                name: field_type
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_valuetype:
+                name: field_valuetype
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_name:
+                name: field_name
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_title:
+                name: field_title
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_description:
+                name: field_description
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_required:
+                name: field_required
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_maxlength:
+                name: field_maxlength
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_weight:
+                name: field_weight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_default:
+                name: field_default
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_notnull:
+                name: field_notnull
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_edit:
+                name: field_edit
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_show:
+                name: field_show
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_config:
+                name: field_config
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            field_options:
+                name: field_options
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            step_id:
+                name: step_id
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [field_id]
+                unique: true
+                primary: true
+            field_name:
+                name: field_name
+                columns: [field_name]
+                unique: true
+                primary: false
+            step:
+                name: step
+                columns: [step_id, field_weight]
+                unique: false
+                primary: false
+    profile_profile:
+        options: {  }
+        columns:
+            profile_id:
+                name: profile_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [profile_id]
+                unique: true
+                primary: true
+    profile_regstep:
+        options: {  }
+        columns:
+            step_id:
+                name: step_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            step_name:
+                name: step_name
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            step_desc:
+                name: step_desc
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            step_order:
+                name: step_order
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            step_save:
+                name: step_save
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [step_id]
+                unique: true
+                primary: true
+            sort:
+                name: sort
+                columns: [step_order, step_name]
+                unique: false
+                primary: false
+    profile_visibility:
+        options: {  }
+        columns:
+            field_id:
+                name: field_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            user_group:
+                name: user_group
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            profile_group:
+                name: profile_group
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [field_id, user_group, profile_group]
+                unique: true
+                primary: true
+            visible:
+                name: visible
+                columns: [user_group, profile_group]
+                unique: false
+                primary: false
