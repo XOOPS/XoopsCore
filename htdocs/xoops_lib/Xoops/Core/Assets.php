@@ -290,4 +290,52 @@ class Assets
             return false;
         }
     }
+
+    /**
+     * copyFileAssets - copy files to the appropriate asset directory.
+     *
+     * Copying is normally only needed for fonts or images when they are referenced by a
+     * relative url in stylesheet, or are located outside of the web root.
+     *
+     * @param string $from_path path to files to copy
+     * @param string $pattern   glob pattern to match files to be copied
+     * @param string $output    output type (css, fonts, images, js)
+     *
+     * @return mixed boolean false if target directory is not writable, otherwise
+     *               integer count of files copied
+     */
+    public function copyFileAssets($from_path, $pattern, $output)
+    {
+        $xoops = \Xoops::getInstance();
+
+        $to_path = XOOPS_ROOT_PATH . '/assets/' . $output . '/';
+        $from = glob($from_path . '/' . $pattern);
+        $xoops->events()->triggerEvent('debug.log', $from);
+
+        if (!is_dir($to_path)) {
+            $oldUmask = umask(0);
+            @mkdir($to_path, 0775, true);
+            umask($oldUmask);
+        }
+
+        if (!is_writable($to_path)) {
+            $xoops->logger()->warning('Asset directory is not writable. ' . $output);
+            return false;
+        } else {
+            $count = 0;
+            $oldUmask = umask(0002);
+            foreach ($from as $filepath) {
+                $filename = basename($filepath);
+                $status=copy($filepath, $to_path.$filename);
+                if (false) {
+                    $xoops->logger()->warning('Failed to copy asset '.$filename);
+                } else {
+                    $xoops->logger()->debug('Copied asset '.$filename);
+                    $count++;
+                }
+            }
+            umask($oldUmask);
+            return $count;
+        }
+    }
 }
