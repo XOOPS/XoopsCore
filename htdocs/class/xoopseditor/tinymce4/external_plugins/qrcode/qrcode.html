@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>
+QR-Code Generator </title>
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap theme -->
+<link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="./colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="./css/style.css" rel="stylesheet">
+<link href="./slider/css/slider.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<form id="generator" class="form-horizontal">
+			<div id="alert_placeholder">
+			</div>
+			<div class="float-left col-xs-5">
+				<div class="form-group">
+					<label class="col-xs-6 control-label" for "formatoption" ">
+					Select format: </label>
+					<div class="col-xs-6">
+						<select class=" form-control" id="formatOption">
+							<option value="some text here" selected="selected">
+							Text </option>
+							<option value="http://www.url.com">
+							Url </option>
+							<option value="MATMSG:TO:info@url.com;SUB:subject;BODY:message;">
+							Email </option>
+							<option value="TEL:33312450903">
+							Tel </option>
+							<option value="SMSTO:33312450903:subject here">
+							SMS </option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-6 control-label" for "codesize" ">
+					Size: </label>
+					<div class="col-xs-6">
+						<select class="form-control" id="codeSize">
+							<option value="75x75">
+							XXSmall </option>
+							<option value="125x125" selected="selected">
+							XSmall </option>
+							<option value="140x140">
+							Small </option>
+							<option value="170x170">
+							Medium </option>
+							<option value="240x240">
+							Large </option>
+							<option value="300x300">
+							XLarge </option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-6 control-label" for="codeColor">
+					<abbr title="(optional)">Color</abbr>
+					</label>
+					<div class="col-xs-6">
+						<input class="form-control bscp" id="codeColor" value="#000000" type="text">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-6 control-label" for="bgColor">
+					<abbr title="Background color (optional)">Bg Color</abbr>
+					</label>
+					<div class="col-xs-6">
+						<input class="form-control bscp" id="bgColor" value="#FFFFFF" type="text">
+					</div>
+				</div>
+			</div>
+			<fieldset class="float-left">
+				<div id="image">
+				</div>
+				<span id="arrow" class="glyphicon glyphicon-arrow-up">
+				&nbsp;Click! </span>
+			</fieldset>
+			<div style="clear:both; height:10px;">
+			</div>
+			<div class="form-group">
+				<div class="float-left col-xs-12">
+					<label class="col-xs-2 control-label" for="codeData">
+					Data </label>
+					<div class="col-xs-10">
+						<textarea class="form-control" id="codeData" rows="2"></textarea>
+						<div id="textarea_feedback">
+						</div>
+					</div>
+				</div>
+			</div>
+			<fieldset>
+				<legend class="hideparent" data-hide_ref="#adv" data-hide_initial="true">Extra/Advanced Options</legend>
+				<div id="adv">
+					<div class="form-group">
+						<!--ecc-->
+						<label class="col-xs-3 control-label" for "ecc" ">
+						<abbr title="Error Correction Code">ECC</abbr> Level: </label>
+						<div class="col-xs-3">
+							<select class="form-control" id="ecc">
+								<option value="L" selected="selected">
+								Low </option>
+								<option value="M">
+								Middle </option>
+								<option value="Q">
+								Quality </option>
+								<option value="H">
+								High </option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<!--encoding-->
+						<label class="col-xs-3 control-label" for "selectcodding" ">
+						<abbr title="Specifies the charset to encode the text">Encoding</abbr>: </label>
+						<div class="col-xs-3">
+							<select class=" form-control" id="SelectCodding">
+								<option value="UTF-8" selected="selected">
+								UTF-8 </option>
+								<option value="ISO-8859-1">
+								ISO-8859-1 </option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-3 control-label" for "margin" ">
+						<abbr title="Thickness of a margin in pixels">Margin</abbr>
+						</label>
+						<div class="col-xs-4">
+							<input type="text" class="span2 form-control" value="1" data-slider-min="1" data-slider-max="50" data-slider-step="1" data-slider-value="1" id="margin" >
+						</div>
+					</div>
+					<div class="form-group">
+						<!--qzone-->
+						<label class="col-xs-3 control-label" for "q_zone" ">
+						<abbr title="Thickness of a margin">Quiet Zone</abbr>
+						</label>
+						<div class="col-xs-4">
+                            <input type="text" class="span2 form-control" value="4" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="4" id="q_zone" >
+						</div>
+					</div>
+					<div class="form-group">
+						<!--fileformat-->
+						<label class="col-xs-3 control-label" for "format" ">
+						File Format: </label>
+						<div class="col-xs-3">
+							<select class="form-control" id="format">
+								<option value="eps">
+								eps </option>
+								<option value="gif">
+								gif </option>
+								<option value="jpg">
+								jpg </option>
+								<option value="png" selected="selected">
+								png </option>
+								<option value="svg">
+								svg </option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			<button type="button" class="btn btn-info pull-left" data-toggle="collapse" data-target="#formats">
+			Help data formats ? </button>
+			<div class="col-xs-3 pull-right">
+				<button id="generate" type="button" class="btn btn-primary pull-right">
+				<span class="glyphicon glyphicon-qrcode">
+				</span>
+				Generate </button>
+			</div>
+		</form>
+	</div>
+	<div id="formats" class="panel panel-default collapse">
+		<!-- Default panel contents -->
+		<!-- List group -->
+		<ul class="list-group">
+			<li class="list-group-item">
+			Text &rarr; normal text input </li>
+			<li class="list-group-item">
+			Url &rarr; http://www.info.com </li>
+			<li class="list-group-item">
+			Email &rarr; MATMSG:TO:info@url.com;SUB:subject;BODY:message; </li>
+			<li class="list-group-item">
+			Tel &rarr; TEL:33312450903 </li>
+			<li class="list-group-item">
+			SMS &rarr; SMSTO:33312450903:subject here </li>
+			<li class="list-group-item">
+			Bookmark &rarr; MEBKM:TITLE:here title:URL:http://www.info.com </li>
+			<li class="list-group-item">
+			More info <a href="http://qrserver.com/api/documentation/create-qr-code/" target="_blank">here</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script src="./js/modernizr.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+	if (typeof jQuery === 'undefined')
+    {
+      document.write(unescape("%3Cscript src='js/jquery.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+  </script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="./slider/js/bootstrap-slider.min.js"></script>
+<script src="./js/qr.min.js"></script>
+</body>
+</html>
