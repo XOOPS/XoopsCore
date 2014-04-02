@@ -1,0 +1,25 @@
+body{
+	padding:10px;
+}
+a:focus,a:active{outline:0;}
+a img{border:none;}
+#preview{ 
+	background-image: url(../img/Google-YouTube-128.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 325px;
+    width: 430px;
+}
+#insert-btn{
+	margin-left: 5px;
+}
+.alert{
+    margin-bottom: 5px;
+    padding: 5px;
+}
+.form-group{
+    margin-bottom: 0;
+}
+.alert-info{
+    font-size: 12px;
+}
