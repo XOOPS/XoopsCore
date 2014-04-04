@@ -67,7 +67,8 @@ if ($permHelper) {
 
     // build a form for our permission
     $form = new \XoopsThemeForm("Permission Form (for the premission named '$gperm_name')", 'form', '', 'POST');
-    $grpElement = $permHelper->getGroupSelectFormForItem($gperm_name, $gperm_itemid, "Groups with '$gperm_name' permission", null, true);
+    $grpElement = $permHelper->
+        getGroupSelectFormForItem($gperm_name, $gperm_itemid, "Groups with '$gperm_name' permission", null, true);
     $form->addElement($grpElement);
     $form->addElement(new \XoopsFormButton('', 'submit', 'Save', 'submit'));
 
@@ -75,9 +76,9 @@ if ($permHelper) {
 
     // check it the current user has the permission
     if ($permHelper->checkPermission($gperm_name, $gperm_itemid)) {
-        echo "<p>You have the <strong>'$gperm_name'</strong> permission.</p>";
+        echo "<p>You have the <strong>'$gperm_name'</strong> permission for the 'codex' module.</p>";
     } else {
-        echo "<p>You <em>DO NOT</em> have the <strong>'$gperm_name'</strong> permission.</p>";
+        echo "<p>You <em>DO NOT</em> have the <strong>'$gperm_name'</strong> permission for the 'codex' module.</p>";
     }
 }
 
