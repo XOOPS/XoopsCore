@@ -1,0 +1,44 @@
+body {
+  padding: 10px;
+}
+
+a:focus, a:active {
+  outline: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #555;
+}
+
+a img {
+  border: none;
+}
+
+.container {
+	width: 95%;
+}
+#image {
+	cursor:pointer;
+}
+.hideparent {
+    cursor:pointer;
+}
+
+#formats {
+	margin:10px 0;
+}
+#alert_placeholder {
+    margin:10px 0 10px;
+}
+#arrow {
+	display:none;
+	margin-left:50px;
+}
+#textarea_feedback {
+	font-size:10px;
+	float:right;
+}
+#adv {
+	display: none;
+}

@@ -66,11 +66,11 @@ class DtypeTextbox extends DtypeAbstract
     {
         $value = $obj->vars[$key]['value'];
         if ($obj->vars[$key]['required'] && $value != '0' && $value == '') {
-            $obj->setErrors(sprintf(XoopsLocale::F_IS_REQUIRED, $key));
+            $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
             return $value;
         }
         if (isset($obj->vars[$key]['maxlength']) && mb_strlen($value) > intval($obj->vars[$key]['maxlength'])) {
-            $obj->setErrors(sprintf(XoopsLocale::F_MUST_BE_SHORTER_THAN, $key, intval($obj->vars[$key]['maxlength'])));
+            $obj->setErrors(sprintf(\XoopsLocale::F_MUST_BE_SHORTER_THAN, $key, intval($obj->vars[$key]['maxlength'])));
             return $value;
         }
         if (!$obj->vars[$key]['not_gpc']) {

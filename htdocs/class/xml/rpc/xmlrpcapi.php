@@ -48,7 +48,7 @@ class XoopsXmlRpcApi
     var $isadmin = false;
 
 
-    function XoopsXmlRpcApi(&$params, &$response, &$module)
+    function XoopsXmlRpcApi(array &$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
     {
         $this->params = $params;
         $this->response = $response;

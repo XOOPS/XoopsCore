@@ -77,6 +77,7 @@ if ($system->checkRight()) {
 if (false != $error) {
     $op = $system->cleanVars($_REQUEST, 'op', '', 'string');
     if ($op == 'system_activate') {
+        \Xoops::getInstance()->logger()->quiet();
         $part = $system->cleanVars($_REQUEST, 'type', '', 'string');
         $config_handler = $xoops->getHandlerConfig();
 
@@ -94,10 +95,10 @@ if (false != $error) {
     // Define main template
     $xoops->header('system_index.html');
     // Define Stylesheet
-    $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+    $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
     // Define scripts
-    $xoops->theme()->addScript('media/jquery/jquery.js');
-    $xoops->theme()->addScript('modules/system/js/admin.js');
+    $xoops->theme()->addBaseScriptAssets('@jquery.');
+    $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
     // Define Breadcrumb and tips
     $admin_page = new XoopsModuleAdmin();
     $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -116,7 +117,7 @@ if (false != $error) {
 
     $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin';
     $dirlist = XoopsLists::getDirListAsArray($admin_dir);
-    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions');
+    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions', 'users', 'services');
     foreach ($dirlist as $directory) {
         if (XoopsLoad::fileExists($file = $admin_dir . '/' . $directory . '/xoops_version.php')) {
             require $file;

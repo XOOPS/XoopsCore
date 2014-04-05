@@ -194,6 +194,20 @@ class Xoops
     }
 
     /**
+     * get the asset utility
+     *
+     * @return \Xoops\Core\Asset instance
+     */
+    public function assets()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new \Xoops\Core\Assets;
+        }
+        return $instance;
+    }
+
+    /**
      * get the service manager
      *
      * @return \Xoops\Core\Service\Manager instance
@@ -282,8 +296,21 @@ class Xoops
                     'folderName'      => 'default', 'themesPath' => 'modules/system/themes',
                     'contentTemplate' => $this->tpl_name
                 )));
-                $this->theme()->loadLocalization('admin');
+                //$this->theme()->loadLocalization('admin');
+                list($cssAssets, $jsAssets) = $this->theme()->getLocalizationAssets('admin');
+                if (!empty($cssAssets)) {
+                    $this->theme()->addBaseStylesheetAssets($cssAssets);
+                }
+                if (!empty($jsAssets)) {
+                    $this->theme()->addBaseScriptAssets($jsAssets);
+                }
+
             }
+            $this->theme()->setNamedAsset('jquery', 'media/jquery/jquery.js');
+            $this->theme()->setNamedAsset('jqueryui', 'media/jquery/plugins/jquery.ui.js');
+            //$this->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/' . $this->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+            $this->theme()->setNamedAsset('jgrowl', 'media/jquery/plugins/jquery.jgrowl.js');
+
         } else {
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);
@@ -1088,7 +1115,9 @@ class Xoops
               <meta name="author" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_author']) . '" />
               <meta name="generator" content="XOOPS" />
               <title>' . htmlspecialchars($this->getConfig('sitename')) . '</title>
-              <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>';
+              <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>
+              <script type="text/javascript" src="' . XOOPS_URL . '/media/jquery/jquery.js"></script>
+              <script type="text/javascript" src="' . XOOPS_URL . '/media/bootstrap/js/bootstrap.min.js"></script>';
         $themecss = $this->getcss($this->getConfig('theme_set'));
         echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/xoops.css" />';
         $locale = $this->getConfig('locale');
@@ -1097,7 +1126,7 @@ class Xoops
         }
         if ($themecss) {
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . $themecss . '" />';
-            echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/bootstrap.css') .'" />';
+            //echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/bootstrap.css') .'" />';
             echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/xoops.bootstrap.css') .'" />';
         }
         if ($closehead) {
@@ -1116,7 +1145,7 @@ class Xoops
     }
     /**
      * @param string $type (info, error, success or warning)
-     * @param mixed  $msg
+     * @param mixed  $msg - string or array of strings
      * @param string $title
      *
      * @return string
@@ -1158,13 +1187,14 @@ class Xoops
         if ($title != '') {
             $this->tpl()->assign('alert_title', $title);
         }
-        if (is_object($msg)) {
-            $msg = (array)$msg;
+        if (!is_scalar($msg) && !is_array($msg)) {
+            $msg = ''; // don't know what to do with this, so make it blank
         }
         if (is_array($msg)) {
-            $alert_msg = implode("<br />", $msg);
+            // if this is not a simple array of strings, this might not work
+            $alert_msg = @implode("<br />", $msg);
         } else {
-            $alert_msg = $msg;;
+            $alert_msg = $msg;
         }
         if ($alert_msg == '' ){
             return '';
@@ -1611,7 +1641,9 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
-        $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        if (!empty($dirname)) {
+            $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        }
     }
 
     /**
@@ -1648,6 +1680,9 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
+                if (!is_array($this->_moduleConfigs[$dirname][$key])) {
+                    $this->_moduleConfigs[$dirname][$key] = array();
+                }
                 $this->_moduleConfigs[$dirname][$key][$key2] =& $value;
             }
         } else {
@@ -1703,7 +1738,7 @@ class Xoops
                 Xoops_Cache::write("{$dirname}_configs", $configs);
                 $this->_moduleConfigs[$dirname] =& $configs;
             }
-        }  else {
+        } else {
             $this->_moduleConfigs[$dirname] =& $configs;
         }
 
@@ -1895,7 +1930,7 @@ class Xoops
      */
     public function disableErrorReporting()
     {
-        error_reporting(0);
+        //error_reporting(0);
         $this->events()->triggerEvent('core.disableerrorreporting');
     }
 }

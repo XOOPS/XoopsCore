@@ -6,14 +6,18 @@
                 <small><{translateTheme key='CONTROL_AND_MANAGE_YOUR_SITE'}></small>
             </h1>
         </div>
-        <{if !$error_msg}>
-        <{foreach item=msg from=$error_msg}>
+        <{if $error_msg}>
         <div class="row">
-            <div class="span16 alert-message error">
+            <div class="span2"></div>
+        <div class="span11 alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <{foreach item=msg from=$error_msg}>
+            <div class="alert-message error">
                 <p><{$msg}></p>
             </div>
-        </div>
         <{/foreach}>
+        </div>
+        </div>
         <{/if}>
 
         <div class="card-icons outer">

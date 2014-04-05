@@ -19,12 +19,13 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
-
 $request = Xoops_Request::getInstance();
 
 $helper = Xoops_Module_Helper::getHelper('xlanguage');
-$helper->loadLanguage('admin');
-$helper->loadLanguage('tinymce');
+if ($helper) {
+	$helper->loadLanguage('admin');
+	$helper->loadLanguage('tinymce');
+}
 
 $op = $request->asStr('op', '');
 if ($op == 'save') {    if (!$xoops->security()->check()) {        $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));
@@ -43,13 +44,20 @@ if ($op == 'save') {    if (!$xoops->security()->check()) {        $xoops->red
 // check user/group
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 $gperm_handler = $xoops->getHandlerGroupperm();
-$admin = $gperm_handler->checkRight( 'system_admin', $xoops->getHandlerModule()->getByDirName('xlanguage')->getVar('mid'), $groups );
-
+$admin = false;
+if ($gperm_handler) {
+	$xlanguage = $xoops->getHandlerModule()->getByDirName('xlanguage');
+	if ($xlanguage)
+		$admin = $gperm_handler->checkRight( 'system_admin', $xlanguage->getVar('mid'), $groups );
+}
+	
 $xoopsTpl = new XoopsTpl();
 
-$xoopsTpl->assign('form_txt', $helper->getForm($helper->getHandlerLanguage()->loadConfig(), 'tinymce')->render());
-if ($admin) {
-    $xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerLanguage()->create(), 'language')->render());
+if ($helper) {
+	$xoopsTpl->assign('form_txt', $helper->getForm($helper->getHandlerLanguage()->loadConfig(), 'tinymce')->render());
+	if ($admin) {
+		$xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerLanguage()->create(), 'language')->render());
+	}
 }
 
 $xoopsTpl->display('module:xlanguage|xlanguage_tinymce.html');

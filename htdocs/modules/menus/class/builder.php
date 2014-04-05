@@ -136,7 +136,7 @@ class MenusBuilder
         $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $self = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
 
-        //set a default page in case we don´t get matches
+        //set a default page in case we don't get matches
         $default = XOOPS_URL . "/index.php";
 
         //get all matching links

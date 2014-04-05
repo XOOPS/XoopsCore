@@ -551,3 +551,30 @@ function xoops_template_clear_module_cache($mid)
     $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
     $xoops->templateClearModuleCache($mid);
 }
+
+
+// general php version compatibility functions
+
+if (!function_exists('http_response_code')) {
+    /**
+     * http_response_code - conditionally defined for PHP <5.4
+     *
+     * Taken from stackoverflow answer by "dualed,"  see:
+     * http://stackoverflow.com/questions/3258634/php-how-to-send-http-response-code
+     *
+     * @param int $newcode HTTP response code
+     *
+     * @return int old status code
+     */
+    function http_response_code($newcode = null)
+    {
+        static $code = 200;
+        if ($newcode !== null) {
+            header('X-PHP-Response-Code: '.$newcode, true, $newcode);
+            if (!headers_sent()) {
+                $code = $newcode;
+            }
+        }
+        return $code;
+    }
+}

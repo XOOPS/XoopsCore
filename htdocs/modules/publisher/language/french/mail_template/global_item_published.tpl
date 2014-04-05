@@ -1,6 +1,6 @@
 Bonjour {X_UNAME},
 
-L'article suivant a été publié dans le module {MODULE_NAME} de {X_SITENAME} :
+L'article suivant a Ã©tÃ© publiÃ© dans le module {MODULE_NAME} de {X_SITENAME} :
 
 "{ITEM_NAME}"
 
@@ -9,15 +9,15 @@ Vous pouvez lire cet article ici :
 {ITEM_URL}
 
 -----------
-Vous recevez ce message parce que vous avez sélectionné d'être notifié lorsque de nouveaux articles sont publiés dans le module {MODULE_NAME} de notre site.
+Vous recevez ce message parce que vous avez sÃ©lectionnÃ© d'Ãªtre notifiÃ© lorsque de nouveaux articles sont publiÃ©s dans le module {MODULE_NAME} de notre site.
 
-si ceci est une erreur ou que vous ne désirez plus être notifié, s'il vous plaît mettez à jour votre inscription en vous rendant sur le lien suivant :
+si ceci est une erreur ou que vous ne dÃ©sirez plus Ãªtre notifiÃ©, s'il vous plaÃ®t mettez Ã  jour votre inscription en vous rendant sur le lien suivant :
 {X_UNSUBSCRIBE_URL}
 
-S'il vous plaît ne répondez pas à ce message.
+S'il vous plaÃ®t ne rÃ©pondez pas Ã  ce message.
 
 -----------
 
-{X_SITENAME} ({X_SITEURL}) 
+{X_SITENAME} ({X_SITEURL})
 Le Webmaster
 {X_ADMINMAIL}

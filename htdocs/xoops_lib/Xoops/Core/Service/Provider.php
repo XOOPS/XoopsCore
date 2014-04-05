@@ -98,6 +98,24 @@ class Provider
     }
 
     /**
+     * sortProviders - sort providers into priority order
+     *
+     * @return void
+     */
+    public function sortProviders()
+    {
+        $sortable = $this->providers;
+        $s = usort($sortable, function ($a, $b) {
+            if ($a->getPriority() != $b->getPriority()) {
+                return ($a->getPriority() > $b->getPriority()) ? 1 : -1;
+            } else {
+                return 0;
+            }
+        });
+        $this->providers = $sortable;
+    }
+
+    /**
      * All contract specified methods go here
      *
      * @param type $name      method to call
@@ -115,7 +133,9 @@ class Provider
         $response = new Response();
         if (is_callable($method)) {
             try {
-                $object->$name($response, $arguments);
+                //$object->$name($response, $arguments);
+                array_unshift($arguments, $response);
+                call_user_func_array($method, $arguments);
             } catch (\Exception $e) {
                 \XoopsPreload::getInstance()->triggerEvent('core.exception', $e);
                 $response->setSuccess(false)->addErrorMessage($e->getMessage());

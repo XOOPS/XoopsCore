@@ -28,7 +28,7 @@ class XoopsApi extends XoopsXmlRpcApi
      * @param XoopsXmlRpcResponse $response
      * @param XoopsModule $module
      */
-    public function __construct(&$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
+    public function __construct(array &$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
     {
         parent::__construct($params, $response, $module);
     }

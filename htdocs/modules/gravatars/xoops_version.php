@@ -39,7 +39,6 @@ $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
 $modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = '2.6.0';
-//$modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
 // paypal
 $modversion['paypal'] = array(
@@ -64,59 +63,46 @@ $modversion['adminmenu']  = 'admin/menu.php';
 $modversion['extension'] = 1;
 $modversion['extension_module'][] = 'system';
 
-/*
 // Preferences
 $modversion['config'][] = array(
-    'name'        => 'avatars_allowupload',
-    'title'       => 'CONF_ALLOWUPLOAD',
-    'description' => '',
-    'formtype'    => 'yesno',
+    'name'        => 'pixel_size',
+    'title'       => 'Size',
+    'description' => 'Square size in pixels (1-2048 pixels)',
+    'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 0,
+    'default'     => 80,
 );
 
 $modversion['config'][] = array(
-    'name'        => 'avatars_postsrequired',
-    'title'       => 'CONF_POSTSREQUIRED',
-    'description' => 'CONF_POSTSREQUIREDDSC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 0,
+    'name'        => 'default_imageset',
+    'title'       => 'Default Image',
+    'description' => 'Default imageset on gravatars.com',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'mm',
+    'options'     => array(
+        '404 Error'   => '404',
+        'blank'       => 'blank',
+        'default'     => 'default',
+        'mystery-man' => 'mm',
+        'identicon'   => 'identicon',
+        'monsterid'   => 'monsterid',
+        'wavatar'     => 'wavatar',
+        'retro'       => 'retro',
+        ),
 );
 
 $modversion['config'][] = array(
-    'name'        => 'avatars_imagewidth',
-    'title'       => 'CONF_IMAGEWIDTH',
-    'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 120,
+    'name'        => 'max_rating',
+    'title'       => 'Rating',
+    'description' => 'Max rating (inclusive) of gravatar to allow',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'g',
+    'options'     => array(
+        'general'           => 'g',
+        'parental guidance' => 'pg',
+        'restricted'        => 'r',
+        'adults only'       => 'x',
+        ),
 );
-
-$modversion['config'][] = array(
-    'name'        => 'avatars_imageheight',
-    'title'       => 'CONF_IMAGEHEIGHT',
-    'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 120,
-);
-
-$modversion['config'][] = array(
-    'name'        => 'avatars_imagefilesize',
-    'title'       => 'CONF_IMAGEFILESIZE',
-    'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 35000,
-);
-
-$modversion['config'][] = array(
-    'name'        => 'avatars_pager',
-    'title'       => 'CONF_PAGER',
-    'description' => '',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 20,
-);
-*/

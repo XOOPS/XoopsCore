@@ -13,14 +13,19 @@ use Doctrine\Common\EventManager;
 class XoopsMySQLDatabaseTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsMySQLDatabase';
-    
-    public function SetUp()
-	{
-    }
 	
     public function test___construct()
 	{
 		$instance = new $this->myclass();
+    }
+	
+    public function test___publicProperties()
+	{
+		$items = array('conn');
+		foreach($items as $item) {
+			$prop = new ReflectionProperty($this->myclass,$item);
+			$this->assertTrue($prop->isPublic());
+		}
     }
 	
 	public function test_connect()

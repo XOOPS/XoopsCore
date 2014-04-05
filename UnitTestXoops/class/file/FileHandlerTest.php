@@ -9,17 +9,20 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 class XoopsFileHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsFileHandler';
-    
-    public function SetUp()
+	
+    public function test___construct()
 	{
+		$instance = new $this->myclass(__FILE__);
+		$this->assertInstanceOf($this->myclass, $instance);
     }
 	
-    public function test_100()
+    public function test___publicProperties()
 	{
+		$items = array('folder', 'name', 'info', 'handle', 'lock');
+		foreach($items as $item) {
+			$prop = new ReflectionProperty($this->myclass,$item);
+			$this->assertTrue($prop->isPublic());
+		}
     }
 	
-	public function test_200()
-	{
-	}
-		
 }

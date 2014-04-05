@@ -39,7 +39,7 @@ class DtypeEmail extends DtypeAbstract
         $value = trim($obj->vars[$key]['value']);
 
         if ($obj->vars[$key]['required'] && $value == '') {
-            $obj->setErrors(sprintf(XoopsLocale::F_IS_REQUIRED, $key));
+            $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
             return $value;
         }
         if ($value != '' && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $value)) {

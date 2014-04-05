@@ -77,14 +77,14 @@ EOH;
      * @param string $text
      * @return string
      */
-    public static function decode($text)
+    public static function decode ($url, $width, $height)
     {
         $config = parent::loadConfig(dirname(__FILE__));
-        if (empty($text) || empty($config['link'])) {
-            return $text;
+        if (empty($url) || empty($config['link'])) {
+            return $url;
         }
         $charset = !empty($config['charset']) ? $config['charset'] : "UTF-8";
-        $ret = "<a href='" . sprintf($config['link'], urlencode(XoopsLocale::convert_encoding($text, $charset))) . "' rel='external' title=''>{$text}</a>";
+        $ret = "<a href='" . sprintf($config['link'], urlencode(XoopsLocale::convert_encoding($url, $charset))) . "' rel='external' title=''>{$text}</a>";
         return $ret;
     }
 }

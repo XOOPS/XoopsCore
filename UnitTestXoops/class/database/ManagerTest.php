@@ -20,6 +20,16 @@ class XoopsDatabaseManagerTest extends MY_UnitTestCase
     public function test___construct()
 	{
 		$instance = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $instance);
+    }
+	
+    public function test___publicProperties()
+	{
+		$items = array('db', 'successStrings', 'failureStrings');
+		foreach($items as $item) {
+			$prop = new ReflectionProperty($this->myclass,$item);
+			$this->assertTrue($prop->isPublic());
+		}
     }
 	
 	public function test_isConnectable()

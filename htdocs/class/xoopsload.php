@@ -162,12 +162,13 @@ class XoopsLoad
     private static function loadFramework($name)
     {
         if (!self::fileExists($file = XOOPS_ROOT_PATH . '/Frameworks/' . $name . '/xoops' . $name . '.php')) {
+/*
             trigger_error(
                 'File ' . str_replace(XOOPS_ROOT_PATH, '', $file)
                 . ' not found in file ' . __FILE__ . ' at line ' . __LINE__,
                 E_USER_WARNING
             );
-
+*/
             return false;
         }
         include $file;
@@ -256,8 +257,10 @@ class XoopsLoad
             'xoopsapi' => XOOPS_ROOT_PATH . '/class/xml/rpc/xoopsapi.php',
             'xoopsauth' => XOOPS_ROOT_PATH . '/class/auth/auth.php',
             'xoopsauthfactory' => XOOPS_ROOT_PATH . '/class/auth/authfactory.php',
+            'xoopsauthads' => XOOPS_ROOT_PATH . '/class/auth/auth_ads.php',
             'xoopsauthldap' => XOOPS_ROOT_PATH . '/class/auth/auth_ldap.php',
             'xoopsauthprovisionning' => XOOPS_ROOT_PATH . '/class/auth/auth_provisionning.php',
+            'xoopsauthxoops' => XOOPS_ROOT_PATH . '/class/auth/auth_xoops.php',
             //'xoopsavatar' => XOOPS_ROOT_PATH . '/kernel/avatar.php',
             //'xoopsavatarhandler' => XOOPS_ROOT_PATH . '/kernel/avatar.php',
             //'xoopsavataruserlink' => XOOPS_ROOT_PATH . '/kernel/avataruserlink.php',
@@ -269,6 +272,12 @@ class XoopsLoad
             'xoopsblockmodulelinkhandler' => XOOPS_ROOT_PATH . '/kernel/blockmodulelink.php',
             'xoopscache' => XOOPS_ROOT_PATH . '/class/cache/xoopscache.php',
             'xoopscacheengine' => XOOPS_ROOT_PATH . '/class/cache/xoopscache.php',
+            'xoopscacheapc' => XOOPS_ROOT_PATH . '/class/cache/apc.php',
+            'xoopscachefile' => XOOPS_ROOT_PATH . '/class/cache/file.php',
+            'xoopscachememcache' => XOOPS_ROOT_PATH . '/class/cache/memcache.php',
+            'xoopscachemodel' => XOOPS_ROOT_PATH . '/class/cache/model.php',
+            'xoopscachexcache' => XOOPS_ROOT_PATH . '/class/cache/xcache.php',
+            'xoopscache' => XOOPS_ROOT_PATH . '/class/cache/xoopscache.php',
             'xoopscachemodelhandler' => XOOPS_ROOT_PATH . '/kernel/cachemodel.php',
             'xoopscachemodelobject' => XOOPS_ROOT_PATH . '/kernel/cachemodel.php',
             //'xoopscalendar' => XOOPS_ROOT_PATH . '/class/calendar/xoopscalendar.php',

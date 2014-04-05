@@ -1,7 +1,7 @@
 Bonjour {X_UNAME},
 
-Nous sommes désolé de vous informer que l'article suivant soumis sur {X_SITENAME} le {SUBDATE} a été rejeté par un modérateur. 
-Si vous désirez plus d'informations, adressez s'il vous plaît un mail à {X_ADMINMAIL}.
+Nous sommes dÃ©solÃ© de vous informer que l'article suivant soumis sur {X_SITENAME} le {SUBDATE} a Ã©tÃ© rejetÃ© par un modÃ©rateur.
+Si vous dÃ©sirez plus d'informations, adressez s'il vous plaÃ®t un mail Ã  {X_ADMINMAIL}.
 
 Le contenu de l'article que vous aviez soumis :
 
@@ -11,15 +11,15 @@ Le contenu de l'article que vous aviez soumis :
 
 -----------
 
-Vous recevez ce message parce que vous avez sélectionné d'être notifié lors de l'approbation de l'article soumis.
+Vous recevez ce message parce que vous avez sÃ©lectionnÃ© d'Ãªtre notifiÃ© lors de l'approbation de l'article soumis.
 
-si ceci est une erreur ou que vous ne désirez plus être notifié, s'il vous plaît mettez à jour votre inscription en vous rendant sur le lien suivant :
+si ceci est une erreur ou que vous ne dÃ©sirez plus Ãªtre notifiÃ©, s'il vous plaÃ®t mettez Ã  jour votre inscription en vous rendant sur le lien suivant :
 {X_UNSUBSCRIBE_URL}
 
-S'il vous plaît ne répondez pas à ce message.
+S'il vous plaÃ®t ne rÃ©pondez pas Ã  ce message.
 
 -----------
 
-{X_SITENAME} ({X_SITEURL}) 
+{X_SITENAME} ({X_SITEURL})
 Le Webmaster
 {X_ADMINMAIL}
