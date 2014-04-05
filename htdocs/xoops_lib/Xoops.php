@@ -304,13 +304,7 @@ class Xoops
                 if (!empty($jsAssets)) {
                     $this->theme()->addBaseScriptAssets($jsAssets);
                 }
-
             }
-            $this->theme()->setNamedAsset('jquery', 'media/jquery/jquery.js');
-            $this->theme()->setNamedAsset('jqueryui', 'media/jquery/plugins/jquery.ui.js');
-            //$this->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/' . $this->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
-            $this->theme()->setNamedAsset('jgrowl', 'media/jquery/plugins/jquery.jgrowl.js');
-
         } else {
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);
@@ -1118,7 +1112,7 @@ class Xoops
               <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>
               <script type="text/javascript" src="' . XOOPS_URL . '/media/jquery/jquery.js"></script>
               <script type="text/javascript" src="' . XOOPS_URL . '/media/bootstrap/js/bootstrap.min.js"></script>';
-        $themecss = $this->getcss($this->getConfig('theme_set'));
+        $themecss = $this->getCss($this->getConfig('theme_set'));
         echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/xoops.css" />';
         $locale = $this->getConfig('locale');
         if (XoopsLoad::fileExists($this->path('locale/' . $locale . '/style.css'))) {

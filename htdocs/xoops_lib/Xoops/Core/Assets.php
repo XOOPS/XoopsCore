@@ -42,7 +42,7 @@ class Assets
     private $debug = false;
 
     /**
-     * @var array
+     * @var array of default filter strings - may be overridden by prefs
      */
     private $default_filters = array(
             'css' => 'cssimport,cssembed,?cssmin',
@@ -50,7 +50,7 @@ class Assets
     );
 
     /**
-     * @var array
+     * @var array of output locations in assets directory
      */
     private $default_output = array(
             'css' => 'css/*.css',
@@ -58,9 +58,40 @@ class Assets
     );
 
     /**
+     * @var array of asset reference definitions - may be overridden by prefs
+     */
+    private $default_asset_refs = array(
+        array(
+            'name' => 'jquery',
+            'assets' => array('media/jquery/jquery.js'),
+            'filters' => null,
+        ),
+        array(
+            'name' => 'jqueryui',
+            'assets' => array('media/jquery/plugins/jquery.ui.js'),
+            'filters' => null,
+        ),
+        array(
+            'name' => 'jgrowl',
+            'assets' => array('media/jquery/plugins/jquery.jgrowl.js'),
+            'filters' => null,
+        ),
+    );
+
+    /**
      * @var AssetManager
      */
     private $assetManager = null;
+
+    /**
+     * @var string config file with assets prefs
+     */
+    private $assets_prefs_file = 'var/configs/system_assets_prefs.yml';
+
+    /**
+     * @var string config cache key
+     */
+    private $assets_prefs_cache = 'system_assets_prefs';
 
     /**
      * __construct
@@ -73,7 +104,83 @@ class Assets
         if (isset($_REQUEST['ASSET_DEBUG'])) {
             $this->setDebug(true);
         }
+        $this->readAssetsPrefs();
+        // register any asset references
+        foreach ($this->default_asset_refs as $ref) {
+            $this->registerAssetReference($ref['name'], $ref['assets'], $ref['filters']);
+        }
     }
+
+    /**
+     * readAssetsPrefs - read configured asset preferences
+     *
+     * @return array of assets preferences
+     */
+    protected function readAssetsPrefs()
+    {
+        $xoops = \Xoops::getInstance();
+
+        $assets_prefs = array();
+
+        try {
+            $assets_prefs = \Xoops_Cache::read($this->assets_prefs_cache);
+            $file = $xoops->path($this->assets_prefs_file);
+            $mtime = filemtime($file);
+            if ($assets_prefs===false || !isset($assets_prefs['mtime'])
+                || (isset($assets_prefs['mtime']) && $assets_prefs['mtime']<$mtime)) {
+                if ($mtime) {
+                    $assets_prefs = Yaml::read($xoops->path($file));
+                    if (!is_array($assets_prefs)) {
+                        $xoops->logger()->error("Invalid config in system_assets_prefs.yml");
+                        $assets_prefs = array();
+                    } else {
+                        $assets_prefs['mtime']=$mtime;
+                        \Xoops_Cache::write($this->assets_prefs_cache, $assets_prefs);
+                    }
+                } else {
+                    // use defaults to create file
+                    $assets_prefs = array(
+                        'default_filters' => $this->default_filters,
+                        'default_asset_refs' => $this->default_asset_refs,
+                        'mtime' => time(),
+                    );
+                    $this->saveAssetsPrefs($assets_prefs);
+                }
+            }
+            if (!empty($assets_prefs['default_filters']) && is_array($assets_prefs['default_filters'])) {
+                $this->default_filters = $assets_prefs['default_filters'];
+            }
+            if (!empty($assets_prefs['default_asset_refs']) && is_array($assets_prefs['default_asset_refs'])) {
+                $this->default_asset_refs = $assets_prefs['default_asset_refs'];
+            }
+        } catch (\Exception $e) {
+            $xoops->events()->triggerEvent('core.exception', $e);
+            $assets_prefs = array();
+        }
+        return $assets_prefs;
+    }
+
+    /**
+     * saveAssetsPrefs - record array of assets preferences in config file, and
+     * update cache
+     *
+     * @param array $assets_prefs array of asset preferences to save
+     *
+     * @return void
+     */
+    protected function saveAssetsPrefs($assets_prefs)
+    {
+        if (is_array($assets_prefs)) {
+            $xoops = \Xoops::getInstance();
+            try {
+                Yaml::save($assets_prefs, $xoops->path($this->assets_prefs_file));
+                \Xoops_Cache::write($this->assets_prefs_cache, $assets_prefs);
+            } catch (\Exception $e) {
+                $xoops->events()->triggerEvent('core.exception', $e);
+            }
+        }
+    }
+
 
     /**
      * getUrlToAssets
