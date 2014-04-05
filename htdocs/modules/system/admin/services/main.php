@@ -50,7 +50,6 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
                     $service_order = array_flip($_POST[$service]);
                     $sm = Manager::getInstance();
                     $sm->saveChoice($service, $service_order);
-                    $xoops->logger()->info(json_encode($service_order));
                     exit("OK");
                 }
             }
@@ -65,7 +64,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
 //$xoops->theme()->addStylesheet('media/jquery/ui/base/ui.all.css');
 $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js', 'media/jquery/plugins/jquery.jgrowl.js');
+$xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/js/admin.js');
 //$xoops->theme()->addScript('modules/system/js/admin.js');
 //$xoops->theme()->addScript('media/jquery/plugins/jquery.jgrowl.js');
 
