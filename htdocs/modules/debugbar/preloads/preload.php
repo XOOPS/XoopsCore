@@ -406,6 +406,18 @@ class DebugbarPreload extends PreloadItem
     }
 
     /**
+     * eventDebugLog - dump to DebugLog
+     *
+     * @param mixed $args argument supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventDebugLog($args)
+    {
+        DebugbarLogger::getInstance()->dump($args);
+    }
+
+    /**
      * eventSystemPreferencesSave
      *
      * @param mixed $args arguments supplied to triggerEvent

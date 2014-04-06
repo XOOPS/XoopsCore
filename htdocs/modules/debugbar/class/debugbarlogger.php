@@ -159,24 +159,46 @@ class DebugbarLogger implements LoggerInterface
                 $this->renderer->setEnableJqueryNoConflict(false);
                 list($cssAssets, $jsAssets) = $this->renderer->getAssets();
 
+                // font-awesome requires some special handling with cssmin
+                // see: https://code.google.com/p/cssmin/issues/detail?id=52&q=font
+                // using our own copy of full css instead of minified version packaged
+                // with debugbar avoids the issue.
+
+                // Supress unwanted assets - exclude anything containing these strings
+                $excludes = array(
+                    '/vendor/font-awesome/', // font-awsome needs special process
+                    //'/vendor/highlightjs/',  // highlightjs has some negative side effects
+                    '/vendor/jquery/',       // jquery is already available
+                );
+
                 $cssAssets = array_filter(
                     $cssAssets,
-                    function ($filename) {
-                        return false == strpos($filename, '/vendor/font-awesome/');
+                    function ($filename) use ($excludes) {
+                        foreach ($excludes as $exclude) {
+                            if (false !== strpos($filename, $exclude)) {
+                                return false;
+                            }
+                        }
+                        return true;
                     }
                 );
+
                 $jsAssets = array_filter(
                     $jsAssets,
-                    function ($filename) {
-                        return false === strpos($filename, '/vendor/jquery/');
+                    function ($filename) use ($excludes) {
+                        foreach ($excludes as $exclude) {
+                            if (false !== strpos($filename, $exclude)) {
+                                return false;
+                            }
+                        }
+                        return true;
                     }
                 );
+                $cssAssets[] = 'modules/debugbar/assets/css/font-awesome.css';
+
                 $xoops = Xoops::getInstance();
-                $xoops->theme()->addStylesheetAssets($cssAssets, 'cssembed,cssmin');
-                $xoops->theme()->addScriptAssets($jsAssets, 'jsmin');
-                // also need to include our own simplified font-awesome css
-                // debugbar only uses font, and full css creates conflicts with default theme
-                $xoops->theme()->addStylesheet(XOOPS_URL . '/modules/debugbar/resources/css/font-awesome-fontonly.css');
+                $xoops->theme()->addStylesheetAssets($cssAssets, 'cssembed,?cssmin');
+                $xoops->theme()->addScriptAssets($jsAssets, '?jsmin');
 
                 $addedResource = true;
             }
@@ -334,6 +356,18 @@ class DebugbarLogger implements LoggerInterface
                 new DebugBar\DataCollector\ConfigCollector($data, 'Smarty')
             );
         }
+    }
+
+    /**
+     * Dump a variable to the messages pane
+     *
+     * @param mixed $var variable to dump
+     *
+     * @return void
+     */
+    public function dump($var)
+    {
+        $this->log(LogLevel::DEBUG, $var);
     }
 
     /**

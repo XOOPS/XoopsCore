@@ -239,6 +239,7 @@ class TinyMCE
         static $css_url, $css_path;
 
         if (!isset($css_url)) {
+            $xoops = Xoops::getInstance();
             $css_url = dirname( $xoops->getCss($xoops->getConfig('theme_set')) );
             $css_path = str_replace(XOOPS_THEME_URL, XOOPS_THEME_PATH, $css_url);
         }

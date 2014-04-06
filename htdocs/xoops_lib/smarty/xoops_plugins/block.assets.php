@@ -3,8 +3,8 @@
  * Smarty plugin
  * ------------------------------------------------------------
  * Type:       block
- * Name:       assetic
- * Purpose:    XOOPS smarty plugin for Assetic
+ * Name:       asset
+ * Purpose:    XOOPS smarty plugin for Assetic assets
  * Author:     Pierre-Jean Parra, Dejian Xu https://github.com/xudejian/assetic-smarty
  *             Richard Griffith <richard@geekwright.com>
  * Version:    1.0
@@ -25,18 +25,18 @@
  *  asset_url  - smarty variable to assign asset path
  *
  * Example:
- * <{assetic
- *     assets="style/reset.css,style/common.css,style/other.css"
+ * <{assets
+ *     assets="modules/demo/assets/css/reset.css,modules/demo/assets/css/common.css"
  *     output="css"
  *     debug=false
  *     filters="cssimport,cssembed,?cssmin"
  *     asset_url=asset_url}>
  *     <link rel="stylesheet" href="<{$asset_url}>">
- * <{/assetic}>
+ * <{/assets}>
  * ------------------------------------------------------------
  */
 
-function smarty_block_assetic($params, $content, $template, &$repeat)
+function smarty_block_assets($params, $content, $template, &$repeat)
 {
     // Opening tag (first call only)
     if ($repeat) {
