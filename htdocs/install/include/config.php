@@ -78,6 +78,7 @@ if (function_exists('db2_connect')) {
         'ignoredb' => array(),
     );
 }
+/* this driver is considered unstable by Doctrine and unsupported as of 2.5.0
 if (in_array('ibm', $avalable_pdo_drivers)) {
     $configs['db_types']['pdo_ibm'] = array(
         'desc' => 'PDO IBM Driver (untested)',
@@ -86,6 +87,7 @@ if (in_array('ibm', $avalable_pdo_drivers)) {
         'ignoredb' => array(),
     );
 }
+*/
 if (in_array('sqlsrv', $avalable_pdo_drivers)) {
     $configs['db_types']['pdo_sqlsrv'] = array(
         'desc' => 'PDO SqlServer Driver (untested)',
