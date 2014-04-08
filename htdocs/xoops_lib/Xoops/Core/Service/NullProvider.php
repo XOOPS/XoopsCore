@@ -49,7 +49,8 @@ class NullProvider extends Provider
      */
     public function __construct(Manager $manager, $service)
     {
-        $this->response = new Response(null, true, null);
+        $this->response = new Response();
+        $this->response->setSuccess(false)->addErrorMessage(sprintf("No provider installed for %s", $service));
         parent::__construct($manager, $service);
     }
 

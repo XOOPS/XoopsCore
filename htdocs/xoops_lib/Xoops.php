@@ -194,6 +194,20 @@ class Xoops
     }
 
     /**
+     * get the asset utility
+     *
+     * @return \Xoops\Core\Asset instance
+     */
+    public function assets()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new \Xoops\Core\Assets;
+        }
+        return $instance;
+    }
+
+    /**
      * get the service manager
      *
      * @return \Xoops\Core\Service\Manager instance
@@ -282,7 +296,14 @@ class Xoops
                     'folderName'      => 'default', 'themesPath' => 'modules/system/themes',
                     'contentTemplate' => $this->tpl_name
                 )));
-                $this->theme()->loadLocalization('admin');
+                //$this->theme()->loadLocalization('admin');
+                list($cssAssets, $jsAssets) = $this->theme()->getLocalizationAssets('admin');
+                if (!empty($cssAssets)) {
+                    $this->theme()->addBaseStylesheetAssets($cssAssets);
+                }
+                if (!empty($jsAssets)) {
+                    $this->theme()->addBaseScriptAssets($jsAssets);
+                }
             }
         } else {
             if ($tpl_name) {
@@ -1088,8 +1109,10 @@ class Xoops
               <meta name="author" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_author']) . '" />
               <meta name="generator" content="XOOPS" />
               <title>' . htmlspecialchars($this->getConfig('sitename')) . '</title>
-              <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>';
-        $themecss = $this->getcss($this->getConfig('theme_set'));
+              <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>
+              <script type="text/javascript" src="' . XOOPS_URL . '/media/jquery/jquery.js"></script>
+              <script type="text/javascript" src="' . XOOPS_URL . '/media/bootstrap/js/bootstrap.min.js"></script>';
+        $themecss = $this->getCss($this->getConfig('theme_set'));
         echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/xoops.css" />';
         $locale = $this->getConfig('locale');
         if (XoopsLoad::fileExists($this->path('locale/' . $locale . '/style.css'))) {
@@ -1097,7 +1120,7 @@ class Xoops
         }
         if ($themecss) {
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . $themecss . '" />';
-            echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/bootstrap.css') .'" />';
+            //echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/bootstrap.css') .'" />';
             echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/xoops.bootstrap.css') .'" />';
         }
         if ($closehead) {

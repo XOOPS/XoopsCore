@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          Mage GrÃ©gory (AKA Mage)
  * @version         $Id$
  */
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';

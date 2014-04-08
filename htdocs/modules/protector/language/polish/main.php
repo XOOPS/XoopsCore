@@ -10,8 +10,6 @@ define('_MD_PROTECTOR_FMT_JAILINFO','This restriction will be expired on %s');
 define('_MD_PROTECTOR_FMT_JAILTIME','Y-m-j H:i:s');
 define('_MD_PROTECTOR_BANDWIDTHLIMITED','This site is very crowed now. try later.');
 
-define('_MD_PROTECTOR_YOUAREBADIP','Zosta≥e∂ zarejestrowany jako zbanowane IP przez Protectora.') ;
-define('_MD_PROTECTOR_TURNJAVASCRIPTON','W≥±cz obs≥ugÍ JavaScript') ;
-define('_MD_PROTECTOR_DENYBYRBL','Protector odrzuci≥ TwÛj post, poniewaø IP z ktÛrego zosta≥ on wys≥any znajduje siÍ na czarnej li∂cie') ;
-
-?>
+define('_MD_PROTECTOR_YOUAREBADIP','Zosta≈Çe≈õ zarejestrowany jako zbanowane IP przez Protectora.') ;
+define('_MD_PROTECTOR_TURNJAVASCRIPTON','W≈ÇƒÖcz obs≈Çugƒô JavaScript') ;
+define('_MD_PROTECTOR_DENYBYRBL','Protector odrzuci≈Ç Tw√≥j post, poniewa≈º IP z kt√≥rego zosta≈Ç on wys≈Çany znajduje siƒô na czarnej li≈õcie') ;

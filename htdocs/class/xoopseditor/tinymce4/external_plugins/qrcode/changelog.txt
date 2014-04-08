@@ -1,0 +1,15 @@
+version 1.1.2 (2013-11-24)
+	Added bootstrap slider, modernizer and small js bug fixes
+	Set the Quiet Zone to default 4
+	Removed bootstrap UI
+
+version 1.1.1 (2013-10-14)
+	Added all options from the API thanks to PacificMorrowind
+	Changed the UI
+
+Version 1.1.0 (2013-10-14)
+	Changed API from google (deprecated) to api.qrserver.com V1
+	Added bootstrap colorbox to produce colored images
+
+Version 1.0.0 (2013-09-15)
+	First release.

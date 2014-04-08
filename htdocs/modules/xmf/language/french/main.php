@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Frameworks Module Admin
  *
@@ -32,5 +32,3 @@ define("_AM_XMF_ABOUT_MODULEINFO","Infos module");
 define("_AM_XMF_ABOUT_MODULESTATUS","Statut:");
 define("_AM_XMF_ABOUT_UPDATEDATE","Date de dernière mise à jour:");
 define("_AM_XMF_ABOUT_WEBSITE","Site:");
-
-?>

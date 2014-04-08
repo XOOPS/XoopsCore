@@ -50,15 +50,14 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
      * getAvatarUrl - given user info return absolute URL to avatar image
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     * @param array    $args     [0] = XoopsUser object for user or
-     *                                 array of user info, 'uid', 'uname' and 'email' required
+     * @param mixed    $userinfo XoopsUser object for user or
+     *                           array of user info, 'uid', 'uname' and 'email' required
      *
      * @return void - response->value set to absolute URL to avatar image
      */
-    public function getAvatarUrl($response, $args)
+    public function getAvatarUrl($response, $userinfo)
     {
         $noInfo = true;
-        $userinfo = $args[0];
         if (is_object($userinfo)) {
             if (is_a($userinfo, 'XoopsUser')) {
                 if ($userinfo->getVar('user_avatar')
@@ -83,15 +82,14 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
      * @param Response $response \Xoops\Core\Service\Response object
-     * @param array    $args     [0] = XoopsUser object for user or
-     *                                 array of user info, 'uid', 'uname' and 'email' required
+     * @param mixed    $userinfo XoopsUser object for user or
+     *                           array of user info, 'uid', 'uname' and 'email' required
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
-    public function getAvatarEditUrl($response, $args)
+    public function getAvatarEditUrl($response, $userinfo)
     {
         $noInfo = true;
-        $userinfo = $args[0];
         if (is_a($userinfo, 'XoopsUser')) {
             $link = XOOPS_URL . '/modules/avatars/editavatar.php';
             $response->setValue($link);

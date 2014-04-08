@@ -16,11 +16,11 @@
         <td class="span1">
             <{if $extension->getInfo('install')}>
             <a href="<{$xoops_url}>/modules/<{$extension->getInfo('dirname')}>/<{$extension->getInfo('adminindex')}>">
-                <img class="xo-tooltip" src="<{$extension->getInfo('logo_small')}>"
+                <img class="xo-tooltip" src="<{$extension->getInfo('logo_large')}>"
                      alt="<{$extension->getInfo('name')}>" title="<{$extension->getInfo('name')}>"/>
             </a>
             <{else}>
-            <img class="xo-tooltip" src="<{$extension->getInfo('logo_small')}>" alt="<{$extension->getInfo('name')}>"
+            <img class="xo-tooltip" src="<{$extension->getInfo('logo_large')}>" alt="<{$extension->getInfo('name')}>"
                  title="<{$extension->getInfo('name')}>"/>
             <{/if}>
         </td>

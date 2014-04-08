@@ -16,14 +16,12 @@
     <link rel="icon" type="image/png" href="<{xoImgUrl icons/favicon.png}>" />
 
     <!-- Xoops and theme style sheets -->
-    <{assetic
-        assets="xoops.css,media/bootstrap/css/bootstrap.css,themes/default/media/bootstrap/css/xoops.bootstrap.css,themes/default/css/style.css"
+    <{assets
+        assets="xoops.css,themes/default/media/bootstrap/css/xoops.bootstrap.css,themes/default/css/style.css"
         output="css"
-        debug=false
-        filters="cssimport,cssembed,?cssmin"
     }>
     <link rel="stylesheet" media="screen" href="<{$asset_url}>" />
-    <{/assetic}>
+    <{/assets}>
     <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/xoops/css/icons.css}>" />
     <!--<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/bootstrap/css/bootstrap-responsive.min.css}>" />-->
     <!--[if lte IE 8]>

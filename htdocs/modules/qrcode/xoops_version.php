@@ -38,14 +38,13 @@ $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status'] = 'ALPHA 1';
 $modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = '2.6.0';
-$modversion['min_db'] = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 
 // paypal
 $modversion['paypal'] = array();
-$modversion['paypal']['business'] = 'dugris93@gmail.com';
+$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
 $modversion['paypal']['item_name'] = _MI_QRCODE_DSC;
 $modversion['paypal']['amount'] = 0;
-$modversion['paypal']['currency_code'] = 'EUR';
+$modversion['paypal']['currency_code'] = 'USD';
 
 // Admin menu
 $modversion['system_menu'] = 0;

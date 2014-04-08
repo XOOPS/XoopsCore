@@ -12,13 +12,13 @@
 /**
  * XoopsTheme component class file
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Skalpa Keo <skalpa@xoops.org>
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @since           2.3.0
- * @package         class
- * @version         $Id$
+ * @copyright The XOOPS project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @author    Skalpa Keo <skalpa@xoops.org>
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @since     2.3.0
+ * @package   class
+ * @version   $Id$
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
@@ -26,8 +26,8 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 /**
  * XoopsThemeFactory
  *
- * @author     Skalpa Keo
- * @since      2.3.0
+ * @author Skalpa Keo
+ * @since  2.3.0
  */
 class XoopsThemeFactory
 {
@@ -60,7 +60,7 @@ class XoopsThemeFactory
     /**
      * Instantiate the specified theme
      *
-     * @param array $options
+     * @param array $options options array
      *
      * @return null|XoopsTheme
      */
@@ -98,7 +98,7 @@ class XoopsThemeFactory
     /**
      * Checks if the specified theme is enabled or not
      *
-     * @param string $name
+     * @param string $name theme name
      *
      * @return bool
      */
@@ -111,9 +111,9 @@ class XoopsThemeFactory
 /**
  * XoopsAdminThemeFactory
  *
- * @author     Andricq Nicolas (AKA MusS)
- * @author     trabis
- * @since      2.4.0
+ * @author Andricq Nicolas (AKA MusS)
+ * @author trabis
+ * @since  2.4.0
  */
 class XoopsAdminThemeFactory extends XoopsThemeFactory
 {
@@ -238,6 +238,23 @@ class XoopsTheme
     );
 
     /**
+     * Asset manager instance
+     *
+     * @var object
+     */
+    public $assets = null;
+
+    /**
+     * Array containing base assets for the document
+     *
+     * @var array
+     */
+    public $baseAssets = array(
+        'js' => array(),
+        'css' => array(),
+    );
+
+    /**
      * Array of strings to be inserted in the head tag of HTML documents
      *
      * @var array
@@ -287,6 +304,7 @@ class XoopsTheme
     public function xoInit()
     {
         $xoops = Xoops::getInstance();
+        $this->assets = $xoops->assets();
         $this->path = XOOPS_THEME_PATH . '/' . $this->folderName;
         $this->url = XOOPS_THEME_URL . '/' . $this->folderName;
         $this->template = null;
@@ -347,8 +365,18 @@ class XoopsTheme
         }
 
         // Load global javascript
-        $this->addScript('include/xoops.js');
-        $this->loadLocalization();
+        //$this->addScript('include/xoops.js');
+        //$this->loadLocalization();
+        list($cssAssets, $jsAssets) = $this->getLocalizationAssets();
+        if (!empty($cssAssets)) {
+            $this->addBaseStylesheetAssets($cssAssets);
+        }
+        $this->addBaseScriptAssets('include/xoops.js');
+        $this->addBaseScriptAssets('@jquery');
+        //$this->addBaseScriptAssets('media/bootstrap/js/bootstrap.min.js');
+        if (!empty($jsAssets)) {
+            $this->addBaseScriptAssets($jsAssets);
+        }
 
         if ($this->bufferOutput) {
             ob_start();
@@ -361,7 +389,8 @@ class XoopsTheme
         $GLOBALS['xoopsTpl'] = $xoops->tpl();
 
         //to control order of loading JS and CSS
-
+        // TODO - this should be done in such a way it can join the base asset
+        //        load above.
         if (XoopsLoad::fileExists($this->path . "/theme_onload.php")) {
             include_once($this->path . "/theme_onload.php");
         }
@@ -391,7 +420,7 @@ class XoopsTheme
      *
      * @return string complete cache id
      */
-    function generateCacheId($cache_id, $extraString = '')
+    public function generateCacheId($cache_id, $extraString = '')
     {
         $xoops = Xoops::getInstance();
         static $extra_string;
@@ -503,7 +532,7 @@ class XoopsTheme
         }
 
         // We assume no overlap between $GLOBALS['xoopsOption']['xoops_module_header'] and $this->template->get_template_vars( 'xoops_module_header' ) ?
-        $this->template->assign('xoops_module_header', $this->renderMetas(null, true) . "\n" . $header);
+        $this->template->assign('xoops_module_header', $this->renderMetas(true) . "\n" . $header);
 
         if ($canvasTpl) {
             $this->canvasTemplate = $canvasTpl;
@@ -535,18 +564,20 @@ class XoopsTheme
     /**
      * Load localization information
      * Folder structure for localization:
-     * <ul>themes/themefolder/english
-     *     <li>main.php - language definitions</li>
-     *     <li>style.css - localization stylesheet</li>
-     *     <li>script.js - localization script</li>
-     * </ul>
+     * themes/themefolder/english
+     *    - main.php - language definitions
+     *    - style.css - localization stylesheet
+     *    - script.js - localization script
      *
-     * @param string $type
+     * @param string $type language domain (unused?)
      *
-     * @return bool
+     * @return array list of 2 arrays, one
      */
-    public function loadLocalization($type = "main")
+    public function getLocalizationAssets($type = "main")
     {
+        $cssAssets = array();
+        $jsAssets = array();
+
         $xoops = Xoops::getInstance();
 
         Xoops_Locale::loadThemeLocale($this);
@@ -554,17 +585,17 @@ class XoopsTheme
         $language = XoopsLocale::getLocale();
         // Load global localization stylesheet if available
         if (XoopsLoad::fileExists($xoops->path('locale/' . $language . '/style.css'))) {
-            $this->addStylesheet($xoops->url('locale/' . $language . '/style.css'));
+            $cssAssets[] = $xoops->path('locale/' . $language . '/style.css');
         }
         //$this->addLanguage($type);
         // Load theme localization stylesheet and scripts if available
         if (XoopsLoad::fileExists($this->path . '/locale/' . $language . '/script.js')) {
-            $this->addScript($this->url . '/locale/' . $language . '/script.js');
+            $jsAssets[] = $this->url . '/locale/' . $language . '/script.js';
         }
         if (XoopsLoad::fileExists($this->path . '/locale/' . $language . '/style.css')) {
-            $this->addStylesheet($this->url . '/locale/' . $language . '/style.css');
+            $cssAssets[] = $this->path . '/locale/' . $language . '/style.css';
         }
-        return true;
+        return array($cssAssets, $jsAssets);
     }
 
     /**
@@ -665,11 +696,110 @@ class XoopsTheme
     }
 
     /**
+     * addScriptAssets - add a list of scripts to the page
+     *
+     * @param array  $assets  list of source files to process
+     * @param string $filters comma separated list of filters
+     * @param string $target  target path, will default to assets directory
+     *
+     * @return void
+     */
+    public function addScriptAssets($assets, $filters = 'default', $target = null)
+    {
+        $url = $this->assets->getUrlToAssets('js', $assets, $filters, $target);
+        $this->addScript($url);
+    }
+
+    /**
+     * addStylesheetAssets - add a list of stylesheets to the page
+     *
+     * @param array  $assets  list of source files to process
+     * @param string $filters comma separated list of filters
+     * @param string $target  target path, will default to assets directory
+     *
+     * @return void
+     */
+    public function addStylesheetAssets($assets, $filters = 'default', $target = null)
+    {
+        $url = $this->assets->getUrlToAssets('css', $assets, $filters, $target);
+        $this->addStylesheet($url);
+    }
+
+    /**
+     * addBaseAssets - add a list of assets to the page, these will all
+     * be combined into a single asset file at render time
+     *
+     * @param string $type   type of asset, i.e. 'css' or 'js'
+     * @param array  $assets list of source files to process
+     *
+     * @return void
+     */
+    public function addBaseAssets($type, $assets)
+    {
+        if (is_scalar($assets)) {
+            $this->baseAssets[$type][]=$assets;
+        } elseif (is_array($assets)) {
+            $this->baseAssets[$type] = array_merge($this->baseAssets[$type], $assets);
+        }
+    }
+
+    /**
+     * addBaseScriptAssets - add a list of scripts to the page
+     *
+     * @param array $assets list of source files to process
+     *
+     * @return void
+     */
+    public function addBaseScriptAssets($assets)
+    {
+        $this->addBaseAssets('js', $assets);
+    }
+
+    /**
+     * addBaseStylesheetAssets - add a list of stylesheets to the page
+     *
+     * @param array $assets list of source files to process
+     *
+     * @return void
+     */
+    public function addBaseStylesheetAssets($assets)
+    {
+        $this->addBaseAssets('css', $assets);
+    }
+
+    /**
+     * setNamedAsset - Add an asset reference to the asset manager.
+     * The specifed assest will be added to the asset manager with the specified
+     * name. As an example:
+     *
+     *   $theme->setNamedAsset('aacss','module/aa/assets/css/*.css');
+     *
+     * This will create an asset reference which can be added using other asset
+     * functions, such as:
+     *
+     *   $theme->addBaseStylesheetAssets('@aacss');
+     *
+     * Additional custom filters can be specified for the named assest if needed.
+     *
+     * @param string $name    the name of the reference to be added
+     * @param mixed  $assets  a string asset path, or an array of asset paths, may include wildcard
+     * @param string $filters comma separated list of filters
+     *
+     * @return boolean true if asset registers, false on error
+     */
+    public function setNamedAsset($name, $assets, $filters = null)
+    {
+        return $this->assets->registerAssetReference($name, $assets, $filters = null);
+    }
+
+    /**
      * Add a <link> to the header
      *
      * @param string $rel        Relationship from the current doc to the anchored one
      * @param string $href       URI of the anchored document
      * @param array  $attributes Additional attributes to add to the <link> element
+     *
+     * @return void
      */
     public function addLink($rel, $href = '', $attributes = array())
     {
@@ -686,8 +816,8 @@ class XoopsTheme
     /**
      * Set a meta http-equiv value
      *
-     * @param string $name
-     * @param null   $value
+     * @param string $name  meta tag name
+     * @param null   $value meta tag value
      *
      * @return bool|string
      */
@@ -742,63 +872,94 @@ class XoopsTheme
     /**
      * XoopsTheme::renderMetas()
      *
-     * @param null        $type
-     * @param bool|string $return
+     * @param bool $return true to return as string, false to echo
      *
      * @return bool|string
      */
-    public function renderMetas($type = null, $return = false)
+    public function renderMetas($return = false)
     {
         $str = '';
-        if (!isset($type)) {
-            foreach (array_keys($this->metas) as $type) {
-                $str .= $this->renderMetas($type, true);
-            }
-            $str .= implode("\n", $this->htmlHeadStrings);
-        } else {
-            switch ($type) {
-                case 'script':
-                    foreach ($this->metas[$type] as $attrs) {
-                        $str .= "<script" . $this->renderAttributes($attrs) . ">";
-                        if (@$attrs['_']) {
-                            $str .= "\n//<![CDATA[\n" . $attrs['_'] . "\n//]]>";
-                        }
-                        $str .= "</script>\n";
-                    }
-                    break;
-                case 'link':
-                    foreach ($this->metas[$type] as $attrs) {
-                        $rel = $attrs['rel'];
-                        unset($attrs['rel']);
-                        $str .= '<link rel="' . $rel . '"' . $this->renderAttributes($attrs) . " />\n";
-                    }
-                    break;
-                case 'stylesheet':
-                    foreach ($this->metas[$type] as $attrs) {
-                        if (@$attrs['_']) {
-                            $str .= '<style' . $this->renderAttributes($attrs) . ">\n/* <![CDATA[ */\n" . $attrs['_'] . "\n/* //]]> */\n</style>";
-                        } else {
-                            $str .= '<link rel="stylesheet"' . $this->renderAttributes($attrs) . " />\n";
-                        }
-                    }
-                    break;
-                case 'http':
-                    foreach ($this->metas[$type] as $name => $content) {
-                        $str .= '<meta http-equiv="' . htmlspecialchars($name, ENT_QUOTES) . '" content="' . htmlspecialchars($content, ENT_QUOTES) . "\" />\n";
-                    }
-                    break;
-                default:
-                    foreach ($this->metas[$type] as $name => $content) {
-                        $str .= '<meta name="' . htmlspecialchars($name, ENT_QUOTES) . '" content="' . htmlspecialchars($content, ENT_QUOTES) . "\" />\n";
-                    }
-                    break;
+
+        if (!empty($this->baseAssets['js'])) {
+            $url = $this->assets->getUrlToAssets('js', $this->baseAssets['js']);
+            if (!empty($url)) {
+                $str .= '<script src="' . $url . '" type="text/javascript"></script>'."\n";
             }
         }
+
+        if (!empty($this->baseAssets['css'])) {
+            $url = $this->assets->getUrlToAssets('css', $this->baseAssets['css']);
+            if (!empty($url)) {
+                $str .= '<link rel="stylesheet" href="' . $url . '" type="text/css" />'."\n";
+            }
+        }
+
+        foreach (array_keys($this->metas) as $type) {
+            $str .= $this->renderMetasByType($type);
+        }
+        $str .= implode("\n", $this->htmlHeadStrings);
+
         if ($return) {
             return $str;
         }
         echo $str;
         return true;
+    }
+
+    /**
+     * XoopsTheme::renderMetasByType() render the specified metadata type
+     *
+     * @param string $type type to render
+     *
+     * @return string
+     */
+    public function renderMetasByType($type)
+    {
+        if (!isset($type)) {
+            return '';
+        }
+
+        $str = '';
+        switch ($type) {
+            case 'script':
+                foreach ($this->metas[$type] as $attrs) {
+                    $str .= "<script" . $this->renderAttributes($attrs) . ">";
+                    if (@$attrs['_']) {
+                        $str .= "\n//<![CDATA[\n" . $attrs['_'] . "\n//]]>";
+                    }
+                    $str .= "</script>\n";
+                }
+                break;
+            case 'link':
+                foreach ($this->metas[$type] as $attrs) {
+                    $rel = $attrs['rel'];
+                    unset($attrs['rel']);
+                    $str .= '<link rel="' . $rel . '"' . $this->renderAttributes($attrs) . " />\n";
+                }
+                break;
+            case 'stylesheet':
+                foreach ($this->metas[$type] as $attrs) {
+                    if (@$attrs['_']) {
+                        $str .= '<style' . $this->renderAttributes($attrs)
+                            . ">\n/* <![CDATA[ */\n" . $attrs['_'] . "\n/* //]]> */\n</style>";
+                    } else {
+                        $str .= '<link rel="stylesheet"' . $this->renderAttributes($attrs) . " />\n";
+                    }
+                }
+                break;
+            case 'http':
+                foreach ($this->metas[$type] as $name => $content) {
+                    $str .= '<meta http-equiv="' . htmlspecialchars($name, ENT_QUOTES) . '" content="' . htmlspecialchars($content, ENT_QUOTES) . "\" />\n";
+                }
+                break;
+            default:
+                foreach ($this->metas[$type] as $name => $content) {
+                    $str .= '<meta name="' . htmlspecialchars($name, ENT_QUOTES) . '" content="' . htmlspecialchars($content, ENT_QUOTES) . "\" />\n";
+                }
+                break;
+        }
+
+        return $str;
     }
 
     /**

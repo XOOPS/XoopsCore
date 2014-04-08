@@ -41,7 +41,6 @@ $modversion["module_website_name"] = "XOOPS";
 $modversion["module_status"] = "RC";
 $modversion['min_php'] = '5.3';
 $modversion['min_xoops'] = "2.6.0";
-$modversion['min_db'] = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
 // paypal
 $modversion['paypal']                  = array();
@@ -74,15 +73,18 @@ if ($xoops->isUser()) {
     $modversion['sub'][3]['url'] = "changepass.php";
 }
 
-// Mysql file
+// Table definitions
+$modversion['schema'] = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
-// Tables created by sql file (without prefix!)
-$modversion['tables'][1] = "profile_category";
-$modversion['tables'][2] = "profile_profile";
-$modversion['tables'][3] = "profile_field";
-$modversion['tables'][4] = "profile_visibility";
-$modversion['tables'][5] = "profile_regstep";
+// Tables (without prefix!)
+$modversion['tables'] = array(
+    "profile_category",
+    "profile_profile",
+    "profile_field",
+    "profile_visibility",
+    "profile_regstep",
+);
 
 // Config items
 $modversion['config'][1]['name'] = 'profile_search';

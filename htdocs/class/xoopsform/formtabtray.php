@@ -54,14 +54,10 @@ class XoopsFormTabTray extends XoopsFormElementTray
     public function render()
     {
         $xoops = Xoops::getInstance();
-        $xoops->theme()->addScript('media/jquery/jquery.js');
-        $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
-        $xoops->theme()->addStylesheet('media/jquery/ui/' . $this->_uiTheme . '/ui.all.css');
-        $xoops->theme()->addScript('', '', '
-            $(function() {
-                $("#tabs_' . $this->getName() . '").tabs();
-            });
-        ');
+        $xoops->theme()->addBaseScriptAssets('@jquery');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui');
+        $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
+        $xoops->theme()->addScript('', '', '$(function() { $("#tabs_' . $this->getName() . '").tabs(); });');
 
         $ret = '<div id="tabs_' . $this->getName() . '">' . NWLINE;
         $ret .= '<ul>' . NWLINE;

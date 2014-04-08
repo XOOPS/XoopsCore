@@ -532,7 +532,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_AT = "Austria";
     const L_COUNTRY_AU = "Australia";
     const L_COUNTRY_AW = "Aruba";
-    const L_COUNTRY_AX = "�land Islands";
+    const L_COUNTRY_AX = "Åland Islands";
     const L_COUNTRY_AZ = "Azerbaijan";
     const L_COUNTRY_BA = "Bosnia and Herzegovina";
     const L_COUNTRY_BB = "Barbados";
@@ -543,7 +543,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_BH = "Bahrain";
     const L_COUNTRY_BI = "Burundi";
     const L_COUNTRY_BJ = "Benin";
-    const L_COUNTRY_BL = "Saint Barth�lemy";
+    const L_COUNTRY_BL = "Saint Barthélemy";
     const L_COUNTRY_BM = "Bermuda";
     const L_COUNTRY_BN = "Brunei Darussalam";
     const L_COUNTRY_BO = "Bolivia";
@@ -560,7 +560,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_CF = "Central African Republic";
     const L_COUNTRY_CG = "Congo";
     const L_COUNTRY_CH = "Switzerland";
-    const L_COUNTRY_CI = "C�te d'Ivoire";
+    const L_COUNTRY_CI = "Côte d'Ivoire";
     const L_COUNTRY_CK = "Cook Islands";
     const L_COUNTRY_CL = "Chile";
     const L_COUNTRY_CM = "Cameroon";
@@ -977,6 +977,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const SEND_EMAIL = "Send email";
     const SEND_PASSWORD = "Send password";
     const SENT = "Sent";
+    const SERVICES = "Services";
     const SETTINGS = "Settings";
     const SF_DATA_INSERTED_TO_TABLE = "Data inserted to table '%s'!";
     const SF_EMAIL_SENT_TO = "Email sent to %s!";

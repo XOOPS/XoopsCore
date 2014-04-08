@@ -125,8 +125,8 @@ switch ($op) {
 
         $xoops->header('publisher_submit.html');
         $xoTheme = $xoops->theme();
-        $xoTheme->addScript(XOOPS_URL . '/media/jquery/jquery.js');
-        $xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
+        $xoTheme->addBaseScriptAssets('@jquery');
+        $xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
         XoopsLoad::loadFile($publisher->path('footer.php'));
 
         $categoryObj = $publisher->getCategoryHandler()->get($_POST['categoryid']);

@@ -95,7 +95,7 @@ class Xoops_qrcode extends QRcode
 
     /**
      * define size of each of the barcode code squares measured in pixels
-     * Each code square (also named “pixels” or “modules”) is 4×4px.
+     * Each code square (also named "pixels" or "modules") is 4x4px.
      */
     public function setSize($size=4)
     {

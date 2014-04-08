@@ -16,7 +16,7 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          Mage GrÃ©gory (AKA Mage)
  * @version         $Id$
  */
 
@@ -42,8 +42,8 @@ $groups = $helper->getUserGroups();
 $uid = $helper->getUserId();
 
 // Define Stylesheet
-$xoops->theme()->addStylesheet( $helper->url('css/styles.css'));
-$xoops->theme()->addStylesheet( $helper->url('css/rating.css'));
+$xoops->theme()->addStylesheet($helper->url('css/styles.css'));
+$xoops->theme()->addStylesheet($helper->url('css/rating.css'));
 
 // Get $_POST, $_GET, $_REQUEST
 $start = $request->asInt('start', 0);

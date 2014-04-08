@@ -3,5 +3,14 @@
  * so you can add all script and css needed
  */
 $xoops = Xoops::getInstance();
-$xoops->theme()->addScript('media/jquery/jquery.js');
-$xoops->theme()->addScript('media/bootstrap/js/bootstrap.min.js');
+// replace the jquery ui theme config option with theme based asset definition
+$xoops->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/base/ui.all.css');
+$xoops->theme()->setNamedAsset('bootstrap', 'media/bootstrap/js/bootstrap.min.js');
+$xoops->theme()->addBaseScriptAssets(array('@jquery', '@bootstrap'));
+
+//$xoops->theme()->addBaseStylesheetAssets(array(
+//    'xoops.css',
+//    'media/bootstrap/css/bootstrap.css',
+//    'themes/default/media/bootstrap/css/xoops.bootstrap.css',
+//    'themes/default/css/style.css',
+//));

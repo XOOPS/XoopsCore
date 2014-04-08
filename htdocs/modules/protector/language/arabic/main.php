@@ -4,11 +4,9 @@
 // Appended by Xoops Language Checker -GIJOE- in 2009-08-29 04:13:44
 define('_MD_PROTECTOR_FMT_REGISTER_MORATORIUM','Post it again %s minutes later. (for Anti-SPAMMING, sorry)');
 
-define('_MD_PROTECTOR_YOUAREBADIP','วแวํศํ  วแฮวี ศ฿ สใ ใไฺษ ศๆวำุษ ศัไวใฬ วแอใวํษ Ýํ วแใๆÞฺ<br />') ;
-define('_MD_PROTECTOR_FMT_JAILINFO','ำํสใ วาวแษ วแใไฺ ฺไ฿ Ýํ  %s') ;
+define('_MD_PROTECTOR_YOUAREBADIP','ุงูุงูุจู  ุงูุฎุงุต ุจู ุชู… ู…ูุนุฉ ุจูุงุณุทุฉ ุจุฑูุงู…ุฌ ุงูุญู…ุงูุฉ ูู ุงูู…ููุน<br />') ;
+define('_MD_PROTECTOR_FMT_JAILINFO','ุณูุชู… ุงุฒุงูุฉ ุงูู…ูุน ุนูู ูู  %s') ;
 define('_MD_PROTECTOR_FMT_JAILTIME','Y-m-j H:i:s') ;
-define('_MD_PROTECTOR_BANDWIDTHLIMITED','วแใๆÞฺ สอส ึÛุ ิฯํฯ . ัฬวม อวๆแ วแัฬๆฺ แแใๆÞฺ ใัๅ วฮั์') ;
-define('_MD_PROTECTOR_TURNJAVASCRIPTON','Þใ ศสÝฺํแ วแฬวÝว Ýํ ใสีÝอ฿') ;
-define('_MD_PROTECTOR_DENYBYRBL','Þวใ ศัไวใฬ วแอใวํษ แฯํไว ศัÝึ ใÞวแส฿ แวไ วแวํศํ วแฮวี ศ฿ ใำฬแ แฯํไว ฺแ์ วำวำ ำศวใ') ;
-
-?>
+define('_MD_PROTECTOR_BANDWIDTHLIMITED','ุงูู…ููุน ุชุญุช ุถุบุท ุดุฏูุฏ . ุฑุฌุงุก ุญุงูู ุงูุฑุฌูุน ููู…ููุน ู…ุฑู ุงุฎุฑู') ;
+define('_MD_PROTECTOR_TURNJAVASCRIPTON','ูู… ุจุชูุนูู ุงูุฌุงูุง ูู ู…ุชุตูุญู') ;
+define('_MD_PROTECTOR_DENYBYRBL','ูุงู… ุจุฑูุงู…ุฌ ุงูุญู…ุงูุฉ ูุฏููุง ุจุฑูุถ ู…ูุงูุชู ูุงู ุงูุงูุจู ุงูุฎุงุต ุจู ู…ุณุฌู ูุฏููุง ุนูู ุงุณุงุณ ุณุจุงู…') ;
