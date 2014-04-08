@@ -25,8 +25,8 @@ class ThemeSetDateCreatedHandlerTest extends MY_UnitTestCase
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		//$instance->getName();
-		$this->markTestIncomplete();
+		$name = $instance->getName();
+		$this->assertSame('dateCreated', $name);
 	}
 	
     public function test_handleCharacterData()

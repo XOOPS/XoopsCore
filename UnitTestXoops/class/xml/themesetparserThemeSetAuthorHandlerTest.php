@@ -24,9 +24,9 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
     {
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
-
-		//$instance->getName();
-		$this->markTestIncomplete();
+		
+		$name = $instance->getName();
+		$this->assertSame('author', $name);
 	}
 	
     public function test_handleBeginElement()
