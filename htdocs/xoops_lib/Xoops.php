@@ -240,7 +240,7 @@ class Xoops
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new XoopsSecurity();
+            $instance = new \Xoops\Core\Security();
             $instance->checkSuperglobals();
         }
         return $instance;
