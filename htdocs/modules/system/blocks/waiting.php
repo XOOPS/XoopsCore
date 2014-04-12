@@ -22,7 +22,7 @@
 function b_system_waiting_show()
 {
     $block = array();
-    $plugins = Xoops_Module_Plugin::getPlugins('system');
+    $plugins = \Xoops\Module\Plugin::getPlugins('system');
     /* @var $plugin SystemPluginInterface */
     foreach ($plugins as $plugin) {
         if (is_array($res = $plugin->waiting())) {

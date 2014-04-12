@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Module\Plugin;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -16,14 +18,16 @@
  * @version         $Id$
  */
 
-class Xoops_Module_Plugin_Abstract
+class PluginAbstract
 {
     /**
-     * @param string $dirname
+     * __construct
+     *
+     * @param string $dirname module dirname
      */
     public function __construct($dirname)
     {
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         $xoops->loadLanguage('modinfo', $dirname);
     }
 }

@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Module\Helper;
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -16,9 +17,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Xoops_Module_Helper_Dummy extends Xoops_Module_Helper_Abstract
+class Dummy extends HelperAbstract
 {
     /**
      * Init the module
@@ -30,16 +29,18 @@ class Xoops_Module_Helper_Dummy extends Xoops_Module_Helper_Abstract
     }
 
     /**
-     * @return void|Xoops_Module_Helper_Dummy
+     * @return void|Xoops\Module\Helper\Dummy
      */
-    static function getInstance() {
+    public static function getInstance()
+    {
         return parent::getInstance();
     }
 
     /**
      * @param string $dirname dirname of the module
      */
-    public function setDirname($dirname) {
+    public function setDirname($dirname)
+    {
         parent::setDirname($dirname);
     }
 
@@ -68,5 +69,4 @@ class Xoops_Module_Helper_Dummy extends Xoops_Module_Helper_Abstract
     {
         $this->_addLog($log);
     }
-
 }

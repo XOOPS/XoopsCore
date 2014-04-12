@@ -21,9 +21,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class PublisherCommentsPlugin extends Xoops_Module_Plugin_Abstract implements CommentsPluginInterface
+class PublisherCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements CommentsPluginInterface
 {
     /**
      * @return string
@@ -111,4 +109,3 @@ class PublisherCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Co
         return $ret;
     }
 }
-

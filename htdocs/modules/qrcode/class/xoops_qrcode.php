@@ -20,9 +20,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class _Qrcode extends Xoops_Module_Helper_Abstract
+class _Qrcode extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -97,7 +95,7 @@ class Xoops_qrcode extends QRcode
      * define size of each of the barcode code squares measured in pixels
      * Each code square (also named "pixels" or "modules") is 4x4px.
      */
-    public function setSize($size=4)
+    public function setSize($size = 4)
     {
         $this->size = intval($size);
     }
@@ -105,7 +103,7 @@ class Xoops_qrcode extends QRcode
     /**
      * define size of margin in pixels
      */
-    public function setMargin($margin=0)
+    public function setMargin($margin = 0)
     {
         $this->margin = intval($margin);
     }
@@ -113,7 +111,7 @@ class Xoops_qrcode extends QRcode
     /**
      * Set Background color
      */
-    public function setBackground($back_color=0xFFFFFF)
+    public function setBackground($back_color = 0xFFFFFF)
     {
         $this->back_color = $back_color;
     }
@@ -121,7 +119,7 @@ class Xoops_qrcode extends QRcode
     /**
      * Set Foreground color
      */
-    public function setForeground($fore_color=0x000000)
+    public function setForeground($fore_color = 0x000000)
     {
         $this->fore_color = $fore_color;
     }
@@ -129,28 +127,28 @@ class Xoops_qrcode extends QRcode
     /**
      * Render QRcode
      */
-    public function render( $text )
+    public function render($text)
     {
         switch($this->format) {
             case 'text':
-            parent::text($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
-            break;
+                parent::text($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
+                break;
 
             case 'eps':
-            parent::eps($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
-            break;
+                parent::eps($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
+                break;
 
             case 'svg':
-            parent::svg($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
-            break;
+                parent::svg($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
+                break;
 
             case 'raw':
-            parent::raw($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
-            break;
+                parent::raw($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
+                break;
 
             default:
-            parent::png($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
-            break;
+                parent::png($text, $this->outfile, $this->eclevel, $this->size, $this->margin, $this->saveandprint, $this->back_color, $this->fore_color);
+                break;
         }
     }
 }

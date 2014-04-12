@@ -141,7 +141,7 @@ class CommentsCommentForm extends XoopsThemeForm
         // add module specific extra params
         if (!$xoops->isAdminSide) {
             /* @var $plugin CommentsPluginInterface */
-            $plugin = Xoops_Module_Plugin::getPlugin($dirname,'comments');
+            $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments');
             if (is_array($extraParams = $plugin->extraParams())) {
                 $myts = MyTextSanitizer::getInstance();
                 foreach ($extraParams as $extra_param) {

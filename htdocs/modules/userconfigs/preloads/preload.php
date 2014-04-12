@@ -49,7 +49,7 @@ class UserconfigsPreload extends PreloadItem
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             Userconfigs::getInstance()->getHandlerConfig()->deleteConfigsByModule($module->getVar('mid'));
         }
     }

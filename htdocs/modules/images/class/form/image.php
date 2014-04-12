@@ -28,7 +28,7 @@ class ImagesImageForm extends XoopsThemeForm
     public function __construct(ImagesImage $obj)
     {
         $xoops = Xoops::getInstance();
-        $helper = Xoops_Module_Helper::getHelper('images');
+        $helper = Xoops\Module\Helper::getHelper('images');
 
         $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 

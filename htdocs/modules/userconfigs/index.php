@@ -44,7 +44,7 @@ switch ($op) {
         $module = $xoops->getModuleById($mid);
 
         /* @var $plugin UserconfigsPluginInterface */
-        if (!$plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
+        if (!$plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             $xoops->redirect($xoops->url('index.php'), 3, _MD_USERCONFIGS_NOPLUGIN);
         }
         $config_handler = $helper->getHandlerConfig();

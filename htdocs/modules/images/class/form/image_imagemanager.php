@@ -18,8 +18,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class ImagesImage_imagemanagerForm extends XoopsThemeForm
 {
 
@@ -32,7 +30,7 @@ class ImagesImage_imagemanagerForm extends XoopsThemeForm
     public function __construct($param)
     {
         $xoops = Xoops::getInstance();
-        $helper = Xoops_Module_Helper::getHelper('images');
+        $helper = Xoops\Module\Helper::getHelper('images');
 
         //todo, remove extract
         extract($param);
@@ -80,19 +78,19 @@ class ImagesImage_imagemanagerForm extends XoopsThemeForm
 
         switch (basename($xoops->getEnv('PHP_SELF'), '.php')) {
             case 'xoops_images':
-            $button_3 = new XoopsFormButton('', 'button', XoopsLocale::A_CLOSE, 'button');
-            $button_3->setExtra('onclick="tinyMCEPopup.close();"');
-            $button_3->setClass('btn btn-danger');
-            $button_tray->addElement($button_3);
-            break;
+                $button_3 = new XoopsFormButton('', 'button', XoopsLocale::A_CLOSE, 'button');
+                $button_3->setExtra('onclick="tinyMCEPopup.close();"');
+                $button_3->setClass('btn btn-danger');
+                $button_tray->addElement($button_3);
+                break;
 
             case 'images':
             default:
-            $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-            $button_3->setExtra("onclick='javascript:history.go(-1);'");
-            $button_3->setClass('btn btn-danger');
-            $button_tray->addElement($button_3);
-            break;
+                $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+                $button_3->setExtra("onclick='javascript:history.go(-1);'");
+                $button_3->setClass('btn btn-danger');
+                $button_tray->addElement($button_3);
+                break;
         }
 
         $this->addElement($button_tray);

@@ -18,8 +18,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class ImagesCategoryselectForm extends XoopsThemeForm
 {
     /**
@@ -30,7 +28,7 @@ class ImagesCategoryselectForm extends XoopsThemeForm
         $xoops = Xoops::getInstance();
         $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-        $helper = Xoops_Module_Helper::getHelper('images');
+        $helper = Xoops\Module\Helper::getHelper('images');
         $categories = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_read');
 
         parent::__construct('', 'category_select', $xoops->getEnv('PHP_SELF'), 'post');

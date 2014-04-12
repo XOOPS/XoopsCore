@@ -189,7 +189,7 @@ $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
 foreach (array_keys($modules) as $i) {
     if (in_array($i, $read_allowed)) {
         /* @var $plugin SearchPluginInterface */
-        $plugin = Xoops_Module_Plugin::getPlugin($modules[$i]->getVar('dirname'), 'search');
+        $plugin = \Xoops\Module\Plugin::getPlugin($modules[$i]->getVar('dirname'), 'search');
         if (method_exists($plugin, 'search')) {
             $results = $plugin->search('', '', 5, 0, $thisUser->getVar('uid'));
 

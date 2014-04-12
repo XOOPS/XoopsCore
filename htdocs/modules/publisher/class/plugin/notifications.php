@@ -8,6 +8,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *  Publisher class
  *
@@ -24,7 +25,7 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(dirname(dirname(__FILE__))) . '/include/common.php';
 
-class PublisherNotificationsPlugin extends Xoops_Module_Plugin_Abstract implements NotificationsPluginInterface
+class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract implements NotificationsPluginInterface
 {
     /**
      * @param string $category

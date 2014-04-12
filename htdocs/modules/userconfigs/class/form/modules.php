@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class UserconfigsModulesForm extends XoopsThemeForm
 {
     /**
@@ -39,7 +37,7 @@ class UserconfigsModulesForm extends XoopsThemeForm
             $mid = $mod->getVar('mid');
         }
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugins = Xoops_Module_Plugin::getPlugins('userconfigs')) {
+        if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             parent::__construct('', 'pref_form', 'index.php', 'post', true, 'inline');
 
             $ele = new XoopsFormSelect(_MD_USERCONFIGS_CHOOSE_MODULE, 'mid', $mid);

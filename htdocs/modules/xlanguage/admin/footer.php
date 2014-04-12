@@ -17,6 +17,4 @@
  * @version         $Id$
  */
 
-$xoops = Xoops::getInstance();
-$admin_page->displayIndex();
 $xoops->footer();

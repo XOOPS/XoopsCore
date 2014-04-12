@@ -21,9 +21,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class PublisherMenusPlugin extends Xoops_Module_Plugin_Abstract implements MenusPluginInterface
+class PublisherMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {
     /**
      * expects an array of array containing:
@@ -63,4 +61,3 @@ class PublisherMenusPlugin extends Xoops_Module_Plugin_Abstract implements Menus
         return $ret;
     }
 }
-
