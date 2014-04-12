@@ -43,7 +43,7 @@ class XoopsObjectTest extends MY_UnitTestCase
 	{
 		$items = array('vars', 'cleanVars');
 		foreach($items as $item) {
-			$prop = new ReflectionProperty($this->myclass,$item);
+			$prop = new ReflectionProperty($this->myClass,$item);
 			$this->assertTrue($prop->isPublic());
 		}
     }
