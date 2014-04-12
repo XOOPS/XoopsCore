@@ -12,12 +12,12 @@ class XoopsObjectTestInstance extends Xoops\Core\Kernel\XoopsObject
 */
 class XoopsObjectTest extends MY_UnitTestCase
 {
-	protected $myclass = 'XoopsObjectTestInstance';
+	protected $myClass = 'XoopsObjectTestInstance';
     
     public function test___construct()
 	{
-        $instance = new $this->myclass();
-        $this->assertInstanceOf($this->myclass, $instance);
+        $instance = new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
     }
 	
     public function test___constants()
@@ -51,8 +51,8 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
     public function test_setNew()
 	{
-        $instance = new $this->myclass();
-        $this->assertInstanceOf($this->myclass, $instance);
+        $instance = new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
 		$instance->setNew();
 		$this->assertTrue($instance->isNew());
 		$instance->unsetNew();
@@ -73,8 +73,8 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
     public function test_setDirty()
 	{
-        $instance = new $this->myclass();
-        $this->assertInstanceOf($this->myclass, $instance);
+        $instance = new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
 		$instance->setDirty();
 		$this->assertTrue($instance->isDirty());
 		$instance->unsetDirty();
@@ -95,17 +95,83 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
     public function test_initVar()
 	{
-		$this->markTestIncomplete();
+        $instance = new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+		
+		$key = 'key';
+		$data_type = XOBJ_DTYPE_TXTBOX;
+		$value = 'value';
+		$required = true;
+		$maxlength = 10;
+		$options = 'options';
+		$instance->initVar($key, $data_type, $value, $required, $maxlength, $options);
+		$vars = $instance->vars;
+		
+		$this->assertTrue(is_array($vars));
+		$this->assertTrue($vars[$key]['value'] == $value);
+		$this->assertTrue($vars[$key]['data_type'] == $data_type);
+		$this->assertTrue($vars[$key]['required'] == $required);
+		$this->assertTrue($vars[$key]['maxlength'] == $maxlength);
+		$this->assertTrue($vars[$key]['options'] == $options);
+		$this->assertTrue($vars[$key]['changed'] == false);
+		
+		$instance->initVar($key, $data_type);
+		$vars = $instance->vars;
+		
+		$this->assertTrue(is_array($vars));
+		$this->assertTrue($vars[$key]['value'] == null);
+		$this->assertTrue($vars[$key]['data_type'] == $data_type);
+		$this->assertTrue($vars[$key]['required'] == false);
+		$this->assertTrue($vars[$key]['maxlength'] == null);
+		$this->assertTrue($vars[$key]['options'] == '');
+		$this->assertTrue($vars[$key]['changed'] == false);
     }
 	
 	public function test_assignVar()
 	{
-		$this->markTestIncomplete();
+        $instance = new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+		
+		$key = 'key';
+		$data_type = XOBJ_DTYPE_TXTBOX;
+		$instance->initVar($key, $data_type);
+		$vars = $instance->vars;
+		$this->assertTrue(is_array($vars));
+		$this->assertTrue($vars[$key]['value'] == null);
+		
+		$value = 'value';
+		$instance->assignVar($key, $value);
+		$vars = $instance->vars;
+		$this->assertTrue(is_array($vars));
+		$this->assertTrue($vars[$key]['value'] == $value);
     }
 	
 	public function test_assignVars()
 	{
-		$this->markTestIncomplete();
+        $instance = new $this->myClass();
+        $this->assertInstanceOf($this->myClass, $instance);
+		
+		$key = 'key1';
+		$data_type = XOBJ_DTYPE_TXTBOX;
+		$instance->initVar($key, $data_type);
+		$vars = $instance->vars;
+		$this->assertTrue(is_array($vars));
+		$this->assertTrue($vars[$key]['value'] == null);
+		
+		$key = 'key2';
+		$data_type = XOBJ_DTYPE_TXTBOX;
+		$instance->initVar($key, $data_type);
+		$vars = $instance->vars;
+		$this->assertTrue(is_array($vars));
+		$this->assertTrue($vars[$key]['value'] == null);
+		
+		$arrVars = array('key1' => 'value1', 'key2' => 'value2');
+		$instance->assignVars($arrVars);
+		$vars = $instance->vars;
+		$this->assertTrue(is_array($vars));
+		foreach ($arrVars as $k => $v) {
+			$this->assertTrue($vars[$k]['value'] == $v);
+		}
     }
 	
 	public function test_setVar()

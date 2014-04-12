@@ -206,7 +206,7 @@ abstract class XoopsObject
      */
     public function assignVars($var_arr)
     {
-        foreach ($var_arr as $key => $value) {
+        if(is_array($var_arr)) foreach ($var_arr as $key => $value) {
             $this->assignVar($key, $value);
         }
     }
@@ -240,7 +240,7 @@ abstract class XoopsObject
      */
     public function setVars($var_arr, $not_gpc = false)
     {
-        foreach ($var_arr as $key => $value) {
+        if(is_array($var_arr)) foreach ($var_arr as $key => $value) {
             $this->setVar($key, $value, $not_gpc);
         }
     }
@@ -283,7 +283,7 @@ abstract class XoopsObject
     public function setFormVars($var_arr = null, $pref = 'xo_', $not_gpc = false)
     {
         $len = strlen($pref);
-        foreach ($var_arr as $key => $value) {
+        if(is_array($var_arr)) foreach ($var_arr as $key => $value) {
             if ($pref == substr($key, 0, $len)) {
                 $this->setVar(substr($key, $len), $value, $not_gpc);
             }
@@ -316,9 +316,9 @@ abstract class XoopsObject
             $keys = array_keys($this->vars);
         }
         $vars = array();
-        foreach ($keys as $key) {
+        if(is_array($keys)) foreach ($keys as $key) {
             if (isset($this->vars[$key])) {
-                if (is_object($this->vars[$key]) && is_a($this->vars[$key], 'XoopsObject')) {
+                if (is_object($this->vars[$key]) && is_a($this->vars[$key], 'Xoops\Core\Kernel\XoopsObject')) {
                     if ($maxDepth) {
                         /* @var $obj XoopsObject */
                         $obj = $this->vars[$key];
@@ -407,7 +407,7 @@ abstract class XoopsObject
         $path = empty($this->plugin_path) ? dirname(__FILE__) . '/filters' : $this->plugin_path;
         if (\XoopsLoad::fileExists($file = $path . '/filter.php')) {
             include_once $file;
-            foreach ($this->_filters as $f) {
+            if(is_array($this->_filters)) foreach ($this->_filters as $f) {
                 if (\XoopsLoad::fileExists($file = $path . '/' . strtolower($f) . 'php')) {
                     include_once $file;
                 }
@@ -435,7 +435,7 @@ abstract class XoopsObject
 
         $class = get_class($this);
         $modules_active = \Xoops::getInstance()->getActiveModules();
-        foreach ($modules_active as $dirname) {
+        if (is_array($modules_active)) foreach ($modules_active as $dirname) {
             if (\XoopsLoad::fileExists(
                 $file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php'
             )) {
