@@ -17,13 +17,22 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class UserconfigsSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+class UserconfigsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
-    public function userPosts($uid) {return array();}
-    public function waiting() {return 0;}
-    public function backend($limit) {return array();}
+    public function userPosts($uid)
+    {
+        return array();
+    }
+
+    public function waiting()
+    {
+        return 0;
+    }
+
+    public function backend($limit)
+    {
+        return array();
+    }
 
     public function userMenus()
     {

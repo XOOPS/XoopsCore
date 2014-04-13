@@ -16,9 +16,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Search extends Xoops_Module_Helper_Abstract
+class Search extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module

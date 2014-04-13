@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-class CommentsUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements UserconfigsPluginInterface
+class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
 
     /**
@@ -65,4 +65,3 @@ class CommentsUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements 
         return $configs;
     }
 }
-

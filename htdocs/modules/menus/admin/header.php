@@ -21,5 +21,5 @@
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
 
 $xoops = Xoops::getInstance();
-$helper = Xoops_Module_Helper::getHelper('menus');
+$helper = Xoops\Module\Helper::getHelper('menus');
 $request = Xoops_Request::getInstance();

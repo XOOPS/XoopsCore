@@ -95,7 +95,7 @@ if ($op == 'editprofile') {
     $form = profile_getUserForm($xoops->user);
     $form->assign($xoops->tpl());
     if (!empty($stop)) {
-        $xoops->tpl()->assign('stop', $stop);
+        $xoops->tpl()->assign('stop', $xoops->alert('error', $stop));
     }
 
     $xoops->appendConfig('profile_breadcrumbs', array('title' => XoopsLocale::EDIT_PROFILE));

@@ -12,7 +12,7 @@
 namespace Xmf\Module\Helper;
 
 /**
- * GenericHelper implements a Xoops 2.6 Xoops_Module_Helper_Abstract.
+ * GenericHelper implements a Xoops 2.6 Xoops\Module\Helper\HelperAbstract.
  * We use it pre 2.6 systems so we can encapsulate many of the changes
  * needed to make modules more compatable with 2.6 in these methods.
  * The most common deprecated warnings can be avoided by using module
@@ -281,7 +281,7 @@ class GenericHelper
         }
     }
 
-    // these added to mimic 2.6 Xoops_Module_Helper_Abstract
+    // these added to mimic 2.6 Xoops\Module\Helper\HelperAbstract
 
     /**
      * Is this the currently active module?

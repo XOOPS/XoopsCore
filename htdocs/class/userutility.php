@@ -20,17 +20,16 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsUserUtility
 {
     /**
      * XoopsUserUtility::sendWelcome
      *
-     * @param int|XoopsUser $user
+     * @param int|XoopsUser $user id or user object
+     *
      * @return bool
      */
-    static function sendWelcome($user)
+    public static function sendWelcome($user)
     {
         $xoops = Xoops::getInstance();
 
@@ -69,7 +68,7 @@ class XoopsUserUtility
      *
      * @return bool|string
      */
-    static function validate()
+    public static function validate()
     {
         $xoops = Xoops::getInstance();
         $args = func_get_args();
@@ -103,6 +102,12 @@ class XoopsUserUtility
             $email = $user->getVar('email', 'n');
         }
 
+        $user = empty($user) ? null : trim($user);
+        $uname = empty($uname) ? null : trim($uname);
+        $email = empty($email) ? null : trim($email);
+        $pass = empty($pass) ? null : trim($pass);
+        $vpass = empty($vpass) ? null : trim($vpass);
+
         $xoops->getConfigs();
 
         $stop = '';
@@ -115,10 +120,13 @@ class XoopsUserUtility
         }
         // Check forbidden email address if current operator is not an administrator
         if (!$xoops->userIsAdmin) {
-            foreach ($xoops->getConfig('bad_emails') as $be) {
-                if (!empty($be) && preg_match('/' . $be . '/i', $email)) {
-                    $stop .= XoopsLocale::E_INVALID_EMAIL . '<br />';
-                    break;
+            $bad_emails = $xoops->getConfig('bad_emails');
+            if (!empty($bad_emails)) {
+                foreach ($bad_emails as $be) {
+                    if (!empty($be) && preg_match('/' . $be . '/i', $email)) {
+                        $stop .= XoopsLocale::E_INVALID_EMAIL . '<br />';
+                        break;
+                    }
                 }
             }
         }
@@ -143,16 +151,21 @@ class XoopsUserUtility
         }
         // Check uname settings if current operator is not an administrator
         if (!$xoops->userIsAdmin) {
-            if (mb_strlen($uname) > $xoops->getConfig('maxuname')) {
-                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_LESS_THAN, $xoops->getConfig('maxuname')) . '<br />';
+            $maxuname = $xoops->getConfig('maxuname');
+            if (!empty($maxuname) && mb_strlen($uname) > $maxuname) {
+                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_LESS_THAN, $maxuname) . '<br />';
             }
-            if (mb_strlen($uname) < $xoops->getConfig('minuname')) {
-                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_MORE_THAN, $xoops->getConfig('minuname')) . '<br />';
+            $minuname = $xoops->getConfig('minuname');
+            if (!empty($minuname) && mb_strlen($uname) < $minuname) {
+                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_MORE_THAN, $minuname) . '<br />';
             }
-            foreach ($xoops->getConfig('bad_unames') as $bu) {
-                if (!empty($bu) && preg_match('/' . $bu . '/i', $uname)) {
-                    $stop .= XoopsLocale::E_NAME_IS_RESERVED . '<br />';
-                    break;
+            $bad_unames = $xoops->getConfig('bad_unames');
+            if (!empty($bad_unames)) {
+                foreach ($bad_unames as $bu) {
+                    if (!empty($bu) && preg_match('/' . $bu . '/i', $uname)) {
+                        $stop .= XoopsLocale::E_NAME_IS_RESERVED . '<br />';
+                        break;
+                    }
                 }
             }
         }
@@ -185,14 +198,15 @@ class XoopsUserUtility
             return $stop;
         }
 
-        if (!isset($pass) || $pass == '' || !isset($vpass) || $vpass == '') {
+        if (empty($pass) || empty($vpass)) {
             $stop .= XoopsLocale::E_MUST_PROVIDE_PASSWORD . '<br />';
         }
-        if ((isset($pass)) && ($pass != $vpass)) {
+        if (isset($pass) && isset($vpass) && ($pass != $vpass)) {
             $stop .= XoopsLocale::E_PASSWORDS_MUST_MATCH . '<br />';
         } else {
-            if (($pass != '') && (mb_strlen($pass) < $xoops->getConfig('minpass'))) {
-                $stop .= sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass')) . '<br />';
+            $minpass = $xoops->getConfig('minpass');
+            if (($pass != '') && (!empty($minpass)) && (mb_strlen($pass) < $minpass)) {
+                $stop .= sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $minpass) . '<br />';
             }
         }
         return $stop;
@@ -204,9 +218,10 @@ class XoopsUserUtility
      * Adapted from PMA_getIp() [phpmyadmin project]
      *
      * @param bool $asString requiring integer or dotted string
+     *
      * @return mixed string or integer value for the IP
      */
-    static function getIP($asString = false)
+    public static function getIP($asString = false)
     {
         // Gets the proxy ip sent by the user
         $proxy_ip = '';
@@ -251,13 +266,13 @@ class XoopsUserUtility
     /**
      * XoopsUserUtility::getUnameFromIds()
      *
-     * @param array $uids
-     * @param bool  $usereal
-     * @param bool  $linked
+     * @param array $uids    array of int ids
+     * @param bool  $usereal use real names if true
+     * @param bool  $linked  show names as link to userinfo.php
      *
-     * @return array
+     * @return array of strings, names or links
      */
-    static function getUnameFromIds($uids, $usereal = false, $linked = false)
+    public static function getUnameFromIds($uids, $usereal = false, $linked = false)
     {
         $xoops = Xoops::getInstance();
         if (!is_array($uids)) {
@@ -282,7 +297,8 @@ class XoopsUserUtility
                     $users[$uid] = $myts->htmlSpecialChars($row['uname']);
                 }
                 if ($linked) {
-                    $users[$uid] = '<a href="' . XOOPS_URL . '/userinfo.php?uid=' . $uid . '" title="' . $users[$uid] . '">' . $users[$uid] . '</a>';
+                    $users[$uid] = '<a href="' . XOOPS_URL . '/userinfo.php?uid='
+                        . $uid . '" title="' . $users[$uid] . '">' . $users[$uid] . '</a>';
                 }
             }
         }
@@ -295,12 +311,13 @@ class XoopsUserUtility
     /**
      * XoopsUserUtility::getUnameFromId()
      *
-     * @param int $userid
-     * @param bool $usereal
-     * @param bool $linked
-     * @return string
+     * @param int  $userid  id of user
+     * @param bool $usereal use real name if true
+     * @param bool $linked  show username as link to userinfo.php
+     *
+     * @return string name or link
      */
-    static function getUnameFromId($userid, $usereal = false, $linked = false)
+    public static function getUnameFromId($userid, $usereal = false, $linked = false)
     {
         $xoops = Xoops::getInstance();
         $myts = MyTextSanitizer::getInstance();
@@ -316,7 +333,8 @@ class XoopsUserUtility
                     $username = $user->getVar('uname');
                 }
                 if (!empty($linked)) {
-                    $username = '<a href="' . XOOPS_URL . '/userinfo.php?uid=' . $userid . '" title="' . $username . '">' . $username . '</a>';
+                    $username = '<a href="' . XOOPS_URL . '/userinfo.php?uid='
+                        . $userid . '" title="' . $username . '">' . $username . '</a>';
                 }
             }
         }

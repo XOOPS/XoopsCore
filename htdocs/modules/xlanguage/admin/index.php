@@ -42,8 +42,9 @@ switch ($op) {
     case 'add':
         $lang = $helper->getHandlerLanguage()->create();
         $form = $helper->getForm($lang, 'language');
-        $admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
-        $admin_page->addInfoBoxLine($form->render());
+        $form->display();
+        //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
+        //$admin_page->addInfoBoxLine($form->render());
         break;
 
     case 'edit':
@@ -51,8 +52,9 @@ switch ($op) {
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $form = $helper->getForm($lang, 'language');
-                $admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
-                $admin_page->addInfoBoxLine($form->render());
+                $form->display();
+                //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
+                //$admin_page->addInfoBoxLine($form->render());
             } else {
                 $xoops->redirect('index.php', 2);
             }
@@ -82,6 +84,7 @@ switch ($op) {
                     ob_end_clean();
                     $admin_page->addInfoBox(_MI_XLANGUAGE_DELETE);
                     $admin_page->addInfoBoxLine($confirm);
+                    $admin_page->displayIndex();
                 }
             } else {
                 $xoops->redirect('index.php', 2);
@@ -100,6 +103,7 @@ switch ($op) {
     default:
         $admin_page->addInfoBox(_AM_XLANGUAGE_LANGLIST);
         $admin_page->addInfoBoxLine($helper->getHandlerLanguage()->renderlist());
+        $admin_page->displayIndex();
         break;
 }
 include dirname(__FILE__) . '/footer.php';

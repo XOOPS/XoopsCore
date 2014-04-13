@@ -16,9 +16,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class PageSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+class PageSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
      * @param int $uid
@@ -63,8 +61,9 @@ class PageSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPlu
     public function backend($limit)
     {
         $ret = array();
-        $contents = Page::getInstance()->getContentHandler()->getPagePublished(0,$limit);
-        foreach ($contents as $k => $content) {            $ret[$k]['title']   = $content->getVar('content_title');
+        $contents = Page::getInstance()->getContentHandler()->getPagePublished(0, $limit);
+        foreach ($contents as $k => $content) {
+            $ret[$k]['title']   = $content->getVar('content_title');
             $ret[$k]['link']    = Page::getInstance()->url('viewpage.php') . '?id=' . $content->getVar('content_id');
             $ret[$k]['content'] = $content->getVar('content_shorttext') . '<br />' . $content->getVar('content_text');
             $ret[$k]['date']    = $content->getVar('content_create');
