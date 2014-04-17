@@ -9,38 +9,29 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-/**
- * XOOPS Authentication Active directory class
- *
- * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package class
- * @subpackage auth
- * @since 2.0
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @version $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+namespace Xoops\Auth;
 
 /**
- * Xoops_Auth_Ads
+ * Authentication class for Active Directory
  *
- * @package class
- * @subpackage auth
- * @description Authentication class for Active Directory
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @category  Xoops\Auth
+ * @package   Ldap
+ * @author    Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.0
  */
-class Xoops_Auth_Ads extends Xoops_Auth_Ldap
+class Ads extends Ldap
 {
     /**
      * Authentication Service constructor
      *
-     * @param XoopsConnection|null $dao
+     * @param XoopsConnection|null $dao database
+     *
      * @return void
      */
-    public function _construct(XoopsConnection $dao = null)
+    public function __construct(XoopsConnection $dao = null)
     {
         parent::__construct($dao);
     }
@@ -52,7 +43,8 @@ class Xoops_Auth_Ads extends Xoops_Auth_Ldap
      *         Authenticate with manager, search the dn
      *
      * @param string $uname Username
-     * @param string $pwd Password
+     * @param string $pwd   Password
+     *
      * @return bool
      */
     public function authenticate($uname, $pwd = null)
@@ -62,13 +54,13 @@ class Xoops_Auth_Ads extends Xoops_Auth_Ldap
             $this->setErrors(0, XoopsLocale::E_EXTENSION_PHP_LDAP_NOT_LOADED);
             return $authenticated;
         }
-        $this->_ds = ldap_connect($this->ldap_server, $this->ldap_port);
-        if ($this->_ds) {
-            ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, $this->ldap_version);
-            ldap_set_option($this->_ds, LDAP_OPT_REFERRALS, 0);
+        $this->ds = ldap_connect($this->ldap_server, $this->ldap_port);
+        if ($this->ds) {
+            ldap_set_option($this->ds, LDAP_OPT_PROTOCOL_VERSION, $this->ldap_version);
+            ldap_set_option($this->ds, LDAP_OPT_REFERRALS, 0);
             if ($this->ldap_use_TLS) { // We use TLS secure connection
-                if (!ldap_start_tls($this->_ds)) {
-                    $this->setErrors(0, XoopsLocale::E_TLS_CONNECTION_NOT_OPENED);
+                if (!ldap_start_tls($this->ds)) {
+                    $this->setErrors(0, \XoopsLocale::E_TLS_CONNECTION_NOT_OPENED);
                 }
             }
             // If the uid is not in the DN we proceed to a search
@@ -78,7 +70,7 @@ class Xoops_Auth_Ads extends Xoops_Auth_Ldap
                 return false;
             }
             // We bind as user to test the credentials
-            $authenticated = ldap_bind($this->_ds, $userUPN, $this->cp1252_to_utf8(stripslashes($pwd)));
+            $authenticated = ldap_bind($this->ds, $userUPN, stripslashes($pwd));
             if ($authenticated) {
                 // We load the Xoops User database
                 $dn = $this->getUserDN($uname);
@@ -88,12 +80,12 @@ class Xoops_Auth_Ads extends Xoops_Auth_Ldap
                     return false;
                 }
             } else {
-                $this->setErrors(ldap_errno($this->_ds), ldap_err2str(ldap_errno($this->_ds)) . '(' . $userUPN . ')');
+                $this->setErrors(ldap_errno($this->ds), ldap_err2str(ldap_errno($this->ds)) . '(' . $userUPN . ')');
             }
         } else {
-            $this->setErrors(0, XoopsLocale::E_CANNOT_CONNECT_TO_SERVER);
+            $this->setErrors(0, \XoopsLocale::E_CANNOT_CONNECT_TO_SERVER);
         }
-        @ldap_close($this->_ds);
+        @ldap_close($this->ds);
         return $authenticated;
     }
 
@@ -103,7 +95,8 @@ class Xoops_Auth_Ads extends Xoops_Auth_Ldap
      *         looks like an email address.  Very useful for logging on especially in
      *         a large Forest.   Note UPN must be unique in the forest.
      *
-     * @param $uname
+     * @param string $uname username
+     *
      * @return string userDN
      */
     public function getUPN($uname)
