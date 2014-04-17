@@ -117,7 +117,7 @@ $ellipsis_title_after_first_row = TRUE;
 //*************************
 //Permissions configuration
 //******************
-$delete_files	 = TRUE;
+$delete_files	 = FALSE;
 $create_folders	 = FALSE;
 $delete_folders	 = FALSE;
 $upload_files	 = FALSE;
