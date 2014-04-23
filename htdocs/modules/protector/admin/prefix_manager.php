@@ -90,7 +90,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
         $_SESSION['protector_logger'] = Logger::getInstance()->dump('queries');
     }
 
-    if ( $error != '' ) {
+    if ($error != '') {
         $xoops->tpl()->assign('error', $error);
         $xoops->footer();
     } else {
@@ -238,7 +238,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
 // beggining of Output
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('prefix_manager.php');
 
 $xoops->tpl()->assign('prefix', sprintf(_AM_TXT_HOWTOCHANGEDB, XOOPS_VAR_PATH . "/data/secure.php"));
@@ -278,16 +278,17 @@ foreach ($prefixes as $prefix) {
     $table_count = 0;
     $has_xoopscomments = false;
     foreach ($tables as $table) {
-        if ($table == $prefix['name'] . '_xoopscomments')
-                {
-                    $has_xoopscomments = true;
-                }
-        if (substr($table, 0, strlen($prefix['name']) + 1) === $prefix['name'] . '_')
+        if ($table == $prefix['name'] . '_xoopscomments') {
+            $has_xoopscomments = true;
+        }
+        if (substr($table, 0, strlen($prefix['name']) + 1) === $prefix['name'] . '_') {
             $table_count++;
+        }
     }
     // check if prefix_xoopscomments exists
-    if (!$has_xoopscomments)
+    if (!$has_xoopscomments) {
         continue;
+    }
 
     $prefix4disp = htmlspecialchars($prefix['name'], ENT_QUOTES);
     $ticket_input = $xoopsGTicket->getTicketHtml(__LINE__, 1800, 'protector_admin');

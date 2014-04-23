@@ -40,7 +40,7 @@ $op = $request->asStr('op', 'list');
 // Get start pager
 $start = $request->asInt('start', 0);
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('clients.php');
 
 switch ($op) {

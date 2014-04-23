@@ -25,7 +25,7 @@ include_once dirname(__FILE__) . '/admin_header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
 $indexAdmin->displayIndex();
 

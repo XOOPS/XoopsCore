@@ -70,7 +70,7 @@ class Admin
 
         if ($instance === null) {
             if (class_exists('XoopsModuleAdmin', true)) {
-                $instance  = new \XoopsModuleAdmin;
+                $instance  = new \Xoops\Module\Admin;
                 self::$ModuleAdmin = $instance;
             } else {
                 \Xmf\Loader::loadFile(
@@ -370,7 +370,7 @@ class Admin
      * @param string $size the icon size (directory). Valid values are
      *                     16, 32 or /. A '/' slash will simply set the
      *                     path to the icon directory and append $image.
-     * 
+     *
      * @return bool true if we are in a 2.6 environment
      */
     public static function iconUrl($name = '', $size = '32')

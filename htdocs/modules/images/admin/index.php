@@ -25,7 +25,7 @@ $xoops->header();
 // folder path
 $folder_path = XOOPS_ROOT_PATH . '/uploads/images';
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 $admin_page->addInfoBox(_MI_IMAGES_IMAGES);

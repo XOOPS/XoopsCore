@@ -115,7 +115,7 @@ if (!empty($_POST['action'])) {
 // beggining of Output
 $xoops->header('protector_center.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
 
 // bad_ips

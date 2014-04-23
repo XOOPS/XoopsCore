@@ -34,10 +34,10 @@ $adminmenu = array(
         'title' => _MI_PROTECTOR_ADVISORY,
         'link'  => 'admin/advisory.php',
         'icon'  => 'security.png',
-    ), array(
-        'title' => _MI_PROTECTOR_PREFIXMANAGER,
-        'link'  => 'admin/prefix_manager.php',
-        'icon'  => 'manage.png',
+//    ), array(
+//        'title' => _MI_PROTECTOR_PREFIXMANAGER,
+//        'link'  => 'admin/prefix_manager.php',
+//        'icon'  => 'manage.png',
     ), array(
         'title' => _MI_PROTECTOR_ADMINABOUT,
         'link'  => 'admin/about.php',

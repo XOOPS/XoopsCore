@@ -18,7 +18,7 @@
 
 require dirname(__FILE__) . '/admin_header.php';
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
 $indexAdmin->displayIndex();
 

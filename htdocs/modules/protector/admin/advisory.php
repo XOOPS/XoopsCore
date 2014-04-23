@@ -27,7 +27,7 @@ $db = $xoopsDB;
 // Call header
 $xoops->header('protector_advisory.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('advisory.php');
 
 // Define Stylesheet

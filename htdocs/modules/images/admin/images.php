@@ -23,7 +23,7 @@ include dirname(__FILE__) . '/header.php';
 // Call Header
 $xoops->header('images_admin_images.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('images.php');
 
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
@@ -81,10 +81,10 @@ switch ($op) {
                 }
             }
         }
-        if ($error == true){
+        if ($error == true) {
             $xoops->tpl()->assign('error_message', $error_message);
         } else {
-            if ( $image_id = $helper->getHandlerImages()->insert($obj)) {
+            if ($image_id = $helper->getHandlerImages()->insert($obj)) {
                 if ($category->getVar('imgcat_storetype') == 'db'  && $isnew) {
                     $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                     if (!is_object($imagebody)) {
@@ -148,14 +148,10 @@ switch ($op) {
                     $img = XOOPS_UPLOAD_URL . '/' . $obj->getVar('image_name');
                 }
                 $xoops->confirm(
-                        array(
-                        'op' => 'del',
-                        'ok' => 1,
-                        'image_id' => $image_id,
-                        'imgcat_id' => $obj->getVar('imgcat_id'),
-                        ),
-                        XOOPS_URL . '/modules/images/admin/images.php',
-                        sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename')) . '<br /><br /><img src="' . $img . '" /><br />'
+                    array('op' => 'del', 'ok' => 1, 'image_id' => $image_id, 'imgcat_id' => $obj->getVar('imgcat_id')),
+                    XOOPS_URL . '/modules/images/admin/images.php',
+                    sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename'))
+                    . '<br /><br /><img src="' . $img . '" /><br />'
                 );
             }
         }

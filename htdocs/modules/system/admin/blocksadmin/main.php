@@ -79,7 +79,7 @@ switch ($op) {
         $xoops->theme()->addScript('modules/system/js/admin.js');
         $xoops->theme()->addScript('modules/system/js/blocks.js');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::BLOCKS_ADMINISTRATION, $system->adminVersion('blocksadmin', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::MANAGE_BLOCKS);
@@ -191,7 +191,7 @@ switch ($op) {
         $xoops->theme()->addScript('modules/system/js/admin.js');
         $xoops->theme()->addScript('modules/system/js/blocks.js');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::BLOCKS_ADMINISTRATION, $system->adminVersion('blocksadmin', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_BLOCK);
@@ -396,7 +396,7 @@ switch ($op) {
             $xoops->theme()->addScript('media/jquery/plugins/jquery.form.js');
             $xoops->theme()->addScript('modules/system/js/admin.js');
             // Define Breadcrumb and tips
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::BLOCKS_ADMINISTRATION, $system->adminVersion('blocksadmin', 'adminpath'));
             $admin_page->addBreadcrumbLink(SystemLocale::EDIT_BLOCK);
@@ -419,7 +419,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::BLOCKS_ADMINISTRATION, $system->adminVersion('blocksadmin', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_BLOCK);
@@ -509,7 +509,7 @@ switch ($op) {
             // Define Stylesheet
             $xoops->theme()->addStylesheet('modules/system/css/admin.css');
             // Define Breadcrumb and tips
-            $system_breadcrumb = new XoopsModuleAdmin();
+            $system_breadcrumb = new \Xoops\Module\Admin();
             $system_breadcrumb->addBreadcrumbLink(SystemLocale::BLOCKS_ADMINISTRATION, system_adminVersion('blocksadmin', 'adminpath'));
             $system_breadcrumb->addBreadcrumbLink(SystemLocale::CLONE_BLOCK);
             $system_breadcrumb->renderBreadcrumb();

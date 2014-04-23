@@ -35,7 +35,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'visibility', 'string');
 // Call header
 $xoops->header();
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('permissions.php');
 
 $visibility_handler = $xoops->getModuleHandler('visibility');
