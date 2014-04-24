@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 */
 class Xoops_Auth_LdapTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Auth_Ldap';
+    protected $myclass = 'Xoops\Auth\Ldap';
     
     public function test___construct()
 	{	

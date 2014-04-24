@@ -29,7 +29,7 @@ class Xoops extends AuthAbstract
      *
      * @param XoopsConnection|null $dao database object
      */
-    public function __construct(XoopsConnection $dao = null)
+    public function __construct(\XoopsConnection $dao = null)
     {
         $this->dao = $dao;
         $this->auth_method = 'xoops';

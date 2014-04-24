@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 */
 class Xoops_Auth_AdsTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Auth_Ads';
+    protected $myclass = 'Xoops\Auth\Ads';
     
     public function test___construct()
 	{	
