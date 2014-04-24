@@ -1,14 +1,20 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
+class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
+{
+
+    function authenticate($uname, $pwd = null) {}
+}
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Auth_XoopsTest extends MY_UnitTestCase
+class AuthAbstractTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops\Auth\Xoops';
+    protected $myclass = 'AuthAbstractTestInstance';
     
     public function test___construct()
 	{
@@ -16,10 +22,9 @@ class Xoops_Auth_XoopsTest extends MY_UnitTestCase
 		
 		$instance = new $this->myclass($conn);
 		$this->assertInstanceOf($this->myclass, $instance);
-		$this->assertInstanceOf('Xoops\Auth\AuthAbstract', $instance);
     }
 	
-	public function test_authenticate()
+	public function test_setErrors()
 	{
 		$this->markTestIncomplete();
 	}

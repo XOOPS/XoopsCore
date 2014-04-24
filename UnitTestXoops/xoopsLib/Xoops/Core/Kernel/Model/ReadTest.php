@@ -22,4 +22,24 @@ class ReadTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
+	
+	public function test_getAll()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_getObjects()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_getList()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_getIds()
+	{
+		$this->markTestIncomplete();
+    }
 }

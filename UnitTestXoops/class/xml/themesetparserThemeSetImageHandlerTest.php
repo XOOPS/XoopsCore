@@ -20,8 +20,31 @@ class ThemeSetImageHandlerTest extends MY_UnitTestCase
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 	
-    public function test_100()
+    public function test_getName()
     {
+		$instance = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$name = $instance->getName();
+		$this->assertSame('image', $name);
+	}
+	
+    public function test_handleBeginElement()
+    {
+		$input = 'input';
+		$instance = new $this->myclass($input);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		//$instance->handleBeginElement();
 		$this->markTestIncomplete();
+	}
+
+    public function test_handleEndElement()
+    {
+		$input = 'input';
+		$instance = new $this->myclass($input);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		//$instance->handleEndElement();
 	}
 }

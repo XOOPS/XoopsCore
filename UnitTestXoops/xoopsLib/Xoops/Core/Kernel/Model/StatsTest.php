@@ -22,4 +22,15 @@ class StatsTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
+	
+	public function test_getCount()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_getCounts()
+	{
+		$this->markTestIncomplete();
+    }
+
 }

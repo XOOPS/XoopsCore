@@ -3,7 +3,7 @@ require_once(dirname(__FILE__).'/../../../../init.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
-class Kernel_CriteriaElementInstance extends Xoops\Core\Kernel\CriteriaElement
+class Kernel_CriteriaElementTestInstance extends Xoops\Core\Kernel\CriteriaElement
 {
 	function render() {}
 	function renderWhere() {}
@@ -19,7 +19,7 @@ class Kernel_CriteriaElementInstance extends Xoops\Core\Kernel\CriteriaElement
 */
 class Kernel_CriteriaElementTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Kernel_CriteriaElementInstance';
+    protected $myclass = 'Kernel_CriteriaElementTestInstance';
     
     public function test___construct()
 	{
