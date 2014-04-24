@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * page module
  *
@@ -20,8 +22,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class PagePage_related_link extends XoopsObject
 {
     /**
@@ -30,13 +30,13 @@ class PagePage_related_link extends XoopsObject
     public function __construct()
     {
         $this->initVar('link_id', XOBJ_DTYPE_INT, null, false, 8);
-        $this->initVar('link_related_id', XOBJ_DTYPE_TXTBOX, null, false );
+        $this->initVar('link_related_id', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('link_content_id', XOBJ_DTYPE_INT, null, false, 1);
         $this->initVar('link_weight', XOBJ_DTYPE_INT, null, false, 1);
 
         // joint
         $this->initVar('content_id', XOBJ_DTYPE_INT, 0, false, 11);
-        $this->initVar('content_title', XOBJ_DTYPE_TXTBOX, '', false );
+        $this->initVar('content_title', XOBJ_DTYPE_TXTBOX, '', false);
     }
 
     public function getValues($keys = null, $format = null, $maxDepth = null)
@@ -56,14 +56,14 @@ class PagePage_related_link extends XoopsObject
 class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_related_link', 'pagepage_related_link', 'link_id', 'link_related_id');
     }
 
-    public function getLinks($related_id, $sort='link_weight', $order='desc')
+    public function getLinks($related_id, $sort = 'link_weight', $order = 'desc')
     {
         $this->table_link = $this->db->prefix('page_content');
         $this->field_link = 'content_id';
@@ -71,16 +71,16 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
 
 
         $criteria = new CriteriaCompo();
-        $criteria->add( new Criteria('link_related_id', $related_id) ) ;
+        $criteria->add(new Criteria('link_related_id', $related_id));
         $criteria->setSort($sort);
         $criteria->setOrder($order);
         return parent::getByLink($criteria, null, false);
     }
 
-    public function getContentByRelated($related_id, $sort='link_weight', $order='asc')
+    public function getContentByRelated($related_id, $sort = 'link_weight', $order = 'asc')
     {
         $criteria = new CriteriaCompo();
-        $criteria->add( new Criteria('link_related_id', $related_id) ) ;
+        $criteria->add(new Criteria('link_related_id', $related_id));
         $criteria->setSort($sort);
         $criteria->setOrder($order);
 
@@ -104,7 +104,7 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
     public function DeleteByIds($links_ids)
     {
         $criteria = new CriteriaCompo();
-        $criteria->add( new Criteria('link_id', '(' . implode(', ', $links_ids) . ')', 'IN'));
+        $criteria->add(new Criteria('link_id', '(' . implode(', ', $links_ids) . ')', 'IN'));
         return parent::deleteAll($criteria);
     }
 
@@ -120,7 +120,7 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
 
             // create button prev / next
             $keys = array_keys($ret['related_links']);
-            foreach ($keys as $k => $i ) {
+            foreach ($keys as $k => $i) {
                 if ($content_id == $ret['related_links'][$i]['content_id']) {
                     if (($k-1) >= 0) {
                         $ret['prev_id'] = $ret['related_links'][$keys[($k-1)]]['content_id'];

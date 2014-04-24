@@ -17,6 +17,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
@@ -122,7 +123,7 @@ class XoopsUser extends XoopsObject
      * @param int $usereal switch for usename or realname
      * @return string name of the user. name for 'anonymous' if not found.
      */
-    static function getUnameFromId($userid, $usereal = 0)
+    public static function getUnameFromId($userid, $usereal = 0)
     {
         $xoops = xoops::getInstance();
         $userid = intval($userid);
@@ -532,9 +533,9 @@ class XoopsGuestUser extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'users', 'XoopsUser', 'uid', 'uname');
     }
@@ -565,9 +566,9 @@ class XoopsUserHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'users', 'XoopsUser', 'uid', 'uname');
     }

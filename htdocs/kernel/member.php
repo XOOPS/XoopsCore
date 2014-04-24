@@ -17,6 +17,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
@@ -64,9 +65,9 @@ class XoopsMemberHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db database connection
+     * @param Connection|null $db database connection
      */
-    public function __construct($db = null)
+    public function __construct(Connection $db = null)
     {
         $this->_gHandler = Xoops::getInstance()->getHandlerGroup();
         $this->_uHandler = Xoops::getInstance()->getHandlerUser();

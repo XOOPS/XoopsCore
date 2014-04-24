@@ -12,7 +12,7 @@
  */
 
 
-$xoops_root_path = dirname( dirname ( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) ) ) ;
+$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
 include_once $xoops_root_path . '/mainfile.php';
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
@@ -21,14 +21,16 @@ $xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
 $request = Xoops_Request::getInstance();
 
-$helper = Xoops_Module_Helper::getHelper('xlanguage');
+$helper = Xoops\Module\Helper::getHelper('xlanguage');
 if ($helper) {
-	$helper->loadLanguage('admin');
-	$helper->loadLanguage('tinymce');
+    $helper->loadLanguage('admin');
+    $helper->loadLanguage('tinymce');
 }
 
 $op = $request->asStr('op', '');
-if ($op == 'save') {    if (!$xoops->security()->check()) {        $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));
+if ($op == 'save') {
+    if (!$xoops->security()->check()) {
+        $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));
     }
 
     XoopsLoad::load('system', 'system');
@@ -46,18 +48,19 @@ $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONY
 $gperm_handler = $xoops->getHandlerGroupperm();
 $admin = false;
 if ($gperm_handler) {
-	$xlanguage = $xoops->getHandlerModule()->getByDirName('xlanguage');
-	if ($xlanguage)
-		$admin = $gperm_handler->checkRight( 'system_admin', $xlanguage->getVar('mid'), $groups );
+    $xlanguage = $xoops->getHandlerModule()->getByDirName('xlanguage');
+    if ($xlanguage) {
+        $admin = $gperm_handler->checkRight('system_admin', $xlanguage->getVar('mid'), $groups);
+    }
 }
-	
+
 $xoopsTpl = new XoopsTpl();
 
 if ($helper) {
-	$xoopsTpl->assign('form_txt', $helper->getForm($helper->getHandlerLanguage()->loadConfig(), 'tinymce')->render());
-	if ($admin) {
-		$xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerLanguage()->create(), 'language')->render());
-	}
+    $xoopsTpl->assign('form_txt', $helper->getForm($helper->getHandlerLanguage()->loadConfig(), 'tinymce')->render());
+    if ($admin) {
+        $xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerLanguage()->create(), 'language')->render());
+    }
 }
 
 $xoopsTpl->display('module:xlanguage|xlanguage_tinymce.html');

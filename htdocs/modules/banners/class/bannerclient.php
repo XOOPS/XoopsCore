@@ -20,6 +20,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -45,9 +46,9 @@ class BannersBannerclient extends XoopsObject
 class BannersBannerclientHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db database
+     * @param null|Connection $db database
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'banners_bannerclient', 'BannersBannerclient', 'bannerclient_cid', 'bannerclient_name');
     }

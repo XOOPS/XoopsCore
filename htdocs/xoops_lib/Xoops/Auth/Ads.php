@@ -11,6 +11,8 @@
 
 namespace Xoops\Auth;
 
+use Xoops\Core\Database\Connection;
+
 /**
  * Authentication class for Active Directory
  *
@@ -27,11 +29,11 @@ class Ads extends Ldap
     /**
      * Authentication Service constructor
      *
-     * @param XoopsConnection|null $dao database
+     * @param Connection|null $dao database
      *
      * @return void
      */
-    public function __construct(XoopsConnection $dao = null)
+    public function __construct(Connection $dao = null)
     {
         parent::__construct($dao);
     }

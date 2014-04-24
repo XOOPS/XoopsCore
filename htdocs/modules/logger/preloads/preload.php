@@ -129,7 +129,7 @@ class LoggerPreload extends PreloadItem
         if (!class_exists('LegacyLogger')) {
             return;
         }
-        /* @var $db XoopsConnection */
+        /* @var $db Xoops\Core\Database\Connection */
         $db = $args[0];
         LegacyLogger::getInstance()->addQuery('', $db->error(), $db->errno());
     }
@@ -146,7 +146,7 @@ class LoggerPreload extends PreloadItem
         if (!class_exists('LegacyLogger')) {
             return;
         }
-        /* @var $db XoopsConnection */
+        /* @var $db Xoops\Core\Database\Connection */
         $db = $args[0];
         LegacyLogger::getInstance()->addQuery('', $db->error(), $db->errno());
     }

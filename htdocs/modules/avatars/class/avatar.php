@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
@@ -16,8 +18,6 @@
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * A Avatar
@@ -51,7 +51,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_id
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -63,7 +63,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_id
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -75,7 +75,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_file
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -87,7 +87,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_name
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -99,7 +99,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_mimetype
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -111,7 +111,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_created
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -123,7 +123,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_display
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -135,7 +135,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_weight
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -147,7 +147,7 @@ class AvatarsAvatar extends XoopsObject
 
     /**
      * get avatar_type
-     * 
+     *
      * @param string $format return format code
      *
      * @return mixed
@@ -190,9 +190,9 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'avatars_avatar', 'AvatarsAvatar', 'avatar_id', 'avatar_name');
     }
@@ -270,7 +270,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
      * getUser - get avatars_user_link for an avatar
      *
      * @param AvatarsAvatar $avatar avatar object
-     * 
+     *
      * @return array
      */
     public function getUser(AvatarsAvatar $avatar)
@@ -292,7 +292,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
      *
      * @param string $avatar_type    'C' for custom, 'S' for system
      * @param bool   $avatar_display display avatar
-     * 
+     *
      * @return array
      */
     public function getListByType($avatar_type = null, $avatar_display = null)

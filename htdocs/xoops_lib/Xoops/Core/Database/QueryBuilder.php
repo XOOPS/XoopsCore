@@ -1,30 +1,34 @@
 <?php
 /**
-  You may not change or alter any portion of this comment or credits
-  of supporting developers from this source code or any supporting source code
-  which is considered copyrighted (c) material of the original comment or credit authors.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+namespace Xoops\Core\Database;
+
+use Xoops\Core\Database\Connection;
 
 /**
  * Connection wrapper for Doctrine DBAL Connection
  *
  * PHP version 5.3
  *
- * @category  Xoops\Class\Database\QueryBuilder
+ * @category  Xoops\Core\Database\QueryBuilder
  * @package   QueryBuilder
  * @author    readheadedrod <redheadedrod@hotmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
  * @version   Release: 2.6.0
  * @link      http://xoops.org
  * @since     2.6.0
  */
-class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
+class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
 {
 
     /**
@@ -46,7 +50,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function deletePrefix($delete = null, $alias = null)
     {
-        $delete = XoopsConnection::prefix($delete);
+        $delete = Connection::prefix($delete);
         return $this->delete($delete, $alias);
     }
 
@@ -69,7 +73,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function updatePrefix($update = null, $alias = null)
     {
-        $update = XoopsConnection::prefix($update);
+        $update = Connection::prefix($update);
         return $this->update($update, $alias);
     }
 
@@ -91,7 +95,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function fromPrefix($from, $alias)
     {
-        $from = XoopsConnection::prefix($from);
+        $from = Connection::prefix($from);
         return $this->from($from, $alias);
     }
 
@@ -114,7 +118,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function joinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = XoopsConnection::prefix($join);
+        $join = Connection::prefix($join);
         return $this->join($fromAlias, $join, $alias, $condition);
     }
 
@@ -138,7 +142,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function innerJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = XoopsConnection::prefix($join);
+        $join = Connection::prefix($join);
         return $this->innerJoin($fromAlias, $join, $alias, $condition);
     }
 
@@ -161,7 +165,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function leftJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = XoopsConnection::prefix($join);
+        $join = Connection::prefix($join);
         return $this->leftJoin($fromAlias, $join, $alias, $condition);
     }
 
@@ -184,7 +188,7 @@ class XoopsQueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function rightJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = XoopsConnection::prefix($join);
+        $join = Connection::prefix($join);
         return $this->rightJoin($fromAlias, $join, $alias, $condition);
     }
 }
