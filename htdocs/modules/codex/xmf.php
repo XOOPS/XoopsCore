@@ -143,7 +143,7 @@ echo Highlighter::apply($keywords, $article);
 // show that Debug::dump() does more that just text and arrays
 echo '<br /><h2>Debugging Tools</h2>';
 echo '<h4>Dump our module object</h4>';
-$helper = Xoops_Module_Helper::getHelper('codex');
+$helper = Xoops\Module\Helper::getHelper('codex');
 Debug::dump($helper->getModule());
 
 // dump our source

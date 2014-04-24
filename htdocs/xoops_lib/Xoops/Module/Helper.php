@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Module;
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -16,35 +17,35 @@
  * @version         $Id$
  */
 
-class Xoops_Module_Helper
+class Helper
 {
     /**
      * @param string $dirname
      *
-     * @return bool|Xoops_Module_Helper_Abstract
+     * @return bool|Xoops\Module\Helper\HelperAbstract
      */
-    static function getHelper($dirname = 'system')
+    public static function getHelper($dirname = 'system')
     {
         static $modules = array();
 
         $dirname = strtolower($dirname);
         if (!isset($modules[$dirname])) {
             $modules[$dirname] = false;
-            $xoops = Xoops::getInstance();
+            $xoops = \Xoops::getInstance();
             if ($xoops->isActiveModule($dirname)) {
                 //Load Module helper if available
-                if (XoopsLoad::loadFile($xoops->path("modules/{$dirname}/class/helper.php"))) {
-                    $className = ucfirst($dirname);
+                if (\XoopsLoad::loadFile($xoops->path("modules/{$dirname}/class/helper.php"))) {
+                    $className = '\\' . ucfirst($dirname);
                     if (class_exists($className)) {
                         $class = new $className();
-                        if ($class instanceof Xoops_Module_Helper_Abstract) {
+                        if ($class instanceof \Xoops\Module\Helper\HelperAbstract) {
                             $modules[$dirname] = $class::getInstance();
                         }
                     }
                 } else {
                     //Create Module Helper
-                    Xoops::getInstance()->registry()->set('module_helper_id', $dirname);
-                    $class = Xoops_Module_Helper_Dummy::getInstance();
+                    \Xoops::getInstance()->registry()->set('module_helper_id', $dirname);
+                    $class = \Xoops\Module\Helper\Dummy::getInstance();
                     $class->setDirname($dirname);
                     $modules[$dirname] = $class;
                 }

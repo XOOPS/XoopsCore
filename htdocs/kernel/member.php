@@ -332,6 +332,8 @@ class XoopsMemberHandler
      *
      * @return mixed object  XoopsUser reference to the logged in user
      *               boolean FALSE if failed to log in
+     *
+     * @todo - md5 support should be completely removed eventually
      */
     public function loginUser($uname, $pwd)
     {
@@ -341,6 +343,7 @@ class XoopsMemberHandler
         if (!$user || count($user) != 1) {
             return false;
         }
+        $rehash = false;
         $hash = $user[0]->pass();
         $type = substr($user[0]->pass(), 0, 1);
         // see if we have a crypt like signature, old md5 hash is just hex digits
@@ -348,8 +351,18 @@ class XoopsMemberHandler
             if (!password_verify($pwd, $hash)) {
                 return false;
             }
-        } elseif ($hash!=md5($pwd)) {
-            return false;
+            // check if hash uses the best algorithm (i.e. after a PHP upgrade)
+            $rehash = password_needs_rehash($hash, PASSWORD_DEFAULT);
+        } else {
+            if ($hash!=md5($pwd)) {
+                return false;
+            }
+            $rehash = true; // automatically update old style
+        }
+        // hash used an old algorithm, so make it stronger
+        if ($rehash) {
+            $user[0]->setVar('pass', password_hash($pwd, PASSWORD_DEFAULT));
+            $this->_uHandler->insert($user[0]);
         }
         return $user[0];
     }

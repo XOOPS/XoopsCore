@@ -18,8 +18,6 @@ use Xoops\Core\PreloadItem;
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Comments core preloads
  *
@@ -59,7 +57,7 @@ class CommentsPreload extends PreloadItem
         $configs =& $args[1];
         $helper = Comments::getInstance(); //init helper to load defines na language
 
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
             $commentsConfigs = $helper->getPluginableConfigs();
             foreach ($commentsConfigs as $commentsConfig) {
                 array_push($configs, $commentsConfig);
@@ -71,7 +69,7 @@ class CommentsPreload extends PreloadItem
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
             Comments::getInstance()->insertModuleRelations($module);
         }
     }
@@ -80,7 +78,7 @@ class CommentsPreload extends PreloadItem
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             Comments::getInstance()->deleteModuleRelations($module);
         }
     }
@@ -89,7 +87,7 @@ class CommentsPreload extends PreloadItem
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             Comments::getInstance()->loadLanguage('main');
         }
     }

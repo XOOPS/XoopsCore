@@ -50,7 +50,7 @@ function b_system_main_show()
                 $block['nothome'] = true;
             }
              /* @var $plugin MenusPluginInterface */
-            if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
+            if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
                 $sublinks = $plugin->subMenus();
                 foreach ($sublinks as $sublink) {
                     $block['modules'][$i]['sublinks'][] = array(

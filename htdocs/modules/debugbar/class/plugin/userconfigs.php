@@ -19,18 +19,18 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class DebugbarUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements UserconfigsPluginInterface
+class DebugbarUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
     /**
      * Build an array of configurable item categories.
-     * 
+     *
      * Each category consists of an array with the following key - value pairs
      * name,        Name of the category
      * description, Description for the category, use constant
-     * 
+     *
      * Each category must have a unique key that can be specified in
      * each related configurable item.
-     * 
+     *
      * @return array of categories
      */
     public function categories()
@@ -44,7 +44,7 @@ class DebugbarUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements 
 
     /**
      * Build an array of user configurable items.
-     * 
+     *
      * Each item consists of an array with the following key - value pairs
      *  - name        Name of the config
      *  - title       Display name for the config, use constant
@@ -53,7 +53,7 @@ class DebugbarUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements 
      *  - default     Default value for the config
      *  - options     Options available for the config
      *  - category    Category for this config, use the unique identifier set on categories()
-     * 
+     *
      * @return array of user configurable items
      */
     public function configs()

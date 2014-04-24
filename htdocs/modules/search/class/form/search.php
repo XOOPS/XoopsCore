@@ -16,19 +16,18 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class SearchSearchForm extends XoopsThemeForm
 {
     /**
      * We are not using this for objects but we need to override the constructor
+     *
      * @param null $obj
      */
     public function __construct($obj = null)
     {
     }
 
-    public function getSearchFrom($andor, $queries,$mids, $mid)
+    public function getSearchFrom($andor, $queries, $mids, $mid)
     {
         $xoops = Xoops::getInstance();
         $search = Search::getInstance();
@@ -50,7 +49,7 @@ class SearchSearchForm extends XoopsThemeForm
         if (empty($modules)) {
             $gperm_handler = $xoops->getHandlerGroupperm();
             $available_modules = $gperm_handler->getItemIds('module_read', $search->getUserGroups());
-            $available_plugins = Xoops_Module_Plugin::getPlugins('search');
+            $available_plugins = \Xoops\Module\Plugin::getPlugins('search');
 
             //todo, would be nice to have the module ids availabe also
             $criteria = new CriteriaCompo();

@@ -16,9 +16,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Comments extends Xoops_Module_Helper_Abstract
+class Comments extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -105,7 +103,7 @@ class Comments extends Xoops_Module_Helper_Abstract
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         /* @var $plugin CommentsPluginInterface */
-        if (($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) && $itemid > 0 && $modid > 0) {
+        if (($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) && $itemid > 0 && $modid > 0) {
             $xoops->header();
             $title = '';
             $text = '';
@@ -179,7 +177,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($moddir, 'comments')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($moddir, 'comments')) {
 
             if (!$xoops->isAdminSide) {
                 $redirect_page = $xoops->url('modules/' . $moddir . '/' . $plugin->pageName() . '?');
@@ -524,7 +522,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         $xoops = Xoops::getInstance();
         $request = Xoops_Request::getInstance();
         /* @var $plugin CommentsPluginInterface */
-        if ($xoops->isModule() && $plugin = Xoops_Module_Plugin::getPlugin($xoops->module->getVar('dirname'), 'comments')) {
+        if ($xoops->isModule() && $plugin = \Xoops\Module\Plugin::getPlugin($xoops->module->getVar('dirname'), 'comments')) {
 
             if (COMMENTS_APPROVENONE != $xoops->getModuleConfig('com_rule')) {
                 $xoops->tpl()->assign('xoops_iscommentadmin', $this->isUserAdmin());
@@ -703,7 +701,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             $xoops->header();
             $this->displayCommentForm($comment);
             $xoops->footer();
@@ -741,7 +739,7 @@ class Comments extends Xoops_Module_Helper_Abstract
 
         $modid = $module->getVar('mid');
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
 
             if ($xoops->isAdminSide) {
                 $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
@@ -965,7 +963,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         //Delete all configs
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('conf_modid', $module->getVar('mid')));
-        $criteria->add(new Criteria('conf_name', "('" . implode("','", $configNames) . "')",  'IN'));
+        $criteria->add(new Criteria('conf_name', "('" . implode("','", $configNames) . "')", 'IN'));
         $configs = $config_handler->getConfigs($criteria);
         /* @var $config XoopsConfigItem */
         foreach ($configs as $config) {
@@ -976,7 +974,8 @@ class Comments extends Xoops_Module_Helper_Abstract
     /**
      * @return array
      */
-    public function getPluginableConfigs() {
+    public function getPluginableConfigs()
+    {
         $configs = array();
         array_push($configs, array(
             'name'        => 'com_rule',

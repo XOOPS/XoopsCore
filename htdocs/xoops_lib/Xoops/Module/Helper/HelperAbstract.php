@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Module\Helper;
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -16,9 +17,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-abstract class Xoops_Module_Helper_Abstract
+abstract class HelperAbstract
 {
     /**
      * @var string dirname of the module
@@ -56,17 +55,17 @@ abstract class Xoops_Module_Helper_Abstract
     }
 
     /**
-     * @return Xoops_Module_Helper_Abstract
+     * @return Xoops\Module\Helper\HelperAbstract
      */
     static function getInstance()
     {
         static $instance = false;
         $id = $className = get_called_class();
-        if (strtolower($className) == 'xoops_module_helper_dummy') {
-            $id = Xoops::getInstance()->registry()->get('module_helper_id');
+        if ($className == 'Xoops\Module\Helper\Dummy') {
+            $id = \Xoops::getInstance()->registry()->get('module_helper_id');
         }
         if (!isset($instance[$id])) {
-            /* @var $class Xoops_Module_Helper_Abstract */
+            /* @var $class Xoops\Module\Helper\HelperAbstract */
             $class = new $className();
             $class->init();
             $instance[$id] = $class;
@@ -87,7 +86,7 @@ abstract class Xoops_Module_Helper_Abstract
 
     public function xoops()
     {
-        return Xoops::getInstance();
+        return \Xoops::getInstance();
     }
 
     /**
@@ -240,7 +239,7 @@ abstract class Xoops_Module_Helper_Abstract
         } else {
             $this->_module = $this->xoops()->getModuleByDirname($this->_dirname);
         }
-        if (!$this->_module instanceof XoopsModule) {
+        if (!$this->_module instanceof \XoopsModule) {
             $this->_module = $this->xoops()->getHandlerModule()->create();
         }
         $this->_addLog('Loading module');

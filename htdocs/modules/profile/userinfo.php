@@ -190,7 +190,7 @@ $xoops->tpl()->assign('categories', $categories);
 // Dynamic user profiles end
 
 if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search') && $xoops->getModuleConfig('enable_search', 'search')) {
-    $available_plugins = Xoops_Module_Plugin::getPlugins('search');
+    $available_plugins = \Xoops\Module\Plugin::getPlugins('search');
     $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)) . "')", 'IN');
     $modules = $module_handler->getObjectsArray($criteria, true);
     $mids = array_keys($modules);
@@ -202,7 +202,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
             if (in_array($mid, $allowed_mids)) {
                 /* @var XoopsModule $module */
                 $module = $modules[$mid];
-                $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+                $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
                 /* @var $plugin SearchPluginInterface */
                 $results = $plugin->search('', '', 5, 0, $thisUser->getVar('uid'));
                 $count = count($results);

@@ -9,29 +9,20 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+namespace Xoops\Auth;
+
 /**
  * Authentication class factory
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      auth
- * @since           2.0
- * @author          Pierre-Eric MENUET <pemphp@free.fr>
- * @version         $Id$
+ * @category  Xoops\Auth
+ * @package   Factory
+ * @author    Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- *
- * @package kernel
- * @subpackage auth
- * @description Authentication class factory
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2005 XOOPS.org
- */
-class Xoops_Auth_Factory
+class Factory
 {
     /**
      * Get a reference to the only instance of authentication class
@@ -39,12 +30,13 @@ class Xoops_Auth_Factory
      * if the class has not been instantiated yet, this will also take
      * care of that
      *
-     * @param string $uname
-     * @return Xoops_Auth|bool Reference to the only instance of authentication class
+     * @param string $uname user name
+     *
+     * @return AuthAbstract|bool Reference to the only instance of authentication class
      */
-    static function getAuthConnection($uname)
+    public static function getAuthConnection($uname)
     {
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         static $auth_instance;
         if (!isset($auth_instance)) {
             /* @var $config_handler XoopsConfigHandler */
@@ -59,13 +51,9 @@ class Xoops_Auth_Factory
                 $xoops_auth_method = 'xoops';
             }
 
-            if (!XoopsLoad::fileExists($file = dirname(__FILE__) . DIRECTORY_SEPARATOR . ucfirst($xoops_auth_method) . '.php')) {
-                return false;
-            }
-            include_once $file;
-            $class = 'Xoops_Auth_' . ucfirst($xoops_auth_method);
+            $class = '\\Xoops\\Auth\\' . ucfirst($xoops_auth_method);
             if (!class_exists($class)) {
-                trigger_error(XoopsLocale::EF_CLASS_NOT_FOUND, E_USER_ERROR);
+                trigger_error(\XoopsLocale::EF_CLASS_NOT_FOUND, E_USER_ERROR);
                 return false;
             }
             $dao = null;

@@ -28,15 +28,15 @@ class XlanguageLanguage extends XoopsObject
         $this->initVar('xlanguage_name', XOBJ_DTYPE_TXTBOX, '', false);
         $this->initVar('xlanguage_description', XOBJ_DTYPE_TXTBOX, '', false);
         $this->initVar('xlanguage_code', XOBJ_DTYPE_TXTBOX, '', false);
-        $this->initVar('xlanguage_charset', XOBJ_DTYPE_TXTBOX, '', false);
-        $this->initVar('xlanguage_image', XOBJ_DTYPE_TXTBOX, 'english.png', false);
+        $this->initVar('xlanguage_charset', XOBJ_DTYPE_TXTBOX, 'utf-8', false);
+        $this->initVar('xlanguage_image', XOBJ_DTYPE_TXTBOX, '_unknown.png', false);
         $this->initVar('xlanguage_weight', XOBJ_DTYPE_INT, 1, false, 10);
     }
 
     public function getValues($keys = null, $format = 's', $maxDepth = 1)
     {
         $ret = parent::getValues();
-        $ret['xlanguage_image'] = XOOPS_URL . '/media/xoops/images/flags/' . Xoops_Module_Helper::getHelper('xlanguage')->getConfig('theme') . '/' . $this->getVar('xlanguage_image');
+        $ret['xlanguage_image'] = XOOPS_URL . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/' . $this->getVar('xlanguage_image');
         return $ret;
     }
 
@@ -74,7 +74,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
     public function loadConfig()
     {
         $xoops = Xoops::getInstance();
-        $this->configPath = XOOPS_VAR_PATH . '/configs/xlanguage/';
+        $this->configPath = XOOPS_VAR_PATH . '/configs/';
         $this->configFile = $xoops->registry()->get('XLANGUAGE_CONFIG_FILE');
         $this->configFileExt = '.php';
         return $this->cached_config = $this->loadFileConfig();
@@ -184,7 +184,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
     public function renderlist()
     {
         $xoops = Xoops::getInstance();
-        $xoops->tpl()->assign('theme', Xoops_Module_Helper::getHelper('xlanguage')->getConfig('theme'));
+        $xoops->tpl()->assign('theme', \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme'));
         $xoops->tpl()->assign('languages', $this->getAllLanguage(false));
         return $xoops->tpl()->fetch('admin:xlanguage|xlanguage_admin_list.html');
     }

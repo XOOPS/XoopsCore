@@ -16,9 +16,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Menus extends Xoops_Module_Helper_Abstract
+class Menus extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -33,7 +31,7 @@ class Menus extends Xoops_Module_Helper_Abstract
     /**
      * @return Menus
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }

@@ -240,7 +240,7 @@ class Xoops
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new XoopsSecurity();
+            $instance = new \Xoops\Core\Security();
             $instance->checkSuperglobals();
         }
         return $instance;
@@ -928,11 +928,11 @@ class Xoops
     /**
      * @param string $dirname
      *
-     * @return bool|Xoops_Module_Helper_Abstract
+     * @return bool|Xoops\Module\Helper\HelperAbstract
      */
     public function getModuleHelper($dirname)
     {
-        return Xoops_Module_Helper::getHelper($dirname);
+        return \Xoops\Module\Helper::getHelper($dirname);
     }
 
     /**

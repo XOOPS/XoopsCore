@@ -8,6 +8,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *  Publisher class
  *
@@ -20,9 +21,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class PublisherSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPluginInterface
+class PublisherSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements SearchPluginInterface
 {
     public function search($queryarray, $andor, $limit, $offset, $userid)
     {
