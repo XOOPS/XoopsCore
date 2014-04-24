@@ -53,7 +53,7 @@ class Ads extends Ldap
     {
         $authenticated = false;
         if (!extension_loaded('ldap')) {
-            $this->setErrors(0, XoopsLocale::E_EXTENSION_PHP_LDAP_NOT_LOADED);
+            $this->setErrors(0, \XoopsLocale::E_EXTENSION_PHP_LDAP_NOT_LOADED);
             return $authenticated;
         }
         $this->ds = ldap_connect($this->ldap_server, $this->ldap_port);

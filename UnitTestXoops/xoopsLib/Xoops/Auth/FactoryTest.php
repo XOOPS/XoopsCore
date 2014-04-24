@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 */
 class Xoops_Auth_FactoryTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Auth_Factory';
+    protected $myclass = 'Xoops\Auth\Factory';
     
     public function test___construct()
 	{	

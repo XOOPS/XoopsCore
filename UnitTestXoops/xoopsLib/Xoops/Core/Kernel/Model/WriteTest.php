@@ -23,4 +23,29 @@ class WriteTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
+	
+	public function test_cleanVars()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_insert()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_delete()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_deleteAll()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_updateAll()
+	{
+		$this->markTestIncomplete();
+    }
 }

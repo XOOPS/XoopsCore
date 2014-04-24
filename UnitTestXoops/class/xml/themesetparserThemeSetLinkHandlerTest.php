@@ -22,12 +22,11 @@ class ThemeSetLinkHandlerTest extends MY_UnitTestCase
 
     public function test_getName()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
+		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		//$instance->getName();
-		$this->markTestIncomplete();
+		$name = $instance->getName();
+		$this->assertSame('link', $name);
 	}
 	
     public function test_handleCharacterData()

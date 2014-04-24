@@ -23,4 +23,10 @@ class SyncTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
+	
+	public function test_cleanOrphan()
+	{
+		$this->markTestIncomplete();
+    }
+
 }

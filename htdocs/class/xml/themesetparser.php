@@ -141,8 +141,14 @@ class XoopsThemeSetParser extends SaxParser
     /**
      * @return array
      */
-    public function getTempArr()
+    public function getTempArr($name = null)
     {
+        if (isset($name)) {
+            if (isset($this->tempArr[$name])) {
+                return $this->tempArr[$name];
+            }
+            return false;
+        }
         return $this->tempArr;
     }
 
