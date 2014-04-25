@@ -70,7 +70,7 @@ $xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/js/
 
 $xoops->header('system_services.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
 $admin_page->addBreadcrumbLink(
     SystemLocale::SERVICES_MANAGER,

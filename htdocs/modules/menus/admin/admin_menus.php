@@ -25,7 +25,7 @@ $helper = Menus::getInstance();
 
 // Call Header & ...
 $xoops->header('menus_admin_menus.html');
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('admin_menus.php');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 
@@ -97,9 +97,11 @@ switch ($op) {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $xoops->confirm(array(
-                                 'ok' => 1, 'id' => $id, 'op' => 'del'
-                            ), $helper->url('admin/admin_menus.php'), _AM_MENUS_MSG_SUREDEL . '<br /><strong>' . $obj->getVar('title') . '</strong>');
+            $xoops->confirm(
+                array('ok' => 1, 'id' => $id, 'op' => 'del'),
+                $helper->url('admin/admin_menus.php'),
+                _AM_MENUS_MSG_SUREDEL . '<br /><strong>' . $obj->getVar('title') . '</strong>'
+            );
         }
         break;
 
@@ -147,4 +149,3 @@ switch ($op) {
         break;
 }
 $xoops->footer();
-

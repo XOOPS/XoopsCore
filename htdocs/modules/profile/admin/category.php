@@ -32,7 +32,7 @@ $xoops->header('categorylist.html');
 // Get category handler
 $category_Handler = $xoops->getModuleHandler("category");
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('category.php');
 
 switch ($op) {
@@ -81,7 +81,7 @@ switch ($op) {
         }
         $obj->setVar('cat_title', $_POST['cat_title']);
         $obj->setVar('cat_description', $_POST['cat_description']);
-        $obj->setVar('cat_weight',$_POST['cat_weight']);
+        $obj->setVar('cat_weight', $_POST['cat_weight']);
         if ($category_Handler->insert($obj)) {
             $xoops->redirect('category.php', 3, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_CATEGORY));
         }
@@ -110,7 +110,11 @@ switch ($op) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
-                $xoops->confirm(array("ok" => 1, "id" => $id, "op" => "delete"), 'category.php', sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('cat_title')) . '<br />');
+                $xoops->confirm(
+                    array("ok" => 1, "id" => $id, "op" => "delete"),
+                    'category.php',
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('cat_title')) . '<br />'
+                );
             }
         } else {
             $xoops->redirect('category.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);

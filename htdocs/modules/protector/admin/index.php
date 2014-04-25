@@ -30,7 +30,7 @@ $db->prefix('protector_log');
 $rs = $db->query("SELECT count(lid) FROM " . $db->prefix('protector_log'));
 list($numrows) = $db->fetchRow($rs);
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
 
 $indexAdmin->addInfoBox(_MI_PROTECTOR_ADMININDEX, 'off');

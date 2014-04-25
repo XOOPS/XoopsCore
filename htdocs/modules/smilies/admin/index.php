@@ -39,7 +39,7 @@ $smilies_total= $smilies_notdisplay + $smilies_display;
 // folder path
 $folder_path = XOOPS_ROOT_PATH . '/uploads/smilies';
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 $admin_page->addInfoBox(_MI_SMILIES_SMILIES);

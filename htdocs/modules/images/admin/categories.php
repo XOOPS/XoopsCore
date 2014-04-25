@@ -23,7 +23,7 @@ include dirname(__FILE__) . '/header.php';
 // Call Header
 $xoops->header('images_admin_categories.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('categories.php');
 
 switch ($op) {
@@ -49,7 +49,7 @@ switch ($op) {
         $obj->setVar('imgcat_storetype', $request->asStr('imgcat_storetype', 'file'));
         $obj->setVar('imgcat_type', 'C');
 
-        if ( $imgcat_id = $helper->getHandlerCategories()->insert($obj)) {
+        if ($imgcat_id = $helper->getHandlerCategories()->insert($obj)) {
             // delete permissions
             if (!$isnew) {
                 $criteria = new CriteriaCompo(new Criteria('gperm_itemid', $imgcat_id));
@@ -131,13 +131,9 @@ switch ($op) {
                 }
             } else {
                 $xoops->confirm(
-                        array(
-                        'op' => 'del',
-                        'ok' => 1,
-                        'imgcat_id' => $imgcat_id
-                        ),
-                        XOOPS_URL . '/modules/images/admin/categories.php',
-                        sprintf(_AM_IMAGES_CAT_DELETE, $obj->getVar('imgcat_name'))
+                    array('op' => 'del', 'ok' => 1, 'imgcat_id' => $imgcat_id),
+                    XOOPS_URL . '/modules/images/admin/categories.php',
+                    sprintf(_AM_IMAGES_CAT_DELETE, $obj->getVar('imgcat_name'))
                 );
             }
         }

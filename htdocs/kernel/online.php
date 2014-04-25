@@ -17,6 +17,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
@@ -110,9 +111,9 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'online', 'XoopsOnline', 'online_uid', 'online_uname');
     }

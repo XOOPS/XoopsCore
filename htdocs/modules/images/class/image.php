@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
@@ -16,8 +18,6 @@
  * @author
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class ImagesImage extends XoopsObject
 {
@@ -62,9 +62,9 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'image', 'ImagesImage', 'image_id', 'image_name');
     }
@@ -81,7 +81,7 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
         return parent::getByLink($criteria, null, $asobject, 'image_id', 'image_id');
     }
 
-    public function getByCategory($imgcat_id, $start=0, $limit=0, $asobject=true)
+    public function getByCategory($imgcat_id, $start = 0, $limit = 0, $asobject = true)
     {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('imgcat_id', $imgcat_id));

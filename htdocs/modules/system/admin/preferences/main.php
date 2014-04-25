@@ -76,7 +76,7 @@ switch ($op) {
         $xoops->loadLanguage('modinfo', $module->getVar('dirname'));
 
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(XoopsLocale::PREFERENCES, $system->adminVersion('extensions', 'adminpath'));
         $admin_page->addBreadcrumbLink($module->getVar('name'));
@@ -103,7 +103,7 @@ switch ($op) {
             for ($i = 0; $i < $count; $i++) {
                 $config = $config_handler->getConfig($conf_ids[$i]);
                 $new_value = isset(${$config->getVar('conf_name')}) ? ${$config->getVar('conf_name')} : null;
-                if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))){
+                if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {
                     // if language has been changed
                     if (!$lang_updated && $config->getVar('conf_catid') == XOOPS_CONF && $config->getVar('conf_name') == 'locale') {
                         $xoops->setConfig('locale', ${$config->getVar('conf_name')});

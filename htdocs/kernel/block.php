@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
@@ -341,16 +342,16 @@ class XoopsBlock extends XoopsObject
             if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file'))) {
                 $xoops->loadLanguage('blocks', $this->getVar('dirname'));
                 include_once XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file');
-				if (function_exists($edit_func)) {
-					// execute the function
-					$options = explode('|', $this->getVar('options'));
-					$edit_form = $edit_func($options);
-					if (!$edit_form) {
-						return false;
-					}
-				} else {
-					return false;
-				}
+                if (function_exists($edit_func)) {
+                    // execute the function
+                    $options = explode('|', $this->getVar('options'));
+                    $edit_form = $edit_func($options);
+                    if (!$edit_form) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
                 return $edit_form;
             } else {
                 return false;
@@ -418,9 +419,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link \Xoops\Core\Database\Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'newblocks', 'XoopsBlock', 'bid', 'name');
     }

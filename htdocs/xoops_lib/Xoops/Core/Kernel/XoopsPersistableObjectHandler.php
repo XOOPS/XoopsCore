@@ -10,6 +10,7 @@
 
 namespace Xoops\Core\Kernel;
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsModelFactory;
 use Xoops\Core\Kernel\XoopsObjectHandler;
@@ -98,15 +99,15 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Constructor
      *
-     * @param null|XoopsConnection $db             {@link XoopsConnection} object
-     * @param string               $table          Name of database table
-     * @param string               $className      Name of Class, this handler is managing
-     * @param string               $keyName        Name of the property holding the key
-     * @param string               $identifierName Name of the property holding an identifier
-     *                                             name (title, name ...), used on getList()
+     * @param null|Connection $db             {@link \Xoops\Core\Dattabase\Connection} object
+     * @param string          $table          Name of database table
+     * @param string          $className      Name of Class, this handler is managing
+     * @param string          $keyName        Name of the property holding the key
+     * @param string          $identifierName Name of the property holding an identifier
+     *                                        name (title, name ...), used on getList()
      */
     protected function __construct(
-        \XoopsConnection $db,
+        Connection $db,
         $table = '',
         $className = '',
         $keyName = '',

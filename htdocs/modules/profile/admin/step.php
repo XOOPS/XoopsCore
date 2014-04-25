@@ -32,7 +32,7 @@ $xoops->header('steplist.html');
 // Get handler
 $regstep_Handler = $xoops->getModuleHandler("regstep");
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('step.php');
 
 switch ($op) {
@@ -110,7 +110,11 @@ switch ($op) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
-                $xoops->confirm(array("ok" => 1, "id" => $id, "op" => "delete"), 'step.php', sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br />');
+                $xoops->confirm(
+                    array("ok" => 1, "id" => $id, "op" => "delete"),
+                    'step.php',
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br />'
+                );
             }
         } else {
             $xoops->redirect('step.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);

@@ -17,6 +17,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\XoopsObject;
@@ -119,9 +120,9 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'group_permission', 'XoopsGroupPerm', 'gperm_id', 'gperm_name');
     }

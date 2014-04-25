@@ -8,6 +8,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -17,7 +18,6 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(dirname(__FILE__)) . '/include/common.php';
 
@@ -311,7 +311,7 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
     public $publisher = null;
 
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Xoops\Core\Database\Connection $db
      */
     public function __construct($db)
     {

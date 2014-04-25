@@ -52,7 +52,7 @@ switch ($op) {
         $xoops->theme()->addScript('media/jquery/plugins/jquery.tablesorter.js');
         $xoops->theme()->addScript('modules/system/js/admin.js');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(XoopsLocale::MAIN);
@@ -112,7 +112,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_NEW_GROUP);
@@ -131,7 +131,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_GROUP);
@@ -304,7 +304,7 @@ switch ($op) {
     //Del a group
     case 'groups_delete':
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_GROUP);

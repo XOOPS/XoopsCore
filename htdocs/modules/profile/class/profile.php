@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
@@ -72,7 +73,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      */
     private $_fields = array();
 
-    public function __construct(XoopsConnection $db)
+    public function __construct(Connection $db)
     {
         parent::__construct($db, "profile_profile", 'profileprofile', "profile_id");
         $xoops = Xoops::getInstance();

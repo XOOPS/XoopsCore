@@ -1,9 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../init.php');
 
+use Xoops\Core\Database\Connection;
+
 class XoopsObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsObjectHandler
 {
-	function __construct(XoopsConnection $db)
+	function __construct(Connection $db)
 	{
 		parent::__construct($db);
 	}
@@ -26,13 +28,13 @@ class XoopsObjectHandlerTest extends MY_UnitTestCase
 			$this->assertTrue($prop->isPublic());
 		}
     }
-	
+
     public function test___construct()
 	{
-		$conn = XoopsDatabaseFactory::getConnection();
+		$conn = Xoops\Core\Database\Factory::getConnection();
         $instance = new $this->myclass($conn);
         $this->assertInstanceOf($this->myclass, $instance);
 		$this->assertSame($conn, $instance->db2);
     }
-	
+
 }

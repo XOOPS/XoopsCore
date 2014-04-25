@@ -38,7 +38,7 @@ $avatar_Handler = $helper->getHandlerAvatar();
 // Call Header
 $xoops->header('avatars_admin_system.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_system.php');
 
 $info_msg = array(

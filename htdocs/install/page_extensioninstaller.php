@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get installed modules
     $system_module = new SystemExtension();
 
-    $dirlist = $system_module->getExtensionInstall();
+    $dirlist = $system_module->getInstalledExtensions();
     $toinstal = 0;
 
     $javascript = "";
