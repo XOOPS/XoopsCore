@@ -14,23 +14,18 @@ use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use \XoopsConnection;
 
 /**
- * XOOPS Kernel Class
+ * XoopsBlock
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         kernel
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @author          Gregory Mage (AKA Mage)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @package   kernel
+ * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Gregory Mage (AKA Mage)
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @since     2.0.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsBlock extends XoopsObject
 {
     /**
