@@ -107,7 +107,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *                                        name (title, name ...), used on getList()
      */
     protected function __construct(
-        Connection $db,
+        Connection $db = null,
         $table = '',
         $className = '',
         $keyName = '',

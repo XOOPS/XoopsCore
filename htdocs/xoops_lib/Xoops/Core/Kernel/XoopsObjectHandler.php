@@ -41,7 +41,7 @@ abstract class XoopsObjectHandler
      *
      * @param Connection $db reference to the {@link \Xoops\Core\Database\Connection} object
      */
-    protected function __construct(Connection $db)
+    protected function __construct(Connection $db = null)
     {
         if (!($db instanceof Connection)) {
             $db = \Xoops::getInstance()->db();
