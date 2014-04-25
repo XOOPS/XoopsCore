@@ -1,5 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../init_mini.php');
+
 
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Configuration;

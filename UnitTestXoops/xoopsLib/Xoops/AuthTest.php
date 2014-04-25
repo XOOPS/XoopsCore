@@ -1,6 +1,11 @@
 <?php
 require_once(dirname(__FILE__).'/../../init_mini.php');
 
+class Xoops_Auth_AbstractTestInstance extends Xoops\Auth\AuthAbstract
+{
+	public function authenticate($uname, $pwd = null) { return false; }
+}
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -8,19 +13,19 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 */
 class Xoops_AuthTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Auth';
-    
+    protected $myclass = 'Xoops_Auth_AbstractTestInstance';
+
     public function SetUp()
 	{
     }
-	
+
     public function test___construct()
 	{
 		$dao = 'dao';
 		$instance = new $this->myclass($dao);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
+
 	public function test_authenticate()
 	{
 		$dao = 'dao';
@@ -40,9 +45,9 @@ class Xoops_AuthTest extends MY_UnitTestCase
 		$instance->setErrors($errno, $error);
 		$x = $instance->getErrors();
 		$this->assertTrue(is_array($x));
-		$this->assertTrue($x[$errno]==$error);		
+		$this->assertTrue($x[$errno]==$error);
 	}
-	
+
 	public function test_getErrors()
 	{
 		$this->assertTrue(true); // allready tested in previous test
@@ -58,5 +63,5 @@ class Xoops_AuthTest extends MY_UnitTestCase
 		$x = $instance->getHtmlErrors();
 		$this->assertTrue(is_string($x));
 	}
-	
+
 }

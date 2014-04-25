@@ -87,7 +87,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$value = $instance->security();
-		$this->assertInstanceOf('XoopsSecurity', $value);
+		$this->assertInstanceOf('\Xoops\Core\Security', $value);
 
 		$value1 = $instance->security();
 		$this->assertSame($value, $value1);
