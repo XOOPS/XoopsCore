@@ -240,7 +240,7 @@ class Connection extends \Doctrine\DBAL\Connection
     public function executeUpdate($query, array $params = array(), array $types = array())
     {
         $result = 0;
-        $xoopsPreload = \Xoops\Core\Events::getInstance();
+        $xoopsPreload = \Xoops::getInstance()->events();
         if (self::getSafe() || self::getForce()) {
             if (!self::$transactionActive) {
                 self::setForce(false);
@@ -248,7 +248,8 @@ class Connection extends \Doctrine\DBAL\Connection
             $xoopsPreload->triggerEvent('core.database.query.start');
             try {
                 $result = parent::executeUpdate($query, $params, $types);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
+                $xoopsPreload->triggerEvent('core.exception', $e);
                 $result = 0;
             }
             $xoopsPreload->triggerEvent('core.database.query.end');
@@ -314,7 +315,7 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function query()
     {
-        $xoopsPreload = \Xoops\Core\Events::getInstance();
+        $xoopsPreload = \Xoops::getInstance()->events();
         if (!self::getSafe() && !self::getForce()) {
             $sql = ltrim(func_get_arg(0));
             if (!self::getSafe() && strtolower(substr($sql, 0, 6))!= 'select') {
@@ -327,6 +328,7 @@ class Connection extends \Doctrine\DBAL\Connection
         try {
             $result = call_user_func_array(array('parent', 'query'), func_get_args());
         } catch (\Exception $e) {
+            $xoopsPreload->triggerEvent('core.exception', $e);
             $result=null;
         }
         $xoopsPreload->triggerEvent('core.database.query.end');
