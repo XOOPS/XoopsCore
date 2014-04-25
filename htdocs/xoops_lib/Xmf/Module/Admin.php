@@ -69,7 +69,7 @@ class Admin
         static $instance;
 
         if ($instance === null) {
-            if (class_exists('XoopsModuleAdmin', true)) {
+            if (class_exists('\Xoops\Module\Admin', true)) {
                 $instance  = new \Xoops\Module\Admin;
                 self::$ModuleAdmin = $instance;
             } else {
@@ -98,7 +98,7 @@ class Admin
      */
     public static function is26()
     {
-        return class_exists('Xoops', false);
+        return class_exists('\Xoops', false);
     }
 
     /**
