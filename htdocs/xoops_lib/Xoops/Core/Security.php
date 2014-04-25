@@ -52,7 +52,7 @@ class Security
     public function createToken($timeout = 0, $name = 'XOOPS_TOKEN')
     {
         $this->garbageCollection($name);
-        if ($timeout == 0) {
+        if ($timeout <= 0) {
             $expire = @ini_get('session.gc_maxlifetime');
             $timeout = ($expire > 0) ? $expire : 900;
         }
@@ -81,13 +81,16 @@ class Security
     {
         $ret = false;
         $log = array();
-        $token = ($token !== false) ? $token :
-            (isset($_REQUEST[$name . '_REQUEST']) ? $_REQUEST[$name . '_REQUEST'] : '');
+        $token = ($token !== false)
+			? $token
+			: (isset($_REQUEST[$name . '_REQUEST']) ? $_REQUEST[$name . '_REQUEST'] : '');
         if (empty($token) || empty($_SESSION[$name . '_SESSION'])) {
-            $log[] = array('Token Validation', 'No valid token found in request/session');
+			$str = 'No valid token found in request/session';
+			$this->setErrors($str);
+			$log[] = array('Token Validation', $str);
         } else {
             $token_data =& $_SESSION[$name . '_SESSION'];
-            foreach (array_keys($token_data) as $i) {
+            if(is_array($token_data)) foreach (array_keys($token_data) as $i) {
                 if ($token === md5($token_data[$i]['id'] . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX)) {
                     if ($this->filterToken($token_data[$i])) {
                         if ($clearIfValid) {
@@ -145,8 +148,9 @@ class Security
      */
     public function garbageCollection($name = 'XOOPS_TOKEN')
     {
-        if (isset($_SESSION[$name . '_SESSION']) && count($_SESSION[$name . '_SESSION']) > 0) {
-            $_SESSION[$name . '_SESSION'] = array_filter($_SESSION[$name . '_SESSION'], array($this, 'filterToken'));
+		$sessionName = $name . '_SESSION';
+        if (!empty($_SESSION[$sessionName]) && is_array($_SESSION[$sessionName])) {
+            $_SESSION[$sessionName] = array_filter($_SESSION[$sessionName], array($this, 'filterToken'));
         }
     }
 
@@ -175,21 +179,20 @@ class Security
     /**
      * Check superglobals for contamination
      *
-     * @return void
+     * @return bool
      */
     public function checkSuperglobals()
     {
-        foreach (array(
-            'GLOBALS', '_SESSION', 'HTTP_SESSION_VARS', '_GET', 'HTTP_GET_VARS', '_POST', 'HTTP_POST_VARS', '_COOKIE',
-            'HTTP_COOKIE_VARS', '_REQUEST', '_SERVER', 'HTTP_SERVER_VARS', '_ENV', 'HTTP_ENV_VARS', '_FILES',
-            'HTTP_POST_FILES', 'xoops', 'xoopsDB', 'xoopsUser', 'xoopsUserId', 'xoopsUserGroups', 'xoopsUserIsAdmin',
-            'xoopsConfig', 'xoopsOption', 'xoopsModule', 'xoopsModuleConfig', 'xoopsRequestUri'
-        ) as $bad_global) {
-            if (isset($_REQUEST[$bad_global])) {
-                header('Location: ' . XOOPS_URL . '/');
-                exit();
-            }
-        }
+		foreach(array_keys($_REQUEST) as $key) {
+			if (in_array($key, array(
+				'GLOBALS', '_SESSION', 'HTTP_SESSION_VARS', '_GET', 'HTTP_GET_VARS', '_POST', 'HTTP_POST_VARS', '_COOKIE',
+				'HTTP_COOKIE_VARS', '_REQUEST', '_SERVER', 'HTTP_SERVER_VARS', '_ENV', 'HTTP_ENV_VARS', '_FILES',
+				'HTTP_POST_FILES')))
+				return false;
+			if (stripos($key, 'xoops') === 0) // exclude all keys starting with "xoops" ignoring case
+				return false;
+		}
+		return true;
     }
 
     /**
@@ -250,11 +253,9 @@ class Security
         if (!$ashtml) {
             return $this->errors;
         } else {
-            $ret = '';
-            if (count($this->errors) > 0) {
-                foreach ($this->errors as $error) {
-                    $ret .= $error . '<br />';
-                }
+			$ret = '';
+            if (is_array($this->errors)) {
+				$ret = implode('<br />', $this->errors) . '<br />';
             }
             return $ret;
         }
