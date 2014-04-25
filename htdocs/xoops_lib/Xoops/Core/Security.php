@@ -1,13 +1,13 @@
 <?php
 /*
- You may not change or alter any portion of this comment or credits
- of supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit authors.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*/
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
 namespace Xoops\Core;
 
@@ -82,27 +82,29 @@ class Security
         $ret = false;
         $log = array();
         $token = ($token !== false)
-			? $token
-			: (isset($_REQUEST[$name . '_REQUEST']) ? $_REQUEST[$name . '_REQUEST'] : '');
+            ? $token
+            : (isset($_REQUEST[$name . '_REQUEST']) ? $_REQUEST[$name . '_REQUEST'] : '');
         if (empty($token) || empty($_SESSION[$name . '_SESSION'])) {
-			$str = 'No valid token found in request/session';
-			$this->setErrors($str);
-			$log[] = array('Token Validation', $str);
+            $str = 'No valid token found in request/session';
+            $this->setErrors($str);
+            $log[] = array('Token Validation', $str);
         } else {
             $token_data =& $_SESSION[$name . '_SESSION'];
-            if(is_array($token_data)) foreach (array_keys($token_data) as $i) {
-                if ($token === md5($token_data[$i]['id'] . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX)) {
-                    if ($this->filterToken($token_data[$i])) {
-                        if ($clearIfValid) {
-                            // token should be valid once, so clear it once validated
-                            unset($token_data[$i]);
+            if (is_array($token_data)) {
+                foreach (array_keys($token_data) as $i) {
+                    if ($token === md5($token_data[$i]['id'] . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX)) {
+                        if ($this->filterToken($token_data[$i])) {
+                            if ($clearIfValid) {
+                                // token should be valid once, so clear it once validated
+                                unset($token_data[$i]);
+                            }
+                            $log[] = array('Token Validation', 'Valid token found');
+                            $ret = true;
+                        } else {
+                            $str = 'Valid token expired';
+                            $this->setErrors($str);
+                            $log[] = array('Token Validation', $str);
                         }
-                        $log[] = array('Token Validation', 'Valid token found');
-                        $ret = true;
-                    } else {
-                        $str = 'Valid token expired';
-                        $this->setErrors($str);
-                        $log[] = array('Token Validation', $str);
                     }
                 }
             }
@@ -148,7 +150,7 @@ class Security
      */
     public function garbageCollection($name = 'XOOPS_TOKEN')
     {
-		$sessionName = $name . '_SESSION';
+        $sessionName = $name . '_SESSION';
         if (!empty($_SESSION[$sessionName]) && is_array($_SESSION[$sessionName])) {
             $_SESSION[$sessionName] = array_filter($_SESSION[$sessionName], array($this, 'filterToken'));
         }
@@ -177,22 +179,33 @@ class Security
     }
 
     /**
-     * Check superglobals for contamination
+     * Check for global contamination (only matters for PHP 5.3.x)
      *
-     * @return bool
+     * @todo celebrate the day when we can stop checking for register globals crap
+     *
+     * @return bool true if request is clean, false if contaminated
      */
     public function checkSuperglobals()
     {
-		foreach(array_keys($_REQUEST) as $key) {
-			if (in_array($key, array(
-				'GLOBALS', '_SESSION', 'HTTP_SESSION_VARS', '_GET', 'HTTP_GET_VARS', '_POST', 'HTTP_POST_VARS', '_COOKIE',
-				'HTTP_COOKIE_VARS', '_REQUEST', '_SERVER', 'HTTP_SERVER_VARS', '_ENV', 'HTTP_ENV_VARS', '_FILES',
-				'HTTP_POST_FILES')))
-				return false;
-			if (stripos($key, 'xoops') === 0) // exclude all keys starting with "xoops" ignoring case
-				return false;
-		}
-		return true;
+            // name that should not be in the request array
+            $prohibitedKeys = array(
+                '_COOKIE', '_ENV', '_FILES', '_GET', '_POST', '_REQUEST',
+                '_SERVER', '_SESSION', 'GLOBALS',
+                'HTTP_COOKIE_VARS', 'HTTP_ENV_VARS', 'HTTP_GET_VARS',
+                'HTTP_POST_FILES', 'HTTP_POST_VARS', 'HTTP_SERVER_VARS',
+                'HTTP_SESSION_VARS',
+                // mostly deprecated, but some needed for legacy support
+                'xoops', 'xoopsDB', 'xoopsUser', 'xoopsUserId', 'xoopsUserGroups',
+                'xoopsUserIsAdmin', 'xoopsConfig', 'xoopsOption', 'xoopsModule',
+                'xoopsModuleConfig', 'xoopsRequestUri',
+            );
+            // extract keys from request
+            $requestKeys = array_keys($_REQUEST);
+            // compare the lists case INSENSITIVE, just like variable names in PHP
+            $commonKeys = array_uintersect($prohibitedKeys, $requestKeys, "strcasecmp");
+
+            // if the resulting array is not empty we have a contamination
+            return empty($commonKeys);
     }
 
     /**
@@ -253,9 +266,9 @@ class Security
         if (!$ashtml) {
             return $this->errors;
         } else {
-			$ret = '';
+            $ret = '';
             if (is_array($this->errors)) {
-				$ret = implode('<br />', $this->errors) . '<br />';
+                $ret = implode('<br />', $this->errors) . '<br />';
             }
             return $ret;
         }
