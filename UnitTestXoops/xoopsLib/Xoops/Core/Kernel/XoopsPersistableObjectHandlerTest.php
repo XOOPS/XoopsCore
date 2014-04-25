@@ -10,7 +10,7 @@ class XoopsPersistableObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsP
         $keyName = '',
         $identifierName = ''
 	) {
-		parent::__construct($db,$table,$className,$keyName,$identiferName);
+		parent::__construct($db,$table,$className,$keyName,$identifierName);
 	}
 }
 
