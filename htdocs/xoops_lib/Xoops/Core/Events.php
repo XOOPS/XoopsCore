@@ -165,7 +165,7 @@ class Events
      * Trigger a specific event
      *
      * @param string $event_name Name of the event to trigger
-     * @param array  $args       Method arguments
+     * @param mixed  $args       Method arguments
      *
      * @return void
      */

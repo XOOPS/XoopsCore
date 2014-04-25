@@ -241,7 +241,11 @@ class Xoops
         static $instance;
         if (!isset($instance)) {
             $instance = new \Xoops\Core\Security();
-            $instance->checkSuperglobals();
+            $pass = $instance->checkSuperglobals();
+            if ($pass==false) {
+                header('Location: ' . XOOPS_URL . '/');
+                exit();
+            }
         }
         return $instance;
     }
