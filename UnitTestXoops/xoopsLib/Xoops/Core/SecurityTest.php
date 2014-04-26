@@ -178,9 +178,16 @@ class SecurityTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myClass, $instance);
 		
 		$vars = array(
-				'GLOBALS', '_SESSION', 'HTTP_SESSION_VARS', '_GET', 'HTTP_GET_VARS', '_POST', 'HTTP_POST_VARS', '_COOKIE',
-				'HTTP_COOKIE_VARS', '_REQUEST', '_SERVER', 'HTTP_SERVER_VARS', '_ENV', 'HTTP_ENV_VARS', '_FILES',
-				'HTTP_POST_FILES');
+			'_COOKIE', '_ENV', '_FILES', '_GET', '_POST', '_REQUEST',
+			'_SERVER', '_SESSION', 'GLOBALS',
+			'HTTP_COOKIE_VARS', 'HTTP_ENV_VARS', 'HTTP_GET_VARS',
+			'HTTP_POST_FILES', 'HTTP_POST_VARS', 'HTTP_SERVER_VARS',
+			'HTTP_SESSION_VARS',
+			// mostly deprecated, but some needed for legacy support
+			'xoops', 'xoopsDB', 'xoopsUser', 'xoopsUserId', 'xoopsUserGroups',
+			'xoopsUserIsAdmin', 'xoopsConfig', 'xoopsOption', 'xoopsModule',
+			'xoopsModuleConfig', 'xoopsRequestUri',
+		);
 				
 		foreach ($vars as $var) {
 			$_REQUEST = array();
@@ -193,11 +200,7 @@ class SecurityTest extends MY_UnitTestCase
 		$_REQUEST['dummy'] = 1;
 		$value = $instance->checkSuperglobals();
 		$this->assertTrue($value);
-
 		$_REQUEST = array();
-		$_REQUEST['XoopsTest'] = 1;
-		$value = $instance->checkSuperglobals();
-		$this->assertFalse($value);
     }
 	
     public function test_checkBadips()
