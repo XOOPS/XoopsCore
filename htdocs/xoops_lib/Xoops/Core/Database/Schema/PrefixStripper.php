@@ -22,12 +22,12 @@ use Doctrine\DBAL\Schema\Index;
 use Doctrine\DBAL\Schema\Comparator;
 
 /**
- * PrefixStripper extends Schema so we can easily add tables and 
+ * PrefixStripper extends Schema so we can easily add tables and
  * sequences selectively while visiting another schema.
- * 
+ *
  * New schema will be stripped of database and prefix and optionally
  * filered by a table list
- * 
+ *
  * @category  Xoops\Core\Database\Schema\PrefixStripper
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
@@ -56,11 +56,11 @@ class PrefixStripper extends Schema
 
     /**
      * set list of tables to limit schema
-     * 
+     *
      * If no list is specified, all tables will be included
-     * 
+     *
      * @param array $tableList list of tables to include
-     * 
+     *
      * @return void
      */
     public function setTableFilter(array $tableList)
@@ -72,7 +72,7 @@ class PrefixStripper extends Schema
      * Add a table object to the schema
      *
      * @param Table $table table object to add
-     * 
+     *
      * @return void
      */
     public function addTable(Table $table)
@@ -97,16 +97,17 @@ class PrefixStripper extends Schema
                 }
             }
             //Debug::dump($table);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             throw $e;
         }
     }
 
     /**
      * Add a sequence to the schema
-     * 
+     *
      * @param Sequence $sequence a sequence
-     * 
+     *
      * @return void
      */
     public function addSequence(Sequence $sequence)
@@ -115,7 +116,8 @@ class PrefixStripper extends Schema
         try {
             $this->_addSequence($sequence);
             //Debug::dump($sequence);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             throw $e;
         }
     }
