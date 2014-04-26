@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
@@ -16,8 +18,6 @@
  * @author
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class ImagesCategory extends XoopsObject
 {
@@ -43,9 +43,9 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Xoops\Core\Database\Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'imagecategory', 'ImagesCategory', 'imgcat_id', 'imgcat_name');
     }
@@ -53,9 +53,10 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
     /**
      * @param CriteriaElement|null $criteria
      * @param bool $id_as_key
+     *
      * @return array
      */
-    public function getPermittedObjects($criteria = null, $start=0, $limit=0, $id_as_key = false, $asobject = true)
+    public function getPermittedObjects($criteria = null, $start = 0, $limit = 0, $id_as_key = false, $asobject = true)
     {
         $this->table_link = $this->db->prefix('group_permission');
 
@@ -69,7 +70,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
         $criteria->setStart($start);
         $criteria->setLimit($limit);
 
-        return parent::getByLink( $criteria, null, $asobject, 'gperm_itemid', 'imgcat_id');
+        return parent::getByLink($criteria, null, $asobject, 'gperm_itemid', 'imgcat_id');
     }
 
     /**
@@ -79,9 +80,10 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
      * @param string $perm
      * @param null $display
      * @param null $storetype
+     *
      * @return array Array of {@link ImagesImage} objects
      */
-    function getListByPermission($groups = array(), $perm = 'imgcat_read', $display = null, $storetype = null)
+    public function getListByPermission($groups = array(), $perm = 'imgcat_read', $display = null, $storetype = null)
     {
         $xoops = Xoops::getInstance();
         $criteria = new CriteriaCompo();

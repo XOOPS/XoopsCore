@@ -45,7 +45,7 @@ switch ($op) {
         $xoops->header();
         $xoops->theme()->addStylesheet('modules/xcaptcha/css/moduladmin.css');
 
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         if ($type == 'config') {
             $admin_page->displayNavigation('index.php?type=config');
             $admin_page->addInfoBox(_AM_XCAPTCHA_FORM);

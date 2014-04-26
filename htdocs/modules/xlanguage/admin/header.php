@@ -41,4 +41,4 @@ $helper->getHandlerLanguage()->loadConfig();
 $xoops->header();
 $xoops->theme()->addStylesheet('modules/xlanguage/css/moduladmin.css');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();

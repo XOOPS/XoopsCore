@@ -35,7 +35,7 @@ $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jqu
 // Define scripts
 $xoops->theme()->addScript('modules/system/js/admin.js');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');
 
 $limit_array = array(20, 50, 100);

@@ -29,7 +29,7 @@ if (!defined('PROTECTOR_PRECHECK_INCLUDED')) {
 }
 
 define('PROTECTOR_POSTCHECK_INCLUDED', 1);
-if (!class_exists('XoopsConnection', false)) {
+if (!class_exists('\\Xoops\\Core\\Database\\Connection', false)) {
     return;
 }
 protector_postcheck();

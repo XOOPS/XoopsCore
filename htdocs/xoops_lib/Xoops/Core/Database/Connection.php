@@ -1,30 +1,32 @@
 <?php
-/*
-  You may not change or alter any portion of this comment or credits
-  of supporting developers from this source code or any supporting source code
-  which is considered copyrighted (c) material of the original comment or credit authors.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+/**
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+namespace Xoops\Core\Database;
 
 /**
  * Connection wrapper for Doctrine DBAL Connection
  *
  * PHP version 5.3
  *
- * @category  Xoops\Class\Database\Connection
+ * @category  Xoops\Core\Database\Connection
  * @package   Connection
  * @author    readheadedrod <redheadedrod@hotmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 2.6
  * @link      http://xoops.org
  * @since     2.6.0
  */
-class XoopsConnection extends \Doctrine\DBAL\Connection
+class Connection extends \Doctrine\DBAL\Connection
 {
     /**
      * @var bool $safe true means it is safe to write to database
@@ -238,7 +240,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
     public function executeUpdate($query, array $params = array(), array $types = array())
     {
         $result = 0;
-        $xoopsPreload = XoopsPreload::getInstance();
+        $xoopsPreload = \Xoops\Core\Events::getInstance();
         if (self::getSafe() || self::getForce()) {
             if (!self::$transactionActive) {
                 self::setForce(false);
@@ -312,7 +314,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
      */
     public function query()
     {
-        $xoopsPreload = XoopsPreload::getInstance();
+        $xoopsPreload = \Xoops\Core\Events::getInstance();
         if (!self::getSafe() && !self::getForce()) {
             $sql = ltrim(func_get_arg(0));
             if (!self::getSafe() && strtolower(substr($sql, 0, 6))!= 'select') {
@@ -324,7 +326,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
         $xoopsPreload->triggerEvent('core.database.query.start');
         try {
             $result = call_user_func_array(array('parent', 'query'), func_get_args());
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $result=null;
         }
         $xoopsPreload->triggerEvent('core.database.query.end');
@@ -349,9 +351,9 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
     {
         if (false !== ($fp = fopen($file, 'r'))) {
             $sql_queries = trim(fread($fp, filesize($file)));
-            SqlUtility::splitMySqlFile($pieces, $sql_queries);
+            \SqlUtility::splitMySqlFile($pieces, $sql_queries);
             foreach ($pieces as $query) {
-                $prefixed_query = SqlUtility::prefixQuery(trim($query), $this->prefix());
+                $prefixed_query = \SqlUtility::prefixQuery(trim($query), $this->prefix());
                 if ($prefixed_query != false) {
                     $this->query($prefixed_query[0]);
                 }
@@ -371,7 +373,7 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
      */
     public function quoteSlash($input)
     {
-        return str_replace("\\\"", '"', str_replace("\\&quot;", '&quot;', $this->quote($input)));
+        return $this->quote($input);
     }
 
 
@@ -382,6 +384,6 @@ class XoopsConnection extends \Doctrine\DBAL\Connection
      */
     public function createXoopsQueryBuilder()
     {
-        return new XoopsQueryBuilder($this);
+        return new QueryBuilder($this);
     }
 }

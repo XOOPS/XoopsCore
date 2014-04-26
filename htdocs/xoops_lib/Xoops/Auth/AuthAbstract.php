@@ -25,7 +25,7 @@ namespace Xoops\Auth;
 abstract class AuthAbstract
 {
     /**
-     * @var XoopsConnection|null
+     * @var use Xoops\Core\Database\Connection|null
      */
     protected $dao;
 
@@ -42,7 +42,7 @@ abstract class AuthAbstract
     /**
      * Authentication Service constructor
      *
-     * @param XoopsConnection|null $dao database
+     * @param \Xoops\Core\Database\Connection|null $dao database
      */
     public function __construct($dao)
     {

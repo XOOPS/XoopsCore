@@ -102,7 +102,7 @@ class XoopsUserUtility
             $email = $user->getVar('email', 'n');
         }
 
-        $user = empty($user) ? null : trim($user);
+        //$user = empty($user) ? null : trim($user);
         $uname = empty($uname) ? null : trim($uname);
         $email = empty($email) ? null : trim($email);
         $pass = empty($pass) ? null : trim($pass);

@@ -11,6 +11,8 @@
 
 namespace Xoops\Auth;
 
+use Xoops\Core\Database\Connection;
+
 /**
  * Authentication class for Native XOOPS
  *
@@ -27,9 +29,9 @@ class Xoops extends AuthAbstract
     /**
      * Authentication Service constructor
      *
-     * @param XoopsConnection|null $dao database object
+     * @param Connection|null $dao database object
      */
-    public function __construct(\XoopsConnection $dao = null)
+    public function __construct(Connection $dao = null)
     {
         $this->dao = $dao;
         $this->auth_method = 'xoops';

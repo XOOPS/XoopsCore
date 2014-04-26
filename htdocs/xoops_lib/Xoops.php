@@ -156,11 +156,11 @@ class Xoops
     /**
      * get database connection instance
      *
-     * @return XoopsConnection
+     * @return Xoops\Core\Database\Connection
      */
     public function db()
     {
-        return XoopsDatabaseFactory::getConnection();
+        return \Xoops\Core\Database\Factory::getConnection();
     }
 
     /**

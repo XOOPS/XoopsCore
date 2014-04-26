@@ -40,10 +40,10 @@ $xoops->header('banners_admin_banners.html');
 $start = $request->asInt('start', 0);
 $startF = $request->asInt('startF', 0);
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('banners.php');
 
-$info_msg = array(sprintf(_AM_BANNERS_ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(_AM_BANNERS_ALERT_INFO_MAXFILE , $upload_size / 1000));
+$info_msg = array(sprintf(_AM_BANNERS_ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)), sprintf(_AM_BANNERS_ALERT_INFO_MAXFILE, $upload_size / 1000));
 
 switch ($op) {
 
@@ -280,7 +280,7 @@ switch ($op) {
                 if (!$xoops->security()->check()) {
                     $xoops->redirect("banners.php", 3, implode(",", $xoops->security()->getErrors()));
                 }
-                $namefile = substr_replace($obj->getVar('imageurl'),'',0,strlen(XOOPS_URL . '/uploads/banners/'));
+                $namefile = substr_replace($obj->getVar('imageurl'), '', 0, strlen(XOOPS_URL . '/uploads/banners/'));
                 $urlfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
                 if ($banner_Handler->delete($obj)) {
                     // delete banner

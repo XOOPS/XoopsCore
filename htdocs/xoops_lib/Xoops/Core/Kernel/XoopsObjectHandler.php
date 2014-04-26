@@ -10,7 +10,7 @@
 
 namespace Xoops\Core\Kernel;
 
-use \XoopsConnection;
+use Xoops\Core\Database\Connection;
 
 /**
  * XOOPS Kernel Object Handler
@@ -21,7 +21,7 @@ use \XoopsConnection;
  * @category  Xoops\Core\Kernel\XoopsObjectHandler
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -29,22 +29,21 @@ use \XoopsConnection;
 abstract class XoopsObjectHandler
 {
     /**
-     * holds referenced to {@link XoopsConnection} class object
+     * holds referenced to {@link Connection} class object
      *
-     * @var XoopsConnection
-     * @see XoopsConnection
-     * @access protected
+     * @var Connection
+     * @see Connection
      */
     public $db2;
 
     /**
      * called from child classes only
      *
-     * @param XoopsConnection $db reference to the {@link XoopsConnection} object
+     * @param Connection $db reference to the {@link \Xoops\Core\Database\Connection} object
      */
-    protected function __construct(XoopsConnection $db = null)
+    protected function __construct(Connection $db)
     {
-        if (!($db instanceof XoopsConnection)) {
+        if (!($db instanceof Connection)) {
             $db = \Xoops::getInstance()->db();
         }
         $this->db2 = $db;

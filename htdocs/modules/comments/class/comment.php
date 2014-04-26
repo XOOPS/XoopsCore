@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
 
 /**
  * A Comment
@@ -76,9 +76,9 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'comments', 'CommentsComment', 'id', 'title');
     }
@@ -252,5 +252,4 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
         }
         return false;
     }
-
 }

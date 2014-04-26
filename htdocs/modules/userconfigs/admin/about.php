@@ -18,7 +18,7 @@
 
 require dirname(__FILE__) . '/admin_header.php';
 
-$aboutAdmin = new XoopsModuleAdmin();
+$aboutAdmin = new \Xoops\Module\Admin();
 $aboutAdmin->displayNavigation('about.php');
 $aboutAdmin->displayAbout(true);
 

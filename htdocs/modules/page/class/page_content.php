@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * page module
  *
@@ -20,32 +22,44 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class PagePage_content extends XoopsObject
 {
 
-    public $options = array('title', 'author', 'date', 'hits', 'rating', 'print', 'mail', 'coms', 'ncoms', 'notifications', 'pdf', 'social');
+    public $options = array(
+        'title',
+        'author',
+        'date',
+        'hits',
+        'rating',
+        'print',
+        'mail',
+        'coms',
+        'ncoms',
+        'notifications',
+        'pdf',
+        'social'
+    );
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->initVar('content_id', XOBJ_DTYPE_INT, 0, false, 11);
-        $this->initVar('content_title', XOBJ_DTYPE_TXTBOX, '', false );
+        $this->initVar('content_title', XOBJ_DTYPE_TXTBOX, '', false);
         $this->initVar('content_shorttext', XOBJ_DTYPE_TXTAREA, '', false);
         $this->initVar('content_text', XOBJ_DTYPE_TXTAREA, '', false);
         $this->initVar('content_create', XOBJ_DTYPE_INT, time(), false, 10);
         $this->initVar('content_author', XOBJ_DTYPE_INT, 0, false, 11);
         $this->initVar('content_status', XOBJ_DTYPE_INT, 1, false, 1);
         $this->initVar('content_hits', XOBJ_DTYPE_INT, 0, false, 10);
-        $this->initVar('content_rating',  XOBJ_DTYPE_OTHER, 0, false, 10);
+        $this->initVar('content_rating', XOBJ_DTYPE_OTHER, 0, false, 10);
         $this->initVar('content_votes', XOBJ_DTYPE_INT, 0, false, 11);
         $this->initVar('content_comments', XOBJ_DTYPE_INT, 0, false, 11);
         $this->initVar('content_mkeyword', XOBJ_DTYPE_TXTAREA, '', false);
         $this->initVar('content_mdescription', XOBJ_DTYPE_TXTAREA, '', false);
         $this->initVar('content_maindisplay', XOBJ_DTYPE_INT, 1, false, 1);
-        $this->initVar('content_weight',XOBJ_DTYPE_INT, 0, false, 5);
+        $this->initVar('content_weight', XOBJ_DTYPE_INT, 0, false, 5);
         $this->initVar('content_dopdf', XOBJ_DTYPE_INT, 1, false, 1);
         $this->initVar('content_doprint', XOBJ_DTYPE_INT, 1, false, 1);
         $this->initVar('content_dosocial', XOBJ_DTYPE_INT, 1, false, 1);
@@ -84,48 +98,48 @@ class PagePage_content extends XoopsObject
     {
         $xoops = Xoops::getInstance();
         $ret = array();
-        if ($this->getVar('content_dotitle') == 1){
-            array_push ($ret, 'title');
+        if ($this->getVar('content_dotitle') == 1) {
+            array_push($ret, 'title');
         }
-        if ($this->getVar('content_doauthor') == 1){
-            array_push ($ret, 'author');
+        if ($this->getVar('content_doauthor') == 1) {
+            array_push($ret, 'author');
         }
-        if ($this->getVar('content_dodate') == 1){
-            array_push ($ret, 'date');
+        if ($this->getVar('content_dodate') == 1) {
+            array_push($ret, 'date');
         }
-        if ($this->getVar('content_dohits') == 1){
-            array_push ($ret, 'hits');
+        if ($this->getVar('content_dohits') == 1) {
+            array_push($ret, 'hits');
         }
-        if ($this->getVar('content_dorating') == 1){
-            array_push ($ret, 'rating');
+        if ($this->getVar('content_dorating') == 1) {
+            array_push($ret, 'rating');
         }
-        if ($this->getVar('content_doprint') == 1){
-            array_push ($ret, 'print');
+        if ($this->getVar('content_doprint') == 1) {
+            array_push($ret, 'print');
         }
-        if ($this->getVar('content_domail') == 1){
-            array_push ($ret, 'mail');
+        if ($this->getVar('content_domail') == 1) {
+            array_push($ret, 'mail');
         }
         if ($xoops->isActiveModule('comments')) {
-            if ($this->getVar('content_docoms') == 1){
-                array_push ($ret, 'coms');
+            if ($this->getVar('content_docoms') == 1) {
+                array_push($ret, 'coms');
             }
-            if ($this->getVar('content_doncoms') == 1){
-                array_push ($ret, 'ncoms');
+            if ($this->getVar('content_doncoms') == 1) {
+                array_push($ret, 'ncoms');
             }
         }
         if ($xoops->isActiveModule('notifications')) {
-            if ($this->getVar('content_donotifications') == 1){
-                array_push ($ret, 'notifications');
+            if ($this->getVar('content_donotifications') == 1) {
+                array_push($ret, 'notifications');
             }
         }
         if ($xoops->isActiveModule('pdf')) {
-            if ($this->getVar('content_dopdf') == 1){
-                array_push ($ret, 'pdf');
+            if ($this->getVar('content_dopdf') == 1) {
+                array_push($ret, 'pdf');
             }
         }
         if ($xoops->isActiveModule('xoosocialnetwork')) {
-            if ($this->getVar('content_dosocial') == 1){
-                array_push ($ret, 'social');
+            if ($this->getVar('content_dosocial') == 1) {
+                array_push($ret, 'social');
             }
         }
         return $ret;
@@ -140,14 +154,14 @@ class PagePage_content extends XoopsObject
 class PagePage_contentHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_content', 'pagepage_content', 'content_id', 'content_title');
     }
 
-    public function getPagePublished($start=0, $limit=0, $sort='content_weight ASC, content_title', $order='ASC')
+    public function getPagePublished($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $helper = Page::getInstance();
         $xoops = $helper->xoops();
@@ -170,7 +184,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria);
     }
 
-    public function getCountPublished($start=0, $limit=0, $sort='content_weight ASC, content_title', $order='ASC')
+    public function getCountPublished($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $helper = Page::getInstance();
         $xoops = $helper->xoops();
@@ -192,7 +206,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getCount($criteria);
     }
 
-    public function getPage($start=0, $limit=0, $sort='content_weight ASC, content_title', $order='ASC')
+    public function getPage($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
         $criteria->setSort($sort);
@@ -202,7 +216,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria);
     }
 
-    public function countPage($start=0, $limit=0, $sort='content_weight ASC, content_title', $order='ASC')
+    public function countPage($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
         $criteria->setSort($sort);
@@ -212,7 +226,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getCount($criteria);
     }
 
-    public function getPageTitle($status=null, $sort='content_weight ASC, content_title', $order='ASC')
+    public function getPageTitle($status = null, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
         if (isset($status)) {

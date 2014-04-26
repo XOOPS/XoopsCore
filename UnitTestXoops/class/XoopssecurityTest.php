@@ -8,18 +8,18 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class XoopssecurityTest extends MY_UnitTestCase
 {
-	protected $myclass = 'XoopsSecurity';
-    
+	protected $myclass = '\Xoops\Core\Security';
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
+
     public function test_createToken()
 	{
         $instance = new $this->myclass();
@@ -33,11 +33,11 @@ class XoopssecurityTest extends MY_UnitTestCase
 			$this->assertTrue(is_int($v['expire']) AND ($v['expire'] > time()));
 		}
     }
-	
+
 	public function test_check()
 	{
 	}
-	
+
 	// this test clear all token in global $_SESSION
     public function test_clearTokens()
 	{
@@ -46,7 +46,7 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$token=$instance->clearTokens();
 		$this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
     }
-	
+
     public function test_filterToken()
 	{
         $instance = new $this->myclass();
@@ -59,7 +59,7 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$expire=$instance->filterToken($token_data);
 		$this->assertSame(true, $expire);
     }
-	
+
     public function test_garbageCollection()
 	{
         $instance = new $this->myclass();
@@ -70,7 +70,7 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$value=$instance->garbageCollection();
 		$this->assertTrue(!empty($_SESSION['XOOPS_TOKEN_SESSION']));
     }
-	
+
     public function test_checkReferer()
 	{
         $instance = new $this->myclass();
@@ -80,8 +80,8 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$value=$instance->checkReferer();
 		$this->assertSame(false, $value);
     }
-	
-	
+
+
     public function test_getTokenHTML()
 	{
         $instance = new $this->myclass();
@@ -92,7 +92,7 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$this->assertTrue(strpos($value,'name="XOOPS_TOKEN_REQUEST"')>0);
 		$this->assertTrue(strpos($value,'id="XOOPS_TOKEN_REQUEST')>0);
     }
-	
+
     public function test_setErrors()
 	{
         $instance = new $this->myclass();
@@ -102,9 +102,9 @@ class XoopssecurityTest extends MY_UnitTestCase
 		$errors=$instance->getErrors();
 		$this->assertSame(trim($error), $errors[0]);
     }
-	
+
 	public function test_getErrors()
 	{
 	}
-	
+
 }

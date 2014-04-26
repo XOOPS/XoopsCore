@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * page module
  *
@@ -20,8 +22,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class PagePage_related extends XoopsObject
 {
     /**
@@ -30,7 +30,7 @@ class PagePage_related extends XoopsObject
     public function __construct()
     {
         $this->initVar('related_id', XOBJ_DTYPE_INT, 0, false, 8);
-        $this->initVar('related_name', XOBJ_DTYPE_TXTBOX, '', false );
+        $this->initVar('related_name', XOBJ_DTYPE_TXTBOX, '', false);
         $this->initVar('related_domenu', XOBJ_DTYPE_INT, 1, false, 1);
         $this->initVar('related_navigation', XOBJ_DTYPE_INT, 1, false, 1);
     }
@@ -54,14 +54,14 @@ class PagePage_related extends XoopsObject
 class PagePage_relatedHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_related', 'pagepage_related', 'related_id', 'related_name');
     }
 
-    public function getRelated($start=0, $limit=0, $sort='related_name', $order='ASC')
+    public function getRelated($start = 0, $limit = 0, $sort = 'related_name', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
         $criteria->setSort($sort);
@@ -71,7 +71,7 @@ class PagePage_relatedHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria, null, false);
     }
 
-    public function countRelated($start=0, $limit=0, $sort='related_name', $order='ASC')
+    public function countRelated($start = 0, $limit = 0, $sort = 'related_name', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
         $criteria->setSort($sort);

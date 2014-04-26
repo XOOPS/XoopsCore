@@ -11,7 +11,7 @@
  * @version         $Id$
  */
 
-$xoops_root_path = dirname( dirname ( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) ) ) ;
+$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
 include_once $xoops_root_path . '/mainfile.php';
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
@@ -21,7 +21,7 @@ $xoops->simpleHeader(false);
 
 $request = Xoops_Request::getInstance();
 
-$helper = Xoops_Module_Helper::getHelper('images');
+$helper = Xoops\Module\Helper::getHelper('images');
 $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 $helper->loadLanguage('main');
@@ -36,48 +36,48 @@ $xoopsTpl = new XoopsTpl();
 switch ($op) {
     case 'list':
     default:
-    // Category Select form
-    $param = array('imgcat_id' => $imgcat_id, 'target' => null);
-    $form = $helper->getForm($param, 'category_imagemanager');
-    $xoopsTpl->assign('form_category', $form->render());
+        // Category Select form
+        $param = array('imgcat_id' => $imgcat_id, 'target' => null);
+        $form = $helper->getForm($param, 'category_imagemanager');
+        $xoopsTpl->assign('form_category', $form->render());
 
-    if ($imgcat_id > 0 ) {
-        $imgcount = $helper->getHandlerImages()->countByCategory($imgcat_id);
-        $images = $helper->getHandlerImages()->getByCategory($imgcat_id, $start, $helper->getConfig('images_pager'), true);
-        $category = $helper->getHandlerCategories()->get($imgcat_id);
+        if ($imgcat_id > 0) {
+            $imgcount = $helper->getHandlerImages()->countByCategory($imgcat_id);
+            $images = $helper->getHandlerImages()->getByCategory($imgcat_id, $start, $helper->getConfig('images_pager'), true);
+            $category = $helper->getHandlerCategories()->get($imgcat_id);
 
-        foreach (array_keys($images) as $i) {
-            if ($category->getVar('imgcat_storetype') == 'db') {
-                $src = $helper->url("image.php?id=" . $images[$i]->getVar('image_id'));
-            } else {
-                $src = XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name');
-            }
-            $xoopsTpl->append('images', array(
+            foreach (array_keys($images) as $i) {
+                if ($category->getVar('imgcat_storetype') == 'db') {
+                    $src = $helper->url("image.php?id=" . $images[$i]->getVar('image_id'));
+                } else {
+                    $src = XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name');
+                }
+                $xoopsTpl->append('images', array(
                                           'id' => $images[$i]->getVar('image_id'),
                                           'nicename' => $images[$i]->getVar('image_nicename'),
                                           'mimetype' => $images[$i]->getVar('image_mimetype'),
                                           'src' => $src,
                                           ));
+            }
         }
-    }
-    break;
+        break;
 
     case 'upload':
-    $category = $helper->getHandlerCategories()->get($imgcat_id);
-    if ($imgcat_id > 0 && is_object($category)) {
-        $perm_handler = $xoops->getHandlerGroupperm();
-        if ($perm_handler->checkRight('imgcat_write', $imgcat_id, $groups)) {
+        $category = $helper->getHandlerCategories()->get($imgcat_id);
+        if ($imgcat_id > 0 && is_object($category)) {
+            $perm_handler = $xoops->getHandlerGroupperm();
+            if ($perm_handler->checkRight('imgcat_write', $imgcat_id, $groups)) {
 
-            $xoops->simpleHeader();
-            $xoopsTpl = new XoopsTpl();
-            $obj =  $helper->getHandlerImages()->create();
-            $obj->setVar('imgcat_id', $imgcat_id);
-            $form = $helper->getForm(array('obj' => $obj, 'target' => null), 'image_imagemanager');
-            $xoopsTpl->assign('form', $form->render());
+                $xoops->simpleHeader();
+                $xoopsTpl = new XoopsTpl();
+                $obj =  $helper->getHandlerImages()->create();
+                $obj->setVar('imgcat_id', $imgcat_id);
+                $form = $helper->getForm(array('obj' => $obj, 'target' => null), 'image_imagemanager');
+                $xoopsTpl->assign('form', $form->render());
+            }
+
         }
-
-    }
-    break;
+        break;
 
     case 'save':
         if (!$xoops->security()->check()) {
@@ -120,7 +120,7 @@ switch ($op) {
             }
         }
 
-        if ( $image_id = $helper->getHandlerImages()->insert($obj)) {
+        if ($image_id = $helper->getHandlerImages()->insert($obj)) {
             if ($category->getVar('imgcat_storetype') == 'db') {
                 $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                 if (!is_object($imagebody)) {
@@ -135,7 +135,7 @@ switch ($op) {
             $xoops->redirect('xoops_images.php?imgcat_id=' . $imgcat_id, 2, implode('<br />', $msg));
         }
         echo $xoops->alert('error', $obj->getHtmlErrors());
-    break;
+        break;
 }
 $xoopsTpl->display('module:images|images_tinymce.html');
 $xoops->simpleFooter();

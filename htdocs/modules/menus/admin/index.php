@@ -22,7 +22,7 @@ include dirname(__FILE__) . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
 $indexAdmin->displayIndex();
 

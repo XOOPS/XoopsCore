@@ -14,15 +14,15 @@ class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
 class AuthAbstractTest extends MY_UnitTestCase
 {
     protected $myclass = 'AuthAbstractTestInstance';
-    
+
     public function test___construct()
 	{
-		$conn = XoopsDatabaseFactory::getConnection();
-		
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+
 		$instance = new $this->myclass($conn);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
+
 	public function test_authenticate()
 	{
 		$dao = 'dao';

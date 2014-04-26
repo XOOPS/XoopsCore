@@ -24,7 +24,7 @@ include dirname(__FILE__) . '/header.php';
 // Call header
 $xoops->header('page_admin_related.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('related.php');
 
 switch ($op) {
@@ -89,11 +89,11 @@ switch ($op) {
         }
 
         //main
-        $obj->setVar('related_name',  $request->asStr('related_name', ''));
+        $obj->setVar('related_name', $request->asStr('related_name', ''));
         $obj->setVar('related_domenu', $request->asInt('related_domenu', 1));
         $obj->setVar('related_navigation', $request->asInt('related_navigation', 1));
 
-        if ( $related_newid = $related_Handler->insert($obj)) {
+        if ($related_newid = $related_Handler->insert($obj)) {
             $related_id = $related_id != 0 ? $related_id : $related_newid;
             $datas = $request->asArray('datas');
             $datas_exists = $link_Handler->getContentByRelated($related_newid);
@@ -101,7 +101,7 @@ switch ($op) {
             $datas_add = array_diff($datas, array_values($datas_exists));
 
             // delete
-            if (count($datas_delete) != 0 ) {
+            if (count($datas_delete) != 0) {
                 $criteria = $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('link_related_id', $related_id));
                 $criteria->add(new Criteria('link_content_id', '(' . implode(', ', $datas_delete) . ')', 'IN'));
@@ -110,7 +110,7 @@ switch ($op) {
                 }
             }
             // Add
-            if (count($datas_add) != 0 ) {
+            if (count($datas_add) != 0) {
                 foreach ($datas_add as $weight => $content_id) {
                     $obj = $link_Handler->create();
                     $obj->setVar('link_related_id', $related_id);
@@ -121,7 +121,7 @@ switch ($op) {
                 }
             }
             //update
-            if (count($datas) != 0 ) {
+            if (count($datas) != 0) {
                 foreach ($datas as $weight => $content_id) {
                     $criteria = $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('link_related_id', $related_id));
@@ -166,8 +166,12 @@ switch ($op) {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $xoops->confirm(array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'), 'related.php',
-            XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM . '<br /><span class="red">' . $obj->getvar('related_name') . '<span>');
+            $xoops->confirm(
+                array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'),
+                'related.php',
+                XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
+                . '<br /><span class="red">' . $obj->getvar('related_name') . '<span>'
+            );
         }
         break;
 

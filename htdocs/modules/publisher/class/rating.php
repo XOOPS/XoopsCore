@@ -42,7 +42,7 @@ class PublisherRating extends XoopsObject
 class PublisherRatingHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Xoops\Core\Database\Connection $db
      */
     public function __construct($db)
     {

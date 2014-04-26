@@ -46,7 +46,7 @@ if ($op != 'showschema' || empty($mod_dirname)) {
 }
 
 //echo '<h2>' . _MI_SCHEMATOOL_NAME . '</h2>';
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('schematool.php');
 
 if ($op == 'showschema') {
@@ -69,24 +69,24 @@ if ($op == 'showschema') {
 
         // get a schema manager
         $schemaManager = $xoops->db()->getSchemaManager();
-    
+
         // create schema from the current database
         $schema = $schemaManager->createSchema();
-    
+
         // invoke our RemovePrefixes visitor with list of core tables
         $visitor = new RemovePrefixes;
         $visitor->setTableFilter($table_list);
         $schema->visit($visitor);
-    
+
         // Get the schema we built with the RemovePrefixes visitor.
         // Should be just core tables with no prefix
         $newSchema = $visitor->getNewSchema();
-    
+
         // Invoke an ExportVisitor that will build a clean array version
         // of our schema, so we can serialize it.
         $export = new ExportVisitor;
         $newSchema->visit($export);
-    
+
         echo '<h2>' . _MI_SCHEMATOOL_EXPORT_SCHEMA . '</h2>';
         $yamldump = Yaml::dump($export->getSchemaArray(), 5);
         //echo '<div contenteditable><pre>' . $yamldump . '</pre></div>';

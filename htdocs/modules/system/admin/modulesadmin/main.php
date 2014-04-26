@@ -59,7 +59,7 @@ switch ($op) {
         $xoops->theme()->addScript('modules/system/js/admin.js');
         $xoops->theme()->addScript('modules/system/js/module.js');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(
             SystemLocale::MODULES_ADMINISTRATION,
@@ -73,7 +73,7 @@ switch ($op) {
         $system_module = new SystemModule();
 
         $list = $system_module->getModuleList();
-        $install = $system_module->getModuleInstall();
+        $install = $system_module->getInstalledModules();
 
         $view = $system->cleanVars($_COOKIE, 'xoopsModsView', 'large', 'string');
         if ($view == 'large') {
@@ -182,7 +182,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(
             SystemLocale::MODULES_ADMINISTRATION,
@@ -222,7 +222,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(
             SystemLocale::MODULES_ADMINISTRATION,
@@ -259,7 +259,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(
             SystemLocale::MODULES_ADMINISTRATION,

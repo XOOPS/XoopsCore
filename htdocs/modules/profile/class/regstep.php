@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * Extended User Profile
  *
@@ -20,8 +22,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
 class ProfileRegstep extends XoopsObject
 {
@@ -38,9 +38,9 @@ class ProfileRegstep extends XoopsObject
 class ProfileRegstepHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'profile_regstep', 'profileregstep', 'step_id', 'step_name');
     }

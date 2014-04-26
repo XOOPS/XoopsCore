@@ -61,7 +61,7 @@ switch ($op) {
     // Edit user
     case 'users_edit':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_USER);
@@ -76,7 +76,7 @@ switch ($op) {
     // Add user
     case 'users_add':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_USER);
@@ -90,7 +90,7 @@ switch ($op) {
     // Delete user
     case 'users_delete':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_USER);
@@ -353,7 +353,7 @@ switch ($op) {
 
         if (isset($_REQUEST['complet_search'])) {
             // Assign Breadcrumb menu
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::ADVANCED_SEARCH);
@@ -474,7 +474,7 @@ switch ($op) {
         } else {
             //Display data
             // Assign Breadcrumb menu
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::LIST_);

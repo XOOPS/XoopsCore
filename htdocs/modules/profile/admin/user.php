@@ -25,7 +25,7 @@ include dirname(__FILE__) . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('user.php');
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
@@ -46,6 +46,7 @@ switch ($op) {
         $button_tray->addElement(new XoopsFormButton('', 'delete', XoopsLocale::A_DELETE, 'submit', 'btn danger'));
         $form->addElement($button_tray);
         $form->display();
+        /* fallthrough */
 
     case "new":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
@@ -71,7 +72,12 @@ switch ($op) {
     case "save":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
         if (!$xoops->security()->check()) {
-            $xoops->redirect('user.php', 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect(
+                'user.php',
+                3,
+                XoopsLocale::E_NO_ACTION_PERMISSION . "<br />"
+                . implode('<br />', $xoops->security()->getErrors())
+            );
             exit;
         }
 
@@ -83,7 +89,11 @@ switch ($op) {
         $userfields = $profile_handler->getUserVars();
         // Get ids of fields that can be edited
         $gperm_handler = $xoops->getHandlerGroupperm();
-        $editable_fields = $gperm_handler->getItemIds('profile_edit', $xoops->user->getGroups(), $xoops->module->getVar('mid'));
+        $editable_fields = $gperm_handler->getItemIds(
+            'profile_edit',
+            $xoops->user->getGroups(),
+            $xoops->module->getVar('mid')
+        );
 
         $uid = empty($_POST['uid']) ? 0 : intval($_POST['uid']);
         if (!empty($uid)) {
@@ -207,7 +217,12 @@ switch ($op) {
             $profile = $profile_handler->getProfile($obj->getVar('uid'));
             if (!$profile || $profile->isNew() || $profile_handler->delete($profile)) {
                 if ($handler->deleteUser($obj)) {
-                    $xoops->redirect('user.php', 3, sprintf(_PROFILE_AM_DELETEDSUCCESS, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")"), false);
+                    $xoops->redirect(
+                        'user.php',
+                        3,
+                        sprintf(_PROFILE_AM_DELETEDSUCCESS, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")"),
+                        false
+                    );
                 } else {
                     echo $obj->getHtmlErrors();
                 }
@@ -216,9 +231,11 @@ switch ($op) {
             }
 
         } else {
-            $xoops->confirm(array(
-                                 'ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'
-                            ), $_SERVER['REQUEST_URI'], sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")"));
+            $xoops->confirm(
+                array('ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'),
+                $_SERVER['REQUEST_URI'],
+                sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")")
+            );
         }
         break;
 }
