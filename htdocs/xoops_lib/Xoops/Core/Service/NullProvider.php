@@ -107,7 +107,7 @@ class NullProvider extends Provider
      * @param type $name      not used
      * @param type $arguments not used
      *
-     * @return null
+     * @return object Response
      */
     public function __call($name, $arguments)
     {
@@ -120,10 +120,12 @@ class NullProvider extends Provider
      * @param type $name      not used
      * @param type $arguments not used
      *
-     * @return null
+     * @return object Response
      */
     public static function __callStatic($name, $arguments)
     {
-        return $this->response;
+        $response = new Response();
+        $response->setSuccess(false)->addErrorMessage(sprintf("No provider installed for %s", $service));
+		return $response;
     }
 }

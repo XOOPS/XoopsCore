@@ -33,6 +33,16 @@ class AuthAbstractTest extends MY_UnitTestCase
 		$this->assertFalse($x);
 	}
 
+	public function test_authenticate()
+	{
+		$dao = 'dao';
+		$instance = new $this->myclass($dao);
+		$uname = 'uname';
+		$pwd = 'pwd';
+		$x = $instance->authenticate($uname, $pwd);
+		$this->assertFalse($x);
+	}
+
 	public function test_setErrors()
 	{
 		$dao = 'dao';

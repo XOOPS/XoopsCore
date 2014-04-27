@@ -121,7 +121,7 @@ class Provider
      * @param type $name      method to call
      * @param type $arguments any arguments
      *
-     * @return null
+     * @return object Response
      */
     public function __call($name, $arguments)
     {
