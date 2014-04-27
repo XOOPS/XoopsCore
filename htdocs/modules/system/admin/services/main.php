@@ -11,18 +11,16 @@
 
 use Xoops\Core\Service\Manager;
 
-//require_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
 /**
- * Plugins Manager
+ * Service Provider Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
+ * @author          Richard Griffith <richard@geekwright.com>
  * @package         system
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -61,12 +59,9 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     exit("Token error");
 }
 
-//$xoops->theme()->addStylesheet('media/jquery/ui/base/ui.all.css');
 $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 $xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/js/admin.js');
-//$xoops->theme()->addScript('modules/system/js/admin.js');
-//$xoops->theme()->addScript('media/jquery/plugins/jquery.jgrowl.js');
 
 $xoops->header('system_services.html');
 
@@ -128,7 +123,8 @@ if (!empty($selected_service) && in_array($selected_service, $filteredList)) {
             $modeDesc = 'User Preference';
             break;
         case Manager::MODE_MULTIPLE:
-            $modeDesc = 'This is an <em>Multiple</em> mode service. Each provider will be called in the sequence shown.';
+            $modeDesc = 'This is an <em>Multiple</em> mode service. '
+                . 'Each provider will be called in the sequence shown.';
             break;
     }
     $xoops->tpl()->assign('message', $xoops->alert('info', $modeDesc, 'Service Mode'));

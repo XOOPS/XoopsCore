@@ -10,21 +10,21 @@
 */
 
 /**
+ * SystemUserForm
  *
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Andricq Nicolas (AKA MusS)
- * @package
- * @version         $Id$
+ * @category  Modules/system/class/form
+ * @package   SystemUserForm
+ * @author    Andricq Nicolas (AKA MusS)
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class SystemUserForm extends XoopsThemeForm
 {
     /**
-     * @param XoopsUser|XoopsObject $obj
+     * __construct
+     *
+     * @param XoopsUser|XoopsObject &$obj user object
      */
     public function __construct(XoopsUser &$obj)
     {
@@ -128,7 +128,9 @@ class SystemUserForm extends XoopsThemeForm
             $this->addElement(new XoopsFormPassword(XoopsLocale::PASSWORD, "password", 3, 32));
             $this->addElement(new XoopsFormPassword(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32));
         }
-        $this->addElement(new XoopsFormRadioYN(XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL, 'user_mailok', $mailok_value));
+        $this->addElement(
+            new XoopsFormRadioYN(XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL, 'user_mailok', $mailok_value)
+        );
 
         //Groups administration addition XOOPS 2.0.9: Mith
         $gperm_handler = $xoops->getHandlerGroupperm();

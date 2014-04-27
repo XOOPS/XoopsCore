@@ -12,29 +12,31 @@
 /**
  * Preference Form Class
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Andricq Nicolas (AKA MusS)
- * @author          trabis <lusopoemas@gmail.com>
- * @package         system
- * @subpackage      preferences
- * @version         $Id$
+ * @category  Modules/system/class/form
+ * @package   SystemPreferencesForm
+ * @author    Andricq Nicolas (AKA MusS)
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class SystemPreferencesForm extends XoopsSimpleForm
 {
     /**
-     * @param null $obj
+     * __construct
+     *
+     * @param null $obj unused object
      */
     public function __construct($obj = null)
     {
     }
 
     /**
-     * @param                         $obj
-     * @param XoopsModule|XoopsObject $mod
+     * getForm
+     *
+     * @param array                   &$obj array of config objects
+     * @param XoopsModule|XoopsObject &$mod module
      *
      * @return void
      */
@@ -91,26 +93,48 @@ class SystemPreferencesForm extends XoopsSimpleForm
             $myts = MyTextSanitizer::getInstance();
             $this->addElement(new XoopsFormHidden('redirect', $myts->htmlspecialchars($_REQUEST["redirect"])));
         } elseif ($mod->getInfo('adminindex')) {
-            $this->addElement(new XoopsFormHidden('redirect', XOOPS_URL . '/modules/' . $mod->getVar('dirname') . '/' . $mod->getInfo('adminindex')));
+            $this->addElement(new XoopsFormHidden(
+                'redirect',
+                XOOPS_URL . '/modules/' . $mod->getVar('dirname') . '/' . $mod->getInfo('adminindex')
+            ));
         }
         $count = count($obj);
         for ($i = 0; $i < $count; $i++) {
             $title = Xoops_Locale::translate($obj[$i]->getVar('conf_title'), $mod->getVar('dirname'));
-            $desc = ($obj[$i]->getVar('conf_desc') != '') ? Xoops_Locale::translate($obj[$i]->getVar('conf_desc'), $mod->getVar('dirname')) : '';
+            $desc = ($obj[$i]->getVar('conf_desc') != '') ?
+                Xoops_Locale::translate($obj[$i]->getVar('conf_desc'), $mod->getVar('dirname')) : '';
             switch ($obj[$i]->getVar('conf_formtype')) {
 
                 case 'textarea':
                     $myts = MyTextSanitizer::getInstance();
                     if ($obj[$i]->getVar('conf_valuetype') == 'array') {
                         // this is exceptional.. only when value type is arrayneed a smarter way for this
-                        $ele = ($obj[$i]->getVar('conf_value') != '') ? new XoopsFormTextArea($title, $obj[$i]->getVar('conf_name'), $myts->htmlspecialchars(implode('|', $obj[$i]->getConfValueForOutput())), 5, 5) : new XoopsFormTextArea($title, $obj[$i]->getVar('conf_name'), '', 5, 5);
+                        $ele = ($obj[$i]->getVar('conf_value') != '')
+                            ? new XoopsFormTextArea(
+                                $title,
+                                $obj[$i]->getVar('conf_name'),
+                                $myts->htmlspecialchars(implode('|', $obj[$i]->getConfValueForOutput())),
+                                5,
+                                5
+                            )
+                            : new XoopsFormTextArea($title, $obj[$i]->getVar('conf_name'), '', 5, 5);
                     } else {
-                        $ele = new XoopsFormTextArea($title, $obj[$i]->getVar('conf_name'), $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()), 5, 5);
+                        $ele = new XoopsFormTextArea(
+                            $title,
+                            $obj[$i]->getVar('conf_name'),
+                            $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()),
+                            5,
+                            5
+                        );
                     }
                     break;
 
                 case 'select':
-                    $ele = new XoopsFormSelect($title, $obj[$i]->getVar('conf_name'), $obj[$i]->getConfValueForOutput());
+                    $ele = new XoopsFormSelect(
+                        $title,
+                        $obj[$i]->getVar('conf_name'),
+                        $obj[$i]->getConfValueForOutput()
+                    );
                     $options = $config_handler->getConfigOptions(new Criteria('conf_id', $obj[$i]->getVar('conf_id')));
                     $opcount = count($options);
                     for ($j = 0; $j < $opcount; $j++) {

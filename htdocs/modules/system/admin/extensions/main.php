@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 // Get main instance
 $xoops = Xoops::getInstance();
 $system = System::getInstance();

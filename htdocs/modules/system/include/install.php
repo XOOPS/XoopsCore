@@ -16,8 +16,16 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
- * @package     system
+ * @package         system
  * @version         $Id$
+ */
+
+/**
+ * xoops_module_install_system - initialize on install
+ *
+ * @param type &$module module object
+ *
+ * @return void
  */
 function xoops_module_install_system(&$module)
 {
@@ -116,7 +124,9 @@ function xoops_module_install_system(&$module)
     // user admin
 
     // data for table 'groups_users_link'
-    $dbm = new XoopsDatabaseManager();
-    $dbm->insert('groups_users_link', " VALUES (0, 1, 1)");
-    $dbm->insert('groups_users_link', " VALUES (0, 2, 1)");
+    $types = array(\PDO::PARAM_INT, \PDO::PARAM_INT);
+    $data = array('groupid' => 1, 'uid' => 1);
+    $xoops->db()->insertPrefix('groups_users_link', $data, $types);
+    $data = array('groupid' => 2, 'uid' => 1);
+    $xoops->db()->insertPrefix('groups_users_link', $data, $types);
 }
