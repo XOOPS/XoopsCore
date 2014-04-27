@@ -19,8 +19,8 @@
         "ircmaxell/password-compat": "~1.0",
         "patchwork/utf8": "1.1.*",
         "symfony/process": "2.4.*",
-        "monolog/monolog": "1.7.0",
-        "maximebf/debugbar": "1.9.8",
+        "monolog/monolog": "1.9.*",
+        "maximebf/debugbar": "1.9.*",
 
         "kriswallsmith/assetic": "v1.1.2",
         "ptachoire/cssembed": "1.0.*",
