@@ -306,7 +306,10 @@ class XoopsDatabaseManager
     /**
      * Deletes tables
      *
-     * @param string $tables table to delete
+     * No callers found in core. foreach loop is suspect, using key and value for
+     * a list of tables? No docs or examples about what it is supposed to do.
+     *
+     * @param array $tables table to delete
      *
      * @return array list of dropped tables
      */
@@ -315,7 +318,8 @@ class XoopsDatabaseManager
         $deleted = array();
         $this->db->connect();
         foreach ($tables as $key => $val) {
-            if (!$this->db->query("DROP TABLE " . $this->db->prefix($key))) {
+            //was: if (!$this->db->query("DROP TABLE " . $this->db->prefix($key))) {
+            if (!$this->db->query("DROP TABLE " . $this->db->prefix($val))) {
                 $deleted[] = $val;
             }
         }
