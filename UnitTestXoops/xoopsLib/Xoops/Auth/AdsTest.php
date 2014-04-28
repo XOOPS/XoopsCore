@@ -11,7 +11,8 @@ class Xoops_Auth_AdsTest extends MY_UnitTestCase
     protected $myclass = 'Xoops\Auth\Ads';
     
     public function test___construct()
-	{	
+	{
+		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
     }

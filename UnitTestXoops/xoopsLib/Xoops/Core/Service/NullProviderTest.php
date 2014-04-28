@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__).'/../../../../init.php');
 
 use Xoops\Core\Service\NullProvider;
+use Xoops\Core\Service\Manager;
 
 /**
 * PHPUnit special settings :
@@ -14,7 +15,9 @@ class NullProviderTest extends MY_UnitTestCase
 	
 	function test___construct()
 	{
-		$instance = new $this->myClass();
+		$manager = Manager::getInstance();
+		$service = 'service';
+		$instance = new $this->myClass($manager, $service);
 		$this->assertInstanceOf($this->myClass, $instance);
 
 	}
@@ -41,7 +44,9 @@ class NullProviderTest extends MY_UnitTestCase
 	
 	function test___call()
 	{
-		$instance = new $this->myClass();
+		$manager = Manager::getInstance();
+		$service = 'service';
+		$instance = new $this->myClass($manager, $service);
 		$this->assertInstanceOf($this->myClass, $instance);
 		
 		$x = $instance->dummy();
