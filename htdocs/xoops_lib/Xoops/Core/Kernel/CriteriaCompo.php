@@ -182,7 +182,7 @@ class CriteriaCompo extends CriteriaElement
         }
 
         if (!empty($this->groupby)) {
-            $qb->groupBy($groupby);
+            $qb->groupBy($this->groupby);
         }
 
         if (!empty($this->sort)) {

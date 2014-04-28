@@ -149,12 +149,11 @@ class Provisioning
         foreach ($tab_mapping as $mapping) {
             $fields = explode('=', trim($mapping));
             if (isset($fields[0]) and ($field0 = trim($fields[0]))) {
+                $str = '';
                 if (isset($fields[1]) and ($field1 = trim($fields[1]))) {
                     if (!empty($data[$field1][0])) {
                         $str = $data[$field1][0];
                     }
-                } else {
-                    $str = '';
                 }
                 $object->setVar($field0, $str);
             }
@@ -181,10 +180,10 @@ class Provisioning
         $newuser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
         $newuser->setVar('rank', 0);
         $newuser->setVar('level', 1);
-        $newuser->setVar('timezone_offset', $this->default_TZ);
-        $newuser->setVar('theme', $this->theme_set);
-        $newuser->setVar('umode', $this->com_mode);
-        $newuser->setVar('uorder', $this->com_order);
+        $newuser->setVar('timezone_offset', $xoops->getConfig('default_TZ'));
+        $newuser->setVar('theme', $xoops->getConfig('theme_set'));
+        //$newuser->setVar('umode', $xoops->getConfig('com_mode'));
+        //$newuser->setVar('uorder', $xoops->getConfig('com_order'));
         $this->setVarsMapping($newuser, $data);
 
         if ($member_handler->insertUser($newuser)) {
@@ -213,7 +212,7 @@ class Provisioning
      */
     public function change(\XoopsUser $xoopsUser, $data, $uname, $pwd = null)
     {
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         $ret = false;
         $member_handler = $xoops->getHandlerMember();
         $xoopsUser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));

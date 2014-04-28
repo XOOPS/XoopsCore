@@ -1133,6 +1133,8 @@ class Xoops
     }
 
     /**
+     * simpleFooter
+     *
      * @return void
      */
     public function simpleFooter()
@@ -1142,9 +1144,11 @@ class Xoops
         ob_end_flush();
     }
     /**
-     * @param string $type (info, error, success or warning)
-     * @param mixed  $msg - string or array of strings
-     * @param string $title
+     * render an alert message to a string
+     *
+     * @param string $type  alert type, one of 'info', 'error', 'success' or 'warning'
+     * @param mixed  $msg   string or array of strings
+     * @param string $title title for alert
      *
      * @return string
      */
@@ -1155,28 +1159,28 @@ class Xoops
             case 'info':
             default:
                 $this->tpl()->assign('alert_type', 'alert-info');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::INFORMATION;
                 }
                 break;
 
             case 'error':
                 $this->tpl()->assign('alert_type', 'alert-error');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::ERROR;
                 }
                 break;
 
             case 'success':
                 $this->tpl()->assign('alert_type', 'alert-success');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::SUCCESS;
                 }
                 break;
 
             case 'warning':
                 $this->tpl()->assign('alert_type', '');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::WARNING;
                 }
                 break;
@@ -1194,7 +1198,7 @@ class Xoops
         } else {
             $alert_msg = $msg;
         }
-        if ($alert_msg == '' ){
+        if ($alert_msg == '') {
             return '';
         } else {
             $this->tpl()->assign('alert_msg', $alert_msg);
