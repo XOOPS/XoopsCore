@@ -19,8 +19,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 $modversion['name']        = XoopsLocale::TEMPLATES;
 $modversion['version']     = '1.0';
 $modversion['description'] = SystemLocale::TEMPLATES_DESC;

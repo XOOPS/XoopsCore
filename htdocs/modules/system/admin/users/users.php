@@ -22,7 +22,6 @@
  * @link      http://xoops.org
  * @since     1.0
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // Get main instance
 $xoops = Xoops::getInstance();

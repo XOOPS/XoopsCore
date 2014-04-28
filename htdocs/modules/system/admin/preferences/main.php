@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 // Get main instance
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
@@ -105,20 +103,27 @@ switch ($op) {
                 $new_value = isset(${$config->getVar('conf_name')}) ? ${$config->getVar('conf_name')} : null;
                 if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {
                     // if language has been changed
-                    if (!$lang_updated && $config->getVar('conf_catid') == XOOPS_CONF && $config->getVar('conf_name') == 'locale') {
+                    if (!$lang_updated && $config->getVar('conf_catid') == XOOPS_CONF
+                        && $config->getVar('conf_name') == 'locale'
+                    ) {
                         $xoops->setConfig('locale', ${$config->getVar('conf_name')});
                         $lang_updated = true;
                     }
 
                     // if default theme has been changed
-                    if (!$theme_updated && $config->getVar('conf_catid') == XOOPS_CONF && $config->getVar('conf_name') == 'theme_set') {
+                    if (!$theme_updated && $config->getVar('conf_catid') == XOOPS_CONF
+                        && $config->getVar('conf_name') == 'theme_set'
+                    ) {
                         $member_handler = $xoops->getHandlerMember();
                         $member_handler->updateUsersByField('theme', ${$config->getVar('conf_name')});
                         $theme_updated = true;
                     }
 
                     // add read permission for the start module to all groups
-                    if (!$startmod_updated && $new_value != '--' && $config->getVar('conf_catid') == XOOPS_CONF && $config->getVar('conf_name') == 'startpage') {
+                    if (!$startmod_updated && $new_value != '--'
+                        && $config->getVar('conf_catid') == XOOPS_CONF
+                        && $config->getVar('conf_name') == 'startpage'
+                    ) {
                         $member_handler = $xoops->getHandlerMember();
                         $groups = $member_handler->getGroupList();
                         $moduleperm_handler = $xoops->getHandlerGroupperm();
@@ -140,13 +145,21 @@ switch ($op) {
         }
 
         if (!empty($use_mysession) && $xoops->getConfig('use_mysession') == 0 && $session_name != '') {
-            setcookie($session_name, session_id(), time() + (60 * intval($session_expire)), '/', XOOPS_COOKIE_DOMAIN, 0);
+            setcookie(
+                $session_name,
+                session_id(),
+                time() + (60 * intval($session_expire)),
+                '/',
+                XOOPS_COOKIE_DOMAIN,
+                0
+            );
         }
 
         // Clean cached files, may take long time
-        // User register_shutdown_function to keep running after connection closes so that cleaning cached files can be finished
+        // User register_shutdown_function to keep running after connection closes
+        // so that cleaning cached files can be finished
         // Cache management should be performed on a separate page
-        $options = array(1, 3); //1 goes for smarty cache, 3 goes for xoops_cache
+        $options = array(1, 2, 3); //1 goes for smarty cache, 3 goes for xoops_cache
         register_shutdown_function(array(&$system, 'CleanCache'), $options);
         $xoops->preload()->triggerEvent('system.preferences.save');
         if (isset($redirect) && $redirect != '') {

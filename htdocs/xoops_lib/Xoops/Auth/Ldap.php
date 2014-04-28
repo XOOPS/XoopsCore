@@ -119,7 +119,7 @@ class Ldap extends AuthAbstract
             return;
         }
 
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         $this->dao = $dao;
         //Configuration options that are stored in the database
         $configs = $xoops->getConfigs();
@@ -153,7 +153,7 @@ class Ldap extends AuthAbstract
             // If the uid is not in the DN we proceed to a search
             // The uid is not always in the dn
             $userDN = $this->getUserDN($uname);
-            if (!$userDN) {
+            if (!(is_string($userDN))) {
                 return false;
             }
             // We bind as user to test the credentials

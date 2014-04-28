@@ -175,7 +175,7 @@ class Tables
      *
      * @param string $table  table
      * @param string $column column or comma separated list of columns
-     *                       to use a primary key
+     *                       to use as primary key
      *
      * @return bool true if no errors, false if errors encountered
      */
@@ -183,7 +183,7 @@ class Tables
     {
         if (isset($this->tables[$table])) {
             $this->queue[]
-                = "ALTER TABLE `{$tableDef['name']}` ADD PRIMARY KEY({$column})";
+                = "ALTER TABLE `{$table}` ADD PRIMARY KEY({$column})";
         } else { // no table established
             $this->lastError = _DB_XMF_TABLE_IS_NOT_DEFINED;
             $this->lastErrNo = -1;
@@ -366,7 +366,7 @@ class Tables
             //ALTER TABLE `table` ADD INDEX `product_id` (`product_id`)
             $add = ($unique?'ADD UNIQUE INDEX':'ADD INDEX');
             $this->queue[]
-                = "ALTER TABLE `{$tableDef['name']}` {$add} {$name} ({$column})";
+                = "ALTER TABLE `{$table}` {$add} {$name} ({$column})";
         } else { // no table established
             $this->lastError = _DB_XMF_TABLE_IS_NOT_DEFINED;
             $this->lastErrNo = -1;
@@ -546,7 +546,6 @@ class Tables
         // ENGINE=MEMORY DEFAULT CHARSET=utf8;
         if (isset($this->tables[$table])) {
             $tableDef = &$this->tables[$table];
-            $newTable = $this->name($newName);
             $this->queue[]="ALTER TABLE `{$tableDef['name']}` {$options} ";
             $tableDef['options'] = $options;
         } else { // no table established
@@ -944,7 +943,7 @@ class Tables
 
     /**
      * dumpTables - development function to dump raw tables array
-     * 
+     *
      * @return array tables
      */
     public function dumpTables()
@@ -954,7 +953,7 @@ class Tables
 
     /**
      * dumpQueue - development function to dump the work queue
-     * 
+     *
      * @return array work queue
      */
     public function dumpQueue()

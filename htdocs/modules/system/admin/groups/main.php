@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 // Get main instance
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
@@ -88,13 +86,15 @@ switch ($op) {
             } else {
                 $groups['nb_users_by_groups'] = '';
             }
-            $edit_delete = '<a href="admin.php?fct=groups&amp;op=groups_edit&amp;groups_id=' . $groups_id . '">
-                                           <img src="./images/icons/edit.png" border="0" alt="' . SystemLocale::EDIT_GROUP . '" title="' . SystemLocale::EDIT_GROUP . '"></a>';
+            $edit_delete = '<a href="admin.php?fct=groups&amp;op=groups_edit&amp;groups_id=' . $groups_id . '">'
+                . '<img src="./images/icons/edit.png" border="0" alt="' . SystemLocale::EDIT_GROUP
+                . '" title="' . SystemLocale::EDIT_GROUP . '"></a>';
             if (!in_array($group->getVar("groupid"), array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS))
             ) {
                 $groups['delete'] = 1;
-                $edit_delete .= '<a href="admin.php?fct=groups&amp;op=groups_delete&amp;groups_id=' . $groups_id . '">
-                                     <img src="./images/icons/delete.png" border="0" alt="' . SystemLocale::DELETE_GROUP . '" title="' . SystemLocale::DELETE_GROUP . '"></a>';
+                $edit_delete .= '<a href="admin.php?fct=groups&amp;op=groups_delete&amp;groups_id=' . $groups_id . '">'
+                    . '<img src="./images/icons/delete.png" border="0" alt="' . SystemLocale::DELETE_GROUP
+                    . '" title="' . SystemLocale::DELETE_GROUP . '"></a>';
             }
             $groups['edit_delete'] = $edit_delete;
             $xoops->tpl()->append_by_ref('groups', $groups);
@@ -339,11 +339,15 @@ switch ($op) {
                 $system_breadcrumb->addHelp(system_adminVersion('groups', 'help') . '#edit');
                 $system_breadcrumb->render();
                 // Display message
-                $xoops->confirm(array(
-                    "ok" => 1,
-                    "groups_id" => $_REQUEST["groups_id"],
-                    "op" => "groups_delete"
-                ), 'admin.php?fct=groups', SystemLocale::Q_ARE_YOU_SURE_DELETE_THIS_GROUP . '<br />' . $obj->getVar("name") . '<br />');
+                $xoops->confirm(
+                    array(
+                        "ok" => 1,
+                        "groups_id" => $_REQUEST["groups_id"],
+                        "op" => "groups_delete"
+                    ),
+                    'admin.php?fct=groups',
+                    SystemLocale::Q_ARE_YOU_SURE_DELETE_THIS_GROUP . '<br />' . $obj->getVar("name") . '<br />'
+                );
             }
         } else {
             $xoops->redirect('admin.php?fct=groups', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);
@@ -354,13 +358,19 @@ switch ($op) {
     case 'action_group':
         $error = true;
         if (isset($_REQUEST['edit_group'])) {
-            if (isset($_REQUEST['edit_group']) && $_REQUEST['edit_group'] == 'add_group' && isset($_REQUEST['selgroups'])) {
+            if (isset($_REQUEST['edit_group'])
+                && $_REQUEST['edit_group'] == 'add_group'
+                && isset($_REQUEST['selgroups'])
+            ) {
                 foreach ($_REQUEST['memberslist_id'] as $uid) {
                     $member_handler->addUserToGroup($_REQUEST['selgroups'], $uid);
                     $error = false;
                 }
             } else {
-                if (isset($_REQUEST['edit_group']) && $_REQUEST['edit_group'] == 'delete_group' && isset($_REQUEST['selgroups'])) {
+                if (isset($_REQUEST['edit_group'])
+                    && $_REQUEST['edit_group'] == 'delete_group'
+                    && isset($_REQUEST['selgroups'])
+                ) {
                     $member_handler->removeUsersFromGroup($_REQUEST['selgroups'], $_REQUEST['memberslist_id']);
                     $error = false;
                 }

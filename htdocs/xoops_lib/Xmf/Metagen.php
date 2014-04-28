@@ -111,6 +111,7 @@ class Metagen
         $forceKeys = null
     ) {
         $keywords = array();
+        $keycnt = array();
         if (!is_array($forceKeys)) {
             $forceKeys = array();
         }
@@ -141,8 +142,9 @@ class Metagen
                     ) {
                         if (empty($keycnt[$secondRoundKeyword])) {
                             $keycnt[$secondRoundKeyword] = 1;
+                        } else {
+                            $keycnt[$secondRoundKeyword] += 1;
                         }
-                        $keycnt[$secondRoundKeyword] += 1;
                     }
                 }
             }

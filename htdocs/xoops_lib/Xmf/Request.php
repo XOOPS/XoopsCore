@@ -71,7 +71,7 @@ class Request
      *  - default    $_REQUEST
      *
      * @param string $name    Variable name
-     * @param string $default Default value if the variable does not exist
+     * @param mixed  $default Default value if the variable does not exist
      * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
      * @param string $type    Return type for the variable, for valid values see {@link Xmf\FilterInput::clean()}.
      * @param int    $mask    Filter mask for the variable
@@ -381,7 +381,7 @@ class Request
 
         // Handle magic quotes compatability
         if (get_magic_quotes_gpc() && ($hash != 'FILES')) {
-            $result = Request::stripSlashesRecursive($result);
+            $input = Request::stripSlashesRecursive($input);
         }
 
         $result = Request::cleanVars($input, $mask);
@@ -410,10 +410,10 @@ class Request
      *
      * @param mixed  $var  The input variable.
      * @param int    $mask Filter bit mask.
-     *  - 1=no trim: If this flag is cleared and the input is a string, 
+     *  - 1=no trim: If this flag is cleared and the input is a string,
      *    the string will have leading and trailing whitespace trimmed.
      *  - 2=allow_raw: If set, no more filtering is performed, higher bits are ignored.
-     *  - 4=allow_html: HTML is allowed, but passed through a safe HTML filter first. 
+     *  - 4=allow_html: HTML is allowed, but passed through a safe HTML filter first.
      *    If set, no more filtering is performed.
      *  - If no bits other than the 1 bit is set, a strict filter is applied.
      * @param string $type The variable type. See {@link Xmf\FilterInput::clean()}.
@@ -480,7 +480,7 @@ class Request
      * Strips slashes recursively on an array
      *
      * @param array $value Array of (nested arrays of) strings
-     * 
+     *
      * @return array The input array with stripshlashes applied to it
      */
     private static function stripSlashesRecursive($value)

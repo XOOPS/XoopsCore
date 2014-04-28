@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 $modversion['name']        = XoopsLocale::PREFERENCES;
 $modversion['version']     = '1.0';
 $modversion['description'] = SystemLocale::PREFERENCES_DESC;
