@@ -710,7 +710,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
                 ->where($eb->eq('gperm_name', $eb->literal('block_read')))
                 ->andWhere('gperm_modid=1');
 
-            if (is_array($groupid)) {
+            if (is_array($groupid) AND !empty($groupid)) {
                 $qb->andWhere($eb->in('gperm_groupid', $groupid));
             } else {
                 if (intval($groupid) > 0) {

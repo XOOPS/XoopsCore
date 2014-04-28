@@ -37,26 +37,19 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 	public function test_setClassName()
 	{
 		$class = $this->myClass;
-		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
+		$class::_unsetInstance();
 		$x = $class::setClassName();
-		$this->assertFalse($x);
+		$this->assertTrue($x);
 	}
 	
-	/*
-	public function test_setClassName100()
-	{
-		$class = $this->myClass;
-		$this->setExpectedException('PHPUnit_Framework_Error_Notice');
-		$x = $class::setClassName();
-	}
-	*/
-	
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
 	public function test_setClassName200()
 	{
 		$class = $this->myClass;
 		$class::_unsetInstance();
-		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
-		$x = $class::setClassName(1);
+		$x = $class::setClassName(1); // className must be a string
 		$this->assertFalse($x);
 	}
 	

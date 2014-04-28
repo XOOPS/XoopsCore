@@ -3,7 +3,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
 {
-    function authenticate($uname, $pwd = null) {}
+    function authenticate($uname, $pwd = null) {return false;}
 }
 
 /**
@@ -22,26 +22,6 @@ class AuthAbstractTest extends MY_UnitTestCase
 		$instance = new $this->myclass($conn);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
-	public function test_authenticate()
-	{
-		$dao = 'dao';
-		$instance = new $this->myclass($dao);
-		$uname = 'uname';
-		$pwd = 'pwd';
-		$x = $instance->authenticate($uname, $pwd);
-		$this->assertFalse($x);
-	}
-
-	public function test_authenticate()
-	{
-		$dao = 'dao';
-		$instance = new $this->myclass($dao);
-		$uname = 'uname';
-		$pwd = 'pwd';
-		$x = $instance->authenticate($uname, $pwd);
-		$this->assertFalse($x);
-	}
 
 	public function test_setErrors()
 	{
