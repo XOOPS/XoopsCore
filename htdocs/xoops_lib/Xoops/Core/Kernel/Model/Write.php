@@ -135,7 +135,7 @@ class Write extends XoopsModelAbstract
                 "Object '" . get_class($object) . "' is not an instance of '" . $this->handler->className . "'",
                 E_USER_NOTICE
             );
-            return $object->getVar($this->handler->keyName);
+            return false;
         }
 
         $qb = $this->handler->db2->createXoopsQueryBuilder();
