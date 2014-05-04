@@ -10,6 +10,7 @@ class ModuleHandlerTest extends MY_UnitTestCase
 {
     protected $myclass='XoopsModuleHandler';
 	protected $conn = null;
+	protected $mid = 0;
 
     public function SetUp()
 	{
@@ -45,17 +46,18 @@ class ModuleHandlerTest extends MY_UnitTestCase
         $instance=new $this->myclass($this->conn);
         $module=new XoopsModule();
         $module->setDirty(true);
+        $module->setNew(true);
+        $module->setVar('name', 'MODULE_DUMMY_FOR_TESTS', true);
         $value=$instance->insertModule($module);
-        $this->assertSame(false,$value);
+        $this->assertTrue($value);
+		
+        $value=$instance->deleteModule($module);
+        $this->assertTrue($value);
     }
 
     public function test_deleteModule()
 	{
-        $instance=new $this->myclass($this->conn);
-        $module=new XoopsModule();
-        $instance->db->allowWebChanges=true;
-        $value=$instance->deleteModule($module);
-        $this->assertSame(true,$value);
+		// see test_insertModule
     }
 
     public function test_getObjectsArray()

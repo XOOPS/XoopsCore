@@ -30,6 +30,12 @@ class PrivmessageHandlerTest extends MY_UnitTestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$msg=new XoopsPrivmessage();
+        $msg->setDirty(true);
+        $msg->setNew(true);
+        $msg->setVar('subject', 'PRIVMESSAGE_DUMMY_FOR_TESTS', true);
+        $value=$instance->insert($msg);
+        $this->assertTrue(intval($value) > 0);
+		
         $value=$instance->setRead($msg);
         $this->assertSame(true,$value);
     }
