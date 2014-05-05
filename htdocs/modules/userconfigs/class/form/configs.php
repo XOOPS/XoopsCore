@@ -18,11 +18,11 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class UserconfigsConfigsForm extends XoopsSimpleForm
 {
     /**
+     * __construct
+     *
      * @param null $obj
      */
     public function __construct($obj = null)
@@ -39,7 +39,7 @@ class UserconfigsConfigsForm extends XoopsSimpleForm
         $helper = Userconfigs::getInstance();
         $config_handler = $helper->getHandlerConfig();
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($mod->getVar('dirname'), 'userconfigs')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($mod->getVar('dirname'), 'userconfigs')) {
 
             parent::__construct('', 'pref_form', 'index.php', 'post', true);
             if ($mod->getVar('dirname') != 'system') {

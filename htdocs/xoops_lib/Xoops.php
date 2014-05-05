@@ -156,11 +156,11 @@ class Xoops
     /**
      * get database connection instance
      *
-     * @return XoopsConnection
+     * @return Xoops\Core\Database\Connection
      */
     public function db()
     {
-        return XoopsDatabaseFactory::getConnection();
+        return \Xoops\Core\Database\Factory::getConnection();
     }
 
     /**
@@ -240,8 +240,12 @@ class Xoops
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new XoopsSecurity();
-            $instance->checkSuperglobals();
+            $instance = new \Xoops\Core\Security();
+            $pass = $instance->checkSuperglobals();
+            if ($pass==false) {
+                header('Location: ' . XOOPS_URL . '/');
+                exit();
+            }
         }
         return $instance;
     }
@@ -304,13 +308,7 @@ class Xoops
                 if (!empty($jsAssets)) {
                     $this->theme()->addBaseScriptAssets($jsAssets);
                 }
-
             }
-            $this->theme()->setNamedAsset('jquery', 'media/jquery/jquery.js');
-            $this->theme()->setNamedAsset('jqueryui', 'media/jquery/plugins/jquery.ui.js');
-            //$this->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/' . $this->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
-            $this->theme()->setNamedAsset('jgrowl', 'media/jquery/plugins/jquery.jgrowl.js');
-
         } else {
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);
@@ -934,11 +932,11 @@ class Xoops
     /**
      * @param string $dirname
      *
-     * @return bool|Xoops_Module_Helper_Abstract
+     * @return bool|Xoops\Module\Helper\HelperAbstract
      */
     public function getModuleHelper($dirname)
     {
-        return Xoops_Module_Helper::getHelper($dirname);
+        return \Xoops\Module\Helper::getHelper($dirname);
     }
 
     /**
@@ -1118,7 +1116,7 @@ class Xoops
               <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>
               <script type="text/javascript" src="' . XOOPS_URL . '/media/jquery/jquery.js"></script>
               <script type="text/javascript" src="' . XOOPS_URL . '/media/bootstrap/js/bootstrap.min.js"></script>';
-        $themecss = $this->getcss($this->getConfig('theme_set'));
+        $themecss = $this->getCss($this->getConfig('theme_set'));
         echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/xoops.css" />';
         $locale = $this->getConfig('locale');
         if (XoopsLoad::fileExists($this->path('locale/' . $locale . '/style.css'))) {
@@ -1135,6 +1133,8 @@ class Xoops
     }
 
     /**
+     * simpleFooter
+     *
      * @return void
      */
     public function simpleFooter()
@@ -1144,9 +1144,11 @@ class Xoops
         ob_end_flush();
     }
     /**
-     * @param string $type (info, error, success or warning)
-     * @param mixed  $msg - string or array of strings
-     * @param string $title
+     * render an alert message to a string
+     *
+     * @param string $type  alert type, one of 'info', 'error', 'success' or 'warning'
+     * @param mixed  $msg   string or array of strings
+     * @param string $title title for alert
      *
      * @return string
      */
@@ -1157,28 +1159,28 @@ class Xoops
             case 'info':
             default:
                 $this->tpl()->assign('alert_type', 'alert-info');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::INFORMATION;
                 }
                 break;
 
             case 'error':
                 $this->tpl()->assign('alert_type', 'alert-error');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::ERROR;
                 }
                 break;
 
             case 'success':
                 $this->tpl()->assign('alert_type', 'alert-success');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::SUCCESS;
                 }
                 break;
 
             case 'warning':
                 $this->tpl()->assign('alert_type', '');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::WARNING;
                 }
                 break;
@@ -1196,7 +1198,7 @@ class Xoops
         } else {
             $alert_msg = $msg;
         }
-        if ($alert_msg == '' ){
+        if ($alert_msg == '') {
             return '';
         } else {
             $this->tpl()->assign('alert_msg', $alert_msg);

@@ -62,7 +62,7 @@ if ($action == "results") {
 
 $gperm_handler = $xoops->getHandlerGroupperm();
 $available_modules = $gperm_handler->getItemIds('module_read', $search->getUserGroups());
-$available_plugins = Xoops_Module_Plugin::getPlugins('search');
+$available_plugins = \Xoops\Module\Plugin::getPlugins('search');
 
 if ($action == 'search') {
     $xoops->header();
@@ -129,7 +129,7 @@ switch ($action) {
             /* @var $module XoopsModule */
             $module = $modules[$mid];
             /* @var $plugin SearchPluginInterface */
-            $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+            $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
             $results = $plugin->search($queries, $andor, 5, 0, null);
             $count = count($results);
             $mid = $module->getVar('mid');
@@ -191,7 +191,7 @@ switch ($action) {
         $module_handler = $xoops->getHandlerModule();
         $module = $xoops->getModuleById($mid);
         /* @var $plugin SearchPluginInterface */
-        $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+        $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
         $results = $plugin->search($queries, $andor, 20, $start, $uid);
 
         $modules_result[$mid]['name'] = $module->getVar('name');

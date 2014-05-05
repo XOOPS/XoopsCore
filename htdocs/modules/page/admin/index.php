@@ -34,7 +34,7 @@ $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('content_status', 0, '!='));
 $content_display = $content_Handler->getCount($criteria);
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 // content

@@ -1,35 +1,27 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../init_mini.php');
+
+class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
+{
+    function authenticate($uname, $pwd = null) {return false;}
+}
 
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_AuthTest extends MY_UnitTestCase
+class AuthAbstractTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Auth';
-    
-    public function SetUp()
-	{
-    }
-	
+    protected $myclass = 'AuthAbstractTestInstance';
+
     public function test___construct()
 	{
-		$dao = 'dao';
-		$instance = new $this->myclass($dao);
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+
+		$instance = new $this->myclass($conn);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
-	public function test_authenticate()
-	{
-		$dao = 'dao';
-		$instance = new $this->myclass($dao);
-		$uname = 'uname';
-		$pwd = 'pwd';
-		$x = $instance->authenticate($uname, $pwd);
-		$this->assertFalse($x);
-	}
 
 	public function test_setErrors()
 	{
@@ -45,7 +37,7 @@ class Xoops_AuthTest extends MY_UnitTestCase
 	
 	public function test_getErrors()
 	{
-		$this->assertTrue(true); // allready tested in previous test
+		// allready tested in test_setErrors
 	}
 
 	public function test_getHtmlErrors()
@@ -58,5 +50,4 @@ class Xoops_AuthTest extends MY_UnitTestCase
 		$x = $instance->getHtmlErrors();
 		$this->assertTrue(is_string($x));
 	}
-	
 }

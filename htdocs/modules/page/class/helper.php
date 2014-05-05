@@ -20,9 +20,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class Page extends Xoops_Module_Helper_Abstract
+class Page extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -37,7 +35,7 @@ class Page extends Xoops_Module_Helper_Abstract
     /**
      * @return Page
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }
@@ -46,7 +44,8 @@ class Page extends Xoops_Module_Helper_Abstract
      * @return PagePage_contentHandler
      */
     public function getContentHandler()
-    {        return $this->getHandler('page_content');
+    {
+        return $this->getHandler('page_content');
     }
 
     /**
@@ -82,7 +81,9 @@ class Page extends Xoops_Module_Helper_Abstract
     }
 
     public function getUserId()
-    {        if ($this->xoops()->isUser()) {            return $this->xoops()->user->getVar('uid');
+    {
+        if ($this->xoops()->isUser()) {
+            return $this->xoops()->user->getVar('uid');
         }
         return 0;
     }

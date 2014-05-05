@@ -7,6 +7,8 @@ if ( DIRECTORY_SEPARATOR != "/" ) {
 $xoops_root_path = substr($current_path, 0, strpos(strtolower($current_path), "/class/xoopseditor/tinymce4/"));
 include_once $xoops_root_path . "/mainfile.php";
 
+\Xoops::getInstance()->logger()->quiet();
+
 $chemin_array=parse_url(XOOPS_URL);
 $chemin_scheme =  $chemin_array["scheme"]; // http
 $chemin_host =  $chemin_array["host"]; // www.example.com  or // localhost
@@ -14,7 +16,7 @@ $chemin_host =  $chemin_array["host"]; // www.example.com  or // localhost
   if (!isset($chemin_array['path']))
     {
       $chemin_path = '';
-    } 
+    }
   else
     {
       $chemin_path =  $chemin_array["path"];
@@ -25,9 +27,9 @@ $chemin_host =  $chemin_array["host"]; // www.example.com  or // localhost
 
 //XOOPS
 //session_start();
-if(!isset($_SESSION)) 
-{ 
-session_start(); 
+if(!isset($_SESSION))
+{
+session_start();
 }
 //XOOPS
 //session_start();
@@ -109,13 +111,13 @@ $image_resizing_height = 0;
 //******************
 $default_view = 0;
 
-//set if the filename is truncated when overflow first row 
+//set if the filename is truncated when overflow first row
 $ellipsis_title_after_first_row = TRUE;
 
 //*************************
 //Permissions configuration
 //******************
-$delete_files	 = TRUE;
+$delete_files	 = FALSE;
 $create_folders	 = FALSE;
 $delete_folders	 = FALSE;
 $upload_files	 = FALSE;
@@ -126,23 +128,23 @@ $copy_cut_files	 = FALSE; // for copy/cut files
 $copy_cut_dirs	 = FALSE; // for copy/cut directories
 
 // XOOPS
-global $xoopsUser; 
+global $xoopsUser;
 // 1 : webmasters
 // 2 : members
 // 3 : anonymous
 // 4 : your new group
 $allowed_groups_upload = array(1); // id des groupes autoris?s en upload
 $allowed_groups_createfolder = array(1); // id des groupes autoris?s create folder
-if ($xoopsUser) {  
-    $usergroups = $GLOBALS['xoopsUser']->getGroups(); 
-    $result_upload = array_intersect($usergroups, $allowed_groups_upload); 
-        if ($result_upload || $result_upload!=null) { 
-           $upload_files = TRUE; 
-        } 
-  $result_createfolder = array_intersect($usergroups, $allowed_groups_createfolder); 
-       if ($result_createfolder || $result_createfolder!=null) { 
-          $create_folders = TRUE; 
-        } 
+if ($xoopsUser) {
+    $usergroups = $GLOBALS['xoopsUser']->getGroups();
+    $result_upload = array_intersect($usergroups, $allowed_groups_upload);
+        if ($result_upload || $result_upload!=null) {
+           $upload_files = TRUE;
+        }
+  $result_createfolder = array_intersect($usergroups, $allowed_groups_createfolder);
+       if ($result_createfolder || $result_createfolder!=null) {
+          $create_folders = TRUE;
+        }
 }
 // XOOPS
 // defines size limit for paste in MB / operation
@@ -158,7 +160,7 @@ $copy_cut_max_count	 = 200;
 //**********************
 $ext_img = array('jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'svg'); //Images
 $ext_file = array('doc', 'docx','rtf', 'pdf', 'xls', 'xlsx', 'txt', 'csv','html','xhtml','psd','sql','log','fla','xml','ade','adp','mdb','accdb','ppt','pptx','odt','ots','ott','odb','odg','otp','otg','odf','ods','odp','css','ai'); //Files
-$ext_video = array('mov', 'mpeg', 'mp4', 'avi', 'mpg','wma',"flv","webm"); //Video 
+$ext_video = array('mov', 'mpeg', 'mp4', 'avi', 'mpg','wma',"flv","webm"); //Video
 $ext_music = array('mp3', 'm4a', 'ac3', 'aiff', 'mid','ogg','wav'); //Audio
 $ext_misc = array('zip', 'rar','gz','tar','iso','dmg'); //Archives
 
@@ -192,7 +194,7 @@ $hidden_files = array('config.php');
 $hidden_files = array('index.html');
 //XOOPS
 /*******************
- * JAVA upload 
+ * JAVA upload
  *******************/
 $java_upload = TRUE;
 $JAVAMaxSizeUpload = 200; //Gb
@@ -204,7 +206,7 @@ $JAVAMaxSizeUpload = 200; //Gb
 
 
 // New image resized creation with fixed path from filemanager folder after uploading (thumbnails in fixed mode)
-// If you want create images resized out of upload folder for use with external script you can choose this method, 
+// If you want create images resized out of upload folder for use with external script you can choose this method,
 // You can create also more than one image at a time just simply add a value in the array
 // Remember than the image creation respect the folder hierarchy so if you are inside source/test/test1/ the new image will create at
 // path_from_filemanager/test/test1/

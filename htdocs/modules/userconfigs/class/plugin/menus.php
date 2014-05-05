@@ -17,7 +17,7 @@
  * @version         $Id$
  */
 
-class UserconfigsMenusPlugin extends Xoops_Module_Plugin_Abstract implements MenusPluginInterface
+class UserconfigsMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {
     /**
      * expects an array of array containing:
@@ -33,8 +33,8 @@ class UserconfigsMenusPlugin extends Xoops_Module_Plugin_Abstract implements Men
     public function subMenus()
     {
         $ret = array();
-        $xoops = Xoops::getInstance();
-        if ($plugins = Xoops_Module_Plugin::getPlugins('userconfigs')) {
+        $xoops = \Xoops::getInstance();
+        if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             foreach (array_keys($plugins) as $dirname) {
                 $mHelper = $xoops->getModuleHelper($dirname);
                 $ret[$dirname]['name'] = $mHelper->getModule()->getVar('name');

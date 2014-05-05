@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 define('_MI_DEBUGBAR_NAME','DebugBar');
 define('_MI_DEBUGBAR_DSC','Error reporting and performance analysis');
 

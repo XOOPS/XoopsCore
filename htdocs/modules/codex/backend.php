@@ -23,7 +23,7 @@ $xoops->header();
 echo "
 <strong>backend for your module</strong><br /><br />
 Since 2.6.0, the backend functionality use a 'Plugin' interface.<br />
-The new class Xoops_Module_Plugin is the class that makes using plugins simple and effective!<br />
+The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
 <br />
 <ul>
     <li>Copy the file <strong><i>root_path/backend.php</i></strong> in your module folder</li>

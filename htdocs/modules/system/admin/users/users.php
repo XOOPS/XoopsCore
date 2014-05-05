@@ -22,7 +22,6 @@
  * @link      http://xoops.org
  * @since     1.0
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -57,7 +56,7 @@ function synchronize($uid, $type)
         case 'user':
             $total_posts = 0;
             /* @var $plugin SystemPluginInterface */
-            $plugins = Xoops_Module_Plugin::getPlugins();
+            $plugins = \Xoops\Module\Plugin::getPlugins();
             foreach ($plugins as $plugin) {
                 if ($res = $plugin->userPosts($uid)) {
                     $total_posts += $res;

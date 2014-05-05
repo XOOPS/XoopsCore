@@ -25,7 +25,7 @@ $xoops = Xoops::getInstance();
 
 $xoops->header();
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 $admin_page->displayIndex();

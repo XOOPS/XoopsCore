@@ -42,7 +42,7 @@ $op = $request->asStr('op', 'list');
 // Call Header
 $xoops->header('avatars_admin_custom.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_custom.php');
 
 $info_msg = array(

@@ -52,5 +52,25 @@ class JointTest extends MY_UnitTestCase
 		$result = $instance->getByLink(null, null, true);
 		$this->assertTrue(is_array($result) AND empty($result));
 	}
+	
+	public function test_getCountByLink()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_getCountsByLink()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_updateByLink()
+	{
+		$this->markTestIncomplete();
+    }
+	
+	public function test_deleteByLink()
+	{
+		$this->markTestIncomplete();
+    }
 
 }

@@ -19,7 +19,8 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-class CodexSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+
+class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
      * Used to synchronize a user number of posts

@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../init_mini.php');
- 
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -54,7 +54,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$db = $instance->db();
-		$this->assertInstanceOf('XoopsConnection', $db);
+		$this->assertInstanceOf('\Xoops\Core\Database\Connection', $db);
 
 		$db1 = $instance->db();
 		$this->assertSame($db, $db1);
@@ -87,7 +87,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$value = $instance->security();
-		$this->assertInstanceOf('XoopsSecurity', $value);
+		$this->assertInstanceOf('\Xoops\Core\Security', $value);
 
 		$value1 = $instance->security();
 		$this->assertSame($value, $value1);

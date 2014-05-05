@@ -11,22 +11,20 @@
 
 use Xoops\Core\Service\Manager;
 
-//require_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
 /**
- * Plugins Manager
+ * Service Provider Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
+ * @author          Richard Griffith <richard@geekwright.com>
  * @package         system
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 // Get main instance
 $xoops = Xoops::getInstance();
-$security = new XoopsSecurity();
+$security = $xoops->security();
 
 // Check users rights
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {
@@ -50,7 +48,6 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
                     $service_order = array_flip($_POST[$service]);
                     $sm = Manager::getInstance();
                     $sm->saveChoice($service, $service_order);
-                    $xoops->logger()->info(json_encode($service_order));
                     exit("OK");
                 }
             }
@@ -62,16 +59,13 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     exit("Token error");
 }
 
-//$xoops->theme()->addStylesheet('media/jquery/ui/base/ui.all.css');
 $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js', 'media/jquery/plugins/jquery.jgrowl.js');
-//$xoops->theme()->addScript('modules/system/js/admin.js');
-//$xoops->theme()->addScript('media/jquery/plugins/jquery.jgrowl.js');
+$xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/js/admin.js');
 
 $xoops->header('system_services.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
 $admin_page->addBreadcrumbLink(
     SystemLocale::SERVICES_MANAGER,
@@ -129,7 +123,8 @@ if (!empty($selected_service) && in_array($selected_service, $filteredList)) {
             $modeDesc = 'User Preference';
             break;
         case Manager::MODE_MULTIPLE:
-            $modeDesc = 'This is an <em>Multiple</em> mode service. Each provider will be called in the sequence shown.';
+            $modeDesc = 'This is an <em>Multiple</em> mode service. '
+                . 'Each provider will be called in the sequence shown.';
             break;
     }
     $xoops->tpl()->assign('message', $xoops->alert('info', $modeDesc, 'Service Mode'));

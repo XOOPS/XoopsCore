@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 function xoops_module_install_comments(&$module)
 {
     $xoops = Xoops::getInstance();
@@ -38,7 +36,7 @@ function xoops_module_install_comments(&$module)
 
     XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));
     $helper = Comments::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('comments');
+    $plugins = \Xoops\Module\Plugin::getPlugins('comments');
 
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
@@ -52,7 +50,7 @@ function xoops_module_uninstall_comments(&$module)
     $xoops = Xoops::getInstance();
     XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));
     $helper = Comments::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('comments');
+    $plugins = \Xoops\Module\Plugin::getPlugins('comments');
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }

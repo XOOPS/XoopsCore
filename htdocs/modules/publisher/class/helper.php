@@ -8,6 +8,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *  Publisher class
  *
@@ -19,9 +20,8 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-class Publisher extends Xoops_Module_Helper_Abstract
+class Publisher extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module

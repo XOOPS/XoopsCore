@@ -25,7 +25,7 @@ include dirname(__FILE__) . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('prune.php');
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : "form";

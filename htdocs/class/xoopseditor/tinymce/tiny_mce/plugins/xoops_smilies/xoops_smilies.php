@@ -12,7 +12,7 @@
  */
 
 
-$xoops_root_path = dirname( dirname ( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) ) ) ;
+$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
 include_once $xoops_root_path . '/mainfile.php';
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
@@ -22,7 +22,7 @@ $xoops->simpleHeader(false);
 
 $request = Xoops_Request::getInstance();
 
-$helper = Xoops_Module_Helper::getHelper('smilies');
+$helper = Xoops\Module\Helper::getHelper('smilies');
 $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 
@@ -46,29 +46,35 @@ if ($op == 'save') {
     $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
     $upload_size = 500000;
     $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/smilies', $mimetypes, $upload_size, null, null);
-    if ($uploader->fetchMedia($xoops_upload_file[0])) {        $uploader->setPrefix('smil');
-        if (!$uploader->upload()) {            $msg[] = $uploader->getErrors();
+    if ($uploader->fetchMedia($xoops_upload_file[0])) {
+        $uploader->setPrefix('smil');
+        if (!$uploader->upload()) {
+            $msg[] = $uploader->getErrors();
             $obj->setVar('smiley_url', 'blank.gif');
-        } else {            $obj->setVar('smiley_url', 'smilies/' . $uploader->getSavedFileName());
+        } else {
+            $obj->setVar('smiley_url', 'smilies/' . $uploader->getSavedFileName());
         }
     }
 
-    if ($helper->getHandlerSmilies()->insert($obj)) {        $xoops->redirect('xoops_smilies.php', 2, implode('<br />', $msg));
+    if ($helper->getHandlerSmilies()->insert($obj)) {
+        $xoops->redirect('xoops_smilies.php', 2, implode('<br />', $msg));
     }
 }
 
 $xoopsTpl = new XoopsTpl();
-if ($op == 'more') {    $xoopsTpl->assign('smileys', Xoops_Module_Helper::getHelper('smilies')->getHandlerSmilies()->getSmilies(0, 0, false));
+if ($op == 'more') {
+    $xoopsTpl->assign('smileys', Xoops\Module\Helper::getHelper('smilies')->getHandlerSmilies()->getSmilies(0, 0, false));
 } else {
-    $xoopsTpl->assign('smileys', Xoops_Module_Helper::getHelper('smilies')->getHandlerSmilies()->getActiveSmilies(false));
+    $xoopsTpl->assign('smileys', Xoops\Module\Helper::getHelper('smilies')->getHandlerSmilies()->getActiveSmilies(false));
 }
 
 // check user/group
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 $gperm_handler = $xoops->getHandlerGroupperm();
-$admin = $gperm_handler->checkRight( 'system_admin', $xoops->getHandlerModule()->getByDirName('smilies')->getVar('mid'), $groups );
+$admin = $gperm_handler->checkRight('system_admin', $xoops->getHandlerModule()->getByDirName('smilies')->getVar('mid'), $groups);
 
-if ($admin) {    $xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerSmilies()->create(), 'smilies')->render());
+if ($admin) {
+    $xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerSmilies()->create(), 'smilies')->render());
 }
 $xoopsTpl->display('module:smilies|smilies_tinymce.html');
 $xoops->simpleFooter();

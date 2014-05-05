@@ -4,13 +4,13 @@ require_once(dirname(__FILE__).'/../../../../init.php');
 class XoopsPersistableObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsPersistableObjectHandler
 {
     function __construct(
-        \XoopsConnection $db,
+        \Xoops\Core\Database\Connection $db,
         $table = '',
         $className = '',
         $keyName = '',
         $identifierName = ''
 	) {
-		parent::__construct($db,$table,$className,$keyName,$identiferName);
+		parent::__construct($db,$table,$className,$keyName,$identifierName);
 	}
 }
 
@@ -31,10 +31,10 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
 			$this->assertTrue($prop->isPublic());
 		}
     }
-	
+
     public function test___construct()
 	{
-		$conn = XoopsDatabaseFactory::getConnection();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
         $table = 'table';
         $className = 'className';
         $keyName = 'keyName';
@@ -43,5 +43,5 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myclass, $instance);
 		$this->assertSame($conn, $instance->db2);
     }
-	
+
 }

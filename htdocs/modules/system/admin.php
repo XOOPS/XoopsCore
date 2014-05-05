@@ -100,7 +100,7 @@ if (false != $error) {
     $xoops->theme()->addBaseScriptAssets('@jquery.');
     $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
     // Define Breadcrumb and tips
-    $admin_page = new XoopsModuleAdmin();
+    $admin_page = new \Xoops\Module\Admin();
     $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
     $admin_page->addBreadcrumbLink(SystemLocale::SYSTEM_CONFIGURATION);
     $admin_page->renderBreadcrumb();

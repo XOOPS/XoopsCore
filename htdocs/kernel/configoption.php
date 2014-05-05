@@ -17,6 +17,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -94,20 +95,17 @@ class XoopsConfigOption extends XoopsObject
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS configuration option class objects.
  *
- * @copyright    copyright (c) 2000-2003 XOOPS.org
- * @author  Kazumi Ono <onokazu@xoops.org>
- *
- * @package     kernel
- * @subpackage  config
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  */
 class XoopsConfigOptionHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'configoption', 'XoopsConfigOption', 'confop_id', 'confop_name');
     }

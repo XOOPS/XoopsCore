@@ -72,7 +72,7 @@ class XoopsModelFactory
         /* @var $handler XoopsModelAbstract */
         $handler = clone (self::$handlers[$name]);
         $handler->setHandler($oHandler);
-        if (!empty($args) && is_array($args) && is_a($handler, 'XoopsModelAbstract')) {
+        if (!empty($args) && is_array($args) && is_a($handler, 'Xoops\Core\Kernel\XoopsModelAbstract')) {
             $handler->setVars($args);
         }
         return $handler;

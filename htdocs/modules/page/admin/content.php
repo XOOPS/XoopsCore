@@ -24,7 +24,7 @@ include dirname(__FILE__) . '/header.php';
 // Call header
 $xoops->header('page_admin_content.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('content.php');
 
 switch ($op) {
@@ -126,14 +126,14 @@ switch ($op) {
         $obj->setVar('content_dotitle', in_array('title', $content_option));
         $obj->setVar('content_donotifications', in_array('notifications', $content_option));
 
-        if (preg_match('/^\d+$/', $request->asInt('content_weight', 0)) == false){
+        if (preg_match('/^\d+$/', $request->asInt('content_weight', 0)) == false) {
             $error = true;
             $error_message .= PageLocale::E_WEIGHT . '<br />';
             $obj->setVar('content_weight', 0);
         } else {
             $obj->setVar('content_weight', $request->asInt('content_weight', 0));
         }
-        if ($error == true){
+        if ($error == true) {
             $xoops->tpl()->assign('error_message', $error_message);
         } else {
             if ($newcontent_id = $content_Handler->insert($obj)) {
@@ -152,7 +152,7 @@ switch ($op) {
                     $notification_handler->triggerEvent('global', 0, 'newcontent', $tags);
                     $notification_handler->triggerEvent('item', $newcontent_id, 'newcontent', $tags);
                 }
-                $xoops->redirect('content.php', 2,  XoopsLocale::S_DATABASE_UPDATED);
+                $xoops->redirect('content.php', 2, XoopsLocale::S_DATABASE_UPDATED);
             }
             echo $xoops->alert('error', $obj->getHtmlErrors());
         }
@@ -185,7 +185,8 @@ switch ($op) {
 
                 // deleting comments
                 if ($xoops->isActiveModule('comments')) {
-                    $comment_handler = Comments::getInstance()->getHandlerComment()->deleteByItemId($helper->getModule()->getVar('mid'), $content_id);                }
+                    $comment_handler = Comments::getInstance()->getHandlerComment()->deleteByItemId($helper->getModule()->getVar('mid'), $content_id);
+                }
 
                 $xoops->redirect('content.php', 2, XoopsLocale::S_DATABASE_UPDATED);
             } else {
@@ -193,8 +194,12 @@ switch ($op) {
             }
         } else {
             // deleting main and secondary
-            $xoops->confirm(array('ok' => 1, 'content_id' => $content_id, 'op' => 'delete'), 'content.php',
-            XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM . '<br /><span class="red">' . $obj->getvar('content_title') . '<span>');
+            $xoops->confirm(
+                array('ok' => 1, 'content_id' => $content_id, 'op' => 'delete'),
+                'content.php',
+                XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
+                . '<br /><span class="red">' . $obj->getvar('content_title') . '<span>'
+            );
         }
         break;
 

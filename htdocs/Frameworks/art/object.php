@@ -62,7 +62,7 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
      /**
      * Constructor
      *
-     * @param object $db reference to the {@link XoopsConnection} object
+     * @param object $db reference to the {@link Xoops\Core\Database\Connection} object
      **/
 
     function __construct($db, $table, $className, $keyName, $identifierName)
@@ -113,4 +113,3 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
     }
 }
 //endif;
-?>

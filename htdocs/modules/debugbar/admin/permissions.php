@@ -22,7 +22,7 @@ use Xmf\Module\Permission;
 
 include_once dirname(__FILE__) . '/admin_header.php';
 
-$moduleAdmin = new XoopsModuleAdmin();
+$moduleAdmin = new \Xoops\Module\Admin();
 $moduleAdmin->displayNavigation('permissions.php');
 
 $helper = Helper::getHelper('debugbar');

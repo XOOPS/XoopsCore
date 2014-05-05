@@ -24,7 +24,7 @@ include dirname(__FILE__) . '/header.php';
 
 // Call Header & ...
 $xoops->header('smilies_smilies.html');
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('smilies.php');
 $xoops->theme()->addScript('media/xoops/xoops.js');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
@@ -34,7 +34,7 @@ $nb_smilies = $helper->getConfig('smilies_pager');
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
 $upload_size = 50000;
 
-$info_msg = array(sprintf(_AM_SMILIES_ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(_AM_SMILIES_ALERT_INFO_MAXFILE , $upload_size));
+$info_msg = array(sprintf(_AM_SMILIES_ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)), sprintf(_AM_SMILIES_ALERT_INFO_MAXFILE, $upload_size));
 
 // Get $_GET, $_POST, ...
 $op = $request->asStr('op', 'list');
@@ -116,7 +116,7 @@ switch ($op) {
                 }
             }
         }
-        if ($error_msg == ''){
+        if ($error_msg == '') {
             if ($helper->getHandlerSmilies()->insert($obj)) {
                 $xoops->redirect('smilies.php', 2, _AM_SMILIES_SAVE);
             }

@@ -9,59 +9,53 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+namespace Xoops\Auth;
+
+use Xoops\Core\Database\Connection;
+
 /**
  * Authentication class for Native XOOPS
  *
- * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package class
- * @subpackage auth
- * @since 2.0
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @version $Id$
+ * @category  Xoops\Auth
+ * @package   Xoops
+ * @author    Pierre-Eric MENUET <pemphp@free.fr>
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- *
- * @package class
- * @subpackage auth
- * @description Authentication class for Native XOOPS
- * @author Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright copyright (c) 2000-2003 XOOPS.org
- */
-class Xoops_Auth_Xoops extends Xoops_Auth
+class Xoops extends AuthAbstract
 {
     /**
      * Authentication Service constructor
      *
-     * @param XoopsConnection|null $dao
+     * @param Connection|null $dao database object
      */
-    public function __construct(XoopsConnection $dao = null)
+    public function __construct(Connection $dao = null)
     {
-        $this->_dao = $dao;
+        $this->dao = $dao;
         $this->auth_method = 'xoops';
     }
 
     /**
      * Authenticate user
      *
-     * @param  string $uname
-     * @param  string $pwd
+     * @param string $uname user name
+     * @param string $pwd   password
+     *
      * @return bool
      */
     public function authenticate($uname, $pwd = null)
     {
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         $member_handler = $xoops->getHandlerMember();
-       $user = false;
-       if ($member_handler) {
-           $user = $member_handler->loginUser($uname, $pwd);
-           if ($user == false) {
-               $this->setErrors(1, XoopsLocale::E_INCORRECT_LOGIN);
-           }
-       }
+        $user = false;
+        if ($member_handler) {
+            $user = $member_handler->loginUser($uname, $pwd);
+            if ($user == false) {
+                $this->setErrors(1, \XoopsLocale::E_INCORRECT_LOGIN);
+            }
+        }
 
         return $user;
     }

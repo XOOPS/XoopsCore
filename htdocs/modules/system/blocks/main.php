@@ -50,7 +50,7 @@ function b_system_main_show()
                 $block['nothome'] = true;
             }
              /* @var $plugin MenusPluginInterface */
-            if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
+            if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
                 $sublinks = $plugin->subMenus();
                 foreach ($sublinks as $sublink) {
                     $block['modules'][$i]['sublinks'][] = array(
@@ -70,7 +70,7 @@ function b_system_main_edit($options)
     $xoops = Xoops::getInstance();
     $system = System::getInstance();
     $system_module = new SystemModule();
-    $admin_page = new XoopsModuleAdmin();
+    $admin_page = new \Xoops\Module\Admin();
 
     // Define Stylesheet
     $xoops->theme()->addStylesheet('media/xoops/css/icons.css');

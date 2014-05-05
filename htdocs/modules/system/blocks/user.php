@@ -29,7 +29,7 @@ function b_system_user_show()
     $block = array();
     $block['modules'] = array();
 
-    $plugins = Xoops_Module_Plugin::getPlugins('system');
+    $plugins = \Xoops\Module\Plugin::getPlugins('system');
     $i = 0;
     /* @var $plugin SystemPluginInterface */
     foreach ($plugins as $dirname => $plugin) {
@@ -43,7 +43,7 @@ function b_system_user_show()
             $block['modules'][$i]['dirname'] = $dirname;
 
             //todo, remove this hardcoded call
-            if ($xoops->isModule() && $xoops->module->getVar('dirname') == $dirname && $plugin = Xoops_Module_Plugin::getPlugin($dirname, 'menus')) {
+            if ($xoops->isModule() && $xoops->module->getVar('dirname') == $dirname && $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'menus')) {
                 if (method_exists($plugin, 'subMenus')) {
                     $sublinks = $plugin->subMenus();
                     foreach ($sublinks as $sublink) {

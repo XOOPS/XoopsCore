@@ -28,7 +28,7 @@ $op = $request->asStr('op', 'global');
 // Call header
 $xoops->header('page_admin_permissions.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('permissions.php');
 
 $opform = new XoopsSimpleForm('', 'opform', 'permissions.php', 'get');
@@ -45,8 +45,8 @@ switch ($op) {
     default:
         $global_perm_array = array('1' => PageLocale::PERMISSIONS_RATE);
         $form = new XoopsGroupPermForm('', $module_id, 'page_global', '', 'admin/permissions.php', true);
-        foreach( $global_perm_array as $perm_id => $perm_name ) {
-            $form->addItem($perm_id , $perm_name) ;
+        foreach ($global_perm_array as $perm_id => $perm_name) {
+            $form->addItem($perm_id, $perm_name);
         }
         $form->display();
         break;

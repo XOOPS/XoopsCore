@@ -32,11 +32,10 @@ class ThemeSetNameHandlerTest extends MY_UnitTestCase
 	
     public function test_handleCharacterData()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
+		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		//$instance->handleCharacterData();
-		$this->markTestIncomplete();
+		$name = $instance->getName();
+		$this->assertSame('name', $name);
 	}
 }

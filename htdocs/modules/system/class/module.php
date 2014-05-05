@@ -15,6 +15,7 @@ use Xoops\Core\Database\Schema\PrefixStripper;
 use Xoops\Core\Database\Schema\RemovePrefixes;
 use Xoops\Core\Yaml;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
@@ -25,7 +26,7 @@ use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
  * @category  SystemModule
  * @package   SystemModule
  * @author    Andricq Nicolas (AKA MusS)
- * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -156,11 +157,11 @@ class SystemModule
     }
 
     /**
-     * getModuleInstall
+     * getInstalledModules
      *
      * @return array of installed modules
      */
-    public function getModuleInstall()
+    public function getInstalledModules()
     {
         // Get main instance
         $xoops = Xoops::getInstance();
@@ -204,7 +205,7 @@ class SystemModule
         $mod = trim($mod);
         try {
             $cnt = $module_handler->getCount(new Criteria('dirname', $mod));
-        } catch (\Doctrine\DBAL\DBALException $e) {
+        } catch (DBALException $e) {
             $cnt = 0;
         }
         if ($cnt == 0) {
@@ -333,7 +334,7 @@ class SystemModule
                     );
                     foreach ($created_tables as $ct) {
                         try {
-                            $xoops->db()->query('DROP TABLE ' . $xoops->db()->prefix($table));
+                            $xoops->db()->query('DROP TABLE ' . $xoops->db()->prefix($ct));
                         } catch (Exception $e) {
                             $xoops->events()->triggerEvent('core.exception', $e);
                         }

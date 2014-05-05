@@ -18,7 +18,7 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-class CodexSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPluginInterface
+class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements SearchPluginInterface
 {
     public function search($queries, $andor, $limit, $start, $uid)
     {

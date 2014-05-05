@@ -47,7 +47,7 @@ switch ($op) {
         $total_posts = 0;
 
         /* @var $plugin SystemPluginInterface */
-        $plugins = Xoops_Module_Plugin::getPlugins();
+        $plugins = \Xoops\Module\Plugin::getPlugins();
         foreach ($plugins as $plugin) {
             if ($res = $plugin->userPosts($uid)) {
                 $total_posts += $res;

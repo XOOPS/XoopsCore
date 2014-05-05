@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-class CodexUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements UserconfigsPluginInterface
+class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
     /**
      * Expects an array of arrays containing:
@@ -65,4 +65,3 @@ class CodexUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements Use
         return $config;
     }
 }
-

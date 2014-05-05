@@ -22,7 +22,11 @@ class ThemeSetTagHandlerTest extends MY_UnitTestCase
 	
 	function test_getName()
     {
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$name = $instance->getName();
+		$this->assertSame('tag', $name);
     }
 
 	function test_handleCharacterData()

@@ -27,7 +27,7 @@ use Xoops\Core\Kernel\XoopsObject;
 abstract class DtypeAbstract
 {
     /**
-     * @var XoopsConnection
+     * @var Xoops\Core\Database\Connection
      */
     protected $db;
 

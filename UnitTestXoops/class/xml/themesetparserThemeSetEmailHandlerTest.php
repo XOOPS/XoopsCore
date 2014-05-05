@@ -25,8 +25,8 @@ class ThemeSetEmailHandlerTest extends MY_UnitTestCase
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		
-		//$instance->getName();
-		$this->markTestIncomplete();
+		$name = $instance->getName();
+		$this->assertSame('email', $name);
 	}
 	
     public function test_handleCharacterData()

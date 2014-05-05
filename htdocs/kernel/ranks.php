@@ -21,6 +21,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -129,9 +130,9 @@ class XoopsRanksHandler extends XoopsPersistableObjectHandler
 {
 
     /**
-     * @param XoopsConnection $db
+     * @param Connection $db
      */
-    public function __construct(XoopsConnection $db)
+    public function __construct(Connection $db)
     {
         parent::__construct($db, 'ranks', 'XoopsRanks', 'rank_id', 'rank_title');
     }

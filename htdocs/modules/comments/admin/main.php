@@ -35,7 +35,7 @@ $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jqu
 // Define scripts
 $xoops->theme()->addScript('modules/system/js/admin.js');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');
 
 $limit_array = array(20, 50, 100);
@@ -57,9 +57,9 @@ $module = !isset($_REQUEST['module']) ? 0 : intval($_REQUEST['module']);
 
 $modules_array = array();
 $module_handler = $xoops->getHandlerModule();
-$available_plugins = Xoops_Module_Plugin::getPlugins('comments');
+$available_plugins = \Xoops\Module\Plugin::getPlugins('comments');
 if (!empty($available_plugins)) {
-    $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)).  "')" , 'IN');
+    $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)).  "')", 'IN');
     $module_array = $module_handler->getNameList($criteria);
 }
 
@@ -76,7 +76,7 @@ switch ($op) {
             if (is_object($comment)) {
                 /* @var $plugin CommentsPluginInterface */
                 $module = $xoops->getModuleById($comment->getVar('modid'));
-                $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments');
+                $plugin = Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments');
                 header('Location: ' . XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $plugin->pageName() . '?' . $plugin->itemName() . '=' . $comment->getVar('itemid') . '&id=' . $comment->getVar('id') . '&rootid=' . $comment->getVar('rootid') . '&mode=thread&' . str_replace('&amp;', '&', $comment->getVar('exparams')) . '#comment' . $comment->getVar('id'));
                 exit();
             }

@@ -13,10 +13,7 @@
  * @package         Xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class XlanguageLanguageForm extends XoopsThemeForm
 {
@@ -35,7 +32,7 @@ class XlanguageLanguageForm extends XoopsThemeForm
         $this->addElement($xlanguage_select, true);
 
         // language description
-        $this->addElement(new XoopsFormText(_AM_XLANGUAGE_DESCRIPTION, 'xlanguage_description', 5, 10, $obj->getVar('xlanguage_description')), true);
+        $this->addElement(new XoopsFormText(_AM_XLANGUAGE_DESCRIPTION, 'xlanguage_description', 5, 30, $obj->getVar('xlanguage_description')), true);
 
         // language charset
         $autoload = XoopsLoad::loadConfig('xlanguage');
@@ -51,13 +48,13 @@ class XlanguageLanguageForm extends XoopsThemeForm
 
         // language image
         $image_option_tray = new XoopsFormElementTray(_AM_XLANGUAGE_IMAGE, '');
-        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/media/xoops/images/flags/' . Xoops_Module_Helper::getHelper('xlanguage')->getConfig('theme') . '/');
+        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/');
         $image_select = new XoopsFormSelect('', 'xlanguage_image', $obj->getVar('xlanguage_image'));
         $image_select->addOptionArray($image_array);
-        $image_select->setExtra("onchange='showImgSelected(\"image\", \"xlanguage_image\", \"/media/xoops/images/flags/" . Xoops_Module_Helper::getHelper('xlanguage')->getConfig('theme') . "/\", \"\", \"" . XOOPS_URL . "\")'");
+        $image_select->setExtra("onchange='showImgSelected(\"image\", \"xlanguage_image\", \"/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/\", \"\", \"" . XOOPS_URL . "\")'");
         $image_tray = new XoopsFormElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);
-        $image_tray->addElement(new XoopsFormLabel('', "<div style='padding: 8px;'><img style='width:24px; height:24px; ' src='" . XOOPS_URL . "/media/xoops/images/flags/" . Xoops_Module_Helper::getHelper('xlanguage')->getConfig('theme') . "/" . $obj->getVar("xlanguage_image") . "' name='image' id='image' alt='' /></div>"));
+        $image_tray->addElement(new XoopsFormLabel('', "<div style='padding: 8px;'><img style='width:24px; height:24px; ' src='" . XOOPS_URL . "/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/" . $obj->getVar("xlanguage_image") . "' name='image' id='image' alt='' /></div>"));
         $image_option_tray->addElement($image_tray);
         $this->addElement($image_option_tray);
 
@@ -79,19 +76,19 @@ class XlanguageLanguageForm extends XoopsThemeForm
 
         switch (basename($xoops->getEnv('PHP_SELF'), '.php')) {
             case 'xoops_xlanguage':
-            $button_3 = new XoopsFormButton('', 'button', XoopsLocale::A_CLOSE, 'button');
-            $button_3->setExtra('onclick="tinyMCEPopup.close();"');
-            $button_3->setClass('btn btn-danger');
-            $button_tray->addElement($button_3);
-            break;
+                $button_3 = new XoopsFormButton('', 'button', XoopsLocale::A_CLOSE, 'button');
+                $button_3->setExtra('onclick="tinyMCEPopup.close();"');
+                $button_3->setClass('btn btn-danger');
+                $button_tray->addElement($button_3);
+                break;
 
             case 'index':
             default:
-            $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-            $button_3->setExtra("onclick='javascript:history.go(-1);'");
-            $button_3->setClass('btn btn-danger');
-            $button_tray->addElement($button_3);
-            break;
+                $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+                $button_3->setExtra("onclick='javascript:history.go(-1);'");
+                $button_3->setClass('btn btn-danger');
+                $button_tray->addElement($button_3);
+                break;
         }
 
         $this->addElement($button_tray);

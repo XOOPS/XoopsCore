@@ -24,7 +24,7 @@ XoopsLoad::load('system', 'system');
 
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
-$helper = Xoops_Module_Helper::getHelper('images');
+$helper = Xoops\Module\Helper::getHelper('images');
 $request = Xoops_Request::getInstance();
 
 // Get Action type

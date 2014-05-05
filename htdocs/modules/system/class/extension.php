@@ -15,7 +15,7 @@
  * @category  SystemExtension
  * @package   SystemExtension
  * @author    Andricq Nicolas (AKA MusS)
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -24,9 +24,9 @@ class SystemExtension extends SystemModule
 
     /**
      * getExtension
-     * 
+     *
      * @param string $mod module dirname
-     * 
+     *
      * @return type
      */
     public function getExtension($mod = '')
@@ -53,7 +53,7 @@ class SystemExtension extends SystemModule
 
     /**
      * Return all extensions
-     * 
+     *
      * @return array
      */
     public function getExtensionList()
@@ -85,9 +85,10 @@ class SystemExtension extends SystemModule
                         if (round($module->getInfo('version'), 2) != $extension->getVar('version')) {
                             $module->setInfo('warning_update', true);
                         }
-						$groups = array();
-						if (is_object($xoops->user))
-							$groups = $xoops->user->getGroups();
+                        $groups = array();
+                        if (is_object($xoops->user)) {
+                            $groups = $xoops->user->getGroups();
+                        }
                         $sadmin = $moduleperm_handler
                             ->checkRight('module_admin', $module->getInfo('mid'), $groups);
                         if ($sadmin && ($module->getVar('hasnotification')
@@ -139,11 +140,11 @@ class SystemExtension extends SystemModule
     }
 
     /**
-     * getExtensionInstall
-     * 
+     * getInstalledExtensions
+     *
      * @return array
      */
-    public function getExtensionInstall()
+    public function getInstalledExtensions()
     {
         // Get main instance
         $xoops = Xoops::getInstance();
