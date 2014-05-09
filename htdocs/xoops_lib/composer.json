@@ -21,19 +21,20 @@
         "symfony/process": "2.4.*",
         "monolog/monolog": "1.9.*",
         "maximebf/debugbar": "1.9.*",
-
-        "kriswallsmith/assetic": "v1.1.2",
+        "kriswallsmith/assetic": "1.1.2",
         "ptachoire/cssembed": "1.0.*",
         "lmammino/jsmin4assetic": "1.0.*",
         "leafo/lessphp": "*",
         "leafo/scssphp": "*",
         "natxet/CssMin": "3.0.2",
-
         "oodle/krumo": "*",
         "symfony/yaml": "2.4.*",
         "tedivm/stash": "0.11.*"
     },
     "require-dev": {
         "raveren/kint": "*"
+    },
+    "extra": {
+        "xoops_modules_path": "../modules/"
     }
 }
