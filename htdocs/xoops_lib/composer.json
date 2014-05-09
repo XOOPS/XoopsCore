@@ -24,10 +24,10 @@
         "kriswallsmith/assetic": "1.1.2",
         "ptachoire/cssembed": "1.0.*",
         "lmammino/jsmin4assetic": "1.0.*",
-        "leafo/lessphp": "*",
-        "leafo/scssphp": "*",
+        "leafo/lessphp": "~0.4.0",
+        "leafo/scssphp": "~0.0.10",
         "natxet/CssMin": "3.0.2",
-        "oodle/krumo": "*",
+        "oodle/krumo": "0.5.*",
         "symfony/yaml": "2.4.*",
         "tedivm/stash": "0.11.*"
     },
