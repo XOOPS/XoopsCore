@@ -88,7 +88,7 @@ class ComposerUtility
                     }
                 }
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $errors[] = $e->getMessage();
         }
 
