@@ -410,7 +410,13 @@ class Xoops
         if (XoopsLoad::fileExists($path)) {
             return $path;
         } else {
-            trigger_error(XoopsLocale::E_FILE_NOT_FOUND, $error_type);
+            $this->logger()->log(
+                \Psr\Log\LogLevel::WARNING,
+                \XoopsLocale::E_FILE_NOT_FOUND,
+                array($path, $error_type)
+            );
+
+            //trigger_error(XoopsLocale::E_FILE_NOT_FOUND, $error_type);
             return false;
         }
     }
@@ -851,7 +857,10 @@ class Xoops
             }
         }
         if (!isset($this->_kernelHandlers[$name])) {
-            trigger_error('Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
+            $this->logger()->log(
+                $optional ? \Psr\Log\LogLevel::WARNING : \Psr\Log\Loglevel::ERROR,
+                'Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name
+            );
         } else {
             return $this->_kernelHandlers[$name];
         }

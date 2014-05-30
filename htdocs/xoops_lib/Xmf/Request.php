@@ -11,6 +11,8 @@
 
 namespace Xmf;
 
+use Xoops\Core\FilterInput;
+
 /**
  * Request Class
  *

@@ -820,10 +820,10 @@ class Tables
 
         $sql  = 'SELECT TABLE_NAME, ENGINE, CHARACTER_SET_NAME ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`TABLES` t, ';
-        $sql .= ' `INFORMATION_SCHEMA`.`CHARACTER_SETS` c ';
+        $sql .= ' `INFORMATION_SCHEMA`.`COLLATIONS` c ';
         $sql .= ' WHERE t.TABLE_SCHEMA = \'' . XOOPS_DB_NAME . '\' ';
         $sql .= ' AND t.TABLE_NAME = \'' . $this->name($table) . '\' ';
-        $sql .= ' AND t.TABLE_COLLATION  = c.DEFAULT_COLLATE_NAME ';
+        $sql .= ' AND t.TABLE_COLLATION  = c.COLLATION_NAME ';
 
         $result = $this->execSql($sql);
         if (!$result) {
