@@ -117,10 +117,12 @@ if ($xoops->isUser() && $xoops->user->isAdmin()) {
     $xoops->tpl()->assign('userlevel', $thisUser->isActive());
 }
 
-// Add navigation boutton in user
-$btn = array();
-$xoops->preload()->triggerEvent('core.userinfo.button', array(&$btn));
-if (!empty($btn)) {
+// Let extensions add navigation button
+//$xoops->events()->triggerEvent('core.userinfo.button', array($thisUser, &$btn));
+$response = $xoops->service("Avatar")->getAvatarEditUrl($thisUser);
+$link=$response->getValue();
+if (!empty($link)) {
+    $btn[] = array( 'link' => $link, 'title' => XoopsLocale::AVATAR, 'icon' => 'icon-user');
     $xoops->tpl()->assign('btn', $btn);
 }
 
@@ -144,10 +146,9 @@ $cat_crit->setSort("cat_weight");
 $cats = $cat_handler->getObjects($cat_crit, true, false);
 unset($cat_crit);
 
-$avatar = "";
-if ($thisUser->getVar('user_avatar') && "blank.gif" != $thisUser->getVar('user_avatar')) {
-    $avatar = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
-}
+$response = $xoops->service("Avatar")->getAvatarUrl($thisUser);
+$avatar = $response->getValue();
+$avatar = empty($avatar) ? '' : $avatar;
 
 $email = "";
 if ($thisUser->getVar('user_viewemail') == 1) {
@@ -189,7 +190,7 @@ $xoops->tpl()->assign('categories', $categories);
 // Dynamic user profiles end
 
 if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search') && $xoops->getModuleConfig('enable_search', 'search')) {
-    $available_plugins = Xoops_Module_Plugin::getPlugins('search');
+    $available_plugins = \Xoops\Module\Plugin::getPlugins('search');
     $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)) . "')", 'IN');
     $modules = $module_handler->getObjectsArray($criteria, true);
     $mids = array_keys($modules);
@@ -201,7 +202,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
             if (in_array($mid, $allowed_mids)) {
                 /* @var XoopsModule $module */
                 $module = $modules[$mid];
-                $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+                $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
                 /* @var $plugin SearchPluginInterface */
                 $results = $plugin->search('', '', 5, 0, $thisUser->getVar('uid'));
                 $count = count($results);

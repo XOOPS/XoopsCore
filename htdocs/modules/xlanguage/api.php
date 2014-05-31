@@ -16,8 +16,8 @@
  * @version         $Id$
  */
 
-$xoops = Xoops::getInstance();
-$helper = Xoops_Module_Helper::getHelper('xlanguage');
+$xoops = \Xoops::getInstance();
+$helper = \Xoops\Module\Helper::getHelper('xlanguage');
 
 $xlanguage = array();
 

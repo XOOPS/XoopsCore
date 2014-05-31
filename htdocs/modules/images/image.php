@@ -23,7 +23,7 @@ include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.ph
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
-$helper = Xoops_Module_Helper::getHelper('images');
+$helper = Xoops\Module\Helper::getHelper('images');
 $request = Xoops_Request::getInstance();
 
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
@@ -43,7 +43,7 @@ if (empty($image_id)) {
 
 $image = $helper->getHandlerImages()->getById($image_id);
 
-if ( count($image) != 0) {
+if (count($image) != 0) {
     header('Content-type: ' . $image[$image_id]->getVar('image_mimetype'));
     header('Cache-control: max-age=31536000');
     header('Expires: ' . gmdate("D, d M Y H:i:s", time() + 31536000) . 'GMT');

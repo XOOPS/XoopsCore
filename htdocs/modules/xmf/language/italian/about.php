@@ -14,7 +14,7 @@ define ('_AB_XMF_MODULE_BUG', 'Segnala un bug:');
 define ('_AB_XMF_MODULE_DEMO', 'Demo Sito:');
 define ('_AB_XMF_MODULE_DESCRIPTION', 'Descrizione:');
 define ('_AB_XMF_MODULE_DISCLAIMER', 'Disclaimer:');
-define ('_AB_XMF_MODULE_FEATURE', 'Suggerisci una nuova funzionalità:');
+define ('_AB_XMF_MODULE_FEATURE', 'Suggerisci una nuova funzionalitÃ :');
 define ('_AB_XMF_MODULE_INFO', 'Informazioni sviluppo del modulo:');
 define ('_AB_XMF_MODULE_RELEASE_DATE', 'Data di rilascio:');
 define ('_AB_XMF_MODULE_STATUS', 'Stato:');
@@ -29,4 +29,3 @@ define ('_AB_XMF_PEOPLE_OTHER', 'Altri collaboratori:');
 define ('_AB_XMF_VERSION_HISTORY', 'Cronologia delle versioni:');
 
 define ('_AB_XMF_AUTHOR', "Autore Originale:");
-?>

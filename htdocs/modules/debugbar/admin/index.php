@@ -18,7 +18,7 @@
 
 include_once dirname(__FILE__) . '/admin_header.php';
 
-$moduleAdmin = new XoopsModuleAdmin();
+$moduleAdmin = new \Xoops\Module\Admin();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->displayIndex();
 

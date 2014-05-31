@@ -1,6 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../init_mini.php');
- 
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -54,7 +54,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$db = $instance->db();
-		$this->assertInstanceOf('XoopsConnection', $db);
+		$this->assertInstanceOf('\Xoops\Core\Database\Connection', $db);
 
 		$db1 = $instance->db();
 		$this->assertSame($db, $db1);
@@ -87,7 +87,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
 		$value = $instance->security();
-		$this->assertInstanceOf('XoopsSecurity', $value);
+		$this->assertInstanceOf('\Xoops\Core\Security', $value);
 
 		$value1 = $instance->security();
 		$this->assertSame($value, $value1);
@@ -653,35 +653,35 @@ class XoopsTest extends MY_UnitTestCase
 	{
         $instance = Xoops::getInstance();
 
-		$value = $instance->alert('');
+		$value = $instance->alert('info','');
 		$this->assertSame('', $value);
 
 		$msg = 'alert_info';
-		$value = $instance->alert($msg);
+		$value = $instance->alert('info',$msg);
 		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_info';
-		$value = $instance->alert($msg, 'dummy');
+		$value = $instance->alert('dummy',$msg);
 		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_error';
-		$value = $instance->alert($msg, 'error');
+		$value = $instance->alert('error',$msg);
 		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_success';
-		$value = $instance->alert($msg, 'success');
+		$value = $instance->alert('success',$msg);
 		$this->assertTrue(is_string($value));
 
 		$msg = 'alert_warning';
-		$value = $instance->alert($msg, 'warning');
+		$value = $instance->alert('warning',$msg);
 		$this->assertTrue(is_string($value));
 
 		$msg = new XoopsModule();
-		$value = $instance->alert($msg);
+		$value = $instance->alert('warning',$msg);
 		$this->assertTrue(is_string($value));
 
 		$msg = array('text_1', 'text_2');
-		$value = $instance->alert($msg);
+		$value = $instance->alert('warning',$msg);
 		$this->assertTrue(is_string($value));
 	}
 

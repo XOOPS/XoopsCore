@@ -253,12 +253,12 @@ class Criteria extends CriteriaElement
         }
 
         if ($this->limit!=0 || $this->start!=0) {
-            $qb->setFirstResult($start)
-                ->setMaxResults($limit);
+            $qb->setFirstResult($this->start)
+                ->setMaxResults($this->limit);
         }
 
         if (!empty($this->groupby)) {
-            $qb->groupBy($groupby);
+            $qb->groupBy($this->groupby);
         }
 
         if (!empty($this->sort)) {

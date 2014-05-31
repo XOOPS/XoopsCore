@@ -42,7 +42,7 @@ if ($uname == '' || $pass == '') {
 $member_handler = $xoops->getHandlerMember();
 $myts = MyTextsanitizer::getInstance();
 
-$xoopsAuth = Xoops_Auth_Factory::getAuthConnection($myts->addSlashes($uname));
+$xoopsAuth = \Xoops\Auth\Factory::getAuthConnection($myts->addSlashes($uname));
 $user = $xoopsAuth->authenticate($myts->addSlashes($uname), $myts->addSlashes($pass));
 
 if (false != $user) {

@@ -18,8 +18,8 @@
 
 function b_xlanguage_select_show($options)
 {
-    $xoops = Xoops::getInstance();
-    $helper = Xoops_Module_Helper::getHelper('xlanguage');
+    $xoops = \Xoops::getInstance();
+    $helper = \Xoops\Module\Helper::getHelper('xlanguage');
 
     $xlanguage = $xoops->registry()->get('XLANGUAGE');
     $lang_tag = $xoops->registry()->get('XLANGUAGE_LANG_TAG');
@@ -50,6 +50,11 @@ function b_xlanguage_select_show($options)
     $block['display'] = $options[0];
     $block['delimitor'] = $options[1];
     $block['number'] = $options[2];
+
+    if ($options[0]=='jquery') {
+        $xoops = \Xoops::getInstance();
+        $xoops->theme()->addBaseScriptAssets('@jqueryui');
+    }
 
     $block['selected'] = $xlanguage['lang'];
 

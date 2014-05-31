@@ -122,7 +122,7 @@ class DebugbarPreload extends PreloadItem
     public static function eventCoreDatabaseNoconn($args)
     {
         if (class_exists('DebugbarLogger')) {
-            /* @var $db XoopsConnection */
+            /* @var $db Xoops\Core\Database\Connection */
             $db = $args[0];
             DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
         }
@@ -138,7 +138,7 @@ class DebugbarPreload extends PreloadItem
     public static function eventCoreDatabaseNodb($args)
     {
         if (class_exists('DebugbarLogger')) {
-            /* @var $db XoopsConnection */
+            /* @var $db Xoops\Core\Database\Connection */
             $db = $args[0];
             DebugbarLogger::getInstance()->log(LogLevel::ALERT, $db->error(), array('errno' => $db->errno()));
         }
@@ -403,6 +403,18 @@ class DebugbarPreload extends PreloadItem
         $context = array('channel'=>'Extra', 'name'=>$args[0]);
         DebugbarLogger::getInstance()->log(LogLevel::DEBUG, $args[1], $context);
 
+    }
+
+    /**
+     * eventDebugLog - dump to DebugLog
+     *
+     * @param mixed $args argument supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventDebugLog($args)
+    {
+        DebugbarLogger::getInstance()->dump($args);
     }
 
     /**

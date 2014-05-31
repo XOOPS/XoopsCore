@@ -41,7 +41,7 @@ $xoops = Xoops::getInstance();
 // setup legacy db support
 $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 
-//Set active modules in cache folder, delete caches is existing
+//Set active modules in cache folder, delete caches if existing
 //$xoops->setActiveModules();
 $modules_active = array();
 Xoops_Cache::write('system_modules_active', $modules_active);

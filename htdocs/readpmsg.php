@@ -65,6 +65,8 @@ switch ($op) {
                 $xoops->tpl()->assign('anonymous', $xoopsConfig['anonymous']);
             } else {
                 $xoops->tpl()->assign('poster', $poster);
+                $avatar = $xoops->service('avatar')->getAvatarUrl($poster)->getValue();
+                $xoops->tpl()->assign('poster_avatar', $avatar);
             }
             $xoops->tpl()->assign('msg_id', $pm_arr[0]->getVar("msg_id"));
             $xoops->tpl()->assign('subject', $pm_arr[0]->getVar("subject"));

@@ -12,20 +12,20 @@
 /**
  * Group Form Class
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Andricq Nicolas (AKA MusS)
- * @package         system
- * @subpackage      group
- * @version         $Id$
+ * @category  Modules/system/class/form
+ * @package   SystemGroupForm
+ * @author    Andricq Nicolas (AKA MusS)
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ * @since     2.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class SystemGroupForm extends XoopsThemeForm
 {
     /**
-     * @param XoopsGroup|XoopsObject $obj
+     * __construct
+     *
+     * @param XoopsGroup|XoopsObject &$obj group object
      */
     public function __construct(XoopsGroup &$obj)
     {
@@ -119,12 +119,16 @@ class SystemGroupForm extends XoopsThemeForm
         $module_list[0] = SystemLocale::CUSTOM_BLOCK;
 
         $block_handler = $xoops->getHandlerBlock();
-        $blocks_obj = $block_handler->getDistinctObjects(new Criteria("mid", "('" . implode("', '", array_keys($module_list)) . "')", "IN"), true);
+        $blocks_obj = $block_handler->getDistinctObjects(
+            new Criteria("mid", "('" . implode("', '", array_keys($module_list)) . "')", "IN"),
+            true
+        );
 
         $blocks_module = array();
         foreach (array_keys($blocks_obj) as $bid) {
             $title = $blocks_obj[$bid]->getVar("title");
-            $blocks_module[$blocks_obj[$bid]->getVar('mid')][$blocks_obj[$bid]->getVar('bid')] = empty($title) ? $blocks_obj[$bid]->getVar("name") : $title;
+            $blocks_module[$blocks_obj[$bid]->getVar('mid')][$blocks_obj[$bid]->getVar('bid')] =
+                empty($title) ? $blocks_obj[$bid]->getVar("name") : $title;
         }
         ksort($blocks_module);
 
@@ -138,9 +142,15 @@ class SystemGroupForm extends XoopsThemeForm
 
             $new_blocks_array = array();
             foreach ($blocks_module[$mid] as $key => $value) {
-                $new_blocks_array[$key] = "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=blocksadmin&amp;op=edit&amp;bid={$key}' title='ID: {$key}' rel='external'>{$value}</a>";
+                $new_blocks_array[$key] = "<a href='" . XOOPS_URL
+                    . "/modules/system/admin.php?fct=blocksadmin&amp;op=edit&amp;bid={$key}' "
+                    . "title='ID: {$key}' rel='external'>{$value}</a>";
             }
-            $r_block_checkbox = new XoopsFormCheckBox('<strong>' . $module_list[$mid] . '</strong><br />', "read_bids[]", $r_block_value);
+            $r_block_checkbox = new XoopsFormCheckBox(
+                '<strong>' . $module_list[$mid] . '</strong><br />',
+                "read_bids[]",
+                $r_block_value
+            );
             $r_block_checkbox->columns = 5;
             $r_block_checkbox->addOptionArray($new_blocks_array);
             $r_block_tray->addElement($r_block_checkbox);

@@ -130,7 +130,7 @@ abstract class Xoops_Locale_Abstract
 
     /**
      * !!IMPORTANT!! insert "\" before any char among reserved chars: "a = "A = "B = "c = "d = "D = "F = "g = "G = "h = "H = "i = "I = "j = "l = "L = "m = "M = "n = "O = "r = "s = "S = "t = "T = "U = "w = "W = "Y = "y = "z = "Z"
-     * insert double "\" before "t = "r = "n"
+     * insert double "\" before these characters: e, f, n, r, t, v, \, ", $
      */
     static function getFormatToday()
     {
@@ -142,7 +142,7 @@ abstract class Xoops_Locale_Abstract
      */
     static function getFormatYesterday()
     {
-        return "\Y\e\s\\t\e\\r\d\a\y G:i";
+        return "\Y\\e\s\\t\\e\\r\d\a\y G:i";
     }
 
     /**

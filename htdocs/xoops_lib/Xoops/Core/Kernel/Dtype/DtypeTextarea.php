@@ -79,7 +79,7 @@ class DtypeTextarea extends DtypeAbstract
     {
         $value = $obj->vars[$key]['value'];
         if ($obj->vars[$key]['required'] && $value != '0' && $value == '') {
-            $obj->setErrors(sprintf(XoopsLocale::F_IS_REQUIRED, $key));
+            $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
             return $value;
         }
         if (!$obj->vars[$key]['not_gpc']) {

@@ -19,8 +19,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 // Get main instance
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
@@ -37,8 +35,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 // Call Header
 $xoops->header('system_templates.html');
 // Define scripts
-$xoops->theme()->addScript('media/jquery/jquery.js');
-$xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
+$xoops->theme()->addBaseScriptAssets(array('@jquery', '@jqueryui'));
 $xoops->theme()->addScript('media/jquery/plugins/jquery.easing.js');
 $xoops->theme()->addScript('media/jquery/plugins/jqueryFileTree.js');
 $xoops->theme()->addScript('modules/system/js/admin.js');
@@ -55,7 +52,7 @@ switch ($op) {
     default:
 
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::TEMPLATES_MANAGER, $system->adminVersion('tplsets', 'adminpath'));
         $admin_page->renderBreadcrumb();
@@ -124,7 +121,7 @@ switch ($op) {
 
                 $tplset = $system->cleanVars($POST, 'tplset', 'default', 'string');
 
-                //on cr�e uniquement les templates qui n'existent pas
+                //on crée uniquement les templates qui n'existent pas
                 $module_handler = $xoops->getHandlerModule();
                 $tplset_handler = $xoops->getHandlerTplset();
                 $tpltpl_handler = $xoops->getHandlerTplfile();

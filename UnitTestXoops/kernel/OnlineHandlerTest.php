@@ -53,6 +53,6 @@ class OnlineHandlerTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myclass,$instance);
 		
 		$value = $instance->gc(time()+10);
-		$this->assertSame(false, $value);		
+		$this->assertSame(true, $value);		
 	}
 }

@@ -15,7 +15,7 @@ use Xmf\Module\Helper\GenericHelper;
 
 /**
  * Helper gets an instance of module helper for the specified module.
- * The helper is defined by the Xoops 2.6 Xoops_Module_Helper_Abstract
+ * The helper is defined by the Xoops 2.6 Xoops\Module\Helper\HelperAbstract
  * and in pre 2.6 systems we mimic that definition with using an
  * instance of Xmf\Module\GenericHelper.
  *
@@ -36,13 +36,13 @@ class Helper
      *
      * @param string $dirname module direcory
      *
-     * @return bool|Xoops_Module_Helper_Abstract
+     * @return bool|Xoops\Module\Helper\HelperAbstract
      */
     public static function getHelper($dirname = 'system')
     {
         // if this is a 2.6 system turn everything over to the core
         if (class_exists('Xoops', false)) {
-            return \Xoops_Module_Helper::getHelper($dirname);
+            return \Xoops\Module\Helper::getHelper($dirname);
         }
 
         // otherwise get a GenericHelper instance for dirname

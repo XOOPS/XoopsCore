@@ -63,7 +63,8 @@ class Stats extends XoopsModelAbstract
             if (!$result) {
                 return 0;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             return 0;
         }
 

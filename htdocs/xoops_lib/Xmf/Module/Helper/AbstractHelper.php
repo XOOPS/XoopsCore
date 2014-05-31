@@ -36,6 +36,11 @@ abstract class AbstractHelper
     protected $module;
 
     /**
+     * @var bool true if debug is enabled
+     */
+    protected $debug;
+
+    /**
      * Instantiate a XoopsModule object for the helper to use.
      * This occurs in one of three ways
      * - if null is passed, use the current module

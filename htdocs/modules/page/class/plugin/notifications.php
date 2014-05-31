@@ -19,9 +19,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class PageNotificationsPlugin extends Xoops_Module_Plugin_Abstract implements NotificationsPluginInterface
+class PageNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract implements NotificationsPluginInterface
 {
     /**
      * @param string $category

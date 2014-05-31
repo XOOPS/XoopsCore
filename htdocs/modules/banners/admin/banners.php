@@ -40,25 +40,24 @@ $xoops->header('banners_admin_banners.html');
 $start = $request->asInt('start', 0);
 $startF = $request->asInt('startF', 0);
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('banners.php');
 
-$info_msg = array(sprintf(_AM_BANNERS_ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(_AM_BANNERS_ALERT_INFO_MAXFILE , $upload_size / 1000));
+$info_msg = array(sprintf(_AM_BANNERS_ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)), sprintf(_AM_BANNERS_ALERT_INFO_MAXFILE, $upload_size / 1000));
 
 switch ($op) {
 
     case 'list':
     default:
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+        $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         // Define scripts
-        $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-        $xoops->theme()->addScript('modules/system/js/admin.js');
+        $xoops->theme()->addBaseScriptAssets(array('@jqueryui', 'modules/system/js/admin.js'));
 
         $admin_page->addTips(_AM_BANNERS_TIPS_BANNERS);
         $admin_page->addItemButton(_AM_BANNERS_BANNERS_ADD, 'banners.php?op=new', 'add');
         $admin_page->renderTips();
-        if ($client_Handler->getCount() == 0){
+        if ($client_Handler->getCount() == 0) {
             echo $xoops->alert('error', _AM_BANNERS_BANNERS_ERROR_NOCLIENT);
         } else {
             $admin_page->renderButton();
@@ -231,7 +230,7 @@ switch ($op) {
         }
         $error_msg = '';
         $obj->setVar("banner_cid", $request->asInt('cid', 0));
-        if (preg_match('/^[0-9]*[0-9]+$|^[0-9]+[0-9]*$/', $_POST["imptotal"]) == false){
+        if (preg_match('/^[0-9]*[0-9]+$|^[0-9]+[0-9]*$/', $_POST["imptotal"]) == false) {
             $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br />';
             $obj->setVar("banner_imptotal", 0);
         } else {
@@ -259,7 +258,7 @@ switch ($op) {
             }
         }
 
-        if ($error_msg == ''){
+        if ($error_msg == '') {
             if ($banner_Handler->insert($obj)) {
                 $xoops->redirect("banners.php", 2, XoopsLocale::S_ITEM_SAVED);
             }
@@ -281,11 +280,11 @@ switch ($op) {
                 if (!$xoops->security()->check()) {
                     $xoops->redirect("banners.php", 3, implode(",", $xoops->security()->getErrors()));
                 }
-                $namefile = substr_replace($obj->getVar('imageurl'),'',0,strlen(XOOPS_URL . '/uploads/banners/'));
+                $namefile = substr_replace($obj->getVar('imageurl'), '', 0, strlen(XOOPS_URL . '/uploads/banners/'));
                 $urlfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
                 if ($banner_Handler->delete($obj)) {
                     // delete banner
-                    if (is_file($urlfile)){
+                    if (is_file($urlfile)) {
                         chmod($urlfile, 0777);
                         unlink($urlfile);
                     }

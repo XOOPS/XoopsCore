@@ -45,7 +45,6 @@ $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
 $modversion['min_php']             = '5.3';
 $modversion['min_xoops']           = '2.6.0';
-$modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
 $modversion['onInstall'] = 'include/install.php';
 
@@ -83,13 +82,6 @@ $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 $modversion['tables'] = array(
     'ranks',
 );
-
-/*
- JQuery
- Setting for load jquery library and library
-*/
-$modversion['jquery'] = 1;
-$modversion['jquery_plugin'][] = 'jquery.ui.js';
 
 /*
  Admin Templates

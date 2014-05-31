@@ -25,5 +25,5 @@ XoopsLoad::load('system', 'system');
 
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
-$helper = Xoops_Module_Helper::getHelper('smilies');
+$helper = Xoops\Module\Helper::getHelper('smilies');
 $request = Xoops_Request::getInstance();

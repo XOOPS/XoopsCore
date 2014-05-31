@@ -37,16 +37,20 @@ class MytsCensor extends MyTextSanitizerExtension
      * @param $text
      * @return mixed|string
      */
-    public function load(MyTextSanitizer &$ts, $text)
+    public function load(MyTextSanitizer &$ts, $text, array $paramsConf=null)
     {
         static $censorConf;
 
         $xoops = Xoops::getInstance();
+		
+		if (!empty($paramsConf))
+			$censorConf = $paramsConf;
+		
         if (!isset($censorConf)) {
-            $censorConf = $xoops->getConfigs();
-            $config = parent::loadConfig(dirname(__FILE__));
-            //merge and allow config override
-            $censorConf = array_merge($censorConf, $config);
+			$censorConf = $xoops->getConfigs();
+			$config = parent::loadConfig(dirname(__FILE__));
+			//merge and allow config override
+			$censorConf = array_merge($censorConf, $config);
         }
 
         if (empty($censorConf['censor_enable'])) {
@@ -57,12 +61,12 @@ class MytsCensor extends MyTextSanitizerExtension
             return $text;
         }
 
-        if (empty($censorConf['censor_admin']) && $xoops->userIsAdmin) {
+        if (!empty($censorConf['censor_admin']) && !$xoops->userIsAdmin) {
             return $text;
         }
 
-        $replacement = $censorConf['censor_replace'];
-        foreach ($censorConf['censor_words'] as $bad) {
+        $replacement = empty($censorConf['censor_replace']) ? '!!censured!!' : $censorConf['censor_replace'];
+        if (is_array($censorConf['censor_words'])) foreach ($censorConf['censor_words'] as $bad) {
             $bad = trim($bad);
             if (!empty($bad)) {
                 if (false === strpos($text, $bad)) {

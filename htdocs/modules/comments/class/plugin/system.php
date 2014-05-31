@@ -17,7 +17,7 @@
  * @version         $Id$
  */
 
-class CommentsSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
      * @param int $uid

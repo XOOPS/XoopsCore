@@ -16,13 +16,13 @@
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          Mage GrÃ©gory (AKA Mage)
  * @version         $Id$
  */
 include dirname(__FILE__) . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
-$aboutAdmin = new XoopsModuleAdmin();
+$aboutAdmin = new \Xoops\Module\Admin();
 $aboutAdmin->displayNavigation('about.php');
-$aboutAdmin->displayAbout('6KJ7RW5DR3VTJ', true);
+$aboutAdmin->displayAbout(true);
 $xoops->footer();

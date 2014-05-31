@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops\Module;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
@@ -16,16 +18,16 @@
  * @version         $Id$
  */
 
-class Xoops_Module_Plugin
+class Plugin
 {
     /**
-     * @param string $dirname
-     * @param string $pluginName
-     * @param bool $force
+     * @param string $dirname    module dirname
+     * @param string $pluginName plugin name i.e. system, menus, etc.
+     * @param bool   $force      get plugin even if module is inactive
      *
-     * @return bool|Xoops_Module_Plugin_Abstract false if plugin does not exist
+     * @return bool|Xoops\Module\Plugin\PluginAbstract false if plugin does not exist
      */
-    static function getPlugin($dirname, $pluginName = 'system', $force = false)
+    public static function getPlugin($dirname, $pluginName = 'system', $force = false)
     {
         $inactiveModules = false;
         if ($force) {
@@ -44,15 +46,15 @@ class Xoops_Module_Plugin
      *
      * @return mixed
      */
-    static function getPlugins($pluginName = 'system', $inactiveModules = false)
+    public static function getPlugins($pluginName = 'system', $inactiveModules = false)
     {
         static $plugins = array();
         if (!isset($plugins[$pluginName])) {
             $plugins[$pluginName] = array();
-            $xoops = Xoops::getInstance();
+            $xoops = \Xoops::getInstance();
 
             //Load interface for this plugin
-            if (!XoopsLoad::loadFile($xoops->path("modules/{$pluginName}/class/plugin/interface.php"))) {
+            if (!\XoopsLoad::loadFile($xoops->path("modules/{$pluginName}/class/plugin/interface.php"))) {
                 return $plugins[$pluginName];
             }
 
@@ -61,11 +63,11 @@ class Xoops_Module_Plugin
                 $dirnames = array_merge($dirnames, $inactiveModules);
             }
             foreach ($dirnames as $dirname) {
-                if (XoopsLoad::loadFile($xoops->path("modules/{$dirname}/class/plugin/{$pluginName}.php"))) {
-                    $className = ucfirst($dirname) . ucfirst($pluginName) . 'Plugin';
-                    $interface = ucfirst($pluginName) . 'PluginInterface';
+                if (\XoopsLoad::loadFile($xoops->path("modules/{$dirname}/class/plugin/{$pluginName}.php"))) {
+                    $className = '\\' . ucfirst($dirname) . ucfirst($pluginName) . 'Plugin';
+                    $interface = '\\' . ucfirst($pluginName) . 'PluginInterface';
                     $class = new $className($dirname);
-                    if ($class instanceof Xoops_Module_Plugin_Abstract && $class instanceof $interface) {
+                    if ($class instanceof \Xoops\Module\Plugin\PluginAbstract && $class instanceof $interface) {
                         $plugins[$pluginName][$dirname] = $class;
                     }
                 }

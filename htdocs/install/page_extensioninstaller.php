@@ -59,7 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $content = "<div class='x2-note confirmMsg'>" . NO_INSTALLED_EXTENSION . "</div>";
     }
 
-    //Set active modules in cache folder
+    //Reset module lists in cache folder
+    \Xoops_Cache::delete('system_modules_active');
+    \Xoops_Cache::delete('system_modules_preloads');
     $xoops->setActiveModules();
 } else {
     if (!$xoops->getConfig('locale')) {
@@ -75,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get installed modules
     $system_module = new SystemExtension();
 
-    $dirlist = $system_module->getExtensionInstall();
+    $dirlist = $system_module->getInstalledExtensions();
     $toinstal = 0;
 
     $javascript = "";

@@ -110,7 +110,8 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
                 $message .= "\n" . $pm->getVar("msg_text", "E") . "\n[/quote]";
             } else {
                 unset($pm);
-                $reply = $send2 = 0;
+                $reply = 0;
+                $send2 = 0;
             }
         }
 

@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 function xoops_module_install_notifications(&$module)
 {
     $xoops = Xoops::getInstance();
@@ -38,7 +36,7 @@ function xoops_module_install_notifications(&$module)
 
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('notifications');
+    $plugins = \Xoops\Module\Plugin::getPlugins('notifications');
 
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
@@ -52,7 +50,7 @@ function xoops_module_uninstall_notifications(&$module)
     $xoops = Xoops::getInstance();
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('notifications');
+    $plugins = \Xoops\Module\Plugin::getPlugins('notifications');
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }

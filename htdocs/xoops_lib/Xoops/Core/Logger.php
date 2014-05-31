@@ -194,7 +194,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function emergency($message, array $context = array())
     {
@@ -210,7 +210,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function alert($message, array $context = array())
     {
@@ -225,7 +225,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function critical($message, array $context = array())
     {
@@ -239,7 +239,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function error($message, array $context = array())
     {
@@ -255,7 +255,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function warning($message, array $context = array())
     {
@@ -268,7 +268,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function notice($message, array $context = array())
     {
@@ -283,7 +283,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function info($message, array $context = array())
     {
@@ -296,7 +296,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function debug($message, array $context = array())
     {
@@ -310,7 +310,7 @@ class Logger implements LoggerInterface
      * @param string $message message
      * @param array  $context array of context data for this log entry
      *
-     * @return null
+     * @return void
      */
     public function log($level, $message, array $context = array())
     {
@@ -319,7 +319,7 @@ class Logger implements LoggerInterface
                 if (is_object($logger)) {
                     try {
                         $logger->log($level, $message, $context);
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         // just ignore, as we can't do anything, not even log it.
                     }
                 }
@@ -335,7 +335,7 @@ class Logger implements LoggerInterface
      * It should have no effect on loggers using other methods, such a write
      * to file.
      *
-     * @return type
+     * @return void
      */
     public function quiet()
     {
@@ -344,7 +344,7 @@ class Logger implements LoggerInterface
                 if (is_object($logger) && method_exists($logger, 'quiet')) {
                     try {
                         $logger->quiet();
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         // just ignore, as we can't do anything, not even log it.
                     }
                 }
@@ -367,6 +367,11 @@ class Logger implements LoggerInterface
     public function __set($var, $val)
     {
         $this->deprecatedMessage();
+        // legacy compatibility: turn off logger display for $xoopsLogger->activated = false; usage
+        if ($var=='activated' && !$val) {
+            $this->quiet();
+        }
+
     }
 
     /**

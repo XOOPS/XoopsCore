@@ -69,8 +69,8 @@ class Admin
         static $instance;
 
         if ($instance === null) {
-            if (class_exists('XoopsModuleAdmin', true)) {
-                $instance  = new \XoopsModuleAdmin;
+            if (class_exists('\Xoops\Module\Admin', true)) {
+                $instance  = new \Xoops\Module\Admin;
                 self::$ModuleAdmin = $instance;
             } else {
                 \Xmf\Loader::loadFile(
@@ -98,7 +98,7 @@ class Admin
      */
     public static function is26()
     {
-        return class_exists('Xoops', false);
+        return class_exists('\Xoops', false);
     }
 
     /**
@@ -370,7 +370,7 @@ class Admin
      * @param string $size the icon size (directory). Valid values are
      *                     16, 32 or /. A '/' slash will simply set the
      *                     path to the icon directory and append $image.
-     * 
+     *
      * @return bool true if we are in a 2.6 environment
      */
     public static function iconUrl($name = '', $size = '32')

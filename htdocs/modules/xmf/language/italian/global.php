@@ -41,7 +41,7 @@ define ('_XMF_COUNTER_FORM_CAPTION', 'Hit counter');
 define ('_XMF_CREATE', 'Create');
 define ('_XMF_CREATINGNEW', 'Creazione');
 define ('_XMF_CUSTOM_CSS', 'Custom CSS');
-define ('_XMF_CUSTOM_CSS_DSC', 'È possibile specificare informazioni personalizzate CSS qui Questo SSN viene outputed in cui l\'oggetto viene visualizzato sul lato utente..');
+define ('_XMF_CUSTOM_CSS_DSC', 'Ãˆ possibile specificare informazioni personalizzate CSS qui Questo SSN viene outputed in cui l\'oggetto viene visualizzato sul lato utente..');
 define ('_XMF_DELETE', 'Cancella');
 define ('_XMF_DELETE_CONFIRM', "Sei sicuro di voler eliminare '<em>%s </em>'?");
 define ('_XMF_DELETE_ERROR', 'Si &#232; verificato un errore durante l\'eliminazione dell\'oggetto.');
@@ -138,15 +138,15 @@ define ('_XMF_SUBMIT', 'Submit');
 define ('_XMF_TAG_DESCRIPTION_CAPTION', "Descrizione");
 define ('_XMF_TAG_DESCRIPTION_DSC', "Descrizione di questo tag (dove verr&#224; utilizzato, ecc ..)");
 define ('_XMF_TAG_TAGID_CAPTION', "nome Tag");
-define ('_XMF_TAG_TAGID_DSC' ", nome che identifica in modo univoco questo tag");
+define ('_XMF_TAG_TAGID_DSC', "nome che identifica in modo univoco questo tag");
 define ('_XMF_TAG_VALUE_CAPTION', "Valore");
 define ('_XMF_TAG_VALUE_DSC', "Il valore di questo tag, vale a dire ci&#242; che verr&#224; visualizzato per l'utente");
 define ('_XMF_UPDATE_MODULE', 'Aggiornamento del modulo');
 define ('_XMF_UPLOAD_IMAGE', 'Carica una nuova immagine:');
 define ('_XMF_VERSION_HISTORY', 'Cronologia delle versioni');
-define ('_XMF_WARNING_BETA', "Questo modulo viene fornito come &#232;, senza alcuna garanzia di sorta. Questo modulo &#232; BETA, significa che &#232; ancora in fase di sviluppo attivo. Questa versione &#232; destinata a scopo di test <b> solo </ b> e <b > fortemente </ b> consiglia di non utilizzarlo su un sito web dal vivo o in un ambiente di produzione ").;
-define ('_XMF_WARNING_FINAL', "Questo modulo viene fornito così com'&#232;, senza alcuna garanzia di sorta. Anche se questo modulo non &#232; beta, &#232; ancora in fase di sviluppo attivo. Questo comunicato pu&#242; essere utilizzato in un sito web dal vivo o un ambiente di produzione, ma il suo uso &#232; sotto la propria responsabilit&#224;, il che significa che l'autore non &#232; responsabile ").;
-define ('_XMF_WARNING_RC', "Questo modulo viene fornito così com'&#232;, senza alcuna garanzia di sorta. Questo modulo &#232; una Release Candidate e non deve essere utilizzato su un sito Web di produzione. Il modulo &#232; ancora in fase di sviluppo attivo e il suo utilizzo &#232; sotto la propria responsabilit&#224; , il che significa che l'autore non &#232; responsabile ").;
+define ('_XMF_WARNING_BETA', "Questo modulo viene fornito come &#232;, senza alcuna garanzia di sorta. Questo modulo &#232; BETA, significa che &#232; ancora in fase di sviluppo attivo. Questa versione &#232; destinata a scopo di test <b> solo </ b> e <b > fortemente </ b> consiglia di non utilizzarlo su un sito web dal vivo o in un ambiente di produzione");
+define ('_XMF_WARNING_FINAL', "Questo modulo viene fornito cosÃ¬ com'&#232;, senza alcuna garanzia di sorta. Anche se questo modulo non &#232; beta, &#232; ancora in fase di sviluppo attivo. Questo comunicato pu&#242; essere utilizzato in un sito web dal vivo o un ambiente di produzione, ma il suo uso &#232; sotto la propria responsabilit&#224;, il che significa che l'autore non &#232; responsabile ");
+define ('_XMF_WARNING_RC', "Questo modulo viene fornito cosÃ¬ com'&#232;, senza alcuna garanzia di sorta. Questo modulo &#232; una Release Candidate e non deve essere utilizzato su un sito Web di produzione. Il modulo &#232; ancora in fase di sviluppo attivo e il suo utilizzo &#232; sotto la propria responsabilit&#224; , il che significa che l'autore non &#232; responsabile ");
 define ('_XMF_WEIGHT_FORM_CAPTION', 'Peso');
 define ('_XMF_WEIGHT_FORM_DSC', "");
 
@@ -181,5 +181,3 @@ define ('_XMF_URLLINK_BLANK', "Nuova finestra");
 define ('_XMF_ANY', "Any");
 define ('_XMF_EDITOR', "Editor di testo preferito");
 define ('_XMF_WITH_SELECTED', "Con i selezionati:");
-
-?>

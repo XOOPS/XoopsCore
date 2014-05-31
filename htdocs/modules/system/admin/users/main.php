@@ -48,7 +48,8 @@ $xoops->header('system_users.html');
 $myts = MyTextSanitizer::getInstance();
 // Define Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+$xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
+//$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
 $xoops->theme()->addScript('modules/system/js/admin.js');
 // Define Breadcrumb and tips
@@ -60,7 +61,7 @@ switch ($op) {
     // Edit user
     case 'users_edit':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_USER);
@@ -75,7 +76,7 @@ switch ($op) {
     // Add user
     case 'users_add':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_USER);
@@ -89,7 +90,7 @@ switch ($op) {
     // Delete user
     case 'users_delete':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_USER);
@@ -344,15 +345,15 @@ switch ($op) {
     default:
         // Search and Display
         // Define scripts
-        $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js');
         //table sorting does not work with select boxes
         //$xoops->theme()->addScript('media/jquery/plugins/jquery.tablesorter.js');
-        $xoops->theme()->addScript('modules/system/js/admin.js');
+        //$xoops->theme()->addScript('modules/system/js/admin.js');
         //Recherche approfondie
 
         if (isset($_REQUEST['complet_search'])) {
             // Assign Breadcrumb menu
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::ADVANCED_SEARCH);
@@ -473,7 +474,7 @@ switch ($op) {
         } else {
             //Display data
             // Assign Breadcrumb menu
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::LIST_);
@@ -868,7 +869,8 @@ switch ($op) {
                     $users['uname'] = $user->getVar("uname");
                     $users['email'] = $user->getVar("email");
                     $users['url'] = $user->getVar("url");
-                    $users['user_avatar'] = ($user->getVar("user_avatar") == 'blank.gif') ? system_AdminIcons('anonymous.png') : XOOPS_URL . '/uploads/' . $user->getVar("user_avatar");
+                    $avatar = $xoops->service('avatar')->getAvatarUrl($user)->getValue();
+                    $users['user_avatar'] = (empty($avatar) ? system_AdminIcons('anonymous.png') : $avatar);
                     $users['reg_date'] = XoopsLocale::formatTimestamp($user->getVar("user_regdate"), "m");
                     if ($user->getVar("last_login") > 0) {
                         $users['last_login'] = XoopsLocale::formatTimestamp($user->getVar("last_login"), "m");

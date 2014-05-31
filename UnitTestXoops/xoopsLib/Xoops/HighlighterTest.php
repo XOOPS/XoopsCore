@@ -9,13 +9,10 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 class Xoops_HighlighterTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops_Highlighter';
-    
-    public function SetUp()
-	{
-    }
 	
     public function test___construct()
 	{
+        $this->markTestIncomplete('to do');
     }
 	
 	public function test_setSimple()

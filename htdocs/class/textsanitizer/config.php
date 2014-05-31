@@ -35,7 +35,7 @@ return $config = array(
         "wiki" => is_dir(XOOPS_ROOT_PATH . '/modules/mediawiki/'),
         "mms" => 0,
         "rtsp" => 0,
-        'soundcloud' => 1,
+        'soundcloud' => 0,
         "ul" => 1,
         "li" => 1
     ),

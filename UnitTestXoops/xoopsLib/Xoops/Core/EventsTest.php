@@ -9,10 +9,6 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 class EventsTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops\Core\Events';
-    
-    public function SetUp()
-	{
-    }
 
 	public function test_getInstance()
 	{

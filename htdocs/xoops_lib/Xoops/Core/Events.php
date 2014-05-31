@@ -165,7 +165,7 @@ class Events
      * Trigger a specific event
      *
      * @param string $event_name Name of the event to trigger
-     * @param array  $args       Method arguments
+     * @param mixed  $args       Method arguments
      *
      * @return void
      */
@@ -175,7 +175,7 @@ class Events
             $event_name = $this->toInternalEventName($event_name);
             if (isset($this->eventListeners[$event_name])) {
                 foreach ($this->eventListeners[$event_name] as $event) {
-                    if (method_exists($event[0], $event[1])) {
+                    if (is_callable($event)) {
                         call_user_func($event, $args);
                     }
                 }

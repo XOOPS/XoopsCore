@@ -25,8 +25,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 class UserconfigsConfigHandler extends XoopsObjectHandler
 {
     /**
@@ -79,8 +77,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get a config
      *
-     * @param    int     $id             ID of the config
-     * @param    bool    $withoptions    load the config's options now?
+     * @param int  $id          ID of the config
+     * @param bool $withoptions load the config's options now?
      *
      * @return   UserconfigsItem {@link UserconfigsItem}
      */
@@ -126,7 +124,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Delete a config from the database
      *
-     * @param  UserconfigsItem $config {@link UserconfigsItem}
+     * @param UserconfigsItem $config {@link UserconfigsItem}
      *
      * @return bool
      */
@@ -155,8 +153,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * get one or more Configs
      *
-     * @param    CriteriaElement|null  $criteria       {@link CriteriaElement}
-     * @param    bool                  $id_as_key      Use the configs' ID as keys?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key Use the configs' ID as keys?
      *
      * @return    array   Array of {@link UserconfigsItem} objects
      */
@@ -191,7 +189,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get configs from a certain module
      *
-     * @param    int $module     ID of a module
+     * @param int $module ID of a module
      *
      * @return    array   array of {@link UserconfigsConfig}s
      */
@@ -232,8 +230,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get configs from a certain user
      *
-     * @param    int $uid        ID of a user
-     * @param    int $moduleId     ID of a module
+     * @param int $uid      ID of a user
+     * @param int $moduleId ID of a module
      *
      * @return    array   array of {@link UserconfigsConfig}s
      */
@@ -271,7 +269,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get a {@link UserconfigsOption}
      *
-     * @param    int $id ID of the config option
+     * @param int $id ID of the config option
      *
      * @return   UserconfigsOption  {@link UserconfigsOption}
      */
@@ -284,8 +282,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get one or more {@link UserconfigsOption}s
      *
-     * @param    CriteriaElement|null  $criteria   {@link CriteriaElement}
-     * @param    bool                  $id_as_key  Use IDs as keys in the array?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key Use IDs as keys in the array?
      *
      * @return    array   Array of {@link UserconfigsOption}s
      */
@@ -297,7 +295,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Count some {@link UserconfigsOption}s
      *
-     * @param    CriteriaElement|null  $criteria   {@link CriteriaElement}
+     * @param CriteriaElement|null $criteria {@link CriteriaElement}
      *
      * @return    int     Count of {@link UserconfigsOption}s matching $criteria
      */
@@ -309,8 +307,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get a list of configs
      *
-     * @param    int $conf_modid ID of the modules
-     * @param    int $conf_uid   ID of the user
+     * @param int $conf_modid ID of the modules
+     * @param int $conf_uid   ID of the user
      *
      * @return    array   Associative array of name=>value pairs.
      */
@@ -339,7 +337,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function createDefaultUserConfigs($uid, XoopsModule $module)
     {
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             // now reinsert them with the new settings
             $configs = $plugin->configs();
             if (!is_array($configs)) {

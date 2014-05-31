@@ -33,13 +33,10 @@ $memberslist_id = $request->asArray('memberslist_id', array());
 // Call Header
 $xoops->header('mailusers_send_mail.html');
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addScript('media/jquery/jquery.js');
-// Add Scripts
-$xoops->theme()->addScript('media/xoops/xoops.js');
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
+$xoops->theme()->addBaseScriptAssets(array('@jquery','media/xoops/xoops.js','modules/system/js/admin.js'));
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('send_mails.php');
 
 switch ($op) {

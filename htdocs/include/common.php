@@ -166,12 +166,8 @@ if ($xoops->getConfig('use_ssl')
         && $xoops->getConfig('session_name') != ''
         && $xoops->getConfig('session_expire') > 0
     ) {
-        if (isset($_COOKIE[$xoops->getConfig('session_name')])) {
-            session_id($_COOKIE[$xoops->getConfig('session_name')]);
-        }
-        if (function_exists('session_cache_expire')) {
-            session_cache_expire($xoops->getConfig('session_expire'));
-        }
+        session_name($xoopsConfig['session_name']);
+        session_cache_expire($xoops->getConfig('session_expire'));
         @ini_set('session.gc_maxlifetime', $xoops->getConfig('session_expire') * 60);
     }
 }
@@ -183,7 +179,15 @@ session_set_save_handler(
     array(&$sess_handler, 'destroy'),
     array(&$sess_handler, 'gc')
 );
-session_start();
+
+if (function_exists('session_status')) {
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+} else {
+    // this should silently fail if session has already started (for PHP 5.3)
+    @session_start();
+}
 
 /**
  * Remove expired session for xoopsUserId

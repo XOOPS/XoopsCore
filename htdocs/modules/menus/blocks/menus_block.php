@@ -230,7 +230,7 @@ function menus_mainmenu_show()
             $menu->setVar('link', XOOPS_URL . '/modules/' . $modules[$i]->getVar('dirname'));
             $menu->setVar('image', 'icon-tags');
             $menus[] = $menu->getValues();
-            if ($xoops->isModule() && $xoops->module->getVar('dirname') == $modules[$i]->getVar('dirname') && $plugin = Xoops_Module_Plugin::getPlugin($modules[$i]->getVar('dirname'), 'menus')) {
+            if ($xoops->isModule() && $xoops->module->getVar('dirname') == $modules[$i]->getVar('dirname') && $plugin = \Xoops\Module\Plugin::getPlugin($modules[$i]->getVar('dirname'), 'menus')) {
                 $sublinks = $plugin->subMenus();
                 $j = -1;
                 foreach ($sublinks as $sublink) {

@@ -67,7 +67,7 @@ class XoopsSessionHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection $db database instance
+     * @param Xoops\Core\Database\Connection $db database instance
      */
     public function __construct($db)
     {

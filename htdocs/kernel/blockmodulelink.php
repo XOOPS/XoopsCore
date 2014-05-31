@@ -9,6 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * XOOPS Kernel Class
  *
@@ -20,10 +25,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 class XoopsBlockmodulelink extends XoopsObject
 {
@@ -40,11 +41,10 @@ class XoopsBlockmodulelink extends XoopsObject
 class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'block_module_link', 'XoopsBlockmodulelink', 'block_id', 'module_id');
     }
-
 }

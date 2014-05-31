@@ -19,9 +19,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class PageCommentsPlugin extends Xoops_Module_Plugin_Abstract implements CommentsPluginInterface
+class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements CommentsPluginInterface
 {
     /**
      * @return string
@@ -96,7 +94,7 @@ class PageCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Comment
         // Get handler
         $content_Handler = Page::getInstance()->getContentHandler();
         $view_content = $content_Handler->get($item_id);
-        if (count($view_content) == 0 || $view_content->getVar('content_status') == 0){
+        if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
             return $ret;
         } else {
             $ret['title'] = $view_content->getVar('content_title');
@@ -107,4 +105,3 @@ class PageCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Comment
         return $ret;
     }
 }
-

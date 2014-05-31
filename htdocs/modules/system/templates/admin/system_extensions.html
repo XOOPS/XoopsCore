@@ -16,15 +16,15 @@
         <td class="span1">
             <{if $extension->getInfo('install')}>
             <a href="<{$xoops_url}>/modules/<{$extension->getInfo('dirname')}>/<{$extension->getInfo('adminindex')}>">
-                <img class="xo-tooltip" src="<{$extension->getInfo('logo_small')}>"
+                <img class="xo-tooltip" src="<{$extension->getInfo('logo_large')}>"
                      alt="<{$extension->getInfo('name')}>" title="<{$extension->getInfo('name')}>"/>
             </a>
             <{else}>
-            <img class="xo-tooltip" src="<{$extension->getInfo('logo_small')}>" alt="<{$extension->getInfo('name')}>"
+            <img class="xo-tooltip" src="<{$extension->getInfo('logo_large')}>" alt="<{$extension->getInfo('name')}>"
                  title="<{$extension->getInfo('name')}>"/>
             <{/if}>
         </td>
-        <td class="span4">
+        <td class="span3">
             <{if $extension->getInfo('install')}>
             <a href="<{$xoops_url}>/modules/<{$extension->getInfo('dirname')}>/<{$extension->getInfo('adminindex')}>">
                 <strong><{$extension->getInfo('name')}></strong>
@@ -36,7 +36,7 @@
         <td class="span2">
             <{$extension->getInfo('version')}>
         </td>
-        <td>
+        <td class="span4">
             <ul class="xo-extension-detail">
                 <li><span class="bold"><{translate key='C_AUTHOR'}></span>&nbsp;<{$extension->getInfo('author')}><{if $extension->getInfo('nickname')}> - (<{$extension->getInfo('nickname')}>)<{/if}>
                 </li>
@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </td>
-        <td class="span4">
+        <td class="span2">
             <a class="xo-tooltip" href="javascript:"
                onclick="$('li.detail-<{$extension->getInfo(dirname)}>').toggle('slow');"
                title="<{translate key='DETAILS'}>"><span class="ico-magnifier"></span></a>

@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-class PublisherSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+class PublisherSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
      * @param int $uid

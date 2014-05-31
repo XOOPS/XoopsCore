@@ -36,7 +36,7 @@ $userrank_Handler = $xoops->getHandler("ranks");
 // Call Header
 $xoops->header('userrank.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('userrank.php');
 
 switch ($op) {

@@ -8,6 +8,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
@@ -28,9 +30,9 @@ abstract class XoopsObjectHandler extends Xoops\Core\Kernel\XoopsObjectHandler
     /**
      * this is a legacy compatibility shim to make the legacy database available
      *
-     * @param XoopsConnection $db reference to the {@link XoopsConnection} object
+     * @param Connection $db reference to the {@link Connection} object
      */
-    public function __construct(XoopsConnection $db)
+    public function __construct(Connection $db)
     {
         $this->db = XoopsDatabaseFactory::getDatabaseConnection(); // get legacy connection
         parent::__construct($db);
@@ -50,17 +52,17 @@ abstract class XoopsPersistableObjectHandler extends Xoops\Core\Kernel\XoopsPers
     /**
      * this is a legacy compatibility shim to make the legacy database available
      *
-     * @param XoopsConnection $db reference to the {@link XoopsConnection} object
+     * @param Connection $db reference to the {@link Connection} object
      */
     protected function __construct(
-        \XoopsConnection $db = null,
+        Connection $db = null,
         $table = '',
         $className = '',
         $keyName = '',
         $identifierName = ''
     ) {
         if ($db===null) {
-            $this->db2 = XoopsDatabaseFactory::getConnection();
+            $this->db2 = \Xoops\Core\Database\Factory::getConnection();
             $db = $this->db2;
         }
         $this->db = XoopsDatabaseFactory::getDatabaseConnection(); // get legacy connection

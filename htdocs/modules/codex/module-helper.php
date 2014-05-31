@@ -22,13 +22,13 @@ $xoops = Xoops::getInstance();
 $xoops->header();
 
 /*
- * Xoops_Module_Helper class allows you to access methods of Xoops_Module_Helper_Abstract
+ * Xoops\Module\Helper class allows you to access methods of Xoops\Module\Helper\HelperAbstract
  * for any given module, as long as the module is active.
  *
  * You will be able to access the module object, get configs, handlers, forms, load languages, etc
  *
- * If the module has a class extending Xoops_Module_Helper_Abstract in the file class/helper.php
- * the Xoops_Module_Helper will load that class. If not, it will load the Xoops_Module_Helper_Dummy
+ * If the module has a class extending Xoops\Module\Helper\HelperAbstract in the file class/helper.php
+ * the Xoops\Module\Helper will load that class. If not, it will load the Xoops\Module\Helper\Dummy
  */
 
 /**
@@ -44,7 +44,7 @@ if ($xoops->isActiveModule('search')) {
 /**
  * Using the Helper
  */
-if ($helper = Xoops_Module_Helper::getHelper('search')) {
+if ($helper = Xoops\Module\Helper::getHelper('search')) {
     $config = $helper->getConfig('keyword_min');
     $helper->loadLanguage('main');
     $url = $helper->url('index.php');
@@ -53,21 +53,21 @@ if ($helper = Xoops_Module_Helper::getHelper('search')) {
 }
 
 //Some examples
-if($helper = Xoops_Module_Helper::getHelper('publisher')) {
+if ($helper = Xoops\Module\Helper::getHelper('publisher')) {
     Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
 }
 
-if($helper = Xoops_Module_Helper::getHelper('search')) {
+if ($helper = Xoops\Module\Helper::getHelper('search')) {
     Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
 }
 
-if($helper = Xoops_Module_Helper::getHelper('notifications')) {
+if ($helper = Xoops\Module\Helper::getHelper('notifications')) {
     Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
 }
 
-if($helper = Xoops_Module_Helper::getHelper('menus')) {
+if ($helper = Xoops\Module\Helper::getHelper('menus')) {
     Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
 }
 
-Xoops_Utils::dumpFile(__FILE__ );
+Xoops_Utils::dumpFile(__FILE__);
 $xoops->footer();

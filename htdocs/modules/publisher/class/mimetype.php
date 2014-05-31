@@ -40,7 +40,7 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     /**
      * Database connection
      *
-     * @var    XoopsConnection
+     * @var    Xoops\Core\Database\Connection
      */
     public $_db;
 
@@ -54,7 +54,7 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     public $classname = '';
 
     /**
-     * @param XoopsConnection $db
+     * @param Xoops\Core\Database\Connection $db
      */
     public function init($db)
     {
@@ -357,7 +357,7 @@ class PublisherMimetype extends XoopsObject
         $this->initVar('mime_id', XOBJ_DTYPE_INT, null, false);
         $this->initVar('mime_ext', XOBJ_DTYPE_TXTBOX, null, true, 60);
         $this->initVar('mime_types', XOBJ_DTYPE_TXTAREA, null, false, 1024);
-        $this->initVar('mime_name', XOBJ_DTYPE_TXTBOX, NULL, true, 255);
+        $this->initVar('mime_name', XOBJ_DTYPE_TXTBOX, null, true, 255);
         $this->initVar('mime_admin', XOBJ_DTYPE_INT, null, false);
         $this->initVar('mime_user', XOBJ_DTYPE_INT, null, false);
         if (isset($id)) {
@@ -389,7 +389,7 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection $db reference to a xoopsDB object
+     * @param Xoops\Core\Database\Connection $db reference to a xoopsDB object
      */
     public function __construct($db)
     {

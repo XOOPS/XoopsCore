@@ -2,62 +2,58 @@
 
 // mymenu
 define('_MD_A_MYMENU_MYTPLSADMIN','');
-define('_MD_A_MYMENU_MYBLOCKSADMIN','วแสีวัํอ');
-define('_MD_A_MYMENU_MYPREFERENCES','วแฮํวัวส');
+define('_MD_A_MYMENU_MYBLOCKSADMIN','ุงูุชุตุงุฑูุญ');
+define('_MD_A_MYMENU_MYPREFERENCES','ุงูุฎูุงุฑุงุช');
 
 // index.php
-define("_AM_TH_DATETIME","วแๆÞส");
-define("_AM_TH_USER","วแฺึๆ");
-define("_AM_TH_IP","วํศํ");
-define("_AM_TH_AGENT","วแฺใํแ");
-define("_AM_TH_TYPE","ไๆฺ วแฺใแํษ");
-define("_AM_TH_DESCRIPTION","วแๆีÝ");
+define("_AM_TH_DATETIME","ุงูููุช");
+define("_AM_TH_USER","ุงูุนุถู");
+define("_AM_TH_IP","ุงูุจู");
+define("_AM_TH_AGENT","ุงูุนู…ูู");
+define("_AM_TH_TYPE","ููุน ุงูุนู…ููุฉ");
+define("_AM_TH_DESCRIPTION","ุงููุตู");
 
-define("_AM_TH_BADIPS" , 'วแวํศํๅวส วแำฦํษ<br /><br /><span style="font-weight:normal;">ว฿สศ ฿แ วํศํ Ýํ ำุั ฬฯํฯ<br />วสั฿ วแีไฯๆÞ ÝวัÛ วไ แใ สัÛศ ศใไฺ วํ ิฮี</span>' ) ;
+define("_AM_TH_BADIPS" , 'ุงูุงูุจููุงุช ุงูุณุฆูุฉ<br /><br /><span style="font-weight:normal;">ุงูุชุจ ูู ุงูุจู ูู ุณุทุฑ ุฌุฏูุฏ<br />ุงุชุฑู ุงูุตูุฏูู ูุงุฑุบ ุงู ูู… ุชุฑุบุจ ุจู…ูุน ุงู ุดุฎุต</span>' ) ;
 
-define("_AM_TH_GROUP1IPS" , 'ใไฺ วฺึวม วแวฯวัษ<br /><br /><span style="font-weight:normal;">ว฿สศ ฿แ วํศํ Ýํ ำุั<br />192.168. ํฺไํ 192.168.*<br />วสั฿ วแฬฯๆแ ÝวัÛว วไ แใ สัÛศ ศใไฺ วํ ใไ วฺึวม วแวฯวัษ</span>' ) ;
+define("_AM_TH_GROUP1IPS" , 'ู…ูุน ุงุนุถุงุก ุงูุงุฏุงุฑุฉ<br /><br /><span style="font-weight:normal;">ุงูุชุจ ูู ุงูุจู ูู ุณุทุฑ<br />192.168. ูุนูู 192.168.*<br />ุงุชุฑู ุงูุฌุฏูู ูุงุฑุบุง ุงู ูู… ุชุฑุบุจ ุจู…ูุน ุงู ู…ู ุงุนุถุงุก ุงูุงุฏุงุฑุฉ</span>' ) ;
 
-define("_AM_LABEL_COMPACTLOG" , "ำฬแ วแใส฿ัั" ) ;
-define("_AM_BUTTON_COMPACTLOG" , "อะÝ วแใส฿ัั" ) ;
-define("_AM_JS_COMPACTLOGCONFIRM" , "ำํสใ อะÝ วแวํศํๅวส วแใส฿ััษ ศว฿หั ใไ ใๆึฺ" ) ;
-define("_AM_LABEL_REMOVEALL" , "อะÝ ฿แ วแำฬแวส" ) ;
-define("_AM_BUTTON_REMOVEALL" , "วอะÝ วแ฿แ" ) ;
-define("_AM_JS_REMOVEALLCONFIRM" , "ำํสใ อะÝ ฿แ วแำฬแวส ไๅวฦํว" ) ;
-define("_AM_LABEL_REMOVE" , "อÝ วแใอฯฯ ใไ วแÞวฦใษ" ) ;
-define("_AM_BUTTON_REMOVE" , "อะÝ" ) ;
-define("_AM_JS_REMOVECONFIRM" , "ำํสใ อะÝ วแใอฯฯ" ) ;
-define("_AM_MSG_IPFILESUPDATED" , "สใ สอฯํห  อÞแ วแวํศํๅวส" ) ;
-define("_AM_MSG_BADIPSCANTOPEN" , "แใ ไสใ฿ไ ใไ Ýสอ ใแÝ วแวํศํๅวส วแำํฦษ" ) ;
-define("_AM_MSG_GROUP1IPSCANTOPEN" , "แใ ไสใ฿ไ Ýสอ ใแÝวส วแวํศํๅวส แแวฯวัษ" ) ;
-define("_AM_MSG_REMOVED" , "สใ อะÝ วแำฬแวส" ) ;
-//define("_AM_FMT_CONFIGSNOTWRITABLE" , "วฺุํ วแสีัอ 777 แใฬแฯ วแ฿ๆไÝํฬ Ýํ: %s" ) ;
+define("_AM_LABEL_COMPACTLOG" , "ุณุฌู ุงูู…ุชูุฑุฑ" ) ;
+define("_AM_BUTTON_COMPACTLOG" , "ุญุฐู ุงูู…ุชูุฑุฑ" ) ;
+define("_AM_JS_COMPACTLOGCONFIRM" , "ุณูุชู… ุญุฐู ุงูุงูุจููุงุช ุงูู…ุชูุฑุฑุฉ ุจุงูุซุฑ ู…ู ู…ูุถุน" ) ;
+define("_AM_LABEL_REMOVEALL" , "ุญุฐู ูู ุงูุณุฌูุงุช" ) ;
+define("_AM_BUTTON_REMOVEALL" , "ุงุญุฐู ุงููู" ) ;
+define("_AM_JS_REMOVEALLCONFIRM" , "ุณูุชู… ุญุฐู ูู ุงูุณุฌูุงุช ููุงุฆูุง" ) ;
+define("_AM_LABEL_REMOVE" , "ุญู ุงูู…ุญุฏุฏ ู…ู ุงููุงุฆู…ุฉ" ) ;
+define("_AM_BUTTON_REMOVE" , "ุญุฐู" ) ;
+define("_AM_JS_REMOVECONFIRM" , "ุณูุชู… ุญุฐู ุงูู…ุญุฏุฏ" ) ;
+define("_AM_MSG_IPFILESUPDATED" , "ุชู… ุชุญุฏูุซ  ุญูู ุงูุงูุจููุงุช" ) ;
+define("_AM_MSG_BADIPSCANTOPEN" , "ูู… ูุชู…ูู ู…ู ูุชุญ ู…ูู ุงูุงูุจููุงุช ุงูุณูุฆุฉ" ) ;
+define("_AM_MSG_GROUP1IPSCANTOPEN" , "ูู… ูุชู…ูู ูุชุญ ู…ููุงุช ุงูุงูุจููุงุช ููุงุฏุงุฑุฉ" ) ;
+define("_AM_MSG_REMOVED" , "ุชู… ุญุฐู ุงูุณุฌูุงุช" ) ;
+//define("_AM_FMT_CONFIGSNOTWRITABLE" , "ุงุนุทู ุงูุชุตุฑุญ 777 ูู…ุฌูุฏ ุงููููููุฌ ูู: %s" ) ;
 
 
 // prefix_manager.php
-define("_AM_H3_PREFIXMAN" , "วฯวัษ อÞแ วแÞวฺฯษ" ) ;
-define("_AM_MSG_DBUPDATED" , "สใ สอฯํห Þวฺฯษ วแศํวไวส" ) ;
-define("_AM_CONFIRM_DELETE" , "ำํสใ อะÝ ฿แ วแศํวไวส" ) ;
-define("_AM_TXT_HOWTOCHANGEDB" , "วะ ัÛศส ศสÛํั วำใ ฬฯๆแ Þวฺฯษ วแศํวไวส,<br /> ฺฯแ ใแÝ  %s/mainfile.php <br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
+define("_AM_H3_PREFIXMAN" , "ุงุฏุงุฑุฉ ุญูู ุงููุงุนุฏุฉ" ) ;
+define("_AM_MSG_DBUPDATED" , "ุชู… ุชุญุฏูุซ ูุงุนุฏุฉ ุงูุจูุงูุงุช" ) ;
+define("_AM_CONFIRM_DELETE" , "ุณูุชู… ุญุฐู ูู ุงูุจูุงูุงุช" ) ;
+define("_AM_TXT_HOWTOCHANGEDB" , "ุงุฐ ุฑุบุจุช ุจุชุบูุฑ ุงุณู… ุฌุฏูู ูุงุนุฏุฉ ุงูุจูุงูุงุช,<br /> ุนุฏู ู…ูู  %s/mainfile.php <br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
 
 
 // advisory.php
-define("_AM_ADV_NOTSECURE","Ûํั ใอใํ");
+define("_AM_ADV_NOTSECURE","ุบูุฑ ู…ุญู…ู");
 
-define("_AM_ADV_TRUSTPATHPUBLIC","วะ ฿ไส สิวๅฯ วแีๆัษ ศวแวฺแ์ ๆศๅว อัÝวไ ศวแวไฬแําํษ Ýๅะว ํฺไํ วไ ใฬแฯ วแอวัำ ศใ฿วไ Ûํั ใอใํ ศิ฿แ สวใ. วÝึแ ิํม ๆึฺ ใฬแฯ วแอวัำ ฮวัฬ ัๆส วแใๆÞฺ ๆวไ แใ ํ฿ไ ศวแวใ฿วไ Ýํ฿Ýํ  วศÞวม ใแÝ วแว฿ำำ ฯวฮแ วแใฬแฯ");
-define("_AM_ADV_TRUSTPATHPUBLICLINK","สว฿ฯ ใไ วไ ใฬแฯ วแอวัำ ใอใํ ศใแÝ วแว฿ำำ . ํฬศ วไ สอีแ ฺแ์ วแฮุว ัÞใ 404 วๆ 500 วๆ 403 ๆวไ แใ สอีแ ฺแ์ ใไ สแ฿ วแวฮุวม Ýวแใฬแฯ วะว Ûํั ใอใํ ศใแÝ วแว฿ำำ");
-define("_AM_ADV_REGISTERGLOBALS","ๅะษ วแฮวีํษ สใ฿ไ วแใฮัศํไ ใไ วแอÞไ ศÞวฺฯษ วแศํวไวส .. แแอใวํษ Þใ ศสฺุํแๅว ใไ ฮแวแ ใแÝ วแว฿ำำ ศๆึฺ วแ฿ๆฯ  วแสวแํ ศวแใแÝ");
-define("_AM_ADV_ALLOWURLFOPEN","ๅะว วแวฮสํวั ํใ฿ไ วแใฮัศํไ ใไ  สิÛํแ ำ฿ัศสวส ศิ฿แ ัํใๆส ฺแ์ ำํัÝั฿<br /><b>Þใ ศๆึฺ วแ฿ๆฯ วแสวแํ Ýํ ใแÝ วแว฿ำำ แสฺุํแษ:<br /> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br />วไ ฿วไ Ûํั ใำใๆอ แ฿ ศๅะว วแสฺฯํแ ัวำแ วแใำสึํÝ แสฺุํแษ แ฿");
-define("_AM_ADV_USETRANSSID","แใไฺ ำัÞษ วแ฿ๆ฿ํา ใไ ฬๅวา฿ วๆ อÞไๅ วึÝ ๅะว วแ฿ๆฯ ศใแÝ วแว฿ำำ ศใๆÞฺ฿<br /><b>php_flag session.use_trans_sid off</b>");
-define("_AM_ADV_DBPREFIX","ๅะว วแฮํวั ํสํอ วแอÞไ แÞวฺฯษ วแศํวไวส<br />แว สไำ์ สÝฺํแ ฮํวั วแสฺÞํใ ใไ ฮํวัวส วแใๆฯํแ");
-define("_AM_ADV_LINK_TO_PREFIXMAN","วฯวัษ ฬฯๆแ Þวฺฯษ วแใๆÞฺ");
-define("_AM_ADV_MAINUNPATCHED"," ๆวึวÝษ วแ฿ๆฯ วแใฮีี แใๆฯํแ วแอวัำmainfile.php ฺแํ฿ สฺฯํแ ใแÝ ");
-define("_AM_ADV_DBFACTORYPATCHED","Þวฺฯษ วแศํวไวส ใอใํษ ใไ วแอÞไ ");
-define("_AM_ADV_DBFACTORYUNPATCHED","    Þวฺฯษ วแศํวไวส Ûํั ใอใํษ ศใวำ฿ ใวไฺ วแอÞไ .. ฺแํÞ ไÞแ ใแÝ วแใวำ฿ วแํ ใแÝวส ใๆÞฺ฿..  ");
+define("_AM_ADV_TRUSTPATHPUBLIC","ุงุฐ ููุช ุชุดุงูุฏ ุงูุตูุฑุฉ ุจุงูุงุนูู ูุจูุง ุญุฑูุงู ุจุงูุงูุฌููุฒูุฉ ููุฐุง ูุนูู ุงู ู…ุฌูุฏ ุงูุญุงุฑุณ ุจู…ูุงู ุบูุฑ ู…ุญู…ู ุจุดูู ุชุงู…. ุงูุถู ุดูุก ูุถุน ู…ุฌูุฏ ุงูุญุงุฑุณ ุฎุงุฑุฌ ุฑูุช ุงูู…ููุน ูุงู ูู… ููู ุจุงูุงู…ูุงู ููููู  ุงุจูุงุก ู…ูู ุงูุงูุณุณ ุฏุงุฎู ุงูู…ุฌูุฏ");
+define("_AM_ADV_TRUSTPATHPUBLICLINK","ุชุงูุฏ ู…ู ุงู ู…ุฌูุฏ ุงูุญุงุฑุณ ู…ุญู…ู ุจู…ูู ุงูุงูุณุณ . ูุฌุจ ุงู ุชุญุตู ุนูู ุงูุฎุทุง ุฑูู… 404 ุงู 500 ุงู 403 ูุงู ูู… ุชุญุตู ุนูู ู…ู ุชูู ุงูุงุฎุทุงุก ูุงูู…ุฌูุฏ ุงุฐุง ุบูุฑ ู…ุญู…ู ุจู…ูู ุงูุงูุณุณ");
+define("_AM_ADV_REGISTERGLOBALS","ูุฐุฉ ุงูุฎุงุตูุฉ ุชู…ูู ุงูู…ุฎุฑุจูู ู…ู ุงูุญูู ุจูุงุนุฏุฉ ุงูุจูุงูุงุช .. ููุญู…ุงูุฉ ูู… ุจุชุนุทูููุง ู…ู ุฎูุงู ู…ูู ุงูุงูุณุณ ุจูุถุน ุงูููุฏ  ุงูุชุงูู ุจุงูู…ูู");
+define("_AM_ADV_ALLOWURLFOPEN","ูุฐุง ุงูุงุฎุชูุงุฑ ูู…ูู ุงูู…ุฎุฑุจูู ู…ู  ุชุดุบูู ุณูุฑุจุชุงุช ุจุดูู ุฑูู…ูุช ุนูู ุณูุฑูุฑู<br /><b>ูู… ุจูุถุน ุงูููุฏ ุงูุชุงูู ูู ู…ูู ุงูุงูุณุณ ูุชุนุทููุฉ:<br /> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br />ุงู ูุงู ุบูุฑ ู…ุณู…ูุญ ูู ุจูุฐุง ุงูุชุนุฏูู ุฑุงุณู ุงูู…ุณุชุถูู ูุชุนุทููุฉ ูู");
+define("_AM_ADV_USETRANSSID","ูู…ูุน ุณุฑูุฉ ุงูููููุฒ ู…ู ุฌูุงุฒู ุงู ุญููู ุงุถู ูุฐุง ุงูููุฏ ุจู…ูู ุงูุงูุณุณ ุจู…ููุนู<br /><b>php_flag session.use_trans_sid off</b>");
+define("_AM_ADV_DBPREFIX","ูุฐุง ุงูุฎูุงุฑ ูุชูุญ ุงูุญูู ููุงุนุฏุฉ ุงูุจูุงูุงุช<br />ูุง ุชูุณู ุชูุนูู ุฎูุงุฑ ุงูุชุนููู… ู…ู ุฎูุงุฑุงุช ุงูู…ูุฏูู");
+define("_AM_ADV_LINK_TO_PREFIXMAN","ุงุฏุงุฑุฉ ุฌุฏูู ูุงุนุฏุฉ ุงูู…ููุน");
+define("_AM_ADV_MAINUNPATCHED"," ูุงุถุงูุฉ ุงูููุฏ ุงูู…ุฎุตุต ูู…ูุฏูู ุงูุญุงุฑุณmainfile.php ุนููู ุชุนุฏูู ู…ูู ");
+define("_AM_ADV_DBFACTORYPATCHED","ูุงุนุฏุฉ ุงูุจูุงูุงุช ู…ุญู…ูุฉ ู…ู ุงูุญูู ");
+define("_AM_ADV_DBFACTORYUNPATCHED","    ูุงุนุฏุฉ ุงูุจูุงูุงุช ุบูุฑ ู…ุญู…ูุฉ ุจู…ุงุณู ู…ุงูุน ุงูุญูู .. ุนููู ููู ู…ูู ุงูู…ุงุณู ุงูู ู…ููุงุช ู…ููุนู..  ");
 
-define("_AM_ADV_SUBTITLECHECK","สว฿ฯ วไ ฿วไ ใๆฯํแ วแอวัำ ํฺใแ");
-define("_AM_ADV_CHECKCONTAMI","สแๆํห");
-define("_AM_ADV_CHECKISOCOM","สฺแํÞวส ใสÝัÞษ");
-
-
-
-?>
+define("_AM_ADV_SUBTITLECHECK","ุชุงูุฏ ุงู ูุงู ู…ูุฏูู ุงูุญุงุฑุณ ูุนู…ู");
+define("_AM_ADV_CHECKCONTAMI","ุชูููุซ");
+define("_AM_ADV_CHECKISOCOM","ุชุนูููุงุช ู…ุชูุฑูุฉ");

@@ -9,21 +9,17 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 class Xoops_RegistryTest extends MY_UnitTestCase
 {
     protected $myClass = 'Xoops_Registry';
-    
-    public function SetUp()
-	{
-    }
-	
+
     public function test_getInstance()
 	{
 		$class = $this->myClass;
 		$instance = $class::getInstance();
 		$this->assertInstanceOf($class, $instance);
-		
+
 		$instance1 = $class::getInstance();
 		$this->assertSame($instance1, $instance);
     }
-	
+
 	public function test_setInstance()
 	{
 		$class = $this->myClass;
@@ -37,55 +33,84 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 	public function test_setClassName()
 	{
 		$class = $this->myClass;
-		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
+		$class::_unsetInstance();
 		$x = $class::setClassName();
-		$this->assertFalse($x);
+		$this->assertTrue($x);
 	}
-	
-	/*
-	public function test_setClassName100()
-	{
-		$class = $this->myClass;
-		$this->setExpectedException('PHPUnit_Framework_Error_Notice');
-		$x = $class::setClassName();
-	}
-	*/
-	
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
 	public function test_setClassName200()
 	{
 		$class = $this->myClass;
 		$class::_unsetInstance();
-		PHPUnit_Framework_Error_Warning::$enabled = FALSE;
-		$x = $class::setClassName(1);
+		$x = $class::setClassName(1); // className must be a string
 		$this->assertFalse($x);
 	}
-	
+
 	public function test_setClassName300()
 	{
 		$class = $this->myClass;
-		$class::_unsetInstance();		
+		$class::_unsetInstance();
 		$x = $class::setClassName();
 		$this->assertTrue($x);
 	}
-	
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
 	public function test___get()
 	{
-        $this->markTestIncomplete('to do');
+		$class = $this->myClass;
+		$value = $class::get('testdummy');
+		$this->assertFalse($value);
+
 	}
-	
+
 	public function test___set()
 	{
-        $this->markTestIncomplete('to do');
+		$class = $this->myClass;
+		$testkey = 'testkey';
+		$testvalue = 'testvalue';
+		$class::set($testkey, $testvalue);
+		$value = $class::get($testkey);
+		$this->assertSame($testvalue, $value);
+
 	}
 
 	public function test_isRegistered()
 	{
-        $this->markTestIncomplete('to do');
+		$class = $this->myClass;
+
+		$testkey = 'testkey';
+		$testvalue = 'testvalue';
+		$class::_unsetInstance();
+		$value = $class::isRegistered($testkey);
+		$this->assertFalse($value);
+		
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
+		$value = $class::isRegistered($testkey);
+		$this->assertFalse($value);
+		
+		$class::set($testkey, $testvalue);
+		$value = $class::isRegistered($testkey);
+		$this->assertTrue($value);
 	}
-	
+
 	public function test_offsetExists()
 	{
-        $this->markTestIncomplete('to do');
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		$this->assertInstanceOf($class, $instance);
+
+		$testkey = 'testkey';
+		$testvalue = 'testvalue';
+		$class::set($testkey, $testvalue);
+		$value = $instance->offsetExists($testkey);
+		$this->assertTrue($value);
+
 	}
 
 }

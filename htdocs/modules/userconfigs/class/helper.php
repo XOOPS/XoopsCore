@@ -18,9 +18,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Userconfigs extends Xoops_Module_Helper_Abstract
+class Userconfigs extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -35,7 +33,7 @@ class Userconfigs extends Xoops_Module_Helper_Abstract
     /**
      * @return Userconfigs
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }

@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ObjectpersistableHandler extends MY_UnitTestCase
+class ObjectpersistableHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsGroupHandler'; // for example
 	protected $conn = null;

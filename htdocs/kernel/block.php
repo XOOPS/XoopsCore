@@ -9,26 +9,24 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use \XoopsConnection;
 
 /**
- * XOOPS Kernel Class
+ * XoopsBlock
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         kernel
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @author          Gregory Mage (AKA Mage)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @package   kernel
+ * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Gregory Mage (AKA Mage)
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @since     2.0.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsBlock extends XoopsObject
 {
     /**
@@ -341,16 +339,16 @@ class XoopsBlock extends XoopsObject
             if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file'))) {
                 $xoops->loadLanguage('blocks', $this->getVar('dirname'));
                 include_once XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file');
-				if (function_exists($edit_func)) {
-					// execute the function
-					$options = explode('|', $this->getVar('options'));
-					$edit_form = $edit_func($options);
-					if (!$edit_form) {
-						return false;
-					}
-				} else {
-					return false;
-				}
+                if (function_exists($edit_func)) {
+                    // execute the function
+                    $options = explode('|', $this->getVar('options'));
+                    $edit_form = $edit_func($options);
+                    if (!$edit_form) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
                 return $edit_form;
             } else {
                 return false;
@@ -418,9 +416,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link \Xoops\Core\Database\Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'newblocks', 'XoopsBlock', 'bid', 'name');
     }
@@ -712,7 +710,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
                 ->where($eb->eq('gperm_name', $eb->literal('block_read')))
                 ->andWhere('gperm_modid=1');
 
-            if (is_array($groupid)) {
+            if (is_array($groupid) AND !empty($groupid)) {
                 $qb->andWhere($eb->in('gperm_groupid', $groupid));
             } else {
                 if (intval($groupid) > 0) {

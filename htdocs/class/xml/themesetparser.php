@@ -141,8 +141,14 @@ class XoopsThemeSetParser extends SaxParser
     /**
      * @return array
      */
-    public function getTempArr()
+    public function getTempArr($name = null)
     {
+        if (isset($name)) {
+            if (isset($this->tempArr[$name])) {
+                return $this->tempArr[$name];
+            }
+            return false;
+        }
         return $this->tempArr;
     }
 
@@ -172,8 +178,9 @@ class ThemeSetDateCreatedHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('date', $data);
@@ -199,19 +206,19 @@ class ThemeSetAuthorHandler extends XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(&$parser, &$attributes)
+    public function handleBeginElement(XoopsXmlRpcParser &$parser, &$attributes)
     {
-        $parser->resetTempArr();
+        if ($parser) $parser->resetTempArr();
     }
 
     /**
      * @param XoopsThemeSetParser $parser
      * @return void
      */
-    public function handleEndElement(&$parser)
+    public function handleEndElement(XoopsXmlRpcParser &$parser)
     {
         //todo where does this method come from??
-        $parser->setCreditsData($parser->getTempArr());
+        if ($parser) $parser->setCreditsData($parser->getTempArr());
     }
 }
 
@@ -230,8 +237,9 @@ class ThemeSetDescriptionHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('description', $data);
@@ -260,8 +268,9 @@ class ThemeSetGeneratorHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('generator', $data);
@@ -285,8 +294,9 @@ class ThemeSetNameHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('name', $data);
@@ -315,8 +325,9 @@ class ThemeSetEmailHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('email', $data);
@@ -342,8 +353,9 @@ class ThemeSetLinkHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('link', $data);
@@ -369,8 +381,9 @@ class ThemeSetTemplateHandler extends XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(&$parser, &$attributes)
+    public function handleBeginElement(XoopsXmlRpcParser &$parser, &$attributes)
     {
+		if (!$parser) return;
         $parser->resetTempArr();
         $parser->setTempArr('name', $attributes['name']);
     }
@@ -379,8 +392,9 @@ class ThemeSetTemplateHandler extends XmlTagHandler
      * @param XoopsThemeSetParser $parser
      * @return void
      */
-    public function handleEndElement(&$parser)
+    public function handleEndElement(XoopsXmlRpcParser &$parser)
     {
+		if (!$parser) return;
         $parser->setTemplatesData($parser->getTempArr());
     }
 }
@@ -400,8 +414,9 @@ class ThemeSetImageHandler extends XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(&$parser, &$attributes)
+    public function handleBeginElement(XoopsXmlRpcParser &$parser, &$attributes)
     {
+		if (!$parser) return;
         $parser->resetTempArr();
         $parser->setTempArr('name', $attributes[0]);
     }
@@ -410,8 +425,9 @@ class ThemeSetImageHandler extends XmlTagHandler
      * @param XoopsThemeSetParser $parser
      * @return void
      */
-    public function handleEndElement(&$parser)
+    public function handleEndElement(XoopsXmlRpcParser &$parser)
     {
+		if (!$parser) return;
         $parser->setImagesData($parser->getTempArr());
     }
 }
@@ -431,8 +447,9 @@ class ThemeSetModuleHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'template':
             case 'image':
@@ -459,8 +476,9 @@ class ThemeSetFileTypeHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('type', $data);
@@ -486,8 +504,9 @@ class ThemeSetTagHandler extends XmlTagHandler
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(&$parser, &$data)
+    public function handleCharacterData(XoopsXmlRpcParser &$parser, &$data)
     {
+		if (!$parser) return;
         switch ($parser->getParentTag()) {
             case 'image':
                 $parser->setTempArr('tag', $data);

@@ -131,6 +131,7 @@ class Xoops
         $this->paths['modules'] = array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules');
         $this->paths['themes'] = array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes');
         $this->paths['media'] = array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media');
+        $this->paths['assets'] = array(XOOPS_ROOT_PATH . '/assets', XOOPS_URL . '/assets');
 
         $this->pathTranslation();
 
@@ -155,11 +156,11 @@ class Xoops
     /**
      * get database connection instance
      *
-     * @return XoopsConnection
+     * @return Xoops\Core\Database\Connection
      */
     public function db()
     {
-        return XoopsDatabaseFactory::getConnection();
+        return \Xoops\Core\Database\Factory::getConnection();
     }
 
     /**
@@ -193,17 +194,31 @@ class Xoops
     }
 
     /**
+     * get the asset utility
+     *
+     * @return \Xoops\Core\Asset instance
+     */
+    public function assets()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new \Xoops\Core\Assets;
+        }
+        return $instance;
+    }
+
+    /**
      * get the service manager
      *
      * @return \Xoops\Core\Service\Manager instance
      */
-    public function service()
+    public function service($service)
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new \Xoops\Core\Service\Manager();
+            $instance = \Xoops\Core\Service\Manager::getInstance();
         }
-        return $instance;
+        return $instance->locate($service);
     }
 
     /**
@@ -225,8 +240,12 @@ class Xoops
     {
         static $instance;
         if (!isset($instance)) {
-            $instance = new XoopsSecurity();
-            $instance->checkSuperglobals();
+            $instance = new \Xoops\Core\Security();
+            $pass = $instance->checkSuperglobals();
+            if ($pass==false) {
+                header('Location: ' . XOOPS_URL . '/');
+                exit();
+            }
         }
         return $instance;
     }
@@ -281,7 +300,14 @@ class Xoops
                     'folderName'      => 'default', 'themesPath' => 'modules/system/themes',
                     'contentTemplate' => $this->tpl_name
                 )));
-                $this->theme()->loadLocalization('admin');
+                //$this->theme()->loadLocalization('admin');
+                list($cssAssets, $jsAssets) = $this->theme()->getLocalizationAssets('admin');
+                if (!empty($cssAssets)) {
+                    $this->theme()->addBaseStylesheetAssets($cssAssets);
+                }
+                if (!empty($jsAssets)) {
+                    $this->theme()->addBaseScriptAssets($jsAssets);
+                }
             }
         } else {
             if ($tpl_name) {
@@ -826,8 +852,7 @@ class Xoops
         }
         if (!isset($this->_kernelHandlers[$name])) {
             trigger_error('Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
-        }
-        if (isset($this->_kernelHandlers[$name])) {
+        } else {
             return $this->_kernelHandlers[$name];
         }
         return false;
@@ -907,11 +932,11 @@ class Xoops
     /**
      * @param string $dirname
      *
-     * @return bool|Xoops_Module_Helper_Abstract
+     * @return bool|Xoops\Module\Helper\HelperAbstract
      */
     public function getModuleHelper($dirname)
     {
-        return Xoops_Module_Helper::getHelper($dirname);
+        return \Xoops\Module\Helper::getHelper($dirname);
     }
 
     /**
@@ -1088,8 +1113,10 @@ class Xoops
               <meta name="author" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_author']) . '" />
               <meta name="generator" content="XOOPS" />
               <title>' . htmlspecialchars($this->getConfig('sitename')) . '</title>
-              <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>';
-        $themecss = $this->getcss($this->getConfig('theme_set'));
+              <script type="text/javascript" src="' . XOOPS_URL . '/include/xoops.js"></script>
+              <script type="text/javascript" src="' . XOOPS_URL . '/media/jquery/jquery.js"></script>
+              <script type="text/javascript" src="' . XOOPS_URL . '/media/bootstrap/js/bootstrap.min.js"></script>';
+        $themecss = $this->getCss($this->getConfig('theme_set'));
         echo '<link rel="stylesheet" type="text/css" media="all" href="' . XOOPS_URL . '/xoops.css" />';
         $locale = $this->getConfig('locale');
         if (XoopsLoad::fileExists($this->path('locale/' . $locale . '/style.css'))) {
@@ -1097,7 +1124,7 @@ class Xoops
         }
         if ($themecss) {
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . $themecss . '" />';
-            echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/bootstrap.css') .'" />';
+            //echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/bootstrap.css') .'" />';
             echo '<link rel="stylesheet" type="text/css" media="screen" href="' . $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/xoops.bootstrap.css') .'" />';
         }
         if ($closehead) {
@@ -1106,6 +1133,8 @@ class Xoops
     }
 
     /**
+     * simpleFooter
+     *
      * @return void
      */
     public function simpleFooter()
@@ -1115,41 +1144,43 @@ class Xoops
         ob_end_flush();
     }
     /**
-     * @param string $type (info, error, success or warning)
-     * @param mixed  $msg
-     * @param string $title
+     * render an alert message to a string
+     *
+     * @param string $type  alert type, one of 'info', 'error', 'success' or 'warning'
+     * @param mixed  $msg   string or array of strings
+     * @param string $title title for alert
      *
      * @return string
      */
-    public function alert($type = 'info', $msg, $title = '/')
+    public function alert($type, $msg, $title = '/')
     {
         $alert_msg = '';
         switch ($type) {
             case 'info':
             default:
                 $this->tpl()->assign('alert_type', 'alert-info');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::INFORMATION;
                 }
                 break;
 
             case 'error':
                 $this->tpl()->assign('alert_type', 'alert-error');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::ERROR;
                 }
                 break;
 
             case 'success':
                 $this->tpl()->assign('alert_type', 'alert-success');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::SUCCESS;
                 }
                 break;
 
             case 'warning':
                 $this->tpl()->assign('alert_type', '');
-                if($title == '/'){
+                if ($title == '/') {
                     $title = XoopsLocale::WARNING;
                 }
                 break;
@@ -1158,15 +1189,16 @@ class Xoops
         if ($title != '') {
             $this->tpl()->assign('alert_title', $title);
         }
-        if (is_object($msg)) {
-            $msg = (array)$msg;
+        if (!is_scalar($msg) && !is_array($msg)) {
+            $msg = ''; // don't know what to do with this, so make it blank
         }
         if (is_array($msg)) {
-            $alert_msg = implode("<br />", $msg);
+            // if this is not a simple array of strings, this might not work
+            $alert_msg = @implode("<br />", $msg);
         } else {
-            $alert_msg = $msg;;
+            $alert_msg = $msg;
         }
-        if ($alert_msg == '' ){
+        if ($alert_msg == '') {
             return '';
         } else {
             $this->tpl()->assign('alert_msg', $alert_msg);
@@ -1611,7 +1643,9 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
-        $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        if (!empty($dirname)) {
+            $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+        }
     }
 
     /**
@@ -1648,6 +1682,9 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
+                if (!is_array($this->_moduleConfigs[$dirname][$key])) {
+                    $this->_moduleConfigs[$dirname][$key] = array();
+                }
                 $this->_moduleConfigs[$dirname][$key][$key2] =& $value;
             }
         } else {
@@ -1703,7 +1740,7 @@ class Xoops
                 Xoops_Cache::write("{$dirname}_configs", $configs);
                 $this->_moduleConfigs[$dirname] =& $configs;
             }
-        }  else {
+        } else {
             $this->_moduleConfigs[$dirname] =& $configs;
         }
 
@@ -1895,7 +1932,7 @@ class Xoops
      */
     public function disableErrorReporting()
     {
-        error_reporting(0);
+        //error_reporting(0);
         $this->events()->triggerEvent('core.disableerrorreporting');
     }
 }

@@ -48,6 +48,11 @@ class DebugbarLogger implements LoggerInterface
     private $activated = false;
 
     /**
+     * @var object
+     */
+    private $quietmode = false;
+
+    /**
      * constructor
      */
     public function __construct()
@@ -102,9 +107,6 @@ class DebugbarLogger implements LoggerInterface
                 $this->debugbar = new StandardDebugBar();
                 $this->renderer = $this->debugbar->getJavascriptRenderer();
 
-                $this->renderer->setBaseUrl(XOOPS_URL . '/modules/debugbar/resources');
-                $this->renderer->setIncludeVendors('css');
-
                 //$this->debugbar->addCollector(new MessagesCollector('Errors'));
                 $this->debugbar->addCollector(new MessagesCollector('Deprecated'));
                 $this->debugbar->addCollector(new MessagesCollector('Blocks'));
@@ -114,6 +116,7 @@ class DebugbarLogger implements LoggerInterface
                 $xoops = Xoops::getInstance();
                 $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
                 $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
+                //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(XOOPS_VAR_PATH.'/debugbar'));
         }
         $this->addToTheme();
     }
@@ -135,8 +138,8 @@ class DebugbarLogger implements LoggerInterface
      */
     public function quiet()
     {
-        $this->debugbar->sendDataInHeaders();
-        //$this->activated = false;
+        //$this->debugbar->sendDataInHeaders();
+        $this->quietmode = true;
     }
 
     /**
@@ -150,10 +153,53 @@ class DebugbarLogger implements LoggerInterface
 
         if ($this->activated && !$addedResource) {
             if (isset($GLOBALS['xoTheme'])) {
+                // get asset information provided by debugbar
+                // don't include vendors - jquery already available, need workaround for font-awesome
+                $this->renderer->setIncludeVendors(true);
+                $this->renderer->setEnableJqueryNoConflict(false);
+                list($cssAssets, $jsAssets) = $this->renderer->getAssets();
+
+                // font-awesome requires some special handling with cssmin
+                // see: https://code.google.com/p/cssmin/issues/detail?id=52&q=font
+                // using our own copy of full css instead of minified version packaged
+                // with debugbar avoids the issue.
+
+                // Supress unwanted assets - exclude anything containing these strings
+                $excludes = array(
+                    '/vendor/font-awesome/', // font-awsome needs special process
+                    //'/vendor/highlightjs/',  // highlightjs has some negative side effects
+                    '/vendor/jquery/',       // jquery is already available
+                );
+
+                $cssAssets = array_filter(
+                    $cssAssets,
+                    function ($filename) use ($excludes) {
+                        foreach ($excludes as $exclude) {
+                            if (false !== strpos($filename, $exclude)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                );
+
+                $jsAssets = array_filter(
+                    $jsAssets,
+                    function ($filename) use ($excludes) {
+                        foreach ($excludes as $exclude) {
+                            if (false !== strpos($filename, $exclude)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                );
+                $cssAssets[] = 'modules/debugbar/assets/css/font-awesome.css';
+
                 $xoops = Xoops::getInstance();
-                $head = '</style>' . $this->renderer->renderHead()
-                    . '<style>';// .icon-tags:before { content: ""; width: 16px;}';
-                $xoops->theme()->addStylesheet(null, null, $head);
+                $xoops->theme()->addStylesheetAssets($cssAssets, 'cssembed,?cssmin');
+                $xoops->theme()->addScriptAssets($jsAssets, '?jsmin');
+
                 $addedResource = true;
             }
         }
@@ -313,6 +359,18 @@ class DebugbarLogger implements LoggerInterface
     }
 
     /**
+     * Dump a variable to the messages pane
+     *
+     * @param mixed $var variable to dump
+     *
+     * @return void
+     */
+    public function dump($var)
+    {
+        $this->log(LogLevel::DEBUG, $var);
+    }
+
+    /**
      * stackData - stash log data before a redirect
      *
      * @return void
@@ -374,11 +432,21 @@ class DebugbarLogger implements LoggerInterface
     public function __destruct()
     {
         if ($this->activated) {
+            $this->addToTheme();
             $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
-            $log = $this->renderer->render();
-
-            echo $log;
+            if (false === $this->quietmode) {
+                if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+                    && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+                    // default for ajax, do not initialize a new toolbar, just add dataset
+                    $log = $this->renderer->render(false);
+                } else {
+                    $log = $this->renderer->render();
+                }
+                echo $log;
+            } else {
+                $this->debugbar->sendDataInHeaders();
+            }
         }
     }
 

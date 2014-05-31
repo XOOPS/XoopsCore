@@ -35,7 +35,7 @@ $field_handler = $xoops->getModuleHandler('field');
 /* @var $cat_handler ProfileCategoryHandler */
 $cat_handler = $xoops->getModuleHandler('category');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('field.php');
 
 
@@ -78,7 +78,8 @@ switch ($op) {
         );
         $categories = array();
         foreach (array_keys($fields) as $i) {
-            $fields[$i]['canEdit'] = $fields[$i]['field_config'] || $fields[$i]['field_show'] || $fields[$i]['field_edit'];
+            $fields[$i]['canEdit'] = $fields[$i]['field_config'] || $fields[$i]['field_show']
+                || $fields[$i]['field_edit'];
             $fields[$i]['canDelete'] = $fields[$i]['field_config'];
             $fields[$i]['fieldtype'] = $fieldtypes[$fields[$i]['field_type']];
             $fields[$i]['valuetype'] = $valuetypes[$fields[$i]['field_valuetype']];
@@ -136,7 +137,10 @@ switch ($op) {
             if (count($ids) > 0) {
                 $errors = array();
                 //if there are changed fields, fetch the fieldcategory objects
-                $fields = $field_handler->getObjects(new Criteria('field_id', "(" . implode(',', $ids) . ")", "IN"), true);
+                $fields = $field_handler->getObjects(
+                    new Criteria('field_id', "(" . implode(',', $ids) . ")", "IN"),
+                    true
+                );
                 foreach ($ids as $i) {
                     $fields[$i]->setVar('field_weight', intval($weight[$i]));
                     $fields[$i]->setVar('cat_id', intval($category[$i]));
@@ -163,7 +167,9 @@ switch ($op) {
         /*  @var $obj ProfileField */
         if ($id > 0) {
             $obj = $field_handler->get($id);
-            if (!$obj->getVar('field_config') && !$obj->getVar('field_show') && !$obj->getVar('field_edit')) { //If no configs exist
+            if (!$obj->getVar('field_config') && !$obj->getVar('field_show')
+                && !$obj->getVar('field_edit')
+            ) { //If no configs exist
                 $xoops->redirect('admin.php', 2, _PROFILE_AM_FIELDNOTCONFIGURABLE);
             }
         } else {
@@ -223,9 +229,7 @@ switch ($op) {
             $obj->setVar('field_weight', $_REQUEST['field_weight']);
             $obj->setVar('cat_id', $_REQUEST['field_category']);
         }
-        if ( /*$obj->getVar('field_edit') && */
-            isset($_REQUEST['step_id'])
-        ) {
+        if (isset($_REQUEST['step_id'])) {
             $obj->setVar('step_id', $_REQUEST['step_id']);
         }
 
@@ -271,7 +275,9 @@ switch ($op) {
                         }
                         $removed_groups = array_diff(array_keys($groups), $_REQUEST[$perm]);
                         if (count($removed_groups) > 0) {
-                            $criteria->add(new Criteria('gperm_groupid', "(" . implode(',', $removed_groups) . ")", "IN"));
+                            $criteria->add(
+                                new Criteria('gperm_groupid', "(" . implode(',', $removed_groups) . ")", "IN")
+                            );
                             $groupperm_handler->deleteAll($criteria);
                         }
                         unset($groups);
@@ -309,7 +315,11 @@ switch ($op) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
-                $xoops->confirm(array("ok" => 1, "id" => $id, "op" => "delete"), 'field.php', sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('field_title')) . '<br />');
+                $xoops->confirm(
+                    array("ok" => 1, "id" => $id, "op" => "delete"),
+                    'field.php',
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('field_title')) . '<br />'
+                );
             }
         } else {
             $xoops->redirect('field.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);
