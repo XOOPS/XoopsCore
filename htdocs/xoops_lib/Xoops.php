@@ -1341,27 +1341,8 @@ class Xoops
      */
     public function checkEmail($email, $antispam = false)
     {
-        if (!$email || !preg_match('/^[^@]{1,64}@[^@]{1,255}$/', $email)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
-        }
-        $email_array = explode("@", $email);
-        $local_array = explode(".", $email_array[0]);
-        for ($i = 0; $i < sizeof($local_array); $i++) {
-            if (!preg_match("/^(([A-Za-z0-9!#$%&'*+\/\=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])
-            ) {
-                return false;
-            }
-        }
-        if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) {
-            $domain_array = explode(".", $email_array[1]);
-            if (sizeof($domain_array) < 2) {
-                return false; // Not enough parts to domain
-            }
-            for ($i = 0; $i < sizeof($domain_array); $i++) {
-                if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
-                    return false;
-                }
-            }
         }
         if ($antispam) {
             $email = str_replace("@", " at ", $email);
