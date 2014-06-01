@@ -125,7 +125,7 @@ switch ($op) {
                 'event_title'    => $event_info['title'], 'user_id' => $n->getVar('uid')
             );
         }
-        $xoops->header('module:notifications|list.html');
+        $xoops->header('module:notifications|list.tpl');
         $xoops->tpl()->assign('modules', $modules);
         $user_info = array('uid' => $xoops->user->getVar('uid'));
         $xoops->tpl()->assign('user', $user_info);

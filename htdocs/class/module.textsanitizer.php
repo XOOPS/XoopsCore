@@ -58,7 +58,7 @@ class MyTextSanitizerExtension
     public function __construct(MyTextSanitizer &$ts)
     {
         $this->ts = $ts;
-        $this->image_path = XOOPS_URL . '/images/form';
+        $this->image_path = XOOPS_URL . '/assets/images/form';
     }
 
     /**
@@ -668,7 +668,7 @@ function codeConvCallback($match)
            $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
 //        $replacements = "'<div class=\"xoopsCode\">'.\$this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode('$2')), '$1').'</div>'";
            $text = preg_replace_callback($patterns, array($this,'codeConvCallback'), $text);
-        
+
         return $text;
     }
 

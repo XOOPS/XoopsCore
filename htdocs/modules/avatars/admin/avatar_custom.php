@@ -40,7 +40,7 @@ $request = $xoops->request();
 $op = $request->asStr('op', 'list');
 
 // Call Header
-$xoops->header('avatars_admin_custom.html');
+$xoops->header('avatars_admin_custom.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_custom.php');
@@ -58,7 +58,7 @@ switch ($op) {
         // Add Scripts
         $xoops->theme()->addScript('media/xoops/xoops.js');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/avatars/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/avatars/assets/css/admin.css');
 
         $admin_page->addTips(AvatarsLocale::CUSTOM_TIPS);
         $admin_page->renderTips();
@@ -189,7 +189,7 @@ switch ($op) {
         } else {
             if ($avatar_id > 0) {
                 // Define Stylesheet
-                $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+                $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
                 $msg = '<div class="spacer"><img src="' . XOOPS_UPLOAD_URL . '/'
                     . $obj->getVar('avatar_file', 's')
                     . '" alt="" /></div><div class="txtcenter bold">'

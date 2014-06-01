@@ -44,11 +44,11 @@ $op = $system->cleanVars($_REQUEST, 'op', 'showmod', 'string');
 // Setting type
 $confcat_id = $system->cleanVars($_REQUEST, 'confcat_id', 0, 'int');
 // Call Header
-$xoops->header('system_preferences.html');
+$xoops->header('system_preferences.tpl');
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
 // Define scripts
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addScript('modules/system/assets/js/admin.js');
 
 
 

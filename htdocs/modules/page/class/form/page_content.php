@@ -31,7 +31,7 @@ class PagePage_contentForm extends XoopsThemeForm //XoopsSimpleForm
     {
         $helper = Page::getInstance();
         $xoops = $helper->xoops();
-        $xoops->theme()->addStylesheet('modules/page/css/styles.css');
+        $xoops->theme()->addStylesheet('modules/page/assets/css/styles.css');
 
         $title = $obj->isNew() ? PageLocale::A_ADD_CONTENT : PageLocale::A_EDIT_CONTENT;
         parent::__construct($title, 'form', 'content.php', 'post', true, 'raw');

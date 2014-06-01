@@ -29,11 +29,11 @@ $helper = Comments::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 // Call Header
-$xoops->header('comments.html');
+$xoops->header('comments.tpl');
 // Define Stylesheet
 $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addScript('modules/system/assets/js/admin.js');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');

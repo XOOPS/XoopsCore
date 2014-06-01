@@ -34,7 +34,7 @@ $op = $request->asStr('op', 'list');
 $banner_Handler = $helper->getHandlerBanner();
 $client_Handler = $helper->getHandlerBannerclient();
 // Call header
-$xoops->header('banners_admin_banners.html');
+$xoops->header('banners_admin_banners.tpl');
 
 // Get start pager
 $start = $request->asInt('start', 0);
@@ -52,7 +52,7 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         // Define scripts
-        $xoops->theme()->addBaseScriptAssets(array('@jqueryui', 'modules/system/js/admin.js'));
+        $xoops->theme()->addBaseScriptAssets(array('@jqueryui', 'modules/system/assets/js/admin.js'));
 
         $admin_page->addTips(_AM_BANNERS_TIPS_BANNERS);
         $admin_page->addItemButton(_AM_BANNERS_BANNERS_ADD, 'banners.php?op=new', 'add');

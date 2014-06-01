@@ -42,8 +42,8 @@ $groups = $helper->getUserGroups();
 $uid = $helper->getUserId();
 
 // Define Stylesheet
-$xoops->theme()->addStylesheet($helper->url('css/styles.css'));
-$xoops->theme()->addStylesheet($helper->url('css/rating.css'));
+$xoops->theme()->addStylesheet($helper->url('assets/css/styles.css'));
+$xoops->theme()->addStylesheet($helper->url('assets/css/rating.css'));
 
 // Get $_POST, $_GET, $_REQUEST
 $start = $request->asInt('start', 0);

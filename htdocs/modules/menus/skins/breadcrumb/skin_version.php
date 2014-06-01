@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-$skinversion['template'] = 'template.html';
+$skinversion['template'] = 'template.tpl';
 
 $skinversion['css'] = 'style.css';
 /*

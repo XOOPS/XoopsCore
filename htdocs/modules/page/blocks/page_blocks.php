@@ -23,8 +23,8 @@
 function page_blocks_show($options)
 {
     $xoops = Page::getInstance()->xoops();
-    $xoops->theme()->addStylesheet(Page::getInstance()->url('css/styles.css'));
-    $xoops->theme()->addStylesheet(Page::getInstance()->url('css/rating.css'));
+    $xoops->theme()->addStylesheet(Page::getInstance()->url('assets/css/styles.css'));
+    $xoops->theme()->addStylesheet(Page::getInstance()->url('assets/css/rating.css'));
 
     $block = '';
     if ($options[0] == 'id') {

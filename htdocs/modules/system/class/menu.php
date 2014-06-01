@@ -128,7 +128,7 @@ class SystemMenuHandler
         $xoops->tpl()->assign('xo_module_menu_tab', $this->_menutabs);
          //$xoops->tpl()->assign('xo_admin_help', $this->_help);
          //if ($xoops->tpl()_name == '') {
-         //    $xoops->tpl()->display('admin:system|admin_tabs.html');
+         //    $xoops->tpl()->display('admin:system|admin_tabs.tpl');
          //}
         return;
 
@@ -145,7 +145,7 @@ class SystemMenuHandler
         $breadcrumb = $menuItems[$currentoption];
         $menuItems[$currentoption] = 'current';
         //Not the best method of adding CSS but the only method available at the moment since xoops is shitty with the backend
-        //$menu = "<style type=\"text/css\" media=\"screen\">@import \"" . XOOPS_URL . "/modules/" . $this->_obj->getVar('dirname') . "/css/menu.css\";</style>";
+        //$menu = "<style type=\"text/css\" media=\"screen\">@import \"" . XOOPS_URL . "/modules/" . $this->_obj->getVar('dirname') . "/assets/css/menu.css\";</style>";
         $menu = "<div id='buttontop_mod'>";
         $menu .= "<table style='width: 100%; padding: 0;' cellspacing='0'>\n<tr>";
         $menu .= "<td style='font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;'>";
@@ -168,9 +168,9 @@ class SystemMenuHandler
             $menu .= "<h4 class='admin_header'>";
             if (isset($modversion['name'])) {
                 if ($modversion['image'] && $this->_obj->getVar('mid') == 1) {
-                    $system_image = XOOPS_URL . '/modules/system/images/system/' . $modversion['image'];
+                    $system_image = XOOPS_URL . '/modules/system/assets/images/system/' . $modversion['image'];
                 } else {
-                    $system_image = XOOPS_URL . '/modules/' . $_dirname . '/images/' . $modversion['image'];
+                    $system_image = XOOPS_URL . '/modules/' . $_dirname . '/assets/images/' . $modversion['image'];
                 }
                 $menu .= "<img src='$system_image' align='middle' height='32' width='32' alt='' />";
                 $menu .= " " . $modversion['name'] . "</h4>\n";

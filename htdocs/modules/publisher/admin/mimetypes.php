@@ -392,10 +392,10 @@ function manage()
     $publisher = Publisher::getInstance();
 
     $imagearray = array(
-    'editimg' => "<img src='" . $publisher->url("images/button_edit.png") . "' alt='" . _AM_PUBLISHER_ICO_EDIT . "' align='middle' />",
-    'deleteimg' => "<img src='" . $publisher->url("images/button_delete.png") . "' alt='" . _AM_PUBLISHER_ICO_DELETE . "' align='middle' />",
-    'online' => "<img src='" . $publisher->url("images/on.png") . "' alt='" . _AM_PUBLISHER_ICO_ONLINE . "' align='middle' />",
-    'offline' => "<img src='" . $publisher->url("images/off.png") . "' alt='" . _AM_PUBLISHER_ICO_OFFLINE . "' align='middle' />",
+    'editimg' => "<img src='" . $publisher->url("assets/images/button_edit.png") . "' alt='" . _AM_PUBLISHER_ICO_EDIT . "' align='middle' />",
+    'deleteimg' => "<img src='" . $publisher->url("assets/images/button_delete.png") . "' alt='" . _AM_PUBLISHER_ICO_DELETE . "' align='middle' />",
+    'online' => "<img src='" . $publisher->url("assets/images/on.png") . "' alt='" . _AM_PUBLISHER_ICO_ONLINE . "' align='middle' />",
+    'offline' => "<img src='" . $publisher->url("assets/images/off.png") . "' alt='" . _AM_PUBLISHER_ICO_OFFLINE . "' align='middle' />",
 );
     global $start, $limit, $aSortBy, $aOrderBy, $aLimitBy, $aSearchBy;
 

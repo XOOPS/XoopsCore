@@ -132,7 +132,7 @@ function publisher_items_columns_show($options)
     $block['columns'] = $columns;
     $block['columnwidth'] = intval(100 / $opt_num_columns);
 
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . PUBLISHER_DIRNAME . '/css/publisher.css');
+    $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . PUBLISHER_DIRNAME . '/assets/css/publisher.css');
 
     return $block;
 }

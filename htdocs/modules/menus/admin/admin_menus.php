@@ -24,10 +24,10 @@ $xoops = Xoops::getInstance();
 $helper = Menus::getInstance();
 
 // Call Header & ...
-$xoops->header('menus_admin_menus.html');
+$xoops->header('menus_admin_menus.tpl');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('admin_menus.php');
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
 
 // Get $_GET, $_POST, ...
 $op = $request->asStr('op', 'list');

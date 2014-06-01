@@ -53,17 +53,17 @@ class PrintContent extends AbstractTemplate
 
     /**
      * init - called by parent::_construct
-     * 
+     *
      * @return void
      */
     protected function init()
     {
-        $this->setTemplate(XMF_ROOT_PATH . '/templates/xmf_print.html');
+        $this->setTemplate(XMF_ROOT_PATH . '/templates/xmf_print.tpl');
     }
 
     /**
      * Render the print template
-     * 
+     *
      * @return void
      */
     protected function render()
@@ -77,9 +77,9 @@ class PrintContent extends AbstractTemplate
 
     /**
      * setContent
-     * 
+     *
      * @param string $content page content
-     * 
+     *
      * @return void
      */
     public function setContent($content)
@@ -89,7 +89,7 @@ class PrintContent extends AbstractTemplate
 
     /**
      * getContent
-     * 
+     *
      * @return string page content
      */
     public function getContent()
@@ -99,9 +99,9 @@ class PrintContent extends AbstractTemplate
 
     /**
      * setDescription
-     * 
+     *
      * @param string $description page description
-     * 
+     *
      * @return void
      */
     public function setDescription($description)
@@ -111,7 +111,7 @@ class PrintContent extends AbstractTemplate
 
     /**
      * getDescription
-     * 
+     *
      * @return string page description
      */
     public function getDescription()
@@ -121,9 +121,9 @@ class PrintContent extends AbstractTemplate
 
     /**
      * setPagetitle
-     * 
+     *
      * @param boolean $pagetitle use page title
-     * 
+     *
      * @return void
      */
     public function setPagetitle($pagetitle)
@@ -133,7 +133,7 @@ class PrintContent extends AbstractTemplate
 
     /**
      * getPagetitle
-     * 
+     *
      * @return boolean use page title
      */
     public function getPagetitle()
@@ -143,9 +143,9 @@ class PrintContent extends AbstractTemplate
 
     /**
      * setTitle
-     * 
+     *
      * @param string $title page title
-     * 
+     *
      * @return void
      */
     public function setTitle($title)
@@ -155,7 +155,7 @@ class PrintContent extends AbstractTemplate
 
     /**
      * getTitle
-     * 
+     *
      * @return string page title
      */
     public function getTitle()
@@ -165,9 +165,9 @@ class PrintContent extends AbstractTemplate
 
     /**
      * setWidth
-     * 
+     *
      * @param int $width page width in pixels
-     * 
+     *
      * @return void
      */
     public function setWidth($width)
@@ -177,7 +177,7 @@ class PrintContent extends AbstractTemplate
 
     /**
      * getWidth
-     * 
+     *
      * @return int page width in pixels
      */
     public function getWidth()

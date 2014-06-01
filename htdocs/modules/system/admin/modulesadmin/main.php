@@ -49,13 +49,13 @@ switch ($op) {
 
     case 'list':
         // Call Header
-        $xoops->header('system_modules.html');
+        $xoops->header('system_modules.tpl');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define scripts
         $xoops->theme()->addScript('media/jquery/plugins/jquery.jeditable.js');
-        $xoops->theme()->addScript('modules/system/js/admin.js');
-        $xoops->theme()->addScript('modules/system/js/module.js');
+        $xoops->theme()->addScript('modules/system/assets/js/admin.js');
+        $xoops->theme()->addScript('modules/system/assets/js/module.js');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -176,9 +176,9 @@ switch ($op) {
     case 'install':
         $module = $system->cleanVars($_POST, 'dirname', '', 'string');
         // Call Header
-        $xoops->header('system_modules_logger.html');
+        $xoops->header('system_modules_logger.tpl');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -216,9 +216,9 @@ switch ($op) {
         $module_handler = $xoops->getHandlerModule();
         $module = $module_handler->getById($mid);
         // Call Header
-        $xoops->header('system_modules_logger.html');
+        $xoops->header('system_modules_logger.tpl');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -253,9 +253,9 @@ switch ($op) {
         $block_handler = $xoops->getHandlerBlock();
         $module = $module_handler->getById($mid);
         // Call Header
-        $xoops->header('system_modules_logger.html');
+        $xoops->header('system_modules_logger.tpl');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);

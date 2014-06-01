@@ -25,7 +25,7 @@ global $xoopsDB;
 $db = $xoopsDB;
 
 // Call header
-$xoops->header('protector_advisory.html');
+$xoops->header('protector_advisory.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('advisory.php');
@@ -34,7 +34,7 @@ $admin_page->renderNavigation('advisory.php');
 $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
 $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addScript('modules/system/assets/js/admin.js');
 
 $i = 0;
 // XOOPS_ROOT_PATH

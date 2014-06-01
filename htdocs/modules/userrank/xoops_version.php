@@ -33,7 +33,7 @@ $modversion['license']        = 'GNU GPL 2.0';
 $modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
+$modversion['image']          = 'assets/images/logo.png';
 $modversion['dirname']        = 'userrank';
 
 /*
@@ -87,7 +87,7 @@ $modversion['tables'] = array(
  Admin Templates
 */
 $modversion['templates'][] = array(
-    'file' => 'userrank.html',
+    'file' => 'userrank.tpl',
     'description' => '',
     'type' => 'admin'
 );

@@ -37,7 +37,7 @@ $groups_handler = $xoops->getHandler('group');
 $member_handler = $xoops->getHandlerMember();
 
 // Call Header
-$xoops->header('system_groups.html');
+$xoops->header('system_groups.tpl');
 //$system_breadcrumb->addLink(_AM_SYSTEM_GROUPS_NAV_MANAGER, system_adminVersion('groups', 'adminpath'));
 
 switch ($op) {
@@ -45,10 +45,10 @@ switch ($op) {
     case 'list':
     default:
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define Scripts
         $xoops->theme()->addScript('media/jquery/plugins/jquery.tablesorter.js');
-        $xoops->theme()->addScript('modules/system/js/admin.js');
+        $xoops->theme()->addScript('modules/system/assets/js/admin.js');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -87,13 +87,13 @@ switch ($op) {
                 $groups['nb_users_by_groups'] = '';
             }
             $edit_delete = '<a href="admin.php?fct=groups&amp;op=groups_edit&amp;groups_id=' . $groups_id . '">'
-                . '<img src="./images/icons/edit.png" border="0" alt="' . SystemLocale::EDIT_GROUP
+                . '<img src="./assets/images/icons/edit.png" border="0" alt="' . SystemLocale::EDIT_GROUP
                 . '" title="' . SystemLocale::EDIT_GROUP . '"></a>';
             if (!in_array($group->getVar("groupid"), array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS))
             ) {
                 $groups['delete'] = 1;
                 $edit_delete .= '<a href="admin.php?fct=groups&amp;op=groups_delete&amp;groups_id=' . $groups_id . '">'
-                    . '<img src="./images/icons/delete.png" border="0" alt="' . SystemLocale::DELETE_GROUP
+                    . '<img src="./assets/images/icons/delete.png" border="0" alt="' . SystemLocale::DELETE_GROUP
                     . '" title="' . SystemLocale::DELETE_GROUP . '"></a>';
             }
             $groups['edit_delete'] = $edit_delete;
@@ -110,7 +110,7 @@ switch ($op) {
     //Add a group
     case 'groups_add':
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -129,7 +129,7 @@ switch ($op) {
     //Edit a group
     case 'groups_edit':
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -333,7 +333,7 @@ switch ($op) {
                 }
             } else {
                 // Define Stylesheet
-                $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+                $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
                 // Define Breadcrumb and tips
                 $system_breadcrumb->addLink(SystemLocale::DELETE_GROUP);
                 $system_breadcrumb->addHelp(system_adminVersion('groups', 'help') . '#edit');

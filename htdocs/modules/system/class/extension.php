@@ -106,21 +106,21 @@ class SystemExtension extends SystemModule
                     }
                     $module->setInfo('version', round($module->getInfo('version'), 2));
                     if (XoopsLoad::fileExists(
-                        XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/icons/logo_small.png'
+                        XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/assets/icons/logo_small.png'
                     )) {
                         $module->setInfo(
                             'logo_small',
-                            XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/icons/logo_small.png'
+                            XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/assets/icons/logo_small.png'
                         );
                     } else {
                         $module->setInfo('logo_small', XOOPS_URL . '/media/xoops/images/icons/16/default.png');
                     }
                     if (XoopsLoad::fileExists(
-                        XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/icons/logo_large.png'
+                        XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/assets/icons/logo_large.png'
                     )) {
                         $module->setInfo(
                             'logo_large',
-                            XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/icons/logo_large.png'
+                            XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/assets/icons/logo_large.png'
                         );
                     } else {
                         $module->setInfo('logo_large', XOOPS_URL . '/media/xoops/images/icons/32/default.png');

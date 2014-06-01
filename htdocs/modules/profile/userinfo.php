@@ -41,7 +41,7 @@ $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONY
 if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
     //disable cache
     $xoops->disableModuleCache();
-    $xoops->header('profile_userinfo.html');
+    $xoops->header('profile_userinfo.tpl');
 
     $xoops->tpl()->assign('user_ownpage', true);
     $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
@@ -106,7 +106,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
         //disable cache
         $xoops->disableModuleCache();
     }
-    $xoops->header('profile_userinfo.html');
+    $xoops->header('profile_userinfo.tpl');
     $xoops->tpl()->assign('user_ownpage', false);
 }
 
@@ -211,7 +211,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
                         if (isset($results[$i]['image']) && $results[$i]['image'] != '') {
                             $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname', 'n') . '/' . $results[$i]['image'];
                         } else {
-                            $results[$i]['image'] = XOOPS_URL . '/images/icons/posticon2.gif';
+                            $results[$i]['image'] = XOOPS_URL . '/assets/images/icons/posticon2.gif';
                         }
                         if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                             $results[$i]['link'] = XOOPS_URL . "/modules/" . $module->getVar('dirname', 'n') . "/" . $results[$i]['link'];

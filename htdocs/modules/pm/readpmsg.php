@@ -106,7 +106,7 @@ if (is_object($pm) && !empty($_POST['action']) ) {
 }
 $start = !empty($_GET['start']) ? intval($_GET['start']) : 0;
 $total_messages = !empty($_GET['total_messages']) ? intval($_GET['total_messages']) : 0;
-$xoops->header('pm_readpmsg.html');
+$xoops->header('pm_readpmsg.tpl');
 
 if (!is_object($pm)) {
     if ($_REQUEST['op'] == "out") {

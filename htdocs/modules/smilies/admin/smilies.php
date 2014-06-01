@@ -23,11 +23,11 @@
 include dirname(__FILE__) . '/header.php';
 
 // Call Header & ...
-$xoops->header('smilies_smilies.html');
-$admin_page = new \Xoops\Module\Admin();
+$xoops->header('smilies_smilies.tpl');
+$admin_page = new Xoops\Module\Admin();
 $admin_page->renderNavigation('smilies.php');
 $xoops->theme()->addScript('media/xoops/xoops.js');
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
 
 // Parameters
 $nb_smilies = $helper->getConfig('smilies_pager');

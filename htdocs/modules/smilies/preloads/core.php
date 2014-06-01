@@ -41,7 +41,7 @@ class SmiliesCorePreload extends XoopsPreloadItem
     {
         /* @var $dhtml XoopsFormDhtmlTextArea */
         $dhtml = $args[1];
-        $args[0] .= "<img src='" . XOOPS_URL . "/images/smiley.gif' alt='" . XoopsLocale::SMILIES . "' title='" . XoopsLocale::SMILIES . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/smilies/popup.php?target={$dhtml->getName()}\",\"smilies\",300,650);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $args[0] .= "<img src='" . XOOPS_URL . "/assets/images/smiley.gif' alt='" . XoopsLocale::SMILIES . "' title='" . XoopsLocale::SMILIES . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/smilies/popup.php?target={$dhtml->getName()}\",\"smilies\",300,650);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }
 
     static function eventCoreClassModuleTextsanitizerSmiley($args)

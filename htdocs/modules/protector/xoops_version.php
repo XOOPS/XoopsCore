@@ -34,7 +34,7 @@ $modversion['help']        = 'page=help';
 $modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
 $modversion['official']    = 1;
-$modversion['image']       = 'images/logo.png';
+$modversion['image']       = 'assets/images/logo.png';
 $modversion['dirname']     = 'protector';
 
 /*
@@ -75,9 +75,9 @@ $modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
 
 // Admin Templates
-$modversion['templates'][] = array( 'file' => 'protector_advisory.html', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'protector_prefix.html', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'protector_center.html', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'protector_advisory.tpl', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'protector_prefix.tpl', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'protector_center.tpl', 'description' => '', 'type' => 'admin' );
 
 /*
  Blocks

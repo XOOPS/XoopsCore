@@ -121,7 +121,7 @@ function system_AdminIcons($img)
     $xoops = Xoops::getInstance();
     $style = 'default';
 
-    $url = $xoops->url('modules/system/images/icons/' . $style . '/' . $img);
+    $url = $xoops->url('modules/system/assets/images/icons/' . $style . '/' . $img);
     return $url;
 }
 
@@ -133,7 +133,7 @@ function system_loadTemplate($name)
 {
     $xoops = Xoops::getInstance();
 
-    $path = $xoops->path('modules/' . $xoops->module->getVar('dirname', 'n') . '/templates/admin/' . $name . '.html');
+    $path = $xoops->path('modules/' . $xoops->module->getVar('dirname', 'n') . '/templates/admin/' . $name . '.tpl');
     if (XoopsLoad::fileExists($path)) {
         echo $xoops->tpl()->fetch($path);
     } else {
@@ -149,7 +149,7 @@ function system_loadTemplate($name)
  */
 function modify_chmod($value_chmod, $path_file, $id)
 {
-    $chmod = '<div id="loading_' . $id . '" align="center" style="display:none;">' . '<img src="./images/mimetypes/spinner.gif" title="Loading" alt="Loading" width="12px"/></div>' . '<div id="chmod' . $id . '">' . '<select size="1" onChange="filemanager_modify_chmod(\'' . $path_file . '\', \'' . $id . '\')" name="chmod" id="chmod">';
+    $chmod = '<div id="loading_' . $id . '" align="center" style="display:none;">' . '<img src="./assets/images/mimetypes/spinner.gif" title="Loading" alt="Loading" width="12px"/></div>' . '<div id="chmod' . $id . '">' . '<select size="1" onChange="filemanager_modify_chmod(\'' . $path_file . '\', \'' . $id . '\')" name="chmod" id="chmod">';
     if ($value_chmod == 777) {
         $chmod .= '<option value="777" selected><span style="color:green">777</span></option>';
     } else {

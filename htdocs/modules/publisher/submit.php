@@ -123,10 +123,10 @@ switch ($op) {
         // Putting the values about the ITEM in the ITEM object
         $itemObj->setVarsFromRequest();
 
-        $xoops->header('publisher_submit.html');
+        $xoops->header('publisher_submit.tpl');
         $xoTheme = $xoops->theme();
         $xoTheme->addBaseScriptAssets('@jquery');
-        $xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
+        $xoTheme->addBaseScriptAssets('modules/publisher/assets/js/publisher.js');
         XoopsLoad::loadFile($publisher->path('footer.php'));
 
         $categoryObj = $publisher->getCategoryHandler()->get($_POST['categoryid']);
@@ -206,9 +206,9 @@ switch ($op) {
 
     case 'add':
     default:
-        $xoops->header('publisher_submit.html');
+        $xoops->header('publisher_submit.tpl');
         $xoopsTpl = $xoops->tpl();
-        $xoTheme = $xoops->theme();$xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
+        $xoTheme = $xoops->theme();$xoTheme->addScript(PUBLISHER_URL . '/assets/js/publisher.js');
         XoopsLoad::loadFile($publisher->path('footer.php'));
 
         $itemObj->setVarsFromRequest();

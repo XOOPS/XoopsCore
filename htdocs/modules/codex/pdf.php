@@ -25,7 +25,7 @@ if (isset($_GET['pdf'])) {
 
     $tpl = new XoopsTpl();
     $tpl->assign('dummy_content' , $content);
-    $content2 = $tpl->fetch('module:system|system_dummy.html');
+    $content2 = $tpl->fetch('module:system|system_dummy.tpl');
 
     if ($xoops->isActiveModule('pdf')) {
         $pdf = new Pdf();

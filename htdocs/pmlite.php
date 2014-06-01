@@ -94,7 +94,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
             $tpl->assign('error_message', $error_message);
         }
     }
-    $tpl->display("module:system|system_pmlite.html");
+    $tpl->display("module:system|system_pmlite.tpl");
 
 } else {
     $message = '';
@@ -161,7 +161,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $buttons ->addElement($cancel_send);
         $form->addElement($buttons);
         $tpl->assign('form', $form->render());
-        $tpl->display("module:system|system_pmlite.html");
+        $tpl->display("module:system|system_pmlite.tpl");
     }
 }
 $xoops->simpleFooter();

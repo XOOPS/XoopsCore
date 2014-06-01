@@ -29,7 +29,7 @@ $theme_version['credits']       = 'The XOOPS Project';
 $theme_version['license']       = 'GNU GPL 2.0';
 $theme_version['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html/';
 $theme_version['official']      = 1;
-$theme_version['image']         = 'icons/logo.png';
+$theme_version['image']         = 'assets/images/logo.png';
 $theme_version['dirname']       = 'default';
 // About
 $theme_version['release_date']       = '2012/05/13';

@@ -127,11 +127,11 @@ class SystemBreadcrumb
                 }
             }
         } else {
-            $out = $menu = '<style type="text/css" media="screen">@import ' . XOOPS_URL . '/modules/system/css/menu.css;</style>';
+            $out = $menu = '<style type="text/css" media="screen">@import ' . XOOPS_URL . '/modules/system/assets/css/menu.css;</style>';
             $out .= '<ul id="xo-breadcrumb">';
             foreach ($this->_bread as $menu) {
                 if ($menu['home']) {
-                    $out .= '<li><a href="' . $menu['link'] . '" title="' . $menu['title'] . '"><img src="images/home.png" alt="' . $menu['title'] . '" class="home" /></a></li>';
+                    $out .= '<li><a href="' . $menu['link'] . '" title="' . $menu['title'] . '"><img src="assets/images/home.png" alt="' . $menu['title'] . '" class="home" /></a></li>';
                 } else {
                     if ($menu['link'] != '') {
                         $out .= '<li><a href="' . $menu['link'] . '" title="' . $menu['title'] . '">' . $menu['title'] . '</a></li>';

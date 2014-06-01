@@ -1,0 +1,109 @@
+.form-horizontal .control-label {
+  float: left;
+  width: 0;
+  padding-top: 5px;
+  text-align: right;
+}
+
+.form-horizontal .controls {
+  *display: inline-block;
+  *padding-left: 20px;
+  margin-left: 0;
+  *margin-left: 0;
+}
+
+.page_header {
+    border-bottom: 1px solid #ccc;
+    margin-top: .25em;
+    background-color: inherit;
+    padding-bottom: 2px;
+}
+
+.page_indexheader {
+    border-bottom: 1px solid #ccc;
+    margin-top: 1.5em;
+    background-color: inherit;
+    padding-bottom: 2px;
+}
+
+.page_headerleft {
+    float: left;
+    font-size: 1.4em;
+    padding-left: .5em;
+    font-weight: bold;
+}
+
+.page_headerright {
+    float: right;
+    padding-right: .5em;
+}
+
+.page_vote {
+    float: right;
+    font-size: 0.9em;
+    padding-right: .5em;
+}
+
+.page_content {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+.page_indexcontent {
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+
+.page_footer {
+    border-top: 1px solid #ccc;
+    margin-top: .2em;
+    margin-bottom: .5em;
+    background-color: inherit;
+    padding-top: 2px;
+}
+
+.page_footerleft {
+    float: left;
+    font-size: 0.9em;
+    padding-left: .7em;
+    font-style: italic;
+}
+
+.page_footerright {
+    float: right;
+    padding-right: .5em;
+    font-style: italic;
+}
+
+.page_navigation {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: center;
+    margin-top: .25em;
+}
+
+.page_navigationL {
+    float: left;
+    font-size: 1.1em;
+}
+.page_navigationR {
+    float: right;
+    font-size: 1.1em;
+}
+
+.page_more {
+    text-align: right;
+    font-style: italic;
+    padding-top: 5px;
+}
+
+#page-print {
+    width: 640px;
+    border: 1px solid #575757;
+    padding: 10px;
+    margin: 2px;
+}

@@ -43,7 +43,7 @@ abstract class AbstractTemplate
     {
         \Xmf\Loader::loadFile(XOOPS_ROOT_PATH . '/class/template.php');
         $this->tpl = new \XoopsTpl();
-        $this->_template = "db:system_dummy.html";
+        $this->_template = "db:system_dummy.tpl";
         $this->init();
     }
 
@@ -65,7 +65,7 @@ abstract class AbstractTemplate
      * Used in init methods to set the template used by $_tpl
      *
      * @param string $template Path to the template file
-     * 
+     *
      * @return void
      */
     protected function setTemplate($template = '')

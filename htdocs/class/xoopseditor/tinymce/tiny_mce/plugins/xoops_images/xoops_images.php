@@ -137,5 +137,5 @@ switch ($op) {
         echo $xoops->alert('error', $obj->getHtmlErrors());
         break;
 }
-$xoopsTpl->display('module:images|images_tinymce.html');
+$xoopsTpl->display('module:images|images_tinymce.tpl');
 $xoops->simpleFooter();

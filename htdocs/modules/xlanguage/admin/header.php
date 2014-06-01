@@ -39,6 +39,6 @@ $helper = Xlanguage::getInstance();
 $helper->getHandlerLanguage()->loadConfig();
 
 $xoops->header();
-$xoops->theme()->addStylesheet('modules/xlanguage/css/moduladmin.css');
+$xoops->theme()->addStylesheet('modules/xlanguage/assets/css/moduladmin.css');
 
 $admin_page = new \Xoops\Module\Admin();

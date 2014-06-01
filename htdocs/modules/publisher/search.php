@@ -42,7 +42,7 @@ if (!$publisher->getConfig('perm_search') || !$gperm_handler->checkRight('global
 }
 
 $xoops->disableModuleCache();
-$xoops->header('publisher_search.html');
+$xoops->header('publisher_search.tpl');
 $xoopsTpl = $xoops->tpl();
 
 $module_info_search = $publisher->getModule()->getInfo("search");

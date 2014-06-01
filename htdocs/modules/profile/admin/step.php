@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('steplist.html');
+$xoops->header('steplist.tpl');
 // Get handler
 $regstep_Handler = $xoops->getModuleHandler("regstep");
 
@@ -108,7 +108,7 @@ switch ($op) {
                 }
             } else {
                 // Define Stylesheet
-                $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+                $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
                 $xoops->tpl()->assign('form', false);
                 $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),

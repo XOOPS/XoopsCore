@@ -30,7 +30,7 @@ $modversion['license']        = 'GNU GPL 2.0';
 $modversion['license_url']    = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
+$modversion['image']          = 'assets/images/logo.png';
 $modversion['dirname']        = 'gravatars';
 //about
 $modversion['release_date']        = '2013/09/26';

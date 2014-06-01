@@ -1,0 +1,21 @@
+.cp-avatar {
+    font-family: tahoma, Helvetica, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    box-shadow: 0 20px 10px -10px rgba(255, 255, 255, 0.3) inset;
+    color: #666666;
+    display: block;
+    float: left;
+    height: 165px !important;
+    margin: 3px;
+    padding: 5px;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 150px !important;
+}
+.xo-thumbimg { height: 120px;}

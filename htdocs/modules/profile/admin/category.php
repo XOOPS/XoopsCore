@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('categorylist.html');
+$xoops->header('categorylist.tpl');
 // Get category handler
 $category_Handler = $xoops->getModuleHandler("category");
 
@@ -108,7 +108,7 @@ switch ($op) {
                 }
             } else {
                 // Define Stylesheet
-                $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+                $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
                 $xoops->tpl()->assign('form', false);
                 $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),

@@ -324,7 +324,7 @@ define("_AM_PUBLISHER_CLONE_NAME_DSC", "Ne pas utiliser des caractères spéciau
 define("_AM_PUBLISHER_CLONE_INVALIDNAME", "ERREUR: nom de module invalide, s'il vous plaît essayez en un autre!");
 define("_AM_PUBLISHER_CLONE_EXISTS", "ERREUR: Nom du module déjà pris, s'il vous plaît essayez en un autre!");
 define("_AM_PUBLISHER_CLONE_CONGRAT", "Bravo! le module %s a été créé avec succès! <br /> Vous pouvez apporter des modifications dans les fichiers de langue et changer l'image du module.");
-define("_AM_PUBLISHER_CLONE_IMAGEFAIL", "attention, nous n'avons pas réussi à créer le logo du nouveau module. s'il vous plaît envisagez de modifier images/module_logo.png manuellement!");
+define("_AM_PUBLISHER_CLONE_IMAGEFAIL", "attention, nous n'avons pas réussi à créer le logo du nouveau module. s'il vous plaît envisagez de modifier assets/images/module_logo.png manuellement!");
 define("_AM_PUBLISHER_CLONE_FAIL", "Désolé, nous n'avons pas réussi à créer le nouveau clone. Peut-être que vous avez besoin de mettre temporairement les permissions d'écriture du répertoire du 'module' à (chmod 777) et essayez à nouveau.");
 define("_AM_PUBLISHER_COMMENTS", "Commentaires");
 

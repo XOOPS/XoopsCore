@@ -1,0 +1,204 @@
+/* Buttons style */
+.xo-buttons a, .xo-buttons button {
+    display: block-inline;
+    margin: 0 5px 0 0;
+    background: #e4e4e5 url('../images/admin/bg_button.gif') repeat-x;
+    border: 1px solid #d6d6d6;
+    border-top: 1px solid #dedede;
+    border-left: 1px solid #dedede;
+    font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size: 100%;
+    line-height: 110%;
+    text-decoration: none;
+    font-weight: bold;
+    color: #454545;
+    cursor: pointer;
+    padding: 3px 8px 4px 5px; /* Links */
+}
+
+.xo-buttons a:hover, .xo-buttons button:hover {
+    border: 1px solid #ccc;
+    border-top: 1px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+}
+
+.xo-buttons button {
+    width: auto;
+    overflow: visible;
+    padding: 3px 8px 4px 5px; /* IE6 */
+}
+
+.xo-buttons button[type] {
+    padding: 3px 5px 4px 5px; /* Firefox */
+    line-height: 15px; /* Safari */
+}
+
+*:first-child+html button[type] {
+    padding: 3px 8px 4px 5px; /* IE7 */
+}
+
+.xo-buttons button img, .xo-buttons a img {
+    margin: 0 3px -3px 0 !important;
+    padding: 0;
+    border: none;
+    width: 16px;
+    height: 16px;
+}
+
+.ui-corner-all {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+/* Buttons style */
+
+/* align */
+.floatright {
+    float: right;
+    margin: 0;
+    padding: 2px;
+    border: 0;
+}
+
+.floatleft {
+    float: left;
+    margin: 0;
+    padding: 2px;
+    border: 0;
+}
+
+.aligncenter {
+    text-align: center;
+    margin: 0;
+    padding: 2px;
+    border: 0;
+}
+
+/* align */
+
+/* label */
+.label {
+   
+    color: #2F5376;
+    font-weight: bold;
+}
+
+
+/* label */
+
+/* about */
+
+.head2 {	
+	padding: 5px;
+	font-weight: bold;
+    text-align: right;
+    width: 150px;
+}
+#about label, #about text {
+    display: block;
+    float: left;
+    margin-bottom: 12px;
+}
+
+
+#about label {
+    text-align: right;
+    width: 200px;
+    padding-right: 20px;
+}
+
+    br {
+        clear: left;
+    }
+
+#about br {
+    clear: both;
+}
+
+/* InfoBox  for Tag, XoopsPartners module
+TODO Needs to be merged into the normal label/text */
+
+    infolabel,infotext {
+        display: block;
+        float: left;
+        margin-bottom: 2px;
+    }
+    infolabel {
+        text-align: right;
+        width: 150px;
+        padding-right: 20px;
+        /* font-weight: bold;*/
+    }
+    br {
+        clear: left;
+    }
+
+
+
+/* menu */
+div.rmmenuicon {
+    margin: 3px;
+    font-family: Tahoma, Arial, Helvetica;
+    text-align: center;
+}
+
+div.rmmenuicon a {
+    display: block;
+    float: left;
+    height: 75px !important;
+    height: 75px;
+    width: 75px !important;
+    width: 75px;
+    vertical-align: middle;
+    text-decoration: none;
+    border: 1px solid #CCCCCC;
+    padding: 2px 5px 1px 5px;
+    margin: 3px;
+    color: #666666;
+
+    background-color: #f0f0f0;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -khtml-border-radius: 6px;
+    border-radius: 6px;
+
+}
+
+div.rmmenuicon img {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+div.rmmenuicon a span {
+    font-size: 11px;
+    font-weight: bold;
+    display: block;
+}
+
+div.rmmenuicon a:hover {
+    background-color: #FFF6C1;
+    border: 1px solid #FF9900;
+    color: #1E90FF;
+}
+
+div.rmmenuicon a:hover span {
+    text-decoration: none;
+}
+
+div.CPbigTitle {
+    font-size: 12px;
+    color: #606060;
+    background: no-repeat left top;
+    font-weight: bold;
+    height: 30px;
+    vertical-align: middle;
+    padding: 5px 0 0 40px;
+    border-bottom: 1px solid #393e41;
+}
+
+/* menu */
+
+.txtchangelog {
+    height: 350px;
+    overflow: auto;
+}

@@ -90,7 +90,7 @@ if ($op == 'save') {
 }
 
 if ($op == 'editprofile') {
-    $xoops->header('profile_editprofile.html');
+    $xoops->header('profile_editprofile.tpl');
     include_once dirname(__FILE__) . '/include/forms.php';
     $form = profile_getUserForm($xoops->user);
     $form->assign($xoops->tpl());

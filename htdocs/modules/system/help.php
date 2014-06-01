@@ -29,10 +29,10 @@ $page = $system->cleanVars($_REQUEST, 'page', '', 'string');
 $mid = $system->cleanVars($_REQUEST, 'mid', 0, 'int');
 
 // Define main template
-$xoops->header('system_help.html');
+$xoops->header('system_help.tpl');
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addStylesheet('modules/system/css/help.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/help.css');
 // Define Breadcrumb and tips
 $system_breadcrumb->addLink(XoopsLocale::HELP, 'help.php');
 

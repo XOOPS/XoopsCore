@@ -110,11 +110,11 @@ class SystemModule
                     $module->setInfo('warning_update', true);
                 }
                 if (XoopsLoad::fileExists(
-                    XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/icons/logo_small.png'
+                    XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/assets/icons/logo_small.png'
                 )) {
                     $module->setInfo(
                         'logo_small',
-                        XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/icons/logo_small.png'
+                        XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/assets/icons/logo_small.png'
                     );
                 } else {
                     $module->setInfo('logo_small', XOOPS_URL . '/media/xoops/images/icons/16/default.png');

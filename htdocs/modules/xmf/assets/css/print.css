@@ -1,0 +1,21 @@
+body {
+	padding: 10px;
+}
+
+img {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#xmf_print_close {
+	text-align: center;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	border-top: 1px solid #000;
+}
+
+#xmf_print_content {
+	
+}

@@ -186,6 +186,6 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         $xoops = Xoops::getInstance();
         $xoops->tpl()->assign('theme', \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme'));
         $xoops->tpl()->assign('languages', $this->getAllLanguage(false));
-        return $xoops->tpl()->fetch('admin:xlanguage|xlanguage_admin_list.html');
+        return $xoops->tpl()->fetch('admin:xlanguage|xlanguage_admin_list.tpl');
     }
 }

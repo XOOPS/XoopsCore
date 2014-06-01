@@ -35,6 +35,6 @@
         "raveren/kint": "*"
     },
     "extra": {
-        "xoops_modules_path": "../modules/"
+        "xoops_modules_path": "S:/wamp64/www/260tpl/modules/"
     }
 }

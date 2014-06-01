@@ -4,14 +4,14 @@ ryan masuga, ryan@masugadesign.com (http://www.masugadesign.com)
 Homepage for this script:
 http://www.masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/
 =============================================================================
-This (Unobtusive) AJAX Rating Bar script is licensed under the 
+This (Unobtusive) AJAX Rating Bar script is licensed under the
 Creative Commons Attribution 3.0 License - http://creativecommons.org/licenses/by/3.0/
 
-What that means is: Use these files however you want, but don't redistribute 
+What that means is: Use these files however you want, but don't redistribute
 without the proper credits, please. I'd appreciate hearing from you if you're
 using this script. Credits should include:
 - Masuga Design (http://masugadesign.com/the-lab/scripts/unobtrusive-ajax-star-rating-bar/)
-- Komodo Media (http://komodomedia.com) 
+- Komodo Media (http://komodomedia.com)
 - Climax Designs (http://slim.climaxdesigns.com/).
 - Ben Nolan (http://bennolan.com/behaviour/) for Behavio(u)r!
 
@@ -55,7 +55,7 @@ v 1.2.1 Updates (March 18, 2007):
  * ADDED: a check to stop people from voting multiple times
  * ADDED: example of using 'static' to the Read Me
 
- * UPDATED: Use echo now to render your star rater, because I'm using 'return' 
+ * UPDATED: Use echo now to render your star rater, because I'm using 'return'
             instead of echo in the function
 
  * FIXED: bug where you couldn't have letters in your id. Now, letters and numbers only
@@ -120,12 +120,12 @@ CREATE TABLE `ratings` (
 
 
 =============================================================================
-4. Point to the right Javascript and CSS files (you need 
+4. Point to the right Javascript and CSS files (you need
    behavior.js, rating.js, and rating.css)
 =============================================================================
-<script type="text/javascript" language="javascript" src="js/behavior.js"></script>
-<script type="text/javascript" language="javascript" src="js/rating.js"></script>
-<link rel="stylesheet" type="text/css" href="css/rating.css" />
+<script type="text/javascript" language="javascript" src="assets/js/behavior.js"></script>
+<script type="text/javascript" language="javascript" src="assets/js/rating.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/css/rating.css" />
 
 Remember to make sure to fix paths for the images as well. I kept behavior.js separate
 from rating.js, because you can use it for other things!

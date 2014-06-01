@@ -1,3 +1,0 @@
-<{foreachq from=$block.languages name=lang_if item=lang}>
-    <a href="<{$block.url}><{$lang.xlanguage_name}>" title="<{$lang.xlanguage_description}>"><img class="flag" src="<{$lang.xlanguage_image}>" alt="<{$lang.xlanguage_description}>" <{if $block.selected == $lang.name}> style="MozOpacity: .8; opacity: .8; filter:Alpha(opacity=80);" <{/if}>/></a><{if !$smarty.foreach.lang_if.last}><{$block.delimitor}><{/if}>
-<{/foreach}>

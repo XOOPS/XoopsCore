@@ -60,10 +60,10 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
 }
 
 $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/js/admin.js');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+$xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/assets/js/admin.js');
 
-$xoops->header('system_services.html');
+$xoops->header('system_services.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);

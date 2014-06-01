@@ -28,7 +28,7 @@ if (!$xoops->isUser()) {
     $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$xoops->header('profile_changepass.html');
+$xoops->header('profile_changepass.tpl');
 
 if (!isset($_POST['submit'])) {
     //show change password form

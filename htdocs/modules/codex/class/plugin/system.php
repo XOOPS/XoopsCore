@@ -103,7 +103,7 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
         /*$xoops = Xoops::getInstance();
         $ret['name'] = Xoops::getInstance()->getHandlerModule()->getBydirname('codex')->getVar('name');
         $ret['link'] = 'index.php';
-        $ret['image'] = $xoops->url('modules/codex/icons/logo_small.png');
+        $ret['image'] = $xoops->url('modules/codex/assets/icons/logo_small.png');
         return $ret;*/
     }
 }

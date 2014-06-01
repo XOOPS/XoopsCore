@@ -35,7 +35,7 @@ $searchable_types = array(
 switch ($op) {
     default:
     case "search":
-        $xoops->header('profile_search.html');
+        $xoops->header('profile_search.tpl');
         $xoops->appendConfig('profile_breadcrumbs', array('title' => XoopsLocale::A_SEARCH));
         $sortby_arr = array();
 
@@ -152,7 +152,7 @@ switch ($op) {
         break;
 
     case "results":
-        $xoops->header('profile_results.html');
+        $xoops->header('profile_results.tpl');
         $xoops->tpl()->assign('page_title', _PROFILE_MA_RESULTS);
 
         $xoops->appendConfig('profile_breadcrumbs', array(

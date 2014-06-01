@@ -85,7 +85,7 @@ class Menus extends Xoops\Module\Helper\HelperAbstract
         $info['url'] = $this->xoops()->url($path);
 
         if (!isset($info['template'])) {
-            $info['template'] = $this->xoops()->path("modules/menus/templates/block.html");
+            $info['template'] = $this->xoops()->path("modules/menus/templates/block.tpl");
         } else {
             $info['template'] = $this->xoops()->path("{$path}/" . $info['template']);
         }

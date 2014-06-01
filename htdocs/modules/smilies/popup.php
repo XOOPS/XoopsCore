@@ -32,6 +32,6 @@ if ($target && preg_match('/^[0-9a-z_]*$/i', $target)) {
     $tpl->assign('target', $target);
     $tpl->assign('smileys', Smilies::getInstance()->getHandlerSmilies()->getActiveSmilies(false));
     $tpl->assign('closebutton', 1);
-    $tpl->display('module:smilies|smilies_smiley.html');
+    $tpl->display('module:smilies|smilies_smiley.tpl');
 }
 $xoops->simpleFooter();

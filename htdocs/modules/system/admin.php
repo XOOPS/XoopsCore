@@ -93,12 +93,12 @@ if (false != $error) {
         exit;
     }
     // Define main template
-    $xoops->header('system_index.html');
+    $xoops->header('system_index.tpl');
     // Define Stylesheet
-    $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
+    $xoops->theme()->addBaseStylesheetAssets('modules/system/assets/css/admin.css');
     // Define scripts
     $xoops->theme()->addBaseScriptAssets('@jquery.');
-    $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
+    $xoops->theme()->addBaseScriptAssets('modules/system/assets/js/admin.js');
     // Define Breadcrumb and tips
     $admin_page = new \Xoops\Module\Admin();
     $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);

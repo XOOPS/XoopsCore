@@ -31,7 +31,7 @@ $modversion['credits'] = "Ackbarr, mboyden, marco, mamba,trabis, etc.";
 $modversion['help'] = 'page=help';
 $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
-$modversion['image'] = "images/logo.png";
+$modversion['image'] = "assets/images/logo.png";
 $modversion['dirname'] = "profile";
 
 //about

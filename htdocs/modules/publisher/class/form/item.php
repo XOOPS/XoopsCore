@@ -309,7 +309,7 @@ class PublisherItemForm extends XoopsSimpleForm
                 $addbreak = new XoopsFormLabel('', "<br />");
                 $closetable = new XoopsFormLabel('', "</td></tr></table>");
 
-                $xoops->theme()->addScript(PUBLISHER_URL . '/js/ajaxupload.3.9.js');
+                $xoops->theme()->addScript(PUBLISHER_URL . '/assets/js/ajaxupload.3.9.js');
                 //todo, find replacement for error class
                 $js_data = new XoopsFormLabel('', '
 <script type= "text/javascript">/*<![CDATA[*/
@@ -322,7 +322,7 @@ $(document).ready(function(){
         onSubmit : function(file, ext){
             // change button text, when user selects file
             $("#publisher_upload_message").html(" ");
-            button.html("<img src=\'' . PUBLISHER_URL . '/images/loadingbar.gif\'/>"); this.setData({
+            button.html("<img src=\'' . PUBLISHER_URL . '/assets/images/loadingbar.gif\'/>"); this.setData({
                 "image_nicename": $("#image_nicename").val(),
                 "imgcat_id" : $("#imgcat_id").val()
             });
@@ -453,10 +453,10 @@ $(document).ready(function(){
 
                         /* @var $fileObj PublisherFile */
                         foreach ($filesObj as $fileObj) {
-                            $modify = "<a href='file.php?op=mod&fileid=" . $fileObj->getVar('fileid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _CO_PUBLISHER_EDITFILE . "' alt='" . _CO_PUBLISHER_EDITFILE . "' /></a>";
-                            $delete = "<a href='file.php?op=del&fileid=" . $fileObj->getVar('fileid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _CO_PUBLISHER_DELETEFILE . "' alt='" . _CO_PUBLISHER_DELETEFILE . "'/></a>";
+                            $modify = "<a href='file.php?op=mod&fileid=" . $fileObj->getVar('fileid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/edit.gif' title='" . _CO_PUBLISHER_EDITFILE . "' alt='" . _CO_PUBLISHER_EDITFILE . "' /></a>";
+                            $delete = "<a href='file.php?op=del&fileid=" . $fileObj->getVar('fileid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/delete.png' title='" . _CO_PUBLISHER_DELETEFILE . "' alt='" . _CO_PUBLISHER_DELETEFILE . "'/></a>";
                             if ($fileObj->getVar('status') == 0) {
-                                $not_visible = "<img src='" . PUBLISHER_URL . "/images/no.gif'/>";
+                                $not_visible = "<img src='" . PUBLISHER_URL . "/assets/images/no.gif'/>";
                             } else {
                                 $not_visible = '';
                             }

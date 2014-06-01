@@ -24,8 +24,8 @@ if ($xoops->isActiveModule('qrcode') && $_GET['url']) {
     $qrcode->render( $_GET['url'] );
 } else {
     $contents = '';
-    $size = getimagesize($xoops->url('/images/blank.gif'));
-    $handle = fopen($xoops->url('/images/blank.gif'), 'rb');
+    $size = getimagesize($xoops->url('/assets/images/blank.gif'));
+    $handle = fopen($xoops->url('/assets/images/blank.gif'), 'rb');
     while (!feof($handle)) {
         $contents .= fread($handle, 1024);
     }

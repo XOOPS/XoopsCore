@@ -102,6 +102,6 @@ $add_form->addElement($sel_pg);
 $add_form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_ADD, 'submit'));
 $add_form->assign($xoops->tpl());
 
-$xoops->tpl()->display("admin:profile|visibility.html");
+$xoops->tpl()->display("admin:profile|visibility.tpl");
 
 $xoops->footer();

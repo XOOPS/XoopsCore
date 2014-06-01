@@ -27,7 +27,7 @@ include_once dirname(__FILE__) . '/include/common.php';
 $publisher = Publisher::getInstance();
 
 $xoops = Xoops::getInstance();
-$xoops->theme()->addStylesheet(PUBLISHER_URL . '/css/publisher.css');
+$xoops->theme()->addStylesheet(PUBLISHER_URL . '/assets/css/publisher.css');
 
 $xoopsTpl = $xoops->tpl();
 $xoopsTpl->assign("xoops_module_header", '<link rel="alternate" type="application/rss+xml" title="'

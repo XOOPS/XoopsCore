@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="<{$xoops_langcode}>">
+<head>
+    <!-- Assign Theme variables -->
+    <{includeq file="$theme_tpl/theme_vars.tpl"}>
+    <!-- Title, meta, CSS and javascript -->
+    <{includeq file="$theme_tpl/theme_head.tpl"}>
+</head>
+<body id="<{$xoops_dirname}>" class="<{$xoops_langcode}>">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="<{xoAppUrl }>" title="<{$xoops_sitename}>">
+                <img src="<{xoImgUrl img/logo.png}>" alt="<{$xoops_sitename}>" />
+            </a>
+            <!-- Navigation bar menu -->
+            <{includeq file="$theme_tpl/theme_menu.tpl"}>
+            <!-- User menu -->
+            <{includeq file="$theme_tpl/theme_user.tpl"}>
+            <!-- Language menu -->
+            <{includeq file="$theme_tpl/theme_language.tpl"}>
+        </div>
+    </div>
+</div>
+<div class="xo-hero">
+    <div class="container xo-hero-content">
+        <div class="row">
+            <div class="span7">
+                <h1>XOOPS. Powered by You!</h1>
+                <p>easy to use dynamic web content management system written in PHP</p>
+                <p>
+                    <a class="btn btn-warning btn-large">
+                        Learn more
+                     </a>
+                </p>
+            </div>
+            <div class="span5">
+                <{$xoops_banner}>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <{if $xoops_showlblock}>
+        <div class="span3 xo-block-left">
+            <{foreach item=block from=$xoBlocks.canvas_left}>
+            <{includeq file="$theme_tpl/block_left.tpl"}>
+            <{/foreach}>
+        </div>
+        <{/if}>
+        <div class="span<{$col_span}> xo-block-center">
+            <{if $xoBlocks.page_topleft or $xoBlocks.page_topcenter or $xoBlocks.page_topright}>
+            <!-- Display center blocks if any -->
+            <div class="row">
+                <div class="span<{$col_span}> xo-top">
+                    <div class="row">
+                        <div class="span<{$col_span}> xo-center">
+                            <!-- Start center-center blocks loop -->
+                            <{foreach item=block from=$xoBlocks.page_topcenter}>
+                            <{includeq file="$theme_tpl/block_center_c.tpl"}>
+                            <{/foreach}>
+                            <!-- End center-center blocks loop -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span<{$col_span_mid}> xo-left">
+                            <!-- Start center-left blocks loop -->
+                            <{foreach item=block from=$xoBlocks.page_topleft}>
+                            <{includeq file="$theme_tpl/block_center_l.tpl"}>
+                            <{/foreach}>
+                            <!-- End center-left blocks loop -->
+                        </div>
+                        <{if $col_span_mid == 4}><div class="span1">&nbsp;</div><{/if}>
+                        <div class="span<{$col_span_mid}> xo-right">
+                            <!-- Start center-right blocks loop -->
+                            <{foreach item=block from=$xoBlocks.page_topright}>
+                            <{includeq file="$theme_tpl/block_center_r.tpl"}>
+                            <{/foreach}>
+                            <!-- End center-right blocks loop -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <{/if}>
+            <{if $xoops_contents && ($xoops_contents != ' ') }>
+            <!-- Start content module page -->
+            <div class="row">
+                <div class="span<{$col_span}>">
+                    <{$xoops_contents}>
+                </div>
+            </div>
+            <!-- End content module -->
+            <{/if}>
+            <{if $xoBlocks.page_bottomleft or $xoBlocks.page_bottomcenter or $xoBlocks.page_bottomright}>
+            <div class="row">
+                <div class="span<{$col_span}> xo-bottom">
+                    <div class="row">
+                        <div class="span<{$col_span}> xo-center">
+                            <!-- Start center-center blocks loop -->
+                            <{foreach item=block from=$xoBlocks.page_bottomcenter}>
+                            <{includeq file="$theme_tpl/block_center_c.tpl"}>
+                            <{/foreach}>
+                            <!-- End center-center blocks loop -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span<{$col_span_mid}> xo-left">
+                            <!-- Start center-left blocks loop -->
+                            <{foreach item=block from=$xoBlocks.page_bottomleft}>
+                            <{includeq file="$theme_tpl/block_center_l.tpl"}>
+                            <{/foreach}>
+                            <!-- End center-left blocks loop -->
+                        </div>
+                        <{if $col_span_mid == 4}><div class="span1">&nbsp;</div><{/if}>
+                        <div class="span<{$col_span_mid}> xo-right">
+                            <!-- Start center-right blocks loop -->
+                            <{foreach item=block from=$xoBlocks.page_bottomright}>
+                            <{includeq file="$theme_tpl/block_center_r.tpl"}>
+                            <{/foreach}>
+                            <!-- End center-right blocks loop -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <{/if}>
+        </div>
+        <{if $xoops_showrblock}>
+        <div class="span3 xo-block-right">
+            <{foreach item=block from=$xoBlocks.canvas_right}>
+            <{includeq file="$theme_tpl/block_right.tpl"}>
+            <{/foreach}>
+        </div>
+        <{/if}>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="span12">
+                    <p class="pull-right"><a href="#"><{translate key='BACK_TO_TOP'}></a></p>
+                    <div class="pagination-centered">
+                        <{$xoops_footer}>
+                    </div>
+                    <!--{xo-logger-output}-->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

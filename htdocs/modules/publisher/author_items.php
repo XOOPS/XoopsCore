@@ -38,7 +38,7 @@ if (!$publisher->getConfig('perm_author_items')) {
 
 $myts = MyTextSanitizer::getInstance();
 
-$xoops->header('publisher_author_items.html');
+$xoops->header('publisher_author_items.tpl');
 $xoopsTpl = $xoops->tpl();
 
 XoopsLoad::loadFile($publisher->path('footer.php'));

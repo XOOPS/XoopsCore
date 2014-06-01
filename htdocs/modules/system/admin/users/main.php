@@ -43,15 +43,15 @@ $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 $member_handler = $xoops->getHandlerMember();
 
 // Call Header
-$xoops->header('system_users.html');
+$xoops->header('system_users.tpl');
 
 $myts = MyTextSanitizer::getInstance();
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
 $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
 //$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addScript('modules/system/assets/js/admin.js');
 // Define Breadcrumb and tips
 $system_breadcrumb->addLink(SystemLocale::USERS_MANAGEMENT, system_adminVersion('users', 'adminpath'));
 
@@ -345,10 +345,10 @@ switch ($op) {
     default:
         // Search and Display
         // Define scripts
-        $xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/assets/js/admin.js');
         //table sorting does not work with select boxes
         //$xoops->theme()->addScript('media/jquery/plugins/jquery.tablesorter.js');
-        //$xoops->theme()->addScript('modules/system/js/admin.js');
+        //$xoops->theme()->addScript('modules/system/assets/js/admin.js');
         //Recherche approfondie
 
         if (isset($_REQUEST['complet_search'])) {
@@ -857,11 +857,11 @@ switch ($op) {
                     //Display group
                     if (in_array($users['uid'], $ListOfAdmins)) {
                         $users['group'] = system_AdminIcons('xoops/group_1.png');
-                        //$users['icon'] = '<img src="'.XOOPS_URL.'/modules/system/images/icons/admin.png" alt="'._AM_SYSTEM_USERS_ADMIN.'" title="'._AM_SYSTEM_USERS_ADMIN.'" />';
+                        //$users['icon'] = '<img src="'.XOOPS_URL.'/modules/system/assets/images/icons/admin.png" alt="'._AM_SYSTEM_USERS_ADMIN.'" title="'._AM_SYSTEM_USERS_ADMIN.'" />';
                         $users['checkbox_user'] = false;
                     } else {
                         $users['group'] = system_AdminIcons('xoops/group_2.png');
-                        //$users['icon'] = '<img src="'.XOOPS_URL.'/modules/system/images/icons/user.png" alt="'._AM_SYSTEM_USERS_USER.'" title="'._AM_SYSTEM_USERS_USER.'" />';
+                        //$users['icon'] = '<img src="'.XOOPS_URL.'/modules/system/assets/images/icons/user.png" alt="'._AM_SYSTEM_USERS_USER.'" title="'._AM_SYSTEM_USERS_USER.'" />';
                         $users['checkbox_user'] = true;
                     }
                     $users['name'] = $user->getVar("uid");

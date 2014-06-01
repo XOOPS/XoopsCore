@@ -93,7 +93,7 @@ function xoops_module_install_banners(&$module)
     //Copy index.html
     $file = XOOPS_ROOT_PATH . "/uploads/banners/index.html";
     if (!is_file($file)) {
-        copy(XOOPS_ROOT_PATH . "/modules/banners/images/index.html", $file);
+        copy(XOOPS_ROOT_PATH . "/modules/banners/assets/images/index.html", $file);
     }
     //Copy blank.gif
     $file = XOOPS_ROOT_PATH . "/uploads/banners/blank.gif";
@@ -177,7 +177,7 @@ function xoops_module_install_banners(&$module)
     foreach ($banners as $k => $v) {
         //Copy banner
         $file = XOOPS_ROOT_PATH . "/uploads/banners/" . $k;
-        $copy_file = XOOPS_ROOT_PATH . "/modules/banners/images/" . $k;
+        $copy_file = XOOPS_ROOT_PATH . "/modules/banners/assets/images/" . $k;
         if (!is_file($file) && is_file($copy_file)) {
             copy($copy_file, $file);
         }

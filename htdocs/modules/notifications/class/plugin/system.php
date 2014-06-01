@@ -39,7 +39,7 @@ class NotificationsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract imple
         $helper = Notifications::getInstance();
         $ret['name'] = $helper->getModule()->getVar('name');
         $ret['link'] = 'index.php';
-        $ret['image'] = $helper->url('icons/logo_small.png');
+        $ret['image'] = $helper->url('assets/images/logo_small.png');
         return $ret;
     }
 }

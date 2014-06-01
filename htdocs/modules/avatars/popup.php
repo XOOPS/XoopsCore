@@ -31,6 +31,6 @@ $criteria = new Criteria('avatar_type', 'S');
 $tpl = new XoopsTpl();
 $tpl->assign('avatars', Avatars::getInstance()->getHandlerAvatar()->getObjects($criteria, false, false));
 $tpl->assign('closebutton', 1);
-$tpl->display('module:avatars|avatars_popup.html');
+$tpl->display('module:avatars|avatars_popup.tpl');
 
 $xoops->simpleFooter();

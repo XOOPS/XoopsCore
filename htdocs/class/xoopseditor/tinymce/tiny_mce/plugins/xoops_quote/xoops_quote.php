@@ -50,5 +50,5 @@ $xoopsTpl->assign('css_file', 'css/xoops_quote.css');
 $xoopsTpl->assign('form', $form->render());
 $xoopsTpl->assign('include_html', '');
 
-$xoopsTpl->display('module:system|system_tinymce.html');
+$xoopsTpl->display('module:system|system_tinymce.tpl');
 $xoops->simpleFooter();

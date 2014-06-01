@@ -21,7 +21,7 @@ include dirname(__FILE__) . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
-$xoops->theme()->addStylesheet('modules/xcontact/css/moduladmin.css');
+$xoops->theme()->addStylesheet('modules/xcontact/assets/css/moduladmin.css');
 
 $admin_page = new \Xoops\Module\Admin();
 

@@ -29,7 +29,7 @@ include_once dirname(__FILE__) . '/header.php';
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 
-$xoops->header('publisher_archive.html');
+$xoops->header('publisher_archive.tpl');
 
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::LoadFile($publisher->path('footer.php'));

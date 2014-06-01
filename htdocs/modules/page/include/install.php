@@ -30,7 +30,7 @@ function xoops_module_install_page() {
         mkdir($dir, 0777);
         chmod($dir, 0777);
 
-    //Create file '.$namemodule.'/images/
+    //Create file '.$namemodule.'/assets/images/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images';
     if(!is_dir($dir))
         mkdir($dir, 0777);
@@ -42,6 +42,6 @@ function xoops_module_install_page() {
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.html');
 
     //Copy blank.gif
-    $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/blank.gif';*/
+    $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/blank.gif';*/
     return true;
 }

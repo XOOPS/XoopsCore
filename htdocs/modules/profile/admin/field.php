@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('fieldlist.html');
+$xoops->header('fieldlist.tpl');
 // Get handler
 /* @var $field_handler ProfileFieldHandler */
 $field_handler = $xoops->getModuleHandler('field');
@@ -313,7 +313,7 @@ switch ($op) {
                 }
             } else {
                 // Define Stylesheet
-                $xoops->theme()->addStylesheet('modules/system/css/admin.css');
+                $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
                 $xoops->tpl()->assign('form', false);
                 $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),

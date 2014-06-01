@@ -25,7 +25,7 @@ $modversion['help'] = 'page=help';
 $modversion['license'] = "GNU GPL 2 or later";
 $modversion['license_url'] = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
 $modversion['official'] = 0;
-$modversion['image'] = 'icons/logo.png';
+$modversion['image'] = 'assets/images/logo.png';
 
 // About stuff
 $modversion['module_status'] = 'Alpha';

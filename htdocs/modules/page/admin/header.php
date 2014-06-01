@@ -45,7 +45,7 @@ $nb_limit = $helper->getConfig('page_adminpager');
 $module_id = $helper->getModule()->getVar('mid');
 
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
 
 // Add Scripts
 $xoops->theme()->addScript('media/xoops/xoops.js');

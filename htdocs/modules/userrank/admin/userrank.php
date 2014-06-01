@@ -34,7 +34,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Get userrank handler
 $userrank_Handler = $xoops->getHandler("ranks");
 // Call Header
-$xoops->header('userrank.html');
+$xoops->header('userrank.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('userrank.php');

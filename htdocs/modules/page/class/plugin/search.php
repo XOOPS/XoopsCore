@@ -46,7 +46,7 @@ class PageSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sea
         $ret = array();
         $i = 0;
         while ($myrow = $xoopsDB->fetchArray($result)) {
-            $ret[$i]["image"] = "images/logo_small.png";
+            $ret[$i]["image"] = "assets/images/logo_small.png";
             $ret[$i]["link"] = "viewpage.php?id=" . $myrow["content_id"];
             $ret[$i]["title"] = $myrow["content_title"];
             $ret[$i]["time"] = $myrow["content_create"];

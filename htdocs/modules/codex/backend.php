@@ -27,7 +27,7 @@ The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simp
 <br />
 <ul>
     <li>Copy the file <strong><i>root_path/backend.php</i></strong> in your module folder</li>
-    <li>Copy the file <strong><i>root_path/modules/system/templates/system_rss.html</i></strong> in your module templates folder</li>
+    <li>Copy the file <strong><i>root_path/modules/system/templates/system_rss.tpl</i></strong> in your module templates folder</li>
     <li>Create backend plugin <i>see the <a href='system-plugin.php' title='System plugin sample'><strong>System plugin sample</strong></a></li>
 </ul>
 ";

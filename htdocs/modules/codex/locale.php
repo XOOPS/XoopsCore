@@ -45,10 +45,10 @@ echo $xoops->translate('ACTIVE'); echo '</br>';
 
 //Example of template
 $tpl = new XoopsTpl();
-$tpl->display(dirname(__FILE__) . '/templates/language.html');
+$tpl->display(dirname(__FILE__) . '/templates/language.tpl');
 
 Xoops_Utils::dumpFile(__FILE__);
 
 echo "Template file:"; echo '</br>';
-Xoops_Utils::dumpFile(dirname(__FILE__) . '/templates/language.html');
+Xoops_Utils::dumpFile(dirname(__FILE__) . '/templates/language.tpl');
 $xoops->footer();

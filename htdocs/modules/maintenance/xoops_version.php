@@ -34,7 +34,7 @@ $modversion['license']        = 'GNU GPL 2.0';
 $modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
+$modversion['image']          = 'assets/images/logo.png';
 $modversion['dirname']        = 'maintenance';
 
 /*
@@ -83,5 +83,5 @@ $modversion['jquery'] = 1;
 /*
  Admin Templates
 */
-$modversion['templates'][] = array( 'file' => 'maintenance_center.html', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'maintenance_dump.html', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'maintenance_center.tpl', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'maintenance_dump.tpl', 'description' => '', 'type' => 'admin' );

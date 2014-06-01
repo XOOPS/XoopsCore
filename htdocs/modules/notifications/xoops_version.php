@@ -27,7 +27,7 @@ $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 1;
 //$modversion['help']           = 'page=help';
-$modversion['image'] = 'images/logo.png';
+$modversion['image'] = 'assets/images/logo.png';
 $modversion['dirname'] = 'notifications';
 
 //about
@@ -77,5 +77,5 @@ $modversion['blocks'][] = array(
     'name' => _MI_NOTIFICATIONS_BNAME1,
     'description' => _MI_NOTIFICATIONS_BNAME1_DSC,
     'show_func' => 'b_notifications_show',
-    'template' => 'block_notifications.html',
+    'template' => 'block_notifications.tpl',
 );

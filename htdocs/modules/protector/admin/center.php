@@ -113,7 +113,7 @@ if (!empty($_POST['action'])) {
     }
 }
 // beggining of Output
-$xoops->header('protector_center.html');
+$xoops->header('protector_center.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
@@ -179,7 +179,7 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
         }
     }
     $agent4disp = htmlspecialchars($agent, ENT_QUOTES);
-    $agent_desc = $agent == $agent_short ? $agent4disp : htmlspecialchars($agent_short, ENT_QUOTES) . "<img src='../images/dotdotdot.gif' alt='$agent4disp' title='$agent4disp' />";
+    $agent_desc = $agent == $agent_short ? $agent4disp : htmlspecialchars($agent_short, ENT_QUOTES) . "<img src='../assets/images/dotdotdot.gif' alt='$agent4disp' title='$agent4disp' />";
 
     $log_arr['lid'] = $lid;
     $log_arr['date'] = XoopsLocale::formatTimestamp($timestamp);

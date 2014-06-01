@@ -325,7 +325,7 @@ define("_AM_PUBLISHER_CLONE_NAME_DSC", "Do not use special characters! <br />Do 
 define("_AM_PUBLISHER_CLONE_INVALIDNAME", "ERROR: Invalid module name, please try another one!");
 define("_AM_PUBLISHER_CLONE_EXISTS", "ERROR: Module name already taken, please try another one!");
 define("_AM_PUBLISHER_CLONE_CONGRAT", "Congratulations! %s was sucessfuly created!<br />You may want to make changes in language files.");
-define("_AM_PUBLISHER_CLONE_IMAGEFAIL", "Atention, we failed creating the new module logo. Please consider modifying images/module_logo.png manually!");
+define("_AM_PUBLISHER_CLONE_IMAGEFAIL", "Atention, we failed creating the new module logo. Please consider modifying assets/images/module_logo.png manually!");
 define("_AM_PUBLISHER_CLONE_FAIL", "Sorry, we failed in creating the new clone. Maybe you need to temporarly set write permissions(CHMOD 777) to 'modules' folder and try again.");
 define("_AM_PUBLISHER_COMMENTS", "Comments");
 

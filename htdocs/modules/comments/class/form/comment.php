@@ -61,7 +61,7 @@ class CommentsCommentForm extends XoopsThemeForm
         $icons_radio = new XoopsFormRadio(XoopsLocale::MESSAGE_ICON, 'com_icon', $obj->getVar('icon', 'e'));
         $subject_icons = XoopsLists::getSubjectsList();
         foreach ($subject_icons as $iconfile) {
-            $icons_radio->addOption($iconfile, '<img src="' . XOOPS_URL . '/images/subject/' . $iconfile . '" alt="" />');
+            $icons_radio->addOption($iconfile, '<img src="' . XOOPS_URL . '/assets/images/subject/' . $iconfile . '" alt="" />');
         }
         $this->addElement($icons_radio);
         // editor
