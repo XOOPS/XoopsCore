@@ -25,7 +25,7 @@ class YamlTest extends \MY_UnitTestCase
      */
     protected function setUp()
     {
-        //$this->object = new Yaml; // only static methods
+        $this->object = new Yaml;
     }
 
     /**
@@ -37,39 +37,40 @@ class YamlTest extends \MY_UnitTestCase
     }
 
     /**
+     * class is empty extension for compatibility, just make sure methods are available
+     *
      * @covers Xmf\Yaml::dump
+     */
+    public function testDump()
+    {
+        $this->assertTrue(method_exists('Xmf\Yaml', 'dump'));
+        $this->assertTrue(is_callable(array('Xmf\Yaml', 'dump')));
+    }
+
+    /**
      * @covers Xmf\Yaml::load
      */
-    public function testDumpAndLoad()
+    public function testLoad()
     {
-        $inputArray = array('one' => 1, 'two' => array(1,2), 'three' => '');
-
-        $string = Yaml::dump($inputArray);
-        $this->assertTrue(!empty($string));
-        $this->assertTrue(is_scalar($string));
-
-        $outputArray = Yaml::load($string);
-        $this->assertTrue(is_array($outputArray));
-        $this->assertSame($inputArray, $outputArray);
+        $this->assertTrue(method_exists('Xmf\Yaml', 'load'));
+        $this->assertTrue(is_callable(array('Xmf\Yaml', 'load')));
     }
 
     /**
      * @covers Xmf\Yaml::save
+     */
+    public function testSave()
+    {
+        $this->assertTrue(method_exists('Xmf\Yaml', 'save'));
+        $this->assertTrue(is_callable(array('Xmf\Yaml', 'save')));
+    }
+
+    /**
      * @covers Xmf\Yaml::read
      */
-    public function testSaveAndRead()
+    public function testRead()
     {
-        $tmpfname = tempnam(sys_get_temp_dir(), 'TEST');
-        $inputArray = array('one' => 1, 'two' => array(1,2), 'three' => '');
-
-        $byteCount = Yaml::save($inputArray, $tmpfname);
-        $this->assertFalse($byteCount === false);
-        $this->assertGreaterThan(0, $byteCount);
-
-        $outputArray = Yaml::read($tmpfname);
-        $this->assertTrue(is_array($outputArray));
-        $this->assertSame($inputArray, $outputArray);
-
-        unlink($tmpfname);
+        $this->assertTrue(method_exists('Xmf\Yaml', 'read'));
+        $this->assertTrue(is_callable(array('Xmf\Yaml', 'read')));
     }
 }

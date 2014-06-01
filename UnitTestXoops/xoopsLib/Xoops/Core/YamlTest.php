@@ -22,8 +22,8 @@ class YamlTest extends \MY_UnitTestCase
      * @covers Xoops\Core\Yaml::dump
      * @covers Xoops\Core\Yaml::load
      */
-    public function test_dump_and_load()
-	{
+    public function testDumpAndLoad()
+    {
         $inputArray = array('one' => 1, 'two' => array(1,2), 'three' => '');
 
         $string = Yaml::dump($inputArray);
@@ -39,7 +39,7 @@ class YamlTest extends \MY_UnitTestCase
      * @covers Xoops\Core\Yaml::save
      * @covers Xoops\Core\Yaml::read
      */
-    public function test_save_and_read()
+    public function testSaveAndRead()
 	{
         $tmpfname = tempnam(sys_get_temp_dir(), 'TEST');
         $inputArray = array('one' => 1, 'two' => array(1,2), 'three' => '');
