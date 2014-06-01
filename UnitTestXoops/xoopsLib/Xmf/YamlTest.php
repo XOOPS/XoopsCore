@@ -50,7 +50,7 @@ class YamlTest extends \MY_UnitTestCase
 
         $outputArray = Yaml::load($string);
         $this->assertTrue(is_array($outputArray));
-        $this->assertTrue($inputArray == $outputArray);
+        $this->assertSame($inputArray, $outputArray);
     }
 
     /**
@@ -68,7 +68,7 @@ class YamlTest extends \MY_UnitTestCase
 
         $outputArray = Yaml::read($tmpfname);
         $this->assertTrue(is_array($outputArray));
-        $this->assertTrue($inputArray == $outputArray);
+        $this->assertSame($inputArray, $outputArray);
 
         unlink($tmpfname);
     }

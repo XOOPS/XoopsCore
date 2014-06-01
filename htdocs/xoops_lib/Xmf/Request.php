@@ -11,7 +11,7 @@
 
 namespace Xmf;
 
-use Xoops\Core\FilterInput;
+use Xoops\Core\FilterInput as FilterInputClass;
 
 /**
  * Request Class
@@ -440,13 +440,13 @@ class Request
             if ($mask & 4) {
                 // If the allow html flag is set, apply a safe html filter to the variable
                 if (is_null($safeHtmlFilter)) {
-                    $safeHtmlFilter = FilterInput::getInstance(null, null, 1, 1);
+                    $safeHtmlFilter = FilterInputClass::getInstance(null, null, 1, 1);
                 }
                 $var = $safeHtmlFilter->clean($var, $type);
             } else {
                 // Since no allow flags were set, we will apply the most strict filter to the variable
                 if (is_null($noHtmlFilter)) {
-                    $noHtmlFilter = FilterInput::getInstance();
+                    $noHtmlFilter = FilterInputClass::getInstance();
                 }
                 $var = $noHtmlFilter->clean($var, $type);
             }
