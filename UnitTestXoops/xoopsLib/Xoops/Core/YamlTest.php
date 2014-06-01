@@ -28,9 +28,9 @@ class YamlTest extends \MY_UnitTestCase
 
         $string = Yaml::dump($inputArray);
         $this->assertTrue(!empty($string));
-        $this->assertTrue(is_scalar($string));
+        $this->assertTrue(is_string($string));
 
-        $outputArray = Yaml::load($string);
+        $outputArray = Yaml::load((string) $string);
         $this->assertTrue(is_array($outputArray));
         $this->assertSame($inputArray, $outputArray);
     }
