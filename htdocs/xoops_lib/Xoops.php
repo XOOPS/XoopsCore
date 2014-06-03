@@ -410,7 +410,13 @@ class Xoops
         if (XoopsLoad::fileExists($path)) {
             return $path;
         } else {
-            trigger_error(XoopsLocale::E_FILE_NOT_FOUND, $error_type);
+            $this->logger()->log(
+                \Psr\Log\LogLevel::WARNING,
+                \XoopsLocale::E_FILE_NOT_FOUND,
+                array($path, $error_type)
+            );
+
+            //trigger_error(XoopsLocale::E_FILE_NOT_FOUND, $error_type);
             return false;
         }
     }
@@ -851,7 +857,10 @@ class Xoops
             }
         }
         if (!isset($this->_kernelHandlers[$name])) {
-            trigger_error('Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
+            $this->logger()->log(
+                $optional ? \Psr\Log\LogLevel::WARNING : \Psr\Log\Loglevel::ERROR,
+                'Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name
+            );
         } else {
             return $this->_kernelHandlers[$name];
         }
@@ -1332,27 +1341,8 @@ class Xoops
      */
     public function checkEmail($email, $antispam = false)
     {
-        if (!$email || !preg_match('/^[^@]{1,64}@[^@]{1,255}$/', $email)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
-        }
-        $email_array = explode("@", $email);
-        $local_array = explode(".", $email_array[0]);
-        for ($i = 0; $i < sizeof($local_array); $i++) {
-            if (!preg_match("/^(([A-Za-z0-9!#$%&'*+\/\=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])
-            ) {
-                return false;
-            }
-        }
-        if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) {
-            $domain_array = explode(".", $email_array[1]);
-            if (sizeof($domain_array) < 2) {
-                return false; // Not enough parts to domain
-            }
-            for ($i = 0; $i < sizeof($domain_array); $i++) {
-                if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
-                    return false;
-                }
-            }
         }
         if ($antispam) {
             $email = str_replace("@", " at ", $email);
