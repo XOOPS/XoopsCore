@@ -21,6 +21,14 @@ class Xoops_Auth_XoopsTest extends MY_UnitTestCase
 
 	public function test_authenticate()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+
+		$instance = new $this->myclass($conn);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$uname = 'admin';
+		$pwd = 'pwd';
+		$value = $instance->authenticate($uname, $pwd);
+		$this->assertInstanceOf('XoopsUser', $value);
 	}
 }

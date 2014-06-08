@@ -26,7 +26,21 @@ class SyncTest extends MY_UnitTestCase
 	
 	public function test_cleanOrphan()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+		$handler->table_link=$db->prefix('groups_users_link');
+		$handler->field_link='groupid';
+		$handler->field_object=$handler->field_link;
+		
+		$values=$instance->cleanOrphan();
+		$this->assertTrue(is_int($values) AND $values == 0);
+		
     }
 
 }

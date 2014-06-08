@@ -69,7 +69,7 @@ class Sync extends XoopsModelAbstract
                 "The link information is not set for '" . get_class($this->handler) . "' yet.",
                 E_USER_WARNING
             );
-            return null;
+            return false;
         }
 
         // there were two versions of this sql, first for mysql 4.1+ and

@@ -25,21 +25,65 @@ class ReadTest extends MY_UnitTestCase
 	
 	public function test_getAll()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+		$values=$instance->getAll();
+		$this->assertTrue(is_array($values) AND count($values) >= 0);
+		if (!empty($values[1])) {
+			$this->assertInstanceOf('XoopsGroup', $values[1]);
+		}
     }
 	
 	public function test_getObjects()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+		$values=$instance->getObjects();
+		$this->assertTrue(is_array($values) AND count($values) >= 0);
+		if (!empty($values[1])) {
+			$this->assertInstanceOf('XoopsGroup', $values[1]);
+		}
     }
 	
 	public function test_getList()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+		$values=$instance->getList();
+		$this->assertTrue(is_array($values) AND count($values) >= 0);
+		if (!empty($values[1])) {
+			$this->assertTrue(is_string($values[1]));
+		}
     }
 	
 	public function test_getIds()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+		$values=$instance->getIds();
+		$this->assertTrue(is_array($values) AND count($values) >= 0);
+		if (!empty($values[1])) {
+			$this->assertTrue(is_string($values[1]) AND intval($values[1]) >= 0);
+		}
     }
 }
