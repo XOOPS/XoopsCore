@@ -44,13 +44,13 @@ class Joint extends XoopsModelAbstract
     /**
      * Validate information for the linkship
      *
-     * @return bool|null
+     * @return bool
      */
     private function validateLinks()
     {
         if (empty($this->handler->table_link) || empty($this->handler->field_link)) {
             trigger_error("The linked table is not set yet.", E_USER_WARNING);
-            return null;
+            return false;
         }
         if (empty($this->handler->field_object)) {
             $this->handler->field_object = $this->handler->field_link;
@@ -67,7 +67,7 @@ class Joint extends XoopsModelAbstract
      * @param string               $field_link   field of linked object for JOIN; deprecated, for backward compat
      * @param string               $field_object field of current object for JOIN; deprecated, for backward compat
      *
-     * @return array of objects {@link XoopsObject}
+     * @return false|array of objects {@link XoopsObject}
      */
     public function getByLink(
         CriteriaElement $criteria = null,
@@ -83,7 +83,7 @@ class Joint extends XoopsModelAbstract
             $this->handler->field_object = $field_object;
         }
         if (!$this->validateLinks()) {
-            return null;
+            return false;
         }
 
         $qb = $this->handler->db2->createXoopsQueryBuilder();
@@ -139,17 +139,17 @@ class Joint extends XoopsModelAbstract
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
      *
-     * @return int count of objects
+     * @return false|int count of objects
      */
     public function getCountByLink(CriteriaElement $criteria = null)
     {
         if (!$this->validateLinks()) {
-            return null;
+            return false;
         }
 
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
-        $qb ->select("COUNT(DISTINCT {$this->handler->keyName})")
+        $qb ->select("COUNT(DISTINCT o.{$this->handler->keyName})")
             ->from($this->handler->table, 'o')
             ->leftJoin(
                 'o',
@@ -172,14 +172,14 @@ class Joint extends XoopsModelAbstract
      *
      * @param CriteriaElement $criteria {@link CriteriaElement} to match
      *
-     * @return int count of objects
+     * @return false|int count of objects
      */
     public function getCountsByLink(CriteriaElement $criteria = null)
     {
         if (!$this->validateLinks()) {
-            return null;
+            return false;
         }
-
+		
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
         $qb ->select("l.{$this->handler->keyName_link}")
@@ -213,15 +213,20 @@ class Joint extends XoopsModelAbstract
      * @param array                $data     array of key => value
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
      *
-     * @return int count of objects
+     * @return false|int count of objects
      *
      * @todo UPDATE ... LEFT JOIN is not portable
+	 * Note Alain91 : multi tables update is not allowed in Doctrine
      */
-    public function updateByLink($data, CriteriaElement $criteria = null)
+    public function updateByLink(array $data, CriteriaElement $criteria = null)
     {
         if (!$this->validateLinks()) {
-            return null;
+            return false;
         }
+		if (empty($data) OR empty($criteria)) { // avoid update all records
+			return false;
+		}
+		
         $set = array();
         foreach ($data as $key => $val) {
             $set[] = "o.{$key}=" . $this->handler->db2->quote($val);
@@ -232,6 +237,7 @@ class Joint extends XoopsModelAbstract
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $sql .= " " . $criteria->renderWhere();
         }
+
         return $this->handler->db2->executeUpdate($sql);
     }
 
@@ -240,21 +246,27 @@ class Joint extends XoopsModelAbstract
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
      *
-     * @return int count of objects
+     * @return false|int count of objects
      *
      * @todo DELETE ... LEFT JOIN is not portable
+	 * Note Alain91 : multi tables delete is not allowed in Doctrine
      */
     public function deleteByLink(CriteriaElement $criteria = null)
     {
         if (!$this->validateLinks()) {
-            return null;
+            return false;
         }
+		if (empty($criteria)) { //avoid delete all records
+			return false;
+		}
+		
         $sql = "DELETE FROM {$this->handler->table} AS o "
             . "LEFT JOIN {$this->handler->table_link} AS l "
             . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $sql .= " " . $criteria->renderWhere();
         }
+
         return $this->handler->db2->executeUpdate($sql);
     }
 }
