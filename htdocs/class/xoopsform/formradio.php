@@ -156,7 +156,7 @@ class XoopsFormRadio extends XoopsFormElement
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $required = ($this->isRequired() ? ' required' : '');
         $ret = "";
-        $id_ele = 0;
+        static $id_ele = 0;
         foreach ($ele_options as $value => $name) {
             if (isset($ele_value) && $value == $ele_value) {
                 $ele_checked = " checked='checked'";

@@ -34,16 +34,15 @@ abstract class AbstractTemplate
     /**
      * @var string
      */
-    private $_template;
+    private $template;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        \Xmf\Loader::loadFile(XOOPS_ROOT_PATH . '/class/template.php');
         $this->tpl = new \XoopsTpl();
-        $this->_template = "db:system_dummy.html";
+        $this->template = "module:system|system_dummy.html";
         $this->init();
     }
 
@@ -65,12 +64,12 @@ abstract class AbstractTemplate
      * Used in init methods to set the template used by $_tpl
      *
      * @param string $template Path to the template file
-     * 
+     *
      * @return void
      */
     protected function setTemplate($template = '')
     {
-        $this->_template = $template;
+        $this->template = $template;
     }
 
     /**
@@ -80,10 +79,7 @@ abstract class AbstractTemplate
      */
     protected function disableLogger()
     {
-        error_reporting(0);
-        if (is_object($GLOBALS['xoopsLogger'])) {
-            $GLOBALS['xoopsLogger']->activated = false;
-        }
+        \Xoops::getInstance()->logger()->quiet();
     }
 
     /**
@@ -95,7 +91,7 @@ abstract class AbstractTemplate
     {
         $this->render();
 
-        return $this->tpl->fetch($this->_template);
+        return $this->tpl->fetch($this->template);
     }
 
     /**
@@ -107,5 +103,4 @@ abstract class AbstractTemplate
     {
         echo $this->fetch();
     }
-
 }

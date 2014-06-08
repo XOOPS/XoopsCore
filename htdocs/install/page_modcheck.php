@@ -47,7 +47,8 @@ ob_start();
 <tbody>
 <tr>
     <th><?php echo SERVER_API; ?></th>
-    <td><?php echo php_sapi_name(); ?><br /> <?php echo $_SERVER["SERVER_SOFTWARE"]; ?></td>
+    <td><?php echo php_sapi_name(); ?><br />
+        <?php echo $_SERVER["SERVER_SOFTWARE"]; ?></td>
 </tr>
 
 <tr>
@@ -61,18 +62,28 @@ ob_start();
 </tr>
 
 <tr>
-    <th><?php printf(PHP_EXTENSION,'PDO'); ?></th>
-    <td><?php echo xoDiag(extension_loaded('PDO') ? 1 : -1, 'PDO::getAvailableDrivers() = ' . @implode(', ',PDO::getAvailableDrivers())); ?></td>
+    <th><?php printf(PHP_EXTENSION, 'PDO'); ?></th>
+    <td><?php echo xoDiag(extension_loaded('PDO') ? 1 : -1, 'PDO::getAvailableDrivers() = ' . @implode(', ', PDO::getAvailableDrivers())); ?></td>
 </tr>
 
 <tr>
     <th><?php printf(PHP_EXTENSION, 'Session'); ?></th>
-    <td><?php echo xoDiag(extension_loaded('session') ? 1 : -1 ); ?></td>
+    <td><?php echo xoDiag(extension_loaded('session') ? 1 : -1); ?></td>
 </tr>
 
 <tr>
-    <th><?php printf( PHP_EXTENSION, 'PCRE'); ?></th>
+    <th><?php printf(PHP_EXTENSION, 'PCRE'); ?></th>
     <td><?php echo xoDiag(extension_loaded('pcre') ? 1 : -1); ?></td>
+</tr>
+
+<tr>
+    <th><?php printf(PHP_EXTENSION, 'OpenSSL'); ?></th>
+    <td><?php echo xoDiag(extension_loaded('openssl') ? 1 : -1); ?></td>
+</tr>
+
+<tr>
+    <th><?php printf(PHP_EXTENSION, 'JSON'); ?></th>
+    <td><?php echo xoDiag(extension_loaded('json') ? 1 : -1); ?></td>
 </tr>
 
 <tr>
