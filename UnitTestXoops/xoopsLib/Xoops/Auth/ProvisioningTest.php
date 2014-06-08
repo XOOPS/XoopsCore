@@ -3,7 +3,6 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 class Xoops_Auth_ProvisioningTest_AuthAbstractInstance extends Xoops\Auth\AuthAbstract
 {
-
     function authenticate($uname, $pwd = null) {}
 }
 
@@ -27,19 +26,54 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 
 	public function test_getInstance()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$instance2 = $class::getInstance($auth);
+		$this->assertSame($instance, $instance2);
 	}
 
 	public function test_getXoopsUser()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$value = $instance->getXoopsUser('not_a_user');
+		$this->assertFalse($value);
+		
+		$value = $instance->getXoopsUser('admin');
+		$this->assertTrue(is_a($value, 'XoopsUser'));
 	}
 
 	public function test_sync()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$value = $instance->sync(array(), 'not_a_user');
+		$this->assertFalse($value);
+		
+		$value = $instance->sync(array(), 'admin');
+		$this->assertTrue(is_a($value, 'XoopsUser'));
 	}
 
+	public function test_setVarsMapping()
+	{
+		$this->markTestIncomplete();
+	}
+	
 	public function test_add()
 	{
 		$this->markTestIncomplete();
@@ -52,21 +86,53 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 
 	public function test_delete()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$instance->delete();
+		$this->assertTrue(true); // always OK
 	}
 
 	public function test_suspend()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$instance->suspend();
+		$this->assertTrue(true); // always OK
 	}
 
 	public function test_restore()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$instance->restore();
+		$this->assertTrue(true); // always OK
 	}
 
 	public function test_resetpwd()
 	{
-		$this->markTestIncomplete();
+		$conn = \Xoops\Core\Database\Factory::getConnection();
+		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
+		
+		$class = $this->myclass;
+		$instance = $class::getInstance($auth);
+		$this->assertInstanceOf($this->myclass, $instance);
+		
+		$instance->resetpwd();
+		$this->assertTrue(true); // always OK
 	}
 }
