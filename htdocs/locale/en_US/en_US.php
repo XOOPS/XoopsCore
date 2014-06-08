@@ -1090,7 +1090,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const VOTE = "Vote";
     const VOTES = "Votes";
     const WARNING = "Warning";
-    const WEBMASTERS = "Webmasters";
+    //const WEBMASTERS = "Webmasters";
     const WEBSITE = "Website";
     const WEB_URL = "Web URL";
     const WEIGHT = "Weight";

@@ -30,7 +30,6 @@ class JointTest extends MY_UnitTestCase
 	{
         $instance=new $this->myClass();
         $this->assertInstanceOf($this->myClass, $instance);
-        $this->assertInstanceOf($this->myAbstractClass, $instance);	
 		$handler = new XoopsConfigItemHandler($this->conn);
 		$result = $instance->setHandler($handler);
 		$this->assertTrue($result);
@@ -48,29 +47,91 @@ class JointTest extends MY_UnitTestCase
         $db = XoopsDatabaseFactory::getDatabaseConnection();
 		$handler->table_link=$db->prefix('groups_users_link');
 		$handler->field_link='groupid';
+		$handler->field_object=$handler->field_link;
+		$handler->keyName_link=$handler->field_link;
 		
-		$result = $instance->getByLink(null, null, true);
-		$this->assertTrue(is_array($result) AND empty($result));
+		$result = $instance->getByLink(null, null, true, null, null);
+		$this->assertTrue(is_array($result) AND count($result)>0);
 	}
 	
 	public function test_getCountByLink()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+		$handler->table_link=$db->prefix('groups_users_link');
+		$handler->field_link='groupid';
+		$handler->field_object=$handler->field_link;
+		$handler->keyName_link=$handler->field_link;
+		
+		$result = $instance->getCountByLink();
+		$this->assertTrue(is_string($result) AND intval($result)>=0);
     }
 	
 	public function test_getCountsByLink()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+		$handler->table_link=$db->prefix('groups_users_link');
+		$handler->field_link='groupid';
+		$handler->field_object=$handler->field_link;
+		$handler->keyName_link=$handler->field_link;
+		
+		$result = $instance->getCountsByLink();
+		$this->assertTrue(is_array($result) AND count($result)>=0);
     }
 	
 	public function test_updateByLink()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+		$handler->table_link=$db->prefix('groups_users_link');
+		$handler->field_link='groupid';
+		$handler->field_object=$handler->field_link;
+		$handler->keyName_link=$handler->field_link;
+		
+		$criteria=new Xoops\Core\Kernel\Criteria('l.uid',0);
+		$arrData=array('name'=>'name');
+		$result = $instance->updateByLink($arrData,$criteria);
+		$this->assertTrue(is_int($result) AND $result >= 0);
     }
 	
 	public function test_deleteByLink()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+		$handler->table_link=$db->prefix('groups_users_link');
+		$handler->field_link='groupid';
+		$handler->field_object=$handler->field_link;
+		$handler->keyName_link=$handler->field_link;
+		
+		$criteria=new Xoops\Core\Kernel\Criteria('l.uid',0);
+		
+		$result = $instance->deleteByLink($criteria);
+		$this->assertTrue(is_int($result) AND $result >= 0);
     }
 
 }

@@ -13,10 +13,6 @@ class WriteTest extends MY_UnitTestCase
 	protected $myClass = 'Xoops\Core\Kernel\Model\Write';
 	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
-    public function SetUp()
-	{
-    }
-
     public function test___construct()
 	{
         $instance=new $this->myClass();

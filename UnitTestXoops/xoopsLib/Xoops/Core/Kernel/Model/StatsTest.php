@@ -25,12 +25,31 @@ class StatsTest extends MY_UnitTestCase
 	
 	public function test_getCount()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+		$values=$instance->getCount();
+		$this->assertTrue(is_string($values) AND intval($values) >= 0);
     }
 	
 	public function test_getCounts()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        $this->assertinstanceOf($this->myClass, $instance);
+		
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+		$this->assertTrue($result);
+		
+		$values=$instance->getCounts();
+		$this->assertTrue(is_array($values) AND count($values) >= 0);
+		if (!empty($values[1])) {
+			$this->assertTrue(is_string($values[1]) AND intval($values[1]) >= 0);
+		}
     }
 
 }
