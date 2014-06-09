@@ -9,12 +9,8 @@ require_once(dirname(__FILE__).'/../init_mini.php');
 class XoopsTest extends MY_UnitTestCase
 {
 
-    public function SetUp()
-    {
-    }
-
-    public function test_100()
-    {
+    public function test_getInstance100()
+	{
         $instance = Xoops::getInstance();
         $this->assertInstanceOf('Xoops', $instance);
 
@@ -49,8 +45,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_bool($instance->isAdminSide));
     }
 
-    public function test_200()
-    {
+    public function test_getInstance200()
+	{
         $instance = Xoops::getInstance();
 
         $db = $instance->db();
@@ -60,8 +56,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame($db, $db1);
     }
 
-    public function test_300()
-    {
+    public function test_preload()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->preload();
@@ -71,8 +67,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame($value, $value1);
     }
 
-    public function test_400()
-    {
+    public function test_registry()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->registry();
@@ -82,8 +78,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame($value, $value1);
     }
 
-    public function test_500()
-    {
+    public function test_security()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->security();
@@ -93,8 +89,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame($value, $value1);
     }
 
-    public function test_600()
-    {
+    public function test_setTpl()
+	{
         $instance = Xoops::getInstance();
 
         $tpl = new XoopsTpl();
@@ -106,8 +102,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame($value, $value1);
     }
 
-    public function test_700()
-    {
+    public function test_setTheme()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->theme();
@@ -143,8 +139,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertInstanceOf('XoopsTheme', $value);
     }
 
-    public function test_800()
-    {
+    public function test_path()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->path('class');
@@ -153,8 +149,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertEquals($path, dirname($value));
     }
 
-    public function test_900()
-    {
+    public function test_url()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->url('http://localhost/tmp/');
@@ -164,8 +160,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(XOOPS_URL.'/tmp', $value);
     }
 
-    public function test_1000()
-    {
+    public function test_buildUrl()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->buildUrl('http://localhost/tmp/');
@@ -191,27 +187,27 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('http://localhost/tmp/test.php?toto=2', $value);
     }
 
-    public function test_1100()
-    {
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function test_pathExists()
+	{
         $instance = Xoops::getInstance();
 
-        $this->expectError();
-        if (defined('IS_PHPUNIT')) {
-            $NoticeEnabledOrig = PHPUnit_Framework_Error_Notice::$enabled;
-            PHPUnit_Framework_Error_Notice::$enabled = false;
-        }
-        $value = $instance->pathExists('', E_USER_NOTICE);
-        $this->assertSame(false, $value);
-        if (defined('IS_PHPUNIT')) {
-            PHPUnit_Framework_Error_Notice::$enabled = $NoticeEnabledOrig;
-        }
+		$value = $instance->pathExists('', E_USER_NOTICE);
+		$this->assertSame(false, $value);
+	}
+	
+    public function test_pathExists100()
+	{
+        $instance = Xoops::getInstance();
 
-        $value = $instance->pathExists(XOOPS_ROOT_PATH, E_USER_NOTICE);
-        $this->assertSame(XOOPS_ROOT_PATH, $value);
-    }
+		$value = $instance->pathExists(XOOPS_ROOT_PATH, E_USER_NOTICE);
+		$this->assertSame(XOOPS_ROOT_PATH, $value);
+	}
 
-    public function test_1200()
-    {
+    public function test_gzipcompression()
+	{
         $instance = Xoops::getInstance();
 
         $save = $_SERVER['SERVER_NAME'];
@@ -222,8 +218,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(0, $value);
     }
 
-    public function test_1300()
-    {
+    public function test_pathTranslation()
+	{
         $instance = Xoops::getInstance();
 
         $save = $_SERVER;
@@ -260,35 +256,35 @@ class XoopsTest extends MY_UnitTestCase
         $_SERVER = $save;
     }
 
-    public function test_1400()
-    {
+    public function test_themeSelect()
+	{
         $instance = Xoops::getInstance();
 
-        $save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
-        $save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
-        $_SESSION['xoopsUserTheme'] = null;
-        $_POST['xoops_theme_select'] = 'default';
-        $instance->themeSelect();
-        $value = $instance->getConfig('theme_set');
-        $this->assertSame($_POST['xoops_theme_select'], $value);
-        $this->assertSame($_SESSION['xoopsUserTheme'], $value);
-        $_SESSION['xoopsUserTheme'] = $save1;
-        $_POST['xoops_theme_select'] = $save2;
+		$save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
+		$save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
+		$_SESSION['xoopsUserTheme'] = null;
+		$_POST['xoops_theme_select'] = 'default';
+		$instance->themeSelect();
+		$value = $instance->getConfig('theme_set');
+		$this->assertSame($_POST['xoops_theme_select'], $value);
+		$this->assertSame($_SESSION['xoopsUserTheme'], $value);
+		$_SESSION['xoopsUserTheme'] = $save1;
+		$_POST['xoops_theme_select'] = $save2;
 
-        $save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
-        $save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
-        $_SESSION['xoopsUserTheme'] = 'default';
-        $_POST['xoops_theme_select'] = null;
-        $instance->themeSelect();
-        $value = $instance->getConfig('theme_set');
-        $this->assertSame($_SESSION['xoopsUserTheme'], $value);
-        $_SESSION['xoopsUserTheme'] = $save1;
-        $_POST['xoops_theme_select'] = $save2;
+		$save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
+		$save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
+		$_SESSION['xoopsUserTheme'] = 'default';
+		$_POST['xoops_theme_select'] = null;
+		$instance->themeSelect();
+		$value = $instance->getConfig('theme_set');
+		$this->assertSame($_SESSION['xoopsUserTheme'], $value);
+		$_SESSION['xoopsUserTheme'] = $save1;
+		$_POST['xoops_theme_select'] = $save2;
 
-    }
+	}
 
-    public function test_1500()
-    {
+    public function test_getTplInfo()
+	{
         $instance = Xoops::getInstance();
 
         $path = 'path';
@@ -306,8 +302,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('module:system|path', $value['tpl_name']);
     }
 
-    public function test_1600()
-    {
+    public function test_header()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->header();
@@ -317,16 +313,16 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(false, $value);
     }
 
-    public function test_1700()
-    {
+    public function test_footer()
+	{
         $instance = Xoops::getInstance();
 
-        //$value = $instance->footer();
-        $this->markTestSkipped('');
-    }
+		//$value = $instance->footer();
+		$this->markTestIncomplete();
+	}
 
-    public function test_1800()
-    {
+    public function test_isModule()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->isModule();
@@ -338,65 +334,65 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(true, $value);
     }
 
-    public function test_1900()
-    {
+    public function test_isUser()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->isUser();
         $this->assertSame(false, $value);
     }
 
-    public function test_2000()
-    {
+    public function test_isAdmin()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->isAdmin();
         $this->assertSame(false, $value);
     }
 
-    public function test_2100()
-    {
+    public function test_request()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->request();
         $this->assertInstanceOf('Xoops_Request_Http', $value);
     }
 
-    public function test_2200()
-    {
+    public function test_getHandlerBlock()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerBlock();
         $this->assertInstanceOf('XoopsBlockHandler', $value);
     }
 
-    public function test_2300()
-    {
+    public function test_getHandlerBlockmodulelink()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerBlockmodulelink();
         $this->assertInstanceOf('XoopsBlockmodulelinkHandler', $value);
     }
 
-    public function test_2400()
-    {
+    public function test_getHandlerCachemodel()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerCachemodel();
         $this->assertInstanceOf('XoopsCachemodelHandler', $value);
     }
 
-    public function test_2500()
-    {
+    public function test_getHandlerConfig()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfig();
         $this->assertInstanceOf('XoopsConfigHandler', $value);
     }
 
-    /* getHandlerConfigcategory no longer exists
-    public function test_2600()
-    {
+	/* getHandlerConfigcategory no longer exists
+    public function test_getHandlerConfigcategory()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigcategory();
@@ -404,131 +400,133 @@ class XoopsTest extends MY_UnitTestCase
     }
     */
 
-    public function test_2700()
-    {
+    public function test_getHandlerConfigitem()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigitem();
         $this->assertInstanceOf('XoopsConfigItemHandler', $value);
     }
 
-    public function test_2800()
-    {
+    public function test_getHandlerConfigoption()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigoption();
         $this->assertInstanceOf('XoopsConfigOptionHandler', $value);
     }
 
-    public function test_2900()
-    {
+    public function test_getHandlerGroup()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerGroup();
         $this->assertInstanceOf('XoopsGroupHandler', $value);
     }
 
-    public function test_3000()
-    {
+    public function test_getHandlerGroupperm()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerGroupperm();
         $this->assertInstanceOf('XoopsGrouppermHandler', $value);
     }
 
-    public function test_3100()
-    {
+    public function test_getHandlerMember()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerMember();
         $this->assertInstanceOf('XoopsMemberHandler', $value);
     }
 
-    public function test_3200()
-    {
+    public function test_getHandlerMembership()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerMembership();
         $this->assertInstanceOf('XoopsMembershipHandler', $value);
     }
 
-    public function test_3300()
-    {
+    public function test_getHandlerModule()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerModule();
         $this->assertInstanceOf('XoopsModuleHandler', $value);
     }
 
-    public function test_3400()
-    {
+    public function test_getHandlerOnline()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerOnline();
         $this->assertInstanceOf('XoopsOnlineHandler', $value);
     }
 
-    public function test_3500()
-    {
+    public function test_getHandlerPrivmessage()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerPrivmessage();
         $this->assertInstanceOf('XoopsPrivmessageHandler', $value);
     }
 
-    public function test_3600()
-    {
+    public function test_getHandlerRanks()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerRanks();
         $this->assertInstanceOf('XoopsRanksHandler', $value);
     }
 
-    public function test_3700()
-    {
+    public function test_getHandlerSession()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerSession();
         $this->assertInstanceOf('XoopsSessionHandler', $value);
     }
 
-    public function test_3800()
-    {
+    public function test_getHandlerTplfile()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerTplfile();
         $this->assertInstanceOf('XoopsTplfileHandler', $value);
     }
 
-    public function test_3900()
-    {
+    public function test_getHandlerTplset()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerTplset();
         $this->assertInstanceOf('XoopsTplsetHandler', $value);
     }
 
-    public function test_4000()
-    {
+    public function test_getHandlerUser()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerUser();
         $this->assertInstanceOf('XoopsUserHandler', $value);
     }
 
-    public function test_4100()
-    {
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function test_getHandler()
+	{
         $instance = Xoops::getInstance();
 
-        $value = $instance->getHandler('user');
-        $this->assertInstanceOf('XoopsUserHandler', $value);
-        PHPUnit_Framework_Error_Warning::$enabled = false;
-        $value = $instance->getHandler('dummy', true);
-        $this->assertSame(false, $value);
-    }
+		$value = $instance->getHandler('user');
+		$this->assertInstanceOf('XoopsUserHandler', $value);
+		$value = $instance->getHandler('dummy', true);
+		$this->assertSame(false, $value);
+	}
 
-    public function test_4200()
-    {
+    public function test_getModuleHandler()
+	{
         $instance = Xoops::getInstance();
 
         $instance->module = new XoopsModule();
@@ -536,24 +534,24 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_object($value));
     }
 
-    public function test_4300()
-    {
+    public function test_getModuleForm()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleForm(null, null);
         $this->assertSame(false, $value);
     }
 
-    public function test_4400()
-    {
+    public function test_getModuleHelper()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleHelper('page');
         $this->assertInstanceOf('Page', $value);
     }
 
-    public function test_4500()
-    {
+    public function test_loadLanguage()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->loadLanguage(null);
@@ -563,40 +561,40 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(!empty($value));
     }
 
-    public function test_4600()
-    {
+    public function test_loadLocale()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->loadLocale();
         $this->assertSame(true, $value);
     }
 
-    public function test_4700()
-    {
+    public function test_translate()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->translate(XoopsLocale::ABOUT);
         $this->assertSame('About', $value);
     }
 
-    public function test_4800()
-    {
+    public function test_getActiveModules()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getActiveModules();
         $this->assertTrue(is_array($value) AND count($value)>0);
     }
 
-    public function test_4900()
-    {
+    public function test_setActiveModules()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->setActiveModules();
         $this->assertTrue(is_array($value) AND count($value)>0);
     }
 
-    public function test_5000()
-    {
+    public function test_isActiveModule()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->isActiveModule('page');
@@ -606,8 +604,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(false, $value);
     }
 
-    public function test_5100()
-    {
+    public function test_getModuleByDirname()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleByDirname('page');
@@ -618,8 +616,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(false, $value);
     }
 
-    public function test_5200()
-    {
+    public function test_getModuleById()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleById(1);
@@ -629,8 +627,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(false, $value);
     }
 
-    public function test_5300()
-    {
+    public function test_simpleHeader()
+	{
         $instance = Xoops::getInstance();
 
         ob_start();
@@ -640,17 +638,17 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_5400()
-    {
+    public function test_simpleFooter()
+	{
         $instance = Xoops::getInstance();
 
-        //$instance->simpleFooter();
-        //$this->assertTrue(is_string($value));
-        $this->markTestSkipped('');
-    }
+		//$instance->simpleFooter();
+		//$this->assertTrue(is_string($value));
+		$this->markTestIncomplete();
+	}
 
-    public function test_5500()
-    {
+    public function test_alert()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->alert('info', '');
@@ -685,8 +683,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_5600()
-    {
+    public function test_error()
+	{
         $instance = Xoops::getInstance();
 
         ob_start();
@@ -696,8 +694,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_5700()
-    {
+    public function test_result()
+	{
         $instance = Xoops::getInstance();
 
         ob_start();
@@ -707,32 +705,32 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_5800()
-    {
+    public function test_confirm()
+	{
         $instance = Xoops::getInstance();
 
-        defined('NWLINE') OR define('NWLINE', "\n");
-        ob_start();
-        $instance->confirm(array(), array(), 'msg');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value) AND strlen($value)>0);
+		defined('NWLINE') OR define('NWLINE', "\n");
+		ob_start();
+		$instance->confirm(array(),array(),'msg');
+		$value = ob_get_contents();
+		ob_end_clean();
+		$this->assertTrue(is_string($value) AND strlen($value)>0);
 
-        ob_start();
-        $instance->confirm(array('toto'=>1,'tutu'=>2), array(),'msg');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value) AND strlen($value)>0);
+		ob_start();
+		$instance->confirm(array('toto'=>1,'tutu'=>2),array(),'msg');
+		$value = ob_get_contents();
+		ob_end_clean();
+		$this->assertTrue(is_string($value) AND strlen($value)>0);
 
-        ob_start();
-        $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),array(),'msg');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value) AND strlen($value)>0);
-    }
+		ob_start();
+		$instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),array(),'msg');
+		$value = ob_get_contents();
+		ob_end_clean();
+		$this->assertTrue(is_string($value) AND strlen($value)>0);
+	}
 
-    public function test_5900()
-    {
+    public function test_getUserTimestamp()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getUserTimestamp(time());
@@ -744,16 +742,16 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_int($value));
     }
 
-    public function test_6000()
-    {
+    public function test_userTimeToServerTime()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->userTimeToServerTime(time());
         $this->assertTrue(is_int($value));
     }
 
-    public function test_6100()
-    {
+    public function test_makePass()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->makePass();
@@ -766,8 +764,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_6200()
-    {
+    public function test_checkEmail()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->checkEmail(null);
@@ -809,8 +807,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame($email, $instance->checkEmail($email));
     }
 
-    public function test_6300()
-    {
+    public function test_formatURL()
+	{
         $instance = Xoops::getInstance();
 
         $url = 'http://localhost/xoops';
@@ -838,24 +836,24 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('http://'.$url, $value);
     }
 
-    public function test_6400()
-    {
+    public function test_getBanner()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getBanner();
         $this->assertTrue(is_string($value));
     }
 
-    public function test_6500()
-    {
+    public function test_redirect()
+	{
         $instance = Xoops::getInstance();
 
-        //$value = $instance->redirect();
-        $this->markTestSkipped('');
-    }
+		//$value = $instance->redirect();
+		$this->markTestIncomplete('');
+	}
 
-    public function test_6600()
-    {
+    public function test_getEnv()
+	{
         $instance = Xoops::getInstance();
 
         $_SERVER['DUMMY'] = 'dummy';
@@ -873,8 +871,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('', $value);
     }
 
-    public function test_6700()
-    {
+    public function test_getCss()
+	{
         $instance = Xoops::getInstance();
 
         $save = $_SERVER['HTTP_USER_AGENT'];
@@ -917,16 +915,16 @@ class XoopsTest extends MY_UnitTestCase
         $_SERVER['HTTP_USER_AGENT'] = $save;
     }
 
-    public function test_6800()
-    {
+    public function test_getMailer()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getMailer();
         $this->assertTrue($value instanceOf XoopsMailerLocale OR $value instanceOf XoopsMailer);
     }
 
-    public function test_6900()
-    {
+    public function test_getRank()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getRank();
@@ -936,16 +934,16 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
     }
 
-    public function test_7000()
-    {
+    public function test_getOption()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getOption('dummy');
         $this->assertSame('', $value);
     }
 
-    public function test_7100()
-    {
+    public function test_setOption()
+	{
         $instance = Xoops::getInstance();
 
         $instance->setOption('dummy', null);
@@ -957,8 +955,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('dummy', $value);
     }
 
-    public function test_7200()
-    {
+    public function test_getConfig()
+	{
         $instance = Xoops::getInstance();
 
         $invalidKey = md5(uniqid());
@@ -966,16 +964,16 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('', $value);
     }
 
-    public function test_7300()
-    {
+    public function test_getConfigs()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getConfigs();
         $this->assertTrue(is_array($value));
     }
 
-    public function test_7400()
-    {
+    public function test_addConfigs()
+	{
         $instance = Xoops::getInstance();
 
         $instance->addConfigs(array('dummy' => 1));
@@ -989,8 +987,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['dummy']) AND $value['dummy'] = 1);
     }
 
-    public function test_7500()
-    {
+    public function test_setConfig()
+	{
         $instance = Xoops::getInstance();
 
         $instance->setConfig('dummy', 1);
@@ -1002,8 +1000,8 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(1, $value);
     }
 
-    public function test_7600()
-    {
+    public function test_appendConfig()
+	{
         $instance = Xoops::getInstance();
 
         $instance->appendConfig('dummy', array('test'=>1), true);
@@ -1018,39 +1016,39 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame(1, $value['test']);
     }
 
-    public function test_7700()
-    {
+    public function test_getModuleConfig()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleConfig(uniqid());
         $this->assertTrue(empty($value));
     }
 
-    public function test_7800()
-    {
+    public function test_getModuleConfigs()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleConfigs();
         $this->assertTrue(is_array($value));
     }
 
-    public function test_7900()
-    {
+    public function test_disableModuleCache()
+	{
         $instance = Xoops::getInstance();
 
         $instance->disableModuleCache();
     }
 
-    public function test_8000()
-    {
+    public function test_getBaseDomain()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->getBaseDomain('http::/localhost/tmp');
         $this->assertSame('', $value);
     }
 
-    public function test_8100()
-    {
+    public function test_getUrlDomain()
+	{
         $instance = Xoops::getInstance();
 
         $url = 'http://username:password@hostname/path?arg=value#anchor';
@@ -1062,30 +1060,30 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('', $value);
     }
 
-    public function test_8200()
-    {
+    public function test_templateTouch()
+	{
         $instance = Xoops::getInstance();
 
         $value = $instance->templateTouch(1);
         $this->assertSame(true, $value);
     }
 
-    public function test_8300()
-    {
+    public function test_templateClearModuleCache()
+	{
         $instance = Xoops::getInstance();
 
         $instance->templateClearModuleCache(1);
     }
 
-    public function test_8400()
-    {
+    public function test_deprecated()
+	{
         $instance = Xoops::getInstance();
 
         $instance->deprecated('message');
     }
 
-    public function test_8500()
-    {
+    public function test_disableErrorReporting()
+	{
         $instance = Xoops::getInstance();
 
         $instance->disableErrorReporting();

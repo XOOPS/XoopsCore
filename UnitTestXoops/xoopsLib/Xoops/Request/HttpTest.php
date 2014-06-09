@@ -1,6 +1,20 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
+class Xoops_Request_HttpTestSubClass extends Xoops_Request_HttpTest
+{
+	function getCookies()
+	{
+		return $this->_cookies;
+	}
+	
+	function getDetectors()
+	{
+		return $this->_detectors;
+	}
+	
+}
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -108,28 +122,4 @@ class Xoops_Request_HttpTest extends MY_UnitTestCase
 		$this->markTestIncomplete();
     }
 	
-    public function test_asArray()
-	{
-		$this->markTestIncomplete();
-    }
-	
-    public function test_asStr()
-	{
-		$this->markTestIncomplete();
-    }
-	
-    public function test_asInt()
-	{
-		$this->markTestIncomplete();
-    }
-	
-    public function test_asBool()
-	{
-		$this->markTestIncomplete();
-    }
-	
-    public function test_asFloat()
-	{
-		$this->markTestIncomplete();
-    }
 }
