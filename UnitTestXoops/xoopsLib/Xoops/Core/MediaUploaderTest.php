@@ -66,9 +66,9 @@ class MediaUploaderTest extends MY_UnitTestCase
 
     public function test_fetchMedia()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // fetchMedia
         $this->markTestSkipped('');
     }
@@ -161,90 +161,90 @@ class MediaUploaderTest extends MY_UnitTestCase
 
     public function test_upload()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // upload
         $this->markTestSkipped('');
     }
 
     public function test__copyFile()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // _copyFile
         $this->markTestSkipped('');
     }
 
     public function test_checkMaxFileSize()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // checkMaxFileSize
         $this->markTestSkipped('');
     }
 
     public function test_checkMaxWidth()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // checkMaxWidth
         $this->markTestSkipped('');
     }
 
     public function test_checkMaxHeight()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // checkMaxHeight
         $this->markTestSkipped('');
     }
 
     public function test_checkMimeType()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // checkMimeType
         $this->markTestSkipped('');
     }
 
     public function test_checkImageType()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // checkImageType
         $this->markTestSkipped('');
     }
 
     public function test_sanitizeMultipleExtensions()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // sanitizeMultipleExtensions
         $this->markTestSkipped('');
     }
 
     public function test_setErrors()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // setErrors
         $this->markTestSkipped('');
     }
 
     public function test_getErrors()
     {
-        $upload_dir = 'upload_dir';
-        $allowed_mime_types = array('toto');
-        $theme = new  $this->myclass($upload_dir, $allowed_mime_types);
+        //$upload_dir = 'upload_dir';
+        //$allowed_mime_types = array('toto');
+        //$theme = new  $this->myclass($upload_dir, $allowed_mime_types);
         // getErrors
         $this->markTestSkipped('');
     }

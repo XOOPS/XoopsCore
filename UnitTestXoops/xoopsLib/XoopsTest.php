@@ -23,15 +23,15 @@ class XoopsTest extends MY_UnitTestCase
             $this->assertSame(true, $value);
         }
 
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . 'browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
         $this->assertSame(array(XOOPS_ROOT_PATH, XOOPS_URL), $instance->paths['www']);
         $this->assertSame(array(XOOPS_VAR_PATH, null), $instance->paths['var']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . 'browse.php'), $instance->paths['lib']);
+        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['lib']);
         $this->assertSame(array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules'), $instance->paths['modules']);
         $this->assertSame(array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes'), $instance->paths['themes']);
         $this->assertSame(array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media'), $instance->paths['media']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . 'browse.php'), $instance->paths['XOOPS']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . 'browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
 
         $this->assertTrue(is_null($instance->sess_handler));
         $this->assertTrue(is_null($instance->module));
@@ -188,7 +188,7 @@ class XoopsTest extends MY_UnitTestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @ expectedException PHPUnit_Framework_Error
      */
     public function test_pathExists()
 	{
@@ -197,7 +197,7 @@ class XoopsTest extends MY_UnitTestCase
 		$value = $instance->pathExists('', E_USER_NOTICE);
 		$this->assertSame(false, $value);
 	}
-	
+
     public function test_pathExists100()
 	{
         $instance = Xoops::getInstance();
@@ -513,7 +513,7 @@ class XoopsTest extends MY_UnitTestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @ expectedException PHPUnit_Framework_Error
      */
     public function test_getHandler()
 	{
@@ -645,7 +645,7 @@ class XoopsTest extends MY_UnitTestCase
         $output = null;
 
         $callback =
-            function ($buffer, $phase) use (&$output) {
+            function ($buffer) use (&$output) {
                 $output = $buffer;
                 return '';
             };

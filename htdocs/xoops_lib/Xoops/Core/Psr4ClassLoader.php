@@ -227,9 +227,6 @@ class Psr4ClassLoader
             // replace namespace separators with directory separators
             // in the relative class name, append with .php
             $file = $base_dir
-                  . str_replace('\\', DIRECTORY_SEPARATOR, $relative_class)
-                  . '.php';
-            $file = $base_dir
                   . str_replace('\\', '/', $relative_class)
                   . '.php';
 
