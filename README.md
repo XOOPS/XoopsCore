@@ -28,7 +28,8 @@ This should download some required libraries that XOOPS depends on.
 
 Now you can proceed with a standard XOOPS install.
 
-You can see the Installation in under 4:40 min in this video: 
+You can see the Installation in under 4:40 min in this video:
+
 https://www.youtube.com/watch?v=xM8xzbGcdgA
 
 When your changes are complete and tested, send us a Pull Request
