@@ -42,7 +42,7 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
         $value = $instance->loadSource($source);
-        $this->assertSame(false, $value);
+        $this->assertSame(true, $value);
 		
 		$source->setVar('tpl_id',1);
         $value = $instance->loadSource($source);
@@ -72,7 +72,7 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
         $value = $instance->deleteTpl($source);
-        $this->assertSame(true,$value);
+        $this->assertSame(false,$value);
     }
 
     public function test_getTplObjects()

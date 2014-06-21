@@ -186,7 +186,7 @@ class ObjectpersistableHandlerTest extends MY_UnitTestCase
 	{
         $instance=new $this->myclass($this->conn);
         $value=$instance->synchronization();
-        $this->assertSame(null,$value);
+        $this->assertSame(false,$value);
     }
 
 }

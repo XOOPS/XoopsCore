@@ -43,8 +43,10 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		ob_start();
 		$x = $class::dumpVar($var, true, false);
 		$buf = ob_get_clean();
-		$this->assertTrue(!empty($x) AND is_string($x));
-		$this->assertTrue(!empty($buf) AND is_string($buf));
+		$this->assertTrue(!empty($x));
+		$this->assertTrue(is_string($x));
+		$this->assertTrue(!empty($buf));
+		$this->assertTrue(is_string($buf));
 	}
 	
 	public function test_dumpFile()
@@ -60,8 +62,10 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		ob_start();
 		$x = $class::dumpFile($file, true, false);
 		$buf = ob_get_clean();
-		$this->assertTrue(!empty($x) AND is_string($x));
-		$this->assertTrue(!empty($buf) AND is_string($buf));
+		$this->assertTrue(!empty($x));
+		$this->assertTrue(is_string($x));
+		$this->assertTrue(!empty($buf));
+		$this->assertTrue(is_string($buf));
 	}
 	
 	public function test_arrayRecursiveDiff()
@@ -72,7 +76,8 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		$array2 = array("b" => "green", "yellow", "red");
 
 		$x = $class::arrayRecursiveDiff($array1, $array1);
-		$this->assertTrue(empty($x) AND is_array($x));
+		$this->assertTrue(empty($x));
+		$this->assertTrue(is_array($x));
 		
 		$x = $class::arrayRecursiveDiff($array1, $array2);
 		$this->assertTrue(is_array($x));
@@ -89,7 +94,8 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		$array2 = array("b" => "green", "red", array("b" => "green", "blue", "red"));
 		
 		$x = $class::arrayRecursiveDiff($array1, $array1);
-		$this->assertTrue(empty($x) AND is_array($x));
+		$this->assertTrue(empty($x));
+		$this->assertTrue(is_array($x));
 		
 		$x = $class::arrayRecursiveDiff($array1, $array2);
 		$this->assertTrue(is_array($x));
@@ -106,7 +112,8 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		$array2 = array("b" => "green", "red", 'array' => "blue");
 		
 		$x = $class::arrayRecursiveDiff($array1, $array1);
-		$this->assertTrue(empty($x) AND is_array($x));
+		$this->assertTrue(empty($x));
+		$this->assertTrue(is_array($x));
 		
 		$x = $class::arrayRecursiveDiff($array1, $array2);
 		$this->assertTrue(is_array($x));
@@ -123,7 +130,8 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		$array2 = array("b" => "green", "red", 'array' => array("b" => "green"));
 		
 		$x = $class::arrayRecursiveDiff($array1, $array1);
-		$this->assertTrue(empty($x) AND is_array($x));
+		$this->assertTrue(empty($x));
+		$this->assertTrue(is_array($x));
 		
 		$x = $class::arrayRecursiveDiff($array1, $array2);
 		$this->assertTrue(is_array($x));
@@ -140,10 +148,12 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		$array2 = array();
 		
 		$x = $class::arrayRecursiveDiff($array1, $array2);
-		$this->assertTrue(is_array($x) and $x == $array1);
+		$this->assertTrue(is_array($x));
+		$this->assertTrue($x == $array1);
 	
 		$x = $class::arrayRecursiveDiff($array2, $array1);
-		$this->assertTrue(is_array($x) and empty($x));
+		$this->assertTrue(is_array($x));
+		$this->assertTrue(empty($x));
 	}
 	
 	public function test_arrayRecursiveMerge()
@@ -168,7 +178,8 @@ class Xoops_UtilsTest extends MY_UnitTestCase
 		$array1 = array("a" => "green", "red", 'array' => array("a" => "green", "red", "blue"));
 		
 		$x = $class::arrayRecursiveMerge($array1, $array1);
-		$this->assertTrue(is_array($x) AND $x == $array1);
+		$this->assertTrue(is_array($x));
+		$this->assertTrue($x == $array1);
 	}
 	
 	public function test_getEnv_https()
