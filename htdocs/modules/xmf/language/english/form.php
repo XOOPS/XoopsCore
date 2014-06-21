@@ -20,6 +20,3 @@ define('_FORM_XMF_ADD_SUCCESS', "Entry was added!");
 
 define('_FORM_XMF_URLLINK_URL', "Url link");
 define('_FORM_XMF_URLLINK_TARGET', "Url target");
-
-
-?>

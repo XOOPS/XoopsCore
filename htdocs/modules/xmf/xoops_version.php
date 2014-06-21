@@ -32,7 +32,7 @@ $modversion['license'] = "GNU General Public License (GPL)";
 $modversion['official'] = 0;
 $modversion['dirname'] = "xmf";
 
-$modversion['image'] = "images/xmf.png";
+$modversion['image'] = "icons/logo.png";
 
 // Admin things
 $modversion['hasAdmin'] = 0;
