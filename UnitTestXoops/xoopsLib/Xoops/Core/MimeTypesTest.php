@@ -39,7 +39,8 @@ class MimeTypesTest extends MY_UnitTestCase
         $matches = $this->object->findExtensions('image/jpeg');
         $this->assertTrue(in_array('jpg', $matches), 'match .jpg extension');
         $this->assertTrue(in_array('jpeg', $matches), 'match .jpeg extension');
-        $this->assertTrue(empty($this->object->findExtensions('failme-no-such-type/no-such-subtype')), 'match garbage mimetype');
+		$x = $this->object->findExtensions('failme-no-such-type/no-such-subtype');
+        $this->assertTrue(empty($x), 'match garbage mimetype');
     }
 
     /**

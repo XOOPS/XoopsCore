@@ -241,7 +241,8 @@ class SecurityTest extends MY_UnitTestCase
 		$instance->setErrors($str1);
 		$instance->setErrors($str1);
 		$value = $instance->getErrors();
-		$this->assertTrue(is_array($value) AND count($value)==2);
+		$this->assertTrue(is_array($value));
+		$this->assertTrue(count($value)==2);
 		$value = $instance->getErrors(true);
 		$this->assertTrue(is_string($value));
 		$this->assertSame($str1.'<br />'.$str1.'<br />', $value);

@@ -10,9 +10,17 @@ use Xoops\Core\Kernel\Model\Write;
 */
 class WriteTest extends MY_UnitTestCase
 {
+	protected $conn = null;
+	
 	protected $myClass = 'Xoops\Core\Kernel\Model\Write';
 	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
+    public function SetUp()
+	{
+		$db = XoopsDatabaseFactory::getDatabaseConnection();
+		$this->conn = $db->conn;
+    }
+	
     public function test___construct()
 	{
         $instance=new $this->myClass();
