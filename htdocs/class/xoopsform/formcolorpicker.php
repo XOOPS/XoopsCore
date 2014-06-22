@@ -12,31 +12,32 @@
 /**
  * XOOPS form element of colorpicker
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.0.0
- * @author          Zoullou <webmaster@zoullou.org>
- * @author          John Neill <catzwolf@xoops.org>
- * @version         $Id$
+ * @category  Xoops\Form
+ * @package   ColorPicker
+ * @author    Zoullou <webmaster@zoullou.org>
+ * @author    John Neill <catzwolf@xoops.org>
+ * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   Release: 1.0
+ * @link      http://xoops.org
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsFormColorPicker extends XoopsFormText
 {
     /**
-     * @param mixed $caption
-     * @param mixed $name
-     * @param string $value
+     * __construct
+     *
+     * @param mixed  $caption field caption
+     * @param mixed  $name    field name
+     * @param string $value   field value
      */
-    public function XoopsFormColorPicker($caption, $name, $value = '#FFFFFF')
+    public function __construct($caption, $name, $value = '#FFFFFF')
     {
         parent::__construct($caption, $name, 2, 7, $value, '');
     }
 
     /**
+     * render
+     *
      * @return string
      */
     public function render()

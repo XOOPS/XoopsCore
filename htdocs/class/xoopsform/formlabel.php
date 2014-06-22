@@ -33,8 +33,8 @@ class XoopsFormLabel extends XoopsFormElement
      * Constructor
      *
      * @param string $caption Caption
-     * @param string $value Text
-     * @param string $name
+     * @param string $value   Text
+     * @param string $name    id of rendered element
      */
     public function __construct($caption = '', $value = '', $name = '')
     {
@@ -50,6 +50,7 @@ class XoopsFormLabel extends XoopsFormElement
      */
     public function render()
     {
-        return "<span>" . $this->getValue() . "</span>";
+        $id = empty($this->getName()) ? '' : ' id="' . $this->getName() . '"';
+        return '<span' . $id . '>' . $this->getValue() . "</span>";
     }
 }
