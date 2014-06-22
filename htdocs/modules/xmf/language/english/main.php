@@ -34,6 +34,3 @@ define('_AM_XMF_ABOUT_WEBSITE',"Website:");
 // checkModuleVersion
 define('_AM_XMF_DEMOMVC_MODULE_NOTFOUND','Please install or reactivate %1$s module. Minimum version required: %2$s');
 define('_AM_XMF_DEMOMVC_MODULE_VERSION','Minimum %1$s module version required: %2$s (your version is %3$s)');
-
-
-?>

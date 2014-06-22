@@ -26,9 +26,10 @@ class AbstractHelperTest extends \MY_UnitTestCase
     protected function setUp()
     {
         //$this->object = new \Xmf\Module\Helper\AbstractHelper;
-        $this->markTestSkipped(
-          'Test for this abstract class has not been implemented yet.'
-        );
+        $this->object = $this->getMockForAbstractClass('Xmf\Module\Helper\AbstractHelper');
+        //$this->object->expects($this->any())
+        //    ->method('getDefaultParams')
+        //    ->will($this->returnValue(array()));
     }
 
     /**
@@ -41,25 +42,22 @@ class AbstractHelperTest extends \MY_UnitTestCase
 
     /**
      * @covers Xmf\Module\Helper\AbstractHelper::setDebug
-     * @todo   Implement testSetDebug().
      */
     public function testSetDebug()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertTrue(method_exists($this->object, 'setDebug'));
+        $this->object->setDebug(true);
+        $this->assertAttributeEquals(true, 'debug', $this->object);
+        $this->object->setDebug(false);
+        $this->assertAttributeEquals(false, 'debug', $this->object);
     }
 
     /**
      * @covers Xmf\Module\Helper\AbstractHelper::addLog
-     * @todo   Implement testAddLog().
      */
     public function testAddLog()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertTrue(method_exists($this->object, 'addLog'));
+        $this->object->addLog('message to send to bitbucket');
     }
 }
