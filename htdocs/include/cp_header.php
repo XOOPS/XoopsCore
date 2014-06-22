@@ -18,7 +18,8 @@
 
 /**
  * module files can include this file for admin authorization
- * the file that will include this file must be located under xoops_url/modules/module_directory_name/admin_directory_name/
+ * the file that will include this file must be located under
+ * xoops_url/modules/module_directory_name/admin_directory_name/
  */
 
 include_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'mainfile.php';

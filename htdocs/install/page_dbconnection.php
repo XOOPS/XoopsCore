@@ -45,6 +45,7 @@ foreach ($driver_params as $param) {
     $name=false;
     if (!empty($wizard->configs['db_param_names'][$param])) {
         $name=$wizard->configs['db_param_names'][$param];
+        $default = null;
         switch ($param) {
             case 'host':
                 $default = empty($settings[$name]) ? 'localhost' : $settings[$name];

@@ -21,6 +21,7 @@ define('XOOPS_CPFUNC_LOADED', 1);
 /**
  * CP Header
  *
+ * @return void
  */
 function xoops_cp_header()
 {
@@ -32,10 +33,11 @@ function xoops_cp_header()
 /**
  * CP Footer
  *
+ * @return void
  */
 function xoops_cp_footer()
 {
     $xoops = Xoops::getInstance();
     $xoops->deprecated('xoops_cp_footer() is deprecated. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
-    $xoops->footer($xoops->getOption('template_main'));
+    $xoops->footer();
 }

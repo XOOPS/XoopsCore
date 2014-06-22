@@ -218,7 +218,7 @@ class XoopsInstallWizard
         }
         if (!isset($pages[$pageIndex])) {
             if (defined("XOOPS_URL")) {
-                return XOOPS_URL;
+                return XOOPS_URL . '/';
             } else {
                 return $this->baseLocation();
             }

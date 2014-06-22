@@ -18,7 +18,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 
@@ -83,5 +82,3 @@ if (!$allowed) {
 unset($allowed, $group);
 
 return true;
-
-?>
