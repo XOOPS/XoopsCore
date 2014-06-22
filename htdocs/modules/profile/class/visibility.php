@@ -10,6 +10,8 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Extended User Profile
@@ -22,8 +24,6 @@ use Xoops\Core\Database\Connection;
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
 class ProfileVisibility extends XoopsObject
 {
@@ -58,15 +58,24 @@ class ProfileVisibilityHandler extends XoopsPersistableObjectHandler
      */
     public function getVisibleFields($profile_groups, $user_groups = null)
     {
-        $profile_groups[] = $user_groups[] = 0;
-        $sql = "SELECT field_id FROM {$this->table} WHERE profile_group IN (" . implode(',', $profile_groups) . ")";
-        $sql .= " AND user_group IN (" . implode(',', $user_groups) . ")";
+        $profile_groups[] = 0;
+        array_walk($profile_groups, 'intval');
+        $user_groups[] = 0;
+        array_walk($user_groups, 'intval');
+
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $sql = $qb->select('t1.field_id')
+            ->from($this->table, 't1')
+            ->where($eb->in('t1.profile_group', $profile_groups))
+            ->andWhere($eb->in('t1.user_group', $user_groups));
+
+        $result = $sql->execute();
         $field_ids = array();
-        if ($result = $this->db->query($sql)) {
-            while (list($field_id) = $this->db->fetchRow($result)) {
-                $field_ids[] = $field_id;
-            }
+        while (list($field_id) = $result->fetch(PDO::FETCH_NUM)) {
+            $field_ids[] = $field_ids;
         }
+
         return $field_ids;
     }
 }

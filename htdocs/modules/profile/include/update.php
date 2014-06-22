@@ -27,6 +27,7 @@
  */
 function xoops_module_update_profile(&$module, $oldversion = null)
 {
+    global $xoopsDB;
     $xoops = Xoops::getInstance();
 
     if ($oldversion < 162) {

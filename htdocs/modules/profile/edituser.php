@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -90,7 +90,7 @@ if ($op == 'save') {
 }
 
 if ($op == 'editprofile') {
-    $xoops->header('profile_editprofile.html');
+    $xoops->header('profile_editprofile.tpl');
     include_once dirname(__FILE__) . '/include/forms.php';
     $form = profile_getUserForm($xoops->user);
     $form->assign($xoops->tpl());
@@ -98,6 +98,6 @@ if ($op == 'editprofile') {
         $xoops->tpl()->assign('stop', $xoops->alert('error', $stop));
     }
 
-    $xoops->appendConfig('profile_breadcrumbs', array('title' => XoopsLocale::EDIT_PROFILE));
+    $xoops->appendConfig('profile_breadcrumbs', array('caption' => XoopsLocale::EDIT_PROFILE));
 }
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';

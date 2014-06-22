@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -28,7 +28,7 @@ $op = 'main';
 
 if (isset($_POST['op'])) {
     $op = trim($_POST['op']);
-} else if (isset($_GET['op'])) {
+} elseif (isset($_GET['op'])) {
     $op = trim($_GET['op']);
 }
 
@@ -51,16 +51,16 @@ if ($op == 'main') {
         $xoops->tpl()->assign('mailpasswd_token', $xoops->security()->createToken());
         include dirname(__FILE__) . '/footer.php';
     }
-    if (!empty($_GET['xoops_redirect'])  ) {
+    if (!empty($_GET['xoops_redirect'])) {
         $redirect = trim($_GET['xoops_redirect']);
         $isExternal = false;
         if ($pos = strpos($redirect, '://')) {
-            $xoopsLocation = substr(XOOPS_URL, strpos( XOOPS_URL, '://' ) + 3);
+            $xoopsLocation = substr(XOOPS_URL, strpos(XOOPS_URL, '://') + 3);
             if (strcasecmp(substr($redirect, $pos + 3, strlen($xoopsLocation)), $xoopsLocation)) {
                 $isExternal = true;
             }
         }
-        if (!$isExternal ) {
+        if (!$isExternal) {
             header('Location: ' . $redirect);
             exit();
         }
@@ -99,14 +99,18 @@ if ($op == 'delete') {
         $xoops->redirect(XOOPS_URL . '/', 5, XoopsLocale::E_NO_ACTION_PERMISSION);
     } else {
         $groups = $xoops->user->getGroups();
-        if (in_array(XOOPS_GROUP_ADMIN, $groups)){
+        if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
             // users in the webmasters group may not be deleted
             $xoops->redirect(XOOPS_URL . '/', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }
         $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
         if ($ok != 1) {
             $xoops->header();
-            $xoops->confirm(array('op' => 'delete', 'ok' => 1), 'user.php', XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO);
+            $xoops->confirm(
+                array('op' => 'delete', 'ok' => 1),
+                'user.php',
+                XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO
+            );
             include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
         } else {
             $del_uid = $xoops->user->getVar("uid");
