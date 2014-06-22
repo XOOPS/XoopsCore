@@ -51,7 +51,8 @@ class JointTest extends MY_UnitTestCase
 		$handler->keyName_link=$handler->field_link;
 		
 		$result = $instance->getByLink(null, null, true, null, null);
-		$this->assertTrue(is_array($result) AND count($result)>0);
+		$this->assertTrue(is_array($result));
+		$this->assertTrue(count($result)>0);
 	}
 	
 	public function test_getCountByLink()
@@ -70,7 +71,8 @@ class JointTest extends MY_UnitTestCase
 		$handler->keyName_link=$handler->field_link;
 		
 		$result = $instance->getCountByLink();
-		$this->assertTrue(is_string($result) AND intval($result)>=0);
+		$this->assertTrue(is_string($result));
+		$this->assertTrue(intval($result)>=0);
     }
 	
 	public function test_getCountsByLink()
@@ -89,7 +91,8 @@ class JointTest extends MY_UnitTestCase
 		$handler->keyName_link=$handler->field_link;
 		
 		$result = $instance->getCountsByLink();
-		$this->assertTrue(is_array($result) AND count($result)>=0);
+		$this->assertTrue(is_array($result));
+		$this->assertTrue(count($result)>=0);
     }
 	
 	public function test_updateByLink()
@@ -110,7 +113,8 @@ class JointTest extends MY_UnitTestCase
 		$criteria=new Xoops\Core\Kernel\Criteria('l.uid',0);
 		$arrData=array('name'=>'name');
 		$result = $instance->updateByLink($arrData,$criteria);
-		$this->assertTrue(is_int($result) AND $result >= 0);
+		$this->assertTrue(is_int($result));
+		$this->assertTrue($result >= 0);
     }
 	
 	public function test_deleteByLink()
@@ -131,7 +135,8 @@ class JointTest extends MY_UnitTestCase
 		$criteria=new Xoops\Core\Kernel\Criteria('l.uid',0);
 		
 		$result = $instance->deleteByLink($criteria);
-		$this->assertTrue(is_int($result) AND $result >= 0);
+		$this->assertTrue(is_int($result));
+		$this->assertTrue($result >= 0);
     }
 
 }

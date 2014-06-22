@@ -39,8 +39,10 @@ class XoopsModelAbstractTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
 		$x = $instance->setVars($vars);
 		$this->assertTrue($x);
-        $this->assertTrue(!empty($instance->one) AND $instance->one == 1);
-        $this->assertTrue(!empty($instance->two) AND $instance->two == 2);
+        $this->assertTrue(!empty($instance->one));
+		$this->assertTrue($instance->one == 1);
+        $this->assertTrue(!empty($instance->two));
+		$this->assertTrue($instance->two == 2);
     }
 	
 }

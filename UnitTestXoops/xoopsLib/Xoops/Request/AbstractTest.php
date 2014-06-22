@@ -39,19 +39,23 @@ class Xoops_Request_AbstractTest extends MY_UnitTestCase
 		$instance = new $this->myclass($params);
 		$name = 'p1';
 		$x = $instance->asArray($name);
-		$this->assertTrue(is_array($x) AND $x == array('one'));
+		$this->assertTrue(is_array($x));
+		$this->assertTrue($x == array('one'));
 		
 		$name = 'not_used';
 		$x = $instance->asArray($name);
-		$this->assertTrue(is_array($x) AND empty($x));
+		$this->assertTrue(is_array($x));
+		$this->assertTrue(empty($x));
 		
 		$name = 'p1';
 		$x = $instance->asArray($name, array(), array(array('one')));
-		$this->assertTrue(is_array($x) AND $x == array('one'));
+		$this->assertTrue(is_array($x));
+		$this->assertTrue($x == array('one'));
 		
 		$name = 'p1';
 		$x = $instance->asArray($name, array('result'), array(array('one')), array(array('one')));
-		$this->assertTrue(is_array($x) AND $x == array('result'));
+		$this->assertTrue(is_array($x));
+		$this->assertTrue($x == array('result'));
 		
     }
 
@@ -62,19 +66,23 @@ class Xoops_Request_AbstractTest extends MY_UnitTestCase
 		
 		$name = 'p1';
 		$x = $instance->asStr($name);
-		$this->assertTrue(is_string($x) AND $x == 'one');
+		$this->assertTrue(is_string($x));
+		$this->assertTrue($x == 'one');
 		
 		$name = 'not_used';
 		$x = $instance->asStr($name);
-		$this->assertTrue(is_string($x) AND empty($x));
+		$this->assertTrue(is_string($x));
+		$this->assertTrue(empty($x));
 		
 		$name = 'p1';
 		$x = $instance->asStr($name, '', array('one'));
-		$this->assertTrue(is_string($x) AND $x == 'one');
+		$this->assertTrue(is_string($x));
+		$this->assertTrue($x == 'one');
 		
 		$name = 'p1';
 		$x = $instance->asStr($name, 'default', array('one'), array('one'));
-		$this->assertTrue(is_string($x) AND $x == 'default');
+		$this->assertTrue(is_string($x));
+		$this->assertTrue($x == 'default');
 		
     }
 	
@@ -113,19 +121,23 @@ class Xoops_Request_AbstractTest extends MY_UnitTestCase
 		
 		$name = 'p1';
 		$x = $instance->asInt($name);
-		$this->assertTrue(is_int($x) AND $x == 71);
+		$this->assertTrue(is_int($x));
+		$this->assertTrue($x == 71);
 		
 		$name = 'not_used';
 		$x = $instance->asInt($name);
-		$this->assertTrue(is_int($x) AND empty($x));
+		$this->assertTrue(is_int($x));
+		$this->assertTrue(empty($x));
 		
 		$name = 'p1';
 		$x = $instance->asInt($name, '', array(71));
-		$this->assertTrue(is_int($x) AND $x == 71);
+		$this->assertTrue(is_int($x));
+		$this->assertTrue($x == 71);
 		
 		$name = 'p1';
 		$x = $instance->asInt($name, 17, array(71), array(71));
-		$this->assertTrue(is_int($x) AND $x == 17);
+		$this->assertTrue(is_int($x));
+		$this->assertTrue($x == 17);
 		
     }
 	
@@ -161,19 +173,23 @@ class Xoops_Request_AbstractTest extends MY_UnitTestCase
 		
 		$name = 'p1';
 		$x = $instance->asBool($name);
-		$this->assertTrue(is_bool($x) AND $x);
+		$this->assertTrue(is_bool($x));
+		$this->assertTrue($x);
 		
 		$name = 'not_used';
 		$x = $instance->asBool($name);
-		$this->assertTrue(is_bool($x) AND !$x);
+		$this->assertTrue(is_bool($x));
+		$this->assertTrue(!$x);
 		
 		$name = 'p1';
 		$x = $instance->asBool($name, '', array(true));
-		$this->assertTrue(is_bool($x) AND $x);
+		$this->assertTrue(is_bool($x));
+		$this->assertTrue($x);
 		
 		$name = 'p1';
 		$x = $instance->asBool($name, false, array(true), array(true));
-		$this->assertTrue(is_bool($x) AND !$x);
+		$this->assertTrue(is_bool($x));
+		$this->assertTrue(!$x);
     }
 	
     public function test_asFloat()
@@ -183,19 +199,23 @@ class Xoops_Request_AbstractTest extends MY_UnitTestCase
 		
 		$name = 'p1';
 		$x = $instance->asFloat($name);
-		$this->assertTrue(is_float($x) AND $x);
+		$this->assertTrue(is_float($x));
+		$this->assertTrue($x == 7.1);
 		
 		$name = 'not_used';
 		$x = $instance->asFloat($name);
-		$this->assertTrue(is_float($x) AND $x == 0.0);
+		$this->assertTrue(is_float($x));
+		$this->assertTrue($x == 0.0);
 		
 		$name = 'p1';
 		$x = $instance->asFloat($name, 0.0, array(true));
-		$this->assertTrue(is_float($x) AND $x == 7.1);
+		$this->assertTrue(is_float($x));
+		$this->assertTrue($x == 7.1);
 		
 		$name = 'p1';
 		$x = $instance->asFloat($name, 1.7, array(true), array(true));
-		$this->assertTrue(is_float($x) AND $x == 1.7);
+		$this->assertTrue(is_float($x));
+		$this->assertTrue($x == 1.7);
     }
 	
     public function test_hasParam()

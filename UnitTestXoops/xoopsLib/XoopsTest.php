@@ -38,9 +38,9 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertTrue(is_array($instance->config));
         $this->assertTrue(is_array($instance->moduleConfig));
         $this->assertTrue(is_string($instance->moduleDirname));
-        $this->assertTrue(is_string($instance->user) OR is_object($instance->user));
+        $this->assertTrue(is_string($instance->user) || is_object($instance->user));
         $this->assertTrue(is_bool($instance->userIsAdmin));
-        $this->assertTrue(is_null($instance->option) OR is_array($instance->option));
+        $this->assertTrue(is_null($instance->option) || is_array($instance->option));
         $this->assertTrue(is_string($instance->tpl_name));
         $this->assertTrue(is_bool($instance->isAdminSide));
     }
@@ -582,7 +582,8 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getActiveModules();
-        $this->assertTrue(is_array($value) AND count($value)>0);
+        $this->assertTrue(is_array($value));
+		$this->assertTrue(count($value)>0);
     }
 
     public function test_setActiveModules()
@@ -590,7 +591,8 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->setActiveModules();
-        $this->assertTrue(is_array($value) AND count($value)>0);
+        $this->assertTrue(is_array($value));
+		$this->assertTrue(count($value)>0);
     }
 
     public function test_isActiveModule()
@@ -724,19 +726,22 @@ class XoopsTest extends MY_UnitTestCase
 		$instance->confirm(array(),array(),'msg');
 		$value = ob_get_contents();
 		ob_end_clean();
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
+		$this->assertTrue(strlen($value)>0);
 
 		ob_start();
 		$instance->confirm(array('toto'=>1,'tutu'=>2),array(),'msg');
 		$value = ob_get_contents();
 		ob_end_clean();
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
+		$this->assertTrue(strlen($value)>0);
 
 		ob_start();
 		$instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),array(),'msg');
 		$value = ob_get_contents();
 		ob_end_clean();
-		$this->assertTrue(is_string($value) AND strlen($value)>0);
+		$this->assertTrue(is_string($value));
+		$this->assertTrue(strlen($value)>0);
 	}
 
     public function test_getUserTimestamp()
@@ -930,7 +935,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getMailer();
-        $this->assertTrue($value instanceOf XoopsMailerLocale OR $value instanceOf XoopsMailer);
+        $this->assertTrue($value instanceOf XoopsMailerLocale || $value instanceOf XoopsMailer);
     }
 
     public function test_getRank()
@@ -989,12 +994,14 @@ class XoopsTest extends MY_UnitTestCase
         $instance->addConfigs(array('dummy' => 1));
         $value = $instance->getConfigs();
         $this->assertTrue(is_array($value));
-        $this->assertTrue(isset($value['dummy']) AND $value['dummy'] = 1);
+        $this->assertTrue(isset($value['dummy']));
+		$this->assertTrue($value['dummy'] == 1);
 
         $instance->addConfigs(array('dummy' => 1), null);
         $value = $instance->getConfigs();
         $this->assertTrue(is_array($value));
-        $this->assertTrue(isset($value['dummy']) AND $value['dummy'] = 1);
+        $this->assertTrue(isset($value['dummy']));
+		$this->assertTrue($value['dummy'] == 1);
     }
 
     public function test_setConfig()
