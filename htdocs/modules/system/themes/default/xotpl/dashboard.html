@@ -1,31 +1,25 @@
 <div class="dashboard-content">
     <{if !$xoops_contents}>
-    <section id="panel">
-        <div class="page-header">
-            <h1><{translateTheme key='DASHBOARD'}>&nbsp;
-                <small><{translateTheme key='CONTROL_AND_MANAGE_YOUR_SITE'}></small>
-            </h1>
-        </div>
+    <section id="panel" role="main">
+
+    <h1><{translateTheme key='DASHBOARD'}> <small><{translateTheme key='CONTROL_AND_MANAGE_YOUR_SITE'}></small></h1>
+        
         <{if $error_msg}>
-        <div class="row">
-            <div class="span2"></div>
-        <div class="span11 alert alert-error">
+        <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         <{foreach item=msg from=$error_msg}>
-            <div class="alert-message error">
-                <p><{$msg}></p>
-            </div>
+            <p><{$msg}></p>
         <{/foreach}>
         </div>
-        </div>
         <{/if}>
-
-        <div class="card-icons outer">
-            <div class="xo-window">
-                <div class="xo-window-title">
-                    <span class="ico ico-wrench-5"></span>&nbsp;<{translate key='CONTROL_PANEL' dirname='system'}>
+            
+<div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><{translate key='CONTROL_PANEL' dirname='system'}></h4>
                 </div>
-                <div class="xo-window-data">
+                <div class="panel-body">
                     <h4 class="cp-cat"><{translateTheme key='SYSTEM_TOOLS'}></h4>
                     <div class="cp-icon">
                         <{foreach item=op from=$mod_options}>
@@ -66,78 +60,72 @@
                 </div>
             </div>
         </div>
-        <div class="mod-icons">
-            <div class="outer">
-                <div class="xo-window">
-                    <div class="xo-window-title">
-                        <span class="ico ico-box"></span>&nbsp;<{translateTheme key='INSTALLED_MODULES'}>
-                        <a class="down" href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="xo-window-data">
-                        <{if count($module_menu) > 1 }>
-                        <table class="condensed-table">
-                            <{foreach item=mod_list from=$module_menu}>
-                            <{if $mod_list->getInfo(dirname) != 'system'}>
-                            <tr>
-                                <td class="span1"><img src="<{$mod_list->getInfo('logo_small')}>" alt=""/></td>
-                                <td><a href="<{$mod_list->getInfo('link_admin')}>"><{$mod_list->getVar(name)}></a></td>
-                            </tr>
-                            <{/if}>
-                            <{/foreach}>
-                        </table>
-                        <{else}>
-                        <div class="alert alert-info">
-                            <i class="ico-information"></i>
-                            <{translateTheme key='THERE_ARE_NO_MODULES_INSTALLED'}>
-                        </div>
-                        <{/if}>
-                        <div class="mod-link">
-                            <div class="pull-right">
-                                <a class="btn btn-mini btn-info" href="<{xoAppUrl modules/system/admin.php?fct=modulesadmin}>">
-                                    <i class="icon-white icon-tags"></i>
-                                    <{translate key='MANAGE_MODULES'}>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <br/>
 
-            <div class="outer">
-                <div class="xo-window">
-                    <div class="xo-window-title">
-                        <span class="ico ico-extension"></span>&nbsp;<{translateTheme key='INSTALLED_EXTENSIONS'}>
-                        <a class="down" href="javascript:;">&nbsp;</a>
-                    </div>
-                    <div class="xo-window-data">
-                        <table class="condensed-table">
-                            <{foreach item=plug_list from=$extension_menu}>
-                            <{if $plug_list->getInfo(install)}>
-                            <tr>
-                                <td class="span1"><img src="<{$plug_list->getInfo('logo_small')}>" alt=""/></td>
-                                <td><a href="<{$plug_list->getInfo('link_admin')}>"><{$plug_list->getInfo(name)}></a>
-                                </td>
-                            </tr>
-                            <{assign var=have-plugins value=true}>
-                            <{/if}>
-                            <{/foreach}>
-                        </table>
-                        <div class="mod-link">
-                            <div class="pull-right">
-                                <a class="btn btn-mini btn-warning" href="<{xoAppUrl modules/system/admin.php?fct=extensions}>">
-                                    <i class="icon-white icon-tag"></i>
-                                    <{translate key='MANAGE_EXTENSIONS'}>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-md-4">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                      <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#installedModules"><{translateTheme key='INSTALLED_MODULES'}></a></h4>
                 </div>
-                <div class="clear"></div>
+                    
+                <div id="installedModules" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <{if count($module_menu) > 1 }>
+                    <ul class="nav row">
+                        <{foreach item=mod_list from=$module_menu}>
+                        <{if $mod_list->getInfo(dirname) != 'system'}>
+                            <li class="col-xs-6 col-sm-4 col-md-6">
+                                <a href="<{$mod_list->getInfo('link_admin')}>"><img src="<{$mod_list->getInfo('logo_small')}>" alt="<{$mod_list->getVar(name)}>"> <{$mod_list->getVar(name)}></a>
+                            </li>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
+                    <{else}>
+                    <div class="alert alert-info">
+                        <i class="ico-information"></i>
+                        <{translateTheme key='THERE_ARE_NO_MODULES_INSTALLED'}>
+                    </div>
+                    <{/if}>
+
+                    <a class="btn btn-info pull-right" href="<{xoAppUrl modules/system/admin.php?fct=modulesadmin}>">
+                        <{translate key='MANAGE_MODULES'}>
+                    </a>
+                
+                </div>
+                </div>
+                        
             </div>
-        </div>
-        <div class="clear"></div>
+            
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#installedExtensions"><{translateTheme key='INSTALLED_EXTENSIONS'}></a></h4>
+                </div>
+                    
+                <div id="installedExtensions" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="nav row">
+                        <{foreach item=plug_list from=$extension_menu}>
+                        <{if $plug_list->getInfo(install)}>
+                        <li class="col-xs-6 col-sm-4 col-md-6">
+                            <a href="<{$plug_list->getInfo('link_admin')}>"><img src="<{$plug_list->getInfo('logo_small')}>" alt="<{$plug_list->getInfo(name)}>"> <{$plug_list->getInfo(name)}></a>
+                        </li>
+                        <{assign var=have-plugins value=true}>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
+                        
+                    <a class="btn btn-warning pull-right" href="<{xoAppUrl modules/system/admin.php?fct=extensions}>" title="<{translate key='MANAGE_EXTENSIONS'}>">
+                        <{translate key='MANAGE_EXTENSIONS'}>
+                    </a>
+                        
+                </div>
+                </div>
+                            
+            </div>
+        </div><!-- .panel-group -->
+        </div><!-- .col-md-3 -->
+</div><!-- .row -->
     </section>
     <{else}>
     <!-- Display Admin menu -->

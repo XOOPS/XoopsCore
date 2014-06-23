@@ -4,20 +4,18 @@
     <{includeq file="$theme_tpl/head.html"}>
 </head>
 <body id="<{$xoops_dirname}>" class="<{$xoops_langcode}>">
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <{includeq file="$theme_tpl/menu.html"}>
-        </div>
-    </div>
-</div>
-<div class="subnav subnav-fixed">
-    <{includeq file="$theme_tpl/icons.html"}>
-</div>
-<div class="clear"></div>
+
+
+<{includeq file="$theme_tpl/menu.html"}>
+    
+
+<{includeq file="$theme_tpl/icons.html"}>
+
+    
 <div class="container-fluid">
     <{includeq file="$theme_tpl/dashboard.html"}>
 </div>
+    
 <div class="footer">
     <p class="pull-right"><a href="#">Back to top</a></p>
     <p class="txtcenter">
@@ -25,8 +23,6 @@
     </p>
     <!--{xo-logger-output}-->
 </div>
-<script type="text/javascript">
-    ddsmoothmenu.init({mainmenuid:"xo-menu-modules", orientation:'h', classname:'ddsmoothmenu', contentsource:"markup"})
-</script>
+        
 </body>
 </html>
