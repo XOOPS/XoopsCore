@@ -1,0 +1,20 @@
+default_filters:
+    css: 'cssimport,cssembed,?cssmin'
+    js: '?jsmin'
+default_asset_refs:
+    -
+        name: jquery
+        assets:
+            - media/jquery/jquery.js
+        filters: null
+    -
+        name: jqueryui
+        assets:
+            - media/jquery/plugins/jquery.ui.js
+        filters: null
+    -
+        name: jgrowl
+        assets:
+            - media/jquery/plugins/jquery.jgrowl.js
+        filters: null
+mtime: 1403460633

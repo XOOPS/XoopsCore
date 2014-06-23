@@ -37,6 +37,6 @@
         "raveren/kint": "*"
     },
     "extra": {
-        "xoops_modules_path": "../modules/"
+        "xoops_modules_path": "C:/wamp/www/XoopsCore/htdocs/modules/"
     }
 }

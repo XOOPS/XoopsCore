@@ -47,7 +47,8 @@ input:focus:invalid + .dsc_pattern_horizontal{
     border-radius: 5px 5px 0 0;
     border: 1px solid #2D4760;
     padding: 4px 6px 6px 4px;
-    height: 20px;
+    height: auto !important;
+    margin-bottom: 5px;
 }
 .xo-window-title {
     padding: 2px 6px 6px 6px;
