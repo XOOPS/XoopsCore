@@ -28,8 +28,8 @@ include_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 
-//$xoops->simpleHeader(false);
-$xoops->header();
+$xoops->simpleHeader(false);
+//$xoops->header();
 
 $denied = true;
 if (!empty($_REQUEST['token'])) {
@@ -302,7 +302,9 @@ if (empty($_POST["user_submit"])) {
                 }
             }
         }
-        $total = $user_handler->getCount($criteria, @$_POST["groups"]);
+        // @todo this used to accept a second criteris, an array of groups. (@$_POST["groups"])
+        // perhaps use XoopsMemberHandler getUsersByGroupLink()?
+        $total = $user_handler->getCount($criteria);
         $validsort = array(
             "uname",
             "email",
@@ -319,7 +321,9 @@ if (empty($_POST["user_submit"])) {
         $criteria->setOrder($order);
         $criteria->setLimit($limit);
         $criteria->setStart($start);
-        $foundusers = $user_handler->getAll($criteria, @$_POST["groups"]);
+        // @todo this used to accept a second criteris, an array of groups. (@$_POST["groups"])
+        // perhaps use XoopsMemberHandler getUsersByGroupLink()?
+        $foundusers = $user_handler->getAll($criteria);
     }
 
     echo $js_adduser = '
@@ -514,5 +518,5 @@ if (empty($_POST["user_submit"])) {
     }
 }
 
-//$xoops->simpleFooter();
-$xoops->footer();
+$xoops->simpleFooter();
+//$xoops->footer();

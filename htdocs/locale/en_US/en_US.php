@@ -894,6 +894,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const PAGE = "Page";
     const PARENT = "Parent";
     const PASSWORD = "Password";
+    const PASSWORD_STRENGTH = "Password strength";
     const PASTE_THE_CODE_YOU_WANT_TO_INSERT = "Paste the CODE you want to insert";
     const PASTE_THE_QUOTE_YOU_WANT_TO_INSERT = "Paste the QUOTE you want to insert";
     const PENDING = "Pending";

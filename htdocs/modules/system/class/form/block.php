@@ -22,16 +22,16 @@
 class SystemBlockForm extends XoopsThemeForm
 {
     /**
-     * @var null|XoopsObject $_obj
+     * @var null|XoopsBlock $obj
      */
     private $obj = null;
 
     /**
      * __construct
      *
-     * @param XoopsBlock|XoopsObject &$obj block object
+     * @param XoopsBlock $obj block object
      */
-    public function __construct(XoopsBlock &$obj)
+    public function __construct(XoopsBlock $obj)
     {
         $this->obj = $obj;
     }

@@ -55,11 +55,11 @@ Authorized users can set an individual preference in User Configs, if it is inst
 <h4>Notes For Module Programmers</h4>
 <p>
     For many years, the most common method for a module to communicate to the log was by using the PHP <em>trigger_error()</em> function. With the implmentation of the 2.6.0 Xoops Logger, any module can communicate not only a message, but the type and severity of the message in a consistent way. Here are examples:
-    <pre> Xoops::getInstance->logger()->error('detailed message here');</pre>
+    <pre> Xoops::getInstance()->logger()->error('detailed message here');</pre>
     or
-    <pre> Xoops::getInstance->logger()->debug('detailed message here');</pre>
+    <pre> Xoops::getInstance()->logger()->debug('detailed message here');</pre>
     The available methods are as described in <a href="http://www.php-fig.org/psr/3/" target="_blank">PSR-3</a>. Most modules will need only a subset of the methods:
-    
+
     <ul>
     <li><strong>error()</strong> - Runtime errors that do not require immediate action but should typically be logged and monitored.</li>
     <li><strong>warning()</strong> - Exceptional occurrences that are not errors. Example: Use of deprecated APIs, poor use of an API, undesirable things that are not necessarily wrong.</li>

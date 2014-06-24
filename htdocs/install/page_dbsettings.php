@@ -95,7 +95,7 @@ if ($connection && empty($error)) {
         exit();
     }
 }
-    
+
 if ($connection) {
     $platform = $connection->getDatabasePlatform();
     try {
@@ -141,8 +141,8 @@ var e = document.getElementById("DB_AVAILABLE");
 var dbSelected = e.options[e.selectedIndex].text;
 
 document.getElementById("DB_NAME").value=dbSelected;
-}    
-</script> 
+}
+</script>
 <fieldset>
 <?php
 if (!empty($availableDatabases)) {

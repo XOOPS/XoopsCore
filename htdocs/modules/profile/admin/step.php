@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('steplist.html');
+$xoops->header('steplist.tpl');
 // Get handler
 $regstep_Handler = $xoops->getModuleHandler("regstep");
 
