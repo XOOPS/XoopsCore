@@ -34,7 +34,7 @@ function xoops_module_install_system(&$module)
     $group_handler = $xoops->getHandlerGroup();
     // create admin group
     $obj = $group_handler->create();
-    $obj->setVar("name", addslashes(XoopsLocale::WEBMASTERS));
+    $obj->setVar("name", addslashes(SystemLocale::WEBMASTERS));
     $obj->setVar("description", addslashes(SystemLocale::WEBMASTERS_OF_THIS_SITE));
     $obj->setVar("group_type", 'Admin');
     if (!$group_handler->insert($obj)) {

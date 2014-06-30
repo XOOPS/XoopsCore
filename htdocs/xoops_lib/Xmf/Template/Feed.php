@@ -128,21 +128,21 @@ class Feed extends AbstractTemplate
      */
     protected function init()
     {
-        $this->setTemplate(XMF_ROOT_PATH . '/templates/xmf_feed.tpl');
-        $this->disableLogger();
+        $this->setTemplate('module:xmf|xmf_feed.tpl');
+        //$this->disableLogger();
 
         global $xoopsConfig;
         $this->_title = $xoopsConfig['sitename'];
         $this->_url = XOOPS_URL;
         $this->_description = $xoopsConfig['slogan'];
-        $this->_language = _LANGCODE;
-        $this->_charset = _CHARSET;
-        $this->_pubdate = date(_DATESTRING, time());
-        $this->_lastbuild = formatTimestamp(time(), 'D, d M Y H:i:s');
+        $this->_language = \XoopsLocale::getLangCode();
+        $this->_charset = \XoopsLocale::getCharset();
+        $this->_pubdate = date(\XoopsLocale::getFormatShortDate(), time());
+        $this->_lastbuild = \XoopsLocale::formatTimestamp(time(), 'D, d M Y H:i:s');
         $this->_webmaster = $xoopsConfig['adminmail'];
         $this->_editor = $xoopsConfig['adminmail'];
         $this->_generator = XOOPS_VERSION;
-        $this->_copyright = 'Copyright ' . formatTimestamp(time(), 'Y') . ' ' . $xoopsConfig['sitename'];
+        $this->_copyright = 'Copyright ' . \XoopsLocale::formatTimestamp(time(), 'Y') . ' ' . $xoopsConfig['sitename'];
         $this->_image_title = $this->_title;
         $this->_image_url = XOOPS_URL . '/images/logo.gif';
         $this->_image_link = $this->_url;

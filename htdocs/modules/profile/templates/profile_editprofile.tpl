@@ -1,5 +1,4 @@
-<{includeq file="module:profile|profile_breadcrumbs.tpl"}>
-
+<{$profile_breadcrumbs}>
 
 <{if $stop}>
     <{$stop}>

@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -240,5 +240,5 @@ $xoops->tpl()->assign('uname', $thisUser->getVar('uname'));
 $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
-$xoops->appendConfig('profile_breadcrumbs', array('title' => _PROFILE_MA_USERINFO));
+$xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';

@@ -151,7 +151,7 @@ switch ($op) {
                 time() + (60 * intval($session_expire)),
                 '/',
                 XOOPS_COOKIE_DOMAIN,
-                0
+                false
             );
         }
 

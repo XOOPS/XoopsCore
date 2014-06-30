@@ -1,4 +1,4 @@
-<{includeq file="module:profile|profile_breadcrumbs.tpl"}>
+<{$profile_breadcrumbs}>
 
 <{if $steps|@count > 1 AND $current_step >= 0}>
     <div class='register-steps'>

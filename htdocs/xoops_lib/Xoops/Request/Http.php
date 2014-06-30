@@ -493,79 +493,6 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
     }
 
     /**
-     * Gets a certain request variable as array
-     *
-     * @param string $name
-     * @param array  $default
-     * @param array  $include
-     * @param array  $exclude
-     *
-     * @return array
-     */
-    public function asArray($name, $default = array(), $include = array(), $exclude = array())
-    {
-        return $this->_as('array', $name, $default, $include, $exclude);
-    }
-
-    /**
-     * Gets a certain request variable as string
-     *
-     * @param string $name
-     * @param string $default
-     * @param mixed  $include
-     * @param mixed  $exclude
-     *
-     * @return string
-     */
-    public function asStr($name, $default = '', $include = null, $exclude = null)
-    {
-        return $this->_as('string', $name, $default, (array)$include, (array)$exclude);
-    }
-
-    /**
-     * Gets a certain request variable as integer
-     *
-     * @param string $name
-     * @param int    $default
-     * @param mixed  $include
-     * @param mixed  $exclude
-     *
-     * @return int
-     */
-    public function asInt($name, $default = 0, $include = null, $exclude = null)
-    {
-        return $this->_as('integer', $name, $default, (array)$include, (array)$exclude);
-    }
-
-    /**
-     * Gets a certain request variable as bool
-     *
-     * @param string $name
-     * @param bool   $default
-     *
-     * @return bool
-     */
-    public function asBool($name, $default = false)
-    {
-        return $this->_as('boolean', $name, $default);
-    }
-
-    /**
-     * Gets a certain request variable as float
-     *
-     * @param string $name
-     * @param float  $default
-     * @param mixed  $include
-     * @param mixed  $exclude
-     *
-     * @return float
-     */
-    public function asFloat($name, $default = 0.0, $include = null, $exclude = null)
-    {
-        return $this->_as('float', $name, $default, (array)$include, (array)$exclude);
-    }
-
-    /**
      * @param mixed $var
      *
      * @return array|string
@@ -590,8 +517,8 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
                     $this->_filterUserData($var[$key], $globalKeys);
                 }
             }
-        } else {
-            $var = str_replace("\x00", '', $var);
+        } elseif (is_string($var)) {
+			$var = str_replace("\x00", '', $var);
         }
     }
 
@@ -627,35 +554,4 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
         return $accept;
     }
 
-    /**
-     * Gets a request variable as a certain PHP type variable
-     *
-     * @access protected
-     *
-     * @param string $type
-     * @param string $name
-     * @param mixed  $default
-     * @param array  $include
-     * @param array  $exclude
-     *
-     * @return mixed
-     */
-    protected function _as($type, $name, $default, $include = array(), $exclude = array())
-    {
-        $ret = $default;
-        if ($this->hasParam($name)) {
-            $ret = $this->getParam($name);
-            settype($ret, $type);
-            if (!empty($exclude)) {
-                if (in_array($ret, $exclude)) {
-                    $ret = $default;
-                }
-            } elseif (!empty($include)) {
-                if (!in_array($ret, $include)) {
-                    $ret = $default;
-                }
-            }
-        }
-        return $ret;
-    }
 }

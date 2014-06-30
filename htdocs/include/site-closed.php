@@ -18,7 +18,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 
@@ -77,11 +76,9 @@ if (!$allowed) {
     $xoops->tpl()->debugging = false;
     $xoops->tpl()->debugging_ctrl = 'none';
     $xoops->tpl()->caching = 0;
-    $xoops->tpl()->display('module:system|system_siteclosed.tpl');
+    $xoops->tpl()->display('module:system|system_siteclosed.html');
     exit();
 }
 unset($allowed, $group);
 
 return true;
-
-?>

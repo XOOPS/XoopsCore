@@ -1,4 +1,4 @@
-<{includeq file="module:profile|profile_breadcrumbs.tpl"}>
+<{$profile_breadcrumbs}>
 
 <div>
     <{if $avatar}>

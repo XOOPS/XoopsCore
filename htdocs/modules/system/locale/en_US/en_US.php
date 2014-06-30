@@ -410,6 +410,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const USERS_MANAGEMENT = "Users management";
     const USERS_TIPS = "<ul><li>Manage Xoops users</li></ul>";
     const VIEW_USER_INFO = "View user info";
+	const WEBMASTERS = "Webmasters";
     const WEBMASTERS_OF_THIS_SITE = "Webmasters of this site";
     const WELCOME_TO_XOOPS_HELP_CENTER = "Welcome to XOOPS Help Center";
     const WORD_CENSORING = "Word censoring";

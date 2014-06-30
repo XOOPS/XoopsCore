@@ -191,11 +191,9 @@ class LoggerPreload extends PreloadItem
     /**
      * eventCoreIncludeCommonAuthSuccess
      *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
      * @return void
      */
-    public static function eventCoreIncludeCommonAuthSuccess($args)
+    public static function eventCoreIncludeCommonAuthSuccess()
     {
         $xoops = Xoops::getInstance();
         $logger = LegacyLogger::getInstance();

@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
@@ -70,12 +70,12 @@ $xoops->tpl()->assign('steps', $steps);
 $xoops->tpl()->assign('lang_register_steps', _PROFILE_MA_REGISTER_STEPS);
 
 $xoops->appendConfig('profile_breadcrumbs', array(
+    'caption' => _PROFILE_MA_REGISTER,
     'link' => $xoops->url('modules/profile/register.php'),
-    'title' => _PROFILE_MA_REGISTER
 ));
 
 if (isset($steps[$current_step])) {
-    $xoops->appendConfig('profile_breadcrumbs', array('title' => $steps[$current_step]['step_name']));
+    $xoops->appendConfig('profile_breadcrumbs', array('caption' => $steps[$current_step]['step_name']));
 }
 
 $member_handler = $xoops->getHandlerMember();

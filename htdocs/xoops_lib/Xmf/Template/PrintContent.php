@@ -58,7 +58,7 @@ class PrintContent extends AbstractTemplate
      */
     protected function init()
     {
-        $this->setTemplate(XMF_ROOT_PATH . '/templates/xmf_print.tpl');
+        $this->setTemplate('module:xmf|xmf_print.tpl');
     }
 
     /**

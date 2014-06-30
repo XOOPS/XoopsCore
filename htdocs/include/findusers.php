@@ -1,12 +1,21 @@
 <?php
 /**
- * Find XOOPS users
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaElement;
+
+/**
+ * Find XOOPS users
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
@@ -20,6 +29,7 @@ include_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 
 $xoops->simpleHeader(false);
+//$xoops->header();
 
 $denied = true;
 if (!empty($_REQUEST['token'])) {
@@ -41,265 +51,8 @@ $name_form = 'memberslist';
 $name_userid = 'uid' . (!empty($_REQUEST['multiple']) ? '[]' : '');
 $name_username = 'uname' . (!empty($_REQUEST['multiple']) ? '[]' : '');
 
-//todo REMOVE THIS CLASS AND RANK DEPENDENCY
-/**
- * Enter description here...
-
- */
-class XoopsRank extends XoopsObject
-{
-    /**
-     * Xoops Rank
-     *
-     * @return XoopsRank
-     */
-    function XoopsRank()
-    {
-        $this->initVar('rank_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('rank_title', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('rank_min', XOBJ_DTYPE_INT, 0);
-        $this->initVar('rank_max', XOBJ_DTYPE_INT, 0);
-        $this->initVar('rank_special', XOBJ_DTYPE_INT, 0);
-        $this->initVar('rank_image', XOBJ_DTYPE_TXTBOX, "");
-    }
-}
-
-/**
- * Xoops Rank Handler
-
- */
-class XoopsRankHandler extends XoopsObjectHandler
-{
-    /**
-     * Constructor
-     *
-     * @param object $db
-     */
-    function __construct($db)
-    {
-        parent::__construct($db);
-    }
-
-    /**
-     * Create Object
-     *
-     * @param bool $isNew
-     *
-     * @return object
-     */
-    function create($isNew = true)
-    {
-        $obj = new XoopsRank();
-        if ($isNew === true) {
-            $obj->setNew();
-        }
-        return $obj;
-    }
-
-    /**
-     * Get Object
-     *
-     * @param int $id
-     *
-     * @return object
-     */
-    function get($id = 0)
-    {
-        $object = $this->create(false);
-        $sql = "SELECT * FROM " . $this->db->prefix('ranks') . " WHERE rank_id = " . $this->db->quoteString($id);
-        if (!$result = $this->db->query($sql)) {
-            $ret = null;
-            return $ret;
-        }
-        while ($row = $this->db->fetchArray($result)) {
-            $object->assignVars($row);
-        }
-
-        return $object;
-    }
-
-    /**
-     * Get List
-     *
-     * @param array $criteria
-     * @param int   $limit
-     * @param int   $start
-     *
-     * @return array
-     */
-    function getList($criteria = null, $limit = 0, $start = 0)
-    {
-        $ret = array();
-        if ($criteria == null) {
-            $criteria = new CriteriaCompo();
-        }
-
-        $sql = 'SELECT rank_id, rank_title FROM ' . $this->db->prefix('ranks');
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            if ($criteria->getSort() != '') {
-                $sql .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-        }
-        $result = $this->db->query($sql, $limit, $start);
-        if (!$result) {
-            return $ret;
-        }
-        $myts = MyTextSanitizer::getInstance();
-        while ($myrow = $this->db->fetchArray($result)) {
-            $ret[$myrow['rank_id']] = $myts->htmlSpecialChars($myrow['rank_title']);
-        }
-        return $ret;
-    }
-}
-
-/**
- * Xoops Users Extend Class
-
- */
-class XoUser extends XoopsUser
-{
-    /**
-     * XoUser
-     *
-     * @return XoUser
-     */
-    function __construct()
-    {
-        parent::__construct();
-        $unsets = array(
-            "actkey",
-            "pass",
-            "theme",
-            "umode",
-            "uorder",
-            "notify_mode"
-        );
-        foreach ($unsets as $var) {
-            unset($this->vars[$var]);
-        }
-    }
-}
-
-/**
- * XoUser Handler
-
- */
-class XoUserHandler extends XoopsObjectHandler
-{
-    /**
-     * Enter description here...
-     *
-     * @param object $db
-     */
-    function __construct($db)
-    {
-        parent::__construct($db);
-    }
-
-    /**
-     * Create
-     *
-     * @param bool $isNew
-     *
-     * @return unknown
-     */
-    function create($isNew = true)
-    {
-        $obj = new XoUser();
-        if ($isNew === true) {
-            $obj->setNew();
-        }
-        return $obj;
-    }
-
-    /**
-     * Get Count
-     *
-     * @param CriteriaElement|null $criteria
-     * @param array                $groups
-     *
-     * @return
-     */
-    function getCount(CriteriaElement $criteria = null, $groups = array())
-    {
-        if (!is_array($groups)) {
-            $groups = array(
-                $groups
-            );
-        }
-        $groups = array_filter($groups);
-        if (empty($groups)) {
-            $sql = '    SELECT COUNT(DISTINCT u.uid) FROM ' . $this->db->prefix('users') . ' AS u' . '    WHERE 1=1';
-        } else {
-            $sql = '    SELECT COUNT(DISTINCT u.uid) FROM ' . $this->db->prefix('users') . ' AS u' . '    LEFT JOIN ' . $this->db->prefix('groups_users_link') . ' AS g ON g.uid = u.uid' . '    WHERE g.groupid IN (' . implode(', ', array_map('intval', $groups)) . ')';
-        }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            // Use the direct renderer, assuming no `uid` in criteria
-            if ($render = $criteria->render()) {
-                $sql .= ' AND ' . $render;
-            }
-        }
-        $result = $this->db->query($sql);
-        list ($count) = $this->db->fetchRow($result);
-        return $count;
-    }
-
-    /**
-     * GetAll
-     *
-     * @param CriteriaElement|null $criteria
-     * @param array                $groups
-     *
-     * @return array
-     */
-    function getAll(CriteriaElement $criteria = null, $groups = array())
-    {
-        if (!is_array($groups)) {
-            $groups = array(
-                $groups
-            );
-        }
-        $groups = array_filter($groups);
-        $limit = null;
-        $start = null;
-        if (empty($groups)) {
-            $sql = '    SELECT u.* FROM ' . $this->db->prefix('users') . ' AS u' . '    WHERE 1=1';
-        } else {
-
-            $sql = '    SELECT u.* FROM ' . $this->db->prefix('users') . ' AS u' . '    LEFT JOIN ' . $this->db->prefix('groups_users_link') . ' AS g ON g.uid = u.uid' . '    WHERE g.groupid IN (' . implode(', ', array_map('intval', $groups)) . ')';
-        }
-        if (isset($criteria) && is_subclass_of($criteria, "criteriaelement")) {
-            if ($render = $criteria->render()) {
-                $sql .= ' AND ' . $render;
-            }
-            if ($sort = $criteria->getSort()) {
-                $sql .= " ORDER BY " . $sort . " " . $criteria->getOrder();
-                $orderSet = true;
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-        }
-        if (empty($orderSet)) {
-            $sql .= " ORDER BY u.uid ASC";
-        }
-        $result = $this->db->query($sql, $limit, $start);
-        $ret = array();
-        while ($myrow = $this->db->fetchArray($result)) {
-            $object = $this->create(false);
-            $object->assignVars($myrow);
-            $ret[$myrow["uid"]] = $object;
-            unset($object);
-        }
-
-        return $ret;
-    }
-}
-
-$rank_handler = new XoopsRankHandler($xoopsDB);
-$user_handler = new XoUserHandler($xoopsDB);
+$rank_handler = new XoopsRanksHandler($xoops->db());
+$user_handler = new XoopsUserHandler($xoops->db());
 
 $items_match = array(
     'uname'     => XoopsLocale::USER_NAME,
@@ -319,118 +72,113 @@ $items_range = array(
 
 define('FINDUSERS_MODE_SIMPLE', 0);
 define('FINDUSERS_MODE_ADVANCED', 1);
-define('FINDUSERS_MODE_QUERY', 2);
 
 $modes = array(
     FINDUSERS_MODE_SIMPLE   => XoopsLocale::SIMPLE_MODE,
     FINDUSERS_MODE_ADVANCED => XoopsLocale::ADVANCED_MODE,
-    FINDUSERS_MODE_QUERY    => XoopsLocale::QUERY_MODE
 );
 
 if (empty($_POST["user_submit"])) {
     $form = new XoopsThemeForm(XoopsLocale::FIND_USERS, "uesr_findform", "findusers.php", 'post', true);
     $mode = intval(@$_REQUEST["mode"]);
-    if (FINDUSERS_MODE_QUERY == $mode) {
-        $form->addElement(new XoopsFormTextArea(XoopsLocale::QUERY, "query", @$_POST["query"]));
-    } else {
-        if (FINDUSERS_MODE_ADVANCED == $mode) {
-            foreach ($items_match as $var => $title) {
-                $text = new XoopsFormText("", $var, 30, 100, @$_POST[$var]);
-                $match = new XoopsFormSelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
-                $match_tray = new XoopsFormElementTray($title, "&nbsp;");
-                $match_tray->addElement($match);
-                $match_tray->addElement($text);
-                $form->addElement($match_tray);
-                unset($text, $match, $match_tray);
-            }
-
-            $url_text = new XoopsFormText(XoopsLocale::URL_CONTAINS, "url", 30, 100, @$_POST["url"]);
-            $location_text = new XoopsFormText(XoopsLocale::LOCATION_CONTAINS, "user_from", 30, 100, @$_POST["user_from"]);
-            $occupation_text = new XoopsFormText(XoopsLocale::OCCUPATION_CONTAINS, "user_occ", 30, 100, @$_POST["user_occ"]);
-            $interest_text = new XoopsFormText(XoopsLocale::INTEREST_CONTAINS, "user_intrest", 30, 100, @$_POST["user_intrest"]);
-            foreach ($items_range as $var => $title) {
-                $more = new XoopsFormText("", "{$var}_more", 10, 5, @$_POST["{$var}_more"]);
-                $less = new XoopsFormText("", "{$var}_less", 10, 5, @$_POST["{$var}_less"]);
-                $range_tray = new XoopsFormElementTray($title, "&nbsp;-&nbsp;&nbsp;");
-                $range_tray->addElement($less);
-                $range_tray->addElement($more);
-                $form->addElement($range_tray);
-                unset($more, $less, $range_tray);
-            }
-
-            $mailok_radio = new XoopsFormRadio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_mailok", empty($_POST["user_mailok"]) ? "both" : $_POST["user_mailok"]);
-            $mailok_radio->addOptionArray(array(
-                "mailok" => XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL,
-                "mailng" => XoopsLocale::ONLY_USERS_THAT_DO_NOT_ACCEPT_EMAIL,
-                "both"   => XoopsLocale::ALL
-            ));
-            $avatar_radio = new XoopsFormRadio(XoopsLocale::HAS_AVATAR, "user_avatar", empty($_POST["user_avatar"]) ? "both" : $_POST["user_avatar"]);
-            $avatar_radio->addOptionArray(array(
-                "y"    => XoopsLocale::YES,
-                "n"    => XoopsLocale::NO,
-                "both" => XoopsLocale::ALL
-            ));
-
-            $level_radio = new XoopsFormRadio(XoopsLocale::LEVEL, "level", @$_POST["level"]);
-            $levels = array(
-                0 => XoopsLocale::ALL,
-                1 => XoopsLocale::ACTIVE,
-                2 => XoopsLocale::INACTIVE,
-                3 => XoopsLocale::DISABLED
-            );
-            $level_radio->addOptionArray($levels);
-
-            $member_handler = $xoops->getHandlerMember();
-            $groups = $member_handler->getGroupList();
-            $groups[0] = XoopsLocale::ALL;
-            $group_select = new XoopsFormSelect(XoopsLocale::GROUP, 'groups', @$_POST['groups'], 3, true);
-            $group_select->addOptionArray($groups);
-
-            $ranks = $rank_handler->getList();
-            $ranks[0] = XoopsLocale::ALL;
-            $rank_select = new XoopsFormSelect(XoopsLocale::RANK, 'rank', intval(@$_POST['rank']));
-            $rank_select->addOptionArray($ranks);
-            $form->addElement($url_text);
-            $form->addElement($location_text);
-            $form->addElement($occupation_text);
-            $form->addElement($interest_text);
-            $form->addElement($mailok_radio);
-            $form->addElement($avatar_radio);
-            $form->addElement($level_radio);
-            $form->addElement($group_select);
-            $form->addElement($rank_select);
-        } else {
-            foreach (array(
-                         "uname",
-                         "email"
-                     ) as $var) {
-                $title = $items_match[$var];
-                $text = new XoopsFormText("", $var, 30, 100, @$_POST[$var]);
-                $match = new XoopsFormSelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
-                $match_tray = new XoopsFormElementTray($title, "&nbsp;");
-                $match_tray->addElement($match);
-                $match_tray->addElement($text);
-                $form->addElement($match_tray);
-                unset($text, $match, $match_tray);
-            }
+    if (FINDUSERS_MODE_ADVANCED == $mode) {
+        foreach ($items_match as $var => $title) {
+            $text = new XoopsFormText("", $var, 30, 100, @$_POST[$var]);
+            $match = new XoopsFormSelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
+            $match_tray = new XoopsFormElementTray($title, "&nbsp;");
+            $match_tray->addElement($match);
+            $match_tray->addElement($text);
+            $form->addElement($match_tray);
+            unset($text, $match, $match_tray);
         }
 
-        $sort_select = new XoopsFormSelect(XoopsLocale::SORT_BY, "user_sort", @$_POST["user_sort"]);
-        $sort_select->addOptionArray(array(
-            "uname"        => XoopsLocale::USER_NAME,
-            "last_login"   => XoopsLocale::LAST_LOGIN,
-            "user_regdate" => XoopsLocale::REGISTRATION_DATE,
-            "posts"        => XoopsLocale::POSTS
+        $url_text = new XoopsFormText(XoopsLocale::URL_CONTAINS, "url", 30, 100, @$_POST["url"]);
+        $location_text = new XoopsFormText(XoopsLocale::LOCATION_CONTAINS, "user_from", 30, 100, @$_POST["user_from"]);
+        $occupation_text = new XoopsFormText(XoopsLocale::OCCUPATION_CONTAINS, "user_occ", 30, 100, @$_POST["user_occ"]);
+        $interest_text = new XoopsFormText(XoopsLocale::INTEREST_CONTAINS, "user_intrest", 30, 100, @$_POST["user_intrest"]);
+        foreach ($items_range as $var => $title) {
+            $more = new XoopsFormText("", "{$var}_more", 10, 5, @$_POST["{$var}_more"]);
+            $less = new XoopsFormText("", "{$var}_less", 10, 5, @$_POST["{$var}_less"]);
+            $range_tray = new XoopsFormElementTray($title, "&nbsp;-&nbsp;&nbsp;");
+            $range_tray->addElement($less);
+            $range_tray->addElement($more);
+            $form->addElement($range_tray);
+            unset($more, $less, $range_tray);
+        }
+
+        $mailok_radio = new XoopsFormRadio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_mailok", empty($_POST["user_mailok"]) ? "both" : $_POST["user_mailok"]);
+        $mailok_radio->addOptionArray(array(
+            "mailok" => XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL,
+            "mailng" => XoopsLocale::ONLY_USERS_THAT_DO_NOT_ACCEPT_EMAIL,
+            "both"   => XoopsLocale::ALL
         ));
-        $order_select = new XoopsFormSelect(XoopsLocale::ORDER, "user_order", @$_POST["user_order"]);
-        $order_select->addOptionArray(array(
-            "ASC"  => XoopsLocale::ASCENDING_ORDER,
-            "DESC" => XoopsLocale::DESCENDING_ORDER
+        $avatar_radio = new XoopsFormRadio(XoopsLocale::HAS_AVATAR, "user_avatar", empty($_POST["user_avatar"]) ? "both" : $_POST["user_avatar"]);
+        $avatar_radio->addOptionArray(array(
+            "y"    => XoopsLocale::YES,
+            "n"    => XoopsLocale::NO,
+            "both" => XoopsLocale::ALL
         ));
 
-        $form->addElement($sort_select);
-        $form->addElement($order_select);
+        $level_radio = new XoopsFormRadio(XoopsLocale::LEVEL, "level", @$_POST["level"]);
+        $levels = array(
+            0 => XoopsLocale::ALL,
+            1 => XoopsLocale::ACTIVE,
+            2 => XoopsLocale::INACTIVE,
+            3 => XoopsLocale::DISABLED
+        );
+        $level_radio->addOptionArray($levels);
+
+        $member_handler = $xoops->getHandlerMember();
+        $groups = $member_handler->getGroupList();
+        $groups[0] = XoopsLocale::ALL;
+        $group_select = new XoopsFormSelect(XoopsLocale::GROUP, 'groups', @$_POST['groups'], 3, true);
+        $group_select->addOptionArray($groups);
+
+        $ranks = $rank_handler->getList();
+        $ranks[0] = XoopsLocale::ALL;
+        $rank_select = new XoopsFormSelect(XoopsLocale::RANK, 'rank', intval(@$_POST['rank']));
+        $rank_select->addOptionArray($ranks);
+        $form->addElement($url_text);
+        $form->addElement($location_text);
+        $form->addElement($occupation_text);
+        $form->addElement($interest_text);
+        $form->addElement($mailok_radio);
+        $form->addElement($avatar_radio);
+        $form->addElement($level_radio);
+        $form->addElement($group_select);
+        $form->addElement($rank_select);
+    } else {
+        foreach (array(
+                     "uname",
+                     "email"
+                 ) as $var) {
+            $title = $items_match[$var];
+            $text = new XoopsFormText("", $var, 30, 100, @$_POST[$var]);
+            $match = new XoopsFormSelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
+            $match_tray = new XoopsFormElementTray($title, "&nbsp;");
+            $match_tray->addElement($match);
+            $match_tray->addElement($text);
+            $form->addElement($match_tray);
+            unset($text, $match, $match_tray);
+        }
     }
+
+    $sort_select = new XoopsFormSelect(XoopsLocale::SORT_BY, "user_sort", @$_POST["user_sort"]);
+    $sort_select->addOptionArray(array(
+        "uname"        => XoopsLocale::USER_NAME,
+        "last_login"   => XoopsLocale::LAST_LOGIN,
+        "user_regdate" => XoopsLocale::REGISTRATION_DATE,
+        "posts"        => XoopsLocale::POSTS
+    ));
+    $order_select = new XoopsFormSelect(XoopsLocale::ORDER, "user_order", @$_POST["user_order"]);
+    $order_select->addOptionArray(array(
+        "ASC"  => XoopsLocale::ASCENDING_ORDER,
+        "DESC" => XoopsLocale::DESCENDING_ORDER
+    ));
+
+    $form->addElement($sort_select);
+    $form->addElement($order_select);
+
     $form->addElement(new XoopsFormText(XoopsLocale::NUMBER_OF_RESULTS_PER_PAGE, "limit", 6, 6, empty($_REQUEST["limit"]) ? 50 : intval($_REQUEST["limit"])));
     $form->addElement(new XoopsFormHidden("mode", $mode));
     $form->addElement(new XoopsFormHidden("target", @$_REQUEST["target"]));
@@ -554,7 +302,9 @@ if (empty($_POST["user_submit"])) {
                 }
             }
         }
-        $total = $user_handler->getCount($criteria, @$_POST["groups"]);
+        // @todo this used to accept a second criteris, an array of groups. (@$_POST["groups"])
+        // perhaps use XoopsMemberHandler getUsersByGroupLink()?
+        $total = $user_handler->getCount($criteria);
         $validsort = array(
             "uname",
             "email",
@@ -571,35 +321,9 @@ if (empty($_POST["user_submit"])) {
         $criteria->setOrder($order);
         $criteria->setLimit($limit);
         $criteria->setStart($start);
-        $foundusers = $user_handler->getAll($criteria, @$_POST["groups"]);
-    } else {
-        $query = trim($_POST["query"]);
-        // Query with alias
-        if (preg_match("/select[\s]+.*[\s]+from[\s]+(" . $xoopsDB->prefix("users") . "[\s]+as[\s]+([^\s]+).*)/i", $query, $matches)) {
-            $alias = $matches[2];
-            $subquery = $matches[1];
-            // Query without alias
-        } else {
-            if (preg_match("/select[\s]+.*[\s]+from[\s]+(" . $xoopsDB->prefix("users") . "\b.*)/i", $query, $matches)) {
-                $alias = "";
-                $subquery = $matches[1];
-                // Invalid query
-            } else {
-                $query = "SELECT * FROM " . $xoopsDB->prefix("users");
-                $subquery = $xoopsDB->prefix("users");
-            }
-        }
-        $sql_count = "SELECT COUNT(DISTINCT " . (empty($alias) ? "" : $alias . ".") . "uid) FROM " . $subquery;
-        $result = $xoopsDB->query($sql_count);
-        list ($total) = $xoopsDB->FetchRow($result);
-        $result = $xoopsDB->query($query, $limit, $start);
-        $foundusers = array();
-        while ($myrow = $xoopsDB->fetchArray($result)) {
-            $object = $user_handler->create(false);
-            $object->assignVars($myrow);
-            $foundusers[$myrow["uid"]] = $object;
-            unset($object);
-        }
+        // @todo this used to accept a second criteris, an array of groups. (@$_POST["groups"])
+        // perhaps use XoopsMemberHandler getUsersByGroupLink()?
+        $foundusers = $user_handler->getAll($criteria);
     }
 
     echo $js_adduser = '
@@ -636,7 +360,7 @@ if (empty($_POST["user_submit"])) {
     ';
 
     echo "</html><body>";
-    echo "<a href='findusers.php?target=" . htmlspecialchars(@$_POST["target"], ENT_QUOTES) . "&amp;multiple=" . intval(@$_POST["multiple"]) . "&amp;token=" . htmlspecialchars($token, ENT_QUOTES) . "'>" . XoopsLocale::FIND_USERS . "</a>&nbsp;<span style='font-weight:bold;'>&raquo;&raquo;</span>&nbsp;" . _MA_USER_RESULTS . "<br /><br />";
+    echo "<a href='findusers.php?target=" . htmlspecialchars(@$_POST["target"], ENT_QUOTES) . "&amp;multiple=" . intval(@$_POST["multiple"]) . "&amp;token=" . htmlspecialchars($token, ENT_QUOTES) . "'>" . XoopsLocale::FIND_USERS . "</a>&nbsp;<span style='font-weight:bold;'>&raquo;&raquo;</span>&nbsp;" . XoopsLocale::SEARCH_RESULTS . "<br /><br />";
     if (empty($start) && empty($foundusers)) {
         echo "<h4>" . XoopsLocale::E_USERS_NOT_FOUND, "</h4>";
         $hiddenform = "<form name='findnext' action='findusers.php' method='post'>";
@@ -795,3 +519,4 @@ if (empty($_POST["user_submit"])) {
 }
 
 $xoops->simpleFooter();
+//$xoops->footer();
