@@ -32,7 +32,7 @@ class BannersPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'banners' => $path . '/class/helper.php',
         ));
@@ -40,7 +40,7 @@ class BannersPreload extends PreloadItem
 
     public static function eventCoreBannerDisplay($args)
     {
-        require_once dirname(dirname(__FILE__)) . '/class/bannerrender.php';
+        require_once dirname(__DIR__) . '/class/bannerrender.php';
         $render = new BannerRender();
         $args[0] = $render->displayBanner();
     }

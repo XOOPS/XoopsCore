@@ -13,12 +13,12 @@
 
     // get the HTML
     ob_start();
-    include(dirname(__FILE__) . '/res/exemple07a.php');
-    include(dirname(__FILE__) . '/res/exemple07b.php');
+    include(__DIR__ . '/res/exemple07a.php');
+    include(__DIR__ . '/res/exemple07b.php');
     $content = ob_get_clean();
 
     // convert to PDF
-    require_once(dirname(__FILE__) . '/../html2pdf.class.php');
+    require_once(__DIR__ . '/../html2pdf.class.php');
     try
     {
         $html2pdf = new HTML2PDF('P', 'A4', 'fr');

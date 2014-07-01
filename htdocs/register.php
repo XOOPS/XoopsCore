@@ -19,7 +19,7 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  * @version         $Id$
  */
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.register.start');

@@ -30,7 +30,8 @@ class QrcodeCorePreload extends XoopsPreloadItem
 {
 
     static function eventCoreIncludeCommonEnd($args)
-    {        XoopsLoad::addMap(array('xoops_qrcode' => dirname(dirname(__FILE__)) . '/class/xoops_qrcode.php'));
+    {
+        XoopsLoad::addMap(array('xoops_qrcode' => dirname(__DIR__) . '/class/xoops_qrcode.php'));
     }
 
 }

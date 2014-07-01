@@ -37,7 +37,7 @@ class CommentsPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'comments'                => $path . '/class/helper.php',
             'commentscommentrenderer' => $path . '/class/commentrenderer.php'

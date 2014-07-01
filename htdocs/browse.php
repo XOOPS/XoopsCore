@@ -20,7 +20,7 @@
  */
 
 $xoopsOption['nocommon'] = true;
-require_once dirname(__FILE__) . '/mainfile.php';
+require_once __DIR__ . '/mainfile.php';
 
 //error_reporting(0);
 

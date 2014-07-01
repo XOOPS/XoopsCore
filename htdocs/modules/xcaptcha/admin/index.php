@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 
@@ -65,4 +65,4 @@ switch ($op) {
 
         break;
 }
-include dirname(__FILE__) . '/footer.php';
+include __DIR__ . '/footer.php';

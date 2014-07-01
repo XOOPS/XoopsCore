@@ -23,12 +23,17 @@ $adminmenu[$cpt]['link'] = 'admin/index.php';
 $adminmenu[$cpt]['icon'] = 'home.png';
 
 static $xcaptcha_handler;
-if (!isset($xcaptcha_handler)) {    include_once dirname(dirname(__FILE__)) . '/class/xcaptcha.php';    $xcaptcha_handler = new Xcaptcha();}
+if (!isset($xcaptcha_handler)) {
+    include_once dirname(__DIR__) . '/class/xcaptcha.php';
+    $xcaptcha_handler = new Xcaptcha();
+}
 
 $xoops = Xoops::getInstance();
 
-foreach ( array_keys($xcaptcha_handler->getPluginList()) as $key ) {    $cpt++;
-    $xoops->loadLanguage($key, 'xcaptcha');
+foreach ( array_keys($xcaptcha_handler->getPluginList()) as $key ) {
+    $cpt++;
+    $xoops->loadLanguage($key, 'xcaptcha');
+
     $adminmenu[$cpt]['title'] = constant('_MI_XCAPTCHA_ADMENU_' . strtoupper($key) );
     $adminmenu[$cpt]['link'] = 'admin/index.php?type=' . $key;
     $adminmenu[$cpt]['icon'] = 'administration.png';

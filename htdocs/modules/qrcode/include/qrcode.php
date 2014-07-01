@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getinstance();
 if ($xoops->isActiveModule('qrcode') && $_GET['url']) {

@@ -31,7 +31,7 @@ class AvatarsPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'avatars' => $path . '/class/helper.php',
         ));
@@ -47,7 +47,7 @@ class AvatarsPreload extends PreloadItem
     public static function eventCoreServiceLocateAvatar(Provider $provider)
     {
         if (is_a($provider, '\Xoops\Core\Service\Provider')) {
-            $path = dirname(dirname(__FILE__)) . '/class/AvatarsProvider.php';
+            $path = dirname(__DIR__) . '/class/AvatarsProvider.php';
             require $path;
             $object = new AvatarsProvider();
             $provider->register($object);

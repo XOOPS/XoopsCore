@@ -34,7 +34,7 @@ class MytsImage extends MyTextSanitizerExtension
         static $jsLoaded;
 
         $xoops = Xoops::getInstance();
-        $config = $this->loadConfig(dirname(__FILE__));
+        $config = $this->loadConfig(__DIR__);
         $ts->patterns[] = "/\[img align=(['\"]?)(left|center|right)\\1 width=(['\"]?)([0-9]*)\\3]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";
         $ts->patterns[] = "/\[img align=(['\"]?)(left|center|right)\\1]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";
         $ts->patterns[] = "/\[img width=(['\"]?)([0-9]*)\\1]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";

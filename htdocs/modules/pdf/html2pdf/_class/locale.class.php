@@ -38,7 +38,7 @@ class HTML2PDF_locale
     static public function load($code)
     {
         if (self::$_directory===null) {
-            self::$_directory = dirname(dirname(__FILE__)).'/locale/';
+            self::$_directory = dirname(__DIR__).'/locale/';
         }
 
         // must be in lower case

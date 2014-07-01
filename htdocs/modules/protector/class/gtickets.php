@@ -40,8 +40,8 @@ if (!class_exists('XoopsGTicket')) {
 
             // language file
             if (defined('XOOPS_ROOT_PATH') && $language && !strstr($language, '/')) {
-                if (XoopsLoad::fileExists(dirname(dirname(__FILE__)) . '/language/' . $language . '/gticket_messages.phtml')) {
-                    include dirname(dirname(__FILE__)) . '/language/' . $language . '/gticket_messages.phtml';
+                if (XoopsLoad::fileExists(dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml')) {
+                    include dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml';
                 }
             }
 

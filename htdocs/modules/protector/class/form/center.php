@@ -40,7 +40,7 @@ class ProtectorCenterForm extends XoopsThemeForm
         global $xoopsDB;
         $db = $xoopsDB;
         $protector = Protector::getInstance($db->conn);
-        require_once dirname(dirname(__FILE__)) . '/gtickets.php';
+        require_once dirname(__DIR__) . '/gtickets.php';
 
         parent::__construct('', "form_prefip", "center.php", 'post', true);
 

@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->getConfigs();
@@ -84,4 +84,4 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
 
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_CHANGEMAIL));
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

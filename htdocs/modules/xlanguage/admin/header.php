@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $op = '';
 if (isset($_POST)) {

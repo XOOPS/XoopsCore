@@ -19,9 +19,9 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
-require_once dirname(dirname(__FILE__)) . '/class/gtickets.php';
+require_once dirname(__DIR__) . '/class/gtickets.php';
 
 $xoops->db();
 global $xoopsDB;
@@ -35,7 +35,7 @@ $num = empty($_GET['num']) ? 20 : intval($_GET['num']);
 $log_table = $db->prefix('protector_log');
 
 // Protector object
-require_once dirname(dirname(__FILE__)) . '/class/protector.php';
+require_once dirname(__DIR__) . '/class/protector.php';
 $protector = Protector::getInstance($db->conn);
 $conf = $protector->getConf();
 

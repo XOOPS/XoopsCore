@@ -47,7 +47,7 @@ function xoops_module_update_profile(&$module, $oldversion = null)
         // Create new tables for new profile module
         $xoopsDB->queryFromFile(XOOPS_ROOT_PATH . "/modules/" . $module->getVar('dirname', 'n') . "/sql/mysql.sql");
 
-        include_once dirname(__FILE__) . "/install.php";
+        include_once __DIR__ . "/install.php";
         xoops_module_install_profile($module);
         $goupperm_handler = $xoops->getHandlerGroupperm();
 

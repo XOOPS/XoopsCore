@@ -61,7 +61,7 @@ class ProtectorCorePreload extends XoopsPreloadItem
     static function eventCoreClassDatabaseDatabasefactoryConnection($args)
     {
         // Protector class
-        require_once dirname(dirname(__FILE__)) . '/class/protector.php';
+        require_once dirname(__DIR__) . '/class/protector.php';
 
         // Protector object
         $protector = Protector::getInstance();

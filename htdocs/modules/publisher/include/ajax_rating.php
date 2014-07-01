@@ -32,7 +32,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . '/header.php';
+include_once dirname(__DIR__) . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();

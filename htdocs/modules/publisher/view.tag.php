@@ -19,5 +19,5 @@
  */
 
 //todo: check this file
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 include_once XOOPS_ROOT_PATH . '/modules/tag/view.tag.php';

@@ -14,11 +14,11 @@ if (!defined('__CLASS_HTML2PDF__')) {
     define('__CLASS_HTML2PDF__', '4.03');
     define('HTML2PDF_USED_TCPDF_VERSION', '5.0.002');
 
-    require_once(dirname(__FILE__).'/_class/exception.class.php');
-    require_once(dirname(__FILE__).'/_class/locale.class.php');
-    require_once(dirname(__FILE__).'/_class/myPdf.class.php');
-    require_once(dirname(__FILE__).'/_class/parsingHtml.class.php');
-    require_once(dirname(__FILE__).'/_class/parsingCss.class.php');
+    require_once(__DIR__.'/_class/exception.class.php');
+    require_once(__DIR__.'/_class/locale.class.php');
+    require_once(__DIR__.'/_class/myPdf.class.php');
+    require_once(__DIR__.'/_class/parsingHtml.class.php');
+    require_once(__DIR__.'/_class/parsingCss.class.php');
 
     class HTML2PDF
     {

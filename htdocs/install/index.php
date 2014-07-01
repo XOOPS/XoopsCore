@@ -25,5 +25,5 @@
  * @version     $Id$
  */
 
-require_once dirname(__FILE__) . '/page_langselect.php';
+require_once __DIR__ . '/page_langselect.php';
 exit();
