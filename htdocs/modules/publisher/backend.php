@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
@@ -41,7 +41,7 @@ $tpl->caching = 2;
 $tpl->cache_lifetime= 0;
 
 $myts = MyTextSanitizer::getInstance();
-if (!$tpl->is_cached('module:publisher|publisher_rss.tpl')) {
+if (!$tpl->is_cached('module:publisher|publisher_rss.html')) {
     $channel_category = $publisher->getModule()->getVar('name');
     $tpl->assign('channel_charset', XoopsLocale::getCharset());
     $tpl->assign('channel_title', htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES));
@@ -58,8 +58,8 @@ if (!$tpl->is_cached('module:publisher|publisher_rss.tpl')) {
     $tpl->assign('channel_category', htmlspecialchars($channel_category));
     $tpl->assign('channel_generator', $publisher->getModule()->getVar('name'));
     $tpl->assign('channel_language', XoopsLocale::getLangCode());
-    $tpl->assign('image_url', XOOPS_URL . '/assets/images/logo.gif');
-    $dimention = getimagesize(XOOPS_ROOT_PATH . '/assets/images/logo.gif');
+    $tpl->assign('image_url', XOOPS_URL . '/images/logo.gif');
+    $dimention = getimagesize(XOOPS_ROOT_PATH . '/images/logo.gif');
     if (empty($dimention[0])) {
         $width = 140;
         $height = 140;
@@ -84,4 +84,4 @@ if (!$tpl->is_cached('module:publisher|publisher_rss.tpl')) {
         }
     }
 }
-$tpl->display('module:publisher|publisher_rss.tpl');
+$tpl->display('module:publisher|publisher_rss.html');

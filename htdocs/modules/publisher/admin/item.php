@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 
@@ -201,9 +201,9 @@ switch ($op) {
             for ($i = 0; $i < $totalItemsOnPage; $i++) {
                 $categoryObj = $itemsObj[$i]->category();
 
-                $approve = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/approve.gif' title='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' alt='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' /></a>&nbsp;";
+                $approve = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/approve.gif' title='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' alt='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' /></a>&nbsp;";
                 $clone = '';
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 $modify = "";
 
                 echo "<tr>";
@@ -251,9 +251,9 @@ switch ($op) {
             for ($i = 0; $i < $totalItemsOnPage; $i++) {
                 $categoryObj = $itemsObj[$i]->category();
 
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
-                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
+                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>";
 
                 echo "<tr>";
                 echo "<td class='head' align='center'>" . $itemsObj[$i]->getVar('itemid') . "</td>";
@@ -299,9 +299,9 @@ switch ($op) {
             for ($i = 0; $i < $totalItemsOnPage; $i++) {
                 $categoryObj = $itemsObj[$i]->category();
 
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
-                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
+                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>";
 
                 echo "<tr>";
                 echo "<td class='head' align='center'>" . $itemsObj[$i]->getVar('itemid') . "</td>";
@@ -348,9 +348,9 @@ switch ($op) {
             for ($i = 0; $i < $totalItemsOnPage; $i++) {
                 $categoryObj = $itemsObj[$i]->category();
 
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
-                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
+                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>";
 
                 echo "<tr>";
                 echo "<td class='head' align='center'>" . $itemsObj[$i]->getVar('itemid') . "</td>";
@@ -384,7 +384,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     global $publisher_current_page;
 
     $formTpl = new XoopsTpl();
-    //publisher_submit.tpl
+    //publisher_submit.html
 
     // if there is a parameter, and the id exists, retrieve data: we're editing a item
 
@@ -465,7 +465,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     $sform = $publisher->getForm($itemObj, 'item');
     $sform->setTitle(_AM_PUBLISHER_ITEMS);
     $sform->assign($formTpl);
-    $formTpl->display('module:publisher|publisher_submit.tpl');
+    $formTpl->display('module:publisher|publisher_submit.html');
 
     PublisherUtils::closeCollapsableBar('edititemtable', 'edititemicon');
 

@@ -214,9 +214,9 @@ class XoopsFormDhtmlTextArea extends XoopsFormTextArea
     {
         $textarea_id = $this->getName();
         $code = "<a name='moresmiley'></a>";
-        $code .= "<img src='" . XOOPS_URL . "/assets/images/url.gif' alt='" . XoopsLocale::URL . "' title='" . XoopsLocale::URL . "' onclick='xoopsCodeUrl(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_LINK_URL, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::ENTER_WEBSITE_TITLE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
-        $code .= "<img src='" . XOOPS_URL . "/assets/images/email.gif' alt='" . XoopsLocale::EMAIL . "' title='" . XoopsLocale::EMAIL . "' onclick='xoopsCodeEmail(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_EMAIL, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
-        $code .= "<img src='" . XOOPS_URL . "/assets/images/imgsrc.gif' alt='" . XoopsLocale::IMAGES . "' title='" . XoopsLocale::IMAGES . "' onclick='xoopsCodeImg(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_IMAGE_URL, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::ENTER_IMAGE_POSITION, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::IMAGE_POSITION_DESCRIPTION, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::E_ENTER_IMAGE_POSITION, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::WIDTH, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $code .= "<img src='" . XOOPS_URL . "/images/url.gif' alt='" . XoopsLocale::URL . "' title='" . XoopsLocale::URL . "' onclick='xoopsCodeUrl(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_LINK_URL, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::ENTER_WEBSITE_TITLE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $code .= "<img src='" . XOOPS_URL . "/images/email.gif' alt='" . XoopsLocale::EMAIL . "' title='" . XoopsLocale::EMAIL . "' onclick='xoopsCodeEmail(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_EMAIL, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $code .= "<img src='" . XOOPS_URL . "/images/imgsrc.gif' alt='" . XoopsLocale::IMAGES . "' title='" . XoopsLocale::IMAGES . "' onclick='xoopsCodeImg(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_IMAGE_URL, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::ENTER_IMAGE_POSITION, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::IMAGE_POSITION_DESCRIPTION, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::E_ENTER_IMAGE_POSITION, ENT_QUOTES) . "\", \"" . htmlspecialchars(XoopsLocale::WIDTH, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
 
         $myts = MyTextSanitizer::getInstance();
         $extensions = array_filter($myts->config['extensions']);
@@ -231,8 +231,8 @@ class XoopsFormDhtmlTextArea extends XoopsFormTextArea
                 $this->js .= $js;
             }
         }
-        $code .= "<img src='" . XOOPS_URL . "/assets/images/code.gif' alt='" . XoopsLocale::SOURCE_CODE . "' title='" . XoopsLocale::SOURCE_CODE . "' onclick='xoopsCodeCode(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_CODE, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
-        $code .= "<img src='" . XOOPS_URL . "/assets/images/quote.gif' alt='" . XoopsLocale::QUOTE . "' title='" . XoopsLocale::QUOTE . "' onclick='xoopsCodeQuote(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_QUOTE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $code .= "<img src='" . XOOPS_URL . "/images/code.gif' alt='" . XoopsLocale::SOURCE_CODE . "' title='" . XoopsLocale::SOURCE_CODE . "' onclick='xoopsCodeCode(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_CODE, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $code .= "<img src='" . XOOPS_URL . "/images/quote.gif' alt='" . XoopsLocale::QUOTE . "' title='" . XoopsLocale::QUOTE . "' onclick='xoopsCodeQuote(\"{$textarea_id}\", \"" . htmlspecialchars(XoopsLocale::ENTER_QUOTE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
 
         XoopsPreload::getInstance()->triggerEvent('core.class.xoopsform.formdhtmltextarea.codeicon', array(&$code, $this));
         return $code;
@@ -278,14 +278,14 @@ class XoopsFormDhtmlTextArea extends XoopsFormTextArea
 
         $fontStr .= "document.write(_editor_dialog); </script>";
 
-        $styleStr = "<img src='" . XOOPS_URL . "/assets/images/bold.gif' alt='" . XoopsLocale::BOLD . "' title='" . XoopsLocale::BOLD . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeBold(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
-        $styleStr .= "<img src='" . XOOPS_URL . "/assets/images/italic.gif' alt='" . XoopsLocale::ITALIC . "' title='" . XoopsLocale::ITALIC . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeItalic(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
-        $styleStr .= "<img src='" . XOOPS_URL . "/assets/images/underline.gif' alt='" . XoopsLocale::UNDERLINE . "' title='" . XoopsLocale::UNDERLINE . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeUnderline(\"{$hiddentext}\", \"{$textarea_id}\");'/>&nbsp;";
-        $styleStr .= "<img src='" . XOOPS_URL . "/assets/images/linethrough.gif' alt='" . XoopsLocale::LINE_THROUGH . "' title='" . XoopsLocale::LINE_THROUGH . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeLineThrough(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
+        $styleStr = "<img src='" . XOOPS_URL . "/images/bold.gif' alt='" . XoopsLocale::BOLD . "' title='" . XoopsLocale::BOLD . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeBold(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
+        $styleStr .= "<img src='" . XOOPS_URL . "/images/italic.gif' alt='" . XoopsLocale::ITALIC . "' title='" . XoopsLocale::ITALIC . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeItalic(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
+        $styleStr .= "<img src='" . XOOPS_URL . "/images/underline.gif' alt='" . XoopsLocale::UNDERLINE . "' title='" . XoopsLocale::UNDERLINE . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeUnderline(\"{$hiddentext}\", \"{$textarea_id}\");'/>&nbsp;";
+        $styleStr .= "<img src='" . XOOPS_URL . "/images/linethrough.gif' alt='" . XoopsLocale::LINE_THROUGH . "' title='" . XoopsLocale::LINE_THROUGH . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeLineThrough(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
 
-        $alignStr = "<img src='" . XOOPS_URL . "/assets/images/alignleft.gif' alt='" . XoopsLocale::LEFT . "' title='" . XoopsLocale::LEFT . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeLeft(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
-        $alignStr .= "<img src='" . XOOPS_URL . "/assets/images/aligncenter.gif' alt='" . XoopsLocale::CENTER . "' title='" . XoopsLocale::CENTER . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeCenter(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
-        $alignStr .= "<img src='" . XOOPS_URL . "/assets/images/alignright.gif' alt='" . XoopsLocale::RIGHT . "' title='" . XoopsLocale::RIGHT . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeRight(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
+        $alignStr = "<img src='" . XOOPS_URL . "/images/alignleft.gif' alt='" . XoopsLocale::LEFT . "' title='" . XoopsLocale::LEFT . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeLeft(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
+        $alignStr .= "<img src='" . XOOPS_URL . "/images/aligncenter.gif' alt='" . XoopsLocale::CENTER . "' title='" . XoopsLocale::CENTER . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeCenter(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
+        $alignStr .= "<img src='" . XOOPS_URL . "/images/alignright.gif' alt='" . XoopsLocale::RIGHT . "' title='" . XoopsLocale::RIGHT . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeRight(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
         $fontStr = $fontStr . "<br />\n{$styleStr}&nbsp;{$alignStr}&nbsp;\n";
         return $fontStr;
     }

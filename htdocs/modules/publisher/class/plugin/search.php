@@ -49,7 +49,7 @@ class PublisherSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implement
         $usersIds = array();
         /* @var $obj PublisherItem */
         foreach ($itemsObjs as $obj) {
-            $item['image'] = "assets/images/item_icon.gif";
+            $item['image'] = "images/item_icon.gif";
             $item['link'] = $obj->getItemUrl();
             $item['link'] .= (!empty($hightlight_key) && (strpos($item['link'], '.php?') === false)) ? "?" . ltrim($hightlight_key, '&amp;') : $hightlight_key;
             if ($withCategoryPath) {

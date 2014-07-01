@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-$skinversion['template'] = 'templates/template.tpl';
+$skinversion['template'] = 'templates/template.html';
 
 $skinversion['css'] = array();
 

@@ -38,8 +38,8 @@ function b_system_main_show()
         if (in_array($i, $read_allowed)) {
             $block['modules'][$i]['name'] = $module->getVar('name');
             $block['modules'][$i]['dirname'] = $module->getVar('dirname');
-            if (XoopsLoad::fileExists($xoops->path('modules/' . $module->getVar('dirname') . '/assets/icons/logo_small.png'))) {
-                $block['modules'][$i]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/assets/icons/logo_small.png');
+            if (XoopsLoad::fileExists($xoops->path('modules/' . $module->getVar('dirname') . '/icons/logo_small.png'))) {
+                $block['modules'][$i]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/icons/logo_small.png');
             }
             if ($xoops->isModule() && ($i == $xoops->module->getVar('mid'))) {
                 $block['modules'][$i]['highlight'] = true;
@@ -74,15 +74,15 @@ function b_system_main_edit($options)
 
     // Define Stylesheet
     $xoops->theme()->addStylesheet('media/xoops/css/icons.css');
-    $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+    $xoops->theme()->addStylesheet('modules/system/css/admin.css');
     $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
     // Define scripts
     $xoops->theme()->addScript('media/jquery/plugins/jquery.jeditable.js');
-    $xoops->theme()->addScript('modules/system/assets/js/module.js');
+    $xoops->theme()->addScript('modules/system/js/module.js');
 
     $admin_page->addTips(SystemLocale::MENU_TIPS);
     $admin_page->renderTips();
     $list = $system_module->getModuleList();
     $xoops->tpl()->assign('modules_list', $list);
-    return $xoops->tpl()->fetch('admin:system|system_modules_menu.tpl');
+    return $xoops->tpl()->fetch('admin:system|system_modules_menu.html');
 }

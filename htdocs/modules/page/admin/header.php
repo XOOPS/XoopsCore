@@ -19,7 +19,7 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 // Get main instance
 XoopsLoad::load('system', 'system');
@@ -45,7 +45,7 @@ $nb_limit = $helper->getConfig('page_adminpager');
 $module_id = $helper->getModule()->getVar('mid');
 
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/css/admin.css');
 
 // Add Scripts
 $xoops->theme()->addScript('media/xoops/xoops.js');

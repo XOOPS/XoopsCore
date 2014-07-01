@@ -50,19 +50,19 @@ and they should have a skin_version.php file in it
 
 skin_version.php structure:
 //informs where to find the template for this skin(relative to skin folder)
-$skinversion['template'] = 'templates/template.tpl';
+$skinversion['template'] = 'templates/template.html';
 
 //informs where to find css file/files
-$skinversion['css'] = 'assets/css/superfish.css';
+$skinversion['css'] = 'css/superfish.css';
 or
-$skinversion['css'] = array('assets/css/superfish.css', assets/css/anotherone.css);
+$skinversion['css'] = array('css/superfish.css', css/anotherone.css);
 
 //informs where to find js file/files
-$skinversion['js'] = '../../assets/js/jquery-1.3.2.min.js';
+$skinversion['js'] = '../../js/jquery-1.3.2.min.js';
 or
-$skinversion['js'] = array('../../assets/js/jquery-1.3.2.min.js',
-                             '../../assets/js/hoverIntent.js',
-                             '../../assets/js/superfish.js'
+$skinversion['js'] = array('../../js/jquery-1.3.2.min.js',
+                             '../../js/hoverIntent.js',
+                             '../../js/superfish.js'
                              );
 
 //code to be appended in the <head> theme tag

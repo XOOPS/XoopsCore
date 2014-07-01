@@ -18,15 +18,15 @@
  * @version         $Id$
  */
 
-$skinversion['template'] = 'templates/template.tpl';
+$skinversion['template'] = 'templates/template.html';
 
-$skinversion['css'] = array('assets/css/superfish.css',
-                              'assets/css/superfish-navbar.css'
+$skinversion['css'] = array('css/superfish.css',
+                              'css/superfish-navbar.css'
                               );
 
-                              $skinversion['js'] = array('../../assets/js/jquery-1.3.2.min.js',
-                             '../../assets/js/hoverIntent.js',
-                             '../../assets/js/superfish.js'
+                              $skinversion['js'] = array('../../js/jquery-1.3.2.min.js',
+                             '../../js/hoverIntent.js',
+                             '../../js/superfish.js'
                              );
 
                              $header  = "\n" . '<script type="text/javascript">';

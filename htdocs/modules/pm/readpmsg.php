@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {
@@ -106,7 +106,7 @@ if (is_object($pm) && !empty($_POST['action']) ) {
 }
 $start = !empty($_GET['start']) ? intval($_GET['start']) : 0;
 $total_messages = !empty($_GET['total_messages']) ? intval($_GET['total_messages']) : 0;
-$xoops->header('pm_readpmsg.tpl');
+$xoops->header('pm_readpmsg.html');
 
 if (!is_object($pm)) {
     if ($_REQUEST['op'] == "out") {

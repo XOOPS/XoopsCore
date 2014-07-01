@@ -30,7 +30,7 @@ $modversion['license']        = 'GNU GPL 2.0';
 $modversion['license_url']    = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
-$modversion['image']          = 'assets/images/logo.png';
+$modversion['image']          = 'images/logo.png';
 $modversion['dirname']        = 'banners';
 
 //about
@@ -84,7 +84,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'banners_blocks_show',
     'edit_func'   => 'banners_blocks_edit',
     'options'     => 'random|1|H|0',
-    'template'    => 'banners_blocks_random.tpl',
+    'template'    => 'banners_blocks_random.html',
 );
 
 $modversion['blocks'][] = array(
@@ -94,7 +94,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'banners_blocks_show',
     'edit_func'   => 'banners_blocks_edit',
     'options'     => 'id||H',
-    'template'    => 'banners_blocks_id.tpl',
+    'template'    => 'banners_blocks_id.html',
 );
 
 // Preferences

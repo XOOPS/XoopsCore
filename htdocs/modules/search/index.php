@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $search = Search::getInstance();
 if (!$search->getConfig('enable_search')) {
@@ -116,7 +116,7 @@ switch ($action) {
             unset($mids);
             $mids = array_keys($modules);
         }
-        $xoops->header('module:search|search.tpl');
+        $xoops->header('module:search|search.html');
         $nomatch = true;
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
@@ -138,10 +138,10 @@ switch ($action) {
             if (is_array($results) && $count > 0) {
                 $nomatch = false;
                 $modules_result[$mid]['name'] = $module->getVar('name');
-                if (XoopsLoad::fileExists($image = $xoops->path('modules/' . $module->getVar('dirname') . '/assets/icons/logo_large.png'))) {
+                if (XoopsLoad::fileExists($image = $xoops->path('modules/' . $module->getVar('dirname') . '/icons/logo_large.png'))) {
                     $modules_result[$mid]['image'] = $xoops->url($image);
                 } else {
-                    $modules_result[$mid]['image'] = $xoops->url('assets/images/icons/posticon2.gif');
+                    $modules_result[$mid]['image'] = $xoops->url('images/icons/posticon2.gif');
                 }
                 $res = array();
                 for ($i = 0; $i < $count; $i++) {
@@ -182,7 +182,7 @@ switch ($action) {
 
     case "showall":
     case 'showallbyuser':
-        $xoops->header('module:search|search.tpl');
+        $xoops->header('module:search|search.html');
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
         $xoops->tpl()->assign('ignored_words', sprintf(_MD_SEARCH_IGNOREDWORDS, $search->getConfig('keyword_min')));
@@ -195,7 +195,7 @@ switch ($action) {
         $results = $plugin->search($queries, $andor, 20, $start, $uid);
 
         $modules_result[$mid]['name'] = $module->getVar('name');
-        $modules_result[$mid]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/assets/icons/logo_large.png');
+        $modules_result[$mid]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/icons/logo_large.png');
 
         $count = count($results);
         if (is_array($results) && $count > 0) {
@@ -211,7 +211,7 @@ switch ($action) {
                 if (isset($results[$i]['image']) && $results[$i]['image'] != "") {
                     $res[$i]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $results[$i]['image']);
                 } else {
-                    $res[$i]['image'] = $xoops->url('assets/images/icons/posticon2.gif');
+                    $res[$i]['image'] = $xoops->url('images/icons/posticon2.gif');
                 }
                 if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                     $res[$i]['link'] = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $results[$i]['link']);

@@ -11,7 +11,7 @@
  * @version         $Id$
  */
 
-$xoops_root_path = dirname( dirname ( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) ) ) ;
+$xoops_root_path = dirname( dirname ( dirname( dirname( dirname( dirname(__DIR__) ) ) ) ) ) ;
 include_once $xoops_root_path . '/mainfile.php';
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
@@ -50,5 +50,5 @@ $xoopsTpl->assign('css_file', 'css/xoops_quote.css');
 $xoopsTpl->assign('form', $form->render());
 $xoopsTpl->assign('include_html', '');
 
-$xoopsTpl->display('module:system|system_tinymce.tpl');
+$xoopsTpl->display('module:system|system_tinymce.html');
 $xoops->simpleFooter();

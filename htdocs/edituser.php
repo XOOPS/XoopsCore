@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.edituser.start');
@@ -131,7 +131,7 @@ if ($op == 'saveuser') {
 }
 
 if ($op == 'editprofile') {
-    $xoops->header('system_edituser.tpl');
+    $xoops->header('system_edituser.html');
     $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
     $xoops->tpl()->assign('editprofile', true);
     $form = new XoopsThemeForm(XoopsLocale::EDIT_PROFILE, 'userinfo', 'edituser.php', 'post', true);

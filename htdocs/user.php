@@ -22,7 +22,7 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.user.start');
@@ -60,7 +60,7 @@ if ($op == 'login') {
 
 if ($op == 'main') {
     if (!$xoops->isUser()) {
-        $xoops->header('system_userform.tpl');
+        $xoops->header('system_userform.html');
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::A_LOGIN);
         $xoops->theme()->addMeta(
             'meta',

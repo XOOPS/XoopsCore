@@ -22,7 +22,7 @@
 function banners_blocks_show($options) {
     $block = array();
     $xoops = Xoops::getInstance();
-    require_once dirname(dirname(__FILE__)) . '/class/bannerrender.php';
+    require_once dirname(__DIR__) . '/class/bannerrender.php';
     $render = new BannerRender();
     switch ($options[0]) {
         case 'random':

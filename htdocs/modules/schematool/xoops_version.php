@@ -15,7 +15,7 @@
  * @author          Richard Griffith <richard@geekwright.com>
  */
 
-$modversion['dirname'] = basename(dirname(__FILE__));
+$modversion['dirname'] = basename(__DIR__);
 $modversion['name'] = _MI_SCHEMATOOL_NAME;
 $modversion['version'] = '1.0';
 $modversion['description'] = _MI_SCHEMATOOL_DESC;
@@ -25,7 +25,7 @@ $modversion['help'] = 'page=help';
 $modversion['license'] = "GNU GPL 2 or later";
 $modversion['license_url'] = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
 $modversion['official'] = 0;
-$modversion['image'] = 'assets/images/logo.png';
+$modversion['image'] = 'icons/logo.png';
 
 // About stuff
 $modversion['module_status'] = 'Alpha';

@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . "/admin_header.php";
+include_once __DIR__ . "/admin_header.php";
 
 $xoops = Xoops::getInstance();
 PublisherUtils::cpHeader();
@@ -139,7 +139,7 @@ function publisher_createLogo($dirname)
         }
     }
 
-    if (!XoopsLoad::fileExists($imageBase = XOOPS_ROOT_PATH . "/modules/" . $dirname . "/assets/images/module_logo.png") || !XoopsLoad::fileExists($font = XOOPS_ROOT_PATH . "/modules/" . $dirname . "/assets/images/VeraBd.ttf")) {
+    if (!XoopsLoad::fileExists($imageBase = XOOPS_ROOT_PATH . "/modules/" . $dirname . "/images/module_logo.png") || !XoopsLoad::fileExists($font = XOOPS_ROOT_PATH . "/modules/" . $dirname . "/images/VeraBd.ttf")) {
         return false;
     }
 
@@ -158,7 +158,7 @@ function publisher_createLogo($dirname)
     $white = imagecolorallocatealpha($imageModule, 255, 255, 255, 127);
     imagefill($imageModule, 0, 0, $white);
     imagecolortransparent($imageModule, $white);
-    imagepng($imageModule, XOOPS_ROOT_PATH . "/modules/" . $dirname . "/assets/images/module_logo.png");
+    imagepng($imageModule, XOOPS_ROOT_PATH . "/modules/" . $dirname . "/images/module_logo.png");
     imagedestroy($imageModule);
     return true;
 }

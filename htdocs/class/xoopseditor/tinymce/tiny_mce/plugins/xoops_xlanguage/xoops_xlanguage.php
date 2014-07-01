@@ -12,7 +12,7 @@
  */
 
 
-$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))));
+$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
 include_once $xoops_root_path . '/mainfile.php';
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
@@ -63,5 +63,5 @@ if ($helper) {
     }
 }
 
-$xoopsTpl->display('module:xlanguage|xlanguage_tinymce.tpl');
+$xoopsTpl->display('module:xlanguage|xlanguage_tinymce.html');
 $xoops->simpleFooter();

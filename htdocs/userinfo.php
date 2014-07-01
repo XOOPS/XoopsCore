@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.userinfo.start');
@@ -39,7 +39,7 @@ $isAdmin = $gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_USER, $groups
 if ($xoops->isUser()) {
     if ($uid == $xoops->user->getVar('uid')) {
         $xoopsConfigUser = $xoops->getConfigs();
-        $xoops->header('system_userinfo.tpl');
+        $xoops->header('system_userinfo.html');
         $xoops->tpl()->assign('user_ownpage', true);
         $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
         $xoops->tpl()->assign('lang_avatar', XoopsLocale::AVATAR);
@@ -58,7 +58,7 @@ if ($xoops->isUser()) {
         if (!is_object($thisUser) || !$thisUser->isActive()) {
             $xoops->redirect("index.php", 3, XoopsLocale::E_NO_USER_SELECTED);
         }
-        $xoops->header('system_userinfo.tpl');
+        $xoops->header('system_userinfo.html');
         $xoops->tpl()->assign('user_ownpage', false);
     }
 } else {
@@ -67,7 +67,7 @@ if ($xoops->isUser()) {
     if (!is_object($thisUser) || !$thisUser->isActive()) {
         $xoops->redirect("index.php", 3, XoopsLocale::E_NO_USER_SELECTED);
     }
-    $xoops->header('system_userinfo.tpl');
+    $xoops->header('system_userinfo.html');
     $xoops->tpl()->assign('user_ownpage', false);
 }
 $myts = MyTextSanitizer::getInstance();
@@ -230,7 +230,7 @@ foreach (array_keys($modules) as $i) {
                     'modules',
                     array(
                         'name' => $modules[$i]->getVar('name'),
-                        'image' => $xoops->url('modules/' . $modules[$i]->getVar('dirname') . '/assets/icons/logo_large.png'),
+                        'image' => $xoops->url('modules/' . $modules[$i]->getVar('dirname') . '/icons/logo_large.png'),
                         'result' => $results,
                         'showall_link' => $showall_link
                     )

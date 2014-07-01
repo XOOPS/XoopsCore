@@ -31,7 +31,7 @@ $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 1;
 $modversion['help'] = 'page=help';
-$modversion['image'] = 'assets/images/logo.png';
+$modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = 'comments';
 
 //about
@@ -85,7 +85,7 @@ $modversion['blocks'][] = array(
     'show_func' => 'b_comments_show',
     'options' => '10',
     'edit_func' => 'b_comments_edit',
-    'template' => 'comments.tpl',
+    'template' => 'comments.html',
 );
 
 // Preferences

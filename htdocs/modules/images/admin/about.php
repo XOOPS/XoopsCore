@@ -18,7 +18,7 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 $aboutAdmin = new \Xoops\Module\Admin();

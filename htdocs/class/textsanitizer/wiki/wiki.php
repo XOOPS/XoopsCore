@@ -79,7 +79,7 @@ EOH;
      */
     public static function decode ($url, $width, $height)
     {
-        $config = parent::loadConfig(dirname(__FILE__));
+        $config = parent::loadConfig(__DIR__);
         if (empty($url) || empty($config['link'])) {
             return $url;
         }

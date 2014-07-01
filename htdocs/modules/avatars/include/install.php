@@ -35,7 +35,7 @@ function xoops_module_install_avatars(&$module)
     global $xoopsDB;
     // delete avatar_allow_upload, avatar_width, avatar_height, avatar_maxsize and avatar_minposts
     $xoops = Xoops::getInstance();
-    $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` IN "
+    $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` IN " 
     . " ('avatar_allow_upload', 'avatar_width', 'avatar_height', 'avatar_maxsize', 'avatar_minposts') ";
     $xoopsDB->queryF($sql);
 
@@ -68,12 +68,12 @@ function xoops_module_install_avatars(&$module)
     //Copy index.html
     $file = XOOPS_ROOT_PATH . "/uploads/avatars/index.html";
     if (!is_file($file)) {
-        copy(XOOPS_ROOT_PATH . "/modules/avatars/assets/images/index.html", $file);
+        copy(XOOPS_ROOT_PATH . "/modules/avatars/images/index.html", $file);
     }
     //Copy blank.gif
     $file = XOOPS_ROOT_PATH . "/uploads/avatars/blank.gif";
     if (!is_file($file)) {
-        copy(XOOPS_ROOT_PATH . "/modules/avatars/assets/images/blank.gif", $file);
+        copy(XOOPS_ROOT_PATH . "/modules/avatars/images/blank.gif", $file);
     }
     //Copy .htaccess
     $file = XOOPS_ROOT_PATH . "/uploads/avatars/.htaccess";

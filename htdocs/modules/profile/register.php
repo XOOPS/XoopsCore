@@ -22,7 +22,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 if ($xoops->isUser()) {
@@ -298,7 +298,7 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
 }
 
 if (!empty($stop) || isset($steps[$current_step])) {
-    include_once dirname(__FILE__) . '/include/forms.php';
+    include_once __DIR__ . '/include/forms.php';
     $current_step = empty($stop) ? $current_step : $current_step - 1;
     $reg_form = profile_getRegisterForm($newuser, $profile, $steps[$current_step]);
     $reg_form->assign($xoops->tpl());
@@ -326,4 +326,4 @@ if (!empty($stop) || isset($steps[$current_step])) {
     $_SESSION['profile_post'] = null;
 }
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

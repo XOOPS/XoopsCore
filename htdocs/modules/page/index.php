@@ -22,7 +22,7 @@
 
 include_once 'header.php';
 
-$xoops->header('page_index.tpl');
+$xoops->header('page_index.html');
 
 // Parameters
 $nb_limit = $helper->getConfig('page_userpager');

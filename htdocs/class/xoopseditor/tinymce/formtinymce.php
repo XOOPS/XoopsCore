@@ -52,7 +52,7 @@ class XoopsFormTinymce extends XoopsEditor
         $this->configs["fonts"] = $this->getFonts();
         $this->setClass($this->getName());
 
-        require_once dirname(__FILE__) . "/tinymce.php";
+        require_once __DIR__ . "/tinymce.php";
         $this->editor = new TinyMCE($this->configs);
     }
 

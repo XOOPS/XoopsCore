@@ -22,10 +22,10 @@
  * @version         $Id$
  */
 
-$mainfile = dirname(__FILE__) . '/mainfile.php';
+$mainfile = __DIR__ . '/mainfile.php';
 if (file_exists($mainfile)) {
     include $mainfile;
-} elseif (file_exists(dirname(__FILE__) . '/install/index.php')) {
+} elseif (file_exists(__DIR__ . '/install/index.php')) {
     header('Location: install/index.php');
     exit;
 }
@@ -82,6 +82,6 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     exit();
 } else {
     $xoops->setOption('show_cblock', 1);
-    $xoops->header("system_homepage.tpl");
+    $xoops->header("system_homepage.html");
     $xoops->footer();
 }

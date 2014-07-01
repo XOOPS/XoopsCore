@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Notifications::getInstance();
@@ -125,7 +125,7 @@ switch ($op) {
                 'event_title'    => $event_info['title'], 'user_id' => $n->getVar('uid')
             );
         }
-        $xoops->header('module:notifications|list.tpl');
+        $xoops->header('module:notifications|list.html');
         $xoops->tpl()->assign('modules', $modules);
         $user_info = array('uid' => $xoops->user->getVar('uid'));
         $xoops->tpl()->assign('user', $user_info);

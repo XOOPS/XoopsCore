@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 
@@ -25,7 +25,7 @@ if (isset($_GET['pdf'])) {
 
     $tpl = new XoopsTpl();
     $tpl->assign('dummy_content' , $content);
-    $content2 = $tpl->fetch('module:system|system_dummy.tpl');
+    $content2 = $tpl->fetch('module:system|system_dummy.html');
 
     if ($xoops->isActiveModule('pdf')) {
         $pdf = new Pdf();

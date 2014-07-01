@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
@@ -83,4 +83,4 @@ if ($publisher->getConfig('print_footer') == 'index footer' || $publisher->getCo
 
 $xoopsTpl->assign('display_whowhen_link', $publisher->getConfig('item_disp_whowhen_link'));
 
-$xoopsTpl->display('module:publisher|publisher_print.tpl');
+$xoopsTpl->display('module:publisher|publisher_print.html');

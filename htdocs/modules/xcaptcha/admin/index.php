@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 
@@ -43,7 +43,7 @@ switch ($op) {
         $type = isset($type) ? $type : 'config';
 
         $xoops->header();
-        $xoops->theme()->addStylesheet('modules/xcaptcha/assets/css/moduladmin.css');
+        $xoops->theme()->addStylesheet('modules/xcaptcha/css/moduladmin.css');
 
         $admin_page = new \Xoops\Module\Admin();
         if ($type == 'config') {
@@ -65,4 +65,4 @@ switch ($op) {
 
         break;
 }
-include dirname(__FILE__) . '/footer.php';
+include __DIR__ . '/footer.php';

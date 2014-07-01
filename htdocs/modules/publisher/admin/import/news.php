@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . '/admin_header.php';
+include_once dirname(__DIR__) . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 
 $importFromModuleName = "News " . @$_POST['news_version'];
@@ -134,7 +134,7 @@ if ($op == 'go') {
 
         // Category image
         if (($arrCat['topic_imgurl'] != 'blank.gif') && ($arrCat['topic_imgurl'] != '')) {
-            if (copy(XOOPS_ROOT_PATH . "/modules/news/assets/images/topics/" . $arrCat['topic_imgurl'], XOOPS_ROOT_PATH . "/uploads/publisher/assets/images/category/" . $arrCat['topic_imgurl'])) {
+            if (copy(XOOPS_ROOT_PATH . "/modules/news/images/topics/" . $arrCat['topic_imgurl'], XOOPS_ROOT_PATH . "/uploads/publisher/images/category/" . $arrCat['topic_imgurl'])) {
                 $categoryObj->setVar('image', $arrCat['topic_imgurl']);
             }
         }

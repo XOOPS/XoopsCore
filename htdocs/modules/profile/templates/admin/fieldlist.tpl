@@ -1,5 +1,5 @@
-<{includeq file="admin:system|admin_navigation.tpl"}>
-<{includeq file="admin:system|admin_buttons.tpl"}>
+<{includeq file="admin:system|admin_navigation.html"}>
+<{includeq file="admin:system|admin_buttons.html"}>
 <{if $fieldlist}>
 <form action="field.php" method="post" id="fieldform">
     <table class="outer">

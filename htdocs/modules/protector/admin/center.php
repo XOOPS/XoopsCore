@@ -19,9 +19,9 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
-require_once dirname(dirname(__FILE__)) . '/class/gtickets.php';
+require_once dirname(__DIR__) . '/class/gtickets.php';
 
 $xoops->db();
 global $xoopsDB;
@@ -35,7 +35,7 @@ $num = empty($_GET['num']) ? 20 : intval($_GET['num']);
 $log_table = $db->prefix('protector_log');
 
 // Protector object
-require_once dirname(dirname(__FILE__)) . '/class/protector.php';
+require_once dirname(__DIR__) . '/class/protector.php';
 $protector = Protector::getInstance($db->conn);
 $conf = $protector->getConf();
 
@@ -113,7 +113,7 @@ if (!empty($_POST['action'])) {
     }
 }
 // beggining of Output
-$xoops->header('protector_center.tpl');
+$xoops->header('protector_center.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
@@ -179,7 +179,7 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
         }
     }
     $agent4disp = htmlspecialchars($agent, ENT_QUOTES);
-    $agent_desc = $agent == $agent_short ? $agent4disp : htmlspecialchars($agent_short, ENT_QUOTES) . "<img src='../assets/images/dotdotdot.gif' alt='$agent4disp' title='$agent4disp' />";
+    $agent_desc = $agent == $agent_short ? $agent4disp : htmlspecialchars($agent_short, ENT_QUOTES) . "<img src='../images/dotdotdot.gif' alt='$agent4disp' title='$agent4disp' />";
 
     $log_arr['lid'] = $lid;
     $log_arr['date'] = XoopsLocale::formatTimestamp($timestamp);

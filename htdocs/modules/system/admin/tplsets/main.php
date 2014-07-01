@@ -33,17 +33,17 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 
 // Call Header
-$xoops->header('system_templates.tpl');
+$xoops->header('system_templates.html');
 // Define scripts
 $xoops->theme()->addBaseScriptAssets(array('@jquery', '@jqueryui'));
 $xoops->theme()->addScript('media/jquery/plugins/jquery.easing.js');
 $xoops->theme()->addScript('media/jquery/plugins/jqueryFileTree.js');
-$xoops->theme()->addScript('modules/system/assets/js/admin.js');
-$xoops->theme()->addScript('modules/system/assets/js/templates.js');
-$xoops->theme()->addScript('modules/system/assets/js/code_mirror/codemirror.js');
+$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addScript('modules/system/js/templates.js');
+$xoops->theme()->addScript('modules/system/js/code_mirror/codemirror.js');
 // Define Stylesheet
-$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
-$xoops->theme()->addStylesheet('modules/system/assets/css/code_mirror/docs.css');
+$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/css/code_mirror/docs.css');
 // Define Breadcrumb and tips
 $system_breadcrumb->addLink(SystemLocale::TEMPLATES_MANAGER, system_adminVersion('tplsets', 'adminpath'));
 

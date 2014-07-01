@@ -1,5 +1,5 @@
-<{includeq file="admin:system|admin_navigation.tpl"}>
-<{includeq file="admin:system|admin_buttons.tpl"}>
+<{includeq file="admin:system|admin_navigation.html"}>
+<{includeq file="admin:system|admin_buttons.html"}>
 <{if $category}>
 <table class="outer">
     <thead>

@@ -286,7 +286,7 @@ class Xoops
                 $tpl_info = $this->getTplInfo($tpl_name);
                 $this->tpl_name = $tpl_info['tpl_name'];
             } else {
-                $tpl_name = 'module:system|system_dummy.tpl';
+                $tpl_name = 'module:system|system_dummy.html';
                 $tpl_info = $this->getTplInfo($tpl_name);
                 $this->tpl_name = $tpl_info['tpl_name'];
             }
@@ -544,7 +544,7 @@ class Xoops
         //For legacy
         if (!$tpl_name && isset($this->option['template_main'])) {
             $tpl_name = $this->option['template_main'];
-            $this->deprecated('XoopsOption \'template_main\' is deprecated, please use $xoops->header(\'templatename.tpl\') instead');
+            $this->deprecated('XoopsOption \'template_main\' is deprecated, please use $xoops->header(\'templatename.html\') instead');
         }
         $this->theme($tpl_name);
         $this->tpl()->assign('xoops', $this);
@@ -583,7 +583,7 @@ class Xoops
                 $this->theme()->contentCacheLifetime = isset($cache_times[$this->module->getVar('mid')]) ? $cache_times[$this->module->getVar('mid')] : 0;
                 // Tricky solution for setting cache time for homepage
             } else {
-                if ($this->tpl_name == 'module:system|system_homepage.tpl') {
+                if ($this->tpl_name == 'module:system|system_homepage.html') {
                     // $this->theme->contentCacheLifetime = 604800;
                 }
             }
@@ -1213,7 +1213,7 @@ class Xoops
             return '';
         } else {
             $this->tpl()->assign('alert_msg', $alert_msg);
-            $ret = $this->tpl()->fetch('module:system|system_alert.tpl');
+            $ret = $this->tpl()->fetch('module:system|system_alert.html');
             return $ret;
         }
     }
@@ -1272,7 +1272,7 @@ class Xoops
             $this->tpl()->assign('token', $this->security()->getTokenHTML());
         }
         $this->tpl()->assign('hiddens', $str_hiddens);
-        $this->tpl()->display('module:system|system_confirm.tpl');
+        $this->tpl()->display('module:system|system_confirm.html');
     }
 
     /**
@@ -1463,7 +1463,7 @@ class Xoops
         $this->tpl()->assign('lang_ifnotreload', sprintf(XoopsLocale::F_IF_PAGE_NOT_RELOAD_CLICK_HERE, $url));
 
         $this->events()->triggerEvent('core.include.functions.redirectheader.end');
-        $this->tpl()->display('module:system|system_redirect.tpl');
+        $this->tpl()->display('module:system|system_redirect.html');
         exit();
     }
 

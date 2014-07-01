@@ -19,8 +19,8 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
-include_once dirname(__FILE__) . '/include/common.php';
+include_once dirname(dirname(__DIR__)) . '/mainfile.php';
+include_once __DIR__ . '/include/common.php';
 $publisher = Publisher::getInstance();
 if ($publisher->getConfig('seo_url_rewrite') != 'none') {
     XoopsLoad::loadFile($publisher->path('include/seo.inc.php'));

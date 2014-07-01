@@ -25,10 +25,10 @@ function smarty_compiler_xoModuleIconsBookmarks($argStr, &$smarty)
     if (XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/bookmarks/index.html'))) {
         $url = $xoops->url('media/xoops/images/icons/bookmarks/' . $argStr);
     } else {
-        if (XoopsLoad::fileExists($xoops->path('modules/system/assets/images/icons/default/' . $argStr))) {
-            $url = $xoops->url('modules/system/assets/images/icons/default/' . $argStr);
+        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $argStr))) {
+            $url = $xoops->url('modules/system/images/icons/default/' . $argStr);
         } else {
-            $url = $xoops->url('modules/system/assets/images/icons/default/xoops/xoops.png');
+            $url = $xoops->url('modules/system/images/icons/default/xoops/xoops.png');
         }
     }
     return "\necho '" . addslashes($url) . "';";

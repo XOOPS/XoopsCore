@@ -20,13 +20,13 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get Action type
 $op = $request->asStr('op', 'global');
 
 // Call header
-$xoops->header('page_admin_permissions.tpl');
+$xoops->header('page_admin_permissions.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('permissions.php');
@@ -71,9 +71,9 @@ switch ($op) {
                 foreach (array_keys($group_list) as $j) {
                     $perms .= '<img id="loading_display' . $content_id . '_' . $j .'" src="' . $xoops->url('media/xoops/images/spinner.gif') . '" style="display:none;" alt="' . XoopsLocale::LOADING . '" />';
                     if (in_array($j, $groups_ids_view)) {
-                        $perms .= "<img class=\"cursorpointer\" id=\"display" . $content_id . "_" . $j . "\" onclick=\"Xoops.changeStatus( 'permissions.php', { op: 'update_view', content_id: " . $content_id . ", group: " . $j . ", status: 'no' }, 'display" . $content_id . "_" . $j ."', 'permissions.php' )\" src=\"" . $xoops->url('modules/system/assets/images/icons/default/success.png') . "\" alt=\"" . XoopsLocale::A_DISABLE . "\" title=\"" . XoopsLocale::A_DISABLE . "\" />";
+                        $perms .= "<img class=\"cursorpointer\" id=\"display" . $content_id . "_" . $j . "\" onclick=\"Xoops.changeStatus( 'permissions.php', { op: 'update_view', content_id: " . $content_id . ", group: " . $j . ", status: 'no' }, 'display" . $content_id . "_" . $j ."', 'permissions.php' )\" src=\"" . $xoops->url('modules/system/images/icons/default/success.png') . "\" alt=\"" . XoopsLocale::A_DISABLE . "\" title=\"" . XoopsLocale::A_DISABLE . "\" />";
                     } else {
-                        $perms .= "<img class=\"cursorpointer\" id=\"display" . $content_id . "_" . $j . "\" onclick=\"Xoops.changeStatus( 'permissions.php', { op: 'update_view', content_id: " . $content_id . ", group: " . $j . ", status: 'yes' }, 'display" . $content_id . "_" . $j ."', 'permissions.php' )\" src=\"" . $xoops->url('modules/system/assets/images/icons/default/cancel.png') . "\" alt=\"" . XoopsLocale::A_ENABLE . "\" title=\"" . XoopsLocale::A_ENABLE . "\" />";
+                        $perms .= "<img class=\"cursorpointer\" id=\"display" . $content_id . "_" . $j . "\" onclick=\"Xoops.changeStatus( 'permissions.php', { op: 'update_view', content_id: " . $content_id . ", group: " . $j . ", status: 'yes' }, 'display" . $content_id . "_" . $j ."', 'permissions.php' )\" src=\"" . $xoops->url('modules/system/images/icons/default/cancel.png') . "\" alt=\"" . XoopsLocale::A_ENABLE . "\" title=\"" . XoopsLocale::A_ENABLE . "\" />";
                     }
                     $perms .= $group_list[$j] . '<br />';
                 }

@@ -58,4 +58,4 @@ $tpl->assign('xoops_sitename', $xoops->getConfig('sitename'));
 // Meta
 $tpl->assign('xoops_pagetitle', strip_tags($view_content->getVar('content_title') . ' - ' . XoopsLocale::A_PRINT . ' - ' . $xoopsModule->name()));
 
-$tpl->display('module:page|page_print.tpl');
+$tpl->display('module:page|page_print.html');

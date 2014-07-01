@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 $myts = MyTextSanitizer::getInstance();
@@ -41,13 +41,13 @@ if (!$itemObj) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
-$xoops->header('publisher_item.tpl');
+$xoops->header('publisher_item.html');
 $xoopsTpl = $xoops->tpl();
 $xoTheme = $xoops->theme();
-$xoTheme->addStylesheet(PUBLISHER_URL . '/assets/css/jquery.popeye.style.css');
+$xoTheme->addStylesheet(PUBLISHER_URL . '/css/jquery.popeye.style.css');
 $xoTheme->addBaseScriptAssets('@jquery');
-$xoTheme->addScript(PUBLISHER_URL . '/assets/js/jquery.popeye-2.0.4.js');
-$xoTheme->addBaseScriptAssets('modules/publisher/assets/js/publisher.js');
+$xoTheme->addScript(PUBLISHER_URL . '/js/jquery.popeye-2.0.4.js');
+$xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
 
 XoopsLoad::LoadFile($publisher->path('footer.php'));
 
@@ -224,8 +224,8 @@ if ($xoops->isActiveModule('comments') && (($itemObj->getVar('cancomment') == 1)
 if ($publisher->getConfig('perm_rating')) {
     $xoopsTpl->assign('rating_enabled', true);
     $item['ratingbar'] = PublisherUtils::ratingBar($itemid);
-    $xoTheme->addScript(PUBLISHER_URL . '/assets/js/behavior.js');
-    $xoTheme->addScript(PUBLISHER_URL . '/assets/js/rating.js');
+    $xoTheme->addScript(PUBLISHER_URL . '/js/behavior.js');
+    $xoTheme->addScript(PUBLISHER_URL . '/js/rating.js');
 }
 
 $xoopsTpl->assign('item', $item);

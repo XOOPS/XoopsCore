@@ -24,7 +24,7 @@
  * @version     $Id$
  */
 
-require_once dirname(__FILE__) . '/include/common.inc.php';
+require_once __DIR__ . '/include/common.inc.php';
 
 $xoops = Xoops::getInstance();
 

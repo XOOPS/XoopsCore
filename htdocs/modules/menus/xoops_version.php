@@ -32,7 +32,7 @@ $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 1;
 $modversion['help'] = 'page=help';
-$modversion['image'] = 'assets/images/logo.png';
+$modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = 'menus';
 
 //about
@@ -101,11 +101,11 @@ $modversion['blocks'][$i]['description'] = _MI_MENUS_BLK1_DSC;
 $modversion['blocks'][$i]['show_func']   = "menus_block_show";
 $modversion['blocks'][$i]['edit_func']   = "menus_block_edit";
 $modversion['blocks'][$i]['options']     = "0|default|0|block|0";
-$modversion['blocks'][$i]['template']    = "menus_block.tpl";
+$modversion['blocks'][$i]['template']    = "menus_block.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = 'menus_block.php';
 $modversion['blocks'][$i]['name'] = _MI_MENUS_BLK2;
 $modversion['blocks'][$i]['description'] = _MI_MENUS_BLK2_DSC;
 $modversion['blocks'][$i]['show_func'] = 'menus_mainmenu_show';
-$modversion['blocks'][$i]['template'] = 'menus_block.tpl';
+$modversion['blocks'][$i]['template'] = 'menus_block.html';

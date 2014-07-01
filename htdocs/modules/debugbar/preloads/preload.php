@@ -92,7 +92,7 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'debugbarlogger' => $path . '/class/debugbarlogger.php',
         ));

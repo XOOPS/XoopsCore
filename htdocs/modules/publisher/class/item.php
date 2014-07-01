@@ -19,7 +19,7 @@
  */
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherItem extends XoopsObject
 {
@@ -408,35 +408,35 @@ class PublisherItem extends XoopsObject
             if (PublisherUtils::IsUserAdmin() || PublisherUtils::IsUserAuthor($this) || PublisherUtils::IsUserModerator($this)) {
                 if ($this->publisher->getConfig('perm_edit') || PublisherUtils::IsUserModerator($this) || PublisherUtils::IsUserAdmin()) {
                     // Edit button
-                    $adminLinks .= "<a href='" . PUBLISHER_URL . "/submit.php?itemid=" . $this->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/edit.gif'" . " title='" . _CO_PUBLISHER_EDIT . "' alt='" . _CO_PUBLISHER_EDIT . "'/></a>";
+                    $adminLinks .= "<a href='" . PUBLISHER_URL . "/submit.php?itemid=" . $this->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif'" . " title='" . _CO_PUBLISHER_EDIT . "' alt='" . _CO_PUBLISHER_EDIT . "'/></a>";
                     $adminLinks .= " ";
                 }
                 if ($this->publisher->getConfig('perm_delete') || PublisherUtils::IsUserModerator($this) || PublisherUtils::IsUserAdmin()) {
                     // Delete button
-                    $adminLinks .= "<a href='" . PUBLISHER_URL . "/submit.php?op=del&amp;itemid=" . $this->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/delete.png'" . " title='" . _CO_PUBLISHER_DELETE . "' alt='" . _CO_PUBLISHER_DELETE . "' /></a>";
+                    $adminLinks .= "<a href='" . PUBLISHER_URL . "/submit.php?op=del&amp;itemid=" . $this->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png'" . " title='" . _CO_PUBLISHER_DELETE . "' alt='" . _CO_PUBLISHER_DELETE . "' /></a>";
                     $adminLinks .= " ";
                 }
             }
             if ($this->publisher->getConfig('perm_clone') || PublisherUtils::IsUserModerator($this) || PublisherUtils::IsUserAdmin()) {
                 // Duplicate button
-                $adminLinks .= "<a href='" . PUBLISHER_URL . "/submit.php?op=clone&amp;itemid=" . $this->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/assets/images/links/clone.gif'" . " title='" . _CO_PUBLISHER_CLONE . "' alt='" . _CO_PUBLISHER_CLONE . "' /></a>";
+                $adminLinks .= "<a href='" . PUBLISHER_URL . "/submit.php?op=clone&amp;itemid=" . $this->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/clone.gif'" . " title='" . _CO_PUBLISHER_CLONE . "' alt='" . _CO_PUBLISHER_CLONE . "' /></a>";
                 $adminLinks .= " ";
             }
         }
         // PDF button
         if ($xoops->isActiveModule('pdf')) {
-            $adminLinks .= "<a href='" . PUBLISHER_URL . "/makepdf.php?itemid=" . $this->getVar('itemid') . "' rel='nofollow' target='_blank'><img src='" . PUBLISHER_URL . "/assets/images/links/pdf.gif' title='" . _CO_PUBLISHER_PDF . "' alt='" . _CO_PUBLISHER_PDF . "' /></a>";
+            $adminLinks .= "<a href='" . PUBLISHER_URL . "/makepdf.php?itemid=" . $this->getVar('itemid') . "' rel='nofollow' target='_blank'><img src='" . PUBLISHER_URL . "/images/links/pdf.gif' title='" . _CO_PUBLISHER_PDF . "' alt='" . _CO_PUBLISHER_PDF . "' /></a>";
             $adminLinks .= " ";
         }
         // Print button
-        $adminLinks .= "<a href='" . PublisherUtils::seoGenUrl("print", $this->getVar('itemid'), $this->getVar('short_url')) . "' rel='nofollow' target='_blank'><img src='" . PUBLISHER_URL . "/assets/images/links/print.gif' title='" . _CO_PUBLISHER_PRINT . "' alt='" . _CO_PUBLISHER_PRINT . "' /></a>";
+        $adminLinks .= "<a href='" . PublisherUtils::seoGenUrl("print", $this->getVar('itemid'), $this->getVar('short_url')) . "' rel='nofollow' target='_blank'><img src='" . PUBLISHER_URL . "/images/links/print.gif' title='" . _CO_PUBLISHER_PRINT . "' alt='" . _CO_PUBLISHER_PRINT . "' /></a>";
         $adminLinks .= " ";
         // Email button
         if ($xoops->isActiveModule('tellafriend')) {
             $subject = sprintf(_CO_PUBLISHER_INTITEMFOUND, $xoops->getConfig('sitename'));
             $subject = $this->_convert_for_japanese($subject);
             $maillink = PublisherUtils::tellafriend($subject);
-            $adminLinks .= '<a href="' . $maillink . '"><img src="' . PUBLISHER_URL . '/assets/images/links/friend.gif" title="' . _CO_PUBLISHER_MAIL . '" alt="' . _CO_PUBLISHER_MAIL . '" /></a>';
+            $adminLinks .= '<a href="' . $maillink . '"><img src="' . PUBLISHER_URL . '/images/links/friend.gif" title="' . _CO_PUBLISHER_MAIL . '" alt="' . _CO_PUBLISHER_MAIL . '" /></a>';
             $adminLinks .= " ";
         }
         return $adminLinks;

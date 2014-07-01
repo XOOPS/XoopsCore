@@ -22,7 +22,7 @@ class ImagesPreload extends PreloadItem
 {
     public static function eventCoreIncludeCommonEnd($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'images' => $path . '/class/helper.php',
         ));
@@ -32,7 +32,7 @@ class ImagesPreload extends PreloadItem
     {
         /* @var $dhtml XoopsFormDhtmlTextArea */
         $dhtml = $args[1];
-        $args[0] .= "<img src='" . XOOPS_URL . "/assets/images/image.gif' alt='" . XoopsLocale::INSIDE_IMAGE . "' title='" . XoopsLocale::INSIDE_IMAGE . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/images/imagemanager.php?target={$dhtml->getName()}\",\"imgmanager\",400,430);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $args[0] .= "<img src='" . XOOPS_URL . "/images/image.gif' alt='" . XoopsLocale::INSIDE_IMAGE . "' title='" . XoopsLocale::INSIDE_IMAGE . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/images/imagemanager.php?target={$dhtml->getName()}\",\"imgmanager\",400,430);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }
 
     public static function eventCoreImage($args)

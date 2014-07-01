@@ -18,7 +18,7 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 XoopsLoad::load('system', 'system');
 
@@ -65,9 +65,9 @@ if (isset($imgcat_id) && $op == 'list') {
 // Add Script
 $xoops->theme()->addScript('media/xoops/xoops.js');
 $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-$xoops->theme()->addScript('modules/system/assets/js/admin.js');
-$xoops->theme()->addScript('modules/system/assets/js/thumbs.js');
+$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->theme()->addScript('modules/system/js/thumbs.js');
 // Add Stylesheet
-$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
-$xoops->theme()->addStylesheet('modules/images/assets/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/css/admin.css');
+$xoops->theme()->addStylesheet('modules/images/css/admin.css');
 $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');

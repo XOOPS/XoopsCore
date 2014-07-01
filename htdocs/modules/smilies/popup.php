@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
@@ -32,6 +32,6 @@ if ($target && preg_match('/^[0-9a-z_]*$/i', $target)) {
     $tpl->assign('target', $target);
     $tpl->assign('smileys', Smilies::getInstance()->getHandlerSmilies()->getActiveSmilies(false));
     $tpl->assign('closebutton', 1);
-    $tpl->display('module:smilies|smilies_smiley.tpl');
+    $tpl->display('module:smilies|smilies_smiley.html');
 }
 $xoops->simpleFooter();

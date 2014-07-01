@@ -1,6 +1,6 @@
 <?php
 // XOOPS
-$current_path = dirname(__FILE__);
+$current_path = __DIR__;
 if ( DIRECTORY_SEPARATOR != "/" ) {
     $current_path = str_replace( DIRECTORY_SEPARATOR, "/", $current_path);
 }

@@ -4,8 +4,8 @@
     Xoops.setStatusText('accept', '<{translate key="NO"}>');
     Xoops.setStatusText('cancel', '<{translate key="YES"}>');
 </script>
-<{includeq file="admin:system|admin_navigation.tpl"}>
-<{includeq file="admin:system|admin_buttons.tpl"}>
+<{includeq file="admin:system|admin_navigation.html"}>
+<{includeq file="admin:system|admin_buttons.html"}>
 <{if $step}>
 <table class="outer">
     <thead>

@@ -18,16 +18,16 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $helper = Menus::getInstance();
 
 // Call Header & ...
-$xoops->header('menus_admin_menus.tpl');
+$xoops->header('menus_admin_menus.html');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('admin_menus.php');
-$xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+$xoops->theme()->addStylesheet('modules/system/css/admin.css');
 
 // Get $_GET, $_POST, ...
 $op = $request->asStr('op', 'list');

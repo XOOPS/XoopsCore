@@ -175,7 +175,7 @@ class XoopsTheme
      *
      * @var string
      */
-    public $canvasTemplate = 'theme.tpl';
+    public $canvasTemplate = 'theme.html';
 
     /**
      * Theme folder path
@@ -457,7 +457,7 @@ class XoopsTheme
     public function checkCache()
     {
         if ($_SERVER['REQUEST_METHOD'] != 'POST' && $this->contentCacheLifetime) {
-            $template = $this->contentTemplate ? $this->contentTemplate : 'module:system|system_dummy.tpl';
+            $template = $this->contentTemplate ? $this->contentTemplate : 'module:system|system_dummy.html';
             $this->template->caching = 2;
             $this->template->cache_lifetime = $this->contentCacheLifetime;
             $uri = str_replace(XOOPS_URL, '', $_SERVER['REQUEST_URI']);

@@ -22,7 +22,7 @@
  */
 
 if (!defined('XOOPS_MAINFILE_INCLUDED')) {
-    include_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 } else {
     chdir(XOOPS_ROOT_PATH . '/modules/pm/');
 }
@@ -104,7 +104,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
             $tpl->assign('error_message', $error_message);
         }
     }
-    $tpl->display("module:pm|pm_pmlite.tpl");
+    $tpl->display("module:pm|pm_pmlite.html");
 
 } else {
     $message = '';
@@ -156,7 +156,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $icons = new XoopsFormRadio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
         $subject_icons = XoopsLists::getSubjectsList();
         foreach (array_keys($subject_icons) as $i) {
-            $icons->addOption($i, "<img src='" . $xoops->url("assets/images/subject/") . $i . "' alt='" . $i . "' />");
+            $icons->addOption($i, "<img src='" . $xoops->url("images/subject/") . $i . "' alt='" . $i . "' />");
         }
         $form->addElement($icons, false);
         $form->addElement(new XoopsFormDhtmlTextArea(_PM_MESSAGEC, 'message', $message, 8, 37), true);
@@ -171,7 +171,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $buttons ->addElement($cancel_send);
         $form->addElement($buttons);
         $tpl->assign('form', $form->render());
-        $tpl->display("module:pm|pm_pmlite.tpl");
+        $tpl->display("module:pm|pm_pmlite.html");
     }
 }
 $xoops->simpleFooter();

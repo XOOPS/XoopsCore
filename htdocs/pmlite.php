@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 //$xoops->disableErrorReporting();
 $xoops->preload()->triggerEvent('core.pmlite.start');
@@ -94,7 +94,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
             $tpl->assign('error_message', $error_message);
         }
     }
-    $tpl->display("module:system|system_pmlite.tpl");
+    $tpl->display("module:system|system_pmlite.html");
 
 } else {
     $message = '';
@@ -161,7 +161,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $buttons ->addElement($cancel_send);
         $form->addElement($buttons);
         $tpl->assign('form', $form->render());
-        $tpl->display("module:system|system_pmlite.tpl");
+        $tpl->display("module:system|system_pmlite.html");
     }
 }
 $xoops->simpleFooter();

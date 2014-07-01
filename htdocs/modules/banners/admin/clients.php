@@ -19,7 +19,7 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -34,7 +34,7 @@ $client_Handler = $helper->getHandlerBannerclient();
 // Get member handler
 $member_handler = $xoops->getHandlerMember();
 // Call header
-$xoops->header('banners_admin_clients.tpl');
+$xoops->header('banners_admin_clients.html');
 // Get Action type
 $op = $request->asStr('op', 'list');
 // Get start pager
@@ -53,7 +53,7 @@ switch ($op) {
         );
         // Define scripts
         $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-        $xoops->theme()->addScript('modules/system/assets/js/admin.js');
+        $xoops->theme()->addScript('modules/system/js/admin.js');
 
         $admin_page->addTips(_AM_BANNERS_TIPS_CLIENTS);
         $admin_page->addItemButton(_AM_BANNERS_CLIENTS_ADD, 'clients.php?op=new', 'add');

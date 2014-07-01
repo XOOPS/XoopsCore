@@ -216,7 +216,7 @@ class ProfileField extends XoopsObject
                 $dirlist = array();
                 while (false !== ($file = readdir($handle))) {
                     if (is_dir(XOOPS_THEME_PATH . '/' . $file) && !preg_match("/^[.]{1,2}$/", $file) && strtolower($file) != 'cvs') {
-                        if (XoopsLoad::fileExists(XOOPS_THEME_PATH . "/" . $file . "/theme.tpl") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
+                        if (XoopsLoad::fileExists(XOOPS_THEME_PATH . "/" . $file . "/theme.html") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
                             $dirlist[$file] = $file;
                         }
                     }

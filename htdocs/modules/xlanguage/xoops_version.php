@@ -27,7 +27,7 @@ $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 1;
 $modversion['help'] = 'page=help';
-$modversion['image'] = 'assets/images/xlanguage_logo.png';
+$modversion['image'] = 'images/xlanguage_logo.png';
 $modversion['dirname'] = 'xlanguage';
 
 //about
@@ -72,7 +72,7 @@ $modversion['blocks'][1]['description'] = '';
 $modversion['blocks'][1]['show_func'] = 'b_xlanguage_select_show';
 $modversion['blocks'][1]['edit_func'] = 'b_xlanguage_select_edit';
 $modversion['blocks'][1]['options'] = 'images| |5';
-$modversion['blocks'][1]['template'] = 'xlanguage_block.tpl';
+$modversion['blocks'][1]['template'] = 'xlanguage_block.html';
 
 // Config
 XoopsLoad::load('xoopslists');

@@ -31,7 +31,7 @@ $modversion['license']        = 'GNU GPL 2.0';
 $modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
-$modversion['image']          = 'assets/images/logo.png';
+$modversion['image']          = 'images/logo.png';
 $modversion['dirname']        = 'mailusers';
 //about
 $modversion['release_date']        = '2012/01/20';

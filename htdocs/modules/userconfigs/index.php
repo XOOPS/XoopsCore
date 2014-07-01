@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Userconfigs::getInstance();
@@ -31,7 +31,7 @@ $mid = $xoops->request()->asInt('mid', 0);
 $uid = $xoops->user->getVar('uid');
 $op = $xoops->request()->asStr('op', 'show');
 
-$xoops->header('list.tpl');
+$xoops->header('list.html');
 $xoops->tpl()->assign('welcome', sprintf(_MD_USERCONFIGS_WELCOME, XoopsUserUtility::getUnameFromId($xoops->user->getVar('uid'), true)));
 
 //Display part

@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {
@@ -29,7 +29,7 @@ if (!$xoops->isUser()) {
 }
 
 $xoops->disableModuleCache(); //disable caching since the URL will be the same, but content different from one user to another
-$xoops->header('pm_viewpmsg.tpl');
+$xoops->header('pm_viewpmsg.html');
 
 $valid_op_requests = array('out', 'save', 'in');
 $_REQUEST['op'] = !empty($_REQUEST['op']) && in_array($_REQUEST['op'], $valid_op_requests) ? $_REQUEST['op'] : 'in';

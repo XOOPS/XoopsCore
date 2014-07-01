@@ -22,11 +22,14 @@
  * @todo            Modularize; Both search algorithms and interface will be redesigned
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $uri = '';
-if ($xoops->isActiveModule('search')) {    foreach (Xoops_Request::getInstance()->getParam() as $k => $v) {        $uri .= $k . '=' . $v . '&';    }
+if ($xoops->isActiveModule('search')) {
+    foreach (Xoops_Request::getInstance()->getParam() as $k => $v) {
+        $uri .= $k . '=' . $v . '&';
+    }
     $xoops->redirect("modules/search/index.php?{$uri}", 0);
 } else {
     $xoops->redirect("index.php", 10, 'Oops, Please install search module!!!!');

@@ -57,7 +57,7 @@ $tpl->assign('xoops_sitename', $xoops->getConfig('sitename'));
 // Meta
 $tpl->assign('xoops_pagetitle', strip_tags($view_content->getVar('content_title') . ' - ' . XoopsLocale::A_PRINT . ' - ' . $xoopsModule->name()));
 
-$content = $tpl->fetch('module:page|page_pdf.tpl');
+$content = $tpl->fetch('module:page|page_pdf.html');
 
 if ($xoops->isActiveModule('pdf')) {
     $pdf = new Pdf();

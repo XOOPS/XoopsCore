@@ -35,7 +35,7 @@ class GravatarsPreload extends PreloadItem
     public static function eventCoreServiceLocateAvatar(Provider $provider)
     {
         if (is_a($provider, '\Xoops\Core\Service\Provider')) {
-            $path = dirname(dirname(__FILE__)) . '/class/GravatarsProvider.php';
+            $path = dirname(__DIR__) . '/class/GravatarsProvider.php';
             require $path;
             $object = new GravatarsProvider();
             $provider->register($object);

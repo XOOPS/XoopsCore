@@ -38,7 +38,7 @@ $modversion['helpsection'][]=array(
     'name' => _MI_MONOLOG_HACKING,
     'link' => 'page=hacking'
 );
-$modversion['image'] = 'assets/images/logo.png';
+$modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = 'monolog';
 
 //about

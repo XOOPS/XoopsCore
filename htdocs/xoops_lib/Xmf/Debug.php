@@ -12,7 +12,7 @@
 namespace Xmf;
 
 if (!defined('XMF_KRUMO_URL')) {
-    define('XMF_KRUMO_URL', XOOPS_URL . '/modules/xmf/assets/css/krumo/');
+    define('XMF_KRUMO_URL', XOOPS_URL . '/modules/xmf/css/krumo/');
 }
 
 /**
@@ -63,7 +63,7 @@ class Debug
         if ($html && $echo && class_exists("\\Kint")) {
             \Kint::dump(func_get_arg(0));
         } else {
-            //self::$config['css'] = array('url' => XOOPS_URL . '/modules/xmf/assets/css/krumo/');
+            //self::$config['css'] = array('url' => XOOPS_URL . '/modules/xmf/css/krumo/');
             if (!$html) {
                 $msg = var_export($var, true);
             } else {

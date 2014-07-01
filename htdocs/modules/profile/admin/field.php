@@ -20,7 +20,7 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
@@ -313,7 +313,7 @@ switch ($op) {
                 }
             } else {
                 // Define Stylesheet
-                $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+                $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
                 $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),

@@ -21,7 +21,7 @@
                                 <{$smarty.const._PROFILE_AM_FIELDVISIBLEFOR}> <{$groups.$user_gid}>
                                 <{$smarty.const._PROFILE_AM_FIELDVISIBLEON}> <{$groups.$profile_gid}>
                                 <a href="visibility.php?op=del&amp;field_id=<{$field_id}>&amp;ug=<{$user_gid}>&amp;pg=<{$profile_gid}>" title="<{translate key='A_DELETE'}>">
-                                    <img src="<{$xoops_url}>/modules/profile/assets/images/no.png" alt="<{translate key='A_DELETE'}>" />
+                                    <img src="<{$xoops_url}>/modules/profile/images/no.png" alt="<{translate key='A_DELETE'}>" />
                                 </a>
                             </li>
                         <{/foreach}>

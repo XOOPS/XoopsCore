@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
@@ -110,7 +110,7 @@ if ($action == "showpopups") {
                     $tpl->assign('message', XoopsLocale::S_REFERENCE_TO_SITE_SENT);
                 }
             }
-            $tpl->display('module:system|system_misc_friend.tpl');
+            $tpl->display('module:system|system_misc_friend.html');
             break;
         case 'online':
             $isadmin = $xoops->userIsAdmin;
@@ -151,7 +151,7 @@ if ($action == "showpopups") {
             $tpl->assign('onlineusers', $onlineUsers);
             $tpl->assign('isadmin', $isadmin);
             $tpl->assign('closebutton', $closebutton);
-            $tpl->display('module:system|system_misc_online.tpl');
+            $tpl->display('module:system|system_misc_online.html');
             break;
         case 'ssllogin':
             if ($xoops->getConfig('use_ssl') && isset($_POST[$xoops->getConfig('sslpost_name')]) && $xoops->isUser()) {

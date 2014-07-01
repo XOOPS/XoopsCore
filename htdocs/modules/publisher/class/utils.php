@@ -34,11 +34,11 @@ class PublisherUtils
         $xoops = Xoops::getInstance();
         $publisher = Publisher::getInstance();
         $xoops->header();
-        $xoops->theme()->addStylesheet($publisher->url('assets/css/publisher.css'));
-        $xoops->theme()->addScript($publisher->url('assets/js/funcs.js'));
-        $xoops->theme()->addScript($publisher->url('assets/js/cookies.js'));
-        $xoops->theme()->addScript($publisher->url('assets/js/ajaxupload.3.9.js'));
-        $xoops->theme()->addScript($publisher->url('assets/js/publisher.js'));
+        $xoops->theme()->addStylesheet($publisher->url('css/publisher.css'));
+        $xoops->theme()->addScript($publisher->url('js/funcs.js'));
+        $xoops->theme()->addScript($publisher->url('js/cookies.js'));
+        $xoops->theme()->addScript($publisher->url('js/ajaxupload.3.9.js'));
+        $xoops->theme()->addScript($publisher->url('js/publisher.js'));
     }
 
     /**
@@ -416,7 +416,7 @@ class PublisherUtils
         }
 
         echo "<h3 style=\"color: #2F5376; font-weight: bold; font-size: 14px; margin: 6px 0 0 0; \"><a href='javascript:;' onclick=\"toggle('" . $tablename . "'); toggleIcon('" . $iconname . "')\";>";
-        echo "<img id='" . $iconname . "' src='" . $publisher->url("assets/images/links/" . $image) . "' alt='' /></a>&nbsp;" . $tabletitle . "</h3>";
+        echo "<img id='" . $iconname . "' src='" . $publisher->url("images/links/" . $image) . "' alt='' /></a>&nbsp;" . $tabletitle . "</h3>";
         echo "<div id='" . $tablename . "' style='display: " . $display . ";'>";
         if ($tabledsc != '') {
             echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \">" . $tabledsc . "</span>";
@@ -625,7 +625,7 @@ class PublisherUtils
     static function renderErrors(&$err_arr, $reseturl = '')
     {
         if (is_array($err_arr) && count($err_arr) > 0) {
-            echo '<div id="readOnly" class="errorMsg" style="border:1px solid #D24D00; background:#FEFECC url(' . PUBLISHER_URL . '/assets/images/important-32.png) no-repeat 7px 50%;color:#333;padding-left:45px;">';
+            echo '<div id="readOnly" class="errorMsg" style="border:1px solid #D24D00; background:#FEFECC url(' . PUBLISHER_URL . '/images/important-32.png) no-repeat 7px 50%;color:#333;padding-left:45px;">';
 
             echo '<h4 style="text-align:left;margin:0; padding-top:0">' . _AM_PUBLISHER_MSG_SUBMISSION_ERR;
 

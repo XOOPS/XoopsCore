@@ -20,7 +20,7 @@
  * @version      $Id$
  */
 
-include dirname(__FILE__) . '/admin_header.php';
+include __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 

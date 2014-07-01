@@ -12,7 +12,7 @@
 <meta name="generator" content="XOOPS" />
 <title><{$xmf_print_pageTitle}></title>
 
-<link rel="stylesheet" media="all" href="<{$xoops_url}>/modules/xmf/assets/css/print.css" type="text/css">
+<link rel="stylesheet" media="all" href="<{$xoops_url}>/modules/xmf/css/print.css" type="text/css">
 
 <style>
     #xmf_print_container {width: <{$xmf_print_width}>px; margin-left: auto; margin-right: auto;}

@@ -27,14 +27,14 @@ $xoops = Xoops::getInstance();
  */
 $modversion['name']        = _MI_PROTECTOR_NAME;
 $modversion['description'] = constant('_MI_PROTECTOR_DESC');
-$modversion['version']     = file_get_contents(dirname(__FILE__) . '/include/version.txt');
+$modversion['version']     = file_get_contents(__DIR__ . '/include/version.txt');
 $modversion['credits']     = "PEAK Corp.";
 $modversion['author']      = "GIJ=CHECKMATE PEAK Corp.(http://www.peak.ne.jp/)";
 $modversion['help']        = 'page=help';
 $modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
 $modversion['official']    = 1;
-$modversion['image']       = 'assets/images/logo.png';
+$modversion['image']       = 'images/logo.png';
 $modversion['dirname']     = 'protector';
 
 /*
@@ -75,9 +75,9 @@ $modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
 
 // Admin Templates
-$modversion['templates'][] = array( 'file' => 'protector_advisory.tpl', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'protector_prefix.tpl', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'protector_center.tpl', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'protector_advisory.html', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'protector_prefix.html', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array( 'file' => 'protector_center.html', 'description' => '', 'type' => 'admin' );
 
 /*
  Blocks

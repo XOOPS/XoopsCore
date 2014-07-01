@@ -19,7 +19,7 @@
  * @author          Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get main instance
 $system = System::getInstance();
@@ -34,7 +34,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Get userrank handler
 $userrank_Handler = $xoops->getHandler("ranks");
 // Call Header
-$xoops->header('userrank.tpl');
+$xoops->header('userrank.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('userrank.php');

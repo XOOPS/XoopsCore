@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $request = $xoops->request();
@@ -31,10 +31,10 @@ $op = $request->asStr('op', 'list');
 $memberslist_id = $request->asArray('memberslist_id', array());
 
 // Call Header
-$xoops->header('mailusers_send_mail.tpl');
+$xoops->header('mailusers_send_mail.html');
 // Define Stylesheet
-$xoops->theme()->addBaseStylesheetAssets('modules/system/assets/css/admin.css');
-$xoops->theme()->addBaseScriptAssets(array('@jquery','media/xoops/xoops.js','modules/system/assets/js/admin.js'));
+$xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
+$xoops->theme()->addBaseScriptAssets(array('@jquery','media/xoops/xoops.js','modules/system/js/admin.js'));
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('send_mails.php');

@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 switch ($op) {
 
@@ -106,4 +106,4 @@ switch ($op) {
         $admin_page->displayIndex();
         break;
 }
-include dirname(__FILE__) . '/footer.php';
+include __DIR__ . '/footer.php';

@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $uid = PublisherRequest::getInt('uid');
@@ -38,7 +38,7 @@ if (!$publisher->getConfig('perm_author_items')) {
 
 $myts = MyTextSanitizer::getInstance();
 
-$xoops->header('publisher_author_items.tpl');
+$xoops->header('publisher_author_items.html');
 $xoopsTpl = $xoops->tpl();
 
 XoopsLoad::loadFile($publisher->path('footer.php'));

@@ -28,7 +28,7 @@ $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
 $modversion['official'] = 1;
 //$modversion['help']           = 'page=help';
-$modversion['image'] = 'assets/images/logo.png';
+$modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = 'search';
 
 //about
@@ -73,7 +73,7 @@ $modversion['blocks'][] = array(
     'name' => _MI_SEARCH_BNAME1,
     'description' => 'Shows search form block',
     'show_func' => 'b_search_show',
-    'template' => 'block_search.tpl',
+    'template' => 'block_search.html',
 );
 
 // Preferences

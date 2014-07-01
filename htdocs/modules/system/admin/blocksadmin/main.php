@@ -69,15 +69,15 @@ switch ($op) {
 
     case 'list':
         // Call Header
-        $xoops->header('system_blocks.tpl');
+        $xoops->header('system_blocks.html');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define scripts
         $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
-        $xoops->theme()->addScript('modules/system/assets/js/admin.js');
-        $xoops->theme()->addScript('modules/system/assets/js/blocks.js');
+        $xoops->theme()->addScript('modules/system/js/admin.js');
+        $xoops->theme()->addScript('modules/system/js/blocks.js');
         // Define Breadcrumb and tips
-        $admin_page = new Xoops\Module\Admin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(
             SystemLocale::BLOCKS_ADMINISTRATION,
@@ -191,16 +191,16 @@ switch ($op) {
 
     case 'add':
         // Call Header
-        $xoops->header('system_blocks.tpl');
+        $xoops->header('system_blocks.html');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         $xoops->theme()->
             addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
         // Define scripts
         $xoops->theme()->addScript('media/jquery/plugins/jquery.ui.js');
         $xoops->theme()->addScript('media/jquery/plugins/jquery.form.js');
-        $xoops->theme()->addScript('modules/system/assets/js/admin.js');
-        $xoops->theme()->addScript('modules/system/assets/js/blocks.js');
+        $xoops->theme()->addScript('modules/system/js/admin.js');
+        $xoops->theme()->addScript('modules/system/js/blocks.js');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -402,15 +402,15 @@ switch ($op) {
         $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
         if ($block_id > 0) {
             // Call Header
-            $xoops->header('system_blocks.tpl');
+            $xoops->header('system_blocks.html');
             // Define Stylesheet
-            $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+            $xoops->theme()->addStylesheet('modules/system/css/admin.css');
             $xoops->theme()->
                 addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
             // Define scripts
             $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
             $xoops->theme()->addScript('media/jquery/plugins/jquery.form.js');
-            $xoops->theme()->addScript('modules/system/assets/js/admin.js');
+            $xoops->theme()->addScript('modules/system/js/admin.js');
             // Define Breadcrumb and tips
             $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -434,9 +434,9 @@ switch ($op) {
 
     case 'delete':
         // Call Header
-        $xoops->header('system_blocks.tpl');
+        $xoops->header('system_blocks.html');
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+        $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
@@ -470,7 +470,7 @@ switch ($op) {
                 }
             }
             // Call Header
-            $xoops->header('system_header.tpl');
+            $xoops->header('system_header.html');
             // Display Question
             $xoops->confirm(array(
                 'op'  => 'delete_ok',
@@ -532,11 +532,11 @@ switch ($op) {
         $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
         if ($block_id > 0) {
             // Call Header
-            $xoops->header('system_blocks.tpl');
+            $xoops->header('system_blocks.html');
             // Define Stylesheet
-            $xoops->theme()->addStylesheet('modules/system/assets/css/admin.css');
+            $xoops->theme()->addStylesheet('modules/system/css/admin.css');
             // Define Breadcrumb and tips
-            $system_breadcrumb = new Xoops\Module\Admin();
+            $system_breadcrumb = new \Xoops\Module\Admin();
             $system_breadcrumb->addBreadcrumbLink(
                 SystemLocale::BLOCKS_ADMINISTRATION,
                 system_adminVersion('blocksadmin', 'adminpath')

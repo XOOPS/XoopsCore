@@ -101,7 +101,7 @@ class XoopsThemeForm extends XoopsForm
         }
         $xoops->tpl()->assign('hidden', $hidden);
         $xoops->tpl()->assign('validationJS', $this->renderValidationJS(true));
-        $ret = $xoops->tpl()->fetch('module:system|system_form.tpl');
+        $ret = $xoops->tpl()->fetch('module:system|system_form.html');
         $xoops->tpl()->clear_assign('xo_input');
         return $ret;
 

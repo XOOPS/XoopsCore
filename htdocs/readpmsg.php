@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.readpmsg.start');
 
@@ -35,7 +35,7 @@ $total_messages = $request->asInt('total_messages', 0);
 
 $pm_handler = $xoops->getHandlerPrivmessage();
 
-$xoops->header('system_readpmsg.tpl');
+$xoops->header('system_readpmsg.html');
 
 switch ($op) {
 

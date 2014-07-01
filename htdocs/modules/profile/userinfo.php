@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
@@ -211,7 +211,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
                         if (isset($results[$i]['image']) && $results[$i]['image'] != '') {
                             $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname', 'n') . '/' . $results[$i]['image'];
                         } else {
-                            $results[$i]['image'] = XOOPS_URL . '/assets/images/icons/posticon2.gif';
+                            $results[$i]['image'] = XOOPS_URL . '/images/icons/posticon2.gif';
                         }
                         if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                             $results[$i]['link'] = XOOPS_URL . "/modules/" . $module->getVar('dirname', 'n') . "/" . $results[$i]['link'];
@@ -241,4 +241,4 @@ $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

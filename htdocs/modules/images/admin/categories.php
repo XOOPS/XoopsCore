@@ -18,10 +18,10 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Call Header
-$xoops->header('images_admin_categories.tpl');
+$xoops->header('images_admin_categories.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('categories.php');

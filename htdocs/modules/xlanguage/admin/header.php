@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $op = '';
 if (isset($_POST)) {
@@ -39,6 +39,6 @@ $helper = Xlanguage::getInstance();
 $helper->getHandlerLanguage()->loadConfig();
 
 $xoops->header();
-$xoops->theme()->addStylesheet('modules/xlanguage/assets/css/moduladmin.css');
+$xoops->theme()->addStylesheet('modules/xlanguage/css/moduladmin.css');
 
 $admin_page = new \Xoops\Module\Admin();

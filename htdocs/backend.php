@@ -21,7 +21,7 @@
  */
 
 if (file_exists('mainfile.php')) {
-    include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 } else {
     include '../../' . DIRECTORY_SEPARATOR . 'mainfile.php';
 }
@@ -39,7 +39,7 @@ $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname'): 'system';
 $tpl = new XoopsTpl();
 $tpl->caching = 2;
 $tpl->cache_lifetime = 3600;
-if (!$tpl->is_cached('module:' . $dirname . '|system_rss.tpl')) {
+if (!$tpl->is_cached('module:' . $dirname . '|system_rss.html')) {
     $tpl->assign('channel_title', XoopsLocale::convert_encoding(htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES)));
     $tpl->assign('channel_link', XOOPS_URL . '/');
     $tpl->assign('channel_desc', XoopsLocale::convert_encoding(htmlspecialchars($xoops->getConfig('slogan'), ENT_QUOTES)));
@@ -96,4 +96,4 @@ if (!$tpl->is_cached('module:' . $dirname . '|system_rss.tpl')) {
     $tpl->assign('items', $items);
 
 }
-$tpl->display('module:' . $dirname . '|system_rss.tpl');
+$tpl->display('module:' . $dirname . '|system_rss.html');

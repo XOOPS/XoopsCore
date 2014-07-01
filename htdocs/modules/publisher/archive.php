@@ -24,12 +24,12 @@
 # [11-may-2001] Kenneth Lee - http://www.nexgear.com/
 ######################################################################
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 
-$xoops->header('publisher_archive.tpl');
+$xoops->header('publisher_archive.html');
 
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::LoadFile($publisher->path('footer.php'));

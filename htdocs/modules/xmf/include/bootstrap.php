@@ -20,7 +20,7 @@
 
 
 if (!defined('XOOPS_ROOT_PATH')) {
-    require dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
+    require dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 }
 
 // DO NOT depend on these in your - they will change or be removed
@@ -28,17 +28,17 @@ if (false & !defined('XMF_EXEC')) {
     define('XMF_EXEC', true);
 
     define('XMF_URL', XOOPS_URL . '/modules/xmf');
-    define('XMF_CSS_URL', XMF_URL . '/assets/css');
-    // define('XMF_IMAGES_URL', XMF_URL . '/assets/images');
+    define('XMF_CSS_URL', XMF_URL . '/css');
+    // define('XMF_IMAGES_URL', XMF_URL . '/images');
     define('XMF_INCLUDE_URL', XMF_URL . '/include');
     define('XMF_LANGUAGE_URL', XMF_URL . '/language');
     define('XMF_LIBRARIES_URL', XMF_URL . '/libraries');
     define('XMF_TEMPLATES_URL', XMF_URL . '/templates');
-    define('XMF_KRUMO_URL', XMF_URL . '/assets/css/krumo/');
+    define('XMF_KRUMO_URL', XMF_URL . '/css/krumo/');
 
     define('XMF_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/xmf');
-    define('XMF_CSS_PATH', XMF_ROOT_PATH . '/assets/css');
-    define('XMF_IMAGES_PATH', XMF_ROOT_PATH . '/assets/images');
+    define('XMF_CSS_PATH', XMF_ROOT_PATH . '/css');
+    define('XMF_IMAGES_PATH', XMF_ROOT_PATH . '/images');
     define('XMF_INCLUDE_PATH', XMF_ROOT_PATH . '/include');
     define('XMF_LANGUAGE_PATH', XMF_ROOT_PATH . '/language');
     define('XMF_LIBRARIES_PATH', XMF_ROOT_PATH . '/libraries');
@@ -49,11 +49,11 @@ if (false & !defined('XMF_EXEC')) {
     define('_GLOBAL_LEFT', 'left');
     define('_GLOBAL_RIGHT', 'right');
 }
-//require dirname(dirname(__FILE__)) . '/libraries/Xmf/Loader.php';
+//require dirname(__DIR__) . '/libraries/Xmf/Loader.php';
 //spl_autoload_register(array('Xmf_Loader', 'loadClass'));
 
-//require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+//require_once dirname(__DIR__) . '/vendor/autoload.php';
 // \Xmf\Loader::loadFile(XOOPS_PATH . '/vendor/autoload.php');
 
-//require_once dirname(__FILE__) . '/functions.php';
+//require_once __DIR__ . '/functions.php';
 \Xmf\Language::load('global', 'xmf');

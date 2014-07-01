@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
@@ -31,6 +31,6 @@ $criteria = new Criteria('avatar_type', 'S');
 $tpl = new XoopsTpl();
 $tpl->assign('avatars', Avatars::getInstance()->getHandlerAvatar()->getObjects($criteria, false, false));
 $tpl->assign('closebutton', 1);
-$tpl->display('module:avatars|avatars_popup.tpl');
+$tpl->display('module:avatars|avatars_popup.html');
 
 $xoops->simpleFooter();

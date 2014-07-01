@@ -28,11 +28,11 @@ function smarty_compiler_xoAdminNav($argStr, &$smarty)
     }
 
     $url = '';
-    if (XoopsLoad::fileExists($xoops->path('modules/system/assets/images/breadcrumb/' . $icons . '/index.html'))) {
-        $url = $xoops->url('modules/system/assets/images/breadcrumb/' . $icons . '/' . $argStr);
+    if (XoopsLoad::fileExists($xoops->path('modules/system/images/breadcrumb/' . $icons . '/index.html'))) {
+        $url = $xoops->url('modules/system/images/breadcrumb/' . $icons . '/' . $argStr);
     } else {
-        if (XoopsLoad::fileExists($xoops->path('modules/system/assets/images/breadcrumb/default/' . $argStr))) {
-            $url = $xoops->url('modules/system/assets/images/icons/default/' . $argStr);
+        if (XoopsLoad::fileExists($xoops->path('modules/system/images/breadcrumb/default/' . $argStr))) {
+            $url = $xoops->url('modules/system/images/icons/default/' . $argStr);
         }
     }
     return "\necho '" . addslashes($url) . "';";

@@ -22,7 +22,7 @@
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 $xoops = Xoops::getInstance();
-XoopsLoad::loadFile($xoops->path(dirname(__FILE__) . '/include/constants.php'));
+XoopsLoad::loadFile($xoops->path(__DIR__ . '/include/constants.php'));
 
 $modversion['name'] = _MI_PUBLISHER_MD_NAME;
 $modversion['description'] = _MI_PUBLISHER_MD_DESC;
@@ -34,14 +34,14 @@ $modversion['help']  = 'page=help';
 $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 0;
-$modversion['dirname'] = basename(dirname(__FILE__));
+$modversion['dirname'] = basename(__DIR__);
 
 $logo_filename = $modversion['dirname'] . '_logo.png';
 
-if (XoopsLoad::fileExists(dirname(__FILE__) . '/assets/images/' . $logo_filename)) {
-    $modversion['image'] = "assets/images/{$logo_filename}";
+if (XoopsLoad::fileExists(__DIR__ . '/images/' . $logo_filename)) {
+    $modversion['image'] = "images/{$logo_filename}";
 } else {
-    $modversion['image'] = "assets/images/module_logo.png";
+    $modversion['image'] = "images/module_logo.png";
 }
 
 // Update
@@ -97,7 +97,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_ITEMSNEW_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_items_new_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_items_new_edit";
 $modversion['blocks'][$i]['options'] = "0|datesub|0|5|65|none";
-$modversion['blocks'][$i]['template'] = "publisher_items_new.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_items_new.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "items_recent.php";
@@ -106,7 +106,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_RECENTITEMS_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_items_recent_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_items_recent_edit";
 $modversion['blocks'][$i]['options'] = "0|datesub|5|65";
-$modversion['blocks'][$i]['template'] = "publisher_items_recent.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_items_recent.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "items_spot.php";
@@ -115,14 +115,14 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_ITEMSPOT_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_items_spot_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_items_spot_edit";
 $modversion['blocks'][$i]['options'] = "1|5|0|0|1|1|bullet|0|0";
-$modversion['blocks'][$i]['template'] = "publisher_items_spot.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_items_spot.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "items_random_item.php";
 $modversion['blocks'][$i]['name'] = _MI_PUBLISHER_ITEMSRANDOM_ITEM;
 $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_ITEMSRANDOM_ITEM_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_items_random_item_show";
-$modversion['blocks'][$i]['template'] = "publisher_items_random_item.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_items_random_item.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "items_menu.php";
@@ -131,7 +131,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_ITEMSMENU_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_items_menu_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_items_menu_edit";
 $modversion['blocks'][$i]['options'] = "0|datesub|5";
-$modversion['blocks'][$i]['template'] = "publisher_items_menu.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_items_menu.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "latest_files.php";
@@ -140,7 +140,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_LATESTFILES_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_latest_files_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_latest_files_edit";
 $modversion['blocks'][$i]['options'] = "0|datesub|5|0";
-$modversion['blocks'][$i]['template'] = "publisher_latest_files.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_latest_files.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "date_to_date.php";
@@ -149,7 +149,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_DATE_TO_DATE_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_date_to_date_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_date_to_date_edit";
 $modversion['blocks'][$i]['options'] = XoopsLocale::formatTimestamp(time(), 'm/j/Y') . "|" . XoopsLocale::formatTimestamp(time(), 'm/j/Y');
-$modversion['blocks'][$i]['template'] = "publisher_date_to_date.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_date_to_date.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "items_columns.php";
@@ -158,7 +158,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_COLUMNS_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_items_columns_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_items_columns_edit";
 $modversion['blocks'][$i]['options'] = "2|0|4|256|normal";
-$modversion['blocks'][$i]['template'] = "publisher_items_columns.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_items_columns.html";
 
 $i++;
 $modversion['blocks'][$i]['file'] = "latest_news.php";
@@ -167,14 +167,14 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_LATEST_NEWS_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_latest_news_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_latest_news_edit";
 $modversion['blocks'][$i]['options'] = "0|6|2|300|0|0|100|30|published|1|120|120|1|dcdcdc|RIGHT|1|1|1|1|1|1|1|1|1|1|1|1|1|extended|";
-$modversion['blocks'][$i]['template'] = 'publisher_latest_news.tpl';
+$modversion['blocks'][$i]['template'] = 'publisher_latest_news.html';
 
 $i++;
 $modversion['blocks'][$i]['file'] = "search.php";
 $modversion['blocks'][$i]['name'] = _MI_PUBLISHER_SEARCH;
 $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_SEARCH_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_search_show";
-$modversion['blocks'][$i]['template'] = 'publisher_search_block.tpl';
+$modversion['blocks'][$i]['template'] = 'publisher_search_block.html';
 
 $i++;
 $modversion['blocks'][$i]['file'] = "category_items_sel.php";
@@ -183,7 +183,7 @@ $modversion['blocks'][$i]['description'] = _MI_PUBLISHER_CATEGORY_ITEMS_SEL_DSC;
 $modversion['blocks'][$i]['show_func'] = "publisher_category_items_sel_show";
 $modversion['blocks'][$i]['edit_func'] = "publisher_category_items_sel_edit";
 $modversion['blocks'][$i]['options'] = "0|datesub|5|65";
-$modversion['blocks'][$i]['template'] = "publisher_category_items_sel.tpl";
+$modversion['blocks'][$i]['template'] = "publisher_category_items_sel.html";
 
 // Config categories
 $i = 0;
@@ -546,7 +546,7 @@ $modversion['config'][$i]['title'] = '_MI_PUBLISHER_PRINTLOGOURL';
 $modversion['config'][$i]['description'] = '_MI_PUBLISHER_PRINTLOGOURLDSC';
 $modversion['config'][$i]['formtype'] = 'textbox';
 $modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = XOOPS_URL . '/assets/images/logo.gif';
+$modversion['config'][$i]['default'] = XOOPS_URL . '/images/logo.gif';
 $modversion['config'][$i]['category'] = 'print';
 
 $i++;

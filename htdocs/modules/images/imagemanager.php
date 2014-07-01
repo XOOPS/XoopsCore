@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Images::getInstance();
@@ -156,7 +156,7 @@ switch ($op) {
 }
 $xoopsTpl->assign('xsize', 800);
 $xoopsTpl->assign('ysize', 600);
-$xoopsTpl->display('module:images|images_imagemanager.tpl');
+$xoopsTpl->display('module:images|images_imagemanager.html');
 $xoops->simpleFooter();
 
 /*
@@ -202,7 +202,7 @@ if ($op == 'upload') {
     $form->addElement(new XoopsFormButton('', 'img_button', _SUBMIT, 'submit'));
     $form->assign($xoopsTpl);
     $xoopsTpl->assign('lang_close', _CLOSE);
-    $xoopsTpl->display('module:images|images_imagemanager2.tpl');
+    $xoopsTpl->display('module:images|images_imagemanager2.html');
     exit();
 }
 */
