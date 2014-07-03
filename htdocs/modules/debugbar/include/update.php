@@ -28,7 +28,7 @@ function xoops_module_install_debugbar(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
     // copy font-awesome font files to assets directory
-    $dir = dirname(dirname(__FILE__)).'/assets/fonts';
+    $dir = dirname(__DIR__).'/assets/fonts';
     $pattern = 'fontawesome-webfont.*';
     return $xoops->assets()->copyFileAssets($dir, $pattern, 'fonts');
 }

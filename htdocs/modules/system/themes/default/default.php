@@ -61,7 +61,7 @@ class XoopsGuiDefault
         $system_extension = new SystemExtension();
 
         $adminmenu = null;
-        include dirname(__FILE__) . '/menu.php';
+        include __DIR__ . '/menu.php';
         if (!$xoops->isModule() || 'system' == $xoops->module->getVar('dirname', 'n')) {
             $modpath = XOOPS_URL . '/admin.php';
             $modname = DefaultThemeLocale::SYSTEM_OPTIONS;

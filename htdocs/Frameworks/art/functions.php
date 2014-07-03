@@ -16,7 +16,7 @@ if (defined('XOOPS_ART_FUNCTIONS')) {
 }
 define('XOOPS_ART_FUNCTIONS', true);
 
-include_once dirname(__FILE__) . "/functions.ini.php";
+include_once __DIR__ . "/functions.ini.php";
 
 load_functions("cache");
 load_functions("user");
@@ -24,7 +24,7 @@ load_functions("locale");
 load_functions("admin");
 
 if (!class_exists('ArtObject')) {
-    include_once dirname(__FILE__) . "/object.php";
+    include_once __DIR__ . "/object.php";
 }
 
 /**

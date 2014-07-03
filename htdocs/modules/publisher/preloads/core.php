@@ -30,7 +30,7 @@ class PublisherCorePreload extends XoopsPreloadItem
 {
     static function eventCoreIncludeCommonEnd($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'publishermetagen' => $path . '/class/metagen.php',
             'publishersession'  => $path . '/class/session.php',

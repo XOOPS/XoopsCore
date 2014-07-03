@@ -32,7 +32,7 @@ class UserconfigsPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'userconfigs' => $path . '/class/helper.php',
         ));

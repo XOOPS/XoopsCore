@@ -42,13 +42,13 @@ class MytsCensor extends MyTextSanitizerExtension
         static $censorConf;
 
         $xoops = Xoops::getInstance();
-		
+
 		if (!empty($paramsConf))
 			$censorConf = $paramsConf;
-		
+
         if (!isset($censorConf)) {
 			$censorConf = $xoops->getConfigs();
-			$config = parent::loadConfig(dirname(__FILE__));
+			$config = parent::loadConfig(__DIR__);
 			//merge and allow config override
 			$censorConf = array_merge($censorConf, $config);
         }

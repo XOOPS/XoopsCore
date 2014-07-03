@@ -17,10 +17,10 @@
  * @author       XOOPS Development Team
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $moduleAdmin = new \Xoops\Module\Admin();
 $moduleAdmin->displayNavigation('index.php');
 $moduleAdmin->displayIndex();
 
-include_once dirname(__FILE__) . '/admin_footer.php';
+include_once __DIR__ . '/admin_footer.php';

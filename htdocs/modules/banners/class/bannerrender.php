@@ -41,7 +41,7 @@ class BannerRender
     public function displayBanner($nb_banner = 1, $align = 'H', $client = array(), $ids = '')
     {
         $xoops = Xoops::getInstance();
-        XoopsLoad::addMap(array('banners' => dirname(__FILE__) . '/helper.php'));
+        XoopsLoad::addMap(array('banners' => __DIR__ . '/helper.php'));
         $helper = Banners::getInstance();
         if ($xoops->isActiveModule('banners')) {
             // Get banners handler

@@ -9,11 +9,11 @@
 //            THIS CONFIG FILE ONLY APPLIES TO phpThumb.php //
 //                                                         ///
 //////////////////////////////////////////////////////////////
-require dirname( dirname( dirname( __FILE__ ) ) ) . '/header.php';
+require dirname( dirname(__DIR__) ) . '/header.php';
 ob_start();
-if (!file_exists(dirname(__FILE__).'/phpthumb.functions.php') || !include_once(dirname(__FILE__).'/phpthumb.functions.php')) {
+if (!file_exists(__DIR__.'/phpthumb.functions.php') || !include_once(__DIR__.'/phpthumb.functions.php')) {
     ob_end_flush();
-    die('failed to include_once(phpthumb.functions.php) - realpath="'.realpath(dirname(__FILE__).'/phpthumb.functions.php').'"');
+    die('failed to include_once(phpthumb.functions.php) - realpath="'.realpath(__DIR__.'/phpthumb.functions.php').'"');
 }
 ob_end_clean();
 
@@ -37,7 +37,7 @@ $PHPTHUMB_CONFIG['cache_directory'] = XOOPS_CACHE_PATH;                         
 //$PHPTHUMB_CONFIG['cache_directory'] = './cache/';                                           // set the cache directory relative to the source image - must start with '.' (will not work to cache URL- or database-sourced images, please use an absolute directory name)
 //$PHPTHUMB_CONFIG['cache_directory'] = null;                                                 // disable thumbnail caching (not recommended)
 //if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-//  $PHPTHUMB_CONFIG['cache_directory'] = dirname(__FILE__).'/cache/'; // set the cache directory to an absolute directory for all source images
+//  $PHPTHUMB_CONFIG['cache_directory'] = __DIR__.'/cache/'; // set the cache directory to an absolute directory for all source images
 //} else {
 //  $PHPTHUMB_CONFIG['cache_directory'] = '/tmp/persistent/phpthumb/cache/';
 //}
@@ -171,7 +171,7 @@ $PHPTHUMB_CONFIG['border_hexcolor']     = '000000'; // Default border color - us
 $PHPTHUMB_CONFIG['background_hexcolor'] = 'FFFFFF'; // Default background color when thumbnail aspect ratio does not match fixed-dimension box - usual HTML-style hex color notation (overridden with 'bg' parameter)
 
 // * Watermark configuration
-$PHPTHUMB_CONFIG['ttf_directory'] = dirname(__FILE__).'/fonts'; // Base directory for TTF font files
+$PHPTHUMB_CONFIG['ttf_directory'] = __DIR__.'/fonts'; // Base directory for TTF font files
 //$PHPTHUMB_CONFIG['ttf_directory'] = 'c:/windows/fonts';
 
 
@@ -248,7 +248,7 @@ $PHPTHUMB_DEFAULTS_DISABLEGETPARAMS  = false; // if true, GETstring parameters w
 
 function phpThumbURL($ParameterString) {
     global $PHPTHUMB_CONFIG;
-    return str_replace(@$PHPTHUMB_CONFIG['document_root'], '', dirname(__FILE__)).DIRECTORY_SEPARATOR.'phpThumb.php?'.$ParameterString.'&hash='.md5($ParameterString.@$PHPTHUMB_CONFIG['high_security_password']);
+    return str_replace(@$PHPTHUMB_CONFIG['document_root'], '', __DIR__).DIRECTORY_SEPARATOR.'phpThumb.php?'.$ParameterString.'&hash='.md5($ParameterString.@$PHPTHUMB_CONFIG['high_security_password']);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

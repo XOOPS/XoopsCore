@@ -20,8 +20,8 @@
  * @version         $Id$
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
-require_once dirname(dirname(__FILE__)) . '/class/maintenance.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require_once dirname(__DIR__) . '/class/maintenance.php';
 
 $xoops = Xoops::getInstance();
 XoopsLoad::load('system', 'system');

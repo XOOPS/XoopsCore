@@ -32,7 +32,7 @@ function xoops_module_install_banners(&$module)
     $xoops = Xoops::getInstance();
     //$xoops->db();
     //global $xoopsDB;
-    XoopsLoad::addMap(array('banners' => dirname(dirname(__FILE__)) . '/class/helper.php'));
+    XoopsLoad::addMap(array('banners' => dirname(__DIR__) . '/class/helper.php'));
     $helper = Banners::getInstance();
     // Get handler
     $banner_Handler = $helper->getHandlerBanner();

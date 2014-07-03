@@ -32,7 +32,7 @@ class XlanguageCorePreload extends XoopsPreloadItem
      */
     static public function eventCoreIncludeCommonEnd($args)
     {
-        if (XoopsLoad::fileExists($hnd_file = dirname(dirname(__FILE__)) . '/api.php')) {
+        if (XoopsLoad::fileExists($hnd_file = dirname(__DIR__) . '/api.php')) {
             include_once $hnd_file;
         }
     }

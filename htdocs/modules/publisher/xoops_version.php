@@ -22,7 +22,7 @@
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 $xoops = Xoops::getInstance();
-XoopsLoad::loadFile($xoops->path(dirname(__FILE__) . '/include/constants.php'));
+XoopsLoad::loadFile($xoops->path(__DIR__ . '/include/constants.php'));
 
 $modversion['name'] = _MI_PUBLISHER_MD_NAME;
 $modversion['description'] = _MI_PUBLISHER_MD_DESC;
@@ -34,11 +34,11 @@ $modversion['help']  = 'page=help';
 $modversion['license'] = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 0;
-$modversion['dirname'] = basename(dirname(__FILE__));
+$modversion['dirname'] = basename(__DIR__);
 
 $logo_filename = $modversion['dirname'] . '_logo.png';
 
-if (XoopsLoad::fileExists(dirname(__FILE__) . '/images/' . $logo_filename)) {
+if (XoopsLoad::fileExists(__DIR__ . '/images/' . $logo_filename)) {
     $modversion['image'] = "images/{$logo_filename}";
 } else {
     $modversion['image'] = "images/module_logo.png";

@@ -9,8 +9,8 @@
  * @version   4.03
  */
 
-require_once(dirname(__FILE__) . '/tcpdfConfig.php');
-require_once(dirname(__FILE__).'/../_tcpdf_'.HTML2PDF_USED_TCPDF_VERSION.'/tcpdf.php');
+require_once(__DIR__ . '/tcpdfConfig.php');
+require_once(__DIR__.'/../_tcpdf_'.HTML2PDF_USED_TCPDF_VERSION.'/tcpdf.php');
 
 class HTML2PDF_myPdf extends TCPDF
 {

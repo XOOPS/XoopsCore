@@ -14,7 +14,7 @@
 if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
     define("FRAMEWORKS_ART_FUNCTIONS_ADMIN", true);
 
-    defined("FRAMEWORKS_ART_FUNCTIONS_INI") || include_once dirname(__FILE__) . "/functions.ini.php";
+    defined("FRAMEWORKS_ART_FUNCTIONS_INI") || include_once __DIR__ . "/functions.ini.php";
 
     /**
      * @param int $currentoption

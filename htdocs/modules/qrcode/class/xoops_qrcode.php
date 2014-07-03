@@ -38,7 +38,7 @@ class _Qrcode extends Xoops\Module\Helper\HelperAbstract
     }
 }
 
-include dirname(dirname(__FILE__)) . '/phpqrcode/qrlib.php';
+include dirname(__DIR__) . '/phpqrcode/qrlib.php';
 
 class Xoops_qrcode extends QRcode
 {
@@ -58,7 +58,7 @@ class Xoops_qrcode extends QRcode
      */
     public function __construct()
     {
-        XoopsLoad::addMap(array('_qrcode' => dirname(dirname(__FILE__)) . '/class/qrcode.php'));
+        XoopsLoad::addMap(array('_qrcode' => dirname(__DIR__) . '/class/qrcode.php'));
 
         $xoops = Xoops::getInstance();
         $configs = _qrcode::getInstance()->LoadConfig();

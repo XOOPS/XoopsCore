@@ -19,7 +19,7 @@
  * @version         $Id:main.php  335 2011-12-05 20:24:01Z lusopoemas@gmail.com $
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 

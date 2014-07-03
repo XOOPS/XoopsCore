@@ -20,7 +20,7 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 $xoops->header();
@@ -67,7 +67,7 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
                     } else {
                         printf(XoopsLocale::SF_NOTIFICATION_EMAIL_SENT_TO, $thisuser->getVar('uname'));
                     }
-                    include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+                    include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
                 } else {
                     $xoops->redirect(
                         $xoops->url('modules/' . $xoops->module->getVar('dirname', 'n') . '/user.php'),
@@ -117,4 +117,4 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
 }
 
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_REGISTER));
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

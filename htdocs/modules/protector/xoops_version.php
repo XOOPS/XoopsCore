@@ -27,7 +27,7 @@ $xoops = Xoops::getInstance();
  */
 $modversion['name']        = _MI_PROTECTOR_NAME;
 $modversion['description'] = constant('_MI_PROTECTOR_DESC');
-$modversion['version']     = file_get_contents(dirname(__FILE__) . '/include/version.txt');
+$modversion['version']     = file_get_contents(__DIR__ . '/include/version.txt');
 $modversion['credits']     = "PEAK Corp.";
 $modversion['author']      = "GIJ=CHECKMATE PEAK Corp.(http://www.peak.ne.jp/)";
 $modversion['help']        = 'page=help';
