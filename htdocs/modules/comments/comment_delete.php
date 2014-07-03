@@ -18,5 +18,5 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
+include_once dirname(dirname(__DIR__)) . '/mainfile.php';
 Comments::getInstance()->displayDelete();

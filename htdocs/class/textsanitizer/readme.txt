@@ -14,7 +14,7 @@ class MytsMycode extends MyTextSanitizerExtension
     function encode($textarea_id)
     {
         // If the extension has config data, load it
-        $config = parent::loadConfig(dirname(__FILE__));
+        $config = parent::loadConfig(__DIR__);
         // Make sure that the icon is available /images/form/mycode.gif
         $code = "<img src='{$this->image_path}/mycode.gif' alt='" . _XOOPS_FORM_ALTMYCODE . "' onclick='xoopsCodeMycode(\"{$textarea_id}\",\"" . htmlspecialchars(_XOOPS_FORM_ENTERMYCODETERM, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $javascript = <<<EOH
@@ -39,26 +39,26 @@ EOH;
         // Return the scripts to be displayed in editor form and the javascript for relevant actions
         return array($code, $javascript);
     }
-    
+
     // The code parser
-    function load(&$ts) 
+    function load(&$ts)
     {
         $ts->patterns[] = "/\[mycode\]([^\]]*)\[\/mycode\]/esU";
-        $ts->replacements[] = __CLASS__."::decode( '\\1' )"; 
+        $ts->replacements[] = __CLASS__."::decode( '\\1' )";
     }
-    
+
     // Processing the text
     function decode($text)
     {
         // Load config data if any
-        $config = parent::loadConfig( dirname(__FILE__) );
+        $config = parent::loadConfig( __DIR__ );
         if ( empty($text) || empty($config['enabled']) ) return $text;
         $ret = someFunctionToConvertTheTextToDefinedFormat($text);
         return $ret;
     }
 }
 
-config.custom.php: 
+config.custom.php:
 return $config = array(
         "extensions" => array(
                         "iframe"    => 0,

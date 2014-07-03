@@ -20,7 +20,7 @@
 
 
 if (!defined('XOOPS_ROOT_PATH')) {
-    require dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
+    require dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 }
 
 // DO NOT depend on these in your - they will change or be removed
@@ -49,11 +49,11 @@ if (false & !defined('XMF_EXEC')) {
     define('_GLOBAL_LEFT', 'left');
     define('_GLOBAL_RIGHT', 'right');
 }
-//require dirname(dirname(__FILE__)) . '/libraries/Xmf/Loader.php';
+//require dirname(__DIR__) . '/libraries/Xmf/Loader.php';
 //spl_autoload_register(array('Xmf_Loader', 'loadClass'));
 
-//require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+//require_once dirname(__DIR__) . '/vendor/autoload.php';
 // \Xmf\Loader::loadFile(XOOPS_PATH . '/vendor/autoload.php');
 
-//require_once dirname(__FILE__) . '/functions.php';
+//require_once __DIR__ . '/functions.php';
 \Xmf\Language::load('global', 'xmf');

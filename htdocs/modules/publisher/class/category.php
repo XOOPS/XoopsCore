@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherCategory extends XoopsObject
 {

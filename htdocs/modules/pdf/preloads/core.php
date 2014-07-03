@@ -31,7 +31,7 @@ class PdfCorePreload extends XoopsPreloadItem
 
     static function eventCoreIncludeCommonEnd($args)
     {
-        XoopsLoad::addMap(array('pdf' => dirname(dirname(__FILE__)) . '/class/pdf.php'));
+        XoopsLoad::addMap(array('pdf' => dirname(__DIR__) . '/class/pdf.php'));
     }
 
 }

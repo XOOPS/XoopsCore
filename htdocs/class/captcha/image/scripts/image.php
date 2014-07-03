@@ -24,7 +24,7 @@
  * @since     2.6.0
  */
 
-require dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/mainfile.php';
+require dirname(dirname(dirname(dirname(__DIR__)))) . '/mainfile.php';
 
 require_once 'imageclass.php';
 

@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 $email = isset($_GET['email']) ? trim($_GET['email']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : $email;
@@ -65,7 +65,7 @@ if (empty($user)) {
         if (!$xoopsDB->queryF($sql)) {
             $xoops->header();
             echo XoopsLocale::E_USER_NOT_UPDATED;
-            include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+            include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
         }
         $xoops->redirect("user.php", 3, sprintf(XoopsLocale::SF_PASSWORD_SENT_TO, $user->getVar("uname")), false);
         // If no Code, send it
@@ -89,6 +89,6 @@ if (empty($user)) {
         echo "<h4>";
         printf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $user->getVar('uname'));
         echo "</h4>";
-        include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+        include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
     }
 }

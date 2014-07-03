@@ -80,7 +80,7 @@ class TinyMCE
 
         // Load default settings
         if (!($this->setting = @include($GLOBALS['xoops']->path("var/configs/tinymce.php")))) {
-            $this->setting = include dirname(__FILE__) . "/settings.php";
+            $this->setting = include __DIR__ . "/settings.php";
         }
 
         // get editor language (from ...)

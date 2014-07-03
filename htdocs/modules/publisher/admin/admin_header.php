@@ -19,11 +19,11 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
+include_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 $publisher->loadLanguage('modinfo');
 
-XoopsLoad::loadFile($xoops->path(dirname(dirname(__FILE__)) . '/include/common.php'));
+XoopsLoad::loadFile($xoops->path(dirname(__DIR__) . '/include/common.php'));
 XoopsLoad::loadFile($xoops->path(XOOPS_ROOT_PATH . '/include/cp_header.php'));

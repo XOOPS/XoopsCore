@@ -17,7 +17,7 @@
  * @version         $Id$
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $op = '';
 if ( isset( $_POST ) ){
@@ -36,5 +36,5 @@ XoopsLoad::load('system', 'system');
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
 
-include_once dirname(dirname(__FILE__)) . '/class/xcaptcha.php';
+include_once dirname(__DIR__) . '/class/xcaptcha.php';
 $xcaptcha_handler = new Xcaptcha();

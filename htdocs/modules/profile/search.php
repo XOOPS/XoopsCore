@@ -27,7 +27,7 @@ use Xoops\Core\Kernel\CriteriaElement;
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
@@ -424,4 +424,4 @@ switch ($op) {
         }
         break;
 }
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

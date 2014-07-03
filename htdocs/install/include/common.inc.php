@@ -30,7 +30,7 @@
 define('INSTALL_USER', '');
 define('INSTALL_PASSWORD', '');
 define('XOOPS_INSTALL', 1);
-define('XOOPS_INSTALL_PATH', dirname(dirname(__FILE__)));
+define('XOOPS_INSTALL_PATH', dirname(__DIR__));
 
 // options for mainfile.php
 if (false === date_default_timezone_set(@date_default_timezone_get())) {
@@ -40,7 +40,7 @@ if (empty($xoopsOption['hascommon'])) {
     $xoopsOption['nocommon'] = true;
     session_start();
 }
-$mainfile = dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
+$mainfile = dirname(dirname(__DIR__)) . '/mainfile.php';
 if (file_exists($mainfile)) {
     include $mainfile;
 }

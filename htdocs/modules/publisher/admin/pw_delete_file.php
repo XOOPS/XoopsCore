@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
 if (isset($_POST["op"]) && ($_POST["op"] == "delfileok")) {
     $dir = PublisherUtils::getUploadDir(true, 'content');

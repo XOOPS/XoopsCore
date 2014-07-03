@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 $op = 'main';
@@ -49,7 +49,7 @@ if ($op == 'main') {
         $xoops->tpl()->assign('lang_youremail', XoopsLocale::C_YOUR_EMAIL);
         $xoops->tpl()->assign('lang_sendpassword', XoopsLocale::SEND_PASSWORD);
         $xoops->tpl()->assign('mailpasswd_token', $xoops->security()->createToken());
-        include dirname(__FILE__) . '/footer.php';
+        include __DIR__ . '/footer.php';
     }
     if (!empty($_GET['xoops_redirect'])) {
         $redirect = trim($_GET['xoops_redirect']);
@@ -111,7 +111,7 @@ if ($op == 'delete') {
                 'user.php',
                 XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO
             );
-            include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+            include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
         } else {
             $del_uid = $xoops->user->getVar("uid");
             if (false != $xoops->getHandlerMember()->deleteUser($xoops->user)) {

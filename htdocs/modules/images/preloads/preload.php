@@ -22,7 +22,7 @@ class ImagesPreload extends PreloadItem
 {
     public static function eventCoreIncludeCommonEnd($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'images' => $path . '/class/helper.php',
         ));

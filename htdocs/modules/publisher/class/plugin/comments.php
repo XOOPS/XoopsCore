@@ -93,7 +93,7 @@ class PublisherCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
     public function itemInfo($item_id)
     {
         $ret = array();
-        include_once dirname(dirname(dirname(__FILE__))) . '/include/common.php';
+        include_once dirname(dirname(__DIR__)) . '/include/common.php';
 
         /* @var $itemObj PublisherItem */
         $itemObj = Publisher::getInstance()->getItemHandler()->get(intval($item_id));

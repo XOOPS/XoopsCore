@@ -21,7 +21,7 @@ use Xmf\Request;
 use Xmf\Module\Helper;
 use Xmf\Module\Permission;
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $moduleAdmin = new \Xoops\Module\Admin();
 $moduleAdmin->displayNavigation('permissions.php');
@@ -57,4 +57,4 @@ if ($permHelper) {
     echo $form->render();
 }
 
-include_once dirname(__FILE__) . '/admin_footer.php';
+include_once __DIR__ . '/admin_footer.php';

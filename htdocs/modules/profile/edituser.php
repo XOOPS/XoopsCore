@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 // If not a user, redirect
@@ -91,7 +91,7 @@ if ($op == 'save') {
 
 if ($op == 'editprofile') {
     $xoops->header('profile_editprofile.tpl');
-    include_once dirname(__FILE__) . '/include/forms.php';
+    include_once __DIR__ . '/include/forms.php';
     $form = profile_getUserForm($xoops->user);
     $form->assign($xoops->tpl());
     if (!empty($stop)) {
@@ -100,4 +100,4 @@ if ($op == 'editprofile') {
 
     $xoops->appendConfig('profile_breadcrumbs', array('caption' => XoopsLocale::EDIT_PROFILE));
 }
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

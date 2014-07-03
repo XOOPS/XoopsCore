@@ -2,7 +2,7 @@
 
 // constants are slow, so we use as few as possible
 if (!defined('HTMLPURIFIER_PREFIX')) {
-    define('HTMLPURIFIER_PREFIX', realpath(dirname(__FILE__) . '/..'));
+    define('HTMLPURIFIER_PREFIX', realpath(__DIR__ . '/..'));
 }
 
 // accomodations for versions earlier than 5.0.2

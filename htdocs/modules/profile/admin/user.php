@@ -20,7 +20,7 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
@@ -50,7 +50,7 @@ switch ($op) {
 
     case "new":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
-        include_once dirname(dirname(__FILE__)) . '/include/forms.php';
+        include_once dirname(__DIR__) . '/include/forms.php';
         $obj = $handler->createUser();
         $obj->setGroups(array(XOOPS_GROUP_USERS));
         $form = profile_getUserForm($obj);
@@ -64,7 +64,7 @@ switch ($op) {
             // If not webmaster trying to edit a webmaster - disallow
             $xoops->redirect("user.php", 3, XoopsLocale::E_NO_ACTION_PERMISSION);
         }
-        include_once dirname(dirname(__FILE__)) . '/include/forms.php';
+        include_once dirname(__DIR__) . '/include/forms.php';
         $form = profile_getUserForm($obj);
         $form->display();
         break;
@@ -193,7 +193,7 @@ switch ($op) {
             }
         }
         $user->setGroups($new_groups);
-        include_once dirname(dirname(__FILE__)) . '/include/forms.php';
+        include_once dirname(__DIR__) . '/include/forms.php';
         echo $user->getHtmlErrors();
         $form = profile_getUserForm($user, $profile);
         $form->display();

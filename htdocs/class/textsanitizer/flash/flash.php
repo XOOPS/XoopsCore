@@ -31,7 +31,7 @@ class MytsFlash extends MyTextSanitizerExtension
      */
     public function encode($textarea_id)
     {
-        $config = parent::loadConfig(dirname(__FILE__));
+        $config = parent::loadConfig(__DIR__);
         $code = "<img src='{$this->image_path}/swf.gif' alt='" . XoopsLocale::FLASH . "' onclick='xoopsCodeFlash(\"{$textarea_id}\",\"" . htmlspecialchars(XoopsLocale::FLASH_URL, ENT_QUOTES) . "\",\"" . htmlspecialchars(XoopsLocale::HEIGHT, ENT_QUOTES) . "\",\"" . htmlspecialchars(XoopsLocale::WIDTH, ENT_QUOTES) . "\", \"" . $config['detect_dimension'] . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $javascript = <<<EOF
             function xoopsCodeFlash(id, enterFlashPhrase, enterFlashHeightPhrase, enterFlashWidthPhrase, enableDimensionDetect)
@@ -86,7 +86,7 @@ EOF;
      */
     public static function decode($url, $width, $height)
     {
-        $config = parent::loadConfig(dirname(__FILE__));
+        $config = parent::loadConfig(__DIR__);
         if ((empty($width) || empty($height)) && !empty($config['detect_dimension'])) {
             if (!$dimension = @getimagesize($url)) {
                 return "<a href='{$url}' rel='external' title=''>{$url}</a>";

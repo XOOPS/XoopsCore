@@ -66,7 +66,7 @@ div.minifiche div.download { position: absolute; border: none; left: 257px; top:
     <hr>
     <pre><?php
     ob_start();
-    readfile(dirname(__FILE__).'/../exemple10.php');
+    readfile(__DIR__.'/../exemple10.php');
     echo htmlentities(ob_get_clean());
     ?></pre>
 </page>

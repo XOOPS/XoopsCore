@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
@@ -45,10 +45,10 @@ echo $xoops->translate('ACTIVE'); echo '</br>';
 
 //Example of template
 $tpl = new XoopsTpl();
-$tpl->display(dirname(__FILE__) . '/templates/language.html');
+$tpl->display(__DIR__ . '/templates/language.html');
 
 Xoops_Utils::dumpFile(__FILE__);
 
 echo "Template file:"; echo '</br>';
-Xoops_Utils::dumpFile(dirname(__FILE__) . '/templates/language.html');
+Xoops_Utils::dumpFile(__DIR__ . '/templates/language.html');
 $xoops->footer();

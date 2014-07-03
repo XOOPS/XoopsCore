@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . '/admin_header.php';
+include_once dirname(__DIR__) . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 
 $importFromModuleName = "News " . @$_POST['news_version'];
