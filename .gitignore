@@ -7,7 +7,7 @@ htdocs/xoops_data/caches/smarty_cache/*.php
 htdocs/xoops_data/caches/smarty_compile/*.php
 htdocs/xoops_data/caches/xoops_cache/*.php
 htdocs/xoops_data/caches/xoops_cache/*/
-htdocs/xoops_data/configs/*.php
+htdocs/xoops_data/configs/*
 htdocs/xoops_data/composer/
 htdocs/xoops_data/data/secure.php
 htdocs/xoops_data/logs/
@@ -15,5 +15,9 @@ htdocs/xoops_lib/vendor/
 htdocs/xoops_lib/composer.lock
 htdocs/uploads/avatars/
 htdocs/uploads/banners/
+htdocs/uploads/images/
+htdocs/uploads/filemanager/
 htdocs/assets/*/
 /UnitTestXoops/*.lnk
+.idea/
+htdocs/.idea/
