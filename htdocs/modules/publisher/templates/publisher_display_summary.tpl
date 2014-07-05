@@ -1,4 +1,4 @@
-<{include file='module:publisher|publisher_header.html'}>
+<{include file='module:publisher|publisher_header.tpl'}>
 
 <!-- if we are on the index page OR inside a category that has subcats OR (inside a category with no subcats AND $display_category_summary is set to TRUE), let's display the summary table ! //-->
 <{if $indexpage || $category.subcats || ($category && $display_category_summary)}>
@@ -11,7 +11,7 @@
 <div id='toptable'>
     <span class="publisher_collaps_info""><{$lang_category_summary}></span>        <!-- Content under the collapsable bar //-->    <{/if}>
 
-    <{include file='module:publisher|publisher_categories_table.html'}>
+    <{include file='module:publisher|publisher_categories_table.tpl'}>
 
     <{if $collapsable_heading == 1}>
 </div>    <{/if}>
@@ -62,4 +62,4 @@
     <{if $collapsable_heading == 1}>
 </div>        <{/if}><!-- end of if $items --> <{/if}>
 
-<{include file='module:publisher|publisher_footer.html'}>
+<{include file='module:publisher|publisher_footer.tpl'}>

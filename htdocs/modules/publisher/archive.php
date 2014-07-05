@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          Bandit-X
@@ -19,17 +19,17 @@
  * @author          Xoops Modules Dev Team
  * @version         $Id$
  */
-######################################################################
-# Original version:
-# [11-may-2001] Kenneth Lee - http://www.nexgear.com/
-######################################################################
+// ######################################################################
+// # Original version:
+// # [11-may-2001] Kenneth Lee - http://www.nexgear.com/
+// ######################################################################
 
 include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 
-$xoops->header('publisher_archive.html');
+$xoops->header('publisher_archive.tpl');
 
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::LoadFile($publisher->path('footer.php'));
@@ -37,8 +37,8 @@ XoopsLoad::LoadFile($publisher->path('footer.php'));
 $lastyear = 0;
 $lastmonth = 0;
 $months_arr = array(1 => XoopsLocale::L_MONTH_JANUARY, 2 => XoopsLocale::L_MONTH_FEBRUARY, 3 => XoopsLocale::L_MONTH_MARCH, 4 => XoopsLocale::L_MONTH_APRIL, 5 => XoopsLocale::L_MONTH_MAY, 6 => XoopsLocale::L_MONTH_JUNE, 7 => XoopsLocale::L_MONTH_JULY, 8 => XoopsLocale::L_MONTH_AUGUST, 9 => XoopsLocale::L_MONTH_SEPTEMBER, 10 => XoopsLocale::L_MONTH_OCTOBER, 11 => XoopsLocale::L_MONTH_NOVEMBER, 12 => XoopsLocale::L_MONTH_DECEMBER);
-$fromyear = PublisherRequest::getInt('year');
-$frommonth = PublisherRequest::getInt('month');
+$fromyear = \Xmf\Request::getInt('year');
+$frommonth = \Xmf\Request::getInt('month');
 
 $pgtitle = '';
 if ($fromyear && $frommonth) {

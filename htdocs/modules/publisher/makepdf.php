@@ -11,12 +11,12 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @author            Sina Asghari (AKA stranger) <stranger@impresscms.ir>
+ * @author          Sina Asghari (AKA stranger) <stranger@impresscms.ir>
  * @version         $Id$
  */
 
@@ -31,8 +31,8 @@ if (!$xoops->isActiveModule('pdf')) {
 $publisher = Publisher::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
-$itemid = PublisherRequest::getInt('itemid');
-$item_page_id = PublisherRequest::getInt('page', -1);
+$itemid = \Xmf\Request::getInt('itemid');
+$item_page_id = \Xmf\Request::getInt('page', -1);
 
 if ($itemid == 0) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
@@ -61,7 +61,7 @@ $tpl = new XoopsTpl();
 $tpl->assign('item', $itemObj->toArray('all'));
 $tpl->assign('display_whowhen_link', $publisher->getConfig('item_disp_whowhen_link'));
 
-$content = $tpl->fetch('module:publisher|pdf.html');
+$content = $tpl->fetch('module:publisher|pdf.tpl');
 $pdf = new Pdf();
 if (XoopsLocale::getCharset() == 'windows-1256') {
     $pdf->pdf->SetFont('almohanad', '', 18);

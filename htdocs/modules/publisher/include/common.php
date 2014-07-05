@@ -8,17 +8,17 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *  Publisher class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 define("PUBLISHER_DIRNAME", basename(dirname(__DIR__)));
 define("PUBLISHER_URL", XOOPS_URL . '/modules/' . PUBLISHER_DIRNAME);
@@ -32,7 +32,7 @@ XoopsLoad::addMap(array(
     'publishermetagen'   => $path . '/class/metagen.php',
     'publishersession'   => $path . '/class/session.php',
     'publisher'          => $path . '/class/helper.php',
-    'publisherrequest'   => $path . '/class/request.php',
+//  'publisherrequest'   => $path . '/class/request.php',
     'publisherutils'     => $path . '/class/utils.php',
     'publisherblockform' => $path . '/class/blockform.php',
 ));
@@ -41,5 +41,3 @@ $publisher = Publisher::getInstance();
 $publisher->loadLanguage('common');
 
 XoopsLoad::loadFile($publisher->path('include/constants.php'));
-
-

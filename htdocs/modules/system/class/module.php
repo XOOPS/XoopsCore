@@ -842,6 +842,7 @@ class SystemModule
         $blocks = $module->getInfo('blocks');
         $this->trace[] = SystemLocale::MANAGING_BLOCKS;
         $block_handler = $xoops->getHandlerBlock();
+        $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
         $tplfile_handler = $xoops->getHandlerTplfile();
         $showfuncs = array();
         $funcfiles = array();
@@ -895,11 +896,12 @@ class SystemModule
                             '<strong>' . $block_obj[0]->getVar('bid') . '</strong>'
                         );
 
-                        $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
-                        $blockmodulelink = $blockmodulelink_handler->create();
-                        $blockmodulelink->setVar('block_id', $block_obj[0]->getVar('bid'));
-                        $blockmodulelink->setVar('module_id', 0); //show on all pages
-                        $blockmodulelink_handler->insert($blockmodulelink);
+                        if (0 == $blockmodulelink_handler->getCount(new Criteria('block_id', $block_obj[0]->getVar('bid')))) {
+                            $blockmodulelink = $blockmodulelink_handler->create();
+                            $blockmodulelink->setVar('block_id', $block_obj[0]->getVar('bid'));
+                            $blockmodulelink->setVar('module_id', 0); //show on all pages
+                            $blockmodulelink_handler->insert($blockmodulelink);
+                        }
 
                         if ($template != '') {
                             $tplfile = $tplfile_handler->find('default', 'block', $block_obj[0]->getVar('bid'));

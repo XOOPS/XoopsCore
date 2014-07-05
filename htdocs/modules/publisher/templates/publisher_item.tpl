@@ -1,4 +1,4 @@
-<{include file='module:publisher|publisher_header.html'}>
+<{include file='module:publisher|publisher_header.tpl'}>
 
 <div class="item">
     <h2><{$item.title}></h2>
@@ -67,7 +67,7 @@
         <{/if}> <{if $pagenav}>
         <div class="publisher_pagenav_bottom"><{$smarty.const._MD_PUBLISHER_PAGE}>: <{$pagenav}></div>
         <{/if}> <{if $tagbar}>
-        <p><{include file="module:tag|tag_bar.html"}></p>
+        <p><{include file="module:tag|tag_bar.tpl"}></p>
         <{/if}>
     </div>
     <{if $itemfooter}>
@@ -172,7 +172,7 @@
     </tr>
     <{/foreach}>    <!-- End item loop -->
 </table><{/if}><{if $rating_enabled}>
-<small><{$item.ratingbar}></small><{/if}><{include file='module:publisher|publisher_footer.html'}>
+<small><{$item.ratingbar}></small><{/if}><{include file='module:publisher|publisher_footer.tpl'}>
 
 <script type="text/javascript">
     <!--//<![CDATA[

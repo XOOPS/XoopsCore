@@ -360,6 +360,8 @@ class Criteria extends CriteriaElement
                     $expr = $eb->comparison($column, strtoupper($operator), $colvalue);
                     break;
             }
+        } else {
+            $expr = '(1)';
         }
         return $expr;
     }

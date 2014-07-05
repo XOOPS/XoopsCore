@@ -8,6 +8,7 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *  Publisher class
  *
@@ -21,7 +22,7 @@
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @todo remove this class, as the module now uses a common system version
  */
 
 /**

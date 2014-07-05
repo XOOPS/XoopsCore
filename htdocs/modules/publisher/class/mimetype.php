@@ -8,11 +8,20 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Database\QueryBuilder;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  *  Publisher class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -20,15 +29,13 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**
  * PublisherBaseObjectHandler class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -56,7 +63,7 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     /**
      * @param Xoops\Core\Database\Connection $db
      */
-    public function init($db)
+    public function init(Connection $db)
     {
         $this->_db = $db;
     }
@@ -84,13 +91,12 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     {
         $id = intval($id);
         if ($id > 0) {
-            $sql = $this->_selectQuery(new Criteria($this->_idfield, $id));
-            if (!$result = $this->_db->query($sql)) {
-                return false;
-            }
-            $numrows = $this->_db->getRowsNum($result);
+            $qb = $this->_selectQuery(new Criteria($this->_idfield, $id));
+            $result = $qb->execute();
+            $allRows = $result->fetchAll(\PDO::FETCH_ASSOC);
+            $numrows = count($allRows);
             if ($numrows == 1) {
-                $obj = new $this->classname($this->_db->fetchArray($result));
+                $obj = new $this->classname(reset($allRows));
                 return $obj;
             }
         }
@@ -110,19 +116,12 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     {
         $ret = array();
         $limit = $start = 0;
-        $sql = $this->_selectQuery($criteria);
+        $qb = $this->_selectQuery($criteria);
         $id = $this->_idfield;
-        if (isset($criteria)) {
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-        }
-        $result = $this->_db->query($sql, $limit, $start);
-        // if no records from db, return empty array
-        if (!$result) {
-            return $ret;
-        }
+        $result = $qb->execute();
+
         // Add each returned record to the result array
-        while ($myrow = $this->_db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $obj = new $this->classname($myrow);
             if (!$id_as_key) {
                 $ret[] = $obj;
@@ -157,47 +156,50 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
         // Create query for DB update
         if ($obj->isNew()) {
             // Determine next auto-gen ID for table
-            $this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
-            $sql = $this->_insertQuery($obj);
+            //$this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
+            $result = $this->_insertQuery($obj);
+            //if ($result) {
+            //    //Make sure auto-gen ID is stored correctly in object
+            //    $obj->assignVar($this->_idfield, $this->_db->lastInsertId());
+            //}
         } else {
-            $sql = $this->_updateQuery($obj);
+            $qb = $this->_updateQuery($obj);
+            $result = $qb->execute();
         }
         // Update DB
-        if (false != $force) {
-            $result = $this->_db->queryF($sql);
-        } else {
-            $result = $this->_db->query($sql);
-        }
+        //if (false != $force) {
+        //    $result = $this->_db->queryF($sql);
+        //} else {
+        //    $result = $this->_db->query($sql);
+        //}
         if (!$result) {
-            $obj->setErrors('The query returned an error. ' . $this->db->error());
+            $obj->setErrors($this->_db->errorInfo());
             return false;
         }
-        //Make sure auto-gen ID is stored correctly in object
-        if ($obj->isNew()) {
-            $obj->assignVar($this->_idfield, $this->_db->getInsertId());
-        }
+        //if ($obj->isNew()) {
+        //    $obj->assignVar($this->_idfield, $this->_db->lastInsertId());
+        //}
         return true;
     }
 
     /**
      * Create a "select" SQL query
      *
-     * @param object $criteria {@link CriteriaElement} to match
+     * @param null|object $criteria {@link CriteriaElement} to match
      *
-     * @return string SQL query
-     * @access private
+     * @return QueryBuilder a Xoops QueryBuilder instance
+     * @access    private
      */
-    public function _selectQuery($criteria = null)
+    protected function _selectQuery($criteria = null)
     {
-        $sql = sprintf('SELECT * FROM %s', $this->_db->prefix($this->_dbtable));
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            if ($criteria->getSort() != '') {
-                $sql .= ' ORDER BY ' . $criteria->getSort() . '
-                    ' . $criteria->getOrder();
-            }
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->select('*')
+            ->fromPrefix($this->_dbtable, '');
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $qb = $criteria->renderQb($qb, '');
         }
-        return $sql;
+
+        return $qb;
     }
 
     /**
@@ -210,14 +212,14 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
      */
     public function getCount($criteria = null)
     {
-        $sql = 'SELECT COUNT(*) FROM ' . $this->_db->prefix($this->_dbtable);
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->select('COUNT(*)')
+            ->fromPrefix($this->_dbtable, '');
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $qb = $criteria->renderQb($qb, '');
         }
-        if (!$result = $this->_db->query($sql)) {
-            return 0;
-        }
-        list($count) = $this->_db->fetchRow($result);
+        $result = $qb->execute();
+        $count = $result->fetchColumn();
         return $count;
     }
 
@@ -235,16 +237,14 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
         if (strcasecmp($this->classname, get_class($obj)) != 0) {
             return false;
         }
-        $sql = $this->_deleteQuery($obj);
-        if (false != $force) {
-            $result = $this->_db->queryF($sql);
-        } else {
-            $result = $this->_db->query($sql);
-        }
-        if (!$result) {
-            return false;
-        }
-        return true;
+        $qb = $this->_deleteQuery($obj);
+        //if (false != $force) {
+        //    $result = $this->_db->queryF($sql);
+        //} else {
+        //    $result = $this->_db->query($sql);
+        //}
+        $result = $qb->execute();
+        return $result ? true : false;
     }
 
     /**
@@ -258,7 +258,7 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     public function deleteAll($criteria = null)
     {
         $sql = 'DELETE FROM ' . $this->_db->prefix($this->_dbtable);
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (!$result = $this->_db->query($sql)) {
@@ -281,7 +281,7 @@ class PublisherBaseObjectHandler extends XoopsObjectHandler
     {
         $set_clause = is_numeric($fieldvalue) ? $fieldname . ' = ' . $fieldvalue : $fieldname . ' = ' . $this->_db->quoteString($fieldvalue);
         $sql = 'UPDATE ' . $this->_db->prefix($this->_dbtable) . ' SET ' . $set_clause;
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (!$result = $this->_db->query($sql)) {
@@ -389,9 +389,9 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
     /**
      * Constructor
      *
-     * @param Xoops\Core\Database\Connection $db reference to a xoopsDB object
+     * @param Xoops\Core\Database\Connection $db Xoops Connection object
      */
-    public function __construct($db)
+    public function __construct(Connection $db)
     {
         parent::init($db);
     }
@@ -408,13 +408,15 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
     {
         $id = intval($id);
         if ($id > 0) {
-            $sql = $this->_selectQuery(new Criteria('mime_id', $id));
-            if (!$result = $this->_db->query($sql)) {
+            $qb = $this->_selectQuery(new Criteria('mime_id', $id));
+            if (!$result = $qb->execute()) {
                 return false;
             }
-            $numrows = $this->_db->getRowsNum($result);
+
+            $allRows = $result->fetchAll(\PDO::FETCH_ASSOC);
+            $numrows = count($allRows);
             if ($numrows == 1) {
-                $obj = new $this->classname($this->_db->fetchArray($result));
+                $obj = new $this->classname(reset($allRows));
                 return $obj;
             }
         }
@@ -432,20 +434,12 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
     public function &getObjects($criteria = null)
     {
         $ret = array();
-        $limit = $start = 0;
-        $sql = $this->_selectQuery($criteria);
-        if (isset($criteria)) {
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-        }
-        //echo "<br />$sql<br />";
-        $result = $this->_db->query($sql, $limit, $start);
-        // if no records from db, return empty array
-        if (!$result) {
-            return $ret;
-        }
+
+        $qb = $this->_selectQuery($criteria);
+        $result = $qb->execute();
+
         // Add each returned record to the result array
-        while ($myrow = $this->_db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $obj = new $this->classname($myrow);
             $ret[] = $obj;
             unset($obj);
@@ -533,29 +527,25 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
      * Create a "select" SQL query
      *
      * @param null|object $criteria {@link CriteriaElement} to match
-     * @param bool        $join
      *
-     * @return string string SQL query
+     * @return QueryBuilder a Xoops QueryBuilder instance
      * @access    private
      */
-    public function _selectQuery($criteria = null, $join = false)
+    protected function _selectQuery($criteria = null)
     {
-        if (!$join) {
-            $sql = sprintf('SELECT * FROM %s', $this->_db->prefix($this->_dbtable));
-        } else {
-            echo "no need for join...";
-            exit;
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->select('*')
+            ->fromPrefix($this->_dbtable, '');
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $qb = $criteria->renderQb($qb, '');
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            if ($criteria->getSort() != '') {
-                $sql .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
-            }
-        }
-        return $sql;
+
+        return $qb;
     }
 
     /**
+     * _insertQuery - insert object into table
+     *
      * @param $obj
      *
      * @return bool|string
@@ -563,40 +553,74 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
     public function _insertQuery(&$obj)
     {
         // Copy all object vars into local variables
-        foreach ($obj->cleanVars as $k => $v) {
+        foreach ($obj->getValues() as $k => $v) {
             ${$k} = $v;
         }
-        $sql = sprintf("INSERT INTO %s (mime_id, mime_ext, mime_types, mime_name, mime_admin, mime_user) VALUES
-            (%u, %s, %s, %s, %u, %u)", $this->_db->prefix($this->_dbtable), $mime_id, $this->_db->quoteString($mime_ext),
-            $this->_db->quoteString($mime_types), $this->_db->quoteString($mime_name), $mime_admin, $mime_user);
-        return $sql;
+        $values = array(
+            'mime_id'    => $mime_id   ,
+            'mime_ext'   => $mime_ext  ,
+            'mime_types' => $mime_types,
+            'mime_name'  => $mime_name ,
+            'mime_admin' => $mime_admin,
+            'mime_user'  => $mime_user ,
+        );
+        $types = array(
+            \PDO::PARAM_INT,
+            \PDO::PARAM_STR,
+            \PDO::PARAM_STR,
+            \PDO::PARAM_STR,
+            \PDO::PARAM_INT,
+            \PDO::PARAM_INT,
+        );
+        $result = $this->_db->insertPrefix($this->_dbtable, $values, $types);
+        return $result;
     }
 
     /**
      * @param $obj
      *
-     * @return bool|string
+     * @return QueryBuilder a Xoops QueryBuilder instance
      */
     public function _updateQuery(&$obj)
     {
         // Copy all object vars into local variables
-        foreach ($obj->cleanVars as $k => $v) {
+        foreach ($obj->getValues() as $k => $v) {
             ${$k} = $v;
         }
-        $sql = sprintf("UPDATE %s SET mime_ext = %s, mime_types = %s, mime_name = %s, mime_admin = %u, mime_user = %u WHERE
-            mime_id = %u", $this->_db->prefix($this->_dbtable), $this->_db->quoteString($mime_ext),
-            $this->_db->quoteString($mime_types), $this->_db->quoteString($mime_name), $mime_admin, $mime_user, $mime_id);
-        return $sql;
+
+        $qb = $this->_db->createXoopsQueryBuilder()
+            ->updatePrefix($this->_dbtable, '')
+            ->set('mime_ext', ':mime_ext')
+            ->set('mime_types', ':mime_types')
+            ->set('mime_name', ':mime_name')
+            ->set('mime_admin', ':mime_admin')
+            ->set('mime_user', ':mime_user')
+            ->where('mime_id = :mime_id')
+            ->setParameter(':mime_ext', $mime_ext, \PDO::PARAM_STR)
+            ->setParameter(':mime_types', $mime_types, \PDO::PARAM_STR)
+            ->setParameter(':mime_name', $mime_name, \PDO::PARAM_STR)
+            ->setParameter(':mime_admin', $mime_admin, \PDO::PARAM_INT)
+            ->setParameter(':mime_user', $mime_user, \PDO::PARAM_INT)
+            ->setParameter(':mime_id', $mime_id, \PDO::PARAM_INT);
+
+        return $qb;
     }
 
     /**
+     * _deleteQuery - create querybuilder to a delete mimetype object
+     *
      * @param $obj
      *
-     * @return bool|string
+     * @return QueryBuilder a Xoops QueryBuilder instance
      */
     public function _deleteQuery(&$obj)
     {
-        $sql = sprintf('DELETE FROM %s WHERE mime_id = %u', $this->_db->prefix($this->_dbtable), $obj->getVar('mime_id'));
-        return $sql;
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->deletePrefix($this->_dbtable, '')
+            ->where('mime_id = :mimeid')
+            ->setParameter(':mimeid', $obj->getVar('mime_id'), \PDO::PARAM_INT);
+
+        return $qb;
+
     }
 }

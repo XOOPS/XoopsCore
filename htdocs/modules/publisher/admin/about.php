@@ -13,7 +13,7 @@
  * Publisher
  *
  * @copyright    The XOOPS Project (http://www.xoops.org)
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @license      GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package      Publisher
  * @since        1.0
  * @author       Mage, Mamba

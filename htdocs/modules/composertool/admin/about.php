@@ -10,14 +10,16 @@
  */
 
 /**
- * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         Publisher
- * @since           1.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @author          Richard Griffith <richard@geekwright.com>
  */
 
-// todo: Check this file
-include __DIR__ . '/header.php';
-include XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';
+require __DIR__ . '/admin_header.php';
+
+$aboutAdmin = new \Xoops\Module\Admin();
+
+$aboutAdmin->displayNavigation('about.php');
+$aboutAdmin->displayAbout(true);
+
+$xoops->footer();

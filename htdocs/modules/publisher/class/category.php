@@ -9,9 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -313,7 +320,7 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
     /**
      * @param null|Xoops\Core\Database\Connection $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db)
     {
         $this->publisher = Publisher::getInstance();
         parent::__construct($db, "publisher_categories", 'PublisherCategory', "categoryid", "name");
