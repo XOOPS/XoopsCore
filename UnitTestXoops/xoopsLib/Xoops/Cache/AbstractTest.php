@@ -28,46 +28,124 @@ class Xoops_Cache_AbstractTest extends MY_UnitTestCase
 	
 	public function test_init()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->init();
+		$this->assertTrue($x);
+		
+		$this->assertTrue(is_array($instance->settings));
+		$this->assertTrue(is_string($instance->settings['prefix']));
+		$this->assertTrue(is_int($instance->settings['duration']));
+		$this->assertTrue(is_int($instance->settings['probability']));
+		$this->assertTrue(is_array($instance->settings['groups']));
 	}
 	
 	public function test_gc()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->gc();
+		$this->assertTrue(is_null($x));
+	}
+	
+	public function test_write()
+	{
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->write(1,2,3);
+		$this->assertTrue(is_null($x));
+	}
+	
+	public function test_read()
+	{
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->read(1);
+		$this->assertTrue(is_null($x));
+	}
+	
+	public function test_increment()
+	{
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->increment(1,2);
+		$this->assertTrue(is_null($x));
+	}
+	
+	public function test_decrement()
+	{
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->decrement(1,2);
+		$this->assertTrue(is_null($x));
+	}
+	
+	public function test_delete()
+	{
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->delete(1);
+		$this->assertTrue(is_null($x));
+	}
+	
+	public function test_clear()
+	{
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->clear(1);
+		$this->assertTrue(is_null($x));
 	}
 	
 	public function test_clearGroup()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->clearGroup('group');
+		$this->assertSame(false, $x);
 	}
 	
 	public function test_groups()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->init();
+		$x = $instance->groups();
+		$this->assertTrue(is_array($x));
 	}
 	
 	public function test_settings()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$x = $instance->init();
+		$x = $instance->settings();
+		$this->assertTrue(is_array($x));
 	}
 	
 	public function test_key()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
+		
+		$groups = array('grp1', 'grp2', 'grp3');
+		$settings = array('groups' => $groups);
+		$x = $instance->init($settings);
+		$x = $instance->key('');
+		$this->assertSame(false, $x);
+		
+		$x = $instance->key(' key / str ');
+		$this->assertSame('grp1_grp2_grp3_key___str', $x);
 	}
 	
-	public function test_suspend()
-	{
-		$this->markTestIncomplete();
-	}
-	
-	public function test_restore()
-	{
-		$this->markTestIncomplete();
-	}
-	
-	public function test_resetpwd()
-	{
-		$this->markTestIncomplete();
-	}
 }
