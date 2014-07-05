@@ -181,7 +181,7 @@ class Write extends XoopsModelAbstract
      *
      * @return bool
      */
-    public function deleteAll(CriteriaElement $criteria = null, $force = true, $asObject = false)
+    public function deleteAll(CriteriaElement $criteria = null, $force = false, $asObject = false)
     {
         if ($asObject) {
             $objects = $this->handler->getAll($criteria);
