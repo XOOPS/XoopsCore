@@ -30,9 +30,7 @@ define("PUBLISHER_UPLOADS_PATH", XOOPS_ROOT_PATH . '/uploads/' . PUBLISHER_DIRNA
 $path = dirname(__DIR__);
 XoopsLoad::addMap(array(
     'publishermetagen'   => $path . '/class/metagen.php',
-    'publishersession'   => $path . '/class/session.php',
     'publisher'          => $path . '/class/helper.php',
-//  'publisherrequest'   => $path . '/class/request.php',
     'publisherutils'     => $path . '/class/utils.php',
     'publisherblockform' => $path . '/class/blockform.php',
 ));

@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  *  Publisher form class
  *
@@ -195,16 +198,16 @@ class PublisherItemForm extends XoopsSimpleForm
          */
         // Trabis : well, maybe is because you are getting 6000 objects into memory , no??? LOL
         if ($this->_isGranted(_PUBLISHER_UID)) {
-            $uid_select = new XoopsFormSelect(_CO_PUBLISHER_UID, 'uid', $obj->getVar('uid'), 1, false);
+            $uid_select = new XoopsFormSelectUser(_CO_PUBLISHER_UID, 'uid', true, array($obj->getVar('uid')), 1, false);
             $uid_select->setDescription(_CO_PUBLISHER_UID_DSC);
-            $sql = "SELECT uid, uname FROM " . $obj->db->prefix('users') . " ORDER BY uname ASC";
-            $result = $obj->db->query($sql);
-            $users_array = array();
-            $users_array[0] = $xoops->getConfig('anonymous');
-            while ($myrow = $obj->db->fetchArray($result)) {
-                $users_array[$myrow['uid']] = $myrow['uname'];
-            }
-            $uid_select->addOptionArray($users_array);
+            //$sql = "SELECT uid, uname FROM " . $obj->db->prefix('users') . " ORDER BY uname ASC";
+            //$result = $obj->db->query($sql);
+            //$users_array = array();
+            //$users_array[0] = $xoops->getConfig('anonymous');
+            //while ($myrow = $obj->db->fetchArray($result)) {
+            //    $users_array[$myrow['uid']] = $myrow['uname'];
+            //}
+            //$uid_select->addOptionArray($users_array);
             $mainTab->addElement($uid_select);
         }
         /* else {

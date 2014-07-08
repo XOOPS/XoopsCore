@@ -877,9 +877,6 @@ class PublisherItem extends XoopsObject
             //Todo: get a better image class for xoops!
             //Image hack
             $image_item_ids = array();
-            //$xoops->db();
-            //global $xoopsDB;
-            //$sql = 'SELECT image_id, image_name FROM ' . $xoopsDB->prefix('image');
 
             $qb = $this->db2->createXoopsQueryBuilder();
             $qb ->select('i.image_id', 'i.image_name')
@@ -887,7 +884,6 @@ class PublisherItem extends XoopsObject
                 ->orderBy('i.image_id');
             $result = $qb->execute();
 
-            //$result = $xoopsDB->query($sql, 0, 0);
             while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
                 $image_name = $myrow['image_name'];
                 $id = $myrow['image_id'];

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\PreloadItem;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -24,16 +26,14 @@
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */
-class PublisherCorePreload extends XoopsPreloadItem
+class PublisherPreload extends PreloadItem
 {
-    static function eventCoreIncludeCommonEnd($args)
+    static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'publishermetagen' => $path . '/class/metagen.php',
-            'publishersession'  => $path . '/class/session.php',
             'publisher' => $path . '/class/helper.php',
-            'publisherrequest'  => $path . '/class/request.php',
             'publisherutils' => $path . '/class/utils.php',
             'publisherblockform' => $path . '/class/blockform.php',
         ));

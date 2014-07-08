@@ -72,7 +72,6 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         $criteria->renderQb($qb);
         $result = $qb->execute();
 
-        $result = $db->query($sql, $limit, $start);
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $groups[$myrow['gperm_groupid']] = $myrow['gperm_groupid'];
         }
@@ -90,7 +89,6 @@ class PublisherPermissionHandler extends XoopsObjectHandler
     public function getGrantedItems($gperm_name)
     {
         static $items;
-        global $xoopsDB;
         if (isset($items[$gperm_name])) {
             return $items[$gperm_name];
         }

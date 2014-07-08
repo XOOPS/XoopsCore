@@ -38,26 +38,29 @@ class PublisherMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements
     {
         $ret = array();
         $helper = Publisher::getInstance();
-        $i = 0;
+
         // Add the Submit new item button
         if ($helper->isUserAdmin() || ($helper->getConfig('perm_submit') && ($helper->xoops()->isUser() || $helper->getConfig('permissions_anon_post')))) {
-            $i++;
-            $ret[$i]['name'] = _MI_PUBLISHER_SUB_SMNAME1;
-            $ret[$i]['url'] = "submit.php?op=add";
+            $ret[] = array(
+                'name' => _MI_PUBLISHER_SUB_SMNAME1,
+                'url' => "submit.php?op=add",
+            );
         }
 
+        // DISABLED since the internal search doesn't work
         // Add the Search button
-        if ($helper->getConfig('perm_search')) {
-            $i++;
-            $ret[$i]['name'] = _MI_PUBLISHER_SUB_SMNAME3;
-            $ret[$i]['url'] = "search.php";
+        if (false && $helper->getConfig('perm_search')) {
+            $ret[] = array(
+                'name' => _MI_PUBLISHER_SUB_SMNAME3,
+                'url' => "search.php",
+            );
         }
 
         // Add the Archive button
-        $i++;
-        $ret[$i]['name'] = _MI_PUBLISHER_SUB_ARCHIVE;
-        $ret[$i]['url'] = "archive.php";
-
+        $ret[] = array(
+            'name' => _MI_PUBLISHER_SUB_ARCHIVE,
+            'url' => "archive.php",
+        );
         return $ret;
     }
 }

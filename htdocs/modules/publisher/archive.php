@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -132,7 +135,7 @@ if ($fromyear != 0 && $frommonth != 0) {
     $count = 0;
 
     $itemhandler = $publisher->getItemHandler();
-    $itemhandler->table_link = $xoopsDB->prefix('publisher_categories');
+    $itemhandler->table_link = $xoops->db()->prefix('publisher_categories');
     $itemhandler->field_link = 'categoryid';
     $itemhandler->field_object = 'categoryid';
     // Categories for which user has access

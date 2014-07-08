@@ -28,10 +28,10 @@ $myts = MyTextSanitizer::getInstance();
 
 // @todo no such config is set, should it be? Or should only the system search plugin be used?
 //Checking general permissions
-//$xoopsConfigSearch = $xoops->getConfigs();
-//if (empty($xoopsConfigSearch["enable_search"])) {
-//    $xoops->redirect(PUBLISHER_URL . "/index.php", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
-//}
+$xoopsConfigSearch = $xoops->getConfigs();
+if (empty($xoopsConfigSearch["enable_search"])) {
+    $xoops->redirect(PUBLISHER_URL . "/index.php", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+}
 
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $gperm_handler = $publisher->getGrouppermHandler();

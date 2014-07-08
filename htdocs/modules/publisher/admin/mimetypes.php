@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xmf\Module\Session;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -60,7 +62,7 @@ switch ($op)
         edit();
         break;
 
-    case "search";
+    case "search":
         search();
         break;
 
@@ -94,7 +96,7 @@ function add()
 
         PublisherUtils::openCollapsableBar('mimemaddtable', 'mimeaddicon', _AM_PUBLISHER_MIME_ADD_TITLE);
 
-        $session = PublisherSession::getInstance();
+        $session = new Session();
         $mime_type = $session->get('publisher_addMime');
         $mime_errors = $session->get('publisher_addMimeErr');
 
@@ -198,7 +200,7 @@ function add()
         }
 
         if ($has_errors) {
-            $session = PublisherSession::getInstance();
+            $session = new Session();
             $mime = array();
             $mime['mime_ext'] = $mime_ext;
             $mime['mime_name'] = $mime_name;
@@ -258,7 +260,7 @@ function edit()
     $mimetype = $publisher->getMimetypeHandler()->get($mime_id); // Retrieve mimetype object
 
     if (!isset($_POST['edit_mime'])) {
-        $session = PublisherSession::getInstance();
+        $session = new Session();
         $mime_type = $session->get("publisher_editMime_$mime_id");
         $mime_errors = $session->get("publisher_editMimeErr_$mime_id");
 
@@ -359,7 +361,7 @@ function edit()
         }
 
         if ($has_errors) {
-            $session = PublisherSession::getInstance();
+            $session = new Session();
             $mime = array();
             $mime['mime_ext'] = $_POST['mime_ext'];
             $mime['mime_name'] = $_POST['mime_name'];
@@ -392,11 +394,11 @@ function manage()
     $publisher = Publisher::getInstance();
 
     $imagearray = array(
-    'editimg' => "<img src='" . $publisher->url("images/button_edit.png") . "' alt='" . _AM_PUBLISHER_ICO_EDIT . "' align='middle' />",
-    'deleteimg' => "<img src='" . $publisher->url("images/button_delete.png") . "' alt='" . _AM_PUBLISHER_ICO_DELETE . "' align='middle' />",
-    'online' => "<img src='" . $publisher->url("images/on.png") . "' alt='" . _AM_PUBLISHER_ICO_ONLINE . "' align='middle' />",
-    'offline' => "<img src='" . $publisher->url("images/off.png") . "' alt='" . _AM_PUBLISHER_ICO_OFFLINE . "' align='middle' />",
-);
+        'editimg' => "<img src='" . $publisher->url("images/button_edit.png") . "' alt='" . _AM_PUBLISHER_ICO_EDIT . "' align='middle' />",
+        'deleteimg' => "<img src='" . $publisher->url("images/button_delete.png") . "' alt='" . _AM_PUBLISHER_ICO_DELETE . "' align='middle' />",
+        'online' => "<img src='" . $publisher->url("images/on.png") . "' alt='" . _AM_PUBLISHER_ICO_ONLINE . "' align='middle' />",
+        'offline' => "<img src='" . $publisher->url("images/off.png") . "' alt='" . _AM_PUBLISHER_ICO_OFFLINE . "' align='middle' />",
+    );
     global $start, $limit, $aSortBy, $aOrderBy, $aLimitBy, $aSearchBy;
 
     if (isset($_POST['deleteMimes'])) {
@@ -761,7 +763,7 @@ function _changeMimeValue($mime_value)
 
 function _clearAddSessionVars()
 {
-    $session = PublisherSession::getInstance();
+    $session = new Session();
     $session->del('publisher_addMime');
     $session->del('publisher_addMimeErr');
 }
@@ -775,7 +777,7 @@ function clearAddSession()
 function _clearEditSessionVars($id)
 {
     $id = intval($id);
-    $session = PublisherSession::getInstance();
+    $session = new Session();
     $session->del("publisher_editMime_$id");
     $session->del("publisher_editMimeErr_$id");
 }

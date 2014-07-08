@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * XOOPS form element of select user
  *
@@ -23,8 +26,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * User Select field
  */
@@ -35,11 +36,13 @@ class XoopsFormSelectUser extends XoopsFormElementTray
      *
      * @param string $caption
      * @param string $name
-     * @param mixed $value Pre-selected value (or array of them).
-     *                                                 For an item with massive members, such as "Registered Users", "$value" should be used to store selected temporary users only instead of all members of that item
-     * @param bool $include_anon Include user "anonymous"?
-     * @param int $size Number or rows. "1" makes a drop-down-list.
-     * @param bool $multiple Allow multiple selections?
+     * @param mixed  $value        Pre-selected value (or array of them).
+     *                             For an item with massive members, such as "Registered Users",
+     *                             "$value" should be used to store selected temporary users only
+     *                             instead of all members of that item
+     * @param int    $size         Number or rows. "1" makes a drop-down-list.
+     * @param bool   $include_anon Include user "anonymous"?
+     * @param bool   $multiple     Allow multiple selections?
      */
     public function __construct($caption, $name, $include_anon = false, $value = null, $size = 1, $multiple = false)
     {
