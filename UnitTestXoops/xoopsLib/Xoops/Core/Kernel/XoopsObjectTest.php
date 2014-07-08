@@ -41,7 +41,7 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
     public function test___publicProperties()
 	{
-		$items = array('vars', 'cleanVars');
+		$items = array('vars', 'cleanVars','plugin_path');
 		foreach($items as $item) {
 			$prop = new ReflectionProperty($this->myClass,$item);
 			$this->assertTrue($prop->isPublic());
@@ -176,12 +176,59 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_setVar()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar', XOBJ_DTYPE_INT, 0);
+		$value = &$instance->vars['dummyVar'];
+		$this->assertSame(0, $value['value']);
+		
+		$instance->setVar('dummyVar', 1);
+		$this->assertSame(1, $value['value']);
+		$this->assertTrue($instance->isDirty());
+		
+		$instance->setVar(null, 2);
+		$this->assertSame(1, $value['value']);
+		
+		$instance->setVar('dummyVar', null);
+		$this->assertSame(1, $value['value']);
+		
+		$instance->setVar('dummyVar', 3, true);
+		$this->assertSame(3, $value['value']);
+		$this->assertSame(true, $value['not_gpc']);
     }
 	
 	public function test_setVars()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar3', XOBJ_DTYPE_INT, 0);
+		
+		$instance->setVars(array(
+			'dummyVar1' => 1,
+			'dummyVar2' => 2,
+			'dummyVar3' => 3
+		));
+		
+		$this->assertSame(1, $instance->vars['dummyVar1']['value']);
+		$this->assertSame(false, $instance->vars['dummyVar1']['not_gpc']);
+		$this->assertSame(2, $instance->vars['dummyVar2']['value']);
+		$this->assertSame(false, $instance->vars['dummyVar2']['not_gpc']);
+		$this->assertSame(3, $instance->vars['dummyVar3']['value']);
+		$this->assertSame(false, $instance->vars['dummyVar2']['not_gpc']);
+		
+		$instance->setVars(array(
+			'dummyVar1' => 11,
+			'dummyVar2' => 22,
+			'dummyVar3' => 33
+		), true);
+		
+		$this->assertSame(11, $instance->vars['dummyVar1']['value']);
+		$this->assertSame(true, $instance->vars['dummyVar1']['not_gpc']);
+		$this->assertSame(22, $instance->vars['dummyVar2']['value']);
+		$this->assertSame(true, $instance->vars['dummyVar2']['not_gpc']);
+		$this->assertSame(33, $instance->vars['dummyVar3']['value']);
+		$this->assertSame(true, $instance->vars['dummyVar2']['not_gpc']);
+
     }
 	
 	public function test_destroyVars()

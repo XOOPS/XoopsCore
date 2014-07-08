@@ -11,6 +11,9 @@ class XoopsObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsObjectHandle
 	}
 }
 
+class XoopsObjectHandlerTest_XoopsObjectInstance extends Xoops\Core\Kernel\XoopsObject
+{
+}
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -18,23 +21,57 @@ class XoopsObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsObjectHandle
 */
 class XoopsObjectHandlerTest extends MY_UnitTestCase
 {
-	protected $myclass = 'XoopsObjectHandlerTestInstance';
+	protected $myClass = 'XoopsObjectHandlerTestInstance';
+	protected $classObject = 'XoopsObjectHandlerTest_XoopsObjectInstance';
+	protected $conn = null;
+	
+    public function SetUp()
+	{
+		$this->conn = Xoops\Core\Database\Factory::getConnection();
+    }
 
     public function test___publicProperties()
 	{
 		$items = array('db2');
 		foreach($items as $item) {
-			$prop = new ReflectionProperty($this->myclass,$item);
+			$prop = new ReflectionProperty($this->myClass,$item);
 			$this->assertTrue($prop->isPublic());
 		}
     }
 
     public function test___construct()
 	{
-		$conn = Xoops\Core\Database\Factory::getConnection();
-        $instance = new $this->myclass($conn);
-        $this->assertInstanceOf($this->myclass, $instance);
-		$this->assertSame($conn, $instance->db2);
+        $instance=new $this->myClass($this->conn);
+        $this->assertInstanceOf($this->myClass,$instance);
     }
 
+    public function test_create()
+	{
+        $instance=new $this->myClass($this->conn);
+		$x = $instance->create();
+        $this->assertSame(null, $x);
+    }
+
+    public function test_get()
+	{
+        $instance=new $this->myClass($this->conn);
+		$x = $instance->get(1);
+        $this->assertSame(null, $x);
+    }
+
+    public function test_insert()
+	{
+        $instance=new $this->myClass($this->conn);
+		$object=new $this->classObject();
+		$x = $instance->insert($object);
+        $this->assertSame(null, $x);
+    }
+
+    public function test_delete()
+	{
+        $instance=new $this->myClass($$this->conn);
+		$object=new $this->classObject();
+		$x = $instance->delete($object);
+        $this->assertSame(null, $x);
+    }
 }

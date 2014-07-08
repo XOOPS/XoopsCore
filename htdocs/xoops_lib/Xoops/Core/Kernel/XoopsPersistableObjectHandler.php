@@ -217,6 +217,8 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function create($isNew = true)
     {
+		if (empty($this->className)) return false;
+		
         /* @var $obj XoopsObject */
         $obj = new $this->className();
         if ($isNew === true) {
@@ -325,6 +327,8 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function deleteAll(CriteriaElement $criteria = null, $force = true, $asObject = false)
     {
+		if (empty($criteria)) return false;
+		
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
         return $handler->deleteAll($criteria, $force, $asObject);
@@ -342,6 +346,8 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria = null, $force = false)
     {
+		if (empty($criteria)) return false;
+
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
         return $handler->updateAll($fieldname, $fieldvalue, $criteria, $force);
