@@ -198,7 +198,7 @@ class PublisherItemForm extends XoopsSimpleForm
          */
         // Trabis : well, maybe is because you are getting 6000 objects into memory , no??? LOL
         if ($this->_isGranted(_PUBLISHER_UID)) {
-            $uid_select = new XoopsFormSelectUser(_CO_PUBLISHER_UID, 'uid', true, array($obj->getVar('uid')), 1, false);
+            $uid_select = new XoopsFormSelectUser(_CO_PUBLISHER_UID, 'uid', true, array($obj->getVar('uid', 'e')), 1, false);
             $uid_select->setDescription(_CO_PUBLISHER_UID_DSC);
             //$sql = "SELECT uid, uname FROM " . $obj->db->prefix('users') . " ORDER BY uname ASC";
             //$result = $obj->db->query($sql);

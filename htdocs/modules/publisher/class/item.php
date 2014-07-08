@@ -48,7 +48,6 @@ class PublisherItem extends XoopsObject
     public function __construct($id = null)
     {
         $this->publisher = Publisher::getInstance();
-        $this->db = \Xoops::getInstance()->db();
         $this->initVar("itemid", XOBJ_DTYPE_INT, 0);
         $this->initVar("categoryid", XOBJ_DTYPE_INT, 0, false);
         $this->initVar("title", XOBJ_DTYPE_TXTBOX, '', true, 255);
@@ -878,7 +877,7 @@ class PublisherItem extends XoopsObject
             //Image hack
             $image_item_ids = array();
 
-            $qb = $this->db2->createXoopsQueryBuilder();
+            $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $qb ->select('i.image_id', 'i.image_name')
                 ->fromPrefix('image', 'i')
                 ->orderBy('i.image_id');
@@ -982,9 +981,9 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     public $publisher = null;
 
     /**
-     * @param null|object $db
+     * @param null|Connection $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db)
     {
         parent::__construct($db, "publisher_items", 'PublisherItem', "itemid", "title");
         $this->publisher = Publisher::getInstance();
@@ -1065,14 +1064,13 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     public function getItemObjects($criteria = null, $id_key = 'none', $notNullFields = '')
     {
         $ret = array();
-        $limit = $start = 0;
         $whereMode = '';
 
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb ->select('*')
             ->fromPrefix('publisher_items', '');
         if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
-            $whereClause = $criteria->renderQb($qb, '');
+            $criteria->renderQb($qb, '');
             $whereMode = 'AND';
         }
         $this->addNotNullFieldClause($qb, $notNullFields, $whereMode);
@@ -1112,7 +1110,6 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
         $whereMode = '';
 
         $qb = $this->db2->createXoopsQueryBuilder();
-        $eb = $qb->expr();
         $qb ->select('COUNT(*)')
             ->fromPrefix('publisher_items', '');
         if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
@@ -1120,7 +1117,6 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             $whereMode = 'AND';
         }
         $this->addNotNullFieldClause($qb, $notNullFields, $whereMode);
-        $theObjects = array();
         $result = $qb->execute();
 
         if (!$result) {
@@ -1373,9 +1369,8 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     public function updateCounter($itemid)
     {
         $qb = $this->db2->createXoopsQueryBuilder();
-        $eb = $qb->expr();
-        $sql = $qb->updatePrefix('publisher_items', 'i')
-            ->set('i.counter', 'i.counter')
+        $qb->updatePrefix('publisher_items', 'i')
+            ->set('i.counter', 'i.counter+1')
             ->where('i.itemid = :itemid')
             ->setParameter(':itemid', $itemid, \PDO::PARAM_INT);
         $result = $qb->execute();

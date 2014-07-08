@@ -9,10 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 
@@ -39,6 +36,9 @@ class PublisherPermissionHandler extends XoopsObjectHandler
      */
     public $publisher = null;
 
+    /**
+     * constructor
+     */
     public function __construct()
     {
         $this->publisher = Publisher::getInstance();
@@ -65,7 +65,6 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         $criteria->add(new Criteria('gperm_name', $gperm_name));
         $criteria->add(new Criteria('gperm_itemid', $id));
         //Instead of calling groupperm handler and get objects, we will save some memory and do it our way
-        $limit = $start = 0;
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb ->select('gperm_groupid')
             ->fromPrefix('group_permission', '');
@@ -120,8 +119,10 @@ class PublisherPermissionHandler extends XoopsObjectHandler
     }
 
     /**
-     * @param string $gperm_name
-     * @param int    $id
+     * isGranted
+     *
+     * @param string $gperm_name permission name
+     * @param int    $id         item id
      *
      * @return bool
      */
@@ -142,13 +143,15 @@ class PublisherPermissionHandler extends XoopsObjectHandler
      * Saves permissions for the selected category
      *  saveCategory_Permissions()
      *
-     * @param array   $groups     : group with granted permission
-     * @param integer $itemid     : itemid on which we are setting permissions for Categories and Forums
-     * @param string  $perm_name  : name of the permission
+     * @param array   $groups    group with granted permission
+     * @param integer $itemid    itemid on which we are setting permissions for Categories and Forums
+     * @param string  $perm_name name of the permission
      *
      * @return boolean : TRUE if the no errors occured
+     *
+     * @todo is this used anywhere?
      */
-    public function saveItem_Permissions($groups, $itemid, $perm_name)
+    public function saveItemPermissions($groups, $itemid, $perm_name)
     {
         $xoops = Xoops::getInstance();
         $result = true;
@@ -170,8 +173,8 @@ class PublisherPermissionHandler extends XoopsObjectHandler
      * Delete all permission for a specific item
      *  deletePermissions()
      *
-     * @param integer $itemid : id of the item for which to delete the permissions
-     * @param string  $gperm_name
+     * @param integer $itemid     id of the item for which to delete the permissions
+     * @param string  $gperm_name permission name
      *
      * @return boolean : TRUE if the no errors occured
      */
