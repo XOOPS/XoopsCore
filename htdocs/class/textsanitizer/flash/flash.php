@@ -27,7 +27,7 @@ class MytsFlash extends MyTextSanitizerExtension
 {
     /**
      * @param int $textarea_id
-     * @return array
+     * @return string[]
      */
     public function encode($textarea_id)
     {

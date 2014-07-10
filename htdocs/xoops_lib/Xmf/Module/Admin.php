@@ -110,7 +110,7 @@ class Admin
      *
      * @param string $image icon name to prepend with path
      *
-     * @return bool true if we are in a 2.6 environment
+     * @return string true if we are in a 2.6 environment
      */
     public static function menuIconPath($image)
     {
@@ -371,7 +371,7 @@ class Admin
      *                     16, 32 or /. A '/' slash will simply set the
      *                     path to the icon directory and append $image.
      *
-     * @return bool true if we are in a 2.6 environment
+     * @return string true if we are in a 2.6 environment
      */
     public static function iconUrl($name = '', $size = '32')
     {

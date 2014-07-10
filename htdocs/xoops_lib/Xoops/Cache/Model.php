@@ -97,7 +97,7 @@ class Xoops_Cache_Model extends Xoops_Cache_Abstract
      *
      * @param null $expires
      *
-     * @return bool|void
+     * @return boolean
      */
     public function gc($expires = null)
     {

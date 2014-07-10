@@ -180,7 +180,7 @@ class Xoops_Cache_Memcache extends Xoops_Cache_Abstract
      * @param string  $key    Identifier for the data
      * @param integer $offset How much to increment
      *
-     * @return mixed New incremented value, false otherwise
+     * @return integer New incremented value, false otherwise
      */
     public function increment($key, $offset = 1)
     {
@@ -196,7 +196,7 @@ class Xoops_Cache_Memcache extends Xoops_Cache_Abstract
      * @param string  $key    Identifier for the data
      * @param integer $offset How much to subtract
      *
-     * @return mixed New decremented value, false otherwise
+     * @return integer New decremented value, false otherwise
      */
     public function decrement($key, $offset = 1)
     {

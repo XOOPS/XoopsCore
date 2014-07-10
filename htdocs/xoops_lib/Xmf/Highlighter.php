@@ -59,7 +59,7 @@ class Highlighter
      * @param string $pre      insert before needle
      * @param string $post     insert after needle
      *
-     * @return void
+     * @return string
      */
     private static function splitOnTag($needle, $haystack, $pre, $post)
     {

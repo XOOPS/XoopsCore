@@ -107,7 +107,7 @@ class NullProvider extends Provider
      * @param type $name      not used
      * @param type $arguments not used
      *
-     * @return object Response
+     * @return Response Response
      */
     public function __call($name, $arguments)
     {
@@ -120,7 +120,7 @@ class NullProvider extends Provider
      * @param type $name      not used
      * @param type $arguments not used
      *
-     * @return object Response
+     * @return Response Response
      */
     public static function __callStatic($name, $arguments)
     {

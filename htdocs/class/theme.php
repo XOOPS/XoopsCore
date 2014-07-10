@@ -62,7 +62,7 @@ class XoopsThemeFactory
      *
      * @param array $options options array
      *
-     * @return null|XoopsTheme
+     * @return XoopsTheme
      */
     public function createInstance($options = array())
     {
@@ -713,7 +713,7 @@ class XoopsTheme
     /**
      * addStylesheetAssets - add a list of stylesheets to the page
      *
-     * @param array  $assets  list of source files to process
+     * @param string[]  $assets  list of source files to process
      * @param string $filters comma separated list of filters
      * @param string $target  target path, will default to assets directory
      *
@@ -819,7 +819,7 @@ class XoopsTheme
      * @param string $name  meta tag name
      * @param null   $value meta tag value
      *
-     * @return bool|string
+     * @return string|false
      */
     public function addHttpMeta($name, $value = null)
     {
@@ -856,7 +856,7 @@ class XoopsTheme
      * XoopsTheme::headContent()
      *
      * @param $params
-     * @param $content
+     * @param string $content
      * @param $smarty
      * @param $repeat
      *

@@ -116,7 +116,7 @@ class XoopsFormTinymce4 extends XoopsEditor
     /**
      * prepare HTML for output
      *
-     * @return sting HTML
+     * @return string HTML
      */
     public function render()
     {

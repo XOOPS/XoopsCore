@@ -127,6 +127,9 @@ class Protector
         return true;
     }
 
+    /**
+     * @param string $key
+     */
     function _initial_recursive($val, $key)
     {
         if (is_array($val)) {
@@ -277,6 +280,9 @@ class Protector
         return true;
     }
 
+    /**
+     * @param integer $expire
+     */
     function write_file_bwlimit($expire)
     {
         $expire = min(intval($expire), time() + 300);
@@ -1140,6 +1146,9 @@ class Protector
         }
     }
 
+    /**
+     * @param integer $points4deny
+     */
     function spam_check($points4deny, $uid)
     {
         $this->_spamcount_uri = 0;
@@ -1247,6 +1256,9 @@ class Protector
         error_reporting($error_reporting_level);
     }
 
+    /**
+     * @param string $type
+     */
     function call_filter($type, $dying_message = '')
     {
         require_once __DIR__ . '/ProtectorFilter.php';

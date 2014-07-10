@@ -104,7 +104,7 @@ class Yaml
      * @param integer $inline   Nesting level where you switch to inline YAML
      * @param integer $indent   Number of spaces to indent for nested nodes
      *
-     * @return int|bool number of bytes written, or false on error
+     * @return boolean number of bytes written, or false on error
      */
     public static function save($var, $yamlFile, $inline = 4, $indent = 4)
     {

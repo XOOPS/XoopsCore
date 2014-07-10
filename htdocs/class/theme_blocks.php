@@ -45,7 +45,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
     /**
      * XoopsThemeBlocksPlugin::xoInit()
      *
-     * @return true
+     * @return boolean
      */
     public function xoInit()
     {
@@ -132,7 +132,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
     /**
      * XoopsThemeBlocksPlugin::generateCacheId()
      *
-     * @param mixed $cache_id
+     * @param string $cache_id
      * @return string
      */
     public function generateCacheId($cache_id)

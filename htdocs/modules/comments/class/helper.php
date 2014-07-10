@@ -39,7 +39,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
     }
 
     /**
-     * @return Comments
+     * @return string
      */
     static function getInstance()
     {

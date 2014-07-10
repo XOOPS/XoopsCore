@@ -25,7 +25,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class MenusMenus_menusForm extends XoopsThemeForm
 {
     /**
-     * @param MenusMenus_menus|XoopsObject $obj
+     * @param MenusMenus $obj
      */
     public function __construct(MenusMenus &$obj)
     {

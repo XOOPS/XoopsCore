@@ -31,9 +31,9 @@ class XoopsFile
      * XoopsFile::getHandler()
      *
      * @param string $name   name of file
-     * @param mixed  $path   path file is in
-     * @param mixed  $create create file if needed
-     * @param mixed  $mode   mode on file created
+     * @param string  $path   path file is in
+     * @param boolean  $create create file if needed
+     * @param integer  $mode   mode on file created
      *
      * @return XoopsFileHandler|XoopsFolderHandler|bool
      */

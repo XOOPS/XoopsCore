@@ -273,7 +273,7 @@ function genPathCheckHtml($path, $valid)
 }
 
 /**
- * @param $link
+ * @param resource $link
  * @return array
  */
 function getDbCharsets($link)

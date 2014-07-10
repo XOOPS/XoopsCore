@@ -45,6 +45,9 @@ class SystemMenuHandler
         $this->_obj = $addon;
     }
 
+    /**
+     * @param string $link
+     */
     public function addMenuTop($link, $name = "")
     {
         $this->_menutop[] = array('link' => $link, 'name' => $name);
@@ -65,6 +68,9 @@ class SystemMenuHandler
         }
     }
 
+    /**
+     * @param string $link
+     */
     public function addMenuTabs($link, $name = "")
     {
         $this->_menutabs[] = array('link' => $link, 'name' => $name, 'current' => 0);

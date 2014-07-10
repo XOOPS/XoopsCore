@@ -73,7 +73,7 @@ abstract class XoopsDownloader
     /**
      * @abstract
      * @param $filepath
-     * @param null $newfilename
+     * @param boolean|string $newfilename
      * @return void
      */
      abstract function addFile($filepath, $newfilename = null);

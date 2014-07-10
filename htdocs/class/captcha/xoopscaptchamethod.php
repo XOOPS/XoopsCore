@@ -114,7 +114,7 @@ class XoopsCaptchaMethod
     /**
      * XoopsCaptchaMethod::verify()
      *
-     * @param mixed $sessionName
+     * @param string $sessionName
      *
      * @return bool
      */

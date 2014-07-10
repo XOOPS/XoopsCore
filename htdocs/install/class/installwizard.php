@@ -228,7 +228,7 @@ class XoopsInstallWizard
     }
 
     /**
-     * @param        $page
+     * @param        string $page
      * @param int    $status
      * @param string $message
      *

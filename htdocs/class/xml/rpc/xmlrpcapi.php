@@ -121,6 +121,10 @@ class XoopsXmlRpcApi
         return $ret;
     }
 
+    /**
+     * @param string $xoopstag
+     * @param string $blogtag
+     */
     function _setXoopsTagMap($xoopstag, $blogtag)
     {
         if (trim($blogtag) != '') {

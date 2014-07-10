@@ -122,6 +122,9 @@ function separateStringsInSQL( $sql )
 
 
 
+/**
+ * @param string $sql
+ */
 function checkSql( $sql )
 {
     list( $sql_wo_strings , $strings ) = $this->separateStringsInSQL( $sql ) ;

@@ -633,7 +633,7 @@ class Tables
      * @param string $table   table
      * @param array  $columns array of 'column'=>'value' entries
      *
-     * @return bool true if no errors, false if errors encountered
+     * @return boolean|null true if no errors, false if errors encountered
      */
     public function insert($table, $columns)
     {
@@ -667,7 +667,7 @@ class Tables
      * @param array  $columns  array of 'column'=>'value' entries
      * @param mixed  $criteria string where clause or object criteria
      *
-     * @return bool true if no errors, false if errors encountered
+     * @return boolean|null true if no errors, false if errors encountered
      */
     public function update($table, $columns, $criteria)
     {
@@ -729,7 +729,7 @@ class Tables
      * @param string $table    table
      * @param bool   $prefixed true to return with table name prefixed
      *
-     * @return mixed string SQL to create table, or null if errors encountered
+     * @return string|null string SQL to create table, or null if errors encountered
      */
     public function renderTableCreate($table, $prefixed = false)
     {
@@ -944,7 +944,7 @@ class Tables
     /**
      * dumpTables - development function to dump raw tables array
      *
-     * @return array tables
+     * @return Tables tables
      */
     public function dumpTables()
     {

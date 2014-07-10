@@ -92,7 +92,7 @@ abstract class HelperAbstract
     /**
      * @param string $name
      *
-     * @return mixed
+     * @return string
      */
     public function getConfig($name)
     {

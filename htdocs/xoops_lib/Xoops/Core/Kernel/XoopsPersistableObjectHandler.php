@@ -151,7 +151,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @param string $name handler name
      * @param mixed  $args args
      *
-     * @return object of handler {@link XoopsModelAbstract}
+     * @return XoopsModelAbstract of handler {@link XoopsModelAbstract}
      */
     public function loadHandler($name, $args = null)
     {
