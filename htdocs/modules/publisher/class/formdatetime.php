@@ -24,6 +24,14 @@ include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherFormDateTime extends XoopsFormElementTray
 {
+    /**
+     * __construct
+     *
+     * @param string  $caption
+     * @param string  $name
+     * @param integer $size
+     * @param integer $value
+     */
     public function __construct($caption, $name, $size = 15, $value = 0)
     {
         parent::__construct($caption, '&nbsp;');

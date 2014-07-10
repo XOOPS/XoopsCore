@@ -11,7 +11,6 @@
 
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
@@ -318,7 +317,7 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
     public $publisher = null;
 
     /**
-     * @param null|Xoops\Core\Database\Connection $db
+     * @param Xoops\Core\Database\Connection $db
      */
     public function __construct(Connection $db)
     {
@@ -442,6 +441,16 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
         return $ret;
     }
 
+    /**
+     * getSubCatArray
+     *
+     * @param array   $category
+     * @param integer $level
+     * @param array   $cat_array
+     * @param array   $cat_result
+     *
+     * @return void
+     */
     public function getSubCatArray($category, $level, $cat_array, $cat_result)
     {
         global $theresult;

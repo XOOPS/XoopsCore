@@ -99,7 +99,7 @@ class PublisherUtils
     /**
      * @param string $document
      *
-     * @return mixed
+     * @return string
      */
     public static function html2text($document)
     {
@@ -129,7 +129,7 @@ class PublisherUtils
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public static function getAllowedImagesTypes()
     {
@@ -364,7 +364,7 @@ class PublisherUtils
     /**
      * Check is current user is moderator of a given article
      *
-     * @param object $itemObj
+     * @param PublisherItem $itemObj
      *
      * @return bool
      */
@@ -1071,6 +1071,15 @@ class PublisherUtils
         return '';
     }
 
+    /**
+     * seoGenUrl
+     *
+     * @param string  $op
+     * @param integer $id
+     * @param string  $short_url
+     *
+     * @return string
+     */
     public static function seoGenUrl($op, $id, $short_url = "")
     {
         $publisher = Publisher::getInstance();

@@ -11,7 +11,6 @@
 
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
@@ -101,7 +100,7 @@ class PublisherItem extends XoopsObject
      * @param int    $maxLength
      * @param string $format
      *
-     * @return mixed|string
+     * @return string
      */
     public function title($maxLength = 0, $format = "S")
     {
@@ -981,7 +980,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     public $publisher = null;
 
     /**
-     * @param null|Connection $db
+     * @param Connection $db
      */
     public function __construct(Connection $db)
     {

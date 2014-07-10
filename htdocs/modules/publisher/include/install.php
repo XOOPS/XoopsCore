@@ -22,7 +22,7 @@ use Xmf\Database\TableLoad;
 
 /**
  * @param XoopsModule $module
- * @return bool|void
+ * @return boolean
  */
 function xoops_module_install_publisher($module)
 {

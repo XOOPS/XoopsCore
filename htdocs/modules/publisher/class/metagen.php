@@ -296,10 +296,10 @@ class PublisherMetagen
     }
 
     /**
-     * @param      $text
-     * @param bool $keyword
+     * @param string  $text
+     * @param boolean $keyword
      *
-     * @return mixed
+     * @return string
      */
     public function purifyText($text, $keyword = false)
     {

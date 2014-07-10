@@ -10,7 +10,6 @@
  */
 
 use Xoops\Core\Kernel\Criteria;
-use Xoops\Core\Kernel\CriteriaCompo;
 
 /**
  *  Publisher form class
