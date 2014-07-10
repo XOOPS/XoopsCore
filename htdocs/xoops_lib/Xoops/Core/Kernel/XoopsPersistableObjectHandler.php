@@ -325,10 +325,8 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return bool
      */
-    public function deleteAll(CriteriaElement $criteria = null, $force = true, $asObject = false)
+    public function deleteAll(CriteriaElement $criteria, $force = true, $asObject = false)
     {
-		if (empty($criteria)) return false;
-		
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
         return $handler->deleteAll($criteria, $force, $asObject);
@@ -344,10 +342,8 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return bool
      */
-    public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria = null, $force = false)
+    public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria, $force = false)
     {
-		if (empty($criteria)) return false;
-
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
         return $handler->updateAll($fieldname, $fieldvalue, $criteria, $force);
