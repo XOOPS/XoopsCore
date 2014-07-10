@@ -1688,7 +1688,7 @@ class Xoops
      * @param string $key
      * @param string $dirname
      *
-     * @return string
+     * @return mixed
      */
     public function getModuleConfig($key, $dirname = '')
     {
@@ -1712,7 +1712,7 @@ class Xoops
     /**
      * @param string $dirname
      *
-     * @return
+     * @return array
      */
     public function getModuleConfigs($dirname = '')
     {
