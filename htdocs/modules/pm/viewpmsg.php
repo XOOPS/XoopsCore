@@ -38,18 +38,18 @@ $start = empty($_REQUEST["start"]) ? 0 : intval($_REQUEST["start"]);
 /* @var $pm_handler PmMessageHandler */
 $pm_handler = $xoops->getModuleHandler('message');
 
-if (isset($_POST['delete_messages']) && isset($_POST['msg_id'])) {
+if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST['msg_ids']))) {
     if (!$xoops->security()->check()) {
         $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
     } else {
         if (empty($_REQUEST['ok'])) {
             $xoops->confirm(array(
                                  'ok' => 1, 'delete_messages' => 1, 'op' => $_REQUEST['op'],
-                                 'msg_id' => json_encode(array_map("intval", $_POST['msg_id']))
+                                 'msg_ids' => json_encode(array_map("intval", $_POST['msg_id']))
                             ), $_SERVER['REQUEST_URI'], XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES);
             $xoops->footer();
         } else {
-            $clean_msg_id = json_decode($_POST['msg_id'], true, 2);
+            $clean_msg_id = json_decode($_POST['msg_ids'], true, 2);
             if (!empty($clean_msg_id)) {
                 $clean_msg_id = array_map("intval", $clean_msg_id);
             }
