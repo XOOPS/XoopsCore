@@ -5,8 +5,8 @@ class MytsSoundcloud extends MyTextSanitizerExtension
     public function encode($textarea_id)
     {
         $config = parent::loadConfig(__DIR__);
-        $alttxt = htmlspecialchars('SoundCloud', ENT_QUOTES);
-        $prompt = htmlspecialchars('Enter SoundCloud Profile URL', ENT_QUOTES);
+        $alttxt = htmlspecialchars(XoopsLocale::SOUNDCLOUD, ENT_QUOTES);
+        $prompt = htmlspecialchars(XoopsLocale::SOUNDCLOUD_URL, ENT_QUOTES);
         $code = "<img src='{$this->image_path}/soundcloud.png' "
             . " alt='{$alttxt}' title='{$alttxt}' "
             . " onclick='xoopsCodeSoundCloud(\"{$textarea_id}\",\"{$prompt}\");' "
