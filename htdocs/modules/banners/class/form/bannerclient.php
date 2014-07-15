@@ -25,7 +25,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class BannersBannerclientForm extends XoopsThemeForm
 {
     /**
-     * @param XoopsBannerClient|XoopsObject $obj
+     * @param BannersBannerclient $obj
      */
     public function __construct(BannersBannerClient &$obj)
     {

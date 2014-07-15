@@ -104,7 +104,7 @@ class Dtype
     /**
      * Support for legacy objects
      *
-     * @return array
+     * @return string[]
      */
     private static function getLegacyNames()
     {

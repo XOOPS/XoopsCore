@@ -281,7 +281,7 @@ abstract class XoopsDatabase
      * @param int    $limit number of records to return
      * @param int    $start offset of first record to return
      *
-     * @return this returns nothing
+     * @return resource returns nothing
      * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
      * @abstract
      */

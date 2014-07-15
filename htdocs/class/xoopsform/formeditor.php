@@ -63,7 +63,7 @@ class XoopsFormEditor extends XoopsFormTextArea
      * TEMPORARY SOLUTION to 'override' original renderValidationJS method
      * with custom XoopsEditor's renderValidationJS method
      *
-     * @return bool|string
+     * @return string|false
      */
     public function renderValidationJS()
     {

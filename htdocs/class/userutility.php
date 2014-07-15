@@ -66,7 +66,7 @@ class XoopsUserUtility
     /**
      * XoopsUserUtility::validate
      *
-     * @return bool|string
+     * @return false|string
      */
     public static function validate()
     {

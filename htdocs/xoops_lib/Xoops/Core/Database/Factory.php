@@ -44,7 +44,7 @@ class Factory
      *
      * @param array $options driverOptions for Doctrine
      *
-     * @return XoopsDatabase Reference to the only instance of database class
+     * @return Connection|null Reference to the only instance of database class
      *
      * @todo change driver to support other databases and support for port, unix_socket and driver options.
      */

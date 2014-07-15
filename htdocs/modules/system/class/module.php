@@ -9,15 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Database\Schema\ExportVisitor;
 use Xoops\Core\Database\Schema\ImportSchema;
-use Xoops\Core\Database\Schema\PrefixStripper;
-use Xoops\Core\Database\Schema\RemovePrefixes;
 use Xoops\Core\Yaml;
-
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
 
 /**

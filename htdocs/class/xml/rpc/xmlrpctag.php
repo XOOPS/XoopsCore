@@ -95,7 +95,7 @@ abstract class XoopsXmlRpcTag
 
     /**
      * @param string $text
-     * @return mixed
+     * @return string
      */
     public function encode(&$text)
     {
@@ -255,7 +255,7 @@ class XoopsXmlRpcBoolean extends XoopsXmlRpcTag
     protected $_value;
 
     /**
-     * @param int|bool $value
+     * @param boolean $value
      */
     public function __construct($value)
     {

@@ -9,11 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Criteria;
-use Xoops\Core\Kernel\CriteriaElement;
 
 /**
  * Extended User Profile

@@ -155,7 +155,7 @@ class XoopsLoad
      *
      * @param string $name framework class name
      *
-     * @return bool|string
+     * @return false|string
      */
     private static function loadFramework($name)
     {
@@ -435,7 +435,7 @@ class XoopsLoad
     /**
      * XoopsLoad::loadConfig()
      *
-     * @param mixed $data array of configs or dirname of module
+     * @param string $data array of configs or dirname of module
      *
      * @return array|bool
      */

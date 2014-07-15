@@ -54,7 +54,7 @@ class XoopsZipDownloader extends XoopsDownloader
      * @param string $filepath    path
      * @param string $newfilename name
      *
-     * @return result
+     * @return false|null
      */
     public function addFile($filepath, $newfilename = null)
     {
@@ -76,7 +76,7 @@ class XoopsZipDownloader extends XoopsDownloader
      * @param string $filepath    path
      * @param string $newfilename name
      *
-     * @return result
+     * @return false|null
      */
     public function addBinaryFile($filepath, $newfilename = null)
     {
@@ -114,7 +114,7 @@ class XoopsZipDownloader extends XoopsDownloader
      * @param string $filename name
      * @param int    $time     file time
      *
-     * @return void
+     * @return result|null
      */
     public function addBinaryFileData(&$data, $filename, $time = 0)
     {

@@ -43,6 +43,10 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
     }
 
     // import from D3forumAntispamDefault.clas.php
+
+    /**
+     * @param integer $time
+     */
     function getMd5($time = null)
     {
         if (empty($time)) {

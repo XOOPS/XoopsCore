@@ -52,7 +52,7 @@ class Events
     /**
      * Allow one instance only!
      *
-     * @return Xoops\Core\Events instance
+     * @return Events instance
      */
     public static function getInstance()
     {

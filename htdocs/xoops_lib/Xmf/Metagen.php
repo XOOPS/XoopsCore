@@ -195,7 +195,7 @@ class Metagen
      * generateDescription - generate a short description from a body of text
      *
      * @param string $body      body text
-     * @param string $wordCount maximum word count for description
+     * @param integer $wordCount maximum word count for description
      *
      * @return string
      */

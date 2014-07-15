@@ -12,9 +12,7 @@
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
-use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Userconfigs

@@ -26,11 +26,11 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 class XoopsFormDateTime extends XoopsFormElementTray
 {
     /**
-     * @param mixed $caption
-     * @param mixed $name
+     * @param string  $caption
+     * @param string  $name
      * @param integer $size
      * @param integer $value
-     * @param mixed $showtime
+     * @param boolean $showtime
      */
     public function __construct($caption, $name, $size = 2, $value = 0, $showtime = true)
     {

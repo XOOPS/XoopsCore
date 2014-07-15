@@ -70,6 +70,9 @@ class SaxParser
      * @param $isCaseFolding
      * @returns void
      ****************************************************************************/
+    /**
+     * @param boolean $isCaseFolding
+     */
     function setCaseFolding($isCaseFolding)
     {
         assert(is_bool($isCaseFolding));
@@ -362,7 +365,7 @@ class SaxParser
     /**
      * Sets error messages
      *
-     * @param    $error    string    an error message
+     * @param    string $error    string    an error message
      */
     function setErrors($error)
     {

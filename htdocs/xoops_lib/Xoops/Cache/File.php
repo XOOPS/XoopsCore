@@ -379,7 +379,7 @@ class Xoops_Cache_File extends Xoops_Cache_Abstract
      *
      * @param string $key the key passed over
      *
-     * @return mixed string $key or false
+     * @return false|string string $key or false
      */
     public function key($key)
     {

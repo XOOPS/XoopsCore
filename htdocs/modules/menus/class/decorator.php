@@ -71,6 +71,9 @@ class MenusDecoratorAbstract
         $this->loadLanguage($dirname);
     }
 
+    /**
+     * @param string $name
+     */
     public function loadLanguage($name)
     {
         $helper = Menus::getInstance();
@@ -86,13 +89,28 @@ class MenusDecoratorAbstract
 
 interface MenusDecoratorInterface {
 
+    /**
+     * @return void
+     */
     function start();
 
+    /**
+     * @return void
+     */
     function end(&$menus);
 
+    /**
+     * @return void
+     */
     function decorateMenu(&$menu);
 
+    /**
+     * @return void
+     */
     function hasAccess($menu, &$hasAccess);
 
+    /**
+     * @return void
+     */
     function accessFilter(&$accessFilter);
 }

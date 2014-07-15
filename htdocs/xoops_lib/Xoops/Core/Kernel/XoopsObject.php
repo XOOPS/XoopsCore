@@ -12,7 +12,6 @@
 
 namespace Xoops\Core\Kernel;
 
-use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\Dtype;
 
 /**

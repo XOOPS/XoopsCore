@@ -43,7 +43,7 @@ class XoopsTarDownloader extends XoopsDownloader
      * @param string $filepath    Full path to the file
      * @param string $newfilename Filename (if you don't want to use the original)
      *
-     * @return bool
+     * @return false|null
      */
     public function addFile($filepath, $newfilename = null)
     {
@@ -68,7 +68,7 @@ class XoopsTarDownloader extends XoopsDownloader
      * @param string $filepath    Full path to the file
      * @param string $newfilename Filename (if you don't want to use the original)
      *
-     * @return bool
+     * @return false|null
      */
     public function addBinaryFile($filepath, $newfilename = null)
     {
@@ -94,7 +94,7 @@ class XoopsTarDownloader extends XoopsDownloader
      * @param string  $filename Name for the file in the archive
      * @param integer $time     time
      *
-     * @return bool
+     * @return false|null
      */
     public function addFileData(&$data, $filename, $time = 0)
     {
@@ -129,7 +129,7 @@ class XoopsTarDownloader extends XoopsDownloader
      * @param string  $filename Name for the file in the archive
      * @param integer $time     time
      *
-     * @return bool
+     * @return false|null
      */
     public function addBinaryFileData(&$data, $filename, $time = 0)
     {

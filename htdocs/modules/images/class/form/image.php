@@ -99,6 +99,9 @@ class ImagesImageForm extends XoopsThemeForm
         $this->addElement($button_tray);
     }
 
+    /**
+     * @param string[] $msg
+     */
     public function message($msg, $title = '', $class='errorMsg' )
     {
         $ret = "<div class='" . $class . "'>";

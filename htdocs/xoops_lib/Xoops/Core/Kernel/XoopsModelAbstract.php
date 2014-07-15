@@ -39,7 +39,7 @@ abstract class XoopsModelAbstract
      *
      * @param XoopsPersistableObjectHandler $handler reference to {@link XoopsPersistableObjectHandler}
      *
-     * @return true
+     * @return boolean
      */
     public function setHandler(XoopsPersistableObjectHandler $handler)
     {
@@ -52,7 +52,7 @@ abstract class XoopsModelAbstract
      *
      * @param mixed $args args
      *
-     * @return true
+     * @return boolean
      */
     public function setVars($args)
     {

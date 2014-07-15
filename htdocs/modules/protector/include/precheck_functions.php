@@ -22,7 +22,7 @@
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
- * @return bool
+ * @return null|boolean
  */
 function protector_precheck()
 {
