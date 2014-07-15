@@ -1106,4 +1106,6 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const YIM = "YIM";
     const YOUTUBE = "Youtube";
     const YOUTUBE_URL = "Youtube URL";
+    const SOUNDCLOUD = "SoundCloud";
+    const SOUNDCLOUD_URL = "Enter SoundCloud Profile URL";
 }
