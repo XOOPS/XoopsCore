@@ -1,0 +1,862 @@
+# pubisher_mimetypes
+-
+  mime_id: 1
+  mime_ext: "bin"
+  mime_types: "application/octet-stream"
+  mime_name: "Binary File/Linux Executable"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 2
+  mime_ext: "dms"
+  mime_types: "application/octet-stream"
+  mime_name: "Amiga DISKMASHER Compressed Archive"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 3
+  mime_ext: "class"
+  mime_types: "application/octet-stream"
+  mime_name: "Java Bytecode"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 4
+  mime_ext: "so"
+  mime_types: "application/octet-stream"
+  mime_name: "UNIX Shared Library Function"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 5
+  mime_ext: "dll"
+  mime_types: "application/octet-stream"
+  mime_name: "Dynamic Link Library"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 6
+  mime_ext: "hqx"
+  mime_types: "application/binhex application/mac-binhex application/mac-binhex40"
+  mime_name: "Macintosh BinHex 4 Compressed Archive"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 7
+  mime_ext: "cpt"
+  mime_types: "application/mac-compactpro application/compact_pro"
+  mime_name: "Compact Pro Archive"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 8
+  mime_ext: "lha"
+  mime_types: "application/lha application/x-lha application/octet-stream application/x-compress application/x-compressed application/maclha"
+  mime_name: "Compressed Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 9
+  mime_ext: "lzh"
+  mime_types: "application/lzh application/x-lzh application/x-lha application/x-compress application/x-compressed application/x-lzh-archive zz-application/zz-winassoc-lzh application/maclha application/octet-stream"
+  mime_name: "Compressed Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 10
+  mime_ext: "sh"
+  mime_types: "application/x-shar"
+  mime_name: "UNIX shar Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 11
+  mime_ext: "shar"
+  mime_types: "application/x-shar"
+  mime_name: "UNIX shar Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 12
+  mime_ext: "tar"
+  mime_types: "application/tar application/x-tar applicaton/x-gtar multipart/x-tar application/x-compress application/x-compressed"
+  mime_name: "Tape Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 13
+  mime_ext: "gtar"
+  mime_types: "application/x-gtar"
+  mime_name: "GNU tar Compressed File Archive"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 14
+  mime_ext: "ustar"
+  mime_types: "application/x-ustar multipart/x-ustar"
+  mime_name: "POSIX tar Compressed Archive"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 15
+  mime_ext: "zip"
+  mime_types: "application/zip application/x-zip application/x-zip-compressed application/octet-stream application/x-compress application/x-compressed multipart/x-zip"
+  mime_name: "Compressed Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 16
+  mime_ext: "exe"
+  mime_types: "application/exe application/x-exe application/dos-exe application/x-winexe application/msdos-windows application/x-msdos-program"
+  mime_name: "Executable File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 17
+  mime_ext: "wmz"
+  mime_types: "application/x-ms-wmz"
+  mime_name: "Windows Media Compressed Skin File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 18
+  mime_ext: "wmd"
+  mime_types: "application/x-ms-wmd"
+  mime_name: "Windows Media Download File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 19
+  mime_ext: "doc"
+  mime_types: "application/msword application/doc appl/text application/vnd.msword application/vnd.ms-word application/winword application/word application/x-msw6 application/x-msword"
+  mime_name: "Word Document"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 20
+  mime_ext: "pdf"
+  mime_types: "application/pdf application/acrobat application/x-pdf applications/vnd.pdf text/pdf"
+  mime_name: "Acrobat Portable Document Format"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 21
+  mime_ext: "eps"
+  mime_types: "application/eps application/postscript application/x-eps image/eps image/x-eps"
+  mime_name: "Encapsulated PostScript"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 22
+  mime_ext: "ps"
+  mime_types: "application/postscript application/ps application/x-postscript application/x-ps text/postscript"
+  mime_name: "PostScript"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 23
+  mime_ext: "smi"
+  mime_types: "application/smil"
+  mime_name: "SMIL Multimedia"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 24
+  mime_ext: "smil"
+  mime_types: "application/smil"
+  mime_name: "Synchronized Multimedia Integration Language"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 25
+  mime_ext: "wmlc"
+  mime_types: "application/vnd.wap.wmlc "
+  mime_name: "Compiled WML Document"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 26
+  mime_ext: "wmlsc"
+  mime_types: "application/vnd.wap.wmlscriptc"
+  mime_name: "Compiled WML Script"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 27
+  mime_ext: "vcd"
+  mime_types: "application/x-cdlink"
+  mime_name: "Virtual CD-ROM CD Image File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 28
+  mime_ext: "pgn"
+  mime_types: "application/formstore"
+  mime_name: "Picatinny Arsenal Electronic Formstore Form in TIFF Format"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 29
+  mime_ext: "cpio"
+  mime_types: "application/x-cpio"
+  mime_name: "UNIX CPIO Archive"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 30
+  mime_ext: "csh"
+  mime_types: "application/x-csh"
+  mime_name: "Csh Script"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 31
+  mime_ext: "dcr"
+  mime_types: "application/x-director"
+  mime_name: "Shockwave Movie"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 32
+  mime_ext: "dir"
+  mime_types: "application/x-director"
+  mime_name: "Macromedia Director Movie"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 33
+  mime_ext: "dxr"
+  mime_types: "application/x-director application/vnd.dxr"
+  mime_name: "Macromedia Director Protected Movie File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 34
+  mime_ext: "dvi"
+  mime_types: "application/x-dvi"
+  mime_name: "TeX Device Independent Document"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 35
+  mime_ext: "spl"
+  mime_types: "application/x-futuresplash"
+  mime_name: "Macromedia FutureSplash File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 36
+  mime_ext: "hdf"
+  mime_types: "application/x-hdf"
+  mime_name: "Hierarchical Data Format File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 37
+  mime_ext: "js"
+  mime_types: "application/x-javascript text/javascript"
+  mime_name: "JavaScript Source Code"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 38
+  mime_ext: "skp"
+  mime_types: "application/x-koan application/vnd-koan koan/x-skm application/vnd.koan"
+  mime_name: "SSEYO Koan Play File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 39
+  mime_ext: "skd"
+  mime_types: "application/x-koan application/vnd-koan koan/x-skm application/vnd.koan"
+  mime_name: "SSEYO Koan Design File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 40
+  mime_ext: "skt"
+  mime_types: "application/x-koan application/vnd-koan koan/x-skm application/vnd.koan"
+  mime_name: "SSEYO Koan Template File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 41
+  mime_ext: "skm"
+  mime_types: "application/x-koan application/vnd-koan koan/x-skm application/vnd.koan"
+  mime_name: "SSEYO Koan Mix File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 42
+  mime_ext: "latex"
+  mime_types: "application/x-latex text/x-latex"
+  mime_name: "LaTeX Source Document"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 43
+  mime_ext: "nc"
+  mime_types: "application/x-netcdf text/x-cdf"
+  mime_name: "Unidata netCDF Graphics"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 44
+  mime_ext: "cdf"
+  mime_types: "application/cdf application/x-cdf application/netcdf application/x-netcdf text/cdf text/x-cdf"
+  mime_name: "Channel Definition Format"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 45
+  mime_ext: "swf"
+  mime_types: "application/x-shockwave-flash application/x-shockwave-flash2-preview application/futuresplash image/vnd.rn-realflash"
+  mime_name: "Macromedia Flash Format File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 46
+  mime_ext: "sit"
+  mime_types: "application/stuffit application/x-stuffit application/x-sit"
+  mime_name: "StuffIt Compressed Archive File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 47
+  mime_ext: "tcl"
+  mime_types: "application/x-tcl"
+  mime_name: "TCL/TK Language Script"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 48
+  mime_ext: "tex"
+  mime_types: "application/x-tex"
+  mime_name: "LaTeX Source"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 49
+  mime_ext: "texinfo"
+  mime_types: "application/x-texinfo"
+  mime_name: "TeX"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 50
+  mime_ext: "texi"
+  mime_types: "application/x-texinfo"
+  mime_name: "TeX"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 51
+  mime_ext: "t"
+  mime_types: "application/x-troff"
+  mime_name: "TAR Tape Archive Without Compression"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 52
+  mime_ext: "tr"
+  mime_types: "application/x-troff"
+  mime_name: "Unix Tape Archive = TAR without compression (tar)"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 53
+  mime_ext: "src"
+  mime_types: "application/x-wais-source"
+  mime_name: "Sourcecode"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 54
+  mime_ext: "xhtml"
+  mime_types: "application/xhtml+xml"
+  mime_name: "Extensible HyperText Markup Language File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 55
+  mime_ext: "xht"
+  mime_types: "application/xhtml+xml"
+  mime_name: "Extensible HyperText Markup Language File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 56
+  mime_ext: "au"
+  mime_types: "audio/basic audio/x-basic audio/au audio/x-au audio/x-pn-au audio/rmf audio/x-rmf audio/x-ulaw audio/vnd.qcelp audio/x-gsm audio/snd"
+  mime_name: "ULaw/AU Audio File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 57
+  mime_ext: "XM"
+  mime_types: "audio/xm audio/x-xm audio/module-xm audio/mod audio/x-mod"
+  mime_name: "Fast Tracker 2 Extended Module"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 58
+  mime_ext: "snd"
+  mime_types: "audio/basic"
+  mime_name: "Macintosh Sound Resource"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 59
+  mime_ext: "mid"
+  mime_types: "audio/mid audio/m audio/midi audio/x-midi application/x-midi audio/soundtrack"
+  mime_name: "Musical Instrument Digital Interface MIDI-sequention Sound"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 60
+  mime_ext: "midi"
+  mime_types: "audio/mid audio/m audio/midi audio/x-midi application/x-midi"
+  mime_name: "Musical Instrument Digital Interface MIDI-sequention Sound"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 61
+  mime_ext: "kar"
+  mime_types: "audio/midi audio/x-midi audio/mid x-music/x-midi"
+  mime_name: "Karaoke MIDI File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 62
+  mime_ext: "mpga"
+  mime_types: "audio/mpeg audio/mp3 audio/mgp audio/m-mpeg audio/x-mp3 audio/x-mpeg audio/x-mpg video/mpeg"
+  mime_name: "Mpeg-1 Layer3 Audio Stream"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 63
+  mime_ext: "mp2"
+  mime_types: "video/mpeg audio/mpeg"
+  mime_name: "MPEG Audio Stream, Layer II"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 64
+  mime_ext: "mp3"
+  mime_types: "audio/mpeg audio/x-mpeg audio/mp3 audio/x-mp3 audio/mpeg3 audio/x-mpeg3 audio/mpg audio/x-mpg audio/x-mpegaudio"
+  mime_name: "MPEG Audio Stream, Layer III"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 65
+  mime_ext: "aif"
+  mime_types: "audio/aiff audio/x-aiff sound/aiff audio/rmf audio/x-rmf audio/x-pn-aiff audio/x-gsm audio/x-midi audio/vnd.qcelp"
+  mime_name: "Audio Interchange File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 66
+  mime_ext: "aiff"
+  mime_types: "audio/aiff audio/x-aiff sound/aiff audio/rmf audio/x-rmf audio/x-pn-aiff audio/x-gsm audio/mid audio/x-midi audio/vnd.qcelp"
+  mime_name: "Audio Interchange File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 67
+  mime_ext: "aifc"
+  mime_types: "audio/aiff audio/x-aiff audio/x-aifc sound/aiff audio/rmf audio/x-rmf audio/x-pn-aiff audio/x-gsm audio/x-midi audio/mid audio/vnd.qcelp"
+  mime_name: "Audio Interchange File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 68
+  mime_ext: "m3u"
+  mime_types: "audio/x-mpegurl audio/mpeg-url application/x-winamp-playlist audio/scpls audio/x-scpls"
+  mime_name: "MP3 Playlist File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 69
+  mime_ext: "ram"
+  mime_types: "audio/x-pn-realaudio audio/vnd.rn-realaudio audio/x-pm-realaudio-plugin audio/x-pn-realvideo audio/x-realaudio video/x-pn-realvideo text/plain"
+  mime_name: "RealMedia Metafile"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 70
+  mime_ext: "rm"
+  mime_types: "application/vnd.rn-realmedia audio/vnd.rn-realaudio audio/x-pn-realaudio audio/x-realaudio audio/x-pm-realaudio-plugin"
+  mime_name: "RealMedia Streaming Media"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 71
+  mime_ext: "rpm"
+  mime_types: "audio/x-pn-realaudio audio/x-pn-realaudio-plugin audio/x-pnrealaudio-plugin video/x-pn-realvideo-plugin audio/x-mpegurl application/octet-stream"
+  mime_name: "RealMedia Player Plug-in"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 72
+  mime_ext: "ra"
+  mime_types: "audio/vnd.rn-realaudio audio/x-pn-realaudio audio/x-realaudio audio/x-pm-realaudio-plugin video/x-pn-realvideo"
+  mime_name: "RealMedia Streaming Media"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 73
+  mime_ext: "wav"
+  mime_types: "audio/wav audio/x-wav audio/wave audio/x-pn-wav"
+  mime_name: "Waveform Audio"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 74
+  mime_ext: "wax"
+  mime_types: " audio/x-ms-wax"
+  mime_name: "Windows Media Audio Redirector"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 75
+  mime_ext: "wma"
+  mime_types: "audio/x-ms-wma video/x-ms-asf"
+  mime_name: "Windows Media Audio File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 76
+  mime_ext: "bmp"
+  mime_types: "image/bmp image/x-bmp image/x-bitmap image/x-xbitmap image/x-win-bitmap image/x-windows-bmp image/ms-bmp image/x-ms-bmp application/bmp application/x-bmp application/x-win-bitmap application/preview"
+  mime_name: "Windows OS/2 Bitmap Graphics"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 77
+  mime_ext: "gif"
+  mime_types: "image/gif image/x-xbitmap image/gi_"
+  mime_name: "Graphic Interchange Format"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 78
+  mime_ext: "ief"
+  mime_types: "image/ief"
+  mime_name: "Image File - Bitmap graphics"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 79
+  mime_ext: "jpeg"
+  mime_types: "image/jpeg image/jpg image/jpe_ image/pjpeg image/vnd.swiftview-jpeg"
+  mime_name: "JPEG/JIFF Image"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 80
+  mime_ext: "jpg"
+  mime_types: "image/jpeg image/jpg image/jp_ application/jpg application/x-jpg image/pjpeg image/pipeg image/vnd.swiftview-jpeg image/x-xbitmap"
+  mime_name: "JPEG/JIFF Image"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 81
+  mime_ext: "jpe"
+  mime_types: "image/jpeg"
+  mime_name: "JPEG/JIFF Image"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 82
+  mime_ext: "png"
+  mime_types: "image/png application/png application/x-png"
+  mime_name: "Portable (Public) Network Graphic"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 83
+  mime_ext: "tiff"
+  mime_types: "image/tiff"
+  mime_name: "Tagged Image Format File"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 84
+  mime_ext: "tif"
+  mime_types: "image/tif image/x-tif image/tiff image/x-tiff application/tif application/x-tif application/tiff application/x-tiff"
+  mime_name: "Tagged Image Format File"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 85
+  mime_ext: "ico"
+  mime_types: "image/ico image/x-icon application/ico application/x-ico application/x-win-bitmap image/x-win-bitmap application/octet-stream"
+  mime_name: "Windows Icon"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 86
+  mime_ext: "wbmp"
+  mime_types: "image/vnd.wap.wbmp"
+  mime_name: "Wireless Bitmap File Format"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 87
+  mime_ext: "ras"
+  mime_types: "application/ras application/x-ras image/ras"
+  mime_name: "Sun Raster Graphic"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 88
+  mime_ext: "pnm"
+  mime_types: "image/x-portable-anymap"
+  mime_name: "PBM Portable Any Map Graphic Bitmap"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 89
+  mime_ext: "pbm"
+  mime_types: "image/portable bitmap image/x-portable-bitmap image/pbm image/x-pbm"
+  mime_name: "UNIX Portable Bitmap Graphic"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 90
+  mime_ext: "pgm"
+  mime_types: "image/x-portable-graymap image/x-pgm"
+  mime_name: "Portable Graymap Graphic"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 91
+  mime_ext: "ppm"
+  mime_types: "image/x-portable-pixmap application/ppm application/x-ppm image/x-p image/x-ppm"
+  mime_name: "PBM Portable Pixelmap Graphic"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 92
+  mime_ext: "rgb"
+  mime_types: "image/rgb image/x-rgb"
+  mime_name: "Silicon Graphics RGB Bitmap"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 93
+  mime_ext: "xbm"
+  mime_types: "image/x-xpixmap image/x-xbitmap image/xpm image/x-xpm"
+  mime_name: "X Bitmap Graphic"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 94
+  mime_ext: "xpm"
+  mime_types: "image/x-xpixmap"
+  mime_name: "BMC Software Patrol UNIX Icon File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 95
+  mime_ext: "xwd"
+  mime_types: "image/x-xwindowdump image/xwd image/x-xwd application/xwd application/x-xwd"
+  mime_name: "X Windows Dump"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 96
+  mime_ext: "igs"
+  mime_types: "model/iges application/iges application/x-iges application/igs application/x-igs drawing/x-igs image/x-igs"
+  mime_name: "Initial Graphics Exchange Specification Format"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 97
+  mime_ext: "css"
+  mime_types: "application/css-stylesheet text/css"
+  mime_name: "Hypertext Cascading Style Sheet"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 98
+  mime_ext: "html"
+  mime_types: "text/html text/plain"
+  mime_name: "Hypertext Markup Language"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 99
+  mime_ext: "htm"
+  mime_types: "text/html"
+  mime_name: "Hypertext Markup Language"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 100
+  mime_ext: "txt"
+  mime_types: "text/plain application/txt browser/internal"
+  mime_name: "Text File"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 101
+  mime_ext: "rtf"
+  mime_types: "application/rtf application/x-rtf text/rtf text/richtext application/msword application/doc application/x-soffice"
+  mime_name: "Rich Text Format File"
+  mime_admin: 1
+  mime_user: 1
+-
+  mime_id: 102
+  mime_ext: "wml"
+  mime_types: "text/vnd.wap.wml text/wml"
+  mime_name: "Website META Language File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 103
+  mime_ext: "wmls"
+  mime_types: "text/vnd.wap.wmlscript"
+  mime_name: "WML Script"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 104
+  mime_ext: "etx"
+  mime_types: "text/x-setext"
+  mime_name: "SetText Structure Enhanced Text"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 105
+  mime_ext: "xml"
+  mime_types: "text/xml application/xml application/x-xml"
+  mime_name: "Extensible Markup Language File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 106
+  mime_ext: "xsl"
+  mime_types: "text/xml"
+  mime_name: "XML Stylesheet"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 107
+  mime_ext: "php"
+  mime_types: "text/php application/x-httpd-php application/php magnus-internal/shellcgi application/x-php"
+  mime_name: "PHP Script"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 108
+  mime_ext: "php3"
+  mime_types: "text/php3 application/x-httpd-php"
+  mime_name: "PHP Script"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 109
+  mime_ext: "mpeg"
+  mime_types: "video/mpeg"
+  mime_name: "MPEG Movie"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 110
+  mime_ext: "mpg"
+  mime_types: "video/mpeg video/mpg video/x-mpg video/mpeg2 application/x-pn-mpg video/x-mpeg video/x-mpeg2a audio/mpeg audio/x-mpeg image/mpg"
+  mime_name: "MPEG 1 System Stream"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 111
+  mime_ext: "mpe"
+  mime_types: "video/mpeg"
+  mime_name: "MPEG Movie Clip"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 112
+  mime_ext: "qt"
+  mime_types: "video/quicktime audio/aiff audio/x-wav video/flc"
+  mime_name: "QuickTime Movie"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 113
+  mime_ext: "mov"
+  mime_types: "video/quicktime video/x-quicktime image/mov audio/aiff audio/x-midi audio/x-wav video/avi"
+  mime_name: "QuickTime Video Clip"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 114
+  mime_ext: "avi"
+  mime_types: "video/avi video/msvideo video/x-msvideo image/avi video/xmpg2 application/x-troff-msvideo audio/aiff audio/avi"
+  mime_name: "Audio Video Interleave File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 115
+  mime_ext: "movie"
+  mime_types: "video/sgi-movie video/x-sgi-movie"
+  mime_name: "QuickTime Movie"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 116
+  mime_ext: "asf"
+  mime_types: "audio/asf application/asx video/x-ms-asf-plugin application/x-mplayer2 video/x-ms-asf application/vnd.ms-asf video/x-ms-asf-plugin video/x-ms-wm video/x-ms-wmx"
+  mime_name: "Advanced Streaming Format"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 117
+  mime_ext: "asx"
+  mime_types: "video/asx application/asx video/x-ms-asf-plugin application/x-mplayer2 video/x-ms-asf application/vnd.ms-asf video/x-ms-asf-plugin video/x-ms-wm video/x-ms-wmx video/x-la-asf"
+  mime_name: "Advanced Stream Redirector File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 118
+  mime_ext: "wmv"
+  mime_types: "video/x-ms-wmv"
+  mime_name: "Windows Media File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 119
+  mime_ext: "wvx"
+  mime_types: "video/x-ms-wvx"
+  mime_name: "Windows Media Redirector"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 120
+  mime_ext: "wm"
+  mime_types: "video/x-ms-wm"
+  mime_name: "Windows Media A/V File"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 121
+  mime_ext: "wmx"
+  mime_types: "video/x-ms-wmx"
+  mime_name: "Windows Media Player A/V Shortcut"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 122
+  mime_ext: "ice"
+  mime_types: "x-conference-xcooltalk"
+  mime_name: "Cooltalk Audio"
+  mime_admin: 0
+  mime_user: 0
+-
+  mime_id: 123
+  mime_ext: "rar"
+  mime_types: "application/octet-stream"
+  mime_name: "WinRAR Compressed Archive"
+  mime_admin: 0
+  mime_user: 0

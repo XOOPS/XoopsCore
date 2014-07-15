@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -23,9 +23,9 @@ include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 
-$itemid = PublisherRequest::getInt('itemid');
+$itemid = \Xmf\Request::getInt('itemid');
 $op = ($itemid > 0 || isset($_POST['editor'])) ? 'mod' : '';
-$op = PublisherRequest::getString('op', $op);
+$op = \Xmf\Request::getString('op', $op);
 
 if (isset($_POST['additem'])) {
     $op = 'additem';
@@ -36,10 +36,10 @@ if (isset($_POST['additem'])) {
 }
 
 // Where shall we start ?
-$submittedstartitem = PublisherRequest::getInt('submittedstartitem');
-$publishedstartitem = PublisherRequest::getInt('publishedstartitem');
-$offlinestartitem = PublisherRequest::getInt('offlinestartitem');
-$rejectedstartitem = PublisherRequest::getInt('rejectedstartitem');
+$submittedstartitem = \Xmf\Request::getInt('submittedstartitem');
+$publishedstartitem = \Xmf\Request::getInt('publishedstartitem');
+$offlinestartitem = \Xmf\Request::getInt('offlinestartitem');
+$rejectedstartitem = \Xmf\Request::getInt('rejectedstartitem');
 
 switch ($op) {
     case "clone":
@@ -79,7 +79,7 @@ switch ($op) {
         $itemObj->setVarsFromRequest();
 
         $old_status = $itemObj->getVar('status');
-        $new_status = PublisherRequest::getInt('status', _PUBLISHER_STATUS_PUBLISHED); //_PUBLISHER_STATUS_NOTSET;
+        $new_status = \Xmf\Request::getInt('status', _PUBLISHER_STATUS_PUBLISHED); //_PUBLISHER_STATUS_NOTSET;
 
         $error_msg = '';
         $redirect_msg = '';
@@ -432,8 +432,8 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
                 $page_info = _AM_PUBLISHER_ITEM_DUPLICATING_DSC;
                 break;
 
-            case "default" :
-            default :
+            case "default":
+            default:
                 $page_title = _AM_PUBLISHER_PUBLISHEDEDITING;
                 $page_info = _AM_PUBLISHER_PUBLISHEDEDITING_INFO;
                 break;
@@ -465,7 +465,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     $sform = $publisher->getForm($itemObj, 'item');
     $sform->setTitle(_AM_PUBLISHER_ITEMS);
     $sform->assign($formTpl);
-    $formTpl->display('module:publisher|publisher_submit.html');
+    $formTpl->display('module:publisher|publisher_submit.tpl');
 
     PublisherUtils::closeCollapsableBar('edititemtable', 'edititemicon');
 

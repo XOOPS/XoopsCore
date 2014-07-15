@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xmf\Module\Session;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -29,16 +31,22 @@ class PublisherUtils
      *
      * @return void
      */
-    static function cpHeader()
+    public static function cpHeader()
     {
         $xoops = Xoops::getInstance();
         $publisher = Publisher::getInstance();
         $xoops->header();
-        $xoops->theme()->addStylesheet($publisher->url('css/publisher.css'));
-        $xoops->theme()->addScript($publisher->url('js/funcs.js'));
-        $xoops->theme()->addScript($publisher->url('js/cookies.js'));
-        $xoops->theme()->addScript($publisher->url('js/ajaxupload.3.9.js'));
-        $xoops->theme()->addScript($publisher->url('js/publisher.js'));
+
+        $css = array();
+        $css[] = $publisher->path('css/publisher.css');
+        $xoops->theme()->addBaseStylesheetAssets($css);
+
+        $js = array();
+        $js[] = $publisher->path('js/funcs.js');
+        $js[] = $publisher->path('js/cookies.js');
+        $js[] = $publisher->path('js/ajaxupload.3.9.js');
+        $js[] = $publisher->path('js/publisher.js');
+        $xoops->theme()->addBaseScriptAssets($js);
     }
 
     /**
@@ -48,11 +56,12 @@ class PublisherUtils
      *
      * @return string
      */
-    static function getOrderBy($sort)
+    public static function getOrderBy($sort)
     {
         if (in_array($sort, array("datesub", "counter"))) {
             return 'DESC';
         }
+
         return 'ASC';
     }
 
@@ -66,7 +75,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function substr($str, $start, $length, $trimmarker = '...')
+    public static function substr($str, $start, $length, $trimmarker = '...')
     {
         // if the string is empty, let's get out ;-)
         if ($str == '') {
@@ -90,9 +99,9 @@ class PublisherUtils
     /**
      * @param string $document
      *
-     * @return mixed
+     * @return string
      */
-    static function html2text($document)
+    public static function html2text($document)
     {
         // PHP Manual:: function preg_replace
         // $document should contain an HTML document.
@@ -115,13 +124,14 @@ class PublisherUtils
         );
 
         $text = preg_replace($search, $replace, $document);
+
         return $text;
     }
 
     /**
-     * @return array
+     * @return string[]
      */
-    static function getAllowedImagesTypes()
+    public static function getAllowedImagesTypes()
     {
         return array(
             'jpg/jpeg', 'image/bmp', 'image/gif', 'image/jpeg', 'image/jpg', 'image/x-png', 'image/png', 'image/pjpeg'
@@ -133,7 +143,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function moduleHome($withLink = true)
+    public static function moduleHome($withLink = true)
     {
         $xoops = Xoops::getInstance();
         $publisher = Publisher::getInstance();
@@ -155,12 +165,12 @@ class PublisherUtils
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.0
      *
-     * @param       string   $source    The source
-     * @param       string   $dest      The destination
+     * @param string $source The source
+     * @param string $dest   The destination
      *
-     * @return      bool     Returns true on success, false on failure
+     * @return bool Returns true on success, false on failure
      */
-    static function copyr($source, $dest)
+    public static function copyr($source, $dest)
     {
         // Simple copy for a file
         if (is_file($source)) {
@@ -190,6 +200,7 @@ class PublisherUtils
 
         // Clean up
         $dir->close();
+
         return true;
     }
 
@@ -201,7 +212,7 @@ class PublisherUtils
      * @todo check undefined string
      * @return bool|int|string
      */
-    static function getPathStatus($item, $getStatus = false)
+    public static function getPathStatus($item, $getStatus = false)
     {
         $publisher = Publisher::getInstance();
         if ($item == 'root') {
@@ -239,7 +250,7 @@ class PublisherUtils
      *
      * @return bool
      */
-    static function mkdir($target)
+    public static function mkdir($target)
     {
         // http://www.php.net/manual/en/function.mkdir.php
         // saint at corenova.com
@@ -256,10 +267,12 @@ class PublisherUtils
             if (!XoopsLoad::fileExists($target)) {
                 $res = mkdir($target, 0777); // crawl back up & create dir tree
                 self::chmod($target);
+
                 return $res;
             }
         }
         $res = is_dir($target);
+
         return $res;
     }
 
@@ -271,7 +284,7 @@ class PublisherUtils
      *
      * @return bool
      */
-    static function chmod($target, $mode = 0777)
+    public static function chmod($target, $mode = 0777)
     {
         return @chmod($target, $mode);
     }
@@ -282,7 +295,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function getUploadDir($hasPath = true, $item = false)
+    public static function getUploadDir($hasPath = true, $item = false)
     {
         $xoops = Xoops::getInstance();
         if ($item) {
@@ -308,7 +321,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function getImageDir($item = '', $hasPath = true)
+    public static function getImageDir($item = '', $hasPath = true)
     {
         if ($item) {
             $item = "images/{$item}";
@@ -324,12 +337,13 @@ class PublisherUtils
      *
      * @return string
      */
-    static function formatErrors($errors = array())
+    public static function formatErrors($errors = array())
     {
         $ret = '';
         foreach ($errors as $value) {
             $ret .= '<br /> - ' . $value;
         }
+
         return $ret;
     }
 
@@ -340,27 +354,29 @@ class PublisherUtils
      *
      * @return bool
      */
-    static function IsUserAuthor($itemObj)
+    public static function IsUserAuthor($itemObj)
     {
         $xoops = Xoops::getInstance();
+
         return ($xoops->isUser() && is_object($itemObj) && ($xoops->user->getVar('uid') == $itemObj->getVar('uid')));
     }
 
     /**
      * Check is current user is moderator of a given article
      *
-     * @param object $itemObj
+     * @param PublisherItem $itemObj
      *
      * @return bool
      */
-    static function IsUserModerator($itemObj)
+    public static function IsUserModerator($itemObj)
     {
         $publisher = Publisher::getInstance();
         $categoriesGranted = $publisher->getPermissionHandler()->getGrantedItems('category_moderation');
+
         return (is_object($itemObj) && in_array($itemObj->getVar('categoryid'), $categoriesGranted));
     }
 
-    static function IsUserAdmin()
+    public static function IsUserAdmin()
     {
         return Publisher::getInstance()->IsUserAdmin();
     }
@@ -375,7 +391,7 @@ class PublisherUtils
      * @todo Move to category class
      * @return boolean : TRUE if the no errors occured
      */
-    static function saveCategoryPermissions($groups, $categoryid, $perm_name)
+    public static function saveCategoryPermissions($groups, $categoryid, $perm_name)
     {
         $xoops = Xoops::getInstance();
         $publisher = Publisher::getInstance();
@@ -393,6 +409,7 @@ class PublisherUtils
                 $gperm_handler->addRight($perm_name, $categoryid, $group_id, $module_id);
             }
         }
+
         return $result;
     }
 
@@ -405,7 +422,7 @@ class PublisherUtils
      *
      * @return void
      */
-    static function openCollapsableBar($tablename = '', $iconname = '', $tabletitle = '', $tabledsc = '', $open = true)
+    public static function openCollapsableBar($tablename = '', $iconname = '', $tabletitle = '', $tabledsc = '', $open = true)
     {
         $publisher = Publisher::getInstance();
         $image = 'open12.gif';
@@ -429,7 +446,7 @@ class PublisherUtils
      *
      * @return void
      */
-    static function closeCollapsableBar($name, $icon)
+    public static function closeCollapsableBar($name, $icon)
     {
         echo "</div>";
 
@@ -457,7 +474,7 @@ class PublisherUtils
      *
      * @return void
      */
-    static function setCookieVar($name, $value, $time = 0)
+    public static function setCookieVar($name, $value, $time = 0)
     {
         if ($time == 0) {
             $time = time() + 3600 * 24 * 365;
@@ -471,7 +488,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function getCookieVar($name, $default = '')
+    public static function getCookieVar($name, $default = '')
     {
         if (isset($_COOKIE[$name]) && ($_COOKIE[$name] > '')) {
             return $_COOKIE[$name];
@@ -483,7 +500,7 @@ class PublisherUtils
     /**
      * @return array
      */
-    static function getCurrentUrls()
+    public static function getCurrentUrls()
     {
         $http = strpos(XOOPS_URL, "https://") === false ? "http://" : "https://";
         $phpself = $_SERVER['PHP_SELF'];
@@ -509,9 +526,10 @@ class PublisherUtils
     /**
      * @return string
      */
-    static function getCurrentPage()
+    public static function getCurrentPage()
     {
         $urls = self::getCurrentUrls();
+
         return $urls['full'];
     }
 
@@ -524,7 +542,7 @@ class PublisherUtils
      * @todo move to ccategory class
      * @return string
      */
-    static function addCategoryOption($categoryObj, $selectedid = 0, $level = 0, $ret = '')
+    public static function addCategoryOption($categoryObj, $selectedid = 0, $level = 0, $ret = '')
     {
         $publisher = Publisher::getInstance();
 
@@ -548,6 +566,7 @@ class PublisherUtils
                 $ret .= self::addCategoryOption($subCategoryObj, $selectedid, $level);
             }
         }
+
         return $ret;
     }
 
@@ -560,7 +579,7 @@ class PublisherUtils
      * @todo move to category class
      * @return string
      */
-    static function createCategorySelect($selectedid = 0, $parentcategory = 0, $allCatOption = true, $selectname = 'options[0]')
+    public static function createCategorySelect($selectedid = 0, $parentcategory = 0, $allCatOption = true, $selectname = 'options[0]')
     {
         $publisher = Publisher::getInstance();
 
@@ -584,6 +603,7 @@ class PublisherUtils
             }
         }
         $ret .= "</select>";
+
         return $ret;
     }
 
@@ -595,7 +615,7 @@ class PublisherUtils
      * @todo move to category class
      * @return string
      */
-    static function createCategoryOptions($selectedid = 0, $parentcategory = 0, $allCatOption = true)
+    public static function createCategoryOptions($selectedid = 0, $parentcategory = 0, $allCatOption = true)
     {
         $publisher = Publisher::getInstance();
 
@@ -612,6 +632,7 @@ class PublisherUtils
                 $ret .= self::addCategoryOption($categoryObj, $selectedid);
             }
         }
+
         return $ret;
     }
 
@@ -622,7 +643,7 @@ class PublisherUtils
      * @todo check this undefined strings
      * @return void
      */
-    static function renderErrors(&$err_arr, $reseturl = '')
+    public static function renderErrors(&$err_arr, $reseturl = '')
     {
         if (is_array($err_arr) && count($err_arr) > 0) {
             echo '<div id="readOnly" class="errorMsg" style="border:1px solid #D24D00; background:#FEFECC url(' . PUBLISHER_URL . '/images/important-32.png) no-repeat 7px 50%;color:#333;padding-left:45px;">';
@@ -658,7 +679,7 @@ class PublisherUtils
      * @return string
      * @credit : xHelp module, developped by 3Dev
      */
-    static function makeURI($page, $vars = array(), $encodeAmp = true)
+    public static function makeURI($page, $vars = array(), $encodeAmp = true)
     {
         $joinStr = '';
 
@@ -682,13 +703,14 @@ class PublisherUtils
      *
      * @return string
      */
-    static function tellafriend($subject = '')
+    public static function tellafriend($subject = '')
     {
         $xoops = Xoops::getInstance();
         if (stristr($subject, '%')) {
             $subject = rawurldecode($subject);
         }
         $target_uri = $xoops->url($_SERVER['REQUEST_URI']);
+
         return $xoops->url('modules/tellafriend/index.php?target_uri=' . rawurlencode($target_uri) . '&amp;subject=' . rawurlencode($subject));
     }
 
@@ -699,7 +721,7 @@ class PublisherUtils
      *
      * @return bool|string
      */
-    static function uploadFile($another = false, $withRedirect = true, &$itemObj)
+    public static function uploadFile($another = false, $withRedirect = true, &$itemObj)
     {
         $xoops = Xoops::getInstance();
 
@@ -707,7 +729,7 @@ class PublisherUtils
 
         $itemid = isset($_POST['itemid']) ? intval($_POST['itemid']) : 0;
         $uid = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
-        $session = PublisherSession::getInstance();
+        $session = new Session();
         $session->set('publisher_file_filename', isset($_POST['item_file_name']) ? $_POST['item_file_name'] : '');
         $session->set('publisher_file_description', isset($_POST['item_file_description']) ? $_POST['item_file_description'] : '');
         $session->set('publisher_file_status', isset($_POST['item_file_status']) ? intval($_POST['item_file_status']) : 1);
@@ -764,9 +786,10 @@ class PublisherUtils
     /**
      * @return string
      */
-    static function newFeatureTag()
+    public static function newFeatureTag()
     {
         $ret = '<span style="padding-right: 4px; font-weight: bold; color: red;">' . _CO_PUBLISHER_NEW_FEATURE . '</span>';
+
         return $ret;
     }
 
@@ -791,7 +814,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function truncateTagSafe($string, $length = 80, $etc = '...', $break_words = false)
+    public static function truncateTagSafe($string, $length = 80, $etc = '...', $break_words = false)
     {
         if ($length == 0) {
             return '';
@@ -804,6 +827,7 @@ class PublisherUtils
                 $string = preg_replace('/<[^>]*$/', '', $string);
                 $string = self::closeTags($string);
             }
+
             return $string . $etc;
         } else {
             return $string;
@@ -818,7 +842,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function closeTags($string)
+    public static function closeTags($string)
     {
         // match opened tags
         if (preg_match_all('/<([a-z\:\-]+)[^\/]>/', $string, $start_tags)) {
@@ -845,6 +869,7 @@ class PublisherUtils
                 $string .= '</' . $complete_tags[$i] . '>';
             }
         }
+
         return $string;
     }
 
@@ -853,7 +878,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function ratingBar($itemid)
+    public static function ratingBar($itemid)
     {
         $xoops = Xoops::getInstance();
         $publisher = Publisher::getInstance();
@@ -898,6 +923,7 @@ class PublisherUtils
             $static_rater[] .= '<div class="publisher_static">' . _MD_PUBLISHER_VOTE_RATING . ': <strong> ' . $rating1 . '</strong>/' . $units . ' (' . $count . ' ' . $tense . ') <br /><em>' . _MD_PUBLISHER_VOTE_DISABLE . '</em></div>';
             $static_rater[] .= '</div>';
             $static_rater[] .= '</div>' . "\n\n";
+
             return join("\n", $static_rater);
         } else {
             $rater = '';
@@ -923,6 +949,7 @@ class PublisherUtils
             $rater .= '  </div>';
             $rater .= '</div>';
             $rater .= '</div>';
+
             return $rater;
         }
     }
@@ -932,7 +959,7 @@ class PublisherUtils
      *
      * @return array
      */
-    static function getEditors($allowed_editors = null)
+    public static function getEditors($allowed_editors = null)
     {
         $ret = array();
         $nohtml = false;
@@ -951,6 +978,7 @@ class PublisherUtils
                 $ret[$key]['title'] = $title;
             }
         }
+
         return $ret;
     }
 
@@ -960,10 +988,11 @@ class PublisherUtils
      *
      * @return int
      */
-    static function stringToInt($string = '', $length = 5)
+    public static function stringToInt($string = '', $length = 5)
     {
         for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= intval($string[$i]), $i++) {
         }
+
         return intval($final);
     }
 
@@ -972,7 +1001,7 @@ class PublisherUtils
      *
      * @return string
      */
-    static function convertCharset($item)
+    public static function convertCharset($item)
     {
         if (XoopsLocale::getCharset() == 'UTF-8') {
             return $item;
@@ -987,13 +1016,14 @@ class PublisherUtils
                 $unserialize[$key] = @iconv('windows-1256', 'UTF-8', $value);
             }
             $serialize = serialize($unserialize);
+
             return $serialize;
         } else {
             return @iconv('windows-1256', 'UTF-8', $item);
         }
     }
 
-    static function seoTitle($title = '', $withExt = true)
+    public static function seoTitle($title = '', $withExt = true)
     {
 
         /**
@@ -1034,13 +1064,23 @@ class PublisherUtils
             if ($withExt) {
                 $title .= '.html';
             }
+
             return $title;
         }
 
         return '';
     }
 
-    static function seoGenUrl($op, $id, $short_url = "")
+    /**
+     * seoGenUrl
+     *
+     * @param string  $op
+     * @param integer $id
+     * @param string  $short_url
+     *
+     * @return string
+     */
+    public static function seoGenUrl($op, $id, $short_url = "")
     {
         $publisher = Publisher::getInstance();
         if ($publisher->getConfig('seo_url_rewrite') != 'none') {
@@ -1075,12 +1115,12 @@ class PublisherUtils
 
     /**
      * @param string $url
-     * @param int $width
-     * @param int $height
+     * @param int    $width
+     * @param int    $height
      *
      * @return string
      */
-    static function displayFlash($url, $width = 0, $height = 0)
+    public static function displayFlash($url, $width = 0, $height = 0)
     {
         if (!$width || !$height) {
             if (!$dimension = @getimagesize($url)) {
@@ -1102,6 +1142,7 @@ class PublisherUtils
         $rp .= "<param name='wmode' value='transparent'>";
         $rp .= "<embed src='{$url}' width='{$width}' height='{$height}' quality='high' bgcolor='#FFFFFF' wmode='transparent'  pluginspage='http://www.macromedia.com/go/getflashplayer' type='application/x-shockwave-flash'></embed>";
         $rp .= "</object>";
+
         return $rp;
     }
 }

@@ -1,0 +1,627 @@
+<?php
+/*
+ You may not change or alter any portion of this comment or credits
+ of supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit authors.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Database\QueryBuilder;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
+/**
+ *  Publisher class
+ *
+ * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package         Publisher
+ * @since           1.0
+ * @author          trabis <lusopoemas@gmail.com>
+ * @author          The SmartFactory <www.smartfactory.ca>
+ * @version         $Id$
+ */
+
+include_once dirname(__DIR__) . '/include/common.php';
+
+/**
+ * PublisherBaseObjectHandler class
+ *
+ * @package   Publisher
+ * @since     1.0
+ * @author    trabis <lusopoemas@gmail.com>
+ * @author    Nazar Aziz <nazar@panthersoftware.com>
+ * @copyright The XUUPS Project http://sourceforge.net/projects/xuups/
+ * @license   GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ */
+abstract class PublisherBaseObjectHandler extends XoopsObjectHandler
+{
+    /**
+     * Database connection
+     *
+     * @var    Xoops\Core\Database\Connection
+     */
+    public $_db;
+
+    /**
+     * Autoincrementing DB fieldname
+     *
+     * @var string
+     */
+    public $_idfield = 'id';
+
+    public $_dbtable = '';
+
+    public $classname = '';
+
+    /**
+     * @param Xoops\Core\Database\Connection $db
+     */
+    public function init(Connection $db)
+    {
+        $this->_db = $db;
+    }
+
+    /**
+     * create a new  object
+     *
+     * @return object {@link publisherBaseObject}
+     * @access public
+     */
+    public function &create()
+    {
+        return new $this->classname();
+    }
+
+    /**
+     * retrieve an object from the database, based on. use in child classes
+     *
+     * @param int $id ID
+     *
+     * @return mixed object if id exists, false if not
+     * @access public
+     */
+    public function &get($id)
+    {
+        $id = intval($id);
+        if ($id > 0) {
+            $qb = $this->_selectQuery(new Criteria($this->_idfield, $id));
+            $result = $qb->execute();
+            $allRows = $result->fetchAll(\PDO::FETCH_ASSOC);
+            $numrows = count($allRows);
+            if ($numrows == 1) {
+                $obj = new $this->classname(reset($allRows));
+                return $obj;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * retrieve objects from the database
+     *
+     * @param object $criteria  {@link CriteriaElement} conditions to be met
+     * @param bool   $id_as_key Should the department ID be used as array key
+     *
+     * @return array array of objects
+     * @access  public
+     */
+    public function &getObjects($criteria = null, $id_as_key = false)
+    {
+        $ret = array();
+        $limit = $start = 0;
+        $qb = $this->_selectQuery($criteria);
+        $id = $this->_idfield;
+        $result = $qb->execute();
+
+        // Add each returned record to the result array
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            $obj = new $this->classname($myrow);
+            if (!$id_as_key) {
+                $ret[] = $obj;
+            } else {
+                $ret[$obj->getVar($id)] = $obj;
+            }
+            unset($obj);
+        }
+        return $ret;
+    }
+
+    /**
+     * @param object $obj
+     * @param bool   $force
+     *
+     * @return bool|void
+     */
+    public function insert(&$obj, $force = false)
+    {
+        // Make sure object is of correct type
+        if (strcasecmp($this->classname, get_class($obj)) != 0) {
+            return false;
+        }
+        // Make sure object needs to be stored in DB
+        if (!$obj->isDirty()) {
+            return true;
+        }
+        // Make sure object fields are filled with valid values
+        if (!$obj->cleanVars()) {
+            return false;
+        }
+        // Create query for DB update
+        if ($obj->isNew()) {
+            // Determine next auto-gen ID for table
+            //$this->_db->genId($this->_db->prefix($this->_dbtable) . '_uid_seq');
+            $result = $this->_insertQuery($obj);
+            //if ($result) {
+            //    //Make sure auto-gen ID is stored correctly in object
+            //    $obj->assignVar($this->_idfield, $this->_db->lastInsertId());
+            //}
+        } else {
+            $qb = $this->_updateQuery($obj);
+            $result = $qb->execute();
+        }
+        // Update DB
+        //if (false != $force) {
+        //    $result = $this->_db->queryF($sql);
+        //} else {
+        //    $result = $this->_db->query($sql);
+        //}
+        if (!$result) {
+            $obj->setErrors($this->_db->errorInfo());
+            return false;
+        }
+        //if ($obj->isNew()) {
+        //    $obj->assignVar($this->_idfield, $this->_db->lastInsertId());
+        //}
+        return true;
+    }
+
+    /**
+     * Create a "select" SQL query
+     *
+     * @param null|object $criteria {@link CriteriaElement} to match
+     *
+     * @return QueryBuilder a Xoops QueryBuilder instance
+     * @access    private
+     */
+    protected function _selectQuery($criteria = null)
+    {
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->select('*')
+            ->fromPrefix($this->_dbtable, '');
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $qb = $criteria->renderQb($qb, '');
+        }
+
+        return $qb;
+    }
+
+    /**
+     * count objects matching a criteria
+     *
+     * @param object $criteria {@link CriteriaElement} to match
+     *
+     * @return int count of objects
+     * @access public
+     */
+    public function getCount($criteria = null)
+    {
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->select('COUNT(*)')
+            ->fromPrefix($this->_dbtable, '');
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $qb = $criteria->renderQb($qb, '');
+        }
+        $result = $qb->execute();
+        $count = $result->fetchColumn();
+        return $count;
+    }
+
+    /**
+     * delete object based on id
+     *
+     * @param object $obj   {@link XoopsObject} to delete
+     * @param bool   $force override XOOPS delete protection
+     *
+     * @return bool deletion successful?
+     * @access public
+     */
+    public function delete(&$obj, $force = false)
+    {
+        if (strcasecmp($this->classname, get_class($obj)) != 0) {
+            return false;
+        }
+        $qb = $this->_deleteQuery($obj);
+        //if (false != $force) {
+        //    $result = $this->_db->queryF($sql);
+        //} else {
+        //    $result = $this->_db->query($sql);
+        //}
+        $result = $qb->execute();
+        return $result ? true : false;
+    }
+
+    /**
+     * delete department matching a set of conditions
+     *
+     * @param object $criteria {@link CriteriaElement}
+     *
+     * @return bool FALSE if deletion failed
+     * @access    public
+     */
+    public function deleteAll($criteria = null)
+    {
+        $sql = 'DELETE FROM ' . $this->_db->prefix($this->_dbtable);
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $sql .= ' ' . $criteria->renderWhere();
+        }
+        if (!$result = $this->_db->query($sql)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Assign a value to 1 field for tickets matching a set of conditions
+     *
+     * @param string     $fieldname
+     * @param string     $fieldvalue
+     * @param object     $criteria {@link CriteriaElement}
+     *
+     * @return bool FALSE if update failed
+     * @access    public
+     */
+    public function updateAll($fieldname, $fieldvalue, $criteria = null)
+    {
+        $set_clause = is_numeric($fieldvalue) ? $fieldname . ' = ' . $fieldvalue : $fieldname . ' = ' . $this->_db->quoteString($fieldvalue);
+        $sql = 'UPDATE ' . $this->_db->prefix($this->_dbtable) . ' SET ' . $set_clause;
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $sql .= ' ' . $criteria->renderWhere();
+        }
+        if (!$result = $this->_db->query($sql)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param $obj
+     *
+     * @return bool
+     */
+    public function _insertQuery(&$obj)
+    {
+        return false;
+    }
+
+    /**
+     * @param $obj
+     *
+     * @return bool
+     */
+    public function _updateQuery(&$obj)
+    {
+        return false;
+    }
+
+    /**
+     * @param $obj
+     *
+     * @return bool
+     */
+    public function _deleteQuery(&$obj)
+    {
+        return false;
+    }
+
+    /**
+     * Singleton - prevent multiple instances of this class
+     *
+     * @param object $db {@link XoopsHandlerFactory}
+     *
+     * @return object {@link pagesCategoryHandler}
+     * @access public
+     */
+    public function &getInstance($db)
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $classname = $this->classname . 'Handler';
+            $instance = new $classname($db);
+        }
+        return $instance;
+    }
+}
+
+/**
+ * PublisherMimetype class
+ *
+ * @author  Eric Juden <ericj@epcusa.com>
+ * @access public
+ * @package publisher
+ */
+class PublisherMimetype extends XoopsObject
+{
+
+    /**
+     * @param null|int $id
+     */
+    public function __construct($id = null)
+    {
+        $this->initVar('mime_id', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('mime_ext', XOBJ_DTYPE_TXTBOX, null, true, 60);
+        $this->initVar('mime_types', XOBJ_DTYPE_TXTAREA, null, false, 1024);
+        $this->initVar('mime_name', XOBJ_DTYPE_TXTBOX, null, true, 255);
+        $this->initVar('mime_admin', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('mime_user', XOBJ_DTYPE_INT, null, false);
+        if (isset($id)) {
+            if (is_array($id)) {
+                $this->assignVars($id);
+            }
+        } else {
+            $this->setNew();
+        }
+    }
+}
+
+class PublisherMimetypeHandler extends PublisherBaseObjectHandler
+{
+    /**
+     * Name of child class
+     *
+     * @var    string
+     */
+    public $classname = 'publishermimetype';
+
+    /**
+     * DB Table Name
+     *
+     * @var string
+     */
+    public $_dbtable = 'publisher_mimetypes';
+
+    /**
+     * Constructor
+     *
+     * @param Xoops\Core\Database\Connection $db Xoops Connection object
+     */
+    public function __construct(Connection $db)
+    {
+        parent::init($db);
+    }
+
+    /**
+     * retrieve a mimetype object from the database
+     *
+     * @param    int    $id    ID of mimetype
+     *
+     * @return    object    {@link PublisherMimetype}
+     * @access    public
+     */
+    public function &get($id)
+    {
+        $id = intval($id);
+        if ($id > 0) {
+            $qb = $this->_selectQuery(new Criteria('mime_id', $id));
+            if (!$result = $qb->execute()) {
+                return false;
+            }
+
+            $allRows = $result->fetchAll(\PDO::FETCH_ASSOC);
+            $numrows = count($allRows);
+            if ($numrows == 1) {
+                $obj = new $this->classname(reset($allRows));
+                return $obj;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * retrieve objects from the database
+     *
+     * @param object $criteria {@link CriteriaElement} conditions to be met
+     *
+     * @return array array of {@link PublisherMimetype} objects
+     * @access    public
+     */
+    public function &getObjects($criteria = null)
+    {
+        $ret = array();
+
+        $qb = $this->_selectQuery($criteria);
+        $result = $qb->execute();
+
+        // Add each returned record to the result array
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            $obj = new $this->classname($myrow);
+            $ret[] = $obj;
+            unset($obj);
+        }
+        return $ret;
+    }
+
+    /**
+     * Format mime_types into array
+     *
+     * @param null $mime_ext
+     *
+     * @return array array of mime_types
+     */
+    public function getArray($mime_ext = null)
+    {
+        global $publisher_isAdmin, $xoopsUser;
+        $ret = array();
+        if ($xoopsUser && !$publisher_isAdmin) {
+            // For user uploading
+            $crit = new CriteriaCompo(new Criteria('mime_user', 1)); //$sql = sprintf("SELECT * FROM %s WHERE mime_user=1", $xoopsDB->prefix('publisher_mimetypes'));
+        } elseif ($xoopsUser && $publisher_isAdmin) {
+            // For admin uploading
+            $crit = new CriteriaCompo(new Criteria('mime_admin', 1)); //$sql = sprintf("SELECT * FROM %s WHERE mime_admin=1", $xoopsDB->prefix('publisher_mimetypes'));
+        } else {
+            return $ret;
+        }
+        if ($mime_ext) {
+            $crit->add(new Criteria('mime_ext', $mime_ext));
+        }
+        $result = $this->getObjects($crit);
+        // if no records from db, return empty array
+        if (!$result) {
+            return $ret;
+        }
+        foreach ($result as $mime) {
+            $line = explode(" ", $mime->getVar('mime_types'));
+            foreach ($line as $row) {
+                $ret[] = array('type' => $row, 'ext' => $mime->getVar('mime_ext'));
+            }
+        }
+        return $ret;
+    }
+
+    /**
+     * Checks to see if the user uploading the file has permissions to upload this mimetype
+     *
+     * @param string $post_field file being uploaded
+     *
+     * @return bool false if no permission, return mimetype if has permission
+     * @access public
+     */
+    public function checkMimeTypes($post_field)
+    {
+        $ret = false;
+        $allowed_mimetypes = $this->getArrayByType();
+        if (empty($allowed_mimetypes)) {
+            return $ret;
+        }
+        foreach ($allowed_mimetypes as $mime) {
+            if ($mime == $_FILES[$post_field]['type']) {
+                $ret = $mime;
+                break;
+            }
+        }
+        return $ret;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArrayByType()
+    {
+        static $array = array();
+        if (empty($array)) {
+            $items = $this->getArray();
+            foreach ($items as $item) {
+                $array[] = $item['type'];
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Create a "select" SQL query
+     *
+     * @param null|object $criteria {@link CriteriaElement} to match
+     *
+     * @return QueryBuilder a Xoops QueryBuilder instance
+     * @access    private
+     */
+    protected function _selectQuery($criteria = null)
+    {
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->select('*')
+            ->fromPrefix($this->_dbtable, '');
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+            $qb = $criteria->renderQb($qb, '');
+        }
+
+        return $qb;
+    }
+
+    /**
+     * _insertQuery - insert object into table
+     *
+     * @param $obj
+     *
+     * @return bool|string
+     */
+    public function _insertQuery(&$obj)
+    {
+        // Copy all object vars into local variables
+        foreach ($obj->getValues() as $k => $v) {
+            ${$k} = $v;
+        }
+        $values = array(
+            'mime_id'    => $mime_id   ,
+            'mime_ext'   => $mime_ext  ,
+            'mime_types' => $mime_types,
+            'mime_name'  => $mime_name ,
+            'mime_admin' => $mime_admin,
+            'mime_user'  => $mime_user ,
+        );
+        $types = array(
+            \PDO::PARAM_INT,
+            \PDO::PARAM_STR,
+            \PDO::PARAM_STR,
+            \PDO::PARAM_STR,
+            \PDO::PARAM_INT,
+            \PDO::PARAM_INT,
+        );
+        $result = $this->_db->insertPrefix($this->_dbtable, $values, $types);
+        return $result;
+    }
+
+    /**
+     * @param $obj
+     *
+     * @return QueryBuilder a Xoops QueryBuilder instance
+     */
+    public function _updateQuery(&$obj)
+    {
+        // Copy all object vars into local variables
+        foreach ($obj->getValues() as $k => $v) {
+            ${$k} = $v;
+        }
+
+        $qb = $this->_db->createXoopsQueryBuilder()
+            ->updatePrefix($this->_dbtable, '')
+            ->set('mime_ext', ':mime_ext')
+            ->set('mime_types', ':mime_types')
+            ->set('mime_name', ':mime_name')
+            ->set('mime_admin', ':mime_admin')
+            ->set('mime_user', ':mime_user')
+            ->where('mime_id = :mime_id')
+            ->setParameter(':mime_ext', $mime_ext, \PDO::PARAM_STR)
+            ->setParameter(':mime_types', $mime_types, \PDO::PARAM_STR)
+            ->setParameter(':mime_name', $mime_name, \PDO::PARAM_STR)
+            ->setParameter(':mime_admin', $mime_admin, \PDO::PARAM_INT)
+            ->setParameter(':mime_user', $mime_user, \PDO::PARAM_INT)
+            ->setParameter(':mime_id', $mime_id, \PDO::PARAM_INT);
+
+        return $qb;
+    }
+
+    /**
+     * _deleteQuery - create querybuilder to a delete mimetype object
+     *
+     * @param $obj
+     *
+     * @return QueryBuilder a Xoops QueryBuilder instance
+     */
+    public function _deleteQuery(&$obj)
+    {
+        $qb = $this->_db->createXoopsQueryBuilder();
+        $qb ->deletePrefix($this->_dbtable, '')
+            ->where('mime_id = :mimeid')
+            ->setParameter(':mimeid', $obj->getVar('mime_id'), \PDO::PARAM_INT);
+
+        return $qb;
+
+    }
+}

@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Include
  * @since           1.0
@@ -19,8 +19,6 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
 /** Get item fields: title, content, time, link, uid, uname, tags **/
 function publisher_tag_iteminfo(&$items)
