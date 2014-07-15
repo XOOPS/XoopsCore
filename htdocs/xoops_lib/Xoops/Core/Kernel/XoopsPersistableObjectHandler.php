@@ -218,7 +218,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     public function create($isNew = true)
     {
 		if (empty($this->className)) return false;
-		
+
         /* @var $obj XoopsObject */
         $obj = new $this->className();
         if ($isNew === true) {
@@ -318,17 +318,17 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * delete all objects matching the conditions
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} with conditions to meet
-     * @param bool                 $force    force to delete
-     * @param bool                 $asObject delete in object way: instantiate all objects
+     * @param CriteriaElement $criteria {@link CriteriaElement} with conditions to meet
+     * @param boolean         $force    force to delete
+     * @param boolean         $asObject delete in object way: instantiate all objects
      *                                       and delete one by one
      *
      * @return bool
      */
-    public function deleteAll(CriteriaElement $criteria = null, $force = true, $asObject = false)
+    public function deleteAll(CriteriaElement $criteria, $force = true, $asObject = false)
     {
 		if (empty($criteria)) return false;
-		
+
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
         return $handler->deleteAll($criteria, $force, $asObject);
@@ -337,14 +337,14 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Change a field for objects with a certain criteria
      *
-     * @param string               $fieldname  Name of the field
-     * @param mixed                $fieldvalue Value to write
-     * @param CriteriaElement|null $criteria   {@link CriteriaElement}
-     * @param bool                 $force      force to query
+     * @param string          $fieldname  Name of the field
+     * @param mixed           $fieldvalue Value to write
+     * @param CriteriaElement $criteria   {@link CriteriaElement}
+     * @param boolean         $force      force to query
      *
      * @return bool
      */
-    public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria = null, $force = false)
+    public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria, $force = false)
     {
 		if (empty($criteria)) return false;
 
