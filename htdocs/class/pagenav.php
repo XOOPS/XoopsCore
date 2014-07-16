@@ -206,7 +206,7 @@ class XoopsPageNav
      * Create navigation with images
      *
      * @param integer $offset
-     * @return string|false
+     * @return string
      */
     public function renderImageNav($offset = 4)
     {

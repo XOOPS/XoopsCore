@@ -73,7 +73,7 @@ class Xoops_Registry extends ArrayObject
      *
      * @param Xoops_Registry $registry An object instance of type Xoops_Registry,
      *   or a subclass.
-     * @return void
+     * @return false|null
      */
     public static function setInstance(Xoops_Registry $registry)
     {
@@ -199,7 +199,7 @@ class Xoops_Registry extends ArrayObject
 
     /**
      * @param string $index
-     * @return mixed
+     * @return boolean
      *
      * Workaround for http://bugs.php.net/bug.php?id=40442 (ZF-960).
      */

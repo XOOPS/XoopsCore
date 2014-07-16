@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -23,8 +23,8 @@ include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 //getting the values
-$rating = PublisherRequest::getInt('rating');
-$itemid = PublisherRequest::getInt('itemid');
+$rating = \Xmf\Request::getInt('rating');
+$itemid = \Xmf\Request::getInt('itemid');
 
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $gperm_handler = $publisher->getGrouppermHandler();
@@ -32,7 +32,9 @@ $hModConfig = $xoops->getHandlerConfig();
 $module_id = $publisher->getModule()->getVar('mid');
 
 //Checking permissions
-if (!$publisher->getConfig('perm_rating') || !$gperm_handler->checkRight('global', _PUBLISHER_RATE, $groups, $module_id)) {
+if (!$publisher->getConfig('perm_rating')
+    || !$gperm_handler->checkRight('global', _PUBLISHER_RATE, $groups, $module_id)
+) {
     $xoops->redirect(PUBLISHER_URL . '/item.php?itemid=' . $itemid, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 

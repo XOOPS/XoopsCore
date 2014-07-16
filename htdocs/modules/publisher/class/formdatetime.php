@@ -12,7 +12,7 @@
  *  Publisher class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -24,6 +24,14 @@ include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherFormDateTime extends XoopsFormElementTray
 {
+    /**
+     * __construct
+     *
+     * @param string  $caption
+     * @param string  $name
+     * @param integer $size
+     * @param integer $value
+     */
     public function __construct($caption, $name, $size = 15, $value = 0)
     {
         parent::__construct($caption, '&nbsp;');

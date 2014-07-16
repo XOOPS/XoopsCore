@@ -504,7 +504,7 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
 
     /**
      * @param mixed $var
-     * @param array $globalKeys
+     * @param string[] $globalKeys
      */
     private function _filterUserData(&$var, $globalKeys = array())
     {

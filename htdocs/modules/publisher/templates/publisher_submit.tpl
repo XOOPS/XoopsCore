@@ -1,8 +1,8 @@
-<{include file="module:publisher|publisher_header.html" item=$item}>
+<{include file="module:publisher|publisher_header.tpl" item=$item}>
 
 <{if $op == 'preview'}>
 <br/>
-<{include file="module:publisher|publisher_singleitem.html" item=$item}>
+<{include file="module:publisher|publisher_singleitem.tpl" item=$item}>
 <{/if}>
 
 <div class="publisher_infotitle"><{$lang_intro_title}></div>

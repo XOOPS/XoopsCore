@@ -328,7 +328,7 @@ class RpcIntHandler extends XmlTagHandler
 {
 
     /**
-    * @return array
+    * @return string[]
     */
     function getName()
     {

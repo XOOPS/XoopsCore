@@ -245,7 +245,8 @@ abstract class XoopsFormElement
     /**
      * set the "class" attribute for the element
      *
-     * @param $class "class" attribute for the element
+     * @param string $class "class" attribute for the element
+     *
      * @return void
      */
     public function setClass($class)
@@ -279,7 +280,9 @@ abstract class XoopsFormElement
     /**
      * set the "pattern" attribute for the element
      *
-     * @param $pattern "pattern" attribute for the element
+     * @param string $pattern             "pattern" attribute for the element
+     * @param string $pattern_description pattern description
+     *
      * @return void
      */
     public function setPattern($pattern, $pattern_description = '')
@@ -327,7 +330,7 @@ abstract class XoopsFormElement
             if (!empty($datalist)) {
                 $this->_datalist = $datalist;
             }
-        }else{
+        } else {
             $this->_datalist[] = trim($datalist);
         }
     }
@@ -366,7 +369,8 @@ abstract class XoopsFormElement
     /**
      * set the caption for the element
      *
-     * @param string $caption
+     * @param string $caption caption for element
+     *
      * @return void
      */
     public function setCaption($caption)
@@ -378,6 +382,7 @@ abstract class XoopsFormElement
      * get the caption for the element
      *
      * @param bool $encode To sanitizer the text?
+     *
      * @return string
      */
     public function getCaption($encode = false)
@@ -467,9 +472,11 @@ abstract class XoopsFormElement
      * This string will be inserted verbatim and unvalidated in the
      * element's tag. Know what you are doing!
      *
-     * @param string $extra
-     * @param bool $replace If true, passed string will replace current content otherwise it will be appended to it
-     * @return array New content of the extra string
+     * @param string  $extra extra raw text to insert into form
+     * @param boolean $replace If true, passed string will replace current
+     *                         content, otherwise it will be appended to it
+     *
+     * @return string[] New content of the extra string
      */
     public function setExtra($extra, $replace = false)
     {
@@ -484,7 +491,8 @@ abstract class XoopsFormElement
     /**
      * Get the extra attributes for the element
      *
-     * @param bool $encode To sanitizer the text?
+     * @param boolean $encode To sanitizer the text?
+     *
      * @return string
      */
     public function getExtra($encode = false)
@@ -504,7 +512,7 @@ abstract class XoopsFormElement
      *
      * @seealso XoopsForm::renderValidationJS
      *
-     * @return bool|string
+     * @return string|false
      */
     public function renderValidationJS()
     {
@@ -529,7 +537,7 @@ abstract class XoopsFormElement
     /**
      * get the maximum columns for a field
      *
-     * @param bool $encode To sanitizer the text?
+     * @param boolean $encode To sanitizer the text?
      * @return integer
      */
     public function getMaxcols($encode = false)

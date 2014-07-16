@@ -252,6 +252,9 @@ if (!class_exists('XoopsGTicket')) {
             echo '<html><head><title>' . $this->messages['err_general'] . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>' . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors()) . $table . $form . '</body></html>';
         }
 
+        /**
+         * @param string $key_name
+         */
         function extract_post_recursive($key_name, $tmp_array)
         {
             $table = '';

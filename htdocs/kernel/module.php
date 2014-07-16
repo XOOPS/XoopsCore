@@ -20,7 +20,6 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
@@ -266,7 +265,7 @@ class XoopsModule extends XoopsObject
      * @param integer $limit
      * @param integer $offset
      * @param integer $userid
-     * @return mixed Search result.
+     * @return boolean Search result.
      */
     public function search($term = '', $andor = 'AND', $limit = 0, $offset = 0, $userid = 0)
     {

@@ -98,7 +98,7 @@ class XoopsCaptcha
     /**
      * XoopsCaptcha::loadConfig()
      *
-     * @param string $filename
+     * @param string $name
      *
      * @return array
      */
@@ -204,7 +204,7 @@ class XoopsCaptcha
      *
      * @param string $name
      *
-     * @return XoopsCatchaMethod
+     * @return XoopsCaptchaMethod|null
      */
     public function loadHandler($name = null)
     {
@@ -330,7 +330,7 @@ class XoopsCaptcha
     /**
      * XoopsCaptcha::getMessage()
      *
-     * @return sdtring
+     * @return string
      */
     public function getMessage()
     {

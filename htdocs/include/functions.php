@@ -20,7 +20,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * @deprecated
- * @param mixed $name
+ * @param string $name
  * @param mixed $optional
  * @return XoopsObjectHandler|XoopsPersistableObjectHandler|null
  */
@@ -99,7 +99,7 @@ function xoops_setActiveModules()
 
 /**
  * @deprecated
- * @param $dirname
+ * @param string $dirname
  * @return bool
  */
 function xoops_isActiveModule($dirname)
@@ -229,7 +229,7 @@ function xoops_makepass()
  * @deprecated
  * @param string $email
  * @param bool $antispam
- * @return bool|mixed
+ * @return false|string
  */
 function checkEmail($email, $antispam = false)
 {
@@ -263,7 +263,7 @@ function xoops_getbanner()
 
 /**
  * @deprecated
- * @param $url
+ * @param string $url
  * @param int $time
  * @param string $message
  * @param bool $addredirect
@@ -343,7 +343,7 @@ function xoops_substr($str, $start, $length, $trimmarker = '...')
 /**
  * @deprecated
  * @param int $module_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_notification_deletebymodule($module_id)
 {
@@ -354,7 +354,7 @@ function xoops_notification_deletebymodule($module_id)
 /**
  * @deprecated
  * @param int $user_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_notification_deletebyuser($user_id)
 {
@@ -367,7 +367,7 @@ function xoops_notification_deletebyuser($user_id)
  * @param $module_id
  * @param $category
  * @param $item_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_notification_deletebyitem($module_id, $category, $item_id)
 {
@@ -391,7 +391,7 @@ function xoops_comment_count($module_id, $item_id = null)
  * @deprecated
  * @param int $module_id
  * @param int $item_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_comment_delete($module_id, $item_id)
 {
@@ -594,7 +594,7 @@ if (!defined('ENT_SUBSTITUTE')) {
  * for 5.3 and in >5.4
  *
  * @param string $string              string to be encoded
- * @param mixed  $dummy_flags         ignored - for call compatibility only
+ * @param integer  $dummy_flags         ignored - for call compatibility only
  * @param mixed  $dummy_encoding      ignored - for call compatibility only
  * @param mixed  $dummy_double_encode ignored - for call compatibility only
  *

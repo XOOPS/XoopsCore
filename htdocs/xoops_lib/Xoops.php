@@ -196,7 +196,7 @@ class Xoops
     /**
      * get the asset utility
      *
-     * @return \Xoops\Core\Asset instance
+     * @return Xoops\Core\Assets instance
      */
     public function assets()
     {
@@ -212,7 +212,7 @@ class Xoops
      *
      * @param string $service - service name
      *
-     * @return \Xoops\Core\Service\Manager instance
+     * @return Xoops\Core\Service\Provider instance
      */
     public function service($service)
     {
@@ -405,7 +405,7 @@ class Xoops
      * @param string $path
      * @param string $error_type
      *
-     * @return string|bool
+     * @return string|false
      */
     public function pathExists($path, $error_type)
     {
@@ -529,7 +529,7 @@ class Xoops
     /**
      * @param string $tpl_name
      *
-     * @return bool
+     * @return null|boolean
      */
     public function header($tpl_name = null)
     {
@@ -602,7 +602,7 @@ class Xoops
     }
 
     /**
-     * @return bool
+     * @return false|null
      */
     public function footer()
     {
@@ -843,7 +843,7 @@ class Xoops
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      * @param mixed $optional
      *
      * @return XoopsObjectHandler|XoopsPersistableObjectHandler|null
@@ -1219,7 +1219,7 @@ class Xoops
     }
 
     /**
-     * @param mixed  $msg
+     * @param string  $msg
      * @param string $title
      *
      * @return void
@@ -1231,7 +1231,7 @@ class Xoops
     }
 
     /**
-     * @param mixed  $msg
+     * @param string  $msg
      * @param string $title
      *
      * @return void
@@ -1339,7 +1339,7 @@ class Xoops
      * @param string $email
      * @param bool   $antispam
      *
-     * @return bool|mixed
+     * @return false|string
      */
     public function checkEmail($email, $antispam = false)
     {
@@ -1468,7 +1468,7 @@ class Xoops
     }
 
     /**
-     * @param $key
+     * @param string $key
      *
      * @return string
      */
@@ -1712,7 +1712,7 @@ class Xoops
     /**
      * @param string $dirname
      *
-     * @return
+     * @return array
      */
     public function getModuleConfigs($dirname = '')
     {

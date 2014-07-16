@@ -53,7 +53,7 @@ class MytsSyntaxhighlight extends MyTextSanitizerExtension
 
     /**
      * @param string $text
-     * @return mixed|string
+     * @return string
      */
     public function php($text)
     {

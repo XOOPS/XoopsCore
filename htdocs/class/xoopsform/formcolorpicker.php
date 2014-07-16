@@ -26,8 +26,8 @@ class XoopsFormColorPicker extends XoopsFormText
     /**
      * __construct
      *
-     * @param mixed  $caption field caption
-     * @param mixed  $name    field name
+     * @param string $caption field caption
+     * @param string $name    field name
      * @param string $value   field value
      */
     public function __construct($caption, $name, $value = '#FFFFFF')

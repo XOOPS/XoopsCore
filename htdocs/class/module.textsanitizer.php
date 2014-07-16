@@ -464,7 +464,7 @@ class MyTextSanitizer
      *
      * @todo : To be improved
      *
-     * @param $text
+     * @param string $text
      * @return mixed
      */
     public function filterXss($text)

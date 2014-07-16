@@ -119,7 +119,7 @@ class Admin
     /**
      * Add config line
      *
-     * @param mixed  $value line value - a string or array of values
+     * @param string  $value line value - a string or array of values
      * @param string $type  type of line default, folder, chmod, extension, module
      *
      * @return bool

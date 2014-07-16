@@ -369,7 +369,7 @@ class XoopsFileHandler
      * @param string $name the name of the file to make safe if different from $this->name
      * @param string $ext  the extension of the file
      *
-     * @return mixed
+     * @return string
      */
     public function safe($name = null, $ext = null)
     {
@@ -385,7 +385,7 @@ class XoopsFileHandler
     /**
      * Get md5 Checksum of file with previous check of Filesize
      *
-     * @param mixed $maxsize in MB or true to force
+     * @param integer $maxsize in MB or true to force
      *
      * @return string md5 Checksum {@link http://php.net/md5_file See md5_file()}
      * @access public

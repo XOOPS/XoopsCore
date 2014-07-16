@@ -253,7 +253,7 @@ class XoopsSessionHandler
      * @param string $sess_id session ID
      * @param int    $expire  Time in seconds until a session expires
      *
-     * @return bool
+     * @return boolean|null
      **/
     public function update_cookie($sess_id = null, $expire = null)
     {

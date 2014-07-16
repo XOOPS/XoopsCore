@@ -27,7 +27,7 @@ class MytsWiki extends MyTextSanitizerExtension
 {
     /**
      * @param int $textarea_id
-     * @return array
+     * @return string[]
      */
     public function encode($textarea_id)
     {
@@ -74,7 +74,6 @@ EOH;
     }
 
     /**
-     * @param string $text
      * @return string
      */
     public static function decode ($url, $width, $height)

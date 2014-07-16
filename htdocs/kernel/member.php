@@ -440,6 +440,9 @@ class XoopsMemberHandler
      */
     public function updateUsersByField($fieldName, $fieldValue, CriteriaElement $criteria = null)
     {
+        if (is_null($criteria)) {
+            $criteria = new Criteria(''); // empty criteria resolves to 'WHERE (1)'
+        }
         return $this->_uHandler->updateAll($fieldName, $fieldValue, $criteria);
     }
 

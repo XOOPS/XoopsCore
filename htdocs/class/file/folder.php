@@ -132,7 +132,7 @@ class XoopsFolderHandler
      *
      * @param string $path Path to the directory to change to
      *
-     * @return bool|string The new path. Returns false on failure
+     * @return string|false The new path. Returns false on failure
      * @access public
      */
     public function cd($path)
@@ -712,7 +712,7 @@ class XoopsFolderHandler
      *
      * @param array $options (to, from, chmod, skip)
      *
-     * @return boolean Success
+     * @return string|false Success
      * @access public
      */
     public function move($options)

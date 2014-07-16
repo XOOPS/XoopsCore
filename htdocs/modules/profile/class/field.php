@@ -240,7 +240,7 @@ class ProfileField extends XoopsObject
      * @param XoopsUser $user {@link XoopsUser} object to get the value of
      * @param profileProfile $profile object to get the value of
      *
-     * @return mixed
+     * @return string
      **/
     public function getOutputValue(XoopsUser &$user, ProfileProfile $profile)
     {
@@ -620,7 +620,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     /**
      * Get array of standard variable names (user table)
      *
-     * @return array
+     * @return string[]
      */
     public function getUserVars()
     {
