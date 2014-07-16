@@ -132,7 +132,7 @@ class Criteria extends CriteriaElement
                 }
                 $clause = '(|' . $clause . ')';
             } else {
-                $clause = "(" . $this->column . $this->operator . $this->value . ")";
+                $clause = "(" . $this->column . ' ' . $this->operator . ' ' . $this->value . ")";
             }
         }
         return $clause;
@@ -161,7 +161,7 @@ class Criteria extends CriteriaElement
     public function renderQb(QueryBuilder $qb = null, $whereMode = '')
     {
         if ($qb==null) { // initialize querybuilder if not passed in
-            $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+            $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $whereMode = ''; // first entry in new instance must be where
         }
         $expr = $this->buildExpressionQb($qb);

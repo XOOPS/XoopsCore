@@ -144,7 +144,7 @@ class CriteriaCompo extends CriteriaElement
     public function renderQb(QueryBuilder $qb = null, $whereMode = '')
     {
         if ($qb==null) {
-            $qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
+            $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
             $whereMode = ''; // first entry in new instance must be where
         }
 

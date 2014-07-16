@@ -56,27 +56,58 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
 	
     public function test_render()
 	{
-		$this->markTestIncomplete();
+		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$condition = 'AND';
+        $criteria = new $this->myclass($criteria_element, $condition);
+        $this->assertInstanceOf($this->myclass, $criteria);
+		$x = $criteria->render();
+		$this->assertSame('(1)', $x);
     }
 	
     public function test_renderWhere()
 	{
-		$this->markTestIncomplete();
+		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$condition = 'AND';
+        $criteria = new $this->myclass($criteria_element, $condition);
+        $this->assertInstanceOf($this->myclass, $criteria);
+		$x = $criteria->renderWhere();
+		$this->assertSame('WHERE (1)', $x);
     }
 	
     public function test_renderLdap()
 	{
-		$this->markTestIncomplete();
+		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$condition = 'AND';
+        $criteria = new $this->myclass($criteria_element, $condition);
+        $this->assertInstanceOf($this->myclass, $criteria);
+		$x = $criteria->renderLdap();
+		$this->assertSame(null, $x);
     }
 	
     public function test_renderQb()
 	{
-		$this->markTestIncomplete();
+		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$condition = 'AND';
+        $criteria = new $this->myclass($criteria_element, $condition);
+        $this->assertInstanceOf($this->myclass, $criteria);
+		$x = $criteria->renderQb();
+		$this->assertInstanceOf('Xoops\Core\Database\QueryBuilder', $x);
+		$qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
+		$x = $criteria->renderQb($qb);
+		$this->assertInstanceOf('Xoops\Core\Database\QueryBuilder', $x);
     }
 	
     public function test_buildExpressionQb()
 	{
-		$this->markTestIncomplete();
+		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$condition = 'AND';
+        $criteria = new $this->myclass($criteria_element, $condition);
+        $this->assertInstanceOf($this->myclass, $criteria);
+		$x = $criteria->buildExpressionQb();
+		$this->assertSame(false, $x);
+		$qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
+		$x = $criteria->buildExpressionQb($qb);
+		$this->assertSame(null, $x);
     }
 	
 }

@@ -459,7 +459,7 @@ abstract class XoopsObject
         $clone = null;
         $clone = new $class();
         foreach ($this->vars as $k => $v) {
-            $clone->assignVar($k, $v['value']);
+            $clone->assignVar($k, $v['value']);  // FIXME : doesn't copy vars into clone
         }
         // need this to notify the handler class that this is a newly created object
         $clone->setNew();
