@@ -21,7 +21,7 @@ define("_AM_SYSTEM_TEMPLATES_NAV_TIPS","
 ");*/
 
 //define("_AM_SYSTEM_TEMPLATES_YOUR_THEMES","Your themes :");
-//define("_AM_SYSTEM_TEMPLATES_GENERATE","Generated surcharge");
+//define("_AM_SYSTEM_TEMPLATES_GENERATE","Overload Template");
 //define("_AM_SYSTEM_TEMPLATES_SELECT_THEME","Select theme");
 //define("_AM_SYSTEM_TEMPLATES_FORCE_GENERATED","Forced file generation");
 //define("_AM_SYSTEM_TEMPLATES_NAV_FILE_GENERATED","Files generated");
