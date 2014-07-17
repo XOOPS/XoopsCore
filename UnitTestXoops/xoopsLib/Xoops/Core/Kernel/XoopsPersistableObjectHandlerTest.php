@@ -1,6 +1,17 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../init.php');
 
+use Doctrine\DBAL\Query\QueryBuilder;
+
+class XoopsPersistableObjectHandlerTest_Kernel_CriteriaElement extends Xoops\Core\Kernel\CriteriaElement
+{
+	function render() {}
+	function renderWhere() {}
+	function renderLdap() {}
+	function renderQb(QueryBuilder $qb = null, $whereMode = '') {}
+	function buildExpressionQb(QueryBuilder $qb) {}
+}
+
 class XoopsPersistableObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsPersistableObjectHandler
 {
     function __construct(
@@ -80,7 +91,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     
     public function test_insert()
 	{
-        $instance=new $this->myClass($this->conn);
+        $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
 		$obj=new XoopsGroup();
 		$obj->setDirty();
         $value=$instance->insert($obj);
@@ -89,7 +100,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     
     public function test_delete()
 	{
-        $instance=new $this->myClass($this->conn);
+        $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
 		$obj=new XoopsGroup();
         $value=$instance->delete($obj);
         $this->assertSame(false,$value);
@@ -97,15 +108,17 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     
     public function test_deleteAll()
 	{
-        $instance=new $this->myClass($this->conn);
-        $value=$instance->deleteAll();
+        $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
+		$criteria_element = new XoopsPersistableObjectHandlerTest_Kernel_CriteriaElement();
+        $value=$instance->deleteAll($criteria_element);
         $this->assertSame(false,$value);
     }
     
     public function test_updateAll()
 	{
         $instance=new $this->myClass($this->conn);
-        $value=$instance->updateAll('name','value');
+		$criteria_element = new XoopsPersistableObjectHandlerTest_Kernel_CriteriaElement();
+        $value=$instance->updateAll('name','value',$criteria_element);
         $this->assertSame(false,$value);
     }
     

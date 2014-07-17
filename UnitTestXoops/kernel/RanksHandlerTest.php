@@ -87,7 +87,7 @@ class RanksHandlerTest extends MY_UnitTestCase
 	{
         $instance=new $this->myclass($this->conn);
         $value=$instance->updateAll('name','value');
-        $this->assertSame(0,$value);
+        $this->assertSame(false,$value);
     }
     
 }
