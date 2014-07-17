@@ -233,7 +233,9 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_destroyVars()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$x = $instance->destroyVars(null);
+		$this->assertSame(true, $x);
     }
 	
 	public function test_setFormVars()
@@ -243,17 +245,37 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_getVars()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$x = $instance->getVars();
+		$this->assertTrue(isset($x['dummyVar1']));
+		$this->assertTrue(isset($x['dummyVar2']));
     }
 	
 	public function test_getValues()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$x = $instance->getValues();
+		$this->assertTrue(isset($x['dummyVar1']));
+		$this->assertTrue(isset($x['dummyVar2']));
+		
+		$x = $instance->getValues(array('dummyVar1','dummyVar2'));
+		$this->assertTrue(isset($x['dummyVar1']));
+		$this->assertTrue(isset($x['dummyVar2']));
     }
 	
 	public function test_getVar()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$x = $instance->getVar('NOT_EXISTS');
+		$this->assertSame(null, $x);
+		$x = $instance->getVar('dummyVar1');
+		$this->assertSame('0', $x);
     }
 	
 	public function test_cleanVars()
@@ -273,27 +295,56 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_xoopsClone()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		
+		$clone = $instance->xoopsClone();
+        $this->assertInstanceOf($this->myClass, $clone);
+		$this->assertTrue($clone->isNew()); // the only difference between instance and clone
+		$x = $clone->getVar('dummyVar1');
+		$this->assertSame('0', $x);
     }
 	
 	public function test_setErrors()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$msg = 'error message';
+		$instance->setErrors($msg);
+		$x = $instance->getErrors();
+		$this->assertTrue(is_array($x));
+		$this->assertSame($msg, $x[0]);
+		$instance->setErrors(array($msg,$msg));
+		$x = $instance->getErrors();
+		$this->assertTrue(is_array($x));
+		$this->assertSame($msg, $x[0]);
+		$this->assertSame($msg, $x[1]);
+		$this->assertSame($msg, $x[2]);
     }
 	
 	public function test_getErrors()
 	{
-		$this->markTestIncomplete();
+		// see setErrors
     }
 	
 	public function test_getHtmlErrors()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$msg = 'error message';
+		$instance->setErrors($msg);
+		$instance->setErrors($msg);
+		$x = $instance->getHtmlErrors();
+		$this->assertSame('<h4>Errors</h4>'.$msg.'<br />'.$msg.'<br />', $x);
     }
 	
 	public function test_toArray()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$x = $instance->toArray();
+		$this->assertTrue(isset($x['dummyVar1']));
+		$this->assertTrue(isset($x['dummyVar2']));
     }
 	
 }

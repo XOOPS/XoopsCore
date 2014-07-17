@@ -34,7 +34,9 @@
         "jeremykendall/php-domain-parser": "~1.3"
     },
     "require-dev": {
-        "raveren/kint": "*"
+        "raveren/kint": "*",
+        "phpunit/phpunit": "4.1.*",
+		"phpunit/phpunit-skeleton-generator": "*"
     },
     "extra": {
         "xoops_modules_path": "../modules/"

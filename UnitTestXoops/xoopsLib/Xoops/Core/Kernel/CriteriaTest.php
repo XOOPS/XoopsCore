@@ -115,22 +115,53 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
 	
     public function test_renderLdap()
 	{
-		$this->markTestIncomplete();
+        $column = 'column';
+        $value = '(0,10)';
+        $operator = 'NOT in';
+        $prefix = 'prefix';
+        $function = '';
+        $criteria = new $this->myclass($column, $value, $operator, $prefix, $function);
+        $clause = $criteria->renderLdap();
+        $this->assertEquals("($column $operator $value)", $clause);
     }
 	
     public function test_renderWhere()
 	{
-		$this->markTestIncomplete();
+        $column = 'column';
+        $value = '(0,10)';
+        $operator = 'NOT in';
+        $prefix = 'prefix';
+        $function = '';
+        $criteria = new $this->myclass($column, $value, $operator, $prefix, $function);
+        $clause = $criteria->renderWhere();
+        $this->assertEquals("WHERE $prefix.$column $operator $value", $clause);
     }
 	
     public function test_renderQb()
 	{
-		$this->markTestIncomplete();
+        $column = 'column';
+        $value = '(0,10)';
+        $operator = 'NOT in';
+        $prefix = 'prefix';
+        $function = '';
+        $criteria = new $this->myclass($column, $value, $operator, $prefix, $function);
+        $clause = $criteria->renderQb();
+        $this->assertInstanceOf('Xoops\Core\Database\QueryBuilder', $clause);
     }
 
     public function test_buildExpressionQb()
 	{
-		$this->markTestIncomplete();
+        $column = 'column';
+        $value = '(0,10)';
+        $operator = 'NOT in';
+        $prefix = 'prefix';
+        $function = '';
+        $criteria = new $this->myclass($column, $value, $operator, $prefix, $function);
+        $clause = $criteria->buildExpressionQb();
+        $this->assertSame(false, $clause);
+		$qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
+		$x = $criteria->buildExpressionQb($qb);
+		$this->assertSame("$prefix.$column ".strtoupper($operator)." $value", $x);
     }
 
 }

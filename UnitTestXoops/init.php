@@ -4,6 +4,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);
 }
 
+require_once dirname(__FILE__) . '/../htdocs/xoops_lib/vendor/autoload.php';
 
 if (defined('IS_PHPUNIT')) {
 	require_once dirname(__FILE__) . '/common_phpunit.php';
