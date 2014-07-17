@@ -61,7 +61,7 @@ switch ($op) {
 
         $xoops->tpl()->assign('index', true);
 
-        $form = new XoopsThemeForm(SystemLocale::GENERATED_SURCHARGE, "form", 'admin.php?fct=tplsets', "post", true);
+        $form = new XoopsThemeForm(SystemLocale::TEMPLATE_OVERLOADED, "form", 'admin.php?fct=tplsets', "post", true);
 
         $ele = new XoopsFormSelect(SystemLocale::CHOOSE_TEMPLATE, 'tplset', $xoops->getConfig('tplset'));
         $tplset_handler = $xoops->getHandlerTplset();
@@ -85,13 +85,13 @@ switch ($op) {
 
         $form->addElement(new XoopsFormHidden("active_templates", "0"));
         $form->addElement(new XoopsFormHidden("active_modules", "0"));
-        $form->addElement(new XoopsFormHidden("op", "tpls_generate_surcharge"));
+        $form->addElement(new XoopsFormHidden("op", "tpls_overload"));
         $form->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
         $form->display();
         break;
 
-    //generate surcharge
-    case 'tpls_generate_surcharge':
+    //overload template
+    case 'tpls_overload':
         if (!$xoops->security()->check()) {
             $xoops->redirect('admin.php?fct=tplsets', 3, implode('<br />', $xoops->security()->getErrors()));
         }
@@ -104,19 +104,19 @@ switch ($op) {
             //Generate modules
             if (isset($_REQUEST['select_theme']) && isset($_REQUEST['force_generated'])) {
                 //on verifie si le dossier module existe
-                $theme_surcharge = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules';
+                $template_overload = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules';
                 $indexFile = XOOPS_ROOT_PATH . "/modules/system/include/index.html";
                 $verif_write = false;
                 $text = '';
 
-                if (!is_dir($theme_surcharge)) {
+                if (!is_dir($template_overload)) {
                     //Creation du dossier modules
 
-                    if (!is_dir($theme_surcharge)) {
-                        mkdir($theme_surcharge, 0777);
+                    if (!is_dir($template_overload)) {
+                        mkdir($template_overload, 0777);
                     }
-                    chmod($theme_surcharge, 0777);
-                    copy($indexFile, $theme_surcharge . "/index.html");
+                    chmod($template_overload, 0777);
+                    copy($indexFile, $template_overload . "/index.html");
                 }
 
                 $tplset = $system->cleanVars($POST, 'tplset', 'default', 'string');
@@ -144,19 +144,19 @@ switch ($op) {
                                 $module = $xoops->getModuleByDirname($moddir);
                                 if (is_object($module)) {
                                     // create module folder
-                                    if (!is_dir($theme_surcharge . '/' . $module->getVar('dirname'))) {
-                                        mkdir($theme_surcharge . '/' . $module->getVar('dirname'), 0777);
-                                        chmod($theme_surcharge . '/' . $module->getVar('dirname'), 0777);
-                                        copy($indexFile, $theme_surcharge . '/' . $module->getVar('dirname') . '/index.html');
+                                    if (!is_dir($template_overload . '/' . $module->getVar('dirname'))) {
+                                        mkdir($template_overload . '/' . $module->getVar('dirname'), 0777);
+                                        chmod($template_overload . '/' . $module->getVar('dirname'), 0777);
+                                        copy($indexFile, $template_overload . '/' . $module->getVar('dirname') . '/index.html');
                                     }
 
                                     // create block folder
-                                    if (!is_dir($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks')) {
-                                        if (!is_dir($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks')) {
-                                            mkdir($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks', 0777);
+                                    if (!is_dir($template_overload . '/' . $module->getVar('dirname') . '/blocks')) {
+                                        if (!is_dir($template_overload . '/' . $module->getVar('dirname') . '/blocks')) {
+                                            mkdir($template_overload . '/' . $module->getVar('dirname') . '/blocks', 0777);
                                         }
-                                        chmod($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks', 0777);
-                                        copy($indexFile, $theme_surcharge . '/' . $module->getVar('dirname') . '/blocks' . '/index.html');
+                                        chmod($template_overload . '/' . $module->getVar('dirname') . '/blocks', 0777);
+                                        copy($indexFile, $template_overload . '/' . $module->getVar('dirname') . '/blocks' . '/index.html');
                                     }
 
                                     $class = "odd";
@@ -232,19 +232,19 @@ switch ($op) {
                             $module = $xoops->getModuleByDirname($moddir);
                             if (is_object($module)) {
                                 // create module folder
-                                if (!is_dir($theme_surcharge . '/' . $module->getVar('dirname'))) {
-                                    mkdir($theme_surcharge . '/' . $module->getVar('dirname'), 0777);
-                                    chmod($theme_surcharge . '/' . $module->getVar('dirname'), 0777);
-                                    copy($indexFile, $theme_surcharge . '/' . $module->getVar('dirname') . '/index.html');
+                                if (!is_dir($template_overload . '/' . $module->getVar('dirname'))) {
+                                    mkdir($template_overload . '/' . $module->getVar('dirname'), 0777);
+                                    chmod($template_overload . '/' . $module->getVar('dirname'), 0777);
+                                    copy($indexFile, $template_overload . '/' . $module->getVar('dirname') . '/index.html');
                                 }
 
                                 // create block folder
-                                if (!is_dir($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks')) {
-                                    if (!is_dir($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks')) {
-                                        mkdir($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks', 0777);
+                                if (!is_dir($template_overload . '/' . $module->getVar('dirname') . '/blocks')) {
+                                    if (!is_dir($template_overload . '/' . $module->getVar('dirname') . '/blocks')) {
+                                        mkdir($template_overload . '/' . $module->getVar('dirname') . '/blocks', 0777);
                                     }
-                                    chmod($theme_surcharge . '/' . $module->getVar('dirname') . '/blocks', 0777);
-                                    copy($indexFile, $theme_surcharge . '/' . $module->getVar('dirname') . '/blocks' . '/index.html');
+                                    chmod($template_overload . '/' . $module->getVar('dirname') . '/blocks', 0777);
+                                    copy($indexFile, $template_overload . '/' . $module->getVar('dirname') . '/blocks' . '/index.html');
                                 }
 
                                 $class = "odd";
@@ -343,7 +343,7 @@ switch ($op) {
             $form->addElement(new XoopsFormHidden("select_modules", $_REQUEST['select_modules']));
             $form->addElement(new XoopsFormHidden("active_modules", "1"));
             $form->addElement(new XoopsFormHidden("select_theme", $_REQUEST['select_theme']));
-            $form->addElement(new XoopsFormHidden("op", "tpls_generate_surcharge"));
+            $form->addElement(new XoopsFormHidden("op", "tpls_overload"));
             $form->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
             $xoops->tpl()->assign('form', $form->render());
         }

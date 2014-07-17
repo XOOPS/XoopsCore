@@ -316,7 +316,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const F_USERS = "%s user(s)";
     const F_USERS_SPAN = "<ul><li><span class='bold red'>%s</span> users.</li></ul>";
     const GENERAL_SETTINGS = "General settings";
-    const GENERATED_SURCHARGE = "Generated surcharge";
+    const TEMPLATE_OVERLOADED = "Template overloaded";
     const GO_TO_MODULE = "Go to module";
     const GROUPS_DESC = "You can add some groups <br /> and manage permission for <br /> each group";
     const GROUPS_MANAGER = "Groups manager";
