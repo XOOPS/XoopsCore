@@ -198,7 +198,10 @@ class Write extends XoopsModelAbstract
         if (isset($criteria)) {
             $qb = $criteria->renderQb($qb);
         }
-        return $qb->execute();
+		if (is_object($qb)) {
+			return $qb->execute();
+		}
+		return false;
     }
 
     /**
@@ -220,8 +223,10 @@ class Write extends XoopsModelAbstract
         if (isset($criteria)) {
             $qb = $criteria->renderQb($qb);
         }
-        $qb->set($fieldname, $qb->createNamedParameter($fieldvalue));
-
-        return $qb->execute();
+		if (is_object($qb)) {
+			$qb->set($fieldname, $qb->createNamedParameter($fieldvalue));
+			return $qb->execute();
+		}
+		return false;
     }
 }

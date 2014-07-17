@@ -205,9 +205,6 @@ class CriteriaCompo extends CriteriaElement
      */
     public function buildExpressionQb(QueryBuilder $qb)
     {
-        if ($qb==null) {
-            return false;
-        }
         $expr = false;
         foreach ($this->criteriaElements as $i => $element) {
             $expr_part = $element->buildExpressionQb($qb);

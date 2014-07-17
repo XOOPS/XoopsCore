@@ -282,9 +282,6 @@ class Criteria extends CriteriaElement
      */
     public function buildExpressionQb(QueryBuilder $qb)
     {
-        if ($qb==null) {
-            return false;
-        }
         $eb = $qb->expr();
 
         $column = (empty($this->prefix) ? "" : $this->prefix.'.') . $this->column;
