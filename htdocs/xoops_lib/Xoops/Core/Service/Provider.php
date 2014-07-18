@@ -116,6 +116,20 @@ class Provider
     }
 
     /**
+     * isAvailable - indicate the availability of an actual provider
+     *
+     * In many cases a null provider can be called without changing the flow of the calling
+     * program. In some cases, the availability of a provider may need to be reflected in
+     * the caller, i.e. adding a UI button or menu item.
+     *
+     * @return boolean true if actual provider is available, otherwise false
+     */
+    public function isAvailable()
+    {
+        return true;
+    }
+
+    /**
      * All contract specified methods go here
      *
      * @param type $name      method to call

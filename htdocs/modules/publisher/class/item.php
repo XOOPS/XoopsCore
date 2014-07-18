@@ -428,7 +428,7 @@ class PublisherItem extends XoopsObject
             }
         }
         // PDF button
-        if ($xoops->isActiveModule('pdf')) {
+        if ($xoops->service('htmltopdf')->isAvailable()) {
             $adminLinks .= "<a href='" . PUBLISHER_URL . "/makepdf.php?itemid=" . $this->getVar('itemid') . "' rel='nofollow' target='_blank'><img src='" . PUBLISHER_URL . "/images/links/pdf.gif' title='" . _CO_PUBLISHER_PDF . "' alt='" . _CO_PUBLISHER_PDF . "' /></a>";
             $adminLinks .= " ";
         }

@@ -55,6 +55,16 @@ class NullProvider extends Provider
     }
 
     /**
+     * isAvailable - indicate the (lack of) availability of an actual provider
+     *
+     * @return boolean false to indicate no provider is available
+     */
+    public function isAvailable()
+    {
+        return false;
+    }
+
+    /**
      * Any property writes will go here
      *
      * @param string $name  not used
