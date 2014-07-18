@@ -19,7 +19,7 @@
         "ircmaxell/password-compat": "~1.0",
         "patchwork/utf8": "1.1.*",
         "symfony/process": "2.4.*",
-        "monolog/monolog": "1.9.*",
+        "monolog/monolog": "1.10.*",
         "maximebf/debugbar": "1.9.*",
         "kriswallsmith/assetic": "1.1.2",
         "ptachoire/cssembed": "1.0.*",
@@ -31,7 +31,8 @@
         "symfony/yaml": "2.4.*",
         "tedivm/stash": "0.11.*",
         "dflydev/apache-mime-types": "1.0.*",
-        "jeremykendall/php-domain-parser": "~1.3"
+        "jeremykendall/php-domain-parser": "~1.3",
+        "tecnick.com/tcpdf": "6.0.*"
     },
     "require-dev": {
         "raveren/kint": "*",

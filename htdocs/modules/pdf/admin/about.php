@@ -7,14 +7,22 @@
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- */
+*/
 
 /**
+ * avatars module
+ *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @package         avatar
+ * @since           2.6.0
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
-define('_MI_PDF_NAME', 'Pdf');
-define('_MI_PDF_DSC', 'Support for pdf creation');
+include __DIR__ . '/header.php';
+$xoops = Xoops::getInstance();
+$xoops->header();
+$aboutAdmin = new \Xoops\Module\Admin();
+$aboutAdmin->displayNavigation('about.php');
+$aboutAdmin->displayAbout();
+$xoops->footer();

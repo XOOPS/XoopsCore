@@ -24,7 +24,7 @@ include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
-if (!$xoops->isActiveModule('pdf')) {
+if (!$xoops->service('htmltopdf')->isAvailable()) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOPDF);
 }
 
@@ -62,10 +62,12 @@ $tpl->assign('item', $itemObj->toArray('all'));
 $tpl->assign('display_whowhen_link', $publisher->getConfig('item_disp_whowhen_link'));
 
 $content = $tpl->fetch('module:publisher|pdf.tpl');
-$pdf = new Pdf();
-if (XoopsLocale::getCharset() == 'windows-1256') {
-    $pdf->pdf->SetFont('almohanad', '', 18);
-}
-//initialize document
-$pdf->writeHTML($content);
-$pdf->Output();
+$xoops->service('htmltopdf')->startPdf();
+$xoops->service('htmltopdf')->setAuthor($itemObj->posterName());
+$xoops->service('htmltopdf')->setTitle($itemObj->getVar('title'));
+$xoops->service('htmltopdf')->setKeywords($itemObj->getVar('meta_keywords'));
+$xoops->service('htmltopdf')->setSubject($categoryObj->getVar('name'));
+$xoops->service('htmltopdf')->addHtml($content);
+$name = $itemObj->getVar('short_url') . '.pdf';
+$xoops->service('htmltopdf')->outputPdfInline($name);
+exit();
