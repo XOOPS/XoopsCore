@@ -79,6 +79,9 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
     /** @var string $pdfCreator */
     protected $pdfCreator;
 
+    /** @var string[] $moduleConfigs */
+    protected $moduleConfigs;
+
     /**
      * __construct
      */
@@ -87,6 +90,23 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
         $this->resetPdf();
     }
 
+    /**
+     * setFromConfigs - set property from config value or default
+     *
+     * @param string $name     config name
+     * @param string $property property name
+     * @param mixed  $default  default value
+     *
+     * @return void
+     */
+    private function setFromConfigs($name, $property, $default)
+    {
+        $this->$property = $default;
+        if (isset($this->moduleConfigs[$name])) {
+            $value = $this->moduleConfigs[$name];
+            $this->$property = empty($value) ? $default : $value;
+        }
+    }
     /**
      * resetPdf - resets to default state
      *
@@ -101,68 +121,22 @@ class HtmlToPdfProvider extends AbstractContract implements HtmlToPdfInterface
         unset($this->pdfSubject);
         unset($this->pdfKeywords);
 
-        $configs = \Xoops::getInstance()->getModuleConfigs($this->moddir);
+        $this->moduleConfigs = \Xoops::getInstance()->getModuleConfigs($this->moddir);
 
-        $this->pageOrientation = 'P';
-        if (isset($configs['page_orientation'])) {
-            $value = $configs['page_orientation'];
-            $this->pageOrientation = empty($value)? 'P' : $value;
-        }
+        $this->setFromConfigs('page_orientation', 'pageOrientation', 'P');
+        $this->setFromConfigs('page_size', 'pageSize', 'A4');
+        $this->setFromConfigs('pdf_creator', 'pdfCreator', 'XOOPS');
 
-        $this->pageSize = 'A4';
-        if (isset($configs['page_size'])) {
-            $value = $configs['page_size'];
-            $this->pageSize = empty($value)? 'A4' : $value;
-        }
-
-        $this->fontFamily = null;
-        if (isset($configs['font_family'])) {
-            $value = $configs['font_family'];
-            $this->fontFamily = empty($value)? null : $value;
-        }
-
-        $this->fontStyle = null;
-        if (isset($configs['font_style'])) {
-            $value = $configs['font_style'];
-            $this->fontStyle = empty($value)? '' : $value;
-        }
-
-        $this->fontSize = null;
-        if (isset($configs['font_size'])) {
-            $value = $configs['font_size'];
-            $this->fontSize = empty($value)? 10 : $value;
-        }
-
-        $this->monoFontFamily = null;
-        if (isset($configs['monofont_family'])) {
-            $value = $configs['monofont_family'];
-            $this->monoFontFamily = empty($value)? null : $value;
-        }
-
-        $this->unit = 'mm';
-        if (isset($configs['size_unit'])) {
-            $value = $configs['size_unit'];
-            $this->unit = empty($value)? 'mm' : $value;
-        }
-
-        $this->leftMargin = null;
-        $this->topMargin = null;
-        $this->rightMargin = null;
-        $this->bottomMargin = null;
-        if (isset($configs['margin_left']) && !empty($configs['margin_left'])) {
-            $value = $configs['margin_left'];
-            $this->leftMargin   = $configs['margin_left'];
-            $this->topMargin    = $configs['margin_top'];
-            $this->rightMargin  = $configs['margin_right'];
-            $this->bottomMargin = $configs['margin_bottom'];
-        }
-
-        $this->pdfCreator = 'XOOPS';
-        if (isset($configs['pdf_creator'])) {
-            $value = $configs['pdf_creator'];
-            $this->pdfCreator = empty($value)? 'XOOPS' : $value;
-        }
-
+        $this->setFromConfigs('font_family', 'fontFamily', null);
+        $this->setFromConfigs('font_style', 'fontStyle', '');
+        $this->setFromConfigs('font_style', 'fontStyle', '');
+        $this->setFromConfigs('font_size', 'fontSize', 10);
+        $this->setFromConfigs('monofont_family', 'monoFontFamily', null);
+        $this->setFromConfigs('size_unit', 'unit', 'mm');
+        $this->setFromConfigs('margin_left', 'leftMargin', null);
+        $this->setFromConfigs('margin_top', 'topMargin', null);
+        $this->setFromConfigs('margin_right', 'rightMargin', null);
+        $this->setFromConfigs('margin_bottom', 'bottomMargin', null);
     }
 
     /**
