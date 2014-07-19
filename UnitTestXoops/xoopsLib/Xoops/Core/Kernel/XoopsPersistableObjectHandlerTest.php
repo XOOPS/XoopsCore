@@ -95,7 +95,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
 		$obj=new XoopsGroup();
 		$obj->setDirty();
         $value=$instance->insert($obj);
-        $this->assertSame(false,$value);
+        $this->assertSame('',$value);
     }
     
     public function test_delete()
@@ -231,8 +231,8 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     public function test_synchronization()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
-        $value=$instance->synchronization();
-        $this->assertSame(false,$value);
+        $value=$instance->synchronization($this->conn->prefix('group_permission'),'gperm_groupid','groupid');
+        $this->assertSame(0,$value);
     }
 
 }
