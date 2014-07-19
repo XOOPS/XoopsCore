@@ -237,7 +237,7 @@ class Xoops_Cache_File extends Xoops_Cache_Abstract
         }
         $path = $this->_File->getRealPath();
         $this->_File = null;
-        return unlink($path);
+        return @unlink($path);
     }
 
     /**
@@ -249,7 +249,7 @@ class Xoops_Cache_File extends Xoops_Cache_Abstract
      */
     public function clear($check)
     {
-        if (!$this->_init) {
+        if (!$this->_init || !isset($this->settings['path'])) {
             return false;
         }
         $dir = dir($this->settings['path']);
@@ -281,7 +281,7 @@ class Xoops_Cache_File extends Xoops_Cache_Abstract
             $path = $this->_File->getRealPath();
             $this->_File = null;
             if (XoopsLoad::fileExists($path)) {
-                unlink($path);
+                @unlink($path);
             }
         }
         $dir->close();
@@ -329,6 +329,8 @@ class Xoops_Cache_File extends Xoops_Cache_Abstract
         if (!empty($this->_groupPrefix)) {
             $groups = vsprintf($this->_groupPrefix, $this->groups());
         }
+		if (!isset($this->settings['path']))
+			return false;
         $dir = $this->settings['path'] . $groups;
 
         if (!is_dir($dir)) {
