@@ -120,7 +120,8 @@ class ImportSchema
                 }
             }
 
-            $options = $tabledef['options'];
+			if (isset($tabledef['options']))
+				$options = $tabledef['options'];
             $tables[] = new Table(
                 $tableName,
                 $columns,
