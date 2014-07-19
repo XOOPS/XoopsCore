@@ -43,10 +43,9 @@ class ManagerTest extends MY_UnitTestCase
 		$class = $this->myClass;
 		$sm = $class::getInstance();
 		
-		$service = 'Avatars';
+		$service = 'Avatar';
 		$choices = array('p1'=>'p1','p2'=>'p2');
-		$sm->saveChoice($service,$choices);
-		var_dump($sm);exit;		
+		$sm->saveChoice($service,$choices);	
 		$values = $sm->listChoices($service);
 		$this->assertTrue(is_array($values));
 
