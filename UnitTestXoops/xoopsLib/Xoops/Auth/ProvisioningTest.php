@@ -44,7 +44,6 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 		
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$value = $instance->getXoopsUser('not_a_user');
 		$this->assertFalse($value);
@@ -60,7 +59,6 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 		
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$value = $instance->sync(array(), 'not_a_user');
 		$this->assertFalse($value);
@@ -91,7 +89,6 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 		
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$instance->delete();
 		$this->assertTrue(true); // always OK
@@ -104,7 +101,6 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 		
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$instance->suspend();
 		$this->assertTrue(true); // always OK
@@ -117,7 +113,6 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 		
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$instance->restore();
 		$this->assertTrue(true); // always OK
@@ -130,7 +125,6 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 		
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$instance->resetpwd();
 		$this->assertTrue(true); // always OK
