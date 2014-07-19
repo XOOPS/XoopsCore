@@ -22,25 +22,25 @@
  */
 $xoops = Xoops::getInstance();
 
-$modversion = array();
-$modversion['name'] = _PROFILE_MI_NAME;
-$modversion['version'] = 1.62;
+$modversion                = array();
+$modversion['name']        = _PROFILE_MI_NAME;
+$modversion['version']     = 1.62;
 $modversion['description'] = _PROFILE_MI_DESC;
-$modversion['author'] = "Jan Pedersen; Taiwen Jiang (phppp@users.sourceforge.net); alfred (myxoops@t-online.de); Wishcraft (simon@xoops.org)";
-$modversion['credits'] = "Ackbarr, mboyden, marco, mamba,trabis, etc.";
-$modversion['help'] = 'page=help';
-$modversion['license'] = 'GNU GPL 2.0';
+$modversion['author']      = "Jan Pedersen; Taiwen Jiang (phppp@users.sourceforge.net); alfred (myxoops@t-online.de); Wishcraft (simon@xoops.org)";
+$modversion['credits']     = "Ackbarr, mboyden, marco, mamba,trabis, etc.";
+$modversion['help']        = 'page=help';
+$modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = "http://www.gnu.org/licenses/gpl-2.0.html";
-$modversion['image'] = "images/logo.png";
-$modversion['dirname'] = "profile";
+$modversion['image']       = "images/logo.png";
+$modversion['dirname']     = "profile";
 
 //about
-$modversion['release_date'] = '2011/10/08';
-$modversion["module_website_url"] = "http://www.xoops.org/";
+$modversion['release_date']        = '2011/10/08';
+$modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"] = "RC";
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = "2.6.0";
+$modversion["module_status"]       = "RC";
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = "2.6.0";
 
 // paypal
 $modversion['paypal'] = array(
@@ -55,19 +55,19 @@ $modversion['paypal'] = array(
 $modversion['system_menu'] = 1;
 
 // Admin things
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminmenu']  = "admin/menu.php";
 
 // Scripts to run upon installation or update
 $modversion['onInstall'] = "include/install.php";
-$modversion['onUpdate'] = "include/update.php";
+$modversion['onUpdate']  = "include/update.php";
 
 // Menu
 $modversion['hasMain'] = 1;
 
 // Table definitions
-$modversion['schema'] = 'sql/schema.yml';
+$modversion['schema']           = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
 // Tables (without prefix!)
@@ -81,9 +81,9 @@ $modversion['tables'] = array(
 
 // Config items
 $modversion['config'][] = array(
-    'name' => 'profile_search',
-    'title' => '_PROFILE_MI_PROFILE_SEARCH',
+    'name'        => 'profile_search',
+    'title'       => '_PROFILE_MI_PROFILE_SEARCH',
     'description' => '',
-    'formtype' => 'yesno',
-    'valuetype' => 'int',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
 );

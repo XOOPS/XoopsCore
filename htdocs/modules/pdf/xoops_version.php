@@ -17,33 +17,33 @@
  * @version         $Id$
  */
 
-$modversion = array();
-$modversion['name'] = _MI_PDF_NAME;
+$modversion                = array();
+$modversion['name']        = _MI_PDF_NAME;
 $modversion['description'] = _MI_PDF_DSC;
-$modversion['version'] = 1.0;
-$modversion['author'] = 'Richard Griffith';
-$modversion['nickname'] = 'geekwright';
-$modversion['credits'] = 'Trabis, The XOOPS Project';
-$modversion['license'] = 'GNU GPL 2.0';
+$modversion['version']     = 1.0;
+$modversion['author']      = 'Richard Griffith';
+$modversion['nickname']    = 'geekwright';
+$modversion['credits']     = 'Trabis, The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official'] = 1;
-$modversion['help'] = 'page=help';
-$modversion['image'] = 'images/logo.png';
-$modversion['dirname'] = 'pdf';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'pdf';
 
 //about
-$modversion['release_date'] = '2014/07/17';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['release_date']        = '2014/07/17';
+$modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status'] = 'ALPHA 1';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.6.0';
+$modversion['module_status']       = 'ALPHA 1';
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = '2.6.0';
 
 // paypal
 $modversion['paypal'] = array(
-    'business' => 'xoopsfoundation@gmail.com',
-    'item_name' => '',
-    'amount' => 0,
+    'business'      => 'xoopsfoundation@gmail.com',
+    'item_name'     => '',
+    'amount'        => 0,
     'currency_code' => 'USD',
 );
 
@@ -76,12 +76,12 @@ $modversion['blocks'] = array();
 $modversion['configcat'] = array();
 
 $modversion['configcat']['basic'] = array(
-    'name' => 'Basic',
+    'name'        => 'Basic',
     'description' => 'Basic options',
 );
 
 $modversion['configcat']['advanced'] = array(
-    'name' => 'Advanced',
+    'name'        => 'Advanced',
     'description' => 'Advanced options',
 );
 
@@ -98,7 +98,7 @@ $modversion['config'][] = array(
     'options'     => array(
         'Portrait'  => 'P',
         'Landscape' => 'L',
-        ),
+    ),
     'category'    => 'basic',
 );
 
@@ -121,7 +121,7 @@ $modversion['config'][] = array(
         'JIS_B3'   => 'JIS_B3',
         'JIS_B4'   => 'JIS_B4',
         'JIS_B5'   => 'JIS_B5',
-        ),
+    ),
     'category'    => 'basic',
 );
 
@@ -187,7 +187,7 @@ $modversion['config'][] = array(
         'millimeters' => 'mm',
         'inches'      => 'in',
         'points'      => 'pt'
-        ),
+    ),
     'category'    => 'advanced',
 );
 
