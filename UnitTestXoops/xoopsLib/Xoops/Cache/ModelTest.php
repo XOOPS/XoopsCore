@@ -8,68 +8,109 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 */
 class Xoops_Cache_ModelTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Cache_Model';
+    protected $myClass = 'Xoops_Cache_Model';
     
     public function test___construct()
 	{
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+		$instance = new $this->myClass();
+		$this->assertInstanceOf($this->myClass, $instance);
 		$this->assertInstanceOf('Xoops_Cache_Abstract', $instance);
 		
 		$items = array('settings');
 		foreach ($items as $item) {
-			$property = new ReflectionProperty($this->myclass, $item);
+			$property = new ReflectionProperty($this->myClass, $item);
 			$this->assertTrue($property->isPublic());
 		}
     }
 	
 	public function test_init()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		
+		$settings = array('p1'=>'p1','p2'=>'p2');
+		$x = $instance->init($settings);
+		$this->assertSame(true, $x);
+		
+		$this->assertTrue(is_array($instance->settings));
+		$this->assertTrue(is_array($instance->settings['fields']));
+		$this->assertSame('p1', $instance->settings['p1']);
+		$this->assertSame('p2', $instance->settings['p2']);
 	}
 	
 	public function test_gc()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		
+		$x = $instance->gc(false);
+		$this->assertSame(false, $x);
 	}
 	
 	public function test_write()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+
+		$x = $instance->write('key','data', 10);
+		$this->assertSame(false, $x);
+		
+		$x = $instance->init();
+		$this->assertTrue($x);
+		$x = $instance->write('key','data', 10);
+		$this->assertSame('key', $x);
 	}
 	
 	public function test_read()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+
+		$x = $instance->read('key');
+		$this->assertSame(false, $x);
+		
+		$x = $instance->init();
+		$this->assertTrue($x);
+		$x = $instance->read('key');
+		$this->assertSame('data', $x);
 	}
 	
 	public function test_delete()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+
+		$x = $instance->delete('key');
+		$this->assertSame(false, $x);
+		
+		$x = $instance->init();
+		$this->assertTrue($x);
+		$x = $instance->delete('key');
+		$this->assertSame(1, $x);
 	}
 	
 	public function test_clear()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		
+		$x = $instance->clear(false);
+		$this->assertSame(false, $x);
 	}
-	
-	public function test_decrement()
-	{
-		$this->markTestIncomplete();
-	}
-	
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
 	public function test_increment()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		
+		$x = $instance->decrement(1,2);
+		$this->assertSame(null, $x);
 	}
 	
-	public function test_key()
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
+	public function test_decrement()
 	{
-		$this->markTestIncomplete();
-	}
-	
-	public function test_clearGroup()
-	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		
+		$x = $instance->decrement(1,2);
+		$this->assertSame(null, $x);
 	}
 }

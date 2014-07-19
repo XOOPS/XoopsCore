@@ -24,7 +24,6 @@ class Xoops_Auth_XoopsTest extends MY_UnitTestCase
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 
 		$instance = new $this->myclass($conn);
-		$this->assertInstanceOf($this->myclass, $instance);
 		
 		$uname = 'admin';
 		$pwd = 'pwd';
