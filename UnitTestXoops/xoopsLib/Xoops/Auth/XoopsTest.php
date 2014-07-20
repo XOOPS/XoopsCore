@@ -8,14 +8,14 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 */
 class Xoops_Auth_XoopsTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops\Auth\Xoops';
+    protected $myClass = 'Xoops\Auth\Xoops';
 
     public function test___construct()
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 
-		$instance = new $this->myclass($conn);
-		$this->assertInstanceOf($this->myclass, $instance);
+		$instance = new $this->myClass($conn);
+		$this->assertInstanceOf($this->myClass, $instance);
 		$this->assertInstanceOf('Xoops\Auth\AuthAbstract', $instance);
     }
 
@@ -23,11 +23,11 @@ class Xoops_Auth_XoopsTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 
-		$instance = new $this->myclass($conn);
+		$instance = new $this->myClass($conn);
 		
 		$uname = 'admin';
 		$pwd = 'pwd';
 		$value = $instance->authenticate($uname, $pwd);
-		$this->assertInstanceOf('XoopsUser', $value);
+		$this->assertSame(false, $value);
 	}
 }

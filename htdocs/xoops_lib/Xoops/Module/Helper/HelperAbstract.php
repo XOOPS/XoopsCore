@@ -27,12 +27,12 @@ abstract class HelperAbstract
     /**
      * @var null|XoopsModule
      */
-    private $_module = null;
+    protected $_module = null;
 
     /**
      * @var bool
      */
-    private $_debug = false;
+    protected $_debug = false;
 
     public function init()
     {
@@ -62,7 +62,7 @@ abstract class HelperAbstract
         static $instance = false;
         $id = $className = get_called_class();
         if ($className == 'Xoops\Module\Helper\Dummy') {
-            $id = \Xoops::getInstance()->registry()->get('module_helper_id');
+            $id = @\Xoops::getInstance()->registry()->get('module_helper_id');
         }
         if (!isset($instance[$id])) {
             /* @var $class Xoops\Module\Helper\HelperAbstract */
