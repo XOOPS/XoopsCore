@@ -111,7 +111,7 @@ class ExportVisitor implements Visitor
                 'name' => $fkConstraint->getName(),
                 'localcolumns' => $fkConstraint->getLocalColumns(),
                 'foreigntable' => $fkConstraint->getForeignTableName(),
-                'foreigncolumns' => $fkConstraint->getForeignTableName(),
+                'foreigncolumns' => $fkConstraint->getForeignColumns(),
                 'options' => $fkConstraint->getOptions()
             );
 
