@@ -19,26 +19,26 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-$modversion = array();
-$modversion['name']           = _MI_GRAVATARS_NAME;
-$modversion['description']    = _MI_GRAVATARS_DESC;
-$modversion['version']        = 0.1;
-$modversion['author']         = 'Richard Griffith';
-$modversion['nickname']       = 'geekwright';
-$modversion['credits']        = 'The XOOPS Project';
-$modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
-$modversion['official']       = 1;
-$modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
-$modversion['dirname']        = 'gravatars';
+$modversion                = array();
+$modversion['name']        = _MI_GRAVATARS_NAME;
+$modversion['description'] = _MI_GRAVATARS_DESC;
+$modversion['version']     = 0.1;
+$modversion['author']      = 'Richard Griffith';
+$modversion['nickname']    = 'geekwright';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'gravatars';
 //about
 $modversion['release_date']        = '2013/09/26';
 $modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.6.0';
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = '2.6.0';
 
 // paypal
 $modversion['paypal'] = array(
@@ -60,7 +60,7 @@ $modversion['adminmenu']  = 'admin/menu.php';
 /*
  Manage extension
  */
-$modversion['extension'] = 1;
+$modversion['extension']          = 1;
 $modversion['extension_module'][] = 'system';
 
 // Preferences
@@ -89,7 +89,7 @@ $modversion['config'][] = array(
         'monsterid'   => 'monsterid',
         'wavatar'     => 'wavatar',
         'retro'       => 'retro',
-        ),
+    ),
 );
 
 $modversion['config'][] = array(
@@ -104,5 +104,5 @@ $modversion['config'][] = array(
         'parental guidance' => 'pg',
         'restricted'        => 'r',
         'adults only'       => 'x',
-        ),
+    ),
 );

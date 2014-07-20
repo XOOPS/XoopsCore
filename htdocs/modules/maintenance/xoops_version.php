@@ -23,19 +23,19 @@
 /*
  General settings
  */
-$modversion = array();
-$modversion['name']           = _MI_MAINTENANCE_NAME;
-$modversion['description']    = _MI_MAINTENANCE_DESC;
-$modversion['version']        = 0.1;
-$modversion['author']         = 'Mage Gregory,Cointin Maxime';
-$modversion['nickname']       = 'Mage, Kraven30';
-$modversion['credits']        = 'The XOOPS Project';
-$modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official']       = 1;
-$modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
-$modversion['dirname']        = 'maintenance';
+$modversion                = array();
+$modversion['name']        = _MI_MAINTENANCE_NAME;
+$modversion['description'] = _MI_MAINTENANCE_DESC;
+$modversion['version']     = 0.1;
+$modversion['author']      = 'Mage Gregory,Cointin Maxime';
+$modversion['nickname']    = 'Mage, Kraven30';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
+$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'maintenance';
 
 /*
  Settings for configs
@@ -44,9 +44,9 @@ $modversion['release_date']        = '2012/05/11';
 $modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
-$modversion['min_php'] = '5.3';
+$modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = '2.6.0';
-$modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
+$modversion['min_db']              = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 
 // paypal
 $modversion['paypal']                  = array();
@@ -64,7 +64,7 @@ $modversion['system_menu'] = 1;
 /*
  Manage extension
  */
-$modversion['extension'] = 1;
+$modversion['extension']          = 1;
 $modversion['extension_module'][] = 'system';
 
 /*
@@ -83,5 +83,5 @@ $modversion['jquery'] = 1;
 /*
  Admin Templates
 */
-$modversion['templates'][] = array( 'file' => 'maintenance_center.html', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'maintenance_dump.html', 'description' => '', 'type' => 'admin' );
+$modversion['templates'][] = array('file' => 'maintenance_center.html', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'maintenance_dump.html', 'description' => '', 'type' => 'admin');

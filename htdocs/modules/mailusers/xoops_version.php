@@ -20,25 +20,25 @@
  * @version         $Id$
  */
 
-$modversion = array();
-$modversion['name']           = _MI_MAILUSERS_NAME;
-$modversion['description']    = _MI_MAILUSERS_DESC;
-$modversion['version']        = 0.1;
-$modversion['author']         = 'JJD,Mage Gregory';
-$modversion['nickname']       = 'JJDai,Mage';
-$modversion['credits']        = 'The XOOPS Project';
-$modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official']       = 1;
-$modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
-$modversion['dirname']        = 'mailusers';
+$modversion                = array();
+$modversion['name']        = _MI_MAILUSERS_NAME;
+$modversion['description'] = _MI_MAILUSERS_DESC;
+$modversion['version']     = 0.1;
+$modversion['author']      = 'JJD,Mage Gregory';
+$modversion['nickname']    = 'JJDai,Mage';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
+$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'mailusers';
 //about
 $modversion['release_date']        = '2012/01/20';
 $modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
-$modversion['min_php'] = '5.3';
+$modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = '2.6.0';
 
 // paypal
@@ -55,7 +55,7 @@ $modversion['system_menu'] = 1;
 /*
  Manage extension
  */
-$modversion['extension'] = 1;
+$modversion['extension']          = 1;
 $modversion['extension_module'][] = 'system';
 
 // Admin things
@@ -68,12 +68,12 @@ $modversion['jquery'] = 1;
 
 // Preferences
 
-$i = 0;
-$editors = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
-$modversion['config'][$i]['name'] = 'mailusers_editor';
-$modversion['config'][$i]['title'] = '_AM_MAILUSERS_EDITOR';
+$i                                       = 0;
+$editors                                 = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
+$modversion['config'][$i]['name']        = 'mailusers_editor';
+$modversion['config'][$i]['title']       = '_AM_MAILUSERS_EDITOR';
 $modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'dhtmltextarea';
-$modversion['config'][$i]['options'] = $editors;
+$modversion['config'][$i]['formtype']    = 'select';
+$modversion['config'][$i]['valuetype']   = 'text';
+$modversion['config'][$i]['default']     = 'dhtmltextarea';
+$modversion['config'][$i]['options']     = $editors;
