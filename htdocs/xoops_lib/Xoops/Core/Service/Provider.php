@@ -79,7 +79,7 @@ class Provider
     {
         // verify this is the proper type of object
         $contract = '\Xoops\Core\Service\Contract\\' . $this->service . 'Interface';
-
+var_dump(debug_backtrace());exit;
         if (is_a($object, '\Xoops\Core\Service\AbstractContract')
             && $object instanceof $contract
         ) {
