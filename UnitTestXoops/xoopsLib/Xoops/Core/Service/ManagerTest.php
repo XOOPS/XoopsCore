@@ -42,13 +42,13 @@ class ManagerTest extends MY_UnitTestCase
 	{
 		$class = $this->myClass;
 		$sm = $class::getInstance();
-		
-		$service = 'Avatar';
+
+		$service = 'AvatarsProvider';
 		$choices = array('p1'=>'p1','p2'=>'p2');
-		$sm->saveChoice($service,$choices);	
+		$sm->saveChoice($service,$choices);
 		$values = $sm->listChoices($service);
 		$this->assertTrue(is_array($values));
-
+		$this->assertFalse(empty($values));
 		$this->assertInstanceOf('AvatarsProvider',$values[0]);
 
 	}
