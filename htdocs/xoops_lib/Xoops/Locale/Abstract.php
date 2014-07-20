@@ -45,7 +45,7 @@ abstract class Xoops_Locale_Abstract
      */
     static function setLocale()
     {
-        setlocale(LC_ALL, self::getLocale());
+        return setlocale(LC_ALL, self::getLocale());
     }
 
     /**
@@ -196,7 +196,9 @@ abstract class Xoops_Locale_Abstract
     static function substr($str, $start, $length, $trimmarker = '...')
     {
         if (!self::isMultiByte()) {
-            return (strlen($str) - $start <= $length) ? substr($str, $start, $length) : substr($str, $start, $length - strlen($trimmarker)) . $trimmarker;
+            return (strlen($str) - $start <= $length)
+				? substr($str, $start, $length)
+				: substr($str, $start, $length - strlen($trimmarker)) . $trimmarker;
         }
         if (function_exists('mb_internal_encoding') && @mb_internal_encoding(self::getCharset())) {
             $str2 = mb_strcut($str, $start, $length - strlen($trimmarker));
@@ -391,6 +393,10 @@ abstract class Xoops_Locale_Abstract
      */
     static function money_format($format, $number)
     {
-        return money_format($format, $number);
+		if (function_exists('money_format'))
+			$result = money_format($format, $number);
+		else
+			$result = sprintf('%01.2f', $number);
+		return $result;
     }
 }
