@@ -8,11 +8,13 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 */
 class Xoops_Module_HelperTest extends MY_UnitTestCase
 {
-    protected $myclass = 'Xoops_Module_Helper';
+    protected $myClass = 'Xoops\Module\Helper';
 	
 	public function test_getHelper()
 	{
-		$this->markTestIncomplete();
+        $instance = $this->myClass;
+		$x = $instance::getHelper();
+		$this->assertInstanceOf('Xoops\Module\Helper\Dummy', $x);
 	}
 
 }

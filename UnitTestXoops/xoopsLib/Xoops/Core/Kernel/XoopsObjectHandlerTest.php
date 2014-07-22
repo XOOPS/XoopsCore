@@ -69,7 +69,7 @@ class XoopsObjectHandlerTest extends MY_UnitTestCase
 
     public function test_delete()
 	{
-        $instance=new $this->myClass($$this->conn);
+        $instance=new $this->myClass($this->conn);
 		$object=new $this->classObject();
 		$x = $instance->delete($object);
         $this->assertSame(null, $x);
