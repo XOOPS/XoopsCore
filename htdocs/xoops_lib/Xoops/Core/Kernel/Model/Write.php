@@ -196,12 +196,9 @@ class Write extends XoopsModelAbstract
         $qb = $this->handler->db2->createXoopsQueryBuilder();
         $qb->delete($this->handler->table);
         if (isset($criteria)) {
-            $qb = $criteria->renderQb($qb); // Warning : $qb could be reset to null
+            $qb = $criteria->renderQb($qb);
         }
-		if (is_object($qb)) {
-			return $qb->execute();
-		}
-		return false;
+        return $qb->execute();
     }
 
     /**
@@ -221,12 +218,10 @@ class Write extends XoopsModelAbstract
         //$queryFunc = empty($force) ? 'query' : 'queryF';
         $qb->update($this->handler->table);
         if (isset($criteria)) {
-            $qb = $criteria->renderQb($qb); // Warning : $qb could be reset to null
+            $qb = $criteria->renderQb($qb);
         }
-		if (is_object($qb)) {
-			$qb->set($fieldname, $qb->createNamedParameter($fieldvalue));
-			return $qb->execute();
-		}
-		return false;
+        $qb->set($fieldname, $qb->createNamedParameter($fieldvalue));
+
+        return $qb->execute();
     }
 }
