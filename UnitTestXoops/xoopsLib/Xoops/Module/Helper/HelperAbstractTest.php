@@ -102,7 +102,13 @@ class Xoops_Module_Helper_AbstractTest extends MY_UnitTestCase
 
     public function test_getConfig()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		
+        $name = 'sitename';
+		$x = $instance->getConfig($name,'system');
+		$this->assertTrue(is_string($x));
+		$this->assertTrue(!empty($x));
     }
 
 	public function test_getHandler()
@@ -127,17 +133,36 @@ class Xoops_Module_Helper_AbstractTest extends MY_UnitTestCase
 
 	public function test_getUserGroups()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		
+		$x = $instance->getUserGroups();
+		$this->assertSame(XOOPS_GROUP_ANONYMOUS, $x);
     }
 
     public function test_url()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		
+        $name = 'dirname';
+		$x = $instance->url($name);
+		$this->assertSame($name, basename($x));
+		$this->assertSame('modules', basename(dirname($x)));
+		$this->assertSame('htdocs', basename(dirname(dirname(($x)))));
     }
 
 	public function test_path()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		
+        $name = 'system';
+		$x = $instance->path($name);
+		$this->assertSame($name, basename($x));
+		$this->assertSame('modules', basename(dirname($x)));
+		$this->assertSame('htdocs', basename(dirname(dirname(($x)))));
+        $this->assertTrue(is_dir($x));
     }
 
     public function test_redirect()

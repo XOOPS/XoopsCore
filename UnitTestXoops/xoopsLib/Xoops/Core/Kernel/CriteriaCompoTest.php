@@ -2,15 +2,7 @@
 require_once(dirname(__FILE__).'/../../../../init.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
-
-class Kernel_CriteriaCompoTest_CriteriaElement extends Xoops\Core\Kernel\CriteriaElement
-{
-	function render() {}
-	function renderWhere() {}
-	function renderLdap() {}
-	function renderQb(QueryBuilder $qb = null, $whereMode = '') {}
-	function buildExpressionQb(QueryBuilder $qb) {}
-}
+use Xoops\Core\Kernel\Criteria;
 
 class Kernel_CriteriaCompoTestInstance extends Xoops\Core\Kernel\CriteriaCompo
 {
@@ -43,7 +35,7 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
     
     public function test_add()
 	{
-		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$criteria_element = new Criteria('dummy_field');
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
@@ -56,7 +48,7 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
 	
     public function test_render()
 	{
-		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$criteria_element = new Criteria('dummy_field');
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
@@ -66,7 +58,7 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
 	
     public function test_renderWhere()
 	{
-		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$criteria_element = new Criteria('dummy_field');
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
@@ -76,17 +68,17 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
 	
     public function test_renderLdap()
 	{
-		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$criteria_element = new Criteria('dummy_field');
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
 		$x = $criteria->renderLdap();
-		$this->assertSame(null, $x);
+		$this->assertSame('(dummy_field = )', $x);
     }
 	
     public function test_renderQb()
 	{
-		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$criteria_element = new Criteria('dummy_field');
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
@@ -99,13 +91,13 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
 	
     public function test_buildExpressionQb()
 	{
-		$criteria_element = new Kernel_CriteriaCompoTest_CriteriaElement();
+		$criteria_element = new Criteria('dummy_field');
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
 		$qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
 		$x = $criteria->buildExpressionQb($qb);
-		$this->assertSame(null, $x);
+		$this->assertSame('(dummy_field = :dcValue1)', $x);
     }
 	
 }
