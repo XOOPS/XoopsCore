@@ -229,7 +229,7 @@ class XoopsDatabaseManager
      *
      * @param string $sql sql statement to perform
      *
-     * @return mixed
+     * @return resource
      */
     public function query($sql)
     {

@@ -80,7 +80,7 @@ class Xoops_Utils
 
         foreach ($aArray1 as $mKey => $mValue) {
             if (array_key_exists($mKey, $aArray2)) {
-                if (is_array($mValue)) {
+                if (is_array($mValue) AND is_array($aArray2[$mKey])) {
                     $aRecursiveDiff = self::arrayRecursiveDiff($mValue, $aArray2[$mKey]);
                     if (count($aRecursiveDiff)) {
                         $aReturn[$mKey] = $aRecursiveDiff;
@@ -120,7 +120,7 @@ class Xoops_Utils
                 if (!empty($return[$key]) && is_array($return[$key]) && is_array($val)) {
                     $return[$key] = self::arrayRecursiveMerge($return[$key], $val);
                 } elseif (is_int($key)) {
-                    $return[] = $val;
+                    if (!in_array($val, $return)) $return[] = $val; // merge only once $val
                 } else {
                     $return[$key] = $val;
                 }
@@ -134,6 +134,7 @@ class Xoops_Utils
      * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
      * IIS, or SCRIPT_NAME in CGI mode).  Also exposes some additional custom
      * environment information.
+	 * Note : code modifications for XOOPS
      *
      * @param  string $name Environment variable name.
      * @param  mixed  $default
@@ -150,9 +151,16 @@ class Xoops_Utils
             return (strpos(self::getEnv('SCRIPT_URI'), 'https://') === 0);
         }
 
-        if ($name === 'SCRIPT_NAME') {
+        if ($name === 'SCRIPT_NAME' && !isset($_SERVER[$name])) {
             if (self::getEnv('CGI_MODE') && isset($_ENV['SCRIPT_URL'])) {
-                $name = 'SCRIPT_URL';
+                return $_ENV['SCRIPT_URL'];
+            }
+        }
+
+        if ($name === 'REMOTE_ADDR' && !isset($_SERVER[$name])) {
+            $addr = self::getEnv('HTTP_PC_REMOTE_ADDR');
+            if ($addr !== null) {
+                return $addr;
             }
         }
 
@@ -161,15 +169,6 @@ class Xoops_Utils
             $val = $_SERVER[$name];
         } elseif (isset($_ENV[$name])) {
             $val = $_ENV[$name];
-        } elseif (getenv($name) !== false) {
-            $val = getenv($name);
-        }
-
-        if ($name === 'REMOTE_ADDR' && $val === self::getEnv('SERVER_ADDR')) {
-            $addr = self::getEnv('HTTP_PC_REMOTE_ADDR');
-            if ($addr !== null) {
-                $val = $addr;
-            }
         }
 
         if ($val !== null) {
@@ -178,9 +177,8 @@ class Xoops_Utils
 
         switch ($name) {
             case 'SCRIPT_FILENAME':
-                if (defined('SERVER_IIS') && SERVER_IIS === true) {
-                    return str_replace('\\\\', '\\', self::getEnv('PATH_TRANSLATED'));
-                }
+                $val = preg_replace('#//+#', '/', self::getEnv('PATH_TRANSLATED'));
+                return preg_replace('#\\\\+#', '\\', $val);
                 break;
             case 'DOCUMENT_ROOT':
                 $name = self::getEnv('SCRIPT_NAME');
@@ -190,7 +188,7 @@ class Xoops_Utils
                     $offset = 4;
                 }
                 return substr($filename, 0, -(strlen($name) + $offset));
-                break;
+				break;
             case 'PHP_SELF':
                 return str_replace(self::getEnv('DOCUMENT_ROOT'), '', self::getEnv('SCRIPT_FILENAME'));
                 break;
@@ -203,9 +201,9 @@ class Xoops_Utils
                 $count = count($parts);
 
                 if ($count === 1) {
-                    return '.' . $host;
-                } elseif ($count === 2) {
-                    return '.' . $host;
+                    $val = $host;
+				} elseif ($count === 2) {
+                    $val = $host;
                 } elseif ($count === 3) {
                     $gTLD = array(
                         'aero',
@@ -231,11 +229,14 @@ class Xoops_Utils
                         'xxx'
                     );
                     if (in_array($parts[1], $gTLD)) {
-                        return '.' . $host;
+                        $val = $host;
                     }
                 }
-                array_shift($parts);
-                return '.' . implode('.', $parts);
+				if (empty($val)) {
+					array_shift($parts);
+					$val = implode('.', $parts);
+				}
+				return '.' . $val;
                 break;
         }
         return $default;

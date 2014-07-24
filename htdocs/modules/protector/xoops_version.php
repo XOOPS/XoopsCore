@@ -27,7 +27,7 @@ $xoops = Xoops::getInstance();
  */
 $modversion['name']        = _MI_PROTECTOR_NAME;
 $modversion['description'] = constant('_MI_PROTECTOR_DESC');
-$modversion['version']     = file_get_contents(dirname(__FILE__) . '/include/version.txt');
+$modversion['version']     = file_get_contents(__DIR__ . '/include/version.txt');
 $modversion['credits']     = "PEAK Corp.";
 $modversion['author']      = "GIJ=CHECKMATE PEAK Corp.(http://www.peak.ne.jp/)";
 $modversion['help']        = 'page=help';
@@ -44,9 +44,9 @@ $modversion['release_date']        = '2011/10/08';
 $modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
 $modversion["module_status"]       = "RC";
-$modversion['min_php'] = '5.3';
+$modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = "2.6.0";
-$modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
+$modversion['min_db']              = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
 
 /*
  Admin menu

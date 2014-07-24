@@ -9,11 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+
 /**
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,7 +23,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
@@ -35,8 +37,8 @@ $searchable_types = array(
 switch ($op) {
     default:
     case "search":
-        $xoops->header('profile_search.html');
-        $xoops->appendConfig('profile_breadcrumbs', array('title' => XoopsLocale::A_SEARCH));
+        $xoops->header('profile_search.tpl');
+        $xoops->appendConfig('profile_breadcrumbs', array('caption' => XoopsLocale::A_SEARCH));
         $sortby_arr = array();
 
         // Dynamic fields
@@ -107,8 +109,8 @@ switch ($op) {
 
                 case "date":
                 case "datetime":
-                    $searchform->addElement(new XoopsFormTextDateSelect(sprintf(_PROFILE_MA_LATERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_larger", 15, 0));
-                    $searchform->addElement(new XoopsFormTextDateSelect(sprintf(_PROFILE_MA_EARLIERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_smaller", 15, time()));
+                    $searchform->addElement(new XoopsFormTextDateSelect(sprintf(_PROFILE_MA_LATERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_larger", 15, ''));
+                    $searchform->addElement(new XoopsFormTextDateSelect(sprintf(_PROFILE_MA_EARLIERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_smaller", 15, ''));
                     break;
 
                 case "timezone":
@@ -152,14 +154,14 @@ switch ($op) {
         break;
 
     case "results":
-        $xoops->header('profile_results.html');
+        $xoops->header('profile_results.tpl');
         $xoops->tpl()->assign('page_title', _PROFILE_MA_RESULTS);
 
         $xoops->appendConfig('profile_breadcrumbs', array(
+                                                         'caption' => XoopsLocale::A_SEARCH,
                                                          'link' => $xoops->url('modules/profile/search.php'),
-                                                         'title' => XoopsLocale::A_SEARCH
                                                     ));
-        $xoops->appendConfig('profile_breadcrumbs', array('title' => _PROFILE_MA_RESULTS));
+        $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_RESULTS));
 
         $member_handler = $xoops->getHandlerMember();
         // Dynamic fields
@@ -360,7 +362,7 @@ switch ($op) {
         $searchgroups = array();
         if ($xoops->isAdmin()) {
             $searchgroups = empty($_REQUEST['selgroups']) ? array() : array_map("intval", $_REQUEST['selgroups']);
-            foreach($searchgroups as $group) {
+            foreach ($searchgroups as $group) {
                 $search_url[] = 'selgroups[]=' . $group;
             }
         }
@@ -418,4 +420,4 @@ switch ($op) {
         }
         break;
 }
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

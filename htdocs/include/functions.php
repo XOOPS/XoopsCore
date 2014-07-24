@@ -20,7 +20,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * @deprecated
- * @param mixed $name
+ * @param string $name
  * @param mixed $optional
  * @return XoopsObjectHandler|XoopsPersistableObjectHandler|null
  */
@@ -99,7 +99,7 @@ function xoops_setActiveModules()
 
 /**
  * @deprecated
- * @param $dirname
+ * @param string $dirname
  * @return bool
  */
 function xoops_isActiveModule($dirname)
@@ -229,7 +229,7 @@ function xoops_makepass()
  * @deprecated
  * @param string $email
  * @param bool $antispam
- * @return bool|mixed
+ * @return false|string
  */
 function checkEmail($email, $antispam = false)
 {
@@ -263,7 +263,7 @@ function xoops_getbanner()
 
 /**
  * @deprecated
- * @param $url
+ * @param string $url
  * @param int $time
  * @param string $message
  * @param bool $addredirect
@@ -343,7 +343,7 @@ function xoops_substr($str, $start, $length, $trimmarker = '...')
 /**
  * @deprecated
  * @param int $module_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_notification_deletebymodule($module_id)
 {
@@ -354,7 +354,7 @@ function xoops_notification_deletebymodule($module_id)
 /**
  * @deprecated
  * @param int $user_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_notification_deletebyuser($user_id)
 {
@@ -367,7 +367,7 @@ function xoops_notification_deletebyuser($user_id)
  * @param $module_id
  * @param $category
  * @param $item_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_notification_deletebyitem($module_id, $category, $item_id)
 {
@@ -391,7 +391,7 @@ function xoops_comment_count($module_id, $item_id = null)
  * @deprecated
  * @param int $module_id
  * @param int $item_id
- * @return bool
+ * @return boolean|null
  */
 function xoops_comment_delete($module_id, $item_id)
 {
@@ -510,7 +510,7 @@ function xoops_getBaseDomain($url, $debug = 0)
 {
     $xoops = Xoops::getInstance();
     $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
-    return $xoops->getBaseDomain($url, $debug);
+    return $xoops->getBaseDomain($url);
 }
 
 /**
@@ -577,4 +577,30 @@ if (!function_exists('http_response_code')) {
         }
         return $code;
     }
+}
+
+// ENT_SUBSTITUTE flag for htmlspecialchars() added in PHP 5.4
+if (!defined('ENT_SUBSTITUTE')) {
+    define('ENT_SUBSTITUTE', 0);
+}
+
+/**
+ * xhtmlspecialchars - a customized version of PHP htmlspecialchars to set the
+ * flags and encoding parameters to the most approriate values for general use
+ * in a UTF-8 environment.
+ *
+ * This function forces UTF-8 encoding, the ENT_QUOTES flag, and will also use
+ * the ENT_SUBSTITUTE flag if it is available. This gives the optimal features
+ * for 5.3 and in >5.4
+ *
+ * @param string $string              string to be encoded
+ * @param integer  $dummy_flags         ignored - for call compatibility only
+ * @param mixed  $dummy_encoding      ignored - for call compatibility only
+ * @param mixed  $dummy_double_encode ignored - for call compatibility only
+ *
+ * @return string with any charachters with special significance in HTML converted to entities
+ */
+function xhtmlspecialchars($string, $dummy_flags = 0, $dummy_encoding = '', $dummy_double_encode = true)
+{
+    return htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }

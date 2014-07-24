@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,10 +19,10 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
-$op = PublisherRequest::getString('op');
+$op = \Xmf\Request::getString('op');
 
 $op = isset($_POST['editor']) ? 'mod' : $op;
 if (isset($_POST['addcategory'])) {
@@ -30,8 +30,8 @@ if (isset($_POST['addcategory'])) {
 }
 
 // Where do we start ?
-$startcategory = PublisherRequest::getInt('startcategory');
-$categoryid = PublisherRequest::getInt('categoryid');
+$startcategory = \Xmf\Request::getInt('startcategory');
+$categoryid = \Xmf\Request::getInt('categoryid');
 
 switch ($op) {
 
@@ -65,7 +65,7 @@ switch ($op) {
     case "addcategory":
         global $modify;
 
-        $parentid = PublisherRequest::getInt('parentid');
+        $parentid = \Xmf\Request::getInt('parentid');
         /* @var $categoryObj PublisherCategory */
         if ($categoryid != 0) {
             $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
@@ -358,7 +358,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         PublisherUtils::closeCollapsableBar('subcatstable', 'subcatsicon');
 
         PublisherUtils::openCollapsableBar('bottomtable', 'bottomtableicon', _AM_PUBLISHER_CAT_ITEMS, _AM_PUBLISHER_CAT_ITEMS_DSC);
-        $startitem = PublisherRequest::getInt('startitem');
+        $startitem = \Xmf\Request::getInt('startitem');
         // Get the total number of published ITEMS
         $totalitems = $publisher->getItemHandler()->getItemsCount($sel_cat, array(_PUBLISHER_STATUS_PUBLISHED));
         // creating the items objects that are published
@@ -393,7 +393,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         }
         echo "</table>\n";
         echo "<br />\n";
-        $parentid = PublisherRequest::getInt('parentid');
+        $parentid = \Xmf\Request::getInt('parentid');
         $pagenav_extra_args = "op=mod&categoryid=$sel_cat&parentid=$parentid";
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $startitem, 'startitem', $pagenav_extra_args);
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';

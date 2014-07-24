@@ -10,7 +10,6 @@
 */
 
 use DebugBar\StandardDebugBar;
-use DebugBar\JavascriptRenderer;
 use DebugBar\DataCollector\MessagesCollector;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

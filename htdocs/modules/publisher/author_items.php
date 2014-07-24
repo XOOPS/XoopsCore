@@ -11,17 +11,17 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
-$uid = PublisherRequest::getInt('uid');
+$uid = \Xmf\Request::getInt('uid');
 if (!$uid) {
     $xoops->redirect('index.php', 2, _CO_PUBLISHER_ERROR);
 }
@@ -38,7 +38,7 @@ if (!$publisher->getConfig('perm_author_items')) {
 
 $myts = MyTextSanitizer::getInstance();
 
-$xoops->header('publisher_author_items.html');
+$xoops->header('publisher_author_items.tpl');
 $xoopsTpl = $xoops->tpl();
 
 XoopsLoad::loadFile($publisher->path('footer.php'));

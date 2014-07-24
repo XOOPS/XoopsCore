@@ -21,7 +21,7 @@
  */
 
 if (file_exists('mainfile.php')) {
-    include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 } else {
     include '../../' . DIRECTORY_SEPARATOR . 'mainfile.php';
 }

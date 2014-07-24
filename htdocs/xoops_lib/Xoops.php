@@ -124,10 +124,10 @@ class Xoops
      */
     private function __construct()
     {
-        $this->paths['XOOPS'] = array(XOOPS_PATH, XOOPS_URL . 'browse.php');
+        $this->paths['XOOPS'] = array(XOOPS_PATH, XOOPS_URL . '/browse.php');
         $this->paths['www'] = array(XOOPS_ROOT_PATH, XOOPS_URL);
         $this->paths['var'] = array(XOOPS_VAR_PATH, null);
-        $this->paths['lib'] = array(XOOPS_PATH, XOOPS_URL . 'browse.php');
+        $this->paths['lib'] = array(XOOPS_PATH, XOOPS_URL . '/browse.php');
         $this->paths['modules'] = array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules');
         $this->paths['themes'] = array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes');
         $this->paths['media'] = array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media');
@@ -196,7 +196,7 @@ class Xoops
     /**
      * get the asset utility
      *
-     * @return \Xoops\Core\Asset instance
+     * @return Xoops\Core\Assets instance
      */
     public function assets()
     {
@@ -210,7 +210,9 @@ class Xoops
     /**
      * get the service manager
      *
-     * @return \Xoops\Core\Service\Manager instance
+     * @param string $service - service name
+     *
+     * @return Xoops\Core\Service\Provider instance
      */
     public function service($service)
     {
@@ -263,7 +265,7 @@ class Xoops
     /**
      * set curent template engine
      *
-     * @param XoopsTpl $tpl
+     * @param XoopsTpl $tpl template engine
      *
      * @return XoopsTpl
      */
@@ -273,7 +275,7 @@ class Xoops
     }
 
     /**
-     * @param null|string $tpl_name
+     * @param null|string $tpl_name base template
      *
      * @return null|XoopsTheme
      */
@@ -403,14 +405,20 @@ class Xoops
      * @param string $path
      * @param string $error_type
      *
-     * @return string|bool
+     * @return string|false
      */
     public function pathExists($path, $error_type)
     {
         if (XoopsLoad::fileExists($path)) {
             return $path;
         } else {
-            trigger_error(XoopsLocale::E_FILE_NOT_FOUND, $error_type);
+            $this->logger()->log(
+                \Psr\Log\LogLevel::WARNING,
+                \XoopsLocale::E_FILE_NOT_FOUND,
+                array($path, $error_type)
+            );
+
+            //trigger_error(XoopsLocale::E_FILE_NOT_FOUND, $error_type);
             return false;
         }
     }
@@ -521,7 +529,7 @@ class Xoops
     /**
      * @param string $tpl_name
      *
-     * @return bool
+     * @return null|boolean
      */
     public function header($tpl_name = null)
     {
@@ -594,7 +602,7 @@ class Xoops
     }
 
     /**
-     * @return bool
+     * @return false|null
      */
     public function footer()
     {
@@ -835,7 +843,7 @@ class Xoops
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      * @param mixed $optional
      *
      * @return XoopsObjectHandler|XoopsPersistableObjectHandler|null
@@ -851,7 +859,10 @@ class Xoops
             }
         }
         if (!isset($this->_kernelHandlers[$name])) {
-            trigger_error('Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
+            $this->logger()->log(
+                $optional ? \Psr\Log\LogLevel::WARNING : \Psr\Log\Loglevel::ERROR,
+                'Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name
+            );
         } else {
             return $this->_kernelHandlers[$name];
         }
@@ -1208,7 +1219,7 @@ class Xoops
     }
 
     /**
-     * @param mixed  $msg
+     * @param string  $msg
      * @param string $title
      *
      * @return void
@@ -1220,7 +1231,7 @@ class Xoops
     }
 
     /**
-     * @param mixed  $msg
+     * @param string  $msg
      * @param string $title
      *
      * @return void
@@ -1328,31 +1339,12 @@ class Xoops
      * @param string $email
      * @param bool   $antispam
      *
-     * @return bool|mixed
+     * @return false|string
      */
     public function checkEmail($email, $antispam = false)
     {
-        if (!$email || !preg_match('/^[^@]{1,64}@[^@]{1,255}$/', $email)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
-        }
-        $email_array = explode("@", $email);
-        $local_array = explode(".", $email_array[0]);
-        for ($i = 0; $i < sizeof($local_array); $i++) {
-            if (!preg_match("/^(([A-Za-z0-9!#$%&'*+\/\=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])
-            ) {
-                return false;
-            }
-        }
-        if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) {
-            $domain_array = explode(".", $email_array[1]);
-            if (sizeof($domain_array) < 2) {
-                return false; // Not enough parts to domain
-            }
-            for ($i = 0; $i < sizeof($domain_array); $i++) {
-                if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
-                    return false;
-                }
-            }
         }
         if ($antispam) {
             $email = str_replace("@", " at ", $email);
@@ -1476,7 +1468,7 @@ class Xoops
     }
 
     /**
-     * @param $key
+     * @param string $key
      *
      * @return string
      */
@@ -1720,7 +1712,7 @@ class Xoops
     /**
      * @param string $dirname
      *
-     * @return
+     * @return array
      */
     public function getModuleConfigs($dirname = '')
     {
@@ -1769,81 +1761,50 @@ class Xoops
     /**
      * getBaseDomain
      *
-     * @param string $url
-     * @param int    $debug
+     * Get domain name from a URL. This will check that the domain is valid for registering,
+     * preventing return of constructs like 'co.uk' as the domain. See https://publicsuffix.org/
      *
-     * @return string
-     * @deprecated
+     * @param string  $url              URL
+     * @param boolean $includeSubdomain true to include include subdomains,
+     *                                  default is false registerable domain only
+     *
+     * @return mixed string domain, or null if domain is invalid
      */
-    public function getBaseDomain($url, $debug = 0)
+    function getBaseDomain($url, $includeSubdomain = false)
     {
-        $base_domain = '';
-        $url = strtolower($url);
+        $pslManager = new \Pdp\PublicSuffixListManager();
+        $parser = new \Pdp\Parser($pslManager->getList());
 
-        // generic tlds (source: http://en.wikipedia.org/wiki/Generic_top-level_domain)
-        $G_TLD = array(
-            'biz', 'com', 'edu', 'gov', 'info', 'int', 'mil', 'name', 'net', 'org', 'aero', 'asia', 'cat', 'coop',
-            'jobs', 'mobi', 'museum', 'pro', 'tel', 'travel', 'arpa', 'root', 'berlin', 'bzh', 'cym', 'gal', 'geo',
-            'kid', 'kids', 'lat', 'mail', 'nyc', 'post', 'sco', 'web', 'xxx', 'nato', 'example', 'invalid', 'localhost',
-            'test', 'bitnet', 'csnet', 'ip', 'local', 'onion', 'uucp', 'co'
-        );
+        $url=mb_strtolower($url, 'UTF-8');
 
-        // country tlds (source: http://en.wikipedia.org/wiki/Country_code_top-level_domain)
-        $C_TLD = array( // active
-            'ac', 'ad', 'ae', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'ax', 'az',
-            'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bw', 'by', 'bz',
-            'ca', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz',
-            'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'ee', 'eg', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo',
-            'fr', 'ga', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw',
-            'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'io', 'iq', 'ir', 'is', 'it', 'je',
-            'jm', 'jo', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk',
-            'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'mg', 'mh', 'mk', 'ml', 'mm', 'mn', 'mo', 'mp', 'mq',
-            'mr', 'ms', 'mt', 'mu', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'nc', 'ne', 'nf', 'ng', 'ni', 'nl', 'no', 'np',
-            'nr', 'nu', 'nz', 'om', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pn', 'pr', 'ps', 'pt', 'pw', 'py', 'qa',
-            're', 'ro', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sk', 'sl', 'sm', 'sn', 'sr', 'st',
-            'sv', 'sy', 'sz', 'tc', 'td', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tr', 'tt', 'tv', 'tw',
-            'tz', 'ua', 'ug', 'uk', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yu',
-            'za', 'zm', 'zw', // inactive
-            'eh', 'kp', 'me', 'rs', 'um', 'bv', 'gb', 'pm', 'sj', 'so', 'yt', 'su', 'tp', 'bu', 'cs', 'dd', 'zr'
-        );
+        // use php-domain-parser to give us just the domain
+        $pdp = $parser->parseUrl($url);
+        //var_dump($pdp->host);
 
-        // get domain
-        if (!$full_domain = $this->getUrlDomain($url)) {
-            return $base_domain;
+        $host = $pdp->host->host;
+        // check for exceptions, localhost and ip address (v4 & v6)
+        if (!empty($host)) {
+            // localhost exception
+            if ($host=='localhost') {
+                return $host;
+            }
+            // Check for IPV6 URL (see http://www.ietf.org/rfc/rfc2732.txt)
+            // strip brackets before validating
+            if (substr($host, 0, 1)=='[' && substr($host, -1)==']') {
+                $host = substr($host, 1, (strlen($host)-2));
+            }
+            // ip address exception
+            if (filter_var($host, FILTER_VALIDATE_IP)) {
+                return $host;
+            }
         }
 
-        // break up domain, reverse
-        $DOMAIN = explode('.', $full_domain);
-        if ($debug) {
-            print_r($DOMAIN);
-        }
-        $DOMAIN = array_reverse($DOMAIN);
-        if ($debug) {
-            print_r($DOMAIN);
-        }
-        // first check for ip address
-        if (count($DOMAIN) == 4 && is_numeric($DOMAIN[0]) && is_numeric($DOMAIN[3])) {
-            return $full_domain;
+        $host = $pdp->host->registerableDomain;
+        if (!empty($host) && $includeSubdomain) {
+            $host = $pdp->host->host;
         }
 
-        // if only 2 domain parts, that must be our domain
-        if (count($DOMAIN) <= 2) {
-            return $full_domain;
-        }
-
-        /*
-        finally, with 3+ domain parts: obviously D0 is tld now,
-        if D0 = ctld and D1 = gtld, we might have something like com.uk so,
-        if D0 = ctld && D1 = gtld && D2 != 'www', domain = D2.D1.D0 else if D0 = ctld && D1 = gtld && D2 == 'www',
-        domain = D1.D0 else domain = D1.D0 - these rules are simplified below.
-        */
-        if (in_array($DOMAIN[0], $C_TLD) && in_array($DOMAIN[1], $G_TLD) && $DOMAIN[2] != 'www') {
-            $full_domain = $DOMAIN[2] . '.' . $DOMAIN[1] . '.' . $DOMAIN[0];
-        } else {
-            $full_domain = $DOMAIN[1] . '.' . $DOMAIN[0];
-        }
-        // did we succeed?
-        return $full_domain;
+        return($host);
     }
 
     /**

@@ -21,27 +21,27 @@
 defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
 
 
-$modversion = array();
-$modversion['name'] = _MI_USERCONFIGS_NAME;
+$modversion                = array();
+$modversion['name']        = _MI_USERCONFIGS_NAME;
 $modversion['description'] = _MI_USERCONFIGS_DSC;
-$modversion['version'] = 1.42;
-$modversion['author'] = 'Trabis';
-$modversion['nickname'] = 'trabis';
-$modversion['credits'] = 'The XOOPS Project';
-$modversion['license'] = 'GNU GPL 2.0';
+$modversion['version']     = 1.42;
+$modversion['author']      = 'Trabis';
+$modversion['nickname']    = 'trabis';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official'] = 1;
-$modversion['help']           = 'page=help';
-$modversion['image'] = 'images/logo.png';
-$modversion['dirname'] = 'userconfigs';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'userconfigs';
 
 //about
-$modversion['release_date'] = '2013/01/01';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['release_date']        = '2013/01/01';
+$modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status'] = 'ALPHA 1';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.6.0';
+$modversion['module_status']       = 'ALPHA 1';
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = '2.6.0';
 
 // paypal
 $modversion['paypal'] = array(
@@ -52,10 +52,10 @@ $modversion['paypal'] = array(
 );
 
 // Admin things
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']    = 1;
 $modversion['system_menu'] = 1;
-$modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu']  = "admin/menu.php";
+$modversion['adminindex']  = "admin/index.php";
+$modversion['adminmenu']   = "admin/menu.php";
 
 // Manage extension
 //$modversion['extension'] = 1;
@@ -65,7 +65,7 @@ $modversion['adminmenu']  = "admin/menu.php";
 $modversion['hasMain'] = 1;
 
 // Sql
-$modversion['schema'] = 'sql/schema.yml';
+$modversion['schema']           = 'sql/schema.yml';
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 $modversion['tables'] = array(

@@ -8,11 +8,16 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  *  Publisher class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Class
  * @subpackage      Handlers
  * @since           1.0
@@ -20,9 +25,8 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherPermissionHandler extends XoopsObjectHandler
 {
@@ -32,9 +36,13 @@ class PublisherPermissionHandler extends XoopsObjectHandler
      */
     public $publisher = null;
 
+    /**
+     * constructor
+     */
     public function __construct()
     {
         $this->publisher = Publisher::getInstance();
+        $this->db2 = \Xoops::getInstance()->db();
     }
 
     /**
@@ -48,7 +56,6 @@ class PublisherPermissionHandler extends XoopsObjectHandler
     public function getGrantedGroupsById($gperm_name, $id)
     {
         static $items;
-        global $xoopsDB;
         if (isset($items[$gperm_name][$id])) {
             return $items[$gperm_name][$id];
         }
@@ -58,16 +65,13 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         $criteria->add(new Criteria('gperm_name', $gperm_name));
         $criteria->add(new Criteria('gperm_itemid', $id));
         //Instead of calling groupperm handler and get objects, we will save some memory and do it our way
-        $db = $xoopsDB;
-        $limit = $start = 0;
-        $sql = 'SELECT gperm_groupid FROM ' . $db->prefix('group_permission');
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-        }
-        $result = $db->query($sql, $limit, $start);
-        while ($myrow = $db->fetchArray($result)) {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb ->select('gperm_groupid')
+            ->fromPrefix('group_permission', '');
+        $criteria->renderQb($qb);
+        $result = $qb->execute();
+
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $groups[$myrow['gperm_groupid']] = $myrow['gperm_groupid'];
         }
         $items[$gperm_name][$id] = $groups;
@@ -84,7 +88,6 @@ class PublisherPermissionHandler extends XoopsObjectHandler
     public function getGrantedItems($gperm_name)
     {
         static $items;
-        global $xoopsDB;
         if (isset($items[$gperm_name])) {
             return $items[$gperm_name];
         }
@@ -101,11 +104,14 @@ class PublisherPermissionHandler extends XoopsObjectHandler
             $criteria2->add(new Criteria('gperm_groupid', $gid), 'OR');
         }
         $criteria->add($criteria2);
-        $db = $xoopsDB;
-        $sql = 'SELECT gperm_itemid FROM ' . $db->prefix('group_permission');
-        $sql .= ' ' . $criteria->renderWhere();
-        $result = $db->query($sql, 0, 0);
-        while ($myrow = $db->fetchArray($result)) {
+
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb ->select('gperm_itemid')
+            ->fromPrefix('group_permission', '');
+        $criteria->renderQb($qb);
+        $result = $qb->execute();
+
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[$myrow['gperm_itemid']] = $myrow['gperm_itemid'];
         }
         $items[$gperm_name] = $ret;
@@ -113,8 +119,10 @@ class PublisherPermissionHandler extends XoopsObjectHandler
     }
 
     /**
-     * @param string $gperm_name
-     * @param int    $id
+     * isGranted
+     *
+     * @param string $gperm_name permission name
+     * @param int    $id         item id
      *
      * @return bool
      */
@@ -135,13 +143,15 @@ class PublisherPermissionHandler extends XoopsObjectHandler
      * Saves permissions for the selected category
      *  saveCategory_Permissions()
      *
-     * @param array   $groups     : group with granted permission
-     * @param integer $itemid     : itemid on which we are setting permissions for Categories and Forums
-     * @param string  $perm_name  : name of the permission
+     * @param array   $groups    group with granted permission
+     * @param integer $itemid    itemid on which we are setting permissions for Categories and Forums
+     * @param string  $perm_name name of the permission
      *
      * @return boolean : TRUE if the no errors occured
+     *
+     * @todo is this used anywhere?
      */
-    public function saveItem_Permissions($groups, $itemid, $perm_name)
+    public function saveItemPermissions($groups, $itemid, $perm_name)
     {
         $xoops = Xoops::getInstance();
         $result = true;
@@ -163,8 +173,8 @@ class PublisherPermissionHandler extends XoopsObjectHandler
      * Delete all permission for a specific item
      *  deletePermissions()
      *
-     * @param integer $itemid : id of the item for which to delete the permissions
-     * @param string  $gperm_name
+     * @param integer $itemid     id of the item for which to delete the permissions
+     * @param string  $gperm_name permission name
      *
      * @return boolean : TRUE if the no errors occured
      */

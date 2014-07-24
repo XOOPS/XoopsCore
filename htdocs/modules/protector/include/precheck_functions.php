@@ -22,7 +22,7 @@
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
- * @return bool
+ * @return null|boolean
  */
 function protector_precheck()
 {
@@ -32,7 +32,7 @@ function protector_precheck()
     }
 
     // Protector class
-    require_once dirname(dirname(__FILE__)) . '/class/protector.php';
+    require_once dirname(__DIR__) . '/class/protector.php';
 
     // Protector object
     $protector = Protector::getInstance();

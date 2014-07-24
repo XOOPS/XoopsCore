@@ -208,7 +208,7 @@ class Xoops_Cache_Wincache extends Xoops_Cache_Abstract
      *
      * @param string $group
      *
-     * @return boolean success
+     * @return boolean|null success
      */
     public function clearGroup($group)
     {

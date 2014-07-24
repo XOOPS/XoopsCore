@@ -127,6 +127,9 @@ class Protector
         return true;
     }
 
+    /**
+     * @param string $key
+     */
     function _initial_recursive($val, $key)
     {
         if (is_array($val)) {
@@ -277,6 +280,9 @@ class Protector
         return true;
     }
 
+    /**
+     * @param integer $expire
+     */
     function write_file_bwlimit($expire)
     {
         $expire = min(intval($expire), time() + 300);
@@ -528,7 +534,7 @@ class Protector
 
         if (!empty($this->_dblayertrap_doubtfuls) || $force_override) {
             @define('XOOPS_DB_ALTERNATIVE', 'ProtectorMysqlDatabase');
-            require_once dirname(dirname(__FILE__)) . '/class/ProtectorMysqlDatabase.class.php';
+            require_once dirname(__DIR__) . '/class/ProtectorMysqlDatabase.class.php';
         }
     }
 
@@ -1140,6 +1146,9 @@ class Protector
         }
     }
 
+    /**
+     * @param integer $points4deny
+     */
     function spam_check($points4deny, $uid)
     {
         $this->_spamcount_uri = 0;
@@ -1247,9 +1256,12 @@ class Protector
         error_reporting($error_reporting_level);
     }
 
+    /**
+     * @param string $type
+     */
     function call_filter($type, $dying_message = '')
     {
-        require_once dirname(__FILE__) . '/ProtectorFilter.php';
+        require_once __DIR__ . '/ProtectorFilter.php';
         $filter_handler = ProtectorFilterHandler::getInstance();
         $ret = $filter_handler->execute($type);
         if ($ret == false && $dying_message) {

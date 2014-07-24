@@ -58,7 +58,7 @@ class Provisioning
      *
      * @param AuthAbstract $auth_instance auth instance
      *
-     * @return object Xoops\Auth\Provisioning
+     * @return Provisioning Xoops\Auth\Provisioning
      */
     public static function getInstance(AuthAbstract $auth_instance)
     {
@@ -163,7 +163,7 @@ class Provisioning
     /**
      * Add a new user to the system
      *
-     * @param array  $data  data
+     * @param string  $data  data
      * @param string $uname username
      * @param string $pwd   password
      *
@@ -203,8 +203,8 @@ class Provisioning
     /**
      * Modify user information
      *
-     * @param XoopsUser $xoopsUser user object
-     * @param array     $data      data
+     * @param \XoopsUser $xoopsUser user object
+     * @param string     $data      data
      * @param string    $uname     username
      * @param string    $pwd       password
      *
@@ -230,7 +230,7 @@ class Provisioning
     /**
      * Modify a user
      *
-     * @return bool
+     * @return boolean|null
      */
     public function delete()
     {
@@ -239,7 +239,7 @@ class Provisioning
     /**
      * Suspend a user
      *
-     * @return bool
+     * @return boolean|null
      */
     public function suspend()
     {
@@ -248,7 +248,7 @@ class Provisioning
     /**
      * Restore a user
      *
-     * @return bool
+     * @return boolean|null
      */
     public function restore()
     {
@@ -257,7 +257,7 @@ class Provisioning
     /**
      * Add a new user to the system
      *
-     * @return bool
+     * @return boolean|null
      */
     public function resetpwd()
     {

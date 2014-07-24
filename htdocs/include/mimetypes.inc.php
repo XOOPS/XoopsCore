@@ -15,7 +15,6 @@
  * @since           2.0.0
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * Return a list of file Mimetypes
@@ -129,5 +128,3 @@ return array(
     'wmv' => 'video/x-ms-wmv' ,
     'webm' => 'video/webm' ,
     '3gp' => 'video/quicktime' );
-
-?>

@@ -31,14 +31,15 @@ class Factory
      * care of that
      *
      * @param string $uname user name
+     * @param bool $_force internal use for tests
      *
      * @return AuthAbstract|bool Reference to the only instance of authentication class
      */
-    public static function getAuthConnection($uname)
+    public static function getAuthConnection($uname, $_force=false)
     {
         $xoops = \Xoops::getInstance();
         static $auth_instance;
-        if (!isset($auth_instance)) {
+        if (!isset($auth_instance) OR (bool)$_force) {
             /* @var $config_handler XoopsConfigHandler */
             $authConfig = $xoops->getConfigs();
             if (empty($authConfig['auth_method'])) { // If there is a config error, we use xoops

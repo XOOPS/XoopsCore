@@ -29,8 +29,8 @@ use Symfony\Component\Yaml\Yaml as VendorYaml;
  * @category  Xoops\Core\Yaml
  * @package   Yaml
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @see       http://www.yaml.org/
@@ -104,7 +104,7 @@ class Yaml
      * @param integer $inline   Nesting level where you switch to inline YAML
      * @param integer $indent   Number of spaces to indent for nested nodes
      *
-     * @return int|bool number of bytes written, or false on error
+     * @return boolean number of bytes written, or false on error
      */
     public static function save($var, $yamlFile, $inline = 4, $indent = 4)
     {

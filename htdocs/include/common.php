@@ -17,10 +17,6 @@
 
 defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
 
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    set_magic_quotes_runtime(0);
-}
-
 global $xoops;
 $GLOBALS['xoops'] =& $xoops;
 
@@ -69,6 +65,10 @@ $xoopsLogger = $xoops->logger();
  * initialize events
  */
 $xoops->events()->initializeListeners();
+$psr4loader = new \Xoops\Core\Psr4ClassLoader();
+$psr4loader->register();
+// listeners respond with $arg->addNamespace($namespace, $directory);
+$xoops->events()->triggerEvent('core.include.common.psr4loader', $psr4loader);
 $xoops->events()->triggerEvent('core.include.common.classmaps');
 $xoops->events()->triggerEvent('core.include.common.start');
 
@@ -87,10 +87,12 @@ include_once $xoops->path('include/functions.php');
  * YOU SHOULD NEVER USE THE FOLLOWING CONSTANT, IT WILL BE REMOVED
  */
 /**
- * Set cookie dope for multiple subdomains remove the '.'. to use top level dope for session cookie;
- * Requires functions
+ * Set cookie domain to highest registerable domain, so cookie will be availabe to all subdomains.
+ * Not sure this is the best idea, but how it has always worked. Set includeSubdomain parameter
+ * to getBaseDomain to true to include full host with any subdomain(s).
  */
-define('XOOPS_COOKIE_DOMAIN', ($domain = $xoops->getBaseDomain(XOOPS_URL)) == 'localhost' ? '' : '.' . $domain);
+define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
+//define('XOOPS_COOKIE_DOMAIN', null);
 
 /**
  * Check Proxy;
@@ -213,7 +215,7 @@ if (empty($_SESSION['xoopsUserId'])
 }
 
 /**
- * Log user is and deal with Sessions and Cookies
+ * Log user in and deal with Sessions and Cookies
  */
 if (!empty($_SESSION['xoopsUserId'])) {
     $xoops->user = $member_handler->getUser($_SESSION['xoopsUserId']);

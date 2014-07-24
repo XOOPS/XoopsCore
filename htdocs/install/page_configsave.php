@@ -24,7 +24,7 @@
  * @version     $Id$
  */
 
-require_once dirname(__FILE__) . '/include/common.inc.php';
+require_once __DIR__ . '/include/common.inc.php';
 
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
@@ -39,16 +39,17 @@ if (empty($settings['ROOT_PATH'])) {
     exit();
 }
 $error = '';
+
+$rewrite = array(
+    'GROUP_ADMIN' => 1, 'GROUP_USERS' => 2, 'GROUP_ANONYMOUS' => 3
+);
+$rewrite = array_merge($rewrite, $settings);
+
 if (!@copy($settings['ROOT_PATH'] . '/mainfile.dist.php', $settings['ROOT_PATH'] . '/mainfile.php')) {
     $error = ERR_COPY_MAINFILE;
 } else {
     clearstatcache();
 
-    $rewrite = array(
-        'GROUP_ADMIN' => 1, 'GROUP_USERS' => 2, 'GROUP_ANONYMOUS' => 3
-    );
-
-    $rewrite = array_merge($rewrite, $settings);
     if (!$file = fopen($settings['ROOT_PATH'] . '/mainfile.php', "r")) {
         $error = ERR_READ_MAINFILE;
     } else {
@@ -87,7 +88,6 @@ if (!@copy($rewrite['VAR_PATH'] . '/data/secure.dist.php', $rewrite['VAR_PATH'] 
 } else {
     clearstatcache();
 
-    $rewrite = array_merge($rewrite, $settings);
     if (!$file = fopen($rewrite['VAR_PATH'] . '/data/secure.php', "r")) {
         $error = ERR_READ_SECURE;
     } else {
@@ -118,6 +118,17 @@ if (!@copy($rewrite['VAR_PATH'] . '/data/secure.dist.php', $rewrite['VAR_PATH'] 
     }
 }
 
+// update composer.json with our paths
+$composer_path = $settings['PATH'] . '/composer.json';
+$composer = json_decode(file_get_contents($composer_path));
+$xoops_modules_path = $settings['ROOT_PATH'] . '/modules/';
+if (isset($composer->extra) && is_object($composer->extra)) {
+    $composer->extra->xoops_modules_path = $xoops_modules_path;
+} else {
+    $composer->extra['xoops_modules_path'] = $xoops_modules_path;
+}
+file_put_contents($composer_path, json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
 $settings['authorized'] = false;
 if (empty($error)) {
     $_SESSION['UserLogin'] = true;
@@ -129,6 +140,7 @@ if (empty($error)) {
 <div class="caption"><?php echo SAVED_MAINFILE; ?></div>
 <div class='x2-note confirmMsg'><?php echo SAVED_MAINFILE_MSG; ?></div>
 <ul class='diags'>
+
     <?php
     foreach ($settings as $k => $v) {
     if ($k == 'authorized') {

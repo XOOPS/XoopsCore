@@ -200,7 +200,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     /**
      * Fetch a row of objects from the database
      *
-     * @param CriteriaElement|null $criteria  criteria object
+     * @param null|CriteriaElement $criteria  criteria object
      * @param bool                 $id_as_key if true, use avatar_id as array key
      *
      * @return array

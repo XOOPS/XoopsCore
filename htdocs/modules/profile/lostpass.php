@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 $email = isset($_GET['email']) ? trim($_GET['email']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : $email;
@@ -59,12 +59,13 @@ if (empty($user)) {
             echo $xoopsMailer->getErrors();
         }
 
+        // todo convert to handleer update and bcrypt
         // Next step: add the new password to the database
         $sql = sprintf("UPDATE %s SET pass = '%s' WHERE uid = %u", $xoopsDB->prefix("users"), md5($newpass), $user->getVar('uid'));
         if (!$xoopsDB->queryF($sql)) {
             $xoops->header();
             echo XoopsLocale::E_USER_NOT_UPDATED;
-            include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+            include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
         }
         $xoops->redirect("user.php", 3, sprintf(XoopsLocale::SF_PASSWORD_SENT_TO, $user->getVar("uname")), false);
         // If no Code, send it
@@ -88,6 +89,6 @@ if (empty($user)) {
         echo "<h4>";
         printf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $user->getVar('uname'));
         echo "</h4>";
-        include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+        include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
     }
 }

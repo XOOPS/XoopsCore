@@ -247,6 +247,17 @@ abstract class XoopsDatabase
     abstract public function quote($string);
 
     /**
+     * Returns escaped string text without quotes around it
+     *
+     * @param string $string unescaped string text
+     *
+     * @return string escaped text string escaped to be safely used in database calls
+     * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
+     * @abstract
+     */
+    abstract public function escape($string);
+
+    /**
      * perform a query on the database
      *
      * @param string $sql   a valid MySQL query
@@ -270,7 +281,7 @@ abstract class XoopsDatabase
      * @param int    $limit number of records to return
      * @param int    $start offset of first record to return
      *
-     * @return this returns nothing
+     * @return resource returns nothing
      * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
      * @abstract
      */

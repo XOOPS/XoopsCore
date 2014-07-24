@@ -12,7 +12,6 @@
 
 namespace Xoops\Core\Kernel;
 
-use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\Dtype;
 
 /**
@@ -404,7 +403,7 @@ abstract class XoopsObject
         }
         $loaded = 1;
 
-        $path = empty($this->plugin_path) ? dirname(__FILE__) . '/filters' : $this->plugin_path;
+        $path = empty($this->plugin_path) ? __DIR__ . '/filters' : $this->plugin_path;
         if (\XoopsLoad::fileExists($file = $path . '/filter.php')) {
             include_once $file;
             if(is_array($this->_filters)) foreach ($this->_filters as $f) {
@@ -460,7 +459,7 @@ abstract class XoopsObject
         $clone = null;
         $clone = new $class();
         foreach ($this->vars as $k => $v) {
-            $clone->assignVar($k, $v['value']);
+            $clone->assignVar($k, $v['value']);  // FIXME : doesn't copy vars into clone
         }
         // need this to notify the handler class that this is a newly created object
         $clone->setNew();

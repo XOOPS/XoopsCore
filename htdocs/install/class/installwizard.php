@@ -64,12 +64,12 @@ class XoopsInstallWizard
         $this->initLanguage(!empty($_COOKIE['xo_install_lang']) ? $_COOKIE['xo_install_lang'] : 'en_US');
         // Setup pages
         $pages = array();
-        include_once dirname(dirname(__FILE__)) . '/include/page.php';
+        include_once dirname(__DIR__) . '/include/page.php';
         $this->pages = $pages;
 
         // Load default configs
         $configs = array();
-        include_once dirname(dirname(__FILE__)) . '/include/config.php';
+        include_once dirname(__DIR__) . '/include/config.php';
         $this->configs = $configs;
 
         if (!$this->checkAccess()) {
@@ -218,7 +218,7 @@ class XoopsInstallWizard
         }
         if (!isset($pages[$pageIndex])) {
             if (defined("XOOPS_URL")) {
-                return XOOPS_URL;
+                return XOOPS_URL . '/';
             } else {
                 return $this->baseLocation();
             }
@@ -228,7 +228,7 @@ class XoopsInstallWizard
     }
 
     /**
-     * @param        $page
+     * @param        string $page
      * @param int    $status
      * @param string $message
      *

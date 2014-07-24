@@ -115,5 +115,3 @@ body {font-size: 12px; background-color: #f0f0f0; text-align: center;}
 );
 
 define('_XOOPS_FATAL_BACKTRACE', "Backtrace");
-
-?>

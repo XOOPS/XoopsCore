@@ -89,7 +89,7 @@ abstract class Xoops_Locale_Abstract
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     static function getFonts()
     {
@@ -121,7 +121,7 @@ abstract class Xoops_Locale_Abstract
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     static function getAdminRssUrls()
     {
@@ -187,8 +187,8 @@ abstract class Xoops_Locale_Abstract
 
     /**
      * @param mixed  $str
-     * @param mixed  $start
-     * @param mixed  $length
+     * @param integer  $start
+     * @param integer  $length
      * @param string $trimmarker
      *
      * @return string
@@ -278,7 +278,7 @@ abstract class Xoops_Locale_Abstract
      *
      * @param        $time
      * @param string $format
-     * @param null   $timeoffset
+     * @param string   $timeoffset
      *
      * @return string
      */
@@ -376,7 +376,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @param int $number
      *
-     * @return mixed|string
+     * @return string
      */
     static function number_format($number)
     {
@@ -387,7 +387,7 @@ abstract class Xoops_Locale_Abstract
      * @param string $format
      * @param string $number
      *
-     * @return mixed|string
+     * @return string
      */
     static function money_format($format, $number)
     {

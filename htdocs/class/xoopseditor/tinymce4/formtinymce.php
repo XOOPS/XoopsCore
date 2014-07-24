@@ -53,7 +53,7 @@ class XoopsFormTinymce4 extends XoopsEditor
         $this->configs["area_height"] = isset($this->configs["height"]) ? $this->configs["height"] : $this->height;
         $this->configs["fonts"] = $this->getFonts();
 
-        require_once dirname(__FILE__) . "/tinymce.php";
+        require_once __DIR__ . "/tinymce.php";
         $this->editor = new TinyMCE($this->configs);
     }
 
@@ -116,7 +116,7 @@ class XoopsFormTinymce4 extends XoopsEditor
     /**
      * prepare HTML for output
      *
-     * @return sting HTML
+     * @return string HTML
      */
     public function render()
     {

@@ -13,14 +13,14 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
@@ -102,6 +102,6 @@ $add_form->addElement($sel_pg);
 $add_form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_ADD, 'submit'));
 $add_form->assign($xoops->tpl());
 
-$xoops->tpl()->display("admin:profile|visibility.html");
+$xoops->tpl()->display("admin:profile|visibility.tpl");
 
 $xoops->footer();

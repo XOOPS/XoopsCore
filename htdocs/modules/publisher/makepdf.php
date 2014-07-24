@@ -11,28 +11,28 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @author            Sina Asghari (AKA stranger) <stranger@impresscms.ir>
+ * @author          Sina Asghari (AKA stranger) <stranger@impresscms.ir>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
-if (!$xoops->isActiveModule('pdf')) {
+if (!$xoops->service('htmltopdf')->isAvailable()) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOPDF);
 }
 
 $publisher = Publisher::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
-$itemid = PublisherRequest::getInt('itemid');
-$item_page_id = PublisherRequest::getInt('page', -1);
+$itemid = \Xmf\Request::getInt('itemid');
+$item_page_id = \Xmf\Request::getInt('page', -1);
 
 if ($itemid == 0) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
@@ -61,11 +61,13 @@ $tpl = new XoopsTpl();
 $tpl->assign('item', $itemObj->toArray('all'));
 $tpl->assign('display_whowhen_link', $publisher->getConfig('item_disp_whowhen_link'));
 
-$content = $tpl->fetch('module:publisher|pdf.html');
-$pdf = new Pdf();
-if (XoopsLocale::getCharset() == 'windows-1256') {
-    $pdf->pdf->SetFont('almohanad', '', 18);
-}
-//initialize document
-$pdf->writeHTML($content);
-$pdf->Output();
+$content = $tpl->fetch('module:publisher|pdf.tpl');
+$xoops->service('htmltopdf')->startPdf();
+$xoops->service('htmltopdf')->setAuthor($itemObj->posterName());
+$xoops->service('htmltopdf')->setTitle($itemObj->getVar('title'));
+$xoops->service('htmltopdf')->setKeywords($itemObj->getVar('meta_keywords'));
+$xoops->service('htmltopdf')->setSubject($categoryObj->getVar('name'));
+$xoops->service('htmltopdf')->addHtml($content);
+$name = $itemObj->getVar('short_url') . '.pdf';
+$xoops->service('htmltopdf')->outputPdfInline($name);
+exit();

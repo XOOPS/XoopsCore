@@ -49,7 +49,7 @@ class XoopsLocal extends XoopsLocalAbstract
      * Number Formats
      *
      * @param unknown_type $number
-     * @return unknown
+     * @return string
      */
     static function number_format($number)
     {
@@ -61,7 +61,7 @@ class XoopsLocal extends XoopsLocalAbstract
      *
      * @param string $format
      * @param string $number
-     * @return money format
+     * @return string format
      */
     static function money_format($format, $number)
     {

@@ -31,7 +31,7 @@ class SmiliesCorePreload extends XoopsPreloadItem
 {
     static function eventCoreIncludeCommonEnd($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'smilies' => $path . '/class/helper.php',
         ));

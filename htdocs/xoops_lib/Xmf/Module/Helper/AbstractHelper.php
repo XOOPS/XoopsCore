@@ -112,9 +112,7 @@ abstract class AbstractHelper
     public function addLog($log)
     {
         if ($this->debug) {
-            if (is_object($GLOBALS['xoopsLogger'])) {
-                $GLOBALS['xoopsLogger']->addExtra(get_called_class(), $log);
-            }
+            \Xoops::getInstance()->logger()->debug($log, array('channel'=>'Extra'));
         }
     }
 }

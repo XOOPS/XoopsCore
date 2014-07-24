@@ -218,6 +218,7 @@ class XoopsObjectTree
      * @param bool $addEmptyOption Set TRUE to add an empty option with value "0" at the top of the hierarchy
      * @param integer $key ID of the object to display as the root of select options
      * @param string $extra
+     * @param string $name
      * @return string HTML select box
      */
     public function makeSelBox($name, $fieldName, $prefix = '-', $selected = '', $addEmptyOption = false, $key = 0, $extra = '')

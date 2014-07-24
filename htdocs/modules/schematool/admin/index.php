@@ -15,7 +15,7 @@
  * @author          Richard Griffith <richard@geekwright.com>
  */
 
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');

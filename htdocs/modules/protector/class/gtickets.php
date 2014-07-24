@@ -40,8 +40,8 @@ if (!class_exists('XoopsGTicket')) {
 
             // language file
             if (defined('XOOPS_ROOT_PATH') && $language && !strstr($language, '/')) {
-                if (XoopsLoad::fileExists(dirname(dirname(__FILE__)) . '/language/' . $language . '/gticket_messages.phtml')) {
-                    include dirname(dirname(__FILE__)) . '/language/' . $language . '/gticket_messages.phtml';
+                if (XoopsLoad::fileExists(dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml')) {
+                    include dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml';
                 }
             }
 
@@ -252,6 +252,9 @@ if (!class_exists('XoopsGTicket')) {
             echo '<html><head><title>' . $this->messages['err_general'] . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>' . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors()) . $table . $form . '</body></html>';
         }
 
+        /**
+         * @param string $key_name
+         */
         function extract_post_recursive($key_name, $tmp_array)
         {
             $table = '';

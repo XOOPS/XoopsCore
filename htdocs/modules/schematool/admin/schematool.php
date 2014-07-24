@@ -15,17 +15,15 @@
  * @author          Richard Griffith <richard@geekwright.com>
  */
 
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 /* --------------------------------------------------------------- */
 
 use Xmf\Debug;
 use Xoops\Core\Database\Schema\ExportVisitor;
 use Xoops\Core\Database\Schema\ImportSchema;
-use Xoops\Core\Database\Schema\PrefixStripper;
 use Xoops\Core\Database\Schema\RemovePrefixes;
 use Xoops\Core\Yaml;
-
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;

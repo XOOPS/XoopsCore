@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
@@ -41,7 +41,7 @@ $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONY
 if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
     //disable cache
     $xoops->disableModuleCache();
-    $xoops->header('profile_userinfo.html');
+    $xoops->header('profile_userinfo.tpl');
 
     $xoops->tpl()->assign('user_ownpage', true);
     $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
@@ -106,7 +106,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
         //disable cache
         $xoops->disableModuleCache();
     }
-    $xoops->header('profile_userinfo.html');
+    $xoops->header('profile_userinfo.tpl');
     $xoops->tpl()->assign('user_ownpage', false);
 }
 
@@ -240,5 +240,5 @@ $xoops->tpl()->assign('uname', $thisUser->getVar('uname'));
 $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
-$xoops->appendConfig('profile_breadcrumbs', array('title' => _PROFILE_MA_USERINFO));
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+$xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

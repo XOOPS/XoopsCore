@@ -17,45 +17,45 @@
  * @version         $Id$
  */
 
-$modversion['name'] = _MI_XCAPTCHA_NAME;
+$modversion['name']        = _MI_XCAPTCHA_NAME;
 $modversion['description'] = _MI_XCAPTCHA_DESC;
-$modversion['version'] = 1.00;
-$modversion['author'] = 'Xoops Core Development Team';
-$modversion['nickname'] = 'Laurent JEN (aka DuGris)';
-$modversion['credits'] = 'The XOOPS Project';
-$modversion['license'] = 'GNU GPL 2.0';
+$modversion['version']     = 1.00;
+$modversion['author']      = 'Xoops Core Development Team';
+$modversion['nickname']    = 'Laurent JEN (aka DuGris)';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official'] = 1;
-$modversion['help'] = 'page=help';
-$modversion['image'] = 'images/xcaptcha_logo.png';
-$modversion['dirname'] = 'xcaptcha';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/xcaptcha_logo.png';
+$modversion['dirname']     = 'xcaptcha';
 
 //about
-$modversion['release_date'] = '2012/10/01';
-$modversion['module_website_url'] = 'dugris.xoofoo.org';
+$modversion['release_date']        = '2012/10/01';
+$modversion['module_website_url']  = 'dugris.xoofoo.org';
 $modversion['module_website_name'] = 'XooFoo.org - Laurent JEN';
-$modversion['module_status'] = 'alpha';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.6.0';
+$modversion['module_status']       = 'alpha';
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = '2.6.0';
 
 // paypal
-$modversion['paypal'] = array();
-$modversion['paypal']['business'] = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name'] = _MI_XCAPTCHA_DESC;
-$modversion['paypal']['amount'] = 0;
+$modversion['paypal']                  = array();
+$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
+$modversion['paypal']['item_name']     = _MI_XCAPTCHA_DESC;
+$modversion['paypal']['amount']        = 0;
 $modversion['paypal']['currency_code'] = 'USD';
 
 // Admin menu
 $modversion['system_menu'] = 1;
 
 // Manage extension
-$modversion['extension'] = 1;
+$modversion['extension']          = 1;
 $modversion['extension_module'][] = 'system';
 
 // Admin things
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu'] = 'admin/menu.php';
+$modversion['adminmenu']  = 'admin/menu.php';
 
 // Scripts to run upon installation or update
 $modversion['onInstall'] = '';

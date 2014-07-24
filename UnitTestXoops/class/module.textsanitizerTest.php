@@ -9,14 +9,14 @@ require_once(dirname(__FILE__).'/../init.php');
 class ModuleMyTextSanitizerTest extends MY_UnitTestCase
 {
     protected $myClass = 'MyTextSanitizer';
-    
+
     public function test_getInstance()
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
         $this->assertInstanceOf($this->myClass, $sanitizer);
-        $this->assertEquals(XOOPS_ROOT_PATH . '/class/textsanitizer', $sanitizer->path_basic);        
-        $this->assertEquals(XOOPS_ROOT_PATH . '/Frameworks/textsanitizer', $sanitizer->path_plugin);        
+        $this->assertEquals(XOOPS_ROOT_PATH . '/class/textsanitizer', $sanitizer->path_basic);
+        $this->assertEquals(XOOPS_ROOT_PATH . '/Frameworks/textsanitizer', $sanitizer->path_plugin);
     }
 
     public function test_getinstance100()
@@ -27,7 +27,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $sanitizer2 = $class::getInstance();
         $this->assertSame($sanitizer2, $sanitizer);
     }
-    
+
     public function test_loadConfig()
 	{
 		$class = $this->myClass;
@@ -35,7 +35,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $config = $sanitizer->loadConfig();
         $this->assertTrue(is_array($config));
     }
-    
+
     public function test_mergeConfig()
 	{
 		$class = $this->myClass;
@@ -48,7 +48,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $this->assertEquals($array1['x'], $config['x']);
         $this->assertEquals($array2['y']['yy'], $config['y']['yy']);
     }
-    
+
     public function test_getSmileys()
 	{
 		$class = $this->myClass;
@@ -56,7 +56,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $smileys = $sanitizer->getSmileys();
         $this->assertTrue(is_array($smileys));
     }
-    
+
     public function test_smiley()
 	{
 		$class = $this->myClass;
@@ -64,7 +64,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->smiley('happy :-) happy');
         $this->assertTrue(is_string($message));
     }
-    
+
     public function test_makeClickable()
 	{
 		$class = $this->myClass;
@@ -73,7 +73,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->makeClickable($text);
         $this->assertTrue(is_string($text));
     }
-    
+
     public function test_truncate()
 	{
 		$class = $this->myClass;
@@ -83,7 +83,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $class::truncate($text);
         $this->assertEquals('toto ... tata', $message);
     }
-    
+
     public function test_truncate100()
 	{
 		$class = $this->myClass;
@@ -93,7 +93,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $class::truncate($text);
         $this->assertEquals(substr($text,0,4), $message);
     }
-    
+
     public function test_xoopsCodeDecode()
 	{
 		$class = $this->myClass;
@@ -107,7 +107,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text = '[siteurl=\''.$host.'\']'.$site.'[/siteurl]';
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<a href="'.XOOPS_URL.'/'.$host.'" title="">'.$site.'</a>', $message);
-		
+
         $text = '[url="http://'.$host.'"]'.$site.'[/url]';
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<a href="http://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
@@ -139,13 +139,13 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<a href="http://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
     }
-	
+
     public function test_xoopsCodeDecode100()
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
 		$string = 'string';
-		
+
 		$color = 'color';
         $text = '[color="'.$color.'"]'.$string.'[/color]';
         $message = $sanitizer->xoopsCodeDecode($text);
@@ -153,7 +153,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text = '[color=\''.$color.'\']'.$string.'[/color]';
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<span style="color: #'.$color.';">'.$string.'</span>',$message);
-		
+
 		$size = 'size-size';
         $text = '[size="'.$size.'"]'.$string.'[/size]';
         $message = $sanitizer->xoopsCodeDecode($text);
@@ -161,7 +161,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text = '[size=\''.$size.'\']'.$string.'[/size]';
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<span style="font-size: '.$size.';">'.$string.'</span>',$message);
-		
+
 		$font = 'font-font';
         $text = '[font="'.$font.'"]'.$string.'[/font]';
         $message = $sanitizer->xoopsCodeDecode($text);
@@ -170,7 +170,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<span style="font-family: '.$font.';">'.$string.'</span>',$message);
 	}
-	
+
     public function test_xoopsCodeDecode200()
 	{
 		$class = $this->myClass;
@@ -199,7 +199,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->xoopsCodeDecode($text);
         $this->assertEquals('<div style="text-align: right;">'.$string.'</div>',$message);
 	}
-    
+
     public function test_quoteConv()
 	{
 		$class = $this->myClass;
@@ -208,14 +208,14 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text = '[quote]'.$string.'[/quote]';
         $message = $sanitizer->quoteConv($text);
         $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>',$message);
-		
+
 		$string = 'string';
         $text = '[quote]toto'.'[quote]'.$string.'[/quote]'.'titi[/quote]';
         $message = $sanitizer->quoteConv($text);
-        $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>totoQuote:<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>titi</blockquote></div>',$message);	
+        $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>totoQuote:<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>titi</blockquote></div>',$message);
 
     }
-    
+
     public function test_filterxss()
 	{
 		$class = $this->myClass;
@@ -224,7 +224,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->filterxss($text);
         $this->assertEquals('',$message);
     }
-    
+
     public function test_nl2br()
 	{
 		$class = $this->myClass;
@@ -239,7 +239,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->nl2br($text);
         $this->assertEquals('<br />',$message);
     }
-    
+
     public function test_addSlashes()
 	{
 		$class = $this->myClass;
@@ -248,11 +248,11 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text2 = $text;
         if (!get_magic_quotes_gpc()) {
             $text2 = addslashes($text);
-        }        
+        }
         $message = $sanitizer->addSlashes($text);
         $this->assertEquals($text2,$message);
     }
-    
+
     public function test_stripSlashesGPC()
 	{
 		$class = $this->myClass;
@@ -265,7 +265,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->stripSlashesGPC($text);
         $this->assertEquals($text2,$message);
     }
-    
+
     public function test_htmlSpecialChars()
 	{
 		$class = $this->myClass;
@@ -273,7 +273,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text = "\"'<>&";
         $message = $sanitizer->htmlSpecialChars($text);
         $this->assertSame('&quot;&#039;&lt;&gt;&',$message);
-		
+
         $text = 'toto&titi';
         $message = $sanitizer->htmlSpecialChars($text);
         $this->assertSame('toto&titi',$message);
@@ -282,7 +282,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->htmlSpecialChars($text);
         $this->assertSame('toto&amp;nbsp;titi',$message);
     }
-    
+
     public function test_undohtmlSpecialChars()
 	{
 		$class = $this->myClass;
@@ -291,16 +291,16 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->undohtmlSpecialChars($text);
         $this->assertSame('><"\'&nbsp;',$message);
     }
-    
+
     public function test_displayTarea()
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
-		$text = 'éeidoà';
+		$text = 'Ã©eidoÃ ';
         $message = $sanitizer->displayTarea($text,1);
         $this->assertSame($text, $message);
     }
-    
+
     public function test_previewTarea()
 	{
 		$class = $this->myClass;
@@ -316,7 +316,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         //$sanitizer->censorString();
 		$this->markTestSkipped('');
     }
-    
+
     public function test_codePreConv()
 	{
 		$class = $this->myClass;
@@ -327,7 +327,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $message = $sanitizer->codePreConv($text,0);
         $this->assertSame($text,$message);
     }
-    
+
     public function test_codeConv()
 	{
 		$class = $this->myClass;
@@ -335,9 +335,9 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $text = '[codephp]tototiti[/code]';
         $message = $sanitizer->codeConv($text);
         $result = preg_match('/^\<div class=\\"xoopsCode\\"\>/',$message);
-        $this->assertSame($result,0);	
+        $this->assertSame($result,0);
     }
-    
+
     public function test_executeExtensions()
 	{
 		$class = $this->myClass;
@@ -345,7 +345,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $value = $sanitizer->executeExtensions();
         $this->assertTrue($value);
     }
-    
+
     public function test_loadExtension()
 	{
 		$class = $this->myClass;
@@ -353,7 +353,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $value = $sanitizer->loadExtension('toto');
         $this->assertFalse($value);
     }
-    
+
     public function test_executeExtension()
 	{
 		$class = $this->myClass;
@@ -361,7 +361,7 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         //$sanitizer->executeExtension();
 		$this->markTestSkipped('');
     }
-    
+
     public function test_textFilter()
 	{
 		$class = $this->myClass;

@@ -42,7 +42,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
     }
 
     /**
-     * @return Notifications
+     * @return string
      */
     public static function getInstance()
     {

@@ -19,33 +19,33 @@
  * @link      http://xoops.org
  */
 
-$modversion = array();
-$modversion['name'] = _MI_DEBUGBAR_NAME;
+$modversion                = array();
+$modversion['name']        = _MI_DEBUGBAR_NAME;
 $modversion['description'] = _MI_DEBUGBAR_DSC;
-$modversion['version'] = 0.2;
-$modversion['author'] = 'Richard Griffith';
-$modversion['nickname'] = 'geekwright';
-$modversion['credits'] = 'The XOOPS Project';
-$modversion['license'] = 'GNU GPL 2.0';
+$modversion['version']     = 0.2;
+$modversion['author']      = 'Richard Griffith';
+$modversion['nickname']    = 'geekwright';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
 $modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
-$modversion['official'] = 1;
-$modversion['help'] = 'page=help';
-$modversion['image'] = 'images/logo.png';
-$modversion['dirname'] = 'debugbar';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'debugbar';
 
 //about
-$modversion['release_date'] = '2013/09/05';
-$modversion['module_website_url'] = 'http://www.xoops.org/';
+$modversion['release_date']        = '2013/09/05';
+$modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
-$modversion['module_status'] = 'ALPHA 1';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.6.0';
+$modversion['module_status']       = 'ALPHA 1';
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = '2.6.0';
 
 // paypal
 $modversion['paypal'] = array(
-    'business' => 'xoopsfoundation@gmail.com',
-    'item_name' => 'debugbar',
-    'amount' => 0,
+    'business'      => 'xoopsfoundation@gmail.com',
+    'item_name'     => 'debugbar',
+    'amount'        => 0,
     'currency_code' => 'USD',
 );
 
@@ -56,7 +56,7 @@ $modversion['system_menu'] = 1;
 /*
  Manage extension
  */
-$modversion['extension'] = 1;
+$modversion['extension']          = 1;
 $modversion['extension_module'][] = 'system';
 
 // Admin things
@@ -69,23 +69,23 @@ $modversion['hasMain'] = 0;
 
 // Module Administration
 $modversion['onInstall'] = 'include/update.php';
-$modversion['onUpdate'] = 'include/update.php';
+$modversion['onUpdate']  = 'include/update.php';
 
 // Preferences
 $modversion['config'][] = array(
-    'name' => 'debugbar_enable',
-    'title' => '_MI_DEBUGBAR_ENABLE',
+    'name'        => 'debugbar_enable',
+    'title'       => '_MI_DEBUGBAR_ENABLE',
     'description' => '',
-    'formtype' => 'yesno',
-    'valuetype' => 'int',
-    'default' => 1,  // default to on, only admins will have instant access
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1, // default to on, only admins will have instant access
 );
 
 $modversion['config'][] = array(
-    'name' => 'debug_smarty_enable',
-    'title' => '_MI_DEBUGBAR_SMARTYDEBUG',
+    'name'        => 'debug_smarty_enable',
+    'title'       => '_MI_DEBUGBAR_SMARTYDEBUG',
     'description' => '',
-    'formtype' => 'yesno',
-    'valuetype' => 'int',
-    'default' => 0,   // default to off
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0, // default to off
 );

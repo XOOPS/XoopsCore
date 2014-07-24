@@ -45,7 +45,7 @@ class TinyMCE
      *
      * @param array $config The configuration
      *
-     * @return object $instance The instance of tinyMCE object
+     * @return TinyMCE $instance The instance of tinyMCE object
      */
     public function &instance($config)
     {
@@ -69,7 +69,7 @@ class TinyMCE
     /**
      * Initializes the tinyMCE
      *
-     * @return   true
+     * @return   boolean
      */
     public function init()
     {
@@ -80,7 +80,7 @@ class TinyMCE
 
         // Load default settings
         if (!($this->setting = @include($GLOBALS['xoops']->path("var/configs/tinymce.php")))) {
-            $this->setting = include dirname(__FILE__) . "/settings.php";
+            $this->setting = include __DIR__ . "/settings.php";
         }
 
         // get editor language (from ...)

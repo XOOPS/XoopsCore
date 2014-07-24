@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,13 +19,10 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 $myts = MyTextSanitizer::getInstance();
-
-$xoops->db();
-global $xoopsDB;
 
 PublisherUtils::cpHeader();
 //publisher_adminMenu(3, _AM_PUBLISHER_PERMISSIONS);
@@ -33,12 +30,19 @@ PublisherUtils::cpHeader();
 // View Categories permissions
 $item_list_view = array();
 $block_view = array();
-PublisherUtils::openCollapsableBar('permissionstable_view', 'permissionsicon_view', _AM_PUBLISHER_PERMISSIONSVIEWMAN, _AM_PUBLISHER_VIEW_CATS);
 
-$result_view = $xoopsDB->query("SELECT categoryid, name FROM " . $xoopsDB->prefix("publisher_categories") . " ");
-if ($xoopsDB->getRowsNum($result_view)) {
+$qb = $xoops->db()->createXoopsQueryBuilder();
+$qb ->select('categoryid', 'name')
+    ->fromPrefix('publisher_categories', '')
+    ->orderBy('name');
+$result = $qb->execute();
+$catArray = $result->fetchAll(\PDO::FETCH_ASSOC);
+$catCount = count($catArray);
+
+PublisherUtils::openCollapsableBar('permissionstable_view', 'permissionsicon_view', _AM_PUBLISHER_PERMISSIONSVIEWMAN, _AM_PUBLISHER_VIEW_CATS);
+if ($catCount) {
     $form_submit = new XoopsGroupPermForm("", $publisher->getModule()->mid(), "category_read", "", 'admin/permissions.php');
-    while ($myrow_view = $xoopsDB->fetcharray($result_view)) {
+    foreach ($catArray as $myrow_view) {
         $form_submit->addItem($myrow_view['categoryid'], $myts->displayTarea($myrow_view['name']));
     }
     echo $form_submit->render();
@@ -50,10 +54,9 @@ PublisherUtils::closeCollapsableBar('permissionstable_view', 'permissionsicon_vi
 // Submit Categories permissions
 echo "<br />\n";
 PublisherUtils::openCollapsableBar('permissionstable_submit', 'permissionsicon_submit', _AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT, _AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT_DSC);
-$result_view = $xoopsDB->query("SELECT categoryid, name FROM " . $xoopsDB->prefix("publisher_categories") . " ");
-if ($xoopsDB->getRowsNum($result_view)) {
+if ($catCount) {
     $form_submit = new XoopsGroupPermForm("", $publisher->getModule()->mid(), "item_submit", "", 'admin/permissions.php');
-    while ($myrow_view = $xoopsDB->fetcharray($result_view)) {
+    foreach ($catArray as $myrow_view) {
         $form_submit->addItem($myrow_view['categoryid'], $myts->displayTarea($myrow_view['name']));
     }
     echo $form_submit->render();
@@ -65,10 +68,9 @@ PublisherUtils::closeCollapsableBar('permissionstable_submit', 'permissionsicon_
 // Moderators Categories permissions
 echo "<br />\n";
 PublisherUtils::openCollapsableBar('permissionstable_moderation', 'permissionsicon_moderation', _AM_PUBLISHER_PERMISSIONS_CAT_MODERATOR, _AM_PUBLISHER_PERMISSIONS_CAT_MODERATOR_DSC);
-$result_view = $xoopsDB->query("SELECT categoryid, name FROM " . $xoopsDB->prefix("publisher_categories") . " ");
-if ($xoopsDB->getRowsNum($result_view)) {
+if ($catCount) {
     $form_submit = new XoopsGroupPermForm("", $publisher->getModule()->mid(), "category_moderation", "", 'admin/permissions.php');
-    while ($myrow_view = $xoopsDB->fetcharray($result_view)) {
+    foreach ($catArray as $myrow_view) {
         $form_submit->addItem($myrow_view['categoryid'], $myts->displayTarea($myrow_view['name']));
     }
     echo $form_submit->render();

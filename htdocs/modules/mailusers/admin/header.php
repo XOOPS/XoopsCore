@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $xoops = Xoops::getInstance();
 $helper = Xoops\Module\Helper::getHelper('mailusers');

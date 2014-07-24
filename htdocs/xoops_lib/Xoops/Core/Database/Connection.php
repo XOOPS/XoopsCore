@@ -63,7 +63,7 @@ class Connection extends \Doctrine\DBAL\Connection
     /**
      * this is a public getter for the safe variable
      *
-     * @return void
+     * @return boolean
      */
     public static function getSafe()
     {
@@ -87,7 +87,7 @@ class Connection extends \Doctrine\DBAL\Connection
     /**
      * this is a public getter for the $force variable
      *
-     * @return void
+     * @return boolean
      */
     public static function getForce()
     {

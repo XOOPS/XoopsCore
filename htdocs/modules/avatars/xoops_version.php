@@ -19,26 +19,26 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-$modversion = array();
-$modversion['name']           = AvatarsLocale::MODULE_NAME;
-$modversion['description']    = AvatarsLocale::MODULE_DESC;
-$modversion['version']        = 0.1;
-$modversion['author']         = 'Andricq Nicolas,Mage Gregory';
-$modversion['nickname']       = 'MusS,Mage';
-$modversion['credits']        = 'The XOOPS Project';
-$modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
-$modversion['official']       = 1;
-$modversion['help']           = 'page=help';
-$modversion['image']          = 'images/logo.png';
-$modversion['dirname']        = 'avatars';
+$modversion                = array();
+$modversion['name']        = AvatarsLocale::MODULE_NAME;
+$modversion['description'] = AvatarsLocale::MODULE_DESC;
+$modversion['version']     = 0.1;
+$modversion['author']      = 'Andricq Nicolas,Mage Gregory';
+$modversion['nickname']    = 'MusS,Mage';
+$modversion['credits']     = 'The XOOPS Project';
+$modversion['license']     = 'GNU GPL 2.0';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
+$modversion['official']    = 1;
+$modversion['help']        = 'page=help';
+$modversion['image']       = 'images/logo.png';
+$modversion['dirname']     = 'avatars';
 //about
 $modversion['release_date']        = '2012/01/15';
 $modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = '2.6.0';
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = '2.6.0';
 
 // paypal
 $modversion['paypal'] = array(

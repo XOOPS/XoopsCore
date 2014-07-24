@@ -61,16 +61,18 @@ class RanksHandlerTest extends MY_UnitTestCase
         $instance=new $this->myclass($this->conn);
 		$obj=new XoopsRanks();
 		$obj->setDirty();
+		$obj->setNew();
+		$obj->setVar('rank_title','RANKTITLE_DUMMY_FOR_TESTS');
         $value=$instance->insert($obj);
-        $this->assertSame('',$value);
+        $this->assertTrue(intval($value) > 0);
+		
+        $value=$instance->delete($obj);
+        $this->assertTrue($value);
     }
     
     public function test_delete()
 	{
-        $instance=new $this->myclass($this->conn);
-		$obj=new XoopsRanks();
-        $value=$instance->delete($obj);
-        $this->assertSame(true,$value);
+		// see test_insert
     }
     
     public function test_deleteAll()
@@ -85,7 +87,7 @@ class RanksHandlerTest extends MY_UnitTestCase
 	{
         $instance=new $this->myclass($this->conn);
         $value=$instance->updateAll('name','value');
-        $this->assertSame(false,$value);
+        $this->assertSame(0,$value);
     }
     
 }

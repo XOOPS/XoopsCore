@@ -10,8 +10,9 @@
 */
 
 use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+//use Xoops\Core\Kernel\XoopsObject;
+//use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\CriteriaElement;
 
 /**
  * Extended User Profile
@@ -24,9 +25,6 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 class ProfileProfile extends XoopsObject
 {
     /**
@@ -245,7 +243,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      *
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
-    public function insert(XoopsObject $obj, $force = false)
+    public function insert(\Xoops\Core\Kernel\XoopsObject $obj, $force = false)
     {
         $uservars = $this->getUserVars();
         foreach ($uservars as $var) {
@@ -297,7 +295,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $sql_order = "";
 
         $limit = $start = 0;
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
             $sql_clause .= " AND " . $criteria->render();
             if ($criteria->getSort() != '') {
                 $sql_order = ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();

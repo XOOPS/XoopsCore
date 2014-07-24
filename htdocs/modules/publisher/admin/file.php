@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,10 +19,10 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
 
-$op = PublisherRequest::getString('op');
+$op = \Xmf\Request::getString('op');
 
 function publisher_editFile($showmenu = false, $fileid = 0, $itemid = 0)
 {
@@ -75,12 +75,12 @@ function publisher_editFile($showmenu = false, $fileid = 0, $itemid = 0)
 $false = false;
 /* -- Available operations -- */
 switch ($op) {
-    case "uploadfile";
+    case "uploadfile":
         PublisherUtils::uploadFile(false, true, $false);
         exit;
         break;
 
-    case "uploadanother";
+    case "uploadanother":
         PublisherUtils::uploadFile(true, true, $false);
         exit;
         break;

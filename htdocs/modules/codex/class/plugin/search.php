@@ -24,7 +24,7 @@ class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Se
     {
         $queries = implode(' ', (array) $queries);
 
-        $files = XoopsLists::getFileListAsArray(dirname(dirname(dirname(__FILE__))));
+        $files = XoopsLists::getFileListAsArray(dirname(dirname(__DIR__)));
         $res = array();
         $i = 0;
         foreach ($files as $file) {

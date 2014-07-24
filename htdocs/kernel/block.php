@@ -12,7 +12,6 @@
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use \XoopsConnection;
 
@@ -591,7 +590,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
 
     /**
      * @param string $rettype
-     * @param null $side
+     * @param boolean $side
      * @param null $visible
      * @param string $orderby
      * @param int $isactive
@@ -684,7 +683,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      *
      * @param mixed $groupid
      * @param integer $module_id
-     * @param mixed $toponlyblock
+     * @param boolean $toponlyblock
      * @param mixed $visible
      * @param string $orderby
      * @param integer $isactive
@@ -769,8 +768,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      * XoopsBlock::getNonGroupedBlocks()
      *
      * @param integer $module_id
-     * @param mixed $toponlyblock
-     * @param mixed $visible
+     * @param boolean $toponlyblock
+     * @param boolean $visible
      * @param string $orderby
      * @param integer $isactive
      * @return array
@@ -855,7 +854,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      *
      * @param int $moduleId
      * @param string $funcNum
-     * @param mixed $showFunc
+     * @param string $showFunc
      * @return int
      */
     public function countSimilarBlocks($moduleId, $funcNum, $showFunc = null)
@@ -893,7 +892,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      * If position is 1, content in DB is positioned
      * after the original content
      *
-     * @param $position
+     * @param integer $position
      * @param string $content
      * @param string $contentdb
      * @return string
@@ -931,7 +930,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     /************ system ***************/
 
     /**
-     * @param int|array $groupid
+     * @param null|integer $groupid
      * @return array
      */
     public function getBlockByPerm($groupid)

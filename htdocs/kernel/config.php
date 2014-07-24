@@ -20,9 +20,7 @@
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
-use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * XOOPS configuration handling class.
@@ -86,8 +84,8 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Get a config
      *
-     * @param    int     $id             ID of the config
-     * @param    bool    $withoptions    load the config's options now?
+     * @param int  $id          ID of the config
+     * @param bool $withoptions load the config's options now?
      *
      * @return   XoopsConfigItem {@link XoopsConfigItem}
      */
@@ -133,7 +131,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Delete a config from the database
      *
-     * @param  XoopsConfigItem $config {@link XoopsConfigItem}
+     * @param XoopsConfigItem $config {@link XoopsConfigItem}
      *
      * @return bool
      */
@@ -162,8 +160,8 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * get one or more Configs
      *
-     * @param    CriteriaElement|null  $criteria       {@link CriteriaElement}
-     * @param    bool    $id_as_key      Use the configs' ID as keys?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key Use the configs' ID as keys?
      *
      * @return    array   Array of {@link XoopsConfigItem} objects
      */
@@ -198,9 +196,9 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Get configs from a certain module
      *
-     * @param    int $module     ID of a module
+     * @param int $module ID of a module
      *
-     * @return    array   array of {@link XoopsConfig}s
+     * @return array of {@link XoopsConfig}s
      */
     public function getConfigsByModule($module = 0)
     {
@@ -219,12 +217,12 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Get configs from a certain category
      *
-     * @deprecated Use getConfigsByModule instead
-     *
-     * @param    int $category   ID of a category
-     * @param    int $module     ID of a module
+     * @param int $category ID of a category
+     * @param int $module   ID of a module
      *
      * @return    array   array of {@link XoopsConfig}s
+     *
+     * @deprecated Use getConfigsByModule instead
      */
     public function getConfigsByCat($category, $module = 0)
     {
@@ -262,9 +260,9 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Get a {@link XoopsConfigOption}
      *
-     * @param    int $id ID of the config option
+     * @param int $id ID of the config option
      *
-     * @return   XoopsConfigOption  {@link XoopsConfigOption}
+     * @return XoopsConfigOption {@link XoopsConfigOption}
      */
     public function getConfigOption($id)
     {
@@ -275,8 +273,8 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Get one or more {@link XoopsConfigOption}s
      *
-     * @param    CriteriaElement|null  $criteria   {@link CriteriaElement}
-     * @param    bool    $id_as_key  Use IDs as keys in the array?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key Use IDs as keys in the array?
      *
      * @return    array   Array of {@link XoopsConfigOption}s
      */
@@ -288,7 +286,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Count some {@link XoopsConfigOption}s
      *
-     * @param    CriteriaElement|null  $criteria   {@link CriteriaElement}
+     * @param CriteriaElement|null $criteria {@link CriteriaElement}
      *
      * @return    int     Count of {@link XoopsConfigOption}s matching $criteria
      */
@@ -300,8 +298,8 @@ class XoopsConfigHandler extends XoopsObjectHandler
     /**
      * Get a list of configs
      *
-     * @param    int $conf_modid ID of the modules
-     * @param    int $conf_catid ID of the category
+     * @param int $conf_modid ID of the modules
+     * @param int $conf_catid ID of the category
      *
      * @return    array   Associative array of name=>value pairs.
      */
@@ -326,5 +324,4 @@ class XoopsConfigHandler extends XoopsObjectHandler
             return $ret;
         }
     }
-
 }

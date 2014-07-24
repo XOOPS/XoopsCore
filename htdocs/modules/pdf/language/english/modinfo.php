@@ -16,7 +16,5 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 define('_MI_PDF_NAME', 'Pdf');
 define('_MI_PDF_DSC', 'Support for pdf creation');

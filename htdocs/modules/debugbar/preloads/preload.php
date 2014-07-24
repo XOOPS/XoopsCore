@@ -92,7 +92,7 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'debugbarlogger' => $path . '/class/debugbarlogger.php',
         ));
@@ -170,11 +170,9 @@ class DebugbarPreload extends PreloadItem
     /**
      * eventCoreIncludeCommonAuthSuccess
      *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
      * @return void
      */
-    public static function eventCoreIncludeCommonAuthSuccess($args)
+    public static function eventCoreIncludeCommonAuthSuccess()
     {
         $xoops = Xoops::getInstance();
         $logger = DebugbarLogger::getInstance();

@@ -4,9 +4,9 @@ class MytsSoundcloud extends MyTextSanitizerExtension
 {
     public function encode($textarea_id)
     {
-        $config = parent::loadConfig(dirname(__FILE__));
-        $alttxt = htmlspecialchars('SoundCloud', ENT_QUOTES);
-        $prompt = htmlspecialchars('Enter SoundCloud Profile URL', ENT_QUOTES);
+        $config = parent::loadConfig(__DIR__);
+        $alttxt = htmlspecialchars(XoopsLocale::SOUNDCLOUD, ENT_QUOTES);
+        $prompt = htmlspecialchars(XoopsLocale::SOUNDCLOUD_URL, ENT_QUOTES);
         $code = "<img src='{$this->image_path}/soundcloud.png' "
             . " alt='{$alttxt}' title='{$alttxt}' "
             . " onclick='xoopsCodeSoundCloud(\"{$textarea_id}\",\"{$prompt}\");' "
@@ -41,7 +41,7 @@ EOH;
     public static function myCallback($match)
     {
         $url = $match[1] . $match[2];
-        $config = parent::loadConfig(dirname(__FILE__));
+        $config = parent::loadConfig(__DIR__);
         if (!preg_match("/^http[s]?:\/\/(www\.)?soundcloud\.com\/(.*)/i", $url, $matches)) {
             trigger_error("Not matched: {$url}", E_USER_WARNING);
 

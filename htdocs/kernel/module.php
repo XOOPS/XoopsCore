@@ -20,7 +20,6 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
@@ -266,7 +265,7 @@ class XoopsModule extends XoopsObject
      * @param integer $limit
      * @param integer $offset
      * @param integer $userid
-     * @return mixed Search result.
+     * @return boolean Search result.
      */
     public function search($term = '', $andor = 'AND', $limit = 0, $offset = 0, $userid = 0)
     {
@@ -455,19 +454,17 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     function getById($id = null)
     {
-        static $_cachedModule_dirname;
-        static $_cachedModule_mid;
         $id = intval($id);
         if ($id > 0) {
-            if (!empty($_cachedModule_mid[$id])) {
-                return $_cachedModule_mid[$id];
+            if (!empty($this->_cachedModule_mid[$id])) {
+                return $this->_cachedModule_mid[$id];
             } else {
                 $module = parent::get($id);
                 if (!is_object($module)) {
                     return false;
                 }
-                $_cachedModule_mid[$id] = $module;
-                $_cachedModule_dirname[$module->getVar('dirname')] = $module;
+                $this->_cachedModule_mid[$id] = $module;
+                $this->_cachedModule_dirname[$module->getVar('dirname')] = $module;
                 return $module;
             }
         }
@@ -484,10 +481,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     public function getByDirname($dirname)
     {
         $dirname = basename(trim($dirname));
-        static $_cachedModule_mid;
-        static $_cachedModule_dirname;
-        if (!empty($_cachedModule_dirname[$dirname])) {
-            return $_cachedModule_dirname[$dirname];
+
+        if (!empty($this->_cachedModule_dirname[$dirname])) {
+            return $this->_cachedModule_dirname[$dirname];
         } else {
             $criteria = new Criteria('dirname', $dirname);
             $modules = $this->getObjectsArray($criteria);
@@ -497,8 +493,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 return false;
             }
             /* @var $module XoopsModule */
-            $_cachedModule_dirname[$dirname] = $module;
-            $_cachedModule_mid[$module->getVar('mid')] = $module;
+            $this->_cachedModule_dirname[$dirname] = $module;
+            $this->_cachedModule_mid[$module->getVar('mid')] = $module;
             return $module;
         }
     }
@@ -525,8 +521,6 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         if (!empty($this->_cachedModule_mid[$mid])) {
             unset($this->_cachedModule_mid[$mid]);
         }
-        Xoops_Cache::delete("module_id_" . $module->getVar('mid'));
-        Xoops_Cache::delete("module_dirname_" . $module->getVar('dirname'));
         return true;
     }
 
@@ -542,6 +536,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             return false;
         }
 
+		$mid = $module->getVar('mid');
+		$dirname = $module->getVar('dirname');
+		
         // delete admin and read permissions assigned for this module
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
@@ -553,14 +550,14 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 )
             )
             ->andWhere($eb->eq('gperm_itemid', ':itemid'))
-            ->setParameter(':itemid', $module->getVar('mid'), \PDO::PARAM_INT);
+            ->setParameter(':itemid', $mid, \PDO::PARAM_INT);
         $result = $qb->execute();
 
         $qb->resetQueryParts(); // reset
         $qb ->select('block_id')
             ->fromPrefix('block_module_link', null)
             ->where($eb->eq('module_id', ':mid'))
-            ->setParameter(':mid', $module->getVar('mid'), \PDO::PARAM_INT);
+            ->setParameter(':mid', $mid, \PDO::PARAM_INT);
         $result = $qb->execute();
         $block_id_arr = array();
         while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -568,12 +565,11 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         }
 
         foreach ($block_id_arr as $i) {
-
             $qb->resetQueryParts(); // reset
             $qb ->select('COUNT(*)')
                 ->fromPrefix('block_module_link', null)
                 ->where($eb->ne('module_id', ':mid'))
-                ->setParameter(':mid', $module->getVar('mid'), \PDO::PARAM_INT)
+                ->setParameter(':mid', $mid, \PDO::PARAM_INT)
                 ->andWhere($eb->eq('block_id', ':bid'))
                 ->setParameter(':bid', $i, \PDO::PARAM_INT);
             $result = $qb->execute();
@@ -584,7 +580,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 $qb->resetQueryParts(); // reset
                 $qb ->deletePrefix('block_module_link')
                     ->where($eb->eq('module_id', ':mid'))
-                    ->setParameter(':mid', $module->getVar('mid'), \PDO::PARAM_INT)
+                    ->setParameter(':mid', $mid, \PDO::PARAM_INT)
                     ->andWhere($eb->eq('block_id', ':bid'))
                     ->setParameter(':bid', $i, \PDO::PARAM_INT)
                     ->execute();
@@ -602,18 +598,20 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 $qb ->updatePrefix('block_module_link')
                     ->set('module_id', ':nomid')
                     ->where($eb->eq('module_id', ':mid'))
-                    ->setParameter(':mid', $module->getVar('mid'), \PDO::PARAM_INT)
+                    ->setParameter(':mid', $mid, \PDO::PARAM_INT)
                     ->setParameter(':nomid', -1, \PDO::PARAM_INT)
                     ->execute();
             }
         }
 
-        if (!empty($this->_cachedModule_dirname[$module->getVar('dirname')])) {
-            unset($this->_cachedModule_dirname[$module->getVar('dirname')]);
+        if (!empty($this->_cachedModule_dirname[$dirname])) {
+            unset($this->_cachedModule_dirname[$dirname]);
         }
-        if (!empty($this->_cachedModule_mid[$module->getVar('mid')])) {
-            unset($this->_cachedModule_mid[$module->getVar('mid')]);
+        if (!empty($this->_cachedModule_mid[$mid])) {
+            unset($this->_cachedModule_mid[$mid]);
         }
+        Xoops_Cache::delete("module_id_" . $mid);
+        Xoops_Cache::delete("module_dirname_" . $dirname);
         return true;
     }
 

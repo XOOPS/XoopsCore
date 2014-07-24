@@ -63,15 +63,10 @@ abstract class Xoops_Request_Abstract
         if ($this->hasParam($name)) {
             $ret = $this->getParam($name);
             settype($ret, $type);
-            if (!empty($exclude)) {
-                if (in_array($ret, $exclude)) {
-                    $ret = $default;
-                }
-            } elseif (!empty($include)) {
-                if (!in_array($ret, $include)) {
-                    $ret = $default;
-                }
-            }
+            if ((!empty($exclude) AND in_array($ret, $exclude)) OR
+				(!empty($include) AND !in_array($ret, $include))) {
+				$ret = $default;
+			}
         }
 
         return $ret;
@@ -87,9 +82,9 @@ abstract class Xoops_Request_Abstract
      *
      * @return array
      */
-    public function asArray($name, $default = array(), $include = array(), $exclude = array())
+    public function asArray($name, $default = array(), $include = null, $exclude = null)
     {
-        return $this->_as('array', $name, $default, $include, $exclude);
+        return $this->_as('array', $name, (array)$default, (array)$include, (array)$exclude);
     }
 
     /**
@@ -104,7 +99,7 @@ abstract class Xoops_Request_Abstract
      */
     public function asStr($name, $default = '', $include = null, $exclude = null)
     {
-        return $this->_as('string', $name, $default, (array)$include, (array)$exclude);
+        return $this->_as('string', $name, (string)$default, (array)$include, (array)$exclude);
     }
 
     /**
@@ -119,7 +114,7 @@ abstract class Xoops_Request_Abstract
      */
     public function asInt($name, $default = 0, $include = null, $exclude = null)
     {
-        return $this->_as('integer', $name, $default, (array)$include, (array)$exclude);
+        return $this->_as('integer', $name, (int)$default, (array)$include, (array)$exclude);
     }
 
     /**
@@ -130,9 +125,9 @@ abstract class Xoops_Request_Abstract
      *
      * @return bool
      */
-    public function asBool($name, $default = false)
+    public function asBool($name, $default = false, $include = null, $exclude = null)
     {
-        return $this->_as('boolean', $name, $default);
+        return $this->_as('boolean', $name, (bool)$default, (array)$include, (array)$exclude);
     }
 
     /**
@@ -147,10 +142,10 @@ abstract class Xoops_Request_Abstract
      */
     public function asFloat($name, $default = 0.0, $include = null, $exclude = null)
     {
-        return $this->_as('float', $name, $default, (array)$include, (array)$exclude);
+        return $this->_as('float', $name, (float)$default, (array)$include, (array)$exclude);
     }
 
-        /**
+    /**
      * Checks if a request parameter is present
      *
      * @param string $name
@@ -197,8 +192,8 @@ abstract class Xoops_Request_Abstract
      *
      * @return void.
      */
-    public function addParams($params)
+    public function addParams(array $params)
     {
-        $this->_params = array_merge($this->_params, (array)$params);
+        $this->_params = array_merge($this->_params, $params);
     }
 }

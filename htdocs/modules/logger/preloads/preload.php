@@ -95,7 +95,7 @@ class LoggerPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonClassmaps($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'legacylogger' => $path . '/class/legacylogger.php',
         ));
@@ -161,7 +161,7 @@ class LoggerPreload extends PreloadItem
     public static function eventCoreDatabaseQueryComplete($args)
     {
         $sql = $args['sql'];
-        //XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
+        //XoopsLoad::addMap(array('legacylogger' => dirname(__DIR__) . '/class/legacylogger.php'));
         LegacyLogger::getInstance()->addQuery($sql, null, null, $args['executionMS']);
     }
 
@@ -191,11 +191,9 @@ class LoggerPreload extends PreloadItem
     /**
      * eventCoreIncludeCommonAuthSuccess
      *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
      * @return void
      */
-    public static function eventCoreIncludeCommonAuthSuccess($args)
+    public static function eventCoreIncludeCommonAuthSuccess()
     {
         $xoops = Xoops::getInstance();
         $logger = LegacyLogger::getInstance();
@@ -432,6 +430,6 @@ class LoggerPreload extends PreloadItem
      */
     public static function eventSystemPreferencesSave($args)
     {
-        XoopsLoad::addMap(array('legacylogger' => dirname(dirname(__FILE__)) . '/class/legacylogger.php'));
+        XoopsLoad::addMap(array('legacylogger' => dirname(__DIR__) . '/class/legacylogger.php'));
     }
 }

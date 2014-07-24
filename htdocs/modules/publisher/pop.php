@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -23,4 +23,4 @@
 $doNotStartPrint = true;
 $noTitle = true;
 $smartPopup = true;
-include_once dirname(__FILE__) . '/print.php';
+include_once __DIR__ . '/print.php';

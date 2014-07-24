@@ -19,17 +19,18 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.viewpmsg.start');
 
 if (!$xoops->isUser()) {
-    $errormessage = XoopsLocale::E_YOU_ARE_NOT_REGISTERED . "<br />" . XoopsLocale::E_REGISTER_FIRST_TO_SEND_PRIVATE_MESSAGES . "";
+    $errormessage = XoopsLocale::E_YOU_ARE_NOT_REGISTERED . "<br />"
+        . XoopsLocale::E_REGISTER_FIRST_TO_SEND_PRIVATE_MESSAGES . "";
     $xoops->redirect("user.php", 2, $errormessage);
 } else {
     $pm_handler = $xoops->getHandlerPrivmessage();
-    if (isset($_POST['delete_messages']) && isset($_POST['msg_id'])) {
+    if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST['msg_ids']))) {
         if (!$xoops->security()->check()) {
             echo implode('<br />', $xoops->security()->getErrors());
             exit();
@@ -39,14 +40,19 @@ if (!$xoops->isUser()) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->confirm(array(
-                        'ok' => 1, 'delete_messages' => 1, 'msg_id' => serialize(array_map("intval", $_POST['msg_id']))
+                        'ok' => 1, 'delete_messages' => 1,
+                        'msg_ids' => json_encode(array_map("intval", $_POST['msg_id']))
                     ), $_SERVER['REQUEST_URI'], XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES);
                 $xoops->footer();
             }
         }
-        $_POST['msg_id'] = unserialize($_REQUEST['msg_id']);
-        $size = count($_POST['msg_id']);
-        $msg = $_POST['msg_id'];
+
+        $clean_msg_id = json_decode($_POST['msg_ids'], true, 2);
+        if (!empty($clean_msg_id)) {
+            $clean_msg_id = array_map("intval", $clean_msg_id);
+        }
+        $size = count($clean_msg_id);
+        $msg =& $clean_msg_id;
         for ($i = 0; $i < $size; $i++) {
             $pm = $pm_handler->get(intval($msg[$i]));
             if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {

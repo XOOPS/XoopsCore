@@ -24,7 +24,7 @@
  * @version     $Id$
  */
 
-require_once dirname(__FILE__) . '/include/common.inc.php';
+require_once __DIR__ . '/include/common.inc.php';
 
 set_time_limit(0); // don't want this to timeout
 
@@ -46,7 +46,7 @@ $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 $modules_active = array();
 Xoops_Cache::write('system_modules_active', $modules_active);
 
-$root = dirname(dirname(__FILE__));
+$root = dirname(__DIR__);
 $language = $wizard->language;
 $xoops->setConfig('locale', $language);
 $xoops->loadLocale();

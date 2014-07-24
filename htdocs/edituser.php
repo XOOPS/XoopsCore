@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.edituser.start');
@@ -38,7 +38,11 @@ $op = $request->asStr('op', 'editprofile');
 $myts = MyTextSanitizer::getInstance();
 if ($op == 'saveuser') {
     if (!$xoops->security()->check()) {
-        $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
+        $xoops->redirect(
+            'index.php',
+            3,
+            XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors())
+        );
         exit();
     }
     $uid = $request->asInt('uid', 0);
@@ -47,6 +51,7 @@ if ($op == 'saveuser') {
         exit();
     }
     $errors = array();
+    $email='';
     if ($xoops->getConfig('allow_chgmail') == 1) {
         $email = $request->asStr('email', '');
         $email = $myts->stripSlashesGPC(trim($email));
@@ -104,7 +109,13 @@ if ($op == 'saveuser') {
         $edituser->setVar('user_mailok', $request->asBool('user_mailok', 0));
         $usecookie = $request->asBool('user_mailok', 0);
         if (!$usecookie) {
-            setcookie($xoops->getConfig('usercookie'), $xoops->user->getVar('uname'), time() + 31536000, '/', XOOPS_COOKIE_DOMAIN);
+            setcookie(
+                $xoops->getConfig('usercookie'),
+                $xoops->user->getVar('uname'),
+                time() + 31536000,
+                '/',
+                XOOPS_COOKIE_DOMAIN
+            );
         } else {
             setcookie($xoops->getConfig('usercookie'));
         }
@@ -143,14 +154,36 @@ if ($op == 'editprofile') {
     $url_text = new XoopsFormText(XoopsLocale::WEBSITE, 'url', 30, 100, $xoops->user->getVar('url', 'E'));
     $form->addElement($url_text);
 
-    $timezone_select = new XoopsFormSelectTimezone(XoopsLocale::TIME_ZONE, 'timezone_offset', $xoops->user->getVar('timezone_offset'));
+    $timezone_select = new XoopsFormSelectTimezone(
+        XoopsLocale::TIME_ZONE,
+        'timezone_offset',
+        $xoops->user->getVar('timezone_offset')
+    );
     $icq_text = new XoopsFormText(XoopsLocale::ICQ, 'user_icq', 15, 15, $xoops->user->getVar('user_icq', 'E'));
     $aim_text = new XoopsFormText(XoopsLocale::AIM, 'user_aim', 18, 18, $xoops->user->getVar('user_aim', 'E'));
     $yim_text = new XoopsFormText(XoopsLocale::YIM, 'user_yim', 25, 25, $xoops->user->getVar('user_yim', 'E'));
     $msnm_text = new XoopsFormText(XoopsLocale::MSNM, 'user_msnm', 30, 100, $xoops->user->getVar('user_msnm', 'E'));
-    $location_text = new XoopsFormText(XoopsLocale::LOCATION, 'user_from', 30, 100, $xoops->user->getVar('user_from', 'E'));
-    $occupation_text = new XoopsFormText(XoopsLocale::OCCUPATION, 'user_occ', 30, 100, $xoops->user->getVar('user_occ', 'E'));
-    $interest_text = new XoopsFormText(XoopsLocale::INTEREST, 'user_intrest', 30, 150, $xoops->user->getVar('user_intrest', 'E'));
+    $location_text = new XoopsFormText(
+        XoopsLocale::LOCATION,
+        'user_from',
+        30,
+        100,
+        $xoops->user->getVar('user_from', 'E')
+    );
+    $occupation_text = new XoopsFormText(
+        XoopsLocale::OCCUPATION,
+        'user_occ',
+        30,
+        100,
+        $xoops->user->getVar('user_occ', 'E')
+    );
+    $interest_text = new XoopsFormText(
+        XoopsLocale::INTEREST,
+        'user_intrest',
+        30,
+        150,
+        $xoops->user->getVar('user_intrest', 'E')
+    );
     $sig_tray = new XoopsFormElementTray(XoopsLocale::SIGNATURE, '<br />');
     $sig_tarea = new XoopsFormDhtmlTextArea('', 'user_sig', $xoops->user->getVar('user_sig', 'E'));
     $sig_tray->addElement($sig_tarea);
@@ -160,13 +193,23 @@ if ($op == 'editprofile') {
     $sig_tray->addElement($sig_cbox);
     $bio_tarea = new XoopsFormTextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
     $cookie_radio_value = empty($_COOKIE[$xoops->getConfig('usercookie')]) ? 0 : 1;
-    $cookie_radio = new XoopsFormRadioYN(XoopsLocale::STORE_USERNAME_IN_COOKIE_FOR_ONE_YEAR, 'usecookie', $cookie_radio_value);
+    $cookie_radio = new XoopsFormRadioYN(
+        XoopsLocale::STORE_USERNAME_IN_COOKIE_FOR_ONE_YEAR,
+        'usecookie',
+        $cookie_radio_value
+    );
     $pwd_text = new XoopsFormPassword('', 'password', 10, 32);
     $pwd_text2 = new XoopsFormPassword('', 'vpass', 10, 32);
-    $pwd_tray = new XoopsFormElementTray(XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT);
+    $pwd_tray = new XoopsFormElementTray(
+        XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT
+    );
     $pwd_tray->addElement($pwd_text);
     $pwd_tray->addElement($pwd_text2);
-    $mailok_radio = new XoopsFormRadioYN(XoopsLocale::Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS, 'user_mailok', $xoops->user->getVar('user_mailok'));
+    $mailok_radio = new XoopsFormRadioYN(
+        XoopsLocale::Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS,
+        'user_mailok',
+        $xoops->user->getVar('user_mailok')
+    );
     $uid_hidden = new XoopsFormHidden('uid', $xoops->user->getVar('uid'));
     $op_hidden = new XoopsFormHidden('op', 'saveuser');
     $submit_button = new XoopsFormButton('', 'submit', XoopsLocale::SAVE_CHANGES, 'submit');

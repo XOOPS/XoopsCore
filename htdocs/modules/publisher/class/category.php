@@ -9,9 +9,15 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,7 +25,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherCategory extends XoopsObject
 {
@@ -311,9 +317,9 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
     public $publisher = null;
 
     /**
-     * @param null|Xoops\Core\Database\Connection $db
+     * @param Xoops\Core\Database\Connection $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db)
     {
         $this->publisher = Publisher::getInstance();
         parent::__construct($db, "publisher_categories", 'PublisherCategory', "categoryid", "name");
@@ -435,6 +441,16 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
         return $ret;
     }
 
+    /**
+     * getSubCatArray
+     *
+     * @param array   $category
+     * @param integer $level
+     * @param array   $cat_array
+     * @param array   $cat_result
+     *
+     * @return void
+     */
     public function getSubCatArray($category, $level, $cat_array, $cat_result)
     {
         global $theresult;

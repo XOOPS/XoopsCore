@@ -17,33 +17,33 @@
  * @package         core
  * @since           2.4.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
-defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-defined('NWLINE')or define('NWLINE', "\n");
-
 $xoopsOption['nocommon'] = true;
-require_once dirname(__FILE__) . DS . 'mainfile.php';
+require_once __DIR__ . '/mainfile.php';
 
-error_reporting(0);
+//error_reporting(0);
 
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS .'defines.php';
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
-require_once XOOPS_ROOT_PATH . DS . 'class' . DS . 'xoopsload.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
 
 $xoops = Xoops::getInstance();
-$xoops->pathTranslation();
+//$xoops->pathTranslation(); // alread run in Xoops __construct
 
 // Fetch path from query string if path is not set, i.e. through a direct request
-if (!isset($path) && !empty($_SERVER['QUERY_STRING'])) {
-    $path = $_SERVER['QUERY_STRING'];
-    $path = (substr($path, 0, 1) == '/') ? substr($path, 1) : $path;
-    $path_type = substr($path, 0, strpos($path, '/'));
-    if (!isset($xoops->paths[$path_type])) {
-        $path = "XOOPS/" . $path;
-        $path_type = "XOOPS";
+if (!isset($path)) {
+    if (!empty($_SERVER['QUERY_STRING'])) {
+        $path = $_SERVER['QUERY_STRING'];
+        $path = (substr($path, 0, 1) == '/') ? substr($path, 1) : $path;
+    } else {
+        header("HTTP/1.0 404 Not Found");
+        exit();
     }
+}
+
+$path_type = substr($path, 0, strpos($path, '/'));
+if (!isset($xoops->paths[$path_type])) {
+    $path = "XOOPS/" . $path;
+    $path_type = "XOOPS";
 }
 
 //We are not allowing output of xoops_data
@@ -55,30 +55,39 @@ if ($path_type == 'var') {
 $file = realpath($xoops->path($path));
 $dir = realpath($xoops->paths[$path_type][0]);
 
-//We are not allowing directory travessal either
-if (!strstr($file, $dir)) {
+//We are not allowing directory traversal either
+if ($file===false || $dir===false || !strstr($file, $dir)) {
     header("HTTP/1.0 404 Not Found");
     exit();
 }
 
 //We can't output empty files and php files do not output
-if (empty($file) || strpos($file, '.php' ) !== false) {
+if (empty($file) || strpos($file, '.php') !== false) {
     header("HTTP/1.0 404 Not Found");
     exit();
 }
 
-$file = $xoops->path($path);
+//$file = $xoops->path($path);
+$mtime = filemtime($file);
+
 // Is there really a file to output?
-if (!XoopsLoad::fileExists($file)) {
+if ($mtime === false) {
     header("HTTP/1.0 404 Not Found");
     exit();
 }
 
-$ext = substr($file, strrpos($file, '.') + 1);
-$types = include $xoops->path('include/mimetypes.inc.php');
-//$content_type = isset($types[$ext]) ? $types[$ext] : 'text/plain';
+if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+    if (strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $mtime) {
+        header('HTTP/1.0 304 Not Modified');
+        exit;
+    }
+}
+
+$path_parts = pathinfo($file);
+$ext = (isset($path_parts['extension'])) ? $path_parts['extension'] : '';
+$mimetype = \Xoops\Core\MimeTypes::findType($ext);
 //Do not output garbage
-if (!isset($types[$ext])) {
+if (empty($mimetype)) {
     header("HTTP/1.0 404 Not Found");
     exit();
 }
@@ -86,13 +95,10 @@ if (!isset($types[$ext])) {
 // Output now
 // seconds, minutes, hours, days
 $expires = 60*60*24*15;
-header("Pragma: public");
-header("Cache-Control: maxage=" . $expires);
+//header("Pragma: public");
+header("Cache-Control: public, max-age=" . $expires);
 header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
-header('Content-type: ' . $types[$ext]);
-$handle = fopen($file, "rb");
-while (!feof($handle)) {
-   $buffer = fread($handle, 4096);
-   echo $buffer;
-}
-fclose($handle);
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s T', $mtime));
+header('Content-type: ' . $mimetype);
+readfile($file);
+exit;

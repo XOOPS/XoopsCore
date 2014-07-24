@@ -119,7 +119,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      * @param   int     $item_id    Item ID
      * @param   int     $status     Status of the comment
      *
-     * @return  array   Array of {@link CommentsComment} objects
+     * @return  integer   Array of {@link CommentsComment} objects
      **/
     public function getCountByItemId($module_id, $item_id, $status = null)
     {

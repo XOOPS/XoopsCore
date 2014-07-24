@@ -22,7 +22,7 @@
 */
 define ('VERSION', '2.8.7');                                                                        // Version of this script
 //Load a config file if it exists. Otherwise, use the values below
-if( file_exists(dirname(__FILE__) . '/timthumb-config.php'))    require_once('timthumb-config.php');
+if( file_exists(__DIR__ . '/timthumb-config.php'))    require_once('timthumb-config.php');
 if(! defined('DEBUG_ON') )                  define ('DEBUG_ON', false);                             // Enable debug logging to web server error log (STDERR)
 if(! defined('DEBUG_LEVEL') )               define ('DEBUG_LEVEL', 1);                              // Debug level 1 is less noisy and 3 is the most noisy
 if(! defined('MEMORY_LIMIT') )              define ('MEMORY_LIMIT', '30M');                         // Set PHP memory limit
@@ -486,6 +486,14 @@ class timthumb {
         }
         return false;
     }
+
+    /**
+     * processImageAndWriteToCache
+     *
+     * @param string $localImage
+     *
+     * @return boolean
+     */
     protected function processImageAndWriteToCache($localImage){
         $sData = getimagesize($localImage);
         $origType = $sData[2];
@@ -814,6 +822,7 @@ class timthumb {
         imagedestroy($image);
         return true;
     }
+
     protected function calcDocRoot(){
         $docRoot = @$_SERVER['DOCUMENT_ROOT'];
         if (defined('LOCAL_FILE_BASE_DIRECTORY')) {
@@ -899,6 +908,10 @@ class timthumb {
         }
         return false;
     }
+
+    /**
+     * @param string $name
+     */
     protected function toDelete($name){
         $this->debug(3, "Scheduling file $name to delete on destruct.");
         $this->toDeletes[] = $name;
@@ -1027,6 +1040,13 @@ class timthumb {
             return false;
         }
     }
+
+    /**
+     * @param string  $mimeType
+     * @param integer $dataSize
+     *
+     * @return true
+     */
     protected function sendImageHeaders($mimeType, $dataSize){
         if(! preg_match('/^image\//i', $mimeType)){
             $mimeType = 'image/' . $mimeType;
@@ -1055,6 +1075,13 @@ class timthumb {
     }
     protected function securityChecks(){
     }
+
+    /**
+     * @param string $property
+     * @param string $default
+     *
+     * @return string
+     */
     protected function param($property, $default = ''){
         if (isset ($_GET[$property])) {
             return $_GET[$property];
@@ -1097,6 +1124,15 @@ class timthumb {
             return "UNKNOWN";
         }
     }
+
+    /**
+     * debug
+     *
+     * @param integer $level
+     * @param string  $msg
+     *
+     * @return void
+     */
     protected function debug($level, $msg){
         if(DEBUG_ON && $level <= DEBUG_LEVEL){
             $execTime = sprintf('%.6f', microtime(true) - $this->startTime);
@@ -1108,6 +1144,12 @@ class timthumb {
             error_log("TimThumb Debug line " . __LINE__ . " [$execTime : $tick]: $msg");
         }
     }
+
+    /**
+     * @param string $msg
+     *
+     * @return false
+     */
     protected function sanityFail($msg){
         return $this->error("There is a problem in the timthumb code. Message: Please report this error at <a href='http://code.google.com/p/timthumb/issues/list'>timthumb's bug tracking page</a>: $msg");
     }
@@ -1138,6 +1180,11 @@ class timthumb {
             default: return $size_str;
         }
     }
+
+    /**
+     * @param string $url
+     * @param string $tempfile
+     */
     protected function getURL($url, $tempfile){
         $this->lastURLError = false;
         $url = preg_replace('/ /', '%20', $url);

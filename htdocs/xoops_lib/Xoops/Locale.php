@@ -48,7 +48,7 @@ class Xoops_Locale
     }
 
     /**
-     * @param   mixed    $domain     string: Module dirname; global language file will be loaded if $domain is set to 'global' or not specified
+     * @param   string    $domain     string: Module dirname; global language file will be loaded if $domain is set to 'global' or not specified
      *
      * @return  boolean
      */

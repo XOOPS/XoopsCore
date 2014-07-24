@@ -11,7 +11,6 @@
 
 use Monolog\Logger as MLogger;
 use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\ChromePHPHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;

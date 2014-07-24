@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 
 $xoops = Xoops::getInstance();
 $op = 'main';
@@ -36,7 +36,7 @@ if (isset($_POST['op'])) {
 
 if ($op == 'main') {
     if (!$xoops->isUser()) {
-        $xoops->header('profile_userform.html');
+        $xoops->header('profile_userform.tpl');
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
         $xoops->tpl()->assign('lang_username', XoopsLocale::C_USERNAME);
         if (isset($_GET['xoops_redirect'])) {
@@ -51,7 +51,7 @@ if ($op == 'main') {
         $xoops->tpl()->assign('lang_youremail', XoopsLocale::C_YOUR_EMAIL);
         $xoops->tpl()->assign('lang_sendpassword', XoopsLocale::SEND_PASSWORD);
         $xoops->tpl()->assign('mailpasswd_token', $xoops->security()->createToken());
-        include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+        include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
     }
     if (!empty($_GET['xoops_redirect'])) {
         $redirect = trim($_GET['xoops_redirect']);
@@ -109,9 +109,9 @@ if ($op == 'delete') {
         }
         $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
         if ($ok != 1) {
-            include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+            include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
             $xoops->confirm(array('op' => 'delete', 'ok' => 1), 'user.php', XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO);
-            include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+            include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
         } else {
             $del_uid = $xoops->user->getVar("uid");
             if (false != $xoops->getHandlerMember()->deleteUser($xoops->user)) {

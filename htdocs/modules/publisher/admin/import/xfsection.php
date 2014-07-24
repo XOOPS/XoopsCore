@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . '/admin_header.php';
+include_once dirname(__DIR__) . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 
 $importFromModuleName = "XF-Section " . @$_POST['xfs_version'];

@@ -19,7 +19,7 @@
  * @version     $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . '/header.php';
+include dirname(dirname(__DIR__)) . '/header.php';
 
 $xoops = Xoops::getInstance();
 $system = System::getInstance();

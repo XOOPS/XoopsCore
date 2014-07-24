@@ -276,9 +276,9 @@ class XoopsPathController
     /**
      * Write-enable the specified folder
      *
-     * @param $path
+     * @param string $path
      * @param bool $create
-     * @return bool|string false on failure, method (u-ser,g-roup,w-orld) on success
+     * @return false|string false on failure, method (u-ser,g-roup,w-orld) on success
      */
     public function makeWritable($path, $create = true)
     {
