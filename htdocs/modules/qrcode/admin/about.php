@@ -7,27 +7,22 @@
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- */
+*/
 
 /**
+ * avatars module
+ *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          Laurent JEN - aka DuGris
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @package         avatar
+ * @since           2.6.0
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
-
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
-
-// get a full img tag to show a QR code of a URL
-echo $xoops->service('qrcode')->getImgTag('http://www.xoops.org/')->getValue();
-
-if (!$xoops->service('qrcode')->isAvailable()) {
-    echo 'Please install a qrcode provider to view this demonstration.';
-}
-
-Xoops_Utils::dumpFile(__FILE__);
-
+$aboutAdmin = new \Xoops\Module\Admin();
+$aboutAdmin->displayNavigation('about.php');
+$aboutAdmin->displayAbout();
 $xoops->footer();
