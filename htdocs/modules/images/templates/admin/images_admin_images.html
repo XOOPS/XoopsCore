@@ -29,9 +29,10 @@
             <div class="cp-images">
                 <div class="xo-thumbimg">
                     <{if !$db_store}>
-                        <img class="xo-tooltip" src="<{$xoops_url}>/modules/system/class/thumbs/phpThumb.php?src=<{$xoops_rootpath}>/uploads/<{$img.image_name}>&amp;h=120&amp;w=120" alt="<{$img.image_nicename}>" title="<{$img.image_nicename}>" />
+                        <img class="xo-tooltip"
+                        src="<{thumbnail image="uploads/`$img.image_name`" w=128 h=128}>" alt="<{$img.image_nicename}>" title="<{$img.image_nicename}>" />
                     <{else}>
-                        <img class="xo-tooltip" src="<{$xoops_url}>/modules/images/image.php?id=<{$img.image_id}>" alt="<{$img.image_nicename}>" title="<{$img.image_nicename}>" style="max-width:120px; max-height:120px;" />
+                        <img class="xo-tooltip" src="<{$xoops_url}>/modules/images/image.php?id=<{$img.image_id}>" alt="<{$img.image_nicename}>" title="<{$img.image_nicename}>" style="max-width:128px; max-height:128px;" />
                     <{/if}>
                 </div>
                 <div class="xo-actions txtcenter">

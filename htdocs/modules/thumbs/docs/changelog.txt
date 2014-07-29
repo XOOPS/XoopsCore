@@ -1,0 +1,3 @@
+Thumbs v1.0 alpha 2014/07/28
+============================
+Thumbnail service provider

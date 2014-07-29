@@ -66,7 +66,7 @@ if (isset($imgcat_id) && $op == 'list') {
 $xoops->theme()->addScript('media/xoops/xoops.js');
 $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
 $xoops->theme()->addScript('modules/system/js/admin.js');
-$xoops->theme()->addScript('modules/system/js/thumbs.js');
+//$xoops->theme()->addScript('modules/system/js/thumbs.js');
 // Add Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 $xoops->theme()->addStylesheet('modules/images/css/admin.css');
