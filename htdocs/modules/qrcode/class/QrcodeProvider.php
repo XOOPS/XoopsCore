@@ -26,9 +26,6 @@ use Xoops\Core\Service\Response;
  */
 class QrcodeProvider extends AbstractContract implements QrcodeInterface
 {
-    /** @var string $moddir */
-    private $moddir = 'qrcode';
-
     /** @var string $renderScript */
     protected $renderScript = 'modules/qrcode/include/qrrender.php';
 
