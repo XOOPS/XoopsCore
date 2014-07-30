@@ -67,7 +67,7 @@ class ThumbsProvider extends AbstractContract implements ThumbnailInterface
 
         $originalMtime = filemtime($xoops->path($imgPath));
         $thumbMtime = filemtime($xoops->path($thumbPath));
-        if ($originalMtime>$thumbMtime) {
+        if (false===$thumbMtime || $originalMtime>$thumbMtime) {
             $params = array(
                 'img' => (string) $imgPath,
             );

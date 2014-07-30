@@ -28,7 +28,6 @@
  */
 function smarty_function_thumbnail($params, &$smarty)
 {
-\Xoops::getInstance()->events()->triggerEvent('debug.log', $params);
     $image = isset($params['image']) ? $params['image'] : '';
     $w     = isset($params['w']) ? $params['w'] : 0;
     $h     = isset($params['h']) ? $params['h'] : 0;

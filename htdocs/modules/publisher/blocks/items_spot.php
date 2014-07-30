@@ -96,6 +96,7 @@ function publisher_items_spot_show($options)
     if (!isset($block['items']) || count($block['items']) == 0) {
         return false;
     }
+    $block["publisher_url"] = PUBLISHER_URL;
     $block['lang_reads'] = _MB_PUBLISHER_READS;
     $block['lang_comments'] = _MB_PUBLISHER_COMMENTS;
     $block['lang_readmore'] = _MB_PUBLISHER_READMORE;

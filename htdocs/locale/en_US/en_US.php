@@ -267,6 +267,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const EF_NOT_UPDATED = "'%s' was not updated!";
     const EF_PASSWORD_MUST_BE_GREATER_THAN = "Your password must be at least '%s' characters long!";
     const EF_PRIVATE_MESSAGE_NOT_SENT_TO = "Private message was not sent to '%s'!";
+    const EF_SERVICE_IS_NOT_INSTALLED = "No '%s' service provider is installed!";
     const EF_TABLE_DROP_NOT_ALLOWED = "Table '%s' is not allowed to be dropped!";
     const EF_TABLE_NOT_CREATED = "Table '%s' was not created!"; // L118
     const EF_TABLE_NOT_DELETED = "Table '%s' was not deleted!"; // L164
@@ -992,6 +993,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const SF_PASSWORD_SENT_TO = "Password sent to %s!";
     const SF_PRIVATE_MESSAGE_SENT_TO = "Private message sent to %s!";
     const SF_SAVED = "%s saved";
+    const SF_SERVICE_IS_INSTALLED = "A '%s' service provider is available.";
     const SF_TABLE_CREATED = "Table '%s' created!"; // L45
     const SF_TABLE_DROPPED = "Table '%s' dropped!"; // L163
     const SF_TABLE_UPDATED = "Table '%s' updated!"; // L133

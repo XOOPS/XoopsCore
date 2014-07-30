@@ -11,7 +11,7 @@
 <{else}>    <{foreach item=item from=$block.items name=spotlight}>        <{if $item.summary != ''}>
 <div class="itemText" style="padding-left: 5px; padding-top: 5px;">
     <div>
-        <img style="vertical-align: middle;" src="<{$publisher_url}>/images/links/doc.png" alt=""/>&nbsp;<{$item.titlelink}>
+        <img style="vertical-align: middle;" src="<{$block.publisher_url}>/images/links/doc.png" alt=""/>&nbsp;<{$item.titlelink}>
     </div>
 
     <div>

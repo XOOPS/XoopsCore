@@ -209,6 +209,27 @@ class Admin
                     );
                 }
                 break;
+
+            case "service":
+                $xoops = \Xoops::getInstance();
+                if (is_array($value)) {
+                    $text = $value[0];
+                    $type = $value[1];
+                } else {
+                    $text = $value;
+                    $type = 'error';
+                }
+                if ($xoops->service($text)->isAvailable()) {
+                    $this->itemConfigBoxLine[] = array(
+                        'type' => 'accept', 'text' => sprintf(\XoopsLocale::SF_SERVICE_IS_INSTALLED, $text)
+                    );
+                } else {
+                    $this->itemConfigBoxLine[] = array(
+                        'type' => $type, 'text' => sprintf(\XoopsLocale::EF_SERVICE_IS_NOT_INSTALLED, $text)
+                    );
+                }
+                break;
+
         }
         return true;
     }

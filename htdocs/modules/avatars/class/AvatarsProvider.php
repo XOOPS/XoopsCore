@@ -47,6 +47,19 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     }
 
     /**
+     * getUserById - get a user object from a user id
+     *
+     * @param int $uid a user id
+     *
+     * @return object|null
+     */
+    private function getUserById($uid)
+    {
+        $user = \Xoops::getInstance()->getHandlerMember()->getUser((int) $uid);
+        return (is_object($user)) ? $user : null;
+    }
+
+   /**
      * getAvatarUrl - given user info return absolute URL to avatar image
      *
      * @param Response $response \Xoops\Core\Service\Response object
@@ -72,6 +85,16 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                 $response->setValue(XOOPS_UPLOAD_URL . "/" . $userinfo['user_avatar']);
                 $noInfo = false;
             }
+        } elseif (is_scalar($userinfo)) {
+            $user = $this->getUserById((int) $userinfo);
+            if (is_object($user) && is_a($user, 'XoopsUser')) {
+                if ($user->getVar('user_avatar')
+                    && 'blank.gif' != $user->getVar('user_avatar')
+                ) {
+                    $response->setValue(XOOPS_UPLOAD_URL . "/" . $user->getVar('user_avatar'));
+                }
+                $noInfo = false;
+            }
         }
         if ($noInfo) {
             $response->setSuccess(false)->addErrorMessage('User info is invalid');
@@ -81,13 +104,12 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array of user info, 'uid', 'uname' and 'email' required
+     * @param Response   $response \Xoops\Core\Service\Response object
+     * @param \XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
-    public function getAvatarEditUrl($response, $userinfo)
+    public function getAvatarEditUrl($response, \XoopsUser $userinfo)
     {
         $noInfo = true;
         if (is_a($userinfo, 'XoopsUser')) {
