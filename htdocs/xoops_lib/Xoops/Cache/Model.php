@@ -116,6 +116,9 @@ class Xoops_Cache_Model extends Xoops_Cache_Abstract
      */
     public function write($key, $value, $duration)
     {
+		if (!isset($this->model))
+			return false;
+			
         $value = serialize($value);
         if (empty($value)) {
             return false;
@@ -139,6 +142,9 @@ class Xoops_Cache_Model extends Xoops_Cache_Abstract
      */
     public function read($key)
     {
+		if (!isset($this->model))
+			return false;
+			
         $criteria = new CriteriaCompo(new Criteria($this->model->keyName, $key));
         //$criteria->add(new Xoops_Criteria($this->fields[1], time(), ">"));
         $criteria->setLimit(1);
@@ -165,6 +171,9 @@ class Xoops_Cache_Model extends Xoops_Cache_Abstract
      */
     public function delete($key)
     {
+		if (!isset($this->model))
+			return false;
+			
         $criteria = new CriteriaCompo(new Criteria($this->model->keyName, $key));
         return $this->model->deleteAll($criteria);
     }
@@ -179,6 +188,9 @@ class Xoops_Cache_Model extends Xoops_Cache_Abstract
      */
     public function clear($check)
     {
+		if (!isset($this->model))
+			return false;
+			
         if ($check) {
             return $this->model->deleteAll(new Criteria($this->fields[1], time(), '<= '));
         }

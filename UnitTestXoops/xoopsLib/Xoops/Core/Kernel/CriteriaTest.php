@@ -157,8 +157,6 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $prefix = 'prefix';
         $function = '';
         $criteria = new $this->myclass($column, $value, $operator, $prefix, $function);
-        $clause = $criteria->buildExpressionQb();
-        $this->assertSame(false, $clause);
 		$qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
 		$x = $criteria->buildExpressionQb($qb);
 		$this->assertSame("$prefix.$column ".strtoupper($operator)." $value", $x);

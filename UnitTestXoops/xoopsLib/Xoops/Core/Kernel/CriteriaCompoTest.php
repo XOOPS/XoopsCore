@@ -103,8 +103,6 @@ class Kernel_CriteriaCompoTest extends MY_UnitTestCase
 		$condition = 'AND';
         $criteria = new $this->myclass($criteria_element, $condition);
         $this->assertInstanceOf($this->myclass, $criteria);
-		$x = $criteria->buildExpressionQb();
-		$this->assertSame(false, $x);
 		$qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
 		$x = $criteria->buildExpressionQb($qb);
 		$this->assertSame(null, $x);

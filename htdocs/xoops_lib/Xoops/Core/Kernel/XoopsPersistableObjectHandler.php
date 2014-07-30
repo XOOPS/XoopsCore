@@ -588,9 +588,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @return bool true on success
      */
-    public function synchronization()
+    public function synchronization($table_link = '', $field_link = '', $field_object = '')
     {
-        $retval = $this->cleanOrphan();
+        $retval = $this->cleanOrphan($table_link, $field_link, $field_object);
         return $retval;
     }
     /**

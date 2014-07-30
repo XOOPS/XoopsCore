@@ -45,11 +45,27 @@ class WriteTest extends MY_UnitTestCase
 	
 	public function test_deleteAll()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+        
+        $criteria = new Criteria('groupid');
+        
+        $x = $instance->deleteAll($criteria);
+        $this->assertSame(0, $x);
     }
 	
 	public function test_updateAll()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        
+		$handler = new XoopsGroupHandler($this->conn);
+		$result = $instance->setHandler($handler);
+        
+        $criteria = new Criteria('groupid');
+        
+        $x = $instance->updateAll($criteria);
+        $this->assertSame(0, $x);
     }
 }

@@ -144,6 +144,6 @@ class RemovePrefixes implements Visitor
      */
     public function acceptSequence(Sequence $sequence)
     {
-        $this->newSchema->_addSequence($sequence);
+        $this->newSchema->addSequence($sequence);
     }
 }
