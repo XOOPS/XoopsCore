@@ -23,12 +23,16 @@ include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 $xoops = Xoops::getinstance();
 $xoops->logger()->quiet();
-$configs = $xoops->getModuleConfigs('thumbs');
 
 $imgPath   = Request::getString('img', '');
-$imgWidth  = Request::getInt('w', $configs['thumbs_width']);
-$imgHeight = Request::getInt('h', $configs['thumbs_height']);
+$imgWidth  = Request::getInt('w', 0);
+$imgHeight = Request::getInt('h', 0);
 
+if ($imgWidth==0 && $imgHeight==0) {
+    $configs = $xoops->getModuleConfigs('thumbs');
+    $imgWidth  = $configs['thumbs_width'];
+    $imgHeight = $configs['thumbs_height'];
+}
 $helper  = $xoops->getModuleHelper('thumbs');
 $thumbPath = $helper->buildThumbPath($imgPath, $imgWidth, $imgHeight);
 

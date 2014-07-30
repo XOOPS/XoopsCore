@@ -68,6 +68,7 @@ $admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBNOTDISPLAY_C, '<span class=
 
 $admin_page->addConfigBoxLine($folder_path, 'folder');
 $admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine('thumbnail', 'service');
 
 $admin_page->displayIndex();
 

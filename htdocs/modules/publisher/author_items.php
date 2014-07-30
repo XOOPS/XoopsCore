@@ -56,8 +56,7 @@ $xoopsTpl->assign('rating', $publisher->getConfig('perm_rating'));
 $author_name = XoopsUserUtility::getUnameFromId($uid, $publisher->getConfig('format_realname'), true);
 $xoopsTpl->assign('author_name_with_link', $author_name);
 
-$xoopsTpl->assign('user_avatarurl', $xoops->url('uploads/' . $thisuser->getVar('user_avatar')));
-
+$xoopsTpl->assign('user_avatarurl', $xoops->service('avatar')->getAvatarUrl($uid)->getValue());
 $categories = array();
 if ($count > 0) {
     /* @var $item PublisherItem */

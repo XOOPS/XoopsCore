@@ -34,6 +34,7 @@ $admin_page->addInfoBoxLine(sprintf(_AM_IMAGES_NBIMAGES, $helper->getHandlerImag
 
 $admin_page->addConfigBoxLine($folder_path, 'folder');
 $admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine('thumbnail', 'service');
 
 $admin_page->displayIndex();
 

@@ -26,7 +26,8 @@ include_once dirname(__DIR__) . '/include/common.php';
 
 /**
  * Function To Show Publisher Items From Categories In Their Own Columns
- * @param    array $options Block Options
+ *
+ * @param array $options Block Options
  *
  * @return array|bool
  */
@@ -93,10 +94,12 @@ function publisher_items_columns_show($options)
             $mainitem['itemurl'] = $thisitem->getItemUrl();
             $mainImage = $thisitem->getMainImage();
 
-            // check to see if GD function exist
             $mainitem['item_image'] = $mainImage['image_path'];
-            if (!empty($mainImage['image_path']) && function_exists('imagecreatetruecolor')) {
-                $mainitem['item_image'] = PUBLISHER_URL . '/thumb.php?src=' . $mainImage['image_path'] . '&amp;w=100';
+            if (!empty($mainImage['image_path'])) {
+                $mainitem['item_image'] = \Xoops::getInstance()
+                    ->service('thumbnail')
+                    ->getImgUrl($mainImage['image_vpath'], 100, 0)
+                    ->getValue();
             }
 
             $mainitem['item_summary'] = $thisitem->getBlockSummary($opt_cat_truncate);

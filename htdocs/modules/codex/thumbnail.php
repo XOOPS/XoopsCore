@@ -10,10 +10,10 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          Laurent JEN - aka DuGris
- * @version         $Id$
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 
 include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
@@ -23,9 +23,11 @@ $xoops->header();
 
 $image = 'modules/codex/images/sample.jpeg';
 
+// fit in a 300 pixel box
 $img = $xoops->service('thumbnail')->getImgTag($image, 300, 300)->getValue();
 echo $img;
 
+// use default max pixel sizes
 $img = $xoops->service('thumbnail')->getImgTag($image)->getValue();
 echo $img;
 

@@ -45,9 +45,9 @@ class Thumbs extends HelperAbstract
     public function buildThumbPath($imgPath, $width, $height)
     {
         //$xoops = \Xoops::getInstance();
-        if ($width==0 || $height==0) {
-            $width = ($width==0) ? $this->getConfig('thumbs_width') : $width;
-            $height = ($height==0) ? $this->getConfig('thumbs_height') : $height;
+        if ($width==0 && $height==0) {
+            $width = $this->getConfig('thumbs_width');
+            $height = $this->getConfig('thumbs_height');
         }
         $sizeDir = sprintf('/%01dx%01d/', $width, $height);
         $pathParts = pathinfo($imgPath);
