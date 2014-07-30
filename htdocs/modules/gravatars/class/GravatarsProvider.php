@@ -65,7 +65,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      *
      * @param int $uid a user id
      *
-     * @return XoopsUser|null
+     * @return object|null
      */
     private function getUserById($uid)
     {
@@ -120,7 +120,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
             }
         } elseif (is_scalar($userinfo)) {
             $user = $this->getUserById((int) $userinfo);
-            if (is_a($user, 'XoopsUser')) {
+            if (is_object($user) && is_a($user, 'XoopsUser')) {
                 $email = $user->getVar('email', 'e');
                 $response->setValue(self::getGravatar($email));
                 $noInfo = false;
@@ -134,15 +134,14 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response  $response \Xoops\Core\Service\Response object
-     * @param XoopsUser $userinfo XoopsUser object for user
+     * @param Response   $response \Xoops\Core\Service\Response object
+     * @param \XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
     public function getAvatarEditUrl($response, \XoopsUser $userinfo)
     {
         $noInfo = true;
-        $email = '';
 
         if (is_object($userinfo)) {
             if (is_a($userinfo, 'XoopsUser')) {

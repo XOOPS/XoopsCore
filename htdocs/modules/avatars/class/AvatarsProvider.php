@@ -51,7 +51,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
      *
      * @param int $uid a user id
      *
-     * @return XoopsUser|null
+     * @return object|null
      */
     private function getUserById($uid)
     {
@@ -87,7 +87,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
             }
         } elseif (is_scalar($userinfo)) {
             $user = $this->getUserById((int) $userinfo);
-            if (is_a($user, 'XoopsUser')) {
+            if (is_object($user) && is_a($user, 'XoopsUser')) {
                 if ($user->getVar('user_avatar')
                     && 'blank.gif' != $user->getVar('user_avatar')
                 ) {
@@ -104,8 +104,8 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response  $response \Xoops\Core\Service\Response object
-     * @param XoopsUser $userinfo XoopsUser object for user
+     * @param Response   $response \Xoops\Core\Service\Response object
+     * @param \XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
