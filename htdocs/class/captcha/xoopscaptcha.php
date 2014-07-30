@@ -146,7 +146,7 @@ class XoopsCaptcha
      *
      * @return array
      */
-    function readConfig( $filename = 'captcha.config')
+    function readConfig($filename = 'config')
     {
         $path_file = $this->configPath . $filename . '.php';
         $file = XoopsFile::getHandler('file', $path_file);
