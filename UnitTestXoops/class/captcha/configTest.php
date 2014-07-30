@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 global $config;
 $config = null;
@@ -15,7 +15,7 @@ class ConfigTest extends MY_UnitTestCase
 		global $config;
 		
 		require_once(XOOPS_ROOT_PATH.'/class/captcha/config.php');
-		$this->assertTrue(isset($config) AND is_array($config));
+		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['disabled']));
 		$this->assertTrue(isset($config['mode']));
 		$this->assertTrue(isset($config['name']));

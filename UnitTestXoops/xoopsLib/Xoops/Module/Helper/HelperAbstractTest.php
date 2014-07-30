@@ -22,6 +22,11 @@ class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\Helpe
 	{
 		return parent::setDebug($debug);
 	}
+    
+	public function clearModule()
+	{
+		$this->_module = null;
+	}
 }
 
 /**
@@ -106,19 +111,34 @@ class Xoops_Module_Helper_AbstractTest extends MY_UnitTestCase
 		$instance = $class::getInstance();
 		
         $name = 'sitename';
-		$x = $instance->getConfig($name,'system');
+        $instance->setDirname('system');
+		$x = $instance->getConfig($name);
 		$this->assertTrue(is_string($x));
 		$this->assertTrue(!empty($x));
     }
 
 	public function test_getHandler()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		
+        $instance->setDirname('avatars');
+		$x = $instance->getHandler('avatar');
+		$this->assertInstanceOf('AvatarsAvatarHandler', $x);
+		$this->assertInstanceOf('XoopsPersistableObjectHandler', $x);
     }
 
     public function test_disableCache()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+		
+        $instance->clearModule();
+        $instance->setDirname('avatars');
+		$instance->disableCache();
+        
+        $x = $instance->xoops()->getModuleConfig('module_cache');
+		$this->assertTrue(is_array($x));
     }
 
 	public function test_isCurrentModule()
@@ -146,10 +166,12 @@ class Xoops_Module_Helper_AbstractTest extends MY_UnitTestCase
 		$instance = $class::getInstance();
 		
         $name = 'dirname';
+        $instance->setDirname($name);
 		$x = $instance->url($name);
 		$this->assertSame($name, basename($x));
-		$this->assertSame('modules', basename(dirname($x)));
-		$this->assertSame('htdocs', basename(dirname(dirname(($x)))));
+		$this->assertSame($name, basename(dirname($x)));
+		$this->assertSame('modules', basename(dirname(dirname(($x)))));
+		$this->assertSame('htdocs', basename(dirname(dirname(dirname(($x))))));
     }
 
 	public function test_path()
@@ -157,11 +179,12 @@ class Xoops_Module_Helper_AbstractTest extends MY_UnitTestCase
 		$class = $this->myClass;
 		$instance = $class::getInstance();
 		
-        $name = 'system';
-		$x = $instance->path($name);
-		$this->assertSame($name, basename($x));
-		$this->assertSame('modules', basename(dirname($x)));
-		$this->assertSame('htdocs', basename(dirname(dirname(($x)))));
+        $instance->setDirname('system');
+		$x = $instance->path('class');
+		$this->assertSame('class', basename($x));
+		$this->assertSame('system', basename(dirname($x)));
+		$this->assertSame('modules', basename(dirname(dirname(($x)))));
+		$this->assertSame('htdocs', basename(dirname(dirname(dirname(($x))))));
         $this->assertTrue(is_dir($x));
     }
 

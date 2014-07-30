@@ -240,7 +240,20 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_setFormVars()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar3', XOBJ_DTYPE_INT, 0);
+        
+        $params = array('xo_dummyVar1' => 1, 'xo_dummyVar2' => 2, 'xo_dummyVar3' => 3);
+		$instance->setFormVars($params);
+
+		$x = $instance->getVar('dummyVar1');
+		$this->assertSame('1', $x);
+		$x = $instance->getVar('dummyVar2');
+		$this->assertSame('2', $x);
+		$x = $instance->getVar('dummyVar3');
+		$this->assertSame('3', $x);
     }
 	
 	public function test_getVars()
@@ -280,7 +293,17 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_cleanVars()
 	{
-		$this->markTestIncomplete();
+		$instance = new $this->myClass();
+		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+        $instance->setVar('dummyVar1',1);
+        $instance->setVar('dummyVar2',2);
+        $x = $instance->cleanVars();
+		$this->assertSame(true, $x);
+        $cleanVars = $instance->cleanVars;
+		$this->assertTrue(is_array($cleanVars));
+		$this->assertSame(1, $cleanVars['dummyVar1']);
+		$this->assertSame(2, $cleanVars['dummyVar2']);
     }
 	
 	public function test_registerFilter()
@@ -295,15 +318,14 @@ class XoopsObjectTest extends MY_UnitTestCase
 	
 	public function test_xoopsClone()
 	{
-		$instance = new $this->myClass();
-		$instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
-		$instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+		$instance = new XoopsGroup();
 		
 		$clone = $instance->xoopsClone();
-        $this->assertInstanceOf($this->myClass, $clone);
+        $this->assertInstanceOf('XoopsGroup', $clone);
 		$this->assertTrue($clone->isNew()); // the only difference between instance and clone
-		$x = $clone->getVar('dummyVar1');
-		$this->assertSame('0', $x);
+		$x = $clone->getVars();
+		$y = $instance->getVars();
+		$this->assertSame($y, $x);
     }
 	
 	public function test_setErrors()

@@ -116,7 +116,7 @@ abstract class HelperAbstract
 
     public function disableCache()
     {
-        $this->xoops()->appendConfig('module_cache', array($this->getModule()->getVar('mid') => 0), true);
+        $this->xoops()->appendConfig('module_cache', array($this->getModule()->getVar('mid') => 0), true, $this->_dirname);
         $this->_addLog("Disabling module cache");
     }
 

@@ -70,7 +70,7 @@ class XoopsCaptcha
     /**
      * construct
      */
-    public function __construct()
+    protected function __construct()
     {
         // Load static configurations
         $this->path_basic = XOOPS_ROOT_PATH . '/class/captcha';
@@ -112,6 +112,7 @@ class XoopsCaptcha
             $config = $this->loadBasicConfig( $name );
             $this->writeConfig($filename, $config );
         }
+
         return $config;
     }
 
@@ -122,7 +123,7 @@ class XoopsCaptcha
      *
      * @return array
      */
-    function loadBasicConfig($filename = null)
+    function loadBasicConfig($filename = 'config')
     {
         $basic_config = array();
         $plugin_config = array();
@@ -135,9 +136,6 @@ class XoopsCaptcha
         }
 
         $config = array_merge($basic_config, $plugin_config);
-        foreach ($config as $key => $val) {
-            $config[$key] = $val;
-        }
         return $config;
     }
 
@@ -148,10 +146,9 @@ class XoopsCaptcha
      *
      * @return array
      */
-    function readConfig( $filename = 'config')
+    function readConfig( $filename = 'captcha.config')
     {
         $path_file = $this->configPath . $filename . '.php';
-        XoopsLoad::load('XoopsFile');
         $file = XoopsFile::getHandler('file', $path_file);
         return eval(@$file->read());
     }
@@ -167,7 +164,6 @@ class XoopsCaptcha
     function writeConfig($filename = 'config', $config)
     {
         $path_file = $this->configPath . $filename . '.php';
-        XoopsLoad::load('XoopsFile');
         $file = XoopsFile::getHandler('file', $path_file);
         return $file->write( 'return ' . var_export($config, true) . ';');
     }

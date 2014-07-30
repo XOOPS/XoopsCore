@@ -1,5 +1,9 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init.php');
+require_once(dirname(__FILE__).'/../../../../../init_mini.php');
+
+class WriteTest_XoopsObjectInstance extends Xoops\Core\Kernel\XoopsObject
+{
+}
 
 use Xoops\Core\Kernel\Model\Write;
 
@@ -30,7 +34,19 @@ class WriteTest extends MY_UnitTestCase
 	
 	public function test_cleanVars()
 	{
-		$this->markTestIncomplete();
+        $instance=new $this->myClass();
+        
+        $object = new WriteTest_XoopsObjectInstance();
+		$object->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+		$object->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+        $object->setVar('dummyVar1',1);
+        $object->setVar('dummyVar2',2);
+        $x = $instance->cleanVars($object);
+		$this->assertSame(true, $x);
+        $cleanVars = $object->cleanVars;
+		$this->assertTrue(is_array($cleanVars));
+		$this->assertSame(1, $cleanVars['dummyVar1']);
+		$this->assertSame(2, $cleanVars['dummyVar2']);
     }
 	
 	public function test_insert()
@@ -65,7 +81,7 @@ class WriteTest extends MY_UnitTestCase
         
         $criteria = new Criteria('groupid');
         
-        $x = $instance->updateAll($criteria);
+        $x = $instance->updateAll('fieldname','fieldvalue',$criteria);
         $this->assertSame(0, $x);
     }
 }
