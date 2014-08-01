@@ -13,18 +13,19 @@ class XoopsXmlRpcRequestTest extends MY_UnitTestCase
     public function test___construct()
 	{
 		$value = 'value';
-		$x = new $this->myclass($value);
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XoopsXmlRpcDocument', $x);
+		$instance = new $this->myclass($value);
+		$this->assertInstanceof($this->myclass, $instance);
+		$this->assertInstanceof('XoopsXmlRpcDocument', $instance);
+        
+        $this->assertSame($value, $instance->methodName); 
 	}
-
-    public function test___construct100()
-    {
-		$this->markTestIncomplete();
-    }
 
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+        
+        $x = $instance->render();
+        $this->assertTrue(is_string($x));
+        $this->assertTrue(!empty($x));
     }
 }

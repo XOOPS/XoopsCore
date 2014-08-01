@@ -10,20 +10,23 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 */
 class ThemeSetLinkHandlerTest extends MY_UnitTestCase
 {
-    protected $myclass = 'ThemeSetLinkHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new ThemeSetLinkHandler($input);
+    }
 
     public function test___construct()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
     public function test_getName()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = $instance->getName();
 		$this->assertSame('link', $name);
@@ -31,11 +34,24 @@ class ThemeSetLinkHandlerTest extends MY_UnitTestCase
 	
     public function test_handleCharacterData()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
-		
-		//$instance->handleCharacterData();
-		$this->markTestIncomplete();
+        $instance = $this->object;
+        
+        $parser = null;
+		$x = $instance->handleCharacterData($parser);
+		$this->assertSame(null, $x);
+        
+        $parser = new XoopsThemeSetParser();
+        $parser->tags = array('author','author');
+        $data = 'data';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame($data, $parser->getTempArr('link'));
+        
+        $parser = new XoopsThemeSetParser();
+        $parser->tags = array('dummy','dummy');
+        $data = 'data';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame(false, $parser->getTempArr('link'));
 	}
 }

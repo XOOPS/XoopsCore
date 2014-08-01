@@ -11,25 +11,36 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class RpcStructHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcStructHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$this->object = new $this->myclass();
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XmlTagHandler', $x);
+        $instance = $this->object;
+		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
 
     function test_getName()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+		$name = $instance->getName();
+		$this->assertSame('struct', $name);
     }
 
     function test_handleBeginElement()
     {
+        $instance = $this->object;
 		$this->markTestIncomplete();
     }
 
     function test_handleEndElement()
     {
+        $instance = $this->object;
+		$this->markTestIncomplete();
     }
 }

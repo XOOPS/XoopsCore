@@ -21,8 +21,15 @@ function browse($path=null)
 		if ($file=='.' OR $file=='..') continue;
 		if (is_dir($root.DS.$file)) {
 			$path1 = $path.DS.$file;
-			$excludes = array('xoops_lib'.DS.'vendor', 'xoops_lib'.DS.'smarty', 'xoops_lib'.DS.'Xmf',
-				'xoops_lib'.DS.'HTMLPurifier', 'class'.DS.'mail'.DS.'phpmailer');
+			$excludes = array(
+                'xoops_lib'.DS.'vendor',
+                'xoops_lib'.DS.'smarty',
+                'xoops_lib'.DS.'Xmf',
+				'xoops_lib'.DS.'HTMLPurifier',
+                'class'.DS.'mail'.DS.'phpmailer',
+                'class'.DS.'xoopseditor'.DS.'tinymce',
+                'class'.DS.'xoopseditor'.DS.'tinymce4',
+                );
 			if (in_array($path1,$excludes)) continue;
 			browse($path1);
 		} else {

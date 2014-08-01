@@ -11,21 +11,38 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class RpcMethodNameHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcMethodNameHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$this->object = new $this->myclass();
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XmlTagHandler', $x);
+        $instance = $this->object;
+		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
 
     function test_getName()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+		$name = $instance->getName();
+		$this->assertSame('methodName', $name);
     }
 
     function test_handleCharacterData()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+        $parser = null;
+		$x = $instance->handleCharacterData($parser);
+		$this->assertSame(null, $x);
+        
+        $parser = new XoopsXmlRpcParser();
+        $data = 'something';
+		$instance->handleCharacterData($parser,$data);
+		$this->assertSame($data, $parser->getMethodName());
     }
 }

@@ -10,20 +10,23 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 */
 class ThemeSetGeneratorHandlerTest extends MY_UnitTestCase
 {
-    protected $myclass = 'ThemeSetGeneratorHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new ThemeSetGeneratorHandler($input);
+    }
 
     public function test___construct()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
     public function test_getName()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = $instance->getName();
 		$this->assertSame('generator', $name);
@@ -31,10 +34,24 @@ class ThemeSetGeneratorHandlerTest extends MY_UnitTestCase
 	
     public function test_handleCharacterData()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
-		//$instance->handleCharacterData();
-		$this->markTestIncomplete();
+        $parser = null;
+		$x = $instance->handleCharacterData($parser);
+		$this->assertSame(null, $x);
+        
+        $parser = new XoopsThemeSetParser();
+        $parser->tags = array('themeset','themeset');
+        $data = 'data';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame($data, $parser->getThemeSetData('generator'));
+        
+        $parser = new XoopsThemeSetParser();
+        $parser->tags = array('dummy','dummy');
+        $data = 'data';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame(false, $parser->getThemeSetData('generator'));
 	}
 }

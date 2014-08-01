@@ -11,21 +11,43 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class RpcDateTimeHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcDateTimeHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$this->object = new $this->myclass();
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XmlTagHandler', $x);
+        $instance = $this->object;
+		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
 
     function test_getName()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+		$name = $instance->getName();
+		$this->assertSame('dateTime.iso8601', $name);
     }
 
     function test_handleCharacterData()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+        $parser = null;
+		$x = $instance->handleCharacterData($parser);
+		$this->assertSame(null, $x);
+        
+        $parser = new XoopsXmlRpcParser();
+        $data = 'not time';
+		$instance->handleCharacterData($parser,$data);
+		$this->assertTrue(is_int($parser->getTempValue()));
+        
+        $parser = new XoopsXmlRpcParser();
+        $data = '1900 01 30T01:30:01';
+		$instance->handleCharacterData($parser,$data);
+		$this->assertTrue(is_int($parser->getTempValue()));
     }
 }

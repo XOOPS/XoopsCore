@@ -9,6 +9,13 @@ require_once(dirname(__FILE__).'/../../init.php');
 class XoopsThemeSetParserTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsThemeSetParser';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new $this->myclass($input);
+    }
 
     public function test___publicProperties()
 	{
@@ -21,12 +28,9 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 	
     public function test___construct()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceOf('SaxParser', $instance);
 		
-		$this->assertSame($input, $instance->input);
 		$tagHandlers = $instance->tagHandlers;
 		$this->assertTrue(is_array($tagHandlers));
 		if (is_array($tagHandlers)) {
@@ -41,9 +45,7 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test_getThemeSetData()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = 'name';
 		$value = 'value';
@@ -65,9 +67,7 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test_getImagesData()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$arr = array(1=>'1', 2=>'2');
 		$instance->setImagesData($arr);
@@ -87,9 +87,7 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test_getTemplatesData()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$arr = array(1=>'1', 2=>'2');
 		$instance->setTemplatesData($arr);
@@ -109,9 +107,7 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test_getTempArr()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = 'name';
 		$value = 'value';
@@ -133,9 +129,7 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 
     public function test_resetTempArr()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = 'name';
 		$value = 'value';

@@ -10,20 +10,23 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 */
 class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 {
-    protected $myclass = 'ThemeSetAuthorHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new ThemeSetAuthorHandler($input);
+    }
 
     public function test___construct()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
     public function test_getName()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = $instance->getName();
 		$this->assertSame('author', $name);
@@ -31,19 +34,18 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 	
     public function test_handleBeginElement()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 
-		//$instance->handleBeginElement();
-		$this->markTestIncomplete();
+        $parser = new XoopsThemeSetParser();
+        $params = array();
+		$x = $instance->handleBeginElement($parser,$params);
+		$this->assertSame(array(), $parser->tempArr);
 	}
 
     public function test_handleEndElement()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
-		//$instance->handleEndElement();
 		$this->markTestIncomplete();
 	}
 }

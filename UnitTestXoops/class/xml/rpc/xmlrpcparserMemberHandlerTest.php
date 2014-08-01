@@ -11,26 +11,38 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class RpcMemberHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcMemberHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$this->object = new $this->myclass();
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XmlTagHandler', $x);
+        $instance = $this->object;
+		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
 
     function test_getName()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+		$name = $instance->getName();
+		$this->assertSame('member', $name);
     }
 
     function test_handleBeginElement()
     {
+        $instance = $this->object;
+        
 		$this->markTestIncomplete();
     }
 
     function test_handleEndElement()
     {
+        $instance = $this->object;
+        
 		$this->markTestIncomplete();
     }
 }
