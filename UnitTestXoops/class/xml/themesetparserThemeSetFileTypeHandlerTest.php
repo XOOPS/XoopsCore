@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +8,13 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 */
 class ThemeSetFileTypeHandlerTest extends MY_UnitTestCase
 {
+    protected $myclass = 'ThemeSetFileTypeHandler';
     protected $object = null;
     
     public function setUp()
     {
 		$input = 'input';
-		$this->object = new ThemeSetFileTypeHandler($input);
+		$this->object = new $this->myclass($input);
     }
 
     public function test___construct()
@@ -35,18 +34,16 @@ class ThemeSetFileTypeHandlerTest extends MY_UnitTestCase
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-		
-        $parser = null;
-		$x = $instance->handleCharacterData($parser);
-		$this->assertSame(null, $x);
         
-        $parser = new XoopsThemeSetParser();
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('template','template');
         $data = 'something';
 		$instance->handleCharacterData($parser,$data);
 		$this->assertSame($data, $parser->getTempArr('type'));
 
-        $parser = new XoopsThemeSetParser();
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('dummy','dummy');
         $data = 'something';
 		$instance->handleCharacterData($parser,$data);

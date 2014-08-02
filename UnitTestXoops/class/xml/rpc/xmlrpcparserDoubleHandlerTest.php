@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
+require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -15,6 +13,7 @@ class RpcDoubleHandlerTest extends MY_UnitTestCase
     
     public function setUp()
     {
+    
 		$this->object = new $this->myclass();
     }
     
@@ -35,12 +34,9 @@ class RpcDoubleHandlerTest extends MY_UnitTestCase
     function test_handleCharacterData()
     {
         $instance = $this->object;
-		
-        $parser = null;
-		$x = $instance->handleCharacterData($parser);
-		$this->assertSame(null, $x);
-        
-        $parser = new XoopsXmlRpcParser();
+
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $data = 71.7;
 		$instance->handleCharacterData($parser,$data);
 		$this->assertSame($data, $parser->getTempValue());

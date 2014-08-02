@@ -9,20 +9,25 @@ require_once(dirname(__FILE__).'/../../../init.php');
 class XoopsXmlRpcRequestTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcRequest';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new $this->myclass($input);
+    }
     
     public function test___construct()
 	{
-		$value = 'value';
-		$instance = new $this->myclass($value);
-		$this->assertInstanceof($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceof('XoopsXmlRpcDocument', $instance);
         
-        $this->assertSame($value, $instance->methodName); 
+        $this->assertSame('input', $instance->methodName); 
 	}
 
     public function test_render()
     {
-		$instance = new $this->myclass();
+        $instance = $this->object;
         
         $x = $instance->render();
         $this->assertTrue(is_string($x));

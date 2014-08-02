@@ -14,7 +14,8 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
     
     public function setUp()
     {
-		$this->object = new $this->myclass();
+        $input = 'input';
+		$this->object = new $this->myclass($input);
     }
     
     public function test___construct()

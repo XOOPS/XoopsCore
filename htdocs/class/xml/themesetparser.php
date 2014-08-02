@@ -174,13 +174,13 @@ class ThemeSetDateCreatedHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('date', $data);
@@ -202,23 +202,23 @@ class ThemeSetAuthorHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(XoopsThemeSetParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser &$parser, &$attributes)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         $parser->resetTempArr();
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(XoopsThemeSetParser &$parser)
+    public function handleEndElement(SaxParser &$parser)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         //todo where does this method come from??
         $parser->setCreditsData($parser->getTempArr());
     }
@@ -235,13 +235,13 @@ class ThemeSetDescriptionHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('description', $data);
@@ -266,13 +266,13 @@ class ThemeSetGeneratorHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('generator', $data);
@@ -292,13 +292,13 @@ class ThemeSetNameHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('name', $data);
@@ -323,13 +323,13 @@ class ThemeSetEmailHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('email', $data);
@@ -351,13 +351,13 @@ class ThemeSetLinkHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('link', $data);
@@ -379,13 +379,13 @@ class ThemeSetTemplateHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(XoopsThemeSetParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser &$parser, &$attributes)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         $parser->resetTempArr();
         if (isset($attributes['name'])) {
             $parser->setTempArr('name', $attributes['name']);
@@ -393,13 +393,14 @@ class ThemeSetTemplateHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(XoopsThemeSetParser &$parser)
+    public function handleEndElement(SaxParser &$parser)
     {
-		if (!$parser) return;
-        $parser->setTemplatesData($parser->getTempArr());
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        $value = $parser->getTempArr();
+        $parser->setTemplatesData($value);
     }
 }
 
@@ -414,13 +415,13 @@ class ThemeSetImageHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(XoopsThemeSetParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser &$parser, &$attributes)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         $parser->resetTempArr();
         if (isset($attributes['name'])) {
             $parser->setTempArr('name', $attributes['name']);
@@ -428,13 +429,14 @@ class ThemeSetImageHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(XoopsThemeSetParser &$parser)
+    public function handleEndElement(SaxParser &$parser)
     {
-		if (!$parser) return;
-        $parser->setImagesData($parser->getTempArr());
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        $value = $parser->getTempArr();
+        $parser->setImagesData($value);
     }
 }
 
@@ -449,13 +451,13 @@ class ThemeSetModuleHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'template':
             case 'image':
@@ -478,13 +480,13 @@ class ThemeSetFileTypeHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('type', $data);
@@ -506,13 +508,13 @@ class ThemeSetTagHandler extends XmlTagHandler
     }
 
     /**
-     * @param XoopsThemeSetParser $parser
+     * @param SaxParser $parser
      * @param array $data
      * @return void
      */
-    public function handleCharacterData(XoopsThemeSetParser &$parser, &$data)
+    public function handleCharacterData(SaxParser &$parser, &$data)
     {
-		if (!$parser) return;
+        if (!is_a($parser,'XoopsThemeSetParser')) return;
         switch ($parser->getParentTag()) {
             case 'image':
                 $parser->setTempArr('tag', $data);

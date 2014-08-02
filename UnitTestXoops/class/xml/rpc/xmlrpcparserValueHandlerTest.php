@@ -1,8 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
-
+require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -36,30 +33,30 @@ class RpcValueHandlerTest extends MY_UnitTestCase
     function test_handleCharacterData()
     {
         $instance = $this->object;
-		
-        $parser = null;
-		$x = $instance->handleCharacterData($parser);
-		$this->assertSame(null, $x);
         
-        $parser = new XoopsXmlRpcParser();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('member','member');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
 		$this->assertSame($value, $parser->getTempValue());
         
-        $parser = new XoopsXmlRpcParser();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('array','array');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
 		$this->assertSame($value, $parser->getTempValue());
         
-        $parser = new XoopsXmlRpcParser();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('data','data');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
 		$this->assertSame($value, $parser->getTempValue());
         
-        $parser = new XoopsXmlRpcParser();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('dummy','dummy');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
@@ -70,7 +67,8 @@ class RpcValueHandlerTest extends MY_UnitTestCase
     {
         $instance = $this->object;
 		
-        $parser = new XoopsXmlRpcParser();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $value = '71';
 		$x = $instance->handleBeginElement($parser,$value);
 		$this->assertSame(null, $x);

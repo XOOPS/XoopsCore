@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
+require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -35,17 +33,15 @@ class RpcDateTimeHandlerTest extends MY_UnitTestCase
     function test_handleCharacterData()
     {
         $instance = $this->object;
-		
-        $parser = null;
-		$x = $instance->handleCharacterData($parser);
-		$this->assertSame(null, $x);
-        
-        $parser = new XoopsXmlRpcParser();
+
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $data = 'not time';
 		$instance->handleCharacterData($parser,$data);
 		$this->assertTrue(is_int($parser->getTempValue()));
         
-        $parser = new XoopsXmlRpcParser();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
         $data = '1900 01 30T01:30:01';
 		$instance->handleCharacterData($parser,$data);
 		$this->assertTrue(is_int($parser->getTempValue()));

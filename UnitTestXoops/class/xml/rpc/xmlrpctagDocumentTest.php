@@ -18,18 +18,26 @@ class XoopsXmlRpcDocumentTestInstance extends XoopsXmlRpcDocument
 class XoopsXmlRpcDocumentTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcDocumentTestInstance';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new $this->myclass($input);
+    }
     
     public function test___construct()
 	{
-		$instance = new $this->myclass();
+		$instance = $this->object;
 		$this->assertInstanceof($this->myclass, $instance);
 	}
 	
     public function test_add()
     {
-		$instance = new $this->myclass();
+		$instance = $this->object;
         
-        $object = new XoopsXmlRpcFault();
+        $input = 'input';
+        $object = new XoopsXmlRpcFault($input);
         $instance->add($object);
         $x = $instance->getTag();
 		$this->assertSame($object, $x[0]);

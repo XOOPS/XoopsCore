@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +8,13 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 */
 class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 {
+    protected $myclass = 'ThemeSetAuthorHandler';
     protected $object = null;
     
     public function setUp()
     {
 		$input = 'input';
-		$this->object = new ThemeSetAuthorHandler($input);
+		$this->object = new $this->myclass($input);
     }
 
     public function test___construct()
@@ -36,7 +35,8 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
     {
         $instance = $this->object;
 
-        $parser = new XoopsThemeSetParser();
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
         $params = array();
 		$x = $instance->handleBeginElement($parser,$params);
 		$this->assertSame(array(), $parser->tempArr);
