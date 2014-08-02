@@ -198,6 +198,7 @@ $configs['ext'] = array(
     'notifications',
     'protector',
     'smilies',
+    'thumbs',
     'xmf',
 );
 
