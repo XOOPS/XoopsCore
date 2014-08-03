@@ -40,7 +40,6 @@ $oldUmask = umask(022);
 mkdir(dirname($xoops->path($thumbPath)), 0755, true);
 umask($oldUmask);
 
-require_once dirname(__DIR__) . '/class/vendor/Zebra_Image.php';
 $image = new Zebra_Image();
 
 $image->source_path = $xoops->path($imgPath);
