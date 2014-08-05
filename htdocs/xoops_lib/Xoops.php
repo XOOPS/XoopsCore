@@ -1674,7 +1674,7 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
-                if (!is_array($this->_moduleConfigs[$dirname][$key])) {
+                if (!isset($this->_moduleConfigs[$dirname][$key]) || !is_array($this->_moduleConfigs[$dirname][$key])) {
                     $this->_moduleConfigs[$dirname][$key] = array();
                 }
                 $this->_moduleConfigs[$dirname][$key][$key2] =& $value;

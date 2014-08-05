@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once(dirname(__FILE__).'/../../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,6 +11,10 @@ class Scripts_ImageTest extends MY_UnitTestCase
     public function test_100()
 	{
 		global $image_handler;
+        
+        if (headers_sent()) {
+            $this->markTestSkipped();
+        }
 		
 		$save = $image_handler;
 		ob_start();

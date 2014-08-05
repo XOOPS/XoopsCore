@@ -16,26 +16,38 @@ class XoopsXmlRpcTagTestInstance extends XoopsXmlRpcTag
 class XoopsXmlRpcTagTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcTagTestInstance';
-    
+
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
+		$instance = new $this->myclass();
+		$this->assertInstanceof($this->myclass, $instance);
 	}
 
     public function test_encode()
     {
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+        $text = '&TESTtest71; & #||TESTtest71||# < > ';
+        $x = $instance->encode($text);
+        $result = '#||TESTtest71||# &amp; &TESTtest71; &lt; &gt; ';
+		$this->assertSame($result, $x);
     }
 
     public function test_setFault()
     {
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+
+        $instance->setFault(true);
+        $x = $instance->isFault();
+		$this->assertSame(true, $x);
+
+        $instance->setFault(false);
+        $x = $instance->isFault();
+		$this->assertSame(false, $x);
     }
 
     public function test_isFault()
     {
-		$this->markTestIncomplete();
+		// see test_setFault
     }
 
 }

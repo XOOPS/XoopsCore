@@ -25,27 +25,27 @@ class XoopsXmlRpcApi
 {
 
     // reference to method parameters
-    var $params;
+    protected $params;
 
     // reference to xmlrpc document class object
     /**
      * @var XoopsXmlRpcResponse
      */
-    var $response;
+    protected $response;
 
     // reference to module class object
     /**
      * @var XoopsModule
      */
-    var $module;
+    protected $module;
 
     // map between xoops tags and blogger specific tags
-    var $xoopsTagMap = array();
+    protected $xoopsTagMap = array();
 
     // user class object
-    var $user;
+    protected $user;
 
-    var $isadmin = false;
+    protected $isadmin = false;
 
 
     function XoopsXmlRpcApi(array &$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
@@ -55,7 +55,7 @@ class XoopsXmlRpcApi
         $this->module = $module;
     }
 
-    function _setUser(&$user, $isadmin = false)
+    function _setUser(XoopsUser &$user, $isadmin = false)
     {
         if (is_object($user)) {
             $this->user = $user;
@@ -66,18 +66,16 @@ class XoopsXmlRpcApi
     function _checkUser($username, $password)
     {
         $xoops = Xoops::getInstance();
-        if (isset($this->user)) {
-            return true;
-        }
+
         $member_handler = $xoops->getHandlerMember();
         $this->user = $member_handler->loginUser(addslashes($username), addslashes($password));
         if (!is_object($this->user)) {
-            unset($this->user);
+            $this->user = null;
             return false;
         }
         $moduleperm_handler = $xoops->getHandlerGroupperm();
         if (!$moduleperm_handler->checkRight('module_read', $this->module->getVar('mid'), $this->user->getGroups())) {
-            unset($this->user);
+            $this->user = null;
             return false;
         }
         return true;
@@ -88,7 +86,7 @@ class XoopsXmlRpcApi
         if ($this->isadmin) {
             return true;
         }
-        if (!isset($this->user)) {
+        if (!is_object($this->user)) {
             return false;
         }
         if (!$this->user->isAdmin($this->module->getVar('mid'))) {

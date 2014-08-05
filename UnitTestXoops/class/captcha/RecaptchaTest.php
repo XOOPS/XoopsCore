@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/captcha/xoopscaptcha.php');
 require_once(XOOPS_ROOT_PATH.'/class/captcha/recaptcha.php');
@@ -13,26 +13,25 @@ class RecaptchaTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsCaptchaRecaptcha';
     
-    public function SetUp()
-	{
-    }
-    
     public function test___construct()
 	{
         $instance = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
+        $this->assertInstanceOf('XoopsCaptchaMethod', $instance);
+    }
+	
+    public function test_isActive()
+	{
+        $instance = new $this->myclass();
+        
         $value = $instance->isActive();
 		$this->assertTrue($value);
     }
-	
-    public function test_config()
-	{
-    }
-	
+    
     public function test_render()
 	{
         $instance = new $this->myclass();
-        $this->assertInstanceOf($this->myclass, $instance);
+
 		$instance->config['public_key'] = 'public_key';
         $value = $instance->render();
 		$this->assertTrue(is_string($value));
@@ -41,15 +40,19 @@ class RecaptchaTest extends MY_UnitTestCase
     public function test_verify()
 	{
         $instance = new $this->myclass();
-        $this->assertInstanceOf($this->myclass, $instance);
+
 		$instance->config['public_key'] = 'public_key';
         $value = $instance->verify('session');
 		$this->assertFalse($value);
     }
 	
-    public function test_verify100() {
+    public function test_verify100()
+    {
+        if (false == ($fs = @fsockopen('www.google.com', 80, $errno, $errstr, 10))) {
+            $this->markTestSkipped('');
+        }
         $instance = new $this->myclass();
-        $this->assertInstanceOf($this->myclass, $instance);
+
 		$instance->config['private_key'] = 'private_key';
 		$_POST['recaptcha_challenge_field'] = 'toto';
 		$_POST['recaptcha_response_field'] = 'toto';

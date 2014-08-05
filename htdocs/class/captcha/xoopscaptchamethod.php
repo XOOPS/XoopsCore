@@ -29,7 +29,7 @@
  * @link      http://xoops.org
  * @since     2.6.0
  */
-class XoopsCaptchaMethod
+abstract class XoopsCaptchaMethod
 {
     /**
      * @var XoopsCaptcha

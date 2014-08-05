@@ -110,7 +110,7 @@ abstract class XoopsXmlRpcTag
      */
     public function setFault($fault = true)
     {
-        $this->_fault = (intval($fault) > 0) ? true : false;
+        $this->_fault = (bool)$fault;
     }
 
     /**

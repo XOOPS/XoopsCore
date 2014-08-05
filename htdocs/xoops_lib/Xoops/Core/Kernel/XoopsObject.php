@@ -373,7 +373,7 @@ abstract class XoopsObject
             $this->_errors = array_merge($existing_errors, $this->_errors);
             return false;
         }
-        $this->_errors = array_merge($existing_errors, $this->_errors);
+        // $this->_errors = array_merge($existing_errors, $this->_errors);
         $this->unsetDirty();
         return true;
     }
@@ -431,16 +431,15 @@ abstract class XoopsObject
     {
         $this->_loadFilters();
 
-
         $class = get_class($this);
         $modules_active = \Xoops::getInstance()->getActiveModules();
         if (is_array($modules_active)) foreach ($modules_active as $dirname) {
-            if (\XoopsLoad::fileExists(
-                $file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php'
-            )) {
+            $file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php';
+            if (\XoopsLoad::fileExists($file)) {
                 include_once $file;
-                if (function_exists($class . '_' . $method)) {
-                    call_user_func_array($dirname . '_' . $class . '_' . $method, array(&$this));
+                $function = $dirname . '_' . $class . '_' . $method;
+                if (function_exists($function)) {
+                    call_user_func_array($function, array(&$this));
                 }
             }
         }
@@ -459,7 +458,7 @@ abstract class XoopsObject
         $clone = null;
         $clone = new $class();
         foreach ($this->vars as $k => $v) {
-            $clone->assignVar($k, $v['value']);  // FIXME : doesn't copy vars into clone
+            $clone->assignVar($k, $v['value']); // Only for vars initialized within clone::__construct
         }
         // need this to notify the handler class that this is a newly created object
         $clone->setNew();

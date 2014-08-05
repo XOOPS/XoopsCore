@@ -2,15 +2,7 @@
 require_once(dirname(__FILE__).'/../../../../init.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
-
-class XoopsPersistableObjectHandlerTest_Kernel_CriteriaElement extends Xoops\Core\Kernel\CriteriaElement
-{
-	function render() {}
-	function renderWhere() {}
-	function renderLdap() {}
-	function renderQb(QueryBuilder $qb = null, $whereMode = '') {}
-	function buildExpressionQb(QueryBuilder $qb) {}
-}
+use Xoops\Core\Kernel\Criteria;
 
 class XoopsPersistableObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsPersistableObjectHandler
 {
@@ -109,17 +101,17 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     public function test_deleteAll()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
-		$criteria_element = new XoopsPersistableObjectHandlerTest_Kernel_CriteriaElement();
-        $value=$instance->deleteAll($criteria_element);
-        $this->assertSame(false,$value);
+		$criteria = new Criteria('dummy_field');
+        $value=$instance->deleteAll($criteria);
+        $this->assertSame(0,$value);
     }
     
     public function test_updateAll()
 	{
         $instance=new $this->myClass($this->conn);
-		$criteria_element = new XoopsPersistableObjectHandlerTest_Kernel_CriteriaElement();
-        $value=$instance->updateAll('name','value',$criteria_element);
-        $this->assertSame(false,$value);
+		$criteria = new Criteria('dummy_field');
+        $value=$instance->updateAll('name','value',$criteria);
+        $this->assertSame(0,$value);
     }
     
     public function test_getObjects()

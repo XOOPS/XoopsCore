@@ -16,14 +16,8 @@ class BloggerApiTest extends MY_UnitTestCase
 		$response = new XoopsXmlRpcResponse();
 		$module = new XoopsModule();
 		$x = new $this->myclass($params, $response, $module);
-		$this->assertInstanceof($this->myclass, $x);
 		$this->assertInstanceof('XoopsXmlRpcApi', $x);
 	}
-
-    function test_BloggerApi()
-    {
-		$this->markTestIncomplete();
-    }
 
     function test_newPost()
     {

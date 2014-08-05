@@ -4,6 +4,10 @@ require_once(dirname(__FILE__).'/../../../init.php');
 class XoopsXmlRpcDocumentTestInstance extends XoopsXmlRpcDocument
 {
 	function render() {}
+    function getTag()
+    {
+        return $this->_tags;
+    }
 }
 
 /**
@@ -14,16 +18,29 @@ class XoopsXmlRpcDocumentTestInstance extends XoopsXmlRpcDocument
 class XoopsXmlRpcDocumentTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcDocumentTestInstance';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new $this->myclass($input);
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
+		$instance = $this->object;
+		$this->assertInstanceof($this->myclass, $instance);
 	}
 	
     public function test_add()
     {
-		$this->markTestIncomplete();
+		$instance = $this->object;
+        
+        $input = 'input';
+        $object = new XoopsXmlRpcFault($input);
+        $instance->add($object);
+        $x = $instance->getTag();
+		$this->assertSame($object, $x[0]);
     }
 
 }

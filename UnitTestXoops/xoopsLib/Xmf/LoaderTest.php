@@ -38,25 +38,31 @@ class LoaderTest extends \MY_UnitTestCase
 
     /**
      * @covers Xmf\Loader::loadFile
-     * @todo   Implement testLoadFile().
      */
     public function testLoadFile()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $x = Loader::loadFile('DebugTest.php');
+        $this->assertSame(true, $x);
+        
+        $x = Loader::loadFile('FilterInputTest.php', false);
+        $this->assertSame(true, $x);
+        
+        $x = Loader::loadFile('thisfiledoesntexists');
+        $this->assertSame(false, $x);
     }
 
     /**
      * @covers Xmf\Loader::loadClass
-     * @todo   Implement testLoadClass().
      */
     public function testLoadClass()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $x = Loader::loadClass(__class__);
+        $this->assertSame(true, $x);
+        
+        $x = Loader::loadClass('Xmf\DebugTest');
+        $this->assertSame(true, $x);
+        
+        $x = Loader::loadClass('thisClassdoesntexists');
+        $this->assertSame(false, $x);
     }
 }

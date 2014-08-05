@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
+require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,21 +9,43 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class RpcNameHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcNameHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$this->object = new $this->myclass();
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XmlTagHandler', $x);
+        $instance = $this->object;
+		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
 
     function test_getName()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+		$name = $instance->getName();
+		$this->assertSame('name', $name);
     }
 
     function test_handleCharacterData()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
+        $parser->tags = array('member','member');
+        $value = '71';
+		$instance->handleCharacterData($parser,$value);
+		$this->assertSame($value, $parser->getTempName());
+        
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
+        $parser->tags = array('dummy','dummy');
+        $value = '71';
+		$instance->handleCharacterData($parser,$value);
+		$this->assertSame(null, $parser->getTempName());
     }
 }

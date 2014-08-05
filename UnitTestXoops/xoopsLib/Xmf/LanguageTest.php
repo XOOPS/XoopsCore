@@ -38,25 +38,26 @@ class LanguageTest extends \MY_UnitTestCase
 
     /**
      * @covers Xmf\Language::translate
-     * @todo   Implement testTranslate().
      */
     public function testTranslate()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $str = 'string';
+        $x = Language::translate($str);
+        $this->assertSame($str, $x);
     }
 
     /**
      * @covers Xmf\Language::load
-     * @todo   Implement testLoad().
      */
     public function testLoad()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $str = '_user';
+        $x = Language::load($str);
+        if (isset($GLOBALS['xoopsConfig']['language'])) {
+            $language = $GLOBALS['xoopsConfig']['language'];
+            $this->assertSame($str, $x);
+        } else {
+            $this->assertSame(true, $x);
+        }
     }
 }

@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
+require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,21 +9,35 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class RpcBooleanHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcBooleanHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$this->object = new $this->myclass();
+    }
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XmlTagHandler', $x);
+        $instance = $this->object;
+		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
 
     function test_getName()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+		$name = $instance->getName();
+		$this->assertSame('boolean', $name);
     }
 
     function test_handleCharacterData()
     {
-		$this->markTestIncomplete();
+        $instance = $this->object;
+		
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
+        $data = true;
+		$instance->handleCharacterData($parser,$data);
+		$this->assertSame($data, $parser->getTempValue());
     }
 }

@@ -54,10 +54,8 @@ class DebugTest extends \MY_UnitTestCase
      */
     public function testBacktrace()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $x = Debug::backtrace(false, true, false);
+        $this->assertTrue(is_string($x));
     }
 
     /**
@@ -66,10 +64,9 @@ class DebugTest extends \MY_UnitTestCase
      */
     public function testStartTrace()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        if (function_exists('xdebug_start_trace')) {
+            $this->markTestIncomplete();
+        }
     }
 
     /**
@@ -78,9 +75,8 @@ class DebugTest extends \MY_UnitTestCase
      */
     public function testStopTrace()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        if (function_exists('xdebug_stop_trace')) {
+            $this->markTestIncomplete();
+        }
     }
 }

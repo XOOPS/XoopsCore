@@ -44,17 +44,7 @@ class Write extends XoopsModelAbstract
      */
     public function cleanVars(XoopsObject &$object)
     {
-        $vars = $object->getVars();
-        $object->cleanVars = array();
-        foreach ($vars as $k => $v) {
-            if (!$v["changed"]) {
-                continue;
-            }
-            $object->cleanVars[$k] = Dtype::cleanVar($object, $k, false);
-        }
-        $object->unsetDirty();
-        $errors = $object->getErrors();
-        return empty($errors) ? true : false;
+        return $object->cleanVars();
     }
 
     /**
