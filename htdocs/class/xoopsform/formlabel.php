@@ -50,7 +50,9 @@ class XoopsFormLabel extends XoopsFormElement
      */
     public function render()
     {
-        $id = empty($this->getName()) ? '' : ' id="' . $this->getName() . '"';
-        return '<span' . $id . '>' . $this->getValue() . "</span>";
+        $idName = $this->getName();
+        $id = empty($idName) ? '' : ' id="' . $idName . '"';
+        $ret = '<span' . $id . '>' . $this->getValue() . '</span>';
+        return $ret;
     }
 }
