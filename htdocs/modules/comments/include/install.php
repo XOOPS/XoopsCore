@@ -10,10 +10,9 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 function xoops_module_install_comments(&$module)
@@ -45,7 +44,7 @@ function xoops_module_install_comments(&$module)
     return true;
 }
 
-function xoops_module_uninstall_comments(&$module)
+function xoops_module_pre_uninstall_comments(&$module)
 {
     $xoops = Xoops::getInstance();
     XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));

@@ -13,12 +13,10 @@
  * Comments
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-$xoops->loadLanguage('modinfo', $dirname);
 
 $modversion                = array();
 $modversion['name']        = _MI_COMMENTS_NAME;
@@ -28,7 +26,7 @@ $modversion['author']      = 'Trabis';
 $modversion['nickname']    = 'trabis';
 $modversion['credits']     = 'The XOOPS Project';
 $modversion['license']     = 'GNU GPL 2.0';
-$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']    = 1;
 $modversion['help']        = 'page=help';
 $modversion['image']       = 'images/logo.png';
