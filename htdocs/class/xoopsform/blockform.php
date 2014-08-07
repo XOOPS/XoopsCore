@@ -10,49 +10,8 @@
 */
 
 /**
- * XOOPS Block Form
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.6.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-
-/**
- * Form that will output formatted as a HTML table
- *
- * No styles and no JavaScript to check for required fields.
- */
-class XoopsBlockForm extends XoopsForm
+class XoopsBlockForm extends Xoops\Form\BlockForm
 {
-    public function __construct()
-    {
-        parent::__construct('', '', '');
-    }
-
-    /**
-     * @return string
-     */
-    public function render()
-    {
-        $ret = '';
-        /* @var $ele XoopsFormElement */
-        foreach ($this->getElements() as $ele) {
-            if (!$ele->isHidden()) {
-                $ret .= "<strong>" . $ele->getCaption()."</strong>";
-                $ret .= "&nbsp;&nbsp;" . $ele->render() . "";
-                $ret .= "&nbsp;&nbsp;<i>" . $ele->getDescription() . "</i><br /><br />";
-            } else {
-                $ret .= $ele->render();
-            }
-        }
-        $ret .= '';
-        return $ret;
-    }
 }

@@ -10,36 +10,8 @@
 */
 
 /**
- * XOOPS form element of select lang
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * A select field with available languages
- */
-class XoopsFormSelectLang extends XoopsFormSelect
+class XoopsFormSelectLang extends Xoops\Form\SelectLanguage
 {
-    /**
-     * Constructor
-     *
-     * @param string $caption
-     * @param string $name
-     * @param mixed $value Pre-selected value (or array of them).
-     *                     Legal is any name of a XOOPS_ROOT_PATH."/language/" subdirectory.
-     * @param int $size Number of rows. "1" makes a drop-down-list.
-     */
-    public function __construct($caption, $name, $value = null, $size = 1)
-    {
-        parent::__construct($caption, $name, $value, $size);
-        $this->addOptionArray(XoopsLists::getLangList());
-    }
 }

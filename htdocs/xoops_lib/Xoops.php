@@ -932,7 +932,7 @@ class Xoops
             $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Form';
             if (class_exists($class)) {
                 $instance = new $class($obj);
-                if ($instance instanceof XoopsForm) {
+                if ($instance instanceof \Xoops\Form\Form) {
                     return $instance;
                 }
             }

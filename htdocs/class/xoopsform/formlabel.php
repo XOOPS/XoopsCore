@@ -10,49 +10,8 @@
 */
 
 /**
- * XOOPS form element of label
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * A text label
- */
-class XoopsFormLabel extends XoopsFormElement
+class XoopsFormLabel extends Xoops\Form\Label
 {
-
-    /**
-     * Constructor
-     *
-     * @param string $caption Caption
-     * @param string $value   Text
-     * @param string $name    id of rendered element
-     */
-    public function __construct($caption = '', $value = '', $name = '')
-    {
-        $this->setCaption($caption);
-        $this->setName($name);
-        $this->setValue($value);
-    }
-
-    /**
-     * Prepare HTML for output
-     *
-     * @return string
-     */
-    public function render()
-    {
-        $idName = $this->getName();
-        $id = empty($idName) ? '' : ' id="' . $idName . '"';
-        $ret = '<span' . $id . '>' . $this->getValue() . '</span>';
-        return $ret;
-    }
 }

@@ -10,31 +10,9 @@
 */
 
 /**
- * XOOPS Form Class
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.6.0
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * Backward compatibilty stub - use real interface Xoops\Form\ContainerInterface
+ * for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 interface XoopsFormContainer
 {
-    /**
-     * @abstract
-     * @return array
-     */
-    function getRequired();
-
-    /**
-     * @abstract
-     * @param $recurse
-     * @return array
-     */
-    function getElements($recurse = false);
 }
