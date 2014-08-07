@@ -10,46 +10,8 @@
 */
 
 /**
- * XOOPS form element of hidden
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         kernel
- * @subpackage      form
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * A hidden field
- */
-class XoopsFormHidden extends XoopsFormElement
+class XoopsFormHidden extends Xoops\Form\Hidden
 {
-
-    /**
-     * Constructor
-     *
-     * @param string $name "name" attribute
-     * @param string $value "value" attribute
-     */
-    public function __construct($name, $value)
-    {
-        $this->setName($name);
-        $this->setHidden();
-        $this->setValue($value);
-        $this->setCaption('');
-    }
-
-    /**
-     * Prepare HTML for output
-     *
-     * @return string HTML
-     */
-    public function render()
-    {
-        return '<input type="hidden" name="' . $this->getName() . '" id="' . $this->getName() . '" value="' . $this->getValue() . '" >' . NWLINE;
-    }
 }

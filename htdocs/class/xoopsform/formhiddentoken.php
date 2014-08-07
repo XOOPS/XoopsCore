@@ -10,33 +10,8 @@
 */
 
 /**
- * XOOPS form element of hidden token
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * A hidden token field
- */
-class XoopsFormHiddenToken extends XoopsFormHidden
+class XoopsFormHiddenToken extends Xoops\Form\Token
 {
-    /**
-     * Constructor
-     *
-     * @param string $name
-     * @param int $timeout
-     */
-    public function __construct($name = 'XOOPS_TOKEN', $timeout = 0)
-    {
-        $xoops = Xoops::getInstance();
-        parent::__construct($name . '_REQUEST', $xoops->security()->createToken($timeout, $name));
-    }
 }

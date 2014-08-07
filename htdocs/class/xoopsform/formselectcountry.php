@@ -10,36 +10,8 @@
 */
 
 /**
- * XOOPS form element of select country
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * A select field with countries
- */
-class XoopsFormSelectCountry extends XoopsFormSelect
+class XoopsFormSelectCountry extends Xoops\Form\SelectCountry
 {
-    /**
-     * Constructor
-     *
-     * @param string $caption Caption
-     * @param string $name "name" attribute
-     * @param mixed $value Pre-selected value (or array of them).
-     *                                    Legal are all 2-letter country codes (in capitals).
-     * @param int $size Number or rows. "1" makes a drop-down-list
-     */
-    public function __construct($caption, $name, $value = null, $size = 1)
-    {
-        parent::__construct($caption, $name, $value, $size);
-        $this->addOptionArray(XoopsLists::getCountryList());
-    }
 }

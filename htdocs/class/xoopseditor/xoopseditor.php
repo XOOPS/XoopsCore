@@ -23,7 +23,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class XoopsEditor extends XoopsFormTextArea
+class XoopsEditor extends Xoops\Form\TextArea
 {
     /**
      * @var bool
@@ -45,8 +45,8 @@ class XoopsEditor extends XoopsFormTextArea
      */
     public function __construct()
     {
-        $this->_rows = 5;
-        $this->_cols = 50;
+        $this->rows = 5;
+        $this->cols = 50;
 
         $args = func_get_args();
         $configs = array();

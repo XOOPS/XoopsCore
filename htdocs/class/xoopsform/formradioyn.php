@@ -10,39 +10,8 @@
 */
 
 /**
- * XOOPS form element of radio yn
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * Yes/No radio buttons.
- *
- * A pair of radio buttons labelled _YES and _NO with values 1 and 0
- */
-class XoopsFormRadioYN extends XoopsFormRadio
+class XoopsFormRadioYN extends Xoops\Form\RadioYesNo
 {
-    /**
-     * Constructor
-     *
-     * @param string $caption
-     * @param string $name
-     * @param string|null $value Pre-selected value, can be "0" (No) or "1" (Yes)
-     * @param string $yes String for "Yes"
-     * @param string $no String for "No"
-     */
-    public function __construct($caption, $name, $value = null, $yes = XoopsLocale::YES, $no = XoopsLocale::NO)
-    {
-        parent::__construct($caption, $name, $value, true);
-        $this->addOption(1, $yes);
-        $this->addOption(0, $no);
-    }
 }
