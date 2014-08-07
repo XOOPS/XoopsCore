@@ -53,7 +53,7 @@ class TableForm extends Form
             . '"' . $this->getExtra() . '>' . NWLINE . '<table border="0" width="100%">' . NWLINE;
         $hidden = "";
         foreach ($this->getElements() as $ele) {
-            /* @var $ele XoopsFormElement */
+            /* @var $ele Element */
             if (!$ele->isHidden()) {
                 if (!$ele instanceof Raw) {
                     $ret .= '<tr valign="top" align="left"><td>' . $ele->getCaption();

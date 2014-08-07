@@ -81,7 +81,7 @@ class ElementTray extends Element implements ContainerInterface
     {
         $this->elements[] = $formElement;
         if ($formElement instanceof ContainerInterface) {
-            /* @var $formElement XoopsFormContainer */
+            /* @var $formElement ContainerInterface */
             $required_elements = $formElement->getRequired();
             $count = count($required_elements);
             for ($i = 0; $i < $count; $i++) {
@@ -120,7 +120,7 @@ class ElementTray extends Element implements ContainerInterface
             $ret = array();
             foreach ($this->elements as $ele) {
                 if ($ele instanceof ContainerInterface) {
-                    /* @var XoopsFormContainer $ele */
+                    /* @var ContainerInterface $ele */
                     $elements = $ele->getElements(true);
                     foreach ($elements as $ele2) {
                         $ret[] = $ele2;

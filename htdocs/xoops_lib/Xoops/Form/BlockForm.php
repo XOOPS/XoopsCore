@@ -42,7 +42,7 @@ class BlockForm extends Form
     public function render()
     {
         $ret = '';
-        /* @var $ele XoopsFormElement */
+        /* @var $ele Element */
         foreach ($this->getElements() as $ele) {
             if (!$ele->isHidden()) {
                 $ret .= "<strong>" . $ele->getCaption()."</strong>";

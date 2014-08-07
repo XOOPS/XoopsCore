@@ -118,7 +118,7 @@ class GroupFormCheckbox extends Element
      * @param string $prefix    prefix
      * @param array  $parentIds parent ids
      */
-    private function _renderOptionTree(&$tree, $option, $prefix, $parentIds = array())
+    private function renderOptionTree(&$tree, $option, $prefix, $parentIds = array())
     {
         $ele_name = $this->getName();
         $tree .= $prefix . "<input type=\"checkbox\" name=\"" . $ele_name . "[groups][" . $this->groupId . "][" . $option['id'] . "]\" id=\"" . $ele_name . "[groups][" . $this->groupId . "][" . $option['id'] . "]\" onclick=\"";

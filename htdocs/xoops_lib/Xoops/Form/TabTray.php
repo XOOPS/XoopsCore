@@ -74,7 +74,7 @@ class TabTray extends ElementTray
         $extras = array();
 
         foreach ($this->getElements() as $ele) {
-            /* @var $ele XoopsFormElement */
+            /* @var $ele Element */
             if (!$ele->isHidden()) {
                 if (!$ele instanceof Raw) {
                     if ($ele instanceof Tab) {

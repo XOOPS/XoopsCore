@@ -207,7 +207,7 @@ class DhtmlTextArea extends TextArea
     }
 
     /**
-     * XoopsFormDhtmlTextArea::codeIcon()
+     * codeIcon
      *
      * @return string
      */

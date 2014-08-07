@@ -29,14 +29,14 @@ class TextArea extends Element
      *
      * @var int
      */
-    private $cols;
+    protected $cols;
 
     /**
      * number of rows
      *
      * @var int
      */
-    private $rows;
+    protected $rows;
 
      /**
      * placeholder for this element
@@ -107,7 +107,7 @@ class TextArea extends Element
     public function render()
     {
         $name = $this->getName();
-        $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');
+        //$class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');
         if ($this->getCols() > $this->getMaxcols()) {
             $maxcols = 5;
         } else {

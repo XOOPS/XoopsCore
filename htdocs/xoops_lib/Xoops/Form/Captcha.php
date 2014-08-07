@@ -17,12 +17,12 @@ namespace Xoops\Form;
  * For form creation:
  * Add form element where proper:
  * <code>
- *      $xoopsform->addElement(new XoopsFormCaptcha($caption, $name, $skipmember, $configs));
+ *      $xoopsform->addElement(new \Xoops\Form\Captcha($caption, $name, $skipmember, $configs));
  * </code>
  *
  * For verification:
  * <code>
- *      $xoopsCaptcha = XoopsCaptcha::getInstance();
+ *      $xoopsCaptcha = \XoopsCaptcha::getInstance();
  *      if (! $xoopsCaptcha->verify() ) {
  *          echo $xoopsCaptcha->getMessage();
  *          ...
@@ -40,7 +40,7 @@ namespace Xoops\Form;
 class Captcha extends Element
 {
     /**
-     * @var XoopsCaptcha
+     * @var \XoopsCaptcha
      */
     public $captchaHandler;
 

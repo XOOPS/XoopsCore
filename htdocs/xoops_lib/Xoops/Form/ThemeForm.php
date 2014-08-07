@@ -40,7 +40,7 @@ class ThemeForm extends Form
         // Fix for $extra tag not showing
         if ($extra) {
             $value = '<div' . $class . '>' . $extra . '</div>';
-            $ele = new XoopsFormRaw($value);
+            $ele = new Raw($value);
             $this->addElement($ele);
         } else {
             $value = '<div' . $class . '>&nbsp;</div>';
@@ -84,7 +84,7 @@ class ThemeForm extends Form
         $xoops->tpl()->assign('extra', $this->getExtra());
         $hidden = '';
         foreach ($this->getElements() as $ele) {
-            /* @var $ele XoopsFormElement */
+            /* @var $ele Element */
             if (!$ele->isHidden()) {
                 $input['name'] = $ele->getName();
                 $input['caption'] = $ele->getCaption();

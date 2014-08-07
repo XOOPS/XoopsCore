@@ -44,7 +44,7 @@ class Tab extends ElementTray
     public function render()
     {
         $ret = '';
-        /* @var $ele XoopsFormElement*/
+        /* @var $ele Element */
         foreach ($this->getElements() as $ele) {
             $ret .= NWLINE;
             $ret .= '<tr>' . NWLINE;

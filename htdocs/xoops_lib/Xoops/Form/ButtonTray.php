@@ -49,7 +49,7 @@ class ButtonTray extends Element
         $this->setName($name);
         $this->setValue($value);
         $this->type = (!empty($type)) ? $type : 'submit';
-        $this->_showDelete = $showDelete;
+        $this->showDelete = $showDelete;
         if ($onclick) {
             $this->setExtra($onclick);
         } else {
@@ -77,7 +77,7 @@ class ButtonTray extends Element
         $ret = '';
         $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : " class='btn'");
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        if ($this->_showDelete) {
+        if ($this->showDelete) {
             $ret .= '<input type="submit"' . $class . ' name="delete" id="delete" value="'
                 . \XoopsLocale::A_DELETE . '" onclick="this.form.elements.op.value=\'delete\'"> ';
         }

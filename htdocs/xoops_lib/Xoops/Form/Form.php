@@ -61,7 +61,7 @@ abstract class Form implements ContainerInterface
     private $display = '';
 
     /**
-     * array of {@link XoopsFormElement} objects
+     * array of Element objects
      *
      * @var array
      */
@@ -205,10 +205,10 @@ abstract class Form implements ContainerInterface
      */
     public function addElement(Element $formElement, $required = false)
     {
-        /* @var XoopsFormElement $formElement */
+        /* @var Element $formElement */
         $this->elements[] = $formElement;
-        if ($formElement instanceof Container) {
-            /* @var $formElement XoopsFormContainer */
+        if ($formElement instanceof ContainerInterface) {
+            /* @var $formElement ContainerInterface */
             $required_elements = $formElement->getRequired();
             $count = count($required_elements);
             for ($i = 0; $i < $count; $i++) {
@@ -236,8 +236,8 @@ abstract class Form implements ContainerInterface
         } else {
             $ret = array();
             foreach ($this->elements as $ele) {
-                if ($ele instanceof Container) {
-                    /* @var $ele XoopsFormContainer */
+                if ($ele instanceof ContainerInterface) {
+                    /* @var $ele ContainerInterface */
                     $elements = $ele->getElements(true);
                     foreach ($elements as $ele2) {
                         $ret[] = $ele2;
@@ -263,7 +263,7 @@ abstract class Form implements ContainerInterface
         $ret = array();
         $elements = $this->getElements(true);
         foreach ($elements as $ele) {
-            /* @var $ele XoopsFormElement */
+            /* @var Element $ele */
             $ret[] = $ele->getName();
             unset($ele);
         }
@@ -275,13 +275,13 @@ abstract class Form implements ContainerInterface
      *
      * @param string $name name attribute assigned to a Xoops\Form\Element
      *
-     * @return null|XoopsFormElement
+     * @return null|Element
      */
     public function getElementByName($name)
     {
         $elements = $this->getElements(true);
         foreach ($elements as $ele) {
-            /* @var XoopsFormElement $ele */
+            /* @var Element $ele */
             if ($name == $ele->getName(false)) {
                 return $ele;
             }
@@ -317,7 +317,7 @@ abstract class Form implements ContainerInterface
             // will not use getElementByName() for performance..
             $elements = $this->getElements(true);
             foreach ($elements as $ele) {
-                /* @var $ele XoopsFormElement */
+                /* @var $ele Element */
                 $name = $ele->getName(false);
                 if ($name && isset($values[$name])) {
                     $ele->setValue($values[$name]);
@@ -353,7 +353,7 @@ abstract class Form implements ContainerInterface
         $elements = $this->getElements(true);
         $values = array();
         foreach ($elements as $ele) {
-            /* @var XoopsFormElement $ele */
+            /* @var Element $ele */
             $name = $ele->getName(false);
             if ($name) {
                 $values[$name] = $ele->getValue($encode);
@@ -490,11 +490,11 @@ abstract class Form implements ContainerInterface
     /**
      * assign - assign to smarty form template instead of displaying directly
      *
-     * @param XoopsTpl $tpl template
+     * @param \XoopsTpl $tpl template
      *
      * @return void
      */
-    public function assign(XoopsTpl $tpl)
+    public function assign(\XoopsTpl $tpl)
     {
         $i = -1;
         $elements = array();
@@ -504,7 +504,7 @@ abstract class Form implements ContainerInterface
         }
         foreach ($this->getElements() as $ele) {
             ++$i;
-            /* @var XoopsFormElement $ele */
+            /* @var Element $ele */
             $ele_name = $ele->getName();
             $ele_description = $ele->getDescription();
             $n = $ele_name ? $ele_name : $i;

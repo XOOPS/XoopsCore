@@ -29,7 +29,7 @@ abstract class Element
      * Javascript performing additional validation of this element data
      *
      * This property contains a list of Javascript snippets that will be sent to
-     * XoopsForm::renderValidationJS().
+     * \Xoops\Form\Form::renderValidationJS().
      * NB: All elements are added to the output one after the other, so don't forget
      * to add a ";" after each to ensure no Javascript syntax error is generated.
      *

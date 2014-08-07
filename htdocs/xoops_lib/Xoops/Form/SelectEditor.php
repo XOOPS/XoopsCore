@@ -30,7 +30,7 @@ class SelectEditor extends ElementTray
     public $allowed_editors = array();
 
     /**
-     * @var XoopsForm
+     * @var Form
      */
     public $form;
 

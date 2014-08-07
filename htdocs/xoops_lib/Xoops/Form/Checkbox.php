@@ -179,8 +179,6 @@ class CheckBox extends Element
     /**
      * Render custom javascript validation code
      *
-     * @seealso XoopsForm::renderValidationJS
-     *
      * @return string
      */
     public function renderValidationJS()
