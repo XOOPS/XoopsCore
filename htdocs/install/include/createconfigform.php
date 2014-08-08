@@ -42,7 +42,7 @@ function createConfigform($config)
     for ($i = 0; $i < $confcount; $i++) {
         $conf_catid = $config[$i]->getVar('conf_catid');
         if (!isset($ret[$conf_catid])) {
-            $ret[$conf_catid] = new XoopsThemeForm('', 'configs', 'index.php', 'post');
+            $ret[$conf_catid] = new Xoops\Form\ThemeForm('', 'configs', 'index.php', 'post');
         }
 
         $title = Xoops_Locale::translate($config[$i]->getVar('conf_title'), 'system');
@@ -53,14 +53,14 @@ function createConfigform($config)
                 $myts = MyTextSanitizer::getInstance();
                 if ($config[$i]->getVar('conf_valuetype') == 'array') {
                     // this is exceptional.. only when value type is arrayneed a smarter way for this
-                    $ele = ($config[$i]->getVar('conf_value') != '') ? new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), '', 5, 50);
+                    $ele = ($config[$i]->getVar('conf_value') != '') ? new Xoops\Form\TextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new Xoops\Form\TextArea($title, $config[$i]->getVar('conf_name'), '', 5, 50);
                 } else {
-                    $ele = new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()), 5, 100);
+                    $ele = new Xoops\Form\TextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()), 5, 100);
                 }
                 break;
 
             case 'select':
-                $ele = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 $options =& $config_handler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
                 for ($j = 0; $j < $opcount; $j++) {
@@ -71,7 +71,7 @@ function createConfigform($config)
                 break;
 
             case 'select_multi':
-                $ele = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
+                $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
                 $options =& $config_handler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
                 for ($j = 0; $j < $opcount; $j++) {
@@ -82,12 +82,14 @@ function createConfigform($config)
                 break;
 
             case 'yesno':
-                $ele = new XoopsFormRadioYN($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), XoopsLocale::YES, XoopsLocale::NO);
+                $ele = new Xoops\Form\RadioYesNo($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), XoopsLocale::YES, XoopsLocale::NO);
                 break;
 
             case 'theme':
             case 'theme_multi':
-                $ele = ($config[$i]->getVar('conf_formtype') != 'theme_multi') ? new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput()) : new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
+                $ele = ($config[$i]->getVar('conf_formtype') != 'theme_multi')
+                    ? new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput())
+                    : new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
                 $dirlist = XoopsLists::getThemesList();
                 if (!empty($dirlist)) {
                     asort($dirlist);
@@ -96,7 +98,7 @@ function createConfigform($config)
                 break;
 
             case 'tplset':
-                $ele = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 $tplset_handler = $xoops->getHandlerTplset();
                 $tplsetlist = $tplset_handler->getNameList();
                 asort($tplsetlist);
@@ -106,19 +108,19 @@ function createConfigform($config)
                 break;
 
             case 'timezone':
-                $ele = new XoopsFormSelectTimezone($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\SelectTimeZone($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 break;
 
             case 'language':
-                $ele = new XoopsFormSelectLang($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\SelectLanguage($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 break;
 
             case 'locale':
-                $ele = new XoopsFormSelectLocale($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\SelectLocale($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 break;
 
             case 'startpage':
-                $ele = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 $module_handler = $xoops->getHandlerModule();
                 $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
                 $criteria->add(new Criteria('isactive', 1));
@@ -128,20 +130,20 @@ function createConfigform($config)
                 break;
 
             case 'group':
-                $ele = new XoopsFormSelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
+                $ele = new Xoops\Form\SelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
                 break;
 
             case 'group_multi':
-                $ele = new XoopsFormSelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
+                $ele = new Xoops\Form\SelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
                 break;
 
             // RMV-NOTIFY - added 'user' and 'user_multi'
             case 'user':
-                $ele = new XoopsFormSelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
+                $ele = new Xoops\Form\SelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
                 break;
 
             case 'user_multi':
-                $ele = new XoopsFormSelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
+                $ele = new Xoops\Form\SelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
                 break;
 
             case 'module_cache':
@@ -162,21 +164,21 @@ function createConfigform($config)
                     '2592000' => XoopsLocale::ONE_MONTH
                 );
                 if (count($modules) > 0) {
-                    $ele = new XoopsFormElementTray($title, '<br />');
+                    $ele = new Xoops\Form\ElementTray($title, '<br />');
                     foreach (array_keys($modules) as $mid) {
                         $c_val = isset($currrent_val[$mid]) ? intval($currrent_val[$mid]) : null;
-                        $selform = new XoopsFormSelect($modules[$mid]->getVar('name'), $config[$i]->getVar('conf_name') . "[$mid]", $c_val);
+                        $selform = new Xoops\Form\Select($modules[$mid]->getVar('name'), $config[$i]->getVar('conf_name') . "[$mid]", $c_val);
                         $selform->addOptionArray($cache_options);
                         $ele->addElement($selform);
                         unset($selform);
                     }
                 } else {
-                    $ele = new XoopsFormLabel($title, SystemLocale::NO_MODULE_TO_CACHE);
+                    $ele = new Xoops\Form\Label($title, SystemLocale::NO_MODULE_TO_CACHE);
                 }
                 break;
 
             case 'site_cache':
-                $ele = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 $ele->addOptionArray(array(
                     '0'       => XoopsLocale::NO_CACHE,
                     '30'      => sprintf(XoopsLocale::F_SECONDS, 30),
@@ -194,23 +196,23 @@ function createConfigform($config)
 
             case 'password':
                 $myts = MyTextSanitizer::getInstance();
-                $ele = new XoopsFormPassword($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
+                $ele = new Xoops\Form\Password($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
                 break;
 
             case 'color':
                 $myts = MyTextSanitizer::getInstance();
-                $ele = new XoopsFormColorPicker($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
+                $ele = new Xoops\Form\ColorPicker($title, $config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
                 break;
 
             case 'hidden':
                 $myts = MyTextSanitizer::getInstance();
-                $ele = new XoopsFormHidden($config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
+                $ele = new Xoops\Form\Hidden($config[$i]->getVar('conf_name'), $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
                 break;
 
             case 'textbox':
             default:
                 $myts = MyTextSanitizer::getInstance();
-                $ele = new XoopsFormText($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
+                $ele = new Xoops\Form\Text($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlspecialchars($config[$i]->getConfValueForOutput()));
                 break;
         }
 
@@ -219,7 +221,7 @@ function createConfigform($config)
         }
         $ret[$conf_catid]->addElement($ele);
 
-        $hidden = new XoopsFormHidden('conf_ids[]', $config[$i]->getVar('conf_id'));
+        $hidden = new Xoops\Form\Hidden('conf_ids[]', $config[$i]->getVar('conf_id'));
         $ret[$conf_catid]->addElement($hidden);
 
         unset($ele);
@@ -236,7 +238,7 @@ function createConfigform($config)
 function createThemeform(XoopsConfigItem $config)
 {
     $title = $config->getVar('conf_desc') == '' ? Xoops_Locale::translate($config->getVar('conf_title'), 'system') : Xoops_Locale::translate($config->getVar('conf_title'), 'system') . '<br /><br /><span>' . Xoops_Locale::translate($config->getVar('conf_desc'), 'system') . '</span>';
-    $form_theme_set = new XoopsFormSelect('', $config->getVar('conf_name'), $config->getConfValueForOutput(), 1, false);
+    $form_theme_set = new Xoops\Form\Select('', $config->getVar('conf_name'), $config->getConfValueForOutput(), 1, false);
     $dirlist = XoopsLists::getThemesList();
     if (!empty($dirlist)) {
         asort($dirlist);
@@ -289,10 +291,10 @@ function createThemeform(XoopsConfigItem $config)
 
     $form_theme_set->setExtra("onchange='showThemeSelected(this)'");
 
-    $form = new XoopsThemeForm($title, 'themes', 'index.php', 'post');
+    $form = new Xoops\Form\ThemeForm($title, 'themes', 'index.php', 'post');
     $form->addElement($form_theme_set);
-    $form->addElement(new XoopsFormLabel('', "<div id='screenshot'>" . $label_content . "</div>"));
+    $form->addElement(new Xoops\Form\Label('', "<div id='screenshot'>" . $label_content . "</div>"));
 
-    $form->addElement(new XoopsFormHidden('conf_ids[]', $config->getVar('conf_id')));
+    $form->addElement(new Xoops\Form\Hidden('conf_ids[]', $config->getVar('conf_id')));
     return array($form);
 }

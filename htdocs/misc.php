@@ -49,22 +49,22 @@ if ($action == "showpopups") {
                     $fname = "";
                     $fmail = "";
                 }
-                $form = new XoopsThemeForm(XoopsLocale::RECOMMEND_SITE_TO_FRIEND, 'form_id', 'misc.php', 'post', true);
-                $form->addElement(new XoopsFormText(XoopsLocale::C_YOUR_NAME, 'yname', 6, 255, $yname), true);
-                $form->addElement(new XoopsFormText(XoopsLocale::C_YOUR_EMAIL, 'ymail', 6, 255, $ymail), true);
-                $form->addElement(new XoopsFormText(XoopsLocale::C_FRIEND_NAME, 'fname', 6, 255, $fname), true);
-                $form->addElement(new XoopsFormText(XoopsLocale::C_FRIEND_EMAIL, 'fmail', 6, 255, $fmail), true);
-                $form->addElement(new XoopsFormHidden('action', 'showpopups'));
-                $form->addElement(new XoopsFormHidden('type', 'friend'));
+                $form = new Xoops\Form\ThemeForm(XoopsLocale::RECOMMEND_SITE_TO_FRIEND, 'form_id', 'misc.php', 'post', true);
+                $form->addElement(new Xoops\Form\Text(XoopsLocale::C_YOUR_NAME, 'yname', 6, 255, $yname), true);
+                $form->addElement(new Xoops\Form\Text(XoopsLocale::C_YOUR_EMAIL, 'ymail', 6, 255, $ymail), true);
+                $form->addElement(new Xoops\Form\Text(XoopsLocale::C_FRIEND_NAME, 'fname', 6, 255, $fname), true);
+                $form->addElement(new Xoops\Form\Text(XoopsLocale::C_FRIEND_EMAIL, 'fmail', 6, 255, $fmail), true);
+                $form->addElement(new Xoops\Form\Hidden('action', 'showpopups'));
+                $form->addElement(new Xoops\Form\Hidden('type', 'friend'));
 
-                $button_tray = new XoopsFormElementTray('', '');
-                $button_tray->addElement(new XoopsFormHidden('op', 'sendsite'));
+                $button_tray = new Xoops\Form\ElementTray('', '');
+                $button_tray->addElement(new Xoops\Form\Hidden('op', 'sendsite'));
 
-                $button = new XoopsFormButton('', 'submit', XoopsLocale::A_SEND, 'submit');
+                $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SEND, 'submit');
                 $button->setClass('btn btn-success');
                 $button_tray->addElement($button);
 
-                $button_2 = new XoopsFormButton('', 'close', XoopsLocale::A_CLOSE, 'close');
+                $button_2 = new Xoops\Form\Button('', 'close', XoopsLocale::A_CLOSE, 'close');
                 $button_2->setClass('btn btn-warning');
                 $button_2->setExtra("onclick='javascript:window.close();'");
                 $button_tray->addElement($button_2);

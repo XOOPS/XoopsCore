@@ -220,7 +220,7 @@ abstract class HelperAbstract
      * @param null|XoopsObject       $obj
      * @param string                 $name
      *
-     * @return bool|XoopsForm
+     * @return \Xoops\Form\Form|boolean
      */
     public function getForm($obj, $name)
     {

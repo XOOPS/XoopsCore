@@ -94,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $style = " style='background-color:#E6EFC2;'";
         }
 
-        $form = new XoopsThemeForm('', 'modules', 'index.php', 'post');
-        $moduleYN = new XoopsFormRadioYN('', 'modules[' . $ext->getInfo('dirname') . ']', $value, XoopsLocale::YES, XoopsLocale::NO);
+        $form = new Xoops\Form\ThemeForm('', 'modules', 'index.php', 'post');
+        $moduleYN = new Xoops\Form\RadioYesNo('', 'modules[' . $ext->getInfo('dirname') . ']', $value, XoopsLocale::YES, XoopsLocale::NO);
         $moduleYN->setExtra("onclick='selectModule(\"" . $ext->getInfo('dirname') . "\", this)'");
         $form->addElement($moduleYN);
 

@@ -42,7 +42,7 @@ if ($permHelper) {
         echo $xoops->alert('success', _MA_LOGGER_FORM_PROCESSED, _MA_LOGGER_PERMISSION_FORM);
     }
 
-    $form = new \XoopsThemeForm(_MA_LOGGER_PERMISSION_FORM, 'form', '', 'POST');
+    $form = new \Xoops\Form\ThemeForm(_MA_LOGGER_PERMISSION_FORM, 'form', '', 'POST');
     $permElement = $permHelper->getGroupSelectFormForItem(
         $gperm_name,
         $gperm_itemid,
@@ -52,7 +52,7 @@ if ($permHelper) {
     );
 
     $form->addElement($permElement);
-    $form->addElement(new \XoopsFormButton('', 'submit', _MA_LOGGER_FORM_SUBMIT, 'submit'));
+    $form->addElement(new \Xoops\Form\Button('', 'submit', _MA_LOGGER_FORM_SUBMIT, 'submit'));
 
     echo $form->render();
 }

@@ -86,7 +86,7 @@ switch ($op) {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('banner_status', 0, '!='));
         if ($admin == false) {
-            $criteria->add(new Criteria('banner_cid', '(' . implode(',', $cid) . ')','IN'));
+            $criteria->add(new Criteria('banner_cid', '(' . implode(',', $cid) . ')', 'IN'));
         }
         $criteria->setSort("banner_cid");
         $criteria->setOrder("ASC");
@@ -166,7 +166,7 @@ switch ($op) {
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('banner_status', 0));
         if ($admin == false) {
-            $criteria->add(new Criteria('banner_cid', '(' . implode(',', $cid) . ')','IN'));
+            $criteria->add(new Criteria('banner_cid', '(' . implode(',', $cid) . ')', 'IN'));
         }
         $criteria->setSort("banner_datestart");
         $criteria->setOrder("DESC");
@@ -264,11 +264,11 @@ switch ($op) {
             // Call header
             $xoops->header('banners_client.html');
             $obj = $banner_Handler->get($bid);
-            $form = new XoopsThemeForm(_AM_BANNERS_CLIENTS_EDIT, 'form', 'index.php', 'post', true);
-            $form->addElement(new XoopsFormText( _AM_BANNERS_BANNERS_CLICKURL, 'clickurl', 80, 255, $obj->getVar('banner_clickurl') ), false );
-            $form->addElement(new XoopsFormHidden('op', 'save'));
-            $form->addElement(new XoopsFormHidden('bid', $obj->getVar('banner_bid')));
-            $form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+            $form = new Xoops\Form\ThemeForm(_AM_BANNERS_CLIENTS_EDIT, 'form', 'index.php', 'post', true);
+            $form->addElement(new Xoops\Form\Text(_AM_BANNERS_BANNERS_CLICKURL, 'clickurl', 80, 255, $obj->getVar('banner_clickurl')), false);
+            $form->addElement(new Xoops\Form\Hidden('op', 'save'));
+            $form->addElement(new Xoops\Form\Hidden('bid', $obj->getVar('banner_bid')));
+            $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
             $xoops->tpl()->assign('form', $form->render());
             $xoops->footer();
         } else {
@@ -305,7 +305,7 @@ switch ($op) {
             $client_arr = $client_Handler->getall($criteria);
             foreach (array_keys($client_arr) as $i) {
                 if ($admin == false) {
-                    if ($client_arr[$i]->getVar("uid") != $uid){
+                    if ($client_arr[$i]->getVar("uid") != $uid) {
                         $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                     }
                 }
@@ -346,7 +346,7 @@ switch ($op) {
             $client_arr = $client_Handler->getall($criteria);
             foreach (array_keys($client_arr) as $i) {
                 if ($admin == false) {
-                    if ($client_arr[$i]->getVar("bannerclient_uid") != $uid){
+                    if ($client_arr[$i]->getVar("bannerclient_uid") != $uid) {
                         $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                     }
                 }
@@ -355,7 +355,7 @@ switch ($op) {
             }
             $user = $member_handler->getUser($client_arr[$i]->getVar("bannerclient_uid"));
             $email = $user->getVar("email", 'n');
-            if ($email != ''){
+            if ($email != '') {
                 if ($banner->getVar('banner_impmade') == 0) {
                     $percent = 0;
                 } else {

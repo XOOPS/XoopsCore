@@ -9,6 +9,7 @@
  */
 
 use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
 
 /**
  * Find XOOPS users
@@ -75,47 +76,47 @@ $modes = array(
 );
 
 if (empty($_POST["user_submit"])) {
-    $form = new XoopsThemeForm(XoopsLocale::FIND_USERS, "uesr_findform", "findusers.php", 'post', true);
+    $form = new Xoops\Form\ThemeForm(XoopsLocale::FIND_USERS, "uesr_findform", "findusers.php", 'post', true);
     $mode = intval(@$_REQUEST["mode"]);
     if (FINDUSERS_MODE_ADVANCED == $mode) {
         foreach ($items_match as $var => $title) {
-            $text = new XoopsFormText("", $var, 30, 100, @$_POST[$var]);
-            $match = new XoopsFormSelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
-            $match_tray = new XoopsFormElementTray($title, "&nbsp;");
+            $text = new Xoops\Form\Text("", $var, 30, 100, @$_POST[$var]);
+            $match = new Xoops\Form\SelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
+            $match_tray = new Xoops\Form\ElementTray($title, "&nbsp;");
             $match_tray->addElement($match);
             $match_tray->addElement($text);
             $form->addElement($match_tray);
             unset($text, $match, $match_tray);
         }
 
-        $url_text = new XoopsFormText(XoopsLocale::URL_CONTAINS, "url", 30, 100, @$_POST["url"]);
-        $location_text = new XoopsFormText(XoopsLocale::LOCATION_CONTAINS, "user_from", 30, 100, @$_POST["user_from"]);
-        $occupation_text = new XoopsFormText(XoopsLocale::OCCUPATION_CONTAINS, "user_occ", 30, 100, @$_POST["user_occ"]);
-        $interest_text = new XoopsFormText(XoopsLocale::INTEREST_CONTAINS, "user_intrest", 30, 100, @$_POST["user_intrest"]);
+        $url_text = new Xoops\Form\Text(XoopsLocale::URL_CONTAINS, "url", 30, 100, @$_POST["url"]);
+        $location_text = new Xoops\Form\Text(XoopsLocale::LOCATION_CONTAINS, "user_from", 30, 100, @$_POST["user_from"]);
+        $occupation_text = new Xoops\Form\Text(XoopsLocale::OCCUPATION_CONTAINS, "user_occ", 30, 100, @$_POST["user_occ"]);
+        $interest_text = new Xoops\Form\Text(XoopsLocale::INTEREST_CONTAINS, "user_intrest", 30, 100, @$_POST["user_intrest"]);
         foreach ($items_range as $var => $title) {
-            $more = new XoopsFormText("", "{$var}_more", 10, 5, @$_POST["{$var}_more"]);
-            $less = new XoopsFormText("", "{$var}_less", 10, 5, @$_POST["{$var}_less"]);
-            $range_tray = new XoopsFormElementTray($title, "&nbsp;-&nbsp;&nbsp;");
+            $more = new Xoops\Form\Text("", "{$var}_more", 10, 5, @$_POST["{$var}_more"]);
+            $less = new Xoops\Form\Text("", "{$var}_less", 10, 5, @$_POST["{$var}_less"]);
+            $range_tray = new Xoops\Form\ElementTray($title, "&nbsp;-&nbsp;&nbsp;");
             $range_tray->addElement($less);
             $range_tray->addElement($more);
             $form->addElement($range_tray);
             unset($more, $less, $range_tray);
         }
 
-        $mailok_radio = new XoopsFormRadio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_mailok", empty($_POST["user_mailok"]) ? "both" : $_POST["user_mailok"]);
+        $mailok_radio = new Xoops\Form\Radio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_mailok", empty($_POST["user_mailok"]) ? "both" : $_POST["user_mailok"]);
         $mailok_radio->addOptionArray(array(
             "mailok" => XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL,
             "mailng" => XoopsLocale::ONLY_USERS_THAT_DO_NOT_ACCEPT_EMAIL,
             "both"   => XoopsLocale::ALL
         ));
-        $avatar_radio = new XoopsFormRadio(XoopsLocale::HAS_AVATAR, "user_avatar", empty($_POST["user_avatar"]) ? "both" : $_POST["user_avatar"]);
+        $avatar_radio = new Xoops\Form\Radio(XoopsLocale::HAS_AVATAR, "user_avatar", empty($_POST["user_avatar"]) ? "both" : $_POST["user_avatar"]);
         $avatar_radio->addOptionArray(array(
             "y"    => XoopsLocale::YES,
             "n"    => XoopsLocale::NO,
             "both" => XoopsLocale::ALL
         ));
 
-        $level_radio = new XoopsFormRadio(XoopsLocale::LEVEL, "level", @$_POST["level"]);
+        $level_radio = new Xoops\Form\Radio(XoopsLocale::LEVEL, "level", @$_POST["level"]);
         $levels = array(
             0 => XoopsLocale::ALL,
             1 => XoopsLocale::ACTIVE,
@@ -127,12 +128,12 @@ if (empty($_POST["user_submit"])) {
         $member_handler = $xoops->getHandlerMember();
         $groups = $member_handler->getGroupList();
         $groups[0] = XoopsLocale::ALL;
-        $group_select = new XoopsFormSelect(XoopsLocale::GROUP, 'groups', @$_POST['groups'], 3, true);
+        $group_select = new Xoops\Form\Select(XoopsLocale::GROUP, 'groups', @$_POST['groups'], 3, true);
         $group_select->addOptionArray($groups);
 
         $ranks = $rank_handler->getList();
         $ranks[0] = XoopsLocale::ALL;
-        $rank_select = new XoopsFormSelect(XoopsLocale::RANK, 'rank', intval(@$_POST['rank']));
+        $rank_select = new Xoops\Form\Select(XoopsLocale::RANK, 'rank', intval(@$_POST['rank']));
         $rank_select->addOptionArray($ranks);
         $form->addElement($url_text);
         $form->addElement($location_text);
@@ -149,9 +150,9 @@ if (empty($_POST["user_submit"])) {
                      "email"
                  ) as $var) {
             $title = $items_match[$var];
-            $text = new XoopsFormText("", $var, 30, 100, @$_POST[$var]);
-            $match = new XoopsFormSelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
-            $match_tray = new XoopsFormElementTray($title, "&nbsp;");
+            $text = new Xoops\Form\Text("", $var, 30, 100, @$_POST[$var]);
+            $match = new Xoops\Form\SelectMatchOption("", "{$var}_match", @$_POST["{$var}_match"]);
+            $match_tray = new Xoops\Form\ElementTray($title, "&nbsp;");
             $match_tray->addElement($match);
             $match_tray->addElement($text);
             $form->addElement($match_tray);
@@ -159,14 +160,14 @@ if (empty($_POST["user_submit"])) {
         }
     }
 
-    $sort_select = new XoopsFormSelect(XoopsLocale::SORT_BY, "user_sort", @$_POST["user_sort"]);
+    $sort_select = new Xoops\Form\Select(XoopsLocale::SORT_BY, "user_sort", @$_POST["user_sort"]);
     $sort_select->addOptionArray(array(
         "uname"        => XoopsLocale::USER_NAME,
         "last_login"   => XoopsLocale::LAST_LOGIN,
         "user_regdate" => XoopsLocale::REGISTRATION_DATE,
         "posts"        => XoopsLocale::POSTS
     ));
-    $order_select = new XoopsFormSelect(XoopsLocale::ORDER, "user_order", @$_POST["user_order"]);
+    $order_select = new Xoops\Form\Select(XoopsLocale::ORDER, "user_order", @$_POST["user_order"]);
     $order_select->addOptionArray(array(
         "ASC"  => XoopsLocale::ASCENDING_ORDER,
         "DESC" => XoopsLocale::DESCENDING_ORDER
@@ -175,12 +176,12 @@ if (empty($_POST["user_submit"])) {
     $form->addElement($sort_select);
     $form->addElement($order_select);
 
-    $form->addElement(new XoopsFormText(XoopsLocale::NUMBER_OF_RESULTS_PER_PAGE, "limit", 6, 6, empty($_REQUEST["limit"]) ? 50 : intval($_REQUEST["limit"])));
-    $form->addElement(new XoopsFormHidden("mode", $mode));
-    $form->addElement(new XoopsFormHidden("target", @$_REQUEST["target"]));
-    $form->addElement(new XoopsFormHidden("multiple", @$_REQUEST["multiple"]));
-    $form->addElement(new XoopsFormHidden("token", $token));
-    $form->addElement(new XoopsFormButton("", "user_submit", XoopsLocale::A_SUBMIT, "submit"));
+    $form->addElement(new Xoops\Form\Text(XoopsLocale::NUMBER_OF_RESULTS_PER_PAGE, "limit", 6, 6, empty($_REQUEST["limit"]) ? 50 : intval($_REQUEST["limit"])));
+    $form->addElement(new Xoops\Form\Hidden("mode", $mode));
+    $form->addElement(new Xoops\Form\Hidden("target", @$_REQUEST["target"]));
+    $form->addElement(new Xoops\Form\Hidden("multiple", @$_REQUEST["multiple"]));
+    $form->addElement(new Xoops\Form\Hidden("token", $token));
+    $form->addElement(new Xoops\Form\Button("", "user_submit", XoopsLocale::A_SUBMIT, "submit"));
 
     $acttotal = $user_handler->getCount(new Criteria('level', 0, '>'));
     $inacttotal = $user_handler->getCount(new Criteria('level', 0, '<='));

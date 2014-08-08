@@ -913,7 +913,7 @@ class Xoops
      * @param string      $name
      * @param string      $module_dir
      *
-     * @return XoopsForm|bool
+     * @return Xoops\Form\Form|bool
      */
     public function getModuleForm($obj, $name, $module_dir = null)
     {

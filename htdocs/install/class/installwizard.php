@@ -50,7 +50,7 @@ class XoopsInstallWizard
     public $configs = array();
 
     /**
-     * @var array of XoopsForm
+     * @var array of Xoops\Form\Form
      */
     public $form;
 
@@ -251,14 +251,14 @@ class XoopsInstallWizard
         $hidden = '';
         $ret = '';
 
-        /* @var $form XoopsForm */
+        /* @var Xoops\Form\Form $form */
         foreach ($this->form as $form) {
             $ret .= "<fieldset><legend>" . $form->getTitle() . "</legend>\n";
 
-            /* @var $ele XoopsFormElement */
+            /* @var Xoops\Form\Element $ele */
             foreach ($form->getElements() as $ele) {
                 //todo, ain't this always a object on 2.6?
-                if (is_object($ele)) {
+                if ($ele instanceof Xoops\Form\Element) {
                     if (!$ele->isHidden()) {
                         if (($caption = $ele->getCaption()) != '') {
                             $ret .= "<label class='xolabel' for='" . $ele->getName() . "'>" . $caption . "</label>";
