@@ -44,8 +44,8 @@ function b_system_themes_show($options)
 
 function b_system_themes_edit($options)
 {
-    $block_form = new XoopsBlockForm();
-    $block_form->addElement(new XoopsFormRadioYN(SystemLocale::DISPLAY_SCREENSHOT_IMAGE, 'options[0]', $options[0]));
-    $block_form->addElement( new XoopsFormText(SystemLocale::SCREENSHOT_IMAGE_WIDTH, 'options[1]', 1, 3, $options[1]), true);
+    $block_form = new Xoops\Form\BlockForm();
+    $block_form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::DISPLAY_SCREENSHOT_IMAGE, 'options[0]', $options[0]));
+    $block_form->addElement( new Xoops\Form\Text(SystemLocale::SCREENSHOT_IMAGE_WIDTH, 'options[1]', 1, 3, $options[1]), true);
     return $block_form->render();
 }

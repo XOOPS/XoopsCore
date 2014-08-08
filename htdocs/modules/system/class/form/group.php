@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Group Form Class
  *
@@ -20,7 +23,7 @@
  * @link      http://xoops.org
  * @since     2.0
  */
-class SystemGroupForm extends XoopsThemeForm
+class SystemGroupForm extends Xoops\Form\ThemeForm
 {
     /**
      * __construct
@@ -53,18 +56,18 @@ class SystemGroupForm extends XoopsThemeForm
         parent::__construct($title, "groupform", 'admin.php', "post", true);
         $this->setExtra('enctype="multipart/form-data"');
 
-        $name_text = new XoopsFormText(SystemLocale::GROUP_NAME, "name", 4, 50, $obj->getVar('name'));
-        $desc_text = new XoopsFormTextArea(SystemLocale::GROUP_DESCRIPTION, "desc", $obj->getVar('description'));
+        $name_text = new Xoops\Form\Text(SystemLocale::GROUP_NAME, "name", 4, 50, $obj->getVar('name'));
+        $desc_text = new Xoops\Form\TextArea(SystemLocale::GROUP_DESCRIPTION, "desc", $obj->getVar('description'));
 
-        $system_catids = new XoopsFormElementTray(SystemLocale::SYSTEM_ADMIN_RIGHTS, '');
+        $system_catids = new Xoops\Form\ElementTray(SystemLocale::SYSTEM_ADMIN_RIGHTS, '');
 
-        $s_cat_checkbox_all = new XoopsFormCheckBox('', "catbox", 1);
+        $s_cat_checkbox_all = new Xoops\Form\Checkbox('', "catbox", 1);
         $s_cat_checkbox_all->addOption('allbox', XoopsLocale::ALL);
         $s_cat_checkbox_all->setExtra(" onclick='xoopsCheckGroup(\"groupform\", \"catbox\" , \"system_catids[]\");' ");
         $s_cat_checkbox_all->setClass('xo-checkall');
         $system_catids->addElement($s_cat_checkbox_all);
 
-        $s_cat_checkbox = new XoopsFormCheckBox('', "system_catids", $s_cat_value);
+        $s_cat_checkbox = new Xoops\Form\Checkbox('', "system_catids", $s_cat_value);
         $s_cat_checkbox->columns = 6;
         $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin/';
         $dirlist = XoopsLists::getDirListAsArray($admin_dir);
@@ -80,15 +83,15 @@ class SystemGroupForm extends XoopsThemeForm
         unset($dirlist);
         $system_catids->addElement($s_cat_checkbox);
 
-        $admin_mids = new XoopsFormElementTray(SystemLocale::MODULE_ADMIN_RIGHTS, '');
+        $admin_mids = new Xoops\Form\ElementTray(SystemLocale::MODULE_ADMIN_RIGHTS, '');
 
-        $s_admin_checkbox_all = new XoopsFormCheckBox('', "adminbox", 1);
+        $s_admin_checkbox_all = new Xoops\Form\Checkbox('', "adminbox", 1);
         $s_admin_checkbox_all->addOption('allbox', XoopsLocale::ALL);
         $s_admin_checkbox_all->setExtra(" onclick='xoopsCheckGroup(\"groupform\", \"adminbox\" , \"admin_mids[]\");' ");
         $s_admin_checkbox_all->setClass('xo-checkall');
         $admin_mids->addElement($s_admin_checkbox_all);
 
-        $a_mod_checkbox = new XoopsFormCheckBox('', "admin_mids[]", $a_mod_value);
+        $a_mod_checkbox = new Xoops\Form\Checkbox('', "admin_mids[]", $a_mod_value);
         $a_mod_checkbox->columns = 5;
         $module_handler = $xoops->getHandlerModule();
         $criteria = new CriteriaCompo(new Criteria('hasadmin', 1));
@@ -97,15 +100,15 @@ class SystemGroupForm extends XoopsThemeForm
         $a_mod_checkbox->addOptionArray($module_handler->getNameList($criteria));
         $admin_mids->addElement($a_mod_checkbox);
 
-        $read_mids = new XoopsFormElementTray(SystemLocale::MODULE_ACCESS_RIGHTS, '');
+        $read_mids = new Xoops\Form\ElementTray(SystemLocale::MODULE_ACCESS_RIGHTS, '');
 
-        $s_mod_checkbox_all = new XoopsFormCheckBox('', "readbox", 1);
+        $s_mod_checkbox_all = new Xoops\Form\Checkbox('', "readbox", 1);
         $s_mod_checkbox_all->addOption('allbox', XoopsLocale::ALL);
         $s_mod_checkbox_all->setExtra(" onclick='xoopsCheckGroup(\"groupform\", \"readbox\" , \"read_mids[]\");' ");
         $s_mod_checkbox_all->setClass('xo-checkall');
         $read_mids->addElement($s_mod_checkbox_all);
 
-        $r_mod_checkbox = new XoopsFormCheckBox('', "read_mids[]", $r_mod_value);
+        $r_mod_checkbox = new Xoops\Form\Checkbox('', "read_mids[]", $r_mod_value);
         $r_mod_checkbox->columns = 5;
         $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
         $criteria->add(new Criteria('isactive', 1));
@@ -132,8 +135,8 @@ class SystemGroupForm extends XoopsThemeForm
         }
         ksort($blocks_module);
 
-        $r_block_tray = new XoopsFormElementTray(SystemLocale::BLOCK_ACCESS_RIGHTS, "<br /><br />");
-        $s_checkbox_all = new XoopsFormCheckBox('', "blocksbox", 1);
+        $r_block_tray = new Xoops\Form\ElementTray(SystemLocale::BLOCK_ACCESS_RIGHTS, "<br /><br />");
+        $s_checkbox_all = new Xoops\Form\Checkbox('', "blocksbox", 1);
         $s_checkbox_all->addOption('allbox', XoopsLocale::ALL);
         $s_checkbox_all->setExtra(" onclick='xoopsCheckGroup(\"groupform\", \"blocksbox\" , \"read_bids[]\");' ");
         $s_checkbox_all->setClass('xo-checkall');
@@ -146,7 +149,7 @@ class SystemGroupForm extends XoopsThemeForm
                     . "/modules/system/admin.php?fct=blocksadmin&amp;op=edit&amp;bid={$key}' "
                     . "title='ID: {$key}' rel='external'>{$value}</a>";
             }
-            $r_block_checkbox = new XoopsFormCheckBox(
+            $r_block_checkbox = new Xoops\Form\Checkbox(
                 '<strong>' . $module_list[$mid] . '</strong><br />',
                 "read_bids[]",
                 $r_block_value
@@ -157,12 +160,12 @@ class SystemGroupForm extends XoopsThemeForm
             unset($r_block_checkbox);
         }
         if (!$obj->isNew()) {
-            $this->addElement(new XoopsFormHidden('g_id', $obj->getVar('groupid')));
-            $this->addElement(new XoopsFormHidden("op", "groups_save_update"));
+            $this->addElement(new Xoops\Form\Hidden('g_id', $obj->getVar('groupid')));
+            $this->addElement(new Xoops\Form\Hidden("op", "groups_save_update"));
         } else {
-            $this->addElement(new XoopsFormHidden("op", "groups_save_add"));
+            $this->addElement(new Xoops\Form\Hidden("op", "groups_save_add"));
         }
-        $this->addElement(new XoopsFormHidden('fct', 'groups'));
+        $this->addElement(new Xoops\Form\Hidden('fct', 'groups'));
 
         $this->addElement($name_text, true);
         $this->addElement($desc_text);
@@ -170,6 +173,6 @@ class SystemGroupForm extends XoopsThemeForm
         $this->addElement($admin_mids);
         $this->addElement($read_mids);
         $this->addElement($r_block_tray);
-        $this->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
+        $this->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
     }
 }

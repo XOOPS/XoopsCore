@@ -192,6 +192,9 @@ class Select extends Element
         $ele_name = $this->getName();
         $ele_title = $this->getTitle();
         $ele_value = $this->getValue();
+        if (!is_array($ele_value)) {
+            $ele_value = (array) $ele_value;
+        }
         $ele_options = $this->getOptions();
         $ele_optgroup = $this->getOptgroup();
         $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');

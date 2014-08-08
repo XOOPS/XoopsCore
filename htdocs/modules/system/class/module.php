@@ -10,6 +10,8 @@
 */
 
 use Xoops\Core\Database\Schema\ImportSchema;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Yaml;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;

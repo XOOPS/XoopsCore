@@ -42,8 +42,7 @@ class Radio extends Element
      /**
      * position for this element
      *
-     * @var string
-     * @access private
+     * @var boolean
      */
     private $inline;
 
@@ -120,7 +119,7 @@ class Radio extends Element
      *
      * @return array Associative array of value->name pairs
      */
-    public function getOptions($encode = false)
+    public function getOptions($encode = 0)
     {
         if (!$encode) {
             return $this->options;
