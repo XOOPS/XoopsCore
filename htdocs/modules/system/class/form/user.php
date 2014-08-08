@@ -152,7 +152,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
 
         $this->addElement(new Xoops\Form\Hidden("fct", "users"));
         $this->addElement(new Xoops\Form\Hidden("op", "users_save"));
-        $this->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit", 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
 
         if (!empty($uid_value)) {
             $this->addElement(new Xoops\Form\Hidden("uid", $uid_value));

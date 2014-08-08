@@ -36,7 +36,7 @@ class GroupCheckbox extends CheckBox
     public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
     {
         parent::__construct($caption, $name, $value, true);
-        $this->columns = 3;
+        //$this->columns = 3;
         $this->userGroups = \Xoops::getInstance()->getHandlerMember()->getGroupList();
         foreach ($this->userGroups as $group_id => $group_name) {
             $this->addOption($group_id, $group_name);

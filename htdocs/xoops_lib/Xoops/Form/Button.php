@@ -50,11 +50,6 @@ class Button extends Element
         //$this->class = $class;
     }
 
-    /*public function getClass()
-    {
-        return $this->class;
-    }*/
-
     /**
      * Get the type
      *
