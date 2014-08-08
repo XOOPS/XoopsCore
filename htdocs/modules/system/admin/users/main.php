@@ -838,7 +838,7 @@ function addCriteria(CriteriaCompo $criteria, $column, $value, $match)
             $value = '%' . $value;
             break;
         case XOOPS_MATCH_EQUAL:
-            $value = $value;
+            //$value = $value;
             $relation = '=';
             break;
         case XOOPS_MATCH_CONTAIN:

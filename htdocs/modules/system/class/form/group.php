@@ -68,7 +68,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
         $system_catids->addElement($s_cat_checkbox_all);
 
         $s_cat_checkbox = new Xoops\Form\Checkbox('', "system_catids", $s_cat_value);
-        $s_cat_checkbox->columns = 6;
+        //$s_cat_checkbox->columns = 6;
         $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin/';
         $dirlist = XoopsLists::getDirListAsArray($admin_dir);
         foreach ($dirlist as $file) {
@@ -92,7 +92,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
         $admin_mids->addElement($s_admin_checkbox_all);
 
         $a_mod_checkbox = new Xoops\Form\Checkbox('', "admin_mids[]", $a_mod_value);
-        $a_mod_checkbox->columns = 5;
+        //$a_mod_checkbox->columns = 5;
         $module_handler = $xoops->getHandlerModule();
         $criteria = new CriteriaCompo(new Criteria('hasadmin', 1));
         $criteria->add(new Criteria('isactive', 1));
@@ -109,7 +109,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
         $read_mids->addElement($s_mod_checkbox_all);
 
         $r_mod_checkbox = new Xoops\Form\Checkbox('', "read_mids[]", $r_mod_value);
-        $r_mod_checkbox->columns = 5;
+        //$r_mod_checkbox->columns = 5;
         $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
         $criteria->add(new Criteria('isactive', 1));
         $r_mod_checkbox->addOptionArray($module_handler->getNameList($criteria));
@@ -154,7 +154,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
                 "read_bids[]",
                 $r_block_value
             );
-            $r_block_checkbox->columns = 5;
+            //$r_block_checkbox->columns = 5;
             $r_block_checkbox->addOptionArray($new_blocks_array);
             $r_block_tray->addElement($r_block_checkbox);
             unset($r_block_checkbox);
