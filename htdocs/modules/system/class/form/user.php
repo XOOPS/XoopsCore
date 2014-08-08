@@ -19,7 +19,7 @@
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class SystemUserForm extends XoopsThemeForm
+class SystemUserForm extends Xoops\Form\ThemeForm
 {
     /**
      * __construct
@@ -82,35 +82,35 @@ class SystemUserForm extends XoopsThemeForm
         //Affichage du formulaire
         parent::__construct($form_title, "form_user", "admin.php", "post", true);
 
-        $this->addElement(new XoopsFormText(XoopsLocale::USER_NAME, "username", 4, 25, $uname_value), true);
-        $this->addElement(new XoopsFormText(XoopsLocale::NAME, "name", 5, 60, $name_value));
-        $email_tray = new XoopsFormElementTray(XoopsLocale::EMAIL, "<br />");
-        $email_text = new XoopsFormText("", "email", 5, 60, $email_value);
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::USER_NAME, "username", 4, 25, $uname_value), true);
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::NAME, "name", 5, 60, $name_value));
+        $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, "<br />");
+        $email_text = new Xoops\Form\Text("", "email", 5, 60, $email_value);
         $email_tray->addElement($email_text, true);
-        $email_cbox = new XoopsFormCheckBox("", "user_viewemail", $email_cbox_value);
+        $email_cbox = new Xoops\Form\Checkbox("", "user_viewemail", $email_cbox_value);
         $email_cbox->addOption(1, XoopsLocale::ALLOW_OTHER_USERS_TO_VIEW_EMAIL);
         $email_tray->addElement($email_cbox);
         $this->addElement($email_tray, true);
-        $this->addElement(new XoopsFormText(XoopsLocale::WEB_URL, "url", 5, 100, $url_value));
-        $this->addElement(new XoopsFormSelectTimezone(XoopsLocale::TIME_ZONE, "timezone_offset", $timezone_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::ICQ, "user_icq", 3, 15, $icq_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::AIM, "user_aim", 3, 18, $aim_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::YIM, "user_yim", 3, 25, $yim_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::MSNM, "user_msnm", 3, 100, $msnm_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::LOCATION, "user_from", 5, 100, $location_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::OCCUPATION, "user_occ", 5, 100, $occ_value));
-        $this->addElement(new XoopsFormText(XoopsLocale::INTEREST, "user_intrest", 5, 150, $interest_value));
-        $sig_tray = new XoopsFormElementTray(XoopsLocale::SIGNATURE, "<br />");
-        $sig_tarea = new XoopsFormTextArea("", "user_sig", $sig_value, 5, 5);
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::WEB_URL, "url", 5, 100, $url_value));
+        $this->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, "timezone_offset", $timezone_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::ICQ, "user_icq", 3, 15, $icq_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::AIM, "user_aim", 3, 18, $aim_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::YIM, "user_yim", 3, 25, $yim_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::MSNM, "user_msnm", 3, 100, $msnm_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::LOCATION, "user_from", 5, 100, $location_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::OCCUPATION, "user_occ", 5, 100, $occ_value));
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::INTEREST, "user_intrest", 5, 150, $interest_value));
+        $sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, "<br />");
+        $sig_tarea = new Xoops\Form\TextArea("", "user_sig", $sig_value, 5, 5);
         $sig_tray->addElement($sig_tarea);
-        $sig_cbox = new XoopsFormCheckBox("", "attachsig", $sig_cbox_value);
+        $sig_cbox = new Xoops\Form\Checkbox("", "attachsig", $sig_cbox_value);
         $sig_cbox->addOption(1, XoopsLocale::ALWAYS_ATTACH_MY_SIGNATURE);
         $sig_tray->addElement($sig_cbox);
         $this->addElement($sig_tray);
-        $this->addElement(new XoopsFormTextArea(XoopsLocale::EXTRA_INFO, "bio", $bio_value, 5, 5));
+        $this->addElement(new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, "bio", $bio_value, 5, 5));
 
         if ($xoops->isActiveModule('userrank')) {
-            $rank_select = new XoopsFormSelect(XoopsLocale::RANK, "rank", $rank_value);
+            $rank_select = new Xoops\Form\Select(XoopsLocale::RANK, "rank", $rank_value);
             $ranklist = XoopsLists::getUserRankList();
             $rank_select->addOption(0, "--------------");
             if (count($ranklist) > 0) {
@@ -118,18 +118,18 @@ class SystemUserForm extends XoopsThemeForm
             }
             $this->addElement($rank_select);
         } else {
-            $this->addElement(new XoopsFormHidden("rank", $rank_value));
+            $this->addElement(new Xoops\Form\Hidden("rank", $rank_value));
         }
         // adding a new user requires password fields
         if (!$form_isedit) {
-            $this->addElement(new XoopsFormPassword(XoopsLocale::PASSWORD, "password", 3, 32), true);
-            $this->addElement(new XoopsFormPassword(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32), true);
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, "password", 3, 32), true);
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32), true);
         } else {
-            $this->addElement(new XoopsFormPassword(XoopsLocale::PASSWORD, "password", 3, 32));
-            $this->addElement(new XoopsFormPassword(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32));
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, "password", 3, 32));
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32));
         }
         $this->addElement(
-            new XoopsFormRadioYN(XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL, 'user_mailok', $mailok_value)
+            new Xoops\Form\RadioYesNo(XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL, 'user_mailok', $mailok_value)
         );
 
         //Groups administration addition XOOPS 2.0.9: Mith
@@ -138,11 +138,11 @@ class SystemUserForm extends XoopsThemeForm
         //If user has admin rights on groups
         if ($gperm_handler->checkRight("system_admin", XOOPS_SYSTEM_GROUP, $xoops->user->getGroups(), 1)) {
             //add group selection
-            $group_select[] = new XoopsFormSelectGroup(XoopsLocale::GROUPS, 'groups', false, $groups, 5, true);
+            $group_select[] = new Xoops\Form\SelectGroup(XoopsLocale::GROUPS, 'groups', false, $groups, 5, true);
         } else {
             //add each user groups
             foreach ($groups as $key => $group) {
-                $group_select[] = new XoopsFormHidden('groups[' . $key . ']', $group);
+                $group_select[] = new Xoops\Form\Hidden('groups[' . $key . ']', $group);
             }
         }
         foreach ($group_select as $group) {
@@ -150,12 +150,12 @@ class SystemUserForm extends XoopsThemeForm
             unset($group);
         }
 
-        $this->addElement(new XoopsFormHidden("fct", "users"));
-        $this->addElement(new XoopsFormHidden("op", "users_save"));
-        $this->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit", 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\Hidden("fct", "users"));
+        $this->addElement(new Xoops\Form\Hidden("op", "users_save"));
+        $this->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
 
         if (!empty($uid_value)) {
-            $this->addElement(new XoopsFormHidden("uid", $uid_value));
+            $this->addElement(new Xoops\Form\Hidden("uid", $uid_value));
         }
     }
 }

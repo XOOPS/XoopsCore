@@ -9,8 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
- * Banners Manager
+ * Blocks Administration
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
@@ -110,11 +113,11 @@ switch ($op) {
         $block_handler = $xoops->getHandlerBlock();
         $modules = $xoops->getHandlerModule()->getObjects(null, true);
 
-        $filterform = new XoopsThemeForm('', 'filterform', 'admin.php', 'get');
-        $filterform->addElement(new XoopsFormHidden('fct', 'blocksadmin'));
-        $filterform->addElement(new XoopsFormHidden('op', 'list'));
-        $filterform->addElement(new XoopsFormHidden('filter', 1));
-        $sel_gen = new XoopsFormSelect(XoopsLocale::MODULES, 'selgen', $selgen);
+        $filterform = new Xoops\Form\ThemeForm('', 'filterform', 'admin.php', 'get');
+        $filterform->addElement(new Xoops\Form\Hidden('fct', 'blocksadmin'));
+        $filterform->addElement(new Xoops\Form\Hidden('op', 'list'));
+        $filterform->addElement(new Xoops\Form\Hidden('filter', 1));
+        $sel_gen = new Xoops\Form\Select(XoopsLocale::MODULES, 'selgen', $selgen);
         $sel_gen->setExtra("onchange='submit()'");
         $sel_gen->addOption(-1, XoopsLocale::ALL_TYPES);
         $sel_gen->addOption(0, SystemLocale::CUSTOM_BLOCK);
@@ -124,7 +127,7 @@ switch ($op) {
         }
         $filterform->addElement($sel_gen);
 
-        $sel_mod = new XoopsFormSelect(XoopsLocale::PAGE, 'selmod', $selmod);
+        $sel_mod = new Xoops\Form\Select(XoopsLocale::PAGE, 'selmod', $selmod);
         $sel_mod->setExtra("onchange='submit()'");
         ksort($display_list);
         $display_list_spec[0] = XoopsLocale::ALL_PAGES;
@@ -137,7 +140,7 @@ switch ($op) {
         $filterform->addElement($sel_mod);
 
         // For selection of group access
-        $sel_grp = new XoopsFormSelect(XoopsLocale::GROUPS, 'selgrp', $selgrp);
+        $sel_grp = new Xoops\Form\Select(XoopsLocale::GROUPS, 'selgrp', $selgrp);
         $sel_grp->setExtra("onchange='submit()'");
         $member_handler = $xoops->getHandlerMember();
         $group_list = $member_handler->getGroupList();
@@ -148,7 +151,7 @@ switch ($op) {
         }
         $filterform->addElement($sel_grp);
 
-        $sel_vis = new XoopsFormSelect(XoopsLocale::VISIBLE, 'selvis', $selvis);
+        $sel_vis = new Xoops\Form\Select(XoopsLocale::VISIBLE, 'selvis', $selvis);
         $sel_vis->setExtra("onchange='submit()'");
         $sel_vis->addOption(-1, XoopsLocale::ALL_TYPES);
         $sel_vis->addOption(0, XoopsLocale::NO);

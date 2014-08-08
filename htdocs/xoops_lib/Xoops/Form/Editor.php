@@ -25,7 +25,7 @@ namespace Xoops\Form;
 class Editor extends TextArea
 {
     /**
-     * @var null|XoopsEditor
+     * @var null|object
      */
     public $editor;
 

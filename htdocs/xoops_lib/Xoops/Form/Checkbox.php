@@ -43,8 +43,7 @@ class CheckBox extends Element
      /**
      * position for this element
      *
-     * @var string
-     * @access private
+     * @var boolean
      */
     private $inline;
 
@@ -109,7 +108,7 @@ class CheckBox extends Element
      *
      * @return array Associative array of value->name pairs
      */
-    public function getOptions($encode = false)
+    public function getOptions($encode = 0)
     {
         if (!$encode) {
             return $this->options;
@@ -145,6 +144,9 @@ class CheckBox extends Element
     {
         $ele_options = $this->getOptions();
         $ele_value = $this->getValue();
+        if (!is_array($ele_value)) {
+            $ele_value = (array) $ele_value;
+        }
         $ele_name = $this->getName();
         $ele_id = $ele_name;
         $ele_title = $this->getTitle();

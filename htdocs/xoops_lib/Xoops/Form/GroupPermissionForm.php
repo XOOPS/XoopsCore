@@ -22,7 +22,7 @@ namespace Xoops\Form;
  * @link      http://xoops.org
  * @since     2.0.0
 */
-class GroupPermmissionForm extends Form
+class GroupPermissionForm extends Form
 {
     /**
      * Module ID

@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * System update functions
  *
@@ -25,7 +28,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * xoops_module_update_system
  *
  * @param XoopsModule &$module
- * 
+ *
  * @return bool
  */
 function xoops_module_update_system(XoopsModule &$module)
