@@ -195,7 +195,7 @@ switch ($op) {
                 $user_viewemail = (isset($_REQUEST['user_viewemail']) && $_REQUEST['user_viewemail'] == 1) ? 1 : 0;
                 $edituser->setVar("user_viewemail", $user_viewemail);
                 $edituser->setVar("user_aim", $_REQUEST['user_aim']);
-                $edituser->setVar("user_msnm", $_REQUEST['user_msnm']);
+                $edituser->setVar("user_yim", $_REQUEST['user_yim']);
                 $edituser->setVar("user_msnm", $_REQUEST['user_msnm']);
                 $attachsig = (isset($_REQUEST['attachsig']) && $_REQUEST['attachsig'] == 1) ? 1 : 0;
                 $edituser->setVar("attachsig", $attachsig);
@@ -274,7 +274,7 @@ switch ($op) {
                     $newuser->setVar("user_from", $_REQUEST['user_from']);
                     $newuser->setVar("user_sig", $_REQUEST['user_sig']);
                     $newuser->setVar("user_aim", $_REQUEST['user_aim']);
-                    $newuser->setVar("user_msnm", $_REQUEST['user_msnm']);
+                    $newuser->setVar("user_yim", $_REQUEST['user_yim']);
                     $newuser->setVar("user_msnm", $_REQUEST['user_msnm']);
                     if ($_REQUEST['pass2'] != "") {
                         if ($_REQUEST['password'] != $_REQUEST['pass2']) {
@@ -400,11 +400,11 @@ switch ($op) {
             $aim_tray = new Xoops\Form\ElementTray(XoopsLocale::AIM, "&nbsp;");
             $aim_tray->addElement($aim_match);
             $aim_tray->addElement($aim_text);
-            $msnm_text = new Xoops\Form\Text("", "user_msnm", 30, 100);
-            $msnm_match = new Xoops\Form\SelectMatchOption("", "user_msnm_match");
-            $msnm_tray = new Xoops\Form\ElementTray(XoopsLocale::YIM, "&nbsp;");
-            $msnm_tray->addElement($msnm_match);
-            $msnm_tray->addElement($msnm_text);
+            $yim_text = new Xoops\Form\Text("", "user_yim", 30, 100);
+            $yim_match = new Xoops\Form\SelectMatchOption("", "user_yim_match");
+            $yim_tray = new Xoops\Form\ElementTray(XoopsLocale::YIM, "&nbsp;");
+            $yim_tray->addElement($yim_match);
+            $yim_tray->addElement($yim_text);
             $msnm_text = new Xoops\Form\Text("", "user_msnm", 30, 100);
             $msnm_match = new Xoops\Form\SelectMatchOption("", "user_msnm_match");
             $msnm_tray = new Xoops\Form\ElementTray(XoopsLocale::MSNM, "&nbsp;");
@@ -448,7 +448,7 @@ switch ($op) {
             $form->addElement($group_select);
             $form->addElement($icq_tray);
             $form->addElement($aim_tray);
-            $form->addElement($msnm_tray);
+            $form->addElement($yim_tray);
             $form->addElement($msnm_tray);
             $form->addElement($url_text);
             $form->addElement($location_text);
@@ -539,12 +539,12 @@ switch ($op) {
                 $requete_search .= 'aim : ' . $value . ' and user_aim_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_msnm', '');
+            $value = Xmf\Request::getString('user_yim', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_msnm_match', XOOPS_MATCH_START);
-                addCriteria($criteria, 'user_msnm', $value, $match);
-                $requete_pagenav .= '&amp;user_msnm=' . htmlspecialchars($value) . '&amp;user_msnm_match=' . $match;
-                $requete_search .= 'msnm : ' . $value . ' and user_msnm_match=' . $match . '<br />';
+                $match = Xmf\Request::getInt('user_yim_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'user_yim', $value, $match);
+                $requete_pagenav .= '&amp;user_yim=' . htmlspecialchars($value) . '&amp;user_yim_match=' . $match;
+                $requete_search .= 'yim : ' . $value . ' and user_yim_match=' . $match . '<br />';
             }
 
             $value = Xmf\Request::getString('user_msnm', '');
@@ -793,7 +793,7 @@ switch ($op) {
                     $users['user_level'] = $user->getVar("level");
                     $users['user_icq'] = $user->getVar("user_icq");
                     $users['user_aim'] = $user->getVar("user_aim");
-                    $users['user_msnm'] = $user->getVar("user_msnm");
+                    $users['user_yim'] = $user->getVar("user_yim");
                     $users['user_msnm'] = $user->getVar("user_msnm");
 
                     $users['posts'] = $user->getVar("posts");
