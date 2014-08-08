@@ -104,7 +104,7 @@ switch ($op) {
             $f_timezone = ($timezone_offset < 0) ? 'GMT ' . $timezone_offset : 'GMT +' . $timezone_offset;
             echo XoopsLocale::TIME_ZONE . ": $f_timezone<br />";
             echo "<form action='register.php' method='post'>";
-            $cpatcha = new XoopsFormCaptcha();
+            $cpatcha = new Xoops\Form\Captcha();
             echo "<br />" . $cpatcha->getCaption() . ": " . $cpatcha->render();
             echo "<input type='hidden' name='uname' value='" . $myts->htmlSpecialChars($uname) . "' />
                   <input type='hidden' name='email' value='" . $myts->htmlSpecialChars($email) . "' />

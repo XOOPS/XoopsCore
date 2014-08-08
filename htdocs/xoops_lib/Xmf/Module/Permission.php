@@ -201,7 +201,7 @@ class Permission extends AbstractHelper
     }
 
     /**
-     * Generate a XoopsFormElement to select groups to grant permission
+     * Generate a \Xoops\Form\Element to select groups to grant permission
      * to a specific gperm_name and gperm_item. Field will be preset
      * with existing permissions.
      *
@@ -213,7 +213,7 @@ class Permission extends AbstractHelper
      * @param int    $size         size of list
      * @param bool   $multiple     true to allow multiple selections
      *
-     * @return \XoopsFormSelectGroup XoopsFormSelectGroup
+     * @return \Xoops\Form\SelectGroup
      */
     public function getGroupSelectFormForItem(
         $gperm_name,
@@ -224,14 +224,11 @@ class Permission extends AbstractHelper
         $size = 5,
         $multiple = true
     ) {
-        if (!class_exists('XoopsFormSelectGroup', true)) {
-            Loader::loadFile(XOOPS_ROOT_PATH.'/class/xoopsformloader.php');
-        }
         if (empty($name)) {
             $name = $this->defaultFieldName($gperm_name, $gperm_itemid);
         }
         $value = $this->getGroupsForItem($gperm_name, $gperm_itemid);
-        $element = new \XoopsFormSelectGroup(
+        $element = new \Xoops\Form\SelectGroup(
             $caption,
             $name,
             $include_anon,
@@ -245,13 +242,13 @@ class Permission extends AbstractHelper
     }
 
     /**
-     * Generate a default name for a XoopsFormElement based on
+     * Generate a default name for a Xoops\Form\SelectGroup based on
      * module, gperm_name and gperm_itemid
      *
      * @param string $gperm_name   name of the permission to test
      * @param int    $gperm_itemid id of the object to check
      *
-     * @return string XoopsFormSelectGroup
+     * @return string
      */
     public function defaultFieldName($gperm_name, $gperm_itemid)
     {

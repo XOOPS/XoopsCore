@@ -15,8 +15,8 @@ class XoopsEditorTest extends MY_UnitTestCase
 		$class = $this->myclass;
 		$instance = new $class();
 		$this->assertInstanceOf($class, $instance);
-		$this->assertInstanceOf('XoopsFormTextArea', $instance);
-		
+		$this->assertInstanceOf('Xoops\Form\TextArea', $instance);
+
 		$items = array('isEnabled', 'configs', 'rootPath');
 		foreach ($items as $item) {
 			$reflection = new ReflectionProperty($this->myclass, $item);

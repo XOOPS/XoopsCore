@@ -195,21 +195,21 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * Get {@link XoopsForm} for setting prune criteria
+     * Get form for setting prune criteria
      *
-     * @return XoopsThemeForm
+     * @return Xoops\Form\ThemeForm
      **/
     public function getPruneForm()
     {
-        $form = new XoopsThemeForm(_PM_AM_PRUNE, 'form', 'prune.php', 'post', true);
+        $form = new Xoops\Form\ThemeForm(_PM_AM_PRUNE, 'form', 'prune.php', 'post', true);
 
-        $form->addElement(new XoopsFormDateTime(_PM_AM_PRUNEAFTER, 'after'));
-        $form->addElement(new XoopsFormDateTime(_PM_AM_PRUNEBEFORE, 'before'));
-        $form->addElement(new XoopsFormRadioYN(_PM_AM_ONLYREADMESSAGES, 'onlyread', 1));
-        $form->addElement(new XoopsFormRadioYN(_PM_AM_INCLUDESAVE, 'includesave', 0));
-        $form->addElement(new XoopsFormRadioYN(_PM_AM_NOTIFYUSERS, 'notifyusers', 0));
-        $form->addElement(new XoopsFormHidden('op', 'prune'));
-        $form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+        $form->addElement(new Xoops\Form\DateTime(_PM_AM_PRUNEAFTER, 'after'));
+        $form->addElement(new Xoops\Form\DateTime(_PM_AM_PRUNEBEFORE, 'before'));
+        $form->addElement(new Xoops\Form\RadioYesNo(_PM_AM_ONLYREADMESSAGES, 'onlyread', 1));
+        $form->addElement(new Xoops\Form\RadioYesNo(_PM_AM_INCLUDESAVE, 'includesave', 0));
+        $form->addElement(new Xoops\Form\RadioYesNo(_PM_AM_NOTIFYUSERS, 'notifyusers', 0));
+        $form->addElement(new Xoops\Form\Hidden('op', 'prune'));
+        $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
 
         return $form;
     }

@@ -116,47 +116,47 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         }
 
         $tpl = new XoopsTpl();
-        $form = new XoopsThemeForm('', 'pmform', 'pmlite.php', 'post', true);
+        $form = new Xoops\Form\ThemeForm('', 'pmform', 'pmlite.php', 'post', true);
 
         if ($reply == 1) {
             $subject = $pm->getVar('subject', 'E');
             if (!preg_match("/^" . XoopsLocale::C_RE . "/i", $subject)) {
                 $subject = XoopsLocale::C_RE . ' ' . $subject;
             }
-            $form->addElement(new XoopsFormLabel(XoopsLocale::C_TO, $pm_uname));
-            $form->addElement(new XoopsFormHidden('to_userid', $pm->getVar("from_userid")));
+            $form->addElement(new Xoops\Form\Label(XoopsLocale::C_TO, $pm_uname));
+            $form->addElement(new Xoops\Form\Hidden('to_userid', $pm->getVar("from_userid")));
         } else {
             if ($sendmod == 1) {
-                $form->addElement(new XoopsFormLabel(XoopsLocale::C_TO, XoopsUser::getUnameFromId($_POST["to_userid"])));
-                $form->addElement(new XoopsFormHidden('to_userid', $_POST["to_userid"]));
+                $form->addElement(new Xoops\Form\Label(XoopsLocale::C_TO, XoopsUser::getUnameFromId($_POST["to_userid"])));
+                $form->addElement(new Xoops\Form\Hidden('to_userid', $_POST["to_userid"]));
                 $subject = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['subject']));
                 $message = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['message']));
             } else {
                 if ($send2 == 1) {
-                    $form->addElement(new XoopsFormLabel(XoopsLocale::C_TO, XoopsUser::getUnameFromId($to_userid, false)));
-                    $form->addElement(new XoopsFormHidden('to_userid', $to_userid));
+                    $form->addElement(new Xoops\Form\Label(XoopsLocale::C_TO, XoopsUser::getUnameFromId($to_userid, false)));
+                    $form->addElement(new Xoops\Form\Hidden('to_userid', $to_userid));
                 } else {
-                    $form->addElement(new XoopsFormSelectUser(XoopsLocale::C_TO, 'to_userid'));
+                    $form->addElement(new Xoops\Form\SelectUser(XoopsLocale::C_TO, 'to_userid'));
                 }
                 $subject = "";
                 $message = "";
             }
         }
-        $form->addElement(new XoopsFormText(XoopsLocale::SUBJECT, 'subject', 4, 100, $subject), true);
+        $form->addElement(new Xoops\Form\Text(XoopsLocale::SUBJECT, 'subject', 4, 100, $subject), true);
 
-        $icons = new XoopsFormRadio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
+        $icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
         $subject_icons = XoopsLists::getSubjectsList();
         foreach (array_keys($subject_icons) as $i) {
             $icons->addOption($i, "<img src='" . $xoops->url("images/subject/") . $i . "' alt='" . $i . "' />");
         }
         $form->addElement($icons, false);
-        $form->addElement(new XoopsFormDhtmlTextArea(XoopsLocale::MESSAGE, 'message', $message, 8, 37), true);
-        $form->addElement(new XoopsFormHidden('op', 'submit'));
+        $form->addElement(new Xoops\Form\DhtmlTextArea(XoopsLocale::MESSAGE, 'message', $message, 8, 37), true);
+        $form->addElement(new Xoops\Form\Hidden('op', 'submit'));
 
-        $buttons = new XoopsFormElementTray('');
-        $buttons ->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
-        $buttons ->addElement(new XoopsFormButton('', 'reset', XoopsLocale::A_CLEAR, 'reset'));
-        $cancel_send = new XoopsFormButton('', 'cancel', XoopsLocale::CANCEL_SEND, 'button');
+        $buttons = new Xoops\Form\ElementTray('');
+        $buttons ->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+        $buttons ->addElement(new Xoops\Form\Button('', 'reset', XoopsLocale::A_CLEAR, 'reset'));
+        $cancel_send = new Xoops\Form\Button('', 'cancel', XoopsLocale::CANCEL_SEND, 'button');
         $cancel_send->setExtra("onclick='javascript:window.close();'");
         $buttons ->addElement($cancel_send);
         $form->addElement($buttons);

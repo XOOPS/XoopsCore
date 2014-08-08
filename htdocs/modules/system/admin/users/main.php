@@ -523,11 +523,11 @@ switch ($op) {
                 $requete_search .= 'url : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getInt('user_icq', 0);
+            $value = (int) Xmf\Request::getInt('user_icq', 0);
             if (!empty($value)) {
                 $match = Xmf\Request::getInt('user_icq_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_icq', (string) $value, $match);
-                $requete_pagenav .= '&amp;user_icq=' . htmlspecialchars($value) . '&amp;user_icq_match=' . $match;
+                $requete_pagenav .= '&amp;user_icq=' . $value . '&amp;user_icq_match=' . $match;
                 $requete_search .= 'icq : ' . $value . ' and user_icq_match=' . $match . '<br />';
             }
 
@@ -576,7 +576,7 @@ switch ($op) {
                 $requete_search .= 'location : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getInt('user_lastlog_more', 0);
+            $value = (int) Xmf\Request::getInt('user_lastlog_more', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -586,7 +586,7 @@ switch ($op) {
                 }
             }
 
-            $value = Xmf\Request::getInt('user_lastlog_less', 0);
+            $value = (int) Xmf\Request::getInt('user_lastlog_less', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -596,7 +596,7 @@ switch ($op) {
                 }
             }
 
-            $value = Xmf\Request::getInt('user_reg_more', 0);
+            $value = (int) Xmf\Request::getInt('user_reg_more', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -606,7 +606,7 @@ switch ($op) {
                 }
             }
 
-            $value = Xmf\Request::getInt('user_reg_less', 0);
+            $value = (int) Xmf\Request::getInt('user_reg_less', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -616,14 +616,14 @@ switch ($op) {
                 }
             }
 
-            $value = Xmf\Request::getInt('user_posts_more', 0);
+            $value = (int) Xmf\Request::getInt('user_posts_more', 0);
             if (!empty($value)) {
                 $criteria->add(new Criteria('posts', $value, '>'));
                 $requete_pagenav .= '&amp;user_posts_more=' . $value;
                 $requete_search .= 'posts plus de : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getInt('user_posts_less', 0);
+            $value = (int) Xmf\Request::getInt('user_posts_less', 0);
             if (!empty($value)) {
                 $criteria->add(new Criteria('posts', $value, '<'));
                 $requete_pagenav .= '&amp;user_posts_less=' . $value;
@@ -651,13 +651,13 @@ switch ($op) {
 
             //$groups = empty($_REQUEST['selgroups']) ? array() : array_map("intval", $_REQUEST['selgroups']);
             $validsort = array("uname", "email", "last_login", "user_regdate", "posts");
-            $sort = Xmf\Request::getWord('user_sort', 'user_regdate');
+            $sort = (string) Xmf\Request::getWord('user_sort', 'user_regdate');
             $sort = (!in_array($sort, $validsort)) ? "user_regdate" : $sort;
             $requete_pagenav .= '&amp;user_sort=' . $sort;
             $requete_search .= 'order by : ' . $sort . '<br />';
             $criteria->setSort($sort);
 
-            $order = Xmf\Request::getWord('user_type', 'DESC');
+            $order = (string) Xmf\Request::getWord('user_type', 'DESC');
             $requete_pagenav .= '&amp;user_order=' . $order;
             $requete_search .= 'tris : ' . $order . '<br />';
             $criteria->setOrder($order);

@@ -19,10 +19,7 @@
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id: $
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class BannersBannerForm extends XoopsThemeForm
+class BannersBannerForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param BannersBanner|XoopsObject $obj
@@ -39,10 +36,11 @@ class BannersBannerForm extends XoopsThemeForm
             if (substr_count($obj->getVar('banner_imageurl'), XOOPS_UPLOAD_URL . '/banners/') == false) {
                 $blank_img = 'blank.gif';
             } else {
-                $namefile = substr_replace($obj->getVar('banner_imageurl'), '', 0, strlen(XOOPS_UPLOAD_URL . '/banners/'));
+                $namefile =
+                    substr_replace($obj->getVar('banner_imageurl'), '', 0, strlen(XOOPS_UPLOAD_URL . '/banners/'));
                 $pathfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
-                if (is_file($pathfile)){
-                    $blank_img = str_replace( XOOPS_UPLOAD_URL . '/banners/', '', $obj->getVar('banner_imageurl', 'e') );
+                if (is_file($pathfile)) {
+                    $blank_img = str_replace(XOOPS_UPLOAD_URL . '/banners/', '', $obj->getVar('banner_imageurl', 'e'));
                 } else {
                     $blank_img = 'blank.gif';
                 }
@@ -50,46 +48,58 @@ class BannersBannerForm extends XoopsThemeForm
             $html_banner = $obj->getVar('banner_htmlbanner');
         }
 
-        $title = $obj->isNew() ? sprintf( _AM_BANNERS_BANNERS_ADD ) : sprintf( _AM_BANNERS_BANNERS_EDIT );
+        $title = $obj->isNew() ? sprintf(_AM_BANNERS_BANNERS_ADD) : sprintf(_AM_BANNERS_BANNERS_EDIT);
 
         parent::__construct($title, 'form', 'banners.php', 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
         $client_Handler = $helper->getHandlerBannerclient();
-        $client_select = new XoopsFormSelect( _AM_BANNERS_CLIENTS_NAME, 'cid', $obj->getVar('banner_cid') );
+        $client_select = new Xoops\Form\Select(_AM_BANNERS_CLIENTS_NAME, 'cid', $obj->getVar('banner_cid'));
         $client_select->addOptionArray($client_Handler->getList());
         $this->addElement($client_select, true);
 
-        $imptotal = new XoopsFormText( _AM_BANNERS_BANNERS_IMPRESSIONSP, 'imptotal', 1, 255, $obj->getVar('banner_imptotal') );
+        $imptotal =
+            new Xoops\Form\Text(_AM_BANNERS_BANNERS_IMPRESSIONSP, 'imptotal', 1, 255, $obj->getVar('banner_imptotal'));
         //$imptotal->setPattern('^[0-9]*[0-9]+$|^[0-9]+[0-9]*$', _AM_BANNERS_BANNERS_IMPRESSIONSP_PATTERN);
-        $this->addElement($imptotal, true );
+        $this->addElement($imptotal, true);
 
-        $imgtray_img = new XoopsFormElementTray( _AM_BANNERS_BANNERS_IMAGE, '<br /><br />' );
-        $imgtray_img->addElement(new XoopsFormText( _AM_BANNERS_BANNERS_IMGURL, 'imageurl', 8, 255, $obj->getVar('banner_imageurl')));
-        $imgpath_img = sprintf( _AM_BANNERS_BANNERS_IMAGE_PATH, XOOPS_UPLOAD_PATH . '/banners/' );
-        $imageselect_img = new XoopsFormSelect( $imgpath_img, 'banners_imageurl', $blank_img );
-        $image_array_img = XoopsLists::getImgListAsArray( XOOPS_UPLOAD_PATH . '/banners' );
+        $imgtray_img = new Xoops\Form\ElementTray(_AM_BANNERS_BANNERS_IMAGE, '<br /><br />');
+        $imgtray_img->addElement(
+            new Xoops\Form\Text(_AM_BANNERS_BANNERS_IMGURL, 'imageurl', 8, 255, $obj->getVar('banner_imageurl'))
+        );
+        $imgpath_img = sprintf(_AM_BANNERS_BANNERS_IMAGE_PATH, XOOPS_UPLOAD_PATH . '/banners/');
+        $imageselect_img = new Xoops\Form\Select($imgpath_img, 'banners_imageurl', $blank_img);
+        $image_array_img = XoopsLists::getImgListAsArray(XOOPS_UPLOAD_PATH . '/banners');
         $imageselect_img->addOption("$blank_img", $blank_img);
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption("$image_img", $image_img);
         }
-        $imageselect_img->setExtra( 'onchange="showImgSelected(\'xo-banners-img\', \'banners_imageurl\', \'banners\', \'\', \'' . XOOPS_UPLOAD_URL . '\' )"' );
-        $imgtray_img->addElement( $imageselect_img, false);
-        $imgtray_img->addElement( new XoopsFormLabel( '', "<br /><img src='" . XOOPS_UPLOAD_URL . "/banners/" . $blank_img . "' name='image_img' id='xo-banners-img' alt='' />" ) );
-        $fileseltray_img = new XoopsFormElementTray('<br />','<br /><br />');
-        $fileseltray_img->addElement(new XoopsFormFile(_AM_BANNERS_BANNERS_UPLOADS , 'banners_imageurl', 500000),false);
-        $fileseltray_img->addElement(new XoopsFormLabel(''), false);
+        $imageselect_img->setExtra(
+            'onchange="showImgSelected(\'xo-banners-img\', \'banners_imageurl\', \'banners\', \'\', \''
+            . XOOPS_UPLOAD_URL . '\' )"'
+        );
+        $imgtray_img->addElement($imageselect_img, false);
+        $imgtray_img->addElement(
+            new Xoops\Form\Label(
+                '',
+                "<br /><img src='" . XOOPS_UPLOAD_URL . "/banners/" . $blank_img
+                . "' name='image_img' id='xo-banners-img' alt='' />"
+            )
+        );
+        $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
+        $fileseltray_img->addElement(new Xoops\Form\File(_AM_BANNERS_BANNERS_UPLOADS, 'banners_imageurl'), false);
+        $fileseltray_img->addElement(new Xoops\Form\Label(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $this->addElement($imgtray_img);
 
-        $this->addElement(new XoopsFormText( _AM_BANNERS_BANNERS_CLICKURL, 'clickurl', 5, 255, $obj->getVar('banner_clickurl') ), false );
+        $this->addElement(new Xoops\Form\Text(_AM_BANNERS_BANNERS_CLICKURL, 'clickurl', 5, 255, $obj->getVar('banner_clickurl')), false);
 
-        $this->addElement(new XoopsFormRadioYN( _AM_BANNERS_BANNERS_USEHTML, 'htmlbanner', $html_banner) );
+        $this->addElement(new Xoops\Form\RadioYesNo(_AM_BANNERS_BANNERS_USEHTML, 'htmlbanner', $html_banner));
 
-        $this->addElement(new xoopsFormTextArea( _AM_BANNERS_BANNERS_CODEHTML, 'htmlcode', $obj->getVar('banner_htmlcode'), 5, 5), false );
+        $this->addElement(new Xoops\Form\TextArea(_AM_BANNERS_BANNERS_CODEHTML, 'htmlcode', $obj->getVar('banner_htmlcode'), 5, 5), false);
         if (!$obj->isNew()) {
-            $this->addElement(new XoopsFormHidden( 'bid', $obj->getVar('banner_bid') ) );
+            $this->addElement(new Xoops\Form\Hidden('bid', $obj->getVar('banner_bid')));
         }
-        $this->addElement(new XoopsFormHidden('op', 'save' ) );
-        $this->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit' ) );
+        $this->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

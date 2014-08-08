@@ -17,7 +17,7 @@
  * @version         $Id$
  */
 
-class UserconfigsModulesForm extends XoopsThemeForm
+class UserconfigsModulesForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -40,14 +40,14 @@ class UserconfigsModulesForm extends XoopsThemeForm
         if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             parent::__construct('', 'pref_form', 'index.php', 'post', true, 'inline');
 
-            $ele = new XoopsFormSelect(_MD_USERCONFIGS_CHOOSE_MODULE, 'mid', $mid);
+            $ele = new Xoops\Form\Select(_MD_USERCONFIGS_CHOOSE_MODULE, 'mid', $mid);
             foreach (array_keys($plugins) as $dirname) {
                 $mHelper = $xoops->getModuleHelper($dirname);
                 $ele->addOption($mHelper->getModule()->getVar('mid'), $mHelper->getModule()->getVar('name'));
             }
             $this->addElement($ele);
-            $this->addElement(new XoopsFormHidden('op', 'showmod'));
-            $this->addElement(new XoopsFormButton('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
+            $this->addElement(new Xoops\Form\Hidden('op', 'showmod'));
+            $this->addElement(new Xoops\Form\Button('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
         }
     }
 }
