@@ -37,8 +37,8 @@ class SmiliesSmiliesForm extends Xoops\Form\ThemeForm
 
         parent::__construct($title, 'form', $xoops->getEnv('PHP_SELF'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
-        $this->addElement(new Xoops\Form\Text(_AM_SMILIES_CODE, 'smiley_code', 2, 25, $obj->getVar('smiley_code'), '', '^Code(.*)$', 'Code', true), true);
-        $this->addElement(new Xoops\Form\Text(_AM_SMILIES_DESCRIPTION, 'smiley_emotion', 4, 50, $obj->getVar('smiley_emotion'), '', '', '', true), true);
+        $this->addElement(new Xoops\Form\Text(_AM_SMILIES_CODE, 'smiley_code', 2, 25, $obj->getVar('smiley_code')), true);
+        $this->addElement(new Xoops\Form\Text(_AM_SMILIES_DESCRIPTION, 'smiley_emotion', 4, 50, $obj->getVar('smiley_emotion')), true);
 
         $imgtray_img = new Xoops\Form\ElementTray(_AM_SMILIES_FILE, '<br />');
         $imgpath_img = sprintf(_AM_SMILIES_IMAGE_PATH, XOOPS_UPLOAD_PATH . '/smilies/');

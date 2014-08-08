@@ -62,7 +62,7 @@ $select->setDescription('Description Select');
 $select->setClass('span2');
 $form->addElement($select, true);
 
-$file = new Xoops\Form\File('File', 'file_identifier', 500000);
+$file = new Xoops\Form\File('File', 'file_identifier');
 $file->setDescription('Description File');
 $form->addElement($file, true);
 

@@ -82,7 +82,7 @@ $color = new Xoops\Form\ColorPicker('Color', 'color');
 $color->setDescription('Description Color');
 $form->addElement($color, true);
 
-$file = new Xoops\Form\File('File', 'file', 500000);
+$file = new Xoops\Form\File('File', 'file');
 $file->setDescription('Description File');
 $form->addElement($file, true);
 
@@ -101,7 +101,7 @@ $select_optgroup->setDescription('Description Select Optgroup');
 $select_optgroup->setClass('span3');
 $form->addElement($select_optgroup, true);
 
-$date = new Xoops\Form\DateSelect('Date', 'date', 2, '', 'Date...');
+$date = new Xoops\Form\DateSelect('Date', 'date', 2, 0);
 $date->setDescription('Description Date');
 $form->addElement($date, true);
 

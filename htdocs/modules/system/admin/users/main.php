@@ -523,11 +523,11 @@ switch ($op) {
                 $requete_search .= 'url : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getInt('user_icq', 0);
+            $value = (int) Xmf\Request::getInt('user_icq', 0);
             if (!empty($value)) {
                 $match = Xmf\Request::getInt('user_icq_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_icq', (string) $value, $match);
-                $requete_pagenav .= '&amp;user_icq=' . htmlspecialchars($value) . '&amp;user_icq_match=' . $match;
+                $requete_pagenav .= '&amp;user_icq=' . $value . '&amp;user_icq_match=' . $match;
                 $requete_search .= 'icq : ' . $value . ' and user_icq_match=' . $match . '<br />';
             }
 

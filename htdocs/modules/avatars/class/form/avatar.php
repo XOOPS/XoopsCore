@@ -52,7 +52,8 @@ class AvatarsAvatarForm extends Xoops\Form\ThemeForm
         $imgtray_img->addElement($imageselect_img, false);
         $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . XOOPS_UPLOAD_URL . "/avatars/" . $blank_img . "' name='image_img' id='xo-avatar-img' alt='' />"));
         $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
-        $fileseltray_img->addElement(new Xoops\Form\File(XoopsLocale::A_UPLOAD, 'avatar_file', $xoops->getModuleConfig('avatars_imagefilesize')), false);
+        $fileseltray_img->addElement(new Xoops\Form\File(XoopsLocale::A_UPLOAD, 'avatar_file'), false);
+        // , $xoops->getModuleConfig('avatars_imagefilesize')
         $imgtray_img->addElement($fileseltray_img);
         $this->addElement($imgtray_img);
         // Weight

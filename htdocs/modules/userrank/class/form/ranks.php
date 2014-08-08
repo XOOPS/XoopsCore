@@ -61,7 +61,7 @@ class UserrankRanksForm extends Xoops\Form\ThemeForm
         $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . XOOPS_UPLOAD_URL . "/ranks/" . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
 
         $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
-        $fileseltray_img->addElement(new Xoops\Form\File(_AM_USERRANK_UPLOAD, 'rank_image', 500000), false);
+        $fileseltray_img->addElement(new Xoops\Form\File(_AM_USERRANK_UPLOAD, 'rank_image'), false);
         $fileseltray_img->addElement(new Xoops\Form\Label(''), false);
         $imgtray_img->addElement($fileseltray_img);
         $this->addElement($imgtray_img);

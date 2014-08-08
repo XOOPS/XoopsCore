@@ -233,7 +233,7 @@ function createConfigform($config)
 /**
  * @param XoopsConfigItem $config
  *
- * @return XoopsThemeForm[]
+ * @return Xoops\Form\ThemeForm[]
  */
 function createThemeform(XoopsConfigItem $config)
 {
