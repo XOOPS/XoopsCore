@@ -41,18 +41,18 @@ class BlockForm extends Form
      */
     public function render()
     {
-        $ret = '';
+        $ret = '<div>';
         /* @var $ele Element */
         foreach ($this->getElements() as $ele) {
             if (!$ele->isHidden()) {
-                $ret .= "<strong>" . $ele->getCaption()."</strong>";
-                $ret .= "&nbsp;&nbsp;" . $ele->render() . "";
-                $ret .= "&nbsp;&nbsp;<i>" . $ele->getDescription() . "</i><br /><br />";
+                $ret .= '<div class="row"><div class="span2"><strong>' . $ele->getCaption().'</strong></div>';
+                $ret .= '<div class="span4">' . $ele->render() . '<br />';
+                $ret .= '<em>' . $ele->getDescription() . '</em><br /></div></div>';
             } else {
                 $ret .= $ele->render();
             }
         }
-        $ret .= '';
+        $ret .= '</div>';
         return $ret;
     }
 }
