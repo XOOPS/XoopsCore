@@ -106,7 +106,7 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
                 $options = $obj->getVar('field_options');
                 if (count($options) > 0) {
                     $remove_options = new Xoops\Form\Checkbox(_PROFILE_AM_REMOVEOPTIONS, 'removeOptions');
-                    $remove_options->columns = 3;
+                    //$remove_options->columns = 3;
                     asort($options);
                     foreach (array_keys($options) as $key) {
                         $options[$key] .= "[{$key}]";
@@ -229,6 +229,6 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
             $this->addElement($regstep_select);
         }
         $this->addElement(new Xoops\Form\Hidden('op', 'save'));
-        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit', 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

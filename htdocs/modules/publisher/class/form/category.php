@@ -117,8 +117,8 @@ class PublisherCategoryForm extends Xoops\Form\ThemeForm
         $this->addElement($image_tray);
 
         // IMAGE UPLOAD
-        $max_size = 5000000;
-        $file_box = new Xoops\Form\File(_AM_PUBLISHER_IMAGE_UPLOAD, "image_file", $max_size);
+        //$max_size = 5000000;
+        $file_box = new Xoops\Form\File(_AM_PUBLISHER_IMAGE_UPLOAD, "image_file");
         $file_box->setExtra("size ='45'");
         $file_box->setDescription(_AM_PUBLISHER_IMAGE_UPLOAD_DSC);
         $this->addElement($file_box);

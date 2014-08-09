@@ -42,8 +42,8 @@ switch ($op) {
         $form->addElement(new Xoops\Form\SelectUser(_PROFILE_AM_SELECTUSER, 'id'));
         $form->addElement(new Xoops\Form\Hidden('op', 'editordelete'));
         $button_tray = new Xoops\Form\ElementTray('');
-        $button_tray->addElement(new Xoops\Form\Button('', 'edit', XoopsLocale::A_EDIT, 'submit', 'btn primary'));
-        $button_tray->addElement(new Xoops\Form\Button('', 'delete', XoopsLocale::A_DELETE, 'submit', 'btn danger'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'edit', XoopsLocale::A_EDIT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'delete', XoopsLocale::A_DELETE, 'submit'));
         $form->addElement($button_tray);
         $form->display();
         /* fallthrough */

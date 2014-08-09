@@ -247,6 +247,6 @@ function profile_getUserForm(XoopsUser &$user, ProfileProfile $profile = null, $
     }
 
     $form->addElement(new Xoops\Form\Hidden('uid', $user->getVar('uid')));
-    $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::SAVE_CHANGES, 'submit', 'btn primary'));
+    $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::SAVE_CHANGES, 'submit'));
     return $form;
 }
