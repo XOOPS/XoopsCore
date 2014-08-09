@@ -18,7 +18,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class XlanguageTinymceForm extends XoopsSimpleForm
+class XlanguageTinymceForm extends Xoops\Form\SimpleForm
 {
     /**
      * @param null $obj
@@ -29,30 +29,30 @@ class XlanguageTinymceForm extends XoopsSimpleForm
 
         parent::__construct('', 'xlanguage_form', $xoops->getEnv('PHP_SELF'), 'post', true, 'horizontal');
 
-        $lang_tray = new XoopsFormSelect(_XLANGUAGE_TINYMCE_SUBTITLE, 'select_language');
+        $lang_tray = new Xoops\Form\Select(_XLANGUAGE_TINYMCE_SUBTITLE, 'select_language');
         $lang_tray->addOption('', _XLANGUAGE_TINYMCE_SELECT);
-        foreach($xlanguage as $k => $v) {
+        foreach ($xlanguage as $k => $v) {
             $lang_tray->addOption($v['xlanguage_code'], $v['xlanguage_description']);
         }
         $this->addElement($lang_tray, true);
 
-        $text_tray = new XoopsFormTextArea('', 'text_language', '', 7, 7);
+        $text_tray = new Xoops\Form\TextArea('', 'text_language', '', 7, 7);
         $text_tray->setExtra('onkeyup="Xoops_xlanguageDialog.onkeyupMLC(this);"');
         $this->addElement($text_tray);
 
-        $this->addElement(new XoopsFormRaw('<div id="text_language_msg"><script type="text/javascript">Xoops_xlanguageDialog.onkeyupMLC(this);</script></div>'));
+        $this->addElement(new Xoops\Form\Raw('<div id="text_language_msg"><script type="text/javascript">Xoops_xlanguageDialog.onkeyupMLC(this);</script></div>'));
 
         /**
          * Buttons
          */
-        $button_tray = new XoopsFormElementTray('', '');
+        $button_tray = new Xoops\Form\ElementTray('', '');
 
-        $button = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'insert');
+        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'insert');
         $button->setExtra('onclick="Xoops_xlanguageDialog.insertMLC();return false;"');
         $button->setClass('btn btn-success');
         $button_tray->addElement($button);
 
-        $button_2 = new XoopsFormButton('', 'button', XoopsLocale::A_CLOSE, 'button');
+        $button_2 = new Xoops\Form\Button('', 'button', XoopsLocale::A_CLOSE, 'button');
         $button_2->setExtra('onclick="tinyMCEPopup.close();"');
         $button_2->setClass('btn btn-danger');
         $button_tray->addElement($button_2);

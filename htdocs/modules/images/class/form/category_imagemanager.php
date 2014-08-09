@@ -18,13 +18,12 @@
  * @version         $Id$
  */
 
-class ImagesCategory_imagemanagerForm extends XoopsThemeForm
+class ImagesCategory_imagemanagerForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param Array
-     *
-     *        'obj'     => ImagesCategory|XoopsObject $obj
-     *        'target'  => textarea id
+     * @param array $param array of parameters with these keys:
+     *                      'obj'     => ImagesCategory|XoopsObject $obj
+     *                      'target'  => textarea id
      */
     public function __construct($param)
     {
@@ -35,7 +34,7 @@ class ImagesCategory_imagemanagerForm extends XoopsThemeForm
         $categories = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_read');
 
         parent::__construct('', '', $xoops->getEnv('PHP_SELF'), 'post', false, 'inline');
-        $select = new XoopsFormSelect('', 'imgcat_id', $imgcat_id);
+        $select = new Xoops\Form\Select('', 'imgcat_id', $imgcat_id);
         $select->addOption(0, _AM_IMAGES_CAT_SELECT);
         $select->addOptionArray($categories);
         if (isset($target)) {
@@ -46,13 +45,13 @@ class ImagesCategory_imagemanagerForm extends XoopsThemeForm
         $this->addElement($select);
 
         if (isset($target)) {
-            $this->addElement(new XoopsFormHidden('target', $target));
+            $this->addElement(new Xoops\Form\Hidden('target', $target));
         }
 
         $write = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_write');
         if ($imgcat_id > 0 && array_key_exists($imgcat_id, $write)) {
-            $this->addElement(new XoopsFormHidden('op', 'upload'));
-            $button = new XoopsFormButton('', 'submit', _IMAGES_ADD, 'submit');
+            $this->addElement(new Xoops\Form\Hidden('op', 'upload'));
+            $button = new Xoops\Form\Button('', 'submit', _IMAGES_ADD, 'submit');
             $button->setClass('btn btn-success floatright');
             $this->addElement($button);
         }

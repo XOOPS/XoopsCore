@@ -30,7 +30,9 @@ function publisher_category_items_sel_show($options)
 
     $categories = $publisher->getCategoryHandler()->getCategories(0, 0, -1);
 
-    if (count($categories) == 0) return $block;
+    if (count($categories) == 0) {
+        return $block;
+    }
 
     $selectedcatids = explode(',', $options[0]);
     $sort = $options[1];
@@ -42,13 +44,17 @@ function publisher_category_items_sel_show($options)
     $block['categories'] = array();
     /* @var $catObj PublisherCategory */
     foreach ($categories as $catID => $catObj) {
-        if (!in_array(0, $selectedcatids) && !in_array($catID, $selectedcatids)) continue;
+        if (!in_array(0, $selectedcatids) && !in_array($catID, $selectedcatids)) {
+            continue;
+        }
 
         $criteria = new Criteria('categoryid', $catID);
         $items = $publisher->getItemHandler()->getItems($limit, $start, array(_PUBLISHER_STATUS_PUBLISHED), -1, $sort, $order, '', true, $criteria, true);
         unset($criteria);
 
-        if (count($items) == 0) continue;
+        if (count($items) == 0) {
+            continue;
+        }
 
         $item['title'] = $catObj->getVar('name');
         $item['itemurl'] = 'none';
@@ -65,23 +71,23 @@ function publisher_category_items_sel_show($options)
 
     unset($items, $categories);
 
-    if (count($block['categories']) == 0) return $block;
+    //if (count($block['categories']) == 0) return $block;
     return $block;
 }
 
 function publisher_category_items_sel_edit($options)
 {
-    $form = new PublisherBlockForm();
+    $form = new Xoops\Form\BlockForm();
 
-    $catEle = new XoopsFormLabel(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0]), 'options[0]');
-    $orderEle = new XoopsFormSelect(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
+    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0]), 'options[0]');
+    $orderEle = new Xoops\Form\Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
     $orderEle->addOptionArray(array(
         'datesub' => _MB_PUBLISHER_DATE,
         'counter' => _MB_PUBLISHER_HITS,
         'weight'  => _MB_PUBLISHER_WEIGHT,
     ));
-    $dispEle = new XoopsFormText(_MB_PUBLISHER_DISP, 'options[2]', 10, 255, $options[2]);
-    $charsEle = new XoopsFormText(_MB_PUBLISHER_CHARS, 'options[3]', 10, 255, $options[3]);
+    $dispEle = new Xoops\Form\Text(_MB_PUBLISHER_DISP, 'options[2]', 2, 255, $options[2]);
+    $charsEle = new Xoops\Form\Text(_MB_PUBLISHER_CHARS, 'options[3]', 2, 255, $options[3]);
 
     $form->addElement($catEle);
     $form->addElement($orderEle);
