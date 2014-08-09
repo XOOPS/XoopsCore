@@ -32,8 +32,8 @@ function publisher_date_to_date_show($options)
     $block = array();
 
     $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('datesub',  strtotime($options[0]), '>'));
-    $criteria->add(new Criteria('datesub',  strtotime($options[1]), '<'));
+    $criteria->add(new Criteria('datesub', strtotime($options[0]), '>'));
+    $criteria->add(new Criteria('datesub', strtotime($options[1]), '<'));
     $criteria->setSort('datesub');
     $criteria->setOrder('DESC');
 
@@ -73,11 +73,12 @@ function publisher_date_to_date_show($options)
  */
 function publisher_date_to_date_edit($options)
 {
-    $form = new PublisherBlockForm();
-    $fromEle = new XoopsFormCalendar(_MB_PUBLISHER_FROM,'options[0]', 15, strtotime($options[0]));
-    $fromEle->setNocolspan();
-    $untilEle = new XoopsFormCalendar(_MB_PUBLISHER_UNTIL,'options[1]', 15, strtotime($options[1]));
-    $untilEle->setNocolspan();
+    $form = new Xoops\Form\BlockForm();
+    // these were Xoops Form Calendar???
+    $fromEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_FROM, 'options[0]', 2, strtotime($options[0]));
+    //$fromEle->setNocolspan();
+    $untilEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_UNTIL, 'options[1]', 2, strtotime($options[1]));
+    //$untilEle->setNocolspan();
     $form->addElement($fromEle);
     $form->addElement($untilEle);
 

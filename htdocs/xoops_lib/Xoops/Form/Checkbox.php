@@ -12,9 +12,9 @@
 namespace Xoops\Form;
 
 /**
- * CheckBox - a checkbox form element
+ * Checkbox - a checkbox form element
  *
- * @category  Xoops\Form\CheckBox
+ * @category  Xoops\Form\Checkbox
  * @package   Xoops\Form
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Skalpa Keo <skalpa@xoops.org>
@@ -24,7 +24,7 @@ namespace Xoops\Form;
  * @link      http://xoops.org
  * @since     2.0.0
  */
-class CheckBox extends Element
+class Checkbox extends Element
 {
     /**
      * Available options

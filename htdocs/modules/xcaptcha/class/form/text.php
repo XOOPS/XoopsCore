@@ -19,7 +19,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class XcaptchaTextForm extends XoopsThemeForm
+class XcaptchaTextForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -33,15 +33,15 @@ class XcaptchaTextForm extends XoopsThemeForm
 
         parent::__construct('', 'xcaptchaform', $xoops->getEnv('PHP_SELF'), 'post', true, 'horizontal');
 
-        $this->addElement(new XoopsFormText(_XCAPTCHA_NUM_CHARS, 'num_chars', 2, 2, $this->config['num_chars'] ), true);
+        $this->addElement(new Xoops\Form\Text(_XCAPTCHA_NUM_CHARS, 'num_chars', 2, 2, $this->config['num_chars']), true);
 
-        $this->addElement(new XoopsFormHidden('type', 'text' ));
+        $this->addElement(new Xoops\Form\Hidden('type', 'text'));
 
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormHidden('op', 'save'));
-        $button_tray->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
-        $button_tray->addElement(new XoopsFormButton('', 'reset', XoopsLocale::A_RESET, 'reset'));
-        $cancel_send = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $button_tray = new Xoops\Form\ElementTray('', '');
+        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset'));
+        $cancel_send = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
         $cancel_send->setExtra("onclick='javascript:history.go(-1);'");
         $button_tray->addElement($cancel_send);
 

@@ -15,7 +15,7 @@
  * @author          Laurent JEN (Aka DuGris)
  */
 
-class XlanguageLanguageForm extends XoopsThemeForm
+class XlanguageLanguageForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -27,56 +27,56 @@ class XlanguageLanguageForm extends XoopsThemeForm
         parent::__construct('', 'xlanguage_form', $xoops->getEnv('PHP_SELF'), 'post', true, 'horizontal');
 
         // language name
-        $xlanguage_select = new XoopsFormSelect(_AM_XLANGUAGE_NAME, 'xlanguage_name', $obj->getVar('xlanguage_name'));
+        $xlanguage_select = new Xoops\Form\Select(_AM_XLANGUAGE_NAME, 'xlanguage_name', $obj->getVar('xlanguage_name'));
         $xlanguage_select->addOptionArray(XoopsLists::getLocaleList());
         $this->addElement($xlanguage_select, true);
 
         // language description
-        $this->addElement(new XoopsFormText(_AM_XLANGUAGE_DESCRIPTION, 'xlanguage_description', 5, 30, $obj->getVar('xlanguage_description')), true);
+        $this->addElement(new Xoops\Form\Text(_AM_XLANGUAGE_DESCRIPTION, 'xlanguage_description', 5, 30, $obj->getVar('xlanguage_description')), true);
 
         // language charset
         $autoload = XoopsLoad::loadConfig('xlanguage');
-        $charset_select = new XoopsFormSelect(_AM_XLANGUAGE_CHARSET, 'xlanguage_charset', $obj->getVar('xlanguage_charset'));
+        $charset_select = new Xoops\Form\Select(_AM_XLANGUAGE_CHARSET, 'xlanguage_charset', $obj->getVar('xlanguage_charset'));
         $charset_select->addOptionArray($autoload['charset']);
         $this->addElement($charset_select);
 
         // language code
-        $this->addElement(new XoopsFormText(_AM_XLANGUAGE_CODE, 'xlanguage_code', 5, 10, $obj->getVar('xlanguage_code')), true);
+        $this->addElement(new Xoops\Form\Text(_AM_XLANGUAGE_CODE, 'xlanguage_code', 5, 10, $obj->getVar('xlanguage_code')), true);
 
         // language weight
-        $this->addElement(new XoopsFormText(_AM_XLANGUAGE_WEIGHT, 'xlanguage_weight', 1, 4, $obj->getVar('xlanguage_weight')));
+        $this->addElement(new Xoops\Form\Text(_AM_XLANGUAGE_WEIGHT, 'xlanguage_weight', 1, 4, $obj->getVar('xlanguage_weight')));
 
         // language image
-        $image_option_tray = new XoopsFormElementTray(_AM_XLANGUAGE_IMAGE, '');
+        $image_option_tray = new Xoops\Form\ElementTray(_AM_XLANGUAGE_IMAGE, '');
         $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/');
-        $image_select = new XoopsFormSelect('', 'xlanguage_image', $obj->getVar('xlanguage_image'));
+        $image_select = new Xoops\Form\Select('', 'xlanguage_image', $obj->getVar('xlanguage_image'));
         $image_select->addOptionArray($image_array);
         $image_select->setExtra("onchange='showImgSelected(\"image\", \"xlanguage_image\", \"/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/\", \"\", \"" . XOOPS_URL . "\")'");
-        $image_tray = new XoopsFormElementTray('', '&nbsp;');
+        $image_tray = new Xoops\Form\ElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);
-        $image_tray->addElement(new XoopsFormLabel('', "<div style='padding: 8px;'><img style='width:24px; height:24px; ' src='" . XOOPS_URL . "/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/" . $obj->getVar("xlanguage_image") . "' name='image' id='image' alt='' /></div>"));
+        $image_tray->addElement(new Xoops\Form\Label('', "<div style='padding: 8px;'><img style='width:24px; height:24px; ' src='" . XOOPS_URL . "/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/" . $obj->getVar("xlanguage_image") . "' name='image' id='image' alt='' /></div>"));
         $image_option_tray->addElement($image_tray);
         $this->addElement($image_option_tray);
 
-        $this->addElement(new XoopsFormHidden('xlanguage_id', $obj->getVar('xlanguage_id')));
+        $this->addElement(new Xoops\Form\Hidden('xlanguage_id', $obj->getVar('xlanguage_id')));
 
         /**
          * Buttons
          */
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormHidden('op', 'save'));
+        $button_tray = new Xoops\Form\ElementTray('', '');
+        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
 
-        $button = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
         $button->setClass('btn btn-success');
         $button_tray->addElement($button);
 
-        $button_2 = new XoopsFormButton('', 'reset', XoopsLocale::A_RESET, 'reset');
+        $button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
         $button_2->setClass('btn btn-warning');
         $button_tray->addElement($button_2);
 
         switch (basename($xoops->getEnv('PHP_SELF'), '.php')) {
             case 'xoops_xlanguage':
-                $button_3 = new XoopsFormButton('', 'button', XoopsLocale::A_CLOSE, 'button');
+                $button_3 = new Xoops\Form\Button('', 'button', XoopsLocale::A_CLOSE, 'button');
                 $button_3->setExtra('onclick="tinyMCEPopup.close();"');
                 $button_3->setClass('btn btn-danger');
                 $button_tray->addElement($button_3);
@@ -84,7 +84,7 @@ class XlanguageLanguageForm extends XoopsThemeForm
 
             case 'index':
             default:
-                $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+                $button_3 = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
                 $button_3->setExtra("onclick='javascript:history.go(-1);'");
                 $button_3->setClass('btn btn-danger');
                 $button_tray->addElement($button_3);

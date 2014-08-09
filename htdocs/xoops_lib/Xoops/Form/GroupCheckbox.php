@@ -22,7 +22,7 @@ namespace Xoops\Form;
  * @link      http://xoops.org
  * @since     2.3.0
  */
-class GroupCheckbox extends CheckBox
+class GroupCheckbox extends Checkbox
 {
     /**
      * Constructor

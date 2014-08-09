@@ -358,12 +358,12 @@ switch ($op) {
             $path = XOOPS_ROOT_PATH . '/';
         }
 
-        $form = new XoopsThemeForm('', 'upload_form', 'admin.php?fct=filemanager', "post", true);
+        $form = new Xoops\Form\ThemeForm('', 'upload_form', 'admin.php?fct=filemanager', "post", true);
         $form->setExtra('enctype="multipart/form-data"');
-        $form->addElement(new XoopsFormFile(_AM_SYSTEM_FILEMANAGER_UPLOAD_CHOOSE, 'upload_file', 500000), false);
-        $form->addElement(new XoopsFormHidden('op', 'filemanager_upload_save'));
-        $form->addElement(new XoopsFormHidden('path', $path));
-        $form->addElement(new XoopsFormButton('', 'up_button', XoopsLocale::A_SUBMIT, 'submit'));
+        $form->addElement(new Xoops\Form\File(_AM_SYSTEM_FILEMANAGER_UPLOAD_CHOOSE, 'upload_file'), false);
+        $form->addElement(new Xoops\Form\Hidden('op', 'filemanager_upload_save'));
+        $form->addElement(new Xoops\Form\Hidden('path', $path));
+        $form->addElement(new Xoops\Form\Button('', 'up_button', XoopsLocale::A_SUBMIT, 'submit'));
         echo $form->render();
         break;
 
@@ -374,12 +374,12 @@ switch ($op) {
             $path = XOOPS_ROOT_PATH . '/';
         }
 
-        $form = new XoopsThemeForm('', 'newdir_form', 'admin.php?fct=filemanager', "post", true);
+        $form = new Xoops\Form\Theme\Form('', 'newdir_form', 'admin.php?fct=filemanager', "post", true);
         $form->setExtra('enctype="multipart/form-data"');
-        $form->addElement(new XoopsFormText(_AM_SYSTEM_FILEMANAGER_ADDDIR_NAME, 'dir_name', 50, 255), true);
-        $form->addElement(new XoopsFormHidden('op', 'filemanager_add_dir_save'));
-        $form->addElement(new XoopsFormHidden('path', $path));
-        $form->addElement(new XoopsFormButton('', 'dir_button', XoopsLocale::A_SUBMIT, 'submit'));
+        $form->addElement(new Xoops\Form\Text(_AM_SYSTEM_FILEMANAGER_ADDDIR_NAME, 'dir_name', 50, 255), true);
+        $form->addElement(new Xoops\Form\Hidden('op', 'filemanager_add_dir_save'));
+        $form->addElement(new Xoops\Form\Hidden('path', $path));
+        $form->addElement(new Xoops\Form\Button('', 'dir_button', XoopsLocale::A_SUBMIT, 'submit'));
         echo $form->render();
         break;
 
@@ -430,12 +430,12 @@ switch ($op) {
             $path = XOOPS_ROOT_PATH . '/';
         }
 
-        $form = new XoopsThemeForm('', 'newdir_form', 'admin.php?fct=filemanager', "post", true);
+        $form = new Xoops\Form\ThemeForm('', 'newdir_form', 'admin.php?fct=filemanager', "post", true);
         $form->setExtra('enctype="multipart/form-data"');
-        $form->addElement(new XoopsFormText(_AM_SYSTEM_FILEMANAGER_ADDFILE, 'file_name', 50, 255), true);
-        $form->addElement(new XoopsFormHidden('op', 'filemanager_add_file_save'));
-        $form->addElement(new XoopsFormHidden('path', $path));
-        $form->addElement(new XoopsFormButton('', 'dir_button', XoopsLocale::A_SUBMIT, 'submit'));
+        $form->addElement(new Xoops\Form\Text(_AM_SYSTEM_FILEMANAGER_ADDFILE, 'file_name', 50, 255), true);
+        $form->addElement(new Xoops\Form\Hidden('op', 'filemanager_add_file_save'));
+        $form->addElement(new Xoops\Form\Hidden('path', $path));
+        $form->addElement(new Xoops\Form\Button('', 'dir_button', XoopsLocale::A_SUBMIT, 'submit'));
         echo $form->render();
         break;
         break;

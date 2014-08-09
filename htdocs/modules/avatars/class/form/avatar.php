@@ -31,7 +31,7 @@ class AvatarsAvatarForm extends Xoops\Form\ThemeForm
         } else {
             $blank_img = str_replace('avatars/', '', $obj->getVar('avatar_file', 'e'));
         }
-        $xoops = Xoops::getInstance();
+        //$xoops = Xoops::getInstance();
         // New and edit form
         $title = $obj->isNew() ? XoopsLocale::A_ADD : XoopsLocale::A_EDIT;
 

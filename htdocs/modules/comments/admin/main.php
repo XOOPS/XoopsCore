@@ -86,32 +86,32 @@ switch ($op) {
 
     case 'comments_form_purge':
         //Affichage du formulaire de purge
-        $form_purge = new XoopsThemeForm(_AM_COMMENTS_FORM_PURGE, 'form', $helper->url('admin/main.php'), 'post', true);
+        $form_purge = new Xoops\Form\ThemeForm(_AM_COMMENTS_FORM_PURGE, 'form', $helper->url('admin/main.php'), 'post', true);
 
-        $form_purge->addElement(new XoopsFormTextDateSelect(_AM_COMMENTS_FORM_PURGE_DATE_AFTER, 'comments_after', '15'));
-        $form_purge->addElement(new XoopsFormTextDateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before', '15'));
+        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_AFTER, 'comments_after', '15'));
+        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before', '15'));
 
         //user
-        $form_purge->addElement(new XoopsFormSelectUser(_AM_COMMENTS_FORM_PURGE_USER, "comments_userid", false, @$_REQUEST['comments_userid'], 5, true));
+        $form_purge->addElement(new Xoops\Form\SelectUser(_AM_COMMENTS_FORM_PURGE_USER, "comments_userid", false, @$_REQUEST['comments_userid'], 5, true));
 
         //groups
-        $groupe_select = new XoopsFormSelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, "comments_groupe", false, '', 5, true);
+        $groupe_select = new Xoops\Form\SelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, "comments_groupe", false, '', 5, true);
         $groupe_select->setExtra("style=\"width:170px;\" ");
         $form_purge->addElement($groupe_select);
 
         //Status
-        $status = new XoopsFormSelect(_AM_COMMENTS_FORM_PURGE_STATUS, "comments_status", '');
+        $status = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_STATUS, "comments_status", '');
         $options = $status_array;
         $status->addOptionArray($options);
         $form_purge->addElement($status, true);
 
         //Modules
-        $modules = new XoopsFormSelect(_AM_COMMENTS_FORM_PURGE_MODULES, "comments_modules", '');
+        $modules = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_MODULES, "comments_modules", '');
         $options = $module_array;
         $modules->addOptionArray($options);
         $form_purge->addElement($modules, true);
-        $form_purge->addElement(new XoopsFormHidden("op", "comments_purge"));
-        $form_purge->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
+        $form_purge->addElement(new Xoops\Form\Hidden("op", "comments_purge"));
+        $form_purge->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
         $xoops->tpl()->assign('form', $form_purge->render());
         break;
 

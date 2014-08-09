@@ -275,7 +275,7 @@ switch ($op) {
 
                 if ($count_criteria > $limit) {
                     //todo, is this url corret?
-                    $form = new XoopsThemeForm(_AM_MAILUSERS_SENDTOUSERS2, "mailusers", "send_mails.php", 'post', true);
+                    $form = new Xoops\Form\ThemeForm(_AM_MAILUSERS_SENDTOUSERS2, "mailusers", "send_mails.php", 'post', true);
                     foreach ($mail_to_group as $mailgroup) {
                         $group_hidden = new Xoops\Form\Hidden("mail_to_group[]", $mailgroup);
                         $form->addElement($group_hidden);

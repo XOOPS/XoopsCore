@@ -62,17 +62,17 @@ function publisher_latest_files_show($options)
 
 function publisher_latest_files_edit($options)
 {
-    $form = new PublisherBlockForm();
+    $form = new Xoops\Form\BlockForm();
 
-    $catEle = new XoopsFormLabel(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
-    $orderEle = new XoopsFormSelect(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
+    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
+    $orderEle = new Xoops\Form\Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
     $orderEle->addOptionArray(array(
         'datesub' => _MB_PUBLISHER_DATE,
         'counter' => _MB_PUBLISHER_HITS,
         'weight'  => _MB_PUBLISHER_WEIGHT,
     ));
-    $dispEle = new XoopsFormText(_MB_PUBLISHER_DISP, 'options[2]', 10, 255, $options[2]);
-    $directEle = new XoopsFormRadioYN(_MB_PUBLISHER_DIRECTDOWNLOAD, 'options[3]', $options[3]);
+    $dispEle = new Xoops\Form\Text(_MB_PUBLISHER_DISP, 'options[2]', 10, 255, $options[2]);
+    $directEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_DIRECTDOWNLOAD, 'options[3]', $options[3]);
 
     $form->addElement($catEle);
     $form->addElement($orderEle);

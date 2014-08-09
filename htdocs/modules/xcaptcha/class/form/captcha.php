@@ -19,7 +19,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class XcaptchaCaptchaForm extends XoopsThemeForm
+class XcaptchaCaptchaForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -33,31 +33,31 @@ class XcaptchaCaptchaForm extends XoopsThemeForm
 
         parent::__construct('', 'xcaptchaform', $xoops->getEnv('PHP_SELF'), 'post', true, 'horizontal');
 
-        $activate = new XoopsFormRadio(_AM_XCAPTCHA_ACTIVATE, 'disabled', $this->config['disabled'] );
+        $activate = new Xoops\Form\Radio(_AM_XCAPTCHA_ACTIVATE, 'disabled', $this->config['disabled']);
         $activate->addOption(1, _AM_XCAPTCHA_ENABLE);
         $activate->addOption(0, _AM_XCAPTCHA_DISABLE);
         $this->addElement($activate, false);
 
-        $plugin_List = new XoopsFormSelect(_AM_XCAPTCHA_PLUGINS, 'mode', $this->config['mode'] );
-        $plugin_List->addOptionArray( $this->object->plugin_List );
+        $plugin_List = new Xoops\Form\Select(_AM_XCAPTCHA_PLUGINS, 'mode', $this->config['mode']);
+        $plugin_List->addOptionArray($this->object->plugin_List);
         $this->addElement($plugin_List, false);
 
-        $this->addElement(new XoopsFormText(_AM_XCAPTCHA_NAME, 'name', 50, 50, $this->config['name'] ), true);
+        $this->addElement(new Xoops\Form\Text(_AM_XCAPTCHA_NAME, 'name', 50, 50, $this->config['name']), true);
 
-        $skipmember = new XoopsFormRadio(_AM_XCAPTCHA_SKIPMEMBER, 'skipmember', $this->config['skipmember'] );
+        $skipmember = new Xoops\Form\Radio(_AM_XCAPTCHA_SKIPMEMBER, 'skipmember', $this->config['skipmember']);
         $skipmember->addOption(1, _AM_XCAPTCHA_ENABLE);
         $skipmember->addOption(0, _AM_XCAPTCHA_DISABLE);
         $this->addElement($skipmember, false);
 
-        $this->addElement(new XoopsFormText(_AM_XCAPTCHA_MAXATTEMPTS, 'maxattempts', 2, 2, $this->config['maxattempts'] ), true);
+        $this->addElement(new Xoops\Form\Text(_AM_XCAPTCHA_MAXATTEMPTS, 'maxattempts', 2, 2, $this->config['maxattempts'] ), true);
 
-        $this->addElement(new XoopsFormHidden('type', 'config' ));
+        $this->addElement(new Xoops\Form\Hidden('type', 'config'));
 
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormHidden('op', 'save'));
-        $button_tray->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
-        $button_tray->addElement(new XoopsFormButton('', 'reset', XoopsLocale::A_RESET, 'reset'));
-        $cancel_send = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $button_tray = new Xoops\Form\ElementTray('', '');
+        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset'));
+        $cancel_send = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
         $cancel_send->setExtra("onclick='javascript:history.go(-1);'");
         $button_tray->addElement($cancel_send);
 

@@ -22,7 +22,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class ProtectorCenterForm extends XoopsThemeForm
+class ProtectorCenterForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -44,19 +44,19 @@ class ProtectorCenterForm extends XoopsThemeForm
 
         parent::__construct('', "form_prefip", "center.php", 'post', true);
 
-        $bad_ips = new XoopsFormTextArea(_AM_TH_BADIPS, 'bad_ips', $bad_ips4disp, 3, 90);
+        $bad_ips = new Xoops\Form\TextArea(_AM_TH_BADIPS, 'bad_ips', $bad_ips4disp, 3, 90);
         $bad_ips->setDescription('<br />' . htmlspecialchars($protector->get_filepath4badips()));
         $bad_ips->setClass('span3');
         $this->addElement($bad_ips);
 
-        $group1_ips = new XoopsFormTextArea(_AM_TH_GROUP1IPS, 'group1_ips', $group1_ips4disp, 3, 90);
+        $group1_ips = new Xoops\Form\TextArea(_AM_TH_GROUP1IPS, 'group1_ips', $group1_ips4disp, 3, 90);
         $group1_ips->setDescription('<br />' . htmlspecialchars($protector->get_filepath4group1ips()));
         $group1_ips->setClass('span3');
         $this->addElement($group1_ips);
         $formTicket = new xoopsGTicket;
-        $this->addElement(new XoopsFormHidden("action", "update_ips"));
+        $this->addElement(new Xoops\Form\Hidden("action", "update_ips"));
         $ticket = $formTicket->getTicketXoopsForm(__LINE__, 1800, 'protector_admin');
         $this->addElement($ticket);
-        $this->addElement(new XoopsFormButton('', "submit_prefip", XoopsLocale::A_SUBMIT, "submit"));
+        $this->addElement(new Xoops\Form\Button('', "submit_prefip", XoopsLocale::A_SUBMIT, "submit"));
     }
 }

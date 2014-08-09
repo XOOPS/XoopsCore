@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-class ImagesCategoryselectForm extends XoopsThemeForm
+class ImagesCategoryselectForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param category id $imgcat_id
@@ -32,7 +32,7 @@ class ImagesCategoryselectForm extends XoopsThemeForm
         $categories = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_read');
 
         parent::__construct('', 'category_select', $xoops->getEnv('PHP_SELF'), 'post');
-        $select = new XoopsFormSelect('', 'imgcat_id', $imgcat_id);
+        $select = new Xoops\Form\Select('', 'imgcat_id', $imgcat_id);
         $select->addOption(0, _AM_IMAGES_CAT_SELECT);
         $select->addOptionArray($categories);
         $select->setExtra("onchange='javascript:window.location.href=\"images.php?imgcat_id=\" + this.value'");
