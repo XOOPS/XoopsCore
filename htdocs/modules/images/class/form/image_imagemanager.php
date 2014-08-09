@@ -54,7 +54,7 @@ class ImagesImage_imagemanagerForm extends Xoops\Form\ThemeForm
         $select->addOptionArray($categories);
         $this->addElement($select, true);
 
-        $this->addElement(new Xoops\Form\File(_AM_IMAGES_IMG_FILE, 'image_file', 5000000));
+        $this->addElement(new Xoops\Form\File(_AM_IMAGES_IMG_FILE, 'image_file'));
 
         $this->addElement(new Xoops\Form\Hidden('image_weight', $obj->getVar('image_weight')));
         $this->addElement(new Xoops\Form\Hidden('image_display', $obj->getVar('image_display')));

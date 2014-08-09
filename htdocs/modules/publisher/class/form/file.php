@@ -50,7 +50,7 @@ class PublisherFileForm extends Xoops\Form\ThemeForm
         $this->addElement($description_text);
 
         // FILE TO UPLOAD
-        $file_box = new Xoops\Form\File(_CO_PUBLISHER_FILE_TO_UPLOAD, "item_upload_file", 0);
+        $file_box = new Xoops\Form\File(_CO_PUBLISHER_FILE_TO_UPLOAD, "item_upload_file");
         $file_box->setExtra("size ='50'");
         $this->addElement($file_box);
 

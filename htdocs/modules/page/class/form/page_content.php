@@ -118,7 +118,7 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
                 $module_id = $helper->getModule()->getVar('mid', 'n');
                 $groups_ids_view = $helper->getGrouppermHandler()->getGroupIds('page_view_item', $obj->getVar('content_id'), $module_id);
                 $groups_ids_view = array_values($groups_ids_view);
-                $groups_can_view_checkbox = new Xoops\Form\Checknox(PageLocale::CONTENT_SELECT_GROUPS, 'groups_view_item[]', $groups_ids_view, false);
+                $groups_can_view_checkbox = new Xoops\Form\Checkbox(PageLocale::CONTENT_SELECT_GROUPS, 'groups_view_item[]', $groups_ids_view, false);
             } else {
                 $groups_can_view_checkbox = new Xoops\Form\Checkbox(PageLocale::CONTENT_SELECT_GROUPS, 'groups_view_item[]', $full_list, false);
             }

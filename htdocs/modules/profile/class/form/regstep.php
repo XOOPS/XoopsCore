@@ -35,6 +35,6 @@ class ProfileRegstepForm extends Xoops\Form\ThemeForm
         $this->addElement($order, true);
 
         $this->addElement(new Xoops\Form\RadioYesNo(_PROFILE_AM_STEPSAVE, 'step_save', $obj->getVar('step_save', 'e')));
-        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit', 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

@@ -37,6 +37,6 @@ class ProfileCategoryForm extends Xoops\Form\ThemeForm
         $this->addElement($weight, true);
 
         $this->addElement(new Xoops\Form\Hidden('op', 'save'));
-        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit', 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }
