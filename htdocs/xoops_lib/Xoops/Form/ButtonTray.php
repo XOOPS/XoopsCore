@@ -46,9 +46,9 @@ class ButtonTray extends Element
      */
     public function __construct($name, $value = '', $type = '', $onclick = '', $showDelete = false)
     {
-        $this->setName($name);
+        $this->setAttribute('name', $name);
         $this->setValue($value);
-        $this->type = (!empty($type)) ? $type : 'submit';
+        $this->setAttribute('type', (!empty($type)) ? $type : 'submit');
         $this->showDelete = $showDelete;
         if ($onclick) {
             $this->setExtra($onclick);
@@ -75,17 +75,20 @@ class ButtonTray extends Element
     public function render()
     {
         $ret = '';
-        $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : " class='btn'");
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
+        $this->addAttribute('class', 'btn');
+
+        $class = 'class="' . $this->getClass() . '"';
+        $attributes = $this->renderAttributeString();
+
         if ($this->showDelete) {
             $ret .= '<input type="submit"' . $class . ' name="delete" id="delete" value="'
                 . \XoopsLocale::A_DELETE . '" onclick="this.form.elements.op.value=\'delete\'"> ';
         }
         $ret .= '<input type="button" ' . $class . ' value="' . \XoopsLocale::A_CANCEL
             . '" onClick="history.go(-1);return true;" /> <input type="reset"' . $class
-            . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" /> <input type="'
-            . $this->getType() . '"' . $class . ' name="' . $this->getName() . '"  id="'
-            . $this->getName() . '" value="' . $this->getValue() . '"' . $extra . '/>';
+            . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" /> '
+            . '<input ' . $attributes . ' value="' . $this->getValue() . '"' . $extra . '/>';
         return $ret;
     }
 }

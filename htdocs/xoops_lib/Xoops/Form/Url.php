@@ -37,33 +37,7 @@ class Url extends Text
     public function __construct($caption, $name, $size, $maxlength, $value = '', $placeholder = '')
     {
         parent::__construct($caption, $name, $size, $maxlength, $value, $placeholder);
+        $this->setAttribute('type', 'url');
         $this->setPattern('https?://.+', \XoopsLocale::STARTING_WITH_HTTP_OR_HTTPS);
-    }
-
-    /**
-     * render
-     *
-     * @return string rendered element
-     */
-    public function render()
-    {
-        $name = $this->getName();
-        if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = 5;
-        } else {
-            $maxcols = $this->getSize();
-        }
-        $class = ($this->getClass() != ''
-            ? " class='span" . $maxcols . " " . $this->getClass() . "'"
-            : " class='span" . $maxcols . "'");
-        $list = ($this->isDatalist() != '' ? " list='list_" . $name . "'" : '');
-        $pattern = ($this->getPattern() != '' ? " pattern='" . $this->getPattern() . "'" : '');
-        $placeholder = ($this->getPlaceholder() != '' ? " placeholder='" . $this->getPlaceholder() . "'" : '');
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
-        return "<input type='url' name='" . $name . "' title='" . $this->getTitle()
-            . "' id='" . $name . "'" . $class ." maxlength='" . $this->getMaxlength()
-            . "' value='" . $this->getValue() . "'" . $list . $pattern . $placeholder
-            . $extra . $required . ">";
     }
 }

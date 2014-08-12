@@ -25,6 +25,14 @@ namespace Xoops\Form;
 */
 abstract class Element
 {
+
+    /**
+     * Attributes for this element
+     *
+     * @var string
+     */
+    protected $attributes = array();
+
     /**
      * Javascript performing additional validation of this element data
      *
@@ -56,14 +64,14 @@ abstract class Element
      *
      * @var string
      */
-    private $accesskey = '';
+    //private $accesskey = '';
 
     /**
      * HTML classes for this element
      *
      * @var array
      */
-    private $class = array();
+    //private $class = array();
 
      /**
      * pattern for this element
@@ -71,7 +79,7 @@ abstract class Element
      * @var string
      * @access private
      */
-    private $pattern;
+    //private $pattern;
 
     /**
      * pattern_description for this element
@@ -94,7 +102,7 @@ abstract class Element
      *
      * @var bool
      */
-    private $hidden = false;
+    //private $hidden = false;
 
     /**
      * extra attributes to go in the tag
@@ -108,7 +116,7 @@ abstract class Element
      *
      * @var bool
      */
-    private $required = false;
+    //private $required = false;
 
     /**
      * description of the field
@@ -133,7 +141,7 @@ abstract class Element
      * @var integer
      * @access private
      */
-    private $maxcols = 12;
+    private $maxcols = 6;
 
     /**
      * render - Generates output for the element.
@@ -143,6 +151,109 @@ abstract class Element
      * @return    string
      */
     abstract public function render();
+
+
+    /**
+     * Set an element attribute
+     *
+     * @param string $name  name of the attribute
+     * @param mixed  $value value for the attribute
+     *
+     * @return void
+     */
+    public function setAttribute($name, $value = null)
+    {
+        // convert boolean to strings, so getAttribute can return boolean
+        // false for attributes that are not defined
+        $value = ($value===false) ? '0' : $value;
+        $value = ($value===true) ? '1' : $value;
+        $this->attributes[htmlspecialchars($name, ENT_QUOTES)] = $value;
+    }
+
+    /**
+     * get an element attribute value
+     *
+     * @param string $name name of the attribute
+     *
+     * @return mixed value
+     */
+    public function getAttribute($name)
+    {
+        $value = false;
+        $name = htmlspecialchars($name, ENT_QUOTES);
+        if (isset($this->attributes[$name])) {
+            $value = $this->attributes[$name];
+        }
+        return $value;
+    }
+
+    /**
+     * is an element attribute set?
+     *
+     * @param string $name name of the attribute
+     *
+     * @return boolean
+     */
+    public function hasAttribute($name)
+    {
+        $name = htmlspecialchars($name, ENT_QUOTES);
+        return array_key_exists($name, $this->attributes);
+    }
+
+    /**
+     * add an element attribute value to a multi-value attribute (like class)
+     *
+     * @param string $name  name of the attribute
+     * @param mixed  $value value for the attribute
+     *
+     * @return void
+     */
+    public function addAttribute($name, $value)
+    {
+        if (is_scalar($value)) {
+            $value = explode(' ', $value);
+        }
+        $name = htmlspecialchars($name, ENT_QUOTES);
+        if (false==$this->hasAttribute($name)) {
+            $this->attributes[$name] = array();
+        }
+        foreach ($value as $v) {
+            if (!in_array($v, $this->attributes[$name])) {
+                $this->attributes[$name][] = $v;
+            }
+        }
+    }
+
+    /**
+     * render attributes as a string to include in HTML output
+     *
+     * @return string
+     */
+    public function renderAttributeString()
+    {
+        // title attribute needs to be generated if not already set
+        if (!$this->hasAttribute('title')) {
+            $this->setAttribute('title', $this->getTitle());
+        }
+        // generate id from name if not already set
+        if (!$this->hasAttribute('id')) {
+            $this->setAttribute('id', $this->getAttribute('name'));
+        }
+        $rendered = '';
+        foreach ($this->attributes as $name => $value) {
+            if (is_array($value)) {
+                // arrays can be used for class attributes, space separated
+                $set = '="' . htmlspecialchars(implode(' ', $value), ENT_QUOTES) .'"';
+            } elseif ($value===null) {
+                // null indicates name only, like autofocus or readonly
+                $set = '';
+            } else {
+                $set = '="' . htmlspecialchars($value, ENT_QUOTES) .'"';
+            }
+            $rendered .= $name . $set . ' ';
+        }
+        return $rendered;
+    }
 
     /**
      * getValue - Get an array of pre-selected values
@@ -192,22 +303,17 @@ abstract class Element
      */
     public function setName($name)
     {
-        $this->name = trim($name);
+        $this->setAttribute('name', $name);
     }
 
     /**
      * getName - get the "name" attribute for the element
      *
-     * @param boolean $encode True to encode special characters
-     *
      * @return string
      */
-    public function getName($encode = true)
+    public function getName()
     {
-        if (false != $encode) {
-            return str_replace('&amp;', '&', htmlspecialchars($this->name, ENT_QUOTES));
-        }
-        return $this->name;
+        return $this->getAttribute('name');
     }
 
     /**
@@ -219,7 +325,7 @@ abstract class Element
      */
     public function setAccessKey($key)
     {
-        $this->accesskey = trim($key);
+        $this->setAttribute('accesskey', $key);
     }
 
     /**
@@ -229,7 +335,7 @@ abstract class Element
      */
     public function getAccessKey()
     {
-        return $this->accesskey;
+        return $this->getAttribute('accesskey');
     }
 
     /**
@@ -254,19 +360,13 @@ abstract class Element
     /**
      * setClass - set the "class" attribute for the element
      *
-     * @param string $class "class" attribute for the element
+     * @param string|string[] $class "class" attribute for the element
      *
      * @return void
      */
     public function setClass($class)
     {
-        if (is_array($class)) {
-            if (!empty($class)) {
-                $this->class = $class;
-            }
-        } else {
-            $this->class[] = trim($class);
-        }
+        $this->addAttribute('class', $class);
     }
 
     /**
@@ -276,14 +376,11 @@ abstract class Element
      */
     public function getClass()
     {
-        if (empty($this->class)) {
+        $class = $this->getAttribute('class');
+        if ($class === false) {
             return false;
         }
-        $classes = array();
-        foreach ($this->class as $class) {
-            $classes[] = htmlspecialchars($class, ENT_QUOTES);
-        }
-        return implode(' ', $classes);
+        return htmlspecialchars(implode(' ', $class), ENT_QUOTES);
     }
 
     /**
@@ -296,7 +393,7 @@ abstract class Element
      */
     public function setPattern($pattern, $pattern_description = '')
     {
-         $this->pattern = trim($pattern);
+         $this->setAttribute('pattern', $pattern);
          $this->pattern_description = trim($pattern_description);
     }
 
@@ -307,10 +404,7 @@ abstract class Element
      */
     public function getPattern()
     {
-        if (empty($this->pattern)) {
-            return '';
-        }
-        return $this->pattern;
+        return $this->getAttribute('pattern');
     }
 
     /**
@@ -391,13 +485,23 @@ abstract class Element
     /**
      * getCaption - get the caption for the element
      *
-     * @param boolean $encode True to encode special characters
-     *
      * @return string
      */
-    public function getCaption($encode = false)
+    public function getCaption()
     {
-        return $encode ? htmlspecialchars($this->caption, ENT_QUOTES) : $this->caption;
+        return htmlspecialchars($this->caption, ENT_QUOTES);
+    }
+
+    /**
+     * setTitle - set the title for the element
+     *
+     * @param string $title title for element
+     *
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->setAttribute('title', $title);
     }
 
     /**
@@ -409,12 +513,16 @@ abstract class Element
      */
     public function getTitle($encode = true)
     {
-        if (strlen($this->pattern_description) > 0) {
-            return $encode
-                ? htmlspecialchars(strip_tags($this->caption . ' - ' . $this->pattern_description), ENT_QUOTES)
-                : strip_tags($this->caption . ' - ' . $this->pattern_description);
+        if ($this->hasAttribute('title')) {
+            return $this->getAttribute('title');
         } else {
-            return $encode ? htmlspecialchars(strip_tags($this->caption), ENT_QUOTES) : strip_tags($this->caption);
+            if (strlen($this->pattern_description) > 0) {
+                return $encode
+                    ? htmlspecialchars(strip_tags($this->caption . ' - ' . $this->pattern_description), ENT_QUOTES)
+                    : strip_tags($this->caption . ' - ' . $this->pattern_description);
+            } else {
+                return $encode ? htmlspecialchars(strip_tags($this->caption), ENT_QUOTES) : strip_tags($this->caption);
+            }
         }
     }
 
@@ -449,7 +557,7 @@ abstract class Element
      */
     public function setHidden()
     {
-        $this->hidden = true;
+        $this->setAttribute('hidden');
     }
 
     /**
@@ -459,7 +567,7 @@ abstract class Element
      */
     public function isHidden()
     {
-        return $this->hidden;
+        return $this->hasAttribute('hidden');
     }
 
     /**
@@ -471,7 +579,9 @@ abstract class Element
      */
     public function setRequired($bool = true)
     {
-        $this->required = $bool;
+        if ($bool) {
+            $this->setAttribute('required');
+        }
     }
 
     /**
@@ -481,7 +591,7 @@ abstract class Element
      */
     public function isRequired()
     {
-        return $this->required;
+        return $this->hasAttribute('required');
     }
 
     /**
@@ -557,12 +667,10 @@ abstract class Element
     /**
      * getMaxcols - get the maximum columns for a field
      *
-     * @param boolean $encode True to encode special characters
-     *
      * @return integer
      */
-    public function getMaxcols($encode = false)
+    public function getMaxcols()
     {
-        return $encode ? htmlspecialchars($this->maxcols, ENT_QUOTES) : $this->maxcols;
+        return $this->maxcols;
     }
 }
