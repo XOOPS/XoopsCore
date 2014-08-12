@@ -30,7 +30,7 @@ class Text extends Element
      * @var int
      * @access private
      */
-    private $size;
+    //private $size;
 
     /**
      * Maximum length of the text
@@ -39,7 +39,7 @@ class Text extends Element
      * @access private
      */
 
-    private $maxlength;
+    //private $maxlength;
 
      /**
      * placeholder for this element
@@ -47,7 +47,7 @@ class Text extends Element
      * @var string
      * @access private
      */
-    private $placeholder;
+    //private $placeholder;
 
     /**
      * __construct
@@ -61,12 +61,13 @@ class Text extends Element
      */
     public function __construct($caption, $name, $size, $maxlength, $value = '', $placeholder = '')
     {
+        $this->setAttribute('type', 'text');
         $this->setCaption($caption);
-        $this->setName($name);
-        $this->size = intval($size);
-        $this->maxlength = intval($maxlength);
+        $this->setAttribute('name', $name);
+        $this->setAttribute('size', intval($size));
+        $this->setAttribute('maxlength', intval($maxlength));
         $this->setValue($value);
-        $this->placeholder = $placeholder;
+        $this->setAttribute('placeholder', $placeholder);
     }
 
     /**
@@ -76,7 +77,7 @@ class Text extends Element
      */
     public function getSize()
     {
-        return $this->size;
+        return $this->getAttribute('size');
     }
 
     /**
@@ -86,7 +87,7 @@ class Text extends Element
      */
     public function getMaxlength()
     {
-        return $this->maxlength;
+        return $this->getAttribute('maxlength');
     }
 
     /**
@@ -96,10 +97,7 @@ class Text extends Element
      */
     public function getPlaceholder()
     {
-        if (empty($this->placeholder)) {
-            return '';
-        }
-        return $this->placeholder;
+        return $this->getAttribute('placeholder');
     }
 
     /**
@@ -109,22 +107,19 @@ class Text extends Element
      */
     public function render()
     {
-        $name = $this->getName();
         if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = 5;
+            $maxcols = $this->getMaxcols();
         } else {
             $maxcols = $this->getSize();
         }
-        $class = ($this->getClass() != '' ? " class='span" . $maxcols . " "
-            . $this->getClass() . "'" : " class='span" . $maxcols . "'");
-        $list = ($this->isDatalist() != '' ? " list='list_" . $name . "'" : '');
-        $pattern = ($this->getPattern() != '' ? " pattern='" . $this->getPattern() . "'" : '');
-        $placeholder = ($this->getPlaceholder() != '' ? " placeholder='" . $this->getPlaceholder() . "'" : '');
+        $this->addAttribute('class', 'span' . $maxcols);
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
-        return "<input type='text' name='" . $name . "' title='" . $this->getTitle()
-            . "' id='" . $name . "'" . $class ." maxlength='" . $this->getMaxlength()
-            . "' value='" . $this->getValue() . "'" . $list . $pattern . $placeholder
-            . $extra . $required . ">";
+        if (!empty($this->isDatalist())) {
+            $this->addAttribute('list', 'list_' . $this->getName());
+        }
+
+        $attributes = $this->renderAttributeString();
+        return '<input ' . $attributes . 'value="'
+            . $this->getValue() . '" ' . $extra .' >';
     }
 }

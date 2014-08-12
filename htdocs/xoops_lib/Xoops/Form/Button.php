@@ -44,8 +44,8 @@ class Button extends Element
     public function __construct($caption, $name, $value = "", $type = "button")
     {
         $this->setCaption($caption);
-        $this->setName($name);
-        $this->type = $type;
+        $this->setAttribute('type', $type);
+        $this->setAttribute('name', $name);
         $this->setValue($value);
         //$this->class = $class;
     }
@@ -68,9 +68,12 @@ class Button extends Element
     public function render()
     {
         $name = $this->getName();
-        $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : " class='btn'");
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        return "<input type='" . $this->getType() . "' name='" . $name . "' title='" . $this->getTitle()
-            . "' id='" . $name . "'" . $class . " value='" . $this->getValue() . "'" . $extra . ">";
+        $this->addAttribute('class', 'btn');
+
+        $attributes = $this->renderAttributeString();
+        return '<input ' . $attributes . 'value="' . $this->getValue()
+            . '" ' . $extra .' >';
+
     }
 }

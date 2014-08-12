@@ -29,21 +29,21 @@ class TextArea extends Element
      *
      * @var int
      */
-    protected $cols;
+    //protected $cols;
 
     /**
      * number of rows
      *
      * @var int
      */
-    protected $rows;
+    //protected $rows;
 
      /**
      * placeholder for this element
      *
      * @var string
      */
-    private $placeholder;
+    //private $placeholder;
 
 
     /**
@@ -59,11 +59,12 @@ class TextArea extends Element
     public function __construct($caption, $name, $value = "", $rows = 5, $cols = 5, $placeholder = '')
     {
         $this->setCaption($caption);
-        $this->setName($name);
-        $this->rows = intval($rows);
-        $this->cols = intval($cols);
+        $this->setAttribute('name', $name);
+        $this->setAttribute('rows', intval($rows));
+        $this->setAttribute('cols', intval($cols));
         $this->setValue($value);
-        $this->placeholder = $placeholder;
+        $this->setAttribute('placeholder', $placeholder);
+
     }
 
     /**
@@ -73,7 +74,7 @@ class TextArea extends Element
      */
     public function getRows()
     {
-        return $this->rows;
+        return $this->getAttribute('rows');
     }
 
     /**
@@ -83,7 +84,7 @@ class TextArea extends Element
      */
     public function getCols()
     {
-        return $this->cols;
+        return $this->getAttribute('cols');
     }
 
     /**
@@ -93,10 +94,7 @@ class TextArea extends Element
      */
     public function getPlaceholder()
     {
-        if (empty($this->placeholder)) {
-            return '';
-        }
-        return $this->placeholder;
+        return $this->getAttribute('placeholder');
     }
 
     /**
@@ -106,21 +104,16 @@ class TextArea extends Element
      */
     public function render()
     {
-        $name = $this->getName();
-        //$class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');
         if ($this->getCols() > $this->getMaxcols()) {
-            $maxcols = 5;
+            $maxcols = $this->getMaxcols();
         } else {
             $maxcols = $this->getCols();
         }
-        $class = ($this->getClass() != ''
-            ? " class='span" . $maxcols . " " . $this->getClass() . "'"
-            : " class='span" . $maxcols . "'");
-        $placeholder = ($this->getPlaceholder() != '' ? " placeholder='" . $this->getPlaceholder() . "'" : '');
+        $this->addAttribute('class', 'span' . $maxcols);
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
-        return "<textarea name='" . $name . "' title='" . $this->getTitle() . "' id='"
-            . $name . "'" . $class ." rows='" . $this->getRows() . "'" . $placeholder
-            . $extra . $required . ">" . $this->getValue() . "</textarea>";
+
+        $attributes = $this->renderAttributeString();
+        return '<textarea ' . $attributes . 'value="' . '" ' . $extra .' >'
+            . $this->getValue() . '</textarea>';
     }
 }
