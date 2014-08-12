@@ -37,14 +37,14 @@ class Select extends Element
      *
      * @var bool
      */
-    private $multiple = false;
+    //private $multiple = false;
 
     /**
      * Number of rows. "1" makes a dropdown list.
      *
      * @var int
      */
-    private $size;
+    //private $size;
 
     /**
      * Pre-selected values
@@ -72,9 +72,11 @@ class Select extends Element
     public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
     {
         $this->setCaption($caption);
-        $this->setName($name);
-        $this->multiple = $multiple;
-        $this->size = intval($size);
+        $this->setAttribute('name', $name);
+        $this->setAttribute('size', intval($size));
+        if ($multiple) {
+            $this->setAttribute('multiple');
+        }
         if (isset($value)) {
             $this->setValue($value);
         }
@@ -87,17 +89,17 @@ class Select extends Element
      */
     public function isMultiple()
     {
-        return $this->multiple;
+        return $this->hasAttribute('multiple');
     }
 
     /**
      * Get the size
      *
-     * @return int
+     * @return string
      */
     public function getSize()
     {
-        return $this->size;
+        return (string) $this->getAttribute('size');
     }
 
     /**
@@ -197,15 +199,10 @@ class Select extends Element
         }
         $ele_options = $this->getOptions();
         $ele_optgroup = $this->getOptgroup();
-        $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');
+
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $ret = '<select' . $class . ' size="' . $this->getSize() . '"' . $extra;
-        if ($this->isMultiple() != false) {
-            $ret .= ' name="' . $ele_name . '[]" id="' . $ele_name . '" title="'
-                . $ele_title . '" multiple="multiple">' . NWLINE;
-        } else {
-            $ret .= ' name="' . $ele_name . '" id="' . $ele_name . '" title="' . $ele_title . '">' . NWLINE;
-        }
+        $attributes = $this->renderAttributeString();
+        $ret = '<select ' . $attributes . $extra .' >' . NWLINE;
 
         if (empty($ele_optgroup)) {
             foreach ($ele_options as $value => $name) {

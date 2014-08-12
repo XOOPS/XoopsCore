@@ -29,7 +29,7 @@ abstract class Element
     /**
      * Attributes for this element
      *
-     * @var string
+     * @var array
      */
     protected $attributes = array();
 
@@ -204,14 +204,14 @@ abstract class Element
      * add an element attribute value to a multi-value attribute (like class)
      *
      * @param string $name  name of the attribute
-     * @param mixed  $value value for the attribute
+     * @param string $value value for the attribute
      *
      * @return void
      */
     public function addAttribute($name, $value)
     {
         if (is_scalar($value)) {
-            $value = explode(' ', $value);
+            $value = explode(' ', (string) $value);
         }
         $name = htmlspecialchars($name, ENT_QUOTES);
         if (false==$this->hasAttribute($name)) {
@@ -313,7 +313,7 @@ abstract class Element
      */
     public function getName()
     {
-        return $this->getAttribute('name');
+        return (string) $this->getAttribute('name');
     }
 
     /**
@@ -335,7 +335,7 @@ abstract class Element
      */
     public function getAccessKey()
     {
-        return $this->getAttribute('accesskey');
+        return (string) $this->getAttribute('accesskey');
     }
 
     /**
@@ -404,7 +404,7 @@ abstract class Element
      */
     public function getPattern()
     {
-        return $this->getAttribute('pattern');
+        return (string) $this->getAttribute('pattern');
     }
 
     /**
@@ -507,21 +507,17 @@ abstract class Element
     /**
      * getTitle - get the title for the element
      *
-     * @param boolean $encode True to encode special characters
-     *
      * @return string
      */
-    public function getTitle($encode = true)
+    public function getTitle()
     {
         if ($this->hasAttribute('title')) {
             return $this->getAttribute('title');
         } else {
             if (strlen($this->pattern_description) > 0) {
-                return $encode
-                    ? htmlspecialchars(strip_tags($this->caption . ' - ' . $this->pattern_description), ENT_QUOTES)
-                    : strip_tags($this->caption . ' - ' . $this->pattern_description);
+                return htmlspecialchars(strip_tags($this->caption . ' - ' . $this->pattern_description), ENT_QUOTES);
             } else {
-                return $encode ? htmlspecialchars(strip_tags($this->caption), ENT_QUOTES) : strip_tags($this->caption);
+                return htmlspecialchars(strip_tags($this->caption), ENT_QUOTES);
             }
         }
     }

@@ -282,7 +282,7 @@ abstract class Form implements ContainerInterface
         $elements = $this->getElements(true);
         foreach ($elements as $ele) {
             /* @var Element $ele */
-            if ($name == $ele->getName(false)) {
+            if ($name == $ele->getName()) {
                 return $ele;
             }
         }
@@ -318,7 +318,7 @@ abstract class Form implements ContainerInterface
             $elements = $this->getElements(true);
             foreach ($elements as $ele) {
                 /* @var $ele Element */
-                $name = $ele->getName(false);
+                $name = $ele->getName();
                 if ($name && isset($values[$name])) {
                     $ele->setValue($values[$name]);
                 }
@@ -354,7 +354,7 @@ abstract class Form implements ContainerInterface
         $values = array();
         foreach ($elements as $ele) {
             /* @var Element $ele */
-            $name = $ele->getName(false);
+            $name = $ele->getName();
             if ($name) {
                 $values[$name] = $ele->getValue($encode);
             }
