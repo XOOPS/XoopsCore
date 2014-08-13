@@ -35,9 +35,8 @@ class DateSelect extends Text
      */
     public function __construct($caption, $name, $size = 2, $value = 0)
     {
-        if (!empty($value) && $value !== '') {
-            $value = !is_numeric($value) ? time() : intval($value);
-            $value = ($value == 0) ? time() : $value;
+        if ($value !== '') {
+            $value = ($value === 0) ? time() : intval($value);
         }
         parent::__construct($caption, $name, $size, 2, $value);
     }
@@ -52,12 +51,9 @@ class DateSelect extends Text
         static $included = false;
         $xoops = \Xoops::getInstance();
 
-        $ele_name = $this->getName();
-        $ele_value = $this->getValue(false);
-        if (is_string($ele_value)) {
-            $display_value = $ele_value;
-            $ele_value = time();
-        } else {
+        $ele_value = (string) $this->getValue(false);
+        $display_value = $ele_value;
+        if (0 < intval($ele_value)) {
             $display_value = date(\XoopsLocale::getFormatShortDate(), $ele_value);
         }
 
@@ -153,18 +149,19 @@ class DateSelect extends Text
             );
         }
         if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = 4;
+            $maxcols = $this->getMaxcols();
         } else {
             $maxcols = $this->getSize();
         }
-        $class = ($this->getClass() != ''
-            ? " class='span" . $maxcols . " " . $this->getClass() . "'"
-            : " class='span" . $maxcols . "'");
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
-        return "<input type='text' name='" . $ele_name . "' id='" . $ele_name . "'"
-            . $class ."' maxlength='" . $this->getMaxlength() . "' value='" . $display_value . "'"
-            . $extra . $required . " /><button class='btn' type='button' onclick='return showCalendar(\""
-            . $this->getName() . "\");'> ... </button>" ;
+        $this->addAttribute('class', 'span' . $maxcols);
+        if (!empty($this->isDatalist())) {
+            $this->addAttribute('list', 'list_' . $this->getName());
+        }
+
+        $attributes = $this->renderAttributeString();
+        return '<input ' . $attributes . 'value="' . $display_value . '" '
+            . $this->getExtra() .' >'
+            . '<button class="btn" type="button" onclick="return showCalendar(\''
+            . $this->getName() . '\');"> ... </button>';
     }
 }

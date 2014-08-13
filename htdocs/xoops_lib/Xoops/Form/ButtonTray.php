@@ -28,7 +28,7 @@ class ButtonTray extends Element
     /**
      * @var string
      */
-    private $type;
+    //private $type;
 
     /**
      * @var boolean
@@ -64,7 +64,7 @@ class ButtonTray extends Element
      */
     public function getType()
     {
-        return $this->type;
+        return (string) $this->getAttribute('type');
     }
 
     /**
@@ -75,7 +75,6 @@ class ButtonTray extends Element
     public function render()
     {
         $ret = '';
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $this->addAttribute('class', 'btn');
 
         $class = 'class="' . $this->getClass() . '"';
@@ -88,7 +87,8 @@ class ButtonTray extends Element
         $ret .= '<input type="button" ' . $class . ' value="' . \XoopsLocale::A_CANCEL
             . '" onClick="history.go(-1);return true;" /> <input type="reset"' . $class
             . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" /> '
-            . '<input ' . $attributes . ' value="' . $this->getValue() . '"' . $extra . '/>';
+            . '<input ' . $attributes . ' value="' . $this->getValue() . '" '
+            . $this->getExtra() . ' />';
         return $ret;
     }
 }

@@ -73,21 +73,21 @@ class Text extends Element
     /**
      * Get size
      *
-     * @return int
+     * @return string
      */
     public function getSize()
     {
-        return $this->getAttribute('size');
+        return (string) $this->getAttribute('size');
     }
 
     /**
      * Get maximum text length
      *
-     * @return int
+     * @return string
      */
     public function getMaxlength()
     {
-        return $this->getAttribute('maxlength');
+        return (string) $this->getAttribute('maxlength');
     }
 
     /**
@@ -97,7 +97,7 @@ class Text extends Element
      */
     public function getPlaceholder()
     {
-        return $this->getAttribute('placeholder');
+        return (string) $this->getAttribute('placeholder');
     }
 
     /**
@@ -113,13 +113,12 @@ class Text extends Element
             $maxcols = $this->getSize();
         }
         $this->addAttribute('class', 'span' . $maxcols);
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         if (!empty($this->isDatalist())) {
             $this->addAttribute('list', 'list_' . $this->getName());
         }
 
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . 'value="'
-            . $this->getValue() . '" ' . $extra .' >';
+            . $this->getValue() . '" ' . $this->getExtra() .' >';
     }
 }

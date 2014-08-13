@@ -70,21 +70,21 @@ class TextArea extends Element
     /**
      * get number of rows
      *
-     * @return int
+     * @return string
      */
     public function getRows()
     {
-        return $this->getAttribute('rows');
+        return (string) $this->getAttribute('rows');
     }
 
     /**
      * Get number of columns
      *
-     * @return int
+     * @return string
      */
     public function getCols()
     {
-        return $this->getAttribute('cols');
+        return (string) $this->getAttribute('cols');
     }
 
     /**
@@ -94,7 +94,7 @@ class TextArea extends Element
      */
     public function getPlaceholder()
     {
-        return $this->getAttribute('placeholder');
+        return (string) $this->getAttribute('placeholder');
     }
 
     /**
@@ -110,10 +110,9 @@ class TextArea extends Element
             $maxcols = $this->getCols();
         }
         $this->addAttribute('class', 'span' . $maxcols);
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
 
         $attributes = $this->renderAttributeString();
-        return '<textarea ' . $attributes . 'value="' . '" ' . $extra .' >'
+        return '<textarea ' . $attributes . 'value="' . '" ' . $this->getExtra() .' >'
             . $this->getValue() . '</textarea>';
     }
 }

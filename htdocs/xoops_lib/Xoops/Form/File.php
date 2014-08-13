@@ -33,8 +33,8 @@ class File extends Element
     public function __construct($caption, $name)
     {
         $this->setCaption($caption);
-        $this->setName($name);
-
+        $this->setAttribute('type', 'file');
+        $this->setAttribute('name', $name);
     }
 
     /**
@@ -44,9 +44,10 @@ class File extends Element
      */
     public function render()
     {
-        return '<input class="input-file" type="file" name="' . $this->getName()
-            . '" id="' . $this->getName() . '" title="' . $this->getTitle() . '" '
-            . $this->getExtra() . ' /><input type="hidden" name="xoops_upload_file[]" id="xoops_upload_file[]" value="'
+        $attributes = $this->renderAttributeString();
+
+        return '<input ' . $attributes . ' ' . $this->getExtra() . ' />'
+            . '<input type="hidden" name="xoops_upload_file[]" id="xoops_upload_file[]" value="'
             . $this->getName() . '">';
     }
 }

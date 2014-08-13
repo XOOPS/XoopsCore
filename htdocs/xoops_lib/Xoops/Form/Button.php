@@ -25,14 +25,6 @@ namespace Xoops\Form;
 class Button extends Element
 {
 
-    //protected $class;
-
-    /**
-     * Type of the button. This could be either "button", "submit", or "reset"
-     * @var    string
-     */
-    protected $type;
-
     /**
      * Constructor
      *
@@ -47,7 +39,6 @@ class Button extends Element
         $this->setAttribute('type', $type);
         $this->setAttribute('name', $name);
         $this->setValue($value);
-        //$this->class = $class;
     }
 
     /**
@@ -57,7 +48,8 @@ class Button extends Element
      */
     public function getType()
     {
-        return in_array(strtolower($this->type), array("button", "submit", "reset")) ? $this->type : "button";
+        return (string) $this->getAttribute('type');
+        //return in_array(strtolower($this->type), array("button", "submit", "reset")) ? $this->type : "button";
     }
 
     /**
@@ -67,13 +59,10 @@ class Button extends Element
      */
     public function render()
     {
-        $name = $this->getName();
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $this->addAttribute('class', 'btn');
 
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . 'value="' . $this->getValue()
-            . '" ' . $extra .' >';
-
+            . '" ' . $this->getExtra() .' >';
     }
 }

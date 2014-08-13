@@ -30,14 +30,14 @@ class Password extends Element
      *
      * @var int
      */
-    private $size;
+    //private $size;
 
     /**
      * Maximum length of the text
      *
      * @var int
      */
-    private $maxlength;
+    //private $maxlength;
 
     /**
      * Cache password with browser. Disabled by default for security consideration
@@ -45,7 +45,7 @@ class Password extends Element
      *
      * @var boolean
      */
-    public $autoComplete = false;
+    //public $autoComplete = false;
 
      /**
      * placeholder for this element
@@ -53,7 +53,7 @@ class Password extends Element
      * @var string
      * @access private
      */
-    private $placeholder;
+    //private $placeholder;
 
     /**
      * __construct
@@ -76,32 +76,35 @@ class Password extends Element
         $placeholder = ''
     ) {
         $this->setCaption($caption);
-        $this->setName($name);
-        $this->size = intval($size);
-        $this->maxlength = intval($maxlength);
+        $this->setAttribute('type', 'password');
+        $this->setAttribute('name', $name);
+        $this->setAttribute('size', intval($size));
+        $this->setAttribute('maxlength', intval($maxlength));
         $this->setValue($value);
-        $this->autoComplete = !empty($autoComplete);
-        $this->placeholder = $placeholder;
+        $this->setAttribute('autocomplete', $autoComplete ? 'yes' : 'no');
+        if (!empty($placeholder)) {
+            $this->setAttribute('placeholder', $placeholder);
+        }
     }
 
     /**
      * Get the field size
      *
-     * @return int
+     * @return string
      */
     public function getSize()
     {
-        return $this->size;
+        return (string) $this->setAttribute('size');
     }
 
     /**
      * Get the max length
      *
-     * @return int
+     * @return string
      */
     public function getMaxlength()
     {
-        return $this->maxlength;
+        return (string) $this->setAttribute('maxlength');
     }
 
     /**
@@ -111,10 +114,7 @@ class Password extends Element
      */
     public function getPlaceholder()
     {
-        if (empty($this->placeholder)) {
-            return '';
-        }
-        return $this->placeholder;
+        return (string) $this->setAttribute('placeholder');
     }
 
     /**
@@ -124,23 +124,15 @@ class Password extends Element
      */
     public function render()
     {
-        $name = $this->getName();
         if ($this->getSize() > $this->getMaxcols()) {
             $maxcols = $this->getMaxcols();
         } else {
             $maxcols = $this->getSize();
         }
-        $class = ($this->getClass() != ''
-            ? " class='span" . $maxcols . " " . $this->getClass() . "'"
-            : " class='span" . $maxcols . "'");
-        $pattern = ($this->getPattern() != '' ? " pattern='" . $this->getPattern() . "'" : '');
-        $placeholder = ($this->getPlaceholder() != '' ? " placeholder='" . $this->getPlaceholder() . "'" : '');
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $autocomplete = ($this->autoComplete ? '' : " autocomplete='off'");
-        $required = ($this->isRequired() ? ' required' : '');
-        return "<input type='password' name='" . $name . "' title='" . $this->getTitle()
-            . "' id='" . $name . "'" . $class ." maxlength='" . $this->getMaxlength()
-            . "' value='" . $this->getValue() . "'" . $pattern . $placeholder
-            . $extra . $autocomplete . $required . ">";
+        $this->addAttribute('class', 'span' . $maxcols);
+
+        $attributes = $this->renderAttributeString();
+        return '<input ' . $attributes . 'value="'
+            . $this->getValue() . '" ' . $this->getExtra() .' >';
     }
 }

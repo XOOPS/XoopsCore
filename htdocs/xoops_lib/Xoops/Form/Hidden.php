@@ -33,7 +33,8 @@ class Hidden extends Element
      */
     public function __construct($name, $value)
     {
-        $this->setName($name);
+        $this->setAttribute('type', 'hidden');
+        $this->setAttribute('name', $name);
         $this->setHidden();
         $this->setValue($value);
         $this->setCaption('');
@@ -46,7 +47,8 @@ class Hidden extends Element
      */
     public function render()
     {
-        return '<input type="hidden" name="' . $this->getName() . '" id="'
-            . $this->getName() . '" value="' . $this->getValue() . '" >' . NWLINE;
+        $attributes = $this->renderAttributeString();
+        return '<input ' . $attributes . 'value="'
+            . $this->getValue() . '" ' . $this->getExtra() .' >' . NWLINE;
     }
 }
