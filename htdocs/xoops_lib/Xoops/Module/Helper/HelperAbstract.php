@@ -103,6 +103,18 @@ abstract class HelperAbstract
     }
 
     /**
+     * getConfigs
+     *
+     * @return array of config items for module
+     */
+    public function getConfigs()
+    {
+        $result = $this->xoops()->getModuleConfigs($this->_dirname);
+        $this->_addLog("Getting configs for {$this->_dirname} module");
+        return $result;
+    }
+
+    /**
      * @param string $name
      *
      * @return XoopsObjectHandler
