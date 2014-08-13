@@ -64,7 +64,7 @@ class ButtonTray extends Element
      */
     public function getType()
     {
-        return $this->type;
+        return (string) $this->getAttribute('type');
     }
 
     /**

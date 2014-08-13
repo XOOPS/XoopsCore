@@ -110,10 +110,9 @@ class TextArea extends Element
             $maxcols = $this->getCols();
         }
         $this->addAttribute('class', 'span' . $maxcols);
-        $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
 
         $attributes = $this->renderAttributeString();
-        return '<textarea ' . $attributes . 'value="' . '" ' . $extra .' >'
+        return '<textarea ' . $attributes . 'value="' . '" ' . $this->getExtra() .' >'
             . $this->getValue() . '</textarea>';
     }
 }

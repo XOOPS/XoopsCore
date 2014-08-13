@@ -360,13 +360,13 @@ abstract class Element
     /**
      * setClass - set the "class" attribute for the element
      *
-     * @param string|string[] $class "class" attribute for the element
+     * @param string $class "class" attribute for the element
      *
      * @return void
      */
     public function setClass($class)
     {
-        $this->addAttribute('class', $class);
+        $this->addAttribute('class', (string) $class);
     }
 
     /**

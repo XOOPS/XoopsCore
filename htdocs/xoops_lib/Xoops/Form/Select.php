@@ -191,8 +191,6 @@ class Select extends Element
      */
     public function render()
     {
-        $ele_name = $this->getName();
-        $ele_title = $this->getTitle();
         $ele_value = $this->getValue();
         if (!is_array($ele_value)) {
             $ele_value = (array) $ele_value;

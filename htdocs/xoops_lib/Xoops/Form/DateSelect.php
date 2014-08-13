@@ -51,8 +51,7 @@ class DateSelect extends Text
         static $included = false;
         $xoops = \Xoops::getInstance();
 
-        $ele_name = $this->getName();
-        $ele_value = $this->getValue(false);
+        $ele_value = (string) $this->getValue(false);
         $display_value = $ele_value;
         if (0 < intval($ele_value)) {
             $display_value = date(\XoopsLocale::getFormatShortDate(), $ele_value);

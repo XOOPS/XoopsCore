@@ -30,14 +30,14 @@ class Password extends Element
      *
      * @var int
      */
-    private $size;
+    //private $size;
 
     /**
      * Maximum length of the text
      *
      * @var int
      */
-    private $maxlength;
+    //private $maxlength;
 
     /**
      * Cache password with browser. Disabled by default for security consideration
@@ -45,7 +45,7 @@ class Password extends Element
      *
      * @var boolean
      */
-    public $autoComplete = false;
+    //public $autoComplete = false;
 
      /**
      * placeholder for this element
@@ -53,7 +53,7 @@ class Password extends Element
      * @var string
      * @access private
      */
-    private $placeholder;
+    //private $placeholder;
 
     /**
      * __construct
@@ -100,7 +100,7 @@ class Password extends Element
     /**
      * Get the max length
      *
-     * @return int
+     * @return string
      */
     public function getMaxlength()
     {
