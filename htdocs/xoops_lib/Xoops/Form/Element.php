@@ -50,7 +50,7 @@ abstract class Element
      *
      * @var string
      */
-    private $name = '';
+    //private $name = '';
 
     /**
      * caption of the element

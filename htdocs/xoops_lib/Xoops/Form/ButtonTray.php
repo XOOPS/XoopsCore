@@ -28,7 +28,7 @@ class ButtonTray extends Element
     /**
      * @var string
      */
-    private $type;
+    //private $type;
 
     /**
      * @var boolean

@@ -48,7 +48,8 @@ class Button extends Element
      */
     public function getType()
     {
-        return in_array(strtolower($this->type), array("button", "submit", "reset")) ? $this->type : "button";
+        return (string) $this->getAttribute('type');
+        //return in_array(strtolower($this->type), array("button", "submit", "reset")) ? $this->type : "button";
     }
 
     /**
