@@ -28,5 +28,5 @@ if (count($profileBreadcrumbs) > 1) {
     $xmfbreadcrumb->setItems($profileBreadcrumbs);
     $xoops->tpl()->assign('profile_breadcrumbs', $xmfbreadcrumb->fetch());
 }
-$xoops->theme()->addStylesheet($xoops->url('modules/assets/css/style.css'));
+$xoops->theme()->addStylesheet($xoops->url('modules/profile/assets/css/style.css'));
 $xoops->footer();
