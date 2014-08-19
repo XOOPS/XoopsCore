@@ -113,7 +113,8 @@ class Text extends Element
             $maxcols = $this->getSize();
         }
         $this->addAttribute('class', 'span' . $maxcols);
-        if (!empty($this->isDatalist())) {
+        $dlist = $this->isDatalist();
+        if (!empty($dlist)) {
             $this->addAttribute('list', 'list_' . $this->getName());
         }
 
