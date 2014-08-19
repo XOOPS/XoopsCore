@@ -489,7 +489,8 @@ abstract class Element
      */
     public function getCaption()
     {
-        return htmlspecialchars($this->caption, ENT_QUOTES);
+        return $this->caption;
+        //return htmlspecialchars($this->caption, ENT_QUOTES);
     }
 
     /**
