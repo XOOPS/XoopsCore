@@ -30,10 +30,6 @@ $helper = Comments::getInstance();
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 // Call Header
 $xoops->header('comments.html');
-// Define Stylesheet
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
-// Define scripts
-$xoops->theme()->addScript('modules/system/js/admin.js');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');

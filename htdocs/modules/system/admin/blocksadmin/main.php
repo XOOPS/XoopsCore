@@ -76,7 +76,6 @@ switch ($op) {
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define scripts
-        $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
         $xoops->theme()->addScript('modules/system/js/admin.js');
         $xoops->theme()->addScript('modules/system/js/blocks.js');
         // Define Breadcrumb and tips
@@ -197,10 +196,7 @@ switch ($op) {
         $xoops->header('system_blocks.html');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-        $xoops->theme()->
-            addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
         // Define scripts
-        $xoops->theme()->addScript('media/jquery/plugins/jquery.ui.js');
         $xoops->theme()->addScript('media/jquery/plugins/jquery.form.js');
         $xoops->theme()->addScript('modules/system/js/admin.js');
         $xoops->theme()->addScript('modules/system/js/blocks.js');
@@ -408,10 +404,6 @@ switch ($op) {
             $xoops->header('system_blocks.html');
             // Define Stylesheet
             $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-            $xoops->theme()->
-                addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
-            // Define scripts
-            $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
             $xoops->theme()->addScript('media/jquery/plugins/jquery.form.js');
             $xoops->theme()->addScript('modules/system/js/admin.js');
             // Define Breadcrumb and tips
