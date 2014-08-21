@@ -237,10 +237,20 @@ abstract class Element
         }
         // generate id from name if not already set
         if (!$this->hasAttribute('id')) {
-            $this->setAttribute('id', $this->getAttribute('name'));
+            $id = $this->getAttribute('name');
+            if (substr($id, -2) == '[]') {
+                $id = substr($id, 0, strlen($id)-2);
+            }
+            $this->setAttribute('id', $id);
         }
         $rendered = '';
         foreach ($this->attributes as $name => $value) {
+            if ($name == 'name'
+                && $this->hasAttribute('multiple')
+                && substr($value, -2) != '[]'
+            ) {
+                $value .= '[]';
+            }
             if (is_array($value)) {
                 // arrays can be used for class attributes, space separated
                 $set = '="' . htmlspecialchars(implode(' ', $value), ENT_QUOTES) .'"';
