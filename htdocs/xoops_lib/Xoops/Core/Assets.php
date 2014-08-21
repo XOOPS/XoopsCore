@@ -68,7 +68,7 @@ class Assets
         ),
         array(
             'name' => 'jqueryui',
-            'assets' => array('media/jquery/plugins/jquery.ui.js'),
+            'assets' => array('media/jquery/ui/jquery-ui.js'),
             'filters' => null,
         ),
         array(

@@ -30,10 +30,7 @@ $xoops->header('protector_advisory.html');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('advisory.php');
 
-// Define Stylesheet
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
-$xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
 $xoops->theme()->addScript('modules/system/js/admin.js');
 
 $i = 0;

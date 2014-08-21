@@ -50,8 +50,6 @@ $xoops->header('system_users.html');
 $myts = MyTextSanitizer::getInstance();
 // Define Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
-//$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
 $xoops->theme()->addScript('modules/system/js/admin.js');
 // Define Breadcrumb and tips

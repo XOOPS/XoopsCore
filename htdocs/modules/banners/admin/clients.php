@@ -47,13 +47,6 @@ switch ($op) {
 
     case 'list':
     default:
-        // Define Stylesheet
-        $xoops->theme()->addStylesheet(
-            'media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css'
-        );
-        // Define scripts
-        $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-        $xoops->theme()->addScript('modules/system/js/admin.js');
 
         $admin_page->addTips(_AM_BANNERS_TIPS_CLIENTS);
         $admin_page->addItemButton(_AM_BANNERS_CLIENTS_ADD, 'clients.php?op=new', 'add');
