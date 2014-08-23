@@ -2,9 +2,7 @@
 <{foreachq from=$block.languages name=lang_if item=lang}>
 .ico-<{$lang.xlanguage_name}> {
     display: inline-block;
-    background-image: url('<{$lang.xlanguage_image}>');
-    background-position: 0 0;
-    background-repeat: no-repeat;
+    background: url('<{$lang.xlanguage_image}>') no-repeat 0 0;
     background-size: 16px 16px;
     margin-right: 0.5em;
     vertical-align: text-top;

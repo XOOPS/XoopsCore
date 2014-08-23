@@ -26,8 +26,14 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 include_once XOOPS_ROOT_PATH . '/modules/xlanguage/include/vars.php';
 
+/**
+ * Class XlanguageLanguage
+ */
 class XlanguageLanguage extends XoopsObject
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->initVar('xlanguage_id', XOBJ_DTYPE_INT, 0, false, 10);
@@ -39,6 +45,13 @@ class XlanguageLanguage extends XoopsObject
         $this->initVar('xlanguage_weight', XOBJ_DTYPE_INT, 1, false, 10);
     }
 
+    /**
+     * @param null   $keys
+     * @param string $format
+     * @param int    $maxDepth
+     *
+     * @return array
+     */
     public function getValues($keys = null, $format = 's', $maxDepth = 1)
     {
         $ret = parent::getValues();
@@ -69,14 +82,23 @@ class XlanguageLanguage extends XoopsObject
     }
 }
 
+/**
+ * Class XlanguageXlanguageHandler
+ */
 class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
 {
+    /**
+     * @param null|Connection $db
+     */
     public function __construct($db)
     {
         parent::__construct($db, 'xlanguage', 'XlanguageLanguage', 'xlanguage_id', 'xlanguage_name');
         $this->loadConfig();
     }
 
+    /**
+     * @return array|mixed
+     */
     public function loadConfig()
     {
         $xoops = Xoops::getInstance();
@@ -86,6 +108,9 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return $this->cached_config = $this->loadFileConfig();
     }
 
+    /**
+     * @return array|mixed
+     */
     public function loadFileConfig()
     {
         $cached_config = $this->readConfig();
@@ -95,6 +120,9 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return $cached_config;
     }
 
+    /**
+     * @return mixed
+     */
     public function readConfig()
     {
         $path_file = $this->configPath . $this->configFile . $this->configFileExt;
@@ -103,6 +131,9 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return eval(@$file->read());
     }
 
+    /**
+     * @return array
+     */
     public function createConfig()
     {
         $cached_config = array();
@@ -113,6 +144,11 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return $cached_config;
     }
 
+    /**
+     * @param $data
+     *
+     * @return bool
+     */
     public function writeConfig($data)
     {
         if ($this->CreatePath($this->configPath)) {
@@ -123,6 +159,12 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         }
     }
 
+    /**
+     * @param              $pathname
+     * @param mixed|string $pathout
+     *
+     * @return bool
+     */
     private function CreatePath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
         $xoops = Xoops::getInstance();
@@ -147,6 +189,13 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return true;
     }
 
+    /**
+     * @param $folder_in
+     * @param $source_file
+     * @param $folder_out
+     *
+     * @return bool
+     */
     private function WriteIndex($folder_in, $source_file, $folder_out)
     {
         if (!is_dir($folder_out)) {
@@ -162,6 +211,11 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return false;
     }
 
+    /**
+     * @param null $name
+     *
+     * @return null
+     */
     public function getByName($name = null)
     {
         $xoops = Xoops::getInstance();
@@ -178,6 +232,11 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return null;
     }
 
+    /**
+     * @param bool $asobject
+     *
+     * @return array
+     */
     public function getAllLanguage($asobject = true)
     {
         $criteria = new CriteriaCompo();
@@ -187,6 +246,9 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria, null, $asobject, true);
     }
 
+    /**
+     * @return mixed|string
+     */
     public function renderlist()
     {
         $xoops = Xoops::getInstance();

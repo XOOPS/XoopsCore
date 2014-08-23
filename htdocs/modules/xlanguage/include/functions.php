@@ -79,7 +79,7 @@ function xlanguage_lang_detect($str = '', $envType = 0)
         // $envType =  1 for the 'HTTP_ACCEPT_LANGUAGE' environment variable,
         //             2 for the 'HTTP_USER_AGENT' one
         $expr = $value[0];
-        if (strpos($expr, '[-_]') === FALSE) {
+        if (strpos($expr, '[-_]') === false) {
             $expr = str_replace('|', '([-_][[:alpha:]]{2,3})?|', $expr);
         }
         if (($envType == 1 && preg_match('^(' . $expr . ')(;q=[0-9]\\.[0-9])?$^', $str)) || ($envType == 2 && preg_match('(\(|\[|;[[:space:]])(' . $expr . ')(;|\]|\))', $str))) {
@@ -241,6 +241,11 @@ function xlanguage_ml_escape_bracket($matches)
     return $ret;
 }
 
+/**
+ * @param null $options
+ *
+ * @return bool
+ */
 function xlanguage_select_show($options = null)
 {
     $xoops = Xoops::getInstance();

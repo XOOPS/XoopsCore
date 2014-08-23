@@ -15,6 +15,10 @@
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
+ *
+ * @param XoopsModule $module
+ *
+ * @return bool
  */
 
 function xoops_module_install_xlanguage(XoopsModule $module)
@@ -25,11 +29,23 @@ function xoops_module_install_xlanguage(XoopsModule $module)
     return true;
 }
 
+/**
+ * @param XoopsModule $module
+ * @param             $version
+ *
+ * @return bool
+ */
 function xoops_module_update_xlanguage(XoopsModule $module, $version)
 {
     return xoops_module_install_xlanguage($module);
 }
 
+/**
+ * @param              $pathname
+ * @param mixed|string $pathout
+ *
+ * @return bool
+ */
 function xlanguage_mkdirs($pathname, $pathout = XOOPS_ROOT_PATH)
 {
     $xoops = Xoops::getInstance();
@@ -55,6 +71,13 @@ function xlanguage_mkdirs($pathname, $pathout = XOOPS_ROOT_PATH)
     return true;
 }
 
+/**
+ * @param $folder_in
+ * @param $source_file
+ * @param $folder_out
+ *
+ * @return bool
+ */
 function xlanguage_copyfile($folder_in, $source_file, $folder_out)
 {
     if (!is_dir($folder_out)) {

@@ -18,10 +18,15 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class XlanguageTinymceForm
+ */
 class XlanguageTinymceForm extends Xoops\Form\SimpleForm
 {
     /**
-     * @param null $obj
+     * @param string $xlanguage
+     *
+     * @internal param null $obj
      */
     public function __construct($xlanguage)
     {
