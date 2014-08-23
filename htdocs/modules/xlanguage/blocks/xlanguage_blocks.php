@@ -14,6 +14,10 @@
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
+ *
+ * @param $options
+ *
+ * @return array
  */
 
 function b_xlanguage_select_show($options)
@@ -71,6 +75,11 @@ function b_xlanguage_select_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ *
+ * @return string
+ */
 function b_xlanguage_select_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();
