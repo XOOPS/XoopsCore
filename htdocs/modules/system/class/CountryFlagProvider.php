@@ -74,7 +74,6 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
         }
 
         $xoops = \Xoops::getInstance();
-        $flagFile = $countryCode . '.png';
         $flagDir = $this->flagSource . $sizeDir . '/';
         $flagFile = $flagDir . $countryCode . '.png';
 
