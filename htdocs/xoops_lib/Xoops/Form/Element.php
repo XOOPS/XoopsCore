@@ -12,6 +12,8 @@
 
 namespace Xoops\Form;
 
+use Xoops\Html\Attributes;
+
 /**
  * Element - Abstract base class for form elements
  *
@@ -22,16 +24,9 @@ namespace Xoops\Form;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
-*/
-abstract class Element
+ */
+abstract class Element extends Attributes
 {
-
-    /**
-     * Attributes for this element
-     *
-     * @var array
-     */
-    protected $attributes = array();
 
     /**
      * Javascript performing additional validation of this element data
@@ -154,77 +149,6 @@ abstract class Element
 
 
     /**
-     * Set an element attribute
-     *
-     * @param string $name  name of the attribute
-     * @param mixed  $value value for the attribute
-     *
-     * @return void
-     */
-    public function setAttribute($name, $value = null)
-    {
-        // convert boolean to strings, so getAttribute can return boolean
-        // false for attributes that are not defined
-        $value = ($value===false) ? '0' : $value;
-        $value = ($value===true) ? '1' : $value;
-        $this->attributes[htmlspecialchars($name, ENT_QUOTES)] = $value;
-    }
-
-    /**
-     * get an element attribute value
-     *
-     * @param string $name name of the attribute
-     *
-     * @return mixed value
-     */
-    public function getAttribute($name)
-    {
-        $value = false;
-        $name = htmlspecialchars($name, ENT_QUOTES);
-        if (isset($this->attributes[$name])) {
-            $value = $this->attributes[$name];
-        }
-        return $value;
-    }
-
-    /**
-     * is an element attribute set?
-     *
-     * @param string $name name of the attribute
-     *
-     * @return boolean
-     */
-    public function hasAttribute($name)
-    {
-        $name = htmlspecialchars($name, ENT_QUOTES);
-        return array_key_exists($name, $this->attributes);
-    }
-
-    /**
-     * add an element attribute value to a multi-value attribute (like class)
-     *
-     * @param string $name  name of the attribute
-     * @param string $value value for the attribute
-     *
-     * @return void
-     */
-    public function addAttribute($name, $value)
-    {
-        if (is_scalar($value)) {
-            $value = explode(' ', (string) $value);
-        }
-        $name = htmlspecialchars($name, ENT_QUOTES);
-        if (false==$this->hasAttribute($name)) {
-            $this->attributes[$name] = array();
-        }
-        foreach ($value as $v) {
-            if (!in_array($v, $this->attributes[$name])) {
-                $this->attributes[$name][] = $v;
-            }
-        }
-    }
-
-    /**
      * render attributes as a string to include in HTML output
      *
      * @return string
@@ -243,26 +167,7 @@ abstract class Element
             }
             $this->setAttribute('id', $id);
         }
-        $rendered = '';
-        foreach ($this->attributes as $name => $value) {
-            if ($name == 'name'
-                && $this->hasAttribute('multiple')
-                && substr($value, -2) != '[]'
-            ) {
-                $value .= '[]';
-            }
-            if (is_array($value)) {
-                // arrays can be used for class attributes, space separated
-                $set = '="' . htmlspecialchars(implode(' ', $value), ENT_QUOTES) .'"';
-            } elseif ($value===null) {
-                // null indicates name only, like autofocus or readonly
-                $set = '';
-            } else {
-                $set = '="' . htmlspecialchars($value, ENT_QUOTES) .'"';
-            }
-            $rendered .= $name . $set . ' ';
-        }
-        return $rendered;
+        return parent::renderAttributeString();
     }
 
     /**

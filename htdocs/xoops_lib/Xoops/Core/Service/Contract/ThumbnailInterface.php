@@ -44,13 +44,11 @@ interface ThumbnailInterface
     /**
      * getImgTag - get a full HTML img tag to display a thumbnail of the supplied image
      *
-     * @param Response $response \Xoops\Core\Service\Response object
-     * @param string   $imgPath  path to image to be thumbed
-     * @param integer  $width    maximum width of thumbnail in pixels, 0 to use default
-     * @param integer  $height   maximum height of thumbnail in pixels, 0 to use default
-     * @param string   $class    class attribute for img tag
-     * @param string   $altText  alt attribute
-     * @param string   $title    title attribute
+     * @param Response $response   \Xoops\Core\Service\Response object
+     * @param string   $imgPath    path to image to be thumbed
+     * @param integer  $width      maximum width of thumbnail in pixels, 0 to use default
+     * @param integer  $height     maximum height of thumbnail in pixels, 0 to use default
+     * @param array    $attributes array of attribute name => value pairs for img tag
      *
      * @return void  - response->value set to image tag
      */
@@ -59,8 +57,6 @@ interface ThumbnailInterface
         $imgPath,
         $width = 0,
         $height = 0,
-        $class = '',
-        $altText = '',
-        $title = ''
+        $attributes = array()
     );
 }

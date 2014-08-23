@@ -12,6 +12,7 @@
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\QrcodeInterface;
 use Xoops\Core\Service\Response;
+use Xoops\Html\Img;
 
 /**
  * Qrcode provider for service manager
@@ -84,23 +85,18 @@ class QrcodeProvider extends AbstractContract implements QrcodeInterface
     /**
      * getImgTag - get a full HTML img tag to display a QR Code image of supplied text
      *
-     * @param Response $response \Xoops\Core\Service\Response object
-     * @param string   $qrText   text to encode in QR Code
-     * @param string   $class    class attribute for img tag
-     * @param string   $altText  alt attribute
-     * @param string   $title    title attribute
+     * @param Response $response   \Xoops\Core\Service\Response object
+     * @param string   $qrText     text to encode in QR Code
+     * @param array    $attributes array of attribute name => value pairs for img tag
      *
      * @return void  - response->value set to image tag
      */
-    public function getImgTag(Response $response, $qrText, $class = '', $altText = '', $title = '')
+    public function getImgTag(Response $response, $qrText, $attributes = array())
     {
         $url = $this->getQRUrl($qrText);
-        $classAttr = empty($class) ? '' : ' class="'.$class.'"';
-        $altAttr = empty($altText) ? '' : ' alt="'.$altText.'"';
-        $titleAttr = empty($title) ? '' : ' title="'.$title.'"';
 
-        $tag = '<img src="'.$url.'"'.$classAttr.$altAttr.$titleAttr.' />';
-
-        $response->setValue($tag);
+        $imgTag = new Img(array('src' => $url,));
+        $imgTag->setAttributes($attributes);
+        $response->setValue($imgTag->render());
     }
 }

@@ -8,18 +8,18 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Cointin Maxime (AKA Kraven30)
  * @author          Andricq Nicolas (AKA MusS)
- * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\PreloadItem;
+use Xoops\Core\Service\Provider;
 
-class SystemCorePreload extends XoopsPreloadItem
+class SystemPreload extends PreloadItem
 {
-    static function eventCoreIncludeFunctionsRedirectheader($args)
+    public static function eventCoreIncludeFunctionsRedirectheader($args)
     {
         $xoops = Xoops::getInstance();
         $url = $args[0];
@@ -28,14 +28,16 @@ class SystemCorePreload extends XoopsPreloadItem
                 $url = XOOPS_URL;
             }
         }
-        if (!headers_sent() && $xoops->getConfig('redirect_message_ajax') && $xoops->getConfig('redirect_message_ajax')) {
+        if (!headers_sent() && $xoops->getConfig('redirect_message_ajax')
+            && $xoops->getConfig('redirect_message_ajax')
+        ) {
             $_SESSION['redirect_message'] = $args[2];
             header("Location: " . preg_replace("/[&]amp;/i", '&', $url));
             exit();
         }
     }
 
-    static function eventCoreHeaderCheckcache($args)
+    public static function eventCoreHeaderCheckcache($args)
     {
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
@@ -44,7 +46,7 @@ class SystemCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventCoreHeaderAddmeta($args)
+    public static function eventCoreHeaderAddmeta($args)
     {
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
@@ -61,7 +63,7 @@ class SystemCorePreload extends XoopsPreloadItem
         }
     }
 
-    static function eventSystemClassGuiHeader($args)
+    public static function eventSystemClassGuiHeader($args)
     {
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
@@ -76,6 +78,23 @@ class SystemCorePreload extends XoopsPreloadItem
             })(jQuery);
             ');
             unset($_SESSION['redirect_message']);
+        }
+    }
+
+    /**
+     * listen for core.service.locate.countryflag event
+     *
+     * @param Provider $provider - provider object for requested service
+     *
+     * @return void
+     */
+    public static function eventCoreServiceLocateCountryflag(Provider $provider)
+    {
+        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
+            $path = dirname(__DIR__) . '/class/CountryFlagProvider.php';
+            require $path;
+            $object = new CountryFlagProvider();
+            $provider->register($object);
         }
     }
 }
