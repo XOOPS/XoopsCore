@@ -7,34 +7,44 @@
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- */
+*/
+
+
+namespace Xoops\Html;
 
 /**
+ * Img - Render an html img tag
+ *
+ * @category  Xoops\Html\Img
+ * @package   Xoops\Html
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
+class Img extends Attributes
+{
+    /**
+     * __construct
+     *
+     * @param array $attributes array of attribute name => value pairs for img tag
+     */
+    public function __construct($attributes = array())
+    {
+        if (!empty($attributes)) {
+            $this->setAttributes($attributes);
+        }
+    }
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+    /**
+     * render
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $tag = '<img ' . $this->renderAttributeString() . ' />';
 
-$xoops = Xoops::getInstance();
-$xoops->header();
-
-$image = 'modules/codex/images/sample.jpeg';
-
-// fit in a 300 pixel box
-$img = $xoops->service('thumbnail')->getImgTag($image, 300, 300, array('alt' => 'cow elk image'))->getValue();
-echo $img;
-
-// use default max pixel sizes
-$img = $xoops->service('thumbnail')->getImgTag($image)->getValue();
-echo $img;
-
-if (!$xoops->service('thumbnail')->isAvailable()) {
-    echo 'Please install a thumbnail provider to view this demonstration.';
+        return $tag;
+    }
 }
-
-Xoops_Utils::dumpFile(__FILE__);
-
-$xoops->footer();

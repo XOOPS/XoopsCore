@@ -14,39 +14,37 @@ namespace Xoops\Core\Service\Contract;
 use Xoops\Core\Service\Response;
 
 /**
- * Qrcode service interface
+ * CountryFlag service interface
  *
- * @category  Xoops\Core\Service\Contract\QrcodeInterface
+ * @category  Xoops\Core\Service\Contract\CountryflagInterface
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2014 The XOOPS Project https://github.com/XOOPS/XoopsCore
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     2.6.0
  */
-interface QrcodeInterface
+interface CountryflagInterface
 {
     const MODE = \Xoops\Core\Service\Manager::MODE_EXCLUSIVE;
 
     /**
-     * getImgUrl - get URL to QR Code image of supplied text
+     * getImgUrl - get URL to flag based on county code
      *
-     * @param Response $response \Xoops\Core\Service\Response object
-     * @param string   $qrText   text to encode in QR Code
+     * @param Response $response    \Xoops\Core\Service\Response object
+     * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag
      *
      * @return void  - response->value set to URL string
      */
-    public function getImgUrl(Response $response, $qrText);
+    public function getImgUrl(Response $response, $countryCode);
 
     /**
-     * getImgTag - get a full HTML img tag to display a QR Code image of supplied text
+     * getImgTag - get a full HTML img tag to display a flag based on county code
      *
-     * @param Response $response   \Xoops\Core\Service\Response object
-     * @param string   $qrText     text to encode in QR Code
-     * @param array    $attributes array of attribute name => value pairs for img tag
+     * @param Response $response    \Xoops\Core\Service\Response object
+     * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag
+     * @param array    $attributes  array of attribute name => value pairs for img tag
      *
      * @return void  - response->value set to URL string
      */
-    public function getImgTag(Response $response, $qrText, $attributes = array());
+    public function getImgTag(Response $response, $countryCode, $attributes = array());
 }
