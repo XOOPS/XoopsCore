@@ -39,8 +39,8 @@ class Radio extends Element
      */
     protected $value = null;
 
-     /**
-     * position for this element
+    /**
+     * inline attribute for this element
      *
      * @var boolean
      */
@@ -56,8 +56,9 @@ class Radio extends Element
      */
     public function __construct($caption, $name, $value = null, $inline = true)
     {
+        $this->setAttribute('type', 'radio');
+        $this->setAttribute('name', $name);
         $this->setCaption($caption);
-        $this->setName($name);
         if (isset($value)) {
             $this->setValue($value);
         }
@@ -79,15 +80,15 @@ class Radio extends Element
     /**
      * Add an option
      *
-     * @param string $value "value" attribute - This gets submitted as form-data.
-     * @param string $name  "name" attribute - This is displayed. If empty, we use the "value" instead.
+     * @param string $value         value attribute for option - This gets submitted as form-data.
+     * @param string $buttonCaption option button caption - If empty, we use the "value" instead.
      *
      * @return void
      */
-    public function addOption($value, $name = '')
+    public function addOption($value, $buttonCaption = '')
     {
-        if ($name != '') {
-            $this->options[$value] = $name;
+        if ($buttonCaption != '') {
+            $this->options[$value] = $buttonCaption;
         } else {
             $this->options[$value] = $value;
         }
@@ -125,15 +126,15 @@ class Radio extends Element
             return $this->options;
         }
         $value = array();
-        foreach ($this->options as $val => $name) {
-            $value[$encode ? htmlspecialchars($val, ENT_QUOTES) : $val] = ($encode > 1)
-                ? htmlspecialchars($name, ENT_QUOTES) : $name;
+        foreach ($this->options as $value => $buttonCaption) {
+            $value[$encode ? htmlspecialchars($value, ENT_QUOTES) : $value] = ($encode > 1)
+                ? htmlspecialchars($buttonCaption, ENT_QUOTES) : $buttonCaption;
         }
         return $value;
     }
 
     /**
-     * Get the position of this group
+     * sets the class for inline orientation
      *
      * @return string
      */
@@ -157,24 +158,20 @@ class Radio extends Element
         $ele_value = $this->getValue();
         $ele_name = $this->getName();
         $ele_title = $this->getTitle();
-        $ele_inline = $this->getInline();
-        $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
         $ret = "";
         static $id_ele = 0;
-        foreach ($ele_options as $value => $name) {
+        foreach ($ele_options as $value => $buttonCaption) {
+            $this->unsetAttribute('checked');
             if (isset($ele_value) && $value == $ele_value) {
-                $ele_checked = " checked='checked'";
-            } else {
-                $ele_checked = '';
+                $this->setAttribute('checked');
             }
+            $this->setAttribute('value', $value);
             $id_ele++;
-            $ret .= "<label class='radio" . $ele_inline . "'>" . NWLINE;
-            $ret .= "<input type='radio' name='" . $ele_name . "' title='" . $ele_title . "' id='"
-                . $ele_name . $id_ele . "' value='" . $value . "'" . $class . $extra . $ele_checked
-                . $required . ">" . NWLINE;
-            $ret .= $name . NWLINE;
+            $this->setAttribute('id', $ele_name . $id_ele);
+            $ret .= '<label class="radio' . $this->getInline() . '">' . NWLINE;
+            $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . NWLINE;
+            $ret .= $buttonCaption . NWLINE;
             $ret .= "</label>" . NWLINE;
         }
         return $ret;
