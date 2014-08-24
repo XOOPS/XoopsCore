@@ -28,25 +28,25 @@ use Xoops\Core\Service\Response;
  * @version   Release: 1.0
  * @link      http://xoops.org
  *
- * @method void getAvatarUrl(Response $response, mixed $userinfo);
- * @method void getAvatarEditUrl(Response $response, \XoopsUser $userinfo);
- * @method void getImgUrl(Response $response, ...);
- * @method void getImgTag(Response $response, ...);
- * @method void startPdf($response);
- * @method void setPageOrientation(Response $response, string $pageOrientation);
- * @method void setPageSize(Response $response, string $pageSize);
- * @method void setBaseUnit(Response $response, string $unit);
- * @method void setMargins(Response $response, float $leftMargin, float $topMargin, float $rightMargin, float $bottomMargin);
- * @method void setBaseFont(Response $response, string $fontFamily, string $fontStyle, float|null $fontSize);
- * @method void setDefaultMonospacedFont(Response $response, string $monoFontFamily);
- * @method void setAuthor(Response $response, string $pdfAuthor);
- * @method void setTitle(Response $response, string $pdfTitle);
- * @method void setSubject(Response $response, string $pdfSubject);
- * @method void setKeywords(Response $response, string[] $pdfKeywords);
- * @method void addHtml(Response $response, string $html);
- * @method void outputPdfInline(Response $response, string $name);
- * @method void outputPdfDownload(Response $response, string $name);
- * @method void fetchPdf(Response $response);
+ * @method Response getAvatarUrl(mixed $userinfo);
+ * @method Response getAvatarEditUrl(\XoopsUser $userinfo);
+ * @method Response getImgUrl(string $value, ...);
+ * @method Response getImgTag(string $value, ...);
+ * @method Response startPdf($response);
+ * @method Response setPageOrientation(string $pageOrientation);
+ * @method Response setPageSize(string $pageSize);
+ * @method Response setBaseUnit(string $unit);
+ * @method Response setMargins(float $leftMargin, float $topMargin, float $rightMargin, float $bottomMargin);
+ * @method Response setBaseFont(string $fontFamily, string $fontStyle, float|null $fontSize);
+ * @method Response setDefaultMonospacedFont(string $monoFontFamily);
+ * @method Response setAuthor(string $pdfAuthor);
+ * @method Response setTitle(string $pdfTitle);
+ * @method Response setSubject(string $pdfSubject);
+ * @method Response setKeywords(string[] $pdfKeywords);
+ * @method Response addHtml(string $html);
+ * @method Response outputPdfInline(string $name);
+ * @method Response outputPdfDownload(string $name);
+ * @method Response fetchPdf();
  */
 class Provider
 {
