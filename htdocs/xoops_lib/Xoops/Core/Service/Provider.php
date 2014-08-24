@@ -27,7 +27,26 @@ use Xoops\Core\Service\Response;
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     2.6.0
+ *
+ * @method Response getAvatarUrl(mixed $userinfo);
+ * @method Response getAvatarEditUrl(\XoopsUser $userinfo);
+ * @method Response getImgUrl(string $value, mixed ...$var);
+ * @method Response getImgTag(string $value, mixed ...$var);
+ * @method Response startPdf();
+ * @method Response setPageOrientation(string $pageOrientation);
+ * @method Response setPageSize(string $pageSize);
+ * @method Response setBaseUnit(string $unit);
+ * @method Response setMargins(float $leftMargin, float $topMargin, float $rightMargin, float $bottomMargin);
+ * @method Response setBaseFont(string $fontFamily, string $fontStyle, float|null $fontSize);
+ * @method Response setDefaultMonospacedFont(string $monoFontFamily);
+ * @method Response setAuthor(string $pdfAuthor);
+ * @method Response setTitle(string $pdfTitle);
+ * @method Response setSubject(string $pdfSubject);
+ * @method Response setKeywords(array $pdfKeywords);
+ * @method Response addHtml(string $html);
+ * @method Response outputPdfInline(string $name);
+ * @method Response outputPdfDownload(string $name);
+ * @method Response fetchPdf();
  */
 class Provider
 {

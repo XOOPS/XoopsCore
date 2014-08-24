@@ -32,15 +32,15 @@ class Editor extends TextArea
     /**
      * Constructor
      *
-     * @param string $caption   Caption
-     * @param string $name      Name for textarea field
-     * @param array  $configs   configuration - keys:
-     *                          editor - editor identifier
-     *                          name - textarea field name
-     *                          width, height - dimensions for textarea
-     *                          value - text content
-     * @param bool   $nohtml    use non-WYSIWYG eitor onfailure
-     * @param string $OnFailure editor to be used if current one failed
+     * @param string     $caption   Caption
+     * @param string     $name      Name for textarea field
+     * @param array|null $configs   configuration - keys:
+     *                              editor - editor identifier
+     *                              name - textarea field name
+     *                              width, height - dimensions for textarea
+     *                              value - text content
+     * @param bool       $nohtml    use non-WYSIWYG eitor onfailure
+     * @param string     $OnFailure editor to be used if current one failed
      */
     public function __construct($caption, $name, $configs = null, $nohtml = false, $OnFailure = '')
     {
