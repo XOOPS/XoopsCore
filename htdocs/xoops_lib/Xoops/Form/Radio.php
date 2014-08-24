@@ -123,7 +123,7 @@ class Radio extends Element
     public function getOptions($encode = 0)
     {
         if (!$encode) {
-            return $this->options;
+            return (array) $this->options;
         }
         $value = array();
         foreach ($this->options as $value => $buttonCaption) {
@@ -157,7 +157,6 @@ class Radio extends Element
         $ele_options = $this->getOptions();
         $ele_value = $this->getValue();
         $ele_name = $this->getName();
-        $ele_title = $this->getTitle();
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $ret = "";
         static $id_ele = 0;

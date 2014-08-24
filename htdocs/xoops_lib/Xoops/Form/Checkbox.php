@@ -149,7 +149,6 @@ class Checkbox extends Element
         if (!is_array($ele_value)) {
             $ele_value = (array) $ele_value;
         }
-        $ele_title = $this->getTitle();
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
 
         $ele_name = $this->getName();
