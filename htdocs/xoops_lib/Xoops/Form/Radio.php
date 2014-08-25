@@ -126,8 +126,8 @@ class Radio extends Element
             return (array) $this->options;
         }
         $value = array();
-        foreach ($this->options as $value => $buttonCaption) {
-            $value[$encode ? htmlspecialchars($value, ENT_QUOTES) : $value] = ($encode > 1)
+        foreach ($this->options as $option => $buttonCaption) {
+            $value[$encode ? htmlspecialchars($option, ENT_QUOTES) : $option] = ($encode > 1)
                 ? htmlspecialchars($buttonCaption, ENT_QUOTES) : $buttonCaption;
         }
         return $value;
