@@ -30,8 +30,8 @@ use Xoops\Core\Service\Response;
  *
  * @method Response getAvatarUrl(mixed $userinfo);
  * @method Response getAvatarEditUrl(\XoopsUser $userinfo);
- * @method Response getImgUrl(string $value, mixed ...$var);
- * @method Response getImgTag(string $value, mixed ...$var);
+ * @method Response getImgUrl(string $value, mixed $p2=null, mixed $d3=null, mixed $d4=null, mixed $d5=null);
+ * @method Response getImgTag(string $value, mixed $d2=null, mixed $d3=null, mixed $d4=null, mixed $d5=null);
  * @method Response startPdf();
  * @method Response setPageOrientation(string $pageOrientation);
  * @method Response setPageSize(string $pageSize);

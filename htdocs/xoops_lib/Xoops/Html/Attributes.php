@@ -49,6 +49,18 @@ class Attributes
     }
 
     /**
+     * Unset an attribute
+     *
+     * @param string $name name of the attribute
+     *
+     * @return void
+     */
+    public function unsetAttribute($name)
+    {
+        unset($this->attributes[htmlspecialchars($name, ENT_QUOTES)]);
+    }
+
+    /**
      * Set attributes as specified in an array
      *
      * @param array $values an array of name => value pairs of attributes to set

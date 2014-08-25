@@ -40,6 +40,7 @@ class DateTime extends ElementTray
         $value = ($value > 0) ? $value : time();
         $datetime = getDate($value);
         $date = new DateSelect('', $name . '[date]', $size, $value);
+        $date->setAttribute('id', $name.'-date');
         $this->addElement($date);
 
         if ($showtime) {
@@ -54,6 +55,7 @@ class DateTime extends ElementTray
 
             $timeselect =
                 new Select('', $name . '[time]', $datetime['hours'] * 3600 + 600 * ceil($datetime['minutes'] / 10));
+            $timeselect->setAttribute('id', $name.'-time');
             $timeselect->addOptionArray($timearray);
             $timeselect->setClass('span2');
             $this->addElement($timeselect);

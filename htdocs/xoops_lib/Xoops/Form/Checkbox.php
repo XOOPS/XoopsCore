@@ -57,8 +57,9 @@ class Checkbox extends Element
      */
     public function __construct($caption, $name, $value = null, $inline = true)
     {
+        $this->setAttribute('type', 'checkbox');
+        $this->setAttribute('name', $name);
         $this->setCaption($caption);
-        $this->setName($name);
         if (isset($value)) {
             $this->setValue($value);
         }
@@ -142,38 +143,43 @@ class Checkbox extends Element
      */
     public function render()
     {
+        $required = $this->hasAttribute('required');
         $ele_options = $this->getOptions();
         $ele_value = $this->getValue();
         if (!is_array($ele_value)) {
             $ele_value = (array) $ele_value;
         }
-        $ele_name = $this->getName();
-        $ele_id = $ele_name;
-        $ele_title = $this->getTitle();
-        $ele_inline = $this->getInline();
-        $class = ($this->getClass() != '' ? " class='" . $this->getClass() . "'" : '');
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
 
+        $ele_name = $this->getName();
+        $ele_id = $ele_name;
         if (count($ele_options) > 1 && substr($ele_name, -2, 2) != '[]') {
             $ele_name = $ele_name . '[]';
             $this->setName($ele_name);
+            // If required is set, all checkboxes will be required by the browser,
+            // which is not usually useful. We stash the value of required above
+            // and unset now. We restore it before return so JS validation will still
+            // be triggered. This is only a problem if there is more than one checkbox.
+            $this->unsetAttribute('required');
         }
 
         $ret = "";
         $id_ele = 0;
         foreach ($ele_options as $value => $name) {
-            if (count($ele_value) > 0 && in_array($value, $ele_value)) {
-                $ele_checked = " checked='checked'";
-            } else {
-                $ele_checked = '';
+            $this->unsetAttribute('checked');
+            if (!empty($ele_value) && in_array($value, $ele_value)) {
+                $this->setAttribute('checked');
             }
+            $this->setAttribute('value', $value);
             $id_ele++;
-            $ret .= "<label class='checkbox" . $ele_inline . "'>" . NWLINE;
-            $ret .= "<input type='checkbox' name='" . $ele_name . "' title='"
-                . $ele_title . "' id='" . $ele_id . $id_ele . "' value='" . $value
-                . "'" . $class . $extra . $ele_checked . ">" . NWLINE;
+            $this->setAttribute('id', $ele_id . $id_ele);
+            $ret .= '<label class="checkbox' . $this->getInline() . '">' . NWLINE;
+            $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . NWLINE;
             $ret .= $name . NWLINE;
             $ret .= "</label>" . NWLINE;
+        }
+        if ($required) {
+            $this->setAttribute('required');
         }
         return $ret;
     }
