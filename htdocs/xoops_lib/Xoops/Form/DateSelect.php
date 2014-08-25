@@ -83,7 +83,7 @@ class DateSelect extends Text
             ' $(function() { $( "#' . $this->getAttribute('id') . '" ).datepicker({' .
             'showOn: "button", buttonImageOnly: false, ' .
             'buttonImage: "' . $xoops->url('media/xoops/images/icons/calendar.png') .'", ' .
-            'buttonImageOnly: false }); }); '
+            'buttonImageOnly: false, buttonText: "' . \XoopsLocale::A_SELECT . '" }); }); '
         );
 
         return '<input ' . $attributes . 'value="' . $display_value . '" '
