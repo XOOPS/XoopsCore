@@ -127,11 +127,13 @@ if (isset($composer->extra) && is_object($composer->extra)) {
 } else {
     $composer->extra['xoops_modules_path'] = $xoops_modules_path;
 }
-$jsonEncodeOpts = 0;
-if (defined('JSON_PRETTY_PRINT') && defined('JSON_UNESCAPED_SLASHES')) {
-    $jsonEncodeOpts = $jsonEncodeOpts | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
-}
-file_put_contents($composer_path, json_encode($composer, $jsonEncodeOpts));
+$composerOut = \Composer\Json\JsonFormatter::format(json_encode($composer));
+file_put_contents($composer_path, $composerOut);
+//$jsonEncodeOpts = 0;
+//if (defined('JSON_PRETTY_PRINT') && defined('JSON_UNESCAPED_SLASHES')) {
+//    $jsonEncodeOpts = $jsonEncodeOpts | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES;
+//}
+//file_put_contents($composer_path, json_encode($composer, $jsonEncodeOpts));
 
 $settings['authorized'] = false;
 if (empty($error)) {
