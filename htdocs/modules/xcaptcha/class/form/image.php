@@ -35,7 +35,7 @@ class XcaptchaImageForm extends Xoops\Form\ThemeForm
 
         $this->addElement(new Xoops\Form\Text(_XCAPTCHA_NUM_CHARS, 'num_chars', 2, 2, $this->config['num_chars']), true);
 
-        $this->addElement(new Xoops\Form\RadioYesN0(_XCAPTCHA_CASESENSITIVE, 'casesensitive', $this->config['casesensitive']));
+        $this->addElement(new Xoops\Form\RadioYesNo(_XCAPTCHA_CASESENSITIVE, 'casesensitive', $this->config['casesensitive']));
 
         $fontmin_form = new Xoops\Form\Select(_XCAPTCHA_FONTSIZE_MIN, 'fontsize_min', $this->config['fontsize_min']);
         for ($i = 10; $i <= 30; $i++) {

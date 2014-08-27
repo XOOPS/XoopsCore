@@ -38,7 +38,7 @@ class DateTime extends ElementTray
         parent::__construct($caption, '');
         $value = intval($value);
         $value = ($value > 0) ? $value : time();
-        $datetime = getDate($value);
+        $datetime = getdate($value);
         $date = new DateSelect('', $name . '[date]', $size, $value);
         $date->setAttribute('id', $name.'-date');
         $this->addElement($date);
