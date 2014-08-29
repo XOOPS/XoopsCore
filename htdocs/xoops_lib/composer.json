@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "raveren/kint": "*",
-        "phpunit/phpunit": "4.1.*",
+        "phpunit/phpunit": "4.2.*",
 		"phpunit/phpunit-skeleton-generator": "*"
     },
     "extra": {
