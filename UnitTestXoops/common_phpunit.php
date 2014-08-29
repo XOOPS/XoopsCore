@@ -28,7 +28,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MY_UnitTestCase extends PHPUnit_Framework_TestCase
+class MY_UnitTestCase extends \PHPUnit_Framework_TestCase
 {
 
 	public function expectError()

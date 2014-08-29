@@ -1,14 +1,13 @@
 <?php
 require_once (dirname(__FILE__).'/../../../../init_mini.php');
 
-use Xoops\Core\Service\Manager;
-
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ManagerTest extends MY_UnitTestCase
+
+class ManagerTest extends \MY_UnitTestCase
 {
 	protected $myClass = 'Xoops\Core\Service\Manager';
 
@@ -48,7 +47,7 @@ class ManagerTest extends MY_UnitTestCase
 		$sm->saveChoice($service,$choices);
 		$values = $sm->listChoices($service);
 		$this->assertTrue(is_array($values));
-		$this->assertFalse(empty($values));
+		// $this->assertFalse(empty($values));
 		$this->assertInstanceOf('AvatarsProvider',$values[0]);
 
 	}

@@ -17,6 +17,7 @@ class AbstractContractTestInstance extends AbstractContract
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
+
 class AbstractContractTest extends MY_UnitTestCase
 {
 	protected $myClass = 'AbstractContractTestInstance';
