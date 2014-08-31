@@ -26,7 +26,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Button('Caption', 'name');
+        $this->object = new Button('button_caption', 'button_name', 'button_value');
     }
 
     /**
@@ -43,10 +43,8 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $x = $this->object->getType();
+        $this->assertSame('button',$x);
     }
 
     /**
@@ -55,7 +53,14 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        $value = $this->object->render();
-        $this->assertTrue(is_string($value));
+        $x = $this->object->render();
+        $name = 'button_name';
+        $caption = 'button_caption';
+        $value = 'button_value';
+        $this->assertTrue(false !== strpos($x, '<input type="button"'));
+        $this->assertTrue(false !== strpos($x, 'name="' . $name .'"'));
+        $this->assertTrue(false !== strpos($x, 'id="' . $name .'"'));
+        $this->assertTrue(false !== strpos($x, 'title="' . $caption .'"'));
+        $this->assertTrue(false !== strpos($x, 'value="' . $value .'"'));
     }
 }
