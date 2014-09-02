@@ -90,21 +90,21 @@ class Password extends Element
     /**
      * Get the field size
      *
-     * @return string
+     * @return int
      */
     public function getSize()
     {
-        return (string) $this->setAttribute('size');
+        return (int) $this->getAttribute('size');
     }
 
     /**
      * Get the max length
      *
-     * @return string
+     * @return int
      */
     public function getMaxlength()
     {
-        return (string) $this->setAttribute('maxlength');
+        return (int) $this->getAttribute('maxlength');
     }
 
     /**

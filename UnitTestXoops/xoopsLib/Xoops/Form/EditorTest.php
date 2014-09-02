@@ -39,25 +39,20 @@ class EditorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Editor::renderValidationJS
-     * @todo   Implement testRenderValidationJS().
      */
     public function testRenderValidationJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->renderValidationJS();
+        $this->assertFalse($value);
     }
 
     /**
      * @covers Xoops\Form\Editor::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->render();
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value,'<textarea'));
     }
 }

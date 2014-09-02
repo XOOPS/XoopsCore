@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupStaticAttributes disabled
 */
 
-class YamlTest extends \MY_UnitTestCase
+class YamlTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Yaml

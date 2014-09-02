@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupStaticAttributes disabled
 */
 
-class DebugTest extends \MY_UnitTestCase
+class DebugTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Debug

@@ -36,7 +36,10 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
-
+    
+    /**
+     * @covers Xoops\Form\DateTime::render
+     */
     public function testRender()
     {
         $value = $this->object->render();

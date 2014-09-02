@@ -39,7 +39,6 @@ class GroupCheckboxTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\GroupCheckbox::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {

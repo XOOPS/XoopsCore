@@ -301,7 +301,8 @@ abstract class Form implements ContainerInterface
     public function setElementValue($name, $value)
     {
         $ele = $this->getElementByName($name);
-        $ele->setValue($value);
+        if (is_object($ele))
+            $ele->setValue($value);
     }
 
     /**

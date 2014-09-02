@@ -43,10 +43,8 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSize()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getSize();
+        $this->assertSame(20, $value);
     }
 
     /**
@@ -55,10 +53,8 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMaxlength()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getMaxlength();
+        $this->assertSame(40, $value);
     }
 
     /**
@@ -67,19 +63,18 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPlaceholder()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getPlaceholder();
+        $this->assertSame('', $value);
     }
 
     /**
      * @covers Xoops\Form\Password::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="password"'));
     }
 }

@@ -39,11 +39,12 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Mail::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="email"'));
     }
 }
