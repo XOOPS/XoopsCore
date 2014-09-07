@@ -39,7 +39,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Password::getSize
-     * @todo   Implement testGetSize().
      */
     public function testGetSize()
     {
@@ -49,7 +48,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Password::getMaxlength
-     * @todo   Implement testGetMaxlength().
      */
     public function testGetMaxlength()
     {
@@ -59,7 +57,6 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Password::getPlaceholder
-     * @todo   Implement testGetPlaceholder().
      */
     public function testGetPlaceholder()
     {

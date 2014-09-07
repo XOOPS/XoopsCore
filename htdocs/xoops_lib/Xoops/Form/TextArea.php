@@ -70,21 +70,21 @@ class TextArea extends Element
     /**
      * get number of rows
      *
-     * @return string
+     * @return int
      */
     public function getRows()
     {
-        return (string) $this->getAttribute('rows');
+        return (int) $this->getAttribute('rows');
     }
 
     /**
      * Get number of columns
      *
-     * @return string
+     * @return int
      */
     public function getCols()
     {
-        return (string) $this->getAttribute('cols');
+        return (int) $this->getAttribute('cols');
     }
 
     /**
@@ -112,7 +112,7 @@ class TextArea extends Element
         $this->addAttribute('class', 'span' . $maxcols);
 
         $attributes = $this->renderAttributeString();
-        return '<textarea ' . $attributes . 'value="' . '" ' . $this->getExtra() .' >'
+        return '<textarea ' . $attributes . ' ' . $this->getExtra() .' >'
             . $this->getValue() . '</textarea>';
     }
 }

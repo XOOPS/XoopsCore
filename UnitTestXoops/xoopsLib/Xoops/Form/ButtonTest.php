@@ -39,28 +39,24 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Button::getType
-     * @todo   Implement testGetType().
      */
     public function testGetType()
     {
-        $x = $this->object->getType();
-        $this->assertSame('button',$x);
+        $value = $this->object->getType();
+        $this->assertSame('button',$value);
     }
 
     /**
      * @covers Xoops\Form\Button::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
-        $x = $this->object->render();
-        $name = 'button_name';
-        $caption = 'button_caption';
-        $value = 'button_value';
-        $this->assertTrue(false !== strpos($x, '<input type="button"'));
-        $this->assertTrue(false !== strpos($x, 'name="' . $name .'"'));
-        $this->assertTrue(false !== strpos($x, 'id="' . $name .'"'));
-        $this->assertTrue(false !== strpos($x, 'title="' . $caption .'"'));
-        $this->assertTrue(false !== strpos($x, 'value="' . $value .'"'));
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="button"'));
+        $this->assertTrue(false !== strpos($value, 'name="button_name"'));
+        $this->assertTrue(false !== strpos($value, 'id="button_name"'));
+        $this->assertTrue(false !== strpos($value, 'title="button_caption"'));
+        $this->assertTrue(false !== strpos($value, 'value="button_value"'));
     }
 }

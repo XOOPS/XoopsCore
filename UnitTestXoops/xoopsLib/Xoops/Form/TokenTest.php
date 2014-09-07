@@ -39,11 +39,13 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Token::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="hidden"'));
+        $this->assertTrue(false !== strpos($value, 'name="XOOPS_TOKEN_REQUEST"'));
     }
 }

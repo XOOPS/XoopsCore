@@ -26,7 +26,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Text('Caption', 'name', 10, 20);
+        $this->object = new Text('Caption', 'name', 10, 20, 'value', 'placeholder');
     }
 
     /**
@@ -39,47 +39,46 @@ class TextTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Text::getSize
-     * @todo   Implement testGetSize().
      */
     public function testGetSize()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getSize();
+        $this->assertSame(10, $value);
     }
 
     /**
      * @covers Xoops\Form\Text::getMaxlength
-     * @todo   Implement testGetMaxlength().
      */
     public function testGetMaxlength()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getMaxlength();
+        $this->assertSame(20, $value);
     }
 
     /**
      * @covers Xoops\Form\Text::getPlaceholder
-     * @todo   Implement testGetPlaceholder().
      */
     public function testGetPlaceholder()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getPlaceholder();
+        $this->assertSame('placeholder', $value);
     }
 
     /**
      * @covers Xoops\Form\Text::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="text"'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'size="10"'));
+        $this->assertTrue(false !== strpos($value, 'maxlength="20"'));
+        $this->assertTrue(false !== strpos($value, 'placeholder="placeholder"'));
+        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== strpos($value, 'value="value"'));   
     }
 }

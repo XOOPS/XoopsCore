@@ -36,7 +36,7 @@ class ThemeForm extends Form
      */
     public function insertBreak($extra = '', $class = '')
     {
-        $class = ($class != '' ? " class='" . $class . "'" : " class='break'");
+        $class = ($class != '' ? " class=\"" . $class . "\"" : " class=\"break\"");
         // Fix for $extra tag not showing
         if ($extra) {
             $value = '<div' . $class . '>' . $extra . '</div>';
