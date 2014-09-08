@@ -34,7 +34,7 @@ class SimpleForm extends Form
      */
     public function insertBreak($extra = '', $class = '')
     {
-        $class = empty($class) ? '' : ' class=\'' . $class . '\'';
+        $class = empty($class) ? '' : ' class="' . $class . '"';
         $value = '<br' . $class . ' />' . $extra;
         $ele = new Raw($value);
         $this->addElement($ele);
@@ -47,9 +47,9 @@ class SimpleForm extends Form
      */
     public function render()
     {
-        $ret = $this->getTitle() . "\n<form name='" . $this->getName() . "' id='"
-            . $this->getName() . "' action='" . $this->getAction() . "' method='"
-            . $this->getMethod() . "'" . $this->getExtra() . ">\n";
+        $ret = $this->getTitle() . "\n<form name=\"" . $this->getName() . "\" id=\""
+            . $this->getName() . "\" action=\"" . $this->getAction() . "\" method=\""
+            . $this->getMethod() . "\"" . $this->getExtra() . ">\n";
         foreach ($this->getElements() as $ele) {
             /* @var $ele Element */
             if (!$ele->isHidden()) {

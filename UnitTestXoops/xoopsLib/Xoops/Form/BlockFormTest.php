@@ -39,7 +39,6 @@ class BlockFormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\BlockForm::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {

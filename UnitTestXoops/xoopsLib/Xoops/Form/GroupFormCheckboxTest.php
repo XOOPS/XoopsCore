@@ -48,6 +48,14 @@ class GroupFormCheckboxTest extends \PHPUnit_Framework_TestCase
             'This test has not been implemented yet.'
         );
     }
+    
+    /**
+     * @covers Xoops\Form\GroupFormCheckbox::addItem
+     */
+    public function testAddItem()
+    {
+        // see testRender
+    }
 
     /**
      * @covers Xoops\Form\GroupFormCheckbox::render
@@ -55,6 +63,10 @@ class GroupFormCheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
+        $this->object->addItem(1, 'item_name1');
+        $this->object->addItem(10, 'item_name10', 1);
+        $value = $this->object->render();
+        $this->assertTrue(is_string($value));
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'

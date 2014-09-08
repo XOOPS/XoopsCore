@@ -45,7 +45,7 @@ class ThemeFormTest extends \PHPUnit_Framework_TestCase
         $this->object->insertBreak();
         $value = $this->object->render();
         $this->assertTrue(false !== strpos($value, 'class="break"'));
-        $this->assertTrue(false !== strpos($value, '>$nbsp;<'));
+        $this->assertTrue(false !== strpos($value, '>&nbsp;<'));
         
         $this->object->insertBreak('extra', 'class');
         $value = $this->object->render();

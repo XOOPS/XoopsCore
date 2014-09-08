@@ -36,7 +36,7 @@ class GroupPermissionForm extends Form
      *
      * @var array
      */
-    private $itemTree;
+    private $itemTree = array();
 
     /**
      * Name of permission
