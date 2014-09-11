@@ -102,16 +102,11 @@ class GroupFormCheckbox extends Element
      */
     private function loadAllChildItemIds($itemId, &$childIds)
     {
-        if (!empty($this->itemTree[$itemId]['children'])) {
-            $first_child = $this->itemTree[$itemId]['children'];
-            foreach ($first_child as $fcid) {
+        if (!empty($this->optionTree[$itemId]['children'])) {
+            $children = $this->optionTree[$itemId]['children'];
+            foreach ($children as $fcid) {
                 array_push($childIds, $fcid);
-                if (!empty($this->itemTree[$fcid]['children'])) {
-                    foreach ($this->itemTree[$fcid]['children'] as $scid) {
-                        array_push($childIds, $scid);
-                        $this->loadAllChildItemIds($scid, $childIds);
-                    }
-                }
+                $this->loadAllChildItemIds($fcid, $childIds);
             }
         }
     }

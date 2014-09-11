@@ -51,6 +51,7 @@ class GroupPermissionFormTest extends \PHPUnit_Framework_TestCase
     public function testRender()
     {
         $this->object->addItem(1, 'item_name1');
+        $this->object->addItem(10, 'item_name10', 1);
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
         $this->assertTrue(false !== strpos($value, '<h4>Caption</h4>description'));

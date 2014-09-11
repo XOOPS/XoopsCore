@@ -115,25 +115,24 @@ class XoopsMultiMailer extends PHPMailer
     public function __construct()
     {
         $xoops = Xoops::getInstance();
-        $xoopsMailerConfig = $xoops->getConfigs();
-        $this->From = $xoopsMailerConfig['from'];
+        $this->From = $xoops->getConfig('from');
         if ($this->From == '') {
             $this->From = $xoops->getConfig('adminmail');
         }
         $this->Sender = $this->From;
-        if ($xoopsMailerConfig['mailmethod'] == 'smtpauth') {
+        if ('smtpauth' == $xoops->getConfig('mailmethod')) {
             $this->Mailer = 'smtp';
             $this->SMTPAuth = true;
-            // TODO: change value type of xoopsConfig 'smtphost' from array to text
-            $this->Host = implode(';', $xoopsMailerConfig['smtphost']);
-            $this->Username = $xoopsMailerConfig['smtpuser'];
-            $this->Password = $xoopsMailerConfig['smtppass'];
+            $this->Username = $xoops->getConfig('smtpuser');
+            $this->Password = $xoops->getConfig('smtppass');
         } else {
-            $this->Mailer = $xoopsMailerConfig['mailmethod'];
+            $this->Mailer = $xoops->getConfig('mailmethod');
             $this->SMTPAuth = false;
-            $this->Sendmail = $xoopsMailerConfig['sendmailpath'];
-            $this->Host = implode(';', $xoopsMailerConfig['smtphost']);
+            $this->Sendmail = $xoops->getConfig('sendmailpath');
         }
+        // TODO: change value type of xoopsConfig 'smtphost' from array to text
+        $smtphost = $xoops->getConfig('smtphost');
+        $this->Host = is_array($smtphost) ? implode(';', $smtphost) : $smtphost;
         $this->PluginDir = XOOPS_ROOT_PATH . '/class/mail/phpmailer/';
     }
 
