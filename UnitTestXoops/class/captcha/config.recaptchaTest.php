@@ -14,7 +14,7 @@ class ConfigRecaptchaTest extends MY_UnitTestCase
 	{
 		global $config;
 		
-		require_once(XOOPS_ROOT_PATH.'/class/captcha/config.recaptcha.php');
+		require(XOOPS_ROOT_PATH.'/class/captcha/config.recaptcha.php');
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['private_key']));
 		$this->assertTrue(isset($config['public_key']));

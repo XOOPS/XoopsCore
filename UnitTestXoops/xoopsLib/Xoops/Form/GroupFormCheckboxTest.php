@@ -19,6 +19,8 @@ class GroupFormCheckboxTest extends \PHPUnit_Framework_TestCase
      * @var GroupFormCheckbox
      */
     protected $object;
+    
+    protected $optionTree = array();
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -36,23 +38,32 @@ class GroupFormCheckboxTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
+    
+    protected function addItem($itemId, $itemName, $itemParent = 0)
+    {
+        $this->optionTree[$itemParent]['children'][] = $itemId;
+        $this->optionTree[$itemId]['parent'] = $itemParent;
+        $this->optionTree[$itemId]['name'] = $itemName;
+        $this->optionTree[$itemId]['id'] = $itemId;
+    }
+    
+    protected function loadAllChildItemIds($itemId, &$childIds)
+    {
+        if (!empty($this->optionTree[$itemId]['children'])) {
+            $children = $this->optionTree[$itemId]['children'];
+            if (is_array($children))
+                foreach ($children as $fcid) {
+                    array_push($childIds, $fcid);
+                    $this->loadAllChildItemIds($fcid, $childIds);
+                }
+        }
+    }
 
     /**
      * @covers Xoops\Form\GroupFormCheckbox::setOptionTree
      * @todo   Implement testSetOptionTree().
      */
     public function testSetOptionTree()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-    
-    /**
-     * @covers Xoops\Form\GroupFormCheckbox::addItem
-     */
-    public function testAddItem()
     {
         // see testRender
     }
@@ -63,13 +74,19 @@ class GroupFormCheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        $this->object->addItem(1, 'item_name1');
-        $this->object->addItem(10, 'item_name10', 1);
+        $this->addItem(1, 'item_name1');
+        $this->addItem(10, 'item_name10', 1);
+        foreach (array_keys($this->optionTree) as $item_id) {
+            $this->optionTree[$item_id]['allchild'] = array();
+            $this->loadAllChildItemIds($item_id, $this->optionTree[$item_id]['allchild']);
+        }
+        
+        $this->object->setOptionTree($this->optionTree);
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue(false !== strpos($value, '<input type="checkbox" name="name[groups][2][1]"'));
+        $this->assertTrue(false !== strpos($value, '<input type="checkbox" name="name[groups][2][10]"'));
+        $this->assertTrue(false !== strpos($value, 'value="item_name1"'));
+        $this->assertTrue(false !== strpos($value, 'value="item_name10"'));
     }
 }

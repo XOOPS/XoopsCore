@@ -8,7 +8,7 @@ global $config;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Editor_registryTest extends MY_UnitTestCase
+class Editor_registryTest extends \PHPUnit_Framework_TestCase
 {
 
     function test_100()
