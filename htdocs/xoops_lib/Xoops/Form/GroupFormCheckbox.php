@@ -74,42 +74,6 @@ class GroupFormCheckbox extends Element
     {
         $this->optionTree = $optionTree;
     }
-    
-    /**
-     * Adds an item into tree structure
-     *
-     * @param integer $itemId     item id
-     * @param string  $itemName   item name
-     * @param integer $itemParent item parent
-     *
-     * @return void
-     */
-    public function addItem($itemId, $itemName, $itemParent = 0)
-    {
-        $this->optionTree[$itemParent]['children'][] = $itemId;
-        $this->optionTree[$itemId]['parent'] = $itemParent;
-        $this->optionTree[$itemId]['name'] = $itemName;
-        $this->optionTree[$itemId]['id'] = $itemId;
-    }
-    
-    /**
-     * Loads all child ids for an item to be used in javascript
-     *
-     * @param int   $itemId    item id
-     * @param array &$childIds child ids
-     *
-     * @return void
-     */
-    private function loadAllChildItemIds($itemId, &$childIds)
-    {
-        if (!empty($this->optionTree[$itemId]['children'])) {
-            $children = $this->optionTree[$itemId]['children'];
-            foreach ($children as $fcid) {
-                array_push($childIds, $fcid);
-                $this->loadAllChildItemIds($fcid, $childIds);
-            }
-        }
-    }
 
     /**
      * Renders checkbox options for this group
@@ -121,10 +85,7 @@ class GroupFormCheckbox extends Element
         $ele_name = $this->getName();
         $ret = '<table class="outer"><tr><td class="odd"><table><tr>';
         $cols = 1;
-        foreach (array_keys($this->optionTree) as $item_id) {
-            $this->optionTree[$item_id]['allchild'] = array();
-            $this->loadAllChildItemIds($item_id, $this->optionTree[$item_id]['allchild']);
-        }
+
         foreach ($this->optionTree[0]['children'] as $topitem) {
             if ($cols > 4) {
                 $ret .= '</tr><tr>';
