@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(__DIR__.'/../init.php');
 
 /**
 * PHPUnit special settings :
@@ -77,7 +77,7 @@ class SessionHandlerTest extends MY_UnitTestCase
     public function test_gc_force()
 	{
         $instance = new $this->myclass($this->conn);
-		for ($i = 1; $i <= 20; $i++) {
+		for ($i = 1; $i <= 20; ++$i) {
 			$instance->gc_force();
 		}
 		$this->assertTrue(true);

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
+require_once(__DIR__.'/../../../init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/censor/censor.php');
 
@@ -30,7 +30,7 @@ class MytsCensorTest extends MY_UnitTestCase
         $xoops = Xoops::getInstance();
         if (!isset($censorConf)) {
             $censorConf = $xoops->getConfigs();
-            $config = $ts->loadConfig(dirname(__FILE__));
+            $config = $ts->loadConfig(__DIR__);
             //merge and allow config override
             $censorConf = array_merge($censorConf, $config);
         }

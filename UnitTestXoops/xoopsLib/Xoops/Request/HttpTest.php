@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(__DIR__.'/../../../init_mini.php');
 
 class Xoops_Request_HttpTestSubClass extends Xoops_Request_Http
 {

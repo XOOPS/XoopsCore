@@ -4,10 +4,10 @@ if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);
 }
 
-require_once dirname(__FILE__) . '/../htdocs/xoops_lib/vendor/autoload.php';
+require_once __DIR__ . '/../htdocs/xoops_lib/vendor/autoload.php';
 
 if (defined('IS_PHPUNIT')) {
-	require_once dirname(__FILE__) . '/common_phpunit.php';
+	require_once __DIR__ . '/common_phpunit.php';
 } else {
 	// Avoid check proxy (include/common.php line 88) to define constant XOOPS_DB_PROXY 
 	// because it implies a readonly database connection
@@ -15,4 +15,4 @@ if (defined('IS_PHPUNIT')) {
 	define('XOOPS_XMLRPC',0);
 }
 
-require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
+require_once __DIR__ . '/../htdocs/mainfile.php';

@@ -6,7 +6,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 
 
 if (defined('IS_PHPUNIT')) {
-	require_once dirname(__FILE__) . '/common_phpunit.php';
+	require_once __DIR__ . '/common_phpunit.php';
 } else {
 	// Avoid check proxy (include/common.php line 88) to define constant XOOPS_DB_PROXY 
 	// because it implies a readonly database connection
@@ -15,7 +15,7 @@ if (defined('IS_PHPUNIT')) {
 }
 
 $xoopsOption["nocommon"]= true; // don't include common.php file
-require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
+require_once __DIR__ . '/../htdocs/mainfile.php';
 
 // Get the beginning of include/common.php file but not all
 
