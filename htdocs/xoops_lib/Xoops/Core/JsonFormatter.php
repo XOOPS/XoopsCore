@@ -47,7 +47,7 @@ class JsonFormatter
         $buffer = '';
         $noescape = true;
 
-        for ($i = 0; $i < $strLen; $i++) {
+        for ($i = 0; $i < $strLen; ++$i) {
             // Grab the next character in the string
             $char = substr($json, $i, 1);
 
@@ -98,7 +98,7 @@ class JsonFormatter
                     // If this character is the end of an element,
                     // output a new line and indent the next line
                     $result .= $newLine;
-                    for ($j = 0; $j < $pos; $j++) {
+                    for ($j = 0; $j < $pos; ++$j) {
                         $result .= $indentStr;
                     }
                 } else {
@@ -115,10 +115,10 @@ class JsonFormatter
                 $result .= $newLine;
 
                 if ('{' === $char || '[' === $char) {
-                    $pos++;
+                    ++$pos;
                 }
 
-                for ($j = 0; $j < $pos; $j++) {
+                for ($j = 0; $j < $pos; ++$j) {
                     $result .= $indentStr;
                 }
             }

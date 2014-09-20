@@ -128,7 +128,7 @@ class Xoops_Cache_Memcache extends Xoops_Cache_Abstract
         if (substr($server, 0, 1) == '[') {
             $position = strpos($server, ']:');
             if ($position !== false) {
-                $position++;
+                ++$position;
             }
         } else {
             $position = strpos($server, ':');

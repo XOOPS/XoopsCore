@@ -64,7 +64,7 @@ switch ($op) {
         //Cache
         $res_cache = $system->CleanCache($cache);
         if (!empty($cache)) {
-            for ($i = 0; $i < count($cache); $i++) {
+            for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {
                     case 1:
                         $xoops->tpl()->assign('smarty_cache', true);
@@ -93,11 +93,11 @@ switch ($op) {
         //Maintenance tables
         if (!empty($tables) && !empty($tables_op)) {
             $tab = array();
-            for ($i = 0; $i < 4; $i++) {
+            for ($i = 0; $i < 4; ++$i) {
                 $tab[$i] = $i + 1;
             }
             $tab1 = array();
-            for ($i = 0; $i < 4; $i++) {
+            for ($i = 0; $i < 4; ++$i) {
                 if (in_array($tab[$i], $tables_op)) {
                     $tab1[$i] = $tab[$i];
                 } else {
@@ -105,9 +105,9 @@ switch ($op) {
                 }
             }
             unset($tab);
-            for ($i = 0; $i < count($tables); $i++) {
+            for ($i = 0; $i < count($tables); ++$i) {
                 $result_arr['table'] = $db->prefix . $tables[$i];
-                for ($j = 0; $j < 4; $j++) {
+                for ($j = 0; $j < 4; ++$j) {
                     switch ($tab1[$j]) {
                         case 1:
                             //Optimize

@@ -438,7 +438,7 @@ class Assets
                     $xoops->logger()->warning('Failed to copy asset '.$filename);
                 } else {
                     $xoops->logger()->debug('Copied asset '.$filename);
-                    $count++;
+                    ++$count;
                 }
             }
             umask($oldUmask);

@@ -166,7 +166,7 @@ class Radio extends Element
                 $this->setAttribute('checked');
             }
             $this->setAttribute('value', $value);
-            $id_ele++;
+            ++$id_ele;
             $this->setAttribute('id', $ele_name . $id_ele);
             $ret .= '<label class="radio' . $this->getInline() . '">' . NWLINE;
             $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . NWLINE;

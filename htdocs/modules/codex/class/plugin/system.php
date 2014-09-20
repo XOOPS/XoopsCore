@@ -82,7 +82,7 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
                 $ret[$i]['link']    = $xoops->url('modules/codex/' . $file);
                 $ret[$i]['content'] = 'Codex module : ' . ucfirst(str_replace('.php', '', $file));
                 $ret[$i]['date']    = filemtime($xoops->path('modules/codex/' . $file));
-                $i++;
+                ++$i;
             }
         }
         return $ret;

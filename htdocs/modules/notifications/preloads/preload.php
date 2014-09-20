@@ -71,7 +71,7 @@ class NotificationsPreload extends PreloadItem
                             'description' => $event['description'],
                             'subscribed'  => $subscribed
                         );
-                        $event_count++;
+                        ++$event_count;
                     }
                     $notifications['categories'][$category['name']] = $section;
                 }

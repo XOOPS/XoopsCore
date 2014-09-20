@@ -34,7 +34,7 @@ class PageSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sea
         if (is_array($queries) && $count = count($queries)) {
             $sql .= " AND ((content_title LIKE '%$queries[0]%' OR content_text LIKE '%$queries[0]%' OR content_shorttext LIKE '%$queries[0]%')";
 
-            for ($i=1; $i < $count; $i++) {
+            for ($i=1; $i < $count; ++$i) {
                 $sql .= " $andor ";
                 $sql .= "(content_title LIKE '%$queries[$i]%' OR content_text LIKE '%$queries[$i]%' OR content_shorttext LIKE '%$queries[$i]%')";
             }
@@ -52,7 +52,7 @@ class PageSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sea
             $ret[$i]["time"] = $myrow["content_create"];
             $ret[$i]["content"] = $myrow["content_text"] . $myrow["content_shorttext"];
             $ret[$i]["uid"] = $myrow["content_author"];
-            $i++;
+            ++$i;
         }
         return $ret;
     }

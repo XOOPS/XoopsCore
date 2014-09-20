@@ -144,7 +144,7 @@ class Write extends XoopsModelAbstract
 
         $qb->delete($this->handler->table);
         if (is_array($this->handler->keyName)) {
-            for ($i = 0; $i < count($this->handler->keyName); $i++) {
+            for ($i = 0; $i < count($this->handler->keyName); ++$i) {
                 if ($i == 0) {
                     $qb->where(
                         $eb->eq(

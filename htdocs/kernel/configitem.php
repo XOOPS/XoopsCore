@@ -224,7 +224,7 @@ class XoopsConfigItem extends XoopsObject
     {
         if (is_array($option)) {
             $count = count($option);
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $this->setConfOptions($option[$i]);
             }
         } else {

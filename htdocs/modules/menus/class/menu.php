@@ -80,7 +80,7 @@ class MenusMenuHandler extends XoopsPersistableObjectHandler
             . " WHERE id = {$id}"
             ;
             $this->db->queryF($sql);
-            $i++;
+            ++$i;
         }
     }
 }

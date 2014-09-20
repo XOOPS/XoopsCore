@@ -54,7 +54,7 @@ class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract imple
         $configs[$i]['options'] = array('XoopsLocale::NESTED' => 'nest', 'XoopsLocale::FLAT' => 'flat', 'XoopsLocale::THREADED' => 'thread');
         $configs[$i]['default'] = 'flat';
 
-        $i++;
+        ++$i;
         $configs[$i]['name'] = 'com_order';
         $configs[$i]['title'] = '_MI_COMMENTS_ORDER';
         $configs[$i]['description'] = '_MI_COMMENTS_ORDERDSC';

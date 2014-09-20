@@ -59,7 +59,7 @@ foreach ($dirlist as $file) {
         }
         unset($modversion);
     }
-    $index++;
+    ++$index;
 }
 unset($dirlist);
 ?>

@@ -31,7 +31,7 @@ if (!isset($xcaptcha_handler)) {
 $xoops = Xoops::getInstance();
 
 foreach ( array_keys($xcaptcha_handler->getPluginList()) as $key ) {
-    $cpt++;
+    ++$cpt;
     $xoops->loadLanguage($key, 'xcaptcha');
 
     $adminmenu[$cpt]['title'] = constant('_MI_XCAPTCHA_ADMENU_' . strtoupper($key) );
@@ -39,7 +39,7 @@ foreach ( array_keys($xcaptcha_handler->getPluginList()) as $key ) {
     $adminmenu[$cpt]['icon'] = 'administration.png';
 }
 
-$cpt++;
+++$cpt;
 $adminmenu[$cpt]['title'] = _MI_XCAPTCHA_ABOUT;
 $adminmenu[$cpt]['link'] = 'admin/about.php';
 $adminmenu[$cpt]['icon'] = 'about.png';

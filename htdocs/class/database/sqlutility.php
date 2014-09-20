@@ -65,14 +65,14 @@ class SqlUtility
                             $escaped_backslash = false;
                             while ($i - $j > 0 && $sql[$i - $j] == '\\') {
                                 $escaped_backslash = !$escaped_backslash;
-                                $j++;
+                                ++$j;
                             }
                             if ($escaped_backslash) {
                                 $string_start = '';
                                 $in_string = false;
                                 break;
                             } else {
-                                $i++;
+                                ++$i;
                             }
                         }
                     }

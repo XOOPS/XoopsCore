@@ -236,7 +236,7 @@ class CommentsCommentRenderer
             $current_prefix .= $prefix;
         }
         if (isset($thread[$key]['child']) && !empty($thread[$key]['child'])) {
-            $depth++;
+            ++$depth;
             foreach ($thread[$key]['child'] as $childkey) {
                 if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != COMMENTS_ACTIVE) {
                     // skip this comment if it is not active and continue on processing its child comments instead
@@ -337,7 +337,7 @@ class CommentsCommentRenderer
             $prefix = $prefix + 25;
         }
         if (isset($thread[$key]['child']) && !empty($thread[$key]['child'])) {
-            $depth++;
+            ++$depth;
             foreach ($thread[$key]['child'] as $childkey) {
                 if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != COMMENTS_ACTIVE) {
                     // skip this comment if it is not active and continue on processing its child comments instead

@@ -230,7 +230,7 @@ function publisher_latest_news_show($options)
         $block['letters'] = $letters;
 
         $columns[$k][] = $item;
-        $k++;
+        ++$k;
 
         if ($k == $column_count) {
             $k = 0;

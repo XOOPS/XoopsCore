@@ -180,14 +180,14 @@ function smarty_function_html_select_date($params, &$smarty)
 
     $field_separator_count = -1;
     if ($display_months) {
-        $field_separator_count++;
+        ++$field_separator_count;
         $month_names = array();
         $month_values = array();
         if(isset($month_empty)) {
             $month_names[''] = $month_empty;
             $month_values[''] = '';
         }
-        for ($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 12; ++$i) {
             $month_names[$i] = strftime($month_format, mktime(0, 0, 0, $i, 1, 2000));
             $month_values[$i] = strftime($month_value_format, mktime(0, 0, 0, $i, 1, 2000));
         }
@@ -218,13 +218,13 @@ function smarty_function_html_select_date($params, &$smarty)
     }
 
     if ($display_days) {
-        $field_separator_count++;
+        ++$field_separator_count;
         $days = array();
         if (isset($day_empty)) {
             $days[''] = $day_empty;
             $day_values[''] = '';
         }
-        for ($i = 1; $i <= 31; $i++) {
+        for ($i = 1; $i <= 31; ++$i) {
             $days[] = sprintf($day_format, $i);
             $day_values[] = sprintf($day_value_format, $i);
         }
@@ -254,7 +254,7 @@ function smarty_function_html_select_date($params, &$smarty)
     }
 
     if ($display_years) {
-        $field_separator_count++;
+        ++$field_separator_count;
         if (null !== $field_array){
             $year_name = $field_array . '[' . $prefix . 'Year]';
         } else {
@@ -302,7 +302,7 @@ function smarty_function_html_select_date($params, &$smarty)
     }
 
     // Loop thru the field_order field
-    for ($i = 0; $i <= 2; $i++){
+    for ($i = 0; $i <= 2; ++$i){
         $c = substr($field_order, $i, 1);
         switch ($c){
             case 'D':

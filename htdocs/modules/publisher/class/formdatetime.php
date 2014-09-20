@@ -40,7 +40,7 @@ class PublisherFormDateTime extends Xoops\Form\ElementTray
         $datetime = getDate($value);
         $this->addElement(new Xoops\Form\DateSelect('', $name . '[date]', $size, $value));
         $timearray = array();
-        for ($i = 0; $i < 24; $i++) {
+        for ($i = 0; $i < 24; ++$i) {
             for ($j = 0; $j < 60; $j = $j + 10) {
                 $key = ($i * 3600) + ($j * 60);
                 $timearray[$key] = ($j != 0) ? $i . ':' . $j : $i . ':0' . $j;

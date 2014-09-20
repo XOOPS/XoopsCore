@@ -82,7 +82,7 @@ switch ($op) {
             $path_file = XOOPS_ROOT_PATH . '/';
             $url_file = XOOPS_URL . '/';
 
-            for ($i = 3; $i < count($file_arr); $i++) {
+            for ($i = 3; $i < count($file_arr); ++$i) {
                 $path_file .= $file_arr[$i] . '/';
                 $url_file .= $file_arr[$i] . '/';
             }
@@ -236,7 +236,7 @@ switch ($op) {
                                         </div>
                                   </td>';
 
-                            $count_file++;
+                            ++$count_file;
                             $newline = ($count_file % $nbcolonnes_file == 1) ? true : false;
 
                             if ($newline) {

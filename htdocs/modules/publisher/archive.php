@@ -102,7 +102,7 @@ if (!($itemsCount > 0)) {
                 $months = array();
                 $lastmonth = 0;
                 $lastyear = $this_year;
-                $i++;
+                ++$i;
             }
             if ($lastmonth != $this_month) {
                 $lastmonth = $this_month;

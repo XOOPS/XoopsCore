@@ -32,7 +32,7 @@ function smarty_function_xoPageNav($params, &$smarty)
     if ($currentPage > 1) {
         $str .= '<a href="' . $xoops->url(str_replace( '%s', $offset - $pageSize, $url)) . '">Previous</a>';
     }
-    for ($i = $minPage; $i <= $maxPage; $i++) {
+    for ($i = $minPage; $i <= $maxPage; ++$i) {
         $tgt = htmlspecialchars($xoops->url(str_replace('%s', ($i - 1) * $pageSize, $url)), ENT_QUOTES);
         $str .= "<a href='$tgt'>$i</a>";
     }

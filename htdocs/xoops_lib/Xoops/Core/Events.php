@@ -107,7 +107,7 @@ class Events
                             $file = substr($file, 0, -4);
                             $this->preloadList[$i]['module'] = $module;
                             $this->preloadList[$i]['file'] = $file;
-                            $i++;
+                            ++$i;
                         }
                     }
                 }

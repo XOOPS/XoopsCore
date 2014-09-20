@@ -24,12 +24,12 @@ $adminmenu[$i]['title'] = _MI_COMMENTS_INDEX;
 $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]['icon'] = 'home.png';
 
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_COMMENTS_MANAGE;
 $adminmenu[$i]['link'] = "admin/main.php";
 $adminmenu[$i]['icon'] = 'manage.png';
 
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_COMMENTS_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['icon'] = 'about.png';

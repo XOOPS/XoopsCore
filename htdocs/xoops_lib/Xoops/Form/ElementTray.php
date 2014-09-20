@@ -84,7 +84,7 @@ class ElementTray extends Element implements ContainerInterface
             /* @var $formElement ContainerInterface */
             $required_elements = $formElement->getRequired();
             $count = count($required_elements);
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $this->required[] = $required_elements[$i];
             }
         } else {
@@ -167,7 +167,7 @@ class ElementTray extends Element implements ContainerInterface
             }
             $ret .= $ele->render() . NWLINE;
             if (!$ele->isHidden()) {
-                $count++;
+                ++$count;
             }
         }
         return $ret;
