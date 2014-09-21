@@ -22,19 +22,14 @@ class Scripts_ImageClassTest extends MY_UnitTestCase
 	{
 		$image_handler = new XoopsCaptchaImageHandler();
 
-        if (headers_sent()) {
-            $this->markTestSkipped();
-        }
-
 		ob_start();
-		$image_handler->loadImage();
+		@$image_handler->loadImage();
 		$tmp = ob_end_clean();
 		$this->assertTrue(true); // loadImage returns void
     }
 
     public function test_generateCode()
 	{
-		Xoops::getInstance()->disableErrorReporting();
 		$image_handler = new XoopsCaptchaImageHandler();
 
 		ob_start();
@@ -46,81 +41,150 @@ class Scripts_ImageClassTest extends MY_UnitTestCase
 
     public function test_createImage()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->createImage();
+		ob_end_clean();
+		$this->assertSame(null, $value);
+		
     }
 
     public function test_getList()
 	{
-        $this->markTestIncomplete();
-    }
+		$image_handler = new XoopsCaptchaImageHandler();
+        $fonts = $image_handler->getList("fonts", "ttf");
+		$this->assertTrue(is_array($fonts));
+	}
 
     public function test_createImageGd()
 	{
-        $this->markTestIncomplete();
+		// see test_createImage
     }
 
     public function test_loadFont()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+        $image_handler->loadFont();
+		$this->assertTrue(is_string($image_handler->font));
+		$this->assertTrue(false !== strpos($image_handler->font,'.ttf'));
     }
 
     public function test_setImageSize()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+        $image_handler->setImageSize();
+		$this->assertTrue(is_int($image_handler->width));
+		$this->assertTrue(is_int($image_handler->spacing));
+		$this->assertTrue(is_int($image_handler->height));
     }
 
     public function test_loadBackground()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+        $value = $image_handler->loadBackground();
+		$this->assertTrue(is_string($value));
+		$this->assertTrue(false !== strpos($value,'image/backgrounds/'));
     }
 
     public function test_createFromFile()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->createFromFile();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawCode()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawCode();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawBorder()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawBorder();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawCircles()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawCircles();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawLines()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawLines();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawRectangles()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawRectangles();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawBars()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawBars();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawEllipses()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawEllipses();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_drawPolygons()
 	{
-        $this->markTestIncomplete();
+		$image_handler = new XoopsCaptchaImageHandler();
+		
+		ob_start();
+		$value = @$image_handler->drawPolygons();
+		ob_end_clean();
+		$this->assertSame(null, $value);
     }
 
     public function test_createImageBmp()
 	{
-        $this->markTestIncomplete();
+		Xoops::getInstance()->disableErrorReporting();
+		$image_handler = new XoopsCaptchaImageHandler();
+		$image_handler->mode = 'bmp';
+		ob_start();
+		$value = @$image_handler->createImageBmp('not_empty_string');
+		ob_end_clean();
+		$this->assertSame('',$value);
     }
 }

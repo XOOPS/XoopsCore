@@ -19,7 +19,8 @@ class Plugins_Xoops_codeTest extends \PHPUnit_Framework_TestCase
     public function test_100()
     {
 		ob_start(array($this,'output_callback')); // to catch output after ob_end_flush in Xoops::simpleFooter
-		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/tinymce/tiny_mce/plugins/xoops_code/xoops_code.php');
+		require(XOOPS_ROOT_PATH.'/class/xoopseditor/tinymce/tiny_mce/plugins/xoops_code/xoops_code.php');
+		ob_get_clean();
 		$this->assertTrue(is_string($this->buffer));
     }
 }
