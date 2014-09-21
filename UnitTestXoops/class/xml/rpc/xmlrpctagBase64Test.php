@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 
@@ -11,7 +11,7 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 class XoopsXmlRpcBase64Test extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcBase64';
-    
+
     public function test___construct()
 	{
 		$value = 'value';

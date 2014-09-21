@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class RpcBase64HandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcBase64Handler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
@@ -25,7 +25,7 @@ class RpcBase64HandlerTest extends MY_UnitTestCase
     function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('base64', $name);
     }
@@ -33,7 +33,7 @@ class RpcBase64HandlerTest extends MY_UnitTestCase
     function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $value = '71';

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/soundcloud/soundcloud.php');
 
@@ -11,7 +11,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/soundcloud/soundcloud.php');
 class MytsSoundcloudTest extends MY_UnitTestCase
 {
 	protected $myclass = 'MytsSoundcloud';
-	
+
     public function test___construct()
 	{
 		$ts = new MyTextSanitizer();
@@ -19,15 +19,15 @@ class MytsSoundcloudTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('MyTextSanitizerExtension', $instance);
     }
-	
+
     function test_encode()
     {
     }
-	
+
     function test_load()
     {
     }
-	
+
     function test_mycallback()
     {
     }

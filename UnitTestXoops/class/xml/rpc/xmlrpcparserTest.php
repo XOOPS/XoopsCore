@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,20 +9,20 @@ require_once(__DIR__.'/../../../init.php');
 class XoopsXmlRpcParserTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcParser';
-    
+
     protected $object = null;
-    
+
     public function setUp()
     {
         $input = 'input';
 		$this->object = new $this->myclass($input);
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
 		$this->assertInstanceof('SaxParser', $instance);
-        
+
         $handlers = $instance->tagHandlers;
 		$this->assertTrue(!empty($handlers));
         $validHandlers = array('RpcMethodNameHandler','RpcIntHandler','RpcDoubleHandler','RpcBooleanHandler',
@@ -55,9 +55,9 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
         $data = 'something';
         $instance->setTempValue($data);
         $this->assertSame($data, $instance->getTempValue());
-        
+
         $instance->resetTempValue();
-        $this->assertSame(null, $instance->getTempValue());        
+        $this->assertSame(null, $instance->getTempValue());
     }
 
     function test_getTempValue()
@@ -79,9 +79,9 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
         $instance->setTempMember($name, $value);
         $x = $instance->getTempMember();
         $this->assertSame($value, $x['name'] );
-        
+
         $instance->resetTempMember();
-        $this->assertSame(array(), $instance->getTempMember()); 
+        $this->assertSame(array(), $instance->getTempMember());
     }
 
     function test_getTempMember()
@@ -100,9 +100,9 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
 
         $instance->setWorkingLevel();
         $this->assertSame(0, $instance->getWorkingLevel());
-        
+
         $instance->releaseWorkingLevel();
-        $this->assertSame(null, $instance->getWorkingLevel()); 
+        $this->assertSame(null, $instance->getWorkingLevel());
     }
 
     function test_getWorkingLevel()
@@ -123,9 +123,9 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
         $instance->setTempStruct($member);
         $x = $instance->getTempStruct();
         $this->assertSame($member['name'], $x['name']);
-        
+
         $instance->resetTempStruct();
-        $this->assertSame(array(), $instance->getTempStruct()); 
+        $this->assertSame(array(), $instance->getTempStruct());
     }
 
     function test_getTempStruct()
@@ -146,9 +146,9 @@ class XoopsXmlRpcParserTest extends MY_UnitTestCase
         $instance->setTempArray($value);
         $x = $instance->getTempArray();
         $this->assertSame($value, $x[0]);
-        
+
         $instance->resetTempArray();
-        $this->assertSame(array(), $instance->getTempArray()); 
+        $this->assertSame(array(), $instance->getTempArray());
     }
 
     function test_getTempArray()

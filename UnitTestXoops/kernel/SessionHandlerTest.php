@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -21,21 +21,21 @@ class SessionHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
     }
-    
+
     public function test_open()
 	{
         $instance = new $this->myclass($this->conn);
         $value = $instance->open('save_path','session_name');
         $this->assertSame(true,$value);
     }
-	
+
     public function test_close()
 	{
         $instance = new $this->myclass($this->conn);
         $value = $instance->close();
         $this->assertSame(true,$value);
     }
-	
+
     public function test_read()
 	{
         $instance = new $this->myclass($this->conn);
@@ -43,7 +43,7 @@ class SessionHandlerTest extends MY_UnitTestCase
         $value = $instance->read($sess_id);
         $this->assertSame('data',$value);
     }
-	
+
     public function test_write()
 	{
         $instance = new $this->myclass($this->conn);
@@ -52,7 +52,7 @@ class SessionHandlerTest extends MY_UnitTestCase
         $value = $instance->write($sess_id,$sess_data);
         $this->assertSame(1,$value);
     }
-	
+
     public function test_destroy()
 	{
         $instance = new $this->myclass($this->conn);
@@ -60,7 +60,7 @@ class SessionHandlerTest extends MY_UnitTestCase
         $value = $instance->destroy($sess_id);
         $this->assertSame(0,$value);
     }
-	
+
     public function test_gc()
 	{
         $instance = new $this->myclass($this->conn);
@@ -73,7 +73,7 @@ class SessionHandlerTest extends MY_UnitTestCase
         $value = $instance->gc($expire);
         $this->assertSame(0,$value);
     }
-	
+
     public function test_gc_force()
 	{
         $instance = new $this->myclass($this->conn);
@@ -89,7 +89,7 @@ class SessionHandlerTest extends MY_UnitTestCase
         $value = $instance->regenerate_id();
         $this->assertSame(true,$value);
     }
-	
+
     public function test_update_cookie()
 	{
         $instance = new $this->myclass($this->conn);

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/ul/ul.php');
 
@@ -11,7 +11,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/ul/ul.php');
 class MytsUlTest extends MY_UnitTestCase
 {
 	protected $myclass = 'MytsTextfilter';
-	
+
     public function test___construct()
 	{
 		$ts = new MyTextSanitizer();
@@ -19,7 +19,7 @@ class MytsUlTest extends MY_UnitTestCase
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('MyTextSanitizerExtension', $instance);
     }
-	
+
     function test_load()
     {
     }

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetAuthorHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -26,11 +26,11 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
     public function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('author', $name);
 	}
-	
+
     public function test_handleBeginElement()
     {
         $instance = $this->object;
@@ -45,7 +45,7 @@ class ThemeSetAuthorHandlerTest extends MY_UnitTestCase
     public function test_handleEndElement()
     {
         $instance = $this->object;
-		
+
 		$this->markTestIncomplete();
 	}
 }

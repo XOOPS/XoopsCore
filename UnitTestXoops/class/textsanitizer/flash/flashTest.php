@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/flash/flash.php');
 
@@ -11,7 +11,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/flash/flash.php');
 class MytsFlashTest extends MY_UnitTestCase
 {
 	protected $myclass = 'MytsFlash';
-	
+
     public function test___construct()
 	{
 		$ts = new MyTextSanitizer();
@@ -23,11 +23,11 @@ class MytsFlashTest extends MY_UnitTestCase
     function test_encode()
     {
     }
-	
+
     function test_load()
     {
     }
-	
+
     function test_decode()
     {
     }

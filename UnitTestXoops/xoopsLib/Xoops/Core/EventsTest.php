@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -15,21 +15,21 @@ class EventsTest extends MY_UnitTestCase
 		$class = $this->myclass;
 		$instance = $class::getInstance();
 		$this->assertInstanceOf($class, $instance);
-		
+
 		$instance1 = $class::getInstance();
 		$this->assertSame($instance1, $instance);
 	}
-	
+
 	public function test_triggerEvent()
 	{
         $this->markTestIncomplete('to do');
 	}
-	
+
 	public function test_addListener()
 	{
         $this->markTestIncomplete('to do');
 	}
-	
+
 	public function test_getEvents()
 	{
         $this->markTestIncomplete('to do');

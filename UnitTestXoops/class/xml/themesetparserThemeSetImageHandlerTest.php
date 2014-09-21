@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class ThemeSetImageHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetImageHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -22,15 +22,15 @@ class ThemeSetImageHandlerTest extends MY_UnitTestCase
         $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
-	
+
     public function test_getName()
     {
-        $instance = $this->object;	
+        $instance = $this->object;
 
 		$name = $instance->getName();
 		$this->assertSame('image', $name);
 	}
-	
+
     public function test_handleBeginElement()
     {
         $instance = $this->object;

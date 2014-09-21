@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcApi';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$params = array('p1'=>'one');
@@ -18,18 +18,18 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
 		$module = new XoopsModule();
 		$this->object = new $this->myclass($params, $response, $module);
     }
-    
+
     protected function getPropertyValue($name)
     {
         $prop = new ReflectionProperty(get_class($this->object), $name);
         $prop->setAccessible(true);
         return $prop->getValue($this->object);
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
-        
+
         $prop = $this->getPropertyValue('params');
         $this->assertTrue(is_array($prop));
         $prop = $this->getPropertyValue('response');
@@ -41,14 +41,14 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__setUser()
     {
         $instance = $this->object;
-        
+
         $user = new XoopsUser();
         $instance->_setUser($user, false);
         $prop = $this->getPropertyValue('user');
         $this->assertTrue(is_a($prop, 'XoopsUser'));
         $prop = $this->getPropertyValue('isadmin');
         $this->assertSame(false, $prop);
-        
+
         $instance->_setUser($user, true);
         $prop = $this->getPropertyValue('isadmin');
         $this->assertSame(true, $prop);
@@ -57,7 +57,7 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__checkUser()
     {
         $instance = $this->object;
-        
+
         $name = 'name';
         $pwd = 'pwd';
         $x = $instance->_checkUser($name, $pwd);
@@ -69,13 +69,13 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__checkAdmin()
     {
         $instance = $this->object;
-        
+
         $x = $instance->_checkAdmin();
         $this->assertSame(false, $x);
-        
+
         $user = new XoopsUser();
         $instance->_setUser($user, true);
-        
+
         $x = $instance->_checkAdmin();
         $this->assertSame(true, $x);
     }
@@ -83,7 +83,7 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__getPostFields()
     {
         $instance = $this->object;
-        
+
         $x = $instance->_getPostFields();
         $this->assertTrue(is_array($x));
         $this->assertTrue(is_array($x['title']));
@@ -95,7 +95,7 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__setXoopsTagMap()
     {
         $instance = $this->object;
-        
+
         $tag = 'tag';
         $value = 'value';
         $instance->_setXoopsTagMap($tag, $value);
@@ -106,7 +106,7 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__getXoopsTagMap()
     {
         $instance = $this->object;
-        
+
         $tag = 'tag';
         $value = 'value';
         $instance->_setXoopsTagMap($tag, $value);
@@ -117,13 +117,13 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__getTagCdata()
     {
         $instance = $this->object;
-        
+
         $tag = 'tag';
         $text = 'value <tag>data</tag>';
         $x = $instance->_getTagCdata($text, $tag, true);
         $this->assertSame('data', $x);
         $this->assertSame('value ', $text);
-        
+
         $tag = 'tag';
         $text = 'value <tag>data</tag>';
         $text1 = $text;
@@ -135,7 +135,7 @@ class XoopsXmlRpcApiTest extends MY_UnitTestCase
     function test__getXoopsApi()
     {
         $instance = $this->object;
-        
+
         $params = array();
         $x = $instance->_getXoopsApi($params);
         $this->assertInstanceOf($this->myclass, $x);

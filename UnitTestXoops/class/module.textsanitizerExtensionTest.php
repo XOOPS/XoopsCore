@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class Module_MyTextSanitizerExtensionTest extends MY_UnitTestCase
 {
     protected $myClass = 'MyTextSanitizerExtension';
     protected $ts = null;
-    
+
     public function SetUp()
 	{
         $this->ts = MyTextSanitizer::getInstance();
     }
-    
+
     public function test___construct()
 	{
         $extension = new $this->myClass($this->ts);
@@ -23,14 +23,14 @@ class Module_MyTextSanitizerExtensionTest extends MY_UnitTestCase
         $this->assertEquals($this->ts, $extension->ts);
         $this->assertEquals(XOOPS_URL . '/images/form', $extension->image_path);
     }
-    
+
     public function test_loadConfig()
 	{
 		$class = $this->myClass;
         $config = $class::loadConfig();
         $this->assertTrue(is_array($config));
     }
-    
+
     public function test_mergeConfig()
 	{
 		$class = $this->myClass;
@@ -42,7 +42,7 @@ class Module_MyTextSanitizerExtensionTest extends MY_UnitTestCase
         $this->assertEquals($array1['x'], $config['x']);
         $this->assertEquals($array2['y'], $config['y']);
     }
-    
+
     public function test_mergeConfig100()
 	{
 		$class = $this->myClass;
@@ -62,7 +62,7 @@ class Module_MyTextSanitizerExtensionTest extends MY_UnitTestCase
         $result = $extension->encode($value);
         $this->assertEquals(array(), $result);
     }
-    
+
     public function test_decode()
 	{
         $extension = new $this->myClass($this->ts);
@@ -72,5 +72,5 @@ class Module_MyTextSanitizerExtensionTest extends MY_UnitTestCase
         $result = $extension->decode($url,$width,$height);
         $this->assertEquals('', $result);
     }
-    
+
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -7,7 +7,7 @@ require_once(__DIR__.'/../init.php');
 * @backupStaticAttributes disabled
 */
 class DownloaderAbstractTest extends MY_UnitTestCase
-{ 
+{
     public function test___construct()
 	{
         // abstract class -> no test

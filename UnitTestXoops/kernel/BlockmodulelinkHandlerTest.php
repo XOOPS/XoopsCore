@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class BlockmodulelinkHandlerTest extends MY_UnitTestCase
 {
     protected $myclass='XoopsBlockmodulelinkHandler';
 	protected $conn = null;
-    
+
     public function SetUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
@@ -25,5 +25,5 @@ class BlockmodulelinkHandlerTest extends MY_UnitTestCase
 		$this->assertSame('block_id',$instance->keyName);
 		$this->assertSame('module_id',$instance->identifierName);
     }
-    
+
 }

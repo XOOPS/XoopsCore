@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 global $config;
 $config = null;
@@ -15,7 +15,7 @@ class Textarea_Editor_registryTest extends MY_UnitTestCase
     public function test_100()
     {
 		global $config;
-		
+
 		ob_start();
 		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/textarea/language/english.php');
 		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/textarea/editor_registry.php');

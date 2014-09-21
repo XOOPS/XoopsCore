@@ -1,5 +1,5 @@
 <?php
-require_once (__DIR__.'/../../../../init_mini.php');
+require_once (dirname(dirname(dirname(dirname(__DIR__)))) . '/init_mini.php');
 
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Manager;
@@ -7,7 +7,7 @@ use Xoops\Core\Service\Manager;
 class AbstractContractTestInstance extends AbstractContract
 {
     const MODE = Manager::MODE_EXCLUSIVE;
-	
+
 	function getName() {}
 	function getDescription() {}
 }
@@ -21,12 +21,12 @@ class AbstractContractTestInstance extends AbstractContract
 class AbstractContractTest extends MY_UnitTestCase
 {
 	protected $myClass = 'AbstractContractTestInstance';
-	
+
 	function test_setPriority()
 	{
 		$instance = new $this->myClass();
 		$this->assertInstanceOf($this->myClass, $instance);
-		
+
 		$priorities = array(Manager::PRIORITY_SELECTED, Manager::PRIORITY_HIGH,
 			Manager::PRIORITY_MEDIUM, Manager::PRIORITY_LOW);
 		foreach($priorities as $priority) {
@@ -35,19 +35,19 @@ class AbstractContractTest extends MY_UnitTestCase
 			$this->assertSame($priority, $value);
 		}
 	}
-	
+
 	function test_getPriority()
 	{
 		// see test_setPriority
 	}
-	
+
 	function test_getMode()
 	{
 		$instance = new $this->myClass();
 		$this->assertInstanceOf($this->myClass, $instance);
-		
+
 		$x = $instance->getMode();
 		$this->assertSame($instance::MODE, $x);
 	}
-	
+
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -8,10 +8,10 @@ require_once(__DIR__.'/../init.php');
 */
 class BlockmodulelinkTest extends MY_UnitTestCase
 {
-    
+
     public function SetUp() {
     }
-    
+
     public function test___construct() {
         $instance=new XoopsBlockmodulelink();
         $this->assertInstanceOf('XoopsBlockmodulelink',$instance);
@@ -25,11 +25,11 @@ class BlockmodulelinkTest extends MY_UnitTestCase
         $value = $instance->getVar('block_id', '');
         $this->assertSame(null,$value);
     }
-    
+
     public function test_getVar200() {
         $instance=new XoopsBlockmodulelink();
         $value = $instance->getVar('module_id', '');
         $this->assertSame(null,$value);
     }
-    
+
 }

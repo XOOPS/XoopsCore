@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Xoops\Core\Kernel\Criteria;
@@ -26,12 +26,12 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
 {
 	protected $myClass = 'XoopsPersistableObjectHandlerTestInstance';
 	protected $conn = null;
-	
+
     public function SetUp()
 	{
 		$this->conn = \Xoops\Core\Database\Factory::getConnection();
     }
-	
+
     public function test___publicProperties()
 	{
 		$items = array('table','keyName','className','table_link','identifierName','field_link',
@@ -52,14 +52,14 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
 		$this->assertSame($this->conn, $instance->db2);
     }
-	
+
     public function test_sethandler()
 	{
         $instance=new $this->myClass($this->conn);
         $value=$instance->sethandler();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_loadhandler()
 	{
         $instance=new $this->myClass($this->conn);
@@ -73,14 +73,14 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->create();
         $this->assertSame(false,$value);
     }
-    
+
     public function test_get()
 	{
         $instance=new $this->myClass($this->conn);
         $value=$instance->get();
         $this->assertSame(false,$value);
     }
-    
+
     public function test_insert()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -89,7 +89,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->insert($obj);
         $this->assertSame('',$value);
     }
-    
+
     public function test_delete()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -97,7 +97,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->delete($obj);
         $this->assertSame(false,$value);
     }
-    
+
     public function test_deleteAll()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -105,7 +105,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->deleteAll($criteria);
         $this->assertSame(0,$value);
     }
-    
+
     public function test_updateAll()
 	{
         $instance=new $this->myClass($this->conn);
@@ -113,7 +113,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->updateAll('name','value',$criteria);
         $this->assertSame(0,$value);
     }
-    
+
     public function test_getObjects()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -121,7 +121,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue($value>0);
     }
-    
+
     public function test_getAll()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -129,7 +129,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
     }
-    
+
     public function test_getList()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -137,7 +137,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
     }
-    
+
     public function test_getIds()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -145,21 +145,21 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
     }
-    
+
     public function test_getCount()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
         $value=$instance->getCount();
         $this->assertTrue((int)$value>0);
     }
-    
+
     public function test_getCounts()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
         $value=$instance->getCounts();
         $this->assertTrue(is_array($value));
     }
-    
+
     public function test_getByLink()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -170,7 +170,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
     }
-    
+
     public function test_getCountByLink()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -181,7 +181,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->getCountByLink();
         $this->assertTrue((int)$value>0);
     }
-    
+
     public function test_getCountsByLink()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -192,7 +192,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->getCountsByLink();
         $this->assertTrue(is_array($value));
     }
-    
+
     public function test_updateByLink()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -202,7 +202,7 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->updateByLink(array('key'=>'value'));
         $this->assertSame(false,$value);
     }
-    
+
     public function test_deleteByLink()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
@@ -212,14 +212,14 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
         $value=$instance->deleteByLink();
         $this->assertSame(false,$value);
     }
-    
+
     public function test_cleanOrphan()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
         $value=$instance->cleanOrphan($this->conn->prefix('group_permission'),'gperm_groupid','groupid');
         $this->assertSame(0,$value);
     }
-    
+
     public function test_synchronization()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');

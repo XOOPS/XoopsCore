@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -19,20 +19,20 @@ class XoopsModelFactoryTest extends MY_UnitTestCase
 		$class = $this->myClass;
         $instance = $class::getInstance();
         $this->assertInstanceOf($class, $instance);
-		
+
         $instance2 = $class::getInstance();
         $this->assertSame($instance,$instance2);
 	}
-	
+
     public function test_loadHandler()
 	{
 		$handler = new XoopsBlockHandler();
 		$vars = array('one'=>1, 'two'=>2);
-		
+
 		$class = $this->myClass;
         $instance = $class::getInstance();
         $this->assertInstanceOf($class, $instance);
-		
+
 		$x = $instance->loadHandler($handler, 'read', $vars);
         $this->assertTrue(is_a($x,'Xoops\Core\Kernel\Model\Read'));
         $this->assertTrue(is_a($x,'Xoops\Core\Kernel\XoopsModelAbstract'));

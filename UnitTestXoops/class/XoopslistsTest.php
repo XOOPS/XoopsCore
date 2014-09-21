@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,14 +10,14 @@ class XoopslistsTest extends MY_UnitTestCase
 {
 	protected $myClass = 'XoopsLists';
 	protected $conn = null;
-    
+
     public function SetUp()
 	{
 		if (empty($this->conn)) {
 			$this->conn = Xoops::getInstance()->db();
 		}
     }
-		
+
     public function test_getTimeZoneList()
 	{
 		$class = $this->myClass;
@@ -27,23 +27,23 @@ class XoopslistsTest extends MY_UnitTestCase
 			$this->assertTrue(is_string($v));
 		}
     }
-	
+
     public function test_getDirListAsArray()
 	{
 	}
-	
+
 	public function test_getThemesList()
 	{
 		$class = $this->myClass;
 		$list_ref = $class::getDirListAsArray(XOOPS_THEME_PATH . '/');
 		$value = $class::getThemesList();
         $this->assertSame($list_ref, $value);
-		
+
 		$list_ref = $class::getDirListAsArray(XOOPS_THEME_PATH );
 		$value = $class::getThemesList();
         $this->assertSame($list_ref, $value);
 	}
-	
+
     public function test_getModulesList()
 	{
 		$class = $this->myClass;
@@ -51,7 +51,7 @@ class XoopslistsTest extends MY_UnitTestCase
 		$value = $class::getModulesList();
         $this->assertSame($list_ref, $value);
 	}
-	
+
     public function test_getEditorList()
 	{
 		$class = $this->myClass;
@@ -59,7 +59,7 @@ class XoopslistsTest extends MY_UnitTestCase
 		$value = $class::getEditorList();
         $this->assertSame($list_ref, $value);
 	}
-	
+
     public function test_getFileListAsArray()
 	{
 		$class = $this->myClass;
@@ -70,7 +70,7 @@ class XoopslistsTest extends MY_UnitTestCase
 		$value = $class::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
-	
+
     public function test_getImgListAsArray()
 	{
 		$class = $this->myClass;
@@ -81,7 +81,7 @@ class XoopslistsTest extends MY_UnitTestCase
 		$value = $class::getImgListAsArray(XOOPS_ROOT_PATH . '/images/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
-	
+
     public function test_getHtmlListAsArray()
 	{
 		$class = $this->myClass;
@@ -92,7 +92,7 @@ class XoopslistsTest extends MY_UnitTestCase
 		$value = $class::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
-	
+
     public function test_getAvatarsList()
 	{
 		$class = $this->myClass;
@@ -114,7 +114,7 @@ class XoopslistsTest extends MY_UnitTestCase
 			$this->markTestSkipped('Directory not found : '.$d_avatar);
 		}
 	}
-	
+
     public function test_getAllAvatarsList()
 	{
 		$class = $this->myClass;
@@ -124,7 +124,7 @@ class XoopslistsTest extends MY_UnitTestCase
 			$this->assertTrue(count($value)>0);
 		}
 	}
-	
+
     public function test_getSubjectsList()
 	{
 		$class = $this->myClass;
@@ -146,7 +146,7 @@ class XoopslistsTest extends MY_UnitTestCase
 			$this->markTestSkipped('Directory not found : '.$d_subject);
 		}
 	}
-	
+
     public function test_getLangList()
 	{
 		$class = $this->myClass;
@@ -154,7 +154,7 @@ class XoopslistsTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 	}
-	
+
     public function test_getLocaleList()
 	{
 		$class = $this->myClass;
@@ -162,7 +162,7 @@ class XoopslistsTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 	}
-	
+
     public function test_340()
 	{
 		$class = $this->myClass;
@@ -170,14 +170,14 @@ class XoopslistsTest extends MY_UnitTestCase
         $this->assertTrue(is_array($value));
 		foreach($value as $k => $v) {
 			if (empty($k)) {
-				$this->assertSame('-', $v);			
+				$this->assertSame('-', $v);
 			} else {
 				$this->assertRegExp('/^[A-Z][A-Z]$/',$k);
 				$this->assertTrue(is_string($v));
 			}
 		}
 	}
-	
+
     public function test_getHtmlList()
 	{
 		$class = $this->myClass;
@@ -188,7 +188,7 @@ class XoopslistsTest extends MY_UnitTestCase
 			$this->assertRegExp('/^(\&lt;)?[a-z0-9]+(\&gt;)?$/',$v);
 		}
 	}
-	
+
     public function test_getUserRankList()
 	{
 		$class = $this->myClass;
@@ -204,5 +204,5 @@ class XoopslistsTest extends MY_UnitTestCase
 		$this->assertTrue(is_array($value));
 		$this->assertTrue(count($value)>0);
 	}
-	
+
 }

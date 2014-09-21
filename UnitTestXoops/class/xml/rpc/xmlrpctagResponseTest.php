@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,13 +10,13 @@ class XoopsXmlRpcResponseTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcResponse';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
 		$this->object = new $this->myclass($input);
     }
-    
+
     public function test___construct()
 	{
 		$instance = $this->object;
@@ -26,7 +26,7 @@ class XoopsXmlRpcResponseTest extends MY_UnitTestCase
     public function test_render()
     {
 		$instance = $this->object;
-        
+
         $x = $instance->render();
         $this->assertTrue(is_string($x));
         $this->assertTrue(!empty($x));

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class CachemodelHandlerTest extends MY_UnitTestCase
 {
     protected $myclass='XoopsCachemodelHandler';
 	protected $conn = null;
-    
+
     public function SetUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
@@ -25,5 +25,5 @@ class CachemodelHandlerTest extends MY_UnitTestCase
 		$this->assertSame('cache_key',$instance->keyName);
 		$this->assertSame('cache_data',$instance->identifierName);
     }
-    
+
 }

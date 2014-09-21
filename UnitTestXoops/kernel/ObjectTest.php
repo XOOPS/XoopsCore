@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 class Legacy_XoopsObjectTestInstance extends \XoopsObject
 {
@@ -13,7 +13,7 @@ class Legacy_XoopsObjectTestInstance extends \XoopsObject
 class Legacy_XoopsObjectTest extends MY_UnitTestCase
 {
     var $myClass='Legacy_XoopsObjectTestInstance';
-    
+
     public function test___construct()
 	{
         $instance = new $this->myClass();

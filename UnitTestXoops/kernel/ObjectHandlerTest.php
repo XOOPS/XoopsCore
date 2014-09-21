@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 class Legacy_ObjecthandlerTestInstance extends \XoopsObjectHandler
 {
@@ -13,7 +13,7 @@ class Legacy_ObjecthandlerTestInstance extends \XoopsObjectHandler
 class Legacy_ObjecthandlerTest extends MY_UnitTestCase
 {
     var $myClass='Legacy_ObjecthandlerTestInstance';
-    
+
     public function test___publicProperties()
 	{
 		$items = array('db');
@@ -22,7 +22,7 @@ class Legacy_ObjecthandlerTest extends MY_UnitTestCase
 			$this->assertTrue($prop->isPublic());
 		}
     }
-	
+
     public function test___construct()
 	{
         $instance = new $this->myClass();

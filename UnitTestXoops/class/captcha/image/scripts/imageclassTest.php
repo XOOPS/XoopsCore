@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_mini.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init_mini.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/captcha/image/scripts/imageclass.php');
 

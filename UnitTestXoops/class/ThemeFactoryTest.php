@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,11 +9,11 @@ require_once(__DIR__.'/../init.php');
 class ThemeFactoryTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsThemeFactory';
-	
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
 		$themefactory = new $this->myclass();
@@ -31,7 +31,7 @@ class ThemeFactoryTest extends MY_UnitTestCase
 		$value = $themefactory->createInstance();
         $this->assertInstanceOf('XoopsTheme', $value);
     }
-	
+
     public function test_createInstance100()
 	{
 		$themefactory = new $this->myclass();
@@ -42,7 +42,7 @@ class ThemeFactoryTest extends MY_UnitTestCase
 		$this->assertTrue(!empty($value->path));
 		$this->assertTrue(!empty($value->folderName));
     }
-	
+
     public function test_isThemeAllowed()
 	{
 		$themefactory = new $this->myclass();

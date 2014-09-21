@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,11 +9,11 @@ require_once(__DIR__.'/../init.php');
 class ThemeTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsTheme';
-	
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
 		$theme = new $this->myclass();

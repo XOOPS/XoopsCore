@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(__DIR__.'/../../../init.php');
 class MovableTypeApiTest extends MY_UnitTestCase
 {
     protected $myclass = 'MovableTypeApi';
-    
+
     public function test___construct()
 	{
 		$params = array('p1'=>'one');

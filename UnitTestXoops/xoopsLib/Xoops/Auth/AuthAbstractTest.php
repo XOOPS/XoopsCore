@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
 {
@@ -32,9 +32,9 @@ class AuthAbstractTest extends MY_UnitTestCase
 		$instance->setErrors($errno, $error);
 		$x = $instance->getErrors();
 		$this->assertTrue(is_array($x));
-		$this->assertTrue($x[$errno]==$error);		
+		$this->assertTrue($x[$errno]==$error);
 	}
-	
+
 	public function test_getErrors()
 	{
 		// allready tested in test_setErrors

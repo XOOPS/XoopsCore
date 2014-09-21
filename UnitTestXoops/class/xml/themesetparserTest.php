@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../init.php');
+require_once(dirname(dirname(__DIR__)) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsThemeSetParser';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -25,12 +25,12 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
 			$this->assertTrue($prop->isPublic());
 		}
     }
-	
+
     public function test___construct()
     {
         $instance = $this->object;
 		$this->assertInstanceOf('SaxParser', $instance);
-		
+
 		$tagHandlers = $instance->tagHandlers;
 		$this->assertTrue(is_array($tagHandlers));
 		if (is_array($tagHandlers)) {
@@ -46,16 +46,16 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
     public function test_getThemeSetData()
     {
         $instance = $this->object;
-		
+
 		$name = 'name';
 		$value = 'value';
 		$instance->setThemeSetData($name, $value);
 		$x = $instance->getThemeSetData('bidon');
 		$this->assertFalse($x);
-		
+
 		$x = $instance->getThemeSetData($name);
 		$this->assertSame($value, $x);
-		
+
 		$x = $instance->getThemeSetData();
 		$this->assertTrue(is_array($x) AND ($x[$name] == $value));
     }
@@ -68,12 +68,12 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
     public function test_getImagesData()
     {
         $instance = $this->object;
-		
+
 		$arr = array(1=>'1', 2=>'2');
 		$instance->setImagesData($arr);
 		$x = $instance->getImagesData();
 		$this->assertTrue(is_array($x) AND (count($x)==1));
-		
+
 		$arr = array(1=>'1', 2=>'2');
 		$instance->setImagesData($arr);
 		$x = $instance->getImagesData();
@@ -88,12 +88,12 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
     public function test_getTemplatesData()
     {
         $instance = $this->object;
-		
+
 		$arr = array(1=>'1', 2=>'2');
 		$instance->setTemplatesData($arr);
 		$x = $instance->getTemplatesData();
 		$this->assertTrue(is_array($x) AND (count($x)==1));
-		
+
 		$arr = array(1=>'1', 2=>'2');
 		$instance->setTemplatesData($arr);
 		$x = $instance->getTemplatesData();
@@ -108,20 +108,20 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
     public function test_getTempArr()
     {
         $instance = $this->object;
-		
+
 		$name = 'name';
 		$value = 'value';
 		$delim = ';';
 		$instance->setTempArr($name, $value);
 		$x = $instance->getTempArr($name);
 		$this->assertSame($value, $x);
-		
+
 		$x = $instance->getTempArr('bidon');
 		$this->assertSame(false, $x);
-		
+
 		$x = $instance->getTempArr();
 		$this->assertTrue(is_array($x) AND ($x[$name] == $value));
-		
+
 		$instance->setTempArr($name, $value, $delim);
 		$x = $instance->getTempArr($name);
 		$this->assertSame($value.$delim.$value, $x);
@@ -130,18 +130,18 @@ class XoopsThemeSetParserTest extends MY_UnitTestCase
     public function test_resetTempArr()
     {
         $instance = $this->object;
-		
+
 		$name = 'name';
 		$value = 'value';
 		$delim = ';';
 		$instance->setTempArr($name, $value);
 		$x = $instance->getTempArr($name);
 		$this->assertSame($value, $x);
-		
+
 		$instance->resetTempArr();
-		
+
 		$x = $instance->getTempArr($name);
 		$this->assertSame(false, $x);
-		
+
     }
 }

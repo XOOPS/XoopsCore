@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,11 +9,11 @@ require_once(__DIR__.'/../init.php');
 class CachemodelTest extends MY_UnitTestCase
 {
     var $myclass='XoopsCachemodelObject';
-    
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass();
@@ -23,5 +23,5 @@ class CachemodelTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['cache_data']));
         $this->assertTrue(isset($value['cache_expires']));
     }
-    
+
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init_mini.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,11 +11,11 @@ class Scripts_ImageTest extends MY_UnitTestCase
     public function test_100()
 	{
 		global $image_handler;
-        
+
         if (headers_sent()) {
             $this->markTestSkipped();
         }
-		
+
 		$save = $image_handler;
 		ob_start();
 		require_once(XOOPS_ROOT_PATH.'/class/captcha/image/scripts/image.php');

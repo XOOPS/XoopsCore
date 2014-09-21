@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 class Legacy_XoopsPersistableObjectHandlerTestInstance extends \XoopsPersistableObjectHandler
 {

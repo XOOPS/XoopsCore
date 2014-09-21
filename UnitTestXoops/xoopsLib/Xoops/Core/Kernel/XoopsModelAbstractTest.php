@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../../init.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init.php');
 
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\XoopsModelAbstract;
@@ -20,7 +20,7 @@ class XoopsModelAbstractTestInstance extends XoopsModelAbstract
 class XoopsModelAbstractTest extends MY_UnitTestCase
 {
 	protected $myClass = 'XoopsModelAbstractTestInstance';
-	
+
     public function test_setHandler()
 	{
 		$handler = new XoopsBlockHandler();
@@ -29,9 +29,9 @@ class XoopsModelAbstractTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
 		$instance->setHandler($handler);
 		$x = $instance->getHandler();
-        $this->assertSame($handler, $x);		
+        $this->assertSame($handler, $x);
     }
-	
+
     public function test_setVars()
 	{
 		$vars = array('one'=>1, 'two'=>2);
@@ -44,5 +44,5 @@ class XoopsModelAbstractTest extends MY_UnitTestCase
         $this->assertTrue(!empty($instance->two));
 		$this->assertTrue($instance->two == 2);
     }
-	
+
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -24,7 +24,7 @@ class Xoops_Auth_XoopsTest extends MY_UnitTestCase
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 
 		$instance = new $this->myClass($conn);
-		
+
 		$uname = 'admin';
 		$pwd = 'pwd';
 		$value = $instance->authenticate($uname, $pwd);

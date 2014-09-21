@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__.'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class RpcStructHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcStructHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
@@ -25,7 +25,7 @@ class RpcStructHandlerTest extends MY_UnitTestCase
     function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('struct', $name);
     }
