@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../../../init.php');
 class Kernel_CriteriaTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops\Core\Kernel\Criteria';
-    
+
     public function test___construct()
 	{
         $column = 'column';
@@ -19,14 +19,14 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $function = 'function';
         $criteria = new $this->myclass($column, $value, $operator, $prefix, $function);
         $this->assertInstanceOf($this->myclass, $criteria);
-        $this->assertInstanceOf('Xoops\Core\Kernel\CriteriaElement', $criteria);	
+        $this->assertInstanceOf('Xoops\Core\Kernel\CriteriaElement', $criteria);
         $this->assertEquals($column, $criteria->column);
         $this->assertEquals($value, $criteria->value);
         $this->assertEquals($operator, $criteria->operator);
         $this->assertEquals($prefix, $criteria->prefix);
         $this->assertEquals($function, $criteria->function);
     }
-    
+
     public function test___construct100() {
         $column = 'column';
         $value = '';
@@ -40,7 +40,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $this->assertEquals($prefix, $criteria->prefix);
         $this->assertEquals($function, $criteria->function);
     }
-    
+
     public function test_render()
 	{
         $column = 'column';
@@ -52,7 +52,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->render();
         $this->assertEquals('', $clause);
     }
-    
+
     public function test_render100()
 	{
         $column = 'column';
@@ -64,7 +64,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->render();
         $this->assertEquals("$column $operator '$value'", $clause);
     }
-    
+
     public function test_render200()
 	{
         $column = 'column';
@@ -76,7 +76,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->render();
         $this->assertEquals("$prefix.$column $operator", $clause);
     }
-    
+
     public function test_render300()
 	{
         $column = 'column';
@@ -88,7 +88,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->render();
         $this->assertEquals("$prefix.$column $operator", $clause);
     }
-    
+
     public function test_render400()
 	{
         $column = 'column';
@@ -100,7 +100,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->render();
         $this->assertEquals("$prefix.$column $operator $value", $clause);
     }
-    
+
     public function test_render500()
 	{
         $column = 'column';
@@ -112,7 +112,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->render();
         $this->assertEquals("$prefix.$column $operator $value", $clause);
     }
-	
+
     public function test_renderLdap()
 	{
         $column = 'column';
@@ -124,7 +124,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->renderLdap();
         $this->assertEquals("($column $operator $value)", $clause);
     }
-	
+
     public function test_renderWhere()
 	{
         $column = 'column';
@@ -136,7 +136,7 @@ class Kernel_CriteriaTest extends MY_UnitTestCase
         $clause = $criteria->renderWhere();
         $this->assertEquals("WHERE $prefix.$column $operator $value", $clause);
     }
-	
+
     public function test_renderQb()
 	{
         $column = 'column';

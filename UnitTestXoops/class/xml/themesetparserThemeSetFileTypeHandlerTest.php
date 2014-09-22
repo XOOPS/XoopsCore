@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class ThemeSetFileTypeHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetFileTypeHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -26,7 +26,7 @@ class ThemeSetFileTypeHandlerTest extends MY_UnitTestCase
     public function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('fileType', $name);
     }
@@ -34,7 +34,7 @@ class ThemeSetFileTypeHandlerTest extends MY_UnitTestCase
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('template','template');

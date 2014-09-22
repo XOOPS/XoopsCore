@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,11 +9,11 @@ require_once(dirname(__FILE__).'/../init.php');
 class ConfigoptionTest extends MY_UnitTestCase
 {
     var $myclass='XoopsConfigOption';
-    
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass();
@@ -30,25 +30,25 @@ class ConfigoptionTest extends MY_UnitTestCase
         $value = $instance->id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_confop_id() {
         $instance=new $this->myclass();
         $value = $instance->confop_id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_confop_name() {
         $instance=new $this->myclass();
         $value = $instance->confop_name('');
         $this->assertSame(null,$value);
     }
-    
+
     public function test_conf_id() {
         $instance=new $this->myclass();
         $value = $instance->conf_id();
         $this->assertSame(0,$value);
     }
-	
+
     public function test_confop_value() {
         $instance=new $this->myclass();
         $value = $instance->confop_value();

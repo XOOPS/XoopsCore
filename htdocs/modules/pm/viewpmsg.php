@@ -55,7 +55,7 @@ if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST
             }
             $size = count($clean_msg_id);
             $msg =& $clean_msg_id;
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
                     $pm_handler->setTodelete($pm);
@@ -77,7 +77,7 @@ if (isset($_POST['move_messages']) && isset($_POST['msg_id'])) {
         $size = count($_POST['msg_id']);
         $msg = $_POST['msg_id'];
         if ($_POST['op'] == 'save') {
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
                     $pm_handler->setTosave($pm, 0);
@@ -93,7 +93,7 @@ if (isset($_POST['move_messages']) && isset($_POST['msg_id'])) {
                 $total_save = $pm_handler->getSavecount();
                 $size = min($size, $xoops->getModuleConfig('max_save') - $total_save);
             }
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($_POST['op'] == 'in') {
                     $pm_handler->setTosave($pm);

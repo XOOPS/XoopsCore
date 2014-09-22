@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 class FilterInputTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops\Core\FilterInput';
-    
+
     public function SetUp()
 	{
     }
@@ -20,11 +20,11 @@ class FilterInputTest extends MY_UnitTestCase
 		$class = $this->myclass;
 		$instance = $class::getInstance();
 		$this->assertInstanceOf($class, $instance);
-		
+
 		$instance1 = $class::getInstance();
 		$this->assertSame($instance1, $instance);
 	}
-	
+
 	public function test_200()
 	{
         $this->markTestIncomplete('to do');

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 class Xoops_Auth_LdapTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops\Auth\Ldap';
-    
+
     public function test___construct()
 	{
 		if (!extension_loaded('ldap')) $this->markTestSkipped();
@@ -18,30 +18,30 @@ class Xoops_Auth_LdapTest extends MY_UnitTestCase
 		$this->assertInstanceOf('Xoops_Auth', $instance);
 
     }
-	
+
 	public function test_cp1252_to_utf8()
 	{
 		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_authenticate()
 	{
 		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_getUserDN()
 	{
 		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_getFilter()
 	{
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_loadXoopsUser()
 	{
 		if (!extension_loaded('ldap')) $this->markTestSkipped();

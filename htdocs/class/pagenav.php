@@ -136,7 +136,7 @@ class XoopsPageNav
                     }
                     $xoops->tpl()->append_by_ref('xo_nav', $nav);
                     unset($nav);
-                    $counter ++;
+                    ++$counter;
                 }
                 $xoops->tpl()->assign('last', $last);
                 $xoops->tpl()->assign('last_text', $last_text);
@@ -190,7 +190,7 @@ class XoopsPageNav
                 }
                 $xoops->tpl()->append_by_ref('xo_select', $select);
                 unset($select);
-                $counter ++;
+                ++$counter;
             }
         }
         $xoops->tpl()->assign('onchange', "location=this.options[this.options.selectedIndex].value;");

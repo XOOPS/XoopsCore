@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 class Xoops_Locale_AbstractTestInstance extends Xoops_Locale_Abstract
 {
@@ -13,77 +13,77 @@ class Xoops_Locale_AbstractTestInstance extends Xoops_Locale_Abstract
 class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 {
     protected $myClass = 'Xoops_Locale_AbstractTestInstance';
-	
+
 	public function test_isMultiByte()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::isMultiByte();
 		$this->assertSame(false, $x);
 	}
-	
+
 	public function test_isRtl()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::isRtl();
 		$this->assertSame(false, $x);
 	}
-	
+
 	public function test_setLocale()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::setLocale();
 		$y = $instance::getLocale();
 		if ($x !== false)
 			$this->assertSame($y, $x);
 	}
-	
+
 	public function test_getCharset()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getCharset();
 		$this->assertSame('UTF-8', $x);
 	}
-	
+
 	public function test_getLocale()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getLocale();
 		$this->assertSame('en_US', $x);
 	}
-	
+
 	public function test_getLangCode()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getLangCode();
 		$this->assertSame('en-US', $x);
 	}
-	
+
 	public function test_getLegacyLanguage()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getLegacyLanguage();
 		$this->assertSame('english', $x);
 	}
-	
+
 	public function test_getTimezone()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getTimezone();
 		$this->assertSame('Europe/London', $x);
 	}
-	
+
 	public function test_getFonts()
 	{
 		$instance = $this->myClass;
-		
+
 		$f = array(
             'Arial',
             'Courier',
@@ -96,11 +96,11 @@ class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 		$x = $instance::getFonts();
 		$this->assertSame($f, $x);
 	}
-	
+
 	public function test_getFontSizes()
 	{
 		$instance = $this->myClass;
-		
+
 		$fs = array(
             'xx-small' => 'xx-Small',
             'x-small'  => 'x-Small',
@@ -113,76 +113,76 @@ class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 		$x = $instance::getFontSizes();
 		$this->assertSame($fs, $x);
 	}
-	
+
 	public function test_getAdminRssUrls()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getAdminRssUrls();
 		$this->assertSame(array('http://www.xoops.org/backend.php'), $x);
 	}
-	
+
 	public function test_getFormatToday()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatToday();
 		$this->assertSame("\T\o\d\a\y G:i", $x);
 	}
-	
+
 	public function test_getFormatYesterday()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatYesterday();
 		$this->assertSame("\Y\\e\s\\t\\e\\r\d\a\y G:i", $x);
 	}
-	
+
 	public function test_getFormatMonthDay()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatMonthDay();
 		$this->assertSame("n/j G:i", $x);
 	}
-	
+
 	public function test_getFormatYearMonthDay()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatYearMonthDay();
 		$this->assertSame("Y/n/j G:i", $x);
 	}
-	
+
 	public function test_getFormatLongDate()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatLongDate();
 		$this->assertSame("Y/n/j G:i:s", $x);
 	}
-	
-	
+
+
 	public function test_getFormatMediumDate()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatMediumDate();
 		$this->assertSame("Y/n/j G:i", $x);
 	}
-	
+
 	public function test_getFormatShortDate()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::getFormatShortDate();
 		$this->assertSame("Y/n/j", $x);
 	}
-	
+
 	public function test_substr()
 	{
 		$instance = $this->myClass;
-		
+
 		$str = "stringstringstringstringstring";
 		$x = $instance::substr($str,15,10);
 		if (!$instance::isMultiByte())
@@ -196,11 +196,11 @@ class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 		else
 			$this->markTestIncomplete();
 	}
-	
+
 	public function test_utf8_encode()
 	{
 		$instance = $this->myClass;
-		
+
 		$str = "stringstring";
 		$x = $instance::utf8_encode($str);
 		if (!$instance::isMultiByte())
@@ -208,36 +208,36 @@ class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 		else
 			$this->markTestIncomplete();
 	}
-	
-	
+
+
 	public function test_convert_encoding()
 	{
 		$instance = $this->myClass;
-		
+
 		$x = $instance::convert_encoding("");
 		$this->assertSame("", $x);
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_trim()
 	{
 		$instance = $this->myClass;
-		
+
 		$str = "  string ";
 		$x = $instance::trim($str);
 		$this->assertSame(trim($str), $x);
 	}
-	
+
 	public function test_formatTimestamp()
 	{
 		$this->markTestIncomplete();
 	}
-	
-	
+
+
 	public function test_number_format()
 	{
 		$instance = $this->myClass;
-		
+
 		$num = 1234567.89;
 		$x = $instance::number_format($num);
 		if (function_exists('number_format'))
@@ -245,11 +245,11 @@ class Xoops_Locale_AbstractTest extends MY_UnitTestCase
 		else
 			$this->markTestSkipped();
 	}
-	
+
 	public function test_money_format()
 	{
 		$instance = $this->myClass;
-		
+
 		$num = 1234567.89;
 		$fmt = '%i';
 		$x = $instance::money_format('%i',$num);

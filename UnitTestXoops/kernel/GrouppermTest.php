@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,11 +9,11 @@ require_once(dirname(__FILE__).'/../init.php');
 class GrouppermTest extends MY_UnitTestCase
 {
     var $myclass='XoopsGroupPerm';
-    
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass();
@@ -31,31 +31,31 @@ class GrouppermTest extends MY_UnitTestCase
         $value = $instance->id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_gperm_id() {
         $instance=new $this->myclass();
         $value = $instance->gperm_id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_gperm_groupid() {
         $instance=new $this->myclass();
         $value = $instance->gperm_groupid('');
         $this->assertSame(null,$value);
     }
-    
+
     public function test_gperm_itemid() {
         $instance=new $this->myclass();
         $value = $instance->gperm_itemid();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_gperm_modid() {
         $instance=new $this->myclass();
         $value = $instance->gperm_modid();
         $this->assertSame(0,$value);
     }
-    
+
     public function test_gperm_name() {
         $instance=new $this->myclass();
         $value = $instance->gperm_name();

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,11 +9,11 @@ require_once(dirname(__FILE__).'/../init.php');
 class ThemeFactoryAdminTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsAdminThemeFactory';
-	
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
 		$themefactory = new $this->myclass();
@@ -23,7 +23,7 @@ class ThemeFactoryAdminTest extends MY_UnitTestCase
         $this->assertSame('default', $themefactory->defaultTheme);
         $this->assertSame(true, $themefactory->allowUserSelection);
     }
-	
+
     public function test_createInstance()
 	{
 		$themefactory = new $this->myclass();
@@ -31,7 +31,7 @@ class ThemeFactoryAdminTest extends MY_UnitTestCase
 		$value = $themefactory->createInstance();
         $this->assertInstanceOf('XoopsTheme', $value);
     }
-	
+
     public function test_createInstance100()
 	{
 		$themefactory = new $this->myclass();

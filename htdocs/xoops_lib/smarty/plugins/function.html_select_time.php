@@ -84,7 +84,7 @@ function smarty_function_html_select_time($params, &$smarty)
     if ($display_hours) {
         $hours       = $use_24_hours ? range(0, 23) : range(1, 12);
         $hour_fmt = $use_24_hours ? '%H' : '%I';
-        for ($i = 0, $for_max = count($hours); $i < $for_max; $i++)
+        for ($i = 0, $for_max = count($hours); $i < $for_max; ++$i)
             $hours[$i] = sprintf('%02d', $hours[$i]);
         $html_result .= '<select name=';
         if (null !== $field_array) {

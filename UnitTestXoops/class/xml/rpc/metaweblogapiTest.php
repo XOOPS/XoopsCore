@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../../init.php');
 class MetaWeblogApiTest extends MY_UnitTestCase
 {
     protected $myclass = 'MetaWeblogApi';
-    
+
     public function test___construct()
 	{
 		$params = array('p1'=>'one');
@@ -19,7 +19,7 @@ class MetaWeblogApiTest extends MY_UnitTestCase
 		$this->assertInstanceof($this->myclass, $x);
 		$this->assertInstanceof('XoopsXmlRpcApi', $x);
 	}
-	
+
     function test_MetaWeblogApi()
     {
 		$this->markTestIncomplete();

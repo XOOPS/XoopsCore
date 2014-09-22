@@ -167,7 +167,7 @@ class PublisherMetagen
             if ($i < $wordCount) {
                 $ret .= ' ';
             }
-            $i++;
+            ++$i;
         }
         return $ret;
     }

@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/../../init.php');
+require_once(dirname(dirname(__DIR__)) . '/init.php');
 
 function myFunction($a)
 {
@@ -36,12 +36,12 @@ class XoopsUtilityTest extends MY_UnitTestCase
 		$test = $class::recursive(array($this,'toto'), $value);
 		$this->assertSame($value, $test);
 	}
-	
+
 	public function test_recursive100()
 	{
 		$class = $this->myClass;
 		$value = 1;
-		
+
 		$test = $class::recursive('myFunction',$value);
 		$this->assertSame(myFunction($value), $test);
 

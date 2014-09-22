@@ -38,13 +38,13 @@ class XcaptchaImageForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\RadioYesNo(_XCAPTCHA_CASESENSITIVE, 'casesensitive', $this->config['casesensitive']));
 
         $fontmin_form = new Xoops\Form\Select(_XCAPTCHA_FONTSIZE_MIN, 'fontsize_min', $this->config['fontsize_min']);
-        for ($i = 10; $i <= 30; $i++) {
+        for ($i = 10; $i <= 30; ++$i) {
             $fontmin_form->addOption($i, $i);
         }
         $this->addElement($fontmin_form, false);
 
         $fontmax_form = new Xoops\Form\Select(_XCAPTCHA_FONTSIZE_MAX, 'fontsize_max', $this->config['fontsize_max']);
-        for ($i = 10; $i <= 30; $i++) {
+        for ($i = 10; $i <= 30; ++$i) {
             $fontmax_form->addOption($i, $i);
         }
         $this->addElement($fontmax_form, false);
@@ -66,7 +66,7 @@ class XcaptchaImageForm extends Xoops\Form\ThemeForm
         $this->addElement($backnum_form, false);
 
         $polygon_point = new Xoops\Form\Select(_XCAPTCHA_POLYGON_POINT, 'polygon_point', $this->config['polygon_point']);
-        for ($i = 3; $i <= 20; $i++) {
+        for ($i = 3; $i <= 20; ++$i) {
             $polygon_point->addOption($i, $i);
         }
         $this->addElement($polygon_point, false);

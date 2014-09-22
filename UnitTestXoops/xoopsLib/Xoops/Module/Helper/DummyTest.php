@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_mini.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -20,7 +20,7 @@ class Xoops_Module_Helper_DummyTest extends MY_UnitTestCase
     public function test_init()
 	{
 		$instance = new $this->myClass();
-		
+
 		$x = $instance->init();
 		$this->assertSame(null, $x);
     }
@@ -28,7 +28,7 @@ class Xoops_Module_Helper_DummyTest extends MY_UnitTestCase
     public function test_getInstance()
 	{
 		$instance = new $this->myClass();
-		
+
 		$x = $instance->getInstance();
 		$this->assertInstanceOf('Xoops\Module\Helper\Dummy', $x);
     }
@@ -36,7 +36,7 @@ class Xoops_Module_Helper_DummyTest extends MY_UnitTestCase
     public function test_setDirname()
 	{
 		$instance = new $this->myClass();
-		
+
 		$x = $instance->setDirname('myDir');
 		$this->assertSame(null, $x);
     }
@@ -44,7 +44,7 @@ class Xoops_Module_Helper_DummyTest extends MY_UnitTestCase
 	public function test_setDebug()
 	{
 		$instance = new $this->myClass();
-		
+
 		$x = $instance->setDebug(true);
 		$this->assertSame(null, $x);
     }
@@ -52,7 +52,7 @@ class Xoops_Module_Helper_DummyTest extends MY_UnitTestCase
 	public function test_addLog()
 	{
 		$instance = new $this->myClass();
-		
+
 		$log = 'log log log log';
 		$x = $instance->addLog($log);
 		$this->assertSame(null, $x);

@@ -83,7 +83,7 @@ static function myCallback($match) {
      */
     public static function decode($url, $width, $height)
     {
-        if (!preg_match("/^http:\/\/(www\.)?youtube\.com\/watch\?v=(.*)/i", $url, $matches)) {
+        if (!preg_match("/^http[s]?:\/\/(www\.)?youtube\.com\/watch\?v=(.*)/i", $url, $matches)) {
             trigger_error("Not matched: {$url} {$width} {$height}", E_USER_WARNING);
             return "";
         }

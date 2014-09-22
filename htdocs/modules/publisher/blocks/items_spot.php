@@ -67,7 +67,7 @@ function publisher_items_spot_show($options)
                     $block['truncate'] = true;
                 }
                 $block['items'][] = $item;
-                $i++;
+                ++$i;
             }
         }
     } else {
@@ -89,7 +89,7 @@ function publisher_items_spot_show($options)
                     $item['summary'] = PublisherUtils::truncateTagSafe($item['summary'], $opt_truncate);
                 }
                 $block['items'][] = $item;
-                $i++;
+                ++$i;
             }
         }
     }

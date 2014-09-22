@@ -1,12 +1,12 @@
 <?php
 $_SERVER["HTTP_HOST"]="localhost";
-require_once(dirname(__FILE__).'/init_mini.php');
+require_once(__DIR__.'/init_mini.php');
 
 function verify($file, $path)
 {
 	$tmp = basename($file,'.php');
 	$path1 = str_replace('xoops_lib','xoopsLib',$path);
-	$pattern = dirname(__FILE__).DS.$path1.DS.$tmp.'*Test*.php';
+	$pattern = __DIR__.DS.$path1.DS.$tmp.'*Test*.php';
 	$founds = glob($pattern);
 	$ok = !empty($founds);
 	$tmp = $ok ? 'Test OK :' : 'Test not found : ';

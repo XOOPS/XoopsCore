@@ -173,7 +173,7 @@ class PublisherCategoryForm extends Xoops\Form\ThemeForm
         $this->addElement($moderator);
 
         $cat_tray = new Xoops\Form\ElementTray(_AM_PUBLISHER_SCATEGORYNAME, '<br /><br />');
-        for ($i = 0; $i < $this->_subCatsCount; $i++) {
+        for ($i = 0; $i < $this->_subCatsCount; ++$i) {
             if ($i < (isset($_POST['scname']) ? sizeof($_POST['scname']) : 0)) {
                 $subname = isset($_POST['scname']) ? $_POST['scname'][$i] : '';
             } else {

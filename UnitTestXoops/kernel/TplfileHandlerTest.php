@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -32,7 +32,7 @@ class TplfileHandlerTest extends MY_UnitTestCase
 		$id = 1;
         $value = $instance->getById($id);
         $this->assertInstanceOf('XoopsTplfile',$value);
-		
+
         $value = $instance->getById($id, true);
         $this->assertInstanceOf('XoopsTplfile',$value);
     }
@@ -43,7 +43,7 @@ class TplfileHandlerTest extends MY_UnitTestCase
 		$source = new XoopsTplfile();
         $value = $instance->loadSource($source);
         $this->assertSame(true, $value);
-		
+
 		$source->setVar('tpl_id',1);
         $value = $instance->loadSource($source);
         $this->assertSame(true, $value);
@@ -80,13 +80,13 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($this->conn);
         $value = $instance->getTplObjects();
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->getTplObjects(null, true);
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->getTplObjects(null, false, true);
         $this->assertTrue(is_array($value));
-		
+
 		$criteria = new Criteria('tpl_type', 'dummy');
         $value = $instance->getTplObjects($criteria);
         $this->assertTrue(is_array($value) AND empty($value));
@@ -97,7 +97,7 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($this->conn);
         $value = $instance->getModuleTplCount('toto');
         $this->assertTrue(empty($value));
-		
+
         $value = $instance->getModuleTplCount('default');
 		$this->markTestSkipped('');
         $this->assertTrue(is_array($value) AND count($value) > 0);
@@ -108,32 +108,32 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $instance = new $this->myclass($this->conn);
         $value = $instance->find();
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->find('tpl_set');
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->find(null, null, null, 'module');
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->find(null, null, 1);
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->find(null, null, null, null, 'file');
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->find(null, 1);
         $this->assertTrue(is_array($value));
-		
+
         $value = $instance->find(null, array(1,2,3));
     }
 
     public function test_templateExists()
 	{
         $instance = new $this->myclass($this->conn);
-		
+
         $value = $instance->templateExists('dummy.html','dummy');
         $this->assertSame(false, $value);
-		
+
         $value = $instance->templateExists('system_block_user.html','default');
         $this->assertSame(true, $value);
     }

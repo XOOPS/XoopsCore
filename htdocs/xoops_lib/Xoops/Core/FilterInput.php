@@ -68,10 +68,10 @@ class FilterInput
         $xssAuto = 1
     ) {
         // make sure user defined arrays are in lowercase
-        for ($i = 0; $i < count($tagsArray); $i++) {
+        for ($i = 0; $i < count($tagsArray); ++$i) {
             $tagsArray[$i] = strtolower($tagsArray[$i]);
         }
-        for ($i = 0; $i < count($attrArray); $i++) {
+        for ($i = 0; $i < count($attrArray); ++$i) {
             $attrArray[$i] = strtolower($attrArray[$i]);
         }
         // assign to member vars
@@ -269,7 +269,7 @@ class FilterInput
         // provides nested-tag protection
         while ($source != $this->filterTags($source)) {
             $source = $this->filterTags($source);
-            $loopCounter++;
+            ++$loopCounter;
         }
 
         return $source;
@@ -380,7 +380,7 @@ class FilterInput
                 if (!$isCloseTag) {
                     $attrSet = $this->filterAttr($attrSet);
                     $preTag .= '<' . $tagName;
-                    for ($i = 0; $i < count($attrSet); $i++) {
+                    for ($i = 0; $i < count($attrSet); ++$i) {
                         $preTag .= ' ' . $attrSet[$i];
                     }
                     // reformat single tags to XHTML
@@ -415,7 +415,7 @@ class FilterInput
     {
         $newSet = array();
         // process attributes
-        for ($i = 0; $i <count($attrSet); $i++) {
+        for ($i = 0; $i <count($attrSet); ++$i) {
             // skip blank spaces in tag
             if (!$attrSet[$i]) {
                 continue;

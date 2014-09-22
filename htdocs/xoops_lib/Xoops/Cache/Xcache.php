@@ -164,7 +164,7 @@ class Xoops_Cache_Xcache extends Xoops_Cache_Abstract
     {
         $this->_auth();
         $max = xcache_count(XC_TYPE_VAR);
-        for ($i = 0; $i < $max; $i++) {
+        for ($i = 0; $i < $max; ++$i) {
             xcache_clear_cache(XC_TYPE_VAR, $i);
         }
         $this->_auth(true);

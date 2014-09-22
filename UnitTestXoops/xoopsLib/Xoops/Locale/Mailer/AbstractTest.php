@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_mini.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init_mini.php');
 
 class Xoops_Locale_Mailer_AbstractTestInstance extends Xoops_Locale_Mailer_Abstract
 {
@@ -13,13 +13,13 @@ class Xoops_Locale_Mailer_AbstractTestInstance extends Xoops_Locale_Mailer_Abstr
 class Xoops_Locale_Mailer_AbstractTest extends MY_UnitTestCase
 {
     protected $myclass = 'Xoops_Locale_Mailer_AbstractTestInstance';
-    
+
     public function test___construct()
 	{
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
+
 	public function test_encodeFromName()
 	{
 		$instance = new $this->myclass();
@@ -27,7 +27,7 @@ class Xoops_Locale_Mailer_AbstractTest extends MY_UnitTestCase
 		$value = $instance->encodeFromName($text);
 		$this->assertSame($text, $value);
 	}
-	
+
 	public function test_encodeSubject()
 	{
 		$instance = new $this->myclass();

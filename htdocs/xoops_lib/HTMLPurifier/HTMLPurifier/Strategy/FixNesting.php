@@ -202,7 +202,7 @@ class HTMLPurifier_Strategy_FixNesting extends HTMLPurifier_Strategy
                 if (!empty($excludes)) $exclude_stack[] = $excludes;
 
                 // move cursor to next possible start node
-                $i++;
+                ++$i;
 
             } elseif($result === false) {
                 // remove entire node
@@ -271,7 +271,7 @@ class HTMLPurifier_Strategy_FixNesting extends HTMLPurifier_Strategy
                 if (!empty($excludes)) $exclude_stack[] = $excludes;
 
                 // move cursor to next possible start node
-                $i++;
+                ++$i;
 
             }
 
@@ -300,7 +300,7 @@ class HTMLPurifier_Strategy_FixNesting extends HTMLPurifier_Strategy
                         array_pop($exclude_stack);
                     }
                 }
-                $i++;
+                ++$i;
             }
 
         }

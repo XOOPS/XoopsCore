@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class RpcStringHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcStringHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
@@ -25,7 +25,7 @@ class RpcStringHandlerTest extends MY_UnitTestCase
     function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('string', $name);
     }
@@ -34,7 +34,7 @@ class RpcStringHandlerTest extends MY_UnitTestCase
     {
         $instance = $this->object;
 
-        $input = 'input';        
+        $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $data = 'string';
 		$instance->handleCharacterData($parser,$data);

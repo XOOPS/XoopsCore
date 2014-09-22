@@ -38,7 +38,7 @@ function b_system_newmembers_show($options)
     $member_handler = $xoops->getHandlerMember();
     $newmembers = $member_handler->getUsers($criteria);
     $count = count($newmembers);
-    for ($i = 0; $i < $count; $i++) {
+    for ($i = 0; $i < $count; ++$i) {
         if ($options[1] == 1) {
             $block['users'][$i]['avatar'] = $newmembers[$i]->getVar('user_avatar') != 'blank.gif' ? XOOPS_UPLOAD_URL . '/' . $newmembers[$i]->getVar('user_avatar') : '';
         } else {

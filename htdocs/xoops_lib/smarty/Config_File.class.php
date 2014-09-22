@@ -285,7 +285,7 @@ class Config_File {
         /* parse file line by line */
         preg_match_all('!^.*\r?\n?!m', $contents, $match);
         $lines = $match[0];
-        for ($i=0, $count=count($lines); $i<$count; $i++) {
+        for ($i=0, $count=count($lines); $i<$count; ++$i) {
             $line = $lines[$i];
             if (empty($line)) continue;
 

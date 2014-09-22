@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -15,6 +15,6 @@ class Xoops_smiliesTest extends MY_UnitTestCase
 		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/tinymce/include/xoops_smilies.php');
 		$x = ob_end_clean();
 		$this->assertTrue((bool)$x);
-		
+
     }
 }

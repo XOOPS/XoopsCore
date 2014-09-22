@@ -110,7 +110,7 @@ class MenusBuilder
 
         foreach ($this->parents[$pid] as $item) {
             $idx += 1;
-            $counter++;
+            ++$counter;
             if ($counter == $count) { $down = 0; } // turn off down link for last entry
 
             if ($up) {

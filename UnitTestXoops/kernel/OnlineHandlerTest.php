@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -26,33 +26,33 @@ class OnlineHandlerTest extends MY_UnitTestCase
 		$this->assertSame('online_uid',$instance->keyName);
 		$this->assertSame('online_uname',$instance->identifierName);
     }
-    
+
 	public function test_write()
 	{
         $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
-		
+
 		$this->myId = (int)(microtime(true)%10000000);
 		$value = $instance->write($this->myId, 'name', time(), 'module', 'localhost');
-		$this->assertSame(true, $value);		
+		$this->assertSame(true, $value);
 	}
-	
+
 	public function test_destroy()
 	{
         $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
-		
+
 		$value = $instance->destroy($this->myId);
 		$this->markTestSkipped('');
-		$this->assertSame(true, $value);		
+		$this->assertSame(true, $value);
 	}
-	
+
 	public function test_gc()
 	{
         $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf($this->myclass,$instance);
-		
+
 		$value = $instance->gc(time()+10);
-		$this->assertSame(true, $value);		
+		$this->assertSame(true, $value);
 	}
 }

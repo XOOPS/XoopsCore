@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 class Xoops_Module_HelperTest extends MY_UnitTestCase
 {
     protected $myClass = 'Xoops\Module\Helper';
-	
+
 	public function test_getHelper()
 	{
         $instance = $this->myClass;

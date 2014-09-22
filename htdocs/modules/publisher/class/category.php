@@ -455,7 +455,7 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
     {
         global $theresult;
         $spaces = '';
-        for ($j = 0; $j < $level; $j++) {
+        for ($j = 0; $j < $level; ++$j) {
             $spaces .= '--';
         }
         $theresult[$category['categoryid']] = $spaces . $category['name'];

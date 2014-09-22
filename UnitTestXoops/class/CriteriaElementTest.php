@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
@@ -20,12 +20,12 @@ class CriteriaElementTestInstance extends CriteriaElement
 class CriteriaElementTest extends MY_UnitTestCase
 {
     protected $myclass = 'CriteriaElementTestInstance';
-    
+
     public function test___construct()
 	{
 		$x = new $this->myclass();
         $this->assertInstanceOf('CriteriaElement', $x);
         $this->assertInstanceOf('\Xoops\Core\Kernel\CriteriaElement', $x);
     }
-        
+
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -32,13 +32,13 @@ class MembershipHandlerTest extends MY_UnitTestCase
         $value=$instance->getGroupsByUser(1);
         $this->assertTrue(is_array($value));
     }
-    
+
     public function test_getGroupsByGroup()
 	{
         $instance=new $this->myclass($this->conn);
         $value=$instance->getGroupsByGroup(1);
         $this->assertSame(null,$value);
     }
-  
+
 }
 

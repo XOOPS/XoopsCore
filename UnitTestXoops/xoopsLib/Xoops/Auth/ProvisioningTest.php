@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 class Xoops_Auth_ProvisioningTest_AuthAbstractInstance extends Xoops\Auth\AuthAbstract
 {
@@ -28,11 +28,11 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
 		$this->assertInstanceOf($this->myclass, $instance);
-		
+
 		$instance2 = $class::getInstance($auth);
 		$this->assertSame($instance, $instance2);
 	}
@@ -41,13 +41,13 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		
+
 		$value = $instance->getXoopsUser('not_a_user');
 		$this->assertFalse($value);
-		
+
 		$value = $instance->getXoopsUser('admin');
 		$this->assertTrue(is_a($value, 'XoopsUser'));
 	}
@@ -56,13 +56,13 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		
+
 		$value = $instance->sync(array(), 'not_a_user');
 		$this->assertFalse($value);
-		
+
 		$value = $instance->sync(array(), 'admin');
 		$this->assertTrue(is_a($value, 'XoopsUser'));
 	}
@@ -71,7 +71,7 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_add()
 	{
 		$this->markTestIncomplete();
@@ -86,10 +86,10 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		
+
 		$instance->delete();
 		$this->assertTrue(true); // always OK
 	}
@@ -98,10 +98,10 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		
+
 		$instance->suspend();
 		$this->assertTrue(true); // always OK
 	}
@@ -110,10 +110,10 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		
+
 		$instance->restore();
 		$this->assertTrue(true); // always OK
 	}
@@ -122,10 +122,10 @@ class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
 	{
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 		$auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-		
+
 		$class = $this->myclass;
 		$instance = $class::getInstance($auth);
-		
+
 		$instance->resetpwd();
 		$this->assertTrue(true); // always OK
 	}

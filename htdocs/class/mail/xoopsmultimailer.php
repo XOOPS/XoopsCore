@@ -195,19 +195,19 @@ class XoopsMultiMailer extends PHPMailer
             return false;
         }
         // Attempt to send attach all recipients
-        for ($i = 0; $i < count($this->to); $i++) {
+        for ($i = 0; $i < count($this->to); ++$i) {
             if (!$this->smtp->Recipient($this->to[$i][0])) {
                 $bad_rcpt[] = $this->to[$i][0];
                 unset($this->to[$i]);
             }
         }
-        for ($i = 0; $i < count($this->cc); $i++) {
+        for ($i = 0; $i < count($this->cc); ++$i) {
             if (!$this->smtp->Recipient($this->cc[$i][0])) {
                 $bad_rcpt[] = $this->cc[$i][0];
                 unset($this->cc[$i]);
             }
         }
-        for ($i = 0; $i < count($this->bcc); $i++) {
+        for ($i = 0; $i < count($this->bcc); ++$i) {
             if (!$this->smtp->Recipient($this->bcc[$i][0])) {
                 $bad_rcpt[] = $this->bcc[$i][0];
                 unset($this->bcc[$i]);
@@ -216,7 +216,7 @@ class XoopsMultiMailer extends PHPMailer
         // Create error message
         $count = count($bad_rcpt);
         if ($count > 0) {
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 if ($i != 0) {
                     $error .= ', ';
                 }

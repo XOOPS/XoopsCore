@@ -212,7 +212,7 @@ class Metagen
         $i = 0;
         while ($i < $wordCount - 1 && $i < count($words)) {
             $newWords[] = $words[$i];
-            $i++;
+            ++$i;
         }
         $ret = implode(' ', $newWords);
         if (function_exists('mb_strlen')) {

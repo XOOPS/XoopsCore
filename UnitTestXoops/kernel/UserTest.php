@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -51,7 +51,7 @@ class UserTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['user_intrest']));
         $this->assertTrue(isset($value['user_mailok']));
     }
-    
+
     public function test_isGuest()
 	{
         $instance=new $this->myclass();
@@ -80,7 +80,7 @@ class UserTest extends MY_UnitTestCase
         $value=$instance->setGroups($group);
         $this->assertSame(null,$value);
     }
-	
+
     public function test_setGroups()
 	{
     }

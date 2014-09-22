@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,22 +10,22 @@ class RpcValueHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'RpcValueHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
 		$this->assertInstanceof('XmlTagHandler', $instance);
 	}
-	
+
     function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('value', $name);
     }
@@ -33,28 +33,28 @@ class RpcValueHandlerTest extends MY_UnitTestCase
     function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('member','member');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
 		$this->assertSame($value, $parser->getTempValue());
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('array','array');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
 		$this->assertSame($value, $parser->getTempValue());
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('data','data');
         $value = '71';
 		$instance->handleCharacterData($parser,$value);
 		$this->assertSame($value, $parser->getTempValue());
-        
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $parser->tags = array('dummy','dummy');
@@ -66,7 +66,7 @@ class RpcValueHandlerTest extends MY_UnitTestCase
     function test_handleBeginElement()
     {
         $instance = $this->object;
-		
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $value = '71';

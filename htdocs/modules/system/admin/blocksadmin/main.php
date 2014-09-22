@@ -261,7 +261,7 @@ switch ($op) {
                     if (!$block_handler->insertBlock($block)) {
                         $error = true;
                     }
-                    $i++;
+                    ++$i;
                 }
             }
         }
@@ -312,7 +312,7 @@ switch ($op) {
                 $options_count = count($options);
                 if ($options_count > 0) {
                     //Convert array values to comma-separated
-                    for ($i = 0; $i < $options_count; $i++) {
+                    for ($i = 0; $i < $options_count; ++$i) {
                         if (is_array($options[$i])) {
                             $options[$i] = implode(',', $options[$i]);
                         }

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init_mini.php');
+require_once(dirname(__DIR__) . '/init_mini.php');
 
 //require_once(XOOPS_ROOT_PATH.'/class/xoopsload.php');
 
@@ -11,10 +11,10 @@ require_once(dirname(__FILE__).'/../init_mini.php');
 class XoopsloadTest extends MY_UnitTestCase
 {
 	protected $myClass = 'XoopsLoad';
-	
+
     public function SetUp() {
     }
-    
+
 	public function test_getMap()
 	{
 		$class = $this->myClass;
@@ -22,13 +22,13 @@ class XoopsloadTest extends MY_UnitTestCase
 		$value = $class::getMap();
 		$this->assertTrue(is_array($value));
 		$count = count($value);
-		
+
 		$value = $class::addMap($map);
 		$this->assertTrue(is_array($value));
 		$this->assertEquals($count+1, count($value));
-		
+
 	}
-	
+
     public function test_loadCoreConfig()
 	{
 		$class = $this->myClass;

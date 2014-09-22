@@ -162,7 +162,7 @@ switch ($op) {
                             }
                             $file_arr['extension'] = $extension_verif;
                             $file_arr['file'] = htmlentities($file);
-                            $count_file++;
+                            ++$count_file;
                             $file_arr['newline'] = ($count_file % $nbcolonnes_file == 1) ? true : false;
                             $xoops->tpl()->assign('newline', $file_arr['newline']);
                             $xoops->tpl()->append('files', $file_arr);

@@ -37,13 +37,13 @@ function smarty_core_write_cache_file($params, &$smarty)
         // and replace it by a single nocache-tag
         // this new nocache-tag will be replaced by dynamic contents in
         // smarty_core_process_compiled_includes() on a cache-read
-        
+
         $match_count = count($match[0]);
         $results = preg_split('!(\{/?nocache\:[0-9a-f]{32}#\d+\})!', $params['results'], -1, PREG_SPLIT_DELIM_CAPTURE);
-        
+
         $level = 0;
         $j = 0;
-        for ($i=0, $results_count = count($results); $i < $results_count && $j < $match_count; $i++) {
+        for ($i=0, $results_count = count($results); $i < $results_count && $j < $match_count; ++$i) {
             if ($results[$i] == $match[0][$j]) {
                 // nocache tag
                 if ($match[1][$j]) { // closing tag
@@ -52,7 +52,7 @@ function smarty_core_write_cache_file($params, &$smarty)
                 } else { // opening tag
                     if ($level++ > 0) unset($results[$i]);
                 }
-                $j++;
+                ++$j;
             } elseif ($level > 0) {
                 unset($results[$i]);
             }

@@ -285,7 +285,7 @@ class FilterInput
         // Iteration provides nested tag protection
         while ($source != $this->cleanTags($source)) {
             $source = $this->cleanTags($source);
-            $loopCounter++;
+            ++$loopCounter;
         }
 
         return $source;
@@ -429,7 +429,7 @@ class FilterInput
                     // Open or Single tag
                     $attrSet = $this->cleanAttributes($attrSet);
                     $preTag .= '<' . $tagName;
-                    for ($i = 0; $i < count($attrSet); $i++) {
+                    for ($i = 0; $i < count($attrSet); ++$i) {
                         $preTag .= ' ' . $attrSet[$i];
                     }
 
@@ -471,7 +471,7 @@ class FilterInput
         $newSet = array();
 
         // Iterate through attribute pairs
-        for ($i = 0; $i < count($attrSet); $i++) {
+        for ($i = 0; $i < count($attrSet); ++$i) {
             // Skip blank spaces
             if (!$attrSet[$i]) {
                 continue;

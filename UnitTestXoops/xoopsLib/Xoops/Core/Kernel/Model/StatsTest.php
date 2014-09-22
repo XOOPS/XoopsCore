@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_mini.php');
+require_once(dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../../../../init_mini.php');
 class StatsTest extends MY_UnitTestCase
 {
 	protected $conn = null;
-	
+
 	protected $myClass = 'Xoops\Core\Kernel\Model\Stats';
 	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
@@ -25,30 +25,30 @@ class StatsTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf($this->myAbstractClass, $instance);
 	}
-	
+
 	public function test_getCount()
 	{
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
-		
+
 		$handler = new XoopsGroupHandler($this->conn);
 		$result = $instance->setHandler($handler);
 		$this->assertTrue($result);
-		
+
 		$values=$instance->getCount();
 		$this->assertTrue(is_string($values));
 		$this->assertTrue(intval($values) >= 0);
     }
-	
+
 	public function test_getCounts()
 	{
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
-		
+
 		$handler = new XoopsGroupHandler($this->conn);
 		$result = $instance->setHandler($handler);
 		$this->assertTrue($result);
-		
+
 		$values=$instance->getCounts();
 		$this->assertTrue(is_array($values));
 		$this->assertTrue(count($values) >= 0);

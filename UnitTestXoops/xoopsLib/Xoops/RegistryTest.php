@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -88,12 +88,12 @@ class Xoops_RegistryTest extends MY_UnitTestCase
 		$class::_unsetInstance();
 		$value = $class::isRegistered($testkey);
 		$this->assertFalse($value);
-		
+
 		$instance = $class::getInstance();
 		$this->assertInstanceOf($class, $instance);
 		$value = $class::isRegistered($testkey);
 		$this->assertFalse($value);
-		
+
 		$class::set($testkey, $testvalue);
 		$value = $class::isRegistered($testkey);
 		$this->assertTrue($value);

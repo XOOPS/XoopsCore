@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -15,7 +15,7 @@ class FormDhtmlTextAreaTest extends MY_UnitTestCase
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
 		$this->assertInstanceOf('XoopsEditor', $instance);
-		
+
 		$items = array('_hiddenText');
 		foreach ($items as $item) {
 			$reflection = new ReflectionProperty($this->myclass, $item);

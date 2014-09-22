@@ -154,7 +154,7 @@ switch ($op) {
         //Added by fx2024
         $parentCat = $categoryObj->getVar('categoryid');
         $sizeof = sizeof($_POST['scname']);
-        for ($i = 0; $i < $sizeof; $i++) {
+        for ($i = 0; $i < $sizeof; ++$i) {
             if ($_POST['scname'][$i] != '') {
                 $categoryObj = $publisher->getCategoryHandler()->create();
                 $categoryObj->setVar('name', $_POST['scname'][$i]);
@@ -256,7 +256,7 @@ function publisher_displayCategory(PublisherCategory $categoryObj, $level = 0)
     $delete = "<a href='category.php?op=del&amp;categoryid=" . $categoryObj->getVar('categoryid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETECOL . "' alt='" . _AM_PUBLISHER_DELETECOL . "' /></a>";
 
     $spaces = '';
-    for ($j = 0; $j < $level; $j++) {
+    for ($j = 0; $j < $level; ++$j) {
         $spaces .= '&nbsp;&nbsp;&nbsp;';
     }
 
@@ -267,7 +267,7 @@ function publisher_displayCategory(PublisherCategory $categoryObj, $level = 0)
     echo "</tr>";
     $subCategoriesObj = $publisher->getCategoryHandler()->getCategories(0, 0, $categoryObj->getVar('categoryid'));
     if (count($subCategoriesObj) > 0) {
-        $level++;
+        ++$level;
         foreach ($subCategoriesObj as $thiscat) {
             publisher_displayCategory($thiscat, $level);
         }
@@ -374,7 +374,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         echo "<td width='60' class='bg3' align='center'><strong>" . _AM_PUBLISHER_ACTION . "</strong></td>";
         echo "</tr>";
         if ($totalitems > 0) {
-            for ($i = 0; $i < $totalitemsOnPage; $i++) {
+            for ($i = 0; $i < $totalitemsOnPage; ++$i) {
                 $categoryObj = $allcats[$itemsObj[$i]->getVar('categoryid')];
                 $modify = "<a href='item.php?op=mod&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
                 $delete = "<a href='item.php?op=del&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";

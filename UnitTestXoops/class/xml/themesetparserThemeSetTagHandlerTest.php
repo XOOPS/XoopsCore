@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class ThemeSetTagHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetTagHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -22,11 +22,11 @@ class ThemeSetTagHandlerTest extends MY_UnitTestCase
         $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
-	
+
 	function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('tag', $name);
     }
@@ -34,7 +34,7 @@ class ThemeSetTagHandlerTest extends MY_UnitTestCase
 	function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('image','image');

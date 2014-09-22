@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class ThemeSetEmailHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetEmailHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -26,15 +26,15 @@ class ThemeSetEmailHandlerTest extends MY_UnitTestCase
     public function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('email', $name);
 	}
-	
+
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('author','author');
@@ -42,7 +42,7 @@ class ThemeSetEmailHandlerTest extends MY_UnitTestCase
 		$x = $instance->handleCharacterData($parser,$data);
 		$this->assertSame(null, $x);
 		$this->assertSame($data, $parser->getTempArr('email'));
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('dummy','dummy');

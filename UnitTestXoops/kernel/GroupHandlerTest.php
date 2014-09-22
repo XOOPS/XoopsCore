@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,12 +10,12 @@ class GroupHandlerTest extends MY_UnitTestCase
 {
     protected $myclass='XoopsGroupHandler';
 	protected $conn = null;
-    
+
     public function SetUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
@@ -25,5 +25,5 @@ class GroupHandlerTest extends MY_UnitTestCase
 		$this->assertSame('groupid',$instance->keyName);
 		$this->assertSame('name',$instance->identifierName);
     }
-    
+
 }

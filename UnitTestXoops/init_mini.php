@@ -6,21 +6,21 @@ if (empty($_SERVER["HTTP_HOST"])) {
 
 
 if (defined('IS_PHPUNIT')) {
-	require_once dirname(__FILE__) . '/common_phpunit.php';
+	require_once __DIR__ . '/common_phpunit.php';
 } else {
-	// Avoid check proxy (include/common.php line 88) to define constant XOOPS_DB_PROXY 
+	// Avoid check proxy (include/common.php line 88) to define constant XOOPS_DB_PROXY
 	// because it implies a readonly database connection
 	$_SERVER['REQUEST_METHOD'] = 'POST';
 	define('XOOPS_XMLRPC',0);
 }
 
 $xoopsOption["nocommon"]= true; // don't include common.php file
-require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
+require_once dirname(__DIR__) . '/htdocs/mainfile.php';
 
 // Get the beginning of include/common.php file but not all
 
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    die("XOOP check: PHP version require 5.3.0 or more");
+if (version_compare(PHP_VERSION, '5.3.7', '<')) {
+    die("XOOP check: PHP version require 5.3.7 or higher");
 }
 
 global $xoops;

@@ -169,7 +169,7 @@ class System
         $total_smarty_compile = 0;
         $total_xoops_cache = 0;
         if (!empty($cache)) {
-            for ($i = 0; $i < count($cache); $i++) {
+            for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {
                     case 1:
                         $files = glob(XOOPS_VAR_PATH . '/caches/smarty_cache/*.*');
@@ -177,7 +177,7 @@ class System
                         foreach ($files as $filename) {
                             if (basename(strtolower($filename)) != 'index.html') {
                                 unlink($filename);
-                                $total_smarty_cache++;
+                                ++$total_smarty_cache;
                             }
                         }
                         break;
@@ -188,7 +188,7 @@ class System
                         foreach ($files as $filename) {
                             if (basename(strtolower($filename)) != 'index.html') {
                                 unlink($filename);
-                                $total_smarty_compile++;
+                                ++$total_smarty_compile;
                             }
                         }
                         break;
@@ -199,7 +199,7 @@ class System
                         foreach ($files as $filename) {
                             if (basename(strtolower($filename)) != 'index.html') {
                                 unlink($filename);
-                                $total_xoops_cache++;
+                                ++$total_xoops_cache;
                             }
                         }
                         break;

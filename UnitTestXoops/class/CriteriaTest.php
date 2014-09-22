@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../init.php');
 class CriteriaTest extends MY_UnitTestCase
 {
     protected $myclass = 'Criteria';
-    
+
     public function test___construct()
 	{
 		$column = 'column';
@@ -17,5 +17,5 @@ class CriteriaTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myclass, $x);
         $this->assertInstanceOf('\Xoops\Core\Kernel\Criteria', $x);
     }
-        
+
 }

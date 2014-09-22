@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../init.php');
 class PagenavTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsPageNav';
-    
+
     public function SetUp()
 	{
 		$xoops=Xoops::getinstance();
@@ -17,7 +17,7 @@ class PagenavTest extends MY_UnitTestCase
 		if (empty($tpl))
 			$xoops->setTpl(new XoopsTpl);
     }
-	
+
     public function test___construct()
 	{
         $total_items = 10;
@@ -27,8 +27,8 @@ class PagenavTest extends MY_UnitTestCase
         $extra_args = 'extra_args';
         $instance = new $this->myclass($total_items, $items_perpage, $current_start, $start_name, $extra_args);
         $this->assertInstanceOf($this->myclass, $instance);
-    }  
-	
+    }
+
     public function test_renderNav()
 	{
         $total_items = 10;
@@ -39,7 +39,7 @@ class PagenavTest extends MY_UnitTestCase
         $ret = $instance->renderNav();
         $this->assertTrue(is_string($ret));
     }
-    
+
     public function test_renderNav100()
 	{
         $total_items = 10;
@@ -48,7 +48,7 @@ class PagenavTest extends MY_UnitTestCase
         $start_name = 'start_name';
         $instance = new $this->myclass($total_items, $items_perpage, $current_start, $start_name);
         $ret = $instance->renderNav();
-        $this->assertTrue(is_string($ret));       
+        $this->assertTrue(is_string($ret));
     }
-    
+
 }

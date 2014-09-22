@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -25,35 +25,35 @@ class OnlineTest extends MY_UnitTestCase
         $this->assertTrue(isset($value['online_module']));
         $this->assertTrue(isset($value['online_ip']));
     }
-    
+
     public function test_online_uid()
 	{
         $instance=new $this->myclass();
         $value=$instance->online_uid();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_online_uname()
 	{
         $instance=new $this->myclass();
         $value=$instance->online_uname();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_online_updated()
 	{
         $instance=new $this->myclass();
         $value=$instance->online_updated();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_online_module()
 	{
         $instance=new $this->myclass();
         $value=$instance->online_module();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_online_ip()
 	{
         $instance=new $this->myclass();

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
+require_once(dirname(dirname(__DIR__)) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -15,10 +15,10 @@ class XoopsEditorHandlerTest extends MY_UnitTestCase
 		$class = $this->myclass;
 		$instance = $class::getInstance();
 		$this->assertInstanceOf($this->myclass, $instance);
-		
+
 		$x = $class::getInstance();
 		$this->assertSame($x, $instance);
-		
+
 		$items = array('root_path', 'nohtml', 'allowed_editors');
 		foreach ($items as $item) {
 			$reflection = new ReflectionProperty($this->myclass, $item);

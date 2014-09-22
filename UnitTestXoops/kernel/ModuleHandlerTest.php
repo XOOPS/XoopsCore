@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -50,7 +50,7 @@ class ModuleHandlerTest extends MY_UnitTestCase
         $module->setVar('name', 'MODULE_DUMMY_FOR_TESTS', true);
         $value=$instance->insertModule($module);
         $this->assertTrue($value);
-		
+
         $value=$instance->deleteModule($module);
         $this->assertTrue($value);
     }

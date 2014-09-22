@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -8,11 +8,11 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class TreeTest extends MY_UnitTestCase
 {
-    
+
     public function SetUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $myId = 'Id';
@@ -33,7 +33,7 @@ class TreeTest extends MY_UnitTestCase
         $item3->initVar('parentId',XOBJ_DTYPE_INT,72);
         $item3->initVar('rootId',XOBJ_DTYPE_INT);
         $objectArr = array($item1,$item2,$item3);
-        
+
         $instance=new XoopsObjectTree($objectArr, $myId, $parentId);
         $this->assertInstanceOf('XoopsObjectTree', $instance);
 
@@ -41,13 +41,13 @@ class TreeTest extends MY_UnitTestCase
         $this->assertTrue(is_array($tree));
 
         $ret=$instance->getByKey(72);
-        $this->assertEquals(72, $ret->getVar('Id'));        
+        $this->assertEquals(72, $ret->getVar('Id'));
     }
-	
+
 	public function test_getTree()
 	{
 	}
-	
+
 	public function test_getByKey()
 	{
 	}

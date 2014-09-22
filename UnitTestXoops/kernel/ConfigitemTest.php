@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__DIR__) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -36,65 +36,65 @@ class ConfigItemTest extends MY_UnitTestCase
         $value = $instance->id();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_id() {
         $instance=new $this->myclass();
         $value = $instance->conf_id();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_modid() {
         $instance=new $this->myclass();
         $value = $instance->conf_modid();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_catid() {
         $instance=new $this->myclass();
         $value = $instance->conf_catid();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_name() {
         $instance=new $this->myclass();
         $value = $instance->conf_name();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_title() {
         $instance=new $this->myclass();
         $value = $instance->conf_title();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_value() {
         $instance=new $this->myclass();
         $value = $instance->conf_value();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_desc() {
         $instance=new $this->myclass();
         $value = $instance->conf_desc();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_formtype() {
         $instance=new $this->myclass();
         $value = $instance->conf_formtype();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_valuetype() {
         $instance=new $this->myclass();
         $value = $instance->conf_valuetype();
         $this->assertSame(null, $value);
     }
-	
+
     public function test_conf_order() {
         $instance=new $this->myclass();
         $value = $instance->conf_order();
         $this->assertSame(null, $value);
     }
-	
+
 }

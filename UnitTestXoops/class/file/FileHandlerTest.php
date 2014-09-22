@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(dirname(__DIR__)) . '/init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -9,13 +9,13 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 class XoopsFileHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsFileHandler';
-	
+
     public function test___construct()
 	{
 		$instance = new $this->myclass(__FILE__);
 		$this->assertInstanceOf($this->myclass, $instance);
     }
-	
+
     public function test___publicProperties()
 	{
 		$items = array('folder', 'name', 'info', 'handle', 'lock');
@@ -24,5 +24,5 @@ class XoopsFileHandlerTest extends MY_UnitTestCase
 			$this->assertTrue($prop->isPublic());
 		}
     }
-	
+
 }

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
+require_once(dirname(dirname(dirname(__DIR__))) . '/init.php');
 
 /**
 * PHPUnit special settings :
@@ -10,25 +10,25 @@ class XoopsXmlRpcRequestTest extends MY_UnitTestCase
 {
     protected $myclass = 'XoopsXmlRpcRequest';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
 		$this->object = new $this->myclass($input);
     }
-    
+
     public function test___construct()
 	{
         $instance = $this->object;
 		$this->assertInstanceof('XoopsXmlRpcDocument', $instance);
-        
-        $this->assertSame('input', $instance->methodName); 
+
+        $this->assertSame('input', $instance->methodName);
 	}
 
     public function test_render()
     {
         $instance = $this->object;
-        
+
         $x = $instance->render();
         $this->assertTrue(is_string($x));
         $this->assertTrue(!empty($x));
