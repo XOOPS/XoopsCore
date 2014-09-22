@@ -75,21 +75,21 @@ class Text extends Element
     /**
      * Get size
      *
-     * @return string
+     * @return int
      */
     public function getSize()
     {
-        return (string) $this->getAttribute('size');
+        return (int) $this->getAttribute('size');
     }
 
     /**
      * Get maximum text length
      *
-     * @return string
+     * @return int
      */
     public function getMaxlength()
     {
-        return (string) $this->getAttribute('maxlength');
+        return (int) $this->getAttribute('maxlength');
     }
 
     /**

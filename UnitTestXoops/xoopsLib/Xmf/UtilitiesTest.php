@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupStaticAttributes disabled
 */
 
-class UtilitiesTest extends \MY_UnitTestCase
+class UtilitiesTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Utilities

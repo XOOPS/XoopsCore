@@ -26,7 +26,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('Xoops\Form\Form', array('Caption', 'name', 'action'));
+        $this->object = $this->getMockForAbstractClass('Xoops\Form\Form', array('title', 'name', 'action'));
 
     }
 
@@ -40,134 +40,114 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::getDisplay
-     * @todo   Implement testGetDisplay().
      */
     public function testGetDisplay()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getDisplay();
+        $this->assertSame('', $value);
     }
 
     /**
      * @covers Xoops\Form\Form::getTitle
-     * @todo   Implement testGetTitle().
      */
     public function testGetTitle()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getTitle();
+        $this->assertSame('title', $value);
     }
 
     /**
      * @covers Xoops\Form\Form::setTitle
-     * @todo   Implement testSetTitle().
      */
     public function testSetTitle()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $name = 'form_name';
+        $this->object->setTitle($name);
+        $value = $this->object->getTitle();
+        $this->assertSame($name, $value);
     }
 
     /**
      * @covers Xoops\Form\Form::getName
-     * @todo   Implement testGetName().
      */
     public function testGetName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getName();
+        $this->assertSame('name', $value);
     }
 
     /**
      * @covers Xoops\Form\Form::setAction
-     * @todo   Implement testSetAction().
      */
     public function testSetAction()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetAction
     }
 
     /**
      * @covers Xoops\Form\Form::getAction
-     * @todo   Implement testGetAction().
      */
     public function testGetAction()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $name = 'form_name';
+        $this->object->setAction($name);
+        $value = $this->object->getAction();
+        $this->assertSame($name, $value);
     }
 
     /**
      * @covers Xoops\Form\Form::getMethod
-     * @todo   Implement testGetMethod().
      */
     public function testGetMethod()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getMethod();
+        $this->assertSame('post', $value);
     }
 
     /**
      * @covers Xoops\Form\Form::addElement
-     * @todo   Implement testAddElement().
      */
     public function testAddElement()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetElements
     }
 
     /**
      * @covers Xoops\Form\Form::getElements
-     * @todo   Implement testGetElements().
      */
     public function testGetElements()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $button = new Button('button_caption', 'button_name');
+        $this->object->addElement($button, true);
+        $value = $this->object->getElements();
+        $this->assertTrue(is_array($value));
+        $this->assertInstanceOf('Xoops\Form\Button', $value[0]);
+        
+        $value = $this->object->getElementNames();
+        $this->assertTrue(is_array($value));
+        $this->assertSame('button_name', $value[0]);
+        
+        $value = $this->object->getElementByName('button_name');
+        $this->assertInstanceOf('Xoops\Form\Button', $value);
+        
+        $value = $this->object->getElementByName('button_doesnt_exist');
+        $this->assertSame(null, $value);
     }
 
     /**
      * @covers Xoops\Form\Form::getElementNames
-     * @todo   Implement testGetElementNames().
      */
     public function testGetElementNames()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetElements
     }
 
     /**
      * @covers Xoops\Form\Form::getElementByName
-     * @todo   Implement testGetElementByName().
      */
     public function testGetElementByName()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetElements
     }
 
     /**
@@ -220,14 +200,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::setExtra
-     * @todo   Implement testSetExtra().
      */
     public function testSetExtra()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetExtra
     }
 
     /**
@@ -244,38 +220,33 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::getExtra
-     * @todo   Implement testGetExtra().
      */
     public function testGetExtra()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $name = 'form_name';
+        $this->object->setExtra($name);
+        $value = $this->object->getExtra();
+        $this->assertSame(' '.$name, $value);
     }
 
     /**
      * @covers Xoops\Form\Form::setRequired
-     * @todo   Implement testSetRequired().
      */
     public function testSetRequired()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetRequired
     }
 
     /**
      * @covers Xoops\Form\Form::getRequired
-     * @todo   Implement testGetRequired().
      */
     public function testGetRequired()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $button = new Button('button_caption', 'button_name');
+        $this->object->setRequired($button);
+        $value = $this->object->getRequired();
+        $this->assertTrue(is_array($value));
+        $this->assertInstanceOf('Xoops\Form\Button', $value[0]);
     }
 
     /**
@@ -292,14 +263,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::renderValidationJS
-     * @todo   Implement testRenderValidationJS().
      */
     public function testRenderValidationJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->renderValidationJS();
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value,'Start Form Validation JavaScript'));
     }
 
     /**
@@ -309,8 +278,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testAssign()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->markTestSkipped();
     }
 }

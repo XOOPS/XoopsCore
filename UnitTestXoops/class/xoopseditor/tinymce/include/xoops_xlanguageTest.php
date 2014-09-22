@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_xlanguageTest extends MY_UnitTestCase
+class Xoops_xlanguageTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_100()

@@ -26,7 +26,7 @@ class ElementTrayTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new ElementTray('Caption', 'name');
+        $this->object = new ElementTray('Caption');
     }
 
     /**
@@ -39,26 +39,32 @@ class ElementTrayTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\ElementTray::isRequired
-     * @todo   Implement testIsRequired().
      */
     public function testIsRequired()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->isRequired();
+        $this->assertFalse($value);
+        
+        $button = new Button('button_caption', 'button_name');
+        $this->object->addElement($button, true);
+        $value = $this->object->isRequired();
+        $this->assertTrue($value);
+        
+        $value = $this->object->getRequired();
+        $this->assertTrue(is_array($value));
+        $this->assertInstanceOf('Xoops\Form\Button', $value[0]);
+        
+        $value = $this->object->getElements();
+        $this->assertTrue(is_array($value));
+        $this->assertInstanceOf('Xoops\Form\Button', $value[0]);
     }
 
     /**
      * @covers Xoops\Form\ElementTray::addElement
-     * @todo   Implement testAddElement().
      */
     public function testAddElement()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testIsRequired
     }
 
     /**
@@ -67,10 +73,7 @@ class ElementTrayTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetRequired()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testIsRequired
     }
 
     /**
@@ -79,10 +82,7 @@ class ElementTrayTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetElements()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testIsRequired
     }
 
     /**
@@ -91,10 +91,11 @@ class ElementTrayTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDelimiter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getDelimiter();
+        $this->assertSame('&nbsp;', $value);
+        
+        $value = $this->object->getDelimiter(true);
+        $this->assertSame(' ', $value);
     }
 
     /**

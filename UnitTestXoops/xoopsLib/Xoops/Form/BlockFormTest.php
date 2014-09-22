@@ -39,13 +39,26 @@ class BlockFormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\BlockForm::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $caption = 'button_caption';
+        $name = 'button_name';
+        $value = 'button_value';
+        $button = new Button($caption, $name, $value);
+        $this->object->addElement($button);
+        
+        $x = $this->object->render();
+        $this->assertTrue(false !== strpos($x, '<div class="span2"><strong>' . $caption .'</strong></div>'));
+        $this->assertTrue(false !== strpos($x, '<input type="button"'));
+        $this->assertTrue(false !== strpos($x, 'name="' . $name .'"'));
+        $this->assertTrue(false !== strpos($x, 'id="' . $name .'"'));
+        $this->assertTrue(false !== strpos($x, 'title="' . $caption .'"'));
+        $this->assertTrue(false !== strpos($x, 'value="' . $value .'"'));
+        
+        $button->setHidden();
+        $x = $this->object->render();
+        $this->assertTrue(false !== strpos($x, '<input type="button"'));
+        $this->assertTrue(false !== strpos($x, ' hidden '));
     }
 }

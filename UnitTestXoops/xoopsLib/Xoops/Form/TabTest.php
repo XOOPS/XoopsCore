@@ -39,11 +39,19 @@ class TabTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Tab::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
+        $button = new Button('Caption', 'name');
+        $this->object->addElement($button);
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<td'));
+        $this->assertTrue(false !== strpos($value, 'class="head"'));
+        $this->assertTrue(false !== strpos($value, 'class="even"'));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="button"'));
+        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
     }
 }

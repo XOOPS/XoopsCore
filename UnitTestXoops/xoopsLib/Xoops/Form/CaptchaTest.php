@@ -39,19 +39,20 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Captcha::setConfig
-     * @todo   Implement testSetConfig().
      */
     public function testSetConfig()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->setConfig('dummy_name', 'dummy_value');
+        $this->assertTrue($value);
+        
+        $handler = \XoopsCaptcha::getInstance();
+        $configs = $handler->config;
+        $this->assertTrue(is_array($configs));
+        $this->assertSame('dummy_value', $configs['dummy_name']);
     }
 
     /**
      * @covers Xoops\Form\Captcha::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
@@ -61,13 +62,10 @@ class CaptchaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Captcha::renderValidationJS
-     * @todo   Implement testRenderValidationJS().
      */
     public function testRenderValidationJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->renderValidationJS();
+        $this->assertTrue(is_string($value));
     }
 }

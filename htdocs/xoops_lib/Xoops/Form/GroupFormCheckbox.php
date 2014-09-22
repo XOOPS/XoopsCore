@@ -43,7 +43,7 @@ class GroupFormCheckbox extends Element
      *
      * @var array
      */
-    private $optionTree;
+    private $optionTree = array();
 
     /**
      * __construct
@@ -85,6 +85,7 @@ class GroupFormCheckbox extends Element
         $ele_name = $this->getName();
         $ret = '<table class="outer"><tr><td class="odd"><table><tr>';
         $cols = 1;
+
         foreach ($this->optionTree[0]['children'] as $topitem) {
             if ($cols > 4) {
                 $ret .= '</tr><tr>';

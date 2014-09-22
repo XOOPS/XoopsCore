@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupStaticAttributes disabled
 */
 
-class LanguageTest extends \MY_UnitTestCase
+class LanguageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Language

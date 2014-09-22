@@ -71,8 +71,15 @@ class TplfileHandlerTest extends MY_UnitTestCase
 	{
         $instance = new $this->myclass($this->conn);
 		$source = new XoopsTplfile();
+        $source->setDirty();
+        $source->setNew();
+        $source->setVar('tpl_desc', 'TPL_DESC_DUMMY_TEST');
+        $value = $instance->insertTpl($source);
+                var_dump(__line__,$source->getVar('tpl_id'));
+        $this->assertSame(true,$value);
+
         $value = $instance->deleteTpl($source);
-        $this->assertSame(false,$value);
+        $this->assertSame(true,$value);
     }
 
     public function test_getTplObjects()
@@ -89,7 +96,8 @@ class TplfileHandlerTest extends MY_UnitTestCase
 		
 		$criteria = new Criteria('tpl_type', 'dummy');
         $value = $instance->getTplObjects($criteria);
-        $this->assertTrue(is_array($value) AND empty($value));
+        $this->assertTrue(is_array($value));
+        $this->assertTrue(count($value) > 0);
     }
 
     public function test_getModuleTplCount()
@@ -99,8 +107,8 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $this->assertTrue(empty($value));
 		
         $value = $instance->getModuleTplCount('default');
-		$this->markTestSkipped('');
-        $this->assertTrue(is_array($value) AND count($value) > 0);
+        $this->assertTrue(is_array($value));
+        $this->assertTrue(count($value) > 0);
     }
 
     public function test_find()

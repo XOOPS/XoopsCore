@@ -46,16 +46,23 @@ class ConfigHandlerTest extends MY_UnitTestCase
         $instance=new $this->myclass();
         $item=new XoopsConfigItem();
         $item->setDirty();
-        $ret=$instance->insertConfig($item);
-        $this->assertSame(false, $ret);
+        $item->setNew();
+		$item->setVar('conf_title','CONFTITLE_DUMMY_FOR_TESTS');
+        $value=$instance->insertConfig($item);
+        $this->assertTrue(intval($value) > 0);
     }
 
     public function test_deleteConfig()
 	{
         $instance=new $this->myclass();
         $item=new XoopsConfigItem();
+		$item->setDirty();
+        $item->setNew();
+		$item->setVar('conf_title','CONFTITLE_DUMMY_FOR_TESTS');
+        $value=$instance->insertConfig($item);
+        $this->assertTrue(intval($value) > 0);
+        
         $ret=$instance->deleteConfig($item);
-		$this->markTestSkipped('');
         $this->assertSame(true, $ret);
     }
 
@@ -113,5 +120,18 @@ class ConfigHandlerTest extends MY_UnitTestCase
         $instance=new $this->myclass();
         $ret=$instance->getConfigList(1);
         $this->assertTrue(is_array($ret));
+    }
+    
+    public function test_deleteAll()
+	{
+        $instance=new $this->myclass();
+        $criteria = new Criteria('conf_title', 'CONFTITLE_DUMMY_FOR_TESTS');
+        $configs = $instance->getConfigs($criteria);
+        if (is_array($configs))
+            foreach ($configs as $config) {
+                $value = $instance->deleteConfig($config);
+                $this->assertTrue($value >= 1);
+            }
+
     }
 }

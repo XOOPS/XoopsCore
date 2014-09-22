@@ -240,6 +240,7 @@ class XoopsCaptchaImageHandler
      */
     public function setImageSize()
     {
+		if (empty($this->font)) $this->loadFont();
         $MaxCharWidth = 0;
         $MaxCharHeight = 0;
         $oImage = imagecreatetruecolor(100, 100);
@@ -261,7 +262,7 @@ class XoopsCaptchaImageHandler
 
         $this->height = $MaxCharHeight + 2;
         $this->spacing = intval(($this->config["num_chars"] * $MaxCharWidth) / $this->config["num_chars"]);
-        $this->width = ($this->config["num_chars"] * $MaxCharWidth) + ($this->spacing / 2);
+        $this->width = intval(($this->config["num_chars"] * $MaxCharWidth) + ($this->spacing / 2));
     }
 
     /**

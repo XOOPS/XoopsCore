@@ -26,7 +26,7 @@ class RawTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Raw;
+        $this->object = new Raw('value');
     }
 
     /**
@@ -39,11 +39,11 @@ class RawTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Raw::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertSame('value', $value);
     }
 }

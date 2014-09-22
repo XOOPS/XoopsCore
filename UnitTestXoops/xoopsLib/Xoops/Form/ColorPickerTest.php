@@ -39,23 +39,21 @@ class ColorPickerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\ColorPicker::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
+        $level = ob_get_level();
         $value = $this->object->render();
+        while (ob_get_level() > $level) ob_end_flush();
         $this->assertTrue(is_string($value));
     }
 
     /**
      * @covers Xoops\Form\ColorPicker::renderValidationJS
-     * @todo   Implement testRenderValidationJS().
      */
     public function testRenderValidationJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->renderValidationJS();
+        $this->assertTrue(is_string($value));
     }
 }

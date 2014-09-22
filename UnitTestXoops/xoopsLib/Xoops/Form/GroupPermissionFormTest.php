@@ -39,25 +39,26 @@ class GroupPermissionFormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\GroupPermissionForm::addItem
-     * @todo   Implement testAddItem().
      */
     public function testAddItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testRender
     }
 
     /**
      * @covers Xoops\Form\GroupPermissionForm::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addItem(1, 'item_name1');
+        $this->object->addItem(10, 'item_name10', 1);
+        $value = $this->object->render();
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<h4>Caption</h4>description'));
+        $this->assertTrue(false !== strpos($value, '<form'));
+        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="checkbox"'));
+        $this->assertTrue(false !== strpos($value, '</form'));
     }
 }

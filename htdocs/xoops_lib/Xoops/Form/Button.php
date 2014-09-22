@@ -30,7 +30,7 @@ class Button extends Element
      *
      * @param string $caption button caption
      * @param string $name    button name
-     * @param string $value   button valye
+     * @param string $value   button value
      * @param string $type    type of the button. Possible values: "button", "submit", or "reset"
      */
     public function __construct($caption, $name, $value = "", $type = "button")

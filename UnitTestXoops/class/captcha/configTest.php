@@ -14,7 +14,7 @@ class ConfigTest extends MY_UnitTestCase
 	{
 		global $config;
 		
-		require_once(XOOPS_ROOT_PATH.'/class/captcha/config.php');
+		require(XOOPS_ROOT_PATH.'/class/captcha/config.php');
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['disabled']));
 		$this->assertTrue(isset($config['mode']));

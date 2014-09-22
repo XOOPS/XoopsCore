@@ -39,14 +39,16 @@ class SimpleFormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\SimpleForm::insertBreak
-     * @todo   Implement testInsertBreak().
      */
     public function testInsertBreak()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->insertBreak();
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, '<br />'));
+        
+        $this->object->insertBreak('extra','class');
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, '<br class="class" />extra'));
     }
 
     /**
@@ -55,9 +57,13 @@ class SimpleFormTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->render();
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<form'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== strpos($value, 'action="action"'));
+        $this->assertTrue(false !== strpos($value, 'method="post"'));
+        $this->assertTrue(false !== strpos($value, '</form>'));
     }
 }

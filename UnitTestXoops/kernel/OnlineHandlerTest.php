@@ -43,7 +43,6 @@ class OnlineHandlerTest extends MY_UnitTestCase
         $this->assertInstanceOf($this->myclass,$instance);
 		
 		$value = $instance->destroy($this->myId);
-		$this->markTestSkipped('');
 		$this->assertSame(true, $value);		
 	}
 	

@@ -39,11 +39,21 @@ class TabTrayTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\TabTray::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
+        $text = new Text('Caption', 'name', 10, 20, 'value', 'placeholder');
+        $this->object->addElement($text);
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, 'id="tabs_name"'));
+        $this->assertTrue(false !== strpos($value, 'type="text"'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'size="10"'));
+        $this->assertTrue(false !== strpos($value, 'maxlength="20"'));
+        $this->assertTrue(false !== strpos($value, 'placeholder="placeholder"'));
+        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== strpos($value, 'value="value"'));
     }
 }

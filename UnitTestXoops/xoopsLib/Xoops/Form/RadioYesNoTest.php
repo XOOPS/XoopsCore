@@ -39,11 +39,15 @@ class RadioYesNoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\RadioYesNo::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<label class="radio'));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="radio"'));
+        $this->assertTrue(false !== strpos($value, 'value="1"'));
+        $this->assertTrue(false !== strpos($value, 'value="0"'));
     }
 }

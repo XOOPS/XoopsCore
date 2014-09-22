@@ -26,7 +26,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new TextArea('Caption', 'name');
+        $this->object = new TextArea('Caption', 'name', 'value', 5, 10, 'placeholder');
     }
 
     /**
@@ -39,47 +39,45 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\TextArea::getRows
-     * @todo   Implement testGetRows().
      */
     public function testGetRows()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getRows();
+        $this->assertSame(5, $value);
     }
 
     /**
      * @covers Xoops\Form\TextArea::getCols
-     * @todo   Implement testGetCols().
      */
     public function testGetCols()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getCols();
+        $this->assertSame(10, $value);
     }
 
     /**
      * @covers Xoops\Form\TextArea::getPlaceholder
-     * @todo   Implement testGetPlaceholder().
      */
     public function testGetPlaceholder()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getPlaceholder();
+        $this->assertSame('placeholder', $value);
     }
 
     /**
      * @covers Xoops\Form\TextArea::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<textarea'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'rows="5"'));
+        $this->assertTrue(false !== strpos($value, 'cols="10"'));
+        $this->assertTrue(false !== strpos($value, 'placeholder="placeholder"'));
+        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== strpos($value, '>value<'));
     }
 }

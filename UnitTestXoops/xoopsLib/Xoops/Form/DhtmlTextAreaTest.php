@@ -39,7 +39,6 @@ class DhtmlTextAreaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\DhtmlTextArea::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
@@ -49,26 +48,20 @@ class DhtmlTextAreaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\DhtmlTextArea::codeIcon
-     * @todo   Implement testCodeIcon().
      */
     public function testCodeIcon()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->codeIcon();
+        $this->assertTrue(is_string($value));
     }
 
     /**
      * @covers Xoops\Form\DhtmlTextArea::fontArray
-     * @todo   Implement testFontArray().
      */
     public function testFontArray()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->fontArray();
+        $this->assertTrue(is_string($value));
     }
 
     /**
@@ -77,9 +70,7 @@ class DhtmlTextAreaTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderValidationJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->renderValidationJS();
+        $this->assertFalse($value);
     }
 }

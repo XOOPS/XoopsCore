@@ -14,7 +14,7 @@ class ConfigImageTest extends MY_UnitTestCase
 	{
 		global $config;
 		
-		require_once(XOOPS_ROOT_PATH.'/class/captcha/config.image.php');
+		require(XOOPS_ROOT_PATH.'/class/captcha/config.image.php');
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['num_chars']));
 		$this->assertTrue(isset($config['casesensitive']));

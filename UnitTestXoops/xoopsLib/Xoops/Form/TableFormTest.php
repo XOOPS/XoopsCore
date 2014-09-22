@@ -39,25 +39,26 @@ class TableFormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\TableForm::insertBreak
-     * @todo   Implement testInsertBreak().
      */
     public function testInsertBreak()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->insertBreak();
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, '<tr valign="top" align="left"><td></td></tr>'));
     }
 
     /**
      * @covers Xoops\Form\TableForm::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->render();
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<form'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== strpos($value, 'action="action"'));
+        $this->assertTrue(false !== strpos($value, 'method="post"'));
+        $this->assertTrue(false !== strpos($value, '</form>'));
     }
 }

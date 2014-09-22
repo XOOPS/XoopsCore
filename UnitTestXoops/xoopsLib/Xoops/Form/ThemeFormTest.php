@@ -39,25 +39,30 @@ class ThemeFormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\ThemeForm::insertBreak
-     * @todo   Implement testInsertBreak().
      */
     public function testInsertBreak()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->insertBreak();
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, 'class="break"'));
+        $this->assertTrue(false !== strpos($value, '>&nbsp;<'));
+        
+        $this->object->insertBreak('extra', 'class');
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, 'class="class"'));
+        $this->assertTrue(false !== strpos($value, '>extra<'));
     }
 
     /**
      * @covers Xoops\Form\ThemeForm::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->render();
+        $this->assertTrue(false !== strpos($value, '<form'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+        $this->assertTrue(false !== strpos($value, 'action="action"'));
+        $this->assertTrue(false !== strpos($value, '<legend>Caption</legend>'));
     }
 }

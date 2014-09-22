@@ -199,6 +199,7 @@ abstract class Element extends Attributes
     public function setValue($value)
     {
         if (is_array($value)) {
+            $this->value = (array)$this->value;
             foreach ($value as $v) {
                 $this->value[] = $v;
             }

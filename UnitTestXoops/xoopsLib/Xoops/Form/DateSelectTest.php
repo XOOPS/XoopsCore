@@ -39,7 +39,6 @@ class DateSelectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\DateSelect::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {

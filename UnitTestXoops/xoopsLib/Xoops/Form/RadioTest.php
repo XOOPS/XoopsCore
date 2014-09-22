@@ -39,71 +39,69 @@ class RadioTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Radio::getValue
-     * @todo   Implement testGetValue().
      */
     public function testGetValue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $object = new Radio('Caption', 'name', 'value');
+        $value = $object->getValue();
+        $this->assertSame('value', $value);
     }
 
     /**
      * @covers Xoops\Form\Radio::addOption
-     * @todo   Implement testAddOption().
      */
     public function testAddOption()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addOption('key', 'value');
+        $this->object->addOption('just_key');
+        $value = $this->object->getOptions();
+        $this->assertTrue(is_array($value));
+        $this->assertSame('value', $value['key']);
+        $this->assertSame('just_key', $value['just_key']);
     }
 
     /**
      * @covers Xoops\Form\Radio::addOptionArray
-     * @todo   Implement testAddOptionArray().
      */
     public function testAddOptionArray()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addOptionArray(array('key' => 'value', 'just_key' => null));
+        $value = $this->object->getOptions();
+        $this->assertTrue(is_array($value));
+        $this->assertSame('value', $value['key']);
+        $this->assertSame('just_key', $value['just_key']);
     }
 
     /**
      * @covers Xoops\Form\Radio::getOptions
-     * @todo   Implement testGetOptions().
      */
     public function testGetOptions()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testAddOption
     }
 
     /**
      * @covers Xoops\Form\Radio::getInline
-     * @todo   Implement testGetInline().
      */
     public function testGetInline()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getInline();
+        $this->assertSame(' inline', $value);
+        
+        $this->object = new Radio('Caption', 'name', 'value', false);
+        $value = $this->object->getInline();
+        $this->assertSame('', $value);
     }
 
     /**
      * @covers Xoops\Form\Radio::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
+        $this->object->addOption('key', 'value');
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<label class="radio'));
+        $this->assertTrue(false !== strpos($value, '<input type="radio"'));
     }
 }

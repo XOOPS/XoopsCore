@@ -9,22 +9,28 @@ require_once (dirname(__FILE__).'/../../../../init_mini.php');
 
 class ManagerTest extends \MY_UnitTestCase
 {
-	protected $myClass = 'Xoops\Core\Service\Manager';
+    protected $myClass = '\Xoops\Core\Service\Manager';
+    protected $object = null;
+    
+    function setUp()
+    {
+        $class = $this->myClass;
+		$this->object = $class::getInstance();
+    }
 
 	function test_getInstance()
 	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+        $instance = $this->object;
 		$this->assertInstanceOf($this->myClass, $instance);
 
+        $class = $this->myClass;
 		$instance2 = $class::getInstance();
 		$this->assertSame($instance, $instance2);
 	}
 
 	function test_constants()
 	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+		$instance = $this->object;
 
 		$this->assertTrue(is_int($instance::MODE_EXCLUSIVE));
 		$this->assertTrue(is_int($instance::MODE_CHOICE));
@@ -39,31 +45,37 @@ class ManagerTest extends \MY_UnitTestCase
 
 	function test_saveChoice()
 	{
-		$class = $this->myClass;
-		$sm = $class::getInstance();
+		$instance = $this->object;
 
-		$service = 'AvatarsProvider';
-		$choices = array('p1'=>'p1','p2'=>'p2');
-		$sm->saveChoice($service,$choices);
-		$values = $sm->listChoices($service);
+        $service = 'Avatar';
+        $provider = $instance->locate($service);
+		$this->assertTrue(is_object($provider));
+        require_once XOOPS_ROOT_PATH.'/modules/avatars/class/AvatarsProvider.php';
+        $ap = new AvatarsProvider();
+		$this->assertTrue(is_object($ap));
+        $provider->register($ap);
+        
+		$choices = array('avatars' => $instance::PRIORITY_HIGH);
+		$instance->saveChoice($service,$choices);
+		$values = $instance->listChoices($service);
 		$this->assertTrue(is_array($values));
-		// $this->assertFalse(empty($values));
-		$this->assertInstanceOf('AvatarsProvider',$values[0]);
+		$this->assertTrue(is_object($values[0]));
+        $this->assertSame($instance::PRIORITY_HIGH, $values[0]->getPriority());
 
 	}
 
 	function test_registerChoice()
 	{
-        // see saveChoices
+        // see test_saveChoices
 	}
 
 	function test_listChoices()
 	{
-        // see saveChoices
+        // see test_saveChoices
 	}
 
 	function test_locate()
 	{
-        // see saveChoices
+        // see test_saveChoices
 	}
 }

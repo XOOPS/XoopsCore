@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupStaticAttributes disabled
 */
 
-class LoaderTest extends \MY_UnitTestCase
+class LoaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Loader

@@ -94,6 +94,14 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
         $this->assertEquals(substr($text,0,4), $message);
     }
 
+    public function decode_check_level($sanitizer, $text)
+    {
+        $level = ob_get_level();
+        $message = $sanitizer->xoopsCodeDecode($text);
+        while (ob_get_level() > $level) @ob_end_flush();
+        return $message;
+    }
+    
     public function test_xoopsCodeDecode()
 	{
 		$class = $this->myClass;
@@ -102,41 +110,41 @@ class ModuleMyTextSanitizerTest extends MY_UnitTestCase
 		$site = 'MonSite';
 
         $text = '[siteurl="'.$host.'"]'.$site.'[/siteurl]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="'.XOOPS_URL.'/'.$host.'" title="">'.$site.'</a>', $message);
         $text = '[siteurl=\''.$host.'\']'.$site.'[/siteurl]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="'.XOOPS_URL.'/'.$host.'" title="">'.$site.'</a>', $message);
 
         $text = '[url="http://'.$host.'"]'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="http://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url=\'http://'.$host.'\']'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="http://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url="https://'.$host.'"]'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="https://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url=\'https://'.$host.'\']'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="https://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url="ftp://'.$host.'"]'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="ftp://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url=\'ftp://'.$host.'\']'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="ftp://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url="ftps://'.$host.'"]'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="ftps://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url=\'ftps://'.$host.'\']'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="ftps://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url="'.$host.'"]'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="http://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
         $text = '[url=\''.$host.'\']'.$site.'[/url]';
-        $message = $sanitizer->xoopsCodeDecode($text);
+        $message = $this->decode_check_level($sanitizer, $text);
         $this->assertEquals('<a href="http://'.$host.'" rel="external" title="">'.$site.'</a>', $message);
     }
 

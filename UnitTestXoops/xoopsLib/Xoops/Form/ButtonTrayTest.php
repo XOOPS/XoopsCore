@@ -39,23 +39,26 @@ class ButtonTrayTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\ButtonTray::getType
-     * @todo   Implement testGetType().
      */
     public function testGetType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getType();
+        $this->assertSame('submit',$value);
     }
 
     /**
      * @covers Xoops\Form\ButtonTray::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input type="button"'));
+        
+        $object = new ButtonTray('name2','','','',true);
+        $value = $object->render();
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input type="submit"'));
+        $this->assertTrue(false !== strpos($value, '<input type="button"'));
     }
 }

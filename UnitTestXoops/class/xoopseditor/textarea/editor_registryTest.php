@@ -9,7 +9,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Textarea_Editor_registryTest extends MY_UnitTestCase
+class Textarea_Editor_registryTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_100()

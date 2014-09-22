@@ -95,11 +95,11 @@ class Select extends Element
     /**
      * Get the size
      *
-     * @return string
+     * @return int
      */
     public function getSize()
     {
-        return (string) $this->getAttribute('size');
+        return (int) $this->getAttribute('size');
     }
 
     /**

@@ -39,15 +39,15 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Url::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
-        // Remove the following lines when you implement this test.
-        //$this->markTestIncomplete(
-        //    'This test has not been implemented yet.'
-        //);
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="url"'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'size="80"'));
+        $this->assertTrue(false !== strpos($value, 'maxlength="200"'));
     }
 }

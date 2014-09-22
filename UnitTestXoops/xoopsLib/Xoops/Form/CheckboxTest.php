@@ -39,55 +39,50 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Checkbox::addOption
-     * @todo   Implement testAddOption().
      */
     public function testAddOption()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetOptions
     }
 
     /**
      * @covers Xoops\Form\Checkbox::addOptionArray
-     * @todo   Implement testAddOptionArray().
      */
     public function testAddOptionArray()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testGetOptions
     }
 
     /**
      * @covers Xoops\Form\Checkbox::getOptions
-     * @todo   Implement testGetOptions().
      */
     public function testGetOptions()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addOption('AO_value', 'AO_name');
+        $this->object->addOption('AO_noname');
+        
+        $options = array('AOA_value' => 'AOA_name', 'AOA_noname' => '');
+        $this->object->addOptionArray($options);
+        
+        $options = $this->object->getOptions();
+        $this->assertTrue(is_array($options));
+        $this->assertSame('AO_name', $options['AO_value']);
+        $this->assertSame('AO_noname', $options['AO_noname']);
+        $this->assertSame('AOA_name', $options['AOA_value']);
+        $this->assertSame('AOA_noname', $options['AOA_noname']);
     }
 
     /**
      * @covers Xoops\Form\Checkbox::getInline
-     * @todo   Implement testGetInline().
      */
     public function testGetInline()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getInline();
+        $this->assertSame(' inline', $value);
     }
 
     /**
      * @covers Xoops\Form\Checkbox::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
@@ -97,13 +92,10 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Checkbox::renderValidationJS
-     * @todo   Implement testRenderValidationJS().
      */
     public function testRenderValidationJS()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->renderValidationJS();
+        $this->assertTrue(is_string($value));
     }
 }

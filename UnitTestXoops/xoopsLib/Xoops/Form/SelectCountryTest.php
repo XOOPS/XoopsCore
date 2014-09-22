@@ -45,5 +45,16 @@ class SelectCountryTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<select'));
+        $this->assertTrue(false !== strpos($value, 'name="name"'));
+        $this->assertTrue(false !== strpos($value, 'size="1"'));
+        $this->assertTrue(false !== strpos($value, 'title="Caption"'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
+
+        $this->assertTrue(false !== strpos($value, '<option'));
+        $this->assertTrue(false !== strpos($value, 'value="US"'));
+        $this->assertTrue(false !== strpos($value, '</option>'));
+        
+        $this->assertTrue(false !== strpos($value, '</select>'));
     }
 }

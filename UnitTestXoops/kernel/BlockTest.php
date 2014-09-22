@@ -195,7 +195,9 @@ class BlockTest extends MY_UnitTestCase
     public function test_getContent()
 	{
         $instance = new XoopsBlock();
+        $level = ob_get_level();
         $value = $instance->getContent();
+        while(ob_get_level() > $level) ob_end_clean();
         $this->assertSame('',$value);
         $value = $instance->getContent('s','T');
         $this->assertSame('',$value);

@@ -26,7 +26,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Button('Caption', 'name');
+        $this->object = new Button('button_caption', 'button_name', 'button_value');
     }
 
     /**
@@ -39,23 +39,24 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Button::getType
-     * @todo   Implement testGetType().
      */
     public function testGetType()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $value = $this->object->getType();
+        $this->assertSame('button',$value);
     }
 
     /**
      * @covers Xoops\Form\Button::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
-        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<input'));
+        $this->assertTrue(false !== strpos($value, 'type="button"'));
+        $this->assertTrue(false !== strpos($value, 'name="button_name"'));
+        $this->assertTrue(false !== strpos($value, 'id="button_name"'));
+        $this->assertTrue(false !== strpos($value, 'title="button_caption"'));
+        $this->assertTrue(false !== strpos($value, 'value="button_value"'));
     }
 }

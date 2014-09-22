@@ -26,7 +26,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Label;
+        $this->object = new Label('caption', ' value', 'name');
     }
 
     /**
@@ -39,11 +39,12 @@ class LabelTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Label::render
-     * @todo   Implement testRender().
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, '<span'));
+        $this->assertTrue(false !== strpos($value, 'id="name"'));
     }
 }
