@@ -28,9 +28,9 @@ $configs = array();
 
 // setup config site info
 //$configs['db_types'] = array('mysql');
-$avalable_pdo_drivers = \PDO::getAvailableDrivers();
+$available_pdo_drivers = \PDO::getAvailableDrivers();
 $configs['db_types'] = array();
-if (in_array('mysql', $avalable_pdo_drivers)) {
+if (in_array('mysql', $available_pdo_drivers)) {
     $configs['db_types']['pdo_mysql']  = array(
         'desc' => 'PDO MySql Driver',
         'type' => 'mysql',
@@ -38,7 +38,7 @@ if (in_array('mysql', $avalable_pdo_drivers)) {
         'ignoredb' => array('information_schema','test'),
     );
 }
-if (in_array('sqlite', $avalable_pdo_drivers)) {
+if (in_array('sqlite', $available_pdo_drivers)) {
     $configs['db_types']['pdo_sqlite'] = array(
         'desc' => 'PDO Sqlite Driver (untested)',
         'type' => 'sqlite',
@@ -46,7 +46,7 @@ if (in_array('sqlite', $avalable_pdo_drivers)) {
         'ignoredb' => array(),
     );
 }
-if (in_array('pgsql', $avalable_pdo_drivers)) {
+if (in_array('pgsql', $available_pdo_drivers)) {
     $configs['db_types']['pdo_pgsql'] = array(
         'desc' => 'PDO PostgreSql Driver (untested)',
         'type' => 'pgsql',
@@ -62,7 +62,7 @@ if (function_exists('oci_connect')) {
         'ignoredb' => array(),
     );
 }
-if (in_array('oci', $avalable_pdo_drivers)) {
+if (in_array('oci', $available_pdo_drivers)) {
     $configs['db_types']['pdo_oci'] = array(
         'desc' => 'PDO Oracle Driver (untested)',
         'type' => 'oci',
@@ -79,7 +79,7 @@ if (function_exists('db2_connect')) {
     );
 }
 /* this driver is considered unstable by Doctrine and unsupported as of 2.5.0
-if (in_array('ibm', $avalable_pdo_drivers)) {
+if (in_array('ibm', $available_pdo_drivers)) {
     $configs['db_types']['pdo_ibm'] = array(
         'desc' => 'PDO IBM Driver (untested)',
         'type' => 'db2',
@@ -88,7 +88,7 @@ if (in_array('ibm', $avalable_pdo_drivers)) {
     );
 }
 */
-if (in_array('sqlsrv', $avalable_pdo_drivers)) {
+if (in_array('sqlsrv', $available_pdo_drivers)) {
     $configs['db_types']['pdo_sqlsrv'] = array(
         'desc' => 'PDO SqlServer Driver (untested)',
         'type' => 'sqlsrv',
@@ -112,7 +112,7 @@ if (function_exists('mysqli_connect')) {
         'ignoredb' => array('information_schema','test'),
     );
 }
-if (in_array('mysql', $avalable_pdo_drivers)) {
+if (in_array('mysql', $available_pdo_drivers)) {
     $configs['db_types']['drizzle_pdo_mysql'] = array(
         'desc' => 'Drizzle PDO MySql Driver (untested)',
         'type' => 'mysql',
@@ -131,7 +131,6 @@ $configs['db_param_names'] = array(
     'path' => 'DB_PATH',
     'service' => 'DB_SERVICE',
     'pooled' => 'DB_POOLED',
-    'protocol'=>'DB_PROTOCOL',
     'protocol'=>'DB_PROTOCOL',
     'dbname'=>'DB_NAME',
 );
