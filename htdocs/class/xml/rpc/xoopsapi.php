@@ -67,7 +67,10 @@ class XoopsApi extends XoopsXmlRpcApi
                     $this->response->add(new XoopsXmlRpcFault(109, $msg));
                 } else {
                     // will be removed... don't worry if this looks bad
-                    include_once XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php';
+                    if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+						$this->response->add(new XoopsXmlRpcFault(103));
+						return;
+					}
                     $story = new NewsStory();
                     $error = false;
                     if (intval($this->params[4]) > 0) {
@@ -154,7 +157,10 @@ class XoopsApi extends XoopsXmlRpcApi
                     $this->response->add(new XoopsXmlRpcFault(109, $msg));
                 } else {
                     // will be removed... don't worry if this looks bad
-                    include_once XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php';
+                    if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+						$this->response->add(new XoopsXmlRpcFault(103));
+						return;
+					}
                     $story = new NewsStory($this->params[0]);
                     $storyid = $story->storyid();
                     if (empty($storyid)) {
@@ -196,7 +202,10 @@ class XoopsApi extends XoopsXmlRpcApi
                 $this->response->add(new XoopsXmlRpcFault(111));
             } else {
                 // will be removed... don't worry if this looks bad
-                include_once XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php';
+				if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+					$this->response->add(new XoopsXmlRpcFault(103));
+					return;
+				}
                 $story = new NewsStory($this->params[0]);
                 if (!$story->delete()) {
                     $this->response->add(new XoopsXmlRpcFault(106));
@@ -214,7 +223,10 @@ class XoopsApi extends XoopsXmlRpcApi
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
             // will be removed... don't worry if this looks bad
-            include_once XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php';
+			if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+				$this->response->add(new XoopsXmlRpcFault(103));
+				return;
+			}
             $story = new NewsStory($this->params[0]);
             $ret = array('uid' => $story->uid(), 'published' => $story->published(), 'storyid' => $story->storyId(), 'title' => $story->title('Edit'), 'hometext' => $story->hometext('Edit'), 'moretext' => $story->bodytext('Edit'));
             if (!$respond) {
@@ -258,7 +270,10 @@ class XoopsApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
-            include_once XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php';
+			if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+				$this->response->add(new XoopsXmlRpcFault(103));
+				return;
+			}
             if (isset($this->params[4]) && intval($this->params[4]) > 0) {
                 $stories = NewsStory::getAllPublished(intval($this->params[3]), 0, $this->params[4]);
             } else {
@@ -317,7 +332,10 @@ class XoopsApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
-            include_once XOOPS_ROOT_PATH.'/class/xoopstopic.php';
+			if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/class/xoopstopic.php', true)) {
+				$this->response->add(new XoopsXmlRpcFault(103));
+				return;
+			}
             //$this->db = xoopsDB;
             $xt = new XoopsTopic($xoopsDB->prefix('topics'));
             $ret = $xt->getTopicsList();
