@@ -180,11 +180,12 @@ class Provisioning
         $newuser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
         $newuser->setVar('rank', 0);
         $newuser->setVar('level', 1);
-        $newuser->setVar('timezone_offset', $xoops->getConfig('default_TZ'));
-        $newuser->setVar('theme', $xoops->getConfig('theme_set'));
-        //$newuser->setVar('umode', $xoops->getConfig('com_mode'));
-        //$newuser->setVar('uorder', $xoops->getConfig('com_order'));
-        $this->setVarsMapping($newuser, $data);
+        $newuser->setVar('timezone_offset', $this->default_TZ);
+        $newuser->setVar('theme', $this->theme_set);
+        $newuser->setVar('umode', $this->com_mode);
+        $newuser->setVar('uorder', $this->com_order);
+        $newuser->setVar('user_regdate', time());
+       $this->setVarsMapping($newuser, $data);
 
         if ($member_handler->insertUser($newuser)) {
             foreach ($this->ldap_provisioning_group as $groupid) {
