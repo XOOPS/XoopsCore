@@ -180,6 +180,7 @@ class Xoops_Auth_Provisioning
         $newuser->setVar('theme', $this->theme_set);
         $newuser->setVar('umode', $this->com_mode);
         $newuser->setVar('uorder', $this->com_order);
+        $newuser->setVar('user_regdate', time());
        $this->setVarsMapping($newuser, $data);
 
         if ($member_handler->insertUser($newuser)) {
