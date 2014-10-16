@@ -230,7 +230,11 @@ class Xoops
      */
     public function registry()
     {
-        return Xoops_Registry::getInstance();
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new \Xoops\Core\Registry();
+        }
+        return $instance;
     }
 
     /**
