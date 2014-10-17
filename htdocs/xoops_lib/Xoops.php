@@ -224,9 +224,9 @@ class Xoops
     }
 
     /**
-     * provide registry instance
+     * provide a common registry instance
      *
-     * @return Xoops_Registry
+     * @return Xoops\Core\Registry
      */
     public function registry()
     {
