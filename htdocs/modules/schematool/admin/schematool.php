@@ -182,9 +182,9 @@ if ($op == 'selectmodule') {
     $activeModules = $xoops->getActiveModules();
     natcasesort($activeModules);
 
-    $form = new XoopsThemeForm('', 'schema_form', '', 'post', true, 'inline');
+    $form = new Xoops\Form\ThemeForm('', 'schema_form', '', 'post', true, 'inline');
 
-    $ele = new XoopsFormSelect(_MI_SCHEMATOOL_FORM_CAPTION, 'mod_dirname', $mod_dirname);
+    $ele = new Xoops\Form\Select(_MI_SCHEMATOOL_FORM_CAPTION, 'mod_dirname', $mod_dirname);
     foreach ($activeModules as $dirname) {
         $mHelper = $xoops->getModuleHelper($dirname);
         if (is_object($mHelper)) {
@@ -192,8 +192,8 @@ if ($op == 'selectmodule') {
         }
     }
     $form->addElement($ele);
-    $form->addElement(new XoopsFormHidden('op', 'showschema'));
-    $form->addElement(new XoopsFormButton('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
+    $form->addElement(new Xoops\Form\Hidden('op', 'showschema'));
+    $form->addElement(new Xoops\Form\Button('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
     echo $form->render();
 }
 

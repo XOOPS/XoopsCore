@@ -55,7 +55,7 @@ if ($op == 'start') {
         } else {
             echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \">" . sprintf(_AM_PUBLISHER_IMPORT_MODULE_FOUND, $importFromModuleName, $totalArticles, $totalCat) . "</span>";
 
-            $form = new XoopsThemeForm(_AM_PUBLISHER_IMPORT_SETTINGS, 'import_form', PUBLISHER_ADMIN_URL . "/import/{$scriptname}");
+            $form = new Xoops\Form\ThemeForm(_AM_PUBLISHER_IMPORT_SETTINGS, 'import_form', PUBLISHER_ADMIN_URL . "/import/{$scriptname}");
 
             // Categories to be imported
             $sql = "SELECT cat.categoryid, cat.parentid, cat.name, COUNT(art.itemid) FROM " . $xoopsDB->prefix('smartsection_categories') . " AS cat INNER JOIN " . $xoopsDB->prefix('smartsection_items') . " AS art ON cat.categoryid=art.categoryid GROUP BY art.categoryid";
@@ -68,7 +68,7 @@ if ($op == 'start') {
                 $cat_cbox_options[$cid] = "$cat_title ($art_count)";
             }
 
-            $cat_label = new XoopsFormLabel(_AM_PUBLISHER_IMPORT_CATEGORIES, implode("<br />", $cat_cbox_options));
+            $cat_label = new Xoops\Form\Label(_AM_PUBLISHER_IMPORT_CATEGORIES, implode("<br />", $cat_cbox_options));
             $cat_label->setDescription(_AM_PUBLISHER_IMPORT_CATEGORIES_DSC);
             $form->addElement($cat_label);
 
@@ -77,15 +77,15 @@ if ($op == 'start') {
             ob_start();
             $mytree->makeMySelBox("name", "weight", $preset_id = 0, $none = 1, $sel_name = "parent_category");
 
-            $parent_cat_sel = new XoopsFormLabel(_AM_PUBLISHER_IMPORT_PARENT_CATEGORY, ob_get_contents());
+            $parent_cat_sel = new Xoops\Form\Label(_AM_PUBLISHER_IMPORT_PARENT_CATEGORY, ob_get_contents());
             $parent_cat_sel->setDescription(_AM_PUBLISHER_IMPORT_PARENT_CATEGORY_DSC);
             $form->addElement($parent_cat_sel);
             ob_end_clean();
 
-            $form->addElement(new XoopsFormHidden('op', 'go'));
-            $form->addElement(new XoopsFormButton ('', 'import', _AM_PUBLISHER_IMPORT, 'submit'));
+            $form->addElement(new Xoops\Form\Hidden('op', 'go'));
+            $form->addElement(new Xoops\Form\Button('', 'import', _AM_PUBLISHER_IMPORT, 'submit'));
 
-            $form->addElement(new XoopsFormHidden('from_module_version', $_POST['news_version']));
+            $form->addElement(new Xoops\Form\Hidden('from_module_version', $_POST['news_version']));
 
             $form->display();
         }
@@ -258,5 +258,3 @@ if ($op == 'go') {
     PublisherUtils::closeCollapsableBar('newsimportgo', 'newsimportgoicon');
     $xoops->footer();
 }
-
-?>

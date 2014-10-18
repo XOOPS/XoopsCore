@@ -16,9 +16,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class ProfileCategoryForm extends XoopsThemeForm
+class ProfileCategoryForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param ProfileCategory|XoopsObject $obj
@@ -28,17 +26,17 @@ class ProfileCategoryForm extends XoopsThemeForm
         $title = $obj->isNew() ? sprintf(_PROFILE_AM_ADD, _PROFILE_AM_CATEGORY) : sprintf(_PROFILE_AM_EDIT, _PROFILE_AM_CATEGORY);
 
         parent::__construct($title, 'form', false, 'post', true);
-        $this->addElement(new XoopsFormText(_PROFILE_AM_TITLE, 'cat_title', 5, 255, $obj->getVar('cat_title')), true);
+        $this->addElement(new Xoops\Form\Text(_PROFILE_AM_TITLE, 'cat_title', 5, 255, $obj->getVar('cat_title')), true);
         if (!$obj->isNew()) {
             //Load groups
-            $this->addElement(new XoopsFormHidden('id', $obj->getVar('cat_id')));
+            $this->addElement(new Xoops\Form\Hidden('id', $obj->getVar('cat_id')));
         }
-        $this->addElement(new XoopsFormTextArea(_PROFILE_AM_DESCRIPTION, 'cat_description', $obj->getVar('cat_description', 'e'), 5, 5));
-        $weight = new XoopsFormText(_PROFILE_AM_WEIGHT, 'cat_weight', 1, 5, $obj->getVar('cat_weight', 'e'), '');
+        $this->addElement(new Xoops\Form\TextArea(_PROFILE_AM_DESCRIPTION, 'cat_description', $obj->getVar('cat_description', 'e'), 5, 5));
+        $weight = new Xoops\Form\Text(_PROFILE_AM_WEIGHT, 'cat_weight', 1, 5, $obj->getVar('cat_weight', 'e'), '');
         $weight->setPattern('^\d+$', _PROFILE_AM_ERROR_WEIGHT);
         $this->addElement($weight, true);
 
-        $this->addElement(new XoopsFormHidden('op', 'save') );
-        $this->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit', 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

@@ -10,37 +10,8 @@
 */
 
 /**
- * Xoops form element of select check group
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.3.0
- * @author          John Neill <catzwolf@xoops.org>
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class XoopsFormSelectCheckGroup extends XoopsFormCheckBox
+class XoopsFormSelectCheckGroup extends Xoops\Form\GroupCheckbox
 {
-    /**
-     * Constructor
-     *
-     * @param string $caption
-     * @param string $name
-     * @param mixed $value Pre-selected value (or array of them).
-     * @param int $size Number or rows. "1" makes a drop-down-list.
-     * @param bool $multiple Allow multiple selections?
-     */
-    public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
-    {
-        parent::__construct($caption, $name, $value, '', true);
-        $this->columns = 3;
-        $this->userGroups = Xoops::getInstance()->getHandlerMember()->getGroupList();
-        foreach ($this->userGroups as $group_id => $group_name) {
-            $this->addOption($group_id, $group_name);
-        }
-    }
 }

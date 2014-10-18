@@ -913,7 +913,7 @@ class Xoops
      * @param string      $name
      * @param string      $module_dir
      *
-     * @return XoopsForm|bool
+     * @return Xoops\Form\Form|bool
      */
     public function getModuleForm($obj, $name, $module_dir = null)
     {
@@ -932,7 +932,7 @@ class Xoops
             $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Form';
             if (class_exists($class)) {
                 $instance = new $class($obj);
-                if ($instance instanceof XoopsForm) {
+                if ($instance instanceof \Xoops\Form\Form) {
                     return $instance;
                 }
             }
@@ -1674,7 +1674,7 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
-                if (!is_array($this->_moduleConfigs[$dirname][$key])) {
+                if (!isset($this->_moduleConfigs[$dirname][$key]) || !is_array($this->_moduleConfigs[$dirname][$key])) {
                     $this->_moduleConfigs[$dirname][$key] = array();
                 }
                 $this->_moduleConfigs[$dirname][$key][$key2] =& $value;

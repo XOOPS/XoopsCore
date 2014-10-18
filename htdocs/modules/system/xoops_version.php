@@ -1106,7 +1106,7 @@ $modversion['config'][] = array(
     'options'     => $breadcrumb,
 );
 
-$jquery_theme           = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/media/jquery/ui');
+$jquery_theme           = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/media/jquery/ui/themes');
 $modversion['config'][] = array(
     'name'        => 'jquery_theme',
     'title'       => 'CONF_JQUERY_THEME',

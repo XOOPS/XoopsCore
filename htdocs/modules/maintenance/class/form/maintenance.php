@@ -22,7 +22,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class MaintenanceMaintenanceForm extends XoopsThemeForm
+class MaintenanceMaintenanceForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -40,20 +40,20 @@ class MaintenanceMaintenanceForm extends XoopsThemeForm
         $maintenance = new Maintenance();
         parent::__construct('', "form_maintenance", "center.php", 'post', true);
 
-        $cache = new XoopsFormSelect(_AM_MAINTENANCE_CENTER_CACHE, "cache", '', 3, true);
+        $cache = new Xoops\Form\Select(_AM_MAINTENANCE_CENTER_CACHE, "cache", '', 3, true);
         $cache->setDescription(XOOPS_VAR_PATH . "/cache/smarty_cache/<br />" . XOOPS_VAR_PATH . "/cache/smarty_compile/<br />" . XOOPS_VAR_PATH . "/cache/xoops_cache/");
         $cache_arr = array(1 => _AM_MAINTENANCE_CENTER_SMARTY_CACHE, 2 => _AM_MAINTENANCE_CENTER_SMARTY_COMPILE, 3 => _AM_MAINTENANCE_CENTER_XOOPS_CACHE);
         $cache->addOptionArray($cache_arr);
         $this->addElement($cache);
 
-        $this->addElement(new XoopsFormRadioYN(_AM_MAINTENANCE_CENTER_SESSION, 'session', ''));
+        $this->addElement(new Xoops\Form\RadioYesNo(_AM_MAINTENANCE_CENTER_SESSION, 'session', ''));
 
-        $tables_tray = new XoopsFormElementTray(_AM_MAINTENANCE_CENTER_TABLES, ' ');
+        $tables_tray = new Xoops\Form\ElementTray(_AM_MAINTENANCE_CENTER_TABLES, ' ');
         $tables_tray->setDescription(_AM_MAINTENANCE_CENTER_TABLES_DESC);
-        $select_tables = new XoopsFormSelect('', "tables", '', 7, true);
+        $select_tables = new Xoops\Form\Select('', "tables", '', 7, true);
         $select_tables->addOptionArray($maintenance->displayTables(true));
         $tables_tray->addElement($select_tables, false);
-        $choice = new XoopsFormSelect('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . _AM_MAINTENANCE_AND . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', "maintenance", '', 4, true);
+        $choice = new Xoops\Form\Select('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . _AM_MAINTENANCE_AND . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', "maintenance", '', 4, true);
         $options = array(
             '1' => _AM_MAINTENANCE_CENTER_CHOICE1, '2' => _AM_MAINTENANCE_CENTER_CHOICE2,
             '3' => _AM_MAINTENANCE_CENTER_CHOICE3, '4' => _AM_MAINTENANCE_CENTER_CHOICE4
@@ -62,8 +62,8 @@ class MaintenanceMaintenanceForm extends XoopsThemeForm
         $tables_tray->addElement($choice, false);
         $this->addElement($tables_tray);
 
-        $this->addElement(new XoopsFormHidden("op", "maintenance_save"));
-        $this->addElement(new XoopsFormButton("", "maintenance_save", XoopsLocale::A_SUBMIT, "submit"));
+        $this->addElement(new Xoops\Form\Hidden("op", "maintenance_save"));
+        $this->addElement(new Xoops\Form\Button("", "maintenance_save", XoopsLocale::A_SUBMIT, "submit"));
     }
 
     /**
@@ -75,11 +75,11 @@ class MaintenanceMaintenanceForm extends XoopsThemeForm
         $maintenance = new Maintenance();
         parent::__construct('', "form_dump", "dump.php", 'post', true);
 
-        $dump_tray = new XoopsFormElementTray(_AM_MAINTENANCE_DUMP_TABLES_OR_MODULES, '');
-        $select_tables1 = new XoopsFormSelect('', "dump_tables", '', 7, true);
+        $dump_tray = new Xoops\Form\ElementTray(_AM_MAINTENANCE_DUMP_TABLES_OR_MODULES, '');
+        $select_tables1 = new Xoops\Form\Select('', "dump_tables", '', 7, true);
         $select_tables1->addOptionArray($maintenance->displayTables(true));
         $dump_tray->addElement($select_tables1, false);
-        $ele = new XoopsFormSelect('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . _AM_MAINTENANCE_OR . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', 'dump_modules', '', 7, true);
+        $ele = new Xoops\Form\Select('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . _AM_MAINTENANCE_OR . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', 'dump_modules', '', 7, true);
         $module_list = XoopsLists::getModulesList();
         $module_handler = $xoops->getHandlerModule();
         foreach ($module_list as $file) {
@@ -97,9 +97,9 @@ class MaintenanceMaintenanceForm extends XoopsThemeForm
         $dump_tray->addElement($ele);
         $this->addElement($dump_tray);
 
-        $this->addElement(new XoopsFormRadioYN(_AM_MAINTENANCE_DUMP_DROP, 'drop', 1));
+        $this->addElement(new Xoops\Form\RadioYesNo(_AM_MAINTENANCE_DUMP_DROP, 'drop', 1));
 
-        $this->addElement(new XoopsFormHidden("op", "dump_save"));
-        $this->addElement(new XoopsFormButton("", "dump_save", XoopsLocale::A_SUBMIT, "submit"));
+        $this->addElement(new Xoops\Form\Hidden("op", "dump_save"));
+        $this->addElement(new Xoops\Form\Button("", "dump_save", XoopsLocale::A_SUBMIT, "submit"));
     }
 }

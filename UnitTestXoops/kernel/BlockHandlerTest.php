@@ -41,19 +41,10 @@ class BlockHandlerTest extends MY_UnitTestCase
 		$value = $instance->get($bid);
         $this->assertEquals($bid,$value->bid());
         $value = $instance->deleteBlock($block);
-		$this->markTestSkipped('');
         $this->assertSame(true,$value);
 		$value = $instance->get($bid);
         $this->assertSame(null,$value);
     }
-	
-    public function test_bid()
-	{
-	}
-	
-    public function test_get()
-	{
-	}
 	
     public function test_deleteBlock()
 	{

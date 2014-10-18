@@ -58,8 +58,8 @@ if ($op == "del") {
     $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }
 
-$opform = new XoopsSimpleForm('', 'opform', 'permissions.php', "get");
-$op_select = new XoopsFormSelect("", 'op', $op);
+$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', "get");
+$op_select = new Xoops\Form\Select("", 'op', $op);
 $op_select->setExtra('onchange="document.forms.opform.submit()"');
 $op_select->addOption('visibility', _PROFILE_AM_PROF_VISIBLE);
 $op_select->addOption('edit', _PROFILE_AM_PROF_EDITABLE);
@@ -83,23 +83,23 @@ $xoops->tpl()->assign('fields', $fields);
 $xoops->tpl()->assign('visibilities', $visibilities);
 $xoops->tpl()->assign('groups', $groups);
 
-$add_form = new XoopsSimpleForm('', 'addform', 'visibility.php');
+$add_form = new Xoops\Form\SimpleForm('', 'addform', 'visibility.php');
 
-$sel_field = new XoopsFormSelect(_PROFILE_AM_FIELDVISIBLE, 'field_id');
+$sel_field = new Xoops\Form\Select(_PROFILE_AM_FIELDVISIBLE, 'field_id');
 $sel_field->setExtra("style='width: 200px;'");
 $sel_field->addOptionArray($fields);
 $add_form->addElement($sel_field);
 
-$sel_ug = new XoopsFormSelect(_PROFILE_AM_FIELDVISIBLEFOR, 'ug');
+$sel_ug = new Xoops\Form\Select(_PROFILE_AM_FIELDVISIBLEFOR, 'ug');
 $sel_ug->addOptionArray($groups);
 $add_form->addElement($sel_ug);
 
 unset($groups[XOOPS_GROUP_ANONYMOUS]);
-$sel_pg = new XoopsFormSelect(_PROFILE_AM_FIELDVISIBLEON, 'pg');
+$sel_pg = new Xoops\Form\Select(_PROFILE_AM_FIELDVISIBLEON, 'pg');
 $sel_pg->addOptionArray($groups);
 $add_form->addElement($sel_pg);
 
-$add_form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_ADD, 'submit'));
+$add_form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_ADD, 'submit'));
 $add_form->assign($xoops->tpl());
 
 $xoops->tpl()->display("admin:profile|visibility.tpl");

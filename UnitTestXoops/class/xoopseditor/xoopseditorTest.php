@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsEditorTest extends MY_UnitTestCase
+class XoopsEditorTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsEditor';
 
@@ -15,8 +15,8 @@ class XoopsEditorTest extends MY_UnitTestCase
 		$class = $this->myclass;
 		$instance = new $class();
 		$this->assertInstanceOf($class, $instance);
-		$this->assertInstanceOf('XoopsFormTextArea', $instance);
-		
+		$this->assertInstanceOf('Xoops\Form\TextArea', $instance);
+
 		$items = array('isEnabled', 'configs', 'rootPath');
 		foreach ($items as $item) {
 			$reflection = new ReflectionProperty($this->myclass, $item);

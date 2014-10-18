@@ -506,13 +506,12 @@ class XoopsMailer
         if (!$ashtml) {
             return $this->errors;
         } else {
+            $ret = "";
             if (!empty($this->errors)) {
                 $ret = "<h4>" . XoopsLocale::ERRORS . "</h4>";
                 foreach ($this->errors as $error) {
                     $ret .= $error . "<br />";
                 }
-            } else {
-                $ret = "";
             }
             return $ret;
         }
@@ -588,12 +587,12 @@ class XoopsMailer
      * @param XoopsUser|array $user
      * @return void
      */
-    public function setToUsers(XoopsUser $user)
+    public function setToUsers($users)
     {
-        if (!is_array($user)) {
-            array_push($this->toUsers, $user);
-        } else {
-            foreach ($user as $u) {
+        if (is_a($users,'XoopsUser')) {
+            array_push($this->toUsers, $users);
+        } elseif (is_array($users)) {
+            foreach ($users as $u) {
                 $this->setToUsers($u);
             }
         }
@@ -603,14 +602,15 @@ class XoopsMailer
      * @param XoopsGroup $group
      * @return void
      */
-    public function setToGroups(XoopsGroup $group)
+    public function setToGroups($groups)
     {
-        if (!is_array($group)) {
-            $this->setToUsers(Xoops::getInstance()->getHandlerMember()
-                    ->getUsersByGroup($group->getVar('groupid'), true));
+        if (is_a($groups,'XoopsGroup')) {
+            $this->setToUsers(Xoops::getInstance()
+                    ->getHandlerMember()
+                    ->getUsersByGroup($groups->getVar('groupid'), true));
 
-        } else {
-            foreach ($group as $g) {
+        } elseif (is_array($groups)) {
+            foreach ($groups as $g) {
                 $this->setToGroups($g);
             }
         }

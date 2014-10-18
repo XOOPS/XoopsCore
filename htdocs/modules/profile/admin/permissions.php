@@ -63,8 +63,8 @@ switch ($op) {
         break;
 }
 
-$opform = new XoopsSimpleForm('', 'opform', 'permissions.php', "get");
-$op_select = new XoopsFormSelect("", 'op', $op);
+$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', "get");
+$op_select = new Xoops\Form\Select("", 'op', $op);
 $op_select->setExtra('onchange="document.forms.opform.submit()"');
 $op_select->addOption('visibility', _PROFILE_AM_PROF_VISIBLE);
 $op_select->addOption('edit', _PROFILE_AM_PROF_EDITABLE);
@@ -74,7 +74,7 @@ $opform->addElement($op_select);
 $opform->display();
 
 $module_id = $xoops->module->getVar('mid');
-$form = new XoopsGroupPermForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php', $anonymous);
+$form = new Xoops\Form\GroupPermissionForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php', $anonymous);
 
 if ($op == "access") {
     $member_handler = $xoops->getHandlerMember();

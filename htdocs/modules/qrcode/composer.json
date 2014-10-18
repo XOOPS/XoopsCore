@@ -1,0 +1,10 @@
+{
+    "name": "xoops/qrcode",
+    "license": "GPL-2.0+",
+    "type": "xoops-module",
+    "description": "XOOPS extension to provide an QRCode service",
+    "require": {
+        "xoops/module-installer-plugin": "~1.0",
+        "endroid/qrcode": "1.2.*"
+    }
+}

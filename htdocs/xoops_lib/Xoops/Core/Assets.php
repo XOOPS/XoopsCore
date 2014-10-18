@@ -68,7 +68,7 @@ class Assets
         ),
         array(
             'name' => 'jqueryui',
-            'assets' => array('media/jquery/plugins/jquery.ui.js'),
+            'assets' => array('media/jquery/ui/jquery-ui.js'),
             'filters' => null,
         ),
         array(
@@ -126,10 +126,10 @@ class Assets
             $assets_prefs = \Xoops_Cache::read($this->assets_prefs_cache);
             $file = $xoops->path($this->assets_prefs_file);
             $mtime = filemtime($file);
-            if ($assets_prefs===false || !isset($assets_prefs['mtime'])
+            if ($assets_prefs===false || !isset($assets_prefs['mtime']) || !$mtime
                 || (isset($assets_prefs['mtime']) && $assets_prefs['mtime']<$mtime)) {
                 if ($mtime) {
-                    $assets_prefs = Yaml::read($xoops->path($file));
+                    $assets_prefs = Yaml::read($file);
                     if (!is_array($assets_prefs)) {
                         $xoops->logger()->error("Invalid config in system_assets_prefs.yml");
                         $assets_prefs = array();

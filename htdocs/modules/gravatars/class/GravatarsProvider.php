@@ -61,6 +61,19 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
     }
 
     /**
+     * getUserById - get a user object from a user id
+     *
+     * @param int $uid a user id
+     *
+     * @return object|null
+     */
+    private function getUserById($uid)
+    {
+        $user = \Xoops::getInstance()->getHandlerMember()->getUser((int) $uid);
+        return (is_object($user)) ? $user : null;
+    }
+
+    /**
      * getName - get a short name for this service provider. This should be unique within the
      * scope of the named service, so using module dirname is suggested.
      *
@@ -86,7 +99,8 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
      *
      * @param Response $response \Xoops\Core\Service\Response object
      * @param mixed    $userinfo XoopsUser object for user or
-     *                           array of user info, 'uid', 'uname' and 'email' required
+     *                           array     user info, 'uid', 'uname' and 'email' required
+     *                           int       user uid
      *
      * @return void - response->value set to absolute URL to avatar image
      */
@@ -104,6 +118,13 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
                 $response->setValue(self::getGravatar($userinfo['email']));
                 $noInfo = false;
             }
+        } elseif (is_scalar($userinfo)) {
+            $user = $this->getUserById((int) $userinfo);
+            if (is_object($user) && is_a($user, 'XoopsUser')) {
+                $email = $user->getVar('email', 'e');
+                $response->setValue(self::getGravatar($email));
+                $noInfo = false;
+            }
         }
         if ($noInfo) {
             $response->setSuccess(false)->addErrorMessage('User info is invalid');
@@ -113,20 +134,22 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response $response \Xoops\Core\Service\Response object
-     * @param mixed    $userinfo XoopsUser object for user or
-     *                           array of user info, 'uid', 'uname' and 'email' required
+     * @param Response   $response \Xoops\Core\Service\Response object
+     * @param \XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
-    public function getAvatarEditUrl($response, $userinfo)
+    public function getAvatarEditUrl($response, \XoopsUser $userinfo)
     {
         $noInfo = true;
-        if (is_a($userinfo, 'XoopsUser')) {
-            $email = $userinfo->getVar('email', 'e');
-            $link = 'http://www.gravatar.com/' . md5(strtolower(trim($email)));
-            $response->setValue($link);
-            $noInfo = false;
+
+        if (is_object($userinfo)) {
+            if (is_a($userinfo, 'XoopsUser')) {
+                $email = $userinfo->getVar('email', 'e');
+                $link = 'http://www.gravatar.com/' . md5(strtolower(trim($email)));
+                $response->setValue($link);
+                $noInfo = false;
+            }
         }
         if ($noInfo) {
             $response->setSuccess(false)->addErrorMessage('User info is invalid');

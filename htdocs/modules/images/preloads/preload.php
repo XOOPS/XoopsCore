@@ -30,7 +30,7 @@ class ImagesPreload extends PreloadItem
 
     public static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
     {
-        /* @var $dhtml XoopsFormDhtmlTextArea */
+        /* @var $dhtml Xoops\Form\DhtmlTextArea */
         $dhtml = $args[1];
         $args[0] .= "<img src='" . XOOPS_URL . "/images/image.gif' alt='" . XoopsLocale::INSIDE_IMAGE . "' title='" . XoopsLocale::INSIDE_IMAGE . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/images/imagemanager.php?target={$dhtml->getName()}\",\"imgmanager\",400,430);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }

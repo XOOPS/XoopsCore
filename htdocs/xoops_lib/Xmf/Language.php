@@ -47,16 +47,19 @@ class Language
      *
      * @param string $name     name of the language file
      * @param string $domain   domain or module supplying language file
-     * @param string $language laguage folder name
+     * @param string $language language folder name
      *
      * @return bool true if loaded, otherwise false
      */
     public static function load($name, $domain = '', $language = null)
     {
-        if (!isset($GLOBALS['xoopsConfig']) && empty($language)) {
-            $language = 'english';
+        if (empty($language)) {
+            if (!empty($GLOBALS['xoopsConfig']['language'])) {
+                $language = $GLOBALS['xoopsConfig']['language'];
+            } else {
+                $language = 'english';
+            }
         }
-        $language = empty($language) ? $GLOBALS['xoopsConfig']['language'] : $language;
         $path = XOOPS_ROOT_PATH . '/' . ((empty($domain) || 'global' == $domain) ? ''
             : "modules/{$domain}/") . 'language';
         if (!$ret = Loader::loadFile("{$path}/{$language}/{$name}.php")) {

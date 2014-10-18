@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once (dirname(__FILE__).'/../../../../init_mini.php');
 
 use Xoops\Core\Service\NullProvider;
 use Xoops\Core\Service\Manager;
@@ -9,6 +9,7 @@ use Xoops\Core\Service\Manager;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
+
 class NullProviderTest extends MY_UnitTestCase
 {
 	protected $myClass = 'Xoops\Core\Service\NullProvider';
@@ -16,7 +17,7 @@ class NullProviderTest extends MY_UnitTestCase
 	function test___construct()
 	{
 		$manager = Manager::getInstance();
-		$service = 'service';
+		$service = 'Avatars';
 		$instance = new $this->myClass($manager, $service);
 		$this->assertInstanceOf($this->myClass, $instance);
 
@@ -24,28 +25,46 @@ class NullProviderTest extends MY_UnitTestCase
 	
 	function test___set()
 	{
-        $this->markTestIncomplete();
+		$manager = Manager::getInstance();
+		$service = 'Avatars';
+		$instance = new $this->myClass($manager, $service);
+		
+		$instance->proterty = 'property';
 	}
 	
 	function test___get()
 	{
-        $this->markTestIncomplete();
+		$manager = Manager::getInstance();
+		$service = 'Avatars';
+		$instance = new $this->myClass($manager, $service);
+		
+		$value = $instance->proterty;
+		$this->assertSame(null,$value);
 	}
 
 	function test___isset()
 	{
-        $this->markTestIncomplete();
+		$manager = Manager::getInstance();
+		$service = 'Avatars';
+		$instance = new $this->myClass($manager, $service);
+		
+		$value = isset($instance->proterty);
+		$this->assertSame(false,$value);
 	}
 	
 	function test___unset()
 	{
-        $this->markTestIncomplete();
+		$manager = Manager::getInstance();
+		$service = 'Avatars';
+		$instance = new $this->myClass($manager, $service);
+		
+		unset($instance->proterty);
 	}
 	
 	function test___call()
 	{
 		$manager = Manager::getInstance();
-		$service = 'service';
+		$service = 'Avatars';
 		$instance = new $this->myClass($manager, $service);
 		$this->assertInstanceOf($this->myClass, $instance);
 		

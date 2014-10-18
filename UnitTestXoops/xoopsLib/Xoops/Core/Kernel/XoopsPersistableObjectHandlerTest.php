@@ -1,6 +1,9 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../init.php');
 
+use Doctrine\DBAL\Query\QueryBuilder;
+use Xoops\Core\Kernel\Criteria;
+
 class XoopsPersistableObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsPersistableObjectHandler
 {
     function __construct(
@@ -80,16 +83,16 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     
     public function test_insert()
 	{
-        $instance=new $this->myClass($this->conn);
+        $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
 		$obj=new XoopsGroup();
 		$obj->setDirty();
         $value=$instance->insert($obj);
-        $this->assertSame(false,$value);
+        $this->assertSame('',$value);
     }
     
     public function test_delete()
 	{
-        $instance=new $this->myClass($this->conn);
+        $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
 		$obj=new XoopsGroup();
         $value=$instance->delete($obj);
         $this->assertSame(false,$value);
@@ -97,16 +100,18 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     
     public function test_deleteAll()
 	{
-        $instance=new $this->myClass($this->conn);
-        $value=$instance->deleteAll();
-        $this->assertSame(false,$value);
+        $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
+		$criteria = new Criteria('dummy_field');
+        $value=$instance->deleteAll($criteria);
+        $this->assertSame(0,$value);
     }
     
     public function test_updateAll()
 	{
         $instance=new $this->myClass($this->conn);
-        $value=$instance->updateAll('name','value');
-        $this->assertSame(false,$value);
+		$criteria = new Criteria('dummy_field');
+        $value=$instance->updateAll('name','value',$criteria);
+        $this->assertSame(0,$value);
     }
     
     public function test_getObjects()
@@ -218,8 +223,8 @@ class XoopsPersistableObjectHandlerTest extends MY_UnitTestCase
     public function test_synchronization()
 	{
         $instance=new $this->myClass($this->conn, 'groups', 'XoopsGroup', 'groupid', 'name');
-        $value=$instance->synchronization();
-        $this->assertSame(false,$value);
+        $value=$instance->synchronization($this->conn->prefix('group_permission'),'gperm_groupid','groupid');
+        $this->assertSame(0,$value);
     }
 
 }

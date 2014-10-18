@@ -45,16 +45,16 @@ echo '<a href="?id=12&string=I love you&bool=everythingsistrue&order=DESC">Good 
 echo ' - <a href="?id=test&order=DESCENDING">Bad uri</a>';
 
 // Form
-$form = new XoopsSimpleForm('', 'form_id', 'request.php?id=666', true);
+$form = new Xoops\Form\SimpleForm('', 'form_id', 'request.php?id=666', true);
 $form->setExtra('enctype="multipart/form-data"');
 
-$code = new XoopsFormText('String', 'string', 2, 25, '','string...');
+$code = new Xoops\Form\Text('String', 'string', 2, 25, '', 'string...');
 $code->setDescription('Description text');
 $code->setPattern('^.{3,}$', 'You need at least 3 characters');
 $code->setDatalist(array('list 1','list 2','list 3'));
 $form->addElement($code, true);
 
-$select = new XoopsFormSelect('Select', 'id', '', 1, false);
+$select = new Xoops\Form\Select('Select', 'id', '', 1, false);
 $select->addOption(1, 'Select 1');
 $select->addOption(2, 'Select 2');
 $select->addOption('somebad id here', 'Select with bad id');
@@ -62,13 +62,13 @@ $select->setDescription('Description Select');
 $select->setClass('span2');
 $form->addElement($select, true);
 
-$file = new XoopsFormFile('File', 'file_identifier', 500000);
+$file = new Xoops\Form\File('File', 'file_identifier');
 $file->setDescription('Description File');
 $form->addElement($file, true);
 
-$button = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
 $form->addElement($button);
 $form->display();
 
-Xoops_Utils::dumpFile(__FILE__ );
+Xoops_Utils::dumpFile(__FILE__);
 $xoops->footer();

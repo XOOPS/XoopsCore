@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-class ProfileRegstepForm extends XoopsThemeForm
+class ProfileRegstepForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param ProfileRegstep|XoopsObject $obj
@@ -25,16 +25,16 @@ class ProfileRegstepForm extends XoopsThemeForm
     {
         parent::__construct(_PROFILE_AM_STEP, 'stepform', 'step.php', 'post', true);
         if (!$obj->isNew()) {
-            $this->addElement(new XoopsFormHidden('id', $obj->getVar('step_id')));
+            $this->addElement(new Xoops\Form\Hidden('id', $obj->getVar('step_id')));
         }
-        $this->addElement(new XoopsFormHidden('op', 'save'));
-        $this->addElement(new XoopsFormText(_PROFILE_AM_STEPNAME, 'step_name', 5, 255, $obj->getVar('step_name', 'e')), true);
-        $this->addElement(new XoopsFormText(_PROFILE_AM_STEPINTRO, 'step_desc', 5, 255, $obj->getVar('step_desc', 'e')));
-        $order = new XoopsFormText(_PROFILE_AM_STEPORDER, 'step_order', 1, 10, $obj->getVar('step_order', 'e'), '');
+        $this->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $this->addElement(new Xoops\Form\Text(_PROFILE_AM_STEPNAME, 'step_name', 5, 255, $obj->getVar('step_name', 'e')), true);
+        $this->addElement(new Xoops\Form\Text(_PROFILE_AM_STEPINTRO, 'step_desc', 5, 255, $obj->getVar('step_desc', 'e')));
+        $order = new Xoops\Form\Text(_PROFILE_AM_STEPORDER, 'step_order', 1, 10, $obj->getVar('step_order', 'e'), '');
         $order->setPattern('^\d+$', _PROFILE_AM_ERROR_WEIGHT);
         $this->addElement($order, true);
 
-        $this->addElement(new XoopsFormRadioYN(_PROFILE_AM_STEPSAVE, 'step_save', $obj->getVar('step_save', 'e')));
-        $this->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit', 'btn primary formButton'));
+        $this->addElement(new Xoops\Form\RadioYesNo(_PROFILE_AM_STEPSAVE, 'step_save', $obj->getVar('step_save', 'e')));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

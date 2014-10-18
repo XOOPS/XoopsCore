@@ -110,9 +110,9 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
         echo XoopsLocale::S_YOU_ARE_NOW_REGISTERED . ' ' . XoopsLocale::EMAIL_HAS_BEEN_SENT_WITH_ACTIVATION_KEY;
     }
 } else {
-    $form = new XoopsThemeForm('', 'form', 'activate.php');
-    $form->addElement(new XoopsFormText(XoopsLocale::EMAIL, 'email', 25, 255));
-    $form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+    $form = new Xoops\Form\ThemeForm('', 'form', 'activate.php');
+    $form->addElement(new Xoops\Form\Text(XoopsLocale::EMAIL, 'email', 25, 255));
+    $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     $form->display();
 }
 

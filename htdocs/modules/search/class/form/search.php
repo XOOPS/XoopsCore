@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-class SearchSearchForm extends XoopsThemeForm
+class SearchSearchForm extends Xoops\Form\ThemeForm
 {
     /**
      * We are not using this for objects but we need to override the constructor
@@ -35,16 +35,16 @@ class SearchSearchForm extends XoopsThemeForm
         parent::__construct(_MD_SEARCH, 'search', 'index.php', 'get');
 
         // create form elements
-        $this->addElement(new XoopsFormText(_MD_SEARCH_KEYWORDS, 'query', 30, 255, htmlspecialchars(stripslashes(implode(' ', $queries)), ENT_QUOTES)), true);
-        $type_select = new XoopsFormSelect(_MD_SEARCH_TYPE, 'andor', $andor);
+        $this->addElement(new Xoops\Form\Text(_MD_SEARCH_KEYWORDS, 'query', 30, 255, htmlspecialchars(stripslashes(implode(' ', $queries)), ENT_QUOTES)), true);
+        $type_select = new Xoops\Form\Select(_MD_SEARCH_TYPE, 'andor', $andor);
         $type_select->addOptionArray(array(
             'AND' => _MD_SEARCH_ALL, 'OR' => _MD_SEARCH_ANY, 'exact' => _MD_SEARCH_EXACT
         ));
         $this->addElement($type_select);
         if (!empty($mids)) {
-            $mods_checkbox = new XoopsFormCheckBox(_MD_SEARCH_SEARCHIN, 'mids[]', $mids);
+            $mods_checkbox = new Xoops\Form\Checkbox(_MD_SEARCH_SEARCHIN, 'mids[]', $mids);
         } else {
-            $mods_checkbox = new XoopsFormCheckBox(_MD_SEARCH_SEARCHIN, 'mids[]', $mid);
+            $mods_checkbox = new Xoops\Form\Checkbox(_MD_SEARCH_SEARCHIN, 'mids[]', $mid);
         }
         if (empty($modules)) {
             $gperm_handler = $xoops->getHandlerGroupperm();
@@ -69,11 +69,11 @@ class SearchSearchForm extends XoopsThemeForm
         }
         $this->addElement($mods_checkbox);
         if ($search->getConfig('keyword_min') > 0) {
-            $this->addElement(new XoopsFormLabel(_MD_SEARCH_SEARCHRULE, sprintf(_MD_SEARCH_KEYIGNORE, $search->getConfig('keyword_min'))));
+            $this->addElement(new Xoops\Form\Label(_MD_SEARCH_SEARCHRULE, sprintf(_MD_SEARCH_KEYIGNORE, $search->getConfig('keyword_min'))));
         }
-        $this->addElement(new XoopsFormHidden('action', 'results'));
-        $this->addElement(new XoopsFormHiddenToken('id'));
-        $this->addElement(new XoopsFormButton('', 'submit', _MD_SEARCH, 'submit'));
+        $this->addElement(new Xoops\Form\Hidden('action', 'results'));
+        $this->addElement(new Xoops\Form\Token('id'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', _MD_SEARCH, 'submit'));
         return $this;
     }
 }

@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,19 +9,23 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 class ThemeSetDescriptionHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetDescriptionHandler';
-
-    public function test___construct()
+    protected $object = null;
+    
+    public function setUp()
     {
 		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+		$this->object = new $this->myclass($input);
+    }
+    
+    public function test___construct()
+    {
+        $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
     public function test_getName()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = $instance->getName();
 		$this->assertSame('description', $name);
@@ -31,10 +33,30 @@ class ThemeSetDescriptionHandlerTest extends MY_UnitTestCase
 	
     public function test_handleCharacterData()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
-		//$instance->handleCharacterData($parser, $data);
-		$this->markTestIncomplete();
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $parser->tags = array('template','template');
+        $data = 'description';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame($data, $parser->getTempArr('description'));
+        
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $parser->tags = array('image','image');
+        $data = 'description';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame($data, $parser->getTempArr('description'));
+        
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $parser->tags = array('dummy','dummy');
+        $data = 'description';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame(false, $parser->getTempArr('description'));
 	}
 }

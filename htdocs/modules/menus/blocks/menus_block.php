@@ -10,12 +10,11 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @copyright       2012-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL V2 or later http://www.gnu.org/licenses/gpl-2.0.html
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
@@ -154,8 +153,8 @@ function menus_block_edit($options)
     }
 
     //Menu
-    $form = new XoopsBlockForm();
-    $element = new XoopsFormSelect(_MB_MENUS_SELECT_MENU, 'options[0]', $options[0], 1);
+    $form = new Xoops\Form\BlockForm();
+    $element = new Xoops\Form\Select(_MB_MENUS_SELECT_MENU, 'options[0]', $options[0], 1);
     $element->addOptionArray($menus);
     $element->setDescription(_MB_MENUS_SELECT_MENU_DSC);
     $form->addElement($element);
@@ -168,13 +167,13 @@ function menus_block_edit($options)
             $skins_options[$skin] = $skin;
         }
     }
-    $element = new XoopsFormSelect(_MB_MENUS_SELECT_SKIN, 'options[1]', $options[1], 1);
+    $element = new Xoops\Form\Select(_MB_MENUS_SELECT_SKIN, 'options[1]', $options[1], 1);
     $element->addOptionArray($skins_options);
     $element->setDescription(_MB_MENUS_SELECT_SKIN_DSC);
     $form->addElement($element);
 
     //Use skin from,theme
-    $element = new XoopsFormRadioYN(_MB_MENUS_USE_THEME_SKIN, 'options[2]', $options[2]);
+    $element = new Xoops\Form\RadioYesNo(_MB_MENUS_USE_THEME_SKIN, 'options[2]', $options[2]);
     $element->setDescription(_MB_MENUS_USE_THEME_SKIN_DSC);
     $form->addElement($element);
 
@@ -183,13 +182,13 @@ function menus_block_edit($options)
         'block'    => _MB_MENUS_DISPLAY_METHOD_BLOCK,
         'template' => _MB_MENUS_DISPLAY_METHOD_TEMPLATE
     );
-    $element = new XoopsFormSelect(_MB_MENUS_DISPLAY_METHOD, 'options[3]', $options[3], 1);
+    $element = new Xoops\Form\Select(_MB_MENUS_DISPLAY_METHOD, 'options[3]', $options[3], 1);
     $element->addOptionArray($display_options);
     $element->setDescription(sprintf(_MB_MENUS_DISPLAY_METHOD_DSC, $options[4]));
     $form->addElement($element);
 
     //Unique ID
-    $element = new XoopsFormText(_MB_MENUS_UNIQUEID, 'options[4]', 2, 20, $options[4]);
+    $element = new Xoops\Form\Text(_MB_MENUS_UNIQUEID, 'options[4]', 2, 20, $options[4]);
     $element->setDescription(_MB_MENUS_UNIQUEID_DSC);
     $form->addElement($element);
 

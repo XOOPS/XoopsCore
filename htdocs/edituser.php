@@ -134,85 +134,85 @@ if ($op == 'editprofile') {
     $xoops->header('system_edituser.html');
     $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
     $xoops->tpl()->assign('editprofile', true);
-    $form = new XoopsThemeForm(XoopsLocale::EDIT_PROFILE, 'userinfo', 'edituser.php', 'post', true);
-    $uname_label = new XoopsFormLabel(XoopsLocale::USERNAME, $xoops->user->getVar('uname'));
+    $form = new Xoops\Form\ThemeForm(XoopsLocale::EDIT_PROFILE, 'userinfo', 'edituser.php', 'post', true);
+    $uname_label = new Xoops\Form\Label(XoopsLocale::USERNAME, $xoops->user->getVar('uname'));
     $form->addElement($uname_label);
-    $name_text = new XoopsFormText(XoopsLocale::REAL_NAME, 'name', 30, 60, $xoops->user->getVar('name', 'E'));
+    $name_text = new Xoops\Form\Text(XoopsLocale::REAL_NAME, 'name', 30, 60, $xoops->user->getVar('name', 'E'));
     $form->addElement($name_text);
-    $email_tray = new XoopsFormElementTray(XoopsLocale::EMAIL, '<br />');
+    $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
     if ($xoops->getConfig('allow_chgmail') == 1) {
-        $email_text = new XoopsFormText('', 'email', 30, 60, $xoops->user->getVar('email'));
+        $email_text = new Xoops\Form\Text('', 'email', 30, 60, $xoops->user->getVar('email'));
     } else {
-        $email_text = new XoopsFormLabel('', $xoops->user->getVar('email'));
+        $email_text = new Xoops\Form\Label('', $xoops->user->getVar('email'));
     }
     $email_tray->addElement($email_text);
     $email_cbox_value = $xoops->user->user_viewemail() ? 1 : 0;
-    $email_cbox = new XoopsFormCheckBox('', 'user_viewemail', $email_cbox_value);
+    $email_cbox = new Xoops\Form\Checkbox('', 'user_viewemail', $email_cbox_value);
     $email_cbox->addOption(1, XoopsLocale::ALLOW_OTHER_USERS_TO_VIEW_EMAIL);
     $email_tray->addElement($email_cbox);
     $form->addElement($email_tray);
-    $url_text = new XoopsFormText(XoopsLocale::WEBSITE, 'url', 30, 100, $xoops->user->getVar('url', 'E'));
+    $url_text = new Xoops\Form\Text(XoopsLocale::WEBSITE, 'url', 30, 100, $xoops->user->getVar('url', 'E'));
     $form->addElement($url_text);
 
-    $timezone_select = new XoopsFormSelectTimezone(
+    $timezone_select = new Xoops\Form\SelectTimeZone(
         XoopsLocale::TIME_ZONE,
         'timezone_offset',
         $xoops->user->getVar('timezone_offset')
     );
-    $icq_text = new XoopsFormText(XoopsLocale::ICQ, 'user_icq', 15, 15, $xoops->user->getVar('user_icq', 'E'));
-    $aim_text = new XoopsFormText(XoopsLocale::AIM, 'user_aim', 18, 18, $xoops->user->getVar('user_aim', 'E'));
-    $yim_text = new XoopsFormText(XoopsLocale::YIM, 'user_yim', 25, 25, $xoops->user->getVar('user_yim', 'E'));
-    $msnm_text = new XoopsFormText(XoopsLocale::MSNM, 'user_msnm', 30, 100, $xoops->user->getVar('user_msnm', 'E'));
-    $location_text = new XoopsFormText(
+    $icq_text = new Xoops\Form\Text(XoopsLocale::ICQ, 'user_icq', 15, 15, $xoops->user->getVar('user_icq', 'E'));
+    $aim_text = new Xoops\Form\Text(XoopsLocale::AIM, 'user_aim', 18, 18, $xoops->user->getVar('user_aim', 'E'));
+    $yim_text = new Xoops\Form\Text(XoopsLocale::YIM, 'user_yim', 25, 25, $xoops->user->getVar('user_yim', 'E'));
+    $msnm_text = new Xoops\Form\Text(XoopsLocale::MSNM, 'user_msnm', 30, 100, $xoops->user->getVar('user_msnm', 'E'));
+    $location_text = new Xoops\Form\Text(
         XoopsLocale::LOCATION,
         'user_from',
         30,
         100,
         $xoops->user->getVar('user_from', 'E')
     );
-    $occupation_text = new XoopsFormText(
+    $occupation_text = new Xoops\Form\Text(
         XoopsLocale::OCCUPATION,
         'user_occ',
         30,
         100,
         $xoops->user->getVar('user_occ', 'E')
     );
-    $interest_text = new XoopsFormText(
+    $interest_text = new Xoops\Form\Text(
         XoopsLocale::INTEREST,
         'user_intrest',
         30,
         150,
         $xoops->user->getVar('user_intrest', 'E')
     );
-    $sig_tray = new XoopsFormElementTray(XoopsLocale::SIGNATURE, '<br />');
-    $sig_tarea = new XoopsFormDhtmlTextArea('', 'user_sig', $xoops->user->getVar('user_sig', 'E'));
+    $sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, '<br />');
+    $sig_tarea = new Xoops\Form\DhtmlTextArea('', 'user_sig', $xoops->user->getVar('user_sig', 'E'));
     $sig_tray->addElement($sig_tarea);
     $sig_cbox_value = $xoops->user->getVar('attachsig') ? 1 : 0;
-    $sig_cbox = new XoopsFormCheckBox('', 'attachsig', $sig_cbox_value);
+    $sig_cbox = new Xoops\Form\Checkbox('', 'attachsig', $sig_cbox_value);
     $sig_cbox->addOption(1, XoopsLocale::ALWAYS_ATTACH_MY_SIGNATURE);
     $sig_tray->addElement($sig_cbox);
-    $bio_tarea = new XoopsFormTextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
+    $bio_tarea = new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
     $cookie_radio_value = empty($_COOKIE[$xoops->getConfig('usercookie')]) ? 0 : 1;
-    $cookie_radio = new XoopsFormRadioYN(
+    $cookie_radio = new Xoops\Form\RadioYesNo(
         XoopsLocale::STORE_USERNAME_IN_COOKIE_FOR_ONE_YEAR,
         'usecookie',
         $cookie_radio_value
     );
-    $pwd_text = new XoopsFormPassword('', 'password', 10, 32);
-    $pwd_text2 = new XoopsFormPassword('', 'vpass', 10, 32);
-    $pwd_tray = new XoopsFormElementTray(
+    $pwd_text = new Xoops\Form\Password('', 'password', 10, 32);
+    $pwd_text2 = new Xoops\Form\Password('', 'vpass', 10, 32);
+    $pwd_tray = new Xoops\Form\ElementTray(
         XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT
     );
     $pwd_tray->addElement($pwd_text);
     $pwd_tray->addElement($pwd_text2);
-    $mailok_radio = new XoopsFormRadioYN(
+    $mailok_radio = new Xoops\Form\RadioYesNo(
         XoopsLocale::Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS,
         'user_mailok',
         $xoops->user->getVar('user_mailok')
     );
-    $uid_hidden = new XoopsFormHidden('uid', $xoops->user->getVar('uid'));
-    $op_hidden = new XoopsFormHidden('op', 'saveuser');
-    $submit_button = new XoopsFormButton('', 'submit', XoopsLocale::SAVE_CHANGES, 'submit');
+    $uid_hidden = new Xoops\Form\Hidden('uid', $xoops->user->getVar('uid'));
+    $op_hidden = new Xoops\Form\Hidden('op', 'saveuser');
+    $submit_button = new Xoops\Form\Button('', 'submit', XoopsLocale::SAVE_CHANGES, 'submit');
 
     $form->addElement($timezone_select);
     $form->addElement($icq_text);

@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Blocks functions
  *
@@ -75,7 +78,6 @@ function b_system_main_edit($options)
     // Define Stylesheet
     $xoops->theme()->addStylesheet('media/xoops/css/icons.css');
     $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-    $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
     // Define scripts
     $xoops->theme()->addScript('media/jquery/plugins/jquery.jeditable.js');
     $xoops->theme()->addScript('modules/system/js/module.js');

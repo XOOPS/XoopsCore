@@ -163,7 +163,7 @@ class Provisioning
     /**
      * Add a new user to the system
      *
-     * @param string  $data  data
+     * @param string $data  data
      * @param string $uname username
      * @param string $pwd   password
      *
@@ -184,6 +184,7 @@ class Provisioning
         $newuser->setVar('theme', $xoops->getConfig('theme_set'));
         //$newuser->setVar('umode', $xoops->getConfig('com_mode'));
         //$newuser->setVar('uorder', $xoops->getConfig('com_order'));
+        $newuser->setVar('user_regdate', time());
         $this->setVarsMapping($newuser, $data);
 
         if ($member_handler->insertUser($newuser)) {
@@ -205,8 +206,8 @@ class Provisioning
      *
      * @param \XoopsUser $xoopsUser user object
      * @param string     $data      data
-     * @param string    $uname     username
-     * @param string    $pwd       password
+     * @param string     $uname     username
+     * @param string     $pwd       password
      *
      * @return bool|XoopsUser
      */

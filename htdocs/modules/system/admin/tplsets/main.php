@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Template sets Manager
  *
@@ -61,9 +64,9 @@ switch ($op) {
 
         $xoops->tpl()->assign('index', true);
 
-        $form = new XoopsThemeForm(SystemLocale::TEMPLATE_OVERLOADED, "form", 'admin.php?fct=tplsets', "post", true);
+        $form = new Xoops\Form\ThemeForm(SystemLocale::TEMPLATE_OVERLOADED, "form", 'admin.php?fct=tplsets', "post", true);
 
-        $ele = new XoopsFormSelect(SystemLocale::CHOOSE_TEMPLATE, 'tplset', $xoops->getConfig('tplset'));
+        $ele = new Xoops\Form\Select(SystemLocale::CHOOSE_TEMPLATE, 'tplset', $xoops->getConfig('tplset'));
         $tplset_handler = $xoops->getHandlerTplset();
         $tplsetlist = $tplset_handler->getNameList();
         asort($tplsetlist);
@@ -71,10 +74,10 @@ switch ($op) {
             $ele->addOption($key, $name);
         }
         $form->addElement($ele);
-        $form->addElement(new XoopsFormSelectTheme(XoopsLocale::SELECT_THEME, 'select_theme', 1, 5), true);
-        $form->addElement(new XoopsFormRadioYN(SystemLocale::FORCED_FILE_GENERATION, 'force_generated', 0), true);
+        $form->addElement(new Xoops\Form\SelectTheme(XoopsLocale::SELECT_THEME, 'select_theme', 1, 5), true);
+        $form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::FORCED_FILE_GENERATION, 'force_generated', 0), true);
 
-        $modules = new XoopsFormSelect(XoopsLocale::SELECT_MODULE, 'select_modules');
+        $modules = new Xoops\Form\Select(XoopsLocale::SELECT_MODULE, 'select_modules');
 
         $module_handler = $xoops->getHandlerModule();
         $criteria = new CriteriaCompo(new Criteria('isactive', 1));
@@ -83,10 +86,10 @@ switch ($op) {
         $modules->addOptionArray($moduleslist);
         $form->addElement($modules, true);
 
-        $form->addElement(new XoopsFormHidden("active_templates", "0"));
-        $form->addElement(new XoopsFormHidden("active_modules", "0"));
-        $form->addElement(new XoopsFormHidden("op", "tpls_overload"));
-        $form->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
+        $form->addElement(new Xoops\Form\Hidden("active_templates", "0"));
+        $form->addElement(new Xoops\Form\Hidden("active_modules", "0"));
+        $form->addElement(new Xoops\Form\Hidden("op", "tpls_overload"));
+        $form->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
         $form->display();
         break;
 
@@ -327,24 +330,24 @@ switch ($op) {
 
             $tplset = $system->cleanVars($POST, 'tplset', 'default', 'string');
 
-            $form = new XoopsThemeForm(XoopsLocale::SELECT_TEMPLATES, "form", 'admin.php?fct=tplsets', "post", true);
+            $form = new Xoops\Form\ThemeForm(XoopsLocale::SELECT_TEMPLATES, "form", 'admin.php?fct=tplsets', "post", true);
 
             $tpltpl_handler = $xoops->getHandlerTplfile();
             $templates_arr = $tpltpl_handler->find($tplset, '', null, $_REQUEST['select_modules']);
 
-            $modules = new XoopsFormSelect(XoopsLocale::SELECT_TEMPLATES, 'select_templates_modules', null, 10, true);
+            $modules = new Xoops\Form\Select(XoopsLocale::SELECT_TEMPLATES, 'select_templates_modules', null, 10, true);
             foreach (array_keys($templates_arr) as $i) {
                 $modules->addOption($templates_arr[$i]->getVar('tpl_file'));
             }
             $form->addElement($modules);
 
-            $form->addElement(new XoopsFormHidden("active_templates", "1"));
-            $form->addElement(new XoopsFormHidden("force_generated", $_REQUEST['force_generated']));
-            $form->addElement(new XoopsFormHidden("select_modules", $_REQUEST['select_modules']));
-            $form->addElement(new XoopsFormHidden("active_modules", "1"));
-            $form->addElement(new XoopsFormHidden("select_theme", $_REQUEST['select_theme']));
-            $form->addElement(new XoopsFormHidden("op", "tpls_overload"));
-            $form->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
+            $form->addElement(new Xoops\Form\Hidden("active_templates", "1"));
+            $form->addElement(new Xoops\Form\Hidden("force_generated", $_REQUEST['force_generated']));
+            $form->addElement(new Xoops\Form\Hidden("select_modules", $_REQUEST['select_modules']));
+            $form->addElement(new Xoops\Form\Hidden("active_modules", "1"));
+            $form->addElement(new Xoops\Form\Hidden("select_theme", $_REQUEST['select_theme']));
+            $form->addElement(new Xoops\Form\Hidden("op", "tpls_overload"));
+            $form->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
             $xoops->tpl()->assign('form', $form->render());
         }
         break;

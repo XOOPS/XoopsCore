@@ -230,7 +230,8 @@ class Security
     }
 
     /**
-     * Get the HTML code for a XoopsFormHiddenToken object - used in forms that do not use XoopsForm elements
+     * Get the HTML code for a Xoops\Form\Token object - provides a hidden token field
+     * used in forms that do not use Xoops\Form elements
      *
      * @param string $name session token name
      *
@@ -238,7 +239,7 @@ class Security
      */
     public function getTokenHTML($name = 'XOOPS_TOKEN')
     {
-        $token = new \XoopsFormHiddenToken($name);
+        $token = new \Xoops\Form\Token($name);
         return $token->render();
     }
 

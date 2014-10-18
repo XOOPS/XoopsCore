@@ -70,9 +70,9 @@ class Xoops_Cache
     /**
      * Whether to reset the settings with the next call to Cache::set();
      *
-     * @var array
+     * @var boolean
      */
-    protected static $_reset = false;
+    protected static $_resetNextCall = false;
 
     /**
      * Engine instances keyed by configuration name.
@@ -231,12 +231,12 @@ class Xoops_Cache
             return false;
         }
         if (!empty($settings)) {
-            self::$_reset = true;
+            self::$_resetNextCall = true;
         }
 
-        if (self::$_reset === true) {
+        if (self::$_resetNextCall === true) {
             if (empty($settings)) {
-                self::$_reset = false;
+                self::$_resetNextCall = false;
                 $settings = self::$_config[$config];
             } else {
                 if (is_string($settings) && $value !== null) {

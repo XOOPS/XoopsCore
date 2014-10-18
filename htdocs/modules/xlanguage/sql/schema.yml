@@ -1,0 +1,111 @@
+tables:
+    xlanguage:
+        options: {  }
+        columns:
+            xlanguage_id:
+                name: xlanguage_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            xlanguage_name:
+                name: xlanguage_name
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            xlanguage_description:
+                name: xlanguage_description
+                type: string
+                default: null
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            xlanguage_code:
+                name: xlanguage_code
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            xlanguage_charset:
+                name: xlanguage_charset
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            xlanguage_image:
+                name: xlanguage_image
+                type: string
+                default: noflag.gif
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            xlanguage_weight:
+                name: xlanguage_weight
+                type: smallint
+                default: '1'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [xlanguage_id]
+                unique: true
+                primary: true
+            xlanguage_name:
+                name: xlanguage_name
+                columns: [xlanguage_name]
+                unique: false
+                primary: false
+            xlanguage_weight:
+                name: xlanguage_weight
+                columns: [xlanguage_weight]
+                unique: false
+                primary: false

@@ -41,8 +41,11 @@ class Xoops_Locale
         } else {
             $path = (is_array($domain)) ? array_shift($domain) : "modules/{$domain}";
         }
-        if (!$ret = XoopsLoad::loadFile("{$path}/language/{$language}/{$name}.php")) {
-            $ret = XoopsLoad::loadFile("{$path}/language/english/{$name}.php");
+        $xoops = Xoops::getInstance();
+        $fullPath = $xoops->path("{$path}/language/{$language}/{$name}.php");
+        if (!$ret = XoopsLoad::loadFile($fullPath)) {
+            $fullPath2 = $xoops->path("{$path}/language/english/{$name}.php");
+            $ret = XoopsLoad::loadFile($fullPath2);
         }
         return $ret;
     }
@@ -66,17 +69,16 @@ class Xoops_Locale
             $fullPath = $xoops->path("{$path}/locale/{$locale}/locale.php");
             $fullPath2 = $xoops->path("{$path}/locale/{$locale}/{$locale}.php");
             if (XoopsLoad::fileExists($fullPath)) {
-                XoopsLoad::addMap(array(strtolower($domain . "locale{$locale}") => $fullPath2));
                 XoopsLoad::addMap(array($domain . 'locale' => $fullPath));
+                if (XoopsLoad::fileExists($fullPath2)) {                
+                    XoopsLoad::addMap(array(strtolower($domain . "locale{$locale}") => $fullPath2));
+                }
                 return true;
             }
         }
         return false;
     }
 
-    /**
-     * @return bool
-     */
     /**
      * @param XoopsTheme $theme
      *
@@ -90,8 +92,10 @@ class Xoops_Locale
             $fullPath = $xoops->path($theme->resourcePath("locale/{$locale}/locale.php"));
             $fullPath2 = $xoops->path($theme->resourcePath("locale/{$locale}/{$locale}.php"));
             if (XoopsLoad::fileExists($fullPath)) {
-                XoopsLoad::addMap(array(strtolower($theme->folderName . "ThemeLocale{$locale}") => $fullPath2));
                 XoopsLoad::addMap(array(strtolower($theme->folderName . 'ThemeLocale') => $fullPath));
+                if (XoopsLoad::fileExists($fullPath2)) {                
+                    XoopsLoad::addMap(array(strtolower($theme->folderName . "ThemeLocale{$locale}") => $fullPath2));
+                }
                 return true;
             }
         }

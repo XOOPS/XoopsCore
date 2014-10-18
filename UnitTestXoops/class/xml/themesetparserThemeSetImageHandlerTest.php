@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,40 +9,51 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 class ThemeSetImageHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetImageHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new $this->myclass($input);
+    }
 
     public function test___construct()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 	
     public function test_getName()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
-		
+        $instance = $this->object;	
+
 		$name = $instance->getName();
 		$this->assertSame('image', $name);
 	}
 	
     public function test_handleBeginElement()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
-		
-		//$instance->handleBeginElement();
-		$this->markTestIncomplete();
+        $instance = $this->object;
+
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $attributes = array('name' => 'name');
+		$instance->handleBeginElement($parser,$attributes);
+		$this->assertSame('name', $parser->getTempArr('name'));
 	}
 
     public function test_handleEndElement()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
-		
-		//$instance->handleEndElement();
+        $instance = $this->object;
+
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $attributes = array('name' => 'name');
+		$instance->handleBeginElement($parser,$attributes);
+
+        $instance->handleEndElement($parser);
+        $x = $parser->getImagesData();
+		$this->assertTrue(is_array($x));
+		$this->assertSame('name',$x[0]['name']);
 	}
 }

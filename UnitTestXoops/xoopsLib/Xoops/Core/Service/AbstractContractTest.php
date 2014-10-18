@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once (dirname(__FILE__).'/../../../../init_mini.php');
 
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Manager;
@@ -17,6 +17,7 @@ class AbstractContractTestInstance extends AbstractContract
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
+
 class AbstractContractTest extends MY_UnitTestCase
 {
 	protected $myClass = 'AbstractContractTestInstance';

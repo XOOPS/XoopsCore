@@ -20,7 +20,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class ImagesImageForm extends XoopsThemeForm
+class ImagesImageForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param ImagesImage|XoopsObject $obj
@@ -41,20 +41,20 @@ class ImagesImageForm extends XoopsThemeForm
         parent::__construct('', 'image', $xoops->getEnv('PHP_SELF'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
-        $tabtray = new XoopsFormTabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
-        $tab1 = new XoopsFormTab($title, 'tabid-1');
+        $tabtray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+        $tab1 = new Xoops\Form\Tab($title, 'tabid-1');
 
-        $tab1->addElement(new XoopsFormText(_AM_IMAGES_NAME, 'image_nicename', 50, 255, $obj->getVar('image_nicename')), true);
+        $tab1->addElement(new Xoops\Form\Text(_AM_IMAGES_NAME, 'image_nicename', 50, 255, $obj->getVar('image_nicename')), true);
 
         if ($obj->isNew()) {
             $categories = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_write');
-            $select = new XoopsFormSelect(_AM_IMAGES_CAT_SELECT, 'imgcat_id', $obj->getVar('imgcat_id'));
+            $select = new Xoops\Form\Select(_AM_IMAGES_CAT_SELECT, 'imgcat_id', $obj->getVar('imgcat_id'));
             $select->addOption('', _AM_IMAGES_CAT_SELECT);
             $select->addOptionArray($categories);
             $tab1->addElement($select, true);
         } else {
-            $tab1->addElement(new XoopsFormLabel(_AM_IMAGES_CAT_SELECT, '<span class="red bold">' . $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'))->getVar('imgcat_name') . '</span>'));
-            $this->addElement(new XoopsFormHidden('imgcat_id', $obj->getVar('imgcat_id')));
+            $tab1->addElement(new Xoops\Form\Label(_AM_IMAGES_CAT_SELECT, '<span class="red bold">' . $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'))->getVar('imgcat_name') . '</span>'));
+            $this->addElement(new Xoops\Form\Hidden('imgcat_id', $obj->getVar('imgcat_id')));
         }
 
         // warning
@@ -63,35 +63,35 @@ class ImagesImageForm extends XoopsThemeForm
         $upload_msg[] = _AM_IMAGES_CAT_WIDTH . ' : ' . $category->getVar('imgcat_maxwidth');
         $upload_msg[] = _AM_IMAGES_CAT_HEIGHT . ' : ' . $category->getVar('imgcat_maxheight');
 
-        $image_tray = new XoopsFormFile(_AM_IMAGES_IMG_FILE, 'image_file');
+        $image_tray = new Xoops\Form\File(_AM_IMAGES_IMG_FILE, 'image_file');
         $image_tray->setDescription(self::message($upload_msg, ''));
         $tab1->addElement($image_tray);
 
-        $tab1->addElement(new XoopsFormText(_AM_IMAGES_WEIGHT, 'image_weight', 1, 4, $obj->getVar('image_weight')));
+        $tab1->addElement(new Xoops\Form\Text(_AM_IMAGES_WEIGHT, 'image_weight', 1, 4, $obj->getVar('image_weight')));
 
-        $tab1->addElement(new XoopsFormRadioYN(_AM_IMAGES_DISPLAY, 'image_display', $obj->getVar('image_display')));
+        $tab1->addElement(new Xoops\Form\RadioYesNo(_AM_IMAGES_DISPLAY, 'image_display', $obj->getVar('image_display')));
 
         $tabtray->addElement($tab1);
         $this->addElement($tabtray);
 
-        $this->addElement(new XoopsFormHidden('image_name', $obj->getVar('image_name')));
-        $this->addElement(new XoopsFormHidden('image_id', $obj->getVar('image_id')));
+        $this->addElement(new Xoops\Form\Hidden('image_name', $obj->getVar('image_name')));
+        $this->addElement(new Xoops\Form\Hidden('image_id', $obj->getVar('image_id')));
 
         /**
          * Buttons
          */
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormHidden('op', 'save'));
+        $button_tray = new Xoops\Form\ElementTray('', '');
+        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
 
-        $button = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
         $button->setClass('btn btn-success');
         $button_tray->addElement($button);
 
-        $button_2 = new XoopsFormButton('', 'reset', XoopsLocale::A_RESET, 'reset');
+        $button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
         $button_2->setClass('btn btn-warning');
         $button_tray->addElement($button_2);
 
-        $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $button_3 = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
         $button_3->setExtra("onclick='javascript:history.go(-1);'");
         $button_3->setClass('btn btn-danger');
         $button_tray->addElement($button_3);
@@ -102,13 +102,13 @@ class ImagesImageForm extends XoopsThemeForm
     /**
      * @param string[] $msg
      */
-    public function message($msg, $title = '', $class='errorMsg' )
+    public function message($msg, $title = '', $class = 'errorMsg')
     {
         $ret = "<div class='" . $class . "'>";
-        if ( $title != '' ) {
+        if ($title != '') {
             $ret .= "<strong>" . $title . "</strong>";
         }
-        if ( is_array( $msg ) || is_object( $msg ) ) {
+        if (is_array($msg) || is_object($msg)) {
             $ret .= implode('<br />', $msg);
         } else {
             $ret .= $msg;

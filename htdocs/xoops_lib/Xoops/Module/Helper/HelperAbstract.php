@@ -27,12 +27,12 @@ abstract class HelperAbstract
     /**
      * @var null|XoopsModule
      */
-    private $_module = null;
+    protected $_module = null;
 
     /**
      * @var bool
      */
-    private $_debug = false;
+    protected $_debug = false;
 
     public function init()
     {
@@ -62,7 +62,7 @@ abstract class HelperAbstract
         static $instance = false;
         $id = $className = get_called_class();
         if ($className == 'Xoops\Module\Helper\Dummy') {
-            $id = \Xoops::getInstance()->registry()->get('module_helper_id');
+            $id = @\Xoops::getInstance()->registry()->get('module_helper_id');
         }
         if (!isset($instance[$id])) {
             /* @var $class Xoops\Module\Helper\HelperAbstract */
@@ -103,6 +103,18 @@ abstract class HelperAbstract
     }
 
     /**
+     * getConfigs
+     *
+     * @return array of config items for module
+     */
+    public function getConfigs()
+    {
+        $result = $this->xoops()->getModuleConfigs($this->_dirname);
+        $this->_addLog("Getting configs for {$this->_dirname} module");
+        return $result;
+    }
+
+    /**
      * @param string $name
      *
      * @return XoopsObjectHandler
@@ -116,7 +128,7 @@ abstract class HelperAbstract
 
     public function disableCache()
     {
-        $this->xoops()->appendConfig('module_cache', array($this->getModule()->getVar('mid') => 0), true);
+        $this->xoops()->appendConfig('module_cache', array($this->getModule()->getVar('mid') => 0), true, $this->_dirname);
         $this->_addLog("Disabling module cache");
     }
 
@@ -220,7 +232,7 @@ abstract class HelperAbstract
      * @param null|XoopsObject       $obj
      * @param string                 $name
      *
-     * @return bool|XoopsForm
+     * @return \Xoops\Form\Form|boolean
      */
     public function getForm($obj, $name)
     {

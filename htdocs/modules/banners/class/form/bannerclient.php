@@ -22,18 +22,18 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class BannersBannerclientForm extends XoopsThemeForm
+class BannersBannerclientForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param BannersBannerclient $obj
      */
-    public function __construct(BannersBannerClient &$obj)
+    public function __construct(BannersBannerClient $obj)
     {
-        $title = $obj->isNew() ? sprintf( _AM_BANNERS_CLIENTS_ADD ) : sprintf( _AM_BANNERS_CLIENTS_EDIT );
+        $title = $obj->isNew() ? sprintf(_AM_BANNERS_CLIENTS_ADD) : sprintf(_AM_BANNERS_CLIENTS_EDIT);
 
         parent::__construct($title, 'form', 'clients.php', 'post', true);
 
-        $this->addElement(new XoopsFormText( _AM_BANNERS_CLIENTS_NAME, 'name', 5, 255, $obj->getVar('bannerclient_name') ), true );
+        $this->addElement(new Xoops\Form\Text(_AM_BANNERS_CLIENTS_NAME, 'name', 5, 255, $obj->getVar('bannerclient_name')), true);
         // date
         if ($obj->isNew()) {
             $user = 'N';
@@ -44,18 +44,18 @@ class BannersBannerclientForm extends XoopsThemeForm
                 $user = 'Y';
             }
         }
-        $uname = new XoopsFormElementTray(_AM_BANNERS_CLIENTS_UNAME, '');
-        $type = new XoopsFormRadio('', 'user', $user);
+        $uname = new Xoops\Form\ElementTray(_AM_BANNERS_CLIENTS_UNAME, '');
+        $type = new Xoops\Form\Radio('', 'user', $user);
         $options = array('N' =>_AM_BANNERS_CLIENTS_UNAME_NO, 'Y' => _AM_BANNERS_CLIENTS_UNAME_YES);
         $type->addOptionArray($options);
         $uname->addElement($type);
-        $uname->addElement(new XoopsFormSelectUser('', 'uid', false, $obj->getVar('bannerclient_uid'), 1, false));
+        $uname->addElement(new Xoops\Form\SelectUser('', 'uid', false, $obj->getVar('bannerclient_uid'), 1, false));
         $this->addElement($uname);
-        $this->addElement(new xoopsFormTextArea( _AM_BANNERS_CLIENTS_EXTRAINFO, 'extrainfo', $obj->getVar('bannerclient_extrainfo'), 5, 5 ), false );
+        $this->addElement(new Xoops\Form\TextArea(_AM_BANNERS_CLIENTS_EXTRAINFO, 'extrainfo', $obj->getVar('bannerclient_extrainfo'), 5, 5), false);
         if (!$obj->isNew()) {
-            $this->addElement(new XoopsFormHidden( 'cid', $obj->getVar('bannerclient_cid') ) );
+            $this->addElement(new Xoops\Form\Hidden('cid', $obj->getVar('bannerclient_cid')));
         }
-        $this->addElement(new XoopsFormHidden( 'op', 'save' ) );
-        $this->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit' ) );
+        $this->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

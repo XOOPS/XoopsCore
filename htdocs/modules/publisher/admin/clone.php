@@ -67,12 +67,12 @@ if (@$_POST['op'] == 'submit') {
     echo $msg;
 
 } else {
-    $form = new XoopsThemeForm(sprintf(_AM_PUBLISHER_CLONE_TITLE, $publisher->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
-    $clone = new XoopsFormText(_AM_PUBLISHER_CLONE_NAME, 'clone', 20, 20, '');
+    $form = new Xoops\Form\ThemeForm(sprintf(_AM_PUBLISHER_CLONE_TITLE, $publisher->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
+    $clone = new Xoops\Form\Text(_AM_PUBLISHER_CLONE_NAME, 'clone', 20, 20, '');
     $clone->setDescription(_AM_PUBLISHER_CLONE_NAME_DSC);
     $form->addElement($clone, true);
-    $form->addElement(new XoopsFormHidden('op', 'submit'));
-    $form->addElement(new XoopsFormButton('', '', XoopsLocale::A_SUBMIT, 'submit'));
+    $form->addElement(new Xoops\Form\Hidden('op', 'submit'));
+    $form->addElement(new Xoops\Form\Button('', '', XoopsLocale::A_SUBMIT, 'submit'));
     $form->display();
 }
 

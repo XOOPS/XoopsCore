@@ -53,19 +53,16 @@ if ($helper = Xoops\Module\Helper::getHelper('search')) {
 }
 
 //Some examples
-if ($helper = Xoops\Module\Helper::getHelper('publisher')) {
+if ($helper = Xoops\Module\Helper::getHelper('codex')) {
     Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
+    Xoops_Utils::dumpVar($helper->url('index.php'));
 }
 
 if ($helper = Xoops\Module\Helper::getHelper('search')) {
-    Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
+    Xoops_Utils::dumpVar($helper->getConfigs());
 }
 
-if ($helper = Xoops\Module\Helper::getHelper('notifications')) {
-    Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
-}
-
-if ($helper = Xoops\Module\Helper::getHelper('menus')) {
+if ($helper = Xoops\Module\Helper::getHelper('nosuchmodule')) {
     Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
 }
 

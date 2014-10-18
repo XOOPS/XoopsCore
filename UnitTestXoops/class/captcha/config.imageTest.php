@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 global $config;
 $config = null;
@@ -14,8 +14,8 @@ class ConfigImageTest extends MY_UnitTestCase
 	{
 		global $config;
 		
-		require_once(XOOPS_ROOT_PATH.'/class/captcha/config.image.php');
-		$this->assertTrue(isset($config) AND is_array($config));
+		require(XOOPS_ROOT_PATH.'/class/captcha/config.image.php');
+		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['num_chars']));
 		$this->assertTrue(isset($config['casesensitive']));
 		$this->assertTrue(isset($config['fontsize_min']));

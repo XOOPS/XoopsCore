@@ -22,7 +22,7 @@
                 <{foreach item=avatar from=$avatars_list}>
                 <div class="cp-avatar">
                     <div class="xo-thumbimg">
-                        <img class="xo-tooltip" src="../../system/class/thumbs/phpThumb.php?src=<{$xoops_rootpath}>/uploads/<{$avatar.avatar_file}>&amp;h=120&amp;w=120" alt="<{$avatar.avatar_name}>" title="<{$avatar.avatar_name}>"/>
+                        <img class="xo-tooltip" src="<{thumbnail image="uploads/`$avatar.avatar_file`" w=128 h=128}>" alt="<{$avatar.avatar_name}>" title="<{$avatar.avatar_name}>"/>
                     </div>
                     <div class="xo-actions txtcenter">
                         <div class="spacer bold"><{$avatar.avatar_name}></div>

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init.php');
+require_once(dirname(__FILE__).'/../../../../../init_mini.php');
 
 /**
 * PHPUnit special settings :

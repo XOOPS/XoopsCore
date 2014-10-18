@@ -50,6 +50,8 @@ function publisher_items_new_show($options)
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('categoryid', '(' . $options[0] . ')', 'IN'));
     }
+    $xoops = \Xoops::getInstance();
+    $thumbService = $xoops->service('thumbnail');
     $itemsObj = $publisher->getItemHandler()->getItems($limit, $start, array(_PUBLISHER_STATUS_PUBLISHED), -1, $sort, $order, '', true, $criteria, true);
 
     $totalitems = count($itemsObj);
@@ -66,36 +68,27 @@ function publisher_items_new_show($options)
                 $item['image_name'] = '';
                 $images = $itemsObj[$i]->getImages();
                 if (is_object($images['main'])) {
-                    // check to see if GD function exist
-                    if (!function_exists('imagecreatetruecolor')) {
-                        $item['image'] = XOOPS_URL . '/uploads/images/' . $images['main']->getVar('image_name');
-                    } else {
-                        $item['image'] = PUBLISHER_URL . '/thumb.php?src=' . XOOPS_URL . '/uploads/images/' . $images['main']->getVar('image_name') . '&amp;w=50';
-                    }
+                    $item['image'] = $thumbService
+                        ->getImgUrl('uploads/' . $images['main']->getVar('image_name'), 50, 0)
+                        ->getValue();
+
                     $item['image_name'] = $images['main']->getVar('image_nicename');
                 }
             } elseif ($image == 'category') {
                 $item['image'] = $itemsObj[$i]->getCategoryImagePath();
                 $item['image_name'] = $itemsObj[$i]->getCategoryName();
             } elseif ($image == 'avatar') {
-                if ($itemsObj[$i]->getVar('uid') == '0') {
+                $auid = $itemsObj[$i]->getVar('uid');
+                if ($auid == '0') {
                     $item['image'] = XOOPS_URL . '/uploads/blank.gif';
                     $images = $itemsObj[$i]->getImages();
                     if (is_object($images['main'])) {
-                        // check to see if GD function exist
-                        if (!function_exists('imagecreatetruecolor')) {
-                            $item['image'] = XOOPS_URL . '/uploads/images/' . $images['main']->getVar('image_name');
-                        } else {
-                            $item['image'] = PUBLISHER_URL . '/thumb.php?src=' . XOOPS_URL . '/uploads/' . $images['main']->getVar('image_name') . '&amp;w=50';
-                        }
+                        $item['image'] = $thumbService
+                            ->getImgUrl('uploads/' . $images['main']->getVar('image_name'), 50, 0)
+                            ->getValue();
                     }
                 } else {
-                    // check to see if GD function exist
-                    if (!function_exists('imagecreatetruecolor')) {
-                        $item['image'] = XOOPS_URL . '/uploads/' . $itemsObj[$i]->posterAvatar();
-                    } else {
-                        $item['image'] = PUBLISHER_URL . '/thumb.php?src=' . XOOPS_URL . '/uploads/' . $itemsObj[$i]->posterAvatar() . '&amp;w=50';
-                    }
+                    $item['image'] = $xoops->service('avatar')->getAvatarUrl($auid)->getValue();
                 }
                 $item['image_name'] = $itemsObj[$i]->posterName();
             }
@@ -121,21 +114,21 @@ function publisher_items_new_show($options)
 
 function publisher_items_new_edit($options)
 {
-    $form = new PublisherBlockForm();
+    $form = new Xoops\Form\BlockForm();
 
-    $catEle = new XoopsFormLabel(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
-    $orderEle = new XoopsFormSelect(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
+    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
+    $orderEle = new Xoops\Form\Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
     $orderEle->addOptionArray(array(
         'datesub' => _MB_PUBLISHER_DATE,
         'counter' => _MB_PUBLISHER_HITS,
         'weight'  => _MB_PUBLISHER_WEIGHT,
     ));
 
-    $showEle = new XoopsFormRadioYN(_MB_PUBLISHER_ORDER_SHOW, 'options[2]', $options[2]);
-    $dispEle = new XoopsFormText(_MB_PUBLISHER_DISP, 'options[3]', 10, 255, $options[3]);
-    $charsEle = new XoopsFormText(_MB_PUBLISHER_CHARS, 'options[4]', 10, 255, $options[4]);
+    $showEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_ORDER_SHOW, 'options[2]', $options[2]);
+    $dispEle = new Xoops\Form\Text(_MB_PUBLISHER_DISP, 'options[3]', 2, 255, $options[3]);
+    $charsEle = new Xoops\Form\Text(_MB_PUBLISHER_CHARS, 'options[4]', 2, 255, $options[4]);
 
-    $imageEle = new XoopsFormSelect(_MB_PUBLISHER_IMAGE_TO_DISPLAY, 'options[5]', $options[5]);
+    $imageEle = new Xoops\Form\Select(_MB_PUBLISHER_IMAGE_TO_DISPLAY, 'options[5]', $options[5]);
     $imageEle->addOptionArray(array(
         'none' => XoopsLocale::NONE,
         'article' => _MB_PUBLISHER_IMAGE_ARTICLE,

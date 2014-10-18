@@ -10,41 +10,8 @@
 */
 
 /**
- * XOOPS form element of raw
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopsform
- * @since           2.6.0
- * @author          trabis <trabisdementia@gmail.com>
- * @version         $Id$
+ * Backward compatibilty stub - use real class, as shown below for all new development.
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
- * This class has special treatment by xoopsforms
- * It will be render the row with value provided without wrapping in html
- */
-class XoopsFormRaw extends XoopsFormElement
+class XoopsFormRaw extends Xoops\Form\Raw
 {
-
-    /**
-     * @param string $value
-     */
-    public function __construct($value = '')
-    {
-        $this->setValue($value);
-    }
-
-    /**
-     * Prepare HTML for output
-     *
-     * @return string
-     */
-    public function render()
-    {
-        return $this->getValue();
-    }
 }

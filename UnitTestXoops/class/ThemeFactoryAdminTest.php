@@ -23,12 +23,20 @@ class ThemeFactoryAdminTest extends MY_UnitTestCase
         $this->assertSame('default', $themefactory->defaultTheme);
         $this->assertSame(true, $themefactory->allowUserSelection);
     }
+    
+    public function createInstance_check_level($themefactory, $params=null)
+    {
+        $level = ob_get_level();
+		$value = $themefactory->createInstance($params);
+        while (ob_get_level() > $level) @ob_end_flush();
+        return $value;
+    }
 	
     public function test_createInstance()
 	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
-		$value = $themefactory->createInstance();
+		$value = $this->createInstance_check_level($themefactory);
         $this->assertInstanceOf('XoopsTheme', $value);
     }
 	
@@ -36,7 +44,7 @@ class ThemeFactoryAdminTest extends MY_UnitTestCase
 	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
-		$value = $themefactory->createInstance(array('titi'=>'toto'));
+		$value = $this->createInstance_check_level($themefactory, array('titi'=>'toto'));
         $this->assertInstanceOf('XoopsTheme', $value);
         $this->assertSame('toto', $value->titi);
 		$this->assertTrue(!empty($value->path));

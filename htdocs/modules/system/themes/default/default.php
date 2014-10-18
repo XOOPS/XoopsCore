@@ -35,12 +35,13 @@ class XoopsGuiDefault
         $xoops = Xoops::getInstance();
         $xoops->loadLocale('system');
 
-        $xoops->theme()->addStylesheet('media/xoops/css/moduladmin.css');
+        $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
+        $xoops->theme()->addBaseStylesheetAssets('media/xoops/css/moduladmin.css');
         $xoops->theme()->addStylesheet(XOOPS_ADMINTHEME_URL . '/default/css/style.css');
 
         $xoops->theme()->addBaseScriptAssets('@jquery');
         // bootstrap has to come before jquery.ui or dialog close buttons are blank
-        $xoops->theme()->addBaseScriptAssets('media/bootstrap/js/bootstrap.min.js');
+        $xoops->theme()->addBaseScriptAssets('@bootstrap');
         $xoops->theme()->addBaseScriptAssets('@jqueryui');
         $xoops->theme()->addBaseScriptAssets('@jgrowl');
         // ddsmoothmenu

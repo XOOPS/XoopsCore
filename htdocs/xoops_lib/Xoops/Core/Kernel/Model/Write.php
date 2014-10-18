@@ -55,6 +55,7 @@ class Write extends XoopsModelAbstract
         $object->unsetDirty();
         $errors = $object->getErrors();
         return empty($errors) ? true : false;
+        //return $object->cleanVars();
     }
 
     /**

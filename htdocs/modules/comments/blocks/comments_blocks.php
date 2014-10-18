@@ -86,7 +86,7 @@ function b_comments_show($options)
 
 function b_comments_edit($options)
 {
-    $block_form = new XoopsBlockForm();
-    $block_form->addElement(new XoopsFormText(_MB_SYSTEM_DISPLAYC, 'options[0]', 1, 3, $options[0]), true);
+    $block_form = new Xoops\Form\BlockForm();
+    $block_form->addElement(new Xoops\Form\Text(_MB_SYSTEM_DISPLAYC, 'options[0]', 1, 3, $options[0]), true);
     return $block_form->render();
 }

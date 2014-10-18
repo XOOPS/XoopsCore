@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init.php');
-
-require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
+require_once(dirname(__FILE__).'/../../init_mini.php');
 
 /**
 * PHPUnit special settings :
@@ -11,19 +9,23 @@ require_once(XOOPS_ROOT_PATH.'/class/xml/themesetparser.php');
 class ThemeSetGeneratorHandlerTest extends MY_UnitTestCase
 {
     protected $myclass = 'ThemeSetGeneratorHandler';
+    protected $object = null;
+    
+    public function setUp()
+    {
+		$input = 'input';
+		$this->object = new $this->myclass($input);
+    }
 
     public function test___construct()
     {
-		$input = 'input';
-		$instance = new $this->myclass($input);
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
     public function test_getName()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
 		$name = $instance->getName();
 		$this->assertSame('generator', $name);
@@ -31,10 +33,22 @@ class ThemeSetGeneratorHandlerTest extends MY_UnitTestCase
 	
     public function test_handleCharacterData()
     {
-		$instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
+        $instance = $this->object;
 		
-		//$instance->handleCharacterData();
-		$this->markTestIncomplete();
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $parser->tags = array('themeset','themeset');
+        $data = 'data';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame($data, $parser->getThemeSetData('generator'));
+        
+        $input = 'input';
+        $parser = new XoopsThemeSetParser($input);
+        $parser->tags = array('dummy','dummy');
+        $data = 'data';
+		$x = $instance->handleCharacterData($parser,$data);
+		$this->assertSame(null, $x);
+		$this->assertSame(false, $parser->getThemeSetData('generator'));
 	}
 }

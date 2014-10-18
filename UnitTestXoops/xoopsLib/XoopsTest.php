@@ -1089,8 +1089,8 @@ class XoopsTest extends MY_UnitTestCase
             array('url' => 'http://[2010:836B:4179::836B:4179]', 'base' => '2010:836b:4179::836b:4179', 'full' => '2010:836b:4179::836b:4179',),
         );
         foreach ($urls as $url) {
-            $this->assertSame($xoops->getBaseDomain($url['url']), $url['base'], $url['url']);
-            $this->assertSame($xoops->getBaseDomain($url['url'], true), $url['full'], $url['url']);
+            $this->assertSame($url['base'], $xoops->getBaseDomain($url['url']), $url['url']);
+            $this->assertSame($url['full'], $xoops->getBaseDomain($url['url'], true), $url['url']);
         }
     }
 

@@ -38,12 +38,12 @@ $handler = $xoops->getHandlerMember();
 switch ($op) {
     default:
     case "list":
-        $form = new XoopsThemeForm(_PROFILE_AM_EDITUSER, 'form', 'user.php');
-        $form->addElement(new XoopsFormSelectUser(_PROFILE_AM_SELECTUSER, 'id'));
-        $form->addElement(new XoopsFormHidden('op', 'editordelete'));
-        $button_tray = new XoopsFormElementTray('');
-        $button_tray->addElement(new XoopsFormButton('', 'edit', XoopsLocale::A_EDIT, 'submit', 'btn primary'));
-        $button_tray->addElement(new XoopsFormButton('', 'delete', XoopsLocale::A_DELETE, 'submit', 'btn danger'));
+        $form = new Xoops\Form\ThemeForm(_PROFILE_AM_EDITUSER, 'form', 'user.php');
+        $form->addElement(new Xoops\Form\SelectUser(_PROFILE_AM_SELECTUSER, 'id'));
+        $form->addElement(new Xoops\Form\Hidden('op', 'editordelete'));
+        $button_tray = new Xoops\Form\ElementTray('');
+        $button_tray->addElement(new Xoops\Form\Button('', 'edit', XoopsLocale::A_EDIT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'delete', XoopsLocale::A_DELETE, 'submit'));
         $form->addElement($button_tray);
         $form->display();
         /* fallthrough */

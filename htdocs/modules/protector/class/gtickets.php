@@ -63,16 +63,16 @@ if (!class_exists('XoopsGTicket')) {
             return '<input type="hidden" name="XOOPS_G_TICKET" value="' . $this->issue($salt, $timeout, $area) . '" />';
         }
 
-        // returns an object of XoopsFormHidden including theh ticket
+        // returns an object of XoopsFormHidden including the ticket
         function getTicketXoopsForm($salt = '', $timeout = 1800, $area = '')
         {
-            return new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
+            return new Xoops\Form\Hidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
         }
 
         // add a ticket as Hidden Element into XoopsForm
         function addTicketXoopsFormElement(&$form, $salt = '', $timeout = 1800, $area = '')
         {
-            $form->addElement(new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area)));
+            $form->addElement(new Xoops\Form\Hidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area)));
         }
 
         // returns an array for xoops_confirm() ;
