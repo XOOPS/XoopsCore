@@ -767,9 +767,9 @@ class PublisherItem extends XoopsObject
         if (substr($color, 0, 1) != '#') {
             $color = '#' . $color;
         }
-        $highlighter = new Xoops_Highlighter();
-        $highlighter->setReplacementString('<span style="font-weight: bolder; background-color: ' . $color . ';">\1</span>');
-        return $highlighter->highlight($content, $keywords);
+        $pre = '<span style="font-weight: bolder; background-color: ' . $color . ';">';
+        $post = '</span>';
+        return \Xmf\Highlighter::apply($keywords, $content, $pre, $post);
     }
 
     /**
