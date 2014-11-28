@@ -27,7 +27,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return bool
      */
-    static function isMultiByte()
+    public static function isMultiByte()
     {
         return false;
     }
@@ -35,7 +35,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return bool
      */
-    static function isRtl()
+    public static function isRtl()
     {
         return false;
     }
@@ -43,7 +43,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * todo, do not forget to set this on locale load
      */
-    static function setLocale()
+    public static function setLocale()
     {
         return setlocale(LC_ALL, self::getLocale());
     }
@@ -51,7 +51,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getCharset()
+    public static function getCharset()
     {
         return 'UTF-8';
     }
@@ -59,7 +59,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getLocale()
+    public static function getLocale()
     {
         return 'en_US';
     }
@@ -67,7 +67,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getLangCode()
+    public static function getLangCode()
     {
         return 'en-US';
     }
@@ -75,7 +75,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getLegacyLanguage()
+    public static function getLegacyLanguage()
     {
         return 'english';
     }
@@ -83,7 +83,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getTimezone()
+    public static function getTimezone()
     {
         return 'Europe/London';
     }
@@ -91,7 +91,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string[]
      */
-    static function getFonts()
+    public static function getFonts()
     {
         return array(
             'Arial',
@@ -107,7 +107,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return array
      */
-    static function getFontSizes()
+    public static function getFontSizes()
     {
         return array(
             'xx-small' => 'xx-Small',
@@ -123,7 +123,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string[]
      */
-    static function getAdminRssUrls()
+    public static function getAdminRssUrls()
     {
         return array('http://www.xoops.org/backend.php');
     }
@@ -132,7 +132,7 @@ abstract class Xoops_Locale_Abstract
      * !!IMPORTANT!! insert "\" before any char among reserved chars: "a = "A = "B = "c = "d = "D = "F = "g = "G = "h = "H = "i = "I = "j = "l = "L = "m = "M = "n = "O = "r = "s = "S = "t = "T = "U = "w = "W = "Y = "y = "z = "Z"
      * insert double "\" before these characters: e, f, n, r, t, v, \, ", $
      */
-    static function getFormatToday()
+    public static function getFormatToday()
     {
         return "\T\o\d\a\y G:i";
     }
@@ -140,7 +140,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getFormatYesterday()
+    public static function getFormatYesterday()
     {
         return "\Y\\e\s\\t\\e\\r\d\a\y G:i";
     }
@@ -148,7 +148,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getFormatMonthDay()
+    public static function getFormatMonthDay()
     {
         return "n/j G:i";
     }
@@ -156,7 +156,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getFormatYearMonthDay()
+    public static function getFormatYearMonthDay()
     {
         return "Y/n/j G:i";
     }
@@ -164,7 +164,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getFormatLongDate()
+    public static function getFormatLongDate()
     {
         return "Y/n/j G:i:s";
     }
@@ -172,7 +172,7 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getFormatMediumDate()
+    public static function getFormatMediumDate()
     {
         return "Y/n/j G:i";
     }
@@ -180,28 +180,29 @@ abstract class Xoops_Locale_Abstract
     /**
      * @return string
      */
-    static function getFormatShortDate()
+    public static function getFormatShortDate()
     {
         return "Y/n/j";
     }
 
     /**
-     * @param mixed  $str
-     * @param integer  $start
-     * @param integer  $length
-     * @param string $trimmarker
+     * @param mixed   $str
+     * @param integer $start
+     * @param integer $length
+     * @param string  $trimmarker
      *
      * @return string
      */
-    static function substr($str, $start, $length, $trimmarker = '...')
+    public static function substr($str, $start, $length, $trimmarker = '...')
     {
         if (!self::isMultiByte()) {
             return (strlen($str) - $start <= $length)
-				? substr($str, $start, $length)
-				: substr($str, $start, $length - strlen($trimmarker)) . $trimmarker;
+                ? substr($str, $start, $length)
+                : substr($str, $start, $length - strlen($trimmarker)) . $trimmarker;
         }
         if (function_exists('mb_internal_encoding') && @mb_internal_encoding(self::getCharset())) {
             $str2 = mb_strcut($str, $start, $length - strlen($trimmarker));
+
             return $str2 . (mb_strlen($str) != mb_strlen($str2) ? $trimmarker : '');
         }
 
@@ -215,13 +216,14 @@ abstract class Xoops_Locale_Abstract
      *
      * @return string
      */
-    static function utf8_encode($text)
+    public static function utf8_encode($text)
     {
         if (self::isMultiByte()) {
             if (function_exists('mb_convert_encoding')) {
                 return mb_convert_encoding($text, 'UTF-8', 'auto');
             }
         }
+
         return utf8_encode($text);
     }
 
@@ -232,10 +234,10 @@ abstract class Xoops_Locale_Abstract
      *
      * @return string
      */
-    static function convert_encoding($text, $to = 'utf-8', $from = '')
+    public static function convert_encoding($text, $to = 'utf-8', $from = '')
     {
         $xoops = Xoops::getInstance();
-        $xlanguage = $xoops->registry()->isRegistered('XLANGUAGE') ? $xoops->registry()->get('XLANGUAGE') : array();
+        $xlanguage = $xoops->registry()->get('XLANGUAGE', array());
         $charset = false;
         if (isset($xlanguage['charset_base'])) {
             $charset = $xlanguage['charset_base'];
@@ -258,6 +260,7 @@ abstract class Xoops_Locale_Abstract
             $converted_text = utf8_encode($text);
         }
         $text = empty($converted_text) ? $text : $converted_text;
+
         return $text;
     }
 
@@ -268,9 +271,10 @@ abstract class Xoops_Locale_Abstract
      *
      * @return string
      */
-    static function trim($text)
+    public static function trim($text)
     {
         $ret = trim($text);
+
         return $ret;
     }
 
@@ -280,11 +284,11 @@ abstract class Xoops_Locale_Abstract
      *
      * @param        $time
      * @param string $format
-     * @param string   $timeoffset
+     * @param string $timeoffset
      *
      * @return string
      */
-    static function formatTimestamp($time, $format = 'l', $timeoffset = null)
+    public static function formatTimestamp($time, $format = 'l', $timeoffset = null)
     {
         $xoops = Xoops::getInstance();
         $format_copy = $format;
@@ -298,6 +302,7 @@ abstract class Xoops_Locale_Abstract
                 $TIME_ZONE = $prefix . date('Hi', $server_TZ);
             }
             $date = gmdate('D, d M Y H:i:s', intval($time)) . $TIME_ZONE;
+
             return $date;
         }
 
@@ -313,6 +318,7 @@ abstract class Xoops_Locale_Abstract
                 $seconds = $elapse % 60;
                 $num = $seconds > 1 ? sprintf(XoopsLocale::LF_AGO_SECONDS, $seconds) : sprintf(XoopsLocale::LF_AGO_ONE_SECOND);
             }
+
             return $num;
         }
         // disable user timezone calculation and use default timezone,
@@ -380,7 +386,7 @@ abstract class Xoops_Locale_Abstract
      *
      * @return string
      */
-    static function number_format($number)
+    public static function number_format($number)
     {
         return number_format($number, 2, '.', ',');
     }
@@ -391,13 +397,14 @@ abstract class Xoops_Locale_Abstract
      *
      * @return string
      */
-    static function money_format($format, $number)
+    public static function money_format($format, $number)
     {
-		if (function_exists('money_format')) {
-			$result = money_format($format, $number);
-		} else {
-			$result = sprintf('%01.2f', $number);
+        if (function_exists('money_format')) {
+            $result = money_format($format, $number);
+        } else {
+            $result = sprintf('%01.2f', $number);
         }
-		return $result;
+
+        return $result;
     }
 }
