@@ -789,7 +789,7 @@ class XoopsTheme
      */
     public function setNamedAsset($name, $assets, $filters = null)
     {
-        return $this->assets->registerAssetReference($name, $assets, $filters = null);
+        return $this->assets->registerAssetReference($name, $assets, $filters);
     }
 
     /**

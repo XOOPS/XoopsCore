@@ -1,0 +1,62 @@
+/**********************
+       CONSTANTS
+***********************/
+
+@lightRed:   #fdd;
+@lightGreen: #dfd;
+@lightBlue:  #ddf;
+@defaultShapesWidth:100px;
+@defaultRadius:20px;
+
+/*********************************
+   OPERATIONS & COLOR FUNCTIONS
+**********************************/
+
+@darkBlue: @lightBlue - #555;
+
+@defaultThemeColor:@lightBlue;
+@defaultThemeColor:spin(@lightBlue, 100);
+
+@borderSize:@defaultShapesWidth * 0.1;
+@borderColor:@defaultThemeColor - #222;
+@borderColor:darken(desaturate(@defaultThemeColor, 100%), 20%);
+
+
+/**********************
+        MIXINS
+***********************/
+
+.RoundedShape(@radius:@defaultRadius){
+    -webkit-border-radius:@radius;
+       -moz-border-radius:@radius;
+            border-radius:@radius;
+}
+
+.Round{
+    .RoundedShape(9999px);
+}
+
+.RoundedSquare(@radius:@defaultRadius){
+    .RoundedShape(@radius);
+}
+
+/**********************
+         STYLES
+***********************/
+
+.shape{
+    display:inline-block;
+    width:@defaultShapesWidth;
+    height:100px;
+    background:@defaultThemeColor;
+    margin:20px;
+    border:@borderSize solid @borderColor;
+}
+
+.shape{
+    &:hover{ background:@lightRed   }
+}
+
+#shape1{ .Round }
+#shape2{ .RoundedSquare }
+#shape3{ .RoundedSquare(40px) }
