@@ -78,6 +78,32 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
     }
 
     /**
+     * Turns the query being built into an insert query that inserts into
+     * a certain table
+     *
+     * <code>
+     *     $qb = $conn->createQueryBuilder()
+     *         ->insert('users')
+     *         ->values(
+     *             array(
+     *                 'name' => '?',
+     *                 'password' => '?'
+     *             )
+     *         );
+     * </code>
+     *
+     * @param string $insert The table into which the rows should be inserted.
+     *                       Adds table prefix to table.
+     *
+     * @return QueryBuilder This QueryBuilder instance.
+     */
+    public function insertPrefix($insert = null)
+    {
+        $insert = Connection::prefix($insert);
+        return $this->insert($insert);
+    }
+
+    /**
      * Create and add a query root corresponding to the table identified by the
      * given alias, forming a cartesian product with any existing query roots.
      *
@@ -87,13 +113,12 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      *         ->from('users', 'u')
      * </code>
      *
-     * @param string $from  The table.
-     * Adds table prefix to table.
-     * @param string $alias The alias of the table
+     * @param string      $from  The table. Adds table prefix to table.
+     * @param string|null $alias The alias of the table.
      *
      * @return QueryBuilder This QueryBuilder instance.
      */
-    public function fromPrefix($from, $alias)
+    public function fromPrefix($from, $alias = null)
     {
         $from = Connection::prefix($from);
         return $this->from($from, $alias);
