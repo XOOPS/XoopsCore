@@ -15,7 +15,7 @@
     "require-dev": {
         "raveren/kint": "*",
         "phpunit/phpunit": "~4.1",
-		"phpunit/phpunit-skeleton-generator": "*"
+        "phpunit/phpunit-skeleton-generator": "*"
     },
     "extra": {
         "xoops_modules_path": "../modules/"
