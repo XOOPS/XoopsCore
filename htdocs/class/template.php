@@ -21,9 +21,10 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+//defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-define('SMARTY_DIR', XOOPS_PATH . '/smarty/');
+//define('SMARTY_DIR', XOOPS_PATH . '/smarty/'); // now defined when Smarty autoloads
+define('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');
 
 /**
  * Template engine
@@ -48,9 +49,9 @@ class XoopsTpl extends Smarty
         $this->right_delimiter = '}>';
         $this->template_dir = XOOPS_THEME_PATH;
         $this->cache_dir = XOOPS_VAR_PATH . '/caches/smarty_cache';
-        $this->compile_dir = XOOPS_VAR_PATH . '/caches/smarty_compile';
+        $this->compile_dir = XOOPS_COMPILE_PATH;
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
-        $this->plugins_dir = array(SMARTY_DIR . '/xoops_plugins', SMARTY_DIR . '/plugins');
+        $this->plugins_dir = array(XOOPS_PATH . '/smarty/xoops_plugins', SMARTY_DIR . '/plugins');
         $this->Smarty();
         $this->setCompileId();
         $this->assign(
