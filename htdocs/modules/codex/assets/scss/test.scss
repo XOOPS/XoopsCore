@@ -1,0 +1,7 @@
+$font-stack:    Ubuntu, Calibri, sans-serif;
+$primary-color: #008;
+
+.scss-example {
+  font: 100% $font-stack;
+  color: $primary-color;
+}

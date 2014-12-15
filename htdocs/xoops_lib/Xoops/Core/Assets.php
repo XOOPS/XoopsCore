@@ -15,7 +15,6 @@ use Assetic\AssetManager;
 use Assetic\FilterManager;
 use Assetic\Filter;
 use Assetic\Factory\AssetFactory;
-use Assetic\Factory\LazyAssetManager;
 use Assetic\Factory\Worker\CacheBustingWorker;
 use Assetic\AssetWriter;
 use Assetic\Asset\AssetCollection;
@@ -29,7 +28,7 @@ use Assetic\Asset\GlobAsset;
  * @package   Assets
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     2.6.0
@@ -93,6 +92,11 @@ class Assets
      */
     private $assets_prefs_cache = 'system_assets_prefs';
 
+    /**
+     * @var string string to identify Assetic filters using instanceof
+     */
+
+    private $filterInterface = '\Assetic\Filter\FilterInterface';
     /**
      * __construct
      *
@@ -187,10 +191,11 @@ class Assets
      *
      * Create an asset file from a list of assets
      *
-     * @param string $type    type of asset, css or js
-     * @param array  $assets  list of source files to process
-     * @param string $filters comma separated list of filters
-     * @param string $target  target path, will default to assets directory
+     * @param string       $type    type of asset, css or js
+     * @param array        $assets  list of source files to process
+     * @param string|array $filters either a comma separated list of known namsed filters
+     *                              or an array of named filters and/or filter object
+     * @param string       $target  target path, will default to assets directory
      *
      * @return string URL to asset file
      */
@@ -208,10 +213,12 @@ class Assets
             }
         }
 
-        if (empty($filters)) {
-            $filters = array();
-        } else {
-            $filters = explode(',', str_replace(' ', '', $filters));
+        if (!is_array($filters)) {
+            if (empty($filters)) {
+                $filters = array();
+            } else {
+                $filters = explode(',', str_replace(' ', '', $filters));
+            }
         }
 
         if (isset($this->default_output[$type])) {
@@ -235,31 +242,35 @@ class Assets
             $fm = new FilterManager();
 
             foreach ($filters as $filter) {
-                switch (ltrim($filter, '?')) {
-                    case 'cssembed':
-                        $fm->set('cssembed', new Filter\PhpCssEmbedFilter());
-                        break;
-                    case 'cssmin':
-                        $fm->set('cssmin', new Filter\CssMinFilter());
-                        break;
-                    case 'cssimport':
-                        $fm->set('cssimport', new Filter\CssImportFilter());
-                        break;
-                    case 'cssrewrite':
-                        $fm->set('cssrewrite', new Filter\CssRewriteFilter());
-                        break;
-                    case 'lessphp':
-                        $fm->set('lessphp', new Filter\LessphpFilter());
-                        break;
-                    case 'scssphp':
-                        $fm->set('scssphp', new Filter\ScssphpFilter());
-                        break;
-                    case 'jsmin':
-                        $fm->set('jsmin', new Filter\JSMinFilter());
-                        break;
-                    default:
-                        throw new \Exception(sprintf('%s filter not implemented.', $filter));
-                        break;
+                if (is_object($filter) && $filter instanceof $this->filterInterface) {
+                    $filterArray[] = $filter;
+                } else {
+                    switch (ltrim($filter, '?')) {
+                        case 'cssembed':
+                            $fm->set('cssembed', new Filter\PhpCssEmbedFilter());
+                            break;
+                        case 'cssmin':
+                            $fm->set('cssmin', new Filter\CssMinFilter());
+                            break;
+                        case 'cssimport':
+                            $fm->set('cssimport', new Filter\CssImportFilter());
+                            break;
+                        case 'cssrewrite':
+                            $fm->set('cssrewrite', new Filter\CssRewriteFilter());
+                            break;
+                        case 'lessphp':
+                            $fm->set('lessphp', new Filter\LessphpFilter());
+                            break;
+                        case 'scssphp':
+                            $fm->set('scssphp', new Filter\ScssphpFilter());
+                            break;
+                        case 'jsmin':
+                            $fm->set('jsmin', new Filter\JSMinFilter());
+                            break;
+                        default:
+                            throw new \Exception(sprintf('%s filter not implemented.', $filter));
+                            break;
+                    }
                 }
             }
 
@@ -269,8 +280,7 @@ class Assets
             $factory->setFilterManager($fm);
             $factory->setDefaultOutput($output);
             $factory->setDebug($this->debug);
-            $lam = new LazyAssetManager($factory);
-            $factory->addWorker(new CacheBustingWorker($lam));
+            $factory->addWorker(new CacheBustingWorker());
 
             // Prepare the assets writer
             $writer = new AssetWriter($target_path);
@@ -324,9 +334,11 @@ class Assets
     /**
      * Add an asset reference to the asset manager
      *
-     * @param string $name    the name of the reference to be added
-     * @param mixed  $assets  a string asset path, or an array of asset paths, may include wildcard
-     * @param string $filters comma separated list of filters
+     * @param string       $name    the name of the reference to be added
+     * @param mixed        $assets  a string asset path, or an array of asset paths,
+     *                              may include wildcard
+     * @param string|array $filters either a comma separated list of known namsed filters
+     *                              or an array of named filters and/or filter object
      *
      * @return boolean true if asset registers, false on error
      */
@@ -354,37 +366,43 @@ class Assets
                 }
             }
 
-            if (empty($filters)) {
-                $filters = array();
-            } else {
-                $filters = explode(',', str_replace(' ', '', $filters));
+            if (!is_array($filters)) {
+                if (empty($filters)) {
+                    $filters = array();
+                } else {
+                    $filters = explode(',', str_replace(' ', '', $filters));
+                }
             }
             foreach ($filters as $filter) {
-                switch (ltrim($filter, '?')) {
-                    case 'cssembed':
-                        $filterArray[] = new Filter\PhpCssEmbedFilter();
-                        break;
-                    case 'cssmin':
-                        $filterArray[] = new Filter\CssMinFilter();
-                        break;
-                    case 'cssimport':
-                        $filterArray[] = new Filter\CssImportFilter();
-                        break;
-                    case 'cssrewrite':
-                        $filterArray[] = new Filter\CssRewriteFilter();
-                        break;
-                    case 'lessphp':
-                        $filterArray[] = new Filter\LessphpFilter();
-                        break;
-                    case 'scssphp':
-                        $filterArray[] = new Filter\ScssphpFilter();
-                        break;
-                    case 'jsmin':
-                        $filterArray[] = new Filter\JSMinFilter();
-                        break;
-                    default:
-                        throw new \Exception(sprintf('%s filter not implemented.', $filter));
-                        break;
+                if (is_object($filter) && $filter instanceof $this->filterInterface) {
+                    $filterArray[] = $filter;
+                } else {
+                    switch (ltrim($filter, '?')) {
+                        case 'cssembed':
+                            $filterArray[] = new Filter\PhpCssEmbedFilter();
+                            break;
+                        case 'cssmin':
+                            $filterArray[] = new Filter\CssMinFilter();
+                            break;
+                        case 'cssimport':
+                            $filterArray[] = new Filter\CssImportFilter();
+                            break;
+                        case 'cssrewrite':
+                            $filterArray[] = new Filter\CssRewriteFilter();
+                            break;
+                        case 'lessphp':
+                            $filterArray[] = new Filter\LessphpFilter();
+                            break;
+                        case 'scssphp':
+                            $filterArray[] = new Filter\ScssphpFilter();
+                            break;
+                        case 'jsmin':
+                            $filterArray[] = new Filter\JSMinFilter();
+                            break;
+                        default:
+                            throw new \Exception(sprintf('%s filter not implemented.', $filter));
+                            break;
+                    }
                 }
             }
 

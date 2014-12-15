@@ -246,7 +246,7 @@ class XoopsLoad
             'rsswebmasterhandler' => XOOPS_ROOT_PATH . '/class/xml/rss/xmlrss2parser.php',
             'rsswidthhandler' => XOOPS_ROOT_PATH . '/class/xml/rss/xmlrss2parser.php',
             'saxparser' => XOOPS_ROOT_PATH . '/class/xml/saxparser.php',
-            'smarty' => XOOPS_PATH . '/smarty/Smarty.class.php',
+            //'smarty' => XOOPS_PATH . '/smarty/Smarty.class.php',
             'snoopy' => XOOPS_ROOT_PATH . '/class/snoopy.php',
             'sqlutility' => XOOPS_ROOT_PATH . '/class/database/sqlutility.php',
             'tar' => XOOPS_ROOT_PATH . '/class/class.tar.php',
