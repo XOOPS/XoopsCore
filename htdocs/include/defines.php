@@ -49,7 +49,7 @@ define('XOOPS_LIBRARY_URL', XOOPS_URL . '/libraries');
 
 // ----- BEGIN: Deprecated, move to template class -----
 // define('SMARTY_DIR', XOOPS_ROOT_PATH . '/class/smarty/');
-define('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');
+//define('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');
 define('XOOPS_CACHE_PATH', XOOPS_VAR_PATH . '/caches/xoops_cache');
 // ----- END: Deprecated, move to template class -----
 
