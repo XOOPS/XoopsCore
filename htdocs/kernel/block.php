@@ -13,7 +13,6 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use \XoopsConnection;
 
 /**
  * XoopsBlock
@@ -325,7 +324,7 @@ class XoopsBlock extends XoopsObject
     /**
      * (HTML-) form for setting the options of the block
      *
-     * @return string HTML for the form, FALSE if not defined for this block
+     * @return string|false HTML for the form, FALSE if not defined for this block
      */
     public function getOptions()
     {
@@ -945,9 +944,6 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
                 ->fromPrefix('groups', 'g')
                 ->where($eb->eq('p.gperm_name', $eb->literal('block_read')))
                 ->andWhere('gperm_modid=1');
-
-            $result = $qb->execute();
-            $grouped = $result->fetchAll(\PDO::FETCH_COLUMN, 0);
 
             if (is_array($groupid)) {
                 $qb->andWhere($eb->in('gperm_groupid', $groupid));

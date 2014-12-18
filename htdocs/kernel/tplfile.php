@@ -336,9 +336,6 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
                     'tpl_source' => $tpl_source,
                 );
                 if (!$this->db2->insertPrefix('tplsource', $values)) {
-                    $values = array(
-                        'tpl_id' => $tpl_id,
-                    );
                     $this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id));
                     return false;
                 }

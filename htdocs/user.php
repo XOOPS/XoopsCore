@@ -75,7 +75,7 @@ if ($op == 'main') {
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
         $xoops->tpl()->assign('lang_username', XoopsLocale::C_USERNAME);
         if (isset($clean_input['xoops_redirect'])) {
-            $xoops->tpl()->assign('redirect_page', htmlspecialchars($clean_input['xoops_redirect']), ENT_QUOTES);
+            $xoops->tpl()->assign('redirect_page', htmlspecialchars($clean_input['xoops_redirect'], ENT_QUOTES));
         }
         if ($xoops->getConfig('usercookie')) {
             $xoops->tpl()->assign('lang_rememberme', XoopsLocale::REMEMBER_ME);

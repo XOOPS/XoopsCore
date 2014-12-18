@@ -86,7 +86,6 @@ class XoopsThemeFactory
             $xoops->setConfig('theme_set', $options['folderName']);
         }
         $options['path'] = XOOPS_THEME_PATH . '/' . $options['folderName'];
-        $inst = null;
         $inst = new XoopsTheme();
         foreach ($options as $k => $v) {
             $inst->$k = $v;
@@ -309,7 +308,7 @@ class XoopsTheme
         $this->url = XOOPS_THEME_URL . '/' . $this->folderName;
         $this->template = null;
         $this->template = new XoopsTpl();
-        $this->template->currentTheme = $this;
+        //$this->template->currentTheme = $this;
         $this->template->assign_by_ref('xoTheme', $this);
         $this->template->assign(array(
             'xoops_theme'      => $xoops->getConfig('theme_set'),
