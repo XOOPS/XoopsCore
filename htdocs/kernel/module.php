@@ -536,9 +536,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             return false;
         }
 
-		$mid = $module->getVar('mid');
-		$dirname = $module->getVar('dirname');
-		
+        $mid = $module->getVar('mid');
+        $dirname = $module->getVar('dirname');
+
         // delete admin and read permissions assigned for this module
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
@@ -626,7 +626,6 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     public function getObjectsArray(CriteriaElement $criteria = null, $id_as_key = false)
     {
         $ret = array();
-        $limit = $start = 0;
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb->select('*')->fromPrefix('modules', null);
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {

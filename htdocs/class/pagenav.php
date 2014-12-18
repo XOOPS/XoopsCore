@@ -47,19 +47,21 @@ class XoopsPageNav
     /**
      * @var string
      */
-    private $url;
+    private $extra;
+
     /**
-     * *#@-
+     * @var string
      */
+    private $url;
 
     /**
      * Constructor
      *
-     * @param int $total_items Total number of items
-     * @param int $items_perpage Number of items per page
-     * @param int $current_start First item on the current page
-     * @param string $start_name Name for "start" or "offset"
-     * @param string $extra_arg Additional arguments to pass in the URL
+     * @param int    $total_items   Total number of items
+     * @param int    $items_perpage Number of items per page
+     * @param int    $current_start First item on the current page
+     * @param string $start_name    Name for "start" or "offset"
+     * @param string $extra_arg     Additional arguments to pass in the URL
      */
     public function __construct($total_items, $items_perpage, $current_start, $start_name = "start", $extra_arg = "")
     {
@@ -76,11 +78,12 @@ class XoopsPageNav
     /**
      * Create text navigation
      *
-     * @param integer $offset
-     * @param string $size of pagination(Value: 'large', '', 'small', 'mini')
-     * @param string $align of pagination(Value: 'right', 'centered')
-     * @param string $prev_text text for previous
-     * @param string $next_text text for next
+     * @param integer $offset    offset
+     * @param string  $size      of pagination (Value: 'large', '', 'small', 'mini')
+     * @param string  $align     of pagination (Value: 'right', 'centered')
+     * @param string  $prev_text text for previous
+     * @param string  $next_text text for next
+     *
      * @return string
      */
     public function renderNav($offset = 4, $size = "", $align = "right", $prev_text = "&laquo;", $next_text = "&raquo;")
@@ -91,7 +94,7 @@ class XoopsPageNav
         if ($this->total <= $this->perpage) {
             return $ret;
         }
-        if(($this->total != 0) && ($this->perpage != 0)) {
+        if (($this->total != 0) && ($this->perpage != 0)) {
             $total_pages = ceil($this->total / $this->perpage);
             if ($total_pages > 1) {
                 $prev = $this->current - $this->perpage;
@@ -125,7 +128,7 @@ class XoopsPageNav
                             $nav['url'] = $this->url . (($counter - 1) * $this->perpage) . $this->extra;
                             $nav['active'] = 1;
                         }
-                        if ($counter == 1 && $current_page > 1 + $offset){
+                        if ($counter == 1 && $current_page > 1 + $offset) {
                             $nav['text'] = '...';
                             $nav['url'] = '';
                             $nav['active'] = 0;
@@ -152,7 +155,7 @@ class XoopsPageNav
                 }
             }
         }
-        if ($size != ''){
+        if ($size != '') {
             $size = ' pagination-' . $size;
         }
         $xoops->tpl()->assign('size', $size);
@@ -167,6 +170,7 @@ class XoopsPageNav
      * Create a navigational dropdown list
      *
      * @param boolean $showbutton Show the "Go" button?
+     *
      * @return string|false
      */
     public function renderSelect($align = "right", $showbutton = false)
@@ -206,6 +210,7 @@ class XoopsPageNav
      * Create navigation with images
      *
      * @param integer $offset
+     *
      * @return string
      */
     public function renderImageNav($offset = 4)
