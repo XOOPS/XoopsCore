@@ -29,7 +29,7 @@ class protector_postcommon_post_htmlpurify4everyone extends ProtectorFilterAbstr
     {
         $xoops = Xoops::getInstance();
         // use HTMLPurifier inside Protector
-        require_once $xoops->path('lib/HTMLPurifier/HTMLPurifier.auto.php');
+        //require_once $xoops->path('lib/HTMLPurifier/HTMLPurifier.auto.php');
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache', 'SerializerPath', XOOPS_PATH);
         $config->set('Core', 'Encoding', XoopsLocale::getCharset());
