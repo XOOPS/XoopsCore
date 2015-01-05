@@ -83,7 +83,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         $tplobj = $tplfile_handler->find("default", null, null, null, $tpl_name, true);
 
         if (!count($tplobj)) {
-            return $cache[$tpl_name] = false;
+            return $cache[$tpl_name] = $tpl_name;
         }
         /* @var $tplobj XoopsTplfile */
         $tplobj = $tplobj[0];
