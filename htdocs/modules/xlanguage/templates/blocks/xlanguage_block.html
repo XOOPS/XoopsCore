@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="<{xoImgUrl 'modules/xlanguage/css/block.css'}>" type="text/css" media="screen" />
 
+<{if $block.display|default:false}>
 <{if $block.display == "text"}>
     <{include file="block:xlanguage|xlanguage_block_text.html"}>
 <{elseif $block.display == "select"}>
@@ -10,4 +11,5 @@
     <{include file="block:xlanguage|xlanguage_block_bootstrap.html"}>
 <{else}>
     <{include file="block:xlanguage|xlanguage_block_images.html"}>
+<{/if}>
 <{/if}>

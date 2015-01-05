@@ -52,7 +52,7 @@
                 <td class='even txtcenter' colspan='6'><{translate key='E_YOU_DO_NOT_HAVE_ANY_PRIVATE_MESSAGE'}></td>
             </tr>
         <{/if}>
-        <{foreach item=message from=$messages}>
+        <{foreach item=message from=$messages|default:[]}>
             <tr class='<{cycle values="odd, even"}> txtleft'>
                 <td class='aligntop txtcenter width2'>
                     <input type='checkbox' id='msg_id_<{$message.msg_id}>' name='msg_id[]' value='<{$message.msg_id}>' />

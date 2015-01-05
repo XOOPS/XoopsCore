@@ -5,15 +5,15 @@
         <{$lang_editprofile}>
     </a>
     <{if $btn|default:false}>
-    <{foreach item=btn from=$btn}>
-    <{assign var="absurl" value=$btn.link|strpos:"//"}>
+    <{foreach item=button from=$btn}>
+    <{assign var="absurl" value=$button.link|strpos:"//"}>
     <{if $absurl|default:false}>
-    <a class="btn" href="<{$btn.link}>">
+    <a class="btn" href="<{$button.link}>">
     <{else}>
-    <a class="btn" href="<{xoAppUrl}><{$btn.link}>">
+    <a class="btn" href="<{xoAppUrl}><{$button.link}>">
     <{/if}>
-        <i class="<{$btn.icon}>"></i>
-        <{$btn.title}>
+        <i class="<{$button.icon}>"></i>
+        <{$btn.title|default:''}>
     </a>
     <{/foreach}>
     <{/if}>
@@ -186,7 +186,7 @@
             <{/if}>
         </div>
 
-        <{if $modules}>
+        <{if $modules|default:false}>
             <div class="tab-pane" id="tab3">
                 <{include file="module:search|search.html"}>
             </div>

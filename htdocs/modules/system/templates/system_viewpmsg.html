@@ -1,11 +1,11 @@
 <h4 class="txtcenter"><{translate key='PRIVATE_MESSAGES'}></h4>
 <br />
 <ul class="breadcrumb">
-    <li><a href="userinfo.php?uid=<{$uid}>"><{translate key='PROFILE'}></a> <span class="divider">/</span></li>
+    <li><a href="userinfo.php?uid=<{$xoops_userid}>"><{translate key='PROFILE'}></a> <span class="divider">/</span></li>
     <li class="active"><{translate key="INBOX"}></li>
 </ul>
 <br />
-<{if $display}>
+<{if $display|default:false}>
 <form name='prvmsg' method='post' action='viewpmsg.php'>
     <table class="table table-striped table-bordered table-condensed">
         <tr>
@@ -33,18 +33,18 @@
             </td>
         </tr>
         <{/if}>
-        <{foreach item=message from=$messages}>
+        <{foreach item=message from=$messages|default:[]}>
         <tr>
             <td class='width2'>
                 <input type='checkbox' id='msg_id_<{$message.msg_id}>' name='msg_id[]' value='<{$message.msg_id}>' />
             </td>
             <{if $message.read_msg == 1}>
                 <td class='width5' style="text-align: center;">
-                    <img src='<{xoModuleIcons16 mail_read.png}>' alt='<{translate key="READ"}>' title='<{translate key="READ"}>'/>
+                    <img src="<{xoModuleIcons16 'mail_read.png'}>" alt='<{translate key="READ"}>' title="<{translate key='READ'}>"/>
                 </td>
             <{else}>
                 <td class='width5' style="text-align: center;">
-                    <img src='<{xoModuleIcons16 mail_notread.png}>' alt='<{translate key="NOT_READ"}>' title='<{translate key="NOT_READ"}>'/>
+                    <img src="<{xoModuleIcons16 'mail_notread.png'}>" alt='<{translate key="NOT_READ"}>' title="<{translate key='NOT_READ'}>"/>
                 </td>
             <{/if}>
             <td class='width5' style="text-align: center;">
