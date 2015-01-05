@@ -134,7 +134,7 @@ switch ($op) {
                             break;
                     }
                 }
-                $xoops->tpl()->append_by_ref('result_arr', $result_arr);
+                $xoops->tpl()->appendByRef('result_arr', $result_arr);
                 unset($result_arr);
             }
             $xoops->tpl()->assign('maintenance', true);

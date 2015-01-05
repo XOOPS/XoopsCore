@@ -1,10 +1,10 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
-<{$info_msg}>
-<{$error_msg}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_buttons.html"}>
+<{$info_msg|default:''}>
+<{$error_msg|default:''}>
 <!--Banner-->
-<{if $banner_count == true}>
+<{if $banner_count|default:false}>
 <h4><{$smarty.const._AM_BANNERS_BANNERS_CURRENT}></h4>
 <table id="xo-bannerslist-sorter" class="outer tablesorter">
     <thead>
@@ -18,20 +18,20 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=banner from=$banner}>
+    <{foreach item=banneritem from=$banner}>
     <tr class="<{cycle values='even,odd'}>">
-        <td class="txtcenter"><{$banner.impmade}></td>
-        <td class="txtcenter"><{$banner.left}></td>
-        <td class="txtcenter"><{$banner.clicks}></td>
-        <td class="txtcenter"><{$banner.percent}>%</td>
-        <td class="txtcenter"><{$banner.name}></td>
+        <td class="txtcenter"><{$banneritem.impmade}></td>
+        <td class="txtcenter"><{$banneritem.left}></td>
+        <td class="txtcenter"><{$banneritem.clicks}></td>
+        <td class="txtcenter"><{$banneritem.percent}>%</td>
+        <td class="txtcenter"><{$banneritem.name}></td>
         <td class="xo-actions txtcenter">
-            <img onclick="display_dialog(<{$banner.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons display.png}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
-            <a href="banners.php?op=edit&amp;bid=<{$banner.bid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
-                <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
+            <img onclick="display_dialog(<{$banneritem.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons 'display.png'}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
+            <a href="banners.php?op=edit&amp;bid=<{$banneritem.bid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
+                <img src="<{xoAdminIcons 'edit.png'}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
             </a>
-            <a href="banners.php?op=delete&amp;bid=<{$banner.bid}>" title="<{$smarty.const._AM_BANNERS_DELETE}>">
-                <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._AM_BANNERS_DELETE}>" />
+            <a href="banners.php?op=delete&amp;bid=<{$banneritem.bid}>" title="<{$smarty.const._AM_BANNERS_DELETE}>">
+                <img src="<{xoAdminIcons 'delete.png'}>" alt="<{$smarty.const._AM_BANNERS_DELETE}>" />
             </a>
         </td>
     </tr>
@@ -39,7 +39,7 @@
     </tbody>
 </table>
 <div class="clear spacer"></div>
-<{if $nav_menu_banner}>
+<{if $nav_menu_banner|default:false}>
 <div class="xo-avatar-pagenav floatright"><{$nav_menu_banner}></div><div class="clear spacer"></div>
 <{/if}>
 <!--Pop-pup-->
@@ -52,7 +52,7 @@
 <{/if}>
 
 <!--Banner Finish-->
-<{if $banner_finish_count == true}>
+<{if $banner_finish_count|default:false}>
 <h4><{$smarty.const._AM_BANNERS_BANNERS_FINISH}></h4>
 <table id="xo-bannersfinish-sorter" class="outer tablesorter">
     <thead>
@@ -67,21 +67,21 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=banner_finish from=$banner_finish}>
+    <{foreach item=finished_banner from=$banner_finish}>
     <tr class="<{cycle values='even,odd'}>">
-        <td class="txtcenter"><{$banner_finish.impressions}></td>
-        <td class="txtcenter"><{$banner_finish.datestart}></td>
-        <td class="txtcenter"><{$banner_finish.dateend}></td>
-        <td class="txtcenter"><{$banner_finish.clicks}></td>
-        <td class="txtcenter"><{$banner_finish.percent}>%</td>
-        <td class="txtcenter"><{$banner_finish.name}></td>
+        <td class="txtcenter"><{$finished_banner.impressions}></td>
+        <td class="txtcenter"><{$finished_banner.datestart}></td>
+        <td class="txtcenter"><{$finished_banner.dateend}></td>
+        <td class="txtcenter"><{$finished_banner.clicks}></td>
+        <td class="txtcenter"><{$finished_banner.percent}>%</td>
+        <td class="txtcenter"><{$finished_banner.name}></td>
         <td class="xo-actions txtcenter">
-            <img onclick="display_dialog(<{$banner_finish.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons display.png}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
-            <a href="banners.php?op=reload&amp;bid=<{$banner_finish.bid}>" title="<{$smarty.const._AM_BANNERS_BANNERS_RELOAD}>">
-                <img src="<{xoAdminIcons reload.png}>" alt="<{$smarty.const._AM_BANNERS_BANNERS_RELOAD}>"/>
+            <img onclick="display_dialog(<{$finished_banner.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons 'display.png'}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
+            <a href="banners.php?op=reload&amp;bid=<{$finished_banner.bid}>" title="<{$smarty.const._AM_BANNERS_BANNERS_RELOAD}>">
+                <img src="<{xoAdminIcons 'reload.png'}>" alt="<{$smarty.const._AM_BANNERS_BANNERS_RELOAD}>"/>
             </a>
-            <a href="banners.php?op=delete&amp;bid=<{$banner_finish.bid}>" title="<{$smarty.const._AM_BANNERS_DELETE}>">
-                <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._AM_BANNERS_DELETE}>" />
+            <a href="banners.php?op=delete&amp;bid=<{$finished_banner.bid}>" title="<{$smarty.const._AM_BANNERS_DELETE}>">
+                <img src="<{xoAdminIcons 'delete.png'}>" alt="<{$smarty.const._AM_BANNERS_DELETE}>" />
             </a>
         </td>
     </tr>
@@ -89,7 +89,7 @@
     </tbody>
 </table>
 <div class="clear spacer"></div>
-<{if $nav_menu_bannerF}>
+<{if $nav_menu_bannerF|default:false}>
 <{$nav_menu_bannerF}>
 <div class="clear spacer"></div>
 <{/if}>
@@ -102,4 +102,4 @@
 <!--Pop-pup-->
 <{/if}>
 <!-- Display form (add,edit) -->
-<{$form}>
+<{$form|default:''}>

@@ -88,8 +88,8 @@ switch ($op) {
                 }
                 $client['name'] = $client_arr[$i]->getVar("bannerclient_name");
                 $client['extrainfo'] = $client_arr[$i]->getVar("bannerclient_extrainfo");
-                $xoops->tpl()->append_by_ref('client', $client);
-                $xoops->tpl()->append_by_ref('client_banner', $client);
+                $xoops->tpl()->appendByRef('client', $client);
+                $xoops->tpl()->appendByRef('client_banner', $client);
                 unset($client);
             }
         }

@@ -10,7 +10,7 @@
             <option value="<{$COMMENTS_NEW1ST}>" <{if $order == $COMMENTS_NEW1ST}>selected="selected"<{/if}>><{translate key="NEWEST_FIRST"}></option>
         </select>
         <input type="hidden" name="<{$item_name}>" value="<{$itemid}>" />
-        <{if $extra_param}>
+        <{if $extra_param|default:false}>
         <input type="hidden" name="<{$extra_param}>" value="<{$hidden_value}>" />
         <{/if}>
         <button type="submit" class="btn"><{$smarty.const._MD_COMMENTS_REFRESH}></button>

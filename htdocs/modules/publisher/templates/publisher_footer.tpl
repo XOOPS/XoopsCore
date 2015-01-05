@@ -1,12 +1,12 @@
-<{if $isAdmin == 1}>
+<{if $isAdmin|default:false}>
 <div class="publisher_adminlinks"><{$publisher_adminpage}></div>
 <{/if}>
 
-<{if $canComment == 1}>
+<{if $canComment|default:false}>
 <{include file='module:comments|comments.html'}>
 <{/if}>
 
-<{if $rssfeed_link != ""}>
+<{if $rssfeed_link|default:false}>
 <div id="publisher_rpublisher_feed"><{$rssfeed_link}></div><{/if}>
 
 <{include file='module:notifications|select.html'}>

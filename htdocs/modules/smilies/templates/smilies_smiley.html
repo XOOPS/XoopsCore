@@ -24,7 +24,7 @@ function doSmilie(addSmilie) {
                 <td><{translate key='IMAGE'}></td>
             </tr>
 
-            <{foreachq from=$smileys item=smile}>
+            <{foreach from=$smileys item=smile}>
                 <tr class="<{cycle values='even,odd'}>">
                     <td><{$smile.smiley_code}></td>
                     <td><{$smile.smiley_emotion}></td>

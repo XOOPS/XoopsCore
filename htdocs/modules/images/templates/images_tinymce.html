@@ -36,15 +36,15 @@
                                 <th><{$smarty.const._IMAGES_ALIGN}></th>
                             </tr>
 
-                            <{foreachq from=$images item=image name=foo}>
+                            <{foreach from=$images item=image name=foo}>
                                 <tr class="txtcenter">
                                     <td><input type="hidden" name="image_id[]" value="<{$image.id}>" /><{$image.nicename}></td>
                                     <td><img class="xoops_images" id="image<{$smarty.foreach.foo.iteration}>" onmouseover="style.cursor='pointer'" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>');" src="<{$image.src}>" alt="<{$image.nicename}>" /></td>
                                     <td><{$image.mimetype}></td>
                                     <td>
-                                        <a href="#" title="" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>', 'left');" title=""><img src="<{xoAppUrl images/alignleft.gif}>" alt="Left" /></a>
-                                        <a href="#" title="" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>', 'center')" title=""><img src="<{xoAppUrl images/aligncenter.gif}>" alt="Center" /></a>
-                                        <a href="#" title="" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>', 'right');" title=""><img src="<{xoAppUrl images/alignright.gif}>" alt="Right" /></a></td>
+                                        <a href="#" title="" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>', 'left');" title=""><img src="<{xoAppUrl 'images/alignleft.gif'}>" alt="Left" /></a>
+                                        <a href="#" title="" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>', 'center')" title=""><img src="<{xoAppUrl 'images/aligncenter.gif'}>" alt="Center" /></a>
+                                        <a href="#" title="" onclick="Xoops_imagesDialog.insert('image<{$smarty.foreach.foo.iteration}>', 'right');" title=""><img src="<{xoAppUrl 'images/alignright.gif'}>" alt="Right" /></a></td>
                                 </tr>
                             <{/foreach}>
                         </table>

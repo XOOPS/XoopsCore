@@ -38,7 +38,7 @@ if (!$perm_view) {
 $view_content = $content_Handler->get($content_id);
 
 // Test if the page exist
-if (count($view_content) == 0 || $view_content->getVar('content_status') == 0){
+if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
     $xoops->redirect('index.php', 3, PageLocale::E_NOT_EXIST);
     exit();
 }
@@ -48,7 +48,7 @@ $tpl = new XoopsTpl();
 // content
 $content = $view_content->getValues();
 foreach ($content as $k => $v) {
-    $tpl->assign($k , $v);
+    $tpl->assign($k, $v);
 }
 // related
 $tpl->assign('related', $link_Handler->menu_related($content_id));
@@ -59,10 +59,9 @@ $tpl->assign('xoops_pagetitle', strip_tags($view_content->getVar('content_title'
 
 $content = $tpl->fetch('module:page|page_pdf.html');
 
-if ($xoops->isActiveModule('pdf')) {
-    $pdf = new Pdf();
-    $pdf->writeHtml($content, false);
-    $pdf->Output('example.pdf');
+if ($xoops->service('htmltopdf')->isAvailable()) {
+    $xoops->service('htmltopdf')->addHtml($content);
+    $xoops->service('htmltopdf')->outputPdfInline('example.pdf');
 } else {
     $xoops->header();
     echo $content;

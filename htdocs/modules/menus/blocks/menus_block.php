@@ -100,7 +100,7 @@ function menus_block_show($options)
             $tpl_vars .= "\n" . $skin_info['header'];
         }
 
-        $xoops->tpl()->assign('xoops_module_header', $tpl_vars . @$xoops->tpl()->get_template_vars("xoops_module_header"));
+        $xoops->tpl()->assign('xoops_module_header', $tpl_vars . @$xoops->tpl()->getTemplateVars("xoops_module_header"));
     } else {
         foreach ($css as $file) {
             $xoops->theme()->addStylesheet($file);
@@ -111,7 +111,7 @@ function menus_block_show($options)
         }
 
         if (isset($skin_info['header'])) {
-            $xoops->tpl()->assign('xoops_footer', @$xoops->tpl()->get_template_vars("xoops_footer") . "\n" . $skin_info['header']);
+            $xoops->tpl()->assign('xoops_footer', @$xoops->tpl()->getTemplateVars("xoops_footer") . "\n" . $skin_info['header']);
         }
     }
 

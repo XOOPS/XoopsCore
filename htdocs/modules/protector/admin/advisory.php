@@ -140,8 +140,8 @@ $security_arr[$i]['text'] = '';
 $i++;
 
 foreach (array_keys($security_arr) as $i) {
-    $xoops->tpl()->append_by_ref('security', $security_arr[$i]);
-    $xoops->tpl()->append_by_ref('popup_security', $security_arr[$i]);
+    $xoops->tpl()->appendByRef('security', $security_arr[$i]);
+    $xoops->tpl()->appendByRef('popup_security', $security_arr[$i]);
 }
 
 // Check contaminations

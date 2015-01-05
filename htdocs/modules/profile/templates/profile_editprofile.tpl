@@ -1,7 +1,7 @@
 <{$profile_breadcrumbs}>
 
-<{if $stop}>
+<{if $stop|default:false}>
     <{$stop}>
 <{/if}>
 
-<{includeq file="module:profile|profile_form.tpl" xoForm=$userinfo}>
+<{include file="module:profile|profile_form.tpl" xoForm=$userinfo}>

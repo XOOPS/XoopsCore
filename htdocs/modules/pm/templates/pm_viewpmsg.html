@@ -17,14 +17,14 @@
 </div>
 <br />
 <br />
-<{if $msg}>
+<{if $msg|default:false}>
     <div class="confirmMsg"><{$msg}></div>
 <{/if}>
-<{if $errormsg}>
+<{if $errormsg|default:false}>
     <div class="errorMsg"><{$errormsg}></div>
 <{/if}>
 
-<{if $pagenav}>
+<{if $pagenav|default:false}>
     <div class="floatright txtright pad5">
     <{$pagenav}>
     </div>
@@ -36,7 +36,7 @@
 
         <tr class='txtcenter alignmiddle'>
             <th><input name='allbox' id='allbox' onclick='xoopsCheckAll("<{$pmform.name}>", "allbox");' type='checkbox' value='Check All' /></th>
-            <th><img class='bnone' src='<{xoAppUrl images/download.gif}>' alt=''/></th>
+            <th><img class='bnone' src='<{xoAppUrl 'images/download.gif'}>' alt=''/></th>
             <th>&nbsp;</th>
             <{if $op == "out"}>
                 <th><{translate key='C_TO'}></th>
@@ -58,9 +58,9 @@
                     <input type='checkbox' id='msg_id_<{$message.msg_id}>' name='msg_id[]' value='<{$message.msg_id}>' />
                 </td>
                 <{if $message.read_msg == 1}>
-                    <td class='aligntop width5 txtcenter'><img src='<{xoModuleIcons16 mail_read.png}>' alt='<{translate key="READ"}>' title='<{translate key="READ"}>'/></td>
+                    <td class='aligntop width5 txtcenter'><img src='<{xoModuleIcons16 'mail_read.png'}>' alt='<{translate key="READ"}>' title='<{translate key="READ"}>'/></td>
                 <{else}>
-                    <td class='aligntop width5 txtcenter'><img src='<{xoModuleIcons16 mail_notread.png}>' alt='<{translate key="NOT_READ"}>' title='<{translate key="NOT_READ"}>'/></td>
+                    <td class='aligntop width5 txtcenter'><img src='<{xoModuleIcons16 'mail_notread.png'}>' alt='<{translate key="NOT_READ"}>' title='<{translate key="NOT_READ"}>'/></td>
                 <{/if}>
                 <td class='aligntop width5 txtcenter'>
                     <{if $message.msg_image != ""}>
@@ -101,7 +101,7 @@
         </tr>
     </table>
 </form>
-<{if $pagenav}>
+<{if $pagenav|default:false}>
 <div class="floatright txtright pad5">
 <{$pagenav}>
 </div>

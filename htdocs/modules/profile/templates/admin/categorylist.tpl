@@ -1,6 +1,6 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
-<{if $category}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_buttons.html"}>
+<{if $category|default:false}>
 <table class="outer">
     <thead>
         <tr>
@@ -18,10 +18,10 @@
             <td class="txtcenter width5"><{$category.cat_weight}></td>
             <td class="xo-actions txtcenter width5">
                 <a href="category.php?op=edit&amp;id=<{$category.cat_id}>" title="<{translate key ='A_EDIT'}>">
-                    <img src="<{xoAdminIcons edit.png}>" alt="<{translate key ='A_EDIT'}>">
+                    <img src="<{xoAdminIcons 'edit.png'}>" alt="<{translate key ='A_EDIT'}>">
                 </a>
                 <a href="category.php?op=delete&amp;id=<{$category.cat_id}>" title="<{translate key ='A_DELETE'}>">
-                    <img src="<{xoAdminIcons delete.png}>" alt="<{translate key ='A_DELETE'}>">
+                    <img src="<{xoAdminIcons 'delete.png'}>" alt="<{translate key ='A_DELETE'}>">
                 </a>
             </td>
         </tr>
@@ -30,4 +30,4 @@
 </table>
 <{/if}>
 <!-- Display form (add,edit) -->
-<{$form}>
+<{$form|default:''}>

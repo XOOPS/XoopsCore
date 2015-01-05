@@ -80,6 +80,8 @@ class PagePage_content extends XoopsObject
         $page = Page::getInstance();
         $ret = parent::getValues($keys, $format, $maxDepth);
         $ret['rating'] = number_format($this->getVar('content_rating'), 1);
+        // these next two lines are rather silly
+        $ret['content_authorid'] = $this->getVar('content_author');
         $ret['content_author'] = XoopsUser::getUnameFromId($this->getVar('content_author'), true);
         $ret['content_date'] = XoopsLocale::formatTimestamp($this->getVar('content_create'), $page->getConfig('page_dateformat'));
         $ret['content_time'] = XoopsLocale::formatTimestamp($this->getVar('content_create'), $page->getConfig('page_timeformat'));

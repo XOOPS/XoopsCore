@@ -18,7 +18,7 @@
     <table style="width: 100%;">
         <tr >
             <td colspan="2" style="text-align: center;">
-                <img src="<{xoImgUrl images/logo.png}>" alt="<{$xoops_sitename}>" />
+                <img src="<{xoImgUrl 'images/logo.png'}>" alt="<{$xoops_sitename}>" />
                 <br />
                 <br />
                 <br />
@@ -45,7 +45,7 @@
                     <h4><{translate key="SUMMARY"}>:</h4>
                     <ul>
                         <{foreach item=summary from=$related.related_links}>
-                            <li><a href="<{xoAppUrl modules/page/viewpage.php}>?id=<{$summary.content_id}>" title="<{$summary.content_title}>"><{$summary.content_title}></a></li>
+                            <li><a href="<{xoAppUrl 'modules/page/viewpage.php'}>?id=<{$summary.content_id}>" title="<{$summary.content_title}>"><{$summary.content_title}></a></li>
                         <{/foreach}>
                     </ul>
                 <{/if}>

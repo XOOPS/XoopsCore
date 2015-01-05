@@ -45,7 +45,7 @@ switch ($op) {
         if ($content_count > 0) {
             foreach (array_keys($content_arr) as $i) {
                 $content = $content_arr[$i]->getValues();
-                $xoops->tpl()->append_by_ref('content', $content);
+                $xoops->tpl()->appendByRef('content', $content);
                 unset($content);
             }
             // Display Page Navigation

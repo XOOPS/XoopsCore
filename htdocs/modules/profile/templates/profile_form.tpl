@@ -10,7 +10,7 @@
 				                <span class='caption-text'><{$element.caption}></span>
 				                <span class='caption-marker'>*</span>
 				            </div>
-                            <{if $element.description != ""}>
+                            <{if $element.description|default:false}>
                                 <div class='xoops-form-element-help'><{$element.description}></div>
                             <{/if}>
                         </td>

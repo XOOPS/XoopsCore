@@ -80,7 +80,7 @@ switch ($op) {
                 $content['id'] = $content_id;
                 $content['title'] = $content_arr[$i]->getVar('content_title');
                 $content['permissions'] = $perms;
-                $xoops->tpl()->append_by_ref('content', $content);
+                $xoops->tpl()->appendByRef('content', $content);
                 unset($content);
             }
             // Display Page Navigation

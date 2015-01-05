@@ -47,7 +47,7 @@ if ($content_count > 0) {
         $content['author'] = XoopsUser::getUnameFromId($content_arr[$i]->getVar('content_author'));
         $content['date'] = XoopsLocale::formatTimestamp($content_arr[$i]->getVar('content_create'), $helper->getConfig('page_dateformat'));
         $content['time'] = XoopsLocale::formatTimestamp($content_arr[$i]->getVar('content_create'), $helper->getConfig('page_timeformat'));
-        $xoops->tpl()->append_by_ref('content', $content);
+        $xoops->tpl()->appendByRef('content', $content);
         $keywords[] = $content_arr[$i]->getVar('content_title');
         unset($content);
     }

@@ -1,10 +1,10 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_buttons.html"}>
 <!-- Display form -->
-<{$form}>
+<{$form|default:''}>
 
-<{if $smarty_cache || $smarty_compile || $xoops_cache || $session || $maintenance}>
+<{if $smarty_cache|default:false || $smarty_compile|default:false || $xoops_cache|default:false || $session|default:false || $maintenance|default:false}>
     <div class="xo-moduleadmin-config outer">
         <div class="xo-window">
             <div class="xo-window-title">
