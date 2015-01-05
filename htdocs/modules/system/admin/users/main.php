@@ -636,15 +636,15 @@ switch ($op) {
                 $requete_search .= 'accept email : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getWord('user_type', '');
-            if (!empty($value) && ($value !== 'both')) {
-                if ($value == 'inactv') {
+            $user_type = Xmf\Request::getWord('user_type', '');
+            if (!empty($user_type) && ($user_type !== 'both')) {
+                if ($user_type == 'inactv') {
                     $criteria->add(new Criteria('level', 0, '='));
-                } elseif ($_REQUEST['user_type'] == "actv") {
+                } elseif ($user_type == "actv") {
                     $criteria->add(new Criteria('level', 0, '>'));
                 }
-                $requete_search .= 'actif ou inactif : ' . $value . '<br />';
-                $requete_pagenav .= '&amp;user_type=' . $value;
+                $requete_search .= 'actif ou inactif : ' . $user_type . '<br />';
+                $requete_pagenav .= '&amp;user_type=' . $user_type;
             }
 
             //$groups = empty($_REQUEST['selgroups']) ? array() : array_map("intval", $_REQUEST['selgroups']);
@@ -655,7 +655,7 @@ switch ($op) {
             $requete_search .= 'order by : ' . $sort . '<br />';
             $criteria->setSort($sort);
 
-            $order = (string) Xmf\Request::getWord('user_type', 'DESC');
+            $order = (string) Xmf\Request::getWord('user_order', 'DESC');
             $requete_pagenav .= '&amp;user_order=' . $order;
             $requete_search .= 'tris : ' . $order . '<br />';
             $criteria->setOrder($order);
@@ -796,8 +796,8 @@ switch ($op) {
 
                     $users['posts'] = $user->getVar("posts");
 
-                    $xoops->tpl()->append_by_ref('users', $users);
-                    $xoops->tpl()->append_by_ref('users_popup', $users);
+                    $xoops->tpl()->appendByRef('users', $users);
+                    $xoops->tpl()->appendByRef('users_popup', $users);
                     unset($users, $user);
                 }
             } else {

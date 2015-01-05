@@ -10,64 +10,62 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @copyright       2008-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
-
-/**
- * @param $tpl_name
- * @param $tpl_source
- * @param $smarty
- * @return bool
- */
-function smarty_resource_block_source($tpl_name, &$tpl_source, &$smarty)
+class Smarty_Resource_Block extends Smarty_Resource_Custom
 {
-    if (!$tpl = smarty_resource_block_tplinfo($tpl_name)) {
-        return false;
+    /**
+     * Fetch a template and its modification time from database
+     *
+     * @param  string  $name   template name
+     * @param  string  $source template source
+     * @param  integer $mtime  template modification timestamp (epoch)
+     *
+     * @return void
+     */
+    protected function fetch($name, &$source, &$mtime)
+    {
+        $tpl = $this->blockTplInfo($name);
+        $stat = stat($tpl);
+
+        // Did we fail to get stat information?
+        if ($stat) {
+            $mtime = $stat['mtime'];
+            $filesize = $stat['size'];
+            $fp = fopen($tpl, 'r');
+            $source = ($filesize > 0) ? fread($fp, $filesize) : '';
+            fclose($fp);
+
+        } else {
+            $source = null;
+            $mtime = null;
+        }
     }
 
-    $fp = fopen($tpl, 'r');
-    $filesize = filesize($tpl);
-    $tpl_source = ($filesize > 0) ? fread($fp, $filesize) : '';
-    fclose($fp);
+    /**
+     * Translate template name to absolute file name path
+     *
+     * @param string $tpl_name template name
+     *
+     * @return string absolute file name path
+     */
+    private function blockTplInfo($tpl_name)
+    {
+        static $cache = array();
+        $xoops = \Xoops::getInstance();
+        $tpl_info = $xoops->getTplInfo($tpl_name);
+        $tpl_name = $tpl_info['tpl_name'];
+        $dirname = $tpl_info['module'];
+        $file = $tpl_info['file'];
 
-    return true;
-}
+        // why are we not checking $cache here?
 
-function smarty_resource_block_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
-{
-    if (!$tpl = smarty_resource_block_tplinfo($tpl_name)) {
-        return false;
+        $theme_set = $xoops->getConfig('theme_set') ? $xoops->getConfig('theme_set') : 'default';
+        if (!file_exists($file_path = $xoops->path("themes/{$theme_set}/modules/{$dirname}/blocks/{$file}"))) {
+            $file_path = $xoops->path("modules/{$dirname}/templates/blocks/{$file}");
+        }
+        return $cache[$tpl_name] = $file_path;
     }
-    $tpl_timestamp = filemtime($tpl);
-    return true;
-}
-
-function smarty_resource_block_secure($tpl_name, &$smarty)
-{
-    // assume all templates are secure
-    return true;
-}
-
-function smarty_resource_block_trusted($tpl_name, &$smarty)
-{
-    // not used for templates
-}
-
-function smarty_resource_block_tplinfo($tpl_name)
-{
-    static $cache = array();
-    $xoops = Xoops::getInstance();
-    $tpl_info = $xoops->getTplInfo($tpl_name);
-    $tpl_name = $tpl_info['tpl_name'];
-    $dirname = $tpl_info['module'];
-    $file = $tpl_info['file'];
-
-    $theme_set = $xoops->getConfig('theme_set') ? $xoops->getConfig('theme_set') : 'default';
-    if (!file_exists($file_path = $xoops->path("themes/{$theme_set}/modules/{$dirname}/blocks/{$file}"))) {
-        $file_path = $xoops->path("modules/{$dirname}/templates/blocks/{$file}");
-    }
-    return $cache[$tpl_name] = $file_path;
 }

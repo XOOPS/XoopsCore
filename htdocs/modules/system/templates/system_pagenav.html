@@ -1,7 +1,7 @@
 <{if $pagination_nav}>
 <div class="pagination<{$size}><{$align}>">
     <ul>
-        <{if $prev_text}>
+        <{if $prev_text|default:false}>
         <li><a href="<{$prev_url}>"><{$prev_text}></a></li>
         <{/if}>
         <{if $first == 1}>
@@ -25,7 +25,7 @@
     </ul>
 </div>
 <{/if}>
-<{if $pagination_select}>
+<{if $pagination_select|default:false}>
 <div class="pagination<{$align}>">
     <form class="form-inline" action="" name="pagenavform">
         <{if $showbutton == 1}>

@@ -18,18 +18,20 @@
  * @version        $Id$
  */
 
-function smarty_compiler_xoModuleIcons16($argStr, &$smarty)
+function smarty_compiler_xoModuleIcons16($params, Smarty $smarty)
 {
     $xoops = Xoops::getInstance();
+    $arg = reset($params);
+    $ico = trim($arg, " '\"\t\n\r\0\x0B");
 
     if (XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/16/index.html'))) {
-        $url = $xoops->url('media/xoops/images/icons/16/' . $argStr);
+        $url = $xoops->url('media/xoops/images/icons/16/' . $ico);
     } else {
-        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $argStr))) {
-            $url = $xoops->url('modules/system/images/icons/default/' . $argStr);
+        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $ico))) {
+            $url = $xoops->url('modules/system/images/icons/default/' . $ico);
         } else {
             $url = $xoops->url('modules/system/images/icons/default/xoops/xoops2.png');
         }
     }
-    return "\necho '" . addslashes($url) . "';";
+    return "<?php echo '" . addslashes($url) . "'; ?>";
 }

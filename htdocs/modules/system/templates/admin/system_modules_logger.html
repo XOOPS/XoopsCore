@@ -1,4 +1,4 @@
-<{includeq file="admin:system|admin_breadcrumb.html"}>
+<{include file="admin:system|admin_breadcrumb.html"}>
 <{if $module}>
 <div class="xo-module-logger outer">
     <div class="xo-window">
@@ -22,7 +22,7 @@
                         <a class="btn btn-primary xo-tooltip" href="<{$from_link}>" title="<{$from_title}>">
                             <span class="ico-brick-go"></span>
                             <{$from_title}>
-                        </a><{if $install}>
+                        </a><{if $install|default:false}>
                         <{if $module->getInfo('has_admin')}>
                         <a class="btn btn-success xo-tooltip" href="<{$xoops_url}>/modules/<{$module->getVar('dirname')}>/<{$module->getInfo('adminindex')}>" title="<{translate key='MANAGE_MODULE' dirname='system'}>">
                             <span class="ico-package"></span>
@@ -66,7 +66,7 @@
                     <span class="ico-brick-go"></span>
                     <{$from_title}>
                 </a>
-                <{if $install}>
+                <{if $install|default:false}>
                 <{if $module->getInfo('has_admin')}>
                 <a class="btn btn-success xo-tooltip" href="<{$xoops_url}>/modules/<{$module->getVar('dirname')}>/<{$module->getInfo('adminindex')}>" title="<{translate key='MANAGE_MODULE' dirname='system'}>">
                     <span class="ico-package"></span>

@@ -160,7 +160,7 @@ if (false != $error) {
                         $menu['infos'] = sprintf(SystemLocale::F_USERS_SPAN, $member);
                         break;
                 }
-                $xoops->tpl()->append_by_ref('menu', $menu);
+                $xoops->tpl()->appendByRef('menu', $menu);
                 unset($menu);
             }
             unset($modversion);

@@ -100,7 +100,7 @@ switch ($op) {
                     . '" title="' . SystemLocale::DELETE_GROUP . '"></a>';
             }
             $groups['edit_delete'] = $edit_delete;
-            $xoops->tpl()->append_by_ref('groups', $groups);
+            $xoops->tpl()->appendByRef('groups', $groups);
             unset($groups, $group);
         }
         // Display Page Navigation

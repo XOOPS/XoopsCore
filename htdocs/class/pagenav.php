@@ -137,7 +137,7 @@ class XoopsPageNav
                             $first_url = $this->url . (($counter - 1) * $this->perpage) . $this->extra;
                         }
                     }
-                    $xoops->tpl()->append_by_ref('xo_nav', $nav);
+                    $xoops->tpl()->appendByRef('xo_nav', $nav);
                     unset($nav);
                     $counter ++;
                 }
@@ -162,7 +162,7 @@ class XoopsPageNav
         $xoops->tpl()->assign('align', ' pagination-' . $align);
         $xoops->tpl()->assign('pagination_nav', true);
         $ret = $xoops->tpl()->fetch('module:system|system_pagenav.html');
-        $xoops->tpl()->clear_assign('xo_nav');
+        $xoops->tpl()->clearAssign('xo_nav');
         return $ret;
     }
 
@@ -192,7 +192,7 @@ class XoopsPageNav
                 } else {
                     $select['selected'] = 0;
                 }
-                $xoops->tpl()->append_by_ref('xo_select', $select);
+                $xoops->tpl()->appendByRef('xo_select', $select);
                 unset($select);
                 $counter ++;
             }
@@ -202,7 +202,7 @@ class XoopsPageNav
         $xoops->tpl()->assign('showbutton', $showbutton);
         $xoops->tpl()->assign('align', ' pagination-' . $align);
         $ret = $xoops->tpl()->fetch('module:system|system_pagenav.html');
-        $xoops->tpl()->clear_assign('xo_select');
+        $xoops->tpl()->clearAssign('xo_select');
         return $ret;
     }
 

@@ -26,14 +26,17 @@ function smarty_compiler_xoModuleIcons32($argStr, &$smarty)
         $icons = 'default';
     }
 
+    $arg = reset($params);
+    $ico = trim($arg, " '\"\t\n\r\0\x0B");
+
     if (XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/32/' . $icons . '/index.html'))) {
-        $url = $xoops->url('media/xoops/images/icons/32/' . $icons . '/' . $argStr);
+        $url = $xoops->url('media/xoops/images/icons/32/' . $icons . '/' . $ico);
     } else {
-        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $argStr))) {
-            $url = $xoops->url('modules/system/images/icons/default/' . $argStr);
+        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $ico))) {
+            $url = $xoops->url('modules/system/images/icons/default/' . $ico);
         } else {
             $url = $xoops->url('modules/system/images/icons/default/xoops/xoops.png');
         }
     }
-    return "\necho '" . addslashes($url) . "';";
+    return "<?php echo '" . addslashes($url) . "'; ?>";
 }

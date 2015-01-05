@@ -43,6 +43,7 @@ class XoopsTpl extends Smarty
 
     public function __construct()
     {
+        parent::__construct();
         $xoops = Xoops::getInstance();
         $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
         $this->left_delimiter = '<{';
@@ -51,12 +52,14 @@ class XoopsTpl extends Smarty
         $this->cache_dir = XOOPS_VAR_PATH . '/caches/smarty_cache';
         $this->compile_dir = XOOPS_COMPILE_PATH;
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
-        $this->plugins_dir = array(XOOPS_PATH . '/smarty/xoops_plugins', SMARTY_DIR . '/plugins');
-        $this->Smarty();
+        $this->setPluginsDir(XOOPS_PATH . '/smarty/xoops_plugins');
+        $this->addPluginsDir(SMARTY_DIR . 'plugins');
+        //$this->Smarty();
         $this->setCompileId();
         $this->assign(
             array('xoops_url' => XOOPS_URL, 'xoops_rootpath' => XOOPS_ROOT_PATH, 'xoops_langcode' => XoopsLocale::getLangCode(), 'xoops_charset' => XoopsLocale::getCharset(), 'xoops_version' => XOOPS_VERSION, 'xoops_upload_url' => XOOPS_UPLOAD_URL)
         );
+//        \Kint::dump($this); exit;
     }
 
     /**
@@ -96,8 +99,8 @@ class XoopsTpl extends Smarty
     {
         $isForced = $this->force_compile;
         $this->force_compile = true;
-        $this->clear_cache($resourceName);
-        $result = $this->_compile_resource($resourceName, $this->_get_compile_path($resourceName));
+        $this->clearCache($resourceName);
+        $result = true; // $this->_compile_resource($resourceName, $this->_get_compile_path($resourceName));
         $this->force_compile = $isForced;
         return $result;
     }
@@ -138,7 +141,7 @@ class XoopsTpl extends Smarty
         $theme_set = empty($theme_set) ? $xoops->getConfig('theme_set') : $theme_set;
         $module_dirname = empty($module_dirname) ? $xoops->moduleDirname : $module_dirname;
         $this->compile_id = substr(md5(XOOPS_URL), 0, 8) . '-' . $module_dirname . '-' . $theme_set . '-' . $template_set;
-        $this->_compile_id = $this->compile_id;
+        //$this->_compile_id = $this->compile_id;
     }
 
     /**
@@ -149,13 +152,31 @@ class XoopsTpl extends Smarty
      * @param mixed $template_set
      * @return bool
      */
-    public function clearCache($module_dirname = null, $theme_set = null, $template_set = null)
+    public function oldclearCache($module_dirname = null, $theme_set = null, $template_set = null)
     {
         $compile_id = $this->compile_id;
         $this->setCompileId($module_dirname, $template_set, $theme_set);
         $_params = array('auto_base' => $this->cache_dir, 'auto_source' => null, 'auto_id' => $this->compile_id, 'exp_time' => null,);
-        $this->_compile_id = $this->compile_id = $compile_id;
+        $this->compile_id = $compile_id;
+        //$this->_compile_id = $this->compile_id = $compile_id;
         require_once SMARTY_CORE_DIR . 'core.rm_auto.php';
         return smarty_core_rm_auto($_params, $this);
+    }
+
+    /**
+     * Empty cache for a specific template
+     *
+     * @param  string  $template_name template name
+     * @param  string  $cache_id      cache id
+     * @param  string  $compile_id    compile id
+     * @param  integer $exp_time      expiration time
+     * @param  string  $type          resource type
+     *
+     * @return integer number of cache files deleted
+     */
+    public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
+    {
+        \Xoops::getInstance()->deprecated('XoopsTpl::clearCache() is removed as ambiguous');
+        return parent::clearCache($template_name, $cache_id, $compile_id, $exp_time, $type);
     }
 }

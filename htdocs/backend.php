@@ -39,7 +39,7 @@ $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname'): 'system';
 $tpl = new XoopsTpl();
 $tpl->caching = 2;
 $tpl->cache_lifetime = 3600;
-if (!$tpl->is_cached('module:' . $dirname . '|system_rss.html')) {
+if (!$tpl->isCached('module:' . $dirname . '|system_rss.html')) {
     $tpl->assign('channel_title', XoopsLocale::convert_encoding(htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES)));
     $tpl->assign('channel_link', XOOPS_URL . '/');
     $tpl->assign('channel_desc', XoopsLocale::convert_encoding(htmlspecialchars($xoops->getConfig('slogan'), ENT_QUOTES)));

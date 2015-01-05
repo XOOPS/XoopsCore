@@ -1,5 +1,5 @@
-<{includeq file="admin:system|admin_breadcrumb.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_breadcrumb.html"}>
+<{include file="admin:system|admin_tips.html"}>
 <table class="outer">
     <thead>
     <tr>
@@ -146,7 +146,7 @@
                 <span class="ico-application-go"></span>
                 <{translate key='A_INSTALL'}>
             </a>
-            <{php}>echo Xoops::getInstance()->security()->getTokenHTML();<{/php}>
+            <{securityToken}>
             <input type="hidden" name="fct" value="extensions"/>
             <input type="hidden" name="op" value="install"/>
             <input id="install-dir" type="hidden" name="dirname" value=""/>
@@ -173,7 +173,7 @@
                 <span class="ico-arrow-refresh-small"></span>
                 <{translate key='A_UPDATE'}>
             </a>
-            <{php}>echo Xoops::getInstance()->security()->getTokenHTML();<{/php}>
+            <{securityToken}>
             <input type="hidden" name="fct" value="extensions"/>
             <input type="hidden" name="op" value="update"/>
             <input id="update-id" type="hidden" name="mid" value=""/>
@@ -200,7 +200,7 @@
                 <span class="ico-application-delete"></span>
                 <{translate key='A_UNINSTALL'}>
             </a>
-            <{php}>echo Xoops::getInstance()->security()->getTokenHTML();<{/php}>
+            <{securityToken}>
             <input type="hidden" name="fct" value="extensions"/>
             <input type="hidden" name="op" value="uninstall"/>
             <input id="uninstall-id" type="hidden" name="mid" value=""/>

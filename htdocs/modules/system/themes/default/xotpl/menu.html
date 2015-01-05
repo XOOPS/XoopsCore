@@ -1,11 +1,11 @@
 <div id="xo-menu-modules">
 <ul class="nav">
-    <li><a href="<{xoAppUrl admin.php}>"><img src="<{xoImgUrl img/logo.png}>" alt="<{$xoops_sitename}>" /></a></li>
-    <li><a href="<{xoAppUrl admin.php}>"><b class="ico-monitor"></b>&nbsp;<{translate key='CONTROL_PANEL' dirname='system'}></a></li>
+    <li><a href="<{xoAppUrl 'admin.php'}>"><img src="<{xoImgUrl 'img/logo.png'}>" alt="<{$xoops_sitename}>" /></a></li>
+    <li><a href="<{xoAppUrl 'admin.php'}>"><b class="ico-monitor"></b>&nbsp;<{translate key='CONTROL_PANEL' dirname='system'}></a></li>
     <li class="dropdown">
-        <a class="dropdown-toggle menu" href="<{xoAppUrl modules/system/admin.php?fct=modulesadmin}>"><b class="ico-box"></b>&nbsp;<{translate key='MODULES'}><b class="caret"></b></a>
+        <a class="dropdown-toggle menu" href="<{xoAppUrl 'modules/system/admin.php?fct=modulesadmin'}>"><b class="ico-box"></b>&nbsp;<{translate key='MODULES'}><b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="<{xoAppUrl modules/system/admin.php?fct=modulesadmin}>"><{translate key='MANAGE_MODULES'}></a></li>
+            <li><a href="<{xoAppUrl 'modules/system/admin.php?fct=modulesadmin'}>"><{translate key='MANAGE_MODULES'}></a></li>
             <li class="divider"></li>
             <{foreach item=mod from=$module_menu}>
             <li>
@@ -13,7 +13,7 @@
             <a href="<{$mod->getInfo(link_admin)}>" title="<{$mod->getVar(name)}>"><{$mod->getVar(name)}></a>
             <ul class="dropdown-menu">
                 <{foreach item=option from=$mod->getInfo(options)}>
-                <li><a href="<{xoAppUrl modules}><{$mod->getInfo(dirname)}>/<{$option.link}>"><{$option.title}></a></li>
+                <li><a href="<{xoAppUrl 'modules'}><{$mod->getInfo(dirname)}>/<{$option.link}>"><{$option.title}></a></li>
                 <{/foreach}>
             </ul>
             <{else}>
@@ -24,9 +24,9 @@
         </ul>
     </li>
     <li class="dropdown">
-        <a class="menu dropdown-toggle" href="<{xoAppUrl modules/system/admin.php?fct=extensions}>"><b class="ico-extension"></b>&nbsp;<{translate key='EXTENSIONS'}><b class="caret"></b></a>
+        <a class="menu dropdown-toggle" href="<{xoAppUrl 'modules/system/admin.php?fct=extensions'}>"><b class="ico-extension"></b>&nbsp;<{translate key='EXTENSIONS'}><b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="<{xoAppUrl modules/system/admin.php?fct=extensions}>"><{translate key='MANAGE_EXTENSIONS'}></a></li>
+            <li><a href="<{xoAppUrl 'modules/system/admin.php?fct=extensions'}>"><{translate key='MANAGE_EXTENSIONS'}></a></li>
             <li class="divider"></li>
             <{foreach item=mod from=$extension_menu}>
             <{if $mod->getInfo(install)}>
@@ -35,7 +35,7 @@
             <a href="<{$mod->getInfo(link_admin)}>" title="<{$mod->getInfo(name)}>"><{$mod->getInfo(name)}></a>
             <ul class="dropdown-menu">
                 <{foreach item=option from=$mod->getInfo(options)}>
-                <li><a href="<{xoAppUrl modules}><{$mod->getInfo(dirname)}>/<{$option.link}>"><{$option.title}></a></li>
+                <li><a href="<{xoAppUrl 'modules'}><{$mod->getInfo(dirname)}>/<{$option.link}>"><{$option.title}></a></li>
                 <{/foreach}>
             </ul>
             <{else}>
@@ -47,7 +47,7 @@
         </ul>
     </li>
     <li class="dropdown">
-        <a class="menu dropdown-toggle" href="<{xoAppUrl modules/system/admin.php?fct=preferences}>"><b class="ico-cog"></b>&nbsp;<{translate key='PREFERENCES'}><b class="caret"></b></a>
+        <a class="menu dropdown-toggle" href="<{xoAppUrl 'modules/system/admin.php?fct=preferences'}>"><b class="ico-cog"></b>&nbsp;<{translate key='PREFERENCES'}><b class="caret"></b></a>
         <ul class="dropdown-menu">
             <{foreach item=pref from=$module_menu}>
             <{if $pref->getInfo(dirname) == 'system'}>

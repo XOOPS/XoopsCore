@@ -18,9 +18,11 @@
  * @version        $Id$
  */
 
-function smarty_compiler_xoAdminIcons($argStr, &$smarty)
+function smarty_compiler_xoAdminIcons($params, Smarty $smarty)
 {
     $xoops = Xoops::getInstance();
+    $arg = reset($params);
+    $ico = trim($arg, " '\"\t\n\r\0\x0B");
 
     $icons = $xoops->getModuleConfig('typeicons', 'system');
     if ($icons == '') {
@@ -28,13 +30,13 @@ function smarty_compiler_xoAdminIcons($argStr, &$smarty)
     }
 
     if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/' . $icons . '/index.html'))) {
-        $url = $xoops->url('modules/system/images/icons/' . $icons . '/' . $argStr);
+        $url = $xoops->url('modules/system/images/icons/' . $icons . '/' . $ico);
     } else {
-        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $argStr))) {
-            $url = $xoops->url('modules/system/images/icons/default/' . $argStr);
+        if (XoopsLoad::fileExists($xoops->path('modules/system/images/icons/default/' . $ico))) {
+            $url = $xoops->url('modules/system/images/icons/default/' . $ico);
         } else {
             $url = $xoops->url('modules/system/images/icons/default/xoops/xoops.png');
         }
     }
-    return "\necho '" . addslashes($url) . "';";
+    return "<?php echo '" . addslashes($url) . "'; ?>";
 }

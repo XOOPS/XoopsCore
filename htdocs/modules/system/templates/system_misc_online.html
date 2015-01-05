@@ -5,7 +5,7 @@
     </div>
 
     <table width="100%" class="outer">
-        <{foreachq from=$onlineusers item=user}>
+        <{foreach from=$onlineusers item=user}>
             <tr class="<{cycle values='even,odd'}>">
                 <td><img src="<{$user.avatar}>" alt="<{$user.name}>" /></td>
                 <td>

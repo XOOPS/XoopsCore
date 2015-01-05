@@ -34,11 +34,11 @@
                             <span><{$op.title}></span>
                         </a>
                         <{/foreach}>
-                        <a class="xo-tooltip" href="<{xoAppUrl modules/system/admin.php}>" title="<{translate key='SYSTEM_CONFIGURATION' dirname ='system'}>">
+                        <a class="xo-tooltip" href="<{xoAppUrl 'modules/system/admin.php'}>" title="<{translate key='SYSTEM_CONFIGURATION' dirname ='system'}>">
                             <img src='<{"$theme_icons/configuration.png"}>' alt="<{translate key='SYSTEM_CONFIGURATION' dirname ='system'}>"/>
                             <span><{translate key='SYSTEM_CONFIGURATION' dirname ='system'}></span>
                         </a>
-                        <a class="xo-tooltip" href="<{xoAppUrl modules/system/help.php}>"
+                        <a class="xo-tooltip" href="<{xoAppUrl 'modules/system/help.php'}>"
                            title="<{translate key='HELP'}>">
                             <img src='<{"$theme_icons/help.png"}>' alt="<{translate key='HELP'}>"/>
                             <span><{translate key='HELP'}></span>
@@ -93,7 +93,7 @@
                         <{/if}>
                         <div class="mod-link">
                             <div class="pull-right">
-                                <a class="btn btn-mini btn-info" href="<{xoAppUrl modules/system/admin.php?fct=modulesadmin}>">
+                                <a class="btn btn-mini btn-info" href="<{xoAppUrl 'modules/system/admin.php?fct=modulesadmin'}>">
                                     <i class="icon-white icon-tags"></i>
                                     <{translate key='MANAGE_MODULES'}>
                                 </a>
@@ -126,7 +126,7 @@
                         </table>
                         <div class="mod-link">
                             <div class="pull-right">
-                                <a class="btn btn-mini btn-warning" href="<{xoAppUrl modules/system/admin.php?fct=extensions}>">
+                                <a class="btn btn-mini btn-warning" href="<{xoAppUrl 'modules/system/admin.php?fct=extensions'}>">
                                     <i class="icon-white icon-tag"></i>
                                     <{translate key='MANAGE_EXTENSIONS'}>
                                 </a>
@@ -141,7 +141,7 @@
     </section>
     <{else}>
     <!-- Display Admin menu -->
-    <{includeq file="admin:system|admin_tabs.html"}>
+    <{include file="admin:system|admin_tabs.html"}>
     <div class="xo-module-content <{if $xoops_dirname != 'system'}>modules<{/if}>"><{$xoops_contents}></div>
     <{/if}>
 </div>

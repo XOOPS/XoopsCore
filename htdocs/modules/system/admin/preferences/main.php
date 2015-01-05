@@ -36,11 +36,11 @@ $conf_ids = array();
 $session_expire = null;
 $session_name = null;
 
-if (isset($_REQUEST)) {
-    foreach ($_REQUEST as $k => $v) {
-        ${$k} = $v;
-    }
-}
+//if (isset($_REQUEST)) {
+//    foreach ($_REQUEST as $k => $v) {
+//        ${$k} = $v;
+//    }
+//}
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'showmod', 'string');
 // Setting type

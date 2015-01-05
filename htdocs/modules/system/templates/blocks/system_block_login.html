@@ -1,5 +1,5 @@
 <div class="xo-block-login">
-    <form class="form" action="<{xoAppUrl user.php}>" method="post">
+    <form class="form" action="<{xoAppUrl 'user.php'}>" method="post">
         <div class="control-group">
             <label class="control-label" for="xo-login-uname"><{$block.lang_username}></label>
             <div class="controls">
@@ -34,8 +34,8 @@
                 <{$block.lang_login}>
             </button>
             <hr />
-            <a class="btn btn-mini pull-left" href="<{xoAppUrl user.php#lost}>" title="<{$block.lang_lostpass}>"><{$block.lang_lostpass}></a>
-            <a class="btn btn-mini btn-info pull-right" href="<{xoAppUrl register.php}>" title="<{$block.lang_registernow}>"><{$block.lang_registernow}></a>
+            <a class="btn btn-mini pull-left" href="<{xoAppUrl 'user.php#lost'}>" title="<{$block.lang_lostpass}>"><{$block.lang_lostpass}></a>
+            <a class="btn btn-mini btn-info pull-right" href="<{xoAppUrl 'register.php'}>" title="<{$block.lang_registernow}>"><{$block.lang_registernow}></a>
             <div class="clear"></div>
         </div>
         <{$block.sslloginlink}>

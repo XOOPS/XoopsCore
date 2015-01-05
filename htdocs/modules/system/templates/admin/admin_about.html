@@ -18,7 +18,7 @@
                         <{if $module->getInfo('paypal')}>
                             <form id="paypal-form" name="_xclick" action="https://www.paypal.com/fr/cgi-bin/webscr" method="post">
                                 <input type="hidden" name="cmd" value="_xclick">
-                                <{foreachq from=$module->getInfo('paypal') item=value key=key}>
+                                <{foreach from=$module->getInfo('paypal') item=value key=key}>
                                         <{if is_numeric($value)}>
                                     <input type="hidden" name="<{$key}>" value=<{$value}>>
                                         <{else}>
@@ -28,7 +28,7 @@
                                 <img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" onclick="$('#paypal-form').submit()" alt="PayPal - The safer, easier way to pay online!" />
                             </form>
                         <{/if}>
-                        <{includeq file="admin:system|admin_infobox.html" class="width100"}>
+                        <{include file="admin:system|admin_infobox.html" class="width100"}>
                     </td>
                 </tr>
             </table>
