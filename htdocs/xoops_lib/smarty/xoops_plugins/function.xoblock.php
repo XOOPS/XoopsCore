@@ -10,7 +10,7 @@
 */
 
 /**
- *  Usage : just place <{block id=1}> inside any template or theme, replace '1' with the id of the block you want to show
+ *  Usage : just place <{xoblock id=1}> inside any template or theme, replace '1' with the id of the block you want to show
  *
  *  Other options:
  *  display = 'title' -> shows just title
@@ -20,10 +20,10 @@
  *  cache = 3600 -> overwrite cache time(in seconds)
  *
  *  Examples:
- *  <{block id=1 display="title"}>   displays just the block title
- *  <{block id=1}>                   displays just the block content
- *  <{block id=7 display="none"}>    does not display nothing but executes the block, this can go for online block or to trigger some cron block
- *  <{block id=600 groups="0|1" cache=20}>  display block just for this 2 groups and sets a cache of 20 seconds
+ *  <{xoblock id=1 display="title"}>   displays just the block title
+ *  <{xoblock id=1}>                   displays just the block content
+ *  <{xoblock id=7 display="none"}>    does not display nothing but executes the block, this can go for online block or to trigger some cron block
+ *  <{xoblock id=600 groups="0|1" cache=20}>  display block just for this 2 groups and sets a cache of 20 seconds
  *  <{block id=600 options="100|100|s_poweredby.gif|0"}> displays block with diferent options
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
@@ -33,11 +33,11 @@
  */
 
 /**
- * @param array $params
+ * @param array  $params
  * @param Smarty $smarty
  * @return bool|mixed|string
  */
-function smarty_function_block($params, &$smarty)
+function smarty_function_xoblock($params, &$smarty)
 {
     if (!isset($params['id'])) {
         return false;
