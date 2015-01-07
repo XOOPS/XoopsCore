@@ -1860,22 +1860,9 @@ class Xoops
      */
     public function templateClearModuleCache($mid)
     {
-        $block_arr = $this->getHandlerBlock()->getByModule($mid);
-        $count = count($block_arr);
-        if ($count > 0) {
-            $xoopsTpl = new XoopsTpl();
-            $xoopsTpl->caching = 2;
-            /* @var XoopsBlock $block */
-            foreach ($block_arr as $block) {
-                if ($block->getVar('template') != '') {
-                    $xoopsTpl->clearCache(
-                        XOOPS_ROOT_PATH . "/modules/" . $block->getVar('dirname')
-                        . "/templates/blocks/" . $block->getVar('template'),
-                        'blk_' . $block->getVar('bid')
-                    );
-                }
-            }
-        }
+        $module = $this->getModuleById($mid);
+        $xoopsTpl = new XoopsTpl();
+        $xoopsTpl->clearModuleCompileCache($module->getVar('dirname'));
     }
 
     /**

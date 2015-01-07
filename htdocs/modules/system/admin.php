@@ -97,7 +97,7 @@ if (false != $error) {
     // Define main template
     $xoops->header('system_index.html');
     // Define Stylesheet
-    $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
+    $xoops->theme()->addStylesheet('modules/system/css/admin.css');
     // Define scripts
     $xoops->theme()->addBaseScriptAssets('@jquery.');
     $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
