@@ -85,7 +85,7 @@ body {font-size: 12px; background-color: #f0f0f0; text-align: center;}
     margin: 150px auto;
     text-align: center;
     background-color: #fff;
-    background-image: url(images/img_errors.png);
+    background-image: url(%s/images/img_errors.png);
     background-repeat: no-repeat;
     background-position: 30px 50px;
     padding-left: 300px;

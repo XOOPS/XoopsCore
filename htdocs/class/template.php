@@ -181,7 +181,7 @@ class XoopsTpl extends Smarty
     /**
      * Empty cache for a specific template
      *
-     * This is just a pass thru with a warning since this method previously existed
+     * This is just a pass thru wrapper with a warning since this method previously existed
      * only in XoopsTpl, but now is also a regulat Smarty method.
      *
      * clearModuleCompileCache() is the replacement for the old clearCache
