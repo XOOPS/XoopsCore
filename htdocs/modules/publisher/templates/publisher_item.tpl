@@ -9,7 +9,7 @@
     <{/if}>
     <div class="itemBody">
         <!--
-            <{if $item.posterAvatar != 'blank.gif'}>
+            <{if $item.posterAvatar|default:'blank.gif' != 'blank.gif'}>
             <img class="publisher_item_image" src="<{$xoops_url}>/uploads/<{$item.posterAvatar}>"  align="right" alt="<{$item.posterName}>" title="<{$item.posterName}>" />
             <{/if}>
         --><{if $pagenav}>
@@ -64,18 +64,18 @@
             <div><{$file.content}></div>
             <{/foreach}>
         </div>
-        <{/if}> <{if $pagenav}>
+        <{/if}> <{if $pagenav|default:false}>
         <div class="publisher_pagenav_bottom"><{$smarty.const._MD_PUBLISHER_PAGE}>: <{$pagenav}></div>
-        <{/if}> <{if $tagbar}>
+        <{/if}> <{if $tagbar|default:false}>
         <p><{include file="module:tag|tag_bar.tpl"}></p>
         <{/if}>
     </div>
-    <{if $itemfooter}>
+    <{if $itemfooter|default:false}>
     <div class="publisher_itemfooter"><{$itemfooter}></div>
     <{/if}>
     <div class="publisher_pre_itemInfo">
         <div class="itemInfo" style="height: 14px;">
-            <{if $display_comment_link && $item.cancomment}>
+            <{if $display_comment_link|default:false && $item.cancomment|default:false}>
 				<span style="float: left;">
           <a href="<{$item.itemurl}>"><{$item.comments}> <{$smarty.const._MD_PUBLISHER_COMMENTS}></a>
         </span> <{else}>

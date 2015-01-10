@@ -19,7 +19,7 @@
 
     <div class="panel_wrapper">
         <div id="smilies_browser_panel" class="panel current" style="overflow:auto;">
-            <{foreachq from=$smileys item=smile}>
+            <{foreach from=$smileys item=smile}>
                 <img onmouseover="style.cursor='pointer'" onclick="Xoops_smiliesDialog.insert(this);" src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$smile.smiley_url}>" alt="<{$smile.smiley_emotion}>" class="xoops_smilies" />
             <{/foreach}>
             <div>

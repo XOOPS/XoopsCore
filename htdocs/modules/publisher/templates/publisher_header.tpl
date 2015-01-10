@@ -1,4 +1,4 @@
-<{if $collapsable_heading == 1}>
+<{if $collapsable_heading|default:false}>
 <script type="text/javascript"><!--
 function goto_URL(object)
 {
@@ -44,14 +44,14 @@ function toggleIcon(iconName)
 //-->
 </script><{/if}>
 
-<{if $publisher_display_breadcrumb}>
+<{if $publisher_display_breadcrumb|default:false}>
 
 <div class="publisher_headertable">
-    <{if $module_home}>
-    <span class="publisher_modulename"><{$module_home}></span> <{if $title_and_welcome}>
-    <span><{$lang_mainintro}></span> <{/if}> <{/if}> <{if $categoryPath}>
+    <{if $module_home|default:false}>
+    <span class="publisher_modulename"><{$module_home}></span> <{if $title_and_welcome|default:false}>
+    <span><{$lang_mainintro}></span> <{/if}> <{/if}> <{if $categoryPath|default:false}>
 			<span class="publisher_breadcrumb">
-			<{if $module_home}>
+			<{if $module_home|default:false}>
 				&gt;
 			<{/if}>
 		  	<{$categoryPath}></span>

@@ -93,7 +93,7 @@ class ThemeForm extends Form
                 $input['required'] = $ele->isRequired();
                 $input['pattern_description'] = $ele->getPatternDescription();
                 $input['datalist'] = $ele->getDatalist();
-                $xoops->tpl()->append_by_ref('xo_input', $input);
+                $xoops->tpl()->appendByRef('xo_input', $input);
                 unset($input);
             } else {
                 $hidden .= $ele->render(). NWLINE;
@@ -103,7 +103,7 @@ class ThemeForm extends Form
         $xoops->tpl()->assign('hidden', $hidden);
         $xoops->tpl()->assign('validationJS', $this->renderValidationJS(true));
         $ret = $xoops->tpl()->fetch('module:system|system_form.html');
-        $xoops->tpl()->clear_assign('xo_input');
+        $xoops->tpl()->clearAssign('xo_input');
         return $ret;
 
     }

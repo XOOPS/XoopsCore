@@ -185,7 +185,7 @@ switch ($op) {
         $arr = array();
         foreach (array_keys($blocks_arr) as $i) {
             $arr[$i] = $blocks_arr[$i]->getValues();
-            $xoops->tpl()->append_by_ref('blocks', $arr[$i]);
+            $xoops->tpl()->appendByRef('blocks', $arr[$i]);
         }
         // Call Footer
         $xoops->footer();

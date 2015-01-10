@@ -28,11 +28,11 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-if (isset($_POST)) {
-    foreach ($_POST as $k => $v) {
-        ${$k} = $v;
-    }
-}
+//if (isset($_POST)) {
+//    foreach ($_POST as $k => $v) {
+//        ${$k} = $v;
+//    }
+//}
 
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');

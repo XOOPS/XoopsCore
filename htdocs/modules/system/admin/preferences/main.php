@@ -36,6 +36,7 @@ $conf_ids = array();
 $session_expire = null;
 $session_name = null;
 
+// TODO this needs to go!
 if (isset($_REQUEST)) {
     foreach ($_REQUEST as $k => $v) {
         ${$k} = $v;

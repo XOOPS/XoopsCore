@@ -36,8 +36,8 @@
                 <input type="button" value="<{$lang_deleteaccount}>" onclick="submit();" />
             </form>
         <{/if}>
-        <{foreach item=btn from=$btn}>
-        <input class="btn" type="button" value="<{$btn.title}>" onclick="location='<{$btn.link}>'" />
+        <{foreach item=button from=$btn}>
+        <input class="btn" type="button" value="<{$button.title}>" onclick="location='<{$button.link}>'" />
         <{/foreach}>
         <input class="btn" type="button" value="<{$lang_inbox}>" onclick="location='<{$xoops_url}>/viewpmsg.php'" />
         <input class="btn" type="button" value="<{$lang_logout}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=logout'" />
@@ -79,7 +79,7 @@
     <{/if}>
 <{/foreach}>
 
-<{if $modules}>
+<{if $modules|default:false}>
 <br class="clear" />
 <div class="profile-list-activity">
     <h2><{$recent_activity}></h2>

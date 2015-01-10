@@ -338,7 +338,7 @@ class DebugbarLogger implements LoggerInterface
     public function addSmarty()
     {
         if ($this->activated) {
-            $data = Xoops::getInstance()->tpl()->get_template_vars();
+            $data = Xoops::getInstance()->tpl()->getTemplateVars();
             // fix values that don't display properly
             foreach ($data as $k => $v) {
                 if ($v === '') {
@@ -351,6 +351,7 @@ class DebugbarLogger implements LoggerInterface
                     $data[$k] = 'bool FALSE';
                 }
             }
+            ksort($data, SORT_NATURAL | SORT_FLAG_CASE);
             $this->debugbar->addCollector(
                 new DebugBar\DataCollector\ConfigCollector($data, 'Smarty')
             );

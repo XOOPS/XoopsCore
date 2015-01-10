@@ -1,5 +1,5 @@
-<{$error_msg}>
-<{if $banner_count == true}>
+<{$error_msg|default:''}>
+<{if $banner_count|default:false}>
 <h4><{$smarty.const._AM_BANNERS_BANNERS_CURRENT}></h4>
 <table id="xo-bannerslist-sorter" class="table table-striped table-bordered table-condensed">
     <thead>
@@ -14,24 +14,24 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=banner from=$banner}>
+    <{foreach item=banneritem from=$banner}>
     <tr class="<{cycle values='even,odd'}>">
         <td style="text-align: center">
-            <a class="xo-tooltip" href="<{$banner.clickurl}>" title="<{$banner.clickurl}>" rel='external'><{$banner.bid}></a>
+            <a class="xo-tooltip" href="<{$banneritem.clickurl}>" title="<{$banneritem.clickurl}>" rel='external'><{$banneritem.bid}></a>
         </td>
-        <td style="text-align: center"><{$banner.name}></td>
-        <td style="text-align: center"><{$banner.impmade}></td>
-        <td style="text-align: center"><{$banner.left}></td>
-        <td style="text-align: center"><{$banner.clicks}></td>
-        <td style="text-align: center"><{$banner.percent}>%</td>
+        <td style="text-align: center"><{$banneritem.name}></td>
+        <td style="text-align: center"><{$banneritem.impmade}></td>
+        <td style="text-align: center"><{$banneritem.left}></td>
+        <td style="text-align: center"><{$banneritem.clicks}></td>
+        <td style="text-align: center"><{$banneritem.percent}>%</td>
         <td class="xo-actions" style="text-align: center">
-            <img class="xo-tooltip" onclick="display_dialog(<{$banner.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons display.png}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
-            <a class="xo-tooltip" href="index.php?op=edit&amp;bid=<{$banner.bid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
-                <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
+            <img class="xo-tooltip" onclick="display_dialog(<{$banneritem.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons 'display.png'}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
+            <a class="xo-tooltip" href="index.php?op=edit&amp;bid=<{$banneritem.bid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
+                <img src="<{xoAdminIcons 'edit.png'}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
             </a>
-            <{if $banner.uid != 0}>
-            <a class="xo-tooltip" href="index.php?op=EmailStats&amp;bid=<{$banner.bid}>" title="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>">
-                <img src="<{xoAdminIcons mail_send.png}>" alt="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>" />
+            <{if $banneritem.uid != 0}>
+            <a class="xo-tooltip" href="index.php?op=EmailStats&amp;bid=<{$banneritem.bid}>" title="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>">
+                <img src="<{xoAdminIcons 'mail_send.png'}>" alt="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>" />
             </a>
             <{/if}>
         </td>
@@ -40,7 +40,7 @@
     </tbody>
 </table>
 <div class="clear spacer"></div>
-<{if $nav_menu_banner}>
+<{if $nav_menu_banner|default:false}>
 <div class="xo-avatar-pagenav floatright"><{$nav_menu_banner}></div><div class="clear spacer"></div>
 <{/if}>
 <!--Pop-pup-->
@@ -70,25 +70,25 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=banner_finish from=$banner_finish}>
+    <{foreach item=finished_banner from=$banner_finish}>
     <tr class="<{cycle values='even,odd'}>">
         <td style="text-align: center">
-            <a class="xo-tooltip" href="<{$banner_finish.clickurl}>" title="<{$banner_finish.clickurl}>" rel='external'><{$banner_finish.bid}></a>
+            <a class="xo-tooltip" href="<{$finished_banner.clickurl}>" title="<{$finished_banner.clickurl}>" rel='external'><{$finished_banner.bid}></a>
         </td>
-        <td style="text-align: center"><{$banner_finish.name}></td>
-        <td style="text-align: center"><{$banner_finish.impressions}></td>
-        <td style="text-align: center"><{$banner_finish.datestart}></td>
-        <td style="text-align: center"><{$banner_finish.dateend}></td>
-        <td style="text-align: center"><{$banner_finish.clicks}></td>
-        <td style="text-align: center"><{$banner_finish.percent}>%</td>
+        <td style="text-align: center"><{$finished_banner.name}></td>
+        <td style="text-align: center"><{$finished_banner.impressions}></td>
+        <td style="text-align: center"><{$finished_banner.datestart}></td>
+        <td style="text-align: center"><{$finished_banner.dateend}></td>
+        <td style="text-align: center"><{$finished_banner.clicks}></td>
+        <td style="text-align: center"><{$finished_banner.percent}>%</td>
         <td class="xo-actions" style="text-align: center">
-            <img class="xo-tooltip" onclick="display_dialog(<{$banner_finish.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons display.png}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
-            <a class="xo-tooltip" href="index.php?op=edit&amp;bid=<{$banner_finish.bid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
-                <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
+            <img class="xo-tooltip" onclick="display_dialog(<{$finished_banner.bid}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoAdminIcons 'display.png'}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
+            <a class="xo-tooltip" href="index.php?op=edit&amp;bid=<{$finished_banner.bid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
+                <img src="<{xoAdminIcons 'edit.png'}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
             </a>
-            <{if $banner_finish.uid != 0}>
-            <a class="xo-tooltip" href="index.php?op=EmailStats&amp;bid=<{$banner_finish.bid}>" title="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>">
-                <img src="<{xoAdminIcons mail_send.png}>" alt="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>" />
+            <{if $finished_banner.uid != 0}>
+            <a class="xo-tooltip" href="index.php?op=EmailStats&amp;bid=<{$finished_banner.bid}>" title="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>">
+                <img src="<{xoAdminIcons 'mail_send.png'}>" alt="<{$smarty.const._MD_BANNERS_INDEX_EMAIL}>" />
             </a>
             <{/if}>
         </td>
@@ -110,4 +110,4 @@
 <!--Pop-pup-->
 <{/if}>
 <!-- Display form (edit) -->
-<{$form}>
+<{$form|default:''}>

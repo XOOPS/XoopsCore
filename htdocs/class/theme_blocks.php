@@ -51,7 +51,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
     {
         $this->retrieveBlocks();
         if ($this->theme) {
-            $this->theme->template->assign_by_ref('xoBlocks', $this->blocks);
+            $this->theme->template->assignByRef('xoBlocks', $this->blocks);
         }
         return true;
     }
@@ -173,9 +173,9 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
                 : "module:system|system_block_dummy.html";
         $cacheid = $this->generateCacheId('blk_' . $xobject->getVar('bid'));
 
-        $xoops->preload()->triggerEvent('core.themeblocks.buildblock.start', array($xobject, $template->is_cached($tplName, $cacheid)));
+        $xoops->preload()->triggerEvent('core.themeblocks.buildblock.start', array($xobject, $template->isCached($tplName, $cacheid)));
 
-        if (!$bcachetime || !$template->is_cached($tplName, $cacheid)) {
+        if (!$bcachetime || !$template->isCached($tplName, $cacheid)) {
 
             //Get theme metas
             $old = array();

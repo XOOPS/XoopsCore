@@ -1,12 +1,12 @@
 <script type="text/javascript">
-    Xoops.setStatusImg('accept', '<{xoAdminIcons success.png}>');
-    Xoops.setStatusImg('cancel', '<{xoAdminIcons cancel.png}>');
+    Xoops.setStatusImg('accept', '<{xoAdminIcons 'success.png'}>');
+    Xoops.setStatusImg('cancel', '<{xoAdminIcons 'cancel.png'}>');
     Xoops.setStatusText('accept', '<{translate key="NO"}>');
     Xoops.setStatusText('cancel', '<{translate key="YES"}>');
 </script>
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
-<{if $step}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_buttons.html"}>
+<{if $step|default:false}>
 <table class="outer">
     <thead>
         <tr>
@@ -24,20 +24,20 @@
             <td class="txtleft"><{$step.step_desc}></td>
             <td class="txtcenter width10"><{$step.step_order}></td>
             <td class="xo-actions txtcenter width10">
-                <img id="loading_sml<{$step.step_id}>" src="<{xoAppUrl media/xoops/images/spinner.gif}>" style="display:none;" alt="<{translate key='LOADING'}>" />
+                <img id="loading_sml<{$step.step_id}>" src="<{xoAppUrl 'media/xoops/images/spinner.gif'}>" style="display:none;" alt="<{translate key='LOADING'}>" />
                 <img class="cursorpointer" id="sml<{$step.step_id}>"
                      onclick="Xoops.changeStatus( 'step.php', { op: 'step_update', id: <{$step.step_id}> }, 'sml<{$step.step_id}>', 'step.php' )"
-                     src="<{if $step.step_save}><{xoAdminIcons success.png}><{else}><{xoAdminIcons cancel.png}><{/if}>"
+                     src="<{if $step.step_save}><{xoAdminIcons 'success.png'}><{else}><{xoAdminIcons 'cancel.png'}><{/if}>"
                      alt="<{if $step.step_save}><{translate key='NO'}><{else}><{translate key='YES'}><{/if}>"
-                     title="<{if $step.step_save}><{translate key='NO'><{else}><{translate key='YES'}><{/if}>"/>
+                     title="<{if $step.step_save}><{translate key='NO'}><{else}><{translate key='YES'}><{/if}>"/>
 
             </td>
             <td class="xo-actions txtcenter width5">
                 <a href="step.php?op=edit&amp;id=<{$step.step_id}>" title="<{translate key ='A_EDIT'}>">
-                    <img src="<{xoAdminIcons edit.png}>" alt="<{translate key ='A_EDIT'}>">
+                    <img src="<{xoAdminIcons 'edit.png'}>" alt="<{translate key ='A_EDIT'}>">
                 </a>
                 <a href="step.php?op=delete&amp;id=<{$step.step_id}>" title="<{translate key ='A_DELETE'}>">
-                    <img src="<{xoAdminIcons delete.png}>" alt="<{translate key ='A_DELETE'}>">
+                    <img src="<{xoAdminIcons 'delete.png'}>" alt="<{translate key ='A_DELETE'}>">
                 </a>
             </td>
         </tr>
@@ -46,4 +46,4 @@
 </table>
 <{/if}>
 <!-- Display form (add,edit) -->
-<{$form}>
+<{$form|default:''}>

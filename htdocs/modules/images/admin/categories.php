@@ -165,7 +165,7 @@ switch ($op) {
                 $count = $helper->getHandlerImages()->countByCategory($categories[$i]->getVar('imgcat_id'));
                 $cat_images = $categories[$i]->getValues();
                 $cat_images['imgcat_count'] = $count;
-                $xoops->tpl()->append_by_ref('categories', $cat_images);
+                $xoops->tpl()->appendByRef('categories', $cat_images);
                 unset($cat_images);
             }
         }

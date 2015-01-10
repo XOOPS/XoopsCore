@@ -1,6 +1,6 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_buttons.html"}>
 
 <{if $count}>
 <div style="margin-bottom:10px; float: right">
@@ -24,13 +24,13 @@
                 <td class="txtleft"><{$obj.title}></td>
                 <td class="xo-actions txtcenter width10">
                     <a href="admin_menu.php?op=list&amp;menu_id=<{$obj.id}>">
-                    <img src="<{xoAdminIcons view.png}>" alt="<{$smarty.const._AM_MENUS_ACTION_GOTO_MENU}>">
+                    <img src="<{xoAdminIcons 'view.png'}>" alt="<{$smarty.const._AM_MENUS_ACTION_GOTO_MENU}>">
                     </a>
                     <a href="admin_menus.php?op=edit&amp;id=<{$obj.id}>">
-                    <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._AM_MENUS_EDIT_MENUS}>">
+                    <img src="<{xoAdminIcons 'edit.png'}>" alt="<{$smarty.const._AM_MENUS_EDIT_MENUS}>">
                     </a>
                     <a href="admin_menus.php?op=del&amp;id=<{$obj.id}>">
-                    <img src="<{xoAdminIcons delete.png}>" alt="<{translate key='A_DELETE'}>">
+                    <img src="<{xoAdminIcons 'delete.png'}>" alt="<{translate key='A_DELETE'}>">
                     </a>
                 </td>
             </tr>

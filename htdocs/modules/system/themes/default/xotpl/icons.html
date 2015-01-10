@@ -3,10 +3,11 @@
 <ul class="nav nav-pills pull-right">
     <{foreach item=op from=$mod_options}>
     <li>
-        <a class="xo-tooltip" href="<{$op.link}>" title="<strong><{$op.title}></strong><br/><{$op.desc}>">
+        <a class="xo-tooltip" href="<{$op.link}>" title="<strong><{$op.title}></strong><br/><{$op.desc|default:''}>">
             <img src='<{$op.icon|default:"$theme_icons/icon_options.png"}>' alt="<{$op.title}>"/>
         </a></li>
     <{/foreach}>
+    <{if $extension_mod_disable|default:false}>
     <{foreach item=plug from=$extension_mod_disable}>
     <{if $moddir == 'system' && $mod_options}>
     <{if $plug->getInfo('hasAdmin') || !is_array($plug->getInfo('config'))}>
@@ -28,6 +29,7 @@
     <{/if}>
     <{/if}>
     <{/foreach}>
+    <{/if}>
     <{if $moddir != 'system' && $mod_options}>
     <li>
         <a class="xo-tooltip"
@@ -39,14 +41,14 @@
     <{/if}>
     <{if $moddir == 'system' && $mod_options}>
     <li>
-        <a class="xo-tooltip" href="<{xoAppUrl modules/system/admin.php}>"
+        <a class="xo-tooltip" href="<{xoAppUrl 'modules/system/admin.php'}>"
            title="<b><{translate key='SYSTEM_CONFIGURATION' dirname ='system'}></b>">
             <img src='<{"$theme_icons/configuration.png"}>' alt="<{translate key='SYSTEM_CONFIGURATION' dirname ='system'}>"/>
         </a>
     </li>
     <{/if}>
     <li>
-        <a class="xo-tooltip" href="<{xoAppUrl modules/system/help.php}>"
+        <a class="xo-tooltip" href="<{xoAppUrl 'modules/system/help.php'}>"
            title="<strong><{translate key='HELP'}></strong>">
             <img src='<{"$theme_icons/help.png"}>' alt="<{translate key='HELP'}>"/>
         </a>

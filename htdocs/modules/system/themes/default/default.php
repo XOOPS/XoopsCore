@@ -36,7 +36,7 @@ class XoopsGuiDefault
         $xoops->loadLocale('system');
 
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
-        $xoops->theme()->addBaseStylesheetAssets('media/xoops/css/moduladmin.css');
+        $xoops->theme()->addStylesheet('media/xoops/css/moduladmin.css');
         $xoops->theme()->addStylesheet(XOOPS_ADMINTHEME_URL . '/default/css/style.css');
 
         $xoops->theme()->addBaseScriptAssets('@jquery');

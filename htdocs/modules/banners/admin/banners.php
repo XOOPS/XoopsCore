@@ -117,8 +117,8 @@ switch ($op) {
                 $banner['percent'] = $percent;
                 $banner['imageurl'] = $img;
                 $banner['name'] = $name;
-                $xoops->tpl()->append_by_ref('banner', $banner);
-                $xoops->tpl()->append_by_ref('popup_banner', $banner);
+                $xoops->tpl()->appendByRef('banner', $banner);
+                $xoops->tpl()->appendByRef('popup_banner', $banner);
                 unset($banner);
             }
         }
@@ -180,8 +180,8 @@ switch ($op) {
                     $name = $name_client->getVar("bannerclient_name");
                 }
                 $banner_finish['name'] = $name;
-                $xoops->tpl()->append_by_ref('banner_finish', $banner_finish);
-                $xoops->tpl()->append_by_ref('popup_banner_finish', $banner_finish);
+                $xoops->tpl()->appendByRef('banner_finish', $banner_finish);
+                $xoops->tpl()->appendByRef('popup_banner_finish', $banner_finish);
                 unset($banner_finish);
             }
         }

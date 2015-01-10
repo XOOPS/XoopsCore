@@ -9,16 +9,16 @@
     <meta name="generator" content="XOOPS" />
 
     <!-- Xoops style sheet -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl xoops.css}>" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/xoops/css/icons.css}>" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/bootstrap/css/bootstrap.min.css}>" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl media/bootstrap/css/xoops.bootstrap.css}>" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'xoops.css'}>" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/xoops/css/icons.css'}>" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/bootstrap/css/bootstrap.min.css'}>" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl 'media/bootstrap/css/xoops.bootstrap.css'}>" />
     <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/page/css/styles.css" />
-    <!--<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl media/bootstrap/css/bootstrap-responsive.min.css}>" />-->
+    <!--<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/bootstrap/css/bootstrap-responsive.min.css'}>" />-->
     <!-- Theme style sheet -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl css/style.css}>" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl 'css/style.css'}>" />
     <!--[if lte IE 8]>
-        <link rel="stylesheet" href="<{xoImgUrl styleIE8.css}>" type="text/css" />
+        <link rel="stylesheet" href="<{xoImgUrl 'styleIE8.css'}>" type="text/css" />
     <![endif]-->
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -30,7 +30,7 @@
 <body class="<{$xoops_langcode}>" onload="window.print()">
     <div id="page-print">
         <div class="txtcenter">
-            <img src="<{xoImgUrl images/logo.png}>" alt="<{$xoops_sitename}>" />
+            <img src="<{xoImgUrl 'images/logo.png'}>" alt="<{$xoops_sitename}>" />
         </div>
 
         <{if $content_dotitle || $content_dorating}>
@@ -59,7 +59,7 @@
                 <div>
                     <ul>
                         <{foreach item=summary from=$related.related_links}>
-                            <li><a href="<{xoAppUrl modules/page/viewpage.php}>?id=<{$summary.content_id}>" title="<{$summary.content_title}>"><{$summary.content_title}></a></li>
+                            <li><a href="<{xoAppUrl 'modules/page/viewpage.php'}>?id=<{$summary.content_id}>" title="<{$summary.content_title}>"><{$summary.content_title}></a></li>
                         <{/foreach}>
                     </ul>
                 </div>

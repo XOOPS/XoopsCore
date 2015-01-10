@@ -4,7 +4,7 @@
         <{if $title != ''}>
         <legend><{$title}></legend>
         <{/if}>
-        <{foreach item=input from=$xo_input}>
+        <{foreach item=input from=$xo_input|default:[]}>
             <{if $input.datalist != ''}>
                 <{$input.datalist}>
             <{/if}>
@@ -29,7 +29,7 @@
         <{if $title != ''}>
         <legend><{$title}></legend>
         <{/if}>
-        <{foreach item=input from=$xo_input}>
+        <{foreach item=input from=$xo_input|default:[]}>
             <{if $input.datalist != ''}>
                 <{$input.datalist}>
             <{/if}>
@@ -51,7 +51,7 @@
         <{if $title != ''}>
         <legend><{$title}></legend>
         <{/if}>
-        <{foreach item=input from=$xo_input}>
+        <{foreach item=input from=$xo_input|default:[]}>
             <{if $input.datalist != ''}>
                 <{$input.datalist}>
             <{/if}>

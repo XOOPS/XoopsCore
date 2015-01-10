@@ -1,14 +1,14 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
-<{if $errors}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_buttons.html"}>
+<{if $errors|default:false}>
 <div class="alert alert-error">
     <{$errors}>
 </div>
 <{/if}>
-<{if $sucess}>
+<{if $sucess|default:false}>
 <div class="alert alert-success">
     <{$sucess}>
 </div>
 <{/if}>
-<{$form}>
+<{$form|default:''}>

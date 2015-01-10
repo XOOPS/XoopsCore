@@ -1,6 +1,6 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
-<{if $fieldlist}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_buttons.html"}>
+<{if $fieldlist|default:false}>
 <form action="field.php" method="post" id="fieldform">
     <table class="outer">
         <thead>
@@ -38,12 +38,12 @@
                             <input type="hidden" name="oldcat[<{$field.field_id}>]" value="<{$field.cat_id}>" />
                             <input type="hidden" name="field_ids[]" value="<{$field.field_id}>" />
                             <a href="field.php?op=edit&amp;id=<{$field.field_id}>" title="<{translate key ='A_EDIT'}>">
-                                <img src="<{xoAdminIcons edit.png}>" alt="<{translate key ='A_EDIT'}>">
+                                <img src="<{xoAdminIcons 'edit.png'}>" alt="<{translate key ='A_EDIT'}>">
                             </a>
                         <{/if}>
                         <{if $field.canDelete}>
                             <a href="field.php?op=delete&amp;id=<{$field.field_id}>" title="<{translate key ='A_DELETE'}>">
-                                <img src="<{xoAdminIcons delete.png}>" alt="<{translate key ='A_DELETE'}>">
+                                <img src="<{xoAdminIcons 'delete.png'}>" alt="<{translate key ='A_DELETE'}>">
                             </a>
                         <{/if}>
                     </td>
@@ -66,4 +66,4 @@
 </form>
 <{/if}>
 <!-- Display form (add,edit) -->
-<{$form}>
+<{$form|default:''}>

@@ -189,7 +189,7 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
     $log_arr['type'] = $type;
     $log_arr['description'] = $description;
 
-    $xoops->tpl()->append_by_ref('log', $log_arr);
+    $xoops->tpl()->appendByRef('log', $log_arr);
     unset($table_arr);
 }
 

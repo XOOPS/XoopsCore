@@ -9,7 +9,7 @@
     <a href='viewpmsg.php?op=in' title='<{translate key="INBOX"}>'><{translate key="INBOX"}></a>&nbsp;
 <{/if}>
 
-<{if $message}>
+<{if $message|default:false}>
     <span class='bold'>&raquo;&raquo;</span>&nbsp;<{$message.subject}><br />
     <form name="<{$pmform.name}>" id="<{$pmform.name}>" action="<{$pmform.action}>" method="<{$pmform.method}>" <{$pmform.extra}> >
         <table class='outer bnone width100'>

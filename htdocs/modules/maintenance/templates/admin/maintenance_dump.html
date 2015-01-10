@@ -1,10 +1,10 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_buttons.html"}>
 <!-- Display form -->
-<{$form}>
+<{$form|default:''}>
 
-<{if $result_m}>
+<{if $result_m|default:false}>
     <table class="outer tablesorter">
         <thead>
         <tr>
@@ -44,7 +44,7 @@
     </table>
 <{/if}>
 
-<{if $result_t}>
+<{if $result_t|default:false}>
     <table class="outer tablesorter">
         <thead>
         <tr>
@@ -71,7 +71,7 @@
     </table>
 <{/if}>
 
-<{if $result_write}>
+<{if $result_write|default:false}>
 <div class="xo-moduleadmin-config outer">
     <div class="xo-window">
         <div class="xo-window-title">
@@ -97,7 +97,7 @@
 </div>
 <{/if}>
 
-<{if $files}>
+<{if $files|default:false}>
 <table class="outer tablesorter">
     <thead>
     <tr>
@@ -107,20 +107,20 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=file_arr from=$file_arr}>
+    <{foreach item=file_item from=$file_arr}>
     <tr class="<{cycle values='even,odd'}> alignmiddle">
         <td class="txtleft">
-            <{$file_arr.name}>
+            <{$file_item.name}>
         </td>
         <td class="txtcenter span1">
-            <{$file_arr.size}>
+            <{$file_item.size}>
         </td>
         <td class="xo-actions txtcenter span2">
-            <a href="<{$xoops_url}>/modules/maintenance/dump/<{$file_arr.name}>" title="<{$smarty.const._AM_MAINTENANCE_DUMP_DOWNLOAD}>">
-                <img src="<{xoModuleIcons16 download.png}>" alt="<{$smarty.const._AM_MAINTENANCE_DUMP_DOWNLOAD}>">
+            <a href="<{$xoops_url}>/modules/maintenance/dump/<{$file_item.name}>" title="<{$smarty.const._AM_MAINTENANCE_DUMP_DOWNLOAD}>">
+                <img src="<{xoModuleIcons16 'download.png'}>" alt="<{$smarty.const._AM_MAINTENANCE_DUMP_DOWNLOAD}>">
             </a>
-            <a href="dump.php?op=dump_delete&amp;filename=<{$file_arr.name}>" title="<{$smarty.const._AM_MAINTENANCE_DELETE}>">
-                <img src="<{xoModuleIcons16 delete.png}>" alt="<{$smarty.const._AM_MAINTENANCE_DELETE}>">
+            <a href="dump.php?op=dump_delete&amp;filename=<{$file_item.name}>" title="<{$smarty.const._AM_MAINTENANCE_DELETE}>">
+                <img src="<{xoModuleIcons16 'delete.png'}>" alt="<{$smarty.const._AM_MAINTENANCE_DELETE}>">
             </a>
         </td>
     </tr>

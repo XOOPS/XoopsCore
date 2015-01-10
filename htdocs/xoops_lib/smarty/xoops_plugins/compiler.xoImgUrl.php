@@ -31,11 +31,14 @@
  * is not possible right now.
  */
 
-function smarty_compiler_xoImgUrl($argStr, &$smarty)
+function smarty_compiler_xoImgUrl($params, Smarty $smarty)
 {
-    $xoops = Xoops::getInstance();
+    $xoops = \Xoops::getInstance();
     $xoTheme = $xoops->theme();
-    $path = (isset($xoTheme) && is_object($xoTheme)) ? $xoTheme->resourcePath($argStr) : $argStr;
-    return "\necho '" . addslashes($xoops->url($path)) . "';";
+    $arg = reset($params);
+    $arg = trim($arg, " '\"\t\n\r\0\x0B");
+    $path = (isset($xoTheme) && is_object($xoTheme)) ? $xoTheme->resourcePath($arg) : $arg;
+//$xoops->events()->triggerEvent('debug.log', $path);
+    return "<?php echo '" . addslashes($xoops->url($path)) . "'; ?>";
 
 }

@@ -2,23 +2,23 @@
 <html lang="<{$xoops_langcode}>">
 <head>
     <!-- Assign Theme variables -->
-    <{includeq file="$theme_tpl/theme_vars.html"}>
+    <{include file="$theme_tpl/theme_vars.html" scope=parent}>
     <!-- Title, meta, CSS and javascript -->
-    <{includeq file="$theme_tpl/theme_head.html"}>
+    <{include file="$theme_tpl/theme_head.html"}>
 </head>
 <body id="<{$xoops_dirname}>" class="<{$xoops_langcode}>">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="<{xoAppUrl }>" title="<{$xoops_sitename}>">
-                <img src="<{xoImgUrl img/logo.png}>" alt="<{$xoops_sitename}>" />
+                <img src="<{xoImgUrl 'img/logo.png'}>" alt="<{$xoops_sitename}>" />
             </a>
             <!-- Navigation bar menu -->
-            <{includeq file="$theme_tpl/theme_menu.html"}>
+            <{include file="$theme_tpl/theme_menu.html"}>
             <!-- User menu -->
-            <{includeq file="$theme_tpl/theme_user.html"}>
+            <{include file="$theme_tpl/theme_user.html"}>
             <!-- Language menu -->
-            <{includeq file="$theme_tpl/theme_language.html"}>
+            <{include file="$theme_tpl/theme_language.html"}>
         </div>
     </div>
 </div>
@@ -45,7 +45,7 @@
         <{if $xoops_showlblock}>
         <div class="span3 xo-block-left">
             <{foreach item=block from=$xoBlocks.canvas_left}>
-            <{includeq file="$theme_tpl/block_left.html"}>
+            <{include file="$theme_tpl/block_left.html"}>
             <{/foreach}>
         </div>
         <{/if}>
@@ -58,7 +58,7 @@
                         <div class="span<{$col_span}> xo-center">
                             <!-- Start center-center blocks loop -->
                             <{foreach item=block from=$xoBlocks.page_topcenter}>
-                            <{includeq file="$theme_tpl/block_center_c.html"}>
+                            <{include file="$theme_tpl/block_center_c.html"}>
                             <{/foreach}>
                             <!-- End center-center blocks loop -->
                         </div>
@@ -67,7 +67,7 @@
                         <div class="span<{$col_span_mid}> xo-left">
                             <!-- Start center-left blocks loop -->
                             <{foreach item=block from=$xoBlocks.page_topleft}>
-                            <{includeq file="$theme_tpl/block_center_l.html"}>
+                            <{include file="$theme_tpl/block_center_l.html"}>
                             <{/foreach}>
                             <!-- End center-left blocks loop -->
                         </div>
@@ -75,7 +75,7 @@
                         <div class="span<{$col_span_mid}> xo-right">
                             <!-- Start center-right blocks loop -->
                             <{foreach item=block from=$xoBlocks.page_topright}>
-                            <{includeq file="$theme_tpl/block_center_r.html"}>
+                            <{include file="$theme_tpl/block_center_r.html"}>
                             <{/foreach}>
                             <!-- End center-right blocks loop -->
                         </div>
@@ -99,7 +99,7 @@
                         <div class="span<{$col_span}> xo-center">
                             <!-- Start center-center blocks loop -->
                             <{foreach item=block from=$xoBlocks.page_bottomcenter}>
-                            <{includeq file="$theme_tpl/block_center_c.html"}>
+                            <{include file="$theme_tpl/block_center_c.html"}>
                             <{/foreach}>
                             <!-- End center-center blocks loop -->
                         </div>
@@ -108,7 +108,7 @@
                         <div class="span<{$col_span_mid}> xo-left">
                             <!-- Start center-left blocks loop -->
                             <{foreach item=block from=$xoBlocks.page_bottomleft}>
-                            <{includeq file="$theme_tpl/block_center_l.html"}>
+                            <{include file="$theme_tpl/block_center_l.html"}>
                             <{/foreach}>
                             <!-- End center-left blocks loop -->
                         </div>
@@ -116,7 +116,7 @@
                         <div class="span<{$col_span_mid}> xo-right">
                             <!-- Start center-right blocks loop -->
                             <{foreach item=block from=$xoBlocks.page_bottomright}>
-                            <{includeq file="$theme_tpl/block_center_r.html"}>
+                            <{include file="$theme_tpl/block_center_r.html"}>
                             <{/foreach}>
                             <!-- End center-right blocks loop -->
                         </div>
@@ -128,7 +128,7 @@
         <{if $xoops_showrblock}>
         <div class="span3 xo-block-right">
             <{foreach item=block from=$xoBlocks.canvas_right}>
-            <{includeq file="$theme_tpl/block_right.html"}>
+            <{include file="$theme_tpl/block_right.html"}>
             <{/foreach}>
         </div>
         <{/if}>

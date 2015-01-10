@@ -1,10 +1,10 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="admin:system|admin_buttons.html"}>
+<{include file="admin:system|admin_navigation.html"}>
+<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_buttons.html"}>
 <br />
-<{$info_msg}>
-<{$error_msg}>
-<{if $client_count == true}>
+<{$info_msg|default:''}>
+<{$error_msg|default:''}>
+<{if $client_count|default:false}>
 <table id="xo-bannersclient-sorter" cellspacing="1" class="outer tablesorter">
     <thead>
     <tr>
@@ -16,23 +16,23 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=client from=$client}>
+    <{foreach item=clientitem from=$client}>
     <tr class="<{cycle values='even,odd'}>">
-        <td class="txtcenter"><{$client.name}></td>
-        <{if $client.uid == 0}>
-        <td class="txtcenter"><{$client.uname}></td>
+        <td class="txtcenter"><{$clientitem.name}></td>
+        <{if $clientitem.uid == 0}>
+        <td class="txtcenter"><{$clientitem.uname}></td>
         <{else}>
-        <td class="txtcenter"><a title="<{$client.uname}>" href="<{$xoops_url}>/userinfo.php?uid=<{$client.uid}>" ><{$client.uname}></a></td>
+        <td class="txtcenter"><a title="<{$clientitem.uname}>" href="<{$xoops_url}>/userinfo.php?uid=<{$clientitem.uid}>" ><{$clientitem.uname}></a></td>
         <{/if}>
-        <td class="txtcenter"><{$client.banner_active}></td>
-        <td class="txtcenter"><{$client.email}></td>
+        <td class="txtcenter"><{$clientitem.banner_active}></td>
+        <td class="txtcenter"><{$clientitem.email}></td>
         <td class="xo-actions txtcenter">
-            <img onclick="display_dialog(<{$client.cid}>, true, true, 'slide', 'slide', 325, 400);" src="<{xoAdminIcons display.png}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
-            <a href="clients.php?op=edit&amp;cid=<{$client.cid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
-                <img src="<{xoAdminIcons edit.png}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
+            <img onclick="display_dialog(<{$clientitem.cid}>, true, true, 'slide', 'slide', 325, 400);" src="<{xoAdminIcons 'display.png'}>" alt="<{$smarty.const._AM_BANNERS_VIEW}>" title="<{$smarty.const._AM_BANNERS_VIEW}>" />
+            <a href="clients.php?op=edit&amp;cid=<{$clientitem.cid}>" title="<{$smarty.const._AM_BANNERS_EDIT}>">
+                <img src="<{xoAdminIcons 'edit.png'}>" alt="<{$smarty.const._AM_BANNERS_EDIT}>" />
             </a>
-            <a href="clients.php?op=delete&amp;cid=<{$client.cid}>" title="<{$smarty.const._AM_BANNERS_DELETE}>">
-                <img src="<{xoAdminIcons delete.png}>" alt="<{$smarty.const._AM_BANNERS_DELETE}>" />
+            <a href="clients.php?op=delete&amp;cid=<{$clientitem.cid}>" title="<{$smarty.const._AM_BANNERS_DELETE}>">
+                <img src="<{xoAdminIcons 'delete.png'}>" alt="<{$smarty.const._AM_BANNERS_DELETE}>" />
             </a>
         </td>
     </tr>
@@ -40,7 +40,7 @@
     </tbody>
 </table>
 <div class="clear spacer"></div>
-<{if $nav_menu}>
+<{if $nav_menu|default:false}>
 <div class="xo-avatar-pagenav floatright"><{$nav_menu}></div>
 <div class="clear spacer"></div>
 <{/if}>
@@ -54,9 +54,9 @@
                 <img src="<{$client.avatar}>" alt="<{$client.uname}>" title="<{$client.uname}>" />
             </td>
             <td class="txtcenter">
-                <a href='mailto:<{$client.email}>'><img src="<{xoAdminIcons mail_send.png}>" alt="" title="" /></a>
-                <a href='javascript:openWithSelfMain("<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$client.uid}>","pmlite",450,370);'><img src="<{xoAdminIcons pm.png}>" alt="" title="" /></a>
-                <a href='<{$client.url}>' rel='external'><img src="<{xoAdminIcons url.png}>" alt="" title="" ></a>
+                <a href='mailto:<{$client.email}>'><img src="<{xoAdminIcons 'mail_send.png'}>" alt="" title="" /></a>
+                <a href='javascript:openWithSelfMain("<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$client.uid}>","pmlite",450,370);'><img src="<{xoAdminIcons 'pm.png'}>" alt="" title="" /></a>
+                <a href='<{$client.url}>' rel='external'><img src="<{xoAdminIcons 'url.png'}>" alt="" title="" ></a>
             </td>
         </tr>
         <{/if}>
@@ -77,4 +77,4 @@
 <!--Pop-pup-->
 <{/if}>
 <!-- Display form (add,edit) -->
-<{$form}>
+<{$form|default:''}>

@@ -25,7 +25,7 @@ function showAvatar()
                     <a class="down" href="javascript:;">&nbsp;</a>
                 </div>
                 <div class="xo-window-data">
-                        <{foreachq from=$avatars item=avatar name=foo}>
+                        <{foreach from=$avatars item=avatar name=foo}>
                         <div class="cp-avatar">
                             <div class="xo-thumbimg">
                                 <img class="xo-tooltip" src="<{thumbnail image="uploads/`$avatar.avatar_file`" w=128 h=128}>" alt="<{$avatar.avatar_name}>" title="<{$avatar.avatar_name}>"/>

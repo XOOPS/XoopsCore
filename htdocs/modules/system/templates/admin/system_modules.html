@@ -1,5 +1,5 @@
-<{includeq file="admin:system|admin_breadcrumb.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_breadcrumb.html"}>
+<{include file="admin:system|admin_tips.html"}>
 <div class="btn-group pull-left">
     <a class="btn xo-tooltip card-view <{if $view_line == 'hide'}>disabled<{/if}>" href="#" title="<{translate key='LARGE_VIEW' dirname='system'}>"><b class="ico-application-view-tile"></b></a>
     <a class="btn xo-tooltip table-view <{if $view_large == 'hide'}>disabled<{/if}>" href="#" title="<{translate key='LINE_VIEW' dirname='system'}>"><b class="ico-application-view-list"></b></a>
@@ -17,8 +17,8 @@
             <span class="ico-brick xo-tooltip" title="<{translate key='INSTALLED_MODULES' dirname='system'}>"></span>&nbsp;<{translate key='INSTALLED_MODULES' dirname='system'}>
         </div>
         <div class="xo-window-data">
-            <div class="xo-content-card <{$view_large}>"><{includeq file="admin:system|system_modules_card.html"}></div>
-            <div class="xo-content-table <{$view_line}>"><{includeq file="admin:system|system_modules_table.html"}></div>
+            <div class="xo-content-card <{$view_large}>"><{include file="admin:system|system_modules_card.html"}></div>
+            <div class="xo-content-table <{$view_line}>"><{include file="admin:system|system_modules_table.html"}></div>
         </div>
     </div>
     <div class="clear"></div>
@@ -29,7 +29,7 @@
             <span class="ico-box xo-tooltip" title="<{translate key='AVAILABLE_MODULES' dirname='system'}>"></span>&nbsp;<{translate key='AVAILABLE_MODULES' dirname='system'}>
         </div>
         <div class="xo-window-data">
-            <{includeq file="admin:system|system_modules_available.html"}>
+            <{include file="admin:system|system_modules_available.html"}>
         </div>
     </div>
     <div class="clear"></div>
@@ -56,7 +56,7 @@
                 <span class="ico-application-go"></span>
                 <{translate key='A_INSTALL'}>
             </a>
-            <{php}>echo Xoops::getInstance()->security()->getTokenHTML();<{/php}>
+            <{securityToken}>
             <input type="hidden" name="fct" value="modulesadmin" />
             <input type="hidden" name="op" value="install" />
             <input id="install-dir" type="hidden" name="dirname" value="" />
@@ -82,7 +82,7 @@
                 <span class="ico-arrow-refresh-small"></span>
                 <{translate key='A_UPDATE'}>
             </a>
-            <{php}>echo Xoops::getInstance()->security()->getTokenHTML();<{/php}>
+            <{securityToken}>
             <input type="hidden" name="fct" value="modulesadmin" />
             <input type="hidden" name="op" value="update" />
             <input id="update-id" type="hidden" name="mid" value="" />
@@ -108,7 +108,7 @@
                 <span class="ico-application-delete"></span>
                 <{translate key='A_UNINSTALL'}>
             </a>
-            <{php}>echo Xoops::getInstance()->security()->getTokenHTML();<{/php}>
+            <{securityToken}>
             <input type="hidden" name="fct" value="modulesadmin" />
             <input type="hidden" name="op" value="uninstall" />
             <input id="uninstall-id" type="hidden" name="mid" value="" />

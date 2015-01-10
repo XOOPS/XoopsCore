@@ -73,6 +73,8 @@ class Logger implements LoggerInterface
             $instance = new $class();
             // Always catch errors, for security reasons
             set_error_handler(array($instance, 'handleError'));
+            // grab any uncaught exception
+            set_exception_handler(array($instance, 'handleException'));
         }
 
         return $instance;
@@ -133,14 +135,13 @@ class Logger implements LoggerInterface
         }
 
         if ($errno == E_USER_ERROR) {
-            //@$this->log(LogLevel::CRITICAL, $msg);
             $trace = true;
             if (substr($errstr, 0, '8') == 'notrace:') {
                 $trace = false;
                 $errstr = substr($errstr, 8);
             }
-            echo sprintf(_XOOPS_FATAL_MESSAGE, $errstr);
-            if ($trace && function_exists('debug_backtrace')) {
+            $this->reportFatalError($errstr);
+            if ($trace) {
                 echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
                 $trace = debug_backtrace();
                 array_shift($trace);
@@ -157,6 +158,28 @@ class Logger implements LoggerInterface
     }
 
     /**
+     * Exception handling callback.
+     *
+     * This will
+     *
+     * @param Exception $e uncaught exception
+     *
+     * @return never
+     */
+    public function handleException($e)
+    {
+        $msg = $e->__toString();
+        $this->reportFatalError($msg);
+    }
+
+    private function reportFatalError($msg)
+    {
+        $msg=$this->sanitizePath($msg);
+        echo sprintf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
+        @$this->log(LogLevel::CRITICAL, $msg);
+    }
+
+    /**
      * clean a path to remove sensitive details
      *
      * @param string $path path to sanitize
@@ -166,10 +189,28 @@ class Logger implements LoggerInterface
     protected function sanitizePath($path)
     {
         $path = str_replace(
-            array('\\', XOOPS_ROOT_PATH, str_replace('\\', '/', realpath(XOOPS_ROOT_PATH))),
-            array('/', '', ''),
+            array(
+                '\\',
+                XOOPS_ROOT_PATH,
+                str_replace('\\', '/', realpath(XOOPS_ROOT_PATH)),
+                XOOPS_PATH,
+                str_replace('\\', '/', realpath(XOOPS_PATH)),
+                XOOPS_VAR_PATH,
+                str_replace('\\', '/', realpath(XOOPS_VAR_PATH)),
+
+            ),
+            array(
+                '/',
+                'ROOT',
+                'ROOT',
+                'PATH',
+                'PATH',
+                'VAR',
+                'VAR',
+            ),
             $path
         );
+
         return $path;
     }
 

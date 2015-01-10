@@ -97,7 +97,7 @@ if (false != $error) {
     // Define main template
     $xoops->header('system_index.html');
     // Define Stylesheet
-    $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
+    $xoops->theme()->addStylesheet('modules/system/css/admin.css');
     // Define scripts
     $xoops->theme()->addBaseScriptAssets('@jquery.');
     $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
@@ -160,7 +160,7 @@ if (false != $error) {
                         $menu['infos'] = sprintf(SystemLocale::F_USERS_SPAN, $member);
                         break;
                 }
-                $xoops->tpl()->append_by_ref('menu', $menu);
+                $xoops->tpl()->appendByRef('menu', $menu);
                 unset($menu);
             }
             unset($modversion);

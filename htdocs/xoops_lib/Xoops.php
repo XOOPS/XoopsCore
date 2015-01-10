@@ -570,11 +570,11 @@ class Xoops
             if (@is_object($this->theme()->plugins['XoopsThemeBlocksPlugin'])) {
                 $aggreg = $this->theme()->plugins['XoopsThemeBlocksPlugin'];
                 // Backward compatibility code for pre 2.0.14 themes
-                $this->tpl()->assign_by_ref('xoops_lblocks', $aggreg->blocks['canvas_left']);
-                $this->tpl()->assign_by_ref('xoops_rblocks', $aggreg->blocks['canvas_right']);
-                $this->tpl()->assign_by_ref('xoops_ccblocks', $aggreg->blocks['page_topcenter']);
-                $this->tpl()->assign_by_ref('xoops_clblocks', $aggreg->blocks['page_topleft']);
-                $this->tpl()->assign_by_ref('xoops_crblocks', $aggreg->blocks['page_topright']);
+                $this->tpl()->assignByRef('xoops_lblocks', $aggreg->blocks['canvas_left']);
+                $this->tpl()->assignByRef('xoops_rblocks', $aggreg->blocks['canvas_right']);
+                $this->tpl()->assignByRef('xoops_ccblocks', $aggreg->blocks['page_topcenter']);
+                $this->tpl()->assignByRef('xoops_clblocks', $aggreg->blocks['page_topleft']);
+                $this->tpl()->assignByRef('xoops_crblocks', $aggreg->blocks['page_topright']);
                 $this->tpl()->assign('xoops_showlblock', !empty($aggreg->blocks['canvas_left']));
                 $this->tpl()->assign('xoops_showrblock', !empty($aggreg->blocks['canvas_right']));
                 $this->tpl()
@@ -1860,22 +1860,9 @@ class Xoops
      */
     public function templateClearModuleCache($mid)
     {
-        $block_arr = $this->getHandlerBlock()->getByModule($mid);
-        $count = count($block_arr);
-        if ($count > 0) {
-            $xoopsTpl = new XoopsTpl();
-            $xoopsTpl->caching = 2;
-            /* @var XoopsBlock $block */
-            foreach ($block_arr as $block) {
-                if ($block->getVar('template') != '') {
-                    $xoopsTpl->clear_cache(
-                        XOOPS_ROOT_PATH . "/modules/" . $block->getVar('dirname')
-                        . "/templates/blocks/" . $block->getVar('template'),
-                        'blk_' . $block->getVar('bid')
-                    );
-                }
-            }
-        }
+        $module = $this->getModuleById($mid);
+        $xoopsTpl = new XoopsTpl();
+        $xoopsTpl->clearModuleCompileCache($module->getVar('dirname'));
     }
 
     /**

@@ -24,7 +24,7 @@ $(function() {
         request = $.ajax({
             url: "?fct=services",
             type: "post",
-            data: 'op=order&service=<{$selected_service}>&token=<{$token}>&'+orderedData
+            data: 'op=order&service=<{$selected_service}>&token=<{$token|default:''}>&'+orderedData
         });
 
         // callback handler that will be called on success
@@ -46,8 +46,8 @@ $(function() {
 });
 </script>
 
-<{includeq file="admin:system|admin_breadcrumb.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
+<{include file="admin:system|admin_breadcrumb.html"}>
+<{include file="admin:system|admin_tips.html"}>
 
 <div class="row">
     <div class="span3">
@@ -64,7 +64,7 @@ $(function() {
     </div>
 
 <div class="span8">
-<{$message}>
+<{$message|default:''}>
 <{if isset($provider_list) }>
 <script>
 setTimeout(function () {

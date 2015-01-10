@@ -309,7 +309,7 @@ class XoopsTheme
         $this->template = null;
         $this->template = new XoopsTpl();
         //$this->template->currentTheme = $this;
-        $this->template->assign_by_ref('xoTheme', $this);
+        $this->template->assignByRef('xoTheme', $this);
         $this->template->assign(array(
             'xoops_theme'      => $xoops->getConfig('theme_set'),
             'xoops_imageurl'   => XOOPS_THEME_URL . '/' . $xoops->getConfig('theme_set') . '/',
@@ -465,7 +465,7 @@ class XoopsTheme
                 $uri = preg_replace("/([\?&])(" . SID . "$|" . SID . "&)/", "\\1", $uri);
             }
             $this->contentCacheId = $this->generateCacheId('page_' . substr(md5($uri), 0, 8));
-            if ($this->template->is_cached($template, $this->contentCacheId)) {
+            if ($this->template->isCached($template, $this->contentCacheId)) {
                 Xoops::getInstance()->events()->triggerEvent('core.theme.checkcache.success', array($template, $this));
                 $this->render(null, null, $template);
                 return true;
@@ -510,13 +510,13 @@ class XoopsTheme
         if ($xoops->getOption('xoops_pagetitle')) {
             $this->template->assign('xoops_pagetitle', $xoops->getOption('xoops_pagetitle'));
         }
-        $header = !$xoops->getOption('xoops_module_header') ? $this->template->get_template_vars('xoops_module_header') : $xoops->getOption('xoops_module_header');
+        $header = !$xoops->getOption('xoops_module_header') ? $this->template->getTemplateVars('xoops_module_header') : $xoops->getOption('xoops_module_header');
 
         //save meta information of cached pages
         if ($this->contentCacheLifetime && $this->contentCacheId && !$contentTpl) {
             $content['htmlHeadStrings'] = (array)$this->htmlHeadStrings;
             $content['metas'] = (array)$this->metas;
-            $content['xoops_pagetitle'] = $this->template->get_template_vars('xoops_pagetitle');
+            $content['xoops_pagetitle'] = $this->template->getTemplateVars('xoops_pagetitle');
             $content['header'] = $header;
             Xoops_Cache::write($this->contentCacheId, $content, $this->headersCacheEngine);
         }
@@ -530,7 +530,7 @@ class XoopsTheme
             }
         }
 
-        // We assume no overlap between $GLOBALS['xoopsOption']['xoops_module_header'] and $this->template->get_template_vars( 'xoops_module_header' ) ?
+        // We assume no overlap between $GLOBALS['xoopsOption']['xoops_module_header'] and $this->template->getTemplateVars( 'xoops_module_header' ) ?
         $this->template->assign('xoops_module_header', $this->renderMetas(true) . "\n" . $header);
 
         if ($canvasTpl) {
@@ -550,7 +550,7 @@ class XoopsTheme
             ob_end_clean();
         }
 
-        $this->template->assign_by_ref('xoops_contents', $this->content);
+        $this->template->assignByRef('xoops_contents', $this->content);
 
         // Do not cache the main (theme.html) template output
         $this->template->caching = 0;
@@ -1007,14 +1007,17 @@ class XoopsTheme
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
         }
-
+//\Xoops::getInstance()->events()->triggerEvent('debug.log', $this);
         if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . "/{$this->themesPath}/{$this->folderName}/{$path}")) {
+//\Xoops::getInstance()->events()->triggerEvent('debug.log', "custom theme path {$this->themesPath}/{$this->folderName}/{$path}");
             return "{$this->themesPath}/{$this->folderName}/{$path}";
         }
 
         if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . "/themes/{$this->folderName}/{$path}")) {
+//\Xoops::getInstance()->events()->triggerEvent('debug.log', "main theme folder themes/{$this->folderName}/{$path}");
             return "themes/{$this->folderName}/{$path}";
         }
+//\Xoops::getInstance()->events()->triggerEvent('debug.log', "drop thru {$path}");
         return $path;
     }
 }

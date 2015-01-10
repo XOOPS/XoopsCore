@@ -11,9 +11,9 @@
         <{/if}>
     <{/foreach}>
 </ul>
-<{if $xo_sys_tips}>
+<{if $xo_sys_tips|default:false}>
 <div class="tips ui-corner-all">
-    <img class="floatleft xo-tooltip" src="<{xoAdminIcons tips.png}>" alt="<{translate key='TIPS'}>" title="<{translate key='TIPS'}>" />
+    <img class="floatleft xo-tooltip" src="<{xoAdminIcons 'tips.png'}>" alt="<{translate key='TIPS'}>" title="<{translate key='TIPS'}>" />
     <div class="floatleft"><{$xo_sys_tips}> - to change</div>
     <div class="clear">&nbsp;</div>
 </div>

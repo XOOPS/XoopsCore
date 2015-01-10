@@ -1,5 +1,5 @@
 <{if $search_info}>
-<div class="resultMsg"> <{$search_info}></div>    <{if $results}>        <{foreachq item=result from=$results}>
+<div class="resultMsg"> <{$search_info}></div>    <{if $results}>        <{foreach item=result from=$results}>
 <div class="item">
     <strong><a href="<{$result.link}>"><{$result.title}></a></strong><br/> <{$result.author}> <{$result.datesub}> <{if $result.text}>
     <br/><{$result.text}> <{/if}>
