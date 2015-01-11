@@ -69,4 +69,16 @@ class Smarty_Resource_Admin extends Smarty_Resource_Custom
         }
         return $cache[$tpl_name] = $file_path;
     }
+
+    /**
+     * Determine basename for compiled filename
+     *
+     * @param  Smarty_Template_Source $source source object
+     *
+     * @return string                 resource's basename
+     */
+    protected function getBasename(Smarty_Template_Source $source)
+    {
+        return urlencode(basename($source->name));
+    }
 }
