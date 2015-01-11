@@ -29,7 +29,6 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
     {
         $tpl = $this->blockTplInfo($name);
         $stat = stat($tpl);
-
         // Did we fail to get stat information?
         if ($stat) {
             $mtime = $stat['mtime'];
@@ -67,5 +66,17 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
             $file_path = $xoops->path("modules/{$dirname}/templates/blocks/{$file}");
         }
         return $cache[$tpl_name] = $file_path;
+    }
+
+    /**
+     * Determine basename for compiled filename
+     *
+     * @param  Smarty_Template_Source $source source object
+     *
+     * @return string                 resource's basename
+     */
+    protected function getBasename(Smarty_Template_Source $source)
+    {
+        return urlencode(basename($source->name));
     }
 }
