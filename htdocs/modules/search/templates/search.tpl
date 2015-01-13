@@ -50,7 +50,7 @@
                 <{foreach from=$module.result item=result}>
                     <div class="searchItem">
                         <div class="bold"><a href="<{$result.link}>" title="<{$result.title}>"><{$result.title_highligh}></a></div>
-                        <div><{$result.content}></div>
+                        <div><{$result.content|default:''}></div>
                         <span class='x-small'>
                             <{if $result.uid}>
                                <a href="<{$xoops_url}>/userinfo.php?uid=<{$result.uid}>" title="<{$result.uname}>"><{$result.uname}></a>

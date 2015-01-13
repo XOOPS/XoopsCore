@@ -13,7 +13,7 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -66,7 +66,7 @@ switch ($op) {
         $start = $request->asInt('start', 0);
         $startF = $request->asInt('startF', 0);
         // Call header
-        $xoops->header('module:banners/banners_client.html');
+        $xoops->header('module:banners/banners_client.tpl');
         // Define Stylesheet
         $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
@@ -262,7 +262,7 @@ switch ($op) {
         $bid = $request->asInt('bid', 0);
         if ($bid > 0) {
             // Call header
-            $xoops->header('module:banners/banners_client.html');
+            $xoops->header('module:banners/banners_client.tpl');
             $obj = $banner_Handler->get($bid);
             $form = new Xoops\Form\ThemeForm(_AM_BANNERS_CLIENTS_EDIT, 'form', 'index.php', 'post', true);
             $form->addElement(new Xoops\Form\Text(_AM_BANNERS_BANNERS_CLICKURL, 'clickurl', 80, 255, $obj->getVar('banner_clickurl')), false);
