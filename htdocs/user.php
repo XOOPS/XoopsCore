@@ -60,7 +60,7 @@ if ($op == 'login') {
 
 if ($op == 'main') {
     if (!$xoops->isUser()) {
-        $xoops->header('system_userform.html');
+        $xoops->header('module:system/system_userform.tpl');
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::A_LOGIN);
         $xoops->theme()->addMeta(
             'meta',
