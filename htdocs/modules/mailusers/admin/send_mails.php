@@ -13,7 +13,7 @@
  * Mailusers Plugin
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
  * @subpackage      mailusers
@@ -31,7 +31,7 @@ $op = $request->asStr('op', 'list');
 $memberslist_id = $request->asArray('memberslist_id', array());
 
 // Call Header
-$xoops->header('admin:mailusers/mailusers_send_mail.html');
+$xoops->header('admin:mailusers/mailusers_send_mail.tpl');
 // Define Stylesheet
 $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
 $xoops->theme()->addBaseScriptAssets(array('@jquery','media/xoops/xoops.js','modules/system/js/admin.js'));

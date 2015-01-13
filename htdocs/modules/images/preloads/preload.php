@@ -15,7 +15,7 @@ use Xoops\Core\PreloadItem;
  * Images core preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */
 class ImagesPreload extends PreloadItem

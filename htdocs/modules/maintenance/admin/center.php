@@ -13,7 +13,7 @@
  * maintenance extensions
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
@@ -29,7 +29,7 @@ $xoops = Xoops::getInstance();
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 // Call Header
-$xoops->header('admin:maintenance/maintenance_center.html');
+$xoops->header('admin:maintenance/maintenance_center.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
