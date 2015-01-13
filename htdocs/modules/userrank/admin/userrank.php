@@ -13,7 +13,7 @@
  * User rank Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userrank
  * @since           2.6.0
  * @author          Cointin Maxime (AKA Kraven30)
@@ -34,7 +34,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Get userrank handler
 $userrank_Handler = $xoops->getHandler("ranks");
 // Call Header
-$xoops->header('admin:userrank/userrank.html');
+$xoops->header('admin:userrank/userrank.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('userrank.php');

@@ -13,7 +13,7 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -22,7 +22,7 @@
 include __DIR__ . '/header.php';
 
 // Call header
-$xoops->header('admin:page/page_admin_related.html');
+$xoops->header('admin:page/page_admin_related.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('related.php');

@@ -78,7 +78,7 @@ $modversion['blocks'][] = array(
     'show_func' => 'b_xlanguage_select_show',
     'edit_func' => 'b_xlanguage_select_edit',
     'options' => 'images| |5',
-    'template' => 'xlanguage_block.html',
+    'template' => 'xlanguage_block.tpl',
 );
 
 // Config

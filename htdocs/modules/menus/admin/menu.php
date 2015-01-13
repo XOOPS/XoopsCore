@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>

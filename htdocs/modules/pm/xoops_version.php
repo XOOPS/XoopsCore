@@ -13,7 +13,7 @@
  * Private message module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -29,7 +29,7 @@ $modversion['author']      = "Jan Pedersen, Taiwen Jiang";
 $modversion['credits']     = "The XOOPS Project, Wanikoo";
 $modversion['help']        = 'page=help';
 $modversion['license']     = 'GNU GPL 2.0';
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
+$modversion['license_url'] = "http://www.gnu.org/licenses/gpl-2.0.html";
 $modversion['image']       = "images/logo.png";
 $modversion['dirname']     = "pm";
 
@@ -69,13 +69,13 @@ $modversion['onUpdate']  = "include/update.php";
 
 // Templates
 $modversion['templates']                   = array();
-$modversion['templates'][1]['file']        = 'pm_pmlite.html';
+$modversion['templates'][1]['file']        = 'pm_pmlite.tpl';
 $modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file']        = 'pm_readpmsg.html';
+$modversion['templates'][2]['file']        = 'pm_readpmsg.tpl';
 $modversion['templates'][2]['description'] = '';
-$modversion['templates'][3]['file']        = 'pm_viewpmsg.html';
+$modversion['templates'][3]['file']        = 'pm_viewpmsg.tpl';
 $modversion['templates'][3]['description'] = '';
-//$modversion['templates'][4]['file'] = 'pm_lookup.html';
+//$modversion['templates'][4]['file'] = 'pm_lookup.tpl';
 //$modversion['templates'][4]['description'] = '';
 
 // Menu

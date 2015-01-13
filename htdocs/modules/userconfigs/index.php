@@ -13,7 +13,7 @@
  * User configs
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userconfigs
  * @version         $Id$
  */
@@ -31,7 +31,7 @@ $mid = $xoops->request()->asInt('mid', 0);
 $uid = $xoops->user->getVar('uid');
 $op = $xoops->request()->asStr('op', 'show');
 
-$xoops->header('module:userconfigs/list.html');
+$xoops->header('module:userconfigs/list.tpl');
 $xoops->tpl()->assign('welcome', sprintf(_MD_USERCONFIGS_WELCOME, XoopsUserUtility::getUnameFromId($xoops->user->getVar('uid'), true)));
 
 //Display part

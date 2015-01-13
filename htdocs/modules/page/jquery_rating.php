@@ -13,7 +13,7 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
  * @author          DuGris (aka Laurent JEN)
@@ -37,7 +37,8 @@ if ( $xoops->security()->check() ) {
         $contentObj = $content_Handler->get($content_id);
         if (count($contentObj) == 0
 //            || $contentObj->getVar('content_author') == $uid
-            || $contentObj->getVar('content_status') == 0 ||  $contentObj->getVar('content_dorating') == 0){            echo json_encode($ret);
+            || $contentObj->getVar('content_status') == 0 ||  $contentObj->getVar('content_dorating') == 0){
+            echo json_encode($ret);
             exit();
         }
 
@@ -48,12 +49,14 @@ if ( $xoops->security()->check() ) {
         // Permission to vote
         $perm_vote = $gperm_Handler->checkRight('page_global', 0, $groups, $module_id, false);
 
-        if (!$perm_view || !$perm_vote) {            echo json_encode($ret);
+        if (!$perm_view || !$perm_vote) {
+            echo json_encode($ret);
             exit();
         }
 
         // Check if uid has voted
-        if ($rating_Handler->hasVoted($content_id)) {            echo json_encode($ret);
+        if ($rating_Handler->hasVoted($content_id)) {
+            echo json_encode($ret);
             exit();
         }
 
@@ -64,13 +67,16 @@ if ( $xoops->security()->check() ) {
         $ratingObj->setVar('rating_rating', $option);
         $ratingObj->setVar('rating_ip', $helper->xoops()->getenv('REMOTE_ADDR'));
         $ratingObj->setVar('rating_date', $time);
-        if ($rating_id = $rating_Handler->insert($ratingObj)) {            $ret = $rating_Handler->getStats($content_id);
-            $contentObj->setVar('content_rating', $ret['average']);            $contentObj->setVar('content_votes', $ret['voters']);
+        if ($rating_id = $rating_Handler->insert($ratingObj)) {
+            $ret = $rating_Handler->getStats($content_id);
+            $contentObj->setVar('content_rating', $ret['average']);
+            $contentObj->setVar('content_votes', $ret['voters']);
             $ret['error'] = 0;
             $ret['vote'] = $option;
             $ret['average'] = number_format($ret['average'], 2);
             $contentObj->setVar('content_rating', $ret['average']);
-            if (!$content_Handler->insert($contentObj)) {            }
+            if (!$content_Handler->insert($contentObj)) {
+            }
         }
     }
 }

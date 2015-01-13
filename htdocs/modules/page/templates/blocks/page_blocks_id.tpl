@@ -7,7 +7,7 @@
         <{/if}>
         <{if $block.content_dorating}>
             <div class="page_headerright">
-                <{include file="module:page/page_rating.html" yourvote=$block.yourvote security=$block.security}>
+                <{include file="module:page/page_rating.tpl" yourvote=$block.yourvote security=$block.security}>
             </div>
         <{/if}>
         <div class="clear"></div>
@@ -38,7 +38,7 @@
     <{$block.content_text}>
     <{if $block.related.related_navigation}>
         <div class="clear"></div>
-            <{include file="module:page/page_navigation.html" related=$block.related}>
+            <{include file="module:page/page_navigation.tpl" related=$block.related}>
         <div class="clear"></div>
     <{/if}>
 

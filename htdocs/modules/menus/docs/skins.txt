@@ -50,7 +50,7 @@ and they should have a skin_version.php file in it
 
 skin_version.php structure:
 //informs where to find the template for this skin(relative to skin folder)
-$skinversion['template'] = 'templates/template.html';
+$skinversion['template'] = 'templates/template.tpl';
 
 //informs where to find css file/files
 $skinversion['css'] = 'css/superfish.css';
