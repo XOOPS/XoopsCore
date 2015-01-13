@@ -83,7 +83,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'b_comments_show',
     'options'     => '10',
     'edit_func'   => 'b_comments_edit',
-    'template'    => 'comments.html',
+    'template'    => 'comments.tpl',
 );
 
 // Preferences

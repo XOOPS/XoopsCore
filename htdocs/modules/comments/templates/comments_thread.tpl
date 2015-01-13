@@ -5,7 +5,7 @@
         <th class="width20"><{$comments_lang_poster}></th>
         <th><{$comments_lang_thread}></th>
     </tr>
-    <{include file="module:comments/comment.html" comment=$comments[i]}>
+    <{include file="module:comments/comment.tpl" comment=$comments[i]}>
 </table>
 
 <{if $show_threadnav == true}>

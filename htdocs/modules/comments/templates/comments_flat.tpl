@@ -4,6 +4,6 @@
         <th><{$comments_lang_thread}></th>
     </tr>
     <{foreach item=comment from=$comments|default:[]}>
-    <{include file="module:comments/comment.html" comment=$comment}>
+    <{include file="module:comments/comment.tpl" comment=$comment}>
     <{/foreach}>
 </table>
