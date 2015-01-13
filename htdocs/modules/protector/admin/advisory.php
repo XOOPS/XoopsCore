@@ -25,7 +25,7 @@ global $xoopsDB;
 $db = $xoopsDB;
 
 // Call header
-$xoops->header('protector_advisory.html');
+$xoops->header('admin:protector/protector_advisory.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('advisory.php');

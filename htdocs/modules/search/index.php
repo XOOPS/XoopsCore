@@ -116,7 +116,7 @@ switch ($action) {
             unset($mids);
             $mids = array_keys($modules);
         }
-        $xoops->header('module:search|search.html');
+        $xoops->header('module:search/search.html');
         $nomatch = true;
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
@@ -182,7 +182,7 @@ switch ($action) {
 
     case "showall":
     case 'showallbyuser':
-        $xoops->header('module:search|search.html');
+        $xoops->header('module:search/search.html');
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
         $xoops->tpl()->assign('ignored_words', sprintf(_MD_SEARCH_IGNOREDWORDS, $search->getConfig('keyword_min')));

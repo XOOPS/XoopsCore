@@ -41,7 +41,7 @@ $tpl->caching = 2;
 $tpl->cache_lifetime= 0;
 
 $myts = MyTextSanitizer::getInstance();
-if (!$tpl->isCached('module:publisher|publisher_rss.tpl')) {
+if (!$tpl->isCached('module:publisher/publisher_rss.tpl')) {
     $channel_category = $publisher->getModule()->getVar('name');
     $tpl->assign('channel_charset', XoopsLocale::getCharset());
     $tpl->assign('channel_title', htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES));
@@ -84,4 +84,4 @@ if (!$tpl->isCached('module:publisher|publisher_rss.tpl')) {
         }
     }
 }
-$tpl->display('module:publisher|publisher_rss.tpl');
+$tpl->display('module:publisher/publisher_rss.tpl');

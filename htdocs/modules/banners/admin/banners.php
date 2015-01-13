@@ -34,7 +34,7 @@ $op = $request->asStr('op', 'list');
 $banner_Handler = $helper->getHandlerBanner();
 $client_Handler = $helper->getHandlerBannerclient();
 // Call header
-$xoops->header('banners_admin_banners.html');
+$xoops->header('admin:banners/banners_admin_banners.html');
 
 // Get start pager
 $start = $request->asInt('start', 0);

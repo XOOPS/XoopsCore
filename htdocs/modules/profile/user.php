@@ -36,7 +36,7 @@ if (isset($_POST['op'])) {
 
 if ($op == 'main') {
     if (!$xoops->isUser()) {
-        $xoops->header('profile_userform.tpl');
+        $xoops->header('module:profile/profile_userform.tpl');
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
         $xoops->tpl()->assign('lang_username', XoopsLocale::C_USERNAME);
         if (isset($_GET['xoops_redirect'])) {

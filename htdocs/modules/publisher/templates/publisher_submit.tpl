@@ -1,8 +1,8 @@
-<{include file="module:publisher|publisher_header.tpl" item=$item|default:false}>
+<{include file="module:publisher/publisher_header.tpl" item=$item|default:false}>
 
 <{if $op|default:'' == 'preview'}>
 <br/>
-<{include file="module:publisher|publisher_singleitem.tpl" item=$item|default:false}>
+<{include file="module:publisher/publisher_singleitem.tpl" item=$item|default:false}>
 <{/if}>
 
 <div class="publisher_infotitle"><{$lang_intro_title|default:''}></div>

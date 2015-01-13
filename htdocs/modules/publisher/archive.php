@@ -32,7 +32,7 @@ include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 
-$xoops->header('publisher_archive.tpl');
+$xoops->header('module:publisher/publisher_archive.tpl');
 
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::LoadFile($publisher->path('footer.php'));

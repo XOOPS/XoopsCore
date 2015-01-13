@@ -1,5 +1,5 @@
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
 <table class="outer">
     <thead>
     <tr>

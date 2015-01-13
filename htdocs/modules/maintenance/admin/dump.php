@@ -31,7 +31,7 @@ global $xoopsDB;
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 // Call Header
-$xoops->header('maintenance_dump.html');
+$xoops->header('admin:maintenance/maintenance_dump.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('dump.php');

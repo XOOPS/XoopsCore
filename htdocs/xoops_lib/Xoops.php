@@ -13,7 +13,7 @@
  * XOOPS
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @since           2.6.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -290,7 +290,7 @@ class Xoops
                 $tpl_info = $this->getTplInfo($tpl_name);
                 $this->tpl_name = $tpl_info['tpl_name'];
             } else {
-                $tpl_name = 'module:system|system_dummy.html';
+                $tpl_name = 'module:system/system_dummy.tpl';
                 $tpl_info = $this->getTplInfo($tpl_name);
                 $this->tpl_name = $tpl_info['tpl_name'];
             }
@@ -494,39 +494,53 @@ class Xoops
 
     /**
      * Gets module, type and file from a tpl name
-     * It also returns the correct tpl name in case it is not well formed
      *
-     * @param string $tpl_name
+     * @param string $tpl_name in form type:module/filename.tpl
      *
-     * @return array;
+     * @return array|false associative array of 'tpl_name', 'type', 'module', 'file'
+     *                     or false on error
      */
     public function getTplInfo($tpl_name)
     {
-        $ret = array();
-        $ret['type'] = $this->isAdminSide ? 'admin' : 'module';
-        $info = explode(':', $tpl_name);
-        if (count($info) == 2) {
-            $ret['type'] = $info[0];
-            $tpl_name = str_replace($ret['type'] . ':', '', $tpl_name);
-        }
-
-        if ($ret['type'] == 'db') {
-            //For legacy compatibility
-            $ret['type'] = $this->isAdminSide ? 'admin' : 'module';
-        }
-
-        $info = explode('|', $tpl_name);
-        if (count($info) == 2) {
-            $ret['module'] = $info[0];
-            $ret['file'] = $info[1];
-        } else {
-            $ret['module'] = 'system';
-            $ret['file'] = $tpl_name;
-            if ($this->isModule()) {
-                $ret['module'] = $this->module->getVar('dirname', 'n');
+        $parts = array();
+        $ret = false;
+        $matched = preg_match('#(\w+):(\w+)/(.*)$#', $tpl_name, $parts);
+        if ($matched) {
+            $names = array('tpl_name', 'type', 'module', 'file');
+            $ret = array();
+            for ($i=0; $i<4; ++$i) {
+                 $ret[$names[$i]] = $parts[$i];
             }
+        } else {
+            // this should be eleminated
+            $this->events()->triggerEvent('debug.log', "Sloppy template: " . $tpl_name);
+            $ret = array();
+            $ret['type'] = $this->isAdminSide ? 'admin' : 'module';
+            $info = explode(':', $tpl_name);
+            if (count($info) == 2) {
+                $ret['type'] = $info[0];
+                $tpl_name = str_replace($ret['type'] . ':', '', $tpl_name);
+            }
+
+            if ($ret['type'] == 'db') {
+                //For legacy compatibility
+                $ret['type'] = $this->isAdminSide ? 'admin' : 'module';
+            }
+
+            $info = explode('|', $tpl_name);
+            if (count($info) == 2) {
+                $ret['module'] = $info[0];
+                $ret['file'] = $info[1];
+            } else {
+                $ret['module'] = 'system';
+                $ret['file'] = $tpl_name;
+                if ($this->isModule()) {
+                    $ret['module'] = $this->module->getVar('dirname', 'n');
+                }
+            }
+            $ret['tpl_name'] = $ret['type'] . ':' . $ret['module'] . '/' . $ret['file'];
         }
-        $ret['tpl_name'] = $ret['type'] . ':' . $ret['module'] . '|' . $ret['file'];
+
         return $ret;
     }
 
@@ -548,7 +562,7 @@ class Xoops
         //For legacy
         if (!$tpl_name && isset($this->option['template_main'])) {
             $tpl_name = $this->option['template_main'];
-            $this->deprecated('XoopsOption \'template_main\' is deprecated, please use $xoops->header(\'templatename.html\') instead');
+            $this->deprecated('XoopsOption \'template_main\' is deprecated, please use $xoops->header(\'templatename.tpl\') instead');
         }
         $this->theme($tpl_name);
         $this->tpl()->assign('xoops', $this);
@@ -587,7 +601,7 @@ class Xoops
                 $this->theme()->contentCacheLifetime = isset($cache_times[$this->module->getVar('mid')]) ? $cache_times[$this->module->getVar('mid')] : 0;
                 // Tricky solution for setting cache time for homepage
             } else {
-                if ($this->tpl_name == 'module:system|system_homepage.html') {
+                if ($this->tpl_name == 'module:system/system_homepage.tpl') {
                     // $this->theme->contentCacheLifetime = 604800;
                 }
             }
@@ -972,7 +986,7 @@ class Xoops
         }
 
         $language = empty($language) ? XoopsLocale::getLegacyLanguage() : $language;
-        // expanded domain to multiple categories, e.g. module:system, framework:filter, etc.
+        // expanded domain to multiple categories, e.g. module:Fsystem, framework:filter, etc.
         if ((empty($domain) || 'global' == $domain)) {
             $path = '';
         } else {
@@ -1217,7 +1231,7 @@ class Xoops
             return '';
         } else {
             $this->tpl()->assign('alert_msg', $alert_msg);
-            $ret = $this->tpl()->fetch('module:system|system_alert.html');
+            $ret = $this->tpl()->fetch('module:system/system_alert.tpl');
             return $ret;
         }
     }
@@ -1276,7 +1290,7 @@ class Xoops
             $this->tpl()->assign('token', $this->security()->getTokenHTML());
         }
         $this->tpl()->assign('hiddens', $str_hiddens);
-        $this->tpl()->display('module:system|system_confirm.html');
+        $this->tpl()->display('module:system/system_confirm.tpl');
     }
 
     /**
@@ -1467,7 +1481,7 @@ class Xoops
         $this->tpl()->assign('lang_ifnotreload', sprintf(XoopsLocale::F_IF_PAGE_NOT_RELOAD_CLICK_HERE, $url));
 
         $this->events()->triggerEvent('core.include.functions.redirectheader.end');
-        $this->tpl()->display('module:system|system_redirect.html');
+        $this->tpl()->display('module:system/system_redirect.tpl');
         exit();
     }
 
@@ -1846,7 +1860,7 @@ class Xoops
             $module = $tplfile->getVar('tpl_module', 'n');
             $type = $tplfile->getVar('tpl_type', 'n');
             $tpl = new XoopsTpl();
-            return $tpl->touch($type . ':' . $module . '|' . $file);
+            return $tpl->touch($type . ':' . $module . '/' . $file);
         }
         return false;
     }

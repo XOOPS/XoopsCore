@@ -5,7 +5,7 @@
         <th class="width20"><{$comments_lang_poster}></th>
         <th><{$comments_lang_thread}></th>
     </tr>
-    <{include file="module:comments|comment.html" comment=$comments[i]}>
+    <{include file="module:comments/comment.html" comment=$comments[i]}>
 </table>
 
 <!-- start comment replies -->
@@ -20,7 +20,7 @@
                         <th class="width20"><{$comments_lang_poster}></th>
                         <th><{$comments_lang_thread}></th>
                     </tr>
-                    <{include file="module:comments|comment.html" comment=$reply}>
+                    <{include file="module:comments/comment.html" comment=$reply}>
                 </table>
             </td>
         </tr>

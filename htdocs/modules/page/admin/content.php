@@ -22,7 +22,7 @@
 include __DIR__ . '/header.php';
 
 // Call header
-$xoops->header('page_admin_content.html');
+$xoops->header('admin:page/page_admin_content.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('content.php');

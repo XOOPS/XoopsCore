@@ -36,7 +36,7 @@ if (!$xoops->isUser()) {
             exit();
         } else {
             if (empty($_REQUEST['ok'])) {
-                $xoops->header('system_viewpmsg.html');
+                $xoops->header('module:system/system_viewpmsg.tpl');
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->confirm(array(
@@ -62,7 +62,7 @@ if (!$xoops->isUser()) {
         }
         $xoops->redirect("viewpmsg.php", 1, XoopsLocale::S_YOUR_MESSAGES_DELETED);
     }
-    $xoops->header('system_viewpmsg.html');
+    $xoops->header('module:system/system_viewpmsg.tpl');
     $criteria = new Criteria('to_userid', $xoops->user->getVar('uid'));
     $criteria->setSort('msg_time');
     $criteria->setOrder('DESC');

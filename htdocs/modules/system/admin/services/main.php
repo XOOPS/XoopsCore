@@ -15,7 +15,7 @@ use Xoops\Core\Service\Manager;
  * Service Provider Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
  * @author          Richard Griffith <richard@geekwright.com>
  * @package         system
@@ -63,7 +63,7 @@ $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 $xoops->theme()->addBaseScriptAssets('@jqueryui', '@jgrowl', 'modules/system/js/admin.js');
 
-$xoops->header('system_services.html');
+$xoops->header('admin:system/system_services.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);

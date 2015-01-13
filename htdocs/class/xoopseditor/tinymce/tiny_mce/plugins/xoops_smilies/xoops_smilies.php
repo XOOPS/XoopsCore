@@ -76,5 +76,5 @@ $admin = $gperm_handler->checkRight('system_admin', $xoops->getHandlerModule()->
 if ($admin) {
     $xoopsTpl->assign('form_add', $helper->getForm($helper->getHandlerSmilies()->create(), 'smilies')->render());
 }
-$xoopsTpl->display('module:smilies|smilies_tinymce.html');
+$xoopsTpl->display('module:smilies/smilies_tinymce.html');
 $xoops->simpleFooter();

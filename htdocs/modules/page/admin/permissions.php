@@ -26,7 +26,7 @@ include __DIR__ . '/header.php';
 $op = $request->asStr('op', 'global');
 
 // Call header
-$xoops->header('page_admin_permissions.html');
+$xoops->header('admin:page/page_admin_permissions.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('permissions.php');

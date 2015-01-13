@@ -1,5 +1,5 @@
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
 <div class="btn-group pull-left">
     <a class="btn xo-tooltip card-view <{if $view_line == 'hide'}>disabled<{/if}>" href="#" title="<{translate key='LARGE_VIEW' dirname='system'}>"><b class="ico-application-view-tile"></b></a>
     <a class="btn xo-tooltip table-view <{if $view_large == 'hide'}>disabled<{/if}>" href="#" title="<{translate key='LINE_VIEW' dirname='system'}>"><b class="ico-application-view-list"></b></a>
@@ -17,8 +17,8 @@
             <span class="ico-brick xo-tooltip" title="<{translate key='INSTALLED_MODULES' dirname='system'}>"></span>&nbsp;<{translate key='INSTALLED_MODULES' dirname='system'}>
         </div>
         <div class="xo-window-data">
-            <div class="xo-content-card <{$view_large}>"><{include file="admin:system|system_modules_card.html"}></div>
-            <div class="xo-content-table <{$view_line}>"><{include file="admin:system|system_modules_table.html"}></div>
+            <div class="xo-content-card <{$view_large}>"><{include file="admin:system/system_modules_card.tpl"}></div>
+            <div class="xo-content-table <{$view_line}>"><{include file="admin:system/system_modules_table.tpl"}></div>
         </div>
     </div>
     <div class="clear"></div>
@@ -29,7 +29,7 @@
             <span class="ico-box xo-tooltip" title="<{translate key='AVAILABLE_MODULES' dirname='system'}>"></span>&nbsp;<{translate key='AVAILABLE_MODULES' dirname='system'}>
         </div>
         <div class="xo-window-data">
-            <{include file="admin:system|system_modules_available.html"}>
+            <{include file="admin:system/system_modules_available.tpl"}>
         </div>
     </div>
     <div class="clear"></div>

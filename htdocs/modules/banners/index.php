@@ -66,7 +66,7 @@ switch ($op) {
         $start = $request->asInt('start', 0);
         $startF = $request->asInt('startF', 0);
         // Call header
-        $xoops->header('banners_client.html');
+        $xoops->header('module:banners/banners_client.html');
         // Define Stylesheet
         $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
@@ -262,7 +262,7 @@ switch ($op) {
         $bid = $request->asInt('bid', 0);
         if ($bid > 0) {
             // Call header
-            $xoops->header('banners_client.html');
+            $xoops->header('module:banners/banners_client.html');
             $obj = $banner_Handler->get($bid);
             $form = new Xoops\Form\ThemeForm(_AM_BANNERS_CLIENTS_EDIT, 'form', 'index.php', 'post', true);
             $form->addElement(new Xoops\Form\Text(_AM_BANNERS_BANNERS_CLICKURL, 'clickurl', 80, 255, $obj->getVar('banner_clickurl')), false);

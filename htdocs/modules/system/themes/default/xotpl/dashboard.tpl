@@ -141,7 +141,7 @@
     </section>
     <{else}>
     <!-- Display Admin menu -->
-    <{include file="admin:system|admin_tabs.html"}>
+    <{include file="admin:system/admin_tabs.tpl"}>
     <div class="xo-module-content <{if $xoops_dirname != 'system'}>modules<{/if}>"><{$xoops_contents}></div>
     <{/if}>
 </div>

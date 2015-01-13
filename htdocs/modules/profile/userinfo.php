@@ -41,7 +41,7 @@ $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONY
 if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
     //disable cache
     $xoops->disableModuleCache();
-    $xoops->header('profile_userinfo.tpl');
+    $xoops->header('module:profile/profile_userinfo.tpl');
 
     $xoops->tpl()->assign('user_ownpage', true);
     $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
@@ -106,7 +106,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
         //disable cache
         $xoops->disableModuleCache();
     }
-    $xoops->header('profile_userinfo.tpl');
+    $xoops->header('module:profile/profile_userinfo.tpl');
     $xoops->tpl()->assign('user_ownpage', false);
 }
 

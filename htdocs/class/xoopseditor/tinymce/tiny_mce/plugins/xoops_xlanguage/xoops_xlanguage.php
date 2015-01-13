@@ -63,5 +63,5 @@ if ($helper) {
     }
 }
 
-$xoopsTpl->display('module:xlanguage|xlanguage_tinymce.html');
+$xoopsTpl->display('module:xlanguage/xlanguage_tinymce.html');
 $xoops->simpleFooter();

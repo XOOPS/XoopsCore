@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * Blocks Administration
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
  * @subpackage      blocksadmin
@@ -72,7 +72,7 @@ switch ($op) {
 
     case 'list':
         // Call Header
-        $xoops->header('system_blocks.html');
+        $xoops->header('admin:system/system_blocks.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define scripts
@@ -193,7 +193,7 @@ switch ($op) {
 
     case 'add':
         // Call Header
-        $xoops->header('system_blocks.html');
+        $xoops->header('admin:system/system_blocks.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define scripts
@@ -401,7 +401,7 @@ switch ($op) {
         $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
         if ($block_id > 0) {
             // Call Header
-            $xoops->header('system_blocks.html');
+            $xoops->header('admin:system/system_blocks.tpl');
             // Define Stylesheet
             $xoops->theme()->addStylesheet('modules/system/css/admin.css');
             $xoops->theme()->addScript('media/jquery/plugins/jquery.form.js');
@@ -429,7 +429,7 @@ switch ($op) {
 
     case 'delete':
         // Call Header
-        $xoops->header('system_blocks.html');
+        $xoops->header('admin:system/system_blocks.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
@@ -465,7 +465,7 @@ switch ($op) {
                 }
             }
             // Call Header
-            $xoops->header('system_header.html');
+            $xoops->header('admin:system/system_header.tpl');
             // Display Question
             $xoops->confirm(array(
                 'op'  => 'delete_ok',
@@ -527,7 +527,7 @@ switch ($op) {
         $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
         if ($block_id > 0) {
             // Call Header
-            $xoops->header('system_blocks.html');
+            $xoops->header('admin:system/system_blocks.tpl');
             // Define Stylesheet
             $xoops->theme()->addStylesheet('modules/system/css/admin.css');
             // Define Breadcrumb and tips

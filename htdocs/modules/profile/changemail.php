@@ -29,7 +29,7 @@ if (!$xoops->user || $xoops->getConfig('allow_chgmail') != 1) {
     $xoops->redirect(XOOPS_URL . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$xoops->header('profile_email.tpl');
+$xoops->header('module:profile/profile_email.tpl');
 
 if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     //show change password form

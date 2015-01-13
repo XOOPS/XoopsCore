@@ -31,7 +31,7 @@ $op = $request->asStr('op', 'list');
 $memberslist_id = $request->asArray('memberslist_id', array());
 
 // Call Header
-$xoops->header('mailusers_send_mail.html');
+$xoops->header('admin:mailusers/mailusers_send_mail.html');
 // Define Stylesheet
 $xoops->theme()->addBaseStylesheetAssets('modules/system/css/admin.css');
 $xoops->theme()->addBaseScriptAssets(array('@jquery','media/xoops/xoops.js','modules/system/js/admin.js'));

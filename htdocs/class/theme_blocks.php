@@ -169,8 +169,8 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
             $template->cache_lifetime = $bcachetime;
         }
         $template->setCompileId($dirname);
-        $tplName = ($tplName = $xobject->getVar('template')) ? "block:{$dirname}|{$tplName}"
-                : "module:system|system_block_dummy.html";
+        $tplName = ($tplName = $xobject->getVar('template')) ? "block:{$dirname}/{$tplName}"
+                : "module:system/system_block_dummy.tpl";
         $cacheid = $this->generateCacheId('blk_' . $xobject->getVar('bid'));
 
         $xoops->preload()->triggerEvent('core.themeblocks.buildblock.start', array($xobject, $template->isCached($tplName, $cacheid)));

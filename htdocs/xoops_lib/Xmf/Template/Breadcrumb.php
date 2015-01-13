@@ -38,7 +38,7 @@ class Breadcrumb extends AbstractTemplate
      */
     protected function init()
     {
-        $this->setTemplate('module:xmf|xmf_breadcrumb.tpl');
+        $this->setTemplate('module:xmf/xmf_breadcrumb.tpl');
     }
 
     /**

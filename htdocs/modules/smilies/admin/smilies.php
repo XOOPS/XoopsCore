@@ -23,7 +23,7 @@
 include __DIR__ . '/header.php';
 
 // Call Header & ...
-$xoops->header('smilies_smilies.html');
+$xoops->header('admin:smilies/smilies_smilies.html');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('smilies.php');
 $xoops->theme()->addScript('media/xoops/xoops.js');

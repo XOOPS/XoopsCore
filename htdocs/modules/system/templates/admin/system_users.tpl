@@ -1,10 +1,10 @@
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
 <{if $users_display|default:false}>
 <!--Display form sort-->
 <div class="xo-headercontent spacer">
     <div class="pull-left"><{$form_sort}></div>
-    <{include file="admin:system|admin_buttons.html"}>
+    <{include file="admin:system/admin_buttons.tpl"}>
 </div>
 <div class="clear spacer">&nbsp;</div>
     <form name='memberslist' id='memberslist' action='<{$php_selft}>' method='POST'>

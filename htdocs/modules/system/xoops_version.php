@@ -13,7 +13,7 @@
  * System menu
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @author      Kazumi Ono (AKA onokazu)
  * @version     $Id$
@@ -31,7 +31,7 @@ $modversion['author']      = 'Andricq Nicolas,Cointin Maxime,Mage Gregory';
 $modversion['nickname']    = 'MusS,Kraven30,Mage';
 $modversion['credits']     = 'The XOOPS Project';
 $modversion['license']     = 'GNU GPL 2.0';
-$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']    = 1;
 $modversion['help']        = 'system.html';
 $modversion['image']       = 'images/logo.png';
@@ -92,7 +92,7 @@ $modversion['blocks'][] = array(
     'name'        => SystemLocale::BLOCK_USER_MENU,
     'description' => SystemLocale::BLOCK_USER_MENU_DESC,
     'show_func'   => 'b_system_user_show',
-    'template'    => 'system_block_user.html',
+    'template'    => 'system_block_user.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -100,7 +100,7 @@ $modversion['blocks'][] = array(
     'name'        => SystemLocale::BLOCK_LOGIN,
     'description' => SystemLocale::BLOCK_LOGIN_DESC,
     'show_func'   => 'b_system_login_show',
-    'template'    => 'system_block_login.html',
+    'template'    => 'system_block_login.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -108,7 +108,7 @@ $modversion['blocks'][] = array(
     'name'        => SystemLocale::BLOCK_WAITING_CONTENTS,
     'description' => SystemLocale::BLOCK_WAITING_CONTENTS_DESC,
     'show_func'   => 'b_system_waiting_show',
-    'template'    => 'system_block_waiting.html',
+    'template'    => 'system_block_waiting.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -117,7 +117,7 @@ $modversion['blocks'][] = array(
     'description' => SystemLocale::BLOCK_MAIN_MENU_DESC,
     'show_func'   => 'b_system_main_show',
     'edit_func'   => 'b_system_main_edit',
-    'template'    => 'system_block_mainmenu.html',
+    'template'    => 'system_block_mainmenu.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -127,7 +127,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'b_system_info_show',
     'edit_func'   => 'b_system_info_edit',
     'options'     => '320|190|s_poweredby.gif|1',
-    'template'    => 'system_block_siteinfo.html',
+    'template'    => 'system_block_siteinfo.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -135,7 +135,7 @@ $modversion['blocks'][] = array(
     'name'        => SystemLocale::BLOCK_WHO_IS_ONLINE,
     'description' => SystemLocale::BLOCK_WHO_IS_ONLINE_DESC,
     'show_func'   => 'b_system_online_show',
-    'template'    => 'system_block_online.html',
+    'template'    => 'system_block_online.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -145,7 +145,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'b_system_topposters_show',
     'edit_func'   => 'b_system_topposters_edit',
     'options'     => '10|1',
-    'template'    => 'system_block_topusers.html',
+    'template'    => 'system_block_topusers.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -155,7 +155,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'b_system_newmembers_show',
     'options'     => '10|1',
     'edit_func'   => 'b_system_newmembers_edit',
-    'template'    => 'system_block_newusers.html',
+    'template'    => 'system_block_newusers.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -165,7 +165,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'b_system_themes_show',
     'options'     => '0|80',
     'edit_func'   => 'b_system_themes_edit',
-    'template'    => 'system_block_themes.html',
+    'template'    => 'system_block_themes.tpl',
 );
 
 // Menu

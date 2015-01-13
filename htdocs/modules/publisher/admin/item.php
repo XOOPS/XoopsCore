@@ -465,7 +465,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     $sform = $publisher->getForm($itemObj, 'item');
     $sform->setTitle(_AM_PUBLISHER_ITEMS);
     $sform->assign($formTpl);
-    $formTpl->display('module:publisher|publisher_submit.tpl');
+    $formTpl->display('module:publisher/publisher_submit.tpl');
 
     PublisherUtils::closeCollapsableBar('edititemtable', 'edititemicon');
 

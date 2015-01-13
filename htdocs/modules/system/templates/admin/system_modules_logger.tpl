@@ -1,4 +1,4 @@
-<{include file="admin:system|admin_breadcrumb.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
 <{if $module}>
 <div class="xo-module-logger outer">
     <div class="xo-window">

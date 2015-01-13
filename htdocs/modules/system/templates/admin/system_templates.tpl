@@ -1,6 +1,6 @@
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
-<{include file="admin:system|admin_buttons.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
+<{include file="admin:system/admin_buttons.tpl"}>
 <{if $index}>
 <br class="clear" />
 <div class="spacer">
@@ -13,7 +13,7 @@
 			<td class="aligntop width10"><div id="fileTree" class="display_folder"></div></td>
 			<td class="aligntop">
 				<div id="display_form">
-                <{include file="module:system|system_form.html"}>
+                <{include file="module:system/system_form.tpl"}>
                 </div>
 				<div id="display_contenu"></div>
 				<div id='display_message' class="txtcenter" style="display:none;"></div>

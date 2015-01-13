@@ -24,7 +24,7 @@ $xoops = Xoops::getInstance();
 $helper = Menus::getInstance();
 
 // Call Header & ...
-$xoops->header('menus_admin_menu.html');
+$xoops->header('admin:menus/menus_admin_menu.html');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('admin_menu.php');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');

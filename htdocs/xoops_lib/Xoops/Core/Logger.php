@@ -191,22 +191,21 @@ class Logger implements LoggerInterface
         $path = str_replace(
             array(
                 '\\',
-                XOOPS_ROOT_PATH,
-                str_replace('\\', '/', realpath(XOOPS_ROOT_PATH)),
-                XOOPS_PATH,
-                str_replace('\\', '/', realpath(XOOPS_PATH)),
                 XOOPS_VAR_PATH,
                 str_replace('\\', '/', realpath(XOOPS_VAR_PATH)),
-
+                XOOPS_PATH,
+                str_replace('\\', '/', realpath(XOOPS_PATH)),
+                XOOPS_ROOT_PATH,
+                str_replace('\\', '/', realpath(XOOPS_ROOT_PATH)),
             ),
             array(
                 '/',
-                'ROOT',
-                'ROOT',
-                'PATH',
-                'PATH',
                 'VAR',
                 'VAR',
+                'PATH',
+                'PATH',
+                'ROOT',
+                'ROOT',
             ),
             $path
         );

@@ -36,7 +36,7 @@ if (!$xoops->isUser()) {
 }
 
 // Call header
-$xoops->header('avatars_editavatar.html');
+$xoops->header('admin:avatars/avatars_editavatar.html');
 
 // Get avatar handler
 $avatar_Handler = $helper->getHandlerAvatar();

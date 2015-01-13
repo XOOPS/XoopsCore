@@ -128,7 +128,7 @@ class Feed extends AbstractTemplate
      */
     protected function init()
     {
-        $this->setTemplate('module:xmf|xmf_feed.tpl');
+        $this->setTemplate('module:xmf/xmf_feed.tpl');
         //$this->disableLogger();
 
         global $xoopsConfig;

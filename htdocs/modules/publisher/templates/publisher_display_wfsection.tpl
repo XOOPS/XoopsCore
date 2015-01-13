@@ -1,4 +1,4 @@
-<{include file='module:publisher|publisher_header.tpl'}>
+<{include file='module:publisher/publisher_header.tpl'}>
 
 <!--<{if $collapsable_heading == 1}>
 	<div class="publisher_collaps_title"><a href='javascript:;' onclick="toggle('toptable'); toggleIcon('toptableicon')"><img id='toptableicon' src='<{$publisher_url}>/images/links/close12.gif' alt='' /></a>&nbsp;<{$lang_category_summary}></div>
@@ -96,4 +96,4 @@
     <{/if}>    <!-- end of if $items --> <{/if}>
 </div>
 
-<{include file='module:publisher|publisher_footer.tpl'}>
+<{include file='module:publisher/publisher_footer.tpl'}>

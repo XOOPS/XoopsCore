@@ -28,7 +28,7 @@
                                 <img src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" onclick="$('#paypal-form').submit()" alt="PayPal - The safer, easier way to pay online!" />
                             </form>
                         <{/if}>
-                        <{include file="admin:system|admin_infobox.html" class="width100"}>
+                        <{include file="admin:system/admin_infobox.tpl" class="width100"}>
                     </td>
                 </tr>
             </table>

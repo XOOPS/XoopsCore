@@ -29,7 +29,7 @@ $xoops = Xoops::getInstance();
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 // Call Header
-$xoops->header('maintenance_center.html');
+$xoops->header('admin:maintenance/maintenance_center.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');

@@ -23,7 +23,7 @@
 include_once 'header.php';
 
 // Call header
-$xoops->header('page_viewpage.html');
+$xoops->header('module:page/page_viewpage.html');
 
 // Get ID
 $content_id = $request->asInt('id', 0);

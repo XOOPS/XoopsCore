@@ -6,7 +6,7 @@
 
 <{if $block.display_type=='block'}>
 
-<{foreach item=item from=$block.items}>        <{include file="module:publisher|publisher_singleitem_block.tpl" item=$item}>    <{/foreach}>
+<{foreach item=item from=$block.items}>        <{include file="module:publisher/publisher_singleitem_block.tpl" item=$item}>    <{/foreach}>
 
 <{else}>    <{foreach item=item from=$block.items name=spotlight}>        <{if $item.summary != ''}>
 <div class="itemText" style="padding-left: 5px; padding-top: 5px;">

@@ -1,6 +1,6 @@
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
-<{include file="admin:system|admin_buttons.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
+<{include file="admin:system/admin_buttons.tpl"}>
 <script type="text/javascript">
     IMG_ON = '<{xoAdminIcons 'success.png'}>';
     IMG_OFF = '<{xoAdminIcons 'cancel.png'}>';

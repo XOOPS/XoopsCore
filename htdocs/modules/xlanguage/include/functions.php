@@ -262,7 +262,7 @@ function xlanguage_select_show($options = null)
     $block = b_xlanguage_select_show($options);
     $xoops->theme()->addStylesheet('modules/xlanguage/css/block.css');
     $xoops->tpl()->assign('block', $block);
-    $xlanguage_switch_code = "<div id='xo-language' class='" . $options[0] . "'>" . $xoops->tpl()->fetch('block:xlanguage|xlanguage_block.html') . "</div>";
+    $xlanguage_switch_code = "<div id='xo-language' class='" . $options[0] . "'>" . $xoops->tpl()->fetch('block:xlanguage/xlanguage_block.html') . "</div>";
     $xoops->tpl()->assign('xlanguage_switch_code', $xlanguage_switch_code);
     return true;
 }

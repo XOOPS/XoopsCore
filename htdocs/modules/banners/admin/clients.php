@@ -34,7 +34,7 @@ $client_Handler = $helper->getHandlerBannerclient();
 // Get member handler
 $member_handler = $xoops->getHandlerMember();
 // Call header
-$xoops->header('banners_admin_clients.html');
+$xoops->header('admin:banners/banners_admin_clients.html');
 // Get Action type
 $op = $request->asStr('op', 'list');
 // Get start pager

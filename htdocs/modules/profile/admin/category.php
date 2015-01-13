@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('categorylist.tpl');
+$xoops->header('admin:profile/categorylist.tpl');
 // Get category handler
 $category_Handler = $xoops->getModuleHandler("category");
 

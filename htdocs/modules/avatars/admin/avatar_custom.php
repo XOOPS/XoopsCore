@@ -40,7 +40,7 @@ $request = $xoops->request();
 $op = $request->asStr('op', 'list');
 
 // Call Header
-$xoops->header('avatars_admin_custom.html');
+$xoops->header('admin:avatars/avatars_admin_custom.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_custom.php');

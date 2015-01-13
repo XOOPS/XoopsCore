@@ -188,7 +188,7 @@
 
         <{if $modules|default:false}>
             <div class="tab-pane" id="tab3">
-                <{include file="module:search|search.html"}>
+                <{include file="module:search/search.tpl"}>
             </div>
         <{/if}>
     </div>

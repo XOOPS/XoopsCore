@@ -21,7 +21,7 @@
 include __DIR__ . '/header.php';
 
 // Call Header
-$xoops->header('images_admin_categories.html');
+$xoops->header('admin:images/images_admin_categories.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('categories.php');

@@ -8,7 +8,7 @@
         <{/if}>
         <{if $content_dorating}>
             <div class="page_headerright">
-                <{include file="module:page|page_rating.html"}>
+                <{include file="module:page/page_rating.html"}>
             </div>
         <{/if}>
         <div class="clear"></div>
@@ -39,7 +39,7 @@
     <{$content_text}>
     <{if $related.related_navigation|default:false}>
         <div class="clear"></div>
-            <{include file="module:page|page_navigation.html"}>
+            <{include file="module:page/page_navigation.html"}>
         <div class="clear"></div>
     <{/if}>
 
@@ -75,11 +75,11 @@
 <{/if}>
 
 <{if $content_dosocial|default:false}>
-    <{include file='module:xoosocialnetwork|xoosocialnetwork.html'}>
+    <{include file='module:xoosocialnetwork/xoosocialnetwork.html'}>
 <{/if}>
 <{if $content_docoms|default:false}>
-    <{include file='module:comments|comments.html'}>
+    <{include file='module:comments/comments.html'}>
 <{/if}>
 <{if $content_donotifications|default:false}>
-    <{include file='module:notifications|select.html'}>
+    <{include file='module:notifications/select.html'}>
 <{/if}>

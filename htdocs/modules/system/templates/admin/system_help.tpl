@@ -1,4 +1,4 @@
-<{include file="admin:system|system_header.html"}>
+<{include file="admin:system/system_header.tpl"}>
 <{if $help|default:false}>
 <div class="help-menu">
     <div class="system-help outer">

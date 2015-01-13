@@ -36,7 +36,7 @@ $op = $request->asStr('op', 'list');
 // Get avatar handler
 $avatar_Handler = $helper->getHandlerAvatar();
 // Call Header
-$xoops->header('avatars_admin_system.html');
+$xoops->header('admin:avatars/avatars_admin_system.html');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_system.php');

@@ -64,7 +64,7 @@ foreach (array_keys($steps) as $key) {
     $steps[$key]['step_no'] = $key + 1;
 }
 
-$xoops->header('profile_register.tpl');
+$xoops->header('module:profile/profile_register.tpl');
 
 $xoops->tpl()->assign('steps', $steps);
 $xoops->tpl()->assign('lang_register_steps', _PROFILE_MA_REGISTER_STEPS);

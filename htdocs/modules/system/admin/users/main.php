@@ -45,7 +45,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 $member_handler = $xoops->getHandlerMember();
 
 // Call Header
-$xoops->header('system_users.html');
+$xoops->header('admin:system/system_users.tpl');
 
 $myts = MyTextSanitizer::getInstance();
 // Define Stylesheet

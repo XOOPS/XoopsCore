@@ -1,12 +1,12 @@
 <!-- Breadcrumb Header -->
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
 <script type="text/javascript">
     IMG_ON = '<{xoAdminIcons 'success.png'}>';
     IMG_OFF = '<{xoAdminIcons 'cancel.png'}>';
 </script>
 <{if $filterform|default:false}>
-<{include file="admin:system|admin_buttons.html"}>
+<{include file="admin:system/admin_buttons.tpl"}>
 <div class="clear"></div>
 <div id="xo-block-dragndrop">
     <table class="outer">
@@ -35,23 +35,23 @@
                     <tr>
                         <td side="0" class="xo-blocksection" rowspan="3" id="xo-leftcolumn">
                             <div class="xo-title"><{translate key='LEFT'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=0}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=0}>
                         </td>
                         <td side="3" class="xo-blocksection">
                             <div class="xo-title"><{translate key='TOP_LEFT' dirname='system'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=3}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=3}>
                         </td>
                         <td side="5" class="xo-blocksection">
                             <div class="xo-title"><{translate key='TOP_CENTER' dirname='system'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=5}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=5}>
                         </td>
                         <td side="4" class="xo-blocksection">
                             <div class="xo-title"><{translate key='TOP_RIGHT' dirname='system'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=4}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=4}>
                         </td>
                         <td side="1" class="xo-blocksection" rowspan="3" id="xo-rightcolumn">
                             <div class="xo-title"><{translate key='RIGHT'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=1}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=1}>
                         </td>
                     </tr>
                     <tr style="height:30px;">
@@ -60,15 +60,15 @@
                     <tr>
                         <td side="7" class="xo-blocksection">
                             <div class="xo-title"><{translate key='BOTTOM_LEFT' dirname='system'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=7}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=7}>
                         </td>
                         <td side="9" class="xo-blocksection">
                             <div class="xo-title"><{translate key='BOTTOM_CENTER' dirname='system'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=9}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=9}>
                         </td>
                         <td side="8" class="xo-blocksection">
                             <div class="xo-title"><{translate key='BOTTOM_RIGHT' dirname='system'}></div>
-                            <{include file="admin:system|system_blocks_item.html" blocks=$blocks side=8}>
+                            <{include file="admin:system/system_blocks_item.tpl" blocks=$blocks side=8}>
                         </td>
                     </tr>
                 </table>

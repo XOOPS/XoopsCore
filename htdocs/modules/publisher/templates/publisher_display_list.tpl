@@ -1,4 +1,4 @@
-<{include file='module:publisher|publisher_header.tpl'}>
+<{include file='module:publisher/publisher_header.tpl'}>
 
 <!-- Display type is bullet list -->
 <div class="publisher_infotitle"><{$lang_category_summary}></div>
@@ -7,7 +7,7 @@
     <strong><{$smarty.const._MD_PUBLISHER_LAST_SMARTITEM}> : <{$category.last_title_link}>
 </div>    <{/if}><br/>
 
-<!-- if we are on the index page OR inside a category that has subcats OR (inside a category with no subcats AND $display_category_summary is set to TRUE, let's display the summary table ! //--><{if $indexpage || $category.subcats || ($category && $display_category_summary)}>    <{include file='module:publisher|publisher_categories_table.tpl'}>
+<!-- if we are on the index page OR inside a category that has subcats OR (inside a category with no subcats AND $display_category_summary is set to TRUE, let's display the summary table ! //--><{if $indexpage || $category.subcats || ($category && $display_category_summary)}>    <{include file='module:publisher/publisher_categories_table.tpl'}>
 <br/><!-- End of if !$category || $category.subcats || ($category && $display_category_summary) //--><{/if}>
 
 <{if $items}>    <{if $collapsable_heading == 1}>
@@ -69,4 +69,4 @@
 <{if !$subcats && !$items}>
 <div class="publisher_infotext"><{$smarty.const._MD_PUBLISHER_EMPTY}></div><{/if}>
 
-<{include file='module:publisher|publisher_footer.tpl'}>
+<{include file='module:publisher/publisher_footer.tpl'}>

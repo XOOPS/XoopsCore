@@ -4,9 +4,9 @@
     Xoops.setStatusText('accept', '<{$smarty.const._AM_SMILIES_OFF}>');
     Xoops.setStatusText('cancel', '<{$smarty.const._AM_SMILIES_ON}>');
 </script>
-<{include file="admin:system|admin_navigation.html"}>
-<{include file="admin:system|admin_tips.html"}>
-<{include file="admin:system|admin_buttons.html"}>
+<{include file="admin:system/admin_navigation.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
+<{include file="admin:system/admin_buttons.tpl"}>
 
 <{if $error_message|default:false}>
 <div class="alert alert-error" style="text-align:center;">

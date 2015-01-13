@@ -23,11 +23,11 @@
 <div style="margin:3px; padding: 3px;">
     <!-- start comments loop -->
     <{if $comment_mode == "flat"}>
-    <{include file="module:comments|comments_flat.html"}>
+    <{include file="module:comments/comments_flat.html"}>
     <{elseif $comment_mode == "thread"}>
-    <{include file="module:comments|comments_thread.html"}>
+    <{include file="module:comments/comments_thread.html"}>
     <{elseif $comment_mode == "nest"}>
-    <{include file="module:comments|comments_nest.html"}>
+    <{include file="module:comments/comments_nest.html"}>
     <{/if}>
     <!-- end comments loop -->
 </div>

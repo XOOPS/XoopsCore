@@ -1,8 +1,8 @@
 <!--groups-->
-<{include file="admin:system|admin_breadcrumb.html"}>
-<{include file="admin:system|admin_tips.html"}>
+<{include file="admin:system/admin_breadcrumb.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
 <{if $groups_count|default:false}>
-<{include file="admin:system|admin_buttons.html"}>
+<{include file="admin:system/admin_buttons.tpl"}>
 <table id="xo-group-sorter" class="outer tablesorter">
     <thead>
         <tr>

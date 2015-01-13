@@ -37,13 +37,13 @@ class Admin
      * @var array
      */
     public $tplFile = array(
-        'index' => 'admin_index.html',
-        'about' => 'admin_about.html',
-        'infobox' => 'admin_infobox.html',
-        'bread' => 'admin_breadcrumb.html',
-        'button' => 'admin_buttons.html',
-        'tips' => 'admin_tips.html',
-        'nav'   => 'admin_navigation.html',
+        'index' => 'admin_index.tpl',
+        'about' => 'admin_about.tpl',
+        'infobox' => 'admin_infobox.tpl',
+        'bread' => 'admin_breadcrumb.tpl',
+        'button' => 'admin_buttons.tpl',
+        'tips' => 'admin_tips.tpl',
+        'nav'   => 'admin_navigation.tpl',
     );
 
     /**
@@ -119,7 +119,7 @@ class Admin
     /**
      * Add config line
      *
-     * @param string  $value line value - a string or array of values
+     * @param string $value line value - a string or array of values
      * @param string $type  type of line default, folder, chmod, extension, module
      *
      * @return bool
@@ -317,7 +317,7 @@ class Admin
      */
     private function getTplPath($type = '')
     {
-        return 'admin:' . $this->tplModule . '|' . $this->tplFile[$type];
+        return 'admin:' . $this->tplModule . '/' . $this->tplFile[$type];
     }
 
     /**
