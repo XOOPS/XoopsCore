@@ -13,7 +13,7 @@
  * avatars module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         avatar
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
@@ -35,7 +35,7 @@ function xoops_module_install_avatars(&$module)
     global $xoopsDB;
     // delete avatar_allow_upload, avatar_width, avatar_height, avatar_maxsize and avatar_minposts
     $xoops = Xoops::getInstance();
-    $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` IN " 
+    $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` IN "
     . " ('avatar_allow_upload', 'avatar_width', 'avatar_height', 'avatar_maxsize', 'avatar_minposts') ";
     $xoopsDB->queryF($sql);
 

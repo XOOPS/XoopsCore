@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -24,7 +24,7 @@ $xoops = Xoops::getInstance();
 $helper = Menus::getInstance();
 
 // Call Header & ...
-$xoops->header('menus_admin_menus.html');
+$xoops->header('admin:menus/menus_admin_menus.tpl');
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('admin_menus.php');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');

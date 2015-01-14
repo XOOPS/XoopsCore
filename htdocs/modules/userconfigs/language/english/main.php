@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
@@ -24,4 +24,3 @@ define('_MD_USERCONFIGS_UPDATED',"Your settings were updated!");
 define('_MD_USERCONFIGS_CONFIGS',"Settings");
 define('_MD_USERCONFIGS_CHOOSE_MODULE',"Choose settings :");
 define('_MD_USERCONFIGS_WELCOME',"Hello %s, welcome to your settings page!");
-

@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * Template sets Manager
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -36,7 +36,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 
 // Call Header
-$xoops->header('system_templates.html');
+$xoops->header('admin:system/system_templates.tpl');
 // Define scripts
 $xoops->theme()->addBaseScriptAssets(array('@jquery', '@jqueryui'));
 $xoops->theme()->addScript('media/jquery/plugins/jquery.easing.js');

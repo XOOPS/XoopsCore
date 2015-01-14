@@ -13,7 +13,7 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
@@ -27,7 +27,7 @@ $modversion['author']         = 'Mage Gregory';
 $modversion['nickname']       = 'Mage';
 $modversion['credits']        = 'The XOOPS Project';
 $modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.html';
+$modversion['license_url']    = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
 $modversion['image']          = 'images/logo.png';
@@ -84,7 +84,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'banners_blocks_show',
     'edit_func'   => 'banners_blocks_edit',
     'options'     => 'random|1|H|0',
-    'template'    => 'banners_blocks_random.html',
+    'template'    => 'banners_blocks_random.tpl',
 );
 
 $modversion['blocks'][] = array(
@@ -94,7 +94,7 @@ $modversion['blocks'][] = array(
     'show_func'   => 'banners_blocks_show',
     'edit_func'   => 'banners_blocks_edit',
     'options'     => 'id||H',
-    'template'    => 'banners_blocks_id.html',
+    'template'    => 'banners_blocks_id.tpl',
 );
 
 // Preferences

@@ -16,7 +16,7 @@
  * @author    John Neill (AKA Catzwolf)
  * @author    Andricq Nicolas (AKA MusS)
  * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
 class SystemMenuHandler
@@ -134,7 +134,7 @@ class SystemMenuHandler
         $xoops->tpl()->assign('xo_module_menu_tab', $this->_menutabs);
          //$xoops->tpl()->assign('xo_admin_help', $this->_help);
          //if ($xoops->tpl()_name == '') {
-         //    $xoops->tpl()->display('admin:system|admin_tabs.html');
+         //    $xoops->tpl()->display('admin:system/admin_tabs.tpl');
          //}
         return;
 

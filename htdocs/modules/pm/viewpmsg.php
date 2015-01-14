@@ -13,7 +13,7 @@
  * Private message module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -29,7 +29,7 @@ if (!$xoops->isUser()) {
 }
 
 $xoops->disableModuleCache(); //disable caching since the URL will be the same, but content different from one user to another
-$xoops->header('pm_viewpmsg.html');
+$xoops->header('module:pm/pm_viewpmsg.tpl');
 
 $valid_op_requests = array('out', 'save', 'in');
 $_REQUEST['op'] = !empty($_REQUEST['op']) && in_array($_REQUEST['op'], $valid_op_requests) ? $_REQUEST['op'] : 'in';

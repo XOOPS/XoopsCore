@@ -29,7 +29,7 @@ $helper = Comments::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 // Call Header
-$xoops->header('comments.html');
+$xoops->header('admin:comments/comments.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');

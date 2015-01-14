@@ -45,7 +45,7 @@ if (!$publisher->getConfig('perm_search')
 }
 
 $xoops->disableModuleCache();
-$xoops->header('publisher_search.tpl');
+$xoops->header('module:publisher/publisher_search.tpl');
 $xoopsTpl = $xoops->tpl();
 
 $module_info_search = $publisher->getModule()->getInfo("search");

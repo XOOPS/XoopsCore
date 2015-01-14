@@ -13,7 +13,7 @@
  * System install module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @package         system
@@ -86,9 +86,9 @@ function xoops_module_install_system(&$module)
     $blocks = $block_handler->getByModule(1);
     foreach ($blocks as $block) {
         if (in_array($block->getVar('template'), array(
-                'system_block_user.html',
-                'system_block_login.html',
-                'system_block_mainmenu.html'
+                'system_block_user.tpl',
+                'system_block_login.tpl',
+                'system_block_mainmenu.tpl'
             ))
         ) {
             $block->setVar('visible', 1);

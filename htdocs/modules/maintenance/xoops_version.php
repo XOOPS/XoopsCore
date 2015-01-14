@@ -13,7 +13,7 @@
  * maintenance extensions
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
@@ -31,7 +31,7 @@ $modversion['author']      = 'Mage Gregory,Cointin Maxime';
 $modversion['nickname']    = 'Mage, Kraven30';
 $modversion['credits']     = 'The XOOPS Project';
 $modversion['license']     = 'GNU GPL 2.0';
-$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']    = 1;
 $modversion['help']        = 'page=help';
 $modversion['image']       = 'images/logo.png';
@@ -83,5 +83,5 @@ $modversion['jquery'] = 1;
 /*
  Admin Templates
 */
-$modversion['templates'][] = array('file' => 'maintenance_center.html', 'description' => '', 'type' => 'admin');
-$modversion['templates'][] = array('file' => 'maintenance_dump.html', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'maintenance_center.tpl', 'description' => '', 'type' => 'admin');
+$modversion['templates'][] = array('file' => 'maintenance_dump.tpl', 'description' => '', 'type' => 'admin');

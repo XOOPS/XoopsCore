@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('steplist.tpl');
+$xoops->header('admin:profile/steplist.tpl');
 // Get handler
 $regstep_Handler = $xoops->getModuleHandler("regstep");
 

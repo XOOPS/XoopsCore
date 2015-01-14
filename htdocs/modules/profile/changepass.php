@@ -79,7 +79,7 @@ $(document).ready(function(){
 });
 EOT;
 
-$xoops->header('profile_changepass.tpl');
+$xoops->header('module:profile/profile_changepass.tpl');
 
 if (!isset($_POST['submit'])) {
     $xoops->theme()->addScript(null, array('type' => 'application/x-javascript'), $zxcvbn);

@@ -161,7 +161,7 @@ class XoopsPageNav
         $xoops->tpl()->assign('size', $size);
         $xoops->tpl()->assign('align', ' pagination-' . $align);
         $xoops->tpl()->assign('pagination_nav', true);
-        $ret = $xoops->tpl()->fetch('module:system|system_pagenav.html');
+        $ret = $xoops->tpl()->fetch('module:system/system_pagenav.tpl');
         $xoops->tpl()->clearAssign('xo_nav');
         return $ret;
     }
@@ -201,7 +201,7 @@ class XoopsPageNav
         $xoops->tpl()->assign('pagination_select', true);
         $xoops->tpl()->assign('showbutton', $showbutton);
         $xoops->tpl()->assign('align', ' pagination-' . $align);
-        $ret = $xoops->tpl()->fetch('module:system|system_pagenav.html');
+        $ret = $xoops->tpl()->fetch('module:system/system_pagenav.tpl');
         $xoops->tpl()->clearAssign('xo_select');
         return $ret;
     }

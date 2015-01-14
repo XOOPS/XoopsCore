@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
@@ -85,7 +85,7 @@ class Menus extends Xoops\Module\Helper\HelperAbstract
         $info['url'] = $this->xoops()->url($path);
 
         if (!isset($info['template'])) {
-            $info['template'] = $this->xoops()->path("modules/menus/templates/block.html");
+            $info['template'] = $this->xoops()->path("modules/menus/templates/block.tpl");
         } else {
             $info['template'] = $this->xoops()->path("{$path}/" . $info['template']);
         }

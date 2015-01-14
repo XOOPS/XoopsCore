@@ -41,7 +41,7 @@ if (!$itemObj) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
-$xoops->header('publisher_item.tpl');
+$xoops->header('module:publisher/publisher_item.tpl');
 $xoopsTpl = $xoops->tpl();
 $xoTheme = $xoops->theme();
 $xoTheme->addStylesheet(PUBLISHER_URL . '/css/jquery.popeye.style.css');

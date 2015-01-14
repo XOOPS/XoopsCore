@@ -13,7 +13,7 @@
  * Blocks admin Manager
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @version     $Id$
  */
@@ -133,7 +133,7 @@ function system_loadTemplate($name)
 {
     $xoops = Xoops::getInstance();
 
-    $path = $xoops->path('modules/' . $xoops->module->getVar('dirname', 'n') . '/templates/admin/' . $name . '.html');
+    $path = $xoops->path('modules/' . $xoops->module->getVar('dirname', 'n') . '/templates/admin/' . $name . '.tpl');
     if (XoopsLoad::fileExists($path)) {
         echo $xoops->tpl()->fetch($path);
     } else {

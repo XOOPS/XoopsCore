@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\Criteria;
  * System admin
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -95,7 +95,7 @@ if (false != $error) {
         exit;
     }
     // Define main template
-    $xoops->header('system_index.html');
+    $xoops->header('admin:system/system_index.tpl');
     // Define Stylesheet
     $xoops->theme()->addStylesheet('modules/system/css/admin.css');
     // Define scripts

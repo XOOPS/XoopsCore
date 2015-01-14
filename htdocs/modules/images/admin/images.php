@@ -13,7 +13,7 @@
  * images module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
@@ -21,7 +21,7 @@
 include __DIR__ . '/header.php';
 
 // Call Header
-$xoops->header('images_admin_images.html');
+$xoops->header('admin:images/images_admin_images.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('images.php');

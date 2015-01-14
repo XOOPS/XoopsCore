@@ -82,6 +82,6 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     exit();
 } else {
     $xoops->setOption('show_cblock', 1);
-    $xoops->header("system_homepage.html");
+    $xoops->header("module:system/system_homepage.tpl");
     $xoops->footer();
 }

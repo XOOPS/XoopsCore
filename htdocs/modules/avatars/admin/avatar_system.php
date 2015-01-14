@@ -13,7 +13,7 @@
  * avatars module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         avatar
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -36,7 +36,7 @@ $op = $request->asStr('op', 'list');
 // Get avatar handler
 $avatar_Handler = $helper->getHandlerAvatar();
 // Call Header
-$xoops->header('avatars_admin_system.html');
+$xoops->header('admin:avatars/avatars_admin_system.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_system.php');

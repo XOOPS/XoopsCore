@@ -13,7 +13,7 @@
  * XOOPS global search
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu)
@@ -116,7 +116,7 @@ switch ($action) {
             unset($mids);
             $mids = array_keys($modules);
         }
-        $xoops->header('module:search|search.html');
+        $xoops->header('module:search/search.tpl');
         $nomatch = true;
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
@@ -182,7 +182,7 @@ switch ($action) {
 
     case "showall":
     case 'showallbyuser':
-        $xoops->header('module:search|search.html');
+        $xoops->header('module:search/search.tpl');
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
         $xoops->tpl()->assign('ignored_words', sprintf(_MD_SEARCH_IGNOREDWORDS, $search->getConfig('keyword_min')));

@@ -1,4 +1,4 @@
-<{include file='module:publisher|publisher_header.tpl'}>
+<{include file='module:publisher/publisher_header.tpl'}>
 
 <!-- if we are on the index page OR inside a category that has subcats OR (inside a category with no subcats AND $display_category_summary is set to TRUE), let's display the summary table ! //--><{if $indexpage || $category.subcats || ($category && $display_category_summary)}>
 
@@ -9,7 +9,7 @@
 <div id='toptable'>
     <span class="publisher_collaps_info""><{$lang_category_summary}></span>        <!-- Content under the collapsable bar //-->    <{/if}>
 
-    <{include file='module:publisher|publisher_categories_table.tpl'}>
+    <{include file='module:publisher/publisher_categories_table.tpl'}>
 
     <{if $collapsable_heading == 1}>
 </div>    <{/if}>
@@ -21,10 +21,10 @@
     <span class="publisher_collaps_info"><{$smarty.const._MD_PUBLISHER_ITEMS_INFO}></span> <{/if}>
     <div align="right"><{$navbar}></div>
 
-    <!-- Start item loop -->    <{foreach item=item from=$items}> <{include file="module:publisher|publisher_singleitem.tpl" item=$item}> <{/foreach}>    <!-- End item loop -->
+    <!-- Start item loop -->    <{foreach item=item from=$items}> <{include file="module:publisher/publisher_singleitem.tpl" item=$item}> <{/foreach}>    <!-- End item loop -->
 
     <div align="right"><{$navbar}></div>
     <{if $collapsable_heading == 1}>
 </div>    <{/if}><!-- end of if $items --> <{/if}>
 
-<{include file='module:publisher|publisher_footer.tpl'}>
+<{include file='module:publisher/publisher_footer.tpl'}>

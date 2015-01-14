@@ -13,7 +13,7 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -27,7 +27,7 @@ $modversion['author']      = 'Xoops Core Development Team';
 $modversion['nickname']    = 'Mage Laurent JEN (aka DuGris)';
 $modversion['credits']     = 'The XOOPS Project';
 $modversion['license']     = 'GNU GPL 2.0';
-$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['license_url'] = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']    = 1;
 $modversion['help']        = 'page=help';
 $modversion['image']       = 'images/logo.png';
@@ -84,7 +84,7 @@ $modversion['blocks'][$i]['description'] = PageLocale::BLOCKS_CONTENTS_DSC;
 $modversion['blocks'][$i]['show_func']   = 'page_blocks_show';
 $modversion['blocks'][$i]['edit_func']   = 'page_blocks_edit';
 $modversion['blocks'][$i]['options']     = 'content|create|DESC|5|0';
-$modversion['blocks'][$i]['template']    = 'page_blocks.html';
+$modversion['blocks'][$i]['template']    = 'page_blocks.tpl';
 $i++;
 $modversion['blocks'][$i]['file']        = 'page_blocks.php';
 $modversion['blocks'][$i]['name']        = PageLocale::BLOCKS_ID;
@@ -92,7 +92,7 @@ $modversion['blocks'][$i]['description'] = PageLocale::BLOCKS_ID_DSC;
 $modversion['blocks'][$i]['show_func']   = 'page_blocks_show';
 $modversion['blocks'][$i]['edit_func']   = 'page_blocks_edit';
 $modversion['blocks'][$i]['options']     = 'id|0';
-$modversion['blocks'][$i]['template']    = 'page_blocks_id.html';
+$modversion['blocks'][$i]['template']    = 'page_blocks_id.tpl';
 
 // Preferences
 $i                                       = 0;

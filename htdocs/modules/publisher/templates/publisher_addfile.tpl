@@ -1,4 +1,4 @@
-<{include file="module:publisher|publisher_header.tpl" item=$item}>
+<{include file="module:publisher/publisher_header.tpl" item=$item}>
 
 <div class="publisher_infotitle"><{$lang_intro_title}></div>
 <div class="publisher_infotext"><{$lang_intro_text}></div>

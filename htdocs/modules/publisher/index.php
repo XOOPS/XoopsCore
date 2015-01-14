@@ -40,7 +40,7 @@ if ($totalCategories == 0) {
     $xoops->redirect(XOOPS_URL, 2, _MD_PUBLISHER_NO_TOP_PERMISSIONS);
 }
 
-$xoops->header('publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl');
+$xoops->header('module:publisher/publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl');
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::LoadFile($publisher->path('footer.php'));
 

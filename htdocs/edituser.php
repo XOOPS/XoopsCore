@@ -131,7 +131,7 @@ if ($op == 'saveuser') {
 }
 
 if ($op == 'editprofile') {
-    $xoops->header('system_edituser.html');
+    $xoops->header('module:system/system_edituser.tpl');
     $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
     $xoops->tpl()->assign('editprofile', true);
     $form = new Xoops\Form\ThemeForm(XoopsLocale::EDIT_PROFILE, 'userinfo', 'edituser.php', 'post', true);

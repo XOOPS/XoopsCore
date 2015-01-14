@@ -39,7 +39,7 @@ $isAdmin = $gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_USER, $groups
 if ($xoops->isUser()) {
     if ($uid == $xoops->user->getVar('uid')) {
         $xoopsConfigUser = $xoops->getConfigs();
-        $xoops->header('system_userinfo.html');
+        $xoops->header('module:system/system_userinfo.tpl');
         $xoops->tpl()->assign('user_ownpage', true);
         $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
         $xoops->tpl()->assign('lang_avatar', XoopsLocale::AVATAR);
@@ -58,7 +58,7 @@ if ($xoops->isUser()) {
         if (!is_object($thisUser) || !$thisUser->isActive()) {
             $xoops->redirect("index.php", 3, XoopsLocale::E_NO_USER_SELECTED);
         }
-        $xoops->header('system_userinfo.html');
+        $xoops->header('module:system/system_userinfo.tpl');
         $xoops->tpl()->assign('user_ownpage', false);
     }
 } else {
@@ -67,7 +67,7 @@ if ($xoops->isUser()) {
     if (!is_object($thisUser) || !$thisUser->isActive()) {
         $xoops->redirect("index.php", 3, XoopsLocale::E_NO_USER_SELECTED);
     }
-    $xoops->header('system_userinfo.html');
+    $xoops->header('module:system/system_userinfo.tpl');
     $xoops->tpl()->assign('user_ownpage', false);
 }
 $myts = MyTextSanitizer::getInstance();

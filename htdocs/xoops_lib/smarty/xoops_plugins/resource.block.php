@@ -54,7 +54,7 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
     {
         static $cache = array();
         $xoops = \Xoops::getInstance();
-        $tpl_info = $xoops->getTplInfo($tpl_name);
+        $tpl_info = $xoops->getTplInfo('block:'.$tpl_name);
         $tpl_name = $tpl_info['tpl_name'];
         $dirname = $tpl_info['module'];
         $file = $tpl_info['file'];
@@ -66,17 +66,5 @@ class Smarty_Resource_Block extends Smarty_Resource_Custom
             $file_path = $xoops->path("modules/{$dirname}/templates/blocks/{$file}");
         }
         return $cache[$tpl_name] = $file_path;
-    }
-
-    /**
-     * Determine basename for compiled filename
-     *
-     * @param  Smarty_Template_Source $source source object
-     *
-     * @return string                 resource's basename
-     */
-    protected function getBasename(Smarty_Template_Source $source)
-    {
-        return urlencode(basename($source->name));
     }
 }

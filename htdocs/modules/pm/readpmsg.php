@@ -13,7 +13,7 @@
  * Private message module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -108,7 +108,7 @@ if (is_object($pm) && !empty($_POST['action'])) {
 }
 $start = !empty($_GET['start']) ? intval($_GET['start']) : 0;
 $total_messages = !empty($_GET['total_messages']) ? intval($_GET['total_messages']) : 0;
-$xoops->header('pm_readpmsg.html');
+$xoops->header('module:pm/pm_readpmsg.tpl');
 
 if (!is_object($pm)) {
     if ($_REQUEST['op'] == "out") {

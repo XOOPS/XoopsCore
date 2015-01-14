@@ -13,7 +13,7 @@
  * Template sets Manager
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Maxime Cointin (AKA Kraven30)
  * @package     system
  * @version     $Id$
@@ -64,7 +64,7 @@ switch ($op) {
                     if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file != '.' && $file != '..' && !is_dir($root . $_REQUEST['dir'] . $file) && $file != 'index.html') {
                         $ext = preg_replace('/^.*\./', '', $file);
 
-                        $extensions = array('.html', '.htm', '.css');
+                        $extensions = array('.tpl', '.html', '.htm', '.css');
                         $extension_verif = strrchr($file, '.');
 
                         if (in_array($extension_verif, $extensions)) {
@@ -126,7 +126,7 @@ switch ($op) {
 
     // Restore backup file
     case 'tpls_restore':
-        $extensions = array('.html', '.htm', '.css');
+        $extensions = array('.tpl', '.html', '.htm', '.css');
 
         //check if the file is inside themes directory
         $valid_dir = stristr(realpath($_REQUEST['path_file']), realpath(XOOPS_ROOT_PATH . '/themes'));

@@ -77,5 +77,5 @@ $modversion['blocks'][] = array(
     'name'        => _MI_NOTIFICATIONS_BNAME1,
     'description' => _MI_NOTIFICATIONS_BNAME1_DSC,
     'show_func'   => 'b_notifications_show',
-    'template'    => 'block_notifications.html',
+    'template'    => 'block_notifications.tpl',
 );

@@ -13,7 +13,7 @@
  * XOOPS misc utilities
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @version         $Id$
@@ -110,7 +110,7 @@ if ($action == "showpopups") {
                     $tpl->assign('message', XoopsLocale::S_REFERENCE_TO_SITE_SENT);
                 }
             }
-            $tpl->display('module:system|system_misc_friend.html');
+            $tpl->display('module:system/system_misc_friend.tpl');
             break;
         case 'online':
             $isadmin = $xoops->userIsAdmin;
@@ -151,7 +151,7 @@ if ($action == "showpopups") {
             $tpl->assign('onlineusers', $onlineUsers);
             $tpl->assign('isadmin', $isadmin);
             $tpl->assign('closebutton', $closebutton);
-            $tpl->display('module:system|system_misc_online.html');
+            $tpl->display('module:system/system_misc_online.tpl');
             break;
         case 'ssllogin':
             if ($xoops->getConfig('use_ssl') && isset($_POST[$xoops->getConfig('sslpost_name')]) && $xoops->isUser()) {

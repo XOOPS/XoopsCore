@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Laurent JEN (aka DuGris)
  * @version         $Id$
  */
@@ -26,8 +26,8 @@ Since 2.6.0, the backend functionality use a 'Plugin' interface.<br />
 The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
 <br />
 <ul>
-    <li>Copy the file <strong><i>root_path/backend.php</i></strong> in your module folder</li>
-    <li>Copy the file <strong><i>root_path/modules/system/templates/system_rss.html</i></strong> in your module templates folder</li>
+    <li>Copy the file <strong><i>root_path/backend.php</i></strong> in to your module folder</li>
+    <li>Copy the file <strong><i>root_path/modules/system/templates/system_rss.tpl</i></strong> to in your module templates folder</li>
     <li>Create backend plugin <i>see the <a href='system-plugin.php' title='System plugin sample'><strong>System plugin sample</strong></a></li>
 </ul>
 ";

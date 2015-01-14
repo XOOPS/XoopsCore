@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -86,5 +86,5 @@ function b_system_main_edit($options)
     $admin_page->renderTips();
     $list = $system_module->getModuleList();
     $xoops->tpl()->assign('modules_list', $list);
-    return $xoops->tpl()->fetch('admin:system|system_modules_menu.html');
+    return $xoops->tpl()->fetch('admin:system/system_modules_menu.tpl');
 }

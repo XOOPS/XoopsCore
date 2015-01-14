@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('fieldlist.tpl');
+$xoops->header('admin:profile/fieldlist.tpl');
 // Get handler
 /* @var $field_handler ProfileFieldHandler */
 $field_handler = $xoops->getModuleHandler('field');

@@ -13,7 +13,7 @@
  * XOOPS notification
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @version         $Id$
@@ -125,7 +125,7 @@ switch ($op) {
                 'event_title'    => $event_info['title'], 'user_id' => $n->getVar('uid')
             );
         }
-        $xoops->header('module:notifications|list.html');
+        $xoops->header('module:notifications/list.tpl');
         $xoops->tpl()->assign('modules', $modules);
         $user_info = array('uid' => $xoops->user->getVar('uid'));
         $xoops->tpl()->assign('user', $user_info);

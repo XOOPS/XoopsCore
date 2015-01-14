@@ -4,4 +4,4 @@
     <{$stop}>
 <{/if}>
 
-<{include file="module:profile|profile_form.tpl" xoForm=$userinfo}>
+<{include file="module:profile/profile_form.tpl" xoForm=$userinfo}>

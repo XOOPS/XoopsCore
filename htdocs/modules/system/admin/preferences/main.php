@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\Criteria;
  * Modules admin Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
  * @subpackage      preferences
@@ -47,7 +47,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'showmod', 'string');
 // Setting type
 $confcat_id = $system->cleanVars($_REQUEST, 'confcat_id', 0, 'int');
 // Call Header
-$xoops->header('system_preferences.html');
+$xoops->header('admin:system/system_preferences.tpl');
 // Define Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 // Define scripts

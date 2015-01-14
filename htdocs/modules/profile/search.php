@@ -154,7 +154,7 @@ switch ($op) {
         break;
 
     case "results":
-        $xoops->header('profile_results.tpl');
+        $xoops->header('module:profile/profile_results.tpl');
         $xoops->tpl()->assign('page_title', _PROFILE_MA_RESULTS);
 
         $xoops->appendConfig('profile_breadcrumbs', array(
