@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
@@ -70,7 +72,7 @@ switch ($op) {
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'related.php?op=new', 'add');
         $admin_page->renderButton();
         // Create form
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         $obj = $related_Handler->get($related_id);
         $form = $helper->getForm($obj, 'page_related');
         $xoops->tpl()->assign('form', $form->render());
@@ -81,7 +83,7 @@ switch ($op) {
             $xoops->redirect('related.php', 3, implode(',', $xoops->security()->getErrors()));
         }
 
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
             $obj = $related_Handler->get($related_id);
         } else {
@@ -89,13 +91,13 @@ switch ($op) {
         }
 
         //main
-        $obj->setVar('related_name', $request->asStr('related_name', ''));
-        $obj->setVar('related_domenu', $request->asInt('related_domenu', 1));
-        $obj->setVar('related_navigation', $request->asInt('related_navigation', 1));
+        $obj->setVar('related_name', Request::getString('related_name', ''));
+        $obj->setVar('related_domenu', Request::getInt('related_domenu', 1));
+        $obj->setVar('related_navigation', Request::getInt('related_navigation', 1));
 
         if ($related_newid = $related_Handler->insert($obj)) {
             $related_id = $related_id != 0 ? $related_id : $related_newid;
-            $datas = $request->asArray('datas');
+            $datas = Request::getArray('datas');
             $datas_exists = $link_Handler->getContentByRelated($related_newid);
             $datas_delete = array_diff(array_values($datas_exists), $datas);
             $datas_add = array_diff($datas, array_values($datas_exists));
@@ -148,8 +150,8 @@ switch ($op) {
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'related.php?op=new', 'add');
         $admin_page->renderButton();
 
-        $related_id = $request->asInt('related_id', 0);
-        $ok = $request->asInt('ok', 0);
+        $related_id = Request::getInt('related_id', 0);
+        $ok = Request::getInt('ok', 0);
 
         $obj = $related_Handler->get($related_id);
         if ($ok == 1) {
@@ -176,7 +178,7 @@ switch ($op) {
         break;
 
     case 'update_status':
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
             $obj = $related_Handler->get($related_id);
             $old = $obj->getVar('related_domenu');
@@ -189,7 +191,7 @@ switch ($op) {
         break;
 
     case 'view':
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
             $obj = $related_Handler->get($related_id);
             $old = $obj->getVar('related_domenu');

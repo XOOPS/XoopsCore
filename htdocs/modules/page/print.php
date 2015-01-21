@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
@@ -23,10 +25,10 @@
 include_once 'header.php';
 
 // Call header
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 
 // Get ID
-$content_id = $request->asInt('id', 0);
+$content_id = Request::getInt('id', 0);
 
 // Permission to view
 $perm_view = $gperm_Handler->checkRight('page_view_item', $content_id, $groups, $module_id, false);
@@ -39,7 +41,7 @@ if (!$perm_view) {
 $view_content = $content_Handler->get($content_id);
 
 // Test if the page exist
-if (count($view_content) == 0 || $view_content->getVar('content_status') == 0){
+if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
     $xoops->redirect('index.php', 3, PageLocale::E_NOT_EXIST);
     exit();
 }
@@ -49,7 +51,7 @@ $tpl = new XoopsTpl();
 // content
 $content = $view_content->getValues();
 foreach ($content as $k => $v) {
-    $tpl->assign($k , $v);
+    $tpl->assign($k, $v);
 }
 // related
 $tpl->assign('related', $link_Handler->menu_related($content_id));

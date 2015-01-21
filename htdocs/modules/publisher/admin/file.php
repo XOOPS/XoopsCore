@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -22,7 +24,7 @@
 include_once __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
 
-$op = \Xmf\Request::getString('op');
+$op = Request::getString('op');
 
 function publisher_editFile($showmenu = false, $fileid = 0, $itemid = 0)
 {
@@ -31,7 +33,6 @@ function publisher_editFile($showmenu = false, $fileid = 0, $itemid = 0)
 
     // if there is a parameter, and the id exists, retrieve data: we're editing a file
     if ($fileid != 0) {
-
         // Creating the File object
         /* @var $fileObj PublisherFile */
         $fileObj = $publisher->getFileHandler()->get($fileid);

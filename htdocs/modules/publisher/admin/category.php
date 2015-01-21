@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -22,7 +24,7 @@
 include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
-$op = \Xmf\Request::getString('op');
+$op = Request::getCmd('op');
 
 $op = isset($_POST['editor']) ? 'mod' : $op;
 if (isset($_POST['addcategory'])) {
@@ -30,8 +32,8 @@ if (isset($_POST['addcategory'])) {
 }
 
 // Where do we start ?
-$startcategory = \Xmf\Request::getInt('startcategory');
-$categoryid = \Xmf\Request::getInt('categoryid');
+$startcategory = Request::getInt('startcategory');
+$categoryid = Request::getInt('categoryid');
 
 switch ($op) {
 
@@ -65,7 +67,7 @@ switch ($op) {
     case "addcategory":
         global $modify;
 
-        $parentid = \Xmf\Request::getInt('parentid');
+        $parentid = Request::getInt('parentid');
         /* @var $categoryObj PublisherCategory */
         if ($categoryid != 0) {
             $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
@@ -358,7 +360,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         PublisherUtils::closeCollapsableBar('subcatstable', 'subcatsicon');
 
         PublisherUtils::openCollapsableBar('bottomtable', 'bottomtableicon', _AM_PUBLISHER_CAT_ITEMS, _AM_PUBLISHER_CAT_ITEMS_DSC);
-        $startitem = \Xmf\Request::getInt('startitem');
+        $startitem = Request::getInt('startitem');
         // Get the total number of published ITEMS
         $totalitems = $publisher->getItemHandler()->getItemsCount($sel_cat, array(_PUBLISHER_STATUS_PUBLISHED));
         // creating the items objects that are published
@@ -393,7 +395,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         }
         echo "</table>\n";
         echo "<br />\n";
-        $parentid = \Xmf\Request::getInt('parentid');
+        $parentid = Request::getInt('parentid');
         $pagenav_extra_args = "op=mod&categoryid=$sel_cat&parentid=$parentid";
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $startitem, 'startitem', $pagenav_extra_args);
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';

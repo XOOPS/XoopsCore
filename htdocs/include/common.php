@@ -138,6 +138,15 @@ $xoops->events()->triggerEvent('core.include.common.configs.success');
 $xoops->gzipCompression();
 
 /**
+ * clickjack protection - Add option to HTTP header restricting using site in an iframe
+ */
+$xFrameOptions =  isset($xoopsConfig['xFrameOptions']) ? $xoopsConfig['xFrameOptions'] : 'sameorigin';
+$xoops->events()->triggerEvent('core.include.common.xframeoption');
+if (!headers_sent() && !empty($xFrameOptions)) {
+    header('X-Frame-Options: ' .$xFrameOptions);
+}
+
+/**
  * Check Bad Ip Addressed against database and block bad ones, requires configs loaded
  */
 $xoops->security()->checkBadips();

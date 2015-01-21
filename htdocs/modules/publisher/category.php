@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -25,7 +27,7 @@ include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 
-$categoryid = \Xmf\Request::getInt('categoryid');
+$categoryid = Request::getInt('categoryid');
 
 // Creating the category object for the selected category
 $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
@@ -41,9 +43,9 @@ if (!$categoryObj->checkPermission()) {
 }
 
 // At which record shall we start
-$start = \Xmf\Request::getInt('start');
+$start = Request::getInt('start');
 
-$item_page_id = \Xmf\Request::getInt('page', -1);
+$item_page_id = Request::getInt('page', -1);
 
 $totalItems = $publisher->getCategoryHandler()->publishedItemsCount();
 

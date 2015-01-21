@@ -19,6 +19,8 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Request;
+
 include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
@@ -31,9 +33,8 @@ if (!$xoops->isUser()) {
     exit();
 }
 
-$request = Xoops_Request::getInstance();
 // initialize $op variable
-$op = $request->asStr('op', 'editprofile');
+$op = Request::getCmd('op', 'editprofile');
 
 $myts = MyTextSanitizer::getInstance();
 if ($op == 'saveuser') {
@@ -45,7 +46,7 @@ if ($op == 'saveuser') {
         );
         exit();
     }
-    $uid = $request->asInt('uid', 0);
+    $uid = Request::getInt('uid', 0);
     if (empty($uid) || $xoops->user->getVar('uid') != $uid) {
         $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACTION_PERMISSION);
         exit();
@@ -53,19 +54,19 @@ if ($op == 'saveuser') {
     $errors = array();
     $email='';
     if ($xoops->getConfig('allow_chgmail') == 1) {
-        $email = $request->asStr('email', '');
+        $email = Request::getString('email', '');
         $email = $myts->stripSlashesGPC(trim($email));
         if ($email == '' || ! $xoops->checkEmail($email)) {
             $errors[] = XoopsLocale::E_INVALID_EMAIL;
         }
     }
-    $password = $request->asStr('password', '');
+    $password = Request::getString('password', '');
     $password = $myts->stripSlashesGPC(trim($password));
     if ($password != '') {
         if (mb_strlen($password) < $xoops->getConfig('minpass')) {
             $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
         }
-        $vpass = $request->asStr('vpass', '');
+        $vpass = Request::getString('vpass', '');
         $vpass = $myts->stripSlashesGPC(trim($vpass));
         if ($password != $vpass) {
             $errors[] = XoopsLocale::E_PASSWORDS_MUST_MATCH;
@@ -82,32 +83,32 @@ if ($op == 'saveuser') {
     } else {
         $member_handler = $xoops->getHandlerMember();
         $edituser = $member_handler->getUser($uid);
-        $edituser->setVar('name', $request->asStr('name', ''));
+        $edituser->setVar('name', Request::getString('name', ''));
         if ($xoops->getConfig('allow_chgmail') == 1) {
             $edituser->setVar('email', $email, true);
         }
         if ($password != '') {
             $edituser->setVar('pass', password_hash($password, PASSWORD_DEFAULT), true);
         }
-        $edituser->setVar('url', $xoops->formatURL($request->asStr('url', '')));
-        $edituser->setVar('user_icq', $request->asStr('user_icq', ''));
-        $edituser->setVar('user_from', $request->asStr('user_from', ''));
-        $edituser->setVar('user_sig', XoopsLocale::substr($request->asStr('user_sig', ''), 0, 255));
-        $edituser->setVar('user_viewemail', $request->asBool('user_viewemail', 0));
-        $edituser->setVar('user_aim', $request->asStr('user_aim', ''));
-        $edituser->setVar('user_yim', $request->asStr('user_yim', ''));
-        $edituser->setVar('user_msnm', $request->asStr('user_msnm', ''));
-        $edituser->setVar('attachsig', $request->asBool('attachsig', 0));
-        $edituser->setVar('timezone_offset', $request->asFloat('timezone_offset', 0));
-        $edituser->setVar('uorder', $request->asInt('uorder', 0));
-        $edituser->setVar('umode', $request->asStr('umode', 'flat'));
-        $edituser->setVar('notify_method', $request->asInt('notify_method', 1));
-        $edituser->setVar('notify_mode', $request->asInt('notify_mode', 1));
-        $edituser->setVar('bio', XoopsLocale::substr($request->asStr('bio', ''), 0, 255));
-        $edituser->setVar('user_occ', $request->asStr('user_occ', ''));
-        $edituser->setVar('user_intrest', $request->asStr('user_intrest', ''));
-        $edituser->setVar('user_mailok', $request->asBool('user_mailok', 0));
-        $usecookie = $request->asBool('user_mailok', 0);
+        $edituser->setVar('url', $xoops->formatURL(Request::getUrl('url', '')));
+        $edituser->setVar('user_icq', Request::getString('user_icq', ''));
+        $edituser->setVar('user_from', Request::getString('user_from', ''));
+        $edituser->setVar('user_sig', XoopsLocale::substr(Request::getString('user_sig', ''), 0, 255));
+        $edituser->setVar('user_viewemail', Request::getBool('user_viewemail', 0));
+        $edituser->setVar('user_aim', Request::getString('user_aim', ''));
+        $edituser->setVar('user_yim', Request::getString('user_yim', ''));
+        $edituser->setVar('user_msnm', Request::getString('user_msnm', ''));
+        $edituser->setVar('attachsig', Request::getBool('attachsig', 0));
+        $edituser->setVar('timezone_offset', Request::getFloat('timezone_offset', 0));
+        $edituser->setVar('uorder', Request::getInt('uorder', 0));
+        $edituser->setVar('umode', Request::getString('umode', 'flat'));
+        $edituser->setVar('notify_method', Request::getInt('notify_method', 1));
+        $edituser->setVar('notify_mode', Request::getInt('notify_mode', 1));
+        $edituser->setVar('bio', XoopsLocale::substr(Request::getString('bio', ''), 0, 255));
+        $edituser->setVar('user_occ', Request::getString('user_occ', ''));
+        $edituser->setVar('user_intrest', Request::getString('user_intrest', ''));
+        $edituser->setVar('user_mailok', Request::getBool('user_mailok', 0));
+        $usecookie = Request::getBool('user_mailok', 0);
         if (!$usecookie) {
             setcookie(
                 $xoops->getConfig('usercookie'),

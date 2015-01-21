@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -54,13 +56,13 @@ XoopsLoad::loadFIle($publisher->path($module_info_search["file"]));
 $limit = 10; //$publisher->getConfig('idxcat_perpage');
 $uid = 0;
 $queries = array();
-$andor = \Xmf\Request::getString('andor');
-$start = \Xmf\Request::getInt('start');
-$category = \Xmf\Request::getArray('category');
-$username = \Xmf\Request::getString('uname');
-$searchin = \Xmf\Request::getArray('searchin');
-$sortby = \Xmf\Request::getString('sortby');
-$term = \Xmf\Request::getString('term');
+$andor = Request::getString('andor');
+$start = Request::getInt('start');
+$category = Request::getArray('category');
+$username = Request::getString('uname');
+$searchin = Request::getArray('searchin');
+$sortby = Request::getString('sortby');
+$term = Request::getString('term');
 
 if (empty($category) || (is_array($category) && in_array("all", $category))) {
     $category = array();

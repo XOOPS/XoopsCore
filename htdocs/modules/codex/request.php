@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -19,25 +21,25 @@
 include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
+// Warning: code depending on Xoops\HttpRequest may need to change
+$request = \Xoops\HttpRequest::getInstance();
 $xoops->header();
 
-$request = Xoops_Request::getInstance();
-
-Xoops_Utils::dumpVar($request->getParam());
-$result['id'] = $request->asInt('id', 13);
-$result['string'] = $request->asStr('string', 'defaultValueHere');
-$result['bool'] = $request->asBool('bool', false);
-$result['order'] = $request->asStr('order', 'ASC', array('ASC', 'DESC'));
+Xoops_Utils::dumpVar(Request::get());
+$result['id'] = Request::getInt('id', 13);
+$result['string'] = Request::getString('string', 'defaultValueHere');
+$result['bool'] = Request::getBool('bool', false);
+$result['order'] = Request::getString('order', 'ASC');
 $result['url'] = $request->getUrl();
 $result['uri'] = $request->getUri();
 $result['referer'] = $request->getReferer();
-$result['phpsessid_cookie'] = $request->getCookie('PHPSESSID');
+$result['phpsessid_cookie'] = Request::getString('PHPSESSID', '', 'cookie');
 $result['ip'] = $request->getClientIp();
-$result['isget'] = $request->is('get');
-$result['ispost'] = $request->is('post');
+$result['isget'] = 'GET' == Request::getMethod();
+$result['ispost'] = 'POST' == Request::getMethod();
 $result['ismobile'] = $request->is('mobile');
 $result['isrobot'] = $request->is('robot');
-$result['files'] = $request->getFiles('file_identifier');
+$result['files'] = Request::getArray('file_identifier', array(), 'files');
 
 Xoops_Utils::dumpVar($result);
 

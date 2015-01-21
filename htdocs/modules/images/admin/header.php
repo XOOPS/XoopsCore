@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * images module
  *
@@ -25,12 +27,11 @@ XoopsLoad::load('system', 'system');
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
 $helper = Xoops\Module\Helper::getHelper('images');
-$request = Xoops_Request::getInstance();
 
 // Get Action type
-$op = $request->asStr('op', 'list');
-$start = $request->asInt('start', 0);
-$imgcat_id = $request->asInt('imgcat_id', 0);
+$op = Request::getCmd('op', 'list');
+$start = Request::getInt('start', 0);
+$imgcat_id = Request::getInt('imgcat_id', 0);
 
 $redirect = basename($xoops->getenv('SCRIPT_NAME'));
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {

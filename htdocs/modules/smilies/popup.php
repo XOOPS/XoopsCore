@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * smilies module
  *
@@ -23,9 +25,9 @@
 include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 
-$target = $xoops->request()->asStr('target', '');
+$target = Request::getString('target', '');
 $xoops->simpleHeader(false);
 if ($target && preg_match('/^[0-9a-z_]*$/i', $target)) {
     $tpl = new XoopsTpl();

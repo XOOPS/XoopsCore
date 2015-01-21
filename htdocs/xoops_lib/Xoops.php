@@ -673,14 +673,6 @@ class Xoops
     }
 
     /**
-     * @return Xoops_Request_Http
-     */
-    public function request()
-    {
-        return Xoops_Request::getInstance();
-    }
-
-    /**
      * @param mixed $optional
      *
      * @return XoopsBlockHandler
@@ -1785,26 +1777,31 @@ class Xoops
      * @param string  $url              URL
      * @param boolean $includeSubdomain true to include include subdomains,
      *                                  default is false registerable domain only
+     * @param boolean $returnObject     true to return Pdp\Uri\Url\Host object
+     *                                  false returns domain as string
      *
-     * @return mixed string domain, or null if domain is invalid
+     * @return Pdp\Uri\Url\Host|string|null domain, or null if domain is invalid
      */
-    function getBaseDomain($url, $includeSubdomain = false)
+    function getBaseDomain($url, $includeSubdomain = false, $returnObject = false)
     {
         $pslManager = new \Pdp\PublicSuffixListManager();
         $parser = new \Pdp\Parser($pslManager->getList());
 
         $url=mb_strtolower($url, 'UTF-8');
 
-        // use php-domain-parser to give us just the domain
-        $pdp = $parser->parseUrl($url);
-        //var_dump($pdp->host);
-
-        $host = $pdp->host->host;
+        try {
+            // use php-domain-parser to give us just the domain
+            $pdp = $parser->parseUrl($url);
+            $host = $pdp->host->host;
+        } catch (\Exception $e) {
+            $this->events()->triggerEvent('core.exception', $e);
+            return null;
+        }
         // check for exceptions, localhost and ip address (v4 & v6)
         if (!empty($host)) {
             // localhost exception
             if ($host=='localhost') {
-                return $host;
+                return $returnObject ? $pdp->host : $host;
             }
             // Check for IPV6 URL (see http://www.ietf.org/rfc/rfc2732.txt)
             // strip brackets before validating
@@ -1813,7 +1810,7 @@ class Xoops
             }
             // ip address exception
             if (filter_var($host, FILTER_VALIDATE_IP)) {
-                return $host;
+                return $returnObject ? new \Pdp\Uri\Url\Host(null, null, null, $host) : $host;
             }
         }
 
@@ -1821,27 +1818,7 @@ class Xoops
         if (!empty($host) && $includeSubdomain) {
             $host = $pdp->host->host;
         }
-
-        return($host);
-    }
-
-    /**
-     * Function to get the domain from a URL.
-     *
-     * @param string $url the URL to be stripped.
-     *
-     * @return string
-     * @deprecated
-     */
-    public function getUrlDomain($url)
-    {
-        $domain = '';
-        $_URL = parse_url($url);
-
-        if (!empty($_URL['host'])) {
-            $domain = $_URL['host'];
-        }
-        return $domain;
+        return $returnObject ? $pdp->host : $host;
     }
 
     /**

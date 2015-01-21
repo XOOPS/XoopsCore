@@ -391,6 +391,7 @@ class XoopsLoad
             'xoopsranks' => XOOPS_ROOT_PATH . '/kernel/ranks.php',
             'xoopsrankshandler' => XOOPS_ROOT_PATH . '/kernel/ranks.php',
             //'xoopsregistry' => XOOPS_ROOT_PATH . '/class/registry.php',
+            'xoopsrequest' => XOOPS_ROOT_PATH . '/class/xoopsrequest.php',
             //'xoopssecurity' => XOOPS_ROOT_PATH . '/class/xoopssecurity.php',
             'xoopssessionhandler' => XOOPS_ROOT_PATH . '/kernel/session.php',
             'xoopssimpleform' => XOOPS_ROOT_PATH . '/class/xoopsform/simpleform.php',

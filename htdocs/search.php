@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS global search
  *
@@ -27,8 +29,8 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $uri = '';
 if ($xoops->isActiveModule('search')) {
-    foreach (Xoops_Request::getInstance()->getParam() as $k => $v) {
-        $uri .= $k . '=' . $v . '&';
+    foreach (Request::get() as $k => $v) {
+        $uri .= urlencode($k) . '=' . urlencode($v) . '&';
     }
     $xoops->redirect("modules/search/index.php?{$uri}", 0);
 } else {

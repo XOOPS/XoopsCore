@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -23,8 +25,8 @@ include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 //getting the values
-$rating = \Xmf\Request::getInt('rating');
-$itemid = \Xmf\Request::getInt('itemid');
+$rating = Request::getInt('rating');
+$itemid = Request::getInt('itemid');
 
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $gperm_handler = $publisher->getGrouppermHandler();

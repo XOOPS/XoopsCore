@@ -11,6 +11,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Request;
 
 $xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
 include_once $xoops_root_path . '/mainfile.php';
@@ -20,13 +21,11 @@ $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
 
-$request = Xoops_Request::getInstance();
-
 $helper = Xoops\Module\Helper::getHelper('smilies');
 $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 
-$op = $request->asStr('op', '');
+$op = Request::getCmd('op', '');
 if ($op == 'save') {
     if (!$xoops->security()->check()) {
         $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));
@@ -37,11 +36,11 @@ if ($op == 'save') {
 
     $obj = $helper->getHandlerSmilies()->create();
 
-    $obj->setVar('smiley_code', $request->asStr('smiley_code', ''));
-    $obj->setVar('smiley_emotion', $request->asStr('smiley_emotion', ''));
-    $obj->setVar('smiley_display', $request->asBool('smiley_display', 1));
-    $obj->setVar('smiley_url', 'smilies/' . $request->asStr('smiley_url', ''));
-    $xoops_upload_file = $request->asArray('xoops_upload_file', array());
+    $obj->setVar('smiley_code', Request::getString('smiley_code', ''));
+    $obj->setVar('smiley_emotion', Request::getString('smiley_emotion', ''));
+    $obj->setVar('smiley_display', Request::getBool('smiley_display', 1));
+    $obj->setVar('smiley_url', 'smilies/' . Request::getPath('smiley_url', ''));
+    $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
     $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
     $upload_size = 500000;

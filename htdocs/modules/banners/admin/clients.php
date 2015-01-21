@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * banners module
  *
@@ -24,7 +26,6 @@ include __DIR__ . '/header.php';
 // Get main instance
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
-$request = $xoops->request();
 
 // Parameters
 $nb_clients = $helper->getConfig('banners_clientspager');
@@ -36,9 +37,9 @@ $member_handler = $xoops->getHandlerMember();
 // Call header
 $xoops->header('admin:banners/banners_admin_clients.tpl');
 // Get Action type
-$op = $request->asStr('op', 'list');
+$op = Request::getCmd('op', 'list');
 // Get start pager
-$start = $request->asInt('start', 0);
+$start = Request::getInt('start', 0);
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('clients.php');
@@ -119,7 +120,7 @@ switch ($op) {
             'info_msg',
             $xoops->alert('info', _AM_BANNERS_ALERT_INFO_CLIENT_ADDEDIT, _AM_BANNERS_ALERT_INFO_TITLE)
         );
-        $cid = $request->asInt('cid', 0);
+        $cid = Request::getInt('cid', 0);
         if ($cid > 0) {
             $obj = $client_Handler->get($cid);
             $form = $helper->getForm($obj, 'bannerclient');
@@ -133,19 +134,19 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect("clients.php", 3, implode(",", $xoops->security()->getErrors()));
         }
-        $cid = $request->asInt('cid', 0);
+        $cid = Request::getInt('cid', 0);
         if ($cid > 0) {
             $obj = $client_Handler->get($cid);
         } else {
             $obj = $client_Handler->create();
         }
-        $obj->setVar("bannerclient_name", $request->asStr('name', ''));
+        $obj->setVar("bannerclient_name", Request::getString('name', ''));
         if ($_POST["user"] == 'Y') {
-            $obj->setVar("bannerclient_uid", $request->asInt('uid', 0));
+            $obj->setVar("bannerclient_uid", Request::getInt('uid', 0));
         } else {
             $obj->setVar("bannerclient_uid", 0);
         }
-        $obj->setVar("bannerclient_extrainfo", $request->asStr('extrainfo', ''));
+        $obj->setVar("bannerclient_extrainfo", Request::getString('extrainfo', ''));
         if ($client_Handler->insert($obj)) {
             $xoops->redirect("clients.php", 2, _AM_BANNERS_DBUPDATED);
         }
@@ -155,7 +156,7 @@ switch ($op) {
         break;
 
     case 'delete':
-        $cid = $request->asInt('cid', 0);
+        $cid = Request::getInt('cid', 0);
         if ($cid > 0) {
             $obj = $client_Handler->get($cid);
             if (isset($_POST["ok"]) && $_POST["ok"] == 1) {

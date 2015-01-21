@@ -11,6 +11,7 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Request;
 
 $xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
 include_once $xoops_root_path . '/mainfile.php';
@@ -19,7 +20,6 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
-$request = Xoops_Request::getInstance();
 
 $helper = Xoops\Module\Helper::getHelper('xlanguage');
 if ($helper) {
@@ -27,7 +27,7 @@ if ($helper) {
     $helper->loadLanguage('tinymce');
 }
 
-$op = $request->asStr('op', '');
+$op = Request::getCmd('op', '');
 if ($op == 'save') {
     if (!$xoops->security()->check()) {
         $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));

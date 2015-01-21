@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * smilies module
  *
@@ -37,8 +39,8 @@ $upload_size = 50000;
 $info_msg = array(sprintf(_AM_SMILIES_ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)), sprintf(_AM_SMILIES_ALERT_INFO_MAXFILE, $upload_size));
 
 // Get $_GET, $_POST, ...
-$op = $request->asStr('op', 'list');
-$start = $request->asInt('start', 0);
+$op = Request::getCmd('op', 'list');
+$start = Request::getInt('start', 0);
 
 switch ($op) {
     case 'list':
@@ -78,7 +80,7 @@ switch ($op) {
         $admin_page->renderButton();
         $xoops->tpl()->assign('info_msg', $xoops->alert('info', $info_msg, _AM_SMILIES_ALERT_INFO_TITLE));
         // Create form
-        $smiley_id = $request->asInt('smiley_id', 0);
+        $smiley_id = Request::getInt('smiley_id', 0);
         $obj = $helper->getHandlerSmilies()->get($smiley_id);
         $form = $helper->getForm($obj, 'smilies');
         $xoops->tpl()->assign('form', $form->render());
@@ -90,18 +92,18 @@ switch ($op) {
             $xoops->redirect('smilies.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
 
-        $smiley_id = $request->asInt('smiley_id', 0);
+        $smiley_id = Request::getInt('smiley_id', 0);
         if (isset($smiley_id) && $smiley_id !=0) {
             $obj = $helper->getHandlerSmilies()->get($smiley_id);
         } else {
             $obj = $helper->getHandlerSmilies()->create();
         }
 
-        $obj->setVar('smiley_code', $request->asStr('smiley_code', ''));
-        $obj->setVar('smiley_emotion', $request->asStr('smiley_emotion', ''));
-        $obj->setVar('smiley_display', $request->asBool('smiley_display', 1));
-        $obj->setVar('smiley_url', 'smilies/' . $request->asStr('smiley_url', ''));
-        $xoops_upload_file = $request->asArray('xoops_upload_file', array());
+        $obj->setVar('smiley_code', Request::getString('smiley_code', ''));
+        $obj->setVar('smiley_emotion', Request::getString('smiley_emotion', ''));
+        $obj->setVar('smiley_display', Request::getBool('smiley_display', true));
+        $obj->setVar('smiley_url', 'smilies/' . Request::getPath('smiley_url', ''));
+        $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
         $error_msg = '';
         if ($_FILES[$xoops_upload_file[0]]['error'] === 0) {
@@ -132,8 +134,8 @@ switch ($op) {
 
     //Del a smilie
     case 'del':
-        $smiley_id = $request->asInt('smiley_id', 0);
-        $ok = $request->asInt('ok', 0);
+        $smiley_id = Request::getInt('smiley_id', 0);
+        $ok = Request::getInt('ok', 0);
         $obj = $helper->getHandlerSmilies()->get($smiley_id);
 
         if ($ok == 1) {
@@ -159,7 +161,7 @@ switch ($op) {
         break;
 
     case 'smilies_update_display':
-        $smiley_id = $request->asInt('smiley_id', 0);
+        $smiley_id = Request::getInt('smiley_id', 0);
         if ($smiley_id > 0) {
             $obj = $helper->getHandlerSmilies()->get($smiley_id);
             $old = $obj->getVar('smiley_display');

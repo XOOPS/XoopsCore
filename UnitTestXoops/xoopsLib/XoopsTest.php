@@ -72,7 +72,7 @@ class XoopsTest extends MY_UnitTestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->registry();
-        $this->assertInstanceOf('Xoops_Registry', $value);
+        $this->assertInstanceOf('\Xoops\Core\Registry', $value);
 
         $value1 = $instance->registry();
         $this->assertSame($value, $value1);
@@ -292,14 +292,14 @@ class XoopsTest extends MY_UnitTestCase
         $this->assertSame('module', $value['type']);
         $this->assertSame('system', $value['module']);
         $this->assertSame('path', $value['file']);
-        $this->assertSame('module:system|path', $value['tpl_name']);
+        $this->assertSame('module:system/path', $value['tpl_name']);
 
         $path = 'db:path';
         $value = $instance->getTplInfo($path);
         $this->assertSame('module', $value['type']);
         $this->assertSame('system', $value['module']);
         $this->assertSame('path', $value['file']);
-        $this->assertSame('module:system|path', $value['tpl_name']);
+        $this->assertSame('module:system/path', $value['tpl_name']);
     }
 
     public function test_header()
@@ -348,14 +348,6 @@ class XoopsTest extends MY_UnitTestCase
 
         $value = $instance->isAdmin();
         $this->assertSame(false, $value);
-    }
-
-    public function test_request()
-	{
-        $instance = Xoops::getInstance();
-
-        $value = $instance->request();
-        $this->assertInstanceOf('Xoops_Request_Http', $value);
     }
 
     public function test_getHandlerBlock()
@@ -723,21 +715,21 @@ class XoopsTest extends MY_UnitTestCase
 
 		defined('NWLINE') OR define('NWLINE', "\n");
 		ob_start();
-		$instance->confirm(array(),array(),'msg');
+		$instance->confirm(array(),'','msg');
 		$value = ob_get_contents();
 		ob_end_clean();
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 
 		ob_start();
-		$instance->confirm(array('toto'=>1,'tutu'=>2),array(),'msg');
+		$instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
 		$value = ob_get_contents();
 		ob_end_clean();
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 
 		ob_start();
-		$instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),array(),'msg');
+		$instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
 		$value = ob_get_contents();
 		ob_end_clean();
 		$this->assertTrue(is_string($value));
@@ -1094,25 +1086,12 @@ class XoopsTest extends MY_UnitTestCase
         }
     }
 
-    public function test_getUrlDomain()
-	{
-        $instance = Xoops::getInstance();
-
-        $url = 'http://username:password@hostname/path?arg=value#anchor';
-        $value = $instance->getUrlDomain($url);
-        $this->assertSame('hostname', $value);
-
-        $url = 'localhost.php';
-        $value = $instance->getUrlDomain($url);
-        $this->assertSame('', $value);
-    }
-
     public function test_templateTouch()
 	{
         $instance = Xoops::getInstance();
 
         $value = $instance->templateTouch(1);
-        $this->assertSame(true, $value);
+        $this->assertTrue($value);
     }
 
     public function test_templateClearModuleCache()

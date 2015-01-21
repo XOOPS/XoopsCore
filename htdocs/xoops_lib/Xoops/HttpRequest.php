@@ -9,31 +9,48 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+namespace Xoops;
+
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @author          Kazumi Ono <onokazu@gmail.com>
- * @version         $Id$
+ * WARNING: THIS IS A PLACEHOLDER ONLY. IMPLEMENTATION AND DETAILS WILL CHANGE.
+ *
+ * This provides some of the functionality that was in the Xoops_Request classes.
+ * The majority of use for the class was the 'asXyz()' methods, and all such uses
+ * should move to Xoops\Core\Request::getXyz() methods.
+ *
+ * These are methods which reveal some aspects of the HTTP request environment.
+ * This will eventually be reworked to depend on a full HTTP messasge library
+ * (anticipating an official PSR-7 implementation.)
+ *
+ * For now, this is a reduced version of a Cake derivative.
+ *
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class Xoops_Request_Http extends Xoops_Request_Abstract
+
+/**
+ * @author          trabis <lusopoemas@gmail.com>
+ * @author          Kazumi Ono <onokazu@gmail.com>
+ * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ */
+
+class HttpRequest
 {
     /**
-     * @var array|string
+     * @var array
      */
-    protected $_cookies;
+    protected $params;
+
 
     /**
      * The built in detectors used with `is()` can be modified with `addDetector()`.
-     * There are several ways to specify a detector, see Xoops_Request::addDetector() for the
+     * There are several ways to specify a detector, see HttpRequest::addDetector() for the
      * various formats and ways to define detectors.
      *
      * @var array
      */
-    protected $_detectors = array(
+    protected $detectors = array(
         'get'       => array('env' => 'REQUEST_METHOD', 'value' => 'GET'),
         'post'      => array('env' => 'REQUEST_METHOD', 'value' => 'POST'),
         'put'       => array('env' => 'REQUEST_METHOD', 'value' => 'PUT'),
@@ -128,91 +145,39 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
         ),
     );
 
-    /**
-     * @param bool  $filterGlobals
-     * @param bool  $forceStripSlashes
-     * @param array $params
-     * @param array $cookie
-     */
-    public function __construct($filterGlobals = true, $forceStripSlashes = false, array $params = null, array $cookie = null)
+    private function __construct()
     {
-        if (!isset($params)) {
-            switch (strtolower($this->getEnv('REQUEST_METHOD'))) {
-                case 'get':
-                    $params = $_GET;
-                    break;
-                case 'put':
-                    parse_str(file_get_contents('php://input'), $put);
-                    $params = array_merge($_GET, $put);
-                    break;
-                default:
-                    $params = array_merge($_GET, $_POST);
-            }
+        $params = array();
+        switch (strtolower($this->getEnv('REQUEST_METHOD'))) {
+            case 'get':
+                $params = $_GET;
+                break;
+            case 'put':
+                parse_str(file_get_contents('php://input'), $put);
+                $params = array_merge($_GET, $put);
+                break;
+            default:
+                $params = array_merge($_GET, $_POST);
         }
-
-        if (!isset($cookie)) {
-            $cookie = $_COOKIE;
-        }
-
-        if ($filterGlobals) {
-            if ($forceStripSlashes || get_magic_quotes_gpc()) {
-                $params = $this->_stripSlashes($params);
-                if (!empty($cookie)) {
-                    $cookie = $this->_stripSlashes($cookie);
-                }
-            }
-            // Filter malicious user inputs
-            $list = array('GLOBALS', '_GET', '_POST', '_REQUEST', '_COOKIE', '_ENV', '_FILES', '_SERVER', '_SESSION');
-            $this->_filterUserData($params, $list);
-            if (!empty($cookie)) {
-                $this->_filterUserData($cookie, $list);
-            }
-        }
-
-        parent::__construct($params);
-        $this->_cookies = $cookie;
+        $this->params = $params;
     }
 
     /**
-     * @param string $name
-     *
-     * @return bool
+     * @return Xoops_Request_Http
      */
-    public function hasCookie($name)
+    public static function getInstance()
     {
-        return isset($this->_cookies[$name]);
-    }
-
-    /**
-     * @param string|null $name
-     * @param string|null $default
-     *
-     * @return mixed
-     */
-    public function getCookie($name = null, $default = null)
-    {
-        if ($name === null) {
-            return $this->_cookies;
+        static $instance;
+        if (!isset($instance)) {
+            $thisClass = get_called_class();
+            $instance = new $thisClass();
+            //$instance = new Xoops/HttpRequest();
         }
-        return $this->hasCookie($name) ? $this->_cookies[$name] : $default;
+        return $instance;
     }
 
     /**
-     * @param string|null $name
-     * @param string|null $default
-     *
-     * @return string|null
-     */
-    public function getSession($name = null, $default = null)
-    {
-        if ($name === null) {
-            return $_SESSION;
-        }
-        return isset($_SESSION[$name]) ? $_SESSION[$name] : $default;
-    }
-
-    /**
-     * @param null|string $name
+     * @param null|string $name header name
      *
      * @return null|string
      */
@@ -283,7 +248,9 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
      */
     public function getScriptName()
     {
-        return $this->getEnv('SCRIPT_NAME') ? $this->getEnv('SCRIPT_NAME') : ($this->getEnv('ORIG_SCRIPT_NAME') ? $this->getEnv('ORIG_SCRIPT_NAME') : '');
+        return $this->getEnv('SCRIPT_NAME')
+            ? $this->getEnv('SCRIPT_NAME')
+            : ($this->getEnv('ORIG_SCRIPT_NAME') ? $this->getEnv('ORIG_SCRIPT_NAME') : '');
     }
 
     /**
@@ -354,14 +321,84 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
     }
 
     /**
-     * @param string $name
-     * @param null   $default
+     * Gets an environment variable from available sources, and provides emulation
+     * for unsupported or inconsistent environment variables (i.e. DOCUMENT_ROOT on
+     * IIS, or SCRIPT_NAME in CGI mode).  Also exposes some additional custom
+     * environment information.
+     * Note : code modifications for XOOPS
      *
-     * @return string
+     * @param  string $name    Environment variable name.
+     * @param  mixed  $default default value
+     *
+     * @return string Environment variable setting.
+     * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#env
+     *
+     * @todo this methods and Xoops::getEnv() need to be unified
      */
     public function getEnv($name, $default = null)
     {
-        return Xoops_Utils::getEnv($name, $default);
+        if ($name === 'HTTPS') {
+            if (isset($_SERVER['HTTPS'])) {
+                return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+            }
+            return (strpos($this->getEnv('SCRIPT_URI'), 'https://') === 0);
+        }
+
+        if ($name === 'SCRIPT_NAME' && !isset($_SERVER[$name])) {
+            if ($this->getEnv('CGI_MODE') && isset($_ENV['SCRIPT_URL'])) {
+                return $_ENV['SCRIPT_URL'];
+            }
+        }
+
+        if ($name === 'REMOTE_ADDR' && !isset($_SERVER[$name])) {
+            $addr = $this->getEnv('HTTP_PC_REMOTE_ADDR');
+            if ($addr !== null) {
+                return $addr;
+            }
+        }
+
+        $val = null;
+        if (isset($_SERVER[$name])) {
+            $val = $_SERVER[$name];
+        } elseif (isset($_ENV[$name])) {
+            $val = $_ENV[$name];
+        }
+
+        if ($val !== null) {
+            return $val;
+        }
+
+        switch ($name) {
+            case 'SCRIPT_FILENAME':
+                $val = preg_replace('#//+#', '/', $this->getEnv('PATH_TRANSLATED'));
+                return preg_replace('#\\\\+#', '\\', $val);
+                break;
+            case 'DOCUMENT_ROOT':
+                $name = $this->getEnv('SCRIPT_NAME');
+                $filename = $this->getEnv('SCRIPT_FILENAME');
+                $offset = 0;
+                if (!strpos($name, '.php')) {
+                    $offset = 4;
+                }
+                return substr($filename, 0, -(strlen($name) + $offset));
+                break;
+            case 'PHP_SELF':
+                return str_replace($this->getEnv('DOCUMENT_ROOT'), '', $this->getEnv('SCRIPT_FILENAME'));
+                break;
+            case 'CGI_MODE':
+                return (PHP_SAPI === 'cgi');
+                break;
+            case 'HTTP_BASE':
+                $host = $this->getEnv('HTTP_HOST');
+                $val = \Xoops::getInstance()->getBaseDomain($host);
+                if (is_null($val)) {
+                    return $default;
+                } else {
+                    return '.' . $val;
+                }
+                break;
+        }
+        return $default;
     }
 
     /**
@@ -371,11 +408,17 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
      */
     public static function getFiles($name)
     {
-        if (empty($_FILES)) return array();
+        if (empty($_FILES)) {
+            return array();
+        }
 
-        if (isset($_FILES[$name])) return $_FILES[$name];
+        if (isset($_FILES[$name])) {
+            return $_FILES[$name];
+        }
 
-        if (false === $pos = strpos($name, '[')) return array();
+        if (false === $pos = strpos($name, '[')) {
+            return array();
+        }
 
         $base = substr($name, 0, $pos);
         $key = str_replace(array(']', '['), array('', '"]["'), substr($name, $pos + 1, -1));
@@ -391,7 +434,7 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
 
     /**
      * Check whether or not a Request is a certain type.  Uses the built in detection rules
-     * as well as additional rules defined with CakeRequest::addDetector().  Any detector can be called
+     * as well as additional rules defined with HttpRequest::addDetector().  Any detector can be called
      * as `is($type)` or `is$Type()`.
      *
      * @param string $type The type of request you want to check.
@@ -420,7 +463,7 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
         if (isset($detect['param'])) {
             $name = $detect['param'];
             $value = $detect['value'];
-            return isset($this->_params[$name]) ? $this->_params[$name] == $value : false;
+            return isset($this->params[$name]) ? $this->params[$name] == $value : false;
         }
         if (isset($detect['callback']) && is_callable($detect['callback'])) {
             return call_user_func($detect['callback'], $this);
@@ -450,8 +493,8 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
      * Allows for custom detectors on the request parameters.
      * e.g `addDetector('post', array('param' => 'requested', 'value' => 1)`
      *
-     * @param string $name     The name of the detector.
-     * @param array  $options  The options for the detector definition.  See above.
+     * @param string $name    The name of the detector.
+     * @param array  $options The options for the detector definition.  See above.
      *
      * @return void
      */
@@ -481,7 +524,7 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
      */
     public function accepts($type = null)
     {
-        $raw = $this->_parseAccept();
+        $raw = $this->parseAccept();
         $accept = array();
         foreach ($raw as $types) {
             $accept = array_merge($accept, $types);
@@ -493,36 +536,6 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
     }
 
     /**
-     * @param mixed $var
-     *
-     * @return array|string
-     */
-    private function _stripSlashes($var)
-    {
-        return is_array($var) ? array_map(array($this, '_stripSlashes'), $var) : stripslashes($var);
-    }
-
-    /**
-     * @param mixed $var
-     * @param string[] $globalKeys
-     */
-    private function _filterUserData(&$var, $globalKeys = array())
-    {
-        if (is_array($var)) {
-            $var_keys = array_keys($var);
-            if (array_intersect($globalKeys, $var_keys)) {
-                $var = array();
-            } else {
-                foreach ($var_keys as $key) {
-                    $this->_filterUserData($var[$key], $globalKeys);
-                }
-            }
-        } elseif (is_string($var)) {
-			$var = str_replace("\x00", '', $var);
-        }
-    }
-
-    /**
      * Parse the HTTP_ACCEPT header and return a sorted array with content types
      * as the keys, and pref values as the values.
      * Generally you want to use CakeRequest::accept() to get a simple list
@@ -530,7 +543,7 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
      *
      * @return array An array of prefValue => array(content/types)
      */
-    private function _parseAccept()
+    private function parseAccept()
     {
         $accept = array();
         $header = explode(',', $this->getHeader('accept'));
@@ -553,5 +566,4 @@ class Xoops_Request_Http extends Xoops_Request_Abstract
         krsort($accept);
         return $accept;
     }
-
 }

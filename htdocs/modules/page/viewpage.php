@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
@@ -26,7 +28,7 @@ include_once 'header.php';
 $xoops->header('module:page/page_viewpage.tpl');
 
 // Get ID
-$content_id = $request->asInt('id', 0);
+$content_id = Request::getInt('id', 0);
 
 // Permission to view
 $perm_view = $gperm_Handler->checkRight('page_view_item', $content_id, $groups, $module_id, false);

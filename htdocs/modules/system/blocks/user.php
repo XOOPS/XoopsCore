@@ -113,6 +113,6 @@ function b_system_user_show()
         'icon' => 'icon-off',
     ));
 
-    $block['active_url'] = Xoops_Request::getInstance()->getUrl();
+    $block['active_url'] = \Xoops\HttpRequest::getInstance()->getUrl();
     return $block;
 }

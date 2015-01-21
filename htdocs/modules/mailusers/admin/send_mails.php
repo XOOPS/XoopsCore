@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * Mailusers Plugin
  *
@@ -23,12 +25,11 @@
 include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
-$request = $xoops->request();
 // Parameters
 $limit = 100;
 // Get Action type
-$op = $request->asStr('op', 'list');
-$memberslist_id = $request->asArray('memberslist_id', array());
+$op = Request::getString('op', 'list');
+$memberslist_id = Request::getArray('memberslist_id', array());
 
 // Call Header
 $xoops->header('admin:mailusers/mailusers_send_mail.tpl');
@@ -46,7 +47,7 @@ switch ($op) {
         $display_criteria = 1;
         $form = new Xoops\Form\ThemeForm(_AM_MAILUSERS_LIST, "mailusers", "send_mails.php", 'post', true);
         //----------------------------------------
-        if (!empty($memberslist_id) && $request->is('post')) {
+        if (!empty($memberslist_id) && (Request::method()=='POST')) {
             $user_count = count($memberslist_id);
             $display_names = "";
             for ($i = 0; $i < $user_count; $i++) {
@@ -151,25 +152,25 @@ switch ($op) {
     // Send
     case 'send':
 
-        $mail_send_to = $request->asArray('mail_send_to', array('mail'));
-        $mail_inactive = $request->asInt('mail_inactive', 0);
-        $mail_mailok = $request->asInt('mail_mailok', 0);
-        $mail_lastlog_min = $request->asStr('mail_lastlog_min', '');
-        $mail_lastlog_max = $request->asStr('mail_lastlog_max', '');
-        $mail_idle_more = $request->asInt('mail_idle_more', 0);
-        $mail_idle_less = $request->asInt('mail_idle_less', 0);
-        $mail_regd_min = $request->asStr('mail_regd_min', '');
-        $mail_regd_max = $request->asStr('mail_regd_max', '');
-        $mail_to_group = $request->asArray('mail_to_group', array());
+        $mail_send_to = Request::getArray('mail_send_to', array('mail'));
+        $mail_inactive = Request::getInt('mail_inactive', 0);
+        $mail_mailok = Request::getInt('mail_mailok', 0);
+        $mail_lastlog_min = Request::getString('mail_lastlog_min', '');
+        $mail_lastlog_max = Request::getString('mail_lastlog_max', '');
+        $mail_idle_more = Request::getInt('mail_idle_more', 0);
+        $mail_idle_less = Request::getInt('mail_idle_less', 0);
+        $mail_regd_min = Request::getString('mail_regd_min', '');
+        $mail_regd_max = Request::getString('mail_regd_max', '');
+        $mail_to_group = Request::getArray('mail_to_group', array());
         $mail_to_group = array_map("intval", $mail_to_group);
-        $mail_start = $request->asInt('mail_start', 0);
-        $mail_to_user = $request->asArray('mail_to_user', array());
+        $mail_start = Request::getInt('mail_start', 0);
+        $mail_to_user = Request::getArray('mail_to_user', array());
         $mail_to_user = array_map("intval", $mail_to_user);
 
-        $mail_fromname = $request->asStr('mail_fromname');
-        $mail_fromemail = $request->asStr('mail_fromemail');
-        $mail_subject = $request->asStr('mail_subject');
-        $mail_body = $request->asStr('mail_body');
+        $mail_fromname = Request::getString('mail_fromname');
+        $mail_fromemail = Request::getString('mail_fromemail');
+        $mail_subject = Request::getString('mail_subject');
+        $mail_body = Request::getString('mail_body');
 
         $count_criteria = 0; // user count via criteria;
         if (!empty($mail_send_to)) {

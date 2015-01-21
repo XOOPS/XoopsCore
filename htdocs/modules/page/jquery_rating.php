@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
@@ -21,15 +23,15 @@
  */
 
 include_once 'header.php';
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 
 $ret['error'] = 1;
 
 if ( $xoops->security()->check() ) {
     $time = time();
     if ( !isset($_SESSION['page_rating' . $content_id]) || $_SESSION['page_rating' . $content_id] < $time ) {
-        $content_id = $request->asInt('content_id', 0);
-        $option = $request->asInt('option', 0);
+        $content_id = Request::getInt('content_id', 0);
+        $option = Request::getInt('option', 0);
 
         $_SESSION['page_rating' . $content_id] = $time + $interval;
 
