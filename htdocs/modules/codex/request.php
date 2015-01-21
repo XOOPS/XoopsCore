@@ -21,8 +21,8 @@ use Xoops\Core\Request;
 include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
-// Warning: code depending on Xoops\HttpRequest may need to change
-$request = \Xoops\HttpRequest::getInstance();
+// Warning: code depending on Xoops\Core\HttpRequest may need to change
+$request = \Xoops\Core\HttpRequest::getInstance();
 $xoops->header();
 
 Xoops_Utils::dumpVar(Request::get());

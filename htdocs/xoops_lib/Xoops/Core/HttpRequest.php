@@ -9,7 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xoops;
+namespace Xoops\Core;
 
 /**
  * WARNING: THIS IS A PLACEHOLDER ONLY. IMPLEMENTATION AND DETAILS WILL CHANGE.
@@ -165,7 +165,7 @@ class HttpRequest
     }
 
     /**
-     * @return Xoops\HttpRequest
+     * @return HttpRequest
      */
     public static function getInstance()
     {
@@ -173,7 +173,6 @@ class HttpRequest
         if (!isset($instance)) {
             $thisClass = get_called_class();
             $instance = new $thisClass();
-            //$instance = new Xoops/HttpRequest();
         }
         return $instance;
     }
@@ -218,7 +217,7 @@ class HttpRequest
      */
     public function getHost()
     {
-        return $this->getEnv('HTTP_HOST') ? $this->getEnv('HTTP_HOST') : 'localhost';
+        return $this->getEnv('HTTP_HOST') ? (string) $this->getEnv('HTTP_HOST') : 'localhost';
     }
 
     /**
@@ -506,62 +505,83 @@ class HttpRequest
     }
 
     /**
-     * Find out which content types the client accepts or check if they accept a
-     * particular type of content.
-     * #### Get all types:
-     * `$request->accepts();`
-     * #### Check for a single type:
-     * `$request->accepts('application/json');`
-     * This method will order the returned content types by the preference values indicated
-     * by the client.
+     * Determine if a client accepts a given media type
      *
-     * @param string|null $type The content type to check for.  Leave null to get all types a client accepts.
+     * @param string $mediaType The content type to check for.
      *
-     * @return mixed Either an array of all the types the client accepts or a boolean if they accept the
-     *   provided type.
+     * @return boolean true if client accepts the media type, otherwise false
      */
-    public function accepts($type = null)
+    public function clientAcceptsType($mediaType)
     {
-        $raw = $this->parseAccept();
-        $accept = array();
-        foreach ($raw as $types) {
-            $accept = array_merge($accept, $types);
+        $accepts = $this->getAcceptMediaTypes();
+
+        $mediaType = trim($mediaType);
+        if (isset($accepts[$mediaType])) {
+            return true;
         }
-        if ($type === null) {
-            return $accept;
+        list($type, $subtype) = explode('/', $mediaType);
+        if (isset($accepts[$type.'/*'])) {
+            return true;
         }
-        return in_array($type, $accept);
+
+        return isset($accepts['*/*']);
     }
 
     /**
-     * Parse the HTTP_ACCEPT header and return a sorted array with content types
-     * as the keys, and pref values as the values.
-     * Generally you want to use CakeRequest::accept() to get a simple list
-     * of the accepted content types.
+     * getAcceptMediaTypes returns the http-accept header as an
+     * array of media types arranged by specified preference
      *
-     * @return array An array of prefValue => array(content/types)
+     * @return array associtive array of preference (numeric weight >0 <=1.0 )
+     *               keyed by media types, and sorted by preference
      */
-    private function parseAccept()
+    public function getAcceptMediaTypes()
     {
-        $accept = array();
-        $header = explode(',', $this->getHeader('accept'));
-        foreach (array_filter($header) as $value) {
-            $prefPos = strpos($value, ';');
-            if ($prefPos !== false) {
-                $prefValue = substr($value, strpos($value, '=') + 1);
-                $value = trim(substr($value, 0, $prefPos));
-            } else {
-                $prefValue = '1.0';
-                $value = trim($value);
+        $types = array();
+        $accept = $this->getHeader('ACCEPT');
+
+        if (!empty($accept)) {
+            $entries = explode(',', $accept);
+            foreach ($entries as $e) {
+                $mt = explode(';q=', $e);
+                if (!isset($mt[1])) {
+                    $mt[1] = 1.0;
+                }
+                $types[trim($mt[0])] = (float) $mt[1];
             }
-            if (!isset($accept[$prefValue])) {
-                $accept[$prefValue] = array();
-            }
-            if ($prefValue) {
-                $accept[$prefValue][] = $value;
-            }
+
+            // sort list based on value
+            arsort($types, SORT_NUMERIC);
         }
-        krsort($accept);
-        return $accept;
+
+        return($types);
+    }
+
+    /**
+     * getAcceptedLanguages returns the http-accept-language header as an
+     * array of language codes arranged by specified preference
+     *
+     * @return array associtive array of preference (numeric weight >0 <=1.0 )
+     *               keyed by language code, and sorted by preference
+     */
+    public function getAcceptedLanguages()
+    {
+        $langs = array();
+        $accept = $this->getHeader('ACCEPT_LANGUAGE');
+
+        if (!empty($accept)) {
+            $entries = explode(',', $accept);
+            foreach ($entries as $e) {
+                $l = explode(';q=', $e);
+                if (!isset($l[1])) {
+                    $l[1] = 1.0;
+                }
+                $langs[trim($l[0])] = (float) $l[1];
+            }
+
+            // sort list based on value
+            arsort($langs, SORT_NUMERIC);
+        }
+
+        return($langs);
     }
 }
