@@ -479,6 +479,11 @@ class Request
         static $noHtmlFilter = null;
         static $safeHtmlFilter = null;
 
+        // convert $var in array if $type is ARRAY
+        if (strtolower($type) == 'array' && !is_array($var)) {
+            $var = array($var);
+        }
+
         // If the no trim flag is not set, trim the variable
         if (!($mask & 1) && is_string($var)) {
             $var = trim($var);

@@ -145,6 +145,9 @@ class HttpRequest
         ),
     );
 
+    /**
+     * __construct
+     */
     private function __construct()
     {
         switch (strtolower($this->getEnv('REQUEST_METHOD'))) {
@@ -162,7 +165,7 @@ class HttpRequest
     }
 
     /**
-     * @return Xoops/HttpRequest
+     * @return Xoops\HttpRequest
      */
     public static function getInstance()
     {
@@ -203,7 +206,7 @@ class HttpRequest
     }
 
     /**
-     * @return boolean
+     * @return string
      */
     public function getScheme()
     {
@@ -255,36 +258,32 @@ class HttpRequest
     /**
      * Get the domain name and include $tldLength segments of the tld.
      *
-     * @param integer $tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
-     *                           While `example.co.uk` contains 2.
-     *
-     * @return string Domain name without subdomains.
+     * @return string Domain name without subdomains
      */
-    public function getDomain($tldLength = 1)
+    public function getDomain()
     {
-        $segments = explode('.', $this->getHost());
-        $domain = array_slice($segments, -1 * ($tldLength + 1));
-        return implode('.', $domain);
+        $host = $this->getHost();
+        $domain =  \Xoops::getInstance()->getBaseDomain($host, false);
+        return is_null($domain) ? $host : $domain;
     }
 
     /**
      * Get the subdomains for a host.
      *
-     * @param integer $tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
-     *                           While `example.co.uk` contains 2.
-     *
-     * @return array of subdomains.
+     * @return string subdomain portion of host name
      */
-    public function getSubdomains($tldLength = 1)
+    public function getSubdomains()
     {
-        $segments = explode('.', $this->getHost());
-        return array_slice($segments, 0, -1 * ($tldLength + 1));
+        $host = $this->getHost();
+        $pdp = \Xoops::getInstance()->getBaseDomain($host, true, true);
+        $subdomain = $pdp->subdomain;
+        return is_null($subdomain) ? '' : $subdomain;
     }
 
     /**
      * Get the Client Ip
      *
-     * @param string $default
+     * @param string $default default address if no client address can be determinied
      *
      * @return string
      */
@@ -401,7 +400,7 @@ class HttpRequest
     }
 
     /**
-     * @param string $name
+     * @param string $name name of file
      *
      * @return array
      */
