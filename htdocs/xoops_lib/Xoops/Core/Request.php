@@ -87,10 +87,9 @@ class Request
         // Ensure hash and type are uppercase
         $hash = strtoupper($hash);
         if ($hash === 'METHOD') {
-            $hash = strtoupper($_SERVER['REQUEST_METHOD']);
+            $hash = self::getMethod();
         }
         $type = strtoupper($type);
-        $sig = $hash . $type . $mask;
 
         // Get the input hash
         switch ($hash) {
@@ -120,16 +119,16 @@ class Request
 
         if (isset($input[$name]) && $input[$name] !== null) {
             // Get the variable from the input hash and clean it
-            $var = Request::cleanVar($input[$name], $mask, $type);
+            $var = self::cleanVar($input[$name], $mask, $type);
 
             // Handle magic quotes compatability
             if (get_magic_quotes_gpc() && ($var != $default) && ($hash != 'FILES')) {
-                $var = Request::stripSlashesRecursive($var);
+                $var = self::stripSlashesRecursive($var);
             }
         } else {
             if ($default !== null) {
                 // Clean the default value
-                $var = Request::cleanVar($default, $mask, $type);
+                $var = self::cleanVar($default, $mask, $type);
             } else {
                 $var = $default;
             }
@@ -153,7 +152,7 @@ class Request
      */
     public static function getInt($name, $default = 0, $hash = 'default')
     {
-        return Request::getVar($name, $default, $hash, 'int');
+        return self::getVar($name, $default, $hash, 'int');
     }
 
     /**
@@ -171,7 +170,7 @@ class Request
      */
     public static function getFloat($name, $default = 0.0, $hash = 'default')
     {
-        return Request::getVar($name, $default, $hash, 'float');
+        return self::getVar($name, $default, $hash, 'float');
     }
 
     /**
@@ -189,7 +188,7 @@ class Request
      */
     public static function getBool($name, $default = false, $hash = 'default')
     {
-        return Request::getVar($name, $default, $hash, 'bool');
+        return self::getVar($name, $default, $hash, 'bool');
     }
 
     /**
@@ -207,7 +206,7 @@ class Request
      */
     public static function getWord($name, $default = '', $hash = 'default')
     {
-        return Request::getVar($name, $default, $hash, 'word');
+        return self::getVar($name, $default, $hash, 'word');
     }
 
     /**
@@ -225,7 +224,7 @@ class Request
      */
     public static function getCmd($name, $default = '', $hash = 'default')
     {
-        return Request::getVar($name, $default, $hash, 'cmd');
+        return self::getVar($name, $default, $hash, 'cmd');
     }
 
     /**
@@ -244,8 +243,8 @@ class Request
      */
     public static function getString($name, $default = '', $hash = 'default', $mask = 0)
     {
-        // Cast to string, in case Request::ALLOWRAW was specified for mask
-        return (string) Request::getVar($name, $default, $hash, 'string', $mask);
+        // Cast to string, in case self::ALLOWRAW was specified for mask
+        return (string) self::getVar($name, $default, $hash, 'string', $mask);
     }
 
     /**
@@ -259,7 +258,7 @@ class Request
      */
     public static function getArray($name, $default = array(), $hash = 'default')
     {
-        return Request::getVar($name, $default, $hash, 'array');
+        return self::getVar($name, $default, $hash, 'array');
     }
 
     /**
@@ -273,7 +272,7 @@ class Request
      */
     public static function getText($name, $default = '', $hash = 'default')
     {
-        return (string) Request::getVar($name, $default, $hash, 'string', Request::ALLOWRAW);
+        return (string) self::getVar($name, $default, $hash, 'string', self::ALLOWRAW);
     }
 
     /**
@@ -287,7 +286,7 @@ class Request
      */
     public static function getUrl($name, $default = '', $hash = 'default')
     {
-        return (string) Request::getVar($name, $default, $hash, 'weburl');
+        return (string) self::getVar($name, $default, $hash, 'weburl');
     }
 
     /**
@@ -301,7 +300,7 @@ class Request
      */
     public static function getPath($name, $default = '', $hash = 'default')
     {
-        return (string) Request::getVar($name, $default, $hash, 'path');
+        return (string) self::getVar($name, $default, $hash, 'path');
     }
 
     /**
@@ -315,7 +314,7 @@ class Request
      */
     public static function getEmail($name, $default = '', $hash = 'default')
     {
-        return (string) Request::getVar($name, $default, $hash, 'email');
+        return (string) self::getVar($name, $default, $hash, 'email');
     }
 
     /**
@@ -336,7 +335,7 @@ class Request
         }
 
         // Get the requested hash and determine existing value
-        $original = self::get($hash, Request::ALLOWRAW);
+        $original = self::get($hash, self::ALLOWRAW);
         if (isset($original[$name])) {
             $previous = $original[$name];
             // don't overwrite value unless asked
@@ -435,10 +434,10 @@ class Request
 
         // Handle magic quotes compatability
         if (get_magic_quotes_gpc() && ($hash != 'FILES')) {
-            $input = Request::stripSlashesRecursive($input);
+            $input = self::stripSlashesRecursive($input);
         }
 
-        $result = Request::cleanVars($input, $mask);
+        $result = self::cleanVars($input, $mask);
 
         return $result;
     }
@@ -455,7 +454,7 @@ class Request
     public static function set($array, $hash = 'default', $overwrite = true)
     {
         foreach ($array as $key => $value) {
-            Request::setVar($key, $value, $hash, $overwrite);
+            self::setVar($key, $value, $hash, $overwrite);
         }
     }
 
@@ -470,7 +469,7 @@ class Request
      *  - 4=allow_html: HTML is allowed, but passed through a safe HTML filter first.
      *    If set, no more filtering is performed.
      *  - If no bits other than the 1 bit is set, a strict filter is applied.
-     * @param string $type The variable type. See {@link Xmf\FilterInput::clean()}.
+     * @param string $type The variable type. See {@link FilterInput::clean()}.
      *
      * @return string
      */
@@ -511,18 +510,18 @@ class Request
      * Clean up an array of variables.
      *
      * @param mixed  $var  The input variable.
-     * @param int    $mask Filter bit mask. See {@link Xmf\Request::cleanVar()}
-     * @param string $type The variable type. See {@link Xmf\FilterInput::clean()}.
+     * @param int    $mask Filter bit mask. See {@link Request::cleanVar()}
+     * @param string $type The variable type. See {@link FilterInput::clean()}.
      *
      * @return string
      */
     private static function cleanVars($var, $mask = 0, $type = null)
     {
         if (is_string($var)) {
-            $var = Request::cleanVar($var, $mask, $type);
+            $var = self::cleanVar($var, $mask, $type);
         } else {
             foreach ($var as $key => &$value) {
-                $value = Request::cleanVars($value, $mask, $type);
+                $value = self::cleanVars($value, $mask, $type);
             }
         }
 
@@ -539,7 +538,7 @@ class Request
      */
     private static function stripSlashesRecursive($value)
     {
-        $value = is_array($value) ? array_map(array('Xmf\Request', 'stripSlashesRecursive'), $value)
+        $value = is_array($value) ? array_map(array('Xoops\Core\Request', 'stripSlashesRecursive'), $value)
             : stripslashes($value);
 
         return $value;

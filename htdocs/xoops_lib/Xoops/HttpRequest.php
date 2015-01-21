@@ -147,7 +147,6 @@ class HttpRequest
 
     private function __construct()
     {
-        $params = array();
         switch (strtolower($this->getEnv('REQUEST_METHOD'))) {
             case 'get':
                 $params = $_GET;
@@ -163,7 +162,7 @@ class HttpRequest
     }
 
     /**
-     * @return Xoops_Request_Http
+     * @return Xoops/HttpRequest
      */
     public static function getInstance()
     {
@@ -204,7 +203,7 @@ class HttpRequest
     }
 
     /**
-     * @return string
+     * @return boolean
      */
     public function getScheme()
     {
@@ -330,7 +329,7 @@ class HttpRequest
      * @param  string $name    Environment variable name.
      * @param  mixed  $default default value
      *
-     * @return string Environment variable setting.
+     * @return string|boolean Environment variable setting.
      * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#env
      *
      * @todo this methods and Xoops::getEnv() need to be unified
@@ -444,10 +443,10 @@ class HttpRequest
     public function is($type)
     {
         $type = strtolower($type);
-        if (!isset($this->_detectors[$type])) {
+        if (!isset($this->detectors[$type])) {
             return false;
         }
-        $detect = $this->_detectors[$type];
+        $detect = $this->detectors[$type];
         if (isset($detect['env'])) {
             if (isset($detect['value'])) {
                 return $this->getEnv($detect['env']) == $detect['value'];
@@ -501,10 +500,10 @@ class HttpRequest
     public function addDetector($name, $options)
     {
         $name = strtolower($name);
-        if (isset($this->_detectors[$name]) && isset($options['options'])) {
-            $options = Xoops_Utils::arrayRecursiveMerge($this->_detectors[$name], $options);
+        if (isset($this->detectors[$name]) && isset($options['options'])) {
+            $options = Xoops_Utils::arrayRecursiveMerge($this->detectors[$name], $options);
         }
-        $this->_detectors[$name] = $options;
+        $this->detectors[$name] = $options;
     }
 
     /**
@@ -517,7 +516,7 @@ class HttpRequest
      * This method will order the returned content types by the preference values indicated
      * by the client.
      *
-     * @param string $type The content type to check for.  Leave null to get all types a client accepts.
+     * @param string|null $type The content type to check for.  Leave null to get all types a client accepts.
      *
      * @return mixed Either an array of all the types the client accepts or a boolean if they accept the
      *   provided type.

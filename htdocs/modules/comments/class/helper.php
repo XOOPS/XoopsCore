@@ -136,7 +136,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
     public function displayPost()
     {
         $xoops = Xoops::getInstance();
-        if (Request::method()!=='POST') {
+        if (Request::getMethod()!=='POST') {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $id = Request::getInt('com_id');
