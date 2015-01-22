@@ -35,7 +35,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getInstance
+     * @covers Xoops\Core\HttpRequest::getInstance
      * @todo   Implement testGetInstance().
      */
     public function testGetInstance()
@@ -48,7 +48,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getHeader
+     * @covers Xoops\Core\HttpRequest::getHeader
      * @todo   Implement testGetHeader().
      */
     public function testGetHeader()
@@ -60,7 +60,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getScheme
+     * @covers Xoops\Core\HttpRequest::getScheme
      * @todo   Implement testGetScheme().
      */
     public function testGetScheme()
@@ -72,7 +72,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getHost
+     * @covers Xoops\Core\HttpRequest::getHost
      * @todo   Implement testGetHost().
      */
     public function testGetHost()
@@ -84,7 +84,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getUri
+     * @covers Xoops\Core\HttpRequest::getUri
      * @todo   Implement testGetUri().
      */
     public function testGetUri()
@@ -96,7 +96,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getReferer
+     * @covers Xoops\Core\HttpRequest::getReferer
      * @todo   Implement testGetReferer().
      */
     public function testGetReferer()
@@ -108,7 +108,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getScriptName
+     * @covers Xoops\Core\HttpRequest::getScriptName
      * @todo   Implement testGetScriptName().
      */
     public function testGetScriptName()
@@ -120,7 +120,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getDomain
+     * @covers Xoops\Core\HttpRequest::getDomain
      * @todo   Implement testGetDomain().
      */
     public function testGetDomain()
@@ -132,7 +132,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getSubdomains
+     * @covers Xoops\Core\HttpRequest::getSubdomains
      * @todo   Implement testGetSubdomains().
      */
     public function testGetSubdomains()
@@ -144,7 +144,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getClientIp
+     * @covers Xoops\Core\HttpRequest::getClientIp
      * @todo   Implement testGetClientIp().
      */
     public function testGetClientIp()
@@ -156,7 +156,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getUrl
+     * @covers Xoops\Core\HttpRequest::getUrl
      * @todo   Implement testGetUrl().
      */
     public function testGetUrl()
@@ -168,7 +168,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function testGetEnv()
     {
@@ -179,7 +179,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function test_getEnv_https()
     {
@@ -204,7 +204,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function test_getEnv_script_filename()
     {
@@ -218,7 +218,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function test_getEnv_document_root()
     {
@@ -230,7 +230,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function test_getEnv_php_self()
     {
@@ -243,7 +243,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function test_getEnv_cgi_mode()
     {
@@ -252,7 +252,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getEnv
+     * @covers Xoops\Core\HttpRequest::getEnv
      */
     public function test_getEnv_http_base()
     {
@@ -309,7 +309,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getFiles
+     * @covers Xoops\Core\HttpRequest::getFiles
      * @todo   Implement testGetFiles().
      */
     public function testGetFiles()
@@ -321,7 +321,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::is
+     * @covers Xoops\Core\HttpRequest::is
      * @todo   Implement testIs().
      */
     public function testIs()
@@ -333,7 +333,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::addDetector
+     * @covers Xoops\Core\HttpRequest::addDetector
      * @todo   Implement testAddDetector().
      */
     public function testAddDetector()
@@ -345,7 +345,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::clientAcceptsType
+     * @covers Xoops\Core\HttpRequest::clientAcceptsType
      * @todo   Implement testAccepts().
      */
     public function testClientAcceptsType()
@@ -364,7 +364,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getAcceptMediaTypes
+     * @covers Xoops\Core\HttpRequest::getAcceptMediaTypes
      */
     public function testGetAcceptMediaTypes()
     {
@@ -379,7 +379,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\HttpRequest::getAcceptedLanguages
+     * @covers Xoops\Core\HttpRequest::getAcceptedLanguages
      */
     public function testGetAcceptedLanguages()
     {

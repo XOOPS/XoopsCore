@@ -446,26 +446,51 @@ class HttpRequest
         }
         $detect = $this->detectors[$type];
         if (isset($detect['env'])) {
-            if (isset($detect['value'])) {
-                return $this->getEnv($detect['env']) == $detect['value'];
-            }
-            if (isset($detect['pattern'])) {
-                return (bool)preg_match($detect['pattern'], $this->getEnv($detect['env']));
-            }
-            if (isset($detect['options'])) {
-                $pattern = '/' . implode('|', $detect['options']) . '/i';
-                return (bool)preg_match($pattern, $this->getEnv($detect['env']));
-            }
-        }
-        if (isset($detect['param'])) {
-            $name = $detect['param'];
-            $value = $detect['value'];
-            return isset($this->params[$name]) ? $this->params[$name] == $value : false;
-        }
-        if (isset($detect['callback']) && is_callable($detect['callback'])) {
+            return $this->detectByEnv($detect);
+        } elseif (isset($detect['param'])) {
+            return $this->detectByParam($detect);
+        } elseif (isset($detect['callback']) && is_callable($detect['callback'])) {
             return call_user_func($detect['callback'], $this);
         }
         return false;
+    }
+
+    /**
+     * detectByEnv - perform detection on detectors with an 'env' component
+     *
+     * @param array $detect a detectors array entry to test against
+     *
+     * @return boolean true if detect is matched, false if not
+     */
+    protected function detectByEnv($detect)
+    {
+        if (isset($detect['value'])) {
+            return (bool) $this->getEnv($detect['env']) == $detect['value'];
+        } elseif (isset($detect['pattern'])) {
+            return (bool) preg_match($detect['pattern'], $this->getEnv($detect['env']));
+        } elseif (isset($detect['options'])) {
+            $pattern = '/' . implode('|', $detect['options']) . '/i';
+            return (bool) preg_match($pattern, $this->getEnv($detect['env']));
+        }
+        return false; // can't match a broken rule
+    }
+
+    /**
+     * detectByParam - perform detection on detectors with an 'param' component.
+     * To match an entry with the name in the 'param' key of the $detect rule must
+     * exist in the $params property and be equal to the 'value' entry specified
+     * in the $detect array.
+     *
+     * @param array $detect a detectors array entry to test against. Param entries are
+     *                      of the form array('param' => name, 'value' => value)
+     *
+     * @return boolean true if detect is matched, false if not
+     */
+    protected function detectByParam($detect)
+    {
+        $name = $detect['param'];
+        $value = $detect['value'];
+        return isset($this->params[$name]) ? $this->params[$name] == $value : false;
     }
 
     /**
