@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS admin file
  *
@@ -43,7 +45,6 @@ $xoops->header();
  * Error warning messages
  */
 if ($xoops->getConfig('admin_warnings_enable')) {
-
     $error_msg = array();
     if (is_dir(XOOPS_ROOT_PATH . '/install/')) {
         $error_msg[] = sprintf(XoopsLocale::EF_DIRECTORY_EXISTS, XOOPS_ROOT_PATH . '/install/');
@@ -74,7 +75,7 @@ if ($xoops->getConfig('admin_warnings_enable')) {
     $xoops->tpl()->assign('error_msg', $error_msg);
 }
 
-if (!empty($_GET['xoopsorgnews'])) {
+if (!empty(Request::getString('xoopsorgnews', null, 'GET'))) {
     // Multiple feeds
     $myts = MyTextSanitizer::getInstance();
     $rssurl = array();

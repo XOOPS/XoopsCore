@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS
  *
@@ -482,9 +484,10 @@ class Xoops
      */
     public function themeSelect()
     {
-        if (!empty($_POST['xoops_theme_select']) && in_array($_POST['xoops_theme_select'], $this->getConfig('theme_set_allowed'))) {
-            $this->setConfig('theme_set', $_POST['xoops_theme_select']);
-            $_SESSION['xoopsUserTheme'] = $_POST['xoops_theme_select'];
+        $xoopsThemeSelect = Request::getString('xoops_theme_select','','POST');
+        if (!empty($xoopsThemeSelect) && in_array($xoopsThemeSelect, $this->getConfig('theme_set_allowed'))) {
+            $this->setConfig('theme_set', $xoopsThemeSelect);
+            $_SESSION['xoopsUserTheme'] = $xoopsThemeSelect;
         } else {
             if (!empty($_SESSION['xoopsUserTheme']) && in_array($_SESSION['xoopsUserTheme'], $this->getConfig('theme_set_allowed'))) {
                 $this->setConfig('theme_set', $_SESSION['xoopsUserTheme']);

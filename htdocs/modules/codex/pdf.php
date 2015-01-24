@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -20,7 +22,7 @@ include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 
-if (isset($_GET['pdf'])) {
+if (Request::getBool('pdf', false)) {
     $content = Xoops_Utils::dumpVar($xoops->getConfigs(), false);
 
     $tpl = new XoopsTpl();
@@ -38,7 +40,7 @@ if (isset($_GET['pdf'])) {
     }
 } else {
     $xoops->header();
-    echo '<a href="?pdf">Make Pdf</a>';
+    echo '<a href="?pdf=1">Make Pdf</a>';
     Xoops_Utils::dumpFile(__FILE__);
     $xoops->footer();
 }
