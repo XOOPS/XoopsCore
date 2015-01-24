@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -20,7 +22,7 @@ include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
-if (isset($_GET['delete'])) {
+if (Request::getBool('delete', false, 'GET')) {
     Xoops_Cache::delete('mykey');
     Xoops_Cache::delete('mykey2', 'myfilesystem');
     Xoops_Cache::delete('mykey3', 'mymemcache');
@@ -46,7 +48,7 @@ echo $ret . '<br />';
 //setting new cache memcache system
 Xoops_Cache::config('mymemcache', array('engine' => 'memcache', 'duration' => 5));
 if (!$ret = Xoops_Cache::read('mykey3', 'mymemcache')) {
-    if(Xoops_Cache::write('mykey3', $content, 'mymemcache')) {
+    if (Xoops_Cache::write('mykey3', $content, 'mymemcache')) {
         $ret = $content;
     } else {
         $ret = 'No Memcache, no bear';
@@ -54,7 +56,7 @@ if (!$ret = Xoops_Cache::read('mykey3', 'mymemcache')) {
 }
 echo $ret . '<br />';
 
-echo '<a href="?nodelete">Refresh</a> - <a href="?delete">Delete caches</a>';
+echo '<a href="?nodelete">Refresh</a> - <a href="?delete=1">Delete caches</a>';
 
-Xoops_Utils::dumpFile(__FILE__ );
+Xoops_Utils::dumpFile(__FILE__);
 $xoops->footer();

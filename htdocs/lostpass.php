@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS password recovery
  *
@@ -25,24 +27,24 @@ $xoops->preload()->triggerEvent('core.lostpass.start');
 
 $xoops->loadLanguage('user');
 
-$email = isset($_GET['email']) ? trim($_GET['email']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : $email;
+$email = Request::getEmail('email', null, 'GET');
+$email = Request::getEmail('email', $email, 'POST');
 
-if ($email == '') {
+if (empty($email)) {
     $xoops->redirect("user.php", 2, XoopsLocale::NO_);
     exit();
 }
 
-$myts = MyTextSanitizer::getInstance();
-$member_handler = $xoops->getHandlerMember();
-$getuser = $member_handler->getUsers(new Criteria('email', $myts->addSlashes($email)));
+$userHandler = Xoops::getInstance()->getHandlerUser();
+$getuser = $userHandler->getObjects(new Criteria('email', $email));
 
 if (empty($getuser)) {
     $msg = XoopsLocale::E_NO_USER_FOUND;
     $xoops->redirect("user.php", 2, $msg);
 } else {
-    $code = isset($_GET['code']) ? trim($_GET['code']) : '';
-    $areyou = substr($getuser[0]->getVar("pass"), 0, 5);
+    $userObject = $getuser[0]; // what if there was more than one?
+    $code = Request::getCmd('code', '', 'GET');
+    $areyou = substr(md5($userObject->getVar("pass")), 0, 5);
     if ($code != '' && $areyou == $code) {
         $newpass = $xoops->makePass();
         $xoopsMailer = $xoops->getMailer();
@@ -53,7 +55,7 @@ if (empty($getuser)) {
         $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
         $xoopsMailer->assign("NEWPWD", $newpass);
-        $xoopsMailer->setToUsers($getuser[0]);
+        $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
         $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, XOOPS_URL));
@@ -61,13 +63,13 @@ if (empty($getuser)) {
             echo $xoopsMailer->getErrors();
         }
         // Next step: add the new password to the database
-        $sql = sprintf("UPDATE %s SET pass = '%s' WHERE uid = %u", $xoopsDB->prefix("users"), md5($newpass), $getuser[0]->getVar('uid'));
-        if (!$xoopsDB->queryF($sql)) {
+        $userObject->setVar("pass", password_hash($newpass, PASSWORD_DEFAULT));
+        if (false === $userHandler->insert($userObject)) {
             $xoops->header();
             echo XoopsLocale::E_USER_NOT_UPDATED;
             $xoops->footer();
         }
-        $xoops->redirect("user.php", 3, sprintf(XoopsLocale::SF_PASSWORD_SENT_TO, $getuser[0]->getVar("uname")), false);
+        $xoops->redirect("user.php", 3, sprintf(XoopsLocale::SF_PASSWORD_SENT_TO, $userObject->getVar("uname")), false);
         // If no Code, send it
     } else {
         $xoopsMailer = $xoops->getMailer();
@@ -78,7 +80,7 @@ if (empty($getuser)) {
         $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
         $xoopsMailer->assign("NEWPWD_LINK", XOOPS_URL . "/lostpass.php?email=" . $email . "&code=" . $areyou);
-        $xoopsMailer->setToUsers($getuser[0]);
+        $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
         $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, $xoops->getConfig('sitename')));
@@ -87,7 +89,7 @@ if (empty($getuser)) {
             echo $xoopsMailer->getErrors();
         }
         echo "<h4>";
-        printf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $getuser[0]->getVar("uname"));
+        printf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $userObject->getVar("uname"));
         echo "</h4>";
         $xoops->footer();
     }
