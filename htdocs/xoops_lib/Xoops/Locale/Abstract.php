@@ -378,7 +378,7 @@ abstract class Xoops_Locale_Abstract
                 break;
         }
 
-        return ucfirst(date($datestring, $usertimestamp));
+        return ucfirst(gmdate($datestring, $usertimestamp));
     }
 
     /**
