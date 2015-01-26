@@ -351,15 +351,15 @@ abstract class Xoops_Locale_Abstract
                     $current_timestamp = $xoops->getUserTimestamp(time(), $timeoffset);
                 }
                 if (!isset($today_timestamp)) {
-                    $today_timestamp = mktime(0, 0, 0, date('m', $current_timestamp), date('d', $current_timestamp), date('Y', $current_timestamp));
+                    $today_timestamp = mktime(0, 0, 0, gmdate('m', $current_timestamp), gmdate('d', $current_timestamp), gmdate('Y', $current_timestamp));
                 }
 
                 if (abs($elapse_today = $usertimestamp - $today_timestamp) < 24 * 60 * 60) {
                     $datestring = ($elapse_today > 0) ? XoopsLocale::getFormatToday() : XoopsLocale::getFormatYesterday();
                 } else {
                     if (!isset($monthy_timestamp)) {
-                        $monthy_timestamp[0] = mktime(0, 0, 0, 0, 0, date('Y', $current_timestamp));
-                        $monthy_timestamp[1] = mktime(0, 0, 0, 0, 0, date('Y', $current_timestamp) + 1);
+                        $monthy_timestamp[0] = mktime(0, 0, 0, 0, 0, gmdate('Y', $current_timestamp));
+                        $monthy_timestamp[1] = mktime(0, 0, 0, 0, 0, gmdate('Y', $current_timestamp) + 1);
                     }
                     if ($usertimestamp >= $monthy_timestamp[0] && $usertimestamp < $monthy_timestamp[1]) {
                         $datestring = self::getFormatMonthDay();
@@ -378,7 +378,7 @@ abstract class Xoops_Locale_Abstract
                 break;
         }
 
-        return ucfirst(date($datestring, $usertimestamp));
+        return ucfirst(gmdate($datestring, $usertimestamp));
     }
 
     /**
