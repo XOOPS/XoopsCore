@@ -31,9 +31,8 @@ class XoopsBaseConfig
 
     /**
      * __construct
-     * @param string|string[] $configs fully qualified name of configuration file
-     *                                 or configuration array
-     * @return void
+     * @param string|string[] $config fully qualified name of configuration file
+     *                                or configuration array
      */
     final private function __construct($config)
     {
@@ -55,8 +54,8 @@ class XoopsBaseConfig
     /**
      * Allow one instance only!
      *
-     * @param string|string[] $configs fully qualified name of configuration file
-     *                                 or configuration array
+     * @param string|string[] $config fully qualified name of configuration file
+     *                                or configuration array
      *
      * @return XoopsBaseConfig instance
      */
@@ -90,7 +89,7 @@ class XoopsBaseConfig
         $match = array();
         $matched = preg_match('/[.\v]*^lib-path\h*\:\h*[\']?([^\'\v]*)[\']?\h*$[.\v]*/m', $filecontents, $match);
 
-        return trim($match[1]);
+        return $matched ? trim($match[1]) : '';
     }
 
     /**
@@ -131,62 +130,62 @@ class XoopsBaseConfig
         }
 
         // Physical path to the XOOPS documents (served) directory WITHOUT trailing slash
-        define('XOOPS_ROOT_PATH', XoopsBaseConfig::get('root-path'));
+        define('XOOPS_ROOT_PATH', self::get('root-path'));
 
         // For forward compatibility
         // Physical path to the XOOPS library directory WITHOUT trailing slash
-        define('XOOPS_PATH', XoopsBaseConfig::get('lib-path'));
+        define('XOOPS_PATH', self::get('lib-path'));
         // Physical path to the XOOPS datafiles (writable) directory WITHOUT trailing slash
-        define('XOOPS_VAR_PATH', XoopsBaseConfig::get('var-path'));
+        define('XOOPS_VAR_PATH', self::get('var-path'));
         // Alias of XOOPS_PATH, for compatibility, temporary solution
-        define("XOOPS_TRUST_PATH", XoopsBaseConfig::get('trust-path'));
+        define("XOOPS_TRUST_PATH", self::get('trust-path'));
 
         // URL Association for SSL and Protocol Compatibility
-        define('XOOPS_PROT', XoopsBaseConfig::get('prot'));
+        define('XOOPS_PROT', self::get('prot'));
 
         // XOOPS Virtual Path (URL)
         // Virtual path to your main XOOPS directory WITHOUT trailing slash
         // Example: define('XOOPS_URL', 'http://localhost/xoopscore');
-        define('XOOPS_URL', XoopsBaseConfig::get('url'));
+        define('XOOPS_URL', self::get('url'));
 
         // Secure file
         // require XOOPS_VAR_PATH . '/data/secure.php';
 
         // Database
         // Choose the database to be used
-        define('XOOPS_DB_TYPE', XoopsBaseConfig::get('db-type'));
+        define('XOOPS_DB_TYPE', self::get('db-type'));
 
         // Set the database charset if applicable
-        define("XOOPS_DB_CHARSET", XoopsBaseConfig::get('db-charset'));
+        define("XOOPS_DB_CHARSET", self::get('db-charset'));
 
         // Table Prefix
         // This prefix will be added to all new tables created to avoid name conflict in the database.
-        define('XOOPS_DB_PREFIX', XoopsBaseConfig::get('db-prefix'));
+        define('XOOPS_DB_PREFIX', self::get('db-prefix'));
 
         // Database Hostname
         // Hostname of the database server. If you are unsure, "localhost" works in most cases.
-        define('XOOPS_DB_HOST', XoopsBaseConfig::get('db-host'));
+        define('XOOPS_DB_HOST', self::get('db-host'));
 
         // Database Username
         // Your database user account on the host
-        define('XOOPS_DB_USER', XoopsBaseConfig::get('db-user'));
+        define('XOOPS_DB_USER', self::get('db-user'));
 
         // Database Password
         // Password for your database user account
-        define('XOOPS_DB_PASS', XoopsBaseConfig::get('db-pass'));
+        define('XOOPS_DB_PASS', self::get('db-pass'));
 
         // Database Name
         // The name of database on the host.
-        define('XOOPS_DB_NAME', XoopsBaseConfig::get('db-name'));
+        define('XOOPS_DB_NAME', self::get('db-name'));
 
         // persistent connection is no longer supported
-        define("XOOPS_DB_PCONNECT", XoopsBaseConfig::get('db-pconnect'));
+        define("XOOPS_DB_PCONNECT", self::get('db-pconnect'));
 
         // Serialized connection parameter
         // This is built by the installer and includes all connection parameters
-        define('XOOPS_DB_PARAMETERS', serialize(XoopsBaseConfig::get('db-parameters')));
+        define('XOOPS_DB_PARAMETERS', serialize(self::get('db-parameters')));
 
-        define('XOOPS_COOKIE_DOMAIN', XoopsBaseConfig::get('cookie-domain'));
+        define('XOOPS_COOKIE_DOMAIN', self::get('cookie-domain'));
 
     }
 

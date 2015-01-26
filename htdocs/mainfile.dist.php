@@ -76,7 +76,7 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
 
     if (!class_exists('XoopsBaseConfig', false)) {
         include __DIR__ . '/class/XoopsBaseConfig.php';
-        XoopsBaseConfig::bootstrap();
+        XoopsBaseConfig::bootstrapTransition();
     }
 
     if (!isset($xoopsOption["nocommon"]) && XOOPS_ROOT_PATH != "") {

@@ -64,7 +64,7 @@ class Yaml
      *
      * @param string $yamlString YAML dump string
      *
-     * @return mixed|bool PHP array or false on error
+     * @return array|boolean PHP array or false on error
      */
     public static function load($yamlString)
     {
@@ -82,7 +82,7 @@ class Yaml
      *
      * @param string $yamlFile filename of YAML file
      *
-     * @return mixed|bool PHP array or false on error
+     * @return array|boolean PHP array or false on error
      */
     public static function read($yamlFile)
     {
@@ -104,7 +104,7 @@ class Yaml
      * @param integer $inline   Nesting level where you switch to inline YAML
      * @param integer $indent   Number of spaces to indent for nested nodes
      *
-     * @return boolean number of bytes written, or false on error
+     * @return integer|boolean number of bytes written, or false on error
      */
     public static function save($var, $yamlFile, $inline = 4, $indent = 4)
     {
@@ -130,7 +130,7 @@ class Yaml
      * @param integer $inline Nesting level where you switch to inline YAML
      * @param integer $indent Number of spaces to indent for nested nodes
      *
-     * @return string|bool YAML string or false on error
+     * @return string|boolean YAML string or false on error
      */
     public static function dumpWrapped($var, $inline = 4, $indent = 4)
     {
@@ -154,7 +154,7 @@ class Yaml
      *
      * @param string $yamlString YAML dump string
      *
-     * @return mixed|bool PHP array or false on error
+     * @return array|boolean PHP array or false on error
      */
     public static function loadWrapped($yamlString)
     {
@@ -180,7 +180,7 @@ class Yaml
      *
      * @param string $yamlFile filename of YAML file
      *
-     * @return mixed|bool PHP array or false on error
+     * @return array|boolean PHP array or false on error
      */
     public static function readWrapped($yamlFile)
     {
@@ -207,7 +207,7 @@ class Yaml
      * @param integer $inline   Nesting level where you switch to inline YAML
      * @param integer $indent   Number of spaces to indent for nested nodes
      *
-     * @return boolean number of bytes written, or false on error
+     * @return integer|boolean number of bytes written, or false on error
      */
     public static function saveWrapped($var, $yamlFile, $inline = 4, $indent = 4)
     {
