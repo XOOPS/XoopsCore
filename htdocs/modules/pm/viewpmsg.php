@@ -229,7 +229,7 @@ if (count($pm_arr) > 0) {
     $senders = $member_handler->getUserList(new Criteria('uid', "(" . implode(", ", array_unique($uids)) . ")", "IN"));
     foreach (array_keys($pm_arr) as $i) {
         $message = $pm_arr[$i];
-        $message['msg_time'] = XoopsLocale::formatTimestamp($message["msg_time"], 'l', $xoops->user->getVar('timezone_offset'));
+        $message['msg_time'] = XoopsLocale::formatTimestamp($message["msg_time"]);
         if (isset($_REQUEST['op']) && $_REQUEST['op'] == "out") {
             $message['postername'] = $senders[$pm_arr[$i]['to_userid']];
             $message['posteruid'] = $pm_arr[$i]['to_userid'];
