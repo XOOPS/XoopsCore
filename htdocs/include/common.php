@@ -10,12 +10,20 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package kernel
- * @version $Id$
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package   kernel
  */
 
 defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
+
+/**
+ * Include XoopsLoad
+ */
+if (!class_exists('XoopsLoad', false)) {
+    require_once dirname(__DIR__). '/class/XoopsBaseConfig.php';
+    XoopsBaseConfig::bootstrapTransition();
+    trigger_error('Patch mainfile.php for XoopsBaseConfig');
+}
 
 global $xoops;
 $GLOBALS['xoops'] =& $xoops;
@@ -34,11 +42,6 @@ defined('NWLINE')or define('NWLINE', "\n");
  */
 include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
 include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
-
-/**
- * Include XoopsLoad
- */
-require_once XOOPS_ROOT_PATH . DS . 'class' . DS . 'xoopsload.php';
 
 /**
  * We now have autoloader, so start Patchwork\UTF8
