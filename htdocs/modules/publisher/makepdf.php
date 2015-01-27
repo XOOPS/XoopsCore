@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -31,8 +33,8 @@ if (!$xoops->service('htmltopdf')->isAvailable()) {
 $publisher = Publisher::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
-$itemid = \Xmf\Request::getInt('itemid');
-$item_page_id = \Xmf\Request::getInt('page', -1);
+$itemid = Request::getInt('itemid');
+$item_page_id = Request::getInt('page', -1);
 
 if ($itemid == 0) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);

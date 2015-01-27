@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS message list
  *
@@ -27,11 +29,10 @@ if (!$xoops->isUser()) {
     $xoops->redirect("user.php", 2, XoopsLocale::E_YOU_ARE_NOT_REGISTERED);
 }
 
-$request = $xoops->request();
-$op = $request->asStr('op', 'list');
-$id =  $request->asInt('msg_id', 0);
-$start = $request->asInt('start', 0);
-$total_messages = $request->asInt('total_messages', 0);
+$op = Request::getCmd('op', 'list');
+$id = Request::getInt('msg_id', 0);
+$start = Request::getInt('start', 0);
+$total_messages = Request::getInt('total_messages', 0);
 
 $pm_handler = $xoops->getHandlerPrivmessage();
 

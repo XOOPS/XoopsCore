@@ -28,8 +28,8 @@ namespace Xoops\Core;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2005 Daniel Morris
  * @copyright 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright 2011-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright 2011-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     2.5.7
@@ -208,7 +208,7 @@ class FilterInput
 
             case 'CMD':
                 $result = (string) preg_replace('/[^A-Z0-9_\.-]/i', '', $source);
-                $result = ltrim($result, '.');
+                $result = strtolower($result);
                 break;
 
             case 'BASE64':
@@ -224,9 +224,10 @@ class FilterInput
                 break;
 
             case 'PATH':
-                $pattern = '/^[A-Za-z0-9_-]+[A-Za-z0-9_\.-]*([\\\\\/][A-Za-z0-9_-]+[A-Za-z0-9_\.-]*)*$/';
-                preg_match($pattern, (string) $source, $matches);
-                $result = @ (string) $matches[0];
+                $source = trim((string) $source);
+                $pattern = '/^([-_\.\/A-Z0-9=&%?~]+)(.*)$/i';
+                preg_match($pattern, $source, $matches);
+                $result = @ (string) $matches[1];
                 break;
 
             case 'USERNAME':
@@ -245,6 +246,13 @@ class FilterInput
                 // do not allow quotes, tag brackets or controls
                 if (!preg_match('#^[^"<>\x00-\x1F]+$#', $result)) {
                     $result='';
+                }
+                break;
+
+            case 'EMAIL':
+                $result = (string) $source;
+                if (!filter_var((string) $source, FILTER_VALIDATE_EMAIL)) {
+                    $result = '';
                 }
                 break;
 
@@ -519,14 +527,15 @@ class FilterInput
      *                            - type - XoopsFilterInput::clean type, default string
      *                            - default - default value, default ''
      *                            - trim - true to trim spaces from input, default true
+     *                            - max length - maximum length to accept, 0=no limit, default 0
      *                          Example: array('op','string','view',true)
      * @param mixed  $require   name of required element, or false for nothing
      *                          required name. If the require name is set, values
      *                          will only be returned if the key $require is set
      *                          in the source array.
      *
-     * @return mixed array of cleaned elements as specified by input_map, or
-     *               false if require key specified but not set
+     * @return array|false array of cleaned elements as specified by input_map, or
+     *                     false if require key specified but not set
      */
     public static function gather($source, $input_map, $require = false)
     {
@@ -561,6 +570,9 @@ class FilterInput
                             }
                             break;
                     }
+                    if ($trim) {
+                        $value = trim($value);
+                    }
                     if ($maxlen>0) {
                         if (function_exists('mb_strlen')) {
                             if (mb_strlen($value)>$maxlen) {
@@ -569,9 +581,9 @@ class FilterInput
                         } else {
                             $value=substr($value, 0, $maxlen);
                         }
-                    }
-                    if ($trim) {
-                        $value = trim($value);
+                        if ($trim) {
+                            $value = trim($value);
+                        }
                     }
                     $output[$name] = self::clean($value, $type);
                 }

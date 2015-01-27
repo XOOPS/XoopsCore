@@ -3,7 +3,7 @@
  *  xoops_images plugin for tinymce
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class / xoopseditor
  * @subpackage      tinymce / xoops plugins
  * @since           2.6.0
@@ -11,24 +11,23 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Request;
+
 $xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
 include_once $xoops_root_path . '/mainfile.php';
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
-//$xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
-
-$request = Xoops_Request::getInstance();
 
 $helper = Xoops\Module\Helper::getHelper('images');
 $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 $helper->loadLanguage('main');
 
-$op = $request->asStr('op', 'list');
-$imgcat_id = $request->asInt('imgcat_id', 0);
-$start = $request->asInt('start', 0);
+$op = Request::getCmd('op', 'list');
+$imgcat_id = Request::getInt('imgcat_id', 0);
+$start = Request::getInt('start', 0);
 
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 
@@ -67,7 +66,6 @@ switch ($op) {
         if ($imgcat_id > 0 && is_object($category)) {
             $perm_handler = $xoops->getHandlerGroupperm();
             if ($perm_handler->checkRight('imgcat_write', $imgcat_id, $groups)) {
-
                 $xoops->simpleHeader();
                 $xoopsTpl = new XoopsTpl();
                 $obj =  $helper->getHandlerImages()->create();
@@ -88,19 +86,24 @@ switch ($op) {
         $msg[] = _AM_IMAGES_IMG_SAVE;
 
         $category = $helper->getHandlerCategories()->get($imgcat_id);
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         $obj = $helper->getHandlerImages()->create();
 
-        $obj->setVar('image_nicename', $request->asStr('image_nicename', ''));
+        $obj->setVar('image_nicename', Request::getString('image_nicename', ''));
         $obj->setVar('image_created', time());
-        $obj->setVar('image_display', $request->asInt('image_display', 1));
-        $obj->setVar('image_weight', $request->asInt('image_weight', 0));
+        $obj->setVar('image_display', Request::getInt('image_display', 1));
+        $obj->setVar('image_weight', Request::getInt('image_weight', 0));
         $obj->setVar('imgcat_id', $imgcat_id);
 
-        $xoops_upload_file = $request->asArray('xoops_upload_file', array());
+        $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
-        $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/images', $mimetypes,
-                    $category->getVar('imgcat_maxsize'), $category->getVar('imgcat_maxwidth'), $category->getVar('imgcat_maxheight'));
+        $uploader = new XoopsMediaUploader(
+            XOOPS_UPLOAD_PATH . '/images',
+            $mimetypes,
+            $category->getVar('imgcat_maxsize'),
+            $category->getVar('imgcat_maxwidth'),
+            $category->getVar('imgcat_maxheight')
+        );
         if ($uploader->fetchMedia($xoops_upload_file[0])) {
             $uploader->setPrefix("img");
             if (!$uploader->upload()) {

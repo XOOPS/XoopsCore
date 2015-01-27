@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team
  */
 
-use Xmf\Request;
+use Xoops\Core\Request;
 use Xmf\Module\Helper;
 use Xmf\Module\Permission;
 
@@ -29,7 +29,6 @@ $moduleAdmin->displayNavigation('permissions.php');
 $helper = Helper::getHelper('monolog');
 $permHelper = new Permission();
 if ($permHelper) {
-
     // this is the name and item we are going to work with
     $gperm_name='use_monolog';
     $gperm_itemid=0;

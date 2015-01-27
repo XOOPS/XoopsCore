@@ -522,7 +522,7 @@ function xoops_getUrlDomain($url)
 {
     $xoops = Xoops::getInstance();
     $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
-    return $xoops->getUrlDomain($url);
+    return $xoops->getBaseDomain($url, true);
 }
 
 /**

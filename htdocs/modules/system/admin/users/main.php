@@ -30,6 +30,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Request;
 
 $xoops = Xoops::getInstance();
 
@@ -490,91 +491,91 @@ switch ($op) {
 
             $criteria = new CriteriaCompo();
 
-            $value = Xmf\Request::getString('user_uname', '');
+            $value = Request::getString('user_uname', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_uname_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_uname_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'uname', $value, $match);
                 $requete_pagenav .= '&amp;user_uname=' . htmlspecialchars($value) . '&amp;user_uname_match=' . $match;
                 $requete_search .= 'uname : ' . $value . ' and user_uname_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_name', '');
+            $value = Request::getString('user_name', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_name_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_name_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'name', $value, $match);
                 $requete_pagenav .= '&amp;user_name=' . htmlspecialchars($value) . '&amp;user_name_match=' . $match;
                 $requete_search .= 'name : ' . $value . ' and user_name_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_email', '');
+            $value = Request::getString('user_email', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_email_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_email_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'email', $value, $match);
                 $requete_pagenav .= '&amp;user_email=' . htmlspecialchars($value) . '&amp;user_email_match=' . $match;
                 $requete_search .= 'email : ' . $value . ' and user_email_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_url', '');
+            $value = Request::getString('user_url', '');
             if (!empty($value)) {
                 //$url = $xoops->formatURL(trim($_REQUEST['user_url']));
                 $criteria->add(new Criteria('url', '%' . $value . '%', 'LIKE'));
                 $requete_search .= 'url : ' . $value . '<br />';
             }
 
-            $value = (int) Xmf\Request::getInt('user_icq', 0);
+            $value = (int) Request::getInt('user_icq', 0);
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_icq_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_icq_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_icq', (string) $value, $match);
                 $requete_pagenav .= '&amp;user_icq=' . $value . '&amp;user_icq_match=' . $match;
                 $requete_search .= 'icq : ' . $value . ' and user_icq_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_aim', '');
+            $value = Request::getString('user_aim', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_aim_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_aim_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_aim', $value, $match);
                 $requete_pagenav .= '&amp;user_aim=' . htmlspecialchars($value) . '&amp;user_aim_match=' . $match;
                 $requete_search .= 'aim : ' . $value . ' and user_aim_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_yim', '');
+            $value = Request::getString('user_yim', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_yim_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_yim_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_yim', $value, $match);
                 $requete_pagenav .= '&amp;user_yim=' . htmlspecialchars($value) . '&amp;user_yim_match=' . $match;
                 $requete_search .= 'yim : ' . $value . ' and user_yim_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_msnm', '');
+            $value = Request::getString('user_msnm', '');
             if (!empty($value)) {
-                $match = Xmf\Request::getInt('user_msnm_match', XOOPS_MATCH_START);
+                $match = Request::getInt('user_msnm_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_msnm', $value, $match);
                 $requete_pagenav .= '&amp;user_msnm=' . htmlspecialchars($value) . '&amp;user_msnm_match=' . $match;
                 $requete_search .= 'msnm : ' . $value . ' and user_msnm_match=' . $match . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_from', '');
+            $value = Request::getString('user_from', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_from', '%' . $value . '%', 'LIKE'));
                 $requete_pagenav .= '&amp;user_from=' . htmlspecialchars($value);
                 $requete_search .= 'from : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_intrest', '');
+            $value = Request::getString('user_intrest', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_intrest', '%' . $value . '%', 'LIKE'));
                 $requete_pagenav .= '&amp;user_intrest=' . htmlspecialchars($value);
                 $requete_search .= 'interet : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getString('user_occ', '');
+            $value = Request::getString('user_occ', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_occ', '%' . $value . '%', 'LIKE'));
                 $requete_pagenav .= '&amp;user_occ=' . htmlspecialchars($value);
                 $requete_search .= 'location : ' . $value . '<br />';
             }
 
-            $value = (int) Xmf\Request::getInt('user_lastlog_more', 0);
+            $value = (int) Request::getInt('user_lastlog_more', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -584,7 +585,7 @@ switch ($op) {
                 }
             }
 
-            $value = (int) Xmf\Request::getInt('user_lastlog_less', 0);
+            $value = (int) Request::getInt('user_lastlog_less', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -594,7 +595,7 @@ switch ($op) {
                 }
             }
 
-            $value = (int) Xmf\Request::getInt('user_reg_more', 0);
+            $value = (int) Request::getInt('user_reg_more', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -604,7 +605,7 @@ switch ($op) {
                 }
             }
 
-            $value = (int) Xmf\Request::getInt('user_reg_less', 0);
+            $value = (int) Request::getInt('user_reg_less', 0);
             if (!empty($value)) {
                 $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
@@ -614,21 +615,21 @@ switch ($op) {
                 }
             }
 
-            $value = (int) Xmf\Request::getInt('user_posts_more', 0);
+            $value = (int) Request::getInt('user_posts_more', 0);
             if (!empty($value)) {
                 $criteria->add(new Criteria('posts', $value, '>'));
                 $requete_pagenav .= '&amp;user_posts_more=' . $value;
                 $requete_search .= 'posts plus de : ' . $value . '<br />';
             }
 
-            $value = (int) Xmf\Request::getInt('user_posts_less', 0);
+            $value = (int) Request::getInt('user_posts_less', 0);
             if (!empty($value)) {
                 $criteria->add(new Criteria('posts', $value, '<'));
                 $requete_pagenav .= '&amp;user_posts_less=' . $value;
                 $requete_search .= 'post moins de : ' . $value . '<br />';
             }
 
-            $value = Xmf\Request::getWord('user_mailok', '');
+            $value = Request::getWord('user_mailok', '');
             if (!empty($value) && ($value !== 'both')) {
                 $ok = ($value == 'mailok') ? 1 : 0;
                 $criteria->add(new Criteria('user_mailok', $ok));
@@ -636,7 +637,7 @@ switch ($op) {
                 $requete_search .= 'accept email : ' . $value . '<br />';
             }
 
-            $user_type = Xmf\Request::getWord('user_type', '');
+            $user_type = Request::getWord('user_type', '');
             if (!empty($user_type) && ($user_type !== 'both')) {
                 if ($user_type == 'inactv') {
                     $criteria->add(new Criteria('level', 0, '='));
@@ -649,13 +650,13 @@ switch ($op) {
 
             //$groups = empty($_REQUEST['selgroups']) ? array() : array_map("intval", $_REQUEST['selgroups']);
             $validsort = array("uname", "email", "last_login", "user_regdate", "posts");
-            $sort = (string) Xmf\Request::getWord('user_sort', 'user_regdate');
+            $sort = (string) Request::getWord('user_sort', 'user_regdate');
             $sort = (!in_array($sort, $validsort)) ? "user_regdate" : $sort;
             $requete_pagenav .= '&amp;user_sort=' . $sort;
             $requete_search .= 'order by : ' . $sort . '<br />';
             $criteria->setSort($sort);
 
-            $order = (string) Xmf\Request::getWord('user_order', 'DESC');
+            $order = (string) Request::getWord('user_order', 'DESC');
             $requete_pagenav .= '&amp;user_order=' . $order;
             $requete_search .= 'tris : ' . $order . '<br />';
             $criteria->setOrder($order);

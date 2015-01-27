@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS misc utilities
  *
@@ -22,11 +24,10 @@
 include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 
-$request = Xoops_Request::getInstance();
-$action = $request->asStr('action', '');
-$type = $request->asStr('type', '');
+$action = Request::getCmd('action', '');
+$type = Request::getCmd('type', '');
 
 if ($action == "showpopups") {
     $xoops->simpleHeader(false);
@@ -35,7 +36,7 @@ if ($action == "showpopups") {
     $closebutton = 1;
     switch ($type) {
         case "friend":
-            $op = $request->asStr('op', 'sendform');
+            $op = Request::getCmd('op', 'sendform');
             $tpl = new XoopsTpl();
             if (!$xoops->security()->check() || $op == "sendform") {
                 if ($xoops->isUser()) {
@@ -73,7 +74,7 @@ if ($action == "showpopups") {
 
                 $tpl->assign('closebutton', 0);
                 $tpl->assign('form', $form->render());
-            } elseif ($_POST['op'] == "sendsite") {
+            } elseif ($op == "sendsite") {
                 $myts = MyTextsanitizer::getInstance();
                 if ($xoops->isUser()) {
                     $ymail = $xoops->user->getVar("email");
@@ -114,7 +115,7 @@ if ($action == "showpopups") {
             break;
         case 'online':
             $isadmin = $xoops->userIsAdmin;
-            $start = $request->asInt('start', 0);
+            $start = Request::getInt('start', 0);
             $online_handler = $xoops->getHandlerOnline();
             $online_total = $online_handler->getCount();
             $limit = ($online_total > 20) ? 20 : $online_total;

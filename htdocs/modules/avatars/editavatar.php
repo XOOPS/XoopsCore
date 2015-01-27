@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * avatars module
  *
@@ -25,9 +27,8 @@ include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $helper = Avatars::getInstance();
 
-$request = $xoops->request();
 // Get Action type
-$op = $request->asStr('op', 'list');
+$op = Request::getCmd('op', 'list');
 
 // If not a user, redirect
 if (!$xoops->isUser()) {
@@ -83,7 +84,7 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('index.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $uid = $request->asInt('uid', 0);
+        $uid = Request::getInt('uid', 0);
         if (empty($uid) || $xoops->user->getVar('uid') != $uid) {
             $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
             exit();
@@ -140,7 +141,7 @@ switch ($op) {
                 }
             }
         } else {
-            $user_avatar = $request->asStr('user_avatar', 'blank.gif');
+            $user_avatar = Request::getString('user_avatar', 'blank.gif');
             $oldavatar = $xoops->user->getVar('user_avatar');
             $xoops->user->setVar('user_avatar', $user_avatar);
             $member_handler = $xoops->getHandlerMember();

@@ -35,7 +35,7 @@ class SearchSearchForm extends Xoops\Form\ThemeForm
         parent::__construct(_MD_SEARCH, 'search', 'index.php', 'get');
 
         // create form elements
-        $this->addElement(new Xoops\Form\Text(_MD_SEARCH_KEYWORDS, 'query', 30, 255, htmlspecialchars(stripslashes(implode(' ', $queries)), ENT_QUOTES)), true);
+        $this->addElement(new Xoops\Form\Text(_MD_SEARCH_KEYWORDS, 'query', 30, 255, htmlspecialchars(stripslashes($this->queryArrayToString($queries)), ENT_QUOTES)), true);
         $type_select = new Xoops\Form\Select(_MD_SEARCH_TYPE, 'andor', $andor);
         $type_select->addOptionArray(array(
             'AND' => _MD_SEARCH_ALL, 'OR' => _MD_SEARCH_ANY, 'exact' => _MD_SEARCH_EXACT
@@ -75,5 +75,27 @@ class SearchSearchForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Token('id'));
         $this->addElement(new Xoops\Form\Button('', 'submit', _MD_SEARCH, 'submit'));
         return $this;
+    }
+
+    /**
+     * queryArrayToString - convert array of query terms to string respecting quoting
+     * conventions
+     *
+     * @param string[] $queries query terms
+     *
+     * @return string equivalent query string
+     */
+    private function queryArrayToString($queries)
+    {
+        $query = '';
+        foreach ($queries as $term) {
+            if (false === strpos($term, ' ')) {
+                $query .= $term . ' ';
+            } else {
+                $query .= '"' . $term . '" ';
+            }
+        }
+        $query = trim($query);
+        return $query;
     }
 }

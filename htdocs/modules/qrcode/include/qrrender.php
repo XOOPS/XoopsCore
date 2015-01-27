@@ -9,7 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xmf\Request;
+use Xoops\Core\Request;
 
 /**
  * @author    Richard Griffith <richard@geekwright.com>

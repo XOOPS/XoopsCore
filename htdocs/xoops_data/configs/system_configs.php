@@ -25,6 +25,9 @@ return array(
         //"editor"    => "dhtmlext",
         /**#@-*/
 
+        // iframe clickjack protection - value used to set X-Frame-Options header
+        //'xFrameOptions' => 'sameorigin',
+
         /** XOOPS admin security warnings
          *
          * <ul>Display admin security warnings:

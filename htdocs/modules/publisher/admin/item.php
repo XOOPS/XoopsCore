@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -23,9 +25,9 @@ include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 
-$itemid = \Xmf\Request::getInt('itemid');
+$itemid = Request::getInt('itemid');
 $op = ($itemid > 0 || isset($_POST['editor'])) ? 'mod' : '';
-$op = \Xmf\Request::getString('op', $op);
+$op = Request::getCmd('op', $op);
 
 if (isset($_POST['additem'])) {
     $op = 'additem';
@@ -36,10 +38,10 @@ if (isset($_POST['additem'])) {
 }
 
 // Where shall we start ?
-$submittedstartitem = \Xmf\Request::getInt('submittedstartitem');
-$publishedstartitem = \Xmf\Request::getInt('publishedstartitem');
-$offlinestartitem = \Xmf\Request::getInt('offlinestartitem');
-$rejectedstartitem = \Xmf\Request::getInt('rejectedstartitem');
+$submittedstartitem = Request::getInt('submittedstartitem');
+$publishedstartitem = Request::getInt('publishedstartitem');
+$offlinestartitem = Request::getInt('offlinestartitem');
+$rejectedstartitem = Request::getInt('rejectedstartitem');
 
 switch ($op) {
     case "clone":

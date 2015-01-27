@@ -38,6 +38,6 @@
             <a class="btn btn-mini btn-info pull-right" href="<{xoAppUrl 'register.php'}>" title="<{$block.lang_registernow}>"><{$block.lang_registernow}></a>
             <div class="clear"></div>
         </div>
-        <{$block.sslloginlink}>
+        <{$block.sslloginlink|default:''}>
     </form>
 </div>

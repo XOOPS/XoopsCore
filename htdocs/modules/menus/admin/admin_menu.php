@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -30,11 +32,11 @@ $admin_page->renderNavigation('admin_menu.php');
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 
 // Get $_GET, $_POST, ...
-$op = $request->asStr('op', 'list');
-$id = $request->asInt('id', 0);
-$pid = $request->asInt('pid', 0);
-$weight = $request->asInt('weight', 0);
-$visible = $request->asInt('visible', 0);
+$op = Request::getCmd('op', 'list');
+$id = Request::getInt('id', 0);
+$pid = Request::getInt('pid', 0);
+$weight = Request::getInt('weight', 0);
+$visible = Request::getInt('visible', 0);
 
 
 $menus_handler = $helper->getHandlerMenus();
@@ -78,7 +80,7 @@ switch ($op) {
         $admin_page->addItemButton(_AM_MENUS_LIST_MENUS, 'admin_menu.php', 'application-view-detail');
         $admin_page->renderButton();
         // Create form
-        $id = $request->asInt('id', 0);
+        $id = Request::getInt('id', 0);
         $obj = $helper->getHandlerMenu()->get($id);
         $form = $helper->getForm($obj, 'menus_menu');
         $xoops->tpl()->assign('form', $form->render());
@@ -91,7 +93,7 @@ switch ($op) {
 
         $msg[] = _AM_MENUS_SAVE;
 
-        $id = $request->asInt('id', 0);
+        $id = Request::getInt('id', 0);
         if (isset($id) && $id !=0) {
             $obj = $helper->getHandlerMenu()->get($id);
         } else {
@@ -125,7 +127,7 @@ switch ($op) {
         break;
 
     case 'del':
-        $ok = $request->asInt('ok', 0);
+        $ok = Request::getInt('ok', 0);
         $obj = $helper->getHandlerMenu()->get($id);
 
         if ($ok == 1) {

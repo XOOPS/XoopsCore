@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
@@ -23,7 +25,7 @@
 include __DIR__ . '/header.php';
 
 // Get Action type
-$op = $request->asStr('op', 'global');
+$op = Request::getString('op', 'global');
 
 // Call header
 $xoops->header('admin:page/page_admin_permissions.tpl');

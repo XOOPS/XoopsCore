@@ -273,7 +273,8 @@ class XoopsSessionHandler
                 $session_expire ? time() + $session_expire : 0,
                 '/',
                 XOOPS_COOKIE_DOMAIN,
-                0
+                false,
+                true
             );
         }
     }

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * Module Images
  *
@@ -21,20 +23,11 @@
 
 include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 
 $helper = Xoops\Module\Helper::getHelper('images');
-$request = Xoops_Request::getInstance();
 
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    set_magic_quotes_runtime(0);
-}
-
-if (function_exists('mb_http_output')) {
-    mb_http_output('pass');
-}
-
-$image_id = $request->asInt('id', 0);
+$image_id = Request::getInt('id', 0);
 if (empty($image_id)) {
     header('Content-type: image/gif');
     readfile(XOOPS_ROOT_PATH . '/uploads/blank.gif');

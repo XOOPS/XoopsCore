@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -24,8 +26,8 @@ $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 $publisher->loadLanguage('admin');
 
-$op = \Xmf\Request::getString('op');
-$fileid = \Xmf\Request::getInt('fileid');
+$op = Request::getString('op');
+$fileid = Request::getInt('fileid');
 
 if ($fileid == 0) {
     $xoops->redirect("index.php", 2, _MD_PUBLISHER_NOITEMSELECTED);
@@ -67,9 +69,9 @@ switch ($op) {
         }
 
         // Putting the values in the file object
-        $fileObj->setVar('name', \Xmf\Request::getString('name'));
-        $fileObj->setVar('description', \Xmf\Request::getString('description'));
-        $fileObj->setVar('status', \Xmf\Request::getInt('file_status'));
+        $fileObj->setVar('name', Request::getString('name'));
+        $fileObj->setVar('description', Request::getString('description'));
+        $fileObj->setVar('status', Request::getInt('file_status'));
 
         // attach file if any
         if (isset($_FILES['item_upload_file']) && $_FILES['item_upload_file']['name'] != "") {

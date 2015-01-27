@@ -14,6 +14,7 @@ use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Request;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -849,27 +850,27 @@ class PublisherItem extends XoopsObject
         $xoops = Xoops::getInstance();
         //Required fields
         if (isset($_REQUEST['categoryid'])) {
-            $this->setVar('categoryid', \Xmf\Request::getInt('categoryid'));
+            $this->setVar('categoryid', Request::getInt('categoryid'));
         }
         if (isset($_REQUEST['title'])) {
-            $this->setVar('title', \Xmf\Request::getString('title'));
+            $this->setVar('title', Request::getString('title'));
         }
         if (isset($_REQUEST['body'])) {
-            $this->setVar('body', \Xmf\Request::getText('body'));
+            $this->setVar('body', Request::getText('body'));
         }
         //Not required fields
         if (isset($_REQUEST['summary'])) {
-            $this->setVar('summary', \Xmf\Request::getText('summary'));
+            $this->setVar('summary', Request::getText('summary'));
         }
         if (isset($_REQUEST['subtitle'])) {
-            $this->setVar('subtitle', \Xmf\Request::getString('subtitle'));
+            $this->setVar('subtitle', Request::getString('subtitle'));
         }
         if (isset($_REQUEST['item_tag'])) {
-            $this->setVar('item_tag', \Xmf\Request::getString('item_tag'));
+            $this->setVar('item_tag', Request::getString('item_tag'));
         }
         if (isset($_REQUEST['image_featured'])) {
-            $image_item = \Xmf\Request::getArray('image_item');
-            $image_featured = \Xmf\Request::getString('image_featured');
+            $image_item = Request::getArray('image_item');
+            $image_featured = Request::getString('image_featured');
             //Todo: get a better image class for xoops!
             //Image hack
             $image_item_ids = array();
@@ -893,12 +894,12 @@ class PublisherItem extends XoopsObject
             $this->setVar('images', implode('|', $image_item_ids));
         }
         if (isset($_REQUEST['uid'])) {
-            $this->setVar('uid', \Xmf\Request::getInt('uid'));
+            $this->setVar('uid', Request::getInt('uid'));
         } elseif ($this->isnew()) {
             $this->setVar('uid', $xoops->isUser() ? $xoops->user->getVar('uid') : 0);
         }
         if (isset($_REQUEST['author_alias'])) {
-            $this->setVar('author_alias', \Xmf\Request::getString('author_alias'));
+            $this->setVar('author_alias', Request::getString('author_alias'));
             if ($this->getVar('author_alias') != '') {
                 $this->setVar('uid', 0);
             }
@@ -909,54 +910,54 @@ class PublisherItem extends XoopsObject
             $this->setVar('datesub', time());
         }
         if (isset($_REQUEST['item_short_url'])) {
-            $this->setVar('short_url', \Xmf\Request::getString('item_short_url'));
+            $this->setVar('short_url', Request::getString('item_short_url'));
         }
         if (isset($_REQUEST['item_meta_keywords'])) {
-            $this->setVar('meta_keywords', \Xmf\Request::getString('item_meta_keywords'));
+            $this->setVar('meta_keywords', Request::getString('item_meta_keywords'));
         }
         if (isset($_REQUEST['item_meta_description'])) {
-            $this->setVar('meta_description', \Xmf\Request::getString('item_meta_description'));
+            $this->setVar('meta_description', Request::getString('item_meta_description'));
         }
         if (isset($_REQUEST['weight'])) {
-            $this->setVar('weight', \Xmf\Request::getInt('weight'));
+            $this->setVar('weight', Request::getInt('weight'));
         }
         if (isset($_REQUEST['allowcomments'])) {
-            $this->setVar('cancomment', \Xmf\Request::getInt('allowcomments'));
+            $this->setVar('cancomment', Request::getInt('allowcomments'));
         } elseif ($this->isnew()) {
             $this->setVar('cancoment', $this->publisher->getConfig('submit_allowcomments'));
         }
         if (isset($_REQUEST['status'])) {
-            $this->setVar('status', \Xmf\Request::getInt('status'));
+            $this->setVar('status', Request::getInt('status'));
         } elseif ($this->isnew()) {
             $this->setVar('status', $this->publisher->getConfig('submit_status'));
         }
         if (isset($_REQUEST['dohtml'])) {
-            $this->setVar('dohtml', \Xmf\Request::getInt('dohtml'));
+            $this->setVar('dohtml', Request::getInt('dohtml'));
         } elseif ($this->isnew()) {
             $this->setVar('dohtml', $this->publisher->getConfig('submit_dohtml'));
         }
         if (isset($_REQUEST['dosmiley'])) {
-            $this->setVar('dosmiley', \Xmf\Request::getInt('dosmiley'));
+            $this->setVar('dosmiley', Request::getInt('dosmiley'));
         } elseif ($this->isnew()) {
             $this->setVar('dosmiley', $this->publisher->getConfig('submit_dosmiley'));
         }
         if (isset($_REQUEST['doxcode'])) {
-            $this->setVar('doxcode', \Xmf\Request::getInt('doxcode'));
+            $this->setVar('doxcode', Request::getInt('doxcode'));
         } elseif ($this->isnew()) {
             $this->setVar('doxcode', $this->publisher->getConfig('submit_doxcode'));
         }
         if (isset($_REQUEST['doimage'])) {
-            $this->setVar('doimage', \Xmf\Request::getInt('doimage'));
+            $this->setVar('doimage', Request::getInt('doimage'));
         } elseif ($this->isnew()) {
             $this->setVar('doimage', $this->publisher->getConfig('submit_doimage'));
         }
         if (isset($_REQUEST['dolinebreak'])) {
-            $this->setVar('dobr', \Xmf\Request::getInt('dolinebreak'));
+            $this->setVar('dobr', Request::getInt('dolinebreak'));
         } elseif ($this->isnew()) {
             $this->setVar('dobr', $this->publisher->getConfig('submit_dobr'));
         }
         if (isset($_REQUEST['notify'])) {
-            $this->setVar('notifypub', \Xmf\Request::getInt('notify'));
+            $this->setVar('notifypub', Request::getInt('notify'));
         }
     }
 }

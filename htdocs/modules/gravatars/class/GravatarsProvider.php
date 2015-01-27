@@ -49,7 +49,8 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
             $r = (empty($v)) ? $r : $v;
         }
 
-        if (XOOPS_PROT == 'https://') {
+        $scheme = \Xoops\Core\HttpRequest::getInstance()->getScheme();
+        if ($scheme == 'https') {
             $url = 'https://secure.gravatar.com/avatar/';
         } else {
             $url = 'http://www.gravatar.com/avatar/';

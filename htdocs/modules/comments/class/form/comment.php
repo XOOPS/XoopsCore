@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -28,7 +30,6 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
     {
         $xoops = Xoops::getInstance();
         $helper = Comments::getInstance();
-        $request = Xoops_Request::getInstance();
         $module = $xoops->getModuleById($obj->getVar('modid'));
         if (!is_object($module)) {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -135,8 +136,8 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Hidden('com_rootid', $obj->getVar('rootid', 'e')));
         $this->addElement(new Xoops\Form\Hidden('com_id', $obj->getVar('id', 'e')));
         $this->addElement(new Xoops\Form\Hidden('com_itemid', $obj->getVar('itemid', 'e')));
-        $this->addElement(new Xoops\Form\Hidden('com_order', $request->asInt('com_order', $helper->getUserConfig('com_order'))));
-        $this->addElement(new Xoops\Form\Hidden('com_mode', $request->asStr('com_mode', $helper->getUserConfig('com_mode'))));
+        $this->addElement(new Xoops\Form\Hidden('com_order', Request::getInt('com_order', $helper->getUserConfig('com_order'))));
+        $this->addElement(new Xoops\Form\Hidden('com_mode', Request::getString('com_mode', $helper->getUserConfig('com_mode'))));
 
         // add module specific extra params
         if (!$xoops->isAdminSide) {

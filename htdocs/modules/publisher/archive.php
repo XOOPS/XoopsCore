@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Request;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -40,8 +41,8 @@ XoopsLoad::LoadFile($publisher->path('footer.php'));
 $lastyear = 0;
 $lastmonth = 0;
 $months_arr = array(1 => XoopsLocale::L_MONTH_JANUARY, 2 => XoopsLocale::L_MONTH_FEBRUARY, 3 => XoopsLocale::L_MONTH_MARCH, 4 => XoopsLocale::L_MONTH_APRIL, 5 => XoopsLocale::L_MONTH_MAY, 6 => XoopsLocale::L_MONTH_JUNE, 7 => XoopsLocale::L_MONTH_JULY, 8 => XoopsLocale::L_MONTH_AUGUST, 9 => XoopsLocale::L_MONTH_SEPTEMBER, 10 => XoopsLocale::L_MONTH_OCTOBER, 11 => XoopsLocale::L_MONTH_NOVEMBER, 12 => XoopsLocale::L_MONTH_DECEMBER);
-$fromyear = \Xmf\Request::getInt('year');
-$frommonth = \Xmf\Request::getInt('month');
+$fromyear = Request::getInt('year');
+$frommonth = Request::getInt('month');
 
 $pgtitle = '';
 if ($fromyear && $frommonth) {
