@@ -24,7 +24,7 @@ require_once __DIR__ . '/mainfile.php';
 
 //error_reporting(0);
 
-require_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
+//require_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
 
 $xoops = Xoops::getInstance();
 //$xoops->pathTranslation(); // alread run in Xoops __construct
