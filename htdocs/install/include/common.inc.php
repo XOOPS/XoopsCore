@@ -55,8 +55,11 @@ include XOOPS_INSTALL_PATH . '/class/installwizard.php';
 include_once XOOPS_ROOT_PATH . '/include/version.php';
 include_once XOOPS_INSTALL_PATH . '/include/functions.php';
 include_once XOOPS_ROOT_PATH . '/include/defines.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
-
+//include_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
+if (!class_exists('XoopsBaseConfig', false)) {
+    include_once XOOPS_ROOT_PATH . '/class/XoopsBaseConfig.php';
+    XoopsBaseConfig::bootstrapTransition();
+}
 $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = false;
 

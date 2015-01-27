@@ -550,12 +550,25 @@ class XoopsLoad
             exit('Security check: Illegal character in filename');
         }
     }
-}
 
-if (!defined('XOOPS_AUTOLOAD')) {
-    define('XOOPS_AUTOLOAD', true);
-    spl_autoload_register(array('XoopsLoad', 'load'));
-    if (!XOOPS_PATH == '') {
-        include XOOPS_PATH . '/vendor/autoload.php';
+    /**
+     * startAutoloader enable the autoloader
+     *
+     * @param string $path path of the library directory where composer managed
+     *                     vendor directory can be found.
+     * @return void
+     */
+    public static function startAutoloader($path)
+    {
+        static $libPath = null;
+
+        if ($libPath === null) {
+            $loaderPath = $path . '/vendor/autoload.php';
+            if (self::fileExists($loaderPath)) {
+                $libPath = $path;
+                include $loaderPath;
+            }
+            spl_autoload_register(array('XoopsLoad', 'load'));
+        }
     }
 }

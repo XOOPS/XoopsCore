@@ -78,16 +78,6 @@ if (function_exists('db2_connect')) {
         'ignoredb' => array(),
     );
 }
-/* this driver is considered unstable by Doctrine and unsupported as of 2.5.0
-if (in_array('ibm', $avalable_pdo_drivers)) {
-    $configs['db_types']['pdo_ibm'] = array(
-        'desc' => 'PDO IBM Driver (untested)',
-        'type' => 'db2',
-        'params' => 'dbname,host,user,password,port',
-        'ignoredb' => array(),
-    );
-}
-*/
 if (in_array('sqlsrv', $avalable_pdo_drivers)) {
     $configs['db_types']['pdo_sqlsrv'] = array(
         'desc' => 'PDO SqlServer Driver (untested)',
@@ -107,14 +97,6 @@ if (function_exists('sqlsrv_connect')) {
 if (function_exists('mysqli_connect')) {
     $configs['db_types']['mysqli'] = array(
         'desc' => 'Mysqli Driver (untested)',
-        'type' => 'mysql',
-        'params' => 'dbname,host,user,password,port,unix_socket',
-        'ignoredb' => array('information_schema','test'),
-    );
-}
-if (in_array('mysql', $avalable_pdo_drivers)) {
-    $configs['db_types']['drizzle_pdo_mysql'] = array(
-        'desc' => 'Drizzle PDO MySql Driver (untested)',
         'type' => 'mysql',
         'params' => 'dbname,host,user,password,port,unix_socket',
         'ignoredb' => array('information_schema','test'),

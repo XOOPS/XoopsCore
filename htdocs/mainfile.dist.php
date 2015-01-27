@@ -74,6 +74,11 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
     define("XOOPS_GROUP_USERS", "2");
     define("XOOPS_GROUP_ANONYMOUS", "3");
 
+    if (!class_exists('XoopsBaseConfig', false)) {
+        include __DIR__ . '/class/XoopsBaseConfig.php';
+        XoopsBaseConfig::bootstrapTransition();
+    }
+
     if (!isset($xoopsOption["nocommon"]) && XOOPS_ROOT_PATH != "") {
         include XOOPS_ROOT_PATH."/include/common.php";
     }
