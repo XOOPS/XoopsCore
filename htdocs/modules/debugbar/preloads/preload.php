@@ -110,9 +110,9 @@ class DebugbarPreload extends PreloadItem
         $logger = DebugbarLogger::getInstance();
 
         $logger->enable();//until we get a db connection debug is enabled
-        if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
-            $logger->getDebugbar()['time']->addMeasure('Loading', $_SERVER['REQUEST_TIME_FLOAT'], microtime(true));
-        }
+        //if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
+        //    $logger->getDebugbar()['time']->addMeasure('Loading', $_SERVER['REQUEST_TIME_FLOAT'], microtime(true));
+        //}
         $logger->startTime();
         $logger->startTime('XOOPS Boot');
     }
