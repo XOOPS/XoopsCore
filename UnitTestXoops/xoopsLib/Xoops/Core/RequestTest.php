@@ -283,6 +283,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetIPv6()
     {
+        $varname = 'RequestTest';
+
         $_REQUEST[$varname] = 'FE80:0000:0000:0000:0202:B3FF:FE1E:8329';
         $this->assertEquals($_REQUEST[$varname], Request::getIP($varname));
 
