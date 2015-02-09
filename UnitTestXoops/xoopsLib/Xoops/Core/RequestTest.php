@@ -262,7 +262,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Xoops\Core\Request::getIp
      */
-    public function testGetIP()
+    public function testGetIPv4()
     {
         $varname = 'RequestTest';
 
@@ -276,6 +276,13 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $default = '0.0.0.0';
         $this->assertEquals($default, Request::getIP($varname, $default));
 
+    }
+
+    /**
+     * @covers Xoops\Core\Request::getIp
+     */
+    public function testGetIPv6()
+    {
         $_REQUEST[$varname] = 'FE80:0000:0000:0000:0202:B3FF:FE1E:8329';
         $this->assertEquals($_REQUEST[$varname], Request::getIP($varname));
 
