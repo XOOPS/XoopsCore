@@ -153,9 +153,9 @@ class Events
             $class_methods = get_class_methods($class_name);
             foreach ($class_methods as $method) {
                 if (strpos($method, 'event') === 0) {
-                    $event_name = strtolower(str_replace('event', '', $method));
-                    $event= array($class_name, $method);
-                    $this->eventListeners[$event_name][] = $event;
+                    $eventName = strtolower(str_replace('event', '', $method));
+                    $event = array($class_name, $method);
+                    $this->eventListeners[$eventName][] = $event;
                 }
             }
         }
@@ -164,17 +164,17 @@ class Events
     /**
      * Trigger a specific event
      *
-     * @param string $event_name Name of the event to trigger
-     * @param mixed  $args       Method arguments
+     * @param string $eventName Name of the event to trigger
+     * @param mixed  $args      Method arguments
      *
      * @return void
      */
-    public function triggerEvent($event_name, $args = array())
+    public function triggerEvent($eventName, $args = array())
     {
         if ($this->eventsEnabled) {
-            $event_name = $this->toInternalEventName($event_name);
-            if (isset($this->eventListeners[$event_name])) {
-                foreach ($this->eventListeners[$event_name] as $event) {
+            $eventName = $this->toInternalEventName($eventName);
+            if (isset($this->eventListeners[$eventName])) {
+                foreach ($this->eventListeners[$eventName] as $event) {
                     if (is_callable($event)) {
                         call_user_func($event, $args);
                     }
@@ -187,27 +187,27 @@ class Events
      * toInternalEventName - convert event name to internal form
      * i.e. core.include.common.end becomes coreincludecommonend
      *
-     * @param string $event_name the event name
+     * @param string $eventName the event name
      *
      * @return string converted name
      */
-    protected function toInternalEventName($event_name)
+    protected function toInternalEventName($eventName)
     {
-        return strtolower(str_replace('.', '', $event_name));
+        return strtolower(str_replace('.', '', $eventName));
     }
 
     /**
      * addListener - add a listener, providing a callback for a specific event.
      *
-     * @param string   $event_name the event name
-     * @param callable $callback   any callable acceptable for call_user_func
+     * @param string   $eventName the event name
+     * @param callable $callback  any callable acceptable for call_user_func
      *
      * @return void
      */
-    public function addListener($event_name, $callback)
+    public function addListener($eventName, $callback)
     {
-        $event_name = $this->toInternalEventName($event_name);
-        $this->eventListeners[$event_name][]=$callback;
+        $eventName = $this->toInternalEventName($eventName);
+        $this->eventListeners[$eventName][]=$callback;
     }
 
     /**
@@ -218,5 +218,17 @@ class Events
     public function getEvents()
     {
         return $this->eventListeners;
+    }
+
+    /**
+     * hasListeners - for debugging only, return list of event listeners
+     * @param type $eventName event name
+     *
+     * @return boolean true if one or more listeners are registered for the event
+     */
+    public function hasListeners($eventName)
+    {
+        $eventName = $this->toInternalEventName($eventName);
+        return array_key_exists($eventName, $this->eventListeners);
     }
 }

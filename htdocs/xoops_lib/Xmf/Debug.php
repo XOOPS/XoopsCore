@@ -11,19 +11,15 @@
 
 namespace Xmf;
 
-if (!defined('XMF_KRUMO_URL')) {
-    define('XMF_KRUMO_URL', XOOPS_URL . '/modules/xmf/css/krumo/');
-}
-
 /**
- * Debugging toos for developers
+ * Debugging tools for developers
  *
  * @category  Xmf\Module\Debug
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright 2011-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     1.0
@@ -31,22 +27,30 @@ if (!defined('XMF_KRUMO_URL')) {
 class Debug
 {
     /**
-     * configuration ini for krumo
+     * associative array of timers
      *
-     * @var string
-     *
-     * @todo implement resource asset for css
+     * @var float[]
      */
 
-    private static $config = array(
-        'skin' => array('selected' => 'modern'),
-        'css'  => array('url' => XMF_KRUMO_URL),
-        'display' => array(
-            'show_version' => false,
-            'show_call_info' => false,
-            'sort_arrays' => false,
-            ),
-        );
+    private static $times = array();
+
+    /**
+     * indexed array of timer data in form
+     * array('label' => string, 'start' => float, 'elapsed' => float)
+     *
+     * @var array
+     */
+
+    private static $timerQueue = array();
+
+    /**
+     * associative array of timer labels
+     *
+     * @var string[]
+     */
+
+    private static $timerLabels = array();
+
 
     /**
      * Dump a variable
@@ -60,14 +64,25 @@ class Debug
      */
     public static function dump($var, $echo = true, $html = true, $exit = false)
     {
-        if ($html && $echo && class_exists("\\Kint")) {
-            \Kint::dump(func_get_arg(0));
+        $events = \Xoops::getInstance()->events();
+        $eventName = 'debug.log';
+        if ($html && $echo && $events->hasListeners($eventName)) {
+            $events->triggerEvent($eventName, $var);
+            //\Kint::dump(func_get_arg(0));
         } else {
-            //self::$config['css'] = array('url' => XOOPS_URL . '/modules/xmf/css/krumo/');
+            $config = array(
+                'skin' => array('selected' => 'modern'),
+                'css'  => array('url' => XOOPS_URL . '/modules/xmf/css/krumo/'),
+                'display' => array(
+                    'show_version' => false,
+                    'show_call_info' => false,
+                    'sort_arrays' => false,
+                    ),
+                );
             if (!$html) {
                 $msg = var_export($var, true);
             } else {
-                \krumo::setConfig(self::$config);
+                \krumo::setConfig($config);
                 $msg = \krumo::dump($var);
             }
             if (!$echo) {
@@ -93,14 +108,110 @@ class Debug
      */
     public static function backtrace($echo = true, $html = true, $exit = false)
     {
-        if ($html && class_exists("\\Kint")) {
-            \Kint::trace(debug_backtrace());
-            if ($exit) {
-                die();
-            }
+        $events = \Xoops::getInstance()->events();
+        $eventName = 'debug.log';
+        if ($html && $events->hasListeners($eventName)) {
+            $events->triggerEvent($eventName, debug_backtrace());
         } else {
             return self::dump(debug_backtrace(), $echo, $html, $exit);
         }
+    }
+
+    /**
+     * Start a timer
+     *
+     * @param string      $name  unique name for timer
+     * @param string|null $label optional label for this timer
+     *
+     * @return void
+     */
+    public static function startTimer($name, $label = null)
+    {
+        $events = \Xoops::getInstance()->events();
+        $var = array($name);
+        $var[] = empty($label) ? $name : $label;
+        $eventName = 'debug.timer.start';
+        if ($events->hasListeners($eventName)) {
+            $events->triggerEvent($eventName, $var);
+        } else {
+            self::$times[$name] = microtime(true);
+        }
+    }
+
+    /**
+     * Stop a timer
+     *
+     * @param string $name unique name for timer
+     *
+     * @return void
+     */
+    public static function stopTimer($name)
+    {
+        $events = \Xoops::getInstance()->events();
+        $eventName = 'debug.timer.stop';
+        if ($events->hasListeners($eventName)) {
+            $events->triggerEvent($eventName, $name);
+        } else {
+            echo $name . ' - ' . intval(microtime(true) - self::$times[$name]) . " \n";
+        }
+    }
+
+    /**
+     * Start a queued timer. Queued timers are stored and only dumped by request.
+     * This makes them useful in recording timing when immediate output is not
+     * possible practical, such as early system startup activities. Timers can be
+     * queued at any point once the Xmf\Debug class can be loaded then dumped
+     * when system facilities are available.
+     *
+     * @param string      $name  unique name for timer
+     * @param string|null $label optional label for this timer
+     *
+     * @return void
+     */
+    public static function startQueuedTimer($name, $label = null)
+    {
+        self::$times[$name] = microtime(true);
+        self::$timerLabels[$name] = empty($label) ? $name : $label;
+    }
+
+    /**
+     * Stop a queued timer
+     *
+     * @param string $name unique name for timer
+     *
+     * @return void
+     */
+    public static function stopQueuedTimer($name)
+    {
+        if (isset(self::$timerLabels[$name]) && isset(self::$times[$name])) {
+            $queueItem = array(
+                'label' => self::$timerLabels[$name],
+                'start' => self::$times[$name],
+                'elapsed' => microtime(true) - self::$times[$name],
+                );
+            self::$timerQueue[] = $queueItem;
+        }
+    }
+
+    /**
+     * dump and queued timer data and reset the queue
+     *
+     * Note: The DebugBar logger will add any unprocessed queue data to its
+     * timeline automatically, if you use queued timers and don't call this.
+     *
+     * @param boolean $returnOnly if true do not dump queue, only return it
+     *
+     * @return array of time data see \Xmf\Debug::$timerQueue
+     */
+    public static function dumpQueuedTimers($returnOnly = false)
+    {
+        $queue = self::$timerQueue;
+        self::$timerQueue = array();
+        if (!$returnOnly) {
+            self::dump($queue);
+        }
+
+        return $queue;
     }
 
     /**

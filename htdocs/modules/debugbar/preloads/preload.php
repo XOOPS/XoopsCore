@@ -107,9 +107,14 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
-        DebugbarLogger::getInstance()->enable();//until we get a db connection debug is enabled
-        DebugbarLogger::getInstance()->startTime();
-        DebugbarLogger::getInstance()->startTime('XOOPS Boot');
+        $logger = DebugbarLogger::getInstance();
+
+        $logger->enable();//until we get a db connection debug is enabled
+        //if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
+        //    $logger->getDebugbar()['time']->addMeasure('Loading', $_SERVER['REQUEST_TIME_FLOAT'], microtime(true));
+        //}
+        $logger->startTime();
+        $logger->startTime('XOOPS Boot');
     }
 
     /**
@@ -413,6 +418,30 @@ class DebugbarPreload extends PreloadItem
     public static function eventDebugLog($args)
     {
         DebugbarLogger::getInstance()->dump($args);
+    }
+
+    /**
+     * eventDebugTimerStart - start a timer
+     *
+     * @param array $args array of name and label for timer
+     *
+     * @return void
+     */
+    public static function eventDebugTimerStart($args)
+    {
+        DebugbarLogger::getInstance()->startTime($args[0], $args[1]);
+    }
+
+    /**
+     * eventDebugTimerStop - start a timer
+     *
+     * @param string $args name of timer
+     *
+     * @return void
+     */
+    public static function eventDebugTimerStop($args)
+    {
+        DebugbarLogger::getInstance()->stopTime($args);
     }
 
     /**
