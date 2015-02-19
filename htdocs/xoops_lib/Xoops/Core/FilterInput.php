@@ -256,6 +256,15 @@ class FilterInput
                 }
                 break;
 
+            case 'IP':
+                $result = (string) $source;
+                // this may be too restrictive.
+                // Should the FILTER_FLAG_NO_PRIV_RANGE flag be excluded?
+                if (!filter_var((string) $source,  FILTER_VALIDATE_IP)) {
+                    $result = '';
+                }
+                break;
+
             default:
                 $result = $filter->process($source);
                 break;

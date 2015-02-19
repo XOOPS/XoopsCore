@@ -253,6 +253,49 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $_REQUEST[$varname] = 'msdfniondfnlknlsdf';
         $this->assertEquals('', Request::getEmail($varname));
+
+        $_REQUEST[$varname] = 'msdfniondfnlknlsdf';
+        $default = 'nobody@localhost';
+        $this->assertEquals($default, Request::getEmail($varname, $default));
+    }
+
+    /**
+     * @covers Xoops\Core\Request::getIp
+     */
+    public function testGetIPv4()
+    {
+        $varname = 'RequestTest';
+
+        $_REQUEST[$varname] = '16.32.48.64';
+        $this->assertEquals($_REQUEST[$varname], Request::getIP($varname));
+
+        $_REQUEST[$varname] = '316.32.48.64';
+        $this->assertEquals('', Request::getIP($varname));
+
+        $_REQUEST[$varname] = '316.32.48.64';
+        $default = '0.0.0.0';
+        $this->assertEquals($default, Request::getIP($varname, $default));
+
+    }
+
+    /**
+     * @covers Xoops\Core\Request::getIp
+     */
+    public function testGetIPv6()
+    {
+        $varname = 'RequestTest';
+
+        $_REQUEST[$varname] = 'FE80:0000:0000:0000:0202:B3FF:FE1E:8329';
+        $this->assertEquals($_REQUEST[$varname], Request::getIP($varname));
+
+        $_REQUEST[$varname] = 'FE80::0202:B3FF:FE1E:8329';
+        $this->assertEquals($_REQUEST[$varname], Request::getIP($varname));
+
+        $_REQUEST[$varname] = 'GE80::0202:B3FF:FE1E:8329';
+        $this->assertEquals('', Request::getIP($varname));
+
+        $_REQUEST[$varname] = '::ffff:16.32.48.64';
+        $this->assertEquals($_REQUEST[$varname], Request::getIP($varname));
     }
 
     /**
