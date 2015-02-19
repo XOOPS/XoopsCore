@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($params as $name) {
         $settings[$name] = isset($_POST[$name]) ? $_POST[$name] : "";
     }
+    $settings['DB_PARAMETERS'] = serialize(getDbConnectionParams());
+    $_SESSION['settings'] = $settings;
 }
 
 $platform=false;
