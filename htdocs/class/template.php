@@ -72,21 +72,17 @@ class XoopsTpl extends Smarty
      */
     public function fetchFromData($tplSource, $display = false, $vars = null)
     {
-        if (!function_exists('smarty_function_eval')) {
-            require_once SMARTY_DIR . '/plugins/function.eval.php';
-        }
+        $oldVars = $this->_tpl_vars;
         if (isset($vars)) {
-            $oldVars = $this->_tpl_vars;
             $this->assign($vars);
-            $out = smarty_function_eval(
-                array('var' => $tplSource), $this
-            );
-            $this->_tpl_vars = $oldVars;
-            return $out;
         }
-        return smarty_function_eval(
-            array('var' => $tplSource), $this
-        );
+        if ($display) {
+            $out = $this->display('eval:'.$tplSource);
+        } else {
+            $out = $this->fetch('eval:'.$tplSource);
+        }
+        $this->_tpl_vars = $oldVars;
+        return $out;
     }
 
     /**
