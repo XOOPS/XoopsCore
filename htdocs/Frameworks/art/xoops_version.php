@@ -10,5 +10,4 @@
  * @package         Frameworks
  */
 
-define("XOOPS_FRAMEWORKS_ART_VERSION", "1.0.0")
-?>
+define("XOOPS_FRAMEWORKS_ART_VERSION", "1.0.0");
