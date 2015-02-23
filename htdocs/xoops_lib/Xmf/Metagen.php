@@ -332,10 +332,7 @@ class Metagen
         $pos=array();
 
         if (!empty($needles)) {
-            if (!is_array($needles)) {
-                $needles=array($needles);
-            }
-
+            $needles = (array) $needles;
             foreach ($needles as $needle) {
                 $i = mb_stripos($haystack, $needle, 0, $encoding);
                 if ($i!==false) {
@@ -343,18 +340,11 @@ class Metagen
                 }
             }
         }
-        if (empty($pos)) {
-            $start=0;
-        } else {
-            $start=min($pos);
-        }
+        $start = empty($pos) ? 0 : min($pos);
 
-        $start=$start-(int)($length/2);
-        if ($start<=0) {
-            $start=0;
-        }
+        $start = max($start - (int)($length/2), 0);
 
-        $pre=!($start==0); // do we need an ellipsis (...) in front?
+        $pre = ($start > 0); // do we need an ellipsis (...) in front?
         if ($pre) {
             // we are not at the begining so find first blank
             $start=mb_strpos($haystack, ' ', $start, $encoding);
@@ -369,6 +359,7 @@ class Metagen
                 $haystack=mb_substr($haystack, 0, $end, $encoding);
             }
         }
+
         $haystack = ($pre ? $ellipsis : '') . $haystack . ($post ? $ellipsis : '');
         return $haystack;
     }

@@ -44,13 +44,6 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
     {
         $andor = strtolower($andor)=='and' ? 'and' : 'or';
 
-        if (!empty($queryArray)) {
-            if (substr_compare($queryArray[count($queryArray)-1], '{pageset=', 0, 9) === 0) {
-                $pageset=array_pop($queryArray);
-                $pageset=substr($pageset, 9, -1);
-            }
-        }
-
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->select('DISTINCT *')

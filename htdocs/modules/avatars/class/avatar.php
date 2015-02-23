@@ -293,6 +293,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
      */
     public function getUser(AvatarsAvatar $avatar)
     {
+        $ret = array();
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb ->select('user_id')
             ->fromPrefix('avatars_user_link', 'l')
