@@ -10,6 +10,11 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
@@ -71,7 +76,7 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
 
     public function getById($image_id, $asobject = true)
     {
-        $this->table_link = $this->db->prefix('imagebody');
+        $this->table_link = $this->db2->prefix('imagebody');
         $this->className = 'ImagesImage_Body';
 
 

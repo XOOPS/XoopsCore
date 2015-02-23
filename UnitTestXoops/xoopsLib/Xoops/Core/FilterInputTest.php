@@ -71,6 +71,10 @@ class FilterInputTest extends \PHPUnit_Framework_TestCase
         $expected = 'Lorem ipsum alert();';
         $this->assertEquals($expected, FilterInput::clean($input, 'string'));
 
+        $input = 'Lorem ipsum &#x3C;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;&#x61;&#x6C;&#x65;&#x72;&#x74;&#x28;&#x29;&#x3B;&#x3C;&#x2F;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3E;';
+        $expected = 'Lorem ipsum alert();';
+        $this->assertEquals($expected, FilterInput::clean($input, 'string'), FilterInput::clean($input, 'string'));
+
         $input = 'Lorem ipsum';
         $expected = $input;
         $this->assertEquals($expected, FilterInput::clean($input, 'string'));

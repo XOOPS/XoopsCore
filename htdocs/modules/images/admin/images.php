@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * images module
  *
@@ -37,7 +39,7 @@ switch ($op) {
         $msg[] = _AM_IMAGES_IMG_SAVE;
 
         $category = $helper->getHandlerCategories()->get($imgcat_id);
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if (isset($image_id) && $image_id != 0) {
             $obj = $helper->getHandlerImages()->get($image_id);
             $isnew = false;
@@ -48,17 +50,17 @@ switch ($op) {
             $isnew = true;
         }
 
-        $obj->setVar('image_nicename', $request->asStr('image_nicename', ''));
+        $obj->setVar('image_nicename', Request::getString('image_nicename', ''));
         $obj->setVar('image_created', time());
-        $obj->setVar('image_display', $request->asInt('image_display', 1));
-        $obj->setVar('image_weight', $request->asInt('image_weight', 0));
+        $obj->setVar('image_display', Request::getInt('image_display', 1));
+        $obj->setVar('image_weight', Request::getInt('image_weight', 0));
         $obj->setVar('imgcat_id', $imgcat_id);
 
         // Default value
         $image_body = '';
         $error = true;
         $error_message = '';
-        $xoops_upload_file = $request->asArray('xoops_upload_file', array());
+        $xoops_upload_file = Request::getArray('xoops_upload_file', array());
         if ($_FILES[$xoops_upload_file[0]]['error'] === 0) {
             $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/images', $mimetypes, $category->getVar('imgcat_maxsize'), $category->getVar('imgcat_maxwidth'), $category->getVar('imgcat_maxheight'));
             if ($uploader->fetchMedia($xoops_upload_file[0])) {
@@ -112,7 +114,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if ($image_id > 0) {
             $obj =  $helper->getHandlerImages()->get($image_id);
             $form = $helper->getForm($obj, 'image');
@@ -121,9 +123,9 @@ switch ($op) {
         break;
 
     case 'del':
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if ($image_id > 0) {
-            $ok = $request->asInt('ok', 0);
+            $ok = Request::getInt('ok', 0);
             $obj =  $helper->getHandlerImages()->get($image_id);
 
             if ($ok == 1) {
@@ -158,7 +160,7 @@ switch ($op) {
         break;
 
     case 'display':
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if ($image_id > 0) {
             $obj = $helper->getHandlerImages()->get($image_id);
             $old = $obj->getVar('image_display');

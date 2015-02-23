@@ -28,7 +28,7 @@
             <{foreach item=img from=$images}>
             <div class="cp-images">
                 <div class="xo-thumbimg">
-                    <{if !$db_store}>
+                    <{if !$db_store|default:false}>
                         <img class="xo-tooltip"
                         src="<{thumbnail image="uploads/`$img.image_name`" w=128 h=128}>" alt="<{$img.image_nicename}>" title="<{$img.image_nicename}>" />
                     <{else}>
@@ -39,7 +39,7 @@
                     <div class="spacer bold"><{$img.image_nicename}></div>
                     <img id="loading_img<{$img.image_id}>" src="<{xoAppUrl 'media/xoops/images/spinner.gif'}>" style="display:none;" alt="<{translate key='LOADING'}>" />
                     <img class="cursorpointer xo-tooltip" id="img<{$img.image_id}>" onclick="Xoops.changeStatus('images.php', { op: 'display', image_id: <{$img.image_id}> }, 'img<{$img.image_id}>', 'images.php' )" src="<{if $img.image_display}><{xoAdminIcons 'success.png'}><{else}><{xoAdminIcons 'cancel.png'}><{/if}>" alt="<{$smarty.const._IMGDISPLAY}>" title="<{$smarty.const._IMGDISPLAY}>" />
-                    <{if !$db_store}>
+                    <{if !$db_store|default:false}>
                         <a rel="external" class="lightbox xo-tooltip" href="<{$xoops_upload_url}>/<{$img.image_name}>" title="<{$img.image_nicename}>">
                     <{else}>
                         <a rel="external" class="lightbox xo-tooltip" href="<{$xoops_url}>/image.php?id=<{$img.image_id}>" title="<{$img.image_nicename}>">

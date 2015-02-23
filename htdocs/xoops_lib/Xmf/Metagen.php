@@ -194,7 +194,7 @@ class Metagen
     /**
      * generateDescription - generate a short description from a body of text
      *
-     * @param string $body      body text
+     * @param string  $body      body text
      * @param integer $wordCount maximum word count for description
      *
      * @return string
@@ -303,5 +303,73 @@ class Metagen
         } else {
             return '';
         }
+    }
+
+    /**
+     * getSearchSummary splits a string into string no larger then a
+     * specified length, and centered around the first occurance
+     * of any of an array of needles, or starting at the begining
+     * of the string if no needles are specified or found.
+     *
+     * The string will be broken on spaces and an elipse (...)
+     * will be added to the string when broken.
+     *
+     * @param string $haystack the string to summarize
+     * @param mixed  $needles  search term, array of search terms, or null
+     * @param int    $length   maxium length for the summary
+     * @param string $encoding encoding of the haystack, default UTF-8
+     *
+     * @return string a substring of haystack
+     */
+    public static function getSearchSummary($haystack, $needles = null, $length = 120, $encoding = 'UTF-8')
+    {
+
+        $haystack = Utilities::html2text($haystack);
+        $haystack = Utilities::purifyText($haystack);
+
+        $ellipsis = "…"; // unicode horizontal ellipsis U+2026
+
+        $pos=array();
+
+        if (!empty($needles)) {
+            if (!is_array($needles)) {
+                $needles=array($needles);
+            }
+
+            foreach ($needles as $needle) {
+                $i = mb_stripos($haystack, $needle, 0, $encoding);
+                if ($i!==false) {
+                    $pos[] = $i; // only store matches
+                }
+            }
+        }
+        if (empty($pos)) {
+            $start=0;
+        } else {
+            $start=min($pos);
+        }
+
+        $start=$start-(int)($length/2);
+        if ($start<=0) {
+            $start=0;
+        }
+
+        $pre=!($start==0); // do we need an ellipsis (...) in front?
+        if ($pre) {
+            // we are not at the begining so find first blank
+            $start=mb_strpos($haystack, ' ', $start, $encoding);
+            $haystack=mb_substr($haystack, $start, null, $encoding);
+        }
+
+        $post=!(mb_strlen($haystack, $encoding)<$length);  // do we need an ellipsis (...) in back?
+        if ($post) {
+            $haystack=mb_substr($haystack, 0, $length, $encoding);
+            $end=mb_strrpos($haystack, ' ', 0, $encoding);
+            if ($end) {
+                $haystack=mb_substr($haystack, 0, $end, $encoding);
+            }
+        }
+        $haystack = ($pre ? $ellipsis : '') . $haystack . ($post ? $ellipsis : '');
+        return $haystack;
     }
 }
