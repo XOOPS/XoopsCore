@@ -641,7 +641,12 @@ class MyTextSanitizer
 //            $patterns     = "/\[code([^\]]*?)\](.*)\[\/code\]/esU";
 //            $replacements = "'[code\\1]'.base64_encode('\\2').'[/code]'";
             $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
-            $text = preg_replace_callback($patterns, create_function('$matches',"return '[code'.\$matches[1].']' . base64_encode(\$matches[2]). '[/code]';"),$text);
+            $text = preg_replace_callback($patterns,
+                function ($matches) {
+                    return '[code' . $matches[1] . ']' . base64_encode($matches[2]). '[/code]';
+                },
+                $text
+            );
         }
         return $text;
     }
@@ -668,7 +673,7 @@ function codeConvCallback($match)
            $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
 //        $replacements = "'<div class=\"xoopsCode\">'.\$this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode('$2')), '$1').'</div>'";
            $text = preg_replace_callback($patterns, array($this,'codeConvCallback'), $text);
-        
+
         return $text;
     }
 

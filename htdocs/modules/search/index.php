@@ -35,7 +35,7 @@ $xoops = Xoops::getInstance();
 
 $action = Request::getCmd('action', 'search');
 $query = Request::getString('query', '');
-$andor = Request::getWord('query', 'AND');
+$andor = Request::getWord('andor', 'AND');
 $mid = Request::getInt('mid', 0);
 $uid = Request::getInt('uid', 0);
 $start = Request::getInt('start', 0);

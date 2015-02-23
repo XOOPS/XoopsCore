@@ -10,6 +10,11 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
@@ -32,7 +37,7 @@ class AvatarsAvatar extends XoopsObject
     /**
      * @var int
      */
-    private $_userCount;
+    private $userCount;
 
     /**
      * Constructor
@@ -166,7 +171,7 @@ class AvatarsAvatar extends XoopsObject
      */
     public function setUserCount($value)
     {
-        $this->_userCount = intval($value);
+        $this->userCount = intval($value);
     }
 
     /**
@@ -176,7 +181,7 @@ class AvatarsAvatar extends XoopsObject
      */
     public function getUserCount()
     {
-        return $this->_userCount;
+        return $this->userCount;
     }
 }
 
@@ -208,22 +213,21 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     public function getObjectsWithCount(CriteriaElement $criteria = null, $id_as_key = false)
     {
         $ret = array();
-        $limit = $start = 0;
-        $sql = 'SELECT a.*, COUNT(u.user_id) AS count FROM '
-            . $this->db->prefix('avatars_avatar') . ' a LEFT JOIN '
-            . $this->db->prefix('avatars_user_link')
-            . ' u ON u.avatar_id=a.avatar_id';
-        if (isset($criteria)) {
-            $sql .= ' ' . $criteria->renderWhere();
-            $sql .= ' GROUP BY a.avatar_id ORDER BY avatar_weight, avatar_id';
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+        if ($criteria === null) {
+            $criteria = new Criteria('');
         }
-        $result = $this->db->query($sql, $limit, $start);
+        $criteria->setGroupby('a.avatar_id');
+        $criteria->setSort('avatar_weight, avatar_id');
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb ->select('a.*', 'COUNT(u.user_id) AS count')
+            ->fromPrefix('avatars_avatar', 'a')
+            ->leftJoinPrefix('l', 'avatars_user_link', 'u', 'u.avatar_id=a.avatar_id');
+        $criteria->renderQb($qb);
+        $result = $qb->execute();
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $avatar = new AvatarsAvatar();
             $avatar->assignVars($myrow);
             $avatar->setUserCount($myrow['count']);
@@ -252,17 +256,31 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         if ($avatar_id < 1 || $user_id < 1) {
             return false;
         }
-        $sql = sprintf("DELETE FROM %s WHERE user_id = %u", $this->db->prefix('avatars_user_link'), $user_id);
-        $this->db->query($sql);
-        $sql = sprintf(
-            "INSERT INTO %s (avatar_id, user_id) VALUES (%u, %u)",
-            $this->db->prefix('avatars_user_link'),
-            $avatar_id,
-            $user_id
-        );
-        if (!$this->db->query($sql)) {
+
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb ->deletePrefix('avatars_user_link', 'l')
+            ->where('l.user_id = :uid')
+            ->setParameter(':uid', $user_id, \PDO::PARAM_INT);
+        $result = $qb->execute();
+        if ($result) {
             return false;
         }
+
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb ->insertPrefix('avatars_user_link')
+            ->values(
+                array(
+                    'avatar_id' => ':aid',
+                    'user_id' => ':uid'
+                )
+            )
+            ->setParameter(':aid', $avatar_id, \PDO::PARAM_INT)
+            ->setParameter(':uid', $user_id, \PDO::PARAM_INT);
+        $result = $qb->execute();
+        if ($result) {
+            return false;
+        }
+
         return true;
     }
 
@@ -276,12 +294,16 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     public function getUser(AvatarsAvatar $avatar)
     {
         $ret = array();
-        $sql = 'SELECT user_id FROM ' . $this->db->prefix('avatars_user_link')
-        . ' WHERE avatar_id=' . $avatar->getVar('avatar_id');
-        if (!$result = $this->db->query($sql)) {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb ->select('user_id')
+            ->fromPrefix('avatars_user_link', 'l')
+            ->where('l.avatar_id = :bid')
+            ->setParameter(':bid', $avatar->getVar('avatar_id'), \PDO::PARAM_INT);
+        $result = $qb->execute();
+        if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['user_id'];
         }
         return $ret;
