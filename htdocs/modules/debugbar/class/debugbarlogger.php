@@ -76,6 +76,16 @@ class DebugbarLogger implements LoggerInterface
     }
 
     /**
+     * Get our debugbar object
+     *
+     * @return \DebugBar\DebugBar
+     */
+    public function getDebugbar()
+    {
+        return $this->debugbar;
+    }
+
+    /**
      * disable logging
      *
      * @return void
@@ -207,17 +217,18 @@ class DebugbarLogger implements LoggerInterface
     /**
      * Start a timer
      *
-     * @param string $name name of the timer
+     * @param string      $name  name of the timer
+     * @param string|null $label optional label for this timer
      *
      * @return void
      */
-    public function startTime($name = 'XOOPS')
+    public function startTime($name = 'XOOPS', $label = null)
     {
         if ($this->activated) {
             try {
-                $this->debugbar['time']->startMeasure($name, $name);
+                $this->debugbar['time']->startMeasure($name, $label);
             } catch (Exception $e) {
-
+                $this->addException($e);
             }
         }
     }
@@ -237,7 +248,7 @@ class DebugbarLogger implements LoggerInterface
             try {
                 $this->debugbar['time']->stopMeasure($name);
             } catch (Exception $e) {
-
+                $this->addException($e);
             }
         }
     }
@@ -432,6 +443,13 @@ class DebugbarLogger implements LoggerInterface
     public function __destruct()
     {
         if ($this->activated) {
+            // include any queued time data from Xmf\Debug
+            $queue = \Xmf\Debug::dumpQueuedTimers(true);
+            if (!empty($queue)) {
+                foreach ($queue as $q) {
+                    $this->debugbar['time']->addMeasure($q['label'], $q['start'], $q['start'] + $q['elapsed']);
+                }
+            }
             $this->addToTheme();
             $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));

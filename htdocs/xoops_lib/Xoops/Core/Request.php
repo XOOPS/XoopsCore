@@ -310,11 +310,27 @@ class Request
      * @param string $default Default value if the variable does not exist
      * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
      *
-     * @return string email address of empty if invalid
+     * @return string email address or default if invalid
      */
     public static function getEmail($name, $default = '', $hash = 'default')
     {
-        return (string) self::getVar($name, $default, $hash, 'email');
+        $ret = (string) self::getVar($name, $default, $hash, 'email');
+        return empty($ret) ? $default : $ret;
+    }
+
+    /**
+     * Fetches and returns an IP address
+     *
+     * @param string $name    Variable name
+     * @param string $default Default value if the variable does not exist
+     * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
+     *
+     * @return string IP address or default if invalid
+     */
+    public static function getIP($name, $default = '', $hash = 'default')
+    {
+        $ret = (string) self::getVar($name, $default, $hash, 'ip');
+        return empty($ret) ? $default : $ret;
     }
 
     /**

@@ -52,7 +52,7 @@
                         <div class="bold"><a href="<{$result.link}>" title="<{$result.title}>"><{$result.title_highligh}></a></div>
                         <div><{$result.content|default:''}></div>
                         <span class='x-small'>
-                            <{if $result.uid}>
+                            <{if $result.uid|default:false}>
                                <a href="<{$xoops_url}>/userinfo.php?uid=<{$result.uid}>" title="<{$result.uname}>"><{$result.uname}></a>
                             <{/if}>
                             <{if $result.time}>

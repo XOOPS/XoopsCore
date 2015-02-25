@@ -186,7 +186,7 @@ class Logger implements LoggerInterface
      *
      * @return string sanitized path
      */
-    protected function sanitizePath($path)
+    public function sanitizePath($path)
     {
         $path = str_replace(
             array(
@@ -202,8 +202,8 @@ class Logger implements LoggerInterface
                 '/',
                 'VAR',
                 'VAR',
-                'PATH',
-                'PATH',
+                'LIB',
+                'LIB',
                 'ROOT',
                 'ROOT',
             ),
