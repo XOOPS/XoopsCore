@@ -33,15 +33,18 @@ class XoopsBaseConfig
      * __construct
      * @param string|string[] $config fully qualified name of configuration file
      *                                or configuration array
+     * @throws Exception
      */
     final private function __construct($config)
     {
-
         if (!class_exists('XoopsLoad', false)) {
             include __DIR__ . '/xoopsload.php';
         }
         if (is_string($config)) {
             $yamlString = file_get_contents($config);
+            if ($yamlString === false) {
+                throw new \Exception('XoopsBaseConfig failed to load configuration.');
+            }
             $libPath = $this->solveChickenEgg($yamlString);
             \XoopsLoad::startAutoloader($libPath);
             self::$configs = Yaml::loadWrapped($yamlString);
@@ -58,6 +61,7 @@ class XoopsBaseConfig
      *                                or configuration array
      *
      * @return XoopsBaseConfig instance
+     * @throws Exception
      */
     final public static function getInstance($config = '')
     {
@@ -67,6 +71,9 @@ class XoopsBaseConfig
             $instance = new \XoopsBaseConfig($config);
         }
 
+        if ($instance === false || empty(self::$configs)) {
+            throw new \Exception('XoopsBaseConfig failed.');
+        }
         return $instance;
     }
 
@@ -192,32 +199,44 @@ class XoopsBaseConfig
     /**
      * Create a working environment from traditional mainfile environment
      *
+     * For the early phases in the installer, these may not be defined. Until it
+     * is converted we try and do the best we can without errors
+     *
      * @return void
      */
     final public static function bootstrapTransition()
     {
-        $parts = parse_url(XOOPS_URL . '/');
+        $path = defined('XOOPS_ROOT_PATH') ? XOOPS_ROOT_PATH :  basename(__DIR__);
+        $url = (defined('XOOPS_URL')) ?
+            XOOPS_URL :
+            ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://')
+            . $_SERVER['SERVER_NAME']
+            . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : '');
+
+        $parts = parse_url($url . '/');
+        $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
+        $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
         $configs = array(
-            'root-path' => XOOPS_ROOT_PATH,
-            'lib-path' => XOOPS_PATH,
-            'var-path' => XOOPS_VAR_PATH,
-            'trust-path' => XOOPS_TRUST_PATH,
-            'url' => XOOPS_URL,
-            'prot' => XOOPS_PROT, // $parts['scheme'] . '://',
-            'asset-path' => XOOPS_ROOT_PATH . '/assets',
-            'asset-url' => XOOPS_URL . '/assets',
-            'cookie-domain' => $parts['host'],
-            'cookie-path' => $parts['path'],
-            'db-type' => XOOPS_DB_TYPE,
-            'db-charset' => XOOPS_DB_CHARSET,
-            'db-prefix' => XOOPS_DB_PREFIX,
-            'db-host' => XOOPS_DB_HOST,
-            'db-user' => XOOPS_DB_USER,
-            'db-pass' => XOOPS_DB_PASS,
-            'db-name' => XOOPS_DB_NAME,
-            'db-pconnect' => XOOPS_DB_PCONNECT,
-            'db-parameters' => unserialize(XOOPS_DB_PARAMETERS),
+            'root-path' => defined('XOOPS_ROOT_PATH') ? XOOPS_ROOT_PATH :  'XOOPS_ROOT_PATH',
+            'lib-path' => defined('XOOPS_PATH') ? XOOPS_PATH : 'XOOPS_PATH',
+            'var-path' => defined('XOOPS_VAR_PATH') ? XOOPS_VAR_PATH : 'XOOPS_VAR_PATH',
+            'trust-path' => defined('XOOPS_TRUST_PATH') ? XOOPS_TRUST_PATH : 'XOOPS_TRUST_PATH',
+            'url' => defined('XOOPS_URL') ? XOOPS_URL : 'XOOPS_URL',
+            'prot' => defined('XOOPS_PROT') ? XOOPS_PROT : 'XOOPS_PROT',
+            'asset-path' => $path . '/assets',
+            'asset-url' => $url . '/assets',
+            'cookie-domain' => $host,
+            'cookie-path' => $urlpath,
+            'db-type' => defined('XOOPS_DB_TYPE') ? XOOPS_DB_TYPE : 'XOOPS_DB_TYPE',
+            'db-charset' => 'utf8',
+            'db-prefix' => defined('XOOPS_DB_PREFIX') ? XOOPS_DB_PREFIX : 'XOOPS_DB_PREFIX',
+            'db-host' => defined('XOOPS_DB_HOST') ? XOOPS_DB_HOST : 'XOOPS_DB_HOST',
+            'db-user' => defined('XOOPS_DB_USER') ? XOOPS_DB_USER : 'XOOPS_DB_USER',
+            'db-pass' => defined('XOOPS_DB_PASS') ? XOOPS_DB_PASS : 'XOOPS_DB_PASS',
+            'db-name' => defined('XOOPS_DB_NAME') ? XOOPS_DB_NAME : 'XOOPS_DB_NAME',
+            'db-pconnect' => 0,
+            'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
         );
         self::getInstance($configs);
     }
