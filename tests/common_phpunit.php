@@ -20,7 +20,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 	$_SERVER["SERVER_PROTOCOL"]="HTTP/1.1";
 	$_SERVER["REQUEST_METHOD"]="POST";
 	$_SERVER["QUERY_STRING"]="";
-    $_SERVER["REQUEST_URI"]="/XoopsCore/UnitTestXoops/xoops_lib/XoopsTest.php";
+    $_SERVER["REQUEST_URI"]="/XoopsCore/tests/xoops_lib/XoopsTest.php";
 }
 
 /**

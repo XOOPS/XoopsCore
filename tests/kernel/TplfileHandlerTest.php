@@ -75,7 +75,6 @@ class TplfileHandlerTest extends MY_UnitTestCase
         $source->setNew();
         $source->setVar('tpl_desc', 'TPL_DESC_DUMMY_TEST');
         $value = $instance->insertTpl($source);
-                var_dump(__line__,$source->getVar('tpl_id'));
         $this->assertSame(true,$value);
 
         $value = $instance->deleteTpl($source);
