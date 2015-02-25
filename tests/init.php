@@ -1,4 +1,8 @@
 <?php
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+    die("XOOP check: PHP version require 5.3.0 or more");
+}
+
 // needed for phpunit => initializing $_SERVER values
 if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);

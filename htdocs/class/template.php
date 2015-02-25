@@ -49,13 +49,12 @@ class XoopsTpl extends Smarty
         $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
         $this->left_delimiter = '<{';
         $this->right_delimiter = '}>';
-        $this->template_dir = XOOPS_THEME_PATH;
-        $this->cache_dir = XOOPS_VAR_PATH . '/caches/smarty_cache';
-        $this->compile_dir = XOOPS_COMPILE_PATH;
+        $this->setTemplateDir(XOOPS_THEME_PATH);
+        $this->setCacheDir(XOOPS_VAR_PATH . '/caches/smarty_cache');
+        $this->setCompileDir(XOOPS_COMPILE_PATH);
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
         $this->setPluginsDir(XOOPS_PATH . '/smarty/xoops_plugins');
         $this->addPluginsDir(SMARTY_DIR . 'plugins');
-        //$this->Smarty();
         $this->setCompileId();
         $this->assign(
             array('xoops_url' => XOOPS_URL, 'xoops_rootpath' => XOOPS_ROOT_PATH, 'xoops_langcode' => XoopsLocale::getLangCode(), 'xoops_charset' => XoopsLocale::getCharset(), 'xoops_version' => XOOPS_VERSION, 'xoops_upload_url' => XOOPS_UPLOAD_URL)

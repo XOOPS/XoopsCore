@@ -1,4 +1,8 @@
 <?php
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+    die("XOOP check: PHP version require 5.3.0 or more");
+}
+
 // needed for phpunit => initializing $_SERVER values
 if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);
@@ -19,8 +23,18 @@ require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
 
 // Get the beginning of include/common.php file but not all
 
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    die("XOOP check: PHP version require 5.3.0 or more");
+
+/**
+ * Include XoopsLoad - this should have been done in mainfile.php, but there is
+ * no update yet, so only only new installs get the change in mainfile.dist.php
+ * automatically.
+ *
+ * Temorarily try and fix, but set up a (delayed) warning
+ */
+if (!class_exists('XoopsLoad', false)) {
+    require_once dirname(__FILE__) . '/../htdocs/class/XoopsBaseConfig.php';
+    XoopsBaseConfig::bootstrapTransition();
+    $delayedWarning = 'Patch mainfile.php for XoopsBaseConfig';
 }
 
 global $xoops;
@@ -42,14 +56,22 @@ include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
 include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
 
 /**
- * Include XoopsLoad
+ * Create Instance of Xoops Object
+ * Atention, not all methods can be used at this point
  */
-require_once XOOPS_ROOT_PATH . DS . 'class' . DS . 'xoopsload.php';
+
+$xoops = Xoops::getInstance();
+
+$xoops->option =& $GLOBALS['xoopsOption'];
+
+/**
+ * Include Required Files not handled by autoload
+ */
+include_once $xoops->path('include/functions.php');
 
 /**
  * Load Language settings and defines
  */
-$xoops = Xoops::getInstance();
 $xoops->loadLocale();
 //For legacy
 $xoops->setConfig('language', XoopsLocale::getLegacyLanguage());
