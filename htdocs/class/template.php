@@ -49,13 +49,12 @@ class XoopsTpl extends Smarty
         $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
         $this->left_delimiter = '<{';
         $this->right_delimiter = '}>';
-        $this->template_dir = XOOPS_THEME_PATH;
-        $this->cache_dir = XOOPS_VAR_PATH . '/caches/smarty_cache';
-        $this->compile_dir = XOOPS_COMPILE_PATH;
+        $this->setTemplateDir(XOOPS_THEME_PATH);
+        $this->setCacheDir(XOOPS_VAR_PATH . '/caches/smarty_cache');
+        $this->setCompileDir(XOOPS_COMPILE_PATH);
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
         $this->setPluginsDir(XOOPS_PATH . '/smarty/xoops_plugins');
         $this->addPluginsDir(SMARTY_DIR . 'plugins');
-        //$this->Smarty();
         $this->setCompileId();
         $this->assign(
             array('xoops_url' => XOOPS_URL, 'xoops_rootpath' => XOOPS_ROOT_PATH, 'xoops_langcode' => XoopsLocale::getLangCode(), 'xoops_charset' => XoopsLocale::getCharset(), 'xoops_version' => XOOPS_VERSION, 'xoops_upload_url' => XOOPS_UPLOAD_URL)
@@ -72,21 +71,31 @@ class XoopsTpl extends Smarty
      */
     public function fetchFromData($tplSource, $display = false, $vars = null)
     {
-        if (!function_exists('smarty_function_eval')) {
+		$v3 = version_compare(Smarty::SMARTY_VERSION,'Smarty-3','>=');
+			
+        if (!function_exists('smarty_function_eval') AND !$v3) {
             require_once SMARTY_DIR . '/plugins/function.eval.php';
         }
         if (isset($vars)) {
-            $oldVars = $this->_tpl_vars;
+            $oldVars = $this->tpl_vars;
             $this->assign($vars);
-            $out = smarty_function_eval(
-                array('var' => $tplSource), $this
-            );
-            $this->_tpl_vars = $oldVars;
+			if ($v3) {
+				$out = $this->smarty->fetch('eval:'.$tplSource);				
+			} else {
+				$out = smarty_function_eval(
+					array('var' => $tplSource), $this
+				);
+			}
+            $this->tpl_vars = $oldVars;
             return $out;
         }
-        return smarty_function_eval(
-            array('var' => $tplSource), $this
-        );
+		if ($v3) {
+			return $this->smarty->fetch('eval:'.$tplSource);				
+		} else {
+			return smarty_function_eval(
+				array('var' => $tplSource), $this
+			);
+		}
     }
 
     /**
