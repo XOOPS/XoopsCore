@@ -2,10 +2,10 @@
 require_once(dirname(__FILE__).'/../../../init_mini.php');
 
 /**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
+ * PHPUnit special settings :
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
+ */
 class SecurityTest extends MY_UnitTestCase
 {
     protected $myClass = 'Xoops\Core\Security';

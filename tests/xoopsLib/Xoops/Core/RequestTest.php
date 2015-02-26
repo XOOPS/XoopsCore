@@ -8,10 +8,10 @@ require_once(__DIR__ . '/../../../init_mini.php');
  */
 
 /**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
+ * PHPUnit special settings :
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
+ */
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
