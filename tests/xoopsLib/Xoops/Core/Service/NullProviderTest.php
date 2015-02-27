@@ -10,7 +10,7 @@ use Xoops\Core\Service\Manager;
 * @backupStaticAttributes disabled
 */
 
-class NullProviderTest extends MY_UnitTestCase
+class NullProviderTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myClass = 'Xoops\Core\Service\NullProvider';
 	

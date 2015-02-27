@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class TplfileTest extends MY_UnitTestCase
+class TplfileTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsTplfile';
 

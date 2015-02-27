@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class CriteriaCompoTest extends MY_UnitTestCase
+class CriteriaCompoTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'CriteriaCompo';
     

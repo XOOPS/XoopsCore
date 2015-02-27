@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsModelFactoryTest extends MY_UnitTestCase
+class XoopsModelFactoryTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myClass = 'Xoops\Core\Kernel\XoopsModelFactory';
 

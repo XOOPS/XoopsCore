@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/mms/mms.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsMmsTest extends MY_UnitTestCase
+class MytsMmsTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsMms';
 	

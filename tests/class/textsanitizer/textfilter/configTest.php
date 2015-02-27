@@ -9,7 +9,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Textfilter_ConfigTest extends MY_UnitTestCase
+class Textfilter_ConfigTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_100()

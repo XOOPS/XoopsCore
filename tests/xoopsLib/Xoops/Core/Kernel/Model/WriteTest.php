@@ -12,7 +12,7 @@ use Xoops\Core\Kernel\Model\Write;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class WriteTest extends MY_UnitTestCase
+class WriteTest extends \PHPUnit_Framework_TestCase
 {
 	protected $conn = null;
 	

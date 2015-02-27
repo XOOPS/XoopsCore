@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsMySQLDatabaseProxyTest extends MY_UnitTestCase
+class XoopsMySQLDatabaseProxyTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsMySQLDatabaseProxy';
     

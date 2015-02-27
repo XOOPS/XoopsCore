@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/xoopssecurity.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopssecurityTest extends MY_UnitTestCase
+class XoopssecurityTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'XoopsSecurity';
 

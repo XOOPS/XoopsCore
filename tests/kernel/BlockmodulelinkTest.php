@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class BlockmodulelinkTest extends MY_UnitTestCase
+class BlockmodulelinkTest extends \PHPUnit_Framework_TestCase
 {
     
     public function SetUp() {

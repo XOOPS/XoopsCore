@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ThemeSetNameHandlerTest extends MY_UnitTestCase
+class ThemeSetNameHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'ThemeSetNameHandler';
     protected $object = null;

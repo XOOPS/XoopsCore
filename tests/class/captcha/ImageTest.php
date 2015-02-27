@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/captcha/image.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ImageTest extends MY_UnitTestCase
+class ImageTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsCaptchaImage';
     

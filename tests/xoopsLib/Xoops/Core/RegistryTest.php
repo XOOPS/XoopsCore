@@ -7,7 +7,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupStaticAttributes disabled
  */
 
-class RegistryTest extends MY_UnitTestCase
+class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'Xoops\Core\Registry';
 

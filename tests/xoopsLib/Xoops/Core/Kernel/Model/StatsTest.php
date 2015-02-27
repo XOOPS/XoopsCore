@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class StatsTest extends MY_UnitTestCase
+class StatsTest extends \PHPUnit_Framework_TestCase
 {
 	protected $conn = null;
 	

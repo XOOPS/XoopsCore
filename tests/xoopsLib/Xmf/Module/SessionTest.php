@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupStaticAttributes disabled
  */
 
-class SessionTest extends \MY_UnitTestCase
+class SessionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Session

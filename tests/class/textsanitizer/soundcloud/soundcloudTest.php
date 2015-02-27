@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/soundcloud/soundcloud.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsSoundcloudTest extends MY_UnitTestCase
+class MytsSoundcloudTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsSoundcloud';
 	

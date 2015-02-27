@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class QueryBuilderTest extends MY_UnitTestCase
+class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = '\Xoops\Core\Database\QueryBuilder';
 	protected $conn = null;

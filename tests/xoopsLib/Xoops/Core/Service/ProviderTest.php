@@ -11,7 +11,7 @@ require_once(dirname(__FILE__).'/../../../../init_mini.php');
  * @backupStaticAttributes disabled
  */
  
-class ProviderTest extends \MY_UnitTestCase
+class ProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Provider

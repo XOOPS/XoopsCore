@@ -8,7 +8,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigImageTest extends MY_UnitTestCase
+class ConfigImageTest extends \PHPUnit_Framework_TestCase
 {
     public function test_100()
 	{

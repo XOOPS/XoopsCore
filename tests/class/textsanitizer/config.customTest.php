@@ -9,7 +9,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Root_Config_CustomTest extends MY_UnitTestCase
+class Root_Config_CustomTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_100()

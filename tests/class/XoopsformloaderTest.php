@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class FormloaderTest extends MY_UnitTestCase
+class FormloaderTest extends \PHPUnit_Framework_TestCase
 {
     
     public function SetUp()

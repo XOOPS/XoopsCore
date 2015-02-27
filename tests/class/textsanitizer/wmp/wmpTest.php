@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/wmp/wmp.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsWmpTest extends MY_UnitTestCase
+class MytsWmpTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsWmp';
 	

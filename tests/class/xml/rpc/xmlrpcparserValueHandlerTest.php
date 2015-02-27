@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class RpcValueHandlerTest extends MY_UnitTestCase
+class RpcValueHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'RpcValueHandler';
     protected $object = null;

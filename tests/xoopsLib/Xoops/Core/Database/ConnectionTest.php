@@ -11,7 +11,7 @@ use Doctrine\Common\EventManager;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConnectionTest extends MY_UnitTestCase
+class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = '\Xoops\Core\Database\Connection';
 

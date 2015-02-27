@@ -10,7 +10,7 @@ class Xoops_Locale_AbstractTestInstance extends Xoops_Locale_Abstract
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Locale_AbstractTest extends MY_UnitTestCase
+class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'Xoops_Locale_AbstractTestInstance';
 	

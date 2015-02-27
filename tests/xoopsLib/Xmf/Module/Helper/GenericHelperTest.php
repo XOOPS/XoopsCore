@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../../init_mini.php');
  * @backupStaticAttributes disabled
  */
 
-class GenericHelperTest extends \MY_UnitTestCase
+class GenericHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var GenericHelper

@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsDatabaseManagerTest extends MY_UnitTestCase
+class XoopsDatabaseManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsDatabaseManager';
     

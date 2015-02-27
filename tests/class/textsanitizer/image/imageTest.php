@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/image/image.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsImageTest extends MY_UnitTestCase
+class MytsImageTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsImage';
 	

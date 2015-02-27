@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class BlockHandlerTest extends MY_UnitTestCase
+class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='XoopsBlockHandler';
 	protected $conn = null;

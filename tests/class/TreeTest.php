@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class TreeTest extends MY_UnitTestCase
+class TreeTest extends \PHPUnit_Framework_TestCase
 {
     
     public function SetUp()

@@ -11,7 +11,7 @@ class Xoops_Auth_ProvisioningTest_AuthAbstractInstance extends Xoops\Auth\AuthAb
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Auth_ProvisioningTest extends MY_UnitTestCase
+class Xoops_Auth_ProvisioningTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'Xoops\Auth\Provisioning';
 

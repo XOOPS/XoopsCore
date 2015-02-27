@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/li/li.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsLiTest extends MY_UnitTestCase
+class MytsLiTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsLi';
 	

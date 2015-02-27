@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
  * @backupStaticAttributes disabled
  */
 
-class FeedTest extends \MY_UnitTestCase
+class FeedTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Feed

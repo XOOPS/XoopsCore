@@ -34,7 +34,7 @@ class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\Helpe
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Module_Helper_AbstractTest extends MY_UnitTestCase
+class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'Xoops_Module_Helper_AbstractTestInstance';
 

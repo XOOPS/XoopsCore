@@ -13,7 +13,7 @@ class XoopsXmlRpcTagTestInstance extends XoopsXmlRpcTag
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsXmlRpcTagTest extends MY_UnitTestCase
+class XoopsXmlRpcTagTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsXmlRpcTagTestInstance';
 

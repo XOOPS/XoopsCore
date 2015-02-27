@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/syntaxhighlight/syntaxhighlig
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsSyntaxhighlightTest extends MY_UnitTestCase
+class MytsSyntaxhighlightTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsSyntaxhighlight';
 	

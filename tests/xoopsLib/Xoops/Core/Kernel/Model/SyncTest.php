@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Model\Sync;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class SyncTest extends MY_UnitTestCase
+class SyncTest extends \PHPUnit_Framework_TestCase
 {
 	protected $conn = null;
 	

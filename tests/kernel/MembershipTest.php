@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MembershipTest extends MY_UnitTestCase
+class MembershipTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsMembership';
 

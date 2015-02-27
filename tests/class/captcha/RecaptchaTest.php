@@ -9,7 +9,7 @@ require_once(XOOPS_ROOT_PATH.'/class/captcha/recaptcha.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class RecaptchaTest extends MY_UnitTestCase
+class RecaptchaTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsCaptchaRecaptcha';
     

@@ -11,7 +11,7 @@ class AuthAbstractTestInstance extends Xoops\Auth\AuthAbstract
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class AuthAbstractTest extends MY_UnitTestCase
+class AuthAbstractTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'AuthAbstractTestInstance';
 

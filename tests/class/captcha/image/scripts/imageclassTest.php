@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/captcha/image/scripts/imageclass.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Scripts_ImageClassTest extends MY_UnitTestCase
+class Scripts_ImageClassTest extends \PHPUnit_Framework_TestCase
 {
     public function test___construct()
 	{

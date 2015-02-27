@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Type;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class RemovePrefixesTest extends MY_UnitTestCase
+class RemovePrefixesTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'Xoops\Core\Database\Schema\RemovePrefixes';
 	
