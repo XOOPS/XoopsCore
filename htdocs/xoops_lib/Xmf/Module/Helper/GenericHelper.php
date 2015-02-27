@@ -269,15 +269,11 @@ class GenericHelper
     public function addLog($log)
     {
         if ($this->debug) {
-            if (is_object($GLOBALS['xoopsLogger'])) {
-                if (!is_scalar($log)) {
-                    $log = serialize($log);
-                }
-                $GLOBALS['xoopsLogger']->addExtra(
-                    is_object($this->object) ? $this->object->name()
-                    : $this->dirname, $log
-                );
+            if (!is_scalar($log)) {
+                $log = serialize($log);
             }
+            $name = is_object($this->object) ? $this->object->name() : $this->dirname;
+            \Xoops::getInstance()->logger()->debug($log, array('channel'=>'Extra', 'name'=>$name));
         }
     }
 

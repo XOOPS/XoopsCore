@@ -48,17 +48,13 @@ if ($sessionHelper) {
 echo '<h2>Permission demo</h2>';
 $permHelper = new Permission();
 if ($permHelper) {
-
     // this is the name and item we are going to work with
     $gperm_name='fred';
     $gperm_itemid=1;
 
     // if this is a post operation get the input and save it
     if ('POST'==Request::getMethod()) {
-        // show what we got to work with
-        echo '<h4>Permission updates - $_POST</h4>';
-        Debug::dump($_POST);
-
+        echo $xoops->alert('success', 'Permission updated');
         // save the data
         $name=$permHelper->defaultFieldName($gperm_name, $gperm_itemid);
         $groups=Request::getVar($name, array(), $hash = 'POST');
@@ -114,37 +110,30 @@ You may contact the copyright holder through
 http://sourceforge.net/projects/xoops/
 EOT;
 
-echo '<h4>Title Keywords</h4>';
-echo '<h5>'.$title.'</h5>';
-// get important words from title
-$title_keywords = Metagen::generateKeywords($title, 25, 3);
-Debug::dump($title_keywords);
-echo '<h4>Extracted Keywords</h4>';
-// get top 25 keywords, but always keep keywords from title
-$keywords = Metagen::generateKeywords($article, 25, 4, $title_keywords);
-Debug::dump($keywords);
 echo '<h4>Extracted Description</h4>';
 // get the intro of the article to use as the description
 $description = Metagen::generateDescription($article, 50);
-Debug::dump($description);
+echo '<p>' . $description . '</p>';
+
 echo '<h4>SEO Slug</h4>';
 // turn title into a slug
-Debug::dump(Metagen::generateSeoTitle($title, false));
+echo '<p>' . Metagen::generateSeoTitle($title) . '</p>';
+
+// highlight keywords in article
+echo '<h4>Article with Top 25 Keywords Highlighted</h4>';
+// get important words from title
+$title_keywords = Metagen::generateKeywords($title, 25, 3);
+Debug::dump($title_keywords);
+// get top 25 keywords, but always keep keywords from title
+$keywords = Metagen::generateKeywords($article, 25, 4, $title_keywords);
+Debug::dump($keywords);
+echo Highlighter::apply($keywords, $article);
 
 // add to the page
 Metagen::assignTitle($title);
 Metagen::assignKeywords($keywords);
 Metagen::assignDescription($description);
 
-// highlight keywords in article
-echo '<h4>Article with Keywords Highlighted</h4>';
-echo Highlighter::apply($keywords, $article);
-
-// show that Debug::dump() does more that just text and arrays
-echo '<br /><h2>Debugging Tools</h2>';
-echo '<h4>Dump our module object</h4>';
-$helper = Xoops\Module\Helper::getHelper('codex');
-Debug::dump($helper->getModule());
 
 // dump our source
 echo '<br /><h2>Source code</h2>';

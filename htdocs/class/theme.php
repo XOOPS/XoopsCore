@@ -281,7 +281,7 @@ class XoopsTheme
      *
      * @var boolean
      */
-    public $headersCacheEngine = 'file';
+    public $headersCacheEngine = 'default';
 
     /**
      * *#@-
@@ -495,9 +495,10 @@ class XoopsTheme
         }
         $xoops = Xoops::getInstance();
         $xoops->events()->triggerEvent('core.theme.render.start', array($this));
+        $cache = $xoops->cache($this->headersCacheEngine);
 
         //Get meta information for cached pages
-        if ($this->contentCacheLifetime && $this->contentCacheId && $content = Xoops_Cache::read($this->contentCacheId, $this->headersCacheEngine)) {
+        if ($this->contentCacheLifetime && $this->contentCacheId && $content = $cache->read($this->contentCacheId)) {
             //we need to merge metas set by blocks with the module cached meta
             $this->htmlHeadStrings = array_merge($this->htmlHeadStrings, $content['htmlHeadStrings']);
             foreach ($content['metas'] as $type => $value) {
@@ -518,7 +519,7 @@ class XoopsTheme
             $content['metas'] = (array)$this->metas;
             $content['xoops_pagetitle'] = $this->template->getTemplateVars('xoops_pagetitle');
             $content['header'] = $header;
-            Xoops_Cache::write($this->contentCacheId, $content, $this->headersCacheEngine);
+            $cache->write($this->contentCacheId, $content);
         }
 
         //  @internal : Lame fix to ensure the metas specified in the xoops config page don't appear twice

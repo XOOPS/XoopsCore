@@ -44,7 +44,7 @@ $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 //Set active modules in cache folder, delete caches if existing
 //$xoops->setActiveModules();
 $modules_active = array();
-Xoops_Cache::write('system_modules_active', $modules_active);
+$xoops->cache()->write('system/modules/active', $modules_active);
 
 $root = dirname(__DIR__);
 $language = $wizard->language;

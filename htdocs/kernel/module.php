@@ -610,8 +610,10 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         if (!empty($this->_cachedModule_mid[$mid])) {
             unset($this->_cachedModule_mid[$mid]);
         }
-        Xoops_Cache::delete("module_id_" . $mid);
-        Xoops_Cache::delete("module_dirname_" . $dirname);
+        $cache = \Xoops::getInstance()->cache();
+        $cache->delete("system/module/id/{$mid}");
+        $cache->delete("system/module/dirname/{$dirname}");
+        $cache->delete("module/{$dirname}");
         return true;
     }
 

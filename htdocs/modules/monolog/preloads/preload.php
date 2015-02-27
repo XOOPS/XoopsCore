@@ -105,11 +105,15 @@ class MonologPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonStart($args)
     {
+        $cache = \Xoops::getInstance()->cache();
+        $key = 'module/monolog/configs';
+
         self::$configs=array();
         self::$configs['monolog_enable'] = false;
         self::$configs['monolog_default_configs']=true;
+
         // we will not regenerate this on a miss - will wait until auth is complete
-        if ($monolog_configs = Xoops_Cache::read('monolog_config')) {
+        if ($monolog_configs = $cache->read($key)) {
             self::$configs = $monolog_configs;
         }
         $logger = MonologLogger::getInstance();
@@ -441,10 +445,11 @@ class MonologPreload extends PreloadItem
     public static function eventSystemPreferencesSave($args)
     {
         $configs = array();
-        $cache_key = 'module_monolog_configs';
+        $cache = \Xoops::getInstance()->cache();
+        $key = 'module/monolog/configs';
 
         if (isset($_REQUEST['monolog_enable'])) {
-            \Xoops_Cache::delete($cache_key);
+            $cache->delete($cache_key);
 
             $helper = \Xoops::getInstance()->getModuleHelper('monolog');
             $configs['monolog_enable'] = (bool) $helper->getConfig('monolog_enable');
@@ -457,8 +462,7 @@ class MonologPreload extends PreloadItem
             $configs['log_file_path'] = $helper->getConfig('log_file_path');
             $configs['max_versions'] = (int) $helper->getConfig('max_versions');
 
-            $monolog_configs=serialize($configs);
-            \Xoops_Cache::write($cache_key, $monolog_configs);
+            $cache->write($cache_key, $configs);
         }
 
     }

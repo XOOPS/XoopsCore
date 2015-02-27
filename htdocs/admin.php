@@ -82,32 +82,10 @@ if (!empty(Request::getString('xoopsorgnews', null, 'GET'))) {
     $rssurl[] = 'http://sourceforge.net/export/rss2_projnews.php?group_id=41586&rss_fulltext=1';
     $rssurl[] = 'http://www.xoops.org/backend.php';
     $rssurl = array_unique(array_merge($rssurl, XoopsLocale::getAdminRssUrls()));
-    $rssfile = 'adminnews-' . $xoops->getConfig('locale');
+    $rssfile = 'admin/rss/adminnews-' . $xoops->getConfig('locale');
 
-    $items = array();
-    if (!$items = Xoops_Cache::read($rssfile)) {
-        $snoopy = new Snoopy();
-        $cnt = 0;
-        foreach ($rssurl as $url) {
-            if ($snoopy->fetch($url)) {
-                $rssdata = $snoopy->results;
-                $rss2parser = new XoopsXmlRss2Parser($rssdata);
-                if (false != $rss2parser->parse()) {
-                    $_items = $rss2parser->getItems();
-                    $count = count($_items);
-                    for ($i = 0; $i < $count; $i++) {
-                        $_items[$i]['title'] = XoopsLocale::convert_encoding($_items[$i]['title'], XoopsLocale::getCharset(), 'UTF-8');
-                        $_items[$i]['description'] = XoopsLocale::convert_encoding($_items[$i]['description'], _CHARSET, 'UTF-8');
-                        $items[strval(strtotime($_items[$i]['pubdate'])) . "-" . strval(++$cnt)] = $_items[$i];
-                    }
-                } else {
-                    echo $rss2parser->getErrors();
-                }
-            }
-        }
-        krsort($items);
-        Xoops_Cache::write($rssfile, $items, 86400);
-    }
+    $items = $xoops->cache()->cacheRead($rssfile, 'buildRssFeedCache', 24*60*60, $rssurl);
+
     if ($items != '') {
         $ret = '<table class="outer width100">';
         foreach (array_keys($items) as $i) {
@@ -116,7 +94,7 @@ if (!empty(Request::getString('xoopsorgnews', null, 'GET'))) {
             if ($items[$i]['description'] != "") {
                 $ret .= '<tr><td class="odd">' . $items[$i]['description'];
                 if (!empty($items[$i]['guid'])) {
-                    $ret .= '&nbsp;&nbsp;<a href="' . htmlspecialchars($items[$i]['guid']) . '" rel="external" title="">' . _MORE . '</a>';
+                    $ret .= '&nbsp;&nbsp;<a href="' . htmlspecialchars($items[$i]['guid']) . '" rel="external" title="">' . XoopsLocale::MORE . '</a>';
                 }
                 $ret .= '</td></tr>';
             } else {
@@ -130,3 +108,28 @@ if (!empty(Request::getString('xoopsorgnews', null, 'GET'))) {
     }
 }
 $xoops->footer();
+
+function buildRssFeedCache($rssurl)
+{
+    $snoopy = new Snoopy();
+    $cnt = 0;
+    foreach ($rssurl as $url) {
+        if ($snoopy->fetch($url)) {
+            $rssdata = $snoopy->results;
+            $rss2parser = new XoopsXmlRss2Parser($rssdata);
+            if (false != $rss2parser->parse()) {
+                $_items = $rss2parser->getItems();
+                $count = count($_items);
+                for ($i = 0; $i < $count; $i++) {
+                    $_items[$i]['title'] = XoopsLocale::convert_encoding($_items[$i]['title'], XoopsLocale::getCharset(), 'UTF-8');
+                    $_items[$i]['description'] = XoopsLocale::convert_encoding($_items[$i]['description'], XoopsLocale::getCharset(), 'UTF-8');
+                    $items[strval(strtotime($_items[$i]['pubdate'])) . "-" . strval(++$cnt)] = $_items[$i];
+                }
+            } else {
+                echo $rss2parser->getErrors();
+            }
+        }
+    }
+    krsort($items);
+    return $items;
+}

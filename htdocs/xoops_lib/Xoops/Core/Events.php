@@ -90,7 +90,9 @@ class Events
      */
     protected function setPreloads()
     {
-        if (!$this->preloadList = \Xoops_Cache::read('system_modules_preloads')) {
+        $cache = \Xoops::getInstance()->cache();
+        $key = 'system/modules/preloads';
+        if (!$this->preloadList = $cache->read($key)) {
             // get active modules from the xoops instance
             $modules_list = \Xoops::getInstance()->getActiveModules();
             if (empty($modules_list)) {
@@ -112,7 +114,7 @@ class Events
                     }
                 }
             }
-            \Xoops_Cache::write('system_modules_preloads', $this->preloadList);
+            $cache->write($key, $this->preloadList);
         }
     }
 

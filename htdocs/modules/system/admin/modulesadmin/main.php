@@ -204,7 +204,7 @@ switch ($op) {
             //print_r($system_module->trace);
         }
         $folder = array(1, 2, 3);
-        $system->CleanCache($folder);
+        $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
@@ -240,7 +240,7 @@ switch ($op) {
             $xoops->tpl()->assign('log', $system_module->trace);
         }
         $folder = array(1, 2, 3);
-        $system->CleanCache($folder);
+        $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
@@ -278,7 +278,7 @@ switch ($op) {
             $xoops->tpl()->assign('log', $system_module->trace);
         }
         $folder = array(1, 2, 3);
-        $system->CleanCache($folder);
+        $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
