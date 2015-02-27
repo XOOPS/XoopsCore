@@ -78,6 +78,7 @@ switch ($op) {
 
                     case 3:
                         $xoops->tpl()->assign('xoops_cache', true);
+                        // TODO: this is no longer a count, now boolean. needs updated to be OK/FAILED
                         $xoops->tpl()->assign('result_xoops_cache', sprintf(_AM_MAINTENANCE_CENTER_RESULT_XOOPS_CACHE, $res_cache['xoops_cache']));
                         break;
                 }

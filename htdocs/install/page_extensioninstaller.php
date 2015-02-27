@@ -60,8 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //Reset module lists in cache folder
-    \Xoops_Cache::delete('system_modules_active');
-    \Xoops_Cache::delete('system_modules_preloads');
+    $xoops->cache()->delete('system/modules');
     $xoops->setActiveModules();
 } else {
     if (!$xoops->getConfig('locale')) {

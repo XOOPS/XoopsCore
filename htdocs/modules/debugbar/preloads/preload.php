@@ -150,29 +150,6 @@ class DebugbarPreload extends PreloadItem
     }
 
     /**
-     * eventCoreIncludeCommonConfigsSuccess
-     *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
-     * @return void
-     */
-    public static function eventCoreIncludeCommonConfigsSuccess($args)
-    {
-        /*
-        $xoops = Xoops::getInstance();
-        $logger = DebugbarLogger::getInstance();
-        $configs = self::getConfigs();
-        if ($configs['debugbar_enable']) {
-            $xoops->loadLocale();
-            $xoops->loadLanguage('main', 'debugbar');
-            $logger->enable();
-        } else {
-            $logger->disable();
-        }
-        */
-    }
-
-    /**
      * eventCoreIncludeCommonAuthSuccess
      *
      * @return void
@@ -387,7 +364,6 @@ class DebugbarPreload extends PreloadItem
         $logger = DebugbarLogger::getInstance();
         $logs = $args[0];
         foreach ($logs as $log) {
-            //$logger->addExtra($log[0], $log[1]);
             $context = array('channel'=>'Extra', 'name'=>$log[0]);
             $logger->log(LogLevel::INFO, $log[1], $context);
         }
@@ -402,7 +378,6 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventCoreModuleAddlog($args)
     {
-        //Logger::getInstance()->addExtra($args[0], $args[1]);
         $context = array('channel'=>'Extra', 'name'=>$args[0]);
         DebugbarLogger::getInstance()->log(LogLevel::DEBUG, $args[1], $context);
 
@@ -442,21 +417,5 @@ class DebugbarPreload extends PreloadItem
     public static function eventDebugTimerStop($args)
     {
         DebugbarLogger::getInstance()->stopTime($args);
-    }
-
-    /**
-     * eventSystemPreferencesSave
-     *
-     * @param mixed $args arguments supplied to triggerEvent
-     *
-     * @return void
-     */
-    public static function eventSystemPreferencesSave($args)
-    {
-        /*
-        if (isset($_REQUEST['debug_plugin'])) {
-            Xoops_Cache::delete('module_debugbar_plugin');
-        }
-        */
     }
 }

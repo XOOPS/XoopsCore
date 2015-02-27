@@ -12,19 +12,19 @@
 /**
  * XOOPS Editor Abstract class
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @package         class
- * @subpackage      xoopseditor
- * @since           2.3.0
+ * @package         Xoopseditor
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
+ * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @since           2.3.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class XoopsEditor extends Xoops\Form\TextArea
 {
+    /**
+     *  make cache key available as XoopsEditor::CACHE_KEY_EDITOR_LIST
+     */
+    const CACHE_KEY_EDITOR_LIST = 'system/editorlist';
+
     /**
      * @var bool
      */
@@ -195,6 +195,38 @@ class XoopsEditorHandler
         return $editor;
     }
 
+
+    /**
+     * @param bool $noHtml
+     * @return array
+     */
+    public function buildEditorList()
+    {
+        $list = array();
+        $order = array();
+        $fileList = XoopsLists::getDirListAsArray($this->root_path . '/');
+
+        foreach ($fileList as $item) {
+            if (XoopsLoad::fileExists($file = $this->root_path . '/' . $item . '/language/' . XoopsLocale::getLegacyLanguage() . '.php')) {
+                include_once $file;
+            } else {
+                if (XoopsLoad::fileExists($file = $this->root_path . '/' . $item . '/language/english.php')) {
+                    include_once $file;
+                }
+            }
+            if (XoopsLoad::fileExists($file = $this->root_path . '/' . $item . '/editor_registry.php')) {
+                include $file;
+                if (empty($config['order'])) {
+                    continue;
+                }
+                $order[] = $config['order'];
+                $list[$item] = array('title' => $config['title'], 'nohtml' => $config['nohtml']);
+            }
+        }
+        array_multisort($order, $list);
+        return $list;
+    }
+
     /**
      * @param bool $noHtml
      * @return array
@@ -202,44 +234,22 @@ class XoopsEditorHandler
     public function getList($noHtml = false)
     {
         $xoops = Xoops::getInstance();
-        $list = Xoops_Cache::read('editorlist');
-        if (empty($list)) {
-            $list = array();
-            $order = array();
-            $_list = XoopsLists::getDirListAsArray($this->root_path . '/');
-            foreach ($_list as $item) {
-                if (XoopsLoad::fileExists($file = $this->root_path . '/' . $item . '/language/' . XoopsLocale::getLegacyLanguage() . '.php')) {
-                    include_once $file;
-                } else {
-                    if (XoopsLoad::fileExists($file = $this->root_path . '/' . $item . '/language/english.php')) {
-                        include_once $file;
-                    }
-                }
-                if (XoopsLoad::fileExists($file = $this->root_path . '/' . $item . '/editor_registry.php')) {
-                    include $file;
-                    if (empty($config['order'])) {
-                        continue;
-                    }
-                    $order[] = $config['order'];
-                    $list[$item] = array('title' => $config['title'], 'nohtml' => $config['nohtml']);
-                }
-            }
-            array_multisort($order, $list);
-            Xoops_Cache::write('editorlist', $list);
-        }
-
+        $list = $xoops->cache()->cacheRead(
+            XoopsEditor::CACHE_KEY_EDITOR_LIST,
+            array($this, 'buildEditorList')
+        );
         $editors = array_keys($list);
         if (!empty($this->allowed_editors)) {
             $editors = array_intersect($editors, $this->allowed_editors);
         }
-        $_list = array();
+        $returnList = array();
         foreach ($editors as $name) {
             if (!empty($noHtml) && empty($list[$name]['nohtml'])) {
                 continue;
             }
-            $_list[$name] = $list[$name]['title'];
+            $returnList[$name] = $list[$name]['title'];
         }
-        return $_list;
+        return $returnList;
     }
 
     /**

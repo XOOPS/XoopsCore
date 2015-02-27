@@ -85,12 +85,12 @@ class Assets
     /**
      * @var string config file with assets prefs
      */
-    private $assets_prefs_file = 'var/configs/system_assets_prefs.yml';
+    private $assetsPrefsFilename = 'var/configs/system_assets_prefs.yml';
 
     /**
      * @var string config cache key
      */
-    private $assets_prefs_cache = 'system_assets_prefs';
+    private $assetsPrefsCacheKey = 'system/assets/prefs';
 
     /**
      * @var string string to identify Assetic filters using instanceof
@@ -123,45 +123,46 @@ class Assets
     protected function readAssetsPrefs()
     {
         $xoops = \Xoops::getInstance();
+        $cache = $xoops->cache();
 
-        $assets_prefs = array();
+        $assetsPrefs = array();
 
         try {
-            $assets_prefs = \Xoops_Cache::read($this->assets_prefs_cache);
-            $file = $xoops->path($this->assets_prefs_file);
+            $assetsPrefs = $xoops->cache()->read($this->assetsPrefsCacheKey);
+            $file = $xoops->path($this->assetsPrefsFilename);
             $mtime = filemtime($file);
-            if ($assets_prefs===false || !isset($assets_prefs['mtime']) || !$mtime
-                || (isset($assets_prefs['mtime']) && $assets_prefs['mtime']<$mtime)) {
+            if ($assetsPrefs===false || !isset($assetsPrefs['mtime']) || !$mtime
+                || (isset($assetsPrefs['mtime']) && $assetsPrefs['mtime']<$mtime)) {
                 if ($mtime) {
-                    $assets_prefs = Yaml::read($file);
-                    if (!is_array($assets_prefs)) {
+                    $assetsPrefs = Yaml::read($file);
+                    if (!is_array($assetsPrefs)) {
                         $xoops->logger()->error("Invalid config in system_assets_prefs.yml");
-                        $assets_prefs = array();
+                        $assetsPrefs = array();
                     } else {
-                        $assets_prefs['mtime']=$mtime;
-                        \Xoops_Cache::write($this->assets_prefs_cache, $assets_prefs);
+                        $assetsPrefs['mtime']=$mtime;
+                        $xoops->cache()->write($this->assetsPrefsCacheKey, $assetsPrefs);
                     }
                 } else {
                     // use defaults to create file
-                    $assets_prefs = array(
+                    $assetsPrefs = array(
                         'default_filters' => $this->default_filters,
                         'default_asset_refs' => $this->default_asset_refs,
                         'mtime' => time(),
                     );
-                    $this->saveAssetsPrefs($assets_prefs);
+                    $this->saveAssetsPrefs($assetsPrefs);
                 }
             }
-            if (!empty($assets_prefs['default_filters']) && is_array($assets_prefs['default_filters'])) {
-                $this->default_filters = $assets_prefs['default_filters'];
+            if (!empty($assetsPrefs['default_filters']) && is_array($assetsPrefs['default_filters'])) {
+                $this->default_filters = $assetsPrefs['default_filters'];
             }
-            if (!empty($assets_prefs['default_asset_refs']) && is_array($assets_prefs['default_asset_refs'])) {
-                $this->default_asset_refs = $assets_prefs['default_asset_refs'];
+            if (!empty($assetsPrefs['default_asset_refs']) && is_array($assetsPrefs['default_asset_refs'])) {
+                $this->default_asset_refs = $assetsPrefs['default_asset_refs'];
             }
         } catch (\Exception $e) {
             $xoops->events()->triggerEvent('core.exception', $e);
-            $assets_prefs = array();
+            $assetsPrefs = array();
         }
-        return $assets_prefs;
+        return $assetsPrefs;
     }
 
     /**
@@ -177,8 +178,8 @@ class Assets
         if (is_array($assets_prefs)) {
             $xoops = \Xoops::getInstance();
             try {
-                Yaml::save($assets_prefs, $xoops->path($this->assets_prefs_file));
-                \Xoops_Cache::write($this->assets_prefs_cache, $assets_prefs);
+                Yaml::save($assets_prefs, $xoops->path($this->assetsPrefsFilename));
+                $xoops->cache()->write($this->assetsPrefsCacheKey, $assets_prefs);
             } catch (\Exception $e) {
                 $xoops->events()->triggerEvent('core.exception', $e);
             }
@@ -201,8 +202,8 @@ class Assets
      */
     public function getUrlToAssets($type, $assets, $filters = 'default', $target = null)
     {
-        if (is_scalar($assets)) { // just a single path name
-            $assets = array($assets);
+        if (is_scalar($assets)) {
+            $assets = array($assets); // just a single path name
         }
 
         if ($filters=='default') {
@@ -350,8 +351,8 @@ class Assets
         $filterArray = array();
 
         try {
-            if (is_scalar($assets)) { // just a single path name
-                $assets = array($assets);
+            if (is_scalar($assets)) {
+                $assets = array($assets);  // just a single path name
             }
             foreach ($assets as $a) {
                 // translate path if not a reference or absolute path

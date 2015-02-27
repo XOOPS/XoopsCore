@@ -307,14 +307,14 @@ class MonologLogger implements LoggerInterface
     public function addException($e)
     {
         if ($this->activated) {
-            $this->log(
-                LogLevel::ERROR,
+            $this->error(
                 sprintf(
                     $this->messageTag('_MD_MONOLOG_EXCEPTION', 'Exception* : %s : file %s line %s'),
                     $e->getMessage(),
                     $this->sanitizePath($e->getFile()),
                     $e->getLine()
-                )
+                ),
+                array('exception' => $e)
             );
         }
     }
