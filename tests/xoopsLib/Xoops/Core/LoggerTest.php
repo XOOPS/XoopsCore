@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class LoggerTest extends MY_UnitTestCase
+class LoggerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'Xoops\Core\Logger';
 

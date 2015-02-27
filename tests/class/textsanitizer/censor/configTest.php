@@ -9,7 +9,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Censor_ConfigTest extends MY_UnitTestCase
+class Censor_ConfigTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_100()

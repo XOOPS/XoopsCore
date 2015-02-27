@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class UploaderTest extends MY_UnitTestCase
+class UploaderTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'XoopsMediaUploader';
 

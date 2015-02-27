@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Scripts_ImageTest extends MY_UnitTestCase
+class Scripts_ImageTest extends \PHPUnit_Framework_TestCase
 {
     public function test_100()
 	{

@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigoptionHandlerTest extends MY_UnitTestCase
+class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='XoopsConfigOptionHandler';
 	protected $conn = null;

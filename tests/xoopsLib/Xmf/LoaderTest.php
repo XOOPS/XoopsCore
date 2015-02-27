@@ -42,10 +42,10 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadFile()
     {
-        $x = Loader::loadFile('DebugTest.php');
+        $x = Loader::loadFile(dirname(__FILE__).'/LoaderTest_file.php');
         $this->assertSame(true, $x);
         
-        $x = Loader::loadFile('FilterInputTest.php', false);
+        $x = Loader::loadFile(dirname(__FILE__).'/LoaderTest_file.php', false);
         $this->assertSame(true, $x);
         
         $x = Loader::loadFile('thisfiledoesntexists');

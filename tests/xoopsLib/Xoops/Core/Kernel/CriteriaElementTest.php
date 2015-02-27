@@ -17,7 +17,7 @@ class Kernel_CriteriaElementTestInstance extends Xoops\Core\Kernel\CriteriaEleme
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Kernel_CriteriaElementTest extends MY_UnitTestCase
+class Kernel_CriteriaElementTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'Kernel_CriteriaElementTestInstance';
     

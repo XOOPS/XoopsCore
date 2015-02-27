@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class SessionHandlerTest extends MY_UnitTestCase
+class SessionHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='XoopsSessionHandler';
 	protected $conn = null;

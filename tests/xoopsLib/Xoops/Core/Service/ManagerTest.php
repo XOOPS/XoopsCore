@@ -7,7 +7,7 @@ require_once (dirname(__FILE__).'/../../../../init_mini.php');
 * @backupStaticAttributes disabled
 */
 
-class ManagerTest extends \MY_UnitTestCase
+class ManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = '\Xoops\Core\Service\Manager';
     protected $object = null;

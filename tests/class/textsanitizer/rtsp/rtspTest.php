@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/rtsp/rtsp.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsRtspTest extends MY_UnitTestCase
+class MytsRtspTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsRtsp';
 	

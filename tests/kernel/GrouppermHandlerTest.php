@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class GrouppermHandlerTest extends MY_UnitTestCase
+class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='XoopsGroupPermHandler';
 	protected $conn = null;

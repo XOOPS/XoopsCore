@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_mini.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */ 
-class XoopsLoggerTest extends MY_UnitTestCase
+class XoopsLoggerTest extends \PHPUnit_Framework_TestCase
 {
 	// "XoopsLogger is deprecated since 2.6.0, use the module 'logger' instead"
 	

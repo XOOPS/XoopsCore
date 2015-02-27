@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Type;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ExportVisitorTest extends MY_UnitTestCase
+class ExportVisitorTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'Xoops\Core\Database\Schema\ExportVisitor';
 	

@@ -32,7 +32,7 @@ class XoopsDatabaseTestInstance extends XoopsDatabase
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsDatabaseTest extends MY_UnitTestCase
+class XoopsDatabaseTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsDatabaseTestInstance';
 

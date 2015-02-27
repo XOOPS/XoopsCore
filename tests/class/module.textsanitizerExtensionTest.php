@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Module_MyTextSanitizerExtensionTest extends MY_UnitTestCase
+class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'MyTextSanitizerExtension';
     protected $ts = null;

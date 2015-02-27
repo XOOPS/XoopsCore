@@ -19,7 +19,7 @@ class XoopsObjectHandlerTest_XoopsObjectInstance extends Xoops\Core\Kernel\Xoops
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsObjectHandlerTest extends MY_UnitTestCase
+class XoopsObjectHandlerTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myClass = 'XoopsObjectHandlerTestInstance';
 	protected $classObject = 'XoopsObjectHandlerTest_XoopsObjectInstance';

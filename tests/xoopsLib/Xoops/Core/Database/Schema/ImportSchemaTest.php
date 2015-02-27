@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Type;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ImportSchemaTest extends MY_UnitTestCase
+class ImportSchemaTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'Xoops\Core\Database\Schema\ImportSchema';
 	

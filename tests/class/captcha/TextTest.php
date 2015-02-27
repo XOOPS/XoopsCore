@@ -9,7 +9,7 @@ require_once(XOOPS_ROOT_PATH.'/class/captcha/text.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class TextTest extends MY_UnitTestCase
+class TextTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsCaptchaText';
        

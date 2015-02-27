@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/iframe/iframe.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsIframeTest extends MY_UnitTestCase
+class MytsIframeTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsIframe';
 	

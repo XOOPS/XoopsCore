@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class CachemodelTest extends MY_UnitTestCase
+class CachemodelTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsCachemodelObject';
     

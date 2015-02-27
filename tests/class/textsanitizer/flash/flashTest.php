@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/flash/flash.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsFlashTest extends MY_UnitTestCase
+class MytsFlashTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsFlash';
 	

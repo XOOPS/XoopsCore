@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/censor/censor.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsCensorTest extends MY_UnitTestCase
+class MytsCensorTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsCensor';
 	

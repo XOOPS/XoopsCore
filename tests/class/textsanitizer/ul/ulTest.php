@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/ul/ul.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsUlTest extends MY_UnitTestCase
+class MytsUlTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsTextfilter';
 	

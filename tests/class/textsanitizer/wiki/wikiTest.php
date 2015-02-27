@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/wiki/wiki.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsWikiTest extends MY_UnitTestCase
+class MytsWikiTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsWiki';
 	

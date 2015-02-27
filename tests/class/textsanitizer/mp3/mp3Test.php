@@ -8,7 +8,7 @@ require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/mp3/mp3.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MytsMp3Test extends MY_UnitTestCase
+class MytsMp3Test extends \PHPUnit_Framework_TestCase
 {
 	protected $myclass = 'MytsMp3';
 	
