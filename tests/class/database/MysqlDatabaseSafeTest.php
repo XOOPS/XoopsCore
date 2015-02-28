@@ -17,11 +17,13 @@ class XoopsMySQLDatabaseSafeTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
 	{	
 		$instance = new $this->myclass();
+        $this->markTestIncomplete();
     }
 	
 	public function test_query()
 	{
 		// query
+        $this->markTestIncomplete();
 	}
 
 }

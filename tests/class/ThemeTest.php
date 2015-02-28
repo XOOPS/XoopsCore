@@ -38,6 +38,6 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(), $theme->htmlHeadStrings);
         $this->assertSame(array(), $theme->templateVars);
         $this->assertSame(true, $theme->use_extra_cache_id);
-        $this->assertSame('file', $theme->headersCacheEngine);
+        $this->assertSame('default', $theme->headersCacheEngine);
     }
 }

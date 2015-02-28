@@ -17,41 +17,49 @@ class SqlUtilityTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
 	{
 		$instance = new $this->myclass();
+        $this->markTestIncomplete();
     }
 	
 	public function test_splitMySqlFile()
 	{
 		// splitMySqlFile
+        $this->markTestIncomplete();
 	}
 	
 	public function test_prefixQuery()
 	{
 		// prefixQuery
+        $this->markTestIncomplete();
 	}
 	
 	public function test_fromPrefix()
 	{
 		// fromPrefix
+        $this->markTestIncomplete();
 	}
 	
 	public function test_joinPrefix()
 	{
 		//  joinPrefix
+        $this->markTestIncomplete();
 	}
 	
 	public function test_innerJoinPrefix()
 	{
 		//  innerJoinPrefix
+        $this->markTestIncomplete();
 	}
 	
 	public function test_leftJoinPrefix()
 	{
 		//  leftJoinPrefix
+        $this->markTestIncomplete();
 	}
 	
 	public function test_rightJoinPrefix()
 	{
 		// rightJoinPrefix
+        $this->markTestIncomplete();
 	}
 
 }
