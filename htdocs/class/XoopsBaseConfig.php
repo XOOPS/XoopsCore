@@ -45,7 +45,7 @@ class XoopsBaseConfig
             if ($yamlString === false) {
                 throw new \Exception('XoopsBaseConfig failed to load configuration.');
             }
-            $libPath = $this->solveChickenEgg($yamlString);
+            $libPath = $this->extractLibPath($yamlString);
             \XoopsLoad::startAutoloader($libPath);
             self::$configs = Yaml::loadWrapped($yamlString);
         } elseif (is_array($config)) {
@@ -78,7 +78,7 @@ class XoopsBaseConfig
     }
 
     /**
-     * solveChickenEgg
+     * extractLibPath - solve a which comes first, chicken or egg type problem
      *
      * The yaml file we can load has the path we need to set up the autoloader we need
      * to reach our yaml library. We solve this by looking through the raw yaml file
@@ -91,7 +91,7 @@ class XoopsBaseConfig
      *
      * @return string the extracted lib-path value
      */
-    final private function solveChickenEgg($filecontents)
+    final private function extractLibPath($filecontents)
     {
         $match = array();
         $matched = preg_match('/[.\v]*^lib-path\h*\:\h*[\']?([^\'\v]*)[\']?\h*$[.\v]*/m', $filecontents, $match);
@@ -108,11 +108,7 @@ class XoopsBaseConfig
      */
     final public static function get($name)
     {
-        if (isset(self::$configs[$name])) {
-            return self::$configs[$name];
-        } else {
-            return null;
-        }
+        return (isset(self::$configs[$name])) ? self::$configs[$name] : null;
     }
 
     /**
@@ -206,7 +202,7 @@ class XoopsBaseConfig
      */
     final public static function bootstrapTransition()
     {
-        $path = defined('XOOPS_ROOT_PATH') ? XOOPS_ROOT_PATH :  basename(__DIR__);
+        $path = self::defineDefault('XOOPS_ROOT_PATH', basename(__DIR__));
         $url = (defined('XOOPS_URL')) ?
             XOOPS_URL :
             ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://')
@@ -218,26 +214,42 @@ class XoopsBaseConfig
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
         $configs = array(
-            'root-path' => defined('XOOPS_ROOT_PATH') ? XOOPS_ROOT_PATH :  'XOOPS_ROOT_PATH',
-            'lib-path' => defined('XOOPS_PATH') ? XOOPS_PATH : 'XOOPS_PATH',
-            'var-path' => defined('XOOPS_VAR_PATH') ? XOOPS_VAR_PATH : 'XOOPS_VAR_PATH',
-            'trust-path' => defined('XOOPS_TRUST_PATH') ? XOOPS_TRUST_PATH : 'XOOPS_TRUST_PATH',
-            'url' => defined('XOOPS_URL') ? XOOPS_URL : 'XOOPS_URL',
-            'prot' => defined('XOOPS_PROT') ? XOOPS_PROT : 'XOOPS_PROT',
+            'root-path' => self::defineDefault('XOOPS_ROOT_PATH'),
+            'lib-path' => self::defineDefault('XOOPS_PATH'),
+            'var-path' => self::defineDefault('XOOPS_VAR_PATH'),
+            'trust-path' => self::defineDefault('XOOPS_TRUST_PATH'),
+            'url' => self::defineDefault('XOOPS_URL'),
+            'prot' => self::defineDefault('XOOPS_PROT'),
             'asset-path' => $path . '/assets',
             'asset-url' => $url . '/assets',
             'cookie-domain' => $host,
             'cookie-path' => $urlpath,
-            'db-type' => defined('XOOPS_DB_TYPE') ? XOOPS_DB_TYPE : 'XOOPS_DB_TYPE',
+            'db-type' => self::defineDefault('XOOPS_DB_TYPE'),
             'db-charset' => 'utf8',
-            'db-prefix' => defined('XOOPS_DB_PREFIX') ? XOOPS_DB_PREFIX : 'XOOPS_DB_PREFIX',
-            'db-host' => defined('XOOPS_DB_HOST') ? XOOPS_DB_HOST : 'XOOPS_DB_HOST',
-            'db-user' => defined('XOOPS_DB_USER') ? XOOPS_DB_USER : 'XOOPS_DB_USER',
-            'db-pass' => defined('XOOPS_DB_PASS') ? XOOPS_DB_PASS : 'XOOPS_DB_PASS',
-            'db-name' => defined('XOOPS_DB_NAME') ? XOOPS_DB_NAME : 'XOOPS_DB_NAME',
+            'db-prefix' => self::defineDefault('XOOPS_DB_PREFIX'),
+            'db-host' => self::defineDefault('XOOPS_DB_HOST'),
+            'db-user' => self::defineDefault('XOOPS_DB_USER'),
+            'db-pass' => self::defineDefault('XOOPS_DB_PASS'),
+            'db-name' => self::defineDefault('XOOPS_DB_NAME'),
             'db-pconnect' => 0,
             'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
         );
         self::getInstance($configs);
+    }
+
+    /**
+     * defineDefault - return a constant if it is defined, or a default value if not.
+     * If no default is specified, the define name will be used if needed.
+     *
+     * @param string      $define  a define constant name
+     * @param string|null $default default value to return if $define is not defined
+     *
+     * @return string value of define or default
+     */
+    private function defineDefault($define, $default = null)
+    {
+        $default = ($default === null) ? $define : $default;
+        $return = defined($define) ? constant($define) : $default;
+        return $return;
     }
 }
