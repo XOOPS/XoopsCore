@@ -75,7 +75,8 @@ if ($xoops->getConfig('admin_warnings_enable')) {
     $xoops->tpl()->assign('error_msg', $error_msg);
 }
 
-if (!empty(Request::getString('xoopsorgnews', null, 'GET'))) {
+$xoopsorgnews = Request::getString('xoopsorgnews', null, 'GET');
+if (!empty($xoopsorgnews)) {
     // Multiple feeds
     $myts = MyTextSanitizer::getInstance();
     $rssurl = array();
