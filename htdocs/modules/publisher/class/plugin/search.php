@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Module\Plugin\PluginAbstract;
+use Xmf\Metagen;
+
 /**
  *  Publisher class
  *
@@ -21,7 +24,7 @@
  * @version         $Id$
  */
 
-class PublisherSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements SearchPluginInterface
+class PublisherSearchPlugin extends PluginAbstract implements SearchPluginInterface
 {
     public function search($queryarray, $andor, $limit, $offset, $userid)
     {
@@ -59,25 +62,7 @@ class PublisherSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implement
             }
             $item['time'] = $obj->getVar('datesub'); //must go has unix timestamp
             $item['uid'] = $obj->getVar('uid');
-            //"Fulltext search/highlight
-            $text = $obj->body();
-            $sanitized_text = "";
-            $text_i = strtolower($text);
-            $queryarray = is_array($queryarray) ? $queryarray : array($queryarray);
-
-            //@todo look into xoopslocal
-            if ($hightlight_key != '') {
-                foreach ($queryarray as $query) {
-                    $pos = strpos($text_i, strtolower($query)); //xoops_local("strpos", $text_i, strtolower($query));
-                    $start = max(($pos - 100), 0);
-                    $length = strlen($query) + 200; //xoops_local("strlen", $query) + 200;
-                    $context = $obj->highlight(XoopsLocale::substr($text, $start, $length, " [...]"), $query);
-                    $sanitized_text .= "<p>[...] " . $context . "</p>";
-                }
-            }
-
-            //End of highlight
-            $item['text'] = $sanitized_text;
+            $item['content'] = Metagen::getSearchSummary($obj->body(), $queryarray);
             $item['author'] = $obj->getVar('author_alias');
             $item['datesub'] = $obj->datesub($publisher->getConfig('format_date'));
             $usersIds[$obj->getVar('uid')] = $obj->getVar('uid');
