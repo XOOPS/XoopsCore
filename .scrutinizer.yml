@@ -1,6 +1,6 @@
 filter:
     excluded_paths:
-        - 'UnitTestXoops/*'
+        - 'tests/*'
 checks:
     php:
         code_rating: true

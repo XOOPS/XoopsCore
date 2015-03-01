@@ -110,35 +110,44 @@ class Manager
         return $instance;
     }
 
+    /**
+     * readYamlProviderPrefs - read configured provider preferences from file
+     *
+     * @return array of configured provider preferences
+     */
+    protected function readYamlProviderPrefs()
+    {
+        $xoops = \Xoops::getInstance();
+
+        $providerPrefs = array();
+
+        try {
+            $file = $xoops->path($this->providerPrefsFilename);
+            if (file_exists($file)) {
+                $providerPrefs = Yaml::read($xoops->path($file));
+            }
+            if (empty($providerPrefs)) {
+                $providerPrefs = array();
+            }
+        } catch (\Exception $e) {
+            $xoops->events()->triggerEvent('core.exception', $e);
+            $providerPrefs = array();
+        }
+        return $providerPrefs;
+    }
 
     /**
-     * readProviderPrefs - read configured provider preferences
+     * readProviderPrefs - read configured provider preferences from cache
      *
      * @return array of configured provider preferences
      */
     protected function readProviderPrefs()
     {
         $xoops = \Xoops::getInstance();
-
-        $regen = function() use ($xoops) {
-            $providerPrefs = array();
-
-            try {
-                $file = $xoops->path($this->providerPrefsFilename);
-                if (file_exists($file)) {
-                    $providerPrefs = Yaml::read($xoops->path($file));
-                }
-                if (empty($providerPrefs)) {
-                    $providerPrefs = array();
-                }
-            } catch (\Exception $e) {
-                $xoops->events()->triggerEvent('core.exception', $e);
-                $providerPrefs = array();
-            }
-            return $providerPrefs;
-        };
-
-        $providerPrefs = $xoops->cache()->cacheRead($this->providerPrefsCacheKey, $regen);
+        $providerPrefs = $xoops->cache()->cacheRead(
+            $this->providerPrefsCacheKey,
+            array($this, 'readYamlProviderPrefs')
+        );
         return $providerPrefs;
     }
 
