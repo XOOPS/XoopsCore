@@ -28,6 +28,12 @@ class Metagen
 {
 
     /**
+     * Unicode horizontal ellipsis U+2026
+     * This will be used to replace omitted text.
+     */
+    const ELLIPSIS = "…"; // unicode horizontal ellipsis U+2026
+
+    /**
      * assignTitle set the page title
      *
      * @param string $title page title
@@ -39,9 +45,8 @@ class Metagen
         global $xoopsTpl, $xoTheme;
 
         $title = trim($title);
+        $title = self::asPlainText($title);
         if (!empty($title)) {
-            $title = Utilities::html2text($title);
-            $title = Utilities::purifyText($title);
             if (is_object($xoTheme)) {
                 $xoTheme->addMeta('meta', 'title', $title);
             }
@@ -97,10 +102,10 @@ class Metagen
     /**
      * generateKeywords builds a set of keywords from text body
      *
-     * @param string $body      text to extract keywords from
-     * @param int    $count     number of keywords to use
-     * @param int    $minLength minimum length of word to consider as a keyword
-     * @param mixed  $forceKeys array of keywords to force use, or null for none
+     * @param string       $body      text to extract keywords from
+     * @param integer      $count     number of keywords to use
+     * @param integer      $minLength minimum length of word to consider as a keyword
+     * @param string[]null $forceKeys array of keywords to force use, or null for none
      *
      * @return array of keywords
      */
@@ -116,15 +121,8 @@ class Metagen
             $forceKeys = array();
         }
 
-        $text = trim($body);
-        $text = strtolower($text);
-        $text = Utilities::html2text($text);
-        $text = Utilities::purifyText($text);
-
-        $text = preg_replace("/([^\r\n])\r\n([^\r\n])/", "\\1 \\2", $text);
-        $text = preg_replace("/[\r\n]*\r\n[\r\n]*/", "\r\n\r\n", $text);
-        $text = preg_replace("/[ ]* [ ]*/", ' ', $text);
-        $text = StripSlashes($text);
+        $text = self::asPlainText($body);
+        $text = mb_strtolower($text);
 
         $originalKeywords = preg_split(
             '/[^a-zA-Z\'"-]+/',
@@ -140,11 +138,8 @@ class Metagen
                     if (self::checkStopWords($secondRoundKeyword)
                         && strlen($secondRoundKeyword) >= $minLength
                     ) {
-                        if (empty($keycnt[$secondRoundKeyword])) {
-                            $keycnt[$secondRoundKeyword] = 1;
-                        } else {
-                            $keycnt[$secondRoundKeyword] += 1;
-                        }
+                        $keycnt[$secondRoundKeyword] =
+                            empty($keycnt[$secondRoundKeyword]) ? 1 : $keycnt[$secondRoundKeyword] + 1;
                     }
                 }
             }
@@ -186,7 +181,7 @@ class Metagen
             }
         }
         if ($stopwords) {
-            return !isset($stopwords[$key]);
+            return !isset($stopwords[mb_strtolower($key)]);
         }
         return true;
     }
@@ -201,10 +196,8 @@ class Metagen
      */
     public static function generateDescription($body, $wordCount = 100)
     {
-        $text = preg_replace("/([^\r\n])\r\n([^\r\n])/", "\\1 \\2", $body);
-        $text = preg_replace("/[\r\n]*\r\n[\r\n]*/", "\r\n\r\n", $text);
-        $text = preg_replace("/[ ]* [ ]*/", ' ', $text);
-        $text = StripSlashes($text);
+        $text = self::asPlainText($body);
+
         $words = explode(" ", $text);
 
         // Only keep $maxWords words
@@ -215,18 +208,11 @@ class Metagen
             $i++;
         }
         $ret = implode(' ', $newWords);
-        if (function_exists('mb_strlen')) {
-            $len = mb_strlen($ret);
-            $lastperiod = mb_strrpos($ret, '.');
-            if ($len>100 && ($len-$lastperiod)<30) {
-                $ret = mb_substr($ret, 0, $lastperiod+1);
-            }
-        } else {
-            $len = strlen($ret);
-            $lastperiod = strrpos($ret, '.');
-            if ($len>100 && ($len-$lastperiod)<30) {
-                $ret = substr($ret, 0, $lastperiod+1);
-            }
+        $len = mb_strlen($ret);
+        $lastperiod = mb_strrpos($ret, '.');
+        $ret .= ($lastperiod === false) ? self::ELLIPSIS : '';
+        if ($len>100 && ($len-$lastperiod)<30) {
+            $ret = mb_substr($ret, 0, $lastperiod+1);
         }
 
         return $ret;
@@ -277,14 +263,14 @@ class Metagen
     /**
      * Create a title for the short_url field of an article
      *
-     * @param string $title   title of the article
-     * @param bool   $withExt do we add an html extension or not
+     * @param string $title     title of the article
+     * @param bool   $extension extension to add
      *
      * @return string sort_url for the article
      *
      * @author psylove
      */
-    public static function generateSeoTitle($title = '', $withExt = true)
+    public static function generateSeoTitle($title = '', $extension = '')
     {
         $title = preg_replace("/[^a-zA-Z0-9]/", "-", $title);
         $title = \Normalizer::normalize($title, \Normalizer::FORM_C);
@@ -294,73 +280,98 @@ class Metagen
         $tableau = array_filter($tableau, 'self::checkStopWords');
         $title = implode("-", $tableau);
 
-        if (sizeof($title) > 0) {
-            if ($withExt) {
-                $title .= '.html';
-            }
-
-            return $title;
-        } else {
-            return '';
-        }
+        $title = (empty($title)) ? '' : $title . $extension;
+        return $title;
     }
 
     /**
-     * getSearchSummary splits a string into string no larger then a
+     * getSearchSummary splits a string into string no larger than a
      * specified length, and centered around the first occurance
      * of any of an array of needles, or starting at the begining
      * of the string if no needles are specified or found.
      *
-     * The string will be broken on spaces and an elipse (...)
-     * will be added to the string when broken.
+     * The string will be broken on spaces and an ellipsis (...) will be
+     * added to the string when broken.
      *
      * @param string $haystack the string to summarize
      * @param mixed  $needles  search term, array of search terms, or null
      * @param int    $length   maxium length for the summary
-     * @param string $encoding encoding of the haystack, default UTF-8
      *
      * @return string a substring of haystack
      */
-    public static function getSearchSummary($haystack, $needles = null, $length = 120, $encoding = 'UTF-8')
+    public static function getSearchSummary($haystack, $needles = null, $length = 120)
     {
+        $encoding = 'UTF-8';
 
-        $haystack = Utilities::html2text($haystack);
-        $haystack = Utilities::purifyText($haystack);
+        $haystack = self::asPlainText($haystack);
+        $pos = self::getNeedlePositions($haystack, $needles);
 
-        $ellipsis = "…"; // unicode horizontal ellipsis U+2026
-
-        $pos=array();
-
-        if (!empty($needles)) {
-            $needles = (array) $needles;
-            foreach ($needles as $needle) {
-                $i = mb_stripos($haystack, $needle, 0, $encoding);
-                if ($i!==false) {
-                    $pos[] = $i; // only store matches
-                }
-            }
-        }
         $start = empty($pos) ? 0 : min($pos);
 
         $start = max($start - (int)($length/2), 0);
 
-        $pre = ($start > 0); // do we need an ellipsis (...) in front?
+        $pre = ($start > 0); // need an ellipsis in front?
         if ($pre) {
             // we are not at the begining so find first blank
-            $start=mb_strpos($haystack, ' ', $start, $encoding);
-            $haystack=mb_substr($haystack, $start, null, $encoding);
+            $temp = mb_strpos($haystack, ' ', $start, $encoding);
+            $start = ($temp === false) ? $start : $temp;
+            $haystack = mb_substr($haystack, $start, null, $encoding);
         }
 
-        $post=!(mb_strlen($haystack, $encoding)<$length);  // do we need an ellipsis (...) in back?
+        $post = !(mb_strlen($haystack, $encoding) < $length);  // need an ellipsis in back?
         if ($post) {
-            $haystack=mb_substr($haystack, 0, $length, $encoding);
-            $end=mb_strrpos($haystack, ' ', 0, $encoding);
+            $haystack = mb_substr($haystack, 0, $length, $encoding);
+            $end = mb_strrpos($haystack, ' ', 0, $encoding);
             if ($end) {
-                $haystack=mb_substr($haystack, 0, $end, $encoding);
+                $haystack = mb_substr($haystack, 0, $end, $encoding);
             }
         }
 
-        $haystack = ($pre ? $ellipsis : '') . $haystack . ($post ? $ellipsis : '');
+        $haystack = ($pre ? self::ELLIPSIS : '') . trim($haystack) . ($post ? self::ELLIPSIS : '');
         return $haystack;
+    }
+
+    /**
+     * asPlainText - clean string to be plain text, without control characters
+     * such as newlines, html markup, or leading trailing or repeating spaces.
+     *
+     * @param string $rawText a text string to be cleaned
+     * @return string
+     */
+    protected static function asPlainText($rawText)
+    {
+        $text = $rawText;
+        $utilities = new Utilities();
+        $text = $utilities->html2text($text);
+        $text = $utilities->purifyText($text);
+
+        $text = str_replace(array("\n", "\r"), ' ', $text);
+        $text = preg_replace('/[ ]* [ ]*/', ' ', $text);
+
+        return trim($text);
+    }
+
+    /**
+     * getNeedlePositions - Esentially this is a strpos() for an array of needles.
+     * Given a haystack and an array of needles, return an array of all initial
+     * positions, if any, of those needles in that haystack.
+     *
+     *
+     * @param string $haystack the string to summarize
+     * @param mixed  $needles  search term, array of search terms, or null
+     *
+     * @return integer[] array of initial positions of substring of haystack
+     */
+    private static function getNeedlePositions($haystack, $needles)
+    {
+        $pos=array();
+        $needles = empty($needles) ? array() : (array) $needles;
+        foreach ($needles as $needle) {
+            $i = mb_stripos($haystack, $needle, 0, 'UTF-8');
+            if ($i!==false) {
+                $pos[] = $i; // only store matches
+            }
+        }
+        return $pos;
     }
 }
