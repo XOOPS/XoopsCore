@@ -44,8 +44,8 @@ defined('NWLINE')or define('NWLINE', "\n");
 /**
  * Include files with definitions
  */
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
+include_once __DIR__ . '/defines.php';
+include_once __DIR__ . '/version.php';
 
 /**
  * We now have autoloader, so start Patchwork\UTF8
@@ -56,9 +56,8 @@ include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
 
 /**
  * Create Instance of Xoops Object
- * Atention, not all methods can be used at this point
+ * Attention, not all methods can be used at this point
  */
-
 $xoops = Xoops::getInstance();
 
 $xoops->option =& $GLOBALS['xoopsOption'];
@@ -72,11 +71,28 @@ $xoopsLogger = $xoops->logger();
  * initialize events
  */
 $xoops->events()->initializeListeners();
+
 $psr4loader = new \Xoops\Core\Psr4ClassLoader();
 $psr4loader->register();
 // listeners respond with $arg->addNamespace($namespace, $directory);
 $xoops->events()->triggerEvent('core.include.common.psr4loader', $psr4loader);
 $xoops->events()->triggerEvent('core.include.common.classmaps');
+
+/**
+ * Create Instance of xoopsSecurity Object and check super globals
+ */
+$xoops->events()->triggerEvent('core.include.common.security');
+$xoopsSecurity = $xoops->security();
+
+/**
+ * Get database for making it global
+ * Will also setup $xoopsDB for legacy support.
+ * Requires XOOPS_DB_PROXY;
+ */
+$xoops->db();
+//For Legacy support
+$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
+
 $xoops->events()->triggerEvent('core.include.common.start');
 
 /**
@@ -85,12 +101,6 @@ $xoops->events()->triggerEvent('core.include.common.start');
 if (isset($delayedWarning)) {
     trigger_error($delayedWarning);
 }
-
-/**
- * Create Instance of xoopsSecurity Object and check super globals
- */
-$xoops->events()->triggerEvent('core.include.common.security');
-$xoopsSecurity = $xoops->security();
 
 /**
  * Include Required Files not handled by autoload
@@ -117,19 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XO
 }
 
 /**
- * Get database for making it global
- * Will also setup $xoopsDB for legacy support.
- * Requires XOOPS_DB_PROXY;
- */
-$xoops->db();
-//For Legacy support
-$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
-
-/**
  * Get xoops configs
  * Requires functions and database loaded
  */
-
 $xoops->getConfigs();
 $xoopsConfig =& $xoops->config;
 

@@ -117,7 +117,15 @@ class Connection extends \Doctrine\DBAL\Connection
         }
         self::setForce(false);
         self::$transactionActive = false;
-        parent::__construct($params, $driver, $config, $eventManager);
+        try {
+            parent::__construct($params, $driver, $config, $eventManager);
+        } catch (\Exception $e) {
+            // We are dead in the water. This exception may contain very sensitive
+            // information and cannot be allowed to be displayed as is.
+            //$xoopsPreload->triggerEvent('core.exception', $e);
+            trigger_error("Cannot get database connection", E_USER_ERROR);
+        }
+
     }
 
     /**

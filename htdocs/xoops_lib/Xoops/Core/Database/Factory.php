@@ -54,8 +54,9 @@ class Factory
         if (!isset($instance)) {
             $config = new \Doctrine\DBAL\Configuration();
             $config->setSQLLogger(new XoopsDebugStack());
-            if (defined('XOOPS_DB_PARAMETERS') && ($x = XOOPS_DB_PARAMETERS) && !empty($x)) {
-                $connectionParams = unserialize(XOOPS_DB_PARAMETERS);
+            $parameters = \XoopsBaseConfig::get('db-parameters');
+            if (!empty($parameters) && is_array($parameters)) {
+                $connectionParams = $parameters;
                 $connectionParams['wrapperClass'] = '\\Xoops\\Core\\Database\\Connection';
             } else {
                 $driver = 'pdo_' . XOOPS_DB_TYPE;
