@@ -176,7 +176,7 @@ class XoopsCaptchaImageHandler
      *  Originated by DuGris' SecurityImage
      *
      * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
-     * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+     * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
      * @author          DuGris aka L. Jen <http://www.dugris.info> <DuGris@wanadoo.fr>
      * @version         $Id$
      *
