@@ -246,7 +246,7 @@ class XoopsBaseConfig
      *
      * @return string value of define or default
      */
-    private function defineDefault($define, $default = null)
+    private static function defineDefault($define, $default = null)
     {
         $default = ($default === null) ? $define : $default;
         $return = defined($define) ? constant($define) : $default;
