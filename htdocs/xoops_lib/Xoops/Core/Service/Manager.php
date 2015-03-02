@@ -115,7 +115,7 @@ class Manager
      *
      * @return array of configured provider preferences
      */
-    protected function readYamlProviderPrefs()
+    public function readYamlProviderPrefs()
     {
         $xoops = \Xoops::getInstance();
 

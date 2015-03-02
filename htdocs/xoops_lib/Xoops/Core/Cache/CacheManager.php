@@ -80,7 +80,7 @@ class CacheManager
                 'options' => array(
                     'path' => \XoopsBaseConfig::get('var-path') . '/caches/xoops_cache/stash/',
                     ),
-                    'dirSplit' => 2,
+                    'dirSplit' => 1,
                 ),
             'temp' => array(
                 'driver' => 'Ephemeral',
