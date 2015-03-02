@@ -146,7 +146,7 @@ switch ($action) {
                     $modules_result[$mid]['image'] = $xoops->url('images/icons/posticon2.gif');
                 }
                 $res = array();
-                for ($i = 0; $i < $count; $i++) {
+                for ($i = 0; $i < $count; ++$i) {
                     if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                         $res[$i]['link'] = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $results[$i]['link']);
                     } else {
@@ -209,7 +209,7 @@ switch ($action) {
             }
             $xoops->tpl()->assign('sr_showing', sprintf(_MD_SEARCH_SHOWING, $start + 1, $start + $count));
             $res = array();
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 if (isset($results[$i]['image']) && $results[$i]['image'] != "") {
                     $res[$i]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $results[$i]['image']);
                 } else {

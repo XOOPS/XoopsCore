@@ -74,7 +74,7 @@ $newRatingObj->setVar('date', time());
 $publisher->getRatingHandler()->insert($newRatingObj);
 
 $current_rating += $rating;
-$count++;
+++$count;
 
 $publisher->getItemHandler()->updateAll('rating', number_format($current_rating / $count, 4), $criteria, true);
 $publisher->getItemHandler()->updateAll('votes', $count, $criteria, true);

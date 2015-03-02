@@ -751,7 +751,7 @@ class PublisherItem extends XoopsObject
                 ->getImgUrl('uploads/' . $image->getVar('image_name'), 240, 0)
                 ->getValue();
             $item['images'][$i]['name'] = $image->getVar('image_nicename');
-            $i++;
+            ++$i;
         }
         return $item;
     }
@@ -1448,7 +1448,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
         $count = count($queryarray);
         if (is_array($queryarray) && $count > 0) {
             $criteriaKeywords = new CriteriaCompo();
-            for ($i = 0; $i < count($queryarray); $i++) {
+            for ($i = 0; $i < count($queryarray); ++$i) {
                 $criteriaKeyword = new CriteriaCompo();
                 if (in_array('title', $searchin)) {
                     $criteriaKeyword->add(new Criteria('title', '%' . $queryarray[$i] . '%', 'LIKE'), 'OR');

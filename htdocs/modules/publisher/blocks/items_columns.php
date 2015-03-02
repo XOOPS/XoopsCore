@@ -124,7 +124,7 @@ function publisher_items_columns_show($options)
             $columns[$k][] = $mainitem;
             unset($thisitem);
             unset($mainitem);
-            $k++;
+            ++$k;
 
             if ($k == $opt_num_columns) {
                 $k = 0;

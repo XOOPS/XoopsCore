@@ -32,51 +32,51 @@ $i = 0;
 $adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU0;
 $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]["icon"] = 'home.png';
-$i++;
+++$i;
 
 $adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU1;
 $adminmenu[$i]['link'] = "admin/main.php";
 $adminmenu[$i]["icon"] = 'manage.png';
-$i++;
+++$i;
 
 // Category
 $adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU2;
 $adminmenu[$i]['link'] = "admin/category.php";
 $adminmenu[$i]['icon'] = 'category.png';
-$i++;
+++$i;
 
 // Items
 $adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU3;
 $adminmenu[$i]['link'] = "admin/item.php";
 $adminmenu[$i]["icon"] = 'content.png';
-$i++;
+++$i;
 
 // Permissions
 $adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU4;
 $adminmenu[$i]['link'] = "admin/permissions.php";
 $adminmenu[$i]["icon"] = 'permissions.png';
-$i++;
+++$i;
 
 // Mimetypes
 $adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU6;
 $adminmenu[$i]['link'] = "admin/mimetypes.php";
 $adminmenu[$i]["icon"] = 'type.png';
-$i++;
+++$i;
 /*
 $adminmenu[$i]['title'] = _AM_PUBLISHER_COMMENTS;
 $adminmenu[$i]['link'] = '../../modules/system/admin.php?fct=comments&amp;module=' . $publisher->getModule()->getVar('mid');
 $adminmenu[$i]["icon"] = 'folder_txt.png';
-$i++;*/
+++$i;*/
 
 $adminmenu[$i]['title'] = _AM_PUBLISHER_IMPORT;
 $adminmenu[$i]['link'] = "admin/import.php";
 $adminmenu[$i]["icon"] = 'download.png';
-$i++;
+++$i;
 
 $adminmenu[$i]['title'] = _AM_PUBLISHER_CLONE;
 $adminmenu[$i]['link'] = "admin/clone.php";
 $adminmenu[$i]["icon"] = 'wizard.png';
-$i++;
+++$i;
 
 $adminmenu[$i]['title'] = _AM_PUBLISHER_ABOUT;
 $adminmenu[$i]['link'] = "admin/about.php";

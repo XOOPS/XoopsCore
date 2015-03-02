@@ -224,7 +224,7 @@ buildTable();
 
 if ($numrows > 0) {
 
-    for ($i = 0; $i < $totalItemsOnPage; $i++) {
+    for ($i = 0; $i < $totalItemsOnPage; ++$i) {
         // Creating the category object to which this item is linked
         $categoryObj = $itemsObj[$i]->category();
         $approve = '';
