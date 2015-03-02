@@ -22,20 +22,19 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 
 $i = -1;
-$i++;
+++$i;
 $adminmenu[$i]["title"] = _MI_MENUS_ADMMENU0;
 $adminmenu[$i]["link"] = 'admin/index.php';
 $adminmenu[$i]["icon"] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_MENUSMANAGER;
 $adminmenu[$i]['link'] = "admin/admin_menus.php";
 $adminmenu[$i]["icon"] = 'manage.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_MENUMANAGER;
 $adminmenu[$i]['link'] = "admin/admin_menu.php";
 $adminmenu[$i]["icon"] = 'insert_table_row.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_ABOUT;
 $adminmenu[$i]['link'] = "admin/about.php";
 $adminmenu[$i]["icon"] = 'about.png';
-

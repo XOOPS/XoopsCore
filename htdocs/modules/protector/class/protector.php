@@ -357,7 +357,7 @@ class Protector
             if ($jailed_time >= time()) {
                 break;
             }
-            $pos++;
+            ++$pos;
         }
         $bad_ips = array_slice($bad_ips, $pos);
 
@@ -1134,7 +1134,7 @@ class Protector
             $count = -1;
             foreach (preg_split('#https?\:\/\/#i', $val) as $fragment) {
                 if (strncmp($fragment, $http_host, strlen($http_host)) !== 0) {
-                    $count++;
+                    ++$count;
                 }
             }
             if ($count > 0) {

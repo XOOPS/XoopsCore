@@ -504,7 +504,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                     unset($confop);
                 }
             }
-            $order++;
+            ++$order;
             $config_handler->insertConfig($confobj);
         }
     }
