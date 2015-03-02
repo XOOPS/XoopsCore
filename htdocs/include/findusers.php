@@ -408,7 +408,7 @@ if (empty($_POST["user_submit"])) {
                     } else {
                         $class = 'odd';
                     }
-                    $ucount++;
+                    ++$ucount;
                     $fuser_name = $foundusers[$j]->getVar("name") ? $foundusers[$j]->getVar("name") : "&nbsp;";
                     echo "<tr class='$class'>
                     <td align='center'>";
@@ -477,7 +477,7 @@ if (empty($_POST["user_submit"])) {
                                 }
                             }
                         }
-                        $counter++;
+                        ++$counter;
                     }
                 } else {
                     while ($counter <= $totalpages) {
@@ -494,7 +494,7 @@ if (empty($_POST["user_submit"])) {
                                 }
                             }
                         }
-                        $counter++;
+                        ++$counter;
                     }
                 }
 

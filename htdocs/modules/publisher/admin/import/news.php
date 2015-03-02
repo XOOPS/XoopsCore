@@ -145,7 +145,7 @@ if ($op == 'go') {
         }
 
         $newCat['newid'] = $categoryObj->getVar('categoryid');
-        $cnt_imported_cat++;
+        ++$cnt_imported_cat;
 
         echo sprintf(_AM_PUBLISHER_IMPORT_CATEGORY_SUCCESS, $categoryObj->getVar('name')) . "<br\>";
 
@@ -220,7 +220,7 @@ if ($op == 'go') {
                  */
                 $newArticleArray[$arrArticle['storyid']] = $itemObj->getVar('itemid');
                 echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_ARTICLE, $itemObj->title()) . "<br />";
-                $cnt_imported_articles++;
+                ++$cnt_imported_articles;
             }
         }
 

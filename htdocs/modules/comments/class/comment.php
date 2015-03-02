@@ -227,7 +227,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
             if (is_array($comments)) {
                 $count = count($comments);
                 $deleted_num = array();
-                for ($i = 0; $i < $count; $i++) {
+                for ($i = 0; $i < $count; ++$i) {
                     if (false != $this->delete($comments[$i])) {
                         // store poster ID and deleted post number into array for later use
                         $poster_id = $comments[$i]->getVar('uid');

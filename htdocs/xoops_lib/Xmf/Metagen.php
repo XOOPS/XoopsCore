@@ -205,7 +205,7 @@ class Metagen
         $i = 0;
         while ($i < $wordCount - 1 && $i < count($words)) {
             $newWords[] = $words[$i];
-            $i++;
+            ++$i;
         }
         $ret = implode(' ', $newWords);
         $len = mb_strlen($ret);

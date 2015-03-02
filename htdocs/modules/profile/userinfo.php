@@ -207,7 +207,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
                 $results = $plugin->search('', '', 5, 0, $thisUser->getVar('uid'));
                 $count = count($results);
                 if (is_array($results) && $count > 0) {
-                    for ($i = 0; $i < $count; $i++) {
+                    for ($i = 0; $i < $count; ++$i) {
                         if (isset($results[$i]['image']) && $results[$i]['image'] != '') {
                             $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname', 'n') . '/' . $results[$i]['image'];
                         } else {

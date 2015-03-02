@@ -56,7 +56,7 @@ function publisher_items_new_show($options)
 
     $totalitems = count($itemsObj);
     if ($itemsObj) {
-        for ($i = 0; $i < $totalitems; $i++) {
+        for ($i = 0; $i < $totalitems; ++$i) {
 
             $item = array();
             $item['link'] = $itemsObj[$i]->getItemLink(false, isset($options[4]) ? $options[4] : 65);

@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $content .= "    <td class='yesno'>";
         $content .= $moduleYN->render();
         $content .= "    </td></tr>\n";
-        $toinstal++;
+        ++$toinstal;
     }
     $content .= "</table>";
     $content .= "</li></ul><script type='text/javascript'>" . $javascript . "</script>";

@@ -13,7 +13,7 @@
  * XOOPS page navigation
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
  * @author      Kazumi Ono (http://www.myweb.ne.jp/, http://jp.xoops.org/)
@@ -139,7 +139,7 @@ class XoopsPageNav
                     }
                     $xoops->tpl()->appendByRef('xo_nav', $nav);
                     unset($nav);
-                    $counter ++;
+                    ++$counter;
                 }
                 $xoops->tpl()->assign('last', $last);
                 $xoops->tpl()->assign('last_text', $last_text);
@@ -194,7 +194,7 @@ class XoopsPageNav
                 }
                 $xoops->tpl()->appendByRef('xo_select', $select);
                 unset($select);
-                $counter ++;
+                ++$counter;
             }
         }
         $xoops->tpl()->assign('onchange', "location=this.options[this.options.selectedIndex].value;");

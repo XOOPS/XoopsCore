@@ -44,7 +44,7 @@ class CodexMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements Men
                 $fileName = ucfirst(str_replace('.php', '', $file));
                 $ret[$i]['name'] = $fileName;
                 $ret[$i]['url'] = $file;
-                $i++;
+                ++$i;
             }
         }
 

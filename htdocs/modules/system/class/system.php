@@ -15,7 +15,7 @@
  * @package     System
  * @author      Andricq Nicolas (AKA MusS)
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 class System
 {
@@ -178,7 +178,7 @@ class System
         $total_smarty_compile = 0;
         $total_xoops_cache = 0;
         if (!empty($cache)) {
-            for ($i = 0; $i < count($cache); $i++) {
+            for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {
                     case 1:
                         $files = glob($cachePath . 'smarty_cache/*.*');
@@ -186,7 +186,7 @@ class System
                         foreach ($files as $filename) {
                             if (basename(strtolower($filename)) != 'index.html') {
                                 unlink($filename);
-                                $total_smarty_cache++;
+                                ++$total_smarty_cache;
                             }
                         }
                         break;
@@ -197,7 +197,7 @@ class System
                         foreach ($files as $filename) {
                             if (basename(strtolower($filename)) != 'index.html') {
                                 unlink($filename);
-                                $total_smarty_compile++;
+                                ++$total_smarty_compile;
                             }
                         }
                         break;
@@ -211,7 +211,7 @@ class System
                         foreach ($files as $filename) {
                             if (basename(strtolower($filename)) != 'index.html') {
                                 unlink($filename);
-                                $total_xoops_cache++;
+                                ++$total_xoops_cache;
                             }
                         }
                         $total_xoops_cache = $status || ($total_xoops_cache>0);

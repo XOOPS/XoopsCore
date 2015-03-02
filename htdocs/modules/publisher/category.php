@@ -178,7 +178,7 @@ if (count($itemsObj) > 0) {
     */
     // Adding the items of the selected category
 
-    for ($i = 0; $i < $totalItemOnPage; $i++) {
+    for ($i = 0; $i < $totalItemOnPage; ++$i) {
         $item = $itemsObj[$i]->toArray('default', $publisher->getConfig('item_title_size'));
         $item['categoryname'] = $categoryObj->getVar('name');
         $item['categorylink'] = "<a href='" . PublisherUtils::seoGenUrl('category', $itemsObj[$i]->getVar('categoryid'), $categoryObj->getVar('short_url')) . "'>" . $categoryObj->getVar('name') . "</a>";

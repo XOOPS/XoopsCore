@@ -142,7 +142,7 @@ if ($op == 'go') {
         PublisherUtils::saveCategoryPermissions($categoryObj->getGroups_read(), $categoryObj->getVar('categoryid'), 'category_read');
         PublisherUtils::saveCategoryPermissions($categoryObj->getGroups_submit(), $categoryObj->getVar('categoryid'), 'item_submit');
 
-        $cnt_imported_cat++;
+        ++$cnt_imported_cat;
 
         echo sprintf(_AM_PUBLISHER_IMPORT_CATEGORY_SUCCESS, $categoryObj->getVar('name')) . "<br\>";
 
@@ -217,7 +217,7 @@ if ($op == 'go') {
 
                 $newArticleArray[$arrArticle['articleid']] = $itemObj->getVar('itemid');
                 echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_ARTICLE, $itemObj->title()) . "<br />";
-                $cnt_imported_articles++;
+                ++$cnt_imported_articles;
             }
         }
         $newCatArray[$newCat['oldid']] = $newCat;

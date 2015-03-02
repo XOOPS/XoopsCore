@@ -1345,7 +1345,7 @@ class Xoops
             'st', 'fi', 'rst', 'gr', 'oup', 'boy', 'ea', 'gle', 'tr', 'ail', 'bi', 'ble', 'brb', 'pri', 'dee', 'kay',
             'en', 'be', 'se'
         );
-        for ($count = 1; $count <= 4; $count++) {
+        for ($count = 1; $count <= 4; ++$count) {
             if (1 == rand() % 10) {
                 $makepass .= sprintf('%0.0f', (rand() % 50) + 1);
             } else {

@@ -6,7 +6,7 @@
  * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
  *
  * @copyright   The XOOPS project http://www.xoops.org/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Skalpa Keo <skalpa@xoops.org>
  * @package     xos_opal
  * @subpackage  xos_opal_Smarty

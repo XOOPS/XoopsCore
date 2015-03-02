@@ -3,7 +3,7 @@
  * XOOPS securityToken Smarty compiler plug-in
  *
  * @copyright   The XOOPS project http://www.xoops.org/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Richard Griffith <richard@geekwright.com>
  */
 

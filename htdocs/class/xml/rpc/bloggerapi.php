@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      xml
  * @since           1.0.0
@@ -191,7 +191,7 @@ class BloggerApi extends XoopsXmlRpcApi
                 if ($count == 0) {
                     $this->response->add(new XoopsXmlRpcFault(106, 'Found 0 Entries'));
                 } else {
-                    for ($i = 0; $i < $count; $i++) {
+                    for ($i = 0; $i < $count; ++$i) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
                         foreach($ret[$i] as $key => $value) {

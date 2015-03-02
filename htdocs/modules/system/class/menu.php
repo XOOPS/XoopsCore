@@ -16,7 +16,7 @@
  * @author    John Neill (AKA Catzwolf)
  * @author    Andricq Nicolas (AKA MusS)
  * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
 class SystemMenuHandler
@@ -167,7 +167,7 @@ class SystemMenuHandler
         $menu .= "<div id='buttonbar_mod'><ul>";
         foreach ($this->_menutabs as $k => $v) {
             $menu .= "<li id='" . $menuItems[$i] . "'><a href='" . XOOPS_URL . "/modules/" . $this->_obj->getVar('dirname') . "/" . $k . "'><span>$v</span></a></li>\n";
-            $i++;
+            ++$i;
         }
         $menu .= "</ul>\n</div>\n";
         if ($this->_header) {

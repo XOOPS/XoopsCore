@@ -95,7 +95,7 @@ class GroupFormCheckbox extends Element
             $prefix = '';
             $this->renderOptionTree($tree, $this->optionTree[$topitem], $prefix);
             $ret .= $tree . '</td>';
-            $cols++;
+            ++$cols;
         }
         $ret .= '</tr></table></td><td class="even" valign="top">';
         $option_ids = array();

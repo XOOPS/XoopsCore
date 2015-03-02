@@ -76,12 +76,12 @@ $modversion['hasComments'] = 0;
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 $i                              = 0;
 $modversion['tables'][$i]       = "menus_menu";
-$i++;
+++$i;
 $modversion['tables'][$i] = "menus_menus";
 
 // Config
 $i = 0;
-$i++;
+++$i;
 $modversion['config'][$i]['name']        = 'assign_method';
 $modversion['config'][$i]['title']       = '_MI_MENUS_CONF_ASSIGN_METHOD';
 $modversion['config'][$i]['description'] = '_MI_MENUS_CONF_ASSIGN_METHOD_DSC';
@@ -95,7 +95,7 @@ $modversion['config'][$i]['options']     = array(
 
 // Blocks
 $i = 0;
-$i++;
+++$i;
 $modversion['blocks'][$i]['file']        = "menus_block.php";
 $modversion['blocks'][$i]['name']        = _MI_MENUS_BLK1;
 $modversion['blocks'][$i]['description'] = _MI_MENUS_BLK1_DSC;
@@ -104,7 +104,7 @@ $modversion['blocks'][$i]['edit_func']   = "menus_block_edit";
 $modversion['blocks'][$i]['options']     = "0|default|0|block|0";
 $modversion['blocks'][$i]['template']    = "menus_block.tpl";
 
-$i++;
+++$i;
 $modversion['blocks'][$i]['file']        = 'menus_block.php';
 $modversion['blocks'][$i]['name']        = _MI_MENUS_BLK2;
 $modversion['blocks'][$i]['description'] = _MI_MENUS_BLK2_DSC;

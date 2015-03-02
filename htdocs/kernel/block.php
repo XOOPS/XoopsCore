@@ -22,7 +22,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author    Gregory Mage (AKA Mage)
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since     2.0.0
  */
 class XoopsBlock extends XoopsObject

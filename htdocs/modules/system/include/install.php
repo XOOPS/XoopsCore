@@ -13,7 +13,7 @@
  * System install module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @package         system
@@ -60,7 +60,7 @@ function xoops_module_install_system(&$module)
 
     // data for table 'group_permission'
     $groupperm_handler = $xoops->getHandlerGroupPerm();
-    for ($i = 2; $i <= 3; $i++) {
+    for ($i = 2; $i <= 3; ++$i) {
         $obj = $groupperm_handler->create();
         $obj->setVar("gperm_groupid", $i);
         $obj->setVar("gperm_itemid", '1');
@@ -70,7 +70,7 @@ function xoops_module_install_system(&$module)
             echo $xoops->alert('error', $obj->getHtmlErrors());
         }
     }
-    for ($i = 1; $i <= 17; $i++) {
+    for ($i = 1; $i <= 17; ++$i) {
         $obj = $groupperm_handler->create();
         $obj->setVar("gperm_groupid", '1');
         $obj->setVar("gperm_itemid", $i);
@@ -99,7 +99,7 @@ function xoops_module_install_system(&$module)
             $blockmodulelink->setVar('module_id', 0); //show on all pages
             $blockmodulelink_handler->insert($blockmodulelink);
 
-            for ($i = 2; $i <= 3; $i++) {
+            for ($i = 2; $i <= 3; ++$i) {
                 $obj = $groupperm_handler->create();
                 $obj->setVar("gperm_groupid", $i);
                 $obj->setVar("gperm_itemid", $block->id());

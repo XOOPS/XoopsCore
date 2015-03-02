@@ -176,7 +176,7 @@ class XoopsCaptchaImageHandler
      *  Originated by DuGris' SecurityImage
      *
      * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
-     * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+     * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
      * @author          DuGris aka L. Jen <http://www.dugris.info> <DuGris@wanadoo.fr>
      * @version         $Id$
      *
@@ -245,8 +245,8 @@ class XoopsCaptchaImageHandler
         $MaxCharHeight = 0;
         $oImage = imagecreatetruecolor(100, 100);
         $FontSize = $this->config["fontsize_max"];
-        for ($Angle = -30; $Angle <= 30; $Angle++) {
-            for ($i = 65; $i <= 90; $i++) {
+        for ($Angle = -30; $Angle <= 30; ++$Angle) {
+            for ($i = 65; $i <= 90; ++$i) {
                 $CharDetails = imageftbbox($FontSize, $Angle, $this->font, chr($i), array());
                 $_MaxCharWidth = abs($CharDetails[0] + $CharDetails[2]);
                 if ($_MaxCharWidth > $MaxCharWidth) {
@@ -315,7 +315,7 @@ class XoopsCaptchaImageHandler
      */
     public function drawCode()
     {
-        for ($i = 0; $i < $this->config["num_chars"]; $i++) {
+        for ($i = 0; $i < $this->config["num_chars"]; ++$i) {
             // select random greyscale colour
             $text_color = imagecolorallocate($this->oImage, mt_rand(0, 100), mt_rand(0, 100), mt_rand(0, 100));
 
@@ -360,7 +360,7 @@ class XoopsCaptchaImageHandler
      */
     public function drawCircles()
     {
-        for ($i = 1; $i <= $this->config["background_num"]; $i++) {
+        for ($i = 1; $i <= $this->config["background_num"]; ++$i) {
             $randomcolor = imagecolorallocate($this->oImage, mt_rand(190, 255), mt_rand(190, 255), mt_rand(190, 255));
             imagefilledellipse($this->oImage, mt_rand(0, $this->width - 10), mt_rand(0, $this->height - 3), mt_rand(10, 20), mt_rand(20, 30), $randomcolor);
         }
@@ -373,7 +373,7 @@ class XoopsCaptchaImageHandler
      */
     public function drawLines()
     {
-        for ($i = 0; $i < $this->config["background_num"]; $i++) {
+        for ($i = 0; $i < $this->config["background_num"]; ++$i) {
             $randomcolor = imagecolorallocate($this->oImage, mt_rand(190, 255), mt_rand(190, 255), mt_rand(190, 255));
             imageline($this->oImage, mt_rand(0, $this->width), mt_rand(0, $this->height), mt_rand(0, $this->width), mt_rand(0, $this->height), $randomcolor);
         }
@@ -386,7 +386,7 @@ class XoopsCaptchaImageHandler
      */
     public function drawRectangles()
     {
-        for ($i = 1; $i <= $this->config["background_num"]; $i++) {
+        for ($i = 1; $i <= $this->config["background_num"]; ++$i) {
             $randomcolor = imagecolorallocate($this->oImage, mt_rand(190, 255), mt_rand(190, 255), mt_rand(190, 255));
             imagefilledrectangle($this->oImage, mt_rand(0, $this->width), mt_rand(0, $this->height), mt_rand(0, $this->width), mt_rand(0, $this->height), $randomcolor);
         }
@@ -418,7 +418,7 @@ class XoopsCaptchaImageHandler
      */
     public function drawEllipses()
     {
-        for ($i = 1; $i <= $this->config["background_num"]; $i++) {
+        for ($i = 1; $i <= $this->config["background_num"]; ++$i) {
             $randomcolor = imagecolorallocate($this->oImage, mt_rand(190, 255), mt_rand(190, 255), mt_rand(190, 255));
             imageellipse($this->oImage, mt_rand(0, $this->width), mt_rand(0, $this->height), mt_rand(0, $this->width), mt_rand(0, $this->height), $randomcolor);
         }
@@ -431,10 +431,10 @@ class XoopsCaptchaImageHandler
      */
     public function drawPolygons()
     {
-        for ($i = 1; $i <= $this->config["background_num"]; $i++) {
+        for ($i = 1; $i <= $this->config["background_num"]; ++$i) {
             $randomcolor = imagecolorallocate($this->oImage, mt_rand(190, 255), mt_rand(190, 255), mt_rand(190, 255));
             $coords = array();
-            for ($j = 1; $j <= $this->config["polygon_point"]; $j++) {
+            for ($j = 1; $j <= $this->config["polygon_point"]; ++$j) {
                 $coords[] = mt_rand(0, $this->width);
                 $coords[] = mt_rand(0, $this->height);
             }

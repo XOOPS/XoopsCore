@@ -197,7 +197,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                 if ($count == 0) {
                     $this->response->add(new XoopsXmlRpcFault(106, 'Found 0 Entries'));
                 } else {
-                    for ($i = 0; $i < $count; $i++) {
+                    for ($i = 0; $i < $count; ++$i) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
                         foreach($ret[$i] as $key => $value) {

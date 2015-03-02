@@ -54,7 +54,7 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
         $config[$i]['default'] = 1;
         $config[$i]['options'] = array_flip(array('Option 1', 'Option 2'));
         $config[$i]['category'] = 'cat_1';
-        $i++;
+        ++$i;
         $config[$i]['name'] = 'config_2';
         $config[$i]['title'] = '_MI_CODEX_UCONF_ITEM2';
         $config[$i]['description'] = '_MI_CODEX_UCONF_ITEM2_DSC';

@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @author    Andricq Nicolas (AKA MusS)
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0
  */
@@ -102,7 +102,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
             ));
         }
         $count = count($obj);
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $title = Xoops_Locale::translate($obj[$i]->getVar('conf_title'), $mod->getVar('dirname'));
             $desc = ($obj[$i]->getVar('conf_desc') != '') ?
                 Xoops_Locale::translate($obj[$i]->getVar('conf_desc'), $mod->getVar('dirname')) : '';
@@ -140,7 +140,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                     );
                     $options = $config_handler->getConfigOptions(new Criteria('conf_id', $obj[$i]->getVar('conf_id')));
                     $opcount = count($options);
-                    for ($j = 0; $j < $opcount; $j++) {
+                    for ($j = 0; $j < $opcount; ++$j) {
                         $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), $mod->getVar('dirname'));
                         $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), $mod->getVar('dirname'));
                         $ele->addOption($optval, $optkey);
@@ -151,7 +151,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                     $ele = new Xoops\Form\Select($title, $obj[$i]->getVar('conf_name'), $obj[$i]->getConfValueForOutput(), 5, true);
                     $options = $config_handler->getConfigOptions(new Criteria('conf_id', $obj[$i]->getVar('conf_id')));
                     $opcount = count($options);
-                    for ($j = 0; $j < $opcount; $j++) {
+                    for ($j = 0; $j < $opcount; ++$j) {
                         $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), $mod->getVar('dirname'));
                         $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), $mod->getVar('dirname'));
                         $ele->addOption($optval, $optkey);

@@ -18,7 +18,7 @@ namespace Xoops\Module;
  * @package   Admin
  * @author    Mage Grégory (AKA Mage)
  * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      xoops.org
  * @since     2.6.0
  */
@@ -484,7 +484,7 @@ class Admin
                 $iReqVerParts = array_map('intval', $reqVerParts);
                 $icount = $j = count($iReqVerParts);
                 $reqVer = $curVer = 0;
-                for ($i = 0; $i < $icount; $i++) {
+                for ($i = 0; $i < $icount; ++$i) {
                     $j--;
                     $reqVer += $iReqVerParts[$i] * pow(10, $j);
                     if (isset($iCurrentVerParts[$i])) {

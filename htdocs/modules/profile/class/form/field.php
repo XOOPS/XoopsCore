@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
@@ -116,7 +116,7 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
                 }
 
                 $option_text = "<table  cellspacing='1'><tr><td class='width20'>" . _PROFILE_AM_KEY . "</td><td>" . _PROFILE_AM_VALUE . "</td></tr>";
-                for ($i = 0; $i < 3; $i++) {
+                for ($i = 0; $i < 3; ++$i) {
                     $option_text .= "<tr><td><input type='text' name='addOption[{$i}][key]' id='addOption[{$i}][key]' size='15' /></td><td><input type='text' name='addOption[{$i}][value]' id='addOption[{$i}][value]' size='35' /></td></tr>";
                     $option_text .= "<tr height='3px'><td colspan='2'> </td></tr>";
                 }

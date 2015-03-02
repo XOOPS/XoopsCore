@@ -15,7 +15,7 @@
  * @package         Xoopseditor
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.3.0
  */
 class XoopsEditor extends Xoops\Form\TextArea
@@ -74,7 +74,7 @@ class XoopsEditor extends Xoops\Form\TextArea
                     if (isset($args[$i])) {
                         $configs[$key] = $args[$i];
                     }
-                    $i++;
+                    ++$i;
                 }
                 $configs = (isset($args[$i]) && is_array($args[$i])) ? array_merge($configs, $args[$i]) : $configs;
             } else {
@@ -127,7 +127,7 @@ class XoopsEditor extends Xoops\Form\TextArea
  * Editor handler
  *
  * @copyright The XOOPS project http://www.xoops.org/
- * @license GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package core
  * @since 2.3.0
  * @author Taiwen Jiang <phppp@users.sourceforge.net>

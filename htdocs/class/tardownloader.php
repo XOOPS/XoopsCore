@@ -13,7 +13,7 @@
  * Send tar files through a http socket
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
  * @author      Kazumi Ono (http://www.myweb.ne.jp/, http://jp.xoops.org/)
@@ -53,7 +53,7 @@ class XoopsTarDownloader extends XoopsDownloader
         }
         if (isset($newfilename)) {
             // dirty, but no other way
-            for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+            for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
                 if ($this->archiver->files[$i]['name'] == $filepath) {
                     $this->archiver->files[$i]['name'] = trim($newfilename);
                     break;
@@ -78,7 +78,7 @@ class XoopsTarDownloader extends XoopsDownloader
         }
         if (isset($newfilename)) {
             // dirty, but no other way
-            for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+            for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
                 if ($this->archiver->files[$i]['name'] == $filepath) {
                     $this->archiver->files[$i]['name'] = trim($newfilename);
                     break;
@@ -111,7 +111,7 @@ class XoopsTarDownloader extends XoopsDownloader
             return false;
         }
         // dirty, but no other way
-        for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+        for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
             if ($this->archiver->files[$i]['name'] == $dummyfile) {
                 $this->archiver->files[$i]['name'] = $filename;
                 if ($time != 0) {
@@ -146,7 +146,7 @@ class XoopsTarDownloader extends XoopsDownloader
             return false;
         }
         // dirty, but no other way
-        for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+        for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
             if ($this->archiver->files[$i]['name'] == $dummyfile) {
                 $this->archiver->files[$i]['name'] = $filename;
                 if ($time != 0) {

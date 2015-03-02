@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -57,7 +57,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
     $count = 0;
     while ($row_table = $db->fetchArray($srs)) {
-        $count++;
+        ++$count;
         $old_table = $row_table['Name'];
         if (substr($old_table, 0, strlen($old_prefix) + 1) !== $old_prefix . '_') {
             continue;
@@ -132,15 +132,15 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
             $result = mysql_query("SELECT * FROM `$table`");
             $fields_cnt = mysql_num_fields($result);
             $field_flags = array();
-            for ($j = 0; $j < $fields_cnt; $j++) {
+            for ($j = 0; $j < $fields_cnt; ++$j) {
                 $field_flags[$j] = mysql_field_flags($result, $j);
             }
             $search = array("\x00", "\x0a", "\x0d", "\x1a");
             $replace = array('\0', '\n', '\r', '\Z');
             $current_row = 0;
             while ($row = mysql_fetch_row($result)) {
-                $current_row++;
-                for ($j = 0; $j < $fields_cnt; $j++) {
+                ++$current_row;
+                for ($j = 0; $j < $fields_cnt; ++$j) {
                     $fields_meta = mysql_fetch_field($result, $j);
                     // NULL
                     if (!isset($row[$j]) || is_null($row[$j])) {
@@ -282,7 +282,7 @@ foreach ($prefixes as $prefix) {
             $has_xoopscomments = true;
         }
         if (substr($table, 0, strlen($prefix['name']) + 1) === $prefix['name'] . '_') {
-            $table_count++;
+            ++$table_count;
         }
     }
     // check if prefix_xoopscomments exists

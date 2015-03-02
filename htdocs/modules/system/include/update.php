@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * System update functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -73,14 +73,14 @@ function xoops_module_update_system(XoopsModule &$module)
     $configs = $config_handler->getConfigs($criteria);
     $confcount = count($configs);
     if ($confcount > 0) {
-        for ($i = 0; $i < $confcount; $i++) {
+        for ($i = 0; $i < $confcount; ++$i) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('conf_modid', 1));
             $criteria->add(new Criteria('conf_name', $configs[$i]->getvar('conf_name')));
             $new_configs = $config_handler->getConfigs($criteria);
             $new_confcount = count($new_configs);
             if ($new_confcount > 0) {
-                for ($j = 0; $j < $new_confcount; $j++) {
+                for ($j = 0; $j < $new_confcount; ++$j) {
                     $obj = $config_handler->getConfig($new_configs[$j]->getvar('conf_id'));
                 }
                 $obj->setVar("conf_value", $configs[$i]->getvar('conf_value'));

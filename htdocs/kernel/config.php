@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
@@ -114,7 +114,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
         $options = $config->getConfOptions();
         $count = count($options);
         $conf_id = $config->getVar('conf_id');
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $options[$i]->setVar('conf_id', $conf_id);
             if (!$this->_oHandler->insert($options[$i])) {
                 foreach ($options[$i]->getErrors() as $msg) {
@@ -147,7 +147,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
             $count = count($options);
         }
         if (is_array($options) && $count > 0) {
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $this->_oHandler->delete($options[$i]);
             }
         }
@@ -317,7 +317,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
             $configs = $this->_cHandler->getObjects($criteria);
             $confcount = count($configs);
             $ret = array();
-            for ($i = 0; $i < $confcount; $i++) {
+            for ($i = 0; $i < $confcount; ++$i) {
                 $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
             }
             $this->_cachedConfigs[$conf_modid][$conf_catid] = $ret;

@@ -547,7 +547,7 @@ class PublisherUtils
         $publisher = Publisher::getInstance();
 
         $spaces = '';
-        for ($j = 0; $j < $level; $j++) {
+        for ($j = 0; $j < $level; ++$j) {
             $spaces .= '--';
         }
 
@@ -561,7 +561,7 @@ class PublisherUtils
 
         $subCategoriesObj = $publisher->getCategoryHandler()->getCategories(0, 0, $categoryObj->getVar('categoryid'));
         if (count($subCategoriesObj) > 0) {
-            $level++;
+            ++$level;
             foreach ($subCategoriesObj as $subCategoryObj) {
                 $ret .= self::addCategoryOption($subCategoryObj, $selectedid, $level);
             }
@@ -865,7 +865,7 @@ class PublisherUtils
             }
 
             $complete_tags = array_reverse($complete_tags);
-            for ($i = 0; $i < count($complete_tags); $i++) {
+            for ($i = 0; $i < count($complete_tags); ++$i) {
                 $string .= '</' . $complete_tags[$i] . '>';
             }
         }
@@ -932,7 +932,7 @@ class PublisherUtils
             $rater .= '<div id="unit_ul' . $itemid . '" class="publisher_unit-rating" style="width:' . $rating_unitwidth * $units . 'px;">';
             $rater .= '<div class="publisher_current-rating" style="width:' . $rating_width . 'px;">' . _MD_PUBLISHER_VOTE_RATING . ' ' . $rating2 . '/' . $units . '</div>';
 
-            for ($ncount = 1; $ncount <= $units; $ncount++) { // loop from 1 to the number of units
+            for ($ncount = 1; $ncount <= $units; ++$ncount) { // loop from 1 to the number of units
                 if (!$voted) { // if the user hasn't yet voted, draw the voting stars
                     $rater .= '<div><a href="' . PUBLISHER_URL . '/rate.php?itemid=' . $itemid . '&amp;rating=' . $ncount . '" title="' . $ncount . ' ' . _MD_PUBLISHER_VOTE_OUTOF . ' ' . $units . '" class="publisher_r' . $ncount . '-unit rater" rel="nofollow">' . $ncount . '</a></div>';
                 }
@@ -990,7 +990,7 @@ class PublisherUtils
      */
     public static function stringToInt($string = '', $length = 5)
     {
-        for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= intval($string[$i]), $i++) {
+        for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= intval($string[$i]), ++$i) {
         }
 
         return intval($final);

@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\Criteria;
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -48,11 +48,11 @@ function b_system_online_show()
         $block = array();
         $guests = 0;
         $members = '';
-        for ($i = 0; $i < $total; $i++) {
+        for ($i = 0; $i < $total; ++$i) {
             if ($onlines[$i]['online_uid'] > 0) {
                 $members .= ' <a href="' . XOOPS_URL . '/userinfo.php?uid=' . $onlines[$i]['online_uid'] . '" title="' . $onlines[$i]['online_uname'] . '">' . $onlines[$i]['online_uname'] . '</a>,';
             } else {
-                $guests++;
+                ++$guests;
             }
         }
         $block['online_total'] = sprintf(XoopsLocale::F_USERS_ONLINE, $total);

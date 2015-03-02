@@ -282,7 +282,7 @@ class XoopsInstallWizard
     function cleanCache($cacheFolder) {
         $cache = array(1,2,3);
         if (!empty($cache)) {
-            for ($i = 0; $i < count($cache); $i++) {
+            for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {
                     case 1:
                         $files = glob($cacheFolder. '/caches/smarty_cache/*.*');

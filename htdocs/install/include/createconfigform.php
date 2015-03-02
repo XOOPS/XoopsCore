@@ -39,7 +39,7 @@ function createConfigform($config)
     $ret = array();
     $confcount = count($config);
 
-    for ($i = 0; $i < $confcount; $i++) {
+    for ($i = 0; $i < $confcount; ++$i) {
         $conf_catid = $config[$i]->getVar('conf_catid');
         if (!isset($ret[$conf_catid])) {
             $ret[$conf_catid] = new Xoops\Form\ThemeForm('', 'configs', 'index.php', 'post');
@@ -63,7 +63,7 @@ function createConfigform($config)
                 $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 $options =& $config_handler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
-                for ($j = 0; $j < $opcount; $j++) {
+                for ($j = 0; $j < $opcount; ++$j) {
                     $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), 'system');
                     $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), 'system');
                     $ele->addOption($optval, $optkey);
@@ -74,7 +74,7 @@ function createConfigform($config)
                 $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
                 $options =& $config_handler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
-                for ($j = 0; $j < $opcount; $j++) {
+                for ($j = 0; $j < $opcount; ++$j) {
                     $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), 'system');
                     $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), 'system');
                     $ele->addOption($optval, $optkey);

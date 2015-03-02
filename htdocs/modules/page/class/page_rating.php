@@ -95,7 +95,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         $total = 0;
         $obj = parent::getAll($criteria);
         foreach ($obj as $k => $v) {
-            $i++;
+            ++$i;
             $total += $v->getVar('rating_rating');
         }
         return array('voters' => $i, 'average' => $total/$i);

@@ -593,7 +593,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                             $top_comments = $comment_handler->getTopComments($xoops->module->getVar('mid'), $itemid, $dborder);
                             $c_count = count($top_comments);
                             if ($c_count > 0) {
-                                for ($i = 0; $i < $c_count; $i++) {
+                                for ($i = 0; $i < $c_count; ++$i) {
                                     $comments = $comment_handler->getThread($top_comments[$i]->getVar('rootid'), $top_comments[$i]->getVar('id'));
                                     if (false != $comments) {
                                         $renderer = CommentsCommentRenderer::getInstance($xoops->tpl());
@@ -609,7 +609,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                         $top_comments = $comment_handler->getTopComments($xoops->module->getVar('mid'), $itemid, $dborder);
                         $c_count = count($top_comments);
                         if ($c_count > 0) {
-                            for ($i = 0; $i < $c_count; $i++) {
+                            for ($i = 0; $i < $c_count; ++$i) {
                                 $comments = $comment_handler->getThread($top_comments[$i]->getVar('rootid'), $top_comments[$i]->getVar('id'));
                                 $renderer = CommentsCommentRenderer::getInstance($xoops->tpl());
                                 $renderer->setComments($comments);
@@ -933,7 +933,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     unset($confop);
                 }
             }
-            $order++;
+            ++$order;
             $config_handler->insertConfig($confobj);
         }
     }

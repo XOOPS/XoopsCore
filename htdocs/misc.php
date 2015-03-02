@@ -15,7 +15,7 @@ use Xoops\Core\Request;
  * XOOPS misc utilities
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @version         $Id$
@@ -127,7 +127,7 @@ if ($action == "showpopups") {
             $module_handler = $xoops->getHandlerModule();
             $modules = $module_handler->getNameList(new Criteria('isactive', 1));
             $onlineUsers = array();
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $onlineUsers[$i]['uid'] = $onlines[$i]['online_uid'];
                 $onlineUsers[$i]['ip'] = $onlines[$i]['online_ip'];
                 $onlineUsers[$i]['updated'] = $onlines[$i]['online_updated'];

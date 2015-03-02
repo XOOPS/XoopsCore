@@ -13,7 +13,7 @@
  * Comments Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         comments
  * @version         $Id$
@@ -153,7 +153,7 @@ switch ($op) {
                 if ($mcount > 4000) {
                     $helper->redirect('admin/main.php', 2, _AM_COMMENTS_DELETE_LIMIT);
                 }
-                for ($i = 0; $i < $mcount; $i++) {
+                for ($i = 0; $i < $mcount; ++$i) {
                     $criteria->add(new Criteria('uid', $members[$i]->getVar('uid')), 'OR');
                 }
             }
@@ -163,7 +163,7 @@ switch ($op) {
             $commentslist_count = (!empty($_POST['commentslist_id']) && is_array($_POST['commentslist_id']))
                 ? count($_POST['commentslist_id']) : 0;
             if ($commentslist_count > 0) {
-                for ($i = 0; $i < $commentslist_count; $i++) {
+                for ($i = 0; $i < $commentslist_count; ++$i) {
                     $criteria->add(new Criteria('id', $_REQUEST['commentslist_id'][$i]), 'OR');
                 }
             }
