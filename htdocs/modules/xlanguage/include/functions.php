@@ -113,7 +113,7 @@ function xlanguage_detectLang()
         $accepted = explode(',', $HTTP_ACCEPT_LANGUAGE);
         $acceptedCnt = count($accepted);
         reset($accepted);
-        for ($i = 0; $i < $acceptedCnt; $i++) {
+        for ($i = 0; $i < $acceptedCnt; ++$i) {
             $lang = xlanguage_lang_detect($accepted[$i], 1);
             if (strncasecmp($lang, 'en', 2)) {
                 break;

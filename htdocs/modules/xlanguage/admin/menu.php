@@ -22,17 +22,17 @@ $adminmenu[$cpt]['title'] = _MI_XLANGUAGE_INDEX;
 $adminmenu[$cpt]['link'] = 'admin/index.php';
 $adminmenu[$cpt]['icon'] = 'home.png';
 
-$cpt++;
+++$cpt;
 $adminmenu[$cpt]['title'] = _MI_XLANGUAGE_ADD_LANG;
 $adminmenu[$cpt]['link'] = 'admin/index.php?op=add';
 $adminmenu[$cpt]['icon'] = 'add.png';
 
-$cpt++;
+++$cpt;
 $adminmenu[$cpt]['title'] = _MI_XLANGUAGE_CREATE_CONFIG;
 $adminmenu[$cpt]['link'] = 'admin/index.php?op=createconfig';
 $adminmenu[$cpt]['icon'] = 'administration.png';
 
-$cpt++;
+++$cpt;
 $adminmenu[$cpt]['title'] = _MI_XLANGUAGE_ABOUT;
 $adminmenu[$cpt]['link'] = 'admin/about.php';
 $adminmenu[$cpt]['icon'] = 'about.png';

@@ -100,7 +100,7 @@ switch ($op) {
         $count = count($conf_ids);
         $config_handler = $helper->getHandlerConfig();
         if ($count > 0) {
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $config = $config_handler->getConfig($conf_ids[$i]);
                 $new_value = isset(${$config->getVar('conf_name')}) ? ${$config->getVar('conf_name')} : null;
                 if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {
