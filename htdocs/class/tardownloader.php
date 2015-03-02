@@ -53,7 +53,7 @@ class XoopsTarDownloader extends XoopsDownloader
         }
         if (isset($newfilename)) {
             // dirty, but no other way
-            for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+            for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
                 if ($this->archiver->files[$i]['name'] == $filepath) {
                     $this->archiver->files[$i]['name'] = trim($newfilename);
                     break;
@@ -78,7 +78,7 @@ class XoopsTarDownloader extends XoopsDownloader
         }
         if (isset($newfilename)) {
             // dirty, but no other way
-            for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+            for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
                 if ($this->archiver->files[$i]['name'] == $filepath) {
                     $this->archiver->files[$i]['name'] = trim($newfilename);
                     break;
@@ -111,7 +111,7 @@ class XoopsTarDownloader extends XoopsDownloader
             return false;
         }
         // dirty, but no other way
-        for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+        for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
             if ($this->archiver->files[$i]['name'] == $dummyfile) {
                 $this->archiver->files[$i]['name'] = $filename;
                 if ($time != 0) {
@@ -146,7 +146,7 @@ class XoopsTarDownloader extends XoopsDownloader
             return false;
         }
         // dirty, but no other way
-        for ($i = 0; $i < $this->archiver->numFiles; $i ++) {
+        for ($i = 0; $i < $this->archiver->numFiles; ++$i) {
             if ($this->archiver->files[$i]['name'] == $dummyfile) {
                 $this->archiver->files[$i]['name'] = $filename;
                 if ($time != 0) {

@@ -125,10 +125,10 @@ class tar
     private function __computeUnsignedChecksum($bytestring)
     {
         $unsigned_chksum = '';
-        for ($i = 0; $i < 512; $i++) {
+        for ($i = 0; $i < 512; ++$i) {
             $unsigned_chksum += ord($bytestring[$i]);
         }
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 8; ++$i) {
             $unsigned_chksum -= ord($bytestring[148 + $i]);
             $unsigned_chksum += ord(' ') * 8;
         }
@@ -306,7 +306,7 @@ class tar
                 $header .= str_repeat(chr(0), 12);
                 // Compute header checksum
                 $checksum = str_pad(decoct($this->__computeUnsignedChecksum($header)), 6, "0", STR_PAD_LEFT);
-                for ($i = 0; $i < 6; $i++) {
+                for ($i = 0; $i < 6; ++$i) {
                     $header[(148 + $i)] = substr($checksum, $i, 1);
                 }
                 $header[154] = chr(0);
@@ -341,7 +341,7 @@ class tar
                 $header .= str_repeat(chr(0), 12);
                 // Compute header checksum
                 $checksum = str_pad(decoct($this->__computeUnsignedChecksum($header)), 6, "0", STR_PAD_LEFT);
-                for ($i = 0; $i < 6; $i++) {
+                for ($i = 0; $i < 6; ++$i) {
                     $header[(148 + $i)] = substr($checksum, $i, 1);
                 }
                 $header[154] = chr(0);

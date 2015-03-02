@@ -281,7 +281,7 @@ class XoopsApi extends XoopsXmlRpcApi
             }
             $scount = count($stories);
             $ret = array();
-            for ($i = 0; $i < $scount; $i++) {
+            for ($i = 0; $i < $scount; ++$i) {
                 $ret[] = array('uid' => $stories[$i]->uid(), 'published' => $stories[$i]->published(), 'storyid' => $stories[$i]->storyId(), 'title' => $stories[$i]->title('Edit'), 'hometext' => $stories[$i]->hometext('Edit'), 'moretext' => $stories[$i]->bodytext('Edit'));
             }
             if (!$respond) {
@@ -292,7 +292,7 @@ class XoopsApi extends XoopsXmlRpcApi
                 } else {
                     $arr = new XoopsXmlRpcArray();
                     $count = count($ret);
-                    for ($i = 0; $i < $count; $i++) {
+                    for ($i = 0; $i < $count; ++$i) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
                         foreach($ret[$i] as $key => $value) {

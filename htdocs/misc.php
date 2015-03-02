@@ -127,7 +127,7 @@ if ($action == "showpopups") {
             $module_handler = $xoops->getHandlerModule();
             $modules = $module_handler->getNameList(new Criteria('isactive', 1));
             $onlineUsers = array();
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $onlineUsers[$i]['uid'] = $onlines[$i]['online_uid'];
                 $onlineUsers[$i]['ip'] = $onlines[$i]['online_ip'];
                 $onlineUsers[$i]['updated'] = $onlines[$i]['online_updated'];

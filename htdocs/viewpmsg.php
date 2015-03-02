@@ -53,7 +53,7 @@ if (!$xoops->isUser()) {
         }
         $size = count($clean_msg_id);
         $msg =& $clean_msg_id;
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $pm = $pm_handler->get(intval($msg[$i]));
             if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
                 $pm_handler->delete($pm);
@@ -83,7 +83,7 @@ if (!$xoops->isUser()) {
         $messages['msg_time'] = XoopsLocale::formatTimestamp($pm_arr[$i]->getVar('msg_time'));
         $messages['msg_no'] = $msg_no;
         $xoops->tpl()->append('messages', $messages);
-        $msg_no++;
+        ++$msg_no;
     }
     $xoops->tpl()->assign('token', $xoops->security()->getTokenHTML());
     $xoops->footer();
