@@ -74,7 +74,7 @@ if ($current == 0) {
     );
 } else {
     $pages = array();
-    for ($i = count($keys) - 3; $i < count($keys); $i++) {
+    for ($i = count($keys) - 3; $i < count($keys); ++$i) {
         $pages[] = array(
             'name' => $wizard->pages[$keys[$i]]['name'], 'index' => $i,
             'current' => $i == $wizard->pageIndex ? true : false, 'past' => $i < $wizard->pageIndex ? true : false
