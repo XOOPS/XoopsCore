@@ -119,7 +119,7 @@ switch ($op) {
                         if (!$module_handler->insertModule($module)) {
                             $error = true;
                         }
-                        $i++;
+                        ++$i;
                     }
                 }
             }

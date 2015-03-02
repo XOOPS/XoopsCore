@@ -132,7 +132,7 @@ class SystemExtension extends SystemModule
                     $module->setInfo('options', $module->getAdminMenu());
                     $ret[] = $module;
                     unset($module);
-                    $i++;
+                    ++$i;
                 }
             }
         }
@@ -165,7 +165,7 @@ class SystemExtension extends SystemModule
                         $module->setInfo('version', round($module->getInfo('version'), 2));
                         $ret[] = $module;
                         unset($module);
-                        $i++;
+                        ++$i;
                     }
                 }
             }

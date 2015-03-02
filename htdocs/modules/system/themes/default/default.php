@@ -157,7 +157,7 @@ class XoopsGuiDefault
                         $current = $i;
                     }
                     $menu_handler->addMenuTabs( $xoops->url('modules/' . $xoops->module->getVar('dirname') . '/' . $menu['link']), $menu['title']);
-                    $i++;
+                    ++$i;
                 }
                 if ($xoops->module->getInfo('help')) {
                     if (stripos($_SERVER['REQUEST_URI'], 'admin/' . $xoops->module->getInfo('help')) !== false) {

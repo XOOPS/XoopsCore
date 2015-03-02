@@ -76,7 +76,7 @@ function b_system_info_show($options)
                         );
                     }
                 }
-                $i++;
+                ++$i;
             }
         }
     } else {

@@ -57,7 +57,7 @@ function b_system_user_show()
                     }
                 }
             }
-            $i++;
+            ++$i;
         }
 
     }
