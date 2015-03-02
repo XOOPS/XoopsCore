@@ -8,7 +8,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 	define('IS_PHPUNIT',true);
 }
 
-require_once dirname(__FILE__) . '/../htdocs/xoops_lib/vendor/autoload.php';
+require_once dirname(__FILE__) . '/../../htdocs/xoops_lib/vendor/autoload.php';
 
 if (defined('IS_PHPUNIT')) {
 	require_once dirname(__FILE__) . '/common_phpunit.php';
@@ -19,4 +19,4 @@ if (defined('IS_PHPUNIT')) {
 	define('XOOPS_XMLRPC',0);
 }
 
-require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
+require_once dirname(__FILE__) . '/../../htdocs/mainfile.php';

@@ -19,7 +19,7 @@ if (defined('IS_PHPUNIT')) {
 }
 
 $xoopsOption["nocommon"]= true; // don't include common.php file
-require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
+require_once dirname(__FILE__) . '/../../htdocs/mainfile.php';
 
 // Get the beginning of include/common.php file but not all
 
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/../htdocs/mainfile.php';
  * Temorarily try and fix, but set up a (delayed) warning
  */
 if (!class_exists('XoopsLoad', false)) {
-    require_once dirname(__FILE__) . '/../htdocs/class/XoopsBaseConfig.php';
+    require_once dirname(__FILE__) . '/../../htdocs/class/XoopsBaseConfig.php';
     XoopsBaseConfig::bootstrapTransition();
     $delayedWarning = 'Patch mainfile.php for XoopsBaseConfig';
 }
