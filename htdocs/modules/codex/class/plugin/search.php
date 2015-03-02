@@ -33,7 +33,7 @@ class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Se
                 if (stripos($fileName, $queries) !== false) {
                     $res[$i]['link'] = $file;
                     $res[$i]['title'] = $fileName;
-                    $i++;
+                    ++$i;
                 }
             }
         }

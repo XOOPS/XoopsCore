@@ -115,15 +115,15 @@ class Maintenance
                 while ($i < $num_fields) {
                     $meta = mysql_fetch_field($result, $i);
                     array_push($field_type, $meta->type);
-                    $i++;
+                    ++$i;
                 }
 
                 $sql_text .= "INSERT INTO `" . $table . "` values\n";
                 $index = 0;
                 while ($row = $this->db->fetchRow($result)) {
-                    $count++;
+                    ++$count;
                     $sql_text .= "(";
-                    for ($i = 0; $i < $num_fields; $i++) {
+                    for ($i = 0; $i < $num_fields; ++$i) {
                         if (is_null($row[$i])) {
                             $sql_text .= "null";
                         } else {
@@ -147,7 +147,7 @@ class Maintenance
                         $sql_text .= ";";
                     }
                     $sql_text .= "\n";
-                    $index++;
+                    ++$index;
                 }
             }
         }

@@ -36,7 +36,7 @@ $files = glob(XOOPS_ROOT_PATH . '/modules/maintenance/dump/*.*');
 $count = 0;
 foreach ($files as $filename_path) {
     if (basename(strtolower($filename_path)) != 'index.html') {
-        $count++;
+        ++$count;
     }
 }
 $admin_page->addConfigBoxLine($folder_path, 'folder');
