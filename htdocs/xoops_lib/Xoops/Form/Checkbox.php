@@ -171,7 +171,7 @@ class Checkbox extends Element
                 $this->setAttribute('checked');
             }
             $this->setAttribute('value', $value);
-            $id_ele++;
+            ++$id_ele;
             $this->setAttribute('id', $ele_id . $id_ele);
             $ret .= '<label class="checkbox' . $this->getInline() . '">' . NWLINE;
             $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . NWLINE;

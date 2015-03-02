@@ -484,7 +484,7 @@ class Admin
                 $iReqVerParts = array_map('intval', $reqVerParts);
                 $icount = $j = count($iReqVerParts);
                 $reqVer = $curVer = 0;
-                for ($i = 0; $i < $icount; $i++) {
+                for ($i = 0; $i < $icount; ++$i) {
                     $j--;
                     $reqVer += $iReqVerParts[$i] * pow(10, $j);
                     if (isset($iCurrentVerParts[$i])) {

@@ -69,11 +69,11 @@ class FilterInput
     ) {
         // make sure user defined arrays are in lowercase
         $countTagsArray = count($tagsArray);
-        for ($i = 0; $i < $countTagsArray; $i++) {
+        for ($i = 0; $i < $countTagsArray; ++$i) {
             $tagsArray[$i] = strtolower($tagsArray[$i]);
         }
         $countAttrArray = count($attrArray);
-        for ($i = 0; $i < $countAttrArray; $i++) {
+        for ($i = 0; $i < $countAttrArray; ++$i) {
             $attrArray[$i] = strtolower($attrArray[$i]);
         }
         // assign to member vars
@@ -288,7 +288,7 @@ class FilterInput
         // provides nested-tag protection
         while ($source != $this->filterTags($source)) {
             $source = $this->filterTags($source);
-            $loopCounter++;
+            ++$loopCounter;
         }
 
         return $source;
@@ -400,7 +400,7 @@ class FilterInput
                     $attrSet = $this->filterAttr($attrSet);
                     $preTag .= '<' . $tagName;
                     $countAttrSet = count($attrSet);
-                    for ($i = 0; $i < $countAttrSet; $i++) {
+                    for ($i = 0; $i < $countAttrSet; ++$i) {
                         $preTag .= ' ' . $attrSet[$i];
                     }
                     // reformat single tags to XHTML
@@ -436,7 +436,7 @@ class FilterInput
         $newSet = array();
         // process attributes
         $countAttrSet = count($attrSet);
-        for ($i = 0; $i < $countAttrSet; $i++) {
+        for ($i = 0; $i < $countAttrSet; ++$i) {
             // skip blank spaces in tag
             if (!$attrSet[$i]) {
                 continue;

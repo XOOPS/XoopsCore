@@ -103,7 +103,7 @@ class DhtmlTextArea extends TextArea
     ) {
         static $inLoop = 0;
 
-        $inLoop++;
+        ++$inLoop;
         // Second loop, invalid, return directly
         if ($inLoop > 2) {
             return;
