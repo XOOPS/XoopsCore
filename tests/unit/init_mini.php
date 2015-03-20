@@ -70,6 +70,14 @@ $xoops->option =& $GLOBALS['xoopsOption'];
 include_once $xoops->path('include/functions.php');
 
 /**
+ * Check Proxy;
+ * Requires functions
+ */
+if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XOOPS_DB_CHKREF)) {
+    define('XOOPS_DB_PROXY', 1);
+}
+
+/**
  * Load Language settings and defines
  */
 $xoops->loadLocale();
