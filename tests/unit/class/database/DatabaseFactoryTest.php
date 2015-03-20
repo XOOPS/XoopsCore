@@ -18,10 +18,8 @@ class XoopsDatabaseFactoryTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myClass;
 		$instance = $class::getDatabaseConnection();
-        if (!defined('XOOPS_DB_PROXY'))
-			$this->assertInstanceOf('XoopsMySQLDatabaseSafe', $instance);
-		else
-			$this->assertInstanceOf('XoopsMySQLDatabaseProxy', $instance);
+		$this->assertStringStartsWith('XoopsMySQLDatabase', get_class($instance));
+		
 		$instance2 = $class::getDatabaseConnection();
 		$this->assertSame($instance, $instance2);
 		$this->assertInstanceOf('\Xoops\Core\Database\Connection', $instance->conn);
