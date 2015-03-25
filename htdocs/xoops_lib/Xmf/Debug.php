@@ -96,7 +96,7 @@ class Debug
     {
         $events = \Xoops::getInstance()->events();
         $eventName = 'debug.log';
-        if ($html && $events->hasListeners($eventName)) {
+        if (!$inline && $events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, debug_backtrace());
         } else {
             return self::dump(debug_backtrace(), $inline);
