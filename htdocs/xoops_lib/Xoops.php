@@ -1185,32 +1185,33 @@ class Xoops
      */
     public function alert($type, $msg, $title = '/')
     {
+        $tpl = new \XoopsTpl();
         $alert_msg = '';
         switch ($type) {
             case 'info':
             default:
-                $this->tpl()->assign('alert_type', 'alert-info');
+                $tpl->assign('alert_type', 'alert-info');
                 if ($title == '/') {
                     $title = XoopsLocale::INFORMATION;
                 }
                 break;
 
             case 'error':
-                $this->tpl()->assign('alert_type', 'alert-error');
+                $tpl->assign('alert_type', 'alert-error');
                 if ($title == '/') {
                     $title = XoopsLocale::ERROR;
                 }
                 break;
 
             case 'success':
-                $this->tpl()->assign('alert_type', 'alert-success');
+                $tpl->assign('alert_type', 'alert-success');
                 if ($title == '/') {
                     $title = XoopsLocale::SUCCESS;
                 }
                 break;
 
             case 'warning':
-                $this->tpl()->assign('alert_type', '');
+                $tpl->assign('alert_type', '');
                 if ($title == '/') {
                     $title = XoopsLocale::WARNING;
                 }
@@ -1218,7 +1219,7 @@ class Xoops
         }
 
         if ($title != '') {
-            $this->tpl()->assign('alert_title', $title);
+            $tpl->assign('alert_title', $title);
         }
         if (!is_scalar($msg) && !is_array($msg)) {
             $msg = ''; // don't know what to do with this, so make it blank
@@ -1232,8 +1233,8 @@ class Xoops
         if ($alert_msg == '') {
             return '';
         } else {
-            $this->tpl()->assign('alert_msg', $alert_msg);
-            $ret = $this->tpl()->fetch('module:system/system_alert.tpl');
+            $tpl->assign('alert_msg', $alert_msg);
+            $ret = $tpl->fetch('module:system/system_alert.tpl');
             return $ret;
         }
     }
@@ -1273,10 +1274,11 @@ class Xoops
      */
     public function confirm($hiddens, $action, $msg, $submit = '', $addtoken = true)
     {
+        $tpl = new \XoopsTpl();
         $submit = ($submit != '') ? trim($submit) : XoopsLocale::A_SUBMIT;
-        $this->tpl()->assign('msg', $msg);
-        $this->tpl()->assign('action', $action);
-        $this->tpl()->assign('submit', $submit);
+        $tpl->assign('msg', $msg);
+        $tpl->assign('action', $action);
+        $tpl->assign('submit', $submit);
         $str_hiddens = '';
         foreach ($hiddens as $name => $value) {
             if (is_array($value)) {
@@ -1289,10 +1291,10 @@ class Xoops
             }
         }
         if ($addtoken != false) {
-            $this->tpl()->assign('token', $this->security()->getTokenHTML());
+            $tpl->assign('token', $this->security()->getTokenHTML());
         }
-        $this->tpl()->assign('hiddens', $str_hiddens);
-        $this->tpl()->display('module:system/system_confirm.tpl');
+        $tpl->assign('hiddens', $str_hiddens);
+        $tpl->display('module:system/system_confirm.tpl');
     }
 
     /**

@@ -29,27 +29,27 @@ class PrintContent extends AbstractTemplate
     /**
      * @var string
      */
-    private $_title = '';
+    private $title = '';
 
     /**
      * @var string
      */
-    private $_description = '';
+    private $description = '';
 
     /**
      * @var string
      */
-    private $_content = '';
+    private $content = '';
 
     /**
      * @var bool
      */
-    private $_pagetitle = false;
+    private $pagetitle = false;
 
     /**
      * @var int
      */
-    private $_width = 680;
+    private $width = 680;
 
     /**
      * init - called by parent::_construct
@@ -68,11 +68,11 @@ class PrintContent extends AbstractTemplate
      */
     protected function render()
     {
-        $this->tpl->assign('xmf_print_pageTitle', $this->_pagetitle ? $this->_pagetitle : $this->_title);
-        $this->tpl->assign('xmf_print_title', $this->_title);
-        $this->tpl->assign('xmf_print_description', $this->_description);
-        $this->tpl->assign('xmf_print_content', $this->_content);
-        $this->tpl->assign('xmf_print_width', $this->_width);
+        $this->tpl->assign('xmf_print_pageTitle', $this->pagetitle ? $this->pagetitle : $this->title);
+        $this->tpl->assign('xmf_print_title', $this->title);
+        $this->tpl->assign('xmf_print_description', $this->description);
+        $this->tpl->assign('xmf_print_content', $this->content);
+        $this->tpl->assign('xmf_print_width', $this->width);
     }
 
     /**
@@ -84,7 +84,7 @@ class PrintContent extends AbstractTemplate
      */
     public function setContent($content)
     {
-        $this->_content = $content;
+        $this->content = $content;
     }
 
     /**
@@ -94,7 +94,7 @@ class PrintContent extends AbstractTemplate
      */
     public function getContent()
     {
-        return $this->_content;
+        return $this->content;
     }
 
     /**
@@ -106,7 +106,7 @@ class PrintContent extends AbstractTemplate
      */
     public function setDescription($description)
     {
-        $this->_description = $description;
+        $this->description = $description;
     }
 
     /**
@@ -116,7 +116,7 @@ class PrintContent extends AbstractTemplate
      */
     public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**
@@ -128,7 +128,7 @@ class PrintContent extends AbstractTemplate
      */
     public function setPagetitle($pagetitle)
     {
-        $this->_pagetitle = $pagetitle;
+        $this->pagetitle = $pagetitle;
     }
 
     /**
@@ -138,7 +138,7 @@ class PrintContent extends AbstractTemplate
      */
     public function getPagetitle()
     {
-        return $this->_pagetitle;
+        return $this->pagetitle;
     }
 
     /**
@@ -150,7 +150,7 @@ class PrintContent extends AbstractTemplate
      */
     public function setTitle($title)
     {
-        $this->_title = $title;
+        $this->title = $title;
     }
 
     /**
@@ -160,7 +160,7 @@ class PrintContent extends AbstractTemplate
      */
     public function getTitle()
     {
-        return $this->_title;
+        return $this->title;
     }
 
     /**
@@ -172,7 +172,7 @@ class PrintContent extends AbstractTemplate
      */
     public function setWidth($width)
     {
-        $this->_width = $width;
+        $this->width = $width;
     }
 
     /**
@@ -182,7 +182,6 @@ class PrintContent extends AbstractTemplate
      */
     public function getWidth()
     {
-        return $this->_width;
+        return $this->width;
     }
-
 }

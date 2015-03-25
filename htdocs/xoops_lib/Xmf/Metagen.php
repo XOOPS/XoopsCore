@@ -102,10 +102,10 @@ class Metagen
     /**
      * generateKeywords builds a set of keywords from text body
      *
-     * @param string       $body      text to extract keywords from
-     * @param integer      $count     number of keywords to use
-     * @param integer      $minLength minimum length of word to consider as a keyword
-     * @param string[]null $forceKeys array of keywords to force use, or null for none
+     * @param string        $body      text to extract keywords from
+     * @param integer       $count     number of keywords to use
+     * @param integer       $minLength minimum length of word to consider as a keyword
+     * @param string[]|null $forceKeys array of keywords to force use, or null for none
      *
      * @return array of keywords
      */
@@ -264,7 +264,7 @@ class Metagen
      * Create a title for the short_url field of an article
      *
      * @param string $title     title of the article
-     * @param bool   $extension extension to add
+     * @param string $extension extension to add
      *
      * @return string sort_url for the article
      *

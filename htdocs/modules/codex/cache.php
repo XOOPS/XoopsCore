@@ -83,7 +83,7 @@ $key = 'xmfdemo';
 echo $key . ' ' . $xmfCache->cacheRead($key, 'getSomeContent') . '<br />';
 
 echo '<h3>Alternate Caches</h3>';
-// Xoops cache() method can take a name parameter, tochoose a cache configuration.
+// Xoops cache() method can take a name parameter, to choose a cache configuration.
 // Alternate caches can be defined in var-path/configs/cache.php if needed.
 // The default cache definition is named 'default' and it will be used if no
 // name is specified to cache() or if no cache is defined for the specified name.
