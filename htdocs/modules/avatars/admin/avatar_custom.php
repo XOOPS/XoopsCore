@@ -196,7 +196,7 @@ switch ($op) {
                     . $obj->getVar('avatar_name', 's') . '</div>'
                     . XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM;
                 // Display message
-                $xoops->confirm(
+                echo $xoops->confirm(
                     array('ok' => 1, 'op' => 'delete', 'avatar_id' => $avatar_id),
                     'avatar_custom.php',
                     $msg

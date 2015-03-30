@@ -27,6 +27,6 @@ if (isset($_POST["op"]) && ($_POST["op"] == "delfileok")) {
     $xoops->redirect($_POST['backto'], 2, _AM_PUBLISHER_FDELETED);
 } else {
     $xoops->header();
-    $xoops->confirm(array('backto' => $_POST['backto'], 'address' => $_POST["address"], 'op' => 'delfileok'), 'pw_delete_file.php', _AM_PUBLISHER_RUSUREDELF, XoopsLocale::YES);
+    echo $xoops->confirm(array('backto' => $_POST['backto'], 'address' => $_POST["address"], 'op' => 'delfileok'), 'pw_delete_file.php', _AM_PUBLISHER_RUSUREDELF, XoopsLocale::YES);
     $xoops->footer();
 }

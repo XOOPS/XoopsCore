@@ -39,7 +39,7 @@ if (!$xoops->isUser()) {
                 $xoops->header('module:system/system_viewpmsg.tpl');
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-                $xoops->confirm(array(
+                echo $xoops->confirm(array(
                         'ok' => 1, 'delete_messages' => 1,
                         'msg_ids' => json_encode(array_map("intval", $_POST['msg_id']))
                     ), $_SERVER['REQUEST_URI'], XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES);

@@ -196,7 +196,7 @@ switch ($op) {
             }
         } else {
             // deleting main and secondary
-            $xoops->confirm(
+            echo $xoops->confirm(
                 array('ok' => 1, 'content_id' => $content_id, 'op' => 'delete'),
                 'content.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM

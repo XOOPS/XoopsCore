@@ -712,51 +712,20 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_error()
-	{
-        $instance = Xoops::getInstance();
-
-        ob_start();
-        $instance->error('test');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value));
-    }
-
-    public function test_result()
-	{
-        $instance = Xoops::getInstance();
-
-        ob_start();
-        $instance->result('test');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value));
-    }
-
     public function test_confirm()
 	{
         $instance = Xoops::getInstance();
 
 		defined('NWLINE') OR define('NWLINE', "\n");
-		ob_start();
-		$instance->confirm(array(),'','msg');
-		$value = ob_get_contents();
-		ob_end_clean();
+		$value = $instance->confirm(array(),'','msg');
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 
-		ob_start();
-		$instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
-		$value = ob_get_contents();
-		ob_end_clean();
+		$value = $instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 
-		ob_start();
-		$instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
-		$value = ob_get_contents();
-		ob_end_clean();
+		$value = $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 	}

@@ -168,7 +168,7 @@ switch ($op) {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $xoops->confirm(
+            echo $xoops->confirm(
                 array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'),
                 'related.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM

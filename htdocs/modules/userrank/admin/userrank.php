@@ -170,7 +170,7 @@ switch ($op) {
             }
         } else {
             $rank_img = ($obj->getVar("rank_image")) ? $obj->getVar("rank_image") : 'blank.gif';
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                 "ok" => 1, "rank_id" => $_REQUEST["rank_id"], "op" => "userrank_delete"
             ), $_SERVER["REQUEST_URI"], sprintf(_AM_USERRANK_SUREDEL) . '<br \><img src="' . XOOPS_UPLOAD_URL . '/' . $rank_img . '" alt="" /><br \>');
         }

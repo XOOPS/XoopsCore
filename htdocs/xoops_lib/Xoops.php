@@ -1240,37 +1240,15 @@ class Xoops
     }
 
     /**
-     * @param string  $msg
-     * @param string $title
+     * Render a confirmation form to a string
      *
-     * @return void
-     */
-    public function error($msg, $title = '')
-    {
-        $this->deprecated(__CLASS__ . "->" . __FUNCTION__ . "() is deprecated since 2.6.0. Please use " . __CLASS__ . "->alert()");
-        echo $this->alert('error', $msg, $title);
-    }
-
-    /**
-     * @param string  $msg
-     * @param string $title
+     * @param array   $hiddens  associative array of values used to complete confirmed action
+     * @param string  $action   form action (URL)
+     * @param string  $msg      message to display
+     * @param string  $submit   submit button message
+     * @param boolean $addtoken true to add CSRF token
      *
-     * @return void
-     */
-    public function result($msg, $title = '')
-    {
-        $this->deprecated(__CLASS__ . "->" . __FUNCTION__ . "() is deprecated since 2.6.0. Please use " . __CLASS__ . "->alert()");
-        echo $this->alert('info', $msg, $title);
-    }
-
-    /**
-     * @param mixed  $hiddens
-     * @param mixed  $action
-     * @param mixed  $msg
-     * @param string $submit
-     * @param bool   $addtoken
-     *
-     * @return void
+     * @return string rendered confirm message
      */
     public function confirm($hiddens, $action, $msg, $submit = '', $addtoken = true)
     {
@@ -1294,7 +1272,7 @@ class Xoops
             $tpl->assign('token', $this->security()->getTokenHTML());
         }
         $tpl->assign('hiddens', $str_hiddens);
-        $tpl->display('module:system/system_confirm.tpl');
+        return $tpl->fetch('module:system/system_confirm.tpl');
     }
 
     /**
