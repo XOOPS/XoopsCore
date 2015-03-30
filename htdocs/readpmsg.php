@@ -95,7 +95,7 @@ switch ($op) {
             }
         } else {
             $xoops->tpl()->assign('subject', $obj->getVar("subject"));
-            $xoops->confirm(array("ok" => 1, "msg_id" => $id, "op" => "delete"), 'readpmsg.php', XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES . '<br />' . $obj->getVar("subject"));
+            echo $xoops->confirm(array("ok" => 1, "msg_id" => $id, "op" => "delete"), 'readpmsg.php', XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES . '<br />' . $obj->getVar("subject"));
         }
         break;
 }

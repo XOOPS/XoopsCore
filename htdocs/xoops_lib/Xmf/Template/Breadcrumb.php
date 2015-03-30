@@ -29,7 +29,7 @@ class Breadcrumb extends AbstractTemplate
     /**
      * @var array
      */
-    private $_items = array();
+    private $items = array();
 
     /**
      * initialization run by parent::__construct
@@ -53,7 +53,7 @@ class Breadcrumb extends AbstractTemplate
      */
     public function setItems($items)
     {
-        $this->_items = $items;
+        $this->items = $items;
     }
 
     /**
@@ -63,6 +63,6 @@ class Breadcrumb extends AbstractTemplate
      */
     protected function render()
     {
-        $this->tpl->assign('xmf_breadcrumb_items', $this->_items);
+        $this->tpl->assign('xmf_breadcrumb_items', $this->items);
     }
 }

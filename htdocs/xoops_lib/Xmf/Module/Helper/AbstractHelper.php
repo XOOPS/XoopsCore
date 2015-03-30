@@ -68,7 +68,7 @@ abstract class AbstractHelper
             // dirname specified, get a module object
             $helper = Helper::getHelper($module);
             if ($helper) {
-                $this->$module = $helper->getModule();
+                $this->module = $helper->getModule();
             }
         } else {
             // assume a passed object is appropriate

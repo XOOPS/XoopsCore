@@ -149,7 +149,7 @@ switch ($op) {
                 } else {
                     $img = XOOPS_UPLOAD_URL . '/' . $obj->getVar('image_name');
                 }
-                $xoops->confirm(
+                echo $xoops->confirm(
                     array('op' => 'del', 'ok' => 1, 'image_id' => $image_id, 'imgcat_id' => $obj->getVar('imgcat_id')),
                     XOOPS_URL . '/modules/images/admin/images.php',
                     sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename'))

@@ -99,7 +99,7 @@ switch ($op) {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $xoops->confirm(
+            echo $xoops->confirm(
                 array('ok' => 1, 'id' => $id, 'op' => 'del'),
                 $helper->url('admin/admin_menus.php'),
                 _AM_MENUS_MSG_SUREDEL . '<br /><strong>' . $obj->getVar('title') . '</strong>'

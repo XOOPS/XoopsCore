@@ -342,7 +342,7 @@ switch ($op) {
                 $system_breadcrumb->addHelp(system_adminVersion('groups', 'help') . '#edit');
                 $system_breadcrumb->render();
                 // Display message
-                $xoops->confirm(
+                echo $xoops->confirm(
                     array(
                         "ok" => 1,
                         "groups_id" => $_REQUEST["groups_id"],

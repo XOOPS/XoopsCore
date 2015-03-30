@@ -467,7 +467,7 @@ switch ($op) {
             // Call Header
             $xoops->header('admin:system/system_header.tpl');
             // Display Question
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                 'op'  => 'delete_ok',
                 'fct' => 'blocksadmin',
                 'bid' => $block->getVar('bid')

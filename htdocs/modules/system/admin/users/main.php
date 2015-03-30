@@ -120,7 +120,7 @@ switch ($op) {
             $system_breadcrumb->addHelp(system_adminVersion('users', 'help') . '#delete');
             $system_breadcrumb->addLink(SystemLocale::DELETE_USER);
             $system_breadcrumb->render();
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                 'ok' => 1, 'uid' => $uid, 'op' => 'users_delete'
             ), "admin.php?fct=users", sprintf(SystemLocale::F_DELETE_USER, $user->getVar('uname')) . '<br />');
         }

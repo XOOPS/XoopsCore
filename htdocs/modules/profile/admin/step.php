@@ -110,7 +110,7 @@ switch ($op) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
-                $xoops->confirm(
+                echo $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),
                     'step.php',
                     sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br />'

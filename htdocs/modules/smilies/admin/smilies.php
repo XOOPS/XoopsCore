@@ -154,7 +154,7 @@ switch ($op) {
             }
         } else {
             $smilies_img = ($obj->getVar('smiley_url')) ? $obj->getVar('smiley_url') : 'blank.gif';
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                                  'ok' => 1, 'smiley_id' => $smiley_id, 'op' => 'del'
                             ), XOOPS_URL . '/modules/smilies/admin/smilies.php', sprintf(_AM_SMILIES_SUREDEL) . '<br /><strong>' . $obj->getVar('smiley_emotion') . '</strong><br /><img src="' . XOOPS_UPLOAD_URL . '/' . $smilies_img . '" alt="' . $obj->getVar('smiley_emotion') . '"><br />');
         }
