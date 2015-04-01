@@ -67,12 +67,12 @@ class Xoops
     /**
      * @var XoopsTpl|null
      */
-    private $_tpl = null;
+    private $tpl = null;
 
     /**
      * @var XoopsTheme|null
      */
-    private $_theme = null;
+    private $theme = null;
 
     /**
      * @var array
@@ -90,22 +90,22 @@ class Xoops
     /**
      * @var array
      */
-    private $_kernelHandlers = array();
+    private $kernelHandlers = array();
 
     /**
      * @var array
      */
-    private $_moduleHandlers = array();
+    private $moduleHandlers = array();
 
     /**
      * @var null|array
      */
-    private $_activeModules = null;
+    private $activeModules = null;
 
     /**
      * @var array
      */
-    private $_moduleConfigs = array();
+    private $moduleConfigs = array();
 
     /**
      * @var bool
@@ -274,7 +274,7 @@ class Xoops
      */
     public function tpl()
     {
-        return $this->_tpl;
+        return $this->tpl;
     }
 
     /**
@@ -286,7 +286,7 @@ class Xoops
      */
     public function setTpl(XoopsTpl $tpl)
     {
-        return $this->_tpl = $tpl;
+        return $this->tpl = $tpl;
     }
 
     /**
@@ -296,7 +296,7 @@ class Xoops
      */
     public function theme($tpl_name = null)
     {
-        if (!isset($this->_theme)) {
+        if (!isset($this->theme)) {
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);
                 $this->tpl_name = $tpl_info['tpl_name'];
@@ -330,11 +330,11 @@ class Xoops
             if ($tpl_name) {
                 $tpl_info = $this->getTplInfo($tpl_name);
                 $this->tpl_name = $tpl_info['tpl_name'];
-                $this->_theme->contentTemplate = $this->tpl_name;
+                $this->theme->contentTemplate = $this->tpl_name;
             }
         }
-        $GLOBALS['xoTheme'] = $this->_theme;
-        return $this->_theme;
+        $GLOBALS['xoTheme'] = $this->theme;
+        return $this->theme;
     }
 
     /**
@@ -346,7 +346,7 @@ class Xoops
      */
     public function setTheme(XoopsTheme $theme)
     {
-        return $this->_theme = $theme;
+        return $this->theme = $theme;
     }
 
     /**
@@ -493,7 +493,7 @@ class Xoops
      */
     public function themeSelect()
     {
-        $xoopsThemeSelect = Request::getString('xoops_theme_select','','POST');
+        $xoopsThemeSelect = Request::getString('xoops_theme_select', '', 'POST');
         if (!empty($xoopsThemeSelect) && in_array($xoopsThemeSelect, $this->getConfig('theme_set_allowed'))) {
             $this->setConfig('theme_set', $xoopsThemeSelect);
             $_SESSION['xoopsUserTheme'] = $xoopsThemeSelect;
@@ -707,16 +707,6 @@ class Xoops
     /**
      * @param mixed $optional
      *
-     * @return XoopsCachemodelHandler
-     */
-    public function getHandlerCachemodel($optional = false)
-    {
-        return $this->getHandler('cachemodel', $optional);
-    }
-
-    /**
-     * @param mixed $optional
-     *
      * @return XoopsConfigHandler
      */
     public function getHandlerConfig($optional = false)
@@ -866,7 +856,7 @@ class Xoops
 
     /**
      * @param string $name
-     * @param mixed $optional
+     * @param mixed  $optional
      *
      * @return XoopsObjectHandler|XoopsPersistableObjectHandler|null
      */
@@ -874,19 +864,19 @@ class Xoops
     {
         $name = strtolower(trim($name));
         $class = '';
-        if (!isset($this->_kernelHandlers[$name])) {
+        if (!isset($this->kernelHandlers[$name])) {
             $class = 'Xoops' . ucfirst($name) . 'Handler';
             if (class_exists($class)) {
-                $this->_kernelHandlers[$name] = new $class($this->db());
+                $this->kernelHandlers[$name] = new $class($this->db());
             }
         }
-        if (!isset($this->_kernelHandlers[$name])) {
+        if (!isset($this->kernelHandlers[$name])) {
             $this->logger()->log(
                 $optional ? \Psr\Log\LogLevel::WARNING : \Psr\Log\Loglevel::ERROR,
                 'Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name
             );
         } else {
-            return $this->_kernelHandlers[$name];
+            return $this->kernelHandlers[$name];
         }
         return false;
     }
@@ -912,20 +902,20 @@ class Xoops
             $module_dir = trim($module_dir);
         }
         $name = (!isset($name)) ? $module_dir : trim($name);
-        if (!isset($this->_moduleHandlers[$module_dir][$name])) {
+        if (!isset($this->moduleHandlers[$module_dir][$name])) {
             if (XoopsLoad::fileExists($hnd_file = \XoopsBaseConfig::get('root-path') . "/modules/{$module_dir}/class/{$name}.php")) {
                 include_once $hnd_file;
             }
             $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Handler';
             if (class_exists($class)) {
-                $this->_moduleHandlers[$module_dir][$name] = new $class($this->db());
+                $this->moduleHandlers[$module_dir][$name] = new $class($this->db());
             }
         }
-        if (!isset($this->_moduleHandlers[$module_dir][$name])) {
+        if (!isset($this->moduleHandlers[$module_dir][$name])) {
             trigger_error('Handler does not exist<br />Module: ' . $module_dir . '<br />Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
         }
-        if (isset($this->_moduleHandlers[$module_dir][$name])) {
-            return $this->_moduleHandlers[$module_dir][$name];
+        if (isset($this->moduleHandlers[$module_dir][$name])) {
+            return $this->moduleHandlers[$module_dir][$name];
         }
         return false;
     }
@@ -976,10 +966,11 @@ class Xoops
      * XOOPS language loader wrapper
      * Temporary solution, not encouraged to use
      *
-     * @param   string   $name       Name of language file to be loaded, without extension
-     * @param   mixed    $domain     string: Module dirname; global language file will be loaded if $domain is set to 'global' or not specified
-     *                               array:  example; array('Frameworks/moduleclasses/moduleadmin')
-     * @param   string   $language   Language to be loaded, current language content will be loaded if not specified
+     * @param string $name     Name of language file to be loaded, without extension
+     * @param mixed  $domain   string: Module dirname; global language file will be loaded if
+     *                         $domain is set to 'global' or not specified
+     *                         array:  example; array('Frameworks/moduleclasses/moduleadmin')
+     * @param string $language Language to be loaded, current language content will be loaded if not specified
      *
      * @return  boolean
      */
@@ -1038,18 +1029,18 @@ class Xoops
      */
     public function getActiveModules()
     {
-        if (is_array($this->_activeModules)) {
-            return $this->_activeModules;
+        if (is_array($this->activeModules)) {
+            return $this->activeModules;
         }
 
         try {
-            if (!$this->_activeModules = $this->cache()->read('system/modules/active')) {
-                $this->_activeModules = $this->setActiveModules();
+            if (!$this->activeModules = $this->cache()->read('system/modules/active')) {
+                $this->activeModules = $this->setActiveModules();
             }
         } catch (\Exception $e) {
-            $this->_activeModules = array();
+            $this->activeModules = array();
         }
-        return $this->_activeModules;
+        return $this->activeModules;
     }
 
     /**
@@ -1624,8 +1615,8 @@ class Xoops
     }
 
     /**
-     * @param $configs array
-     * @param $dirname string
+     * @param array  $configs array of configs
+     * @param string $dirname module name
      *
      * @return void
      */
@@ -1636,7 +1627,7 @@ class Xoops
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
         if (!empty($dirname)) {
-            $this->_moduleConfigs[$dirname] = array_merge($this->_moduleConfigs[$dirname], (array)$configs);
+            $this->moduleConfigs[$dirname] = array_merge($this->moduleConfigs[$dirname], (array)$configs);
         }
     }
 
@@ -1654,7 +1645,7 @@ class Xoops
             if (empty($dirname)) {
                 $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
             }
-            $this->_moduleConfigs[$dirname][$key] =& $value;
+            $this->moduleConfigs[$dirname][$key] =& $value;
         }
     }
 
@@ -1674,13 +1665,13 @@ class Xoops
         }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
-                if (!isset($this->_moduleConfigs[$dirname][$key]) || !is_array($this->_moduleConfigs[$dirname][$key])) {
-                    $this->_moduleConfigs[$dirname][$key] = array();
+                if (!isset($this->moduleConfigs[$dirname][$key]) || !is_array($this->moduleConfigs[$dirname][$key])) {
+                    $this->moduleConfigs[$dirname][$key] = array();
                 }
-                $this->_moduleConfigs[$dirname][$key][$key2] =& $value;
+                $this->moduleConfigs[$dirname][$key][$key2] =& $value;
             }
         } else {
-            $this->_moduleConfigs[$dirname][$key][] =& $values;
+            $this->moduleConfigs[$dirname][$key][] =& $values;
         }
     }
 
@@ -1699,16 +1690,16 @@ class Xoops
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
 
-        if (isset($this->_moduleConfigs[$dirname][$key])) {
-            return $this->_moduleConfigs[$dirname][$key];
+        if (isset($this->moduleConfigs[$dirname][$key])) {
+            return $this->moduleConfigs[$dirname][$key];
         }
 
         $this->getModuleConfigs($dirname);
 
-        if (!isset($this->_moduleConfigs[$dirname][$key])) {
-            $this->_moduleConfigs[$dirname][$key] = '';
+        if (!isset($this->moduleConfigs[$dirname][$key])) {
+            $this->moduleConfigs[$dirname][$key] = '';
         }
-        return $this->_moduleConfigs[$dirname][$key];
+        return $this->moduleConfigs[$dirname][$key];
     }
 
     /**
@@ -1722,30 +1713,30 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
-        if (isset($this->_moduleConfigs[$dirname])) {
-            return $this->_moduleConfigs[$dirname];
+        if (isset($this->moduleConfigs[$dirname])) {
+            return $this->moduleConfigs[$dirname];
         }
-        $this->_moduleConfigs[$dirname] = array();
+        $this->moduleConfigs[$dirname] = array();
         $key = "system/module/configs/{$dirname}";
         if (!$configs = $this->cache()->read($key)) {
             $module = $this->getModuleByDirname($dirname);
             if (is_object($module)) {
                 $configs = $this->getHandlerConfig()->getConfigsByModule($module->getVar('mid'));
                 $this->cache()->write($key, $configs);
-                $this->_moduleConfigs[$dirname] =& $configs;
+                $this->moduleConfigs[$dirname] =& $configs;
             }
         } else {
-            $this->_moduleConfigs[$dirname] =& $configs;
+            $this->moduleConfigs[$dirname] =& $configs;
         }
 
         if ($this->isModule()) {
             //for legacy
-            $this->moduleConfig =& $this->_moduleConfigs[$this->module->getVar('dirname')];
+            $this->moduleConfig =& $this->moduleConfigs[$this->module->getVar('dirname')];
         }
         if ($dirname == 'system') {
-            $this->config =& $this->_moduleConfigs['system'];
+            $this->config =& $this->moduleConfigs['system'];
         }
-        return $this->_moduleConfigs[$dirname];
+        return $this->moduleConfigs[$dirname];
     }
 
     /**
@@ -1774,7 +1765,7 @@ class Xoops
      *
      * @return Pdp\Uri\Url\Host|string|null domain, or null if domain is invalid
      */
-    function getBaseDomain($url, $includeSubdomain = false, $returnObject = false)
+    public function getBaseDomain($url, $includeSubdomain = false, $returnObject = false)
     {
         $pslManager = new \Pdp\PublicSuffixListManager();
         $parser = new \Pdp\Parser($pslManager->getList());
