@@ -390,14 +390,6 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('XoopsBlockmodulelinkHandler', $value);
     }
 
-    public function test_getHandlerCachemodel()
-	{
-        $instance = Xoops::getInstance();
-
-        $value = $instance->getHandlerCachemodel();
-        $this->assertInstanceOf('XoopsCachemodelHandler', $value);
-    }
-
     public function test_getHandlerConfig()
 	{
         $instance = Xoops::getInstance();
