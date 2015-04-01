@@ -34,59 +34,6 @@ tables:
                 columns: [module_id, block_id]
                 unique: true
                 primary: true
-    cache_model:
-        options: {  }
-        columns:
-            cache_key:
-                name: cache_key
-                type: string
-                default: ''
-                notnull: true
-                length: 64
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            cache_expires:
-                name: cache_expires
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            cache_data:
-                name: cache_data
-                type: text
-                default: null
-                notnull: false
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [cache_key]
-                unique: true
-                primary: true
-            cache_expires:
-                name: cache_expires
-                columns: [cache_expires]
-                unique: false
-                primary: false
     config:
         options: {  }
         columns:

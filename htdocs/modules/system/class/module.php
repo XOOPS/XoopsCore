@@ -37,7 +37,6 @@ class SystemModule
     protected $config_old = array();
     protected $reservedTables = array(
         'block_module_link',
-        'cache_model',
         'config',
         'configoption',
         'groups',
