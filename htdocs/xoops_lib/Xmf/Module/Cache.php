@@ -37,7 +37,7 @@ class Cache extends AbstractHelper
     protected $prefix;
 
     /**
-     * @var XoopsCache
+     * @var \Xoops\Core\Cache\Access
      */
     protected $cache;
 

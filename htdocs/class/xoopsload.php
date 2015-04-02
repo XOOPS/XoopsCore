@@ -65,24 +65,8 @@ class XoopsLoad
     public static function load($name, $type = "core")
     {
         static $loaded;
-        static $deprecated;
-
-        if (!isset($deprecated)) {
-            $deprecated = array(
-                'uploader' => 'xoopsmediauploader', 'utility' => 'xoopsutility', 'captcha' => 'xoopscaptcha',
-                'cache'    => 'xoopscache', 'file' => 'xoopsfile', // 'model' => 'xoopsmodelfactory',
-                'calendar' => 'xoopscalendar', 'userutility' => 'xoopsuserutility',
-            );
-        }
 
         $lname = strtolower($name);
-        if (in_array($type, array('core','class')) && array_key_exists($lname, $deprecated)) {
-            trigger_error(
-                "xoops_load('{$lname}') is deprecated, use xoops_load('{$deprecated[$lname]}')",
-                E_USER_WARNING
-            );
-            $lname = $deprecated[$lname];
-        }
 
         $type = empty($type) ? 'core' : $type;
         if (isset($loaded[$type][$lname])) {
@@ -268,16 +252,6 @@ class XoopsLoad
             'xoopsblockhandler' => XOOPS_ROOT_PATH . '/kernel/block.php',
             'xoopsblockmodulelink' => XOOPS_ROOT_PATH . '/kernel/blockmodulelink.php',
             'xoopsblockmodulelinkhandler' => XOOPS_ROOT_PATH . '/kernel/blockmodulelink.php',
-            'xoopscache' => XOOPS_ROOT_PATH . '/class/cache/xoopscache.php',
-            'xoopscacheengine' => XOOPS_ROOT_PATH . '/class/cache/xoopscache.php',
-            'xoopscacheapc' => XOOPS_ROOT_PATH . '/class/cache/apc.php',
-            'xoopscachefile' => XOOPS_ROOT_PATH . '/class/cache/file.php',
-            'xoopscachememcache' => XOOPS_ROOT_PATH . '/class/cache/memcache.php',
-            'xoopscachemodel' => XOOPS_ROOT_PATH . '/class/cache/model.php',
-            'xoopscachexcache' => XOOPS_ROOT_PATH . '/class/cache/xcache.php',
-            'xoopscache' => XOOPS_ROOT_PATH . '/class/cache/xoopscache.php',
-            'xoopscachemodelhandler' => XOOPS_ROOT_PATH . '/kernel/cachemodel.php',
-            'xoopscachemodelobject' => XOOPS_ROOT_PATH . '/kernel/cachemodel.php',
             //'xoopscalendar' => XOOPS_ROOT_PATH . '/class/calendar/xoopscalendar.php',
             'xoopscaptcha' => XOOPS_ROOT_PATH . '/class/captcha/xoopscaptcha.php',
             'xoopscaptchamethod' => XOOPS_ROOT_PATH . '/class/captcha/xoopscaptchamethod.php',

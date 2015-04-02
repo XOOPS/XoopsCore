@@ -82,7 +82,6 @@ $modversion['tables'] = array(
     'tplfile',
     'tplsource',
     'users',
-    'cache_model',
 );
 
 // Admin Templates
