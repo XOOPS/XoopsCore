@@ -287,8 +287,8 @@ class XoopsFolderHandler
      */
     public static function isAbsolute($path)
     {
-        $match = preg_match('/^\\//', $path) || preg_match('/^[A-Z]:\\//i', $path);
-        return $match;
+        $match = preg_match('/^(\/|[A-Z]:)/', $path);
+        return ($match == 1);
     }
 
     /**
@@ -389,11 +389,7 @@ class XoopsFolderHandler
         } else {
             $return = preg_match('/^(.*)' . preg_quote($current, '/') . '(.*)/', $dir);
         }
-        if ($return == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($return == 1);
     }
 
     /**
