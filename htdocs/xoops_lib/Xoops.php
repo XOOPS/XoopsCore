@@ -557,7 +557,7 @@ class Xoops
     }
 
     /**
-     * @param string|null $tpl_name
+     * @param string $tpl_name
      *
      * @return null|boolean
      */

@@ -123,6 +123,7 @@ class Assets
     protected function readAssetsPrefs()
     {
         $xoops = \Xoops::getInstance();
+        $cache = $xoops->cache();
 
         $assetsPrefs = array();
 
@@ -234,6 +235,8 @@ class Assets
         } else {
             $target_path = $xoops->path('assets');
         }
+
+        $target_url = $xoops->url($target_path);
 
         try {
             $am = $this->assetManager;
@@ -437,7 +440,7 @@ class Assets
 
         if (!is_dir($to_path)) {
             $oldUmask = umask(0);
-            mkdir($to_path, 0775, true);
+            @mkdir($to_path, 0775, true);
             umask($oldUmask);
         }
 

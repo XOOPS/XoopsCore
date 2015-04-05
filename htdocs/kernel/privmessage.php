@@ -163,7 +163,7 @@ class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
     public function setRead(XoopsPrivmessage &$pm)
     {
         $qb = $this->db2->createXoopsQueryBuilder()
-            ->update($this->table, 'pm')
+            ->updatePrefix('priv_msgs', 'pm')
             ->set('pm.read_msg', ':readmsg')
             ->where('pm.msg_id = :msgid')
             ->setParameter(':readmsg', 1, \PDO::PARAM_INT)
