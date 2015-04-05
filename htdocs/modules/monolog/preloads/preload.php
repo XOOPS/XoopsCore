@@ -449,7 +449,7 @@ class MonologPreload extends PreloadItem
         $key = 'module/monolog/configs';
 
         if (isset($_REQUEST['monolog_enable'])) {
-            $cache->delete($cache_key);
+            $cache->delete($key);
 
             $helper = \Xoops::getInstance()->getModuleHelper('monolog');
             $configs['monolog_enable'] = (bool) $helper->getConfig('monolog_enable');
@@ -462,7 +462,7 @@ class MonologPreload extends PreloadItem
             $configs['log_file_path'] = $helper->getConfig('log_file_path');
             $configs['max_versions'] = (int) $helper->getConfig('max_versions');
 
-            $cache->write($cache_key, $configs);
+            $cache->write($key, $configs);
         }
 
     }
