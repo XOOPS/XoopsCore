@@ -98,11 +98,13 @@ class CacheManager
      */
     public function getCache($name)
     {
+        $pool = false;
         if (array_key_exists($name, $this->pools)) {
             $pool =  $this->pools[$name];
         } elseif (array_key_exists($name, $this->poolDefs)) {
             $pool =  $this->startPoolAccess($name);
-        } else {
+        }
+        if ($pool === false) {
             $pool = $this->getDefaultPool($name);
         }
 
