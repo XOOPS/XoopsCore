@@ -43,7 +43,7 @@ class PageSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sys
             $ret['link'] = Page::getInstance()->url('admin/content.php');
             return $ret;
         }
-        return false;
+        return array();
     }
 
     /**
