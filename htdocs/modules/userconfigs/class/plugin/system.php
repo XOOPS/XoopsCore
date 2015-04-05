@@ -21,12 +21,12 @@ class UserconfigsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
 {
     public function userPosts($uid)
     {
-        return 0;
+        return array();
     }
 
     public function waiting()
     {
-        return array();
+        return 0;
     }
 
     public function backend($limit)

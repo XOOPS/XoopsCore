@@ -54,7 +54,7 @@ abstract class Form implements ContainerInterface
     private $title;
 
     /**
-     * display class for the form, i.e. horizontal, vertical, inline
+     * display for the form
      *
      * @var string
      */
@@ -94,7 +94,7 @@ abstract class Form implements ContainerInterface
      * @param string  $action   action attribute for the <form> tag
      * @param string  $method   method attribute for the <form> tag
      * @param boolean $addtoken whether to add a security token to the form
-     * @param string  $display  class for the form, i.e. horizontal, vertical, inline
+     * @param string  $display  summary of form to display
      *
      * @return void
      */
@@ -301,9 +301,8 @@ abstract class Form implements ContainerInterface
     public function setElementValue($name, $value)
     {
         $ele = $this->getElementByName($name);
-        if (is_object($ele)) {
+        if (is_object($ele))
             $ele->setValue($value);
-        }
     }
 
     /**

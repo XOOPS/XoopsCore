@@ -179,7 +179,7 @@ class CacheManager
      *
      * @param string $originalName originally requested pool configuration name
      *
-     * @return Access|false pool or false if a pool cannot be created
+     * @return PoolInterface|false pool or false if a pool cannot be created
      */
     protected function getDefaultPool($originalName)
     {
@@ -188,7 +188,7 @@ class CacheManager
         if (array_key_exists($name, $this->pools)) {
             return $this->pools[$name];
         }
-        $pool = $this->startPoolAccess($name);
+        $pool = $this->startPool($name);
         if ($pool===false) {
             $this->xoops->logger()->error('Could not create default cache pool');
             $pool = new Access(new \Stash\Pool());

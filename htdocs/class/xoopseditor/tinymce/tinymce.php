@@ -171,7 +171,7 @@ class TinyMCE
                 if ( isset($this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"]) ) {
                     $checklist = explode(",", $this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"] );
                     foreach ( $checklist as $plugin ) {
-                        if ( strpos( strtolower($plugin), "xoops") !== false ) {
+                        if ( strpos( strtolower($plugin), "xoops") != false ) {
                             if ( in_array( $plugin, $this->xoopsPlugins ) ) {
                                 $buttons[] = $plugin;
                             }
@@ -225,7 +225,7 @@ class TinyMCE
         $xoopsPlugins = array();
         $allplugins = XoopsLists::getDirListAsArray( XOOPS_ROOT_PATH . $this->rootpath . "/plugins" );
         foreach ( $allplugins as $plugin ) {
-            if ( strpos( strtolower($plugin), "xoops") !== false && file_exists(XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php") ) {
+            if ( strpos( strtolower($plugin), "xoops") != false && file_exists(XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php") ) {
                 if ( $right = @include XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php" ) {
                     $xoopsPlugins[$plugin] = $plugin;
                 }

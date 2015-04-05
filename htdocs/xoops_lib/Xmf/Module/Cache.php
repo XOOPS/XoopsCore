@@ -138,7 +138,7 @@ class Cache extends AbstractHelper
      *
      * @return boolean True if the cache was successfully cleared, false otherwise
      */
-    public function clear()
+    public static function clear()
     {
         return $this->delete(array());
     }
