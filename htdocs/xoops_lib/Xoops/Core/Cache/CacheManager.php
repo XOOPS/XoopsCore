@@ -13,7 +13,6 @@ namespace Xoops\Core\Cache;
 
 use Stash\Pool;
 use Stash\Interfaces\DriverInterface;
-use Stash\Interfaces\PoolInterface;
 use Xoops\Core\Cache\DriverList;
 use Xoops\Core\Cache\Access;
 use Xoops\Core\Yaml;
@@ -95,7 +94,7 @@ class CacheManager
      *
      * @param string $name Name of cache definition
      *
-     * @return Access|false Access object or false if it cannot be created
+     * @return Access object
      */
     public function getCache($name)
     {
@@ -104,7 +103,8 @@ class CacheManager
             $pool =  $this->pools[$name];
         } elseif (array_key_exists($name, $this->poolDefs)) {
             $pool =  $this->startPoolAccess($name);
-        } else {
+        }
+        if ($pool === false) {
             $pool = $this->getDefaultPool($name);
         }
 
@@ -179,7 +179,7 @@ class CacheManager
      *
      * @param string $originalName originally requested pool configuration name
      *
-     * @return Access|false pool or false if a pool cannot be created
+     * @return Access object
      */
     protected function getDefaultPool($originalName)
     {
