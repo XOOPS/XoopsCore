@@ -25,6 +25,9 @@
 include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
+
+$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+
 $xoops->events()->triggerEvent('core.user.start');
 
 $xoops->loadLanguage('user');
@@ -92,7 +95,7 @@ if ($op == 'main') {
         $redirect = $clean_input['xoops_redirect'];
         $isExternal = false;
         if ($pos = strpos($redirect, '://')) {
-            $xoopsLocation = substr(XOOPS_URL, strpos(XOOPS_URL, '://') + 3);
+            $xoopsLocation = substr($xoops_url, strpos($xoops_url, '://') + 3);
             if (strcasecmp(substr($redirect, $pos + 3, strlen($xoopsLocation)), $xoopsLocation)) {
                 $isExternal = true;
             }
@@ -102,7 +105,7 @@ if ($op == 'main') {
             exit();
         }
     }
-    header('Location: ' . XOOPS_URL . '/userinfo.php?uid=' . $xoopsUser->getVar('uid'));
+    header('Location: ' . $xoops_url . '/userinfo.php?uid=' . $xoopsUser->getVar('uid'));
     exit();
 }
 
@@ -111,14 +114,14 @@ if ($op == 'logout') {
     // Regenerate a new session id and destroy old session
     $xoops->getHandlerSession()->regenerate_id(true);
     $_SESSION = array();
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', XOOPS_COOKIE_DOMAIN, 0);
+    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', $xoops->globalData->getVar('XOOPS_COOKIE_DOMAIN'), 0);
     setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));
     }
     $message = XoopsLocale::S_YOU_ARE_NOW_LOGGED_OUT . '<br />' . XoopsLocale::S_THANK_YOU_FOR_VISITING_OUR_SITE;
-    $xoops->redirect(XOOPS_URL . '/', 1, $message);
+    $xoops->redirect($xoops_url . '/', 1, $message);
 }
 
 if ($op == 'delete') {
@@ -127,7 +130,7 @@ if ($op == 'delete') {
         $xoops->redirect('index.php', 5, XoopsLocale::E_NO_ACTION_PERMISSION);
     } else {
         $groups = $xoops->user->getGroups();
-        if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
+        if (in_array($xoops->globalData->getVar('XOOPS_GROUP_ADMIN'), $groups)) {
             // users in the webmasters group may not be deleted
             $xoops->redirect('user.php', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }

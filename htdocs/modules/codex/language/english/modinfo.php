@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 define('_MI_CODEX_NAME', 'Codex');
 define('_MI_CODEX_DSC', 'Code examples for developers');

@@ -14,9 +14,9 @@
  * @package         kernel
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 /**
  *  Define XOOPS version
  */
-define('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');
+// define('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3'); See XoopsBaseConfig

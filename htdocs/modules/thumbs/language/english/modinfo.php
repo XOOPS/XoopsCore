@@ -16,7 +16,7 @@
  * @link      http://xoops.org
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 define('_MI_THUMBS_NAME', 'Thumbs');
 define('_MI_THUMBS_DESC', 'Support for thumbnail management');

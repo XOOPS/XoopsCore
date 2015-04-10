@@ -115,7 +115,7 @@ include_once $xoops->path('include/functions.php');
  * Not sure this is the best idea, but how it has always worked. Set includeSubdomain parameter
  * to getBaseDomain to true to include full host with any subdomain(s).
  */
-define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
+//define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
 //define('XOOPS_COOKIE_DOMAIN', null);
 
 /**
@@ -244,7 +244,7 @@ if (!empty($_SESSION['xoopsUserId'])) {
     $xoops->user = $member_handler->getUser($_SESSION['xoopsUserId']);
     if (!is_object($xoops->user)
         || (isset($hash_login)
-            && md5($xoops->user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX) != $hash_login)
+            && md5($xoops->user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')) != $hash_login)
     ) {
         $xoops->user = '';
         $_SESSION = array();
@@ -284,6 +284,7 @@ if ($xoops->getConfig('closesite') == 1) {
 /**
  * Load Xoops Module
  */
+$xoops_url = \XoopsBaseConfig::get('url');
 $xoops->moduleDirname = 'system';
 if (XoopsLoad::fileExists('./xoops_version.php')) {
     $url_arr = explode('/', strstr($_SERVER['PHP_SELF'], '/modules/'));
@@ -293,19 +294,19 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
     unset($url_arr);
 
     if (!$xoops->module || !$xoops->module->getVar('isactive')) {
-        $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_MODULE);
+        $xoops->redirect($xoops_url, 3, XoopsLocale::E_NO_MODULE);
         exit();
     }
     $moduleperm_handler = $xoops->getHandlerGroupperm();
     if ($xoops->isUser()) {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
+            $xoops->redirect($xoops_url, 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
             $xoops->redirect(
-                XOOPS_URL . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
+                $xoops_url . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
                 1,
                 XoopsLocale::E_NO_ACCESS_PERMISSION
             );

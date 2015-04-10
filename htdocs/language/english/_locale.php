@@ -20,7 +20,7 @@
  * @version         $Id$
  * @todo            To be handled by i18n/l10n
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 setlocale(LC_ALL, 'en_US');
 

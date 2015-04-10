@@ -367,7 +367,7 @@ class XoopsFolderHandler
      */
     public function inXoopsPath($path = '')
     {
-        $dir = substr($this->slashTerm(XOOPS_ROOT_PATH), 0, -1);
+        $dir = substr($this->slashTerm(\XoopsBaseConfig::get('root-path')), 0, -1);
         $newdir = $dir . $path;
         return $this->inPath($newdir);
     }

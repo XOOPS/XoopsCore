@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 define('_MD_COMMENTS_TITLE', 'Title');
 define('_MD_COMMENTS_MESSAGE', 'Message');

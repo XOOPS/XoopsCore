@@ -19,7 +19,7 @@
  */
 
 
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!defined('XOOPS_INITIALIZED')) {
     require dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 }
 

@@ -128,7 +128,7 @@ class XoopsBaseConfig
      */
     final public function establishBCDefines()
     {
-        if (defined('XOOPS_ROOT_PATH')) {
+        if (defined('XOOPS_INITIALIZED')) {
             return;
         }
 
@@ -203,29 +203,28 @@ class XoopsBaseConfig
     final public static function bootstrapTransition()
     {
         $path = self::defineDefault('XOOPS_ROOT_PATH', basename(__DIR__));
-        $url = (defined('XOOPS_URL')) ?
-            XOOPS_URL :
+        $url  = self::defineDefault('XOOPS_URL',
             ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://')
             . $_SERVER['SERVER_NAME']
-            . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : '');
+            . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : ''));
 
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
         $configs = array(
-            'root-path' => self::defineDefault('XOOPS_ROOT_PATH'),
+            'root-path' => $path,
             'lib-path' => self::defineDefault('XOOPS_PATH'),
             'var-path' => self::defineDefault('XOOPS_VAR_PATH'),
             'trust-path' => self::defineDefault('XOOPS_TRUST_PATH'),
-            'url' => self::defineDefault('XOOPS_URL'),
+            'url' => $url,
             'prot' => self::defineDefault('XOOPS_PROT'),
             'asset-path' => $path . '/assets',
             'asset-url' => $url . '/assets',
             'cookie-domain' => $host,
             'cookie-path' => $urlpath,
             'db-type' => self::defineDefault('XOOPS_DB_TYPE'),
-            'db-charset' => 'utf8',
+            'db-charset' => self::defineDefault('XOOPS_DB_CHARSET'),
             'db-prefix' => self::defineDefault('XOOPS_DB_PREFIX'),
             'db-host' => self::defineDefault('XOOPS_DB_HOST'),
             'db-user' => self::defineDefault('XOOPS_DB_USER'),
@@ -233,6 +232,20 @@ class XoopsBaseConfig
             'db-name' => self::defineDefault('XOOPS_DB_NAME'),
             'db-pconnect' => 0,
             'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
+			'db-proxy' => self::defineDefault('XOOPS_DB_PROXY',0)
+			'theme-path' => self::defineDefault('XOOPS_THEME_PATH'),
+			'admintheme-path' => self::defineDefault('XOOPS_ADMINTHEME_PATH'),
+			'upload-path' => self::defineDefault('XOOPS_UPLOAD_PATH'),
+			'library-path' => self::defineDefault('XOOPS_LIBRARY_PATH'),
+			'compile-path' => self::defineDefault('XOOPS_COMPILE_PATH'),
+			'cache-path' => self::defineDefault('XOOPS_CACHE_PATH'),
+			'plugins-path' => self::defineDefault('XOOPS_PLUGINS_PATH'),
+			'version' => self::defineDefault('XOOPS_VERSION'),
+			'theme-url' => self::defineDefault('XOOPS_THEME_URL'),
+			'admintheme-url' => self::defineDefault('XOOPS_ADMINTHEME_URL'),
+			'upload-url' => self::defineDefault('XOOPS_UPLOAD_URL'),
+			'library-url' => self::defineDefault('XOOPS_LIBRARY_URL'),
+			'frameworks-path' => self::defineDefault('FRAMEWORKS_ROOT_PATH'),
         );
         self::getInstance($configs);
     }

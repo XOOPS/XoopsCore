@@ -19,7 +19,7 @@ use Xoops\Core\Request;
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 class CommentsCommentForm extends Xoops\Form\ThemeForm
 {

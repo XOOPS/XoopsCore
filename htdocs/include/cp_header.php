@@ -25,21 +25,22 @@
 include_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
+$xoops_url = \XoopsBaseConfig::get('url');
 include_once $xoops->path('include/cp_functions.php');
 
 $moduleperm_handler = $xoops->getHandlerGroupperm();
 if ($xoops->isUser()) {
     $url_arr = explode('/', strstr($_SERVER['REQUEST_URI'], '/modules/'));
     if (!$xoops->isActiveModule($url_arr[2])) {
-        $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        $xoops->redirect($xoops_url, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
     }
     $xoops->module = $xoops->getModuleByDirname($url_arr[2]);
     unset($url_arr);
     if (!$moduleperm_handler->checkRight('module_admin', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
-        $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        $xoops->redirect($xoops_url, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
     }
 } else {
-    $xoops->redirect(XOOPS_URL . '/user.php', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect($xoops_url . '/user.php', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 // set config values for this module

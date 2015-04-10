@@ -19,7 +19,7 @@
  * @version         $Id $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
+defined('XOOPS_INITIALIZED') or die("XOOPS root path not defined");
 
 class XoopsXmlRpcApi
 {

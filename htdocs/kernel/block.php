@@ -75,6 +75,8 @@ class XoopsBlock extends XoopsObject
                 }
             }
         }
+		$this->xoops_url = \XoopsBaseConfig::get('url');
+		$this->xoops_root_path =\XoopsBaseConfig::get('root-path');
     }
 
 
@@ -291,18 +293,18 @@ class XoopsBlock extends XoopsObject
                 // S : use text sanitizater (smilies enabled)
                 // T : use text sanitizater (smilies disabled)
                 if ($c_type == 'H') {
-                    return str_replace('{X_SITEURL}', XOOPS_URL . '/', $this->getVar('content', 'n'));
+                    return str_replace('{X_SITEURL}', $this->xoops_url . '/', $this->getVar('content', 'n'));
                 } else {
                     if ($c_type == 'P') {
                         ob_start();
                         echo eval($this->getVar('content', 'n'));
                         $content = ob_get_contents();
                         ob_end_clean();
-                        return str_replace('{X_SITEURL}', XOOPS_URL . '/', $content);
+                        return str_replace('{X_SITEURL}', $this->xoops_url . '/', $content);
                     } else {
                         if ($c_type == 'S') {
                             $myts = MyTextSanitizer::getInstance();
-                            $content = str_replace('{X_SITEURL}', XOOPS_URL . '/', $this->getVar('content', 'n'));
+                            $content = str_replace('{X_SITEURL}', $this->xoops_url . '/', $this->getVar('content', 'n'));
                             return $myts->displayTarea($content, 1, 1);
                         } else {
                             $myts = MyTextSanitizer::getInstance();
@@ -334,9 +336,9 @@ class XoopsBlock extends XoopsObject
             if (!$edit_func) {
                 return false;
             }
-            if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file'))) {
+            if (XoopsLoad::fileExists($this->xoops_root_path . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file'))) {
                 $xoops->loadLanguage('blocks', $this->getVar('dirname'));
-                include_once XOOPS_ROOT_PATH . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file');
+                include_once $this->xoops_root_path . '/modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file');
                 if (function_exists($edit_func)) {
                     // execute the function
                     $options = explode('|', $this->getVar('options'));

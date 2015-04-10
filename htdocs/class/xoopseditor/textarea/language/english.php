@@ -11,7 +11,7 @@
  * @subpackage   xoopseditor
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 /*
  * Associated with editor_registry.php

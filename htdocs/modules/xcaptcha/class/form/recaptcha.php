@@ -17,7 +17,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 class XcaptchaRecaptchaForm extends Xoops\Form\ThemeForm
 {

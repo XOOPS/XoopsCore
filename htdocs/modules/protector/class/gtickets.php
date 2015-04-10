@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 // GIJOE's Ticket Class (based on Marijuana's Oreteki XOOPS)
 // nobunobu's suggestions are applied
@@ -39,7 +39,7 @@ if (!class_exists('XoopsGTicket')) {
             $language = $xoops->getConfig('language');
 
             // language file
-            if (defined('XOOPS_ROOT_PATH') && $language && !strstr($language, '/')) {
+            if (defined('XOOPS_INITIALIZED') && $language && !strstr($language, '/')) {
                 if (XoopsLoad::fileExists(dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml')) {
                     include dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml';
                 }

@@ -15,7 +15,7 @@
  * @author          Richard Griffith <richard@geekwright.com>
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 define('_MI_GRAVATARS_NAME','Gravatars');
 define('_MI_GRAVATARS_DESC','Use gravatar.com for system avatars');

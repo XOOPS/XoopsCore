@@ -37,7 +37,7 @@ $xoops->preload()->triggerEvent('core.index.start');
 //check if start page is defined
 if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     // Temporary solution for start page redirection
-    define("XOOPS_STARTPAGE_REDIRECTED", 1);
+    $xoops->globalData->setVar('XOOPS_STARTPAGE_REDIRECTED', 1);
     $module_handler = $xoops->getHandlerModule();
     $xoops->module = $xoops->getModuleByDirname($xoops->getConfig('startpage'));
     if (!$xoops->isModule() || !$xoops->module->getVar('isactive')) {
@@ -48,12 +48,12 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     $moduleperm_handler = $xoops->getHandlerGroupperm();
     if ($xoops->isUser()) {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
+            $xoops->redirect($xoops->globalData->getVar('XOOPS_URL'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
-        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
-            $xoops->redirect(XOOPS_URL . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'))) {
+            $xoops->redirect($xoops->globalData->getVar('XOOPS_URL') . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }
     if ($xoops->module->getVar('hasconfig') == 1
@@ -65,7 +65,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
 
     chdir('modules/' . $xoops->getConfig('startpage') . '/');
     $xoops->loadLanguage('main', $xoops->module->getVar('dirname', 'n'));
-    $parsed = parse_url(XOOPS_URL);
+    $parsed = parse_url($xoops->globalData->getVar('XOOPS_URL'));
     $url = isset($parsed['scheme']) ? $parsed['scheme'] . '://' : 'http://';
     if (isset($parsed['host'])) {
         $url .= $parsed['host'];
@@ -77,7 +77,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     }
 
     $_SERVER['REQUEST_URI'] =
-        substr(XOOPS_URL, strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
+        substr($xoops->globalData->getVar('XOOPS_URL'), strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
     include $xoops->path('modules/' . $xoops->getConfig('startpage') . '/index.php');
     exit();
 } else {

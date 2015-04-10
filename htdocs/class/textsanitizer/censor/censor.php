@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 /**
  * Replaces banned words in a string with their replacements or terminate current request

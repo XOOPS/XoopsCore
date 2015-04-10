@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 define('_MI_SEARCH_NAME', 'Search');
 define('_MI_SEARCH_DSC', 'Provides search ability for modules');

@@ -20,7 +20,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 // _LANGCODE: en
 // _CHARSET : UTF-8

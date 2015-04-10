@@ -17,7 +17,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
+defined('XOOPS_INITIALIZED') or die("XOOPS root path not defined");
 
 function menus_block_show($options)
 {

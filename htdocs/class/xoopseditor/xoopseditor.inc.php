@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 if (!function_exists('xoopseditor_get_rootpath')) {
     /**
@@ -32,7 +32,7 @@ if (!function_exists('xoopseditor_get_rootpath')) {
         return XOOPS_ROOT_PATH . '/class/xoopseditor';
     }
 }
-if (defined('XOOPS_ROOT_PATH')) {
+if (defined('XOOPS_INITIALIZED')) {
     return true;
 }
 
@@ -42,4 +42,4 @@ if (DIRECTORY_SEPARATOR != '/') {
 }
 include $mainfile;
 
-return defined('XOOPS_ROOT_PATH');
+return defined('XOOPS_INITIALIZED');

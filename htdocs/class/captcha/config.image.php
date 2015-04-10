@@ -26,7 +26,7 @@
  * @since     2.6.0
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 return $config = array(
     'num_chars' => 6, // Maximum characters

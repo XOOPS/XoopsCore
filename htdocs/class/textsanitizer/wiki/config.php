@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 return $config = array(
     'link' => XOOPS_URL . "/modules/mediawiki/?title=%s",// The link to wiki module

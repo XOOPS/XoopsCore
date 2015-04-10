@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 require_once __DIR__ . '/precheck_functions.php';
 
