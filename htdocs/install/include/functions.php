@@ -70,7 +70,7 @@ function install_finalize($installer_modified)
  * @param string $value value
  * @param string $label label
  * @param string $help  help text
- * 
+ *
  * @return void
  */
 function xoFormField($name, $value, $label, $help = '')
@@ -97,7 +97,7 @@ function xoFormField($name, $value, $label, $help = '')
  * @param string $value value
  * @param string $label label
  * @param string $help  help text
- * 
+ *
  * @return void
  */
 function xoPassField($name, $value, $label, $help = '')
@@ -125,7 +125,7 @@ function xoPassField($name, $value, $label, $help = '')
  * @param string $value value
  * @param string $label label
  * @param string $help  help text
- * 
+ *
  * @return void
  */
 function xoBoolField($name, $value, $label, $help = '')
@@ -225,14 +225,10 @@ function xoDiagIfWritable($path)
  */
 function xoPhpVersion()
 {
-    if (version_compare(phpversion(), '5.3.7', '>=')) {
+    if (version_compare(phpversion(), '5.4.0', '>=')) {
         return xoDiag(1, phpversion());
     } else {
-        if (version_compare(phpversion(), '5.2.0', '>=')) {
-            return xoDiag(0, phpversion());
-        } else {
-            return xoDiag(-1, phpversion());
-        }
+        return xoDiag(-1, phpversion());
     }
 }
 
@@ -470,7 +466,7 @@ function xoFormFieldCharset($name, $value, $label, $help, $link)
 /**
  * getDbConnectionParams - build array of connection parameters from collected
  * DB_* session variables
- * 
+ *
  * @return array of Doctrine Connection parameters
  */
 function getDbConnectionParams()
@@ -486,7 +482,7 @@ function getDbConnectionParams()
         'driver' => $settings['DB_DRIVER'],
         'charset' => 'utf8',
     );
-    
+
     foreach ($driver_params as $param) {
         if (!empty($settings[$wizard->configs['db_param_names'][$param]])) {
             $connectionParams[$param] = $settings[$wizard->configs['db_param_names'][$param]];
