@@ -32,7 +32,9 @@ class XoopsCaptchaText extends XoopsCaptchaMethod
      */
     public function render()
     {
-        $form = $this->loadText() . '&nbsp;&nbsp; <input type="text" name="' . $this->config['name'] . '" id="' . $this->config['name'] . '" size="' . $this->config['num_chars'] . '" maxlength="' . $this->config['num_chars'] . '" value="" />';
+        $form = $this->loadText() . '&nbsp;&nbsp; <input type="text" name="' . $this->config['name']
+			. '" id="' . $this->config['name'] . '" size="' . $this->config['num_chars']
+			. '" maxlength="' . $this->config['num_chars'] . '" value="" />';
         $form .= '<br />' . XoopsLocale::INPUT_RESULT_FROM_EXPRESSION;
         if (!empty($this->config['maxattempts'])) {
             $form .= '<br />' . sprintf(XoopsLocale::F_MAXIMUM_ATTEMPTS, $this->config['maxattempts']);

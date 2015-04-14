@@ -62,12 +62,13 @@ class XoopsBlock extends XoopsObject
         $this->initVar('bcachetime', XOBJ_DTYPE_INT, 0, false);
         $this->initVar('last_modified', XOBJ_DTYPE_INT, 0, false);
 
+		$xoops = Xoops::getInstance();
+		
         // for backward compatibility
         if (isset($id)) {
             if (is_array($id)) {
                 $this->assignVars($id);
             } else {
-                $xoops = Xoops::getInstance();
                 $blkhandler = $xoops->getHandlerBlock();
                 $obj = $blkhandler->get($id);
                 foreach (array_keys($obj->getVars()) as $i) {
@@ -75,8 +76,8 @@ class XoopsBlock extends XoopsObject
                 }
             }
         }
-		$this->xoops_url = \XoopsBaseConfig::get('url');
-		$this->xoops_root_path =\XoopsBaseConfig::get('root-path');
+		$this->xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+		$this->xoops_root_path = $xoops->globalData->getVar('XOOPS_ROOT_PATH');
     }
 
 

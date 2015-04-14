@@ -27,8 +27,8 @@ include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $helper = Avatars::getInstance();
 
-$xoops_upload_path = \XoopsBaseConfig::get('upload-path');
-$xoops_upload_url = \XoopsBaseConfig::get('upload-url');
+$xoops_upload_path = $xoops->globalData->getVar('XOOPS_UPLOAD_PATH');
+$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
 
 // Get avatar handler
 $avatar_Handler = $helper->getHandlerAvatar();

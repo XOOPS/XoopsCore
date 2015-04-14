@@ -21,7 +21,7 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 
-$xoops_url = \XoopsBaseConfig::get('url');
+$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
 
 // from $_POST we use keys: uname, pass, rememberme, xoops_redirect
 $clean_input = XoopsFilterInput::gather(
@@ -81,12 +81,12 @@ if (false != $user) {
 
     // Set cookie for rememberme
     if ($xoops->getConfig('usercookie')) {
-		$cookie_domain = \XoopsBaseConfig::get('cookie-domain');
+		$cookie_domain = $xoops->globalData->getVar('XOOPS_COOKIE_DOMAIN');
         if ($clean_input["rememberme"]) {
             setcookie(
                 $xoops->getConfig('usercookie'),
                 $_SESSION['xoopsUserId'] . '-' . md5(
-                    $user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')
+                    $user->getVar('pass') . $xoops->globalData->getVar('XOOPS_DB_NAME') . $xoops->globalData->getVar('XOOPS_DB_PASS') . $xoops->globalData->getVar('XOOPS_DB_PREFIX')
                 ),
                 time() + 31536000,
                 '/',

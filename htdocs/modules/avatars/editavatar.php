@@ -68,7 +68,7 @@ switch ($op) {
         $oldavatar = $xoops->user->getVar('user_avatar');
         if (!empty($oldavatar) && $oldavatar != 'blank.gif') {
             $warning_msg = '<p>' . AvatarsLocale::ALERT_WARNING_OLD .'</p>';
-			$xoops_upload_url = \XoopsBaseConfig::get('upload-url');
+			$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
             $warning_msg .= "<img src='" . $xoops_upload_url . '/' . $oldavatar ."' alt='&nbsp;' />";
             $xoops->tpl()->assign('warning_msg', $xoops->alert('warning', $warning_msg, XoopsLocale::WARNING));
         }
@@ -91,7 +91,7 @@ switch ($op) {
             exit();
         }
         $uploader_avatars_img =
-            new XoopsMediaUploader(\XoopsBaseConfig::get('upload-path') . '/avatars', $mimetypes, $upload_size, $width, $height);
+            new XoopsMediaUploader($xoops->globalData->getVar('XOOPS_UPLOAD_PATH') . '/avatars', $mimetypes, $upload_size, $width, $height);
 
         $obj = $avatar_Handler->create();
         $error_msg = '';
@@ -117,7 +117,7 @@ switch ($op) {
                         $avatars = $avatar_Handler->getObjects($criteria);
                         if (! empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
                             $avatar_Handler->delete($avatars[0]);
-							$xoops_upload_path = \XoopsBaseConfig::get('upload-path')
+							$xoops_upload_path = $xoops->globalData->getVar('XOOPS_UPLOAD_PATH');
                             $oldavatar_path = realpath($xoops_upload_path . '/' . $oldavatar);
                             if (0 === strpos($oldavatar_path, realpath($xoops_upload_path))
                                 && is_file($oldavatar_path)
@@ -156,7 +156,7 @@ switch ($op) {
             $avatars = $avatar_Handler->getObjects($criteria);
             if (!empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
                 $avatar_Handler->delete($avatars[0]);
-				$xoops_upload_path = \XoopsBaseConfig::get('upload-path');
+				$xoops_upload_path = $xoops->globalData->getVar('XOOPS_UPLOAD_PATH');
                 $oldavatar_path = realpath($xoops_upload_path . '/' . $oldavatar);
                 if (0 === strpos($oldavatar_path, realpath($xoops_upload_path)) && is_file($oldavatar_path)) {
                     unlink($oldavatar_path);

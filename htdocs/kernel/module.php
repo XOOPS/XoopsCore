@@ -69,8 +69,9 @@ class XoopsModule extends XoopsObject
         // RMV-NOTIFY
         $this->initVar('hasnotification', XOBJ_DTYPE_INT, 0, false);
 		
-		$this->xoops_url = \XoopsBaseConfig::get('url');
-		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$xoops = \Xoops::getInstance();
+		$this->xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+		$this->xoops_root_path = $xoops->globalData->getVar('XOOPS_ROOT_PATH');
     }
 
     /**

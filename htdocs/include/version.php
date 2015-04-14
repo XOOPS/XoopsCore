@@ -19,4 +19,4 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
 /**
  *  Define XOOPS version
  */
-// define('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3'); See XoopsBaseConfig
+\Xoops::getInstance()->globalData->setVar('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');

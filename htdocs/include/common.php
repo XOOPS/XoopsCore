@@ -14,7 +14,7 @@
  * @package   kernel
  */
 
-defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
@@ -122,8 +122,9 @@ include_once $xoops->path('include/functions.php');
  * Check Proxy;
  * Requires functions
  */
-if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XOOPS_DB_CHKREF)) {
-    define('XOOPS_DB_PROXY', 1);
+if ($_SERVER['REQUEST_METHOD'] != 'POST'
+|| !$xoops->security()->checkReferer($xoops->globalData->getVar('XOOPS_DB_CHKREF'))) {
+    $xoops->globalData->setVar('XOOPS_DB_PROXY', 1);
 }
 
 /**
@@ -244,7 +245,7 @@ if (!empty($_SESSION['xoopsUserId'])) {
     $xoops->user = $member_handler->getUser($_SESSION['xoopsUserId']);
     if (!is_object($xoops->user)
         || (isset($hash_login)
-            && md5($xoops->user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')) != $hash_login)
+            && md5($xoops->user->getVar('pass') . $xoops->globalData->getVar('XOOPS_DB_NAME') . $xoops->globalData->getVar('XOOPS_DB_PASS') . $xoops->globalData->getVar('XOOPS_DB_PREFIX')) != $hash_login)
     ) {
         $xoops->user = '';
         $_SESSION = array();
@@ -284,7 +285,7 @@ if ($xoops->getConfig('closesite') == 1) {
 /**
  * Load Xoops Module
  */
-$xoops_url = \XoopsBaseConfig::get('url');
+$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
 $xoops->moduleDirname = 'system';
 if (XoopsLoad::fileExists('./xoops_version.php')) {
     $url_arr = explode('/', strstr($_SERVER['PHP_SELF'], '/modules/'));

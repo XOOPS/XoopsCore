@@ -173,7 +173,8 @@ class System
      */
     public function cleanCache($cache)
     {
-        $cachePath = \XoopsBaseConfig::get('var-path') . '/caches/';
+		$xoops = \Xoops::getInstance();
+        $cachePath = $xoops->globalData->getVar('XOOPS_VAR_PATH') . '/caches/';
         $total_smarty_cache = 0;
         $total_smarty_compile = 0;
         $total_xoops_cache = 0;

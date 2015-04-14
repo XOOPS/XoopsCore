@@ -43,14 +43,16 @@ class MytsImage extends MyTextSanitizerExtension
         $ts->patterns[] = "/\[img align=(['\"]?)(left|center|right)\\1 id=(['\"]?)([0-9]*)\\3]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";
         $ts->patterns[] = "/\[img id=(['\"]?)([0-9]*)\\1]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";
 
+		$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+		
         if (empty($ts->config['allowimage'])) {
             $ts->replacements[] = '<a href="\\5" rel="external">\\5</a>';
             $ts->replacements[] = '<a href="\\3" rel="external">\\3</a>';
             $ts->replacements[] = '<a href="\\3" rel="external">\\3</a>';
             $ts->replacements[] = '<a href="\\1" rel="external">\\1</a>';
 
-            $ts->replacements[] = '<a href="' . XOOPS_URL . '/image.php?id=\\4" rel="external" title="\\5">\\5</a>';
-            $ts->replacements[] = '<a href="' . XOOPS_URL . '/image.php?id=\\2" rel="external" title="\\3">\\3</a>';
+            $ts->replacements[] = '<a href="' . $xoops_url . '/image.php?id=\\4" rel="external" title="\\5">\\5</a>';
+            $ts->replacements[] = '<a href="' . $xoops_url . '/image.php?id=\\2" rel="external" title="\\3">\\3</a>';
 
         } else {
             if (!empty($config['resize']) && empty($config['clickable']) && !empty($config['max_width']) && is_object($xoops->theme())) {
@@ -93,8 +95,8 @@ class MytsImage extends MyTextSanitizerExtension
                         ? " onload=\"javascript:imageResize(this, " . $config['max_width'] . ")\"" : "") . "/>";
                 }
             }
-            $ts->replacements[] = '<img src="' . XOOPS_URL . '/image.php?id=\\4" class="\\2" title="\\5" />';
-            $ts->replacements[] = '<img src="' . XOOPS_URL . '/image.php?id=\\2" title="\\3" />';
+            $ts->replacements[] = '<img src="' . $xoops_url . '/image.php?id=\\4" class="\\2" title="\\5" />';
+            $ts->replacements[] = '<img src="' . $xoops_url . '/image.php?id=\\2" title="\\3" />';
         }
         return true;
     }

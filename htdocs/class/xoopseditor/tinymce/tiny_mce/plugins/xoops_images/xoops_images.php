@@ -29,7 +29,7 @@ $op = Request::getCmd('op', 'list');
 $imgcat_id = Request::getInt('imgcat_id', 0);
 $start = Request::getInt('start', 0);
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->isUser() ? $xoops->user->getGroups() : array($xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'));
 
 $xoopsTpl = new XoopsTpl();
 switch ($op) {
@@ -49,7 +49,8 @@ switch ($op) {
                 if ($category->getVar('imgcat_storetype') == 'db') {
                     $src = $helper->url("image.php?id=" . $images[$i]->getVar('image_id'));
                 } else {
-                    $src = XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name');
+					$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
+                    $src = $xoops_upload_url . '/' . $images[$i]->getVar('image_name');
                 }
                 $xoopsTpl->append('images', array(
                                           'id' => $images[$i]->getVar('image_id'),
@@ -98,7 +99,7 @@ switch ($op) {
         $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
         $uploader = new XoopsMediaUploader(
-            XOOPS_UPLOAD_PATH . '/images',
+            $xoops->globalData->getVar('XOOPS_UPLOAD_PATH') . '/images',
             $mimetypes,
             $category->getVar('imgcat_maxsize'),
             $category->getVar('imgcat_maxwidth'),

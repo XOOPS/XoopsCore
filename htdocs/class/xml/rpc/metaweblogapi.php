@@ -19,7 +19,7 @@
  * @version         $Id $
  */
 
-defined('XOOPS_INITIALIZED') or die("XOOPS root path not defined");
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 class MetaWeblogApi extends XoopsXmlRpcApi
 {
@@ -147,6 +147,8 @@ class MetaWeblogApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
+			$xoops = \Xoops::getInstance();
+			$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
             $xoopsapi = $this->_getXoopsApi($this->params);
             $xoopsapi->_setUser($this->user, $this->isadmin);
             $ret = $xoopsapi->getPost(false);
@@ -164,8 +166,8 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                         break;
                     case 'postid':
                         $struct->add('postid', new XoopsXmlRpcString($value));
-                        $struct->add('link', new XoopsXmlRpcString(XOOPS_URL.'/modules/xoopssections/item.php?item='.$value));
-                        $struct->add('permaLink', new XoopsXmlRpcString(XOOPS_URL.'/modules/xoopssections/item.php?item='.$value));
+                        $struct->add('link', new XoopsXmlRpcString($xoops_url.'/modules/xoopssections/item.php?item='.$value));
+                        $struct->add('permaLink', new XoopsXmlRpcString($xoops_url.'/modules/xoopssections/item.php?item='.$value));
                         break;
                     case 'title':
                         $struct->add('title', new XoopsXmlRpcString($value));
@@ -188,6 +190,8 @@ class MetaWeblogApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
+			$xoops = \Xoops::getInstance();
+			$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
             $xoopsapi = $this->_getXoopsApi($this->params);
             $xoopsapi->_setUser($this->user, $this->isadmin);
             $ret = $xoopsapi->getRecentPosts(false);
@@ -211,8 +215,8 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                                 break;
                             case 'postid':
                                 $struct->add('postid', new XoopsXmlRpcString($value));
-                                $struct->add('link', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/article.php?item_id='.$value));
-                                $struct->add('permaLink', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/article.php?item_id='.$value));
+                                $struct->add('link', new XoopsXmlRpcString($xoops_url.'/modules/news/article.php?item_id='.$value));
+                                $struct->add('permaLink', new XoopsXmlRpcString($xoops_url.'/modules/news/article.php?item_id='.$value));
                                 break;
                             case 'title':
                                 $struct->add('title', new XoopsXmlRpcString($value));
@@ -239,6 +243,8 @@ class MetaWeblogApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
+			$xoops = \Xoops::getInstance();
+			$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
             $xoopsapi = $this->_getXoopsApi($this->params);
             $xoopsapi->_setUser($this->user, $this->isadmin);
             $ret = $xoopsapi->getCategories(false);
@@ -247,7 +253,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
                 foreach ($ret as $id => $detail) {
                     $struct = new XoopsXmlRpcStruct();
                     $struct->add('description', new XoopsXmlRpcString($detail));
-                    $struct->add('htmlUrl', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/index.php?storytopic='.$id));
+                    $struct->add('htmlUrl', new XoopsXmlRpcString($xoops_url.'/modules/news/index.php?storytopic='.$id));
                     $struct->add('rssUrl', new XoopsXmlRpcString(''));
                     $catstruct = new XoopsXmlRpcStruct();
                     $catstruct->add($detail['title'], $struct);

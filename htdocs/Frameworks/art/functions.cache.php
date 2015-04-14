@@ -28,9 +28,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
         }
         if (!empty($groups) && is_array($groups)) {
             sort($groups);
-            $contentCacheId = substr(md5(implode(",", $groups) . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-name')), 0, strlen(\XoopsBaseConfig::get('db-user')) * 2);
+            $contentCacheId = substr(md5(implode(",", $groups) . $xoops->globalData->getVar('XOOPS_DB_PASS') . $xoops->globalData->getVar('XOOPS_DB_NAME')), 0, strlen($xoops->globalData->getVar('XOOPS_DB_USER')) * 2);
         } else {
-            $contentCacheId = XOOPS_GROUP_ANONYMOUS;
+            $contentCacheId = $xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS');
         }
 
         return $contentCacheId;
@@ -58,7 +58,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
 
         $name = ($name) ? $name : strval(time());
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
-        $cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('cache-path');
+        $cache_path = ($cache_path) ? $cache_path : $xoops->globalData->getVar('XOOPS_CACHE_PATH');
 		
         $key = "{$dirname}_{$name}";
         return Xoops_Cache::write($key, $data);
@@ -104,7 +104,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             return $data;
         }
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
-        $cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('cache-path');
+        $cache_path = ($cache_path) ? $cache_path : $xoops->globalData->getVar('XOOPS_CACHE_PATH');
 		
         $key = "{$dirname}_{$name}";
         return Xoops_Cache::read($key);
@@ -143,8 +143,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
      */
     function mod_clearFile($name = "", $dirname = null, $cache_path = null)
     {
+		$xoops = \Xoops::getInstance();
         if (empty($dirname)) {
-			$cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('cache-path');
+			$cache_path = ($cache_path) ? $cache_path : $xoops->globalData->getVar('XOOPS_CACHE_PATH');
             $pattern = ($dirname) ? "{$dirname}_{$name}.*\.php" : "[^_]+_{$name}.*\.php";
             if ($handle = opendir($cache_path)) {
                 while (false !== ($file = readdir($handle))) {
@@ -185,7 +186,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             $dirname = $xoops->moduleDirname;
             $pattern = "/(^{$dirname}\^.*\.html$|blk_{$dirname}_.*[^\.]*\.html$)/";
         }
-		$cache_path = \XoopsBaseConfig::get('cache-path');
+		$cache_path = $xoops->globalData->getVar('XOOPS_CACHE_PATH');
         if ($handle = opendir($cache_path)) {
             while (false !== ($file = readdir($handle))) {
                 if (is_file($cache_path . '/' . $file) && preg_match($pattern, $file)) {

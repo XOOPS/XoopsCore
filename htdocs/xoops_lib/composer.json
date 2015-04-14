@@ -10,7 +10,8 @@
         }
     },
     "require": {
-        "xoops/base-requires": "0.1.*"
+        "xoops/base-requires": "0.1.*",
+        "league/container": "~1.1"		
     },
     "require-dev": {
         "raveren/kint": "*",

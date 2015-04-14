@@ -44,7 +44,7 @@ if ($op == 'save') {
 
     $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
     $upload_size = 500000;
-    $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/smilies', $mimetypes, $upload_size, null, null);
+    $uploader = new XoopsMediaUploader($xoops->globalData->getVar('XOOPS_UPLOAD_PATH') . '/smilies', $mimetypes, $upload_size, null, null);
     if ($uploader->fetchMedia($xoops_upload_file[0])) {
         $uploader->setPrefix('smil');
         if (!$uploader->upload()) {
@@ -68,7 +68,7 @@ if ($op == 'more') {
 }
 
 // check user/group
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->isUser() ? $xoops->user->getGroups() : array($xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'));
 $gperm_handler = $xoops->getHandlerGroupperm();
 $admin = $gperm_handler->checkRight('system_admin', $xoops->getHandlerModule()->getByDirName('smilies')->getVar('mid'), $groups);
 

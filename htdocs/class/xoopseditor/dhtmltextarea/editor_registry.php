@@ -25,7 +25,7 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 return $config = array(
     'class' => 'FormDhtmlTextArea',
-    'file' => XOOPS_ROOT_PATH . '/class/xoopseditor/dhtmltextarea/dhtmltextarea.php',
+    'file' => \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH') . '/class/xoopseditor/dhtmltextarea/dhtmltextarea.php',
     'title' => _XOOPS_EDITOR_DHTMLTEXTAREA,
     'order' => 2,
     'nohtml' => 1

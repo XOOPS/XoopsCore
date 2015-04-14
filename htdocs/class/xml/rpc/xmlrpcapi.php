@@ -19,7 +19,7 @@
  * @version         $Id $
  */
 
-defined('XOOPS_INITIALIZED') or die("XOOPS root path not defined");
+defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 class XoopsXmlRpcApi
 {
@@ -156,7 +156,8 @@ class XoopsXmlRpcApi
     function _getXoopsApi(&$params)
     {
         if (strtolower(get_class($this)) != 'xoopsapi') {
-            require_once(XOOPS_ROOT_PATH . '/class/xml/rpc/xoopsapi.php');
+			$xoops_root_path = \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH');
+            require_once($xoops_root_path . '/class/xml/rpc/xoopsapi.php');
             return new XoopsApi($params, $this->response, $this->module);
         } else {
             return $this;

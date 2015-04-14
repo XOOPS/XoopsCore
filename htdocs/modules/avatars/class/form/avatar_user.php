@@ -37,8 +37,8 @@ class AvatarsAvatar_userForm extends Xoops\Form\ThemeForm
         $avatar_selected = $xoops->user->getVar("user_avatar", "E");
         $avatar_selected = in_array($avatar_selected, array_keys($avatar_list)) ? $avatar_selected : "blank.gif";
         $avatar_select->addOptionArray($avatar_list);
-		$xoops_url = \XoopsBaseConfig::get('url');
-		$xoops_upload_url = \XoopsBaseConfig::get('upload-url');
+		$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+		$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
         $avatar_select->setExtra("onchange='showImgSelected(\"avatar\", \"user_avatar\", \"uploads\", \"\", \"" . $xoops_url . "\")'");
         $avatar_tray = new Xoops\Form\ElementTray(XoopsLocale::FILE, '&nbsp;');
         $avatar_tray->addElement($avatar_select);

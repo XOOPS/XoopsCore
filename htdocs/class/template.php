@@ -24,7 +24,7 @@
 defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 //define('SMARTY_DIR', XOOPS_PATH . '/smarty/'); // now defined when Smarty autoloads
-//define('XOOPS_COMPILE_PATH', \XoopsBaseConfig::get('var-path') . '/caches/smarty_compile'); // see XoopsBaseConfig
+//define('XOOPS_COMPILE_PATH', \Xoops::getInstance->globalData->getVar('XOOPS_ROOT_PATH') . '/caches/smarty_compile');
 
 /**
  * Template engine
@@ -48,17 +48,22 @@ class XoopsTpl extends Smarty
         $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
         $this->left_delimiter = '<{';
         $this->right_delimiter = '}>';
-        $this->setTemplateDir(\XoopsBaseConfig::get('theme-path'));
-        // $this->setCacheDir(XOOPS_VAR_PATH . '/caches/smarty_cache');
-        $this->setCacheDir(\XoopsBaseConfig::get('smarty-cache-path'));
-        $this->setCompileDir(\XoopsBaseConfig::get('smarty-compile-path'));
+        $this->setTemplateDir($xoops->globalData->getVar('XOOPS_THEME_PATH'));
+        // $this->setCacheDir($xoops->globalData->getVar('XOOPS_VAR_PATH') . '/caches/smarty_cache');
+        $this->setCacheDir($xoops->globalData->getVar('SMARTY_CACHE_PATH'));
+        $this->setCompileDir($xoops->globalData->getVar('SMARTY_COMPILE_PATH'));
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
-        // $this->setPluginsDir(XOOPS_PATH . '/smarty/xoops_plugins');
-        $this->setPluginsDir(\XoopsBaseConfig::get('smarty-plugins-path'));
-        $this->addPluginsDir(SMARTY_DIR . 'plugins');
+        // $this->setPluginsDir($xoops->globalData->getVar('XOOPS_PATH') . '/smarty/xoops_plugins');
+        $this->setPluginsDir($xoops->globalData->getVar('SMARTY_PLUGINS_PATH'));
+        $this->addPluginsDir($xoops->globalData->getVar('SMARTY_DIR') . 'plugins');
         $this->setCompileId();
         $this->assign(
-            array('xoops_url' => \XoopsBaseConfig::get('url'), 'xoops_rootpath' => \XoopsBaseConfig::get('root-path'), 'xoops_langcode' => XoopsLocale::getLangCode(), 'xoops_charset' => XoopsLocale::getCharset(), 'xoops_version' => \XoopsBaseConfig::get('version'), 'xoops_upload_url' => \XoopsBaseConfig::get('upload-url'))
+            array('xoops_url' => $xoops->globalData->getVar('XOOPS_URL'),
+				'xoops_rootpath' => $xoops->globalData->getVar('XOOPS_ROOT_PATH'),
+				'xoops_langcode' => XoopsLocale::getLangCode(),
+				'xoops_charset' => XoopsLocale::getCharset(),
+				'xoops_version' => $xoops->globalData->getVar('XOOPS_VERSION'),
+				'xoops_upload_url' => $xoops->globalData->getVar('XOOPS_UPLOAD_URL'))
         );
     }
 
@@ -136,7 +141,7 @@ class XoopsTpl extends Smarty
         $template_set = empty($template_set) ? $xoops->getConfig('template_set') : $template_set;
         $theme_set = empty($theme_set) ? $xoops->getConfig('theme_set') : $theme_set;
         $module_dirname = empty($module_dirname) ? $xoops->moduleDirname : $module_dirname;
-        $this->compile_id = substr(md5(\XoopsBaseConfig::get('url')), 0, 8) . '-' . $module_dirname . '-' . $theme_set . '-' . $template_set;
+        $this->compile_id = substr(md5($xoops->globalData->getVar('XOOPS_URL')), 0, 8) . '-' . $module_dirname . '-' . $theme_set . '-' . $template_set;
         //$this->_compile_id = $this->compile_id;
     }
 

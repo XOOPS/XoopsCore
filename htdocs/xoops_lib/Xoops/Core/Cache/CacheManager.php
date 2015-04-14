@@ -57,13 +57,15 @@ class CacheManager
     public function __construct()
     {
         $defaults = $this->getDefaults();
-        $poolDefs = Yaml::readWrapped(\XoopsBaseConfig::get('var-path') . '/configs/cache.php');
+        $this->xoops = \Xoops::getInstance();
+		$xoops_var_path = $this->xoops->globalData->getVar('XOOPS_VAR_PATH'):
+		$cache_file = $xoops_var_path . '/configs/cache.php';
+        $poolDefs = Yaml::readWrapped($cache_file);
         if (empty($poolDefs)) {
-            Yaml::saveWrapped($defaults, \XoopsBaseConfig::get('var-path') . '/configs/cache.php');
+            Yaml::saveWrapped($defaults, $cache_file);
         }
         $poolDefs = is_array($poolDefs) ? $poolDefs : array();
         $this->poolDefs = array_merge($defaults, $poolDefs);
-        $this->xoops = \Xoops::getInstance();
     }
 
     /**
@@ -77,7 +79,7 @@ class CacheManager
             'default' => array(
                 'driver' => 'FileSystem',
                 'options' => array(
-                    'path' => \XoopsBaseConfig::get('var-path') . '/caches/xoops_cache/stash/',
+                    'path' => $this->xoops->globalData->getVar('XOOPS_VAR_PATH') . '/caches/xoops_cache/stash/',
                     ),
                     'dirSplit' => 1,
                 ),

@@ -98,7 +98,7 @@ class XoopsTarDownloader extends XoopsDownloader
      */
     public function addFileData(&$data, $filename, $time = 0)
     {
-        $dummyfile = XOOPS_CACHE_PATH . '/dummy_' . time() . '.html';
+        $dummyfile = \Xoops::getInstance()->globalData->getVar('XOOPS_CACHE_PATH') . '/dummy_' . time() . '.html';
         $fp = @fopen($dummyfile, 'w');
         if ($fp === false) {
             return false;
@@ -133,7 +133,7 @@ class XoopsTarDownloader extends XoopsDownloader
      */
     public function addBinaryFileData(&$data, $filename, $time = 0)
     {
-        $dummyfile = XOOPS_CACHE_PATH . '/dummy_' . time() . '.html';
+        $dummyfile = \Xoops::getInstance()->globalData->getVar('XOOPS_CACHE_PATH') . '/dummy_' . time() . '.html';
         $fp = @fopen($dummyfile, 'wb');
         if ($fp === false) {
             return false;
