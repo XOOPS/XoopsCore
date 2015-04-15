@@ -61,7 +61,6 @@ class Factory
                 $connectionParams['wrapperClass'] = '\\Xoops\\Core\\Database\\Connection';
             } else {
                 $driver = 'pdo_' . $xoops->globalData->getVar('XOOPS_DB_TYPE');
-				var_dump(__line__,$driver);exit;
                 $connectionParams = array(
                     'dbname' => $xoops->globalData->getVar('XOOPS_DB_NAME'),
                     'user' => $xoops->globalData->getVar('XOOPS_DB_USER'),
