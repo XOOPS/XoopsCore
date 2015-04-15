@@ -56,9 +56,9 @@ class CacheManager
      */
     public function __construct()
     {
-        $defaults = $this->getDefaults();
         $this->xoops = \Xoops::getInstance();
-		$xoops_var_path = $this->xoops->globalData->getVar('XOOPS_VAR_PATH'):
+        $defaults = $this->getDefaults();
+		$xoops_var_path = $this->xoops->globalData->getVar('XOOPS_VAR_PATH');
 		$cache_file = $xoops_var_path . '/configs/cache.php';
         $poolDefs = Yaml::readWrapped($cache_file);
         if (empty($poolDefs)) {

@@ -113,11 +113,17 @@ class Xoops
     public $isAdminSide = false;
 
     /**
+     * @var array
+     */
+    public $globalData;
+	
+    /**
      * Actual Xoops OS
      */
     private function __construct()
     {
-		var_dump('missing init globalData');exit;
+		$this->globalData = \XoopsBaseConfig::getInstance();
+		
         $this->paths['XOOPS'] = array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php');
         $this->paths['www'] = array(\XoopsBaseConfig::get('root-path'), \XoopsBaseConfig::get('url'));
         $this->paths['var'] = array(\XoopsBaseConfig::get('var-path'), null);

@@ -19,4 +19,7 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
 /**
  *  Define XOOPS version
  */
+        if (!class_exists('Xoops', false)) {
+            include __DIR__ . '/../xoops_lib/Xoops.php';
+        }
 \Xoops::getInstance()->globalData->setVar('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');
