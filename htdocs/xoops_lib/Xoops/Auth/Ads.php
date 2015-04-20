@@ -65,6 +65,9 @@ class Ads extends Ldap
                     $this->setErrors(0, \XoopsLocale::E_TLS_CONNECTION_NOT_OPENED);
                 }
             }
+            // remove the domain name prefix from the username
+            $uname = explode("\\", $uname);
+            $uname = (sizeof($uname) > 0) ? $uname[sizeof($uname) - 1] : $uname = $uname[0];
             // If the uid is not in the DN we proceed to a search
             // The uid is not always in the dn
             $userUPN = $this->getUPN($uname);
