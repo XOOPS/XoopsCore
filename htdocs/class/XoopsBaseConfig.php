@@ -45,11 +45,16 @@ class XoopsBaseConfig
             if ($yamlString === false) {
                 throw new \Exception('XoopsBaseConfig failed to load configuration.');
             }
-            $libPath = $this->extractLibPath($yamlString);
-            \XoopsLoad::startAutoloader($libPath);
+            $loaderPath = $this->extractLibPath($yamlString) . '/vendor/autoload.php';
+            if (file_exists($loaderPath)) {
+                include_once $loaderPath;
+            }
             self::$configs = Yaml::loadWrapped($yamlString);
+            self::establishBCDefines();
+            \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         } elseif (is_array($config)) {
             self::$configs = $config;
+            self::establishBCDefines();
             \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         }
     }
@@ -126,7 +131,7 @@ class XoopsBaseConfig
      *
      * @return void
      */
-    final public function establishBCDefines()
+    final public static function establishBCDefines()
     {
         if (defined('XOOPS_ROOT_PATH')) {
             return;
@@ -187,9 +192,6 @@ class XoopsBaseConfig
         // Serialized connection parameter
         // This is built by the installer and includes all connection parameters
         define('XOOPS_DB_PARAMETERS', serialize(self::get('db-parameters')));
-
-        define('XOOPS_COOKIE_DOMAIN', self::get('cookie-domain'));
-
     }
 
     /**

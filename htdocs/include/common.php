@@ -108,17 +108,6 @@ if (isset($delayedWarning)) {
 include_once $xoops->path('include/functions.php');
 
 /**
- * YOU SHOULD NEVER USE THE FOLLOWING CONSTANT, IT WILL BE REMOVED
- */
-/**
- * Set cookie domain to highest registerable domain, so cookie will be availabe to all subdomains.
- * Not sure this is the best idea, but how it has always worked. Set includeSubdomain parameter
- * to getBaseDomain to true to include full host with any subdomain(s).
- */
-define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
-//define('XOOPS_COOKIE_DOMAIN', null);
-
-/**
  * Check Proxy;
  * Requires functions
  */

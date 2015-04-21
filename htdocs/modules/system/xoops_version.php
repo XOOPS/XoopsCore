@@ -362,18 +362,6 @@ $modversion['config'][] = array(
     'default'     => 'xoops_user' . dechex(time()),
 );
 
-/*
-$modversion['config'][] = array(
-    'name'        => 'use_mysession',
-    'title'       => 'CONF_USE_MY_SESSION',
-    'description' => 'CONF_USE_MY_SESSION_DESC',
-    'category'    => 'general',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0,
-);
-*/
-
 $modversion['config'][] = array(
     'name'        => 'session_name',
     'title'       => 'CONF_SESSION_NAME',
