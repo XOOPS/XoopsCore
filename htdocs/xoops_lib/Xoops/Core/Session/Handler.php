@@ -40,7 +40,6 @@ class Handler implements \SessionHandlerInterface
      */
     public function __construct()
     {
-        $this->xoops = \Xoops::getInstance();
         $this->db = \Xoops::getInstance()->db();
     }
 

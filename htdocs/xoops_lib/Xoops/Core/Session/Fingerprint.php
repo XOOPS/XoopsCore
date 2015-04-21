@@ -40,6 +40,7 @@ class Fingerprint implements FingerprintInterface
      */
     protected function takePrint()
     {
+        $clientFingerprint = array();
         $httpRequest = HttpRequest::getInstance();
         $clientFingerprint['clientIp'] = $httpRequest->getClientIp();
         $clientFingerprint['userAgent'] = $httpRequest->getHeader('USER_AGENT');

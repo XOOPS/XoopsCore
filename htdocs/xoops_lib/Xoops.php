@@ -814,7 +814,7 @@ class Xoops
      *
      * @return Xoops\Core\Session\Manager
      */
-    public function session($optional = false)
+    public function session()
     {
         if ($this->sessionManager === null) {
             $this->sessionManager = new \Xoops\Core\Session\Manager();
