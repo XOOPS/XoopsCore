@@ -211,6 +211,7 @@ class XoopsBaseConfig
 
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
+        $host = ($host=='localhost') ? '' : $host;
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
         $configs = array(

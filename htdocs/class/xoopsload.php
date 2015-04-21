@@ -108,7 +108,7 @@ class XoopsLoad
      */
     private static function loadCore($name)
     {
-        $map = XoopsLoad::addMap(XoopsLoad::loadCoreConfig());
+        $map = XoopsLoad::$map; //addMap(XoopsLoad::loadCoreConfig());
         if (isset($map[$name])) {
             //attempt loading from map
             require $map[$name];
@@ -542,6 +542,7 @@ class XoopsLoad
                 $libPath = $path;
                 include $loaderPath;
             }
+            XoopsLoad::addMap(XoopsLoad::loadCoreConfig());
             spl_autoload_register(array('XoopsLoad', 'load'));
         }
     }

@@ -42,6 +42,7 @@ class MonologPreload extends PreloadItem
             && self::$configs['monolog_default_configs'] == true) {
             self::$configs = $xoops->getModuleConfigs('monolog');
         }
+        /*
         if (!array_key_exists('phpfire_enable', self::$configs)) {
             $user_groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
             $moduleperm_handler = $xoops->getHandlerGroupperm();
@@ -65,6 +66,7 @@ class MonologPreload extends PreloadItem
                 self::$configs['phpfire_enable'] = false;
             }
         }
+        */
 
         return self::$configs;
     }
@@ -97,23 +99,24 @@ class MonologPreload extends PreloadItem
     }
 
     /**
-     * eventCoreIncludeCommonStart
+     * core.include.common.security
      *
      * @param mixed $args arguments supplied to triggerEvent
      *
      * @return void
      */
-    public static function eventCoreIncludeCommonStart($args)
+    public static function eventCoreIncludeCommonSecurity($args)
     {
         $cache = \Xoops::getInstance()->cache();
-        $key = 'module/monolog/configs';
+        $key = 'system/module/configs/monolog';
 
         self::$configs=array();
         self::$configs['monolog_enable'] = false;
         self::$configs['monolog_default_configs']=true;
 
         // we will not regenerate this on a miss - will wait until auth is complete
-        if ($monolog_configs = $cache->read($key)) {
+        $monolog_configs = $cache->read($key);
+        if ($monolog_configs!==false) {
             self::$configs = $monolog_configs;
         }
         $logger = MonologLogger::getInstance();
@@ -446,7 +449,7 @@ class MonologPreload extends PreloadItem
     {
         $configs = array();
         $cache = \Xoops::getInstance()->cache();
-        $key = 'module/monolog/configs';
+        $key = 'system/module/configs/monolog';
 
         if (isset($_REQUEST['monolog_enable'])) {
             $cache->delete($key);
