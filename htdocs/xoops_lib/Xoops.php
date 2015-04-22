@@ -25,9 +25,9 @@ use Xoops\Core\Request;
 class Xoops
 {
     /**
-     * @var null|XoopsSessionHandler
+     * @var null|Xoops\Core\Session\Manager
      */
-    public $sess_handler = null;
+    public $sessionManager = null;
 
     /**
      * @var null|XoopsModule
@@ -258,11 +258,6 @@ class Xoops
         static $instance;
         if (!isset($instance)) {
             $instance = new \Xoops\Core\Security();
-            $pass = $instance->checkSuperglobals();
-            if ($pass==false) {
-                header('Location: ' . \XoopsBaseConfig::get('url') . '/');
-                exit();
-            }
         }
         return $instance;
     }
@@ -815,13 +810,16 @@ class Xoops
     }
 
     /**
-     * @param mixed $optional
+     * Get the session manager
      *
-     * @return XoopsSessionHandler
+     * @return Xoops\Core\Session\Manager
      */
-    public function getHandlerSession($optional = false)
+    public function session()
     {
-        return $this->getHandler('session', $optional);
+        if ($this->sessionManager === null) {
+            $this->sessionManager = new \Xoops\Core\Session\Manager();
+        }
+        return $this->sessionManager;
     }
 
     /**
@@ -1433,19 +1431,8 @@ class Xoops
 
         $this->tpl()->assign('time', intval($time));
         if (!empty($_SERVER['REQUEST_URI']) && $addredirect && strstr($url, 'user.php')) {
-            if (!strstr($url, '?')) {
-                $url .= '?xoops_redirect=' . urlencode($_SERVER['REQUEST_URI']);
-            } else {
-                $url .= '&amp;xoops_redirect=' . urlencode($_SERVER['REQUEST_URI']);
-            }
-        }
-        if (defined('SID') && SID && (!isset($_COOKIE[session_name()]) || ($this->getConfig('use_mysession') && $this->getConfig('session_name') != '' && !isset($_COOKIE[$this->getConfig('session_name')])))
-        ) {
-            if (!strstr($url, '?')) {
-                $url .= '?' . SID;
-            } else {
-                $url .= '&amp;' . SID;
-            }
+            $joiner = (false===strpos($url, '?')) ? '?' : '&amp;';
+            $url .= $joiner . 'xoops_redirect=' . urlencode($_SERVER['REQUEST_URI']);
         }
         $url = preg_replace("/&amp;/i", '&', htmlspecialchars($url, ENT_QUOTES));
         $this->tpl()->assign('url', $url);

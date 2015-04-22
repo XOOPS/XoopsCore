@@ -108,17 +108,6 @@ if (isset($delayedWarning)) {
 include_once $xoops->path('include/functions.php');
 
 /**
- * YOU SHOULD NEVER USE THE FOLLOWING CONSTANT, IT WILL BE REMOVED
- */
-/**
- * Set cookie domain to highest registerable domain, so cookie will be availabe to all subdomains.
- * Not sure this is the best idea, but how it has always worked. Set includeSubdomain parameter
- * to getBaseDomain to true to include full host with any subdomain(s).
- */
-define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
-//define('XOOPS_COOKIE_DOMAIN', null);
-
-/**
  * Check Proxy;
  * Requires functions
  */
@@ -179,89 +168,21 @@ setlocale(LC_ALL, XoopsLocale::getLocale());
  * User Sessions
  */
 $member_handler = $xoops->getHandlerMember();
-$sess_handler = $xoops->getHandlerSession();
 
-if ($xoops->getConfig('use_ssl')
-    && isset($_POST[$xoops->getConfig('sslpost_name')])
-    && $_POST[$xoops->getConfig('sslpost_name')] != ''
-) {
-    session_id($_POST[$xoops->getConfig('sslpost_name')]);
-} else {
-    if ($xoops->getConfig('use_mysession')
-        && $xoops->getConfig('session_name') != ''
-        && $xoops->getConfig('session_expire') > 0
-    ) {
-        session_name($xoopsConfig['session_name']);
-        session_cache_expire($xoops->getConfig('session_expire'));
-        @ini_set('session.gc_maxlifetime', $xoops->getConfig('session_expire') * 60);
-    }
-}
-session_set_save_handler(
-    array(&$sess_handler, 'open'),
-    array(&$sess_handler, 'close'),
-    array(&$sess_handler, 'read'),
-    array(&$sess_handler, 'write'),
-    array(&$sess_handler, 'destroy'),
-    array(&$sess_handler, 'gc')
-);
-
-if (function_exists('session_status')) {
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
-} else {
-    // this should silently fail if session has already started (for PHP 5.3)
-    @session_start();
-}
+$xoops->session()->sessionStart();
 
 /**
- * Remove expired session for xoopsUserId
+ * Gather some info about the logged in user
  */
-if ($xoops->getConfig('use_mysession')
-    && $xoops->getConfig('session_name') != ''
-    && !isset($_COOKIE[$xoops->getConfig('session_name')])
-    && !empty($_SESSION['xoopsUserId'])
-) {
-    unset($_SESSION['xoopsUserId']);
-}
-
-/**
- * Load xoopsUserId from cookie if "Remember me" is enabled.
- */
-if (empty($_SESSION['xoopsUserId'])
-    && $xoops->getConfig('usercookie') != ''
-    && !empty($_COOKIE[$xoops->getConfig('usercookie')])
-) {
-    $hash_data = @explode("-", $_COOKIE[$xoops->getConfig('usercookie')], 2);
-    list($_SESSION['xoopsUserId'], $hash_login) = array($hash_data[0], strval(@$hash_data[1]));
-    unset($hash_data);
-}
-
-/**
- * Log user in and deal with Sessions and Cookies
- */
-if (!empty($_SESSION['xoopsUserId'])) {
-    $xoops->user = $member_handler->getUser($_SESSION['xoopsUserId']);
-    if (!is_object($xoops->user)
-        || (isset($hash_login)
-            && md5($xoops->user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX) != $hash_login)
-    ) {
-        $xoops->user = '';
-        $_SESSION = array();
-        session_destroy();
-        setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
-    } else {
+if ($xoops->session()->has('xoopsUserId')) {
+    $uid = $xoops->session()->get('xoopsUserId');
+    $xoops->user = $member_handler->getUser($uid);
+    if ($xoops->user instanceof \XoopsUser) {
         if ((intval($xoops->user->getVar('last_login')) + 60 * 5) < time()) {
             $user_handler = $xoops->getHandlerUser();
-            $criteria = new Criteria('uid', $_SESSION['xoopsUserId']);
+            $criteria = new Criteria('uid', $uid);
             $user_handler->updateAll('last_login', time(), $criteria, true);
             unset($criteria);
-        }
-        $sess_handler->update_cookie();
-        if (isset($_SESSION['xoopsUserGroups'])) {
-            $xoops->user->setGroups($_SESSION['xoopsUserGroups']);
-        } else {
-            $_SESSION['xoopsUserGroups'] = $xoops->user->getGroups();
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin();
     }

@@ -79,10 +79,7 @@ if ($op == 'login') {
 if ($op == 'logout') {
     $message = '';
     // Regenerate a new session id and destroy old session
-    $xoops->getHandlerSession()->regenerate_id(true);
-    $_SESSION = array();
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', XOOPS_COOKIE_DOMAIN, 0);
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
+    $xoops->session()->user()->recordUserLogout();
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));

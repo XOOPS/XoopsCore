@@ -11,7 +11,7 @@
 
 use Monolog\Logger as MLogger;
 use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\FirePHPHandler;
+//use Monolog\Handler\FirePHPHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Processor\WebProcessor;
@@ -137,10 +137,10 @@ class MonologLogger implements LoggerInterface
             $stream->setFormatter($formatter);
             $this->monolog->pushHandler($stream);
         }
-        if ($this->monolog && $this->configs['phpfire_enable']) {
-            $firephp = new FirePHPHandler();
-            $this->monolog->pushHandler($firephp);
-        }
+        //if ($this->monolog && $this->configs['phpfire_enable']) {
+        //    $firephp = new FirePHPHandler();
+        //    $this->monolog->pushHandler($firephp);
+        //}
     }
 
     /**
