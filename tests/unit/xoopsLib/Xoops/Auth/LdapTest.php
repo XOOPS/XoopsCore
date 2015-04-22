@@ -9,42 +9,45 @@ require_once(dirname(__FILE__).'/../../../init_mini.php');
 class Xoops_Auth_LdapTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'Xoops\Auth\Ldap';
-    
-    public function test___construct()
-	{
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
 		if (!extension_loaded('ldap')) $this->markTestSkipped();
+    }
+
+    public function testContract()
+	{
 		$instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
-		$this->assertInstanceOf('Xoops_Auth', $instance);
-
+		$this->assertInstanceOf('\Xoops\Auth\AuthAbstract', $instance);
     }
-	
+
 	public function test_cp1252_to_utf8()
 	{
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_authenticate()
 	{
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_getUserDN()
 	{
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_getFilter()
 	{
 		$this->markTestIncomplete();
 	}
-	
+
 	public function test_loadXoopsUser()
 	{
-		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		$this->markTestIncomplete();
 	}
 }
