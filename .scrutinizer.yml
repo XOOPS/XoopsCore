@@ -3,4 +3,7 @@ imports:
     - php
 filter:
     excluded_paths:
-        - tests/*
+        - 'tests/*'
+tools:
+    external_code_coverage:
+        timeout: 900    # Timeout in seconds.
