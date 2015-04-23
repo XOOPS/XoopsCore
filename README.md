@@ -1,10 +1,10 @@
 # XoopsCore
 
-[![Build Status](https://img.shields.io/travis/xoops/XoopsCore/master.svg?style=flat)](https://travis-ci.org/xoops/XoopsCore)
+[![Build Status](https://img.shields.io/travis/XOOPS/XoopsCore/master.svg?style=flat)](https://travis-ci.org/XOOPS/XoopsCore)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](docs/license.txt)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/XOOPS/XoopsCore.svg?style=flat)](https://scrutinizer-ci.com/g/geekwright/XoopsCore/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/XOOPS/XoopsCore.svg?style=flat)](https://scrutinizer-ci.com/g/geekwright/XoopsCore)
-[![Latest Version](https://img.shields.io/github/release/xoops/XoopsCore.svg?style=flat)](https://github.com/xoops/XoopsCore/releases)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/XOOPS/XoopsCore.svg?style=flat)](https://scrutinizer-ci.com/g/XOOPS/XoopsCore/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/XOOPS/XoopsCore.svg?style=flat)](https://scrutinizer-ci.com/g/XOOPS/XoopsCore)
+[![Latest Version](https://img.shields.io/github/release/XOOPS/XoopsCore.svg?style=flat)](https://github.com/XOOPS/XoopsCore/releases)
 
 > **Note:** This repository contains the core code of the XOOPS Core 2.6.x.
 It's under development currently. If you want to build a web site using XOOPS, visit the main [XOOPS Web Site](http://xoops.org) for more information.
