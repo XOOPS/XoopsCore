@@ -65,6 +65,3 @@ define("_AM_EZ_COPY","复制");
 define("_AM_EZ_ACTIONS","操作");
 define("_AM_EZ_BACKUP","备份");
 define("_AM_EZ_DELETE","删除");
-
-
-?>

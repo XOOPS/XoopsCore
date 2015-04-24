@@ -193,4 +193,3 @@ class Cookie
         return $key;
     }
 }
-?>

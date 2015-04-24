@@ -18,6 +18,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class SystemLocale
+ */
 class SystemLocale extends SystemLocaleEn_US
 {
 }

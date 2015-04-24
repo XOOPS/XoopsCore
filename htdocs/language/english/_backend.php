@@ -7,4 +7,3 @@
 // RSS feed URLs
 return array(
     'http://www.xoops.org/backend.php');
-?>

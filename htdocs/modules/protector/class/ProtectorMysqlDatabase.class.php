@@ -190,5 +190,3 @@ function query( $sql , $limit = 0 , $start = 0 )
 }
 
 }
-
-?>

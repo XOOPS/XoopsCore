@@ -18,6 +18,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("Restricted access");
 
+/**
+ * Class SystemLocaleEn_US
+ */
 class SystemLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
     const CONF_DISCLAIMER_DEFAULT = "While the administrators and moderators of this site will attempt to remove or edit any generally objectionable material as quickly as possible, it is impossible to review every message. Therefore you acknowledge that all posts made to this site express the views and opinions of the author and not the administrators, moderators or webmaster (except for posts by these people) and hence will not be held liable.
@@ -408,7 +411,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const USERS_MANAGEMENT = "Users management";
     const USERS_TIPS = "<ul><li>Manage Xoops users</li></ul>";
     const VIEW_USER_INFO = "View user info";
-	const WEBMASTERS = "Webmasters";
+    const WEBMASTERS = "Webmasters";
     const WEBMASTERS_OF_THIS_SITE = "Webmasters of this site";
     const WELCOME_TO_XOOPS_HELP_CENTER = "Welcome to XOOPS Help Center";
     const WORD_CENSORING = "Word censoring";

@@ -349,6 +349,3 @@ if (!function_exists('admin_refcheck')) {
     }
 
 }
-
-
-?>

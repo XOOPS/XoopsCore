@@ -194,4 +194,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     }
 
 endif;
-?>

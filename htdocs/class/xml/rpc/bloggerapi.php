@@ -282,4 +282,3 @@ class BloggerApi extends XoopsXmlRpcApi
         }
     }
 }
-?>

@@ -106,5 +106,3 @@ class ProtectorFilterHandler
         return $ret;
     }
 }
-
-?>
