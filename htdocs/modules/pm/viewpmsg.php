@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {

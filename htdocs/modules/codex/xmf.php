@@ -24,7 +24,7 @@ use Xmf\Request;
 use Xmf\Module\Permission;
 use Xmf\Module\Session;
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();

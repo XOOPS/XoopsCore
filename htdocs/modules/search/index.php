@@ -23,7 +23,7 @@ use Xoops\Core\Request;
  * @version         $Id$
  */
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $search = Search::getInstance();
 if (!$search->getConfig('enable_search')) {

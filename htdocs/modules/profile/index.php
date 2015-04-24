@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 $op = 'main';
@@ -109,7 +109,7 @@ if ($op == 'delete') {
                 'user.php',
                 XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO
             );
-            include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+            include __DIR__ . '/footer.php';
         } else {
             $del_uid = $xoops->user->getVar("uid");
             if (false != $xoops->getHandlerMember()->deleteUser($xoops->user)) {

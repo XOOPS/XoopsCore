@@ -22,7 +22,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 if ($xoops->isUser()) {
@@ -326,4 +326,4 @@ if (!empty($stop) || isset($steps[$current_step])) {
     $_SESSION['profile_post'] = null;
 }
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . '/footer.php';

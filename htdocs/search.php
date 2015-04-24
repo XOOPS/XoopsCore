@@ -24,7 +24,7 @@ use Xoops\Core\Request;
  * @todo            Modularize; Both search algorithms and interface will be redesigned
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $uri = '';
