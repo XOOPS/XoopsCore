@@ -22,8 +22,14 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class AvatarsAvatarForm
+ */
 class AvatarsAvatarForm extends Xoops\Form\ThemeForm
 {
+    /**
+     * @param AvatarsAvatar $obj
+     */
     public function __construct(AvatarsAvatar $obj)
     {
         if ($obj->isNew()) {

@@ -26,6 +26,11 @@ $xoops = Xoops::getInstance();
 
 $op = Request::getString('op');
 
+/**
+ * @param bool $showmenu
+ * @param int $fileid
+ * @param int $itemid
+ */
 function publisher_editFile($showmenu = false, $fileid = 0, $itemid = 0)
 {
     $publisher = Publisher::getInstance();

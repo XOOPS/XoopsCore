@@ -21,6 +21,9 @@
 
 class protector_postcommon_post_deny_by_rbl extends ProtectorFilterAbstract
 {
+    /**
+     * @return bool
+     */
     function execute()
     {
         $xoops = Xoops::getInstance();

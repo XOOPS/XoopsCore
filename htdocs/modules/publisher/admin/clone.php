@@ -82,6 +82,11 @@ $xoops->footer();
 
 // work around for PHP < 5.0.x
 if (!function_exists('file_put_contents')) {
+    /**
+     * @param $filename
+     * @param $data
+     * @param bool $file_append
+     */
     function file_put_contents($filename, $data, $file_append = false)
     {
         if ($fp == fopen($filename, (!$file_append ? 'w+' : 'a+'))) {
@@ -92,6 +97,9 @@ if (!function_exists('file_put_contents')) {
 }
 
 // recursive clonning script
+/**
+ * @param $path
+ */
 function publisher_cloneFileFolder($path)
 {
     global $patKeys;
@@ -126,6 +134,10 @@ function publisher_cloneFileFolder($path)
     }
 }
 
+/**
+ * @param $dirname
+ * @return bool
+ */
 function publisher_createLogo($dirname)
 {
     if (!extension_loaded("gd")) {

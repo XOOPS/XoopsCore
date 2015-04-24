@@ -250,10 +250,9 @@ class Request
     /**
      * Fetches and returns an array
      *
-     * @param string $name    Variable name
-     * @param string $default Default value if the variable does not exist
-     * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
-     *
+     * @param string $name Variable name
+     * @param array|string $default Default value if the variable does not exist
+     * @param string $hash Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
      * @return array
      */
     public static function getArray($name, $default = array(), $hash = 'default')

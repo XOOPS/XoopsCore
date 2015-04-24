@@ -85,6 +85,10 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
         return $moduleConfig;
     }
 
+    /**
+     * @param string $dirname
+     * @return array
+     */
     function mod_fetchConfg($dirname = "")
     {
         return mod_fetchConfig($dirname);
@@ -107,6 +111,10 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
         return Xoops_Cache::delete("{$dirname}_config");
     }
 
+    /**
+     * @param string $dirname
+     * @return bool
+     */
     function mod_clearConfg($dirname = "")
     {
         return mod_clearConfig($dirname);

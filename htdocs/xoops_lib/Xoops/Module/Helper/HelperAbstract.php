@@ -84,6 +84,9 @@ abstract class HelperAbstract
         return $this->_module;
     }
 
+    /**
+     * @return \Xoops
+     */
     public function xoops()
     {
         return \Xoops::getInstance();

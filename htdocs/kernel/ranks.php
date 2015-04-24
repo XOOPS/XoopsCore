@@ -25,6 +25,9 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
+/**
+ * Class XoopsRanks
+ */
 class XoopsRanks extends XoopsObject
 {
     /**
@@ -125,6 +128,9 @@ class XoopsRanks extends XoopsObject
     }
 }
 
+/**
+ * Class XoopsRanksHandler
+ */
 class XoopsRanksHandler extends XoopsPersistableObjectHandler
 {
 

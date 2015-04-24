@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MenusMenus_menusForm
+ */
 class MenusMenus_menusForm extends Xoops\Form\ThemeForm
 {
     /**

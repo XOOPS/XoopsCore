@@ -21,6 +21,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("Restricted access");
 
+/**
+ * Class AvatarsLocaleEn_US
+ */
 class AvatarsLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
     // Info module

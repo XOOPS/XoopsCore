@@ -39,6 +39,10 @@ class protector_postcommon_post_htmlpurify4everyone extends ProtectorFilterAbstr
         $_POST = $this->purify_recursive($_POST);
     }
 
+    /**
+     * @param $data
+     * @return array|mixed
+     */
     function purify_recursive($data)
     {
         if (is_array($data)) {

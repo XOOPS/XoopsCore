@@ -21,8 +21,14 @@
 
 define('PROTECTOR_POSTCOMMON_POST_REGISTER_MORATORIUM', 60); // minutes
 
+/**
+ * Class protector_postcommon_post_register_moratorium
+ */
 class protector_postcommon_post_register_moratorium extends ProtectorFilterAbstract
 {
+    /**
+     * @return bool
+     */
     function execute()
     {
         $xoops = Xoops::getInstance();

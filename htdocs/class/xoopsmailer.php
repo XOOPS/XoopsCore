@@ -518,6 +518,10 @@ class XoopsMailer
     }
 
     // public
+    /**
+     * @param bool $ashtml
+     * @return array|string
+     */
     function getSuccess($ashtml = true)
     {
         if (!$ashtml) {
@@ -584,8 +588,8 @@ class XoopsMailer
     }
 
     /**
-     * @param XoopsUser|array $user
-     * @return void
+     * @param $users
+     * @internal param array|XoopsUser $user
      */
     public function setToUsers($users)
     {
@@ -599,8 +603,8 @@ class XoopsMailer
     }
 
     /**
-     * @param XoopsGroup $group
-     * @return void
+     * @param $groups
+     * @internal param XoopsGroup $group
      */
     public function setToGroups($groups)
     {

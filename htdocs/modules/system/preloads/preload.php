@@ -17,8 +17,14 @@
 use Xoops\Core\PreloadItem;
 use Xoops\Core\Service\Provider;
 
+/**
+ * Class SystemPreload
+ */
 class SystemPreload extends PreloadItem
 {
+    /**
+     * @param $args
+     */
     public static function eventCoreIncludeFunctionsRedirectheader($args)
     {
         $xoops = Xoops::getInstance();
@@ -37,6 +43,9 @@ class SystemPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreHeaderCheckcache($args)
     {
         if (!empty($_SESSION['redirect_message'])) {
@@ -46,6 +55,9 @@ class SystemPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreHeaderAddmeta($args)
     {
         if (!empty($_SESSION['redirect_message'])) {
@@ -63,6 +75,9 @@ class SystemPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventSystemClassGuiHeader($args)
     {
         if (!empty($_SESSION['redirect_message'])) {

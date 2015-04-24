@@ -37,12 +37,18 @@ class CommentsPreload extends PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreFooterStart($args)
     {
         $helper = Comments::getInstance();
         $helper->renderView();
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUpdateConfigs($args)
     {
         /* @var $module XoopsModule */
@@ -58,6 +64,9 @@ class CommentsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleInstall($args)
     {
         /* @var $module XoopsModule */
@@ -67,6 +76,9 @@ class CommentsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUninstall($args)
     {
         /* @var $module XoopsModule */
@@ -76,6 +88,9 @@ class CommentsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnSystemPreferencesForm($args)
     {
         /* @var $module XoopsModule */

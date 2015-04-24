@@ -22,6 +22,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("Restricted access");
 
+/**
+ * Class PageLocaleEn_US
+ */
 class PageLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
     // Module

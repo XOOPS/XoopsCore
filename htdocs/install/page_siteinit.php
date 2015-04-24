@@ -28,6 +28,9 @@ require_once __DIR__ . '/include/common.inc.php';
 
 set_time_limit(0); // don't want this to timeout
 
+/**
+ * @param $exception
+ */
 function exception_handler($exception)
 {
     echo "Uncaught exception: " , $exception->getMessage(), "\n";

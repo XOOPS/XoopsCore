@@ -29,6 +29,9 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  */
 class PublisherMimetype extends XoopsObject
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->initVar('mime_id', XOBJ_DTYPE_INT, null, false);
@@ -40,6 +43,9 @@ class PublisherMimetype extends XoopsObject
     }
 }
 
+/**
+ * Class PublisherMimetypeHandler
+ */
 class PublisherMimetypeHandler extends XoopsPersistableObjectHandler
 {
     /**

@@ -20,6 +20,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class MenusDefaultDecorator
+ */
 class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
     protected $user;
@@ -61,6 +64,9 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $this->get_uid = isset($_GET['uid']) ? (int) ($_GET['uid']) : 0;
     }
 
+    /**
+     * @param $access_filter
+     */
     function accessFilter(&$access_filter)
     {
         $access_filter['is_owner']['name'] = _PL_MENUS_MENUS_ISOWNER;
@@ -69,6 +75,9 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $access_filter['is_not_owner']['method'] = 'isNotOwner';
     }
 
+    /**
+     * @param $menu
+     */
     function decorateMenu(&$menu)
     {
         $decorations = array('link', 'title', 'alt_title');
@@ -85,11 +94,18 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         }
     }
 
+    /**
+     * @param $menus
+     */
     function end(&$menus)
     {
         // TODO: Implement end() method.
     }
 
+    /**
+     * @param $menu
+     * @param $hasAccess
+     */
     function hasAccess($menu, &$hasAccess)
     {
         $groups = $this->user_groups;
@@ -108,6 +124,10 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         }
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     function _doDecoration($string)
     {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
@@ -140,16 +160,27 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         return $string;
     }
 
+    /**
+     * @return bool
+     */
     function isOwner()
     {
         return ($this->user_uid != 0 && ($this->user_uid == $this->get_uid)) ? true : false;
     }
 
+    /**
+     * @return bool
+     */
     function isNotOwner()
     {
         return !self::isOwner();
     }
 
+    /**
+     * @param string $type
+     * @param $value
+     * @return int
+     */
     function getExtraValue($type = 'user', $value)
     {
         $xoops = Xoops::getInstance();

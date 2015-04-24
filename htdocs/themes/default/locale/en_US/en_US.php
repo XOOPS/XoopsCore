@@ -18,6 +18,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("Restricted access");
 
+/**
+ * Class DefaultThemeLocaleEn_US
+ */
 class DefaultThemeLocaleEn_US
 {
     const QUICK_LINKS = "Quick links";

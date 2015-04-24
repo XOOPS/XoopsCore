@@ -503,6 +503,13 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $xoops->footer();
     }
 
+    /**
+     * @param $title
+     * @param $text
+     * @param $uid
+     * @param $timestamp
+     * @return string
+     */
     public function renderHeader($title, $text, $uid, $timestamp)
     {
         $ret = '<table cellpadding="4" cellspacing="1" width="98%" class="outer">

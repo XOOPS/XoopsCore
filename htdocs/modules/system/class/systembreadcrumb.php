@@ -65,6 +65,9 @@ class SystemBreadcrumb
         return $instance;
     }
 
+    /**
+     * @param $fct
+     */
     public function setDirectory($fct)
     {
         $this->_directory = $fct;
@@ -72,7 +75,9 @@ class SystemBreadcrumb
 
     /**
      * Add link to breadcrumb
-
+     * @param string $title
+     * @param string $link
+     * @param bool $home
      */
     function addLink($title = '', $link = '', $home = false)
     {
@@ -83,7 +88,7 @@ class SystemBreadcrumb
 
     /**
      * Add Help link
-
+     * @param string $link
      */
     function addHelp($link = '')
     {
@@ -92,7 +97,7 @@ class SystemBreadcrumb
 
     /**
      * Add Tips
-
+     * @param $value
      */
     function addTips($value)
     {

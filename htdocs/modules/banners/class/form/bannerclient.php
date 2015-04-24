@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class BannersBannerclientForm
+ */
 class BannersBannerclientForm extends Xoops\Form\ThemeForm
 {
     /**

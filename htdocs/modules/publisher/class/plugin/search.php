@@ -26,6 +26,14 @@ use Xmf\Metagen;
 
 class PublisherSearchPlugin extends PluginAbstract implements SearchPluginInterface
 {
+    /**
+     * @param string[] $queryarray
+     * @param string $andor
+     * @param int $limit
+     * @param int $offset
+     * @param type $userid
+     * @return array
+     */
     public function search($queryarray, $andor, $limit, $offset, $userid)
     {
         $categories = array();
@@ -35,6 +43,18 @@ class PublisherSearchPlugin extends PluginAbstract implements SearchPluginInterf
         return self::searchAdvanced($queryarray, $andor, $limit, $offset, $userid, $categories, $sortby, $searchin, $extra);
     }
 
+    /**
+     * @param $queryarray
+     * @param $andor
+     * @param $limit
+     * @param $offset
+     * @param $userid
+     * @param array $categories
+     * @param int $sortby
+     * @param string $searchin
+     * @param string $extra
+     * @return array
+     */
     public function searchAdvanced($queryarray, $andor, $limit, $offset, $userid, $categories = array(), $sortby = 0, $searchin = "", $extra = "")
     {
         $publisher = Publisher::getInstance();

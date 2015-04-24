@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class Xoops_Locale_Abstract
+ */
 abstract class Xoops_Locale_Abstract
 {
     /**

@@ -97,10 +97,10 @@ class Assets
      */
 
     private $filterInterface = '\Assetic\Filter\FilterInterface';
+
     /**
      * __construct
      *
-     * @return void
      */
     public function __construct()
     {

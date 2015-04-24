@@ -379,6 +379,11 @@ switch ($op) {
 }
 $xoops->footer();
 
+/**
+ * @param bool $showmenu
+ * @param int $itemid
+ * @param bool $clone
+ */
 function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
 {
     $xoops = Xoops::getInstance();

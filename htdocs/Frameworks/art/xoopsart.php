@@ -12,6 +12,9 @@
  
 class XoopsArt 
 {
+    /**
+     *
+     */
     function __construct()
     {
     }

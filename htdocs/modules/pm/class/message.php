@@ -52,6 +52,9 @@ class PmMessage extends XoopsObject
 
 }
 
+/**
+ * Class PmMessageHandler
+ */
 class PmMessageHandler extends XoopsPersistableObjectHandler
 {
     /**

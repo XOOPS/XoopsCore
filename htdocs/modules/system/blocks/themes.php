@@ -17,6 +17,8 @@
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
+ * @param $options
+ * @return array
  */
 
 function b_system_themes_show($options)
@@ -42,6 +44,10 @@ function b_system_themes_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function b_system_themes_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();

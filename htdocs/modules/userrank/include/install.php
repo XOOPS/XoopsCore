@@ -15,6 +15,8 @@ use Xoops\Core\Yaml;
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Richard Griffith <richard@geekwright.com>
+ * @param $module
+ * @return bool
  */
 
 function xoops_module_install_userrank($module)

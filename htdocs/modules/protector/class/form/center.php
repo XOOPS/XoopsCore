@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class ProtectorCenterForm
+ */
 class ProtectorCenterForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -33,7 +36,8 @@ class ProtectorCenterForm extends Xoops\Form\ThemeForm
 
     /**
      * Maintenance Form
-     * @return void
+     * @param $bad_ips4disp
+     * @param $group1_ips4disp
      */
     public function getPrefIp($bad_ips4disp, $group1_ips4disp)
     {

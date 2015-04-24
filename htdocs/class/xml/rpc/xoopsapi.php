@@ -21,6 +21,9 @@
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
+/**
+ * Class XoopsApi
+ */
 class XoopsApi extends XoopsXmlRpcApi
 {
     /**
@@ -217,6 +220,10 @@ class XoopsApi extends XoopsXmlRpcApi
     }
 
     // currently returns the same struct as in metaWeblogApi
+    /**
+     * @param bool $respond
+     * @return array|void
+     */
     function getPost($respond=true)
     {
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
@@ -265,6 +272,10 @@ class XoopsApi extends XoopsXmlRpcApi
         }
     }
 
+    /**
+     * @param bool $respond
+     * @return array|void
+     */
     function getRecentPosts($respond=true)
     {
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
@@ -326,6 +337,9 @@ class XoopsApi extends XoopsXmlRpcApi
         }
     }
 
+    /**
+     * @param bool $respond
+     */
     function getCategories($respond=true)
     {
         global $xoopsDB;

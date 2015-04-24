@@ -28,6 +28,9 @@ use Xoops\Core\PreloadItem;
  */
 class PublisherPreload extends PreloadItem
 {
+    /**
+     * @param $args
+     */
     static function eventCoreIncludeCommonClassmaps($args)
     {
         $path = dirname(__DIR__);

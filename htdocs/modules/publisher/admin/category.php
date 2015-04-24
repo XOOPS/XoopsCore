@@ -244,6 +244,10 @@ switch ($op) {
 
 $xoops->footer();
 
+/**
+ * @param PublisherCategory $categoryObj
+ * @param int $level
+ */
 function publisher_displayCategory(PublisherCategory $categoryObj, $level = 0)
 {
     $publisher = Publisher::getInstance();
@@ -277,6 +281,12 @@ function publisher_displayCategory(PublisherCategory $categoryObj, $level = 0)
     unset($categoryObj);
 }
 
+/**
+ * @param bool $showmenu
+ * @param int $categoryid
+ * @param int $nb_subcats
+ * @param null $categoryObj
+ */
 function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, $categoryObj = null)
 {
     $xoops = Xoops::getInstance();

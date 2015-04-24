@@ -205,13 +205,12 @@ class Debug
      *
      * Requires xdebug extension
      *
-     * @param type $tracefile      file name for trace file
-     * @param type $collect_params argument for ini_set('xdebug.collect_params',?)
+     * @param string|type $tracefile file name for trace file
+     * @param string|type $collect_params argument for ini_set('xdebug.collect_params',?)
      *                             Controls display of parameters in trace output
-     * @param type $collect_return argument for ini_set('xdebug.collect_return',?)
+     * @param string|type $collect_return argument for ini_set('xdebug.collect_return',?)
      *                             Controls display of function return value in trace
      *
-     * @return void
      */
     public static function startTrace($tracefile = '', $collect_params = '3', $collect_return = 'On')
     {

@@ -21,6 +21,9 @@
 
 class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstract
 {
+    /**
+     * @return bool
+     */
     function execute()
     {
         ob_start(array($this, 'ob_filter'));
@@ -35,6 +38,10 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
     }
 
     // insert javascript into the registering form
+    /**
+     * @param $s
+     * @return mixed
+     */
     function ob_filter($s)
     {
         $antispam_htmls = $this->getHtml4Assign();
@@ -46,6 +53,7 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
 
     /**
      * @param integer $time
+     * @return string
      */
     function getMd5($time = null)
     {
@@ -55,6 +63,9 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
         return md5(gmdate('YmdH', $time) . XOOPS_DB_PREFIX . XOOPS_DB_NAME);
     }
 
+    /**
+     * @return array
+     */
     function getHtml4Assign()
     {
         $as_md5 = $this->getMd5();
@@ -87,6 +98,9 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
         );
     }
 
+    /**
+     * @return bool
+     */
     function checkValidate()
     {
         $user_md5 = trim(@$_POST['antispam_md5']);

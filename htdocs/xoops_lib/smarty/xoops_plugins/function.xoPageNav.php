@@ -9,6 +9,11 @@
     url="viewcat.php?cid=`$entity.cid`&orderby=`$sort_order`&offset=%s"
 */
 
+/**
+ * @param $params
+ * @param $smarty
+ * @return string
+ */
 function smarty_function_xoPageNav($params, &$smarty)
 {
     $xoops = Xoops::getInstance();

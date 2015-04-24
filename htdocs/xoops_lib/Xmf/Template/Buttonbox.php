@@ -68,12 +68,12 @@ class Buttonbox extends AbstractTemplate
     }
 
     /**
-     * set path - path to image files. Do not set if icons are 
+     * set path - path to image files. Do not set if icons are
      * specified with absoulte URLs
-     * 
-     * @param string $position left, right, center
-     * 
-     * @return void
+     *
+     * @param $path
+     * @internal param string $position left, right, center
+     *
      */
     public function setImagePath($path)
     {

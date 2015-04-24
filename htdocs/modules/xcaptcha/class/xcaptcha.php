@@ -18,6 +18,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class Xcaptcha
+ */
 class Xcaptcha extends XoopsCaptcha
 {
     public $captchaHandler;
@@ -30,6 +33,9 @@ class Xcaptcha extends XoopsCaptcha
 
     public $xcaptcha_path_plugin;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->captchaHandler = XoopsCaptcha::getInstance();
@@ -49,26 +55,46 @@ class Xcaptcha extends XoopsCaptcha
         return $instance;
     }
 
+    /**
+     * @param string $name
+     * @return array
+     */
     public function loadConfig($name = 'config')
     {
         return $this->captchaHandler->loadConfig($name);
     }
 
+    /**
+     * @param null $filename
+     * @return array
+     */
     public function loadBasicConfig($filename = null)
     {
         return $this->captchaHandler->loadBasicConfig($filename);
     }
 
+    /**
+     * @param string $file
+     * @return array
+     */
     public function readConfig($file = 'config')
     {
         return $this->captchaHandler->readConfig($file);
     }
 
+    /**
+     * @param string $file
+     * @param array $data
+     * @return array
+     */
     public function writeConfig($file = 'config', $data)
     {
         return $this->captchaHandler->writeConfig($file, $data);
     }
 
+    /**
+     * @return array
+     */
     public function getPluginList()
     {
         $ret = array();
@@ -80,6 +106,9 @@ class Xcaptcha extends XoopsCaptcha
         return $ret;
     }
 
+    /**
+     * @return array
+     */
     public function loadConfigPlugin()
     {
         $config = array();
@@ -89,6 +118,9 @@ class Xcaptcha extends XoopsCaptcha
         return $config;
     }
 
+    /**
+     * @return array
+     */
     public function VerifyData()
     {
         $system = System::getInstance();
@@ -104,6 +136,10 @@ class Xcaptcha extends XoopsCaptcha
         return $config;
     }
 
+    /**
+     * @param null $name
+     * @return null
+     */
     public function loadPluginHandler($name = null)
     {
         $name = empty($name) ? 'text' : $name;

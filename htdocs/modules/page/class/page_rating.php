@@ -38,6 +38,9 @@ class PagePage_rating extends XoopsObject
     }
 }
 
+/**
+ * Class PagePage_ratingHandler
+ */
 class PagePage_ratingHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -48,6 +51,10 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'page_rating', 'pagepage_rating', 'rating_id', 'rating_contentid');
     }
 
+    /**
+     * @param $content_id
+     * @return int
+     */
     public function getVotebyUser($content_id)
     {
         $helper = Page::getInstance();
@@ -70,6 +77,10 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         return -1;
     }
 
+    /**
+     * @param $content_id
+     * @return int
+     */
     public function hasVoted($content_id)
     {
         $helper = Page::getInstance();
@@ -86,6 +97,10 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         return parent::getCount($criteria);
     }
 
+    /**
+     * @param $content_id
+     * @return array
+     */
     public function getStats($content_id)
     {
         $criteria = new CriteriaCompo();

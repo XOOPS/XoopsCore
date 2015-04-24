@@ -201,6 +201,9 @@ class MyTextSanitizer
      */
     public $config = array();
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->path_basic = XOOPS_ROOT_PATH . '/class/textsanitizer';
@@ -286,23 +289,38 @@ class MyTextSanitizer
     }
 
 
-
-     function makeClickableCallback01($match)
+    /**
+     * @param $match
+     * @return string
+     */
+    function makeClickableCallback01($match)
        {
            return $match[1]."<a href=\"$match[2]://$match[3]\" title=\"$match[2]://$match[3]\" rel=\"external\">$match[2]://".$this->truncate( $match[3] ).'</a>';
        }
 
-     function makeClickableCallback02($match)
+    /**
+     * @param $match
+     * @return string
+     */
+    function makeClickableCallback02($match)
            {
                return $match[1] ."<a href=\"http://www.$match[2]$match[6]\" title=\"www.$match[2]$match[6]\" rel=\"external\">" .$this->truncate('www.'.$match[2].$match[6]) .'</a>';
            }
 
-     function makeClickableCallback03($match)
+    /**
+     * @param $match
+     * @return string
+     */
+    function makeClickableCallback03($match)
            {
                return $match[1]."<a href=\"ftp://ftp.$match[2].$match[3]\" title=\"ftp.$match[2].$match[3]\" rel=\"external\">" . $this->truncate('ftp.'.$match[2].$match[3]) .'</a>';
            }
 
-     function makeClickableCallback04($match)
+    /**
+     * @param $match
+     * @return string
+     */
+    function makeClickableCallback04($match)
            {
                return $match[1]. "<a href=\"mailto:$match[2]@$match[3]\" title=\"$match[2]@$match[3]\">" .$this->truncate($match[2]."@".$match[3]) .'</a>';
            }
@@ -652,7 +670,11 @@ class MyTextSanitizer
     }
 
 
-function codeConvCallback($match)
+    /**
+     * @param $match
+     * @return string
+     */
+    function codeConvCallback($match)
        {
            return '<div class=\"xoopsCode\">'. $this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode($match[2])), $match[1]).'</div>';
        }

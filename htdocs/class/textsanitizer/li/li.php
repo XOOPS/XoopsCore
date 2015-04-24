@@ -24,6 +24,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsLi
+ */
 class MytsLi extends MyTextSanitizerExtension
 {
     /**

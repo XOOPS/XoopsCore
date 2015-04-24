@@ -21,6 +21,9 @@ use Xoops\Core\Request;
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class CommentsCommentForm
+ */
 class CommentsCommentForm extends Xoops\Form\ThemeForm
 {
     /**

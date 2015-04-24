@@ -35,6 +35,7 @@ class MytsCensor extends MyTextSanitizerExtension
     /**
      * @param MyTextSanitizer $ts
      * @param $text
+     * @param array $paramsConf
      * @return mixed|string
      */
     public function load(MyTextSanitizer &$ts, $text, array $paramsConf=null)

@@ -18,6 +18,9 @@
  */
 class SmiliesCorePreload extends Xoops\Core\PreloadItem
 {
+    /**
+     * @param $args
+     */
     static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(__DIR__);
@@ -26,6 +29,9 @@ class SmiliesCorePreload extends Xoops\Core\PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
     {
         /* @var $dhtml Xoops\Form\DhtmlTextArea */
@@ -33,6 +39,9 @@ class SmiliesCorePreload extends Xoops\Core\PreloadItem
         $args[0] .= "<img src='" . XOOPS_URL . "/images/smiley.gif' alt='" . XoopsLocale::SMILIES . "' title='" . XoopsLocale::SMILIES . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/smilies/popup.php?target={$dhtml->getName()}\",\"smilies\",300,650);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }
 
+    /**
+     * @param $args
+     */
     static function eventCoreClassModuleTextsanitizerSmiley($args)
     {
         $smileys = MyTextSanitizer::getInstance()->getSmileys();
@@ -42,6 +51,10 @@ class SmiliesCorePreload extends Xoops\Core\PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     * @return bool
+     */
     static function eventCoreClassModuleTextsanitizerGetSmileys($args)
     {
         $isAll = $args[0];

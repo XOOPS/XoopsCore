@@ -21,6 +21,9 @@
  */
 class AvatarsAvatar_userForm extends Xoops\Form\ThemeForm
 {
+    /**
+     * @param AvatarsAvatar $obj
+     */
     public function __construct(AvatarsAvatar $obj)
     {
         $xoops = Xoops::getInstance();

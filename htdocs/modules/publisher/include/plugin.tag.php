@@ -20,7 +20,9 @@
  * @version         $Id$
  */
 
-/** Get item fields: title, content, time, link, uid, uname, tags **/
+/** Get item fields: title, content, time, link, uid, uname, tags *
+ * @param $items
+ */
 function publisher_tag_iteminfo(&$items)
 {
     $publisher = Publisher::getInstance();
@@ -55,7 +57,9 @@ function publisher_tag_iteminfo(&$items)
     unset($items_obj);
 }
 
-/** Remove orphan tag-item links **/
+/** Remove orphan tag-item links *
+ * @param $mid
+ */
 function publisher_tag_synchronization($mid)
 {
     // Optional

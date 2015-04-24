@@ -149,6 +149,10 @@ function xoBoolField($name, $value, $label, $help = '')
  * @param string $dirname
  * @return array
  */
+/**
+ * @param $dirname
+ * @return array
+ */
 function getDirList($dirname)
 {
     $dirlist = array();

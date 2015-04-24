@@ -68,6 +68,10 @@ function b_system_main_show()
     return $block;
 }
 
+/**
+ * @param $options
+ * @return mixed
+ */
 function b_system_main_edit($options)
 {
     $xoops = Xoops::getInstance();

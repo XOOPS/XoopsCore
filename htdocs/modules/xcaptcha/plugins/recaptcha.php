@@ -18,12 +18,18 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class XcaptchaRecaptcha
+ */
 class XcaptchaRecaptcha extends Xcaptcha
 {
     public $config = array();
 
     public $plugin;
 
+    /**
+     *
+     */
     function __construct()
     {
         $this->xcaptcha_handler = Xcaptcha::getInstance();
@@ -31,6 +37,9 @@ class XcaptchaRecaptcha extends Xcaptcha
         $this->plugin = 'recaptcha';
     }
 
+    /**
+     * @return array
+     */
     function VerifyData()
     {
         $xoops = Xoops::getInstance();
@@ -49,6 +58,9 @@ class XcaptchaRecaptcha extends Xcaptcha
         return $config;
     }
 
+    /**
+     * @return array
+     */
     function getThemes()
     {
         return array(
@@ -56,6 +68,9 @@ class XcaptchaRecaptcha extends Xcaptcha
         );
     }
 
+    /**
+     * @return array
+     */
     function getLanguages()
     {
         return array(

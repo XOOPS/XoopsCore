@@ -37,7 +37,8 @@ class Access
     /**
      * __construct
      *
-     * @param type PoolInterface $pool cache pool to use for this cache instance
+     * @param PoolInterface $pool
+     * @internal param PoolInterface $type $pool cache pool to use for this cache instance
      */
     public function __construct(PoolInterface $pool)
     {

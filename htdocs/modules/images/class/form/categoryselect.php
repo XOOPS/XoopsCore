@@ -21,7 +21,7 @@
 class ImagesCategoryselectForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param category id $imgcat_id
+     * @param string $imgcat_id
      */
     public function __construct($imgcat_id)
     {

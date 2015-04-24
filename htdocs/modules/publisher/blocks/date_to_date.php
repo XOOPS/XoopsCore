@@ -24,6 +24,10 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_date_to_date_show($options)
 {
     $myts = MyTextSanitizer::getInstance();
@@ -70,6 +74,10 @@ function publisher_date_to_date_show($options)
 
 /*
  * @todo review this
+ */
+/**
+ * @param $options
+ * @return string
  */
 function publisher_date_to_date_edit($options)
 {

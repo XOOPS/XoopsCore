@@ -751,6 +751,10 @@ function updateMimeValue()
     }
 }
 
+/**
+ * @param $mime_value
+ * @return int
+ */
 function _changeMimeValue($mime_value)
 {
     if ($mime_value == 1) {
@@ -774,6 +778,9 @@ function clearAddSession()
     header('Location: ' . PublisherUtils::makeURI(PUBLISHER_ADMIN_URL . '/mimetypes.php', array('op' => 'add'), false));
 }
 
+/**
+ * @param $id
+ */
 function _clearEditSessionVars($id)
 {
     $id = (int) ($id);

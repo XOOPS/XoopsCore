@@ -20,6 +20,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class ImagesImageForm
+ */
 class ImagesImageForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -101,6 +104,9 @@ class ImagesImageForm extends Xoops\Form\ThemeForm
 
     /**
      * @param string[] $msg
+     * @param string $title
+     * @param string $class
+     * @return string
      */
     public function message($msg, $title = '', $class = 'errorMsg')
     {

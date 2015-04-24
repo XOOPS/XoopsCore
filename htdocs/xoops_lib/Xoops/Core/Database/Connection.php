@@ -99,10 +99,10 @@ class Connection extends \Doctrine\DBAL\Connection
      *
      * This sets up necessary variables before calling parent constructor
      *
-     * @param array         $params       Parameters for the driver
-     * @param Driver        $driver       The driver to use
-     * @param Configuration $config       The connection configuration
-     * @param EventManager  $eventManager Event manager to use
+     * @param array $params Parameters for the driver
+     * @param \Doctrine\DBAL\Driver|Driver $driver The driver to use
+     * @param \Doctrine\DBAL\Configuration|Configuration $config The connection configuration
+     * @param \Doctrine\Common\EventManager|EventManager $eventManager Event manager to use
      */
     public function __construct(
         array $params,
@@ -208,11 +208,10 @@ class Connection extends \Doctrine\DBAL\Connection
      * If the query is parameterized, a prepared statement is used.
      * If an SQLLogger is configured, the execution is logged.
      *
-     * @param string            $query  The SQL query to execute.
-     * @param array             $params The parameters to bind to the query, if any.
-     * @param array             $types  The types the previous parameters are in.
-     * @param QueryCacheProfile $qcp    The query Cache profile
-     *
+     * @param string $query The SQL query to execute.
+     * @param array $params The parameters to bind to the query, if any.
+     * @param array $types The types the previous parameters are in.
+     * @param \Doctrine\DBAL\Cache\QueryCacheProfile|QueryCacheProfile $qcp The query Cache profile
      * @return \Doctrine\DBAL\Driver\Statement The executed statement.
      *
      * @internal PERF: Directly prepares a driver statement, not a wrapper.

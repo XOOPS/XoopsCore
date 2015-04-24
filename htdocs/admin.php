@@ -110,6 +110,10 @@ if (!empty($xoopsorgnews)) {
 }
 $xoops->footer();
 
+/**
+ * @param $rssurl
+ * @return mixed
+ */
 function buildRssFeedCache($rssurl)
 {
     $snoopy = new Snoopy();

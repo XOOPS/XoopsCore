@@ -117,6 +117,10 @@ class Snoopy
         Output:		$this->results	the output text from the fetch
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @return $this|bool
+     */
     function fetch($URI)
     {
 
@@ -206,6 +210,12 @@ class Snoopy
         Output:		$this->results	the text output from the post
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @param string $formvars
+     * @param string $formfiles
+     * @return $this|bool
+     */
     function submit($URI, $formvars = "", $formfiles = "")
     {
         unset($postdata);
@@ -299,6 +309,10 @@ class Snoopy
         Output:		$this->results	an array of the URLs
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @return $this|bool
+     */
     function fetchlinks($URI)
     {
         if ($this->fetch($URI) !== false) {
@@ -324,6 +338,10 @@ class Snoopy
         Output:		$this->results	the resulting html form
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @return $this|bool
+     */
     function fetchform($URI)
     {
 
@@ -348,6 +366,10 @@ class Snoopy
         Output:		$this->results	the text from the web page
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @return $this|bool
+     */
     function fetchtext($URI)
     {
         if ($this->fetch($URI) !== false) {
@@ -368,6 +390,12 @@ class Snoopy
         Output:		$this->results	an array of the links from the post
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @param string $formvars
+     * @param string $formfiles
+     * @return $this|bool
+     */
     function submitlinks($URI, $formvars = "", $formfiles = "")
     {
         if ($this->submit($URI, $formvars, $formfiles) !== false) {
@@ -396,6 +424,12 @@ class Snoopy
         Output:		$this->results	the text from the web page
     \*======================================================================*/
 
+    /**
+     * @param $URI
+     * @param string $formvars
+     * @param string $formfiles
+     * @return $this|bool
+     */
     function submittext($URI, $formvars = "", $formfiles = "")
     {
         if ($this->submit($URI, $formvars, $formfiles) !== false) {
@@ -423,6 +457,9 @@ class Snoopy
         Purpose:	Set the form submission content type to
                     multipart/form-data
     \*======================================================================*/
+    /**
+     * @return $this
+     */
     function set_submit_multipart()
     {
         $this->_submit_type = "multipart/form-data";
@@ -435,6 +472,9 @@ class Snoopy
         Purpose:	Set the form submission content type to
                     application/x-www-form-urlencoded
     \*======================================================================*/
+    /**
+     * @return $this
+     */
     function set_submit_normal()
     {
         $this->_submit_type = "application/x-www-form-urlencoded";
@@ -456,6 +496,10 @@ class Snoopy
         Output:		$match		an array of the links
     \*======================================================================*/
 
+    /**
+     * @param $document
+     * @return array
+     */
     function _striplinks($document)
     {
         preg_match_all("'<\s*a\s.*?href\s*=\s*			# find <a href=
@@ -488,6 +532,10 @@ class Snoopy
         Output:		$match		an array of the links
     \*======================================================================*/
 
+    /**
+     * @param $document
+     * @return string
+     */
     function _stripform($document)
     {
         preg_match_all("'<\/?(FORM|INPUT|SELECT|TEXTAREA|(OPTION))[^<>]*>(?(2)(.*(?=<\/?(option|select)[^<>]*>[\r\n]*)|(?=[\r\n]*))|(?=[\r\n]*))'Usi", $document, $elements);
@@ -507,6 +555,10 @@ class Snoopy
         Output:		$text		the resulting text
     \*======================================================================*/
 
+    /**
+     * @param $document
+     * @return mixed
+     */
     function _striptext($document)
     {
 
@@ -576,6 +628,11 @@ class Snoopy
         Output:		$expandedLinks	the expanded links
     \*======================================================================*/
 
+    /**
+     * @param $links
+     * @param $URI
+     * @return mixed
+     */
     function _expandlinks($links, $URI)
     {
 
@@ -616,6 +673,15 @@ class Snoopy
         Output:
     \*======================================================================*/
 
+    /**
+     * @param $url
+     * @param $fp
+     * @param $URI
+     * @param $http_method
+     * @param string $content_type
+     * @param string $body
+     * @return $this|bool
+     */
     function _httprequest($url, $fp, $URI, $http_method, $content_type = "", $body = "")
     {
         $cookie_headers = '';
@@ -787,6 +853,9 @@ class Snoopy
         Purpose:	set cookies for a redirection
     \*======================================================================*/
 
+    /**
+     * @return $this
+     */
     function setcookies()
     {
         for ($x = 0; $x < count($this->headers); $x++) {
@@ -803,6 +872,10 @@ class Snoopy
         Input:		$fp	file pointer
     \*======================================================================*/
 
+    /**
+     * @param $fp
+     * @return bool
+     */
     function _check_timeout($fp)
     {
         if ($this->read_timeout > 0) {
@@ -821,6 +894,10 @@ class Snoopy
         Input:		$fp	file pointer
     \*======================================================================*/
 
+    /**
+     * @param $fp
+     * @return bool
+     */
     function _connect(&$fp)
     {
         if (!empty($this->proxy_host) && !empty($this->proxy_port)) {
@@ -909,6 +986,10 @@ class Snoopy
         Input:		$fp	file pointer
     \*======================================================================*/
 
+    /**
+     * @param $fp
+     * @return bool
+     */
     function _disconnect($fp)
     {
         return (fclose($fp));
@@ -923,6 +1004,11 @@ class Snoopy
         Output:		post body
     \*======================================================================*/
 
+    /**
+     * @param $formvars
+     * @param $formfiles
+     * @return string|void
+     */
     function _prepare_post_body($formvars, $formfiles)
     {
         settype($formvars, "array");
@@ -992,6 +1078,9 @@ class Snoopy
     Output:		string results
     \*======================================================================*/
 
+    /**
+     * @return string
+     */
     function getResults()
     {
         return $this->results;

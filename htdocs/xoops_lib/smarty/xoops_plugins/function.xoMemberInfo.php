@@ -47,6 +47,10 @@
  * -------------------------------------------------------------
  */
 
+/**
+ * @param $params
+ * @param $smarty
+ */
 function smarty_function_xoMemberInfo($params, &$smarty)
 {
     $xoops = Xoops::getInstance();

@@ -19,16 +19,27 @@
 
 class UserconfigsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
+    /**
+     * @param int $uid
+     * @return int
+     */
     public function userPosts($uid)
     {
         return 0;
     }
 
+    /**
+     * @return array
+     */
     public function waiting()
     {
         return array();
     }
 
+    /**
+     * @param int $limit
+     * @return array
+     */
     public function backend($limit)
     {
         return array();

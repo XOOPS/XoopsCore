@@ -47,8 +47,9 @@ class Maintenance
     /**
      * Display Tables
      *
-     * @param array
-     * @return
+     * @param bool $array
+     * @return array|string
+     * @internal param $array
      */
     function displayTables($array = true)
     {

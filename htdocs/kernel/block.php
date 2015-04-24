@@ -356,6 +356,9 @@ class XoopsBlock extends XoopsObject
         }
     }
 
+    /**
+     * @return bool
+     */
     public function isCustom()
     {
         return in_array($this->getVar("block_type"), array('C', 'E'));
@@ -409,6 +412,9 @@ class XoopsBlock extends XoopsObject
     }
 }
 
+/**
+ * Class XoopsBlockHandler
+ */
 class XoopsBlockHandler extends XoopsPersistableObjectHandler
 {
     /**

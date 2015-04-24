@@ -195,6 +195,11 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
 
 $xoops->footer();
 
+/**
+ * @param $a
+ * @param $b
+ * @return int
+ */
 function protector_ip_cmp($a, $b)
 {
     $as = explode('.', $a);

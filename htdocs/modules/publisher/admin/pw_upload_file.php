@@ -32,6 +32,10 @@ if (publisher_pagewrap_upload($errors)) {
     $xoops->redirect($_POST['backto'], 5, $message);
 }
 
+/**
+ * @param $errors
+ * @return bool
+ */
 function publisher_pagewrap_upload(&$errors)
 {
 

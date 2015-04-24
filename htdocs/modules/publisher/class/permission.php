@@ -28,6 +28,9 @@ use Xoops\Core\Kernel\CriteriaCompo;
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * Class PublisherPermissionHandler
+ */
 class PublisherPermissionHandler extends XoopsObjectHandler
 {
     /**

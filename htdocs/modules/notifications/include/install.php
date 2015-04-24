@@ -13,6 +13,8 @@
  * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
+ * @param $module
+ * @return bool
  */
 
 function xoops_module_install_notifications(&$module)
@@ -44,6 +46,10 @@ function xoops_module_install_notifications(&$module)
     return true;
 }
 
+/**
+ * @param $module
+ * @return bool
+ */
 function xoops_module_pre_uninstall_notifications(&$module)
 {
     $xoops = Xoops::getInstance();

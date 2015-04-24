@@ -20,12 +20,22 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class MenusSmartyDecorator
+ */
 class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
+    /**
+     * @param $menu
+     * @param $hasAccess
+     */
     function hasAccess($menu, &$hasAccess)
     {
     }
 
+    /**
+     * @param $accessFilter
+     */
     function accessFilter(&$accessFilter)
     {
     }
@@ -34,10 +44,16 @@ class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecora
     {
     }
 
+    /**
+     * @param $menus
+     */
     function end(&$menus)
     {
     }
 
+    /**
+     * @param $menu
+     */
     function decorateMenu(&$menu)
     {
         $decorations = array('link', 'image', 'title', 'alt_title');
@@ -46,6 +62,10 @@ class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecora
         }
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     function _doDecoration($string)
     {
         $xoops = Xoops::getInstance();

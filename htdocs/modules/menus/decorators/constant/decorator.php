@@ -20,16 +20,29 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class MenusConstantDecorator
+ */
 class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
+    /**
+     * @param $menu
+     * @param $hasAccess
+     */
     function hasAccess($menu, &$hasAccess)
     {
     }
 
+    /**
+     * @param $accessFilter
+     */
     function accessFilter(&$accessFilter)
     {
     }
 
+    /**
+     * @param $registry
+     */
     function formLinkDescription($registry)
     {
     }
@@ -38,10 +51,16 @@ class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDeco
     {
     }
 
+    /**
+     * @param $menus
+     */
     function end(&$menus)
     {
     }
 
+    /**
+     * @param $menu
+     */
     function decorateMenu(&$menu)
     {
         $decorations = array('link', 'image', 'title', 'alt_title');
@@ -50,6 +69,10 @@ class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDeco
         }
     }
 
+    /**
+     * @param $string
+     * @return mixed
+     */
     function _doDecoration($string)
     {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {

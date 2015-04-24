@@ -332,6 +332,10 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
         }
     }
 
+    /**
+     * @param $uid
+     * @param XoopsModule $module
+     */
     public function createDefaultUserConfigs($uid, XoopsModule $module)
     {
         /* @var $plugin UserconfigsPluginInterface */

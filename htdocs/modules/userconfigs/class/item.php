@@ -243,6 +243,9 @@ class UserconfigsItem extends XoopsObject
     }
 }
 
+/**
+ * Class UserconfigsItemHandler
+ */
 class UserconfigsItemHandler extends XoopsPersistableObjectHandler
 {
     /**

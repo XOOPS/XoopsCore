@@ -40,6 +40,9 @@ class SystemMenuHandler
         $this->_obj = $xoops->module;
     }
 
+    /**
+     * @param $addon
+     */
     public function getAddon($addon)
     {
         $this->_obj = $addon;
@@ -47,12 +50,17 @@ class SystemMenuHandler
 
     /**
      * @param string $link
+     * @param string $name
      */
     public function addMenuTop($link, $name = "")
     {
         $this->_menutop[] = array('link' => $link, 'name' => $name);
     }
 
+    /**
+     * @param $options
+     * @param bool $multi
+     */
     public function addMenuTopArray($options, $multi = true)
     {
         if (is_array($options)) {
@@ -70,12 +78,17 @@ class SystemMenuHandler
 
     /**
      * @param string $link
+     * @param string $name
      */
     public function addMenuTabs($link, $name = "")
     {
         $this->_menutabs[] = array('link' => $link, 'name' => $name, 'current' => 0);
     }
 
+    /**
+     * @param $options
+     * @param bool $multi
+     */
     public function addMenuTabsArray($options, $multi = true)
     {
         if (is_array($options)) {
@@ -91,16 +104,26 @@ class SystemMenuHandler
         }
     }
 
+    /**
+     * @param $value
+     */
     public function addHeader($value)
     {
         $this->_header = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function addSubHeader($value)
     {
         $this->_subheader = $value;
     }
 
+    /**
+     * @param string $basename
+     * @return string
+     */
     public function breadcrumb_nav($basename = "Home")
     {
         global $bc_site, $bc_label;
@@ -126,6 +149,11 @@ class SystemMenuHandler
         return $return_str;
     }
 
+    /**
+     * @param int $currentoption
+     * @param bool $display
+     * @return string|void
+     */
     public function render($currentoption = 1, $display = true)
     {
         $xoops = Xoops::getInstance();

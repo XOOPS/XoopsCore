@@ -16,6 +16,8 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
+ * @param $options
+ * @return array
  */
 
 function b_comments_show($options)
@@ -84,6 +86,10 @@ function b_comments_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function b_comments_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();

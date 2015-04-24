@@ -54,6 +54,9 @@ class XoopsInstallWizard
      */
     public $form;
 
+    /**
+     * @return bool
+     */
     public function xoInit()
     {
         if (@empty($_SERVER['REQUEST_URI'])) {
@@ -279,6 +282,10 @@ class XoopsInstallWizard
         return $ret;
     }
 
+    /**
+     * @param $cacheFolder
+     * @return bool
+     */
     function cleanCache($cacheFolder) {
         $cache = array(1,2,3);
         if (!empty($cache)) {

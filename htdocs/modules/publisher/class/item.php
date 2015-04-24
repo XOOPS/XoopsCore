@@ -28,6 +28,9 @@ use Xoops\Core\Request;
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * Class PublisherItem
+ */
 class PublisherItem extends XoopsObject
 {
     /**
@@ -1382,10 +1385,9 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     /**
      * addNotNullFieldClause exclude rows where specified columns are empty or null
      *
-     * @param QueryBuilder $qb            QueryBuilder instance
+     * @param QueryBuilder|\Xoops\Core\Database\QueryBuilder $qb QueryBuilder instance
      * @param string|array $notNullFields fields that should not be empty
-     * @param string       $whereMode     Initial where method, 'AND' andWhere(), otherwise where()
-     *
+     * @param string $whereMode Initial where method, 'AND' andWhere(), otherwise where()
      * @return QueryBuilder instance
      */
     protected function addNotNullFieldClause(\Xoops\Core\Database\QueryBuilder $qb, $notNullFields = array(), $whereMode = '')

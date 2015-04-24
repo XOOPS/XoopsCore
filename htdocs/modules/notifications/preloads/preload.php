@@ -36,6 +36,9 @@ class NotificationsPreload extends PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreFooterStart($args)
     {
         $xoops = Xoops::getInstance();
@@ -112,6 +115,9 @@ class NotificationsPreload extends PreloadItem
         $xoops->tpl()->assign('notifications', $notifications);
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUpdateConfigs($args)
     {
         /* @var $module XoopsModule */
@@ -127,6 +133,9 @@ class NotificationsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleInstallConfigs($args)
     {
         /* @var $module XoopsModule */
@@ -136,6 +145,9 @@ class NotificationsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUnistall($args)
     {
         /* @var $module XoopsModule */
@@ -145,6 +157,9 @@ class NotificationsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnSystemPreferencesForm($args)
     {
         /* @var $module XoopsModule */

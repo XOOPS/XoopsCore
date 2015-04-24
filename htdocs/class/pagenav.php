@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class XoopsPageNav
+ */
 class XoopsPageNav
 {
     /**
@@ -169,9 +172,9 @@ class XoopsPageNav
     /**
      * Create a navigational dropdown list
      *
+     * @param string $align
      * @param boolean $showbutton Show the "Go" button?
-     *
-     * @return string|false
+     * @return false|string
      */
     public function renderSelect($align = "right", $showbutton = false)
     {

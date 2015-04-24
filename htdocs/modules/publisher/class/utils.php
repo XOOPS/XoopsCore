@@ -24,6 +24,9 @@ use Xmf\Module\Session;
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class PublisherUtils
+ */
 class PublisherUtils
 {
     /**
@@ -376,6 +379,9 @@ class PublisherUtils
         return (is_object($itemObj) && in_array($itemObj->getVar('categoryid'), $categoriesGranted));
     }
 
+    /**
+     * @return bool
+     */
     public static function IsUserAdmin()
     {
         return Publisher::getInstance()->IsUserAdmin();
@@ -1023,6 +1029,11 @@ class PublisherUtils
         }
     }
 
+    /**
+     * @param string $title
+     * @param bool $withExt
+     * @return mixed|string
+     */
     public static function seoTitle($title = '', $withExt = true)
     {
 

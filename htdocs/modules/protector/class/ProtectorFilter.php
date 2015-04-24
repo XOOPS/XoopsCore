@@ -22,6 +22,9 @@
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // Abstract of each filter classes
+/**
+ * Class ProtectorFilterAbstract
+ */
 class ProtectorFilterAbstract
 {
     var $protector = null;
@@ -40,6 +43,9 @@ class ProtectorFilterAbstract
         }
     }
 
+    /**
+     * @return bool
+     */
     function isMobile()
     {
         if (class_exists('Wizin_User')) {
@@ -58,6 +64,9 @@ class ProtectorFilterAbstract
 }
 
 // Filter Handler class (singleton)
+/**
+ * Class ProtectorFilterHandler
+ */
 class ProtectorFilterHandler
 {
     var $protector = null;
@@ -70,6 +79,9 @@ class ProtectorFilterHandler
         $this->filters_base = dirname(__DIR__) . '/filters_enabled';
     }
 
+    /**
+     * @return ProtectorFilterHandler
+     */
     static function getInstance()
     {
         static $instance;
@@ -80,6 +92,10 @@ class ProtectorFilterHandler
     }
 
     // return: false : execute default action
+    /**
+     * @param $type
+     * @return int|mixed
+     */
     function execute($type)
     {
         $ret = 0;

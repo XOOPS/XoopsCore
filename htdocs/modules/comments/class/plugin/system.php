@@ -49,6 +49,10 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
         return $ret;
     }
 
+    /**
+     * @param int $limit
+     * @return array
+     */
     public function backend($limit)
     {
         return array();

@@ -38,6 +38,9 @@ class ProfileVisibility extends XoopsObject
     }
 }
 
+/**
+ * Class ProfileVisibilityHandler
+ */
 class ProfileVisibilityHandler extends XoopsPersistableObjectHandler
 {
     /**

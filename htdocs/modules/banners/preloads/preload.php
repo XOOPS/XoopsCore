@@ -38,6 +38,9 @@ class BannersPreload extends PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreBannerDisplay($args)
     {
         require_once dirname(__DIR__) . '/class/bannerrender.php';

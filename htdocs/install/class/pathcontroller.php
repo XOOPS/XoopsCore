@@ -171,6 +171,9 @@ class XoopsPathController
         }
     }
 
+    /**
+     * @return bool
+     */
     public function validate()
     {
         foreach (array_keys($this->xoopsPath) as $path) {
@@ -195,6 +198,10 @@ class XoopsPathController
         return ($validPaths && $this->validUrl && $validPerms);
     }
 
+    /**
+     * @param string $PATH
+     * @return int
+     */
     public function checkPath($PATH = '')
     {
         $ret = 1;
@@ -225,6 +232,11 @@ class XoopsPathController
         return $ret;
     }
 
+    /**
+     * @param $parent
+     * @param $path
+     * @param $error
+     */
     public function setPermission($parent, $path, &$error)
     {
         if (is_array($path)) {

@@ -89,7 +89,6 @@ class XoopsXmlRpcParser extends SaxParser
      * Constructor of the class
      *
      * @param $input
-     * @return void
      */
     public function __construct(&$input)
     {
@@ -304,6 +303,9 @@ class XoopsXmlRpcParser extends SaxParser
 }
 
 
+/**
+ * Class RpcMethodNameHandler
+ */
 class RpcMethodNameHandler extends XmlTagHandler
 {
 
@@ -327,6 +329,9 @@ class RpcMethodNameHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcIntHandler
+ */
 class RpcIntHandler extends XmlTagHandler
 {
 
@@ -350,6 +355,9 @@ class RpcIntHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcDoubleHandler
+ */
 class RpcDoubleHandler extends XmlTagHandler
 {
 
@@ -374,6 +382,9 @@ class RpcDoubleHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcBooleanHandler
+ */
 class RpcBooleanHandler extends XmlTagHandler
 {
 
@@ -398,6 +409,9 @@ class RpcBooleanHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcStringHandler
+ */
 class RpcStringHandler extends XmlTagHandler
 {
 
@@ -421,6 +435,9 @@ class RpcStringHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcDateTimeHandler
+ */
 class RpcDateTimeHandler extends XmlTagHandler
 {
 
@@ -449,6 +466,9 @@ class RpcDateTimeHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcBase64Handler
+ */
 class RpcBase64Handler extends XmlTagHandler
 {
 
@@ -472,6 +492,9 @@ class RpcBase64Handler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcNameHandler
+ */
 class RpcNameHandler extends XmlTagHandler
 {
 
@@ -502,6 +525,9 @@ class RpcNameHandler extends XmlTagHandler
 }
 
 
+/**
+ * Class RpcValueHandler
+ */
 class RpcValueHandler extends XmlTagHandler
 {
 
@@ -568,6 +594,9 @@ class RpcValueHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcMemberHandler
+ */
 class RpcMemberHandler extends XmlTagHandler
 {
 
@@ -604,6 +633,9 @@ class RpcMemberHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcArrayHandler
+ */
 class RpcArrayHandler extends XmlTagHandler
 {
 
@@ -639,6 +671,9 @@ class RpcArrayHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RpcStructHandler
+ */
 class RpcStructHandler extends XmlTagHandler
 {
 

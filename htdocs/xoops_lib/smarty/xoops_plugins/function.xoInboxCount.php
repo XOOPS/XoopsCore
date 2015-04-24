@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param $params
+ * @param $smarty
+ */
 function smarty_function_xoInboxCount($params, &$smarty)
 {
     $xoops = Xoops::getInstance();

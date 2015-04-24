@@ -15,6 +15,16 @@
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
+ * @param $queryarray
+ * @param $andor
+ * @param $limit
+ * @param $offset
+ * @param $userid
+ * @param array $categories
+ * @param int $sortby
+ * @param string $searchin
+ * @param string $extra
+ * @return array
  */
 
 function publisher_search($queryarray, $andor, $limit, $offset, $userid, $categories = array(), $sortby = 0, $searchin = "", $extra = "")

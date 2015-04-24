@@ -43,6 +43,9 @@ class ImagesCategory extends XoopsObject
     }
 }
 
+/**
+ * Class ImagesCategoryHandler
+ */
 class ImagesCategoryHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -57,8 +60,11 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
 
     /**
      * @param CriteriaElement|null $criteria
+     * @param int $start
+     * @param int $limit
      * @param bool $id_as_key
      *
+     * @param bool $asobject
      * @return array
      */
     public function getPermittedObjects($criteria = null, $start = 0, $limit = 0, $id_as_key = false, $asobject = true)

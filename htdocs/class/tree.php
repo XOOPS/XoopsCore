@@ -252,10 +252,10 @@ class XoopsObjectTree
      * @param string $fieldName Name of the member variable from the
      *       node objects that should be used as the column.
      * @param integer $key ID of the object to display as the root of the array
+     * @param $ret
      * @param string $prefix_orig String to indent deeper levels (origin)
      * @param string $prefix_curr String to indent deeper levels (current)
      *
-     * @return void
      */
     public function _makeArrayTreeOptions( $fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '' ) {
         if ( $key > 0 ) {

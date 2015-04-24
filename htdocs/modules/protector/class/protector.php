@@ -21,6 +21,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class Protector
+ */
 class Protector
 {
     var $mydirname;
@@ -88,6 +91,9 @@ class Protector
     var $last_error_type = 'UNKNOWN';
 
     // Constructor
+    /**
+     *
+     */
     function __construct()
     {
         $this->mydirname = 'protector';
@@ -128,6 +134,7 @@ class Protector
     }
 
     /**
+     * @param $val
      * @param string $key
      */
     function _initial_recursive($val, $key)
@@ -159,6 +166,9 @@ class Protector
         }
     }
 
+    /**
+     * @return Protector
+     */
     static public function &getInstance()
     {
         static $instance;
@@ -168,6 +178,9 @@ class Protector
         return $instance;
     }
 
+    /**
+     * @return bool
+     */
     function updateConfFromDb()
     {
         if (empty($this->_conn)) {
@@ -194,16 +207,25 @@ class Protector
         return true;
     }
 
+    /**
+     * @param $conn
+     */
     function setConn($conn)
     {
         $this->_conn = $conn;
     }
 
+    /**
+     * @return array
+     */
     function getConf()
     {
         return $this->_conf;
     }
 
+    /**
+     * @param bool $redirect_to_top
+     */
     function purge($redirect_to_top = false)
     {
         // clear all session values
@@ -243,6 +265,13 @@ class Protector
         }
     }
 
+    /**
+     * @param string $type
+     * @param int $uid
+     * @param bool $unique_check
+     * @param int $level
+     * @return bool
+     */
     function output_log($type = 'UNKNOWN', $uid = 0, $unique_check = false, $level = 1)
     {
         if ($this->_logged) {
@@ -282,6 +311,7 @@ class Protector
 
     /**
      * @param integer $expire
+     * @return bool
      */
     function write_file_bwlimit($expire)
     {
@@ -299,6 +329,9 @@ class Protector
         }
     }
 
+    /**
+     * @return mixed
+     */
     function get_bwlimit()
     {
         list($expire) = @file(Protector::get_filepath4bwlimit());
@@ -307,11 +340,18 @@ class Protector
         return $expire;
     }
 
+    /**
+     * @return string
+     */
     function get_filepath4bwlimit()
     {
         return XOOPS_TRUST_PATH . '/modules/protector/configs/bwlimit' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
     }
 
+    /**
+     * @param $bad_ips
+     * @return bool
+     */
     function write_file_badips($bad_ips)
     {
         asort($bad_ips);
@@ -328,6 +368,11 @@ class Protector
         }
     }
 
+    /**
+     * @param int $jailed_time
+     * @param null $ip
+     * @return bool
+     */
     function register_bad_ips($jailed_time = 0, $ip = null)
     {
         if (empty($ip)) {
@@ -343,6 +388,10 @@ class Protector
         return $this->write_file_badips($bad_ips);
     }
 
+    /**
+     * @param bool $with_jailed_time
+     * @return array|mixed
+     */
     function get_bad_ips($with_jailed_time = false)
     {
         list($bad_ips_serialized) = @file(Protector::get_filepath4badips());
@@ -368,11 +417,18 @@ class Protector
         }
     }
 
+    /**
+     * @return string
+     */
     function get_filepath4badips()
     {
         return XOOPS_ROOT_PATH . '/modules/protector/configs/badips' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
     }
 
+    /**
+     * @param bool $with_info
+     * @return array|mixed
+     */
     function get_group1_ips($with_info = false)
     {
         list($group1_ips_serialized) = @file(Protector::get_filepath4group1ips());
@@ -388,16 +444,26 @@ class Protector
         return $group1_ips;
     }
 
+    /**
+     * @return string
+     */
     function get_filepath4group1ips()
     {
         return XOOPS_VAR_PATH . '/configs/protector_group1ips_' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
     }
 
+    /**
+     * @return string
+     */
     function get_filepath4confighcache()
     {
         return XOOPS_VAR_PATH . '/configs/protector_configcache_' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
     }
 
+    /**
+     * @param $ips
+     * @return bool
+     */
     function ip_match($ips)
     {
         foreach ($ips as $ip => $info) {
@@ -440,6 +506,10 @@ class Protector
         return false;
     }
 
+    /**
+     * @param null $ip
+     * @return bool
+     */
     function deny_by_htaccess($ip = null)
     {
         if (empty($ip)) {
@@ -494,11 +564,17 @@ class Protector
         return true;
     }
 
+    /**
+     * @return array
+     */
     function getDblayertrapDoubtfuls()
     {
         return $this->_dblayertrap_doubtfuls;
     }
 
+    /**
+     * @param $val
+     */
     function _dblayertrap_check_recursive($val)
     {
         if (is_array($val)) {
@@ -518,6 +594,9 @@ class Protector
         }
     }
 
+    /**
+     * @param bool $force_override
+     */
     function dblayertrap_init($force_override = false)
     {
         if (!empty($GLOBALS['xoopsOption']['nocommon']) || defined('_LEGACY_PREVENT_EXEC_COMMON_') || defined('_LEGACY_PREVENT_LOAD_CORE_')) {
@@ -538,6 +617,9 @@ class Protector
         }
     }
 
+    /**
+     * @param $val
+     */
     function _bigumbrella_check_recursive($val)
     {
         if (is_array($val)) {
@@ -562,6 +644,10 @@ class Protector
         }
     }
 
+    /**
+     * @param $s
+     * @return string
+     */
     function bigumbrella_outputcheck($s)
     {
         if (defined('BIGUMBRELLA_DISABLED')) {
@@ -588,6 +674,9 @@ class Protector
         return $s;
     }
 
+    /**
+     * @return bool
+     */
     function intval_allrequestsendid()
     {
         global $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS;
@@ -629,6 +718,9 @@ class Protector
         return true;
     }
 
+    /**
+     * @return bool
+     */
     function eliminate_dotdot()
     {
         global $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS;
@@ -689,6 +781,11 @@ class Protector
         return true;
     }
 
+    /**
+     * @param $current
+     * @param $indexes
+     * @return bool
+     */
     function &get_ref_from_base64index(&$current, $indexes)
     {
         foreach ($indexes as $index) {
@@ -701,6 +798,10 @@ class Protector
         return $current;
     }
 
+    /**
+     * @param $key
+     * @param $val
+     */
     function replace_doubtful($key, $val)
     {
         global $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS;
@@ -736,6 +837,9 @@ class Protector
         $legacy_ref = $val;
     }
 
+    /**
+     * @return bool
+     */
     function check_uploaded_files()
     {
         if ($this->_done_badext) {
@@ -803,6 +907,9 @@ class Protector
         return $this->_safe_badext;
     }
 
+    /**
+     * @return bool
+     */
     function check_contami_systemglobals()
     {
         /*  if( $this->_done_contami ) return $this->_safe_contami ;
@@ -819,6 +926,10 @@ class Protector
         return $this->_safe_contami;
     }
 
+    /**
+     * @param bool $sanitize
+     * @return bool
+     */
     function check_sql_isolatedcommentin($sanitize = true)
     {
         if ($this->_done_isocom) {
@@ -844,6 +955,10 @@ class Protector
         return $this->_safe_isocom;
     }
 
+    /**
+     * @param bool $sanitize
+     * @return bool
+     */
     function check_sql_union($sanitize = true)
     {
         if ($this->_done_union) {
@@ -867,6 +982,10 @@ class Protector
         return $this->_safe_union;
     }
 
+    /**
+     * @param $uid
+     * @return bool
+     */
     function stopforumspam($uid)
     {
         if (!function_exists('curl_init')) {
@@ -933,6 +1052,11 @@ class Protector
         return true;
     }
 
+    /**
+     * @param int $uid
+     * @param bool $can_ban
+     * @return bool
+     */
     function check_dos_attack($uid = 0, $can_ban = false)
     {
         $xoops = Xoops::getInstance();
@@ -1076,6 +1200,9 @@ class Protector
     }
 
     //
+    /**
+     * @return bool|void
+     */
     function check_brute_force()
     {
         $xoops = Xoops::getInstance();
@@ -1119,6 +1246,9 @@ class Protector
         $xoopsDB->queryF($sql4insertlog);
     }
 
+    /**
+     * @param $val
+     */
     function _spam_check_point_recursive($val)
     {
         if (is_array($val)) {
@@ -1148,6 +1278,7 @@ class Protector
 
     /**
      * @param integer $points4deny
+     * @param $uid
      */
     function spam_check($points4deny, $uid)
     {
@@ -1258,6 +1389,8 @@ class Protector
 
     /**
      * @param string $type
+     * @param string $dying_message
+     * @return int|mixed
      */
     function call_filter($type, $dying_message = '')
     {

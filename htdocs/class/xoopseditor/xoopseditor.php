@@ -197,8 +197,8 @@ class XoopsEditorHandler
 
 
     /**
-     * @param bool $noHtml
      * @return array
+     * @internal param bool $noHtml
      */
     public function buildEditorList()
     {

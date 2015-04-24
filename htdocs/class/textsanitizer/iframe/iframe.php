@@ -23,6 +23,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsIframe
+ */
 class MytsIframe extends MyTextSanitizerExtension
 {
     /**

@@ -27,6 +27,9 @@ use Xoops\Core\Kernel\CriteriaCompo;
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * Class PublisherCategory
+ */
 class PublisherCategory extends XoopsObject
 {
     /**
@@ -467,6 +470,9 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
         }
     }
 
+    /**
+     * @return array
+     */
     public function &getCategoriesForSubmit()
     {
         global $theresult;
