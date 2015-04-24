@@ -311,9 +311,9 @@ class XoopsFileHandler
     }
 
     /**
-     * Returns the File extension.
+     * Returns the File informations array
      *
-     * @return string The File extension
+     * @return array The File informations
      * @access public
      */
     public function info()
@@ -422,7 +422,7 @@ class XoopsFileHandler
      */
     public function exists()
     {
-        $exists = (XoopsLoad::fileExists($this->pwd()) && is_file($this->pwd()));
+        $exists = is_file($this->pwd());
         return $exists;
     }
 

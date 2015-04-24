@@ -49,7 +49,7 @@ switch ($op) {
             $xoops->redirect("category.php", 1, sprintf(_AM_PUBLISHER_COLISDELETED, $name));
         } else {
             $xoops->header();
-            $xoops->confirm(array('op' => 'del', 'categoryid' => $categoryObj->getVar('categoryid'), 'confirm' => 1, 'name' => $categoryObj->getVar('name')), 'category.php', _AM_PUBLISHER_DELETECOL . " '" . $categoryObj->getVar('name') . "'. <br /> <br />" . _AM_PUBLISHER_DELETE_CAT_CONFIRM, _AM_PUBLISHER_DELETE);
+            echo $xoops->confirm(array('op' => 'del', 'categoryid' => $categoryObj->getVar('categoryid'), 'confirm' => 1, 'name' => $categoryObj->getVar('name')), 'category.php', _AM_PUBLISHER_DELETECOL . " '" . $categoryObj->getVar('name') . "'. <br /> <br />" . _AM_PUBLISHER_DELETE_CAT_CONFIRM, _AM_PUBLISHER_DELETE);
             $xoops->footer();
         }
         break;

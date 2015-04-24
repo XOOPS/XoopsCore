@@ -33,7 +33,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
         $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
 
-        $this->assertTrue(is_null($instance->sess_handler));
+        $this->assertTrue(is_null($instance->sessionManager));
         $this->assertTrue(is_null($instance->module));
         $this->assertTrue(is_array($instance->config));
         $this->assertTrue(is_array($instance->moduleConfig));
@@ -390,14 +390,6 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('XoopsBlockmodulelinkHandler', $value);
     }
 
-    public function test_getHandlerCachemodel()
-	{
-        $instance = Xoops::getInstance();
-
-        $value = $instance->getHandlerCachemodel();
-        $this->assertInstanceOf('XoopsCachemodelHandler', $value);
-    }
-
     public function test_getHandlerConfig()
 	{
         $instance = Xoops::getInstance();
@@ -496,12 +488,12 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('XoopsRanksHandler', $value);
     }
 
-    public function test_getHandlerSession()
+    public function test_session()
 	{
         $instance = Xoops::getInstance();
 
-        $value = $instance->getHandlerSession();
-        $this->assertInstanceOf('XoopsSessionHandler', $value);
+        $value = $instance->session();
+        $this->assertInstanceOf('\Xoops\Core\Session\Manager', $value);
     }
 
     public function test_getHandlerTplfile()
@@ -712,51 +704,20 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function test_error()
-	{
-        $instance = Xoops::getInstance();
-
-        ob_start();
-        $instance->error('test');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value));
-    }
-
-    public function test_result()
-	{
-        $instance = Xoops::getInstance();
-
-        ob_start();
-        $instance->result('test');
-        $value = ob_get_contents();
-        ob_end_clean();
-        $this->assertTrue(is_string($value));
-    }
-
     public function test_confirm()
 	{
         $instance = Xoops::getInstance();
 
 		defined('NWLINE') OR define('NWLINE', "\n");
-		ob_start();
-		$instance->confirm(array(),'','msg');
-		$value = ob_get_contents();
-		ob_end_clean();
+		$value = $instance->confirm(array(),'','msg');
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 
-		ob_start();
-		$instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
-		$value = ob_get_contents();
-		ob_end_clean();
+		$value = $instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 
-		ob_start();
-		$instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
-		$value = ob_get_contents();
-		ob_end_clean();
+		$value = $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
 		$this->assertTrue(is_string($value));
 		$this->assertTrue(strlen($value)>0);
 	}

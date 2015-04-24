@@ -13,7 +13,7 @@
 namespace Xoops\Html;
 
 /**
- * Attributes - Abstract base class for HTML attributes
+ * Attributes - Base class for HTML attributes
  *
  * @category  Xoops\Html\Attributes
  * @package   Xoops\Html

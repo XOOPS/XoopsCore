@@ -896,7 +896,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     if (!empty($comment_confirm_extra) && is_array($comment_confirm_extra)) {
                         $comment_confirm = $comment_confirm + $comment_confirm_extra;
                     }
-                    $xoops->confirm($comment_confirm, 'comment_delete.php', _MD_COMMENTS_DELETESELECT);
+                    echo $xoops->confirm($comment_confirm, 'comment_delete.php', _MD_COMMENTS_DELETESELECT);
                     $xoops->footer();
                     break;
             }

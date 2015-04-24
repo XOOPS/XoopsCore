@@ -37,7 +37,7 @@ class Cache extends AbstractHelper
     protected $prefix;
 
     /**
-     * @var XoopsCache
+     * @var \Xoops\Core\Cache\Access
      */
     protected $cache;
 
@@ -138,7 +138,7 @@ class Cache extends AbstractHelper
      *
      * @return boolean True if the cache was successfully cleared, false otherwise
      */
-    public static function clear()
+    public function clear()
     {
         return $this->delete(array());
     }

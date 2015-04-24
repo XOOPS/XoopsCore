@@ -33,7 +33,7 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
             $blank_img = 'blank.gif';
             $html_banner = 0;
         } else {
-            if (substr_count($obj->getVar('banner_imageurl'), XOOPS_UPLOAD_URL . '/banners/') == false) {
+            if (substr_count($obj->getVar('banner_imageurl'), XOOPS_UPLOAD_URL . '/banners/') == 0) {
                 $blank_img = 'blank.gif';
             } else {
                 $namefile =

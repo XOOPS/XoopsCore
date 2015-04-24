@@ -108,7 +108,7 @@ switch ($op) {
         } else {
             // no confirm: show deletion condition
             $xoops->header();
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                 'op' => 'del', 'fileid' => $fileObj->getVar('fileid'), 'confirm' => 1,
                 'name' => $fileObj->getVar('name')
             ), 'file.php', _AM_PUBLISHER_DELETETHISFILE . " <br />" . $fileObj->getVar('name') . " <br /> <br />", _AM_PUBLISHER_DELETE);

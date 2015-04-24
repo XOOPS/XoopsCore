@@ -1,5 +1,5 @@
 <h4 class="txtcenter"><{translate key='PRIVATE_MESSAGES'}></h4>
-<{if $op}>
+<{if $op|default:false}>
 <br />
 <div class="floatright txtright" style="width: 18%;">
     <{if $op == "out"}>

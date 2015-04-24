@@ -138,7 +138,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
         $instance->setDirname('avatars');
 		$x = $instance->getHandler('avatar');
 		$this->assertInstanceOf('AvatarsAvatarHandler', $x);
-		$this->assertInstanceOf('XoopsPersistableObjectHandler', $x);
+		$this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $x);
     }
 
     public function test_disableCache()

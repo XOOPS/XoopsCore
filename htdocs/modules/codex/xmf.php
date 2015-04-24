@@ -123,17 +123,16 @@ echo '<p>' . Metagen::generateSeoTitle($title) . '</p>';
 echo '<h4>Article with Top 25 Keywords Highlighted</h4>';
 // get important words from title
 $title_keywords = Metagen::generateKeywords($title, 25, 3);
-Debug::dump($title_keywords);
+//Debug::dump($title_keywords);
 // get top 25 keywords, but always keep keywords from title
 $keywords = Metagen::generateKeywords($article, 25, 4, $title_keywords);
-Debug::dump($keywords);
+Debug::dump($keywords, true);
 echo Highlighter::apply($keywords, $article);
 
 // add to the page
 Metagen::assignTitle($title);
 Metagen::assignKeywords($keywords);
 Metagen::assignDescription($description);
-
 
 // dump our source
 echo '<br /><h2>Source code</h2>';

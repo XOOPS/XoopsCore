@@ -13,7 +13,6 @@ namespace Xoops\Core\Cache;
 
 use Stash\Pool;
 use Stash\Interfaces\DriverInterface;
-use Stash\Interfaces\PoolInterface;
 use Xoops\Core\Cache\DriverList;
 use Xoops\Core\Cache\Access;
 use Xoops\Core\Yaml;
@@ -72,13 +71,13 @@ class CacheManager
      *
      * @return array cache configuration
      */
-    private function getDefaults()
+    private static function getDefaults()
     {
         $defaults = array(
             'default' => array(
                 'driver' => 'FileSystem',
                 'options' => array(
-                    'path' => \XoopsBaseConfig::get('var-path') . '/caches/xoops_cache/stash/',
+                    'path' => \XoopsBaseConfig::get('var-path') . '/stash/',
                     ),
                     'dirSplit' => 1,
                 ),
@@ -91,11 +90,47 @@ class CacheManager
     }
 
     /**
+     * Create a default configuration file, used in installation
+     *
+     * When using Windows NTFS, PHP has a maximum path length of 260 bytes. Each key level in a
+     * Stash hierarchical key corresponds to a directory, and is normalized as an md5 hash. Also,
+     * Stash uses 2 levels for its own integrity ad locking mechanisms. The full key length used
+     * in XoopCore can reach 202 charachters.
+     *
+     * If the combined path length would excede 260, we will try and switch to SQLite driver if
+     * it is available when running on a Windows system.
+     *
+     * @return void
+     */
+    public static function createDefaultConfig()
+    {
+        $configFile = \XoopsBaseConfig::get('var-path') . '/configs/cache.php';
+        if (file_exists($configFile)) {
+            return;
+        }
+        $defaults = self::getDefaults();
+        if (false !== stripos(PHP_OS, 'WIN')) {
+            $pathLen = strlen($defaults['default']['options']['path']);
+            if (260 >= ($pathLen+202)) {
+                // try alternative driver as filesystem has max path length issues on Windows
+                if (array_key_exists("SQLite", \Stash\DriverList::getAvailableDrivers())) {
+                    $defaults['default']['driver'] = 'SQLite';
+                    unset($defaults['default']['options']['dirSplit']);
+                    @mkdir($defaults['default']['options']['path']);
+                } else {
+                    trigger_error("Manual cache configuration required.");
+                }
+            }
+        }
+        Yaml::saveWrapped($defaults, $configFile);
+    }
+
+    /**
      * Get a cache corresponding to the specified name
      *
      * @param string $name Name of cache definition
      *
-     * @return Access|false Access object or false if it cannot be created
+     * @return Access object
      */
     public function getCache($name)
     {
@@ -104,7 +139,8 @@ class CacheManager
             $pool =  $this->pools[$name];
         } elseif (array_key_exists($name, $this->poolDefs)) {
             $pool =  $this->startPoolAccess($name);
-        } else {
+        }
+        if ($pool === false) {
             $pool = $this->getDefaultPool($name);
         }
 
@@ -179,16 +215,16 @@ class CacheManager
      *
      * @param string $originalName originally requested pool configuration name
      *
-     * @return PoolInterface|false pool or false if a pool cannot be created
+     * @return Access object
      */
     protected function getDefaultPool($originalName)
     {
-        $this->xoops->logger()->warning('Substituting default cache pool for '.$originalName);
+        $this->xoops->events()->triggerEvent('debug.log', 'Substituting default cache pool for '.$originalName);
         $name = 'default';
         if (array_key_exists($name, $this->pools)) {
             return $this->pools[$name];
         }
-        $pool = $this->startPool($name);
+        $pool = $this->startPoolAccess($name);
         if ($pool===false) {
             $this->xoops->logger()->error('Could not create default cache pool');
             $pool = new Access(new \Stash\Pool());

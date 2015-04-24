@@ -159,7 +159,7 @@ switch ($op) {
             $xoops->redirect("item.php", 2, sprintf(_AM_PUBLISHER_ITEMISDELETED, $itemObj->title()));
         } else {
             $xoops->header();
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                 'op' => 'del', 'itemid' => $itemObj->getVar('itemid'), 'confirm' => 1, 'name' => $itemObj->title()
             ), 'item.php', _AM_PUBLISHER_DELETETHISITEM . " <br />'" . $itemObj->title() . "'. <br /> <br />", _AM_PUBLISHER_DELETE);
             $xoops->footer();

@@ -76,12 +76,10 @@ switch ($op) {
                     $helper->getHandlerLanguage()->createConfig();
                     $xoops->redirect('index.php', 2, _AM_XLANGUAGE_DELETED);
                 } else {
-                    ob_start();
-                    $xoops->confirm(array(
+                    $confirm = $xoops->confirm(array(
                         'ok' => 1, 'xlanguage_id' => $xlanguage_id, 'op' => 'del'
                     ), $_SERVER['REQUEST_URI'], sprintf(_AM_XLANGUAGE_DELETE_CFM . "<br /><b><span style='color : Red'> %s </span></b><br /><br />", $lang->getVar('xlanguage_name')));
-                    $confirm = '<div class="confirm">' . ob_get_contents() . '</div>';
-                    ob_end_clean();
+                    $confirm = '<div class="confirm">' . $confirm . '</div>';
                     $admin_page->addInfoBox(_MI_XLANGUAGE_DELETE);
                     $admin_page->addInfoBoxLine($confirm);
                     $admin_page->displayIndex();

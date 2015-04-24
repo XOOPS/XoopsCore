@@ -309,7 +309,7 @@ switch ($op) {
                         $img .= "<img src='" . $imageurl . "' alt='' />";
                     }
                 }
-                $xoops->confirm(array("ok" => 1, "bid" => $bid, "op" => "delete"), 'banners.php', XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM . '<br \>' . $img . '<br \>');
+                echo $xoops->confirm(array("ok" => 1, "bid" => $bid, "op" => "delete"), 'banners.php', XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM . '<br \>' . $img . '<br \>');
             }
         } else {
             $xoops->redirect('banners.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);

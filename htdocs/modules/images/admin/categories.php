@@ -132,7 +132,7 @@ switch ($op) {
                     $xoops->redirect('categories.php', 2, XoopsLocale::S_DATABASE_UPDATED);
                 }
             } else {
-                $xoops->confirm(
+                echo $xoops->confirm(
                     array('op' => 'del', 'ok' => 1, 'imgcat_id' => $imgcat_id),
                     XOOPS_URL . '/modules/images/admin/categories.php',
                     sprintf(_AM_IMAGES_CAT_DELETE, $obj->getVar('imgcat_name'))

@@ -55,18 +55,17 @@ class Debug
     /**
      * Dump a variable
      *
-     * @param mixed $var  variable which will be dumped
-     * @param bool  $echo echo
-     * @param bool  $html dump as html
-     * @param bool  $exit exit after dump if true
+     * @param mixed $var    variable which will be dumped
+     * @param bool  $inline force inline display if true, otherwise will attempt to
+     *                      use debug.log event
      *
-     * @return mixed|string
+     * @return void
      */
-    public static function dump($var, $echo = true, $html = true, $exit = false)
+    public static function dump($var, $inline = false)
     {
         $events = \Xoops::getInstance()->events();
         $eventName = 'debug.log';
-        if ($html && $echo && $events->hasListeners($eventName)) {
+        if (!$inline && $events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $var);
             //\Kint::dump(func_get_arg(0));
         } else {
@@ -79,41 +78,28 @@ class Debug
                     'sort_arrays' => false,
                     ),
                 );
-            if (!$html) {
-                $msg = var_export($var, true);
-            } else {
-                \krumo::setConfig($config);
-                $msg = \krumo::dump($var);
-            }
-            if (!$echo) {
-                return $msg;
-            }
+            \krumo::setConfig($config);
+            $msg = \krumo::dump($var);
             echo $msg;
         }
-        if ($exit) {
-            die();
-        }
-
-        return false;
     }
 
     /**
      * Display debug backtrace
      *
-     * @param bool $echo echo
-     * @param bool $html dump as html
-     * @param bool $exit exit after dump if true
+     * @param boolean $inline force inline display if true, otherwise will attempt to
+     *                        use debug.log event
      *
      * @return mixed|string
      */
-    public static function backtrace($echo = true, $html = true, $exit = false)
+    public static function backtrace($inline = false)
     {
         $events = \Xoops::getInstance()->events();
         $eventName = 'debug.log';
-        if ($html && $events->hasListeners($eventName)) {
+        if (!$inline && $events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, debug_backtrace());
         } else {
-            return self::dump(debug_backtrace(), $echo, $html, $exit);
+            return self::dump(debug_backtrace(), $inline);
         }
     }
 

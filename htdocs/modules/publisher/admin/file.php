@@ -143,7 +143,7 @@ switch ($op) {
             $fileid = isset($_GET['fileid']) ? intval($_GET['fileid']) : 0;
 
             PublisherUtils::cpHeader();
-            $xoops->confirm(array('op' => 'del', 'fileid' => $fileObj->getVar('fileid'), 'confirm' => 1, 'name' => $fileObj->getVar('name')), 'file.php', _AM_PUBLISHER_DELETETHISFILE . " <br />" . $fileObj->getVar('name') . " <br /> <br />", _AM_PUBLISHER_DELETE);
+            echo $xoops->confirm(array('op' => 'del', 'fileid' => $fileObj->getVar('fileid'), 'confirm' => 1, 'name' => $fileObj->getVar('name')), 'file.php', _AM_PUBLISHER_DELETETHISFILE . " <br />" . $fileObj->getVar('name') . " <br /> <br />", _AM_PUBLISHER_DELETE);
             $xoops->footer();
         }
         exit();

@@ -43,7 +43,7 @@ if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST
         $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
     } else {
         if (empty($_REQUEST['ok'])) {
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                                  'ok' => 1, 'delete_messages' => 1, 'op' => $_REQUEST['op'],
                                  'msg_ids' => json_encode(array_map("intval", $_POST['msg_id']))
                             ), $_SERVER['REQUEST_URI'], XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES);
@@ -121,7 +121,7 @@ if (isset($_REQUEST['empty_messages'])) {
         $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
     } else {
         if (empty($_REQUEST['ok'])) {
-            $xoops->confirm(array(
+            echo $xoops->confirm(array(
                                  'ok' => 1, 'empty_messages' => 1, 'op' => $_REQUEST['op']
                             ), $_SERVER['REQUEST_URI'], _PM_RUSUREEMPTY);
             $xoops->footer();

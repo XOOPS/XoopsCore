@@ -157,9 +157,9 @@ class FilterInput
      * specified bad code.
      *
      * @param mixed  $source Input string/array-of-string to be 'cleaned'
-     * @param string $type   Return type for the variable (INT, FLOAT,
-     *                       BOOLEAN, WORD, ALNUM, CMD, BASE64, STRING,
-     *                       ARRAY, PATH, NONE)
+     * @param string $type   Return/cleaning type for the variable, one of
+     *                       (INTEGER, FLOAT, BOOLEAN, WORD, ALNUM, CMD, BASE64,
+     *                        STRING, ARRAY, PATH, USERNAME, WEBURL, EMAIL, IP)
      *
      * @return mixed 'Cleaned' version of input parameter
      * @static

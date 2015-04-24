@@ -77,9 +77,7 @@ if ($op == 'login') {
 if ($op == 'logout') {
     $message = '';
     $_SESSION = array();
-    session_destroy();
-    setcookie($xoops->getConfig('usercookie'), 0, - 1, '/');
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', XOOPS_COOKIE_DOMAIN, 0);
+    $xoops->session()->user()->recordUserLogout();
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));
@@ -106,7 +104,7 @@ if ($op == 'delete') {
         $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
         if ($ok != 1) {
             $xoops->header();
-            $xoops->confirm(
+            echo $xoops->confirm(
                 array('op' => 'delete', 'ok' => 1),
                 'user.php',
                 XoopsLocale::Q_ARE_YOU_SURE_TO_DELETE_ACCOUNT . '<br/>' . XoopsLocale::THIS_WILL_REMOVE_ALL_YOUR_INFO

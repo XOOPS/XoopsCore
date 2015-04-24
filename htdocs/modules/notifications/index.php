@@ -165,7 +165,7 @@ switch ($op) {
             'uid' => $uid, 'delete_ok' => 1, 'del_not' => $_POST['del_not']
         );
         echo '<h4>' . _MD_NOTIFICATIONS_DELETINGNOTIFICATIONS . '</h4>';
-        $xoops->confirm($hidden_vars, $xoops->getEnv('PHP_SELF'), _MD_NOTIFICATIONS_RUSUREDEL);
+        echo $xoops->confirm($hidden_vars, $xoops->getEnv('PHP_SELF'), _MD_NOTIFICATIONS_RUSUREDEL);
         $xoops->footer();
         // FIXME: There is a problem here... in $xoops->confirm it treats arrays as
         // optional radio arguments on the confirmation page... change this or

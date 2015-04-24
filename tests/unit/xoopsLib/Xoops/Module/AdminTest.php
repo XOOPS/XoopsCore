@@ -24,14 +24,14 @@ class ModuleadminTest extends \PHPUnit_Framework_TestCase
         $xoops = Xoops::getInstance();
         $theme_factory=new XoopsThemeFactory();
         $theme=$theme_factory->createInstance();
-        $xoops->theme=$theme;
+        $xoops->setTheme($theme);
         $template=new XoopsTpl();
-        $xoops->tpl=$template;
+        $xoops->setTpl($template);
         $instance = new $this->myClass();
         $instance->addBreadcrumbLink();
         $x = $instance->renderBreadcrumb();
         while (ob_get_level() > $level) @ob_end_flush();
-		$this->assertSame("<ul class=\"breadcrumb\">\r\n    </ul>", $x);
+		$this->assertSame("<ul class=\"breadcrumb\">\n    </ul>", $x);
     }
 
 }

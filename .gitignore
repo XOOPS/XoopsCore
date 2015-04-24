@@ -8,6 +8,7 @@ htdocs/xoops_data/caches/smarty_compile/*.php
 htdocs/xoops_data/caches/xoops_cache/*.php
 htdocs/xoops_data/caches/xoops_cache/*/
 htdocs/xoops_data/configs/*
+htdocs/xoops_data/stash/*/
 htdocs/xoops_data/composer/
 htdocs/xoops_data/data/secure.php
 htdocs/xoops_data/logs/
