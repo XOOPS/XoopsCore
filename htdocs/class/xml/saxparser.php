@@ -145,7 +145,7 @@ class SaxParser
             //    return false;
             //}
         } else {
-            while ($data = fread($this->input, 4096)) {
+            while ($data == fread($this->input, 4096)) {
                 if (!xml_parse($this->parser, str_replace("'", "&apos;", $data), feof($this->input))) {
                     $this->setErrors($this->getXmlError());
                     fclose($this->input);

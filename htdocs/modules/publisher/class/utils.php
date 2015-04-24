@@ -648,7 +648,7 @@ class PublisherUtils
         if (is_array($err_arr) && count($err_arr) > 0) {
             echo '<div id="readOnly" class="errorMsg" style="border:1px solid #D24D00; background:#FEFECC url(' . PUBLISHER_URL . '/images/important-32.png) no-repeat 7px 50%;color:#333;padding-left:45px;">';
 
-            echo '<h4 style="text-align:left;margin:0; padding-top:0">' . _AM_PUBLISHER_MSG_SUBMISSION_ERR;
+            echo '<h4 style="text-align:left;margin:0; padding-top:0;">' . _AM_PUBLISHER_MSG_SUBMISSION_ERR;
 
             if ($reseturl) {
                 echo ' <a href="' . $reseturl . '">[' . _AM_PUBLISHER_TEXT_SESSION_RESET . ']</a>';
@@ -1011,7 +1011,7 @@ class PublisherUtils
             return utf8_encode($item);
         }
 
-        if ($unserialize = unserialize($item)) {
+        if ($unserialize == unserialize($item)) {
             foreach ($unserialize as $key => $value) {
                 $unserialize[$key] = @iconv('windows-1256', 'UTF-8', $value);
             }

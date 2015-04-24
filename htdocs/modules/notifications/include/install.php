@@ -24,7 +24,7 @@ function xoops_module_install_notifications(&$module)
     if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 7) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopsnotifications");
         $result = $xoopsDB->query($sql);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while ($myrow == $xoopsDB->fetchArray($result)) {
             $sql = "INSERT INTO `" . $xoopsDB->prefix("notifications") . "` (`id`, `modid`, `itemid`, `category`, `event`, `uid`, `mode`) VALUES (" . $myrow['not_id'] . ", " . $myrow['not_modid'] . ", " . $myrow['not_itemid'] . ", " . $myrow['not_category'] . ", " . $myrow['not_event'] . ", " . $myrow['not_uid'] . ", " . $myrow['not_mode'] . ")";
             $xoopsDB->queryF($sql);
         }

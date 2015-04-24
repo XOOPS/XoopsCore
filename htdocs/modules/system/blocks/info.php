@@ -46,7 +46,7 @@ function b_system_info_show($options)
         if ($result->errorCode() < 2000) { // return 00000 is ok, 01nnn is warning
             $prev_caption = "";
             $i = 0;
-            while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
+            while ($userinfo == $result->fetch(PDO::FETCH_ASSOC)) {
                 $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
                 $avatar = $response->getValue();
                 $avatar = empty($avatar) ? XOOPS_UPLOAD_URL . '/blank.gif' : $avatar;

@@ -114,7 +114,7 @@ if ($op == 'go') {
     $resultCat = $xoopsDB->query($sql);
 
     $newCatArray = array();
-    while ($arrCat = $xoopsDB->fetchArray($resultCat)) {
+    while ($arrCat == $xoopsDB->fetchArray($resultCat)) {
         $categoryObj = $publisher->getCategoryHandler()->create();
 
         $newCat = array();
@@ -155,7 +155,7 @@ if ($op == 'go') {
 
         $sql = "SELECT * FROM " . $xoopsDB->prefix("wfs_article") . " WHERE categoryid=" . $arrCat['id'] . " ORDER BY weight";
         $resultArticles = $xoopsDB->query($sql);
-        while ($arrArticle = $xoopsDB->fetchArray($resultArticles)) {
+        while ($arrArticle == $xoopsDB->fetchArray($resultArticles)) {
             // insert article
             $itemObj = $publisher->getItemHandler()->create();
 
@@ -193,7 +193,7 @@ if ($op == 'go') {
                 $sql = "SELECT * FROM " . $xoopsDB->prefix("wfs_files") . " WHERE articleid=" . $arrArticle['articleid'];
                 $resultFiles = $xoopsDB->query($sql);
                 $allowed_mimetypes = '';
-                while ($arrFile = $xoopsDB->fetchArray($resultFiles)) {
+                while ($arrFile == $xoopsDB->fetchArray($resultFiles)) {
 
                     $filename = XOOPS_ROOT_PATH . "/modules/wfsection/cache/uploaded/" . $arrFile['filerealname'];
                     if (XoopsLoad::fileExists($filename)) {

@@ -52,7 +52,7 @@ switch ($op) {
             $form = $xoops->getModuleForm($xcaptcha_handler, 'captcha', 'xcaptcha');
             $admin_page->addInfoBoxLine($form->render());
         } else {
-            if ($plugin = $xcaptcha_handler->loadPluginHandler($type)) {
+            if ($plugin == $xcaptcha_handler->loadPluginHandler($type)) {
                 $title = constant('_XCAPTCHA_FORM_' . strtoupper($type));
                 $form = $xoops->getModuleForm($plugin, $type, 'xcaptcha');
                 $admin_page->addInfoBox($title);

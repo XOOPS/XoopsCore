@@ -37,7 +37,7 @@ class UserconfigsModulesForm extends Xoops\Form\ThemeForm
             $mid = $mod->getVar('mid');
         }
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
+        if ($plugins == \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             parent::__construct('', 'pref_form', 'index.php', 'post', true, 'inline');
 
             $ele = new Xoops\Form\Select(_MD_USERCONFIGS_CHOOSE_MODULE, 'mid', $mid);

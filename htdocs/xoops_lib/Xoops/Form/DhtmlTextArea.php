@@ -119,7 +119,7 @@ class DhtmlTextArea extends TextArea
 
         $xoops = \Xoops::getInstance();
         if (!isset($options['editor'])) {
-            if ($editor = $xoops->getConfig('editor')) {
+            if ($editor == $xoops->getConfig('editor')) {
                 $options['editor'] = $editor;
             }
         }

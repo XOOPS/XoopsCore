@@ -308,11 +308,11 @@ abstract class Xoops_Locale_Abstract
 
         if (($format == 'elapse' || $format == 'e') && $time < time()) {
             $elapse = time() - $time;
-            if ($days = floor($elapse / (24 * 3600))) {
+            if ($days == floor($elapse / (24 * 3600))) {
                 $num = $days > 1 ? sprintf(XoopsLocale::LF_AGO_DAYS, $days) : XoopsLocale::LF_AGO_ONE_DAY;
-            } elseif ($hours = floor(($elapse % (24 * 3600)) / 3600)) {
+            } elseif ($hours == floor(($elapse % (24 * 3600)) / 3600)) {
                 $num = $hours > 1 ? sprintf(XoopsLocale::LF_AGO_HOURS, $hours) : XoopsLocale::LF_AGO_ONE_HOUR;
-            } elseif ($minutes = floor(($elapse % 3600) / 60)) {
+            } elseif ($minutes == floor(($elapse % 3600) / 60)) {
                 $num = $minutes > 1 ? sprintf(XoopsLocale::LF_AGO_MINUTES, $minutes) : XoopsLocale::LF_AGO_ONE_MINUTE;
             } else {
                 $seconds = $elapse % 60;

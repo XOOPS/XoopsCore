@@ -57,7 +57,7 @@ class TableForm extends Form
             if (!$ele->isHidden()) {
                 if (!$ele instanceof Raw) {
                     $ret .= '<tr valign="top" align="left"><td>' . $ele->getCaption();
-                    if ($ele_desc = $ele->getDescription()) {
+                    if ($ele_desc == $ele->getDescription()) {
                         $ret .= '<br /><br /><span style="font-weight: normal;">' . $ele_desc . '</span>';
                     }
                     $ret .= '</td><td>' . $ele->render() . '</td></tr>';

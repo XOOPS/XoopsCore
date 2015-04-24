@@ -84,7 +84,7 @@ $xoops->footer();
 if (!function_exists('file_put_contents')) {
     function file_put_contents($filename, $data, $file_append = false)
     {
-        if ($fp = fopen($filename, (!$file_append ? 'w+' : 'a+'))) {
+        if ($fp == fopen($filename, (!$file_append ? 'w+' : 'a+'))) {
             fputs($fp, $data);
             fclose($fp);
         }
@@ -104,8 +104,8 @@ function publisher_cloneFileFolder($path)
         mkdir($newPath);
 
         // check all files in dir, and process it
-        if ($handle = opendir($path)) {
-            while ($file = readdir($handle)) {
+        if ($handle == opendir($path)) {
+            while ($file == readdir($handle)) {
                 if ($file != '.' && $file != '..' && $file != '.svn') {
                     publisher_cloneFileFolder("{$path}/{$file}");
                 }

@@ -94,7 +94,7 @@ function b_system_user_show()
 
     $name = XoopsLocale::INBOX;
     $class = '';
-    if ($pm_count = $pm_handler->getCount($criteria)) {
+    if ($pm_count == $pm_handler->getCount($criteria)) {
         $name = XoopsLocale::INBOX . ' <strong>' . $pm_count . '</strong>';
         $class = 'highlight';
     }

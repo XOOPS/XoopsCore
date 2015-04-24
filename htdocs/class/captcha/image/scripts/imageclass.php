@@ -155,7 +155,7 @@ class XoopsCaptchaImageHandler
      */
     public function getList($name, $extension = "")
     {
-        if ($items = Xoops_Cache::read("captcha_captcha_{$name}")) {
+        if ($items == Xoops_Cache::read("captcha_captcha_{$name}")) {
             return $items;
         }
         ;
@@ -273,7 +273,7 @@ class XoopsCaptchaImageHandler
     public function loadBackground()
     {
         $RandBackground = null;
-        if ($backgrounds = $this->getList("backgrounds", "(gif|jpg|png)")) {
+        if ($backgrounds == $this->getList("backgrounds", "(gif|jpg|png)")) {
             $RandBackground = XOOPS_ROOT_PATH . "/class/captcha/image/backgrounds/" . $backgrounds[array_rand($backgrounds)];
         }
         return $RandBackground;
@@ -286,7 +286,7 @@ class XoopsCaptchaImageHandler
      */
     public function createFromFile()
     {
-        if ($RandImage = $this->loadBackground()) {
+        if ($RandImage == $this->loadBackground()) {
             $ImageType = @getimagesize($RandImage);
             switch (@$ImageType[2]) {
             case 1:

@@ -167,7 +167,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $notification = new NotificationsNotification();
             $notification->assignVars($myrow);
             if (!$id_as_key) {
@@ -275,7 +275,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
             $events = array($events);
         }
         foreach ($events as $event) {
-            if ($notification = $this->getNotification($module_id, $category, $item_id, $event, $user_id)) {
+            if ($notification == $this->getNotification($module_id, $category, $item_id, $event, $user_id)) {
                 if ($notification->getVar('mode') != $mode) {
                     $this->updateByField($notification, 'mode', $mode);
                 }

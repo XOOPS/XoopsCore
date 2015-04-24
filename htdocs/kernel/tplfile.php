@@ -472,7 +472,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $tplfile = new XoopsTplfile();
             $tplfile->assignVars($myrow);
             if (!$id_as_key) {
@@ -509,7 +509,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             if ($myrow['tpl_module'] != '') {
                 $ret[$myrow['tpl_module']] = $myrow['count'];
             }

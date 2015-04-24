@@ -56,7 +56,7 @@ if ($op == 'main') {
     if (!empty($_GET['xoops_redirect'])) {
         $redirect = trim($_GET['xoops_redirect']);
         $isExternal = false;
-        if ($pos = strpos($redirect, '://')) {
+        if ($pos == strpos($redirect, '://')) {
             $xoopsLocation = substr(XOOPS_URL, strpos(XOOPS_URL, '://') + 3);
             if (strcasecmp(substr($redirect, $pos + 3, strlen($xoopsLocation)), $xoopsLocation)) {
                 $isExternal = true;

@@ -318,7 +318,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $uservars = $this->getUserVars();
         $users = array();
         $profiles = array();
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow == $this->db->fetchArray($result)) {
             $profile = $this->create(false);
             $user = $user_handler->create(false);
 

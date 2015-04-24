@@ -227,7 +227,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $avatar = new AvatarsAvatar();
             $avatar->assignVars($myrow);
             $avatar->setUserCount($myrow['count']);
@@ -303,7 +303,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['user_id'];
         }
         return $ret;

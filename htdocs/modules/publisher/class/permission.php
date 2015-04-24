@@ -71,7 +71,7 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         $criteria->renderQb($qb);
         $result = $qb->execute();
 
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $groups[$myrow['gperm_groupid']] = $myrow['gperm_groupid'];
         }
         $items[$gperm_name][$id] = $groups;
@@ -111,7 +111,7 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         $criteria->renderQb($qb);
         $result = $qb->execute();
 
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[$myrow['gperm_itemid']] = $myrow['gperm_itemid'];
         }
         $items[$gperm_name] = $ret;

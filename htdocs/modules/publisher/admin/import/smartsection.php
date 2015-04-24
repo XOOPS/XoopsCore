@@ -119,7 +119,7 @@ if ($op == 'go') {
     $newArticleArray = array();
 
     $oldToNew = array();
-    while ($arrCat = $xoopsDB->fetchArray($resultCat)) {
+    while ($arrCat == $xoopsDB->fetchArray($resultCat)) {
 
         $newCat = array();
         $newCat['oldid'] = $arrCat['categoryid'];
@@ -148,7 +148,7 @@ if ($op == 'go') {
         $sql = "SELECT * FROM " . $xoopsDB->prefix('smartsection_items') . " WHERE categoryid=" . $arrCat['categoryid'];
         $resultArticles = $xoopsDB->query($sql);
 
-        while ($arrArticle = $xoopsDB->fetchArray($resultArticles)) {
+        while ($arrArticle == $xoopsDB->fetchArray($resultArticles)) {
             // insert article
             $itemObj = $publisher->getItemHandler()->create();
 
@@ -181,7 +181,7 @@ if ($op == 'go') {
                 $sql = "SELECT * FROM " . $xoopsDB->prefix("smartsection_files") . " WHERE itemid=" . $arrArticle['itemid'];
                 $resultFiles = $xoopsDB->query($sql);
                 $allowed_mimetypes = null;
-                while ($arrFile = $xoopsDB->fetchArray($resultFiles)) {
+                while ($arrFile == $xoopsDB->fetchArray($resultFiles)) {
 
                     $filename = XOOPS_ROOT_PATH . "/uploads/smartsection/" . $arrFile['filename'];
                     if (XoopsLoad::fileExists($filename)) {

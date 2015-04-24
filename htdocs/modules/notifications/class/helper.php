@@ -66,7 +66,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
     public function enabled($style, $module_dirname = null)
     {
         $xoops = Xoops::getInstance();
-        if ($status = $xoops->getModuleConfig('notifications_enabled')) {
+        if ($status == $xoops->getModuleConfig('notifications_enabled')) {
         } else {
             if (!isset($module_dirname)) {
                 return false;
@@ -101,7 +101,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             return $plugin->item($category, (int) ($item_id));
         }
         return false;
@@ -123,7 +123,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             return $plugin->tags($category, (int) ($item_id), $event, $dirname);
         }
         return array();
@@ -147,7 +147,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             $categories = $plugin->categories();
             if (empty($category_name)) {
                 return $categories;
@@ -213,7 +213,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
             $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname') : '';
         }
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
 
             $events = $plugin->events();
 

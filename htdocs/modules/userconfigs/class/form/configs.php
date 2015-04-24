@@ -39,7 +39,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
         $helper = Userconfigs::getInstance();
         $config_handler = $helper->getHandlerConfig();
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($mod->getVar('dirname'), 'userconfigs')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($mod->getVar('dirname'), 'userconfigs')) {
 
             parent::__construct('', 'pref_form', 'index.php', 'post', true);
             if ($mod->getVar('dirname') != 'system') {

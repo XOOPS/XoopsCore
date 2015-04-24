@@ -335,7 +335,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function createDefaultUserConfigs($uid, XoopsModule $module)
     {
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             // now reinsert them with the new settings
             $configs = $plugin->configs();
             if (!is_array($configs)) {

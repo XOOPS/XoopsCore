@@ -881,7 +881,7 @@ class PublisherItem extends XoopsObject
                 ->orderBy('i.image_id');
             $result = $qb->execute();
 
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $image_name = $myrow['image_name'];
                 $id = $myrow['image_id'];
                 if ($image_name == $image_featured) {
@@ -1074,7 +1074,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
         $this->addNotNullFieldClause($qb, $notNullFields, $whereMode);
         $theObjects = array();
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $item = new PublisherItem();
             $item->assignVars($myrow);
             $theObjects[$myrow['itemid']] = $item;
@@ -1559,7 +1559,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             ->joinPrefix('mo', 'publisher_items', 'mi', 'mi.datesub = mo.date');
 
         $result = $qb->execute();
-        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row == $result->fetch(\PDO::FETCH_ASSOC)) {
             $item = new PublisherItem();
             $item->assignVars($row);
             $ret[$row['categoryid']] = $item;
@@ -1632,12 +1632,12 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             return $ret;
         }
         if (!$inSubCat) {
-            while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($row == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $catsCount[$row['categoryid']] = $row['count'];
             }
             return $catsCount;
         }
-        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row == $result->fetch(\PDO::FETCH_ASSOC)) {
             $catsCount[$row['parentid']][$row['categoryid']] = $row['count'];
         }
         $resultCatCounts = array();

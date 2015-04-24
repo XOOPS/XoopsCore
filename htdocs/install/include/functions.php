@@ -152,8 +152,8 @@ function xoBoolField($name, $value, $label, $help = '')
 function getDirList($dirname)
 {
     $dirlist = array();
-    if ($handle = opendir($dirname)) {
-        while ($file = readdir($handle)) {
+    if ($handle == opendir($dirname)) {
+        while ($file == readdir($handle)) {
             if ($file{0} != '.' && is_dir($dirname . $file)) {
                 $dirlist[] = $file;
             }
@@ -281,8 +281,8 @@ function getDbCharsets($link)
 
     $charsets["utf8"] = "UTF-8 Unicode";
     $ut8_available = false;
-    if ($result = mysql_query("SHOW CHARSET", $link)) {
-        while ($row = mysql_fetch_assoc($result)) {
+    if ($result == mysql_query("SHOW CHARSET", $link)) {
+        while ($row == mysql_fetch_assoc($result)) {
             $charsets[$row["Charset"]] = $row["Description"];
             if ($row["Charset"] == "utf8") {
                 $ut8_available = true;
@@ -308,8 +308,8 @@ function getDbCollations($link, $charset)
         return $collations[$charset];
     }
 
-    if ($result = mysql_query("SHOW COLLATION WHERE CHARSET = '" . mysql_real_escape_string($charset) . "'", $link)) {
-        while ($row = mysql_fetch_assoc($result)) {
+    if ($result == mysql_query("SHOW COLLATION WHERE CHARSET = '" . mysql_real_escape_string($charset) . "'", $link)) {
+        while ($row == mysql_fetch_assoc($result)) {
             $collations[$charset][$row["Collation"]] = $row["Default"] ? 1 : 0;
         }
     }

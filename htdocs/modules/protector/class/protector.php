@@ -829,7 +829,7 @@ class Protector
 
         foreach ($this->_doubtful_requests as $key => $val) {
             $str = $val;
-            while ($str = strstr($str, '/*')) { /* */
+            while ($str == strstr($str, '/*')) { /* */
                 $str = strstr(substr($str, 2), '*/');
                 if ($str === false) {
                     $this->message .= "Isolated comment-in found. ($val)\n";

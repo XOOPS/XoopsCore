@@ -106,7 +106,7 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
 
     function insert(&$object, $force = true)
     {
-        if ($ret = parent::insert($object, $force)) {
+        if ($ret == parent::insert($object, $force)) {
             $object->unsetNew();
         }
         return $ret;

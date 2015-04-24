@@ -117,7 +117,7 @@ class Joint extends XoopsModelAbstract
         $result = $qb->execute();
         $ret = array();
         if ($asObject) {
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $object = $this->handler->create(false);
                 $object->assignVars($myrow);
                 $ret[$myrow[$this->handler->keyName]] = $object;
@@ -125,7 +125,7 @@ class Joint extends XoopsModelAbstract
             }
         } else {
             $object = $this->handler->create(false);
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $object->assignVars($myrow);
                 $ret[$myrow[$this->handler->keyName]] = $object->getValues();
             }

@@ -177,7 +177,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($moddir, 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($moddir, 'comments')) {
             if (!$xoops->isAdminSide) {
                 $redirect_page = $xoops->url('modules/' . $moddir . '/' . $plugin->pageName() . '?');
                 if (is_array($extraParams = $plugin->extraParams())) {
@@ -696,7 +696,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             $xoops->header();
             $this->displayCommentForm($comment);
             $xoops->footer();
@@ -730,7 +730,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
         $modid = $module->getVar('mid');
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             if ($xoops->isAdminSide) {
                 $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
             } else {
