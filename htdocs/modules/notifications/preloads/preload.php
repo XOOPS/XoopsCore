@@ -153,4 +153,20 @@ class NotificationsPreload extends PreloadItem
             Notifications::getInstance()->loadLanguage('main');
         }
     }
+
+    /**
+     * core.include.checklogin.success
+     *
+     * @return void
+     */
+    public static function eventCoreIncludeCheckloginSuccess()
+    {
+        // This was in include checklogin.php, moving here for now
+        // RMV-NOTIFY
+        // Perform some maintenance of notification records
+        $xoops = Xoops::getInstance();
+        if ($xoops->user instanceof \XoopsUser) {
+            Notifications::getInstance()->getHandlerNotification()->doLoginMaintenance($xoops->user->getVar('uid'));
+        }
+    }
 }

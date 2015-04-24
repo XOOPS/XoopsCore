@@ -17,7 +17,7 @@ namespace Xoops\Core;
  * @category  Xoops\Core
  * @package   Security
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2014-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -49,14 +49,11 @@ class Security
      *
      * @return string token value
      */
-    public function createToken($timeout = 0, $name = 'XOOPS_TOKEN')
+    public function createToken($timeout = 300, $name = 'XOOPS_TOKEN')
     {
         $this->garbageCollection($name);
-        if ($timeout <= 0) {
-            $expire = @ini_get('session.gc_maxlifetime');
-            $timeout = ($expire > 0) ? $expire : 900;
-        }
-        $token_id = md5(uniqid(rand(), true));
+        $timeout = ($timeout <= 0) ? 300 : $timeout;
+        $token_id = Random::generateOneTimeToken();
         // save token data on the server
         if (!isset($_SESSION[$name . '_SESSION'])) {
             $_SESSION[$name . '_SESSION'] = array();
@@ -65,7 +62,7 @@ class Security
             'id' => $token_id, 'expire' => time() + intval($timeout)
         );
         array_push($_SESSION[$name . '_SESSION'], $token_data);
-        return md5($token_id . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX);
+        return $token_id;
     }
 
     /**
@@ -92,7 +89,7 @@ class Security
             $token_data =& $_SESSION[$name . '_SESSION'];
             if (is_array($token_data)) {
                 foreach (array_keys($token_data) as $i) {
-                    if ($token === md5($token_data[$i]['id'] . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX)) {
+                    if ($token === $token_data[$i]['id']) {
                         if ($this->filterToken($token_data[$i])) {
                             if ($clearIfValid) {
                                 // token should be valid once, so clear it once validated
@@ -176,36 +173,6 @@ class Security
             return false;
         }
         return true;
-    }
-
-    /**
-     * Check for global contamination (only matters for PHP 5.3.x)
-     *
-     * @todo celebrate the day when we can stop checking for register globals crap
-     *
-     * @return bool true if request is clean, false if contaminated
-     */
-    public function checkSuperglobals()
-    {
-            // name that should not be in the request array
-            $prohibitedKeys = array(
-                '_COOKIE', '_ENV', '_FILES', '_GET', '_POST', '_REQUEST',
-                '_SERVER', '_SESSION', 'GLOBALS',
-                'HTTP_COOKIE_VARS', 'HTTP_ENV_VARS', 'HTTP_GET_VARS',
-                'HTTP_POST_FILES', 'HTTP_POST_VARS', 'HTTP_SERVER_VARS',
-                'HTTP_SESSION_VARS',
-                // mostly deprecated, but some needed for legacy support
-                'xoops', 'xoopsDB', 'xoopsUser', 'xoopsUserId', 'xoopsUserGroups',
-                'xoopsUserIsAdmin', 'xoopsConfig', 'xoopsOption', 'xoopsModule',
-                'xoopsModuleConfig', 'xoopsRequestUri',
-            );
-            // extract keys from request
-            $requestKeys = array_keys($_REQUEST);
-            // compare the lists case INSENSITIVE, just like variable names in PHP
-            $commonKeys = array_uintersect($prohibitedKeys, $requestKeys, "strcasecmp");
-
-            // if the resulting array is not empty we have a contamination
-            return empty($commonKeys);
     }
 
     /**

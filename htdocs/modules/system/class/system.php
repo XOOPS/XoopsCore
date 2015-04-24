@@ -204,7 +204,7 @@ class System
 
                     case 3:
                         // ask the cache to clear itself
-                        $status = Xoops::getInstance()->cache()->clear();
+                        $status = Xoops::getInstance()->cache()->delete('system');
                         // this section captures legacy cache use only
                         $files = glob($cachePath . 'xoops_cache/*.*');
                         $total_xoops_cache = 0;

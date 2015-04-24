@@ -16,7 +16,6 @@
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
- * @version         $Id$
  */
 
 use Xoops\Core\Request;
@@ -108,18 +107,6 @@ if ($op == 'saveuser') {
         $edituser->setVar('user_occ', Request::getString('user_occ', ''));
         $edituser->setVar('user_intrest', Request::getString('user_intrest', ''));
         $edituser->setVar('user_mailok', Request::getBool('user_mailok', 0));
-        $usecookie = Request::getBool('user_mailok', 0);
-        if (!$usecookie) {
-            setcookie(
-                $xoops->getConfig('usercookie'),
-                $xoops->user->getVar('uname'),
-                time() + 31536000,
-                '/',
-                XOOPS_COOKIE_DOMAIN
-            );
-        } else {
-            setcookie($xoops->getConfig('usercookie'));
-        }
         if (! $member_handler->insertUser($edituser)) {
             $xoops->header();
             echo $edituser->getHtmlErrors();
@@ -193,12 +180,6 @@ if ($op == 'editprofile') {
     $sig_cbox->addOption(1, XoopsLocale::ALWAYS_ATTACH_MY_SIGNATURE);
     $sig_tray->addElement($sig_cbox);
     $bio_tarea = new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
-    $cookie_radio_value = empty($_COOKIE[$xoops->getConfig('usercookie')]) ? 0 : 1;
-    $cookie_radio = new Xoops\Form\RadioYesNo(
-        XoopsLocale::STORE_USERNAME_IN_COOKIE_FOR_ONE_YEAR,
-        'usecookie',
-        $cookie_radio_value
-    );
     $pwd_text = new Xoops\Form\Password('', 'password', 10, 32);
     $pwd_text2 = new Xoops\Form\Password('', 'vpass', 10, 32);
     $pwd_tray = new Xoops\Form\ElementTray(
@@ -226,7 +207,6 @@ if ($op == 'editprofile') {
     $form->addElement($sig_tray);
     $form->addElement($bio_tarea);
     $form->addElement($pwd_tray);
-    $form->addElement($cookie_radio);
     $form->addElement($mailok_radio);
     $form->addElement($uid_hidden);
     $form->addElement($op_hidden);

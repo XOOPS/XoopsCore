@@ -77,9 +77,7 @@ if ($op == 'login') {
 if ($op == 'logout') {
     $message = '';
     $_SESSION = array();
-    session_destroy();
-    setcookie($xoops->getConfig('usercookie'), 0, - 1, '/');
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', XOOPS_COOKIE_DOMAIN, 0);
+    $xoops->session()->user()->recordUserLogout();
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));

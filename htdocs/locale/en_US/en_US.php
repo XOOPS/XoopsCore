@@ -1010,13 +1010,14 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const SMILIES = "Smilies";
     const SMILIE_CODE = "Smilie code";
     const SMILIE_DESCRIPTION = "Smilie description";
+    const SOUNDCLOUD = "SoundCloud";
+    const SOUNDCLOUD_URL = "Enter SoundCloud Profile URL";
     const SORT_BY = "Sort by";
     const SOURCE_CODE = "Source code";
     const STARTING_WITH_HTTP_OR_HTTPS = "Starting with http or https";
     const STARTS_WITH = "Starts with";
     const STATISTICS = "Statistics";
     const STATUS = "Status";
-    const STORE_USERNAME_IN_COOKIE_FOR_ONE_YEAR = "Store my user name in a cookie for 1 year";
     const SUBJECT = "Subject";
     const SUBMITTED = "Submitted";
     const SUCCESS = "Success";
@@ -1108,6 +1109,4 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const YIM = "YIM";
     const YOUTUBE = "Youtube";
     const YOUTUBE_URL = "Youtube URL";
-    const SOUNDCLOUD = "SoundCloud";
-    const SOUNDCLOUD_URL = "Enter SoundCloud Profile URL";
 }

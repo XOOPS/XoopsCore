@@ -1,8 +1,29 @@
 language: php
-script:
-  - phpunit
+
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6
+
+before_install:
+  - composer self-update
+
+install:
+  - composer --working-dir=htdocs/xoops_lib/ install
+  - wget https://phar.phpunit.de/phpunit-4.6.4.phar
+
+before_script:
+  - mysql -e 'create database xoops_test;'
+  - php console/console.php ci-bootstrap
+  - php console/console.php ci-install
+  - php console/console.php install-module xmf
+  - php console/console.php install-module avatars
+  - php console/console.php install-module userrank
+  - php console/console.php install-module page
+
+script:
+  - php phpunit-4.6.4.phar --configuration tests/unit/testXoopsLib.xml --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
