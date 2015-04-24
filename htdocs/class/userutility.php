@@ -321,7 +321,7 @@ class XoopsUserUtility
     {
         $xoops = Xoops::getInstance();
         $myts = MyTextSanitizer::getInstance();
-        $userid = intval($userid);
+        $userid = (int) ($userid);
         $username = '';
         if ($userid > 0) {
             $member_handler = $xoops->getHandlerMember();

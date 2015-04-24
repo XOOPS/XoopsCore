@@ -124,7 +124,7 @@ function buildRssFeedCache($rssurl)
                 for ($i = 0; $i < $count; $i++) {
                     $_items[$i]['title'] = XoopsLocale::convert_encoding($_items[$i]['title'], XoopsLocale::getCharset(), 'UTF-8');
                     $_items[$i]['description'] = XoopsLocale::convert_encoding($_items[$i]['description'], XoopsLocale::getCharset(), 'UTF-8');
-                    $items[strval(strtotime($_items[$i]['pubdate'])) . "-" . strval(++$cnt)] = $_items[$i];
+                    $items[(string) (strtotime($_items[$i]['pubdate'])) . "-" . (string) (++$cnt)] = $_items[$i];
                 }
             } else {
                 echo $rss2parser->getErrors();

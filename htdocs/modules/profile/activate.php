@@ -25,7 +25,7 @@ $xoops = Xoops::getInstance();
 
 $xoops->header();
 if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
-    $id = intval($_GET['id']);
+    $id = (int) ($_GET['id']);
     $actkey = trim($_GET['actkey']);
     if (empty($id)) {
         $xoops->redirect($xoops->url('/'), 1, '');

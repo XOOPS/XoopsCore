@@ -95,7 +95,7 @@ switch ($op) {
             $xoops->module->getVar('mid')
         );
 
-        $uid = empty($_POST['uid']) ? 0 : intval($_POST['uid']);
+        $uid = empty($_POST['uid']) ? 0 : (int) ($_POST['uid']);
         if (!empty($uid)) {
             $user = $handler->getUser($uid);
             $profile = $profile_handler->getProfile($uid);
@@ -124,8 +124,8 @@ switch ($op) {
         $myts = MyTextSanitizer::getInstance();
         $user->setVar('uname', $_POST['uname']);
         $user->setVar('email', trim($_POST['email']));
-        if (isset($_POST['level']) && $user->getVar('level') != intval($_POST['level'])) {
-            $user->setVar('level', intval($_POST['level']));
+        if (isset($_POST['level']) && $user->getVar('level') != (int) ($_POST['level'])) {
+            $user->setVar('level', (int) ($_POST['level']));
         }
         $password = $vpass = null;
         if (!empty($_POST['password'])) {

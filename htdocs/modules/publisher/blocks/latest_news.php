@@ -45,7 +45,7 @@ function publisher_latest_news_show($options)
     $border = $options[13];
     $bordercolor = $options[14];
 
-    $block['spec']['columnwidth'] = intval(1 / $column_count * 100);
+    $block['spec']['columnwidth'] = (int) (1 / $column_count * 100);
 
     $allcats = false;
     if (!isset($options[29])) {

@@ -31,7 +31,7 @@ function install_acceptUser($hash = '')
     $xoops = Xoops::getInstance();
     $xoops->user = null;
     $hash_data = @explode("-", $_COOKIE['xo_install_user'], 2);
-    list($uname, $hash_login) = array($hash_data[0], strval(@$hash_data[1]));
+    list($uname, $hash_login) = array($hash_data[0], (string) (@$hash_data[1]));
     if (empty($uname) || empty($hash_login)) {
         return false;
     }
@@ -211,11 +211,11 @@ function xoDiagIfWritable($path)
     if (!is_dir($path)) {
         if (file_exists($path)) {
             @chmod($path, 0666);
-            $error = !is_writeable($path);
+            $error = !is_writable($path);
         }
     } else {
         @chmod($path, 0777);
-        $error = !is_writeable($path);
+        $error = !is_writable($path);
     }
     return xoDiag($error ? -1 : 1, $error ? 'Not writable' : 'Writable');
 }

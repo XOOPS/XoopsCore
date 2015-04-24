@@ -37,7 +37,7 @@ class DtypeMtime extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key, $quote = true)
     {
         $value = $obj->vars[$key]['value'];
-        $value = !is_string($value) ? intval($value) : strtotime($value);
+        $value = !is_string($value) ? (int) ($value) : strtotime($value);
         return $value;
     }
 }

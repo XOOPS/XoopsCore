@@ -47,7 +47,7 @@ switch (strtoupper($ecChar)) {
         break;
 }
 $qrCode->setErrorCorrection($ec);
-$qrCode->setModuleSize(intval($configs['qrcode_mps'])-1);
+$qrCode->setModuleSize((int) ($configs['qrcode_mps'])-1);
 $qrCode->setPadding($configs['qrcode_margin']*$qrCode->getModuleSize());
 $qrCode->setBackgroundColor(normalizeColor($configs['qrcode_bgcolor']));
 $qrCode->setForegroundColor(normalizeColor($configs['qrcode_fgcolor']));

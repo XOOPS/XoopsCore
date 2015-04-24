@@ -31,7 +31,7 @@ function b_comments_show($options)
 
     $comment_handler = $helper->getHandlerComment();
     $criteria = new CriteriaCompo(new Criteria('status', COMMENTS_ACTIVE));
-    $criteria->setLimit(intval($options[0]));
+    $criteria->setLimit((int) ($options[0]));
     $criteria->setSort('created');
     $criteria->setOrder('DESC');
 

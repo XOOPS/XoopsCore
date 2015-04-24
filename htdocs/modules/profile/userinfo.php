@@ -25,7 +25,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
-$uid = intval($_GET['uid']);
+$uid = (int) ($_GET['uid']);
 if ($uid <= 0) {
     if ($xoops->isUser()) {
         $uid = $xoops->user->getVar('uid');

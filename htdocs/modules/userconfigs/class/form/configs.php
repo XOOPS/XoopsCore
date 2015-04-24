@@ -211,7 +211,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                         if (count($modules) > 0) {
                             $ele = new Xoops\Form\ElementTray($title, '<br />');
                             foreach (array_keys($modules) as $mid) {
-                                $c_val = isset($currrent_val[$mid]) ? intval($currrent_val[$mid]) : null;
+                                $c_val = isset($currrent_val[$mid]) ? (int) ($currrent_val[$mid]) : null;
                                 $selform = new Xoops\Form\Select($modules[$mid]->getVar('name'), $obj[$i]->getVar('conf_name') . "[$mid]", $c_val);
                                 $selform->addOptionArray($cache_options);
                                 $ele->addElement($selform);

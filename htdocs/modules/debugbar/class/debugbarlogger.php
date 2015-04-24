@@ -628,7 +628,7 @@ class DebugbarLogger implements LoggerInterface
                     $channel = 'Blocks';
                     $msg = $message . ': ';
                     if ($context['cached']) {
-                        $msg .= sprintf(_MD_DEBUGBAR_CACHED, intval($context['cachetime']));
+                        $msg .= sprintf(_MD_DEBUGBAR_CACHED, (int) ($context['cachetime']));
                     } else {
                         $msg .= _MD_DEBUGBAR_NOT_CACHED;
                     }

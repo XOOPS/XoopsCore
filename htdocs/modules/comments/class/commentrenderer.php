@@ -363,7 +363,7 @@ class CommentsCommentRenderer
      */
     private function _getPosterName($poster_id)
     {
-        $poster['id'] = intval($poster_id);
+        $poster['id'] = (int) ($poster_id);
         if ($poster['id'] > 0) {
             $user = Xoops::getInstance()->getHandlerMember()->getUser($poster['id']);
             if (!is_object($user)) {
@@ -384,7 +384,7 @@ class CommentsCommentRenderer
      */
     private function _getPosterArray($poster_id)
     {
-        $poster['id'] = intval($poster_id);
+        $poster['id'] = (int) ($poster_id);
         if ($poster['id'] > 0) {
             $xoops = Xoops::getInstance();
             $member_handler = $xoops->getHandlerMember();

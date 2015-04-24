@@ -56,7 +56,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     {
         $xoops = Xoops::getInstance();
 
-        $name = ($name) ? $name : strval(time());
+        $name = ($name) ? $name : (string) (time());
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
 
         $key = "{$dirname}_{$name}";

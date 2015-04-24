@@ -132,7 +132,7 @@ switch ($op) {
             $system_breadcrumb->render();
             $error = '';
             foreach ($_REQUEST['memberslist_id'] as $del) {
-                $del = intval($del);
+                $del = (int) ($del);
                 $user = $member_handler->getUser($del);
                 $groups = $user->getGroups();
                 if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
@@ -301,7 +301,7 @@ switch ($op) {
                     } else {
                         $groups_failed = array();
                         foreach ($_REQUEST['groups'] as $group) {
-                            $group = intval($group);
+                            $group = (int) ($group);
                             if (!$member_handler->addUserToGroup($group, $newuser->getVar('uid'))) {
                                 $groups_failed[] = $group;
                             }
@@ -466,8 +466,8 @@ switch ($op) {
             $form->addElement($limit_text);
 
             // if this is to find users for a specific group
-            if (!empty($_GET['group']) && intval($_GET['group']) > 0) {
-                $group_hidden = new Xoops\Form\Hidden("group", intval($_GET['group']));
+            if (!empty($_GET['group']) && (int) ($_GET['group']) > 0) {
+                $group_hidden = new Xoops\Form\Hidden("group", (int) ($_GET['group']));
                 $form->addElement($group_hidden);
             }
             $form->addElement($submit_button);
@@ -671,7 +671,7 @@ switch ($op) {
                 $requete_search .= 'limit : ' . $user_limit . '<br />';
             }
 
-            $start = (!empty($_REQUEST['start'])) ? intval($_REQUEST['start']) : 0;
+            $start = (!empty($_REQUEST['start'])) ? (int) ($_REQUEST['start']) : 0;
 
             if (isset($_REQUEST['selgroups'])) {
                 if ($_REQUEST['selgroups'] != 0) {
