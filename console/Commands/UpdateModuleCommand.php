@@ -15,7 +15,7 @@ class UpdateModuleCommand extends Command
         $this->setName("update-module")
             ->setDescription("Update a module")
             ->setDefinition(array(
-                new InputArgument('module', InputArgument::REQUIRED),
+                new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
             ))->setHelp(<<<EOT
 The <info>update-module</info> command updates a currenly installed module.
 

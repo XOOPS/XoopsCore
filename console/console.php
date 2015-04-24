@@ -52,6 +52,7 @@ $app->addCommands(array(
     new \XoopsConsole\Commands\InstallModuleCommand(),
     new \XoopsConsole\Commands\UninstallModuleCommand(),
     new \XoopsConsole\Commands\UpdateModuleCommand(),
+    new \XoopsConsole\Commands\SetConfigCommand(),
 ));
 
 $app->run();

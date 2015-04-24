@@ -19,7 +19,7 @@ class InstallModuleCommand extends Command
         $this->setName("install-module")
             ->setDescription("Install a module")
             ->setDefinition(array(
-                new InputArgument('module', InputArgument::REQUIRED),
+                new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
             ))->setHelp(<<<EOT
 The <info>install-module</info> command installs a module.
 EOT
@@ -35,9 +35,13 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $module = $input->getArgument('module');
-        $output->writeln(sprintf('Installing %s', $module));
         $xoops = \Xoops::getInstance();
+        $module = $input->getArgument('module');
+        if (false === \XoopsLoad::fileExists($xoops->path("modules/$module/xoops_version.php"))) {
+            $output->writeln(sprintf('<error>No module named %s found!</error>', $module));
+            return;
+        }
+        $output->writeln(sprintf('Installing %s', $module));
         if (false !== $xoops->getModuleByDirname($module)) {
             $output->writeln(sprintf('<error>%s module is alreay installed!</error>', $module));
             return;

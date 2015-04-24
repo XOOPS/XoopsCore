@@ -10,7 +10,6 @@ before_install:
 
 install:
   - composer --working-dir=htdocs/xoops_lib/ install
-  - wget https://phar.phpunit.de/phpunit-4.6.4.phar
 
 before_script:
   - mysql -e 'create database xoops_test;'
@@ -22,7 +21,7 @@ before_script:
   - php console/console.php install-module page
 
 script:
-  - php phpunit-4.6.4.phar --configuration tests/unit/testXoopsLib.xml --coverage-clover=coverage.clover
+  - htdocs/xoops_lib/vendor/bin/phpunit --configuration tests/unit/testXoopsLib.xml --coverage-clover=coverage.clover
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
