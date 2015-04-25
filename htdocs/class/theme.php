@@ -85,7 +85,7 @@ class XoopsThemeFactory
             }
             $xoops->setConfig('theme_set', $options['folderName']);
         }
-        $options['path'] = $xoops->globalData->getVar('XOOPS_THEME_PATH') . '/' . $options['folderName'];
+        $options['path'] = $xoops->globalData->getVar('theme-path') . '/' . $options['folderName'];
         $inst = new XoopsTheme();
         foreach ($options as $k => $v) {
             $inst->$k = $v;
@@ -122,8 +122,8 @@ class XoopsAdminThemeFactory extends XoopsThemeFactory
         $options["plugins"] = array();
         $options['renderBanner'] = false;
         $inst = parent::createInstance($options);
-        $inst->path = $xoops->globalData->getVar('XOOPS_ADMINTHEME_PATH') . '/' . $inst->folderName;
-        $inst->url = $xoops->globalData->getVar('XOOPS_ADMINTHEME_URL') . '/' . $inst->folderName;
+        $inst->path = $xoops->globalData->getVar('admintheme-path') . '/' . $inst->folderName;
+        $inst->url = $xoops->globalData->getVar('admintheme-url') . '/' . $inst->folderName;
         $inst->template->assign(array(
             'theme_path' => $inst->path, 'theme_tpl' => $inst->path . '/xotpl', 'theme_url' => $inst->url,
             'theme_img'  => $inst->url . '/img', 'theme_icons' => $inst->url . '/icons',
@@ -305,15 +305,15 @@ class XoopsTheme
     {
         $xoops = Xoops::getInstance();
         $this->assets = $xoops->assets();
-        $this->path = $xoops->globalData->getVar('XOOPS_THEME_PATH') . '/' . $this->folderName;
-        $this->url = $xoops->globalData->getVar('XOOPS_THEME_URL') . '/' . $this->folderName;
+        $this->path = $xoops->globalData->getVar('theme-path') . '/' . $this->folderName;
+        $this->url = $xoops->globalData->getVar('theme-url') . '/' . $this->folderName;
         $this->template = null;
         $this->template = new XoopsTpl();
         //$this->template->currentTheme = $this;
         $this->template->assignByRef('xoTheme', $this);
         $this->template->assign(array(
             'xoops_theme'      => $xoops->getConfig('theme_set'),
-            'xoops_imageurl'   => $xoops->globalData->getVar('XOOPS_THEME_URL') . '/' . $xoops->getConfig('theme_set') . '/',
+            'xoops_imageurl'   => $xoops->globalData->getVar('theme-url') . '/' . $xoops->getConfig('theme_set') . '/',
             'xoops_themecss'   => $xoops->getCss($xoops->getConfig('theme_set')),
             'xoops_requesturi' => htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES),
             'xoops_sitename'   => htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES),
@@ -442,7 +442,7 @@ class XoopsTheme
                     sort($groups);
                     // Generate group string for non-anonymous groups,
                     // XOOPS_DB_PASS and XOOPS_DB_NAME (before we find better variables) are used to protect group sensitive contents
-                    $extra_string .= '-' . substr(md5(implode('-', $groups)), 0, 8) . '-' . substr(md5($xoops->globalData->getVar('XOOPS_DB_PASS') . $xoops->globalData->getVar('XOOPS_DB_NAME') . $xoops->globalData->getVar('XOOPS_DB_USER')), 0, 8);
+                    $extra_string .= '-' . substr(md5(implode('-', $groups)), 0, 8) . '-' . substr(md5($xoops->globalData->getVar('db-pass') . $xoops->globalData->getVar('db-name') . $xoops->globalData->getVar('db-user')), 0, 8);
                 }
             }
             $extraString = $extra_string;
@@ -462,7 +462,7 @@ class XoopsTheme
             $template = $this->contentTemplate ? $this->contentTemplate : 'module:system/system_dummy.tpl';
             $this->template->caching = 2;
             $this->template->cache_lifetime = $this->contentCacheLifetime;
-            $uri = str_replace(\Xoops::getInstance()->globalData->getVar('XOOPS_URL'), '', $_SERVER['REQUEST_URI']);
+            $uri = str_replace(\Xoops::getInstance()->globalData->getVar('url'), '', $_SERVER['REQUEST_URI']);
             // Clean uri by removing session id
             if (defined('SID') && SID && strpos($uri, SID)) {
                 $uri = preg_replace("/([\?&])(" . SID . "$|" . SID . "&)/", "\\1", $uri);
@@ -1011,7 +1011,7 @@ class XoopsTheme
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
         }
-		$xoops_root_path = \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH');
+		$xoops_root_path = \Xoops::getInstance()->globalData->getVar('root-path');
 //\Xoops::getInstance()->events()->triggerEvent('debug.log', $this);
         if (XoopsLoad::fileExists($xoops_root_path . "/{$this->themesPath}/{$this->folderName}/{$path}")) {
 //\Xoops::getInstance()->events()->triggerEvent('debug.log', "custom theme path {$this->themesPath}/{$this->folderName}/{$path}");

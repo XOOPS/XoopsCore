@@ -23,7 +23,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 //$xoops->disableErrorReporting
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 $xoops->preload()->triggerEvent('core.pmlite.start');
 

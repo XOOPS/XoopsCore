@@ -25,7 +25,7 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 return $config = array(
     "class"  => "FormTextArea",
-    "file"   => \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH') . "/class/xoopseditor/textarea/textarea.php",
+    "file"   => \Xoops::getInstance()->globalData->getVar('root-path') . "/class/xoopseditor/textarea/textarea.php",
     "title"  => _XOOPS_EDITOR_TEXTAREA, // display to end user
     "order"  => 1, // 0 will disable the editor
     "nohtml" => 1 // For forms that have "dohtml" disabled

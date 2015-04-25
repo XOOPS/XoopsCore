@@ -23,7 +23,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 $xoops->events()->triggerEvent('core.register.start');
 $xoops->loadLanguage('user');

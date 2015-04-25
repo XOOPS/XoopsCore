@@ -59,7 +59,7 @@ function xoops_module_install_avatars(&$module)
     $dbManager->copyFields($map, 'avatar_user_link', 'avatars_user_link', false);
     */
 
-	$xoops_root_path = \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH');
+	$xoops_root_path = \Xoops::getInstance()->globalData->getVar('root-path');
 	
     // create folder "avatars"
     $dir = $xoops_root_path . "/uploads/avatars";

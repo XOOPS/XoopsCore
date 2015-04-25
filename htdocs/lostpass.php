@@ -25,7 +25,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.lostpass.start');
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 $xoops->loadLanguage('user');
 
@@ -65,7 +65,7 @@ if (empty($getuser)) {
             echo $xoopsMailer->getErrors();
         }
         // Next step: add the new password to the database
-        $userObject->setVar("pass", password_hash($newpass, $xoops->globalData->getVar('PASSWORD_DEFAULT')));
+        $userObject->setVar("pass", password_hash($newpass, $xoops->globalData->getVar('password-default')));
         if (false === $userHandler->insert($userObject)) {
             $xoops->header();
             echo XoopsLocale::E_USER_NOT_UPDATED;

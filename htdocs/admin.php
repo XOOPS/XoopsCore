@@ -45,7 +45,7 @@ $xoops->header();
  * Error warning messages
  */
 if ($xoops->getConfig('admin_warnings_enable')) {
-	$xoops_root_path = $xoops->globalData->getVar('XOOPS_ROOT_PATH');
+	$xoops_root_path = $xoops->globalData->getVar('root-path');
     $error_msg = array();
     if (is_dir($xoops_root_path . '/install/')) {
         $error_msg[] = sprintf(XoopsLocale::EF_DIRECTORY_EXISTS, $xoops_root_path . '/install/');
@@ -55,11 +55,11 @@ if ($xoops->getConfig('admin_warnings_enable')) {
         $error_msg[] = sprintf(XoopsLocale::EF_FILE_IS_WRITABLE, $xoops_root_path . '/mainfile.php');
     }
     // ###### Output warn messages for correct functionality  ######
-	$xoops_cache_path = $xoops->globalData->getVar('XOOPS_CACHE_PATH');
+	$xoops_cache_path = $xoops->globalData->getVar('cache-path');
     if (!is_writable($xoops_cache_path)) {
         $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $xoops_cache_path);
     }
-	$xoops_upload_path = $xoops->globalData->getVar('XOOPS_UPLOAD_PATH');
+	$xoops_upload_path = $xoops->globalData->getVar('upload-path');
     if (!is_writable($xoops_upload_path)) {
         $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $xoops_upload_path);
     }
@@ -69,7 +69,7 @@ if ($xoops->getConfig('admin_warnings_enable')) {
     }
 
     //www fits inside www_private, lets add a trailing slash to make sure it doesn't
-	$xoops_path = $xoops->globalData->getVar('XOOPS_LIBRARY_PATH');
+	$xoops_path = $xoops->globalData->getVar('library-path');
     if (strpos($xoops_path . '/', $xoops_root_path . '/') !== false || strpos($xoops_path . '/', $_SERVER['DOCUMENT_ROOT'] . '/') !== false) {
         $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_IS_INSIDE_DOCUMENT_ROOT, $xoops_path);
     }

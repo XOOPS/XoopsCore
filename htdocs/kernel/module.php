@@ -70,8 +70,8 @@ class XoopsModule extends XoopsObject
         $this->initVar('hasnotification', XOBJ_DTYPE_INT, 0, false);
 		
 		$xoops = \Xoops::getInstance();
-		$this->xoops_url = $xoops->globalData->getVar('XOOPS_URL');
-		$this->xoops_root_path = $xoops->globalData->getVar('XOOPS_ROOT_PATH');
+		$this->xoops_url = $xoops->globalData->getVar('url');
+		$this->xoops_root_path = $xoops->globalData->getVar('root-path');
     }
 
     /**

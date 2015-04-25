@@ -24,7 +24,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 $xoops->preload()->triggerEvent('core.userinfo.start');
 
@@ -36,9 +36,9 @@ if ($uid <= 0) {
     $xoops->redirect('index.php', 3, XoopsLocale::E_NO_USER_SELECTED);
 }
 $gperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : $xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS');
+$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-$isAdmin = $gperm_handler->checkRight('system_admin', $xoops->globalData->getVar('XOOPS_SYSTEM_USER'), $groups);
+$isAdmin = $gperm_handler->checkRight('system_admin', $xoops->globalData->getVar('system-user'), $groups);
 if ($xoops->isUser()) {
     if ($uid == $xoops->user->getVar('uid')) {
         $xoopsConfigUser = $xoops->getConfigs();
@@ -170,7 +170,7 @@ if ($xoops->isActiveModule('userrank')) {
     if (isset($userrank['image']) && $userrank['image']) {
         $xoops->tpl()->assign(
             'user_rankimage',
-            '<img src="' . $xoops->globalData->getVar('XOOPS_UPLOAD_URL') . '/' . $userrank['image'] . '" alt="" />'
+            '<img src="' . $xoops->globalData->getVar('upload-url') . '/' . $userrank['image'] . '" alt="" />'
         );
     }
     $xoops->tpl()->assign('user_ranktitle', $userrank['title']);
@@ -186,7 +186,7 @@ $criteria->add(new Criteria('isactive', 1));
 $criteria->add(new Criteria('weight', 0, '>'));
 $modules = $module_handler->getObjectsArray($criteria, true);
 $moduleperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : $xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS');
+$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
 
 foreach (array_keys($modules) as $i) {

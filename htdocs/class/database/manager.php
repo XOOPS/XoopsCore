@@ -60,7 +60,7 @@ class XoopsDatabaseManager
         $xoops->db();
         global $xoopsDB;
         $this->db = $xoopsDB;
-        $this->db->setPrefix($xoops->globalData->getVar('XOOPS_DB_PREFIX'));
+        $this->db->setPrefix($xoops->globalData->getVar('db-prefix'));
         $this->successStrings = array(
             'create' => XoopsLocale::SF_TABLE_CREATED,
             'insert' => XoopsLocale::SF_ENTRIES_INSERTED_TO_TABLE,
@@ -104,7 +104,7 @@ class XoopsDatabaseManager
     {
         $this->db->connect(false);
 
-        $result = $this->db->query("CREATE DATABASE " . \Xoops::getInstance()->globalData->getVar('XOOPS_DB_NAME'));
+        $result = $this->db->query("CREATE DATABASE " . \Xoops::getInstance()->globalData->getVar('db-name'));
 
         return ($result != false) ? true : false;
     }

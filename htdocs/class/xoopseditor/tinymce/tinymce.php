@@ -69,7 +69,7 @@ class TinyMCE
         // list of configured options
         $configured = array();
 
-		$xoops_root_path = $xoops->globalData->getVar('XOOPS_ROOT_PATH');
+		$xoops_root_path = $xoops->globalData->getVar('root-path');
 		
         // Load default settings
         if ( ! ($this->setting = @include( $xoops->path( "var/configs/tinymce.php" ) ) ) ) {
@@ -225,7 +225,7 @@ class TinyMCE
 
     // return all xoops plugins
     function get_xoopsPlugins() {
-		$xoops_root_path = \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH');
+		$xoops_root_path = \Xoops::getInstance()->globalData->getVar('root-path');
         $xoopsPlugins = array();
         $allplugins = XoopsLists::getDirListAsArray( $xoops_root_path . $this->rootpath . "/plugins" );
         foreach ( $allplugins as $plugin ) {
@@ -245,7 +245,7 @@ class TinyMCE
         if (!isset($css_url)) {
             $xoops = Xoops::getInstance();
             $css_url = dirname( $xoops->getCss($xoops->getConfig('theme_set')) );
-            $css_path = str_replace($xoops->globalData->getVar('XOOPS_THEME_URL'), $xoops->globalData->getVar('XOOPS_THEME_PATH'), $css_url);
+            $css_path = str_replace($xoops->globalData->getVar('theme-url'), $xoops->globalData->getVar('theme-path'), $css_url);
         }
 
         $css = array();
@@ -265,7 +265,7 @@ class TinyMCE
     {
         static $isTinyMceJsLoaded = false;
 		
-		$xoops_url = \Xoops::getInstance()->globalData->getVar('XOOPS_URL');
+		$xoops_url = \Xoops::getInstance()->globalData->getVar('url');
 
         $this->init();
 

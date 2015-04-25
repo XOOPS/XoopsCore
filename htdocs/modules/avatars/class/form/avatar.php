@@ -42,14 +42,14 @@ class AvatarsAvatarForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Text(XoopsLocale::NAME, 'avatar_name', 5, 255, $obj->getVar('avatar_name', 'e')), true);
         // Upload part
         $imgtray_img = new Xoops\Form\ElementTray(XoopsLocale::FILE, '<br />');
-		$avatars_path = $xoops->globalData->getVar('XOOPS_UPLOAD_PATH') . '/avatars';
+		$avatars_path = $xoops->globalData->getVar('upload-path') . '/avatars';
         $imageselect_img = new Xoops\Form\Select(sprintf(XoopsLocale::F_FILE_EXISTS_IN, $avatars_path . '/'), 'avatar_file', $blank_img);
         $image_array_img = XoopsLists::getImgListAsArray($avatars_path);
         $imageselect_img->addOption("$blank_img", $blank_img);
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption("$image_img", $image_img);
         }
-		$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
+		$xoops_upload_url = $xoops->globalData->getVar('upload-url');
         $imageselect_img->setExtra("onchange='showImgSelected(\"xo-avatar-img\", \"avatar_file\", \"avatars\", \"\", \"" . $xoops_upload_url . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
         $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . $xoops_upload_url . "/avatars/" . $blank_img . "' name='image_img' id='xo-avatar-img' alt='' />"));

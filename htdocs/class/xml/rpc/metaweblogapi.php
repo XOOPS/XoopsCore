@@ -148,7 +148,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
 			$xoops = \Xoops::getInstance();
-			$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+			$xoops_url = $xoops->globalData->getVar('url');
             $xoopsapi = $this->_getXoopsApi($this->params);
             $xoopsapi->_setUser($this->user, $this->isadmin);
             $ret = $xoopsapi->getPost(false);
@@ -191,7 +191,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
 			$xoops = \Xoops::getInstance();
-			$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+			$xoops_url = $xoops->globalData->getVar('url');
             $xoopsapi = $this->_getXoopsApi($this->params);
             $xoopsapi->_setUser($this->user, $this->isadmin);
             $ret = $xoopsapi->getRecentPosts(false);
@@ -244,7 +244,7 @@ class MetaWeblogApi extends XoopsXmlRpcApi
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
 			$xoops = \Xoops::getInstance();
-			$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+			$xoops_url = $xoops->globalData->getVar('url');
             $xoopsapi = $this->_getXoopsApi($this->params);
             $xoopsapi->_setUser($this->user, $this->isadmin);
             $ret = $xoopsapi->getCategories(false);

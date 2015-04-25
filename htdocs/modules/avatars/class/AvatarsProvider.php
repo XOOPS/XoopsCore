@@ -31,8 +31,8 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     public function __construct()
     {
 		$xoops = \Xoops::getInstance();
-		$this->xoops_url = $xoops->globalData->getVar('XOOPS_URL');
-		$this->xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
+		$this->xoops_url = $xoops->globalData->getVar('url');
+		$this->xoops_upload_url = $xoops->globalData->getVar('upload-url');
     }
 	
     /**

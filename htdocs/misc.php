@@ -26,8 +26,8 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
-$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
+$xoops_url = $xoops->globalData->getVar('url');
+$xoops_upload_url = $xoops->globalData->getVar('upload-url');
 
 $action = Request::getCmd('action', '');
 $type = Request::getCmd('type', '');

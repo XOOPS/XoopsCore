@@ -22,7 +22,7 @@
 include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 header("Content-Type: text/html");
 echo "<html><head><title>" . htmlspecialchars($xoops->getConfig('sitename')) . "</title>

@@ -29,7 +29,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
         }
 
         $breadcrumb = empty($breadcrumb) ? $adminmenu[$currentoption]["title"] : $breadcrumb;
-		$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+		$xoops_url = $xoops->globalData->getVar('url');
         $module_link = $xoops_url . "/modules/" . $xoops->module->getVar("dirname") . "/";
         $image_link = $xoops_url . "/Frameworks/compat/include";
 

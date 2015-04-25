@@ -31,7 +31,7 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');

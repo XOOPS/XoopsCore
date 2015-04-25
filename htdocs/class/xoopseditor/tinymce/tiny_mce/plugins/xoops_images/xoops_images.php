@@ -49,7 +49,7 @@ switch ($op) {
                 if ($category->getVar('imgcat_storetype') == 'db') {
                     $src = $helper->url("image.php?id=" . $images[$i]->getVar('image_id'));
                 } else {
-					$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
+					$xoops_upload_url = $xoops->globalData->getVar('upload-url');
                     $src = $xoops_upload_url . '/' . $images[$i]->getVar('image_name');
                 }
                 $xoopsTpl->append('images', array(
@@ -99,7 +99,7 @@ switch ($op) {
         $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
         $uploader = new XoopsMediaUploader(
-            $xoops->globalData->getVar('XOOPS_UPLOAD_PATH') . '/images',
+            $xoops->globalData->getVar('upload-path') . '/images',
             $mimetypes,
             $category->getVar('imgcat_maxsize'),
             $category->getVar('imgcat_maxwidth'),

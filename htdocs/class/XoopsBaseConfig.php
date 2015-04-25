@@ -40,18 +40,21 @@ class XoopsBaseConfig
         if (!class_exists('XoopsLoad', false)) {
             include __DIR__ . '/xoopsload.php';
         }
+
         if (is_string($config)) {
-            $yamlString = file_get_contents($config);
-            if ($yamlString === false) {
+			self::$configs = Yaml::read($config);
+            if (!is_array(self::$configs)) {
                 throw new \Exception('XoopsBaseConfig failed to load configuration.');
+				return;
             }
-            $libPath = $this->extractLibPath($yamlString);
-            \XoopsLoad::startAutoloader($libPath);
-            self::$configs = Yaml::loadWrapped($yamlString);
         } elseif (is_array($config)) {
-            self::$configs = $config;
-            \XoopsLoad::startAutoloader(self::$configs['XOOPS_PATH']);
+			self::$configs = $config;
         }
+		if (!isset(self::$configs['lib-path'])) {
+			throw new \Exception('XoopsBaseConfig lib-path not defined.');
+			return;
+		}
+        \XoopsLoad::startAutoloader(self::$configs['lib-path']);
     }
 
     /**
@@ -68,53 +71,10 @@ class XoopsBaseConfig
         static $instance = false;
 
         if (!$instance) {
-            $instance = new \XoopsBaseConfig($config);
+			$class = __CLASS__;
+            $instance = new $class($config);
         }
         return $instance;
-    }
-
-    /**
-     * extractLibPath - solve a which comes first, chicken or egg type problem
-     *
-     * The yaml file we can load has the path we need to set up the autoloader we need
-     * to reach our yaml library. We solve this by looking through the raw yaml file
-     * contents to locate our data. This works only because there is a unique key that
-     * should not be duplicated in a limited and known data set.
-     *
-     * Not pretty, but this way we get full access to xoops from a single known path.
-     *
-     * @param string $filecontents contents of the yaml configuration file
-     *
-     * @return string the extracted lib-path value
-     */
-    final private function extractLibPath($filecontents)
-    {
-        $match = array();
-        $matched = preg_match('/[.\v]*^lib-path\h*\:\h*[\']?([^\'\v]*)[\']?\h*$[.\v]*/m', $filecontents, $match);
-
-        return $matched ? trim($match[1]) : '';
-    }
-
-    /**
-     * Retrieve an attribute value.
-     *
-     * @param string $name name of an attribute
-     *
-     * @return mixed value of the attribute, or null if not set.
-     */
-    final public static function get($name)
-    {
-        return (isset(self::$configs[$name])) ? self::$configs[$name] : null;
-    }
-
-    /**
-     * Get a copy of all base configurations
-     *
-     * @return array of of all attributes
-     */
-    final public function getAll()
-    {
-        return self::$configs;
     }
 
     /**
@@ -149,63 +109,46 @@ class XoopsBaseConfig
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
 		$config = array(
-			'XOOPS_ROOT_PATH' => XOOPS_ROOT_PATH,
-			'XOOPS_PATH' => XOOPS_PATH,
-			'XOOPS_VAR_PATH' => XOOPS_VAR_PATH,
-			'XOOPS_TRUST_PATH' => XOOPS_PATH,
-			'XOOPS_URL' => XOOPS_URL,
-			'XOOPS_PROT' => $prot,
-			'XOOPS_CHECK_PATH' => XOOPS_CHECK_PATH,
-			'XOOPS_ASSET_PATH' => $path . '/assets',
-			'XOOPS_ASSET_URL' => $url. '/assets',
-			'XOOPS_COOKIE_DOMAIN' => $host,
-			'XOOPS_COOKIE_PATH' => $urlpath,
-			'XOOPS_DB_TYPE' => XOOPS_DB_TYPE,
-			'XOOPS_DB_CHARSET' => XOOPS_DB_CHARSET,
-			'XOOPS_DB_PREFIX' => XOOPS_DB_PREFIX,
-			'XOOPS_DB_HOST' => XOOPS_DB_HOST,
-			'XOOPS_DB_USER' => XOOPS_DB_USER,
-			'XOOPS_DB_PASS' => XOOPS_DB_PASS,
-			'XOOPS_DB_NAME' => XOOPS_DB_NAME,
-			'XOOPS_DB_PCONNECT' => XOOPS_DB_PCONNECT,
-			'XOOPS_DB_PARAMETERS' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
-			'XOOPS_DB_PROXY' => 0,
-			'XOOPS_DB_CHKREF' => 0,
-			'XOOPS_THEME_PATH' => XOOPS_ROOT_PATH .'/themes',
-			'XOOPS_ADMINTHEME_PATH' => XOOPS_ROOT_PATH . '/modules/system/themes',
-			'XOOPS_UPLOAD_PATH' => XOOPS_ROOT_PATH . '/uploads',
-			'XOOPS_LIBRARY_PATH' => XOOPS_ROOT_PATH . '/libraries',
-			// 'SMARTY_DIR' => XOOPS_ROOT_PATH . '/class/smarty/',
-			'SMARTY_COMPILE_PATH' => XOOPS_VAR_PATH . '/caches/smarty_compile',
-			'SMARTY_CACHE_PATH' => XOOPS_VAR_PATH . '/caches/smarty_cache',
-			'SMARTY_PLUGINS_PATH' => XOOPS_PATH . '/smarty/xoops_plugins',
-			'XOOPS_CACHE_PATH' => XOOPS_VAR_PATH . '/caches/xoops_cache',
-			'XOOPS_PLUGINS_PATH' => XOOPS_ROOT_PATH . '/modules',
-			'XOOPS_VERSION' => 'XOOPS 2.6.0-Alpha 3',
-			'XOOPS_THEME_URL' => XOOPS_URL . '/themes',
-			'XOOPS_ADMINTHEME_URL' => XOOPS_URL . '/modules/system/themes',
-			'XOOPS_UPLOAD_URL' => XOOPS_URL . '/uploads',
-			'XOOPS_LIBRARY_URL' => XOOPS_URL . '/libraries',
-			'FRAMEWORKS_ROOT_PATH' => $path,
+			'root-path' => XOOPS_ROOT_PATH,
+			'lib-path' => XOOPS_PATH,
+			'var-path' => XOOPS_VAR_PATH,
+			'trust-path' => XOOPS_PATH,
+			'url' => XOOPS_URL,
+			'prot' => $prot,
+			'test-path' => XOOPS_TEST_PATH,
+			'check-path' => XOOPS_CHECK_PATH,
+			'asset-path' => $path . '/assets',
+			'asset-url' => $url. '/assets',
+			'cookie-domain' => $host,
+			'cookie-path' => $urlpath,
+			'db-type' => XOOPS_DB_TYPE,
+			'db-charset' => XOOPS_DB_CHARSET,
+			'db-prefix' => XOOPS_DB_PREFIX,
+			'db-host' => XOOPS_DB_HOST,
+			'db-user' => XOOPS_DB_USER,
+			'db-pass' => XOOPS_DB_PASS,
+			'db-name' => XOOPS_DB_NAME,
+			'db-pconnect' => XOOPS_DB_PCONNECT,
+			'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
+			'db-proxy' => 0,
+			'db-chkref' => 0,
+			'theme-path' => XOOPS_ROOT_PATH .'/themes',
+			'admintheme-path' => XOOPS_ROOT_PATH . '/modules/system/themes',
+			'upload-path' => XOOPS_ROOT_PATH . '/uploads',
+			'library-path' => XOOPS_ROOT_PATH . '/libraries',
+			'smarty-compile-path' => XOOPS_VAR_PATH . '/caches/smarty_compile',
+			'smarty-cache-path' => XOOPS_VAR_PATH . '/caches/smarty_cache',
+			'plugins-path' => XOOPS_PATH . '/smarty/xoops_plugins',
+			'cache-path' => XOOPS_VAR_PATH . '/caches/xoops_cache',
+			'plugins-path' => XOOPS_ROOT_PATH . '/modules',
+			'version' => 'XOOPS 2.6.0-Alpha 3',
+			'theme-url' => XOOPS_URL . '/themes',
+			'admintheme-url' => XOOPS_URL . '/modules/system/themes',
+			'upload-url' => XOOPS_URL . '/uploads',
+			'library-url' => XOOPS_URL . '/libraries',
 			);
 		
 		$instance = self::getInstance($config);
-    }
-
-    /**
-     * defineDefault - return a constant if it is defined, or a default value if not.
-     * If no default is specified, the define name will be used if needed.
-     *
-     * @param string      $define  a define constant name
-     * @param string|null $default default value to return if $define is not defined
-     *
-     * @return string value of define or default
-     */
-    private static function defineDefault($define, $default = null)
-    {
-        $default = ($default === null) ? $define : $default;
-        $return = defined($define) ? constant($define) : $default;
-        return $return;
     }
 	
     /**

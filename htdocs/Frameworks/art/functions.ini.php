@@ -11,14 +11,14 @@
  * @subpackage      art
  */
 
-if (substr(\Xoops::getInstance()->globalData->getVar('XOOPS_VERSION'), 0, 9) < "XOOPS 2.3") {
+if (substr(\Xoops::getInstance()->globalData->getVar('version'), 0, 9) < "XOOPS 2.3") {
     trigger_error("The package only works for XOOPS 2.3+", E_USER_ERROR);
 }
 
 if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     define("FRAMEWORKS_ART_FUNCTIONS_INI", true);
 
-    define("FRAMEWORKS_ROOT_PATH", \Xoops::getInstance->globalData->getVar('XOOPS_ROOT_PATH') . "/Frameworks");
+    define("FRAMEWORKS_ROOT_PATH", \Xoops::getInstance->globalData->getVar('root-path') . "/Frameworks");
 
     /**
      * Load declaration of an object handler
@@ -88,7 +88,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         if (defined($constant)) {
             return true;
         }
-        $filename = $xoops->globalData->getVar('XOOPS_ROOT_PATH') . "/modules/{$dirname}/include/functions.{$group}" . (empty($group) ? "" : ".") . "php";
+        $filename = $xoops->globalData->getVar('root-path') . "/modules/{$dirname}/include/functions.{$group}" . (empty($group) ? "" : ".") . "php";
         return include_once $filename;
     }
 
@@ -108,7 +108,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         $dirname = !empty($dirname) ? $dirname : $xoops->moduleDirname;
         $renderer = ucfirst($dirname) . ucfirst($class) . "Renderer";
         if (!class_exists($renderer)) {
-            require_once $xoops->globalData->getVar('XOOPS_ROOT_PATH') . "/modules/{$dirname}/class/{$class}.renderer.php";
+            require_once $xoops->globalData->getVar('root-path') . "/modules/{$dirname}/class/{$class}.renderer.php";
         }
         $instance = eval("{$renderer}::instance()");
         return $instance;

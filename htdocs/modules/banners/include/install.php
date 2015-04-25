@@ -84,8 +84,8 @@ function xoops_module_install_banners(&$module)
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'my_ip'";
     $xoopsDB->queryF($sql);
 */
-	$xoops_root_path = $xoops->globalData->getVar('XOOPS_ROOT_PATH');
-	$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
+	$xoops_root_path = $xoops->globalData->getVar('root-path');
+	$xoops_upload_url = $xoops->globalData->getVar('upload-url');
 	
     // create folder "banners"
     $dir = $xoops_root_path . "/uploads/banners";

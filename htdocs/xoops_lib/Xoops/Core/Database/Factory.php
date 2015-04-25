@@ -55,27 +55,27 @@ class Factory
 			$xoops = \Xoops::getInstance();
             $config = new \Doctrine\DBAL\Configuration();
             $config->setSQLLogger(new XoopsDebugStack());
-            $parameters = $xoops->globalData->getVar('XOOPS_DB_PARAMETERS');
+            $parameters = $xoops->globalData->getVar('db-parameters');
             if (!empty($parameters) && is_array($parameters)) {
                 $connectionParams = $parameters;
                 $connectionParams['wrapperClass'] = '\\Xoops\\Core\\Database\\Connection';
             } else {
-                $driver = 'pdo_' . $xoops->globalData->getVar('XOOPS_DB_TYPE');
+                $driver = 'pdo_' . $xoops->globalData->getVar('db-type');
                 $connectionParams = array(
-                    'dbname' => $xoops->globalData->getVar('XOOPS_DB_NAME'),
-                    'user' => $xoops->globalData->getVar('XOOPS_DB_USER'),
-                    'password' => $xoops->globalData->getVar('XOOPS_DB_PASS'),
-                    'host' => $xoops->globalData->getVar('XOOPS_DB_HOST'),
-                    'charset' => $xoops->globalData->getVar('XOOPS_DB_CHARSET'),
+                    'dbname' => $xoops->globalData->getVar('db-name'),
+                    'user' => $xoops->globalData->getVar('db-user'),
+                    'password' => $xoops->globalData->getVar('db-pass'),
+                    'host' => $xoops->globalData->getVar('db-host'),
+                    'charset' => $xoops->globalData->getVar('db-charset'),
                     'driver' => $driver,
                     'wrapperClass' => '\\Xoops\\Core\\Database\\Connection',
                 );
                 // Support for other doctrine databases
-				$xoops_db_port = $xoops->globalData->getVar('XOOPS_DB_PORT');
+				$xoops_db_port = $xoops->globalData->getVar('db-port');
                 if (!empty($xoops_db_port)) {
                     $connectionParams['port'] = $xoops_db_port;
                 }
-				$xoops_db_socket = $xoops->globalData->getVar('XOOPS_DB_SOCKET');
+				$xoops_db_socket = $xoops->globalData->getVar('db-socket');
                 if (!empty($xoops_db_socket)) {
                     $connectionParams['unix_socket'] = $xoops_db_socket;
                 }

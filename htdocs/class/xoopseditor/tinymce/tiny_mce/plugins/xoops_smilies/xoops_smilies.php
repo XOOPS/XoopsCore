@@ -44,7 +44,7 @@ if ($op == 'save') {
 
     $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
     $upload_size = 500000;
-    $uploader = new XoopsMediaUploader($xoops->globalData->getVar('XOOPS_UPLOAD_PATH') . '/smilies', $mimetypes, $upload_size, null, null);
+    $uploader = new XoopsMediaUploader($xoops->globalData->getVar('upload-path') . '/smilies', $mimetypes, $upload_size, null, null);
     if ($uploader->fetchMedia($xoops_upload_file[0])) {
         $uploader->setPrefix('smil');
         if (!$uploader->upload()) {

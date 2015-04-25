@@ -26,7 +26,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 
 $xoops->events()->triggerEvent('core.user.start');
 
@@ -114,7 +114,7 @@ if ($op == 'logout') {
     // Regenerate a new session id and destroy old session
     $xoops->getHandlerSession()->regenerate_id(true);
     $_SESSION = array();
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', $xoops->globalData->getVar('XOOPS_COOKIE_DOMAIN'), 0);
+    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', $xoops->globalData->getVar('cookie-domain'), 0);
     setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
     // clear entry from online users table
     if ($xoops->isUser()) {
@@ -130,7 +130,7 @@ if ($op == 'delete') {
         $xoops->redirect('index.php', 5, XoopsLocale::E_NO_ACTION_PERMISSION);
     } else {
         $groups = $xoops->user->getGroups();
-        if (in_array($xoops->globalData->getVar('XOOPS_GROUP_ADMIN'), $groups)) {
+        if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
             // users in the webmasters group may not be deleted
             $xoops->redirect('user.php', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }

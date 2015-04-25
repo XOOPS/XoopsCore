@@ -25,7 +25,7 @@
 include_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_url = $xoops->globalData->getVar('url');
 include_once $xoops->path('include/cp_functions.php');
 
 $moduleperm_handler = $xoops->getHandlerGroupperm();

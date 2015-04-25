@@ -52,8 +52,8 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
-        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'))) {
-            $xoops->redirect($xoops->globalData->getVar('XOOPS_URL') . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
+            $xoops->redirect($xoops->globalData->getVar('url') . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }
     if ($xoops->module->getVar('hasconfig') == 1
@@ -65,7 +65,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
 
     chdir('modules/' . $xoops->getConfig('startpage') . '/');
     $xoops->loadLanguage('main', $xoops->module->getVar('dirname', 'n'));
-    $parsed = parse_url($xoops->globalData->getVar('XOOPS_URL'));
+    $parsed = parse_url($xoops->globalData->getVar('url'));
     $url = isset($parsed['scheme']) ? $parsed['scheme'] . '://' : 'http://';
     if (isset($parsed['host'])) {
         $url .= $parsed['host'];
@@ -77,7 +77,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     }
 
     $_SERVER['REQUEST_URI'] =
-        substr($xoops->globalData->getVar('XOOPS_URL'), strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
+        substr($xoops->globalData->getVar('url'), strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
     include $xoops->path('modules/' . $xoops->getConfig('startpage') . '/index.php');
     exit();
 } else {
