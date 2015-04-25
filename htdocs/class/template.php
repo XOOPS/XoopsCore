@@ -55,7 +55,7 @@ class XoopsTpl extends Smarty
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
         // $this->setPluginsDir($xoops->globalData->getVar('XOOPS_PATH') . '/smarty/xoops_plugins');
         $this->setPluginsDir($xoops->globalData->getVar('SMARTY_PLUGINS_PATH'));
-        $this->addPluginsDir($xoops->globalData->getVar('SMARTY_DIR') . 'plugins');
+        $this->addPluginsDir(SMARTY_DIR . 'plugins');
         $this->setCompileId();
         $this->assign(
             array('xoops_url' => $xoops->globalData->getVar('XOOPS_URL'),

@@ -21,7 +21,7 @@ defined('XOOPS_INITIALIZED') or die('Restricted access');
  * no update yet, so only only new installs get the change in mainfile.dist.php
  * automatically.
  *
- * Temorarily try and fix, but set up a (delayed) warning
+ * Temporarily try and fix, but set up a (delayed) warning
  */
 if (!class_exists('XoopsLoad', false)) {
     require_once dirname(__DIR__). '/class/XoopsBaseConfig.php';
@@ -45,7 +45,7 @@ defined('NWLINE')or define('NWLINE', "\n");
  * Include files with definitions
  */
 include_once __DIR__ . '/defines.php';
-include_once __DIR__ . '/version.php';
+// include_once __DIR__ . '/version.php';
 
 /**
  * We now have autoloader, so start Patchwork\UTF8

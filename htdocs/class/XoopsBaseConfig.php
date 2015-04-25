@@ -27,7 +27,7 @@ class XoopsBaseConfig
     /**
      * @var string[] $configs
      */
-    private static $configs = array();
+    protected static $configs = array();
 
     /**
      * __construct
@@ -50,7 +50,7 @@ class XoopsBaseConfig
             self::$configs = Yaml::loadWrapped($yamlString);
         } elseif (is_array($config)) {
             self::$configs = $config;
-            \XoopsLoad::startAutoloader(self::$configs['lib-path']);
+            \XoopsLoad::startAutoloader(self::$configs['XOOPS_PATH']);
         }
     }
 
@@ -147,44 +147,49 @@ class XoopsBaseConfig
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
-		
-		$instance = self::getInstance();
 
-		$instance->setVar('XOOPS_ROOT_PATH', XOOPS_ROOT_PATH);
-		$instance->setVar('XOOPS_PATH', XOOPS_PATH);
-		$instance->setVar('XOOPS_VAR_PATH', XOOPS_VAR_PATH);
-		$instance->setVar('XOOPS_TRUST_PATH', XOOPS_PATH);
-		$instance->setVar('XOOPS_URL', XOOPS_URL);
-		$instance->setVar('XOOPS_PROT', $prot);
-		$instance->setVar('XOOPS_CHECK_PATH', XOOPS_CHECK_PATH);
-		$instance->setVar('XOOPS_ASSET_PATH', $path . '/assets');
-		$instance->setVar('XOOPS_ASSET_URL', $url. '/assets');
-		$instance->setVar('XOOPS_COOKIE_DOMAIN', $host);
-		$instance->setVar('XOOPS_COOKIE_PATH', $urlpath);
-		$instance->setVar('XOOPS_DB_TYPE', XOOPS_DB_TYPE);
-		$instance->setVar('XOOPS_DB_CHARSET', XOOPS_DB_CHARSET);
-		$instance->setVar('XOOPS_DB_PREFIX', XOOPS_DB_PREFIX);
-		$instance->setVar('XOOPS_DB_HOST', XOOPS_DB_HOST);
-		$instance->setVar('XOOPS_DB_USER', XOOPS_DB_USER);
-		$instance->setVar('XOOPS_DB_PASS', XOOPS_DB_PASS);
-		$instance->setVar('XOOPS_DB_NAME', XOOPS_DB_NAME);
-		$instance->setVar('XOOPS_DB_PCONNECT', XOOPS_DB_PCONNECT);
-		$instance->setVar('XOOPS_DB_PARAMETERS', defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array());
-		$instance->setVar('XOOPS_DB_PROXY', 0);
-		$instance->setVar('XOOPS_THEME_PATH', XOOPS_ROOT_PATH .'/themes');
-		$instance->setVar('XOOPS_ADMINTHEME_PATH', XOOPS_ROOT_PATH . '/modules/system/themes');
-		$instance->setVar('XOOPS_UPLOAD_PATH', XOOPS_ROOT_PATH . '/uploads');
-		$instance->setVar('XOOPS_LIBRARY_PATH', XOOPS_ROOT_PATH . '/libraries');
-		$instance->setVar('SMARTY_DIR', XOOPS_ROOT_PATH . '/class/smarty/');
-		$instance->setVar('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');	
-		$instance->setVar('XOOPS_CACHE_PATH', XOOPS_VAR_PATH . '/caches/xoops_cache');
-		$instance->setVar('XOOPS_PLUGINS_PATH', XOOPS_ROOT_PATH . '/modules');
-		$instance->setVar('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');	
-		$instance->setVar('XOOPS_THEME_URL', XOOPS_URL . '/themes');
-		$instance->setVar('XOOPS_ADMINTHEME_URL', XOOPS_URL . '/modules/system/themes');
-		$instance->setVar('XOOPS_UPLOAD_URL', XOOPS_URL . '/uploads');	
-		$instance->setVar('XOOPS_LIBRARY_URL', XOOPS_URL . '/libraries');
-		$instance->setVar('FRAMEWORKS_ROOT_PATH', $path);
+		$config = array(
+			'XOOPS_ROOT_PATH' => XOOPS_ROOT_PATH,
+			'XOOPS_PATH' => XOOPS_PATH,
+			'XOOPS_VAR_PATH' => XOOPS_VAR_PATH,
+			'XOOPS_TRUST_PATH' => XOOPS_PATH,
+			'XOOPS_URL' => XOOPS_URL,
+			'XOOPS_PROT' => $prot,
+			'XOOPS_CHECK_PATH' => XOOPS_CHECK_PATH,
+			'XOOPS_ASSET_PATH' => $path . '/assets',
+			'XOOPS_ASSET_URL' => $url. '/assets',
+			'XOOPS_COOKIE_DOMAIN' => $host,
+			'XOOPS_COOKIE_PATH' => $urlpath,
+			'XOOPS_DB_TYPE' => XOOPS_DB_TYPE,
+			'XOOPS_DB_CHARSET' => XOOPS_DB_CHARSET,
+			'XOOPS_DB_PREFIX' => XOOPS_DB_PREFIX,
+			'XOOPS_DB_HOST' => XOOPS_DB_HOST,
+			'XOOPS_DB_USER' => XOOPS_DB_USER,
+			'XOOPS_DB_PASS' => XOOPS_DB_PASS,
+			'XOOPS_DB_NAME' => XOOPS_DB_NAME,
+			'XOOPS_DB_PCONNECT' => XOOPS_DB_PCONNECT,
+			'XOOPS_DB_PARAMETERS' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
+			'XOOPS_DB_PROXY' => 0,
+			'XOOPS_DB_CHKREF' => 0,
+			'XOOPS_THEME_PATH' => XOOPS_ROOT_PATH .'/themes',
+			'XOOPS_ADMINTHEME_PATH' => XOOPS_ROOT_PATH . '/modules/system/themes',
+			'XOOPS_UPLOAD_PATH' => XOOPS_ROOT_PATH . '/uploads',
+			'XOOPS_LIBRARY_PATH' => XOOPS_ROOT_PATH . '/libraries',
+			// 'SMARTY_DIR' => XOOPS_ROOT_PATH . '/class/smarty/',
+			'SMARTY_COMPILE_PATH' => XOOPS_VAR_PATH . '/caches/smarty_compile',
+			'SMARTY_CACHE_PATH' => XOOPS_VAR_PATH . '/caches/smarty_cache',
+			'SMARTY_PLUGINS_PATH' => XOOPS_PATH . '/smarty/xoops_plugins',
+			'XOOPS_CACHE_PATH' => XOOPS_VAR_PATH . '/caches/xoops_cache',
+			'XOOPS_PLUGINS_PATH' => XOOPS_ROOT_PATH . '/modules',
+			'XOOPS_VERSION' => 'XOOPS 2.6.0-Alpha 3',
+			'XOOPS_THEME_URL' => XOOPS_URL . '/themes',
+			'XOOPS_ADMINTHEME_URL' => XOOPS_URL . '/modules/system/themes',
+			'XOOPS_UPLOAD_URL' => XOOPS_URL . '/uploads',
+			'XOOPS_LIBRARY_URL' => XOOPS_URL . '/libraries',
+			'FRAMEWORKS_ROOT_PATH' => $path,
+			);
+		
+		$instance = self::getInstance($config);
     }
 
     /**
@@ -212,8 +217,8 @@ class XoopsBaseConfig
      */
     public function getVar($name)
     {
-        if (isset($this->configs[$name])) {
-				return $this->configs[$name];
+        if (isset(self::$configs[$name])) {
+			return self::$configs[$name];
 		}
 		trigger_error('variable : '.$name.' not found!', E_USER_ERROR);
 		return null;

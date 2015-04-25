@@ -124,14 +124,19 @@ class Xoops
     {
 		$this->globalData = \XoopsBaseConfig::getInstance();
 		
-        $this->paths['XOOPS'] = array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php');
-        $this->paths['www'] = array(\XoopsBaseConfig::get('root-path'), \XoopsBaseConfig::get('url'));
-        $this->paths['var'] = array(\XoopsBaseConfig::get('var-path'), null);
-        $this->paths['lib'] = array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php');
-        $this->paths['modules'] = array(\XoopsBaseConfig::get('root-path') . '/modules', \XoopsBaseConfig::get('url') . '/modules');
-        $this->paths['themes'] = array(\XoopsBaseConfig::get('root-path') . '/themes', \XoopsBaseConfig::get('url') . '/themes');
-        $this->paths['media'] = array(\XoopsBaseConfig::get('root-path') . '/media', \XoopsBaseConfig::get('url') . '/media');
-        $this->paths['assets'] = array(\XoopsBaseConfig::get('root-path') . '/assets', \XoopsBaseConfig::get('url') . '/assets');
+		$root = $this->globalData->getVar('XOOPS_ROOT_PATH');
+		$path = $this->globalData->getVar('XOOPS_PATH');
+		$url = $this->globalData->getVar('XOOPS_URL');
+		$var = $this->globalData->getVar('XOOPS_VAR_PATH');
+		
+        $this->paths['XOOPS'] = array($path, $url . '/browse.php');
+        $this->paths['www'] = array($root, $url);
+        $this->paths['var'] = array($var, null);
+        $this->paths['lib'] = array($path, $url . '/browse.php');
+        $this->paths['modules'] = array($root . '/modules', $url . '/modules');
+        $this->paths['themes'] = array($root . '/themes', $url . '/themes');
+        $this->paths['media'] = array($root . '/media', $url . '/media');
+        $this->paths['assets'] = array($root . '/assets', $url . '/assets');
 
         $this->pathTranslation();
 
@@ -1188,7 +1193,8 @@ class Xoops
         $this->events()->triggerEvent('core.header.start');
         $this->theme();
         $xoopsConfigMetaFooter = $this->getConfigs();
-
+		$xoops = \Xoops::getInstance();
+		
         if (!headers_sent()) {
             header('Content-Type:text/html; charset=' . XoopsLocale::getCharset());
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');

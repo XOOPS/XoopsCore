@@ -33,6 +33,7 @@ class Xoops_Auth_FactoryTest extends \PHPUnit_Framework_TestCase
 	public function test_getAuthConnection100()
 	{
 		$class = $this->myClass;
+		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		
 		$xoops = \Xoops::getInstance();
 		$xoops->setConfig('auth_method', 'ads');
@@ -62,6 +63,7 @@ class Xoops_Auth_FactoryTest extends \PHPUnit_Framework_TestCase
 	public function test_getAuthConnection200()
 	{
 		$class = $this->myClass;
+		if (!extension_loaded('ldap')) $this->markTestSkipped();
 		
 		$xoops = \Xoops::getInstance();
 		

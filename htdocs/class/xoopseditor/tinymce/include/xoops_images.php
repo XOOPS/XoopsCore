@@ -11,7 +11,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_INITIALIZED") or die(Restricted access);
+defined("XOOPS_INITIALIZED") or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 if ($xoops->isActiveModule('images')) {

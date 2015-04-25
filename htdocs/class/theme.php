@@ -345,7 +345,7 @@ class XoopsTheme
             $this->template->assign(array(
                 'xoops_isuser' => false,
 				'xoops_isadmin' => false,
-				'xoops_usergroups' => array($xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'))
+				'xoops_usergroups' => array(XOOPS_GROUP_ANONYMOUS)
             ));
         }
 
@@ -436,7 +436,7 @@ class XoopsTheme
                 $extra_string = $xoops->getConfig('locale');
                 // Generate group section
                 if (!$xoops->isUser()) {
-                    $extra_string .= '-' . $xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS');
+                    $extra_string .= '-' . XOOPS_GROUP_ANONYMOUS;
                 } else {
                     $groups = $xoops->user->getGroups();
                     sort($groups);

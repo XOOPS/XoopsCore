@@ -68,7 +68,7 @@ if ($op == 'more') {
 }
 
 // check user/group
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array($xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'));
+$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 $gperm_handler = $xoops->getHandlerGroupperm();
 $admin = $gperm_handler->checkRight('system_admin', $xoops->getHandlerModule()->getByDirName('smilies')->getVar('mid'), $groups);
 

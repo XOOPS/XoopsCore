@@ -29,7 +29,7 @@ $op = Request::getCmd('op', 'list');
 $imgcat_id = Request::getInt('imgcat_id', 0);
 $start = Request::getInt('start', 0);
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array($xoops->globalData->getVar('XOOPS_GROUP_ANONYMOUS'));
+$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 
 $xoopsTpl = new XoopsTpl();
 switch ($op) {

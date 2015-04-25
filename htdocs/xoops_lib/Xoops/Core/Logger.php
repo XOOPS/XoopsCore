@@ -142,16 +142,23 @@ class Logger implements LoggerInterface
             }
             $this->reportFatalError($errstr);
             if ($trace) {
-                echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
                 $trace = debug_backtrace();
                 array_shift($trace);
-                foreach ($trace as $step) {
-                    if (isset($step['file'])) {
-                        echo $this->sanitizePath($step['file']);
-                        echo ' (' . $step['line'] . ")\n<br />";
-                    }
-                }
-                echo '</div>';
+				if ('cli' == php_sapi_name()) {
+					foreach ($trace as $step) {
+						if (isset($step['file'])) {
+							fprintf (STDERR, "%s (%d)\n", $this->sanitizePath($step['file']), $step['line']);
+						}
+					}					
+				} else {
+					echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
+					foreach ($trace as $step) {
+						if (isset($step['file'])) {
+							printf("%s (%d)\n<br />", $this->sanitizePath($step['file']), $step['line']);
+						}
+					}
+					echo '</div>';
+				}
             }
             exit();
         }
@@ -175,7 +182,11 @@ class Logger implements LoggerInterface
     private function reportFatalError($msg)
     {
         $msg=$this->sanitizePath($msg);
-        echo sprintf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
+		if ( 'cli' == php_sapi_name()) {
+			fprintf(STDERR, "\nError : %s\n", $msg);
+		} else {
+			printf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
+		}
         @$this->log(LogLevel::CRITICAL, $msg);
     }
 
@@ -197,6 +208,8 @@ class Logger implements LoggerInterface
                 str_replace('\\', '/', realpath(XOOPS_PATH)),
                 XOOPS_ROOT_PATH,
                 str_replace('\\', '/', realpath(XOOPS_ROOT_PATH)),
+                XOOPS_TEST_PATH,
+                str_replace('\\', '/', realpath(XOOPS_TEST_PATH)),
             ),
             array(
                 '/',
@@ -206,6 +219,8 @@ class Logger implements LoggerInterface
                 'LIB',
                 'ROOT',
                 'ROOT',
+                'TEST',
+                'TEST',
             ),
             $path
         );

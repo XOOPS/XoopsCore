@@ -203,7 +203,7 @@ class MyTextSanitizer
 
     public function __construct()
     {
-		$xoops_root_path = \Xoops::getInstance->globalData->getVar('XOOPS_ROOT_PATH');
+		$xoops_root_path = \Xoops::getInstance()->globalData->getVar('XOOPS_ROOT_PATH');
         $this->path_basic = $xoops_root_path . '/class/textsanitizer';
         $this->path_plugin = $xoops_root_path . '/Frameworks/textsanitizer';
         $this->config = $this->loadConfig();
