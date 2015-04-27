@@ -15,7 +15,7 @@ class UninstallModuleCommand extends Command
         $this->setName("uninstall-module")
             ->setDescription("Uninstall a module")
             ->setDefinition(array(
-                new InputArgument('module', InputArgument::REQUIRED),
+                new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
             ))->setHelp(<<<EOT
 The <info>uninstall-module</info> command uninstalls a currenly installed module.
 EOT
