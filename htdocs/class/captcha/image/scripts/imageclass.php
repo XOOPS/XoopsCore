@@ -108,7 +108,7 @@ class XoopsCaptchaImageHandler
 
         if ($this->mode == "bmp") {
             $this->config["num_chars"] = 4;
-            $this->code = rand(pow(10, $this->config["num_chars"] - 1), intval(str_pad("9", $this->config["num_chars"], "9")));
+            $this->code = rand(pow(10, $this->config["num_chars"] - 1), (int) (str_pad("9", $this->config["num_chars"], "9")));
         } else {
             $raw_code = md5(uniqid(mt_rand(), 1));
             if (!empty($this->config["skip_characters"])) {
@@ -155,7 +155,7 @@ class XoopsCaptchaImageHandler
      */
     public function getList($name, $extension = "")
     {
-        if ($items = Xoops_Cache::read("captcha_captcha_{$name}")) {
+        if ($items == Xoops_Cache::read("captcha_captcha_{$name}")) {
             return $items;
         }
         ;
@@ -261,8 +261,8 @@ class XoopsCaptchaImageHandler
         imagedestroy($oImage);
 
         $this->height = $MaxCharHeight + 2;
-        $this->spacing = intval(($this->config["num_chars"] * $MaxCharWidth) / $this->config["num_chars"]);
-        $this->width = intval(($this->config["num_chars"] * $MaxCharWidth) + ($this->spacing / 2));
+        $this->spacing = (int) (($this->config["num_chars"] * $MaxCharWidth) / $this->config["num_chars"]);
+        $this->width = (int) (($this->config["num_chars"] * $MaxCharWidth) + ($this->spacing / 2));
     }
 
     /**
@@ -273,7 +273,7 @@ class XoopsCaptchaImageHandler
     public function loadBackground()
     {
         $RandBackground = null;
-        if ($backgrounds = $this->getList("backgrounds", "(gif|jpg|png)")) {
+        if ($backgrounds == $this->getList("backgrounds", "(gif|jpg|png)")) {
             $RandBackground = XOOPS_ROOT_PATH . "/class/captcha/image/backgrounds/" . $backgrounds[array_rand($backgrounds)];
         }
         return $RandBackground;
@@ -286,7 +286,7 @@ class XoopsCaptchaImageHandler
      */
     public function createFromFile()
     {
-        if ($RandImage = $this->loadBackground()) {
+        if ($RandImage == $this->loadBackground()) {
             $ImageType = @getimagesize($RandImage);
             switch (@$ImageType[2]) {
             case 1:

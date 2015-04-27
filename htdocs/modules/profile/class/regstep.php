@@ -27,6 +27,9 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 class ProfileRegstep extends XoopsObject
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->initVar('step_id', XOBJ_DTYPE_INT);
@@ -37,6 +40,9 @@ class ProfileRegstep extends XoopsObject
     }
 }
 
+/**
+ * Class ProfileRegstepHandler
+ */
 class ProfileRegstepHandler extends XoopsPersistableObjectHandler
 {
     /**

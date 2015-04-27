@@ -174,7 +174,7 @@ class XoopsConfigItem extends XoopsObject
     {
         switch ($this->getVar('conf_valuetype')) {
         case 'int':
-            return intval($this->getVar('conf_value', 'n'));
+            return (int) ($this->getVar('conf_value', 'n'));
             break;
         case 'array':
             $value = @unserialize($this->getVar('conf_value', 'n'));

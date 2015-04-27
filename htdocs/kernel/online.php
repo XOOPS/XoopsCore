@@ -174,7 +174,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function destroy($uid)
     {
-        $criteria = new Criteria('online_uid', intval($uid));
+        $criteria = new Criteria('online_uid', (int) ($uid));
         if (false === $this->deleteAll($criteria)) {
             return false;
         }
@@ -192,7 +192,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function gc($expire)
     {
-        $criteria = new Criteria('online_updated', time() - intval($expire), '<');
+        $criteria = new Criteria('online_updated', time() - (int) ($expire), '<');
         if (false === $this->deleteAll($criteria)) {
             return false;
         }

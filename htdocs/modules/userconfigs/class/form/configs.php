@@ -39,7 +39,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
         $helper = Userconfigs::getInstance();
         $config_handler = $helper->getHandlerConfig();
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($mod->getVar('dirname'), 'userconfigs')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($mod->getVar('dirname'), 'userconfigs')) {
 
             parent::__construct('', 'pref_form', 'index.php', 'post', true);
             if ($mod->getVar('dirname') != 'system') {
@@ -211,7 +211,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                         if (count($modules) > 0) {
                             $ele = new Xoops\Form\ElementTray($title, '<br />');
                             foreach (array_keys($modules) as $mid) {
-                                $c_val = isset($currrent_val[$mid]) ? intval($currrent_val[$mid]) : null;
+                                $c_val = isset($currrent_val[$mid]) ? (int) ($currrent_val[$mid]) : null;
                                 $selform = new Xoops\Form\Select($modules[$mid]->getVar('name'), $obj[$i]->getVar('conf_name') . "[$mid]", $c_val);
                                 $selform->addOptionArray($cache_options);
                                 $ele->addElement($selform);

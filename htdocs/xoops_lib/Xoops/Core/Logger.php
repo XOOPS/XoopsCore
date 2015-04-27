@@ -142,7 +142,7 @@ class Logger implements LoggerInterface
             }
             $this->reportFatalError($errstr);
             if ($trace) {
-                echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
+                echo "<div style='color:#f0f0f0;background-color:#f0f0f0;'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
                 $trace = debug_backtrace();
                 array_shift($trace);
                 foreach ($trace as $step) {
@@ -172,6 +172,9 @@ class Logger implements LoggerInterface
         $this->reportFatalError($msg);
     }
 
+    /**
+     * @param $msg
+     */
     private function reportFatalError($msg)
     {
         $msg=$this->sanitizePath($msg);

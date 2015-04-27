@@ -50,7 +50,7 @@ switch ($op) {
     case 'edit':
         $xlanguage_id = $system->CleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
-            if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
+            if ($lang == $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $form = $helper->getForm($lang, 'language');
                 $form->display();
                 //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
@@ -66,7 +66,7 @@ switch ($op) {
     case 'del':
         $xlanguage_id = $system->CleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
-            if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
+            if ($lang == $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $delete = $system->CleanVars($_POST, 'ok', 0, 'int');
                 if ($delete == 1) {
                     if (!$xoops->security()->check()) {

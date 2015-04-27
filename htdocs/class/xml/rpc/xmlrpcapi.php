@@ -21,6 +21,9 @@
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
+/**
+ * Class XoopsXmlRpcApi
+ */
 class XoopsXmlRpcApi
 {
 
@@ -48,6 +51,11 @@ class XoopsXmlRpcApi
     protected $isadmin = false;
 
 
+    /**
+     * @param array $params
+     * @param XoopsXmlRpcResponse $response
+     * @param XoopsModule $module
+     */
     function XoopsXmlRpcApi(array &$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
     {
         $this->params = $params;
@@ -55,6 +63,10 @@ class XoopsXmlRpcApi
         $this->module = $module;
     }
 
+    /**
+     * @param XoopsUser $user
+     * @param bool $isadmin
+     */
     function _setUser(XoopsUser &$user, $isadmin = false)
     {
         if (is_object($user)) {
@@ -63,6 +75,11 @@ class XoopsXmlRpcApi
         }
     }
 
+    /**
+     * @param $username
+     * @param $password
+     * @return bool
+     */
     function _checkUser($username, $password)
     {
         $xoops = Xoops::getInstance();
@@ -81,6 +98,9 @@ class XoopsXmlRpcApi
         return true;
     }
 
+    /**
+     * @return bool
+     */
     function _checkAdmin()
     {
         if ($this->isadmin) {
@@ -96,6 +116,11 @@ class XoopsXmlRpcApi
         return true;
     }
 
+    /**
+     * @param null $post_id
+     * @param null $blog_id
+     * @return array
+     */
     function _getPostFields($post_id = null, $blog_id = null)
     {
         $ret = array();
@@ -130,6 +155,10 @@ class XoopsXmlRpcApi
         }
     }
 
+    /**
+     * @param $xoopstag
+     * @return mixed
+     */
     function _getXoopsTagMap($xoopstag)
     {
         if (isset($this->xoopsTagMap[$xoopstag])) {
@@ -138,6 +167,12 @@ class XoopsXmlRpcApi
         return $xoopstag;
     }
 
+    /**
+     * @param $text
+     * @param $tag
+     * @param bool $remove
+     * @return string
+     */
     function _getTagCdata(&$text, $tag, $remove = true)
     {
         $ret = '';
@@ -153,6 +188,10 @@ class XoopsXmlRpcApi
 
     // kind of dirty method to load XOOPS API and create a new object thereof
     // returns itself if the calling object is XOOPS API
+    /**
+     * @param $params
+     * @return $this|XoopsApi
+     */
     function _getXoopsApi(&$params)
     {
         if (strtolower(get_class($this)) != 'xoopsapi') {
@@ -163,5 +202,3 @@ class XoopsXmlRpcApi
         }
     }
 }
-
-?>

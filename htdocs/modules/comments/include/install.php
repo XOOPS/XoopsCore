@@ -13,6 +13,8 @@
  * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
+ * @param $module
+ * @return bool
  */
 
 function xoops_module_install_comments(&$module)
@@ -24,7 +26,7 @@ function xoops_module_install_comments(&$module)
     if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 20) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopscomments");
         $result = $xoopsDB->query($sql);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while ($myrow == $xoopsDB->fetchArray($result)) {
             $sql = "INSERT INTO `" . $xoopsDB->prefix("comments") . "` (`id`, `pid`, `rootid`, `modid`, `itemid`, `icon`, `created`, `modified`, `uid`, `ip`, `title`, `text`, `sig`, `status`, `exparams`, `dohtml`, `domsiley`, `doxcode`, `doimage`, `dobr`) VALUES (" . $myrow['com_id'] . ", " . $myrow['com_pid'] . ", " . $myrow['com_rootid'] . ", " . $myrow['com_modid'] . ", " . $myrow['com_itemid'] . ", " . $myrow['com_icon'] . ", " . $myrow['com_created'] . ", " . $myrow['com_modified'] . ", " . $myrow['com_uid'] . ", " . $myrow['com_ip'] . ", " . $myrow['com_title'] . ", " . $myrow['com_text'] . ", " . $myrow['com_sig'] . ", " . $myrow['com_status'] . ", " . $myrow['com_exparams'] . ", " . $myrow['dohtml'] . ", " . $myrow['dosmiley'] . ", " . $myrow['doxcode'] . ", " . $myrow['doimage'] . ", " . $myrow['dobr'] . ")";
             $xoopsDB->queryF($sql);
         }
@@ -44,6 +46,10 @@ function xoops_module_install_comments(&$module)
     return true;
 }
 
+/**
+ * @param $module
+ * @return bool
+ */
 function xoops_module_pre_uninstall_comments(&$module)
 {
     $xoops = Xoops::getInstance();

@@ -89,14 +89,13 @@ abstract class Form implements ContainerInterface
     /**
      * constructor
      *
-     * @param string  $title    title of the form
-     * @param string  $name     name attribute for the <form> tag
-     * @param string  $action   action attribute for the <form> tag
-     * @param string  $method   method attribute for the <form> tag
+     * @param string $title title of the form
+     * @param string $name name attribute for the <form> tag
+     * @param string $action action attribute for the <form> tag
+     * @param string $method method attribute for the <form> tag
      * @param boolean $addtoken whether to add a security token to the form
-     * @param string  $display  class for the form, i.e. horizontal, vertical, inline
+     * @param string $display class for the form, i.e. horizontal, vertical, inline
      *
-     * @return void
      */
     public function __construct($title, $name, $action, $method = 'post', $addtoken = false, $display = '')
     {

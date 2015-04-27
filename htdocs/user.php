@@ -22,7 +22,7 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.user.start');
@@ -91,7 +91,7 @@ if ($op == 'main') {
     if (!empty($clean_input['xoops_redirect'])) {
         $redirect = $clean_input['xoops_redirect'];
         $isExternal = false;
-        if ($pos = strpos($redirect, '://')) {
+        if ($pos == strpos($redirect, '://')) {
             $xoopsLocation = substr(XOOPS_URL, strpos(XOOPS_URL, '://') + 3);
             if (strcasecmp(substr($redirect, $pos + 3, strlen($xoopsLocation)), $xoopsLocation)) {
                 $isExternal = true;

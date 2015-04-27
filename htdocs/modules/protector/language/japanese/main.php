@@ -7,5 +7,3 @@ define('_MD_PROTECTOR_BANDWIDTHLIMITED','現在このサイトは混雑してい
 define('_MD_PROTECTOR_TURNJAVASCRIPTON','JavaScriptをONにしてください') ;
 define('_MD_PROTECTOR_DENYBYRBL','あなたのIPはRBLサーバに不正なアクセスを行うIPとして登録されているために、アクセスが拒否されました。お手数ですが、サイト管理者まで連絡してください。') ;
 define('_MD_PROTECTOR_FMT_REGISTER_MORATORIUM','SPAM防止のためにユーザ登録直後のURL付投稿はお断りしています。お手数ですが%s分後に再度投稿してください。') ;
-
-?>

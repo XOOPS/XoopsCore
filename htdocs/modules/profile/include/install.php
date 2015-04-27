@@ -86,14 +86,18 @@ function profile_install_initializeProfiles()
 // canedit: 0 - no; 1 - admin; 2 - admin & owner
 /**
  * @param string $name
+ * @param $title
  * @param string $description
  * @param integer $category
  * @param string $type
  * @param integer $valuetype
  * @param integer $weight
  * @param integer $canedit
+ * @param $options
  * @param integer $step_id
  * @param integer $length
+ * @param bool $visible
+ * @return bool
  */
 function profile_install_addField($name, $title, $description, $category, $type, $valuetype, $weight, $canedit, $options, $step_id, $length, $visible = true)
 {
@@ -160,6 +164,9 @@ function profile_install_addField($name, $title, $description, $category, $type,
 }
 
 /**
+ * @param $field_id
+ * @param $module_id
+ * @param $canedit
  * @param boolean $visible
  */
 function profile_install_setPermissions($field_id, $module_id, $canedit, $visible)
@@ -182,6 +189,7 @@ function profile_install_setPermissions($field_id, $module_id, $canedit, $visibl
 }
 
 /**
+ * @param $name
  * @param integer $weight
  */
 function profile_install_addCategory($name, $weight)
@@ -193,6 +201,7 @@ function profile_install_addCategory($name, $weight)
 }
 
 /**
+ * @param $name
  * @param string $desc
  * @param integer $order
  * @param integer $save

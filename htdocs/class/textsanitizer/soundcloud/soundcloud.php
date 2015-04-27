@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class MytsSoundcloud
+ */
 class MytsSoundcloud extends MyTextSanitizerExtension
 {
+    /**
+     * @param mixed $textarea_id
+     * @return array
+     */
     public function encode($textarea_id)
     {
         $config = parent::loadConfig(__DIR__);
@@ -32,12 +39,19 @@ EOH;
         return array($code, $javascript);
     }
 
+    /**
+     * @param $ts
+     */
     public function load(&$ts)
     {
         $ts->callbackPatterns[] = "/\[soundcloud\](http[s]?:\/\/[^\"'<>]*)(.*)\[\/soundcloud\]/sU";
         $ts->callbacks[] = __CLASS__ . "::myCallback";
     }
 
+    /**
+     * @param $match
+     * @return string
+     */
     public static function myCallback($match)
     {
         $url = $match[1] . $match[2];

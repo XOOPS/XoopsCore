@@ -75,6 +75,12 @@ class PagePage_content extends XoopsObject
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
     }
 
+    /**
+     * @param null $keys
+     * @param null $format
+     * @param null $maxDepth
+     * @return array
+     */
     public function getValues($keys = null, $format = null, $maxDepth = null)
     {
         $page = Page::getInstance();
@@ -89,6 +95,9 @@ class PagePage_content extends XoopsObject
         return $ret;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $ret = parent::getValues();
@@ -96,6 +105,9 @@ class PagePage_content extends XoopsObject
         return $ret;
     }
 
+    /**
+     * @return array
+     */
     public function getOptions()
     {
         $xoops = Xoops::getInstance();
@@ -153,6 +165,9 @@ class PagePage_content extends XoopsObject
     }
 }
 
+/**
+ * Class PagePage_contentHandler
+ */
 class PagePage_contentHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -163,6 +178,13 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'page_content', 'pagepage_content', 'content_id', 'content_title');
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return array
+     */
     public function getPagePublished($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $helper = Page::getInstance();
@@ -186,6 +208,13 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria);
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
+     */
     public function getCountPublished($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $helper = Page::getInstance();
@@ -208,6 +237,13 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getCount($criteria);
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return array
+     */
     public function getPage($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
@@ -218,6 +254,13 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria);
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
+     */
     public function countPage($start = 0, $limit = 0, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
@@ -228,6 +271,12 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getCount($criteria);
     }
 
+    /**
+     * @param null $status
+     * @param string $sort
+     * @param string $order
+     * @return array
+     */
     public function getPageTitle($status = null, $sort = 'content_weight ASC, content_title', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
@@ -239,6 +288,10 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria, array('content_id', 'content_title'), false);
     }
 
+    /**
+     * @param $content_id
+     * @return \Xoops\Core\Kernel\XoopsObject
+     */
     public function getClone($content_id)
     {
         $values = parent::get($content_id)->toArray();

@@ -77,7 +77,7 @@ function profile_getRegisterForm(XoopsUser &$user, $profile, $step = null)
         if ($field->getVar('step_id') == $step['step_id']) {
             $fieldinfo['element'] = $field->getEditElement($user, $profile);
             //assign and check (=)
-            if ($fieldinfo['required'] = $field->getVar('field_required')) {
+            if ($fieldinfo['required'] == $field->getVar('field_required')) {
                 $_SESSION['profile_required'][$field->getVar('field_name')] = $field->getVar('field_title');
             }
 

@@ -46,10 +46,10 @@ $start = 0;
 $status_array[0] = _AM_COMMENTS_FORM_ALL_STATUS;
 
 $comments = array();
-$status = (!isset($_REQUEST['status']) || !in_array(intval($_REQUEST['status']), array_keys($status_array))) ? 0
-    : intval($_REQUEST['status']);
+$status = (!isset($_REQUEST['status']) || !in_array((int) ($_REQUEST['status']), array_keys($status_array))) ? 0
+    : (int) ($_REQUEST['status']);
 
-$module = !isset($_REQUEST['module']) ? 0 : intval($_REQUEST['module']);
+$module = !isset($_REQUEST['module']) ? 0 : (int) ($_REQUEST['module']);
 
 $modules_array = array();
 $module_handler = $xoops->getHandlerModule();

@@ -25,6 +25,9 @@ class protector_postcommon_post_htmlpurify4guest extends ProtectorFilterAbstract
 
     var $method;
 
+    /**
+     * @return bool
+     */
     function execute()
     {
         $xoops = Xoops::getInstance();
@@ -46,6 +49,10 @@ class protector_postcommon_post_htmlpurify4guest extends ProtectorFilterAbstract
         return true;
     }
 
+    /**
+     * @param $data
+     * @return array|mixed
+     */
     function purify_recursive($data)
     {
         if (is_array($data)) {

@@ -126,5 +126,3 @@ define('_MI_PROTECTOR_SPAMURI4G','anti-SPAM: Anzahl URLs für Gäste');
 define('_MI_PROTECTOR_SPAMURI4GDSC','Wenn diese Anzahl von URLs in Beiträgen von Gästen gefunden wird, ist der Beitrag als Spam eingestuft. 0 bedeutet dieses Feature ist deaktiviert.');
 
 }
-
-?>

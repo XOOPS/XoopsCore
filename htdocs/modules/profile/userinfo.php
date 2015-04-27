@@ -21,11 +21,11 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
-$uid = intval($_GET['uid']);
+$uid = (int) ($_GET['uid']);
 if ($uid <= 0) {
     if ($xoops->isUser()) {
         $uid = $xoops->user->getVar('uid');
@@ -241,4 +241,4 @@ $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
-include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . '/footer.php';

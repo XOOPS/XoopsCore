@@ -21,8 +21,16 @@
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
+/**
+ * Class MovableTypeApi
+ */
 class MovableTypeApi extends XoopsXmlRpcApi
 {
+    /**
+     * @param $params
+     * @param $response
+     * @param $module
+     */
     function MovableTypeApi(&$params, &$response, &$module)
     {
         $this->XoopsXmlRpcApi($params, $response, $module);
@@ -67,4 +75,3 @@ class MovableTypeApi extends XoopsXmlRpcApi
         $this->response->add(new XoopsXmlRpcFault(107));
     }
 }
-?>

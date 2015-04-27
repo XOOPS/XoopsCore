@@ -17,6 +17,8 @@
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
+ * @param $options
+ * @return array
  */
 
 function b_system_info_show($options)
@@ -46,7 +48,7 @@ function b_system_info_show($options)
         if ($result->errorCode() < 2000) { // return 00000 is ok, 01nnn is warning
             $prev_caption = "";
             $i = 0;
-            while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
+            while ($userinfo == $result->fetch(PDO::FETCH_ASSOC)) {
                 $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
                 $avatar = $response->getValue();
                 $avatar = empty($avatar) ? XOOPS_UPLOAD_URL . '/blank.gif' : $avatar;
@@ -87,6 +89,10 @@ function b_system_info_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function b_system_info_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();

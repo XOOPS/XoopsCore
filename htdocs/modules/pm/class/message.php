@@ -52,6 +52,9 @@ class PmMessage extends XoopsObject
 
 }
 
+/**
+ * Class PmMessageHandler
+ */
 class PmMessageHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -71,7 +74,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
      */
     public function setRead(PmMessage $pm, $val = 1)
     {
-        return $this->updateAll('read_msg', intval($val), new Criteria('msg_id', $pm->getVar('msg_id')), true);
+        return $this->updateAll('read_msg', (int) ($val), new Criteria('msg_id', $pm->getVar('msg_id')), true);
     }
 
     /**
@@ -84,7 +87,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     public function setFromdelete(PmMessage $pm, $val = 1)
     {
         if ($pm->getVar('to_delete') == 0) {
-            return $this->updateAll('from_delete', intval($val), new Criteria('msg_id', $pm->getVar('msg_id')));
+            return $this->updateAll('from_delete', (int) ($val), new Criteria('msg_id', $pm->getVar('msg_id')));
         } else {
             return parent::delete($pm);
         }
@@ -100,7 +103,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     public function setTodelete(PmMessage $pm, $val = 1)
     {
         if ($pm->getVar('from_delete') == 0 && $pm->getVar('from_userid') == 0) {
-            return $this->updateAll('to_delete', intval($val), new Criteria('msg_id', $pm->getVar('msg_id')));
+            return $this->updateAll('to_delete', (int) ($val), new Criteria('msg_id', $pm->getVar('msg_id')));
         } else {
             return parent::delete($pm);
         }
@@ -115,7 +118,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
      */
     public function setFromsave(PmMessage $pm, $val = 1)
     {
-        return $this->updateAll('from_save', intval($val), new Criteria('msg_id', $pm->getVar('msg_id')));
+        return $this->updateAll('from_save', (int) ($val), new Criteria('msg_id', $pm->getVar('msg_id')));
     }
 
     /**
@@ -127,7 +130,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
      */
     public function setTosave(PmMessage $pm, $val = 1)
     {
-        return $this->updateAll('to_save', intval($val), new Criteria('msg_id', $pm->getVar('msg_id')));
+        return $this->updateAll('to_save', (int) ($val), new Criteria('msg_id', $pm->getVar('msg_id')));
     }
 
     /**

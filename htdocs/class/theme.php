@@ -116,6 +116,10 @@ class XoopsThemeFactory
  */
 class XoopsAdminThemeFactory extends XoopsThemeFactory
 {
+    /**
+     * @param array $options
+     * @return XoopsTheme
+     */
     public function createInstance($options = array())
     {
         $options["plugins"] = array();
@@ -134,6 +138,9 @@ class XoopsAdminThemeFactory extends XoopsThemeFactory
     }
 }
 
+/**
+ * Class XoopsTheme
+ */
 class XoopsTheme
 {
     /**
@@ -1023,6 +1030,9 @@ class XoopsTheme
     }
 }
 
+/**
+ * Class XoopsThemePlugin
+ */
 abstract class XoopsThemePlugin
 {
     /**

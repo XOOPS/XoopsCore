@@ -40,11 +40,10 @@ class Psr0ClassLoader
     /**
      * Creates a new SplClassLoader that loads classes of the
      * specified namespace.
-     * 
-     * @param string $ns          The namespace to use.
+     *
+     * @param string $ns The namespace to use.
      * @param string $includePath Path to the namespaces top directory
-     * 
-     * @return void
+     *
      */
     public function __construct($ns = null, $includePath = null)
     {
@@ -54,12 +53,11 @@ class Psr0ClassLoader
 
     /**
      * addLoader sets all basic options and registers the autoloader
-     * 
+     *
      * @param type $namespace namespace
-     * @param type $path      path to the namespace's top directory
-     * @param type $separator namespace separator
-     * @param type $extension file extension
-     * 
+     * @param type $path path to the namespace's top directory
+     * @param string|type $separator namespace separator
+     * @param string|type $extension file extension
      * @return SplClassLoader
      */
     public static function addLoader($namespace, $path, $separator = '\\', $extension = '.php')

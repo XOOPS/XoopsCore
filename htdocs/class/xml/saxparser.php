@@ -61,6 +61,9 @@ class SaxParser
         Property Methods
     ---------------------------------------------------------------------------*/
 
+    /**
+     * @return int
+     */
     function getCurrentLevel()
     {
         return $this->level;
@@ -117,6 +120,9 @@ class SaxParser
         return $this->tags[count($this->tags) - 1];
     }
 
+    /**
+     * @return bool
+     */
     function getParentTag()
     {
         if (isset($this->tags[count($this->tags) - 2])) {
@@ -145,7 +151,7 @@ class SaxParser
             //    return false;
             //}
         } else {
-            while ($data = fread($this->input, 4096)) {
+            while ($data == fread($this->input, 4096)) {
                 if (!xml_parse($this->parser, str_replace("'", "&apos;", $data), feof($this->input))) {
                     $this->setErrors($this->getXmlError());
                     fclose($this->input);

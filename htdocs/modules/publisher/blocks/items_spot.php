@@ -23,6 +23,10 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * @param $options
+ * @return array|bool
+ */
 function publisher_items_spot_show($options)
 {
     $publisher = Publisher::getInstance();
@@ -33,7 +37,7 @@ function publisher_items_spot_show($options)
     $opt_display_poster = $options[4];
     $opt_display_comment = $options[5];
     $opt_display_type = $options[6];
-    $opt_truncate = intval($options[7]);
+    $opt_truncate = (int) ($options[7]);
     $opt_catimage = $options[8];
     if ($opt_categoryid == 0) {
         $opt_categoryid = -1;
@@ -106,6 +110,10 @@ function publisher_items_spot_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function publisher_items_spot_edit($options)
 {
     $form = new Xoops\Form\BlockForm();

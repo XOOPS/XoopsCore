@@ -19,16 +19,27 @@
 
 class NotificationsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
+    /**
+     * @param int $uid
+     * @return array
+     */
     public function userPosts($uid)
     {
         return array();
     }
 
+    /**
+     * @return int
+     */
     public function waiting()
     {
         return 0;
     }
 
+    /**
+     * @param int $limit
+     * @return array
+     */
     public function backend($limit)
     {
         return array();

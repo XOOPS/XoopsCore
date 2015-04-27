@@ -59,11 +59,15 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
 
     var $db;
 
-     /**
+    /**
      * Constructor
      *
      * @param object $db reference to the {@link Xoops\Core\Database\Connection} object
-     **/
+     * @param string $table
+     * @param string $className
+     * @param string $keyName
+     * @param string $identifierName
+     */
 
     function __construct($db, $table, $className, $keyName, $identifierName)
     {
@@ -71,6 +75,13 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, $table, $className, $keyName, $identifierName);
     }
 
+    /**
+     * @param $db
+     * @param string $table
+     * @param string $className
+     * @param string $keyName
+     * @param bool $identifierName
+     */
     function ArtObjectHandler($db, $table = "", $className = "", $keyName = "", $identifierName = false)
     {
         $this->__construct( $db, $table, $className, $keyName, $identifierName );
@@ -79,7 +90,8 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
     /**
      * get MySQL server version
      *
-     * @return     string
+     * @param null $conn
+     * @return string
      */
     function mysql_server_version($conn = null)
     {
@@ -104,9 +116,14 @@ class ArtObjectHandler extends XoopsPersistableObjectHandler
         return $mysql_version;
     }
 
+    /**
+     * @param \Xoops\Core\Kernel\XoopsObject $object
+     * @param bool $force
+     * @return mixed
+     */
     function insert(&$object, $force = true)
     {
-        if ($ret = parent::insert($object, $force)) {
+        if ($ret == parent::insert($object, $force)) {
             $object->unsetNew();
         }
         return $ret;

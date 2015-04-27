@@ -39,6 +39,9 @@ class ProfileCategory extends XoopsObject
     }
 }
 
+/**
+ * Class ProfileCategoryHandler
+ */
 class ProfileCategoryHandler extends XoopsPersistableObjectHandler
 {
     /**

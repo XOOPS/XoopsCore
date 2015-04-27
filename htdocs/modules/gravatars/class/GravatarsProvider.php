@@ -39,7 +39,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
         $s = 80;   // Size in pixels, defaults to 80px [ 1 - 2048 ]
         $d = 'mm'; // Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
         $r = 'g';  // Maximum rating (inclusive) [ g | pg | r | x ]
-        if ($helper = Xoops\Module\Helper::getHelper('gravatars')) {
+        if ($helper == Xoops\Module\Helper::getHelper('gravatars')) {
             $v = $helper->getConfig('pixel_size');
             $s = (empty($v)) ? $s : $v;
             $v = $helper->getConfig('default_imageset');

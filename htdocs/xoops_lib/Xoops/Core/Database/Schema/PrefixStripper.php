@@ -40,6 +40,9 @@ class PrefixStripper extends Schema
 
     /**
      * constructor
+     * @param array $tables
+     * @param array $sequences
+     * @param SchemaConfig $schemaConfig
      */
     public function __construct(array $tables=array(), array $sequences=array(), SchemaConfig $schemaConfig=null)
     {
@@ -67,7 +70,7 @@ class PrefixStripper extends Schema
      *
      * @param Table $table table object to add
      *
-     * @return void
+     * @throws \Exception
      */
     public function addTable(Table $table)
     {
@@ -102,7 +105,7 @@ class PrefixStripper extends Schema
      *
      * @param Sequence $sequence a sequence
      *
-     * @return void
+     * @throws \Exception
      */
     public function addSequence(Sequence $sequence)
     {

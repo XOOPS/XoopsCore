@@ -37,12 +37,18 @@ class CommentsPreload extends PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreFooterStart($args)
     {
         $helper = Comments::getInstance();
         $helper->renderView();
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUpdateConfigs($args)
     {
         /* @var $module XoopsModule */
@@ -50,7 +56,7 @@ class CommentsPreload extends PreloadItem
         $configs =& $args[1];
         $helper = Comments::getInstance(); //init helper to load defines na language
 
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
             $commentsConfigs = $helper->getPluginableConfigs();
             foreach ($commentsConfigs as $commentsConfig) {
                 array_push($configs, $commentsConfig);
@@ -58,29 +64,38 @@ class CommentsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleInstall($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
             Comments::getInstance()->insertModuleRelations($module);
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUninstall($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             Comments::getInstance()->deleteModuleRelations($module);
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnSystemPreferencesForm($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             Comments::getInstance()->loadLanguage('main');
         }
     }

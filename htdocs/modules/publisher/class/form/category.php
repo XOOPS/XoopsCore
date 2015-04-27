@@ -24,6 +24,9 @@ use Xoops\Core\Kernel\Criteria;
 
 include_once dirname(dirname(__DIR__)) . '/include/common.php';
 
+/**
+ * Class PublisherCategoryForm
+ */
 class PublisherCategoryForm extends Xoops\Form\ThemeForm
 {
     /**

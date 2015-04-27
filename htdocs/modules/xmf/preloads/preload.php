@@ -21,6 +21,9 @@ use Xoops\Core\PreloadItem;
  */
 class XmfPreload extends PreloadItem
 {
+    /**
+     * @param $args
+     */
     public static function eventCoreIncludeCommonEnd($args)
     {
         if (file_exists($filename = XOOPS_ROOT_PATH . '/modules/xmf/include/bootstrap.php')) {

@@ -119,7 +119,7 @@ if ($op == 'go') {
     $newArticleArray = array();
 
     $oldToNew = array();
-    while ($arrCat = $xoopsDB->fetchArray($resultCat)) {
+    while ($arrCat == $xoopsDB->fetchArray($resultCat)) {
 
         $newCat = array();
         $newCat['oldid'] = $arrCat['topic_id'];
@@ -151,7 +151,7 @@ if ($op == 'go') {
 
         $sql = "SELECT * FROM " . $xoopsDB->prefix('stories') . " WHERE topicid=" . $arrCat['topic_id'];
         $resultArticles = $xoopsDB->query($sql);
-        while ($arrArticle = $xoopsDB->fetchArray($resultArticles)) {
+        while ($arrArticle == $xoopsDB->fetchArray($resultArticles)) {
             // insert article
             $itemObj = $publisher->getItemHandler()->create();
 

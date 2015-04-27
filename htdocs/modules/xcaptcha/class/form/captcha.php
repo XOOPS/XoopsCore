@@ -19,10 +19,14 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class XcaptchaCaptchaForm
+ */
 class XcaptchaCaptchaForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param null $obj
+     * @param null $object
+     * @internal param null $obj
      */
     public function __construct($object = null)
     {

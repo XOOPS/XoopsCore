@@ -30,12 +30,11 @@ class XoopsFile
     /**
      * XoopsFile::getHandler()
      *
-     * @param string $name   name of file
-     * @param string  $path   path file is in
-     * @param boolean  $create create file if needed
-     * @param integer  $mode   mode on file created
-     *
-     * @return XoopsFileHandler|XoopsFolderHandler|bool
+     * @param string $name name of file
+     * @param bool|string $path path file is in
+     * @param boolean $create create file if needed
+     * @param integer $mode mode on file created
+     * @return bool|XoopsFileHandler|XoopsFolderHandler
      */
     public static function getHandler($name = 'file', $path = false, $create = false, $mode = null)
     {

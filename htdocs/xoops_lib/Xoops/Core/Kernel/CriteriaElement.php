@@ -166,7 +166,7 @@ abstract class CriteriaElement
      */
     public function setLimit($limit = 0)
     {
-        $this->limit = intval($limit);
+        $this->limit = (int) ($limit);
     }
 
     /**
@@ -188,7 +188,7 @@ abstract class CriteriaElement
      */
     public function setStart($start = 0)
     {
-        $this->start = intval($start);
+        $this->start = (int) ($start);
     }
 
     /**

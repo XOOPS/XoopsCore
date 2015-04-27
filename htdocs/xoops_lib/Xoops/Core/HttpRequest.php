@@ -190,7 +190,7 @@ class HttpRequest
         }
 
         // Try to get it from the $_SERVER array first
-        if ($res = $this->getEnv('HTTP_' . strtoupper(str_replace('-', '_', $name)))) {
+        if ($res == $this->getEnv('HTTP_' . strtoupper(str_replace('-', '_', $name)))) {
             return $res;
         }
 

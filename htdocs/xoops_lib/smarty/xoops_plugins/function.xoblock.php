@@ -49,9 +49,9 @@ function smarty_function_xoblock($params, &$smarty)
     $display_none = (isset($params['display']) && $params['display'] == 'none') ? true : false;
     $options = (isset($params['options'])) ? $params['options'] : false;
     $groups = (isset($params['groups'])) ? explode('|', $params['groups']) : false;
-    $cache = (isset($params['cache'])) ? intval($params['cache']) : false;
+    $cache = (isset($params['cache'])) ? (int) ($params['cache']) : false;
 
-    $block_id = intval($params['id']);
+    $block_id = (int) ($params['id']);
 
     $block_handler = $xoops->getHandlerBlock();
     static $block_objs;

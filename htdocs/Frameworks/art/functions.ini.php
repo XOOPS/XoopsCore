@@ -246,4 +246,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     }
 
 endif;
-?>

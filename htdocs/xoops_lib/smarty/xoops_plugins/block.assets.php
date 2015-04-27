@@ -36,6 +36,13 @@
  * ------------------------------------------------------------
  */
 
+/**
+ * @param $params
+ * @param $content
+ * @param $template
+ * @param $repeat
+ * @return mixed
+ */
 function smarty_block_assets($params, $content, $template, &$repeat)
 {
     // Opening tag (first call only)

@@ -22,7 +22,7 @@
  */
 
 if (!defined('XOOPS_MAINFILE_INCLUDED')) {
-    include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include_once dirname(dirname(__DIR__)) . '/mainfile.php';
 } else {
     chdir(XOOPS_ROOT_PATH . '/modules/pm/');
 }
@@ -33,8 +33,8 @@ $reply = !empty($_GET['reply']) ? 1 : 0;
 $send = !empty($_GET['send']) ? 1 : 0;
 $send2 = !empty($_GET['send2']) ? 1 : 0;
 $sendmod = !empty($_POST['sendmod']) ? 1 : 0; // send from other modules with post data
-$to_userid = isset($_GET['to_userid']) ? intval($_GET['to_userid']) : 0;
-$msg_id = isset($_GET['msg_id']) ? intval($_GET['msg_id']) : 0;
+$to_userid = isset($_GET['to_userid']) ? (int) ($_GET['to_userid']) : 0;
+$msg_id = isset($_GET['msg_id']) ? (int) ($_GET['msg_id']) : 0;
 
 if (empty($_GET['refresh']) && isset($_POST['op']) && $_POST['op'] != "submit") {
     $jump = "pmlite.php?refresh=" . time();
@@ -63,7 +63,7 @@ $xoops->disableErrorReporting();
 $myts = MyTextSanitizer::getInstance();
 if (isset($_POST['op']) && $_POST['op'] == "submit") {
     $member_handler = $xoops->getHandlerMember();
-    $count = $member_handler->getUserCount(new Criteria('uid', intval($_POST['to_userid'])));
+    $count = $member_handler->getUserCount(new Criteria('uid', (int) ($_POST['to_userid'])));
     $tpl = new XoopsTpl();
     if ($count != 1) {
         $error_message = _PM_USERNOEXIST;

@@ -23,6 +23,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsMp3
+ */
 class MytsMp3 extends MyTextSanitizerExtension
 {
     /**
@@ -55,10 +58,18 @@ EOF;
         );
     }
 
+    /**
+     * @param $match
+     * @return string
+     */
     static function myCallback($match) {
         return  self::decode($match[1]);
     }
 
+    /**
+     * @param MyTextSanitizer $ts
+     * @return bool
+     */
     public function load(MyTextSanitizer &$ts)
     {
 //        $ts->patterns[] = "/\[mp3\](.*?)\[\/mp3\]/es";
@@ -73,6 +84,8 @@ EOF;
 
     /**
      * @param string $url
+     * @param string $width
+     * @param string $height
      * @return string
      */
     public static function decode ($url, $width, $height)

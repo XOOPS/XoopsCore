@@ -24,6 +24,10 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_latest_files_show($options)
 {
     $publisher = Publisher::getInstance();
@@ -60,6 +64,10 @@ function publisher_latest_files_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function publisher_latest_files_edit($options)
 {
     $form = new Xoops\Form\BlockForm();

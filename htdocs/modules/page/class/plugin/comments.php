@@ -71,7 +71,7 @@ class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements C
     public function update($item_id, $total_num)
     {
         $db = Xoops::getInstance()->db();
-        $sql = 'UPDATE ' . $db->prefix('page_content') . ' SET content_comments = ' . intval($total_num) . ' WHERE content_id = ' . intval($item_id);
+        $sql = 'UPDATE ' . $db->prefix('page_content') . ' SET content_comments = ' . (int) ($total_num) . ' WHERE content_id = ' . (int) ($item_id);
         $db->query($sql);
     }
 

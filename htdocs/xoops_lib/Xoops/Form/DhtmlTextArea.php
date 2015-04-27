@@ -119,7 +119,7 @@ class DhtmlTextArea extends TextArea
 
         $xoops = \Xoops::getInstance();
         if (!isset($options['editor'])) {
-            if ($editor = $xoops->getConfig('editor')) {
+            if ($editor == $xoops->getConfig('editor')) {
                 $options['editor'] = $editor;
             }
         }
@@ -192,7 +192,7 @@ class DhtmlTextArea extends TextArea
             } else {
                 $xoops->theme()->addScript('/class/textsanitizer/image/image.js', array('type' => 'text/javascript'));
             }
-            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . intval($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
+            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int) ($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
             $ret .= "<br />" . "<div id='" . $this->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $this->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
         }
         // Load javascript

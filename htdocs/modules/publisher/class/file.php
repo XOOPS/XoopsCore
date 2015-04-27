@@ -33,6 +33,9 @@ define("_PUBLISHER_STATUS_FILE_NOTSET", -1);
 define("_PUBLISHER_STATUS_FILE_ACTIVE", 1);
 define("_PUBLISHER_STATUS_FILE_INACTIVE", 2);
 
+/**
+ * Class PublisherFile
+ */
 class PublisherFile extends XoopsObject
 {
     /**
@@ -251,7 +254,7 @@ class PublisherFile extends XoopsObject
 class PublisherFileHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|object $db
+     * @param null|object|Connection $db
      */
     public function __construct(Connection $db)
     {

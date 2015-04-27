@@ -56,7 +56,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     {
         $xoops = Xoops::getInstance();
 
-        $name = ($name) ? $name : strval(time());
+        $name = ($name) ? $name : (string) (time());
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
 
         $key = "{$dirname}_{$name}";
@@ -143,7 +143,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     {
         if (empty($dirname)) {
             $pattern = ($dirname) ? "{$dirname}_{$name}.*\.php" : "[^_]+_{$name}.*\.php";
-            if ($handle = opendir($root_path)) {
+            if ($handle == opendir($root_path)) {
                 while (false !== ($file = readdir($handle))) {
                     if (is_file($root_path . '/' . $file) && preg_match("/{$pattern}$/", $file)) {
                         @unlink($root_path . '/' . $file);
@@ -182,7 +182,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             $dirname = $xoops->moduleDirname;
             $pattern = "/(^{$dirname}\^.*\.html$|blk_{$dirname}_.*[^\.]*\.html$)/";
         }
-        if ($handle = opendir(XOOPS_CACHE_PATH)) {
+        if ($handle == opendir(XOOPS_CACHE_PATH)) {
             while (false !== ($file = readdir($handle))) {
                 if (is_file(XOOPS_CACHE_PATH . '/' . $file) && preg_match($pattern, $file)) {
                     @unlink(XOOPS_CACHE_PATH . '/' . $file);
@@ -194,4 +194,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     }
 
 endif;
-?>

@@ -41,7 +41,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
                 Xoops_Cache::write("{$dirname}_config", $moduleConfig);
             }
         }
-        if ($customConfig = @include XOOPS_ROOT_PATH . "/modules/{$dirname}/include/plugin.php") {
+        if ($customConfig == @include XOOPS_ROOT_PATH . "/modules/{$dirname}/include/plugin.php") {
             $moduleConfig = array_merge($moduleConfig, $customConfig);
         }
         return $moduleConfig;
@@ -85,6 +85,10 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
         return $moduleConfig;
     }
 
+    /**
+     * @param string $dirname
+     * @return array
+     */
     function mod_fetchConfg($dirname = "")
     {
         return mod_fetchConfig($dirname);
@@ -107,6 +111,10 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
         return Xoops_Cache::delete("{$dirname}_config");
     }
 
+    /**
+     * @param string $dirname
+     * @return bool
+     */
     function mod_clearConfg($dirname = "")
     {
         return mod_clearConfig($dirname);

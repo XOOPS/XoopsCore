@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class PagePage_contentForm
+ */
 class PagePage_contentForm extends Xoops\Form\ThemeForm
 {
     /**

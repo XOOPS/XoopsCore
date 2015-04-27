@@ -70,7 +70,7 @@ class Read extends XoopsModelAbstract
             return $ret;
         }
         if ($asObject) {
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $object = $this->handler->create(false);
                 $object->assignVars($myrow);
                 if ($id_as_key) {
@@ -82,7 +82,7 @@ class Read extends XoopsModelAbstract
             }
         } else {
             $object = $this->handler->create(false);
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $object->assignVars($myrow);
                 if ($id_as_key) {
                     $ret[$myrow[$this->handler->keyName]] = $object->getValues();
@@ -144,7 +144,7 @@ class Read extends XoopsModelAbstract
         }
 
         $myts = \MyTextSanitizer::getInstance();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             // identifiers should be textboxes, so sanitize them like that
             $ret[$myrow[$this->handler->keyName]] = empty($this->handler->identifierName) ? 1
                 : $myts->htmlSpecialChars($myrow[$this->handler->identifierName]);
@@ -179,7 +179,7 @@ class Read extends XoopsModelAbstract
             return $ret;
         }
 
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow[$this->handler->keyName];
         }
         return $ret;

@@ -42,6 +42,9 @@ class ImagesImage extends XoopsObject
     }
 }
 
+/**
+ * Class ImagesImage_Body
+ */
 class ImagesImage_Body extends XoopsObject
 {
     /**
@@ -62,6 +65,9 @@ class ImagesImage_Body extends XoopsObject
     }
 }
 
+/**
+ * Class ImagesImageHandler
+ */
 class ImagesImageHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -74,6 +80,11 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'image', 'ImagesImage', 'image_id', 'image_name');
     }
 
+    /**
+     * @param $image_id
+     * @param bool $asobject
+     * @return array
+     */
     public function getById($image_id, $asobject = true)
     {
         $this->table_link = $this->db2->prefix('imagebody');
@@ -86,6 +97,13 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
         return parent::getByLink($criteria, null, $asobject, 'image_id', 'image_id');
     }
 
+    /**
+     * @param $imgcat_id
+     * @param int $start
+     * @param int $limit
+     * @param bool $asobject
+     * @return array
+     */
     public function getByCategory($imgcat_id, $start = 0, $limit = 0, $asobject = true)
     {
         $criteria = new CriteriaCompo();
@@ -98,6 +116,10 @@ class ImagesImageHandler extends XoopsPersistableObjectHandler
         return parent::getObjects($criteria, null, $asobject);
     }
 
+    /**
+     * @param $imgcat_id
+     * @return int
+     */
     public function countByCategory($imgcat_id)
     {
         $criteria = new CriteriaCompo();

@@ -29,6 +29,9 @@ if( XoopsLoad::fileExists( XOOPS_ROOT_PATH.'/class/database/drivers/'.XOOPS_DB_T
 
 require_once XOOPS_ROOT_PATH.'/class/database/database.php' ;
 
+/**
+ * Class ProtectorMySQLDatabase
+ */
 class ProtectorMySQLDatabase extends XoopsMySQLDatabaseProxy
 {
 
@@ -53,7 +56,10 @@ function ProtectorMySQLDatabase()
 }
 
 
-function injectionFound( $sql )
+    /**
+     * @param $sql
+     */
+    function injectionFound( $sql )
 {
     $protector = Protector::getInstance() ;
 
@@ -64,7 +70,11 @@ function injectionFound( $sql )
 }
 
 
-function separateStringsInSQL( $sql )
+    /**
+     * @param $sql
+     * @return array
+     */
+    function separateStringsInSQL( $sql )
 {
     $sql = trim( $sql ) ;
     $sql_len = strlen( $sql ) ;
@@ -171,7 +181,13 @@ function checkSql( $sql )
 }
 
 
-function query( $sql , $limit = 0 , $start = 0 )
+    /**
+     * @param string $sql
+     * @param int $limit
+     * @param int $start
+     * @return bool|resource
+     */
+    function query( $sql , $limit = 0 , $start = 0 )
 {
     $sql4check = substr( $sql , 7 ) ;
     foreach( $this->doubtful_needles as $needle ) {
@@ -190,5 +206,3 @@ function query( $sql , $limit = 0 , $start = 0 )
 }
 
 }
-
-?>

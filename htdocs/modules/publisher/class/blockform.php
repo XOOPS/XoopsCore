@@ -30,6 +30,9 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  */
 class PublisherBlockForm extends Xoops\Form\Form
 {
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct('', '', '');

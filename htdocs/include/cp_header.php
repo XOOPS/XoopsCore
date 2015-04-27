@@ -22,7 +22,7 @@
  * xoops_url/modules/module_directory_name/admin_directory_name/
  */
 
-include_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 include_once $xoops->path('include/cp_functions.php');

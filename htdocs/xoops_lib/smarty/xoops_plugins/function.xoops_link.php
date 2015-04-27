@@ -48,6 +48,10 @@
  * -------------------------------------------------------------
  */
 
+/**
+ * @param $params
+ * @param $smarty
+ */
 function smarty_function_xoops_link($params, &$smarty)
 {
     $xoops = Xoops::getInstance();

@@ -90,7 +90,7 @@ abstract class PublisherBaseObjectHandler extends XoopsObjectHandler
      */
     public function &get($id)
     {
-        $id = intval($id);
+        $id = (int) ($id);
         if ($id > 0) {
             $qb = $this->_selectQuery(new Criteria($this->_idfield, $id));
             $result = $qb->execute();
@@ -407,7 +407,7 @@ class PublisherMimetypeHandler extends PublisherBaseObjectHandler
      */
     public function &get($id)
     {
-        $id = intval($id);
+        $id = (int) ($id);
         if ($id > 0) {
             $qb = $this->_selectQuery(new Criteria('mime_id', $id));
             if (!$result = $qb->execute()) {

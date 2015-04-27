@@ -21,6 +21,9 @@ use Xoops\Core\Request;
  */
 class ImagesPreload extends PreloadItem
 {
+    /**
+     * @param $args
+     */
     public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(__DIR__);
@@ -29,6 +32,9 @@ class ImagesPreload extends PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
     {
         /* @var $dhtml Xoops\Form\DhtmlTextArea */
@@ -36,6 +42,9 @@ class ImagesPreload extends PreloadItem
         $args[0] .= "<img src='" . XOOPS_URL . "/images/image.gif' alt='" . XoopsLocale::INSIDE_IMAGE . "' title='" . XoopsLocale::INSIDE_IMAGE . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/images/imagemanager.php?target={$dhtml->getName()}\",\"imgmanager\",400,430);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreImage($args)
     {
         $uri = '';
@@ -45,6 +54,9 @@ class ImagesPreload extends PreloadItem
         Xoops::getInstance()->redirect("modules/images/image.php?{$uri}", 0);
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreImagemanager($args)
     {
         $uri = '';

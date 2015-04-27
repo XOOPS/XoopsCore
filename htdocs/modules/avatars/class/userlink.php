@@ -30,6 +30,9 @@ class AvatarsUserlink extends XoopsObject
     }
 }
 
+/**
+ * Class AvatarsUserlinkHandler
+ */
 class AvatarsUserlinkHandler extends XoopsPersistableObjectHandler
 {
     /**

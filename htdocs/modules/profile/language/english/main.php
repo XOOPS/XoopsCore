@@ -54,4 +54,3 @@ define("_PROFILE_MA_REGISTER","Registration form");
 
 define("_PROFILE_MA_ACTUS", "Active Users: %s");
 define("_PROFILE_MA_FOUNDUSER", "%s users found");
-?>

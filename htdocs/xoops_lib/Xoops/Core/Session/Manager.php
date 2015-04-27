@@ -82,7 +82,7 @@ class Manager implements AttributeInterface
 
         $name = $this->xoops->getConfig('session_name');
         $name = (empty($name)) ? 'xoops_session' : $name;
-        $expire = intval($this->xoops->getConfig('session_expire'));
+        $expire = (int) ($this->xoops->getConfig('session_expire'));
         $expire = ($expire>0) ? $expire : 300;
 
         $path = \XoopsBaseConfig::get('cookie-path');

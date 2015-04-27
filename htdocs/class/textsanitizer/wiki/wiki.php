@@ -23,6 +23,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsWiki
+ */
 class MytsWiki extends MyTextSanitizerExtension
 {
     /**
@@ -56,6 +59,10 @@ EOH;
         );
     }
 
+    /**
+     * @param $match
+     * @return string
+     */
     static function myCallback($match) {
         return  self::decode( $match[1] );
     }
@@ -74,6 +81,9 @@ EOH;
     }
 
     /**
+     * @param string $url
+     * @param string $width
+     * @param string $height
      * @return string
      */
     public static function decode ($url, $width, $height)

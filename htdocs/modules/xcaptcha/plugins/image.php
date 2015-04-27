@@ -18,12 +18,18 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class XcaptchaImage
+ */
 class XcaptchaImage extends Xcaptcha
 {
     public $config = array();
 
     public $plugin;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->xcaptcha_handler = Xcaptcha::getInstance();
@@ -31,6 +37,9 @@ class XcaptchaImage extends Xcaptcha
         $this->plugin = 'image';
     }
 
+    /**
+     * @return array
+     */
     public function VerifyData()
     {
         $system = System::getInstance();

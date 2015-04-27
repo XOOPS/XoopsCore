@@ -37,6 +37,9 @@ class SmiliesSmiley extends XoopsObject
     }
 }
 
+/**
+ * Class SmiliesSmileyHandler
+ */
 class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -49,6 +52,12 @@ class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'smilies', 'SmiliesSmiley', 'smiley_id', 'smiley_emotion');
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param bool $asobject
+     * @return array
+     */
     public function getSmilies($start=0, $limit=0, $asobject=true)
     {
         $criteria = new CriteriaCompo();
@@ -59,6 +68,10 @@ class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
         return parent::getall($criteria, false, $asobject);
     }
 
+    /**
+     * @param bool $asobject
+     * @return array
+     */
     public function getActiveSmilies($asobject=true)
     {
         $criteria = new CriteriaCompo(new Criteria('smiley_display', 1));

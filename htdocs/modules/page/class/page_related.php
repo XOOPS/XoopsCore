@@ -35,6 +35,12 @@ class PagePage_related extends XoopsObject
         $this->initVar('related_navigation', XOBJ_DTYPE_INT, 1, false, 1);
     }
 
+    /**
+     * @param null $keys
+     * @param null $format
+     * @param null $maxDepth
+     * @return array
+     */
     public function getValues($keys = null, $format = null, $maxDepth = null)
     {
         $ret = parent::getValues($keys, $format, $maxDepth);
@@ -51,6 +57,9 @@ class PagePage_related extends XoopsObject
     }
 }
 
+/**
+ * Class PagePage_relatedHandler
+ */
 class PagePage_relatedHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -61,6 +70,13 @@ class PagePage_relatedHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'page_related', 'pagepage_related', 'related_id', 'related_name');
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return array
+     */
     public function getRelated($start = 0, $limit = 0, $sort = 'related_name', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();
@@ -71,6 +87,13 @@ class PagePage_relatedHandler extends XoopsPersistableObjectHandler
         return parent::getAll($criteria, null, false);
     }
 
+    /**
+     * @param int $start
+     * @param int $limit
+     * @param string $sort
+     * @param string $order
+     * @return int
+     */
     public function countRelated($start = 0, $limit = 0, $sort = 'related_name', $order = 'ASC')
     {
         $criteria = new CriteriaCompo();

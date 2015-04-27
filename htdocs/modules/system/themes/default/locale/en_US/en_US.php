@@ -18,6 +18,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("Restricted access");
 
+/**
+ * Class DefaultThemeLocaleEn_US
+ */
 class DefaultThemeLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
     const CONTROL_AND_MANAGE_YOUR_SITE = "Control and manage your site";

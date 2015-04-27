@@ -23,6 +23,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsYoutube
+ */
 class MytsYoutube extends MyTextSanitizerExtension
 {
     /**
@@ -55,7 +58,11 @@ EOH;
         return array($code, $javascript);
     }
 
-static function myCallback($match) {
+    /**
+     * @param $match
+     * @return string
+     */
+    static function myCallback($match) {
     return  self::decode( $match[4], $match[2], $match[3] );
 }
 

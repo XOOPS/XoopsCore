@@ -83,4 +83,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
         return true;
     }
 endif;
-?>

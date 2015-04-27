@@ -14,6 +14,9 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
+ * @param $params
+ * @param $smarty
+ * @return string
  */
 
 function smarty_function_translate($params, &$smarty)

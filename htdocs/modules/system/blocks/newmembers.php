@@ -23,6 +23,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  */
 
 /**
+ * @param $options
  * @return array|bool|string
  */
 
@@ -51,6 +52,10 @@ function b_system_newmembers_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function b_system_newmembers_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();

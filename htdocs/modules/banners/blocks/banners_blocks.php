@@ -18,6 +18,8 @@
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id$
+ * @param $options
+ * @return array
  */
 function banners_blocks_show($options) {
     $block = array();
@@ -44,6 +46,10 @@ function banners_blocks_show($options) {
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function banners_blocks_edit($options) {
     $form = '';
     switch ($options[0]) {

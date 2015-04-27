@@ -42,6 +42,9 @@ class XoopsTpl extends Smarty
      */
     public $currentTheme = null;
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();

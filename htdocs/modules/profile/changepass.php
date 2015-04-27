@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {
@@ -133,4 +133,4 @@ if (!isset($_POST['submit'])) {
     );
 }
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . '/footer.php';

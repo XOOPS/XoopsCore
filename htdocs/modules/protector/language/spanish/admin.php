@@ -68,7 +68,3 @@ define("_AM_ADV_MAINUNPATCHED","Debe editar mainfile.php tal y como como recomie
 define("_AM_ADV_SUBTITLECHECK","Revisión de Protector");
 define("_AM_ADV_CHECKCONTAMI","Contaminaciones");
 define("_AM_ADV_CHECKISOCOM","Comentarios Aislados");
-
-
-
-?>

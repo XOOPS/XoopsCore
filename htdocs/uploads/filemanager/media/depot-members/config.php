@@ -12,8 +12,8 @@ global $xoopsUser;
 // 2 : members
 // 3 : anonymous
 // 4 : your new group
-$allowed_groups_upload=array(1,2); // id des groupes autorisés en upload
-$allowed_groups_createfolder=array(1); // id des groupes autorisés create folder
+$allowed_groups_upload=array(1,2); // id des groupes autorisï¿½s en upload
+$allowed_groups_createfolder=array(1); // id des groupes autorisï¿½s create folder
 if ($xoopsUser) {  
     $usergroups = $GLOBALS['xoopsUser']->getGroups(); 
     $result_upload = array_intersect($usergroups, $allowed_groups_upload); 
@@ -26,8 +26,3 @@ if ($xoopsUser) {
 		} 
 }
 // XOOPS
-	
-
-
-
-?>

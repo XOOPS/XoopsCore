@@ -26,6 +26,9 @@
  * </code>
  *
  * The path should be in a form understood by Xoops::url()
+ * @param $params
+ * @param Smarty $smarty
+ * @return string
  */
 function smarty_compiler_xoAppUrl($params, Smarty $smarty)
 {

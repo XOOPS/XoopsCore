@@ -41,7 +41,7 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
         $comments = Comments::getInstance(); //need this here to init constants
         $criteria = new CriteriaCompo(new Criteria('status', COMMENTS_PENDING));
         $ret = array();
-        if ($count = $comments->getHandlerComment()->getCount($criteria)) {
+        if ($count == $comments->getHandlerComment()->getCount($criteria)) {
             $ret['count'] = $count;
             $ret['name'] = Xoops::getInstance()->getHandlerModule()->getBydirname('comments')->getVar('name');
             $ret['link'] = Xoops::getInstance()->url('modules/comments/admin/main.php');
@@ -49,6 +49,10 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
         return $ret;
     }
 
+    /**
+     * @param int $limit
+     * @return array
+     */
     public function backend($limit)
     {
         return array();

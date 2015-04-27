@@ -29,6 +29,9 @@ $publisher = Publisher::getInstance();
 
 XoopsLoad::loadFile($publisher->path('class/formdatetime.php'));
 
+/**
+ * Class PublisherItemForm
+ */
 class PublisherItemForm extends Xoops\Form\SimpleForm
 {
     private $_checkperm = true;
@@ -536,11 +539,18 @@ $(document).ready(function(){
         unset($hidden);
     }
 
+    /**
+     * @param $checkperm
+     */
     public function setCheckPermissions($checkperm)
     {
         $this->_checkperm = (bool)$checkperm;
     }
 
+    /**
+     * @param $item
+     * @return bool
+     */
     private function _isGranted($item)
     {
         $publisher = Publisher::getInstance();
@@ -551,6 +561,10 @@ $(document).ready(function(){
         return $ret;
     }
 
+    /**
+     * @param $tab
+     * @return bool
+     */
     private function _hasTab($tab)
     {
         if (!isset($tab) || !isset($this->_tabs[$tab])) {

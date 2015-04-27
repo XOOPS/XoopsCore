@@ -586,6 +586,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Synchronizing objects
      *
+     * @param string $table_link
+     * @param string $field_link
+     * @param string $field_object
      * @return bool true on success
      */
     public function synchronization($table_link = '', $field_link = '', $field_object = '')

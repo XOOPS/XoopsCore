@@ -27,6 +27,13 @@ class SearchSearchForm extends Xoops\Form\ThemeForm
     {
     }
 
+    /**
+     * @param $andor
+     * @param $queries
+     * @param $mids
+     * @param $mid
+     * @return $this
+     */
     public function getSearchFrom($andor, $queries, $mids, $mid)
     {
         $xoops = Xoops::getInstance();

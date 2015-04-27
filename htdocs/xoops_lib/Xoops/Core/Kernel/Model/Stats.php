@@ -98,7 +98,7 @@ class Stats extends XoopsModelAbstract
         $start = null;
         $groupby_key = $this->handler->keyName;
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
-            if ($groupby = $criteria->getGroupby()) {
+            if ($groupby == $criteria->getGroupby()) {
                 $groupby_key = $groupby;
             }
         }

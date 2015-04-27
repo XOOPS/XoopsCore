@@ -36,6 +36,9 @@ class NotificationsPreload extends PreloadItem
         ));
     }
 
+    /**
+     * @param $args
+     */
     public static function eventCoreFooterStart($args)
     {
         $xoops = Xoops::getInstance();
@@ -112,6 +115,9 @@ class NotificationsPreload extends PreloadItem
         $xoops->tpl()->assign('notifications', $notifications);
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUpdateConfigs($args)
     {
         /* @var $module XoopsModule */
@@ -119,7 +125,7 @@ class NotificationsPreload extends PreloadItem
         $configs =& $args[1];
         $helper = Notifications::getInstance(); //init helper to load defines na language
 
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
             $notConfigs = $helper->getPluginableConfigs($module);
             foreach ($notConfigs as $notConfig) {
                 array_push($configs, $notConfig);
@@ -127,29 +133,38 @@ class NotificationsPreload extends PreloadItem
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleInstallConfigs($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
             Notifications::getInstance()->insertModuleRelations($module);
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnModuleUnistall($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
             Notifications::getInstance()->deleteModuleRelations($module);
         }
     }
 
+    /**
+     * @param $args
+     */
     public static function eventOnSystemPreferencesForm($args)
     {
         /* @var $module XoopsModule */
         $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
             Notifications::getInstance()->loadLanguage('main');
         }
     }

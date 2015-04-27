@@ -22,8 +22,8 @@ class ImagesImage_imagemanagerForm extends Xoops\Form\ThemeForm
 {
 
     /**
-     * @param Array
-     *
+     * @param string $param
+     * @internal param $Array 'obj'     => ImagesImage|XoopsObject $obj*
      *        'obj'     => ImagesImage|XoopsObject $obj
      *        'target'  => textarea id
      */

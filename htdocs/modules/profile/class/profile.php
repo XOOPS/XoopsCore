@@ -57,6 +57,9 @@ class ProfileProfile extends XoopsObject
     }
 }
 
+/**
+ * Class ProfileProfileHandler
+ */
 class ProfileProfileHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -71,6 +74,9 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      */
     private $_fields = array();
 
+    /**
+     * @param Connection $db
+     */
     public function __construct(Connection $db)
     {
         parent::__construct($db, "profile_profile", 'profileprofile', "profile_id");
@@ -238,9 +244,8 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
     /**
      * insert a new object in the database
      *
-     * @param XoopsObject|ProfileProfile $obj   reference to the object
-     * @param bool                       $force whether to force the query execution despite security settings
-     *
+     * @param ProfileProfile|\Xoops\Core\Kernel\XoopsObject|XoopsObject $obj reference to the object
+     * @param bool $force whether to force the query execution despite security settings
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
     public function insert(\Xoops\Core\Kernel\XoopsObject $obj, $force = false)
@@ -318,7 +323,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $uservars = $this->getUserVars();
         $users = array();
         $profiles = array();
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow == $this->db->fetchArray($result)) {
             $profile = $this->create(false);
             $user = $user_handler->create(false);
 
@@ -340,6 +345,6 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
             list($count) = $this->db->fetchRow($result);
         }
 
-        return array($users, $profiles, intval($count));
+        return array($users, $profiles, (int) ($count));
     }
 }

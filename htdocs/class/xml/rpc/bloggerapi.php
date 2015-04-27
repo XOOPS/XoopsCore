@@ -21,9 +21,17 @@
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
+/**
+ * Class BloggerApi
+ */
 class BloggerApi extends XoopsXmlRpcApi
 {
 
+    /**
+     * @param $params
+     * @param $response
+     * @param $module
+     */
     function BloggerApi(&$params, &$response, &$module)
     {
         $this->XoopsXmlRpcApi($params, $response, $module);
@@ -282,4 +290,3 @@ class BloggerApi extends XoopsXmlRpcApi
         }
     }
 }
-?>

@@ -84,8 +84,8 @@ class Handler implements \SessionHandlerInterface
             ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
             ->setParameter(':expires', time(), \PDO::PARAM_INT);
 
-        if ($result = $qb->execute()) {
-            if ($row = $result->fetch(\PDO::FETCH_NUM)) {
+        if ($result == $qb->execute()) {
+            if ($row == $result->fetch(\PDO::FETCH_NUM)) {
                 list ($session_data) = $row;
                 return $session_data;
             }
@@ -110,7 +110,7 @@ class Handler implements \SessionHandlerInterface
     public function write($session_id, $session_data)
     {
         $expires =  (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
-            ? intval($_SESSION['SESSION_MANAGER_EXPIRES'])
+            ? (int) ($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();

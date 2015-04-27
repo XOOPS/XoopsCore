@@ -39,6 +39,12 @@ class PagePage_related_link extends XoopsObject
         $this->initVar('content_title', XOBJ_DTYPE_TXTBOX, '', false);
     }
 
+    /**
+     * @param null $keys
+     * @param null $format
+     * @param null $maxDepth
+     * @return array
+     */
     public function getValues($keys = null, $format = null, $maxDepth = null)
     {
         $ret = parent::getValues($keys, $format, $maxDepth);
@@ -53,6 +59,9 @@ class PagePage_related_link extends XoopsObject
     }
 }
 
+/**
+ * Class PagePage_related_linkHandler
+ */
 class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -63,6 +72,12 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'page_related_link', 'pagepage_related_link', 'link_id', 'link_related_id');
     }
 
+    /**
+     * @param $related_id
+     * @param string $sort
+     * @param string $order
+     * @return array
+     */
     public function getLinks($related_id, $sort = 'link_weight', $order = 'desc')
     {
         $this->table_link = $this->db->prefix('page_content');
@@ -77,6 +92,12 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         return parent::getByLink($criteria, null, false);
     }
 
+    /**
+     * @param $related_id
+     * @param string $sort
+     * @param string $order
+     * @return array
+     */
     public function getContentByRelated($related_id, $sort = 'link_weight', $order = 'asc')
     {
         $criteria = new CriteriaCompo();
@@ -92,6 +113,9 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         return $ret;
     }
 
+    /**
+     * @return array
+     */
     public function getContentUsed()
     {
         $result = parent::getAll(null, array('link_content_id'), false);
@@ -101,6 +125,10 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         return $ret;
     }
 
+    /**
+     * @param $links_ids
+     * @return bool
+     */
     public function DeleteByIds($links_ids)
     {
         $criteria = new CriteriaCompo();
@@ -108,6 +136,10 @@ class PagePage_related_linkHandler extends XoopsPersistableObjectHandler
         return parent::deleteAll($criteria);
     }
 
+    /**
+     * @param $content_id
+     * @return array
+     */
     public function menu_related($content_id)
     {
         $criteria = new CriteriaCompo();

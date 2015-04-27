@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class PageGroupPermHandler
+ */
 class PageGroupPermHandler extends XoopsGroupPermHandler
 {
     /**
@@ -40,6 +43,10 @@ class PageGroupPermHandler extends XoopsGroupPermHandler
         return parent::checkRight($gperm_name, $gperm_itemid, $gperm_groupid, $gperm_modid, $trueifadmin);
     }
 
+    /**
+     * @param $content_id
+     * @param array $groups
+     */
     public function updatePerms($content_id, $groups = array())
     {
         $module_id = Page::getInstance()->getModule()->getVar('mid');

@@ -177,7 +177,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($moddir, 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($moddir, 'comments')) {
             if (!$xoops->isAdminSide) {
                 $redirect_page = $xoops->url('modules/' . $moddir . '/' . $plugin->pageName() . '?');
                 if (is_array($extraParams = $plugin->extraParams())) {
@@ -503,6 +503,13 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $xoops->footer();
     }
 
+    /**
+     * @param $title
+     * @param $text
+     * @param $uid
+     * @param $timestamp
+     * @return string
+     */
     public function renderHeader($title, $text, $uid, $timestamp)
     {
         $ret = '<table cellpadding="4" cellspacing="1" width="98%" class="outer">
@@ -523,7 +530,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             if (COMMENTS_APPROVENONE != $xoops->getModuleConfig('com_rule')) {
                 $xoops->tpl()->assign('xoops_iscommentadmin', $this->isUserAdmin());
 
-                $itemid = (trim($plugin->itemName()) != '' && isset($_GET[$plugin->itemName()])) ? intval($_GET[$plugin->itemName()]) : 0;
+                $itemid = (trim($plugin->itemName()) != '' && isset($_GET[$plugin->itemName()])) ? (int) ($_GET[$plugin->itemName()]) : 0;
                 if ($itemid > 0) {
                     $modid = $xoops->module->getVar('mid');
                     $mode = Request::getString('com_mode', $this->getUserConfig('com_mode'));
@@ -696,7 +703,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             $xoops->header();
             $this->displayCommentForm($comment);
             $xoops->footer();
@@ -730,7 +737,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
         $modid = $module->getVar('mid');
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             if ($xoops->isAdminSide) {
                 $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
             } else {
@@ -762,7 +769,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                 if ($ref != '') {
                     $xoops->redirect($ref, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                 } else {
-                    $xoops->redirect($redirect_page . '?' . $plugin->itemName() . '=' . intval($id), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+                    $xoops->redirect($redirect_page . '?' . $plugin->itemName() . '=' . (int) ($id), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                 }
             }
 

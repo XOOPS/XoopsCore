@@ -16,6 +16,9 @@
  * @author         Andricq Nicolas (AKA MusS)
  * @since          2.5.2
  * @version        $Id$
+ * @param $argStr
+ * @param $smarty
+ * @return string
  */
 
 function smarty_compiler_xoModuleIcons32($argStr, &$smarty)

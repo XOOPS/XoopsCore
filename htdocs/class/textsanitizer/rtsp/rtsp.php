@@ -23,6 +23,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsRtsp
+ */
 class MytsRtsp extends MyTextSanitizerExtension
 {
     /**

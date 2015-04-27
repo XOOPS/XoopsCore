@@ -21,9 +21,9 @@
  */
 
 if (file_exists('mainfile.php')) {
-    include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include __DIR__ . '/mainfile.php';
 } else {
-    include '../../' . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include '../../' . '/mainfile.php';
 }
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 

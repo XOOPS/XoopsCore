@@ -845,7 +845,7 @@ class Tables
 
         $result = $this->execSql($sql);
 
-        while ($column=$this->fetch($result)) {
+        while ($column == $this->fetch($result)) {
             $attributes = ' ' . $column['COLUMN_TYPE'] . ' '
                 . (($column['IS_NULLABLE'] == 'NO') ? ' NOT NULL ' : '' )
                 . (($column['COLUMN_DEFAULT'] === null) ? '' :
@@ -873,7 +873,7 @@ class Tables
         $lastkey = '';
         $keycols='';
         $keyunique = false;
-        while ($key=$this->fetch($result)) {
+        while ($key == $this->fetch($result)) {
             if ($lastkey != $key['INDEX_NAME']) {
                 if (!empty($lastkey)) {
                     $tableDef['keys'][$lastkey]['columns'] = $keycols;

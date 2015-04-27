@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.userinfo.start');
@@ -28,7 +28,7 @@ $xoops->preload()->triggerEvent('core.userinfo.start');
 $xoops->loadLanguage('user');
 include_once $xoops->path('modules/system/constants.php');
 
-$uid = intval($_GET['uid']);
+$uid = (int) ($_GET['uid']);
 if ($uid <= 0) {
     $xoops->redirect('index.php', 3, XoopsLocale::E_NO_USER_SELECTED);
 }
@@ -215,7 +215,7 @@ foreach (array_keys($modules) as $i) {
                         $results[$k]['time'] = $result['time'] ? XoopsLocale::formatTimestamp($result['time']) : '';
                     }
                     if (!empty($results[$k]['uid'])) {
-                        $results[$k]['uid'] = @intval($results[$k]['uid']);
+                        $results[$k]['uid'] = @(int) ($results[$k]['uid']);
                         $results[$k]['uname'] = XoopsUser::getUnameFromId($results[$k]['uid'], true);
                     }
                 }

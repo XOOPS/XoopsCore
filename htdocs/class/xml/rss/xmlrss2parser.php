@@ -21,6 +21,9 @@
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
+/**
+ * Class XoopsXmlRss2Parser
+ */
 class XoopsXmlRss2Parser extends SaxParser
 {
     /**
@@ -43,6 +46,9 @@ class XoopsXmlRss2Parser extends SaxParser
      */
     private $_items = array();
 
+    /**
+     * @param $input
+     */
     public function __construct(&$input)
     {
         parent::__construct($input);
@@ -177,6 +183,9 @@ class XoopsXmlRss2Parser extends SaxParser
     }
 }
 
+/**
+ * Class RssChannelHandler
+ */
 class RssChannelHandler extends XmlTagHandler
 {
     /**
@@ -188,6 +197,9 @@ class RssChannelHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssTitleHandler
+ */
 class RssTitleHandler extends XmlTagHandler
 {
     /**
@@ -222,6 +234,9 @@ class RssTitleHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssLinkHandler
+ */
 class RssLinkHandler extends XmlTagHandler
 {
     /**
@@ -256,6 +271,9 @@ class RssLinkHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssDescriptionHandler
+ */
 class RssDescriptionHandler extends XmlTagHandler
 {
     /**
@@ -290,6 +308,9 @@ class RssDescriptionHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssGeneratorHandler
+ */
 class RssGeneratorHandler extends XmlTagHandler
 {
 
@@ -318,6 +339,9 @@ class RssGeneratorHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssCopyrightHandler
+ */
 class RssCopyrightHandler extends XmlTagHandler
 {
     /**
@@ -345,6 +369,9 @@ class RssCopyrightHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssNameHandler
+ */
 class RssNameHandler extends XmlTagHandler
 {
     /**
@@ -372,6 +399,9 @@ class RssNameHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssManagingEditorHandler
+ */
 class RssManagingEditorHandler extends XmlTagHandler
 {
 
@@ -400,6 +430,9 @@ class RssManagingEditorHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssLanguageHandler
+ */
 class RssLanguageHandler extends XmlTagHandler
 {
 
@@ -428,6 +461,9 @@ class RssLanguageHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssWebMasterHandler
+ */
 class RssWebMasterHandler extends XmlTagHandler
 {
     /**
@@ -455,6 +491,9 @@ class RssWebMasterHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssDocsHandler
+ */
 class RssDocsHandler extends XmlTagHandler
 {
     /**
@@ -482,6 +521,9 @@ class RssDocsHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssTtlHandler
+ */
 class RssTtlHandler extends XmlTagHandler
 {
     /**
@@ -509,6 +551,9 @@ class RssTtlHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssTextInputHandler
+ */
 class RssTextInputHandler extends XmlTagHandler
 {
     /**
@@ -539,6 +584,9 @@ class RssTextInputHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssLastBuildDateHandler
+ */
 class RssLastBuildDateHandler extends XmlTagHandler
 {
     /**
@@ -566,6 +614,9 @@ class RssLastBuildDateHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssImageHandler
+ */
 class RssImageHandler extends XmlTagHandler
 {
     /**
@@ -577,6 +628,9 @@ class RssImageHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssUrlHandler
+ */
 class RssUrlHandler extends XmlTagHandler
 {
     /**
@@ -600,6 +654,9 @@ class RssUrlHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssWidthHandler
+ */
 class RssWidthHandler extends XmlTagHandler
 {
     /**
@@ -623,6 +680,9 @@ class RssWidthHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssHeightHandler
+ */
 class RssHeightHandler extends XmlTagHandler
 {
     /**
@@ -646,6 +706,9 @@ class RssHeightHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssItemHandler
+ */
 class RssItemHandler extends XmlTagHandler
 {
     /**
@@ -677,6 +740,9 @@ class RssItemHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssCategoryHandler
+ */
 class RssCategoryHandler extends XmlTagHandler
 {
     /**
@@ -707,6 +773,9 @@ class RssCategoryHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssCommentsHandler
+ */
 class RssCommentsHandler extends XmlTagHandler
 {
     /**
@@ -730,6 +799,9 @@ class RssCommentsHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssPubDateHandler
+ */
 class RssPubDateHandler extends XmlTagHandler
 {
     /**
@@ -760,6 +832,9 @@ class RssPubDateHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssGuidHandler
+ */
 class RssGuidHandler extends XmlTagHandler
 {
     /**
@@ -783,6 +858,9 @@ class RssGuidHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssAuthorHandler
+ */
 class RssAuthorHandler extends XmlTagHandler
 {
     /**
@@ -806,6 +884,9 @@ class RssAuthorHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class RssSourceHandler
+ */
 class RssSourceHandler extends XmlTagHandler
 {
     /**

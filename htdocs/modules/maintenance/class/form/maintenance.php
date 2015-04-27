@@ -22,6 +22,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MaintenanceMaintenanceForm
+ */
 class MaintenanceMaintenanceForm extends Xoops\Form\ThemeForm
 {
     /**

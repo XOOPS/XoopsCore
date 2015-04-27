@@ -29,6 +29,9 @@
  * <b>Note:</b> the themes inheritance system can generate many filesystem accesses depending
  * on your themes configuration. Because of this, the use of the dynamic syntax with this plug-in
  * is not possible right now.
+ * @param $params
+ * @param Smarty $smarty
+ * @return string
  */
 
 function smarty_compiler_xoImgUrl($params, Smarty $smarty)

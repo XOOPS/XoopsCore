@@ -21,6 +21,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class XoopsSecurity
+ */
 class XoopsSecurity extends Xoops\Core\Security
 {
 

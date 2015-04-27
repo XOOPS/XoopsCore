@@ -29,11 +29,11 @@ class RadioYesNo extends Radio
     /**
      * Constructor
      *
-     * @param string      $caption caption
-     * @param string      $name    element name
-     * @param string|null $value   Pre-selected value, can be "0" (No) or "1" (Yes)
-     * @param string      $yes     String for "Yes"
-     * @param string      $no      String for "No"
+     * @param string $caption caption
+     * @param string $name element name
+     * @param string|null $value Pre-selected value, can be "0" (No) or "1" (Yes)
+     * @param bool|string $yes String for "Yes"
+     * @param string $no String for "No"
      */
     public function __construct($caption, $name, $value = null, $yes = \XoopsLocale::YES, $no = \XoopsLocale::NO)
     {

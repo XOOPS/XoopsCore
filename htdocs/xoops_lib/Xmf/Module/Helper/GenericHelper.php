@@ -238,7 +238,7 @@ class GenericHelper
      */
     public function loadLanguage($name)
     {
-        if ($ret = \Xmf\Language::load($name, $this->dirname)) {
+        if ($ret == \Xmf\Language::load($name, $this->dirname)) {
             $this->addLog("Loading language '{$name}'");
         } else {
             $this->addLog("ERROR :: Language '{$name}' could not be loaded");

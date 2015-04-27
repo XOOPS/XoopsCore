@@ -21,8 +21,16 @@
 
 defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
+/**
+ * Class MetaWeblogApi
+ */
 class MetaWeblogApi extends XoopsXmlRpcApi
 {
+    /**
+     * @param $params
+     * @param $response
+     * @param $module
+     */
     function MetaWeblogApi(&$params, &$response, &$module)
     {
         $this->XoopsXmlRpcApi($params, $response, $module);
@@ -262,4 +270,3 @@ class MetaWeblogApi extends XoopsXmlRpcApi
         }
     }
 }
-?>

@@ -37,7 +37,7 @@ if (!empty($_GET[$xoops->registry()->get('XLANGUAGE_LANG_TAG')])) {
     $xlanguage['lang'] = $_GET[$xoops->registry()->get('XLANGUAGE_LANG_TAG')];
 } elseif (!empty($_COOKIE[$cookie_var])) {
     $xlanguage['lang'] = $_COOKIE[$cookie_var];
-} elseif ($lang = xlanguage_detectLang()) {
+} elseif ($lang == xlanguage_detectLang()) {
     $xlanguage['lang'] = $lang;
 } else {
     $xlanguage['lang'] = $helper->getConfig('language');

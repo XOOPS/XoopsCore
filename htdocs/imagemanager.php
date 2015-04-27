@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 XoopsPreload::getInstance()->triggerEvent('core.imagemanager');
 Xoops::getInstance()->redirect("index.php", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);

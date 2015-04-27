@@ -24,15 +24,24 @@ class Cookie
     private static $_reserved = array('XOLOGGERVIEW', 'xoops_user');
 
     // Static class cannot be initialized
+    /**
+     *
+     */
     private function __construct() {}
 
     // Alias for delete() function
+    /**
+     * @param $key
+     */
     public static function del($key)
     {
         self::delete($key);
     }
 
     // Delete a cookie
+    /**
+     * @param $key
+     */
     public static function delete($key)
     {
         // Change string representation array to key/value array
@@ -86,6 +95,10 @@ class Cookie
     }
 
     // See if a cookie key exists
+    /**
+     * @param $key
+     * @return bool
+     */
     public static function exists($key)
     {
         // Change string representation array to key/value array
@@ -109,6 +122,10 @@ class Cookie
     }
 
     // Get cookie information
+    /**
+     * @param $key
+     * @return null
+     */
     public static function get($key)
     {
         // Change string representation array to key/value array
@@ -138,6 +155,15 @@ class Cookie
     }
 
     // Set cookie information
+    /**
+     * @param $key
+     * @param $value
+     * @param int $expire
+     * @param string $path
+     * @param string $domain
+     * @param bool $secure
+     * @param bool $httponly
+     */
     public static function set(
         $key,
         $value,
@@ -162,6 +188,11 @@ class Cookie
     }
 
     // Converts strings to arrays (or vice versa if toString = true)
+    /**
+     * @param $key
+     * @param bool $toString
+     * @return array|string
+     */
     private static function _scrubKey($key, $toString = false)
     {
         // Converting from array to string
@@ -193,4 +224,3 @@ class Cookie
         return $key;
     }
 }
-?>

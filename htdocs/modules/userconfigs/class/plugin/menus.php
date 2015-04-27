@@ -34,7 +34,7 @@ class UserconfigsMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
     {
         $ret = array();
         $xoops = \Xoops::getInstance();
-        if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
+        if ($plugins == \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             foreach (array_keys($plugins) as $dirname) {
                 $mHelper = $xoops->getModuleHelper($dirname);
                 $ret[$dirname]['name'] = $mHelper->getModule()->getVar('name');

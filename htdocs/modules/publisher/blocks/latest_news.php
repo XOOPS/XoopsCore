@@ -25,6 +25,10 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_latest_news_show($options)
 {
     $xoops = Xoops::getInstance();
@@ -45,7 +49,7 @@ function publisher_latest_news_show($options)
     $border = $options[13];
     $bordercolor = $options[14];
 
-    $block['spec']['columnwidth'] = intval(1 / $column_count * 100);
+    $block['spec']['columnwidth'] = (int) (1 / $column_count * 100);
 
     $allcats = false;
     if (!isset($options[29])) {
@@ -243,11 +247,15 @@ function publisher_latest_news_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function publisher_latest_news_edit($options)
 {
-    $tabletag1 = '<tr><td style="padding:3px" width="37%">';
-    $tabletag2 = '</td><td style="padding:3px">';
-    $tabletag3 = '<tr><td style="padding-top:20px;border-bottom:1px solid #000" colspan="2">';
+    $tabletag1 = '<tr><td style="padding:3px;" width="37%">';
+    $tabletag2 = '</td><td style="padding:3px;">';
+    $tabletag3 = '<tr><td style="padding-top:20px;border-bottom:1px solid #000;" colspan="2">';
     $tabletag4 = '</td></tr>';
 
     $form = "<table border='0' cellpadding='0' cellspacing='0'>";
@@ -388,6 +396,11 @@ function publisher_latest_news_edit($options)
     return $form;
 }
 
+/**
+ * @param $options
+ * @param $number
+ * @return string
+ */
 function publisher_mk_chkbox($options, $number)
 {
     $chk = "";
@@ -403,6 +416,11 @@ function publisher_mk_chkbox($options, $number)
     return $chkbox;
 }
 
+/**
+ * @param $options
+ * @param $number
+ * @return string
+ */
 function publisher_mk_select($options, $number)
 {
     $slc = "";

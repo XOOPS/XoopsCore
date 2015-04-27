@@ -20,14 +20,23 @@
 
 class MenusDynamicDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
+    /**
+     * @param $accessFilter
+     */
     public function accessFilter(&$accessFilter)
     {
     }
 
+    /**
+     * @param $menu
+     */
     public function decorateMenu(&$menu)
     {
     }
 
+    /**
+     * @param $menus
+     */
     public function end(&$menus)
     {
         $ret = array();
@@ -45,6 +54,10 @@ class MenusDynamicDecorator extends MenusDecoratorAbstract implements MenusDecor
         $menus = $ret;
     }
 
+    /**
+     * @param $menu
+     * @param $hasAccess
+     */
     public function hasAccess($menu, &$hasAccess)
     {
     }
@@ -53,6 +66,11 @@ class MenusDynamicDecorator extends MenusDecoratorAbstract implements MenusDecor
     {
     }
 
+    /**
+     * @param $dirname
+     * @param $pid
+     * @return array
+     */
     protected function getModuleMenus($dirname, $pid)
     {
         static $id = -1;

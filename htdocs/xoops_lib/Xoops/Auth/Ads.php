@@ -31,7 +31,6 @@ class Ads extends Ldap
      *
      * @param Connection|null $dao database
      *
-     * @return void
      */
     public function __construct(Connection $dao = null)
     {

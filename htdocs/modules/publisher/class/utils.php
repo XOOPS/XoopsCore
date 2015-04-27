@@ -24,6 +24,9 @@ use Xmf\Module\Session;
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class PublisherUtils
+ */
 class PublisherUtils
 {
     /**
@@ -376,6 +379,9 @@ class PublisherUtils
         return (is_object($itemObj) && in_array($itemObj->getVar('categoryid'), $categoriesGranted));
     }
 
+    /**
+     * @return bool
+     */
     public static function IsUserAdmin()
     {
         return Publisher::getInstance()->IsUserAdmin();
@@ -648,7 +654,7 @@ class PublisherUtils
         if (is_array($err_arr) && count($err_arr) > 0) {
             echo '<div id="readOnly" class="errorMsg" style="border:1px solid #D24D00; background:#FEFECC url(' . PUBLISHER_URL . '/images/important-32.png) no-repeat 7px 50%;color:#333;padding-left:45px;">';
 
-            echo '<h4 style="text-align:left;margin:0; padding-top:0">' . _AM_PUBLISHER_MSG_SUBMISSION_ERR;
+            echo '<h4 style="text-align:left;margin:0; padding-top:0;">' . _AM_PUBLISHER_MSG_SUBMISSION_ERR;
 
             if ($reseturl) {
                 echo ' <a href="' . $reseturl . '">[' . _AM_PUBLISHER_TEXT_SESSION_RESET . ']</a>';
@@ -727,12 +733,12 @@ class PublisherUtils
 
         $publisher = Publisher::getInstance();
 
-        $itemid = isset($_POST['itemid']) ? intval($_POST['itemid']) : 0;
+        $itemid = isset($_POST['itemid']) ? (int) ($_POST['itemid']) : 0;
         $uid = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
         $session = new Session();
         $session->set('publisher_file_filename', isset($_POST['item_file_name']) ? $_POST['item_file_name'] : '');
         $session->set('publisher_file_description', isset($_POST['item_file_description']) ? $_POST['item_file_description'] : '');
-        $session->set('publisher_file_status', isset($_POST['item_file_status']) ? intval($_POST['item_file_status']) : 1);
+        $session->set('publisher_file_status', isset($_POST['item_file_status']) ? (int) ($_POST['item_file_status']) : 1);
         $session->set('publisher_file_uid', $uid);
         $session->set('publisher_file_itemid', $itemid);
 
@@ -743,7 +749,7 @@ class PublisherUtils
         $fileObj = $publisher->getFileHandler()->create();
         $fileObj->setVar('name', isset($_POST['item_file_name']) ? $_POST['item_file_name'] : '');
         $fileObj->setVar('description', isset($_POST['item_file_description']) ? $_POST['item_file_description'] : '');
-        $fileObj->setVar('status', isset($_POST['item_file_status']) ? intval($_POST['item_file_status']) : 1);
+        $fileObj->setVar('status', isset($_POST['item_file_status']) ? (int) ($_POST['item_file_status']) : 1);
         $fileObj->setVar('uid', $uid);
         $fileObj->setVar('itemid', $itemObj->getVar('itemid'));
         $fileObj->setVar('datesub', time());
@@ -990,10 +996,10 @@ class PublisherUtils
      */
     public static function stringToInt($string = '', $length = 5)
     {
-        for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= intval($string[$i]), ++$i) {
+        for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= (int) ($string[$i]), ++$i) {
         }
 
-        return intval($final);
+        return (int) ($final);
     }
 
     /**
@@ -1011,7 +1017,7 @@ class PublisherUtils
             return utf8_encode($item);
         }
 
-        if ($unserialize = unserialize($item)) {
+        if ($unserialize == unserialize($item)) {
             foreach ($unserialize as $key => $value) {
                 $unserialize[$key] = @iconv('windows-1256', 'UTF-8', $value);
             }
@@ -1023,6 +1029,11 @@ class PublisherUtils
         }
     }
 
+    /**
+     * @param string $title
+     * @param bool $withExt
+     * @return mixed|string
+     */
     public static function seoTitle($title = '', $withExt = true)
     {
 

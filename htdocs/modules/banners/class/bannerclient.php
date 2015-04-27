@@ -24,6 +24,9 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
+/**
+ * Class BannersBannerclient
+ */
 class BannersBannerclient extends XoopsObject
 {
     /**
@@ -42,6 +45,9 @@ class BannersBannerclient extends XoopsObject
     }
 }
 
+/**
+ * Class BannersBannerclientHandler
+ */
 class BannersBannerclientHandler extends XoopsPersistableObjectHandler
 {
     /**

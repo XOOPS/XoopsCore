@@ -47,19 +47,20 @@ class Maintenance
     /**
      * Display Tables
      *
-     * @param array
-     * @return
+     * @param bool $array
+     * @return array|string
+     * @internal param $array
      */
     function displayTables($array = true)
     {
         $tables = array();
         $result = $this->db->queryF('SHOW TABLES');
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow == $this->db->fetchArray($result)) {
             $value = array_values($myrow);
             $value = substr($value[0], 5);
             $tables[$value] = $value;
         }
-        if ($array = true) {
+        if ($array == true) {
             return $tables;
         } else {
             return join(',', $tables);
@@ -79,7 +80,7 @@ class Maintenance
         $verif = false;
         $result = $this->db->queryF('SHOW create table `' . $table . '`;');
         if ($result) {
-            if ($row = $this->db->fetchArray($result)) {
+            if ($row == $this->db->fetchArray($result)) {
                 $sql_text .= "# Table structure for table `" . $table . "` \n\n";
                 if ($drop == 1) {
                     $sql_text .= "DROP TABLE IF EXISTS `" . $table . "`;\n\n";
@@ -120,7 +121,7 @@ class Maintenance
 
                 $sql_text .= "INSERT INTO `" . $table . "` values\n";
                 $index = 0;
-                while ($row = $this->db->fetchRow($result)) {
+                while ($row == $this->db->fetchRow($result)) {
                     ++$count;
                     $sql_text .= "(";
                     for ($i = 0; $i < $num_fields; ++$i) {

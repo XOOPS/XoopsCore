@@ -23,6 +23,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * Class MytsFlash
+ */
 class MytsFlash extends MyTextSanitizerExtension
 {
     /**
@@ -57,6 +60,11 @@ EOF;
             $code, $javascript
         );
     }
+
+    /**
+     * @param $match
+     * @return string
+     */
     static function myCallback($match) {
     return self::decode( $match[5], $match[3], $match[4] );
     }

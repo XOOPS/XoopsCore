@@ -28,6 +28,9 @@ use Xoops\Core\Request;
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * Class PublisherItem
+ */
 class PublisherItem extends XoopsObject
 {
     /**
@@ -881,7 +884,7 @@ class PublisherItem extends XoopsObject
                 ->orderBy('i.image_id');
             $result = $qb->execute();
 
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $image_name = $myrow['image_name'];
                 $id = $myrow['image_id'];
                 if ($image_name == $image_featured) {
@@ -1074,7 +1077,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
         $this->addNotNullFieldClause($qb, $notNullFields, $whereMode);
         $theObjects = array();
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $item = new PublisherItem();
             $item->assignVars($myrow);
             $theObjects[$myrow['itemid']] = $item;
@@ -1382,10 +1385,9 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     /**
      * addNotNullFieldClause exclude rows where specified columns are empty or null
      *
-     * @param QueryBuilder $qb            QueryBuilder instance
+     * @param QueryBuilder|\Xoops\Core\Database\QueryBuilder $qb QueryBuilder instance
      * @param string|array $notNullFields fields that should not be empty
-     * @param string       $whereMode     Initial where method, 'AND' andWhere(), otherwise where()
-     *
+     * @param string $whereMode Initial where method, 'AND' andWhere(), otherwise where()
      * @return QueryBuilder instance
      */
     protected function addNotNullFieldClause(\Xoops\Core\Database\QueryBuilder $qb, $notNullFields = array(), $whereMode = '')
@@ -1559,7 +1561,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             ->joinPrefix('mo', 'publisher_items', 'mi', 'mi.datesub = mo.date');
 
         $result = $qb->execute();
-        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row == $result->fetch(\PDO::FETCH_ASSOC)) {
             $item = new PublisherItem();
             $item->assignVars($row);
             $ret[$row['categoryid']] = $item;
@@ -1611,15 +1613,15 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             ->groupBy('i.categoryid')
             ->orderBy('c.parentid', 'ASC')
             ->addOrderBy('i.categoryid', 'ASC');
-        if (intval($cat_id) > 0) {
+        if ((int) ($cat_id) > 0) {
             $qb ->andWhere($qb->expr()->eq('i.categoryid', ':catid'))
                 ->setParameter(':catid', $cat_id, \PDO::PARAM_INT);
         }
 
         //$sql = 'SELECT c.parentid, i.categoryid, COUNT(*) AS count FROM ' . $this->db->prefix('publisher_items')
         //. ' AS i INNER JOIN ' . $this->db->prefix('publisher_categories') . ' AS c ON i.categoryid=c.categoryid';
-        //if (intval($cat_id) > 0) {
-        //    $sql .= ' WHERE i.categoryid = ' . intval($cat_id);
+        //if ((int) ($cat_id) > 0) {
+        //    $sql .= ' WHERE i.categoryid = ' . (int) ($cat_id);
         //    $sql .= ' AND i.status IN (' . implode(',', $status) . ')';
         //} else {
         //    $sql .= ' WHERE i.status IN (' . implode(',', $status) . ')';
@@ -1632,12 +1634,12 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             return $ret;
         }
         if (!$inSubCat) {
-            while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($row == $result->fetch(\PDO::FETCH_ASSOC)) {
                 $catsCount[$row['categoryid']] = $row['count'];
             }
             return $catsCount;
         }
-        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row == $result->fetch(\PDO::FETCH_ASSOC)) {
             $catsCount[$row['parentid']][$row['categoryid']] = $row['count'];
         }
         $resultCatCounts = array();

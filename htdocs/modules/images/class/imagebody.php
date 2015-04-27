@@ -31,6 +31,9 @@ class ImagesImagebody extends XoopsObject
     }
 }
 
+/**
+ * Class ImagesImagebodyHandler
+ */
 class ImagesImagebodyHandler extends XoopsPersistableObjectHandler
 {
     /**

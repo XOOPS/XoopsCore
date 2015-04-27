@@ -80,6 +80,9 @@ class Page extends Xoops\Module\Helper\HelperAbstract
         return $this->getHandler('groupperm');
     }
 
+    /**
+     * @return int|mixed
+     */
     public function getUserId()
     {
         if ($this->xoops()->isUser()) {

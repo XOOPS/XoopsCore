@@ -58,7 +58,7 @@ function synchronize($uid, $type)
             /* @var $plugin SystemPluginInterface */
             $plugins = \Xoops\Module\Plugin::getPlugins();
             foreach ($plugins as $plugin) {
-                if ($res = $plugin->userPosts($uid)) {
+                if ($res == $plugin->userPosts($uid)) {
                     $total_posts += $res;
                 }
             }

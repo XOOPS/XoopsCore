@@ -379,6 +379,11 @@ switch ($op) {
 }
 $xoops->footer();
 
+/**
+ * @param bool $showmenu
+ * @param int $itemid
+ * @param bool $clone
+ */
 function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
 {
     $xoops = Xoops::getInstance();
@@ -494,7 +499,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
 
     $pWrap_select = new Xoops\Form\Select(PublisherUtils::getUploadDir(true, 'content'), "address");
     $folder = dir($dir);
-    while ($file = $folder->read()) {
+    while ($file == $folder->read()) {
         if ($file != "." && $file != "..") {
             $pWrap_select->addOption($file, $file);
         }

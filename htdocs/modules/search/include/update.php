@@ -21,6 +21,10 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * @param XoopsModule $module
+ * @return bool
+ */
 function xoops_module_update_search(XoopsModule &$module)
 {
     $xoops = Xoops::getInstance();

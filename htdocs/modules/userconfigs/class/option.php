@@ -90,6 +90,9 @@ class UserconfigsOption extends XoopsObject
 
 }
 
+/**
+ * Class UserconfigsOptionHandler
+ */
 class UserconfigsOptionHandler extends XoopsPersistableObjectHandler
 {
     /**

@@ -20,7 +20,9 @@
  * @version         $Id$
  */
 
-/** Get item fields: title, content, time, link, uid, uname, tags **/
+/** Get item fields: title, content, time, link, uid, uname, tags *
+ * @param $items
+ */
 function publisher_tag_iteminfo(&$items)
 {
     $publisher = Publisher::getInstance();
@@ -31,7 +33,7 @@ function publisher_tag_iteminfo(&$items)
         // if catid is not used, just skip it
         foreach (array_keys($items[$cat_id]) as $item_id) {
             // In article, the item_id is "art_id"
-            $items_id[] = intval($item_id);
+            $items_id[] = (int) ($item_id);
         }
     }
     $item_handler = $publisher->getItemHandler();
@@ -55,7 +57,9 @@ function publisher_tag_iteminfo(&$items)
     unset($items_obj);
 }
 
-/** Remove orphan tag-item links **/
+/** Remove orphan tag-item links *
+ * @param $mid
+ */
 function publisher_tag_synchronization($mid)
 {
     // Optional

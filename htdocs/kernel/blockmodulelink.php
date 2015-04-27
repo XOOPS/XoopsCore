@@ -37,6 +37,9 @@ class XoopsBlockmodulelink extends XoopsObject
     }
 }
 
+/**
+ * Class XoopsBlockmodulelinkHandler
+ */
 class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
 {
     /**

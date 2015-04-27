@@ -100,7 +100,7 @@ if ($mid > 0) {
 
     if ($page != '') {
         // Call template
-        if ($helpfile =
+        if ($helpfile ==
             XoopsLoad::fileExists(
                 XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
                 . '/locale/' . XoopsLocale::getLocale() . '/help/' . $page . '.html'
@@ -137,7 +137,7 @@ if ($mid > 0) {
         }
         $xoops->tpl()->assign('helpcontent', $helpcontent);
     } else {
-        if ($helpfile = XoopsLoad::fileExists(
+        if ($helpfile == XoopsLoad::fileExists(
             XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
             . '/locale/' . XoopsLocale::getLocale() . '/help/module_index.html'
         )) {

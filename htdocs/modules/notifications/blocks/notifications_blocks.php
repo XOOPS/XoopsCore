@@ -18,6 +18,9 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
+/**
+ * @return array|bool
+ */
 function b_notification_show()
 {
     $xoops = Xoops::getInstance();

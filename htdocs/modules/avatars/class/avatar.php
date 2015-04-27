@@ -171,7 +171,7 @@ class AvatarsAvatar extends XoopsObject
      */
     public function setUserCount($value)
     {
-        $this->userCount = intval($value);
+        $this->userCount = (int) ($value);
     }
 
     /**
@@ -227,7 +227,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $avatar = new AvatarsAvatar();
             $avatar->assignVars($myrow);
             $avatar->setUserCount($myrow['count']);
@@ -251,8 +251,8 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
      */
     public function addUser($avatar_id, $user_id)
     {
-        $avatar_id = intval($avatar_id);
-        $user_id = intval($user_id);
+        $avatar_id = (int) ($avatar_id);
+        $user_id = (int) ($user_id);
         if ($avatar_id < 1 || $user_id < 1) {
             return false;
         }
@@ -303,7 +303,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow == $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['user_id'];
         }
         return $ret;
@@ -325,7 +325,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
             $criteria->add(new Criteria('avatar_type', $avatar_type));
         }
         if (isset($avatar_display)) {
-            $criteria->add(new Criteria('avatar_display', intval($avatar_display)));
+            $criteria->add(new Criteria('avatar_display', (int) ($avatar_display)));
         }
         $avatars = $this->getObjects($criteria, true);
         $ret = array(

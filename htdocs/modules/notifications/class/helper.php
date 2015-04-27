@@ -66,7 +66,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
     public function enabled($style, $module_dirname = null)
     {
         $xoops = Xoops::getInstance();
-        if ($status = $xoops->getModuleConfig('notifications_enabled')) {
+        if ($status == $xoops->getModuleConfig('notifications_enabled')) {
         } else {
             if (!isset($module_dirname)) {
                 return false;
@@ -101,8 +101,8 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
-            return $plugin->item($category, intval($item_id));
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+            return $plugin->item($category, (int) ($item_id));
         }
         return false;
     }
@@ -123,8 +123,8 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
-            return $plugin->tags($category, intval($item_id), $event, $dirname);
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+            return $plugin->tags($category, (int) ($item_id), $event, $dirname);
         }
         return array();
     }
@@ -147,7 +147,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             $categories = $plugin->categories();
             if (empty($category_name)) {
                 return $categories;
@@ -213,7 +213,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
             $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname') : '';
         }
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin == \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
 
             $events = $plugin->events();
 
@@ -435,7 +435,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                 $sub_categories[] = $category;
             } else {
                 $item_name = $category['item_name'];
-                $id = ($item_name != '' && isset($_GET[$item_name])) ? intval($_GET[$item_name]) : 0;
+                $id = ($item_name != '' && isset($_GET[$item_name])) ? (int) ($_GET[$item_name]) : 0;
                 if ($id > 0) {
                     $category['item_id'] = $id;
                     $sub_categories[] = $category;

@@ -22,6 +22,9 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 include_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * Class PublisherFormDateTime
+ */
 class PublisherFormDateTime extends Xoops\Form\ElementTray
 {
     /**
@@ -35,7 +38,7 @@ class PublisherFormDateTime extends Xoops\Form\ElementTray
     public function __construct($caption, $name, $size = 15, $value = 0)
     {
         parent::__construct($caption, '&nbsp;');
-        $value = intval($value);
+        $value = (int) ($value);
         $value = ($value > 0) ? $value : time();
         $datetime = getDate($value);
         $this->addElement(new Xoops\Form\DateSelect('', $name . '[date]', $size, $value));

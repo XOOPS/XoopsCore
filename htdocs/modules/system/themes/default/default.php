@@ -27,6 +27,9 @@
  * @version     $Id$
  */
 
+/**
+ * Class XoopsGuiDefault
+ */
 class XoopsGuiDefault
 {
 

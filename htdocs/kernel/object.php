@@ -53,6 +53,10 @@ abstract class XoopsPersistableObjectHandler extends Xoops\Core\Kernel\XoopsPers
      * this is a legacy compatibility shim to make the legacy database available
      *
      * @param Connection $db reference to the {@link Connection} object
+     * @param string $table
+     * @param string $className
+     * @param string $keyName
+     * @param string $identifierName
      */
     protected function __construct(
         Connection $db = null,
