@@ -743,6 +743,15 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_int($value));
     }
 
+    public function test_getUserGroups()
+    {
+        $instance = Xoops::getInstance();
+        unset($instance->user);
+        $actual = $instance->getUserGroups();
+        $expected = array(\Xoops\Core\FixedGroups::ANONYMOUS);
+        $this->assertSame($expected, $actual);
+    }
+
     public function test_makePass()
 	{
         $instance = Xoops::getInstance();

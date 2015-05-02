@@ -164,15 +164,6 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
 		$this->markTestIncomplete();
     }
 
-	public function test_getUserGroups()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
-
-		$x = $instance->getUserGroups();
-		$this->assertSame(XOOPS_GROUP_ANONYMOUS, $x);
-    }
-
     public function test_url()
 	{
 		$class = $this->myClass;
