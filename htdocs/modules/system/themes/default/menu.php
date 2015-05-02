@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\FixedGroups;
+
 /*
  * Xoops Cpanel oxygen menu
  *
@@ -28,10 +30,11 @@
 
 $xoops = Xoops::getInstance();
 $groups = array();
-if (is_object($xoops->user))
+if (is_object($xoops->user)) {
     $groups = $xoops->user->getGroups();
+}
 $all_ok = false;
-if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {
+if (!in_array(FixedGroups::ADMIN, $groups)) {
     $sysperm_handler = $xoops->getHandlerGroupperm();
     $ok_syscats = $sysperm_handler->getItemIds('system_admin', $groups);
 } else {

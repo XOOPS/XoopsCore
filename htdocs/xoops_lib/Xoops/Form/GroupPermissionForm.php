@@ -11,6 +11,8 @@
 
 namespace Xoops\Form;
 
+use Xoops\Core\FixedGroups;
+
 /**
  * GroupPermmissionForm - a form for setting module specific group permissions
  *
@@ -137,7 +139,7 @@ class GroupPermissionForm extends Form
         $member_handler = $xoops->getHandlerMember();
         $glist = $member_handler->getGroupList();
         foreach (array_keys($glist) as $i) {
-            if ($i == XOOPS_GROUP_ANONYMOUS && !$this->showAnonymous) {
+            if ($i == FixedGroups::ANONYMOUS && !$this->showAnonymous) {
                 continue;
             }
             // get selected item id(s) for each group

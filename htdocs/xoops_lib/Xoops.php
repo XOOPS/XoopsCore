@@ -1004,7 +1004,7 @@ class Xoops
      *
      * @return  boolean
      */
-    public static function loadLocale($domain = 'xoops', $locale = null)
+    public static function loadLocale($domain = null, $locale = null)
     {
         return Xoops_Locale::loadLocale($domain, $locale);
     }
@@ -1298,6 +1298,16 @@ class Xoops
         }
         $timestamp = $timestamp - (($userTZ - $this->getConfig('server_TZ')) * 3600);
         return (int)$timestamp;
+    }
+
+    /**
+     * @return array of groups the current user is associted with
+     */
+    public function getUserGroups()
+    {
+        $groups = $this->isUser() ? $this->user->getGroups() : array(FixedGroups::ANONYMOUS);
+
+        return $groups;
     }
 
     /**

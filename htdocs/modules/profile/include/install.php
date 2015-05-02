@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * Extended User Profile
  *
@@ -78,7 +80,7 @@ function profile_install_initializeProfiles()
 
     $xoopsDB->queryF("INSERT INTO " . $xoopsDB->prefix("profile_profile") . " (profile_id) " . " SELECT uid " . " FROM " . $xoopsDB->prefix("users"));
 
-    $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . " (" . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_ADMIN . ", {$module_id}, 'profile_access'), " . " (" . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_USERS . ", {$module_id}, 'profile_access'), " . " (" . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_USERS . ", {$module_id}, 'profile_access'), " . " (" . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_USERS . ", {$module_id}, 'profile_access') " . " ";
+    $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . " (" . FixedGroups::ADMIN . ", " . FixedGroups::ADMIN . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::ADMIN . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::USERS . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::ANONYMOUS . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access') " . " ";
     $xoopsDB->queryF($sql);
 
 }
@@ -133,13 +135,13 @@ function profile_install_addField($name, $title, $description, $category, $type,
         " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " .
         " VALUES " .
         ($canedit ?
-            " (" . XOOPS_GROUP_ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
+            " (" . FixedGroups::ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
         : "" ) .
         ($canedit == 1 ?
-            " (" . XOOPS_GROUP_USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
+            " (" . FixedGroups::USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
         : "" ) .
-        " (" . XOOPS_GROUP_ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search'), " .
-        " (" . XOOPS_GROUP_USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search') " .
+        " (" . FixedGroups::ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search'), " .
+        " (" . FixedGroups::USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search') " .
         " ";
     $xoopsDB->query($sql);
 
@@ -147,12 +149,12 @@ function profile_install_addField($name, $title, $description, $category, $type,
         $sql = "INSERT INTO " . $xoopsDB->prefix("profile_visibility") .
             " (field_id, user_group, profile_group) " .
             " VALUES " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_ADMIN . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_USERS . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_ADMIN . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_USERS . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_ADMIN . "), " .
-            " ({$gperm_itemid}, " . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_USERS . ")" .
+            " ({$gperm_itemid}, " . FixedGroups::ADMIN . ", " . FixedGroups::ADMIN . "), " .
+            " ({$gperm_itemid}, " . FixedGroups::ADMIN . ", " . FixedGroups::USERS . "), " .
+            " ({$gperm_itemid}, " . FixedGroups::USERS . ", " . FixedGroups::ADMIN . "), " .
+            " ({$gperm_itemid}, " . FixedGroups::USERS . ", " . FixedGroups::USERS . "), " .
+            " ({$gperm_itemid}, " . FixedGroups::ANONYMOUS . ", " . FixedGroups::ADMIN . "), " .
+            " ({$gperm_itemid}, " . FixedGroups::ANONYMOUS . ", " . FixedGroups::USERS . ")" .
             " ";
         $xoopsDB->query($sql);
     }
@@ -170,13 +172,21 @@ function profile_install_setPermissions($field_id, $module_id, $canedit, $visibl
     $gperm_itemid = $field_id;
     $gperm_modid = $module_id;
     $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . ($canedit
-            ? " (" . XOOPS_GROUP_ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), " : "") . ($canedit == 1
-            ? " (" . XOOPS_GROUP_USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
-            : "") . " (" . XOOPS_GROUP_ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search'), " . " (" . XOOPS_GROUP_USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search') " . " ";
+            ? " (" . FixedGroups::ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), " : "") . ($canedit == 1
+            ? " (" . FixedGroups::USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
+            : "") . " (" . FixedGroups::ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search'), " . " (" . FixedGroups::USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search') " . " ";
     $xoopsDB->queryF($sql);
 
     if ($visible) {
-        $sql = "INSERT INTO " . $xoopsDB->prefix("profile_visibility") . " (field_id, user_group, profile_group) " . " VALUES " . " ({$gperm_itemid}, " . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_ADMIN . "), " . " ({$gperm_itemid}, " . XOOPS_GROUP_ADMIN . ", " . XOOPS_GROUP_USERS . "), " . " ({$gperm_itemid}, " . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_ADMIN . "), " . " ({$gperm_itemid}, " . XOOPS_GROUP_USERS . ", " . XOOPS_GROUP_USERS . "), " . " ({$gperm_itemid}, " . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_ADMIN . "), " . " ({$gperm_itemid}, " . XOOPS_GROUP_ANONYMOUS . ", " . XOOPS_GROUP_USERS . ")" . " ";
+        $sql = "INSERT INTO " . $xoopsDB->prefix("profile_visibility")
+            . " (field_id, user_group, profile_group) "
+            . " VALUES "
+            . " ({$gperm_itemid}, " . FixedGroups::ADMIN . ", " . FixedGroups::ADMIN . "), "
+            . " ({$gperm_itemid}, " . FixedGroups::ADMIN . ", " . FixedGroups::USERS . "), "
+            . " ({$gperm_itemid}, " . FixedGroups::USERS . ", " . FixedGroups::ADMIN . "), "
+            . " ({$gperm_itemid}, " . FixedGroups::USERS . ", " . FixedGroups::USERS . "), "
+            . " ({$gperm_itemid}, " . FixedGroups::ANONYMOUS . ", " . FixedGroups::ADMIN . "), "
+            . " ({$gperm_itemid}, " . FixedGroups::ANONYMOUS . ", " . FixedGroups::USERS . ")" . " ";
         $xoopsDB->queryF($sql);
     }
 }

@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\FixedGroups;
 
 /**
  * Blocks Administration
@@ -47,7 +48,7 @@ $selmod = $selgen = $selgrp = $selvis = null;
 $sel = array(
     'selmod' => -2,
     'selgen' => -1,
-    'selgrp' => XOOPS_GROUP_USERS,
+    'selgrp' => FixedGroups::USERS,
     'selvis' => -1
 );
 foreach ($sel as $key => $value) {

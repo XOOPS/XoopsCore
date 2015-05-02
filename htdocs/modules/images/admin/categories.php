@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Request;
 
 /**
@@ -64,9 +65,9 @@ switch ($op) {
             // Save permissions
             $permissions = array('readgroup' => 'imgcat_read', 'writegroup' => 'imgcat_write');
             foreach ($permissions as $k => $permission) {
-                $groups = Request::getArray($k, array(XOOPS_GROUP_ADMIN));
-                if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {
-                    array_push($groups, XOOPS_GROUP_ADMIN);
+                $groups = Request::getArray($k, array(FixedGroups::ADMIN));
+                if (!in_array(FixedGroups::ADMIN, $groups)) {
+                    array_push($groups, FixedGroups::ADMIN);
                 }
                 foreach ($groups as $group) {
                     $perm_obj = $xoops->getHandlerGroupperm()->create();

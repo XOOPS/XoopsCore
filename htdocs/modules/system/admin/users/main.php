@@ -31,6 +31,7 @@
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Request;
+use Xoops\Core\FixedGroups;
 
 $xoops = Xoops::getInstance();
 
@@ -104,7 +105,7 @@ switch ($op) {
             }
 
             $groups = $user->getGroups();
-            if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
+            if (in_array(FixedGroups::ADMIN, $groups)) {
                 echo $xoops->alert('error', sprintf(SystemLocale::EF_CAN_NOT_DELETE_ADMIN_USER, $user->getVar("uname")));
             } elseif (!$member_handler->deleteUser($user)) {
                 echo $xoops->alert('error', sprintf(SystemLocale::EF_COULD_NOT_DELETE_USER, $user->getVar("uname")));
@@ -135,7 +136,7 @@ switch ($op) {
                 $del = intval($del);
                 $user = $member_handler->getUser($del);
                 $groups = $user->getGroups();
-                if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
+                if (in_array(FixedGroups::ADMIN, $groups)) {
                     $error .= sprintf(SystemLocale::EF_CAN_NOT_DELETE_ADMIN_USER, $user->getVar("uname"));
                     $error .= '<br />';
                 } elseif (!$member_handler->deleteUser($user)) {
@@ -227,9 +228,9 @@ switch ($op) {
                     if ($_REQUEST['groups'] != array()) {
                         $oldgroups = $edituser->getGroups();
                         //If the edited user is the current user and the current user WAS in the webmaster's group and is NOT in the new groups array
-                        if ($edituser->getVar('uid') == $xoops->user->getVar('uid') && (in_array(XOOPS_GROUP_ADMIN, $oldgroups)) && !(in_array(XOOPS_GROUP_ADMIN, $_REQUEST['groups']))) {
+                        if ($edituser->getVar('uid') == $xoops->user->getVar('uid') && (in_array(FixedGroups::ADMIN, $oldgroups)) && !(in_array(FixedGroups::ADMIN, $_REQUEST['groups']))) {
                             //Add the webmaster's group to the groups array to prevent accidentally removing oneself from the webmaster's group
-                            array_push($_REQUEST['groups'], XOOPS_GROUP_ADMIN);
+                            array_push($_REQUEST['groups'], FixedGroups::ADMIN);
                         }
                         $member_handler = $xoops->getHandlerMember();
                         foreach ($oldgroups as $groupid) {

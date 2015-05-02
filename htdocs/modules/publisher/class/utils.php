@@ -19,11 +19,7 @@ use Xmf\Module\Session;
  * @author          trabis <lusopoemas@gmail.com>
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
-
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 class PublisherUtils
 {
     /**
@@ -910,7 +906,7 @@ class PublisherUtils
         $rating1 = @number_format($current_rating / $count, 1);
         $rating2 = @number_format($current_rating / $count, 2);
 
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = $xoops->getUserGroups();
         $gperm_handler = $publisher->getGrouppermHandler();
 
         if (!$gperm_handler->checkRight('global', _PUBLISHER_RATE, $groups, $publisher->getModule()->getVar('mid'))) {

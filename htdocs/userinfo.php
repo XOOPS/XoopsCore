@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.userinfo.start');
@@ -33,7 +33,7 @@ if ($uid <= 0) {
     $xoops->redirect('index.php', 3, XoopsLocale::E_NO_USER_SELECTED);
 }
 $gperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 
 $isAdmin = $gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_USER, $groups);
 if ($xoops->isUser()) {
@@ -183,7 +183,7 @@ $criteria->add(new Criteria('isactive', 1));
 $criteria->add(new Criteria('weight', 0, '>'));
 $modules = $module_handler->getObjectsArray($criteria, true);
 $moduleperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
 
 foreach (array_keys($modules) as $i) {

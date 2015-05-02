@@ -91,14 +91,13 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         if (isset($items[$gperm_name])) {
             return $items[$gperm_name];
         }
-        global $xoopsUser;
         $ret = array();
         //Instead of calling groupperm handler and get objects, we will save some memory and do it our way
         $criteria = new CriteriaCompo(new Criteria('gperm_name', $gperm_name));
         $criteria->add(new Criteria('gperm_modid', $this->publisher->getModule()->getVar('mid')));
 
         //Get user's groups
-        $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+        $groups = \Xoops::getInstance()->getUserGroups();
         $criteria2 = new CriteriaCompo();
         foreach ($groups as $gid) {
             $criteria2->add(new Criteria('gperm_groupid', $gid), 'OR');

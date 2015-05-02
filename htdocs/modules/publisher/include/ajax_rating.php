@@ -47,7 +47,7 @@ header("Pragma: nocache");
 $rating = intval($_REQUEST['rating']);
 $itemid = intval($_REQUEST['itemid']);
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 $gperm_handler = $publisher->getGrouppermHandler();
 $hModConfig = $xoops->getHandlerConfig();
 $module_id = $publisher->getModule()->getVar('mid');

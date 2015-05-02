@@ -34,7 +34,7 @@ if (!$categoriesArray) {
     $xoops->redirect("index.php", 1, _MD_PUBLISHER_NEED_CATEGORY_ITEM);
 }
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 $gperm_handler = $xoops->getHandlerGroupperm();
 $module_id = $publisher->getModule()->getVar('mid');
 

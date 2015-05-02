@@ -14,7 +14,7 @@
  * @package   kernel
  */
 
-defined('XOOPS_MAINFILE_INCLUDED') or die('Restricted access');
+use Xoops\Core\FixedGroups;
 
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
@@ -224,7 +224,7 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
-        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
+        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), FixedGroups::ANONYMOUS)) {
             $xoops->redirect(
                 XOOPS_URL . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
                 1,

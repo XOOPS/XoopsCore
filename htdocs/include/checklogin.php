@@ -17,7 +17,7 @@
  * @todo            Will be refactored
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\FixedGroups;
 
 $xoops = Xoops::getInstance();
 
@@ -53,7 +53,7 @@ if (false != $user) {
     if ($xoops->getConfig('closesite') == 1) {
         $allowed = false;
         foreach ($user->getGroups() as $group) {
-            if (in_array($group, $xoops->getConfig('closesite_okgrp')) || XOOPS_GROUP_ADMIN == $group) {
+            if (in_array($group, $xoops->getConfig('closesite_okgrp')) || FixedGroups::ADMIN == $group) {
                 $allowed = true;
                 break;
             }

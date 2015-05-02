@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Database\Schema\ImportSchema;
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Yaml;
@@ -358,9 +359,9 @@ class SystemModule
                 $this->installConfigs($module, 'add');
 
                 if ($module->getInfo('hasMain')) {
-                    $groups = array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS);
+                    $groups = array(FixedGroups::ADMIN, FixedGroups::USERS, FixedGroups::ANONYMOUS);
                 } else {
-                    $groups = array(XOOPS_GROUP_ADMIN);
+                    $groups = array(FixedGroups::ADMIN);
                 }
                 // retrieve all block ids for this module
                 $block_handler = $xoops->getHandlerBlock();

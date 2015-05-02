@@ -64,7 +64,7 @@ function smarty_function_xoblock($params, &$smarty)
     } else {
         $blockObj = $block_objs[$block_id];
     }
-    $user_groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+    $user_groups = $xoops->getUserGroups();
 
     static $allowed_blocks;
     if (count($allowed_blocks) == 0) {

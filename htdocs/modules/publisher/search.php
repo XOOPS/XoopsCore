@@ -35,7 +35,7 @@ if (empty($xoopsConfigSearch["enable_search"])) {
     $xoops->redirect(PUBLISHER_URL . "/index.php", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 $gperm_handler = $publisher->getGrouppermHandler();
 $module_id = $publisher->getModule()->mid();
 

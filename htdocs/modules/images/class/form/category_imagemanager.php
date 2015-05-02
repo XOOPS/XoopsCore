@@ -28,7 +28,7 @@ class ImagesCategory_imagemanagerForm extends Xoops\Form\ThemeForm
     public function __construct($param)
     {
         $xoops = Xoops::getInstance();
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = $xoops->getUserGroups();
         extract($param);
         $helper = Xoops\Module\Helper::getHelper('images');
         $categories = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_read');

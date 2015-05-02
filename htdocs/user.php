@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * XOOPS User
  *
@@ -22,7 +24,7 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.user.start');
@@ -123,7 +125,7 @@ if ($op == 'delete') {
         $xoops->redirect('index.php', 5, XoopsLocale::E_NO_ACTION_PERMISSION);
     } else {
         $groups = $xoops->user->getGroups();
-        if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
+        if (in_array(FixedGroups::ADMIN, $groups)) {
             // users in the webmasters group may not be deleted
             $xoops->redirect('user.php', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }

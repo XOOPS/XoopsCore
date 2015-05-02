@@ -48,7 +48,7 @@ class SearchSearchForm extends Xoops\Form\ThemeForm
         }
         if (empty($modules)) {
             $gperm_handler = $xoops->getHandlerGroupperm();
-            $available_modules = $gperm_handler->getItemIds('module_read', $search->getUserGroups());
+            $available_modules = $gperm_handler->getItemIds('module_read', $xoops->getUserGroups());
             $available_plugins = \Xoops\Module\Plugin::getPlugins('search');
 
             //todo, would be nice to have the module ids availabe also
