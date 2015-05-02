@@ -21,7 +21,7 @@ class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new $this->myClass($this->ts);
         $this->assertInstanceOf($this->myClass, $extension);
         $this->assertEquals($this->ts, $extension->ts);
-        $this->assertEquals(XOOPS_URL . '/images/form', $extension->image_path);
+        $this->assertEquals(\XoopsBaseConfig::get('url') . '/images/form', $extension->image_path);
     }
     
     public function test_loadConfig()

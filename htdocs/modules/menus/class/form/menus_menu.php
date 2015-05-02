@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class MenusMenus_menuForm extends Xoops\Form\ThemeForm
 {
     /**

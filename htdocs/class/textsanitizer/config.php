@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 return $config = array(
     "extensions" => array(
         "iframe" => 0,

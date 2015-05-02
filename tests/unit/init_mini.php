@@ -52,7 +52,8 @@ defined('NWLINE')or define('NWLINE', "\n");
 /**
  * Include files with definitions
  */
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
+$xoops_root_path = \XoopsBaseConfig::get('root-path');
+include_once $xoops_root_path . DS . 'include' . DS . 'defines.php';
 // include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
 
 /**

@@ -14,8 +14,6 @@
  * @package   kernel
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
  * no update yet, so only only new installs get the change in mainfile.dist.php
@@ -117,15 +115,6 @@ include_once $xoops->path('include/functions.php');
  */
 //define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
 //define('XOOPS_COOKIE_DOMAIN', null);
-
-/**
- * Check Proxy;
- * Requires functions
- */
-if ($_SERVER['REQUEST_METHOD'] != 'POST'
-|| !$xoops->security()->checkReferer(\XoopsBaseConfig::get('db-chkref'))) {
-    $xoops->globalData->setVar('XOOPS_DB_PROXY', 1);
-}
 
 /**
  * Get xoops configs

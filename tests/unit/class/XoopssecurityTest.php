@@ -1,7 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../init_mini.php');
 
-require_once(XOOPS_ROOT_PATH.'/class/xoopssecurity.php');
+$xoops_root_path = \XoopsBaseConfig::get('root-path');
+require_once($xoops_root_path.'/class/xoopssecurity.php');
 
 /**
 * PHPUnit special settings :

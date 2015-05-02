@@ -19,8 +19,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 $xoops = Xoops::getInstance();
 $groups = array();
 if (is_object($xoops->user)) {

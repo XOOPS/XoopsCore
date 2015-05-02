@@ -26,8 +26,6 @@ if (file_exists('mainfile.php')) {
     include '../../' . DIRECTORY_SEPARATOR . 'mainfile.php';
 }
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 

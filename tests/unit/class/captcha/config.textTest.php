@@ -14,7 +14,8 @@ class ConfigTextTest extends \PHPUnit_Framework_TestCase
 	{
 		global $config;
 		
-		require(XOOPS_ROOT_PATH.'/class/captcha/config.text.php');
+        $xoops_root_path = \XoopsBaseConfig::get('root-class');
+		require $xoops_root_path.'/class/captcha/config.text.php';
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['num_chars']));
     }

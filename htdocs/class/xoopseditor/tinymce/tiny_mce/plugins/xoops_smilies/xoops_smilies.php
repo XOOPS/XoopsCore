@@ -13,9 +13,7 @@
 
 use Xoops\Core\Request;
 
-$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-include_once $xoops_root_path . '/mainfile.php';
-defined('XOOPS_INITIALIZED') or die('Restricted access');
+require_once dirname(__FILE__).'/../../../../../../mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();

@@ -19,9 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class XoopsSecurity extends Xoops\Core\Security
 {
-
 }

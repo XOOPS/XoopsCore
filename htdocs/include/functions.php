@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 /**
  * @deprecated
  * @param string $name

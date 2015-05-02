@@ -11,7 +11,7 @@
  * @subpackage      art
  */
 
-if (substr(\Xoops::getInstance()->globalData->getVar('version'), 0, 9) < "XOOPS 2.3") {
+if (substr(\XoopsBaseConfig('version'), 0, 9) < "XOOPS 2.3") {
     trigger_error("The package only works for XOOPS 2.3+", E_USER_ERROR);
 }
 

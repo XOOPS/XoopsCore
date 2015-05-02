@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 return $config = array(
     // Filters XSS scripts on display of text
     // There is considerable trade-off between security and performance

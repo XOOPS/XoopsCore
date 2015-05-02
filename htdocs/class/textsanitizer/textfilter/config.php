@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 return $config = array(
     'tags' => array(), // Tags to be filtered out
     'patterns' => array( // patterns to be used for filtering

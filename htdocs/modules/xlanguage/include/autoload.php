@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 return array (
     'charset' => array(
         //'big5'          => 'big5',

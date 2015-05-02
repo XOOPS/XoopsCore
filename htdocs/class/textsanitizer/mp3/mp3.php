@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class MytsMp3 extends MyTextSanitizerExtension
 {
     /**

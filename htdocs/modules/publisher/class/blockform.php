@@ -20,9 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
-
 /**
  * Form that will output formatted as a HTML table
  *

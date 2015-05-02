@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class XcaptchaImageForm extends Xoops\Form\ThemeForm
 {
     /**

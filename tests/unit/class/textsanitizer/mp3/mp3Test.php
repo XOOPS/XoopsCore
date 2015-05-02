@@ -1,7 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init.php');
 
-require_once(XOOPS_ROOT_PATH.'/class/textsanitizer/mp3/mp3.php');
+$xoops_root_path = \XoopsBaseConfig::get('root-path');
+require_once($xoops_root_path.'/class/textsanitizer/mp3/mp3.php');
 
 /**
 * PHPUnit special settings :

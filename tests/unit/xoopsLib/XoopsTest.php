@@ -23,15 +23,13 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
             $this->assertSame(true, $value);
         }
 
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
-        $this->assertSame(array(XOOPS_ROOT_PATH, XOOPS_URL), $instance->paths['www']);
-        $this->assertSame(array(XOOPS_VAR_PATH, null), $instance->paths['var']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['lib']);
-        $this->assertSame(array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules'), $instance->paths['modules']);
-        $this->assertSame(array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes'), $instance->paths['themes']);
-        $this->assertSame(array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media'), $instance->paths['media']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path'), \XoopsBaseConfig::get('url')), $instance->paths['www']);
+        $this->assertSame(array(\XoopsBaseConfig::get('var-path'), null), $instance->paths['var']);
+        $this->assertSame(array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php'), $instance->paths['lib']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/modules', \XoopsBaseConfig::get('url') . '/modules'), $instance->paths['modules']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/themes', \XoopsBaseConfig::get('url') . '/themes'), $instance->paths['themes']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/media', \XoopsBaseConfig::get('url') . '/media'), $instance->paths['media']);
 
         $this->assertTrue(is_null($instance->sess_handler));
         $this->assertTrue(is_null($instance->module));
@@ -148,8 +146,8 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $value = $instance->loadLocale('system/themes/default');
         $this->assertSame(true, $value);
 
-        require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/en_US.php';
-        require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/locale.php';
+        require_once \XoopsBaseConfig::get('root-path') . '/modules/system/themes/default/locale/en_US/en_US.php';
+        require_once \XoopsBaseConfig::get('root-path') . '/modules/system/themes/default/locale/en_US/locale.php';
 
         /*
         $instance->setTheme(null);
@@ -180,7 +178,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('http://localhost/tmp/', $value);
 
         $value = $instance->url('tmp');
-        $this->assertSame(XOOPS_URL.'/tmp', $value);
+        $this->assertSame(\XoopsBaseConfig::get('url').'/tmp', $value);
     }
 
     public function test_buildUrl()
@@ -225,8 +223,8 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 	{
         $instance = Xoops::getInstance();
 
-		$value = $instance->pathExists(XOOPS_ROOT_PATH, E_USER_NOTICE);
-		$this->assertSame(XOOPS_ROOT_PATH, $value);
+		$value = $instance->pathExists(\XoopsBaseConfig::get('root-path'), E_USER_NOTICE);
+		$this->assertSame(\XoopsBaseConfig::get('root-path'), $value);
 	}
 
     public function test_gzipcompression()
@@ -875,11 +873,11 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 
         $_SERVER['HTTP_USER_AGENT'] = 'mac';
         $value = $instance->getCss();
-        $this->assertSame(XOOPS_THEME_URL . '/default/css/style.css', $value);
+        $this->assertSame(\XoopsBaseConfig::get('themes-url') . '/default/css/style.css', $value);
 
         $_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
         $value = $instance->getCss();
-        $this->assertSame(XOOPS_THEME_URL . '/default/css/style.css', $value);
+        $this->assertSame(\XoopsBaseConfig::get('themes-url') . '/default/css/style.css', $value);
 
         $_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
         $value = $instance->getCss('default');

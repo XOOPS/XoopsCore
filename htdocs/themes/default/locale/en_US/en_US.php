@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_INITIALIZED") or die("Restricted access");
-
 class DefaultThemeLocaleEn_US
 {
     const QUICK_LINKS = "Quick links";

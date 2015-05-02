@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class AvatarsAvatarForm extends Xoops\Form\ThemeForm
 {
     public function __construct(AvatarsAvatar $obj)

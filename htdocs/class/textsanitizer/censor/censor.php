@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 /**
  * Replaces banned words in a string with their replacements or terminate current request
  *

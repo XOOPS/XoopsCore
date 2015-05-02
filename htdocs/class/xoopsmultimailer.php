@@ -133,6 +133,6 @@ class XoopsMultiMailer extends PHPMailer
         // TODO: change value type of xoopsConfig 'smtphost' from array to text
         $smtphost = $xoops->getConfig('smtphost');
         $this->Host = is_array($smtphost) ? implode(';', $smtphost) : $smtphost;
-        //$this->PluginDir = XOOPS_ROOT_PATH . '/class/mail/phpmailer/';
+        //$this->PluginDir = \XoopsBaseConfig::get('root-path') . '/class/mail/phpmailer/';
     }
 }

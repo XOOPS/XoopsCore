@@ -14,7 +14,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 	{
 		global $config;
 		
-		require(XOOPS_ROOT_PATH.'/class/captcha/config.php');
+        $xoops_root_path = \XoopsBaseConfig::get('root-class');
+		require $xoops_root_path.'/class/captcha/config.php';
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['disabled']));
 		$this->assertTrue(isset($config['mode']));

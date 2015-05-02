@@ -1,5 +1,4 @@
 <?php
-defined('XOOPS_INITIALIZED') or die('Restricted access');
 $xoops_url = \XoopsBaseConfig::get('url');
 ?>
 <link rel="stylesheet" type="text/css" media="all" href="<?php echo $xoops_url;?>/include/calendar-blue.css"/>

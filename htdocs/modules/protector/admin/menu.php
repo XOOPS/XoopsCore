@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 $adminmenu = array(
     array(
         'title' => _MI_PROTECTOR_ADMINHOME,

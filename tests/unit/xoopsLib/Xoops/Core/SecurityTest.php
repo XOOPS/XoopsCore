@@ -61,7 +61,8 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse(is_null($token));
 		$id = $token['id'];
 		$expire = $token['expire'];
-		$this->assertSame(md5($id . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX), $value);
+        $db_prefix = \XoopsBaseConfig::get('db-prefix');
+		$this->assertSame(md5($id . $_SERVER['HTTP_USER_AGENT'] . $db_prefix), $value);
 		unset($_SESSION['XOOPS_TOKEN_SESSION']);
 		
 		$tkName = 'MY_TOKEN';
@@ -70,7 +71,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 		$token = array_pop($x);
 		$this->assertFalse(is_null($token));
 		$id = $token['id'];
-		$this->assertSame(md5($id . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX), $value);
+		$this->assertSame(md5($id . $_SERVER['HTTP_USER_AGENT'] . $db_prefix), $value);
 		unset($_SESSION['MY_TOKEN_SESSION']);
     }
 	
@@ -164,7 +165,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 		$value = $instance->checkReferer();
 		$this->assertFalse($value);	
 
-		$_SERVER['HTTP_REFERER'] = XOOPS_URL;
+		$_SERVER['HTTP_REFERER'] = \XoopsBaseConfig::get('url');;
 		$value = $instance->checkReferer();
 		$this->assertTrue($value);	
 

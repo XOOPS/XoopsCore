@@ -15,5 +15,3 @@
  * @package   thumbs
  * @author    Laurent JEN - aka DuGris
  */
-
-defined('XOOPS_INITIALIZED') or die('Restricted access');

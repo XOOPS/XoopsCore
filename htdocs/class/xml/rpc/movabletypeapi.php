@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class MovableTypeApi extends XoopsXmlRpcApi
 {
     function MovableTypeApi(&$params, &$response, &$module)

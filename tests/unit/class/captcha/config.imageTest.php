@@ -14,7 +14,8 @@ class ConfigImageTest extends \PHPUnit_Framework_TestCase
 	{
 		global $config;
 		
-		require(XOOPS_ROOT_PATH.'/class/captcha/config.image.php');
+        $xoops_root_path = \XoopsBaseConfig::get('root-class');
+		require $xoops_root_path.'/class/captcha/config.image.php';
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['num_chars']));
 		$this->assertTrue(isset($config['casesensitive']));

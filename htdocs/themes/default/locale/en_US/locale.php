@@ -16,9 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class DefaultThemeLocale extends DefaultThemeLocaleEn_US
 {
-
 }

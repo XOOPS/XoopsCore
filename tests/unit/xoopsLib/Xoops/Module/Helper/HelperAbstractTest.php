@@ -40,7 +40,8 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function test___construct()
 	{
-		$dir = XOOPS_ROOT_PATH.'/modules/avatar';
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$dir = $xoops_root_path.'/modules/avatar';
 		$instance = new $this->myClass($dir);
 		$this->assertInstanceOf($this->myClass, $instance);
     }

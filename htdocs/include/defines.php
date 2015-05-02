@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 /**
  * Define required Defines (I guess lol )
  */
@@ -53,11 +51,6 @@ define('XOOPS_MATCH_CONTAIN', 3);
 // define('XOOPS_CACHE_PATH', XOOPS_VAR_PATH . '/caches/xoops_cache');
 // ----- END: Deprecated, move to template class -----
 
-if (!defined('XOOPS_XMLRPC')) {
-    define('XOOPS_DB_CHKREF', 1);
-} else {
-    define('XOOPS_DB_CHKREF', 0);
-}
 
 /**
  * User Mulitbytes

@@ -19,7 +19,6 @@
 define("XOOPS_DB_TYPE", "mysql");
 
 // Set the database charset if applicable
-if (defined("XOOPS_DB_CHARSET")) die('Restricted Access');
 define("XOOPS_DB_CHARSET", "");
 
 // Table Prefix

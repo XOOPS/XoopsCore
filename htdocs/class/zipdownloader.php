@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 /**
  * Abstract base class for forms
  *

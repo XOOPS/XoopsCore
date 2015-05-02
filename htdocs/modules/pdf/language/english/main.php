@@ -15,5 +15,3 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-defined('XOOPS_INITIALIZED') or die('Restricted access');

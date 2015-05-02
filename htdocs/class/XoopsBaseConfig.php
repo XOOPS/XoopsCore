@@ -218,7 +218,27 @@ class XoopsBaseConfig
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
-
+        
+        if (!defined('XOOPS_XMLRPC')) {
+            $chkref = 1;
+        } else {
+            $chkref = 0;
+        }
+        
+        /**
+         * Check Proxy;
+         * Requires functions
+         */
+        /* TO BE FIXED
+        if ($_SERVER['REQUEST_METHOD'] != 'POST'
+        || !\Xoops::getInstance()->security()->checkReferer($chkref)) {
+            $db_proxy = 1;
+        } else {
+            $db_proxy = 0;
+        }
+        */
+        $db_proxy = 0;
+        
 		$config = array(
 			'root-path' => XOOPS_ROOT_PATH,
 			'lib-path' => XOOPS_PATH,
@@ -239,8 +259,8 @@ class XoopsBaseConfig
 			'db-name' => XOOPS_DB_NAME,
 			'db-pconnect' => XOOPS_DB_PCONNECT,
 			'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
-			'db-proxy' => 0,
-			'db-chkref' => 0,
+			'db-proxy' => $db_proxy,
+			'db-chkref' => $chkref,
 			'assets-path' => $path . '/assets',
 			'themes-path' => XOOPS_ROOT_PATH .'/themes',
 			'adminthemes-path' => XOOPS_ROOT_PATH . '/modules/system/themes',

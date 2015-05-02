@@ -17,11 +17,9 @@
  * @todo            Will be refactored
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 $xoops = Xoops::getInstance();
 
-$xoops_url = $xoops->globalData->getVar('url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 // from $_POST we use keys: uname, pass, rememberme, xoops_redirect
 $clean_input = XoopsFilterInput::gather(

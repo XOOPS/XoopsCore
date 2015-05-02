@@ -21,11 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
-//define('SMARTY_DIR', XOOPS_PATH . '/smarty/'); // now defined when Smarty autoloads
-//define('XOOPS_COMPILE_PATH', \XoopsBaseConfig::get('root-path') . '/caches/smarty_compile');
-
 /**
  * Template engine
  *

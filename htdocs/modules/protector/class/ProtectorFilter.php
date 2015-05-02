@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 // Abstract of each filter classes
 class ProtectorFilterAbstract
 {

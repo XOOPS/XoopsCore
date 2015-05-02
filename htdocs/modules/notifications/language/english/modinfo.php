@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 define('_MI_NOTIFICATIONS_NAME', 'Notifications');
 define('_MI_NOTIFICATIONS_DSC', 'Provides notifications ability for modules');
 

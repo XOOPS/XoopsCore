@@ -20,7 +20,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 class FormTextArea extends XoopsEditor
 {

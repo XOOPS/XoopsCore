@@ -15,7 +15,8 @@ function verify($file, $path)
 
 function browse($path=null)
 {
-	$root = XOOPS_ROOT_PATH.DS.$path;
+    $xoops_root_path = \XoopsBaseConfig::get('root-path');
+	$root = $xoops_root_path.DS.$path;
 	$files = scandir($root);
 	foreach($files as $file) {
 		if ($file=='.' OR $file=='..') continue;

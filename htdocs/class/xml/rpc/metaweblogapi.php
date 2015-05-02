@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class MetaWeblogApi extends XoopsXmlRpcApi
 {
     function MetaWeblogApi(&$params, &$response, &$module)

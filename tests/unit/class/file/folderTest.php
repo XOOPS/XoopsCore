@@ -64,7 +64,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$pwd = $instance->pwd();
 		$this->assertSame($dir,$pwd);
 		
-		$dir = XOOPS_VAR_PATH . '/caches/xoops_cache';
+		$dir = \XoopsBaseConfig::get('var-class') . '/caches/xoops_cache';
 		$instance = new $this->myClass('', false, false);
 		$pwd = $instance->pwd();
 		$this->assertSame($dir,$pwd);

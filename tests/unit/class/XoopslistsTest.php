@@ -35,11 +35,12 @@ class XoopslistsTest extends \PHPUnit_Framework_TestCase
 	public function test_getThemesList()
 	{
 		$class = $this->myClass;
-		$list_ref = $class::getDirListAsArray(XOOPS_THEME_PATH . '/');
+        $theme_path = \XoopsBaseConfig::get('themes-path');
+		$list_ref = $class::getDirListAsArray($theme_path . '/');
 		$value = $class::getThemesList();
         $this->assertSame($list_ref, $value);
 		
-		$list_ref = $class::getDirListAsArray(XOOPS_THEME_PATH );
+		$list_ref = $class::getDirListAsArray($theme_path );
 		$value = $class::getThemesList();
         $this->assertSame($list_ref, $value);
 	}
@@ -47,7 +48,8 @@ class XoopslistsTest extends \PHPUnit_Framework_TestCase
     public function test_getModulesList()
 	{
 		$class = $this->myClass;
-		$list_ref = $class::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$list_ref = $class::getDirListAsArray($xoops_root_path . '/modules/');
 		$value = $class::getModulesList();
         $this->assertSame($list_ref, $value);
 	}
@@ -55,7 +57,8 @@ class XoopslistsTest extends \PHPUnit_Framework_TestCase
     public function test_getEditorList()
 	{
 		$class = $this->myClass;
-		$list_ref = $class::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$list_ref = $class::getDirListAsArray($xoops_root_path . '/class/xoopseditor/');
 		$value = $class::getEditorList();
         $this->assertSame($list_ref, $value);
 	}
@@ -63,40 +66,44 @@ class XoopslistsTest extends \PHPUnit_Framework_TestCase
     public function test_getFileListAsArray()
 	{
 		$class = $this->myClass;
-		$value = $class::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$value = $class::getFileListAsArray($xoops_root_path . '/class/xoopseditor/');
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 		$prefix='toto';
-		$value = $class::getFileListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/',$prefix);
+		$value = $class::getFileListAsArray($xoops_root_path . '/class/xoopseditor/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
 	
     public function test_getImgListAsArray()
 	{
 		$class = $this->myClass;
-		$value = $class::getImgListAsArray(XOOPS_ROOT_PATH . '/images/');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$value = $class::getImgListAsArray($xoops_root_path . '/images/');
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 		$prefix='toto';
-		$value = $class::getImgListAsArray(XOOPS_ROOT_PATH . '/images/',$prefix);
+		$value = $class::getImgListAsArray($xoops_root_path . '/images/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
 	
     public function test_getHtmlListAsArray()
 	{
 		$class = $this->myClass;
-		$value = $class::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$value = $class::getHtmlListAsArray($xoops_root_path . '/themes/');
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value)>0);
 		$prefix='toto';
-		$value = $class::getHtmlListAsArray(XOOPS_ROOT_PATH . '/themes/',$prefix);
+		$value = $class::getHtmlListAsArray($xoops_root_path . '/themes/',$prefix);
         $this->assertSame(0, strncmp(array_shift($value),$prefix,strlen($prefix)));
 	}
 	
     public function test_getAvatarsList()
 	{
 		$class = $this->myClass;
-		$d_avatar = XOOPS_ROOT_PATH . '/images/avatar/';
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$d_avatar = $xoops_root_path . '/images/avatar/';
 		$is_dir = is_dir($d_avatar);
 		if ($is_dir) {
 			$value = $class::getAvatarsList();
@@ -128,7 +135,8 @@ class XoopslistsTest extends \PHPUnit_Framework_TestCase
     public function test_getSubjectsList()
 	{
 		$class = $this->myClass;
-		$d_subject = XOOPS_ROOT_PATH . '/images/subject/';
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$d_subject = $xoops_root_path . '/images/subject/';
 		$is_dir = is_dir($d_subject);
 		if ($is_dir) {
 			$value = $class::getSubjectsList();

@@ -22,8 +22,6 @@
  * @since     2.6.0
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 return $config = array(
     'private_key' => 'YourPrivateApiKey',
     'public_key' => 'YourPublicApiKey',

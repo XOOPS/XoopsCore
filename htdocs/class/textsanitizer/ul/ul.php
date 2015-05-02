@@ -22,8 +22,6 @@
  * @deprecated
  */
 
-defined('XOOPS_INITIALIZED') or die('Restricted access');
-
 class MytsUl extends MyTextSanitizerExtension
 {
     /**
