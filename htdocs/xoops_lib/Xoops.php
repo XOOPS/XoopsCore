@@ -1004,7 +1004,7 @@ class Xoops
      *
      * @return  boolean
      */
-    public static function loadLocale($domain = null, $locale = null)
+    public static function loadLocale($domain = 'xoops', $locale = null)
     {
         return Xoops_Locale::loadLocale($domain, $locale);
     }
