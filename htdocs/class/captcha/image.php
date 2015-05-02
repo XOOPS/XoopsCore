@@ -63,7 +63,7 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
      */
     public function render()
     {
-		$xoops_url = \Xoops::getInstance()->globalData->getVar('url');
+		$xoops_url = \XoopsBaseConfig::get('url');
         $js = "<script type='text/javascript'>
                 function xoops_captcha_refresh(imgId)
                 {
@@ -88,7 +88,7 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
      */
     public function loadImage()
     {
-		$xoops_url = \Xoops::getInstance()->globalData->getVar('url');
+		$xoops_url = \XoopsBaseConfig::get('url');
         return '<img id="' . ($this->config["name"]) . '" src="' . $xoops_url . '/class/captcha/image/scripts/image.php" onclick=\'this.src="' . $xoops_url . '/class/captcha/image/scripts/image.php?refresh="+Math.random()' . '\' style="cursor: pointer; vertical-align: middle;" alt="" />';
     }
 }

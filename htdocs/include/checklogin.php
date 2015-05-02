@@ -81,12 +81,12 @@ if (false != $user) {
 
     // Set cookie for rememberme
     if ($xoops->getConfig('usercookie')) {
-		$cookie_domain = $xoops->globalData->getVar('cookie-domain');
+		$cookie_domain = \XoopsBaseConfig::get('cookie-domain');
         if ($clean_input["rememberme"]) {
             setcookie(
                 $xoops->getConfig('usercookie'),
                 $_SESSION['xoopsUserId'] . '-' . md5(
-                    $user->getVar('pass') . $xoops->globalData->getVar('db-name') . $xoops->globalData->getVar('db-pass') . $xoops->globalData->getVar('db-prefix')
+                    $user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')
                 ),
                 time() + 31536000,
                 '/',

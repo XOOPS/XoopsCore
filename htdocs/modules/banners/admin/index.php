@@ -23,10 +23,10 @@ include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
 
-$xoops_root_path = $xoops->globalData->getVar('root-path');
-$xoops_upload_path = $xoops->globalData->getVar('upload-path');
-$xoops_upload_url = $xoops->globalData->getVar('upload-url');
-$xoops_url = $xoops->globalData->getVar('url');
+$xoops_root_path = \XoopsBaseConfig::get('root-path');
+$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 // Get banners handler
 $banner_Handler = $helper->getHandlerBanner();

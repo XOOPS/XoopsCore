@@ -26,6 +26,8 @@ $xoops = Xoops::getInstance();
 $xoops->isAdminSide = true;
 include_once $xoops->path('include/cp_functions.php');
 
+$xbc = \XoopsBaseConfig::getInstance();
+
 /**
  * Admin Authentication
  */
@@ -45,38 +47,41 @@ $xoops->header();
  * Error warning messages
  */
 if ($xoops->getConfig('admin_warnings_enable')) {
-	$xoops_root_path = $xoops->globalData->getVar('root-path');
+	$install_dir = $xoops->path('install');
+	var_dump(__line__,$install_dir);exit;
     $error_msg = array();
-    if (is_dir($xoops_root_path . '/install/')) {
-        $error_msg[] = sprintf(XoopsLocale::EF_DIRECTORY_EXISTS, $xoops_root_path . '/install/');
+    if (is_dir($install_dir)) {
+        $error_msg[] = sprintf(XoopsLocale::EF_DIRECTORY_EXISTS, $install_dir);
     }
 
-    if (is_writable($xoops_root_path . '/mainfile.php')) {
-        $error_msg[] = sprintf(XoopsLocale::EF_FILE_IS_WRITABLE, $xoops_root_path . '/mainfile.php');
+	$mainfile = $xoops->path('www/mainfile.php');
+    if (is_writable($mainfile) {
+        $error_msg[] = sprintf(XoopsLocale::EF_FILE_IS_WRITABLE, $mainfile);
     }
     // ###### Output warn messages for correct functionality  ######
-	$xoops_cache_path = $xoops->globalData->getVar('cache-path');
-    if (!is_writable($xoops_cache_path)) {
-        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $xoops_cache_path);
+	$cache_path = $xoops->path('var/caches');
+    if (!is_writable($cache_path)) {
+        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $cache_path);
     }
-	$xoops_upload_path = $xoops->globalData->getVar('upload-path');
-    if (!is_writable($xoops_upload_path)) {
-        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $xoops_upload_path);
+	$upload_path = $xoops->path('uploads');
+    if (!is_writable($upload_path)) {
+        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $upload_path);
     }
-	$xoops_compile_path = $xoops->globalData->getVar('XOOPS_COMPILE_PATH');
-    if (!is_writable($xoops_compile_path)) {
-        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $xoops_compile_path);
+	$compile_path = $xbc->get('XOOPS_COMPILE_PATH');
+    if (!is_writable($compile_path)) {
+        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_NOT_WRITABLE, $compile_path);
     }
 
     //www fits inside www_private, lets add a trailing slash to make sure it doesn't
-	$xoops_path = $xoops->globalData->getVar('library-path');
-    if (strpos($xoops_path . '/', $xoops_root_path . '/') !== false || strpos($xoops_path . '/', $_SERVER['DOCUMENT_ROOT'] . '/') !== false) {
+	$xoops_path = $xbc->get('library-path');
+	$xoops_root_path = $xbc->get('root-path');
+    if (strpos($xoops_path, $xoops_root_path) !== false || strpos($xoops_path, $_SERVER['DOCUMENT_ROOT']) !== false) {
         $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_IS_INSIDE_DOCUMENT_ROOT, $xoops_path);
     }
 
-	$xoops_var_path = $xoops->globalData->getVar('XOOPS_VAR_PATH');
-    if (strpos($xoops_var_path . '/', $xoops_root_path . '/') !== false || strpos($xoops_var_path . '/', $_SERVER['DOCUMENT_ROOT'] . '/') !== false) {
-        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_IS_INSIDE_DOCUMENT_ROOT, $xoops_var_path);
+	$var_path = $xoops->path('var');
+    if (strpos($var_path, $xoops_root_path) !== false || strpos($var_path, $_SERVER['DOCUMENT_ROOT']) !== false) {
+        $error_msg[] = sprintf(XoopsLocale::EF_FOLDER_IS_INSIDE_DOCUMENT_ROOT, $var_path);
     }
     $xoops->tpl()->assign('error_msg', $error_msg);
 }

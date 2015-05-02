@@ -24,6 +24,6 @@
 defined('XOOPS_INITIALIZED') or die('Restricted access');
 
 return $config = array(
-    'link' => \Xoops::getInstance()->globalData->getVar('url') . "/modules/mediawiki/?title=%s",// The link to wiki module
+    'link' => \XoopsBaseConfig::get('url') . "/modules/mediawiki/?title=%s",// The link to wiki module
     'charset' => "UTF-8", // Charset of wiki module
 );

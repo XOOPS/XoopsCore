@@ -19,11 +19,10 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
-$xoops = Xoops::getInstance();
+require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 //$xoops->disableErrorReporting
 
-$xoops_url = $xoops->globalData->getVar('url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 $xoops->preload()->triggerEvent('core.pmlite.start');
 

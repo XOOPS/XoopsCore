@@ -22,11 +22,9 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
-$xoops = Xoops::getInstance();
-
-$xoops_url = $xoops->globalData->getVar('url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 $xoops->events()->triggerEvent('core.user.start');
 

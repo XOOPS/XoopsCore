@@ -10,7 +10,7 @@ include_once $xoops_root_path . "/mainfile.php";
 $xoops = \Xoops::getInstance();
 $xoops->logger()->quiet();
 
-$chemin_array=parse_url($xoops->globalData->getVar('url'));
+$chemin_array=parse_url(\XoopsBaseConfig::get('url'));
 $chemin_scheme =  $chemin_array["scheme"]; // http
 $chemin_host =  $chemin_array["host"]; // www.example.com  or // localhost
 //  $chemin_path =  $chemin_array["path"]; // /myweb1

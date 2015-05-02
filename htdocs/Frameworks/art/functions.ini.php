@@ -18,7 +18,7 @@ if (substr(\Xoops::getInstance()->globalData->getVar('version'), 0, 9) < "XOOPS 
 if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     define("FRAMEWORKS_ART_FUNCTIONS_INI", true);
 
-    define("FRAMEWORKS_ROOT_PATH", \Xoops::getInstance->globalData->getVar('root-path') . "/Frameworks");
+    define("FRAMEWORKS_ROOT_PATH", \XoopsBaseConfig::get('root-path') . "/Frameworks");
 
     /**
      * Load declaration of an object handler
@@ -88,7 +88,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         if (defined($constant)) {
             return true;
         }
-        $filename = $xoops->globalData->getVar('root-path') . "/modules/{$dirname}/include/functions.{$group}" . (empty($group) ? "" : ".") . "php";
+        $filename = \XoopsBaseConfig::get('root-path') . "/modules/{$dirname}/include/functions.{$group}" . (empty($group) ? "" : ".") . "php";
         return include_once $filename;
     }
 
@@ -108,7 +108,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         $dirname = !empty($dirname) ? $dirname : $xoops->moduleDirname;
         $renderer = ucfirst($dirname) . ucfirst($class) . "Renderer";
         if (!class_exists($renderer)) {
-            require_once $xoops->globalData->getVar('root-path') . "/modules/{$dirname}/class/{$class}.renderer.php";
+            require_once \XoopsBaseConfig::get('root-path') . "/modules/{$dirname}/class/{$class}.renderer.php";
         }
         $instance = eval("{$renderer}::instance()");
         return $instance;

@@ -19,10 +19,9 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
-$xoops = Xoops::getInstance();
+require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
-$xoops_url = $xoops->globalData->getVar('url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 header("Content-Type: text/html");
 echo "<html><head><title>" . htmlspecialchars($xoops->getConfig('sitename')) . "</title>

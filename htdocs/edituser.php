@@ -115,7 +115,7 @@ if ($op == 'saveuser') {
                 $xoops->user->getVar('uname'),
                 time() + 31536000,
                 '/',
-                $xoops->globalData->getVar('cookie-domain')
+                \XoopsBaseConfig::get('cookie-domain')
             );
         } else {
             setcookie($xoops->getConfig('usercookie'));

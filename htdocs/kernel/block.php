@@ -76,8 +76,8 @@ class XoopsBlock extends XoopsObject
                 }
             }
         }
-		$this->xoops_url = $xoops->globalData->getVar('url');
-		$this->xoops_root_path = $xoops->globalData->getVar('root-path');
+		$this->xoops_url = \XoopsBaseConfig::get('url');
+		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }
 
 

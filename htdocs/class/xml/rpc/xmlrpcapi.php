@@ -156,7 +156,7 @@ class XoopsXmlRpcApi
     function _getXoopsApi(&$params)
     {
         if (strtolower(get_class($this)) != 'xoopsapi') {
-			$xoops_root_path = \Xoops::getInstance()->globalData->getVar('root-path');
+			$xoops_root_path = \XoopsBaseConfig::get('root-path');
             require_once($xoops_root_path . '/class/xml/rpc/xoopsapi.php');
             return new XoopsApi($params, $this->response, $this->module);
         } else {

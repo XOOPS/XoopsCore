@@ -230,7 +230,7 @@ class BloggerApi extends XoopsXmlRpcApi
         } else {
             $arr = new XoopsXmlRpcArray();
             $struct = new XoopsXmlRpcStruct();
-			$xoops_url = \Xoops::getInstance()->globalData->getVar('url');
+			$xoops_url = \XoopsBaseConfig::get('url');
             $struct->add('url', new XoopsXmlRpcString($xoops_url.'/modules/'.$this->module->getVar('dirname').'/'));
             $struct->add('blogid', new XoopsXmlRpcString($this->module->getVar('mid')));
             $struct->add('blogName', new XoopsXmlRpcString('XOOPS Blog'));

@@ -27,7 +27,7 @@ class XoopsBaseConfig
     /**
      * @var string[] $configs
      */
-    protected static $configs = array();
+    private static $configs = array();
 
     /**
      * __construct
@@ -35,7 +35,7 @@ class XoopsBaseConfig
      *                                or configuration array
      * @throws Exception
      */
-    final private function __construct($config = null)
+    final private function __construct($config)
     {
         if (!class_exists('XoopsLoad', false)) {
             include __DIR__ . '/xoopsload.php';
@@ -66,15 +66,66 @@ class XoopsBaseConfig
      * @return XoopsBaseConfig instance
      * @throws Exception
      */
-    final public static function getInstance($config = null)
+    final public static function getInstance($config = '')
     {
         static $instance = false;
 
-        if (!$instance) {
-			$class = __CLASS__;
-            $instance = new $class($config);
+        if (!$instance && !empty($config)) {
+            $instance = new \XoopsBaseConfig($config);
+        }
+
+        if ($instance === false || empty(self::$configs)) {
+            throw new \Exception('XoopsBaseConfig failed.');
         }
         return $instance;
+    }
+
+    /**
+     * extractLibPath - solve a which comes first, chicken or egg type problem
+     *
+     * The yaml file we can load has the path we need to set up the autoloader we need
+     * to reach our yaml library. We solve this by looking through the raw yaml file
+     * contents to locate our data. This works only because there is a unique key that
+     * should not be duplicated in a limited and known data set.
+     *
+     * Not pretty, but this way we get full access to xoops from a single known path.
+     *
+     * @param string $filecontents contents of the yaml configuration file
+     *
+     * @return string the extracted lib-path value
+     */
+    final private function extractLibPath($filecontents)
+    {
+        $match = array();
+        $matched = preg_match('/[.\v]*^lib-path\h*\:\h*[\']?([^\'\v]*)[\']?\h*$[.\v]*/m', $filecontents, $match);
+
+        return $matched ? trim($match[1]) : '';
+    }
+
+    /**
+     * Retrieve an attribute value.
+     *
+     * @param string $name name of an attribute
+     *
+     * @return mixed value of the attribute, or null if not set.
+     */
+    final public static function get($name)
+    {
+        if (isset(self::$configs[$name])) {
+            return self::$configs[$name];
+        }
+		trigger_error('variable : '.$name.' not found!', E_USER_ERROR);
+		return null;
+    }
+
+    /**
+     * Get a copy of all base configurations
+     *
+     * @return array of of all attributes
+     */
+    final public function getAll()
+    {
+        return self::$configs;
     }
 
     /**
@@ -84,8 +135,68 @@ class XoopsBaseConfig
      */
     final public function establishBCDefines()
     {
-		trigger_error('Not implemented!', E_USER_ERROR);
-		return null;
+        if (defined('XOOPS_INITIALIZED')) {
+            return;
+        }
+
+        // Physical path to the XOOPS documents (served) directory WITHOUT trailing slash
+        define('XOOPS_ROOT_PATH', self::get('root-path'));
+
+        // For forward compatibility
+        // Physical path to the XOOPS library directory WITHOUT trailing slash
+        define('XOOPS_PATH', self::get('lib-path'));
+        // Physical path to the XOOPS datafiles (writable) directory WITHOUT trailing slash
+        define('XOOPS_VAR_PATH', self::get('var-path'));
+        // Alias of XOOPS_PATH, for compatibility, temporary solution
+        define("XOOPS_TRUST_PATH", self::get('trust-path'));
+
+        // URL Association for SSL and Protocol Compatibility
+        define('XOOPS_PROT', self::get('prot'));
+
+        // XOOPS Virtual Path (URL)
+        // Virtual path to your main XOOPS directory WITHOUT trailing slash
+        // Example: define('XOOPS_URL', 'http://localhost/xoopscore');
+        define('XOOPS_URL', self::get('url'));
+
+        // Secure file
+        // require XOOPS_VAR_PATH . '/data/secure.php';
+
+        // Database
+        // Choose the database to be used
+        define('XOOPS_DB_TYPE', self::get('db-type'));
+
+        // Set the database charset if applicable
+        define("XOOPS_DB_CHARSET", self::get('db-charset'));
+
+        // Table Prefix
+        // This prefix will be added to all new tables created to avoid name conflict in the database.
+        define('XOOPS_DB_PREFIX', self::get('db-prefix'));
+
+        // Database Hostname
+        // Hostname of the database server. If you are unsure, "localhost" works in most cases.
+        define('XOOPS_DB_HOST', self::get('db-host'));
+
+        // Database Username
+        // Your database user account on the host
+        define('XOOPS_DB_USER', self::get('db-user'));
+
+        // Database Password
+        // Password for your database user account
+        define('XOOPS_DB_PASS', self::get('db-pass'));
+
+        // Database Name
+        // The name of database on the host.
+        define('XOOPS_DB_NAME', self::get('db-name'));
+
+        // persistent connection is no longer supported
+        define("XOOPS_DB_PCONNECT", self::get('db-pconnect'));
+
+        // Serialized connection parameter
+        // This is built by the installer and includes all connection parameters
+        define('XOOPS_DB_PARAMETERS', serialize(self::get('db-parameters')));
+
+        define('XOOPS_COOKIE_DOMAIN', self::get('cookie-domain'));
+
     }
 
     /**
@@ -115,10 +226,8 @@ class XoopsBaseConfig
 			'trust-path' => XOOPS_PATH,
 			'url' => XOOPS_URL,
 			'prot' => $prot,
-			'test-path' => XOOPS_TEST_PATH,
+			'tests-path' => XOOPS_TEST_PATH,
 			'check-path' => XOOPS_CHECK_PATH,
-			'asset-path' => $path . '/assets',
-			'asset-url' => $url. '/assets',
 			'cookie-domain' => $host,
 			'cookie-path' => $urlpath,
 			'db-type' => XOOPS_DB_TYPE,
@@ -132,51 +241,37 @@ class XoopsBaseConfig
 			'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
 			'db-proxy' => 0,
 			'db-chkref' => 0,
-			'theme-path' => XOOPS_ROOT_PATH .'/themes',
-			'admintheme-path' => XOOPS_ROOT_PATH . '/modules/system/themes',
-			'upload-path' => XOOPS_ROOT_PATH . '/uploads',
-			'library-path' => XOOPS_ROOT_PATH . '/libraries',
-			'smarty-compile-path' => XOOPS_VAR_PATH . '/caches/smarty_compile',
-			'smarty-cache-path' => XOOPS_VAR_PATH . '/caches/smarty_cache',
-			'plugins-path' => XOOPS_PATH . '/smarty/xoops_plugins',
-			'cache-path' => XOOPS_VAR_PATH . '/caches/xoops_cache',
+			'assets-path' => $path . '/assets',
+			'themes-path' => XOOPS_ROOT_PATH .'/themes',
+			'adminthemes-path' => XOOPS_ROOT_PATH . '/modules/system/themes',
+			'uploads-path' => XOOPS_ROOT_PATH . '/uploads',
+			'libraries-path' => XOOPS_ROOT_PATH . '/libraries',
+			'caches-path' => XOOPS_VAR_PATH . '/caches/xoops_cache',
 			'plugins-path' => XOOPS_ROOT_PATH . '/modules',
-			'version' => 'XOOPS 2.6.0-Alpha 3',
-			'theme-url' => XOOPS_URL . '/themes',
-			'admintheme-url' => XOOPS_URL . '/modules/system/themes',
-			'upload-url' => XOOPS_URL . '/uploads',
-			'library-url' => XOOPS_URL . '/libraries',
+			'assets-url' => $url. '/assets',
+			'themes-url' => XOOPS_URL . '/themes',
+			'adminthemes-url' => XOOPS_URL . '/modules/system/themes',
+			'uploads-url' => XOOPS_URL . '/uploads',
+			'libraries-url' => XOOPS_URL . '/libraries',
+            'version' => '2.6.0-dev',
 			);
 		
 		$instance = self::getInstance($config);
     }
-	
+
     /**
-     * Get a value.
+     * defineDefault - return a constant if it is defined, or a default value if not.
+     * If no default is specified, the define name will be used if needed.
      *
-     * @param string $name name of value
+     * @param string      $define  a define constant name
+     * @param string|null $default default value to return if $define is not defined
      *
-     * @return mixed value of the name, or null if not set.
+     * @return string value of define or default
      */
-    public function getVar($name)
+    private static function defineDefault($define, $default = null)
     {
-        if (isset(self::$configs[$name])) {
-			return self::$configs[$name];
-		}
-		trigger_error('variable : '.$name.' not found!', E_USER_ERROR);
-		return null;
-    }
-	
-    /**
-     * Set a value.
-     *
-     * @param string name of value
-     * @param mixed value of the name
-     *
-     * @return void
-     */
-    public function setVar($name, $value)
-    {
-        self::$configs[$name] = $value;
+        $default = ($default === null) ? $define : $default;
+        $return = defined($define) ? constant($define) : $default;
+        return $return;
     }
 }

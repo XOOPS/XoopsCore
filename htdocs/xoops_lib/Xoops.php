@@ -111,35 +111,34 @@ class Xoops
      * @var bool
      */
     public $isAdminSide = false;
-
-    /**
-     * @var array
-     */
-    public $globalData;
 	
     /**
      * Actual Xoops OS
      */
     private function __construct()
-    {
-		$this->globalData = \XoopsBaseConfig::getInstance();
+    {		
+		$root = \XoopsBaseConfig::get('root-path');
+		$lib = \XoopsBaseConfig::get('lib-path');
+		$var = \XoopsBaseConfig::get('var-path');
 		
-		$root = $this->globalData->getVar('root-path');
-		$path = $this->globalData->getVar('lib-path');
-		$url = $this->globalData->getVar('url');
-		$var = $this->globalData->getVar('var-path');
+		$url = \XoopsBaseConfig::get('url');
 		
-        $this->paths['XOOPS'] = array($path, $url . '/browse.php');
         $this->paths['www'] = array($root, $url);
         $this->paths['var'] = array($var, null);
-        $this->paths['lib'] = array($path, $url . '/browse.php');
+        $this->paths['lib'] = array($lib, $url . '/browse.php');
+        $this->paths['XOOPS'] = array($lib, $url . '/browse.php');
+		
+        $this->paths['assets'] = array($root . '/assets', $url . '/assets');
+        $this->paths['images'] = array($root . '/images', $url . '/images');
+        $this->paths['install'] = array($root . '/install', $url . '/install');
+        $this->paths['language'] = array($root . '/language', $url . '/language');
+        $this->paths['locale'] = array($root . '/locale', $url . '/locale');
+        $this->paths['media'] = array($root . '/media', $url . '/media');
         $this->paths['modules'] = array($root . '/modules', $url . '/modules');
         $this->paths['themes'] = array($root . '/themes', $url . '/themes');
-        $this->paths['media'] = array($root . '/media', $url . '/media');
-        $this->paths['assets'] = array($root . '/assets', $url . '/assets');
+        $this->paths['uploads'] = array($root . '/uploads', $url . '/uploads');
 
         $this->pathTranslation();
-
     }
 
     /**
@@ -272,7 +271,7 @@ class Xoops
             $instance = new \Xoops\Core\Security();
             $pass = $instance->checkSuperglobals();
             if ($pass==false) {
-                header('Location: ' . $this->globalData->getVar('url') . '/');
+                header('Location: ' . \XoopsBaseConfig::get('url') . '/');
                 exit();
             }
         }
@@ -372,8 +371,8 @@ class Xoops
     public function path($url, $virtual = false)
     {
         $url = str_replace('\\', '/', $url);
-        $url = str_replace(\Xoops::getInstance()->globalData->getVar('root-path'), '', $url);
-        $url = ltrim($url, '/');
+        $url = str_replace(\XoopsBaseConfig::get('root-path'), '', $url);
+        $url = trim($url, '/');
         $parts = explode('/', $url, 2);
         $root = isset($parts[0]) ? $parts[0] : '';
         $path = isset($parts[1]) ? $parts[1] : '';
@@ -612,7 +611,7 @@ class Xoops
             if (defined("XOOPS_STARTPAGE_REDIRECTED")) {
                 $smarty = $repeat = null;
                 $this->theme()
-                        ->headContent(null, "<base href='" . $this->globalData->getVar('url') . '/modules/' . $this->getConfig('startpage') . "/' />", $smarty, $repeat);
+                        ->headContent(null, "<base href='" . \XoopsBaseConfig::get('url') . '/modules/' . $this->getConfig('startpage') . "/' />", $smarty, $repeat);
             }
 
             if (@is_object($this->theme()->plugins['XoopsThemeBlocksPlugin'])) {
@@ -971,7 +970,7 @@ class Xoops
         }
         $name = (!isset($name)) ? $module_dir : trim($name);
         if (!isset($this->moduleHandlers[$module_dir][$name])) {
-            if (XoopsLoad::fileExists($hnd_file = $this->globalData->getVar('root-path') . "/modules/{$module_dir}/class/{$name}.php")) {
+            if (XoopsLoad::fileExists($hnd_file = \XoopsBaseConfig::get('root-path') . "/modules/{$module_dir}/class/{$name}.php")) {
                 include_once $hnd_file;
             }
             $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Handler';
@@ -1009,7 +1008,7 @@ class Xoops
                 return false;
             }
         }
-        if (XoopsLoad::fileExists($hnd_file = $this->globalData->getVar('root-path') . "/modules/{$module_dir}/class/form/{$name}.php")) {
+        if (XoopsLoad::fileExists($hnd_file = \XoopsBaseConfig::get('root-path') . "/modules/{$module_dir}/class/form/{$name}.php")) {
             include_once $hnd_file;
             $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Form';
             if (class_exists($class)) {
@@ -1204,7 +1203,7 @@ class Xoops
         }
 
         echo "<!DOCTYPE html>\n";
-		$xoops_url = $xoops->globalData->getVar('url');
+		$xoops_url = \XoopsBaseConfig::get('url');
         echo '<html lang="' . XoopsLocale::getLangCode() . '">
               <head>
               <meta http-equiv="content-type" content="text/html; charset=' . XoopsLocale::getCharset() . '" />
@@ -1482,7 +1481,7 @@ class Xoops
             $url, $time, $message, $addredirect, $allowExternalLink
         ));
 		
-		$xoops_url = $this->globalData->getVar('url');
+		$xoops_url = \XoopsBaseConfig::get('url');
 
         if (preg_match("/[\\0-\\31]|about:|script:/i", $url)) {
             if (!preg_match('/^\b(java)?script:([\s]*)history\.go\(-[0-9]*\)([\s]*[;]*[\s]*)$/si', $url)) {
@@ -1510,7 +1509,7 @@ class Xoops
         )));
         $this->setTpl($this->theme()->template);
         $this->tpl()->assign(array(
-            'xoops_theme'      => $theme, 'xoops_imageurl' => $this->globalData->getVar('XOOPS_THEME_URL') . '/' . $theme . '/',
+            'xoops_theme'      => $theme, 'xoops_imageurl' => \XoopsBaseConfig::get('themes-url') . '/' . $theme . '/',
             'xoops_themecss'   => $this->getCss($theme),
             'xoops_requesturi' => htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES),
             'xoops_sitename'   => htmlspecialchars($this->getConfig('sitename'), ENT_QUOTES),
@@ -1587,8 +1586,8 @@ class Xoops
         } else {
             $str_css = 'styleNN.css';
         }
-		$xoops_theme_path = $this->globalData->getVar('theme-path');
-		$xoops_theme_url = $this->globalData->getVar('theme-url');
+		$xoops_theme_path = \XoopsBaseConfig::get('themes-path');
+		$xoops_theme_url = \XoopsBaseConfig::get('themes-url');
         if (is_dir($xoops_theme_path . '/' . $theme)) {
             if (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/' . $str_css)) {
                 return $xoops_theme_url . '/' . $theme . '/' . $str_css;

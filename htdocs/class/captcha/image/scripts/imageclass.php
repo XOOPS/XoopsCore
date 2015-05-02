@@ -87,7 +87,7 @@ class XoopsCaptchaImageHandler
     {
         $this->captcha_handler = XoopsCaptcha::getInstance();
         $this->config = $this->captcha_handler->loadConfig("image");
-		$this->xoops_root_path = Xoops::getInstance()->globalData->getVar('root-path');
+		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }
 
     /**

@@ -24,4 +24,4 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 XoopsPreload::getInstance()->triggerEvent('core.image');
 
 header('Content-type: image/gif');
-readfile(Xoops::getInstance()->globalData->getVar('upload-path') . '/blank.gif');
+readfile(\XoopsBaseConfig::get('uploads-path') . '/blank.gif');

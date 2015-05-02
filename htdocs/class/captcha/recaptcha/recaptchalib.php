@@ -35,11 +35,10 @@
 /**
  * The reCAPTCHA server URL's
  */
-$xoops = Xoops::getInstance();
 
-$xoops->globalData->setVar('RECAPTCHA_API_SERVER', "http://www.google.com/recaptcha/api");
-$xoops->globalData->setVar('RECAPTCHA_API_SECURE_SERVER', "https://www.google.com/recaptcha/api");
-$xoops->globalData->setVar('RECAPTCHA_VERIFY_SERVER', "www.google.com");
+define('RECAPTCHA_API_SERVER', "http://www.google.com/recaptcha/api");
+define('RECAPTCHA_API_SECURE_SERVER', "https://www.google.com/recaptcha/api");
+define('RECAPTCHA_VERIFY_SERVER', "www.google.com");
 
 /**
  * Encodes the given data into a query string format
@@ -114,11 +113,11 @@ function recaptcha_get_html($pubkey, $error = null, $use_ssl = false)
     if ($pubkey == null || $pubkey == '') {
         die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
     }
-	$xoops = \Xoops::getInstance();
+
     if ($use_ssl) {
-        $server = $xoops->globalData->getVar('RECAPTCHA_API_SECURE_SERVER');
+        $server = RECAPTCHA_API_SECURE_SERVER;
     } else {
-        $server = $xoops->globalData->getVar('RECAPTCHA_API_SERVER');
+        $server = RECAPTCHA_API_SERVER;
     }
 
     $errorpart = "";
@@ -159,7 +158,7 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
     if ($privkey == null || $privkey == '') {
         die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
     }
-	$xoops = \Xoops::getInstance();
+
     if ($remoteip == null || $remoteip == '') {
         die ("For security reasons, you must pass the remote ip to reCAPTCHA");
     }
@@ -172,7 +171,7 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
         return $recaptcha_response;
     }
 
-    $response = _recaptcha_http_post($xoops->globalData->getVar('RECAPTCHA_VERIFY_SERVER'),
+    $response = _recaptcha_http_post(RECAPTCHA_VERIFY_SERVER,
 		"/recaptcha/api/verify",
 		array(
 			   'privatekey' => $privkey,
@@ -231,8 +230,8 @@ function _recaptcha_aes_encrypt($val, $ky)
     if (!function_exists("mcrypt_encrypt")) {
         die ("To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.");
     }
-    $mode = $xoops->globalData->getVar('MCRYPT_MODE_CBC');
-    $enc = $xoops->globalData->getVar('MCRYPT_RIJNDAEL_128');
+    $mode = MCRYPT_MODE_CBC;
+    $enc = MCRYPT_RIJNDAEL_128;
     $val = _recaptcha_aes_pad($val);
     return mcrypt_encrypt($enc, $ky, $val, $mode, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
 }

@@ -55,27 +55,27 @@ class Factory
 			$xoops = \Xoops::getInstance();
             $config = new \Doctrine\DBAL\Configuration();
             $config->setSQLLogger(new XoopsDebugStack());
-            $parameters = $xoops->globalData->getVar('db-parameters');
+            $parameters = \XoopsBaseConfig::get('db-parameters');
             if (!empty($parameters) && is_array($parameters)) {
                 $connectionParams = $parameters;
                 $connectionParams['wrapperClass'] = '\\Xoops\\Core\\Database\\Connection';
             } else {
-                $driver = 'pdo_' . $xoops->globalData->getVar('db-type');
+                $driver = 'pdo_' . \XoopsBaseConfig::get('db-type');
                 $connectionParams = array(
-                    'dbname' => $xoops->globalData->getVar('db-name'),
-                    'user' => $xoops->globalData->getVar('db-user'),
-                    'password' => $xoops->globalData->getVar('db-pass'),
-                    'host' => $xoops->globalData->getVar('db-host'),
-                    'charset' => $xoops->globalData->getVar('db-charset'),
+                    'dbname' => \XoopsBaseConfig::get('db-name'),
+                    'user' => \XoopsBaseConfig::get('db-user'),
+                    'password' => \XoopsBaseConfig::get('db-pass'),
+                    'host' => \XoopsBaseConfig::get('db-host'),
+                    'charset' => \XoopsBaseConfig::get('db-charset'),
                     'driver' => $driver,
                     'wrapperClass' => '\\Xoops\\Core\\Database\\Connection',
                 );
                 // Support for other doctrine databases
-				$xoops_db_port = $xoops->globalData->getVar('db-port');
+				$xoops_db_port = \XoopsBaseConfig::get('db-port');
                 if (!empty($xoops_db_port)) {
                     $connectionParams['port'] = $xoops_db_port;
                 }
-				$xoops_db_socket = $xoops->globalData->getVar('db-socket');
+				$xoops_db_socket = \XoopsBaseConfig::get('db-socket');
                 if (!empty($xoops_db_socket)) {
                     $connectionParams['unix_socket'] = $xoops_db_socket;
                 }

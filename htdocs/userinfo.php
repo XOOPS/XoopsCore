@@ -20,11 +20,9 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
-$xoops = Xoops::getInstance();
-
-$xoops_url = $xoops->globalData->getVar('url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 $xoops->preload()->triggerEvent('core.userinfo.start');
 
@@ -38,7 +36,7 @@ if ($uid <= 0) {
 $gperm_handler = $xoops->getHandlerGroupperm();
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-$isAdmin = $gperm_handler->checkRight('system_admin', $xoops->globalData->getVar('system-user'), $groups);
+$isAdmin = $gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_USER, $groups);
 if ($xoops->isUser()) {
     if ($uid == $xoops->user->getVar('uid')) {
         $xoopsConfigUser = $xoops->getConfigs();
@@ -170,7 +168,7 @@ if ($xoops->isActiveModule('userrank')) {
     if (isset($userrank['image']) && $userrank['image']) {
         $xoops->tpl()->assign(
             'user_rankimage',
-            '<img src="' . $xoops->globalData->getVar('upload-url') . '/' . $userrank['image'] . '" alt="" />'
+            '<img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $userrank['image'] . '" alt="" />'
         );
     }
     $xoops->tpl()->assign('user_ranktitle', $userrank['title']);

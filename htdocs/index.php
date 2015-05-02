@@ -37,7 +37,7 @@ $xoops->preload()->triggerEvent('core.index.start');
 //check if start page is defined
 if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     // Temporary solution for start page redirection
-    $xoops->globalData->setVar('XOOPS_STARTPAGE_REDIRECTED', 1);
+    define('XOOPS_STARTPAGE_REDIRECTED', 1);
     $module_handler = $xoops->getHandlerModule();
     $xoops->module = $xoops->getModuleByDirname($xoops->getConfig('startpage'));
     if (!$xoops->isModule() || !$xoops->module->getVar('isactive')) {
@@ -48,12 +48,12 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     $moduleperm_handler = $xoops->getHandlerGroupperm();
     if ($xoops->isUser()) {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
-            $xoops->redirect($xoops->globalData->getVar('XOOPS_URL'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
-            $xoops->redirect($xoops->globalData->getVar('url') . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url') . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }
     if ($xoops->module->getVar('hasconfig') == 1
@@ -77,7 +77,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
     }
 
     $_SERVER['REQUEST_URI'] =
-        substr($xoops->globalData->getVar('url'), strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
+        substr(\XoopsBaseConfig::get('url'), strlen($url)) . '/modules/' . $xoops->getConfig('startpage') . '/index.php';
     include $xoops->path('modules/' . $xoops->getConfig('startpage') . '/index.php');
     exit();
 } else {

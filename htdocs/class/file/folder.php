@@ -102,7 +102,7 @@ class XoopsFolderHandler
     public function __construct($path = '', $create = true, $mode = false)
     {
         if (empty($path)) {
-            $path = \Xoops::getInstance()->globalData->getVar('cache-path');
+            $path = \XoopsBaseConfig::get('caches-path');
         }
         if ($mode) {
             $this->mode = intval($mode, 8);
@@ -367,7 +367,7 @@ class XoopsFolderHandler
      */
     public function inXoopsPath($path = '')
     {
-		$xoops_root_path = \Xoops::getInstance()->globalData->getVar('root-path');
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
         $dir = substr($this->slashTerm($xoops_root_path), 0, -1);
         $newdir = $dir . $path;
         return $this->inPath($newdir);

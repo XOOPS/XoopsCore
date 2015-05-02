@@ -73,9 +73,8 @@ class XoopsCaptcha
     protected function __construct()
     {
         // Load static configurations
-		$xoops = Xoops::getInstance();
-		$xoops_root_path = $xoops->globalData->getVar('root-path');
-		$xoops_var_path = $xoops->globalData->getVar('var-path');
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$xoops_var_path = \XoopsBaseConfig::get('var-path');
         $this->path_basic = $xoops_root_path . '/class/captcha';
         $this->path_plugin = $xoops_root_path . '/Frameworks/captcha';
         $this->configPath = $xoops_var_path . '/configs/';

@@ -14,7 +14,7 @@
 return $config = array(
         "name"      =>  "tinymce",
         "class"     =>  "XoopsFormTinymce",
-        "file"      =>  \Xoops::getInstance()->globalData->getVar('root-path') . "/class/xoopseditor/tinymce/formtinymce.php",
+        "file"      =>  \XoopsBaseConfig::get('root-path') . "/class/xoopseditor/tinymce/formtinymce.php",
         "title"     =>  _XOOPS_EDITOR_TINYMCE,
         "order"     =>  5,
         "nohtml"    =>  0

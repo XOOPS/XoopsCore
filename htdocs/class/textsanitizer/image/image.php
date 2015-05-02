@@ -43,7 +43,7 @@ class MytsImage extends MyTextSanitizerExtension
         $ts->patterns[] = "/\[img align=(['\"]?)(left|center|right)\\1 id=(['\"]?)([0-9]*)\\3]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";
         $ts->patterns[] = "/\[img id=(['\"]?)([0-9]*)\\1]([^\"\(\)\?\&'<>]*)\[\/img\]/sU";
 
-		$xoops_url = $xoops->globalData->getVar('url');
+		$xoops_url = \XoopsBaseConfig::get('url');
 		
         if (empty($ts->config['allowimage'])) {
             $ts->replacements[] = '<a href="\\5" rel="external">\\5</a>';

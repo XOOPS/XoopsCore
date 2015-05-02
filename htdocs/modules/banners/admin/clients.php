@@ -27,9 +27,9 @@ include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
 
-$xoops_upload_path = $xoops->globalData->getVar('XOOPS_UPLOAD_PATH');
-$xoops_upload_url = $xoops->globalData->getVar('XOOPS_UPLOAD_URL');
-$xoops_url = $xoops->globalData->getVar('XOOPS_URL');
+$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+$xoops_url = \XoopsBaseConfig::get('url');
 
 // Parameters
 $nb_clients = $helper->getConfig('banners_clientspager');
