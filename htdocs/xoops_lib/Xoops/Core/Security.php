@@ -65,7 +65,7 @@ class Security
             'id' => $token_id, 'expire' => time() + intval($timeout)
         );
         array_push($_SESSION[$name . '_SESSION'], $token_data);
-        return md5($token_id . $_SERVER['HTTP_USER_AGENT'] . XOOPS_DB_PREFIX);
+        return md5($token_id . $_SERVER['HTTP_USER_AGENT'] . \XoopsBaseConfig::get('db-prefix'));
     }
 
     /**
@@ -172,7 +172,7 @@ class Security
         if ($ref == '') {
             return false;
         }
-        if (strpos($ref, XOOPS_URL) !== 0) {
+        if (strpos($ref, \XoopsBaseConfig::get('url')) !== 0) {
             return false;
         }
         return true;

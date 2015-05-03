@@ -31,6 +31,7 @@ class ModuleadminTest extends \PHPUnit_Framework_TestCase
         $instance->addBreadcrumbLink();
         $x = $instance->renderBreadcrumb();
         while (ob_get_level() > $level) @ob_end_flush();
+        $x = str_replace("\r\n","\n",$x);
 		$this->assertSame("<ul class=\"breadcrumb\">\n    </ul>", $x);
     }
 

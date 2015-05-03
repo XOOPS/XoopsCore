@@ -70,6 +70,12 @@ $xoops->option =& $GLOBALS['xoopsOption'];
  */
 include_once $xoops->path('include/functions.php');
 
+if (!defined('XOOPS_XMLRPC')) {
+    define('XOOPS_DB_CHKREF', 1);
+} else {
+    define('XOOPS_DB_CHKREF', 0);
+}
+
 /**
  * Check Proxy;
  * Requires functions

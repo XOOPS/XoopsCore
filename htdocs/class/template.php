@@ -38,17 +38,17 @@ class XoopsTpl extends Smarty
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(); // SMARTY_PLUGINS_DIR is initialized into parent 
         $xoops = Xoops::getInstance();
         $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
         $this->left_delimiter = '<{';
         $this->right_delimiter = '}>';
         $this->setTemplateDir(\XoopsBaseConfig::get('themes-path'));
-        $this->setCacheDir(\XoopsBaseConfig::get('var-path') . '/caches/smarty_cache');
-        $this->setCompileDir(\XoopsBaseConfig::get('var-path') . '/caches/smarty_compile');
+        $this->setCacheDir(\XoopsBaseConfig::get('smarty-cache'));
+        $this->setCompileDir(\XoopsBaseConfig::get('smarty-compile'));
         $this->compile_check = ($xoops->getConfig('theme_fromfile') == 1);
-        $this->setPluginsDir(\XoopsBaseConfig::get('lib-path') . '/smarty/xoops_plugins');
-        $this->addPluginsDir(SMARTY_DIR . 'plugins');
+        $this->setPluginsDir(\XoopsBaseConfig::get('smarty-xoops-plugins'));
+        $this->addPluginsDir(SMARTY_PLUGINS_DIR);
         $this->setCompileId();
         $this->assign(
             array('xoops_url' => \XoopsBaseConfig::get('url'),

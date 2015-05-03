@@ -17,7 +17,7 @@ class Scripts_ImageTest extends \PHPUnit_Framework_TestCase
         }
 		
 		$save = $image_handler;
-        $xoops_root_path = \XoopsBaseConfig::get('root-class');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
 		ob_start();
 		require_once $xoops_root_path.'/class/captcha/image/scripts/image.php';
 		$tmp = ob_end_clean();

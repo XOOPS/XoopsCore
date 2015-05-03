@@ -49,7 +49,7 @@ class XoopsDatabaseFactory extends Factory
         $file = \XoopsBaseConfig::get('root-path') . '/class/database/mysqldatabase.php';
         if (!isset($legacy) && file_exists($file)) {
             require_once $file;
-            if (empty(\XoopsBaseConfig::get('db-proxy'))) {
+            if (!defined('XOOPS_DB_PROXY')) {
                 $class = 'XoopsMysqlDatabaseSafe';
             } else {
                 $class = 'XoopsMysqlDatabaseProxy';

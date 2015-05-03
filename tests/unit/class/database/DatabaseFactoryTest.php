@@ -27,7 +27,7 @@ class XoopsDatabaseFactoryTest extends \PHPUnit_Framework_TestCase
 		$driver_conn = $driver->connect(array());
 		$this->assertInstanceOf('\Doctrine\DBAL\Driver\PDOConnection', $driver_conn);
         $this->assertSame(\XoopsBaseConfig::get('db-prefix').'_test', $instance->prefix('test'));
-        $this->assertSame(\XoopsBaseConfig::get('dp-prefix'), $instance->prefix());
+        $this->assertSame(\XoopsBaseConfig::get('db-prefix'), $instance->prefix());
     }
 
 }

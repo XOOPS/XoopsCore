@@ -135,10 +135,6 @@ class XoopsBaseConfig
      */
     final public function establishBCDefines()
     {
-        if (defined('XOOPS_INITIALIZED')) {
-            return;
-        }
-
         // Physical path to the XOOPS documents (served) directory WITHOUT trailing slash
         define('XOOPS_ROOT_PATH', self::get('root-path'));
 
@@ -209,9 +205,8 @@ class XoopsBaseConfig
      */
     final public static function bootstrapTransition()
     {
-        $path = basename(__DIR__);
-		$prot = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://');
-        $url  = $prot
+		$protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://');
+        $url  = $protocol
             . $_SERVER['SERVER_NAME']
             . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : '');
 
@@ -219,37 +214,25 @@ class XoopsBaseConfig
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
         
-        if (!defined('XOOPS_XMLRPC')) {
-            $chkref = 1;
-        } else {
-            $chkref = 0;
-        }
-        
-        /**
-         * Check Proxy;
-         * Requires functions
-         */
-        /* TO BE FIXED
-        if ($_SERVER['REQUEST_METHOD'] != 'POST'
-        || !\Xoops::getInstance()->security()->checkReferer($chkref)) {
-            $db_proxy = 1;
-        } else {
-            $db_proxy = 0;
-        }
-        */
-        $db_proxy = 0;
+        $path = dirname(dirname(__FILE__));
         
 		$config = array(
-			'root-path' => XOOPS_ROOT_PATH,
-			'lib-path' => XOOPS_PATH,
-			'var-path' => XOOPS_VAR_PATH,
-			'trust-path' => XOOPS_PATH,
-			'url' => XOOPS_URL,
-			'prot' => $prot,
-			'tests-path' => XOOPS_TEST_PATH,
-			'check-path' => XOOPS_CHECK_PATH,
+			'root-path' => $path,
+			'lib-path' => $path . '/xoops_lib',
+			'var-path' => $path . '/xoops_data',
+			'trust-path' => $path . '/xoops_lib',
+			'url' => $url,
+			'protocol' => $protocol,
+			'tests-path' => 'DUMMY',
+			'check-path' => 'DUMMY',
+            
+            'smarty-cache' => $path . '/xoops_data/caches/smarty_cache',
+            'smarty-compile' => $path . '/xoops_data/caches/smarty_compile',
+            'smarty-xoops-plugins' => $path . '/xoops_lib/smarty/xoops_plugins',
+            
 			'cookie-domain' => $host,
 			'cookie-path' => $urlpath,
+            
 			'db-type' => XOOPS_DB_TYPE,
 			'db-charset' => XOOPS_DB_CHARSET,
 			'db-prefix' => XOOPS_DB_PREFIX,
@@ -259,21 +242,21 @@ class XoopsBaseConfig
 			'db-name' => XOOPS_DB_NAME,
 			'db-pconnect' => XOOPS_DB_PCONNECT,
 			'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
-			'db-proxy' => $db_proxy,
-			'db-chkref' => $chkref,
+            
 			'assets-path' => $path . '/assets',
-			'themes-path' => XOOPS_ROOT_PATH .'/themes',
-			'adminthemes-path' => XOOPS_ROOT_PATH . '/modules/system/themes',
-			'uploads-path' => XOOPS_ROOT_PATH . '/uploads',
-			'libraries-path' => XOOPS_ROOT_PATH . '/libraries',
-			'caches-path' => XOOPS_VAR_PATH . '/caches/xoops_cache',
-			'plugins-path' => XOOPS_ROOT_PATH . '/modules',
+			'themes-path' => $path .'/themes',
+			'adminthemes-path' => $path . '/modules/system/themes',
+			'uploads-path' => $path . '/uploads',
+			'libraries-path' => $path . '/libraries',
+			'plugins-path' => $path . '/modules',
+            
 			'assets-url' => $url. '/assets',
-			'themes-url' => XOOPS_URL . '/themes',
-			'adminthemes-url' => XOOPS_URL . '/modules/system/themes',
-			'uploads-url' => XOOPS_URL . '/uploads',
-			'libraries-url' => XOOPS_URL . '/libraries',
-            'version' => '2.6.0-dev',
+			'themes-url' => $url . '/themes',
+			'adminthemes-url' => $url . '/modules/system/themes',
+			'uploads-url' => $url . '/uploads',
+			'libraries-url' => $url . '/libraries',
+            
+            'version' => '2.6.0-dev', // to be removed
 			);
 		
 		$instance = self::getInstance($config);

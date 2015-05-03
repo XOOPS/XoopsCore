@@ -83,6 +83,21 @@ $xoops->events()->triggerEvent('core.include.common.security');
 $xoopsSecurity = $xoops->security();
 
 /**
+ * Check Proxy;
+ * Requires functions
+ */
+
+if (!defined('XOOPS_XMLRPC')) {
+    define('XOOPS_DB_CHKREF', 1);
+} else {
+    define('XOOPS_DB_CHKREF', 0);
+}
+
+if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
+    define ('XOOPS_DB_PROXY', 1);
+}
+
+/**
  * Get database for making it global
  * Will also setup $xoopsDB for legacy support.
  * Requires XOOPS_DB_PROXY;

@@ -102,7 +102,7 @@ class XoopsFolderHandler
     public function __construct($path = '', $create = true, $mode = false)
     {
         if (empty($path)) {
-            $path = \XoopsBaseConfig::get('caches-path');
+            $path = \XoopsBaseConfig::get('var-path') . '/caches/xoops_cache';
         }
         if ($mode) {
             $this->mode = intval($mode, 8);

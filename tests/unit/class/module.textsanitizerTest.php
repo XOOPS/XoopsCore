@@ -15,7 +15,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
         $this->assertInstanceOf($this->myClass, $sanitizer);
-        $xoops_root_path = XoopsBaseConfig::get('root-class')
+        $xoops_root_path = XoopsBaseConfig::get('root-path');
         $this->assertEquals($xoops_root_path . '/class/textsanitizer', $sanitizer->path_basic);
         $this->assertEquals($xoops_root_path . '/Frameworks/textsanitizer', $sanitizer->path_plugin);
     }

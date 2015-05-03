@@ -28,7 +28,7 @@ class Xoops_Auth_FactoryTest extends \PHPUnit_Framework_TestCase
 	}
 	
     /**
-     * @expectedException PHPUnit_Framework_Error
+     *
      */
 	public function test_getAuthConnection100()
 	{
@@ -58,7 +58,7 @@ class Xoops_Auth_FactoryTest extends \PHPUnit_Framework_TestCase
 	}
 	
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * 
      */
 	public function test_getAuthConnection200()
 	{
