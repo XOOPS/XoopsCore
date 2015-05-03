@@ -15,7 +15,6 @@ use Xoops\Core\Request;
 
 $xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
 include_once $xoops_root_path . '/mainfile.php';
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 $xoops->simpleHeader(false);
@@ -29,7 +28,7 @@ $op = Request::getCmd('op', 'list');
 $imgcat_id = Request::getInt('imgcat_id', 0);
 $start = Request::getInt('start', 0);
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->getUserGroups();
 
 $xoopsTpl = new XoopsTpl();
 switch ($op) {

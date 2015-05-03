@@ -16,9 +16,6 @@
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 function menus_block_show($options)
 {
     $block = array();
@@ -207,7 +204,7 @@ function menus_mainmenu_show()
     $criteria->add(new Criteria('weight', 0, '>'));
     $modules = $module_handler->getObjectsArray($criteria, true);
     $moduleperm_handler = $xoops->getHandlerGroupperm();
-    $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = $xoops->getUserGroups();
     $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
     $menus = array();
     $menu = $helper->getHandlerMenu()->create();

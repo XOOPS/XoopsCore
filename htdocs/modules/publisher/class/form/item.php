@@ -65,11 +65,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
         $publisher = Publisher::getInstance();
         $allowed_editors = PublisherUtils::getEditors($publisher->getPermissionHandler()->getGrantedItems('editors'));
 
-        if (!$xoops->isUser()) {
-            $group = array(XOOPS_GROUP_ANONYMOUS);
-        } else {
-            $group = $xoops->user->getGroups();
-        }
+        $group = $xoops->getUserGroups();
 
         parent::__construct('title', 'form', $xoops->getEnv('PHP_SELF'));
         $this->setExtra('enctype="multipart/form-data"');

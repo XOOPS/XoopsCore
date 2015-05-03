@@ -37,7 +37,7 @@ function b_comments_show($options)
 
     // Check modules permissions
     $moduleperm_handler = $xoops->getHandlerGroupperm();
-    $gperm_groupid = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+    $gperm_groupid = $xoops->getUserGroups();
     $criteria1 = new CriteriaCompo(new Criteria('gperm_name', 'module_read', '='));
     $criteria1->add(new Criteria('gperm_groupid', '(' . implode(',', $gperm_groupid) . ')', 'IN'));
     $perms = $moduleperm_handler->getObjects($criteria1, true);

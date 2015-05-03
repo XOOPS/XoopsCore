@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * XOOPS global entry
  *
@@ -52,7 +54,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
-        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
+        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), FixedGroups::ANONYMOUS)) {
             $xoops->redirect(XOOPS_URL . "/user.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }

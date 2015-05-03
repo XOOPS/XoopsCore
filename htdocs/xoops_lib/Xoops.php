@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Request;
+use Xoops\Core\FixedGroups;
 
 /**
  * XOOPS
@@ -1298,6 +1299,16 @@ class Xoops
         }
         $timestamp = $timestamp - (($userTZ - $this->getConfig('server_TZ')) * 3600);
         return (int)$timestamp;
+    }
+
+    /**
+     * @return array of groups the current user is associted with
+     */
+    public function getUserGroups()
+    {
+        $groups = $this->isUser() ? $this->user->getGroups() : array(FixedGroups::ANONYMOUS);
+
+        return $groups;
     }
 
     /**

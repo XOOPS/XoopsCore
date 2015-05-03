@@ -1,4 +1,7 @@
 <?php
+
+use Xoops\Core\FixedGroups;
+
 /**
  * Cache handlers
  *
@@ -30,7 +33,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             sort($groups);
             $contentCacheId = substr(md5(implode(",", $groups) . XOOPS_DB_PASS . XOOPS_DB_NAME), 0, strlen(XOOPS_DB_USER) * 2);
         } else {
-            $contentCacheId = XOOPS_GROUP_ANONYMOUS;
+            $contentCacheId = FixedGroups::ANONYMOUS;
         }
 
         return $contentCacheId;

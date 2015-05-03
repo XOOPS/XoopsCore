@@ -63,7 +63,7 @@ class Admin
      *
      * @since  1.0
      */
-    public static function & getInstance ()
+    public static function getInstance()
     {
 
         static $instance;

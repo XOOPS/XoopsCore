@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * Extended User Profile
  *
@@ -21,7 +23,7 @@
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
@@ -36,7 +38,7 @@ if ($uid <= 0) {
 }
 
 $gperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->getUserGroups();
 
 if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
     //disable cache
@@ -71,7 +73,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
      *
      * Note:
      * "thisUser" refers to the user whose profile will be accessed; "xoopsUser" refers to the current user $xoops->user
-     * "Basic Groups" refer to XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS and XOOPS_GROUP_ANONYMOUS;
+     * "Basic Groups" refer to Xoops\Core\FixedGroups
      * "Non Basic Groups" refer to all other custom groups
      *
      * Admin groups: If thisUser belongs to admin groups, the xoopsUser has access if and only if one of xoopsUser's groups is allowed to access admin group; else
@@ -80,7 +82,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
      *
      */
     // Redirect if current user is not allowed to access the user's profile based on group permission
-    $groups_basic = array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS);
+    $groups_basic = array(FixedGroups::ADMIN, FixedGroups::USERS, FixedGroups::ANONYMOUS);
     $groups_thisUser = $thisUser->getGroups();
     $groups_thisUser_nonbasic = array_diff($groups_thisUser, $groups_basic);
     $groups_xoopsUser = $groups;
@@ -89,12 +91,12 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
 
     $rejected = false;
     if ($thisUser->isAdmin()) {
-        $rejected = !in_array(XOOPS_GROUP_ADMIN, $groups_accessible);
+        $rejected = !in_array(FixedGroups::ADMIN, $groups_accessible);
     } else {
         if ($groups_thisUser_nonbasic) {
             $rejected = !array_intersect($groups_thisUser_nonbasic, $groups_accessible);
         } else {
-            $rejected = !in_array(XOOPS_GROUP_USERS, $groups_accessible);
+            $rejected = !in_array(FixedGroups::USERS, $groups_accessible);
         }
     }
 
@@ -241,4 +243,4 @@ $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
-include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . '/footer.php';

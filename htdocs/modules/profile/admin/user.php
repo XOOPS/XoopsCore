@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * Extended User Profile
  *
@@ -52,7 +54,7 @@ switch ($op) {
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
         include_once dirname(__DIR__) . '/include/forms.php';
         $obj = $handler->createUser();
-        $obj->setGroups(array(XOOPS_GROUP_USERS));
+        $obj->setGroups(array(FixedGroups::USERS));
         $form = profile_getUserForm($obj);
         $form->display();
         break;
@@ -60,7 +62,7 @@ switch ($op) {
     case "edit":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
         $obj = $handler->getUser($_REQUEST['id']);
-        if (in_array(XOOPS_GROUP_ADMIN, $obj->getGroups()) && !in_array(XOOPS_GROUP_ADMIN, $xoops->user->getGroups())) {
+        if (in_array(FixedGroups::ADMIN, $obj->getGroups()) && !in_array(FixedGroups::ADMIN, $xoops->user->getGroups())) {
             // If not webmaster trying to edit a webmaster - disallow
             $xoops->redirect("user.php", 3, XoopsLocale::E_NO_ACTION_PERMISSION);
         }
@@ -205,7 +207,7 @@ switch ($op) {
         }
         $obj = $handler->getUser($_REQUEST['id']);
         $groups = $obj->getGroups();
-        if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
+        if (in_array(FixedGroups::ADMIN, $groups)) {
             $xoops->redirect('user.php', 3, _PROFILE_AM_CANNOTDELETEADMIN, false);
         }
 
