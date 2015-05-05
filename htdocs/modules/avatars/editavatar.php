@@ -32,7 +32,7 @@ $op = Request::getCmd('op', 'list');
 
 // If not a user, redirect
 if (!$xoops->isUser()) {
-    $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect('/index.php', 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
     exit();
 }
 
@@ -82,11 +82,11 @@ switch ($op) {
     case "save":
         // Check security
         if (!$xoops->security()->check()) {
-            $xoops->redirect('index.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('/index.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
         $uid = Request::getInt('uid', 0);
         if (empty($uid) || $xoops->user->getVar('uid') != $uid) {
-            $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect('/index.php', 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
             exit();
         }
         $uploader_avatars_img =
