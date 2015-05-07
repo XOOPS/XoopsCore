@@ -1,0 +1,645 @@
+tables:
+    page_content:
+        options: {  }
+        columns:
+            content_id:
+                name: content_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            content_title:
+                name: content_title
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            content_shorttext:
+                name: content_shorttext
+                type: text
+                default: null
+                notnull: true
+                length: 65535
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            content_text:
+                name: content_text
+                type: text
+                default: null
+                notnull: true
+                length: 65535
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            content_create:
+                name: content_create
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_author:
+                name: content_author
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_status:
+                name: content_status
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_hits:
+                name: content_hits
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_rating:
+                name: content_rating
+                type: float
+                default: '0.0000'
+                notnull: true
+                length: null
+                precision: 6
+                scale: 4
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_votes:
+                name: content_votes
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_comments:
+                name: content_comments
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_mkeyword:
+                name: content_mkeyword
+                type: text
+                default: null
+                notnull: true
+                length: 65535
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            content_mdescription:
+                name: content_mdescription
+                type: text
+                default: null
+                notnull: true
+                length: 65535
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            content_maindisplay:
+                name: content_maindisplay
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_weight:
+                name: content_weight
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_dopdf:
+                name: content_dopdf
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_doprint:
+                name: content_doprint
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_dosocial:
+                name: content_dosocial
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_doinfo:
+                name: content_doinfo
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_doauthor:
+                name: content_doauthor
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_dodate:
+                name: content_dodate
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_domail:
+                name: content_domail
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_dohits:
+                name: content_dohits
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_dorating:
+                name: content_dorating
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_docoms:
+                name: content_docoms
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_doncoms:
+                name: content_doncoms
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_dotitle:
+                name: content_dotitle
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            content_donotifications:
+                name: content_donotifications
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [content_id]
+                unique: true
+                primary: true
+            content_title:
+                name: content_title
+                columns: [content_title]
+                unique: false
+                primary: false
+            content_create:
+                name: content_create
+                columns: [content_create]
+                unique: false
+                primary: false
+            content_author:
+                name: content_author
+                columns: [content_author]
+                unique: false
+                primary: false
+            content_status:
+                name: content_status
+                columns: [content_status]
+                unique: false
+                primary: false
+            content_hits:
+                name: content_hits
+                columns: [content_hits]
+                unique: false
+                primary: false
+            content_rating:
+                name: content_rating
+                columns: [content_rating]
+                unique: false
+                primary: false
+    page_rating:
+        options: {  }
+        columns:
+            rating_id:
+                name: rating_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            rating_content_id:
+                name: rating_content_id
+                type: integer
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            rating_uid:
+                name: rating_uid
+                type: integer
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            rating_rating:
+                name: rating_rating
+                type: integer
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            rating_ip:
+                name: rating_ip
+                type: string
+                default: ''
+                notnull: true
+                length: 60
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            rating_date:
+                name: rating_date
+                type: integer
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [rating_id]
+                unique: true
+                primary: true
+            rating_content_id:
+                name: rating_content_id
+                columns: [rating_content_id]
+                unique: false
+                primary: false
+            rating_uid:
+                name: rating_uid
+                columns: [rating_uid]
+                unique: false
+                primary: false
+    page_related:
+        options: {  }
+        columns:
+            related_id:
+                name: related_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            related_name:
+                name: related_name
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            related_domenu:
+                name: related_domenu
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            related_navigation:
+                name: related_navigation
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [related_id]
+                unique: true
+                primary: true
+            related_name:
+                name: related_name
+                columns: [related_name]
+                unique: false
+                primary: false
+    page_related_link:
+        options: {  }
+        columns:
+            link_id:
+                name: link_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            link_related_id:
+                name: link_related_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            link_content_id:
+                name: link_content_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            link_weight:
+                name: link_weight
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [link_id]
+                unique: true
+                primary: true
+            link_related_id:
+                name: link_related_id
+                columns: [link_related_id]
+                unique: false
+                primary: false
+            link_content_id:
+                name: link_content_id
+                columns: [link_content_id]
+                unique: false
+                primary: false

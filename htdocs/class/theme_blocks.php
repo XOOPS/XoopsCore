@@ -91,7 +91,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
             $isStart = $xoops->getOption('show_cblock');
         }
 
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+        $groups = $xoops->getUserGroups();
 
         $oldzones = array(
             XOOPS_SIDEBLOCK_LEFT => 'canvas_left', XOOPS_SIDEBLOCK_RIGHT => 'canvas_right',

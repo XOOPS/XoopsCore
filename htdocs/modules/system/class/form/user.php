@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * SystemUserForm
  *
@@ -52,7 +54,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
             $mailok_value = 0;
             $form_title = SystemLocale::ADD_USER;
             $form_isedit = false;
-            $groups = array(XOOPS_GROUP_USERS);
+            $groups = array(FixedGroups::USERS);
         } else {
             //Edit user
             $uid_value = $obj->getVar("uid", "E");

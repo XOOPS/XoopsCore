@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * XoopsTheme component class file
  *
@@ -341,9 +343,7 @@ class XoopsTheme
             ));
         } else {
             $this->template->assign(array(
-                'xoops_isuser' => false,
-				'xoops_isadmin' => false,
-				'xoops_usergroups' => array(XOOPS_GROUP_ANONYMOUS)
+                'xoops_isuser' => false, 'xoops_isadmin' => false, 'xoops_usergroups' => array(FixedGroups::ANONYMOUS)
             ));
         }
 
@@ -434,7 +434,7 @@ class XoopsTheme
                 $extra_string = $xoops->getConfig('locale');
                 // Generate group section
                 if (!$xoops->isUser()) {
-                    $extra_string .= '-' . XOOPS_GROUP_ANONYMOUS;
+                    $extra_string .= '-' . FixedGroups::ANONYMOUS;
                 } else {
                     $groups = $xoops->user->getGroups();
                     sort($groups);

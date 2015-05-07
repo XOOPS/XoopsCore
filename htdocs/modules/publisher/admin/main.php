@@ -39,7 +39,7 @@ $ordersel = isset($_POST['ordersel']) ? $_POST['ordersel'] : $ordersel;
 
 $module_id = $publisher->getModule()->mid();
 $gperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? ($xoops->user->getGroups()) : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 
 // Code for the page
 
@@ -126,7 +126,7 @@ switch ($sortsel) {
         $sorttxtweight = "selected='selected'";
         break;
 
-    default :
+    default:
         $sorttxtitemid = "selected='selected'";
         break;
 }
@@ -136,41 +136,41 @@ switch ($ordersel) {
         $ordertxtasc = "selected='selected'";
         break;
 
-    default :
+    default:
         $ordertxtdesc = "selected='selected'";
         break;
 }
 
 switch ($statussel) {
-    case _PUBLISHER_STATUS_ALL :
+    case _PUBLISHER_STATUS_ALL:
         $selectedtxt0 = "selected='selected'";
         $caption = _AM_PUBLISHER_ALL;
         $cond = "";
         $status_explaination = _AM_PUBLISHER_ALL_EXP;
         break;
 
-    case _PUBLISHER_STATUS_SUBMITTED :
+    case _PUBLISHER_STATUS_SUBMITTED:
         $selectedtxt1 = "selected='selected'";
         $caption = _CO_PUBLISHER_SUBMITTED;
         $cond = " WHERE status = " . _PUBLISHER_STATUS_SUBMITTED . " ";
         $status_explaination = _AM_PUBLISHER_SUBMITTED_EXP;
         break;
 
-    case _PUBLISHER_STATUS_PUBLISHED :
+    case _PUBLISHER_STATUS_PUBLISHED:
         $selectedtxt2 = "selected='selected'";
         $caption = _CO_PUBLISHER_PUBLISHED;
         $cond = " WHERE status = " . _PUBLISHER_STATUS_PUBLISHED . " ";
         $status_explaination = _AM_PUBLISHER_PUBLISHED_EXP;
         break;
 
-    case _PUBLISHER_STATUS_OFFLINE :
+    case _PUBLISHER_STATUS_OFFLINE:
         $selectedtxt3 = "selected='selected'";
         $caption = _CO_PUBLISHER_OFFLINE;
         $cond = " WHERE status = " . _PUBLISHER_STATUS_OFFLINE . " ";
         $status_explaination = _AM_PUBLISHER_OFFLINE_EXP;
         break;
 
-    case _PUBLISHER_STATUS_REJECTED :
+    case _PUBLISHER_STATUS_REJECTED:
         $selectedtxt4 = "selected='selected'";
         $caption = _CO_PUBLISHER_REJECTED;
         $cond = " WHERE status = " . _PUBLISHER_STATUS_REJECTED . " ";
@@ -231,7 +231,7 @@ if ($numrows > 0) {
 
         switch ($itemsObj[$i]->getVar('status')) {
 
-            case _PUBLISHER_STATUS_SUBMITTED :
+            case _PUBLISHER_STATUS_SUBMITTED:
                 $statustxt = _CO_PUBLISHER_SUBMITTED;
                 $approve = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/approve.gif' title='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' alt='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' /></a>&nbsp;";
                 $clone = '';
@@ -239,7 +239,7 @@ if ($numrows > 0) {
                 $modify = "";
                 break;
 
-            case _PUBLISHER_STATUS_PUBLISHED :
+            case _PUBLISHER_STATUS_PUBLISHED:
                 $statustxt = _CO_PUBLISHER_PUBLISHED;
                 $approve = "";
                 $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
@@ -247,7 +247,7 @@ if ($numrows > 0) {
                 $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
 
-            case _PUBLISHER_STATUS_OFFLINE :
+            case _PUBLISHER_STATUS_OFFLINE:
                 $statustxt = _CO_PUBLISHER_OFFLINE;
                 $approve = "";
                 $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
@@ -255,7 +255,7 @@ if ($numrows > 0) {
                 $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
 
-            case _PUBLISHER_STATUS_REJECTED :
+            case _PUBLISHER_STATUS_REJECTED:
                 $statustxt = _CO_PUBLISHER_REJECTED;
                 $approve = "";
                 $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
@@ -263,8 +263,8 @@ if ($numrows > 0) {
                 $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
 
-            case "default" :
-            default :
+            case "default":
+            default:
                 $statustxt = _AM_PUBLISHER_STATUS0;
                 $approve = "";
                 $clone = '';

@@ -18,8 +18,8 @@ $content = '
 </p>
 <h3>Requirements</h3>
 <ul>
-    <li>WWW Server (<a href="http://www.apache.org/" rel="external">Apache</a>, IIS, Roxen, etc)</li>
-    <li><a href="http://www.php.net/" rel="external">PHP</a> 5.3 or higher </li>
+    <li>Web Server (<a href="http://www.apache.org/" rel="external">Apache</a>, IIS, etc)</li>
+    <li><a href="http://www.php.net/" rel="external">PHP</a> 5.4 or higher </li>
     <li><a href="http://www.mysql.com/" rel="external">MySQL</a> 5.1 or higher </li>
 </ul>
 <h3>Before you install</h3>

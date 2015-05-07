@@ -10,6 +10,7 @@
  */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\FixedGroups;
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
@@ -36,7 +37,7 @@ class MenusMenu extends XoopsObject
         $this->initVar('link', XOBJ_DTYPE_TXTBOX);
         $this->initVar('weight', XOBJ_DTYPE_INT, 255);
         $this->initVar('target', XOBJ_DTYPE_TXTBOX, '_self');
-        $this->initVar('groups', XOBJ_DTYPE_ARRAY, serialize(array(XOOPS_GROUP_ANONYMOUS, XOOPS_GROUP_USERS)));
+        $this->initVar('groups', XOBJ_DTYPE_ARRAY, serialize(array(FixedGroups::ANONYMOUS, FixedGroups::USERS)));
         $this->initVar('hooks', XOBJ_DTYPE_ARRAY, serialize(array()));
         $this->initVar('image', XOBJ_DTYPE_TXTBOX);
         $this->initVar('css', XOBJ_DTYPE_TXTBOX);

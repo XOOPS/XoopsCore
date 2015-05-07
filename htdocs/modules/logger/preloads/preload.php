@@ -37,7 +37,7 @@ class LoggerPreload extends PreloadItem
 
         if (is_null($configs)) {
             $xoops = Xoops::getInstance();
-            $user_groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+            $user_groups = $xoops->getUserGroups();
             $moduleperm_handler = $xoops->getHandlerGroupperm();
             $helper = $xoops->getModuleHelper('logger');
             $mid = $helper->getModule()->getVar('mid');

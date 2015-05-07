@@ -39,7 +39,7 @@ $rating_Handler = $helper->getRatingHandler();
 $gperm_Handler = $helper->getGrouppermHandler();
 
 //permission
-$groups = $helper->getUserGroups();
+$groups = $xoops->getUserGroups();
 $uid = $helper->getUserId();
 
 // Define Stylesheet

@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\FixedGroups;
 
 /**
  * System admin
@@ -48,7 +49,7 @@ if ($system->checkRight()) {
 
             if ($category > 0) {
                 $group = $xoopsUser->getGroups();
-                if (in_array(XOOPS_GROUP_ADMIN, $group) || false != $sysperm_handler->checkRight('system_admin', $category, $group, $xoopsModule->getVar('mid'))) {
+                if (in_array(FixedGroups::ADMIN, $group) || false != $sysperm_handler->checkRight('system_admin', $category, $group, $xoopsModule->getVar('mid'))) {
                     if (XoopsLoad::fileExists($file = $xoops->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/admin/' . $fct . '/main.php'))) {
                         include_once $file;
                         unset($file);
@@ -110,7 +111,7 @@ if (false != $error) {
     $admin_page->renderTips();
     $groups = $xoopsUser->getGroups();
     $all_ok = false;
-    if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {
+    if (!in_array(FixedGroups::ADMIN, $groups)) {
         $sysperm_handler = $xoops->getHandlerGroupperm();
         $ok_syscats = $sysperm_handler->getItemIds('system_admin', $groups);
     } else {

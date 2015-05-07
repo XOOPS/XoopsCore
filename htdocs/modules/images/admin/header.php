@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Request;
 
 /**
@@ -39,7 +40,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 }
 
 $gperm_handler = $xoops->getHandlerGroupperm();
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 
 // check WRITE right by category before continue
 if (isset($imgcat_id) && ($op == 'addfile' || $op == 'editcat' || $op == 'updatecat' || $op == 'delcatok' || $op == 'delcat')) {
@@ -50,7 +51,7 @@ if (isset($imgcat_id) && ($op == 'addfile' || $op == 'editcat' || $op == 'update
 }
 
 // Only website administator can delete categories or images
-if (!in_array(XOOPS_GROUP_ADMIN, $groups) && ($op == 'delfile' || $op == 'delfileok' || $op == 'delcatok' || $op == 'delcat')) {
+if (!in_array(FixedGroups::ADMIN, $groups) && ($op == 'delfile' || $op == 'delfileok' || $op == 'delcatok' || $op == 'delcat')) {
     $xoops->redirect($redirect, 1);
 }
 

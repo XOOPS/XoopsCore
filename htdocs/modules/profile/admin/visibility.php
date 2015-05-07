@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * Extended User Profile
  *
@@ -94,7 +96,7 @@ $sel_ug = new Xoops\Form\Select(_PROFILE_AM_FIELDVISIBLEFOR, 'ug');
 $sel_ug->addOptionArray($groups);
 $add_form->addElement($sel_ug);
 
-unset($groups[XOOPS_GROUP_ANONYMOUS]);
+unset($groups[FixedGroups::ANONYMOUS]);
 $sel_pg = new Xoops\Form\Select(_PROFILE_AM_FIELDVISIBLEON, 'pg');
 $sel_pg->addOptionArray($groups);
 $add_form->addElement($sel_pg);

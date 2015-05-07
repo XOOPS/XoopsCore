@@ -47,8 +47,17 @@ class XoopsBaseConfig
                 throw new \Exception('XoopsBaseConfig failed to load configuration.');
 				return;
             }
+            $loaderPath = $this->extractLibPath($yamlString) . '/vendor/autoload.php';
+            if (file_exists($loaderPath)) {
+                include_once $loaderPath;
+            }
+            self::$configs = Yaml::loadWrapped($yamlString);
+            self::establishBCDefines();
+            \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         } elseif (is_array($config)) {
-			self::$configs = $config;
+            self::$configs = $config;
+            self::establishBCDefines();
+            \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         }
 		if (!isset(self::$configs['lib-path'])) {
 			throw new \Exception('XoopsBaseConfig lib-path not defined.');
@@ -133,7 +142,7 @@ class XoopsBaseConfig
      *
      * @return void
      */
-    final public function establishBCDefines()
+    final public static function establishBCDefines()
     {
         // Physical path to the XOOPS documents (served) directory WITHOUT trailing slash
         define('XOOPS_ROOT_PATH', self::get('root-path'));
@@ -190,9 +199,6 @@ class XoopsBaseConfig
         // Serialized connection parameter
         // This is built by the installer and includes all connection parameters
         define('XOOPS_DB_PARAMETERS', serialize(self::get('db-parameters')));
-
-        define('XOOPS_COOKIE_DOMAIN', self::get('cookie-domain'));
-
     }
 
     /**
@@ -217,6 +223,7 @@ class XoopsBaseConfig
 
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
+        $host = ($host=='localhost') ? '' : $host;
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
         
         $path = dirname(dirname(__FILE__));

@@ -152,12 +152,12 @@ $configs['extensions'] = array(
 // Writable files and directories
 $configs['writable'] = array(
     'uploads/',
-    'uploads/avatars/',
+//  'uploads/avatars/',
     'uploads/images/',
     'uploads/ranks/',
     'uploads/smilies/',
-    'uploads/banners/',
-    'mainfile.php'
+//  'uploads/banners/',
+//  'mainfile.php'
 );
 
 // Modules to be installed by default

@@ -31,7 +31,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/themes', \XoopsBaseConfig::get('url') . '/themes'), $instance->paths['themes']);
         $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/media', \XoopsBaseConfig::get('url') . '/media'), $instance->paths['media']);
 
-        $this->assertTrue(is_null($instance->sess_handler));
+        $this->assertTrue(is_null($instance->sessionManager));
         $this->assertTrue(is_null($instance->module));
         $this->assertTrue(is_array($instance->config));
         $this->assertTrue(is_array($instance->moduleConfig));
@@ -486,12 +486,12 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('XoopsRanksHandler', $value);
     }
 
-    public function test_getHandlerSession()
+    public function test_session()
 	{
         $instance = Xoops::getInstance();
 
-        $value = $instance->getHandlerSession();
-        $this->assertInstanceOf('XoopsSessionHandler', $value);
+        $value = $instance->session();
+        $this->assertInstanceOf('\Xoops\Core\Session\Manager', $value);
     }
 
     public function test_getHandlerTplfile()
@@ -739,6 +739,15 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 
         $value = $instance->userTimeToServerTime(time());
         $this->assertTrue(is_int($value));
+    }
+
+    public function test_getUserGroups()
+    {
+        $instance = Xoops::getInstance();
+        unset($instance->user);
+        $actual = $instance->getUserGroups();
+        $expected = array(\Xoops\Core\FixedGroups::ANONYMOUS);
+        $this->assertSame($expected, $actual);
     }
 
     public function test_makePass()

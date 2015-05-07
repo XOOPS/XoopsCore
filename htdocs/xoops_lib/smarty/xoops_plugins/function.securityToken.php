@@ -15,9 +15,7 @@
  * Smarty 3.1
  */
 
-function smarty_compiler_securityToken($params, Smarty $smarty)
+function smarty_function_securityToken($params, Smarty_Internal_Template $smarty)
 {
-//$xoops->events()->triggerEvent('debug.log', $path);
-    return "<?php echo '" . \Xoops::getInstance()->security()->getTokenHTML() . "'; ?>";
-
+    return \Xoops::getInstance()->security()->getTokenHTML();
 }

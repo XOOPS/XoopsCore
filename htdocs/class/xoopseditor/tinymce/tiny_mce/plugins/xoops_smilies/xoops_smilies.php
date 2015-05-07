@@ -13,13 +13,8 @@
 
 use Xoops\Core\Request;
 
-$helper = Xoops\Module\Helper::getHelper('smilies');
-if (!$helper) {
-    ob_end_flush();
-    return;
-}
-
-require_once dirname(__FILE__).'/../../../../../../mainfile.php';
+$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
+include_once $xoops_root_path . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
@@ -71,7 +66,7 @@ if ($op == 'more') {
 }
 
 // check user/group
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->getUserGroups();
 $gperm_handler = $xoops->getHandlerGroupperm();
 $admin = $gperm_handler->checkRight('system_admin', $xoops->getHandlerModule()->getByDirName('smilies')->getVar('mid'), $groups);
 

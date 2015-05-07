@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * images module
  *
@@ -31,8 +33,8 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
 
         if ($obj->isNew()) {
             $title = _AM_IMAGES_CAT_ADD;
-            $read = XOOPS_GROUP_ADMIN;
-            $write = XOOPS_GROUP_ADMIN;
+            $read = FixedGroups::ADMIN;
+            $write = FixedGroups::ADMIN;
         } else {
             $title = _AM_IMAGES_CAT_EDIT;
             $read = $perm_handler->getGroupIds('imgcat_read', $obj->getVar('imgcat_id'), $xoops->module->getVar('mid'));

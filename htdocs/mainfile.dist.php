@@ -70,10 +70,6 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
     // Secure file
     require XOOPS_VAR_PATH . '/data/secure.php';
 
-    define("XOOPS_GROUP_ADMIN", "1");
-    define("XOOPS_GROUP_USERS", "2");
-    define("XOOPS_GROUP_ANONYMOUS", "3");
-
     if (!class_exists('XoopsBaseConfig', false)) {
         include __DIR__ . '/class/XoopsBaseConfig.php';
         XoopsBaseConfig::bootstrapTransition();

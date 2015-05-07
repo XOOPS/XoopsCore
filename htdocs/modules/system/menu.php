@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
 /**
  * System menu
  *
@@ -26,7 +27,7 @@ if (is_object($xoops->user)) {
 }
 
 $all_ok = false;
-if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {
+if (!in_array(FixedGroups::ADMIN, $groups)) {
     $sysperm_handler = $xoops->getHandlerGroupperm();
     $ok_syscats = $sysperm_handler->getItemIds('system_admin', $groups);
 } else {

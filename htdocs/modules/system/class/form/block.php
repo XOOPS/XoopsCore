@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\FixedGroups;
 
 /**
  * Blocks Form Class
@@ -53,7 +54,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
         if ($this->obj->isNew()) {
             $title = SystemLocale::ADD_BLOCK;
             $modules = array(-1);
-            $groups = array(XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS, XOOPS_GROUP_ADMIN);
+            $groups = array(FixedGroups::USERS, FixedGroups::ANONYMOUS, FixedGroups::ADMIN);
             $this->obj->setVar('block_type', 'C');
             $this->obj->setVar('visible', 1);
             $op = 'save';

@@ -28,7 +28,7 @@ class ImagesImageForm extends Xoops\Form\ThemeForm
         $xoops = Xoops::getInstance();
         $helper = Xoops\Module\Helper::getHelper('images');
 
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = $xoops->getUserGroups();
 
         if ($obj->isNew()) {
             $title = _AM_IMAGES_IMG_ADD;

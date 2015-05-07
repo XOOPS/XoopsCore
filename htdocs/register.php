@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * XOOPS Register
  *
@@ -19,9 +21,8 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  * @version         $Id$
  */
-require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 
-$xoops_url = \XoopsBaseConfig::get('url');
+include __DIR__ . '/mainfile.php';
 
 $xoops->events()->triggerEvent('core.register.start');
 $xoops->loadLanguage('user');
@@ -165,7 +166,7 @@ switch ($op) {
                 $xoops->footer();
             }
             $newid = $newuser->getVar('uid');
-            if (!$member_handler->addUserToGroup(XOOPS_GROUP_USERS, $newid)) {
+            if (!$member_handler->addUserToGroup(FixedGroups::USERS, $newid)) {
                 echo XoopsLocale::E_USER_NOT_REGISTERED;
                 $xoops->footer();
             }
