@@ -205,16 +205,23 @@ class XoopsBaseConfig
      */
     final public static function bootstrapTransition()
     {
-		$protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://');
+		$protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
+            ? 'https://'
+            : 'http://');
+        $port = ((isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] != '80'))
+            ? ':' . $_SERVER['SERVER_PORT']
+            : '');
         $url  = $protocol
             . $_SERVER['SERVER_NAME']
-            . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : '');
+            . $port;
 
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
         
         $path = dirname(dirname(__FILE__));
+        
+        require_once $path . '/xoops_data/data/secure.php';
         
 		$config = array(
 			'root-path' => $path,

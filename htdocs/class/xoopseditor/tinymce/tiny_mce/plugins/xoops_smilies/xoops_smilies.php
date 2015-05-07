@@ -13,13 +13,18 @@
 
 use Xoops\Core\Request;
 
+$helper = Xoops\Module\Helper::getHelper('smilies');
+if (!$helper) {
+    ob_end_flush();
+    return;
+}
+
 require_once dirname(__FILE__).'/../../../../../../mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
 
-$helper = Xoops\Module\Helper::getHelper('smilies');
 $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 

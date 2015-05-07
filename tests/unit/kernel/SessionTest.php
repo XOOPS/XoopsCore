@@ -10,7 +10,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsSession';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

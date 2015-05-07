@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init_mini.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class XoopsloadTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myClass = 'XoopsLoad';
 	
-    public function SetUp() {
+    public function setUp() {
     }
     
 	public function test_getMap()

@@ -390,7 +390,7 @@ class Connection extends \Doctrine\DBAL\Connection
     /**
      * Create a new instance of a SQL query builder.
      *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
+     * @return \Xoops\Core\Database\QueryBuilder
      */
     public function createXoopsQueryBuilder()
     {

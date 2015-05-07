@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../init.php');
 class TreeTest extends \PHPUnit_Framework_TestCase
 {
     
-    public function SetUp()
+    public function setUp()
 	{
     }
     

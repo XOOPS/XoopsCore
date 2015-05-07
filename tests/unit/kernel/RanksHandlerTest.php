@@ -11,7 +11,7 @@ class RanksHandlerTest extends \PHPUnit_Framework_TestCase
     protected $myclass='XoopsRanksHandler';
     protected $object = null;
 
-    public function SetUp()
+    public function setUp()
 	{
 		$conn = Xoops::getInstance()->db();
         $this->object=new $this->myclass($conn);

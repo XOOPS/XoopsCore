@@ -11,7 +11,7 @@
  * @version         $Id$
  */
 
-require_once dirname(__FILE__).'/../../../../../../mainfile.php';
+// require_once dirname(__FILE__).'/../../../../../../mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();

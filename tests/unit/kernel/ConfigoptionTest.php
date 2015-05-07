@@ -10,7 +10,7 @@ class ConfigoptionTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsConfigOption';
     
-    public function SetUp()
+    public function setUp()
 	{
     }
     

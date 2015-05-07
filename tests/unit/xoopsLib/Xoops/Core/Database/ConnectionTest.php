@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 
 use Doctrine\DBAL\Driver;
@@ -15,7 +15,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = '\Xoops\Core\Database\Connection';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

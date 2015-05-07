@@ -1,9 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../init_new.php');
 
-$xoops_root_path = \XoopsBaseConfig::get('root-path');
-require_once($xoops_root_path.'/class/captcha/xoopscaptcha.php');
-require_once($xoops_root_path.'/class/captcha/text.php');
+require_once(XOOPS_TU_ROOT_PATH . '/class/captcha/xoopscaptcha.php');
+require_once(XOOPS_TU_ROOT_PATH . '/class/captcha/text.php');
 
 /**
 * PHPUnit special settings :

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -11,7 +11,7 @@ class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
     protected $myClass = 'MyTextSanitizerExtension';
     protected $ts = null;
     
-    public function SetUp()
+    public function setUp()
 	{
         $this->ts = MyTextSanitizer::getInstance();
     }

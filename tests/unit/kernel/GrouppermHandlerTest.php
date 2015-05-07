@@ -11,7 +11,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
     protected $myclass='XoopsGroupPermHandler';
 	protected $conn = null;
     
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../init_new.php');
 
 class Xoops_Auth_ProvisioningTest_AuthAbstractInstance extends Xoops\Auth\AuthAbstract
 {

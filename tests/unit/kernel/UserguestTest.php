@@ -11,7 +11,7 @@ class UserguestTest extends \PHPUnit_Framework_TestCase
     protected $myclass='XoopsGuestUser';
 	protected $conn = null;
 
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }
