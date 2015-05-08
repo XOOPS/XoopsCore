@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * Extended User Profile
  *
@@ -33,7 +35,7 @@ if (!$user || $user->isNew()) {
     $xoops->redirect("index.php", 2, _PROFILE_AM_USERDONEXIT);
 }
 
-if (in_array(XOOPS_GROUP_ADMIN, $user->getGroups())) {
+if (in_array(FixedGroups::ADMIN, $user->getGroups())) {
     $xoops->redirect("index.php", 2, _PROFILE_AM_CANNOTDEACTIVATEWEBMASTERS);
 }
 $user->setVar('level', $_REQUEST['level']);

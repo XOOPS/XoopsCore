@@ -17,9 +17,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
     protected $user;
@@ -56,7 +53,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         }
         $this->user = $user->getValues();
         $this->owner = $owner->getValues();
-        $this->user_groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+        $this->user_groups = $xoops->getUserGroups();
         $this->user_uid = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
         $this->get_uid = isset($_GET['uid']) ? intval($_GET['uid']) : 0;
     }

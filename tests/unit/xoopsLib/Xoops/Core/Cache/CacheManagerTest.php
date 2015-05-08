@@ -33,7 +33,7 @@ class CacheManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Core\Cache\CacheManager::getPool
+     * @covers Xoops\Core\Cache\CacheManager::getCache
      */
     public function testGetCache()
     {

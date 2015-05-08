@@ -14,12 +14,11 @@ use Xoops\Core\Database\Connection;
 /**
  * page module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         page
- * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
+ * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package   page
+ * @since     2.6.0
+ * @author    Mage Grégory (AKA Mage)
  */
 
 class PagePage_content extends XoopsObject
@@ -171,7 +170,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
 
 
         // get permitted id
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = $xoops->getUserGroups();
         $pages_ids = $helper->getGrouppermHandler()->getItemIds('page_view_item', $groups, $module_id);
 
         // criteria
@@ -193,7 +192,7 @@ class PagePage_contentHandler extends XoopsPersistableObjectHandler
         $module_id = $helper->getModule()->getVar('mid');
 
         // get permitted id
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = $xoops->getUserGroups();
         $pages_ids = $helper->getGrouppermHandler()->getItemIds('page_view_item', $groups, $module_id);
 
         // criteria

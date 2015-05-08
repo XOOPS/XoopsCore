@@ -10,6 +10,7 @@
  */
 
 namespace Xoops\Module\Helper;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -159,16 +160,6 @@ abstract class HelperAbstract
     }
 
     /**
-     * TODO - reevaluate this even existing here - this is not module
-     * related and we should have easy access to this (and similar)
-     * elsewhere (maybe a user helper?)
-     */
-    public function getUserGroups()
-    {
-        return $this->xoops()->isUser() ? $this->xoops()->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    }
-
-    /**
      * Return absolute URL for a module relative URL
      *
      * @param string $url
@@ -229,8 +220,8 @@ abstract class HelperAbstract
     }
 
     /**
-     * @param null|XoopsObject       $obj
-     * @param string                 $name
+     * @param null|XoopsObject $obj
+     * @param string           $name
      *
      * @return \Xoops\Form\Form|boolean
      */

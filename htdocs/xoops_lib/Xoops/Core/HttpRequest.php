@@ -57,6 +57,7 @@ class HttpRequest
         'delete'    => array('env' => 'REQUEST_METHOD', 'value' => 'DELETE'),
         'head'      => array('env' => 'REQUEST_METHOD', 'value' => 'HEAD'),
         'options'   => array('env' => 'REQUEST_METHOD', 'value' => 'OPTIONS'),
+        'safemethod'=> array('env' => 'REQUEST_METHOD', 'options' => array('GET', 'HEAD')),
         'ssl'       => array('env' => 'HTTPS', 'value' => 1),
         'ajax'      => array('env' => 'HTTP_X_REQUESTED_WITH', 'value' => 'XMLHttpRequest'),
         'flash'     => array('env' => 'HTTP_USER_AGENT', 'pattern' => '/^(Shockwave|Adobe) Flash/'),
@@ -280,25 +281,43 @@ class HttpRequest
     }
 
     /**
-     * Get the Client Ip
+     * Get the Client IP address, optionally attempting to peek behind any proxies
+     * to get a real routable address.
      *
-     * @param string $default default address if no client address can be determinied
-     *
+     * @param boolean $considerProxy true to enable proxy tests
      * @return string
      */
-    public function getClientIp($default = '0.0.0.0')
+    public function getClientIp($considerProxy = false)
     {
-        $keys = array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
+        $default = (array_key_exists('REMOTE_ADDR', $_SERVER)) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+
+        if (!$considerProxy) {
+            return $default;
+        }
+
+        $keys = array(
+            'HTTP_CLIENT_IP',
+            'HTTP_X_FORWARDED_FOR',
+            'HTTP_X_FORWARDED',
+            'HTTP_X_CLUSTER_CLIENT_IP',
+            'HTTP_FORWARDED_FOR',
+            'HTTP_FORWARDED',
+        );
         foreach ($keys as $key) {
-            if (!$res = $this->getEnv($key)) {
-                continue;
-            }
-            $ips = explode(',', $res, 1);
-            $ip = $ips[0];
-            if (false != ip2long($ip) && long2ip(ip2long($ip) === $ip)) {
-                return $ips[0];
+            if (array_key_exists($key, $_SERVER) === true) {
+                foreach (explode(',', $_SERVER[$key]) as $ip) {
+                    $ip = trim($ip);
+                    if (false !== filter_var(
+                        $ip,
+                        FILTER_VALIDATE_IP,
+                        FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+                    )) {
+                        return $ip;
+                    }
+                }
             }
         }
+
         return $default;
     }
 

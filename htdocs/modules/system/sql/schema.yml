@@ -1392,15 +1392,15 @@ tables:
                 columns: [msg_time, read_msg, from_save, to_delete]
                 unique: false
                 primary: false
-    session:
+    system_session:
         options: {  }
         columns:
-            sess_id:
-                name: sess_id
+            session_id:
+                name: session_id
                 type: string
                 default: ''
                 notnull: true
-                length: 32
+                length: 128
                 precision: 10
                 scale: 0
                 fixed: false
@@ -1408,8 +1408,8 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
-            sess_updated:
-                name: sess_updated
+            expires_at:
+                name: expires_at
                 type: integer
                 default: '0'
                 notnull: true
@@ -1421,21 +1421,8 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: ''
-            sess_ip:
-                name: sess_ip
-                type: string
-                default: ''
-                notnull: true
-                length: 15
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            sess_data:
-                name: sess_data
+            session_data:
+                name: session_data
                 type: text
                 default: null
                 notnull: false
@@ -1450,12 +1437,12 @@ tables:
         indexes:
             PRIMARY:
                 name: PRIMARY
-                columns: [sess_id]
+                columns: [session_id]
                 unique: true
                 primary: true
             updated:
-                name: updated
-                columns: [sess_updated]
+                name: expires_at
+                columns: [expires_at]
                 unique: false
                 primary: false
     tplfile:

@@ -184,43 +184,11 @@ setlocale(LC_ALL, XoopsLocale::getLocale());
  * User Sessions
  */
 $member_handler = $xoops->getHandlerMember();
-$sess_handler = $xoops->getHandlerSession();
 
-if ($xoops->getConfig('use_ssl')
-    && isset($_POST[$xoops->getConfig('sslpost_name')])
-    && $_POST[$xoops->getConfig('sslpost_name')] != ''
-) {
-    session_id($_POST[$xoops->getConfig('sslpost_name')]);
-} else {
-    if ($xoops->getConfig('use_mysession')
-        && $xoops->getConfig('session_name') != ''
-        && $xoops->getConfig('session_expire') > 0
-    ) {
-        session_name($xoopsConfig['session_name']);
-        session_cache_expire($xoops->getConfig('session_expire'));
-        @ini_set('session.gc_maxlifetime', $xoops->getConfig('session_expire') * 60);
-    }
-}
-session_set_save_handler(
-    array(&$sess_handler, 'open'),
-    array(&$sess_handler, 'close'),
-    array(&$sess_handler, 'read'),
-    array(&$sess_handler, 'write'),
-    array(&$sess_handler, 'destroy'),
-    array(&$sess_handler, 'gc')
-);
-
-if (function_exists('session_status')) {
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
-} else {
-    // this should silently fail if session has already started (for PHP 5.3)
-    @session_start();
-}
+$xoops->session()->sessionStart();
 
 /**
- * Remove expired session for xoopsUserId
+ * Gather some info about the logged in user
  */
 if ($xoops->getConfig('use_mysession')
     && $xoops->getConfig('session_name') != ''
@@ -258,15 +226,9 @@ if (!empty($_SESSION['xoopsUserId'])) {
     } else {
         if ((intval($xoops->user->getVar('last_login')) + 60 * 5) < time()) {
             $user_handler = $xoops->getHandlerUser();
-            $criteria = new Criteria('uid', $_SESSION['xoopsUserId']);
+            $criteria = new Criteria('uid', $uid);
             $user_handler->updateAll('last_login', time(), $criteria, true);
             unset($criteria);
-        }
-        $sess_handler->update_cookie();
-        if (isset($_SESSION['xoopsUserGroups'])) {
-            $xoops->user->setGroups($_SESSION['xoopsUserGroups']);
-        } else {
-            $_SESSION['xoopsUserGroups'] = $xoops->user->getGroups();
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin();
     }
@@ -309,7 +271,7 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
-        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), XOOPS_GROUP_ANONYMOUS)) {
+        if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), FixedGroups::ANONYMOUS)) {
             $xoops->redirect(
                 $xoops_url . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
                 1,

@@ -58,7 +58,6 @@ $modversion['jquery'] = 1;
 
 // table definitions
 $modversion['schema']           = 'sql/schema.yml';
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file or schema (without prefix!)
 $modversion['tables'] = array(
@@ -75,7 +74,7 @@ $modversion['tables'] = array(
     'newblocks',
     'online',
     'priv_msgs',
-    'session',
+    'system_session',
     'tplset',
     'tplfile',
     'tplsource',
@@ -362,23 +361,13 @@ $modversion['config'][] = array(
 );
 
 $modversion['config'][] = array(
-    'name'        => 'use_mysession',
-    'title'       => 'CONF_USE_MY_SESSION',
-    'description' => 'CONF_USE_MY_SESSION_DESC',
-    'category'    => 'general',
-    'formtype'    => 'yesno',
-    'valuetype'   => 'int',
-    'default'     => 0,
-);
-
-$modversion['config'][] = array(
     'name'        => 'session_name',
     'title'       => 'CONF_SESSION_NAME',
     'description' => 'CONF_SESSION_NAME_DESC',
     'category'    => 'general',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 'xoops_session',
+    'default'     => 'xoops_session' . dechex(time()),
 );
 
 $modversion['config'][] = array(

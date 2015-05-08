@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * XoopsTheme component class file
  *
@@ -434,7 +436,7 @@ class XoopsTheme
                 $extra_string = $xoops->getConfig('locale');
                 // Generate group section
                 if (!$xoops->isUser()) {
-                    $extra_string .= '-' . XOOPS_GROUP_ANONYMOUS;
+                    $extra_string .= '-' . FixedGroups::ANONYMOUS;
                 } else {
                     $groups = $xoops->user->getGroups();
                     sort($groups);

@@ -18,6 +18,7 @@
  */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\XoopsObject;
@@ -181,7 +182,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
             return false;
         } else {
             if (is_array($gperm_groupid)) {
-                if (in_array(XOOPS_GROUP_ADMIN, $gperm_groupid) && $trueifadmin) {
+                if (in_array(FixedGroups::ADMIN, $gperm_groupid) && $trueifadmin) {
                     return true;
                 }
                 $criteria_group = new CriteriaCompo();
@@ -189,7 +190,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
                     $criteria_group->add(new Criteria('gperm_groupid', $gid), 'OR');
                 }
             } else {
-                if (XOOPS_GROUP_ADMIN == $gperm_groupid && $trueifadmin) {
+                if (FixedGroups::ADMIN == $gperm_groupid && $trueifadmin) {
                     return true;
                 }
                 $criteria_group = new CriteriaCompo(new Criteria('gperm_groupid', $gperm_groupid));

@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 $rating = Request::getInt('rating');
 $itemid = Request::getInt('itemid');
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups = $xoops->getUserGroups();
 $gperm_handler = $publisher->getGrouppermHandler();
 $hModConfig = $xoops->getHandlerConfig();
 $module_id = $publisher->getModule()->getVar('mid');

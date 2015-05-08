@@ -21,7 +21,7 @@ use Xoops\Core\Request;
  * @version         $Id$
  */
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Images::getInstance();
@@ -37,7 +37,7 @@ if (empty($target)) {
     exit('Target not set');
 }
 
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->getUserGroups();
 
 $xoops->simpleHeader();
 $xoopsTpl = new XoopsTpl();
@@ -117,8 +117,13 @@ switch ($op) {
 
         $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
-        $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/images', $mimetypes,
-                    $category->getVar('imgcat_maxsize'), $category->getVar('imgcat_maxwidth'), $category->getVar('imgcat_maxheight'));
+        $uploader = new XoopsMediaUploader(
+            XOOPS_UPLOAD_PATH . '/images',
+            $mimetypes,
+            $category->getVar('imgcat_maxsize'),
+            $category->getVar('imgcat_maxwidth'),
+            $category->getVar('imgcat_maxheight')
+        );
         if ($uploader->fetchMedia($xoops_upload_file[0])) {
             $uploader->setPrefix("img");
             if (!$uploader->upload()) {
@@ -138,7 +143,7 @@ switch ($op) {
             }
         }
 
-        if ( $image_id = $helper->getHandlerImages()->insert($obj)) {
+        if ($image_id = $helper->getHandlerImages()->insert($obj)) {
             if ($category->getVar('imgcat_storetype') == 'db') {
                 $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                 if (!is_object($imagebody)) {

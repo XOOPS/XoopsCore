@@ -25,6 +25,8 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use Xoops\Core\FixedGroups;
+
 include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 include_once __DIR__ . '/common.php';
 
@@ -39,11 +41,7 @@ if (!$xoops->isActiveModule('images')) {
 $publisher = Publisher::getInstance();
 $publisher->loadLanguage('common');
 
-if (!$xoops->isUser()) {
-    $group = array(XOOPS_GROUP_ANONYMOUS);
-} else {
-    $group = $xoops->user->getGroups();
-}
+$group = $xoops->getUserGroups();
 
 $filename = basename($_FILES['publisher_upload_file']['name']);
 $image_nicename = isset($_POST['image_nicename']) ? trim($_POST['image_nicename']) : '';
@@ -66,7 +64,7 @@ if (!is_object($imgcat)) {
             $error = _CO_PUBLISHER_IMAGE_CAT_NONE;
         }
     } else {
-        if (!$imgcatperm_handler->checkRight('imgcat_write', $imgcat_id, XOOPS_GROUP_ANONYMOUS)) {
+        if (!$imgcatperm_handler->checkRight('imgcat_write', $imgcat_id, FixedGroups::ANONYMOUS)) {
             $error = _CO_PUBLISHER_IMAGE_CAT_NOPERM;
         }
     }

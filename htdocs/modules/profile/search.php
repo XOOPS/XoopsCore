@@ -23,13 +23,13 @@ use Xoops\Core\Kernel\Criteria;
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
 $limit_default = 20;
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : "search";
-$groups = $xoops->user ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->getUserGroups();
 $searchable_types = array(
     'textbox', 'select', 'radio', 'yesno', 'date', 'datetime', 'timezone', 'language'
 );
@@ -420,4 +420,4 @@ switch ($op) {
         }
         break;
 }
-include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . '/footer.php';

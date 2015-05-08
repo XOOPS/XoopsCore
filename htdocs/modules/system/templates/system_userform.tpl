@@ -4,7 +4,7 @@
         <div class="control-group">
             <label for="xo-sys-uname" class="control-label"><{$lang_username}><span class="caption-required">*</span></label>
             <div class="controls">
-                <input type="text" name="uname" id="xo-sys-uname" class="span2" value="<{$usercookie}>" required="">
+                <input type="text" name="uname" id="xo-sys-uname" class="span2" value="<{$usercookie|default:''}>" required="">
             </div>
         </div>
         <div class="control-group">
@@ -39,7 +39,7 @@
             <label for="xo-sys-uname" class="control-label"><{$lang_youremail}><span class="caption-required">*</span></label>
             <div class="controls">
                 <div class="input-prepend">
-                    <span class="add-on">@</span><input type="text" name="email" id="xo-sys-email" class="span3" value="<{$usercookie}>" required="">
+                    <span class="add-on">@</span><input type="text" name="email" id="xo-sys-email" class="span3" value="<{$usercookie|default:''}>" required="">
                 </div>
             </div>
         </div>

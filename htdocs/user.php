@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * XOOPS User
  *
@@ -22,7 +24,7 @@
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+require __DIR__ . '/mainfile.php';
 
 $xoops_url = \XoopsBaseConfig::get('url');
 
@@ -109,11 +111,15 @@ if ($op == 'main') {
 
 if ($op == 'logout') {
     $message = '';
+<<<<<<< HEAD
     // Regenerate a new session id and destroy old session
     $xoops->getHandlerSession()->regenerate_id(true);
     $_SESSION = array();
     setcookie($xoops->getConfig('usercookie'), 0, -1, '/', $xoops->globalData->getVar('cookie-domain'), 0);
     setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
+=======
+    $xoops->session()->user()->recordUserLogout();
+>>>>>>> upstream/master
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));
@@ -128,7 +134,7 @@ if ($op == 'delete') {
         $xoops->redirect('index.php', 5, XoopsLocale::E_NO_ACTION_PERMISSION);
     } else {
         $groups = $xoops->user->getGroups();
-        if (in_array(XOOPS_GROUP_ADMIN, $groups)) {
+        if (in_array(FixedGroups::ADMIN, $groups)) {
             // users in the webmasters group may not be deleted
             $xoops->redirect('user.php', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }

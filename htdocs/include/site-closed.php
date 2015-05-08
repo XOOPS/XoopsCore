@@ -19,12 +19,14 @@
  * @version         $Id$
  */
 
+use Xoops\Core\FixedGroups;
+
 $xoops = Xoops::getInstance();
 
 $allowed = false;
 if ($xoops->isUser()) {
     foreach ($xoops->user->getGroups() as $group) {
-        if (in_array($group, $xoops->getConfig('closesite_okgrp')) || XOOPS_GROUP_ADMIN == $group) {
+        if (in_array($group, $xoops->getConfig('closesite_okgrp')) || FixedGroups::ADMIN == $group) {
             $allowed = true;
             break;
         }

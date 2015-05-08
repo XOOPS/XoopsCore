@@ -17,7 +17,6 @@
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
-
 class ImagesImage_imagemanagerForm extends Xoops\Form\ThemeForm
 {
 
@@ -35,7 +34,7 @@ class ImagesImage_imagemanagerForm extends Xoops\Form\ThemeForm
         //todo, remove extract
         extract($param);
 
-        $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = $xoops->getUserGroups();
 
         if ($obj->isNew()) {
             $title = _AM_IMAGES_IMG_ADD;

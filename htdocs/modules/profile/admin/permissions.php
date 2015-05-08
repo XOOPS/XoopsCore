@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+
 /**
  * Extended User Profile
  *
@@ -80,7 +82,7 @@ if ($op == "access") {
     $member_handler = $xoops->getHandlerMember();
     $glist = $member_handler->getGroupList();
     foreach (array_keys($glist) as $i) {
-        if ($i != XOOPS_GROUP_ANONYMOUS) {
+        if ($i != FixedGroups::ANONYMOUS) {
             $form->addItem($i, $glist[$i]);
         }
     }

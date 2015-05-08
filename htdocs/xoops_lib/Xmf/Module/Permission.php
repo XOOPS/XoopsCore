@@ -84,7 +84,7 @@ class Permission extends AbstractHelper
      **/
     public function checkPermission($gperm_name, $gperm_itemid)
     {
-        $gperm_groupid = $this->getUserGroups();
+        $gperm_groupid = $this->xoops->getUserGroups();
 
         return $this->perm->checkRight(
             $gperm_name,
@@ -112,7 +112,7 @@ class Permission extends AbstractHelper
         $time = 3,
         $message = ''
     ) {
-        $gperm_groupid = $this->getUserGroups();
+        $gperm_groupid = $this->xoops->getUserGroups();
         $permission = $this->perm->checkRight(
             $gperm_name,
             $gperm_itemid,
@@ -123,24 +123,6 @@ class Permission extends AbstractHelper
             $helper = Helper::getHelper($this->dirname);
             $helper->redirect($url, $time, $message);
         }
-    }
-
-    /**
-     * Get groups user belong to, even for annonymous user
-     *
-     * @return array of groups the current user is associted with
-     */
-    public function getUserGroups()
-    {
-        if ($this->xoops) {
-            $groupids = $this->xoops->isUser() ?
-                $this->xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
-        } else {
-            $groupids = is_object($GLOBALS['xoopsUser']) ?
-                $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
-        }
-
-        return $groupids;
     }
 
     /**

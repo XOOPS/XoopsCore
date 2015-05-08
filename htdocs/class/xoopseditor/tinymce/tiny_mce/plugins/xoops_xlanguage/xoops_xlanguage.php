@@ -45,7 +45,7 @@ if ($op == 'save') {
 }
 
 // check user/group
-$groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+$groups = $xoops->getUserGroups();
 $gperm_handler = $xoops->getHandlerGroupperm();
 $admin = false;
 if ($gperm_handler) {
