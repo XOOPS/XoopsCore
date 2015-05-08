@@ -111,7 +111,7 @@ class CacheManager
         $defaults = self::getDefaults();
         if (false !== stripos(PHP_OS, 'WIN')) {
             $pathLen = strlen($defaults['default']['options']['path']);
-            if (260 >= ($pathLen+202)) {
+            if (260 <= ($pathLen+202)) {
                 // try alternative driver as filesystem has max path length issues on Windows
                 if (array_key_exists("SQLite", \Stash\DriverList::getAvailableDrivers())) {
                     $defaults['default']['driver'] = 'SQLite';
