@@ -12,25 +12,25 @@
                 <a class="down" href="javascript:;">&nbsp;</a>
             </div>
             <div class="xo-window-data">
-                <{if $smarty_cache || $smarty_compile || $xoops_cache || $session}>
+                <{if $smarty_cache|default:false || $smarty_compile|default:false || $xoops_cache|default:false || $session|default:false}>
                 <ul>
-                    <{if $smarty_cache}>
+                    <{if $smarty_cache|default:false}>
                     <li class="green">
                         <span class="ico ico-tick"></span>&nbsp;<{$result_smarty_cache}>
                     </li>
                     <{/if}>
-                    <{if $smarty_compile}>
+                    <{if $smarty_compile|default:false}>
                     <li class="green">
                         <span class="ico ico-tick"></span>&nbsp;<{$result_smarty_compile}>
                     </li>
                     <{/if}>
-                    <{if $xoops_cache}>
+                    <{if $xoops_cache|default:false}>
                     <li class="green">
                         <span class="ico ico-tick"></span>&nbsp;<{$result_xoops_cache}>
                     </li>
                     <{/if}>
-                    <{if $session}>
-                    <{if $result_session}>
+                    <{if $session|default:false}>
+                    <{if $result_session|default:false}>
                     <li class="green">
                         <span class="ico ico-tick"></span>&nbsp;<{$smarty.const._AM_MAINTENANCE_CENTER_RESULT_SESSION}>
                     </li>
@@ -42,7 +42,7 @@
                     <{/if}>
                 </ul>
                 <{/if}>
-                <{if $result_arr}>
+                <{if $result_arr|default:false}>
                 <table class="outer tablesorter">
                     <thead>
                     <tr>
@@ -60,28 +60,28 @@
                             <{$result.table}>
                         </td>
                         <td class="txtcenter width10">
-                            <{if $result.optimize}>
+                            <{if $result.optimize|default:false}>
                             <span class="ico ico-tick"></span>
                             <{else}>
                             <span class="ico ico-cross"></span>
                             <{/if}>
                         </td>
                         <td class="txtcenter width10">
-                            <{if $result.check}>
+                            <{if $result.check|default:false}>
                             <span class="ico ico-tick"></span>
                             <{else}>
                             <span class="ico ico-cross"></span>
                             <{/if}>
                         </td>
                         <td class="xo-actions txtcenter width10">
-                            <{if $result.repair}>
+                            <{if $result.repair|default:false}>
                             <span class="ico ico-tick"></span>
                             <{else}>
                             <span class="ico ico-cross"></span>
                             <{/if}>
                         </td>
                         <td class="xo-actions txtcenter width10">
-                            <{if $result.analyse}>
+                            <{if $result.analyse|default:false}>
                             <span class="ico ico-tick"></span>
                             <{else}>
                             <span class="ico ico-cross"></span>
