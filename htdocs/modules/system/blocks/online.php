@@ -50,7 +50,7 @@ function b_system_online_show()
         $members = '';
         for ($i = 0; $i < $total; ++$i) {
             if ($onlines[$i]['online_uid'] > 0) {
-                $members .= ' <a href="' . XOOPS_URL . '/userinfo.php?uid=' . $onlines[$i]['online_uid'] . '" title="' . $onlines[$i]['online_uname'] . '">' . $onlines[$i]['online_uname'] . '</a>,';
+                $members .= ' <a href="' . \XoopsBaseConfig::get('url') . '/userinfo.php?uid=' . $onlines[$i]['online_uid'] . '" title="' . $onlines[$i]['online_uname'] . '">' . $onlines[$i]['online_uname'] . '</a>,';
             } else {
                 ++$guests;
             }

@@ -38,7 +38,7 @@ function xoops_module_install_pm($module)
     if (($rows = $xoopsDB->getRowsNum($result)) == 12) {
         return true;
     } elseif ($rows == 8) {
-        return $xoopsDB->queryFromFile(XOOPS_ROOT_PATH . "/modules/" . $module->getVar('dirname', 'n') . "/sql/mysql.upgrade.sql");
+        return $xoopsDB->queryFromFile(\XoopsBaseConfig::get('root-path') . "/modules/" . $module->getVar('dirname', 'n') . "/sql/mysql.upgrade.sql");
     } else {
         return false;
     }

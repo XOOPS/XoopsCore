@@ -23,7 +23,7 @@ include __DIR__ . '/header.php';
 
 $xoops->header();
 // folder path
-$folder_path = XOOPS_ROOT_PATH . '/uploads/images';
+$folder_path = \XoopsBaseConfig::get('root-path') . '/uploads/images';
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');

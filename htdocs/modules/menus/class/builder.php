@@ -137,7 +137,7 @@ class MenusBuilder
         $self = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
 
         //set a default page in case we don't get matches
-        $default = XOOPS_URL . "/index.php";
+        $default = \XoopsBaseConfig::get('url') . "/index.php";
 
         //get all matching links
         foreach ($this->output as $idx => $menu) {
@@ -163,7 +163,7 @@ class MenusBuilder
         }
 
         /*
-         * When visiting site.com when XOOPS_URL is set to www.site.com
+         * When visiting site.com when \XoopsBaseConfig::get('url') is set to www.site.com
          * longidx is not detected, this IF will prevent blank page
          */
         if (isset($this->output[$longidx])) {

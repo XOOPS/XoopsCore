@@ -23,7 +23,7 @@ class XmfPreload extends PreloadItem
 {
     public static function eventCoreIncludeCommonEnd($args)
     {
-        if (file_exists($filename = XOOPS_ROOT_PATH . '/modules/xmf/include/bootstrap.php')) {
+        if (file_exists($filename = \XoopsBaseConfig::get('root-path') . '/modules/xmf/include/bootstrap.php')) {
             include_once $filename;
         }
     }

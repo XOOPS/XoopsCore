@@ -341,11 +341,11 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         if ($totalsubs > 0) {
             /* @var $subcat PublisherCategory */
             foreach ($subcatsObj as $subcat) {
-                $modify = "<a href='category.php?op=mod&amp;categoryid=" . $subcat->getVar('categoryid') . "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_MODIFY . "' alt='" . _AM_PUBLISHER_MODIFY . "' /></a>";
-                $delete = "<a href='category.php?op=del&amp;categoryid=" . $subcat->getVar('categoryid') . "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETE . "' alt='" . _AM_PUBLISHER_DELETE . "' /></a>";
+                $modify = "<a href='category.php?op=mod&amp;categoryid=" . $subcat->getVar('categoryid') . "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_MODIFY . "' alt='" . _AM_PUBLISHER_MODIFY . "' /></a>";
+                $delete = "<a href='category.php?op=del&amp;categoryid=" . $subcat->getVar('categoryid') . "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETE . "' alt='" . _AM_PUBLISHER_DELETE . "' /></a>";
                 echo "<tr>";
                 echo "<td class='head' align='left'>" . $subcat->getVar('categoryid') . "</td>";
-                echo "<td class='even' align='left'><a href='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/category.php?categoryid=" . $subcat->getVar('categoryid') . "&amp;parentid=" . $subcat->getVar('parentid'). "'>" . $subcat->getVar('name') . "</a></td>";
+                echo "<td class='even' align='left'><a href='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/category.php?categoryid=" . $subcat->getVar('categoryid') . "&amp;parentid=" . $subcat->getVar('parentid'). "'>" . $subcat->getVar('name') . "</a></td>";
                 echo "<td class='even' align='left'>" . $subcat->getVar('description') . "</td>";
                 echo "<td class='even' align='right'> {$modify} {$delete} </td>";
                 echo "</tr>";
@@ -378,8 +378,8 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         if ($totalitems > 0) {
             for ($i = 0; $i < $totalitemsOnPage; ++$i) {
                 $categoryObj = $allcats[$itemsObj[$i]->getVar('categoryid')];
-                $modify = "<a href='item.php?op=mod&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
-                $delete = "<a href='item.php?op=del&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
+                $modify = "<a href='item.php?op=mod&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
+                $delete = "<a href='item.php?op=del&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
                 echo "<tr>";
                 echo "<td class='head' align='center'>" . $itemsObj[$i]->getVar('itemid'). "</td>";
                 echo "<td class='even' align='left'>" . $categoryObj->getVar('name') . "</td>";

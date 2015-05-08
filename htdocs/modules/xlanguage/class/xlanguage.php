@@ -24,7 +24,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @version         $Id$
  */
 
-include_once XOOPS_ROOT_PATH . '/modules/xlanguage/include/vars.php';
+include_once \XoopsBaseConfig::get('root-path') . '/modules/xlanguage/include/vars.php';
 
 /**
  * Class XlanguageLanguage
@@ -55,7 +55,7 @@ class XlanguageLanguage extends XoopsObject
     public function getValues($keys = null, $format = 's', $maxDepth = 1)
     {
         $ret = parent::getValues();
-        $ret['xlanguage_image'] = XOOPS_URL . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/' . $this->getVar('xlanguage_image');
+        $ret['xlanguage_image'] = \XoopsBaseConfig::get('url') . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/' . $this->getVar('xlanguage_image');
         return $ret;
     }
 
@@ -102,7 +102,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
     public function loadConfig()
     {
         $xoops = Xoops::getInstance();
-        $this->configPath = XOOPS_VAR_PATH . '/configs/';
+        $this->configPath = \XoopsBaseConfig::get('var-path') . '/configs/';
         $this->configFile = $xoops->registry()->get('XLANGUAGE_CONFIG_FILE');
         $this->configFileExt = '.php';
         return $this->cached_config = $this->loadFileConfig();
@@ -165,10 +165,10 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    private function CreatePath($pathname, $pathout = XOOPS_ROOT_PATH)
+    private function CreatePath($pathname, $pathout = \XoopsBaseConfig::get('root-path'))
     {
         $xoops = Xoops::getInstance();
-        $pathname = substr($pathname, strlen(XOOPS_ROOT_PATH));
+        $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
         $dest = $pathout;

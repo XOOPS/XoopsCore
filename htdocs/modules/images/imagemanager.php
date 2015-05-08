@@ -64,10 +64,10 @@ switch ($op) {
                     $rcode = '[img align=right id=' . $images[$i]->getVar('image_id') . ']' . $images[$i]->getVar('image_nicename') . '[/img]';
                     $src = $helper->url("image.php?id=" . $images[$i]->getVar('image_id'));
                 } else {
-                    $lcode = '[img align=left]' . XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name') . '[/img]';
-                    $code = '[img align=center]' . XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name') . '[/img]';
-                    $rcode = '[img align=right]' . XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name') . '[/img]';
-                    $src = XOOPS_UPLOAD_URL . '/' . $images[$i]->getVar('image_name');
+                    $lcode = '[img align=left]' . \XoopsBaseConfig::get('uploads-url') . '/' . $images[$i]->getVar('image_name') . '[/img]';
+                    $code = '[img align=center]' . \XoopsBaseConfig::get('uploads-url') . '/' . $images[$i]->getVar('image_name') . '[/img]';
+                    $rcode = '[img align=right]' . \XoopsBaseConfig::get('uploads-url') . '/' . $images[$i]->getVar('image_name') . '[/img]';
+                    $src = \XoopsBaseConfig::get('uploads-url') . '/' . $images[$i]->getVar('image_name');
                 }
                 $xoopsTpl->append('images', array(
                     'id' => $images[$i]->getVar('image_id'),
@@ -118,7 +118,7 @@ switch ($op) {
         $xoops_upload_file = Request::getArray('xoops_upload_file', array());
 
         $uploader = new XoopsMediaUploader(
-            XOOPS_UPLOAD_PATH . '/images',
+            \XoopsBaseConfig::get('uploads-url') . '/images',
             $mimetypes,
             $category->getVar('imgcat_maxsize'),
             $category->getVar('imgcat_maxwidth'),

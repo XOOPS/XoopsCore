@@ -164,7 +164,7 @@ define('_XMF_BLOCKS_ADDTO_LAYOUT_OPTION1', "Horizontal 2 rows");
 define('_XMF_BLOCKS_ADDTO_LAYOUT_OPTION2', "Vertical with icons");
 define('_XMF_BLOCKS_ADDTO_LAYOUT_OPTION3', "Vertical no icon");
 define('_XMF_CURRENT_FILE', "Current file: ");
-define('_XMF_URL_FILE_DSC', "Alternatively, you can use an URL. If you select a file via 'Browse' button, URL will be ignored. You can use the tag {XOOPS_URL} to print ".XOOPS_URL);
+define('_XMF_URL_FILE_DSC', "Alternatively, you can use an URL. If you select a file via 'Browse' button, URL will be ignored. You can use the tag {XOOPS_URL} to print ".\XoopsBaseConfig::get('root-path'));
 define('_XMF_URL_FILE', "URL: ");
 define('_XMF_UPLOAD', "Select a file to upload: ");
 

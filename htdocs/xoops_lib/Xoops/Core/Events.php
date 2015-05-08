@@ -102,7 +102,7 @@ class Events
             $this->preloadList =array();
             $i = 0;
             foreach ($modules_list as $module) {
-                if (is_dir($dir = XOOPS_ROOT_PATH . "/modules/{$module}/preloads/")) {
+                if (is_dir($dir = \XoopsBaseConfig::get('root-path') . "/modules/{$module}/preloads/")) {
                     $file_list = \XoopsLists::getFileListAsArray($dir);
                     foreach ($file_list as $file) {
                         if (preg_match('/(\.php)$/i', $file)) {
@@ -145,7 +145,7 @@ class Events
     protected function setEvents()
     {
         foreach ($this->preloadList as $preload) {
-            include_once XOOPS_ROOT_PATH . '/modules/' . $preload['module'] . '/preloads/' . $preload['file']. '.php';
+            include_once \XoopsBaseConfig::get('root-path') . '/modules/' . $preload['module'] . '/preloads/' . $preload['file']. '.php';
             $class_name = ucfirst($preload['module'])
                 . ($preload['file'] == 'preload' ? '' : ucfirst($preload['file']) )
                 . 'Preload';

@@ -60,7 +60,7 @@ if (empty($getuser)) {
         $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
-        $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, XOOPS_URL));
+        $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, \XoopsBaseConfig::get('url')));
         if (!$xoopsMailer->send()) {
             echo $xoopsMailer->getErrors();
         }

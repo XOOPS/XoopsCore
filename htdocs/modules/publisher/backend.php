@@ -58,8 +58,8 @@ if (!$tpl->isCached('module:publisher/publisher_rss.tpl')) {
     $tpl->assign('channel_category', htmlspecialchars($channel_category));
     $tpl->assign('channel_generator', $publisher->getModule()->getVar('name'));
     $tpl->assign('channel_language', XoopsLocale::getLangCode());
-    $tpl->assign('image_url', XOOPS_URL . '/images/logo.gif');
-    $dimention = getimagesize(XOOPS_ROOT_PATH . '/images/logo.gif');
+    $tpl->assign('image_url', \XoopsBaseConfig::get('url') . '/images/logo.gif');
+    $dimention = getimagesize(\XoopsBaseConfig::get('root-path') . '/images/logo.gif');
     if (empty($dimention[0])) {
         $width = 140;
         $height = 140;

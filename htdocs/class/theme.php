@@ -441,7 +441,7 @@ class XoopsTheme
                     $groups = $xoops->user->getGroups();
                     sort($groups);
                     // Generate group string for non-anonymous groups,
-                    // XOOPS_DB_PASS and XOOPS_DB_NAME (before we find better variables) are used to protect group sensitive contents
+                    // db-pass and db-name (before we find better variables) are used to protect group sensitive contents
                     $extra_string .= '-' . substr(md5(implode('-', $groups)), 0, 8) . '-' . substr(md5(\XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-user')), 0, 8);
                 }
             }

@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_items_menu_show($options)

@@ -37,7 +37,7 @@ if (!class_exists('XoopsGTicket')) {
             $language = $xoops->getConfig('language');
 
             // language file
-            if (defined('XOOPS_INITIALIZED') && $language && !strstr($language, '/')) {
+            if ($language && !strstr($language, '/')) {
                 if (XoopsLoad::fileExists(dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml')) {
                     include dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml';
                 }
@@ -92,7 +92,7 @@ if (!class_exists('XoopsGTicket')) {
 
             // create a token
             list($usec, $sec) = explode(" ", microtime());
-            $appendix_salt = empty($_SERVER['PATH']) ? XOOPS_DB_NAME : $_SERVER['PATH'];
+            $appendix_salt = empty($_SERVER['PATH']) ? \XoopsBaseConfig::get('db-name') : $_SERVER['PATH'];
             $token = crypt($salt . $usec . $appendix_salt . $sec);
             $this->_latest_token = $token;
 
@@ -119,7 +119,7 @@ if (!class_exists('XoopsGTicket')) {
             );
 
             // paid md5ed token as a ticket
-            return md5($token . XOOPS_DB_PREFIX);
+            return md5($token . \XoopsBaseConfig::get('db-prefix'));
         }
 
         // check a ticket
@@ -148,14 +148,14 @@ if (!class_exists('XoopsGTicket')) {
             foreach ($stubs_tmp as $stub) {
                 // default lifetime 30min
                 if ($stub['expire'] >= time()) {
-                    if (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
+                    if (md5($stub['token'] . \XoopsBaseConfig::get('db-prefix')) === $ticket) {
                         $found_stub = $stub;
                     } else {
                         // store the other valid stubs into session
                         $_SESSION['XOOPS_G_STUBS'][] = $stub;
                     }
                 } else {
-                    if (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
+                    if (md5($stub['token'] . \XoopsBaseConfig::get('db-prefix')) === $ticket) {
                         // not CSRF but Time-Out
                         $timeout_flag = true;
                     }
@@ -311,7 +311,7 @@ if (!class_exists('XoopsGTicket')) {
 
         function errorHandler4FindOutput($errNo, $errStr, $errFile, $errLine)
         {
-            if (preg_match('?' . preg_quote(XOOPS_ROOT_PATH) . '([^:]+)\:(\d+)?', $errStr, $regs)) {
+            if (preg_match('?' . preg_quote(\XoopsBaseConfig::get('root-path')) . '([^:]+)\:(\d+)?', $errStr, $regs)) {
                 echo "Irregular output! check the file " . htmlspecialchars($regs[1]) . " line " . htmlspecialchars($regs[2]);
             } else {
                 echo "Irregular output! check language files etc.";
@@ -336,7 +336,7 @@ if (!function_exists('admin_refcheck')) {
         } else {
             $ref = $_SERVER['HTTP_REFERER'];
         }
-        $cr = XOOPS_URL;
+        $cr = \XoopsBaseConfig::get('url');
         if ($chkref != "") {
             $cr .= $chkref;
         }

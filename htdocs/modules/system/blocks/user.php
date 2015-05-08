@@ -52,7 +52,7 @@ function b_system_user_show()
                     foreach ($sublinks as $sublink) {
                         $block['modules'][$i]['sublinks'][] = array(
                             'name' => $sublink['name'],
-                            'url'  => XOOPS_URL . '/modules/' . $dirname . '/' . $sublink['url']
+                            'url'  => \XoopsBaseConfig::get('url') . '/modules/' . $dirname . '/' . $sublink['url']
                         );
                     }
                 }

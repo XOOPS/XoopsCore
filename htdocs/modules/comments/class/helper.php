@@ -92,16 +92,16 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $modid = Request::getInt('com_modid');
 
         if (empty($modid)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         $module = $xoops->getModuleById($modid);
         if (!is_object($module)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         if ((!$xoops->isAdminSide && COMMENTS_APPROVENONE == $xoops->getModuleConfig('com_rule', $module->getVar('dirname'))) || (!$xoops->isUser() && !$xoops->getModuleConfig('com_anonpost', $module->getVar('dirname'))) || !$xoops->isModule()) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         /* @var $plugin CommentsPluginInterface */
         if (($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) && $itemid > 0 && $modid > 0) {
@@ -130,25 +130,25 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             $this->displayCommentForm($obj);
             $xoops->footer();
         }
-        $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
     }
 
     public function displayPost()
     {
         $xoops = Xoops::getInstance();
         if (Request::getMethod()!=='POST') {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $id = Request::getInt('com_id');
         $modid = Request::getInt('com_modid');
         if (empty($modid)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         /* @var $comment CommentsComment */
         $comment = $this->getHandlerComment()->get($id);
         if (!is_object($comment)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         if (!$comment->isNew()) {
@@ -159,19 +159,19 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
         $module = $xoops->getModuleById($modid);
         if (!is_object($module)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         $moddir = $module->getVar('dirname');
 
         if ($xoops->isAdminSide) {
             if (empty($id)) {
-                $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+                $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
             }
             $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
         } else {
             if (COMMENTS_APPROVENONE == $xoops->getModuleConfig('com_rule', $module->getVar('dirname'))) {
-                $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+                $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
             }
             $redirect_page = '';
         }
@@ -456,7 +456,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     }
                     break;
                 default:
-                    $xoops->redirect(XOOPS_URL . '/', 1, implode('<br />', $xoops->security()->getErrors()));
+                    $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 1, implode('<br />', $xoops->security()->getErrors()));
                     break;
             }
         }
@@ -469,16 +469,16 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $modid = Request::getInt('com_modid', 0);
 
         if (empty($modid)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         $module = $xoops->getModuleById($modid);
         if (!is_object($module)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         if ((!$xoops->isAdminSide && COMMENTS_APPROVENONE == $xoops->getModuleConfig('com_rule', $module->getVar('dirname'))) || (!$xoops->isUser() && !$xoops->getModuleConfig('com_anonpost', $module->getVar('dirname'))) || !$xoops->isModule()) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         //Original comment
@@ -684,15 +684,15 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         /* @var $comment CommentsComment */
         $comment = $this->getHandlerComment()->get(Request::getInt('com_id'));
         if (!is_object($comment)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $module = $xoops->getModuleById($comment->getVar('modid'));
         if (!is_object($module)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         if ((!$xoops->isAdminSide && COMMENTS_APPROVENONE == $xoops->getModuleConfig('com_rule', $module->getVar('dirname'))) || (!$xoops->isUser() && !$xoops->getModuleConfig('com_anonpost', $module->getVar('dirname'))) || !$xoops->isModule()) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         /* @var $plugin CommentsPluginInterface */
@@ -701,7 +701,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             $this->displayCommentForm($comment);
             $xoops->footer();
         }
-        $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
     }
 
     public function displayDelete()
@@ -717,15 +717,15 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
         $comment_handler = $this->getHandlerComment();
         $comment = $comment_handler->get($id);
         if (!is_object($comment)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $module = $xoops->getModuleById($comment->getVar('modid'));
         if (!is_object($module)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         if ((!$xoops->isAdminSide && COMMENTS_APPROVENONE == $xoops->getModuleConfig('com_rule', $module->getVar('dirname'))) || (!$xoops->isUser() && !$xoops->getModuleConfig('com_anonpost', $module->getVar('dirname'))) || !$xoops->isModule()) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
 
         $modid = $module->getVar('mid');

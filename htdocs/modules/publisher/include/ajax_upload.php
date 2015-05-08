@@ -72,7 +72,7 @@ if (!is_object($imgcat)) {
 
 $image = null;
 if ($error == false) {
-    $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/images', array(
+    $uploader = new XoopsMediaUploader(\XoopsBaseConfig::get('uploads-path') . '/images', array(
         'image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'
     ), $imgcat->getVar('imgcat_maxsize'), $imgcat->getVar('imgcat_maxwidth'), $imgcat->getVar('imgcat_maxheight'));
     $uploader->setPrefix('img');

@@ -26,7 +26,7 @@ $xoops = Xoops::getInstance();
 $xoops->getConfigs();
 
 if (!$xoops->user || $xoops->getConfig('allow_chgmail') != 1) {
-    $xoops->redirect(XOOPS_URL . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 $xoops->header('module:profile/profile_email.tpl');
@@ -67,7 +67,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
             $xoopsMailer->setTemplate('emailchanged.tpl');
             $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
             $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-            $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
+            $xoopsMailer->assign("SITEURL", \XoopsBaseConfig::get('url') . "/");
             $xoopsMailer->assign("NEWEMAIL", $email);
             $xoopsMailer->setToEmails($email);
             $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
@@ -79,7 +79,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
             $msg = implode('<br />', $xoops->user->getErrors());
         }
     }
-    $xoops->redirect(XOOPS_URL . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoops->user->getVar('uid'), 2, $msg);
+    $xoops->redirect(\XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoops->user->getVar('uid'), 2, $msg);
 }
 
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_CHANGEMAIL));

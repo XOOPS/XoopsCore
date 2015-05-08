@@ -78,7 +78,7 @@ switch ($op) {
 
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(XoopsLocale::PREFERENCES, $system->adminVersion('extensions', 'adminpath'));
         $admin_page->addBreadcrumbLink($module->getVar('name'));
         $admin_page->renderBreadcrumb();

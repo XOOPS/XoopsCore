@@ -329,7 +329,7 @@ class MonologLogger implements LoggerInterface
     public function sanitizePath($path)
     {
         $path = str_replace(
-            array('\\', XOOPS_ROOT_PATH, str_replace('\\', '/', realpath(XOOPS_ROOT_PATH))),
+            array('\\', \XoopsBaseConfig::get('root-path'), str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path')))),
             array('/', '', ''),
             $path
         );

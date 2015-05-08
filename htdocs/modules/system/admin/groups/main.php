@@ -55,7 +55,7 @@ switch ($op) {
         $xoops->theme()->addScript('modules/system/js/admin.js');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(XoopsLocale::MAIN);
         $admin_page->addItemButton(SystemLocale::ADD_NEW_GROUP, 'admin.php?fct=groups&amp;op=groups_add', 'add');
@@ -117,7 +117,7 @@ switch ($op) {
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_NEW_GROUP);
         $admin_page->addTips(SystemLocale::GROUPS_TIPS_2);
@@ -136,7 +136,7 @@ switch ($op) {
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_GROUP);
         $admin_page->addTips(SystemLocale::GROUPS_TIPS_2);
@@ -309,7 +309,7 @@ switch ($op) {
     case 'groups_delete':
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::GROUPS_MANAGER, $system->adminVersion('groups', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_GROUP);
         $admin_page->renderBreadcrumb();

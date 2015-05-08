@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die("XOOPS root path not defined");
-
 include_once dirname(dirname(__DIR__)) . '/include/common.php';
 
 class PublisherFileForm extends Xoops\Form\ThemeForm

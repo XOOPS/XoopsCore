@@ -138,7 +138,7 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public static function prefix($tablename = '')
     {
-        static $prefix = XOOPS_DB_PREFIX;
+        static $prefix = \XoopsBaseConfig::get('db-prefix');
         if ($tablename != '') {
             return $prefix . '_' . $tablename;
         } else {

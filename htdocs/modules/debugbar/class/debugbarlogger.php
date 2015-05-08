@@ -125,7 +125,7 @@ class DebugbarLogger implements LoggerInterface
                 $xoops = Xoops::getInstance();
                 $debugStack = $xoops->db()->getConfiguration()->getSQLLogger();
                 $this->debugbar->addCollector(new DebugBar\Bridge\DoctrineCollector($debugStack));
-                //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(XOOPS_VAR_PATH.'/debugbar'));
+                //$this->debugbar->setStorage(new DebugBar\Storage\FileStorage(\XoopsBaseConfig::get('var-path').'/debugbar'));
         }
         $this->addToTheme();
     }

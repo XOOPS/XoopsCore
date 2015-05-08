@@ -25,7 +25,7 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {
-    $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 // see https://github.com/dropbox/zxcvbn
@@ -126,7 +126,7 @@ if (!isset($_POST['submit'])) {
         }
     }
     $xoops->redirect(
-        XOOPS_URL . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid='
+        \XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid='
         . $xoops->user->getVar('uid'),
         2,
         $msg

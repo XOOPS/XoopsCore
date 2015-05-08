@@ -462,8 +462,8 @@ class Admin
             // @todo this needs a major rethink for Doctrine
             // a specific driver might be required, but Doctrine obscures specific version
             $dbarray = $this->module->getInfo('min_db');
-            if ($dbarray[XOOPS_DB_TYPE]) {
-                switch (XOOPS_DB_TYPE) {
+            if ($dbarray[\XoopsBaseConfig::get('db-type')]) {
+                switch (\XoopsBaseConfig::get('db-type')) {
                     case "mysql":
                         $dbCurrentVersion = mysql_get_server_info();
                         break;
@@ -479,7 +479,7 @@ class Admin
                 }
                 $currentVerParts = explode('.', (string)$dbCurrentVersion);
                 $iCurrentVerParts = array_map('intval', $currentVerParts);
-                $dbRequiredVersion = $dbarray[XOOPS_DB_TYPE];
+                $dbRequiredVersion = $dbarray[\XoopsBaseConfig::get('db-type')];
                 $reqVerParts = explode('.', (string)$dbRequiredVersion);
                 $iReqVerParts = array_map('intval', $reqVerParts);
                 $icount = $j = count($iReqVerParts);
@@ -496,7 +496,7 @@ class Admin
                 if ($reqVer > $curVer) {
                     $this->addConfigBoxLine(
                         sprintf(
-                            strtoupper(XOOPS_DB_TYPE) . ' '
+                            strtoupper(\XoopsBaseConfig::get('db-type')) . ' '
                             . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
                             $dbRequiredVersion,
                             $dbCurrentVersion
@@ -506,7 +506,7 @@ class Admin
                 } else {
                     $this->addConfigBoxLine(
                         sprintf(
-                            strtoupper(XOOPS_DB_TYPE) . ' ' . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
+                            strtoupper(\XoopsBaseConfig::get('db-type')) . ' ' . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
                             $dbRequiredVersion,
                             $dbCurrentVersion
                         ),
@@ -652,17 +652,17 @@ class Admin
         $changelog = '';
         $language = $xoops->getConfig('locale');
         if (!is_file(
-            XOOPS_ROOT_PATH . "/modules/" . $this->module->getVar("dirname")
+            \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname")
             . "/locale/" . $language . "/changelog.txt"
         )) {
             $language = 'en_US';
         }
-        $file = XOOPS_ROOT_PATH . "/modules/" . $this->module->getVar("dirname")
+        $file = \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname")
             . "/locale/" . $language . "/changelog.txt";
         if (is_readable($file)) {
             $changelog = utf8_encode(implode("<br />", file($file))) . "\n";
         } else {
-            $file = XOOPS_ROOT_PATH . "/modules/" . $this->module->getVar("dirname") . "/docs/changelog.txt";
+            $file = \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname") . "/docs/changelog.txt";
             if (is_readable($file)) {
                 $changelog = utf8_encode(implode("<br />", file($file))) . "\n";
             }

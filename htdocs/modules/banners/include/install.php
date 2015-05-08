@@ -139,14 +139,14 @@ function xoops_module_install_banners(&$module)
     // Modification of imported banners below xoops 2.6
     $banner_arr = $banner_Handler->getall();
     foreach (array_keys($banner_arr) as $i) {
-        $namefile = substr_replace($banner_arr[$i]->getVar('banner_imageurl'),'',0,strlen(XOOPS_URL . '/images/banners/'));
+        $namefile = substr_replace($banner_arr[$i]->getVar('banner_imageurl'),'',0,strlen(\XoopsBaseConfig::get('url') . '/images/banners/'));
         $pathfile_image =  $xoops_root_path . '/images/banners/' . $namefile;
         $pathfile_upload =  $xoops_root_path . '/uploads/banners/' . $namefile;
         $obj = $banner_Handler->get($banner_arr[$i]->getVar('banner_bid'));
         if (is_file($pathfile_image)){
             copy($pathfile_image, $pathfile_upload);
             unlink($pathfile_image);
-            $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $namefile);
+            $obj->setVar("banner_imageurl",  \XoopsBaseConfig::get('uploads-url') . '/banners/' . $namefile);
         }
         $obj->setVar("banner_status", 1);
         $banner_Handler->insert($obj);

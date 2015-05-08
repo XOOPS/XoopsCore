@@ -30,7 +30,7 @@ $helper = Xoops\Module\Helper::getHelper('images');
 $image_id = Request::getInt('id', 0);
 if (empty($image_id)) {
     header('Content-type: image/gif');
-    readfile(XOOPS_ROOT_PATH . '/uploads/blank.gif');
+    readfile(\XoopsBaseConfig::get('root-path') . '/uploads/blank.gif');
     exit();
 }
 
@@ -46,5 +46,5 @@ if (count($image) != 0) {
     echo $image[$image_id]->getVar('image_body');
 } else {
     header('Content-type: image/gif');
-    readfile(XOOPS_UPLOAD_PATH . '/blank.gif');
+    readfile(\XoopsBaseConfig::get('uploads-path') . '/blank.gif');
 }

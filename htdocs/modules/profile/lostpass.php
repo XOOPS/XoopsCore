@@ -48,13 +48,13 @@ if (empty($user)) {
         $xoopsMailer->setTemplate("lostpass2.tpl");
         $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
         $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-        $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
+        $xoopsMailer->assign("SITEURL", \XoopsBaseConfig::get('url') . "/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
         $xoopsMailer->assign("NEWPWD", $newpass);
         $xoopsMailer->setToUsers($user);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
-        $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, XOOPS_URL));
+        $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, \XoopsBaseConfig::get('url')));
         if (!$xoopsMailer->send()) {
             echo $xoopsMailer->getErrors();
         }
@@ -75,9 +75,9 @@ if (empty($user)) {
         $xoopsMailer->setTemplate("lostpass1.tpl");
         $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
         $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-        $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
+        $xoopsMailer->assign("SITEURL", \XoopsBaseConfig::get('url') . "/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
-        $xoopsMailer->assign("NEWPWD_LINK", XOOPS_URL . "/modules/profile/lostpass.php?email={$email}&code=" . $areyou);
+        $xoopsMailer->assign("NEWPWD_LINK", \XoopsBaseConfig::get('url') . "/modules/profile/lostpass.php?email={$email}&code=" . $areyou);
         $xoopsMailer->setToUsers($user);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));

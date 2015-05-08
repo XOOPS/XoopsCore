@@ -9,7 +9,7 @@ $menu[] = array(
     'link'      => 'http://www.xoops.org',
     'title'     => 'XOOPS',
     'absolute'  => 1,
-    'icon'      => XOOPS_ADMINTHEME_URL . '/default/images/xoops.png'
+    'icon'      => \XoopsBaseConfig::get('adminthemes-url') . '/default/images/xoops.png'
 );
 
 $menu[] = array(

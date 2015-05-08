@@ -202,14 +202,14 @@ class Logger implements LoggerInterface
         $path = str_replace(
             array(
                 '\\',
-                XOOPS_VAR_PATH,
-                str_replace('\\', '/', realpath(XOOPS_VAR_PATH)),
-                XOOPS_PATH,
-                str_replace('\\', '/', realpath(XOOPS_PATH)),
-                XOOPS_ROOT_PATH,
-                str_replace('\\', '/', realpath(XOOPS_ROOT_PATH)),
-                XOOPS_TEST_PATH,
-                str_replace('\\', '/', realpath(XOOPS_TEST_PATH)),
+                \XoopsBaseConfig::get('var-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
+                \XoopsBaseConfig::get('lib-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
+                \XoopsBaseConfig::get('root-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
+                \XoopsBaseConfig::get('test-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('test-path'))),
             ),
             array(
                 '/',

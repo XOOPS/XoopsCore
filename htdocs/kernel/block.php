@@ -309,7 +309,7 @@ class XoopsBlock extends XoopsObject
                             return $myts->displayTarea($content, 1, 1);
                         } else {
                             $myts = MyTextSanitizer::getInstance();
-                            $content = str_replace('{X_SITEURL}', XOOPS_URL . '/', $this->getVar('content', 'n'));
+                            $content = str_replace('{X_SITEURL}', \XoopsBaseConfig::get('url') . '/', $this->getVar('content', 'n'));
                             return $myts->displayTarea($content, 1, 0);
                         }
                     }
