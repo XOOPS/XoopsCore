@@ -1,0 +1,13 @@
+.breadcrumbs { font-size: 1.2em;  padding: 10px 2px;}
+.breadcrumbs span { border: 0;  padding: 0 2px;}
+.breadcrumbs .item {}
+.breadcrumbs .delimiter { font-size: 1.2em;}
+.register-steps { font-size: 1.2em;  padding: 5px 2px;}
+.register-steps span {  border: 0;  padding: 0 2px;}
+.register-steps .current { font-weight: bold; text-decoration: underline;}
+.register-steps .delimiter { font-size: 1.2em;}
+table.profile-form  { width: 90%;}
+.profile-form td.head { width: 20%;}
+.profile-list-category table { width: 80%; margin: 10px 5px;}
+.profile-list-category td.head { width: 20%;}
+.profile-list-activity { width: 90%; padding: 5px;}

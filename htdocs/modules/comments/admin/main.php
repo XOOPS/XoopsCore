@@ -13,13 +13,13 @@
  * Comments Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         comments
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -29,13 +29,9 @@ $helper = Comments::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 // Call Header
-$xoops->header('comments.html');
-// Define Stylesheet
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
-// Define scripts
-$xoops->theme()->addScript('modules/system/js/admin.js');
+$xoops->header('admin:comments/comments.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('main.php');
 
 $limit_array = array(20, 50, 100);
@@ -57,9 +53,9 @@ $module = !isset($_REQUEST['module']) ? 0 : intval($_REQUEST['module']);
 
 $modules_array = array();
 $module_handler = $xoops->getHandlerModule();
-$available_plugins = Xoops_Module_Plugin::getPlugins('comments');
+$available_plugins = \Xoops\Module\Plugin::getPlugins('comments');
 if (!empty($available_plugins)) {
-    $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)).  "')" , 'IN');
+    $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)).  "')", 'IN');
     $module_array = $module_handler->getNameList($criteria);
 }
 
@@ -76,7 +72,7 @@ switch ($op) {
             if (is_object($comment)) {
                 /* @var $plugin CommentsPluginInterface */
                 $module = $xoops->getModuleById($comment->getVar('modid'));
-                $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments');
+                $plugin = Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments');
                 header('Location: ' . XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $plugin->pageName() . '?' . $plugin->itemName() . '=' . $comment->getVar('itemid') . '&id=' . $comment->getVar('id') . '&rootid=' . $comment->getVar('rootid') . '&mode=thread&' . str_replace('&amp;', '&', $comment->getVar('exparams')) . '#comment' . $comment->getVar('id'));
                 exit();
             }
@@ -86,32 +82,32 @@ switch ($op) {
 
     case 'comments_form_purge':
         //Affichage du formulaire de purge
-        $form_purge = new XoopsThemeForm(_AM_COMMENTS_FORM_PURGE, 'form', $helper->url('admin/main.php'), 'post', true);
+        $form_purge = new Xoops\Form\ThemeForm(_AM_COMMENTS_FORM_PURGE, 'form', $helper->url('admin/main.php'), 'post', true);
 
-        $form_purge->addElement(new XoopsFormTextDateSelect(_AM_COMMENTS_FORM_PURGE_DATE_AFTER, 'comments_after', '15'));
-        $form_purge->addElement(new XoopsFormTextDateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before', '15'));
+        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_AFTER, 'comments_after', '15'));
+        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before', '15'));
 
         //user
-        $form_purge->addElement(new XoopsFormSelectUser(_AM_COMMENTS_FORM_PURGE_USER, "comments_userid", false, @$_REQUEST['comments_userid'], 5, true));
+        $form_purge->addElement(new Xoops\Form\SelectUser(_AM_COMMENTS_FORM_PURGE_USER, "comments_userid", false, @$_REQUEST['comments_userid'], 5, true));
 
         //groups
-        $groupe_select = new XoopsFormSelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, "comments_groupe", false, '', 5, true);
+        $groupe_select = new Xoops\Form\SelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, "comments_groupe", false, '', 5, true);
         $groupe_select->setExtra("style=\"width:170px;\" ");
         $form_purge->addElement($groupe_select);
 
         //Status
-        $status = new XoopsFormSelect(_AM_COMMENTS_FORM_PURGE_STATUS, "comments_status", '');
+        $status = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_STATUS, "comments_status", '');
         $options = $status_array;
         $status->addOptionArray($options);
         $form_purge->addElement($status, true);
 
         //Modules
-        $modules = new XoopsFormSelect(_AM_COMMENTS_FORM_PURGE_MODULES, "comments_modules", '');
+        $modules = new Xoops\Form\Select(_AM_COMMENTS_FORM_PURGE_MODULES, "comments_modules", '');
         $options = $module_array;
         $modules->addOptionArray($options);
         $form_purge->addElement($modules, true);
-        $form_purge->addElement(new XoopsFormHidden("op", "comments_purge"));
-        $form_purge->addElement(new XoopsFormButton("", "submit", XoopsLocale::A_SUBMIT, "submit"));
+        $form_purge->addElement(new Xoops\Form\Hidden("op", "comments_purge"));
+        $form_purge->addElement(new Xoops\Form\Button("", "submit", XoopsLocale::A_SUBMIT, "submit"));
         $xoops->tpl()->assign('form', $form_purge->render());
         break;
 
@@ -157,7 +153,7 @@ switch ($op) {
                 if ($mcount > 4000) {
                     $helper->redirect('admin/main.php', 2, _AM_COMMENTS_DELETE_LIMIT);
                 }
-                for ($i = 0; $i < $mcount; $i++) {
+                for ($i = 0; $i < $mcount; ++$i) {
                     $criteria->add(new Criteria('uid', $members[$i]->getVar('uid')), 'OR');
                 }
             }
@@ -167,7 +163,7 @@ switch ($op) {
             $commentslist_count = (!empty($_POST['commentslist_id']) && is_array($_POST['commentslist_id']))
                 ? count($_POST['commentslist_id']) : 0;
             if ($commentslist_count > 0) {
-                for ($i = 0; $i < $commentslist_count; $i++) {
+                for ($i = 0; $i < $commentslist_count; ++$i) {
                     $criteria->add(new Criteria('id', $_REQUEST['commentslist_id'][$i]), 'OR');
                 }
             }
@@ -287,8 +283,8 @@ switch ($op) {
                 $comments['comments_modid'] = @$module_array[$comments_arr[$i]->getVar('modid')];
                 //$comments['comments_view_edit_delete'] = '<img class="cursorpointer" onclick="display_dialog('.$id.', true, true, \'slide\', \'slide\', 300, 500);" src="images/icons/view.png" alt="'._AM_COMMENTS_VIEW.'" title="'._AM_COMMENTS_VIEW.'" /><a href="admin/comments/comment_edit.php?id='.$id.'"><img src="./images/icons/edit.png" border="0" alt="'._EDIT.'" title="'._EDIT.'"></a><a href="admin/comments/comment_delete.php?id='.$id.'"><img src="./images/icons/delete.png" border="0" alt="'._DELETE.'" title="'._DELETE.'"></a>';
 
-                $xoops->tpl()->append_by_ref('comments', $comments);
-                $xoops->tpl()->append_by_ref('comments_popup', $comments);
+                $xoops->tpl()->appendByRef('comments', $comments);
+                $xoops->tpl()->appendByRef('comments_popup', $comments);
                 unset($comments);
             }
 

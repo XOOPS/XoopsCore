@@ -9,19 +9,21 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+//use Xoops\Core\Kernel\XoopsObject;
+//use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
 /**
  * @package kernel
@@ -89,12 +91,12 @@ class ProfileField extends XoopsObject
     }
 
     /**
-     * Returns a {@link XoopsFormElement} for editing the value of this field
+     * Returns a {@link Xoops\Form\Element} for editing the value of this field
      *
      * @param XoopsUser $user {@link XoopsUser} object to edit the value of
      * @param ProfileProfile $profile {@link ProfileProfile} object to edit the value of
      *
-     * @return XoopsFormElement
+     * @return Xoops\Form\Element
      **/
     public function getEditElement(XoopsUser $user, ProfileProfile $profile)
     {
@@ -120,23 +122,23 @@ class ProfileField extends XoopsObject
             default:
             case "autotext":
                 //autotext is not for editing
-                $element = new XoopsFormLabel($caption, $this->getOutputValue($user, $profile));
+                $element = new Xoops\Form\Label($caption, $this->getOutputValue($user, $profile));
                 break;
 
             case "textbox":
-                $element = new XoopsFormText($caption, $name, 35, $this->getVar('field_maxlength'), $value);
+                $element = new Xoops\Form\Text($caption, $name, 35, $this->getVar('field_maxlength'), $value);
                 break;
 
             case "textarea":
-                $element = new XoopsFormTextArea($caption, $name, $value, 4, 30);
+                $element = new Xoops\Form\TextArea($caption, $name, $value, 4, 30);
                 break;
 
             case "dhtml":
-                $element = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 30);
+                $element = new Xoops\Form\DhtmlTextArea($caption, $name, $value, 10, 30);
                 break;
 
             case "select":
-                $element = new XoopsFormSelect($caption, $name, $value);
+                $element = new Xoops\Form\Select($caption, $name, $value);
                 // If options do not include an empty element, then add a blank option to prevent any default selection
                 if (!in_array('', array_keys($options))) {
                     $element->addOption('', XoopsLocale::NONE);
@@ -149,66 +151,66 @@ class ProfileField extends XoopsObject
                 break;
 
             case "select_multi":
-                $element = new XoopsFormSelect($caption, $name, $value, 5, true);
+                $element = new Xoops\Form\Select($caption, $name, $value, 5, true);
                 $element->addOptionArray($options);
                 break;
 
             case "radio":
-                $element = new XoopsFormRadio($caption, $name, $value);
+                $element = new Xoops\Form\Radio($caption, $name, $value);
                 $element->addOptionArray($options);
                 break;
 
             case "checkbox":
-                $element = new XoopsFormCheckBox($caption, $name, $value);
+                $element = new Xoops\Form\Checkbox($caption, $name, $value);
                 $element->addOptionArray($options);
                 break;
 
             case "yesno":
-                $element = new XoopsFormRadioYN($caption, $name, $value);
+                $element = new Xoops\Form\RadioYesNo($caption, $name, $value);
                 break;
 
             case "group":
-                $element = new XoopsFormSelectGroup($caption, $name, true, $value);
+                $element = new Xoops\Form\SelectGroup($caption, $name, true, $value);
                 break;
 
             case "group_multi":
-                $element = new XoopsFormSelectGroup($caption, $name, true, $value, 5, true);
+                $element = new Xoops\Form\SelectGroup($caption, $name, true, $value, 5, true);
                 break;
 
             case "language":
-                $element = new XoopsFormSelectLang($caption, $name, $value);
+                $element = new Xoops\Form\SelectLanguage($caption, $name, $value);
                 break;
 
             case "date":
-                $element = new XoopsFormTextDateSelect($caption, $name, 15, $value);
+                $element = new Xoops\Form\DateSelect($caption, $name, 15, $value);
                 break;
 
             case "longdate":
-                $element = new XoopsFormTextDateSelect($caption, $name, 15, str_replace("-", "/", $value));
+                $element = new Xoops\Form\DateSelect($caption, $name, 15, str_replace("-", "/", $value));
                 break;
 
             case "datetime":
-                $element = new XoopsFormDatetime($caption, $name, 15, $value);
+                $element = new Xoops\Form\DateTime($caption, $name, 15, $value);
                 break;
 
             case "timezone":
-                $element = new XoopsFormSelectTimezone($caption, $name, $value);
+                $element = new Xoops\Form\SelectTimeZone($caption, $name, $value);
                 $element->setExtra("style='width: 280px;'");
                 break;
 
             case "rank":
                 if ($xoops->isActiveModule('userrank')) {
-                    $element = new XoopsFormSelect($caption, $name, $value);
+                    $element = new Xoops\Form\Select($caption, $name, $value);
                     $ranks = XoopsLists::getUserRankList();
                     $element->addOption(0, "--------------");
                     $element->addOptionArray($ranks);
                 } else {
-                    $element = new XoopsFormHidden($name, $value);
+                    $element = new Xoops\Form\Hidden($name, $value);
                 }
                 break;
 
             case 'theme':
-                $element = new XoopsFormSelect($caption, $name, $value);
+                $element = new Xoops\Form\Select($caption, $name, $value);
                 $element->addOption("0", _PROFILE_MA_SITEDEFAULT);
                 $handle = opendir(XOOPS_THEME_PATH . '/');
                 $dirlist = array();
@@ -238,7 +240,7 @@ class ProfileField extends XoopsObject
      * @param XoopsUser $user {@link XoopsUser} object to get the value of
      * @param profileProfile $profile object to get the value of
      *
-     * @return mixed
+     * @return string
      **/
     public function getOutputValue(XoopsUser &$user, ProfileProfile $profile)
     {
@@ -424,9 +426,9 @@ class ProfileField extends XoopsObject
 class ProfileFieldHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db database
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'profile_field', "profilefield", "field_id", 'field_title');
     }
@@ -618,7 +620,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     /**
      * Get array of standard variable names (user table)
      *
-     * @return array
+     * @return string[]
      */
     public function getUserVars()
     {

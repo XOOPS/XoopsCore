@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
@@ -19,7 +21,7 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class CommentsCommentForm extends XoopsThemeForm
+class CommentsCommentForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param CommentsComment $obj
@@ -28,7 +30,6 @@ class CommentsCommentForm extends XoopsThemeForm
     {
         $xoops = Xoops::getInstance();
         $helper = Comments::getInstance();
-        $request = Xoops_Request::getInstance();
         $module = $xoops->getModuleById($obj->getVar('modid'));
         if (!is_object($module)) {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -55,10 +56,10 @@ class CommentsCommentForm extends XoopsThemeForm
                 $rule_text = _MD_COMMENTS_COMAPPROVEADMIN;
                 break;
         }
-        $this->addElement(new XoopsFormLabel(_MD_COMMENTS_COMRULES, $rule_text));
+        $this->addElement(new Xoops\Form\Label(_MD_COMMENTS_COMRULES, $rule_text));
 
-        $this->addElement(new XoopsFormText(_MD_COMMENTS_TITLE, 'com_title', 50, 255, $obj->getVar('title', 'e')), true);
-        $icons_radio = new XoopsFormRadio(XoopsLocale::MESSAGE_ICON, 'com_icon', $obj->getVar('icon', 'e'));
+        $this->addElement(new Xoops\Form\Text(_MD_COMMENTS_TITLE, 'com_title', 50, 255, $obj->getVar('title', 'e')), true);
+        $icons_radio = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'com_icon', $obj->getVar('icon', 'e'));
         $subject_icons = XoopsLists::getSubjectsList();
         foreach ($subject_icons as $iconfile) {
             $icons_radio->addOption($iconfile, '<img src="' . XOOPS_URL . '/images/subject/' . $iconfile . '" alt="" />');
@@ -66,7 +67,7 @@ class CommentsCommentForm extends XoopsThemeForm
         $this->addElement($icons_radio);
         // editor
         $editor = $helper->getConfig('com_editor');
-        if (class_exists('XoopsFormEditor')) {
+        if (class_exists('Xoops\Form\Editor')) {
             $configs = array(
                 'name'   => 'com_text',
                 'value'  => $obj->getVar('text', 'e'),
@@ -76,34 +77,34 @@ class CommentsCommentForm extends XoopsThemeForm
                 'height' => '400px',
                 'editor' => $editor
             );
-            $this->addElement(new XoopsFormEditor(_MD_COMMENTS_MESSAGE, 'com_text', $configs, false, $onfailure = 'textarea'));
+            $this->addElement(new Xoops\Form\Editor(_MD_COMMENTS_MESSAGE, 'com_text', $configs, false, $onfailure = 'textarea'));
         } else {
-            $this->addElement(new XoopsFormDhtmlTextArea(_MD_COMMENTS_MESSAGE, 'com_text', $obj->getVar('text', 'e'), 10, 50), true);
+            $this->addElement(new Xoops\Form\DhtmlTextArea(_MD_COMMENTS_MESSAGE, 'com_text', $obj->getVar('text', 'e'), 10, 50), true);
         }
-        $option_tray = new XoopsFormElementTray(XoopsLocale::OPTIONS, '<br />');
-        $button_tray = new XoopsFormElementTray('', '&nbsp;');
+        $option_tray = new Xoops\Form\ElementTray(XoopsLocale::OPTIONS, '<br />');
+        $button_tray = new Xoops\Form\ElementTray('', '&nbsp;');
 
         if ($xoops->isUser()) {
             if ($xoops->getModuleConfig('com_anonpost', $dirname)) {
                     $noname = $obj->getVar('noname', 'e') ? 1 : 0;
-                    $noname_checkbox = new XoopsFormCheckBox('', 'com_noname', $noname);
+                    $noname_checkbox = new Xoops\Form\Checkbox('', 'com_noname', $noname);
                     $noname_checkbox->addOption(1, XoopsLocale::POST_ANONYMOUSLY);
                     $option_tray->addElement($noname_checkbox);
             }
             if (false != $xoops->user->isAdmin($obj->getVar('modid'))) {
                 // show status change box when editing (comment id is not empty)
                 if ($obj->getVar('id', 'e')) {
-                    $status_select = new XoopsFormSelect(_MD_COMMENTS_STATUS, 'com_status', $obj->getVar('status', 'e'));
+                    $status_select = new Xoops\Form\Select(_MD_COMMENTS_STATUS, 'com_status', $obj->getVar('status', 'e'));
                     $status_select->addOptionArray(array(
                         COMMENTS_PENDING => _MD_COMMENTS_PENDING,
                         COMMENTS_ACTIVE  => _MD_COMMENTS_ACTIVE,
                         COMMENTS_HIDDEN  => _MD_COMMENTS_HIDDEN
                     ));
                     $this->addElement($status_select);
-                    $button_tray->addElement(new XoopsFormButton('', 'com_dodelete', XoopsLocale::A_DELETE, 'submit'));
+                    $button_tray->addElement(new Xoops\Form\Button('', 'com_dodelete', XoopsLocale::A_DELETE, 'submit'));
                 }
                 if (isset($editor) && in_array($editor, array('textarea', 'dhtmltextarea'))) {
-                    $html_checkbox = new XoopsFormCheckBox('', 'com_dohtml', $obj->getVar('dohtml', 'e'));
+                    $html_checkbox = new Xoops\Form\Checkbox('', 'com_dohtml', $obj->getVar('dohtml', 'e'));
                     $html_checkbox->addOption(1, _MD_COMMENTS_DOHTML);
                     $option_tray->addElement($html_checkbox);
                 }
@@ -112,36 +113,36 @@ class CommentsCommentForm extends XoopsThemeForm
         if (isset($editor) && in_array($editor, array('textarea', 'dhtmltextarea'))) {
             //Yeah, what?
         }
-        $smiley_checkbox = new XoopsFormCheckBox('', 'com_dosmiley', $obj->getVar('domsiley', 'e'));
+        $smiley_checkbox = new Xoops\Form\Checkbox('', 'com_dosmiley', $obj->getVar('domsiley', 'e'));
         $smiley_checkbox->addOption(1, _MD_COMMENTS_DOSMILEY);
         $option_tray->addElement($smiley_checkbox);
-        $xcode_checkbox = new XoopsFormCheckBox('', 'com_doxcode', $obj->getVar('doxcode', 'e'));
+        $xcode_checkbox = new Xoops\Form\Checkbox('', 'com_doxcode', $obj->getVar('doxcode', 'e'));
         $xcode_checkbox->addOption(1, _MD_COMMENTS_DOXCODE);
         $option_tray->addElement($xcode_checkbox);
         if (isset($editor) && in_array($editor, array('textarea', 'dhtmltextarea'))) {
-            $br_checkbox = new XoopsFormCheckBox('', 'com_dobr', $obj->getVar('dobr', 'e'));
+            $br_checkbox = new Xoops\Form\Checkbox('', 'com_dobr', $obj->getVar('dobr', 'e'));
             $br_checkbox->addOption(1, _MD_COMMENTS_DOAUTOWRAP);
             $option_tray->addElement($br_checkbox);
         } else {
-            $this->addElement(new xoopsFormHidden('com_dohtml', 1));
-            $this->addElement(new xoopsFormHidden('com_dobr', 0));
+            $this->addElement(new Xoops\Form\Hidden('com_dohtml', 1));
+            $this->addElement(new Xoops\Form\Hidden('com_dobr', 0));
         }
         $this->addElement($option_tray);
         if (!$xoops->isUser()) {
-            $this->addElement(new XoopsFormCaptcha());
+            $this->addElement(new Xoops\Form\Captcha());
         }
-        $this->addElement(new XoopsFormHidden('com_modid', $obj->getVar('modid', 'e')));
-        $this->addElement(new XoopsFormHidden('com_pid', $obj->getVar('pid', 'e')));
-        $this->addElement(new XoopsFormHidden('com_rootid', $obj->getVar('rootid', 'e')));
-        $this->addElement(new XoopsFormHidden('com_id', $obj->getVar('id', 'e')));
-        $this->addElement(new XoopsFormHidden('com_itemid', $obj->getVar('itemid', 'e')));
-        $this->addElement(new XoopsFormHidden('com_order', $request->asInt('com_order', $helper->getUserConfig('com_order'))));
-        $this->addElement(new XoopsFormHidden('com_mode', $request->asStr('com_mode', $helper->getUserConfig('com_mode'))));
+        $this->addElement(new Xoops\Form\Hidden('com_modid', $obj->getVar('modid', 'e')));
+        $this->addElement(new Xoops\Form\Hidden('com_pid', $obj->getVar('pid', 'e')));
+        $this->addElement(new Xoops\Form\Hidden('com_rootid', $obj->getVar('rootid', 'e')));
+        $this->addElement(new Xoops\Form\Hidden('com_id', $obj->getVar('id', 'e')));
+        $this->addElement(new Xoops\Form\Hidden('com_itemid', $obj->getVar('itemid', 'e')));
+        $this->addElement(new Xoops\Form\Hidden('com_order', Request::getInt('com_order', $helper->getUserConfig('com_order'))));
+        $this->addElement(new Xoops\Form\Hidden('com_mode', Request::getString('com_mode', $helper->getUserConfig('com_mode'))));
 
         // add module specific extra params
         if (!$xoops->isAdminSide) {
             /* @var $plugin CommentsPluginInterface */
-            $plugin = Xoops_Module_Plugin::getPlugin($dirname,'comments');
+            $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments');
             if (is_array($extraParams = $plugin->extraParams())) {
                 $myts = MyTextSanitizer::getInstance();
                 foreach ($extraParams as $extra_param) {
@@ -155,12 +156,12 @@ class CommentsCommentForm extends XoopsThemeForm
                             $hidden_value = '';
                         }
                     }
-                    $this->addElement(new XoopsFormHidden($extra_param, $hidden_value));
+                    $this->addElement(new Xoops\Form\Hidden($extra_param, $hidden_value));
                 }
             }
         }
-        $button_tray->addElement(new XoopsFormButton('', 'com_dopreview', XoopsLocale::A_PREVIEW, 'submit'));
-        $button_tray->addElement(new XoopsFormButton('', 'com_dopost', _MD_COMMENTS_POSTCOMMENT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'com_dopreview', XoopsLocale::A_PREVIEW, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'com_dopost', _MD_COMMENTS_POSTCOMMENT, 'submit'));
         $this->addElement($button_tray);
         return $this;
     }

@@ -9,14 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xcaptcha
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 
@@ -45,7 +45,7 @@ switch ($op) {
         $xoops->header();
         $xoops->theme()->addStylesheet('modules/xcaptcha/css/moduladmin.css');
 
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         if ($type == 'config') {
             $admin_page->displayNavigation('index.php?type=config');
             $admin_page->addInfoBox(_AM_XCAPTCHA_FORM);
@@ -65,4 +65,4 @@ switch ($op) {
 
         break;
 }
-include dirname(__FILE__) . '/footer.php';
+include __DIR__ . '/footer.php';

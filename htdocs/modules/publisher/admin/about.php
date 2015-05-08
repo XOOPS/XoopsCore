@@ -13,19 +13,19 @@
  * Publisher
  *
  * @copyright    The XOOPS Project (http://www.xoops.org)
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @license      GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package      Publisher
  * @since        1.0
  * @author       Mage, Mamba
  * @version      $Id$
  */
 
-include dirname(__FILE__) . '/admin_header.php';
+include __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$aboutAdmin = new XoopsModuleAdmin();
+$aboutAdmin = new \Xoops\Module\Admin();
 $aboutAdmin->displayNavigation('about.php');
-$aboutAdmin->displayAbout('6KJ7RW5DR3VTJ', false);
+$aboutAdmin->displayAbout(false);
 
 $xoops->footer();

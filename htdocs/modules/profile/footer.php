@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -24,7 +24,9 @@ $xoops = Xoops::getInstance();
 $profileBreadcrumbs = $xoops->getConfig('profile_breadcrumbs');
 
 if (count($profileBreadcrumbs) > 1) {
-    $xoops->tpl()->assign('xoBreadcrumbs', $profileBreadcrumbs);
+    $xmfbreadcrumb = new \Xmf\Template\Breadcrumb();
+    $xmfbreadcrumb->setItems($profileBreadcrumbs);
+    $xoops->tpl()->assign('profile_breadcrumbs', $xmfbreadcrumb->fetch());
 }
-$xoops->theme()->addStylesheet($xoops->url('modules/profile/templates/style.css'));
+$xoops->theme()->addStylesheet($xoops->url('modules/profile/assets/css/style.css'));
 $xoops->footer();

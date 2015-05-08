@@ -13,14 +13,14 @@
  * avatars extension
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         avatar
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
@@ -31,6 +31,6 @@ $criteria = new Criteria('avatar_type', 'S');
 $tpl = new XoopsTpl();
 $tpl->assign('avatars', Avatars::getInstance()->getHandlerAvatar()->getObjects($criteria, false, false));
 $tpl->assign('closebutton', 1);
-$tpl->display('module:avatars|avatars_popup.html');
+$tpl->display('module:avatars/avatars_popup.tpl');
 
 $xoops->simpleFooter();

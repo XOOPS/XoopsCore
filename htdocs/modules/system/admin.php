@@ -9,18 +9,20 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+
 /**
  * System admin
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
  */
 
 // Include header
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -77,6 +79,7 @@ if ($system->checkRight()) {
 if (false != $error) {
     $op = $system->cleanVars($_REQUEST, 'op', '', 'string');
     if ($op == 'system_activate') {
+        \Xoops::getInstance()->logger()->quiet();
         $part = $system->cleanVars($_REQUEST, 'type', '', 'string');
         $config_handler = $xoops->getHandlerConfig();
 
@@ -92,14 +95,14 @@ if (false != $error) {
         exit;
     }
     // Define main template
-    $xoops->header('system_index.html');
+    $xoops->header('admin:system/system_index.tpl');
     // Define Stylesheet
     $xoops->theme()->addStylesheet('modules/system/css/admin.css');
     // Define scripts
-    $xoops->theme()->addScript('media/jquery/jquery.js');
-    $xoops->theme()->addScript('modules/system/js/admin.js');
+    $xoops->theme()->addBaseScriptAssets('@jquery.');
+    $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
     // Define Breadcrumb and tips
-    $admin_page = new XoopsModuleAdmin();
+    $admin_page = new \Xoops\Module\Admin();
     $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
     $admin_page->addBreadcrumbLink(SystemLocale::SYSTEM_CONFIGURATION);
     $admin_page->renderBreadcrumb();
@@ -116,7 +119,7 @@ if (false != $error) {
 
     $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin';
     $dirlist = XoopsLists::getDirListAsArray($admin_dir);
-    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions');
+    $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions', 'users', 'services');
     foreach ($dirlist as $directory) {
         if (XoopsLoad::fileExists($file = $admin_dir . '/' . $directory . '/xoops_version.php')) {
             require $file;
@@ -157,7 +160,7 @@ if (false != $error) {
                         $menu['infos'] = sprintf(SystemLocale::F_USERS_SPAN, $member);
                         break;
                 }
-                $xoops->tpl()->append_by_ref('menu', $menu);
+                $xoops->tpl()->appendByRef('menu', $menu);
                 unset($menu);
             }
             unset($modversion);

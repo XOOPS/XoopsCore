@@ -13,7 +13,7 @@
  * User Rank module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userrank
  * @since           2.6.0
  * @author          Cointin Maxime (AKA Kraven30)
@@ -28,11 +28,11 @@ $i = 1;
 $adminmenu[$i]['title'] = _USERRANK_MI_INDEX;
 $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]['icon'] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _USERRANK_MI_USERRANK;
 $adminmenu[$i]['link'] = "admin/userrank.php";
 $adminmenu[$i]['icon'] = 'user-icon.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _USERRANK_MI_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['icon'] = 'about.png';

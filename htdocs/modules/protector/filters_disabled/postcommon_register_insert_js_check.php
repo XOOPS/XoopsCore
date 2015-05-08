@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -43,6 +43,10 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
     }
 
     // import from D3forumAntispamDefault.clas.php
+
+    /**
+     * @param integer $time
+     */
     function getMd5($time = null)
     {
         if (empty($time)) {

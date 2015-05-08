@@ -8,18 +8,24 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 class PublisherCategory extends XoopsObject
 {
@@ -311,9 +317,9 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
     public $publisher = null;
 
     /**
-     * @param null|XoopsConnection $db
+     * @param Xoops\Core\Database\Connection $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db)
     {
         $this->publisher = Publisher::getInstance();
         parent::__construct($db, "publisher_categories", 'PublisherCategory', "categoryid", "name");
@@ -435,11 +441,21 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
         return $ret;
     }
 
+    /**
+     * getSubCatArray
+     *
+     * @param array   $category
+     * @param integer $level
+     * @param array   $cat_array
+     * @param array   $cat_result
+     *
+     * @return void
+     */
     public function getSubCatArray($category, $level, $cat_array, $cat_result)
     {
         global $theresult;
         $spaces = '';
-        for ($j = 0; $j < $level; $j++) {
+        for ($j = 0; $j < $level; ++$j) {
             $spaces .= '--';
         }
         $theresult[$category['categoryid']] = $spaces . $category['name'];

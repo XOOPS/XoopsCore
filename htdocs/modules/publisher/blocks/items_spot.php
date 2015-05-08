@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Blocks
  * @since           1.0
@@ -21,7 +21,7 @@
  */
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_items_spot_show($options)
 {
@@ -67,7 +67,7 @@ function publisher_items_spot_show($options)
                     $block['truncate'] = true;
                 }
                 $block['items'][] = $item;
-                $i++;
+                ++$i;
             }
         }
     } else {
@@ -89,13 +89,14 @@ function publisher_items_spot_show($options)
                     $item['summary'] = PublisherUtils::truncateTagSafe($item['summary'], $opt_truncate);
                 }
                 $block['items'][] = $item;
-                $i++;
+                ++$i;
             }
         }
     }
     if (!isset($block['items']) || count($block['items']) == 0) {
         return false;
     }
+    $block["publisher_url"] = PUBLISHER_URL;
     $block['lang_reads'] = _MB_PUBLISHER_READS;
     $block['lang_comments'] = _MB_PUBLISHER_COMMENTS;
     $block['lang_readmore'] = _MB_PUBLISHER_READMORE;
@@ -107,10 +108,10 @@ function publisher_items_spot_show($options)
 
 function publisher_items_spot_edit($options)
 {
-    $form = new PublisherBlockForm();
-    $autoEle = new XoopsFormRadioYN(_MB_PUBLISHER_AUTO_LAST_ITEMS, 'options[0]', $options[0]);
-    $countEle = new XoopsFormText(_MB_PUBLISHER_LAST_ITEMS_COUNT, 'options[1]', 2, 255, $options[1]);
-    $catEle = new XoopsFormLabel(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[2], 0, true, 'options[2]'));
+    $form = new Xoops\Form\BlockForm();
+    $autoEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_AUTO_LAST_ITEMS, 'options[0]', $options[0]);
+    $countEle = new Xoops\Form\Text(_MB_PUBLISHER_LAST_ITEMS_COUNT, 'options[1]', 2, 255, $options[1]);
+    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[2], 0, true, 'options[2]'));
     $publisher = Publisher::getInstance();
     $criteria = new CriteriaCompo();
     $criteria->setSort('datesub');
@@ -123,17 +124,17 @@ function publisher_items_spot_edit($options)
     } else {
         $sel_items = explode(',', $options[3]);
     }
-    $itemEle = new XoopsFormSelect(_MB_PUBLISHER_SELECT_ITEMS, 'options[3]', $sel_items, 10, true);
+    $itemEle = new Xoops\Form\Select(_MB_PUBLISHER_SELECT_ITEMS, 'options[3]', $sel_items, 10, true);
     $itemEle->addOptionArray($itemsObj);
-    $whoEle = new XoopsFormRadioYN(_MB_PUBLISHER_DISPLAY_WHO_AND_WHEN, 'options[4]', $options[4]);
-    $comEle = new XoopsFormRadioYN(_MB_PUBLISHER_DISPLAY_COMMENTS, 'options[5]', $options[5]);
-    $typeEle = new XoopsFormSelect(_MB_PUBLISHER_DISPLAY_TYPE, 'options[6]', $options[6]);
+    $whoEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_DISPLAY_WHO_AND_WHEN, 'options[4]', $options[4]);
+    $comEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_DISPLAY_COMMENTS, 'options[5]', $options[5]);
+    $typeEle = new Xoops\Form\Select(_MB_PUBLISHER_DISPLAY_TYPE, 'options[6]', $options[6]);
     $typeEle->addOptionArray(array(
         'block' => _MB_PUBLISHER_DISPLAY_TYPE_BLOCK,
         'bullet' => _MB_PUBLISHER_DISPLAY_TYPE_BULLET,
     ));
-    $truncateEle = new XoopsFormText(_MB_PUBLISHER_TRUNCATE, 'options[7]', 4, 255, $options[7]);
-    $imageEle = new XoopsFormRadioYN(_MB_PUBLISHER_DISPLAY_CATIMAGE, 'options[8]', $options[8]);
+    $truncateEle = new Xoops\Form\Text(_MB_PUBLISHER_TRUNCATE, 'options[7]', 4, 255, $options[7]);
+    $imageEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_DISPLAY_CATIMAGE, 'options[8]', $options[8]);
     $form->addElement($autoEle);
     $form->addElement($countEle);
     $form->addElement($catEle);

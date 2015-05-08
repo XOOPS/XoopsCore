@@ -8,7 +8,7 @@
  * which is considered copyrighted (c) material of the original comment or credit authors.
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Andricq Nicolas (AKA MusS)
  * @version     $Id:$
  */
@@ -88,18 +88,18 @@ div .navResults{}
 .admin_header { margin-top: 0; color: #191970;}
 .admin_subheader {  margin-top: 0; color: #191970;  padding-bottom: 12px;}
 div.confirmMsg {
-    color: #776655; 
-    text-align: center; 
+    color: #776655;
+    text-align: center;
     border: 1px solid #708090;
     background: #EBEFFC;
-    padding: 10px; 
+    padding: 10px;
     margin-left: 20%;
     margin-right: 20%;
     font-size: 11px;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 div.confirmButtons{
-    text-align: center; 
+    text-align: center;
     margin-left: 20%;
     margin-right: 20%;
     padding-top: 20px;

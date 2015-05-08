@@ -11,12 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
@@ -45,10 +45,10 @@ echo $xoops->translate('ACTIVE'); echo '</br>';
 
 //Example of template
 $tpl = new XoopsTpl();
-$tpl->display(dirname(__FILE__) . '/templates/language.html');
+$tpl->display(__DIR__ . '/templates/language.tpl');
 
 Xoops_Utils::dumpFile(__FILE__);
 
 echo "Template file:"; echo '</br>';
-Xoops_Utils::dumpFile(dirname(__FILE__) . '/templates/language.html');
+Xoops_Utils::dumpFile(__DIR__ . '/templates/language.tpl');
 $xoops->footer();

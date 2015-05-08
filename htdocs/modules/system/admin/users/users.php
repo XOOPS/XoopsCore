@@ -12,14 +12,16 @@
 /**
  * Users Manager
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author      Kazumi Ono (AKA onokazu)
- * @package     system
- * @version     $Id$
+ * @category  Xoops\Core
+ * @package   users
+ * @author    Kazumi Ono (AKA onokazu)
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @copyright 2002-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @version   Release: 2.6.0
+ * @link      http://xoops.org
+ * @since     1.0
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -38,39 +40,54 @@ if (!$xoops->getModuleConfig('active_users', 'system')) {
 /* Users Functions                                       */
 /*********************************************************/
 /**
- * @param int $uid
- * @param string $type
+ * synchronize number of posts credited to user
+ *
+ * @param int    $uid  uid of user row
+ * @param string $type type of processing, 'user' for one user, 'all users' for all
+ *
  * @return void
  */
 function synchronize($uid, $type)
 {
     $xoops = Xoops::getInstance();
+    $db = $xoops->db();
 
     switch ($type) {
         case 'user':
             $total_posts = 0;
             /* @var $plugin SystemPluginInterface */
-            $plugins = Xoops_Module_Plugin::getPlugins();
+            $plugins = \Xoops\Module\Plugin::getPlugins();
             foreach ($plugins as $plugin) {
-                if ($res = $plugin->userPosts($uid)){
+                if ($res = $plugin->userPosts($uid)) {
                     $total_posts += $res;
                 }
             }
 
-            $sql = "UPDATE " . $xoopsDB->prefix("users") . " SET posts = '" . (int) $total_posts . "' WHERE uid = '" . $uid . "'";
-            if (!$xoopsDB->queryF($sql)) {
-                $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_NOT_UPDATED);
-            }
+            $query = $db->createXoopsQueryBuilder()
+                ->updatePrefix('users')
+                ->set('posts', ':posts')
+                ->where('uid = :uid')
+                ->setParameter(':posts', $total_posts)
+                ->setParameter(':uid', $uid);
+
+            $result = $query->execute();
+            //if (!$result) {
+            //    $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_NOT_UPDATED);
+            //}
             break;
 
         case 'all users':
-            $sql = "SELECT uid FROM " . $xoopsDB->prefix("users") . "";
-            if (!$result = $xoopsDB->query($sql)) {
-                $xoops->redirect("admin.php?fct=users", 1,  XoopsLocale::E_USER_ID_NOT_FETCHED);
-            }
+            $sql = $db->createXoopsQueryBuilder()
+                ->select('uid')
+                ->fromPrefix('users', 'u');
 
-            while ($data = $xoopsDB->fetchArray($result)) {
-                synchronize($data['uid'], "user");
+            $result = $sql->execute();
+            if (!$result) {
+                $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_ID_NOT_FETCHED);
+            }
+            $rows = $result->fetchAll();
+            foreach ($rows as $row) {
+                synchronize($row['uid'], "user");
             }
             break;
     }

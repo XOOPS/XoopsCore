@@ -11,20 +11,20 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-class CodexSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPluginInterface
+class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements SearchPluginInterface
 {
     public function search($queries, $andor, $limit, $start, $uid)
     {
         $queries = implode(' ', (array) $queries);
 
-        $files = XoopsLists::getFileListAsArray(dirname(dirname(dirname(__FILE__))));
+        $files = XoopsLists::getFileListAsArray(dirname(dirname(__DIR__)));
         $res = array();
         $i = 0;
         foreach ($files as $file) {
@@ -33,7 +33,7 @@ class CodexSearchPlugin extends Xoops_Module_Plugin_Abstract implements SearchPl
                 if (stripos($fileName, $queries) !== false) {
                     $res[$i]['link'] = $file;
                     $res[$i]['title'] = $fileName;
-                    $i++;
+                    ++$i;
                 }
             }
         }

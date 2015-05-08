@@ -13,24 +13,25 @@
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Laurent JEN (aka DuGris)
  * @package     system
  * @version     $Id$
  */
 
 function b_search_show()
-{    $search = Search::getInstance();
+{
+    $search = Search::getInstance();
     $search->loadLanguage('main', 'search');
 
-    $form = new XoopsSimpleForm('', 'search', $search->url('index.php'), 'get', false, 'inline');
+    $form = new Xoops\Form\SimpleForm('', 'search', $search->url('index.php'), 'get', false, 'inline');
 
     // create form elements
-    $form->addElement(new XoopsFormText('', 'query', 2, 100, '', _MD_SEARCH_KEYWORDS), true);
-    $form->addElement(new XoopsFormHidden('action', 'results'));
-    $form->addElement(new XoopsFormHiddenToken('id'));
+    $form->addElement(new Xoops\Form\Text('', 'query', 2, 100, '', _MD_SEARCH_KEYWORDS), true);
+    $form->addElement(new Xoops\Form\Hidden('action', 'results'));
+    $form->addElement(new Xoops\Form\Token('id'));
 
-    $button = new XoopsFormButton('', 'submit', _MD_SEARCH, 'submit');
+    $button = new Xoops\Form\Button('', 'submit', _MD_SEARCH, 'submit');
     $button->setClass('btn btn-primary');
     $form->addElement($button);
 

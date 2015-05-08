@@ -13,20 +13,20 @@
  * User rank Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userrank
  * @since           2.6.0
  * @author          Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Parameters
-$nb_rank = $xoops->getModuleConfig('userrank_pager');
+$nb_rank = $xoops->getModuleConfig('admin:userrank/userrank_pager');
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
 $upload_size = 500000;
 // Get Action type
@@ -34,9 +34,9 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Get userrank handler
 $userrank_Handler = $xoops->getHandler("ranks");
 // Call Header
-$xoops->header('userrank.html');
+$xoops->header('admin:userrank/userrank.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('userrank.php');
 
 switch ($op) {
@@ -74,7 +74,7 @@ switch ($op) {
                 $userrank['rank_special'] = $userrank_arr[$i]->getVar("rank_special");
                 $rank_img = ($userrank_arr[$i]->getVar("rank_image")) ? $userrank_arr[$i]->getVar("rank_image") : 'blank.gif';
                 $userrank['rank_image'] = '<img src="' . XOOPS_UPLOAD_URL . '/' . $rank_img . '" alt="" />';
-                $xoops->tpl()->append_by_ref('userrank', $userrank);
+                $xoops->tpl()->appendByRef('userrank', $userrank);
                 unset($userrank);
             }
         }

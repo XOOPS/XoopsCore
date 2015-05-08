@@ -13,14 +13,14 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
@@ -28,11 +28,11 @@ $xoops = Xoops::getInstance();
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
-$xoops->header('steplist.html');
+$xoops->header('admin:profile/steplist.tpl');
 // Get handler
 $regstep_Handler = $xoops->getModuleHandler("regstep");
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('step.php');
 
 switch ($op) {
@@ -110,7 +110,11 @@ switch ($op) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
                 $xoops->tpl()->assign('form', false);
-                $xoops->confirm(array("ok" => 1, "id" => $id, "op" => "delete"), 'step.php', sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br />');
+                $xoops->confirm(
+                    array("ok" => 1, "id" => $id, "op" => "delete"),
+                    'step.php',
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br />'
+                );
             }
         } else {
             $xoops->redirect('step.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);

@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -71,6 +71,9 @@ class MenusDecoratorAbstract
         $this->loadLanguage($dirname);
     }
 
+    /**
+     * @param string $name
+     */
     public function loadLanguage($name)
     {
         $helper = Menus::getInstance();
@@ -86,13 +89,28 @@ class MenusDecoratorAbstract
 
 interface MenusDecoratorInterface {
 
+    /**
+     * @return void
+     */
     function start();
 
+    /**
+     * @return void
+     */
     function end(&$menus);
 
+    /**
+     * @return void
+     */
     function decorateMenu(&$menu);
 
+    /**
+     * @return void
+     */
     function hasAccess($menu, &$hasAccess);
 
+    /**
+     * @return void
+     */
     function accessFilter(&$accessFilter);
 }

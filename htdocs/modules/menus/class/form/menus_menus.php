@@ -13,7 +13,7 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
@@ -22,24 +22,24 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class MenusMenus_menusForm extends XoopsThemeForm
+class MenusMenus_menusForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param MenusMenus_menus|XoopsObject $obj
+     * @param MenusMenus $obj
      */
     public function __construct(MenusMenus &$obj)
     {
         $xoops = Xoops::getInstance();
 
-        $title = $obj->isNew() ? sprintf( _AM_MENUS_ADD_MENUS ) : sprintf( _AM_MENUS_EDIT_MENUS );
+        $title = $obj->isNew() ? sprintf(_AM_MENUS_ADD_MENUS) : sprintf(_AM_MENUS_EDIT_MENUS);
 
         parent::__construct($title, 'form', 'admin_menus.php', 'post', true);
 
         //title
-        $this->addElement(new XoopsFormText(_AM_MENUS_MENU_TITLE, 'title', 50, 255, $obj->getVar('title'), ''), true);
+        $this->addElement(new Xoops\Form\Text(_AM_MENUS_MENU_TITLE, 'title', 50, 255, $obj->getVar('title'), ''), true);
 
-        $this->addElement(new XoopsFormHidden('id', $obj->getVar('id')));
-        $this->addElement(new XoopsFormHidden( 'op', 'save' ) );
-        $this->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit' ) );
+        $this->addElement(new Xoops\Form\Hidden('id', $obj->getVar('id')));
+        $this->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $this->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     }
 }

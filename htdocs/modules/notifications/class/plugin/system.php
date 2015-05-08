@@ -11,19 +11,28 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class NotificationsSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+class NotificationsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
-    public function userPosts($uid) {return array();}
-    public function waiting() {return 0;}
-    public function backend($limit) {return array();}
+    public function userPosts($uid)
+    {
+        return array();
+    }
+
+    public function waiting()
+    {
+        return 0;
+    }
+
+    public function backend($limit)
+    {
+        return array();
+    }
 
     public function userMenus()
     {

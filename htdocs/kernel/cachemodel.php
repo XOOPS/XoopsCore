@@ -10,14 +10,16 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.6.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * @package         kernel
@@ -47,13 +49,10 @@ class XoopsCachemodelHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'cache_model', 'XoopsCachemodelObject', 'cache_key', 'cache_data');
     }
 }
-
-?>
-

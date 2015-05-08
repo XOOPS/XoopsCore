@@ -11,12 +11,10 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 define('_MD_LOGGER_DEBUG', "Debug");
 define('_MD_LOGGER_INCLUDED_FILES', "Included files");
@@ -36,8 +34,8 @@ define('_MD_LOGGER_TOTAL', "Total");
 define('_MD_LOGGER_NOT_CACHED', "Not cached");
 define('_MD_LOGGER_CACHED', "Cached (regenerates every %s seconds)");
 define('_MD_LOGGER_UNKNOWN', "Unknown");
-//define('_MD_LOGGER_E_USER_NOTICE', "Notice");
-//define('_MD_LOGGER_E_USER_WARNING', "Warning");
+define('_MD_LOGGER_E_USER_NOTICE', "Notice");
+define('_MD_LOGGER_E_USER_WARNING', "Warning");
 define('_MD_LOGGER_E_USER_ERROR', "Error");
 define('_MD_LOGGER_E_NOTICE', "Notice");
 define('_MD_LOGGER_E_WARNING', "Warning");

@@ -1,0 +1,75 @@
+tables:
+    smilies:
+        options: {  }
+        columns:
+            smiley_id:
+                name: smiley_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            smiley_code:
+                name: smiley_code
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            smiley_url:
+                name: smiley_url
+                type: string
+                default: blank.gif
+                notnull: true
+                length: 100
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            smiley_emotion:
+                name: smiley_emotion
+                type: string
+                default: ''
+                notnull: true
+                length: 75
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            smiley_display:
+                name: smiley_display
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [smiley_id]
+                unique: true
+                primary: true

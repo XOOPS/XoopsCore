@@ -13,19 +13,19 @@
  * Private message
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('prune.php');
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : "form";

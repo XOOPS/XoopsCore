@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         include
  * @since           2.0.0
  * @version         $Id$
@@ -21,8 +21,19 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 
-$uname = !isset($_POST['uname']) ? '' : trim($_POST['uname']);
-$pass = !isset($_POST['pass']) ? '' : trim($_POST['pass']);
+// from $_POST we use keys: uname, pass, rememberme, xoops_redirect
+$clean_input = XoopsFilterInput::gather(
+    'post',
+    array(
+        array('uname','string', '', true),
+        array('pass','string', '', true),
+        array('rememberme', 'boolean', 0, false),
+        array('xoops_redirect', 'weburl', '', true),
+    )
+);
+
+$uname = $clean_input['uname'];
+$pass = $clean_input['pass'];
 if ($uname == '' || $pass == '') {
     $xoops->redirect(XOOPS_URL . '/user.php', 1, XoopsLocale::E_INCORRECT_LOGIN);
     exit();
@@ -31,7 +42,7 @@ if ($uname == '' || $pass == '') {
 $member_handler = $xoops->getHandlerMember();
 $myts = MyTextsanitizer::getInstance();
 
-$xoopsAuth = Xoops_Auth_Factory::getAuthConnection($myts->addSlashes($uname));
+$xoopsAuth = \Xoops\Auth\Factory::getAuthConnection($myts->addSlashes($uname));
 $user = $xoopsAuth->authenticate($myts->addSlashes($uname), $myts->addSlashes($pass));
 
 if (false != $user) {
@@ -68,15 +79,24 @@ if (false != $user) {
 
     // Set cookie for rememberme
     if ($xoops->getConfig('usercookie')) {
-        if (!empty($_POST["rememberme"])) {
-            setcookie($xoops->getConfig('usercookie'), $_SESSION['xoopsUserId'] . '-' . md5($user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX), time() + 31536000, '/', XOOPS_COOKIE_DOMAIN, 0);
+        if ($clean_input["rememberme"]) {
+            setcookie(
+                $xoops->getConfig('usercookie'),
+                $_SESSION['xoopsUserId'] . '-' . md5(
+                    $user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX
+                ),
+                time() + 31536000,
+                '/',
+                XOOPS_COOKIE_DOMAIN,
+                0
+            );
         } else {
             setcookie($xoops->getConfig('usercookie'), 0, -1, '/', XOOPS_COOKIE_DOMAIN, 0);
         }
     }
 
-    if (!empty($_POST['xoops_redirect']) && !strpos($_POST['xoops_redirect'], 'register')) {
-        $xoops_redirect = trim(rawurldecode($_POST['xoops_redirect']));
+    if (!empty($clean_input['xoops_redirect']) && !strpos($clean_input['xoops_redirect'], 'register')) {
+        $xoops_redirect = rawurldecode($clean_input['xoops_redirect']);
         $parsed = parse_url(XOOPS_URL);
         $url = isset($parsed['scheme']) ? $parsed['scheme'] . '://' : 'http://';
         if (isset($parsed['host'])) {
@@ -105,10 +125,15 @@ if (false != $user) {
 
     $xoops->redirect($url, 1, sprintf(XoopsLocale::SF_THANK_YOU_FOR_LOGGING_IN, $user->getVar('uname')), false);
 } else {
-    if (empty($_POST['xoops_redirect'])) {
+    if (empty($clean_input['xoops_redirect'])) {
         $xoops->redirect(XOOPS_URL . '/user.php', 5, $xoopsAuth->getHtmlErrors());
     } else {
-        $xoops->redirect(XOOPS_URL . '/user.php?xoops_redirect=' . urlencode(trim($_POST['xoops_redirect'])), 5, $xoopsAuth->getHtmlErrors(), false);
+        $xoops->redirect(
+            XOOPS_URL . '/user.php?xoops_redirect=' . urlencode($clean_input['xoops_redirect']),
+            5,
+            $xoopsAuth->getHtmlErrors(),
+            false
+        );
     }
 }
 exit();

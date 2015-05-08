@@ -13,15 +13,15 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
-require_once dirname(dirname(__FILE__)) . '/class/gtickets.php';
+require_once dirname(__DIR__) . '/class/gtickets.php';
 
 $xoops->db();
 global $xoopsDB;
@@ -35,7 +35,7 @@ $num = empty($_GET['num']) ? 20 : intval($_GET['num']);
 $log_table = $db->prefix('protector_log');
 
 // Protector object
-require_once dirname(dirname(__FILE__)) . '/class/protector.php';
+require_once dirname(__DIR__) . '/class/protector.php';
 $protector = Protector::getInstance($db->conn);
 $conf = $protector->getConf();
 
@@ -113,9 +113,9 @@ if (!empty($_POST['action'])) {
     }
 }
 // beggining of Output
-$xoops->header('protector_center.html');
+$xoops->header('admin:protector/protector_center.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
 
 // bad_ips
@@ -189,7 +189,7 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
     $log_arr['type'] = $type;
     $log_arr['description'] = $description;
 
-    $xoops->tpl()->append_by_ref('log', $log_arr);
+    $xoops->tpl()->appendByRef('log', $log_arr);
     unset($table_arr);
 }
 

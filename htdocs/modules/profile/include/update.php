@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
@@ -27,6 +27,7 @@
  */
 function xoops_module_update_profile(&$module, $oldversion = null)
 {
+    global $xoopsDB;
     $xoops = Xoops::getInstance();
 
     if ($oldversion < 162) {
@@ -46,7 +47,7 @@ function xoops_module_update_profile(&$module, $oldversion = null)
         // Create new tables for new profile module
         $xoopsDB->queryFromFile(XOOPS_ROOT_PATH . "/modules/" . $module->getVar('dirname', 'n') . "/sql/mysql.sql");
 
-        include_once dirname(__FILE__) . "/install.php";
+        include_once __DIR__ . "/install.php";
         xoops_module_install_profile($module);
         $goupperm_handler = $xoops->getHandlerGroupperm();
 

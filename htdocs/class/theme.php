@@ -125,10 +125,10 @@ class XoopsAdminThemeFactory extends XoopsThemeFactory
         $inst->path = XOOPS_ADMINTHEME_PATH . '/' . $inst->folderName;
         $inst->url = XOOPS_ADMINTHEME_URL . '/' . $inst->folderName;
         $inst->template->assign(array(
-            'theme_path' => $inst->path, 'theme_tpl' => $inst->path . '/xotpl', 'theme_url' => $inst->url,
-            'theme_img'  => $inst->url . '/img', 'theme_icons' => $inst->url . '/icons',
-            'theme_css'  => $inst->url . '/css', 'theme_js' => $inst->url . '/js',
-            'theme_lang' => $inst->url . '/language',
+            'theme_path' => $this->path, 'theme_tpl' => $this->path . '/xotpl', 'theme_url' => $this->url,
+            'theme_img'  => $this->url . '/assets/img', 'theme_icons' => $this->url . '/assets/icons',
+            'theme_css'  => $this->url . '/assets/css', 'theme_fonts' => $this->url . '/assets/fonts',
+            'theme_js' => $this->url . '/assets/js', 'theme_lang' => $this->url . '/language',
         ));
 
         return $inst;
@@ -306,9 +306,9 @@ class XoopsTheme
         ));
         $this->template->assign(array(
             'theme_path' => $this->path, 'theme_tpl' => $this->path . '/xotpl', 'theme_url' => $this->url,
-            'theme_img'  => $this->url . '/img', 'theme_icons' => $this->url . '/icons',
-            'theme_css'  => $this->url . '/css', 'theme_js' => $this->url . '/js',
-            'theme_lang' => $this->url . '/language',
+            'theme_img'  => $this->url . '/assets/img', 'theme_icons' => $this->url . '/assets/icons',
+            'theme_css'  => $this->url . '/assets/css', 'theme_fonts' => $this->url . '/assets/fonts',
+            'theme_js' => $this->url . '/assets/js', 'theme_lang' => $this->url . '/language',
         ));
 
         if ($xoops->isUser()) {

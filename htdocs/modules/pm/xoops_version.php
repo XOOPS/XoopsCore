@@ -13,7 +13,7 @@
  * Private message module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,26 +21,25 @@
  * @version         $Id$
  */
 
-$modversion = array();
-$modversion['name'] = _PM_MI_NAME;
-$modversion['version'] = 1.07;
+$modversion                = array();
+$modversion['name']        = _PM_MI_NAME;
+$modversion['version']     = 1.07;
 $modversion['description'] = _PM_MI_DESC;
-$modversion['author'] = "Jan Pedersen, Taiwen Jiang";
-$modversion['credits'] = "The XOOPS Project, Wanikoo";
-$modversion['help'] = 'page=help';
-$modversion['license'] = 'GNU GPL 2.0';
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
-$modversion['image'] = "images/logo.png";
-$modversion['dirname'] = "pm";
+$modversion['author']      = "Jan Pedersen, Taiwen Jiang";
+$modversion['credits']     = "The XOOPS Project, Wanikoo";
+$modversion['help']        = 'page=help';
+$modversion['license']     = 'GNU GPL 2.0';
+$modversion['license_url'] = "http://www.gnu.org/licenses/gpl-2.0.html";
+$modversion['image']       = "images/logo.png";
+$modversion['dirname']     = "pm";
 
 //about
-$modversion['release_date'] = '2011/10/08';
-$modversion["module_website_url"] = "http://www.xoops.org/";
+$modversion['release_date']        = '2011/10/08';
+$modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"] = "RC";
-$modversion['min_php'] = '5.3';
-$modversion['min_xoops'] = "2.6.0";
-$modversion['min_db'] = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
+$modversion["module_status"]       = "RC";
+$modversion['min_php']             = '5.3.7';
+$modversion['min_xoops']           = "2.6.0";
 
 // paypal
 $modversion['paypal']                  = array();
@@ -54,9 +53,9 @@ $modversion['paypal']['currency_code'] = 'USD';
 $modversion['system_menu'] = 1;
 
 // Admin things
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminmenu']  = "admin/menu.php";
 
 // Mysql file
 //$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
@@ -66,39 +65,55 @@ $modversion['adminmenu'] = "admin/menu.php";
 
 // Scripts to run upon installation or update
 $modversion['onInstall'] = "include/install.php";
-$modversion['onUpdate'] = "include/update.php";
+$modversion['onUpdate']  = "include/update.php";
 
 // Templates
-$modversion['templates'] = array();
-$modversion['templates'][1]['file'] = 'pm_pmlite.html';
+$modversion['templates']                   = array();
+$modversion['templates'][1]['file']        = 'pm_pmlite.tpl';
 $modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file'] = 'pm_readpmsg.html';
+$modversion['templates'][2]['file']        = 'pm_readpmsg.tpl';
 $modversion['templates'][2]['description'] = '';
-$modversion['templates'][3]['file'] = 'pm_viewpmsg.html';
+$modversion['templates'][3]['file']        = 'pm_viewpmsg.tpl';
 $modversion['templates'][3]['description'] = '';
-//$modversion['templates'][4]['file'] = 'pm_lookup.html';
+//$modversion['templates'][4]['file'] = 'pm_lookup.tpl';
 //$modversion['templates'][4]['description'] = '';
 
 // Menu
 $modversion['hasMain'] = 1;
 
-$modversion['config'] = array();
+$modversion['config']   = array();
 $modversion['config'][] = array(
-    'name' => 'perpage', 'title' => '_PM_MI_PERPAGE', 'description' => '_PM_MI_PERPAGE_DESC', 'formtype' => 'textbox',
-    'valuetype' => 'int', 'default' => 20
+    'name'        => 'perpage',
+    'title'       => '_PM_MI_PERPAGE',
+    'description' => '_PM_MI_PERPAGE_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 20
 );
 
 $modversion['config'][] = array(
-    'name' => 'max_save', 'title' => '_PM_MI_MAXSAVE', 'description' => '_PM_MI_MAXSAVE_DESC', 'formtype' => 'textbox',
-    'valuetype' => 'int', 'default' => 10
+    'name'        => 'max_save',
+    'title'       => '_PM_MI_MAXSAVE',
+    'description' => '_PM_MI_MAXSAVE_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 10
 );
 
 $modversion['config'][] = array(
-    'name' => 'prunesubject', 'title' => '_PM_MI_PRUNESUBJECT', 'description' => '_PM_MI_PRUNESUBJECT_DESC',
-    'formtype' => 'textbox', 'valuetype' => 'text', 'default' => _PM_MI_PRUNESUBJECTDEFAULT
+    'name'        => 'prunesubject',
+    'title'       => '_PM_MI_PRUNESUBJECT',
+    'description' => '_PM_MI_PRUNESUBJECT_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => _PM_MI_PRUNESUBJECTDEFAULT
 );
 
 $modversion['config'][] = array(
-    'name' => 'prunemessage', 'title' => '_PM_MI_PRUNEMESSAGE', 'description' => '_PM_MI_PRUNEMESSAGE_DESC',
-    'formtype' => 'textarea', 'valuetype' => 'text', 'default' => _PM_MI_PRUNEMESSAGEDEFAULT
+    'name'        => 'prunemessage',
+    'title'       => '_PM_MI_PRUNEMESSAGE',
+    'description' => '_PM_MI_PRUNEMESSAGE_DESC',
+    'formtype'    => 'textarea',
+    'valuetype'   => 'text',
+    'default'     => _PM_MI_PRUNEMESSAGEDEFAULT
 );

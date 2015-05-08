@@ -8,18 +8,22 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
+ *
+ * @param $options
+ *
+ * @return array
  */
 
 function b_xlanguage_select_show($options)
 {
-    $xoops = Xoops::getInstance();
-    $helper = Xoops_Module_Helper::getHelper('xlanguage');
+    $xoops = \Xoops::getInstance();
+    $helper = \Xoops\Module\Helper::getHelper('xlanguage');
 
     $xlanguage = $xoops->registry()->get('XLANGUAGE');
     $lang_tag = $xoops->registry()->get('XLANGUAGE_LANG_TAG');
@@ -51,6 +55,11 @@ function b_xlanguage_select_show($options)
     $block['delimitor'] = $options[1];
     $block['number'] = $options[2];
 
+    if ($options[0]=='jquery') {
+        $xoops = \Xoops::getInstance();
+        $xoops->theme()->addBaseScriptAssets('@jqueryui');
+    }
+
     $block['selected'] = $xlanguage['lang'];
 
     if ($options[0] == 'images' || $options[0] == 'text') {
@@ -66,11 +75,16 @@ function b_xlanguage_select_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ *
+ * @return string
+ */
 function b_xlanguage_select_edit($options)
 {
-    $block_form = new XoopsBlockForm();
+    $block_form = new Xoops\Form\BlockForm();
 
-    $tmp = new XoopsFormSelect(_MB_XLANGUAGE_DISPLAY_METHOD . ' : ', 'options[0]', $options[0]);
+    $tmp = new Xoops\Form\Select(_MB_XLANGUAGE_DISPLAY_METHOD . ' : ', 'options[0]', $options[0]);
     $tmp->addOption('images', _MB_XLANGUAGE_DISPLAY_FLAGLIST);
     $tmp->addOption('text', _MB_XLANGUAGE_DISPLAY_TEXTLIST);
     $tmp->addOption('select', _MB_XLANGUAGE_DISPLAY_SELECT);
@@ -78,8 +92,8 @@ function b_xlanguage_select_edit($options)
     $tmp->addOption('bootstrap', _MB_XLANGUAGE_DISPLAY_BOOTSTRAP);
     $block_form->addElement($tmp);
 
-    $block_form->addElement(new XoopsFormText(_MB_XLANGUAGE_IMAGE_SEPARATOR . ' (' . _MB_XLANGUAGE_OPTIONAL . ') : ', 'options[1]', 5, 5, $options[1]));
-    $block_form->addElement(new XoopsFormText(_MB_XLANGUAGE_IMAGE_PERROW . ' (' . _MB_XLANGUAGE_OPTIONAL . ') : ', 'options[2]', 2, 2, $options[2]));
+    $block_form->addElement(new Xoops\Form\Text(_MB_XLANGUAGE_IMAGE_SEPARATOR . ' (' . _MB_XLANGUAGE_OPTIONAL . ') : ', 'options[1]', 5, 5, $options[1]));
+    $block_form->addElement(new Xoops\Form\Text(_MB_XLANGUAGE_IMAGE_PERROW . ' (' . _MB_XLANGUAGE_OPTIONAL . ') : ', 'options[2]', 2, 2, $options[2]));
 
     return $block_form->render();
 }

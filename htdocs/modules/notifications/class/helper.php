@@ -11,14 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Notifications extends Xoops_Module_Helper_Abstract
+class Notifications extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -44,9 +42,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
     }
 
     /**
-     * @return Notifications
+     * @return string
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }
@@ -54,7 +52,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
     /**
      * @return NotificationsNotificationHandler
      */
-    public function  getHandlerNotification()
+    public function getHandlerNotification()
     {
         return $this->getHandler('notification');
     }
@@ -103,7 +101,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             return $plugin->item($category, intval($item_id));
         }
         return false;
@@ -125,7 +123,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             return $plugin->tags($category, intval($item_id), $event, $dirname);
         }
         return array();
@@ -136,8 +134,8 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * category in the selected module.  If no category is selected,
      * return an array of info for all categories.
      *
-     * @param  string     $category_name           Category name (default all categories)
-     * @param  string     $dirname                 ID of the module (default current module)
+     * @param string $category_name Category name (default all categories)
+     * @param string $dirname       ID of the module (default current module)
      *
      * @return mixed
      */
@@ -149,7 +147,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
             $categories = $plugin->categories();
             if (empty($category_name)) {
                 return $categories;
@@ -169,7 +167,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
      *
      * todo, this belongs in the comment module no? - trabis
      *
-     * @param  string $dirname  Dirname of the module (default current module)
+     * @param string $dirname Dirname of the module (default current module)
      *
      * @return mixed            Associative array of category info
      */
@@ -200,9 +198,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * Get an array of info for all events (each event has associative array)
      * in the selected category of the selected module.
      *
-     * @param  string  $category_name   Category name
-     * @param  bool    $enabled_only    If true, return only enabled events
-     * @param  string  $dirname         Dirname of the module (default current module)
+     * @param string $category_name Category name
+     * @param bool   $enabled_only  If true, return only enabled events
+     * @param string $dirname       Dirname of the module (default current module)
      *
      * @return mixed
      */
@@ -215,7 +213,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
             $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname') : '';
         }
         /* @var $plugin NotificationsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($dirname, 'notifications')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
 
             $events = $plugin->events();
 
@@ -252,7 +250,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
             // Insert comment info if applicable
 
             /* @var $commentsPlugin CommentsPluginInterface */
-            if ($xoops->isActiveModule('comments') && $commentsPlugin = Xoops_Module_Plugin::getPlugin($dirname, 'comments')) {
+            if ($xoops->isActiveModule('comments') && $commentsPlugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments')) {
                 //todo replace this
                 if (!empty($category['item_name']) && $category['item_name'] == $commentsPlugin->itemName()) {
                     if (!is_dir($dir = XOOPS_ROOT_PATH . '/locale/' . $xoops->getConfig('locale') . '/templates/')) {
@@ -352,9 +350,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * @todo  Check that this works correctly for comment and other
      *        events which depend on additional config options...
      *
-     * @param  array       $category   Category info array
-     * @param  array       $event      Event info array
-     * @param  string      $dirname    Module
+     * @param array  &$category Category info array
+     * @param array  &$event    Event info array
+     * @param string $dirname   Module
      *
      * @return bool
      **/
@@ -377,9 +375,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * Get associative array of info for the selected event in the selected
      * category (for the selected module).
      *
-     * @param  string     $category_name      Notification category
-     * @param  string     $event_name         Notification event
-     * @param  string     $module_dirname     Dirname of the module (default current module)
+     * @param string $category_name  Notification category
+     * @param string $event_name     Notification event
+     * @param string $module_dirname Dirname of the module (default current module)
      *
      * @return mixed
      */
@@ -398,7 +396,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * Get an array of associative info arrays for subscribable categories
      * for the selected module.
      *
-     * @param  string  $module_dirname  ID of the module
+     * @param string $module_dirname ID of the module
      *
      * @return mixed
      */
@@ -454,9 +452,9 @@ class Notifications extends Xoops_Module_Helper_Abstract
      * and event titles.  These are pieced together in this function in
      * case we wish to alter the syntax.
      *
-     * @param  array  $category  Array of category info
-     * @param  array  $event     Array of event info
-     * @param  string $type      The particular name to generate
+     * @param array  &$category Array of category info
+     * @param array  &$event    Array of event info
+     * @param string $type      The particular name to generate
      *
      * @return bool|string
      */
@@ -506,7 +504,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
                     unset($confop);
                 }
             }
-            $order++;
+            ++$order;
             $config_handler->insertConfig($confobj);
         }
     }
@@ -526,7 +524,7 @@ class Notifications extends Xoops_Module_Helper_Abstract
         //Delete all configs
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('conf_modid', $module->getVar('mid')));
-        $criteria->add(new Criteria('conf_name', "('" . implode("','", $configNames) . "')",  'IN'));
+        $criteria->add(new Criteria('conf_name', "('" . implode("','", $configNames) . "')", 'IN'));
         $configs = $config_handler->getConfigs($criteria);
         /* @var $config XoopsConfigItem */
         foreach ($configs as $config) {
@@ -539,48 +537,49 @@ class Notifications extends Xoops_Module_Helper_Abstract
      *
      * @return array
      */
-    public function getPluginableConfigs(XoopsModule $module) {
+    public function getPluginableConfigs(XoopsModule $module)
+    {
         $configs = array();
-            $options['_MD_NOTIFICATIONS_CONFIG_DISABLE'] = NOTIFICATIONS_DISABLE;
-            $options['_MD_NOTIFICATIONS_CONFIG_ENABLEBLOCK'] = NOTIFICATIONS_ENABLEBLOCK;
-            $options['_MD_NOTIFICATIONS_CONFIG_ENABLEINLINE'] = NOTIFICATIONS_ENABLEINLINE;
-            $options['_MD_NOTIFICATIONS_CONFIG_ENABLEBOTH'] = NOTIFICATIONS_ENABLEBOTH;
+        $options['_MD_NOTIFICATIONS_CONFIG_DISABLE'] = NOTIFICATIONS_DISABLE;
+        $options['_MD_NOTIFICATIONS_CONFIG_ENABLEBLOCK'] = NOTIFICATIONS_ENABLEBLOCK;
+        $options['_MD_NOTIFICATIONS_CONFIG_ENABLEINLINE'] = NOTIFICATIONS_ENABLEINLINE;
+        $options['_MD_NOTIFICATIONS_CONFIG_ENABLEBOTH'] = NOTIFICATIONS_ENABLEBOTH;
 
-            $configs[] = array(
-                'name'        => 'notifications_enabled',
-                'title'       => '_MD_NOTIFICATIONS_CONFIG_ENABLE',
-                'description' => '_MD_NOTIFICATIONS_CONFIG_ENABLEDSC',
-                'formtype'    => 'select',
-                'valuetype'   => 'int',
-                'default'     => NOTIFICATIONS_ENABLEBOTH,
-                'options'     => $options
-            );
-            // Event-specific notification options
-            // FIXME: doesn't work when update module... can't read back the array of options properly...  " changing to &quot;
-            $options = array();
-            $categories = $this->getCategory('', $module->getVar('dirname'));
-            foreach ($categories as $category) {
-                $events = $this->getEvents($category['name'], false, $module->getVar('dirname'));
-                foreach ($events as $event) {
-                    if (!empty($event['invisible'])) {
-                        continue;
-                    }
-                    $option_name = $category['title'] . ' : ' . $event['title'];
-                    $option_value = $category['name'] . '-' . $event['name'];
-                    $options[$option_name] = $option_value;
+        $configs[] = array(
+            'name'        => 'notifications_enabled',
+            'title'       => '_MD_NOTIFICATIONS_CONFIG_ENABLE',
+            'description' => '_MD_NOTIFICATIONS_CONFIG_ENABLEDSC',
+            'formtype'    => 'select',
+            'valuetype'   => 'int',
+            'default'     => NOTIFICATIONS_ENABLEBOTH,
+            'options'     => $options
+        );
+        // Event-specific notification options
+        // FIXME: doesn't work when update module... can't read back the array of options properly...  " changing to &quot;
+        $options = array();
+        $categories = $this->getCategory('', $module->getVar('dirname'));
+        foreach ($categories as $category) {
+            $events = $this->getEvents($category['name'], false, $module->getVar('dirname'));
+            foreach ($events as $event) {
+                if (!empty($event['invisible'])) {
+                    continue;
                 }
-                unset($events);
+                $option_name = $category['title'] . ' : ' . $event['title'];
+                $option_value = $category['name'] . '-' . $event['name'];
+                $options[$option_name] = $option_value;
             }
-            unset($categories);
-            $configs[] = array(
-                'name'        => 'notification_events',
-                'title'       => '_MD_NOTIFICATIONS_CONFIG_EVENTS',
-                'description' => '_MD_NOTIFICATIONS_CONFIG_EVENTSDSC',
-                'formtype'    => 'select_multi',
-                'valuetype'   => 'array',
-                'default'     => array_values($options),
-                'options'     => $options
-            );
+            unset($events);
+        }
+        unset($categories);
+        $configs[] = array(
+            'name'        => 'notification_events',
+            'title'       => '_MD_NOTIFICATIONS_CONFIG_EVENTS',
+            'description' => '_MD_NOTIFICATIONS_CONFIG_EVENTSDSC',
+            'formtype'    => 'select_multi',
+            'valuetype'   => 'array',
+            'default'     => array_values($options),
+            'options'     => $options
+        );
         return $configs;
     }
 }

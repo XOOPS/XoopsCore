@@ -11,12 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-class CodexUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements UserconfigsPluginInterface
+class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
     /**
      * Expects an array of arrays containing:
@@ -54,7 +54,7 @@ class CodexUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements Use
         $config[$i]['default'] = 1;
         $config[$i]['options'] = array_flip(array('Option 1', 'Option 2'));
         $config[$i]['category'] = 'cat_1';
-        $i++;
+        ++$i;
         $config[$i]['name'] = 'config_2';
         $config[$i]['title'] = '_MI_CODEX_UCONF_ITEM2';
         $config[$i]['description'] = '_MI_CODEX_UCONF_ITEM2_DSC';
@@ -65,4 +65,3 @@ class CodexUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements Use
         return $config;
     }
 }
-

@@ -11,14 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 function b_comments_show($options)
 {
@@ -26,7 +24,7 @@ function b_comments_show($options)
     $helper = Comments::getInstance();
 
     $block = array();
-    $available_modules = Xoops_Module_Plugin::getPlugins('comments');
+    $available_modules = \Xoops\Module\Plugin::getPlugins('comments');
     if (empty($available_modules)) {
         return $block;
     }
@@ -57,13 +55,13 @@ function b_comments_show($options)
     $comments = $comment_handler->getObjects($criteria, true);
     $member_handler = $xoops->getHandlerMember();
     $module_handler = $xoops->getHandlerModule();
-    $modules = $module_handler->getObjectsArray(new Criteria('dirname', "('" . implode("','", array_keys($available_modules)) ."')",  'IN'), true);
+    $modules = $module_handler->getObjectsArray(new Criteria('dirname', "('" . implode("','", array_keys($available_modules)) ."')", 'IN'), true);
     $comment_config = array();
     foreach (array_keys($comments) as $i) {
         $mid = $comments[$i]->getVar('modid');
         $com['module'] = '<a href="' . XOOPS_URL . '/modules/' . $modules[$mid]->getVar('dirname') . '/">' . $modules[$mid]->getVar('name') . '</a>';
         if (!isset($comment_config[$mid])) {
-            $comment_config[$mid] = Xoops_Module_Plugin::getPlugin($modules[$mid]->getVar('dirname'), 'comments');
+            $comment_config[$mid] = \Xoops\Module\Plugin::getPlugin($modules[$mid]->getVar('dirname'), 'comments');
         }
         $com['id'] = $i;
         $com['title'] = '<a href="' . XOOPS_URL . '/modules/' . $modules[$mid]->getVar('dirname') . '/' . $comment_config[$mid]->pageName() . '?' . $comment_config[$mid]->itemName() . '=' . $comments[$i]->getVar('itemid') . '&amp;com_id=' . $i . '&amp;com_rootid=' . $comments[$i]->getVar('rootid') . '&amp;' . htmlspecialchars($comments[$i]->getVar('exparams')) . '#comment' . $i . '">' . $comments[$i]->getVar('title') . '</a>';
@@ -88,7 +86,7 @@ function b_comments_show($options)
 
 function b_comments_edit($options)
 {
-    $block_form = new XoopsBlockForm();
-    $block_form->addElement( new XoopsFormText(_MB_SYSTEM_DISPLAYC, 'options[0]', 1, 3, $options[0]), true);
+    $block_form = new Xoops\Form\BlockForm();
+    $block_form->addElement(new Xoops\Form\Text(_MB_SYSTEM_DISPLAYC, 'options[0]', 1, 3, $options[0]), true);
     return $block_form->render();
 }

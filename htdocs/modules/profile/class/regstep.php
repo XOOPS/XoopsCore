@@ -9,19 +9,21 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
 
 class ProfileRegstep extends XoopsObject
 {
@@ -38,9 +40,9 @@ class ProfileRegstep extends XoopsObject
 class ProfileRegstepHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'profile_regstep', 'profileregstep', 'step_id', 'step_name');
     }

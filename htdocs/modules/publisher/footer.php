@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Utils
  * @since           1.0
@@ -22,7 +22,7 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(__FILE__) . '/include/common.php';
+include_once __DIR__ . '/include/common.php';
 
 $publisher = Publisher::getInstance();
 
@@ -32,7 +32,7 @@ $xoops->theme()->addStylesheet(PUBLISHER_URL . '/css/publisher.css');
 $xoopsTpl = $xoops->tpl();
 $xoopsTpl->assign("xoops_module_header", '<link rel="alternate" type="application/rss+xml" title="'
                                          . $publisher->getModule()->getVar('name') . '" href="' . $publisher->url('backend.php') . '" />'
-                                         . @$xoopsTpl->get_template_vars("xoops_module_header"));
+                                         . @$xoopsTpl->getTemplateVars("xoops_module_header"));
 
 $xoopsTpl->assign("publisher_adminpage", "<a href='" . $publisher->url("admin/index.php") . "'>" . _MD_PUBLISHER_ADMIN_PAGE . "</a>");
 $xoopsTpl->assign("isAdmin", PublisherUtils::IsUserAdmin());

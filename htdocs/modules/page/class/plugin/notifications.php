@@ -13,15 +13,13 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class PageNotificationsPlugin extends Xoops_Module_Plugin_Abstract implements NotificationsPluginInterface
+class PageNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract implements NotificationsPluginInterface
 {
     /**
      * @param string $category

@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -20,12 +22,12 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 
-$categoryid = PublisherRequest::getInt('categoryid');
+$categoryid = Request::getInt('categoryid');
 
 // Creating the category object for the selected category
 $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
@@ -41,9 +43,9 @@ if (!$categoryObj->checkPermission()) {
 }
 
 // At which record shall we start
-$start = PublisherRequest::getInt('start');
+$start = Request::getInt('start');
 
-$item_page_id = PublisherRequest::getInt('page', -1);
+$item_page_id = Request::getInt('page', -1);
 
 $totalItems = $publisher->getCategoryHandler()->publishedItemsCount();
 
@@ -56,7 +58,7 @@ if (!isset($totalItems[$categoryid]) || $totalItems[$categoryid] == 0) {
 
 // Added by skalpa: custom template support
 if (!$template = $categoryObj->template()) {
-    $template = 'publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.html';
+    $template = 'publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl';
 }
 
 $xoops->header($template);
@@ -67,17 +69,17 @@ $module_id = $publisher->getModule()->getVar('mid');
 
 // creating the Item objects that belong to the selected category
 switch ($publisher->getConfig('format_order_by')) {
-    case 'title' :
+    case 'title':
         $sort = 'title';
         $order = 'ASC';
         break;
 
-    case 'date' :
+    case 'date':
         $sort = 'datesub';
         $order = 'DESC';
         break;
 
-    default :
+    default:
         $sort = 'weight';
         $order = 'ASC';
         break;
@@ -176,7 +178,7 @@ if (count($itemsObj) > 0) {
     */
     // Adding the items of the selected category
 
-    for ($i = 0; $i < $totalItemOnPage; $i++) {
+    for ($i = 0; $i < $totalItemOnPage; ++$i) {
         $item = $itemsObj[$i]->toArray('default', $publisher->getConfig('item_title_size'));
         $item['categoryname'] = $categoryObj->getVar('name');
         $item['categorylink'] = "<a href='" . PublisherUtils::seoGenUrl('category', $itemsObj[$i]->getVar('categoryid'), $categoryObj->getVar('short_url')) . "'>" . $categoryObj->getVar('name') . "</a>";

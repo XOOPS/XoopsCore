@@ -10,26 +10,27 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
 
 /**
  * XOOPS member handler class.
  * This class provides simple interface (a facade class) for handling groups/users/
  * membership data.
  *
- *
  * @author  Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
  * @package kernel
  */
-
 class XoopsMemberHandler
 {
 
@@ -64,9 +65,9 @@ class XoopsMemberHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db
+     * @param Connection|null $db database connection
      */
-    public function __construct($db = null)
+    public function __construct(Connection $db = null)
     {
         $this->_gHandler = Xoops::getInstance()->getHandlerGroup();
         $this->_uHandler = Xoops::getInstance()->getHandlerUser();
@@ -99,6 +100,7 @@ class XoopsMemberHandler
      * retrieve a group
      *
      * @param int $id ID for the group
+     *
      * @return XoopsGroup reference to the group
      */
     public function getGroup($id)
@@ -110,6 +112,7 @@ class XoopsMemberHandler
      * retrieve a user
      *
      * @param int $id ID for the user
+     *
      * @return XoopsUser
      */
     public function getUser($id)
@@ -123,7 +126,8 @@ class XoopsMemberHandler
     /**
      * delete a group
      *
-     * @param XoopsGroup $group reference to the group to delete
+     * @param XoopsGroup &$group reference to the group to delete
+     *
      * @return bool FALSE if failed
      */
     public function deleteGroup(XoopsGroup &$group)
@@ -136,7 +140,8 @@ class XoopsMemberHandler
     /**
      * delete a user
      *
-     * @param XoopsUser $user reference to the user to delete
+     * @param XoopsUser &$user reference to the user to delete
+     *
      * @return bool FALSE if failed
      */
     public function deleteUser(XoopsUser &$user)
@@ -149,7 +154,8 @@ class XoopsMemberHandler
     /**
      * insert a group into the database
      *
-     * @param XoopsGroup $group reference to the group to insert
+     * @param XoopsGroup &$group reference to the group to insert
+     *
      * @return bool TRUE if already in database and unchanged
      * FALSE on failure
      */
@@ -161,8 +167,9 @@ class XoopsMemberHandler
     /**
      * insert a user into the database
      *
-     * @param XoopsUser|XoopsObject $user reference to the user to insert
-     * @param bool $force
+     * @param XoopsUser|XoopsObject &$user reference to the user to insert
+     * @param bool                  $force force insert
+     *
      * @return bool TRUE if already in database and unchanged
      * FALSE on failure
      */
@@ -174,8 +181,9 @@ class XoopsMemberHandler
     /**
      * retrieve groups from the database
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement}
-     * @param bool $id_as_key use the group's ID as key for the array?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key use the group's ID as key for the array?
+     *
      * @return array array of {@link XoopsGroup} objects
      */
     public function getGroups(CriteriaElement $criteria = null, $id_as_key = false)
@@ -186,8 +194,9 @@ class XoopsMemberHandler
     /**
      * retrieve users from the database
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement}
-     * @param bool $id_as_key use the group's ID as key for the array?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key use the group's ID as key for the array?
+     *
      * @return array array of {@link XoopsUser} objects
      */
     public function getUsers(CriteriaElement $criteria = null, $id_as_key = false)
@@ -199,6 +208,7 @@ class XoopsMemberHandler
      * get a list of groupnames and their IDs
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} object
+     *
      * @return array associative array of group-IDs and names
      */
     public function getGroupList(CriteriaElement $criteria = null)
@@ -215,9 +225,10 @@ class XoopsMemberHandler
      * get a list of usernames and their IDs
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} object
+     *
      * @return array associative array of user-IDs and names
      */
-    function getUserList(CriteriaElement $criteria = null)
+    public function getUserList(CriteriaElement $criteria = null)
     {
         $users = $this->_uHandler->getObjects($criteria, true);
         $ret = array();
@@ -231,7 +242,8 @@ class XoopsMemberHandler
      * add a user to a group
      *
      * @param int $group_id ID of the group
-     * @param int $user_id ID of the user
+     * @param int $user_id  ID of the user
+     *
      * @return object XoopsMembership
      */
     public function addUserToGroup($group_id, $user_id)
@@ -245,8 +257,9 @@ class XoopsMemberHandler
     /**
      * remove a list of users from a group
      *
-     * @param int $group_id ID of the group
+     * @param int   $group_id ID of the group
      * @param array $user_ids array of user-IDs
+     *
      * @return bool success?
      */
     public function removeUsersFromGroup($group_id, $user_ids = array())
@@ -264,10 +277,11 @@ class XoopsMemberHandler
     /**
      * get a list of users belonging to a group
      *
-     * @param int $group_id ID of the group
+     * @param int  $group_id ID of the group
      * @param bool $asobject return the users as objects?
-     * @param int $limit number of users to return
-     * @param int $start index of the first user to return
+     * @param int  $limit    number of users to return
+     * @param int  $start    index of the first user to return
+     *
      * @return array Array of {@link XoopsUser} objects (if $asobject is TRUE)
      * or of associative arrays matching the record structure in the database.
      */
@@ -292,8 +306,9 @@ class XoopsMemberHandler
     /**
      * get a list of groups that a user is member of
      *
-     * @param int $user_id ID of the user
+     * @param int  $user_id  ID of the user
      * @param bool $asobject return groups as {@link XoopsGroup} objects or arrays?
+     *
      * @return array array of objects or arrays
      */
     public function getGroupsByUser($user_id, $asobject = false)
@@ -314,27 +329,54 @@ class XoopsMemberHandler
      * log in a user
      *
      * @param string $uname username as entered in the login form
-     * @param string $pwd password entered in the login form
-     * @return object XoopsUser reference to the logged in user. FALSE if failed to log in
+     * @param string $pwd   password entered in the login form
+     *
+     * @return mixed object  XoopsUser reference to the logged in user
+     *               boolean FALSE if failed to log in
+     *
+     * @todo - md5 support should be completely removed eventually
      */
     public function loginUser($uname, $pwd)
     {
-        $criteria = new CriteriaCompo(new Criteria('uname', $uname));
-        $criteria->add(new Criteria('pass', md5($pwd)));
+        $criteria = new Criteria('uname', $uname);
+        //$criteria->add(new Criteria('pass', md5($pwd)));
         $user = $this->_uHandler->getObjects($criteria, false);
         if (!$user || count($user) != 1) {
-            $user = false;
-            return $user;
+            return false;
+        }
+        $rehash = false;
+        $hash = $user[0]->pass();
+        $type = substr($user[0]->pass(), 0, 1);
+        // see if we have a crypt like signature, old md5 hash is just hex digits
+        if ($type=='$') {
+            if (!password_verify($pwd, $hash)) {
+                return false;
+            }
+            // check if hash uses the best algorithm (i.e. after a PHP upgrade)
+            $rehash = password_needs_rehash($hash, PASSWORD_DEFAULT);
+        } else {
+            if ($hash!=md5($pwd)) {
+                return false;
+            }
+            $rehash = true; // automatically update old style
+        }
+        // hash used an old algorithm, so make it stronger
+        if ($rehash) {
+            $user[0]->setVar('pass', password_hash($pwd, PASSWORD_DEFAULT));
+            $this->_uHandler->insert($user[0]);
         }
         return $user[0];
     }
 
     /**
-     * logs in a user with an nd5 encrypted password
+     * logs in a user with an md5 encrypted password
      *
-     * @param string $uname username
+     * @param string $uname  username
      * @param string $md5pwd password encrypted with md5
+     *
      * @return object XoopsUser reference to the logged in user. FALSE if failed to log in
+     *
+     * @deprecated -- this does not appear to be used and should be removed
      */
     public function loginUserMd5($uname, $md5pwd)
     {
@@ -352,6 +394,7 @@ class XoopsMemberHandler
      * count users matching certain conditions
      *
      * @param CriteriaElement|null $criteria {@link CriteriaElement} object
+     *
      * @return int
      */
     public function getUserCount(CriteriaElement $criteria = null)
@@ -363,6 +406,7 @@ class XoopsMemberHandler
      * count users belonging to a group
      *
      * @param int $group_id ID of the group
+     *
      * @return int
      */
     public function getUserCountByGroup($group_id)
@@ -373,9 +417,10 @@ class XoopsMemberHandler
     /**
      * updates a single field in a users record
      *
-     * @param XoopsUser $user reference to the {@link XoopsUser} object
-     * @param string $fieldName name of the field to update
-     * @param string $fieldValue updated value for the field
+     * @param XoopsUser &$user      reference to the {@link XoopsUser} object
+     * @param string    $fieldName  name of the field to update
+     * @param string    $fieldValue updated value for the field
+     *
      * @return bool TRUE if success or unchanged, FALSE on failure
      */
     public function updateUserByField(XoopsUser &$user, $fieldName, $fieldValue)
@@ -387,20 +432,25 @@ class XoopsMemberHandler
     /**
      * updates a single field in a users record
      *
-     * @param string $fieldName name of the field to update
-     * @param string $fieldValue updated value for the field
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} object
+     * @param string          $fieldName  name of the field to update
+     * @param string          $fieldValue updated value for the field
+     * @param CriteriaElement $criteria   {@link CriteriaElement} object or null
+     *
      * @return bool TRUE if success or unchanged, FALSE on failure
      */
     public function updateUsersByField($fieldName, $fieldValue, CriteriaElement $criteria = null)
     {
+        if (is_null($criteria)) {
+            $criteria = new Criteria(''); // empty criteria resolves to 'WHERE (1)'
+        }
         return $this->_uHandler->updateAll($fieldName, $fieldValue, $criteria);
     }
 
     /**
      * activate a user
      *
-     * @param XoopsUser $user reference to the {@link XoopsUser} object
+     * @param XoopsUser &$user reference to the {@link XoopsUser} object
+     *
      * @return bool successful?
      */
     public function activateUser(XoopsUser &$user)
@@ -416,39 +466,45 @@ class XoopsMemberHandler
      * Get a list of users belonging to certain groups and matching criteria
      * Temporary solution
      *
-     * @param array $groups IDs of groups
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} object
-     * @param bool $asobject return the users as objects?
-     * @param bool $id_as_key use the UID as key for the array if $asobject is TRUE
+     * @param array           $groups    IDs of groups
+     * @param CriteriaElement $criteria  {@link CriteriaElement} object or null
+     * @param bool            $asobject  return the users as objects?
+     * @param bool            $id_as_key use the UID as key for the array if $asobject is TRUE
+     *
      * @return array Array of {@link XoopsUser} objects (if $asobject is TRUE)
      * or of associative arrays matching the record structure in the database.
      */
-    public function getUsersByGroupLink($groups, CriteriaElement $criteria = null, $asobject = false, $id_as_key = false)
-    {
+    public function getUsersByGroupLink(
+        $groups,
+        CriteriaElement $criteria = null,
+        $asobject = false,
+        $id_as_key = false
+    ) {
+
+        $qb = $this->_uHandler->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
+        $qb ->select('DISTINCT ' . ($asobject ? 'u.*' : 'u.uid'))
+            ->fromPrefix('users', 'u')
+            ->leftJoinPrefix('u', 'groups_users_link', 'm', 'm.uid = u.uid');
+
+        $where = false;
+        if (!empty($groups)) {
+            $qb->where($eb->in('m.groupid', $groups));
+            $where = true;
+        }
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
+            $whereMode = $where ? 'AND' : '';
+            $sql[] = $criteria->renderQb($qb, $whereMode);
+        }
+
         $ret = array();
 
-        $select = $asobject ? "u.*" : "u.uid";
-        $sql[] = "SELECT DISTINCT {$select} " . " FROM " . $this->_uHandler->db->prefix("users") . " AS u" . " LEFT JOIN " . $this->_mHandler->db->prefix("groups_users_link") . " AS m ON m.uid = u.uid" . " WHERE 1 = 1";
-        if (!empty($groups)) {
-            $sql[] = "m.groupid IN (" . implode(", ", $groups) . ")";
-        }
-        $limit = $start = 0;
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql_criteria = $criteria->render();
-            if ($criteria->getSort() != '') {
-                $sql_criteria .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-            if ($sql_criteria) {
-                $sql[] = $sql_criteria;
-            }
-        }
-        $sql_string = implode(" AND ", array_filter($sql));
-        if (!$result = $this->_uHandler->db->query($sql_string, $limit, $start)) {
+        if (!$result = $qb->execute()) {
             return $ret;
         }
-        while ($myrow = $this->_uHandler->db->fetchArray($result)) {
+
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
             if ($asobject) {
                 $user = new XoopsUser();
                 $user->assignVars($myrow);
@@ -469,27 +525,33 @@ class XoopsMemberHandler
      * Get count of users belonging to certain groups and matching criteria
      * Temporary solution
      *
-     * @param array $groups IDs of groups
-     * @param CriteriaElement|null $criteria
+     * @param array                $groups   IDs of groups
+     * @param CriteriaElement|null $criteria criteria to match
+     *
      * @return int count of users
      */
     public function getUserCountByGroupLink($groups, $criteria = null)
     {
-        $ret = 0;
+        $qb = $this->_uHandler->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
 
-        $sql[] = "SELECT COUNT(DISTINCT u.uid) " . " FROM " . $this->_uHandler->db->prefix("users") . " AS u" . " LEFT JOIN " . $this->_mHandler->db->prefix("groups_users_link") . " AS m ON m.uid = u.uid" . " WHERE 1 = 1";
+        $qb ->select('COUNT(DISTINCT u.uid)')
+            ->fromPrefix('users', 'u')
+            ->leftJoinPrefix('u', 'groups_users_link', 'm', 'm.uid = u.uid');
+
+        $where = false;
         if (!empty($groups)) {
-            $sql[] = "m.groupid IN (" . implode(", ", $groups) . ")";
+            $qb->where($eb->in('m.groupid', $groups));
+            $where = true;
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql[] = $criteria->render();
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
+            $whereMode = $where ? 'AND' : '';
+            $criteria->renderQb($qb, $whereMode);
         }
-        $sql_string = implode(" AND ", array_filter($sql));
-        if (!$result = $this->_uHandler->db->query($sql_string)) {
-            return $ret;
-        }
-        list ($ret) = $this->_uHandler->db->fetchRow($result);
+
+        $result = $qb->execute();
+        $ret = $result->fetchColumn(0);
+
         return $ret;
     }
-
 }

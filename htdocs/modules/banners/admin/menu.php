@@ -13,7 +13,7 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
@@ -25,15 +25,15 @@ $i = 1;
 $adminmenu[$i]['title'] = _MI_BANNERS_INDEX;
 $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]['icon'] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_BANNERS_CLIENTS;
 $adminmenu[$i]['link'] = "admin/clients.php";
 $adminmenu[$i]['icon'] = 'index.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_BANNERS_BANNERS;
 $adminmenu[$i]['link'] = "admin/banners.php";
 $adminmenu[$i]['icon'] = 'banners.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_BANNERS_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['icon'] = 'about.png';

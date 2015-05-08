@@ -9,56 +9,56 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id: $
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
-$request = $xoops->request();
 // Parameters
 $nb_banners = $helper->getConfig('banners_pager');
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'application/x-shockwave-flash');
 $upload_size = 500000;
 // Get Action type
-$op = $request->asStr('op', 'list');
+$op = Request::getCmd('op', 'list');
 // Get handler
 $banner_Handler = $helper->getHandlerBanner();
 $client_Handler = $helper->getHandlerBannerclient();
 // Call header
-$xoops->header('banners_admin_banners.html');
+$xoops->header('admin:banners/banners_admin_banners.tpl');
 
 // Get start pager
-$start = $request->asInt('start', 0);
-$startF = $request->asInt('startF', 0);
+$start = Request::getInt('start', 0);
+$startF = Request::getInt('startF', 0);
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('banners.php');
 
-$info_msg = array(sprintf(_AM_BANNERS_ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(_AM_BANNERS_ALERT_INFO_MAXFILE , $upload_size / 1000));
+$info_msg = array(sprintf(_AM_BANNERS_ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)), sprintf(_AM_BANNERS_ALERT_INFO_MAXFILE, $upload_size / 1000));
 
 switch ($op) {
 
     case 'list':
     default:
         // Define Stylesheet
-        $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
+        $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         // Define scripts
-        $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-        $xoops->theme()->addScript('modules/system/js/admin.js');
+        $xoops->theme()->addBaseScriptAssets(array('@jqueryui', 'modules/system/js/admin.js'));
 
         $admin_page->addTips(_AM_BANNERS_TIPS_BANNERS);
         $admin_page->addItemButton(_AM_BANNERS_BANNERS_ADD, 'banners.php?op=new', 'add');
         $admin_page->renderTips();
-        if ($client_Handler->getCount() == 0){
+        if ($client_Handler->getCount() == 0) {
             echo $xoops->alert('error', _AM_BANNERS_BANNERS_ERROR_NOCLIENT);
         } else {
             $admin_page->renderButton();
@@ -118,8 +118,8 @@ switch ($op) {
                 $banner['percent'] = $percent;
                 $banner['imageurl'] = $img;
                 $banner['name'] = $name;
-                $xoops->tpl()->append_by_ref('banner', $banner);
-                $xoops->tpl()->append_by_ref('popup_banner', $banner);
+                $xoops->tpl()->appendByRef('banner', $banner);
+                $xoops->tpl()->appendByRef('popup_banner', $banner);
                 unset($banner);
             }
         }
@@ -181,8 +181,8 @@ switch ($op) {
                     $name = $name_client->getVar("bannerclient_name");
                 }
                 $banner_finish['name'] = $name;
-                $xoops->tpl()->append_by_ref('banner_finish', $banner_finish);
-                $xoops->tpl()->append_by_ref('popup_banner_finish', $banner_finish);
+                $xoops->tpl()->appendByRef('banner_finish', $banner_finish);
+                $xoops->tpl()->appendByRef('popup_banner_finish', $banner_finish);
                 unset($banner_finish);
             }
         }
@@ -206,7 +206,7 @@ switch ($op) {
         $admin_page->addItemButton(_AM_BANNERS_BANNERS_LIST, 'banners.php', 'application-view-detail');
         $admin_page->renderButton();
         $xoops->tpl()->assign('info_msg', $xoops->alert('info', $info_msg, _AM_BANNERS_ALERT_INFO_TITLE_UPLOADS));
-        $bid = $request->asInt('bid', 0);
+        $bid = Request::getInt('bid', 0);
         if ($bid > 0) {
             $obj = $banner_Handler->get($bid);
             $form = $helper->getForm($obj, 'banner');
@@ -220,7 +220,7 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect("banners.php", 3, implode(",", $xoops->security()->getErrors()));
         }
-        $bid = $request->asInt('bid', 0);
+        $bid = Request::getInt('bid', 0);
         if ($bid > 0) {
             $obj = $banner_Handler->get($bid);
         } else {
@@ -230,16 +230,16 @@ switch ($op) {
             $obj->setVar("banner_status", 1);
         }
         $error_msg = '';
-        $obj->setVar("banner_cid", $request->asInt('cid', 0));
-        if (preg_match('/^[0-9]*[0-9]+$|^[0-9]+[0-9]*$/', $_POST["imptotal"]) == false){
+        $obj->setVar("banner_cid", Request::getInt('cid', 0));
+        if (preg_match('/^[0-9]*[0-9]+$|^[0-9]+[0-9]*$/', $_POST["imptotal"]) == false) {
             $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br />';
             $obj->setVar("banner_imptotal", 0);
         } else {
-            $obj->setVar("banner_imptotal", $request->asInt('imptotal', 0));
+            $obj->setVar("banner_imptotal", Request::getInt('imptotal', 0));
         }
-        $obj->setVar("banner_clickurl", $request->asStr('clickurl', ''));
-        $obj->setVar("banner_htmlbanner", $request->asInt('htmlbanner', 0));
-        $obj->setVar("banner_htmlcode", $request->asStr('htmlcode', ''));
+        $obj->setVar("banner_clickurl", Request::getString('clickurl', ''));
+        $obj->setVar("banner_htmlbanner", Request::getInt('htmlbanner', 0));
+        $obj->setVar("banner_htmlcode", Request::getString('htmlcode', ''));
 
         $uploader_banners_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/banners', $mimetypes, $upload_size, null, null);
 
@@ -253,13 +253,13 @@ switch ($op) {
             }
         } else {
             if ($_POST["banners_imageurl"] == 'blank.gif') {
-                $obj->setVar("banner_imageurl", $request->asStr('imageurl', ''));
+                $obj->setVar("banner_imageurl", Request::getString('imageurl', ''));
             } else {
-                $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $request->asStr('banners_imageurl', ''));
+                $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . Request::getString('banners_imageurl', ''));
             }
         }
 
-        if ($error_msg == ''){
+        if ($error_msg == '') {
             if ($banner_Handler->insert($obj)) {
                 $xoops->redirect("banners.php", 2, XoopsLocale::S_ITEM_SAVED);
             }
@@ -274,18 +274,18 @@ switch ($op) {
         break;
 
     case 'delete':
-        $bid = $request->asInt('bid', 0);
+        $bid = Request::getInt('bid', 0);
         if ($bid > 0) {
             $obj = $banner_Handler->get($bid);
             if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
                 if (!$xoops->security()->check()) {
                     $xoops->redirect("banners.php", 3, implode(",", $xoops->security()->getErrors()));
                 }
-                $namefile = substr_replace($obj->getVar('imageurl'),'',0,strlen(XOOPS_URL . '/uploads/banners/'));
+                $namefile = substr_replace($obj->getVar('imageurl'), '', 0, strlen(XOOPS_URL . '/uploads/banners/'));
                 $urlfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
                 if ($banner_Handler->delete($obj)) {
                     // delete banner
-                    if (is_file($urlfile)){
+                    if (is_file($urlfile)) {
                         chmod($urlfile, 0777);
                         unlink($urlfile);
                     }
@@ -317,7 +317,7 @@ switch ($op) {
         break;
 
     case 'reload':
-        $bid = $request->asInt('bid', 0);
+        $bid = Request::getInt('bid', 0);
         $obj = $banner_Handler->get($bid);
         $obj->setVar("banner_datestart", time());
         $obj->setVar("banner_dateend", 0);

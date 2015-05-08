@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
@@ -20,32 +20,11 @@ defined("XOOPS_ROOT_PATH") or die("Restricted access");
 
 class SystemLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
-    const CONF_DISCLAIMER_DEFAULT = "While the administrators and moderators of this site will attempt to remove
-or edit any generally objectionable material as quickly as possible, it is
-impossible to review every message. Therefore you acknowledge that all posts
-made to this site express the views and opinions of the author and not the
-administrators, moderators or webmaster (except for posts by these people)
-and hence will not be held liable.
+    const CONF_DISCLAIMER_DEFAULT = "While the administrators and moderators of this site will attempt to remove or edit any generally objectionable material as quickly as possible, it is impossible to review every message. Therefore you acknowledge that all posts made to this site express the views and opinions of the author and not the administrators, moderators or webmaster (except for posts by these people) and hence will not be held liable.
 
-You agree not to post any abusive, obscene, vulgar, slanderous, hateful,
-threatening, sexually-orientated or any other material that may violate any
-applicable laws. Doing so may lead to you being immediately and permanently
-banned (and your service provider being informed). The IP address of all
-posts is recorded to aid in enforcing these conditions. Creating multiple
-accounts for a single user is not allowed. You agree that the webmaster,
-administrator and moderators of this site have the right to remove, edit,
-move or close any topic at any time should they see fit. As a user you agree
-to any information you have entered above being stored in a database. While
-this information will not be disclosed to any third party without your
-consent the webmaster, administrator and moderators cannot be held
-responsible for any hacking attempt that may lead to the data being
-compromised.
+You agree not to post any abusive, obscene, vulgar, slanderous, hateful, threatening, sexually-orientated or any other material that may violate any applicable laws. Doing so may lead to you being immediately and permanently banned (and your service provider being informed). The IP address of all posts is recorded to aid in enforcing these conditions. Creating multiple accounts for a single user is not allowed. You agree that the webmaster, administrator and moderators of this site have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the webmaster, administrator and moderators cannot be held responsible for any hacking attempt that may lead to the data being compromised.
 
-This site system uses cookies to store information on your local computer.
-These cookies do not contain any of the information you have entered above,
-they serve only to improve your viewing pleasure. The email address is used
-only for confirming your registration details and password (and for sending
-new passwords should you forget your current one).
+This site system uses cookies to store information on your local computer. These cookies do not contain any of the information you have entered above, they serve only to improve your viewing pleasure. The email address is used only for confirming your registration details and password (and for sending new passwords should you forget your current one).
 
 By clicking Register below you agree to be bound by these conditions.";
 
@@ -134,7 +113,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const CONF_ENABLE_BAD_IPS = "Enable IP bans?";
     const CONF_ENABLE_BAD_IPS_DESC = "Users from specified IP addresses will not be able to view your site";
     const CONF_FOOTER = "Footer";
-    const CONF_FOOTER_DEFAULT = "Powered by XOOPS @ 2001-%s <a href='http://xoops.sourceforge.net' rel='external' title='The XOOPS Project'>The XOOPS Project</a>";
+    const CONF_FOOTER_DEFAULT = "Powered by XOOPS @ 2001-%s <a href='https://github.com/XOOPS' rel='external' title='The XOOPS Project'>The XOOPS Project</a>";
     const CONF_FOOTER_DESC = "Be sure to type links in full path starting from http://, otherwise the links will not work correctly in modules pages.";
     const CONF_GENERAL_EDITOR = "Editor for modules:";
     const CONF_GROUPS_PER_PAGE = "Number of groups to display per page";
@@ -322,8 +301,11 @@ By clicking Register below you agree to be bound by these conditions.";
     const E_THIS_BLOCK_CANNOT_BE_DELETED = "This block cannot be deleted directly! If you wish to disable this block, deactivate the module.";
     const E_THIS_MODULE_IS_SET_AS_DEFAULT_START_PAGE = "This module is set as your default start page. Please change the start module to whatever suits your preferences.";
     const E_YOU_CANNOT_REMOVE_THIS_GROUP = "You can not remove this group!";
-    const FILES_GENERATED = "Files generated";
-    const FORCED_FILE_GENERATION = "Forced file generation";
+    const FILES_GENERATED = "Files generated";    
+	const FOOTER_CENTER = "Footer Center";
+	const FOOTER_LEFT = "Footer Left";
+    const FOOTER_RIGHT = "Footer Right"; 
+	const FORCED_FILE_GENERATION = "Forced file generation";  
     const F_BLOCK_ID = " Block ID: %s";
     const F_CONFIG_ID = "Config ID: %s";
     const F_DELETE_USER = "Delete user: %s";
@@ -337,7 +319,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const F_USERS = "%s user(s)";
     const F_USERS_SPAN = "<ul><li><span class='bold red'>%s</span> users.</li></ul>";
     const GENERAL_SETTINGS = "General settings";
-    const GENERATED_SURCHARGE = "Generated surcharge";
+    const TEMPLATE_OVERLOADED = "Template overloaded";
     const GO_TO_MODULE = "Go to module";
     const GROUPS_DESC = "You can add some groups <br /> and manage permission for <br /> each group";
     const GROUPS_MANAGER = "Groups manager";
@@ -395,6 +377,9 @@ By clicking Register below you agree to be bound by these conditions.";
     const REGISTRATION_DATE_LESS_THAN_X = "Joined date is less than <span style='color:#ff0000;'>X</span> days ago";
     const SCREENSHOT_IMAGE_WIDTH = "Screenshot image width";
     const SECURE_LOGIN = "Secure login";
+    const SERVICES_DESC = "From here you can manage service<br />providers and priorities.";
+    const SERVICES_MANAGER = "Service Management";
+    const SERVICES_TIPS = "<ul><li>Services allow you to customize your system</li><li>Set service provider preferences by selecting the service, and then putting the providers in the desired order.</li></ul>";
     const SF_ADDED_PERMISSION_FOR_GROUP = "Added %s permission to %s for group %s!";
     const SF_BLOCK_DELETED = "Block %s deleted!";
     const SF_BLOCK_TEMPLATE_DELETED = "Block template %s deleted!";
@@ -428,6 +413,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const USERS_MANAGEMENT = "Users management";
     const USERS_TIPS = "<ul><li>Manage Xoops users</li></ul>";
     const VIEW_USER_INFO = "View user info";
+	const WEBMASTERS = "Webmasters";
     const WEBMASTERS_OF_THIS_SITE = "Webmasters of this site";
     const WELCOME_TO_XOOPS_HELP_CENTER = "Welcome to XOOPS Help Center";
     const WORD_CENSORING = "Word censoring";

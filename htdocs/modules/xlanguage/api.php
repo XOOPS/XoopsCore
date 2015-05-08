@@ -8,16 +8,16 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
 
-$xoops = Xoops::getInstance();
-$helper = Xoops_Module_Helper::getHelper('xlanguage');
+$xoops = \Xoops::getInstance();
+$helper = \Xoops\Module\Helper::getHelper('xlanguage');
 
 $xlanguage = array();
 

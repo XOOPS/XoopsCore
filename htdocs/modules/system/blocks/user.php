@@ -9,11 +9,14 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -29,7 +32,7 @@ function b_system_user_show()
     $block = array();
     $block['modules'] = array();
 
-    $plugins = Xoops_Module_Plugin::getPlugins('system');
+    $plugins = \Xoops\Module\Plugin::getPlugins('system');
     $i = 0;
     /* @var $plugin SystemPluginInterface */
     foreach ($plugins as $dirname => $plugin) {
@@ -43,7 +46,7 @@ function b_system_user_show()
             $block['modules'][$i]['dirname'] = $dirname;
 
             //todo, remove this hardcoded call
-            if ($xoops->isModule() && $xoops->module->getVar('dirname') == $dirname && $plugin = Xoops_Module_Plugin::getPlugin($dirname, 'menus')) {
+            if ($xoops->isModule() && $xoops->module->getVar('dirname') == $dirname && $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'menus')) {
                 if (method_exists($plugin, 'subMenus')) {
                     $sublinks = $plugin->subMenus();
                     foreach ($sublinks as $sublink) {
@@ -54,7 +57,7 @@ function b_system_user_show()
                     }
                 }
             }
-            $i++;
+            ++$i;
         }
 
     }
@@ -99,7 +102,7 @@ function b_system_user_show()
     array_push($block['modules'], array(
         'name'  => $name,
         'link'  => $xoops->url('viewpmsg.php'),
-        'icon'  => 'icon-wrench',
+        'icon'  => 'icon-envelope',
         'class' => $class,
     ));
 
@@ -110,6 +113,6 @@ function b_system_user_show()
         'icon' => 'icon-off',
     ));
 
-    $block['active_url'] = Xoops_Request::getInstance()->getUrl();
+    $block['active_url'] = \Xoops\Core\HttpRequest::getInstance()->getUrl();
     return $block;
 }

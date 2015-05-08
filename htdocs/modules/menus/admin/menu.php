@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -22,20 +22,19 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 
 $i = -1;
-$i++;
+++$i;
 $adminmenu[$i]["title"] = _MI_MENUS_ADMMENU0;
 $adminmenu[$i]["link"] = 'admin/index.php';
 $adminmenu[$i]["icon"] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_MENUSMANAGER;
 $adminmenu[$i]['link'] = "admin/admin_menus.php";
 $adminmenu[$i]["icon"] = 'manage.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_MENUMANAGER;
 $adminmenu[$i]['link'] = "admin/admin_menu.php";
 $adminmenu[$i]["icon"] = 'insert_table_row.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_MENUS_ABOUT;
 $adminmenu[$i]['link'] = "admin/about.php";
 $adminmenu[$i]["icon"] = 'about.png';
-

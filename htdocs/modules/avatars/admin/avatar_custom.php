@@ -9,17 +9,19 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * avatars module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         avatar
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -35,20 +37,22 @@ $upload_size = $helper->getConfig('avatars_imagefilesize');
 $width = $helper->getConfig('avatars_imagewidth');
 $height = $helper->getConfig('avatars_imageheight');
 
-$request = $xoops->request();
 // Get Action type
-$op = $request->asStr('op', 'list');
+$op = Request::getCmd('op', 'list');
 
 // Call Header
-$xoops->header('avatars_admin_custom.html');
+$xoops->header('admin:avatars/avatars_admin_custom.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('avatar_custom.php');
 
-$info_msg = array(sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(AvatarsLocale::ALERT_INFO_MAXFILE , $upload_size / 1000), sprintf(AvatarsLocale::ALERT_INFO_PIXELS , $width, $height));
+$info_msg = array(
+    sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)),
+    sprintf(AvatarsLocale::ALERT_INFO_MAXFILE, $upload_size / 1000),
+    sprintf(AvatarsLocale::ALERT_INFO_PIXELS, $width, $height)
+);
 
 switch ($op) {
-
     case 'list':
     default:
         // Add Scripts
@@ -60,7 +64,7 @@ switch ($op) {
         $admin_page->renderTips();
 
         // Get start pager
-        $start = $request->asInt('start', 0);
+        $start = Request::getInt('start', 0);
         // Filter avatars
         $criteria = new Criteria('avatar_type', 'C');
         $avatar_count = $avatar_Handler->getCount($criteria);
@@ -95,7 +99,7 @@ switch ($op) {
         $admin_page->renderButton();
         $xoops->tpl()->assign('info_msg', $xoops->alert('info', $info_msg, XoopsLocale::INFORMATION_FOR_UPLOADS));
         // Create form
-        $obj = $avatar_Handler->get($request->asInt('avatar_id', 0));
+        $obj = $avatar_Handler->get(Request::getInt('avatar_id', 0));
         $form = $xoops->getModuleForm($obj, 'avatar');
         // Assign form
         $xoops->tpl()->assign('form', $form->render());
@@ -107,9 +111,10 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('avatar_custom.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $uploader_avatars_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
+        $uploader_avatars_img =
+            new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
         // Get avatar id
-        $avatar_id = $request->asInt('avatar_id', 0);
+        $avatar_id = Request::getInt('avatar_id', 0);
         if ($avatar_id > 0) {
             $obj = $avatar_Handler->get($avatar_id);
         } else {
@@ -117,11 +122,11 @@ switch ($op) {
         }
         $error_msg = '';
         $obj->setVars($_POST);
-        if (preg_match('/^\d+$/', $_POST["avatar_weight"]) == false){
+        if (preg_match('/^\d+$/', $_POST["avatar_weight"]) == false) {
             $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br />';
             $obj->setVar("avatar_weight", 0);
         } else {
-            $obj->setVar("avatar_weight", $request->asInt('avatar_weight', 0));
+            $obj->setVar("avatar_weight", Request::getInt('avatar_weight', 0));
         }
         $obj->setVar('avatar_type', 'C');
         if ($uploader_avatars_img->fetchMedia('avatar_file')) {
@@ -135,10 +140,10 @@ switch ($op) {
                 $obj->setVar('avatar_file', 'avatars/' . $uploader_avatars_img->getSavedFileName());
             }
         } else {
-            $file = $request->asStr('avatar_file', 'blank.gif');
+            $file = Request::getString('avatar_file', 'blank.gif');
             $obj->setVar('avatar_file', 'avatars/' . $file);
         }
-        if ($error_msg == ''){
+        if ($error_msg == '') {
             if ($avatar_Handler->insert($obj)) {
                 $xoops->redirect('avatar_custom.php', 2, XoopsLocale::S_ITEM_SAVED);
             }
@@ -154,9 +159,9 @@ switch ($op) {
 
     //Delete
     case "delete":
-        $avatar_id = $request->asInt('avatar_id', 0);
+        $avatar_id = Request::getInt('avatar_id', 0);
         $obj = $avatar_Handler->get($avatar_id);
-        if (isset($_POST["ok"]) && $_POST["ok"] == 1) {
+        if (Request::getBool('ok', false, 'POST')) {
             if (!$xoops->security()->check()) {
                 $xoops->redirect("avatar_custom.php", 3, implode(",", $xoops->security()->getErrors()));
             }
@@ -169,8 +174,14 @@ switch ($op) {
                         unlink(XOOPS_UPLOAD_PATH . '/' . $file);
                     }
                 }
-                // Update member profil
-                $xoopsDB->query("UPDATE " . $xoopsDB->prefix('users') . " SET user_avatar='blank.gif' WHERE user_avatar='" . $file . "'");
+                // Update member profiles
+                $qb = $xoops->db()->createXoopsQueryBuilder();
+                $eb = $qb->expr();
+                $query = $qb->updatePrefix('users')
+                    ->set('user_avatar', 'blank.gif')
+                    ->where($eb->eq('user_avatar', ':file '))
+                    ->setParameter(':file', $file);
+                $result = $query->execute();
                 $xoops->redirect("avatar_custom.php", 2, XoopsLocale::S_ITEM_SAVED);
             } else {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
@@ -179,9 +190,17 @@ switch ($op) {
             if ($avatar_id > 0) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-                $msg = '<div class="spacer"><img src="' . XOOPS_UPLOAD_URL . '/' . $obj->getVar('avatar_file', 's') . '" alt="" /></div><div class="txtcenter bold">' . $obj->getVar('avatar_name', 's') . '</div>' . XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM;
+                $msg = '<div class="spacer"><img src="' . XOOPS_UPLOAD_URL . '/'
+                    . $obj->getVar('avatar_file', 's')
+                    . '" alt="" /></div><div class="txtcenter bold">'
+                    . $obj->getVar('avatar_name', 's') . '</div>'
+                    . XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM;
                 // Display message
-                $xoops->confirm(array('ok' => 1, 'op' => 'delete', 'avatar_id' => $avatar_id), 'avatar_custom.php', $msg);
+                $xoops->confirm(
+                    array('ok' => 1, 'op' => 'delete', 'avatar_id' => $avatar_id),
+                    'avatar_custom.php',
+                    $msg
+                );
             } else {
                 $xoops->redirect('avatar_custom.php', 1, XoopsLocale::E_DATABASE_NOT_UPDATED);
             }
@@ -189,7 +208,7 @@ switch ($op) {
         break;
 
     case "update_display":
-        $avatar_id = $request->asInt('avatar_id', 0);
+        $avatar_id = Request::getInt('avatar_id', 0);
         if ($avatar_id > 0) {
             $obj = $avatar_Handler->get($avatar_id);
             $old = $obj->getVar('avatar_display');

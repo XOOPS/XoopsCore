@@ -9,19 +9,21 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
-$uid = PublisherRequest::getInt('uid');
+$uid = Request::getInt('uid');
 if (!$uid) {
     $xoops->redirect('index.php', 2, _CO_PUBLISHER_ERROR);
 }
@@ -38,7 +40,7 @@ if (!$publisher->getConfig('perm_author_items')) {
 
 $myts = MyTextSanitizer::getInstance();
 
-$xoops->header('publisher_author_items.html');
+$xoops->header('publisher_author_items.tpl');
 $xoopsTpl = $xoops->tpl();
 
 XoopsLoad::loadFile($publisher->path('footer.php'));
@@ -56,8 +58,7 @@ $xoopsTpl->assign('rating', $publisher->getConfig('perm_rating'));
 $author_name = XoopsUserUtility::getUnameFromId($uid, $publisher->getConfig('format_realname'), true);
 $xoopsTpl->assign('author_name_with_link', $author_name);
 
-$xoopsTpl->assign('user_avatarurl', $xoops->url('uploads/' . $thisuser->getVar('user_avatar')));
-
+$xoopsTpl->assign('user_avatarurl', $xoops->service('avatar')->getAvatarUrl($uid)->getValue());
 $categories = array();
 if ($count > 0) {
     /* @var $item PublisherItem */

@@ -11,14 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Menus extends Xoops_Module_Helper_Abstract
+class Menus extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -33,7 +31,7 @@ class Menus extends Xoops_Module_Helper_Abstract
     /**
      * @return Menus
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }
@@ -87,7 +85,7 @@ class Menus extends Xoops_Module_Helper_Abstract
         $info['url'] = $this->xoops()->url($path);
 
         if (!isset($info['template'])) {
-            $info['template'] = $this->xoops()->path("modules/menus/templates/block.html");
+            $info['template'] = $this->xoops()->path("modules/menus/templates/block.tpl");
         } else {
             $info['template'] = $this->xoops()->path("{$path}/" . $info['template']);
         }

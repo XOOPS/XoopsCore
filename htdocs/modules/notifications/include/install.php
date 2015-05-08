@@ -10,20 +10,18 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 function xoops_module_install_notifications(&$module)
 {
     $xoops = Xoops::getInstance();
+    global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopsnotifications");
     $result = $xoopsDB->queryF($sql);
-    if (($rows = $xoopsDB->getRowsNum($result)) == 7) {
+    if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 7) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopsnotifications");
         $result = $xoopsDB->query($sql);
         while ($myrow = $xoopsDB->fetchArray($result)) {
@@ -37,21 +35,24 @@ function xoops_module_install_notifications(&$module)
 
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('notifications');
+    $plugins = \Xoops\Module\Plugin::getPlugins('notifications');
 
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }
 
-function xoops_module_uninstall_notifications(&$module)
+function xoops_module_pre_uninstall_notifications(&$module)
 {
     $xoops = Xoops::getInstance();
+    XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('notifications');
+    $plugins = \Xoops\Module\Plugin::getPlugins('notifications');
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }

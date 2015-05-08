@@ -1,5 +1,5 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
+<{include file="admin:system/admin_navigation.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
 <table id="xo-advisorylist-sorter" class="outer tablesorter">
     <thead>
     <tr>
@@ -10,24 +10,24 @@
     </tr>
     </thead>
     <tbody>
-    <{foreach item=security from=$security}>
+    <{foreach item=issue from=$security}>
     <tr class="<{cycle values='even,odd'}>">
-        <td class="txtcenter"><{$security.type}></td>
+        <td class="txtcenter"><{$issue.type}></td>
         <td class="xo-actions txtcenter">
-            <{if $security.status == '1'}>
-            <img src="<{xoModuleIcons16 1.png}>" alt="OK" />
+            <{if $issue.status == '1'}>
+            <img src="<{xoModuleIcons16 '1.png'}>" alt="OK" />
             <{/if}>
-            <{if $security.status == '0'}>
-            <img src="<{xoModuleIcons16 0.png}>" alt="<{$smarty.const._AM_ADV_NOTSECURE}>"/>
+            <{if $issue.status == '0'}>
+            <img src="<{xoModuleIcons16 '0.png'}>" alt="<{$smarty.const._AM_ADV_NOTSECURE}>"/>
             <{/if}>
-            <{if $security.status == '-'}>
-                <{$security.status}>
+            <{if $issue.status == '-'}>
+                <{$issue.status}>
             <{/if}>
         </td>
-        <td class="txtleft"><{$security.info}></td>
+        <td class="txtleft"><{$issue.info}></td>
         <td class="xo-actions txtcenter">
-            <{if $security.text != ''}>
-            <img class="xo-tooltip" onclick="display_dialog(<{$security.id}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoModuleIcons16 info.png}>" title="<{$smarty.const._AM_ADV_VIEW}>" alt="<{$smarty.const._AM_ADV_VIEW}>" />
+            <{if $issue.text != ''}>
+            <img class="xo-tooltip" onclick="display_dialog(<{$issue.id}>, true, true, 'slide', 'slide', 200, 520);" src="<{xoModuleIcons16 'info.png'}>" title="<{$smarty.const._AM_ADV_VIEW}>" alt="<{$smarty.const._AM_ADV_VIEW}>" />
             <{/if}>
         </td>
     </tr>
@@ -45,7 +45,7 @@
 <div class="xo-moduleadmin-infobox outer">
     <div class="xo-window">
         <div class="xo-window-title">
-            <img src="<{xoModuleIcons16 info.png}>" alt="" />&nbsp;<{$smarty.const._AM_ADV_SUBTITLECHECK}>
+            <img src="<{xoModuleIcons16 'info.png'}>" alt="" />&nbsp;<{$smarty.const._AM_ADV_SUBTITLECHECK}>
             <a class="down" href="javascript:;">&nbsp;</a>
         </div>
         <div class="xo-window-data">

@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Blocks
  * @since           1.0
@@ -23,7 +23,7 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_latest_news_show($options)
 {
@@ -79,6 +79,8 @@ function publisher_latest_news_show($options)
     $k = 0;
     $columns = array();
 
+    $thumbService = \Xoops::getInstance()->service('thumbnail');
+
     /* @var $itemObj PublisherItem */
     foreach ($itemsObj as $itemObj) {
         $item = array();
@@ -86,12 +88,10 @@ function publisher_latest_news_show($options)
         $item['title'] = $itemObj->getItemLink();
         $item['alt'] = strip_tags($itemObj->getItemLink());
         $mainImage = $itemObj->getMainImage();
-        // check to see if GD function exist
-        if (!function_exists('imagecreatetruecolor')) {
-            $item['item_image'] = $mainImage['image_path'];
-        } else {
-            $item['item_image'] = PUBLISHER_URL . '/thumb.php?src=' . $mainImage['image_path'] . '&amp;w=' . $imgwidth; // No $imgheight for autoheight option
-        }
+        $item['item_image'] = $thumbService
+            ->getImgUrl($mainImage['image_vpath'], $imgwidth, 0)
+            ->getValue();
+
         $item['text'] = $itemObj->getBlockSummary($letters);
 
         $item = $itemObj->getMainImage($item); //returns an array
@@ -104,7 +104,7 @@ function publisher_latest_news_show($options)
         if ($options[15] == 'LEFT') {
             $imgposition = "float: left";
             $ls_margin = '-right';
-        } else if ($options[15] == 'CENTER') {
+        } elseif ($options[15] == 'CENTER') {
             $imgposition = "text-align:center";
             $ls_margin = '';
         } else {
@@ -230,7 +230,7 @@ function publisher_latest_news_show($options)
         $block['letters'] = $letters;
 
         $columns[$k][] = $item;
-        $k++;
+        ++$k;
 
         if ($k == $column_count) {
             $k = 0;

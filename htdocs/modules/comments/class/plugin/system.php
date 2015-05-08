@@ -10,14 +10,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
 
-class CommentsSystemPlugin extends Xoops_Module_Plugin_Abstract implements SystemPluginInterface
+class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
 {
     /**
      * @param int $uid

@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -19,8 +19,8 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
-include_once dirname(__FILE__) . '/include/common.php';
+include_once dirname(dirname(__DIR__)) . '/mainfile.php';
+include_once __DIR__ . '/include/common.php';
 $publisher = Publisher::getInstance();
 if ($publisher->getConfig('seo_url_rewrite') != 'none') {
     XoopsLoad::loadFile($publisher->path('include/seo.inc.php'));

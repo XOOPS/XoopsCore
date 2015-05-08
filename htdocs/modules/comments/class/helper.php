@@ -9,16 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Comments extends Xoops_Module_Helper_Abstract
+class Comments extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -41,9 +41,9 @@ class Comments extends Xoops_Module_Helper_Abstract
     }
 
     /**
-     * @return Comments
+     * @return string
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }
@@ -85,12 +85,11 @@ class Comments extends Xoops_Module_Helper_Abstract
     public function displayNew()
     {
         $xoops = Xoops::getInstance();
-        $request = Xoops_Request::getInstance();
         /* @var $obj CommentsComment */
         $obj = $this->getHandlerComment()->create();
 
-        $itemid = $request->asInt('com_itemid');
-        $modid = $request->asInt('com_modid');
+        $itemid = Request::getInt('com_itemid');
+        $modid = Request::getInt('com_modid');
 
         if (empty($modid)) {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -105,7 +104,7 @@ class Comments extends Xoops_Module_Helper_Abstract
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         /* @var $plugin CommentsPluginInterface */
-        if (($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) && $itemid > 0 && $modid > 0) {
+        if (($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) && $itemid > 0 && $modid > 0) {
             $xoops->header();
             $title = '';
             $text = '';
@@ -137,12 +136,11 @@ class Comments extends Xoops_Module_Helper_Abstract
     public function displayPost()
     {
         $xoops = Xoops::getInstance();
-        $request = Xoops_Request::getInstance();
-        if (!$request->is('post')) {
+        if (Request::getMethod()!=='POST') {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
-        $id = $request->asInt('com_id');
-        $modid = $request->asInt('com_modid');
+        $id = Request::getInt('com_id');
+        $modid = Request::getInt('com_modid');
         if (empty($modid)) {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
@@ -179,8 +177,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($moddir, 'comments')) {
-
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($moddir, 'comments')) {
             if (!$xoops->isAdminSide) {
                 $redirect_page = $xoops->url('modules/' . $moddir . '/' . $plugin->pageName() . '?');
                 if (is_array($extraParams = $plugin->extraParams())) {
@@ -194,9 +191,9 @@ class Comments extends Xoops_Module_Helper_Abstract
             }
             $comment_url = $redirect_page;
 
-            $op = $request->asBool('com_dopost') ? 'post' : '';
-            $op = $request->asBool('com_dopreview') ? 'preview' : $op;
-            $op = $request->asBool('com_dodelete') ? 'delete' : $op;
+            $op = Request::getBool('com_dopost') ? 'post' : '';
+            $op = Request::getBool('com_dopreview') ? 'preview' : $op;
+            $op = Request::getBool('com_dodelete') ? 'delete' : $op;
 
             if ($op == 'preview' || $op == 'post') {
                 if (!$xoops->security()->check()) {
@@ -211,20 +208,20 @@ class Comments extends Xoops_Module_Helper_Abstract
                 }
             }
 
-            $title = XoopsLocale::trim($request->asStr('com_title'));
-            $text = XoopsLocale::trim($request->asStr('com_text'));
-            $mode = XoopsLocale::trim($request->asStr('com_mode', 'flat'));
-            $order = XoopsLocale::trim($request->asInt('com_order', COMMENTS_OLD1ST));
-            $itemid = $request->asInt('com_itemid');
-            $pid = $request->asInt('com_pid');
-            $rootid = $request->asInt('com_rootid');
-            $status = $request->asInt('com_status');
-            $dosmiley = $request->asBool('com_dosmiley') ? 1 : 0;
-            $doxcode = $request->asBool('com_doxcode') ? 1 : 0;
-            $dobr = $request->asBool('com_dobr') ? 1 : 0;
-            $dohtml = $request->asBool('com_html') ? 1 : 0;
-            $doimage = $request->asBool('com_doimage') ? 1 : 0;
-            $icon = XoopsLocale::trim($request->asStr('com_icon'));
+            $title = XoopsLocale::trim(Request::getString('com_title'));
+            $text = XoopsLocale::trim(Request::getString('com_text'));
+            $mode = XoopsLocale::trim(Request::getString('com_mode', 'flat'));
+            $order = XoopsLocale::trim(Request::getString('com_order', COMMENTS_OLD1ST));
+            $itemid = Request::getInt('com_itemid');
+            $pid = Request::getInt('com_pid');
+            $rootid = Request::getInt('com_rootid');
+            $status = Request::getInt('com_status');
+            $dosmiley = Request::getBool('com_dosmiley');
+            $doxcode = Request::getBool('com_doxcode');
+            $dobr = Request::getBool('com_dobr');
+            $dohtml = Request::getBool('com_html');
+            $doimage = Request::getBool('com_doimage');
+            $icon = XoopsLocale::trim(Request::getString('com_icon'));
 
             $comment->setVar('title', $title);
             $comment->setVar('text', $text);
@@ -468,9 +465,8 @@ class Comments extends Xoops_Module_Helper_Abstract
     public function displayReply()
     {
         $xoops = Xoops::getInstance();
-        $request = Xoops_Request::getInstance();
 
-        $modid = $request->asInt('com_modid', 0);
+        $modid = Request::getInt('com_modid', 0);
 
         if (empty($modid)) {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -486,7 +482,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         }
 
         //Original comment
-        $comment = $this->getHandlerComment()->get($request->asInt('com_id', 0));
+        $comment = $this->getHandlerComment()->get(Request::getInt('com_id', 0));
 
         /* @var $reply CommentsComment */
         $reply = $this->getHandlerComment()->create();
@@ -522,20 +518,18 @@ class Comments extends Xoops_Module_Helper_Abstract
     public function renderView()
     {
         $xoops = Xoops::getInstance();
-        $request = Xoops_Request::getInstance();
         /* @var $plugin CommentsPluginInterface */
-        if ($xoops->isModule() && $plugin = Xoops_Module_Plugin::getPlugin($xoops->module->getVar('dirname'), 'comments')) {
-
+        if ($xoops->isModule() && $plugin = \Xoops\Module\Plugin::getPlugin($xoops->module->getVar('dirname'), 'comments')) {
             if (COMMENTS_APPROVENONE != $xoops->getModuleConfig('com_rule')) {
                 $xoops->tpl()->assign('xoops_iscommentadmin', $this->isUserAdmin());
 
                 $itemid = (trim($plugin->itemName()) != '' && isset($_GET[$plugin->itemName()])) ? intval($_GET[$plugin->itemName()]) : 0;
                 if ($itemid > 0) {
                     $modid = $xoops->module->getVar('mid');
-                    $mode = $request->asStr('com_mode', $this->getUserConfig('com_mode'));
+                    $mode = Request::getString('com_mode', $this->getUserConfig('com_mode'));
                     $xoops->tpl()->assign('comment_mode', $mode);
 
-                    $order = $request->asInt('com_order', $this->getUserConfig('com_order'));
+                    $order = Request::getInt('com_order', $this->getUserConfig('com_order'));
                     if ($order != COMMENTS_OLD1ST) {
                         $xoops->tpl()->assign(array(
                             'comment_order' => COMMENTS_NEW1ST,
@@ -556,8 +550,8 @@ class Comments extends Xoops_Module_Helper_Abstract
                         $admin_view = false;
                     }
 
-                    $id = $request->asInt('com_id', 0);
-                    $rootid = $request->asInt('com_rootid', 0);
+                    $id = Request::getInt('com_id', 0);
+                    $rootid = Request::getInt('com_rootid', 0);
 
                     $comment_handler = $this->getHandlerComment();
                     if ($mode == 'flat') {
@@ -599,7 +593,7 @@ class Comments extends Xoops_Module_Helper_Abstract
                             $top_comments = $comment_handler->getTopComments($xoops->module->getVar('mid'), $itemid, $dborder);
                             $c_count = count($top_comments);
                             if ($c_count > 0) {
-                                for ($i = 0; $i < $c_count; $i++) {
+                                for ($i = 0; $i < $c_count; ++$i) {
                                     $comments = $comment_handler->getThread($top_comments[$i]->getVar('rootid'), $top_comments[$i]->getVar('id'));
                                     if (false != $comments) {
                                         $renderer = CommentsCommentRenderer::getInstance($xoops->tpl());
@@ -615,7 +609,7 @@ class Comments extends Xoops_Module_Helper_Abstract
                         $top_comments = $comment_handler->getTopComments($xoops->module->getVar('mid'), $itemid, $dborder);
                         $c_count = count($top_comments);
                         if ($c_count > 0) {
-                            for ($i = 0; $i < $c_count; $i++) {
+                            for ($i = 0; $i < $c_count; ++$i) {
                                 $comments = $comment_handler->getThread($top_comments[$i]->getVar('rootid'), $top_comments[$i]->getVar('id'));
                                 $renderer = CommentsCommentRenderer::getInstance($xoops->tpl());
                                 $renderer->setComments($comments);
@@ -686,10 +680,9 @@ class Comments extends Xoops_Module_Helper_Abstract
     public function displayEdit()
     {
         $xoops = Xoops::getInstance();
-        $request = Xoops_Request::getInstance();
 
         /* @var $comment CommentsComment */
-        $comment = $this->getHandlerComment()->get($request->asInt('com_id'));
+        $comment = $this->getHandlerComment()->get(Request::getInt('com_id'));
         if (!is_object($comment)) {
             $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
@@ -703,7 +696,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         }
 
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             $xoops->header();
             $this->displayCommentForm($comment);
             $xoops->footer();
@@ -714,14 +707,10 @@ class Comments extends Xoops_Module_Helper_Abstract
     public function displayDelete()
     {
         $xoops = Xoops::getInstance();
-        $request = Xoops_Request::getInstance();
-        $op = 'delete';
-        if ($request->is('post')) {
-            $op = $request->asStr('op', $op);
-        }
-        $mode = $request->asStr('com_mode', 'flat');
-        $order = $request->asInt('com_order', COMMENTS_OLD1ST);
-        $id = $request->asInt('com_id');
+        $op = Request::getCmd('op', 'delete', 'POST');
+        $mode = Request::getString('com_mode', 'flat');
+        $order = Request::getString('com_order', COMMENTS_OLD1ST);
+        $id = Request::getInt('com_id');
 
         /* @var $comment CommentsComment */
         /* @var $comment_handler CommentsCommentHandler */
@@ -741,8 +730,7 @@ class Comments extends Xoops_Module_Helper_Abstract
 
         $modid = $module->getVar('mid');
         /* @var $plugin CommentsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
-
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
             if ($xoops->isAdminSide) {
                 $redirect_page = $this->url('admin/main.php?com_modid=' . $modid . '&amp;com_itemid');
             } else {
@@ -945,7 +933,7 @@ class Comments extends Xoops_Module_Helper_Abstract
                     unset($confop);
                 }
             }
-            $order++;
+            ++$order;
             $config_handler->insertConfig($confobj);
         }
     }
@@ -965,7 +953,7 @@ class Comments extends Xoops_Module_Helper_Abstract
         //Delete all configs
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('conf_modid', $module->getVar('mid')));
-        $criteria->add(new Criteria('conf_name', "('" . implode("','", $configNames) . "')",  'IN'));
+        $criteria->add(new Criteria('conf_name', "('" . implode("','", $configNames) . "')", 'IN'));
         $configs = $config_handler->getConfigs($criteria);
         /* @var $config XoopsConfigItem */
         foreach ($configs as $config) {
@@ -976,7 +964,8 @@ class Comments extends Xoops_Module_Helper_Abstract
     /**
      * @return array
      */
-    public function getPluginableConfigs() {
+    public function getPluginableConfigs()
+    {
         $configs = array();
         array_push($configs, array(
             'name'        => 'com_rule',

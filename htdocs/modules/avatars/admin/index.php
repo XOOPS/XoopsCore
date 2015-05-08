@@ -13,13 +13,13 @@
  * avatars module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         avatar
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get avatars handler
 $xoops = Xoops::getInstance();
 $helper = Avatars::getInstance();
@@ -53,7 +53,7 @@ $avatars_total_c = $avatars_notdisplay_c + $avatars_display_c;
 // folder path
 $folder_path = XOOPS_ROOT_PATH . '/uploads/avatars';
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 $admin_page->addInfoBox(AvatarsLocale::SYSTEM, 'avatar_system');
@@ -68,6 +68,7 @@ $admin_page->addInfoBoxLine(sprintf(AvatarsLocale::NBNOTDISPLAY_C, '<span class=
 
 $admin_page->addConfigBoxLine($folder_path, 'folder');
 $admin_page->addConfigBoxLine(array($folder_path, '777'), 'chmod');
+$admin_page->addConfigBoxLine('thumbnail', 'service');
 
 $admin_page->displayIndex();
 

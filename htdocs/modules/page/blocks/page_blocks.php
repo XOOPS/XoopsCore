@@ -13,10 +13,10 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
@@ -61,32 +61,32 @@ function page_blocks_show($options)
 
 function page_blocks_edit($options)
 {
-    $block_form = new XoopsBlockForm();
+    $block_form = new Xoops\Form\BlockForm();
     if ($options[0] != 'id') {
-        $mode_form = new XoopsFormSelect(PageLocale::CONF_BLOCK_MODE, 'options[0]', $options[0], 1, false);
+        $mode_form = new Xoops\Form\Select(PageLocale::CONF_BLOCK_MODE, 'options[0]', $options[0], 1, false);
         $mode_form->addOption('content', PageLocale::CONF_BLOCK_L_CONTENT);
         $mode_form->addOption('list', PageLocale::CONF_BLOCK_L_LIST);
         $block_form->addElement($mode_form);
 
-        $order_form = new XoopsFormSelect(PageLocale::CONF_BLOCK_ORDER, 'options[1]', $options[1], 1, false);
+        $order_form = new Xoops\Form\Select(PageLocale::CONF_BLOCK_ORDER, 'options[1]', $options[1], 1, false);
         $order_form->addOption('create', PageLocale::CONF_BLOCK_L_RECENT);
         $order_form->addOption('hits', PageLocale::CONF_BLOCK_L_HITS);
         $order_form->addOption('rating', PageLocale::CONF_BLOCK_L_RATING);
         $order_form->addOption('random', PageLocale::CONF_BLOCK_L_RANDOM);
         $block_form->addElement($order_form);
 
-        $sort_form = new XoopsFormSelect(PageLocale::CONF_BLOCK_SORT, 'options[2]', $options[2], 1, false);
+        $sort_form = new Xoops\Form\Select(PageLocale::CONF_BLOCK_SORT, 'options[2]', $options[2], 1, false);
         $sort_form->addOption('ASC', PageLocale::CONF_BLOCK_L_ASC);
         $sort_form->addOption('DESC', PageLocale::CONF_BLOCK_L_DESC);
         $block_form->addElement($sort_form);
 
-        $block_form->addElement(new XoopsFormText(PageLocale::CONF_BLOCK_DISPLAY_NUMBER, 'options[3]', 1, 2, $options[3]), true);
-        $block_form->addElement(new XoopsFormRadioYN(PageLocale::CONF_BLOCK_ALL_CONTENT, 'options[4]',  $options[4]));
+        $block_form->addElement(new Xoops\Form\Text(PageLocale::CONF_BLOCK_DISPLAY_NUMBER, 'options[3]', 1, 2, $options[3]), true);
+        $block_form->addElement(new Xoops\Form\RadioYesNo(PageLocale::CONF_BLOCK_ALL_CONTENT, 'options[4]', $options[4]));
     } else {
-        $block_form->addElement(new XoopsFormHidden('options[0]', $options[0]));
+        $block_form->addElement(new Xoops\Form\Hidden('options[0]', $options[0]));
         $content = Page::getInstance()->getContentHandler()->getPageTitle(1);
 
-        $select_form = new XoopsFormSelect(PageLocale::CONF_BLOCK_CONTENTDISPLAY, 'options[1]', $options[1], 1, false);
+        $select_form = new Xoops\Form\Select(PageLocale::CONF_BLOCK_CONTENTDISPLAY, 'options[1]', $options[1], 1, false);
         foreach ($content as $value) {
             $select_form->addOption($value['content_id'], $value['content_title']);
         }

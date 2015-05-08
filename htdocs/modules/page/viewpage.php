@@ -9,24 +9,26 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          Mage GrÃ©gory (AKA Mage)
  * @version         $Id$
  */
 
 include_once 'header.php';
 
 // Call header
-$xoops->header('page_viewpage.html');
+$xoops->header('module:page/page_viewpage.tpl');
 
 // Get ID
-$content_id = $request->asInt('id', 0);
+$content_id = Request::getInt('id', 0);
 
 // Permission to view
 $perm_view = $gperm_Handler->checkRight('page_view_item', $content_id, $groups, $module_id, false);
@@ -39,14 +41,14 @@ if (!$perm_view) {
 $view_content = $content_Handler->get($content_id);
 
 // Test if the page exist
-if (count($view_content) == 0 || $view_content->getVar('content_status') == 0){
+if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
     $xoops->redirect('index.php', 3, PageLocale::E_NOT_EXIST);
     exit();
 }
 
 // hits
 if ($view_content->getVar('content_author') != $uid && $view_content->getVar('content_dohits') != false) {
-    if ( !isset( $_SESSION['page_hits' . $content_id] ) || isset( $_SESSION['page_hits' . $content_id] ) && ($_SESSION['page_hits' . $content_id]['content_time'] + $interval) <  time()) {
+    if (!isset( $_SESSION['page_hits' . $content_id] ) || isset( $_SESSION['page_hits' . $content_id] ) && ($_SESSION['page_hits' . $content_id]['content_time'] + $interval) <  time()) {
         $hits = $view_content->getVar('content_hits') + 1;
         $view_content->setVar('content_hits', $hits);
         $content_Handler->insert($view_content);
@@ -57,7 +59,7 @@ if ($view_content->getVar('content_author') != $uid && $view_content->getVar('co
 // content
 $content = $view_content->getValues();
 foreach ($content as $k => $v) {
-    $xoops->tpl()->assign($k , $v);
+    $xoops->tpl()->assign($k, $v);
 }
 // related
 $xoops->tpl()->assign('related', $link_Handler->menu_related($content_id));

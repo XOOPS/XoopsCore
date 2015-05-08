@@ -13,27 +13,24 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops->db();
 global $xoopsDB;
 $db = $xoopsDB;
 
 // Call header
-$xoops->header('protector_advisory.html');
+$xoops->header('admin:protector/protector_advisory.html');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('advisory.php');
 
-// Define Stylesheet
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
-$xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
 $xoops->theme()->addScript('modules/system/js/admin.js');
 
 $i = 0;
@@ -52,7 +49,7 @@ $security_arr[$i]['type'] = 'XOOPS_TRUST_PATH';
 $security_arr[$i]['status'] = '-';
 $security_arr[$i]['info'] = "<img src='" . XOOPS_URL . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.png' width='40' height='20' alt='' style='border:1px solid black;' /> <a href='" . XOOPS_URL . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.php'>" . _AM_ADV_TRUSTPATHPUBLICLINK . "</a>";
 $security_arr[$i]['text'] = _AM_ADV_TRUSTPATHPUBLIC;
-$i++;
+++$i;
 
 // register_globals
 $safe = !ini_get("register_globals");
@@ -66,7 +63,7 @@ if ($safe) {
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>register_globals: on</span>";
 }
 $security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br /><br />" . XOOPS_ROOT_PATH . "/.htaccess<br /><br />" . _AM_ADV_REGISTERGLOBALS2 . "<br /><br /><b>php_flag &nbsp; register_globals &nbsp; off</b>";
-$i++;
+++$i;
 
 // allow_url_fopen
 $safe = !ini_get("allow_url_fopen");
@@ -80,7 +77,7 @@ if ($safe) {
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>allow_url_fopen: on</span>";
 }
 $security_arr[$i]['text'] = _AM_ADV_ALLOWURLFOPEN;
-$i++;
+++$i;
 
 // session.use_trans_sid
 $safe = !ini_get("session.use_trans_sid");
@@ -94,7 +91,7 @@ if ($safe) {
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>session.use_trans_sid: on</span>";
 }
 $security_arr[$i]['text'] = _AM_ADV_USETRANSSID;
-$i++;
+++$i;
 
 // XOOPS_DB_PREFIX
 $safe = strtolower(XOOPS_DB_PREFIX) != 'xoops';
@@ -108,7 +105,7 @@ if ($safe) {
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>XOOPS_DB_PREFIX: " . XOOPS_DB_PREFIX . "</span>&nbsp;<a href='prefix_manager.php'>" . _AM_ADV_LINK_TO_PREFIXMAN . "</a>";
 }
 $security_arr[$i]['text'] = _AM_ADV_DBPREFIX;
-$i++;
+++$i;
 
 // patch to mainfile.php
 $security_arr[$i]['id'] = $i + 1;
@@ -127,7 +124,7 @@ if (!defined('PROTECTOR_PRECHECK_INCLUDED')) {
 
 }
 $security_arr[$i]['text'] = _AM_ADV_MAINUNPATCHED;
-$i++;
+++$i;
 
 // databasefactory.php
 $security_arr[$i]['id'] = $i + 1;
@@ -140,11 +137,11 @@ if (substr(@XOOPS_VERSION, 6, 3) < 2.4 && strtolower(get_class($db)) != 'protect
     $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>" . _AM_ADV_DBFACTORYPATCHED . "</span>";
 }
 $security_arr[$i]['text'] = '';
-$i++;
+++$i;
 
 foreach (array_keys($security_arr) as $i) {
-    $xoops->tpl()->append_by_ref('security', $security_arr[$i]);
-    $xoops->tpl()->append_by_ref('popup_security', $security_arr[$i]);
+    $xoops->tpl()->appendByRef('security', $security_arr[$i]);
+    $xoops->tpl()->appendByRef('popup_security', $security_arr[$i]);
 }
 
 // Check contaminations

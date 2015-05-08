@@ -1,0 +1,215 @@
+// New Object HtmlTable
+		/*$tableForm = new TDMCreate_HtmlTable(null, 'display outer');
+		// header row
+		$tableForm->addRow('center bgblue');
+		$cells = array(TDMCreateLocale::FIELD_NUMBER, TDMCreateLocale::FIELD_NAME, TDMCreateLocale::FIELD_TYPE, TDMCreateLocale::FIELD_VALUE, TDMCreateLocale::FIELD_ATTRIBUTE, TDMCreateLocale::FIELD_NULL, TDMCreateLocale::FIELD_DEFAULT, TDMCreateLocale::FIELD_KEY, TDMCreateLocale::FIELD_OTHERS);
+		$tableForm->addCells($cells, 'first', 'header');		
+        		
+		$tables_Handler = $xoops->getModuleHandler('tables');
+		$criteria = new CriteriaCompo(new Criteria('table_name', $obj->getVar('table_name'))); 
+		$criteria->add(new Criteria('table_nbfields', $obj->getVar('table_nbfields')));
+		$nb_fields = $tablesHandler->getAll($criteria);
+		unset($criteria);
+		for($i = 1; $i <= count($nb_fields); $i++)
+		{		
+            $field_name = $this->isNew() ? $obj->getVar('table_fieldname') : $obj->getVar('field_name');          			
+			$field_name = new XoopsFormText(TDMCreateLocale::FIELD_NAME, 'field_name', 15, 255, $field_name);
+			// fieldtype
+			$fieldtypeHandler=& xoops_getModuleHandler('tdmcreate_fieldtype');
+			$fieldtype_select = new XoopsFormSelect(TDMCreateLocale::FIELD_TYPE, 'field_type', $obj->getVar('field_type'));
+            $fieldtype_select->addOptionArray($fieldtypeHandler->getList());     
+            // fieldvalue			
+			$field_value = new XoopsFormText(TDMCreateLocale::FIELD_VALUE, 'field_value', 5, 20, $obj->getVar('field_value'));
+			// fieldattributes
+			$fieldattrsHandler=& xoops_getModuleHandler('tdmcreate_fieldattributes');			
+			$field_attributes_select = new XoopsFormSelect(TDMCreateLocale::FIELD_TYPE, 'field_attribute', $obj->getVar('field_attribute'));  
+				$field_attributes_select->addOptionArray($fieldattrsHandler->getList());
+			// fieldnull
+			$fieldnullHandler=& xoops_getModuleHandler('tdmcreate_fieldnull');
+			$field_null_select = new XoopsFormSelect(TDMCreateLocale::FIELD_NULL, 'field_null', $obj->getVar('field_null'));
+				$field_null_select->addOptionArray($fieldnullHandler->getList());
+			// fielddefault
+			$field_default = new XoopsFormText(TDMCreateLocale::FIELD_DEFAULT, 'field_default', 15, 25, $obj->getVar('field_default'));
+			// fieldkey
+			$fieldkeyHandler=& xoops_getModuleHandler('tdmcreate_fieldkey');
+			$field_key_select = new XoopsFormSelect(TDMCreateLocale::FIELD_KEY, 'field_key', $obj->getVar('field_key'));
+				$field_key_select->addOptionArray($fieldkeyHandler->getList());
+			// render fields
+			$tableFormDataArray = array($i, $field_name->render(), $fieldtype_select->render(), $field_value->render(), $field_attributes_select->render(), $field_null_select->render(), $field_default->render(), $field_key_select->render());
+			// data row
+			$tableForm->addRow('center bgyellow');
+			$tableForm->addCells($tableFormDataArray, 'first', 'data');
+			$tableOtherForm = new TDMCreate_HtmlTable(null, 'display');
+			if($i == 1)  {				
+				$field_autoincrement = $this->isNew() ? 0 : $obj->getVar('field_auto_increment');
+				$check_field_autoincrement = new XoopsFormCheckBox(' ', 'field_auto_increment', $field_autoincrement);
+				$check_field_autoincrement->addOption(1, TDMCreateLocale::FIELD_AUTO_INCREMENT);
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($check_field_autoincrement->render(), null, 'data');
+			} elseif($i > 1) {				
+				// Box header row
+				$tableOtherForm->addRow('center bgyellow');
+				$tableOtherForm->addCell(TDMCreateLocale::FIELD_ELEMENTS, 'first', 'header');
+				// fieldelements
+				$fieldelementsHandler=& xoops_getModuleHandler('tdmcreate_fieldelements');
+				$field_elements_select = new XoopsFormSelect(TDMCreateLocale::FIELD_ELEMENT_NAME, 'field_element_name', $obj->getVar('field_element_name'));				    
+				    $field_elements_select->addOptionArray($fieldelementsHandler->getList());										
+					$criteria = new CriteriaCompo(new Criteria('table_id', $obj->getVar('table_id')));
+					$criteria->add(new Criteria('table_module', $obj->getVar('table_module')));					
+					$criteria->setSort('table_name');
+					$criteria->setOrder('ASC');
+					$tbls_arr1 = $tablesHandler->getall($criteria);
+					unset($criteria);
+					foreach (array_keys($tbls_arr1) as $j) 
+					{                                  
+						$tbls_name1 = $tbls_arr1[$j]->getVar('table_name');
+						if ( $j[$i] == 'XoopsFormTables-'.$tbls_name1 ) {								
+							$field_elements_select->addOption('XoopsFormTables-'.$tbls_name1, 'Table : '.$tbls_name1);						
+						}													
+					}
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($field_elements_select->render(), null, 'data');		
+				$field_display_admin = $this->isNew() ? 0 : $obj->getVar('field_display_admin');
+					$check_field_display_admin = new XoopsFormCheckBox(' ', 'field_display_admin', $field_display_admin);
+					$check_field_display_admin->addOption(1, TDMCreateLocale::FIELD_DISPLAY_ADMIN);
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($check_field_display_admin->render(), null, 'data');
+				$field_display_user = $this->isNew() ? 0 : $obj->getVar('field_display_user');
+					$check_field_display_user = new XoopsFormCheckBox(' ', 'field_display_user', $field_display_user);
+					$check_field_display_user->addOption(1, TDMCreateLocale::FIELD_DISPLAY_USER);
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($check_field_display_user->render(), null, 'data');
+				$field_display_block = $this->isNew() ? 0 : $obj->getVar('field_display_block');
+					$check_field_display_block = new XoopsFormCheckBox(' ', 'field_display_block', $field_display_block);
+					$check_field_display_block->addOption(1, TDMCreateLocale::FIELD_DISPLAY_BLOCK);
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($check_field_display_block->render(), null, 'data');
+				$field_mnfield = $this->isNew() ? 0 : $obj->getVar('field_mainfield');
+				$field_mainfield = new XoopsFormRadio(' ', 'field_mainfield', $field_mnfield);
+				$field_mainfield->addOption( '&nbsp;', TDMCreateLocale::FIELD_MAINFIELD );
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($field_mainfield->render(), null, 'data');
+				$field_search = $this->isNew() ? 0 : $obj->getVar('field_search');
+					$check_field_search = new XoopsFormCheckBox(' ', 'field_search', $field_search);
+					$check_field_search->addOption(1, TDMCreateLocale::FIELD_SEARCH);		
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($check_field_search->render(), null, 'data');
+				$field_required = $this->isNew() ? 0 : $obj->getVar('field_required');
+					$check_field_required = new XoopsFormCheckBox(' ', 'field_required', $field_required);
+					$check_field_required->addOption(1, TDMCreateLocale::FIELD_REQUIRED);
+				// data row
+				$tableOtherForm->addRow();
+				$tableOtherForm->addCell($check_field_required->render(), null, 'data');			
+			}			
+			$tableForm->addCell($tableOtherForm->display(), null, 'data');			
+			
+			if (!$this->isNew()) {
+                $tableFormHiddenId = new XoopsFormHidden('table_id', $obj->getVar('table_id'));
+                //$this->addElement(new XoopsFormHidden('fields_modified', true));
+            }			
+		}
+		$this->addElement($tableForm->display());
+		if (!$this->isNew()) {
+            $this->addElement(new XoopsFormHidden('table_id', $obj->getVar('table_id')));
+            $this->addElement(new XoopsFormHidden('fields_modified', true));
+        }
+		
+		$this->addElement(new XoopsFormHidden('op', 'save_fields'));
+		$this->addElement(new XoopsFormHidden('field_table', $obj->getVar('field_table')));
+		$this->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+		$tableFormButton = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+		$tableForm->addRow('right grey');
+		$tableForm->addCell($tableFormButton, null, 'data');
+		$this->addElement(new XoopsFormHidden('op', 'save_fields'));
+		$this->addElement($tableForm);
+		$this->addElement($tableFormButton);*/
+		
+		$fobj = $fields_Handler->get($field_id);
+		$tobj = $tables_Handler->get($table_id);		
+		
+		$criteria = new CriteriaCompo(new Criteria('table_id', $table_id));
+		$criteria->add(new Criteria('table_mid', $tobj->getVar('table_mid')));					
+		$criteria->setSort('table_name');
+		$criteria->setOrder('ASC');
+		$tables_arr = $tables_Handler->getAll($criteria);
+		unset($criteria);
+		
+		$criteria = new CriteriaCompo(new Criteria('field_id', $field_id));
+		$criteria->add(new Criteria('field_tid', $table_id)); 
+        $field_arr = $fields_Handler->getAll($criteria);		
+		unset($criteria);
+		$numrows_fields = /*$fobj->getVar('table_nbfields')*/12;
+        // Assign Template variables
+        $xoops->tpl()->assign('fields_numb_count', $numrows_fields);
+
+		if ($numrows_fields > 0) 
+		{
+			foreach (array_keys($field_arr) as $i) 
+			{ 
+                $field['id'] = $field_arr[$i]->getVar('field_id');			
+				$field['name'] = new XoopsFormText(TDMCreateLocale::FIELD_NAME, 'field_name', 1, 25, $field_arr[$i]->getVar('field_name'));		
+			    $field_type_select = new XoopsFormSelect(TDMCreateLocale::FIELD_TYPE, 'field_type', $field_arr[$i]->getVar('field_type'));      
+				$field_type_select->addOptionArray($fieldtype_Handler->getList());
+				$field['type'] = $field_type_select->render();                
+				$field['value'] = new XoopsFormText(TDMCreateLocale::FIELD_VALUE, 'field_value', 1, 25, $field_arr[$i]->getVar('field_value'));	
+			    $field_attrs_select = new XoopsFormSelect(TDMCreateLocale::FIELD_ATTRIBUTE, 'field_attribute', $field_arr[$i]->getVar('field_attribute'));  								
+				$field_attrs_select->addOptionArray($fieldattrs_Handler->getList());
+				$field['attribute'] = $field_attrs_select->render();				
+			    $field_null_select = new XoopsFormSelect(TDMCreateLocale::FIELD_NULL, 'field_null', $field_arr[$i]->getVar('field_null'));
+				$field_null_select->addOptionArray($fieldnull_Handler->getList());
+				$field['null'] = $field_null_select->render();
+				$field['default'] = new XoopsFormText(TDMCreateLocale::FIELD_DEFAULT, 'field_default', 1, 25, $field_arr[$i]->getVar('field_default'));
+				$field_key_select = new XoopsFormSelect(TDMCreateLocale::FIELD_KEY, 'field_key', $field_arr[$i]->getVar('field_key'));
+				$field_key_select->addOptionArray($fieldkey_Handler->getList());
+				$field['key'] = $field_key_select->render();				
+				$field_autoincrement = $field_arr[$i]->getVar('field_auto_increment') ? $field_arr[$i]->getVar('field_auto_increment') : 0;
+				$check_field_autoincrement = new XoopsFormCheckBox(' ', 'field_auto_increment', $field_autoincrement);
+				$check_field_autoincrement->addOption(1, TDMCreateLocale::FIELD_AUTO_INCREMENT);
+				$field['auto_increment'] = $check_field_autoincrement->render();	
+                $field_elements_select = new XoopsFormSelect(TDMCreateLocale::FIELD_ELEMENTS, 'field_elements', $field_arr[$i]->getVar('field_elements'));	
+				$field_elements_select->addOptionArray($fieldelements_Handler->getList());	
+				foreach (array_keys($tables_arr) as $j) 
+				{                                  
+					$table_name = $tables_arr[$j]->getVar('table_name');
+					if ( $j[$i] == 'XoopsFormTables-'.$table_name ) {								
+						$field_elements_select->addOption('XoopsFormTables-'.$table_name, 'Table : '.$table_name);						
+					}													
+				}
+				$field['elements'] = $field_elements_select->render();
+				$field_admin = $field_arr[$i]->getVar('field_admin') ? 0 : $field_arr[$i]->getVar('field_admin');
+				$check_field_admin = new XoopsFormCheckBox(' ', 'field_admin', $field_admin);
+				$check_field_admin->addOption(1, TDMCreateLocale::C_FIELD_ADMIN);
+				$field['admin'] = $check_field_admin->render();
+				$field_user = $field_arr[$i]->getVar('field_user') ? 0 : $field_arr[$i]->getVar('field_user');
+				$check_field_user = new XoopsFormCheckBox(' ', 'field_user', $field_user);
+				$check_field_user->addOption(1, TDMCreateLocale::C_FIELD_USER);
+				$field['user'] = $check_field_user->render();
+				$field_block = $field_arr[$i]->getVar('field_blocks') ? 0 : $field_arr[$i]->getVar('field_blocks');
+				$check_field_block = new XoopsFormCheckBox(' ', 'field_block', $field_block);
+				$check_field_block->addOption(1, TDMCreateLocale::C_FIELD_BLOCK);
+				$field['blocks'] = $check_field_block->render();
+				$field_main = $field_arr[$i]->getVar('field_main') ? 0 : $field_arr[$i]->getVar('field_main');
+				$field_main_radio = new XoopsFormRadio(' ', 'field_main', $field_main);
+				$field_main_radio->addOption( '&nbsp;', TDMCreateLocale::C_FIELD_MAINFIELD );
+				$field['main'] = $field_main_radio->render(); 
+				$field_search = $field_arr[$i]->getVar('field_search') ? 0 : $field_arr[$i]->getVar('field_search');
+				$check_field_search = new XoopsFormCheckBox(' ', 'field_search', $field_search);
+				$check_field_search->addOption(1, TDMCreateLocale::C_FIELD_SEARCH);				
+				$field['search'] = $check_field_search->render();
+				$field_required = $field_arr[$i]->getVar('field_required') ? 0 : $field_arr[$i]->getVar('field_required');
+				$check_field_required = new XoopsFormCheckBox(' ', 'field_required', $field_required);
+				$check_field_required->addOption(1, TDMCreateLocale::C_FIELD_REQUIRED);
+				$field['required'] = $check_field_required->render();			
+				$xoops->tpl()->append_by_ref('fields', $field);
+				unset($field);
+			}
+		} else {
+            $xoops->tpl()->assign('error_message', TDMCreateLocale::E_NO_FIELDS_FORM);
+        }

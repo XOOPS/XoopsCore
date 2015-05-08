@@ -13,7 +13,7 @@
  * maintenance extensions
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
@@ -115,15 +115,15 @@ class Maintenance
                 while ($i < $num_fields) {
                     $meta = mysql_fetch_field($result, $i);
                     array_push($field_type, $meta->type);
-                    $i++;
+                    ++$i;
                 }
 
                 $sql_text .= "INSERT INTO `" . $table . "` values\n";
                 $index = 0;
                 while ($row = $this->db->fetchRow($result)) {
-                    $count++;
+                    ++$count;
                     $sql_text .= "(";
-                    for ($i = 0; $i < $num_fields; $i++) {
+                    for ($i = 0; $i < $num_fields; ++$i) {
                         if (is_null($row[$i])) {
                             $sql_text .= "null";
                         } else {
@@ -147,7 +147,7 @@ class Maintenance
                         $sql_text .= ";";
                     }
                     $sql_text .= "\n";
-                    $index++;
+                    ++$index;
                 }
             }
         }

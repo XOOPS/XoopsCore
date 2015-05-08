@@ -8,15 +8,15 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 switch ($op) {
 
@@ -42,8 +42,9 @@ switch ($op) {
     case 'add':
         $lang = $helper->getHandlerLanguage()->create();
         $form = $helper->getForm($lang, 'language');
-        $admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
-        $admin_page->addInfoBoxLine($form->render());
+        $form->display();
+        //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
+        //$admin_page->addInfoBoxLine($form->render());
         break;
 
     case 'edit':
@@ -51,8 +52,9 @@ switch ($op) {
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $form = $helper->getForm($lang, 'language');
-                $admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
-                $admin_page->addInfoBoxLine($form->render());
+                $form->display();
+                //$admin_page->addInfoBox(_MI_XLANGUAGE_MODIFY);
+                //$admin_page->addInfoBoxLine($form->render());
             } else {
                 $xoops->redirect('index.php', 2);
             }
@@ -82,6 +84,7 @@ switch ($op) {
                     ob_end_clean();
                     $admin_page->addInfoBox(_MI_XLANGUAGE_DELETE);
                     $admin_page->addInfoBoxLine($confirm);
+                    $admin_page->displayIndex();
                 }
             } else {
                 $xoops->redirect('index.php', 2);
@@ -100,6 +103,7 @@ switch ($op) {
     default:
         $admin_page->addInfoBox(_AM_XLANGUAGE_LANGLIST);
         $admin_page->addInfoBoxLine($helper->getHandlerLanguage()->renderlist());
+        $admin_page->displayIndex();
         break;
 }
-include dirname(__FILE__) . '/footer.php';
+include __DIR__ . '/footer.php';

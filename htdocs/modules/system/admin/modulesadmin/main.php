@@ -13,13 +13,11 @@
  * Modules Manager
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // Get main instance
 $xoops = Xoops::getInstance();
@@ -30,11 +28,11 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-if (isset($_POST)) {
-    foreach ($_POST as $k => $v) {
-        ${$k} = $v;
-    }
-}
+//if (isset($_POST)) {
+//    foreach ($_POST as $k => $v) {
+//        ${$k} = $v;
+//    }
+//}
 
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
@@ -51,7 +49,7 @@ switch ($op) {
 
     case 'list':
         // Call Header
-        $xoops->header('system_modules.html');
+        $xoops->header('admin:system/system_modules.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define scripts
@@ -59,9 +57,12 @@ switch ($op) {
         $xoops->theme()->addScript('modules/system/js/admin.js');
         $xoops->theme()->addScript('modules/system/js/module.js');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::MODULES_ADMINISTRATION, $system->adminVersion('modulesadmin', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::MODULES_ADMINISTRATION,
+            $system->adminVersion('modulesadmin', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::MAIN);
         $admin_page->addTips(SystemLocale::MODULES_TIPS);
         $admin_page->renderBreadcrumb();
@@ -70,10 +71,10 @@ switch ($op) {
         $system_module = new SystemModule();
 
         $list = $system_module->getModuleList();
-        $install = $system_module->getModuleInstall();
+        $install = $system_module->getInstalledModules();
 
         $view = $system->cleanVars($_COOKIE, 'xoopsModsView', 'large', 'string');
-        if($view == 'large') {
+        if ($view == 'large') {
             $xoops->tpl()->assign('view_large', '');
             $xoops->tpl()->assign('view_line', 'hide');
         } else {
@@ -88,7 +89,8 @@ switch ($op) {
         break;
 
     case 'rename':
-        $xoops->disableErrorReporting();
+        $xoops->logger()->quiet();
+        //$xoops->disableErrorReporting();
 
         $mid = $system->cleanVars($_POST, 'id', 0, 'int');
         $value = $system->cleanVars($_POST, 'value', '', 'string');
@@ -117,7 +119,7 @@ switch ($op) {
                         if (!$module_handler->insertModule($module)) {
                             $error = true;
                         }
-                        $i++;
+                        ++$i;
                     }
                 }
             }
@@ -126,7 +128,8 @@ switch ($op) {
         break;
 
     case 'active':
-        $xoops->disableErrorReporting();
+        $xoops->logger()->quiet();
+        //$xoops->disableErrorReporting();
         // Get module handler
         $module_handler = $xoops->getHandlerModule();
         $block_handler = $xoops->getHandlerBlock();
@@ -141,7 +144,7 @@ switch ($op) {
             }
             $blocks = $block_handler->getByModule($module_id);
             /* @var $block XoopsBlock */
-            foreach($blocks as $block) {
+            foreach ($blocks as $block) {
                 $block->setVar('isactive', !$old);
                 $block_handler->insertBlock($block);
             }
@@ -152,7 +155,8 @@ switch ($op) {
         break;
 
     case 'display_in_menu':
-        $xoops->disableErrorReporting();
+        $xoops->logger()->quiet();
+        //$xoops->disableErrorReporting();
         // Get module handler
         $module_handler = $xoops->getHandlerModule();
         $module_id = $system->cleanVars($_POST, 'mid', 0, 'int');
@@ -166,26 +170,29 @@ switch ($op) {
             } else {
                 echo !$old;
             }
-       }
+        }
         break;
 
     case 'install':
         $module = $system->cleanVars($_POST, 'dirname', '', 'string');
         // Call Header
-        $xoops->header('system_modules_logger.html');
+        $xoops->header('admin:system/system_modules_logger.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::MODULES_ADMINISTRATION, $system->adminVersion('modulesadmin', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::MODULES_ADMINISTRATION,
+            $system->adminVersion('modulesadmin', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::A_INSTALL);
         $admin_page->renderBreadcrumb();
 
         $ret = array();
         $system_module = new SystemModule();
         $ret = $system_module->install($module);
-        if($ret) {
+        if ($ret) {
             $xoops->tpl()->assign('install', 1);
             $xoops->tpl()->assign('module', $ret);
             $xoops->tpl()->assign('from_title', SystemLocale::MODULES_ADMINISTRATION);
@@ -196,6 +203,8 @@ switch ($op) {
             print_r($system_module->error);
             //print_r($system_module->trace);
         }
+        $folder = array(1, 2, 3);
+        $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
@@ -207,13 +216,16 @@ switch ($op) {
         $module_handler = $xoops->getHandlerModule();
         $module = $module_handler->getById($mid);
         // Call Header
-        $xoops->header('system_modules_logger.html');
+        $xoops->header('admin:system/system_modules_logger.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::MODULES_ADMINISTRATION, $system->adminVersion('modulesadmin', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::MODULES_ADMINISTRATION,
+            $system->adminVersion('modulesadmin', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::A_UNINSTALL);
         $admin_page->renderBreadcrumb();
 
@@ -221,14 +233,14 @@ switch ($op) {
         $system_module = new SystemModule();
         $ret = $system_module->uninstall($module->getVar('dirname'));
         $xoops->tpl()->assign('module', $ret);
-        if($ret) {
+        if ($ret) {
             $xoops->tpl()->assign('from_title', SystemLocale::MODULES_ADMINISTRATION);
             $xoops->tpl()->assign('from_link', $system->adminVersion('modulesadmin', 'adminpath'));
             $xoops->tpl()->assign('title', XoopsLocale::A_UNINSTALL);
             $xoops->tpl()->assign('log', $system_module->trace);
         }
-        $folder = array(1, 3);
-        $system->CleanCache($folder);
+        $folder = array(1, 2, 3);
+        $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer
@@ -241,13 +253,16 @@ switch ($op) {
         $block_handler = $xoops->getHandlerBlock();
         $module = $module_handler->getById($mid);
         // Call Header
-        $xoops->header('system_modules_logger.html');
+        $xoops->header('admin:system/system_modules_logger.tpl');
         // Define Stylesheet
         $xoops->theme()->addStylesheet('modules/system/css/admin.css');
         // Define Breadcrumb and tips
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
-        $admin_page->addBreadcrumbLink(SystemLocale::MODULES_ADMINISTRATION, $system->adminVersion('modulesadmin', 'adminpath'));
+        $admin_page->addBreadcrumbLink(
+            SystemLocale::MODULES_ADMINISTRATION,
+            $system->adminVersion('modulesadmin', 'adminpath')
+        );
         $admin_page->addBreadcrumbLink(XoopsLocale::A_UPDATE);
         $admin_page->renderBreadcrumb();
 
@@ -255,15 +270,15 @@ switch ($op) {
         $system_module = new SystemModule();
         $ret = $system_module->update($module->getVar('dirname'));
         $xoops->tpl()->assign('module', $ret);
-        if($ret) {
+        if ($ret) {
             $xoops->tpl()->assign('install', 1);
             $xoops->tpl()->assign('from_title', SystemLocale::MODULES_ADMINISTRATION);
             $xoops->tpl()->assign('from_link', $system->adminVersion('modulesadmin', 'adminpath'));
             $xoops->tpl()->assign('title', XoopsLocale::A_UPDATE);
             $xoops->tpl()->assign('log', $system_module->trace);
         }
-        $folder = array(1, 3);
-        $system->CleanCache($folder);
+        $folder = array(1, 2, 3);
+        $system->cleanCache($folder);
         //Set active modules in cache folder
         $xoops->setActiveModules();
         // Call Footer

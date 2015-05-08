@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -20,17 +22,17 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
 // At which record shall we start for the Categories
-$catstart = PublisherRequest::getInt('catstart');
+$catstart = Request::getInt('catstart');
 
 // At which record shall we start for the ITEM
-$start = PublisherRequest::getInt('start');
+$start = Request::getInt('start');
 
 // Number of categories at the top level
 $totalCategories = $publisher->getCategoryHandler()->getCategoriesCount(0);
@@ -40,7 +42,7 @@ if ($totalCategories == 0) {
     $xoops->redirect(XOOPS_URL, 2, _MD_PUBLISHER_NO_TOP_PERMISSIONS);
 }
 
-$xoops->header('publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.html');
+$xoops->header('module:publisher/publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl');
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::LoadFile($publisher->path('footer.php'));
 
@@ -142,17 +144,17 @@ $xoopsTpl->assign('categories', $categories);
 if ($publisher->getConfig('index_display_last_items')) {
     // creating the Item objects that belong to the selected category
     switch ($publisher->getConfig('format_order_by')) {
-        case 'title' :
+        case 'title':
             $sort = 'title';
             $order = 'ASC';
             break;
 
-        case 'date' :
+        case 'date':
             $sort = 'datesub';
             $order = 'DESC';
             break;
 
-        default :
+        default:
             $sort = 'weight';
             $order = 'ASC';
             break;

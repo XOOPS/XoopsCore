@@ -13,7 +13,7 @@
  * Private message module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {
@@ -29,7 +29,7 @@ if (!$xoops->isUser()) {
 }
 
 $xoops->disableModuleCache(); //disable caching since the URL will be the same, but content different from one user to another
-$xoops->header('pm_viewpmsg.html');
+$xoops->header('module:pm/pm_viewpmsg.tpl');
 
 $valid_op_requests = array('out', 'save', 'in');
 $_REQUEST['op'] = !empty($_REQUEST['op']) && in_array($_REQUEST['op'], $valid_op_requests) ? $_REQUEST['op'] : 'in';
@@ -38,21 +38,24 @@ $start = empty($_REQUEST["start"]) ? 0 : intval($_REQUEST["start"]);
 /* @var $pm_handler PmMessageHandler */
 $pm_handler = $xoops->getModuleHandler('message');
 
-if (isset($_POST['delete_messages']) && isset($_POST['msg_id'])) {
+if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST['msg_ids']))) {
     if (!$xoops->security()->check()) {
         $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
     } else {
         if (empty($_REQUEST['ok'])) {
             $xoops->confirm(array(
                                  'ok' => 1, 'delete_messages' => 1, 'op' => $_REQUEST['op'],
-                                 'msg_id' => serialize(array_map("intval", $_POST['msg_id']))
+                                 'msg_ids' => json_encode(array_map("intval", $_POST['msg_id']))
                             ), $_SERVER['REQUEST_URI'], XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_MESSAGES);
             $xoops->footer();
         } else {
-            $_POST['msg_id'] = unserialize($_REQUEST['msg_id']);
-            $size = count($_POST['msg_id']);
-            $msg = $_POST['msg_id'];
-            for ($i = 0; $i < $size; $i++) {
+            $clean_msg_id = json_decode($_POST['msg_ids'], true, 2);
+            if (!empty($clean_msg_id)) {
+                $clean_msg_id = array_map("intval", $clean_msg_id);
+            }
+            $size = count($clean_msg_id);
+            $msg =& $clean_msg_id;
+            for ($i = 0; $i < $size; ++$i) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
                     $pm_handler->setTodelete($pm);
@@ -74,7 +77,7 @@ if (isset($_POST['move_messages']) && isset($_POST['msg_id'])) {
         $size = count($_POST['msg_id']);
         $msg = $_POST['msg_id'];
         if ($_POST['op'] == 'save') {
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
                     $pm_handler->setTosave($pm, 0);
@@ -90,7 +93,7 @@ if (isset($_POST['move_messages']) && isset($_POST['msg_id'])) {
                 $total_save = $pm_handler->getSavecount();
                 $size = min($size, $xoops->getModuleConfig('max_save') - $total_save);
             }
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 $pm = $pm_handler->get($msg[$i]);
                 if ($_POST['op'] == 'in') {
                     $pm_handler->setTosave($pm);
@@ -239,18 +242,18 @@ if (count($pm_arr) > 0) {
     }
 }
 
-$send_button = new XoopsFormButton('', 'send', XoopsLocale::A_SEND);
+$send_button = new Xoops\Form\Button('', 'send', XoopsLocale::A_SEND);
 $send_button->setExtra("onclick='javascript:openWithSelfMain(\"" . XOOPS_URL . "/modules/pm/pmlite.php?send=1\", \"pmlite\", 750,720);'");
-$delete_button = new XoopsFormButton('', 'delete_messages', XoopsLocale::A_DELETE, 'submit');
-$move_button = new XoopsFormButton('', 'move_messages', ($_REQUEST['op'] == 'save') ? _PM_UNSAVE
+$delete_button = new Xoops\Form\Button('', 'delete_messages', XoopsLocale::A_DELETE, 'submit');
+$move_button = new Xoops\Form\Button('', 'move_messages', ($_REQUEST['op'] == 'save') ? _PM_UNSAVE
             : _PM_TOSAVE, 'submit');
-$empty_button = new XoopsFormButton('', 'empty_messages', _PM_EMPTY, 'submit');
+$empty_button = new Xoops\Form\Button('', 'empty_messages', _PM_EMPTY, 'submit');
 
-$pmform = new XoopsThemeForm('', 'pmform', 'viewpmsg.php', 'post', true);
+$pmform = new Xoops\Form\ThemeForm('', 'pmform', 'viewpmsg.php', 'post', true);
 $pmform->addElement($send_button);
 $pmform->addElement($move_button);
 $pmform->addElement($delete_button);
 $pmform->addElement($empty_button);
-$pmform->addElement(new XoopsFormHidden('op', $_REQUEST['op']));
+$pmform->addElement(new Xoops\Form\Hidden('op', $_REQUEST['op']));
 $pmform->assign($xoops->tpl());
 $xoops->footer();

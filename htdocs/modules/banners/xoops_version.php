@@ -13,7 +13,7 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
@@ -27,7 +27,7 @@ $modversion['author']         = 'Mage Gregory';
 $modversion['nickname']       = 'Mage';
 $modversion['credits']        = 'The XOOPS Project';
 $modversion['license']        = 'GNU GPL 2.0';
-$modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html/';
+$modversion['license_url']    = 'http://www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']       = 1;
 $modversion['help']           = 'page=help';
 $modversion['image']          = 'images/logo.png';
@@ -38,9 +38,8 @@ $modversion['release_date']        = '2011/01/02';
 $modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
-$modversion['min_php'] = '5.3';
+$modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = '2.6.0';
-$modversion['min_db']              = array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
 // paypal
 $modversion['paypal']                  = array();
@@ -67,50 +66,61 @@ $modversion['jquery'] = 1;
 // Menu
 $modversion['hasMain'] = 1;
 
-// Mysql file
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+// table definitions
+$modversion['schema'] = 'sql/schema.yml';
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
-// Tables created by sql file (without prefix!)
-$modversion['tables'][1] = "banners_banner";
-$modversion['tables'][2] = "banners_bannerclient";
+// Tables created by sql file or schema (without prefix!)
+$modversion['tables'] = array(
+    'banners_banner',
+    'banners_bannerclient',
+);
 
 // blocks
-$i = 0;
-$modversion['blocks'][$i]['file']        = 'banners_blocks.php';
-$modversion['blocks'][$i]['name']        = _MI_BANNERS_BLOCKS_RANDOM;
-$modversion['blocks'][$i]['description'] = _MI_BANNERS_BLOCKS_RANDOMDSC;
-$modversion['blocks'][$i]['show_func']   = 'banners_blocks_show';
-$modversion['blocks'][$i]['edit_func']   = 'banners_blocks_edit';
-$modversion['blocks'][$i]['options']     = 'random|1|H|0';
-$modversion['blocks'][$i]['template']    = 'banners_blocks_random.html';
-$i++;
-$modversion['blocks'][$i]['file']        = 'banners_blocks.php';
-$modversion['blocks'][$i]['name']        = _MI_BANNERS_BLOCKS_ID;
-$modversion['blocks'][$i]['description'] = _MI_BANNERS_BLOCKS_IDDSC;
-$modversion['blocks'][$i]['show_func']   = 'banners_blocks_show';
-$modversion['blocks'][$i]['edit_func']   = 'banners_blocks_edit';
-$modversion['blocks'][$i]['options']     = 'id||H';
-$modversion['blocks'][$i]['template']    = 'banners_blocks_id.html';
+$modversion['blocks'][] = array(
+    'file'        => 'banners_blocks.php',
+    'name'        => _MI_BANNERS_BLOCKS_RANDOM,
+    'description' => _MI_BANNERS_BLOCKS_RANDOMDSC,
+    'show_func'   => 'banners_blocks_show',
+    'edit_func'   => 'banners_blocks_edit',
+    'options'     => 'random|1|H|0',
+    'template'    => 'banners_blocks_random.tpl',
+);
+
+$modversion['blocks'][] = array(
+    'file'        => 'banners_blocks.php',
+    'name'        => _MI_BANNERS_BLOCKS_ID,
+    'description' => _MI_BANNERS_BLOCKS_IDDSC,
+    'show_func'   => 'banners_blocks_show',
+    'edit_func'   => 'banners_blocks_edit',
+    'options'     => 'id||H',
+    'template'    => 'banners_blocks_id.tpl',
+);
 
 // Preferences
-$i = 0;
-$modversion['config'][$i]['name']        = 'banners_myip';
-$modversion['config'][$i]['title']       = '_MI_BANNERS_PREFERENCE_MYIP';
-$modversion['config'][$i]['description'] = '_MI_BANNERS_PREFERENCE_MYIPDSC';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = '127.0.0.1';
-$i++;
-$modversion['config'][$i]['name']        = 'banners_pager';
-$modversion['config'][$i]['title']       = '_MI_BANNERS_PREFERENCE_PAGER';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 15;
-$i++;
-$modversion['config'][$i]['name']        = 'banners_clientspager';
-$modversion['config'][$i]['title']       = '_MI_BANNERS_PREFERENCE_CLIENTSPAGER';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 15;
+$modversion['config'][] = array(
+    'name'        => 'banners_myip',
+    'title'       => '_MI_BANNERS_PREFERENCE_MYIP',
+    'description' => '_MI_BANNERS_PREFERENCE_MYIPDSC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => '127.0.0.1',
+);
+
+$modversion['config'][] = array(
+    'name'        => 'banners_pager',
+    'title'       => '_MI_BANNERS_PREFERENCE_PAGER',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 15,
+);
+
+$modversion['config'][] = array(
+    'name'        => 'banners_clientspager',
+    'title'       => '_MI_BANNERS_PREFERENCE_CLIENTSPAGER',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 15,
+);

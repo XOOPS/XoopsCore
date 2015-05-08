@@ -13,14 +13,16 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 class BannersBanner extends XoopsObject
 {
@@ -47,9 +49,9 @@ class BannersBanner extends XoopsObject
 class BannersBannerHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db database
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'banners_banner', 'BannersBanner', 'banner_bid', 'banner_imageurl');
     }

@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @since           2.4.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -26,7 +26,7 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * Protector core preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */
 class ProtectorCorePreload extends XoopsPreloadItem
@@ -61,7 +61,7 @@ class ProtectorCorePreload extends XoopsPreloadItem
     static function eventCoreClassDatabaseDatabasefactoryConnection($args)
     {
         // Protector class
-        require_once dirname(dirname(__FILE__)) . '/class/protector.php';
+        require_once dirname(__DIR__) . '/class/protector.php';
 
         // Protector object
         $protector = Protector::getInstance();

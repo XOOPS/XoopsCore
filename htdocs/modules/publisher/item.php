@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -20,13 +22,13 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 $myts = MyTextSanitizer::getInstance();
 
-$itemid = PublisherRequest::getInt('itemid');
-$item_page_id = PublisherRequest::getInt('page', -1);
+$itemid = Request::getInt('itemid');
+$item_page_id = Request::getInt('page', -1);
 
 if ($itemid == 0) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
@@ -41,13 +43,13 @@ if (!$itemObj) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
-$xoops->header('publisher_item.html');
+$xoops->header('module:publisher/publisher_item.tpl');
 $xoopsTpl = $xoops->tpl();
 $xoTheme = $xoops->theme();
 $xoTheme->addStylesheet(PUBLISHER_URL . '/css/jquery.popeye.style.css');
-$xoTheme->addScript(XOOPS_URL . '/media/jquery/jquery.js');
+$xoTheme->addBaseScriptAssets('@jquery');
 $xoTheme->addScript(PUBLISHER_URL . '/js/jquery.popeye-2.0.4.js');
-$xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
+$xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
 
 XoopsLoad::LoadFile($publisher->path('footer.php'));
 
@@ -66,17 +68,17 @@ if (!$xoops->isUser() || (PublisherUtils::IsUserAdmin() && $publisher->getConfig
 
 // creating the Item objects that belong to the selected category
 switch ($publisher->getConfig('format_order_by')) {
-    case 'title' :
+    case 'title':
         $sort = 'title';
         $order = 'ASC';
         break;
 
-    case 'date' :
+    case 'date':
         $sort = 'datesub';
         $order = 'DESC';
         break;
 
-    default :
+    default:
         $sort = 'weight';
         $order = 'ASC';
         break;
@@ -217,7 +219,7 @@ if ($xoops->isActiveModule('comments') && (($itemObj->getVar('cancomment') == 1)
         'deletecomment_link' => PUBLISHER_URL . '/comment_delete.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode . $link_extra,
         'replycomment_link' => PUBLISHER_URL . '/comment_reply.php?com_itemid=' . $com_itemid . '&amp;com_order=' . $com_order . '&amp;com_mode=' . $com_mode . $link_extra));
     $xoopsTpl->_tpl_vars['commentsnav'] = str_replace("self.location.href='", "self.location.href='" . PUBLISHER_URL . '/', $xoopsTpl->_tpl_vars['commentsnav']);
- */
+    */
 }
 
 // Include support for AJAX rating

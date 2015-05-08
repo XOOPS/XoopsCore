@@ -11,12 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
@@ -26,10 +26,10 @@ Now you need to install the 'Search' Module to get search functionality<br />
 <br />
 The method for implementing search does no longer uses xoops_version.php<br />
 The 'Search' module provides a 'Plugin' interface that modules should implement<br />
-The new class Xoops_Module_Plugin is the class that makes using plugins simple and effective!<br />
+The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
 <br />
 See how Codex module hooks into the search module just by using this codex/class/plugin/search.php
 ";
 
-Xoops_Utils::dumpFile(dirname(__FILE__) . '/class/plugin/search.php');
+Xoops_Utils::dumpFile(__DIR__ . '/class/plugin/search.php');
 $xoops->footer();

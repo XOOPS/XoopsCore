@@ -11,18 +11,18 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
 $indexAdmin->displayIndex();
 

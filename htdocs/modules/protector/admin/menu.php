@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -34,10 +34,10 @@ $adminmenu = array(
         'title' => _MI_PROTECTOR_ADVISORY,
         'link'  => 'admin/advisory.php',
         'icon'  => 'security.png',
-    ), array(
-        'title' => _MI_PROTECTOR_PREFIXMANAGER,
-        'link'  => 'admin/prefix_manager.php',
-        'icon'  => 'manage.png',
+//    ), array(
+//        'title' => _MI_PROTECTOR_PREFIXMANAGER,
+//        'link'  => 'admin/prefix_manager.php',
+//        'icon'  => 'manage.png',
     ), array(
         'title' => _MI_PROTECTOR_ADMINABOUT,
         'link'  => 'admin/about.php',

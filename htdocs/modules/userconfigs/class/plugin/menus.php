@@ -11,15 +11,13 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class UserconfigsMenusPlugin extends Xoops_Module_Plugin_Abstract implements MenusPluginInterface
+class UserconfigsMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {
     /**
      * expects an array of array containing:
@@ -35,12 +33,12 @@ class UserconfigsMenusPlugin extends Xoops_Module_Plugin_Abstract implements Men
     public function subMenus()
     {
         $ret = array();
-        $xoops = Xoops::getInstance();
-        if ($plugins = Xoops_Module_Plugin::getPlugins('userconfigs')) {
+        $xoops = \Xoops::getInstance();
+        if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             foreach (array_keys($plugins) as $dirname) {
                 $mHelper = $xoops->getModuleHelper($dirname);
                 $ret[$dirname]['name'] = $mHelper->getModule()->getVar('name');
-                $ret[$dirname]['url'] = 'index.php?modid=' . $mHelper->getModule()->getVar('modid');
+                $ret[$dirname]['url'] = 'index.php?op=showmod&mid=' . $mHelper->getModule()->getVar('mid');
             }
         }
 

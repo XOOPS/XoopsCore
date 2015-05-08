@@ -9,11 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * XOOPS global search
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu)
@@ -21,7 +23,7 @@
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $search = Search::getInstance();
 if (!$search->getConfig('enable_search')) {
@@ -31,14 +33,13 @@ if (!$search->getConfig('enable_search')) {
 
 $xoops = Xoops::getInstance();
 
-$request = Xoops_Request::getInstance();
-$action = $request->asStr('action', 'search');
-$query = $request->asStr('query', '');
-$andor = $request->asStr('query', 'AND');
-$mid = $request->asInt('mid', 0);
-$uid = $request->asInt('uid', 0);
-$start = $request->asInt('start', 0);
-$mids = $request->asArray('mids', array());
+$action = Request::getCmd('action', 'search');
+$query = Request::getString('query', '');
+$andor = Request::getWord('andor', 'AND');
+$mid = Request::getInt('mid', 0);
+$uid = Request::getInt('uid', 0);
+$start = Request::getInt('start', 0);
+$mids = Request::getArray('mids', array());
 
 $queries = array();
 
@@ -62,7 +63,7 @@ if ($action == "results") {
 
 $gperm_handler = $xoops->getHandlerGroupperm();
 $available_modules = $gperm_handler->getItemIds('module_read', $search->getUserGroups());
-$available_plugins = Xoops_Module_Plugin::getPlugins('search');
+$available_plugins = \Xoops\Module\Plugin::getPlugins('search');
 
 if ($action == 'search') {
     $xoops->header();
@@ -83,10 +84,11 @@ $queries_pattern = array();
 $myts = MyTextSanitizer::getInstance();
 if ($action != 'showallbyuser') {
     if ($andor != "exact") {
-        $temp_queries = preg_split('/[\s,]+/', $query);
+        //$temp_queries = preg_split('/[\s,]+/', $query);
+        $temp_queries = str_getcsv($query, ' ', '"');
         foreach ($temp_queries as $q) {
             $q = trim($q);
-            if (strlen($q) >= $search->getConfig('keyword_min')) {
+            if (mb_strlen($q) >= $search->getConfig('keyword_min')) {
                 $queries[] = $myts->addSlashes($q);
                 $queries_pattern[] = '~(' . $q . ')~sUi';
             } else {
@@ -98,7 +100,7 @@ if ($action != 'showallbyuser') {
         }
     } else {
         $query = trim($query);
-        if (strlen($query) < $search->getConfig('keyword_min')) {
+        if (mb_strlen($query) < $search->getConfig('keyword_min')) {
             $xoops->redirect('index.php', 2, sprintf(_MD_SEARCH_KEYTOOSHORT, $search->getConfig('keyword_min')));
         }
         $queries = array($myts->addSlashes($query));
@@ -116,7 +118,7 @@ switch ($action) {
             unset($mids);
             $mids = array_keys($modules);
         }
-        $xoops->header('module:search|search.html');
+        $xoops->header('module:search/search.tpl');
         $nomatch = true;
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
@@ -129,7 +131,7 @@ switch ($action) {
             /* @var $module XoopsModule */
             $module = $modules[$mid];
             /* @var $plugin SearchPluginInterface */
-            $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+            $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
             $results = $plugin->search($queries, $andor, 5, 0, null);
             $count = count($results);
             $mid = $module->getVar('mid');
@@ -144,7 +146,7 @@ switch ($action) {
                     $modules_result[$mid]['image'] = $xoops->url('images/icons/posticon2.gif');
                 }
                 $res = array();
-                for ($i = 0; $i < $count; $i++) {
+                for ($i = 0; $i < $count; ++$i) {
                     if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                         $res[$i]['link'] = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $results[$i]['link']);
                     } else {
@@ -182,7 +184,7 @@ switch ($action) {
 
     case "showall":
     case 'showallbyuser':
-        $xoops->header('module:search|search.html');
+        $xoops->header('module:search/search.tpl');
         $xoops->tpl()->assign('search', true);
         $xoops->tpl()->assign('queries', $queries);
         $xoops->tpl()->assign('ignored_words', sprintf(_MD_SEARCH_IGNOREDWORDS, $search->getConfig('keyword_min')));
@@ -191,7 +193,7 @@ switch ($action) {
         $module_handler = $xoops->getHandlerModule();
         $module = $xoops->getModuleById($mid);
         /* @var $plugin SearchPluginInterface */
-        $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+        $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
         $results = $plugin->search($queries, $andor, 20, $start, $uid);
 
         $modules_result[$mid]['name'] = $module->getVar('name');
@@ -207,7 +209,7 @@ switch ($action) {
             }
             $xoops->tpl()->assign('sr_showing', sprintf(_MD_SEARCH_SHOWING, $start + 1, $start + $count));
             $res = array();
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 if (isset($results[$i]['image']) && $results[$i]['image'] != "") {
                     $res[$i]['image'] = $xoops->url('modules/' . $module->getVar('dirname') . '/' . $results[$i]['image']);
                 } else {

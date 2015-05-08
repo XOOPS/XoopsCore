@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -34,7 +34,7 @@ class protector_postcommon_post_htmlpurify4guest extends ProtectorFilterAbstract
         }
 
         // use HTMLPurifier inside Protector
-        require_once $xoops->path('lib/HTMLPurifier/HTMLPurifier.auto.php');
+        //require_once $xoops->path('lib/HTMLPurifier/HTMLPurifier.auto.php');
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache', 'SerializerPath', XOOPS_PATH);
         $config->set('Core', 'Encoding', XoopsLocale::getCharset());

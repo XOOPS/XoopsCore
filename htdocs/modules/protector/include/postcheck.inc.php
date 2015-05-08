@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -21,15 +21,15 @@
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-require_once dirname(__FILE__) . '/postcheck_functions.php';
+require_once __DIR__ . '/postcheck_functions.php';
 
 if (!defined('PROTECTOR_PRECHECK_INCLUDED')) {
-    require dirname(__FILE__) . '/precheck.inc.php';
+    require __DIR__ . '/precheck.inc.php';
     return;
 }
 
 define('PROTECTOR_POSTCHECK_INCLUDED', 1);
-if (!class_exists('XoopsConnection', false)) {
+if (!class_exists('\\Xoops\\Core\\Database\\Connection', false)) {
     return;
 }
 protector_postcheck();

@@ -13,21 +13,21 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
-require_once dirname(dirname(__FILE__)) . '/class/gtickets.php';
+require_once dirname(__DIR__) . '/class/gtickets.php';
 
 $xoops = Xoops::getInstance();
 $xoops->db();
 global $xoopsDB;
 $db = $xoopsDB;
-$xoops->header('protector_prefix.html');
+$xoops->header('admin:protector/protector_prefix.html');
 
 $error = '';
 // COPY TABLES
@@ -57,7 +57,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
     $count = 0;
     while ($row_table = $db->fetchArray($srs)) {
-        $count++;
+        ++$count;
         $old_table = $row_table['Name'];
         if (substr($old_table, 0, strlen($old_prefix) + 1) !== $old_prefix . '_') {
             continue;
@@ -90,7 +90,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
         $_SESSION['protector_logger'] = Logger::getInstance()->dump('queries');
     }
 
-    if ( $error != '' ) {
+    if ($error != '') {
         $xoops->tpl()->assign('error', $error);
         $xoops->footer();
     } else {
@@ -132,15 +132,15 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
             $result = mysql_query("SELECT * FROM `$table`");
             $fields_cnt = mysql_num_fields($result);
             $field_flags = array();
-            for ($j = 0; $j < $fields_cnt; $j++) {
+            for ($j = 0; $j < $fields_cnt; ++$j) {
                 $field_flags[$j] = mysql_field_flags($result, $j);
             }
             $search = array("\x00", "\x0a", "\x0d", "\x1a");
             $replace = array('\0', '\n', '\r', '\Z');
             $current_row = 0;
             while ($row = mysql_fetch_row($result)) {
-                $current_row++;
-                for ($j = 0; $j < $fields_cnt; $j++) {
+                ++$current_row;
+                for ($j = 0; $j < $fields_cnt; ++$j) {
                     $fields_meta = mysql_fetch_field($result, $j);
                     // NULL
                     if (!isset($row[$j]) || is_null($row[$j])) {
@@ -238,7 +238,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
 // beggining of Output
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('prefix_manager.php');
 
 $xoops->tpl()->assign('prefix', sprintf(_AM_TXT_HOWTOCHANGEDB, XOOPS_VAR_PATH . "/data/secure.php"));
@@ -278,16 +278,17 @@ foreach ($prefixes as $prefix) {
     $table_count = 0;
     $has_xoopscomments = false;
     foreach ($tables as $table) {
-        if ($table == $prefix['name'] . '_xoopscomments')
-                {
-                    $has_xoopscomments = true;
-                }
-        if (substr($table, 0, strlen($prefix['name']) + 1) === $prefix['name'] . '_')
-            $table_count++;
+        if ($table == $prefix['name'] . '_xoopscomments') {
+            $has_xoopscomments = true;
+        }
+        if (substr($table, 0, strlen($prefix['name']) + 1) === $prefix['name'] . '_') {
+            ++$table_count;
+        }
     }
     // check if prefix_xoopscomments exists
-    if (!$has_xoopscomments)
+    if (!$has_xoopscomments) {
         continue;
+    }
 
     $prefix4disp = htmlspecialchars($prefix['name'], ENT_QUOTES);
     $ticket_input = $xoopsGTicket->getTicketHtml(__LINE__, 1800, 'protector_admin');
@@ -304,7 +305,7 @@ foreach ($prefixes as $prefix) {
     $table_arr['ticket'] = $ticket_input;
     $table_arr['del'] = $del_button;
 
-    $xoops->tpl()->append_by_ref('table', $table_arr);
+    $xoops->tpl()->appendByRef('table', $table_arr);
     unset($table_arr);
 }
 $xoops->footer();

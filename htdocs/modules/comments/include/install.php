@@ -10,20 +10,18 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 function xoops_module_install_comments(&$module)
 {
     $xoops = Xoops::getInstance();
+    global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopscomments");
     $result = $xoopsDB->queryF($sql);
-    if (($rows = $xoopsDB->getRowsNum($result)) == 20) {
+    if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 20) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopscomments");
         $result = $xoopsDB->query($sql);
         while ($myrow = $xoopsDB->fetchArray($result)) {
@@ -37,21 +35,24 @@ function xoops_module_install_comments(&$module)
 
     XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));
     $helper = Comments::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('comments');
+    $plugins = \Xoops\Module\Plugin::getPlugins('comments');
 
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }
 
-function xoops_module_uninstall_comments(&$module)
+function xoops_module_pre_uninstall_comments(&$module)
 {
     $xoops = Xoops::getInstance();
+    XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));
     $helper = Comments::getInstance();
-    $plugins = Xoops_Module_Plugin::getPlugins('comments');
+    $plugins = \Xoops\Module\Plugin::getPlugins('comments');
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }
+
     return true;
 }

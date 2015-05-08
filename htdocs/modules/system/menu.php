@@ -13,7 +13,7 @@
  * System menu
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -22,7 +22,10 @@
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
-$groups = $xoops->user->getGroups();
+$groups = array();
+if (is_object($xoops->user)) {
+    $groups = $xoops->user->getGroups();
+}
 
 $all_ok = false;
 if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {
@@ -53,6 +56,6 @@ foreach ($dirlist as $file) {
         }
         unset($modversion);
     }
-    $index++;
+    ++$index;
 }
 unset($dirlist);

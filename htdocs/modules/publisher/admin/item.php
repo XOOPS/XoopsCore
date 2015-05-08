@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,13 +21,13 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 
-$itemid = PublisherRequest::getInt('itemid');
+$itemid = Request::getInt('itemid');
 $op = ($itemid > 0 || isset($_POST['editor'])) ? 'mod' : '';
-$op = PublisherRequest::getString('op', $op);
+$op = Request::getCmd('op', $op);
 
 if (isset($_POST['additem'])) {
     $op = 'additem';
@@ -36,10 +38,10 @@ if (isset($_POST['additem'])) {
 }
 
 // Where shall we start ?
-$submittedstartitem = PublisherRequest::getInt('submittedstartitem');
-$publishedstartitem = PublisherRequest::getInt('publishedstartitem');
-$offlinestartitem = PublisherRequest::getInt('offlinestartitem');
-$rejectedstartitem = PublisherRequest::getInt('rejectedstartitem');
+$submittedstartitem = Request::getInt('submittedstartitem');
+$publishedstartitem = Request::getInt('publishedstartitem');
+$offlinestartitem = Request::getInt('offlinestartitem');
+$rejectedstartitem = Request::getInt('rejectedstartitem');
 
 switch ($op) {
     case "clone":
@@ -79,7 +81,7 @@ switch ($op) {
         $itemObj->setVarsFromRequest();
 
         $old_status = $itemObj->getVar('status');
-        $new_status = PublisherRequest::getInt('status', _PUBLISHER_STATUS_PUBLISHED); //_PUBLISHER_STATUS_NOTSET;
+        $new_status = \Xmf\Request::getInt('status', _PUBLISHER_STATUS_PUBLISHED); //_PUBLISHER_STATUS_NOTSET;
 
         $error_msg = '';
         $redirect_msg = '';
@@ -198,7 +200,7 @@ switch ($op) {
         echo "<td width='80' class='bg3' align='center'><strong>" . _AM_PUBLISHER_ACTION . "</strong></td>";
         echo "</tr>";
         if ($totalitems > 0) {
-            for ($i = 0; $i < $totalItemsOnPage; $i++) {
+            for ($i = 0; $i < $totalItemsOnPage; ++$i) {
                 $categoryObj = $itemsObj[$i]->category();
 
                 $approve = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/approve.gif' title='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' alt='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' /></a>&nbsp;";
@@ -248,7 +250,7 @@ switch ($op) {
         echo "<td width='80' class='bg3' align='center'><strong>" . _AM_PUBLISHER_ACTION . "</strong></td>";
         echo "</tr>";
         if ($totalitems > 0) {
-            for ($i = 0; $i < $totalItemsOnPage; $i++) {
+            for ($i = 0; $i < $totalItemsOnPage; ++$i) {
                 $categoryObj = $itemsObj[$i]->category();
 
                 $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
@@ -296,7 +298,7 @@ switch ($op) {
         echo "<td width='80' class='bg3' align='center'><strong>" . _AM_PUBLISHER_ACTION . "</strong></td>";
         echo "</tr>";
         if ($totalitems > 0) {
-            for ($i = 0; $i < $totalItemsOnPage; $i++) {
+            for ($i = 0; $i < $totalItemsOnPage; ++$i) {
                 $categoryObj = $itemsObj[$i]->category();
 
                 $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
@@ -345,7 +347,7 @@ switch ($op) {
         echo "<td width='80' class='bg3' align='center'><strong>" . _AM_PUBLISHER_ACTION . "</strong></td>";
         echo "</tr>";
         if ($totalitems > 0) {
-            for ($i = 0; $i < $totalItemsOnPage; $i++) {
+            for ($i = 0; $i < $totalItemsOnPage; ++$i) {
                 $categoryObj = $itemsObj[$i]->category();
 
                 $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid') . "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
@@ -432,8 +434,8 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
                 $page_info = _AM_PUBLISHER_ITEM_DUPLICATING_DSC;
                 break;
 
-            case "default" :
-            default :
+            case "default":
+            default:
                 $page_title = _AM_PUBLISHER_PUBLISHEDEDITING;
                 $page_info = _AM_PUBLISHER_PUBLISHEDEDITING_INFO;
                 break;
@@ -465,7 +467,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     $sform = $publisher->getForm($itemObj, 'item');
     $sform->setTitle(_AM_PUBLISHER_ITEMS);
     $sform->assign($formTpl);
-    $formTpl->display('module:publisher|publisher_submit.html');
+    $formTpl->display('module:publisher/publisher_submit.tpl');
 
     PublisherUtils::closeCollapsableBar('edititemtable', 'edititemicon');
 
@@ -488,9 +490,9 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     echo "</form>";
 
     // Delete File
-    $form = new XoopsThemeForm(_CO_PUBLISHER_DELETEFILE, "form_name", "pw_delete_file.php");
+    $form = new Xoops\Form\ThemeForm(_CO_PUBLISHER_DELETEFILE, "form_name", "pw_delete_file.php");
 
-    $pWrap_select = new XoopsFormSelect(PublisherUtils::getUploadDir(true, 'content'), "address");
+    $pWrap_select = new Xoops\Form\Select(PublisherUtils::getUploadDir(true, 'content'), "address");
     $folder = dir($dir);
     while ($file = $folder->read()) {
         if ($file != "." && $file != "..") {
@@ -501,11 +503,11 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     $form->addElement($pWrap_select);
 
     $delfile = "delfile";
-    $form->addElement(new XoopsFormHidden('op', $delfile));
-    $submit = new XoopsFormButton("", "submit", _AM_PUBLISHER_BUTTON_DELETE, "submit");
+    $form->addElement(new Xoops\Form\Hidden('op', $delfile));
+    $submit = new Xoops\Form\Button("", "submit", _AM_PUBLISHER_BUTTON_DELETE, "submit");
     $form->addElement($submit);
 
-    $form->addElement(new XoopsFormHidden('backto', $publisher_current_page));
+    $form->addElement(new Xoops\Form\Hidden('backto', $publisher_current_page));
     $form->display();
 
     PublisherUtils::closeCollapsableBar('pagewraptable', 'pagewrapicon');

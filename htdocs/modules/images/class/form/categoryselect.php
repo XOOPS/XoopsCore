@@ -13,14 +13,12 @@
  * images module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class ImagesCategoryselectForm extends XoopsThemeForm
+class ImagesCategoryselectForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param category id $imgcat_id
@@ -30,11 +28,11 @@ class ImagesCategoryselectForm extends XoopsThemeForm
         $xoops = Xoops::getInstance();
         $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-        $helper = Xoops_Module_Helper::getHelper('images');
+        $helper = Xoops\Module\Helper::getHelper('images');
         $categories = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_read');
 
         parent::__construct('', 'category_select', $xoops->getEnv('PHP_SELF'), 'post');
-        $select = new XoopsFormSelect('', 'imgcat_id', $imgcat_id);
+        $select = new Xoops\Form\Select('', 'imgcat_id', $imgcat_id);
         $select->addOption(0, _AM_IMAGES_CAT_SELECT);
         $select->addOptionArray($categories);
         $select->setExtra("onchange='javascript:window.location.href=\"images.php?imgcat_id=\" + this.value'");

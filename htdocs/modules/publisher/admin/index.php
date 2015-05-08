@@ -13,20 +13,23 @@
  * Publisher
  *
  * @copyright    The XOOPS Project (http://www.xoops.org)
- * @license      GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
+ * @license      GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package      Publisher
  * @since        1.0
  * @author       Mage, Mamba
  * @version      $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
+
+$indexAdmin->addConfigBoxLine('thumbnail', 'service');
 $indexAdmin->displayIndex();
+
 
 $xoops->footer();

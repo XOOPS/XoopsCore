@@ -13,7 +13,7 @@
  * XOOPS session handler
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
@@ -25,11 +25,11 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
  * Handler for a session
- * @package     kernel
  *
- * @author        Kazumi Ono    <onokazu@xoops.org>
- * @author        Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright    copyright (c) The XOOPS project XOOPS.org
+ * @package   kernel
+ * @author    Kazumi Ono    <onokazu@xoops.org>
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright copyright (c) The XOOPS project XOOPS.org
  */
 class XoopsSessionHandler
 {
@@ -67,22 +67,20 @@ class XoopsSessionHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection $db reference to the {@link XoopsConnection} object
-     *
+     * @param Xoops\Core\Database\Connection $db database instance
      */
     public function __construct($db)
     {
-        global $xoopsDB;
-        $this->db = $xoopsDB;
+        $this->db = $db;
     }
 
     /**
      * Open a session
      *
-     * @param    string  $save_path
-     * @param    string  $session_name
+     * @param string $save_path    not used
+     * @param string $session_name not used
      *
-     * @return    bool
+     * @return bool
      */
     public function open($save_path, $session_name)
     {
@@ -103,18 +101,25 @@ class XoopsSessionHandler
     /**
      * Read a session from the database
      *
-     * @param    string  $sess_id    ID of the session
+     * @param string $sess_id Id of the session
      *
-     * @return    string   Session data
+     * @return string Session data
      */
     public function read($sess_id)
     {
-        $sql = sprintf('SELECT sess_data, sess_ip FROM %s WHERE sess_id = %s', $this->db->prefix('session'), $this->db->quoteString($sess_id));
-        if (false != $result = $this->db->query($sql)) {
-            if (list ($sess_data, $sess_ip) = $this->db->fetchRow($result)) {
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->select('s.sess_data')
+            ->addSelect('s.sess_ip')
+            ->fromPrefix('session', 's')
+            ->where($eb->eq('s.sess_id', ':sessid'))
+            ->setParameter(':sessid', $sess_id, \PDO::PARAM_STR);
+
+        if ($result = $qb->execute()) {
+            if (list ($sess_data, $sess_ip) = $result->fetch(\PDO::FETCH_NUM)) {
                 if ($this->securityLevel > 1) {
-                    $pos = strpos($sess_ip, ".", $this->securityLevel - 1);
-                    if (strncmp($sess_ip, $_SERVER['REMOTE_ADDR'], $pos)) {
+                    $pos = strrpos($sess_ip, '.'); //, $this->securityLevel - 1);
+                    if (strncmp($sess_ip, $_SERVER['REMOTE_ADDR'], $pos-1)) {
                         $sess_data = '';
                     }
                 }
@@ -127,45 +132,61 @@ class XoopsSessionHandler
     /**
      * Write a session to the database
      *
-     * @param   string  $sess_id
-     * @param   string  $sess_data
+     * @param string $sess_id   id of session
+     * @param string $sess_data data to store
      *
-     * @return  bool
+     * @return bool
      **/
     public function write($sess_id, $sess_data)
     {
-        $sess_id = $this->db->quoteString($sess_id);
-        $sql = sprintf('UPDATE %s SET sess_updated = %u, sess_data = %s WHERE sess_id = %s', $this->db->prefix('session'), time(), $this->db->quoteString($sess_data), $sess_id);
-        $result = $this->db->queryF($sql);
-        if ($this->db->getAffectedRows() <= 0) {
-            $sql = sprintf('INSERT INTO %s (sess_id, sess_updated, sess_ip, sess_data) VALUES (%s, %u, %s, %s)', $this->db->prefix('session'), $sess_id, time(), $this->db->quoteString($_SERVER['REMOTE_ADDR']), $this->db->quoteString($sess_data));
-            $result = $this->db->queryF($sql);
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->updatePrefix('session')
+            ->set('sess_updated', ':sessupd')
+            ->set('sess_data', ':sessdata')
+            ->where($eb->eq('sess_id', ':sessid'))
+            ->setParameter(':sessid', $sess_id, \PDO::PARAM_STR)
+            ->setParameter(':sessupd', time(), \PDO::PARAM_INT)
+            ->setParameter(':sessdata', $sess_data, \PDO::PARAM_STR);
+        $result = $qb->execute();
+        if ($result<=0) {
+            $this->db->insertPrefix(
+                'session',
+                array(
+                    'sess_id'      => $sess_id,
+                    'sess_updated' => time(),
+                    'sess_ip'      => $_SERVER['REMOTE_ADDR'],
+                    'sess_data'    => $sess_data,
+                )
+            );
         }
 
-        return (false !== $result);
+        return ($result);
     }
 
     /**
      * Destroy a session
      *
-     * @param   string  $sess_id
+     * @param string $sess_id Id of session
      *
-     * @return  bool
+     * @return bool
      **/
     public function destroy($sess_id)
     {
-        $sql = sprintf('DELETE FROM %s WHERE sess_id = %s', $this->db->prefix('session'), $this->db->quoteString($sess_id));
-        if (!$this->db->queryF($sql)) {
-            return false;
-        }
-        return true;
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->deletePrefix('session', 's')
+            ->where($eb->eq('s.sess_id', ':sessid'))
+            ->setParameter(':sessid', $sess_id, \PDO::PARAM_STR);
+        return $qb->execute();
     }
 
     /**
      * Garbage Collector
      *
-     * @param   int $expire Time in seconds until a session expires
-     * @return  bool
+     * @param int $expire Time in seconds until a session expires
+     *
+     * @return bool
      **/
     public function gc($expire)
     {
@@ -174,12 +195,18 @@ class XoopsSessionHandler
         }
 
         $mintime = time() - intval($expire);
-        $sql = sprintf('DELETE FROM %s WHERE sess_updated < %u', $this->db->prefix('session'), $mintime);
-        return $this->db->queryF($sql);
+        $qb = $this->db->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->deletePrefix('session', 's')
+            ->where($eb->lt('s.sess_updated', ':sessupd'))
+            ->setParameter(':sess_updated', $mintime, \PDO::PARAM_INT);
+        return $qb->execute();
     }
 
     /**
      * Force gc for situations where gc is registered but not executed
+     *
+     * @return void
      **/
     public function gc_force()
     {
@@ -195,8 +222,9 @@ class XoopsSessionHandler
      *
      * To be refactored
      *
-     * @param   bool $delete_old_session
-     * @return  bool
+     * @param bool $delete_old_session passed to session_regenerate_id
+     *
+     * @return bool
      **/
     public function regenerate_id($delete_old_session = false)
     {
@@ -204,39 +232,11 @@ class XoopsSessionHandler
 
         if (!$this->enableRegenerateId) {
             $success = true;
-
-        // parameter "delete_old_session" only available as of PHP 5.1.0
-        } else if (version_compare($phpversion, "5.1.0", ">=")) {
-            $success = session_regenerate_id($delete_old_session);
-
         } else {
-            $old_session_id = session_id();
-            // session_regenerate_id function available as of PHP 4.3.2
-            if (function_exists("session_regenerate_id")) {
-                $success = session_regenerate_id();
-                if ($success && $delete_old_session) {
-                    // Extra step to destroy old session
-                    $this->destroy($old_session_id);
-                }
-                // For PHP prior to 4.3.2
-            } else {
-                // session_regenerate_id is not defined, create new session ID
-                $session_id = md5(uniqid(rand(), true) . @$_SERVER['HTTP_USER_AGENT']);
-                // Set the new session ID
-                session_id($session_id);
-                // Destory old session on request
-                if ($delete_old_session) {
-                    $this->destroy($old_session_id);
-                    // switch old session to new one
-                } else {
-                    $sql = sprintf('UPDATE %s SET sess_id = %s WHERE sess_id = %s', $this->db->prefix('session'), $this->db->quoteString($session_id), $this->db->quoteString($old_session_id));
-                    $this->db->queryF($sql);
-                }
-                $success = true;
-            }
+            $success = session_regenerate_id($delete_old_session);
         }
 
-        // Force updating cookie for session cookie is not issued correctly in some IE versions or not automatically issued prior to PHP 4.3.3 for all browsers
+        // Force updating cookie for session cookie is not issued correctly in some IE versions
         if ($success) {
             $this->update_cookie();
         }
@@ -250,18 +250,32 @@ class XoopsSessionHandler
      * To be refactored
      * FIXME: how about $xoopsConfig['use_ssl'] is enabled?
      *
-     * @param   string  $sess_id    session ID
-     * @param   int     $expire     Time in seconds until a session expires
-     * @return  bool
+     * @param string $sess_id session ID
+     * @param int    $expire  Time in seconds until a session expires
+     *
+     * @return boolean|null
      **/
     public function update_cookie($sess_id = null, $expire = null)
     {
         $xoops = Xoops::getInstance();
-        $session_name = ($xoops->getConfig('use_mysession') && $xoops->getConfig('session_name') != '') ? $xoops->getConfig('session_name') : session_name();
-        $session_expire = !is_null($expire) ? intval($expire) : (($xoops->getConfig('use_mysession') && $xoops->getConfig('session_name') != '') ? $xoops->getConfig('session_expire') * 60 : ini_get("session.cookie_lifetime"));
+        $session_name = ($xoops->getConfig('use_mysession')
+            && $xoops->getConfig('session_name') != '')
+            ? $xoops->getConfig('session_name') : session_name();
+        $session_expire = !is_null($expire) ? intval($expire) : (($xoops->getConfig('use_mysession')
+            && $xoops->getConfig('session_name') != '')
+            ? $xoops->getConfig('session_expire') * 60
+            : ini_get("session.cookie_lifetime"));
         $session_id = empty($sess_id) ? session_id() : $sess_id;
         if (!headers_sent()) {
-            setcookie($session_name, $session_id, $session_expire ? time() + $session_expire : 0, '/', XOOPS_COOKIE_DOMAIN, 0);
+            setcookie(
+                $session_name,
+                $session_id,
+                $session_expire ? time() + $session_expire : 0,
+                '/',
+                XOOPS_COOKIE_DOMAIN,
+                false,
+                true
+            );
         }
     }
 }

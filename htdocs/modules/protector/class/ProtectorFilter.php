@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -34,9 +34,9 @@ class ProtectorFilterAbstract
         $language = $xoops->getConfig('language');
         $this->protector = Protector::getInstance();
         $lang = !$language  ? @$this->protector->_conf['default_lang'] : $language;
-        @include_once dirname(dirname(__FILE__)) . '/language/' . $lang . '/main.php';
+        @include_once dirname(__DIR__) . '/language/' . $lang . '/main.php';
         if (!defined('_MD_PROTECTOR_YOUAREBADIP')) {
-            include_once dirname(dirname(__FILE__)) . '/language/english/main.php';
+            include_once dirname(__DIR__) . '/language/english/main.php';
         }
     }
 
@@ -67,7 +67,7 @@ class ProtectorFilterHandler
     function ProtectorFilterHandler()
     {
         $this->protector = Protector::getInstance();
-        $this->filters_base = dirname(dirname(__FILE__)) . '/filters_enabled';
+        $this->filters_base = dirname(__DIR__) . '/filters_enabled';
     }
 
     static function getInstance()

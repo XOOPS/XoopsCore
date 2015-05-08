@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,7 +19,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 PublisherUtils::cpHeader();
@@ -43,9 +43,9 @@ echo "</table>";
 echo "</form>";
 
 // Delete File
-$form = new XoopsThemeForm(_CO_PUBLISHER_DELETEFILE, "form_name", "pw_delete_file.php");
+$form = new Xoops\Form\ThemeForm(_CO_PUBLISHER_DELETEFILE, "form_name", "pw_delete_file.php");
 
-$pWrap_select = new XoopsFormSelect(PublisherUtils::getUploadDir(true, 'content'), "address");
+$pWrap_select = new Xoops\Form\Select(PublisherUtils::getUploadDir(true, 'content'), "address");
 $folder = dir($dir);
 while ($file = $folder->read()) {
     if ($file != "." && $file != "..") {
@@ -56,8 +56,8 @@ $folder->close();
 $form->addElement($pWrap_select);
 
 $delfile = "delfile";
-$form->addElement(new XoopsFormHidden('op', $delfile));
-$submit = new XoopsFormButton("", "submit", _AM_PUBLISHER_BUTTON_DELETE, "submit");
+$form->addElement(new Xoops\Form\Hidden('op', $delfile));
+$submit = new Xoops\Form\Button("", "submit", _AM_PUBLISHER_BUTTON_DELETE, "submit");
 $form->addElement($submit);
 $form->display();
 

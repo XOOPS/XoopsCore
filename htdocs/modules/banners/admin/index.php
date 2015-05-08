@@ -13,13 +13,13 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id: $
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
 
@@ -42,7 +42,7 @@ $banners_finish = $banner_Handler->getCount($criteria);
 // folder path
 $folder_path = XOOPS_ROOT_PATH . '/uploads/banners';
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->addInfoBox(_MI_BANNERS_BANNERS);
 $admin_page->addInfoBoxLine(sprintf(_AM_BANNERS_INDEX_NBTOTAL, $banners_banner));
 $admin_page->addInfoBoxLine(sprintf(_AM_BANNERS_INDEX_NBCLIENT, '<span class="green">' . $banners_client . '</span>'));

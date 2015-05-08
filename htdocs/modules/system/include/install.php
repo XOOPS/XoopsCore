@@ -13,11 +13,19 @@
  * System install module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
- * @package     system
+ * @package         system
  * @version         $Id$
+ */
+
+/**
+ * xoops_module_install_system - initialize on install
+ *
+ * @param type &$module module object
+ *
+ * @return void
  */
 function xoops_module_install_system(&$module)
 {
@@ -26,7 +34,7 @@ function xoops_module_install_system(&$module)
     $group_handler = $xoops->getHandlerGroup();
     // create admin group
     $obj = $group_handler->create();
-    $obj->setVar("name", addslashes(XoopsLocale::WEBMASTERS));
+    $obj->setVar("name", addslashes(SystemLocale::WEBMASTERS));
     $obj->setVar("description", addslashes(SystemLocale::WEBMASTERS_OF_THIS_SITE));
     $obj->setVar("group_type", 'Admin');
     if (!$group_handler->insert($obj)) {
@@ -52,7 +60,7 @@ function xoops_module_install_system(&$module)
 
     // data for table 'group_permission'
     $groupperm_handler = $xoops->getHandlerGroupPerm();
-    for ($i = 2; $i <= 3; $i++) {
+    for ($i = 2; $i <= 3; ++$i) {
         $obj = $groupperm_handler->create();
         $obj->setVar("gperm_groupid", $i);
         $obj->setVar("gperm_itemid", '1');
@@ -62,7 +70,7 @@ function xoops_module_install_system(&$module)
             echo $xoops->alert('error', $obj->getHtmlErrors());
         }
     }
-    for ($i = 1; $i <= 17; $i++) {
+    for ($i = 1; $i <= 17; ++$i) {
         $obj = $groupperm_handler->create();
         $obj->setVar("gperm_groupid", '1');
         $obj->setVar("gperm_itemid", $i);
@@ -74,13 +82,13 @@ function xoops_module_install_system(&$module)
     }
     // Make system block visible
     $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
-    $block_handler = new XoopsBlockHandler();
+    $block_handler = new XoopsBlockHandler($xoops->db());
     $blocks = $block_handler->getByModule(1);
     foreach ($blocks as $block) {
         if (in_array($block->getVar('template'), array(
-                'system_block_user.html',
-                'system_block_login.html',
-                'system_block_mainmenu.html'
+                'system_block_user.tpl',
+                'system_block_login.tpl',
+                'system_block_mainmenu.tpl'
             ))
         ) {
             $block->setVar('visible', 1);
@@ -91,7 +99,7 @@ function xoops_module_install_system(&$module)
             $blockmodulelink->setVar('module_id', 0); //show on all pages
             $blockmodulelink_handler->insert($blockmodulelink);
 
-            for ($i = 2; $i <= 3; $i++) {
+            for ($i = 2; $i <= 3; ++$i) {
                 $obj = $groupperm_handler->create();
                 $obj->setVar("gperm_groupid", $i);
                 $obj->setVar("gperm_itemid", $block->id());
@@ -116,7 +124,9 @@ function xoops_module_install_system(&$module)
     // user admin
 
     // data for table 'groups_users_link'
-    $dbm = new XoopsDatabaseManager();
-    $dbm->insert('groups_users_link', " VALUES (0, 1, 1)");
-    $dbm->insert('groups_users_link', " VALUES (0, 2, 1)");
+    $types = array(\PDO::PARAM_INT, \PDO::PARAM_INT);
+    $data = array('groupid' => 1, 'uid' => 1);
+    $xoops->db()->insertPrefix('groups_users_link', $data, $types);
+    $data = array('groupid' => 2, 'uid' => 1);
+    $xoops->db()->insertPrefix('groups_users_link', $data, $types);
 }

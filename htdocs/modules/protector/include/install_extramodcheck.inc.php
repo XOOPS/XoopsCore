@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -25,9 +25,9 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  * @param $xoops_root_path
  * @param $mytrustdirname
  *
- * @return array
+ * @return string[]
  */
 function get_writeoks_from_protector($xoops_root_path, $mytrustdirname)
 {
-    return array(dirname(dirname(__FILE__)) . '/configs');
+    return array(dirname(__DIR__) . '/configs');
 }

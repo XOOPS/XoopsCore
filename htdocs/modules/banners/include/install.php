@@ -13,19 +13,26 @@
  * banners module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id: $
  */
 
+/**
+ * banner module install suplement
+ *
+ * @param XoopsModule &$module module being installed
+ *
+ * @return boolean true if no error
+ */
 function xoops_module_install_banners(&$module)
 {
     $xoops = Xoops::getInstance();
-    $xoops->db();
-    global $xoopsDB;
-    XoopsLoad::addMap(array('banners' => dirname(dirname(__FILE__)) . '/class/helper.php'));
+    //$xoops->db();
+    //global $xoopsDB;
+    XoopsLoad::addMap(array('banners' => dirname(__DIR__) . '/class/helper.php'));
     $helper = Banners::getInstance();
     // Get handler
     $banner_Handler = $helper->getHandlerBanner();
@@ -69,34 +76,38 @@ function xoops_module_install_banners(&$module)
         }
     }*/
 
+/* this should be in system upgrade, not module install
+    TODO: Add to upgrade script and remove from here
     // delete banners and my_ip
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'banners'";
     $xoopsDB->queryF($sql);
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'my_ip'";
     $xoopsDB->queryF($sql);
-
+*/
     // create folder "banners"
     $dir = XOOPS_ROOT_PATH . "/uploads/banners";
-    if(!is_dir($dir)) {
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
         chmod($dir, 0777);
     }
     //Copy index.html
     $file = XOOPS_ROOT_PATH . "/uploads/banners/index.html";
-    if(!is_file($file)) {
+    if (!is_file($file)) {
         copy(XOOPS_ROOT_PATH . "/modules/banners/images/index.html", $file);
     }
     //Copy blank.gif
     $file = XOOPS_ROOT_PATH . "/uploads/banners/blank.gif";
-    if(!is_file($file)) {
+    if (!is_file($file)) {
         copy(XOOPS_ROOT_PATH . "/uploads/blank.gif", $file);
     }
     //Copy .htaccess
     $file = XOOPS_ROOT_PATH . "/uploads/banners/.htaccess";
-    if(!is_file($file)) {
+    if (!is_file($file)) {
         copy(XOOPS_ROOT_PATH . "/uploads/.htaccess", $file);
     }
 
+/* this should be in system upgrade, not module install
+    TODO: Add to upgrade script and remove from here
     // Copy banner to banners_banner
     $dbManager = new XoopsDatabaseManager();
     $map = array(
@@ -137,6 +148,7 @@ function xoops_module_install_banners(&$module)
         $obj->setVar("banner_status", 1);
         $banner_Handler->insert($obj);
     }
+*/
 
     // create XOOPS client
     $client_name = 'XOOPS';
@@ -144,7 +156,7 @@ function xoops_module_install_banners(&$module)
     $criteria->add(new Criteria('bannerclient_name', $client_name));
     $criteria->setLimit(1);
     $client_arr = $client_Handler->getall($criteria);
-    if (count($client_arr) == 0){
+    if (count($client_arr) == 0) {
         $obj = $client_Handler->create();
         $obj->setVar("bannerclient_uid", 0);
         $obj->setVar("bannerclient_name", $client_name);
@@ -166,20 +178,20 @@ function xoops_module_install_banners(&$module)
         //Copy banner
         $file = XOOPS_ROOT_PATH . "/uploads/banners/" . $k;
         $copy_file = XOOPS_ROOT_PATH . "/modules/banners/images/" . $k;
-        if(!is_file($file) && is_file($copy_file)) {
+        if (!is_file($file) && is_file($copy_file)) {
             copy($copy_file, $file);
-            $obj = $banner_Handler->create();
-            $obj->setVar("banner_cid", $newclient_id);
-            $obj->setVar("banner_clickurl", $v);
-            $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $k);
-            $obj->setVar("banner_datestart", time());
-            $obj->setVar("banner_dateend", 0);
-            $obj->setVar("banner_status", 1);
-            $obj->setVar("banner_imptotal", 0);
-            $obj->setVar("banner_htmlbanner", 0);
-            $obj->setVar("banner_htmlcode", '');
-            $banner_Handler->insert($obj);
         }
+        $obj = $banner_Handler->create();
+        $obj->setVar("banner_cid", $newclient_id);
+        $obj->setVar("banner_clickurl", $v);
+        $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $k);
+        $obj->setVar("banner_datestart", time());
+        $obj->setVar("banner_dateend", 0);
+        $obj->setVar("banner_status", 1);
+        $obj->setVar("banner_imptotal", 0);
+        $obj->setVar("banner_htmlbanner", 0);
+        $obj->setVar("banner_htmlcode", '');
+        $banner_Handler->insert($obj);
     }
     return true;
 }

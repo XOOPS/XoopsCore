@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,24 +21,81 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 if (!$xoops->isUser()) {
     $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$xoops->header('profile_changepass.html');
+// see https://github.com/dropbox/zxcvbn
+$zxcvbn_path = $xoops->url('modules/profile/assets/js/zxcvbn.js');
+$zxcvbn =<<<EOT
+(function(){
+    var a;
+    a=function(){
+        var a,b;
+        b=document.createElement("script");
+        b.src="$zxcvbn_path";
+        b.type="text/javascript";
+        b.async=!0;
+        a=document.getElementsByTagName("script")[0];
+        return a.parentNode.insertBefore(b,a)
+    };
+    null!=window.attachEvent?window.attachEvent("onload",a):window.addEventListener("load",a,!1)
+}).call(this);
+$(document).ready(function(){
+    $('#crack_time').addClass('label label-danger label-important');
+    $('#crack_time').html("cracktime : instant");
+    $('#submit').attr('disabled','disabled');
+    $('#newpass').keyup(function() {
+        var weak = 259200; // 3 days in seconds
+        var good = 7.889e+6; // 3 months in seconds
+        var great = 9.467e+7; // 3 years in seconds
+        var textValue = $(this).val();
+        var result = zxcvbn(textValue);
+        $('#crack_time').html("cracktime : " + result.crack_time_display);
+        if (result.crack_time < weak) {
+            $('#crack_time').removeClass('label-warning label-info label-success');
+            $('#crack_time').addClass('label-danger label-important');
+            $('#submit').attr('disabled','disabled');
+        }
+        if (result.crack_time >= weak && result.crack_time < good) {
+            $('#crack_time').removeClass('label-danger label-important label-info label-success');
+            $('#crack_time').addClass('label-warning');
+            $('#submit').attr('disabled','disabled');
+        }
+        if (result.crack_time >= good) {
+            $('#crack_time').removeClass('label-danger label-important label-warning label-success');
+            $('#crack_time').addClass('label-info');
+            $('#submit').removeAttr('disabled');
+        }
+        if (result.crack_time >= great) {
+            $('#crack_time').removeClass('label-danger label-important label-warning label-info');
+            $('#crack_time').addClass('label-success');
+            $('#submit').removeAttr('disabled');
+        }
+    });
+});
+EOT;
+
+$xoops->header('module:profile/profile_changepass.tpl');
 
 if (!isset($_POST['submit'])) {
+    $xoops->theme()->addScript(null, array('type' => 'application/x-javascript'), $zxcvbn);
     //show change password form
-    $form = new XoopsThemeForm(_PROFILE_MA_CHANGEPASSWORD, 'form', $_SERVER['REQUEST_URI'], 'post', true);
-    $form->addElement(new XoopsFormPassword(_PROFILE_MA_OLDPASSWORD, 'oldpass', 15, 50), true);
-    $form->addElement(new XoopsFormPassword(_PROFILE_MA_NEWPASSWORD, 'newpass', 15, 50), true);
-    $form->addElement(new XoopsFormPassword(XoopsLocale::VERIFY_PASSWORD, 'vpass', 15, 50), true);
-    $form->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+    $form = new Xoops\Form\ThemeForm(_PROFILE_MA_CHANGEPASSWORD, 'form', $_SERVER['REQUEST_URI'], 'post', true);
+    $form->addElement(new Xoops\Form\Password(_PROFILE_MA_OLDPASSWORD, 'oldpass', 4, 50), true);
+    //$form->addElement(new Xoops\Form\Password(_PROFILE_MA_NEWPASSWORD, 'newpass', 4, 50), true);
+    $password = new Xoops\Form\Password(_PROFILE_MA_NEWPASSWORD, 'newpass', 4, 50, '', false, 'New Password');
+    //$password->setDescription('Description password');
+    $password->setPattern('^.{8,}$', 'You need at least 8 characters');
+    $form->addElement($password, true);
+    $form->addElement(new Xoops\Form\Label(XoopsLocale::PASSWORD_STRENGTH, '', 'crack_time'));
+    $form->addElement(new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass', 4, 50), true);
+    $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     $form->assign($xoops->tpl());
-    $xoops->appendConfig('profile_breadcrumbs', array('title' => _PROFILE_MA_CHANGEPASSWORD));
+    $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_CHANGEPASSWORD));
 
 } else {
     $xoops->getConfigs();
@@ -47,10 +104,10 @@ if (!isset($_POST['submit'])) {
     $password = @$myts->stripSlashesGPC(trim($_POST['newpass']));
     $vpass = @$myts->stripSlashesGPC(trim($_POST['vpass']));
     $errors = array();
-    if (md5($oldpass) != $xoops->user->getVar('pass', 'n')) {
+    if (!password_verify($oldpass, $xoops->user->getVar('pass', 'n'))) {
         $errors[] = _PROFILE_MA_WRONGPASSWORD;
     }
-    if (strlen($password) < $xoops->getConfig('minpass')) {
+    if (mb_strlen($password) < $xoops->getConfig('minpass')) {
         $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
     }
     if ($password != $vpass) {
@@ -61,14 +118,19 @@ if (!isset($_POST['submit'])) {
         $msg = implode('<br />', $errors);
     } else {
         //update password
-        $xoops->user->setVar('pass', md5($password));
+        $xoops->user->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
         if ($xoops->getHandlerMember()->insertUser($xoops->user)) {
             $msg = _PROFILE_MA_PASSWORDCHANGED;
         } else {
             $msg = _PROFILE_MA_ERRORDURINGSAVE;
         }
     }
-    $xoops->redirect(XOOPS_URL . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoops->user->getVar('uid'), 2, $msg);
+    $xoops->redirect(
+        XOOPS_URL . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid='
+        . $xoops->user->getVar('uid'),
+        2,
+        $msg
+    );
 }
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

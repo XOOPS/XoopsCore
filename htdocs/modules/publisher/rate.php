@@ -9,22 +9,24 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 
 //getting the values
-$rating = PublisherRequest::getInt('rating');
-$itemid = PublisherRequest::getInt('itemid');
+$rating = Request::getInt('rating');
+$itemid = Request::getInt('itemid');
 
 $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $gperm_handler = $publisher->getGrouppermHandler();
@@ -32,7 +34,9 @@ $hModConfig = $xoops->getHandlerConfig();
 $module_id = $publisher->getModule()->getVar('mid');
 
 //Checking permissions
-if (!$publisher->getConfig('perm_rating') || !$gperm_handler->checkRight('global', _PUBLISHER_RATE, $groups, $module_id)) {
+if (!$publisher->getConfig('perm_rating')
+    || !$gperm_handler->checkRight('global', _PUBLISHER_RATE, $groups, $module_id)
+) {
     $xoops->redirect(PUBLISHER_URL . '/item.php?itemid=' . $itemid, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
@@ -70,7 +74,7 @@ $newRatingObj->setVar('date', time());
 $publisher->getRatingHandler()->insert($newRatingObj);
 
 $current_rating += $rating;
-$count++;
+++$count;
 
 $publisher->getItemHandler()->updateAll('rating', number_format($current_rating / $count, 4), $criteria, true);
 $publisher->getItemHandler()->updateAll('votes', $count, $criteria, true);

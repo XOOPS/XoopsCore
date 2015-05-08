@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Blocks
  * @since           1.0
@@ -22,7 +22,7 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_items_recent_show($options)
 {
@@ -56,7 +56,7 @@ function publisher_items_recent_show($options)
     $totalItems = count($itemsObj);
 
     if ($itemsObj) {
-        for ($i = 0; $i < $totalItems; $i++) {
+        for ($i = 0; $i < $totalItems; ++$i) {
 
             $newItems['itemid'] = $itemsObj[$i]->getVar('itemid');
             $newItems['title'] = $itemsObj[$i]->title();
@@ -83,17 +83,17 @@ function publisher_items_recent_show($options)
 
 function publisher_items_recent_edit($options)
 {
-    $form = new PublisherBlockForm();
+    $form = new Xoops\Form\BlockForm();
 
-    $catEle = new XoopsFormLabel(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
-    $orderEle = new XoopsFormSelect(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
+    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
+    $orderEle = new Xoops\Form\Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
     $orderEle->addOptionArray(array(
         'datesub' => _MB_PUBLISHER_DATE,
         'counter' => _MB_PUBLISHER_HITS,
         'weight'  => _MB_PUBLISHER_WEIGHT,
     ));
-    $dispEle = new XoopsFormText(_MB_PUBLISHER_DISP, 'options[2]', 10, 255, $options[2]);
-    $charsEle = new XoopsFormText(_MB_PUBLISHER_CHARS, 'options[3]', 10, 255, $options[3]);
+    $dispEle = new Xoops\Form\Text(_MB_PUBLISHER_DISP, 'options[2]', 2, 255, $options[2]);
+    $charsEle = new Xoops\Form\Text(_MB_PUBLISHER_CHARS, 'options[3]', 2, 255, $options[3]);
 
 
     $form->addElement($catEle);

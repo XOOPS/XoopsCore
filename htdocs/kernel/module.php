@@ -10,13 +10,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A Module
@@ -216,15 +220,23 @@ class XoopsModule extends XoopsObject
      * Load the module info for this module
      *
      * @param string $dirname Module directory
-     * @param bool $verbose Give an error on fail?
+     * @param bool   $verbose Give an error on fail?
+     *
      * @return bool
+     *
+     * @todo the $modVersions array should be built once when modules are installed/updated and then cached
      */
     public function loadInfo($dirname, $verbose = true)
     {
+        static $modVersions;
         if (empty($dirname)) {
             return false;
         }
-        global $xoopsConfig; //for legacy
+        $dirname = basename($dirname);
+        if (isset($modVersions[$dirname])) {
+            $this->modinfo = $modVersions[$dirname];
+            return true;
+        }
         $xoops = xoops::getInstance();
         $dirname = basename($dirname);
         $xoops->loadLanguage('modinfo', $dirname);
@@ -238,7 +250,8 @@ class XoopsModule extends XoopsObject
         }
         $modversion = array();
         include $file;
-        $this->modinfo = $modversion;
+        $modVersions[$dirname] = $modversion;
+        $this->modinfo = $modVersions[$dirname];
         return true;
     }
 
@@ -252,7 +265,7 @@ class XoopsModule extends XoopsObject
      * @param integer $limit
      * @param integer $offset
      * @param integer $userid
-     * @return mixed Search result.
+     * @return boolean Search result.
      */
     public function search($term = '', $andor = 'AND', $limit = 0, $offset = 0, $userid = 0)
     {
@@ -426,9 +439,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'modules', 'XoopsModule', 'mid', 'dirname');
     }
@@ -441,19 +454,17 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     function getById($id = null)
     {
-        static $_cachedModule_dirname;
-        static $_cachedModule_mid;
         $id = intval($id);
         if ($id > 0) {
-            if (!empty($_cachedModule_mid[$id])) {
-                return $_cachedModule_mid[$id];
+            if (!empty($this->_cachedModule_mid[$id])) {
+                return $this->_cachedModule_mid[$id];
             } else {
                 $module = parent::get($id);
                 if (!is_object($module)) {
                     return false;
                 }
-                $_cachedModule_mid[$id] = $module;
-                $_cachedModule_dirname[$module->getVar('dirname')] = $module;
+                $this->_cachedModule_mid[$id] = $module;
+                $this->_cachedModule_dirname[$module->getVar('dirname')] = $module;
                 return $module;
             }
         }
@@ -463,19 +474,18 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * Load a module by its dirname
      *
-     * @param string $dirname
+     * @param string $dirname module directory name
+     *
      * @return XoopsModule|bool FALSE on fail
      */
     public function getByDirname($dirname)
     {
         $dirname = basename(trim($dirname));
-        static $_cachedModule_mid;
-        static $_cachedModule_dirname;
-        if (!empty($_cachedModule_dirname[$dirname])) {
-            return $_cachedModule_dirname[$dirname];
+
+        if (!empty($this->_cachedModule_dirname[$dirname])) {
+            return $this->_cachedModule_dirname[$dirname];
         } else {
-            $myts = MyTextSanitizer::getInstance();
-            $criteria = new Criteria('dirname', $myts->addSlashes($dirname));
+            $criteria = new Criteria('dirname', $dirname);
             $modules = $this->getObjectsArray($criteria);
             if (count($modules) == 1 && is_object($modules[0])) {
                 $module = $modules[0];
@@ -483,8 +493,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 return false;
             }
             /* @var $module XoopsModule */
-            $_cachedModule_dirname[$dirname] = $module;
-            $_cachedModule_mid[$module->getVar('mid')] = $module;
+            $this->_cachedModule_dirname[$dirname] = $module;
+            $this->_cachedModule_mid[$module->getVar('mid')] = $module;
             return $module;
         }
     }
@@ -502,8 +512,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             return false;
         }
 
-        $dirname = $module->getvar('dirname');
-        $mid = $module->getvar('mid');
+        $dirname = $module->getVar('dirname');
+        $mid = $module->getVar('mid');
 
         if (!empty($this->_cachedModule_dirname[$dirname])) {
             unset($this->_cachedModule_dirname[$dirname]);
@@ -511,8 +521,6 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         if (!empty($this->_cachedModule_mid[$mid])) {
             unset($this->_cachedModule_mid[$mid]);
         }
-        Xoops_Cache::delete("module_id_" . $module->getVar('mid'));
-        Xoops_Cache::delete("module_dirname_" . $module->getVar('dirname'));
         return true;
     }
 
@@ -528,72 +536,113 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             return false;
         }
 
-        // delete admin permissions assigned for this module
-        $sql = sprintf("DELETE FROM %s WHERE gperm_name = 'module_admin' AND gperm_itemid = %u", $this->db->prefix('group_permission'), $module->getVar('mid'));
-        $this->db->query($sql);
-        // delete read permissions assigned for this module
-        $sql = sprintf("DELETE FROM %s WHERE gperm_name = 'module_read' AND gperm_itemid = %u", $this->db->prefix('group_permission'), $module->getVar('mid'));
-        $this->db->query($sql);
+        $mid = $module->getVar('mid');
+        $dirname = $module->getVar('dirname');
 
-        $sql = sprintf("SELECT block_id FROM %s WHERE module_id = %u", $this->db->prefix('block_module_link'), $module->getVar('mid'));
-        if ($result = $this->db->query($sql)) {
-            $block_id_arr = array();
-            while ($myrow = $this->db->fetchArray($result)) {
-                array_push($block_id_arr, $myrow['block_id']);
-            }
-        }
-        // loop through block_id_arr
-        if (isset($block_id_arr)) {
-            foreach ($block_id_arr as $i) {
-                $sql = sprintf("SELECT block_id FROM %s WHERE module_id != %u AND block_id = %u", $this->db->prefix('block_module_link'), $module->getVar('mid'), $i);
-                if ($result2 = $this->db->query($sql)) {
-                    if (0 < $this->db->getRowsNum($result2)) {
-                        // this block has other entries, so delete the entry for this module
-                        $sql = sprintf("DELETE FROM %s WHERE (module_id = %u) AND (block_id = %u)", $this->db->prefix('block_module_link'), $module->getVar('mid'), $i);
-                        $this->db->query($sql);
-                    } else {
-                        // this block doesnt have other entries, so disable the block and let it show on top page only. otherwise, this block will not display anymore on block admin page!
-                        $sql = sprintf("UPDATE %s SET visible = 0 WHERE bid = %u", $this->db->prefix('newblocks'), $i);
-                        $this->db->query($sql);
-                        $sql = sprintf("UPDATE %s SET module_id = -1 WHERE module_id = %u", $this->db->prefix('block_module_link'), $module->getVar('mid'));
-                        $this->db->query($sql);
-                    }
-                }
-            }
+        // delete admin and read permissions assigned for this module
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->deletePrefix('group_permission')
+            ->where(
+                $eb->orX(
+                    $eb->eq('gperm_name', $eb->literal('module_admin')),
+                    $eb->eq('gperm_name', $eb->literal('module_read'))
+                )
+            )
+            ->andWhere($eb->eq('gperm_itemid', ':itemid'))
+            ->setParameter(':itemid', $mid, \PDO::PARAM_INT);
+        $result = $qb->execute();
+
+        $qb->resetQueryParts(); // reset
+        $qb ->select('block_id')
+            ->fromPrefix('block_module_link', null)
+            ->where($eb->eq('module_id', ':mid'))
+            ->setParameter(':mid', $mid, \PDO::PARAM_INT);
+        $result = $qb->execute();
+        $block_id_arr = array();
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
+            array_push($block_id_arr, $myrow['block_id']);
         }
 
-        if (!empty($this->_cachedModule_dirname[$module->getVar('dirname')])) {
-            unset($this->_cachedModule_dirname[$module->getVar('dirname')]);
+        foreach ($block_id_arr as $i) {
+            $qb->resetQueryParts(); // reset
+            $qb ->select('COUNT(*)')
+                ->fromPrefix('block_module_link', null)
+                ->where($eb->ne('module_id', ':mid'))
+                ->setParameter(':mid', $mid, \PDO::PARAM_INT)
+                ->andWhere($eb->eq('block_id', ':bid'))
+                ->setParameter(':bid', $i, \PDO::PARAM_INT);
+            $result = $qb->execute();
+            $count = $result->fetchColumn(0);
+
+            if ($count > 0) {
+                // this block has other entries, so delete the entry for this module
+                $qb->resetQueryParts(); // reset
+                $qb ->deletePrefix('block_module_link')
+                    ->where($eb->eq('module_id', ':mid'))
+                    ->setParameter(':mid', $mid, \PDO::PARAM_INT)
+                    ->andWhere($eb->eq('block_id', ':bid'))
+                    ->setParameter(':bid', $i, \PDO::PARAM_INT)
+                    ->execute();
+            } else {
+                // this block doesnt have other entries, so disable the block and let it show on top page only. otherwise, this block will not display anymore on block admin page!
+                $qb->resetQueryParts(); // reset
+                $qb ->updatePrefix('newblocks')
+                    ->set('visible', ':notvisible')
+                    ->where($eb->eq('bid', ':bid'))
+                    ->setParameter(':bid', $i, \PDO::PARAM_INT)
+                    ->setParameter(':notvisible', 0, \PDO::PARAM_INT)
+                    ->execute();
+
+                $qb->resetQueryParts(); // reset
+                $qb ->updatePrefix('block_module_link')
+                    ->set('module_id', ':nomid')
+                    ->where($eb->eq('module_id', ':mid'))
+                    ->setParameter(':mid', $mid, \PDO::PARAM_INT)
+                    ->setParameter(':nomid', -1, \PDO::PARAM_INT)
+                    ->execute();
+            }
         }
-        if (!empty($this->_cachedModule_mid[$module->getVar('mid')])) {
-            unset($this->_cachedModule_mid[$module->getVar('mid')]);
+
+        if (!empty($this->_cachedModule_dirname[$dirname])) {
+            unset($this->_cachedModule_dirname[$dirname]);
         }
+        if (!empty($this->_cachedModule_mid[$mid])) {
+            unset($this->_cachedModule_mid[$mid]);
+        }
+        $cache = \Xoops::getInstance()->cache();
+        $cache->delete("system/module/id/{$mid}");
+        $cache->delete("system/module/dirname/{$dirname}");
+        $cache->delete("module/{$dirname}");
         return true;
     }
 
     /**
      * Load some modules
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement}
-     * @param boolean $id_as_key Use the ID as key into the array
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param boolean              $id_as_key Use the ID as key into the array
+     *
      * @return array
      */
     public function getObjectsArray(CriteriaElement $criteria = null, $id_as_key = false)
     {
         $ret = array();
-        $limit = $start = 0;
-        $sql = 'SELECT * FROM ' . $this->db->prefix('modules');
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere();
-            $sql .= ' ORDER BY weight ' . $criteria->getOrder() . ', mid ASC';
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $qb->select('*')->fromPrefix('modules', null);
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
+            $criteria->setSort('weight');
+            $criteria->renderQb($qb);
+            $qb->addOrderBy('mid', 'ASC');
         }
-        $result = $this->db->query($sql, $limit, $start);
-        if (!$result) {
+        try {
+            if (!$result = $qb->execute()) {
+                return $ret;
+            }
+        } catch (Exception $e) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
             $module = new XoopsModule();
             $module->assignVars($myrow);
             if (!$id_as_key) {
@@ -609,12 +658,13 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * returns an array of module names
      *
-     * @param CriteriaElement|null $criteria
-     * @param boolean $dirname_as_key if true, array keys will be module directory names
-     *          if false, array keys will be module id
+     * @param CriteriaElement|null $criteria       criteria
+     * @param boolean              $dirname_as_key true  = array key is module directory
+     *                                             false = array key is module id
+     *
      * @return array
      */
-    function getNameList(CriteriaElement $criteria = null, $dirname_as_key = false)
+    public function getNameList(CriteriaElement $criteria = null, $dirname_as_key = false)
     {
         $ret = array();
         $modules = $this->getObjectsArray($criteria, true);

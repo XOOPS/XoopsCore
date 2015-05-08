@@ -13,14 +13,12 @@
  * Blocks admin Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
  * @subpackage      blocksadmin
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $modversion['name']        = XoopsLocale::BLOCKS;
 $modversion['version']     = '1.0';

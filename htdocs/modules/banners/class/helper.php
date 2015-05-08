@@ -11,16 +11,14 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class Banners extends Xoops_Module_Helper_Abstract
+class Banners extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -35,7 +33,7 @@ class Banners extends Xoops_Module_Helper_Abstract
     /**
      * @return Banners
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }

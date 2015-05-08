@@ -1,0 +1,154 @@
+tables:
+    avatars_avatar:
+        options: {  }
+        columns:
+            avatar_id:
+                name: avatar_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            avatar_file:
+                name: avatar_file
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            avatar_name:
+                name: avatar_name
+                type: string
+                default: ''
+                notnull: true
+                length: 100
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            avatar_mimetype:
+                name: avatar_mimetype
+                type: string
+                default: ''
+                notnull: true
+                length: 30
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            avatar_created:
+                name: avatar_created
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            avatar_display:
+                name: avatar_display
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            avatar_weight:
+                name: avatar_weight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            avatar_type:
+                name: avatar_type
+                type: string
+                default: ''
+                notnull: true
+                length: 1
+                precision: 10
+                scale: 0
+                fixed: true
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [avatar_id]
+                unique: true
+                primary: true
+            avatar_type:
+                name: avatar_type
+                columns: [avatar_type, avatar_display]
+                unique: false
+                primary: false
+    avatars_user_link:
+        options: {  }
+        columns:
+            avatar_id:
+                name: avatar_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            user_id:
+                name: user_id
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            avatar_user_id:
+                name: avatar_user_id
+                columns: [avatar_id, user_id]
+                unique: false
+                primary: false

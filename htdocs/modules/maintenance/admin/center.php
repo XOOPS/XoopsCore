@@ -13,14 +13,14 @@
  * maintenance extensions
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
@@ -29,9 +29,9 @@ $xoops = Xoops::getInstance();
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 // Call Header
-$xoops->header('maintenance_center.html');
+$xoops->header('admin:maintenance/maintenance_center.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
 
 switch ($op) {
@@ -64,7 +64,7 @@ switch ($op) {
         //Cache
         $res_cache = $system->CleanCache($cache);
         if (!empty($cache)) {
-            for ($i = 0; $i < count($cache); $i++) {
+            for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {
                     case 1:
                         $xoops->tpl()->assign('smarty_cache', true);
@@ -78,6 +78,7 @@ switch ($op) {
 
                     case 3:
                         $xoops->tpl()->assign('xoops_cache', true);
+                        // TODO: this is no longer a count, now boolean. needs updated to be OK/FAILED
                         $xoops->tpl()->assign('result_xoops_cache', sprintf(_AM_MAINTENANCE_CENTER_RESULT_XOOPS_CACHE, $res_cache['xoops_cache']));
                         break;
                 }
@@ -93,11 +94,11 @@ switch ($op) {
         //Maintenance tables
         if (!empty($tables) && !empty($tables_op)) {
             $tab = array();
-            for ($i = 0; $i < 4; $i++) {
+            for ($i = 0; $i < 4; ++$i) {
                 $tab[$i] = $i + 1;
             }
             $tab1 = array();
-            for ($i = 0; $i < 4; $i++) {
+            for ($i = 0; $i < 4; ++$i) {
                 if (in_array($tab[$i], $tables_op)) {
                     $tab1[$i] = $tab[$i];
                 } else {
@@ -105,9 +106,9 @@ switch ($op) {
                 }
             }
             unset($tab);
-            for ($i = 0; $i < count($tables); $i++) {
+            for ($i = 0; $i < count($tables); ++$i) {
                 $result_arr['table'] = $db->prefix . $tables[$i];
-                for ($j = 0; $j < 4; $j++) {
+                for ($j = 0; $j < 4; ++$j) {
                     switch ($tab1[$j]) {
                         case 1:
                             //Optimize
@@ -134,7 +135,7 @@ switch ($op) {
                             break;
                     }
                 }
-                $xoops->tpl()->append_by_ref('result_arr', $result_arr);
+                $xoops->tpl()->appendByRef('result_arr', $result_arr);
                 unset($result_arr);
             }
             $xoops->tpl()->assign('maintenance', true);

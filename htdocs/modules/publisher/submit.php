@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -20,7 +22,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
 $publisher->loadLanguage('admin');
@@ -36,7 +38,7 @@ $groups = $xoops->isUser() ? $xoops->user->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $gperm_handler = $xoops->getHandlerGroupperm();
 $module_id = $publisher->getModule()->getVar('mid');
 
-$itemid = PublisherRequest::getInt('itemid');
+$itemid = Request::getInt('itemid');
 if ($itemid != 0) {
     // We are editing or deleting an article
     /* @var $itemObj PublisherItem */
@@ -47,7 +49,7 @@ if ($itemid != 0) {
     if (!PublisherUtils::IsUserAdmin() || !PublisherUtils::IsUserModerator($itemObj)) {
         if (isset($_GET['op']) && $_GET['op']  == 'del' && !$publisher->getConfig('perm_delete')) {
             $xoops->redirect("index.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
-        } else if (!$publisher->getConfig('perm_edit')) {
+        } elseif (!$publisher->getConfig('perm_edit')) {
             $xoops->redirect("index.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
     }
@@ -123,10 +125,10 @@ switch ($op) {
         // Putting the values about the ITEM in the ITEM object
         $itemObj->setVarsFromRequest();
 
-        $xoops->header('publisher_submit.html');
+        $xoops->header('module:publisher/publisher_submit.tpl');
         $xoTheme = $xoops->theme();
-        $xoTheme->addScript(XOOPS_URL . '/media/jquery/jquery.js');
-        $xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
+        $xoTheme->addBaseScriptAssets('@jquery');
+        $xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
         XoopsLoad::loadFile($publisher->path('footer.php'));
 
         $categoryObj = $publisher->getCategoryHandler()->get($_POST['categoryid']);
@@ -206,9 +208,10 @@ switch ($op) {
 
     case 'add':
     default:
-        $xoops->header('publisher_submit.html');
+        $xoops->header('module:publisher/publisher_submit.tpl');
         $xoopsTpl = $xoops->tpl();
-        $xoTheme = $xoops->theme();$xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
+        $xoTheme = $xoops->theme();
+        $xoTheme->addScript(PUBLISHER_URL . '/js/publisher.js');
         XoopsLoad::loadFile($publisher->path('footer.php'));
 
         $itemObj->setVarsFromRequest();
@@ -217,7 +220,7 @@ switch ($op) {
         if (isset($_GET['op']) && $_GET['op'] == 'clone') {
             $xoopsTpl->assign('categoryPath', _CO_PUBLISHER_CLONE);
             $xoopsTpl->assign('lang_intro_title', _CO_PUBLISHER_CLONE);
-        } else if ($itemid) {
+        } elseif ($itemid) {
             $xoopsTpl->assign('categoryPath', _MD_PUBLISHER_EDIT_ARTICLE);
             $xoopsTpl->assign('lang_intro_title', _MD_PUBLISHER_EDIT_ARTICLE);
             $xoopsTpl->assign('lang_intro_text', '');

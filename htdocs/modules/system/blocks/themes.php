@@ -13,7 +13,7 @@
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -33,7 +33,7 @@ function b_system_themes_show($options)
     }
     $block = array();
     if ($options[0] == 1) {
-        $block['theme_select'] = "<img vspace=\"2\" id=\"xoops_theme_img\" src=\"" . XOOPS_THEME_URL . "/" . $xoops->getConfig('theme_set') . "/shot.gif\" alt=\"screenshot\" width=\"" . intval($options[1]) . "\" /><br /><select id=\"xoops_theme_select\" name=\"xoops_theme_select\" onchange=\"showImgSelected('xoops_theme_img', 'xoops_theme_select', 'themes', '/shot.gif', '" . XOOPS_URL . "');\">" . $theme_options . "</select><input type=\"submit\" value=\"" . XoopsLocale::A_GO . "\" />";
+        $block['theme_select'] = "<img vspace=\"2\" id=\"xoops_theme_img\" src=\"" . XOOPS_THEME_URL . "/" . $xoops->getConfig('theme_set') . "/screenshot.png\" alt=\"screenshot\" width=\"" . intval($options[1]) . "\" /><br /><select class=\"span2\" id=\"xoops_theme_select\" name=\"xoops_theme_select\" onchange=\"showImgSelected('xoops_theme_img', 'xoops_theme_select', 'themes', '/screenshot.png', '" . XOOPS_URL . "');\">" . $theme_options . "</select><br /><input type=\"submit\" value=\"" . XoopsLocale::A_GO . "\" />";
     } else {
         $block['theme_select'] = '<select class="span2" name="xoops_theme_select" onchange="submit();" size="3">' . $theme_options . '</select>';
     }
@@ -44,8 +44,8 @@ function b_system_themes_show($options)
 
 function b_system_themes_edit($options)
 {
-    $block_form = new XoopsBlockForm();
-    $block_form->addElement(new XoopsFormRadioYN(SystemLocale::DISPLAY_SCREENSHOT_IMAGE, 'options[0]', $options[0]));
-    $block_form->addElement( new XoopsFormText(SystemLocale::SCREENSHOT_IMAGE_WIDTH, 'options[1]', 1, 3, $options[1]), true);
+    $block_form = new Xoops\Form\BlockForm();
+    $block_form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::DISPLAY_SCREENSHOT_IMAGE, 'options[0]', $options[0]));
+    $block_form->addElement( new Xoops\Form\Text(SystemLocale::SCREENSHOT_IMAGE_WIDTH, 'options[1]', 1, 3, $options[1]), true);
     return $block_form->render();
 }

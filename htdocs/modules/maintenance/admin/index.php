@@ -13,19 +13,19 @@
  * maintenance extensions
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 // folder path
@@ -36,7 +36,7 @@ $files = glob(XOOPS_ROOT_PATH . '/modules/maintenance/dump/*.*');
 $count = 0;
 foreach ($files as $filename_path) {
     if (basename(strtolower($filename_path)) != 'index.html') {
-        $count++;
+        ++$count;
     }
 }
 $admin_page->addConfigBoxLine($folder_path, 'folder');

@@ -13,7 +13,7 @@
  * Private message module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -22,7 +22,7 @@
  */
 
 if (!defined('XOOPS_MAINFILE_INCLUDED')) {
-    include_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 } else {
     chdir(XOOPS_ROOT_PATH . '/modules/pm/');
 }
@@ -104,7 +104,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
             $tpl->assign('error_message', $error_message);
         }
     }
-    $tpl->display("module:pm|pm_pmlite.html");
+    $tpl->display("module:pm/pm_pmlite.tpl");
 
 } else {
     $message = '';
@@ -125,53 +125,53 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         }
 
         $tpl = new XoopsTpl();
-        $form = new XoopsThemeForm('', 'pmform', 'pmlite.php', 'post', true);
+        $form = new Xoops\Form\ThemeForm('', 'pmform', 'pmlite.php', 'post', true);
 
         if ($reply == 1) {
             $subject = $pm->getVar('subject', 'E');
             if (!preg_match("/^" . XoopsLocale::C_RE . "/i", $subject)) {
                 $subject = XoopsLocale::C_RE . ' ' . $subject;
             }
-            $form->addElement(new XoopsFormLabel(_PM_TO, $pm_uname));
-            $form->addElement(new XoopsFormHidden('to_userid', $pm->getVar("from_userid")));
+            $form->addElement(new Xoops\Form\Label(_PM_TO, $pm_uname));
+            $form->addElement(new Xoops\Form\Hidden('to_userid', $pm->getVar("from_userid")));
         } else {
             if ($sendmod == 1) {
-                $form->addElement(new XoopsFormLabel(_PM_TO, XoopsUser::getUnameFromId($_POST["to_userid"])));
-                $form->addElement(new XoopsFormHidden('to_userid', $_POST["to_userid"]));
+                $form->addElement(new Xoops\Form\Label(_PM_TO, XoopsUser::getUnameFromId($_POST["to_userid"])));
+                $form->addElement(new Xoops\Form\Hidden('to_userid', $_POST["to_userid"]));
                 $subject = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['subject']));
                 $message = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['message']));
             } else {
                 if ($send2 == 1) {
-                    $form->addElement(new XoopsFormLabel(_PM_TO, XoopsUser::getUnameFromId($to_userid, false)));
-                    $form->addElement(new XoopsFormHidden('to_userid', $to_userid));
+                    $form->addElement(new Xoops\Form\Label(_PM_TO, XoopsUser::getUnameFromId($to_userid, false)));
+                    $form->addElement(new Xoops\Form\Hidden('to_userid', $to_userid));
                 } else {
-                    $form->addElement(new XoopsFormSelectUser(_PM_TO, 'to_userid'));
+                    $form->addElement(new Xoops\Form\SelectUser(_PM_TO, 'to_userid'));
                 }
                 $subject = "";
                 $message = "";
             }
         }
-        $form->addElement(new XoopsFormText(_PM_SUBJECTC, 'subject', 4, 100, $subject), true);
+        $form->addElement(new Xoops\Form\Text(_PM_SUBJECTC, 'subject', 4, 100, $subject), true);
 
-        $icons = new XoopsFormRadio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
+        $icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
         $subject_icons = XoopsLists::getSubjectsList();
         foreach (array_keys($subject_icons) as $i) {
             $icons->addOption($i, "<img src='" . $xoops->url("images/subject/") . $i . "' alt='" . $i . "' />");
         }
         $form->addElement($icons, false);
-        $form->addElement(new XoopsFormDhtmlTextArea(_PM_MESSAGEC, 'message', $message, 8, 37), true);
-        $form->addElement(new XoopsFormRadioYN(_PM_SAVEINOUTBOX, 'savecopy', 0));
-        $form->addElement(new XoopsFormHidden('op', 'submit'));
+        $form->addElement(new Xoops\Form\DhtmlTextArea(_PM_MESSAGEC, 'message', $message, 8, 37), true);
+        $form->addElement(new Xoops\Form\RadioYesNo(_PM_SAVEINOUTBOX, 'savecopy', 0));
+        $form->addElement(new Xoops\Form\Hidden('op', 'submit'));
 
-        $buttons = new XoopsFormElementTray('');
-        $buttons ->addElement(new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
-        $buttons ->addElement(new XoopsFormButton('', 'reset', _PM_CLEAR, 'reset'));
-        $cancel_send = new XoopsFormButton('', 'cancel', _PM_CANCELSEND, 'button');
+        $buttons = new Xoops\Form\ElementTray('');
+        $buttons ->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+        $buttons ->addElement(new Xoops\Form\Button('', 'reset', _PM_CLEAR, 'reset'));
+        $cancel_send = new Xoops\Form\Button('', 'cancel', _PM_CANCELSEND, 'button');
         $cancel_send->setExtra("onclick='javascript:window.close();'");
         $buttons ->addElement($cancel_send);
         $form->addElement($buttons);
         $tpl->assign('form', $form->render());
-        $tpl->display("module:pm|pm_pmlite.html");
+        $tpl->display("module:pm/pm_pmlite.tpl");
     }
 }
 $xoops->simpleFooter();

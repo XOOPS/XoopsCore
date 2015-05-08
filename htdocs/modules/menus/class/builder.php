@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -110,7 +110,7 @@ class MenusBuilder
 
         foreach ($this->parents[$pid] as $item) {
             $idx += 1;
-            $counter++;
+            ++$counter;
             if ($counter == $count) { $down = 0; } // turn off down link for last entry
 
             if ($up) {
@@ -136,7 +136,7 @@ class MenusBuilder
         $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $self = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
 
-        //set a default page in case we don´t get matches
+        //set a default page in case we don't get matches
         $default = XOOPS_URL . "/index.php";
 
         //get all matching links

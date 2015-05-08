@@ -9,19 +9,21 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
  * XOOPS Kernel Class
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.6.0
  * @author          Gregory Mage (AKA Mage)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class XoopsBlockmodulelink extends XoopsObject
 {
@@ -38,11 +40,10 @@ class XoopsBlockmodulelink extends XoopsObject
 class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'block_module_link', 'XoopsBlockmodulelink', 'block_id', 'module_id');
     }
-
 }

@@ -9,22 +9,24 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Call header
-$xoops->header('page_admin_related.html');
+$xoops->header('admin:page/page_admin_related.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('related.php');
 
 switch ($op) {
@@ -70,7 +72,7 @@ switch ($op) {
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'related.php?op=new', 'add');
         $admin_page->renderButton();
         // Create form
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         $obj = $related_Handler->get($related_id);
         $form = $helper->getForm($obj, 'page_related');
         $xoops->tpl()->assign('form', $form->render());
@@ -81,7 +83,7 @@ switch ($op) {
             $xoops->redirect('related.php', 3, implode(',', $xoops->security()->getErrors()));
         }
 
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
             $obj = $related_Handler->get($related_id);
         } else {
@@ -89,17 +91,20 @@ switch ($op) {
         }
 
         //main
-        $obj->setVar('related_name',  $request->asStr('related_name', ''));
-        $obj->setVar('related_domenu', $request->asInt('related_domenu', 1));
-        $obj->setVar('related_navigation', $request->asInt('related_navigation', 1));
+        $obj->setVar('related_name', Request::getString('related_name', ''));
+        $obj->setVar('related_domenu', Request::getInt('related_domenu', 1));
+        $obj->setVar('related_navigation', Request::getInt('related_navigation', 1));
 
-        if ( $related_newid = $related_Handler->insert($obj)) {            $related_id = $related_id != 0 ? $related_id : $related_newid;            $datas = $request->asArray('datas');
+        if ($related_newid = $related_Handler->insert($obj)) {
+            $related_id = $related_id != 0 ? $related_id : $related_newid;
+            $datas = Request::getArray('datas');
             $datas_exists = $link_Handler->getContentByRelated($related_newid);
             $datas_delete = array_diff(array_values($datas_exists), $datas);
             $datas_add = array_diff($datas, array_values($datas_exists));
 
             // delete
-            if (count($datas_delete) != 0 ) {                $criteria = $criteria = new CriteriaCompo();
+            if (count($datas_delete) != 0) {
+                $criteria = $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('link_related_id', $related_id));
                 $criteria->add(new Criteria('link_content_id', '(' . implode(', ', $datas_delete) . ')', 'IN'));
                 $links_ids =  $link_Handler->getIds($criteria);
@@ -107,16 +112,20 @@ switch ($op) {
                 }
             }
             // Add
-            if (count($datas_add) != 0 ) {
-                foreach ($datas_add as $weight => $content_id) {                    $obj = $link_Handler->create();
+            if (count($datas_add) != 0) {
+                foreach ($datas_add as $weight => $content_id) {
+                    $obj = $link_Handler->create();
                     $obj->setVar('link_related_id', $related_id);
                     $obj->setVar('link_content_id', $content_id);
                     $obj->setVar('link_weight', $weight);
-                    if (!$link_Handler->insert($obj)) {                    }
+                    if (!$link_Handler->insert($obj)) {
+                    }
                 }
             }
             //update
-            if (count($datas) != 0 ) {                foreach ($datas as $weight => $content_id) {                    $criteria = $criteria = new CriteriaCompo();
+            if (count($datas) != 0) {
+                foreach ($datas as $weight => $content_id) {
+                    $criteria = $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('link_related_id', $related_id));
                     $criteria->add(new Criteria('link_content_id', $content_id));
                     $links_ids = $link_Handler->getIds($criteria);
@@ -125,7 +134,8 @@ switch ($op) {
                     $obj->setVar('link_weight', $weight);
                     if (!$link_Handler->insert($obj)) {
                     }
-                }            }
+                }
+            }
 
             $xoops->redirect('related.php', 2, XoopsLocale::S_DATABASE_UPDATED);
         } else {
@@ -140,8 +150,8 @@ switch ($op) {
         $admin_page->addItemButton(PageLocale::A_ADD_CONTENT, 'related.php?op=new', 'add');
         $admin_page->renderButton();
 
-        $related_id = $request->asInt('related_id', 0);
-        $ok = $request->asInt('ok', 0);
+        $related_id = Request::getInt('related_id', 0);
+        $ok = Request::getInt('ok', 0);
 
         $obj = $related_Handler->get($related_id);
         if ($ok == 1) {
@@ -158,13 +168,17 @@ switch ($op) {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $xoops->confirm(array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'), 'related.php',
-            XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM . '<br /><span class="red">' . $obj->getvar('related_name') . '<span>');
+            $xoops->confirm(
+                array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'),
+                'related.php',
+                XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
+                . '<br /><span class="red">' . $obj->getvar('related_name') . '<span>'
+            );
         }
         break;
 
     case 'update_status':
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
             $obj = $related_Handler->get($related_id);
             $old = $obj->getVar('related_domenu');
@@ -177,7 +191,7 @@ switch ($op) {
         break;
 
     case 'view':
-        $related_id = $request->asInt('related_id', 0);
+        $related_id = Request::getInt('related_id', 0);
         if ($related_id > 0) {
             $obj = $related_Handler->get($related_id);
             $old = $obj->getVar('related_domenu');

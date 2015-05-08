@@ -11,15 +11,13 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @package         userconfigs
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class UserconfigsModulesForm extends XoopsThemeForm
+class UserconfigsModulesForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param null $obj
@@ -39,17 +37,17 @@ class UserconfigsModulesForm extends XoopsThemeForm
             $mid = $mod->getVar('mid');
         }
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugins = Xoops_Module_Plugin::getPlugins('userconfigs')) {
+        if ($plugins = \Xoops\Module\Plugin::getPlugins('userconfigs')) {
             parent::__construct('', 'pref_form', 'index.php', 'post', true, 'inline');
 
-            $ele = new XoopsFormSelect(_MD_USERCONFIGS_CHOOSE_MODULE, 'mid', $mid);
+            $ele = new Xoops\Form\Select(_MD_USERCONFIGS_CHOOSE_MODULE, 'mid', $mid);
             foreach (array_keys($plugins) as $dirname) {
                 $mHelper = $xoops->getModuleHelper($dirname);
                 $ele->addOption($mHelper->getModule()->getVar('mid'), $mHelper->getModule()->getVar('name'));
             }
             $this->addElement($ele);
-            $this->addElement(new XoopsFormHidden('op', 'showmod'));
-            $this->addElement(new XoopsFormButton('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
+            $this->addElement(new Xoops\Form\Hidden('op', 'showmod'));
+            $this->addElement(new Xoops\Form\Button('', 'button', XoopsLocale::A_SUBMIT, 'submit'));
         }
     }
 }

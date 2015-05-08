@@ -10,28 +10,17 @@
 */
 
 /**
- * Smilies
- *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-/**
  * Smilies core preloads
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */
-class SmiliesCorePreload extends XoopsPreloadItem
+class SmiliesCorePreload extends Xoops\Core\PreloadItem
 {
     static function eventCoreIncludeCommonEnd($args)
     {
-        $path = dirname(dirname(__FILE__));
+        $path = dirname(__DIR__);
         XoopsLoad::addMap(array(
             'smilies' => $path . '/class/helper.php',
         ));
@@ -39,7 +28,7 @@ class SmiliesCorePreload extends XoopsPreloadItem
 
     static function eventCoreClassXoopsformFormdhtmltextareaCodeicon($args)
     {
-        /* @var $dhtml XoopsFormDhtmlTextArea */
+        /* @var $dhtml Xoops\Form\DhtmlTextArea */
         $dhtml = $args[1];
         $args[0] .= "<img src='" . XOOPS_URL . "/images/smiley.gif' alt='" . XoopsLocale::SMILIES . "' title='" . XoopsLocale::SMILIES . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/smilies/popup.php?target={$dhtml->getName()}\",\"smilies\",300,650);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }

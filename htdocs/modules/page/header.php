@@ -9,14 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          Mage GrÃ©gory (AKA Mage)
  * @version         $Id$
  */
 
@@ -26,7 +28,6 @@ include '../../mainfile.php';
 XoopsLoad::load('system', 'system');
 $system = System::getInstance();
 
-$request = Xoops_Request::getInstance();
 $helper = Page::getInstance();
 $xoops = $helper->xoops();
 
@@ -42,11 +43,11 @@ $groups = $helper->getUserGroups();
 $uid = $helper->getUserId();
 
 // Define Stylesheet
-$xoops->theme()->addStylesheet( $helper->url('css/styles.css'));
-$xoops->theme()->addStylesheet( $helper->url('css/rating.css'));
+$xoops->theme()->addStylesheet($helper->url('css/styles.css'));
+$xoops->theme()->addStylesheet($helper->url('css/rating.css'));
 
 // Get $_POST, $_GET, $_REQUEST
-$start = $request->asInt('start', 0);
+$start = Request::getInt('start', 0);
 
 // Parameters
 $module_id = $helper->getModule()->getVar('mid');

@@ -10,14 +10,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @version         $Id$
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Define required Defines (I guess lol )
  */
@@ -31,6 +30,10 @@ define('XOOPS_CENTERBLOCK_ALL', 6);
 define('XOOPS_CENTERBLOCK_BOTTOMLEFT', 7);
 define('XOOPS_CENTERBLOCK_BOTTOMRIGHT', 8);
 define('XOOPS_CENTERBLOCK_BOTTOM', 9);
+define('XOOPS_FOOTERBLOCK_ALL', 10);
+define('XOOPS_FOOTERBLOCK_LEFT', 11);
+define('XOOPS_FOOTERBLOCK_RIGHT', 12);
+define('XOOPS_FOOTERBLOCK_CENTER', 13);
 define('XOOPS_BLOCK_INVISIBLE', 0);
 define('XOOPS_BLOCK_VISIBLE', 1);
 define('XOOPS_MATCH_START', 0);
@@ -38,10 +41,12 @@ define('XOOPS_MATCH_END', 1);
 define('XOOPS_MATCH_EQUAL', 2);
 define('XOOPS_MATCH_CONTAIN', 3);
 // YOU SHOULD AVOID USING THE FOLLOWING CONSTANTS, THEY WILL BE REMOVED
+define('XOOPS_MEDIA_PATH', XOOPS_ROOT_PATH . '/media');
 define('XOOPS_THEME_PATH', XOOPS_ROOT_PATH . '/themes');
 define('XOOPS_ADMINTHEME_PATH', XOOPS_ROOT_PATH . '/modules/system/themes');
 define('XOOPS_UPLOAD_PATH', XOOPS_ROOT_PATH . '/uploads');
 define('XOOPS_LIBRARY_PATH', XOOPS_ROOT_PATH . '/libraries');
+define('XOOPS_MEDIA_URL', XOOPS_URL . '/media');
 define('XOOPS_THEME_URL', XOOPS_URL . '/themes');
 define('XOOPS_ADMINTHEME_URL', XOOPS_URL . '/modules/system/themes');
 define('XOOPS_UPLOAD_URL', XOOPS_URL . '/uploads');
@@ -49,7 +54,7 @@ define('XOOPS_LIBRARY_URL', XOOPS_URL . '/libraries');
 
 // ----- BEGIN: Deprecated, move to template class -----
 // define('SMARTY_DIR', XOOPS_ROOT_PATH . '/class/smarty/');
-define('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');
+//define('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');
 define('XOOPS_CACHE_PATH', XOOPS_VAR_PATH . '/caches/xoops_cache');
 // ----- END: Deprecated, move to template class -----
 
@@ -85,7 +90,7 @@ body {font-size: 12px; background-color: #f0f0f0; text-align: center;}
     margin: 150px auto;
     text-align: center;
     background-color: #fff;
-    background-image: url(images/img_errors.png);
+    background-image: url(%s/images/img_errors.png);
     background-repeat: no-repeat;
     background-position: 30px 50px;
     padding-left: 300px;
@@ -115,5 +120,3 @@ body {font-size: 12px; background-color: #f0f0f0; text-align: center;}
 );
 
 define('_XOOPS_FATAL_BACKTRACE', "Backtrace");
-
-?>

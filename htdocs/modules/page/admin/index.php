@@ -13,13 +13,13 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // heaser
 $xoops->header();
@@ -34,7 +34,7 @@ $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('content_status', 0, '!='));
 $content_display = $content_Handler->getCount($criteria);
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 // content
@@ -50,7 +50,9 @@ $extensions = array('comments' => 'extension',
                     'xoosocialnetwork' => 'extension',
                     );
 
-foreach ($extensions as $module => $type) {    $admin_page->addConfigBoxLine(array($module, 'warning'), $type);}
+foreach ($extensions as $module => $type) {
+    $admin_page->addConfigBoxLine(array($module, 'warning'), $type);
+}
 
 $admin_page->displayIndex();
 $xoops->footer();

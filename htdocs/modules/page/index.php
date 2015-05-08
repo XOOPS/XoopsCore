@@ -13,16 +13,16 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
 include_once 'header.php';
 
-$xoops->header('page_index.html');
+$xoops->header('module:page/page_index.tpl');
 
 // Parameters
 $nb_limit = $helper->getConfig('page_userpager');
@@ -47,7 +47,7 @@ if ($content_count > 0) {
         $content['author'] = XoopsUser::getUnameFromId($content_arr[$i]->getVar('content_author'));
         $content['date'] = XoopsLocale::formatTimestamp($content_arr[$i]->getVar('content_create'), $helper->getConfig('page_dateformat'));
         $content['time'] = XoopsLocale::formatTimestamp($content_arr[$i]->getVar('content_create'), $helper->getConfig('page_timeformat'));
-        $xoops->tpl()->append_by_ref('content', $content);
+        $xoops->tpl()->appendByRef('content', $content);
         $keywords[] = $content_arr[$i]->getVar('content_title');
         unset($content);
     }

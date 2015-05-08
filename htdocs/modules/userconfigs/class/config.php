@@ -9,16 +9,19 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+
 /**
  * Userconfigs
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
 class UserconfigsConfigHandler extends XoopsObjectHandler
 {
@@ -72,8 +75,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get a config
      *
-     * @param    int     $id             ID of the config
-     * @param    bool    $withoptions    load the config's options now?
+     * @param int  $id          ID of the config
+     * @param bool $withoptions load the config's options now?
      *
      * @return   UserconfigsItem {@link UserconfigsItem}
      */
@@ -102,7 +105,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
         $options = $config->getConfOptions();
         $count = count($options);
         $conf_id = $config->getVar('conf_id');
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $options[$i]->setVar('conf_id', $conf_id);
             if (!$this->_oHandler->insert($options[$i])) {
                 foreach ($options[$i]->getErrors() as $msg) {
@@ -119,7 +122,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Delete a config from the database
      *
-     * @param  UserconfigsItem $config {@link UserconfigsItem}
+     * @param UserconfigsItem $config {@link UserconfigsItem}
      *
      * @return bool
      */
@@ -135,7 +138,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             $count = count($options);
         }
         if (is_array($options) && $count > 0) {
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $this->_oHandler->delete($options[$i], true);
             }
         }
@@ -148,8 +151,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * get one or more Configs
      *
-     * @param    CriteriaElement|null  $criteria       {@link CriteriaElement}
-     * @param    bool                  $id_as_key      Use the configs' ID as keys?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key Use the configs' ID as keys?
      *
      * @return    array   Array of {@link UserconfigsItem} objects
      */
@@ -184,7 +187,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get configs from a certain module
      *
-     * @param    int $module     ID of a module
+     * @param int $module ID of a module
      *
      * @return    array   array of {@link UserconfigsConfig}s
      */
@@ -225,8 +228,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get configs from a certain user
      *
-     * @param    int $uid        ID of a user
-     * @param    int $moduleId     ID of a module
+     * @param int $uid      ID of a user
+     * @param int $moduleId ID of a module
      *
      * @return    array   array of {@link UserconfigsConfig}s
      */
@@ -264,7 +267,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get a {@link UserconfigsOption}
      *
-     * @param    int $id ID of the config option
+     * @param int $id ID of the config option
      *
      * @return   UserconfigsOption  {@link UserconfigsOption}
      */
@@ -277,8 +280,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get one or more {@link UserconfigsOption}s
      *
-     * @param    CriteriaElement|null  $criteria   {@link CriteriaElement}
-     * @param    bool                  $id_as_key  Use IDs as keys in the array?
+     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param bool                 $id_as_key Use IDs as keys in the array?
      *
      * @return    array   Array of {@link UserconfigsOption}s
      */
@@ -290,7 +293,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Count some {@link UserconfigsOption}s
      *
-     * @param    CriteriaElement|null  $criteria   {@link CriteriaElement}
+     * @param CriteriaElement|null $criteria {@link CriteriaElement}
      *
      * @return    int     Count of {@link UserconfigsOption}s matching $criteria
      */
@@ -302,8 +305,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     /**
      * Get a list of configs
      *
-     * @param    int $conf_modid ID of the modules
-     * @param    int $conf_uid   ID of the user
+     * @param int $conf_modid ID of the modules
+     * @param int $conf_uid   ID of the user
      *
      * @return    array   Associative array of name=>value pairs.
      */
@@ -321,7 +324,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             $configs = $this->_iHandler->getObjects($criteria);
             $confcount = count($configs);
             $ret = array();
-            for ($i = 0; $i < $confcount; $i++) {
+            for ($i = 0; $i < $confcount; ++$i) {
                 $ret[$configs[$i]->getVar('conf_name')] = $configs[$i]->getConfValueForOutput();
             }
             $this->_cachedConfigs[$conf_modid][$conf_uid] = $ret;
@@ -332,7 +335,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function createDefaultUserConfigs($uid, XoopsModule $module)
     {
         /* @var $plugin UserconfigsPluginInterface */
-        if ($plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
+        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             // now reinsert them with the new settings
             $configs = $plugin->configs();
             if (!is_array($configs)) {
@@ -361,7 +364,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
                             unset($confop);
                         }
                     }
-                    $order++;
+                    ++$order;
                     $this->insertConfig($confobj);
                     unset($confobj);
                 }

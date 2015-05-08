@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -29,6 +28,10 @@
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Request;
+
 $xoops = Xoops::getInstance();
 
 // Check users rights
@@ -43,12 +46,11 @@ $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
 $member_handler = $xoops->getHandlerMember();
 
 // Call Header
-$xoops->header('system_users.html');
+$xoops->header('admin:system/system_users.tpl');
 
 $myts = MyTextSanitizer::getInstance();
 // Define Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
 // Define scripts
 $xoops->theme()->addScript('modules/system/js/admin.js');
 // Define Breadcrumb and tips
@@ -60,7 +62,7 @@ switch ($op) {
     // Edit user
     case 'users_edit':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_USER);
@@ -75,7 +77,7 @@ switch ($op) {
     // Add user
     case 'users_add':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_USER);
@@ -89,7 +91,7 @@ switch ($op) {
     // Delete user
     case 'users_delete':
         // Assign Breadcrumb menu
-        $admin_page = new XoopsModuleAdmin();
+        $admin_page = new \Xoops\Module\Admin();
         $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_USER);
@@ -215,7 +217,7 @@ switch ($op) {
                         $xoops->footer();
                         exit();
                     }
-                    $edituser->setVar("pass", md5($_REQUEST['password']));
+                    $edituser->setVar("pass", password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
                 }
                 if (!$member_handler->insertUser($edituser)) {
                     $xoops->header();
@@ -280,7 +282,7 @@ switch ($op) {
                             $xoops->footer();
                             exit();
                         }
-                        $newuser->setVar("pass", md5($_REQUEST['password']));
+                        $newuser->setVar("pass", password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
                     }
                     $newuser->setVar("timezone_offset", $_REQUEST['timezone_offset']);
                     //$newuser->setVar("uorder", $_REQUEST['uorder']);
@@ -344,15 +346,15 @@ switch ($op) {
     default:
         // Search and Display
         // Define scripts
-        $xoops->theme()->addScript('media/jquery/ui/jquery.ui.js');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui', 'modules/system/js/admin.js');
         //table sorting does not work with select boxes
         //$xoops->theme()->addScript('media/jquery/plugins/jquery.tablesorter.js');
-        $xoops->theme()->addScript('modules/system/js/admin.js');
+        //$xoops->theme()->addScript('modules/system/js/admin.js');
         //Recherche approfondie
 
         if (isset($_REQUEST['complet_search'])) {
             // Assign Breadcrumb menu
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::ADVANCED_SEARCH);
@@ -360,7 +362,7 @@ switch ($op) {
 
             $acttotal = $member_handler->getUserCount(new Criteria('level', 0, '>'));
             $inacttotal = $member_handler->getUserCount(new Criteria('level', 0));
-            $group_select = new XoopsFormSelect(XoopsLocale::GROUPS, "selgroups");
+            $group_select = new Xoops\Form\Select(XoopsLocale::GROUPS, "selgroups");
             $group_handler = $xoops->getHandlerGroup();
             $group_arr = $group_handler->getObjects();
             $group_select->addOption("", "--------------");
@@ -371,74 +373,74 @@ switch ($op) {
                 }
             }
             unset($group);
-            $uname_text = new XoopsFormText("", "user_uname", 30, 60);
-            $uname_match = new XoopsFormSelectMatchOption("", "user_uname_match");
-            $uname_tray = new XoopsFormElementTray(XoopsLocale::USER_NAME, "&nbsp;");
+            $uname_text = new Xoops\Form\Text("", "user_uname", 30, 60);
+            $uname_match = new Xoops\Form\SelectMatchOption("", "user_uname_match");
+            $uname_tray = new Xoops\Form\ElementTray(XoopsLocale::USER_NAME, "&nbsp;");
             $uname_tray->addElement($uname_match);
             $uname_tray->addElement($uname_text);
-            $name_text = new XoopsFormText("", "user_name", 30, 60);
-            $name_match = new XoopsFormSelectMatchOption("", "user_name_match");
-            $name_tray = new XoopsFormElementTray(XoopsLocale::REAL_NAME, "&nbsp;");
+            $name_text = new Xoops\Form\Text("", "user_name", 30, 60);
+            $name_match = new Xoops\Form\SelectMatchOption("", "user_name_match");
+            $name_tray = new Xoops\Form\ElementTray(XoopsLocale::REAL_NAME, "&nbsp;");
             $name_tray->addElement($name_match);
             $name_tray->addElement($name_text);
-            $email_text = new XoopsFormText("", "user_email", 30, 60);
-            $email_match = new XoopsFormSelectMatchOption("", "user_email_match");
-            $email_tray = new XoopsFormElementTray(XoopsLocale::EMAIL, "&nbsp;");
+            $email_text = new Xoops\Form\Text("", "user_email", 30, 60);
+            $email_match = new Xoops\Form\SelectMatchOption("", "user_email_match");
+            $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, "&nbsp;");
             $email_tray->addElement($email_match);
             $email_tray->addElement($email_text);
-            $url_text = new XoopsFormText(XoopsLocale::URL_CONTAINS, "user_url", 30, 100);
-            $icq_text = new XoopsFormText("", "user_icq", 30, 100);
-            $icq_match = new XoopsFormSelectMatchOption("", "user_icq_match");
-            $icq_tray = new XoopsFormElementTray(XoopsLocale::ICQ, "&nbsp;");
+            $url_text = new Xoops\Form\Text(XoopsLocale::URL_CONTAINS, "user_url", 30, 100);
+            $icq_text = new Xoops\Form\Text("", "user_icq", 30, 100);
+            $icq_match = new Xoops\Form\SelectMatchOption("", "user_icq_match");
+            $icq_tray = new Xoops\Form\ElementTray(XoopsLocale::ICQ, "&nbsp;");
             $icq_tray->addElement($icq_match);
             $icq_tray->addElement($icq_text);
-            $aim_text = new XoopsFormText("", "user_aim", 30, 100);
-            $aim_match = new XoopsFormSelectMatchOption("", "user_aim_match");
-            $aim_tray = new XoopsFormElementTray(XoopsLocale::AIM, "&nbsp;");
+            $aim_text = new Xoops\Form\Text("", "user_aim", 30, 100);
+            $aim_match = new Xoops\Form\SelectMatchOption("", "user_aim_match");
+            $aim_tray = new Xoops\Form\ElementTray(XoopsLocale::AIM, "&nbsp;");
             $aim_tray->addElement($aim_match);
             $aim_tray->addElement($aim_text);
-            $yim_text = new XoopsFormText("", "user_yim", 30, 100);
-            $yim_match = new XoopsFormSelectMatchOption("", "user_yim_match");
-            $yim_tray = new XoopsFormElementTray(XoopsLocale::YIM, "&nbsp;");
+            $yim_text = new Xoops\Form\Text("", "user_yim", 30, 100);
+            $yim_match = new Xoops\Form\SelectMatchOption("", "user_yim_match");
+            $yim_tray = new Xoops\Form\ElementTray(XoopsLocale::YIM, "&nbsp;");
             $yim_tray->addElement($yim_match);
             $yim_tray->addElement($yim_text);
-            $msnm_text = new XoopsFormText("", "user_msnm", 30, 100);
-            $msnm_match = new XoopsFormSelectMatchOption("", "user_msnm_match");
-            $msnm_tray = new XoopsFormElementTray(XoopsLocale::MSNM, "&nbsp;");
+            $msnm_text = new Xoops\Form\Text("", "user_msnm", 30, 100);
+            $msnm_match = new Xoops\Form\SelectMatchOption("", "user_msnm_match");
+            $msnm_tray = new Xoops\Form\ElementTray(XoopsLocale::MSNM, "&nbsp;");
             $msnm_tray->addElement($msnm_match);
             $msnm_tray->addElement($msnm_text);
-            $location_text = new XoopsFormText(XoopsLocale::LOCATION_CONTAINS, "user_from", 30, 100);
-            $occupation_text = new XoopsFormText(XoopsLocale::OCCUPATION_CONTAINS, "user_occ", 30, 100);
-            $interest_text = new XoopsFormText(XoopsLocale::INTEREST_CONTAINS, "user_intrest", 30, 100);
+            $location_text = new Xoops\Form\Text(XoopsLocale::LOCATION_CONTAINS, "user_from", 30, 100);
+            $occupation_text = new Xoops\Form\Text(XoopsLocale::OCCUPATION_CONTAINS, "user_occ", 30, 100);
+            $interest_text = new Xoops\Form\Text(XoopsLocale::INTEREST_CONTAINS, "user_intrest", 30, 100);
 
-            $lastlog_more = new XoopsFormText(SystemLocale::LAST_LOGIN_GREATER_THAN_X, "user_lastlog_more", 10, 5);
-            $lastlog_less = new XoopsFormText(SystemLocale::LAST_LOGIN_LESS_THAN_X, "user_lastlog_less", 10, 5);
-            $reg_more = new XoopsFormText(SystemLocale::REGISTRATION_DATE_GREATER_THAN_X, "user_reg_more", 10, 5);
-            $reg_less = new XoopsFormText(SystemLocale::REGISTRATION_DATE_LESS_THAN_X, "user_reg_less", 10, 5);
-            $posts_more = new XoopsFormText(SystemLocale::POSTS_NUMBER_GREATER_THAN_X, "user_posts_more", 10, 5);
-            $posts_less = new XoopsFormText(SystemLocale::POSTS_NUMBER_LESS_THAN_X, "user_posts_less", 10, 5);
-            $mailok_radio = new XoopsFormRadio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_mailok", "both");
+            $lastlog_more = new Xoops\Form\Text(SystemLocale::LAST_LOGIN_GREATER_THAN_X, "user_lastlog_more", 10, 5);
+            $lastlog_less = new Xoops\Form\Text(SystemLocale::LAST_LOGIN_LESS_THAN_X, "user_lastlog_less", 10, 5);
+            $reg_more = new Xoops\Form\Text(SystemLocale::REGISTRATION_DATE_GREATER_THAN_X, "user_reg_more", 10, 5);
+            $reg_less = new Xoops\Form\Text(SystemLocale::REGISTRATION_DATE_LESS_THAN_X, "user_reg_less", 10, 5);
+            $posts_more = new Xoops\Form\Text(SystemLocale::POSTS_NUMBER_GREATER_THAN_X, "user_posts_more", 10, 5);
+            $posts_less = new Xoops\Form\Text(SystemLocale::POSTS_NUMBER_LESS_THAN_X, "user_posts_less", 10, 5);
+            $mailok_radio = new Xoops\Form\Radio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_mailok", "both");
             $mailok_radio->addOptionArray(array(
                 "mailok" => XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL, "mailng" => XoopsLocale::ONLY_USERS_THAT_DO_NOT_ACCEPT_EMAIL,
                 "both"   => XoopsLocale::ALL_USERS
             ));
-            $type_radio = new XoopsFormRadio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_type", "actv");
+            $type_radio = new Xoops\Form\Radio(XoopsLocale::TYPE_OF_USERS_TO_SHOW, "user_type", "both");
             $type_radio->addOptionArray(array(
                 "actv" => SystemLocale::ONLY_ACTIVE_USERS, "inactv" => SystemLocale::ONLY_INACTIVE_USERS,
                 "both" => XoopsLocale::ALL_USERS
             ));
-            $sort_select = new XoopsFormSelect(XoopsLocale::SORT_BY, "user_sort");
+            $sort_select = new Xoops\Form\Select(XoopsLocale::SORT_BY, "user_sort", 'uname');
             $sort_select->addOptionArray(array(
                 "uname"      => XoopsLocale::USER_NAME, "email" => XoopsLocale::EMAIL,
                 "last_login" => XoopsLocale::LAST_LOGIN, "user_regdate" => XoopsLocale::REGISTRATION_DATE,
                 "posts"      => XoopsLocale::COMMENTS_POSTS
             ));
-            $order_select = new XoopsFormSelect(XoopsLocale::ORDER, "user_order");
+            $order_select = new Xoops\Form\Select(XoopsLocale::ORDER, "user_order", 'ASC');
             $order_select->addOptionArray(array("ASC" => XoopsLocale::ASCENDING, "DESC" => XoopsLocale::DESCENDING));
-            $limit_text = new XoopsFormText(XoopsLocale::NUMBER_OF_RESULTS_PER_PAGE, "user_limit", 6, 2, 20);
-            $submit_button = new XoopsFormButton("", "user_submit", XoopsLocale::A_SUBMIT, "submit");
+            $limit_text = new Xoops\Form\Text(XoopsLocale::NUMBER_OF_RESULTS_PER_PAGE, "user_limit", 6, 2, 20);
+            $submit_button = new Xoops\Form\Button("", "user_submit", XoopsLocale::A_SUBMIT, "submit");
 
-            $form = new XoopsThemeForm(XoopsLocale::FIND_USERS, "uesr_findform", "admin.php?fct=users", 'post', true);
+            $form = new Xoops\Form\ThemeForm(XoopsLocale::FIND_USERS, "user_findform", "admin.php?fct=users", 'post', true);
             $form->addElement($uname_tray);
             $form->addElement($name_tray);
             $form->addElement($email_tray);
@@ -465,7 +467,7 @@ switch ($op) {
 
             // if this is to find users for a specific group
             if (!empty($_GET['group']) && intval($_GET['group']) > 0) {
-                $group_hidden = new XoopsFormHidden("group", intval($_GET['group']));
+                $group_hidden = new Xoops\Form\Hidden("group", intval($_GET['group']));
                 $form->addElement($group_hidden);
             }
             $form->addElement($submit_button);
@@ -473,7 +475,7 @@ switch ($op) {
         } else {
             //Display data
             // Assign Breadcrumb menu
-            $admin_page = new XoopsModuleAdmin();
+            $admin_page = new \Xoops\Module\Admin();
             $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::LIST_);
@@ -488,265 +490,176 @@ switch ($op) {
             $requete_pagenav = '';
 
             $criteria = new CriteriaCompo();
-            if (!empty($_REQUEST['user_uname'])) {
-                $match = (!empty($_REQUEST['user_uname_match'])) ? intval($_REQUEST['user_uname_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('uname', $myts->addSlashes(trim($_REQUEST['user_uname'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('uname', '%' . $myts->addSlashes(trim($_REQUEST['user_uname'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('uname', $myts->addSlashes(trim($_REQUEST['user_uname']))));
-                        break;
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('uname', '%' . $myts->addSlashes(trim($_REQUEST['user_uname'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;user_uname=' . htmlspecialchars($_REQUEST["user_uname"]) . '&amp;user_uname_match=' . htmlspecialchars($_REQUEST['user_uname_match']);
-                $requete_search .= 'uname : ' . $_REQUEST['user_uname'] . ' et user_uname_match=' . $_REQUEST['user_uname_match'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_name'])) {
-                $match = (!empty($_REQUEST['user_name_match'])) ? intval($_REQUEST['user_name_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('name', $myts->addSlashes(trim($_REQUEST['user_name'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('name', '%' . $myts->addSlashes(trim($_REQUEST['user_name'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('name', $myts->addSlashes(trim($_REQUEST['user_name']))));
-                        break;
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('name', '%' . $myts->addSlashes(trim($_POST['user_name'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;user_name=' . htmlspecialchars($_REQUEST["user_name"]) . '&amp;user_name_match=' . htmlspecialchars($_REQUEST['user_name_match']);
-                $requete_search .= 'name : ' . $_REQUEST['user_name'] . ' et user_name_match=' . $_REQUEST['user_name_match'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_email'])) {
-                $match = (!empty($_REQUEST['user_email_match'])) ? intval($_REQUEST['user_email_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('email', $myts->addSlashes(trim($_REQUEST['user_email'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('email', '%' . $myts->addSlashes(trim($_REQUEST['user_email'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('email', $myts->addSlashes(trim($_REQUEST['user_email']))));
-                        break;
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('email', '%' . $myts->addSlashes(trim($_REQUEST['user_email'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;email=' . htmlspecialchars($_REQUEST["user_email"]) . '&amp;user_email_match=' . htmlspecialchars($_REQUEST['user_email_match']);
-                $requete_search .= 'email : ' . $_REQUEST['user_email'] . ' et user_email_match=' . $_REQUEST['user_email_match'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_url'])) {
-                $url = $xoops->formatURL(trim($_REQUEST['user_url']));
-                $criteria->add(new Criteria('url', $url . '%', 'LIKE'));
-                $requete_search .= 'url : ' . $_REQUEST['user_url'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_icq'])) {
-                $match = (!empty($_REQUEST['user_icq_match'])) ? intval($_REQUEST['user_icq_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('user_icq', $myts->addSlashes(trim($_REQUEST['user_icq'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('user_icq', '%' . $myts->addSlashes(trim($_REQUEST['user_icq'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('user_icq', '%' . $myts->addSlashes(trim($_REQUEST['user_icq']))));
-                        break;
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('user_icq', '%' . $myts->addSlashes(trim($_REQUEST['user_icq'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;user_icq=' . htmlspecialchars($_REQUEST["user_icq"]) . '&amp;user_icq_match=' . htmlspecialchars($_REQUEST['user_icq_match']);
-                $requete_search .= 'icq : ' . $_REQUEST['user_icq'] . ' et user_icq_match=' . $_REQUEST['user_icq_match'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_aim'])) {
-                $match = (!empty($_REQUEST['user_aim_match'])) ? intval($_REQUEST['user_aim_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('user_aim', $myts->addSlashes(trim($_REQUEST['user_aim'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('user_aim', '%' . $myts->addSlashes(trim($_REQUEST['user_aim'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('user_aim', $myts->addSlashes(trim($_REQUEST['user_aim']))));
-                        break;
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('user_aim', '%' . $myts->addSlashes(trim($_REQUEST['user_aim'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;user_aim=' . htmlspecialchars($_REQUEST["user_aim"]) . '&amp;user_aim_match=' . htmlspecialchars($_REQUEST['user_aim_match']);
-                $requete_search .= 'aim : ' . $_REQUEST['user_aim'] . ' et user_aim_match=' . $_REQUEST['user_aim_match'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_yim'])) {
-                $match = (!empty($_REQUEST['user_yim_match'])) ? intval($_REQUEST['user_yim_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('user_yim', $myts->addSlashes(trim($_REQUEST['user_yim'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('user_yim', '%' . $myts->addSlashes(trim($_REQUEST['user_yim'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('user_yim', $myts->addSlashes(trim($_REQUEST['user_yim']))));
-                        break;
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('user_yim', '%' . $myts->addSlashes(trim($_REQUEST['user_yim'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;user_yim=' . htmlspecialchars($_REQUEST["user_yim"]) . '&amp;user_yim_match=' . htmlspecialchars($_REQUEST['user_yim_match']);
-                $requete_search .= 'yim : ' . $_REQUEST['user_yim'] . ' et user_yim_match=' . $_REQUEST['user_yim_match'] . '<br />';
-            }
-            if (!empty($_REQUEST['user_msnm'])) {
-                $match = (!empty($_REQUEST['user_msnm_match'])) ? intval($_REQUEST['user_msnm_match']) : XOOPS_MATCH_START;
-                switch ($match) {
-                    case XOOPS_MATCH_START:
-                        $criteria->add(new Criteria('user_msnm', $myts->addSlashes(trim($_REQUEST['user_msnm'])) . '%', 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_END:
-                        $criteria->add(new Criteria('user_msnm', '%' . $myts->addSlashes(trim($_REQUEST['user_msnm'])), 'LIKE'));
-                        break;
-                    case XOOPS_MATCH_EQUAL:
-                        $criteria->add(new Criteria('user_msnm', '%' . $myts->addSlashes(trim($_REQUEST['user_msnm']))));
-                        break;
-                    case XOOPS_MATCH_CONTAIN:
-                        $criteria->add(new Criteria('user_msnm', '%' . $myts->addSlashes(trim($_REQUEST['user_msnm'])) . '%', 'LIKE'));
-                        break;
-                }
-                $requete_pagenav .= '&amp;user_msnm=' . htmlspecialchars($_REQUEST["user_msnm"]) . '&amp;user_msnm_match=' . htmlspecialchars($_REQUEST['user_msnm_match']);
-                $requete_search .= 'msn : ' . $_REQUEST['user_msnm'] . ' et user_msnm_match=' . $_REQUEST['user_msnm_match'] . '<br />';
+
+            $value = Request::getString('user_uname', '');
+            if (!empty($value)) {
+                $match = Request::getInt('user_uname_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'uname', $value, $match);
+                $requete_pagenav .= '&amp;user_uname=' . htmlspecialchars($value) . '&amp;user_uname_match=' . $match;
+                $requete_search .= 'uname : ' . $value . ' and user_uname_match=' . $match . '<br />';
             }
 
-            if (!empty($_REQUEST['user_from'])) {
-                $criteria->add(new Criteria('user_from', '%' . $myts->addSlashes(trim($_REQUEST['user_from'])) . '%', 'LIKE'));
-                $requete_pagenav .= '&amp;user_from=' . htmlspecialchars($_REQUEST["user_from"]);
-                $requete_search .= 'from : ' . $_REQUEST['user_from'] . '<br />';
+            $value = Request::getString('user_name', '');
+            if (!empty($value)) {
+                $match = Request::getInt('user_name_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'name', $value, $match);
+                $requete_pagenav .= '&amp;user_name=' . htmlspecialchars($value) . '&amp;user_name_match=' . $match;
+                $requete_search .= 'name : ' . $value . ' and user_name_match=' . $match . '<br />';
             }
 
-            if (!empty($_REQUEST['user_intrest'])) {
-                $criteria->add(new Criteria('user_intrest', '%' . $myts->addSlashes(trim($_REQUEST['user_intrest'])) . '%', 'LIKE'));
-                $requete_pagenav .= '&amp;user_intrest=' . htmlspecialchars($_REQUEST["user_intrest"]);
-                $requete_search .= 'interet : ' . $_REQUEST['user_intrest'] . '<br />';
+            $value = Request::getString('user_email', '');
+            if (!empty($value)) {
+                $match = Request::getInt('user_email_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'email', $value, $match);
+                $requete_pagenav .= '&amp;user_email=' . htmlspecialchars($value) . '&amp;user_email_match=' . $match;
+                $requete_search .= 'email : ' . $value . ' and user_email_match=' . $match . '<br />';
             }
 
-            if (!empty($_REQUEST['user_occ'])) {
-                $criteria->add(new Criteria('user_occ', '%' . $myts->addSlashes(trim($_REQUEST['user_occ'])) . '%', 'LIKE'));
-                $requete_pagenav .= '&amp;user_occ=' . htmlspecialchars($_REQUEST["user_occ"]);
-                $requete_search .= 'location : ' . $_REQUEST['user_occ'] . '<br />';
+            $value = Request::getString('user_url', '');
+            if (!empty($value)) {
+                //$url = $xoops->formatURL(trim($_REQUEST['user_url']));
+                $criteria->add(new Criteria('url', '%' . $value . '%', 'LIKE'));
+                $requete_search .= 'url : ' . $value . '<br />';
             }
 
-            if (!empty($_REQUEST['user_lastlog_more']) && is_numeric($_REQUEST['user_lastlog_more'])) {
-                $f_user_lastlog_more = intval(trim($_REQUEST['user_lastlog_more']));
-                $time = time() - (60 * 60 * 24 * $f_user_lastlog_more);
+            $value = (int) Request::getInt('user_icq', 0);
+            if (!empty($value)) {
+                $match = Request::getInt('user_icq_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'user_icq', (string) $value, $match);
+                $requete_pagenav .= '&amp;user_icq=' . $value . '&amp;user_icq_match=' . $match;
+                $requete_search .= 'icq : ' . $value . ' and user_icq_match=' . $match . '<br />';
+            }
+
+            $value = Request::getString('user_aim', '');
+            if (!empty($value)) {
+                $match = Request::getInt('user_aim_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'user_aim', $value, $match);
+                $requete_pagenav .= '&amp;user_aim=' . htmlspecialchars($value) . '&amp;user_aim_match=' . $match;
+                $requete_search .= 'aim : ' . $value . ' and user_aim_match=' . $match . '<br />';
+            }
+
+            $value = Request::getString('user_yim', '');
+            if (!empty($value)) {
+                $match = Request::getInt('user_yim_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'user_yim', $value, $match);
+                $requete_pagenav .= '&amp;user_yim=' . htmlspecialchars($value) . '&amp;user_yim_match=' . $match;
+                $requete_search .= 'yim : ' . $value . ' and user_yim_match=' . $match . '<br />';
+            }
+
+            $value = Request::getString('user_msnm', '');
+            if (!empty($value)) {
+                $match = Request::getInt('user_msnm_match', XOOPS_MATCH_START);
+                addCriteria($criteria, 'user_msnm', $value, $match);
+                $requete_pagenav .= '&amp;user_msnm=' . htmlspecialchars($value) . '&amp;user_msnm_match=' . $match;
+                $requete_search .= 'msnm : ' . $value . ' and user_msnm_match=' . $match . '<br />';
+            }
+
+            $value = Request::getString('user_from', '');
+            if (!empty($value)) {
+                $criteria->add(new Criteria('user_from', '%' . $value . '%', 'LIKE'));
+                $requete_pagenav .= '&amp;user_from=' . htmlspecialchars($value);
+                $requete_search .= 'from : ' . $value . '<br />';
+            }
+
+            $value = Request::getString('user_intrest', '');
+            if (!empty($value)) {
+                $criteria->add(new Criteria('user_intrest', '%' . $value . '%', 'LIKE'));
+                $requete_pagenav .= '&amp;user_intrest=' . htmlspecialchars($value);
+                $requete_search .= 'interet : ' . $value . '<br />';
+            }
+
+            $value = Request::getString('user_occ', '');
+            if (!empty($value)) {
+                $criteria->add(new Criteria('user_occ', '%' . $value . '%', 'LIKE'));
+                $requete_pagenav .= '&amp;user_occ=' . htmlspecialchars($value);
+                $requete_search .= 'location : ' . $value . '<br />';
+            }
+
+            $value = (int) Request::getInt('user_lastlog_more', 0);
+            if (!empty($value)) {
+                $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
                     $criteria->add(new Criteria('last_login', $time, '<'));
+                    $requete_pagenav .= '&amp;user_lastlog_more=' . $value;
+                    $requete_search .= 'derniere connexion apres : ' . $value . '<br />';
                 }
-                $requete_pagenav .= '&amp;user_lastlog_more=' . htmlspecialchars($_REQUEST["user_lastlog_more"]);
-                $requete_search .= 'derniere connexion apres : ' . $_REQUEST['user_lastlog_more'] . '<br />';
             }
 
-            if (!empty($_REQUEST['user_lastlog_less']) && is_numeric($_REQUEST['user_lastlog_less'])) {
-                $f_user_lastlog_less = intval(trim($_REQUEST['user_lastlog_less']));
-                $time = time() - (60 * 60 * 24 * $f_user_lastlog_less);
+            $value = (int) Request::getInt('user_lastlog_less', 0);
+            if (!empty($value)) {
+                $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
                     $criteria->add(new Criteria('last_login', $time, '>'));
+                    $requete_pagenav .= '&amp;user_lastlog_less=' . $value;
+                    $requete_search .= 'derniere connexion avant : ' . $value . '<br />';
                 }
-                $requete_pagenav .= '&amp;user_lastlog_less=' . htmlspecialchars($_REQUEST["user_lastlog_less"]);
-                $requete_search .= 'derniere connexion avant : ' . $_REQUEST['user_lastlog_less'] . '<br />';
             }
 
-            if (!empty($_REQUEST['user_reg_more']) && is_numeric($_REQUEST['user_reg_more'])) {
-                $f_user_reg_more = intval(trim($_REQUEST['user_reg_more']));
-                $time = time() - (60 * 60 * 24 * $f_user_reg_more);
+            $value = (int) Request::getInt('user_reg_more', 0);
+            if (!empty($value)) {
+                $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
                     $criteria->add(new Criteria('user_regdate', $time, '<'));
+                    $requete_pagenav .= '&amp;user_reg_more=' . $value;
+                    $requete_search .= 'enregistre apres : ' . $value . '<br />';
                 }
-                $requete_pagenav .= '&amp;user_regdate=' . htmlspecialchars($_REQUEST["user_regdate"]);
-                $requete_search .= 'enregistre apres : ' . $_REQUEST['user_reg_more'] . '<br />';
             }
 
-            if (!empty($_REQUEST['user_reg_less']) && is_numeric($_REQUEST['user_reg_less'])) {
-                $f_user_reg_less = intval($_REQUEST['user_reg_less']);
-                $time = time() - (60 * 60 * 24 * $f_user_reg_less);
+            $value = (int) Request::getInt('user_reg_less', 0);
+            if (!empty($value)) {
+                $time = time() - (60 * 60 * 24 * $value);
                 if ($time > 0) {
                     $criteria->add(new Criteria('user_regdate', $time, '>'));
+                    $requete_pagenav .= '&amp;user_reg_less=' . $value;
+                    $requete_search .= 'enregistre avant : ' . $value . '<br />';
                 }
-                $requete_pagenav .= '&amp;user_reg_less=' . htmlspecialchars($_REQUEST["user_reg_less"]);
-                $requete_search .= 'enregistre avant : ' . $_REQUEST['user_reg_less'] . '<br />';
             }
 
-            if (!empty($_REQUEST['user_posts_more']) && is_numeric($_REQUEST['user_posts_more'])) {
-                $criteria->add(new Criteria('posts', intval($_REQUEST['user_posts_more']), '>'));
-                $requete_pagenav .= '&amp;user_posts_more=' . htmlspecialchars($_REQUEST["user_posts_more"]);
-                $requete_search .= 'posts plus de : ' . $_REQUEST['user_posts_more'] . '<br />';
+            $value = (int) Request::getInt('user_posts_more', 0);
+            if (!empty($value)) {
+                $criteria->add(new Criteria('posts', $value, '>'));
+                $requete_pagenav .= '&amp;user_posts_more=' . $value;
+                $requete_search .= 'posts plus de : ' . $value . '<br />';
             }
 
-            if (!empty($_REQUEST['user_posts_less']) && is_numeric($_REQUEST['user_posts_less'])) {
-                $criteria->add(new Criteria('posts', intval($_REQUEST['user_posts_less']), '<'));
-                $requete_pagenav .= '&amp;user_posts_less=' . htmlspecialchars($_REQUEST["user_posts_less"]);
-                $requete_search .= 'post moins de : ' . $_REQUEST['user_posts_less'] . '<br />';
+            $value = (int) Request::getInt('user_posts_less', 0);
+            if (!empty($value)) {
+                $criteria->add(new Criteria('posts', $value, '<'));
+                $requete_pagenav .= '&amp;user_posts_less=' . $value;
+                $requete_search .= 'post moins de : ' . $value . '<br />';
             }
 
-            if (isset($_REQUEST['user_mailok'])) {
-                if ($_REQUEST['user_mailok'] == "mailng") {
-                    $criteria->add(new Criteria('user_mailok', 0));
-                } elseif ($_REQUEST['user_mailok'] == "mailok") {
-                    $criteria->add(new Criteria('user_mailok', 1));
-                } else {
-                    $criteria->add(new Criteria('user_mailok', 0, '>='));
-                }
-                $requete_pagenav .= '&amp;user_mailok=' . htmlspecialchars($_REQUEST["user_mailok"]);
-                $requete_search .= 'accept email : ' . $_REQUEST['user_mailok'] . '<br />';
+            $value = Request::getWord('user_mailok', '');
+            if (!empty($value) && ($value !== 'both')) {
+                $ok = ($value == 'mailok') ? 1 : 0;
+                $criteria->add(new Criteria('user_mailok', $ok));
+                $requete_pagenav .= '&amp;user_mailok=' . $value;
+                $requete_search .= 'accept email : ' . $value . '<br />';
             }
 
-            if (isset($_REQUEST['user_type']) && !empty($_REQUEST['user_type'])) {
-                if ($_REQUEST['user_type'] == 'inactv') {
+            $user_type = Request::getWord('user_type', '');
+            if (!empty($user_type) && ($user_type !== 'both')) {
+                if ($user_type == 'inactv') {
                     $criteria->add(new Criteria('level', 0, '='));
-                    $user_type = 'inactv';
-                    $requete_search .= 'actif ou inactif : inactif<br />';
-                } elseif ($_REQUEST['user_type'] == "actv") {
+                } elseif ($user_type == "actv") {
                     $criteria->add(new Criteria('level', 0, '>'));
-                    $user_type = 'actv';
-                    $requete_search .= 'actif ou inactif : actif<br />';
                 }
-                $requete_pagenav .= '&amp;user_type=' . htmlspecialchars($_REQUEST["user_type"]);
-            } else {
-                $criteria->add(new Criteria('level', 0, '>='));
-                $user_type = '';
-                $requete_search .= 'actif ou inactif : admin et user<br />';
+                $requete_search .= 'actif ou inactif : ' . $user_type . '<br />';
+                $requete_pagenav .= '&amp;user_type=' . $user_type;
             }
 
             //$groups = empty($_REQUEST['selgroups']) ? array() : array_map("intval", $_REQUEST['selgroups']);
             $validsort = array("uname", "email", "last_login", "user_regdate", "posts");
-            if (isset($_REQUEST['user_sort'])) {
-                $sort = (!in_array($_REQUEST['user_sort'], $validsort)) ? "user_regdate" : $_REQUEST['user_sort'];
-                $requete_pagenav .= '&amp;user_sort=' . htmlspecialchars($_REQUEST["user_sort"]);
-                $requete_search .= 'order by : ' . $sort . '<br />';
-            } else {
-                $sort = "user_regdate";
-                $requete_pagenav .= '&amp;user_sort=user_regdate';
-                $requete_search .= 'order by : ' . $sort . '<br />';
-            }
+            $sort = (string) Request::getWord('user_sort', 'user_regdate');
+            $sort = (!in_array($sort, $validsort)) ? "user_regdate" : $sort;
+            $requete_pagenav .= '&amp;user_sort=' . $sort;
+            $requete_search .= 'order by : ' . $sort . '<br />';
+            $criteria->setSort($sort);
 
-            $order = "DESC";
-            if (isset($_REQUEST['user_order']) && $_REQUEST['user_order'] == "ASC") {
-                $requete_pagenav .= '&amp;user_order=ASC';
-                $requete_search .= 'tris : ' . $order . '<br />';
-            } else {
-                //$order = "ASC";
-                $requete_pagenav .= '&amp;user_order=DESC';
-                $requete_search .= 'tris : ' . $order . '<br />';
-            }
+            $order = (string) Request::getWord('user_order', 'DESC');
+            $requete_pagenav .= '&amp;user_order=' . $order;
+            $requete_search .= 'tris : ' . $order . '<br />';
+            $criteria->setOrder($order);
 
             $user_limit = $xoops->getModuleConfig('users_pager', 'system');
             if (isset($_REQUEST['user_limit'])) {
@@ -868,7 +781,8 @@ switch ($op) {
                     $users['uname'] = $user->getVar("uname");
                     $users['email'] = $user->getVar("email");
                     $users['url'] = $user->getVar("url");
-                    $users['user_avatar'] = ($user->getVar("user_avatar") == 'blank.gif') ? system_AdminIcons('anonymous.png') : XOOPS_URL . '/uploads/' . $user->getVar("user_avatar");
+                    $avatar = $xoops->service('avatar')->getAvatarUrl($user)->getValue();
+                    $users['user_avatar'] = (empty($avatar) ? system_AdminIcons('anonymous.png') : $avatar);
                     $users['reg_date'] = XoopsLocale::formatTimestamp($user->getVar("user_regdate"), "m");
                     if ($user->getVar("last_login") > 0) {
                         $users['last_login'] = XoopsLocale::formatTimestamp($user->getVar("last_login"), "m");
@@ -883,8 +797,8 @@ switch ($op) {
 
                     $users['posts'] = $user->getVar("posts");
 
-                    $xoops->tpl()->append_by_ref('users', $users);
-                    $xoops->tpl()->append_by_ref('users_popup', $users);
+                    $xoops->tpl()->appendByRef('users', $users);
+                    $xoops->tpl()->appendByRef('users_popup', $users);
                     unset($users, $user);
                 }
             } else {
@@ -900,3 +814,35 @@ switch ($op) {
 }
 // Call Footer
 $xoops->footer();
+
+/**
+ * addCriteria - add a criteria for a column enforcing XOOPS_MATCH_* rules
+ *
+ * @param CriteriaCompo $criteria A CriteriaCompo object to add to
+ * @param string        $column   column name
+ * @param int|string    $value    column value
+ * @param integer       $match    A XOOPS_MATCH_* value
+ *
+ * @return void
+ */
+function addCriteria(CriteriaCompo $criteria, $column, $value, $match)
+{
+    $relation = 'LIKE';
+    switch ($match) {
+        default:
+        case XOOPS_MATCH_START:
+            $value = $value . '%';
+            break;
+        case XOOPS_MATCH_END:
+            $value = '%' . $value;
+            break;
+        case XOOPS_MATCH_EQUAL:
+            //$value = $value;
+            $relation = '=';
+            break;
+        case XOOPS_MATCH_CONTAIN:
+            $value = '%' . $value . '%';
+            break;
+    }
+    $criteria->add(new Criteria($column, $value, $relation));
+}

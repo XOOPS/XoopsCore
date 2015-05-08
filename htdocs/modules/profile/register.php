@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
@@ -22,7 +22,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 
 if ($xoops->isUser()) {
@@ -64,18 +64,18 @@ foreach (array_keys($steps) as $key) {
     $steps[$key]['step_no'] = $key + 1;
 }
 
-$xoops->header('profile_register.html');
+$xoops->header('module:profile/profile_register.tpl');
 
 $xoops->tpl()->assign('steps', $steps);
 $xoops->tpl()->assign('lang_register_steps', _PROFILE_MA_REGISTER_STEPS);
 
 $xoops->appendConfig('profile_breadcrumbs', array(
+    'caption' => _PROFILE_MA_REGISTER,
     'link' => $xoops->url('modules/profile/register.php'),
-    'title' => _PROFILE_MA_REGISTER
 ));
 
 if (isset($steps[$current_step])) {
-    $xoops->appendConfig('profile_breadcrumbs', array('title' => $steps[$current_step]['step_name']));
+    $xoops->appendConfig('profile_breadcrumbs', array('caption' => $steps[$current_step]['step_name']));
 }
 
 $member_handler = $xoops->getHandlerMember();
@@ -179,7 +179,7 @@ if ($current_step == 1) {
 
     $newuser->setVar('uname', $uname);
     $newuser->setVar('email', $email);
-    $newuser->setVar('pass', $pass ? md5($pass) : '');
+    $newuser->setVar('pass', $pass ? password_hash($pass, PASSWORD_DEFAULT) : '');
     $stop .= XoopsUserUtility::validate($newuser, $pass, $vpass);
 
     $xoopsCaptcha = XoopsCaptcha::getInstance();
@@ -201,14 +201,14 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
         $pass = isset($_POST['pass']) ? $myts->stripSlashesGPC(trim($_POST['pass'])) : '';
         $newuser->setVar('uname', $uname);
         $newuser->setVar('email', $email);
-        $newuser->setVar('pass', $pass ? md5($pass) : '');
+        $newuser->setVar('pass', $pass ? password_hash($pass, PASSWORD_DEFAULT) : '');
         $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
         $newuser->setVar('actkey', $actkey, true);
         $newuser->setVar('user_regdate', time(), true);
         $newuser->setVar('uorder', $xoops->getConfig('com_order'), true);
         $newuser->setVar('umode', $xoops->getConfig('com_mode'), true);
         $newuser->setVar('theme', $xoops->getConfig('theme_set'), true);
-        $newuser->setVar('user_avatar', 'avatars/blank.gif', true);
+        $newuser->setVar('user_avatar', 'blank.gif', true);
         if ($xoops->getConfig('activation_type') == 1) {
             $newuser->setVar('level', 1, true);
         } else {
@@ -298,7 +298,7 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
 }
 
 if (!empty($stop) || isset($steps[$current_step])) {
-    include_once dirname(__FILE__) . '/include/forms.php';
+    include_once __DIR__ . '/include/forms.php';
     $current_step = empty($stop) ? $current_step : $current_step - 1;
     $reg_form = profile_getRegisterForm($newuser, $profile, $steps[$current_step]);
     $reg_form->assign($xoops->tpl());
@@ -326,4 +326,4 @@ if (!empty($stop) || isset($steps[$current_step])) {
     $_SESSION['profile_post'] = null;
 }
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

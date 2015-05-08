@@ -13,20 +13,18 @@
  * Plugin manager config
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
  * @package         system
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $modversion['name']        = XoopsLocale::EXTENSIONS;
 $modversion['version']     = '1.0';
 $modversion['description'] = SystemLocale::EXTENSIONS_DESC;
 $modversion['author']      = '';
 $modversion['credits']     = 'The XOOPS Project; Andricq Nicolas (AKA MusS)';
-$modversion['help']        = 'page=extension';
+$modversion['help']        = 'page=extensions';
 $modversion['license']     = "GPL see LICENSE";
 $modversion['official']    = 1;
 $modversion['image']       = 'extensions.png';

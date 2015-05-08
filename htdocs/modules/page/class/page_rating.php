@@ -9,18 +9,18 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+
 /**
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 class PagePage_rating extends XoopsObject
 {
@@ -29,7 +29,7 @@ class PagePage_rating extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('rating_id', XOBJ_DTYPE_INT, 0, false ,10);
+        $this->initVar('rating_id', XOBJ_DTYPE_INT, 0, false, 10);
         $this->initVar('rating_content_id', XOBJ_DTYPE_INT, null, false, 10);
         $this->initVar('rating_uid', XOBJ_DTYPE_INT, null, false, 10);
         $this->initVar('rating_rating', XOBJ_DTYPE_OTHER, null, false, 3);
@@ -41,9 +41,9 @@ class PagePage_rating extends XoopsObject
 class PagePage_ratingHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|XoopsConnection $db
+     * @param null|Connection $db
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'page_rating', 'pagepage_rating', 'rating_id', 'rating_contentid');
     }
@@ -61,7 +61,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         $criteria2 = new CriteriaCompo();
         $criteria2->add(new Criteria('rating_uid', $uid), 'OR');
         $criteria2->add(new Criteria('rating_ip', $ip), 'OR');
-        $criteria->add( $criteria2, 'AND');
+        $criteria->add($criteria2, 'AND');
 
         $res = parent::getAll($criteria, null, true, false);
         if (count($res) > 0) {
@@ -82,7 +82,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         $criteria2 = new CriteriaCompo();
         $criteria2->add(new Criteria('rating_uid', $uid), 'OR');
         $criteria2->add(new Criteria('rating_ip', $ip), 'OR');
-        $criteria->add( $criteria2, 'AND');
+        $criteria->add($criteria2, 'AND');
         return parent::getCount($criteria);
     }
 
@@ -95,7 +95,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
         $total = 0;
         $obj = parent::getAll($criteria);
         foreach ($obj as $k => $v) {
-            $i++;
+            ++$i;
             $total += $v->getVar('rating_rating');
         }
         return array('voters' => $i, 'average' => $total/$i);

@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -84,6 +84,17 @@ function profile_install_initializeProfiles()
 }
 
 // canedit: 0 - no; 1 - admin; 2 - admin & owner
+/**
+ * @param string $name
+ * @param string $description
+ * @param integer $category
+ * @param string $type
+ * @param integer $valuetype
+ * @param integer $weight
+ * @param integer $canedit
+ * @param integer $step_id
+ * @param integer $length
+ */
 function profile_install_addField($name, $title, $description, $category, $type, $valuetype, $weight, $canedit, $options, $step_id, $length, $visible = true)
 {
     $xoops = Xoops::getInstance();
@@ -148,6 +159,9 @@ function profile_install_addField($name, $title, $description, $category, $type,
     */
 }
 
+/**
+ * @param boolean $visible
+ */
 function profile_install_setPermissions($field_id, $module_id, $canedit, $visible)
 {
     $xoops = Xoops::getInstance();
@@ -167,6 +181,9 @@ function profile_install_setPermissions($field_id, $module_id, $canedit, $visibl
     }
 }
 
+/**
+ * @param integer $weight
+ */
 function profile_install_addCategory($name, $weight)
 {
     $xoops = Xoops::getInstance();
@@ -175,6 +192,11 @@ function profile_install_addCategory($name, $weight)
     $xoopsDB->query("INSERT INTO " . $xoopsDB->prefix("profile_category") . " VALUES (0, " . $xoopsDB->quote($name) . ", '', {$weight})");
 }
 
+/**
+ * @param string $desc
+ * @param integer $order
+ * @param integer $save
+ */
 function profile_install_addStep($name, $desc, $order, $save)
 {
     $xoops = Xoops::getInstance();

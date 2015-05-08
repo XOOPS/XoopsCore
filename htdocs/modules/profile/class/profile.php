@@ -9,20 +9,22 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+//use Xoops\Core\Kernel\XoopsObject;
+//use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\CriteriaElement;
+
 /**
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 class ProfileProfile extends XoopsObject
 {
     /**
@@ -69,7 +71,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      */
     private $_fields = array();
 
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db)
     {
         parent::__construct($db, "profile_profile", 'profileprofile', "profile_id");
         $xoops = Xoops::getInstance();
@@ -241,7 +243,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      *
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
-    public function insert(XoopsObject $obj, $force = false)
+    public function insert(\Xoops\Core\Kernel\XoopsObject $obj, $force = false)
     {
         $uservars = $this->getUserVars();
         foreach ($uservars as $var) {
@@ -293,7 +295,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $sql_order = "";
 
         $limit = $start = 0;
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
             $sql_clause .= " AND " . $criteria->render();
             if ($criteria->getSort() != '') {
                 $sql_order = ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();

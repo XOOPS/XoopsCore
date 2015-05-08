@@ -9,21 +9,23 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * images module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Call Header
-$xoops->header('images_admin_images.html');
+$xoops->header('admin:images/images_admin_images.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('images.php');
 
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
@@ -37,7 +39,7 @@ switch ($op) {
         $msg[] = _AM_IMAGES_IMG_SAVE;
 
         $category = $helper->getHandlerCategories()->get($imgcat_id);
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if (isset($image_id) && $image_id != 0) {
             $obj = $helper->getHandlerImages()->get($image_id);
             $isnew = false;
@@ -48,17 +50,17 @@ switch ($op) {
             $isnew = true;
         }
 
-        $obj->setVar('image_nicename', $request->asStr('image_nicename', ''));
+        $obj->setVar('image_nicename', Request::getString('image_nicename', ''));
         $obj->setVar('image_created', time());
-        $obj->setVar('image_display', $request->asInt('image_display', 1));
-        $obj->setVar('image_weight', $request->asInt('image_weight', 0));
+        $obj->setVar('image_display', Request::getInt('image_display', 1));
+        $obj->setVar('image_weight', Request::getInt('image_weight', 0));
         $obj->setVar('imgcat_id', $imgcat_id);
 
         // Default value
         $image_body = '';
         $error = true;
         $error_message = '';
-        $xoops_upload_file = $request->asArray('xoops_upload_file', array());
+        $xoops_upload_file = Request::getArray('xoops_upload_file', array());
         if ($_FILES[$xoops_upload_file[0]]['error'] === 0) {
             $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/images', $mimetypes, $category->getVar('imgcat_maxsize'), $category->getVar('imgcat_maxwidth'), $category->getVar('imgcat_maxheight'));
             if ($uploader->fetchMedia($xoops_upload_file[0])) {
@@ -81,10 +83,10 @@ switch ($op) {
                 }
             }
         }
-        if ($error == true){
+        if ($error == true) {
             $xoops->tpl()->assign('error_message', $error_message);
         } else {
-            if ( $image_id = $helper->getHandlerImages()->insert($obj)) {
+            if ($image_id = $helper->getHandlerImages()->insert($obj)) {
                 if ($category->getVar('imgcat_storetype') == 'db'  && $isnew) {
                     $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                     if (!is_object($imagebody)) {
@@ -112,7 +114,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if ($image_id > 0) {
             $obj =  $helper->getHandlerImages()->get($image_id);
             $form = $helper->getForm($obj, 'image');
@@ -121,9 +123,9 @@ switch ($op) {
         break;
 
     case 'del':
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if ($image_id > 0) {
-            $ok = $request->asInt('ok', 0);
+            $ok = Request::getInt('ok', 0);
             $obj =  $helper->getHandlerImages()->get($image_id);
 
             if ($ok == 1) {
@@ -148,21 +150,17 @@ switch ($op) {
                     $img = XOOPS_UPLOAD_URL . '/' . $obj->getVar('image_name');
                 }
                 $xoops->confirm(
-                        array(
-                        'op' => 'del',
-                        'ok' => 1,
-                        'image_id' => $image_id,
-                        'imgcat_id' => $obj->getVar('imgcat_id'),
-                        ),
-                        XOOPS_URL . '/modules/images/admin/images.php',
-                        sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename')) . '<br /><br /><img src="' . $img . '" /><br />'
+                    array('op' => 'del', 'ok' => 1, 'image_id' => $image_id, 'imgcat_id' => $obj->getVar('imgcat_id')),
+                    XOOPS_URL . '/modules/images/admin/images.php',
+                    sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename'))
+                    . '<br /><br /><img src="' . $img . '" /><br />'
                 );
             }
         }
         break;
 
     case 'display':
-        $image_id = $request->asInt('image_id', 0);
+        $image_id = Request::getInt('image_id', 0);
         if ($image_id > 0) {
             $obj = $helper->getHandlerImages()->get($image_id);
             $old = $obj->getVar('image_display');

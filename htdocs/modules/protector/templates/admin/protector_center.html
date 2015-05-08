@@ -1,6 +1,6 @@
-<{includeq file="admin:system|admin_navigation.html"}>
-<{includeq file="admin:system|admin_tips.html"}>
-<{includeq file="module:system|system_form.html"}>
+<{include file="admin:system/admin_navigation.tpl"}>
+<{include file="admin:system/admin_tips.tpl"}>
+<{include file="module:system/system_form.tpl"}>
 <form class="form-inline" name="filter" id="filter" action="center.php" method="get">
     <fieldset>
             <select name='num' onchange='submit();'><{$num_options}></select>
@@ -9,7 +9,7 @@
 </form>
 
 <form name='MainForm' action='center.php' method='post'>
-    <{$ticket}>
+    <{$ticket|default:''}>
     <input type='hidden' name='action' value='' />
     <table class="outer">
         <thead>
@@ -29,20 +29,22 @@
         </tr>
         </thead>
         <tbody>
-        <{foreach item=log from=$log}>
+        <{if $log|default:false}>
+        <{foreach item=logitem from=$log}>
         <tr class="<{cycle values='even,odd'}>">
-            <td class="txtcenter"><input type='checkbox' name='ids[]' value='<{$log.lid}>' /></td>
-            <td class="txtcenter"><{$log.date}></td>
-            <td class="txtcenter"><{$log.uname}></td>
-            <td class="txtleft"><{$log.ip}>
-                <{$log.ip}>
+            <td class="txtcenter"><input type='checkbox' name='ids[]' value='<{$file_item.lid}>' /></td>
+            <td class="txtcenter"><{$file_item.date}></td>
+            <td class="txtcenter"><{$file_item.uname}></td>
+            <td class="txtleft"><{$file_item.ip}>
+                <{$file_item.ip}>
                 <br />
-                <{$log.agent_desc}>
+                <{$file_item.agent_desc}>
             </td>
-            <td class="txtcenter"><{$log.type}></td>
-            <td class="txtleft"><{$log.description}></td>
+            <td class="txtcenter"><{$file_item.type}></td>
+            <td class="txtleft"><{$file_item.description}></td>
         </tr>
         <{/foreach}>
+        <{/if}>
         <tr class="odd">
             <td colspan="6" class="txtleft">
                 <{$smarty.const._AM_LABEL_REMOVE}>

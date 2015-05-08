@@ -13,12 +13,14 @@
  * Userconfigs
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A Config-Option
@@ -93,9 +95,9 @@ class UserconfigsOptionHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'userconfigs_option', 'UserconfigsOption', 'confop_id', 'confop_name');
     }

@@ -10,14 +10,16 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**#@+
  * deprecated
@@ -214,15 +216,15 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * Assign one or more {@link XoopsConfigItemOption}s
+     * Assign one or more {@link XoopsConfigOption}s
      *
-     * @param    mixed   $option either a {@link XoopsConfigItemOption} object or an array of them
+     * @param    mixed   $option either a {@link XoopsConfigOption} object or an array of them
      */
     public function setConfOptions($option)
     {
         if (is_array($option)) {
             $count = count($option);
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $this->setConfOptions($option[$i]);
             }
         } else {
@@ -233,9 +235,9 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * Get the {@link XoopsConfigItemOption}s of this Config
+     * Get the {@link XoopsConfigOption}s of this Config
      *
-     * @return    array   array of {@link XoopsConfigItemOption}
+     * @return    array   array of {@link XoopsConfigOption}
      */
     public function getConfOptions()
     {
@@ -267,9 +269,9 @@ class XoopsConfigItemHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'config', 'XoopsConfigItem', 'conf_id', 'conf_name');
     }

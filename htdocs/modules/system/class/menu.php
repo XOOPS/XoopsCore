@@ -1,55 +1,59 @@
 <?php
-/**
- * Class for tab navigation
- *
+/*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author      John Neill (AKA Catzwolf)
- * @author      Andricq Nicolas (AKA MusS)
- * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die();
-
+/**
+ * Class for tab navigation
+ *
+ * @category  Modules/system/class/form
+ * @package   SystemMenuHandler
+ * @author    John Neill (AKA Catzwolf)
+ * @author    Andricq Nicolas (AKA MusS)
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ */
 class SystemMenuHandler
 {
     /**
      *
      * @var string
      */
-    var $_menutop = array();
-    var $_menutabs = array();
-    var $_obj;
-    var $_header;
-    var $_subheader;
+    private $_menutop = array();
+    private $_menutabs = array();
+    private $_obj;
+    private $_header;
+    private $_subheader;
 
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct()
     {
         $xoops = Xoops::getInstance();
         $this->_obj = $xoops->module;
     }
 
-    function getAddon($addon)
+    public function getAddon($addon)
     {
         $this->_obj = $addon;
     }
 
-    function addMenuTop($link, $name = "")
+    /**
+     * @param string $link
+     */
+    public function addMenuTop($link, $name = "")
     {
         $this->_menutop[] = array('link' => $link, 'name' => $name);
     }
 
-    function addMenuTopArray($options, $multi = true)
+    public function addMenuTopArray($options, $multi = true)
     {
         if (is_array($options)) {
             if ($multi == true) {
@@ -64,12 +68,15 @@ class SystemMenuHandler
         }
     }
 
-    function addMenuTabs($link, $name = "")
+    /**
+     * @param string $link
+     */
+    public function addMenuTabs($link, $name = "")
     {
         $this->_menutabs[] = array('link' => $link, 'name' => $name, 'current' => 0);
     }
 
-    function addMenuTabsArray($options, $multi = true)
+    public function addMenuTabsArray($options, $multi = true)
     {
         if (is_array($options)) {
             if ($multi == true) {
@@ -84,17 +91,17 @@ class SystemMenuHandler
         }
     }
 
-    function addHeader($value)
+    public function addHeader($value)
     {
         $this->_header = $value;
     }
 
-    function addSubHeader($value)
+    public function addSubHeader($value)
     {
         $this->_subheader = $value;
     }
 
-    function breadcrumb_nav($basename = "Home")
+    public function breadcrumb_nav($basename = "Home")
     {
         global $bc_site, $bc_label;
         $site = $bc_site;
@@ -115,10 +122,11 @@ class SystemMenuHandler
                 $return_str .= ' &gt; <a href="' . $bc_site . $arr . '/">' . $bc_label[$arr] . '</a>';
             }
         }
+
         return $return_str;
     }
 
-    function render($currentoption = 1, $display = true)
+    public function render($currentoption = 1, $display = true)
     {
         $xoops = Xoops::getInstance();
         $xoops->tpl()->assign('xo_module_menu_top', $this->_menutop);
@@ -126,7 +134,7 @@ class SystemMenuHandler
         $xoops->tpl()->assign('xo_module_menu_tab', $this->_menutabs);
          //$xoops->tpl()->assign('xo_admin_help', $this->_help);
          //if ($xoops->tpl()_name == '') {
-         //    $xoops->tpl()->display('admin:system|admin_tabs.html');
+         //    $xoops->tpl()->display('admin:system/admin_tabs.tpl');
          //}
         return;
 
@@ -159,7 +167,7 @@ class SystemMenuHandler
         $menu .= "<div id='buttonbar_mod'><ul>";
         foreach ($this->_menutabs as $k => $v) {
             $menu .= "<li id='" . $menuItems[$i] . "'><a href='" . XOOPS_URL . "/modules/" . $this->_obj->getVar('dirname') . "/" . $k . "'><span>$v</span></a></li>\n";
-            $i++;
+            ++$i;
         }
         $menu .= "</ul>\n</div>\n";
         if ($this->_header) {
@@ -188,5 +196,3 @@ class SystemMenuHandler
         }
     }
 }
-
-?>

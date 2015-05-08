@@ -13,14 +13,14 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
@@ -30,41 +30,41 @@ $op = $system->cleanVars($_REQUEST, 'op', 'edit', 'string');
 // Call header
 $xoops->header();
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('permissions.php');
 
 $perm_desc = "";
-switch ($op ) {
-case "visibility":
-    header("Location: visibility.php");
-    break;
+switch ($op) {
+    case "visibility":
+        header("Location: visibility.php");
+        break;
 
-case "edit":
+    case "edit":
     default:
-    $title_of_form = _PROFILE_AM_PROF_EDITABLE;
-    $perm_name = "profile_edit";
-    $restriction = "field_edit";
-    $anonymous = false;
-    break;
+        $title_of_form = _PROFILE_AM_PROF_EDITABLE;
+        $perm_name = "profile_edit";
+        $restriction = "field_edit";
+        $anonymous = false;
+        break;
 
-case "search":
-    $title_of_form = _PROFILE_AM_PROF_SEARCH;
-    $perm_name = "profile_search";
-    $restriction = "";
-    $anonymous = true;
-    break;
+    case "search":
+        $title_of_form = _PROFILE_AM_PROF_SEARCH;
+        $perm_name = "profile_search";
+        $restriction = "";
+        $anonymous = true;
+        break;
 
-case "access":
-    $title_of_form = _PROFILE_AM_PROF_ACCESS;
-    $perm_name = "profile_access";
-    $perm_desc = _PROFILE_AM_PROF_ACCESS_DESC;
-    $restriction = "";
-    $anonymous = true;
-    break;
+    case "access":
+        $title_of_form = _PROFILE_AM_PROF_ACCESS;
+        $perm_name = "profile_access";
+        $perm_desc = _PROFILE_AM_PROF_ACCESS_DESC;
+        $restriction = "";
+        $anonymous = true;
+        break;
 }
 
-$opform = new XoopsSimpleForm('', 'opform', 'permissions.php', "get");
-$op_select = new XoopsFormSelect("", 'op', $op);
+$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', "get");
+$op_select = new Xoops\Form\Select("", 'op', $op);
 $op_select->setExtra('onchange="document.forms.opform.submit()"');
 $op_select->addOption('visibility', _PROFILE_AM_PROF_VISIBLE);
 $op_select->addOption('edit', _PROFILE_AM_PROF_EDITABLE);
@@ -74,13 +74,13 @@ $opform->addElement($op_select);
 $opform->display();
 
 $module_id = $xoops->module->getVar('mid');
-$form = new XoopsGroupPermForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php', $anonymous);
+$form = new Xoops\Form\GroupPermissionForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php', $anonymous);
 
-if ( $op == "access" ) {
+if ($op == "access") {
     $member_handler = $xoops->getHandlerMember();
     $glist = $member_handler->getGroupList();
-    foreach (array_keys($glist) as $i ) {
-        if ( $i != XOOPS_GROUP_ANONYMOUS ) {
+    foreach (array_keys($glist) as $i) {
+        if ($i != XOOPS_GROUP_ANONYMOUS) {
             $form->addItem($i, $glist[$i]);
         }
     }
@@ -90,10 +90,13 @@ if ( $op == "access" ) {
     $profile_handler = $xoops->getModuleHandler('profile');
     $fields = $profile_handler->loadFields();
 
-    if ( $op != "search" ) {
-        foreach (array_keys($fields) as $i ) {
-            if ( $restriction == "" || $fields[$i]->getVar($restriction)  ) {
-                $form->addItem($fields[$i]->getVar('field_id'), XoopsLocale::substr($fields[$i]->getVar('field_title'), 0, 25) );
+    if ($op != "search") {
+        foreach (array_keys($fields) as $i) {
+            if ($restriction == "" || $fields[$i]->getVar($restriction)) {
+                $form->addItem(
+                    $fields[$i]->getVar('field_id'),
+                    XoopsLocale::substr($fields[$i]->getVar('field_title'), 0, 25)
+                );
             }
         }
     } else {
@@ -105,9 +108,12 @@ if ( $op == "access" ) {
         'datetime',
         'timezone',
         'language');
-        foreach (array_keys($fields) as $i ) {
-            if ( in_array($fields[$i]->getVar('field_type'), $searchable_types)  ) {
-                $form->addItem($fields[$i]->getVar('field_id'), XoopsLocale::substr($fields[$i]->getVar('field_title'), 0, 25) );
+        foreach (array_keys($fields) as $i) {
+            if (in_array($fields[$i]->getVar('field_type'), $searchable_types)) {
+                $form->addItem(
+                    $fields[$i]->getVar('field_id'),
+                    XoopsLocale::substr($fields[$i]->getVar('field_title'), 0, 25)
+                );
             }
         }
     }

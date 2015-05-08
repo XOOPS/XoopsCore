@@ -1,0 +1,295 @@
+tables:
+    comments:
+        options: {  }
+        columns:
+            id:
+                name: id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            pid:
+                name: pid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            rootid:
+                name: rootid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            modid:
+                name: modid
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            itemid:
+                name: itemid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            icon:
+                name: icon
+                type: string
+                default: ''
+                notnull: true
+                length: 25
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            created:
+                name: created
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            modified:
+                name: modified
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            uid:
+                name: uid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            ip:
+                name: ip
+                type: string
+                default: ''
+                notnull: true
+                length: 15
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            title:
+                name: title
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            text:
+                name: text
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            sig:
+                name: sig
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            status:
+                name: status
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            exparams:
+                name: exparams
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            dohtml:
+                name: dohtml
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            dosmiley:
+                name: dosmiley
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            doxcode:
+                name: doxcode
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            doimage:
+                name: doimage
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            dobr:
+                name: dobr
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [id]
+                unique: true
+                primary: true
+            pid:
+                name: pid
+                columns: [pid]
+                unique: false
+                primary: false
+            itemid:
+                name: itemid
+                columns: [itemid]
+                unique: false
+                primary: false
+            uid:
+                name: uid
+                columns: [uid]
+                unique: false
+                primary: false
+            title:
+                name: title
+                columns: [title]
+                unique: false
+                primary: false
+            status:
+                name: status
+                columns: [status]
+                unique: false
+                primary: false

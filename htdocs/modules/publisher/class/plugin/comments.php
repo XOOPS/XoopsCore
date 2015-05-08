@@ -13,7 +13,7 @@
  *  Publisher class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Class
  * @subpackage      Utils
  * @since           1.0
@@ -21,9 +21,7 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-class PublisherCommentsPlugin extends Xoops_Module_Plugin_Abstract implements CommentsPluginInterface
+class PublisherCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements CommentsPluginInterface
 {
     /**
      * @return string
@@ -95,7 +93,7 @@ class PublisherCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Co
     public function itemInfo($item_id)
     {
         $ret = array();
-        include_once dirname(dirname(dirname(__FILE__))) . '/include/common.php';
+        include_once dirname(dirname(__DIR__)) . '/include/common.php';
 
         /* @var $itemObj PublisherItem */
         $itemObj = Publisher::getInstance()->getItemHandler()->get(intval($item_id));
@@ -111,4 +109,3 @@ class PublisherCommentsPlugin extends Xoops_Module_Plugin_Abstract implements Co
         return $ret;
     }
 }
-

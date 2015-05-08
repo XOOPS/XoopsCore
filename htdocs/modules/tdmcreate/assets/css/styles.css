@@ -1,0 +1,13 @@
+.form-horizontal .control-label {
+  float: left;
+  width: 0;
+  padding-top: 5px;
+  text-align: right;
+}
+
+.form-horizontal .controls {
+  *display: inline-block;
+  *padding-left: 20px;
+  margin-left: 0;
+  *margin-left: 0;
+}

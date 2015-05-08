@@ -11,14 +11,14 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . "/admin_header.php";
+include_once __DIR__ . "/admin_header.php";
 
 $xoops = Xoops::getInstance();
 PublisherUtils::cpHeader();
@@ -67,12 +67,12 @@ if (@$_POST['op'] == 'submit') {
     echo $msg;
 
 } else {
-    $form = new XoopsThemeForm(sprintf(_AM_PUBLISHER_CLONE_TITLE, $publisher->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
-    $clone = new XoopsFormText(_AM_PUBLISHER_CLONE_NAME, 'clone', 20, 20, '');
+    $form = new Xoops\Form\ThemeForm(sprintf(_AM_PUBLISHER_CLONE_TITLE, $publisher->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
+    $clone = new Xoops\Form\Text(_AM_PUBLISHER_CLONE_NAME, 'clone', 20, 20, '');
     $clone->setDescription(_AM_PUBLISHER_CLONE_NAME_DSC);
     $form->addElement($clone, true);
-    $form->addElement(new XoopsFormHidden('op', 'submit'));
-    $form->addElement(new XoopsFormButton('', '', XoopsLocale::A_SUBMIT, 'submit'));
+    $form->addElement(new Xoops\Form\Hidden('op', 'submit'));
+    $form->addElement(new Xoops\Form\Button('', '', XoopsLocale::A_SUBMIT, 'submit'));
     $form->display();
 }
 

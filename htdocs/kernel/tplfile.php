@@ -10,23 +10,27 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\CriteriaElement;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * A Template File
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000 XOOPS.org
- *
- * @package kernel
- **/
+ * @package   kernel
+ */
 class XoopsTplfile extends XoopsObject
 {
     /**
@@ -49,7 +53,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * id
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function id($format = 'n')
@@ -58,7 +65,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_id
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_id($format = '')
@@ -67,7 +77,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_refid
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_refid($format = '')
@@ -76,7 +89,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_tplset
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_tplset($format = '')
@@ -85,7 +101,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_file
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_file($format = '')
@@ -94,7 +113,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_desc
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_desc($format = '')
@@ -103,7 +125,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_lastmodified
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_lastmodified($format = '')
@@ -112,7 +137,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_lastimported
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_lastimported($format = '')
@@ -121,7 +149,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_module
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_module($format = '')
@@ -130,7 +161,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_type
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_type($format = '')
@@ -139,7 +173,10 @@ class XoopsTplfile extends XoopsObject
     }
 
     /**
+     * tpl_source
+     *
      * @param string $format
+     *
      * @return mixed
      */
     public function tpl_source($format = '')
@@ -183,9 +220,9 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'tplfile', 'XoopsTplfile', 'tpl_id', 'tpl_refid');
     }
@@ -193,44 +230,64 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * retrieve a specific {@link XoopsTplfile}
      *
-     * @param int $id tpl_id of the block to retrieve
-     * @param bool $getsource
+     * @param int  $id        tpl_id of the block to retrieve
+     * @param bool $getsource true = also return source
+     *
      * @return XoopsTplfile|bool
      */
     public function getById($id, $getsource = false)
     {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
         $tplfile = false;
         $id = intval($id);
         if ($id > 0) {
             if (!$getsource) {
-                $sql = 'SELECT * FROM ' . $this->db->prefix('tplfile') . ' WHERE tpl_id=' . $id;
+                $qb->select('*')
+                    ->fromPrefix('tplfile', 'f')
+                    ->where($eb->eq('f.tpl_id', ':tplid'))
+                    ->setParameter(':tplid', $id, \PDO::PARAM_INT);
             } else {
-                $sql = 'SELECT f.*, s.tpl_source FROM ' . $this->db->prefix('tplfile') . ' f LEFT JOIN ' . $this->db->prefix('tplsource') . ' s  ON s.tpl_id=f.tpl_id WHERE f.tpl_id=' . $id;
+                $qb->select('f.*')
+                    ->addSelect('s.tpl_source')
+                    ->fromPrefix('tplfile', 'f')
+                    ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'))
+                    ->where($eb->eq('f.tpl_id', ':tplid'))
+                    ->setParameter(':tplid', $id, \PDO::PARAM_INT);
             }
-            if (! $result = $this->db->query($sql)) {
+            $result = $qb->execute();
+            if (!$result) {
                 return $tplfile;
             }
-            $numrows = $this->db->getRowsNum($result);
-            if ($numrows == 1) {
+            $allrows = $result->fetchAll();
+            if (count($allrows) == 1) {
                 $tplfile = new XoopsTplfile();
-                $tplfile->assignVars($this->db->fetchArray($result));
+                $tplfile->assignVars(reset($allrows));
             }
         }
         return $tplfile;
     }
 
     /**
-     * @param XoopsTplfile $tplfile
+     * loadSource
+     *
+     * @param XoopsTplfile &$tplfile
+     *
      * @return bool
      */
     public function loadSource(XoopsTplFile &$tplfile)
     {
         if (!$tplfile->getVar('tpl_source')) {
-            $sql = 'SELECT tpl_source FROM ' . $this->db->prefix('tplsource') . ' WHERE tpl_id=' . $tplfile->getVar('tpl_id');
-            if (!$result = $this->db->query($sql)) {
+            $qb = $this->db2->createXoopsQueryBuilder();
+            $eb = $qb->expr();
+            $qb->select('tpl_source')
+                ->fromPrefix('tplsource', null)
+                ->where($eb->eq('tpl_id', ':tplid'))
+                ->setParameter(':tplid', $tplfile->getVar('tpl_id'), \PDO::PARAM_INT);
+            if (!$result = $qb->execute()) {
                 return false;
             }
-            $myrow = $this->db->fetchArray($result);
+            $myrow = $result->fetch(\PDO::FETCH_ASSOC);
             $tplfile->assignVar('tpl_source', $myrow['tpl_source']);
         }
         return true;
@@ -240,6 +297,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      * write a new Tplfile into the database
      *
      * @param XoopsTplfile|XoopsObject $tplfile
+     *
      * @return bool
      */
     public function insertTpl(XoopsTplfile &$tplfile)
@@ -247,46 +305,77 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
         if (!$tplfile->isDirty()) {
             return true;
         }
-        if (!$tplfile->cleanVars()) {
+        if (!$tplfile->cleanVars(false)) {
             return false;
         }
         foreach ($tplfile->cleanVars as $k => $v) {
             ${$k} = $v;
         }
         if ($tplfile->isNew()) {
-            $tpl_id = $this->db->genId('tpltpl_file_id_seq');
-            $sql = sprintf("INSERT INTO %s (tpl_id, tpl_module, tpl_refid, tpl_tplset, tpl_file, tpl_desc, tpl_lastmodified, tpl_lastimported, tpl_type) VALUES (%u, %s, %u, %s, %s, %s, %u, %u, %s)", $this->db->prefix('tplfile'), $tpl_id, $tpl_module, $tpl_refid, $tpl_tplset, $tpl_file, $tpl_desc, $tpl_lastmodified, $tpl_lastimported, $tpl_type);
-            if (!$this->db->queryF($sql)) {
+            $tpl_id = 0;
+            $values = array(
+                // 'tpl_id' => $tpl_id,
+                'tpl_module' => $tpl_module,
+                'tpl_refid' => $tpl_refid,
+                'tpl_tplset' => $tpl_tplset,
+                'tpl_file' => $tpl_file,
+                'tpl_desc' => $tpl_desc,
+                'tpl_lastmodified' => $tpl_lastmodified,
+                'tpl_lastimported' => $tpl_lastimported,
+                'tpl_type' => $tpl_type,
+            );
+            if (!$this->db2->insertPrefix('tplfile', $values)) {
                 return false;
             }
             if (empty($tpl_id)) {
-                $tpl_id = $this->db->getInsertId();
+                $tpl_id = $this->db2->lastInsertId();
             }
             if (isset($tpl_source) && $tpl_source != '') {
-                $sql = sprintf("INSERT INTO %s (tpl_id, tpl_source) VALUES (%u, %s)", $this->db->prefix('tplsource'), $tpl_id, $tpl_source);
-                if (!$this->db->queryF($sql)) {
-                    $this->db->queryF(sprintf("DELETE FROM %s WHERE tpl_id = %u", $this->db->prefix('tplfile'), $tpl_id));
+                $values = array(
+                    'tpl_id' => $tpl_id,
+                    'tpl_source' => $tpl_source,
+                );
+                if (!$this->db2->insertPrefix('tplsource', $values)) {
+                    $this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id));
                     return false;
                 }
             }
             $tplfile->assignVar('tpl_id', $tpl_id);
         } else {
-            $sql = sprintf("UPDATE %s SET tpl_tplset = %s, tpl_file = %s, tpl_desc = %s, tpl_lastimported = %u, tpl_lastmodified = %u WHERE tpl_id = %u", $this->db->prefix('tplfile'), $tpl_tplset, $tpl_file, $tpl_desc, $tpl_lastimported, $tpl_lastmodified, $tpl_id);
-            if (!$this->db->queryF($sql)) {
+            $values = array(
+                // 'tpl_id' => $tpl_id,
+                'tpl_module' => $tpl_module,
+                'tpl_refid' => $tpl_refid,
+                'tpl_tplset' => $tpl_tplset,
+                'tpl_file' => $tpl_file,
+                'tpl_desc' => $tpl_desc,
+                'tpl_lastmodified' => $tpl_lastmodified,
+                'tpl_lastimported' => $tpl_lastimported,
+                'tpl_type' => $tpl_type,
+            );
+            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id' => $tpl_id))) {
                 return false;
             }
+
             if (isset($tpl_source) && $tpl_source != '') {
-                $sql = sprintf("UPDATE %s SET tpl_source = %s WHERE tpl_id = %u", $this->db->prefix('tplsource'), $tpl_source, $tpl_id);
-                if (!$this->db->queryF($sql)) {
+                $values = array(
+                    // 'tpl_id' => $tpl_id,
+                    'tpl_source' => $tpl_source,
+                );
+                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id' => $tpl_id))) {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
     /**
+     * forceUpdate
+     *
      * @param XoopsTplfile $tplfile
+     *
      * @return bool
      */
     public function forceUpdate(XoopsTplfile &$tplfile)
@@ -294,23 +383,40 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
         if (!$tplfile->isDirty()) {
             return true;
         }
-        if (!$tplfile->cleanVars()) {
+        if (!$tplfile->cleanVars(false)) {
             return false;
         }
         foreach ($tplfile->cleanVars as $k => $v) {
             ${$k} = $v;
         }
         if (!$tplfile->isNew()) {
-            $sql = sprintf("UPDATE %s SET tpl_tplset = %s, tpl_file = %s, tpl_desc = %s, tpl_lastimported = %u, tpl_lastmodified = %u WHERE tpl_id = %u", $this->db->prefix('tplfile'), $tpl_tplset, $tpl_file, $tpl_desc, $tpl_lastimported, $tpl_lastmodified, $tpl_id);
-            if (!$this->db->queryF($sql)) {
+            $tpl_id = 0;
+            $values = array(
+                // 'tpl_id' => $tpl_id,
+                'tpl_module' => $tpl_module,
+                'tpl_refid' => $tpl_refid,
+                'tpl_tplset' => $tpl_tplset,
+                'tpl_file' => $tpl_file,
+                'tpl_desc' => $tpl_desc,
+                'tpl_lastmodified' => $tpl_lastmodified,
+                'tpl_lastimported' => $tpl_lastimported,
+                'tpl_type' => $tpl_type,
+            );
+            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id' => $tpl_id))) {
                 return false;
             }
+
             if (isset($tpl_source) && $tpl_source != '') {
-                $sql = sprintf("UPDATE %s SET tpl_source = %s WHERE tpl_id = %u", $this->db->prefix('tplsource'), $tpl_source, $tpl_id);
-                if (!$this->db->queryF($sql)) {
+                $tpl_id = 0;
+                $values = array(
+                    // 'tpl_id' => $tpl_id,
+                    'tpl_source' => $tpl_source,
+                );
+                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id' => $tpl_id))) {
                     return false;
                 }
             }
+
             return true;
         } else {
             return false;
@@ -321,45 +427,52 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      * delete a block from the database
      *
      * @param XoopsTplfile $tplfile
+     *
      * @return bool
      */
     public function deleteTpl(XoopsTplfile &$tplfile)
     {
-        $id = $tplfile->getVar('tpl_id');
-        $sql = sprintf("DELETE FROM %s WHERE tpl_id = %u", $this->db->prefix('tplfile'), $id);
-        if (!$this->db->query($sql)) {
+        $tpl_id = $tplfile->getVar('tpl_id');
+        if (!$this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id))) {
             return false;
         }
-        $sql = sprintf("DELETE FROM %s WHERE tpl_id = %u", $this->db->prefix('tplsource'), $id);
-        $this->db->query($sql);
+        $this->db2->deletePrefix('tplsource', array('tpl_id' => $tpl_id));
         return true;
     }
 
     /**
+     * getTplObjects
+     *
      * @param CriteriaElement|null $criteria
-     * @param bool $getsource
-     * @param bool $id_as_key
+     * @param bool                 $getsource
+     * @param bool                 $id_as_key
+     *
      * @return array
      */
     public function getTplObjects(CriteriaElement $criteria = null, $getsource = false, $id_as_key = false)
     {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
         $ret = array();
-        $limit = $start = 0;
-        if ($getsource) {
-            $sql = 'SELECT f.*, s.tpl_source FROM ' . $this->db->prefix('tplfile') . ' f LEFT JOIN ' . $this->db->prefix('tplsource') . ' s ON s.tpl_id=f.tpl_id';
+
+        if (!$getsource) {
+            $qb->select('*')
+                ->fromPrefix('tplfile', 'f');
         } else {
-            $sql = 'SELECT * FROM ' . $this->db->prefix('tplfile');
+            $qb->select('f.*')
+                ->addSelect('s.tpl_source')
+                ->fromPrefix('tplfile', 'f')
+                ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'));
         }
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-            $sql .= ' ' . $criteria->renderWhere() . ' ORDER BY tpl_refid';
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
+        if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
+            $criteria->renderQb($qb);
         }
-        $result = $this->db->query($sql, $limit, $start);
+        $result = $qb->execute();
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $tplfile = new XoopsTplfile();
             $tplfile->assignVars($myrow);
             if (!$id_as_key) {
@@ -376,17 +489,27 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      * getModuleTplCount
      *
      * @param string $tplset
+     *
      * @return array
      */
     public function getModuleTplCount($tplset)
     {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+
+        $qb->select('tpl_module')
+            ->addSelect('COUNT(tpl_id) AS count')
+            ->fromPrefix('tplfile', null)
+            ->where($eb->eq('tpl_tplset', ':tpset'))
+            ->groupBy('tpl_module')
+            ->setParameter(':tpset', $tplset, \PDO::PARAM_STR);
+
         $ret = array();
-        $sql = "SELECT tpl_module, COUNT(tpl_id) AS count FROM " . $this->db->prefix('tplfile') . " WHERE tpl_tplset='" . $this->db->quoteString($tplset) . "' GROUP BY tpl_module";
-        $result = $this->db->query($sql);
+        $result = $qb->execute();
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             if ($myrow['tpl_module'] != '') {
                 $ret[$myrow['tpl_module']] = $myrow['count'];
             }
@@ -397,12 +520,13 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * Find Template File
      *
-     * @param string|null $tplset
-     * @param string|null $type
-     * @param string|null $refid
-     * @param string|null $module
-     * @param string|null $file
-     * @param bool $getsource
+     * @param string|null $tplset    template set
+     * @param string|null $type      template type
+     * @param string|null $refid     reference id
+     * @param string|null $module    module
+     * @param string|null $file      file name
+     * @param bool        $getsource include template source
+     *
      * @return array
      */
     public function find($tplset = null, $type = null, $refid = null, $module = null, $file = null, $getsource = false)
@@ -437,8 +561,9 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * Template Exists
      *
-     * @param $tplname
-     * @param $tplset_name
+     * @param string $tplname     template name
+     * @param string $tplset_name set name
+     *
      * @return bool
      */
     public function templateExists($tplname, $tplset_name)

@@ -9,11 +9,14 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -35,7 +38,7 @@ function b_system_newmembers_show($options)
     $member_handler = $xoops->getHandlerMember();
     $newmembers = $member_handler->getUsers($criteria);
     $count = count($newmembers);
-    for ($i = 0; $i < $count; $i++) {
+    for ($i = 0; $i < $count; ++$i) {
         if ($options[1] == 1) {
             $block['users'][$i]['avatar'] = $newmembers[$i]->getVar('user_avatar') != 'blank.gif' ? XOOPS_UPLOAD_URL . '/' . $newmembers[$i]->getVar('user_avatar') : '';
         } else {
@@ -50,8 +53,8 @@ function b_system_newmembers_show($options)
 
 function b_system_newmembers_edit($options)
 {
-    $block_form = new XoopsBlockForm();
-    $block_form->addElement( new XoopsFormText(SystemLocale::NUMBER_OF_USERS_TO_DISPLAY, 'options[0]', 1, 3, $options[0]), true);
-    $block_form->addElement(new XoopsFormRadioYN(SystemLocale::DISPLAY_USERS_AVATARS, 'options[1]', $options[1]));
+    $block_form = new Xoops\Form\BlockForm();
+    $block_form->addElement( new Xoops\Form\Text(SystemLocale::NUMBER_OF_USERS_TO_DISPLAY, 'options[0]', 1, 3, $options[0]), true);
+    $block_form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::DISPLAY_USERS_AVATARS, 'options[1]', $options[1]));
     return $block_form->render();
 }

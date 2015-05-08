@@ -11,12 +11,12 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-class CommentsUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements UserconfigsPluginInterface
+class CommentsUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
 
     /**
@@ -54,7 +54,7 @@ class CommentsUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements 
         $configs[$i]['options'] = array('XoopsLocale::NESTED' => 'nest', 'XoopsLocale::FLAT' => 'flat', 'XoopsLocale::THREADED' => 'thread');
         $configs[$i]['default'] = 'flat';
 
-        $i++;
+        ++$i;
         $configs[$i]['name'] = 'com_order';
         $configs[$i]['title'] = '_MI_COMMENTS_ORDER';
         $configs[$i]['description'] = '_MI_COMMENTS_ORDERDSC';
@@ -65,4 +65,3 @@ class CommentsUserconfigsPlugin extends Xoops_Module_Plugin_Abstract implements 
         return $configs;
     }
 }
-

@@ -9,16 +9,18 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * User configs
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userconfigs
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Userconfigs::getInstance();
@@ -27,11 +29,11 @@ if (!$xoops->isUser()) {
     $xoops->redirect($xoops->url('index.php'), 3, _MD_USERCONFIGS_NOACCESS);
 }
 
-$mid = $xoops->request()->asInt('mid', 0);
+$mid = Request::getInt('mid', 0);
 $uid = $xoops->user->getVar('uid');
-$op = $xoops->request()->asStr('op', 'show');
+$op = Request::getCmd('op', 'show');
 
-$xoops->header('list.html');
+$xoops->header('module:userconfigs/list.tpl');
 $xoops->tpl()->assign('welcome', sprintf(_MD_USERCONFIGS_WELCOME, XoopsUserUtility::getUnameFromId($xoops->user->getVar('uid'), true)));
 
 //Display part
@@ -44,7 +46,7 @@ switch ($op) {
         $module = $xoops->getModuleById($mid);
 
         /* @var $plugin UserconfigsPluginInterface */
-        if (!$plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
+        if (!$plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             $xoops->redirect($xoops->url('index.php'), 3, _MD_USERCONFIGS_NOPLUGIN);
         }
         $config_handler = $helper->getHandlerConfig();
@@ -98,7 +100,7 @@ switch ($op) {
         $count = count($conf_ids);
         $config_handler = $helper->getHandlerConfig();
         if ($count > 0) {
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $config = $config_handler->getConfig($conf_ids[$i]);
                 $new_value = isset(${$config->getVar('conf_name')}) ? ${$config->getVar('conf_name')} : null;
                 if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {

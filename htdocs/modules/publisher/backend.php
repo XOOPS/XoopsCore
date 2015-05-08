@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Action
  * @since           1.0
@@ -20,7 +20,7 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
@@ -41,7 +41,7 @@ $tpl->caching = 2;
 $tpl->cache_lifetime= 0;
 
 $myts = MyTextSanitizer::getInstance();
-if (!$tpl->is_cached('module:publisher|publisher_rss.html')) {
+if (!$tpl->isCached('module:publisher/publisher_rss.tpl')) {
     $channel_category = $publisher->getModule()->getVar('name');
     $tpl->assign('channel_charset', XoopsLocale::getCharset());
     $tpl->assign('channel_title', htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES));
@@ -84,4 +84,4 @@ if (!$tpl->is_cached('module:publisher|publisher_rss.html')) {
         }
     }
 }
-$tpl->display('module:publisher|publisher_rss.html');
+$tpl->display('module:publisher/publisher_rss.tpl');

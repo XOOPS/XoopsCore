@@ -13,20 +13,19 @@
  * Users Manager
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
  * @subpackage      users
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 $modversion['name']        = XoopsLocale::USERS;
 $modversion['version']     = '1.0';
 $modversion['description'] = SystemLocale::USERS_DESC;
 $modversion['author']      = '';
-$modversion['credits']     = 'The XOOPS Project; Francisco Burzi<br>( http://phpnuke.org/ ); Kazumi Ono; Maxime Cointin (AKA Kraven30)';
+$modversion['credits']     = 'The XOOPS Project; Francisco Burzi<br>'
+    . '( http://phpnuke.org/ ); Kazumi Ono; Maxime Cointin (AKA Kraven30)';
 $modversion['help']        = 'page=users';
 $modversion['license']     = "GPL see LICENSE";
 $modversion['official']    = 1;

@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * _LANGCODE    en
  * _CHARSET     UTF-8
  * @version     $Id$
@@ -21,7 +21,7 @@ define("_AM_SYSTEM_TEMPLATES_NAV_TIPS","
 ");*/
 
 //define("_AM_SYSTEM_TEMPLATES_YOUR_THEMES","Your themes :");
-//define("_AM_SYSTEM_TEMPLATES_GENERATE","Generated surcharge");
+//define("_AM_SYSTEM_TEMPLATES_GENERATE","Overload Template");
 //define("_AM_SYSTEM_TEMPLATES_SELECT_THEME","Select theme");
 //define("_AM_SYSTEM_TEMPLATES_FORCE_GENERATED","Forced file generation");
 //define("_AM_SYSTEM_TEMPLATES_NAV_FILE_GENERATED","Files generated");

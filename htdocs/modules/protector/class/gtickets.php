@@ -13,7 +13,7 @@
  * Protector
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -40,8 +40,8 @@ if (!class_exists('XoopsGTicket')) {
 
             // language file
             if (defined('XOOPS_ROOT_PATH') && $language && !strstr($language, '/')) {
-                if (XoopsLoad::fileExists(dirname(dirname(__FILE__)) . '/language/' . $language . '/gticket_messages.phtml')) {
-                    include dirname(dirname(__FILE__)) . '/language/' . $language . '/gticket_messages.phtml';
+                if (XoopsLoad::fileExists(dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml')) {
+                    include dirname(__DIR__) . '/language/' . $language . '/gticket_messages.phtml';
                 }
             }
 
@@ -63,16 +63,16 @@ if (!class_exists('XoopsGTicket')) {
             return '<input type="hidden" name="XOOPS_G_TICKET" value="' . $this->issue($salt, $timeout, $area) . '" />';
         }
 
-        // returns an object of XoopsFormHidden including theh ticket
+        // returns an object of XoopsFormHidden including the ticket
         function getTicketXoopsForm($salt = '', $timeout = 1800, $area = '')
         {
-            return new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
+            return new Xoops\Form\Hidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
         }
 
         // add a ticket as Hidden Element into XoopsForm
         function addTicketXoopsFormElement(&$form, $salt = '', $timeout = 1800, $area = '')
         {
-            $form->addElement(new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area)));
+            $form->addElement(new Xoops\Form\Hidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area)));
         }
 
         // returns an array for xoops_confirm() ;
@@ -252,6 +252,9 @@ if (!class_exists('XoopsGTicket')) {
             echo '<html><head><title>' . $this->messages['err_general'] . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>' . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors()) . $table . $form . '</body></html>';
         }
 
+        /**
+         * @param string $key_name
+         */
         function extract_post_recursive($key_name, $tmp_array)
         {
             $table = '';

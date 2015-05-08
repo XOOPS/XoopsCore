@@ -13,7 +13,7 @@
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -23,16 +23,33 @@ function b_system_info_show($options)
 {
     $xoops = Xoops::getInstance();
     $xoops->db();
-    global $xoopsDB;
     $myts = MyTextSanitizer::getInstance();
     $block = array();
     if (!empty($options[3])) {
         $block['showgroups'] = true;
-        $result = $xoopsDB->query("SELECT u.uid, u.uname, u.email, u.user_viewemail, u.user_avatar, g.name AS groupname FROM " . $xoopsDB->prefix("groups_users_link") . " l LEFT JOIN " . $xoopsDB->prefix("users") . " u ON l.uid=u.uid LEFT JOIN " . $xoopsDB->prefix("groups") . " g ON l.groupid=g.groupid WHERE g.group_type='Admin' ORDER BY l.groupid, u.uid");
-        if ($xoopsDB->getRowsNum($result) > 0) {
+        $qb = $xoops->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $sql = $qb->select('u.uid')
+            ->addSelect('u.uname')
+            ->addSelect('u.email')
+            ->addSelect('u.user_viewemail')
+            ->addSelect('u.user_avatar')
+            ->addSelect('g.name AS groupname')
+            ->fromPrefix('groups_users_link', 'l')
+            ->leftJoinPrefix('l', 'users', 'u', 'l.uid=u.uid')
+            ->leftJoinPrefix('l', 'groups', 'g', 'l.groupid=g.groupid')
+            ->where($eb->eq('g.group_type', ':gtype'))
+            ->orderBy('l.groupid')
+            ->addOrderBy('u.uid')
+            ->setParameter(':gtype', 'Admin', \PDO::PARAM_STR);
+        $result = $sql->execute();
+        if ($result->errorCode() < 2000) { // return 00000 is ok, 01nnn is warning
             $prev_caption = "";
             $i = 0;
-            while ($userinfo = $xoopsDB->fetchArray($result)) {
+            while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
+                $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
+                $avatar = $response->getValue();
+                $avatar = empty($avatar) ? XOOPS_UPLOAD_URL . '/blank.gif' : $avatar;
                 if ($prev_caption != $userinfo['groupname']) {
                     $prev_caption = $userinfo['groupname'];
                     $block['groups'][$i]['name'] = $myts->htmlSpecialChars($userinfo['groupname']);
@@ -42,7 +59,7 @@ function b_system_info_show($options)
                         'id'      => $userinfo['uid'],
                         'name'    => $myts->htmlspecialchars($userinfo['uname']),
                         'pm_link' => XOOPS_URL . "/pmlite.php?send2=1&amp;to_userid=" . $userinfo['uid'],
-                        'avatar'  => XOOPS_UPLOAD_URL . '/' . $userinfo['user_avatar']
+                        'avatar'  => $avatar
                     );
                 } else {
                     if ($userinfo['user_viewemail']) {
@@ -50,7 +67,7 @@ function b_system_info_show($options)
                             'id'       => $userinfo['uid'],
                             'name'     => $myts->htmlspecialchars($userinfo['uname']),
                             'msg_link' => $userinfo['email'],
-                            'avatar'   => XOOPS_UPLOAD_URL . '/' . $userinfo['user_avatar']
+                            'avatar'   => $avatar
                         );
                     } else {
                         $block['groups'][$i]['users'][] = array(
@@ -59,7 +76,7 @@ function b_system_info_show($options)
                         );
                     }
                 }
-                $i++;
+                ++$i;
             }
         }
     } else {
@@ -72,10 +89,10 @@ function b_system_info_show($options)
 
 function b_system_info_edit($options)
 {
-    $block_form = new XoopsBlockForm();
-    $block_form->addElement( new XoopsFormText(SystemLocale::POPUP_WINDOW_WIDTH, 'options[0]', 1, 3, $options[0]), true);
-    $block_form->addElement( new XoopsFormText(SystemLocale::POPUP_WINDOW_HEIGHT, 'options[1]', 1, 3, $options[1]), true);
-    $block_form->addElement( new XoopsFormText(sprintf(SystemLocale::F_LOGO_IMAGE_FILE_IS_LOCATED_UNDER, XOOPS_URL . "/images/"), 'options[2]', 5, 100, $options[2]), true);
-    $block_form->addElement(new XoopsFormRadioYN(SystemLocale::SHOW_ADMIN_GROUPS, 'options[3]', $options[3]));
+    $block_form = new Xoops\Form\BlockForm();
+    $block_form->addElement(new Xoops\Form\Text(SystemLocale::POPUP_WINDOW_WIDTH, 'options[0]', 1, 3, $options[0]), true);
+    $block_form->addElement(new Xoops\Form\Text(SystemLocale::POPUP_WINDOW_HEIGHT, 'options[1]', 1, 3, $options[1]), true);
+    $block_form->addElement(new Xoops\Form\Text(sprintf(SystemLocale::F_LOGO_IMAGE_FILE_IS_LOCATED_UNDER, XOOPS_URL . "/images/"), 'options[2]', 5, 100, $options[2]), true);
+    $block_form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::SHOW_ADMIN_GROUPS, 'options[3]', $options[3]));
     return $block_form->render();
 }

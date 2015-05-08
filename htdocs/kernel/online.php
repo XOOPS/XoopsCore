@@ -10,35 +10,46 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Online object
  *
- * @author trabis <lusopoemas@gmail.com>
+ * @author    trabis <lusopoemas@gmail.com>
  * @copyright copyright (c) 2000 XOOPS.org
- *
- * @package kernel
+ * @package   kernel
  */
 class XoopsOnline extends XoopsObject
 {
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->initVar('online_uid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('online_uname', XOBJ_DTYPE_TXTBOX, null, true);
         $this->initVar('online_updated', XOBJ_DTYPE_INT, null, true);
         $this->initVar('online_module', XOBJ_DTYPE_INT, null, true);
         $this->initVar('online_ip', XOBJ_DTYPE_TXTBOX, null, true);
+    }
+
+    /**
+     * @param string $format
+     * @return mixed
+     */
+    public function id($format = 'n')
+    {
+        return $this->online_uid($format);
     }
 
     /**
@@ -85,24 +96,23 @@ class XoopsOnline extends XoopsObject
     {
         return $this->getVar('online_ip', $format);
     }
-
 }
+
 /**
  * A handler for "Who is Online?" information
  *
- * @package     kernel
- *
- * @author        Kazumi Ono    <onokazu@xoops.org>
- * @copyright    copyright (c) 2000-2003 XOOPS.org
+ * @package   kernel
+ * @author    Kazumi Ono    <onokazu@xoops.org>
+ * @copyright copyright (c) 2000-2003 XOOPS.org
  */
 class XoopsOnlineHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'online', 'XoopsOnline', 'online_uid', 'online_uname');
     }
@@ -110,46 +120,62 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
     /**
      * Write online information to the database
      *
-     * @param    int     $uid    UID of the active user
-     * @param    string  $uname  Username
-     * @param    string  $time
-     * @param    string  $module Current module
-     * @param    string  $ip     User's IP adress
-     * @return    bool    TRUE on success
+     * @param int    $uid    UID of the active user
+     * @param string $uname  Username
+     * @param string $time   time
+     * @param string $module Current module
+     * @param string $ip     User's IP adress
+     *
+     * @return bool TRUE on success
      */
     public function write($uid, $uname, $time, $module, $ip)
     {
-        $uid = intval($uid);
-        if ($uid > 0) {
-            $sql = "SELECT COUNT(*) FROM " . $this->db->prefix('online') . " WHERE online_uid=" . $uid;
-        } else {
-            $sql = "SELECT COUNT(*) FROM " . $this->db->prefix('online') . " WHERE online_uid=" . $uid . " AND online_ip='" . $ip . "'";
+        $criteria = array();
+        $criteria['online_uid'] = $uid;
+        if ($uid == 0) {
+            $criteria['online_ip'] = $ip;
         }
-        list ($count) = $this->db->fetchRow($this->db->queryF($sql));
-        if ($count > 0) {
-            $sql = "UPDATE " . $this->db->prefix('online') . " SET online_updated=" . $time . ", online_module = " . $module . " WHERE online_uid = " . $uid;
-            if ($uid == 0) {
-                $sql .= " AND online_ip='" . $ip . "'";
-            }
-        } else {
-            $sql = sprintf("INSERT INTO %s (online_uid, online_uname, online_updated, online_ip, online_module) VALUES (%u, %s, %u, %s, %u)", $this->db->prefix('online'), $uid, $this->db->quoteString($uname), $time, $this->db->quoteString($ip), $module);
-        }
-        if (!$this->db->queryF($sql)) {
+        $rows = $this->db2->updatePrefix(
+            'online',
+            array(
+               'online_uname'   => $uname,
+               'online_updated' => $time,
+               'online_module'  => $module,
+            ),
+            $criteria
+        );
+        if ($rows === false) {
             return false;
         }
-        return true;
+        if ($rows == 0) {
+            $rows = $this->db2->insertPrefix(
+                'online',
+                array(
+                    'online_uid'     => $uid,
+                    'online_uname'   => $uname,
+                    'online_updated' => $time,
+                    'online_ip'      => $ip,
+                    'online_module'  => $module,
+                )
+            );
+        }
+        if ($rows === false) {
+            return false;
+        }
+        return ($rows>0);
     }
 
     /**
      * Delete online information for a user
      *
-     * @param    int $uid    UID
-     * @return    bool    TRUE on success
+     * @param int $uid UID
+     *
+     * @return bool TRUE on success
      */
     public function destroy($uid)
     {
         $criteria = new Criteria('online_uid', intval($uid));
-        if (!$this->deleteAll($criteria)) {
+        if (false === $this->deleteAll($criteria)) {
             return false;
         }
         return true;
@@ -160,18 +186,16 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      *
      * Delete all online information that has not been updated for a certain time
      *
-     * @param  int $expire Expiration time in seconds
+     * @param int $expire Expiration time in seconds
+     *
      * @return bool
      */
     public function gc($expire)
     {
         $criteria = new Criteria('online_updated', time() - intval($expire), '<');
-        if (!$this->deleteAll($criteria)) {
+        if (false === $this->deleteAll($criteria)) {
             return false;
         }
         return true;
     }
-
 }
-
-?>

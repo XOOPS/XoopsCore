@@ -8,18 +8,25 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsObjectHandler;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 // File status
 define("_PUBLISHER_STATUS_FILE_NOTSET", -1);
@@ -39,9 +46,7 @@ class PublisherFile extends XoopsObject
      */
     public function __construct($id = null)
     {
-        global $xoopsDB;
         $this->publisher = Publisher::getInstance();
-        $this->db = $xoopsDB;
         $this->initVar("fileid", XOBJ_DTYPE_INT, 0, false);
         $this->initVar("itemid", XOBJ_DTYPE_INT, null, true);
         $this->initVar("name", XOBJ_DTYPE_TXTBOX, null, true, 255);
@@ -248,7 +253,7 @@ class PublisherFileHandler extends XoopsPersistableObjectHandler
     /**
      * @param null|object $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db)
     {
         parent::__construct($db, "publisher_files", 'PublisherFile', "fileid", "name");
     }
@@ -308,7 +313,7 @@ class PublisherFileHandler extends XoopsPersistableObjectHandler
      */
     public function &getAllFiles($itemid = 0, $status = -1, $limit = 0, $start = 0, $sort = 'datesub', $order = 'DESC', $category = array())
     {
-        $this->table_link = $this->db->prefix('publisher_items');
+        $this->table_link = $this->db2->prefix('publisher_items');
         $this->field_object = 'itemid';
         $this->field_link = 'itemid';
         $hasStatusCriteria = false;

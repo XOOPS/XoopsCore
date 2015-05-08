@@ -9,21 +9,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 $xoops->theme()->addStylesheet('modules/xcontact/css/moduladmin.css');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 
 $admin_page->displayNavigation('about.php');
 $admin_page->displayAbout();

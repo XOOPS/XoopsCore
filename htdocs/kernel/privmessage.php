@@ -10,14 +10,16 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Private Messages
@@ -145,9 +147,9 @@ class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'priv_msgs', 'XoopsPrivmessage', 'msg_id', 'subject');
     }
@@ -160,8 +162,15 @@ class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
      **/
     public function setRead(XoopsPrivmessage &$pm)
     {
-        $sql = sprintf("UPDATE %s SET read_msg = 1 WHERE msg_id = %u", $this->db->prefix('priv_msgs'), $pm->getVar('msg_id'));
-        if (!$this->db->queryF($sql)) {
+        $qb = $this->db2->createXoopsQueryBuilder()
+            ->updatePrefix('priv_msgs', 'pm')
+            ->set('pm.read_msg', ':readmsg')
+            ->where('pm.msg_id = :msgid')
+            ->setParameter(':readmsg', 1, \PDO::PARAM_INT)
+            ->setParameter(':msgid', $pm->getVar('msg_id'), \PDO::PARAM_INT);
+        $result = $qb->execute();
+
+        if (!$result) {
             return false;
         }
         return true;

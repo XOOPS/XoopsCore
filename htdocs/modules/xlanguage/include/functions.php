@@ -8,8 +8,8 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
@@ -79,7 +79,7 @@ function xlanguage_lang_detect($str = '', $envType = 0)
         // $envType =  1 for the 'HTTP_ACCEPT_LANGUAGE' environment variable,
         //             2 for the 'HTTP_USER_AGENT' one
         $expr = $value[0];
-        if (strpos($expr, '[-_]') === FALSE) {
+        if (strpos($expr, '[-_]') === false) {
             $expr = str_replace('|', '([-_][[:alpha:]]{2,3})?|', $expr);
         }
         if (($envType == 1 && preg_match('^(' . $expr . ')(;q=[0-9]\\.[0-9])?$^', $str)) || ($envType == 2 && preg_match('(\(|\[|;[[:space:]])(' . $expr . ')(;|\]|\))', $str))) {
@@ -113,7 +113,7 @@ function xlanguage_detectLang()
         $accepted = explode(',', $HTTP_ACCEPT_LANGUAGE);
         $acceptedCnt = count($accepted);
         reset($accepted);
-        for ($i = 0; $i < $acceptedCnt; $i++) {
+        for ($i = 0; $i < $acceptedCnt; ++$i) {
             $lang = xlanguage_lang_detect($accepted[$i], 1);
             if (strncasecmp($lang, 'en', 2)) {
                 break;
@@ -241,6 +241,11 @@ function xlanguage_ml_escape_bracket($matches)
     return $ret;
 }
 
+/**
+ * @param null $options
+ *
+ * @return bool
+ */
 function xlanguage_select_show($options = null)
 {
     $xoops = Xoops::getInstance();
@@ -257,7 +262,7 @@ function xlanguage_select_show($options = null)
     $block = b_xlanguage_select_show($options);
     $xoops->theme()->addStylesheet('modules/xlanguage/css/block.css');
     $xoops->tpl()->assign('block', $block);
-    $xlanguage_switch_code = "<div id='xo-language' class='" . $options[0] . "'>" . $xoops->tpl()->fetch('block:xlanguage|xlanguage_block.html') . "</div>";
+    $xlanguage_switch_code = "<div id='xo-language' class='" . $options[0] . "'>" . $xoops->tpl()->fetch('block:xlanguage/xlanguage_block.tpl') . "</div>";
     $xoops->tpl()->assign('xlanguage_switch_code', $xlanguage_switch_code);
     return true;
 }

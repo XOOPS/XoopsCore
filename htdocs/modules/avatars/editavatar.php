@@ -9,25 +9,26 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * avatars module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         avatar
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Avatars::getInstance();
 
-$request = $xoops->request();
 // Get Action type
-$op = $request->asStr('op', 'list');
+$op = Request::getCmd('op', 'list');
 
 // If not a user, redirect
 if (!$xoops->isUser()) {
@@ -36,7 +37,7 @@ if (!$xoops->isUser()) {
 }
 
 // Call header
-$xoops->header('avatars_editavatar.html');
+$xoops->header('module:avatars/avatars_editavatar.tpl');
 
 // Get avatar handler
 $avatar_Handler = $helper->getHandlerAvatar();
@@ -46,8 +47,14 @@ $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'ima
 $upload_size = $helper->getConfig('avatars_imagefilesize');
 $width = $helper->getConfig('avatars_imagewidth');
 $height = $helper->getConfig('avatars_imageheight');
-if ($helper->getConfig('avatars_allowupload') == 1 && $xoops->user->getVar('posts') >= $helper->getConfig('avatars_postsrequired')) {
-    $info_msg = array(sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES , implode(", ", $mimetypes)), sprintf(AvatarsLocale::ALERT_INFO_MAXFILE , $upload_size / 1000), sprintf(AvatarsLocale::ALERT_INFO_PIXELS , $width, $height));
+if ($helper->getConfig('avatars_allowupload') == 1
+    && $xoops->user->getVar('posts') >= $helper->getConfig('avatars_postsrequired')
+) {
+    $info_msg = array(
+        sprintf(AvatarsLocale::ALERT_INFO_MIMETYPES, implode(", ", $mimetypes)),
+        sprintf(AvatarsLocale::ALERT_INFO_MAXFILE, $upload_size / 1000),
+        sprintf(AvatarsLocale::ALERT_INFO_PIXELS, $width, $height)
+    );
 } else {
     $info_msg = '';
 }
@@ -77,12 +84,13 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('index.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
-        $uid = $request->asInt('uid', 0);
+        $uid = Request::getInt('uid', 0);
         if (empty($uid) || $xoops->user->getVar('uid') != $uid) {
             $xoops->redirect('index.php', 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
             exit();
         }
-        $uploader_avatars_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
+        $uploader_avatars_img =
+            new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
 
         $obj = $avatar_Handler->create();
         $error_msg = '';
@@ -99,7 +107,7 @@ switch ($op) {
                 $obj->setVar('avatar_display', 1);
                 $obj->setVar('avatar_type', 'C');
 
-                if ($error_msg == ''){
+                if ($error_msg == '') {
                     if ($avatar_Handler->insert($obj)) {
                         $oldavatar = $xoops->user->getVar('user_avatar');
                         $criteria = new CriteriaCompo();
@@ -109,12 +117,23 @@ switch ($op) {
                         if (! empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
                             $avatar_Handler->delete($avatars[0]);
                             $oldavatar_path = realpath(XOOPS_UPLOAD_PATH . '/' . $oldavatar);
-                            if (0 === strpos($oldavatar_path, realpath(XOOPS_UPLOAD_PATH)) && is_file($oldavatar_path)) {
+                            if (0 === strpos($oldavatar_path, realpath(XOOPS_UPLOAD_PATH))
+                                && is_file($oldavatar_path)
+                            ) {
                                 unlink($oldavatar_path);
                             }
                         }
-                        $sql = sprintf("UPDATE %s SET user_avatar = %s WHERE uid = %u", $xoopsDB->prefix('users'), $xoopsDB->quoteString( 'avatars/' . $uploader_avatars_img->getSavedFileName()), $xoops->user->getVar('uid'));
-                        $xoopsDB->query($sql);
+                        $sql = $xoops->db()->createXoopsQueryBuilder()
+                            ->updatePrefix('users')
+                            ->set('user_avatar', ':avatar')
+                            ->where('uid = :uid')
+                            ->setParameter(':uid', $xoops->user->getVar('uid'), \PDO::PARAM_INT)
+                            ->setParameter(
+                                ':avatar',
+                                'avatars/' . $uploader_avatars_img->getSavedFileName(),
+                                \PDO::PARAM_STR
+                            )
+                            ->execute();
                         $avatar_Handler->addUser($obj->getVar('avatar_id'), $xoops->user->getVar('uid'));
                         $xoops->redirect($xoops->url('userinfo.php?uid=' . $uid), 2, XoopsLocale::S_ITEM_SAVED);
                     }
@@ -122,7 +141,7 @@ switch ($op) {
                 }
             }
         } else {
-            $user_avatar = $request->asStr('user_avatar', 'avatars/blank.gif');
+            $user_avatar = Request::getString('user_avatar', 'blank.gif');
             $oldavatar = $xoops->user->getVar('user_avatar');
             $xoops->user->setVar('user_avatar', $user_avatar);
             $member_handler = $xoops->getHandlerMember();
@@ -140,7 +159,7 @@ switch ($op) {
                     unlink($oldavatar_path);
                 }
             }
-            if ($user_avatar != 'avatars/blank.gif') {
+            if ($user_avatar != 'blank.gif') {
                 $avatars = $avatar_Handler->getObjects(new Criteria('avatar_file', $user_avatar));
                 if (is_object($avatars[0])) {
                     $avatar_Handler->addUser($avatars[0]->getVar('avatar_id'), $xoops->user->getVar('uid'));

@@ -9,36 +9,40 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Blocks Form Class
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author          Andricq Nicolas (AKA MusS)
- * @package         system
- * @subpackage      blocksadmin
- * @version         $Id$
+ * @category  Modules/system/class/form
+ * @package   SystemBlockForm
+ * @author    Andricq Nicolas (AKA MusS)
+ * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
-class SystemBlockForm extends XoopsThemeForm
+class SystemBlockForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @var null|XoopsObject $_obj
+     * @var null|XoopsBlock $obj
      */
-    private $_obj = null;
+    private $obj = null;
 
     /**
-     * @param XoopsBlock|XoopsObject $obj
+     * __construct
+     *
+     * @param XoopsBlock $obj block object
      */
-    public function __construct(XoopsBlock &$obj)
+    public function __construct(XoopsBlock $obj)
     {
-        $this->_obj = $obj;
+        $this->obj = $obj;
     }
 
     /**
-     * @param string $mode
+     * getForm - get block edit form
+     *
+     * @param string $mode mode for form, edit or clone
      *
      * @return void
      */
@@ -46,19 +50,19 @@ class SystemBlockForm extends XoopsThemeForm
     {
         $xoops = Xoops::getInstance();
         $xoops->loadLanguage('blocks', 'system');
-        if ($this->_obj->isNew()) {
+        if ($this->obj->isNew()) {
             $title = SystemLocale::ADD_BLOCK;
             $modules = array(-1);
             $groups = array(XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS, XOOPS_GROUP_ADMIN);
-            $this->_obj->setVar('block_type', 'C');
-            $this->_obj->setVar('visible', 1);
+            $this->obj->setVar('block_type', 'C');
+            $this->obj->setVar('visible', 1);
             $op = 'save';
         } else {
             $title = '';
             $modules = array();
             // Search modules
             $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
-            $criteria = new CriteriaCompo(new Criteria('block_id', $this->_obj->getVar('bid')));
+            $criteria = new CriteriaCompo(new Criteria('block_id', $this->obj->getVar('bid')));
             $blockmodulelink = $blockmodulelink_handler->getObjects($criteria);
             /* @var $link XoopsBlockmodulelink */
             foreach ($blockmodulelink as $link) {
@@ -66,29 +70,29 @@ class SystemBlockForm extends XoopsThemeForm
             }
             // Search perms
             $groupperm_handler = $xoops->getHandlerGroupperm();
-            $groups = $groupperm_handler->getGroupIds('block_read', $this->_obj->getVar('bid'));
+            $groups = $groupperm_handler->getGroupIds('block_read', $this->obj->getVar('bid'));
             switch ($mode) {
                 case 'edit':
                     $title = SystemLocale::EDIT_BLOCK;
                     break;
                 case 'clone':
                     $title = SystemLocale::CLONE_BLOCK;
-                    $this->_obj->setVar('bid', 0);
-                    if ($this->_obj->isCustom()) {
-                        $this->_obj->setVar('block_type', 'C');
+                    $this->obj->setVar('bid', 0);
+                    if ($this->obj->isCustom()) {
+                        $this->obj->setVar('block_type', 'C');
                     } else {
-                        $this->_obj->setVar('block_type', 'D');
+                        $this->obj->setVar('block_type', 'D');
                     }
                     break;
             }
             $op = 'save';
         }
         parent::__construct($title, 'blockform', 'admin.php', 'post', true);
-        if (!$this->_obj->isNew()) {
-            $this->addElement(new XoopsFormLabel(XoopsLocale::NAME, $this->_obj->getVar('name')));
+        if (!$this->obj->isNew()) {
+            $this->addElement(new Xoops\Form\Label(XoopsLocale::NAME, $this->obj->getVar('name')));
         }
         // Side position
-        $side_select = new XoopsFormSelect(XoopsLocale::SIDE, 'side', $this->_obj->getVar('side'));
+        $side_select = new Xoops\Form\Select(XoopsLocale::SIDE, 'side', $this->obj->getVar('side'));
         $side_select->addOptionArray(array(
             0 => XoopsLocale::LEFT,
             1 => XoopsLocale::RIGHT,
@@ -97,17 +101,20 @@ class SystemBlockForm extends XoopsThemeForm
             5 => SystemLocale::TOP_CENTER,
             7 => SystemLocale::BOTTOM_LEFT,
             8 => SystemLocale::BOTTOM_RIGHT,
-            9 => SystemLocale::BOTTOM_CENTER
+            9 => SystemLocale::BOTTOM_CENTER, 
+            11 => SystemLocale::FOOTER_LEFT,
+			12 => SystemLocale::FOOTER_RIGHT, 
+            13 => SystemLocale::FOOTER_CENTER
         ));
         $this->addElement($side_select);
         // Order
-        $weight = new XoopsFormText(XoopsLocale::WEIGHT, 'weight', 1, 5, $this->_obj->getVar('weight'), '');
+        $weight = new Xoops\Form\Text(XoopsLocale::WEIGHT, 'weight', 1, 5, $this->obj->getVar('weight'), '');
         $weight->setPattern('^\d+$', XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER);
         $this->addElement($weight, true);
         // Display
-        $this->addElement(new XoopsFormRadioYN(XoopsLocale::VISIBLE, 'visible', $this->_obj->getVar('visible')));
+        $this->addElement(new Xoops\Form\RadioYesNo(XoopsLocale::VISIBLE, 'visible', $this->obj->getVar('visible')));
         // Visible In
-        $mod_select = new XoopsFormSelect(XoopsLocale::VISIBLE_IN, 'modules', $modules, 5, true);
+        $mod_select = new Xoops\Form\Select(XoopsLocale::VISIBLE_IN, 'modules', $modules, 5, true);
         $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
         $criteria->add(new Criteria('isactive', 1));
         $module_list = $xoops->getHandlerModule()->getNameList($criteria);
@@ -117,17 +124,17 @@ class SystemBlockForm extends XoopsThemeForm
         $mod_select->addOptionArray($module_list);
         $this->addElement($mod_select);
         // Title
-        $this->addElement(new XoopsFormText(XoopsLocale::TITLE, 'title', 5, 255, $this->_obj->getVar('title')), false);
-        if ($this->_obj->isNew() || $this->_obj->isCustom()) {
+        $this->addElement(new Xoops\Form\Text(XoopsLocale::TITLE, 'title', 5, 255, $this->obj->getVar('title')), false);
+        if ($this->obj->isNew() || $this->obj->isCustom()) {
             $editor_configs = array();
             $editor_configs["name"] = "content_block";
-            $editor_configs["value"] = $this->_obj->getVar('content', 'e');
+            $editor_configs["value"] = $this->obj->getVar('content', 'e');
             $editor_configs["rows"] = 15;
             $editor_configs["cols"] = 6;
             $editor_configs["editor"] = $xoops->getModuleConfig('blocks_editor', 'system');
-            $this->addElement(new XoopsFormEditor(XoopsLocale::CONTENT, "content_block", $editor_configs), true);
+            $this->addElement(new Xoops\Form\Editor(XoopsLocale::CONTENT, "content_block", $editor_configs), true);
             if (in_array($editor_configs["editor"], array('dhtmltextarea', 'textarea'))) {
-                $ctype_select = new XoopsFormSelect(SystemLocale::CONTENT_TYPE, 'c_type', $this->_obj->getVar('c_type'));
+                $ctype_select = new Xoops\Form\Select(SystemLocale::CONTENT_TYPE, 'c_type', $this->obj->getVar('c_type'));
                 $ctype_select->addOptionArray(array(
                     'H' => XoopsLocale::HTML,
                     'P' => SystemLocale::PHP_SCRIPT,
@@ -136,29 +143,43 @@ class SystemBlockForm extends XoopsThemeForm
                 ));
                 $this->addElement($ctype_select);
             } else {
-                $this->addElement(new XoopsFormHidden('c_type', 'H'));
+                $this->addElement(new Xoops\Form\Hidden('c_type', 'H'));
             }
         } else {
-            if ($this->_obj->getVar('template') != '') {
+            if ($this->obj->getVar('template') != '') {
                 $tplfile_handler = $xoops->getHandlerTplfile();
-                $btemplate = $tplfile_handler->find($xoops->getConfig('template_set'), 'block', $this->_obj->getVar('bid'));
+                $btemplate = $tplfile_handler->
+                    find($xoops->getConfig('template_set'), 'block', $this->obj->getVar('bid'));
                 if (count($btemplate) > 0) {
-                    $this->addElement(new XoopsFormLabel(XoopsLocale::CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id=' . $btemplate[0]->getVar('tpl_id') . '">' . SystemLocale::EDIT_TEMPLATE . '</a>'));
+                    $this->addElement(new Xoops\Form\Label(
+                        XoopsLocale::CONTENT,
+                        '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id='
+                        . $btemplate[0]->getVar('tpl_id') . '">' . SystemLocale::EDIT_TEMPLATE . '</a>'
+                    ));
                 } else {
-                    $btemplate2 = $tplfile_handler->find('default', 'block', $this->_obj->getVar('bid'));
+                    $btemplate2 = $tplfile_handler->find('default', 'block', $this->obj->getVar('bid'));
                     if (count($btemplate2) > 0) {
-                        $this->addElement(new XoopsFormLabel(XoopsLocale::CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id=' . $btemplate2[0]->getVar('tpl_id') . '" rel="external">' . SystemLocale::EDIT_TEMPLATE . '</a>'));
+                        $this->addElement(new Xoops\Form\Label(
+                            XoopsLocale::CONTENT,
+                            '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id='
+                            . $btemplate2[0]->getVar('tpl_id') . '" rel="external">'
+                            . SystemLocale::EDIT_TEMPLATE . '</a>'
+                        ));
                     }
                 }
             }
-            if ($this->_obj->getOptions() != false) {
-                $this->addElement(new XoopsFormLabel(XoopsLocale::OPTIONS, $this->_obj->getOptions()));
+            if ($this->obj->getOptions() != false) {
+                $this->addElement(new Xoops\Form\Label(XoopsLocale::OPTIONS, $this->obj->getOptions()));
             } else {
-                $this->addElement(new XoopsFormHidden('options', $this->_obj->getVar('options')));
+                $this->addElement(new Xoops\Form\Hidden('options', $this->obj->getVar('options')));
             }
-            $this->addElement(new XoopsFormHidden('c_type', 'H'));
+            $this->addElement(new Xoops\Form\Hidden('c_type', 'H'));
         }
-        $cache_select = new XoopsFormSelect(SystemLocale::CACHE_LIFETIME, 'bcachetime', $this->_obj->getVar('bcachetime'));
+        $cache_select = new Xoops\Form\Select(
+            SystemLocale::CACHE_LIFETIME,
+            'bcachetime',
+            $this->obj->getVar('bcachetime')
+        );
         $cache_select->addOptionArray(array(
             '0'       => XoopsLocale::NO_CACHE,
             '30'      => sprintf(XoopsLocale::F_SECONDS, 30),
@@ -174,27 +195,27 @@ class SystemBlockForm extends XoopsThemeForm
         ));
         $this->addElement($cache_select);
         // Groups
-        $this->addElement(new XoopsFormSelectGroup(XoopsLocale::GROUPS, 'groups', true, $groups, 5, true));
+        $this->addElement(new Xoops\Form\SelectGroup(XoopsLocale::GROUPS, 'groups', true, $groups, 5, true));
 
-        $this->addElement(new XoopsFormHidden('block_type', $this->_obj->getVar('block_type')));
-        $this->addElement(new XoopsFormHidden('mid', $this->_obj->getVar('mid')));
-        $this->addElement(new XoopsFormHidden('func_num', $this->_obj->getVar('func_num')));
-        $this->addElement(new XoopsFormHidden('func_file', $this->_obj->getVar('func_file')));
-        $this->addElement(new XoopsFormHidden('show_func', $this->_obj->getVar('show_func')));
-        $this->addElement(new XoopsFormHidden('edit_func', $this->_obj->getVar('edit_func')));
-        $this->addElement(new XoopsFormHidden('template', $this->_obj->getVar('template')));
-        $this->addElement(new XoopsFormHidden('dirname', $this->_obj->getVar('dirname')));
-        $this->addElement(new XoopsFormHidden('name', $this->_obj->getVar('name')));
-        $this->addElement(new XoopsFormHidden('bid', $this->_obj->getVar('bid')));
-        $this->addElement(new XoopsFormHidden('op', $op));
-        $this->addElement(new XoopsFormHidden('fct', 'blocksadmin'));
-        $button_tray = new XoopsFormElementTray('', '&nbsp;');
-        if ($this->_obj->isNew() || $this->_obj->isCustom()) {
-            $preview = new XoopsFormButton('', 'previewblock', XoopsLocale::A_PREVIEW, 'preview');
+        $this->addElement(new Xoops\Form\Hidden('block_type', $this->obj->getVar('block_type')));
+        $this->addElement(new Xoops\Form\Hidden('mid', $this->obj->getVar('mid')));
+        $this->addElement(new Xoops\Form\Hidden('func_num', $this->obj->getVar('func_num')));
+        $this->addElement(new Xoops\Form\Hidden('func_file', $this->obj->getVar('func_file')));
+        $this->addElement(new Xoops\Form\Hidden('show_func', $this->obj->getVar('show_func')));
+        $this->addElement(new Xoops\Form\Hidden('edit_func', $this->obj->getVar('edit_func')));
+        $this->addElement(new Xoops\Form\Hidden('template', $this->obj->getVar('template')));
+        $this->addElement(new Xoops\Form\Hidden('dirname', $this->obj->getVar('dirname')));
+        $this->addElement(new Xoops\Form\Hidden('name', $this->obj->getVar('name')));
+        $this->addElement(new Xoops\Form\Hidden('bid', $this->obj->getVar('bid')));
+        $this->addElement(new Xoops\Form\Hidden('op', $op));
+        $this->addElement(new Xoops\Form\Hidden('fct', 'blocksadmin'));
+        $button_tray = new Xoops\Form\ElementTray('', '&nbsp;');
+        if ($this->obj->isNew() || $this->obj->isCustom()) {
+            $preview = new Xoops\Form\Button('', 'previewblock', XoopsLocale::A_PREVIEW, 'preview');
             $preview->setExtra("onclick=\"blocks_preview();\"");
             $button_tray->addElement($preview);
         }
-        $button_tray->addElement(new XoopsFormButton('', 'submitblock', XoopsLocale::A_SUBMIT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'submitblock', XoopsLocale::A_SUBMIT, 'submit'));
         $this->addElement($button_tray);
     }
 }

@@ -8,20 +8,20 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *  Publisher class
  *
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Class
  * @subpackage      Utils
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-class Publisher extends Xoops_Module_Helper_Abstract
+class Publisher extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module

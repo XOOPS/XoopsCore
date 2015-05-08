@@ -1,0 +1,19 @@
+<h4>Hacking Guide</h4>
+<p>
+    The monolog module is a logging application that attaches to the <a href="http://www.php-fig.org/psr/3/" target="_blank">PSR-3</a> compatible Xoops Logger interface. The monolog module listens to events occuring in your XOOPS system, and feeds them to logs controlled by Jordi Boggiano's Monolog pacakge: <a href="https://github.com/Seldaek/monolog" target="_blank">https://github.com/Seldaek/monolog</a>. This logger makes remote debugging available at a level never before possible with XOOPS.
+</p>
+<p>
+    The Monolog package provides a huge number of components which can be combined in numerous ways. The interface provided by this module is a simple one, and there is ample room for improvement. Ultimately, a more sophisticated configuration file based mechanism that supports the inherent flexibility of Monolog is planned.
+</p>
+<p>
+    Until that interface becomes available, it is possible to modify the module to fit your specific requirements. This guide is intended to point you in the right direction to implement the logging soulution you require.
+</p>
+
+<h4>class/monologlogger.php</h4>
+<p>
+    The <em>enable()</em> method in class/monologlogger.php instantiates the basic Monolog. All Monolog classes are available by autoload, so any logging system it can create can be implemented here. There are some caveats to working at this level:
+    <ul>
+        <li><strong>Resources may not be available</strong> - Logging begins before a database is available, before Locale is established, before -- well, you get the idea. Make sure your code does not break by depending on things that are not yet available.</li>
+        <li><strong>more</strong> - ...</li>
+    </ul>
+</p>

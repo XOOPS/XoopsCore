@@ -10,21 +10,23 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.6.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * membership of a user in a group
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package kernel
+ * @package   kernel
  */
 class XoopsMembership extends XoopsObject
 {
@@ -37,6 +39,37 @@ class XoopsMembership extends XoopsObject
         $this->initVar('groupid', XOBJ_DTYPE_INT, null, false);
         $this->initVar('uid', XOBJ_DTYPE_INT, null, false);
     }
+
+    /**
+    * getter for id generic key
+     * @param string $format
+     * @return mixed
+     */
+    public function id($format = 'n')
+    {
+        return $this->linkid($format);
+    }
+
+    /**
+    * getter for linkid field
+     * @param string $format
+     * @return mixed
+     */
+    public function linkid($format = '')
+    {
+        return $this->getVar('linkid', $format);
+    }
+
+    /**
+    * getter for uid field
+     * @param string $format
+     * @return mixed
+     */
+    public function uid($format = '')
+    {
+        return $this->getVar('uid', $format);
+    }
+
 }
 
 /**
@@ -45,18 +78,18 @@ class XoopsMembership extends XoopsObject
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS group membership class objects.
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package kernel
+ * @package   kernel
  */
 class XoopsMembershipHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'groups_users_link', 'XoopsMembership', 'linkid', 'groupid');
     }
@@ -64,21 +97,24 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
     /**
      * retrieve groups for a user
      *
-     * @param int $uid ID of the user
-     * objects? FALSE returns associative array.
+     * @param int $uid ID of the user objects
+     *
      * @return array array of groups the user belongs to
      */
     public function getGroupsByUser($uid)
     {
         $ret = array();
-        $sql = 'SELECT groupid FROM ' . $this->db->prefix('groups_users_link') . ' WHERE uid=' . intval($uid);
-        $result = $this->db->query($sql);
-        if (!$result) {
-            return $ret;
-        }
-        while ($myrow = $this->db->fetchArray($result)) {
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->select('groupid')
+            ->fromPrefix('groups_users_link', 'g')
+            ->where($eb->eq('g.uid', ':uid'))
+            ->setParameter(':uid', $uid, \PDO::PARAM_INT);
+        $result = $qb->execute();
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['groupid'];
         }
+
         return $ret;
     }
 
@@ -86,22 +122,29 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      * retrieve users belonging to a group
      *
      * @param int $groupid ID of the group
-     * FALSE will return arrays
-     * @param int $limit number of entries to return
-     * @param int $start offset of first entry to return
+     * @param int $limit   number of entries to return
+     * @param int $start   offset of first entry to return
+     *
      * @return array array of users belonging to the group
      */
     public function getUsersByGroup($groupid, $limit = 0, $start = 0)
     {
         $ret = array();
-        $sql = 'SELECT uid FROM ' . $this->db->prefix('groups_users_link') . ' WHERE groupid=' . intval($groupid);
-        $result = $this->db->query($sql, $limit, $start);
-        if (!$result) {
-            return $ret;
+        $qb = $this->db2->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $qb ->select('uid')
+            ->fromPrefix('groups_users_link', 'g')
+            ->where($eb->eq('g.groupid', ':gid'))
+            ->setParameter(':gid', $groupid, \PDO::PARAM_INT);
+        if ($limit!=0 || $start!=0) {
+            $qb->setFirstResult($start)
+                ->setMaxResults($limit);
         }
-        while ($myrow = $this->db->fetchArray($result)) {
+        $result = $qb->execute();
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $ret[] = $myrow['uid'];
         }
+
         return $ret;
     }
 }

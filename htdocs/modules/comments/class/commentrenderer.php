@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
@@ -236,7 +236,7 @@ class CommentsCommentRenderer
             $current_prefix .= $prefix;
         }
         if (isset($thread[$key]['child']) && !empty($thread[$key]['child'])) {
-            $depth++;
+            ++$depth;
             foreach ($thread[$key]['child'] as $childkey) {
                 if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != COMMENTS_ACTIVE) {
                     // skip this comment if it is not active and continue on processing its child comments instead
@@ -337,7 +337,7 @@ class CommentsCommentRenderer
             $prefix = $prefix + 25;
         }
         if (isset($thread[$key]['child']) && !empty($thread[$key]['child'])) {
-            $depth++;
+            ++$depth;
             foreach ($thread[$key]['child'] as $childkey) {
                 if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != COMMENTS_ACTIVE) {
                     // skip this comment if it is not active and continue on processing its child comments instead
@@ -394,7 +394,10 @@ class CommentsCommentRenderer
                 $poster_rank = $user->rank();
                 $poster['rank_image'] = ($poster_rank['image'] != '') ? $poster_rank['image'] : 'blank.gif';
                 $poster['rank_title'] = $poster_rank['title'];
-                $poster['avatar'] = $user->getVar('user_avatar');
+                $response = $xoops->service("Avatar")->getAvatarUrl($user);
+                $avatar = $response->getValue();
+                $avatar = empty($avatar) ? '' : $avatar;
+                $poster['avatar'] = $avatar;
                 $poster['regdate'] = XoopsLocale::formatTimestamp($user->getVar('user_regdate'), 's');
                 $poster['from'] = $user->getVar('user_from');
                 $poster['postnum'] = $user->getVar('posts');

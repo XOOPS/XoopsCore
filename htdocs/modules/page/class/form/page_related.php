@@ -13,16 +13,16 @@
  * page module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
- * @author          Mage Gr�gory (AKA Mage)
+ * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
 
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-class PagePage_relatedForm extends XoopsThemeForm
+class PagePage_relatedForm extends Xoops\Form\ThemeForm
 {
     /**
      * @param PagePage_related|XoopsObject $obj
@@ -45,13 +45,13 @@ class PagePage_relatedForm extends XoopsThemeForm
         parent::__construct($title, 'form', 'related.php', 'post', true);
 
         //name
-        $this->addElement(new XoopsFormText(PageLocale::RELATED_NAME, 'related_name', 4, 255, $obj->getVar('related_name'), ''), true);
+        $this->addElement(new Xoops\Form\Text(PageLocale::RELATED_NAME, 'related_name', 4, 255, $obj->getVar('related_name'), ''), true);
         //menu
-        $menu = new XoopsFormRadioYN(PageLocale::RELATED_MENU, 'related_domenu', $obj->getVar('related_domenu'));
+        $menu = new Xoops\Form\RadioYesNo(PageLocale::RELATED_MENU, 'related_domenu', $obj->getVar('related_domenu'));
         $menu->setDescription(PageLocale::RELATED_MENU_DSC);
         $this->addElement($menu, false);
         //navigation
-        $navigation = new XoopsFormSelect(PageLocale::RELATED_NAVIGATION, 'related_navigation', $obj->getVar('related_navigation'), 1, false);
+        $navigation = new Xoops\Form\Select(PageLocale::RELATED_NAVIGATION, 'related_navigation', $obj->getVar('related_navigation'), 1, false);
         $navigation->addOption(1, PageLocale::L_RELATED_NAVIGATION_OPTION1);
         $navigation->addOption(2, PageLocale::L_RELATED_NAVIGATION_OPTION2);
         $navigation->addOption(3, PageLocale::L_RELATED_NAVIGATION_OPTION3);
@@ -64,28 +64,31 @@ class PagePage_relatedForm extends XoopsThemeForm
         $contents_used = $link_Handler->getContentUsed();
         $contents = $content_Handler->getPageTitle(1);
 
-        $related_links_form = new XoopsFormSelect(PageLocale::RELATED_MAIN, 'datas', $related_links, $size = 20, $multiple = true);
-        foreach ($contents as $k => $content) {            if (!in_array($content['content_id'], $contents_used) || in_array($content['content_id'], $related_links)) {                $related_links_form->addOption($content['content_id'], $content['content_title']);
-            }        }
+        $related_links_form = new Xoops\Form\Select(PageLocale::RELATED_MAIN, 'datas', $related_links, $size = 20, $multiple = true);
+        foreach ($contents as $k => $content) {
+            if (!in_array($content['content_id'], $contents_used) || in_array($content['content_id'], $related_links)) {
+                $related_links_form->addOption($content['content_id'], $content['content_title']);
+            }
+        }
         $this->addElement($related_links_form, true);
 
-        $this->addElement(new XoopsFormHidden('related_id', $obj->getVar('related_id')));
+        $this->addElement(new Xoops\Form\Hidden('related_id', $obj->getVar('related_id')));
 
         /**
          * Buttons
          */
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormHidden('op', 'save'));
+        $button_tray = new Xoops\Form\ElementTray('', '');
+        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
 
-        $button = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
         $button->setClass('btn btn-success');
         $button_tray->addElement($button);
 
-        $button_2 = new XoopsFormButton('', 'reset', XoopsLocale::A_RESET, 'reset');
+        $button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
         $button_2->setClass('btn btn-warning');
         $button_tray->addElement($button_2);
 
-        $button_3 = new XoopsFormButton('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $button_3 = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
         $button_3->setExtra("onclick='javascript:history.go(-1);'");
         $button_3->setClass('btn btn-danger');
         $button_tray->addElement($button_3);

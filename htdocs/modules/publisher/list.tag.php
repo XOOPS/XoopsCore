@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,5 +19,5 @@
  */
 
 // todo: Check this file
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 include XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';

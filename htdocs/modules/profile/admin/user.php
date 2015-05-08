@@ -13,19 +13,19 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new XoopsModuleAdmin();
+$indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('user.php');
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
@@ -38,18 +38,19 @@ $handler = $xoops->getHandlerMember();
 switch ($op) {
     default:
     case "list":
-        $form = new XoopsThemeForm(_PROFILE_AM_EDITUSER, 'form', 'user.php');
-        $form->addElement(new XoopsFormSelectUser(_PROFILE_AM_SELECTUSER, 'id'));
-        $form->addElement(new XoopsFormHidden('op', 'editordelete'));
-        $button_tray = new XoopsFormElementTray('');
-        $button_tray->addElement(new XoopsFormButton('', 'edit', XoopsLocale::A_EDIT, 'submit', 'btn primary'));
-        $button_tray->addElement(new XoopsFormButton('', 'delete', XoopsLocale::A_DELETE, 'submit', 'btn danger'));
+        $form = new Xoops\Form\ThemeForm(_PROFILE_AM_EDITUSER, 'form', 'user.php');
+        $form->addElement(new Xoops\Form\SelectUser(_PROFILE_AM_SELECTUSER, 'id'));
+        $form->addElement(new Xoops\Form\Hidden('op', 'editordelete'));
+        $button_tray = new Xoops\Form\ElementTray('');
+        $button_tray->addElement(new Xoops\Form\Button('', 'edit', XoopsLocale::A_EDIT, 'submit'));
+        $button_tray->addElement(new Xoops\Form\Button('', 'delete', XoopsLocale::A_DELETE, 'submit'));
         $form->addElement($button_tray);
         $form->display();
+        /* fallthrough */
 
     case "new":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
-        include_once dirname(dirname(__FILE__)) . '/include/forms.php';
+        include_once dirname(__DIR__) . '/include/forms.php';
         $obj = $handler->createUser();
         $obj->setGroups(array(XOOPS_GROUP_USERS));
         $form = profile_getUserForm($obj);
@@ -63,7 +64,7 @@ switch ($op) {
             // If not webmaster trying to edit a webmaster - disallow
             $xoops->redirect("user.php", 3, XoopsLocale::E_NO_ACTION_PERMISSION);
         }
-        include_once dirname(dirname(__FILE__)) . '/include/forms.php';
+        include_once dirname(__DIR__) . '/include/forms.php';
         $form = profile_getUserForm($obj);
         $form->display();
         break;
@@ -71,7 +72,12 @@ switch ($op) {
     case "save":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
         if (!$xoops->security()->check()) {
-            $xoops->redirect('user.php', 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect(
+                'user.php',
+                3,
+                XoopsLocale::E_NO_ACTION_PERMISSION . "<br />"
+                . implode('<br />', $xoops->security()->getErrors())
+            );
             exit;
         }
 
@@ -83,7 +89,11 @@ switch ($op) {
         $userfields = $profile_handler->getUserVars();
         // Get ids of fields that can be edited
         $gperm_handler = $xoops->getHandlerGroupperm();
-        $editable_fields = $gperm_handler->getItemIds('profile_edit', $xoops->user->getGroups(), $xoops->module->getVar('mid'));
+        $editable_fields = $gperm_handler->getItemIds(
+            'profile_edit',
+            $xoops->user->getGroups(),
+            $xoops->module->getVar('mid')
+        );
 
         $uid = empty($_POST['uid']) ? 0 : intval($_POST['uid']);
         if (!empty($uid)) {
@@ -121,7 +131,7 @@ switch ($op) {
         if (!empty($_POST['password'])) {
             $password = $myts->stripSlashesGPC(trim($_POST['password']));
             $vpass = @$myts->stripSlashesGPC(trim($_POST['vpass']));
-            $user->setVar('pass', md5($password));
+            $user->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
         } elseif ($user->isNew()) {
             $password = $vpass = '';
         }
@@ -183,7 +193,7 @@ switch ($op) {
             }
         }
         $user->setGroups($new_groups);
-        include_once dirname(dirname(__FILE__)) . '/include/forms.php';
+        include_once dirname(__DIR__) . '/include/forms.php';
         echo $user->getHtmlErrors();
         $form = profile_getUserForm($user, $profile);
         $form->display();
@@ -207,7 +217,12 @@ switch ($op) {
             $profile = $profile_handler->getProfile($obj->getVar('uid'));
             if (!$profile || $profile->isNew() || $profile_handler->delete($profile)) {
                 if ($handler->deleteUser($obj)) {
-                    $xoops->redirect('user.php', 3, sprintf(_PROFILE_AM_DELETEDSUCCESS, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")"), false);
+                    $xoops->redirect(
+                        'user.php',
+                        3,
+                        sprintf(_PROFILE_AM_DELETEDSUCCESS, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")"),
+                        false
+                    );
                 } else {
                     echo $obj->getHtmlErrors();
                 }
@@ -216,9 +231,11 @@ switch ($op) {
             }
 
         } else {
-            $xoops->confirm(array(
-                                 'ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'
-                            ), $_SERVER['REQUEST_URI'], sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")"));
+            $xoops->confirm(
+                array('ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'),
+                $_SERVER['REQUEST_URI'],
+                sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('uname') . " (" . $obj->getVar('email') . ")")
+            );
         }
         break;
 }

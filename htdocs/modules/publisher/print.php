@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,11 +21,11 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/header.php';
+include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
-$itemid = PublisherRequest::getInt('itemid');
+$itemid = Request::getInt('itemid');
 
 if ($itemid == 0) {
     $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
@@ -55,7 +57,8 @@ $item['categoryname'] = $myts->displayTarea($categoryObj->getVar('name'));
 
 $mainImage = $itemObj->getMainImage();
 if ($mainImage['image_path'] != '') {
-    $item['image'] = '<img src="' . $mainImage['image_path'] . '" alt="' . $myts->undoHtmlSpecialChars($mainImage['image_name']) . '"/>';
+    $item['image'] = '<img src="' . $mainImage['image_path'] . '" alt="'
+                    . $myts->undoHtmlSpecialChars($mainImage['image_name']) . '"/>';
 }
 $xoopsTpl->assign('item', $item);
 $xoopsTpl->assign('printtitle', $xoops->getConfig('sitename') . " - " . PublisherUtils::html2text($categoryObj->getCategoryPath()) . " > " . $myts->displayTarea($itemObj->title()));
@@ -83,4 +86,4 @@ if ($publisher->getConfig('print_footer') == 'index footer' || $publisher->getCo
 
 $xoopsTpl->assign('display_whowhen_link', $publisher->getConfig('item_disp_whowhen_link'));
 
-$xoopsTpl->display('module:publisher|publisher_print.html');
+$xoopsTpl->display('module:publisher/publisher_print.tpl');

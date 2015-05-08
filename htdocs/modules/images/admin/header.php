@@ -9,28 +9,29 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * images module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 XoopsLoad::load('system', 'system');
 
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
-$helper = Xoops_Module_Helper::getHelper('images');
-$request = Xoops_Request::getInstance();
+$helper = Xoops\Module\Helper::getHelper('images');
 
 // Get Action type
-$op = $request->asStr('op', 'list');
-$start = $request->asInt('start', 0);
-$imgcat_id = $request->asInt('imgcat_id', 0);
+$op = Request::getCmd('op', 'list');
+$start = Request::getInt('start', 0);
+$imgcat_id = Request::getInt('imgcat_id', 0);
 
 $redirect = basename($xoops->getenv('SCRIPT_NAME'));
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {
@@ -64,10 +65,7 @@ if (isset($imgcat_id) && $op == 'list') {
 
 // Add Script
 $xoops->theme()->addScript('media/xoops/xoops.js');
-$xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
 $xoops->theme()->addScript('modules/system/js/admin.js');
-$xoops->theme()->addScript('modules/system/js/thumbs.js');
 // Add Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 $xoops->theme()->addStylesheet('modules/images/css/admin.css');
-$xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');

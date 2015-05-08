@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         include
  * @since           2.3.0
  * @author          Vinod <smartvinu@gmail.com>
@@ -18,7 +18,7 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
@@ -46,4 +46,3 @@ if (! headers_sent()) {
     header('Pragma: no-cache');
 }
 echo "<div>" . $content . "</div>";
-?>

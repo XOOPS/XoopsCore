@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @version         $Id$
  */
@@ -20,5 +20,3 @@ defined('XOOPS_ROOT_PATH') or die('Restricted access');
  *  Define XOOPS version
  */
 define('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');
-
-?>

@@ -13,12 +13,14 @@
  * Userconfigs
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * @author        Kazumi Ono    <onokazu@xoops.org>
@@ -210,7 +212,7 @@ class UserconfigsItem extends XoopsObject
     {
         if (is_array($option)) {
             $count = count($option);
-            for ($i = 0; $i < $count; $i++) {
+            for ($i = 0; $i < $count; ++$i) {
                 $this->setConfOptions($option[$i]);
             }
         } else {
@@ -246,9 +248,9 @@ class UserconfigsItemHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'userconfigs_item', 'UserconfigsItem', 'conf_id', 'conf_name');
     }

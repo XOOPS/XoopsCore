@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
@@ -256,6 +256,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const EF_IMAGE_SIZE_NOT_FETCHED = "'%s' image size was not fetched, skipping max dimension check...";
     const EF_INVALID_SQL = "SQL '%s' is invalid!";
     const EF_KEYWORDS_MUST_BE_GREATER_THAN = "Keywords must be at least <strong>%s</strong> characters long!";
+    const EF_LOGGER_FILELINE = "%s in file %s line %s";
     const EF_NOTIFICATION_EMAIL_NOT_SENT_TO = "Notification email was not sent to '%s'!";
     const EF_NOT_CREATED = "'%s' was not created!";
     const EF_NOT_DELETED = "'%s' was not deleted!";
@@ -266,6 +267,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const EF_NOT_UPDATED = "'%s' was not updated!";
     const EF_PASSWORD_MUST_BE_GREATER_THAN = "Your password must be at least '%s' characters long!";
     const EF_PRIVATE_MESSAGE_NOT_SENT_TO = "Private message was not sent to '%s'!";
+    const EF_SERVICE_IS_NOT_INSTALLED = "No '%s' service provider is installed!";
     const EF_TABLE_DROP_NOT_ALLOWED = "Table '%s' is not allowed to be dropped!";
     const EF_TABLE_NOT_CREATED = "Table '%s' was not created!"; // L118
     const EF_TABLE_NOT_DELETED = "Table '%s' was not deleted!"; // L164
@@ -337,6 +339,11 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const E_INVALID_IMAGE_FILE = "Invalid image file!";
     const E_INVALID_USERNAME = "Invalid username!";
     const E_LOADING_MIME_TYPES_DEFINITION = "Error loading mime types definition!";
+    const E_LOGGER_ERROR = "Error";
+    const E_LOGGER_NOTICE = "Notice";
+    const E_LOGGER_STRICT = "Strict";
+    const E_LOGGER_UNKNOWN = "Unknown";
+    const E_LOGGER_WARNING = "Warning";
     const E_MESSAGE_BODY_NOT_SET = "Message body is not set!";
     const E_MESSAGE_TO_LONG = "Your message is too long!";
     const E_MOVE_OUT_OF_DOCUMENT_ROOT = "For security considerations it is highly suggested to move it out of DocumentRoot!";
@@ -443,6 +450,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const F_WELCOME_TO = "Welcome to %s";
     const F_YES_DELETE_ALL = "Yes, delete all %s";
     const F_YOUR_ACCOUNT_AT = "Your account at %s";
+    const F_EXTENSION_PHP_NOT_LOADED = "PHP %s extension not loaded (verify your PHP configuration file php.ini)";
     const GO_BACK = "Go back";
     const GO_TO = "Go to";
     const GO_TODAY = "Go today";
@@ -525,7 +533,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_AT = "Austria";
     const L_COUNTRY_AU = "Australia";
     const L_COUNTRY_AW = "Aruba";
-    const L_COUNTRY_AX = "�land Islands";
+    const L_COUNTRY_AX = "Åland Islands";
     const L_COUNTRY_AZ = "Azerbaijan";
     const L_COUNTRY_BA = "Bosnia and Herzegovina";
     const L_COUNTRY_BB = "Barbados";
@@ -536,7 +544,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_BH = "Bahrain";
     const L_COUNTRY_BI = "Burundi";
     const L_COUNTRY_BJ = "Benin";
-    const L_COUNTRY_BL = "Saint Barth�lemy";
+    const L_COUNTRY_BL = "Saint Barthélemy";
     const L_COUNTRY_BM = "Bermuda";
     const L_COUNTRY_BN = "Brunei Darussalam";
     const L_COUNTRY_BO = "Bolivia";
@@ -553,7 +561,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_CF = "Central African Republic";
     const L_COUNTRY_CG = "Congo";
     const L_COUNTRY_CH = "Switzerland";
-    const L_COUNTRY_CI = "C�te d'Ivoire";
+    const L_COUNTRY_CI = "Côte d'Ivoire";
     const L_COUNTRY_CK = "Cook Islands";
     const L_COUNTRY_CL = "Chile";
     const L_COUNTRY_CM = "Cameroon";
@@ -763,13 +771,19 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const L_COUNTRY_ZM = "Zambia";
     const L_COUNTRY_ZR = "Zaire"; //  Not listed in ISO 3166
     const L_COUNTRY_ZW = "Zimbabwe";
-    const L_DAY_FRIDAY = "Friday";
+	const L_DAY_FRIDAY = "Friday";
     const L_DAY_MONDAY = "Monday";
     const L_DAY_SATURDAY = "Saturday";
     const L_DAY_SUNDAY = "Sunday";
     const L_DAY_THURSDAY = "Thursday";
     const L_DAY_TUESDAY = "Tuesday";
     const L_DAY_WEDNESDAY = "Wednesday";
+	const L_FORMAT_DATE_STRING = "Y/n/j G:i:s";
+	const L_FORMAT_MEDIUM_DATE_STRING = "Y/n/j G:i";
+	const L_FORMAT_SHORT_DATE_STRING = "m/d/Y";
+	const L_FORMAT_DB_DATE_STRING = "Y-m-d";
+	const L_FORMAT_DB_TIME_STRING = "H:i:s";
+	const L_FORMAT_DB_TIMESTAMP_STRING = "Y-m-d H:i:s";
     const L_MONTH_APRIL = "April";
     const L_MONTH_AUGUST = "August";
     const L_MONTH_DECEMBER = "December";
@@ -887,6 +901,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const PAGE = "Page";
     const PARENT = "Parent";
     const PASSWORD = "Password";
+    const PASSWORD_STRENGTH = "Password strength";
     const PASTE_THE_CODE_YOU_WANT_TO_INSERT = "Paste the CODE you want to insert";
     const PASTE_THE_QUOTE_YOU_WANT_TO_INSERT = "Paste the QUOTE you want to insert";
     const PENDING = "Pending";
@@ -970,6 +985,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const SEND_EMAIL = "Send email";
     const SEND_PASSWORD = "Send password";
     const SENT = "Sent";
+    const SERVICES = "Services";
     const SETTINGS = "Settings";
     const SF_DATA_INSERTED_TO_TABLE = "Data inserted to table '%s'!";
     const SF_EMAIL_SENT_TO = "Email sent to %s!";
@@ -983,6 +999,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const SF_PASSWORD_SENT_TO = "Password sent to %s!";
     const SF_PRIVATE_MESSAGE_SENT_TO = "Private message sent to %s!";
     const SF_SAVED = "%s saved";
+    const SF_SERVICE_IS_INSTALLED = "A '%s' service provider is available.";
     const SF_TABLE_CREATED = "Table '%s' created!"; // L45
     const SF_TABLE_DROPPED = "Table '%s' dropped!"; // L163
     const SF_TABLE_UPDATED = "Table '%s' updated!"; // L133
@@ -1082,7 +1099,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const VOTE = "Vote";
     const VOTES = "Votes";
     const WARNING = "Warning";
-    const WEBMASTERS = "Webmasters";
+    //const WEBMASTERS = "Webmasters";
     const WEBSITE = "Website";
     const WEB_URL = "Web URL";
     const WEIGHT = "Weight";
@@ -1097,4 +1114,6 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const YIM = "YIM";
     const YOUTUBE = "Youtube";
     const YOUTUBE_URL = "Youtube URL";
+    const SOUNDCLOUD = "SoundCloud";
+    const SOUNDCLOUD_URL = "Enter SoundCloud Profile URL";
 }

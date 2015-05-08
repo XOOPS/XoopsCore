@@ -13,13 +13,13 @@
  * Users Manager
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Maxime Cointin (AKA Kraven30)
  * @package     system
  * @version     $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . '/header.php';
+include dirname(dirname(__DIR__)) . '/header.php';
 
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
@@ -28,7 +28,8 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
+//$xoops->disableErrorReporting();
 
 if (isset($_REQUEST["op"])) {
     $op = $_REQUEST["op"];
@@ -46,18 +47,21 @@ switch ($op) {
         $total_posts = 0;
 
         /* @var $plugin SystemPluginInterface */
-        $plugins = Xoops_Module_Plugin::getPlugins();
+        $plugins = \Xoops\Module\Plugin::getPlugins();
         foreach ($plugins as $plugin) {
             if ($res = $plugin->userPosts($uid)) {
                 $total_posts += $res;
             }
         }
 
-        $sql = "UPDATE " . $xoopsDB->prefix("users") . " SET posts = '" . $total_posts . "' WHERE uid = '" . $uid . "'";
-        if (!$result = $xoopsDB->queryF($sql)) {
-            $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::E_USER_NOT_UPDATED);
-        } else {
-            echo $total_posts;
-        }
+        $qb = $xoops->db()->createXoopsQueryBuilder();
+        $eb = $qb->expr();
+        $sql = $qb->updatePrefix('users')
+            ->set('posts', ':posts')
+            ->where('uid = :uid')
+            ->setParameter(':posts', $total_posts)
+            ->setParameter(':uid', $uid);
+        $row_count = $sql->execute();
+        echo $row_count;
         break;
 }

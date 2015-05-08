@@ -9,21 +9,23 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * images module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
  */
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
 // Call Header
-$xoops->header('images_admin_categories.html');
+$xoops->header('admin:images/images_admin_categories.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('categories.php');
 
 switch ($op) {
@@ -32,7 +34,7 @@ switch ($op) {
             $xoops->redirect('categories.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
 
-        $imgcat_id = $request->asInt('imgcat_id', 0);
+        $imgcat_id = Request::getInt('imgcat_id', 0);
         if (isset($imgcat_id) && $imgcat_id != 0) {
             $obj = $helper->getHandlerCategories()->get($imgcat_id);
             $isnew = false;
@@ -40,16 +42,16 @@ switch ($op) {
             $obj = $helper->getHandlerCategories()->create();
             $isnew = true;
         }
-        $obj->setVar('imgcat_name', $request->asStr('imgcat_name', ''));
-        $obj->setVar('imgcat_maxsize', $request->asInt('imgcat_maxsize', 100000));
-        $obj->setVar('imgcat_maxwidth', $request->asInt('imgcat_maxwidth', 128));
-        $obj->setVar('imgcat_maxheight', $request->asInt('imgcat_maxheight', 128));
-        $obj->setVar('imgcat_display', $request->asBool('imgcat_display', 1));
-        $obj->setVar('imgcat_weight', $request->asInt('imgcat_weight', 0));
-        $obj->setVar('imgcat_storetype', $request->asStr('imgcat_storetype', 'file'));
+        $obj->setVar('imgcat_name', Request::getString('imgcat_name', ''));
+        $obj->setVar('imgcat_maxsize', Request::getInt('imgcat_maxsize', 100000));
+        $obj->setVar('imgcat_maxwidth', Request::getInt('imgcat_maxwidth', 128));
+        $obj->setVar('imgcat_maxheight', Request::getInt('imgcat_maxheight', 128));
+        $obj->setVar('imgcat_display', Request::getBool('imgcat_display', 1));
+        $obj->setVar('imgcat_weight', Request::getInt('imgcat_weight', 0));
+        $obj->setVar('imgcat_storetype', Request::getString('imgcat_storetype', 'file'));
         $obj->setVar('imgcat_type', 'C');
 
-        if ( $imgcat_id = $helper->getHandlerCategories()->insert($obj)) {
+        if ($imgcat_id = $helper->getHandlerCategories()->insert($obj)) {
             // delete permissions
             if (!$isnew) {
                 $criteria = new CriteriaCompo(new Criteria('gperm_itemid', $imgcat_id));
@@ -62,7 +64,7 @@ switch ($op) {
             // Save permissions
             $permissions = array('readgroup' => 'imgcat_read', 'writegroup' => 'imgcat_write');
             foreach ($permissions as $k => $permission) {
-                $groups = $request->asArray($k, array(XOOPS_GROUP_ADMIN));
+                $groups = Request::getArray($k, array(XOOPS_GROUP_ADMIN));
                 if (!in_array(XOOPS_GROUP_ADMIN, $groups)) {
                     array_push($groups, XOOPS_GROUP_ADMIN);
                 }
@@ -88,7 +90,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $imgcat_id = $request->asInt('imgcat_id', 0);
+        $imgcat_id = Request::getInt('imgcat_id', 0);
         if ($imgcat_id > 0) {
             $obj = $helper->getHandlerCategories()->get($imgcat_id);
             $form = $helper->getForm($obj, 'category');
@@ -97,9 +99,9 @@ switch ($op) {
         break;
 
     case 'del':
-        $imgcat_id = $request->asInt('imgcat_id', 0);
+        $imgcat_id = Request::getInt('imgcat_id', 0);
         if ($imgcat_id > 0) {
-            $ok = $request->asInt('ok', 0);
+            $ok = Request::getInt('ok', 0);
             $obj = $helper->getHandlerCategories()->get($imgcat_id);
 
             if ($ok == 1) {
@@ -131,20 +133,16 @@ switch ($op) {
                 }
             } else {
                 $xoops->confirm(
-                        array(
-                        'op' => 'del',
-                        'ok' => 1,
-                        'imgcat_id' => $imgcat_id
-                        ),
-                        XOOPS_URL . '/modules/images/admin/categories.php',
-                        sprintf(_AM_IMAGES_CAT_DELETE, $obj->getVar('imgcat_name'))
+                    array('op' => 'del', 'ok' => 1, 'imgcat_id' => $imgcat_id),
+                    XOOPS_URL . '/modules/images/admin/categories.php',
+                    sprintf(_AM_IMAGES_CAT_DELETE, $obj->getVar('imgcat_name'))
                 );
             }
         }
         break;
 
     case 'display':
-        $imgcat_id = $request->asInt('imgcat_id', 0);
+        $imgcat_id = Request::getInt('imgcat_id', 0);
         if ($imgcat_id > 0) {
             $imgcat = $helper->getHandlerCategories()->get($imgcat_id);
             $old = $imgcat->getVar('imgcat_display');
@@ -169,7 +167,7 @@ switch ($op) {
                 $count = $helper->getHandlerImages()->countByCategory($categories[$i]->getVar('imgcat_id'));
                 $cat_images = $categories[$i]->getValues();
                 $cat_images['imgcat_count'] = $count;
-                $xoops->tpl()->append_by_ref('categories', $cat_images);
+                $xoops->tpl()->appendByRef('categories', $cat_images);
                 unset($cat_images);
             }
         }

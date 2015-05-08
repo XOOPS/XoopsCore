@@ -9,9 +9,11 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
@@ -19,10 +21,10 @@
  * @version         $Id$
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
-$op = PublisherRequest::getString('op');
+$op = Request::getCmd('op');
 
 $op = isset($_POST['editor']) ? 'mod' : $op;
 if (isset($_POST['addcategory'])) {
@@ -30,8 +32,8 @@ if (isset($_POST['addcategory'])) {
 }
 
 // Where do we start ?
-$startcategory = PublisherRequest::getInt('startcategory');
-$categoryid = PublisherRequest::getInt('categoryid');
+$startcategory = Request::getInt('startcategory');
+$categoryid = Request::getInt('categoryid');
 
 switch ($op) {
 
@@ -65,7 +67,7 @@ switch ($op) {
     case "addcategory":
         global $modify;
 
-        $parentid = PublisherRequest::getInt('parentid');
+        $parentid = Request::getInt('parentid');
         /* @var $categoryObj PublisherCategory */
         if ($categoryid != 0) {
             $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
@@ -154,7 +156,7 @@ switch ($op) {
         //Added by fx2024
         $parentCat = $categoryObj->getVar('categoryid');
         $sizeof = sizeof($_POST['scname']);
-        for ($i = 0; $i < $sizeof; $i++) {
+        for ($i = 0; $i < $sizeof; ++$i) {
             if ($_POST['scname'][$i] != '') {
                 $categoryObj = $publisher->getCategoryHandler()->create();
                 $categoryObj->setVar('name', $_POST['scname'][$i]);
@@ -256,7 +258,7 @@ function publisher_displayCategory(PublisherCategory $categoryObj, $level = 0)
     $delete = "<a href='category.php?op=del&amp;categoryid=" . $categoryObj->getVar('categoryid') . "'><img src='" . PUBLISHER_URL . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETECOL . "' alt='" . _AM_PUBLISHER_DELETECOL . "' /></a>";
 
     $spaces = '';
-    for ($j = 0; $j < $level; $j++) {
+    for ($j = 0; $j < $level; ++$j) {
         $spaces .= '&nbsp;&nbsp;&nbsp;';
     }
 
@@ -267,7 +269,7 @@ function publisher_displayCategory(PublisherCategory $categoryObj, $level = 0)
     echo "</tr>";
     $subCategoriesObj = $publisher->getCategoryHandler()->getCategories(0, 0, $categoryObj->getVar('categoryid'));
     if (count($subCategoriesObj) > 0) {
-        $level++;
+        ++$level;
         foreach ($subCategoriesObj as $thiscat) {
             publisher_displayCategory($thiscat, $level);
         }
@@ -358,7 +360,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         PublisherUtils::closeCollapsableBar('subcatstable', 'subcatsicon');
 
         PublisherUtils::openCollapsableBar('bottomtable', 'bottomtableicon', _AM_PUBLISHER_CAT_ITEMS, _AM_PUBLISHER_CAT_ITEMS_DSC);
-        $startitem = PublisherRequest::getInt('startitem');
+        $startitem = Request::getInt('startitem');
         // Get the total number of published ITEMS
         $totalitems = $publisher->getItemHandler()->getItemsCount($sel_cat, array(_PUBLISHER_STATUS_PUBLISHED));
         // creating the items objects that are published
@@ -374,7 +376,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         echo "<td width='60' class='bg3' align='center'><strong>" . _AM_PUBLISHER_ACTION . "</strong></td>";
         echo "</tr>";
         if ($totalitems > 0) {
-            for ($i = 0; $i < $totalitemsOnPage; $i++) {
+            for ($i = 0; $i < $totalitemsOnPage; ++$i) {
                 $categoryObj = $allcats[$itemsObj[$i]->getVar('categoryid')];
                 $modify = "<a href='item.php?op=mod&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_EDITITEM . "' alt='" . _AM_PUBLISHER_EDITITEM . "' /></a>";
                 $delete = "<a href='item.php?op=del&amp;itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "'/></a>";
@@ -393,7 +395,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         }
         echo "</table>\n";
         echo "<br />\n";
-        $parentid = PublisherRequest::getInt('parentid');
+        $parentid = Request::getInt('parentid');
         $pagenav_extra_args = "op=mod&categoryid=$sel_cat&parentid=$parentid";
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $startitem, 'startitem', $pagenav_extra_args);
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';

@@ -13,7 +13,7 @@
  * images module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
  * @version         $Id$
@@ -23,15 +23,15 @@ $i = 1;
 $adminmenu[$i]['title'] = _MI_IMAGES_INDEX;
 $adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_IMAGES_CATEGORIES;
 $adminmenu[$i]['link'] = 'admin/categories.php';
 $adminmenu[$i]['icon'] = 'category.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_IMAGES_IMAGES;
 $adminmenu[$i]['link'] = 'admin/images.php';
 $adminmenu[$i]['icon'] = 'images.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_IMAGES_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['icon'] = 'about.png';

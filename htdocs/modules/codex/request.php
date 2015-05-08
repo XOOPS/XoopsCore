@@ -9,35 +9,37 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 
-include dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 
 $xoops = Xoops::getInstance();
+// Warning: code depending on Xoops\Core\HttpRequest may need to change
+$request = \Xoops\Core\HttpRequest::getInstance();
 $xoops->header();
 
-$request = Xoops_Request::getInstance();
-
-Xoops_Utils::dumpVar($request->getParam());
-$result['id'] = $request->asInt('id', 13);
-$result['string'] = $request->asStr('string', 'defaultValueHere');
-$result['bool'] = $request->asBool('bool', false);
-$result['order'] = $request->asStr('order', 'ASC', array('ASC', 'DESC'));
+Xoops_Utils::dumpVar(Request::get());
+$result['id'] = Request::getInt('id', 13);
+$result['string'] = Request::getString('string', 'defaultValueHere');
+$result['bool'] = Request::getBool('bool', false);
+$result['order'] = Request::getString('order', 'ASC');
 $result['url'] = $request->getUrl();
 $result['uri'] = $request->getUri();
 $result['referer'] = $request->getReferer();
-$result['phpsessid_cookie'] = $request->getCookie('PHPSESSID');
+$result['phpsessid_cookie'] = Request::getString('PHPSESSID', '', 'cookie');
 $result['ip'] = $request->getClientIp();
-$result['isget'] = $request->is('get');
-$result['ispost'] = $request->is('post');
+$result['isget'] = 'GET' == Request::getMethod();
+$result['ispost'] = 'POST' == Request::getMethod();
 $result['ismobile'] = $request->is('mobile');
 $result['isrobot'] = $request->is('robot');
-$result['files'] = $request->getFiles('file_identifier');
+$result['files'] = Request::getArray('file_identifier', array(), 'files');
 
 Xoops_Utils::dumpVar($result);
 
@@ -45,16 +47,16 @@ echo '<a href="?id=12&string=I love you&bool=everythingsistrue&order=DESC">Good 
 echo ' - <a href="?id=test&order=DESCENDING">Bad uri</a>';
 
 // Form
-$form = new XoopsSimpleForm('', 'form_id', 'request.php?id=666', true);
+$form = new Xoops\Form\SimpleForm('', 'form_id', 'request.php?id=666', true);
 $form->setExtra('enctype="multipart/form-data"');
 
-$code = new XoopsFormText('String', 'string', 2, 25, '','string...');
+$code = new Xoops\Form\Text('String', 'string', 2, 25, '', 'string...');
 $code->setDescription('Description text');
 $code->setPattern('^.{3,}$', 'You need at least 3 characters');
 $code->setDatalist(array('list 1','list 2','list 3'));
 $form->addElement($code, true);
 
-$select = new XoopsFormSelect('Select', 'id', '', 1, false);
+$select = new Xoops\Form\Select('Select', 'id', '', 1, false);
 $select->addOption(1, 'Select 1');
 $select->addOption(2, 'Select 2');
 $select->addOption('somebad id here', 'Select with bad id');
@@ -62,13 +64,13 @@ $select->setDescription('Description Select');
 $select->setClass('span2');
 $form->addElement($select, true);
 
-$file = new XoopsFormFile('File', 'file_identifier', 500000);
+$file = new Xoops\Form\File('File', 'file_identifier');
 $file->setDescription('Description File');
 $form->addElement($file, true);
 
-$button = new XoopsFormButton('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
 $form->addElement($button);
 $form->display();
 
-Xoops_Utils::dumpFile(__FILE__ );
+Xoops_Utils::dumpFile(__FILE__);
 $xoops->footer();

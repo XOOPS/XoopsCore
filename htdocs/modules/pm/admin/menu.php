@@ -13,7 +13,7 @@
  * Private message
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
@@ -26,11 +26,11 @@ $i = 1;
 $adminmenu[$i]['title'] = _PM_MI_INDEX;
 $adminmenu[$i]['link'] = "admin/index.php";
 $adminmenu[$i]['icon'] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _PM_MI_PRUNE;
 $adminmenu[$i]['link'] = "admin/prune.php";
 $adminmenu[$i]['icon'] = 'prune.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _PM_MI_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['icon'] = 'about.png';

@@ -11,14 +11,14 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+use Xoops\Core\Database\Connection;
 
 /**
  * A Comment
@@ -76,9 +76,9 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param XoopsConnection|null $db {@link XoopsConnection}
+     * @param Connection|null $db {@link Connection}
      */
-    public function __construct(XoopsConnection $db = null)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'comments', 'CommentsComment', 'id', 'title');
     }
@@ -119,7 +119,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      * @param   int     $item_id    Item ID
      * @param   int     $status     Status of the comment
      *
-     * @return  array   Array of {@link CommentsComment} objects
+     * @return  integer   Array of {@link CommentsComment} objects
      **/
     public function getCountByItemId($module_id, $item_id, $status = null)
     {
@@ -227,7 +227,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
             if (is_array($comments)) {
                 $count = count($comments);
                 $deleted_num = array();
-                for ($i = 0; $i < $count; $i++) {
+                for ($i = 0; $i < $count; ++$i) {
                     if (false != $this->delete($comments[$i])) {
                         // store poster ID and deleted post number into array for later use
                         $poster_id = $comments[$i]->getVar('uid');
@@ -252,5 +252,4 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
         }
         return false;
     }
-
 }

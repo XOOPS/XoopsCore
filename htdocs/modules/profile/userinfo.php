@@ -13,7 +13,7 @@
  * Extended User Profile
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
@@ -21,7 +21,7 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
@@ -41,7 +41,7 @@ $groups = $xoops->isUser() ? $xoops->user->getGroups() : array(XOOPS_GROUP_ANONY
 if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
     //disable cache
     $xoops->disableModuleCache();
-    $xoops->header('profile_userinfo.html');
+    $xoops->header('module:profile/profile_userinfo.tpl');
 
     $xoops->tpl()->assign('user_ownpage', true);
     $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
@@ -106,7 +106,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
         //disable cache
         $xoops->disableModuleCache();
     }
-    $xoops->header('profile_userinfo.html');
+    $xoops->header('module:profile/profile_userinfo.tpl');
     $xoops->tpl()->assign('user_ownpage', false);
 }
 
@@ -117,10 +117,12 @@ if ($xoops->isUser() && $xoops->user->isAdmin()) {
     $xoops->tpl()->assign('userlevel', $thisUser->isActive());
 }
 
-// Add navigation boutton in user
-$btn = array();
-$xoops->preload()->triggerEvent('core.userinfo.button', array(&$btn));
-if (!empty($btn)) {
+// Let extensions add navigation button
+//$xoops->events()->triggerEvent('core.userinfo.button', array($thisUser, &$btn));
+$response = $xoops->service("Avatar")->getAvatarEditUrl($thisUser);
+$link=$response->getValue();
+if (!empty($link)) {
+    $btn[] = array( 'link' => $link, 'title' => XoopsLocale::AVATAR, 'icon' => 'icon-user');
     $xoops->tpl()->assign('btn', $btn);
 }
 
@@ -144,10 +146,9 @@ $cat_crit->setSort("cat_weight");
 $cats = $cat_handler->getObjects($cat_crit, true, false);
 unset($cat_crit);
 
-$avatar = "";
-if ($thisUser->getVar('user_avatar') && "blank.gif" != $thisUser->getVar('user_avatar')) {
-    $avatar = XOOPS_UPLOAD_URL . "/" . $thisUser->getVar('user_avatar');
-}
+$response = $xoops->service("Avatar")->getAvatarUrl($thisUser);
+$avatar = $response->getValue();
+$avatar = empty($avatar) ? '' : $avatar;
 
 $email = "";
 if ($thisUser->getVar('user_viewemail') == 1) {
@@ -189,7 +190,7 @@ $xoops->tpl()->assign('categories', $categories);
 // Dynamic user profiles end
 
 if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search') && $xoops->getModuleConfig('enable_search', 'search')) {
-    $available_plugins = Xoops_Module_Plugin::getPlugins('search');
+    $available_plugins = \Xoops\Module\Plugin::getPlugins('search');
     $criteria = new Criteria('dirname', "('" . implode("','", array_keys($available_plugins)) . "')", 'IN');
     $modules = $module_handler->getObjectsArray($criteria, true);
     $mids = array_keys($modules);
@@ -201,12 +202,12 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
             if (in_array($mid, $allowed_mids)) {
                 /* @var XoopsModule $module */
                 $module = $modules[$mid];
-                $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'search');
+                $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'search');
                 /* @var $plugin SearchPluginInterface */
                 $results = $plugin->search('', '', 5, 0, $thisUser->getVar('uid'));
                 $count = count($results);
                 if (is_array($results) && $count > 0) {
-                    for ($i = 0; $i < $count; $i++) {
+                    for ($i = 0; $i < $count; ++$i) {
                         if (isset($results[$i]['image']) && $results[$i]['image'] != '') {
                             $results[$i]['image'] = XOOPS_URL . '/modules/' . $module->getVar('dirname', 'n') . '/' . $results[$i]['image'];
                         } else {
@@ -239,5 +240,5 @@ $xoops->tpl()->assign('uname', $thisUser->getVar('uname'));
 $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
-$xoops->appendConfig('profile_breadcrumbs', array('title' => _PROFILE_MA_USERINFO));
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+$xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
+include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';

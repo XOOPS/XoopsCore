@@ -13,7 +13,7 @@
  * smilies module
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         smilies
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -24,11 +24,11 @@ $i = 1;
 $adminmenu[$i]['title'] = _MI_SMILIES_INDEX;
 $adminmenu[$i]['link'] = 'admin/index.php';
 $adminmenu[$i]['icon'] = 'home.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_SMILIES_SMILIES;
 $adminmenu[$i]['link'] = 'admin/smilies.php';
 $adminmenu[$i]['icon'] = 'smilies.png';
-$i++;
+++$i;
 $adminmenu[$i]['title'] = _MI_SMILIES_ABOUT;
 $adminmenu[$i]['link'] = 'admin/about.php';
 $adminmenu[$i]['icon'] = 'about.png';

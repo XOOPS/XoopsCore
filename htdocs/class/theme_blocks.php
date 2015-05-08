@@ -13,7 +13,7 @@
  * XoopsThemeBlocksPlugin component class file
  *
  * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Skalpa Keo <skalpa@xoops.org>
  * @since           2.3.0
  * @package         class
@@ -45,13 +45,13 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
     /**
      * XoopsThemeBlocksPlugin::xoInit()
      *
-     * @return true
+     * @return boolean
      */
     public function xoInit()
     {
         $this->retrieveBlocks();
         if ($this->theme) {
-            $this->theme->template->assign_by_ref('xoBlocks', $this->blocks);
+            $this->theme->template->assignByRef('xoBlocks', $this->blocks);
         }
         return true;
     }
@@ -99,7 +99,9 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
             XOOPS_SIDEBLOCK_LEFT => 'canvas_left', XOOPS_SIDEBLOCK_RIGHT => 'canvas_right',
             XOOPS_CENTERBLOCK_LEFT => 'page_topleft', XOOPS_CENTERBLOCK_CENTER => 'page_topcenter',
             XOOPS_CENTERBLOCK_RIGHT => 'page_topright', XOOPS_CENTERBLOCK_BOTTOMLEFT => 'page_bottomleft',
-            XOOPS_CENTERBLOCK_BOTTOM => 'page_bottomcenter', XOOPS_CENTERBLOCK_BOTTOMRIGHT => 'page_bottomright'
+            XOOPS_CENTERBLOCK_BOTTOM => 'page_bottomcenter', XOOPS_CENTERBLOCK_BOTTOMRIGHT => 'page_bottomright',
+			XOOPS_FOOTERBLOCK_LEFT => 'footer_left', XOOPS_FOOTERBLOCK_CENTER => 'footer_center',
+			XOOPS_FOOTERBLOCK_RIGHT => 'footer_right'
         );
         foreach ($oldzones as $zone) {
             $this->blocks[$zone] = array();
@@ -132,7 +134,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
     /**
      * XoopsThemeBlocksPlugin::generateCacheId()
      *
-     * @param mixed $cache_id
+     * @param string $cache_id
      * @return string
      */
     public function generateCacheId($cache_id)
@@ -169,13 +171,13 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
             $template->cache_lifetime = $bcachetime;
         }
         $template->setCompileId($dirname);
-        $tplName = ($tplName = $xobject->getVar('template')) ? "block:{$dirname}|{$tplName}"
-                : "module:system|system_block_dummy.html";
+        $tplName = ($tplName = $xobject->getVar('template')) ? "block:{$dirname}/{$tplName}"
+                : "module:system/system_block_dummy.tpl";
         $cacheid = $this->generateCacheId('blk_' . $xobject->getVar('bid'));
 
-        $xoops->preload()->triggerEvent('core.themeblocks.buildblock.start', array($xobject, $template->is_cached($tplName, $cacheid)));
+        $xoops->preload()->triggerEvent('core.themeblocks.buildblock.start', array($xobject, $template->isCached($tplName, $cacheid)));
 
-        if (!$bcachetime || !$template->is_cached($tplName, $cacheid)) {
+        if (!$bcachetime || !$template->isCached($tplName, $cacheid)) {
 
             //Get theme metas
             $old = array();

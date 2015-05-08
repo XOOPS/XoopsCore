@@ -14,7 +14,7 @@
  * Xoops Cpanel default GUI class
  *
  * @copyright   The XOOPS project http://sf.net/projects/xoops/
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @usbpackage  GUI
  * @since       2.4
@@ -35,12 +35,15 @@ class XoopsGuiDefault
         $xoops = Xoops::getInstance();
         $xoops->loadLocale('system');
 
+        $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         $xoops->theme()->addStylesheet('media/xoops/css/moduladmin.css');
         $xoops->theme()->addStylesheet(XOOPS_ADMINTHEME_URL . '/default/css/style.css');
 
-        $xoops->theme()->addScript($xoops->url('/media/jquery/jquery.js'));
-        $xoops->theme()->addScript($xoops->url('/media/jquery/ui/jquery.ui.js'));
-        $xoops->theme()->addScript($xoops->url('/media/bootstrap/js/bootstrap.min.js'));
+        $xoops->theme()->addBaseScriptAssets('@jquery');
+        // bootstrap has to come before jquery.ui or dialog close buttons are blank
+        $xoops->theme()->addBaseScriptAssets('@bootstrap');
+        $xoops->theme()->addBaseScriptAssets('@jqueryui');
+        $xoops->theme()->addBaseScriptAssets('@jgrowl');
         // ddsmoothmenu
         $xoops->theme()->addScript(XOOPS_ADMINTHEME_URL . '/default/js/ddsmoothmenu.js');
         $xoops->theme()->addScript(XOOPS_ADMINTHEME_URL . '/default/js/tooltip.js');
@@ -59,7 +62,7 @@ class XoopsGuiDefault
         $system_extension = new SystemExtension();
 
         $adminmenu = null;
-        include dirname(__FILE__) . '/menu.php';
+        include __DIR__ . '/menu.php';
         if (!$xoops->isModule() || 'system' == $xoops->module->getVar('dirname', 'n')) {
             $modpath = XOOPS_URL . '/admin.php';
             $modname = DefaultThemeLocale::SYSTEM_OPTIONS;
@@ -154,7 +157,7 @@ class XoopsGuiDefault
                         $current = $i;
                     }
                     $menu_handler->addMenuTabs( $xoops->url('modules/' . $xoops->module->getVar('dirname') . '/' . $menu['link']), $menu['title']);
-                    $i++;
+                    ++$i;
                 }
                 if ($xoops->module->getInfo('help')) {
                     if (stripos($_SERVER['REQUEST_URI'], 'admin/' . $xoops->module->getInfo('help')) !== false) {
@@ -170,5 +173,3 @@ class XoopsGuiDefault
 
     }
 }
-
-?>

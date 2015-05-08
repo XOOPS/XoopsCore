@@ -9,11 +9,14 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * Blocks functions
  *
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
  * @version     $Id$
@@ -50,7 +53,7 @@ function b_system_main_show()
                 $block['nothome'] = true;
             }
              /* @var $plugin MenusPluginInterface */
-            if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
+            if ($xoops->isModule() && $module->getVar('dirname') == $xoops->module->getVar('dirname') && $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'menus')) {
                 $sublinks = $plugin->subMenus();
                 foreach ($sublinks as $sublink) {
                     $block['modules'][$i]['sublinks'][] = array(
@@ -70,12 +73,11 @@ function b_system_main_edit($options)
     $xoops = Xoops::getInstance();
     $system = System::getInstance();
     $system_module = new SystemModule();
-    $admin_page = new XoopsModuleAdmin();
+    $admin_page = new \Xoops\Module\Admin();
 
     // Define Stylesheet
     $xoops->theme()->addStylesheet('media/xoops/css/icons.css');
     $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-    $xoops->theme()->addStylesheet('media/jquery/ui/' . $xoops->getModuleConfig('jquery_theme', 'system') . '/ui.all.css');
     // Define scripts
     $xoops->theme()->addScript('media/jquery/plugins/jquery.jeditable.js');
     $xoops->theme()->addScript('modules/system/js/module.js');
@@ -84,5 +86,5 @@ function b_system_main_edit($options)
     $admin_page->renderTips();
     $list = $system_module->getModuleList();
     $xoops->tpl()->assign('modules_list', $list);
-    return $xoops->tpl()->fetch('admin:system|system_modules_menu.html');
+    return $xoops->tpl()->fetch('admin:system/system_modules_menu.tpl');
 }

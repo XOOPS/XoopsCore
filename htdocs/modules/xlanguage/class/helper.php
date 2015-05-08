@@ -10,17 +10,15 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('XOOPS root path not defined');
-
-class Xlanguage extends Xoops_Module_Helper_Abstract
+class Xlanguage extends Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -28,7 +26,9 @@ class Xlanguage extends Xoops_Module_Helper_Abstract
      * @return null|void
      */
     public function init()
-    {        if (XoopsLoad::fileExists($hnd_file = XOOPS_ROOT_PATH . '/modules/xlanguage/include/vars.php')) {            include_once $hnd_file;
+    {
+        if (XoopsLoad::fileExists($hnd_file = XOOPS_ROOT_PATH . '/modules/xlanguage/include/vars.php')) {
+            include_once $hnd_file;
         }
 
         if (XoopsLoad::fileExists($hnd_file = XOOPS_ROOT_PATH . '/modules/xlanguage/include/functions.php')) {
@@ -40,7 +40,7 @@ class Xlanguage extends Xoops_Module_Helper_Abstract
     /**
      * @return Xlanguage
      */
-    static function getInstance()
+    public static function getInstance()
     {
         return parent::getInstance();
     }

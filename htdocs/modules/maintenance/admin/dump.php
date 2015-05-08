@@ -13,14 +13,14 @@
  * maintenance extensions
  *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         maintenance
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 // Get main instance
 $system = System::getInstance();
 $xoops = Xoops::getInstance();
@@ -31,9 +31,9 @@ global $xoopsDB;
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 // Call Header
-$xoops->header('maintenance_dump.html');
+$xoops->header('admin:maintenance/maintenance_dump.tpl');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('dump.php');
 
 switch ($op) {
@@ -48,7 +48,7 @@ switch ($op) {
                 $file_arr[$count]['name'] = $filename;
                 $stat = stat($filename_path);
                 $file_arr[$count]['size'] = number_format($stat['size']/1024);
-                $count++;
+                ++$count;
                 unset($filename);
             }
         }
@@ -89,7 +89,7 @@ switch ($op) {
         $sql_text .= "# \n\n";
         if ($dump_tables != false) {
             $result_module = array();
-            for ($i = 0; $i < count($dump_tables); $i++) {
+            for ($i = 0; $i < count($dump_tables); ++$i) {
                 //structure
                 $result_tables[$i]['name'] = $db->prefix . '_' . $dump_tables[$i];
                 $result_structure = $dump->dump_table_structure($db->prefix . '_' . $dump_tables[$i], $drop);
@@ -104,7 +104,7 @@ switch ($op) {
         }
         if ($dump_modules != false) {
             $result_module = array();
-            for ($i = 0; $i < count($dump_modules); $i++) {
+            for ($i = 0; $i < count($dump_modules); ++$i) {
                 $module_handler = $xoops->getHandlerModule();
                 $module = $xoops->getModuleByDirname($dump_modules[$i]);
                 $result_module[$i]['name'] = ucfirst($dump_modules[$i]);
@@ -122,7 +122,7 @@ switch ($op) {
                         $result_data = $dump->dump_table_datas($db->prefix . '_' . $table);
                         $sql_text .= $result_data['sql_text'];
                         $result_tables[$count]['records'] = $result_data['records'];
-                        $count++;
+                        ++$count;
                     }
                     $result_module[$i]['table'] = $result_tables;
                 } else {

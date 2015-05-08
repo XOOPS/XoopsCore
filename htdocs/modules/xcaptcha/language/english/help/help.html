@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl modules/xcaptcha/css/help.css}>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'modules/xcaptcha/css/help.css'}>" />
 
 <div class="help span12 txtcenter">
     <div class="help-submenu floatright txtleft">
@@ -22,7 +22,7 @@
         <{if $module->getInfo('paypal')}>
             <form class="help-paypal" id="paypal-form" name="_xclick" action="https://www.paypal.com/fr/cgi-bin/webscr" method="post">
                 <input type="hidden" name="cmd" value="_xclick">
-                    <{foreachq from=$module->getInfo('paypal') item=value key=key}>
+                    <{foreach from=$module->getInfo('paypal') item=value key=key}>
                         <{if is_numeric($value)}>
                             <input type="hidden" name="<{$key}>" value=<{$value}>>
                         <{else}>

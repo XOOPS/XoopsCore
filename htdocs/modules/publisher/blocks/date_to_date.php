@@ -11,7 +11,7 @@
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @subpackage      Blocks
  * @since           1.0
@@ -22,7 +22,7 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
-include_once dirname(dirname(__FILE__)) . '/include/common.php';
+include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_date_to_date_show($options)
 {
@@ -32,8 +32,8 @@ function publisher_date_to_date_show($options)
     $block = array();
 
     $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('datesub',  strtotime($options[0]), '>'));
-    $criteria->add(new Criteria('datesub',  strtotime($options[1]), '<'));
+    $criteria->add(new Criteria('datesub', strtotime($options[0]), '>'));
+    $criteria->add(new Criteria('datesub', strtotime($options[1]), '<'));
     $criteria->setSort('datesub');
     $criteria->setOrder('DESC');
 
@@ -42,7 +42,7 @@ function publisher_date_to_date_show($options)
     $totalItems = count($itemsObj);
 
     if ($itemsObj) {
-        for ($i = 0; $i < $totalItems; $i++) {
+        for ($i = 0; $i < $totalItems; ++$i) {
 
             $newItems['itemid'] = $itemsObj[$i]->getVar('itemid');
             $newItems['title'] = $itemsObj[$i]->title();
@@ -73,11 +73,12 @@ function publisher_date_to_date_show($options)
  */
 function publisher_date_to_date_edit($options)
 {
-    $form = new PublisherBlockForm();
-    $fromEle = new XoopsFormCalendar(_MB_PUBLISHER_FROM,'options[0]', 15, strtotime($options[0]));
-    $fromEle->setNocolspan();
-    $untilEle = new XoopsFormCalendar(_MB_PUBLISHER_UNTIL,'options[1]', 15, strtotime($options[1]));
-    $untilEle->setNocolspan();
+    $form = new Xoops\Form\BlockForm();
+    // these were Xoops Form Calendar???
+    $fromEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_FROM, 'options[0]', 2, strtotime($options[0]));
+    //$fromEle->setNocolspan();
+    $untilEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_UNTIL, 'options[1]', 2, strtotime($options[1]));
+    //$untilEle->setNocolspan();
     $form->addElement($fromEle);
     $form->addElement($untilEle);
 
