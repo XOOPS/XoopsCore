@@ -3,6 +3,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 
 global $config;
 $config = null;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled

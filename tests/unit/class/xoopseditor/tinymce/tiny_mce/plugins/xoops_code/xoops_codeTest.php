@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__).'/../../../../../../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -8,29 +9,7 @@
 class Plugins_Xoops_codeTest extends \PHPUnit_Framework_TestCase
 {
     protected $buffer = null;
-    
-    public function __construct()
-    {
-        spl_autoload_register(array($this,'my_autoloader'),true,true);
-    }
-    
-    public function my_autoloader($class)
-    {
-        static $init_done;
-        
-        if ($class == 'Doctrine\DBAL\Query\Expression\ExpressionBuilder') {
-            require (dirname(__FILE__).'/../../../../../../MY_Doctrine/ExpressionBuilder.php');
-        } elseif ($class == 'Doctrine\DBAL\Query\QueryBuilder') {
-            require (dirname(__FILE__).'/../../../../../../MY_Doctrine/QueryBuilder.php');
-            require (dirname(__FILE__).'/../../../../../../MY_Doctrine/ResultStatement.php');
-            require (dirname(__FILE__).'/../../../../../../MY_Doctrine/Statement.php');
-        }
-        if ($init_done == null) {
-            $init_done = true;
-            require (dirname(__FILE__).'/../../../../../../init_new.php');
-        }
-    }
-    
+       
     public function output_callback($buffer, $flags)
     {
         $this->buffer = $buffer;

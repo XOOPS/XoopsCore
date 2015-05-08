@@ -208,8 +208,8 @@ class Logger implements LoggerInterface
                 str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
                 \XoopsBaseConfig::get('root-path'),
                 str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
-                \XoopsBaseConfig::get('test-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('test-path'))),
+                \XoopsBaseConfig::get('tests-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('tests-path'))),
             ),
             array(
                 '/',

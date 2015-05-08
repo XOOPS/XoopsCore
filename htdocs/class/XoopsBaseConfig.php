@@ -228,7 +228,7 @@ class XoopsBaseConfig
 			'trust-path' => $path . '/xoops_lib',
 			'url' => $url,
 			'protocol' => $protocol,
-			'tests-path' => 'DUMMY',
+			'tests-path' => $path . '/../tests',
 			'check-path' => 'DUMMY',
             
             'smarty-cache' => $path . '/xoops_data/caches/smarty_cache',
