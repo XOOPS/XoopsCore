@@ -356,7 +356,8 @@ class Xoops
     public function path($url, $virtual = false)
     {
         $url = str_replace('\\', '/', $url);
-        $url = str_replace(\XoopsBaseConfig::get('root-path'), '', $url);
+        $rootPath = str_replace('\\', '/', \XoopsBaseConfig::get('root-path'));
+        $url = str_replace($rootPath, '', $url);
         $url = ltrim($url, '/');
         $parts = explode('/', $url, 2);
         $root = isset($parts[0]) ? $parts[0] : '';
@@ -366,7 +367,7 @@ class Xoops
         }
         if (!$virtual) { // Returns a physical path
             $path = $this->paths[$root][0] . '/' . $path;
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+            //$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
             return $path;
         }
         return !isset($this->paths[$root][1]) ? '' : ($this->paths[$root][1] . '/' . $path);
