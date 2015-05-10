@@ -80,8 +80,8 @@ function xoops_module_install_tdmcreate($module)
 	
 	//Creation of the 'images/modules' folder in uploads
 	$modules = $images.'/modules';
-	$default = TDMC_ROOT_PATH.'/assets/images/default.png';
-	$naked   = TDMC_ROOT_PATH.'/assets/images/naked.png';
+	$default = TDMC_PATH.'/assets/images/default.png';
+	$naked   = TDMC_PATH.'/assets/images/naked.png';
 	if(!is_dir($modules)) {
 		mkdir($modules, 0777);
 		chmod($modules, 0777);
