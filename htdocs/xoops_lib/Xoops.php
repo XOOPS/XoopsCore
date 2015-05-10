@@ -356,11 +356,11 @@ class Xoops
     public function path($url, $virtual = false)
     {
         $url = $this->normalizePath($url);
-        $rootPath = $this->normalizePath(\XoopsBaseConfig::get('root-path'));
+        $rootPath = $this->normalizePath(\XoopsBaseConfig::get('root-path') . '/');
         if (0 === strpos($url, $rootPath)) {
-            $url = substr($url, strlen($rootpath));
+            $url = substr($url, strlen($rootPath));
         }
-        $url = ltrim($url, '/');
+        //$url = ltrim($url, '/');
         $parts = explode('/', $url, 2);
         $root = isset($parts[0]) ? $parts[0] : '';
         $path = isset($parts[1]) ? $parts[1] : '';
