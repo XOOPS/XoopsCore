@@ -303,9 +303,11 @@ class Assets
             );
             $asset_path = $asset->getTargetPath();
             if (!is_readable($target_path . $asset_path)) {
+                $xoops->events()->triggerEvent('debug.timer.start', array('writeAsset', $asset_path));
                 $oldumask = umask(0002);
                 $writer->writeAsset($asset);
                 umask($oldumask);
+                $xoops->events()->triggerEvent('debug.timer.stop', 'writeAsset');
             }
 
             return $xoops->url('assets/' . $asset_path);
@@ -335,7 +337,7 @@ class Assets
      * @param string       $name    the name of the reference to be added
      * @param mixed        $assets  a string asset path, or an array of asset paths,
      *                              may include wildcard
-     * @param string|array $filters either a comma separated list of known namsed filters
+     * @param string|array $filters either a comma separated list of known named filters
      *                              or an array of named filters and/or filter object
      *
      * @return boolean true if asset registers, false on error
