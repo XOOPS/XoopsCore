@@ -287,8 +287,7 @@ class Assets
             $translated_assets = array();
             foreach ($assets as $k => $v) {
                 // translate path if not a reference or absolute path
-                if ((substr_compare($v, '@', 0, 1) != 0)
-                    && (substr_compare($v, '/', 0, 1) != 0)) {
+                if (0 == preg_match("/^\\/|^\\\\|^[a-zA-Z]:|^@/", $v)) {
                     $v = $xoops->path($v);
                 }
                 if (!in_array($v, $translated_assets)) {

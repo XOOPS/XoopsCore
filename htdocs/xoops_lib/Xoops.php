@@ -355,9 +355,12 @@ class Xoops
      */
     public function path($url, $virtual = false)
     {
-        $url = str_replace('\\', '/', $url);
-        $url = str_replace(\XoopsBaseConfig::get('root-path'), '', $url);
-        $url = ltrim($url, '/');
+        $url = $this->normalizePath($url);
+        $rootPath = $this->normalizePath(\XoopsBaseConfig::get('root-path') . '/');
+        if (0 === strpos($url, $rootPath)) {
+            $url = substr($url, strlen($rootPath));
+        }
+        //$url = ltrim($url, '/');
         $parts = explode('/', $url, 2);
         $root = isset($parts[0]) ? $parts[0] : '';
         $path = isset($parts[1]) ? $parts[1] : '';
@@ -366,10 +369,22 @@ class Xoops
         }
         if (!$virtual) { // Returns a physical path
             $path = $this->paths[$root][0] . '/' . $path;
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+            //$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
             return $path;
         }
         return !isset($this->paths[$root][1]) ? '' : ($this->paths[$root][1] . '/' . $path);
+    }
+
+    /**
+     * Convert path separators to unix style
+     *
+     * @param string $path path to normalize
+     *
+     * @return string normalized path
+     */
+    public function normalizePath($path)
+    {
+        return str_replace('\\', '/', $path);
     }
 
     /**
