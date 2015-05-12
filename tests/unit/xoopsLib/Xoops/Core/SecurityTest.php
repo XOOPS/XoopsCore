@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../init_new.php');
 
 /**
  * PHPUnit special settings :
@@ -51,27 +51,28 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_createToken()
-    {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
-
-        $value = $instance->createToken();
-        $x = $_SESSION['XOOPS_TOKEN_SESSION'];
-        $token = array_pop($x);
-        $this->assertFalse(is_null($token));
-        $id = $token['id'];
-        $expire = $token['expire'];
-        $this->assertSame($id, $value);
-        unset($_SESSION['XOOPS_TOKEN_SESSION']);
-
-        $tkName = 'MY_TOKEN';
-        $value = $instance->createToken(1, $tkName);
-        $x = $_SESSION[$tkName.'_SESSION'];
-        $token = array_pop($x);
-        $this->assertFalse(is_null($token));
-        $id = $token['id'];
-        $this->assertSame($id, $value);
-        unset($_SESSION['MY_TOKEN_SESSION']);
+	{
+		$instance = new $this->myClass();
+		$this->assertInstanceOf($this->myClass, $instance);
+		
+		$value = $instance->createToken();
+		$x = $_SESSION['XOOPS_TOKEN_SESSION'];
+		$token = array_pop($x);
+		$this->assertFalse(is_null($token));
+		$id = $token['id'];
+		$expire = $token['expire'];
+        $db_prefix = \XoopsBaseConfig::get('db-prefix');
+		$this->assertSame(md5($id . $_SERVER['HTTP_USER_AGENT'] . $db_prefix), $value);
+		unset($_SESSION['XOOPS_TOKEN_SESSION']);
+		
+		$tkName = 'MY_TOKEN';
+		$value = $instance->createToken(1, $tkName);
+		$x = $_SESSION[$tkName.'_SESSION'];
+		$token = array_pop($x);
+		$this->assertFalse(is_null($token));
+		$id = $token['id'];
+		$this->assertSame(md5($id . $_SERVER['HTTP_USER_AGENT'] . $db_prefix), $value);
+		unset($_SESSION['MY_TOKEN_SESSION']);
     }
 
     public function test_validateToken()
@@ -156,9 +157,9 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
         $refSave = $_SERVER['HTTP_REFERER'];
 
-        $_SERVER['HTTP_REFERER'] = '';
-        $value = $instance->checkReferer();
-        $this->assertFalse($value);
+		$_SERVER['HTTP_REFERER'] = \XoopsBaseConfig::get('url');;
+		$value = $instance->checkReferer();
+		$this->assertTrue($value);	
 
         $_SERVER['HTTP_REFERER'] = 'dummy';
         $value = $instance->checkReferer();

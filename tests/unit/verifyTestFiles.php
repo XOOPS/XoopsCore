@@ -6,29 +6,30 @@ function verify($file, $path)
 {
 	$tmp = basename($file,'.php');
 	$path1 = str_replace('xoops_lib','xoopsLib',$path);
-	$pattern = dirname(__FILE__).DS.$path1.DS.$tmp.'*Test*.php';
+	$pattern = dirname(__FILE__). DIRECTORY_SEPARATOR .$path1. DIRECTORY_SEPARATOR .$tmp.'*Test*.php';
 	$founds = glob($pattern);
 	$ok = !empty($founds);
 	$tmp = $ok ? 'Test OK :' : 'Test not found : ';
-	if (!$ok) printf ("%s %s\n", $tmp, $path.DS.$file);
+	if (!$ok) printf ("%s %s\n", $tmp, $path. DIRECTORY_SEPARATOR .$file);
 }
 
 function browse($path=null)
 {
-	$root = XOOPS_ROOT_PATH.DS.$path;
+    $xoops_root_path = \XoopsBaseConfig::get('root-path');
+	$root = $xoops_root_path. DIRECTORY_SEPARATOR .$path;
 	$files = scandir($root);
 	foreach($files as $file) {
 		if ($file=='.' OR $file=='..') continue;
-		if (is_dir($root.DS.$file)) {
-			$path1 = $path.DS.$file;
+		if (is_dir($root. DIRECTORY_SEPARATOR .$file)) {
+			$path1 = $path. DIRECTORY_SEPARATOR .$file;
 			$excludes = array(
-                'xoops_lib'.DS.'vendor',
-                'xoops_lib'.DS.'smarty',
-                'xoops_lib'.DS.'Xmf',
-				'xoops_lib'.DS.'HTMLPurifier',
-                'class'.DS.'mail'.DS.'phpmailer',
-                'class'.DS.'xoopseditor'.DS.'tinymce',
-                'class'.DS.'xoopseditor'.DS.'tinymce4',
+                'xoops_lib'. DIRECTORY_SEPARATOR .'vendor',
+                'xoops_lib'. DIRECTORY_SEPARATOR .'smarty',
+                'xoops_lib'. DIRECTORY_SEPARATOR .'Xmf',
+				'xoops_lib'. DIRECTORY_SEPARATOR .'HTMLPurifier',
+                'class'. DIRECTORY_SEPARATOR .'mail'. DIRECTORY_SEPARATOR .'phpmailer',
+                'class'. DIRECTORY_SEPARATOR .'xoopseditor'. DIRECTORY_SEPARATOR .'tinymce',
+                'class'. DIRECTORY_SEPARATOR .'xoopseditor'. DIRECTORY_SEPARATOR .'tinymce4',
                 );
 			if (in_array($path1,$excludes)) continue;
 			browse($path1);

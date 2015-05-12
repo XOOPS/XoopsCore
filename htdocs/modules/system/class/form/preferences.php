@@ -98,7 +98,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
         } elseif ($mod->getInfo('adminindex')) {
             $this->addElement(new Xoops\Form\Hidden(
                 'redirect',
-                XOOPS_URL . '/modules/' . $mod->getVar('dirname') . '/' . $mod->getInfo('adminindex')
+                \XoopsBaseConfig::get('url') . '/modules/' . $mod->getVar('dirname') . '/' . $mod->getInfo('adminindex')
             ));
         }
         $count = count($obj);

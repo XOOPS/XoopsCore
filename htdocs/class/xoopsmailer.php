@@ -21,8 +21,6 @@
  * @deprecated      use {@link XoopsMultiMailer} instead.
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Class for sending mail.
  *
@@ -230,9 +228,9 @@ class XoopsMailer
     {
         $xoops = Xoops::getInstance();
         if (!$path = $this->templatedir) {
-            $path = XOOPS_ROOT_PATH . "/locale/";
+            $path = \XoopsBaseConfig::get('root-path') . "/locale/";
         } elseif (false === strpos($path, '/')) {
-            $path = XOOPS_ROOT_PATH . "/modules/" . $path . "/locale/";
+            $path = \XoopsBaseConfig::get('root-path') . "/modules/" . $path . "/locale/";
         } elseif (substr($path, -1, 1) != "/") {
             $path .= "/";
         }
@@ -366,7 +364,7 @@ class XoopsMailer
 
         $this->assign('X_ADMINMAIL', $xoops->getConfig('adminmail'));
         $this->assign('X_SITENAME', $xoops->getConfig('sitename'));
-        $this->assign('X_SITEURL', XOOPS_URL . "/");
+        $this->assign('X_SITEURL', \XoopsBaseConfig::get('url') . "/");
         // TODO: also X_ADMINNAME??
         // TODO: X_SIGNATURE, X_DISCLAIMER ?? - these are probably best
         // done as includes if mail templates ever get this sophisticated
@@ -401,7 +399,7 @@ class XoopsMailer
             $text = str_replace("{X_UID}", $user->getVar("uid"), $this->body);
             $text = str_replace("{X_UEMAIL}", $user->getVar("email"), $text);
             $text = str_replace("{X_UNAME}", $user->getVar("uname"), $text);
-            $text = str_replace("{X_UACTLINK}", XOOPS_URL . "/register.php?op=actv&id=" . $user->getVar("uid") . "&actkey=" . $user->getVar('actkey'), $text);
+            $text = str_replace("{X_UACTLINK}", \XoopsBaseConfig::get('url') . "/register.php?op=actv&id=" . $user->getVar("uid") . "&actkey=" . $user->getVar('actkey'), $text);
             // send mail
             if ($this->isMail) {
                 if (!$this->sendMail($user->getVar("email"), $subject, $text, $headers)) {

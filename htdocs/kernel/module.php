@@ -45,6 +45,9 @@ class XoopsModule extends XoopsObject
     * @var array
     */
     private $_msg = array();
+	
+	protected $xoops_url;
+	protected $xoops_root_path;
 
     /**
      * Constructor
@@ -65,6 +68,9 @@ class XoopsModule extends XoopsObject
         $this->initVar('hascomments', XOBJ_DTYPE_INT, 0, false);
         // RMV-NOTIFY
         $this->initVar('hasnotification', XOBJ_DTYPE_INT, 0, false);
+		
+		$this->xoops_url = \XoopsBaseConfig::get('url');
+		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }
 
     /**
@@ -167,7 +173,7 @@ class XoopsModule extends XoopsObject
     public function mainLink()
     {
         if ($this->getVar('hasmain') == 1) {
-            $ret = '<a href="' . XOOPS_URL . '/modules/' . $this->getVar('dirname') . '/">' . $this->getVar('name') . '</a>';
+            $ret = '<a href="' . $this->xoops_url . '/modules/' . $this->getVar('dirname') . '/">' . $this->getVar('name') . '</a>';
             return $ret;
         }
         return false;
@@ -196,9 +202,10 @@ class XoopsModule extends XoopsObject
      */
     public function loadAdminMenu()
     {
-        if ($this->getInfo('adminmenu') && $this->getInfo('adminmenu') != '' && XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $this->getInfo('dirname') . '/' . $this->getInfo('adminmenu'))) {
+		$file = $this->xoops_root_path . '/modules/' . $this->getInfo('dirname') . '/' . $this->getInfo('adminmenu');
+        if ($this->getInfo('adminmenu') && $this->getInfo('adminmenu') != '' && XoopsLoad::fileExists($file)) {
             $adminmenu = array();
-            include XOOPS_ROOT_PATH . '/modules/' . $this->getInfo('dirname') . '/' . $this->getInfo('adminmenu');
+            include $file;
             $this->adminmenu = $adminmenu;
         }
     }

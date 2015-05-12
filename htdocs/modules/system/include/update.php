@@ -22,8 +22,6 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * xoops_module_update_system
  *

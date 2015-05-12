@@ -11,7 +11,7 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
     protected $myclass='XoopsPrivmessageHandler';
 	protected $conn = null;
 
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }

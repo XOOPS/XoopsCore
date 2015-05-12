@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 define('_MD_COMMENTS_TITLE', 'Title');
 define('_MD_COMMENTS_MESSAGE', 'Message');
 define('_MD_COMMENTS_DOSMILEY', 'Enable Smiley Icons');

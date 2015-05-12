@@ -61,7 +61,7 @@ switch ($op) {
             $admin = true;
         }
         if ($access == false) {
-            $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         // Get start pager
         $start = Request::getInt('start', 0);
@@ -258,7 +258,7 @@ switch ($op) {
             $admin = true;
         }
         if ($access == false) {
-            $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $bid = Request::getInt('bid', 0);
         if ($bid > 0) {
@@ -273,7 +273,7 @@ switch ($op) {
             $xoops->tpl()->assign('form', $form->render());
             $xoops->footer();
         } else {
-            $xoops->redirect(XOOPS_URL, 1, _MD_BANNERS_INDEX_DBERROR);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, _MD_BANNERS_INDEX_DBERROR);
         }
         break;
 
@@ -293,7 +293,7 @@ switch ($op) {
             $admin = true;
         }
         if ($access == false) {
-            $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         if (!$xoops->security()->check()) {
             $xoops->redirect("index.php", 3, implode(",", $xoops->security()->getErrors()));
@@ -307,7 +307,7 @@ switch ($op) {
             foreach (array_keys($client_arr) as $i) {
                 if ($admin == false) {
                     if ($client_arr[$i]->getVar("uid") != $uid) {
-                        $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+                        $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                     }
                 }
             }
@@ -317,7 +317,7 @@ switch ($op) {
             }
             echo $xoops->alert('error', $obj->getHtmlErrors());
         } else {
-            $xoops->redirect(XOOPS_URL, 1, _MD_BANNERS_INDEX_NO_ID);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, _MD_BANNERS_INDEX_NO_ID);
         }
         break;
 
@@ -337,7 +337,7 @@ switch ($op) {
             $admin = true;
         }
         if ($access == false) {
-            $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $bid = Request::getInt('bid', 0);
         if ($bid > 0) {
@@ -348,7 +348,7 @@ switch ($op) {
             foreach (array_keys($client_arr) as $i) {
                 if ($admin == false) {
                     if ($client_arr[$i]->getVar("bannerclient_uid") != $uid) {
-                        $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+                        $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                     }
                 }
                 $client_uid = $client_arr[$i]->getVar("bannerclient_uid");
@@ -386,7 +386,7 @@ switch ($op) {
                 $xoops->redirect("index.php", 2, _MD_BANNERS_INDEX_NOMAIL);
             }
         } else {
-            $xoops->redirect(XOOPS_URL, 1, _MD_BANNERS_INDEX_NO_ID);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, _MD_BANNERS_INDEX_NO_ID);
         }
         break;
 
@@ -406,6 +406,6 @@ switch ($op) {
                 }
             }
         }
-        $xoops->redirect(XOOPS_URL, 3, _MD_BANNERS_INDEX_NO_ID);
+        $xoops->redirect(\XoopsBaseConfig::get('url'), 3, _MD_BANNERS_INDEX_NO_ID);
         break;
 }

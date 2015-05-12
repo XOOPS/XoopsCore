@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 class CodexMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {
     /**

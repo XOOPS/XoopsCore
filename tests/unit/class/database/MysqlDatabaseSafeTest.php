@@ -10,7 +10,7 @@ class XoopsMySQLDatabaseSafeTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsMySQLDatabaseSafe';
     
-    public function SetUp()
+    public function setUp()
 	{
     }
 	

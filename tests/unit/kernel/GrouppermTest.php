@@ -10,7 +10,7 @@ class GrouppermTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsGroupPerm';
     
-    public function SetUp()
+    public function setUp()
 	{
     }
     

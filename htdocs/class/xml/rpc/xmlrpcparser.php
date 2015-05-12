@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 /**
  * Class RSS Parser
  *

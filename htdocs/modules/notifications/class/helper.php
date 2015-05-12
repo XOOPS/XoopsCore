@@ -227,8 +227,8 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
 
             foreach ($events as $event) {
                 if ($event['category'] == $category_name) {
-                    if (!is_dir($dir = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/locale/' . $xoops->getConfig('locale') . '/templates/')) {
-                        $dir = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/locale/en_US/templates/';
+                    if (!is_dir($dir = \XoopsBaseConfig::get('root-path') . '/modules/' . $dirname . '/locale/' . $xoops->getConfig('locale') . '/templates/')) {
+                        $dir = \XoopsBaseConfig::get('root-path') . '/modules/' . $dirname . '/locale/en_US/templates/';
                     }
                     $event['mail_template_dir'] = $dir;
                     if (!$enabled_only || $this->eventEnabled($category, $event, $dirname)) {
@@ -253,8 +253,8 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
             if ($xoops->isActiveModule('comments') && $commentsPlugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments')) {
                 //todo replace this
                 if (!empty($category['item_name']) && $category['item_name'] == $commentsPlugin->itemName()) {
-                    if (!is_dir($dir = XOOPS_ROOT_PATH . '/locale/' . $xoops->getConfig('locale') . '/templates/')) {
-                        $dir = XOOPS_ROOT_PATH . '/locale/en_US/templates/';
+                    if (!is_dir($dir = \XoopsBaseConfig::get('root-path') . '/locale/' . $xoops->getConfig('locale') . '/templates/')) {
+                        $dir = \XoopsBaseConfig::get('root-path') . '/locale/en_US/templates/';
                     }
                     $mail_template_dir = $dir;
 

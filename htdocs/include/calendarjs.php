@@ -1,8 +1,8 @@
 <?php
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+$xoops_url = \XoopsBaseConfig::get('url');
 ?>
-<link rel="stylesheet" type="text/css" media="all" href="<?php echo XOOPS_URL;?>/include/calendar-blue.css"/>
-<script type="text/javascript" src="<?php echo XOOPS_URL . '/include/calendar.js';?>"></script>
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo $xoops_url;?>/include/calendar-blue.css"/>
+<script type="text/javascript" src="<?php echo $xoops_url . '/include/calendar.js';?>"></script>
 <script type="text/javascript">
     <!--
     var calendar = null;

@@ -10,7 +10,7 @@ class TplsetTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsTplset';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

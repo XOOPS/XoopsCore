@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 return $config = array(
     // Click to open an image in a new window in full size using CaricFoto
     'clickable' => 1,

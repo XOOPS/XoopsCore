@@ -44,7 +44,7 @@ class Helper
                     }
                 } else {
                     //Create Module Helper
-                    \Xoops::getInstance()->registry()->set('module_helper_id', $dirname);
+                    $xoops->registry()->set('module_helper_id', $dirname);
                     $class = \Xoops\Module\Helper\Dummy::getInstance();
                     $class->setDirname($dirname);
                     $modules[$dirname] = $class;

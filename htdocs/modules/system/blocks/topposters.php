@@ -41,7 +41,7 @@ function b_system_topposters_show($options)
     for ($i = 0; $i < $count; ++$i) {
         $block['users'][$i]['rank'] = $i + 1;
         if ($options[1] == 1) {
-            $block['users'][$i]['avatar'] = $topposters[$i]->getVar('user_avatar') != 'blank.gif' ? XOOPS_UPLOAD_URL . '/' . $topposters[$i]->getVar('user_avatar') : '';
+            $block['users'][$i]['avatar'] = $topposters[$i]->getVar('user_avatar') != 'blank.gif' ? \XoopsBaseConfig::get('uploads-url') . '/' . $topposters[$i]->getVar('user_avatar') : '';
         } else {
             $block['users'][$i]['avatar'] = '';
         }

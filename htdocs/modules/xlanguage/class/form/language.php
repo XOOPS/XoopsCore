@@ -48,13 +48,13 @@ class XlanguageLanguageForm extends Xoops\Form\ThemeForm
 
         // language image
         $image_option_tray = new Xoops\Form\ElementTray(_AM_XLANGUAGE_IMAGE, '');
-        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/');
+        $image_array = XoopsLists::getImgListAsArray(\XoopsBaseConfig::get('root-path') . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/');
         $image_select = new Xoops\Form\Select('', 'xlanguage_image', $obj->getVar('xlanguage_image'));
         $image_select->addOptionArray($image_array);
-        $image_select->setExtra("onchange='showImgSelected(\"image\", \"xlanguage_image\", \"/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/\", \"\", \"" . XOOPS_URL . "\")'");
+        $image_select->setExtra("onchange='showImgSelected(\"image\", \"xlanguage_image\", \"/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
         $image_tray = new Xoops\Form\ElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);
-        $image_tray->addElement(new Xoops\Form\Label('', "<div style='padding: 8px;'><img style='width:24px; height:24px; ' src='" . XOOPS_URL . "/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/" . $obj->getVar("xlanguage_image") . "' name='image' id='image' alt='' /></div>"));
+        $image_tray->addElement(new Xoops\Form\Label('', "<div style='padding: 8px;'><img style='width:24px; height:24px; ' src='" . \XoopsBaseConfig::get('url') . "/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/" . $obj->getVar("xlanguage_image") . "' name='image' id='image' alt='' /></div>"));
         $image_option_tray->addElement($image_tray);
         $this->addElement($image_option_tray);
 

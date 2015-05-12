@@ -110,7 +110,7 @@ class SelectUser extends ElementTray
         $action_tray->addElement(
             new Label(
                 '',
-                '<a href="#" onclick="openWithSelfMain(\'' . XOOPS_URL . '/include/findusers.php?target='
+                '<a href="#" onclick="openWithSelfMain(\'' . \XoopsBaseConfig::get('url') . '/include/findusers.php?target='
                 . $name . '&amp;multiple=' . $multiple . '&amp;token=' . $token
                 . '\', \'userselect\', 800, 600, null); return false;" >'
                 . \XoopsLocale::SEARCH_USERS . "</a>" . $js_addusers

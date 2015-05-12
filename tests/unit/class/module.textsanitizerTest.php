@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -15,8 +15,9 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
         $this->assertInstanceOf($this->myClass, $sanitizer);
-        $this->assertEquals(XOOPS_ROOT_PATH . '/class/textsanitizer', $sanitizer->path_basic);
-        $this->assertEquals(XOOPS_ROOT_PATH . '/Frameworks/textsanitizer', $sanitizer->path_plugin);
+        $xoops_root_path = XoopsBaseConfig::get('root-path');
+        $this->assertEquals($xoops_root_path . '/class/textsanitizer', $sanitizer->path_basic);
+        $this->assertEquals($xoops_root_path . '/Frameworks/textsanitizer', $sanitizer->path_plugin);
     }
 
     public function test_getinstance100()
@@ -111,10 +112,11 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 
         $text = '[siteurl="'.$host.'"]'.$site.'[/siteurl]';
         $message = $this->decode_check_level($sanitizer, $text);
-        $this->assertEquals('<a href="'.XOOPS_URL.'/'.$host.'" title="">'.$site.'</a>', $message);
+        $xoops_url = \XoopsBaseConfig::get('url');
+        $this->assertEquals('<a href="'.$xoops_url.'/'.$host.'" title="">'.$site.'</a>', $message);
         $text = '[siteurl=\''.$host.'\']'.$site.'[/siteurl]';
         $message = $this->decode_check_level($sanitizer, $text);
-        $this->assertEquals('<a href="'.XOOPS_URL.'/'.$host.'" title="">'.$site.'</a>', $message);
+        $this->assertEquals('<a href="'.$xoops_url.'/'.$host.'" title="">'.$site.'</a>', $message);
 
         $text = '[url="http://'.$host.'"]'.$site.'[/url]';
         $message = $this->decode_check_level($sanitizer, $text);

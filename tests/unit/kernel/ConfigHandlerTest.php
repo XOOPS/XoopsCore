@@ -10,7 +10,7 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsConfigHandler';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

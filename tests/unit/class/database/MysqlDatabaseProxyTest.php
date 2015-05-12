@@ -10,7 +10,7 @@ class XoopsMySQLDatabaseProxyTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsMySQLDatabaseProxy';
     
-    public function SetUp()
+    public function setUp()
 	{
     }
 	

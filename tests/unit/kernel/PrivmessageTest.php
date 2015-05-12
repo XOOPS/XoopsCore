@@ -10,7 +10,7 @@ class PrivmessageTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsPrivmessage';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

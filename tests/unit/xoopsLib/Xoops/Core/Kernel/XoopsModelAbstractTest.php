@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\XoopsModelAbstract;

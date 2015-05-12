@@ -56,14 +56,16 @@ class CacheManager
      */
     public function __construct()
     {
+        $this->xoops = \Xoops::getInstance();
         $defaults = $this->getDefaults();
-        $poolDefs = Yaml::readWrapped(\XoopsBaseConfig::get('var-path') . '/configs/cache.php');
+		$xoops_var_path = \XoopsBaseConfig::get('var-path');
+		$cache_file = $xoops_var_path . '/configs/cache.php';
+        $poolDefs = Yaml::readWrapped($cache_file);
         if (empty($poolDefs)) {
-            Yaml::saveWrapped($defaults, \XoopsBaseConfig::get('var-path') . '/configs/cache.php');
+            Yaml::saveWrapped($defaults, $cache_file);
         }
         $poolDefs = is_array($poolDefs) ? $poolDefs : array();
         $this->poolDefs = array_merge($defaults, $poolDefs);
-        $this->xoops = \Xoops::getInstance();
     }
 
     /**

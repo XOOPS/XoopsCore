@@ -63,7 +63,7 @@ class Permission extends AbstractHelper
     public function init()
     {
         if (!class_exists('XoopsGroupPermHandler', true)) {
-            Loader::loadFile(XOOPS_ROOT_PATH . '/kernel/groupperm.php');
+            Loader::loadFile(\XoopsBaseConfig::get('root-path') . '/kernel/groupperm.php');
         }
         $this->mid = $this->module->getVar('mid');
         $this->dirname = $this->module->getVar('dirname');

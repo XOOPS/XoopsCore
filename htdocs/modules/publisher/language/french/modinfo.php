@@ -188,7 +188,7 @@ define("_MI_PUBLISHER_PV_TEXTDSC", "Message qui sera affiché à la place du cor
 define("_MI_PUBLISHER_PV_TEXT_DEF", "Pour lire l'article complet, vous devez vous inscrire au site.");
 
 define("_MI_PUBLISHER_SEOMODNAME", "Nom du module pour l'URL Rewriting");
-define("_MI_PUBLISHER_SEOMODNAMEDSC", "Si l'URL Rewriting est activé définir le nom du module qui sera utilisé. Par exemple : \".XOOPS_URL.\"/publisher/...");
+define("_MI_PUBLISHER_SEOMODNAMEDSC", "Si l'URL Rewriting est activé définir le nom du module qui sera utilisé. Par exemple : \".\XoopsBaseConfig::get('url').\"/publisher/...");
 
 define("_MI_PUBLISHER_ARTCOUNT", "[OPTIONS] Afficher le nombre d'articles");
 define("_MI_PUBLISHER_ARTCOUNTDSC", "Choisissez 'Oui' pour afficher le nombre d'articles de chaque catégorie dans la table de sommaire des catégories. Veuillez noter que le module ne compte actuellement QUE les articles dans une catégorie et ne tient pas compte des articles des sous-catégories de la dite catégorie.");

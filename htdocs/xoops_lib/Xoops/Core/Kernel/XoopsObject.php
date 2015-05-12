@@ -434,7 +434,7 @@ abstract class XoopsObject
         $class = get_class($this);
         $modules_active = \Xoops::getInstance()->getActiveModules();
         if (is_array($modules_active)) foreach ($modules_active as $dirname) {
-            $file = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php';
+            $file = \XoopsBaseConfig::get('root-path') . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php';
             if (\XoopsLoad::fileExists($file)) {
                 include_once $file;
                 $function = $dirname . '_' . $class . '_' . $method;

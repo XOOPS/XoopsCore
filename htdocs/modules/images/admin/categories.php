@@ -117,7 +117,7 @@ switch ($op) {
                             if ($obj->getVar('imgcat_storetype') == 'db') {
                                 $helper->getHandlerImagesBody()->delete($helper->getHandlerImagesBody()->get($image->getVar('image_id')));
                             } else {
-                                unlink(XOOPS_UPLOAD_PATH . '/' . $image->getVar('image_name'));
+                                unlink(\XoopsBaseConfig::get('uploads-path') . '/' . $image->getVar('image_name'));
                             }
                         }
                     }

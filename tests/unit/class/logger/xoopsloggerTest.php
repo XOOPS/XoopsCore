@@ -1,5 +1,7 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../init_new.php');
+
+require_once(XOOPS_TU_ROOT_PATH . '/class/logger/xoopslogger.php');
 
 /**
 * PHPUnit special settings :

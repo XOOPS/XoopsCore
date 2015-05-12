@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("Restricted access");
-
 class PageLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
     // Module

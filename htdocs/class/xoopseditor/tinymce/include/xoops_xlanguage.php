@@ -11,8 +11,6 @@
  * @version         $Id$
  */
 
-if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
-
 $xoops = Xoops::getInstance();
 if ($xoops->isActiveModule('xlanguage')) {
     return true;

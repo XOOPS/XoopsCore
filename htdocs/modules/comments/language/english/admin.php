@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 // Manager
 //define("_AM_COMMENTS_NAV_MANAGER","Comment Management");
 //define("_AM_COMMENTS_NAV_MAIN","List");

@@ -48,11 +48,11 @@ class ColorPicker extends Text
         if ($xoops->theme()) {
             $xoops->theme()->addScript('include/color-picker.js');
         } else {
-            echo '<script type="text/javascript" src="' . XOOPS_URL . '/include/color-picker.js"></script>';
+            echo '<script type="text/javascript" src="' . \XoopsBaseConfig::get('url') . '/include/color-picker.js"></script>';
         }
         $this->setExtra(' style="background-color:' . $this->getValue() . ';"');
         return parent::render() . "<button class='btn' type='button' onclick=\"return TCP.popup('"
-            . XOOPS_URL . "/include/',document.getElementById('" . $this->getName() . "'));\"> ... </button>";
+            . \XoopsBaseConfig::get('url') . "/include/',document.getElementById('" . $this->getName() . "'));\"> ... </button>";
 
     }
 

@@ -172,9 +172,9 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
         $msg .= "\n";
         $from = new XoopsUser($pm->getVar("from_userid"));
         $to = new XoopsUser($pm->getVar("to_userid"));
-        $msg .= sprintf(_PM_EMAIL_FROM, $from->getVar("uname") . " (" . XOOPS_URL . "/userinfo.php?uid=" . $pm->getVar("from_userid") . ")");
+        $msg .= sprintf(_PM_EMAIL_FROM, $from->getVar("uname") . " (" . \XoopsBaseConfig::get('url') . "/userinfo.php?uid=" . $pm->getVar("from_userid") . ")");
         $msg .= "\n";
-        $msg .= sprintf(_PM_EMAIL_TO, $to->getVar("uname") . " (" . XOOPS_URL . "/userinfo.php?uid=" . $pm->getVar("to_userid") . ")");
+        $msg .= sprintf(_PM_EMAIL_TO, $to->getVar("uname") . " (" . \XoopsBaseConfig::get('url') . "/userinfo.php?uid=" . $pm->getVar("to_userid") . ")");
         $msg .= "\n";
         $msg .= _PM_EMAIL_MESSAGE . ":\n";
         $msg .= "\n" . $pm->getVar("subject") . "\n";
@@ -182,7 +182,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
                                                    "<p>", "</p>", "<br />", "<br />"
                                               ), "\n", $pm->getVar("msg_text"))) . "\n\n";
         $msg .= "--------------\n";
-        $msg .= $xoops->getConfig('sitename') . ": " . XOOPS_URL . "\n";
+        $msg .= $xoops->getConfig('sitename') . ": " . \XoopsBaseConfig::get('url') . "\n";
 
         $xoopsMailer = $xoops->getMailer();
         $xoopsMailer->useMail();

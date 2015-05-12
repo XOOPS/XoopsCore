@@ -81,7 +81,7 @@ class Legacy
         $cache = self::getCache();
         return $cache->write($key, $value, $ttl);
 
-        //$key = substr(md5(XOOPS_URL), 0, 8) . '_' . $key;
+        //$key = substr(md5(\XoopsBaseConfig::get('url')), 0, 8) . '_' . $key;
     }
 
     /**

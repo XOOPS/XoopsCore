@@ -19,15 +19,16 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+$root_path = \XoopsBaseConfig::get('root-path');
+$db_type = \XoopsBaseConfig::get('db-type');
 
-if( XoopsLoad::fileExists( XOOPS_ROOT_PATH.'/class/database/drivers/'.XOOPS_DB_TYPE.'/database.php' ) ) {
-    require_once XOOPS_ROOT_PATH.'/class/database/drivers/'.XOOPS_DB_TYPE.'/database.php';
+if( XoopsLoad::fileExists( $root_path.'/class/database/drivers/'.$db_type.'/database.php' ) ) {
+    require_once $root_path.'/class/database/drivers/'.$db_type.'/database.php';
 } else {
-    require_once XOOPS_ROOT_PATH.'/class/database/'.XOOPS_DB_TYPE.'database.php';
+    require_once $root_path.'/class/database/'.$db_type.'database.php';
 }
 
-require_once XOOPS_ROOT_PATH.'/class/database/database.php' ;
+require_once $root_path.'/class/database/database.php' ;
 
 class ProtectorMySQLDatabase extends XoopsMySQLDatabaseProxy
 {

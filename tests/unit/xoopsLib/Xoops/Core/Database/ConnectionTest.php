@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 
 use Doctrine\DBAL\Driver;
@@ -15,7 +15,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = '\Xoops\Core\Database\Connection';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 
@@ -74,11 +74,12 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myclass;
 		$x = $class::prefix('');
-		$this->assertSame(XOOPS_DB_PREFIX,$x);
+        $db_prefix = \XoopsBaseConfig::get('db-prefix');
+		$this->assertSame($db_prefix,$x);
 
 		$table = 'toto';
 		$x = $class::prefix($table);
-		$this->assertSame(XOOPS_DB_PREFIX.'_'.$table,$x);
+		$this->assertSame($db_prefix.'_'.$table,$x);
 	}
 
 	public function test_insertPrefix()

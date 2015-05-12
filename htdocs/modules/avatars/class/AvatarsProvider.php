@@ -25,6 +25,15 @@ use Xoops\Core\Service\Contract\AvatarInterface;
  */
 class AvatarsProvider extends AbstractContract implements AvatarInterface
 {
+	protected $xoops_url;
+	protected $xoops_upload_url;
+	
+    public function __construct()
+    {
+		$this->xoops_url = \XoopsBaseConfig::get('url');
+		$this->xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+    }
+	
     /**
      * getName - get a short name for this service provider. This should be unique within the
      * scope of the named service, so using module dirname is suggested.
@@ -76,13 +85,13 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                 if ($userinfo->getVar('user_avatar')
                     && 'blank.gif' != $userinfo->getVar('user_avatar')
                 ) {
-                    $response->setValue(XOOPS_UPLOAD_URL . "/" . $userinfo->getVar('user_avatar'));
+                    $response->setValue($this->xoops_upload_url . "/" . $userinfo->getVar('user_avatar'));
                 }
                 $noInfo = false;
             }
         } elseif (is_array($userinfo)) {
             if (!empty($userinfo['user_avatar']) && $userinfo['user_avatar'] != 'blank.gif') {
-                $response->setValue(XOOPS_UPLOAD_URL . "/" . $userinfo['user_avatar']);
+                $response->setValue($this->xoops_upload_url . "/" . $userinfo['user_avatar']);
                 $noInfo = false;
             }
         } elseif (is_scalar($userinfo)) {
@@ -91,7 +100,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                 if ($user->getVar('user_avatar')
                     && 'blank.gif' != $user->getVar('user_avatar')
                 ) {
-                    $response->setValue(XOOPS_UPLOAD_URL . "/" . $user->getVar('user_avatar'));
+                    $response->setValue($this->xoops_upload_url . "/" . $user->getVar('user_avatar'));
                 }
                 $noInfo = false;
             }
@@ -113,7 +122,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     {
         $noInfo = true;
         if (is_a($userinfo, 'XoopsUser')) {
-            $link = XOOPS_URL . '/modules/avatars/editavatar.php';
+            $link = $this->xoops_url . '/modules/avatars/editavatar.php';
             $response->setValue($link);
             $noInfo = false;
         }

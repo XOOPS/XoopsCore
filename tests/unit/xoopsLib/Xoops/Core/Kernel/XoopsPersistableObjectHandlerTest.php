@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init.php');
+require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Xoops\Core\Kernel\Criteria;
@@ -27,7 +27,7 @@ class XoopsPersistableObjectHandlerTest extends \PHPUnit_Framework_TestCase
 	protected $myClass = 'XoopsPersistableObjectHandlerTestInstance';
 	protected $conn = null;
 	
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = \Xoops\Core\Database\Factory::getConnection();
     }

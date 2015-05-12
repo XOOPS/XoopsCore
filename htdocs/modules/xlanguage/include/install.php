@@ -24,7 +24,7 @@
 function xoops_module_install_xlanguage(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
-    xlanguage_mkdirs($xoops->path(XOOPS_VAR_PATH) . '/configs/xlanguage');
+    xlanguage_mkdirs($xoops->path(\XoopsBaseConfig::get('var-path')) . '/configs/xlanguage');
 
     return true;
 }
@@ -46,10 +46,10 @@ function xoops_module_update_xlanguage(XoopsModule $module, $version)
  *
  * @return bool
  */
-function xlanguage_mkdirs($pathname, $pathout = XOOPS_ROOT_PATH)
+function xlanguage_mkdirs($pathname, $pathout = \XoopsBaseConfig::get('root-path'))
 {
     $xoops = Xoops::getInstance();
-    $pathname = substr($pathname, strlen(XOOPS_ROOT_PATH));
+    $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
     $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
     $dest = $pathout;

@@ -24,7 +24,7 @@
 if (!defined('XOOPS_MAINFILE_INCLUDED')) {
     include_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
 } else {
-    chdir(XOOPS_ROOT_PATH . '/modules/pm/');
+    chdir(\XoopsBaseConfig::get('root-path') . '/modules/pm/');
 }
 $xoops = Xoops::getInstance();
 $xoops->loadLanguage('main', 'pm');
@@ -55,7 +55,7 @@ if (empty($_GET['refresh']) && isset($_POST['op']) && $_POST['op'] != "submit") 
 }
 
 if (!$xoops->isUser()) {
-    $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect(\XoopsBaseConfig::get('url'), 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 $xoops->simpleHeader();
 $xoops->disableErrorReporting();
@@ -94,7 +94,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
                 // @todo: Send notification email if user has selected this in the profile
                 $info_message = _PM_MESSAGEPOSTED;
                 $info_message .= "<br />";
-                $info_message .= "<br /><a href=\"javascript:window.opener.location='" . XOOPS_URL . "/viewpmsg.php';window.close();\">" . _PM_CLICKHERE . "</a>";
+                $info_message .= "<br /><a href=\"javascript:window.opener.location='" . \XoopsBaseConfig::get('url') . "/viewpmsg.php';window.close();\">" . _PM_CLICKHERE . "</a>";
                 $info_message .= "<br /><br /><a href=\"javascript:window.close();\">" . _PM_ORCLOSEWINDOW . "</a>";
                 $tpl->assign('info_message', $info_message);
             }

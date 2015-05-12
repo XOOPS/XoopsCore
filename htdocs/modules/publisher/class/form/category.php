@@ -109,7 +109,7 @@ class PublisherCategoryForm extends Xoops\Form\ThemeForm
         $image_select = new Xoops\Form\Select('', 'image', $obj->image());
         //$image_select -> addOption ('-1', '---------------');
         $image_select->addOptionArray($image_array);
-        $image_select->setExtra("onchange='showImgSelected(\"image3\", \"image\", \"" . 'uploads/' . PUBLISHER_DIRNAME . '/images/category/' . "\", \"\", \"" . XOOPS_URL . "\")'");
+        $image_select->setExtra("onchange='showImgSelected(\"image3\", \"image\", \"" . 'uploads/' . PUBLISHER_DIRNAME . '/images/category/' . "\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
         $image_tray = new Xoops\Form\ElementTray(_AM_PUBLISHER_IMAGE, '&nbsp;');
         $image_tray->addElement($image_select);
         $image_tray->addElement(new Xoops\Form\Label('', "<br /><br /><img src='" . PublisherUtils::getImageDir('category', false) . $obj->image() . "' name='image3' id='image3' alt='' />"));

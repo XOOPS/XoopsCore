@@ -102,7 +102,7 @@ class XoopsFolderHandler
     public function __construct($path = '', $create = true, $mode = false)
     {
         if (empty($path)) {
-            $path = XOOPS_VAR_PATH . '/caches/xoops_cache';
+            $path = \XoopsBaseConfig::get('var-path') . '/caches/xoops_cache';
         }
         if ($mode) {
             $this->mode = intval($mode, 8);
@@ -367,7 +367,8 @@ class XoopsFolderHandler
      */
     public function inXoopsPath($path = '')
     {
-        $dir = substr($this->slashTerm(XOOPS_ROOT_PATH), 0, -1);
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $dir = substr($this->slashTerm($xoops_root_path), 0, -1);
         $newdir = $dir . $path;
         return $this->inPath($newdir);
     }

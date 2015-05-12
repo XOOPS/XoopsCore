@@ -10,7 +10,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsUser';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

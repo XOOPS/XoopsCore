@@ -16,8 +16,9 @@ class Wiki_ConfigTest extends \PHPUnit_Framework_TestCase
     {
 		global $config;
 		
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
 		ob_start();
-		require(XOOPS_ROOT_PATH.'/class/textsanitizer/wiki/config.php');
+		require($xoops_root_path.'/class/textsanitizer/wiki/config.php');
 		$x = ob_get_clean();
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['link']));

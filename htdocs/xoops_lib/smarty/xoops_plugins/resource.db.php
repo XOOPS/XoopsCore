@@ -92,16 +92,16 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         // Construct template path
         switch ($type) {
             case 'block':
-                $directory = XOOPS_THEME_PATH;
+                $directory = \XoopsBaseConfig::get('themes-path');
                 $path = 'blocks/';
                 break;
             case 'admin':
                 $theme = isset($xoopsConfig['cpanel']) ? $xoopsConfig['cpanel'] : 'default';
-                $directory = XOOPS_ADMINTHEME_PATH;
+                $directory = \XoopsBaseConfig::get('adminthemes-path');
                 $path = 'admin/';
                 break;
             default:
-                $directory = XOOPS_THEME_PATH;
+                $directory = \XoopsBaseConfig::get('themes-path');
                 $path = '';
                 break;
         }
@@ -109,7 +109,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         $filepath = $directory . "/{$theme}/modules/{$module}/{$path}{$tpl_name}";
         if (!file_exists($filepath)) {
             // If no custom version exists, get the tpl from its default location
-            $filepath = XOOPS_ROOT_PATH . "/modules/{$module}/templates/{$path}{$tpl_name}";
+            $filepath = \XoopsBaseConfig::get('root-path') . "/modules/{$module}/templates/{$path}{$tpl_name}";
             if (!file_exists($filepath)) {
                 return $cache[$tpl_name] = $tplobj ;
             }

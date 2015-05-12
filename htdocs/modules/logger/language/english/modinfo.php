@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 define('_MI_LOGGER_NAME','Logger');
 define('_MI_LOGGER_DSC','Legacy style error reporting and performance analysis');
 

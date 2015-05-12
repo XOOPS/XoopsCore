@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("Restricted access");
-
 /**
  * Naming conventions
  * - All translations must be enclosed with ""

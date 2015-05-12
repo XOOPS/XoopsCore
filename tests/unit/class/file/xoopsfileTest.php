@@ -1,5 +1,7 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../init_new.php');
+
+require_once(XOOPS_TU_ROOT_PATH . '/class/file/xoopsfile.php');
 
 /**
 * PHPUnit special settings :
@@ -25,7 +27,7 @@ class XoopsFileTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($instance);
 		
 		unset($instance);
-		$file = dirname(__FILE__).DS.'dummy.txt';
+		$file = dirname(__FILE__). DIRECTORY_SEPARATOR .'dummy.txt';
 		$instance = $class::getHandler('file',$file);
 		$this->assertInstanceOf('XoopsFileHandler', $instance);
 		$this->assertFalse(file_exists($file));
@@ -33,7 +35,7 @@ class XoopsFileTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(dirname($file),$instance->folder->path);
 		
 		unset($instance);
-		$file = dirname(__FILE__).DS.'dummy.txt';
+		$file = dirname(__FILE__). DIRECTORY_SEPARATOR .'dummy.txt';
 		$instance = $class::getHandler('file',$file,true);
 		$this->assertInstanceOf('XoopsFileHandler', $instance);
 		$this->assertTrue(file_exists($file));
@@ -42,7 +44,7 @@ class XoopsFileTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(@unlink($file));
 		
 		unset($instance);
-		$file = dirname(__FILE__).DS.'dummy.txt';
+		$file = dirname(__FILE__). DIRECTORY_SEPARATOR .'dummy.txt';
 		$mode = '0731';
 		$instance = $class::getHandler('file',$file,false,$mode);
 		$this->assertInstanceOf('XoopsFileHandler', $instance);

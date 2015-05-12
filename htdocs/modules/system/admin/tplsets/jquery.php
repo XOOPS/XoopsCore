@@ -41,7 +41,7 @@ switch ($op) {
     // Display tree folder
     case "tpls_display_folder":
         $_REQUEST['dir'] = urldecode($_REQUEST['dir']);
-        $root = XOOPS_THEME_PATH;
+        $root = \XoopsBaseConfig::get('themes-path');
         if (XoopsLoad::fileExists($root . $_REQUEST['dir'])) {
             $files = scandir($root . $_REQUEST['dir']);
             natcasesort($files);
@@ -80,7 +80,7 @@ switch ($op) {
         break;
     // Edit File
     case 'tpls_edit_file':
-        $path_file = realpath(XOOPS_ROOT_PATH . '/themes' . trim($_REQUEST['path_file']));
+        $path_file = realpath(\XoopsBaseConfig::get('root-path') . '/themes' . trim($_REQUEST['path_file']));
         $path_file = str_replace('\\', '/', $path_file);
 
         //Button restore
@@ -129,7 +129,7 @@ switch ($op) {
         $extensions = array('.tpl', '.html', '.htm', '.css');
 
         //check if the file is inside themes directory
-        $valid_dir = stristr(realpath($_REQUEST['path_file']), realpath(XOOPS_ROOT_PATH . '/themes'));
+        $valid_dir = stristr(realpath($_REQUEST['path_file']), realpath(\XoopsBaseConfig::get('root-path') . '/themes'));
 
         $old_file = $_REQUEST['path_file'] . '.back';
         $new_file = $_REQUEST['path_file'];

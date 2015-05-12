@@ -59,19 +59,19 @@ function b_comments_show($options)
     $comment_config = array();
     foreach (array_keys($comments) as $i) {
         $mid = $comments[$i]->getVar('modid');
-        $com['module'] = '<a href="' . XOOPS_URL . '/modules/' . $modules[$mid]->getVar('dirname') . '/">' . $modules[$mid]->getVar('name') . '</a>';
+        $com['module'] = '<a href="' . \XoopsBaseConfig::get('url') . '/modules/' . $modules[$mid]->getVar('dirname') . '/">' . $modules[$mid]->getVar('name') . '</a>';
         if (!isset($comment_config[$mid])) {
             $comment_config[$mid] = \Xoops\Module\Plugin::getPlugin($modules[$mid]->getVar('dirname'), 'comments');
         }
         $com['id'] = $i;
-        $com['title'] = '<a href="' . XOOPS_URL . '/modules/' . $modules[$mid]->getVar('dirname') . '/' . $comment_config[$mid]->pageName() . '?' . $comment_config[$mid]->itemName() . '=' . $comments[$i]->getVar('itemid') . '&amp;com_id=' . $i . '&amp;com_rootid=' . $comments[$i]->getVar('rootid') . '&amp;' . htmlspecialchars($comments[$i]->getVar('exparams')) . '#comment' . $i . '">' . $comments[$i]->getVar('title') . '</a>';
+        $com['title'] = '<a href="' . \XoopsBaseConfig::get('url') . '/modules/' . $modules[$mid]->getVar('dirname') . '/' . $comment_config[$mid]->pageName() . '?' . $comment_config[$mid]->itemName() . '=' . $comments[$i]->getVar('itemid') . '&amp;com_id=' . $i . '&amp;com_rootid=' . $comments[$i]->getVar('rootid') . '&amp;' . htmlspecialchars($comments[$i]->getVar('exparams')) . '#comment' . $i . '">' . $comments[$i]->getVar('title') . '</a>';
         $com['icon'] = htmlspecialchars($comments[$i]->getVar('icon'), ENT_QUOTES);
         $com['icon'] = ($com['icon'] != '') ? $com['icon'] : 'icon1.gif';
         $com['time'] = XoopsLocale::formatTimestamp($comments[$i]->getVar('created'), 'm');
         if ($comments[$i]->getVar('uid') > 0) {
             $poster = $member_handler->getUser($comments[$i]->getVar('uid'));
             if (is_object($poster)) {
-                $com['poster'] = '<a href="' . XOOPS_URL . '/userinfo.php?uid=' . $comments[$i]->getVar('uid') . '">' . $poster->getVar('uname') . '</a>';
+                $com['poster'] = '<a href="' . \XoopsBaseConfig::get('url') . '/userinfo.php?uid=' . $comments[$i]->getVar('uid') . '">' . $poster->getVar('uname') . '</a>';
             } else {
                 $com['poster'] = $xoops->getConfig('anonymous');
             }

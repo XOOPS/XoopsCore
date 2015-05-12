@@ -10,7 +10,7 @@ class XoopsDatabaseManagerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsDatabaseManager';
     
-    public function SetUp()
+    public function setUp()
 	{
 		global $xoopsDB;
 		$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);

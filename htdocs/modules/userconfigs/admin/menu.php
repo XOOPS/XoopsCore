@@ -15,8 +15,6 @@
  * @version         $Id: menu.php 8065 2011-11-06 02:02:32Z beckmi $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 // get path to icons
 $pathIcon32='';
 if (class_exists('Xmf\Module\Admin', true)) {

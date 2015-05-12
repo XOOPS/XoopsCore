@@ -36,8 +36,8 @@ $xoops->theme()->addScript('modules/system/js/admin.js');
 $i = 0;
 // XOOPS_ROOT_PATH
 // calculate the relative path between XOOPS_ROOT_PATH and XOOPS_TRUST_PATH
-$root_paths = explode('/', XOOPS_ROOT_PATH);
-$trust_paths = explode('/', XOOPS_TRUST_PATH);
+$root_paths = explode('/', \XoopsBaseConfig::get('root-path'));
+$trust_paths = explode('/', \XoopsBaseConfig::get('trust-path'));
 foreach ($root_paths as $i => $rpath) {
     if ($rpath != $trust_paths[$i]) {
         break;
@@ -47,7 +47,7 @@ $relative_path = str_repeat('../', count($root_paths) - $i) . implode('/', array
 $security_arr[$i]['id'] = $i + 1;
 $security_arr[$i]['type'] = 'XOOPS_TRUST_PATH';
 $security_arr[$i]['status'] = '-';
-$security_arr[$i]['info'] = "<img src='" . XOOPS_URL . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.png' width='40' height='20' alt='' style='border:1px solid black;' /> <a href='" . XOOPS_URL . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.php'>" . _AM_ADV_TRUSTPATHPUBLICLINK . "</a>";
+$security_arr[$i]['info'] = "<img src='" . \XoopsBaseConfig::get('url') . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.png' width='40' height='20' alt='' style='border:1px solid black;' /> <a href='" . \XoopsBaseConfig::get('url') . '/' . htmlspecialchars($relative_path) . "/modules/protector/public_check.php'>" . _AM_ADV_TRUSTPATHPUBLICLINK . "</a>";
 $security_arr[$i]['text'] = _AM_ADV_TRUSTPATHPUBLIC;
 ++$i;
 
@@ -62,7 +62,7 @@ if ($safe) {
     $security_arr[$i]['status'] = '0';
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>register_globals: on</span>";
 }
-$security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br /><br />" . XOOPS_ROOT_PATH . "/.htaccess<br /><br />" . _AM_ADV_REGISTERGLOBALS2 . "<br /><br /><b>php_flag &nbsp; register_globals &nbsp; off</b>";
+$security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br /><br />" . \XoopsBaseConfig::get('root-path') . "/.htaccess<br /><br />" . _AM_ADV_REGISTERGLOBALS2 . "<br /><br /><b>php_flag &nbsp; register_globals &nbsp; off</b>";
 ++$i;
 
 // allow_url_fopen
@@ -94,15 +94,15 @@ $security_arr[$i]['text'] = _AM_ADV_USETRANSSID;
 ++$i;
 
 // XOOPS_DB_PREFIX
-$safe = strtolower(XOOPS_DB_PREFIX) != 'xoops';
+$safe = strtolower(\XoopsBaseConfig::get('db-prefix')) != 'xoops';
 $security_arr[$i]['id'] = $i + 1;
 $security_arr[$i]['type'] = 'XOOPS_DB_PREFIX';
 if ($safe) {
     $security_arr[$i]['status'] = '1';
-    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>XOOPS_DB_PREFIX: " . XOOPS_DB_PREFIX . "</span>";
+    $security_arr[$i]['info'] = "<span style='color:green;font-weight:bold;'>XOOPS_DB_PREFIX: " . \XoopsBaseConfig::get('db-prefix') . "</span>";
 } else {
     $security_arr[$i]['status'] = '0';
-    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>XOOPS_DB_PREFIX: " . XOOPS_DB_PREFIX . "</span>&nbsp;<a href='prefix_manager.php'>" . _AM_ADV_LINK_TO_PREFIXMAN . "</a>";
+    $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>XOOPS_DB_PREFIX: " . \XoopsBaseConfig::get('db-prefix') . "</span>&nbsp;<a href='prefix_manager.php'>" . _AM_ADV_LINK_TO_PREFIXMAN . "</a>";
 }
 $security_arr[$i]['text'] = _AM_ADV_DBPREFIX;
 ++$i;
@@ -145,11 +145,11 @@ foreach (array_keys($security_arr) as $i) {
 }
 
 // Check contaminations
-$uri_contami = XOOPS_URL . "/index.php?xoopsConfig%5Bnocommon%5D=1";
+$uri_contami = \XoopsBaseConfig::get('url') . "/index.php?xoopsConfig%5Bnocommon%5D=1";
 $xoops->tpl()->assign('uri_contami', $uri_contami);
 
 // Check isolated comments
-$uri_isocom = XOOPS_URL . "/index.php?cid=" . urlencode(",password /*");
+$uri_isocom = \XoopsBaseConfig::get('url') . "/index.php?cid=" . urlencode(",password /*");
 $xoops->tpl()->assign('uri_isocom', $uri_isocom);
 
 $xoops->footer();

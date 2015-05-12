@@ -64,7 +64,7 @@ switch ($op) {
     case 'users_edit':
         // Assign Breadcrumb menu
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::EDIT_USER);
         $admin_page->renderBreadcrumb();
@@ -79,7 +79,7 @@ switch ($op) {
     case 'users_add':
         // Assign Breadcrumb menu
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::ADD_USER);
         $admin_page->renderBreadcrumb();
@@ -93,7 +93,7 @@ switch ($op) {
     case 'users_delete':
         // Assign Breadcrumb menu
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
         $admin_page->addBreadcrumbLink(SystemLocale::DELETE_USER);
         $admin_page->renderBreadcrumb();
@@ -356,7 +356,7 @@ switch ($op) {
         if (isset($_REQUEST['complet_search'])) {
             // Assign Breadcrumb menu
             $admin_page = new \Xoops\Module\Admin();
-            $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+            $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::ADVANCED_SEARCH);
             $admin_page->renderBreadcrumb();
@@ -477,7 +477,7 @@ switch ($op) {
             //Display data
             // Assign Breadcrumb menu
             $admin_page = new \Xoops\Module\Admin();
-            $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+            $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
             $admin_page->addBreadcrumbLink(SystemLocale::USERS_MANAGEMENT, $system->adminVersion('users', 'adminpath'));
             $admin_page->addBreadcrumbLink(XoopsLocale::LIST_);
             $admin_page->renderBreadcrumb();
@@ -770,11 +770,11 @@ switch ($op) {
                     //Display group
                     if (in_array($users['uid'], $ListOfAdmins)) {
                         $users['group'] = system_AdminIcons('xoops/group_1.png');
-                        //$users['icon'] = '<img src="'.XOOPS_URL.'/modules/system/images/icons/admin.png" alt="'._AM_SYSTEM_USERS_ADMIN.'" title="'._AM_SYSTEM_USERS_ADMIN.'" />';
+                        //$users['icon'] = '<img src="'.\XoopsBaseConfig::get('url').'/modules/system/images/icons/admin.png" alt="'._AM_SYSTEM_USERS_ADMIN.'" title="'._AM_SYSTEM_USERS_ADMIN.'" />';
                         $users['checkbox_user'] = false;
                     } else {
                         $users['group'] = system_AdminIcons('xoops/group_2.png');
-                        //$users['icon'] = '<img src="'.XOOPS_URL.'/modules/system/images/icons/user.png" alt="'._AM_SYSTEM_USERS_USER.'" title="'._AM_SYSTEM_USERS_USER.'" />';
+                        //$users['icon'] = '<img src="'.\XoopsBaseConfig::get('url').'/modules/system/images/icons/user.png" alt="'._AM_SYSTEM_USERS_USER.'" title="'._AM_SYSTEM_USERS_USER.'" />';
                         $users['checkbox_user'] = true;
                     }
                     $users['name'] = $user->getVar("uid");

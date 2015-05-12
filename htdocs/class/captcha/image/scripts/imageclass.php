@@ -76,12 +76,18 @@ class XoopsCaptchaImageHandler
     public $oImage;
 
     /**
+     * @var string
+     */
+    protected $xoops_root_path;
+	
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->captcha_handler = XoopsCaptcha::getInstance();
         $this->config = $this->captcha_handler->loadConfig("image");
+		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }
 
     /**
@@ -134,7 +140,7 @@ class XoopsCaptchaImageHandler
     {
         if ($this->invalid) {
             header("Content-type: image/gif");
-            readfile(XOOPS_ROOT_PATH . "/images/subject/icon2.gif");
+            readfile($this->xoops_root_path . "/images/subject/icon2.gif");
             return false;
         }
 
@@ -159,7 +165,7 @@ class XoopsCaptchaImageHandler
             return $items;
         }
         ;
-        $file_path = XOOPS_ROOT_PATH . "/class/captcha/image/{$name}";
+        $file_path = $this->xoops_root_path . "/class/captcha/image/{$name}";
         $files = XoopsLists::getFileListAsArray($file_path);
         foreach ($files as $item) {
             if (empty($extension) || preg_match("/(\.{$extension})$/i", $item)) {
@@ -230,7 +236,7 @@ class XoopsCaptchaImageHandler
     public function loadFont()
     {
         $fonts = $this->getList("fonts", "ttf");
-        $this->font = XOOPS_ROOT_PATH . "/class/captcha/image/fonts/" . $fonts[array_rand($fonts)];
+        $this->font = $this->xoops_root_path . "/class/captcha/image/fonts/" . $fonts[array_rand($fonts)];
     }
 
     /**
@@ -274,7 +280,7 @@ class XoopsCaptchaImageHandler
     {
         $RandBackground = null;
         if ($backgrounds = $this->getList("backgrounds", "(gif|jpg|png)")) {
-            $RandBackground = XOOPS_ROOT_PATH . "/class/captcha/image/backgrounds/" . $backgrounds[array_rand($backgrounds)];
+            $RandBackground = $this->xoops_root_path . "/class/captcha/image/backgrounds/" . $backgrounds[array_rand($backgrounds)];
         }
         return $RandBackground;
     }

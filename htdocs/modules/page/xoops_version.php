@@ -97,7 +97,7 @@ $modversion['blocks'][$i]['template']    = 'page_blocks_id.tpl';
 
 // Preferences
 $i                                       = 0;
-$editors                                 = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
+$editors                                 = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
 $modversion['config'][$i]['name']        = 'page_editor';
 $modversion['config'][$i]['title']       = PageLocale::CONF_EDITOR;
 $modversion['config'][$i]['description'] = '';

@@ -21,25 +21,15 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 if (!function_exists('xoopseditor_get_rootpath')) {
     /**
      * @return string
      */
     function xoopseditor_get_rootpath()
     {
-        return XOOPS_ROOT_PATH . '/class/xoopseditor';
+        return \XoopsBaseConfig::get('root-path') . '/class/xoopseditor';
     }
-}
-if (defined('XOOPS_ROOT_PATH')) {
-    return true;
 }
 
 $mainfile = dirname(dirname(__DIR__)) . '/mainfile.php';
-if (DIRECTORY_SEPARATOR != '/') {
-    $mainfile = str_replace(DIRECTORY_SEPARATOR, '/', $mainfile);
-}
-include $mainfile;
-
-return defined('XOOPS_ROOT_PATH');
+require $mainfile;

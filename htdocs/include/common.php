@@ -14,14 +14,12 @@
  * @package   kernel
  */
 
-use Xoops\Core\FixedGroups;
-
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
  * no update yet, so only only new installs get the change in mainfile.dist.php
  * automatically.
  *
- * Temorarily try and fix, but set up a (delayed) warning
+ * Temporarily try and fix, but set up a (delayed) warning
  */
 if (!class_exists('XoopsLoad', false)) {
     require_once dirname(__DIR__). '/class/XoopsBaseConfig.php';
@@ -45,7 +43,7 @@ defined('NWLINE')or define('NWLINE', "\n");
  * Include files with definitions
  */
 include_once __DIR__ . '/defines.php';
-include_once __DIR__ . '/version.php';
+// include_once __DIR__ . '/version.php';
 
 /**
  * We now have autoloader, so start Patchwork\UTF8
@@ -85,6 +83,21 @@ $xoops->events()->triggerEvent('core.include.common.security');
 $xoopsSecurity = $xoops->security();
 
 /**
+ * Check Proxy;
+ * Requires functions
+ */
+
+if (!defined('XOOPS_XMLRPC')) {
+    define('XOOPS_DB_CHKREF', 1);
+} else {
+    define('XOOPS_DB_CHKREF', 0);
+}
+
+if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
+    define ('XOOPS_DB_PROXY', 1);
+}
+
+/**
  * Get database for making it global
  * Will also setup $xoopsDB for legacy support.
  * Requires XOOPS_DB_PROXY;
@@ -108,12 +121,15 @@ if (isset($delayedWarning)) {
 include_once $xoops->path('include/functions.php');
 
 /**
- * Check Proxy;
- * Requires functions
+ * YOU SHOULD NEVER USE THE FOLLOWING CONSTANT, IT WILL BE REMOVED
  */
-if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoops->security()->checkReferer(XOOPS_DB_CHKREF)) {
-    define('XOOPS_DB_PROXY', 1);
-}
+/**
+ * Set cookie domain to highest registerable domain, so cookie will be availabe to all subdomains.
+ * Not sure this is the best idea, but how it has always worked. Set includeSubdomain parameter
+ * to getBaseDomain to true to include full host with any subdomain(s).
+ */
+//define('XOOPS_COOKIE_DOMAIN', $xoops->getBaseDomain(XOOPS_URL, $includeSubdomain = false));
+//define('XOOPS_COOKIE_DOMAIN', null);
 
 /**
  * Get xoops configs
@@ -174,10 +190,40 @@ $xoops->session()->sessionStart();
 /**
  * Gather some info about the logged in user
  */
-if ($xoops->session()->has('xoopsUserId')) {
-    $uid = $xoops->session()->get('xoopsUserId');
-    $xoops->user = $member_handler->getUser($uid);
-    if ($xoops->user instanceof \XoopsUser) {
+if ($xoops->getConfig('use_mysession')
+    && $xoops->getConfig('session_name') != ''
+    && !isset($_COOKIE[$xoops->getConfig('session_name')])
+    && !empty($_SESSION['xoopsUserId'])
+) {
+    unset($_SESSION['xoopsUserId']);
+}
+
+/**
+ * Load xoopsUserId from cookie if "Remember me" is enabled.
+ */
+if (empty($_SESSION['xoopsUserId'])
+    && $xoops->getConfig('usercookie') != ''
+    && !empty($_COOKIE[$xoops->getConfig('usercookie')])
+) {
+    $hash_data = @explode("-", $_COOKIE[$xoops->getConfig('usercookie')], 2);
+    list($_SESSION['xoopsUserId'], $hash_login) = array($hash_data[0], strval(@$hash_data[1]));
+    unset($hash_data);
+}
+
+/**
+ * Log user in and deal with Sessions and Cookies
+ */
+if (!empty($_SESSION['xoopsUserId'])) {
+    $xoops->user = $member_handler->getUser($_SESSION['xoopsUserId']);
+    if (!is_object($xoops->user)
+        || (isset($hash_login)
+            && md5($xoops->user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')) != $hash_login)
+    ) {
+        $xoops->user = '';
+        $_SESSION = array();
+        session_destroy();
+        setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
+    } else {
         if ((intval($xoops->user->getVar('last_login')) + 60 * 5) < time()) {
             $user_handler = $xoops->getHandlerUser();
             $criteria = new Criteria('uid', $uid);
@@ -205,6 +251,7 @@ if ($xoops->getConfig('closesite') == 1) {
 /**
  * Load Xoops Module
  */
+$xoops_url = \XoopsBaseConfig::get('url');
 $xoops->moduleDirname = 'system';
 if (XoopsLoad::fileExists('./xoops_version.php')) {
     $url_arr = explode('/', strstr($_SERVER['PHP_SELF'], '/modules/'));
@@ -214,19 +261,19 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
     unset($url_arr);
 
     if (!$xoops->module || !$xoops->module->getVar('isactive')) {
-        $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_MODULE);
+        $xoops->redirect($xoops_url, 3, XoopsLocale::E_NO_MODULE);
         exit();
     }
     $moduleperm_handler = $xoops->getHandlerGroupperm();
     if ($xoops->isUser()) {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
+            $xoops->redirect($xoops_url, 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);
         }
         $xoops->userIsAdmin = $xoops->user->isAdmin($xoops->module->getVar('mid'));
     } else {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), FixedGroups::ANONYMOUS)) {
             $xoops->redirect(
-                XOOPS_URL . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
+                $xoops_url . '/user.php?from=' . $xoops->module->getVar('dirname', 'n'),
                 1,
                 XoopsLocale::E_NO_ACCESS_PERMISSION
             );

@@ -33,7 +33,7 @@ class ImagesPreload extends PreloadItem
     {
         /* @var $dhtml Xoops\Form\DhtmlTextArea */
         $dhtml = $args[1];
-        $args[0] .= "<img src='" . XOOPS_URL . "/images/image.gif' alt='" . XoopsLocale::INSIDE_IMAGE . "' title='" . XoopsLocale::INSIDE_IMAGE . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/images/imagemanager.php?target={$dhtml->getName()}\",\"imgmanager\",400,430);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $args[0] .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/image.gif' alt='" . XoopsLocale::INSIDE_IMAGE . "' title='" . XoopsLocale::INSIDE_IMAGE . "' onclick='openWithSelfMain(\"" . \XoopsBaseConfig::get('url') . "/modules/images/imagemanager.php?target={$dhtml->getName()}\",\"imgmanager\",400,430);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }
 
     public static function eventCoreImage($args)

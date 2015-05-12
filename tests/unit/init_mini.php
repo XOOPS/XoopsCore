@@ -12,7 +12,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 if (defined('IS_PHPUNIT')) {
 	require_once dirname(__FILE__) . '/common_phpunit.php';
 } else {
-	// Avoid check proxy (include/common.php line 88) to define constant XOOPS_DB_PROXY 
+	// Avoid check proxy to define constant XOOPS_DB_PROXY 
 	// because it implies a readonly database connection
 	$_SERVER['REQUEST_METHOD'] = 'POST';
 	define('XOOPS_XMLRPC',0);
@@ -52,8 +52,9 @@ defined('NWLINE')or define('NWLINE', "\n");
 /**
  * Include files with definitions
  */
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'defines.php';
-include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
+$xoops_root_path = \XoopsBaseConfig::get('root-path');
+include_once $xoops_root_path . DS . 'include' . DS . 'defines.php';
+// include_once XOOPS_ROOT_PATH . DS . 'include' . DS . 'version.php';
 
 /**
  * Create Instance of Xoops Object
@@ -68,6 +69,12 @@ $xoops->option =& $GLOBALS['xoopsOption'];
  * Include Required Files not handled by autoload
  */
 include_once $xoops->path('include/functions.php');
+
+if (!defined('XOOPS_XMLRPC')) {
+    define('XOOPS_DB_CHKREF', 1);
+} else {
+    define('XOOPS_DB_CHKREF', 0);
+}
 
 /**
  * Check Proxy;

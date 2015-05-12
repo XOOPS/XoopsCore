@@ -233,34 +233,34 @@ if ($numrows > 0) {
 
             case _PUBLISHER_STATUS_SUBMITTED:
                 $statustxt = _CO_PUBLISHER_SUBMITTED;
-                $approve = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/approve.gif' title='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' alt='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' /></a>&nbsp;";
+                $approve = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/approve.gif' title='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' alt='" . _AM_PUBLISHER_SUBMISSION_MODERATE . "' /></a>&nbsp;";
                 $clone = '';
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 $modify = "";
                 break;
 
             case _PUBLISHER_STATUS_PUBLISHED:
                 $statustxt = _CO_PUBLISHER_PUBLISHED;
                 $approve = "";
-                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_ITEM_EDIT . "' alt='" . _AM_PUBLISHER_ITEM_EDIT . "' /></a>&nbsp;";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
+                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_ITEM_EDIT . "' alt='" . _AM_PUBLISHER_ITEM_EDIT . "' /></a>&nbsp;";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
 
             case _PUBLISHER_STATUS_OFFLINE:
                 $statustxt = _CO_PUBLISHER_OFFLINE;
                 $approve = "";
-                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_ITEM_EDIT . "' alt='" . _AM_PUBLISHER_ITEM_EDIT . "' /></a>&nbsp;";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
+                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_ITEM_EDIT . "' alt='" . _AM_PUBLISHER_ITEM_EDIT . "' /></a>&nbsp;";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
 
             case _PUBLISHER_STATUS_REJECTED:
                 $statustxt = _CO_PUBLISHER_REJECTED;
                 $approve = "";
-                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_REJECTED_EDIT . "' alt='" . _AM_PUBLISHER_REJECTED_EDIT . "' /></a>&nbsp;";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
+                $clone = "<a href='item.php?op=clone&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/clone.gif' title='" . _AM_PUBLISHER_CLONE_ITEM . "' alt='" . _AM_PUBLISHER_CLONE_ITEM . "' /></a>&nbsp;";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_REJECTED_EDIT . "' alt='" . _AM_PUBLISHER_REJECTED_EDIT . "' /></a>&nbsp;";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
 
             case "default":
@@ -268,8 +268,8 @@ if ($numrows > 0) {
                 $statustxt = _AM_PUBLISHER_STATUS0;
                 $approve = "";
                 $clone = '';
-                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_REJECTED_EDIT . "' alt='" . _AM_PUBLISHER_REJECTED_EDIT . "' /></a>&nbsp;";
-                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . XOOPS_URL . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
+                $modify = "<a href='item.php?op=mod&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/edit.gif' title='" . _AM_PUBLISHER_REJECTED_EDIT . "' alt='" . _AM_PUBLISHER_REJECTED_EDIT . "' /></a>&nbsp;";
+                $delete = "<a href='item.php?op=del&itemid=" . $itemsObj[$i]->getVar('itemid'). "'><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $publisher->getModule()->dirname() . "/images/links/delete.png' title='" . _AM_PUBLISHER_DELETEITEM . "' alt='" . _AM_PUBLISHER_DELETEITEM . "' /></a>";
                 break;
         }
 

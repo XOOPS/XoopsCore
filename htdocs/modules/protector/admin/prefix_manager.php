@@ -41,13 +41,13 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
     // Ticket check
     if (!$xoopsGTicket->check(true, 'protector_admin')) {
-        $xoops->redirect(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
+        $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 3, $xoopsGTicket->getErrors());
     }
 
     $new_prefix = empty($_POST['new_prefix']) ? 'x' . substr(md5(time()), -5) : $_POST['new_prefix'];
     $old_prefix = $_POST['old_prefix'];
 
-    $srs = $db->queryF('SHOW TABLE STATUS FROM `' . XOOPS_DB_NAME . '`');
+    $srs = $db->queryF('SHOW TABLE STATUS FROM `' . \XoopsBaseConfig::get('db-name') . '`');
 
     if (!$db->getRowsNum($srs)) {
         $xoops->tpl()->assign('error', _AM_PROTECTOR_PREFIX_ERROR_NACT);
@@ -107,13 +107,13 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
         // Ticket check
         if (!$xoopsGTicket->check(true, 'protector_admin')) {
-            $xoops->redirect(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
+            $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 3, $xoopsGTicket->getErrors());
         }
 
         $prefix = $_POST['prefix'];
 
         // get table list
-        $srs = $db->queryF('SHOW TABLE STATUS FROM `' . XOOPS_DB_NAME . '`');
+        $srs = $db->queryF('SHOW TABLE STATUS FROM `' . \XoopsBaseConfig::get('db-name') . '`');
         if (!$db->getRowsNum($srs)) {
             $xoops->tpl()->assign('error', _AM_PROTECTOR_PREFIX_ERROR_NADT);
             $xoops->footer();
@@ -192,13 +192,13 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
             // Ticket check
             if (!$xoopsGTicket->check(true, 'protector_admin')) {
-                $xoops->redirect(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
+                $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 3, $xoopsGTicket->getErrors());
             }
 
             $prefix = $_POST['prefix'];
 
             // check if prefix is working
-            if ($prefix == XOOPS_DB_PREFIX) {
+            if ($prefix == \XoopsBaseConfig::get('db-prefix')) {
                 $xoops->tpl()->assign('error', _AM_PROTECTOR_PREFIX_ERROR_CTDWT);
                 $xoops->footer();
                 exit;
@@ -213,7 +213,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
             }
 
             // get table list
-            $srs = $db->queryF('SHOW TABLE STATUS FROM `' . XOOPS_DB_NAME . '`');
+            $srs = $db->queryF('SHOW TABLE STATUS FROM `' . \XoopsBaseConfig::get('db-name') . '`');
             if (!$db->getRowsNum($srs)) {
                 $xoops->tpl()->assign('error', _AM_PROTECTOR_PREFIX_ERROR_NADT);
                 $xoops->footer();
@@ -241,8 +241,8 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('prefix_manager.php');
 
-$xoops->tpl()->assign('prefix', sprintf(_AM_TXT_HOWTOCHANGEDB, XOOPS_VAR_PATH . "/data/secure.php"));
-$xoops->tpl()->assign('prefix_line', sprintf(_AM_PROTECTOR_PREFIX_CHANGEDBLINE, XOOPS_DB_PREFIX));
+$xoops->tpl()->assign('prefix', sprintf(_AM_TXT_HOWTOCHANGEDB, \XoopsBaseConfig::get('var_path') . "/data/secure.php"));
+$xoops->tpl()->assign('prefix_line', sprintf(_AM_PROTECTOR_PREFIX_CHANGEDBLINE, \XoopsBaseConfig::get('db-prefix')));
 
 // Display Log if exists
 if (!empty($_SESSION['protector_logger'])) {
@@ -252,7 +252,7 @@ if (!empty($_SESSION['protector_logger'])) {
 }
 
 // query
-$srs = $db->queryF("SHOW TABLE STATUS FROM `" . XOOPS_DB_NAME . '`');
+$srs = $db->queryF("SHOW TABLE STATUS FROM `" . \XoopsBaseConfig::get('db-name') . '`');
 if (!$db->getRowsNum($srs)) {
     $xoops->tpl()->assign('error', '_AM_PROTECTOR_PREFIX_ERROR_NACT');
     $xoops->footer();
@@ -293,7 +293,7 @@ foreach ($prefixes as $prefix) {
     $prefix4disp = htmlspecialchars($prefix['name'], ENT_QUOTES);
     $ticket_input = $xoopsGTicket->getTicketHtml(__LINE__, 1800, 'protector_admin');
 
-    if ($prefix['name'] == XOOPS_DB_PREFIX) {
+    if ($prefix['name'] == \XoopsBaseConfig::get('db-prefix')) {
         $del_button = false;
     } else {
         $del_button = true;

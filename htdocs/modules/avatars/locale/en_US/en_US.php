@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("Restricted access");
-
 class AvatarsLocaleEn_US /*extends XoopsLocaleEn_US*/
 {
     // Info module

@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../init.php');
 class BlockTest extends \PHPUnit_Framework_TestCase
 {
     
-    public function SetUp()
+    public function setUp()
 	{
     }
     
@@ -219,15 +219,16 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         $value = $instance->getOptions();
         $this->assertSame(false,$value);
 
-		require_once XOOPS_ROOT_PATH.'/modules/page/locale/en_US/en_US.php';		
-		require_once XOOPS_ROOT_PATH.'/modules/page/locale/en_US/locale.php';
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		require_once $xoops_root_path.'/modules/page/locale/en_US/en_US.php';		
+		require_once $xoops_root_path.'/modules/page/locale/en_US/locale.php';
 		
 		$instance->setVar('dirname', 'page');
 		$instance->setVar('func_file', 'page_blocks.php');
 		$instance->setVar('edit_func', 'page_blocks_edit');
 		$instance->setVar('options', 'a|b|c|d|e');
         $value = $instance->getOptions();
-        $this->assertTrue(isset($value['text']));
+        $this->assertTrue(is_string($value));
 		
 		$instance->setVar('dirname', 'page');
 		$instance->setVar('func_file', 'page_blocks.php');

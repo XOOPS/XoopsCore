@@ -493,7 +493,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
             = !empty($category_info['item_name']) ? $category_info['title'] : '['
             . _MD_NOTIFICATIONS_ITEMTYPENOTAVAILABLE . ']';
         $tags['X_MODULE'] = $module->getVar('name');
-        $tags['X_MODULE_URL'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/';
+        $tags['X_MODULE_URL'] = \XoopsBaseConfig::get('url') . '/modules/' . $module->getVar('dirname') . '/';
         $tags['X_NOTIFY_CATEGORY'] = $category;
         $tags['X_NOTIFY_EVENT'] = $event;
 

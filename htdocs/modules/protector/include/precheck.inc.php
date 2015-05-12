@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 require_once __DIR__ . '/precheck_functions.php';
 
 define('PROTECTOR_PRECHECK_INCLUDED', 1);

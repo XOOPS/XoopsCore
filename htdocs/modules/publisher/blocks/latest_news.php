@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_latest_news_show($options)
@@ -133,7 +131,7 @@ function publisher_latest_news_show($options)
         $block['topiclink'] = '';
         /*
         if ($options[16] == 1) {
-         $block['topiclink'] = '| <a href="'.XOOPS_URL.'/modules/news/topics_directory.php">'._AM_NEWS_TOPICS_DIRECTORY.'</a> ';
+         $block['topiclink'] = '| <a href="'.\XoopsBaseConfig::get('url').'/modules/news/topics_directory.php">'._AM_NEWS_TOPICS_DIRECTORY.'</a> ';
          }
          */
         $block['archivelink'] = '';

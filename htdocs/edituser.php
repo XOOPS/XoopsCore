@@ -107,6 +107,20 @@ if ($op == 'saveuser') {
         $edituser->setVar('user_occ', Request::getString('user_occ', ''));
         $edituser->setVar('user_intrest', Request::getString('user_intrest', ''));
         $edituser->setVar('user_mailok', Request::getBool('user_mailok', 0));
+
+        $usecookie = Request::getBool('user_mailok', 0);
+        if (!$usecookie) {
+            setcookie(
+                $xoops->getConfig('usercookie'),
+                $xoops->user->getVar('uname'),
+                time() + 31536000,
+                '/',
+                \XoopsBaseConfig::get('cookie-domain')
+            );
+        } else {
+            setcookie($xoops->getConfig('usercookie'));
+        }
+
         if (! $member_handler->insertUser($edituser)) {
             $xoops->header();
             echo $edituser->getHtmlErrors();

@@ -7,9 +7,10 @@ if ( DIRECTORY_SEPARATOR != "/" ) {
 $xoops_root_path = substr($current_path, 0, strpos(strtolower($current_path), "/class/xoopseditor/tinymce4/"));
 include_once $xoops_root_path . "/mainfile.php";
 
-\Xoops::getInstance()->logger()->quiet();
+$xoops = \Xoops::getInstance();
+$xoops->logger()->quiet();
 
-$chemin_array=parse_url(XOOPS_URL);
+$chemin_array=parse_url(\XoopsBaseConfig::get('url'));
 $chemin_scheme =  $chemin_array["scheme"]; // http
 $chemin_host =  $chemin_array["host"]; // www.example.com  or // localhost
 //  $chemin_path =  $chemin_array["path"]; // /myweb1
