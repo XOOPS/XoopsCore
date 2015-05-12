@@ -6,5 +6,5 @@ filter:
         - 'tests/*'
 tools:
     external_code_coverage:
-        timeout: 900    # Timeout in seconds.
+        timeout: 1800   # Timeout in seconds.
         runs: 3         # Scrutinizer will wait for n code coverage submissions
