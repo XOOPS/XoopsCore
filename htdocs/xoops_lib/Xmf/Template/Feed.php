@@ -141,7 +141,7 @@ class Feed extends AbstractTemplate
         $this->_lastbuild = \XoopsLocale::formatTimestamp(time(), 'D, d M Y H:i:s');
         $this->_webmaster = $xoopsConfig['adminmail'];
         $this->_editor = $xoopsConfig['adminmail'];
-        $this->_generator = XOOPS_VERSION;
+        $this->_generator = \Xoops::VERSION;
         $this->_copyright = 'Copyright ' . \XoopsLocale::formatTimestamp(time(), 'Y') . ' ' . $xoopsConfig['sitename'];
         $this->_image_title = $this->_title;
         $this->_image_url = \XoopsBaseConfig::get('url') . '/images/logo.gif';

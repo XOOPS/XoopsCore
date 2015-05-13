@@ -17,6 +17,8 @@
  * @todo            Will be refactored
  */
 
+use Xoops\Core\FixedGroups;
+
 $xoops = Xoops::getInstance();
 
 $xoops_url = \XoopsBaseConfig::get('url');
@@ -73,24 +75,7 @@ if (false != $user) {
         $_SESSION['xoopsUserTheme'] = $user_theme;
     }
 
-    // Set cookie for rememberme
-    if ($xoops->getConfig('usercookie')) {
-		$cookie_domain = \XoopsBaseConfig::get('cookie-domain');
-        if ($clean_input["rememberme"]) {
-            setcookie(
-                $xoops->getConfig('usercookie'),
-                $_SESSION['xoopsUserId'] . '-' . md5(
-                    $user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')
-                ),
-                time() + 31536000,
-                '/',
-                $cookie_domain,
-                0
-            );
-        } else {
-            setcookie($xoops->getConfig('usercookie'), 0, -1, '/', $cookie_domain, 0);
-        }
-    }
+    $xoops->events()->triggerEvent('core.include.checklogin.success');
 
     if (!empty($clean_input['xoops_redirect']) && !strpos($clean_input['xoops_redirect'], 'register')) {
         $xoops_redirect = rawurldecode($clean_input['xoops_redirect']);

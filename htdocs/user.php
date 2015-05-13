@@ -24,10 +24,10 @@ use Xoops\Core\FixedGroups;
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  */
 
-require __DIR__ . '/mainfile.php';
+include __DIR__ . '/mainfile.php';
 
+$xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');
-
 $xoops->events()->triggerEvent('core.user.start');
 
 $xoops->loadLanguage('user');
@@ -111,15 +111,7 @@ if ($op == 'main') {
 
 if ($op == 'logout') {
     $message = '';
-<<<<<<< HEAD
-    // Regenerate a new session id and destroy old session
-    $xoops->getHandlerSession()->regenerate_id(true);
-    $_SESSION = array();
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/', $xoops->globalData->getVar('cookie-domain'), 0);
-    setcookie($xoops->getConfig('usercookie'), 0, -1, '/');
-=======
     $xoops->session()->user()->recordUserLogout();
->>>>>>> upstream/master
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));

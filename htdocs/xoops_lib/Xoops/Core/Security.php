@@ -62,7 +62,7 @@ class Security
             'id' => $token_id, 'expire' => time() + intval($timeout)
         );
         array_push($_SESSION[$name . '_SESSION'], $token_data);
-        return md5($token_id . $_SERVER['HTTP_USER_AGENT'] . \XoopsBaseConfig::get('db-prefix'));
+        return $token_id;
     }
 
     /**

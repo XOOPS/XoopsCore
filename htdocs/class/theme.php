@@ -118,7 +118,7 @@ class XoopsAdminThemeFactory extends XoopsThemeFactory
 {
     public function createInstance($options = array())
     {
-		$xoops = \Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         $options["plugins"] = array();
         $options['renderBanner'] = false;
         $inst = parent::createInstance($options);
@@ -344,8 +344,8 @@ class XoopsTheme
         } else {
             $this->template->assign(array(
                 'xoops_isuser' => false,
-				'xoops_isadmin' => false,
-				'xoops_usergroups' => array(XOOPS_GROUP_ANONYMOUS)
+                'xoops_isadmin' => false,
+                'xoops_usergroups' => array(FixedGroups::ANONYMOUS)
             ));
         }
 
@@ -1011,7 +1011,7 @@ class XoopsTheme
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
         }
-		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
 //\Xoops::getInstance()->events()->triggerEvent('debug.log', $this);
         if (XoopsLoad::fileExists($xoops_root_path . "/{$this->themesPath}/{$this->folderName}/{$path}")) {
 //\Xoops::getInstance()->events()->triggerEvent('debug.log', "custom theme path {$this->themesPath}/{$this->folderName}/{$path}");

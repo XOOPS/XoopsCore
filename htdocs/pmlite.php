@@ -19,11 +19,9 @@
  * @version         $Id$
  */
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
-//$xoops->disableErrorReporting
-
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+$xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');
-
 $xoops->preload()->triggerEvent('core.pmlite.start');
 
 $reply = !empty($_GET['reply']) ? 1 : 0;

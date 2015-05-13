@@ -21,11 +21,10 @@ use Xoops\Core\FixedGroups;
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>
  * @version         $Id$
  */
+include __DIR__ . '/mainfile.php';
 
-require __DIR__ . '/mainfile.php';
-
+$xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');
-
 $xoops->events()->triggerEvent('core.register.start');
 $xoops->loadLanguage('user');
 

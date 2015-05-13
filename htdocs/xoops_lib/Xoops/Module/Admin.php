@@ -517,12 +517,13 @@ class Admin
 
             // xoops version
             if ($this->module->getInfo('min_xoops')) {
-                if (substr(XOOPS_VERSION, 6, strlen(XOOPS_VERSION) - 6) < $this->module->getInfo('min_xoops')) {
+                $xoopsVersion = substr(\Xoops::VERSION, 6); // skip 'XOOPS ' prefix
+                if (version_compare($xoopsVersion, $this->module->getInfo('min_xoops')) >= 0) {
                     $this->addConfigBoxLine(
                         sprintf(
                             \XoopsLocale::F_MINIMUM_XOOPS_VERSION_REQUIRED,
                             $this->module->getInfo('min_xoops'),
-                            substr(XOOPS_VERSION, 6, strlen(XOOPS_VERSION) - 6)
+                            $xoopsVersion
                         ),
                         'error'
                     );
@@ -531,7 +532,7 @@ class Admin
                         sprintf(
                             \XoopsLocale::F_MINIMUM_XOOPS_VERSION_REQUIRED,
                             $this->module->getInfo('min_xoops'),
-                            substr(XOOPS_VERSION, 6, strlen(XOOPS_VERSION) - 6)
+                            $xoopsVersion
                         ),
                         'accept'
                     );

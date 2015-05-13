@@ -217,8 +217,8 @@ class XoopsInstallWizard
             }
         }
         if (!isset($pages[$pageIndex])) {
-            if (\XoopsBaseConfig::has('url')) {
-                return \XoopsBaseConfig::get('url') . '/';
+            if (defined("XOOPS_URL")) {
+                return XOOPS_URL . '/';
             } else {
                 return $this->baseLocation();
             }

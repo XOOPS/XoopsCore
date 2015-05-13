@@ -16,9 +16,8 @@
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      textsanitizer
- * @since           2.3.0
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
+ * @since           2.5.7
+ * @author          iHackCode <https://github.com/ihackcode>
  */
  
 class MytsSoundcloud extends MyTextSanitizerExtension
