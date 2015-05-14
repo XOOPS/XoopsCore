@@ -19,10 +19,6 @@ use Xoops\Core\FixedGroups;
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 class ImagesCategoryForm extends Xoops\Form\ThemeForm
 {
     /**

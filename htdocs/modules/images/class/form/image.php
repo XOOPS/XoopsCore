@@ -17,10 +17,6 @@
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 class ImagesImageForm extends Xoops\Form\ThemeForm
 {
     /**
