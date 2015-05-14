@@ -48,7 +48,7 @@ if ($mid > 0) {
 
     if ($module->getVar('dirname', 'e') == 'system') {
 
-        $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin';
+        $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
         $dirlist = XoopsLists::getDirListAsArray($admin_dir);
 
         foreach ($dirlist as $directory) {
@@ -102,30 +102,30 @@ if ($mid > 0) {
         // Call template
         if ($helpfile =
             XoopsLoad::fileExists(
-                XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                 . '/locale/' . XoopsLocale::getLocale() . '/help/' . $page . '.html'
             )
         ) {
             $helpcontent =
                 $xoops->tpl()->fetch(
-                    XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                    \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                     . '/locale/' . XoopsLocale::getLocale() . '/help/' . $page . '.html'
                 );
         } elseif (XoopsLoad::fileExists(
-            XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+            \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
             . '/language/' . $xoopsConfig['language'] . '/help/' . $page . '.html'
         )) {
             $helpcontent = $xoops->tpl()->fetch(
-                XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                 . '/language/' . $xoopsConfig['language'] . '/help/' . $page . '.html'
             );
         } else {
             if (XoopsLoad::fileExists(
-                XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                 . '/language/english/help/' . $page . '.html'
             )) {
                 $helpcontent = $xoops->tpl()->fetch(
-                    XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                    \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                     . '/language/english/help/' . $page . '.html'
                 );
             } else {
@@ -138,19 +138,19 @@ if ($mid > 0) {
         $xoops->tpl()->assign('helpcontent', $helpcontent);
     } else {
         if ($helpfile = XoopsLoad::fileExists(
-            XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+            \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
             . '/locale/' . XoopsLocale::getLocale() . '/help/module_index.html'
         )) {
             $helpcontent = $xoops->tpl()->fetch(
-                XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                 . '/locale/' . XoopsLocale::getLocale() . '/help/module_index.html'
             );
         } elseif (XoopsLoad::fileExists(
-            XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+            \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
             . '/language/' . $xoops->getConfig('language') . '/help/module_index.html'
         )) {
             $helpcontent = $xoops->tpl()->fetch(
-                XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname', 'e')
+                \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                 . '/language/' . $xoops->getConfig('language') . '/help/module_index.html'
             );
         } else {
@@ -237,11 +237,11 @@ if ($mid > 0) {
     $xoops->tpl()->assign('list_mods', $listed_mods);
 
     if (XoopsLoad::fileExists(
-        XOOPS_ROOT_PATH . '/modules/system/language/'
+        \XoopsBaseConfig::get('root-path') . '/modules/system/language/'
         . $xoops->getConfig('language') . '/help/help_center.html'
     )) {
         $helpcontent = $xoops->tpl()->fetch(
-            XOOPS_ROOT_PATH . '/modules/system/language/' . $xoops->getConfig('language')
+            \XoopsBaseConfig::get('root-path') . '/modules/system/language/' . $xoops->getConfig('language')
             . '/help/help_center.html'
         );
     } else {

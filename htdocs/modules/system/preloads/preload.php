@@ -25,7 +25,7 @@ class SystemPreload extends PreloadItem
         $url = $args[0];
         if (preg_match("/[\\0-\\31]|about:|script:/i", $url)) {
             if (!preg_match('/^\b(java)?script:([\s]*)history\.go\(-[0-9]*\)([\s]*[;]*[\s]*)$/si', $url)) {
-                $url = XOOPS_URL;
+                $url = \XoopsBaseConfig::get('url');
             }
         }
         if (!headers_sent() && $xoops->getConfig('redirect_message_ajax')

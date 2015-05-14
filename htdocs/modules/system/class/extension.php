@@ -67,7 +67,7 @@ class SystemExtension extends SystemModule
         $i = 0;
         foreach ($this->modulesList as $file) {
             $file = trim($file);
-            if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $file . '/xoops_version.php')) {
+            if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/' . $file . '/xoops_version.php')) {
                 clearstatcache();
                 /* @var $module XoopsModule */
                 $module = $module_handler->create();
@@ -97,7 +97,7 @@ class SystemExtension extends SystemModule
                         ) {
                             $module->setInfo(
                                 'link_pref',
-                                XOOPS_URL . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod='
+                                \XoopsBaseConfig::get('url') . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod='
                                 . $module->getInfo('mid')
                             );
                         }
@@ -106,28 +106,28 @@ class SystemExtension extends SystemModule
                     }
                     $module->setInfo('version', round($module->getInfo('version'), 2));
                     if (XoopsLoad::fileExists(
-                        XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/icons/logo_small.png'
+                        \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getInfo('dirname') . '/icons/logo_small.png'
                     )) {
                         $module->setInfo(
                             'logo_small',
-                            XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/icons/logo_small.png'
+                            \XoopsBaseConfig::get('url') . '/modules/' . $module->getInfo('dirname') . '/icons/logo_small.png'
                         );
                     } else {
-                        $module->setInfo('logo_small', XOOPS_URL . '/media/xoops/images/icons/16/default.png');
+                        $module->setInfo('logo_small', \XoopsBaseConfig::get('url') . '/media/xoops/images/icons/16/default.png');
                     }
                     if (XoopsLoad::fileExists(
-                        XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/icons/logo_large.png'
+                        \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getInfo('dirname') . '/icons/logo_large.png'
                     )) {
                         $module->setInfo(
                             'logo_large',
-                            XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/icons/logo_large.png'
+                            \XoopsBaseConfig::get('url') . '/modules/' . $module->getInfo('dirname') . '/icons/logo_large.png'
                         );
                     } else {
-                        $module->setInfo('logo_large', XOOPS_URL . '/media/xoops/images/icons/32/default.png');
+                        $module->setInfo('logo_large', \XoopsBaseConfig::get('url') . '/media/xoops/images/icons/32/default.png');
                     }
                     $module->setInfo(
                         'link_admin',
-                        XOOPS_URL . '/modules/' . $module->getInfo('dirname') . '/' . $module->getInfo('adminindex')
+                        \XoopsBaseConfig::get('url') . '/modules/' . $module->getInfo('dirname') . '/' . $module->getInfo('adminindex')
                     );
                     $module->setInfo('options', $module->getAdminMenu());
                     $ret[] = $module;
@@ -153,7 +153,7 @@ class SystemExtension extends SystemModule
         $ret = array();
         $i = 0;
         foreach ($this->modulesList as $file) {
-            if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $file . '/xoops_version.php')) {
+            if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/' . $file . '/xoops_version.php')) {
                 clearstatcache();
                 $file = trim($file);
                 if (!in_array($file, $this->modulesDirnames)) {

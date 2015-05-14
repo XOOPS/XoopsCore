@@ -212,11 +212,11 @@ class ProfileField extends XoopsObject
             case 'theme':
                 $element = new Xoops\Form\Select($caption, $name, $value);
                 $element->addOption("0", _PROFILE_MA_SITEDEFAULT);
-                $handle = opendir(XOOPS_THEME_PATH . '/');
+                $handle = opendir(\XoopsBaseConfig::get('themes-path') . '/');
                 $dirlist = array();
                 while (false !== ($file = readdir($handle))) {
-                    if (is_dir(XOOPS_THEME_PATH . '/' . $file) && !preg_match("/^[.]{1,2}$/", $file) && strtolower($file) != 'cvs') {
-                        if (XoopsLoad::fileExists(XOOPS_THEME_PATH . "/" . $file . "/theme.html") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
+                    if (is_dir(\XoopsBaseConfig::get('themes-path') . '/' . $file) && !preg_match("/^[.]{1,2}$/", $file) && strtolower($file) != 'cvs') {
+                        if (XoopsLoad::fileExists(\XoopsBaseConfig::get('themes-path') . "/" . $file . "/theme.html") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
                             $dirlist[$file] = $file;
                         }
                     }
@@ -333,7 +333,7 @@ class ProfileField extends XoopsObject
             case "autotext":
                 $value = $user->getVar($this->getVar('field_name'), 'n'); //autotext can have HTML in it
                 $value = str_replace("{X_UID}", $user->getVar("uid"), $value);
-                $value = str_replace("{X_URL}", XOOPS_URL, $value);
+                $value = str_replace("{X_URL}", \XoopsBaseConfig::get('url'), $value);
                 $value = str_replace("{X_UNAME}", $user->getVar("uname"), $value);
                 return $value;
                 break;
@@ -342,7 +342,7 @@ class ProfileField extends XoopsObject
                 $userrank = $user->rank();
                 $user_rankimage = "";
                 if (isset($userrank['image']) && $userrank['image'] != "") {
-                    $user_rankimage = '<img src="' . XOOPS_UPLOAD_URL . '/' . $userrank['image'] . '" alt="' . $userrank['title'] . '" /><br />';
+                    $user_rankimage = '<img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $userrank['image'] . '" alt="' . $userrank['title'] . '" /><br />';
                 }
                 return $user_rankimage . $userrank['title'];
                 break;

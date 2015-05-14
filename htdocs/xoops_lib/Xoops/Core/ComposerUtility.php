@@ -67,16 +67,16 @@ class ComposerUtility
             }
         }
 
-        if (!(defined('XOOPS_PATH') && chdir(XOOPS_PATH))) {
+        if (chdir(\XoopsBaseConfig::get('lib-path'))) {
             $this->errors[] = 'Cannot change directory to XOOPS_PATH';
             return false;
         }
 
         set_time_limit(300); // don't want this script to timeout;
         $command = $this->exe . $options . $command_line;
-        putenv('COMPOSER_HOME=' . XOOPS_VAR_PATH.'/composer');
+        putenv('COMPOSER_HOME=' . \XoopsBaseConfig::get('var-path').'/composer');
         $process = new Process($command);
-        //$process->setEnv(array('COMPOSER_HOME' => XOOPS_VAR_PATH.'/composer'));
+        //$process->setEnv(array('COMPOSER_HOME' => \XoopsBaseConfig::get('var-path').'/composer'));
         $process->setTimeout(120);
         try {
             $process->run(

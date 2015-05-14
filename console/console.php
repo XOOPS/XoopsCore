@@ -32,9 +32,7 @@ if (file_exists($mainfile)) {
     $xoopsOption["nocommon"] = true;
     include_once $mainfile;
     \Xoops::getInstance()->loadLocale();
-}
-
-if (!defined("XOOPS_MAINFILE_INCLUDED")) {
+} else {
     // apparently there is no mainfile, so fall back on the autoloader
     require_once $configs->get('autoloader');
 }

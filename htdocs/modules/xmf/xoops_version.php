@@ -20,8 +20,6 @@
  * @version         $Id: xoops_version.php 8065 2011-11-06 02:02:32Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 $modversion['name'] = 'XMF';
 $modversion['version'] = 1.0;
 $modversion['description'] = 'XOOPS Module Framework';

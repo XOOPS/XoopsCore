@@ -144,21 +144,21 @@ class Logger implements LoggerInterface
             if ($trace) {
                 $trace = debug_backtrace();
                 array_shift($trace);
-				if ('cli' == php_sapi_name()) {
-					foreach ($trace as $step) {
-						if (isset($step['file'])) {
-							fprintf (STDERR, "%s (%d)\n", $this->sanitizePath($step['file']), $step['line']);
-						}
-					}					
-				} else {
-					echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
-					foreach ($trace as $step) {
-						if (isset($step['file'])) {
-							printf("%s (%d)\n<br />", $this->sanitizePath($step['file']), $step['line']);
-						}
-					}
-					echo '</div>';
-				}
+                if ('cli' == php_sapi_name()) {
+                    foreach ($trace as $step) {
+                        if (isset($step['file'])) {
+                            fprintf(STDERR, "%s (%d)\n", $this->sanitizePath($step['file']), $step['line']);
+                        }
+                    }
+                } else {
+                    echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
+                    foreach ($trace as $step) {
+                        if (isset($step['file'])) {
+                            printf("%s (%d)\n<br />", $this->sanitizePath($step['file']), $step['line']);
+                        }
+                    }
+                    echo '</div>';
+                }
             }
             exit();
         }
@@ -182,11 +182,11 @@ class Logger implements LoggerInterface
     private function reportFatalError($msg)
     {
         $msg=$this->sanitizePath($msg);
-		if ( 'cli' == php_sapi_name()) {
-			fprintf(STDERR, "\nError : %s\n", $msg);
-		} else {
-			printf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
-		}
+        if ('cli' == php_sapi_name()) {
+            fprintf(STDERR, "\nError : %s\n", $msg);
+        } else {
+            printf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
+        }
         @$this->log(LogLevel::CRITICAL, $msg);
     }
 
@@ -202,14 +202,12 @@ class Logger implements LoggerInterface
         $path = str_replace(
             array(
                 '\\',
-                XOOPS_VAR_PATH,
-                str_replace('\\', '/', realpath(XOOPS_VAR_PATH)),
-                XOOPS_PATH,
-                str_replace('\\', '/', realpath(XOOPS_PATH)),
-                XOOPS_ROOT_PATH,
-                str_replace('\\', '/', realpath(XOOPS_ROOT_PATH)),
-                XOOPS_TEST_PATH,
-                str_replace('\\', '/', realpath(XOOPS_TEST_PATH)),
+                \XoopsBaseConfig::get('var-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
+                \XoopsBaseConfig::get('lib-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
+                \XoopsBaseConfig::get('root-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
             ),
             array(
                 '/',
@@ -219,8 +217,6 @@ class Logger implements LoggerInterface
                 'LIB',
                 'ROOT',
                 'ROOT',
-                'TEST',
-                'TEST',
             ),
             $path
         );

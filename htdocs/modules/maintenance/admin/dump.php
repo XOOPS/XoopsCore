@@ -40,7 +40,7 @@ switch ($op) {
 
     case 'list':
     default:
-        $files = glob(XOOPS_ROOT_PATH . '/modules/maintenance/dump/*.*');
+        $files = glob(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/*.*');
         $count = 0;
         foreach ($files as $filename_path) {
             $filename = basename(strtolower($filename_path));
@@ -143,12 +143,12 @@ switch ($op) {
         if ($filename == '') {
             $xoops->redirect("dump.php", 2, _AM_MAINTENANCE_DUMP_NOFILE);
         }
-        unlink(XOOPS_ROOT_PATH . '/modules/maintenance/dump/' . $filename);
+        unlink(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/' . $filename);
         $xoops->redirect("dump.php", 2, _AM_MAINTENANCE_DUMP_DELETED);
         break;
 
     case 'dump_deleteall':
-        $files = glob(XOOPS_ROOT_PATH . '/modules/maintenance/dump/*.*');
+        $files = glob(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/*.*');
         $count = 0;
         foreach ($files as $filename_path) {
             if (basename(strtolower($filename_path)) != 'index.html') {

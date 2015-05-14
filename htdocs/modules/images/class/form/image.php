@@ -17,7 +17,6 @@
  * @author          Andricq Nicolas (AKA MusS)
  * @version         $Id$
  */
-
 class ImagesImageForm extends Xoops\Form\ThemeForm
 {
     /**

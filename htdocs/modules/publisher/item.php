@@ -198,7 +198,7 @@ $xoopsTpl->assign('perm_author_items', $publisher->getConfig('perm_author_items'
 
 // tags support
 if ($xoops->isActiveModule('tag')) {
-    include_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
+    include_once \XoopsBaseConfig::get('root-path') . '/modules/tag/include/tagbar.php';
     $xoopsTpl->assign('tagbar', tagBar($itemid, $catid = 0));
 }
 

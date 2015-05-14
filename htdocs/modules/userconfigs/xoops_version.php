@@ -18,9 +18,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die('XOOPS root path not defined');
-
-
 $modversion                = array();
 $modversion['name']        = _MI_USERCONFIGS_NAME;
 $modversion['description'] = _MI_USERCONFIGS_DSC;

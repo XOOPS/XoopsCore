@@ -9,11 +9,11 @@ require_once(dirname(__FILE__).'/../init_new.php');
 class TemplateTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsTpl';
-    
+
     public function setUp()
 	{
     }
-    
+
     public function test__construct()
 	{
 		$object = new $this->myclass();
@@ -30,10 +30,10 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(\XoopsBaseConfig::get('root-path'), $object->getTemplateVars('xoops_rootpath'));
 		$this->assertSame(XoopsLocale::getLangCode(), $object->getTemplateVars('xoops_langcode'));
 		$this->assertSame(XoopsLocale::getCharset(), $object->getTemplateVars('xoops_charset'));
-		$this->assertSame(\XoopsBaseConfig::get('version'), $object->getTemplateVars('xoops_version'));
+		$this->assertSame(\Xoops::VERSION, $object->getTemplateVars('xoops_version'));
 		$this->assertSame(\XoopsBaseConfig::get('uploads-url'), $object->getTemplateVars('xoops_upload_url'));
     }
-	
+
     public function test_fetchFromData()
 	{
 		$object = new $this->myclass();

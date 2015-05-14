@@ -38,7 +38,7 @@ class XoopsTpl extends Smarty
 
     public function __construct()
     {
-        parent::__construct(); // SMARTY_PLUGINS_DIR is initialized into parent 
+        parent::__construct(); // SMARTY_PLUGINS_DIR is initialized into parent
         $xoops = Xoops::getInstance();
         $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
         $this->left_delimiter = '<{';
@@ -52,11 +52,11 @@ class XoopsTpl extends Smarty
         $this->setCompileId();
         $this->assign(
             array('xoops_url' => \XoopsBaseConfig::get('url'),
-				'xoops_rootpath' => \XoopsBaseConfig::get('root-path'),
-				'xoops_langcode' => XoopsLocale::getLangCode(),
-				'xoops_charset' => XoopsLocale::getCharset(),
-				'xoops_version' => \XoopsBaseConfig::get('version'),
-				'xoops_upload_url' => \XoopsBaseConfig::get('uploads-url'))
+                'xoops_rootpath' => \XoopsBaseConfig::get('root-path'),
+                'xoops_langcode' => XoopsLocale::getLangCode(),
+                'xoops_charset' => XoopsLocale::getCharset(),
+                'xoops_version' => \Xoops::VERSION,
+                'xoops_upload_url' => \XoopsBaseConfig::get('uploads-url'))
         );
     }
 

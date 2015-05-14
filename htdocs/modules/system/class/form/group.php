@@ -69,10 +69,10 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
 
         $s_cat_checkbox = new Xoops\Form\Checkbox('', "system_catids", $s_cat_value);
         //$s_cat_checkbox->columns = 6;
-        $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin/';
+        $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin/';
         $dirlist = XoopsLists::getDirListAsArray($admin_dir);
         foreach ($dirlist as $file) {
-            include XOOPS_ROOT_PATH . '/modules/system/admin/' . $file . '/xoops_version.php';
+            include \XoopsBaseConfig::get('root-path') . '/modules/system/admin/' . $file . '/xoops_version.php';
             if (!empty($modversion['category'])) {
                 if ($xoops->getModuleConfig('active_' . $file, 'system') == 1) {
                     $s_cat_checkbox->addOption($modversion['category'], $modversion['name']);
@@ -145,7 +145,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
 
             $new_blocks_array = array();
             foreach ($blocks_module[$mid] as $key => $value) {
-                $new_blocks_array[$key] = "<a href='" . XOOPS_URL
+                $new_blocks_array[$key] = "<a href='" . \XoopsBaseConfig::get('url')
                     . "/modules/system/admin.php?fct=blocksadmin&amp;op=edit&amp;bid={$key}' "
                     . "title='ID: {$key}' rel='external'>{$value}</a>";
             }

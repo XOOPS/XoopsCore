@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_INITIALIZED') or die("XOOPS root path not defined");
-
 /**
  * Get {@link Xoops\Form\ThemeForm} for registering new users
  *

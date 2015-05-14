@@ -22,6 +22,8 @@
 
 include __DIR__ . '/mainfile.php';
 
+$xoops_url = \XoopsBaseConfig::get('url');
+$xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.userinfo.start');
 
 $xoops->loadLanguage('user');

@@ -74,7 +74,7 @@ class Admin
                 self::$ModuleAdmin = $instance;
             } else {
                 \Xmf\Loader::loadFile(
-                    XOOPS_ROOT_PATH .
+                    \XoopsBaseConfig::get('root-path') .
                     '/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'
                 );
                 self::$ModuleAdmin = new \ModuleAdmin;
@@ -319,7 +319,7 @@ class Admin
         if (self::is26()) {
             $type='error';
         } else {
-            $path=XOOPS_URL.'/Frameworks/moduleclasses/icons/16/';
+            $path=\XoopsBaseConfig::get('url').'/Frameworks/moduleclasses/icons/16/';
             $line = "";
             $line .= "<span style='color : red; font-weight : bold;'>";
             $line .= "<img src='" . $path . "off.png' >";
@@ -344,7 +344,7 @@ class Admin
         if (self::is26()) {
             $type='accept';
         } else {
-            $path=XOOPS_URL.'/Frameworks/moduleclasses/icons/16/';
+            $path=\XoopsBaseConfig::get('url').'/Frameworks/moduleclasses/icons/16/';
             $line = "";
             $line .= "<span style='color : green;'>";
             $line .= "<img src='" . $path . "on.png' >";
@@ -394,7 +394,7 @@ class Admin
             $path='/Frameworks/moduleclasses/icons/'.$path;
         }
 
-        return(XOOPS_URL . $path . $name);
+        return(\XoopsBaseConfig::get('url') . $path . $name);
     }
 
     /**

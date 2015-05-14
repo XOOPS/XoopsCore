@@ -19,8 +19,7 @@
  * @version         $Id$
  */
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
-
+include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops_url = \XoopsBaseConfig::get('url');
 
 header("Content-Type: text/html");

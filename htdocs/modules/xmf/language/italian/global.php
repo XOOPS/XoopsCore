@@ -166,7 +166,7 @@ define ('_XMF_BLOCKS_ADDTO_LAYOUT_OPTION1', "2 righe orizzontali");
 define ('_XMF_BLOCKS_ADDTO_LAYOUT_OPTION2', "verticale con icone");
 define ('_XMF_BLOCKS_ADDTO_LAYOUT_OPTION3', "Vertical nessuna icona");
 define ('_XMF_CURRENT_FILE', "Current file:");
-define ('_XMF_URL_FILE_DSC', "In alternativa, &#232; possibile utilizzare un URL Se si seleziona un file tramite il pulsante 'Sfoglia', l'URL viene ignorato &#232; possibile utilizzare il tag {XOOPS_URL} per la stampa ".XOOPS_URL);
+define ('_XMF_URL_FILE_DSC', "In alternativa, &#232; possibile utilizzare un URL Se si seleziona un file tramite il pulsante 'Sfoglia', l'URL viene ignorato &#232; possibile utilizzare il tag {XOOPS_URL} per la stampa ".\XoopsBaseConfig::get('root-path'));
 define ('_XMF_URL_FILE', "URL:");
 define ('_XMF_UPLOAD', "Seleziona un file da caricare:");
 

@@ -31,7 +31,7 @@ $system = System::getInstance();
 
 // Check user rights
 if (!$system->checkRight()) {
-    $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect(\XoopsBaseConfig::get('url'), 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 // System Class
@@ -48,4 +48,4 @@ $fct = $system->cleanVars($_REQUEST, 'fct', '', 'string');
 XoopsLoad::load('systembreadcrumb', 'system');
 
 $system_breadcrumb = SystemBreadcrumb::getInstance($fct);
-$system_breadcrumb->addLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+$system_breadcrumb->addLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);

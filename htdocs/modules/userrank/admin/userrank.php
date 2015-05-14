@@ -73,7 +73,7 @@ switch ($op) {
                 $userrank['rank_max'] = $userrank_arr[$i]->getVar("rank_max");
                 $userrank['rank_special'] = $userrank_arr[$i]->getVar("rank_special");
                 $rank_img = ($userrank_arr[$i]->getVar("rank_image")) ? $userrank_arr[$i]->getVar("rank_image") : 'blank.gif';
-                $userrank['rank_image'] = '<img src="' . XOOPS_UPLOAD_URL . '/' . $rank_img . '" alt="" />';
+                $userrank['rank_image'] = '<img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $rank_img . '" alt="" />';
                 $xoops->tpl()->appendByRef('userrank', $userrank);
                 unset($userrank);
             }
@@ -127,7 +127,7 @@ switch ($op) {
         $verif_rank_special = ($_POST["rank_special"] == 1) ? "1" : "0";
         $obj->setVar("rank_special", $verif_rank_special);
 
-        $uploader_rank_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/ranks', $mimetypes, $upload_size, null, null);
+        $uploader_rank_img = new XoopsMediaUploader(\XoopsBaseConfig::get('uploads-url') . '/ranks', $mimetypes, $upload_size, null, null);
 
         if ($uploader_rank_img->fetchMedia("rank_image")) {
             $uploader_rank_img->setPrefix("rank");
@@ -159,7 +159,7 @@ switch ($op) {
                 $xoops->redirect("userrank.php", 3, implode(",", $xoops->security()->getErrors()));
             }
             if ($userrank_Handler->delete($obj)) {
-                $urlfile = XOOPS_UPLOAD_PATH . '/' . $obj->getVar("rank_image");
+                $urlfile = \XoopsBaseConfig::get('uploads-url') . '/' . $obj->getVar("rank_image");
                 if (is_file($urlfile)) {
                     chmod($urlfile, 0777);
                     unlink($urlfile);
@@ -172,7 +172,7 @@ switch ($op) {
             $rank_img = ($obj->getVar("rank_image")) ? $obj->getVar("rank_image") : 'blank.gif';
             echo $xoops->confirm(array(
                 "ok" => 1, "rank_id" => $_REQUEST["rank_id"], "op" => "userrank_delete"
-            ), $_SERVER["REQUEST_URI"], sprintf(_AM_USERRANK_SUREDEL) . '<br \><img src="' . XOOPS_UPLOAD_URL . '/' . $rank_img . '" alt="" /><br \>');
+            ), $_SERVER["REQUEST_URI"], sprintf(_AM_USERRANK_SUREDEL) . '<br \><img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $rank_img . '" alt="" /><br \>');
         }
         break;
 

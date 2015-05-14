@@ -26,6 +26,8 @@ use Xoops\Core\FixedGroups;
 
 include __DIR__ . '/mainfile.php';
 
+$xoops = Xoops::getInstance();
+$xoops_url = \XoopsBaseConfig::get('url');
 $xoops->events()->triggerEvent('core.user.start');
 
 $xoops->loadLanguage('user');
@@ -109,9 +111,8 @@ if ($op == 'main') {
 
 if ($op == 'logout') {
     $message = '';
-    
+
     $xoops->session()->user()->recordUserLogout();
-    
     // clear entry from online users table
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));

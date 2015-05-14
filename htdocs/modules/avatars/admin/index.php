@@ -51,7 +51,7 @@ $avatars_display_c = $avatar_Handler->getCount($criteria);
 // total avatars custom
 $avatars_total_c = $avatars_notdisplay_c + $avatars_display_c;
 // folder path
-$folder_path = XOOPS_ROOT_PATH . '/uploads/avatars';
+$folder_path = \XoopsBaseConfig::get('root-path') . '/uploads/avatars';
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');

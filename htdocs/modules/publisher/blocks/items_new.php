@@ -64,7 +64,7 @@ function publisher_items_new_show($options)
             $item['poster'] = $itemsObj[$i]->posterName(); // for make poster name linked, use linkedPosterName() instead of posterName()
 
             if ($image == 'article') {
-                $item['image'] = XOOPS_URL . '/uploads/blank.gif';
+                $item['image'] = \XoopsBaseConfig::get('url') . '/uploads/blank.gif';
                 $item['image_name'] = '';
                 $images = $itemsObj[$i]->getImages();
                 if (is_object($images['main'])) {
@@ -80,7 +80,7 @@ function publisher_items_new_show($options)
             } elseif ($image == 'avatar') {
                 $auid = $itemsObj[$i]->getVar('uid');
                 if ($auid == '0') {
-                    $item['image'] = XOOPS_URL . '/uploads/blank.gif';
+                    $item['image'] = \XoopsBaseConfig::get('url') . '/uploads/blank.gif';
                     $images = $itemsObj[$i]->getImages();
                     if (is_object($images['main'])) {
                         $item['image'] = $thumbService

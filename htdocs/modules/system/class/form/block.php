@@ -151,7 +151,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
                 if (count($btemplate) > 0) {
                     $this->addElement(new Xoops\Form\Label(
                         XoopsLocale::CONTENT,
-                        '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id='
+                        '<a href="' . \XoopsBaseConfig::get('url') . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id='
                         . $btemplate[0]->getVar('tpl_id') . '">' . SystemLocale::EDIT_TEMPLATE . '</a>'
                     ));
                 } else {
@@ -159,7 +159,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
                     if (count($btemplate2) > 0) {
                         $this->addElement(new Xoops\Form\Label(
                             XoopsLocale::CONTENT,
-                            '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id='
+                            '<a href="' . \XoopsBaseConfig::get('url') . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id='
                             . $btemplate2[0]->getVar('tpl_id') . '" rel="external">'
                             . SystemLocale::EDIT_TEMPLATE . '</a>'
                         ));

@@ -112,7 +112,7 @@ $modversion['config'][] = array(
     'default'     => 0,
 );
 
-$editors = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
+$editors = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
 
 $modversion['config'][] = array(
     'name'        => 'com_editor',

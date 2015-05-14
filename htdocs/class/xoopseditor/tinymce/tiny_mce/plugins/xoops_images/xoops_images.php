@@ -13,8 +13,13 @@
 
 use Xoops\Core\Request;
 
-$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-include_once $xoops_root_path . '/mainfile.php';
+$helper = Xoops\Module\Helper::getHelper('images');
+if (!$helper) {
+    ob_end_flush();
+    return;
+}
+
+require_once dirname(__FILE__).'/../../../../../../mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->simpleHeader(false);

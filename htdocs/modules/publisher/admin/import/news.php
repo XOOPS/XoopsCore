@@ -45,7 +45,7 @@ if ($op == 'start') {
     if ($totalCat == 0) {
         echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \">" . _AM_PUBLISHER_IMPORT_NO_CATEGORY . "</span>";
     } else {
-        include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
+        include_once \XoopsBaseConfig::get('root-path') . '/class/xoopstree.php';
 
         $result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("stories"));
         list ($totalArticles) = $xoopsDB->fetchRow($result);
@@ -134,7 +134,7 @@ if ($op == 'go') {
 
         // Category image
         if (($arrCat['topic_imgurl'] != 'blank.gif') && ($arrCat['topic_imgurl'] != '')) {
-            if (copy(XOOPS_ROOT_PATH . "/modules/news/images/topics/" . $arrCat['topic_imgurl'], XOOPS_ROOT_PATH . "/uploads/publisher/images/category/" . $arrCat['topic_imgurl'])) {
+            if (copy(\XoopsBaseConfig::get('root-path') . "/modules/news/images/topics/" . $arrCat['topic_imgurl'], \XoopsBaseConfig::get('root-path') . "/uploads/publisher/images/category/" . $arrCat['topic_imgurl'])) {
                 $categoryObj->setVar('image', $arrCat['topic_imgurl']);
             }
         }
@@ -176,9 +176,9 @@ if ($op == 'go') {
             /*
              // HTML Wrap
              if ($arrArticle['htmlpage']) {
-             $pagewrap_filename = XOOPS_ROOT_PATH . "/modules/wfsection/html/" .$arrArticle['htmlpage'];
+             $pagewrap_filename = \XoopsBaseConfig::get('root-path') . "/modules/wfsection/html/" .$arrArticle['htmlpage'];
              if (XoopsLoad::fileExists($pagewrap_filename)) {
-             if (copy($pagewrap_filename, XOOPS_ROOT_PATH . "/uploads/publisher/content/" . $arrArticle['htmlpage'])) {
+             if (copy($pagewrap_filename, \XoopsBaseConfig::get('root-path') . "/uploads/publisher/content/" . $arrArticle['htmlpage'])) {
              $itemObj->setVar('body', "[pagewrap=" . $arrArticle['htmlpage'] . "]");
              echo sprintf("&nbsp;&nbsp;&nbsp;&nbsp;" . _AM_PUBLISHER_IMPORT_ARTICLE_WRAP, $arrArticle['htmlpage']) . "<br/>";
              }
@@ -197,9 +197,9 @@ if ($op == 'go') {
                  $allowed_mimetypes = '';
                  while ($arrFile = $xoopsDB->fetchArray ($resultFiles)) {
 
-                 $filename = XOOPS_ROOT_PATH . "/modules/wfsection/cache/uploaded/" . $arrFile['filerealname'];
+                 $filename = \XoopsBaseConfig::get('root-path') . "/modules/wfsection/cache/uploaded/" . $arrFile['filerealname'];
                  if (XoopsLoad::fileExists($filename)) {
-                 if (copy($filename, XOOPS_ROOT_PATH . "/uploads/publisher/" . $arrFile['filerealname'])) {
+                 if (copy($filename, \XoopsBaseConfig::get('root-path') . "/uploads/publisher/" . $arrFile['filerealname'])) {
                  $fileObj = $publisher_file_handler->create();
                  $fileObj->setVar('name', $arrFile['fileshowname']);
                  $fileObj->setVar('description', $arrFile['filedescript']);

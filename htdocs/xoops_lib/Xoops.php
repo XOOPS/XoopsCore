@@ -25,6 +25,8 @@ use Xoops\Core\FixedGroups;
  */
 class Xoops
 {
+    const VERSION = 'XOOPS 2.6.0-Alpha 3';
+
     /**
      * @var null|Xoops\Core\Session\Manager
      */
@@ -112,23 +114,23 @@ class Xoops
      * @var bool
      */
     public $isAdminSide = false;
-	
+
     /**
      * Actual Xoops OS
      */
     private function __construct()
-    {		
-		$root = \XoopsBaseConfig::get('root-path');
-		$lib = \XoopsBaseConfig::get('lib-path');
-		$var = \XoopsBaseConfig::get('var-path');
-		
-		$url = \XoopsBaseConfig::get('url');
-		
+    {
+        $root = \XoopsBaseConfig::get('root-path');
+        $lib = \XoopsBaseConfig::get('lib-path');
+        $var = \XoopsBaseConfig::get('var-path');
+
+        $url = \XoopsBaseConfig::get('url');
+
         $this->paths['www'] = array($root, $url);
         $this->paths['var'] = array($var, null);
         $this->paths['lib'] = array($lib, $url . '/browse.php');
         $this->paths['XOOPS'] = array($lib, $url . '/browse.php');
-		
+
         $this->paths['assets'] = array($root . '/assets', $url . '/assets');
         $this->paths['images'] = array($root . '/images', $url . '/images');
         $this->paths['install'] = array($root . '/install', $url . '/install');
@@ -424,8 +426,8 @@ class Xoops
     }
 
     /**
-	 * Check if a path exists
-	 *
+     * Check if a path exists
+     *
      * @param string $path
      * @param string $error_type
      *
@@ -448,8 +450,8 @@ class Xoops
     }
 
     /**
-	 * Start gzipCompression output buffer
-	 *
+     * Start gzipCompression output buffer
+     *
      * @return void
      */
     public function gzipCompression()
@@ -470,8 +472,8 @@ class Xoops
     }
 
     /**
-	 * Translate a path
-	 *
+     * Translate a path
+     *
      * @return void
      */
     public function pathTranslation()
@@ -502,8 +504,8 @@ class Xoops
     }
 
     /**
-	 * Select Theme
-	 *
+     * Select Theme
+     *
      * @return void
      */
     public function themeSelect()
@@ -572,8 +574,8 @@ class Xoops
     }
 
     /**
-	 * Render Header
-	 *
+     * Render Header
+     *
      * @param string|null $tpl_name
      *
      * @return null|boolean
@@ -649,8 +651,8 @@ class Xoops
     }
 
     /**
-	 * Render Footer
-	 *
+     * Render Footer
+     *
      * @return false|null
      */
     public function footer()
@@ -680,8 +682,8 @@ class Xoops
     }
 
     /**
-	 * Check if a module is set
-	 *
+     * Check if a module is set
+     *
      * @return bool
      */
     public function isModule()
@@ -690,8 +692,8 @@ class Xoops
     }
 
     /**
-	 * Check if a user is set
-	 *
+     * Check if a user is set
+     *
      * @return bool
      */
     public function isUser()
@@ -700,8 +702,8 @@ class Xoops
     }
 
     /**
-	 * Check if user is admin
-	 *
+     * Check if user is admin
+     *
      * @return bool
      */
     public function isAdmin()
@@ -710,8 +712,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Block
-	 *
+     * Get handler of Block
+     *
      * @param mixed $optional
      *
      * @return XoopsBlockHandler
@@ -722,8 +724,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Block Module Link
-	 *
+     * Get handler of Block Module Link
+     *
      * @param mixed $optional
      *
      * @return XoopsBlockmodulelinkHandler
@@ -734,8 +736,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Config
-	 *
+     * Get handler of Config
+     *
      * @param mixed $optional
      *
      * @return XoopsConfigHandler
@@ -746,8 +748,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Config  Item
-	 *
+     * Get handler of Config  Item
+     *
      * @param mixed $optional
      *
      * @return XoopsConfigitemHandler
@@ -758,8 +760,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Config Option
-	 *
+     * Get handler of Config Option
+     *
      * @param mixed $optional
      *
      * @return XoopsConfigoptionHandler
@@ -770,8 +772,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Group
-	 *
+     * Get handler of Group
+     *
      * @param mixed $optional
      *
      * @return XoopsGroupHandler
@@ -782,8 +784,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Group Permission
-	 *
+     * Get handler of Group Permission
+     *
      * @param mixed $optional
      *
      * @return XoopsGrouppermHandler
@@ -794,8 +796,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Member
-	 *
+     * Get handler of Member
+     *
      * @param mixed $optional
      *
      * @return XoopsMemberHandler
@@ -806,8 +808,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Membership
-	 *
+     * Get handler of Membership
+     *
      * @param mixed $optional
      *
      * @return XoopsMembershipHandler
@@ -818,8 +820,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Module
-	 *
+     * Get handler of Module
+     *
      * @param mixed $optional
      *
      * @return XoopsModuleHandler
@@ -830,8 +832,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Online
-	 *
+     * Get handler of Online
+     *
      * @param mixed $optional
      *
      * @return XoopsOnlineHandler
@@ -842,8 +844,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Private Message
-	 *
+     * Get handler of Private Message
+     *
      * @param mixed $optional
      *
      * @return XoopsPrivmessageHandler
@@ -854,8 +856,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Ranks
-	 *
+     * Get handler of Ranks
+     *
      * @param mixed $optional
      *
      * @return XoopsRanksHandler
@@ -866,7 +868,9 @@ class Xoops
     }
 
     /**
-     * Get the session manager
+     * Get handler of Session
+     *
+     * @param mixed $optional
      *
      * @return Xoops\Core\Session\Manager
      */
@@ -879,8 +883,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Template File
-	 *
+     * Get handler of Template File
+     *
      * @param mixed $optional
      *
      * @return XoopsTplfileHandler
@@ -891,8 +895,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of Template Set
-	 *
+     * Get handler of Template Set
+     *
      * @param mixed $optional
      *
      * @return XoopsTplsetHandler
@@ -903,8 +907,8 @@ class Xoops
     }
 
     /**
-	 * Get handler of User
-	 *
+     * Get handler of User
+     *
      * @param mixed $optional
      *
      * @return XoopsUserHandler
@@ -915,8 +919,8 @@ class Xoops
     }
 
     /**
-	 * Get handler
-	 *
+     * Get handler
+     *
      * @param string $name
      * @param mixed  $optional
      *
@@ -944,8 +948,8 @@ class Xoops
     }
 
     /**
-	 * Get Module Handler
-	 *
+     * Get Module Handler
+     *
      * @param string|null $name
      * @param string|null $module_dir
      * @param bool        $optional
@@ -985,8 +989,8 @@ class Xoops
     }
 
     /**
-	 * Get Module Form
-	 *
+     * Get Module Form
+     *
      * @param XoopsObject $obj
      * @param string      $name
      * @param string      $module_dir
@@ -1019,8 +1023,8 @@ class Xoops
     }
 
     /**
-	 * Get Module Helper
-	 *
+     * Get Module Helper
+     *
      * @param string $dirname
      *
      * @return bool|Xoops\Module\Helper\HelperAbstract
@@ -1080,8 +1084,8 @@ class Xoops
     }
 
     /**
-	 * Translate a key value
-	 *
+     * Translate a key value
+     *
      * @param string $key
      * @param string $dirname
      *
@@ -1161,8 +1165,8 @@ class Xoops
     }
 
     /**
-	 * Get Module By Id
-	 *
+     * Get Module By Id
+     *
      * @param int $id Id of the module
      *
      * @return bool|XoopsModule
@@ -1178,8 +1182,8 @@ class Xoops
     }
 
     /**
-	 * Render Simple Header
-	 *
+     * Render Simple Header
+     *
      * @param bool $closehead
      *
      * @return void
@@ -1189,8 +1193,8 @@ class Xoops
         $this->events()->triggerEvent('core.header.start');
         $this->theme();
         $xoopsConfigMetaFooter = $this->getConfigs();
-		$xoops = \Xoops::getInstance();
-		
+        $xoops = \Xoops::getInstance();
+
         if (!headers_sent()) {
             header('Content-Type:text/html; charset=' . XoopsLocale::getCharset());
             header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
@@ -1200,7 +1204,7 @@ class Xoops
         }
 
         echo "<!DOCTYPE html>\n";
-		$xoops_url = \XoopsBaseConfig::get('url');
+        $xoops_url = \XoopsBaseConfig::get('url');
         echo '<html lang="' . XoopsLocale::getLangCode() . '">
               <head>
               <meta http-equiv="content-type" content="text/html; charset=' . XoopsLocale::getCharset() . '" />
@@ -1343,8 +1347,8 @@ class Xoops
     }
 
     /**
-	 * Get User Timestamp
-	 *
+     * Get User Timestamp
+     *
      * @param mixed  $time
      * @param string $timeoffset
      *
@@ -1415,8 +1419,8 @@ class Xoops
     }
 
     /**
-	 * Check Email
-	 *
+     * Check Email
+     *
      * @param string $email
      * @param bool   $antispam
      *
@@ -1485,8 +1489,8 @@ class Xoops
         $this->events()->triggerEvent('core.include.functions.redirectheader', array(
             $url, $time, $message, $addredirect, $allowExternalLink
         ));
-		
-		$xoops_url = \XoopsBaseConfig::get('url');
+
+        $xoops_url = \XoopsBaseConfig::get('url');
 
         if (preg_match("/[\\0-\\31]|about:|script:/i", $url)) {
             if (!preg_match('/^\b(java)?script:([\s]*)history\.go\(-[0-9]*\)([\s]*[;]*[\s]*)$/si', $url)) {
@@ -1540,8 +1544,8 @@ class Xoops
     }
 
     /**
-	 * Get Environment Value
-	 *
+     * Get Environment Value
+     *
      * @param string $key
      *
      * @return string
@@ -1580,8 +1584,8 @@ class Xoops
         } else {
             $str_css = 'styleNN.css';
         }
-		$xoops_theme_path = \XoopsBaseConfig::get('themes-path');
-		$xoops_theme_url = \XoopsBaseConfig::get('themes-url');
+        $xoops_theme_path = \XoopsBaseConfig::get('themes-path');
+        $xoops_theme_url = \XoopsBaseConfig::get('themes-url');
         if (is_dir($xoops_theme_path . '/' . $theme)) {
             if (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/' . $str_css)) {
                 return $xoops_theme_url . '/' . $theme . '/' . $str_css;
@@ -1600,8 +1604,8 @@ class Xoops
     }
 
     /**
-	 * Get Mailer
-	 *
+     * Get Mailer
+     *
      * @return XoopsMailer|XoopsMailerLocale
      */
     public function getMailer()
@@ -1657,8 +1661,8 @@ class Xoops
     }
 
     /**
-	 * Get Option
-	 *
+     * Get Option
+     *
      * @param string $key
      *
      * @return string
@@ -1673,8 +1677,8 @@ class Xoops
     }
 
     /**
-	 * Set Option
-	 *
+     * Set Option
+     *
      * @param string $key
      * @param null   $value
      *
@@ -1688,8 +1692,8 @@ class Xoops
     }
 
     /**
-	 * Get Config value
-	 *
+     * Get Config value
+     *
      * @param string $key
      *
      * @return mixed
@@ -1700,8 +1704,8 @@ class Xoops
     }
 
     /**
-	 * Get all Config Values
-	 *
+     * Get all Config Values
+     *
      * @return array
      */
     public function getConfigs()
@@ -1710,8 +1714,8 @@ class Xoops
     }
 
     /**
-	 * Add Config Values
-	 *
+     * Add Config Values
+     *
      * @param array  $configs array of configs
      * @param string $dirname module name
      *
@@ -1729,8 +1733,8 @@ class Xoops
     }
 
     /**
-	 * Set Config Value
-	 *
+     * Set Config Value
+     *
      * @param string $key
      * @param mixed  $value
      * @param string $dirname
@@ -1749,8 +1753,8 @@ class Xoops
     }
 
     /**
-	 * Append Config Value
-	 *
+     * Append Config Value
+     *
      * @param string $key
      * @param array  $values
      * @param bool   $appendWithKey
@@ -1804,8 +1808,8 @@ class Xoops
     }
 
     /**
-	 * Get Module Configs
-	 *
+     * Get Module Configs
+     *
      * @param string $dirname
      *
      * @return array

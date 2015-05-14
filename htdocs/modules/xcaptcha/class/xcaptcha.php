@@ -34,7 +34,7 @@ class Xcaptcha extends XoopsCaptcha
         $this->config = $this->loadConfig();
         $this->plugin_List = $this->getPluginList();
         $this->plugin_config = $this->loadConfigPlugin();
-        $this->xcaptcha_path_plugin = XOOPS_ROOT_PATH . '/modules/xcaptcha/plugins';
+        $this->xcaptcha_path_plugin = \XoopsBaseConfig::get('root-path') . '/modules/xcaptcha/plugins';
     }
 
     static function getInstance()

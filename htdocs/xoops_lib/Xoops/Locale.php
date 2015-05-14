@@ -57,7 +57,7 @@ class Xoops_Locale
      */
     public static function loadLocale($domain = 'xoops')
     {
-        $xoops = Xoops::getInstance();
+        $xoops = \Xoops::getInstance();
         // expanded domain to multiple categories, e.g. module:system, framework:filter, etc.
         if ('xoops' == $domain) {
             $path = '';
@@ -70,7 +70,7 @@ class Xoops_Locale
             $fullPath2 = $xoops->path("{$path}/locale/{$locale}/{$locale}.php");
             if (XoopsLoad::fileExists($fullPath)) {
                 XoopsLoad::addMap(array($domain . 'locale' => $fullPath));
-                if (XoopsLoad::fileExists($fullPath2)) {                
+                if (XoopsLoad::fileExists($fullPath2)) {
                     XoopsLoad::addMap(array(strtolower($domain . "locale{$locale}") => $fullPath2));
                 }
                 return true;
@@ -93,7 +93,7 @@ class Xoops_Locale
             $fullPath2 = $xoops->path($theme->resourcePath("locale/{$locale}/{$locale}.php"));
             if (XoopsLoad::fileExists($fullPath)) {
                 XoopsLoad::addMap(array(strtolower($theme->folderName . 'ThemeLocale') => $fullPath));
-                if (XoopsLoad::fileExists($fullPath2)) {                
+                if (XoopsLoad::fileExists($fullPath2)) {
                     XoopsLoad::addMap(array(strtolower($theme->folderName . "ThemeLocale{$locale}") => $fullPath2));
                 }
                 return true;
