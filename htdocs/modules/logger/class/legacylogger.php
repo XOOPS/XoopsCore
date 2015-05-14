@@ -318,8 +318,8 @@ class LegacyLogger implements LoggerInterface
         $path = str_replace(
             array(
                 '\\',
-                XOOPS_ROOT_PATH,
-                str_replace('\\', '/', realpath(XOOPS_ROOT_PATH))
+                \XoopsBaseConfig::get('root-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path')))
             ),
             array('/', '', ''),
             $path
@@ -489,7 +489,7 @@ class LegacyLogger implements LoggerInterface
         if (empty($mode) || $mode == 'queries') {
             $class = 'even';
             $ret .= '<table id="xo-logger-queries" class="outer"><thead><tr><th>' . _MD_LOGGER_QUERIES . '</th></tr></thead><tbody>';
-            $pattern = '/\b' . preg_quote(XOOPS_DB_PREFIX) . '\_/i';
+            $pattern = '/\b' . preg_quote(\XoopsBaseConfig::get('db-prefix')) . '\_/i';
         
             foreach ($this->queries as $q) {
                 $sql = preg_replace($pattern, '', $q['sql']);

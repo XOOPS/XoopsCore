@@ -56,7 +56,7 @@ switch ($op) {
 
         // Define Breadcrumb and tips
         $admin_page = new \Xoops\Module\Admin();
-        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+        $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
         $admin_page->addBreadcrumbLink(SystemLocale::TEMPLATES_MANAGER, $system->adminVersion('tplsets', 'adminpath'));
         $admin_page->renderBreadcrumb();
         $admin_page->addTips(SystemLocale::TEMPLATES_TIPS);
@@ -107,8 +107,8 @@ switch ($op) {
             //Generate modules
             if (isset($_REQUEST['select_theme']) && isset($_REQUEST['force_generated'])) {
                 //on verifie si le dossier module existe
-                $template_overload = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules';
-                $indexFile = XOOPS_ROOT_PATH . "/modules/system/include/index.html";
+                $template_overload = \XoopsBaseConfig::get('themes-path') . '/' . $_REQUEST['select_theme'] . '/modules';
+                $indexFile = \XoopsBaseConfig::get('root-path') . "/modules/system/include/index.html";
                 $verif_write = false;
                 $text = '';
 
@@ -170,7 +170,7 @@ switch ($op) {
                                     for ($j = 0; $j < count($templates); ++$j) {
                                         $filename = $templates[$j]->getVar('tpl_file');
                                         if ($tplsetname == $tplset) {
-                                            $physical_file = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/' . $filename;
+                                            $physical_file = \XoopsBaseConfig::get('themes-path') . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/' . $filename;
 
                                             $tplfile = $tpltpl_handler->get($templates[$j]->getVar('tpl_id'), true);
 
@@ -198,7 +198,7 @@ switch ($op) {
                                     for ($k = 0; $k < count($btemplates); ++$k) {
                                         $filename = $btemplates[$k]->getVar('tpl_file');
                                         if ($tplsetname == $tplset) {
-                                            $physical_file = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/blocks/' . $filename;
+                                            $physical_file = \XoopsBaseConfig::get('themes-path') . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/blocks/' . $filename;
                                             $btplfile = $tpltpl_handler->get($btemplates[$k]->getVar('tpl_id'), true);
 
                                             if (is_object($btplfile)) {
@@ -259,7 +259,7 @@ switch ($op) {
                                     for ($j = 0; $j < count($templates); ++$j) {
                                         $filename = $templates[$j]->getVar('tpl_file');
                                         if ($tplsetname == $tplset) {
-                                            $physical_file = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/' . $filename;
+                                            $physical_file = \XoopsBaseConfig::get('themes-path') . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/' . $filename;
 
                                             $tplfile = $tpltpl_handler->get($templates[$j]->getVar('tpl_id'), true);
 
@@ -289,7 +289,7 @@ switch ($op) {
                                     for ($k = 0; $k < count($btemplates); ++$k) {
                                         $filename = $btemplates[$k]->getVar('tpl_file');
                                         if ($tplsetname == $tplset) {
-                                            $physical_file = XOOPS_THEME_PATH . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/blocks/' . $filename;
+                                            $physical_file = \XoopsBaseConfig::get('themes-path') . '/' . $_REQUEST['select_theme'] . '/modules/' . $moddir . '/blocks/' . $filename;
                                             $btplfile = $tpltpl_handler->get($btemplates[$k]->getVar('tpl_id'), true);
 
                                             if (is_object($btplfile)) {

@@ -36,7 +36,7 @@ switch ($op) {
     case "importExecute":
 
         $importfile = (isset($_POST['importfile'])) ? $_POST['importfile'] : 'nonselected';
-        $importfile_path = XOOPS_ROOT_PATH . "/modules/" . $publisher->getModule()->dirname() . "/admin/import/" . $importfile . ".php";
+        $importfile_path = \XoopsBaseConfig::get('root-path') . "/modules/" . $publisher->getModule()->dirname() . "/admin/import/" . $importfile . ".php";
         include_once $importfile_path;
         break;
 

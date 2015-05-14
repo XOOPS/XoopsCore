@@ -133,6 +133,7 @@ class XoopsFormTinymce4 extends XoopsEditor
      */
     public function isActive()
     {
-        return is_readable(XOOPS_ROOT_PATH . $this->rootPath . "/tinymce.php");
+		xoops_root_path = \XoopsBaseConfig::get('root-path');
+        return is_readable($xoops_root_path . $this->rootPath . "/tinymce.php");
     }
 }

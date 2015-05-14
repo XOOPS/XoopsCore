@@ -25,6 +25,8 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.lostpass.start');
 
+$xoops_url = \XoopsBaseConfig::get('url');
+
 $xoops->loadLanguage('user');
 
 $email = Request::getEmail('email', null, 'GET');
@@ -52,13 +54,13 @@ if (empty($getuser)) {
         $xoopsMailer->setTemplate("lostpass2.tpl");
         $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
         $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-        $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
+        $xoopsMailer->assign("SITEURL", $xoops_url . "/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
         $xoopsMailer->assign("NEWPWD", $newpass);
         $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));
-        $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, XOOPS_URL));
+        $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, \XoopsBaseConfig::get('url')));
         if (!$xoopsMailer->send()) {
             echo $xoopsMailer->getErrors();
         }
@@ -77,9 +79,9 @@ if (empty($getuser)) {
         $xoopsMailer->setTemplate("lostpass1.tpl");
         $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
         $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-        $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
+        $xoopsMailer->assign("SITEURL", $xoops_url . "/");
         $xoopsMailer->assign("IP", $_SERVER['REMOTE_ADDR']);
-        $xoopsMailer->assign("NEWPWD_LINK", XOOPS_URL . "/lostpass.php?email=" . $email . "&code=" . $areyou);
+        $xoopsMailer->assign("NEWPWD_LINK", $xoops_url . "/lostpass.php?email=" . $email . "&code=" . $areyou);
         $xoopsMailer->setToUsers($userObject);
         $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
         $xoopsMailer->setFromName($xoops->getConfig('sitename'));

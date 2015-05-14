@@ -19,8 +19,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /*
  General settings
  */
@@ -1072,7 +1070,7 @@ $modversion['config'][] = array(
     'default'     => 1,
 );
 
-$icons                  = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/system/images/icons');
+$icons                  = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/modules/system/images/icons');
 $modversion['config'][] = array(
     'name'        => 'typeicons',
     'title'       => 'CONF_ICONS',
@@ -1083,7 +1081,7 @@ $modversion['config'][] = array(
     'options'     => $icons,
 );
 
-$breadcrumb             = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/system/images/breadcrumb');
+$breadcrumb             = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/modules/system/images/breadcrumb');
 $modversion['config'][] = array(
     'name'        => 'typebreadcrumb',
     'title'       => 'CONF_BREADCRUMB',
@@ -1094,7 +1092,7 @@ $modversion['config'][] = array(
     'options'     => $breadcrumb,
 );
 
-$jquery_theme           = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/media/jquery/ui/themes');
+$jquery_theme           = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/media/jquery/ui/themes');
 $modversion['config'][] = array(
     'name'        => 'jquery_theme',
     'title'       => 'CONF_JQUERY_THEME',
@@ -1204,7 +1202,7 @@ $modversion['config'][] = array(
     'default'     => 20,
 );
 
-$editors                = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor');
+$editors                = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
 $modversion['config'][] = array(
     'name'        => 'blocks_editor',
     'title'       => 'CONF_BLOCKS_EDITOR',

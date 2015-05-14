@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Define required Defines (I guess lol )
  */
@@ -38,26 +36,20 @@ define('XOOPS_MATCH_END', 1);
 define('XOOPS_MATCH_EQUAL', 2);
 define('XOOPS_MATCH_CONTAIN', 3);
 // YOU SHOULD AVOID USING THE FOLLOWING CONSTANTS, THEY WILL BE REMOVED
-define('XOOPS_THEME_PATH', XOOPS_ROOT_PATH . '/themes');
-define('XOOPS_ADMINTHEME_PATH', XOOPS_ROOT_PATH . '/modules/system/themes');
-define('XOOPS_UPLOAD_PATH', XOOPS_ROOT_PATH . '/uploads');
-define('XOOPS_LIBRARY_PATH', XOOPS_ROOT_PATH . '/libraries');
-define('XOOPS_THEME_URL', XOOPS_URL . '/themes');
-define('XOOPS_ADMINTHEME_URL', XOOPS_URL . '/modules/system/themes');
-define('XOOPS_UPLOAD_URL', XOOPS_URL . '/uploads');
-define('XOOPS_LIBRARY_URL', XOOPS_URL . '/libraries');
+// define('XOOPS_THEME_PATH', XOOPS_ROOT_PATH . '/themes');
+// define('XOOPS_ADMINTHEME_PATH', XOOPS_ROOT_PATH . '/modules/system/themes');
+// define('XOOPS_UPLOAD_PATH', XOOPS_ROOT_PATH . '/uploads');
+// define('XOOPS_LIBRARY_PATH', XOOPS_ROOT_PATH . '/libraries');
+// define('XOOPS_THEME_URL', XOOPS_URL . '/themes');
+// define('XOOPS_ADMINTHEME_URL', XOOPS_URL . '/modules/system/themes');
+// define('XOOPS_UPLOAD_URL', XOOPS_URL . '/uploads');
+// define('XOOPS_LIBRARY_URL', XOOPS_URL . '/libraries');
 
 // ----- BEGIN: Deprecated, move to template class -----
 // define('SMARTY_DIR', XOOPS_ROOT_PATH . '/class/smarty/');
 //define('XOOPS_COMPILE_PATH', XOOPS_VAR_PATH . '/caches/smarty_compile');
-define('XOOPS_CACHE_PATH', XOOPS_VAR_PATH . '/caches/xoops_cache');
+// define('XOOPS_CACHE_PATH', XOOPS_VAR_PATH . '/caches/xoops_cache');
 // ----- END: Deprecated, move to template class -----
-
-if (!defined('XOOPS_XMLRPC')) {
-    define('XOOPS_DB_CHKREF', 1);
-} else {
-    define('XOOPS_DB_CHKREF', 0);
-}
 
 /**
  * User Mulitbytes

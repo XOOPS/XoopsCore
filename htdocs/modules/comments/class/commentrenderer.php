@@ -18,8 +18,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Display comments
  *
@@ -432,12 +430,12 @@ class CommentsCommentRenderer
         if ($icon_image != '') {
             if (false != $this->_doIconCheck) {
                 if (!XoopsLoad::fileExists(Xoops::getInstance()->path('images/subject/' . $icon_image))) {
-                    return '<img src="' . XOOPS_URL . '/images/icons/no_posticon.gif" alt="" />';
+                    return '<img src="' . \XoopsBaseConfig::get('url') . '/images/icons/no_posticon.gif" alt="" />';
                 } else {
-                    return '<img src="' . XOOPS_URL . '/images/subject/' . $icon_image . '" alt="" />';
+                    return '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $icon_image . '" alt="" />';
                 }
             } else {
-                return '<img src="' . XOOPS_URL . '/images/subject/' . $icon_image . '" alt="" />';
+                return '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $icon_image . '" alt="" />';
             }
         }
         return '<img src="' . XOOPS_URL . '/images/icons/no_posticon.gif" alt="" />';

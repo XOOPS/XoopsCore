@@ -35,9 +35,10 @@
 /**
  * The reCAPTCHA server URL's
  */
-define("RECAPTCHA_API_SERVER", "http://www.google.com/recaptcha/api");
-define("RECAPTCHA_API_SECURE_SERVER", "https://www.google.com/recaptcha/api");
-define("RECAPTCHA_VERIFY_SERVER", "www.google.com");
+
+define('RECAPTCHA_API_SERVER', "http://www.google.com/recaptcha/api");
+define('RECAPTCHA_API_SECURE_SERVER', "https://www.google.com/recaptcha/api");
+define('RECAPTCHA_VERIFY_SERVER', "www.google.com");
 
 /**
  * Encodes the given data into a query string format
@@ -170,12 +171,14 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
         return $recaptcha_response;
     }
 
-    $response = _recaptcha_http_post(RECAPTCHA_VERIFY_SERVER, "/recaptcha/api/verify", array(
-                                                                                           'privatekey' => $privkey,
-                                                                                           'remoteip' => $remoteip,
-                                                                                           'challenge' => $challenge,
-                                                                                           'response' => $response
-                                                                                       ) + $extra_params);
+    $response = _recaptcha_http_post(RECAPTCHA_VERIFY_SERVER,
+		"/recaptcha/api/verify",
+		array(
+			   'privatekey' => $privkey,
+			   'remoteip' => $remoteip,
+			   'challenge' => $challenge,
+			   'response' => $response
+		   ) + $extra_params);
 
     $answers = explode("\n", $response [1]);
     $recaptcha_response = new ReCaptchaResponse();

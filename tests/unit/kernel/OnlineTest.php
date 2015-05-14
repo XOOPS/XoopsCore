@@ -10,7 +10,7 @@ class OnlineTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsOnline';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

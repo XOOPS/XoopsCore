@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../../init.php');
+require_once(dirname(__FILE__).'/../../../../../../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -18,8 +18,9 @@ class Plugins_Xoops_smiliesTest extends \PHPUnit_Framework_TestCase
 
     public function test_100()
     {
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
 		ob_start(array($this,'output_callback')); // to catch output after ob_end_flush in Xoops::simpleFooter
-		require_once (XOOPS_ROOT_PATH.'/class/xoopseditor/tinymce/tiny_mce/plugins/xoops_smilies/xoops_smilies.php');
+		require_once ($xoops_root_path.'/class/xoopseditor/tinymce/tiny_mce/plugins/xoops_smilies/xoops_smilies.php');
 		$this->assertTrue(is_string($this->buffer));
     }
 }

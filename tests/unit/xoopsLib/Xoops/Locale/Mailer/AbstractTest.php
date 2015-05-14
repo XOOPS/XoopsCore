@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 class Xoops_Locale_Mailer_AbstractTestInstance extends Xoops_Locale_Mailer_Abstract
 {

@@ -56,7 +56,7 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
                     $xoopsMailer->setTemplate('activated.tpl');
                     $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
                     $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-                    $xoopsMailer->assign('SITEURL', XOOPS_URL . "/");
+                    $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . "/");
                     $xoopsMailer->setToUsers($thisuser);
                     $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
                     $xoopsMailer->setFromName($xoops->getConfig('sitename'));
@@ -87,19 +87,19 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
     $member_handler = $xoops->getHandlerMember();
     $getuser = $member_handler->getUsers(new Criteria('email', $myts->addSlashes(trim($_REQUEST['email']))));
     if (count($getuser) == 0) {
-        $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_NO_USER_FOUND);
+        $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_NO_USER_FOUND);
     }
     /* @var XoopsUser $getuser */
     $getuser = $getuser[0];
     if ($getuser->isActive()) {
-        $xoops->redirect(XOOPS_URL, 2, XoopsLocale::E_SELECTED_ACCOUNT_IS_ALREADY_ACTIVATED);
+        $xoops->redirect(\XoopsBaseConfig::get('url'), 2, XoopsLocale::E_SELECTED_ACCOUNT_IS_ALREADY_ACTIVATED);
     }
     $xoopsMailer = $xoops->getMailer();
     $xoopsMailer->useMail();
     $xoopsMailer->setTemplate('register.tpl');
     $xoopsMailer->assign('SITENAME', $xoops->getConfig('sitename'));
     $xoopsMailer->assign('ADMINMAIL', $xoops->getConfig('adminmail'));
-    $xoopsMailer->assign('SITEURL', XOOPS_URL . "/");
+    $xoopsMailer->assign('SITEURL', \XoopsBaseConfig::get('url') . "/");
     $xoopsMailer->setToUsers($getuser[0]);
     $xoopsMailer->setFromEmail($xoops->getConfig('adminmail'));
     $xoopsMailer->setFromName($xoops->getConfig('sitename'));

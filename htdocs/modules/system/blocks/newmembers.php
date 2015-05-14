@@ -40,7 +40,7 @@ function b_system_newmembers_show($options)
     $count = count($newmembers);
     for ($i = 0; $i < $count; ++$i) {
         if ($options[1] == 1) {
-            $block['users'][$i]['avatar'] = $newmembers[$i]->getVar('user_avatar') != 'blank.gif' ? XOOPS_UPLOAD_URL . '/' . $newmembers[$i]->getVar('user_avatar') : '';
+            $block['users'][$i]['avatar'] = $newmembers[$i]->getVar('user_avatar') != 'blank.gif' ? \XoopsBaseConfig::get('uploads-url') . '/' . $newmembers[$i]->getVar('user_avatar') : '';
         } else {
             $block['users'][$i]['avatar'] = '';
         }

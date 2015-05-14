@@ -1,6 +1,7 @@
 <?php
+require_once(dirname(__FILE__).'/../../init_new.php');
 
-require_once(dirname(__FILE__).'/../../init.php');
+require_once(XOOPS_TU_ROOT_PATH . '/class/utility/xoopsutility.php');
 
 function myFunction($a)
 {
@@ -17,7 +18,7 @@ class XoopsUtilityTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'XoopsUtility';
 
-    public function SetUp() {
+    public function setUp() {
     }
 
 	public function myFunction($a)

@@ -40,7 +40,7 @@ if (@$_POST['op'] == 'submit') {
     }
 
     // Check wether the cloned module exists or not
-    if ($clone && is_dir(XOOPS_ROOT_PATH . '/modules/' . $clone)) {
+    if ($clone && is_dir(\XoopsBaseConfig::get('root-path') . '/modules/' . $clone)) {
         $xoops->redirect('clone.php', 3, sprintf(_AM_PUBLISHER_CLONE_EXISTS, $clone));
     }
 
@@ -56,8 +56,8 @@ if (@$_POST['op'] == 'submit') {
     $logocreated = publisher_createLogo(strtolower($clone));
 
     $msg = "";
-    if (is_dir(XOOPS_ROOT_PATH . '/modules/' . strtolower($clone))) {
-        $msg .= sprintf(_AM_PUBLISHER_CLONE_CONGRAT, "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(strtolower($clone)) . "</a>") . "<br />\n";
+    if (is_dir(\XoopsBaseConfig::get('root-path') . '/modules/' . strtolower($clone))) {
+        $msg .= sprintf(_AM_PUBLISHER_CLONE_CONGRAT, "<a href='" . \XoopsBaseConfig::get('url') . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(strtolower($clone)) . "</a>") . "<br />\n";
         if (!$logocreated) {
             $msg .= _AM_PUBLISHER_CLONE_IMAGEFAIL;
         }
@@ -139,7 +139,7 @@ function publisher_createLogo($dirname)
         }
     }
 
-    if (!XoopsLoad::fileExists($imageBase = XOOPS_ROOT_PATH . "/modules/" . $dirname . "/images/module_logo.png") || !XoopsLoad::fileExists($font = XOOPS_ROOT_PATH . "/modules/" . $dirname . "/images/VeraBd.ttf")) {
+    if (!XoopsLoad::fileExists($imageBase = \XoopsBaseConfig::get('root-path') . "/modules/" . $dirname . "/images/module_logo.png") || !XoopsLoad::fileExists($font = \XoopsBaseConfig::get('root-path') . "/modules/" . $dirname . "/images/VeraBd.ttf")) {
         return false;
     }
 
@@ -158,7 +158,7 @@ function publisher_createLogo($dirname)
     $white = imagecolorallocatealpha($imageModule, 255, 255, 255, 127);
     imagefill($imageModule, 0, 0, $white);
     imagecolortransparent($imageModule, $white);
-    imagepng($imageModule, XOOPS_ROOT_PATH . "/modules/" . $dirname . "/images/module_logo.png");
+    imagepng($imageModule, \XoopsBaseConfig::get('root-path') . "/modules/" . $dirname . "/images/module_logo.png");
     imagedestroy($imageModule);
     return true;
 }

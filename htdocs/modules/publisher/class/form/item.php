@@ -96,7 +96,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
 
         // TAGS
         if ($xoops->isActiveModule('tag') && $this->_isGranted(_PUBLISHER_ITEM_TAG)) {
-            include_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
+            include_once \XoopsBaseConfig::get('root-path') . '/modules/tag/include/formtag.php';
             $text_tags = new Xoops\Form\Tag('item_tag', 60, 255, $obj->getVar('item_tag', 'e'), 0);
             $mainTab->addElement($text_tags);
         }
@@ -287,13 +287,13 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
 
                 $image_select = new Xoops\Form\Select('', 'image_notused', '', 5);
                 $image_select->addOptionArray($image_array);
-                $image_select->setExtra("onchange='showImgSelected(\"image_display\", \"image_notused\", \"uploads/\", \"\", \"" . XOOPS_URL . "\")'");
+                $image_select->setExtra("onchange='showImgSelected(\"image_display\", \"image_notused\", \"uploads/\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
                 //$image_select->setExtra( "onchange='appendMySelectOption(\"image_notused\", \"image_item\")'");
                 unset($image_array);
 
                 $image_select2 = new Xoops\Form\Select('', 'image_item', '', 5, true);
                 $image_select2->addOptionArray($objimage_array);
-                $image_select2->setExtra("onchange='publisher_updateSelectOption(\"image_item\", \"image_featured\"), showImgSelected(\"image_display\", \"image_item\", \"uploads/\", \"\", \"" . XOOPS_URL . "\")'");
+                $image_select2->setExtra("onchange='publisher_updateSelectOption(\"image_item\", \"image_featured\"), showImgSelected(\"image_display\", \"image_item\", \"uploads/\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
 
                 $buttonadd = new Xoops\Form\Button('', 'buttonadd', _CO_PUBLISHER_ADD);
                 $buttonadd->setExtra("onclick='publisher_appendSelectOption(\"image_notused\", \"image_item\"), publisher_updateSelectOption(\"image_item\", \"image_featured\")'");
@@ -339,7 +339,7 @@ $(document).ready(function(){
             if (result[0] == "success") {
                  $("#image_item").append("<option value=\'" + result[1] + "\' selected=\'selected\'>" + result[2] + "</option>");
                  publisher_updateSelectOption(\'image_item\', \'image_featured\');
-                 showImgSelected(\'image_display\', \'image_item\', \'uploads/\', \'\', \'' . XOOPS_URL . '\')
+                 showImgSelected(\'image_display\', \'image_item\', \'uploads/\', \'\', \'' . \XoopsBaseConfig::get('url') . '\')
             } else {
                  $("#publisher_upload_message").html("<div class=\'errorMsg\'>" + result[1] + "</div>");
             }
@@ -396,11 +396,11 @@ $(document).ready(function(){
 
                 $image_select3 = new Xoops\Form\Select(_CO_PUBLISHER_IMAGE_ITEM, 'image_featured', $imagename, 1);
                 $image_select3->addOptionArray($objimage_array);
-                $image_select3->setExtra("onchange='showImgSelected(\"image_display\", \"image_featured\", \"uploads/\", \"\", \"" . XOOPS_URL . "\")'");
+                $image_select3->setExtra("onchange='showImgSelected(\"image_display\", \"image_featured\", \"uploads/\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
                 $image_select3->setDescription(_CO_PUBLISHER_IMAGE_ITEM_DSC);
                 $imagesTab->addElement($image_select3);
 
-                $image_preview = new Xoops\Form\Label(_CO_PUBLISHER_IMAGE_PREVIEW, "<img width='500' src='" . XOOPS_URL . "/uploads/" . $imageforpath . "' name='image_display' id='image_display' alt='' />");
+                $image_preview = new Xoops\Form\Label(_CO_PUBLISHER_IMAGE_PREVIEW, "<img width='500' src='" . \XoopsBaseConfig::get('url') . "/uploads/" . $imageforpath . "' name='image_display' id='image_display' alt='' />");
                 $imagesTab->addElement($image_preview);
             }
             $tabtray->addElement($imagesTab);

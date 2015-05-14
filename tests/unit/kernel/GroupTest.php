@@ -10,7 +10,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsGroup';
     
-    public function SetUp()
+    public function setUp()
 	{
     }
     

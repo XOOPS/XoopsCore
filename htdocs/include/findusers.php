@@ -420,7 +420,7 @@ if (empty($_POST["user_submit"])) {
                         echo "<input type='hidden' name='{$name_username}' id='{$name_username}' value='" . $foundusers[$j]->getVar("uname") . "' />";
                     }
                     echo "</td>
-                    <td><a href='" . XOOPS_URL . "/userinfo.php?uid=" . $foundusers[$j]->getVar("uid") . "' target='_blank'>" . $foundusers[$j]->getVar("uname") . "</a></td>
+                    <td><a href='" . \XoopsBaseConfig::get('url') . "/userinfo.php?uid=" . $foundusers[$j]->getVar("uid") . "' target='_blank'>" . $foundusers[$j]->getVar("uname") . "</a></td>
                     <td>" . $fuser_name . "</td>
                     <td align='center'>" . ($foundusers[$j]->getVar("user_regdate") ? date("Y-m-d", $foundusers[$j]->getVar("user_regdate")) : "") . "</td>
                     <td align='center'>" . ($foundusers[$j]->getVar("last_login") ? date("Y-m-d H:i", $foundusers[$j]->getVar("last_login")) : "") . "</td>

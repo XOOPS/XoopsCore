@@ -212,7 +212,7 @@ class GenericHelper
         $this->addLog('INIT ' . $name . ' HANDLER');
 
         if (!isset($this->_handlers[$name])) {
-            $hnd_file = XOOPS_ROOT_PATH .
+            $hnd_file = \XoopsBaseConfig::get('root-path') .
                 "/modules/{$this->dirname}/class/{$name}.php";
             if (file_exists($hnd_file)) {
                 include_once $hnd_file;
@@ -312,7 +312,7 @@ class GenericHelper
      */
     public function url($url = '')
     {
-        return XOOPS_URL . '/modules/' . $this->dirname . '/' . $url;
+        return \XoopsBaseConfig::get('url') . '/modules/' . $this->dirname . '/' . $url;
     }
 
     /**
@@ -324,7 +324,7 @@ class GenericHelper
      */
     public function path($path = '')
     {
-        return XOOPS_ROOT_PATH . '/modules/' . $this->dirname . '/' . $path;
+        return \XoopsBaseConfig::get('root-path') . '/modules/' . $this->dirname . '/' . $path;
     }
 
     /**

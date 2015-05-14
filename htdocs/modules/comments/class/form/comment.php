@@ -19,8 +19,6 @@ use Xoops\Core\Request;
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class CommentsCommentForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -32,7 +30,7 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         $helper = Comments::getInstance();
         $module = $xoops->getModuleById($obj->getVar('modid'));
         if (!is_object($module)) {
-            $xoops->redirect(XOOPS_URL, 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+            $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         }
         $dirname = $module->getVar('dirname');
 
@@ -62,7 +60,7 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         $icons_radio = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'com_icon', $obj->getVar('icon', 'e'));
         $subject_icons = XoopsLists::getSubjectsList();
         foreach ($subject_icons as $iconfile) {
-            $icons_radio->addOption($iconfile, '<img src="' . XOOPS_URL . '/images/subject/' . $iconfile . '" alt="" />');
+            $icons_radio->addOption($iconfile, '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $iconfile . '" alt="" />');
         }
         $this->addElement($icons_radio);
         // editor

@@ -71,7 +71,7 @@ class Debug
         } else {
             $config = array(
                 'skin' => array('selected' => 'modern'),
-                'css'  => array('url' => XOOPS_URL . '/modules/xmf/css/krumo/'),
+                'css'  => array('url' => \XoopsBaseConfig::get('url') . '/modules/xmf/css/krumo/'),
                 'display' => array(
                     'show_version' => false,
                     'show_call_info' => false,
@@ -219,7 +219,7 @@ class Debug
             ini_set('xdebug.collect_params', $collect_params);
             ini_set('xdebug.collect_return', $collect_return);
             if ($tracefile == '') {
-                $tracefile = XOOPS_VAR_PATH . '/logs/php_trace';
+                $tracefile = \XoopsBaseConfig::get('var-path') . '/logs/php_trace';
             }
             xdebug_start_trace($tracefile);
         }

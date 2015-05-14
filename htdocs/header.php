@@ -22,8 +22,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 $xoops = Xoops::getInstance();
 $xoops->deprecated("include 'header.php' is deprecated since 2.6.0, use Xoops::getInstance()->header(); instead");
 $xoops->header();

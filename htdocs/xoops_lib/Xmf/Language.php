@@ -60,7 +60,7 @@ class Language
                 $language = 'english';
             }
         }
-        $path = XOOPS_ROOT_PATH . '/' . ((empty($domain) || 'global' == $domain) ? ''
+        $path = \XoopsBaseConfig::get('root-path') . '/' . ((empty($domain) || 'global' == $domain) ? ''
             : "modules/{$domain}/") . 'language';
         if (!$ret = Loader::loadFile("{$path}/{$language}/{$name}.php")) {
             $ret = Loader::loadFile("{$path}/english/{$name}.php");

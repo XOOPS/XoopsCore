@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../init_new.php');
 
 /**
  * PHPUnit special settings :
@@ -61,6 +61,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(is_null($token));
         $id = $token['id'];
         $expire = $token['expire'];
+        $db_prefix = \XoopsBaseConfig::get('db-prefix');
         $this->assertSame($id, $value);
         unset($_SESSION['XOOPS_TOKEN_SESSION']);
 
@@ -156,9 +157,9 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
         $refSave = $_SERVER['HTTP_REFERER'];
 
-        $_SERVER['HTTP_REFERER'] = '';
+        $_SERVER['HTTP_REFERER'] = \XoopsBaseConfig::get('url');;
         $value = $instance->checkReferer();
-        $this->assertFalse($value);
+        $this->assertTrue($value);
 
         $_SERVER['HTTP_REFERER'] = 'dummy';
         $value = $instance->checkReferer();

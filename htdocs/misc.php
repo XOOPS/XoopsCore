@@ -26,6 +26,9 @@ include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
 
+$xoops_url = \XoopsBaseConfig::get('url');
+$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+
 $action = Request::getCmd('action', '');
 $type = Request::getCmd('type', '');
 
@@ -81,8 +84,10 @@ if ($action == "showpopups") {
                 } else {
                     $ymail = isset($_POST['ymail']) ? $myts->stripSlashesGPC(trim($_POST['ymail'])) : '';
                 }
-                if (!isset($_POST['yname']) || trim($_POST['yname']) == "" || $ymail == '' || !isset($_POST['fname']) || trim($_POST['fname']) == "" || !isset($_POST['fmail']) || trim($_POST['fmail']) == '') {
-                    $xoops->redirect(XOOPS_URL . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, XoopsLocale::E_YOU_NEED_TO_ENTER_REQUIRED_INFO);
+                if (!isset($_POST['yname']) || trim($_POST['yname']) == "" || $ymail == ''
+				|| !isset($_POST['fname']) || trim($_POST['fname']) == "" || !isset($_POST['fmail'])
+				|| trim($_POST['fmail']) == '') {
+                    $xoops->redirect($xoops_url . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, XoopsLocale::E_YOU_NEED_TO_ENTER_REQUIRED_INFO);
                     exit();
                 }
                 $yname = $myts->stripSlashesGPC(trim($_POST['yname']));
@@ -90,13 +95,13 @@ if ($action == "showpopups") {
                 $fmail = $myts->stripSlashesGPC(trim($_POST['fmail']));
                 if (!$xoops->checkEmail($fmail) || !$xoops->checkEmail($ymail) || preg_match("/[\\0-\\31]/", $yname)) {
                     $errormessage = XoopsLocale::EMAIL_PROVIDED_IS_INVALID . "<br />" . XoopsLocale::E_CHECK_EMAIL_AND_TRY_AGAIN . "";
-                    $xoops->redirect(XOOPS_URL . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, $errormessage);
+                    $xoops->redirect($xoops_url . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, $errormessage);
                 }
                 $xoopsMailer = $xoops->getMailer();
                 $xoopsMailer->setTemplate("tellfriend.tpl");
                 $xoopsMailer->assign("SITENAME", $xoops->getConfig('sitename'));
                 $xoopsMailer->assign("ADMINMAIL", $xoops->getConfig('adminmail'));
-                $xoopsMailer->assign("SITEURL", XOOPS_URL . "/");
+                $xoopsMailer->assign("SITEURL", $xoops_url . "/");
                 $xoopsMailer->assign("YOUR_NAME", $yname);
                 $xoopsMailer->assign("FRIEND_NAME", $fname);
                 $xoopsMailer->setToEmails($fmail);
@@ -136,11 +141,11 @@ if ($action == "showpopups") {
                     $onlineUsers[$i]['name'] = $user->getVar('uname');
                     $response = $xoops->service("Avatar")->getAvatarUrl($user);
                     $avatar = $response->getValue();
-                    $avatar = empty($avatar) ? XOOPS_UPLOAD_URL . '/blank.gif' : $avatar;
+                    $avatar = empty($avatar) ? $xoops_upload_url . '/blank.gif' : $avatar;
                     $onlineUsers[$i]['avatar'] = $avatar;
                 } else {
                     $onlineUsers[$i]['name'] = $xoops->getConfig('anonymous');
-                    $onlineUsers[$i]['avatar'] = XOOPS_UPLOAD_URL . '/blank.gif';
+                    $onlineUsers[$i]['avatar'] = $xoops_upload_url . '/blank.gif';
                 }
             }
 

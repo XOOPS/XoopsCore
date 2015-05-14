@@ -37,7 +37,7 @@ $smilies_display =  $helper->getHandlerSmilies()->getCount($criteria);
 $smilies_total= $smilies_notdisplay + $smilies_display;
 
 // folder path
-$folder_path = XOOPS_ROOT_PATH . '/uploads/smilies';
+$folder_path = \XoopsBaseConfig::get('root-path') . '/uploads/smilies';
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');

@@ -169,7 +169,7 @@ class Security
         if ($ref == '') {
             return false;
         }
-        if (strpos($ref, XOOPS_URL) !== 0) {
+        if (strpos($ref, \XoopsBaseConfig::get('url')) !== 0) {
             return false;
         }
         return true;

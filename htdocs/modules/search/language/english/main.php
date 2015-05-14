@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 define('_MD_SEARCH', 'Search');
 define('_MD_SEARCH_PLZENTER', 'Please enter all required data!');
 define('_MD_SEARCH_SEARCHRESULTS', 'Search Results');

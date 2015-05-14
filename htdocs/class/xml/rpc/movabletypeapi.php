@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 class MovableTypeApi extends XoopsXmlRpcApi
 {
     function MovableTypeApi(&$params, &$response, &$module)

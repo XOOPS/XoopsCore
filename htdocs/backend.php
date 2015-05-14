@@ -25,23 +25,23 @@ if (file_exists('mainfile.php')) {
 } else {
     include '../../' . DIRECTORY_SEPARATOR . 'mainfile.php';
 }
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
+
+$xoops_url = \XoopsBaseConfig::get('url');
 
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 header('Content-Type:text/xml; charset=utf-8');
-
 $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname'): 'system';
 $tpl = new XoopsTpl();
 $tpl->caching = 2;
 $tpl->cache_lifetime = 3600;
 if (!$tpl->isCached('module:' . $dirname . '/system_rss.tpl')) {
     $tpl->assign('channel_title', XoopsLocale::convert_encoding(htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES)));
-    $tpl->assign('channel_link', XOOPS_URL . '/');
+    $tpl->assign('channel_link', $xoops_url . '/');
     $tpl->assign('channel_desc', XoopsLocale::convert_encoding(htmlspecialchars($xoops->getConfig('slogan'), ENT_QUOTES)));
     $tpl->assign('channel_lastbuild', XoopsLocale::formatTimestamp(time(), 'rss'));
     $tpl->assign('channel_webmaster', $xoops->checkEmail($xoops->getConfig('adminmail'), true));

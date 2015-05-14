@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 class XoopsApi extends XoopsXmlRpcApi
 {
     /**
@@ -67,7 +65,7 @@ class XoopsApi extends XoopsXmlRpcApi
                     $this->response->add(new XoopsXmlRpcFault(109, $msg));
                 } else {
                     // will be removed... don't worry if this looks bad
-                    if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+                    if (!XoopsLoad::loadFile(\XoopsBaseConfig::get('root-path').'/modules/news/class/class.newsstory.php', true)) {
 						$this->response->add(new XoopsXmlRpcFault(103));
 						return;
 					}
@@ -157,7 +155,7 @@ class XoopsApi extends XoopsXmlRpcApi
                     $this->response->add(new XoopsXmlRpcFault(109, $msg));
                 } else {
                     // will be removed... don't worry if this looks bad
-                    if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+                    if (!XoopsLoad::loadFile(\XoopsBaseConfig::get('root-path').'/modules/news/class/class.newsstory.php', true)) {
 						$this->response->add(new XoopsXmlRpcFault(103));
 						return;
 					}
@@ -202,7 +200,7 @@ class XoopsApi extends XoopsXmlRpcApi
                 $this->response->add(new XoopsXmlRpcFault(111));
             } else {
                 // will be removed... don't worry if this looks bad
-				if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+				if (!XoopsLoad::loadFile(\XoopsBaseConfig::get('root-path').'/modules/news/class/class.newsstory.php', true)) {
 					$this->response->add(new XoopsXmlRpcFault(103));
 					return;
 				}
@@ -223,7 +221,7 @@ class XoopsApi extends XoopsXmlRpcApi
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
             // will be removed... don't worry if this looks bad
-			if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+			if (!XoopsLoad::loadFile(\XoopsBaseConfig::get('root-path').'/modules/news/class/class.newsstory.php', true)) {
 				$this->response->add(new XoopsXmlRpcFault(103));
 				return;
 			}
@@ -247,8 +245,8 @@ class XoopsApi extends XoopsXmlRpcApi
                             break;
                         case 'storyid':
                             $struct->add('postid', new XoopsXmlRpcString($value));
-                            $struct->add('link', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/article.php?item_id='.$value));
-                            $struct->add('permaLink', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/article.php?item_id='.$value));
+                            $struct->add('link', new XoopsXmlRpcString(\XoopsBaseConfig::get('url').'/modules/news/article.php?item_id='.$value));
+                            $struct->add('permaLink', new XoopsXmlRpcString(\XoopsBaseConfig::get('url').'/modules/news/article.php?item_id='.$value));
                             break;
                         case 'title':
                             $struct->add('title', new XoopsXmlRpcString($value));
@@ -270,7 +268,7 @@ class XoopsApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
-			if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php', true)) {
+			if (!XoopsLoad::loadFile(\XoopsBaseConfig::get('root-path').'/modules/news/class/class.newsstory.php', true)) {
 				$this->response->add(new XoopsXmlRpcFault(103));
 				return;
 			}
@@ -305,8 +303,8 @@ class XoopsApi extends XoopsXmlRpcApi
                                 break;
                             case 'storyid':
                                 $struct->add('postid', new XoopsXmlRpcString($value));
-                                $struct->add('link', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/article.php?item_id='.$value));
-                                $struct->add('permaLink', new XoopsXmlRpcString(XOOPS_URL.'/modules/news/article.php?item_id='.$value));
+                                $struct->add('link', new XoopsXmlRpcString(\XoopsBaseConfig::get('url').'/modules/news/article.php?item_id='.$value));
+                                $struct->add('permaLink', new XoopsXmlRpcString(\XoopsBaseConfig::get('url').'/modules/news/article.php?item_id='.$value));
                                 break;
                             case 'title':
                                 $struct->add('title', new XoopsXmlRpcString($value));
@@ -332,7 +330,7 @@ class XoopsApi extends XoopsXmlRpcApi
         if (!$this->_checkUser($this->params[1], $this->params[2])) {
             $this->response->add(new XoopsXmlRpcFault(104));
         } else {
-			if (!XoopsLoad::loadFile(XOOPS_ROOT_PATH.'/class/xoopstopic.php', true)) {
+			if (!XoopsLoad::loadFile(\XoopsBaseConfig::get('root-path').'/class/xoopstopic.php', true)) {
 				$this->response->add(new XoopsXmlRpcFault(103));
 				return;
 			}

@@ -84,26 +84,29 @@ function xoops_module_install_banners(&$module)
     $sql = "DELETE FROM " . $xoopsDB->prefix("config") . " WHERE `conf_name` = 'my_ip'";
     $xoopsDB->queryF($sql);
 */
+	$xoops_root_path = \XoopsBaseConfig::get('root-path');
+	$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+	
     // create folder "banners"
-    $dir = XOOPS_ROOT_PATH . "/uploads/banners";
+    $dir = $xoops_root_path . "/uploads/banners";
     if (!is_dir($dir)) {
         mkdir($dir, 0777);
         chmod($dir, 0777);
     }
     //Copy index.html
-    $file = XOOPS_ROOT_PATH . "/uploads/banners/index.html";
+    $file = $xoops_root_path . "/uploads/banners/index.html";
     if (!is_file($file)) {
-        copy(XOOPS_ROOT_PATH . "/modules/banners/images/index.html", $file);
+        copy($xoops_root_path . "/modules/banners/images/index.html", $file);
     }
     //Copy blank.gif
-    $file = XOOPS_ROOT_PATH . "/uploads/banners/blank.gif";
+    $file = $xoops_root_path . "/uploads/banners/blank.gif";
     if (!is_file($file)) {
-        copy(XOOPS_ROOT_PATH . "/uploads/blank.gif", $file);
+        copy($xoops_root_path . "/uploads/blank.gif", $file);
     }
     //Copy .htaccess
-    $file = XOOPS_ROOT_PATH . "/uploads/banners/.htaccess";
+    $file = $xoops_root_path . "/uploads/banners/.htaccess";
     if (!is_file($file)) {
-        copy(XOOPS_ROOT_PATH . "/uploads/.htaccess", $file);
+        copy($xoops_root_path . "/uploads/.htaccess", $file);
     }
 
 /* this should be in system upgrade, not module install
@@ -136,14 +139,14 @@ function xoops_module_install_banners(&$module)
     // Modification of imported banners below xoops 2.6
     $banner_arr = $banner_Handler->getall();
     foreach (array_keys($banner_arr) as $i) {
-        $namefile = substr_replace($banner_arr[$i]->getVar('banner_imageurl'),'',0,strlen(XOOPS_URL . '/images/banners/'));
-        $pathfile_image =  XOOPS_ROOT_PATH . '/images/banners/' . $namefile;
-        $pathfile_upload =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
+        $namefile = substr_replace($banner_arr[$i]->getVar('banner_imageurl'),'',0,strlen(\XoopsBaseConfig::get('url') . '/images/banners/'));
+        $pathfile_image =  $xoops_root_path . '/images/banners/' . $namefile;
+        $pathfile_upload =  $xoops_root_path . '/uploads/banners/' . $namefile;
         $obj = $banner_Handler->get($banner_arr[$i]->getVar('banner_bid'));
         if (is_file($pathfile_image)){
             copy($pathfile_image, $pathfile_upload);
             unlink($pathfile_image);
-            $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $namefile);
+            $obj->setVar("banner_imageurl",  \XoopsBaseConfig::get('uploads-url') . '/banners/' . $namefile);
         }
         $obj->setVar("banner_status", 1);
         $banner_Handler->insert($obj);
@@ -176,15 +179,15 @@ function xoops_module_install_banners(&$module)
     );
     foreach ($banners as $k => $v) {
         //Copy banner
-        $file = XOOPS_ROOT_PATH . "/uploads/banners/" . $k;
-        $copy_file = XOOPS_ROOT_PATH . "/modules/banners/images/" . $k;
+        $file = $xoops_root_path . "/uploads/banners/" . $k;
+        $copy_file = $xoops_root_path . "/modules/banners/images/" . $k;
         if (!is_file($file) && is_file($copy_file)) {
             copy($copy_file, $file);
         }
         $obj = $banner_Handler->create();
         $obj->setVar("banner_cid", $newclient_id);
         $obj->setVar("banner_clickurl", $v);
-        $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $k);
+        $obj->setVar("banner_imageurl", $xoops_upload_url . '/banners/' . $k);
         $obj->setVar("banner_datestart", time());
         $obj->setVar("banner_dateend", 0);
         $obj->setVar("banner_status", 1);

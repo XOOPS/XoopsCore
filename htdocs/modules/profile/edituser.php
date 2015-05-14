@@ -26,7 +26,7 @@ $xoops = Xoops::getInstance();
 
 // If not a user, redirect
 if (!$xoops->isUser()) {
-    $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_ACTION_PERMISSION);
+    $xoops->redirect(\XoopsBaseConfig::get('url'), 3, XoopsLocale::E_NO_ACTION_PERMISSION);
 }
 
 $myts = MyTextSanitizer::getInstance();
@@ -35,7 +35,7 @@ $xoops->getConfigs();
 
 if ($op == 'save') {
     if (!$xoops->security()->check()) {
-        $xoops->redirect(XOOPS_URL . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
+        $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
         exit();
     }
     $uid = $xoops->user->getVar('uid');
@@ -84,7 +84,7 @@ if ($op == 'save') {
             $profile->setVar('profile_id', $edituser->getVar('uid'));
             $profile_handler->insert($profile);
             unset($_SESSION['xoopsUserTheme']);
-            $xoops->redirect(XOOPS_URL . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $edituser->getVar('uid'), 2, XoopsLocale::S_YOUR_PROFILE_UPDATED);
+            $xoops->redirect(\XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $edituser->getVar('uid'), 2, XoopsLocale::S_YOUR_PROFILE_UPDATED);
         }
     }
 }

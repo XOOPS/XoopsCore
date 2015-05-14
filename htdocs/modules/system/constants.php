@@ -19,8 +19,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 define("XOOPS_SYSTEM_GROUP", 1);
 define("XOOPS_SYSTEM_USER", 2);
 define("XOOPS_SYSTEM_PREF", 3);

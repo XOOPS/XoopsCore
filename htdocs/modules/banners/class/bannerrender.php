@@ -80,9 +80,9 @@ class BannerRender
                         $bannerobject .= $htmlcode;
                     } else {
                         if (stristr($imageurl, '.swf')) {
-                            $bannerobject .= '<a href="' . XOOPS_URL . '/modules/banners/index.php?op=click&amp;bid=' . $bid . '" rel="external" title="' . $clickurl . '"></a>' . '<object type="application/x-shockwave-flash" width="468" height="60" data="' . $imageurl . '" style="z-index:100;">' . '<param name="movie" value="' . $imageurl . '" />' . '<param name="wmode" value="opaque" />' . '</object>';
+                            $bannerobject .= '<a href="' . \XoopsBaseConfig::get('url') . '/modules/banners/index.php?op=click&amp;bid=' . $bid . '" rel="external" title="' . $clickurl . '"></a>' . '<object type="application/x-shockwave-flash" width="468" height="60" data="' . $imageurl . '" style="z-index:100;">' . '<param name="movie" value="' . $imageurl . '" />' . '<param name="wmode" value="opaque" />' . '</object>';
                         } else {
-                            $bannerobject .= '<a href="' . XOOPS_URL . '/modules/banners/index.php?op=click&amp;bid=' . $bid . '" rel="external" title="' . $clickurl . '"><img src="' . $imageurl . '" alt="' . $clickurl . '" /></a>';
+                            $bannerobject .= '<a href="' . \XoopsBaseConfig::get('url') . '/modules/banners/index.php?op=click&amp;bid=' . $bid . '" rel="external" title="' . $clickurl . '"><img src="' . $imageurl . '" alt="' . $clickurl . '" /></a>';
                         }
                     }
                     if ($align == 'V') {

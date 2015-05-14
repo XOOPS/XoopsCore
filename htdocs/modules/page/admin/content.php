@@ -150,7 +150,7 @@ switch ($op) {
                     $tags = array();
                     $tags['MODULE_NAME'] = 'page';
                     $tags['ITEM_NAME'] = Request::getString('content_title', '');
-                    $tags['ITEM_URL'] = XOOPS_URL . '/modules/page/viewpage.php?id=' . $newcontent_id;
+                    $tags['ITEM_URL'] = \XoopsBaseConfig::get('url') . '/modules/page/viewpage.php?id=' . $newcontent_id;
                     $notification_handler->triggerEvent('global', 0, 'newcontent', $tags);
                     $notification_handler->triggerEvent('item', $newcontent_id, 'newcontent', $tags);
                 }

@@ -10,7 +10,7 @@ class SqlUtilityTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'SqlUtility';
     
-    public function SetUp()
+    public function setUp()
 	{
     }
 	

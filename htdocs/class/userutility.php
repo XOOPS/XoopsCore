@@ -297,7 +297,7 @@ class XoopsUserUtility
                     $users[$uid] = $myts->htmlSpecialChars($row['uname']);
                 }
                 if ($linked) {
-                    $users[$uid] = '<a href="' . XOOPS_URL . '/userinfo.php?uid='
+                    $users[$uid] = '<a href="' . \XoopsBaseConfig::get('url') . '/userinfo.php?uid='
                         . $uid . '" title="' . $users[$uid] . '">' . $users[$uid] . '</a>';
                 }
             }
@@ -333,7 +333,7 @@ class XoopsUserUtility
                     $username = $user->getVar('uname');
                 }
                 if (!empty($linked)) {
-                    $username = '<a href="' . XOOPS_URL . '/userinfo.php?uid='
+                    $username = '<a href="' . \XoopsBaseConfig::get('url') . '/userinfo.php?uid='
                         . $userid . '" title="' . $username . '">' . $username . '</a>';
                 }
             }

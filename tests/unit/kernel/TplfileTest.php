@@ -10,7 +10,7 @@ class TplfileTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsTplfile';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

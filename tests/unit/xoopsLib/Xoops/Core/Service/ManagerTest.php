@@ -1,5 +1,5 @@
 <?php
-require_once (dirname(__FILE__).'/../../../../init_mini.php');
+require_once (dirname(__FILE__).'/../../../../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -50,7 +50,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $service = 'Avatar';
         $provider = $instance->locate($service);
 		$this->assertTrue(is_object($provider));
-        require_once XOOPS_ROOT_PATH.'/modules/avatars/class/AvatarsProvider.php';
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+        require_once $xoops_root_path.'/modules/avatars/class/AvatarsProvider.php';
         $ap = new AvatarsProvider();
 		$this->assertTrue(is_object($ap));
         $provider->register($ap);

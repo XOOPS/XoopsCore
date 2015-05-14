@@ -16,6 +16,7 @@
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  */
+
 function menus_block_show($options)
 {
     $block = array();
@@ -157,7 +158,7 @@ function menus_block_edit($options)
     $form->addElement($element);
 
     //Skin
-    $temp_skins = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . "/modules/menus/skins/", "");
+    $temp_skins = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . "/modules/menus/skins/", "");
     $skins_options = array();
     foreach ($temp_skins as $skin) {
         if (XoopsLoad::fileExists($helper->path('skins/' . $skin . '/skin_version.php'))) {
@@ -212,7 +213,7 @@ function menus_mainmenu_show()
     $menu->setVar('pid', 0);
     $menu->setVar('alt_title', _MB_MENUS_HOME);
     $menu->setVar('title', _MB_MENUS_HOME);
-    $menu->setVar('link', XOOPS_URL);
+    $menu->setVar('link', \XoopsBaseConfig::get('url'));
     $menu->setVar('image', 'icon-home');
     $menus[] = $menu->getValues();
     foreach (array_keys($modules) as $i) {
@@ -223,7 +224,7 @@ function menus_mainmenu_show()
             $menu->setVar('pid', 0);
             $menu->setVar('title', $modules[$i]->getVar('name'));
             $menu->setVar('alt_title', $modules[$i]->getVar('name'));
-            $menu->setVar('link', XOOPS_URL . '/modules/' . $modules[$i]->getVar('dirname'));
+            $menu->setVar('link', \XoopsBaseConfig::get('url') . '/modules/' . $modules[$i]->getVar('dirname'));
             $menu->setVar('image', 'icon-tags');
             $menus[] = $menu->getValues();
             if ($xoops->isModule() && $xoops->module->getVar('dirname') == $modules[$i]->getVar('dirname') && $plugin = \Xoops\Module\Plugin::getPlugin($modules[$i]->getVar('dirname'), 'menus')) {
@@ -235,7 +236,7 @@ function menus_mainmenu_show()
                     $menu->setVar('pid', $i);
                     $menu->setVar('title', $sublink['name']);
                     $menu->setVar('alt_title', $sublink['name']);
-                    $menu->setVar('link', XOOPS_URL . '/modules/' . $modules[$i]->getVar('dirname') . '/'. $sublink['url']);
+                    $menu->setVar('link', \XoopsBaseConfig::get('url') . '/modules/' . $modules[$i]->getVar('dirname') . '/'. $sublink['url']);
                     $menus[] = $menu->getValues();
                     $j--;
                 }

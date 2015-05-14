@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.include.footer');
 $xoops->deprecated("include 'footer.php' is deprecated since 2.6.0, use Xoops::getInstance()->footer(); instead");

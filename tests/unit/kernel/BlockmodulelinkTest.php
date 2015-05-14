@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../init.php');
 class BlockmodulelinkTest extends \PHPUnit_Framework_TestCase
 {
     
-    public function SetUp() {
+    public function setUp() {
     }
     
     public function test___construct() {

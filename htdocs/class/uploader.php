@@ -63,5 +63,4 @@
  */
 class XoopsMediaUploader extends \Xoops\Core\MediaUploader
 {
-
 }

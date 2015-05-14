@@ -22,18 +22,3 @@ if (empty($_SERVER['HTTP_HOST'])) {
 	$_SERVER['QUERY_STRING']='';
     $_SERVER['REQUEST_URI']='/XoopsCore/tests/xoops_lib/XoopsTest.php';
 }
-
-/*
-class MY_UnitTestCase extends \PHPUnit_Framework_TestCase
-{
-
-	public function expectError()
-	{
-	}
-	
-	public function test_dummy()
-	{
-	}
-	
-}
-*/

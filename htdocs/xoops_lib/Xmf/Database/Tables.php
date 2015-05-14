@@ -821,7 +821,7 @@ class Tables
         $sql  = 'SELECT TABLE_NAME, ENGINE, CHARACTER_SET_NAME ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`TABLES` t, ';
         $sql .= ' `INFORMATION_SCHEMA`.`COLLATIONS` c ';
-        $sql .= ' WHERE t.TABLE_SCHEMA = \'' . XOOPS_DB_NAME . '\' ';
+        $sql .= ' WHERE t.TABLE_SCHEMA = \'' . \XoopsBaseConfig::get('db-name') . '\' ';
         $sql .= ' AND t.TABLE_NAME = \'' . $this->name($table) . '\' ';
         $sql .= ' AND t.TABLE_COLLATION  = c.COLLATION_NAME ';
 
@@ -839,7 +839,7 @@ class Tables
 
         $sql  = 'SELECT * ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`COLUMNS` ';
-        $sql .= ' WHERE TABLE_SCHEMA = \'' . XOOPS_DB_NAME . '\' ';
+        $sql .= ' WHERE TABLE_SCHEMA = \'' . \XoopsBaseConfig::get('db-name') . '\' ';
         $sql .= ' AND TABLE_NAME = \'' . $this->name($table) . '\' ';
         $sql .= ' ORDER BY `ORDINAL_POSITION` ';
 
@@ -864,7 +864,7 @@ class Tables
         $sql  = 'SELECT `INDEX_NAME`, `SEQ_IN_INDEX`, `NON_UNIQUE`, ';
         $sql .= ' `COLUMN_NAME`, `SUB_PART` ';
         $sql .= ' FROM `INFORMATION_SCHEMA`.`STATISTICS` ';
-        $sql .= ' WHERE TABLE_SCHEMA = \'' . XOOPS_DB_NAME . '\' ';
+        $sql .= ' WHERE TABLE_SCHEMA = \'' . \XoopsBaseConfig::get('db-name') . '\' ';
         $sql .= ' AND TABLE_NAME = \'' . $this->name($table) . '\' ';
         $sql .= ' ORDER BY `INDEX_NAME`, `SEQ_IN_INDEX` ';
 

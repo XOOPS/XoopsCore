@@ -107,7 +107,7 @@ switch ($op) {
 
         $error_msg = '';
         if ($_FILES[$xoops_upload_file[0]]['error'] === 0) {
-            $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/smilies', $mimetypes, $upload_size, null, null);
+            $uploader = new XoopsMediaUploader(\XoopsBaseConfig::get('uploads-path') . '/smilies', $mimetypes, $upload_size, null, null);
             if ($uploader->fetchMedia($xoops_upload_file[0])) {
                 $uploader->setPrefix('smil');
                 if (!$uploader->upload()) {
@@ -142,7 +142,7 @@ switch ($op) {
             if (!$xoops->security()->check()) {
                 $xoops->redirect('smilies.php', 3, implode(',', $xoops->security()->getErrors()));
             }
-            $path_file = XOOPS_UPLOAD_PATH . '/' . $obj->getVar('smile_url');
+            $path_file = \XoopsBaseConfig::get('uploads-path') . '/' . $obj->getVar('smile_url');
             if ($helper->getHandlerSmilies()->delete($obj)) {
                 if (is_file($path_file)) {
                     chmod($path_file, 0777);
@@ -156,7 +156,7 @@ switch ($op) {
             $smilies_img = ($obj->getVar('smiley_url')) ? $obj->getVar('smiley_url') : 'blank.gif';
             echo $xoops->confirm(array(
                                  'ok' => 1, 'smiley_id' => $smiley_id, 'op' => 'del'
-                            ), XOOPS_URL . '/modules/smilies/admin/smilies.php', sprintf(_AM_SMILIES_SUREDEL) . '<br /><strong>' . $obj->getVar('smiley_emotion') . '</strong><br /><img src="' . XOOPS_UPLOAD_URL . '/' . $smilies_img . '" alt="' . $obj->getVar('smiley_emotion') . '"><br />');
+                            ), \XoopsBaseConfig::get('url') . '/modules/smilies/admin/smilies.php', sprintf(_AM_SMILIES_SUREDEL) . '<br /><strong>' . $obj->getVar('smiley_emotion') . '</strong><br /><img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $smilies_img . '" alt="' . $obj->getVar('smiley_emotion') . '"><br />');
         }
         break;
 

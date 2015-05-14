@@ -69,13 +69,15 @@ class TinyMCE
         // list of configured options
         $configured = array();
 
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+		
         // Load default settings
         if ( ! ($this->setting = @include( $xoops->path( "var/configs/tinymce.php" ) ) ) ) {
             $this->setting = include __DIR__ . "/settings.php";
         }
 
         // get editor language (from ...)
-        if (is_readable(XOOPS_ROOT_PATH . $this->rootpath . '/langs/' . $this->config["language"] . '.js')) {
+        if (is_readable($xoops_root_path . $this->rootpath . '/langs/' . $this->config["language"] . '.js')) {
             $this->setting["language"] = $this->config["language"];
             $configured[] = "language";
         }
@@ -83,7 +85,7 @@ class TinyMCE
         $this->setting["content_css"] = implode( ",", $this->loadCss()) . ',' . $xoops->url('xoops.css');
         $configured[] = "content_css";
 
-        if ( !empty($this->config["theme"]) && is_dir(XOOPS_ROOT_PATH . $this->rootpath . "/themes/" . $this->config["theme"]) ) {
+        if ( !empty($this->config["theme"]) && is_dir($xoops_root_path . $this->rootpath . "/themes/" . $this->config["theme"]) ) {
             $this->setting["theme"] = $this->config["theme"];
             $configured[] = "theme";
         }
@@ -192,7 +194,7 @@ class TinyMCE
             $this->setting[$key] = $val;
         }
 
-        if (!is_dir(XOOPS_ROOT_PATH . $this->rootpath . "/themes/" . $this->setting["theme"] . '/docs/' . $this->setting["language"] . '/')) {
+        if (!is_dir($xoops_root_path . $this->rootpath . "/themes/" . $this->setting["theme"] . '/docs/' . $this->setting["language"] . '/')) {
             $this->setting["docs_language"] = "en";
         }
 
@@ -204,8 +206,9 @@ class TinyMCE
     // load all plugins execpt the plugins in setting["exclude_plugins"]
     function loadPlugins()
     {
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
         $plugins = array();
-        $plugins_list = XoopsLists::getDirListAsArray( XOOPS_ROOT_PATH . $this->rootpath . "/plugins" );
+        $plugins_list = XoopsLists::getDirListAsArray( $xoops_root_path . $this->rootpath . "/plugins" );
         if (empty($this->setting["plugins"])) {
             $plugins = $plugins_list;
         } else {
@@ -222,11 +225,12 @@ class TinyMCE
 
     // return all xoops plugins
     function get_xoopsPlugins() {
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
         $xoopsPlugins = array();
-        $allplugins = XoopsLists::getDirListAsArray( XOOPS_ROOT_PATH . $this->rootpath . "/plugins" );
+        $allplugins = XoopsLists::getDirListAsArray( $xoops_root_path . $this->rootpath . "/plugins" );
         foreach ( $allplugins as $plugin ) {
-            if ( strpos( strtolower($plugin), "xoops") !== false && file_exists(XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php") ) {
-                if ( $right = @include XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php" ) {
+            if ( strpos( strtolower($plugin), "xoops") !== false && file_exists($xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php") ) {
+                if ( $right = @include $xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php" ) {
                     $xoopsPlugins[$plugin] = $plugin;
                 }
             }
@@ -241,7 +245,7 @@ class TinyMCE
         if (!isset($css_url)) {
             $xoops = Xoops::getInstance();
             $css_url = dirname( $xoops->getCss($xoops->getConfig('theme_set')) );
-            $css_path = str_replace(XOOPS_THEME_URL, XOOPS_THEME_PATH, $css_url);
+            $css_path = str_replace(\XoopsBaseConfig::get('themes-url'), \XoopsBaseConfig::get('themes-path'), $css_url);
         }
 
         $css = array();
@@ -260,6 +264,8 @@ class TinyMCE
     function render()
     {
         static $isTinyMceJsLoaded = false;
+		
+		$xoops_url = \XoopsBaseConfig::get('url');
 
         $this->init();
 
@@ -276,14 +282,14 @@ class TinyMCE
         if ($isTinyMceJsLoaded) {
             $ret .= "<!-- 'tiny_mce.js' SCRIPT IS ALREADY LOADED -->\n"; //debug
         } else {
-            $ret .= "<script language='javascript' type='text/javascript' src='" . XOOPS_URL . $this->rootpath . "/jquery.tinymce.js'></script>\n";
+            $ret .= "<script language='javascript' type='text/javascript' src='" . $xoops_url . $this->rootpath . "/jquery.tinymce.js'></script>\n";
             $isTinyMceJsLoaded = true;
         }
         $ret .= "<script language='javascript' type='text/javascript'>\n";
         $ret .= "   $().ready(function() {\n";
         $ret .= "$('textarea." . $this->element . "').tinymce({\n";
             // Location of TinyMCE script
-        $ret .= "script_url : '" . XOOPS_URL . $this->rootpath . "/tiny_mce.js',\n";
+        $ret .= "script_url : '" . $xoops_url . $this->rootpath . "/tiny_mce.js',\n";
 
         // set options - start
         foreach ($this->setting as $key => $val) {

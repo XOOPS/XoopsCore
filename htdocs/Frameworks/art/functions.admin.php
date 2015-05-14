@@ -29,8 +29,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
         }
 
         $breadcrumb = empty($breadcrumb) ? $adminmenu[$currentoption]["title"] : $breadcrumb;
-        $module_link = XOOPS_URL . "/modules/" . $xoops->module->getVar("dirname") . "/";
-        $image_link = XOOPS_URL . "/Frameworks/compat/include";
+		$xoops_url = \XoopsBaseConfig::get('url');
+        $module_link = $xoops_url . "/modules/" . $xoops->module->getVar("dirname") . "/";
+        $image_link = $xoops_url . "/Frameworks/compat/include";
 
         $adminmenu_text = '
             <style type="text/css">
@@ -72,7 +73,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_ADMIN")):
         }
         //todo, check this dependencies
         if ($xoops->module->getVar("hasconfig") || $xoops->module->getVar("hascomments") || $xoops->module->getVar("hasnotification")) {
-            $adminmenu_text .= '<li><a href="' . XOOPS_URL . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $xoops->module->getVar("mid") . '"><span>' . XoopsLocale::PREFERENCES . '</span></a></li>';
+            $adminmenu_text .= '<li><a href="' . $xoops_url . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $xoops->module->getVar("mid") . '"><span>' . XoopsLocale::PREFERENCES . '</span></a></li>';
         }
         $adminmenu_text .= '
      </ul>

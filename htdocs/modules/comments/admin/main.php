@@ -73,7 +73,7 @@ switch ($op) {
                 /* @var $plugin CommentsPluginInterface */
                 $module = $xoops->getModuleById($comment->getVar('modid'));
                 $plugin = Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments');
-                header('Location: ' . XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $plugin->pageName() . '?' . $plugin->itemName() . '=' . $comment->getVar('itemid') . '&id=' . $comment->getVar('id') . '&rootid=' . $comment->getVar('rootid') . '&mode=thread&' . str_replace('&amp;', '&', $comment->getVar('exparams')) . '#comment' . $comment->getVar('id'));
+                header('Location: ' . \XoopsBaseConfig::get('url') . '/modules/' . $module->getVar('dirname') . '/' . $plugin->pageName() . '?' . $plugin->itemName() . '=' . $comment->getVar('itemid') . '&id=' . $comment->getVar('id') . '&rootid=' . $comment->getVar('rootid') . '&mode=thread&' . str_replace('&amp;', '&', $comment->getVar('exparams')) . '#comment' . $comment->getVar('id'));
                 exit();
             }
         }
@@ -263,13 +263,13 @@ switch ($op) {
                 if ($comments_arr[$i]->getVar('uid') > 0) {
                     $poster = $member_handler->getUser($comments_arr[$i]->getVar('uid'));
                     if (is_object($poster)) {
-                        $comments_poster_uname = '<a href="' . XOOPS_URL . '/userinfo.php?uid=' . $comments_arr[$i]->getVar('uid') . '">' . $poster->getVar('uname') . '</a>';
+                        $comments_poster_uname = '<a href="' . \XoopsBaseConfig::get('url') . '/userinfo.php?uid=' . $comments_arr[$i]->getVar('uid') . '">' . $poster->getVar('uname') . '</a>';
                     }
                 }
 
                 $comments_icon = ($comments_arr[$i]->getVar('icon') == '') ? '/images/icons/no_posticon.gif'
                     : '/images/subject/' . htmlspecialchars($comments_arr[$i]->getVar('icon'), ENT_QUOTES);
-                $comments_icon = '<img src="' . XOOPS_URL . $comments_icon . '" alt="" />';
+                $comments_icon = '<img src="' . \XoopsBaseConfig::get('url') . $comments_icon . '" alt="" />';
 
                 $comments['comments_id'] = $id;
                 $comments['comments_poster'] = $comments_poster_uname;

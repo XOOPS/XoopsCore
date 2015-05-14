@@ -39,7 +39,7 @@ $totalCategories = $publisher->getCategoryHandler()->getCategoriesCount(0);
 
 // if there ain't no category to display, let's get out of here
 if ($totalCategories == 0) {
-    $xoops->redirect(XOOPS_URL, 2, _MD_PUBLISHER_NO_TOP_PERMISSIONS);
+    $xoops->redirect(\XoopsBaseConfig::get('url'), 2, _MD_PUBLISHER_NO_TOP_PERMISSIONS);
 }
 
 $xoops->header('module:publisher/publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl');

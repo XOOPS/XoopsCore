@@ -58,7 +58,7 @@ class MyTextSanitizerExtension
     public function __construct(MyTextSanitizer &$ts)
     {
         $this->ts = $ts;
-        $this->image_path = XOOPS_URL . '/images/form';
+        $this->image_path = \XoopsBaseConfig::get('url') . '/images/form';
     }
 
     /**
@@ -203,8 +203,9 @@ class MyTextSanitizer
 
     public function __construct()
     {
-        $this->path_basic = XOOPS_ROOT_PATH . '/class/textsanitizer';
-        $this->path_plugin = XOOPS_ROOT_PATH . '/Frameworks/textsanitizer';
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $this->path_basic = $xoops_root_path . '/class/textsanitizer';
+        $this->path_plugin = $xoops_root_path . '/Frameworks/textsanitizer';
         $this->config = $this->loadConfig();
     }
 
@@ -385,10 +386,11 @@ class MyTextSanitizer
      */
     public function xoopsCodeDecode(&$text, $allowimage = 1)
     {
+		$xoops_url = \XoopsBaseConfig::get('url');
         $patterns = array();
         $replacements = array();
         $patterns[] = "/\[siteurl=(['\"]?)([^\"'<>]*)\\1](.*)\[\/siteurl\]/sU";
-        $replacements[] = '<a href="' . XOOPS_URL . '/\\2" title="">\\3</a>';
+        $replacements[] = '<a href="' . $xoops_url . '/\\2" title="">\\3</a>';
         $patterns[] = "/\[url=(['\"]?)(http[s]?:\/\/[^\"'<>]*)\\1](.*)\[\/url\]/sU";
         $replacements[] = '<a href="\\2" rel="external" title="">\\3</a>';
         $patterns[] = "/\[url=(['\"]?)(ftp[s]?:\/\/[^\"'<>]*)\\1](.*)\[\/url\]/sU";

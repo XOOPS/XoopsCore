@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 return $config = array(
     'highlight' => 'php',// Source code highlight: '' - disable; 'php' - php highlight; 'geshi' - geshi highlight
     'language' => 'PHP'

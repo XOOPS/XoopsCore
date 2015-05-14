@@ -78,7 +78,7 @@ $items = $publisher->getItemHandler()->getAll($criteria, array('datesub'), false
 $itemsCount = count($items);
 
 if (!($itemsCount > 0)) {
-    $xoops->redirect(XOOPS_URL, 2, _MD_PUBLISHER_NO_TOP_PERMISSIONS);
+    $xoops->redirect(\XoopsBaseConfig::get('url'), 2, _MD_PUBLISHER_NO_TOP_PERMISSIONS);
 } else {
     $this_year = 0;
     $years = array();
@@ -160,14 +160,14 @@ if ($fromyear != 0 && $frommonth != 0) {
         foreach ($storyarray as $item) {
             $story = array();
             $htmltitle = '';
-            $story['title'] = "<a href='" . XOOPS_URL . '/modules/publisher/category.php?categoryid='
+            $story['title'] = "<a href='" . \XoopsBaseConfig::get('url') . '/modules/publisher/category.php?categoryid='
                               . $item->getVar('categoryid') . "'>"
                               . $item->getCategoryName() . "</a>: <a href='"
                               . $item->getItemUrl() . "'" . $htmltitle . ">"
                               . $item->title() . "</a>";
             $story['counter'] = $item->getVar('counter');
             $story['date'] = $item->datesub();
-            $story['print_link'] = XOOPS_URL . '/modules/publisher/print.php?itemid=' . $item->getVar('itemid');
+            $story['print_link'] = \XoopsBaseConfig::get('url') . '/modules/publisher/print.php?itemid=' . $item->getVar('itemid');
             $story['mail_link'] = 'mailto:?subject='
                                   . sprintf(_CO_PUBLISHER_INTITEM, $xoops->getConfig('sitename'))
                                   . '&amp;body=' . sprintf(_CO_PUBLISHER_INTITEMFOUND, $xoops->getConfig('sitename'))

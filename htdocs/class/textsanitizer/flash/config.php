@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 return $config = array(
     'detect_dimension' => 1
 );

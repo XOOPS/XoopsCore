@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * @return boolean|null
  */
@@ -60,7 +58,7 @@ function protector_postcheck()
     // http://larholm.com/2007/06/11/phpmailer-0day-remote-execution/
     if (in_array(substr(XOOPS_VERSION, 0, 12), array('XOOPS 2.0.16', 'XOOPS 2.0.13', 'XOOPS 2.2.4'))) {
         $xoopsMailerConfig = $xoops->getConfigs();
-        if ($xoopsMailerConfig['mailmethod'] == 'sendmail' && md5_file(XOOPS_ROOT_PATH . '/class/mail/phpmailer/class.phpmailer.php') == 'ee1c09a8e579631f0511972f929fe36a') {
+        if ($xoopsMailerConfig['mailmethod'] == 'sendmail' && md5_file(\XoopsBaseConfig::get('root-path') . '/class/mail/phpmailer/class.phpmailer.php') == 'ee1c09a8e579631f0511972f929fe36a') {
             echo '<strong>phpmailer security hole! Change the preferences of mail from "sendmail" to another, or upgrade the core right now! (message by protector)</strong>';
         }
     }
@@ -207,7 +205,7 @@ function protector_postcheck()
     }
 
     // register.php Protection
-    if ($_SERVER['SCRIPT_FILENAME'] == XOOPS_ROOT_PATH . '/register.php') {
+    if ($_SERVER['SCRIPT_FILENAME'] == \XoopsBaseConfig::get('root-path') . '/register.php') {
         $protector->call_filter('postcommon_register');
     }
 

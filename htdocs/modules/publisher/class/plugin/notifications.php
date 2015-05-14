@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 include_once dirname(dirname(__DIR__)) . '/include/common.php';
 
 class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract implements NotificationsPluginInterface

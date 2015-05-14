@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init_mini.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_getInstance100()
-	{
+    {
         $instance = Xoops::getInstance();
         $this->assertInstanceOf('Xoops', $instance);
 
@@ -23,15 +23,13 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
             $this->assertSame(true, $value);
         }
 
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
-        $this->assertSame(array(XOOPS_ROOT_PATH, XOOPS_URL), $instance->paths['www']);
-        $this->assertSame(array(XOOPS_VAR_PATH, null), $instance->paths['var']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['lib']);
-        $this->assertSame(array(XOOPS_ROOT_PATH . '/modules', XOOPS_URL . '/modules'), $instance->paths['modules']);
-        $this->assertSame(array(XOOPS_ROOT_PATH . '/themes', XOOPS_URL . '/themes'), $instance->paths['themes']);
-        $this->assertSame(array(XOOPS_ROOT_PATH . '/media', XOOPS_URL . '/media'), $instance->paths['media']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
-        $this->assertSame(array(XOOPS_PATH, XOOPS_URL . '/browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php'), $instance->paths['XOOPS']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path'), \XoopsBaseConfig::get('url')), $instance->paths['www']);
+        $this->assertSame(array(\XoopsBaseConfig::get('var-path'), null), $instance->paths['var']);
+        $this->assertSame(array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php'), $instance->paths['lib']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/modules', \XoopsBaseConfig::get('url') . '/modules'), $instance->paths['modules']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/themes', \XoopsBaseConfig::get('url') . '/themes'), $instance->paths['themes']);
+        $this->assertSame(array(\XoopsBaseConfig::get('root-path') . '/media', \XoopsBaseConfig::get('url') . '/media'), $instance->paths['media']);
 
         $this->assertTrue(is_null($instance->sessionManager));
         $this->assertTrue(is_null($instance->module));
@@ -46,7 +44,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getInstance200()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $db = $instance->db();
@@ -57,7 +55,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_preload()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->preload();
@@ -90,7 +88,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_registry()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->registry();
@@ -101,7 +99,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_security()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->security();
@@ -112,7 +110,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_setTpl()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $tpl = new XoopsTpl();
@@ -125,7 +123,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_setTheme()
-	{
+    {
         $this->markTestSkipped('Risky?');
         $instance = Xoops::getInstance();
 
@@ -148,8 +146,8 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $value = $instance->loadLocale('system/themes/default');
         $this->assertSame(true, $value);
 
-        require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/en_US.php';
-        require_once XOOPS_ROOT_PATH . '/modules/system/themes/default/locale/en_US/locale.php';
+        require_once \XoopsBaseConfig::get('root-path') . '/modules/system/themes/default/locale/en_US/en_US.php';
+        require_once \XoopsBaseConfig::get('root-path') . '/modules/system/themes/default/locale/en_US/locale.php';
 
         /*
         $instance->setTheme(null);
@@ -163,7 +161,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_path()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->path('class');
@@ -173,18 +171,18 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_url()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->url('http://localhost/tmp/');
         $this->assertSame('http://localhost/tmp/', $value);
 
         $value = $instance->url('tmp');
-        $this->assertSame(XOOPS_URL.'/tmp', $value);
+        $this->assertSame(\XoopsBaseConfig::get('url').'/tmp', $value);
     }
 
     public function test_buildUrl()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->buildUrl('http://localhost/tmp/');
@@ -214,23 +212,23 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
      * @ expectedException PHPUnit_Framework_Error
      */
     public function test_pathExists()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		$value = $instance->pathExists('', E_USER_NOTICE);
-		$this->assertSame(false, $value);
-	}
+        $value = $instance->pathExists('', E_USER_NOTICE);
+        $this->assertSame(false, $value);
+    }
 
     public function test_pathExists100()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		$value = $instance->pathExists(XOOPS_ROOT_PATH, E_USER_NOTICE);
-		$this->assertSame(XOOPS_ROOT_PATH, $value);
-	}
+        $value = $instance->pathExists(\XoopsBaseConfig::get('root-path'), E_USER_NOTICE);
+        $this->assertSame(\XoopsBaseConfig::get('root-path'), $value);
+    }
 
     public function test_gzipcompression()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $save = $_SERVER['SERVER_NAME'];
@@ -242,7 +240,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_pathTranslation()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $save = $_SERVER;
@@ -280,34 +278,34 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_themeSelect()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		$save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
-		$save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
-		$_SESSION['xoopsUserTheme'] = null;
-		$_POST['xoops_theme_select'] = 'default';
-		$instance->themeSelect();
-		$value = $instance->getConfig('theme_set');
-		$this->assertSame($_POST['xoops_theme_select'], $value);
-		$this->assertSame($_SESSION['xoopsUserTheme'], $value);
-		$_SESSION['xoopsUserTheme'] = $save1;
-		$_POST['xoops_theme_select'] = $save2;
+        $save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
+        $save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
+        $_SESSION['xoopsUserTheme'] = null;
+        $_POST['xoops_theme_select'] = 'default';
+        $instance->themeSelect();
+        $value = $instance->getConfig('theme_set');
+        $this->assertSame($_POST['xoops_theme_select'], $value);
+        $this->assertSame($_SESSION['xoopsUserTheme'], $value);
+        $_SESSION['xoopsUserTheme'] = $save1;
+        $_POST['xoops_theme_select'] = $save2;
 
-		$save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
-		$save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
-		$_SESSION['xoopsUserTheme'] = 'default';
-		$_POST['xoops_theme_select'] = null;
-		$instance->themeSelect();
-		$value = $instance->getConfig('theme_set');
-		$this->assertSame($_SESSION['xoopsUserTheme'], $value);
-		$_SESSION['xoopsUserTheme'] = $save1;
-		$_POST['xoops_theme_select'] = $save2;
+        $save1 = isset($_SESSION['xoopsUserTheme']) ? $_SESSION['xoopsUserTheme'] : null;
+        $save2 = isset($_POST['xoops_theme_select']) ? $_POST['xoops_theme_select'] : null;
+        $_SESSION['xoopsUserTheme'] = 'default';
+        $_POST['xoops_theme_select'] = null;
+        $instance->themeSelect();
+        $value = $instance->getConfig('theme_set');
+        $this->assertSame($_SESSION['xoopsUserTheme'], $value);
+        $_SESSION['xoopsUserTheme'] = $save1;
+        $_POST['xoops_theme_select'] = $save2;
 
-	}
+    }
 
     public function test_getTplInfo()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $path = 'path';
@@ -326,7 +324,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_header()
-	{
+    {
         $this->markTestSkipped('Risky?');
         $instance = Xoops::getInstance();
 
@@ -338,15 +336,15 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_footer()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		//$value = $instance->footer();
-		$this->markTestIncomplete();
-	}
+        //$value = $instance->footer();
+        $this->markTestIncomplete();
+    }
 
     public function test_isModule()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->isModule();
@@ -359,7 +357,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_isUser()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->isUser();
@@ -367,7 +365,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_isAdmin()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->isAdmin();
@@ -375,7 +373,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerBlock()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerBlock();
@@ -383,7 +381,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerBlockmodulelink()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerBlockmodulelink();
@@ -391,16 +389,16 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerConfig()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfig();
         $this->assertInstanceOf('XoopsConfigHandler', $value);
     }
 
-	/* getHandlerConfigcategory no longer exists
+    /* getHandlerConfigcategory no longer exists
     public function test_getHandlerConfigcategory()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigcategory();
@@ -409,7 +407,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     */
 
     public function test_getHandlerConfigitem()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigitem();
@@ -417,7 +415,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerConfigoption()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigoption();
@@ -425,7 +423,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerGroup()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerGroup();
@@ -433,7 +431,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerGroupperm()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerGroupperm();
@@ -441,7 +439,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerMember()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerMember();
@@ -449,7 +447,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerMembership()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerMembership();
@@ -457,7 +455,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerModule()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerModule();
@@ -465,7 +463,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerOnline()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerOnline();
@@ -473,7 +471,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerPrivmessage()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerPrivmessage();
@@ -481,7 +479,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerRanks()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerRanks();
@@ -489,7 +487,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_session()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->session();
@@ -497,7 +495,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerTplfile()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerTplfile();
@@ -505,7 +503,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerTplset()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerTplset();
@@ -513,7 +511,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getHandlerUser()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerUser();
@@ -524,17 +522,17 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
      * @ expectedException PHPUnit_Framework_Error
      */
     public function test_getHandler()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		$value = $instance->getHandler('user');
-		$this->assertInstanceOf('XoopsUserHandler', $value);
-		$value = $instance->getHandler('dummy', true);
-		$this->assertSame(false, $value);
-	}
+        $value = $instance->getHandler('user');
+        $this->assertInstanceOf('XoopsUserHandler', $value);
+        $value = $instance->getHandler('dummy', true);
+        $this->assertSame(false, $value);
+    }
 
     public function test_getModuleHandler()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->module = new XoopsModule();
@@ -543,7 +541,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getModuleForm()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleForm(null, null);
@@ -551,7 +549,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getModuleHelper()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleHelper('page');
@@ -559,7 +557,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_loadLanguage()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->loadLanguage(null);
@@ -570,7 +568,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_loadLocale()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->loadLocale();
@@ -578,7 +576,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_translate()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->translate(XoopsLocale::ABOUT);
@@ -586,25 +584,25 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getActiveModules()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getActiveModules();
         $this->assertTrue(is_array($value));
-		$this->assertTrue(count($value)>0);
+        $this->assertTrue(count($value)>0);
     }
 
     public function test_setActiveModules()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->setActiveModules();
         $this->assertTrue(is_array($value));
-		$this->assertTrue(count($value)>0);
+        $this->assertTrue(count($value)>0);
     }
 
     public function test_isActiveModule()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->isActiveModule('page');
@@ -615,7 +613,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getModuleByDirname()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleByDirname('page');
@@ -627,7 +625,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getModuleById()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleById(1);
@@ -638,7 +636,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_simpleHeader()
-	{
+    {
         $this->markTestSkipped('Risky?');
         $instance = Xoops::getInstance();
 
@@ -669,7 +667,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_alert()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->alert('info', '');
@@ -705,25 +703,25 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_confirm()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		defined('NWLINE') OR define('NWLINE', "\n");
-		$value = $instance->confirm(array(),'','msg');
-		$this->assertTrue(is_string($value));
-		$this->assertTrue(strlen($value)>0);
+        defined('NWLINE') OR define('NWLINE', "\n");
+        $value = $instance->confirm(array(),'','msg');
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(strlen($value)>0);
 
-		$value = $instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
-		$this->assertTrue(is_string($value));
-		$this->assertTrue(strlen($value)>0);
+        $value = $instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(strlen($value)>0);
 
-		$value = $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
-		$this->assertTrue(is_string($value));
-		$this->assertTrue(strlen($value)>0);
-	}
+        $value = $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(strlen($value)>0);
+    }
 
     public function test_getUserTimestamp()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getUserTimestamp(time());
@@ -736,7 +734,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_userTimeToServerTime()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->userTimeToServerTime(time());
@@ -753,7 +751,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_makePass()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->makePass();
@@ -767,7 +765,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_checkEmail()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->checkEmail(null);
@@ -810,7 +808,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_formatURL()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $url = 'http://localhost/xoops';
@@ -839,7 +837,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getBanner()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getBanner();
@@ -847,15 +845,15 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_redirect()
-	{
+    {
         $instance = Xoops::getInstance();
 
-		//$value = $instance->redirect();
-		$this->markTestIncomplete('');
-	}
+        //$value = $instance->redirect();
+        $this->markTestIncomplete('');
+    }
 
     public function test_getEnv()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $_SERVER['DUMMY'] = 'dummy';
@@ -874,7 +872,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getCss()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $save = $_SERVER['HTTP_USER_AGENT'];
@@ -884,11 +882,11 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 
         $_SERVER['HTTP_USER_AGENT'] = 'mac';
         $value = $instance->getCss();
-        $this->assertSame(XOOPS_THEME_URL . '/default/css/style.css', $value);
+        $this->assertSame(\XoopsBaseConfig::get('themes-url') . '/default/css/style.css', $value);
 
         $_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
         $value = $instance->getCss();
-        $this->assertSame(XOOPS_THEME_URL . '/default/css/style.css', $value);
+        $this->assertSame(\XoopsBaseConfig::get('themes-url') . '/default/css/style.css', $value);
 
         $_SERVER['HTTP_USER_AGENT'] = 'MSIE 1.2';
         $value = $instance->getCss('default');
@@ -918,7 +916,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getMailer()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getMailer();
@@ -926,7 +924,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getRank()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getRank();
@@ -937,7 +935,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getOption()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getOption('dummy');
@@ -945,7 +943,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_setOption()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->setOption('dummy', null);
@@ -958,7 +956,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getConfig()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $invalidKey = md5(uniqid());
@@ -967,7 +965,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getConfigs()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getConfigs();
@@ -975,24 +973,24 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_addConfigs()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->addConfigs(array('dummy' => 1));
         $value = $instance->getConfigs();
         $this->assertTrue(is_array($value));
         $this->assertTrue(isset($value['dummy']));
-		$this->assertTrue($value['dummy'] == 1);
+        $this->assertTrue($value['dummy'] == 1);
 
         $instance->addConfigs(array('dummy' => 1), null);
         $value = $instance->getConfigs();
         $this->assertTrue(is_array($value));
         $this->assertTrue(isset($value['dummy']));
-		$this->assertTrue($value['dummy'] == 1);
+        $this->assertTrue($value['dummy'] == 1);
     }
 
     public function test_setConfig()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->setConfig('dummy', 1);
@@ -1005,7 +1003,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_appendConfig()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->appendConfig('dummy', array('test'=>1), true);
@@ -1021,7 +1019,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getModuleConfig()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleConfig(uniqid());
@@ -1029,7 +1027,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_getModuleConfigs()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleConfigs();
@@ -1037,7 +1035,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_disableModuleCache()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->disableModuleCache();
@@ -1082,7 +1080,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_templateTouch()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $value = $instance->templateTouch(1);
@@ -1090,21 +1088,21 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_templateClearModuleCache()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->templateClearModuleCache(1);
     }
 
     public function test_deprecated()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->deprecated('message');
     }
 
     public function test_disableErrorReporting()
-	{
+    {
         $instance = Xoops::getInstance();
 
         $instance->disableErrorReporting();

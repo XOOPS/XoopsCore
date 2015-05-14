@@ -19,15 +19,13 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * @return null|boolean
  */
 function protector_precheck()
 {
     // check the access is from install/index.php
-    if (defined('_INSTALL_CHARSET') && !is_writable(XOOPS_ROOT_PATH . '/mainfile.php')) {
+    if (defined('_INSTALL_CHARSET') && !is_writable(\XoopsBaseConfig::get('root-path') . '/mainfile.php')) {
         die('To use installer, remove protector\'s lines from mainfile.php first.');
     }
 

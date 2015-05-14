@@ -84,7 +84,7 @@ class TinyMCE
         }
 
         // get editor language (from ...)
-        if (is_readable(XOOPS_ROOT_PATH . $this->rootpath . '/langs/' . $this->config["language"] . '.js')) {
+        if (is_readable(\XoopsBaseConfig::get('root-path') . $this->rootpath . '/langs/' . $this->config["language"] . '.js')) {
             $this->setting["language"] = $this->config["language"];
             $configured[] = "language";
         }
@@ -93,7 +93,7 @@ class TinyMCE
         $configured[] = "content_css";
 
         if (!empty($this->config["theme"])
-            && is_dir(XOOPS_ROOT_PATH . $this->rootpath . "/themes/" . $this->config["theme"])
+            && is_dir(\XoopsBaseConfig::get('root-path') . $this->rootpath . "/themes/" . $this->config["theme"])
         ) {
             $this->setting["theme"] = $this->config["theme"];
             $configured[] = "theme";
@@ -206,7 +206,7 @@ class TinyMCE
             $this->setting[$key] = $val;
         }
 
-        if (!is_dir(XOOPS_ROOT_PATH . $this->rootpath . "/themes/" . $this->setting["theme"] . '/docs/' . $this->setting["language"] . '/')) {
+        if (!is_dir(\XoopsBaseConfig::get('root-path') . $this->rootpath . "/themes/" . $this->setting["theme"] . '/docs/' . $this->setting["language"] . '/')) {
             $this->setting["docs_language"] = "en";
         }
 
@@ -223,7 +223,7 @@ class TinyMCE
     public function loadPlugins()
     {
         $plugins = array();
-        $plugins_list = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . $this->rootpath . "/plugins");
+        $plugins_list = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . $this->rootpath . "/plugins");
         if (empty($this->setting["plugins"])) {
             $plugins = $plugins_list;
         } else {
@@ -247,11 +247,12 @@ class TinyMCE
     public function get_xoopsPlugins()
     {
         $xoopsPlugins = array();
-        $allplugins = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . $this->rootpath . "/plugins");
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $allplugins = XoopsLists::getDirListAsArray ($xoops_root_path . $this->rootpath . "/plugins");
         foreach ($allplugins as $plugin) {
             if (strpos(strtolower($plugin), "xoops") !== false
-                && file_exists(XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php")) {
-                if ($right = @include XOOPS_ROOT_PATH . $this->config["rootpath"] . "/include/$plugin.php") {
+                && file_exists($xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php")) {
+                if ($right = @include $xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php") {
                     $xoopsPlugins[$plugin] = $plugin;
                 }
             }
@@ -266,7 +267,7 @@ class TinyMCE
 
         if (!isset($css_url)) {
             $css_url = dirname(\Xoops::getInstance()->getCss($GLOBALS['xoopsConfig']['theme_set']));
-            $css_path = str_replace(XOOPS_THEME_URL, XOOPS_THEME_PATH, $css_url);
+            $css_path = str_replace(\XoopsBaseConfig::get('themes-url'), \XoopsBaseConfig::get('themes-path'), $css_url);
         }
 
         $css = array();
@@ -306,7 +307,7 @@ class TinyMCE
             $callback = "";
         }
 
-        $ret = '<script language="javascript" type="text/javascript" src="' . XOOPS_URL . $this->rootpath . '/tinymce.min.js"></script>';
+        $ret = '<script language="javascript" type="text/javascript" src="' . \XoopsBaseConfig::get('url') . $this->rootpath . '/tinymce.min.js"></script>';
         $ret .= '<script language="javascript" type="text/javascript">
                 tinyMCE.init({
             ';
@@ -325,7 +326,7 @@ class TinyMCE
 
         //	 Ajout alain01 tinymce v4
 
-        $chemin_array=parse_url(XOOPS_URL);
+        $chemin_array=parse_url(\XoopsBaseConfig::get('url'));
         $chemin_scheme =  $chemin_array["scheme"]; // http
         $chemin_host =  $chemin_array["host"]; // www.example.com  or // localhost
         //$chemin_path =  $chemin_array["path"]; // /myweb1

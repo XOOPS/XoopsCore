@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 class BloggerApi extends XoopsXmlRpcApi
 {
 
@@ -230,7 +228,8 @@ class BloggerApi extends XoopsXmlRpcApi
         } else {
             $arr = new XoopsXmlRpcArray();
             $struct = new XoopsXmlRpcStruct();
-            $struct->add('url', new XoopsXmlRpcString(XOOPS_URL.'/modules/'.$this->module->getVar('dirname').'/'));
+			$xoops_url = \XoopsBaseConfig::get('url');
+            $struct->add('url', new XoopsXmlRpcString($xoops_url.'/modules/'.$this->module->getVar('dirname').'/'));
             $struct->add('blogid', new XoopsXmlRpcString($this->module->getVar('mid')));
             $struct->add('blogName', new XoopsXmlRpcString('XOOPS Blog'));
             $arr->add($struct);

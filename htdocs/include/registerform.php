@@ -15,7 +15,6 @@
  * @since           2.0.0
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
 $email_text = new Xoops\Form\Text('', 'email', 25, 60, $myts->htmlSpecialChars($email));

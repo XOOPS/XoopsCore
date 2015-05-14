@@ -115,19 +115,19 @@ class SystemBreadcrumb
                 }
             }
             // Call template
-            if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoops->getConfig('language') . '/help/' . $this->_directory . '.html')) {
+            if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/system/language/' . $xoops->getConfig('language') . '/help/' . $this->_directory . '.html')) {
                 $xoops->tpl()
-                        ->assign('help_content', XOOPS_ROOT_PATH . '/modules/system/language/' . $xoops->getConfig('language') . '/help/' . $this->_directory . '.html');
+                        ->assign('help_content', \XoopsBaseConfig::get('root-path') . '/modules/system/language/' . $xoops->getConfig('language') . '/help/' . $this->_directory . '.html');
             } else {
-                if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/system/language/english/help/' . $this->_directory . '.html')) {
+                if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/system/language/english/help/' . $this->_directory . '.html')) {
                     $xoops->tpl()
-                            ->assign('help_content', XOOPS_ROOT_PATH . '/modules/system/language/english/help/' . $this->_directory . '.html');
+                            ->assign('help_content', \XoopsBaseConfig::get('root-path') . '/modules/system/language/english/help/' . $this->_directory . '.html');
                 } else {
                     $xoops->tpl()->assign('load_error', 1);
                 }
             }
         } else {
-            $out = $menu = '<style type="text/css" media="screen">@import ' . XOOPS_URL . '/modules/system/css/menu.css;</style>';
+            $out = $menu = '<style type="text/css" media="screen">@import ' . \XoopsBaseConfig::get('url') . '/modules/system/css/menu.css;</style>';
             $out .= '<ul id="xo-breadcrumb">';
             foreach ($this->_bread as $menu) {
                 if ($menu['home']) {

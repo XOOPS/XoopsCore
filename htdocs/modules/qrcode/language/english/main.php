@@ -14,5 +14,3 @@
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Laurent JEN - aka DuGris
  */
-
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
