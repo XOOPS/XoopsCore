@@ -111,7 +111,6 @@ if ($op == 'main') {
 
 if ($op == 'logout') {
     $message = '';
-
     $xoops->session()->user()->recordUserLogout();
     // clear entry from online users table
     if ($xoops->isUser()) {
