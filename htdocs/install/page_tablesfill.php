@@ -63,7 +63,7 @@ if ($process) {
             'name'            => '',            // varchar(60) NOT NULL default '',
             'uname'           => $adminname,    // varchar(25) NOT NULL default '',
             'email'           => $adminmail,    // varchar(60) NOT NULL default '',
-            'url'             => XOOPS_URL,     // varchar(100) NOT NULL default '',
+            'url'             => \XoopsBaseConfig::get('url'),     // varchar(100) NOT NULL default '',
             'user_avatar'     => 'blank.gif',   // varchar(30) NOT NULL default 'blank.gif',
             'user_regdate'    => $regdate,      // int(10) unsigned NOT NULL default '0',
             'user_icq'        => '',            // varchar(15) NOT NULL default '',
@@ -116,7 +116,7 @@ setcookie('xo_install_user', '', null, null, null);
 if (isset( $settings['authorized'] ) && !empty($adminname) && !empty($adminpass)) {
     setcookie(
         'xo_install_user',
-        addslashes($adminname) . '-' . md5($temp . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX),
+        addslashes($adminname) . '-' . md5($temp . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix')),
         null,
         null,
         null
@@ -126,4 +126,4 @@ if (isset( $settings['authorized'] ) && !empty($adminname) && !empty($adminpass)
 $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = false;
 $_SESSION['content'] = $content;
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

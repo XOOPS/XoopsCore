@@ -30,7 +30,11 @@
 define('INSTALL_USER', '');
 define('INSTALL_PASSWORD', '');
 define('XOOPS_INSTALL', 1);
-define('XOOPS_INSTALL_PATH', dirname(__DIR__));
+
+if (!class_exists('XoopsBaseConfig', false)) {
+    require_once __DIR__ . '/../../class/XoopsBaseConfig.php';
+    XoopsBaseConfig::bootstrapTransition();
+}
 
 // options for mainfile.php
 if (false === date_default_timezone_set(@date_default_timezone_get())) {
@@ -44,22 +48,12 @@ $mainfile = dirname(dirname(__DIR__)) . '/mainfile.php';
 if (file_exists($mainfile)) {
     include $mainfile;
 }
-if (!defined("XOOPS_ROOT_PATH")) {
-    define("XOOPS_ROOT_PATH", str_replace("\\", "/", realpath('../')));
-    define("XOOPS_PATH", isset($_SESSION['settings']['PATH']) ? $_SESSION['settings']['PATH']:"");
-    define("XOOPS_VAR_PATH", isset($_SESSION['settings']['VAR_PATH']) ? $_SESSION['settings']['VAR_PATH']:"");
-    define("XOOPS_URL", isset($_SESSION['settings']['URL']) ? $_SESSION['settings']['URL']:"");
-}
 
-include XOOPS_INSTALL_PATH . '/class/installwizard.php';
-include_once XOOPS_ROOT_PATH . '/include/version.php';
-include_once XOOPS_INSTALL_PATH . '/include/functions.php';
-include_once XOOPS_ROOT_PATH . '/include/defines.php';
-//include_once XOOPS_ROOT_PATH . '/class/xoopsload.php';
-if (!class_exists('XoopsBaseConfig', false)) {
-    include_once XOOPS_ROOT_PATH . '/class/XoopsBaseConfig.php';
-    XoopsBaseConfig::bootstrapTransition();
-}
+include \XoopsBaseConfig::get('install-path') . '/class/installwizard.php';
+include_once \XoopsBaseConfig::get('root-path') . '/include/version.php';
+include_once \XoopsBaseConfig::get('install-path') . '/include/functions.php';
+include_once \XoopsBaseConfig::get('root-path') . '/include/defines.php';
+
 $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = false;
 

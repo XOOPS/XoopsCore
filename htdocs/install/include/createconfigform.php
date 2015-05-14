@@ -270,18 +270,18 @@ function createThemeform(XoopsConfigItem $config)
         } else {
             $label_content .= "<div id='$theme' rel='theme' style='display:none;'>";
         }
-        if (file_exists(XOOPS_ROOT_PATH . "/themes/$theme/theme.ini")) {
-            $theme_ini = parse_ini_file(XOOPS_ROOT_PATH . "/themes/$theme/theme.ini");
+        if (file_exists(\XoopsBaseConfig('root-path') . "/themes/$theme/theme.ini")) {
+            $theme_ini = parse_ini_file(\XoopsBaseConfig('root-path') . "/themes/$theme/theme.ini");
             if ($theme_ini['screenshot'] == '') {
                 $theme_ini['screenshot'] = 'screenshot.png';
                 $theme_ini['thumbnail'] = 'thumbnail.png';
             }
         }
 
-        if ($theme_ini['screenshot'] != '' && file_exists(XOOPS_ROOT_PATH . "/themes/$theme/" . $theme_ini['screenshot'])) {
-            $label_content .= "<img src='" . XOOPS_URL . "/themes/" . $theme . "/" . $theme_ini['screenshot'] . "' alt='Screenshot' />";
-        } elseif ($theme_ini['thumbnail'] != '' && file_exists(XOOPS_ROOT_PATH . "/themes/$theme/" . $theme_ini['thumbnail'])) {
-            $label_content .= "<img src='" . XOOPS_URL . "/themes/" . $theme . "/" . $theme_ini['thumbnail'] . "' alt='$theme' />";
+        if ($theme_ini['screenshot'] != '' && file_exists(\XoopsBaseConfig('root-path') . "/themes/$theme/" . $theme_ini['screenshot'])) {
+            $label_content .= "<img src='" . \XoopsBaseConfig('url') . "/themes/" . $theme . "/" . $theme_ini['screenshot'] . "' alt='Screenshot' />";
+        } elseif ($theme_ini['thumbnail'] != '' && file_exists(\XoopsBaseConfig('root-path') . "/themes/$theme/" . $theme_ini['thumbnail'])) {
+            $label_content .= "<img src='" . \XoopsBaseConfig('url') . "/themes/" . $theme . "/" . $theme_ini['thumbnail'] . "' alt='$theme' />";
         } else {
             $label_content .= THEME_NO_SCREENSHOT;
         }

@@ -50,10 +50,8 @@ class XoopsBaseConfig
                 include_once $loaderPath;
             }
             self::$configs = Yaml::loadWrapped($yamlString);
-            \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         } elseif (is_array($config)) {
             self::$configs = $config;
-            \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         }
         if (!isset(self::$configs['lib-path'])) {
             throw new \Exception('XoopsBaseConfig lib-path not defined.');
@@ -76,7 +74,8 @@ class XoopsBaseConfig
         static $instance = false;
 
         if (!$instance && !empty($config)) {
-            $instance = new \XoopsBaseConfig($config);
+            $class = __CLASS__;
+            $instance = new $class($config);
         }
 
         if ($instance === false || empty(self::$configs)) {
@@ -223,7 +222,7 @@ class XoopsBaseConfig
      */
     final public static function bootstrapTransition()
     {
-        $path = self::defineDefault('XOOPS_ROOT_PATH', basename(__DIR__));
+        $path = self::defineDefault('XOOPS_ROOT_PATH', dirname(__DIR__));
         $url = (defined('XOOPS_URL')) ?
             XOOPS_URL :
             ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://')
@@ -243,6 +242,7 @@ class XoopsBaseConfig
             'lib-path' => $libpath,
             'var-path' => $varpath,
             'trust-path' => $libpath,
+            'install-path' => $path . '/install',
             'url' => $url,
             'prot' => self::defineDefault('XOOPS_PROT'),
             'asset-path' => $path . '/assets',
