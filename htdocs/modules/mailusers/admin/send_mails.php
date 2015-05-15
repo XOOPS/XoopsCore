@@ -53,7 +53,7 @@ switch ($op) {
             for ($i = 0; $i < $user_count; ++$i) {
                 $uid_hidden = new Xoops\Form\Hidden("mail_to_user[]", $memberslist_id[$i]);
                 $form->addElement($uid_hidden);
-                $display_names .= "<a href='" . XOOPS_URL . "/userinfo.php?uid=" . $memberslist_id[$i] . "' rel='external'>" . XoopsUser::getUnameFromId($memberslist_id[$i]) . "</a>, ";
+                $display_names .= "<a href='" . \XoopsBaseConfig::get('url') . "/userinfo.php?uid=" . $memberslist_id[$i] . "' rel='external'>" . XoopsUser::getUnameFromId($memberslist_id[$i]) . "</a>, ";
                 unset($uid_hidden);
             }
             $users_label = new Xoops\Form\Label(_AM_MAILUSERS_SENDTOUSERS2, substr($display_names, 0, -2));

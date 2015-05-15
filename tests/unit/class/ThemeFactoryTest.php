@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -10,7 +10,7 @@ class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsThemeFactory';
 	
-    public function SetUp()
+    public function setUp()
 	{
     }
     

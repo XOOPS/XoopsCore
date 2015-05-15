@@ -21,7 +21,7 @@
 
 include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
 $xoops = Xoops::getInstance();
-//$xoops->disableErrorReporting();
+$xoops_url = \XoopsBaseConfig::get('url');
 $xoops->preload()->triggerEvent('core.pmlite.start');
 
 $reply = !empty($_GET['reply']) ? 1 : 0;
@@ -50,7 +50,7 @@ if (empty($_GET['refresh']) && isset($_POST['op']) && $_POST['op'] != "submit") 
 }
 
 if (!$xoops->isUser()) {
-    $xoops->redirect(XOOPS_URL, 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect($xoops_url, 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 $xoops->simpleHeader();
 
@@ -84,7 +84,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
                 // @todo: Send notification email if user has selected this in the profile
                 $info_message = XoopsLocale::S_MESSAGED_HAS_BEEN_POSTED;
                 $info_message .= "<br />";
-                $info_message .= "<br /><a href=\"javascript:window.opener.location='" . XOOPS_URL . "/viewpmsg.php';window.close();\">" . XoopsLocale::CLICK_HERE_TO_VIEW_YOU_PRIVATE_MESSAGES . "</a>";
+                $info_message .= "<br /><a href=\"javascript:window.opener.location='" . $xoops_url . "/viewpmsg.php';window.close();\">" . XoopsLocale::CLICK_HERE_TO_VIEW_YOU_PRIVATE_MESSAGES . "</a>";
                 $info_message .= "<br /><br /><a href=\"javascript:window.close();\">" . XoopsLocale::OR_CLICK_HERE_TO_CLOSE_WINDOW . "</a>";
                 $tpl->assign('info_message', $info_message);
             }

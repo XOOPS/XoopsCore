@@ -10,7 +10,7 @@ class XoopsDatabaseFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'XoopsDatabaseFactory';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 
@@ -26,8 +26,8 @@ class XoopsDatabaseFactoryTest extends \PHPUnit_Framework_TestCase
 		$driver = $instance->conn->getDriver();
 		$driver_conn = $driver->connect(array());
 		$this->assertInstanceOf('\Doctrine\DBAL\Driver\PDOConnection', $driver_conn);
-        $this->assertSame(XOOPS_DB_PREFIX.'_test', $instance->prefix('test'));
-        $this->assertSame(XOOPS_DB_PREFIX, $instance->prefix());
+        $this->assertSame(\XoopsBaseConfig::get('db-prefix').'_test', $instance->prefix('test'));
+        $this->assertSame(\XoopsBaseConfig::get('db-prefix'), $instance->prefix());
     }
 
 }

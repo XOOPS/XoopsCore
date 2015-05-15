@@ -10,7 +10,7 @@ class RanksTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsRanks';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

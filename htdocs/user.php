@@ -27,6 +27,7 @@ use Xoops\Core\FixedGroups;
 include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
+$xoops_url = \XoopsBaseConfig::get('url');
 $xoops->events()->triggerEvent('core.user.start');
 
 $xoops->loadLanguage('user');
@@ -94,7 +95,7 @@ if ($op == 'main') {
         $redirect = $clean_input['xoops_redirect'];
         $isExternal = false;
         if ($pos = strpos($redirect, '://')) {
-            $xoopsLocation = substr(XOOPS_URL, strpos(XOOPS_URL, '://') + 3);
+            $xoopsLocation = substr($xoops_url, strpos($xoops_url, '://') + 3);
             if (strcasecmp(substr($redirect, $pos + 3, strlen($xoopsLocation)), $xoopsLocation)) {
                 $isExternal = true;
             }
@@ -104,7 +105,7 @@ if ($op == 'main') {
             exit();
         }
     }
-    header('Location: ' . XOOPS_URL . '/userinfo.php?uid=' . $xoopsUser->getVar('uid'));
+    header('Location: ' . $xoops_url . '/userinfo.php?uid=' . $xoopsUser->getVar('uid'));
     exit();
 }
 
@@ -116,7 +117,7 @@ if ($op == 'logout') {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));
     }
     $message = XoopsLocale::S_YOU_ARE_NOW_LOGGED_OUT . '<br />' . XoopsLocale::S_THANK_YOU_FOR_VISITING_OUR_SITE;
-    $xoops->redirect(XOOPS_URL . '/', 1, $message);
+    $xoops->redirect($xoops_url . '/', 1, $message);
 }
 
 if ($op == 'delete') {

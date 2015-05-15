@@ -12,7 +12,7 @@ class ModuleHandlerTest extends \PHPUnit_Framework_TestCase
 	protected $conn = null;
 	protected $mid = 0;
 
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }

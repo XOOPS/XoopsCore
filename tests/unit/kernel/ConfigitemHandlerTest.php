@@ -11,7 +11,7 @@ class ConfigItemHandlerTest extends \PHPUnit_Framework_TestCase
     protected $myclass='XoopsConfigItemHandler';
 	protected $conn = null;
     
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }

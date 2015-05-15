@@ -47,7 +47,7 @@ if (!empty($_POST['action'])) {
 
     // Ticket check
     if (!$xoopsGTicket->check(true, 'protector_admin')) {
-        $xoops->redirect(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
+        $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 3, $xoopsGTicket->getErrors());
     }
 
     if ($_POST['action'] == 'update_ips') {

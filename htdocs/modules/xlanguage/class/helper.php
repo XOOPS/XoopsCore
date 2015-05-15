@@ -27,11 +27,11 @@ class Xlanguage extends Xoops\Module\Helper\HelperAbstract
      */
     public function init()
     {
-        if (XoopsLoad::fileExists($hnd_file = XOOPS_ROOT_PATH . '/modules/xlanguage/include/vars.php')) {
+        if (XoopsLoad::fileExists($hnd_file = \XoopsBaseConfig::get('root-path') . '/modules/xlanguage/include/vars.php')) {
             include_once $hnd_file;
         }
 
-        if (XoopsLoad::fileExists($hnd_file = XOOPS_ROOT_PATH . '/modules/xlanguage/include/functions.php')) {
+        if (XoopsLoad::fileExists($hnd_file = \XoopsBaseConfig::get('root-path') . '/modules/xlanguage/include/functions.php')) {
             include_once $hnd_file;
         }
         $this->setDirname('xlanguage');

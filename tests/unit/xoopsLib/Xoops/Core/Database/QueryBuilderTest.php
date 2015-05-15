@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -11,7 +11,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     protected $myclass = '\Xoops\Core\Database\QueryBuilder';
 	protected $conn = null;
 
-    public function SetUp()
+    public function setUp()
 	{
 		if (empty($this->conn)) {
 			$this->conn = Xoops::getInstance()->db();

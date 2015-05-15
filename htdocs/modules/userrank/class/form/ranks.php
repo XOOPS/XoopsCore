@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class UserrankRanksForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -49,16 +47,16 @@ class UserrankRanksForm extends Xoops\Form\ThemeForm
         $this->addElement($max);
 
         $imgtray_img = new Xoops\Form\ElementTray(_AM_USERRANK_IMAGE, '<br />');
-        $imgpath_img = sprintf(_AM_USERRANK_IMAGE_PATH, XOOPS_UPLOAD_PATH . '/ranks/');
+        $imgpath_img = sprintf(_AM_USERRANK_IMAGE_PATH, \XoopsBaseConfig::get('uploads-path') . '/ranks/');
         $imageselect_img = new Xoops\Form\Select($imgpath_img, 'rank_image', $blank_img);
-        $image_array_img = XoopsLists::getImgListAsArray(XOOPS_UPLOAD_PATH . '/ranks');
+        $image_array_img = XoopsLists::getImgListAsArray(\XoopsBaseConfig::get('uploads-path') . '/ranks');
         $imageselect_img->addOption("$blank_img", $blank_img);
         foreach ($image_array_img as $image_img) {
             $imageselect_img->addOption("$image_img", $image_img);
         }
-        $imageselect_img->setExtra("onchange='showImgSelected(\"xo-ranks-img\", \"rank_image\", \"ranks\", \"\", \"" . XOOPS_UPLOAD_URL . "\")'");
+        $imageselect_img->setExtra("onchange='showImgSelected(\"xo-ranks-img\", \"rank_image\", \"ranks\", \"\", \"" . \XoopsBaseConfig::get('uploads-url') . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . XOOPS_UPLOAD_URL . "/ranks/" . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
+        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . \XoopsBaseConfig::get('uploads-url') . "/ranks/" . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
 
         $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
         $fileseltray_img->addElement(new Xoops\Form\File(_AM_USERRANK_UPLOAD, 'rank_image'), false);

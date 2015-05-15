@@ -104,7 +104,7 @@ if (false != $error) {
     $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
     // Define Breadcrumb and tips
     $admin_page = new \Xoops\Module\Admin();
-    $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, XOOPS_URL . '/admin.php', true);
+    $admin_page->addBreadcrumbLink(SystemLocale::CONTROL_PANEL, \XoopsBaseConfig::get('url') . '/admin.php', true);
     $admin_page->addBreadcrumbLink(SystemLocale::SYSTEM_CONFIGURATION);
     $admin_page->renderBreadcrumb();
     $admin_page->addTips(SystemLocale::TIPS_MAIN);
@@ -118,7 +118,7 @@ if (false != $error) {
         $all_ok = true;
     }
 
-    $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin';
+    $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
     $dirlist = XoopsLists::getDirListAsArray($admin_dir);
     $inactive_section = array('blocksadmin', 'groups', 'modulesadmin', 'preferences', 'tplsets', 'extensions', 'users', 'services');
     foreach ($dirlist as $directory) {

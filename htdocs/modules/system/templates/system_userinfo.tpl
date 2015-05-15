@@ -154,7 +154,7 @@
                         <td><{$lang_membersince}></td>
                         <td><{$user_joindate}></td>
                     </tr>
-                    <{if $user_ranktitle}>
+                    <{if $user_ranktitle|default:false}>
                         <tr>
                             <td><{$lang_rank}></td>
                             <td><{$user_rankimage}><br /><{$user_ranktitle}></td>

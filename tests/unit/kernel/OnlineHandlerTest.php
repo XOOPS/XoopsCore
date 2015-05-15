@@ -12,7 +12,7 @@ class OnlineHandlerTest extends \PHPUnit_Framework_TestCase
 	protected $myId = null;
 	protected $conn = null;
 
-    public function SetUp()
+    public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }

@@ -45,7 +45,7 @@ if ($op == 'start') {
     if ($totalCat == 0) {
         echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \">" . _AM_PUBLISHER_IMPORT_NOCATSELECTED . "</span>";
     } else {
-        include_once XOOPS_ROOT_PATH . "/class/xoopstree.php";
+        include_once \XoopsBaseConfig::get('root-path') . "/class/xoopstree.php";
 
         $result = $xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB->prefix("wfs_article"));
         list ($totalArticles) = $xoopsDB->fetchRow($result);
@@ -175,7 +175,7 @@ if ($op == 'go') {
 
             // HTML Wrap
             if ($arrArticle['htmlpage']) {
-                $pagewrap_filename = XOOPS_ROOT_PATH . "/modules/wfsection/html/" . $arrArticle['htmlpage'];
+                $pagewrap_filename = \XoopsBaseConfig::get('root-path') . "/modules/wfsection/html/" . $arrArticle['htmlpage'];
                 if (XoopsLoad::fileExists($pagewrap_filename)) {
                     if (copy($pagewrap_filename, PUBLISHER_UPLOADS_PATH . "/content/" . $arrArticle['htmlpage'])) {
                         $itemObj->setVar('body', "[pagewrap=" . $arrArticle['htmlpage'] . "]");
@@ -195,7 +195,7 @@ if ($op == 'go') {
                 $allowed_mimetypes = '';
                 while ($arrFile = $xoopsDB->fetchArray($resultFiles)) {
 
-                    $filename = XOOPS_ROOT_PATH . "/modules/wfsection/cache/uploaded/" . $arrFile['filerealname'];
+                    $filename = \XoopsBaseConfig::get('root-path') . "/modules/wfsection/cache/uploaded/" . $arrFile['filerealname'];
                     if (XoopsLoad::fileExists($filename)) {
                         if (copy($filename, PUBLISHER_UPLOADS_PATH . "/" . $arrFile['filerealname'])) {
                             $fileObj = $publisher->getFileHandler()->create();

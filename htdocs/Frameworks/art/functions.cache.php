@@ -31,7 +31,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
         }
         if (!empty($groups) && is_array($groups)) {
             sort($groups);
-            $contentCacheId = substr(md5(implode(",", $groups) . XOOPS_DB_PASS . XOOPS_DB_NAME), 0, strlen(XOOPS_DB_USER) * 2);
+            $contentCacheId = substr(md5(implode(",", $groups) . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-name')), 0, strlen(\XoopsBaseConfig::get('db-user')) * 2);
         } else {
             $contentCacheId = FixedGroups::ANONYMOUS;
         }
@@ -52,16 +52,17 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
      * @param $data
      * @param null|string $name
      * @param null|string $dirname
-     * @param string $root_path
+     * @param null|string $cache_path
      * @return bool
      */
-    function mod_createFile($data, $name = null, $dirname = null, $root_path = XOOPS_CACHE_PATH)
+    function mod_createFile($data, $name = null, $dirname = null, $cache_path = null)
     {
         $xoops = Xoops::getInstance();
 
         $name = ($name) ? $name : strval(time());
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
-
+        $cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('caches-path');
+		
         $key = "{$dirname}_{$name}";
         return Xoops_Cache::write($key, $data);
     }
@@ -93,10 +94,10 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     /**
      * @param $name
      * @param null|string $dirname
-     * @param string $root_path
+     * @param null|string $cache_path
      * @return mixed|null
      */
-    function mod_loadFile($name, $dirname = null, $root_path = XOOPS_CACHE_PATH)
+    function mod_loadFile($name, $dirname = null, $cache_path = null)
     {
         $xoops = Xoops::getInstance();
 
@@ -106,7 +107,8 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             return $data;
         }
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
-
+        $cache_path = ($cache_path) ? $cache_path : $xoops->globalData->getVar('cache-path');
+		
         $key = "{$dirname}_{$name}";
         return Xoops_Cache::read($key);
     }
@@ -139,17 +141,19 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     /**
      * @param string $name
      * @param null|string $dirname
-     * @param string $root_path
+     * @param null|string $cache_path
      * @return bool
      */
-    function mod_clearFile($name = "", $dirname = null, $root_path = XOOPS_CACHE_PATH)
+    function mod_clearFile($name = "", $dirname = null, $cache_path = null)
     {
+		$xoops = \Xoops::getInstance();
         if (empty($dirname)) {
+			$cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('caches-path');
             $pattern = ($dirname) ? "{$dirname}_{$name}.*\.php" : "[^_]+_{$name}.*\.php";
-            if ($handle = opendir($root_path)) {
+            if ($handle = opendir($cache_path)) {
                 while (false !== ($file = readdir($handle))) {
-                    if (is_file($root_path . '/' . $file) && preg_match("/{$pattern}$/", $file)) {
-                        @unlink($root_path . '/' . $file);
+                    if (is_file($cache_path . '/' . $file) && preg_match("/{$pattern}$/", $file)) {
+                        @unlink($cache_path . '/' . $file);
                     }
                 }
                 closedir($handle);
@@ -185,10 +189,11 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
             $dirname = $xoops->moduleDirname;
             $pattern = "/(^{$dirname}\^.*\.html$|blk_{$dirname}_.*[^\.]*\.html$)/";
         }
-        if ($handle = opendir(XOOPS_CACHE_PATH)) {
+		$cache_path = $xoops->globalData->getVar('cache-path');
+        if ($handle = opendir($cache_path)) {
             while (false !== ($file = readdir($handle))) {
-                if (is_file(XOOPS_CACHE_PATH . '/' . $file) && preg_match($pattern, $file)) {
-                    @unlink(XOOPS_CACHE_PATH . '/' . $file);
+                if (is_file($cache_path . '/' . $file) && preg_match($pattern, $file)) {
+                    @unlink($cache_path . '/' . $file);
                 }
             }
             closedir($handle);

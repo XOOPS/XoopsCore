@@ -30,7 +30,7 @@ class SmiliesCorePreload extends Xoops\Core\PreloadItem
     {
         /* @var $dhtml Xoops\Form\DhtmlTextArea */
         $dhtml = $args[1];
-        $args[0] .= "<img src='" . XOOPS_URL . "/images/smiley.gif' alt='" . XoopsLocale::SMILIES . "' title='" . XoopsLocale::SMILIES . "' onclick='openWithSelfMain(\"" . XOOPS_URL . "/modules/smilies/popup.php?target={$dhtml->getName()}\",\"smilies\",300,650);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $args[0] .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/smiley.gif' alt='" . XoopsLocale::SMILIES . "' title='" . XoopsLocale::SMILIES . "' onclick='openWithSelfMain(\"" . \XoopsBaseConfig::get('url') . "/modules/smilies/popup.php?target={$dhtml->getName()}\",\"smilies\",300,650);'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
     }
 
     static function eventCoreClassModuleTextsanitizerSmiley($args)
@@ -38,7 +38,7 @@ class SmiliesCorePreload extends Xoops\Core\PreloadItem
         $smileys = MyTextSanitizer::getInstance()->getSmileys();
         $message =& $args[0];
         foreach ($smileys as $smile) {
-            $message = str_replace($smile['smiley_code'], '<img class="imgsmile" src="' . XOOPS_UPLOAD_URL . '/' . htmlspecialchars($smile['smiley_url']) . '" alt="' . $smile['smiley_emotion'] . '" />', $message);
+            $message = str_replace($smile['smiley_code'], '<img class="imgsmile" src="' . \XoopsBaseConfig::get('uploads-url') . '/' . htmlspecialchars($smile['smiley_url']) . '" alt="' . $smile['smiley_emotion'] . '" />', $message);
         }
     }
 

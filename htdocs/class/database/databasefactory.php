@@ -45,7 +45,8 @@ class XoopsDatabaseFactory extends Factory
     public static function getDatabaseConnection()
     {
         static $legacy;
-        $file = XOOPS_ROOT_PATH . '/class/database/mysqldatabase.php';
+
+        $file = \XoopsBaseConfig::get('root-path') . '/class/database/mysqldatabase.php';
         if (!isset($legacy) && file_exists($file)) {
             require_once $file;
             if (!defined('XOOPS_DB_PROXY')) {
@@ -56,7 +57,7 @@ class XoopsDatabaseFactory extends Factory
             $xoopsPreload = XoopsPreload::getInstance();
             $xoopsPreload->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
             $legacy = new $class();
-            $legacy->setPrefix(XOOPS_DB_PREFIX);
+            $legacy->setPrefix(\XoopsBaseConfig::get('db-prefix'));
             $legacy->conn = \Xoops\Core\Database\Factory::getConnection();
         }
         if (is_null($legacy->conn)) {

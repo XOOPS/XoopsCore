@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
+require_once(dirname(__FILE__).'/../../../init_new.php');
 
 global $config;
 
@@ -15,8 +15,9 @@ class Editor_registryTest extends \PHPUnit_Framework_TestCase
     {
 		global $config;
 		$config = null;
-		require_once(XOOPS_ROOT_PATH.'/class/xoopseditor/dhtmltextarea/language/english.php');
-		require_once(XOOPS_ROOT_PATH.'/class/xoopseditor/dhtmltextarea/editor_registry.php');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+		require_once($xoops_root_path.'/class/xoopseditor/dhtmltextarea/language/english.php');
+		require_once($xoops_root_path.'/class/xoopseditor/dhtmltextarea/editor_registry.php');
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['class']));		
 		$this->assertTrue(isset($config['file']));	

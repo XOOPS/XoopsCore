@@ -19,8 +19,6 @@
  * @version         $Id $
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 class XoopsXmlRpcApi
 {
 
@@ -156,7 +154,8 @@ class XoopsXmlRpcApi
     function _getXoopsApi(&$params)
     {
         if (strtolower(get_class($this)) != 'xoopsapi') {
-            require_once(XOOPS_ROOT_PATH . '/class/xml/rpc/xoopsapi.php');
+			$xoops_root_path = \XoopsBaseConfig::get('root-path');
+            require_once($xoops_root_path . '/class/xml/rpc/xoopsapi.php');
             return new XoopsApi($params, $this->response, $this->module);
         } else {
             return $this;

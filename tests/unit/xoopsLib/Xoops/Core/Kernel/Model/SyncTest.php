@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_mini.php');
+require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Model\Sync;
 
@@ -15,7 +15,7 @@ class SyncTest extends \PHPUnit_Framework_TestCase
 	protected $myClass = 'Xoops\Core\Kernel\Model\Sync';
 	protected $myAbstractClass = 'Xoops\Core\Kernel\XoopsModelAbstract';
 
-    public function SetUp()
+    public function setUp()
 	{
 		$db = XoopsDatabaseFactory::getDatabaseConnection();
 		$this->conn = $db->conn;

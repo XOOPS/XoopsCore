@@ -106,20 +106,20 @@ class SystemModule
                     $module->setInfo('warning_update', true);
                 }
                 if (XoopsLoad::fileExists(
-                    XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/icons/logo_small.png'
+                    \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname') . '/icons/logo_small.png'
                 )) {
                     $module->setInfo(
                         'logo_small',
-                        XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/icons/logo_small.png'
+                        \XoopsBaseConfig::get('url') . '/modules/' . $module->getVar('dirname') . '/icons/logo_small.png'
                     );
                 } else {
-                    $module->setInfo('logo_small', XOOPS_URL . '/media/xoops/images/icons/16/default.png');
+                    $module->setInfo('logo_small', \XoopsBaseConfig::get('url') . '/media/xoops/images/icons/16/default.png');
                 }
                 $module->setInfo('version', round($module->getVar('version') / 100, 2));
                 $module->setInfo('update', XoopsLocale::formatTimestamp($module->getVar('last_update'), 's'));
                 $module->setInfo(
                     'link_admin',
-                    XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $module->getInfo('adminindex')
+                    \XoopsBaseConfig::get('url') . '/modules/' . $module->getVar('dirname') . '/' . $module->getInfo('adminindex')
                 );
 
                 if ($module->getVar('isactive')) {
@@ -141,7 +141,7 @@ class SystemModule
                 ) {
                     $module->setInfo(
                         'link_pref',
-                        XOOPS_URL . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod='
+                        \XoopsBaseConfig::get('url') . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod='
                         . $module->getVar('mid')
                     );
                 }
@@ -166,7 +166,7 @@ class SystemModule
         $ret = array();
         $i = 0;
         foreach ($this->modulesList as $file) {
-            if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $file . '/xoops_version.php')) {
+            if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/' . $file . '/xoops_version.php')) {
                 clearstatcache();
                 $file = trim($file);
                 if (!in_array($file, $this->modulesDirnames)) {
@@ -234,7 +234,7 @@ class SystemModule
                 $schema_file = $module->getInfo('schema');
                 $sql_file = $module->getInfo('sqlfile');
                 if (!empty($schema_file)) {
-                    $schema_file_path = XOOPS_ROOT_PATH . '/modules/' . $mod . '/' . $schema_file;
+                    $schema_file_path = \XoopsBaseConfig::get('root-path') . '/modules/' . $mod . '/' . $schema_file;
                     if (!XoopsLoad::fileExists($schema_file_path)) {
                         $this->error[] =
                             sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$schema_file}</strong>");
@@ -244,10 +244,10 @@ class SystemModule
                     $importSchema = $importer->importSchemaArray(Yaml::read($schema_file_path));
                     $synchronizer = new SingleDatabaseSynchronizer($xoops->db());
                     $synchronizer->updateSchema($importSchema, true);
-                } elseif (is_array($sql_file) && !empty($sql_file[XOOPS_DB_TYPE])) {
+                } elseif (is_array($sql_file) && !empty($sql_file[\XoopsBaseConfig::get('db-type')])) {
                     $xoops->deprecated('Install SQL files are deprecated since 2.6.0. Convert to portable Schemas');
 
-                    $sql_file_path = XOOPS_ROOT_PATH . '/modules/' . $mod . '/' . $sql_file[XOOPS_DB_TYPE];
+                    $sql_file_path = \XoopsBaseConfig::get('root-path') . '/modules/' . $mod . '/' . $sql_file[\XoopsBaseConfig::get('db-type')];
                     if (!XoopsLoad::fileExists($sql_file_path)) {
                         $this->error[] =
                             sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$sql_file_path}</strong>");
@@ -629,7 +629,7 @@ class SystemModule
             // update schema
             $schema_file = $module->getInfo('schema');
             if (!empty($schema_file)) {
-                $schema_file_path = XOOPS_ROOT_PATH . '/modules/' . $mod . '/' . $schema_file;
+                $schema_file_path = \XoopsBaseConfig::get('root-path') . '/modules/' . $mod . '/' . $schema_file;
                 if (!XoopsLoad::fileExists($schema_file_path)) {
                     $this->error[] =
                         sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$schema_file}</strong>");

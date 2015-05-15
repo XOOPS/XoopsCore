@@ -44,7 +44,7 @@ class PageNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
             $result = $xoopsDB->query($sql); // TODO: error check
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['title'];
-            $item['url'] = XOOPS_URL . '/modules/page/viewpage.php?id=' . $item_id;
+            $item['url'] = \XoopsBaseConfig::get('url') . '/modules/page/viewpage.php?id=' . $item_id;
             return $item;
         }
 

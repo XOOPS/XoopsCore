@@ -16,8 +16,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 //Info
 define('_MI_COMMENTS_NAME', 'Comments');
 define('_MI_COMMENTS_DSC', 'Provides comments ability for modules');

@@ -76,7 +76,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
             $menu[$decoration] = self::_doDecoration($menu[$decoration]);
             if ($decoration == 'link') {
                 if (!preg_match('/mailto:/i', $menu['link']) && !preg_match('#://#i', $menu['link'])) {
-                    $menu['link'] = XOOPS_URL . '/' . $menu['link']; //Do not do this in other decorators
+                    $menu['link'] = \XoopsBaseConfig::get('url') . '/' . $menu['link']; //Do not do this in other decorators
                 }
             }
         }

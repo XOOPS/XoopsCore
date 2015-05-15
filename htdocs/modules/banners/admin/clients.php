@@ -27,6 +27,10 @@ include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
 
+$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+$xoops_url = \XoopsBaseConfig::get('url');
+
 // Parameters
 $nb_clients = $helper->getConfig('banners_clientspager');
 // Get banners handler
@@ -172,9 +176,9 @@ switch ($op) {
                             $banner_arr[$i]->getVar('banner_imageurl'),
                             '',
                             0,
-                            strlen(XOOPS_URL . '/uploads/banners/')
+                            strlen($xoops_url . '/uploads/banners/')
                         );
-                        $urlfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
+                        $urlfile =  $xoops_root_path . '/uploads/banners/' . $namefile;
                         if ($banner_Handler->delete($obj)) {
                             // delete banner
                             if (is_file($urlfile)) {

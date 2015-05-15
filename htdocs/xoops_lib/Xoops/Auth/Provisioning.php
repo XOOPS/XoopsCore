@@ -195,7 +195,7 @@ class Provisioning
 
             return $newuser;
         } else {
-            $xoops->redirect(XOOPS_URL . '/user.php', 5, $newuser->getHtmlErrors());
+            $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 5, $newuser->getHtmlErrors());
         }
 
         return $ret;
@@ -222,7 +222,7 @@ class Provisioning
         if ($member_handler->insertUser($xoopsUser)) {
             return $xoopsUser;
         } else {
-            $xoops->redirect(XOOPS_URL . '/user.php', 5, $xoopsUser->getHtmlErrors());
+            $xoops->redirect(\XoopsBaseConfig::get('url') . '/user.php', 5, $xoopsUser->getHtmlErrors());
         }
 
         return $ret;

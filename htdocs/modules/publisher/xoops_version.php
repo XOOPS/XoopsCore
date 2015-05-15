@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 $xoops = Xoops::getInstance();
 XoopsLoad::loadFile($xoops->path(__DIR__ . '/include/constants.php'));
 
@@ -657,7 +655,7 @@ $modversion['config'][] = array(
     'description' => '_MI_PUBLISHER_PRINTLOGOURLDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => XOOPS_URL . '/images/logo.gif',
+    'default'     => \XoopsBaseConfig::get('url') . '/images/logo.gif',
     'category'    => 'print',
 );
 

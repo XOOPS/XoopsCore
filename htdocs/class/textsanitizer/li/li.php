@@ -22,8 +22,6 @@
  * @deprecated
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class MytsLi extends MyTextSanitizerExtension
 {
     /**

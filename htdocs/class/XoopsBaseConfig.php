@@ -50,13 +50,16 @@ class XoopsBaseConfig
                 include_once $loaderPath;
             }
             self::$configs = Yaml::loadWrapped($yamlString);
-            self::establishBCDefines();
             \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         } elseif (is_array($config)) {
             self::$configs = $config;
-            self::establishBCDefines();
             \XoopsLoad::startAutoloader(self::$configs['lib-path']);
         }
+        if (!isset(self::$configs['lib-path'])) {
+            throw new \Exception('XoopsBaseConfig lib-path not defined.');
+            return;
+        }
+        \XoopsLoad::startAutoloader(self::$configs['lib-path']);
     }
 
     /**
@@ -113,7 +116,23 @@ class XoopsBaseConfig
      */
     final public static function get($name)
     {
-        return (isset(self::$configs[$name])) ? self::$configs[$name] : null;
+        if (isset(self::$configs[$name])) {
+            return self::$configs[$name];
+        }
+        trigger_error('variable : '.$name.' not found!', E_USER_ERROR);
+        return null;
+    }
+
+    /**
+     * Verify an attribute is defined.
+     *
+     * @param string $name name of an attribute
+     *
+     * @return boolean true if attribute is defined, otherwise false.
+     */
+    final public static function has($name)
+    {
+        return isset(self::$configs[$name]);
     }
 
     /**
@@ -216,17 +235,31 @@ class XoopsBaseConfig
         $host = ($host=='localhost') ? '' : $host;
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
+        $libpath = self::defineDefault('XOOPS_PATH');
+        $varpath = self::defineDefault('XOOPS_VAR_PATH');
+
         $configs = array(
-            'root-path' => self::defineDefault('XOOPS_ROOT_PATH'),
-            'lib-path' => self::defineDefault('XOOPS_PATH'),
-            'var-path' => self::defineDefault('XOOPS_VAR_PATH'),
-            'trust-path' => self::defineDefault('XOOPS_TRUST_PATH'),
-            'url' => self::defineDefault('XOOPS_URL'),
+            'root-path' => $path,
+            'lib-path' => $libpath,
+            'var-path' => $varpath,
+            'trust-path' => $libpath,
+            'url' => $url,
             'prot' => self::defineDefault('XOOPS_PROT'),
             'asset-path' => $path . '/assets',
             'asset-url' => $url . '/assets',
+            'themes-path' => $path .'/themes',
+            'themes-url' => $url . '/themes',
+            'adminthemes-path' => $path . '/modules/system/themes',
+            'adminthemes-url' => $url . '/modules/system/themes',
+            'media-path' => $path . '/media',
+            'media-url' => $url . '/media',
+            'uploads-path' => $path . '/uploads',
+            'uploads-url' => $url . '/uploads',
             'cookie-domain' => $host,
             'cookie-path' => $urlpath,
+            'smarty-cache' => $varpath . '/caches/smarty_cache',
+            'smarty-compile' => $varpath . '/caches/smarty_compile',
+            'smarty-xoops-plugins' => $libpath . '/smarty/xoops_plugins',
             'db-type' => self::defineDefault('XOOPS_DB_TYPE'),
             'db-charset' => 'utf8',
             'db-prefix' => self::defineDefault('XOOPS_DB_PREFIX'),

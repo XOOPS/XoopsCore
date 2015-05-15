@@ -22,6 +22,7 @@
 
 include __DIR__ . '/mainfile.php';
 
+$xoops_url = \XoopsBaseConfig::get('url');
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.userinfo.start');
 
@@ -154,8 +155,8 @@ if ($thisUser->getVar('user_viewemail') == 1) {
 if ($xoops->isUser()) {
     $xoops->tpl()->assign(
         'user_pmlink',
-        "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/pmlite.php?send2=1&amp;to_userid="
-        . $thisUser->getVar('uid') . "', 'pmlite', 450, 380);\"><img src=\"" . XOOPS_URL
+        "<a href=\"javascript:openWithSelfMain('" . $xoops_url . "/pmlite.php?send2=1&amp;to_userid="
+        . $thisUser->getVar('uid') . "', 'pmlite', 450, 380);\"><img src=\"" . $xoops_url
         . "/images/icons/pm.gif\" alt=\""
         . sprintf(XoopsLocale::F_SEND_PRIVATE_MESSAGE_TO, $thisUser->getVar('uname')) . "\" /></a>"
     );
@@ -167,7 +168,7 @@ if ($xoops->isActiveModule('userrank')) {
     if (isset($userrank['image']) && $userrank['image']) {
         $xoops->tpl()->assign(
             'user_rankimage',
-            '<img src="' . XOOPS_UPLOAD_URL . '/' . $userrank['image'] . '" alt="" />'
+            '<img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $userrank['image'] . '" alt="" />'
         );
     }
     $xoops->tpl()->assign('user_ranktitle', $userrank['title']);

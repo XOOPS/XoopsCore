@@ -26,6 +26,9 @@ include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $helper = Avatars::getInstance();
 
+$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+
 // Parameters
 $nb_avatars = $helper->getConfig('avatars_pager');
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
@@ -119,7 +122,7 @@ switch ($op) {
             $xoops->redirect('avatar_system.php', 3, implode('<br />', $xoops->security()->getErrors()));
         }
         $uploader_avatars_img =
-            new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/avatars', $mimetypes, $upload_size, $width, $height);
+            new XoopsMediaUploader($xoops_upload_path . '/avatars', $mimetypes, $upload_size, $width, $height);
         // Get avatar id
         $avatar_id = Request::getInt('avatar_id', 0);
         if ($avatar_id > 0) {
@@ -176,9 +179,10 @@ switch ($op) {
                 // Delete file
                 $file = $obj->getVar('avatar_file');
                 if ($file != 'avatars/blank.gif') {
-                    if (is_file(XOOPS_UPLOAD_PATH . '/' . $file)) {
-                        chmod(XOOPS_UPLOAD_PATH . '/' . $file, 0777);
-                        unlink(XOOPS_UPLOAD_PATH . '/' . $file);
+					$fullname = $xoops_upload_path . '/' . $file;
+                    if (is_file($fullname)) {
+                        chmod($fullname, 0777);
+                        unlink($fullname);
                     }
                 }
                 // Update member profiles
@@ -197,7 +201,7 @@ switch ($op) {
             if ($avatar_id > 0) {
                 // Define Stylesheet
                 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
-                $msg = '<div class="spacer"><img src="' . XOOPS_UPLOAD_URL . '/'
+                $msg = '<div class="spacer"><img src="' . $xoops_upload_url . '/'
                     . $obj->getVar('avatar_file', 's')
                     . '" alt="" /></div><div class="txtcenter bold">'
                     . $obj->getVar('avatar_name', 's') . '</div>'

@@ -138,20 +138,20 @@ switch ($op) {
                     if ($category->getVar('imgcat_storetype') == 'db') {
                         $helper->getHandlerImagesBody()->delete($helper->getHandlerImagesBody()->get($image_id));
                     } else {
-                        unlink(XOOPS_UPLOAD_PATH . '/' . $obj->getVar('image_name'));
+                        unlink(\XoopsBaseConfig::get('uploads-path') . '/' . $obj->getVar('image_name'));
                     }
                     $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 2, XoopsLocale::S_DATABASE_UPDATED);
                 }
             } else {
                 $category = $helper->getHandlerCategories()->get($obj->getvar('imgcat_id'));
                 if ($category->getVar('imgcat_storetype') == 'db') {
-                    $img = XOOPS_URL . '/image.php?id=' . $image_id;
+                    $img = \XoopsBaseConfig::get('url') . '/image.php?id=' . $image_id;
                 } else {
-                    $img = XOOPS_UPLOAD_URL . '/' . $obj->getVar('image_name');
+                    $img = \XoopsBaseConfig::get('uploads-url') . '/' . $obj->getVar('image_name');
                 }
                 echo $xoops->confirm(
                     array('op' => 'del', 'ok' => 1, 'image_id' => $image_id, 'imgcat_id' => $obj->getVar('imgcat_id')),
-                    XOOPS_URL . '/modules/images/admin/images.php',
+                    \XoopsBaseConfig::get('url') . '/modules/images/admin/images.php',
                     sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename'))
                     . '<br /><br /><img src="' . $img . '" /><br />'
                 );

@@ -10,7 +10,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     var $myclass='XoopsModule';
 
-    public function SetUp()
+    public function setUp()
 	{
     }
 

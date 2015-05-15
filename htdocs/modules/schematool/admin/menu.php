@@ -15,8 +15,6 @@
  * @author          Richard Griffith <richard@geekwright.com>
  */
 
-defined('XOOPS_ROOT_PATH') or die("XOOPS root path not defined");
-
 $adminmenu=array();
 // Index
 $adminmenu[] = array(

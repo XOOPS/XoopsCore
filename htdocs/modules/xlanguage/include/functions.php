@@ -252,7 +252,7 @@ function xlanguage_select_show($options = null)
     if (!$xoops->registry()->get('XLANGUAGE_THEME_ENABLE')) {
         return false;
     }
-    include_once XOOPS_ROOT_PATH . '/modules/xlanguage/blocks/xlanguage_blocks.php';
+    include_once \XoopsBaseConfig::get('root-path') . '/modules/xlanguage/blocks/xlanguage_blocks.php';
     if (empty($options)) {
         $options[0] = 'images'; // display style: image, text, select
         $options[1] = ' '; // delimitor

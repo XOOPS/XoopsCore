@@ -23,8 +23,8 @@ load_functions("user");
 load_functions("locale");
 load_functions("admin");
 
-if (!class_exists('ArtObject')) {
-    include_once __DIR__ . "/object.php";
+if (!class_exists('ArtObject', false)) {
+    require_once __DIR__ . "/object.php";
 }
 
 /**

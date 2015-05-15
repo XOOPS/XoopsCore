@@ -498,7 +498,7 @@ class PublisherUtils
      */
     public static function getCurrentUrls()
     {
-        $http = strpos(XOOPS_URL, "https://") === false ? "http://" : "https://";
+        $http = strpos(\XoopsBaseConfig::get('url'), "https://") === false ? "http://" : "https://";
         $phpself = $_SERVER['PHP_SELF'];
         $httphost = $_SERVER['HTTP_HOST'];
         $querystring = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
@@ -1086,7 +1086,7 @@ class PublisherUtils
 
             if ($publisher->getConfig('seo_url_rewrite') == 'htaccess') {
                 // generate SEO url using htaccess
-                return XOOPS_URL . '/' . $publisher->getConfig('seo_module_name') . ".${op}.${id}/${short_url}";
+                return \XoopsBaseConfig::get('url') . '/' . $publisher->getConfig('seo_module_name') . ".${op}.${id}/${short_url}";
             } else {
                 if ($publisher->getConfig('seo_url_rewrite') == 'path-info') {
                     // generate SEO url using path-info

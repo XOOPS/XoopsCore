@@ -19,8 +19,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * XoopsLists
  *
@@ -82,7 +80,7 @@ class xoopslists
      */
     public static function getThemesList()
     {
-        return XoopsLists::getDirListAsArray(XOOPS_THEME_PATH . '/');
+        return XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('themes-path') . '/');
     }
 
     /**
@@ -93,7 +91,7 @@ class xoopslists
      */
     public static function getModulesList()
     {
-        return XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/modules/');
+        return XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/modules/');
     }
 
     /**
@@ -104,7 +102,7 @@ class xoopslists
      */
     public static function getEditorList()
     {
-        return XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/class/xoopseditor/');
+        return XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor/');
     }
 
     /**
@@ -242,10 +240,11 @@ class xoopslists
      */
     public static function getAvatarsList($avatar_dir = '')
     {
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
         if ($avatar_dir != '') {
-            $avatars = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/avatar/' . $avatar_dir . '/', $avatar_dir . '/');
+            $avatars = XoopsLists::getImgListAsArray($xoops_root_path . '/images/avatar/' . $avatar_dir . '/', $avatar_dir . '/');
         } else {
-            $avatars = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/avatar/');
+            $avatars = XoopsLists::getImgListAsArray($xoops_root_path . '/images/avatar/');
         }
 
         return $avatars;
@@ -260,10 +259,11 @@ class xoopslists
     public static function getAllAvatarsList()
     {
         $avatars = array();
-        $dirlist = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/images/avatar/');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $dirlist = XoopsLists::getDirListAsArray($xoops_root_path . '/images/avatar/');
         if (count($dirlist) > 0) {
             foreach ($dirlist as $dir) {
-                $avatars[$dir] = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/avatar/' . $dir . '/', $dir . '/');
+                $avatars[$dir] = XoopsLists::getImgListAsArray($xoops_root_path . '/images/avatar/' . $dir . '/', $dir . '/');
             }
         } else {
             return false;
@@ -284,10 +284,11 @@ class xoopslists
      */
     public static function getSubjectsList($sub_dir = '')
     {
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
         if ($sub_dir != '') {
-            $subjects = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/subject/' . $sub_dir, $sub_dir . '/');
+            $subjects = XoopsLists::getImgListAsArray($xoops_root_path . '/images/subject/' . $sub_dir, $sub_dir . '/');
         } else {
-            $subjects = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/images/subject/');
+            $subjects = XoopsLists::getImgListAsArray($xoops_root_path . '/images/subject/');
         }
 
         return $subjects;
@@ -301,7 +302,7 @@ class xoopslists
      */
     public static function getLangList()
     {
-        $lang_list = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/language/');
+        $lang_list = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/language/');
 
         return $lang_list;
     }
@@ -314,7 +315,7 @@ class xoopslists
      */
     public static function getLocaleList()
     {
-        $lang_list = XoopsLists::getDirListAsArray(XOOPS_ROOT_PATH . '/locale/');
+        $lang_list = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/locale/');
 
         return $lang_list;
     }

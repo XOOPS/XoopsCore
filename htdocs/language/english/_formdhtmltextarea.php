@@ -17,7 +17,6 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 // _LANGCODE: en
 // _CHARSET : UTF-8

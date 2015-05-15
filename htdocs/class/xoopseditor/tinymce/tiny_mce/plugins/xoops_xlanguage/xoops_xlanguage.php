@@ -13,18 +13,20 @@
 
 use Xoops\Core\Request;
 
-$xoops_root_path = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-include_once $xoops_root_path . '/mainfile.php';
+$helper = Xoops\Module\Helper::getHelper('xlanguage');
+if (!$helper) {
+    ob_end_flush();
+    return;
+}
+
+require_once dirname(__FILE__).'/../../../../../../mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 $xoops->simpleHeader(false);
 
-$helper = Xoops\Module\Helper::getHelper('xlanguage');
-if ($helper) {
-    $helper->loadLanguage('admin');
-    $helper->loadLanguage('tinymce');
-}
+$helper->loadLanguage('admin');
+$helper->loadLanguage('tinymce');
 
 $op = Request::getCmd('op', '');
 if ($op == 'save') {

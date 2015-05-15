@@ -16,8 +16,9 @@ class Root_Config_CustomTest extends \PHPUnit_Framework_TestCase
     {
 		global $config;
 		
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
 		ob_start();
-		require(XOOPS_ROOT_PATH.'/class/textsanitizer/config.custom.php');
+		require($xoops_root_path.'/class/textsanitizer/config.custom.php');
 		$x = ob_get_clean();
 		$this->assertTrue(is_array($config));
 		$this->assertTrue(isset($config['filterxss_on_display']));

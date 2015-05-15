@@ -1,5 +1,5 @@
 <?php
-require_once (dirname(__FILE__).'/../../../../init_mini.php');
+require_once (dirname(__FILE__).'/../../../../init_new.php');
 
 use Xoops\Core\Service\NullProvider;
 use Xoops\Core\Service\Manager;

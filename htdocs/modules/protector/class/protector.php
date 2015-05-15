@@ -19,8 +19,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class Protector
 {
     var $mydirname;
@@ -174,7 +172,7 @@ class Protector
             return false;
         }
 
-        $result = @mysql_query("SELECT conf_name,conf_value FROM " . XOOPS_DB_PREFIX . "_config WHERE conf_title like '" . "_MI_PROTECTOR%'", $this->_conn);
+        $result = @mysql_query("SELECT conf_name,conf_value FROM " . \XoopsBaseConfig::get('db-prefix') . "_config WHERE conf_title like '" . "_MI_PROTECTOR%'", $this->_conn);
         if (!$result || mysql_num_rows($result) < 5) {
             return false;
         }
@@ -225,7 +223,7 @@ class Protector
 
             // clear autologin cookie
             $xoops_cookie_path = defined('XOOPS_COOKIE_PATH') ? XOOPS_COOKIE_PATH : preg_replace('?http://[^/]+(/.*)$?', "$1", XOOPS_URL);
-            if ($xoops_cookie_path == XOOPS_URL) {
+            if ($xoops_cookie_path == \XoopsBaseConfig::get('url')) {
                 $xoops_cookie_path = '/';
             }
             setcookie('autologin_uname', '', time() - 3600, $xoops_cookie_path, '', 0);
@@ -233,7 +231,7 @@ class Protector
         }
 
         if ($redirect_to_top) {
-            header('Location: ' . XOOPS_URL . '/');
+            header('Location: ' . \XoopsBaseConfig::get('url') . '/');
             exit;
         } else {
             $ret = $this->call_filter('prepurge_exit');
@@ -254,11 +252,11 @@ class Protector
         }
 
         if (empty($this->_conn)) {
-            $this->_conn = @mysql_connect(XOOPS_DB_HOST, XOOPS_DB_USER, XOOPS_DB_PASS);
+            $this->_conn = @mysql_connect(\XoopsBaseConfig::get('db-host'), \XoopsBaseConfig::get('db-user'), \XoopsBaseConfig::get('db-pass'));
             if (!$this->_conn) {
                 die('db connection failed.');
             }
-            if (!mysql_select_db(XOOPS_DB_NAME, $this->_conn)) {
+            if (!mysql_select_db(\XoopsBaseConfig::get('db-name'), $this->_conn)) {
                 die('db selection failed.');
             }
         }
@@ -267,7 +265,7 @@ class Protector
         $agent = @$_SERVER['HTTP_USER_AGENT'];
 
         if ($unique_check) {
-            $result = mysql_query('SELECT ip,type FROM ' . XOOPS_DB_PREFIX . '_' . $this->mydirname . '_log ORDER BY timestamp DESC LIMIT 1', $this->_conn);
+            $result = mysql_query('SELECT ip,type FROM ' . \XoopsBaseConfig::get('db-prefix') . '_' . $this->mydirname . '_log ORDER BY timestamp DESC LIMIT 1', $this->_conn);
             list($last_ip, $last_type) = mysql_fetch_row($result);
             if ($last_ip == $ip && $last_type == $type) {
                 $this->_logged = true;
@@ -309,7 +307,7 @@ class Protector
 
     function get_filepath4bwlimit()
     {
-        return XOOPS_TRUST_PATH . '/modules/protector/configs/bwlimit' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
+        return \XoopsBaseConfig::get('trust-path') . '/modules/protector/configs/bwlimit' . substr(md5(\XoopsBaseConfig::get('root-path') . \XoopsBaseConfig::get('db-user') . \XoopsBaseConfig::get('db-prefix')), 0, 6);
     }
 
     function write_file_badips($bad_ips)
@@ -370,7 +368,7 @@ class Protector
 
     function get_filepath4badips()
     {
-        return XOOPS_ROOT_PATH . '/modules/protector/configs/badips' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
+        return \XoopsBaseConfig::get('root-path') . '/modules/protector/configs/badips' . substr(md5(\XoopsBaseConfig::get('root-path') . \XoopsBaseConfig::get('db-user') . \XoopsBaseConfig::get('db-prefix')), 0, 6);
     }
 
     function get_group1_ips($with_info = false)
@@ -390,7 +388,7 @@ class Protector
 
     function get_filepath4group1ips()
     {
-        return XOOPS_VAR_PATH . '/configs/protector_group1ips_' . substr(md5(XOOPS_ROOT_PATH . XOOPS_DB_USER . XOOPS_DB_PREFIX), 0, 6);
+        return \XoopsBaseConfig::get('var-path') . '/configs/protector_group1ips_' . substr(md5(\XoopsBaseConfig::get('root-path') . \XoopsBaseConfig::get('db-user') . \XoopsBaseConfig::get('db-prefix')), 0, 6);
     }
 
     function get_filepath4confighcache()
@@ -452,8 +450,8 @@ class Protector
             return false;
         }
 
-        $target_htaccess = XOOPS_ROOT_PATH . '/.htaccess';
-        $backup_htaccess = XOOPS_ROOT_PATH . '/uploads/.htaccess.bak';
+        $target_htaccess = \XoopsBaseConfig::get('root-path') . '/.htaccess';
+        $backup_htaccess = \XoopsBaseConfig::get('root-path') . '/uploads/.htaccess.bak';
 
         $ht_body = file_get_contents($target_htaccess);
 
@@ -785,7 +783,7 @@ class Protector
                     $image_attributes = @getimagesize($_file['tmp_name']);
                     if ($image_attributes === false && is_uploaded_file($_file['tmp_name'])) {
                         // open_basedir restriction
-                        $temp_file = XOOPS_ROOT_PATH . '/uploads/protector_upload_temporary' . md5(time());
+                        $temp_file = \XoopsBaseConfig::get('root-path') . '/uploads/protector_upload_temporary' . md5(time());
                         move_uploaded_file($_file['tmp_name'], $temp_file);
                         $image_attributes = @getimagesize($temp_file);
                         @unlink($temp_file);
@@ -1127,7 +1125,7 @@ class Protector
             }
         } else {
             // http_host
-            $path_array = parse_url(XOOPS_URL);
+            $path_array = parse_url(\XoopsBaseConfig::get('url'));
             $http_host = empty($path_array['host']) ? 'www.xoops.org' : $path_array['host'];
 
             // count URI up
@@ -1229,11 +1227,11 @@ class Protector
 
             // preview CSRF zx 2004/12/14
             // news submit.php
-            if (substr(@$_SERVER['SCRIPT_NAME'], -23) == 'modules/news/submit.php' && isset($_POST['preview']) && strpos(@$_SERVER['HTTP_REFERER'], XOOPS_URL . '/modules/news/submit.php') !== 0) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -23) == 'modules/news/submit.php' && isset($_POST['preview']) && strpos(@$_SERVER['HTTP_REFERER'], \XoopsBaseConfig::get('url') . '/modules/news/submit.php') !== 0) {
                 $HTTP_POST_VARS['nohtml'] = $_POST['nohtml'] = 1;
             }
             // news admin/index.php
-            if (substr(@$_SERVER['SCRIPT_NAME'], -28) == 'modules/news/admin/index.php' && ($_POST['op'] == 'preview' || $_GET['op'] == 'preview') && strpos(@$_SERVER['HTTP_REFERER'], XOOPS_URL . '/modules/news/admin/index.php') !== 0) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -28) == 'modules/news/admin/index.php' && ($_POST['op'] == 'preview' || $_GET['op'] == 'preview') && strpos(@$_SERVER['HTTP_REFERER'], \XoopsBaseConfig::get('url') . '/modules/news/admin/index.php') !== 0) {
                 $HTTP_POST_VARS['nohtml'] = $_POST['nohtml'] = 1;
             }
             // comment comment_post.php
@@ -1241,7 +1239,7 @@ class Protector
                 $HTTP_POST_VARS['dohtml'] = $_POST['dohtml'] = 0;
             }
             // disable preview of system's blocksadmin
-            if (substr(@$_SERVER['SCRIPT_NAME'], -24) == 'modules/system/admin.php' && ($_GET['fct'] == 'blocksadmin' || $_POST['fct'] == 'blocksadmin') && isset($_POST['previewblock']) /* && strpos( $_SERVER['HTTP_REFERER'] , XOOPS_URL.'/modules/system/admin.php' ) !== 0 */) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -24) == 'modules/system/admin.php' && ($_GET['fct'] == 'blocksadmin' || $_POST['fct'] == 'blocksadmin') && isset($_POST['previewblock']) /* && strpos( $_SERVER['HTTP_REFERER'] , \XoopsBaseConfig::get('url').'/modules/system/admin.php' ) !== 0 */) {
                 die("Danger! don't use this preview. Use 'altsys module' instead.(by Protector)");
             }
             // tpl preview

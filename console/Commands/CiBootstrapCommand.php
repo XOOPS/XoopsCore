@@ -42,11 +42,6 @@ if (!class_exists('XoopsBaseConfig', false)) {
     include __DIR__ . '/class/XoopsBaseConfig.php';
     XoopsBaseConfig::getInstance('<{$xoopsbaseconfigs}>');
     XoopsBaseConfig::establishBCDefines();
-    define("XOOPS_MAINFILE_INCLUDED", 1);
-
-    define("XOOPS_GROUP_ADMIN", "1");
-    define("XOOPS_GROUP_USERS", "2");
-    define("XOOPS_GROUP_ANONYMOUS", "3");
 
     $rootPath = XoopsBaseConfig::get('root-path');
     if (!isset($xoopsOption['nocommon']) && !empty($rootPath)) {
@@ -68,17 +63,29 @@ EOT;
      */
     protected function createConfigFile($configFile, $baseDir)
     {
+        $url = 'http://localhost';
         $configs = array(
             'root-path' => $baseDir,
             'lib-path' => $baseDir . '/xoops_lib',
             'var-path' => $baseDir . '/xoops_data',
             'trust-path' => $baseDir . '/xoops_lib',
-            'url' => 'http://localhost/',
+            'url' => $url,
             'prot' => 'http://',
             'asset-path' => $baseDir . '/assets',
-            'asset-url' => 'http://localhost/assets',
+            'asset-url' => $url . '/assets',
+            'themes-path' => $baseDir .'/themes',
+            'themes-url' => $url . '/themes',
+            'adminthemes-path' => $baseDir . '/modules/system/themes',
+            'adminthemes-url' => $url . '/modules/system/themes',
+            'media-path' => $baseDir . '/media',
+            'media-url' => $url . '/media',
+            'uploads-path' => $baseDir . '/uploads',
+            'uploads-url' => $url . '/uploads',
             'cookie-domain' => '',
             'cookie-path' => '/',
+            'smarty-cache' => $baseDir . '/xoops_data/caches/smarty_cache',
+            'smarty-compile' => $baseDir . '/xoops_data/caches/smarty_compile',
+            'smarty-xoops-plugins' => $baseDir . '/xoops_lib/smarty/xoops_plugins',
             'db-type' => 'pdo_mysql',
             'db-charset' => 'utf8',
             'db-prefix' => 'x300',

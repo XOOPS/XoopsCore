@@ -14,9 +14,10 @@
  * @package         kernel
  * @version         $Id$
  */
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
- *  Define XOOPS version
+ * Define XOOPS version
+ * @todo This should be eleminated in favor of \Xoops::VERSION, but it is still required in installer
  */
-define('XOOPS_VERSION', 'XOOPS 2.6.0-Alpha 3');
+$XoopsIncludeVersionString  = class_exists('\Xoops', false) ? \Xoops::VERSION : 'UNKNOWN';
+define('XOOPS_VERSION', $XoopsIncludeVersionString);

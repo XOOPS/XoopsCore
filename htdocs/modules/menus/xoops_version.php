@@ -18,9 +18,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
-
 $modversion                = array();
 $modversion['name']        = _MI_MENUS_NAME;
 $modversion['description'] = _MI_MENUS_DSC;

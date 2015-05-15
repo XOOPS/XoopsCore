@@ -18,8 +18,6 @@
  * @version         $Id$
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
 class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
     function hasAccess($menu, &$hasAccess)

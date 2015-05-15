@@ -25,6 +25,11 @@ include __DIR__ . '/header.php';
 // Get main instance
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
+
+$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+$xoops_url = \XoopsBaseConfig::get('url');
+
 // Parameters
 $nb_banners = $helper->getConfig('banners_pager');
 $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 'application/x-shockwave-flash');
@@ -240,22 +245,22 @@ switch ($op) {
         $obj->setVar("banner_clickurl", Request::getString('clickurl', ''));
         $obj->setVar("banner_htmlbanner", Request::getInt('htmlbanner', 0));
         $obj->setVar("banner_htmlcode", Request::getString('htmlcode', ''));
-
-        $uploader_banners_img = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/banners', $mimetypes, $upload_size, null, null);
-
+		
+        $uploader_banners_img = new XoopsMediaUploader($xoops_upload_path . '/banners', $mimetypes, $upload_size, null, null);
+		
         if ($uploader_banners_img->fetchMedia("banners_imageurl")) {
             $uploader_banners_img->setPrefix("banner");
             $uploader_banners_img->fetchMedia("banners_imageurl");
             if (!$uploader_banners_img->upload()) {
                 $error_msg .= $uploader_banners_img->getErrors();
             } else {
-                $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . $uploader_banners_img->getSavedFileName());
+                $obj->setVar("banner_imageurl", $xoops_upload_url . '/banners/' . $uploader_banners_img->getSavedFileName());
             }
         } else {
             if ($_POST["banners_imageurl"] == 'blank.gif') {
                 $obj->setVar("banner_imageurl", Request::getString('imageurl', ''));
             } else {
-                $obj->setVar("banner_imageurl", XOOPS_UPLOAD_URL . '/banners/' . Request::getString('banners_imageurl', ''));
+                $obj->setVar("banner_imageurl", $xoops_upload_url . '/banners/' . Request::getString('banners_imageurl', ''));
             }
         }
 
@@ -281,8 +286,8 @@ switch ($op) {
                 if (!$xoops->security()->check()) {
                     $xoops->redirect("banners.php", 3, implode(",", $xoops->security()->getErrors()));
                 }
-                $namefile = substr_replace($obj->getVar('imageurl'), '', 0, strlen(XOOPS_URL . '/uploads/banners/'));
-                $urlfile =  XOOPS_ROOT_PATH . '/uploads/banners/' . $namefile;
+                $namefile = substr_replace($obj->getVar('imageurl'), '', 0, strlen($xoops_url . '/uploads/banners/'));
+                $urlfile =  $xoops_root_path . '/uploads/banners/' . $namefile;
                 if ($banner_Handler->delete($obj)) {
                     // delete banner
                     if (is_file($urlfile)) {

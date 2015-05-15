@@ -21,8 +21,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 return $config = array(
     "extensions" => array(
         "iframe" => 0,
@@ -32,7 +30,7 @@ return $config = array(
         "mp3" => 0,
         "wmp" => 0,
         // If other module is used, please modify the following detection and 'link' in /wiki/config.php
-        "wiki" => is_dir(XOOPS_ROOT_PATH . '/modules/mediawiki/'),
+        "wiki" => is_dir(\XoopsBaseConfig::get('root-path') . '/modules/mediawiki/'),
         "mms" => 0,
         "rtsp" => 0,
         'soundcloud' => 0,

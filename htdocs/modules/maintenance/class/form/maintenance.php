@@ -20,8 +20,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 class MaintenanceMaintenanceForm extends Xoops\Form\ThemeForm
 {
     /**
@@ -41,7 +39,7 @@ class MaintenanceMaintenanceForm extends Xoops\Form\ThemeForm
         parent::__construct('', "form_maintenance", "center.php", 'post', true);
 
         $cache = new Xoops\Form\Select(_AM_MAINTENANCE_CENTER_CACHE, "cache", '', 3, true);
-        $cache->setDescription(XOOPS_VAR_PATH . "/cache/smarty_cache/<br />" . XOOPS_VAR_PATH . "/cache/smarty_compile/<br />" . XOOPS_VAR_PATH . "/cache/xoops_cache/");
+        $cache->setDescription(\XoopsBaseConfig::get('var-path') . "/cache/smarty_cache/<br />" . \XoopsBaseConfig::get('var-path') . "/cache/smarty_compile/<br />" . \XoopsBaseConfig::get('var-path') . "/cache/xoops_cache/");
         $cache_arr = array(1 => _AM_MAINTENANCE_CENTER_SMARTY_CACHE, 2 => _AM_MAINTENANCE_CENTER_SMARTY_COMPILE, 3 => _AM_MAINTENANCE_CENTER_XOOPS_CACHE);
         $cache->addOptionArray($cache_arr);
         $this->addElement($cache);
@@ -83,7 +81,7 @@ class MaintenanceMaintenanceForm extends Xoops\Form\ThemeForm
         $module_list = XoopsLists::getModulesList();
         $module_handler = $xoops->getHandlerModule();
         foreach ($module_list as $file) {
-            if (XoopsLoad::fileExists(XOOPS_ROOT_PATH . '/modules/' . $file . '/xoops_version.php')) {
+            if (XoopsLoad::fileExists(\XoopsBaseConfig::get('root-path') . '/modules/' . $file . '/xoops_version.php')) {
                 clearstatcache();
                 $file = trim($file);
                 $module = $module_handler->create();

@@ -41,7 +41,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
                 Xoops_Cache::write("{$dirname}_config", $moduleConfig);
             }
         }
-        if ($customConfig = @include XOOPS_ROOT_PATH . "/modules/{$dirname}/include/plugin.php") {
+        if ($customConfig = @include \XoopsBaseConfig::get('root-path') . "/modules/{$dirname}/include/plugin.php") {
             $moduleConfig = array_merge($moduleConfig, $customConfig);
         }
         return $moduleConfig;

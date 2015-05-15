@@ -20,7 +20,7 @@
  */
 
 include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
-$xoops = Xoops::getInstance();
+$xoops_url = \XoopsBaseConfig::get('url');
 
 header("Content-Type: text/html");
 echo "<html><head><title>" . htmlspecialchars($xoops->getConfig('sitename')) . "</title>
@@ -39,7 +39,7 @@ if (!$result) {
     echo "<h2>" . htmlspecialchars($xoops->getConfig('slogan')) . "</h2>";
     echo "<div>";
     while (list ($storyid, $title) = $xoopsDB->fetchRow($result)) {
-        echo "<a href='" . XOOPS_URL . "/modules/news/print.php?storyid={$storyid}'>" . htmlspecialchars($title) . "</a><br />";
+        echo "<a href='" . $xoops_url . "/modules/news/print.php?storyid={$storyid}'>" . htmlspecialchars($title) . "</a><br />";
     }
     echo "</div>";
 }

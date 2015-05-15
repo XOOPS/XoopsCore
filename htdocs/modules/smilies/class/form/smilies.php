@@ -41,14 +41,14 @@ class SmiliesSmiliesForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Text(_AM_SMILIES_DESCRIPTION, 'smiley_emotion', 4, 50, $obj->getVar('smiley_emotion')), true);
 
         $imgtray_img = new Xoops\Form\ElementTray(_AM_SMILIES_FILE, '<br />');
-        $imgpath_img = sprintf(_AM_SMILIES_IMAGE_PATH, XOOPS_UPLOAD_PATH . '/smilies/');
+        $imgpath_img = sprintf(_AM_SMILIES_IMAGE_PATH, \XoopsBaseConfig::get('uploads-url') . '/smilies/');
         $imageselect_img = new Xoops\Form\Select($imgpath_img, 'smiley_url', $blank_img);
-        $image_array_img = XoopsLists::getImgListAsArray(XOOPS_UPLOAD_PATH . '/smilies');
+        $image_array_img = XoopsLists::getImgListAsArray(\XoopsBaseConfig::get('uploads-url') . '/smilies');
         $imageselect_img->addOptionArray($image_array_img);
 
-        $imageselect_img->setExtra('onchange="showImgSelected(\'xo-smilies-img\', \'smiley_url\', \'smilies\', \'\', \'' . XOOPS_UPLOAD_URL . '\' )"');
+        $imageselect_img->setExtra('onchange="showImgSelected(\'xo-smilies-img\', \'smiley_url\', \'smilies\', \'\', \'' . \XoopsBaseConfig::get('uploads-url') . '\' )"');
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . XOOPS_UPLOAD_URL . "/smilies/" . $blank_img . "' name='image_img' id='xo-smilies-img' alt=''>"));
+        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . \XoopsBaseConfig::get('uploads-url') . "/smilies/" . $blank_img . "' name='image_img' id='xo-smilies-img' alt=''>"));
 
         $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
         $fileseltray_img->addElement(new Xoops\Form\File(_AM_SMILIES_UPLOADS, 'smiley_url'), false);

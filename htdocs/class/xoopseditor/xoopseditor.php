@@ -154,7 +154,7 @@ class XoopsEditorHandler
      */
     private function __construct()
     {
-        $this->root_path = XOOPS_ROOT_PATH . '/class/xoopseditor';
+        $this->root_path = \XoopsBaseConfig::get('root-path') . '/class/xoopseditor';
     }
 
     /**

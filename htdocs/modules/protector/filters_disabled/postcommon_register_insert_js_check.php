@@ -52,7 +52,7 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
         if (empty($time)) {
             $time = time();
         }
-        return md5(gmdate('YmdH', $time) . XOOPS_DB_PREFIX . XOOPS_DB_NAME);
+        return md5(gmdate('YmdH', $time) . \XoopsBaseConfig::get('db-prefix') . \XoopsBaseConfig::get('db-name'));
     }
 
     function getHtml4Assign()

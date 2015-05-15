@@ -43,8 +43,8 @@ class PrefixStripper extends Schema
      */
     public function __construct(array $tables=array(), array $sequences=array(), SchemaConfig $schemaConfig=null)
     {
-        $this->xPrefix = strtolower(XOOPS_DB_PREFIX . '_');
-        $this->xDbName = strtolower(XOOPS_DB_NAME);
+        $this->xPrefix = strtolower(\XoopsBaseConfig::get('db-prefix') . '_');
+        $this->xDbName = strtolower(\XoopsBaseConfig::get('db-name'));
         parent::__construct($tables, $sequences, $schemaConfig);
     }
 

@@ -29,10 +29,10 @@ $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
 // folder path
-$folder_path = XOOPS_ROOT_PATH . '/modules/maintenance/dump';
+$folder_path = \XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump';
 
 // files
-$files = glob(XOOPS_ROOT_PATH . '/modules/maintenance/dump/*.*');
+$files = glob(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/*.*');
 $count = 0;
 foreach ($files as $filename_path) {
     if (basename(strtolower($filename_path)) != 'index.html') {

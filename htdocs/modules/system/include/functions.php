@@ -18,8 +18,6 @@
  * @version     $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
-
 /**
  * Get variables passed by GET or POST method
  *
