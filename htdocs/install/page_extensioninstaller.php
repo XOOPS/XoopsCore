@@ -30,8 +30,9 @@ $pageHasForm = true;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $xoops->loadLocale('system');
-    include_once XOOPS_ROOT_PATH . "/modules/system/class/module.php";
-    include_once XOOPS_ROOT_PATH . "/modules/system/class/system.php";
+    $root_path = \XoopsBaseConfig('root-path');
+    include_once $root_path . "/modules/system/class/module.php";
+    include_once $root_path . "/modules/system/class/system.php";
 
     $system = System::getInstance();
 
@@ -67,9 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $xoops->setConfig('locale', $_COOKIE['xo_install_lang']);
     }
     $xoops->loadLocale('system');
-    include_once XOOPS_ROOT_PATH . "/modules/system/class/module.php";
-    include_once XOOPS_ROOT_PATH . "/modules/system/class/extension.php";
-    include_once XOOPS_ROOT_PATH . "/modules/system/class/system.php";
+    $root_path = \XoopsBaseConfig('root-path');
+    include_once $root_path . "/modules/system/class/module.php";
+    include_once $root_path . "/modules/system/class/extension.php";
+    include_once $root_path . "/modules/system/class/system.php";
 
     $system = System::getInstance();
 
@@ -99,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $form->addElement($moduleYN);
 
         $content .= "<tr id='" . $ext->getInfo('dirname') . "'" . $style . ">\n";
-        $content .= "    <td class='img' ><img src='" . XOOPS_URL . "/modules/" . $ext->getInfo('dirname') . "/" . $ext->getInfo('image') . "' alt='" . $ext->getInfo('name') . "'/></td>\n";
+        $content .= "    <td class='img' ><img src='" . \XoopsBaseConfig::get('url') . "/modules/" . $ext->getInfo('dirname') . "/" . $ext->getInfo('image') . "' alt='" . $ext->getInfo('name') . "'/></td>\n";
         $content .= "    <td>";
         $content .= "        " . $ext->getInfo('name') . "&nbsp;" . number_format(round($ext->getInfo('version'), 2), 2) . "&nbsp;(" . $ext->getInfo('dirname') . ")";
         $content .= "        <br />" . $ext->getInfo('description');
@@ -119,4 +121,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = $pageHasForm;
 $_SESSION['content'] = $content;
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

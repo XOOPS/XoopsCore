@@ -213,4 +213,4 @@ $_SESSION['siteconfig'] = $siteconfig;
 $_SESSION['pageHasHelp'] = $pageHasHelp;
 $_SESSION['pageHasForm'] = $pageHasForm;
 $_SESSION['content'] = $content;
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

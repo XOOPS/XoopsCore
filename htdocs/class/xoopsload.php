@@ -195,6 +195,7 @@ class XoopsLoad
     {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         return array(
+            'xoops' => $xoops_root_path . '/xoops_lib/Xoops.php',
             'bloggerapi' => $xoops_root_path . '/class/xml/rpc/bloggerapi.php',
             'criteria' => $xoops_root_path . '/class/criteria.php',
             'criteriacompo' => $xoops_root_path . '/class/criteria.php',

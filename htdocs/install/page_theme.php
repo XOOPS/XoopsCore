@@ -58,11 +58,11 @@ $criteria->add(new Criteria('conf_name', 'theme_set'));
 $tempvar = $config_handler->getConfigs($criteria);
 $config = array_pop($tempvar);
 
-include XOOPS_INSTALL_PATH . '/include/createconfigform.php';
+include \XoopsBaseConfig::get('install-path') . '/include/createconfigform.php';
 $wizard->form = createThemeform($config);
 $content = $wizard->CreateForm();
 
 $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = false;
 $_SESSION['content'] = $content;
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

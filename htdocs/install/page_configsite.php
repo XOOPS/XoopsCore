@@ -60,10 +60,10 @@ $criteria->add($criteria2);
 $criteria->setSort('conf_catid ASC, conf_order');
 $configs = $config_handler->getConfigs($criteria);
 
-include XOOPS_INSTALL_PATH . '/include/createconfigform.php';
+include \XoopsBaseConfig('install-path') . '/include/createconfigform.php';
 $wizard->form = createConfigform($configs);
 
 $_SESSION['pageHasHelp'] = true;
 $_SESSION['pageHasForm'] = true;
 $_SESSION['content'] = $wizard->CreateForm();
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig('install-path') . '/include/install_tpl.php';

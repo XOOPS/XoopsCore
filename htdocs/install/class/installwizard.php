@@ -135,10 +135,10 @@ class XoopsInstallWizard
      */
     public function loadLangFile($file)
     {
-        if (file_exists($file = XOOPS_INSTALL_PATH . "/locale/{$this->language}/{$file}.php")) {
+        if (file_exists($file = \XoopsBaseConfig::get('install-path') . "/locale/{$this->language}/{$file}.php")) {
             include_once $file;
         } else {
-            $file = XOOPS_INSTALL_PATH . "/locale/en_US/{$file}.php";
+            $file = \XoopsBaseConfig::get('install-path') . "/locale/en_US/{$file}.php";
             include_once $file;
         }
     }
@@ -151,7 +151,7 @@ class XoopsInstallWizard
     public function initLanguage($language)
     {
         $language = preg_replace("/[^a-z0-9_\-]/i", "", $language);
-        if (!file_exists(XOOPS_INSTALL_PATH . "/locale/{$language}/install.php")) {
+        if (!file_exists(\XoopsBaseConfig::get('install-path') . "/locale/{$language}/install.php")) {
             $language = 'en_US';
         }
         $this->language = $language;
@@ -217,8 +217,8 @@ class XoopsInstallWizard
             }
         }
         if (!isset($pages[$pageIndex])) {
-            if (defined("XOOPS_URL")) {
-                return XOOPS_URL . '/';
+            if (\XoopsBaseConfig::has('url')) {
+                return \XoopsBaseConfig::get('url') . '/';
             } else {
                 return $this->baseLocation();
             }

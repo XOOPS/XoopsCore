@@ -26,7 +26,7 @@
 
 require_once __DIR__ . '/include/common.inc.php';
 
-include_once XOOPS_INSTALL_PATH . '/class/pathcontroller.php';
+include_once \XoopsBaseConfig::get('install-path') . '/class/pathcontroller.php';
 
 $ctrl = new XoopsPathController($wizard->configs['xoopsPathDefault'], $wizard->configs['dataPath']);
 
@@ -86,7 +86,7 @@ function updPath( key, val ) {
 
     <label class="xolabel" for="data"><?php echo XOOPS_DATA_PATH_LABEL; ?></label>
     <div class="xoform-help"><?php echo XOOPS_DATA_PATH_HELP; ?></div>
-        <input type="text" name="data" id="data" value="<?php echo $ctrl->xoopsPath['data']; ?>" onchange="updPath('data', this.value)" />
+        <input type="text" name="data" id="data" value="<?php echo $ctrl->xoopsPath['data']; ?>" size="32" onchange="updPath('data', this.value)" />
         <span id="datapathimg"><?php echo genPathCheckHtml('data', $ctrl->validPath['data'] ); ?></span>
         <?php
         if ($ctrl->validPath['data'] && !empty( $ctrl->permErrors['data'])) {
@@ -127,4 +127,4 @@ ob_end_clean();
 $_SESSION['pageHasHelp'] = true;
 $_SESSION['pageHasForm'] = true;
 $_SESSION['content'] = $content;
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

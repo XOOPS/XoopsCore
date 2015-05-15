@@ -44,5 +44,5 @@ $content = $_SESSION['content'];
 $_SESSION['pageHasHelp'] = false;
 $_SESSION['pageHasForm'] = false;
 $_SESSION['content'] = $content;
-include XOOPS_INSTALL_PATH . '/include/install_tpl.php';
+include \XoopsBaseConfig('install-path') . '/include/install_tpl.php';
 $_SESSION = array();

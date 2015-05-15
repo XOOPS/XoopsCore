@@ -39,7 +39,7 @@ function install_acceptUser($hash = '')
     /* @var $user XoopsUser */
     $users = $member_handler->getUsers(new Criteria('uname', $uname));
     $user = array_pop($users);
-    if ($hash_login != md5($user->getVar('pass') . XOOPS_DB_NAME . XOOPS_DB_PASS . XOOPS_DB_PREFIX)) {
+    if ($hash_login != md5($user->getVar('pass') . \XoopsBaseConfig('db-name') . \XoopsBaseConfig('db-pass') . \XoopsBaseConfig('db-prefix'))) {
         return false;
     }
     $xoops->user = $user;
@@ -56,11 +56,11 @@ function install_acceptUser($hash = '')
 function install_finalize($installer_modified)
 {
     // Set mainfile.php readonly
-    @chmod(XOOPS_ROOT_PATH . "/mainfile.php", 0444);
+    @chmod(\XoopsBaseConfig('root-path') . "/mainfile.php", 0444);
     // Set Secure file readonly
-    @chmod(XOOPS_VAR_PATH . "/data/secure.php", 0444);
+    @chmod(\XoopsBaseConfig('var-path') . "/data/secure.php", 0444);
     // Rename installer folder
-    @rename(XOOPS_ROOT_PATH . "/install", XOOPS_ROOT_PATH . "/" . $installer_modified);
+    @rename(\XoopsBaseConfig('root-path') . "/install", \XoopsBaseConfig('root-path') . "/" . $installer_modified);
 }
 
 /**
@@ -242,7 +242,7 @@ function genPathCheckHtml($path, $valid)
     if ($valid) {
         switch ($path) {
             case 'root':
-                $msg = sprintf(XOOPS_FOUND, XOOPS_VERSION);
+                $msg = XOOPS_PATH_FOUND;
                 break;
 
             case 'lib':
