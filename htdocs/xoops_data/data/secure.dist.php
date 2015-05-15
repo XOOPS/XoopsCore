@@ -49,4 +49,15 @@ define("XOOPS_DB_PCONNECT", 0);
 // This is built by the installer and includes all connection parameters
 define("XOOPS_DB_PARAMETERS", "");
 
+// Port number
+// The port number for the database connection
+define("XOOPS_DB_PORT", "");
+
+// Socket
+// The socket for the database connection
+define("XOOPS_DB_SOCKET", "");
+
+// Path
+// The path for the database file
+define("XOOPS_DB_PATH", "");
 ?>

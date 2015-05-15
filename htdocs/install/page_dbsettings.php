@@ -87,6 +87,8 @@ if (!$connection && !empty($settings['DB_NAME'])) {
     }
 }
 
+$settings['DB_NAME'] = !empty($settings['DB_NAME']) ? $settings['DB_NAME'] : '';
+
 // leave if we are already connected to a database from earlier input
 if ($connection && empty($error)) {
     $currentDb = $connection->getDatabase();
@@ -175,4 +177,4 @@ $_SESSION['pageHasHelp'] = true;
 $_SESSION['pageHasForm'] = true;
 $_SESSION['content'] = $content;
 $_SESSION['settings'] = $settings;
-include \XoopsBaseConfig('install-path') . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

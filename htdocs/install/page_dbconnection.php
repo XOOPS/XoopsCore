@@ -152,4 +152,4 @@ $_SESSION['pageHasHelp'] = true;
 $_SESSION['pageHasForm'] = true;
 $_SESSION['content'] = $content;
 $_SESSION['settings'] = $settings;
-include \XoopsBaseConfig('install-path') . '/include/install_tpl.php';
+include \XoopsBaseConfig::get('install-path') . '/include/install_tpl.php';

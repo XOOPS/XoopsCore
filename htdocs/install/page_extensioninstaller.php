@@ -30,7 +30,7 @@ $pageHasForm = true;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $xoops->loadLocale('system');
-    $root_path = \XoopsBaseConfig('root-path');
+    $root_path = \XoopsBaseConfig::get('root-path');
     include_once $root_path . "/modules/system/class/module.php";
     include_once $root_path . "/modules/system/class/system.php";
 
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $xoops->setConfig('locale', $_COOKIE['xo_install_lang']);
     }
     $xoops->loadLocale('system');
-    $root_path = \XoopsBaseConfig('root-path');
+    $root_path = \XoopsBaseConfig::get('root-path');
     include_once $root_path . "/modules/system/class/module.php";
     include_once $root_path . "/modules/system/class/extension.php";
     include_once $root_path . "/modules/system/class/system.php";

@@ -195,7 +195,6 @@ class XoopsLoad
     {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         return array(
-            'xoops' => $xoops_root_path . '/xoops_lib/Xoops.php',
             'bloggerapi' => $xoops_root_path . '/class/xml/rpc/bloggerapi.php',
             'criteria' => $xoops_root_path . '/class/criteria.php',
             'criteriacompo' => $xoops_root_path . '/class/criteria.php',
@@ -548,8 +547,8 @@ class XoopsLoad
                 $libPath = $path;
                 include $loaderPath;
             }
-            XoopsLoad::addMap(XoopsLoad::loadCoreConfig());
-            spl_autoload_register(array('XoopsLoad', 'load'));
+            self::addMap(self::loadCoreConfig());
+            spl_autoload_register(array(__CLASS__, 'load'));
         }
     }
 }

@@ -31,11 +31,6 @@ define('INSTALL_USER', '');
 define('INSTALL_PASSWORD', '');
 define('XOOPS_INSTALL', 1);
 
-if (!class_exists('XoopsBaseConfig', false)) {
-    require_once __DIR__ . '/../../class/XoopsBaseConfig.php';
-    XoopsBaseConfig::bootstrapTransition();
-}
-
 // options for mainfile.php
 if (false === date_default_timezone_set(@date_default_timezone_get())) {
     date_default_timezone_set('UTC'); // use this until properly set
@@ -47,6 +42,11 @@ if (empty($xoopsOption['hascommon'])) {
 $mainfile = dirname(dirname(__DIR__)) . '/mainfile.php';
 if (file_exists($mainfile)) {
     include $mainfile;
+}
+
+if (!class_exists('XoopsBaseConfig', false)) {
+    require_once __DIR__ . '/../../class/XoopsBaseConfig.php';
+    XoopsBaseConfig::bootstrapTransition();
 }
 
 include \XoopsBaseConfig::get('install-path') . '/class/installwizard.php';

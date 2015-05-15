@@ -38,7 +38,7 @@ class XoopsBaseConfig
     final private function __construct($config)
     {
         if (!class_exists('XoopsLoad', false)) {
-            include __DIR__ . '/xoopsload.php';
+            require __DIR__ . '/xoopsload.php';
         }
         if (is_string($config)) {
             $yamlString = file_get_contents($config);
@@ -210,6 +210,16 @@ class XoopsBaseConfig
         // Serialized connection parameter
         // This is built by the installer and includes all connection parameters
         define('XOOPS_DB_PARAMETERS', serialize(self::get('db-parameters')));
+        
+        if (self::has('db-port')) {
+            define("XOOPS_DB_PORT", self::get('db-port'));
+        }
+        if (self::has('db-socket')) {
+            define("XOOPS_DB_SOCKET", self::get('db-socket'));
+        }
+        if (self::has('db-path')) {
+            define("XOOPS_DB_PATH", self::get('db-path'));
+        }
     }
 
     /**
@@ -223,19 +233,26 @@ class XoopsBaseConfig
     final public static function bootstrapTransition()
     {
         $path = self::defineDefault('XOOPS_ROOT_PATH', dirname(__DIR__));
-        $url = (defined('XOOPS_URL')) ?
-            XOOPS_URL :
-            ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://')
-            . $_SERVER['SERVER_NAME']
-            . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : '');
+        $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://';
+        $port = ($_SERVER['SERVER_PORT'] != '80') ? $_SERVER['SERVER_PORT'] : '';
+        $url = self::defineDefault('XOOPS_URL',
+                $protocol
+                . $_SERVER['SERVER_NAME']
+                . (!empty($port) ? ':'.$port : ''));
 
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
         $host = ($host=='localhost') ? '' : $host;
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
-        $libpath = self::defineDefault('XOOPS_PATH');
-        $varpath = self::defineDefault('XOOPS_VAR_PATH');
+        $libpath = self::defineDefault('XOOPS_PATH', $path . '/xoops_lib');
+        $varpath = self::defineDefault('XOOPS_VAR_PATH', $path . '/xoops_data');
+        
+        /*
+        if (!defined('XOOPS_DB_TYPE')) {
+            require $varpath . '/data/secure.php';
+        }
+        */
 
         $configs = array(
             'root-path' => $path,
@@ -244,7 +261,8 @@ class XoopsBaseConfig
             'trust-path' => $libpath,
             'install-path' => $path . '/install',
             'url' => $url,
-            'prot' => self::defineDefault('XOOPS_PROT'),
+            'protocol' => self::defineDefault('XOOPS_PROT', $protocol),
+            'port' => $port,
             'asset-path' => $path . '/assets',
             'asset-url' => $url . '/assets',
             'themes-path' => $path .'/themes',
@@ -265,7 +283,10 @@ class XoopsBaseConfig
             'db-user' => self::defineDefault('XOOPS_DB_USER'),
             'db-pass' => self::defineDefault('XOOPS_DB_PASS'),
             'db-name' => self::defineDefault('XOOPS_DB_NAME'),
-            'db-pconnect' => 0,
+            'db-port' => self::defineDefault('XOOPS_DB_PORT', ''),
+            'db-socket' => self::defineDefault('XOOPS_DB_SOCKET', ''),
+            'db-pconnect' => self::defineDefault('XOOPS_DB_PCONNECT', 0),
+            'db-path' => self::defineDefault('XOOPS_DB_PATH', ''),
             'db-parameters' => defined('XOOPS_DB_PARAMETERS') ? unserialize(XOOPS_DB_PARAMETERS) : array(),
         );
         self::getInstance($configs);

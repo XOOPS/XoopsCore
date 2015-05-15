@@ -39,7 +39,7 @@ function install_acceptUser($hash = '')
     /* @var $user XoopsUser */
     $users = $member_handler->getUsers(new Criteria('uname', $uname));
     $user = array_pop($users);
-    if ($hash_login != md5($user->getVar('pass') . \XoopsBaseConfig('db-name') . \XoopsBaseConfig('db-pass') . \XoopsBaseConfig('db-prefix'))) {
+    if ($hash_login != md5($user->getVar('pass') . \XoopsBaseConfig::get('db-name') . \XoopsBaseConfig::get('db-pass') . \XoopsBaseConfig::get('db-prefix'))) {
         return false;
     }
     $xoops->user = $user;
@@ -56,11 +56,11 @@ function install_acceptUser($hash = '')
 function install_finalize($installer_modified)
 {
     // Set mainfile.php readonly
-    @chmod(\XoopsBaseConfig('root-path') . "/mainfile.php", 0444);
+    @chmod(\XoopsBaseConfig::get('root-path') . "/mainfile.php", 0444);
     // Set Secure file readonly
-    @chmod(\XoopsBaseConfig('var-path') . "/data/secure.php", 0444);
+    @chmod(\XoopsBaseConfig::get('var-path') . "/data/secure.php", 0444);
     // Rename installer folder
-    @rename(\XoopsBaseConfig('root-path') . "/install", \XoopsBaseConfig('root-path') . "/" . $installer_modified);
+    @rename(\XoopsBaseConfig::get('root-path') . "/install", \XoopsBaseConfig::get('root-path') . "/" . $installer_modified);
 }
 
 /**
@@ -477,7 +477,6 @@ function getDbConnectionParams()
     // get list of parameters the selected driver accepts
     $driver_info = $wizard->configs['db_types'][$settings['DB_DRIVER']];
     $driver_params=explode(',', $driver_info['params']);
-
     $connectionParams = array(
         'driver' => $settings['DB_DRIVER'],
         'charset' => 'utf8',
