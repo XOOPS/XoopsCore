@@ -131,16 +131,24 @@ class Xoops
         $this->paths['lib'] = array($lib, $url . '/browse.php');
         $this->paths['XOOPS'] = array($lib, $url . '/browse.php');
 
-        $this->paths['assets'] = array($root . '/assets', $url . '/assets');
+        $this->paths['assets'] = array(\XoopsBaseConfig::get('asset-path'), \XoopsBaseConfig::get('asset-url'));
         $this->paths['images'] = array($root . '/images', $url . '/images');
         $this->paths['install'] = array($root . '/install', $url . '/install');
         $this->paths['language'] = array($root . '/language', $url . '/language');
         $this->paths['locale'] = array($root . '/locale', $url . '/locale');
-        $this->paths['media'] = array($root . '/media', $url . '/media');
+        $this->paths['media'] = array(\XoopsBaseConfig::get('media-path'), \XoopsBaseConfig::get('media-url'));
         $this->paths['modules'] = array($root . '/modules', $url . '/modules');
-        $this->paths['themes'] = array($root . '/themes', $url . '/themes');
-        $this->paths['uploads'] = array($root . '/uploads', $url . '/uploads');
+        $this->paths['themes'] = array(\XoopsBaseConfig::get('themes-path'), \XoopsBaseConfig::get('themes-url'));
+        $this->paths['uploads'] = array(\XoopsBaseConfig::get('uploads-path'), \XoopsBaseConfig::get('uploads-url'));
 
+        $this->paths['XOOPS'] = array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php');
+        $this->paths['www'] = array(\XoopsBaseConfig::get('root-path'), \XoopsBaseConfig::get('url'));
+        $this->paths['var'] = array(\XoopsBaseConfig::get('var-path'), null);
+        $this->paths['lib'] = array(\XoopsBaseConfig::get('lib-path'), \XoopsBaseConfig::get('url') . '/browse.php');
+        $this->paths['modules'] = array(\XoopsBaseConfig::get('root-path') . '/modules', \XoopsBaseConfig::get('url') . '/modules');
+        $this->paths['themes'] = array(\XoopsBaseConfig::get('root-path') . '/themes', \XoopsBaseConfig::get('url') . '/themes');
+        $this->paths['media'] = array(\XoopsBaseConfig::get('root-path') . '/media', \XoopsBaseConfig::get('url') . '/media');
+        $this->paths['assets'] = array(\XoopsBaseConfig::get('root-path') . '/assets', \XoopsBaseConfig::get('url') . '/assets');
         $this->pathTranslation();
     }
 
@@ -368,9 +376,12 @@ class Xoops
      */
     public function path($url, $virtual = false)
     {
-        $url = str_replace('\\', '/', $url);
-        $url = str_replace(\XoopsBaseConfig::get('root-path'), '', $url);
-        $url = trim($url, '/');
+        $url = $this->normalizePath($url);
+        $rootPath = $this->normalizePath(\XoopsBaseConfig::get('root-path') . '/');
+        if (0 === strpos($url, $rootPath)) {
+            $url = substr($url, strlen($rootPath));
+        }
+        //$url = ltrim($url, '/');
         $parts = explode('/', $url, 2);
         $root = isset($parts[0]) ? $parts[0] : '';
         $path = isset($parts[1]) ? $parts[1] : '';
@@ -379,10 +390,22 @@ class Xoops
         }
         if (!$virtual) { // Returns a physical path
             $path = $this->paths[$root][0] . '/' . $path;
-            $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+            //$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
             return $path;
         }
         return !isset($this->paths[$root][1]) ? '' : ($this->paths[$root][1] . '/' . $path);
+    }
+
+    /**
+     * Convert path separators to unix style
+     *
+     * @param string $path path to normalize
+     *
+     * @return string normalized path
+     */
+    public function normalizePath($path)
+    {
+        return str_replace('\\', '/', $path);
     }
 
     /**
@@ -868,9 +891,7 @@ class Xoops
     }
 
     /**
-     * Get handler of Session
-     *
-     * @param mixed $optional
+     * Get the session manager
      *
      * @return Xoops\Core\Session\Manager
      */

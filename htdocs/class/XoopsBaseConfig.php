@@ -251,6 +251,8 @@ class XoopsBaseConfig
             'themes-url' => $url . '/themes',
             'adminthemes-path' => $path . '/modules/system/themes',
             'adminthemes-url' => $url . '/modules/system/themes',
+            'media-path' => $path . '/media',
+            'media-url' => $url . '/media',
             'uploads-path' => $path . '/uploads',
             'uploads-url' => $url . '/uploads',
             'cookie-domain' => $host,

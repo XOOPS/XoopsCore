@@ -77,6 +77,8 @@ EOT;
             'themes-url' => $url . '/themes',
             'adminthemes-path' => $baseDir . '/modules/system/themes',
             'adminthemes-url' => $url . '/modules/system/themes',
+            'media-path' => $baseDir . '/media',
+            'media-url' => $url . '/media',
             'uploads-path' => $baseDir . '/uploads',
             'uploads-url' => $url . '/uploads',
             'cookie-domain' => '',
