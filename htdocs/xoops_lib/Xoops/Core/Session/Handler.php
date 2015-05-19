@@ -84,10 +84,10 @@ class Handler implements \SessionHandlerInterface
             ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
             ->setParameter(':expires', time(), \PDO::PARAM_INT);
 
+        $session_data = '';
         if ($result = $qb->execute()) {
             if ($row = $result->fetch(\PDO::FETCH_NUM)) {
                 list ($session_data) = $row;
-                return $session_data;
             }
         }
 
@@ -96,7 +96,7 @@ class Handler implements \SessionHandlerInterface
             $this->gc(0);
         }
 
-        return '';
+        return $session_data;
     }
 
     /**
@@ -155,6 +155,7 @@ class Handler implements \SessionHandlerInterface
         $qb ->deletePrefix($this->sessionTable)
             ->where($eb->eq('session_id', ':sessid'))
             ->setParameter(':sessid', $session_id, \PDO::PARAM_STR);
+        $this->db->setForce(true);
         return $qb->execute();
     }
 
@@ -173,6 +174,7 @@ class Handler implements \SessionHandlerInterface
         $qb ->deletePrefix($this->sessionTable)
             ->where($eb->lt('expires_at', ':expires'))
             ->setParameter(':expires', $mintime, \PDO::PARAM_INT);
+        $this->db->setForce(true);
         return $qb->execute();
     }
 }
