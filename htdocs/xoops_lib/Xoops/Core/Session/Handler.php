@@ -121,16 +121,21 @@ class Handler implements \SessionHandlerInterface
             ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
             ->setParameter(':expires', $expires, \PDO::PARAM_INT)
             ->setParameter(':sessdata', $session_data, \PDO::PARAM_STR);
+        $this->db->setForce(true);
         $result = $qb->execute();
         if ($result<=0) {
-            $this->db->insertPrefix(
-                $this->sessionTable,
-                array(
-                    'session_id'   => $session_id,
-                    'expires_at'   => $expires,
-                    'session_data' => $session_data,
-                )
-            );
+            $qb = $this->db->createXoopsQueryBuilder();
+            $qb ->insertPrefix($this->sessionTable)
+                ->values(array(
+                    'session_id'   => ':sessid',
+                    'expires_at'   => ':expires',
+                    'session_data' => ':sessdata',
+                    ))
+                ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
+                ->setParameter(':expires', $expires, \PDO::PARAM_INT)
+                ->setParameter(':sessdata', $session_data, \PDO::PARAM_STR);
+            $this->db->setForce(true);
+            $result = $qb->execute();
         }
 
         return ($result);
