@@ -99,28 +99,28 @@ tables:
                 columns: [id]
                 unique: true
                 primary: true
-            modid:
-                name: modid
+            notifications_modid:
+                name: notifications_modid
                 columns: [modid]
                 unique: false
                 primary: false
-            itemid:
-                name: itemid
+            notifications_itemid:
+                name: notifications_itemid
                 columns: [itemid]
                 unique: false
                 primary: false
-            class:
-                name: class
+            notifications_class:
+                name: notifications_class
                 columns: [category]
                 unique: false
                 primary: false
-            uid:
-                name: uid
+            notifications_uid:
+                name: notifications_uid
                 columns: [uid]
                 unique: false
                 primary: false
-            event:
-                name: event
+            notifications_event:
+                name: notifications_event
                 columns: [event]
                 unique: false
                 primary: false

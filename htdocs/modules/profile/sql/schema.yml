@@ -290,12 +290,12 @@ tables:
                 columns: [field_id]
                 unique: true
                 primary: true
-            field_name:
+            profile_field_name:
                 name: field_name
                 columns: [field_name]
                 unique: true
                 primary: false
-            step:
+            profile_field_step:
                 name: step
                 columns: [step_id, field_weight]
                 unique: false
@@ -396,7 +396,7 @@ tables:
                 columns: [step_id]
                 unique: true
                 primary: true
-            sort:
+            profile_step_sort:
                 name: sort
                 columns: [step_order, step_name]
                 unique: false
@@ -449,7 +449,7 @@ tables:
                 columns: [field_id, user_group, profile_group]
                 unique: true
                 primary: true
-            visible:
+            profile_visibility_visible:
                 name: visible
                 columns: [user_group, profile_group]
                 unique: false
