@@ -112,8 +112,8 @@ tables:
                 columns: [image_id]
                 unique: true
                 primary: true
-            imgcat_id:
-                name: imgcat_id
+            image_imgcat_id:
+                name: image_imgcat_id
                 columns: [imgcat_id]
                 unique: false
                 primary: false
@@ -152,8 +152,8 @@ tables:
                 columnDefinition: null
                 comment: ''
         indexes:
-            image_id:
-                name: image_id
+            imagebody_id:
+                name: imagebody_id
                 columns: [image_id]
                 unique: false
                 primary: false
@@ -283,8 +283,8 @@ tables:
                 columns: [imgcat_id]
                 unique: true
                 primary: true
-            imgcat_display:
-                name: imgcat_display
+            imagecategory_display:
+                name: imagecategory_display
                 columns: [imgcat_display]
                 unique: false
                 primary: false
