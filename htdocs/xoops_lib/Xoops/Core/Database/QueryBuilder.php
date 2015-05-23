@@ -216,25 +216,4 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
         $join = Connection::prefix($join);
         return $this->rightJoin($fromAlias, $join, $alias, $condition);
     }
-    
-    
-    public function orderBy($sort, $order = null)
-    {
-        $conn = $this->getConnection();
-        $class = get_class($conn->getDriver());
-        if (stripos($class,'sqlite') !== false) {
-            $sort = str_replace('RAND()', 'RANDOM()', $sort);
-        }
-        return parent::orderBy($sort, $order);
-    }
-
-    public function addOrderBy($sort, $order = null)
-    {
-        $conn = $this->getConnection();
-        $class = get_class($conn->getDriver());
-        if (stripos($class,'sqlite') !== false) {
-            $sort = str_replace('RAND()', 'RANDOM()', $sort);
-        }
-        return parent::addOrderBy($sort, $order);
-    }
 }
