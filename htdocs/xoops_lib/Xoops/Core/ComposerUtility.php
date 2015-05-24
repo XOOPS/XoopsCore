@@ -67,8 +67,8 @@ class ComposerUtility
             }
         }
 
-        if (chdir(\XoopsBaseConfig::get('lib-path'))) {
-            $this->errors[] = 'Cannot change directory to XOOPS_PATH';
+        if (!chdir(\XoopsBaseConfig::get('lib-path'))) {
+            $this->errors[] = 'Cannot change directory to lib-path';
             return false;
         }
 
