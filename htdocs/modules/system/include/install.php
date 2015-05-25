@@ -33,8 +33,6 @@ use Xmf\Database\TableLoad;
 function xoops_module_install_system(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
-    // data for table 'group'
-    $group_handler = $xoops->getHandlerGroup();
 
     // load groups table
     $rows = array(
