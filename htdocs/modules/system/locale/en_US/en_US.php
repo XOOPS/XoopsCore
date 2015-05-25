@@ -368,6 +368,8 @@ By clicking Register below you agree to be bound by these conditions.";
     const REGISTERED_USERS_GROUP = "Registered users group";
     const REGISTRATION_DATE_GREATER_THAN_X = "Joined date is more than <span style='color:#ff0000;'>X</span> days ago";
     const REGISTRATION_DATE_LESS_THAN_X = "Joined date is less than <span style='color:#ff0000;'>X</span> days ago";
+    const REMOVED_USERS = "Removed users";
+    const REMOVED_USERS_GROUP = "Removed/Banned users group";
     const SCREENSHOT_IMAGE_WIDTH = "Screenshot image width";
     const SECURE_LOGIN = "Secure login";
     const SERVICES_DESC = "From here you can manage service<br />providers and priorities.";

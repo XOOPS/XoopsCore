@@ -26,4 +26,5 @@ class FixedGroups
     const ADMIN     = 1;
     const USERS     = 2;
     const ANONYMOUS = 3;
+    const REMOVED   = 4;
 }

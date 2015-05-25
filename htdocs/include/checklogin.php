@@ -52,6 +52,10 @@ if (false != $user) {
         $xoops->redirect($xoops_url . '/index.php', 5, XoopsLocale::E_SELECTED_USER_DEACTIVATED_OR_NOT_ACTIVE);
         exit();
     }
+    if (in_array(FixedGroups::REMOVED, $user->getGroups())) {
+        $xoops->redirect($xoops_url . '/index.php', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+        exit();
+    }
     if ($xoops->getConfig('closesite') == 1) {
         $allowed = false;
         foreach ($user->getGroups() as $group) {
