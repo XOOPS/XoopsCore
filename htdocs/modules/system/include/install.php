@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\FixedGroups;
+use Xmf\Database\TableLoad;
+
 /**
  * System install module
  *
@@ -23,46 +26,51 @@
 /**
  * xoops_module_install_system - initialize on install
  *
- * @param type &$module module object
+ * @param XoopsModule $module module object
  *
  * @return void
  */
-function xoops_module_install_system(&$module)
+function xoops_module_install_system(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
     // data for table 'group'
     $group_handler = $xoops->getHandlerGroup();
-    // create admin group
-    $obj = $group_handler->create();
-    $obj->setVar("name", addslashes(SystemLocale::WEBMASTERS));
-    $obj->setVar("description", addslashes(SystemLocale::WEBMASTERS_OF_THIS_SITE));
-    $obj->setVar("group_type", 'Admin');
-    if (!$group_handler->insert($obj)) {
-        echo $xoops->alert('error', $obj->getHtmlErrors());
-    }
-    // create registered users group
-    $obj = $group_handler->create();
-    $obj->setVar("name", addslashes(SystemLocale::REGISTERED_USERS));
-    $obj->setVar("description", addslashes(SystemLocale::REGISTERED_USERS_GROUP));
-    $obj->setVar("group_type", 'User');
-    if (!$group_handler->insert($obj)) {
-        echo $xoops->alert('error', $obj->getHtmlErrors());
-    }
-    // create anonymous users group
-    $obj = $group_handler->create();
-    $obj->setVar("name", addslashes(SystemLocale::ANONYMOUS_USERS));
-    $obj->setVar("description", addslashes(SystemLocale::ANONYMOUS_USERS_GROUP));
-    $obj->setVar("group_type", 'Anonymous');
-    if (!$group_handler->insert($obj)) {
-        echo $xoops->alert('error', $obj->getHtmlErrors());
-    }
-    // data for table 'groups_users_link'
+
+    // load groups table
+    $rows = array(
+        array(
+            'groupid' => FixedGroups::ADMIN,
+            'name' => SystemLocale::WEBMASTERS,
+            'description' => SystemLocale::WEBMASTERS_OF_THIS_SITE,
+            'group_type' => 'Admin',
+        ),
+        array(
+            'groupid' => FixedGroups::USERS,
+            'name' => SystemLocale::REGISTERED_USERS,
+            'description' => SystemLocale::REGISTERED_USERS_GROUP,
+            'group_type' => 'Admin',
+        ),
+        array(
+            'groupid' => FixedGroups::ANONYMOUS,
+            'name' => SystemLocale::ANONYMOUS_USERS,
+            'description' => SystemLocale::ANONYMOUS_USERS_GROUP,
+            'group_type' => 'Admin',
+        ),
+        array(
+            'groupid' => FixedGroups::REMOVED,
+            'name' => SystemLocale::REMOVED_USERS,
+            'description' => SystemLocale::REMOVED_USERS_GROUP,
+            'group_type' => 'Removed',
+        ),
+    );
+    TableLoad::loadTableFromArray('groups', $rows);
 
     // data for table 'group_permission'
     $groupperm_handler = $xoops->getHandlerGroupPerm();
-    for ($i = 2; $i <= 3; ++$i) {
+    $allGroups = array(FixedGroups::USERS, FixedGroups::ANONYMOUS);
+    foreach ($allGroups as $gid) {
         $obj = $groupperm_handler->create();
-        $obj->setVar("gperm_groupid", $i);
+        $obj->setVar("gperm_groupid", $gid);
         $obj->setVar("gperm_itemid", '1');
         $obj->setVar("gperm_modid", '1');
         $obj->setVar("gperm_name", 'module_read');
@@ -70,16 +78,7 @@ function xoops_module_install_system(&$module)
             echo $xoops->alert('error', $obj->getHtmlErrors());
         }
     }
-    for ($i = 1; $i <= 17; ++$i) {
-        $obj = $groupperm_handler->create();
-        $obj->setVar("gperm_groupid", '1');
-        $obj->setVar("gperm_itemid", $i);
-        $obj->setVar("gperm_modid", '1');
-        $obj->setVar("gperm_name", 'module_read');
-        if (!$groupperm_handler->insert($obj)) {
-            echo $xoops->alert('error', $obj->getHtmlErrors());
-        }
-    }
+
     // Make system block visible
     $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
     $block_handler = new XoopsBlockHandler($xoops->db());
@@ -125,8 +124,8 @@ function xoops_module_install_system(&$module)
 
     // data for table 'groups_users_link'
     $types = array(\PDO::PARAM_INT, \PDO::PARAM_INT);
-    $data = array('groupid' => 1, 'uid' => 1);
+    $data = array('groupid' => FixedGroups::ADMIN, 'uid' => 1);
     $xoops->db()->insertPrefix('groups_users_link', $data, $types);
-    $data = array('groupid' => 2, 'uid' => 1);
+    $data = array('groupid' => FixedGroups::USERS, 'uid' => 1);
     $xoops->db()->insertPrefix('groups_users_link', $data, $types);
 }
