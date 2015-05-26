@@ -49,7 +49,7 @@ if (!$allowed) {
     $xoops->setTpl($xoops->theme()->template);
     $xoops->tpl()->assign(array(
                            'xoops_theme' => $xoops->getConfig('theme_set'),
-                           'xoops_imageurl' => \XoopsBaseConfig::get('themes-url'); . '/' . $xoops->getConfig('theme_set') . '/',
+                           'xoops_imageurl' => \XoopsBaseConfig::get('themes-url') . '/' . $xoops->getConfig('theme_set') . '/',
                            'xoops_themecss' => $xoops->getCss($xoops->getConfig('theme_set')),
                            'xoops_requesturi' => htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES),
                            'xoops_sitename' => htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES),
