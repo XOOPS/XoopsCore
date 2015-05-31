@@ -138,13 +138,13 @@ tables:
                 columns: [conf_id]
                 unique: true
                 primary: true
-            conf_mod_cat_id:
-                name: conf_mod_cat_id
+            userconfigs_modid_uid:
+                name: userconfigs_modid_uid
                 columns: [conf_modid, conf_uid]
                 unique: false
                 primary: false
-            conf_order:
-                name: conf_order
+            userconfigs_order:
+                name: userconfigs_order
                 columns: [conf_order]
                 unique: false
                 primary: false
@@ -209,8 +209,8 @@ tables:
                 columns: [confop_id]
                 unique: true
                 primary: true
-            conf_id:
-                name: conf_id
+            confop_conf_id:
+                name: confop_conf_id
                 columns: [conf_id]
                 unique: false
                 primary: false

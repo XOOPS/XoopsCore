@@ -198,7 +198,7 @@ tables:
                 columns: [categoryid]
                 unique: true
                 primary: true
-            parentid:
+            publisher_category_parentid:
                 name: parentid
                 columns: [parentid]
                 unique: false
@@ -742,13 +742,13 @@ tables:
                 columns: [itemid]
                 unique: true
                 primary: true
-            categoryid:
-                name: categoryid
+            publisher_items_categoryid:
+                name: publisher_items_categoryid
                 columns: [categoryid]
                 unique: false
                 primary: false
-            status:
-                name: status
+            publisher_items_status:
+                name: publisher_items_status
                 columns: [status]
                 unique: false
                 primary: false
@@ -874,11 +874,11 @@ tables:
                 columnDefinition: null
                 comment: null
         indexes:
-            mime_id:
-                name: mime_id
+            PRIMARY:
+                name: PRIMARY
                 columns: [mime_id]
-                unique: false
-                primary: false
+                unique: true
+                primary: true
     publisher_rating:
         options: {  }
         columns:
@@ -967,13 +967,13 @@ tables:
                 columns: [ratingid]
                 unique: true
                 primary: true
-            uid:
-                name: uid
+            publisher_rating_uid:
+                name: publisher_rating_uid
                 columns: [uid]
                 unique: false
                 primary: false
-            ip:
-                name: ip
+            publisher_rating_ip:
+                name: publisher_rating_ip
                 columns: [ip]
                 unique: false
                 primary: false

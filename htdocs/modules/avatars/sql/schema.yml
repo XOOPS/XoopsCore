@@ -147,8 +147,8 @@ tables:
                 columnDefinition: null
                 comment: ''
         indexes:
-            avatar_user_id:
-                name: avatar_user_id
+            avatars_user_id:
+                name: avatars_user_id
                 columns: [avatar_id, user_id]
                 unique: false
                 primary: false

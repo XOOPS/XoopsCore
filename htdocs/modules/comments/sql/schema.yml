@@ -268,28 +268,28 @@ tables:
                 columns: [id]
                 unique: true
                 primary: true
-            pid:
-                name: pid
+            comments_pid:
+                name: comments_pid
                 columns: [pid]
                 unique: false
                 primary: false
-            itemid:
-                name: itemid
+            comments_itemid:
+                name: comments_itemid
                 columns: [itemid]
                 unique: false
                 primary: false
-            uid:
-                name: uid
+            comments_uid:
+                name: comments_uid
                 columns: [uid]
                 unique: false
                 primary: false
-            title:
-                name: title
+            comments_title:
+                name: comments_title
                 columns: [title]
                 unique: false
                 primary: false
-            status:
-                name: status
+            comments_status:
+                name: comments_status
                 columns: [status]
                 unique: false
                 primary: false
