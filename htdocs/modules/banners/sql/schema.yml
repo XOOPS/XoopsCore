@@ -164,13 +164,13 @@ tables:
                 columns: [banner_bid]
                 unique: true
                 primary: true
-            idxbannercid:
-                name: idxbannercid
+            banner_cid:
+                name: banner_cid
                 columns: [banner_cid]
                 unique: false
                 primary: false
-            idxbannerbidcid:
-                name: idxbannerbidcid
+            banner_bidcid:
+                name: banner_bidcid
                 columns: [banner_bid, banner_cid]
                 unique: false
                 primary: false
@@ -235,8 +235,8 @@ tables:
                 columns: [bannerclient_cid]
                 unique: true
                 primary: true
-            name:
-                name: name
+            bannerclient_name:
+                name: bannerclient_name
                 columns: [bannerclient_name]
                 unique: false
                 primary: false
