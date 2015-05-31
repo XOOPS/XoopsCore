@@ -244,8 +244,8 @@ tables:
                 columns: [confop_id]
                 unique: true
                 primary: true
-            conf_id:
-                name: conf_id
+            confop_conf_id:
+                name: confop_conf_id
                 columns: [conf_id]
                 unique: false
                 primary: false
@@ -323,13 +323,13 @@ tables:
                 columns: [gperm_id]
                 unique: true
                 primary: true
-            groupid:
-                name: groupid
+            gperm_groupid:
+                name: gperm_groupid
                 columns: [gperm_groupid]
                 unique: false
                 primary: false
-            itemid:
-                name: itemid
+            gperm_itemid:
+                name: gperm_itemid
                 columns: [gperm_itemid]
                 unique: false
                 primary: false
@@ -452,8 +452,8 @@ tables:
                 columns: [linkid]
                 unique: true
                 primary: true
-            groupid_uid:
-                name: groupid_uid
+            groups_user_id_uid:
+                name: groups_user_id_uid
                 columns: [groupid, uid]
                 unique: false
                 primary: false
@@ -540,8 +540,8 @@ tables:
                 columnDefinition: null
                 comment: ''
         indexes:
-            tplset_name:
-                name: tplset_name
+            imgset_tplset_name:
+                name: imgset_tplset_name
                 columns: [tplset_name]
                 unique: false
                 primary: false
@@ -789,48 +789,48 @@ tables:
                 columns: [mid]
                 unique: true
                 primary: true
-            hasmain:
-                name: hasmain
+            modules_hasmain:
+                name: modules_hasmain
                 columns: [hasmain]
                 unique: false
                 primary: false
-            hasadmin:
-                name: hasadmin
+            modules_hasadmin:
+                name: modules_hasadmin
                 columns: [hasadmin]
                 unique: false
                 primary: false
-            hassearch:
-                name: hassearch
+            modules_hassearch:
+                name: modules_hassearch
                 columns: [hassearch]
                 unique: false
                 primary: false
-            hasnotification:
-                name: hasnotification
+            modules_hasnotification:
+                name: modules_hasnotification
                 columns: [hasnotification]
                 unique: false
                 primary: false
-            dirname:
-                name: dirname
+            modules_dirname:
+                name: modules_dirname
                 columns: [dirname]
                 unique: false
                 primary: false
-            name:
-                name: name
+            modules_name:
+                name: modules_name
                 columns: [name]
                 unique: false
                 primary: false
-            isactive:
-                name: isactive
+            modules_isactive:
+                name: modules_isactive
                 columns: [isactive]
                 unique: false
                 primary: false
-            weight:
-                name: weight
+            modules_weight:
+                name: modules_weight
                 columns: [weight]
                 unique: false
                 primary: false
-            hascomments:
-                name: hascomments
+            modules_hascomments:
+                name: modules_hascomments
                 columns: [hascomments]
                 unique: false
                 primary: false
@@ -1103,23 +1103,23 @@ tables:
                 columns: [bid]
                 unique: true
                 primary: true
-            mid:
-                name: mid
+            newblocks_mid:
+                name: newblocks_mid
                 columns: [mid]
                 unique: false
                 primary: false
-            visible:
-                name: visible
+            newblocks_visible:
+                name: newblocks_visible
                 columns: [visible]
                 unique: false
                 primary: false
-            isactive_visible_mid:
-                name: isactive_visible_mid
+            newblocks_isactive_visible_mid:
+                name: newblocks_isactive_visible_mid
                 columns: [isactive, visible, mid]
                 unique: false
                 primary: false
-            mid_funcnum:
-                name: mid_funcnum
+            newblocks_mid_funcnum:
+                name: newblocks_mid_funcnum
                 columns: [mid, func_num]
                 unique: false
                 primary: false
@@ -1372,23 +1372,23 @@ tables:
                 columns: [msg_id]
                 unique: true
                 primary: true
-            to_userid:
-                name: to_userid
+            priv_msgs_to_userid:
+                name: priv_msgs_to_userid
                 columns: [to_userid]
                 unique: false
                 primary: false
-            touseridreadmsg:
-                name: touseridreadmsg
+            priv_msgs_touseridreadmsg:
+                name: priv_msgs_touseridreadmsg
                 columns: [to_userid, read_msg]
                 unique: false
                 primary: false
-            msgidfromuserid:
-                name: msgidfromuserid
+            priv_msgs_msgidfromuserid:
+                name: priv_msgs_msgidfromuserid
                 columns: [from_userid, msg_id]
                 unique: false
                 primary: false
-            prune:
-                name: prune
+            priv_msgs_prune:
+                name: priv_msgs_prune
                 columns: [msg_time, read_msg, from_save, to_delete]
                 unique: false
                 primary: false
@@ -1440,8 +1440,8 @@ tables:
                 columns: [session_id]
                 unique: true
                 primary: true
-            updated:
-                name: expires_at
+            system_session_expires_at:
+                name: system_session_expires_at
                 columns: [expires_at]
                 unique: false
                 primary: false
@@ -1685,8 +1685,8 @@ tables:
                 columnDefinition: null
                 comment: ''
         indexes:
-            tpl_id:
-                name: tpl_id
+            tplsource_tpl_id:
+                name: tplsource_tpl_id
                 columns: [tpl_id]
                 unique: false
                 primary: false
@@ -2102,28 +2102,28 @@ tables:
                 columns: [uid]
                 unique: true
                 primary: true
-            uname:
-                name: uname
+            users_uname:
+                name: users_uname
                 columns: [uname]
                 unique: false
                 primary: false
-            email:
-                name: email
+            users_email:
+                name: users_email
                 columns: [email]
                 unique: false
                 primary: false
-            uiduname:
-                name: uiduname
+            users_uiduname:
+                name: users_uiduname
                 columns: [uid, uname]
                 unique: false
                 primary: false
-            unamepass:
-                name: unamepass
+            users_unamepass:
+                name: users_unamepass
                 columns: [uname, pass]
                 unique: false
                 primary: false
-            level:
-                name: level
+            users_level:
+                name: users_level
                 columns: [level]
                 unique: false
                 primary: false

@@ -377,33 +377,33 @@ tables:
                 columns: [content_id]
                 unique: true
                 primary: true
-            content_title:
-                name: content_title
+            page_content_title:
+                name: page_content_title
                 columns: [content_title]
                 unique: false
                 primary: false
-            content_create:
-                name: content_create
+            page_content_create:
+                name: page_content_create
                 columns: [content_create]
                 unique: false
                 primary: false
-            content_author:
-                name: content_author
+            page_content_author:
+                name: page_content_author
                 columns: [content_author]
                 unique: false
                 primary: false
-            content_status:
-                name: content_status
+            page_content_status:
+                name: page_content_status
                 columns: [content_status]
                 unique: false
                 primary: false
-            content_hits:
-                name: content_hits
+            page_content_hits:
+                name: page_content_hits
                 columns: [content_hits]
                 unique: false
                 primary: false
-            content_rating:
-                name: content_rating
+            page_content_rating:
+                name: page_content_rating
                 columns: [content_rating]
                 unique: false
                 primary: false
@@ -495,13 +495,13 @@ tables:
                 columns: [rating_id]
                 unique: true
                 primary: true
-            rating_content_id:
-                name: rating_content_id
+            page_rating_content_id:
+                name: page_rating_content_id
                 columns: [rating_content_id]
                 unique: false
                 primary: false
-            rating_uid:
-                name: rating_uid
+            page_rating_uid:
+                name: page_rating_uid
                 columns: [rating_uid]
                 unique: false
                 primary: false
@@ -567,8 +567,8 @@ tables:
                 columns: [related_id]
                 unique: true
                 primary: true
-            related_name:
-                name: related_name
+            page_related_name:
+                name: page_related_name
                 columns: [related_name]
                 unique: false
                 primary: false
@@ -633,13 +633,13 @@ tables:
                 columns: [link_id]
                 unique: true
                 primary: true
-            link_related_id:
-                name: link_related_id
+            page_related_link_related_id:
+                name: page_related_link_related_id
                 columns: [link_related_id]
                 unique: false
                 primary: false
-            link_content_id:
-                name: link_content_id
+            page_related_content_id:
+                name: page_related_link_content_id
                 columns: [link_content_id]
                 unique: false
                 primary: false
