@@ -35,7 +35,7 @@ if (!$system->checkRight()) {
 }
 
 // System Class
-include_once $xoops->path('/modules/system/class/cookie.php');
+//include_once $xoops->path('/modules/system/class/cookie.php');
 // Load Language
 $xoops->loadLocale('system');
 // Include System files

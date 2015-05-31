@@ -46,13 +46,13 @@ function xoops_module_update_xlanguage(XoopsModule $module, $version)
  *
  * @return bool
  */
-function xlanguage_mkdirs($pathname, $pathout = \XoopsBaseConfig::get('root-path'))
+function xlanguage_mkdirs($pathname, $pathout = null)
 {
     $xoops = Xoops::getInstance();
     $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
     $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-    $dest = $pathout;
+    $dest = ($pathout === null) ? \XoopsBaseConfig::get('root-path') : $pathout;
     $paths = explode('/', $pathname);
 
     foreach ($paths as $path) {

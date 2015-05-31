@@ -165,13 +165,13 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    private function CreatePath($pathname, $pathout = \XoopsBaseConfig::get('root-path'))
+    private function CreatePath($pathname, $pathout = null)
     {
         $xoops = Xoops::getInstance();
         $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-        $dest = $pathout;
+        $dest = ($pathout === null) ? \XoopsBaseConfig::get('root-path') : $pathout;
         $paths = explode('/', $pathname);
 
         foreach ($paths as $path) {

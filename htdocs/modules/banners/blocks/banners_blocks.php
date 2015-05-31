@@ -72,7 +72,7 @@ function banners_blocks_edit($options) {
             $xoops = Xoops::getInstance();
             $client_Handler = $xoops->getModuleHandler('bannerclient','banners');
             $criteria = new CriteriaCompo();
-            $criteria->setSort('name');
+            $criteria->setSort('bannerclient_name');
             $criteria->setOrder('ASC');
             $client_arr = $client_Handler->getall($criteria);
             $form .= "<option value=\"0\" " . (array_search(0, $options) === false ? '' : 'selected="selected"') . ">" . _MB_BANNERS_ALLCLIENTS . "</option>\n";
