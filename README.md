@@ -40,3 +40,5 @@ on GitHub and we will take a look.
 ## Contributing
 
 Thank you for considering contributing to the XOOPS Project. See [CONTRIBUTING](CONTRIBUTING.md) file.
+
+[![Work in Progress](https://badge.waffle.io/xoops/xoopscore.svg?label=Work%20In%20Progress&title=Work%20In%20Progress)](http://waffle.io/xoops/xoopscore)
