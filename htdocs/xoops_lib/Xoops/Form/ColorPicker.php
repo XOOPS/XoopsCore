@@ -18,7 +18,7 @@ namespace Xoops\Form;
  * @package   Xoops\Form
  * @author    Zoullou <webmaster@zoullou.org>
  * @author    John Neill <catzwolf@xoops.org>
- * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2003-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org

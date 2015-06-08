@@ -21,7 +21,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Gregory Mage (AKA Mage)
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2003-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since     2.0.0
  */

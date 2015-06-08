@@ -2,7 +2,7 @@
 /**
  *  TinyMCE adapter for XOOPS
  *
- * @copyright   The XOOPS project http://www.xoops.org/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package     core
  * @subpackage  xoopseditor

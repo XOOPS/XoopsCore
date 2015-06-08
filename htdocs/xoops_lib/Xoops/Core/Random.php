@@ -19,7 +19,7 @@ use RandomLib\Factory;
  * @category  Xoops\Core
  * @package   Random
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org

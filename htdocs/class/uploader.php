@@ -12,7 +12,7 @@
 /**
  * XOOPS file uploader
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
@@ -57,7 +57,7 @@
  * @package   XoopsMediaUploader
  * @author    Kazumi Ono (http://www.myweb.ne.jp/, http://jp.xoops.org/)
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2003-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */

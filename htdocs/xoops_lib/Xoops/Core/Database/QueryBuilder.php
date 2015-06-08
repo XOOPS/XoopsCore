@@ -22,7 +22,7 @@ use Xoops\Core\Database\Connection;
  * @package   QueryBuilder
  * @author    readheadedrod <redheadedrod@hotmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 XOOPS Project (http://xoops.org)
  * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
  * @version   Release: 2.6.0
  * @link      http://xoops.org

@@ -83,7 +83,7 @@ namespace Xoops\Core;
  * @author    https://github.com/php-fig/fig-standards/
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2013 PHP Framework Interop Group
- * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 XOOPS Project (http://xoops.org)
  * @license   MIT (see above)
  * @link      https://github.com/php-fig/fig-standards/wiki/PSR-4-Example-Implementations
  * @see       http://www.php-fig.org/

@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -111,7 +111,7 @@ By clicking Register below you agree to be bound by these conditions.";
     const CONF_ENABLE_BAD_IPS = "Enable IP bans?";
     const CONF_ENABLE_BAD_IPS_DESC = "Users from specified IP addresses will not be able to view your site";
     const CONF_FOOTER = "Footer";
-    const CONF_FOOTER_DEFAULT = "Powered by XOOPS @ 2001-%s <a href='https://github.com/XOOPS' rel='external' title='The XOOPS Project'>The XOOPS Project</a>";
+    const CONF_FOOTER_DEFAULT = "Powered by XOOPS @ 2001-%s <a href='https://github.com/XOOPS' rel='external' title='XOOPS Project'>XOOPS Project</a>";
     const CONF_FOOTER_DESC = "Be sure to type links in full path starting from http://, otherwise the links will not work correctly in modules pages.";
     const CONF_GENERAL_EDITOR = "Editor for modules:";
     const CONF_GROUPS_PER_PAGE = "Number of groups to display per page";

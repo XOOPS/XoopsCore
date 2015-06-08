@@ -14,7 +14,7 @@ use Xoops\Core\FixedGroups;
 /**
  * XOOPS Register
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package         core
  * @since           2.0.0

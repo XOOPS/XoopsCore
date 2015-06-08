@@ -14,7 +14,7 @@ use Xoops\Core\Service\Manager;
 /**
  * Service Provider Manager
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
  * @author          Richard Griffith <richard@geekwright.com>

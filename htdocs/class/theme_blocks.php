@@ -12,7 +12,7 @@
 /**
  * XoopsThemeBlocksPlugin component class file
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Skalpa Keo <skalpa@xoops.org>
  * @since           2.3.0
