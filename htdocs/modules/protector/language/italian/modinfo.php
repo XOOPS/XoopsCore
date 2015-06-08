@@ -117,5 +117,3 @@ define('_MI_PROTECTOR_SPAMURI4G','Anti-SPAM: numero di indirizzi per gli utenti 
 define('_MI_PROTECTOR_SPAMURI4GDSC','Se in un invio di dati POST da parte di un utente anonimi vengono rilevati pi&ugrave; indirizzi URL di quanto consentito qui, l\'invio viene considerato SPAM. Impostare 0 per disabilitare questa funzionalit&agrave;..');
 
 }
-
-?>

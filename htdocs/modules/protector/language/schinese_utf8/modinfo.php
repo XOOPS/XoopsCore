@@ -106,5 +106,3 @@ define('_MI_PROTECTOR_SPAMURI4G','反垃圾邮件（anti-SPAM）: URLs for guest
 define('_MI_PROTECTOR_SPAMURI4GDSC','If this number of URLs are found in POST data from guests, the POST is considered as SPAM. 填0表示禁用此功能.');
 
 }
-
-?>

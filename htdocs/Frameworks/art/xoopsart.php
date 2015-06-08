@@ -32,4 +32,3 @@ class XoopsArt
         return include_once FRAMEWORKS_ROOT_PATH . "/art/functions.{$group}" . (empty($group) ? "" : "." ) . "php";
     }
 }
-?>

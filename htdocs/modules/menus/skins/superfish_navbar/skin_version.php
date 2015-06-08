@@ -20,24 +20,24 @@
 
 $skinversion['template'] = 'templates/template.tpl';
 
-$skinversion['css'] = array('css/superfish.css',
-                              'css/superfish-navbar.css'
-                              );
+$skinversion['css'] = array(
+    'css/superfish.css',
+    'css/superfish-navbar.css'
+);
 
-                              $skinversion['js'] = array('../../js/jquery-1.3.2.min.js',
-                             '../../js/hoverIntent.js',
-                             '../../js/superfish.js'
-                             );
+$skinversion['js'] = array(
+    '../../js/jquery-1.3.2.min.js',
+    '../../js/hoverIntent.js',
+    '../../js/superfish.js'
+);
 
-                             $header  = "\n" . '<script type="text/javascript">';
-                             $header .= "\n" . '  var $sfnav = jQuery.noConflict()';
-                             $header .= "\n" . '  $sfnav(function(){';
-                             $header .= "\n" . '    $sfnav(\'ul.sf-menu\').superfish({';
-                             $header .= "\n" . '       pathClass:  \'current\'';
-                             $header .= "\n" . '    });';
-                             $header .= "\n" . '  });';
-                             $header .= "\n" . '</script>';
+$header = "\n" . '<script type="text/javascript">';
+$header .= "\n" . '  var $sfnav = jQuery.noConflict()';
+$header .= "\n" . '  $sfnav(function(){';
+$header .= "\n" . '    $sfnav(\'ul.sf-menu\').superfish({';
+$header .= "\n" . '       pathClass:  \'current\'';
+$header .= "\n" . '    });';
+$header .= "\n" . '  });';
+$header .= "\n" . '</script>';
 
-                             $skinversion['header'] = $header;
-
-                             ?>
+$skinversion['header'] = $header;

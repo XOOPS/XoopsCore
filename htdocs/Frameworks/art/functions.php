@@ -48,5 +48,3 @@ function mod_getMysqlVersion($conn = null)
     }
     return $mysql_version;
 }
-
-?>

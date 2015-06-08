@@ -1269,5 +1269,3 @@ class Protector
         return $ret;
     }
 }
-
-?>
