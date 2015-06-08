@@ -152,8 +152,8 @@ switch ($action) {
                     } else {
                         $res[$i]['link'] = $results[$i]['link'];
                     }
-                    $res[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
-                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlspecialchars($results[$i]['title']));
+                    $res[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
+                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlSpecialChars($results[$i]['title']));
                     if (!empty($results[$i]['uid'])) {
                         $res[$i]['uid'] = intval($results[$i]['uid']);
                         $res[$i]['uname'] = XoopsUser::getUnameFromId($results[$i]['uid'], true);
@@ -220,11 +220,11 @@ switch ($action) {
                 } else {
                     $res[$i]['link'] = $results[$i]['link'];
                 }
-                $res[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
+                $res[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
                 if (isset($queries_pattern)) {
-                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlspecialchars($results[$i]['title']));
+                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlSpecialChars($results[$i]['title']));
                 } else {
-                    $res[$i]['title_highligh'] = $myts->htmlspecialchars($results[$i]['title']);
+                    $res[$i]['title_highligh'] = $myts->htmlSpecialChars($results[$i]['title']);
                 }
                 if (!empty($results[$i]['uid'])) {
                     $res[$i]['uid'] = @intval($results[$i]['uid']);

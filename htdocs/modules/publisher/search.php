@@ -51,7 +51,7 @@ $xoops->header('module:publisher/publisher_search.tpl');
 $xoopsTpl = $xoops->tpl();
 
 $module_info_search = $publisher->getModule()->getInfo("search");
-XoopsLoad::loadFIle($publisher->path($module_info_search["file"]));
+XoopsLoad::loadFile($publisher->path($module_info_search["file"]));
 
 $limit = 10; //$publisher->getConfig('idxcat_perpage');
 $uid = 0;

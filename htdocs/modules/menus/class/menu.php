@@ -75,7 +75,7 @@ class MenusMenuHandler extends XoopsPersistableObjectHandler
         ;
         $result = $this->db->query($sql);
         $i = 1;  //lets start at 1 please!
-        while (list($id) = $this->db->fetchrow($result)) {
+        while (list($id) = $this->db->fetchRow($result)) {
             $sql = "UPDATE " . $this->table
             . " SET weight = {$i}"
             . " WHERE id = {$id}"

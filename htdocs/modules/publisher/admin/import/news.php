@@ -100,7 +100,7 @@ if ($op == 'go') {
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
     PublisherUtils::openCollapsableBar('newsimportgo', 'newsimportgoicon', sprintf(_AM_PUBLISHER_IMPORT_FROM, $importFromModuleName), _AM_PUBLISHER_IMPORT_RESULT);
 
-    $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_getHandler('module');
     $moduleObj = $module_handler->getByDirname('news');
     $news_module_id = $moduleObj->getVar('mid');
 
@@ -255,7 +255,7 @@ if ($op == 'go') {
 
     $publisher_module_id = $publisher->getModule()->mid();
 
-    $comment_handler = xoops_gethandler('comment');
+    $comment_handler = xoops_getHandler('comment');
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('com_modid', $news_module_id));
     $comments = $comment_handler->getObjects($criteria);

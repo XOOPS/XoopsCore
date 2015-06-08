@@ -56,12 +56,12 @@ class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($limit);
-        return parent::getall($criteria, false, $asobject);
+        return parent::getAll($criteria, false, $asobject);
     }
 
     public function getActiveSmilies($asobject=true)
     {
         $criteria = new CriteriaCompo(new Criteria('smiley_display', 1));
-        return parent::getall($criteria, false, $asobject);
+        return parent::getAll($criteria, false, $asobject);
     }
 }

@@ -91,11 +91,11 @@ class Xcaptcha extends XoopsCaptcha
     {
         $system = System::getInstance();
         $config = array();
-        $_POST['disabled'] = $system->CleanVars($_POST, 'disabled', false, 'boolean');
-        $_POST['mode'] = $system->CleanVars($_POST, 'mode', 'image', 'string');
-        $_POST['name'] = $system->CleanVars($_POST, 'name', 'xoopscaptcha', 'string');
-        $_POST['skipmember'] = $system->CleanVars($_POST, 'skipmember', false, 'boolean');
-        $_POST['maxattempts'] = $system->CleanVars($_POST, 'maxattempts', 10, 'int');
+        $_POST['disabled'] = $system->cleanVars($_POST, 'disabled', false, 'boolean');
+        $_POST['mode'] = $system->cleanVars($_POST, 'mode', 'image', 'string');
+        $_POST['name'] = $system->cleanVars($_POST, 'name', 'xoopscaptcha', 'string');
+        $_POST['skipmember'] = $system->cleanVars($_POST, 'skipmember', false, 'boolean');
+        $_POST['maxattempts'] = $system->cleanVars($_POST, 'maxattempts', 10, 'int');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }

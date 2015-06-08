@@ -218,7 +218,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
                         if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                             $results[$i]['link'] = \XoopsBaseConfig::get('url') . "/modules/" . $module->getVar('dirname', 'n') . "/" . $results[$i]['link'];
                         }
-                        $results[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
+                        $results[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
                         $results[$i]['time'] = $results[$i]['time'] ? XoopsLocale::formatTimestamp($results[$i]['time']) : '';
                     }
                     if ($count == 5) {

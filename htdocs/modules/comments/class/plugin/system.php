@@ -43,7 +43,7 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
         $ret = array();
         if ($count = $comments->getHandlerComment()->getCount($criteria)) {
             $ret['count'] = $count;
-            $ret['name'] = Xoops::getInstance()->getHandlerModule()->getBydirname('comments')->getVar('name');
+            $ret['name'] = Xoops::getInstance()->getHandlerModule()->getByDirname('comments')->getVar('name');
             $ret['link'] = Xoops::getInstance()->url('modules/comments/admin/main.php');
         }
         return $ret;

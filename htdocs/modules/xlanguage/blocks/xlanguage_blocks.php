@@ -63,7 +63,7 @@ function b_xlanguage_select_show($options)
     $block['selected'] = $xlanguage['lang'];
 
     if ($options[0] == 'images' || $options[0] == 'text') {
-        $query_string = htmlSpecialChars(implode('&', $QUERY_STRING_new));
+        $query_string = htmlspecialchars(implode('&', $QUERY_STRING_new));
         $query_string .= empty($query_string) ? '' : '&amp;';
     } else {
         $query_string = implode('&', array_map('htmlspecialchars', $QUERY_STRING_new));

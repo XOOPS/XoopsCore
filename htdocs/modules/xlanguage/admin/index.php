@@ -25,7 +25,7 @@ switch ($op) {
             $xoops->redirect('index.php', 2, implode(',', $xoops->security()->getErrors()));
         }
 
-        $xlanguage_id = $system->CleanVars($_POST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = $system->cleanVars($_POST, 'xlanguage_id', 0, 'int');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             $lang = $helper->getHandlerLanguage()->get($xlanguage_id);
         } else {
@@ -48,7 +48,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $xlanguage_id = $system->CleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $form = $helper->getForm($lang, 'language');
@@ -64,7 +64,7 @@ switch ($op) {
         break;
 
     case 'del':
-        $xlanguage_id = $system->CleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
+        $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
                 $delete = $system->CleanVars($_POST, 'ok', 0, 'int');

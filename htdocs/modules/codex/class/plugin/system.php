@@ -51,7 +51,7 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
     {
         $xoops = Xoops::getInstance();
         $ret['count'] = count(XoopsLists::getFileListAsArray($xoops->path('modules/codex/')))-2;
-        $ret['name'] = $xoops->getHandlerModule()->getBydirname('codex')->getVar('name');
+        $ret['name'] = $xoops->getHandlerModule()->getByDirname('codex')->getVar('name');
         $ret['link'] = $xoops->url('modules/codex/');
         return array();
     }

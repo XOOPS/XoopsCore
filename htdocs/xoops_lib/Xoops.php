@@ -1675,7 +1675,7 @@ class Xoops
 
         $rank = $db->fetchAssoc($sql->getSql(), $sql->getParameters());
 
-        $rank['title'] = $myts->htmlspecialchars($rank['title']);
+        $rank['title'] = $myts->htmlSpecialChars($rank['title']);
         $rank['id'] = $rank_id;
         return $rank;
 

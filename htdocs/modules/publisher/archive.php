@@ -36,7 +36,7 @@ $publisher = Publisher::getInstance();
 $xoops->header('module:publisher/publisher_archive.tpl');
 
 $xoopsTpl = $xoops->tpl();
-XoopsLoad::LoadFile($publisher->path('footer.php'));
+XoopsLoad::loadFile($publisher->path('footer.php'));
 
 $lastyear = 0;
 $lastmonth = 0;

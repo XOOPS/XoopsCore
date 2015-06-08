@@ -158,7 +158,7 @@ function xoops_module_install_banners(&$module)
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('bannerclient_name', $client_name));
     $criteria->setLimit(1);
-    $client_arr = $client_Handler->getall($criteria);
+    $client_arr = $client_Handler->getAll($criteria);
     if (count($client_arr) == 0) {
         $obj = $client_Handler->create();
         $obj->setVar("bannerclient_uid", 0);
