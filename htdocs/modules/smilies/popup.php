@@ -22,7 +22,7 @@ use Xoops\Core\Request;
  * @version         $Id$
  */
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
