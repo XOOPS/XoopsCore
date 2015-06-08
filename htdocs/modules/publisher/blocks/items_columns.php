@@ -37,10 +37,10 @@ function publisher_items_columns_show($options)
     $xoTheme = $xoops->theme();
 
     //Column Settings
-    $opt_num_columns = isset($options[0]) ? intval($options[0]) : '2';
+    $opt_num_columns = isset($options[0]) ? (int)($options[0]) : '2';
     $sel_categories = isset($options[1]) ? explode(',', $options[1]) : array();
-    $opt_cat_items = intval($options[2]);
-    $opt_cat_truncate = isset($options[3]) ? intval($options[3]) : '0';
+    $opt_cat_items = (int)($options[2]);
+    $opt_cat_truncate = isset($options[3]) ? (int)($options[3]) : '0';
 
     $block = array();
     $block['lang_reads'] = _MB_PUBLISHER_READS;
@@ -131,7 +131,7 @@ function publisher_items_columns_show($options)
     }
     $block['template'] = $options[4];
     $block['columns'] = $columns;
-    $block['columnwidth'] = intval(100 / $opt_num_columns);
+    $block['columnwidth'] = (int)(100 / $opt_num_columns);
 
     $xoTheme->addStylesheet(\XoopsBaseConfig::get('url') . '/modules/' . PUBLISHER_DIRNAME . '/css/publisher.css');
 

@@ -340,6 +340,6 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
             list($count) = $this->db->fetchRow($result);
         }
 
-        return array($users, $profiles, intval($count));
+        return array($users, $profiles, (int)($count));
     }
 }

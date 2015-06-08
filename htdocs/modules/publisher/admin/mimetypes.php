@@ -26,12 +26,12 @@ include_once __DIR__ . '/admin_header.php';
 
 $start = $limit = 0;
 if (isset($_REQUEST['limit'])) {
-    $limit = intval($_REQUEST['limit']);
+    $limit = (int)($_REQUEST['limit']);
 } else {
     $limit = 15;
 }
 if (isset($_REQUEST['start'])) {
-    $start = intval($_REQUEST['start']);
+    $start = (int)($_REQUEST['start']);
 }
 
 $aSortBy = array('mime_id' => _AM_PUBLISHER_MIME_ID,
@@ -180,8 +180,8 @@ function add()
         $mime_ext = $_POST['mime_ext'];
         $mime_name = $_POST['mime_name'];
         $mime_types = $_POST['mime_types'];
-        $mime_admin = intval($_POST['mime_admin']);
-        $mime_user = intval($_POST['mime_user']);
+        $mime_admin = (int)($_POST['mime_admin']);
+        $mime_user = (int)($_POST['mime_user']);
 
         //Validate Mimetype entry
         if (strlen(trim($mime_ext)) == 0) {
@@ -236,7 +236,7 @@ function delete()
     if (!isset($_REQUEST['id'])) {
         $xoops->redirect(PUBLISHER_ADMIN_URL . "/mimetypes.php", 3, _AM_PUBLISHER_MESSAGE_NO_ID);
     }
-    $mime_id = intval($_REQUEST['id']);
+    $mime_id = (int)($_REQUEST['id']);
 
     $mimetype = $publisher->getMimetypeHandler()->get($mime_id); // Retrieve mimetype object
     if (!$publisher->getMimetypeHandler()->delete($mimetype, true)) {
@@ -255,7 +255,7 @@ function edit()
     if (!isset($_REQUEST['id'])) {
         $xoops->redirect(PUBLISHER_ADMIN_URL . "/mimetypes.php", 3, _AM_PUBLISHER_MESSAGE_NO_ID);
     }
-    $mime_id = intval($_REQUEST['id']);
+    $mime_id = (int)($_REQUEST['id']);
 
     $mimetype = $publisher->getMimetypeHandler()->get($mime_id); // Retrieve mimetype object
 
@@ -721,26 +721,26 @@ function updateMimeValue()
     $start = $limit = 0;
 
     if (isset($_GET['limit'])) {
-        $limit = intval($_GET['limit']);
+        $limit = (int)($_GET['limit']);
     }
     if (isset($_GET['start'])) {
-        $start = intval($_GET['start']);
+        $start = (int)($_GET['start']);
     }
 
     if (!isset($_REQUEST['id'])) {
         $xoops->redirect(PUBLISHER_ADMIN_URL . "/mimetypes.php", 3, _AM_PUBLISHER_MESSAGE_NO_ID);
     }
-    $mime_id = intval($_REQUEST['id']);
+    $mime_id = (int)($_REQUEST['id']);
 
     $mimetype = $publisher->getMimetypeHandler()->get($mime_id);
 
     if (isset($_REQUEST['mime_admin'])) {
-        $mime_admin = intval($_REQUEST['mime_admin']);
+        $mime_admin = (int)($_REQUEST['mime_admin']);
         $mime_admin = _changeMimeValue($mime_admin);
         $mimetype->setVar('mime_admin', $mime_admin);
     }
     if (isset($_REQUEST['mime_user'])) {
-        $mime_user = intval($_REQUEST['mime_user']);
+        $mime_user = (int)($_REQUEST['mime_user']);
         $mime_user = _changeMimeValue($mime_user);
         $mimetype->setVar('mime_user', $mime_user);
     }
@@ -776,7 +776,7 @@ function clearAddSession()
 
 function _clearEditSessionVars($id)
 {
-    $id = intval($id);
+    $id = (int)($id);
     $session = new Session();
     $session->del("publisher_editMime_$id");
     $session->del("publisher_editMimeErr_$id");

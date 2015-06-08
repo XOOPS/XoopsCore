@@ -60,8 +60,8 @@ class TextArea extends Element
     {
         $this->setCaption($caption);
         $this->setAttribute('name', $name);
-        $this->setAttribute('rows', intval($rows));
-        $this->setAttribute('cols', intval($cols));
+        $this->setAttribute('rows', (int)($rows));
+        $this->setAttribute('cols', (int)($cols));
         $this->setValue($value);
         $this->setAttribute('placeholder', $placeholder);
 

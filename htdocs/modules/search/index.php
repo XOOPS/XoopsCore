@@ -127,7 +127,7 @@ switch ($action) {
 
         $modules_result = array();
         foreach ($mids as $mid) {
-            $mid = intval($mid);
+            $mid = (int)($mid);
             /* @var $module XoopsModule */
             $module = $modules[$mid];
             /* @var $plugin SearchPluginInterface */
@@ -155,10 +155,10 @@ switch ($action) {
                     $res[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
                     $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlspecialchars($results[$i]['title']));
                     if (!empty($results[$i]['uid'])) {
-                        $res[$i]['uid'] = intval($results[$i]['uid']);
+                        $res[$i]['uid'] = (int)($results[$i]['uid']);
                         $res[$i]['uname'] = XoopsUser::getUnameFromId($results[$i]['uid'], true);
                     }
-                    $res[$i]['time'] = !empty($results[$i]['time']) ? XoopsLocale::formatTimestamp(intval($results[$i]['time'])) : "";
+                    $res[$i]['time'] = !empty($results[$i]['time']) ? XoopsLocale::formatTimestamp((int)($results[$i]['time'])) : "";
                     $res[$i]['content'] = empty($results[$i]['content']) ? "" : preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $results[$i]['content']);
                 }
                 if ($count >= 5) {
@@ -227,10 +227,10 @@ switch ($action) {
                     $res[$i]['title_highligh'] = $myts->htmlspecialchars($results[$i]['title']);
                 }
                 if (!empty($results[$i]['uid'])) {
-                    $res[$i]['uid'] = @intval($results[$i]['uid']);
+                    $res[$i]['uid'] = @(int)($results[$i]['uid']);
                     $res[$i]['uname'] = XoopsUser::getUnameFromId($results[$i]['uid'], true);
                 }
-                $res[$i]['time'] = !empty($results[$i]['time']) ? " (" . XoopsLocale::formatTimestamp(intval($results[$i]['time'])) . ")" : "";
+                $res[$i]['time'] = !empty($results[$i]['time']) ? " (" . XoopsLocale::formatTimestamp((int)($results[$i]['time'])) . ")" : "";
                 $res[$i]['content'] = empty($results[$i]['content']) ? "" : preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $results[$i]['content']);
             }
             if (count($res) > 0) {

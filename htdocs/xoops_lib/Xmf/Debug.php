@@ -138,7 +138,7 @@ class Debug
         if ($events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $name);
         } else {
-            echo $name . ' - ' . intval(microtime(true) - self::$times[$name]) . " \n";
+            echo $name . ' - ' . (int)(microtime(true) - self::$times[$name]) . " \n";
         }
     }
 

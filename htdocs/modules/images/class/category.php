@@ -105,7 +105,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
             }
         }
         if (isset($display)) {
-            $criteria->add(new Criteria('imgcat_display', intval($display)));
+            $criteria->add(new Criteria('imgcat_display', (int)($display)));
         }
         if (isset($storetype)) {
             $criteria->add(new Criteria('imgcat_storetype', $storetype));

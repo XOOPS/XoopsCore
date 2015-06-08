@@ -36,7 +36,7 @@ class DateSelect extends Text
     public function __construct($caption, $name, $size = 2, $value = 0)
     {
         if ($value !== '') {
-            $value = ($value === 0) ? time() : intval($value);
+            $value = ($value === 0) ? time() : (int)($value);
         }
         parent::__construct($caption, $name, $size, 2, $value);
     }
@@ -53,7 +53,7 @@ class DateSelect extends Text
 
         $ele_value = (string) $this->getValue(false);
         $display_value = $ele_value;
-        if (0 < intval($ele_value)) {
+        if (0 < (int)($ele_value)) {
             $display_value = date(\XoopsLocale::getFormatShortDate(), $ele_value);
         }
 

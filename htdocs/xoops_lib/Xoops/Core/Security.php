@@ -59,7 +59,7 @@ class Security
             $_SESSION[$name . '_SESSION'] = array();
         }
         $token_data = array(
-            'id' => $token_id, 'expire' => time() + intval($timeout)
+            'id' => $token_id, 'expire' => time() + (int)($timeout)
         );
         array_push($_SESSION[$name . '_SESSION'], $token_data);
         return $token_id;

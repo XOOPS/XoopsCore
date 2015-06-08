@@ -113,7 +113,7 @@ class Write extends XoopsModelAbstract
                     $object->cleanVars,
                     array($this->handler->keyName => $object->getVar($this->handler->keyName))
                 );
-                if (!$result && intval($this->handler->db2->errorCode())) {
+                if (!$result && (int)($this->handler->db2->errorCode())) {
                     return false;
                 }
             }

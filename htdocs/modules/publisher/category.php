@@ -107,7 +107,7 @@ if ($publisher->getConfig('idxcat_display_last_item') == 1) {
     // Get the last smartitem
     $last_itemObj = $publisher->getItemHandler()->getLastPublishedByCat(array(array($categoryObj)));
 }
-$lastitemsize = intval($publisher->getConfig('idxcat_last_item_size'));
+$lastitemsize = (int)($publisher->getConfig('idxcat_last_item_size'));
 
 // Creating the sub-categories objects that belong to the selected category
 $subcatsObj = $publisher->getCategoryHandler()->getCategories(0, 0, $categoryid);

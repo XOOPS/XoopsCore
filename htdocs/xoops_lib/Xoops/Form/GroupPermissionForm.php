@@ -74,7 +74,7 @@ class GroupPermissionForm extends Form
     public function __construct($title, $modid, $permname, $permdesc, $url = '', $anonymous = true)
     {
         parent::__construct($title, 'groupperm_form', XOOPS_URL . '/modules/system/admin/groupperm.php', 'post');
-        $this->modid = intval($modid);
+        $this->modid = (int)($modid);
         $this->permName = $permname;
         $this->permDesc = $permdesc;
         $this->addElement(new Hidden('modid', $this->modid));

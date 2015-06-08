@@ -52,7 +52,7 @@ if (!$xoops->security()->check()) {
 // look as to where/how the notification options are made available.
 $update_list = $_POST['not_list'];
 $module_handler = $xoops->getHandlerModule();
-$module = $xoops->getModuleById(intval($_POST['mid']));
+$module = $xoops->getModuleById((int)($_POST['mid']));
 $module_id = $module->getVar('mid');
 $user_id = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
 

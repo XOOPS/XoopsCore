@@ -1384,7 +1384,7 @@ class Xoops
                 $timeoffset = $this->getConfig('default_TZ');
             }
         }
-        $usertimestamp = intval($time) + (floatval($timeoffset) - $this->getConfig('server_TZ')) * 3600;
+        $usertimestamp = (int)($time) + ((float)($timeoffset) - $this->getConfig('server_TZ')) * 3600;
         return (int)$usertimestamp;
     }
 
@@ -1548,7 +1548,7 @@ class Xoops
             'xoops_pagetitle'  => $this->isModule() ? $this->module->getVar('name') : htmlspecialchars($this->getConfig('slogan'), ENT_QUOTES)
         ));
 
-        $this->tpl()->assign('time', intval($time));
+        $this->tpl()->assign('time', (int)($time));
         if (!empty($_SERVER['REQUEST_URI']) && $addredirect && strstr($url, 'user.php')) {
             $joiner = (false===strpos($url, '?')) ? '?' : '&amp;';
             $url .= $joiner . 'xoops_redirect=' . urlencode($_SERVER['REQUEST_URI']);
@@ -1655,8 +1655,8 @@ class Xoops
     public function getRank($rank_id = 0, $posts = 0)
     {
         $myts = MyTextSanitizer::getInstance();
-        $rank_id = intval($rank_id);
-        $posts = intval($posts);
+        $rank_id = (int)($rank_id);
+        $posts = (int)($posts);
         $db = $this->db();
         $sql = $db->createXoopsQueryBuilder()
             ->select('r.rank_title AS title')

@@ -76,7 +76,7 @@ class Legacy
     public static function write($key, $value, $duration = 0)
     {
         self::deprecated();
-        $ttl = intval($duration);
+        $ttl = (int)($duration);
         $ttl = $ttl > 0 ? $ttl : null;
         $cache = self::getCache();
         return $cache->write($key, $value, $ttl);
