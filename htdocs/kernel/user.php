@@ -124,8 +124,8 @@ class XoopsUser extends XoopsObject
     public static function getUnameFromId($userid, $usereal = 0)
     {
         $xoops = xoops::getInstance();
-        $userid = intval($userid);
-        $usereal = intval($usereal);
+        $userid = (int)($userid);
+        $usereal = (int)($usereal);
         if ($userid > 0) {
             $member_handler = $xoops->getHandlerMember();
             $user = $member_handler->getUser($userid);
@@ -209,7 +209,7 @@ class XoopsUser extends XoopsObject
         $xoops = xoops::getInstance();
         if (is_null($module_id)) {
             $module_id = $xoops->isModule() ? $xoops->module->getVar('mid', 'n') : 1;
-        } elseif (intval($module_id) < 1) {
+        } elseif ((int)($module_id) < 1) {
             $module_id = 0;
         }
         $moduleperm_handler = $xoops->getHandlerGroupperm();

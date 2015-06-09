@@ -240,7 +240,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $tplfile = false;
-        $id = intval($id);
+        $id = (int)($id);
         if ($id > 0) {
             if (!$getsource) {
                 $qb->select('*')

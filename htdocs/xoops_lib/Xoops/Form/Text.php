@@ -64,8 +64,8 @@ class Text extends Element
         $this->setAttribute('type', 'text');
         $this->setCaption($caption);
         $this->setAttribute('name', $name);
-        $this->setAttribute('size', intval($size));
-        $this->setAttribute('maxlength', intval($maxlength));
+        $this->setAttribute('size', (int)($size));
+        $this->setAttribute('maxlength', (int)($maxlength));
         $this->setValue($value);
         if (!empty($placeholder)) {
             $this->setAttribute('placeholder', $placeholder);

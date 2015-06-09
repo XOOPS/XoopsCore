@@ -53,9 +53,9 @@ if (isset($_REQUEST['submit'])) {
     $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }
 if ($op == "del") {
-    $criteria = new CriteriaCompo(new Criteria('field_id', intval($_REQUEST['field_id'])));
-    $criteria->add(new Criteria('user_group', intval($_REQUEST['ug'])));
-    $criteria->add(new Criteria('profile_group', intval($_REQUEST['pg'])));
+    $criteria = new CriteriaCompo(new Criteria('field_id', (int)($_REQUEST['field_id'])));
+    $criteria->add(new Criteria('user_group', (int)($_REQUEST['ug'])));
+    $criteria->add(new Criteria('profile_group', (int)($_REQUEST['pg'])));
     $visibility_handler->deleteAll($criteria, true);
     $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }

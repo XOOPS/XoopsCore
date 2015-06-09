@@ -31,7 +31,7 @@ function install_acceptUser($hash = '')
     $xoops = Xoops::getInstance();
     $xoops->user = null;
     $hash_data = @explode("-", $_COOKIE['xo_install_user'], 2);
-    list($uname, $hash_login) = array($hash_data[0], strval(@$hash_data[1]));
+    list($uname, $hash_login) = array($hash_data[0], (string)(@$hash_data[1]));
     if (empty($uname) || empty($hash_login)) {
         return false;
     }

@@ -98,7 +98,7 @@ switch ($op) {
         break;
 
     case "modify":
-        $fileid = isset($_POST['fileid']) ? intval($_POST['fileid']) : 0;
+        $fileid = isset($_POST['fileid']) ? (int)($_POST['fileid']) : 0;
 
         // Creating the file object
         /* @var $fileObj PublisherFile */
@@ -111,7 +111,7 @@ switch ($op) {
         // Putting the values in the file object
         $fileObj->setVar('name', $_POST['name']);
         $fileObj->setVar('description', $_POST['description']);
-        $fileObj->setVar('status', intval($_POST['file_status']));
+        $fileObj->setVar('status', (int)($_POST['file_status']));
 
         // Storing the file
         if (!$fileObj->store()) {
@@ -125,8 +125,8 @@ switch ($op) {
 
     case "del":
 
-        $fileid = isset($_POST['fileid']) ? intval($_POST['fileid']) : 0;
-        $fileid = isset($_GET['fileid']) ? intval($_GET['fileid']) : $fileid;
+        $fileid = isset($_POST['fileid']) ? (int)($_POST['fileid']) : 0;
+        $fileid = isset($_GET['fileid']) ? (int)($_GET['fileid']) : $fileid;
 
         $fileObj = $publisher->getFileHandler()->get($fileid);
 
@@ -140,7 +140,7 @@ switch ($op) {
             $xoops->redirect('item.php', 2, sprintf(_AM_PUBLISHER_FILEISDELETED, $fileObj->getVar('name')));
         } else {
             // no confirm: show deletion condition
-            $fileid = isset($_GET['fileid']) ? intval($_GET['fileid']) : 0;
+            $fileid = isset($_GET['fileid']) ? (int)($_GET['fileid']) : 0;
 
             PublisherUtils::cpHeader();
             echo $xoops->confirm(array('op' => 'del', 'fileid' => $fileObj->getVar('fileid'), 'confirm' => 1, 'name' => $fileObj->getVar('name')), 'file.php', _AM_PUBLISHER_DELETETHISFILE . " <br />" . $fileObj->getVar('name') . " <br /> <br />", _AM_PUBLISHER_DELETE);

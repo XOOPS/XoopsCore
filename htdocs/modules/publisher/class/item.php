@@ -1611,15 +1611,15 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             ->groupBy('i.categoryid')
             ->orderBy('c.parentid', 'ASC')
             ->addOrderBy('i.categoryid', 'ASC');
-        if (intval($cat_id) > 0) {
+        if ((int)($cat_id) > 0) {
             $qb ->andWhere($qb->expr()->eq('i.categoryid', ':catid'))
                 ->setParameter(':catid', $cat_id, \PDO::PARAM_INT);
         }
 
         //$sql = 'SELECT c.parentid, i.categoryid, COUNT(*) AS count FROM ' . $this->db->prefix('publisher_items')
         //. ' AS i INNER JOIN ' . $this->db->prefix('publisher_categories') . ' AS c ON i.categoryid=c.categoryid';
-        //if (intval($cat_id) > 0) {
-        //    $sql .= ' WHERE i.categoryid = ' . intval($cat_id);
+        //if ((int)($cat_id) > 0) {
+        //    $sql .= ' WHERE i.categoryid = ' . (int)($cat_id);
         //    $sql .= ' AND i.status IN (' . implode(',', $status) . ')';
         //} else {
         //    $sql .= ' WHERE i.status IN (' . implode(',', $status) . ')';

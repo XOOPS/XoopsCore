@@ -73,7 +73,7 @@ class Select extends Element
     {
         $this->setCaption($caption);
         $this->setAttribute('name', $name);
-        $this->setAttribute('size', intval($size));
+        $this->setAttribute('size', (int)($size));
         if ($multiple) {
             $this->setAttribute('multiple');
         }

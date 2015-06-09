@@ -110,7 +110,7 @@ class Handler implements \SessionHandlerInterface
     public function write($session_id, $session_data)
     {
         $expires =  (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
-            ? intval($_SESSION['SESSION_MANAGER_EXPIRES'])
+            ? (int)($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();

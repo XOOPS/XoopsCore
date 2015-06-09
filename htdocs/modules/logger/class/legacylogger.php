@@ -510,7 +510,7 @@ class LegacyLogger implements LoggerInterface
             $ret .= '<table id="xo-logger-blocks" class="outer"><thead><tr><th>' . _MD_LOGGER_BLOCKS . '</th></tr></thead><tbody>';
             foreach ($this->blocks as $b) {
                 if ($b['cached']) {
-                    $ret .= '<tr><td class="' . $class . '"><strong>' . $b['name'] . ':</strong> ' . sprintf(_MD_LOGGER_CACHED, intval($b['cachetime'])) . '</td></tr>';
+                    $ret .= '<tr><td class="' . $class . '"><strong>' . $b['name'] . ':</strong> ' . sprintf(_MD_LOGGER_CACHED, (int)($b['cachetime'])) . '</td></tr>';
                 } else {
                     $ret .= '<tr><td class="' . $class . '"><strong>' . $b['name'] . ':</strong> ' . _MD_LOGGER_NOT_CACHED . '</td></tr>';
                 }

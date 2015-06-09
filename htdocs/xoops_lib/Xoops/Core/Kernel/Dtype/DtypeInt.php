@@ -65,7 +65,7 @@ class DtypeInt extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key, $quote = true)
     {
         $value = $obj->vars[$key]['value'];
-        $value = intval($value);
+        $value = (int)($value);
         return $value;
     }
 }

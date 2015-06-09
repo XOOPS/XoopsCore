@@ -574,7 +574,7 @@ class imageLib
   #         remainder.
   {
 
-        switch (strval($option))
+        switch ((string)($option))
         {
             case '0':
       case 'exact':

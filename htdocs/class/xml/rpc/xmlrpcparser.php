@@ -344,7 +344,7 @@ class RpcIntHandler extends XmlTagHandler
     public function handleCharacterData(SaxParser &$parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
-        $parser->setTempValue(intval($data));
+        $parser->setTempValue((int)($data));
     }
 }
 
@@ -415,7 +415,7 @@ class RpcStringHandler extends XmlTagHandler
     public function handleCharacterData(SaxParser &$parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
-        $parser->setTempValue(strval($data));
+        $parser->setTempValue((string)($data));
     }
 }
 

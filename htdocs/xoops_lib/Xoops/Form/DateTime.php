@@ -36,7 +36,7 @@ class DateTime extends ElementTray
     public function __construct($caption, $name, $size = 2, $value = 0, $showtime = true)
     {
         parent::__construct($caption, '');
-        $value = intval($value);
+        $value = (int)($value);
         $value = ($value > 0) ? $value : time();
         $datetime = getdate($value);
         $date = new DateSelect('', $name . '[date]', $size, $value);

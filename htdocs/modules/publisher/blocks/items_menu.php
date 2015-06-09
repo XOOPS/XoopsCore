@@ -42,7 +42,7 @@ function publisher_items_menu_show($options)
 
     if ($block['inModule']) {
         // Are we in a category and if yes, in which one ?
-        $categoryid = isset($_GET['categoryid']) ? intval($_GET['categoryid']) : 0;
+        $categoryid = isset($_GET['categoryid']) ? (int)($_GET['categoryid']) : 0;
 
         if ($categoryid != 0) {
             // if we are in a category, then the $categoryObj is already defined in publisher/category.php
