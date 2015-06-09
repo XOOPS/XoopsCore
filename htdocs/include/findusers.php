@@ -21,7 +21,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-include_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 
