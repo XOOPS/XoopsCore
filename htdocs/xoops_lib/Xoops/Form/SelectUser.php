@@ -22,7 +22,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @category  Xoops\Form\SelectUser
  * @package   Xoops\Form
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2001-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0

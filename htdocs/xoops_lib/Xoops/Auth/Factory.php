@@ -17,7 +17,7 @@ namespace Xoops\Auth;
  * @category  Xoops\Auth
  * @package   Factory
  * @author    Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0

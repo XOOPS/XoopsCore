@@ -16,7 +16,7 @@ use Xoops\Core\Service\Provider;
  * Avatars module preloads
  *
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 class AvatarsPreload extends PreloadItem

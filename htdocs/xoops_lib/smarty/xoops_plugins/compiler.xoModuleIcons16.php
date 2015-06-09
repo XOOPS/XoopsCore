@@ -11,7 +11,7 @@
 /**
  * xoModuleIcons16 Smarty compiler plug-in
  *
- * @copyright   The XOOPS project http://www.xoops.org/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author        Andricq Nicolas (AKA MusS)
  * @since       2.5.2

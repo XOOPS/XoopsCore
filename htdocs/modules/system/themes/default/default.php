@@ -13,7 +13,7 @@
 /*
  * Xoops Cpanel default GUI class
  *
- * @copyright   The XOOPS project http://sf.net/projects/xoops/
+ * @copyright   XOOPS project http://xoops.org
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @usbpackage  GUI

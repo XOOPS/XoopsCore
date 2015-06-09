@@ -4,7 +4,7 @@
  *
  * For backward compat
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @since           1.00
@@ -48,7 +48,7 @@ class ArtObject extends XoopsObject
 * @package module::article
 *
 * @author  D.J. (phppp)
-* @copyright copyright &copy; 2000 The XOOPS Project
+* @copyright copyright &copy; 2000 XOOPS Project (http://xoops.org)
 *
 * {@link XoopsPersistableObjectHandler}
 *

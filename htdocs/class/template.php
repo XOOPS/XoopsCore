@@ -12,7 +12,7 @@
 /**
  * XOOPS template engine class
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono <onokazu@xoops.org>
  * @author          Skalpa Keo <skalpa@xoops.org>
@@ -27,7 +27,7 @@
  * @package kernel
  * @subpackage core
  * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright (c) 2000-2003 The Xoops Project - www.xoops.org
+ * @copyright (c) 2000-2003 XOOPS Project (http://xoops.org)
  */
 class XoopsTpl extends Smarty
 {

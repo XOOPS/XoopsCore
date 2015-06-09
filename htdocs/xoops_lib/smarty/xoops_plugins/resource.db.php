@@ -14,7 +14,7 @@
  *
  * Fetches templates from a database
  *
- * @copyright       2008-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       2008-2015 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Smarty_Resource_Db extends Smarty_Resource_Custom

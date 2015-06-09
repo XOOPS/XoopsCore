@@ -17,7 +17,7 @@
  * @category   Xoops\Class\Database\Database
  * @package    Database
  * @author     Kazumi Ono <onokazu@xoops.org>
- * @copyright  2013 The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright  2013 XOOPS Project (http://xoops.org)
  * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version    Release:2.6
  * @link       http://xoops.org

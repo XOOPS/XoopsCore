@@ -18,7 +18,7 @@ use Xoops\Core\FixedGroups;
  * @package   Xoops
  * @author    trabis <lusopoemas@gmail.com>
  * @author    formuss
- * @copyright 2011-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since     2.6.0
  * @link      http://xoops.org
