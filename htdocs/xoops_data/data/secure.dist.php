@@ -48,5 +48,3 @@ define("XOOPS_DB_PCONNECT", 0);
 // Serialized connection parameter
 // This is built by the installer and includes all connection parameters
 define("XOOPS_DB_PARAMETERS", "");
-
-?>

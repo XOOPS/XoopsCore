@@ -57,6 +57,3 @@ define("_AM_ADV_DBFACTORYUNPATCHED","データベースファクトリクラス�
 define("_AM_ADV_SUBTITLECHECK","Protectorの動作チェック");
 define("_AM_ADV_CHECKCONTAMI","変数汚染");
 define("_AM_ADV_CHECKISOCOM","孤立コメント");
-
-
-?>

@@ -24,4 +24,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_LOCALE")):
     define("FRAMEWORKS_ART_FUNCTIONS_LOCALE", true);
 
 endif;
-?>

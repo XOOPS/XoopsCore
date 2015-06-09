@@ -374,7 +374,7 @@ class PublisherUtils
 
     public static function IsUserAdmin()
     {
-        return Publisher::getInstance()->IsUserAdmin();
+        return Publisher::getInstance()->isUserAdmin();
     }
 
     /**

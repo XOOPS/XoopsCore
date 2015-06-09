@@ -34,7 +34,7 @@ $op = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
 $imgcat_id = Request::getInt('imgcat_id', 0);
 
-$redirect = basename($xoops->getenv('SCRIPT_NAME'));
+$redirect = basename($xoops->getEnv('SCRIPT_NAME'));
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }

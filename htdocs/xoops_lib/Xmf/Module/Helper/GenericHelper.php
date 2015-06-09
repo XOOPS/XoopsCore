@@ -193,7 +193,7 @@ class GenericHelper
             $this->configs =& $xoopsModuleConfig;
         } else {
             /* @var $config_handler XoopsConfigHandler */
-            $config_handler = xoops_gethandler('config');
+            $config_handler = xoops_getHandler('config');
             $this->configs = $config_handler->getConfigsByCat(
                 0, $this->getModule()->getVar('mid')
             );

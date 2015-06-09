@@ -125,5 +125,3 @@ define('_MI_PROTECTOR_SPAMURI4G','anti-SPAM: ilość adresów URL dla gości');
 define('_MI_PROTECTOR_SPAMURI4GDSC','Jak wyżej, ale dla anonimowych użytkowników (gości). Domyślnie: 5. Wpisz 0 jeśli chcesz wyłączyć tę funkcję.');
 
 }
-
-?>

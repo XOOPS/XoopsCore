@@ -210,8 +210,8 @@ foreach (array_keys($modules) as $i) {
                             = $xoops->url("modules/" . $modules[$i]->getVar('dirname') . "/" . $result['link']);
                     }
 
-                    $results[$k]['title'] = $myts->htmlspecialchars($result['title']);
-                    $results[$k]['title_highligh'] = $myts->htmlspecialchars($result['title']);
+                    $results[$k]['title'] = $myts->htmlSpecialChars($result['title']);
+                    $results[$k]['title_highligh'] = $myts->htmlSpecialChars($result['title']);
                     if (!empty($result['time'])) {
                         $results[$k]['time'] = $result['time'] ? XoopsLocale::formatTimestamp($result['time']) : '';
                     }

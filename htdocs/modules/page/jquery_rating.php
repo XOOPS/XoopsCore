@@ -67,7 +67,7 @@ if ( $xoops->security()->check() ) {
         $ratingObj->setVar('rating_content_id', $content_id);
         $ratingObj->setVar('rating_uid', $uid);
         $ratingObj->setVar('rating_rating', $option);
-        $ratingObj->setVar('rating_ip', $helper->xoops()->getenv('REMOTE_ADDR'));
+        $ratingObj->setVar('rating_ip', $helper->xoops()->getEnv('REMOTE_ADDR'));
         $ratingObj->setVar('rating_date', $time);
         if ($rating_id = $rating_Handler->insert($ratingObj)) {
             $ret = $rating_Handler->getStats($content_id);

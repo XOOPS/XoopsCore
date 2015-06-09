@@ -62,7 +62,7 @@ switch ($op) {
         global $xoopsDB;
         $db = $xoopsDB;
         //Cache
-        $res_cache = $system->CleanCache($cache);
+        $res_cache = $system->cleanCache($cache);
         if (!empty($cache)) {
             for ($i = 0; $i < count($cache); ++$i) {
                 switch ($cache[$i]) {

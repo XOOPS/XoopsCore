@@ -91,7 +91,7 @@ switch ($op) {
                 case "radio":
                 case "select":
                     $options = $fields[$i]->getVar('field_options');
-                    $size = MIN(count($options), 10);
+                    $size = min(count($options), 10);
                     $element = new Xoops\Form\Select($fields[$i]->getVar('field_title'), $fields[$i]->getVar('field_name'), null, $size, true);
                     asort($options);
                     $element->addOptionArray($options);

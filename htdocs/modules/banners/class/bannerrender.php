@@ -62,7 +62,7 @@ class BannerRender
             } else {
                 $criteria->add(new Criteria('banner_bid', '(' . $ids . ')', 'IN'));
             }
-            $banner_arr = $banner_Handler->getall($criteria);
+            $banner_arr = $banner_Handler->getAll($criteria);
             $numrows = count($banner_arr);
             $bannerobject = '';
             if ($numrows > 0) {

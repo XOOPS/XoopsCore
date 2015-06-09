@@ -73,5 +73,3 @@ define("_AM_EZ_COPY","Kopieer");
 define("_AM_EZ_ACTIONS","Handelingen");
 define("_AM_EZ_BACKUP","Backup");
 define("_AM_EZ_DELETE","Verwijder");
-
-?>

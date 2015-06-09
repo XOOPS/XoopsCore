@@ -44,7 +44,7 @@ if ($totalCategories == 0) {
 
 $xoops->header('module:publisher/publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl');
 $xoopsTpl = $xoops->tpl();
-XoopsLoad::LoadFile($publisher->path('footer.php'));
+XoopsLoad::loadFile($publisher->path('footer.php'));
 
 $gperm_handler = $xoops->getHandlerGroupperm();
 

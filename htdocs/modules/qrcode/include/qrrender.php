@@ -21,7 +21,7 @@ use Xoops\Core\Request;
 // this is located in include, otherwise normal/anon users do not have authority to run
 include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
-$xoops = Xoops::getinstance();
+$xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
 
 $text = Request::getString('text', 'error');

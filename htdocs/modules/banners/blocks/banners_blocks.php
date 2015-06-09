@@ -74,7 +74,7 @@ function banners_blocks_edit($options) {
             $criteria = new CriteriaCompo();
             $criteria->setSort('bannerclient_name');
             $criteria->setOrder('ASC');
-            $client_arr = $client_Handler->getall($criteria);
+            $client_arr = $client_Handler->getAll($criteria);
             $form .= "<option value=\"0\" " . (array_search(0, $options) === false ? '' : 'selected="selected"') . ">" . _MB_BANNERS_ALLCLIENTS . "</option>\n";
             foreach (array_keys($client_arr) as $i) {
                 $form .= "<option value=\"" . $client_arr[$i]->getVar('cid') . "\" " . (array_search($client_arr[$i]->getVar('cid'), $options) === false ? '' : 'selected="selected"') . ">" . $client_arr[$i]->getVar('name')."</option>\n";

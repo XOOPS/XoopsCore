@@ -123,5 +123,3 @@ define('_MI_PROTECTOR_SPAMURI4G','Anti-SPAM: URLs voor gasten');
 define('_MI_PROTECTOR_SPAMURI4GDSC','Het aantal URLs gevonden in POST data van gasten (anonieme gebruikers), dan wordt deze aangemerkt als SPAM. 0 betekent uitschakeling van deze functie.');
 
 }
-
-?>

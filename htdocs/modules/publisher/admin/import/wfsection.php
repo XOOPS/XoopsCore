@@ -242,13 +242,13 @@ if ($op == 'go') {
     // Looping through the comments to link them to the new articles and module
     echo _AM_PUBLISHER_IMPORT_COMMENTS . "<br />";
 
-    $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_getHandler('module');
     $moduleObj = $module_handler->getByDirname('wfsection');
     $news_module_id = $moduleObj->getVar('mid');
 
     $publisher_module_id = $publisher->getModule()->mid();
 
-    $comment_handler = xoops_gethandler('comment');
+    $comment_handler = xoops_getHandler('comment');
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('com_modid', $news_module_id));
     $comments = $comment_handler->getObjects($criteria);

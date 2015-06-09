@@ -33,14 +33,14 @@ class XcaptchaImage extends Xcaptcha
     {
         $system = System::getInstance();
         $config = array();
-        $_POST['num_chars'] = $system->CleanVars($_POST, 'num_chars', 6, 'int');
-        $_POST['casesensitive'] = $system->CleanVars($_POST, 'casesensitive', false, 'boolean');
-        $_POST['fontsize_min'] = $system->CleanVars($_POST, 'fontsize_min', 10, 'int');
-        $_POST['fontsize_max'] = $system->CleanVars($_POST, 'fontsize_max', 24, 'int');
-        $_POST['background_type'] = $system->CleanVars($_POST, 'background_type', 0, 'int');
-        $_POST['background_num'] = $system->CleanVars($_POST, 'background_num', 50, 'int');
-        $_POST['polygon_point'] = $system->CleanVars($_POST, 'polygon_point', 3, 'int');
-        $_POST['skip_characters'] = $system->CleanVars($_POST, 'skip_characters', 'o|0|i|l|1', 'string');
+        $_POST['num_chars'] = $system->cleanVars($_POST, 'num_chars', 6, 'int');
+        $_POST['casesensitive'] = $system->cleanVars($_POST, 'casesensitive', false, 'boolean');
+        $_POST['fontsize_min'] = $system->cleanVars($_POST, 'fontsize_min', 10, 'int');
+        $_POST['fontsize_max'] = $system->cleanVars($_POST, 'fontsize_max', 24, 'int');
+        $_POST['background_type'] = $system->cleanVars($_POST, 'background_type', 0, 'int');
+        $_POST['background_num'] = $system->cleanVars($_POST, 'background_num', 50, 'int');
+        $_POST['polygon_point'] = $system->cleanVars($_POST, 'polygon_point', 3, 'int');
+        $_POST['skip_characters'] = $system->cleanVars($_POST, 'skip_characters', 'o|0|i|l|1', 'string');
         $_POST['skip_characters'] = explode('|', $_POST['skip_characters']);
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];

@@ -100,7 +100,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
             $criteria->add($criteriaTray);
             if ($perm == 'imgcat_read' || $perm == 'imgcat_write') {
                 $criteria->add(new Criteria('gperm_name', $perm));
-                $mid = $xoops->getModuleByDirName('images')->getVar('mid');
+                $mid = $xoops->getModuleByDirname('images')->getVar('mid');
                 $criteria->add(new Criteria('gperm_modid', $mid));
             }
         }

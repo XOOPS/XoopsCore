@@ -51,7 +51,7 @@ $xoTheme->addBaseScriptAssets('@jquery');
 $xoTheme->addScript(PUBLISHER_URL . '/js/jquery.popeye-2.0.4.js');
 $xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
 
-XoopsLoad::LoadFile($publisher->path('footer.php'));
+XoopsLoad::loadFile($publisher->path('footer.php'));
 
 // Creating the category object that holds the selected item
 $categoryObj = $publisher->getCategoryHandler()->get($itemObj->getVar('categoryid'));
