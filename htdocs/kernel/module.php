@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
@@ -86,7 +86,7 @@ class XoopsModule extends XoopsObject
             $this->loadInfo($dirname, $verbose);
         }
         $this->setVar('name', $this->modinfo['name'], true);
-        $this->setVar('version', intval(100 * ($this->modinfo['version'] + 0.001)), true);
+        $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)), true);
         $this->setVar('dirname', $this->modinfo['dirname'], true);
         $hasmain = (isset($this->modinfo['hasMain']) && $this->modinfo['hasMain'] == 1) ? 1 : 0;
         $hasadmin = (isset($this->modinfo['hasAdmin']) && $this->modinfo['hasAdmin'] == 1) ? 1 : 0;
@@ -423,7 +423,7 @@ class XoopsModule extends XoopsObject
  *
  * @package kernel
  * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright (c) 2000-2003 The Xoops Project - www.xoops.org
+ * @copyright (c) 2000-2003 XOOPS Project (http://xoops.org)
  */
 class XoopsModuleHandler extends XoopsPersistableObjectHandler
 {
@@ -461,7 +461,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     function getById($id = null)
     {
-        $id = intval($id);
+        $id = (int)($id);
         if ($id > 0) {
             if (!empty($this->_cachedModule_mid[$id])) {
                 return $this->_cachedModule_mid[$id];

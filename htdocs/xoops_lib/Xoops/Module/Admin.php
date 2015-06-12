@@ -17,7 +17,7 @@ namespace Xoops\Module;
  * @category  Xoops\Module\Admin
  * @package   Admin
  * @author    Mage Grégory (AKA Mage)
- * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      xoops.org
  * @since     2.6.0

@@ -26,7 +26,7 @@
  *  <{xoblock id=600 groups="0|1" cache=20}>  display block just for this 2 groups and sets a cache of 20 seconds
  *  <{block id=600 options="100|100|s_poweredby.gif|0"}> displays block with diferent options
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      trabis <lusopoemas@gmail.com>
  * @version     $Id$
@@ -49,9 +49,9 @@ function smarty_function_xoblock($params, &$smarty)
     $display_none = (isset($params['display']) && $params['display'] == 'none') ? true : false;
     $options = (isset($params['options'])) ? $params['options'] : false;
     $groups = (isset($params['groups'])) ? explode('|', $params['groups']) : false;
-    $cache = (isset($params['cache'])) ? intval($params['cache']) : false;
+    $cache = (isset($params['cache'])) ? (int)($params['cache']) : false;
 
-    $block_id = intval($params['id']);
+    $block_id = (int)($params['id']);
 
     $block_handler = $xoops->getHandlerBlock();
     static $block_objs;

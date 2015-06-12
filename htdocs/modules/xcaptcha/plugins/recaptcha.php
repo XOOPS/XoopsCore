@@ -8,7 +8,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xcaptcha
  * @since           2.6.0
@@ -37,10 +37,10 @@ class XcaptchaRecaptcha extends Xcaptcha
 
         $system = System::getInstance();
         $config = array();
-        $_POST['private_key'] = $system->CleanVars($_POST, 'private_key', 'Your private key', 'string');
-        $_POST['public_key'] = $system->CleanVars($_POST, 'public_key', 'Your public key', 'string');
-        $_POST['theme'] = $system->CleanVars($_POST, 'theme', 'red', 'string');
-        $_POST['lang'] = $system->CleanVars($_POST, 'lang', $default_lang, 'string');
+        $_POST['private_key'] = $system->cleanVars($_POST, 'private_key', 'Your private key', 'string');
+        $_POST['public_key'] = $system->cleanVars($_POST, 'public_key', 'Your public key', 'string');
+        $_POST['theme'] = $system->cleanVars($_POST, 'theme', 'red', 'string');
+        $_POST['lang'] = $system->cleanVars($_POST, 'lang', $default_lang, 'string');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }

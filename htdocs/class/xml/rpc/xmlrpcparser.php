@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      xml
@@ -344,7 +344,7 @@ class RpcIntHandler extends XmlTagHandler
     public function handleCharacterData(SaxParser &$parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
-        $parser->setTempValue(intval($data));
+        $parser->setTempValue((int)($data));
     }
 }
 
@@ -415,7 +415,7 @@ class RpcStringHandler extends XmlTagHandler
     public function handleCharacterData(SaxParser &$parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
-        $parser->setTempValue(strval($data));
+        $parser->setTempValue((string)($data));
     }
 }
 

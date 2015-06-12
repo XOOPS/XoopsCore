@@ -12,7 +12,7 @@
 /**
  * Userconfigs
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -162,7 +162,7 @@ class UserconfigsItem extends XoopsObject
     {
         switch ($this->getVar('conf_valuetype')) {
         case 'int':
-            return intval($this->getVar('conf_value', 'n'));
+            return (int)($this->getVar('conf_value', 'n'));
             break;
         case 'array':
             $value = @unserialize($this->getVar('conf_value', 'n'));

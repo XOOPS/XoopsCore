@@ -32,7 +32,7 @@ function publisher_items_spot_show($options)
     $opt_display_poster = $options[4];
     $opt_display_comment = $options[5];
     $opt_display_type = $options[6];
-    $opt_truncate = intval($options[7]);
+    $opt_truncate = (int)($options[7]);
     $opt_catimage = $options[8];
     if ($opt_categoryid == 0) {
         $opt_categoryid = -1;

@@ -190,4 +190,3 @@
 **/
 //define('_FORM_VALID_URL','Starting with http or https');
 //define('_FORM_VALID_MAIL','Enter a valid email address');
-?>

@@ -17,7 +17,7 @@ use Xoops\Core\Kernel\XoopsObjectHandler;
 /**
  * Userconfigs
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -194,7 +194,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
     public function getConfigsByModule($module = 0)
     {
         $ret = array();
-        $criteria = new Criteria('conf_modid', intval($module));
+        $criteria = new Criteria('conf_modid', (int)($module));
         $configs = $this->getConfigs($criteria, true);
         if (is_array($configs)) {
             foreach (array_keys($configs) as $i) {
@@ -214,7 +214,7 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
      */
     public function deleteConfigsByModule($module = 0)
     {
-        $criteria = new Criteria('conf_modid', intval($module));
+        $criteria = new Criteria('conf_modid', (int)($module));
         $configs = $this->getConfigs($criteria, true);
         if (is_array($configs)) {
             foreach (array_keys($configs) as $i) {
@@ -240,8 +240,8 @@ class UserconfigsConfigHandler extends XoopsObjectHandler
             return $_cachedConfigs[$moduleId][$uid];
         } else {
             $ret = array();
-            $criteria = new CriteriaCompo(new Criteria('conf_modid', intval($moduleId)));
-            $criteria->add(new Criteria('conf_uid', intval($uid)));
+            $criteria = new CriteriaCompo(new Criteria('conf_modid', (int)($moduleId)));
+            $criteria->add(new Criteria('conf_uid', (int)($uid)));
             $configs = $this->getConfigs($criteria, true);
             if (is_array($configs)) {
                 foreach (array_keys($configs) as $i) {

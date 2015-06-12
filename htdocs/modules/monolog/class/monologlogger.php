@@ -27,7 +27,7 @@ use Xoops\Core\Logger;
  * @category  DebugbarLogger
  * @package   DebugbarLogger
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -125,7 +125,7 @@ class MonologLogger implements LoggerInterface
                     $threshold=MLogger::DEBUG;
                     break;
             }
-            if (intval($this->configs['max_versions']) == 0) {
+            if ((int)($this->configs['max_versions']) == 0) {
                 $stream = new StreamHandler($this->configs['log_file_path'], $threshold);
             } else {
                 $stream = new RotatingFileHandler(
@@ -514,7 +514,7 @@ class MonologLogger implements LoggerInterface
                     //$channel = 'Blocks';
                     $msg = _MD_MONOLOG_BLOCKS . ' : ' . $message . ': ';
                     if ($context['cached']) {
-                        $msg .= sprintf(_MD_MONOLOG_CACHED, intval($context['cachetime']));
+                        $msg .= sprintf(_MD_MONOLOG_CACHED, (int)($context['cachetime']));
                     } else {
                         $msg .= _MD_MONOLOG_NOT_CACHED;
                     }

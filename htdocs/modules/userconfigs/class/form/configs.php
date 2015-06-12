@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Andricq Nicolas (AKA MusS)
  * @author          trabis <lusopoemas@gmail.com>
@@ -92,9 +92,9 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                         $myts = MyTextSanitizer::getInstance();
                         if ($obj[$i]->getVar('conf_valuetype') == 'array') {
                             // this is exceptional.. only when value type is arrayneed a smarter way for this
-                            $ele = ($obj[$i]->getVar('conf_value') != '') ? new Xoops\Form\TextArea($title, $obj[$i]->getVar('conf_name'), $myts->htmlspecialchars(implode('|', $obj[$i]->getConfValueForOutput())), 5, 5) : new Xoops\Form\TextArea($title, $obj[$i]->getVar('conf_name'), '', 5, 5);
+                            $ele = ($obj[$i]->getVar('conf_value') != '') ? new Xoops\Form\TextArea($title, $obj[$i]->getVar('conf_name'), $myts->htmlSpecialChars(implode('|', $obj[$i]->getConfValueForOutput())), 5, 5) : new Xoops\Form\TextArea($title, $obj[$i]->getVar('conf_name'), '', 5, 5);
                         } else {
-                            $ele = new Xoops\Form\TextArea($title, $obj[$i]->getVar('conf_name'), $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()), 5, 5);
+                            $ele = new Xoops\Form\TextArea($title, $obj[$i]->getVar('conf_name'), $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()), 5, 5);
                         }
                         break;
 
@@ -211,7 +211,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                         if (count($modules) > 0) {
                             $ele = new Xoops\Form\ElementTray($title, '<br />');
                             foreach (array_keys($modules) as $mid) {
-                                $c_val = isset($currrent_val[$mid]) ? intval($currrent_val[$mid]) : null;
+                                $c_val = isset($currrent_val[$mid]) ? (int)($currrent_val[$mid]) : null;
                                 $selform = new Xoops\Form\Select($modules[$mid]->getVar('name'), $obj[$i]->getVar('conf_name') . "[$mid]", $c_val);
                                 $selform->addOptionArray($cache_options);
                                 $ele->addElement($selform);
@@ -241,23 +241,23 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
 
                     case 'password':
                         $myts = MyTextSanitizer::getInstance();
-                        $ele = new Xoops\Form\Password($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()));
+                        $ele = new Xoops\Form\Password($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                         break;
 
                     case 'color':
                         $myts = MyTextSanitizer::getInstance();
-                        $ele = new Xoops\Form\ColorPicker($title, $obj[$i]->getVar('conf_name'), $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()));
+                        $ele = new Xoops\Form\ColorPicker($title, $obj[$i]->getVar('conf_name'), $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                         break;
 
                     case 'hidden':
                         $myts = MyTextSanitizer::getInstance();
-                        $ele = new Xoops\Form\Hidden($obj[$i]->getVar('conf_name'), $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()));
+                        $ele = new Xoops\Form\Hidden($obj[$i]->getVar('conf_name'), $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                         break;
 
                     case 'textbox':
                     default:
                         $myts = MyTextSanitizer::getInstance();
-                        $ele = new Xoops\Form\Text($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlspecialchars($obj[$i]->getConfValueForOutput()));
+                        $ele = new Xoops\Form\Text($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                         break;
                 }
                 $hidden = new Xoops\Form\Hidden('conf_ids[]', $obj[$i]->getVar('conf_id'));

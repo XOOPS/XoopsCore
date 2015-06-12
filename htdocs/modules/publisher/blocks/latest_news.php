@@ -43,7 +43,7 @@ function publisher_latest_news_show($options)
     $border = $options[13];
     $bordercolor = $options[14];
 
-    $block['spec']['columnwidth'] = intval(1 / $column_count * 100);
+    $block['spec']['columnwidth'] = (int)(1 / $column_count * 100);
 
     $allcats = false;
     if (!isset($options[29])) {
@@ -121,7 +121,7 @@ function publisher_latest_news_show($options)
             $item['image'] = $image;
         }
 
-        if ($publisher->IsUserAdmin()) {
+        if ($publisher->isUserAdmin()) {
             $item['admin'] = "<a href='" . PUBLISHER_URL . "/submit.php?itemid=" . $itemObj->getVar('itemid'). "'><img src='" . PUBLISHER_URL . "/images/links/edit.gif'" . " title='" . _CO_PUBLISHER_EDIT . "' alt='" . _CO_PUBLISHER_EDIT . "' /></a>&nbsp;";
             $item['admin'] .= "<a href='" . PUBLISHER_URL . "/admin/item.php?op=del&amp;itemid=" . $itemObj->getVar('itemid'). "'><img src='" . PUBLISHER_URL . "/images/links/delete.png'" . " title='" . _CO_PUBLISHER_DELETE . "' alt='" . _CO_PUBLISHER_DELETE . "' /></a>";
         } else {

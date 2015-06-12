@@ -2,7 +2,7 @@
 /**
  * Installer main english strings declaration file
  *
- * @copyright   The XOOPS project http://www.xoops.org/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package     installer
  * @since       2.3.0

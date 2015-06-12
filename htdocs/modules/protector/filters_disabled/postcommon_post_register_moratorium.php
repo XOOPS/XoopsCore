@@ -12,7 +12,7 @@
 /**
  * Protector
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
@@ -31,7 +31,7 @@ class protector_postcommon_post_register_moratorium extends ProtectorFilterAbstr
             return true;
         }
 
-        $moratorium_result = intval(($xoops->user->getVar('user_regdate') + PROTECTOR_POSTCOMMON_POST_REGISTER_MORATORIUM * 60 - time()) / 60);
+        $moratorium_result = (int)(($xoops->user->getVar('user_regdate') + PROTECTOR_POSTCOMMON_POST_REGISTER_MORATORIUM * 60 - time()) / 60);
         if ($moratorium_result > 0) {
             if (preg_match('#(https?\:|\[\/url\]|www\.)#', serialize($_POST))) {
                 printf(_MD_PROTECTOR_FMT_REGISTER_MORATORIUM, $moratorium_result);

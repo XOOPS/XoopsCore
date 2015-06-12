@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @category  Xoops\Core\Kernel\Dtype\DtypeFloat
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2011-2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -37,7 +37,7 @@ class DtypeFloat extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key, $quote = true)
     {
         $value = $obj->vars[$key]['value'];
-        $value = floatval($value);
+        $value = (float)($value);
         return $value;
     }
 }

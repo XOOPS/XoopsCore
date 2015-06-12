@@ -23,7 +23,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Simon Roberts <simon@xoops.org>
- * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
@@ -113,7 +113,7 @@ class Write extends XoopsModelAbstract
                     $object->cleanVars,
                     array($this->handler->keyName => $object->getVar($this->handler->keyName))
                 );
-                if (!$result && intval($this->handler->db2->errorCode())) {
+                if (!$result && (int)($this->handler->db2->errorCode())) {
                     return false;
                 }
             }

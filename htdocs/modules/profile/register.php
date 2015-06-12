@@ -14,7 +14,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -44,10 +44,10 @@ if (!$xoops->getConfig('allow_register')) {
 }
 
 $op = !isset($_POST['op']) ? 'register' : $_POST['op'];
-$current_step = isset($_POST['step']) ? intval($_POST['step']) : 0;
+$current_step = isset($_POST['step']) ? (int)($_POST['step']) : 0;
 
 // The newly introduced variable $_SESSION['profile_post'] is contaminated by $_POST, thus we use an old vaiable to hold uid parameter
-$uid = !empty($_SESSION['profile_register_uid']) ? intval($_SESSION['profile_register_uid']) : 0;
+$uid = !empty($_SESSION['profile_register_uid']) ? (int)($_SESSION['profile_register_uid']) : 0;
 
 // First step is already secured by with the captcha Token so lets check the others
 if ($current_step > 0 && !$xoops->security()->check()) {
@@ -171,7 +171,7 @@ if ($current_step == 1) {
     $url = isset($_POST['url']) ? $myts->stripSlashesGPC(trim($_POST['url'])) : '';
     $pass = isset($_POST['pass']) ? $myts->stripSlashesGPC(trim($_POST['pass'])) : '';
     $vpass = isset($_POST['vpass']) ? $myts->stripSlashesGPC(trim($_POST['vpass'])) : '';
-    $agree_disc = (isset($_POST['agree_disc']) && intval($_POST['agree_disc'])) ? 1 : 0;
+    $agree_disc = (isset($_POST['agree_disc']) && (int)($_POST['agree_disc'])) ? 1 : 0;
 
     if ($xoops->getConfig('reg_dispdsclmr') != 0 && $xoops->getConfig('reg_disclaimer') != '') {
         if (empty($agree_disc)) {

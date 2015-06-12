@@ -23,7 +23,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Nathan Dial <ndial@trillion21.com>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -166,7 +166,7 @@ abstract class CriteriaElement
      */
     public function setLimit($limit = 0)
     {
-        $this->limit = intval($limit);
+        $this->limit = (int)($limit);
     }
 
     /**
@@ -188,7 +188,7 @@ abstract class CriteriaElement
      */
     public function setStart($start = 0)
     {
-        $this->start = intval($start);
+        $this->start = (int)($start);
     }
 
     /**

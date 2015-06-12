@@ -49,7 +49,7 @@ if ($image_nicename == '' || $image_nicename == _CO_PUBLISHER_IMAGE_NICENAME) {
     $image_nicename = $filename;
 }
 
-$imgcat_id = isset($_POST['imgcat_id']) ? intval($_POST['imgcat_id']) : 0;
+$imgcat_id = isset($_POST['imgcat_id']) ? (int)($_POST['imgcat_id']) : 0;
 
 $imgcat_handler = Images::getInstance()->getHandlerCategories();
 $imgcat = $imgcat_handler->get($imgcat_id);

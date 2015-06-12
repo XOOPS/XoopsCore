@@ -12,7 +12,7 @@
 /**
  * XOOPS feed creator
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.6.0
@@ -21,9 +21,9 @@
  */
 
 if (file_exists('mainfile.php')) {
-    include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include __DIR__ . '/mainfile.php';
 } else {
-    include '../../' . DIRECTORY_SEPARATOR . 'mainfile.php';
+    include '../../' . '/mainfile.php';
 }
 
 $xoops = Xoops::getInstance();

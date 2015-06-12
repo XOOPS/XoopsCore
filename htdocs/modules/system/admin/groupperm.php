@@ -12,7 +12,7 @@
 /**
  * Group permission check
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @version     $Id$
@@ -24,7 +24,7 @@ include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 $xoops = Xoops::getInstance();
 $xoops->loadLocale('system');
 
-$modid = isset($_POST['modid']) ? intval($_POST['modid']) : 0;
+$modid = isset($_POST['modid']) ? (int)($_POST['modid']) : 0;
 
 // we dont want system module permissions to be changed here
 if ($modid <= 1 || !$xoops->isUser() || !$xoops->user->isAdmin($modid)) {

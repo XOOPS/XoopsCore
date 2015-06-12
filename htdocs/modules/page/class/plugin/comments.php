@@ -12,7 +12,7 @@
 /**
  * page module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -71,7 +71,7 @@ class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements C
     public function update($item_id, $total_num)
     {
         $db = Xoops::getInstance()->db();
-        $sql = 'UPDATE ' . $db->prefix('page_content') . ' SET content_comments = ' . intval($total_num) . ' WHERE content_id = ' . intval($item_id);
+        $sql = 'UPDATE ' . $db->prefix('page_content') . ' SET content_comments = ' . (int)($total_num) . ' WHERE content_id = ' . (int)($item_id);
         $db->query($sql);
     }
 

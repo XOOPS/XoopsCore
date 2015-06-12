@@ -13,7 +13,7 @@
 /**
  *  TinyMCE adapter for XOOPS
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      editor
@@ -133,7 +133,7 @@ class XoopsFormTinymce4 extends XoopsEditor
      */
     public function isActive()
     {
-		xoops_root_path = \XoopsBaseConfig::get('root-path');
+		$xoops_root_path = \XoopsBaseConfig::get('root-path');
         return is_readable($xoops_root_path . $this->rootPath . "/tinymce.php");
     }
 }

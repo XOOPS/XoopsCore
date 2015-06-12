@@ -12,14 +12,14 @@
 /**
  * XOOPS message detail
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @version         $Id$
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->preload()->triggerEvent('core.viewpmsg.start');
@@ -54,7 +54,7 @@ if (!$xoops->isUser()) {
         $size = count($clean_msg_id);
         $msg =& $clean_msg_id;
         for ($i = 0; $i < $size; ++$i) {
-            $pm = $pm_handler->get(intval($msg[$i]));
+            $pm = $pm_handler->get((int)($msg[$i]));
             if ($pm->getVar('to_userid') == $xoops->user->getVar('uid')) {
                 $pm_handler->delete($pm);
             }

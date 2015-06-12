@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if($_SESSION['RF']["verify"] != "RESPONSIVEfilemanager") die('forbiden');
 
@@ -53,9 +53,9 @@ function create_img_gd($imgfile, $imgthumb, $newwidth, $newheight="") {
 
 function create_img($imgfile, $imgthumb, $newwidth, $newheight="") {
     if(image_check_memory_usage($imgfile,$newwidth,$newheight)){
-	require_once('php_image_magician.php');  
+	require_once('php_image_magician.php');
 	$magicianObj = new imageLib($imgfile);
-	$magicianObj -> resizeImage($newwidth, $newheight, 'auto');  
+	$magicianObj -> resizeImage($newwidth, $newheight, 'auto');
 	$magicianObj -> saveImage($imgthumb,80);
 	return true;
     }else{
@@ -89,7 +89,7 @@ function foldersize($path) {
                 $size = filesize($currentFile);
                 $total_size += $size;
             }
-        }   
+        }
     }
 
     return $total_size;
@@ -110,7 +110,7 @@ function filescount($path) {
             else {
                 $total_count += 1;
             }
-        }   
+        }
     }
 
     return $total_count;
@@ -119,9 +119,9 @@ function filescount($path) {
 function create_folder($path=false,$path_thumbs=false){
     $oldumask = umask(0);
     if ($path && !file_exists($path))
-        mkdir($path, 0777, true); // or even 01777 so you get the sticky bit set 
-    if($path_thumbs && !file_exists($path_thumbs)) 
-        mkdir($path_thumbs, 0777, true) or die("$path_thumbs cannot be found"); // or even 01777 so you get the sticky bit set 
+        mkdir($path, 0777, true); // or even 01777 so you get the sticky bit set
+    if($path_thumbs && !file_exists($path_thumbs))
+        mkdir($path_thumbs, 0777, true) or die("$path_thumbs cannot be found"); // or even 01777 so you get the sticky bit set
     umask($oldumask);
 }
 
@@ -170,13 +170,13 @@ function fix_filename($str,$transliteration){
     	{
     	   $str = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
     	}
-		
+
 	$str = preg_replace( "/[^a-zA-Z0-9\.\[\]_| -]/", '', $str );
     }
-    
+
     $str=str_replace(array('"',"'","/","\\"),"",$str);
     $str=strip_tags($str);
-			   
+
     // Empty or incorrectly transliterated filename.
     // Here is a point: a good file UNKNOWN_LANGUAGE.jpg could become .jpg in previous code.
     // So we add that default 'file' name to fix that issue.
@@ -184,7 +184,7 @@ function fix_filename($str,$transliteration){
     {
        $str = 'file'.$str;
     }
-	    
+
     return trim( $str );
 }
 
@@ -234,7 +234,7 @@ function config_loading($current_path,$fld){
     if($parent!="." && !empty($parent)){
 	config_loading($current_path,$parent);
     }
-    
+
     return false;
 }
 
@@ -243,18 +243,18 @@ function image_check_memory_usage($img, $max_breedte, $max_hoogte){
     if(file_exists($img)){
 	$K64 = 65536;    // number of bytes in 64K
 	$memory_usage = memory_get_usage();
-	$memory_limit = abs(intval(str_replace('M','',ini_get('memory_limit'))*1024*1024));
+	$memory_limit = abs((int)(str_replace('M','',ini_get('memory_limit'))*1024*1024));
 	$image_properties = getimagesize($img);
 	$image_width = $image_properties[0];
 	$image_height = $image_properties[1];
 	$image_bits = $image_properties['bits'];
 	$image_memory_usage = $K64 + ($image_width * $image_height * ($image_bits )  * 2);
 	$thumb_memory_usage = $K64 + ($max_breedte * $max_hoogte * ($image_bits ) * 2);
-	$memory_needed = intval($memory_usage + $image_memory_usage + $thumb_memory_usage);
- 
+	$memory_needed = (int)($memory_usage + $image_memory_usage + $thumb_memory_usage);
+
         if($memory_needed > $memory_limit){
-                ini_set('memory_limit',(intval($memory_needed/1024/1024)+5) . 'M');
-                if(ini_get('memory_limit') == (intval($memory_needed/1024/1024)+5) . 'M'){
+                ini_set('memory_limit',((int)($memory_needed/1024/1024)+5) . 'M');
+                if(ini_get('memory_limit') == ((int)($memory_needed/1024/1024)+5) . 'M'){
                 return true;
             }else{
                 return false;
@@ -285,7 +285,7 @@ function new_thumbnails_creation($targetPath,$targetFile,$name,$current_path,$re
 		    $all_ok=false;
 	}
     }
-    
+
     //create fixed thumbs
     if($fixed_image_creation){
 	foreach($fixed_path_from_filemanager as $k=>$path){
@@ -309,7 +309,7 @@ function get_file_by_url($url) {
     if (!function_exists('curl_version')) {
         return false;
     }
-    
+
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -427,7 +427,7 @@ function rrename($source, $destination, $is_rec = FALSE) {
             else {
                 $dest2 = $destination;
             }
-            
+
             rename($source, $dest2);
         }
     }
@@ -451,36 +451,14 @@ function rrename_after_cleaner($source) {
     }
 
     return rmdir($source);
-} 
+}
 
-function debugger($input, $trace = FALSE, $halt = FALSE){
-    ob_start();
-
-    echo "<br>----- DEBUG DUMP -----";
-    echo "<pre>";
-    var_dump($input);
-    echo "</pre>";
-    
+function debugger($input, $trace = false, $halt = fale){
+    \Xmf\Debug::dump($input);
     if ($trace){
-        $debug = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-
-        echo "<br>-----STACK TRACE-----";
-        echo "<pre>";
-        var_dump($debug);
-        echo "</pre>";
+         \Xmf\Debug::backtrace();
     }
-
-    echo "</pre>";
-    echo "---------------------------<br>";
-
-    $ret = ob_get_contents();
-    ob_end_clean();
-
-    echo $ret;
-
-    if ($halt == TRUE){
+    if ($halt){
         exit();
     }
 }
-
-?>

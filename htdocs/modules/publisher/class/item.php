@@ -895,7 +895,7 @@ class PublisherItem extends XoopsObject
         }
         if (isset($_REQUEST['uid'])) {
             $this->setVar('uid', Request::getInt('uid'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('uid', $xoops->isUser() ? $xoops->user->getVar('uid') : 0);
         }
         if (isset($_REQUEST['author_alias'])) {
@@ -906,7 +906,7 @@ class PublisherItem extends XoopsObject
         }
         if (isset($_REQUEST['datesub'])) {
             $this->setVar('datesub', strtotime($_REQUEST['datesub']['date']) + $_REQUEST['datesub']['time']);
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('datesub', time());
         }
         if (isset($_REQUEST['item_short_url'])) {
@@ -923,37 +923,37 @@ class PublisherItem extends XoopsObject
         }
         if (isset($_REQUEST['allowcomments'])) {
             $this->setVar('cancomment', Request::getInt('allowcomments'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('cancoment', $this->publisher->getConfig('submit_allowcomments'));
         }
         if (isset($_REQUEST['status'])) {
             $this->setVar('status', Request::getInt('status'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('status', $this->publisher->getConfig('submit_status'));
         }
         if (isset($_REQUEST['dohtml'])) {
             $this->setVar('dohtml', Request::getInt('dohtml'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('dohtml', $this->publisher->getConfig('submit_dohtml'));
         }
         if (isset($_REQUEST['dosmiley'])) {
             $this->setVar('dosmiley', Request::getInt('dosmiley'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('dosmiley', $this->publisher->getConfig('submit_dosmiley'));
         }
         if (isset($_REQUEST['doxcode'])) {
             $this->setVar('doxcode', Request::getInt('doxcode'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('doxcode', $this->publisher->getConfig('submit_doxcode'));
         }
         if (isset($_REQUEST['doimage'])) {
             $this->setVar('doimage', Request::getInt('doimage'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('doimage', $this->publisher->getConfig('submit_doimage'));
         }
         if (isset($_REQUEST['dolinebreak'])) {
             $this->setVar('dobr', Request::getInt('dolinebreak'));
-        } elseif ($this->isnew()) {
+        } elseif ($this->isNew()) {
             $this->setVar('dobr', $this->publisher->getConfig('submit_dobr'));
         }
         if (isset($_REQUEST['notify'])) {
@@ -1044,7 +1044,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
         }
         // Removing tags information
         if ($xoops->isActiveModule('tag')) {
-            $tag_handler = $xoops->getmodulehandler('tag', 'tag');
+            $tag_handler = $xoops->getModuleHandler('tag', 'tag');
             $tag_handler->updateByItem('', $item->getVar('itemid'), PUBLISHER_DIRNAME, 0);
         }
         return true;
@@ -1611,15 +1611,15 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
             ->groupBy('i.categoryid')
             ->orderBy('c.parentid', 'ASC')
             ->addOrderBy('i.categoryid', 'ASC');
-        if (intval($cat_id) > 0) {
+        if ((int)($cat_id) > 0) {
             $qb ->andWhere($qb->expr()->eq('i.categoryid', ':catid'))
                 ->setParameter(':catid', $cat_id, \PDO::PARAM_INT);
         }
 
         //$sql = 'SELECT c.parentid, i.categoryid, COUNT(*) AS count FROM ' . $this->db->prefix('publisher_items')
         //. ' AS i INNER JOIN ' . $this->db->prefix('publisher_categories') . ' AS c ON i.categoryid=c.categoryid';
-        //if (intval($cat_id) > 0) {
-        //    $sql .= ' WHERE i.categoryid = ' . intval($cat_id);
+        //if ((int)($cat_id) > 0) {
+        //    $sql .= ' WHERE i.categoryid = ' . (int)($cat_id);
         //    $sql .= ' AND i.status IN (' . implode(',', $status) . ')';
         //} else {
         //    $sql .= ' WHERE i.status IN (' . implode(',', $status) . ')';

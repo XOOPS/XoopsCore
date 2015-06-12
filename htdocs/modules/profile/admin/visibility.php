@@ -14,7 +14,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -53,9 +53,9 @@ if (isset($_REQUEST['submit'])) {
     $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }
 if ($op == "del") {
-    $criteria = new CriteriaCompo(new Criteria('field_id', intval($_REQUEST['field_id'])));
-    $criteria->add(new Criteria('user_group', intval($_REQUEST['ug'])));
-    $criteria->add(new Criteria('profile_group', intval($_REQUEST['pg'])));
+    $criteria = new CriteriaCompo(new Criteria('field_id', (int)($_REQUEST['field_id'])));
+    $criteria->add(new Criteria('user_group', (int)($_REQUEST['ug'])));
+    $criteria->add(new Criteria('profile_group', (int)($_REQUEST['pg'])));
     $visibility_handler->deleteAll($criteria, true);
     $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_DELETEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }

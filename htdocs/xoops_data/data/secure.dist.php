@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version     $Id$
  */
@@ -48,5 +48,3 @@ define("XOOPS_DB_PCONNECT", 0);
 // Serialized connection parameter
 // This is built by the installer and includes all connection parameters
 define("XOOPS_DB_PARAMETERS", "");
-
-?>

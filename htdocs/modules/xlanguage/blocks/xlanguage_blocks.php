@@ -8,7 +8,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       2010-2014 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
@@ -63,7 +63,7 @@ function b_xlanguage_select_show($options)
     $block['selected'] = $xlanguage['lang'];
 
     if ($options[0] == 'images' || $options[0] == 'text') {
-        $query_string = htmlSpecialChars(implode('&', $QUERY_STRING_new));
+        $query_string = htmlspecialchars(implode('&', $QUERY_STRING_new));
         $query_string .= empty($query_string) ? '' : '&amp;';
     } else {
         $query_string = implode('&', array_map('htmlspecialchars', $QUERY_STRING_new));

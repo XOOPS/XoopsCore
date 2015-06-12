@@ -23,7 +23,7 @@ use Xoops\Core\HttpRequest;
  * @category  Xoops\Core\Session
  * @package   Manager
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -82,7 +82,7 @@ class Manager implements AttributeInterface
 
         $name = $this->xoops->getConfig('session_name');
         $name = (empty($name)) ? 'xoops_session' : $name;
-        $expire = intval($this->xoops->getConfig('session_expire'));
+        $expire = (int)($this->xoops->getConfig('session_expire'));
         $expire = ($expire>0) ? $expire : 300;
 
         $path = \XoopsBaseConfig::get('cookie-path');

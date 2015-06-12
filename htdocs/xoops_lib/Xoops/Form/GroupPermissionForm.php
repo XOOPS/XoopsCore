@@ -19,7 +19,7 @@ use Xoops\Core\FixedGroups;
  * @category  Xoops\Form\GroupPermmissionForm
  * @package   Xoops\Form
  * @author    Xoops Development Team
- * @copyright 2001-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2001-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -74,7 +74,7 @@ class GroupPermissionForm extends Form
     public function __construct($title, $modid, $permname, $permdesc, $url = '', $anonymous = true)
     {
         parent::__construct($title, 'groupperm_form', XOOPS_URL . '/modules/system/admin/groupperm.php', 'post');
-        $this->modid = intval($modid);
+        $this->modid = (int)($modid);
         $this->permName = $permname;
         $this->permDesc = $permdesc;
         $this->addElement(new Hidden('modid', $this->modid));

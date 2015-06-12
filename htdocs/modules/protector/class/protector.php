@@ -12,7 +12,7 @@
 /**
  * Protector
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
@@ -273,7 +273,7 @@ class Protector
             }
         }
 
-        mysql_query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . intval($uid) . "',timestamp=NOW()", $this->_conn);
+        mysql_query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . (int)($uid) . "',timestamp=NOW()", $this->_conn);
         $this->_logged = true;
         return true;
     }
@@ -283,7 +283,7 @@ class Protector
      */
     function write_file_bwlimit($expire)
     {
-        $expire = min(intval($expire), time() + 300);
+        $expire = min((int)($expire), time() + 300);
 
         $fp = @fopen($this->get_filepath4bwlimit(), 'w');
         if ($fp) {
@@ -300,7 +300,7 @@ class Protector
     function get_bwlimit()
     {
         list($expire) = @file(Protector::get_filepath4bwlimit());
-        $expire = min(intval($expire), time() + 300);
+        $expire = min((int)($expire), time() + 300);
 
         return $expire;
     }
@@ -789,7 +789,7 @@ class Protector
                         @unlink($temp_file);
                     }
 
-                    if ($image_attributes === false || $image_extensions[intval($image_attributes[2])] != $ext) {
+                    if ($image_attributes === false || $image_extensions[(int)($image_attributes[2])] != $ext) {
                         $this->message .= "Attempt to upload camouflaged image file {$_file['name']}.\n";
                         $this->_safe_badext = false;
                         $this->last_error_type = 'UPLOAD';
@@ -960,7 +960,7 @@ class Protector
         }
 
         // sql for recording access log (INSERT should be placed after SELECT)
-        $sql4insertlog = "INSERT INTO " . $db->prefix($this->mydirname . "_access") . " SET ip='$ip4sql',request_uri='$uri4sql',expire=UNIX_TIMESTAMP()+'" . intval($this->_conf['dos_expire']) . "'";
+        $sql4insertlog = "INSERT INTO " . $db->prefix($this->mydirname . "_access") . " SET ip='$ip4sql',request_uri='$uri4sql',expire=UNIX_TIMESTAMP()+'" . (int)($this->_conf['dos_expire']) . "'";
 
         // bandwidth limitation
         if (@$this->_conf['bwlimit_count'] >= 10) {
@@ -1269,5 +1269,3 @@ class Protector
         return $ret;
     }
 }
-
-?>

@@ -14,7 +14,7 @@ use Xoops\Core\Kernel\Criteria;
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -91,7 +91,7 @@ switch ($op) {
                 case "radio":
                 case "select":
                     $options = $fields[$i]->getVar('field_options');
-                    $size = MIN(count($options), 10);
+                    $size = min(count($options), 10);
                     $element = new Xoops\Form\Select($fields[$i]->getVar('field_title'), $fields[$i]->getVar('field_name'), null, $size, true);
                     asort($options);
                     $element->addOptionArray($options);
@@ -259,7 +259,7 @@ switch ($op) {
                             case "datetime":
                                 $value = $_REQUEST[$fieldname . "_larger"];
                                 if (!($value = strtotime($_REQUEST[$fieldname . "_larger"]))) {
-                                    $value = intval($_REQUEST[$fieldname . "_larger"]);
+                                    $value = (int)($_REQUEST[$fieldname . "_larger"]);
                                 }
                                 if ($value > 0) {
                                     $search_url[] = $fieldname . "_larger=" . $value;
@@ -269,7 +269,7 @@ switch ($op) {
 
                                 $value = $_REQUEST[$fieldname . "_smaller"];
                                 if (!($value = strtotime($_REQUEST[$fieldname . "_smaller"]))) {
-                                    $value = intval($_REQUEST[$fieldname . "_smaller"]);
+                                    $value = (int)($_REQUEST[$fieldname . "_smaller"]);
                                 }
                                 if ($value > 0) {
                                     $search_url[] = $fieldname . "_smaller=" . $value;
@@ -279,15 +279,15 @@ switch ($op) {
                                 break;
 
                             default:
-                                if (isset($_REQUEST[$fieldname . "_larger"]) && intval($_REQUEST[$fieldname . "_larger"]) != 0) {
-                                    $value = intval($_REQUEST[$fieldname . "_larger"]);
+                                if (isset($_REQUEST[$fieldname . "_larger"]) && (int)($_REQUEST[$fieldname . "_larger"]) != 0) {
+                                    $value = (int)($_REQUEST[$fieldname . "_larger"]);
                                     $search_url[] = $fieldname . "_larger=" . $value;
                                     $searchvars[] = $fieldname;
                                     $criteria->add(new Criteria($fieldname, $value, ">="));
                                 }
 
-                                if (isset($_REQUEST[$fieldname . "_smaller"]) && intval($_REQUEST[$fieldname . "_smaller"]) != 0) {
-                                    $value = intval($_REQUEST[$fieldname . "_smaller"]);
+                                if (isset($_REQUEST[$fieldname . "_smaller"]) && (int)($_REQUEST[$fieldname . "_smaller"]) != 0) {
+                                    $value = (int)($_REQUEST[$fieldname . "_smaller"]);
                                     $search_url[] = $fieldname . "_smaller=" . $value;
                                     $searchvars[] = $fieldname;
                                     $criteria->add(new Criteria($fieldname, $value, "<="));
@@ -297,7 +297,7 @@ switch ($op) {
 
                         if (isset($_REQUEST[$fieldname]) && !isset($_REQUEST[$fieldname . "_smaller"]) && !isset($_REQUEST[$fieldname . "_larger"])) {
                             if (!is_array($_REQUEST[$fieldname])) {
-                                $value = intval($_REQUEST[$fieldname]);
+                                $value = (int)($_REQUEST[$fieldname]);
                                 $search_url[] = $fieldname . "=" . $value;
                                 $criteria->add(new Criteria($fieldname, $value, "="));
                             } else {
@@ -370,10 +370,10 @@ switch ($op) {
         $order = $_REQUEST['order'] == 0 ? "ASC" : "DESC";
         $criteria->setOrder($order);
 
-        $limit = empty($_REQUEST['limit']) ? $limit_default : intval($_REQUEST['limit']);
+        $limit = empty($_REQUEST['limit']) ? $limit_default : (int)($_REQUEST['limit']);
         $criteria->setLimit($limit);
 
-        $start = isset($_REQUEST['start']) ? intval($_REQUEST['start']) : 0;
+        $start = isset($_REQUEST['start']) ? (int)($_REQUEST['start']) : 0;
         $criteria->setStart($start);
 
         list($users, $profiles, $total_users) = $profile_handler->search($criteria, $searchvars, $searchgroups);

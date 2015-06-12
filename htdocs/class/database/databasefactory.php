@@ -20,7 +20,7 @@ use Xoops\Core\Database\Factory;
  * @package   DatabaseFactory
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    readheadedrod <redheadedrod@hotmail.com>
- * @copyright 2013-2014 The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release:2.6
  * @link      http://xoops.org

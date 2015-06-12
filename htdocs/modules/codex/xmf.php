@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Richard Griffith <richard@geekwright.com>
  * @author          trabis <lusopoemas@gmail.com>
@@ -24,7 +24,7 @@ use Xmf\Request;
 use Xmf\Module\Permission;
 use Xmf\Module\Session;
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
@@ -106,8 +106,8 @@ You should have received a copy of the GNU General Public License,
 and the GNU Lesser General Public License along with this program.
 If not, see http://www.gnu.org/licenses/.
 
-You may contact the copyright holder through
-http://sourceforge.net/projects/xoops/
+You may contact the copyright holder through XOOPS Project:
+http://xoops.org
 EOT;
 
 echo '<h4>Extracted Description</h4>';

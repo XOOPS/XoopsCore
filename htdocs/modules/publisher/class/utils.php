@@ -12,7 +12,7 @@
 use Xmf\Module\Session;
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Publisher
  * @since           1.0
@@ -374,7 +374,7 @@ class PublisherUtils
 
     public static function IsUserAdmin()
     {
-        return Publisher::getInstance()->IsUserAdmin();
+        return Publisher::getInstance()->isUserAdmin();
     }
 
     /**
@@ -723,12 +723,12 @@ class PublisherUtils
 
         $publisher = Publisher::getInstance();
 
-        $itemid = isset($_POST['itemid']) ? intval($_POST['itemid']) : 0;
+        $itemid = isset($_POST['itemid']) ? (int)($_POST['itemid']) : 0;
         $uid = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
         $session = new Session();
         $session->set('publisher_file_filename', isset($_POST['item_file_name']) ? $_POST['item_file_name'] : '');
         $session->set('publisher_file_description', isset($_POST['item_file_description']) ? $_POST['item_file_description'] : '');
-        $session->set('publisher_file_status', isset($_POST['item_file_status']) ? intval($_POST['item_file_status']) : 1);
+        $session->set('publisher_file_status', isset($_POST['item_file_status']) ? (int)($_POST['item_file_status']) : 1);
         $session->set('publisher_file_uid', $uid);
         $session->set('publisher_file_itemid', $itemid);
 
@@ -739,7 +739,7 @@ class PublisherUtils
         $fileObj = $publisher->getFileHandler()->create();
         $fileObj->setVar('name', isset($_POST['item_file_name']) ? $_POST['item_file_name'] : '');
         $fileObj->setVar('description', isset($_POST['item_file_description']) ? $_POST['item_file_description'] : '');
-        $fileObj->setVar('status', isset($_POST['item_file_status']) ? intval($_POST['item_file_status']) : 1);
+        $fileObj->setVar('status', isset($_POST['item_file_status']) ? (int)($_POST['item_file_status']) : 1);
         $fileObj->setVar('uid', $uid);
         $fileObj->setVar('itemid', $itemObj->getVar('itemid'));
         $fileObj->setVar('datesub', time());
@@ -986,10 +986,10 @@ class PublisherUtils
      */
     public static function stringToInt($string = '', $length = 5)
     {
-        for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= intval($string[$i]), ++$i) {
+        for ($i = 0, $final = "", $string = substr(md5($string), $length); $i < $length; $final .= (int)($string[$i]), ++$i) {
         }
 
-        return intval($final);
+        return (int)($final);
     }
 
     /**

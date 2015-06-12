@@ -15,7 +15,7 @@ use Xoops\Core\FixedGroups;
 /**
  * System admin
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
@@ -44,7 +44,7 @@ if ($system->checkRight()) {
             // Get System permission handler
             $sysperm_handler = $xoops->getHandlerGroupperm();
 
-            $category = !empty($modversion['category']) ? intval($modversion['category']) : 0;
+            $category = !empty($modversion['category']) ? (int)($modversion['category']) : 0;
             unset($modversion);
 
             if ($category > 0) {
@@ -128,7 +128,7 @@ if (false != $error) {
 
             if ($modversion['hasAdmin']) {
                 if ($xoops->getModuleConfig('active_' . $directory)) {
-                    $category = isset($modversion['category']) ? intval($modversion['category']) : 0;
+                    $category = isset($modversion['category']) ? (int)($modversion['category']) : 0;
                     if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                         $menu['file'] = $directory;
                         $menu['title'] = trim($modversion['name']);
@@ -137,7 +137,7 @@ if (false != $error) {
                         $menu['status'] = true;
                     }
                 } else {
-                    $category = isset($modversion['category']) ? intval($modversion['category']) : 0;
+                    $category = isset($modversion['category']) ? (int)($modversion['category']) : 0;
                     if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                         $menu['file'] = $directory;
                         $menu['title'] = trim($modversion['name']);

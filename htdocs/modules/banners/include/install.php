@@ -12,7 +12,7 @@
 /**
  * banners module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
@@ -158,7 +158,7 @@ function xoops_module_install_banners(&$module)
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('bannerclient_name', $client_name));
     $criteria->setLimit(1);
-    $client_arr = $client_Handler->getall($criteria);
+    $client_arr = $client_Handler->getAll($criteria);
     if (count($client_arr) == 0) {
         $obj = $client_Handler->create();
         $obj->setVar("bannerclient_uid", 0);

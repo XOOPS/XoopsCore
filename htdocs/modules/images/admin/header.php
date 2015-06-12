@@ -15,7 +15,7 @@ use Xoops\Core\Request;
 /**
  * images module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -34,7 +34,7 @@ $op = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
 $imgcat_id = Request::getInt('imgcat_id', 0);
 
-$redirect = basename($xoops->getenv('SCRIPT_NAME'));
+$redirect = basename($xoops->getEnv('SCRIPT_NAME'));
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }

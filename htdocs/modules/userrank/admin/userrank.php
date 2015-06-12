@@ -12,7 +12,7 @@
 /**
  * User rank Manager
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         userrank
  * @since           2.6.0
@@ -61,7 +61,7 @@ switch ($op) {
         $criteria->setLimit($nb_rank);
         // Count rank
         $userrank_count = $userrank_Handler->getCount($criteria);
-        $userrank_arr = $userrank_Handler->getall($criteria);
+        $userrank_arr = $userrank_Handler->getAll($criteria);
         // Assign Template variables
         $xoops->tpl()->assign('userrank_count', $userrank_count);
         if ($userrank_count > 0) {

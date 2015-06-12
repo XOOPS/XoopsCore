@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         include
  * @since           2.0.0
@@ -50,6 +50,10 @@ if (false != $user) {
     /* @var $user XoopsUser */
     if (0 == $user->getVar('level')) {
         $xoops->redirect($xoops_url . '/index.php', 5, XoopsLocale::E_SELECTED_USER_DEACTIVATED_OR_NOT_ACTIVE);
+        exit();
+    }
+    if (in_array(FixedGroups::REMOVED, $user->getGroups())) {
+        $xoops->redirect($xoops_url . '/index.php', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         exit();
     }
     if ($xoops->getConfig('closesite') == 1) {

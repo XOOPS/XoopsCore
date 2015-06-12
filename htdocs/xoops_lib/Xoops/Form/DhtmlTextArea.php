@@ -19,7 +19,7 @@ namespace Xoops\Form;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Vinod <smartvinu@gmail.com>
- * @copyright 2001-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2001-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -192,7 +192,7 @@ class DhtmlTextArea extends TextArea
             } else {
                 $xoops->theme()->addScript('/class/textsanitizer/image/image.js', array('type' => 'text/javascript'));
             }
-            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . intval($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
+            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int)($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
             $ret .= "<br />" . "<div id='" . $this->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $this->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
         }
         // Load javascript

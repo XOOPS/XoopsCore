@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
@@ -137,9 +137,9 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
      */
     public function deleteByGroup($gperm_groupid, $gperm_modid = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('gperm_groupid', intval($gperm_groupid)));
+        $criteria = new CriteriaCompo(new Criteria('gperm_groupid', (int)($gperm_groupid)));
         if (isset($gperm_modid)) {
-            $criteria->add(new Criteria('gperm_modid', intval($gperm_modid)));
+            $criteria->add(new Criteria('gperm_modid', (int)($gperm_modid)));
         }
         return $this->deleteAll($criteria);
     }
@@ -155,11 +155,11 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
      */
     public function deleteByModule($gperm_modid, $gperm_name = null, $gperm_itemid = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('gperm_modid', intval($gperm_modid)));
+        $criteria = new CriteriaCompo(new Criteria('gperm_modid', (int)($gperm_modid)));
         if (isset($gperm_name)) {
             $criteria->add(new Criteria('gperm_name', $gperm_name));
             if (isset($gperm_itemid)) {
-                $criteria->add(new Criteria('gperm_itemid', intval($gperm_itemid)));
+                $criteria->add(new Criteria('gperm_itemid', (int)($gperm_itemid)));
             }
         }
         return $this->deleteAll($criteria);
@@ -199,7 +199,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
         $criteria = new CriteriaCompo(new Criteria('gperm_modid', $gperm_modid));
         $criteria->add($criteria_group);
         $criteria->add(new Criteria('gperm_name', $gperm_name));
-        $gperm_itemid = intval($gperm_itemid);
+        $gperm_itemid = (int)($gperm_itemid);
         if ($gperm_itemid > 0) {
             $criteria->add(new Criteria('gperm_itemid', $gperm_itemid));
         }
@@ -242,7 +242,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
         $criteria = new CriteriaCompo(new Criteria('gperm_name', $gperm_name));
-        $criteria->add(new Criteria('gperm_modid', intval($gperm_modid)));
+        $criteria->add(new Criteria('gperm_modid', (int)($gperm_modid)));
         if (is_array($gperm_groupid)) {
             $criteria2 = new CriteriaCompo();
             foreach ($gperm_groupid as $gid) {
@@ -250,7 +250,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
             }
             $criteria->add($criteria2);
         } else {
-            $criteria->add(new Criteria('gperm_groupid', intval($gperm_groupid)));
+            $criteria->add(new Criteria('gperm_groupid', (int)($gperm_groupid)));
         }
         $perms = $this->getObjects($criteria, true);
         foreach (array_keys($perms) as $i) {
@@ -272,8 +272,8 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
         $criteria = new CriteriaCompo(new Criteria('gperm_name', $gperm_name));
-        $criteria->add(new Criteria('gperm_itemid', intval($gperm_itemid)));
-        $criteria->add(new Criteria('gperm_modid', intval($gperm_modid)));
+        $criteria->add(new Criteria('gperm_itemid', (int)($gperm_itemid)));
+        $criteria->add(new Criteria('gperm_modid', (int)($gperm_modid)));
         $perms = $this->getObjects($criteria, true);
         foreach (array_keys($perms) as $i) {
             $ret[] = $perms[$i]->getVar('gperm_groupid');

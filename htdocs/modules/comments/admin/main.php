@@ -12,7 +12,7 @@
 /**
  * Comments Manager
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         comments
@@ -46,10 +46,10 @@ $start = 0;
 $status_array[0] = _AM_COMMENTS_FORM_ALL_STATUS;
 
 $comments = array();
-$status = (!isset($_REQUEST['status']) || !in_array(intval($_REQUEST['status']), array_keys($status_array))) ? 0
-    : intval($_REQUEST['status']);
+$status = (!isset($_REQUEST['status']) || !in_array((int)($_REQUEST['status']), array_keys($status_array))) ? 0
+    : (int)($_REQUEST['status']);
 
-$module = !isset($_REQUEST['module']) ? 0 : intval($_REQUEST['module']);
+$module = !isset($_REQUEST['module']) ? 0 : (int)($_REQUEST['module']);
 
 $modules_array = array();
 $module_handler = $xoops->getHandlerModule();

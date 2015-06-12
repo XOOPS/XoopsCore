@@ -16,7 +16,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Groups Manager
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
@@ -93,7 +93,7 @@ switch ($op) {
             $edit_delete = '<a href="admin.php?fct=groups&amp;op=groups_edit&amp;groups_id=' . $groups_id . '">'
                 . '<img src="./images/icons/edit.png" border="0" alt="' . SystemLocale::EDIT_GROUP
                 . '" title="' . SystemLocale::EDIT_GROUP . '"></a>';
-            if (!in_array($group->getVar("groupid"), array(FixedGroups::ADMIN, FixedGroups::USERS, FixedGroups::ANONYMOUS))
+            if (!in_array($group->getVar("groupid"), array(FixedGroups::ADMIN, FixedGroups::USERS, FixedGroups::ANONYMOUS, FixedGroups::REMOVED))
             ) {
                 $groups['delete'] = 1;
                 $edit_delete .= '<a href="admin.php?fct=groups&amp;op=groups_delete&amp;groups_id=' . $groups_id . '">'

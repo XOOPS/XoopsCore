@@ -16,7 +16,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Blocks Administration
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Kazumi Ono (AKA onokazu)
  * @package         system
@@ -52,7 +52,7 @@ $sel = array(
     'selvis' => -1
 );
 foreach ($sel as $key => $value) {
-    $_{$key} = isset($_COOKIE[$key]) ? intval($_COOKIE[$key]) : $value;
+    $_{$key} = isset($_COOKIE[$key]) ? (int)($_COOKIE[$key]) : $value;
     ${$key} = $system->cleanVars($method, $key, $_{$key}, 'int');
     setcookie($key, ${$key});
 }
@@ -65,7 +65,7 @@ if ($type == 'preview') {
 if (isset($_GET['op'])) {
     if ($_GET['op'] == "edit" || $_GET['op'] == "delete" || $_GET['op'] == "delete_ok" || $_GET['op'] == "clone") {
         $op = $_GET['op'];
-        $bid = isset($_GET['bid']) ? intval($_GET['bid']) : 0;
+        $bid = isset($_GET['bid']) ? (int)($_GET['bid']) : 0;
     }
 }
 

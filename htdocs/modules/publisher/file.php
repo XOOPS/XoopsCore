@@ -59,7 +59,7 @@ switch ($op) {
         break;
 
     case "modify":
-        $fileid = isset($_POST['fileid']) ? intval($_POST['fileid']) : 0;
+        $fileid = isset($_POST['fileid']) ? (int)($_POST['fileid']) : 0;
 
         // Creating the file object
         if ($fileid != 0) {

@@ -34,9 +34,9 @@ class PublisherFormDateTime extends Xoops\Form\ElementTray
     public function __construct($caption, $name, $size = 15, $value = 0)
     {
         parent::__construct($caption, '&nbsp;');
-        $value = intval($value);
+        $value = (int)($value);
         $value = ($value > 0) ? $value : time();
-        $datetime = getDate($value);
+        $datetime = getdate($value);
         $this->addElement(new Xoops\Form\DateSelect('', $name . '[date]', $size, $value));
         $timearray = array();
         for ($i = 0; $i < 24; ++$i) {

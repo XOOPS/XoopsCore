@@ -13,7 +13,7 @@ use Xoops\Core\Request;
 
 /**
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -21,7 +21,7 @@ use Xoops\Core\Request;
 // this is located in include, otherwise normal/anon users do not have authority to run
 include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
-$xoops = Xoops::getinstance();
+$xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
 
 $text = Request::getString('text', 'error');
@@ -47,7 +47,7 @@ switch (strtoupper($ecChar)) {
         break;
 }
 $qrCode->setErrorCorrection($ec);
-$qrCode->setModuleSize(intval($configs['qrcode_mps'])-1);
+$qrCode->setModuleSize((int)($configs['qrcode_mps'])-1);
 $qrCode->setPadding($configs['qrcode_margin']*$qrCode->getModuleSize());
 $qrCode->setBackgroundColor(normalizeColor($configs['qrcode_bgcolor']));
 $qrCode->setForegroundColor(normalizeColor($configs['qrcode_fgcolor']));

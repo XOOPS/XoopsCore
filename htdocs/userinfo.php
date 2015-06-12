@@ -12,7 +12,7 @@
 /**
  * XOOPS User
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package         core
  * @since           2.0.0
@@ -29,7 +29,7 @@ $xoops->preload()->triggerEvent('core.userinfo.start');
 $xoops->loadLanguage('user');
 include_once $xoops->path('modules/system/constants.php');
 
-$uid = intval($_GET['uid']);
+$uid = (int)($_GET['uid']);
 if ($uid <= 0) {
     $xoops->redirect('index.php', 3, XoopsLocale::E_NO_USER_SELECTED);
 }
@@ -210,13 +210,13 @@ foreach (array_keys($modules) as $i) {
                             = $xoops->url("modules/" . $modules[$i]->getVar('dirname') . "/" . $result['link']);
                     }
 
-                    $results[$k]['title'] = $myts->htmlspecialchars($result['title']);
-                    $results[$k]['title_highligh'] = $myts->htmlspecialchars($result['title']);
+                    $results[$k]['title'] = $myts->htmlSpecialChars($result['title']);
+                    $results[$k]['title_highligh'] = $myts->htmlSpecialChars($result['title']);
                     if (!empty($result['time'])) {
                         $results[$k]['time'] = $result['time'] ? XoopsLocale::formatTimestamp($result['time']) : '';
                     }
                     if (!empty($results[$k]['uid'])) {
-                        $results[$k]['uid'] = @intval($results[$k]['uid']);
+                        $results[$k]['uid'] = @(int)($results[$k]['uid']);
                         $results[$k]['uname'] = XoopsUser::getUnameFromId($results[$k]['uid'], true);
                     }
                 }

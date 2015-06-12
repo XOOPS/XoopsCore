@@ -12,5 +12,3 @@ define('_MD_PROTECTOR_FMT_JAILTIME','Y-m-j H:i:s') ;
 define('_MD_PROTECTOR_BANDWIDTHLIMITED','Deze site is op moment overbezocht. Probeert u het aub later nog eens.') ;
 define('_MD_PROTECTOR_TURNJAVASCRIPTON','Zet JavaScript AAN') ;
 define('_MD_PROTECTOR_DENYBYRBL','Protector weigert uw bericht, omdat uw IP is geregistreerd in RBL, indien u het hier niet mee eens bent, neem contact op met de webmaster') ;
-
-?>

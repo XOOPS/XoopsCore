@@ -12,7 +12,7 @@
 /**
  * XOOPS TextSanitizer extension
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
@@ -26,7 +26,7 @@
  * Abstract class for extensions
  *
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright       The Xoops Project
+ * @copyright       XOOPS Project (http://xoops.org)
  */
 class MyTextSanitizerExtension
 {
@@ -152,7 +152,7 @@ class MyTextSanitizerExtension
  * @author Kazumi Ono <onokazu@xoops.org>
  * @author Taiwen Jiang <phppp@users.sourceforge.net>
  * @author Goghs Cheng
- * @copyright (c) 2000-2003 The Xoops Project - www.xoops.org
+ * @copyright (c) 2000-2003 XOOPS Project (http://xoops.org)
  */
 class MyTextSanitizer
 {

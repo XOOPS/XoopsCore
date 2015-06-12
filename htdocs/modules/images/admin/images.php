@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * images module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
@@ -132,7 +132,7 @@ switch ($op) {
                 if (!$xoops->security()->check()) {
                     $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 3, implode('<br />', $xoops->security()->getErrors()));
                 }
-                $category = $helper->getHandlerCategories()->get($obj->getvar('imgcat_id'));
+                $category = $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'));
 
                 if ($helper->getHandlerImages()->delete($obj)) {
                     if ($category->getVar('imgcat_storetype') == 'db') {
@@ -143,7 +143,7 @@ switch ($op) {
                     $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 2, XoopsLocale::S_DATABASE_UPDATED);
                 }
             } else {
-                $category = $helper->getHandlerCategories()->get($obj->getvar('imgcat_id'));
+                $category = $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'));
                 if ($category->getVar('imgcat_storetype') == 'db') {
                     $img = \XoopsBaseConfig::get('url') . '/image.php?id=' . $image_id;
                 } else {

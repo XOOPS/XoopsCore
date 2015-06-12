@@ -23,7 +23,7 @@ use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
  * @category  SystemModule
  * @package   SystemModule
  * @author    Andricq Nicolas (AKA MusS)
- * @copyright 2000-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -1087,14 +1087,14 @@ class SystemModule
                 if (!$config_handler->deleteConfig($config)) {
                     $this->trace[]['sub'] = '<span class="red">'
                         . SystemLocale::E_CONFIG_DATA_NOT_DELETED
-                        . sprintf(SystemLocale::F_CONFIG_ID, "<strong>" . $config->getvar('conf_id') . "</strong>")
+                        . sprintf(SystemLocale::F_CONFIG_ID, "<strong>" . $config->getVar('conf_id') . "</strong>")
                         . '</span>';
                     // save the name of config failed to delete for later use
-                    $this->config_delng[] = $config->getvar('conf_name');
+                    $this->config_delng[] = $config->getVar('conf_name');
                 } else {
-                    $this->config_old[$config->getvar('conf_name')]['value'] = $config->getvar('conf_value', 'N');
-                    $this->config_old[$config->getvar('conf_name')]['formtype'] = $config->getvar('conf_formtype');
-                    $this->config_old[$config->getvar('conf_name')]['valuetype'] = $config->getvar('conf_valuetype');
+                    $this->config_old[$config->getVar('conf_name')]['value'] = $config->getVar('conf_value', 'N');
+                    $this->config_old[$config->getVar('conf_name')]['formtype'] = $config->getVar('conf_formtype');
+                    $this->config_old[$config->getVar('conf_name')]['valuetype'] = $config->getVar('conf_valuetype');
                     $this->trace[]['sub'] = SystemLocale::S_CONFIG_DATA_DELETED
                         . sprintf(SystemLocale::F_CONFIG_ID, "<strong>" . $config->getVar('conf_id') . "</strong>");
                 }
@@ -1109,7 +1109,7 @@ class SystemModule
      *
      * @return void
      */
-    public function installconfigs(XoopsModule $module)
+    public function installConfigs(XoopsModule $module)
     {
         $xoops = Xoops::getInstance();
         // now reinsert them with the new settings

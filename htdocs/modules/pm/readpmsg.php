@@ -12,7 +12,7 @@
 /**
  * Private message module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
@@ -30,7 +30,7 @@ if (!$xoops->isUser()) {
 }
 $valid_op_requests = array('out', 'save', 'in');
 $_REQUEST['op'] = !empty($_REQUEST['op']) && in_array($_REQUEST['op'], $valid_op_requests) ? $_REQUEST['op'] : 'in' ;
-$msg_id = empty($_REQUEST['msg_id']) ? 0 : intval($_REQUEST['msg_id']);
+$msg_id = empty($_REQUEST['msg_id']) ? 0 : (int)($_REQUEST['msg_id']);
 /* @var $pm_handler PmMessageHandler */
 $pm_handler = $xoops->getModuleHandler('message');
 if ($msg_id > 0) {
@@ -107,8 +107,8 @@ if (is_object($pm) && !empty($_POST['action'])) {
     $res_message = isset($res_message) ? $res_message : (($res) ? _PM_ACTION_DONE : _PM_ACTION_ERROR);
     $xoops->redirect('viewpmsg.php?op=' . htmlspecialchars($_REQUEST['op']), 2, $res_message);
 }
-$start = !empty($_GET['start']) ? intval($_GET['start']) : 0;
-$total_messages = !empty($_GET['total_messages']) ? intval($_GET['total_messages']) : 0;
+$start = !empty($_GET['start']) ? (int)($_GET['start']) : 0;
+$total_messages = !empty($_GET['total_messages']) ? (int)($_GET['total_messages']) : 0;
 $xoops->header('module:pm/pm_readpmsg.tpl');
 
 if (!is_object($pm)) {

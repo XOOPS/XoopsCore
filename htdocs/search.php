@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * XOOPS global search
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package         core
  * @since           2.6.0
@@ -24,7 +24,7 @@ use Xoops\Core\Request;
  * @todo            Modularize; Both search algorithms and interface will be redesigned
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $uri = '';

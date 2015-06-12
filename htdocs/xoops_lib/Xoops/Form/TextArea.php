@@ -17,7 +17,7 @@ namespace Xoops\Form;
  * @category  Xoops\Form\TextArea
  * @package   Xoops\Form
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2001-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -60,8 +60,8 @@ class TextArea extends Element
     {
         $this->setCaption($caption);
         $this->setAttribute('name', $name);
-        $this->setAttribute('rows', intval($rows));
-        $this->setAttribute('cols', intval($cols));
+        $this->setAttribute('rows', (int)($rows));
+        $this->setAttribute('cols', (int)($cols));
         $this->setValue($value);
         $this->setAttribute('placeholder', $placeholder);
 

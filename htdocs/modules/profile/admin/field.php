@@ -12,7 +12,7 @@
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -131,7 +131,7 @@ switch ($op) {
             foreach ($_POST['field_ids'] as $field_id) {
                 if ($oldweight[$field_id] != $weight[$field_id] || $oldcat[$field_id] != $category[$field_id]) {
                     //if field has changed
-                    $ids[] = intval($field_id);
+                    $ids[] = (int)($field_id);
                 }
             }
             if (count($ids) > 0) {
@@ -142,8 +142,8 @@ switch ($op) {
                     true
                 );
                 foreach ($ids as $i) {
-                    $fields[$i]->setVar('field_weight', intval($weight[$i]));
-                    $fields[$i]->setVar('cat_id', intval($category[$i]));
+                    $fields[$i]->setVar('field_weight', (int)($weight[$i]));
+                    $fields[$i]->setVar('cat_id', (int)($category[$i]));
                     if (!$field_handler->insertFields($fields[$i])) {
                         $errors = array_merge($errors, $fields[$i]->getErrors());
                     }
@@ -250,8 +250,8 @@ switch ($op) {
             if (count($perm_arr) > 0) {
                 foreach ($perm_arr as $perm) {
                     $criteria = new CriteriaCompo(new Criteria('gperm_name', $perm));
-                    $criteria->add(new Criteria('gperm_itemid', intval($obj->getVar('field_id'))));
-                    $criteria->add(new Criteria('gperm_modid', intval($xoops->module->getVar('mid'))));
+                    $criteria->add(new Criteria('gperm_itemid', (int)($obj->getVar('field_id'))));
+                    $criteria->add(new Criteria('gperm_modid', (int)($xoops->module->getVar('mid'))));
                     if (isset($_REQUEST[$perm]) && is_array($_REQUEST[$perm])) {
                         $perms = $groupperm_handler->getObjects($criteria);
                         if (count($perms) > 0) {
@@ -262,11 +262,11 @@ switch ($op) {
                             $groups = array();
                         }
                         foreach ($_REQUEST[$perm] as $groupid) {
-                            $groupid = intval($groupid);
+                            $groupid = (int)($groupid);
                             if (!isset($groups[$groupid])) {
                                 $perm_obj = $groupperm_handler->create();
                                 $perm_obj->setVar('gperm_name', $perm);
-                                $perm_obj->setVar('gperm_itemid', intval($obj->getVar('field_id')));
+                                $perm_obj->setVar('gperm_itemid', (int)($obj->getVar('field_id')));
                                 $perm_obj->setVar('gperm_modid', $xoops->module->getVar('mid'));
                                 $perm_obj->setVar('gperm_groupid', $groupid);
                                 $groupperm_handler->insert($perm_obj);

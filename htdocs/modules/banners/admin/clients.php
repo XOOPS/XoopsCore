@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * banners module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
@@ -66,7 +66,7 @@ switch ($op) {
         $criteria->setLimit($nb_clients);
 
         $client_count = $client_Handler->getCount($criteria);
-        $client_arr = $client_Handler->getall($criteria);
+        $client_arr = $client_Handler->getAll($criteria);
 
         $xoops->tpl()->assign('client_count', $client_count);
 
@@ -169,7 +169,7 @@ switch ($op) {
                 }
                 if ($client_Handler->delete($obj)) {
                     // Delete client banners
-                    $banner_arr = $banner_Handler->getall(new Criteria('banner_cid', $cid));
+                    $banner_arr = $banner_Handler->getAll(new Criteria('banner_cid', $cid));
                     foreach (array_keys($banner_arr) as $i) {
                         $obj = $banner_Handler->get($banner_arr[$i]->getVar('banner_bid'));
                         $namefile = substr_replace(

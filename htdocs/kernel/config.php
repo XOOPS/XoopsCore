@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
@@ -203,7 +203,7 @@ class XoopsConfigHandler extends XoopsObjectHandler
     public function getConfigsByModule($module = 0)
     {
         $ret = array();
-        $criteria = new Criteria('conf_modid', intval($module));
+        $criteria = new Criteria('conf_modid', (int)($module));
         $configs = $this->getConfigs($criteria, true);
         if (is_array($configs)) {
             foreach (array_keys($configs) as $i) {
@@ -231,9 +231,9 @@ class XoopsConfigHandler extends XoopsObjectHandler
             return $_cachedConfigs[$module][$category];
         } else {
             $ret = array();
-            $criteria = new CriteriaCompo(new Criteria('conf_modid', intval($module)));
+            $criteria = new CriteriaCompo(new Criteria('conf_modid', (int)($module)));
             if (!empty($category)) {
-                $criteria->add(new Criteria('conf_catid', intval($category)));
+                $criteria->add(new Criteria('conf_catid', (int)($category)));
             }
             $configs = $this->getConfigs($criteria, true);
             if (is_array($configs)) {

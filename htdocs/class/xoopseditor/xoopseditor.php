@@ -14,7 +14,7 @@
  *
  * @package         Xoopseditor
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.3.0
  */
@@ -126,7 +126,7 @@ class XoopsEditor extends Xoops\Form\TextArea
 /**
  * Editor handler
  *
- * @copyright The XOOPS project http://www.xoops.org/
+ * @copyright XOOPS Project (http://xoops.org)
  * @license GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package core
  * @since 2.3.0

@@ -24,7 +24,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author    Michael van Dam <mvandam@caltech.edu>
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2000-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -197,11 +197,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function getNotification($module_id, $category, $item_id, $event, $user_id)
     {
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('modid', intval($module_id)));
+        $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         $criteria->add(new Criteria('event', $event));
-        $criteria->add(new Criteria('uid', intval($user_id)));
+        $criteria->add(new Criteria('uid', (int)($user_id)));
         $objects = $this->getObjectsArray($criteria);
         if (count($objects) == 1) {
             return $objects[0];
@@ -225,11 +225,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function isSubscribed($category, $item_id, $event, $module_id, $user_id)
     {
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('modid', intval($module_id)));
+        $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         $criteria->add(new Criteria('event', $event));
-        $criteria->add(new Criteria('uid', intval($user_id)));
+        $criteria->add(new Criteria('uid', (int)($user_id)));
         return $this->getCount($criteria);
     }
 
@@ -326,12 +326,12 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function getSubscribedEvents($category, $item_id, $module_id, $user_id)
     {
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('modid', intval($module_id)));
+        $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
         if ($item_id) {
-            $criteria->add(new Criteria('itemid', intval($item_id)));
+            $criteria->add(new Criteria('itemid', (int)($item_id)));
         }
-        $criteria->add(new Criteria('uid', intval($user_id)));
+        $criteria->add(new Criteria('uid', (int)($user_id)));
         $results = $this->getObjectsArray($criteria, true);
         $ret = array();
         /* @var NotificationsNotification $result*/
@@ -355,10 +355,10 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
      */
     public function getByItemId($module_id, $item_id, $order = null, $status = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria = new CriteriaCompo(new Criteria('modid', (int)($module_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         if (isset($status)) {
-            $criteria->add(new Criteria('status', intval($status)));
+            $criteria->add(new Criteria('status', (int)($status)));
         }
         if (isset($order)) {
             $criteria->setOrder($order);
@@ -459,9 +459,9 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
             }
         }
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('modid', intval($module_id)));
+        $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         $criteria->add(new Criteria('event', $event));
         $mode_criteria = new CriteriaCompo();
         $mode_criteria->add(new Criteria('mode', NOTIFICATIONS_MODE_SENDALWAYS), 'OR');
@@ -471,7 +471,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (!empty($user_list)) {
             $user_criteria = new CriteriaCompo();
             foreach ($user_list as $user) {
-                $user_criteria->add(new Criteria('uid', intval($user)), 'OR');
+                $user_criteria->add(new Criteria('uid', (int)($user)), 'OR');
             }
             $criteria->add($user_criteria);
         }
@@ -524,7 +524,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
      **/
     public function unsubscribeByUser($user_id)
     {
-        $criteria = new Criteria('uid', intval($user_id));
+        $criteria = new Criteria('uid', (int)($user_id));
         return $this->deleteAll($criteria);
     }
 
@@ -555,10 +555,10 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
             $module_id = $xoops->module->getVar('mid');
         }
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('modid', intval($module_id)));
+        $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
-        $criteria->add(new Criteria('uid', intval($user_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
+        $criteria->add(new Criteria('uid', (int)($user_id)));
         if (!is_array($events)) {
             $events = array($events);
         }
@@ -581,7 +581,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
      **/
     public function unsubscribeByModule($module_id)
     {
-        $criteria = new Criteria('modid', intval($module_id));
+        $criteria = new Criteria('modid', (int)($module_id));
         return $this->deleteAll($criteria);
     }
 
@@ -597,9 +597,9 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function unsubscribeByItem($module_id, $category, $item_id)
     {
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('modid', intval($module_id)));
+        $criteria->add(new Criteria('modid', (int)($module_id)));
         $criteria->add(new Criteria('category', $category));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         return $this->deleteAll($criteria);
     }
 
@@ -616,7 +616,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
     public function doLoginMaintenance($user_id)
     {
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('uid', intval($user_id)));
+        $criteria->add(new Criteria('uid', (int)($user_id)));
         $criteria->add(new Criteria('mode', NOTIFICATIONS_MODE_WAITFORLOGIN));
 
         $notifications = $this->getObjectsArray($criteria, true);

@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
@@ -174,7 +174,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function destroy($uid)
     {
-        $criteria = new Criteria('online_uid', intval($uid));
+        $criteria = new Criteria('online_uid', (int)($uid));
         if (false === $this->deleteAll($criteria)) {
             return false;
         }
@@ -192,7 +192,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function gc($expire)
     {
-        $criteria = new Criteria('online_updated', time() - intval($expire), '<');
+        $criteria = new Criteria('online_updated', time() - (int)($expire), '<');
         if (false === $this->deleteAll($criteria)) {
             return false;
         }

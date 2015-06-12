@@ -23,7 +23,7 @@ use Xoops\Core\Logger;
  * @category  DebugbarLogger
  * @package   DebugbarLogger
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -628,7 +628,7 @@ class DebugbarLogger implements LoggerInterface
                     $channel = 'Blocks';
                     $msg = $message . ': ';
                     if ($context['cached']) {
-                        $msg .= sprintf(_MD_DEBUGBAR_CACHED, intval($context['cachetime']));
+                        $msg .= sprintf(_MD_DEBUGBAR_CACHED, (int)($context['cachetime']));
                     } else {
                         $msg .= _MD_DEBUGBAR_NOT_CACHED;
                     }

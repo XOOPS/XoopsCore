@@ -22,7 +22,7 @@ namespace Xmf\Module\Helper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2011-2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -193,7 +193,7 @@ class GenericHelper
             $this->configs =& $xoopsModuleConfig;
         } else {
             /* @var $config_handler XoopsConfigHandler */
-            $config_handler = xoops_gethandler('config');
+            $config_handler = xoops_getHandler('config');
             $this->configs = $config_handler->getConfigsByCat(
                 0, $this->getModule()->getVar('mid')
             );

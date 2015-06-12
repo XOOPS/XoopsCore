@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       2010-2014 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Xlanguage
  * @since           2.6.0
@@ -46,13 +46,13 @@ function xoops_module_update_xlanguage(XoopsModule $module, $version)
  *
  * @return bool
  */
-function xlanguage_mkdirs($pathname, $pathout = \XoopsBaseConfig::get('root-path'))
+function xlanguage_mkdirs($pathname, $pathout = null)
 {
     $xoops = Xoops::getInstance();
     $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
     $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-    $dest = $pathout;
+    $dest = ($pathout === null) ? \XoopsBaseConfig::get('root-path') : $pathout;
     $paths = explode('/', $pathname);
 
     foreach ($paths as $path) {

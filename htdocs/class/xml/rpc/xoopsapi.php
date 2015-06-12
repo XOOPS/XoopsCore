@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      xml
@@ -71,7 +71,7 @@ class XoopsApi extends XoopsXmlRpcApi
 					}
                     $story = new NewsStory();
                     $error = false;
-                    if (intval($this->params[4]) > 0) {
+                    if ((int)($this->params[4]) > 0) {
                         if (!$this->_checkAdmin()) {
                             // non admin users cannot publish
                             $error = true;
@@ -90,7 +90,7 @@ class XoopsApi extends XoopsXmlRpcApi
                     }
                     if (!$error) {
                         if (isset($post['categories']) && !empty($post['categories'][0])) {
-                            $story->setTopicId(intval($post['categories'][0]['categoryId']));
+                            $story->setTopicId((int)($post['categories'][0]['categoryId']));
                         } else {
                             $story->setTopicId(1);
                         }
@@ -272,10 +272,10 @@ class XoopsApi extends XoopsXmlRpcApi
 				$this->response->add(new XoopsXmlRpcFault(103));
 				return;
 			}
-            if (isset($this->params[4]) && intval($this->params[4]) > 0) {
-                $stories = NewsStory::getAllPublished(intval($this->params[3]), 0, $this->params[4]);
+            if (isset($this->params[4]) && (int)($this->params[4]) > 0) {
+                $stories = NewsStory::getAllPublished((int)($this->params[3]), 0, $this->params[4]);
             } else {
-                $stories = NewsStory::getAllPublished(intval($this->params[3]));
+                $stories = NewsStory::getAllPublished((int)($this->params[3]));
             }
             $scount = count($stories);
             $ret = array();

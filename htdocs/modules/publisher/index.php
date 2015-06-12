@@ -44,7 +44,7 @@ if ($totalCategories == 0) {
 
 $xoops->header('module:publisher/publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl');
 $xoopsTpl = $xoops->tpl();
-XoopsLoad::LoadFile($publisher->path('footer.php'));
+XoopsLoad::loadFile($publisher->path('footer.php'));
 
 $gperm_handler = $xoops->getHandlerGroupperm();
 
@@ -72,7 +72,7 @@ if ($publisher->getConfig('idxcat_display_last_item') == 1) {
 }
 
 // Max size of the title in the last item column
-$lastitemsize = intval($publisher->getConfig('idxcat_last_item_size'));
+$lastitemsize = (int)($publisher->getConfig('idxcat_last_item_size'));
 
 $idxcat_show_subcats = $publisher->getConfig('idxcat_show_subcats');
 // Hide sub categories in main page only - hacked by Mowaffak

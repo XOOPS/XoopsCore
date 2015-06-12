@@ -44,8 +44,8 @@ header("Cache-Control: no-cache");
 header("Pragma: nocache");
 
 //getting the values
-$rating = intval($_REQUEST['rating']);
-$itemid = intval($_REQUEST['itemid']);
+$rating = (int)($_REQUEST['rating']);
+$itemid = (int)($_REQUEST['itemid']);
 
 $groups = $xoops->getUserGroups();
 $gperm_handler = $publisher->getGrouppermHandler();

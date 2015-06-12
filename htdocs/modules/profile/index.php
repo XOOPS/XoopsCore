@@ -14,7 +14,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -89,7 +89,7 @@ if ($op == 'logout') {
 }
 
 if ($op == 'actv') {
-    $id = intval($_GET['id']);
+    $id = (int)($_GET['id']);
     $actkey = trim($_GET['actkey']);
     $xoops->redirect("activate.php?op=actv&amp;id={$id}&amp;actkey={$actkey}", 1, '');
 }
@@ -103,7 +103,7 @@ if ($op == 'delete') {
             // users in the webmasters group may not be deleted
             $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }
-        $ok = !isset($_POST['ok']) ? 0 : intval($_POST['ok']);
+        $ok = !isset($_POST['ok']) ? 0 : (int)($_POST['ok']);
         if ($ok != 1) {
             $xoops->header();
             echo $xoops->confirm(

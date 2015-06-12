@@ -14,7 +14,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -27,7 +27,7 @@ include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 include_once $xoops->path('modules/system/constants.php');
 
-$uid = intval($_GET['uid']);
+$uid = (int)($_GET['uid']);
 if ($uid <= 0) {
     if ($xoops->isUser()) {
         $uid = $xoops->user->getVar('uid');
@@ -218,7 +218,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
                         if (!preg_match("/^http[s]*:\/\//i", $results[$i]['link'])) {
                             $results[$i]['link'] = \XoopsBaseConfig::get('url') . "/modules/" . $module->getVar('dirname', 'n') . "/" . $results[$i]['link'];
                         }
-                        $results[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
+                        $results[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
                         $results[$i]['time'] = $results[$i]['time'] ? XoopsLocale::formatTimestamp($results[$i]['time']) : '';
                     }
                     if ($count == 5) {

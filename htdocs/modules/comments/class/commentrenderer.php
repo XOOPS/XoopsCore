@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @author          trabis <lusopoemas@gmail.com>
@@ -361,7 +361,7 @@ class CommentsCommentRenderer
      */
     private function _getPosterName($poster_id)
     {
-        $poster['id'] = intval($poster_id);
+        $poster['id'] = (int)($poster_id);
         if ($poster['id'] > 0) {
             $user = Xoops::getInstance()->getHandlerMember()->getUser($poster['id']);
             if (!is_object($user)) {
@@ -382,7 +382,7 @@ class CommentsCommentRenderer
      */
     private function _getPosterArray($poster_id)
     {
-        $poster['id'] = intval($poster_id);
+        $poster['id'] = (int)($poster_id);
         if ($poster['id'] > 0) {
             $xoops = Xoops::getInstance();
             $member_handler = $xoops->getHandlerMember();

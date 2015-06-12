@@ -13,7 +13,7 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\FixedGroups;
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
@@ -75,7 +75,7 @@ class MenusMenuHandler extends XoopsPersistableObjectHandler
         ;
         $result = $this->db->query($sql);
         $i = 1;  //lets start at 1 please!
-        while (list($id) = $this->db->fetchrow($result)) {
+        while (list($id) = $this->db->fetchRow($result)) {
             $sql = "UPDATE " . $this->table
             . " SET weight = {$i}"
             . " WHERE id = {$id}"

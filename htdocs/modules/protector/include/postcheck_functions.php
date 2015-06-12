@@ -12,7 +12,7 @@
 /**
  * Protector
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         protector
  * @author          trabis <lusopoemas@gmail.com>
@@ -32,7 +32,7 @@ function protector_postcheck()
     if (substr(@XOOPS_VERSION, 6, 3) > 2.0 && stristr(@$_SERVER['REQUEST_URI'], 'modules/system/admin.php?fct=preferences')) {
         $module_handler = $xoops->getHandlerModule();
         /* @var $module XoopsModule */
-        $module = $module_handler->get(intval(@$_GET['mod']));
+        $module = $module_handler->get((int)(@$_GET['mod']));
         if (is_object($module)) {
             $module->getInfo();
         }
@@ -191,12 +191,12 @@ function protector_postcheck()
         // SPAM Check
         if ($xoops->isUser()) {
             if (!$xoops->user->isAdmin() && $conf['spamcount_uri4user']) {
-                $protector->spam_check(intval($conf['spamcount_uri4user']), $xoops->user->getVar('uid'));
+                $protector->spam_check((int)($conf['spamcount_uri4user']), $xoops->user->getVar('uid'));
             }
         } else {
             if ($conf['spamcount_uri4guest']) {
 
-                $protector->spam_check(intval($conf['spamcount_uri4guest']), 0);
+                $protector->spam_check((int)($conf['spamcount_uri4guest']), 0);
             }
         }
 

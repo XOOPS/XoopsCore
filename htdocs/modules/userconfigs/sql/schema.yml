@@ -209,8 +209,8 @@ tables:
                 columns: [confop_id]
                 unique: true
                 primary: true
-            confop_conf_id:
-                name: confop_conf_id
+            uconfop_conf_id:
+                name: uconfop_conf_id
                 columns: [conf_id]
                 unique: false
                 primary: false

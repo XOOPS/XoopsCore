@@ -23,13 +23,13 @@ include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 
-$itemid = isset($_POST['itemid']) ? intval($_POST['itemid']) : 0;
+$itemid = isset($_POST['itemid']) ? (int)($_POST['itemid']) : 0;
 
-$pick = isset($_GET['pick']) ? intval($_GET['pick']) : 0;
-$pick = isset($_POST['pick']) ? intval($_POST['pick']) : $pick;
+$pick = isset($_GET['pick']) ? (int)($_GET['pick']) : 0;
+$pick = isset($_POST['pick']) ? (int)($_POST['pick']) : $pick;
 
-$statussel = isset($_GET['statussel']) ? intval($_GET['statussel']) : 0;
-$statussel = isset($_POST['statussel']) ? intval($_POST['statussel']) : $statussel;
+$statussel = isset($_GET['statussel']) ? (int)($_GET['statussel']) : 0;
+$statussel = isset($_POST['statussel']) ? (int)($_POST['statussel']) : $statussel;
 
 $sortsel = isset($_GET['sortsel']) ? $_GET['sortsel'] : 'itemid';
 $sortsel = isset($_POST['sortsel']) ? $_POST['sortsel'] : $sortsel;
@@ -43,7 +43,7 @@ $groups = $xoops->getUserGroups();
 
 // Code for the page
 
-$startentry = isset($_GET['startentry']) ? intval($_GET['startentry']) : 0;
+$startentry = isset($_GET['startentry']) ? (int)($_GET['startentry']) : 0;
 
 PublisherUtils::cpHeader();
 //publisher_adminMenu(0, _AM_PUBLISHER_INDEX);

@@ -12,7 +12,7 @@
 /**
  * XOOPS page navigation
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
@@ -63,9 +63,9 @@ class XoopsPageNav
      */
     public function __construct($total_items, $items_perpage, $current_start, $start_name = "start", $extra_arg = "")
     {
-        $this->total = intval($total_items);
-        $this->perpage = intval($items_perpage);
-        $this->current = intval($current_start);
+        $this->total = (int)($total_items);
+        $this->perpage = (int)($items_perpage);
+        $this->current = (int)($current_start);
         $this->extra = $extra_arg;
         if ($extra_arg != '' && (substr($extra_arg, - 5) != '&amp;' || substr($extra_arg, - 1) != '&')) {
             $this->extra = '&amp;' . $extra_arg;
@@ -107,7 +107,7 @@ class XoopsPageNav
                 $first_text = '';
                 $first_url = '';
                 $counter = 1;
-                $current_page = intval(floor(($this->current + $this->perpage) / $this->perpage));
+                $current_page = (int)(floor(($this->current + $this->perpage) / $this->perpage));
                 while ($counter <= $total_pages) {
                     if ($counter == $current_page) {
                         $nav['text'] = $counter;
@@ -181,7 +181,7 @@ class XoopsPageNav
         $total_pages = ceil($this->total / $this->perpage);
         if ($total_pages > 1) {
             $counter = 1;
-            $current_page = intval(floor(($this->current + $this->perpage) / $this->perpage));
+            $current_page = (int)(floor(($this->current + $this->perpage) / $this->perpage));
             while ($counter <= $total_pages) {
                 $select['text'] = $counter;
                 $select['value'] = $this->url . (($counter - 1) * $this->perpage) . $this->extra;

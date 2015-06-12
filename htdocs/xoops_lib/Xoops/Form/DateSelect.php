@@ -17,7 +17,7 @@ namespace Xoops\Form;
  * @category  Xoops\Form\DateSelect
  * @package   Xoops\Form
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2001-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -36,7 +36,7 @@ class DateSelect extends Text
     public function __construct($caption, $name, $size = 2, $value = 0)
     {
         if ($value !== '') {
-            $value = ($value === 0) ? time() : intval($value);
+            $value = ($value === 0) ? time() : (int)($value);
         }
         parent::__construct($caption, $name, $size, 2, $value);
     }
@@ -53,7 +53,7 @@ class DateSelect extends Text
 
         $ele_value = (string) $this->getValue(false);
         $display_value = $ele_value;
-        if (0 < intval($ele_value)) {
+        if (0 < (int)($ele_value)) {
             $display_value = date(\XoopsLocale::getFormatShortDate(), $ele_value);
         }
 

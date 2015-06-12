@@ -14,7 +14,7 @@ use Xoops\Core\FixedGroups;
 /*
  * Xoops Cpanel oxygen menu
  *
- * @copyright   The XOOPS project http://sf.net/projects/xoops/
+ * @copyright   XOOPS project http://xoops.org
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @usbpackage  GUI
@@ -51,7 +51,7 @@ foreach ($dirlist as $file) {
         include $admin_dir . '/' . $file . '/xoops_version.php';
         if ($modversion['hasAdmin']) {
             if ($xoops->getModuleConfig('active_' . $file, 'system')) {
-                $category = isset($modversion['category']) ? intval($modversion['category']) : 0;
+                $category = isset($modversion['category']) ? (int)($modversion['category']) : 0;
                 if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                     $adminmenu[$index]['title'] = trim($modversion['name']);
                     $adminmenu[$index]['desc'] = trim($modversion['description']);

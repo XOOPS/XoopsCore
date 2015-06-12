@@ -11,12 +11,12 @@
 
 /**
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();

@@ -12,7 +12,7 @@
 /**
  * banners module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
@@ -72,9 +72,9 @@ function banners_blocks_edit($options) {
             $xoops = Xoops::getInstance();
             $client_Handler = $xoops->getModuleHandler('bannerclient','banners');
             $criteria = new CriteriaCompo();
-            $criteria->setSort('name');
+            $criteria->setSort('bannerclient_name');
             $criteria->setOrder('ASC');
-            $client_arr = $client_Handler->getall($criteria);
+            $client_arr = $client_Handler->getAll($criteria);
             $form .= "<option value=\"0\" " . (array_search(0, $options) === false ? '' : 'selected="selected"') . ">" . _MB_BANNERS_ALLCLIENTS . "</option>\n";
             foreach (array_keys($client_arr) as $i) {
                 $form .= "<option value=\"" . $client_arr[$i]->getVar('cid') . "\" " . (array_search($client_arr[$i]->getVar('cid'), $options) === false ? '' : 'selected="selected"') . ">" . $client_arr[$i]->getVar('name')."</option>\n";

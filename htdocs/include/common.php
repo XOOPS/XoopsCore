@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package   kernel
  */
@@ -185,7 +185,7 @@ if ($xoops->session()->has('xoopsUserId')) {
     $uid = $xoops->session()->get('xoopsUserId');
     $xoops->user = $member_handler->getUser($uid);
     if ($xoops->user instanceof \XoopsUser) {
-        if ((intval($xoops->user->getVar('last_login')) + 60 * 5) < time()) {
+        if (((int)($xoops->user->getVar('last_login')) + 60 * 5) < time()) {
             $user_handler = $xoops->getHandlerUser();
             $criteria = new Criteria('uid', $uid);
             $user_handler->updateAll('last_login', time(), $criteria, true);

@@ -2,7 +2,7 @@
 /**
  * Initial functions
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @since           1.00
@@ -126,11 +126,11 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
         {
             $xoops = Xoops::getInstance();
             if (!empty($GLOBALS["VAR_PREFIXU"]) && @defined($GLOBALS["VAR_PREFIXU"] . "_" . strtoupper($name))) {
-                return CONSTANT($GLOBALS["VAR_PREFIXU"] . "_" . strtoupper($name));
+                return constant($GLOBALS["VAR_PREFIXU"] . "_" . strtoupper($name));
             } elseif (!empty($xoops->module) && @defined(strtoupper($xoops->module->getVar("dirname", "n") . "_" . $name))) {
-                return CONSTANT(strtoupper($xoops->module->getVar("dirname", "n") . "_" . $name));
+                return constant(strtoupper($xoops->module->getVar("dirname", "n") . "_" . $name));
             } elseif (defined(strtoupper($name))) {
-                return CONSTANT(strtoupper($name));
+                return constant(strtoupper($name));
             } else {
                 return str_replace("_", " ", strtolower($name));
             }
@@ -246,4 +246,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     }
 
 endif;
-?>

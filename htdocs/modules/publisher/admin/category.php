@@ -56,8 +56,8 @@ switch ($op) {
 
     case "mod":
         //Added by fx2024
-        $nb_subcats = isset($_POST['nb_subcats']) ? intval($_POST['nb_subcats']) : 0;
-        $nb_subcats = $nb_subcats + (isset($_POST['nb_sub_yet']) ? intval($_POST['nb_sub_yet']) : 4);
+        $nb_subcats = isset($_POST['nb_subcats']) ? (int)($_POST['nb_subcats']) : 0;
+        $nb_subcats = $nb_subcats + (isset($_POST['nb_sub_yet']) ? (int)($_POST['nb_sub_yet']) : 4);
         //end of fx2024 code
 
         PublisherUtils::cpHeader();
@@ -102,10 +102,10 @@ switch ($op) {
                 $categoryObj->setVar('image', $_POST['image']);
             }
         }
-        $categoryObj->setVar('parentid', (isset($_POST['parentid'])) ? intval($_POST['parentid']) : 0);
+        $categoryObj->setVar('parentid', (isset($_POST['parentid'])) ? (int)($_POST['parentid']) : 0);
 
-        $applyall = isset($_POST['applyall']) ? intval($_POST['applyall']) : 0;
-        $categoryObj->setVar('weight', isset($_POST['weight']) ? intval($_POST['weight']) : 1);
+        $applyall = isset($_POST['applyall']) ? (int)($_POST['applyall']) : 0;
+        $categoryObj->setVar('weight', isset($_POST['weight']) ? (int)($_POST['weight']) : 1);
 
         // Groups and permissions
         $grpread = isset($_POST['groups_read']) ? $_POST['groups_read'] : array();
@@ -129,7 +129,7 @@ switch ($op) {
         if (isset($_POST['short_url'])) {
             $categoryObj->setVar('short_url', $_POST['short_url']);
         }
-        $categoryObj->setVar('moderator', intval($_POST['moderator']));
+        $categoryObj->setVar('moderator', (int)($_POST['moderator']));
         $categoryObj->setVar('description', $_POST['description']);
 
         if (isset($_POST['header'])) {
@@ -179,7 +179,7 @@ switch ($op) {
 
     case "addsubcats":
         $categoryid = 0;
-        $nb_subcats = intval($_POST['nb_subcats']) + $_POST['nb_sub_yet'];
+        $nb_subcats = (int)($_POST['nb_subcats']) + $_POST['nb_sub_yet'];
 
         $categoryObj = $publisher->getCategoryHandler()->create();
         $categoryObj->setVar('name', $_POST['name']);

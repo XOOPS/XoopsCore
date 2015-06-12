@@ -18,7 +18,7 @@
  * @package   CaptchaImageClass
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    redheadedrod <redheadedrod@hotmail.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   $Id$
  * @link      http://xoops.org
@@ -114,7 +114,7 @@ class XoopsCaptchaImageHandler
 
         if ($this->mode == "bmp") {
             $this->config["num_chars"] = 4;
-            $this->code = rand(pow(10, $this->config["num_chars"] - 1), intval(str_pad("9", $this->config["num_chars"], "9")));
+            $this->code = rand(pow(10, $this->config["num_chars"] - 1), (int)(str_pad("9", $this->config["num_chars"], "9")));
         } else {
             $raw_code = md5(uniqid(mt_rand(), 1));
             if (!empty($this->config["skip_characters"])) {
@@ -181,7 +181,7 @@ class XoopsCaptchaImageHandler
      *
      *  Originated by DuGris' SecurityImage
      *
-     * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
+     * @copyright       XOOPS Project (http://xoops.org)
      * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
      * @author          DuGris aka L. Jen <http://www.dugris.info> <DuGris@wanadoo.fr>
      * @version         $Id$
@@ -267,8 +267,8 @@ class XoopsCaptchaImageHandler
         imagedestroy($oImage);
 
         $this->height = $MaxCharHeight + 2;
-        $this->spacing = intval(($this->config["num_chars"] * $MaxCharWidth) / $this->config["num_chars"]);
-        $this->width = intval(($this->config["num_chars"] * $MaxCharWidth) + ($this->spacing / 2));
+        $this->spacing = (int)(($this->config["num_chars"] * $MaxCharWidth) / $this->config["num_chars"]);
+        $this->width = (int)(($this->config["num_chars"] * $MaxCharWidth) + ($this->spacing / 2));
     }
 
     /**

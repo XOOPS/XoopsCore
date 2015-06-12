@@ -5,7 +5,7 @@ use Xoops\Core\FixedGroups;
 /**
  * Cache handlers
  *
- * @copyright       The XOOPS project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @since           1.00
@@ -59,7 +59,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     {
         $xoops = Xoops::getInstance();
 
-        $name = ($name) ? $name : strval(time());
+        $name = ($name) ? $name : (string)(time());
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
         $cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('caches-path');
 		
@@ -202,4 +202,3 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
     }
 
 endif;
-?>

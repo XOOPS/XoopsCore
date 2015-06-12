@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * XlanguageLanguage
  *
- * @copyright       2010-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       2010-2014 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xlanguage
  * @since           2.6.0
@@ -65,16 +65,16 @@ class XlanguageLanguage extends XoopsObject
         foreach (parent::getValues() as $k => $v) {
             if ($k != 'dohtml') {
                 if ($this->vars[$k]['data_type'] == XOBJ_DTYPE_STIME || $this->vars[$k]['data_type'] == XOBJ_DTYPE_MTIME || $this->vars[$k]['data_type'] == XOBJ_DTYPE_LTIME) {
-                    $value = $system->CleanVars($_POST[$k], 'date', date('Y-m-d'), 'date') + $system->CleanVars($_POST[$k], 'time', date('u'), 'int');
+                    $value = $system->cleanVars($_POST[$k], 'date', date('Y-m-d'), 'date') + $system->cleanVars($_POST[$k], 'time', date('u'), 'int');
                     $this->setVar($k, isset($_POST[$k]) ? $value : $v);
                 } elseif ($this->vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
-                    $value = $system->CleanVars($_POST, $k, $v, 'int');
+                    $value = $system->cleanVars($_POST, $k, $v, 'int');
                     $this->setVar($k, $value);
                 } elseif ($this->vars[$k]['data_type'] == XOBJ_DTYPE_ARRAY) {
-                    $value = $system->CleanVars($_POST, $k, $v, 'array');
+                    $value = $system->cleanVars($_POST, $k, $v, 'array');
                     $this->setVar($k, $value);
                 } else {
-                    $value = $system->CleanVars($_POST, $k, $v, 'string');
+                    $value = $system->cleanVars($_POST, $k, $v, 'string');
                     $this->setVar($k, $value);
                 }
             }
@@ -165,13 +165,13 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    private function CreatePath($pathname, $pathout = \XoopsBaseConfig::get('root-path'))
+    private function CreatePath($pathname, $pathout = null)
     {
         $xoops = Xoops::getInstance();
         $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-        $dest = $pathout;
+        $dest = ($pathout === null) ? \XoopsBaseConfig::get('root-path') : $pathout;
         $paths = explode('/', $pathname);
 
         foreach ($paths as $path) {

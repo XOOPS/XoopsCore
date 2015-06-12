@@ -21,7 +21,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Gregory Mage (AKA Mage)
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2003-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @since     2.0.0
  */
@@ -714,7 +714,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             if (is_array($groupid) AND !empty($groupid)) {
                 $qb->andWhere($eb->in('gperm_groupid', $groupid));
             } else {
-                if (intval($groupid) > 0) {
+                if ((int)($groupid) > 0) {
                     $qb->andWhere($eb->eq('gperm_groupid', $groupid));
                 }
             }
@@ -736,9 +736,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             if (!empty($module_id)) {
                 $in=array();
                 $in[]=0;
-                $in[]=intval($module_id);
+                $in[]=(int)($module_id);
                 if ($toponlyblock) {
-                    $in[]=intval(-1);
+                    $in[]=(int)(-1);
                 }
             } else {
                 if ($toponlyblock) {
@@ -812,9 +812,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
 
             $sql = 'SELECT b.* FROM ' . $this->db2->prefix('newblocks') . ' b, '
             . $this->db2->prefix('block_module_link') . ' m';
-            $sql .= ' WHERE b.isactive=' . intval($isactive);
+            $sql .= ' WHERE b.isactive=' . (int)($isactive);
             if (isset($visible)) {
-                $sql .= ' AND b.visible=' . intval($visible);
+                $sql .= ' AND b.visible=' . (int)($visible);
             }
             if (isset($module_id)) {
                 $qb ->fromPrefix('block_module_link', 'm')
@@ -822,9 +822,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
                 if (!empty($module_id)) {
                     $in=array();
                     $in[]=0;
-                    $in[]=intval($module_id);
+                    $in[]=(int)($module_id);
                     if ($toponlyblock) {
-                        $in[]=intval(-1);
+                        $in[]=(int)(-1);
                     }
                 } else {
                     if ($toponlyblock) {
@@ -861,8 +861,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      */
     public function countSimilarBlocks($moduleId, $funcNum, $showFunc = null)
     {
-        $funcNum = intval($funcNum);
-        $moduleId = intval($moduleId);
+        $funcNum = (int)($funcNum);
+        $moduleId = (int)($moduleId);
         if ($funcNum < 1 || $moduleId < 1) {
             // invalid query
             return 0;
@@ -951,7 +951,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             if (is_array($groupid)) {
                 $qb->andWhere($eb->in('gperm_groupid', $groupid));
             } else {
-                if (intval($groupid) > 0) {
+                if ((int)($groupid) > 0) {
                     $qb->andWhere($eb->eq('gperm_groupid', $groupid));
                 }
             }

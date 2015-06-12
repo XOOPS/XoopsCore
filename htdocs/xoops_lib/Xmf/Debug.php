@@ -18,7 +18,7 @@ namespace Xmf;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -138,7 +138,7 @@ class Debug
         if ($events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $name);
         } else {
-            echo $name . ' - ' . intval(microtime(true) - self::$times[$name]) . " \n";
+            echo $name . ' - ' . (int)(microtime(true) - self::$times[$name]) . " \n";
         }
     }
 

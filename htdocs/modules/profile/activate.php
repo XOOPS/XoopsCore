@@ -12,7 +12,7 @@
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -20,12 +20,12 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  */
 
-include __DIR__ . DIRECTORY_SEPARATOR . 'header.php';
+include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 $xoops->header();
 if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
-    $id = intval($_GET['id']);
+    $id = (int)($_GET['id']);
     $actkey = trim($_GET['actkey']);
     if (empty($id)) {
         $xoops->redirect($xoops->url('/'), 1, '');
@@ -67,7 +67,7 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
                     } else {
                         printf(XoopsLocale::SF_NOTIFICATION_EMAIL_SENT_TO, $thisuser->getVar('uname'));
                     }
-                    include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+                    include __DIR__ . '/footer.php';
                 } else {
                     $xoops->redirect(
                         $xoops->url('modules/' . $xoops->module->getVar('dirname', 'n') . '/user.php'),
@@ -117,4 +117,4 @@ if (!empty($_GET['id']) && !empty($_GET['actkey'])) {
 }
 
 $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_REGISTER));
-include __DIR__ . DIRECTORY_SEPARATOR . 'footer.php';
+include __DIR__ . '/footer.php';

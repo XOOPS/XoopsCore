@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * XOOPS global search
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
@@ -23,7 +23,7 @@ use Xoops\Core\Request;
  * @version         $Id$
  */
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $search = Search::getInstance();
 if (!$search->getConfig('enable_search')) {
@@ -127,7 +127,7 @@ switch ($action) {
 
         $modules_result = array();
         foreach ($mids as $mid) {
-            $mid = intval($mid);
+            $mid = (int)($mid);
             /* @var $module XoopsModule */
             $module = $modules[$mid];
             /* @var $plugin SearchPluginInterface */
@@ -152,13 +152,13 @@ switch ($action) {
                     } else {
                         $res[$i]['link'] = $results[$i]['link'];
                     }
-                    $res[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
-                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlspecialchars($results[$i]['title']));
+                    $res[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
+                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlSpecialChars($results[$i]['title']));
                     if (!empty($results[$i]['uid'])) {
-                        $res[$i]['uid'] = intval($results[$i]['uid']);
+                        $res[$i]['uid'] = (int)($results[$i]['uid']);
                         $res[$i]['uname'] = XoopsUser::getUnameFromId($results[$i]['uid'], true);
                     }
-                    $res[$i]['time'] = !empty($results[$i]['time']) ? XoopsLocale::formatTimestamp(intval($results[$i]['time'])) : "";
+                    $res[$i]['time'] = !empty($results[$i]['time']) ? XoopsLocale::formatTimestamp((int)($results[$i]['time'])) : "";
                     $res[$i]['content'] = empty($results[$i]['content']) ? "" : preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $results[$i]['content']);
                 }
                 if ($count >= 5) {
@@ -220,17 +220,17 @@ switch ($action) {
                 } else {
                     $res[$i]['link'] = $results[$i]['link'];
                 }
-                $res[$i]['title'] = $myts->htmlspecialchars($results[$i]['title']);
+                $res[$i]['title'] = $myts->htmlSpecialChars($results[$i]['title']);
                 if (isset($queries_pattern)) {
-                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlspecialchars($results[$i]['title']));
+                    $res[$i]['title_highligh'] = preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $myts->htmlSpecialChars($results[$i]['title']));
                 } else {
-                    $res[$i]['title_highligh'] = $myts->htmlspecialchars($results[$i]['title']);
+                    $res[$i]['title_highligh'] = $myts->htmlSpecialChars($results[$i]['title']);
                 }
                 if (!empty($results[$i]['uid'])) {
-                    $res[$i]['uid'] = @intval($results[$i]['uid']);
+                    $res[$i]['uid'] = @(int)($results[$i]['uid']);
                     $res[$i]['uname'] = XoopsUser::getUnameFromId($results[$i]['uid'], true);
                 }
-                $res[$i]['time'] = !empty($results[$i]['time']) ? " (" . XoopsLocale::formatTimestamp(intval($results[$i]['time'])) . ")" : "";
+                $res[$i]['time'] = !empty($results[$i]['time']) ? " (" . XoopsLocale::formatTimestamp((int)($results[$i]['time'])) . ")" : "";
                 $res[$i]['content'] = empty($results[$i]['content']) ? "" : preg_replace($queries_pattern, "<span class='searchHighlight'>$1</span>", $results[$i]['content']);
             }
             if (count($res) > 0) {

@@ -11,7 +11,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         include
  * @since           2.0.17
@@ -49,7 +49,7 @@ if (!$allowed) {
     $xoops->setTpl($xoops->theme()->template);
     $xoops->tpl()->assign(array(
                            'xoops_theme' => $xoops->getConfig('theme_set'),
-                           'xoops_imageurl' => \XoopsBaseConfig::get('themes-url'); . '/' . $xoops->getConfig('theme_set') . '/',
+                           'xoops_imageurl' => \XoopsBaseConfig::get('themes-url') . '/' . $xoops->getConfig('theme_set') . '/',
                            'xoops_themecss' => $xoops->getCss($xoops->getConfig('theme_set')),
                            'xoops_requesturi' => htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES),
                            'xoops_sitename' => htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES),

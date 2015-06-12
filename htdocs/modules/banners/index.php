@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * banners module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
@@ -22,7 +22,7 @@ use Xoops\Core\Request;
  * @version         $Id: $
  */
 
-include dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'mainfile.php';
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $helper = Banners::getInstance();
@@ -77,7 +77,7 @@ switch ($op) {
 
         // Display banner
         if ($admin == false) {
-            $client_arr = $client_Handler->getall($criteria);
+            $client_arr = $client_Handler->getAll($criteria);
             foreach (array_keys($client_arr) as $i) {
                 $cid[] = $client_arr[$i]->getVar("bannerclient_cid");
             }
@@ -95,7 +95,7 @@ switch ($op) {
         $criteria->setLimit($nb_banners);
 
         $banner_count = $banner_Handler->getCount($criteria);
-        $banner_arr = $banner_Handler->getall($criteria);
+        $banner_arr = $banner_Handler->getAll($criteria);
 
         $xoops->tpl()->assign('banner_count', $banner_count);
 
@@ -175,7 +175,7 @@ switch ($op) {
         $criteria->setLimit($nb_banners);
 
         $banner_finish_count = $banner_Handler->getCount($criteria);
-        $banner_finish_arr = $banner_Handler->getall($criteria);
+        $banner_finish_arr = $banner_Handler->getAll($criteria);
 
         $xoops->tpl()->assign('banner_finish_count', $banner_finish_count);
 
@@ -303,7 +303,7 @@ switch ($op) {
             $obj = $banner_Handler->get($bid);
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('bannerclient_cid', $obj->getVar("banner_cid")));
-            $client_arr = $client_Handler->getall($criteria);
+            $client_arr = $client_Handler->getAll($criteria);
             foreach (array_keys($client_arr) as $i) {
                 if ($admin == false) {
                     if ($client_arr[$i]->getVar("uid") != $uid) {
@@ -344,7 +344,7 @@ switch ($op) {
             $banner = $banner_Handler->get($bid);
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('bannerclient_cid', $banner->getVar("banner_cid")));
-            $client_arr = $client_Handler->getall($criteria);
+            $client_arr = $client_Handler->getAll($criteria);
             foreach (array_keys($client_arr) as $i) {
                 if ($admin == false) {
                     if ($client_arr[$i]->getVar("bannerclient_uid") != $uid) {

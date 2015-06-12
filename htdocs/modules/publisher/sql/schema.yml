@@ -874,11 +874,11 @@ tables:
                 columnDefinition: null
                 comment: null
         indexes:
-            publisher_mimetypes_mime_id:
-                name: publisher_mimetypes_mime_id
+            PRIMARY:
+                name: PRIMARY
                 columns: [mime_id]
-                unique: false
-                primary: false
+                unique: true
+                primary: true
     publisher_rating:
         options: {  }
         columns:

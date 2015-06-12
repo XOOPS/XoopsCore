@@ -12,7 +12,7 @@
 /**
  * Codex module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Codex
  * @since           2.6.0
@@ -51,7 +51,7 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
     {
         $xoops = Xoops::getInstance();
         $ret['count'] = count(XoopsLists::getFileListAsArray($xoops->path('modules/codex/')))-2;
-        $ret['name'] = $xoops->getHandlerModule()->getBydirname('codex')->getVar('name');
+        $ret['name'] = $xoops->getHandlerModule()->getByDirname('codex')->getVar('name');
         $ret['link'] = $xoops->url('modules/codex/');
         return array();
     }

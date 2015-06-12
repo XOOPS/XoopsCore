@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -102,7 +102,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
 
         /* @var $plugin NotificationsPluginInterface */
         if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
-            return $plugin->item($category, intval($item_id));
+            return $plugin->item($category, (int)($item_id));
         }
         return false;
     }
@@ -124,7 +124,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
 
         /* @var $plugin NotificationsPluginInterface */
         if ($plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'notifications')) {
-            return $plugin->tags($category, intval($item_id), $event, $dirname);
+            return $plugin->tags($category, (int)($item_id), $event, $dirname);
         }
         return array();
     }
@@ -435,7 +435,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                 $sub_categories[] = $category;
             } else {
                 $item_name = $category['item_name'];
-                $id = ($item_name != '' && isset($_GET[$item_name])) ? intval($_GET[$item_name]) : 0;
+                $id = ($item_name != '' && isset($_GET[$item_name])) ? (int)($_GET[$item_name]) : 0;
                 if ($id > 0) {
                     $category['item_id'] = $id;
                     $sub_categories[] = $category;

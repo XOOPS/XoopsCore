@@ -73,7 +73,7 @@ class PublisherCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
     public function update($item_id, $total_num)
     {
         $db = Xoops::getInstance()->db();
-        $sql = 'UPDATE ' . $db->prefix('publisher_items') . ' SET comments = ' . intval($total_num) . ' WHERE itemid = ' . intval($item_id);
+        $sql = 'UPDATE ' . $db->prefix('publisher_items') . ' SET comments = ' . (int)($total_num) . ' WHERE itemid = ' . (int)($item_id);
         $db->query($sql);
     }
 
@@ -96,7 +96,7 @@ class PublisherCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
         include_once dirname(dirname(__DIR__)) . '/include/common.php';
 
         /* @var $itemObj PublisherItem */
-        $itemObj = Publisher::getInstance()->getItemHandler()->get(intval($item_id));
+        $itemObj = Publisher::getInstance()->getItemHandler()->get((int)($item_id));
         $ret['text'] = '';
         $summary = $itemObj->summary();
         if ($summary != '') {

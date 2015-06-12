@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      xml
@@ -147,7 +147,7 @@ class XoopsXmlRpcFault extends XoopsXmlRpcTag
     public function __construct($code, $extra = null)
     {
         $this->setFault(true);
-        $this->_code = intval($code);
+        $this->_code = (int)($code);
         $this->_extra = isset($extra) ? trim($extra) : '';
     }
 
@@ -211,7 +211,7 @@ class XoopsXmlRpcInt extends XoopsXmlRpcTag
      */
     public function __construct($value)
     {
-        $this->_value = intval($value);
+        $this->_value = (int)($value);
     }
 
     /**
@@ -283,7 +283,7 @@ class XoopsXmlRpcString extends XoopsXmlRpcTag
      */
     public function __construct($value)
     {
-        $this->_value = strval($value);
+        $this->_value = (string)($value);
     }
 
     /**
@@ -310,7 +310,7 @@ class XoopsXmlRpcDatetime extends XoopsXmlRpcTag
         if (!is_numeric($value)) {
             $this->_value = strtotime($value);
         } else {
-            $this->_value = intval($value);
+            $this->_value = (int)($value);
         }
     }
 

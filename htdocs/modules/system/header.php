@@ -12,7 +12,7 @@
 /**
  * System Header
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     system
  * @version     $Id$
@@ -35,7 +35,7 @@ if (!$system->checkRight()) {
 }
 
 // System Class
-include_once $xoops->path('/modules/system/class/cookie.php');
+//include_once $xoops->path('/modules/system/class/cookie.php');
 // Load Language
 $xoops->loadLocale('system');
 // Include System files

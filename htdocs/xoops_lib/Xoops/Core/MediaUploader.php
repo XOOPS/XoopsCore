@@ -14,7 +14,7 @@ namespace Xoops\Core;
 /**
  * XOOPS file uploader
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     class
  * @since       2.0.0
@@ -56,7 +56,7 @@ namespace Xoops\Core;
  * @package   MediaUploader
  * @author    Kazumi Ono (http://www.myweb.ne.jp/, http://jp.xoops.org/)
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2003-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2003-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -198,12 +198,12 @@ class MediaUploader
             $this->allowedMimeTypes = $allowedMimeTypes;
         }
         $this->uploadDir = $uploadDir;
-        $this->maxFileSize = intval($maxFileSize);
+        $this->maxFileSize = (int)($maxFileSize);
         if (isset($maxWidth)) {
-            $this->maxWidth = intval($maxWidth);
+            $this->maxWidth = (int)($maxWidth);
         }
         if (isset($maxHeight)) {
-            $this->maxHeight = intval($maxHeight);
+            $this->maxHeight = (int)($maxHeight);
         }
     }
 
@@ -222,7 +222,7 @@ class MediaUploader
             return false;
         } else {
             if (is_array($_FILES[$media_name]['name']) && isset($index)) {
-                $index = intval($index);
+                $index = (int)($index);
                 $this->mediaName = (get_magic_quotes_gpc()) ? stripslashes($_FILES[$media_name]['name'][$index])
                     : $_FILES[$media_name]['name'][$index];
                 $this->mediaType = $_FILES[$media_name]['type'][$index];
@@ -245,7 +245,7 @@ class MediaUploader
         $this->mediaRealType = \Xoops\Core\MimeTypes::findType($ext);
 
         $this->errors = array();
-        if (intval($this->mediaSize) < 0) {
+        if ((int)($this->mediaSize) < 0) {
             $this->setErrors(\XoopsLocale::E_INVALID_FILE_SIZE);
             return false;
         }
@@ -273,7 +273,7 @@ class MediaUploader
      */
     public function setTargetFileName($value)
     {
-        $this->targetFileName = strval(trim($value));
+        $this->targetFileName = (string)(trim($value));
     }
 
     /**
@@ -285,7 +285,7 @@ class MediaUploader
      */
     public function setPrefix($value)
     {
-        $this->prefix = strval(trim($value));
+        $this->prefix = (string)(trim($value));
     }
 
     /**

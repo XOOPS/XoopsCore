@@ -19,7 +19,7 @@ namespace Xoops\Core\Session;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2000-2015 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -110,7 +110,7 @@ class Handler implements \SessionHandlerInterface
     public function write($session_id, $session_data)
     {
         $expires =  (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
-            ? intval($_SESSION['SESSION_MANAGER_EXPIRES'])
+            ? (int)($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();

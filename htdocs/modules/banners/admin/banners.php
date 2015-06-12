@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * banners module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         banners
  * @since           2.6.0
@@ -77,7 +77,7 @@ switch ($op) {
         $criteria->setLimit($nb_banners);
 
         $banner_count = $banner_Handler->getCount($criteria);
-        $banner_arr = $banner_Handler->getall($criteria);
+        $banner_arr = $banner_Handler->getAll($criteria);
 
         $xoops->tpl()->assign('banner_count', $banner_count);
 
@@ -143,7 +143,7 @@ switch ($op) {
         $criteria->setLimit($nb_banners);
 
         $banner_finish_count = $banner_Handler->getCount($criteria);
-        $banner_finish_arr = $banner_Handler->getall($criteria);
+        $banner_finish_arr = $banner_Handler->getAll($criteria);
 
         $xoops->tpl()->assign('banner_finish_count', $banner_finish_count);
 

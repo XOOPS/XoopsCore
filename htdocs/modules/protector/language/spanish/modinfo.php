@@ -124,5 +124,3 @@ define('_MI_PROTECTOR_SPAMURI4G','Contra SPAM: URLs para anónimos');
 define('_MI_PROTECTOR_SPAMURI4GDSC','Si esta cantidad de URLs es hallada en datos ENVIADOS por anónimos, el ENVÍO es considerado como SPAM. Cero (0) significa deshabilitar esta característica.');
 
 }
-
-?>

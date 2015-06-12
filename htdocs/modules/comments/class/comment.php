@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @author          trabis <lusopoemas@gmail.com>
@@ -97,10 +97,10 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      **/
     public function getByItemId($module_id, $item_id, $order = null, $status = null, $limit = null, $start = 0)
     {
-        $criteria = new CriteriaCompo(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria = new CriteriaCompo(new Criteria('modid', (int)($module_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         if (isset($status)) {
-            $criteria->add(new Criteria('status', intval($status)));
+            $criteria->add(new Criteria('status', (int)($status)));
         }
         if (isset($order)) {
             $criteria->setOrder($order);
@@ -123,10 +123,10 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      **/
     public function getCountByItemId($module_id, $item_id, $status = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria = new CriteriaCompo(new Criteria('modid', (int)($module_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         if (isset($status)) {
-            $criteria->add(new Criteria('status', intval($status)));
+            $criteria->add(new Criteria('status', (int)($status)));
         }
         return $this->getCount($criteria);
     }
@@ -138,9 +138,9 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      */
     public function getCountByModuleId($module_id, $item_id = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('modid', intval($module_id)));
+        $criteria = new CriteriaCompo(new Criteria('modid', (int)($module_id)));
         if (isset($item_id)) {
-            $criteria->add(new Criteria('itemid', intval($item_id)));
+            $criteria->add(new Criteria('itemid', (int)($item_id)));
         }
         return $this->getCount($criteria);
     }
@@ -157,11 +157,11 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      **/
     public function getTopComments($module_id, $item_id, $order, $status = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('modid', intval($module_id)));
-        $criteria->add(new Criteria('itemid', intval($item_id)));
+        $criteria = new CriteriaCompo(new Criteria('modid', (int)($module_id)));
+        $criteria->add(new Criteria('itemid', (int)($item_id)));
         $criteria->add(new Criteria('pid', 0));
         if (isset($status)) {
-            $criteria->add(new Criteria('status', intval($status)));
+            $criteria->add(new Criteria('status', (int)($status)));
         }
         $criteria->setOrder($order);
         return $this->getObjects($criteria);
@@ -178,10 +178,10 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      **/
     public function getThread($comment_rootid, $comment_id, $status = null)
     {
-        $criteria = new CriteriaCompo(new Criteria('rootid', intval($comment_rootid)));
-        $criteria->add(new Criteria('id', intval($comment_id), '>='));
+        $criteria = new CriteriaCompo(new Criteria('rootid', (int)($comment_rootid)));
+        $criteria->add(new Criteria('id', (int)($comment_id), '>='));
         if (isset($status)) {
-            $criteria->add(new Criteria('status', intval($status)));
+            $criteria->add(new Criteria('status', (int)($status)));
         }
         return $this->getObjects($criteria);
     }
@@ -210,7 +210,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      **/
     public function deleteByModule($module_id)
     {
-        return $this->deleteAll(new Criteria('modid', intval($module_id)));
+        return $this->deleteAll(new Criteria('modid', (int)($module_id)));
     }
 
     /**
@@ -220,8 +220,8 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      */
     function deleteByItemId($module_id, $item_id)
     {
-        $module_id = intval($module_id);
-        $item_id = intval($item_id);
+        $module_id = (int)($module_id);
+        $item_id = (int)($item_id);
         if ($module_id > 0 && $item_id > 0) {
             $comments = $this->getByItemId($module_id, $item_id);
             if (is_array($comments)) {

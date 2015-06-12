@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         smilies
  * @author
@@ -56,12 +56,12 @@ class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($limit);
-        return parent::getall($criteria, false, $asobject);
+        return parent::getAll($criteria, false, $asobject);
     }
 
     public function getActiveSmilies($asobject=true)
     {
         $criteria = new CriteriaCompo(new Criteria('smiley_display', 1));
-        return parent::getall($criteria, false, $asobject);
+        return parent::getAll($criteria, false, $asobject);
     }
 }

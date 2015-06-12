@@ -14,7 +14,7 @@ use Xoops\Core\Request;
 /**
  * page module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         page
  * @since           2.6.0
@@ -67,7 +67,7 @@ if ( $xoops->security()->check() ) {
         $ratingObj->setVar('rating_content_id', $content_id);
         $ratingObj->setVar('rating_uid', $uid);
         $ratingObj->setVar('rating_rating', $option);
-        $ratingObj->setVar('rating_ip', $helper->xoops()->getenv('REMOTE_ADDR'));
+        $ratingObj->setVar('rating_ip', $helper->xoops()->getEnv('REMOTE_ADDR'));
         $ratingObj->setVar('rating_date', $time);
         if ($rating_id = $rating_Handler->insert($ratingObj)) {
             $ret = $rating_Handler->getStats($content_id);

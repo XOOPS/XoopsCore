@@ -25,7 +25,7 @@ use Doctrine\DBAL\Schema\Sequence;
  * @category  Xoops\Core\Database\Schema\PrefixStripper
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 2.6
  * @link      http://xoops.org

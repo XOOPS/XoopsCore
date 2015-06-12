@@ -17,7 +17,7 @@ use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Images
  * @author
@@ -100,12 +100,12 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
             $criteria->add($criteriaTray);
             if ($perm == 'imgcat_read' || $perm == 'imgcat_write') {
                 $criteria->add(new Criteria('gperm_name', $perm));
-                $mid = $xoops->getModuleByDirName('images')->getVar('mid');
+                $mid = $xoops->getModuleByDirname('images')->getVar('mid');
                 $criteria->add(new Criteria('gperm_modid', $mid));
             }
         }
         if (isset($display)) {
-            $criteria->add(new Criteria('imgcat_display', intval($display)));
+            $criteria->add(new Criteria('imgcat_display', (int)($display)));
         }
         if (isset($storetype)) {
             $criteria->add(new Criteria('imgcat_storetype', $storetype));

@@ -12,7 +12,7 @@
 use Xoops\Core\Request;
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
@@ -523,7 +523,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             if (COMMENTS_APPROVENONE != $xoops->getModuleConfig('com_rule')) {
                 $xoops->tpl()->assign('xoops_iscommentadmin', $this->isUserAdmin());
 
-                $itemid = (trim($plugin->itemName()) != '' && isset($_GET[$plugin->itemName()])) ? intval($_GET[$plugin->itemName()]) : 0;
+                $itemid = (trim($plugin->itemName()) != '' && isset($_GET[$plugin->itemName()])) ? (int)($_GET[$plugin->itemName()]) : 0;
                 if ($itemid > 0) {
                     $modid = $xoops->module->getVar('mid');
                     $mode = Request::getString('com_mode', $this->getUserConfig('com_mode'));
@@ -762,7 +762,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                 if ($ref != '') {
                     $xoops->redirect($ref, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                 } else {
-                    $xoops->redirect($redirect_page . '?' . $plugin->itemName() . '=' . intval($id), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
+                    $xoops->redirect($redirect_page . '?' . $plugin->itemName() . '=' . (int)($id), 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
                 }
             }
 

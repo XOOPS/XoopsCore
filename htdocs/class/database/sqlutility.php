@@ -18,7 +18,7 @@
  * @category  Xoops\Class\Database\SqlUtility
  * @package   SqlUtility
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013 XOOPS Project (http://xoops.org)
  * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
  * @version   Release: 2.6.0
  * @link      http://xoops.org

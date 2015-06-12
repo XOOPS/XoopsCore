@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @category  Xoops\Core\Kernel\Dtype\DtypeTextbox
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2013 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2011-2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -69,8 +69,8 @@ class DtypeTextbox extends DtypeAbstract
             $obj->setErrors(sprintf(\XoopsLocale::F_IS_REQUIRED, $key));
             return $value;
         }
-        if (isset($obj->vars[$key]['maxlength']) && mb_strlen($value) > intval($obj->vars[$key]['maxlength'])) {
-            $obj->setErrors(sprintf(\XoopsLocale::F_MUST_BE_SHORTER_THAN, $key, intval($obj->vars[$key]['maxlength'])));
+        if (isset($obj->vars[$key]['maxlength']) && mb_strlen($value) > (int)($obj->vars[$key]['maxlength'])) {
+            $obj->setErrors(sprintf(\XoopsLocale::F_MUST_BE_SHORTER_THAN, $key, (int)($obj->vars[$key]['maxlength'])));
             return $value;
         }
         if (!$obj->vars[$key]['not_gpc']) {

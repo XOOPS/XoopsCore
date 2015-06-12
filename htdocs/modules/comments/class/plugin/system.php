@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Comments
  * @since           2.6.0
@@ -43,7 +43,7 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
         $ret = array();
         if ($count = $comments->getHandlerComment()->getCount($criteria)) {
             $ret['count'] = $count;
-            $ret['name'] = Xoops::getInstance()->getHandlerModule()->getBydirname('comments')->getVar('name');
+            $ret['name'] = Xoops::getInstance()->getHandlerModule()->getByDirname('comments')->getVar('name');
             $ret['link'] = Xoops::getInstance()->url('modules/comments/admin/main.php');
         }
         return $ret;

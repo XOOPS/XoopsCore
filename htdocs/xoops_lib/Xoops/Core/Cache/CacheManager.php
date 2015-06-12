@@ -180,6 +180,7 @@ class CacheManager
             $pool = new Pool($driver);
             if (is_object($pool)) {
                 $pool->setLogger($this->xoops->logger());
+                $pool->setNamespace($this->xoops->db()->prefix());
             }
         }
         if (!$pool) {

@@ -3,4 +3,3 @@
 class MyTextSanitizerExtended extends MyTextSanitizer
 {
 }
-?>

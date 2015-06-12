@@ -12,7 +12,7 @@
 /**
  * XOOPS localization abstract
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @since           2.3.0
@@ -295,11 +295,11 @@ abstract class Xoops_Locale_Abstract
         if ($format == 'rss' || $format == 'r') {
             $TIME_ZONE = '';
             if ($xoops->getConfig('server_TZ')) {
-                $server_TZ = abs(intval($xoops->getConfig('server_TZ') * 3600.0));
+                $server_TZ = abs((int)($xoops->getConfig('server_TZ') * 3600.0));
                 $prefix = ($xoops->getConfig('server_TZ') < 0) ? ' -' : ' +';
                 $TIME_ZONE = $prefix . date('Hi', $server_TZ);
             }
-            $date = gmdate('D, d M Y H:i:s', intval($time)) . $TIME_ZONE;
+            $date = gmdate('D, d M Y H:i:s', (int)($time)) . $TIME_ZONE;
 
             return $date;
         }

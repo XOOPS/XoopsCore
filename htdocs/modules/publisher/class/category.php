@@ -81,7 +81,7 @@ class PublisherCategory extends XoopsObject
     public function checkPermission()
     {
         $xoops = Xoops::getInstance();
-        if ($this->publisher->IsUserAdmin()) {
+        if ($this->publisher->isUserAdmin()) {
             return true;
         }
         if ($xoops->isUser() && $xoops->user->getVar('uid') == $this->getVar('moderator')) {

@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         Menus
  * @since           1.0
@@ -42,7 +42,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
             $user = $xoops->user;
         }
 
-        $ownerid = isset($_GET['uid']) ? intval($_GET['uid']) : null;
+        $ownerid = isset($_GET['uid']) ? (int)($_GET['uid']) : null;
         $owner = $member_handler->getUser($ownerid);
         //if uid > 0 but user does not exists
         if (!is_object($owner)) {
@@ -55,7 +55,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $this->owner = $owner->getValues();
         $this->user_groups = $xoops->getUserGroups();
         $this->user_uid = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
-        $this->get_uid = isset($_GET['uid']) ? intval($_GET['uid']) : 0;
+        $this->get_uid = isset($_GET['uid']) ? (int)($_GET['uid']) : 0;
     }
 
     function accessFilter(&$access_filter)

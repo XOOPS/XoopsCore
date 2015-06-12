@@ -16,7 +16,7 @@ use Xoops\Core\Database\Connection;
 /**
  * Extended User Profile
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
@@ -353,7 +353,7 @@ class ProfileField extends XoopsObject
 
             case "timezone":
                 $timezones = XoopsLists::getTimeZoneList();
-                $value = empty($value) ? "0" : strval($value);
+                $value = empty($value) ? "0" : (string)($value);
                 return $timezones[str_replace('.0', '', $value)];
                 break;
         }
@@ -398,7 +398,7 @@ class ProfileField extends XoopsObject
 
             case "datetime":
                 if (!empty($value)) {
-                    return strtotime($value['date']) + intval($value['time']);
+                    return strtotime($value['date']) + (int)($value['time']);
                 }
                 return $value;
                 break;

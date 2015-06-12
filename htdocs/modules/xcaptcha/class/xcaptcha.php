@@ -8,7 +8,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         xcaptcha
  * @since           2.6.0
@@ -91,11 +91,11 @@ class Xcaptcha extends XoopsCaptcha
     {
         $system = System::getInstance();
         $config = array();
-        $_POST['disabled'] = $system->CleanVars($_POST, 'disabled', false, 'boolean');
-        $_POST['mode'] = $system->CleanVars($_POST, 'mode', 'image', 'string');
-        $_POST['name'] = $system->CleanVars($_POST, 'name', 'xoopscaptcha', 'string');
-        $_POST['skipmember'] = $system->CleanVars($_POST, 'skipmember', false, 'boolean');
-        $_POST['maxattempts'] = $system->CleanVars($_POST, 'maxattempts', 10, 'int');
+        $_POST['disabled'] = $system->cleanVars($_POST, 'disabled', false, 'boolean');
+        $_POST['mode'] = $system->cleanVars($_POST, 'mode', 'image', 'string');
+        $_POST['name'] = $system->cleanVars($_POST, 'name', 'xoopscaptcha', 'string');
+        $_POST['skipmember'] = $system->cleanVars($_POST, 'skipmember', false, 'boolean');
+        $_POST['maxattempts'] = $system->cleanVars($_POST, 'maxattempts', 10, 'int');
         foreach (array_keys($this->config) as $key) {
             $config[$key] = $_POST[$key];
         }
