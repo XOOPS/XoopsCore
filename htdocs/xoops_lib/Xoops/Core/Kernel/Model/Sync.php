@@ -33,7 +33,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @category  Xoops\Core\Kernel\Model\Sync
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
@@ -41,11 +41,14 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
 class Sync extends XoopsModelAbstract
 {
     /**
-     * Clean orphan objects against linked objects
+     * Clean orphan objects in this handler (child table) that are not in parent table
      *
-     * @param string $table_link   table of linked object for JOIN; deprecated, for backward compat
-     * @param string $field_link   field of linked object for JOIN; deprecated, for backward compat
-     * @param string $field_object field of current object for JOIN; deprecated, for backward compat
+     * The parameters can be defined in the handler. Naming should be updated to reflect
+     * standard relational terminology.
+     *
+     * @param string $table_link   parent table
+     * @param string $field_link   primary key (parent table)
+     * @param string $field_object foreign key (child table)
      *
      * @return bool true on success
      */
