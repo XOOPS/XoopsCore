@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @category  Xoops\Core\Kernel\Model\Read
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
@@ -183,5 +183,40 @@ class Read extends XoopsModelAbstract
             $ret[] = $myrow[$this->handler->keyName];
         }
         return $ret;
+    }
+
+    /**
+     * getRandomObject - return a randomly selected object
+     *
+     * @param CriteriaElement|null $criteria {@link CriteriaElement} with conditions to meet
+     *
+     * @return XoopsObject|null {@link XoopsObject}
+     */
+    public function getRandomObject(CriteriaElement $criteria = null)
+    {
+        $qb = $this->handler->db2->createXoopsQueryBuilder();
+        $qb ->select('COUNT(*)')
+            ->from($this->handler->table, null);
+        if (null !== $criteria) {
+            $qb = $criteria->renderQb($qb);
+        }
+        $result = $qb->execute();
+        $count = $result->fetchColumn();
+
+        $offset = mt_rand(0, $count - 1);
+
+        $qb = $this->handler->db2->createXoopsQueryBuilder();
+        $qb ->select($this->handler->keyName)
+            ->from($this->handler->table, null);
+        if (null !== $criteria) {
+            $qb = $criteria->renderQb($qb);
+        }
+        $qb ->setFirstResult($offset)
+            ->setMaxResults(1);
+
+        $result = $qb->execute();
+        $randomKey = $result->fetchColumn();
+
+        return $this->handler->get($randomKey);
     }
 }

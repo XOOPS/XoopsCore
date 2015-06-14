@@ -13,6 +13,7 @@ namespace Xoops\Core\Kernel;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsModelFactory;
+use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsObjectHandler;
 
 /**
@@ -22,7 +23,7 @@ use Xoops\Core\Kernel\XoopsObjectHandler;
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Jan Keller Pedersen <mithrandir@xoops.org>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -217,7 +218,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function create($isNew = true)
     {
-		if (empty($this->className)) return false;
+        if (empty($this->className)) {
+            return false;
+        }
 
         /* @var $obj XoopsObject */
         $obj = new $this->className();
@@ -327,7 +330,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function deleteAll(CriteriaElement $criteria, $force = true, $asObject = false)
     {
-		if (empty($criteria)) return false;
+        if (empty($criteria)) {
+            return false;
+        }
 
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
@@ -346,7 +351,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria, $force = false)
     {
-		if (empty($criteria)) return false;
+        if (empty($criteria)) {
+            return false;
+        }
 
         /* @var $handler XoopsModelWrite */
         $handler = $this->loadHandler('write');
@@ -354,11 +361,6 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * *#@-
-     */
-
-    /**
-     * *#@+
      * Methods of read handler {@link XoopsObjectRead}
      */
 
@@ -430,13 +432,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * *#@-
-     */
-
-    /**
-     * *#@+
      * Methods of stats handler {@link XoopsObjectStats}
      */
+
     /**
      * count objects matching a condition
      *
@@ -466,13 +464,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * *#@-
-     */
-
-    /**
-     * *#@+
      * Methods of joint handler {@link XoopsObjectJoint}
      */
+
     /**
      * get a list of objects matching a condition joint with another related object
      *
@@ -559,13 +553,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * *#@-
-     */
-
-    /**
-     * *#@+
      * Methods of sync handler {@link XoopsObjectSync}
      */
+
     /**
      * Clean orphan objects against linked objects
      *
@@ -586,6 +576,10 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Synchronizing objects
      *
+     * @param string $table_link   parent table
+     * @param string $field_link   primary key (parent table)
+     * @param string $field_object foreign key (child table)
+     *
      * @return bool true on success
      */
     public function synchronization($table_link = '', $field_link = '', $field_object = '')
@@ -593,7 +587,4 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
         $retval = $this->cleanOrphan($table_link, $field_link, $field_object);
         return $retval;
     }
-    /**
-     * *#@-
-     */
 }
