@@ -90,7 +90,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
     /**
      * @param null|Connection $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'xlanguage', 'XlanguageLanguage', 'xlanguage_id', 'xlanguage_name');
         $this->loadConfig();

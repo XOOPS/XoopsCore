@@ -47,7 +47,7 @@ class PublisherRatingHandler extends XoopsPersistableObjectHandler
     /**
      * @param null|Xoops\Core\Database\Connection $db
      */
-    public function __construct($db)
+    public function __construct(Connection $db = null)
     {
         parent::__construct($db, 'publisher_rating', 'PublisherRating', 'ratingid', 'itemid');
     }

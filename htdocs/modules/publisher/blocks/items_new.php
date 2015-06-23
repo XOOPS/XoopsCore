@@ -121,7 +121,7 @@ function publisher_items_new_edit($options)
     $orderEle->addOptionArray(array(
         'datesub' => _MB_PUBLISHER_DATE,
         'counter' => _MB_PUBLISHER_HITS,
-        'weight'  => _MB_PUBLISHER_WEIGHT,
+        'weight'  => _MB_PUBLISHER_WEIGHT
     ));
 
     $showEle = new Xoops\Form\RadioYesNo(_MB_PUBLISHER_ORDER_SHOW, 'options[2]', $options[2]);
@@ -133,7 +133,7 @@ function publisher_items_new_edit($options)
         'none' => XoopsLocale::NONE,
         'article' => _MB_PUBLISHER_IMAGE_ARTICLE,
         'category' => _MB_PUBLISHER_IMAGE_CATEGORY,
-        'avatar'  => _MB_PUBLISHER_IMAGE_AVATAR,
+        'avatar'  => _MB_PUBLISHER_IMAGE_AVATAR
     ));
 
     $form->addElement($catEle);

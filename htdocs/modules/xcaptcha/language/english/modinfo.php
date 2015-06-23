@@ -17,9 +17,9 @@
  * @version         $Id$
  */
 
-define("_MI_XCAPTCHA_NAME", "Xcaptcha");
-define("_MI_XCAPTCHA_DESC", "Xoops CAPTCHA configuration");
+define('_MI_XCAPTCHA_NAME', 'Xcaptcha');
+define('_MI_XCAPTCHA_DESC', 'Xoops CAPTCHA configuration');
 
-define("_MI_XCAPTCHA_INDEX", "Index");
-//define("_MI_XCAPTCHA_CONFIG", "CAPTCHA configuration");
-define("_MI_XCAPTCHA_ABOUT", "About this module");
+define('_MI_XCAPTCHA_INDEX', 'Index');
+//define('_MI_XCAPTCHA_CONFIG', 'CAPTCHA configuration');
+define('_MI_XCAPTCHA_ABOUT', 'About this module');
