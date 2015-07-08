@@ -86,6 +86,8 @@ foreach ($driver_params as $param) {
     }
 }
 
+$_SESSION['settings'] = $settings;
+
 // if a POST, try to connect to the database using the parameters
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
