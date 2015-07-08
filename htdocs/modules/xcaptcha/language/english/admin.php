@@ -17,18 +17,18 @@
  * @version         $Id$
  */
 
-//define("_AM_XCAPTCHA_INDEX", "Configuration");
-define("_AM_XCAPTCHA_FORM", "Configuration CAPTCHA");
-define("_AM_XCAPTCHA_SAVED", "The configuration has been saved");
+//define('_AM_XCAPTCHA_INDEX', 'Configuration');
+define('_AM_XCAPTCHA_FORM', 'Configuration CAPTCHA');
+define('_AM_XCAPTCHA_SAVED', 'The configuration has been saved');
 
-define("_AM_XCAPTCHA_ACTIVATE", "Disable protection");
-define("_AM_XCAPTCHA_ENABLE", "Yes");
-define("_AM_XCAPTCHA_DISABLE", "No");
+define('_AM_XCAPTCHA_ACTIVATE', 'Disable protection');
+define('_AM_XCAPTCHA_ENABLE', 'Yes');
+define('_AM_XCAPTCHA_DISABLE', 'No');
 
-define("_AM_XCAPTCHA_PLUGINS", "Method");
+define('_AM_XCAPTCHA_PLUGINS', 'Method');
 
-define("_AM_XCAPTCHA_NAME", "CAPTCHA Variable name ");
+define('_AM_XCAPTCHA_NAME', 'CAPTCHA Variable name ');
 
-define("_AM_XCAPTCHA_SKIPMEMBER", "Deactivate for members");
+define('_AM_XCAPTCHA_SKIPMEMBER', 'Deactivate for members');
 
-define("_AM_XCAPTCHA_MAXATTEMPTS", "Maximum attempts");
+define('_AM_XCAPTCHA_MAXATTEMPTS', 'Maximum attempts');

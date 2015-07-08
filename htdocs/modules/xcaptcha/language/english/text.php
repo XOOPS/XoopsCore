@@ -16,13 +16,13 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-define("_MI_XCAPTCHA_ADMENU_TEXT", "Text");
+define('_MI_XCAPTCHA_ADMENU_TEXT', 'Text');
 
-if ( !defined("_XCAPTCHA_TEXT") ) {
-    define("_XCAPTCHA_FORM_TEXT", "Configuration CAPTCHA : Texte");
-    if (!defined("_XCAPTCHA_NUM_CHARS")) {
-        define("_XCAPTCHA_NUM_CHARS", "Number of characters");
+if (!defined('_XCAPTCHA_TEXT')) {
+    define('_XCAPTCHA_FORM_TEXT', 'Configuration CAPTCHA : Texte');
+    if (!defined('_XCAPTCHA_NUM_CHARS')) {
+        define('_XCAPTCHA_NUM_CHARS', 'Number of characters');
     }
 
-    define("_XCAPTCHA_TEXT", true);
+    define('_XCAPTCHA_TEXT', true);
 }

@@ -17,15 +17,15 @@
  * @version         $Id$
  */
 
-define("_MI_XCAPTCHA_ADMENU_RECAPTCHA", "Recaptcha");
+define('_MI_XCAPTCHA_ADMENU_RECAPTCHA', 'Recaptcha');
 
-if ( !defined("_XCAPTCHA_RECAPTCHA") ) {
-    define("_XCAPTCHA_FORM_RECAPTCHA", "Configuration CAPTCHA : Recaptcha");
+if (!defined('_XCAPTCHA_RECAPTCHA')) {
+    define('_XCAPTCHA_FORM_RECAPTCHA', 'Configuration CAPTCHA : Recaptcha');
 
-    define("_XCAPTCHA_PRIVATE_KEY", "Private key");
-    define("_XCAPTCHA_PUBLIC_KEY", "Public key");
-    define("_XCAPTCHA_THEME", "Theme");
-    define("_XCAPTCHA_LANG", "Language");
+    define('_XCAPTCHA_PRIVATE_KEY', 'Private key');
+    define('_XCAPTCHA_PUBLIC_KEY', 'Public key');
+    define('_XCAPTCHA_THEME', 'Theme');
+    define('_XCAPTCHA_LANG', 'Language');
 
-    define("_XCAPTCHA_RECAPTCHA", true);
+    define('_XCAPTCHA_RECAPTCHA', true);
 }
