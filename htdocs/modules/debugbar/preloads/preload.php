@@ -197,7 +197,7 @@ class DebugbarPreload extends PreloadItem
             $tpl->debugging_ctrl = 'URL';
         }
         if ($configs['debug_smarty_enable']) {
-                $tpl->debugging = true;
+                $tpl->debugging = Smarty::DEBUG_ON;
         }
     }
 
@@ -404,7 +404,8 @@ class DebugbarPreload extends PreloadItem
      */
     public static function eventDebugTimerStart($args)
     {
-        DebugbarLogger::getInstance()->startTime($args[0], $args[1]);
+        $args = (array) $args;
+        DebugbarLogger::getInstance()->startTime($args[0], isset($args[1]) ? $args[1] : null);
     }
 
     /**
