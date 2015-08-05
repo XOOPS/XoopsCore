@@ -15,12 +15,12 @@
                         <i class="icon-user"></i>
                         <{$user.name}>
                     </a>
-                    <{if $user.pm_link}>
+                    <{if $user.pm_link|default:false}>
                         <a class="pull-left" href="javascript:openWithSelfMain('<{$user.pm_link}>','pmlite',500,450)">
                         <i class="ico-email"></i>
                         </a>
                     <{/if}>
-                    <{if $user.msg_link}>
+                    <{if $user.msg_link|default:false}>
                         <a class="pull-left" href="mailto:<{$user.msg_link}>">
                             <i class="ico-email"></i>
                         </a>
