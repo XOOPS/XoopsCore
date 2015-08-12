@@ -229,6 +229,7 @@ class XoopsLocaleEn_US extends Xoops_Locale_Abstract
     const EF_CLASS_NOT_FOUND = "Class '%s' was not found!";
     const EF_CORRESPONDING_USER_NOT_FOUND_IN_DATABASE = "No corresponding user information has been found in the XOOPS database for connection: %s!";
     const EF_DATABASE_ERROR = "Database error: %s";
+    const EF_DATABASE_NOT_SUPPORTED = "This module does not support the current database platform (%s)";
     const EF_DIRECTORY_EXISTS = "Directory '%s' exists on your server!";
     const EF_DIRECTORY_NOT_OPENED = "Directory '%s' was not opened!";
     const EF_DIRECTORY_WITH_WRITE_PERMISSION_NOT_OPENED = "Directory with write permission '%s' was not opened!";
