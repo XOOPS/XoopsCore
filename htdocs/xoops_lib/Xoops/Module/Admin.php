@@ -434,7 +434,7 @@ class Admin
 
         // If you use a config label
         if ($this->module->getInfo('min_php') || $this->module->getInfo('min_xoops')
-            || !empty($this->itemConfigBoxLine)
+            || $this->module->getInfo('min_db') || !empty($this->itemConfigBoxLine)
         ) {
             // PHP version
             if ($this->module->getInfo('min_php')) {
@@ -479,7 +479,7 @@ class Admin
 
             $dbarray = $this->module->getInfo('min_db');
             if ($dbarray !== false) {
-                $dbCurrentPlatform = '.'.$xoops->db()->getDatabasePlatform()->getName();
+                $dbCurrentPlatform = $xoops->db()->getDatabasePlatform()->getName();
                 $dbCurrentVersion  = $xoops->db()->getWrappedConnection()->getServerVersion();
                 if (isset($dbarray[$dbCurrentPlatform])) {
                     $dbRequiredVersion = $dbarray[$dbCurrentPlatform];
@@ -514,7 +514,8 @@ class Admin
             // xoops version
             if ($this->module->getInfo('min_xoops')) {
                 $xoopsVersion = substr(\Xoops::VERSION, 6); // skip 'XOOPS ' prefix
-                if (version_compare($xoopsVersion, $this->module->getInfo('min_xoops')) >= 0) {
+                $xoopsCmpVersion = str_ireplace(['Alpha', 'Beta', 'RC'], ['0Alpha', '0Beta', '0RC'], $xoopsVersion);
+                if (0 >= version_compare($xoopsCmpVersion, $this->module->getInfo('min_xoops'))) {
                     $this->addConfigBoxLine(
                         sprintf(
                             \XoopsLocale::F_MINIMUM_XOOPS_VERSION_REQUIRED,
