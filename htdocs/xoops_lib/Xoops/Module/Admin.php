@@ -458,60 +458,56 @@ class Admin
                     );
                 }
             }
+
             // Database version
-            // @todo this needs a major rethink for Doctrine
-            // a specific driver might be required, but Doctrine obscures specific version
+            // Validate that the current system is acceptable for the module by checking a set of specific
+            // databases and versions if specified in min_db key.
+            //
+            // An array of minimum versions keyed by platform can be optionally specified in xoops_version.php:
+            //   $modversion['min_db'] = array('mysql' => '5.0.7', 'sqlite' => '3.0.8');
+            //
+            // If min_db is specified, and the current database is included in the array, the version will be
+            // compared to the specified minimum. If the reported database version is equal or greater, an OK
+            // message will be generated. If the version is lower, an error message will be issued.
+            //
+            // If min_db is specified, and the current platform is not included in the array, an error message
+            // will indicate the module does not support the database current platform.
+            //
+            // If at all possible, modules should NOT specify this, as with Doctrine DBAL we should be able to
+            // support many different databases, and thus portable modules are prefered. The supported databases
+            // and versions are set by XoopsCore and Doctrine, and should not be restricted without reason.
+
             $dbarray = $this->module->getInfo('min_db');
-            if ($dbarray[\XoopsBaseConfig::get('db-type')]) {
-                switch (\XoopsBaseConfig::get('db-type')) {
-                    case "mysql":
-                        $dbCurrentVersion = mysql_get_server_info();
-                        break;
-                    case "mysqli":
-                        $dbCurrentVersion = mysqli_get_server_info();
-                        break;
-                    case "pdo":
-                        $dbCurrentVersion = $xoops->db()->getAttribute(PDO::ATTR_SERVER_VERSION);
-                        break;
-                    default:
-                        $dbCurrentVersion = '0';
-                        break;
-                }
-                $currentVerParts = explode('.', (string)$dbCurrentVersion);
-                $iCurrentVerParts = array_map('intval', $currentVerParts);
-                $dbRequiredVersion = $dbarray[\XoopsBaseConfig::get('db-type')];
-                $reqVerParts = explode('.', (string)$dbRequiredVersion);
-                $iReqVerParts = array_map('intval', $reqVerParts);
-                $icount = $j = count($iReqVerParts);
-                $reqVer = $curVer = 0;
-                for ($i = 0; $i < $icount; ++$i) {
-                    $j--;
-                    $reqVer += $iReqVerParts[$i] * pow(10, $j);
-                    if (isset($iCurrentVerParts[$i])) {
-                        $curVer += $iCurrentVerParts[$i] * pow(10, $j);
+            if ($dbarray !== false) {
+                $dbCurrentPlatform = '.'.$xoops->db()->getDatabasePlatform()->getName();
+                $dbCurrentVersion  = $xoops->db()->getWrappedConnection()->getServerVersion();
+                if (isset($dbarray[$dbCurrentPlatform])) {
+                    $dbRequiredVersion = $dbarray[$dbCurrentPlatform];
+                    if (0 >= version_compare($dbCurrentVersion, $dbRequiredVersion)) {
+                        $this->addConfigBoxLine(
+                            sprintf(
+                                strtoupper(\XoopsBaseConfig::get('db-type')) . ' '
+                                . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
+                                $dbRequiredVersion,
+                                $dbCurrentVersion
+                            ),
+                            'error'
+                        );
                     } else {
-                        $curVer = $curVer * pow(10, $j);
+                        $this->addConfigBoxLine(
+                            sprintf(
+                                strtoupper(\XoopsBaseConfig::get('db-type')) . ' ' . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
+                                $dbRequiredVersion,
+                                $dbCurrentVersion
+                            ),
+                            'accept'
+                        );
                     }
-                }
-                if ($reqVer > $curVer) {
-                    $this->addConfigBoxLine(
-                        sprintf(
-                            strtoupper(\XoopsBaseConfig::get('db-type')) . ' '
-                            . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
-                            $dbRequiredVersion,
-                            $dbCurrentVersion
-                        ),
-                        'error'
-                    );
                 } else {
-                    $this->addConfigBoxLine(
-                        sprintf(
-                            strtoupper(\XoopsBaseConfig::get('db-type')) . ' ' . \XoopsLocale::F_MINIMUM_DATABASE_VERSION_REQUIRED,
-                            $dbRequiredVersion,
-                            $dbCurrentVersion
-                        ),
-                        'accept'
-                    );
+                        $this->addConfigBoxLine(
+                            sprintf(\XoopsLocale::EF_DATABASE_NOT_SUPPORTED, $dbCurrentPlatform),
+                            'error'
+                        );
                 }
             }
 

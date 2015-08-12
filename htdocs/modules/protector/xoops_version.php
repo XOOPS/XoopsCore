@@ -44,7 +44,7 @@ $modversion["module_website_name"] = "XOOPS";
 $modversion["module_status"]       = "RC";
 $modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = "2.6.0";
-$modversion['min_db']              = array('mysql' => '5.0.7', 'mysqli' => '5.0.7');
+$modversion['min_db']              = array('mysql' => '5.0.7'); // currently MySQL only
 
 /*
  Admin menu
