@@ -31,10 +31,10 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
         $instance = new $this->myclass($this->conn);
 		$id = 1;
         $value = $instance->getById($id);
-        $this->assertInstanceOf('XoopsTplfile',$value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsTplfile',$value);
 		
         $value = $instance->getById($id, true);
-        $this->assertInstanceOf('XoopsTplfile',$value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsTplfile',$value);
     }
 
     public function test_loadSource()
@@ -93,7 +93,7 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
         $value = $instance->getTplObjects(null, false, true);
         $this->assertTrue(is_array($value));
 		
-		$criteria = new Criteria('tpl_type', 'dummy');
+		$criteria = new Criteria('tpl_type', 'block');
         $value = $instance->getTplObjects($criteria);
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value) > 0);
@@ -141,8 +141,12 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
         $value = $instance->templateExists('dummy.html','dummy');
         $this->assertSame(false, $value);
 		
-        $value = $instance->templateExists('system_block_user.html','default');
-        $this->assertSame(true, $value);
+        $arrTplfile = $instance->getTplObjects();
+        if (is_array($arrTplfile)) {
+            $tplfile = $arrTplfile[0]->vars['tpl_file']['value'];
+            $value = $instance->templateExists($tplfile,'default');
+            $this->assertSame(true, $value);
+        }
     }
 
 }

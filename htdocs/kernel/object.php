@@ -13,14 +13,14 @@ use Xoops\Core\Database\Connection;
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-abstract class XoopsObject extends Xoops\Core\Kernel\XoopsObject
+class XoopsObject extends Xoops\Core\Kernel\XoopsObject
 {
 }
 
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-abstract class XoopsObjectHandler extends Xoops\Core\Kernel\XoopsObjectHandler
+class XoopsObjectHandler extends Xoops\Core\Kernel\XoopsObjectHandler
 {
     /**
      * This is a reference to the legacy database connection
@@ -42,7 +42,7 @@ abstract class XoopsObjectHandler extends Xoops\Core\Kernel\XoopsObjectHandler
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-abstract class XoopsPersistableObjectHandler extends Xoops\Core\Kernel\XoopsPersistableObjectHandler
+class XoopsPersistableObjectHandler extends Xoops\Core\Kernel\XoopsPersistableObjectHandler
 {
     /**
      * This is a reference to the legacy database connection

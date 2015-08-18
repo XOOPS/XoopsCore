@@ -9,41 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-
 /**
- * XOOPS Kernel Class
- *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         kernel
- * @since           2.6.0
- * @author          Gregory Mage (AKA Mage)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * This class is for compatibility with pre 2.6.0 code
  */
-
-class XoopsBlockmodulelink extends XoopsObject
+class XoopsBlockmodulelink extends Xoops\Core\Kernel\Handlers\XoopsBlockmodulelink
 {
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->initVar('block_id', XOBJ_DTYPE_INT);
-        $this->initVar('module_id', XOBJ_DTYPE_INT);
-    }
 }
 
-class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
+/**
+ * This class is for compatibility with pre 2.6.0 code
+ */
+class XoopsBlockmodulelinkHandler extends Xoops\Core\Kernel\Handlers\XoopsBlockmodulelinkHandler
 {
-    /**
-     * @param null|Connection $db
-     */
-    public function __construct(Connection $db = null)
-    {
-        parent::__construct($db, 'block_module_link', 'XoopsBlockmodulelink', 'block_id', 'module_id');
-    }
 }
