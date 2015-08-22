@@ -24,6 +24,7 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\Kernel\Handlers\XoopsGroup;
 
 /**
  * XOOPS member handler class.
@@ -129,11 +130,11 @@ class XoopsMemberHandler
     /**
      * delete a group
      *
-     * @param XoopsGroup &$group reference to the group to delete
+     * @param XoopsGroup $group the group to delete
      *
      * @return bool FALSE if failed
      */
-    public function deleteGroup(XoopsGroup &$group)
+    public function deleteGroup(XoopsGroup $group)
     {
         $this->_gHandler->delete($group);
         $this->_mHandler->deleteAll(new Criteria('groupid', $group->getVar('groupid')));
@@ -157,12 +158,12 @@ class XoopsMemberHandler
     /**
      * insert a group into the database
      *
-     * @param XoopsGroup &$group reference to the group to insert
+     * @param XoopsGroup $group the group to insert
      *
      * @return bool TRUE if already in database and unchanged
      * FALSE on failure
      */
-    public function insertGroup(XoopsGroup &$group)
+    public function insertGroup(XoopsGroup $group)
     {
         return $this->_gHandler->insert($group);
     }
@@ -170,13 +171,13 @@ class XoopsMemberHandler
     /**
      * insert a user into the database
      *
-     * @param XoopsUser|XoopsObject &$user reference to the user to insert
-     * @param bool                  $force force insert
+     * @param XoopsUser $user  the user to insert
+     * @param bool      $force force insert
      *
      * @return bool TRUE if already in database and unchanged
      * FALSE on failure
      */
-    public function insertUser(XoopsUser &$user, $force = false)
+    public function insertUser(XoopsUser $user, $force = false)
     {
         return $this->_uHandler->insert($user, $force);
     }
@@ -420,13 +421,13 @@ class XoopsMemberHandler
     /**
      * updates a single field in a users record
      *
-     * @param XoopsUser &$user      reference to the {@link XoopsUser} object
+     * @param XoopsUser $user       the {@link XoopsUser} object
      * @param string    $fieldName  name of the field to update
      * @param string    $fieldValue updated value for the field
      *
      * @return bool TRUE if success or unchanged, FALSE on failure
      */
-    public function updateUserByField(XoopsUser &$user, $fieldName, $fieldValue)
+    public function updateUserByField(XoopsUser $user, $fieldName, $fieldValue)
     {
         $user->setVar($fieldName, $fieldValue);
         return $this->insertUser($user);
@@ -452,11 +453,11 @@ class XoopsMemberHandler
     /**
      * activate a user
      *
-     * @param XoopsUser &$user reference to the {@link XoopsUser} object
+     * @param XoopsUser $user the {@link XoopsUser} object
      *
      * @return bool successful?
      */
-    public function activateUser(XoopsUser &$user)
+    public function activateUser(XoopsUser $user)
     {
         if ($user->getVar('level') != 0) {
             return true;

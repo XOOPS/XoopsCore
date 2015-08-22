@@ -32,7 +32,7 @@ $upload_size = 500000;
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Get userrank handler
-$userrank_Handler = $xoops->getHandler("ranks");
+$userrank_Handler = $xoops->getHandlerRanks();
 // Call Header
 $xoops->header('admin:userrank/userrank.tpl');
 

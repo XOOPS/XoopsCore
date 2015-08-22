@@ -13,6 +13,7 @@ use Xoops\Core\Database\Schema\ImportSchema;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Yaml;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;

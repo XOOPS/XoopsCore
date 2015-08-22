@@ -44,7 +44,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'tplfile', 'XoopsTplfile', 'tpl_id', 'tpl_refid');
+        parent::__construct($db, 'tplfile', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfile', 'tpl_id', 'tpl_refid');
     }
 
     /**

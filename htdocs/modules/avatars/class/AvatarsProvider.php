@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\AvatarInterface;
 
@@ -27,13 +28,13 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
 {
 	protected $xoops_url;
 	protected $xoops_upload_url;
-	
+
     public function __construct()
     {
 		$this->xoops_url = \XoopsBaseConfig::get('url');
 		$this->xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
     }
-	
+
     /**
      * getName - get a short name for this service provider. This should be unique within the
      * scope of the named service, so using module dirname is suggested.
@@ -81,7 +82,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     {
         $noInfo = true;
         if (is_object($userinfo)) {
-            if (is_a($userinfo, 'XoopsUser')) {
+            if ($userinfo instanceof XoopsUser) {
                 if ($userinfo->getVar('user_avatar')
                     && 'blank.gif' != $userinfo->getVar('user_avatar')
                 ) {
@@ -96,7 +97,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
             }
         } elseif (is_scalar($userinfo)) {
             $user = $this->getUserById((int) $userinfo);
-            if (is_object($user) && is_a($user, 'XoopsUser')) {
+            if (is_object($user) && ($user instanceof XoopsUser)) {
                 if ($user->getVar('user_avatar')
                     && 'blank.gif' != $user->getVar('user_avatar')
                 ) {
@@ -113,15 +114,15 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response   $response \Xoops\Core\Service\Response object
-     * @param \XoopsUser $userinfo XoopsUser object for user
+     * @param Response  $response \Xoops\Core\Service\Response object
+     * @param XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
-    public function getAvatarEditUrl($response, \XoopsUser $userinfo)
+    public function getAvatarEditUrl($response, XoopsUser $userinfo)
     {
         $noInfo = true;
-        if (is_a($userinfo, 'XoopsUser')) {
+        if ($userinfo instanceof XoopsUser) {
             $link = $this->xoops_url . '/modules/avatars/editavatar.php';
             $response->setValue($link);
             $noInfo = false;

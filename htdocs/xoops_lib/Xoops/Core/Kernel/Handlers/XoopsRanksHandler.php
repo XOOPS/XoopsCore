@@ -34,6 +34,6 @@ class XoopsRanksHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db)
     {
-        parent::__construct($db, 'ranks', 'XoopsRanks', 'rank_id', 'rank_title');
+        parent::__construct($db, 'ranks', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsRanks', 'rank_id', 'rank_title');
     }
 }

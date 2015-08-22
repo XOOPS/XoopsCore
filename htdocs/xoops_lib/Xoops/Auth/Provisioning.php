@@ -12,6 +12,7 @@
 namespace Xoops\Auth;
 
 use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * Authentication provisioning class
@@ -204,14 +205,14 @@ class Provisioning
     /**
      * Modify user information
      *
-     * @param \XoopsUser $xoopsUser user object
-     * @param string     $data      data
-     * @param string     $uname     username
-     * @param string     $pwd       password
+     * @param XoopsUser $xoopsUser user object
+     * @param string    $data      data
+     * @param string    $uname     username
+     * @param string    $pwd       password
      *
      * @return bool|XoopsUser
      */
-    public function change(\XoopsUser $xoopsUser, $data, $uname, $pwd = null)
+    public function change(XoopsUser $xoopsUser, $data, $uname, $pwd = null)
     {
         $xoops = \Xoops::getInstance();
         $ret = false;

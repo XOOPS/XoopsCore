@@ -59,7 +59,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'modules', 'XoopsModule', 'mid', 'dirname');
+        parent::__construct($db, 'modules', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsModule', 'mid', 'dirname');
     }
 
     /**
@@ -251,11 +251,17 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             $criteria->renderQb($qb);
             $qb->addOrderBy('mid', 'ASC');
         }
+        // During install, we start with no tables and no installed modules. We need to
+        // handle the resulting exceptions and return an empty array.
         try {
             if (!$result = $qb->execute()) {
                 return $ret;
             }
-        } catch (Exception $e) {
+        } catch (\PDOException $e) {
+            return $ret;
+        } catch (\Doctrine\DBAL\Driver\PDOException $e) {
+            return $ret;
+        } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
             return $ret;
         }
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {

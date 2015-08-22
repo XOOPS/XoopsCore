@@ -25,7 +25,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'newblocks', 'XoopsBlock', 'bid', 'name');
+        parent::__construct($db, 'newblocks', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsBlock', 'bid', 'name');
     }
 
     /**

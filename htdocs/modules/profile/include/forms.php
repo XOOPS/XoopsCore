@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
+
 /**
  * Extended User Profile
  *
@@ -29,7 +31,7 @@
  * @param null $step
  * @return Xoops\Form\ThemeForm
  */
-function profile_getRegisterForm(XoopsUser &$user, $profile, $step = null)
+function profile_getRegisterForm(XoopsUser $user, $profile, $step = null)
 {
     $xoops = Xoops::getInstance();
     $action = $_SERVER['REQUEST_URI'];
@@ -123,7 +125,7 @@ function profile_getRegisterForm(XoopsUser &$user, $profile, $step = null)
  * @param bool $action
  * @return Xoops\Form\ThemeForm
  */
-function profile_getUserForm(XoopsUser &$user, ProfileProfile $profile = null, $action = false)
+function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $action = false)
 {
     $xoops = Xoops::getInstance();
 

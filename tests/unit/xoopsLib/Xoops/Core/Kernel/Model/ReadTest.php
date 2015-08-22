@@ -31,7 +31,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
 
-        $handler = new XoopsGroupHandler($this->conn);
+        $handler = new \Xoops\Core\Kernel\Handlers\XoopsGroupHandler($this->conn);
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
@@ -39,7 +39,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($values));
         $this->assertTrue(count($values) >= 0);
         if (!empty($values[1])) {
-            $this->assertInstanceOf('XoopsGroup', $values[1]);
+            $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroup', $values[1]);
         }
     }
 
@@ -48,7 +48,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
 
-        $handler = new XoopsGroupHandler($this->conn);
+        $handler = new \Xoops\Core\Kernel\Handlers\XoopsGroupHandler($this->conn);
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
@@ -56,7 +56,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($values));
         $this->assertTrue(count($values) >= 0);
         if (!empty($values[1])) {
-            $this->assertInstanceOf('XoopsGroup', $values[1]);
+            $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroup', $values[1]);
         }
     }
 
@@ -65,7 +65,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
 
-        $handler = new XoopsGroupHandler($this->conn);
+        $handler = new \Xoops\Core\Kernel\Handlers\XoopsGroupHandler($this->conn);
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
@@ -82,7 +82,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
 
-        $handler = new XoopsGroupHandler($this->conn);
+        $handler = new \Xoops\Core\Kernel\Handlers\XoopsGroupHandler($this->conn);
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
@@ -100,11 +100,11 @@ class ReadTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myClass();
         $this->assertinstanceOf($this->myClass, $instance);
 
-        $handler = new XoopsGroupHandler($this->conn);
+        $handler = new \Xoops\Core\Kernel\Handlers\XoopsGroupHandler($this->conn);
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
         $values=$instance->getRandomObject();
-        $this->assertInstanceOf('XoopsGroup', $values);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroup', $values);
     }
 }

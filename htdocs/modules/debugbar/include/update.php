@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
 /**
  * Install and Update debugbar module support routines
  *
