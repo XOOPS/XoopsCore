@@ -508,7 +508,7 @@ class XoopsMemberHandler
             return $ret;
         }
 
-        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             if ($asobject) {
                 $user = new XoopsUser();
                 $user->assignVars($myrow);
