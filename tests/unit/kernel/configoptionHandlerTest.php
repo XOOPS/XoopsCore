@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -8,7 +8,6 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsConfigOptionHandler';
 	protected $conn = null;
     
     public function setUp()
@@ -18,12 +17,8 @@ class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
     
     public function test___construct()
 	{
-        $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass, $instance);
-		$this->assertRegExp('/^.*configoption$/',$instance->table);
-		$this->assertSame('XoopsConfigOption',$instance->className);
-		$this->assertSame('confop_id',$instance->keyName);
-		$this->assertSame('confop_name',$instance->identifierName);
+        $instance=new \XoopsConfigOptionHandler($this->conn);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler', $instance);
     }
       
 }
