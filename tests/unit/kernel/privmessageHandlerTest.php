@@ -35,9 +35,12 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
         $msg->setVar('subject', 'PRIVMESSAGE_DUMMY_FOR_TESTS', true);
         $value=$instance->insert($msg);
         $this->assertTrue(intval($value) > 0);
-		
+        
         $value=$instance->setRead($msg);
         $this->assertSame(true,$value);
+        
+        $value=$instance->delete($msg);
+        $this->assertTrue(intval($value) > 0);
     }
 
 }

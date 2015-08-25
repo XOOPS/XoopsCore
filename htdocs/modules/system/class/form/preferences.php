@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 /**
  * Preference Form Class
@@ -38,12 +39,12 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
     /**
      * getForm
      *
-     * @param array                   &$obj array of config objects
-     * @param XoopsModule|XoopsObject &$mod module
+     * @param array       &$obj array of config objects
+     * @param XoopsModule $mod module
      *
      * @return void
      */
-    public function getForm(&$obj, XoopsModule &$mod)
+    public function getForm(&$obj, XoopsModule $mod)
     {
         $xoops = Xoops::getInstance();
         $config_handler = $xoops->getHandlerConfig();

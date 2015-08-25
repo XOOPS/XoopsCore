@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 /**
  * @copyright   XOOPS Project (http://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)

@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsGroup;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
+
 /**
  * XOOPS mailer
  *
@@ -587,7 +590,7 @@ class XoopsMailer
      */
     public function setToUsers($users)
     {
-        if (is_a($users,'XoopsUser')) {
+        if ($users instanceof XoopsUser) {
             array_push($this->toUsers, $users);
         } elseif (is_array($users)) {
             foreach ($users as $u) {
@@ -602,7 +605,7 @@ class XoopsMailer
      */
     public function setToGroups($groups)
     {
-        if (is_a($groups,'XoopsGroup')) {
+        if ($groups instanceof XoopsGroup) {
             $this->setToUsers(Xoops::getInstance()
                     ->getHandlerMember()
                     ->getUsersByGroup($groups->getVar('groupid'), true));

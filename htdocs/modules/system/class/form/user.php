@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * SystemUserForm
@@ -28,7 +29,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
      *
      * @param XoopsUser|XoopsObject &$obj user object
      */
-    public function __construct(XoopsUser &$obj)
+    public function __construct(XoopsUser $obj)
     {
         $xoops = Xoops::getInstance();
         if ($obj->isNew()) {

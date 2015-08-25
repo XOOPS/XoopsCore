@@ -15,6 +15,7 @@
  */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
@@ -184,7 +185,7 @@ $xoops->session()->sessionStart();
 if ($xoops->session()->has('xoopsUserId')) {
     $uid = $xoops->session()->get('xoopsUserId');
     $xoops->user = $member_handler->getUser($uid);
-    if ($xoops->user instanceof \XoopsUser) {
+    if ($xoops->user instanceof XoopsUser) {
         if (((int)($xoops->user->getVar('last_login')) + 60 * 5) < time()) {
             $user_handler = $xoops->getHandlerUser();
             $criteria = new Criteria('uid', $uid);

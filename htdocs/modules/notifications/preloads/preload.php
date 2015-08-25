@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\PreloadItem;
 
 /**
@@ -165,7 +166,7 @@ class NotificationsPreload extends PreloadItem
         // RMV-NOTIFY
         // Perform some maintenance of notification records
         $xoops = Xoops::getInstance();
-        if ($xoops->user instanceof \XoopsUser) {
+        if ($xoops->user instanceof XoopsUser) {
             Notifications::getInstance()->getHandlerNotification()->doLoginMaintenance($xoops->user->getVar('uid'));
         }
     }

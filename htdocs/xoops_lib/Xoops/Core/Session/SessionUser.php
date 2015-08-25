@@ -13,6 +13,7 @@ namespace Xoops\Core\Session;
 
 use Xoops\Core\HttpRequest;
 use Xoops\Core\Request;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * Manage the session representation of a the current User
@@ -121,7 +122,7 @@ class SessionUser
         $session = $this->session;
         $memberHandler = $this->xoops->getHandlerMember();
         $user = $memberHandler->getUser($userId);
-        if ($user instanceof \XoopsUser) {
+        if ($user instanceof XoopsUser) {
             if ($user->isActive()) {
                 // make sure all primary user data is consistent
                 $session->set('xoopsUserId', $user->getVar('uid'));

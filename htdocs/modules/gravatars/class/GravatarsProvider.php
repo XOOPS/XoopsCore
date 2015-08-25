@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\AvatarInterface;
 
@@ -109,7 +110,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
     {
         $noInfo = true;
         if (is_object($userinfo)) {
-            if (is_a($userinfo, 'XoopsUser')) {
+            if ($userinfo instanceof XoopsUser) {
                 $email = $userinfo->getVar('email', 'e');
                 $response->setValue(self::getGravatar($email));
                 $noInfo = false;
@@ -121,7 +122,7 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
             }
         } elseif (is_scalar($userinfo)) {
             $user = $this->getUserById((int) $userinfo);
-            if (is_object($user) && is_a($user, 'XoopsUser')) {
+            if (is_object($user) && ($user instanceof XoopsUser)) {
                 $email = $user->getVar('email', 'e');
                 $response->setValue(self::getGravatar($email));
                 $noInfo = false;
@@ -135,17 +136,17 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response   $response \Xoops\Core\Service\Response object
-     * @param \XoopsUser $userinfo XoopsUser object for user
+     * @param Response  $response \Xoops\Core\Service\Response object
+     * @param XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
-    public function getAvatarEditUrl($response, \XoopsUser $userinfo)
+    public function getAvatarEditUrl($response, XoopsUser $userinfo)
     {
         $noInfo = true;
 
         if (is_object($userinfo)) {
-            if (is_a($userinfo, 'XoopsUser')) {
+            if ($userinfo instanceof XoopsUser) {
                 $email = $userinfo->getVar('email', 'e');
                 $link = 'http://www.gravatar.com/' . md5(strtolower(trim($email)));
                 $response->setValue($link);

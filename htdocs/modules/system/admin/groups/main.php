@@ -37,7 +37,7 @@ $nb_group = $xoops->getModuleConfig('groups_pager', 'system');
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Get groups handler
-$groups_handler = $xoops->getHandler('group');
+$groups_handler = $xoops->getHandlerGroup();
 $member_handler = $xoops->getHandlerMember();
 
 // Call Header

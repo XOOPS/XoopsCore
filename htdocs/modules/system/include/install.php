@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xmf\Database\TableLoad;
 
 /**
@@ -79,7 +80,7 @@ function xoops_module_install_system(XoopsModule $module)
 
     // Make system block visible
     $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
-    $block_handler = new XoopsBlockHandler($xoops->db());
+    $block_handler = $xoops->getHandlerBlock();
     $blocks = $block_handler->getByModule(1);
     foreach ($blocks as $block) {
         if (in_array($block->getVar('template'), array(

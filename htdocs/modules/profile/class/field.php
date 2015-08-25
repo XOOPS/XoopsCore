@@ -10,6 +10,8 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
+
 //use Xoops\Core\Kernel\XoopsObject;
 //use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
@@ -242,7 +244,7 @@ class ProfileField extends XoopsObject
      *
      * @return string
      **/
-    public function getOutputValue(XoopsUser &$user, ProfileProfile $profile)
+    public function getOutputValue(XoopsUser $user, ProfileProfile $profile)
     {
         $xoops = Xoops::getInstance();
         $xoops->loadLanguage('modinfo', 'profile');

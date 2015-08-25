@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
 /**
  * XXX
  *
@@ -19,7 +21,7 @@
  * @version         $Id: $
  */
 
-function xoops_module_update_search(XoopsModule &$module)
+function xoops_module_update_search(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
     // Copy old configs in new configs and delete old configs

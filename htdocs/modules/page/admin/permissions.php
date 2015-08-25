@@ -62,7 +62,7 @@ switch ($op) {
         $xoops->tpl()->assign('content_count', $content_count);
 
         if ($content_count > 0) {
-            $group_list = $xoops->getHandler('member')->getGroupList();
+            $group_list = $xoops->getHandlerMember()->getGroupList();
 
             $xoops->tpl()->assign('groups', $group_list);
             foreach (array_keys($content_arr) as $i) {

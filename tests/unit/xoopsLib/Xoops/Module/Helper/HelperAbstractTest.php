@@ -94,7 +94,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
 		$instance = $class::getInstance();
 
 		$x = $instance->getModule();
-		$this->assertInstanceOf('XoopsModule', $x);
+		$this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsModule', $x);
     }
 
 	public function test_xoops()

@@ -11,6 +11,8 @@
 
 namespace Xoops\Module\Helper;
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
 /**
  * @copyright       XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -242,7 +244,7 @@ abstract class HelperAbstract
         } else {
             $this->_module = $this->xoops()->getModuleByDirname($this->_dirname);
         }
-        if (!$this->_module instanceof \XoopsModule) {
+        if (!$this->_module instanceof XoopsModule) {
             $this->_module = $this->xoops()->getHandlerModule()->create();
         }
         $this->_addLog('Loading module');

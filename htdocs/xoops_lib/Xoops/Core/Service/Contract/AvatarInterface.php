@@ -11,6 +11,8 @@
 
 namespace Xoops\Core\Service\Contract;
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
+
 /**
  * Avatar service interface
  *
@@ -42,10 +44,10 @@ interface AvatarInterface
     /**
      * getAvatarEditUrl - given user info return absolute URL to edit avatar data
      *
-     * @param Response   $response \Xoops\Core\Service\Response object
-     * @param \XoopsUser $userinfo XoopsUser object for user
+     * @param Response  $response \Xoops\Core\Service\Response object
+     * @param XoopsUser $userinfo XoopsUser object for user
      *
      * @return void - response->value set to absolute URL to editing function for avatar data
      */
-    public function getAvatarEditUrl($response, \XoopsUser $userinfo);
+    public function getAvatarEditUrl($response, XoopsUser $userinfo);
 }

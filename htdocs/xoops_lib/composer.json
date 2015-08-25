@@ -18,6 +18,6 @@
         "phpunit/phpunit-skeleton-generator": "*"
     },
     "extra": {
-        "xoops_modules_path": "../modules/"
+        "xoops_modules_path": "/home/richard/sites/XoopsCore-master/htdocs/modules/"
     }
 }

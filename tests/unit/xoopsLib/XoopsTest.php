@@ -377,7 +377,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerBlock();
-        $this->assertInstanceOf('XoopsBlockHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsBlockHandler', $value);
     }
 
     public function test_getHandlerBlockmodulelink()
@@ -385,7 +385,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerBlockmodulelink();
-        $this->assertInstanceOf('XoopsBlockmodulelinkHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsBlockmodulelinkHandler', $value);
     }
 
     public function test_getHandlerConfig()
@@ -393,7 +393,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfig();
-        $this->assertInstanceOf('XoopsConfigHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsConfigHandler', $value);
     }
 
     /* getHandlerConfigcategory no longer exists
@@ -411,7 +411,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigitem();
-        $this->assertInstanceOf('XoopsConfigItemHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler', $value);
     }
 
     public function test_getHandlerConfigoption()
@@ -419,7 +419,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerConfigoption();
-        $this->assertInstanceOf('XoopsConfigOptionHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler', $value);
     }
 
     public function test_getHandlerGroup()
@@ -427,7 +427,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerGroup();
-        $this->assertInstanceOf('XoopsGroupHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsGroupHandler', $value);
     }
 
     public function test_getHandlerGroupperm()
@@ -435,7 +435,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerGroupperm();
-        $this->assertInstanceOf('XoopsGrouppermHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsGrouppermHandler', $value);
     }
 
     public function test_getHandlerMember()
@@ -443,7 +443,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerMember();
-        $this->assertInstanceOf('XoopsMemberHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsMemberHandler', $value);
     }
 
     public function test_getHandlerMembership()
@@ -451,7 +451,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerMembership();
-        $this->assertInstanceOf('XoopsMembershipHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsMembershipHandler', $value);
     }
 
     public function test_getHandlerModule()
@@ -459,7 +459,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerModule();
-        $this->assertInstanceOf('XoopsModuleHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsModuleHandler', $value);
     }
 
     public function test_getHandlerOnline()
@@ -467,7 +467,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerOnline();
-        $this->assertInstanceOf('XoopsOnlineHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsOnlineHandler', $value);
     }
 
     public function test_getHandlerPrivmessage()
@@ -475,7 +475,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerPrivmessage();
-        $this->assertInstanceOf('XoopsPrivmessageHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsPrivmessageHandler', $value);
     }
 
     public function test_getHandlerRanks()
@@ -483,7 +483,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerRanks();
-        $this->assertInstanceOf('XoopsRanksHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsRanksHandler', $value);
     }
 
     public function test_session()
@@ -499,7 +499,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerTplfile();
-        $this->assertInstanceOf('XoopsTplfileHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsTplfileHandler', $value);
     }
 
     public function test_getHandlerTplset()
@@ -507,7 +507,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerTplset();
-        $this->assertInstanceOf('XoopsTplsetHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsTplsetHandler', $value);
     }
 
     public function test_getHandlerUser()
@@ -515,7 +515,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandlerUser();
-        $this->assertInstanceOf('XoopsUserHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsUserHandler', $value);
     }
 
     /**
@@ -523,10 +523,11 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
      */
     public function test_getHandler()
     {
+        $this->markTestSkipped('now protected');
         $instance = Xoops::getInstance();
 
         $value = $instance->getHandler('user');
-        $this->assertInstanceOf('XoopsUserHandler', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsUserHandler', $value);
         $value = $instance->getHandler('dummy', true);
         $this->assertSame(false, $value);
     }
@@ -617,7 +618,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleByDirname('page');
-        $this->assertinstanceOf('XoopsModule', $value);
+        $this->assertinstanceOf('Xoops\Core\Kernel\Handlers\XoopsModule', $value);
         $this->assertSame('Page', $value->name());
 
         $value = $instance->getModuleByDirname('dummy');
@@ -629,7 +630,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getModuleById(1);
-        $this->assertInstanceOf('XoopsModule', $value);
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsModule', $value);
 
         $value = $instance->getModuleById(-1);
         $this->assertSame(false, $value);

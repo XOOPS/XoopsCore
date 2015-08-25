@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Handlers\XoopsGroup;
 
 /**
  * Group Form Class
@@ -28,9 +29,9 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
     /**
      * __construct
      *
-     * @param XoopsGroup|XoopsObject &$obj group object
+     * @param XoopsGroup $obj group object
      */
-    public function __construct(XoopsGroup &$obj)
+    public function __construct(XoopsGroup $obj)
     {
         $xoops = Xoops::getInstance();
 

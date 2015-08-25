@@ -110,7 +110,7 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
         if ($helper->isUserAdmin()) {
             $tab4 = new Xoops\Form\Tab(PageLocale::TAB_PERMISSIONS, 'permissions');
             //permissions
-            $group_list = $xoops->getHandler('member')->getGroupList();
+            $group_list = $xoops->getHandlerMember()->getGroupList();
             $full_list = array_keys($group_list);
             if (!$obj->isNew()) {
                 $module_id = $helper->getModule()->getVar('mid', 'n');

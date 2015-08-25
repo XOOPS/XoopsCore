@@ -15,12 +15,15 @@
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
- *
+ */
+
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
+/**
  * @param XoopsModule $module
  *
  * @return bool
  */
-
 function xoops_module_install_xlanguage(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
