@@ -25,7 +25,7 @@ class CriteriaElementTest extends \PHPUnit_Framework_TestCase
 	{
 		$x = new $this->myclass();
         $this->assertInstanceOf('CriteriaElement', $x);
-        $this->assertInstanceOf('\Xoops\Core\Kernel\CriteriaElement', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\CriteriaElement', $x);
     }
         
 }

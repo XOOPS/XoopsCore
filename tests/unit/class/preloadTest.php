@@ -14,7 +14,7 @@ class XoopsPreloadTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myclass;
 		$x = $class::getInstance();
-        $this->assertInstanceOf('\Xoops\Core\Events', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\Events', $x);
     }
         
 }

@@ -14,7 +14,7 @@ class XoopsFilterInputTest extends \PHPUnit_Framework_TestCase
 	{
 		$x = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $x);
-        $this->assertInstanceOf('Xoops\Core\FilterInput', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\FilterInput', $x);
     }
         
 }

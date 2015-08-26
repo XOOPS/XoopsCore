@@ -14,7 +14,7 @@ class XoopssecurityTest extends \PHPUnit_Framework_TestCase
 	{
         $instance = new $this->myclass();
 		$this->assertInstanceOf($this->myclass, $instance);
-		$this->assertInstanceOf('Xoops\Core\Security', $instance);
+		$this->assertInstanceOf('\\Xoops\\Core\\Security', $instance);
     }
 
 }
