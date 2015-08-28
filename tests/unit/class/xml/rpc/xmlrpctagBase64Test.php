@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init.php');
+require_once(dirname(__FILE__).'/../../../init_new.php');
 
 require_once(XOOPS_ROOT_PATH.'/class/xml/rpc/xmlrpcparser.php');
 

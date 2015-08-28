@@ -20,6 +20,6 @@ class UploaderTest extends \PHPUnit_Framework_TestCase
         $allowed_mime_types = array('toto');
         $x = new  $this->myClass($upload_dir, $allowed_mime_types);
         $this->assertInstanceOf($this->myClass, $x);
-        $this->assertInstanceOf('Xoops\Core\MediaUploader', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\MediaUploader', $x);
     }
 }
