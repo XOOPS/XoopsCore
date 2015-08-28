@@ -14,7 +14,7 @@ class XoopsRequestTest extends \PHPUnit_Framework_TestCase
 	{
 		$x = new $this->myClass();
         $this->assertInstanceOf($this->myClass, $x);
-        $this->assertInstanceOf('\Xoops\Core\Request', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\Request', $x);
     }
         
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Xoops\Core\Session;
 
-require_once __DIR__.'/../../../../init_mini.php';
+require_once __DIR__.'/../../../../init_new.php';
 
 /**
  * PHPUnit special settings :
