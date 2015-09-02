@@ -22,12 +22,12 @@ use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
 
 /**
- * Provides a standarized asset strategy
+ * Provides a standardized asset strategy
  *
  * @category  Assets
  * @package   Assets
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 XOOPS Project (http://xoops.org)
+ * @copyright 2014-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -45,7 +45,7 @@ class Assets
      */
     private $default_filters = array(
             'css' => 'cssimport,cssembed,?cssmin',
-            'js'  => '?jsmin',
+            'js'  => '?jsqueeze',
     );
 
     /**
@@ -99,8 +99,6 @@ class Assets
     private $filterInterface = '\Assetic\Filter\FilterInterface';
     /**
      * __construct
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -265,6 +263,9 @@ class Assets
                         case 'jsmin':
                             $fm->set('jsmin', new Filter\JSMinFilter());
                             break;
+                        case 'jsqueeze':
+                            $fm->set('jsqueeze', new AssetFilter\JSqueezeFilter());
+                            break;
                         default:
                             throw new \Exception(sprintf('%s filter not implemented.', $filter));
                             break;
@@ -302,11 +303,12 @@ class Assets
             );
             $asset_path = $asset->getTargetPath();
             if (!is_readable($target_path . $asset_path)) {
-                $xoops->events()->triggerEvent('debug.timer.start', array('writeAsset', $asset_path));
+                $assetKey = 'Asset '.$asset_path;
+                $xoops->events()->triggerEvent('debug.timer.start', $assetKey);
                 $oldumask = umask(0002);
                 $writer->writeAsset($asset);
                 umask($oldumask);
-                $xoops->events()->triggerEvent('debug.timer.stop', 'writeAsset');
+                $xoops->events()->triggerEvent('debug.timer.stop', $assetKey);
             }
 
             return $xoops->url('assets/' . $asset_path);
@@ -397,6 +399,9 @@ class Assets
                             break;
                         case 'jsmin':
                             $filterArray[] = new Filter\JSMinFilter();
+                            break;
+                        case 'jsqueeze':
+                            $filterArray[] = new AssetFilter\JSqueezeFilter();
                             break;
                         default:
                             throw new \Exception(sprintf('%s filter not implemented.', $filter));
