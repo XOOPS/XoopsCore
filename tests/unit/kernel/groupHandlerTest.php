@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -8,7 +8,6 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class GroupHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsGroupHandler';
 	protected $conn = null;
     
     public function setUp()
@@ -18,12 +17,8 @@ class GroupHandlerTest extends \PHPUnit_Framework_TestCase
     
     public function test___construct()
 	{
-        $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass,$instance);
-		$this->assertRegExp('/^.*groups$/',$instance->table);
-		$this->assertSame('XoopsGroup',$instance->className);
-		$this->assertSame('groupid',$instance->keyName);
-		$this->assertSame('name',$instance->identifierName);
+        $instance=new \XoopsGroupHandler($this->conn);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroupHandler', $instance);
     }
     
 }
