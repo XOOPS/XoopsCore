@@ -1,6 +1,9 @@
 <?php
 require_once(dirname(__FILE__).'/../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsGroup;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -305,7 +308,7 @@ class XoopsMailerTest extends \PHPUnit_Framework_TestCase
         $instance->setToGroups($groups);
         $x = $this->getPropertyValue('toUsers');
         $this->assertTrue(is_array($x));
-        $this->assertInstanceOf('XoopsUser', $x[0]);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUser', $x[0]);
     }
 
     public function test_encodeFromName()
