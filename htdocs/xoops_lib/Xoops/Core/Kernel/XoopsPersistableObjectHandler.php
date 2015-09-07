@@ -46,7 +46,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      * holds reference to predefined extended object handlers: read, stats, joint, write, sync
      *
      * The handlers hold methods for different purposes, which could be all put together inside of current class.
-     * However, load codes only if they are necessary, thus they are now splitted out.
+     * However, load codes only if they are necessary, thus they are now split out.
      *
      * var array of objects
      *
@@ -100,7 +100,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Constructor
      *
-     * @param null|Connection $db             {@link \Xoops\Core\Dattabase\Connection} object
+     * @param null|Connection $db             {@link \Xoops\Core\Database\Connection} object
      * @param string          $table          Name of database table
      * @param string          $className      Name of Class, this handler is managing
      * @param string          $keyName        Name of the property holding the key
@@ -140,7 +140,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
         } else {
             if (is_string($handler)) {
                 $xmf = XoopsModelFactory::getInstance();
-                $this->handler = $xmf->loadHandler($this, $handler, $args, $path);
+                $this->handler = $xmf->loadHandler($this, $handler, $args);
             }
         }
         return $this->handler;
@@ -522,7 +522,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * upate objects matching a condition against linked objects
+     * update objects matching a condition against linked objects
      *
      * @param array                $data     array of key => value
      * @param CriteriaElement|null $criteria {@link CriteriaElement} to match

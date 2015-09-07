@@ -9,6 +9,17 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 class ModuleadminTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = '\Xoops\Module\Admin';
+    protected $object;
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->markTestSkipped('side effects');
+    }
+
 
     public function test___construct()
 	{

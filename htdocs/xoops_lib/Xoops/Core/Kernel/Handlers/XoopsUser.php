@@ -9,12 +9,11 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         kernel
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * @package   Kernel
+ * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @since     2.0.0
  */
 
 namespace Xoops\Core\Kernel\Handlers;
@@ -24,9 +23,10 @@ use Xoops\Core\Kernel\XoopsObject;
 
 /**
  * Class for users
- * @author Kazumi Ono <onokazu@xoops.org>
+ *
+ * @package   Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package kernel
  */
 class XoopsUser extends XoopsObject
 {
@@ -53,7 +53,8 @@ class XoopsUser extends XoopsObject
      * constructor
      *
      * @param int|array $id ID of the user to be loaded from the database or
-     *                      Array of key-value-pairs to be assigned to the user. (for backward compatibility only)
+     *                      Array of key-value-pairs to be assigned to the user.
+     *                      (for backward compatibility only)
      */
     public function __construct($id = null)
     {
@@ -118,8 +119,9 @@ class XoopsUser extends XoopsObject
      * Updated by Catzwolf 11 Jan 2004
      * find the username for a given ID
      *
-     * @param int $userid ID of the user to find
+     * @param int $userid  ID of the user to find
      * @param int $usereal switch for usename or realname
+     *
      * @return string name of the user. name for 'anonymous' if not found.
      */
     public static function getUnameFromId($userid, $usereal = 0)
@@ -162,6 +164,8 @@ class XoopsUser extends XoopsObject
      * set the groups for the user
      *
      * @param array $groupsArr Array of groups that user belongs to
+     *
+     * @return void
      */
     public function setGroups($groupsArr)
     {
@@ -185,6 +189,7 @@ class XoopsUser extends XoopsObject
 
     /**
      * alias for {@link getGroups()}
+     *
      * @see getGroups()
      * @return array array of groups
      * @deprecated
@@ -203,6 +208,7 @@ class XoopsUser extends XoopsObject
      * - If you set the module_id to -1, it will return true if the user has admin rights for at least one module
      *
      * @param int $module_id check if user is admin of this module
+     *
      * @return bool is the user admin of that module?
      */
     public function isAdmin($module_id = null)
@@ -259,7 +265,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function uid($format = '')
@@ -268,7 +275,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function id($format = 'n')
@@ -277,7 +285,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function name($format = '')
@@ -286,7 +295,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function uname($format = '')
@@ -295,7 +305,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function email($format = '')
@@ -304,7 +315,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function url($format = '')
@@ -313,7 +325,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_avatar($format = '')
@@ -322,7 +335,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_regdate($format = '')
@@ -331,7 +345,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_icq($format = 'S')
@@ -340,7 +355,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_from($format = '')
@@ -349,7 +365,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_sig($format = '')
@@ -358,7 +375,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_viewemail($format = '')
@@ -367,7 +385,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function actkey($format = '')
@@ -376,7 +395,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_aim($format = '')
@@ -385,7 +405,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_yim($format = '')
@@ -394,7 +415,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_msnm($format = '')
@@ -403,7 +425,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function pass($format = '')
@@ -412,7 +435,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function posts($format = '')
@@ -421,7 +445,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function attachsig($format = '')
@@ -430,7 +455,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function level($format = '')
@@ -439,7 +465,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function theme($format = '')
@@ -448,7 +475,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function timezone($format = '')
@@ -457,7 +485,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function umode($format = '')
@@ -466,7 +495,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function uorder($format = '')
@@ -475,7 +505,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function notify_method($format = '')
@@ -484,7 +515,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function notify_mode($format = '')
@@ -493,7 +525,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_occ($format = '')
@@ -502,7 +535,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function bio($format = '')
@@ -511,7 +545,8 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * @param string $format XoopsObject::getVar() format code
+     *
      * @return mixed
      */
     public function user_intrest($format = '')

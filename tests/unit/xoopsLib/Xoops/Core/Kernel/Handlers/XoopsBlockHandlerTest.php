@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\Kernel\Handlers\XoopsBlockHandler;
 use Xoops\Core\Kernel\Criteria;
 
@@ -12,204 +13,197 @@ use Xoops\Core\Kernel\Criteria;
 class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass='XoopsBlockHandler';
-	protected $conn = null;
+    protected $conn = null;
+    protected $object;
     
     public function setUp()
-	{
-		$this->conn = Xoops::getInstance()->db();
+    {
+        $this->conn = Xoops::getInstance()->db();
+        $this->conn->setSafe();
+        $this->object = new XoopsBlockHandler($this->conn);
     }
     
     public function test___construct()
-	{
-        $instance = new $this->myClass($this->conn);
-        $this->assertInstanceOf('XoopsBlockHandler',$instance);
-		$this->assertRegExp('/^.*newblocks$/',$instance->table);
-		$this->assertSame('bid',$instance->keyName);
-		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsBlock',$instance->className);
-		$this->assertSame(null,$instance->table_link);
-		$this->assertSame('name',$instance->identifierName);
-		$this->assertSame(null,$instance->field_link);
-		$this->assertSame(null,$instance->field_object);
-		$this->assertSame(null,$instance->keyName_link);
+    {
+        $this->assertRegExp('/^.*newblocks$/', $this->object->table);
+        $this->assertSame('bid', $this->object->keyName);
+        $this->assertSame(null, $this->object->table_link);
+        $this->assertSame('name', $this->object->identifierName);
+        $this->assertSame(null, $this->object->field_link);
+        $this->assertSame(null, $this->object->field_object);
+        $this->assertSame(null, $this->object->keyName_link);
+    }
+
+    public function testContracts()
+    {
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsBlockHandler', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $this->object);
+    }
+
+    public function test_insertBlock()
+    {
+        $block = new XoopsBlock();
+        $block->setNew();
+        $value = $this->object->insertBlock($block);
+        $bid = $block->bid();
+        $this->assertEquals($bid, $value);
+        $value = $this->object->get($bid);
+        $this->assertEquals($bid, $value->bid());
+        $value = $this->object->deleteBlock($block);
+        $this->assertSame(true, $value);
+        $value = $this->object->get($bid);
+        $this->assertSame(null, $value);
     }
     
-    public function test_insertBlock()
-	{
-        $block = new XoopsBlock();
-		$block->setNew();
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->insertBlock($block);
-		$bid = $block->bid();
-        $this->assertEquals($bid,$value);
-		$value = $instance->get($bid);
-        $this->assertEquals($bid,$value->bid());
-        $value = $instance->deleteBlock($block);
-        $this->assertSame(true,$value);
-		$value = $instance->get($bid);
-        $this->assertSame(null,$value);
-    }
-	
     public function test_deleteBlock()
-	{
-	}
+    {
+    }
     
     public function test_getDistinctObjects()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getDistinctObjects();
+    {
+        $value = $this->object->getDistinctObjects();
         $this->assertTrue(is_array($value));
     }
     
     public function test_getDistinctObjects100()
-	{
-        $instance = new $this->myClass($this->conn);
-		$criteria = new Criteria('bid');
-        $value = $instance->getDistinctObjects($criteria);
+    {
+        $criteria = new Criteria('bid');
+        $value = $this->object->getDistinctObjects($criteria);
         $this->assertTrue(is_array($value));
     }
-	
+    
     public function test_getNameList()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getNameList();
+    {
+        $value = $this->object->getNameList();
         $this->assertTrue(is_array($value));
     }
     
     public function test_getAllBlocksByGroup()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getAllBlocksByGroup(1);
+    {
+        $value = $this->object->getAllBlocksByGroup(1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocksByGroup(1, false);
+        
+        $value = $this->object->getAllBlocksByGroup(1, false);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocksByGroup(array(1,1,1), false);
+        
+        $value = $this->object->getAllBlocksByGroup(array(1, 1, 1), false);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocksByGroup(1, true, XOOPS_SIDEBLOCK_BOTH);
+        
+        $value = $this->object->getAllBlocksByGroup(1, true, XOOPS_SIDEBLOCK_BOTH);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocksByGroup(1, true, XOOPS_CENTERBLOCK_ALL);
+        
+        $value = $this->object->getAllBlocksByGroup(1, true, XOOPS_CENTERBLOCK_ALL);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocksByGroup(1, true, -1);
+        
+        $value = $this->object->getAllBlocksByGroup(1, true, -1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocksByGroup(1, true, null, 1);
+        
+        $value = $this->object->getAllBlocksByGroup(1, true, null, 1);
         $this->assertTrue(is_array($value));
     }
     
     public function test_getAllBlocks()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getAllBlocks();
+    {
+        $value = $this->object->getAllBlocks();
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocks('object', true, XOOPS_SIDEBLOCK_BOTH);
+        
+        $value = $this->object->getAllBlocks('object', true, XOOPS_SIDEBLOCK_BOTH);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocks('object', true, XOOPS_CENTERBLOCK_ALL);
+        
+        $value = $this->object->getAllBlocks('object', true, XOOPS_CENTERBLOCK_ALL);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocks('object', true, -1);
+        
+        $value = $this->object->getAllBlocks('object', true, -1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocks('object', true, null, 1);
+        
+        $value = $this->object->getAllBlocks('object', true, null, 1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocks('list');
+        
+        $value = $this->object->getAllBlocks('list');
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllBlocks('id');
+        
+        $value = $this->object->getAllBlocks('id');
         $this->assertTrue(is_array($value));
     }
     
     public function test_getByModule()
-	{
-        $instance=new $this->myClass($this->conn);
-        $value = $instance->getByModule('module');
+    {
+        $value = $this->object->getByModule('module');
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getByModule('module', false);
+        
+        $value = $this->object->getByModule('module', false);
         $this->assertTrue(is_array($value));
     }
     
     public function test_getAllByGroupModule()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getAllByGroupModule(1);
+    {
+        $value = $this->object->getAllByGroupModule(1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllByGroupModule(array(1,1,1));
+        
+        $value = $this->object->getAllByGroupModule(array(1, 1, 1));
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllByGroupModule(1, 1);
+        
+        $value = $this->object->getAllByGroupModule(1, 1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getAllByGroupModule(1, 1, true);
+        
+        $value = $this->object->getAllByGroupModule(1, 1, true);
         $this->assertTrue(is_array($value));
     }
     
     public function test_getNonGroupedBlocks()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getNonGroupedBlocks();
+    {
+        $value = $this->object->getNonGroupedBlocks();
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getNonGroupedBlocks(1);
+        
+        $value = $this->object->getNonGroupedBlocks(1);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getNonGroupedBlocks(1, true);
+        
+        $value = $this->object->getNonGroupedBlocks(1, true);
         $this->assertTrue(is_array($value));
-		
-        $value = $instance->getNonGroupedBlocks(0, false, true);
+        
+        $value = $this->object->getNonGroupedBlocks(0, false, true);
         $this->assertTrue(is_array($value));
     }
     
     public function test_countSimilarBlocks()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->countSimilarBlocks(1, 1);
-        $this->assertEquals(1 ,$value);
-		
-        $value = $instance->countSimilarBlocks(1, 1, 'shows_func');
-        $this->assertEquals(0 ,$value);
+    {
+        $value = $this->object->countSimilarBlocks(1, 1);
+        $this->assertEquals(1, $value);
+        
+        $value = $this->object->countSimilarBlocks(1, 1, 'shows_func');
+        $this->assertEquals(0, $value);
     }
     
     public function test_buildContent()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->buildContent(0, 'titi', 'toto');
-        $this->assertSame('tototiti',$value);
-		
-        $value = $instance->buildContent(1, 'titi', 'toto');
-        $this->assertSame('tititoto',$value);
-		
-        $value = $instance->buildContent(2, 'titi', 'toto');
-        $this->assertSame('',$value);
+    {
+        $value = $this->object->buildContent(0, 'titi', 'toto');
+        $this->assertSame('tototiti', $value);
+        
+        $value = $this->object->buildContent(1, 'titi', 'toto');
+        $this->assertSame('tititoto', $value);
+        
+        $value = $this->object->buildContent(2, 'titi', 'toto');
+        $this->assertSame('', $value);
     }
     
     public function test_buildTitle()
-	{
-        $instance = new $this->myClass($this->conn);
+    {
         $title = 'original';
-        $value = $instance->buildTitle($title);
-        $this->assertEquals($title,$value);
+        $value = $this->object->buildTitle($title);
+        $this->assertEquals($title, $value);
         $title = 'original2';
         $new = 'new';
-        $value = $instance->buildTitle($title,$new);
-        $this->assertEquals($new,$value);
+        $value = $this->object->buildTitle($title, $new);
+        $this->assertEquals($new, $value);
     }
     
     public function test_getBlockByPerm()
-	{
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getBlockByPerm(null);
-        $this->assertTrue(empty($value) AND is_array($value));
+    {
+        $value = $this->object->getBlockByPerm(null);
+        $this->assertTrue(empty($value) and is_array($value));
 
-        $instance = new $this->myClass($this->conn);
-        $value = $instance->getBlockByPerm(1);
+        $secondInstance = new XoopsBlockHandler($this->conn);
+        $value = $secondInstance->getBlockByPerm(1);
         $this->assertTrue(is_array($value));
     }
 }

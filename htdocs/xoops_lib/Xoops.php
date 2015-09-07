@@ -1052,7 +1052,7 @@ class Xoops
      *
      * @return bool|Xoops\Module\Helper\HelperAbstract
      */
-    public function getModuleHelper($dirname)
+    public static function getModuleHelper($dirname)
     {
         return \Xoops\Module\Helper::getHelper($dirname);
     }

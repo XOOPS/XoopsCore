@@ -110,7 +110,7 @@ class Connection extends \Doctrine\DBAL\Connection
         \Doctrine\DBAL\Configuration $config = null,
         \Doctrine\Common\EventManager $eventManager = null
     ) {
-        if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] != 'GET')) {
+        if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] != 'GET') || (php_sapi_name() == 'cli')) {
             self::setSafe(true);
         } else {
             self::setSafe(false);

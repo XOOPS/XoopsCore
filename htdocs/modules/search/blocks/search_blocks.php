@@ -21,7 +21,7 @@
 
 function b_search_show()
 {
-    $search = Search::getInstance();
+    $search = \Xoops::getModuleHelper('search');
     $search->loadLanguage('main', 'search');
 
     $form = new Xoops\Form\SimpleForm('', 'search', $search->url('index.php'), 'get', false, 'inline');
