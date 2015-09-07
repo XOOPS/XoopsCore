@@ -14,6 +14,7 @@ class Xoops_UtilsTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $this->markTestSkipped('side effects');
         if (!function_exists('ini_get') || ini_get('safe_mode') === '1') {
             $this->markTestSkipped('safe mode is on');
         }

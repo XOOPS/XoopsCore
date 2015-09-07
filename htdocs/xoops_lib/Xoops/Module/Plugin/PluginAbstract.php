@@ -12,12 +12,10 @@
 namespace Xoops\Module\Plugin;
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright   2013-2015 XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @author      trabis <lusopoemas@gmail.com>
  */
-
 class PluginAbstract
 {
     /**

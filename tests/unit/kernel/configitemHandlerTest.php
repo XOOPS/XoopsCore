@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -18,12 +18,8 @@ class ConfigItemHandlerTest extends \PHPUnit_Framework_TestCase
     
     public function test___construct()
 	{
-        $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass, $instance);
-		$this->assertRegExp('/^.*config$/', $instance->table);
-		$this->assertSame('XoopsConfigItem', $instance->className);
-		$this->assertSame('conf_id', $instance->keyName);
-		$this->assertSame('conf_name', $instance->identifierName);
+        $instance=new \XoopsConfigItemHandler($this->conn);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler', $instance);
     }
     
 }

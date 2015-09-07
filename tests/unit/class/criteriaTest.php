@@ -15,7 +15,7 @@ class CriteriaTest extends \PHPUnit_Framework_TestCase
 		$column = 'column';
 		$x = new $this->myclass($column);
         $this->assertInstanceOf($this->myclass, $x);
-        $this->assertInstanceOf('\Xoops\Core\Kernel\Criteria', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Criteria', $x);
     }
         
 }

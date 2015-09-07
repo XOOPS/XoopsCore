@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_mini.php');
+require_once(dirname(__FILE__).'/../../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -22,10 +22,10 @@ class XoopsDatabaseFactoryTest extends \PHPUnit_Framework_TestCase
 		
 		$instance2 = $class::getDatabaseConnection();
 		$this->assertSame($instance, $instance2);
-		$this->assertInstanceOf('\Xoops\Core\Database\Connection', $instance->conn);
+		$this->assertInstanceOf('\\Xoops\\Core\\Database\\Connection', $instance->conn);
 		$driver = $instance->conn->getDriver();
 		$driver_conn = $driver->connect(array());
-		$this->assertInstanceOf('\Doctrine\DBAL\Driver\PDOConnection', $driver_conn);
+		$this->assertInstanceOf('\\Doctrine\\DBAL\\Driver\\PDOConnection', $driver_conn);
         $this->assertSame(\XoopsBaseConfig::get('db-prefix').'_test', $instance->prefix('test'));
         $this->assertSame(\XoopsBaseConfig::get('db-prefix'), $instance->prefix());
     }

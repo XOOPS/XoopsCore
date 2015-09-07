@@ -92,7 +92,7 @@ class PageCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract implements C
     {
         $ret = array();
         // Get handler
-        $content_Handler = Page::getInstance()->getContentHandler();
+        $content_Handler = \Xoops::getModuleHelper('page')->getContentHandler();
         $view_content = $content_Handler->get($item_id);
         if (count($view_content) == 0 || $view_content->getVar('content_status') == 0) {
             return $ret;

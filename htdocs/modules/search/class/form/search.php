@@ -29,8 +29,8 @@ class SearchSearchForm extends Xoops\Form\ThemeForm
 
     public function getSearchFrom($andor, $queries, $mids, $mid)
     {
-        $xoops = Xoops::getInstance();
-        $search = Search::getInstance();
+        $xoops = \Xoops::getInstance();
+        $search = \Xoops::getModuleHelper('search');
         // create form
         parent::__construct(_MD_SEARCH, 'search', 'index.php', 'get');
 

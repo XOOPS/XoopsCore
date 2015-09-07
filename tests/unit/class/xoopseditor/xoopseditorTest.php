@@ -15,7 +15,7 @@ class XoopsEditorTest extends \PHPUnit_Framework_TestCase
 		$class = $this->myclass;
 		$instance = new $class();
 		$this->assertInstanceOf($class, $instance);
-		$this->assertInstanceOf('Xoops\Form\TextArea', $instance);
+		$this->assertInstanceOf('\\Xoops\\Form\\TextArea', $instance);
 
 		$items = array('isEnabled', 'configs', 'rootPath');
 		foreach ($items as $item) {

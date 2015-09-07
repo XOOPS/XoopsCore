@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init.php');
+require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
 * PHPUnit special settings :
@@ -8,7 +8,6 @@ require_once(dirname(__FILE__).'/../init.php');
 */
 class UserHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsUserHandler';
 	protected $conn = null;
 
     public function setUp()
@@ -18,12 +17,8 @@ class UserHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test___construct()
 	{
-        $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass,$instance);
-		$this->assertRegExp('/^.*users$/',$instance->table);
-		$this->assertSame('XoopsUser',$instance->className);
-		$this->assertSame('uid',$instance->keyName);
-		$this->assertSame('uname',$instance->identifierName);
+        $instance=new \XoopsUserHandler($this->conn);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsUserHandler', $instance);
     }
 
 }

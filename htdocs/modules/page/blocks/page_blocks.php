@@ -22,13 +22,14 @@
 
 function page_blocks_show($options)
 {
-    $xoops = Page::getInstance()->xoops();
-    $xoops->theme()->addStylesheet(Page::getInstance()->url('css/styles.css'));
-    $xoops->theme()->addStylesheet(Page::getInstance()->url('css/rating.css'));
+    $xoops = \Xoops::getInstance();
+    $page = $xoops->getModuleHelper('page');
+    $xoops->theme()->addStylesheet($page->url('css/styles.css'));
+    $xoops->theme()->addStylesheet($page->url('css/rating.css'));
 
     $block = '';
     if ($options[0] == 'id') {
-        $view_content = Page::getInstance()->getContentHandler()->get($options[1]);
+        $view_content = $page->getContentHandler()->get($options[1]);
 
         // content
         $content = $view_content->getValues();
@@ -36,10 +37,10 @@ function page_blocks_show($options)
             $block[$k] = $v;
         }
         // related
-        $block['related'] =  Page::getInstance()->getLinkHandler()->menu_related($options[1]);
+        $block['related'] =  $page->getLinkHandler()->menu_related($options[1]);
 
         // get vote by user
-        $block['yourvote'] = Page::getInstance()->getRatingHandler()->getVotebyUser($options[1]);
+        $block['yourvote'] = $page->getRatingHandler()->getVotebyUser($options[1]);
 
         // get token for rating
         $block['security'] = $xoops->security()->createToken();
@@ -49,9 +50,9 @@ function page_blocks_show($options)
 
         if ($options[0] == 'random') {
             $sort = ('sqlite' == \XoopsBaseConfig::get('db-type')) ? 'RANDOM()' : 'RAND()';
-            $content = Page::getInstance()->getContentHandler()->getPagePublished(0, $options[3], $sort);
+            $content = $page->getContentHandler()->getPagePublished(0, $options[3], $sort);
         } else {
-            $content = Page::getInstance()->getContentHandler()->getPagePublished(0, $options[3], 'content_' . $options[1], $options[2]);
+            $content = $page->getContentHandler()->getPagePublished(0, $options[3], 'content_' . $options[1], $options[2]);
         }
         foreach (array_keys($content) as $i) {
             $block['content'][$i] = $content[$i]->getValues();
@@ -84,8 +85,10 @@ function page_blocks_edit($options)
         $block_form->addElement(new Xoops\Form\Text(PageLocale::CONF_BLOCK_DISPLAY_NUMBER, 'options[3]', 1, 2, $options[3]), true);
         $block_form->addElement(new Xoops\Form\RadioYesNo(PageLocale::CONF_BLOCK_ALL_CONTENT, 'options[4]', $options[4]));
     } else {
+        $xoops = \Xoops::getInstance();
+        $page = $xoops->getModuleHelper('page');
         $block_form->addElement(new Xoops\Form\Hidden('options[0]', $options[0]));
-        $content = Page::getInstance()->getContentHandler()->getPageTitle(1);
+        $content = $page->getContentHandler()->getPageTitle(1);
 
         $select_form = new Xoops\Form\Select(PageLocale::CONF_BLOCK_CONTENTDISPLAY, 'options[1]', $options[1], 1, false);
         foreach ($content as $value) {
