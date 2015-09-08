@@ -138,7 +138,7 @@ class Handler implements \SessionHandlerInterface
             $result = $qb->execute();
         }
 
-        return ($result);
+        return (boolean) ($result>0);
     }
 
     /**
