@@ -139,7 +139,7 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
         $instance->setDirname('avatars');
 		$x = $instance->getHandler('avatar');
 		$this->assertInstanceOf('AvatarsAvatarHandler', $x);
-		$this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $x);
+		$this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $x);
     }
 
     public function test_disableCache()
@@ -151,13 +151,32 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
         $instance->setDirname('avatars');
 		$instance->disableCache();
 
-        $x = $instance->xoops()->getModuleConfig('module_cache');
-		$this->assertTrue(is_array($x));
+        $x = $instance->xoops()->getModuleConfig('module_cache','avatars');
+        $this->assertSame(array($instance->getModule()->getVar('mid') => 0), $x);
+
     }
 
 	public function test_isCurrentModule()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+        
+        $instance->clearModule();
+        $modname = 'avatars';
+
+        $instance->setDirname($modname);
+        $save = $instance->xoops()->moduleDirname;
+        $instance->xoops()->moduleDirname = $modname;
+        $value = $instance->isCurrentModule();
+        $instance->xoops()->moduleDirname = $save;
+        $this->assertTrue($value);
+        
+        $save = $instance->xoops()->moduleDirname;
+        $instance->xoops()->moduleDirname = 'not_found';
+        $value = $instance->isCurrentModule();
+        $instance->xoops()->moduleDirname = $save;
+        $this->assertFalse($value);
+        
     }
 
     public function test_isUserAdmin()

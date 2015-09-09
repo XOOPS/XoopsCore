@@ -21,11 +21,17 @@ class UserHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass,$instance);
 		$this->assertRegExp('/^.*users$/',$instance->table);
-		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsUser',$instance->className);
+		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUser',$instance->className);
 		$this->assertSame('uid',$instance->keyName);
 		$this->assertSame('uname',$instance->identifierName);
+    }
+    
+    public function testContracts()
+    {
+        $instance=new $this->myclass($this->conn);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUserHandler', $instance);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
 
 }

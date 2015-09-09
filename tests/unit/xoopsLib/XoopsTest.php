@@ -1014,6 +1014,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 
         $instance->appendConfig('dummy', array('test'=>1), false);
         $value = $instance->getConfig('dummy');
+        $this->assertTrue(in_array(array('test'=>1), $value, true));
 
         $instance->appendConfig('dummy', array('test'=>1), true, null);
         $value = $instance->getConfig('dummy');
@@ -1041,6 +1042,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $instance->disableModuleCache();
+        $this->markTestIncomplete();
     }
 
     public function test_getBaseDomain()
@@ -1094,6 +1096,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $instance->templateClearModuleCache(1);
+        $this->markTestIncomplete();
     }
 
     public function test_deprecated()
@@ -1101,6 +1104,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $instance->deprecated('message');
+        $this->markTestIncomplete();
     }
 
     public function test_disableErrorReporting()
@@ -1108,5 +1112,6 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $instance->disableErrorReporting();
+        $this->markTestIncomplete();
     }
 }

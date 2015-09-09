@@ -119,7 +119,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function test_isOnline()
 	{
         $value=$this->object->isOnline();
-		$this->markTestSkipped('');
         $this->assertSame(false,$value);
     }
 

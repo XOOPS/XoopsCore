@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler;
+use Xoops\Core\FixedGroups;
 
 /**
 * PHPUnit special settings :
@@ -12,83 +13,77 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='XoopsGroupPermHandler';
     protected $conn = null;
-
+    protected $name='name';
+    protected $groupid = 9999;
+    protected $modid = 1;
+    protected $itemid = 9997;
+    
     public function setUp()
     {
         $this->conn = Xoops::getInstance()->db();
-        $this->markTestSkipped('destructive');
     }
 
     public function test___construct()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass, $instance);
         $this->assertRegExp('/^.*group_permission$/', $instance->table);
-        $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsGroupPerm', $instance->className);
+        $this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroupPerm', $instance->className);
         $this->assertSame('gperm_id', $instance->keyName);
         $this->assertSame('gperm_name', $instance->identifierName);
     }
-
-    public function test_deleteByGroup()
+    
+    public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $groupid=1;
-        $value=$instance->deleteByGroup($groupid);
-        $this->assertSame(1, $value);
-
-        $value=$instance->deleteByGroup($groupid, 1);
-        $this->assertSame(0, $value);
-    }
-
-    public function test_deleteByModule()
-    {
-        $instance=new $this->myclass($this->conn);
-        $modid=1;
-        $value=$instance->deleteByModule($modid);
-        $this->assertSame(0, $value);
-
-        $value=$instance->deleteByModule($modid, 'module');
-        $this->assertSame(0, $value);
-
-        $value=$instance->deleteByModule($modid, 'module', 1);
-        $this->assertSame(0, $value);
-    }
-
-    public function test_checkRight()
-    {
-        $instance=new $this->myclass($this->conn);
-        $name='name';
-        $itemid=1;
-        $groupid=1;
-        $value=$instance->checkRight($name, $itemid, $groupid);
-        $this->assertSame(true, $value);
-
-        $value=$instance->checkRight($name, $itemid, $groupid, 1, false);
-        $this->assertSame(false, $value);
-
-        $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid));
-        $this->assertSame(true, $value);
-
-        $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid), 1, false);
-        ;
-        $this->assertSame(false, $value);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroupPermHandler', $instance);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_addRight()
     {
         $instance=new $this->myclass($this->conn);
-        $name='name';
-        $itemid=1;
-        $groupid=1;
-        $value=$instance->addRight($name, $itemid, $groupid);
+        $name=$this->name;
+        $groupid=$this->groupid;
+        $itemid=$this->itemid;
+        $modid=$this->modid;
+        $value=$instance->addRight($name, $itemid, $groupid, $modid);
         $this->assertTrue(is_numeric($value));
+    }
+    
+    public function test_checkRight()
+    {
+        $instance=new $this->myclass($this->conn);
+        $name=$this->name;
+        $groupid=$this->groupid;
+        $itemid=$this->itemid;
+        $modid=$this->modid;
+        $value=$instance->checkRight($name, $itemid, $groupid);
+        $this->assertSame(true, $value);
+
+        $value=$instance->checkRight($name, $itemid, $groupid, $modid, false);
+        $this->assertSame(true, $value);
+
+        $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid));
+        $this->assertSame(true, $value);
+
+        $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid), $modid, false);
+        $this->assertSame(true, $value);
+        
+        $value=$instance->checkRight('dummy', -1, null, -1);
+        $this->assertSame(false, $value);
+        
+        $value=$instance->checkRight('dummy', -1, FixedGroups::ADMIN, -1);
+        $this->assertSame(true, $value);
+        
+        $value=$instance->checkRight('dummy', array($groupid, $groupid, $groupid), FixedGroups::ADMIN, -1);
+        $this->assertSame(true, $value);
     }
 
     public function test_getItemIds()
     {
         $instance=new $this->myclass($this->conn);
-        $name='name';
-        $groupid=1;
+        $name=$this->name;
+        $groupid=$this->groupid;
         $value=$instance->getItemIds($name, $groupid);
         $this->assertTrue(is_array($value));
 
@@ -99,9 +94,57 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
     public function test_getGroupIds()
     {
         $instance=new $this->myclass($this->conn);
-        $name='name';
-        $itemid=1;
+        $name=$this->name;
+        $itemid=$this->itemid;
         $value=$instance->getGroupIds($name, $itemid);
         $this->assertTrue(is_array($value));
+    }
+    
+    public function test_deleteByGroup()
+    {
+        $instance=new $this->myclass($this->conn);
+        $groupid=$this->groupid;
+        $modid=$this->modid;
+        $value=$instance->deleteByGroup($groupid);
+        $this->assertTrue((int)($value) > 0);
+        
+        $name=$this->name;
+        $groupid=$this->groupid;
+        $itemid=$this->itemid;
+        $modid=$this->modid;
+        $value=$instance->addRight($name, $itemid, $groupid, $modid);
+        $this->assertTrue(is_numeric($value));
+        $value=$instance->deleteByGroup($groupid, $modid);
+        $this->assertTrue((int)($value) > 0);
+        
+        $value=$instance->deleteByGroup($groupid, $modid);
+        $this->assertSame(0, $value);
+    }
+    
+    public function test_deleteByModule()
+    {
+        $instance=new $this->myclass($this->conn);
+        $name=$this->name;
+        $groupid=$this->groupid;
+        $itemid=$this->itemid;
+        $modid=$this->modid;
+        $value=$instance->addRight($name, $itemid, $groupid, $modid);
+        $this->assertTrue(is_numeric($value));
+
+        $value=$instance->deleteByModule($modid);
+        $this->assertTrue((int)$value > 0);
+        
+        $value=$instance->addRight($name, $itemid, $groupid, $modid);
+        $this->assertTrue(is_numeric($value));
+        $value=$instance->deleteByModule($modid, $name);
+        $this->assertTrue((int)$value > 0);
+        
+        $value=$instance->addRight($name, $itemid, $groupid, $modid);
+        $this->assertTrue(is_numeric($value));
+        $value=$instance->deleteByModule($modid, $name, $itemid);
+        $this->assertTrue((int)$value > 0);
+        
+        $value=$instance->deleteByModule($modid, $name, $itemid);
+        $this->assertSame(0, $value);
     }
 }

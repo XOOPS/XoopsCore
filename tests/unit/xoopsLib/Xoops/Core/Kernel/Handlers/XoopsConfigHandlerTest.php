@@ -25,6 +25,12 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
     }
+    
+    public function testContracts()
+    {
+        $instance=new $this->myclass();
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsConfigHandler', $instance);
+    }
 
     public function test_createConfig()
 	{
