@@ -34,7 +34,7 @@ class RanksHandlerTest extends \PHPUnit_Framework_TestCase
     
     public function testContracts()
     {
-        $instance=new $this->myclass($this->conn);
+        $instance = $this->object;
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsRanksHandler', $instance);
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
