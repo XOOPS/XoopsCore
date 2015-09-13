@@ -3,6 +3,7 @@ require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsTplfileHandler;
 use Xoops\Core\Kernel\Handlers\XoopsTplfile;
+use Xoops\Core\Kernel\Criteria;
 
 /**
 * PHPUnit special settings :
@@ -11,25 +12,30 @@ use Xoops\Core\Kernel\Handlers\XoopsTplfile;
 */
 class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='\Xoops\Core\Kernel\Handlers\XoopsTplfileHandler';
+    protected $myclass='XoopsTplfileHandler';
     protected $conn = null;
-    protected $xoopsTplfile = '\Xoops\Core\Kernel\Handlers\XoopsTplfile';
+    protected $xoopsTplfile = '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfile';
 
     public function setUp()
     {
         $this->conn = Xoops::getInstance()->db();
         $this->conn->setSafe();
-        $this->markTestSkipped('failing');
     }
 
     public function test___construct()
     {
         $instance = new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass, $instance);
         $this->assertRegExp('/^.*tplfile$/', $instance->table);
         $this->assertSame($this->xoopsTplfile, $instance->className);
         $this->assertSame('tpl_id', $instance->keyName);
         $this->assertSame('tpl_refid', $instance->identifierName);
+    }
+    
+    public function testContracts()
+    {
+        $instance=new $this->myclass($this->conn);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfileHandler', $instance);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_getById()
@@ -79,10 +85,16 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
         $source = new XoopsTplfile();
         $source->setDirty();
         $source->setNew();
+        $source->setVar('tpl_refid', 1);
+        $source->setVar('tpl_lastmodified', 1);
+        $source->setVar('tpl_lastimported', 1);
+        $source->setVar('tpl_module', 'TPL_DESC_DUMMY_TEST');
+        $source->setVar('tpl_tplset', 'TPL_DESC_DUMMY_TEST');
+        $source->setVar('tpl_file', 'TPL_DESC_DUMMY_TEST');
         $source->setVar('tpl_desc', 'TPL_DESC_DUMMY_TEST');
+        $source->setVar('tpl_type', 'TPL_DESC_DUMMY_TEST');
         $value = $instance->insertTpl($source);
         $this->assertSame(true, $value);
-
         $value = $instance->deleteTpl($source);
         $this->assertSame(true, $value);
     }
@@ -99,7 +111,7 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
         $value = $instance->getTplObjects(null, false, true);
         $this->assertTrue(is_array($value));
 
-        $criteria = new Criteria('tpl_type', 'dummy');
+        $criteria = new Criteria('tpl_type', 'block');
         $value = $instance->getTplObjects($criteria);
         $this->assertTrue(is_array($value));
         $this->assertTrue(count($value) > 0);

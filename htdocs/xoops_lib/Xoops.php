@@ -1791,11 +1791,11 @@ class Xoops
         if (empty($dirname)) {
             $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
         }
+        if (!isset($this->moduleConfigs[$dirname][$key]) || !is_array($this->moduleConfigs[$dirname][$key])) {
+            $this->moduleConfigs[$dirname][$key] = array();
+        }
         if ($appendWithKey) {
             foreach ($values as $key2 => $value) {
-                if (!isset($this->moduleConfigs[$dirname][$key]) || !is_array($this->moduleConfigs[$dirname][$key])) {
-                    $this->moduleConfigs[$dirname][$key] = array();
-                }
                 $this->moduleConfigs[$dirname][$key][$key2] =& $value;
             }
         } else {

@@ -12,9 +12,9 @@ class Scripts_ImageTest extends \PHPUnit_Framework_TestCase
 	{
 		global $image_handler;
         
-        if (headers_sent()) {
-            $this->markTestSkipped();
-        }
+        // if (headers_sent()) {
+            // $this->markTestSkipped();
+        // }
 		
 		$save = $image_handler;
         $xoops_root_path = \XoopsBaseConfig::get('root-path');

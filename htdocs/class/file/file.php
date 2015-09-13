@@ -449,6 +449,7 @@ class XoopsFileHandler
     public function size()
     {
         if ($this->exists()) {
+            clearstatcache();
             return filesize($this->pwd());
         }
         return false;

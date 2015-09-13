@@ -1,8 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/../../init_new.php');
 
-require_once(XOOPS_TU_ROOT_PATH . '/class/file/file.php');
-
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -137,12 +135,23 @@ class XoopsFileHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test_write()
 	{
-		$this->markTestIncomplete();
+        // see test_append
     }
 
     public function test_append()
 	{
-		$this->markTestIncomplete();
+		$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'dummy.txt';
+		@unlink($file);
+		$instance = new $this->myClass($file, false);
+		$this->assertFalse($instance->exists($file));
+        $data = "dummy for unit tests";
+		$value = $instance->write($data);
+		$this->assertTrue($value);
+        
+        $data = "dummy for unit tests";
+		$value = $instance->append($data);
+		$this->assertTrue($value);
+		@unlink($file);
     }
 
     public function test_close()
@@ -221,12 +230,42 @@ class XoopsFileHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test_safe()
 	{
-		$this->markTestIncomplete();
+		$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'dummy#(001).txt';
+		@unlink($file);
+		$instance = new $this->myClass($file, false);
+        
+        $value = $instance->safe();
+        $this->assertSame('dummy_001_.', $value);
+		
+        $value = $instance->safe(null,'txt');
+        $this->assertSame('dummy_001_.', $value);
+        
+        $value = $instance->safe(basename($file),'txt');
+        $this->assertSame('dummy_001_.', $value);
     }
 
     public function test_md5()
 	{
-		$this->markTestIncomplete();
+		$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'dummy.txt';
+		@unlink($file);
+		$instance = new $this->myClass($file, true);
+		$this->assertTrue($instance->exists($file));
+        
+        $data = "dummy for unit tests";
+		$value = $instance->write($data);
+		$this->assertTrue($value);
+        
+		$result = $instance->close();
+		$this->assertTrue($result);
+        
+        $value = $instance->md5(true);
+        $this->assertSame(md5_file($instance->pwd()), $value);
+        
+        $value = $instance->md5();
+        $this->assertSame(md5_file($instance->pwd()), $value);
+        
+        $value = $instance->md5(0);
+        $this->assertFalse($value);
     }
 
     public function test_pwd()

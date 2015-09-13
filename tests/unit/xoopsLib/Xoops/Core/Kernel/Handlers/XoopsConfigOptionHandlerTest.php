@@ -21,11 +21,16 @@ class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass, $instance);
 		$this->assertRegExp('/^.*configoption$/',$instance->table);
-		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsConfigOption',$instance->className);
+		$this->assertSame('\\Xoops\Core\\Kernel\\Handlers\\XoopsConfigOption',$instance->className);
 		$this->assertSame('confop_id',$instance->keyName);
 		$this->assertSame('confop_name',$instance->identifierName);
     }
       
+    public function testContracts()
+    {
+        $instance=new $this->myclass($this->conn);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsConfigOptionHandler', $instance);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+    }
 }
