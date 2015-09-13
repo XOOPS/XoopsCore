@@ -48,7 +48,6 @@ class XoopsFileHandler
      * Filename
      *
      * @var string
-     * @access public
      */
     public $name = null;
 
@@ -56,7 +55,6 @@ class XoopsFileHandler
      * file info
      *
      * @var string
-     * @access public
      */
     public $info = array();
 
@@ -64,7 +62,6 @@ class XoopsFileHandler
      * Holds the file handler resource if the file is opened
      *
      * @var resource
-     * @access public
      */
     public $handle = null;
 
@@ -72,7 +69,6 @@ class XoopsFileHandler
      * enable locking for file reading and writing
      *
      * @var boolean
-     * @access public
      */
     public $lock = null;
 
@@ -83,7 +79,7 @@ class XoopsFileHandler
      * @param boolean $create Create file if it does not exist (if true)
      * @param integer $mode   Mode to apply to the folder holding the file
      *
-     * @access public
+     * @todo reconsider validity this class, if valid add exceptions to __construct()
      */
     public function __construct($path, $create = false, $mode = 0755)
     {
@@ -91,18 +87,18 @@ class XoopsFileHandler
         if (!is_dir($path)) {
             $this->name = basename($path);
         } else {
-			return false;
-		}
+            return; // false;
+        }
         if (!$this->exists()) {
             if ($create === true) {
                 if ($this->safe($path) && $this->create() === false) {
-                    return false;
+                    return; // false;
                 }
             } else {
-                return false;
+                return; // false;
             }
         }
-        return true;
+        return; // true;
     }
 
 
@@ -118,7 +114,6 @@ class XoopsFileHandler
      * Creates the File.
      *
      * @return boolean Success
-     * @access public
      */
     public function create()
     {
@@ -139,7 +134,6 @@ class XoopsFileHandler
      * its already opened, otherwise it won't
      *
      * @return boolean True on success, false on failure
-     * @access public
      */
     public function open($mode = 'r', $force = false)
     {
@@ -166,7 +160,6 @@ class XoopsFileHandler
      * @param boolean     $force If true then the file will be re-opened even if its already opened, otherwise it won't
      *
      * @return mixed string on success, false on failure
-     * @access public
      */
     public function read($bytes = false, $mode = 'rb', $force = false)
     {
@@ -205,7 +198,6 @@ class XoopsFileHandler
      *
      * @return mixed True on success, false on failure (set mode),
      * false on failure or integer offset on success (get mode)
-     * @access public
      */
     public function offset($offset = false, $seek = SEEK_SET)
     {
@@ -228,7 +220,6 @@ class XoopsFileHandler
      * @param string $data Data to prepare for writing.
      *
      * @return string
-     * @access public
      */
     public function prepare($data)
     {
@@ -247,7 +238,6 @@ class XoopsFileHandler
      * @param bool   $force force the file to open
      *
      * @return bool Success
-     * @access public
      */
     public function write($data, $mode = 'w', $force = false)
     {
@@ -275,7 +265,6 @@ class XoopsFileHandler
      * @param bool   $force force the file to open
      *
      * @return bool Success
-     * @access public
      */
     public function append($data, $force = false)
     {
@@ -286,7 +275,6 @@ class XoopsFileHandler
      * Closes the current file if it is opened.
      *
      * @return boolean True if closing was successful or file was already closed, otherwise false
-     * @access public
      */
     public function close()
     {
@@ -300,7 +288,6 @@ class XoopsFileHandler
      * Deletes the File.
      *
      * @return boolean Success
-     * @access public
      */
     public function delete()
     {
@@ -311,10 +298,9 @@ class XoopsFileHandler
     }
 
     /**
-     * Returns the File informations array
+     * Returns the File information array
      *
-     * @return array The File informations
-     * @access public
+     * @return array The File information
      */
     public function info()
     {
@@ -331,7 +317,6 @@ class XoopsFileHandler
      * Returns the File extension.
      *
      * @return string The File extension
-     * @access public
      */
     public function ext()
     {
@@ -348,7 +333,6 @@ class XoopsFileHandler
      * Returns the File name without extension.
      *
      * @return string The File name without extension.
-     * @access public
      */
     public function name()
     {
@@ -388,7 +372,6 @@ class XoopsFileHandler
      * @param integer $maxsize in MB or true to force
      *
      * @return string md5 Checksum {@link http://php.net/md5_file See md5_file()}
-     * @access public
      */
     public function md5($maxsize = 5)
     {
@@ -407,7 +390,6 @@ class XoopsFileHandler
      * Returns the full path of the File.
      *
      * @return string Full path to file
-     * @access public
      */
     public function pwd()
     {
@@ -418,7 +400,6 @@ class XoopsFileHandler
      * Returns true if the File exists.
      *
      * @return bool true if it exists, false otherwise
-     * @access public
      */
     public function exists()
     {
@@ -430,7 +411,6 @@ class XoopsFileHandler
      * Returns the "chmod" (permissions) of the File.
      *
      * @return string Permissions for the file
-     * @access public
      */
     public function perms()
     {
@@ -444,7 +424,6 @@ class XoopsFileHandler
      * Returns the Filesize, either in bytes or in human-readable format.
      *
      * @return bool|int filesize as int or as a human-readable string
-     * @access public
      */
     public function size()
     {
@@ -459,7 +438,6 @@ class XoopsFileHandler
      * Returns true if the File is writable.
      *
      * @return boolean true if its writable, false otherwise
-     * @access public
      */
     public function writable()
     {
@@ -470,7 +448,6 @@ class XoopsFileHandler
      * Returns true if the File is executable.
      *
      * @return boolean true if its executable, false otherwise
-     * @access public
      */
     public function executable()
     {
@@ -481,7 +458,6 @@ class XoopsFileHandler
      * Returns true if the File is readable.
      *
      * @return boolean true if file is readable, false otherwise
-     * @access public
      */
     public function readable()
     {
@@ -505,7 +481,6 @@ class XoopsFileHandler
      * Returns the File group.
      *
      * @return int|bool the Filegroup
-     * @access public
      */
     public function group()
     {
@@ -519,7 +494,6 @@ class XoopsFileHandler
      * Returns last access time.
      *
      * @return int|bool timestamp Timestamp of last access time
-     * @access public
      */
     public function lastAccess()
     {
@@ -533,7 +507,6 @@ class XoopsFileHandler
      * Returns last modified time.
      *
      * @return int|bool timestamp Timestamp of last modification
-     * @access public
      */
     public function lastChange()
     {
@@ -547,7 +520,6 @@ class XoopsFileHandler
      * Returns the current folder.
      *
      * @return XoopsFolderHandler Current folder
-     * @access public
      */
     public function folder()
     {

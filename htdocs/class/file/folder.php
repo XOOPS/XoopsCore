@@ -206,7 +206,7 @@ class XoopsFolderHandler
         if (!is_array($data)) {
             return array();
         }
-        list ($dirs, $files) = $data;
+        list($dirs, $files) = $data;
         $found = array();
         foreach ($files as $file) {
             if (preg_match("/^{$regexp_pattern}$/i", $file)) {
@@ -246,7 +246,7 @@ class XoopsFolderHandler
      */
     private function findRecursiveHelper($pattern, $sort = false, $exceptions = false)
     {
-        list ($dirs, $files) = $this->read($sort, $exceptions);
+        list($dirs, $files) = $this->read($sort, $exceptions);
         $found = array();
         foreach ($files as $file) {
             if (preg_match("/^{$pattern}$/i", $file)) {
@@ -369,7 +369,7 @@ class XoopsFolderHandler
      */
     public function inXoopsPath($path = '')
     {
-		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $dir = substr($this->slashTerm($xoops_root_path), 0, -1);
         $newdir = $dir . ($path{0}=='/'?'':'/') . $path;
         return $this->inPath($newdir);
@@ -387,8 +387,8 @@ class XoopsFolderHandler
     {
         $dir = $this->slashTerm($path);
         $current = $this->slashTerm($this->pwd());
-        $dir = str_replace('\\','/',$dir);
-        $current = str_replace('\\','/',$current);
+        $dir = str_replace('\\', '/', $dir);
+        $current = str_replace('\\', '/', $current);
         if (!$reverse) {
             $return = strpos($current, $dir);
         } else {
@@ -423,7 +423,7 @@ class XoopsFolderHandler
             }
         }
         if (is_dir($path)) {
-            list ($paths) = $this->tree($path);
+            list($paths) = $this->tree($path);
             foreach ($paths as $fullpath) {
                 $check = explode('/', $fullpath);
                 $count = count($check);
@@ -558,19 +558,27 @@ class XoopsFolderHandler
     {
         return $this->dirsize2($this->path, 0);
     }
-    
-    private function dirsize2($path, $size=0)
+
+    /**
+     * Accumulate the size of a path, recursively sizing any sub directories
+     *
+     * @param string $path name of directory being sized
+     * @param int    $size starting size
+     *
+     * @return int accumulated size
+     */
+    private function dirsize2($path, $size = 0)
     {
         $count = $size;
-        $files = array_diff(scandir($path), array('.','..'));
-        foreach ($files as $file) { 
+        $files = array_diff(scandir($path), array('.', '..'));
+        foreach ($files as $file) {
             $name = "$path/$file";
             if (is_dir($name)) {
                 $count += $this->dirsize2($name, $count);
             } else {
                 $count += filesize($name);
             }
-        } 
+        }
         return $count;
     }
 
@@ -584,8 +592,8 @@ class XoopsFolderHandler
      */
     public function delete($path)
     {
-        $files = array_diff(scandir($path), array('.','..')); 
-        foreach ($files as $file) { 
+        $files = array_diff(scandir($path), array('.', '..'));
+        foreach ($files as $file) {
             $name = "$path/$file";
             if (is_dir($name)) {
                 $this->delete($name);
@@ -596,7 +604,7 @@ class XoopsFolderHandler
                     $this->errors[] = sprintf('%s NOT removed', $name);
                 }
             }
-        } 
+        }
         if (@rmdir($path) === false) {
             $this->errors[] = sprintf('%s NOT removed', $path);
             return false;
@@ -745,7 +753,7 @@ class XoopsFolderHandler
      * @return string The resolved path
      */
     public function realpath($path)
-    {       
+    {
         $path = trim($path);
         if (!$this->isAbsolute($path)) {
             $path = $this->addPathElement($this->path, $path);
@@ -753,9 +761,10 @@ class XoopsFolderHandler
         if (strpos($path, '..') === false) {
             return $path;
         }
-        $parts = explode('/', str_replace('\\','/',$path));
+        $parts = explode('/', str_replace('\\', '/', $path));
         $newparts = array();
-        $newpath = $path{0} == '/' ? '/' : '';
+        $newpath = $path{0}
+        == '/' ? '/' : '';
         while (($part = array_shift($parts)) !== null) {
             if ($part == '.' || $part == '') {
                 continue;
