@@ -157,7 +157,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
     public function testIsWindowsPath()
     {
 		$class = $this->myClass;
-		$result = $class::isWindowsPath(dirname(__FILE__));
+		$result = $class::isWindowsPath("C:\\Windows\\Temp");
 		$this->assertTrue($result);
 		$result = $class::isWindowsPath('unixRelativePath/test/test');
 		$this->assertFalse($result);
@@ -188,7 +188,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
     public function testNormalizePath()
     {
 		$class = $this->myClass;
-		$dir = dirname(__FILE__);
+		$dir = "C:\\Windows\\Temp";
 		$result = $class::isWindowsPath($dir);
 		$this->assertTrue($result);
 		$result = $class::normalizePath($dir);
@@ -207,7 +207,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCorrectSlashFor()
     {
 		$class = $this->myClass;
-		$dir = dirname(__FILE__);
+		$dir = "C:\\Windows\\Temp";
 		$result = $class::isWindowsPath($dir);
 		$this->assertTrue($result);
 		$result = $class::correctSlashFor($dir);
@@ -228,7 +228,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$class = $this->myClass;
 		$dir = dirname(__FILE__);
 		$result = $class::slashTerm($dir);
-		$this->assertSame($dir.'\\', $result);
+		$this->assertSame($dir.DIRECTORY_SEPARATOR, $result);
 
 		$dir = dirname(__FILE__).'\\';
 		$result = $class::slashTerm($dir);
@@ -252,7 +252,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$element = 'element';
 		$dir = dirname(__FILE__);
 		$result = $class::addPathElement($dir,$element);
-		$this->assertSame($dir.'\\'.$element, $result);
+		$this->assertSame($dir.DIRECTORY_SEPARATOR.$element, $result);
 
 		$dir = dirname(__FILE__).'\\';
 		$result = $class::addPathElement($dir,$element);

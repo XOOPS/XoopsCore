@@ -1,0 +1,36 @@
+﻿<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    colors="false"
+    verbose="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    bootstrap="./tests/unit/bootstrap.php"
+    >
+
+<testsuites>
+    <testsuite name="class">
+        <directory>./tests/unit/class</directory>
+    </testsuite>
+    <testsuite name="xoops_lib">
+        <directory>./tests/unit/xoopsLib</directory>
+    </testsuite>
+</testsuites>
+
+<filter>
+    <whitelist>
+        <directory suffix=".php">./htdocs/class</directory>
+        <directory suffix=".php">./htdocs/xoops_lib</directory>
+		<exclude>
+            <directory suffix=".php">./htdocs/xoops_lib/modules</directory>
+            <directory suffix=".php">./htdocs/xoops_lib/vendor</directory>
+		</exclude>
+    </whitelist>
+</filter>
+
+<logging>
+    <log type="coverage-clover" target="coverage.clover" />
+</logging>
+</phpunit>
