@@ -62,7 +62,8 @@ switch ($op) {
         $error_message = '';
         $xoops_upload_file = Request::getArray('xoops_upload_file', array());
         if ($_FILES[$xoops_upload_file[0]]['error'] === 0) {
-            $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH . '/images', $mimetypes, $category->getVar('imgcat_maxsize'), $category->getVar('imgcat_maxwidth'), $category->getVar('imgcat_maxheight'));
+            $xoops_upload_path = \XoopsBaseConfig::get('uploads-path') . '/images';
+            $uploader = new XoopsMediaUploader($xoops_upload_path, $mimetypes, $category->getVar('imgcat_maxsize'), $category->getVar('imgcat_maxwidth'), $category->getVar('imgcat_maxheight'));
             if ($uploader->fetchMedia($xoops_upload_file[0])) {
                 $uploader->setPrefix('img');
                 if (!$uploader->upload()) {
