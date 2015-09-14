@@ -67,7 +67,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
 
     chdir('modules/' . $xoops->getConfig('startpage') . '/');
     $xoops->loadLanguage('main', $xoops->module->getVar('dirname', 'n'));
-    $parsed = parse_url($xoops->globalData->getVar('url'));
+    $parsed = parse_url(\XoopsBaseConfig::get('url'));
     $url = isset($parsed['scheme']) ? $parsed['scheme'] . '://' : 'http://';
     if (isset($parsed['host'])) {
         $url .= $parsed['host'];
