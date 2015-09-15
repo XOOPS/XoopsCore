@@ -30,7 +30,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
 $xoops->header('admin:profile/categorylist.tpl');
 // Get category handler
-$category_Handler = $xoops->getModuleHandler("category");
+$category_Handler = \Xoops::getModuleHelper('profile')->getHandler("category");
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('category.php');

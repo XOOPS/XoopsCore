@@ -11,7 +11,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplset;
 */
 class TplsetHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsTplsetHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplsetHandler';
 	protected $conn = null;
 
     public function setUp()
@@ -27,7 +27,7 @@ class TplsetHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('tplset_id',$instance->keyName);
 		$this->assertSame('tplset_name',$instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);

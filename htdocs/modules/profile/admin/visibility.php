@@ -40,8 +40,8 @@ $xoops->header();
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('permissions.php');
 
-$visibility_handler = $xoops->getModuleHandler('visibility');
-$field_handler = $xoops->getModuleHandler('field');
+$visibility_handler = \Xoops::getModuleHelper('profile')->getHandler('visibility');
+$field_handler = \Xoops::getModuleHelper('profile')->getHandler('field');
 $fields = $field_handler->getList();
 
 if (isset($_REQUEST['submit'])) {

@@ -30,7 +30,7 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 // Call header
 $xoops->header('admin:profile/steplist.tpl');
 // Get handler
-$regstep_Handler = $xoops->getModuleHandler("regstep");
+$regstep_Handler = \Xoops::getModuleHelper('profile')->getHandler("regstep");
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('step.php');

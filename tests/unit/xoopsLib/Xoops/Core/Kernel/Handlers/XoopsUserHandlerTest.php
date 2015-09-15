@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUserHandler;
 */
 class UserHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsUserHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsUserHandler';
 	protected $conn = null;
 
     public function setUp()
@@ -26,7 +26,7 @@ class UserHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('uid',$instance->keyName);
 		$this->assertSame('uname',$instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);

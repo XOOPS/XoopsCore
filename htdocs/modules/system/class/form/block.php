@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\FixedGroups;
 
 /**

@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -9,7 +11,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 class BloggerApiTest extends \PHPUnit_Framework_TestCase
 {
 	protected $myClass = 'BloggerApi';
-	
+
     public function test___construct()
 	{
 		$params = array(null, null, 'admin', 'adminadmin');
@@ -26,7 +28,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$moretext = '<moretext>Moretext</moretext>';
 		$categories = '<categories>10</categories>';
 		$text = $title . $hometext . $moretext . $categories;
-		
+
 		$params = array('', '', 'admin', 'adminadmin', $text);
 		$response = new XoopsXmlRpcResponse();
 		$module = new XoopsModule();
@@ -34,7 +36,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$instance->newPost();
 		$msg = $response->render();
 		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();			
+			$this->markTestSkipped();
 		$this->markTestIncomplete();
     }
 
@@ -45,7 +47,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$moretext = '<moretext>Moretext</moretext>';
 		$categories = '<categories>10</categories>';
 		$text = $title . $hometext . $moretext . $categories;
-		
+
 		$params = array('', '', 'admin', 'adminadmin', $text);
 		$response = new XoopsXmlRpcResponse();
 		$module = new XoopsModule();
@@ -53,7 +55,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$instance->editPost();
 		$msg = $response->render();
 		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();			
+			$this->markTestSkipped();
 		$this->markTestIncomplete();
     }
 
@@ -64,7 +66,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$moretext = '<moretext>Moretext</moretext>';
 		$categories = '<categories>10</categories>';
 		$text = $title . $hometext . $moretext . $categories;
-		
+
 		$params = array('', '', 'admin', 'adminadmin', $text);
 		$response = new XoopsXmlRpcResponse();
 		$module = new XoopsModule();
@@ -72,7 +74,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$instance->deletePost();
 		$msg = $response->render();
 		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();			
+			$this->markTestSkipped();
 		$this->markTestIncomplete();
     }
 
@@ -83,7 +85,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$moretext = '<moretext>Moretext</moretext>';
 		$categories = '<categories>10</categories>';
 		$text = $title . $hometext . $moretext . $categories;
-		
+
 		$params = array('', '', 'admin', 'adminadmin', $text);
 		$response = new XoopsXmlRpcResponse();
 		$module = new XoopsModule();
@@ -91,7 +93,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$instance->getPost();
 		$msg = $response->render();
 		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();			
+			$this->markTestSkipped();
 		$this->markTestIncomplete();
     }
 
@@ -102,7 +104,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$moretext = '<moretext>Moretext</moretext>';
 		$categories = '<categories>10</categories>';
 		$text = $title . $hometext . $moretext . $categories;
-		
+
 		$params = array('', '', 'admin', 'adminadmin', $text);
 		$response = new XoopsXmlRpcResponse();
 		$module = new XoopsModule();
@@ -110,7 +112,7 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 		$instance->getRecentPosts();
 		$msg = $response->render();
 		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();			
+			$this->markTestSkipped();
 		$this->markTestIncomplete();
     }
 

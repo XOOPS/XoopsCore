@@ -21,7 +21,7 @@ function menus_block_show($options)
 {
     $block = array();
     $xoops = Xoops::getInstance();
-    $helper = Menus::getInstance();
+    $helper = Xoops::getModuleHelper('menus');
 
     /* @var $decorator MenusDecoratorInterface */
     $decorators = MenusDecorator::getAvailableDecorators();
@@ -136,7 +136,7 @@ function menus_block_edit($options)
         $options[4] = uniqid();
     }
 
-    $helper = Menus::getInstance();
+    $helper = Xoops::getModuleHelper('menus');
     $helper->loadLanguage('admin');
 
     $criteria = new CriteriaCompo();
@@ -197,7 +197,7 @@ function menus_mainmenu_show()
 {
     $block = array();
     $xoops = Xoops::getInstance();
-    $helper = Menus::getInstance();
+    $helper = Xoops::getModuleHelper('menus');
 
     $module_handler = $xoops->getHandlerModule();
     $criteria = new CriteriaCompo(new Criteria('hasmain', 1));

@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsBlock;
 */
 class XoopsBlockTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'XoopsBlock';
+    protected $myClass = 'Xoops\Core\Kernel\Handlers\XoopsBlock';
 
     public function setUp()
     {

@@ -30,7 +30,7 @@ use Xoops\Core\HttpRequest;
  * Using this functionality is a security risk. Ideally, this should only be used over ssl,
  * but even then, the possibility of cookie theft still exists. Present that stolen cookie
  * and the thief can become the authorized user. The following details the steps taken to
- * provide a smooth user experiece while minimizing the exposure surface of this risk.
+ * provide a smooth user experience while minimizing the exposure surface of this risk.
  *
  * Each time a new persistent auth cookie is requested, a new "series" is started.
  * Associated with the series is a one time token, that changes whenever it is used.

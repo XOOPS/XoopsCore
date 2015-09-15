@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler;
+
 /**
  * page module
  *
@@ -48,7 +50,7 @@ class PageGroupPermHandler extends XoopsGroupPermHandler
         $groups_add = array_diff($groups, array_values($groups_exists));
 
         // delete
-        if (count($groups_delete) != 0 ) {
+        if (count($groups_delete) != 0) {
             $criteria = $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('gperm_itemid', $content_id));
             $criteria->add(new Criteria('gperm_modid', $module_id));
@@ -59,8 +61,8 @@ class PageGroupPermHandler extends XoopsGroupPermHandler
         }
 
         // Add
-        if (count($groups_add) != 0 ) {
-            foreach($groups_add as $group_id) {
+        if (count($groups_add) != 0) {
+            foreach ($groups_add as $group_id) {
                 parent::addRight('page_view_item', $content_id, $group_id, $module_id);
             }
         }

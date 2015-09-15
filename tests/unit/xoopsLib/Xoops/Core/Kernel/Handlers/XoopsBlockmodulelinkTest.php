@@ -10,11 +10,11 @@ use Xoops\Core\Kernel\Handlers\XoopsBlockmodulelink;
 */
 class BlockmodulelinkTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'XoopsBlockmodulelink';
-    
+    protected $myClass = 'Xoops\Core\Kernel\Handlers\XoopsBlockmodulelink';
+
     public function setUp() {
     }
-    
+
     public function test___construct() {
         $instance=new $this->myClass();
         $this->assertInstanceOf($this->myClass,$instance);
@@ -28,11 +28,11 @@ class BlockmodulelinkTest extends \PHPUnit_Framework_TestCase
         $value = $instance->getVar('block_id', '');
         $this->assertSame(null,$value);
     }
-    
+
     public function test_getVar200() {
         $instance=new $this->myClass();
         $value = $instance->getVar('module_id', '');
         $this->assertSame(null,$value);
     }
-    
+
 }

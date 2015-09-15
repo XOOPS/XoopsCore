@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Model\Sync;
+use Xoops\Core\Kernel\Handlers\XoopsMembershipHandler;
 
 /**
 * PHPUnit special settings :
@@ -17,8 +18,7 @@ class SyncTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $this->conn = $db->conn;
+        $this->conn = \Xoops::getInstance()->db();
     }
 
     public function test___construct()
@@ -37,8 +37,7 @@ class SyncTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $handler->table_link=$db->prefix('groups');
+        $handler->table_link=$this->conn->prefix('groups');
         $handler->field_link='groupid';
         $handler->field_object='groupid';
 

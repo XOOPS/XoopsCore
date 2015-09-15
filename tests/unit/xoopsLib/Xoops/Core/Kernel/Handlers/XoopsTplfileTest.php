@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../../../init_new.php');
 */
 class TplfileTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsTplfile';
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsTplfile';
 
     public function setUp()
 	{

@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Request;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * XOOPS global search

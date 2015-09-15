@@ -31,9 +31,9 @@ $op = $system->cleanVars($_REQUEST, 'op', 'list', 'string');
 $xoops->header('admin:profile/fieldlist.tpl');
 // Get handler
 /* @var $field_handler ProfileFieldHandler */
-$field_handler = $xoops->getModuleHandler('field');
+$field_handler = \Xoops::getModuleHelper('profile')->getHandler('field');
 /* @var $cat_handler ProfileCategoryHandler */
-$cat_handler = $xoops->getModuleHandler('category');
+$cat_handler = \Xoops::getModuleHelper('profile')->getHandler('category');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('field.php');

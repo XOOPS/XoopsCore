@@ -15,7 +15,6 @@
  * @package         Menus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
 
 $modversion                = array();
@@ -41,11 +40,12 @@ $modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = '2.6.0';
 
 // paypal
-$modversion['paypal']                  = array();
-$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name']     = '';
-$modversion['paypal']['amount']        = 0;
-$modversion['paypal']['currency_code'] = 'USD';
+$modversion['paypal'] = array(
+    'business'      => 'xoopsfoundation@gmail.com',
+    'item_name'     => '',
+    'amount'        => 0,
+    'currency_code' => 'USD',
+);
 
 /*
  Manage extension
@@ -70,40 +70,43 @@ $modversion['hasSearch'] = 0;
 $modversion['hasComments'] = 0;
 
 // Sql
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$i                              = 0;
-$modversion['tables'][$i]       = "menus_menu";
-++$i;
-$modversion['tables'][$i] = "menus_menus";
+$modversion['schema'] = 'sql/schema.yml';
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+
+$modversion['tables'] = array(
+    'menus_menu',
+    'menus_menus',
+);
 
 // Config
-$i = 0;
-++$i;
-$modversion['config'][$i]['name']        = 'assign_method';
-$modversion['config'][$i]['title']       = '_MI_MENUS_CONF_ASSIGN_METHOD';
-$modversion['config'][$i]['description'] = '_MI_MENUS_CONF_ASSIGN_METHOD_DSC';
-$modversion['config'][$i]['formtype']    = 'select';
-$modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = 'xotheme';
-$modversion['config'][$i]['options']     = array(
-    _MI_MENUS_CONF_ASSIGN_METHOD_XOOPSTPL => 'xoopstpl',
-    _MI_MENUS_CONF_ASSIGN_METHOD_XOTHEME  => 'xotheme'
+$modversion['config'][] = array(
+    'name'        => 'assign_method',
+    'title'       => '_MI_MENUS_CONF_ASSIGN_METHOD',
+    'description' => '_MI_MENUS_CONF_ASSIGN_METHOD_DSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'xotheme',
+    'options'     => array(
+        _MI_MENUS_CONF_ASSIGN_METHOD_XOOPSTPL => 'xoopstpl',
+        _MI_MENUS_CONF_ASSIGN_METHOD_XOTHEME  => 'xotheme',
+    ),
 );
 
 // Blocks
-$i = 0;
-++$i;
-$modversion['blocks'][$i]['file']        = "menus_block.php";
-$modversion['blocks'][$i]['name']        = _MI_MENUS_BLK1;
-$modversion['blocks'][$i]['description'] = _MI_MENUS_BLK1_DSC;
-$modversion['blocks'][$i]['show_func']   = "menus_block_show";
-$modversion['blocks'][$i]['edit_func']   = "menus_block_edit";
-$modversion['blocks'][$i]['options']     = "0|default|0|block|0";
-$modversion['blocks'][$i]['template']    = "menus_block.tpl";
+$modversion['blocks'][] = array(
+    'file'        => "menus_block.php",
+    'name'        => _MI_MENUS_BLK1,
+    'description' => _MI_MENUS_BLK1_DSC,
+    'show_func'   => "menus_block_show",
+    'edit_func'   => "menus_block_edit",
+    'options'     => "0|default|0|block|0",
+    'template'    => "menus_block.tpl",
+);
 
-++$i;
-$modversion['blocks'][$i]['file']        = 'menus_block.php';
-$modversion['blocks'][$i]['name']        = _MI_MENUS_BLK2;
-$modversion['blocks'][$i]['description'] = _MI_MENUS_BLK2_DSC;
-$modversion['blocks'][$i]['show_func']   = 'menus_mainmenu_show';
-$modversion['blocks'][$i]['template']    = 'menus_block.tpl';
+$modversion['blocks'][] = array(
+    'file'        => 'menus_block.php',
+    'name'        => _MI_MENUS_BLK2,
+    'description' => _MI_MENUS_BLK2_DSC,
+    'show_func'   => 'menus_mainmenu_show',
+    'template'    => 'menus_block.tpl',
+);

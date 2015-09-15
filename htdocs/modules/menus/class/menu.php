@@ -11,6 +11,8 @@
 
 use Xoops\Core\Database\Connection;
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * @copyright       XOOPS Project (http://xoops.org)

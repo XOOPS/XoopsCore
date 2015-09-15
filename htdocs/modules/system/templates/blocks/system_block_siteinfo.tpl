@@ -4,7 +4,7 @@
             <!-- start group loop -->
             <{foreach item=group from=$block.groups}>
             <li class="nav-header">
-                <{$group.name}>
+                <{$group.name|default:''}>
             </li>
             <!-- start group member loop -->
             <{foreach item=user from=$group.users}>

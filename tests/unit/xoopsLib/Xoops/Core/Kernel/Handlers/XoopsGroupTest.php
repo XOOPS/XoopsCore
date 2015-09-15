@@ -10,12 +10,12 @@ use Xoops\Core\Kernel\Handlers\XoopsGroup;
 */
 class GroupTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsGroup';
-    
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsGroup';
+
     public function setUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass();
@@ -32,25 +32,25 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $value = $instance->id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_groupid() {
         $instance=new $this->myclass();
         $value = $instance->groupid();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_name() {
         $instance=new $this->myclass();
         $value = $instance->name('');
         $this->assertSame(null,$value);
     }
-    
+
     public function test_description() {
         $instance=new $this->myclass();
         $value = $instance->description();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_group_type() {
         $instance=new $this->myclass();
         $value = $instance->group_type();

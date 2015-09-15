@@ -10,6 +10,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Handlers\XoopsRanksHandler;
 
 /**
  * Find XOOPS users

@@ -1,27 +1,22 @@
 <?php
 require_once(dirname(__FILE__).'/../init_new.php');
 
+require_once(XOOPS_TU_ROOT_PATH . '/kernel/membership.php');
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MembershipTest extends \PHPUnit_Framework_TestCase
+class legacy_membershipTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsMembership';
-
     public function setUp()
-	{
+    {
     }
 
     public function test___construct()
-	{
-        $instance=new $this->myclass();
-        $this->assertInstanceOf($this->myclass,$instance);
-		$value=$instance->getVars();
-        $this->assertTrue(isset($value['linkid']));
-        $this->assertTrue(isset($value['groupid']));
-        $this->assertTrue(isset($value['uid']));
+    {
+        $instance=new \XoopsMembership();
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsMembership', $instance);
     }
-    
 }

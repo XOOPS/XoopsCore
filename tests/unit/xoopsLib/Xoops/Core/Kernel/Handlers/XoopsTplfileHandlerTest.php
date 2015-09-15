@@ -12,7 +12,7 @@ use Xoops\Core\Kernel\Criteria;
 */
 class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsTplfileHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplfileHandler';
     protected $conn = null;
     protected $xoopsTplfile = '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfile';
 
@@ -30,7 +30,7 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('tpl_id', $instance->keyName);
         $this->assertSame('tpl_refid', $instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
