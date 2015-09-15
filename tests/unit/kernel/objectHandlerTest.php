@@ -12,7 +12,7 @@ class Legacy_ObjecthandlerTestInstance extends \XoopsObjectHandler
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_Legacy_ObjecthandlerTest extends \PHPUnit_Framework_TestCase
+class Legacy_ObjecthandlerTest extends \PHPUnit_Framework_TestCase
 {
     public $myClass='Legacy_ObjecthandlerTestInstance';
 
@@ -27,7 +27,8 @@ class legacy_Legacy_ObjecthandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test___construct()
     {
-        $instance = new $this->myClass();
+        $conn = \Xoops\Core\Database\Factory::getConnection();
+        $instance = new $this->myClass($conn);
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf('Xoops\Core\Kernel\XoopsObjectHandler', $instance);
     }
