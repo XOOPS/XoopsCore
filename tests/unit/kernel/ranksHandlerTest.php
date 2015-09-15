@@ -14,7 +14,7 @@ class legacy_ranksHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $conn = Xoops::getInstance()->db();
+        $this->conn = Xoops::getInstance()->db();
     }
 
     public function test___construct()
