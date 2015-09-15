@@ -19,7 +19,7 @@ class legacy_ranksHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test___construct()
     {
-        $instance = new \XoopsRanksHandler();
+        $instance = new \XoopsRanksHandler($this->conn);
         $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsRanksHandler', $instance);
     }
 }
