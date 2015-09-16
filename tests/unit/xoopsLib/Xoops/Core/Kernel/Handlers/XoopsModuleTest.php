@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 */
 class ModuleTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsModule';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsModule';
 
     public function setUp()
 	{
@@ -43,11 +43,11 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(null,$value);
     }
 
-    public function test_getMessages() 
+    public function test_getMessages()
 	{
 		$this->assertTrue(true); // see next test
     }
-	
+
     public function test_setMessage() {
         $instance=new $this->myclass();
         $msgs=array(' toto ','titi');
@@ -56,7 +56,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $value=$instance->getMessages();
         $this->assertTrue(is_array($value));
     }
-	
+
     public function test_setInfo() {
         $instance=new $this->myclass();
         $name='name';
@@ -125,7 +125,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertTrue(true); // see previous test
     }
-	
+
     public function test_loadInfo()
 	{
         $instance=new $this->myclass();

@@ -11,9 +11,8 @@
 
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
-
-//use Xoops\Core\Kernel\XoopsObject;
-//use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * Extended User Profile
@@ -416,7 +415,7 @@ class ProfileField extends XoopsObject
     {
         $xoops = Xoops::getInstance();
         /* @var $profile_handler ProfileProfileHandler */
-        $profile_handler = $xoops->getModuleHandler('profile', 'profile');
+        $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
         return $profile_handler->getUserVars();
     }
 }
@@ -432,7 +431,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'profile_field', "profilefield", "field_id", 'field_title');
+        parent::__construct($db, 'profile_field', 'ProfileField', 'field_id', 'field_title');
     }
 
     /**
@@ -446,7 +445,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     {
         static $fields = array();
         if (!empty($force_update) || count($fields) == 0) {
-            $this->table_link = $this->db->prefix('profile_category');
+            $this->table_link = $this->db2->prefix('profile_category');
             $criteria = new Criteria('o.field_id', 0, "!=");
             $criteria->setSort('l.cat_weight ASC, o.field_weight');
             $field_objs = $this->getByLink($criteria, array('o.*'), true, 'cat_id', 'cat_id');
@@ -468,7 +467,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     public function insertFields(XoopsObject $obj, $force = false)
     {
         $xoops = Xoops::getInstance();
-        $profile_handler = $xoops->getModuleHandler('profile', 'profile');
+        $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
         $obj->setVar('field_name', str_replace(' ', '_', $obj->getVar('field_name')));
         $obj->cleanVars(false); //Don't quote
         switch ($obj->getVar('field_type')) {
@@ -572,7 +571,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
             }
 
             $sql = "ALTER TABLE `" . $profile_handler->table . "` " . $changetype . " `" . $obj->cleanVars['field_name'] . "` " . $type . $maxlengthstring . ' NULL';
-            if (!$this->db->query($sql)) {
+            if (!$this->db2->query($sql)) {
                 return false;
             }
         }
@@ -596,10 +595,10 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     public function deleteFields(XoopsObject $obj, $force = false)
     {
         $xoops = Xoops::getInstance();
-        $profile_handler = $xoops->getModuleHandler('profile', 'profile');
+        $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
         // remove column from table
         $sql = "ALTER TABLE " . $profile_handler->table . " DROP `" . $obj->getVar('field_name', 'n') . "`";
-        if ($this->db->query($sql)) {
+        if ($this->db2->query($sql)) {
             //change this to update the cached field information storage
             if (!parent::delete($obj, $force)) {
                 return false;

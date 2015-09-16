@@ -11,13 +11,13 @@ use Xoops\Core\FixedGroups;
 */
 class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsGroupPermHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler';
     protected $conn = null;
     protected $name='name';
     protected $groupid = 9999;
     protected $modid = 1;
     protected $itemid = 9997;
-    
+
     public function setUp()
     {
         $this->conn = Xoops::getInstance()->db();
@@ -31,7 +31,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('gperm_id', $instance->keyName);
         $this->assertSame('gperm_name', $instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
@@ -49,7 +49,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $value=$instance->addRight($name, $itemid, $groupid, $modid);
         $this->assertTrue(is_numeric($value));
     }
-    
+
     public function test_checkRight()
     {
         $instance=new $this->myclass($this->conn);
@@ -68,13 +68,13 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
 
         $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid), $modid, false);
         $this->assertSame(true, $value);
-        
+
         $value=$instance->checkRight('dummy', -1, null, -1);
         $this->assertSame(false, $value);
-        
+
         $value=$instance->checkRight('dummy', -1, FixedGroups::ADMIN, -1);
         $this->assertSame(true, $value);
-        
+
         $value=$instance->checkRight('dummy', array($groupid, $groupid, $groupid), FixedGroups::ADMIN, -1);
         $this->assertSame(true, $value);
     }
@@ -99,7 +99,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $value=$instance->getGroupIds($name, $itemid);
         $this->assertTrue(is_array($value));
     }
-    
+
     public function test_deleteByGroup()
     {
         $instance=new $this->myclass($this->conn);
@@ -107,7 +107,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $modid=$this->modid;
         $value=$instance->deleteByGroup($groupid);
         $this->assertTrue((int)($value) > 0);
-        
+
         $name=$this->name;
         $groupid=$this->groupid;
         $itemid=$this->itemid;
@@ -116,13 +116,14 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_numeric($value));
         $value=$instance->deleteByGroup($groupid, $modid);
         $this->assertTrue((int)($value) > 0);
-        
+
         $value=$instance->deleteByGroup($groupid, $modid);
         $this->assertSame(0, $value);
     }
-    
+
     public function test_deleteByModule()
     {
+        $this->markTestSkipped('Deletes ALL group permissions manged by system module!');
         $instance=new $this->myclass($this->conn);
         $name=$this->name;
         $groupid=$this->groupid;
@@ -133,17 +134,17 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
 
         $value=$instance->deleteByModule($modid);
         $this->assertTrue((int)$value > 0);
-        
+
         $value=$instance->addRight($name, $itemid, $groupid, $modid);
         $this->assertTrue(is_numeric($value));
         $value=$instance->deleteByModule($modid, $name);
         $this->assertTrue((int)$value > 0);
-        
+
         $value=$instance->addRight($name, $itemid, $groupid, $modid);
         $this->assertTrue(is_numeric($value));
         $value=$instance->deleteByModule($modid, $name, $itemid);
         $this->assertTrue((int)$value > 0);
-        
+
         $value=$instance->deleteByModule($modid, $name, $itemid);
         $this->assertSame(0, $value);
     }

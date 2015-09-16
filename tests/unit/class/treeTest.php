@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsConfigItem;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -8,11 +10,11 @@ require_once(dirname(__FILE__).'/../init_new.php');
 */
 class TreeTest extends \PHPUnit_Framework_TestCase
 {
-    
+
     public function setUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $myId = 'Id';
@@ -33,7 +35,7 @@ class TreeTest extends \PHPUnit_Framework_TestCase
         $item3->initVar('parentId',XOBJ_DTYPE_INT,72);
         $item3->initVar('rootId',XOBJ_DTYPE_INT);
         $objectArr = array($item1,$item2,$item3);
-        
+
         $instance=new XoopsObjectTree($objectArr, $myId, $parentId);
         $this->assertInstanceOf('XoopsObjectTree', $instance);
 
@@ -41,13 +43,13 @@ class TreeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($tree));
 
         $ret=$instance->getByKey(72);
-        $this->assertEquals(72, $ret->getVar('Id'));        
+        $this->assertEquals(72, $ret->getVar('Id'));
     }
-	
+
 	public function test_getTree()
 	{
 	}
-	
+
 	public function test_getByKey()
 	{
 	}

@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsMembershipHandler;
 */
 class MembershipHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsMembershipHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsMembershipHandler';
 	protected $conn = null;
 
     public function setUp()
@@ -26,7 +26,7 @@ class MembershipHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('linkid',$instance->keyName);
 		$this->assertSame('groupid',$instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
@@ -40,12 +40,12 @@ class MembershipHandlerTest extends \PHPUnit_Framework_TestCase
         $value=$instance->getGroupsByUser(1);
         $this->assertTrue(is_array($value));
     }
-    
+
     public function test_getGroupsByGroup()
 	{
         $instance=new $this->myclass($this->conn);
         $value=$instance->getGroupsByGroup(1);
         $this->assertSame(null,$value);
     }
-  
+
 }

@@ -10,14 +10,14 @@ use Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler;
 */
 class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsConfigOptionHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler';
 	protected $conn = null;
-    
+
     public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
@@ -26,7 +26,7 @@ class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('confop_id',$instance->keyName);
 		$this->assertSame('confop_name',$instance->identifierName);
     }
-      
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);

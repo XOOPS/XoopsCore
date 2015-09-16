@@ -10,8 +10,8 @@
 */
 
 use Xoops\Core\Database\Connection;
-//use Xoops\Core\Kernel\XoopsObject;
-//use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\CriteriaElement;
 
 /**
@@ -73,9 +73,9 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
 
     public function __construct(Connection $db)
     {
-        parent::__construct($db, "profile_profile", 'profileprofile', "profile_id");
+        parent::__construct($db, 'profile_profile', 'ProfileProfile', 'profile_id');
         $xoops = Xoops::getInstance();
-        $this->_fHandler = $xoops->getModuleHandler('field', 'profile');
+        $this->_fHandler = \Xoops::getModuleHelper('profile')->getHandler('field');
     }
 
     /**
@@ -229,7 +229,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         if ($this->insertField($field)) {
             $msg = '&nbsp;&nbsp;Field <strong>' . $vars['name'] . '</strong> added to the database';
         } else {
-            $msg = '&nbsp;&nbsp;<span class="red">ERROR: Could not insert field <strong>' . $vars['name'] . '</strong> into the database. ' . implode(' ', $field->getErrors()) . $this->db->error() . '</span>';
+            $msg = '&nbsp;&nbsp;<span class="red">ERROR: Could not insert field <strong>' . $vars['name'] . '</strong> into the database. ' . implode(' ', $field->getErrors()) . $this->db2->errorInfo() . '</span>';
         }
         unset($field);
         return $msg;
@@ -243,7 +243,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      *
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
-    public function insert(\Xoops\Core\Kernel\XoopsObject $obj, $force = false)
+    public function insert(XoopsObject $obj, $force = false)
     {
         $uservars = $this->getUserVars();
         foreach ($uservars as $var) {
@@ -290,7 +290,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         }
 
         $sql_select = "SELECT " . (empty($searchvars) ? "u.*, p.*" : implode(", ", $sv));
-        $sql_from = " FROM " . $this->db->prefix("users") . " AS u LEFT JOIN " . $this->table . " AS p ON u.uid=p.profile_id" . (empty($groups) ? "" : " LEFT JOIN " . $this->db->prefix("groups_users_link") . " AS g ON u.uid=g.uid");
+        $sql_from = " FROM " . $this->db2->prefix("users") . " AS u LEFT JOIN " . $this->table . " AS p ON u.uid=p.profile_id" . (empty($groups) ? "" : " LEFT JOIN " . $this->db2->prefix("groups_users_link") . " AS g ON u.uid=g.uid");
         $sql_clause = " WHERE 1=1";
         $sql_order = "";
 
@@ -309,7 +309,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         }
 
         $sql_users = $sql_select . $sql_from . $sql_clause . $sql_order;
-        $result = $this->db->query($sql_users, $limit, $start);
+        $result = $this->db2->query($sql_users, $limit, $start);
 
         if (!$result) {
             return array(array(), array(), 0);
@@ -318,7 +318,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $uservars = $this->getUserVars();
         $users = array();
         $profiles = array();
-        while ($myrow = $this->db->fetchArray($result)) {
+        while ($myrow = $this->db2->fetchArray($result)) {
             $profile = $this->create(false);
             $user = $user_handler->create(false);
 
@@ -336,8 +336,8 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         $count = count($users);
         if ((!empty($limit) && $count >= $limit) || !empty($start)) {
             $sql_count = "SELECT COUNT(*)" . $sql_from . $sql_clause;
-            $result = $this->db->query($sql_count);
-            list($count) = $this->db->fetchRow($result);
+            $result = $this->db2->query($sql_count);
+            list($count) = $this->db2->fetchRow($result);
         }
 
         return array($users, $profiles, (int)($count));

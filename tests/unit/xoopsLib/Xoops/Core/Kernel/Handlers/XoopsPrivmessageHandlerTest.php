@@ -11,7 +11,7 @@ use Xoops\Core\Kernel\Handlers\XoopsPrivmessage;
 */
 class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsPrivmessageHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivmessageHandler';
 	protected $conn = null;
 
     public function setUp()
@@ -27,14 +27,14 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('msg_id',$instance->keyName);
 		$this->assertSame('subject',$instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsPrivmessageHandler', $instance);
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
-    
+
     public function test_setRead()
 	{
         $instance=new $this->myclass($this->conn);
@@ -44,7 +44,7 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
         $msg->setVar('subject', 'PRIVMESSAGE_DUMMY_FOR_TESTS', true);
         $value=$instance->insert($msg);
         $this->assertTrue(intval($value) > 0);
-		
+
         $value=$instance->setRead($msg);
         $this->assertSame(true,$value);
     }

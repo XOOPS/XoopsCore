@@ -15,8 +15,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $this->conn = $db->conn;
+        $this->conn = \Xoops::getInstance()->db();
     }
 
     public function test___construct()

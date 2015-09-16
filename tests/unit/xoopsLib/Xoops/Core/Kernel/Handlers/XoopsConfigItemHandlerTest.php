@@ -10,14 +10,14 @@ use Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler;
 */
 class ConfigItemHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsConfigItemHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler';
 	protected $conn = null;
-    
+
     public function setUp()
 	{
 		$this->conn = Xoops::getInstance()->db();
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass($this->conn);
@@ -26,12 +26,12 @@ class ConfigItemHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame('conf_id', $instance->keyName);
 		$this->assertSame('conf_name', $instance->identifierName);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsConfigItemHandler', $instance);
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
-    
+
 }

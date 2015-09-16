@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsRanks;
 */
 class RanksTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsRanks';
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsRanks';
 
     public function setUp()
 	{

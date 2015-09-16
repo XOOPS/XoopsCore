@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsPrivmessage;
 */
 class PrivmessageTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsPrivmessage';
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivmessage';
 
     public function setUp()
 	{
@@ -30,35 +30,35 @@ class PrivmessageTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($value['msg_text']));
         $this->assertTrue(isset($value['read_msg']));
     }
-    
+
     public function test_id()
 	{
         $instance=new $this->myclass();
         $value=$instance->id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_msg_id()
 	{
         $instance=new $this->myclass();
         $value=$instance->msg_id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_msg_image()
 	{
         $instance=new $this->myclass();
         $value=$instance->msg_image();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_subject()
 	{
         $instance=new $this->myclass();
         $value=$instance->subject();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_from_userid()
 	{
         $instance=new $this->myclass();
@@ -72,26 +72,26 @@ class PrivmessageTest extends \PHPUnit_Framework_TestCase
         $value=$instance->to_userid();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_msg_time()
 	{
         $instance=new $this->myclass();
         $value=$instance->msg_time();
         $this->assertTrue(is_numeric($value));
     }
-    
+
     public function test_msg_text()
 	{
         $instance=new $this->myclass();
         $value=$instance->msg_text();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_read_msg()
 	{
         $instance=new $this->myclass();
         $value=$instance->read_msg();
         $this->assertSame(0,$value);
     }
-    
+
 }

@@ -133,16 +133,16 @@ $xoops->tpl()->assign('xoops_pagetitle', sprintf(XoopsLocale::F_ALL_ABOUT, $this
 // Dynamic User Profiles
 $thisUsergroups = $thisUser->getGroups();
 /* @var $visibility_handler ProfileVisibilityHandler */
-$visibility_handler = $xoops->getModuleHandler('visibility');
+$visibility_handler = \Xoops::getModuleHelper('profile')->getHandler('visibility');
 //search for visible Fields or null for none
 $field_ids_visible = $visibility_handler->getVisibleFields($thisUsergroups, $groups);
 
 /* @var $profile_handler ProfileProfileHandler */
-$profile_handler = $xoops->getModuleHandler('profile');
+$profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
 $fields = $profile_handler->loadFields();
 
 /* @var $category_handler ProfileCategoryHandler */
-$cat_handler = $xoops->getModuleHandler('category');
+$cat_handler = \Xoops::getModuleHelper('profile')->getHandler('category');
 $cat_crit = new CriteriaCompo();
 $cat_crit->setSort("cat_weight");
 $cats = $cat_handler->getObjects($cat_crit, true, false);

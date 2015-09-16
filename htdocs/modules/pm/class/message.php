@@ -10,6 +10,8 @@
 */
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Database\Connection;
 
 /**

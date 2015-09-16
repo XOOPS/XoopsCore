@@ -1,6 +1,9 @@
 <?php
 require_once(dirname(__FILE__).'/../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled

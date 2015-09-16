@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsModuleHandler;
 
 /**
@@ -10,7 +11,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModuleHandler;
 */
 class ModuleHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass='XoopsModuleHandler';
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsModuleHandler';
 	protected $conn = null;
 	protected $mid = 0;
 
@@ -34,7 +35,7 @@ class ModuleHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsModuleHandler', $instance);
         $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
     }
-    
+
     public function test_getById()
 	{
         $instance=new $this->myclass($this->conn);
@@ -58,7 +59,7 @@ class ModuleHandlerTest extends \PHPUnit_Framework_TestCase
         $module->setVar('name', 'MODULE_DUMMY_FOR_TESTS', true);
         $value=$instance->insertModule($module);
         $this->assertTrue($value);
-		
+
         $value=$instance->deleteModule($module);
         $this->assertTrue($value);
     }

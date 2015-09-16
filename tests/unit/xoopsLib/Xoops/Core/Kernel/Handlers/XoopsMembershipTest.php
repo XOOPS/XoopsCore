@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsMembership;
 */
 class MembershipTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsMembership';
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsMembership';
 
     public function setUp()
 	{
@@ -25,5 +25,5 @@ class MembershipTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($value['groupid']));
         $this->assertTrue(isset($value['uid']));
     }
-    
+
 }

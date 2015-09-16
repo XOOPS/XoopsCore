@@ -1,6 +1,9 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler;
+use Xoops\Core\Kernel\Handlers\XoopsGroupHandler;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -15,8 +18,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $this->conn = $db->conn;
+        $this->conn = \Xoops::getInstance()->db();
     }
 
     public function test___construct()
@@ -44,8 +46,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $handler->table_link=$db->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('groups_users_link');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -64,8 +65,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $handler->table_link=$db->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('groups_users_link');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -84,8 +84,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $handler->table_link=$db->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('groups_users_link');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -104,8 +103,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $handler->table_link=$db->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('groups_users_link');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -126,8 +124,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $handler->table_link=$db->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('groups_users_link');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;

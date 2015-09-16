@@ -14,6 +14,9 @@
     <testsuite name="class">
         <directory>./tests/unit/class</directory>
     </testsuite>
+    <testsuite name="kernel">
+        <directory>./tests/unit/kernel</directory>
+    </testsuite>
     <testsuite name="xoops_lib">
         <directory>./tests/unit/xoopsLib</directory>
     </testsuite>
@@ -22,6 +25,7 @@
 <filter>
     <whitelist>
         <directory suffix=".php">./htdocs/class</directory>
+        <directory suffix=".php">./htdocs/kernel</directory>
         <directory suffix=".php">./htdocs/xoops_lib</directory>
 		<exclude>
             <directory suffix=".php">./htdocs/xoops_lib/modules</directory>

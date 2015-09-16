@@ -89,7 +89,7 @@ if ($op == "access") {
 
 } else {
     /* @var $profile_handler ProfileProfileHandler */
-    $profile_handler = $xoops->getModuleHandler('profile');
+    $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
     $fields = $profile_handler->loadFields();
 
     if ($op != "search") {

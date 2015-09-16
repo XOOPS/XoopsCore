@@ -38,7 +38,7 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
         } else {
             $fieldcat_id = 0;
         }
-        $category_handler = $xoops->getModuleHandler('category');
+        $category_handler = \Xoops::getModuleHelper('profile')->getHandler('category');
         $cat_select = new Xoops\Form\Select(_PROFILE_AM_CATEGORY, 'field_category', $fieldcat_id);
         $cat_select->addOption(0, _PROFILE_AM_DEFAULT);
         $cat_select->addOptionArray($category_handler->getList());
@@ -224,7 +224,7 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
             $this->addElement(new Xoops\Form\RadioYesNo(_PROFILE_AM_REQUIRED, 'field_required', $obj->getVar('field_required', 'e')));
             $regstep_select = new Xoops\Form\Select(_PROFILE_AM_PROF_REGISTER, 'step_id', $obj->getVar('step_id', 'e'));
             $regstep_select->addOption(0, XoopsLocale::NO);
-            $regstep_handler = $xoops->getModuleHandler('regstep');
+            $regstep_handler = \Xoops::getModuleHelper('profile')->getHandler('regstep');
             $regstep_select->addOptionArray($regstep_handler->getList());
             $this->addElement($regstep_select);
         }

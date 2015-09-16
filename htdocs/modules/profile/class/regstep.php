@@ -59,8 +59,7 @@ class ProfileRegstepHandler extends XoopsPersistableObjectHandler
     public function deleteRegstep(XoopsObject $obj, $force = false)
     {
         if (parent::delete($obj, $force)) {
-            $xoops = Xoops::getInstance();
-            $field_handler = $xoops->getModuleHandler('field');
+            $field_handler = \Xoops::getModuleHelper('profile')->getHandler('field');
             return $field_handler->updateAll('step_id', 0, new Criteria('step_id', $obj->getVar('step_id')));
         }
         return false;

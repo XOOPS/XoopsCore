@@ -12,10 +12,10 @@ use Xoops\Core\Kernel\Criteria;
 */
 class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsConfigHandler';
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigHandler';
     var $configItemClass='\Xoops\Core\Kernel\Handlers\XoopsConfigItem';
     var $configOptionClass='\Xoops\Core\Kernel\Handlers\XoopsConfigOption';
-    
+
     public function setUp()
 	{
     }
@@ -25,7 +25,7 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myclass();
         $this->assertInstanceOf($this->myclass, $instance);
     }
-    
+
     public function testContracts()
     {
         $instance=new $this->myclass();
@@ -73,7 +73,7 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
 		$item->setVar('conf_title','CONFTITLE_DUMMY_FOR_TESTS');
         $value=$instance->insertConfig($item);
         $this->assertTrue(intval($value) > 0);
-        
+
         $ret=$instance->deleteConfig($item);
         $this->assertSame(true, $ret);
     }
@@ -133,7 +133,7 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
         $ret=$instance->getConfigList(1);
         $this->assertTrue(is_array($ret));
     }
-    
+
     public function test_deleteAll()
 	{
         $instance=new $this->myclass();

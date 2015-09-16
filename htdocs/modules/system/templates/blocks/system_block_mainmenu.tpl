@@ -1,5 +1,5 @@
 <style type="text/css">
-    <{foreach from=$block.modules item=module}>
+    <{foreach from=$block.modules|default:[] item=module}>
         <{if $module.image|default:false}>
         .<{$module.dirname}>-icon, .nav .active a .<{$module.dirname}>-icon {
             background-image: url('<{$module.image}>');
@@ -19,7 +19,7 @@
         </a>
     </li>
     <!-- start module menu loop -->
-    <{foreach item=module from=$block.modules}>
+    <{foreach item=module from=$block.modules|default:[]}>
     <li class="<{if $module.highlight|default:false}>active<{/if}>">
         <a class="" href="<{$xoops_url}>/modules/<{$module.dirname}>/" title="<{$module.name}>">
             <i class="icon-tags <{$module.dirname}>-icon<{if $module.highlight|default:false}> icon-white<{/if}>"></i>

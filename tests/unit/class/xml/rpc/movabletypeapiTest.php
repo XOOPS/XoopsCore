@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -9,7 +11,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 class MovableTypeApiTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'MovableTypeApi';
-    
+
     public function test___construct()
 	{
 		$params = array('p1'=>'one');

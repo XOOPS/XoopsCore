@@ -1,0 +1,223 @@
+tables:
+    menus_menu:
+        options: {  }
+        columns:
+            id:
+                name: id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            pid:
+                name: pid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            mid:
+                name: mid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            title:
+                name: title
+                type: string
+                default: ''
+                notnull: true
+                length: 150
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            alt_title:
+                name: alt_title
+                type: string
+                default: ''
+                notnull: true
+                length: 150
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            visible:
+                name: visible
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            link:
+                name: link
+                type: string
+                default: null
+                notnull: false
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            weight:
+                name: weight
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            target:
+                name: target
+                type: string
+                default: null
+                notnull: false
+                length: 10
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            groups:
+                name: groups
+                type: text
+                default: null
+                notnull: false
+                length: 65535
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            hooks:
+                name: hooks
+                type: text
+                default: null
+                notnull: false
+                length: 65535
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            image:
+                name: image
+                type: string
+                default: null
+                notnull: false
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+            css:
+                name: css
+                type: string
+                default: null
+                notnull: false
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [id]
+                unique: true
+                primary: true
+    menus_menus:
+        options: {  }
+        columns:
+            id:
+                name: id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            title:
+                name: title
+                type: string
+                default: ''
+                notnull: true
+                length: 150
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_general_ci
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [id]
+                unique: true
+                primary: true

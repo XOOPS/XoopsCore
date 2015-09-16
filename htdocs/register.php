@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**
  * XOOPS Register

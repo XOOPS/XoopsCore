@@ -53,7 +53,7 @@ if ($op == 'save') {
 
         // Dynamic fields
         /* @var $profile_handler ProfileProfileHandler */
-        $profile_handler = $xoops->getModuleHandler('profile');
+        $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
         // Get fields
         $fields = $profile_handler->loadFields();
         // Get ids of fields that can be edited

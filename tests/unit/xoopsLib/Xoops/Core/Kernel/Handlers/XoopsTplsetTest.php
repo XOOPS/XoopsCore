@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplset;
 */
 class TplsetTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsTplset';
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsTplset';
 
     public function setUp()
 	{

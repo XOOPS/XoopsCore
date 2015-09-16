@@ -8,12 +8,12 @@ require_once(dirname(__FILE__).'/../../../../../init_new.php');
 */
 class ConfigoptionTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='XoopsConfigOption';
-    
+    var $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigOption';
+
     public function setUp()
 	{
     }
-    
+
     public function test___construct()
 	{
         $instance=new $this->myclass();
@@ -30,25 +30,25 @@ class ConfigoptionTest extends \PHPUnit_Framework_TestCase
         $value = $instance->id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_confop_id() {
         $instance=new $this->myclass();
         $value = $instance->confop_id();
         $this->assertSame(null,$value);
     }
-    
+
     public function test_confop_name() {
         $instance=new $this->myclass();
         $value = $instance->confop_name('');
         $this->assertSame(null,$value);
     }
-    
+
     public function test_conf_id() {
         $instance=new $this->myclass();
         $value = $instance->conf_id();
         $this->assertSame(0,$value);
     }
-	
+
     public function test_confop_value() {
         $instance=new $this->myclass();
         $value = $instance->confop_value();
