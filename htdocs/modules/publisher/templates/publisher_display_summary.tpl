@@ -17,7 +17,7 @@
 </div>    <{/if}>
 <br/><!-- End of if !$category || $category.subcats || ($category && $display_category_summary) //-->
     <{/if}>
-<{if $items}>
+<{if $items|default:false}>
     <{if $collapsable_heading == 1}>
 <div class="publisher_collaps_title">
     <a href='javascript:;' onclick="toggle('bottomtable'); toggleIcon('bottomtableicon')";><img id='bottomtableicon' src='<{$publisher_url}>/images/links/close12.gif' alt=''/></a>&nbsp;<{$lang_items_title}>
