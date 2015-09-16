@@ -123,6 +123,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test_deleteByModule()
     {
+        $this->markTestSkipped('Deletes ALL group permissions manged by system module!');
         $instance=new $this->myclass($this->conn);
         $name=$this->name;
         $groupid=$this->groupid;
