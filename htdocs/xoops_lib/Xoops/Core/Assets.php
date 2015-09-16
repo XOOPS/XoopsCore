@@ -264,7 +264,7 @@ class Assets
                             $fm->set('jsmin', new Filter\JSMinFilter());
                             break;
                         case 'jsqueeze':
-                            $fm->set('jsqueeze', new AssetFilter\JSqueezeFilter());
+                            $fm->set('jsqueeze', new Filter\JSqueezeFilter());
                             break;
                         default:
                             throw new \Exception(sprintf('%s filter not implemented.', $filter));
@@ -401,7 +401,7 @@ class Assets
                             $filterArray[] = new Filter\JSMinFilter();
                             break;
                         case 'jsqueeze':
-                            $filterArray[] = new AssetFilter\JSqueezeFilter();
+                            $filterArray[] = new Filter\JSqueezeFilter();
                             break;
                         default:
                             throw new \Exception(sprintf('%s filter not implemented.', $filter));
