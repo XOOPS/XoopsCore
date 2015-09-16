@@ -58,7 +58,7 @@ if (!isset($totalItems[$categoryid]) || $totalItems[$categoryid] == 0) {
 
 // Added by skalpa: custom template support
 if (!$template = $categoryObj->template()) {
-    $template = 'publisher_display' . '_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl';
+    $template = 'module:publisher/publisher_display_' . $publisher->getConfig('idxcat_items_display_type') . '.tpl';
 }
 
 $xoops->header($template);

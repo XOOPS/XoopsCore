@@ -46,7 +46,7 @@ function publisher_items_menu_show($options)
 
         if ($categoryid != 0) {
             // if we are in a category, then the $categoryObj is already defined in publisher/category.php
-            global $categoryObj;
+            $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
             $block['currentcat'] = $categoryObj->getCategoryLink('menuTop');
             $catlink_class = 'menuSub';
         }
