@@ -151,6 +151,7 @@ $configs['extensions'] = array(
 
 // Writable files and directories
 $configs['writable'] = array(
+    'assets/',
     'uploads/',
 //  'uploads/avatars/',
     'uploads/images/',
