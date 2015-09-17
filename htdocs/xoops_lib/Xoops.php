@@ -110,7 +110,7 @@ class Xoops
     /**
      * @var array
      */
-    private $moduleConfigs = array();
+    public $moduleConfigs = array();
 
     /**
      * @var bool
@@ -1772,6 +1772,26 @@ class Xoops
                 $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
             }
             $this->moduleConfigs[$dirname][$key] =& $value;
+        }
+    }
+    
+    /**
+     * Unset Config Value
+     *
+     * @param string $key
+     * @param string $dirname
+     *
+     * @return void
+     */
+    public function unsetConfig($key, $dirname = 'system')
+    {
+        $dirname = trim(strtolower($dirname));
+        if (empty($dirname)) {
+            $dirname = $this->isModule() ? $this->module->getVar('dirname') : 'system';
+        }
+        unset($this->moduleConfigs[$dirname][$key]);
+        if (empty($this->moduleConfigs[$dirname])) {
+            unset($this->moduleConfigs[$dirname]);
         }
     }
 

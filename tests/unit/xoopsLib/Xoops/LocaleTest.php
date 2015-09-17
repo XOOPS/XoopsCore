@@ -58,7 +58,11 @@ class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
 	
 	public function test_translateTheme()
 	{
-        $this->markTestIncomplete('to do');
+        $class = $this->myClass;
+        
+        $key = 'key';
+        $x = $class::translateTheme($key);
+        $this->assertSame($key, $x);
 	}
 
 	public function test_getClassFromDirname()

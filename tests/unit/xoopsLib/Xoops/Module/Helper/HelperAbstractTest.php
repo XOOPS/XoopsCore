@@ -181,7 +181,11 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function test_isUserAdmin()
 	{
-		$this->markTestIncomplete();
+		$class = $this->myClass;
+		$instance = $class::getInstance();
+        
+        $value = $instance->isUserAdmin();
+        $this->assertFalse($value);
     }
 
     public function test_url()
@@ -215,22 +219,22 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function test_redirect()
 	{
-		$this->markTestIncomplete();
+		$this->markTestSkipped('');
     }
 
 	public function test_loadLanguage()
 	{
-		$this->markTestIncomplete();
+		$this->markTestSkipped('');
     }
 
     public function test_loadLocale()
 	{
-		$this->markTestIncomplete();
+		$this->markTestSkipped('');
     }
 
 	public function test_getForm()
 	{
-		$this->markTestIncomplete();
+		$this->markTestSkipped('');
     }
 
 }

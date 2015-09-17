@@ -230,7 +230,63 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 	
 	public function test_formatTimestamp()
 	{
-		$this->markTestIncomplete();
+        $instance = $this->myClass;
+        
+        $time = time();
+        
+        $xoops = \Xoops::getInstance();
+        $timeoffset = ($xoops->getConfig('default_TZ') == '') ? '0.0' : $xoops->getConfig('default_TZ');
+        $usertimestamp = $xoops->getUserTimestamp($time, $timeoffset);
+        $datestring = $instance::getFormatLongDate();
+        $result = ucfirst(gmdate($datestring, $usertimestamp));
+        
+        $value = $instance::formatTimestamp($time);
+        $this->assertSame($result, $value);
+        
+        $value = $instance::formatTimestamp($time,'');
+        $this->assertSame($result, $value);
+        
+        $datestring = $instance::getFormatShortDate();
+        $result = ucfirst(gmdate($datestring, $usertimestamp));
+        $value = $instance::formatTimestamp($time,'s');
+        $this->assertSame($result, $value);
+        
+        $datestring = $instance::getFormatMediumDate();
+        $result = ucfirst(gmdate($datestring, $usertimestamp));
+        $value = $instance::formatTimestamp($time,'m');
+        $this->assertSame($result, $value);
+        
+        $datestring = 'Y-m-d H:i:s';
+        $result = ucfirst(gmdate($datestring, $usertimestamp));
+        $value = $instance::formatTimestamp($time,'mysql');
+        $this->assertSame($result, $value);
+        
+        $TIME_ZONE = '';
+        if ($xoops->getConfig('server_TZ')) {
+            $server_TZ = abs((int)($xoops->getConfig('server_TZ') * 3600.0));
+            $prefix = ($xoops->getConfig('server_TZ') < 0) ? ' -' : ' +';
+            $TIME_ZONE = $prefix . date('Hi', $server_TZ);
+        }
+        $datestring = 'D, d M Y H:i:s';
+        $result = ucfirst(gmdate($datestring, $usertimestamp));
+        $value = $instance::formatTimestamp($time,'rss');
+        $this->assertSame($result.$TIME_ZONE, $value);
+        
+        $datestring = 'D, d M Y H:i:s';
+        $result = ucfirst(gmdate($datestring, $usertimestamp));
+        $value = $instance::formatTimestamp($time,'r');
+        $this->assertSame($result.$TIME_ZONE, $value);
+        
+        sleep(5);
+        $value = $instance::formatTimestamp($time,'e');
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, 'ago'));
+        $this->assertTrue(false !== strpos($value, 'seconds'));
+        
+        $value = $instance::formatTimestamp($time,'elapse');
+        $this->assertTrue(is_string($value));
+        $this->assertTrue(false !== strpos($value, 'ago'));
+        $this->assertTrue(false !== strpos($value, 'seconds'));
 	}
 	
 	
