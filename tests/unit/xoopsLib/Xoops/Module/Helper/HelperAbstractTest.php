@@ -3,30 +3,30 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
 
 class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\HelperAbstract
 {
-	public function getDirname()
-	{
-		return $this->_dirname;
-	}
+    public function getDirname()
+    {
+        return $this->_dirname;
+    }
 
-	public function setDirname($dir)
-	{
-		return parent::setDirname($dir);
-	}
+    public function setDirname($dir)
+    {
+        return parent::setDirname($dir);
+    }
 
-	public function getDebug()
-	{
-		return $this->_debug;
-	}
+    public function getDebug()
+    {
+        return $this->_debug;
+    }
 
-	public function setDebug($debug)
-	{
-		return parent::setDebug($debug);
-	}
+    public function setDebug($debug)
+    {
+        return parent::setDebug($debug);
+    }
 
-	public function clearModule()
-	{
-		$this->_module = null;
-	}
+    public function clearModule()
+    {
+        $this->_module = null;
+    }
 }
 
 /**
@@ -39,83 +39,83 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
     protected $myClass = 'Xoops_Module_Helper_AbstractTestInstance';
 
     public function test___construct()
-	{
+    {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
-		$dir = $xoops_root_path.'/modules/avatar';
-		$instance = new $this->myClass($dir);
-		$this->assertInstanceOf($this->myClass, $instance);
+        $dir = $xoops_root_path.'/modules/avatar';
+        $instance = new $this->myClass($dir);
+        $this->assertInstanceOf($this->myClass, $instance);
     }
 
     public function test_init()
-	{
-		$instance = new $this->myClass();
+    {
+        $instance = new $this->myClass();
 
-		$x = $instance->init();
-		$this->assertSame(null, $x);
+        $x = $instance->init();
+        $this->assertSame(null, $x);
     }
 
     public function test_setDirname()
-	{
-		$instance = new $this->myClass();
+    {
+        $instance = new $this->myClass();
 
-		$dir = 'dirname';
-		$x = $instance->setDirname($dir);
-		$this->assertSame(null, $x);
+        $dir = 'dirname';
+        $x = $instance->setDirname($dir);
+        $this->assertSame(null, $x);
 
-		$x = $instance->getDirname();
-		$this->assertSame($dir, $x);
+        $x = $instance->getDirname();
+        $this->assertSame($dir, $x);
     }
 
-	public function test_setDebug()
-	{
-		$instance = new $this->myClass();
+    public function test_setDebug()
+    {
+        $instance = new $this->myClass();
 
-		$debug = true;
-		$x = $instance->setDebug($debug);
-		$this->assertSame(null, $x);
+        $debug = true;
+        $x = $instance->setDebug($debug);
+        $this->assertSame(null, $x);
 
-		$x = $instance->getDebug();
-		$this->assertSame($debug, $x);
+        $x = $instance->getDebug();
+        $this->assertSame($debug, $x);
     }
 
     public function test_getInstance()
-	{
-		$instance = $this->myClass;
-		$x = $instance::getInstance();
-		$this->assertInstanceOf($this->myClass, $x);
+    {
+        $instance = $this->myClass;
+        $x = $instance::getInstance();
+        $this->assertInstanceOf($this->myClass, $x);
 
-		$y = $instance::getInstance();
-		$this->assertSame($x, $y);
+        $y = $instance::getInstance();
+        $this->assertSame($x, $y);
     }
 
-	public function test_getModule()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    public function test_getModule()
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
-		$x = $instance->getModule();
-		$this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsModule', $x);
+        $x = $instance->getModule();
+        $this->assertInstanceOf('Xoops\Core\Kernel\Handlers\XoopsModule', $x);
     }
 
-	public function test_xoops()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    public function test_xoops()
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
-		$x = $instance->xoops();
-		$this->assertInstanceOf('Xoops', $x);
+        $x = $instance->xoops();
+        $this->assertInstanceOf('Xoops', $x);
     }
 
     public function test_getConfig()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
         $name = 'sitename';
         $instance->setDirname('system');
-		$x = $instance->getConfig($name);
-		$this->assertTrue(is_string($x));
-		$this->assertTrue(!empty($x));
+        $x = $instance->getConfig($name);
+        $this->assertTrue(is_string($x));
+        $this->assertTrue(!empty($x));
     }
 
     public function test_getConfigs()
@@ -131,36 +131,36 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey($name, $x);
     }
 
-	public function test_getHandler()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    public function test_getHandler()
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
         $instance->setDirname('avatars');
-		$x = $instance->getHandler('avatar');
-		$this->assertInstanceOf('AvatarsAvatarHandler', $x);
-		$this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $x);
+        $x = $instance->getHandler('avatar');
+        $this->assertInstanceOf('AvatarsAvatarHandler', $x);
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $x);
     }
 
     public function test_disableCache()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
         $instance->clearModule();
         $instance->setDirname('avatars');
-		$instance->disableCache();
+        $instance->disableCache();
 
-        $x = $instance->xoops()->getModuleConfig('module_cache','avatars');
+        $x = $instance->xoops()->getModuleConfig('module_cache', 'avatars');
         $this->assertSame(array($instance->getModule()->getVar('mid') => 0), $x);
 
     }
 
-	public function test_isCurrentModule()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
-        
+    public function test_isCurrentModule()
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
+
         $instance->clearModule();
         $modname = 'avatars';
 
@@ -170,67 +170,70 @@ class Xoops_Module_Helper_AbstractTest extends \PHPUnit_Framework_TestCase
         $value = $instance->isCurrentModule();
         $instance->xoops()->moduleDirname = $save;
         $this->assertTrue($value);
-        
+
         $save = $instance->xoops()->moduleDirname;
         $instance->xoops()->moduleDirname = 'not_found';
         $value = $instance->isCurrentModule();
         $instance->xoops()->moduleDirname = $save;
         $this->assertFalse($value);
-        
+
     }
 
     public function test_isUserAdmin()
-	{
-		$this->markTestIncomplete();
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
+
+        $value = $instance->isUserAdmin();
+        $this->assertFalse($value);
     }
 
     public function test_url()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
         $name = 'dirname';
         $instance->setDirname($name);
-		$x = $instance->url($name);
-		$this->assertSame($name, basename($x));
-		$this->assertSame($name, basename(dirname($x)));
-		$this->assertSame('modules', basename(dirname(dirname(($x)))));
+        $x = $instance->url($name);
+        $this->assertSame($name, basename($x));
+        $this->assertSame($name, basename(dirname($x)));
+        $this->assertSame('modules', basename(dirname(dirname(($x)))));
         // modules is the top level, anything above in URL is install dependant
-		//$this->assertSame('htdocs', basename(dirname(dirname(dirname($x)))));
+        //$this->assertSame('htdocs', basename(dirname(dirname(dirname($x)))));
     }
 
-	public function test_path()
-	{
-		$class = $this->myClass;
-		$instance = $class::getInstance();
+    public function test_path()
+    {
+        $class = $this->myClass;
+        $instance = $class::getInstance();
 
         $instance->setDirname('system');
-		$x = $instance->path('class');
-		$this->assertSame('class', basename($x));
-		$this->assertSame('system', basename(dirname($x)));
-		$this->assertSame('modules', basename(dirname(dirname(($x)))));
-		$this->assertSame('htdocs', basename(dirname(dirname(dirname(($x))))));
+        $x = $instance->path('class');
+        $this->assertSame('class', basename($x));
+        $this->assertSame('system', basename(dirname($x)));
+        $this->assertSame('modules', basename(dirname(dirname(($x)))));
+        $this->assertSame('htdocs', basename(dirname(dirname(dirname(($x))))));
         $this->assertTrue(is_dir($x));
     }
 
     public function test_redirect()
-	{
-		$this->markTestIncomplete();
+    {
+        $this->markTestSkipped('');
     }
 
-	public function test_loadLanguage()
-	{
-		$this->markTestIncomplete();
+    public function test_loadLanguage()
+    {
+        $this->markTestSkipped('');
     }
 
     public function test_loadLocale()
-	{
-		$this->markTestIncomplete();
+    {
+        $this->markTestSkipped('');
     }
 
-	public function test_getForm()
-	{
-		$this->markTestIncomplete();
+    public function test_getForm()
+    {
+        $this->markTestSkipped('');
     }
-
 }

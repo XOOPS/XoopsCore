@@ -15,7 +15,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
     protected $conn = null;
     protected $name='name';
     protected $groupid = 9999;
-    protected $modid = 1;
+    protected $modid = 9998;
     protected $itemid = 9997;
 
     public function setUp()
@@ -57,13 +57,13 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $groupid=$this->groupid;
         $itemid=$this->itemid;
         $modid=$this->modid;
-        $value=$instance->checkRight($name, $itemid, $groupid);
+        $value=$instance->checkRight($name, $itemid, $groupid, $modid, true);
         $this->assertSame(true, $value);
 
         $value=$instance->checkRight($name, $itemid, $groupid, $modid, false);
         $this->assertSame(true, $value);
 
-        $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid));
+        $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid), $modid, true);
         $this->assertSame(true, $value);
 
         $value=$instance->checkRight($name, $itemid, array($groupid, $groupid, $groupid), $modid, false);
@@ -84,10 +84,11 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myclass($this->conn);
         $name=$this->name;
         $groupid=$this->groupid;
-        $value=$instance->getItemIds($name, $groupid);
+        $modid=$this->modid;
+        $value=$instance->getItemIds($name, $groupid, $modid);
         $this->assertTrue(is_array($value));
 
-        $value=$instance->getItemIds($name, array($groupid, $groupid, $groupid));
+        $value=$instance->getItemIds($name, array($groupid, $groupid, $groupid), $modid);
         $this->assertTrue(is_array($value));
     }
 
@@ -96,7 +97,8 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myclass($this->conn);
         $name=$this->name;
         $itemid=$this->itemid;
-        $value=$instance->getGroupIds($name, $itemid);
+        $modid=$this->modid;
+        $value=$instance->getGroupIds($name, $itemid, $modid);
         $this->assertTrue(is_array($value));
     }
 
@@ -105,7 +107,7 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
         $instance=new $this->myclass($this->conn);
         $groupid=$this->groupid;
         $modid=$this->modid;
-        $value=$instance->deleteByGroup($groupid);
+        $value=$instance->deleteByGroup($groupid, $modid);
         $this->assertTrue((int)($value) > 0);
 
         $name=$this->name;
