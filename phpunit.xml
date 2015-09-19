@@ -29,6 +29,7 @@
         <directory suffix=".php">./htdocs/xoops_lib</directory>
 		<exclude>
             <directory suffix=".php">./htdocs/xoops_lib/modules</directory>
+            <directory suffix=".php">./htdocs/xoops_lib/smarty</directory>
             <directory suffix=".php">./htdocs/xoops_lib/vendor</directory>
 		</exclude>
     </whitelist>

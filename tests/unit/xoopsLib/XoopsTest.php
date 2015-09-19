@@ -332,19 +332,19 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->markTestSkipped('Risky?');
         $instance = Xoops::getInstance();
 
-        $value = $instance->header();
+        // $value = $instance->header();
         $this->assertSame(true, $value);
 
-        $value = $instance->header();
+        // $value = $instance->header();
         $this->assertSame(false, $value);
     }
 
     public function test_footer()
     {
+        $this->markTestSkipped('Risky?');
         $instance = Xoops::getInstance();
 
         //$value = $instance->footer();
-        $this->markTestIncomplete();
     }
 
     public function test_isModule()
@@ -667,7 +667,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         ob_start($callback);
         $xoops->simpleFooter();
         $this->assertTrue(is_string($output), $output);
-        $this->assertSame(substr($output,-7), '</html>', $output);
+        $this->assertSame(substr($output, -7), '</html>', $output);
         //$this->markTestSkipped('');
     }
 
@@ -711,16 +711,16 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     {
         $instance = Xoops::getInstance();
 
-        defined('NWLINE') OR define('NWLINE', "\n");
-        $value = $instance->confirm(array(),'','msg');
+        defined('NWLINE') or define('NWLINE', "\n");
+        $value = $instance->confirm(array(), '', 'msg');
         $this->assertTrue(is_string($value));
         $this->assertTrue(strlen($value)>0);
 
-        $value = $instance->confirm(array('toto'=>1,'tutu'=>2),'','msg');
+        $value = $instance->confirm(array('toto'=>1, 'tutu'=>2), '', 'msg');
         $this->assertTrue(is_string($value));
         $this->assertTrue(strlen($value)>0);
 
-        $value = $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)),'','msg');
+        $value = $instance->confirm(array('toto'=>1, 'tutu'=>array('t1'=>11, 't2'=>22)), '', 'msg');
         $this->assertTrue(is_string($value));
         $this->assertTrue(strlen($value)>0);
     }
@@ -925,7 +925,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $instance = Xoops::getInstance();
 
         $value = $instance->getMailer();
-        $this->assertTrue($value instanceOf XoopsMailerLocale || $value instanceOf XoopsMailer);
+        $this->assertTrue($value instanceof XoopsMailerLocale || $value instanceof XoopsMailer);
     }
 
     public function test_getRank()
@@ -1002,9 +1002,12 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $value = $instance->getConfig('dummy');
         $this->assertSame(1, $value);
 
-        $instance->setConfig('dummy', 1, null);
+        $instance->setConfig('dummy', 1, 'dummy_dir');
         $value = $instance->getConfig('dummy');
         $this->assertSame(1, $value);
+
+        $instance->unsetConfig('dummy');
+        $instance->unsetConfig('dummy_dir');
     }
 
     public function test_appendConfig()
@@ -1019,17 +1022,23 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $value = $instance->getConfig('dummy');
         $this->assertTrue(in_array(array('test'=>1), $value, true));
 
-        $instance->appendConfig('dummy', array('test'=>1), true, null);
+        $instance->appendConfig('dummy', array('test'=>1), true, 'dummy_dir');
         $value = $instance->getConfig('dummy');
         $this->assertSame(1, $value['test']);
+
+        $instance->unsetConfig('dummy');
+        $instance->unsetConfig('dummy', 'dummy_dir');
     }
 
     public function test_getModuleConfig()
     {
         $instance = Xoops::getInstance();
 
-        $value = $instance->getModuleConfig(uniqid());
+        $id = uniqid();
+        $value = $instance->getModuleConfig($id);
         $this->assertTrue(empty($value));
+
+        $instance->unsetConfig($id);
     }
 
     public function test_getModuleConfigs()
@@ -1044,8 +1053,15 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
     {
         $instance = Xoops::getInstance();
 
+        $instance->module = new XoopsModule();
+        $instance->module->loadInfoAsVar('avatars');
+
         $instance->disableModuleCache();
-        $this->markTestIncomplete();
+
+        $x = $instance->getConfig('module_cache');
+        $key = $instance->module->getVar('mid');
+        $this->assertTrue(isset($x[$key]));
+        $this->assertSame(0, $x[$key]);
     }
 
     public function test_getBaseDomain()
@@ -1096,25 +1112,25 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 
     public function test_templateClearModuleCache()
     {
-        $instance = Xoops::getInstance();
+        $this->markTestSkipped();
 
+        $instance = Xoops::getInstance();
         $instance->templateClearModuleCache(1);
-        $this->markTestIncomplete();
     }
 
     public function test_deprecated()
     {
-        $instance = Xoops::getInstance();
+        $this->markTestSkipped();
 
+        $instance = Xoops::getInstance();
         $instance->deprecated('message');
-        $this->markTestIncomplete();
     }
 
     public function test_disableErrorReporting()
     {
-        $instance = Xoops::getInstance();
+        $this->markTestSkipped();
 
+        $instance = Xoops::getInstance();
         $instance->disableErrorReporting();
-        $this->markTestIncomplete();
     }
 }
