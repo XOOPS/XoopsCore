@@ -36,7 +36,7 @@
         <td class="even" align="right"><{$category.last_title_link|default:''}></td>
         <{/if}>
     </tr>
-    <{if $category.subcats}> <{foreach item=subcat from=$category.subcats}>
+    <{if $category.subcats|default:false}> <{foreach item=subcat from=$category.subcats}>
     <tr>
         <td class="odd" align="left">
             <div style="padding-left: 10px;">
