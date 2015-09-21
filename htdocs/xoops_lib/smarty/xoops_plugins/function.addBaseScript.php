@@ -15,7 +15,7 @@
  *
  * @return string
  */
-function smarty_function_addBaseScriptAssets($params, Smarty_Internal_Template $smarty)
+function smarty_function_addBaseScript($params, Smarty_Internal_Template $smarty)
 {
     $xoops = Xoops::getInstance();
     $assets = [];
