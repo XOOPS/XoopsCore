@@ -135,7 +135,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 		$instance = $this->myClass;
 		
 		$x = $instance::getFormatYesterday();
-		$this->assertSame("\Y\\e\s\\t\\e\\r\d\a\y G:i", $x);
+		$this->assertSame("\\Y\\e\\s\\t\\e\\r\\d\\a\\y G:i", $x);
 	}
 	
 	public function test_getFormatMonthDay()
@@ -188,13 +188,13 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 		if (!$instance::isMultiByte())
 			$this->assertSame("ingstri...", $x);
 		else
-			$this->markTestIncomplete();
+			$this->assertSame("ingstri...", $x);
 		$str = "stringstring";
 		$x = $instance::substr($str,6,10);
 		if (!$instance::isMultiByte())
 			$this->assertSame("string", $x);
 		else
-			$this->markTestIncomplete();
+			$this->assertSame("string", $x);
 	}
 	
 	public function test_utf8_encode()
@@ -206,7 +206,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 		if (!$instance::isMultiByte())
 			$this->assertSame(utf8_encode($str), $x);
 		else
-			$this->markTestIncomplete();
+            $this->assertSame($str, $x);
 	}
 	
 	
@@ -230,9 +230,83 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 	
 	public function test_formatTimestamp()
 	{
-		$this->markTestIncomplete();
+		$instance = $this->myClass;
+        
+        $time = time();
+        
+        $xoops = \Xoops::getInstance();
+        if ($timeoffset === null) {
+            $timeoffset = ($xoops->getConfig('default_TZ') == '') ? '0.0' : $xoops->getConfig('default_TZ');
+        }
+        $usertimestamp = $xoops->getUserTimestamp($time, $timeoffset);
+        
+        $value = $instance::formatTimestamp($time);
+        $datestring = $instance::getFormatLongDate();
+        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $this->assertSame($expected,$value);
+        
+        $value = $instance::formatTimestamp($time,'l');
+        $datestring = $instance::getFormatLongDate();
+        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $this->assertSame($expected,$value);
+        
+        $value = $instance::formatTimestamp($time,'');
+        $datestring = $instance::getFormatLongDate();
+        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $this->assertSame($expected,$value);
+        
+        $TIME_ZONE = '';
+        if ($xoops->getConfig('server_TZ')) {
+            $server_TZ = abs((int)($xoops->getConfig('server_TZ') * 3600.0));
+            $prefix = ($xoops->getConfig('server_TZ') < 0) ? ' -' : ' +';
+            $TIME_ZONE = $prefix . date('Hi', $server_TZ);
+        }
+        $expected = gmdate('D, d M Y H:i:s', (int)($time)) . $TIME_ZONE;
+        $value = $instance::formatTimestamp($time,'rss');
+        $this->assertSame($expected,$value);
+        
+        $value = $instance::formatTimestamp($time,'r');
+        $this->assertSame($expected,$value);
+        
+        $value = $instance::formatTimestamp($time,'s');
+        $datestring = $instance::getFormatShortDate();
+        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $this->assertSame($expected,$value);
+        
+        $value = $instance::formatTimestamp($time,'m');
+        $datestring = $instance::getFormatMediumDate();
+        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $this->assertSame($expected,$value);
+        
+        $value = $instance::formatTimestamp($time,'mysql');
+        $datestring = 'Y-m-d H:i:s';
+        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $this->assertSame($expected,$value);
+        
+        sleep(3);
+        $value = $instance::formatTimestamp($time,'e');
+        $this->assertTrue(strpos($value,'3') !== false);
+        $this->assertTrue(strpos($value,'seconds') !== false);
+        
+        $value = $instance::formatTimestamp($time,'elapse');
+        $this->assertTrue(strpos($value,'3') !== false);
+        $this->assertTrue(strpos($value,'seconds') !== false);
+
+        $elapse = strtotime('+2 days',$time);
+        $value = $instance::formatTimestamp($time,'elapse',null,$elapse);
+        $this->assertTrue(strpos($value,'2') !== false);
+        $this->assertTrue(strpos($value,'days') !== false);
+        
+        $elapse = strtotime('+3 hours',$time);
+        $value = $instance::formatTimestamp($time,'elapse',null,$elapse);
+        $this->assertTrue(strpos($value,'3') !== false);
+        $this->assertTrue(strpos($value,'hours') !== false);
+        
+        $elapse = strtotime('+4 minutes',$time);
+        $value = $instance::formatTimestamp($time,'elapse',null,$elapse);
+        $this->assertTrue(strpos($value,'4') !== false);
+        $this->assertTrue(strpos($value,'minutes') !== false);
 	}
-	
 	
 	public function test_number_format()
 	{
@@ -243,7 +317,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 		if (function_exists('number_format'))
 			$this->assertSame(number_format($num ,2, '.', ','), $x);
 		else
-			$this->markTestSkipped();
+			$this->assertSame(sprintf('%.2f', $num), $x);
 	}
 	
 	public function test_money_format()

@@ -97,9 +97,9 @@ class Provider
     public function register($object)
     {
         // verify this is the proper type of object
-        $contract = '\Xoops\Core\Service\Contract\\' . $this->service . 'Interface';
+        $contract = '\\Xoops\\Core\\Service\\Contract\\' . $this->service . 'Interface';
 
-        if (is_a($object, '\Xoops\Core\Service\AbstractContract')
+        if (is_a($object, '\\Xoops\\Core\\Service\\AbstractContract')
             && $object instanceof $contract
         ) {
             $this->providers[] = $object;

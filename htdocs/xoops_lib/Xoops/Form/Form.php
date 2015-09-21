@@ -379,6 +379,17 @@ abstract class Form implements ContainerInterface
     }
 
     /**
+     * getExtra - get the extra attributes for the <form> tag
+     *
+     * @return string
+     */
+    public function getExtra()
+    {
+        $extra = empty($this->extra) ? '' : ' ' . implode(' ', $this->extra);
+        return $extra;
+    }
+    
+    /**
      * setSummary - set the summary tag for the <form> tag
      *
      * @param string $summary summary
@@ -391,16 +402,16 @@ abstract class Form implements ContainerInterface
             $this->summary = strip_tags($summary);
         }
     }
-
+    
     /**
-     * getExtra - get the extra attributes for the <form> tag
+     * getSummary - get the summary tag for the <form> tag
      *
      * @return string
      */
-    public function getExtra()
+    public function getSummary()
     {
-        $extra = empty($this->extra) ? '' : ' ' . implode(' ', $this->extra);
-        return $extra;
+        $summary = (empty($this->summary)) ? '' : (string)$this->summary;
+        return $summary;
     }
 
     /**

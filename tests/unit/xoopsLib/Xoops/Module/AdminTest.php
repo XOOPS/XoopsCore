@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 */
 class ModuleadminTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = '\Xoops\Module\Admin';
+    protected $myClass = '\\Xoops\\Module\\Admin';
     protected $object;
 
     /**
