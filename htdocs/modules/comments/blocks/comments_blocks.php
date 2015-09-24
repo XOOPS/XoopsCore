@@ -36,7 +36,7 @@ function b_comments_show($options)
     $criteria->setOrder('DESC');
 
     // Check modules permissions
-    $moduleperm_handler = $xoops->getHandlerGroupperm();
+    $moduleperm_handler = $xoops->getHandlerGroupPermission();
     $gperm_groupid = $xoops->getUserGroups();
     $criteria1 = new CriteriaCompo(new Criteria('gperm_name', 'module_read', '='));
     $criteria1->add(new Criteria('gperm_groupid', '(' . implode(',', $gperm_groupid) . ')', 'IN'));

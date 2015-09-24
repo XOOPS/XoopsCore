@@ -136,7 +136,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
         );
 
         //Groups administration addition XOOPS 2.0.9: Mith
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         $group_select = array();
         //If user has admin rights on groups
         if ($gperm_handler->checkRight("system_admin", XOOPS_SYSTEM_GROUP, $xoops->user->getGroups(), 1)) {

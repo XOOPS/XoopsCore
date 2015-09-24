@@ -444,7 +444,7 @@ class XoopsMailer
     private function sendPM($uid, $subject, $body)
     {
         $xoops = Xoops::getInstance();
-        $pm_handler = $xoops->getHandlerPrivmessage();
+        $pm_handler = $xoops->getHandlerPrivateMessage();
         $pm = $pm_handler->create();
         $pm->setVar("subject", $subject);
         // RMV-NOTIFY

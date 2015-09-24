@@ -31,7 +31,7 @@ if (!$xoops->isUser()) {
         . XoopsLocale::E_REGISTER_FIRST_TO_SEND_PRIVATE_MESSAGES . "";
     $xoops->redirect("user.php", 2, $errormessage);
 } else {
-    $pm_handler = $xoops->getHandlerPrivmessage();
+    $pm_handler = $xoops->getHandlerPrivateMessage();
     if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST['msg_ids']))) {
         if (!$xoops->security()->check()) {
             echo implode('<br />', $xoops->security()->getErrors());

@@ -60,7 +60,7 @@ switch ($op) {
                 $criteria2 = new CriteriaCompo(new Criteria('gperm_name', 'imgcat_write'));
                 $criteria2->add(new Criteria('gperm_name', 'imgcat_read'), 'OR');
                 $criteria->add($criteria2);
-                $xoops->getHandlerGroupperm()->deleteAll($criteria);
+                $xoops->getHandlerGroupPermission()->deleteAll($criteria);
             }
             // Save permissions
             $permissions = array('readgroup' => 'imgcat_read', 'writegroup' => 'imgcat_write');
@@ -70,12 +70,12 @@ switch ($op) {
                     array_push($groups, FixedGroups::ADMIN);
                 }
                 foreach ($groups as $group) {
-                    $perm_obj = $xoops->getHandlerGroupperm()->create();
+                    $perm_obj = $xoops->getHandlerGroupPermission()->create();
                     $perm_obj->setVar('gperm_groupid', $group);
                     $perm_obj->setVar('gperm_itemid', $imgcat_id);
                     $perm_obj->setVar('gperm_name', $permission);
                     $perm_obj->setVar('gperm_modid', $xoops->module->getVar('mid'));
-                    $xoops->getHandlerGroupperm()->insert($perm_obj);
+                    $xoops->getHandlerGroupPermission()->insert($perm_obj);
                     unset($perm_obj);
                 }
             }
@@ -128,7 +128,7 @@ switch ($op) {
                     $criteria2 = new CriteriaCompo(new Criteria('gperm_name', 'imgcat_write'));
                     $criteria2->add(new Criteria('gperm_name', 'imgcat_read'), 'OR');
                     $criteria->add($criteria2);
-                    $xoops->getHandlerGroupperm()->deleteAll($criteria);
+                    $xoops->getHandlerGroupPermission()->deleteAll($criteria);
 
                     $xoops->redirect('categories.php', 2, XoopsLocale::S_DATABASE_UPDATED);
                 }

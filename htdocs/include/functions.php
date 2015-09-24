@@ -408,7 +408,7 @@ function xoops_groupperm_deletebymoditem($module_id, $perm_name, $item_id = null
 {
     $xoops = Xoops::getInstance();
     $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
-    return $xoops->getHandlerGroupperm()->deleteByModule($module_id, $perm_name, $item_id);
+    return $xoops->getHandlerGroupPermission()->deleteByModule($module_id, $perm_name, $item_id);
 }
 
 /**

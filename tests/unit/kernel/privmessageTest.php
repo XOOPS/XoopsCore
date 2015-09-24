@@ -18,6 +18,6 @@ class legacy_privmessageTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance=new \XoopsPrivmessage();
-        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsPrivmessage', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', $instance);
     }
 }

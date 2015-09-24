@@ -61,7 +61,7 @@ class SystemExtension extends SystemModule
         // Get main instance
         $xoops = Xoops::getInstance();
         $module_handler = $xoops->getHandlerModule();
-        $moduleperm_handler = $xoops->getHandlerGroupperm();
+        $moduleperm_handler = $xoops->getHandlerGroupPermission();
 
         $ret = array();
         $i = 0;

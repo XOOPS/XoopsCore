@@ -19,6 +19,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -35,11 +36,11 @@ class XoopsOnline extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('online_uid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('online_uname', XOBJ_DTYPE_TXTBOX, null, true);
-        $this->initVar('online_updated', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('online_module', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('online_ip', XOBJ_DTYPE_TXTBOX, null, true);
+        $this->initVar('online_uid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('online_uname', Dtype::TYPE_TEXT_BOX, null, true);
+        $this->initVar('online_updated', Dtype::TYPE_INTEGER, null, true);
+        $this->initVar('online_module', Dtype::TYPE_INTEGER, null, true);
+        $this->initVar('online_ip', Dtype::TYPE_TEXT_BOX, null, true);
     }
 
     /**

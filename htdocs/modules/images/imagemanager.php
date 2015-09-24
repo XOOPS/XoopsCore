@@ -85,7 +85,7 @@ switch ($op) {
     case 'upload':
         $category = $helper->getHandlerCategories()->get($imgcat_id);
         if ($imgcat_id > 0 && is_object($category)) {
-            $perm_handler = $xoops->getHandlerGroupperm();
+            $perm_handler = $xoops->getHandlerGroupPermission();
             if ($perm_handler->checkRight('imgcat_write', $imgcat_id, $groups)) {
                 $xoops->simpleHeader();
                 $xoopsTpl = new XoopsTpl();

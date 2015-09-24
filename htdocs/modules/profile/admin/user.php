@@ -90,7 +90,7 @@ switch ($op) {
         $fields = $profile_handler->loadFields();
         $userfields = $profile_handler->getUserVars();
         // Get ids of fields that can be edited
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         $editable_fields = $gperm_handler->getItemIds(
             'profile_edit',
             $xoops->user->getGroups(),

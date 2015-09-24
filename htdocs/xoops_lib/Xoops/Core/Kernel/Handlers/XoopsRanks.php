@@ -23,6 +23,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 class XoopsRanks extends XoopsObject
@@ -32,12 +33,12 @@ class XoopsRanks extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('rank_id', XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar('rank_title', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('rank_min', XOBJ_DTYPE_INT, null, false, 8);
-        $this->initVar('rank_max', XOBJ_DTYPE_INT, null, false, 8);
-        $this->initVar('rank_special', XOBJ_DTYPE_INT, null, false, 1);
-        $this->initVar('rank_image', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('rank_id', Dtype::TYPE_INTEGER, null, false, 5);
+        $this->initVar('rank_title', Dtype::TYPE_TEXT_BOX, null, false);
+        $this->initVar('rank_min', Dtype::TYPE_INTEGER, null, false, 8);
+        $this->initVar('rank_max', Dtype::TYPE_INTEGER, null, false, 8);
+        $this->initVar('rank_special', Dtype::TYPE_INTEGER, null, false, 1);
+        $this->initVar('rank_image', Dtype::TYPE_TEXT_BOX, null, false);
     }
 
     /**

@@ -41,14 +41,14 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
             $r_mod_value = array();
             $r_block_value = array();
         } else {
-            $sysperm_handler = $xoops->getHandlerGroupperm();
+            $sysperm_handler = $xoops->getHandlerGroupPermission();
             $s_cat_value = $sysperm_handler->getItemIds('system_admin', $obj->getVar('groupid'));
             $member_handler = $xoops->getHandlerMember();
             $thisgroup = $member_handler->getGroup($obj->getVar('groupid'));
-            $moduleperm_handler = $xoops->getHandlerGroupperm();
+            $moduleperm_handler = $xoops->getHandlerGroupPermission();
             $a_mod_value = $moduleperm_handler->getItemIds('module_admin', $thisgroup->getVar('groupid'));
             $r_mod_value = $moduleperm_handler->getItemIds('module_read', $thisgroup->getVar('groupid'));
-            $gperm_handler = $xoops->getHandlerGroupperm();
+            $gperm_handler = $xoops->getHandlerGroupPermission();
             $r_block_value = $gperm_handler->getItemIds('block_read', $obj->getVar('groupid'));
         }
         include_once $xoops->path('/modules/system/constants.php');

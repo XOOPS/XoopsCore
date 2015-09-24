@@ -19,6 +19,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -35,9 +36,9 @@ class XoopsMembership extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('linkid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('groupid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('uid', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('linkid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('groupid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('uid', Dtype::TYPE_INTEGER, null, false);
     }
 
     /**

@@ -46,7 +46,7 @@ $xoops->header('module:publisher/publisher_display' . '_' . $publisher->getConfi
 $xoopsTpl = $xoops->tpl();
 XoopsLoad::loadFile($publisher->path('footer.php'));
 
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 
 // Creating the top categories objects
 $categoriesObj = $publisher->getCategoryHandler()->getCategories($publisher->getConfig('idxcat_cat_perpage'), $catstart);

@@ -46,7 +46,7 @@ if ($op == 'save') {
 
 // check user/group
 $groups = $xoops->getUserGroups();
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $admin = false;
 if ($gperm_handler) {
     $xlanguage = $xoops->getHandlerModule()->getByDirName('xlanguage');

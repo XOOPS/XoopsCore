@@ -57,7 +57,7 @@ if ($op == 'save') {
         // Get fields
         $fields = $profile_handler->loadFields();
         // Get ids of fields that can be edited
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         $editable_fields = $gperm_handler->getItemIds('profile_edit', $xoops->user->getGroups(), $xoops->module->getVar('mid'));
 
         if (!$profile = $profile_handler->getProfile($edituser->getVar('uid'))) {

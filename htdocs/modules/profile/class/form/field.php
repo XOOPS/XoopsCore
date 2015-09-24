@@ -205,7 +205,7 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
             }
         }
 
-        $groupperm_handler = $xoops->getHandlerGroupperm();
+        $groupperm_handler = $xoops->getHandlerGroupPermission();
         $searchable_types = array(
             'textbox', 'select', 'radio', 'yesno', 'date', 'datetime', 'timezone', 'language'
         );

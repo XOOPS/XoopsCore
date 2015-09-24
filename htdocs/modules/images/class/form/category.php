@@ -28,7 +28,7 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
     {
         $xoops = Xoops::getInstance();
 
-        $perm_handler = $xoops->getHandlerGroupperm();
+        $perm_handler = $xoops->getHandlerGroupPermission();
 
         if ($obj->isNew()) {
             $title = _AM_IMAGES_CAT_ADD;

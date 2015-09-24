@@ -15,22 +15,25 @@ namespace Xoops\Core\Kernel;
 use Xoops\Core\Kernel\Dtype;
 
 /**
- * Xoops object datatype
+ * Establish Xoops object datatype legacy defines
+ * New code should use Dtype::TYPE_* constants
+ *
+ * These will eventually be removed. See Xoops\Core\Kernel\Dtype for more.
  */
-define('XOBJ_DTYPE_TXTBOX', 1);
-define('XOBJ_DTYPE_TXTAREA', 2);
-define('XOBJ_DTYPE_INT', 3);
-define('XOBJ_DTYPE_URL', 4);
-define('XOBJ_DTYPE_EMAIL', 5);
-define('XOBJ_DTYPE_ARRAY', 6);
-define('XOBJ_DTYPE_OTHER', 7);
-define('XOBJ_DTYPE_SOURCE', 8);
-define('XOBJ_DTYPE_STIME', 9);
-define('XOBJ_DTYPE_MTIME', 10);
-define('XOBJ_DTYPE_LTIME', 11);
-define('XOBJ_DTYPE_FLOAT', 13);
-define('XOBJ_DTYPE_DECIMAL', 14);
-define('XOBJ_DTYPE_ENUM', 15);
+define('XOBJ_DTYPE_TXTBOX',  Dtype::TYPE_TEXT_BOX);
+define('XOBJ_DTYPE_TXTAREA', Dtype::TYPE_TEXT_AREA);
+define('XOBJ_DTYPE_INT',     Dtype::TYPE_INTEGER);
+define('XOBJ_DTYPE_URL',     Dtype::TYPE_URL);
+define('XOBJ_DTYPE_EMAIL',   Dtype::TYPE_EMAIL);
+define('XOBJ_DTYPE_ARRAY',   Dtype::TYPE_ARRAY);
+define('XOBJ_DTYPE_OTHER',   Dtype::TYPE_OTHER);
+define('XOBJ_DTYPE_SOURCE',  Dtype::TYPE_SOURCE);
+define('XOBJ_DTYPE_STIME',   Dtype::TYPE_SHORT_TIME);
+define('XOBJ_DTYPE_MTIME',   Dtype::TYPE_MEDIUM_TIME);
+define('XOBJ_DTYPE_LTIME',   Dtype::TYPE_LONG_TIME);
+define('XOBJ_DTYPE_FLOAT',   Dtype::TYPE_FLOAT);
+define('XOBJ_DTYPE_DECIMAL', Dtype::TYPE_DECIMAL);
+define('XOBJ_DTYPE_ENUM',    Dtype::TYPE_ENUM);
 
 /**
  * Base class for all objects in the Xoops kernel (and beyond)
@@ -44,7 +47,7 @@ define('XOBJ_DTYPE_ENUM', 15);
  * @link      http://xoops.org
  * @since     2.0.0
  */
-abstract class XoopsObject
+abstract class XoopsObject implements \ArrayAccess
 {
     /**
      * holds all variables(properties) of an object
@@ -65,28 +68,28 @@ abstract class XoopsObject
      *
      * @var bool
      */
-    private $_isNew = false;
+    private $isNew = false;
 
     /**
      * has any of the values been modified?
      *
      * @var bool
      */
-    private $_isDirty = false;
+    private $isDirty = false;
 
     /**
      * errors
      *
      * @var array
      */
-    private $_errors = array();
+    private $errors = array();
 
     /**
      * additional filters registered dynamically by a child class object
      *
      * @var array
      */
-    private $_filters = array();
+    private $filters = array();
 
     /**
      * @var string
@@ -100,7 +103,7 @@ abstract class XoopsObject
      */
     public function setNew()
     {
-        $this->_isNew = true;
+        $this->isNew = true;
     }
 
     /**
@@ -110,7 +113,7 @@ abstract class XoopsObject
      */
     public function unsetNew()
     {
-        $this->_isNew = false;
+        $this->isNew = false;
     }
 
     /**
@@ -120,7 +123,7 @@ abstract class XoopsObject
      */
     public function isNew()
     {
-        return $this->_isNew;
+        return $this->isNew;
     }
 
     /**
@@ -128,12 +131,11 @@ abstract class XoopsObject
      *
      * used for modified objects only
      *
-     * @access public
      * @return void
      */
     public function setDirty()
     {
-        $this->_isDirty = true;
+        $this->isDirty = true;
     }
 
     /**
@@ -143,7 +145,7 @@ abstract class XoopsObject
      */
     public function unsetDirty()
     {
-        $this->_isDirty = false;
+        $this->isDirty = false;
     }
 
     /**
@@ -153,7 +155,7 @@ abstract class XoopsObject
      */
     public function isDirty()
     {
-        return $this->_isDirty;
+        return $this->isDirty;
     }
 
     /**
@@ -161,7 +163,7 @@ abstract class XoopsObject
      *
      * @param string $key       key
      * @param int    $data_type set to one of XOBJ_DTYPE_XXX constants (set to XOBJ_DTYPE_OTHER
-     *                          if no data type ckecking nor text sanitizing is required)
+     *                           if no data type checking nor text sanitizing is required)
      * @param mixed  $value     value
      * @param bool   $required  require html form input?
      * @param mixed  $maxlength for XOBJ_DTYPE_TXTBOX type only
@@ -205,8 +207,10 @@ abstract class XoopsObject
      */
     public function assignVars($var_arr)
     {
-        if(is_array($var_arr)) foreach ($var_arr as $key => $value) {
-            $this->assignVar($key, $value);
+        if (is_array($var_arr)) {
+            foreach ($var_arr as $key => $value) {
+                $this->assignVar($key, $value);
+            }
         }
     }
 
@@ -239,8 +243,10 @@ abstract class XoopsObject
      */
     public function setVars($var_arr, $not_gpc = false)
     {
-        if(is_array($var_arr)) foreach ($var_arr as $key => $value) {
-            $this->setVar($key, $value, $not_gpc);
+        if (is_array($var_arr)) {
+            foreach ($var_arr as $key => $value) {
+                $this->setVar($key, $value, $not_gpc);
+            }
         }
     }
 
@@ -282,9 +288,11 @@ abstract class XoopsObject
     public function setFormVars($var_arr = null, $pref = 'xo_', $not_gpc = false)
     {
         $len = strlen($pref);
-        if(is_array($var_arr)) foreach ($var_arr as $key => $value) {
-            if ($pref == substr($key, 0, $len)) {
-                $this->setVar(substr($key, $len), $value, $not_gpc);
+        if (is_array($var_arr)) {
+            foreach ($var_arr as $key => $value) {
+                if ($pref == substr($key, 0, $len)) {
+                    $this->setVar(substr($key, $len), $value, $not_gpc);
+                }
             }
         }
     }
@@ -292,7 +300,6 @@ abstract class XoopsObject
     /**
      * returns all variables for the object
      *
-     * @access public
      * @return array associative array of key->value pairs
      */
     public function getVars()
@@ -315,16 +322,18 @@ abstract class XoopsObject
             $keys = array_keys($this->vars);
         }
         $vars = array();
-        if(is_array($keys)) foreach ($keys as $key) {
-            if (isset($this->vars[$key])) {
-                if (is_object($this->vars[$key]) && is_a($this->vars[$key], 'Xoops\Core\Kernel\XoopsObject')) {
-                    if ($maxDepth) {
-                        /* @var $obj XoopsObject */
-                        $obj = $this->vars[$key];
-                        $vars[$key] = $obj->getValues(null, $format, $maxDepth - 1);
+        if (is_array($keys)) {
+            foreach ($keys as $key) {
+                if (isset($this->vars[$key])) {
+                    if (is_object($this->vars[$key]) && is_a($this->vars[$key], 'Xoops\Core\Kernel\XoopsObject')) {
+                        if ($maxDepth) {
+                            /* @var $obj XoopsObject */
+                            $obj = $this->vars[$key];
+                            $vars[$key] = $obj->getValues(null, $format, $maxDepth - 1);
+                        }
+                    } else {
+                        $vars[$key] = $this->getVar($key, $format);
                     }
-                } else {
-                    $vars[$key] = $this->getVar($key, $format);
                 }
             }
         }
@@ -339,7 +348,7 @@ abstract class XoopsObject
      *
      * @return mixed formatted value of the variable
      */
-    public function getVar($key, $format = 's')
+    public function getVar($key, $format = Dtype::FORMAT_SHOW)
     {
         $ret = null;
         if (!isset($this->vars[$key])) {
@@ -351,26 +360,24 @@ abstract class XoopsObject
 
     /**
      * clean values of all variables of the object for storage.
-     * also add slashes whereever needed
+     * also add slashes where ever needed
      *
      * @param bool $quote add quotes for db storage
      *
      * @return bool true if successful
-     * @access public
      */
     public function cleanVars($quote = true)
     {
-        $ts = \MyTextSanitizer::getInstance();
         $existing_errors = $this->getErrors();
-        $this->_errors = array();
+        $this->errors = array();
         foreach ($this->vars as $k => $v) {
             if (!$v['changed']) {
             } else {
                 $this->cleanVars[$k] = Dtype::cleanVar($this, $k, $quote);
             }
         }
-        if (count($this->_errors) > 0) {
-            $this->_errors = array_merge($existing_errors, $this->_errors);
+        if (count($this->errors) > 0) {
+            $this->errors = array_merge($existing_errors, $this->errors);
             return false;
         }
         // $this->_errors = array_merge($existing_errors, $this->_errors);
@@ -387,7 +394,7 @@ abstract class XoopsObject
      */
     public function registerFilter($filtername)
     {
-        $this->_filters[] = $filtername;
+        $this->filters[] = $filtername;
     }
 
     /**
@@ -395,7 +402,7 @@ abstract class XoopsObject
      *
      * @return void
      */
-    private function _loadFilters()
+    private function internalLoadFilters()
     {
         static $loaded;
         if (isset($loaded)) {
@@ -406,9 +413,11 @@ abstract class XoopsObject
         $path = empty($this->plugin_path) ? __DIR__ . '/filters' : $this->plugin_path;
         if (\XoopsLoad::fileExists($file = $path . '/filter.php')) {
             include_once $file;
-            if(is_array($this->_filters)) foreach ($this->_filters as $f) {
-                if (\XoopsLoad::fileExists($file = $path . '/' . strtolower($f) . 'php')) {
-                    include_once $file;
+            if (is_array($this->filters)) {
+                foreach ($this->filters as $f) {
+                    if (\XoopsLoad::fileExists($file = $path . '/' . strtolower($f) . 'php')) {
+                        include_once $file;
+                    }
                 }
             }
         }
@@ -429,17 +438,20 @@ abstract class XoopsObject
      */
     public function loadFilters($method)
     {
-        $this->_loadFilters();
+        $this->internalLoadFilters();
 
         $class = get_class($this);
         $modules_active = \Xoops::getInstance()->getActiveModules();
-        if (is_array($modules_active)) foreach ($modules_active as $dirname) {
-            $file = \XoopsBaseConfig::get('root-path') . '/modules/' . $dirname . '/filter/' . $class . '.' . $method . '.php';
-            if (\XoopsLoad::fileExists($file)) {
-                include_once $file;
-                $function = $dirname . '_' . $class . '_' . $method;
-                if (function_exists($function)) {
-                    call_user_func_array($function, array(&$this));
+        if (is_array($modules_active)) {
+            foreach ($modules_active as $dirname) {
+                $file = \XoopsBaseConfig::get('root-path') . '/modules/'
+                    . $dirname . '/filter/' . $class . '.' . $method . '.php';
+                if (\XoopsLoad::fileExists($file)) {
+                    include_once $file;
+                    $function = $dirname . '_' . $class . '_' . $method;
+                    if (function_exists($function)) {
+                        call_user_func_array($function, array(&$this));
+                    }
                 }
             }
         }
@@ -448,21 +460,21 @@ abstract class XoopsObject
     /**
      * create a clone(copy) of the current object
      *
-     * @access public
      * @return object clone
      */
     public function xoopsClone()
     {
-        /* @var $clone XoopsObject */
-        $class = get_class($this);
-        $clone = null;
-        $clone = new $class();
-        foreach ($this->vars as $k => $v) {
-            $clone->assignVar($k, $v['value']); // Only for vars initialized within clone::__construct
-        }
-        // need this to notify the handler class that this is a newly created object
-        $clone->setNew();
+        $clone = clone $this;
         return $clone;
+    }
+
+    /**
+     * Adjust a newly cloned object
+     */
+    public function __clone()
+    {
+        // need this to notify the handler class that this is a newly created object
+        $this->setNew();
     }
 
     /**
@@ -475,9 +487,9 @@ abstract class XoopsObject
     public function setErrors($err_str)
     {
         if (is_array($err_str)) {
-            $this->_errors = array_merge($this->_errors, $err_str);
+            $this->errors = array_merge($this->errors, $err_str);
         } else {
-            $this->_errors[] = trim($err_str);
+            $this->errors[] = trim($err_str);
         }
     }
 
@@ -485,25 +497,23 @@ abstract class XoopsObject
      * return the errors for this object as an array
      *
      * @return array an array of errors
-     * @access public
      */
     public function getErrors()
     {
-        return $this->_errors;
+        return $this->errors;
     }
 
     /**
      * return the errors for this object as html
      *
      * @return string html listing the errors
-     * @access public
-     * @todo remove harcoded strings
+     * @todo remove hardcoded HTML strings
      */
     public function getHtmlErrors()
     {
         $ret = '<h4>Errors</h4>';
-        if (!empty($this->_errors)) {
-            foreach ($this->_errors as $error) {
+        if (!empty($this->errors)) {
+            foreach ($this->errors as $error) {
                 $ret .= $error . '<br />';
             }
         } else {
@@ -521,5 +531,60 @@ abstract class XoopsObject
     public function toArray()
     {
         return $this->getValues();
+    }
+
+    /**
+     * ArrayAccess methods
+     */
+
+    /**
+     * offsetExists
+     *
+     * @param mixed $offset array key
+     *
+     * @return bool true if offset exists
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->vars[$offset]);
+    }
+
+    /**
+     * offsetGet
+     *
+     * @param mixed $offset array key
+     *
+     * @return mixed value
+     */
+    public function offsetGet($offset)
+    {
+        return $this->getVar($offset);
+    }
+
+    /**
+     * offsetSet
+     *
+     * @param mixed $offset array key
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->setVar($offset, $value);
+    }
+
+    /**
+     * offsetUnset
+     *
+     * @param mixed $offset array key
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        $this->vars[$offset]['value'] = null;
+        $this->vars[$offset]['changed'] = true;
+        $this->setDirty();
     }
 }

@@ -398,9 +398,9 @@ class PublisherCategoryHandler extends XoopsPersistableObjectHandler
         }
         $module_id = $this->publisher->getModule()->getVar('mid');
 
-        $xoops->getHandlerGroupperm()->deleteByModule($module_id, "category_read", $category->getVar('categoryid'));
-        $xoops->getHandlerGroupperm()->deleteByModule($module_id, "item_submit", $category->getVar('categoryid'));
-        $xoops->getHandlerGroupperm()->deleteByModule($module_id, "category_moderation", $category->getVar('categoryid'));
+        $xoops->getHandlerGroupPermission()->deleteByModule($module_id, "category_read", $category->getVar('categoryid'));
+        $xoops->getHandlerGroupPermission()->deleteByModule($module_id, "item_submit", $category->getVar('categoryid'));
+        $xoops->getHandlerGroupPermission()->deleteByModule($module_id, "category_moderation", $category->getVar('categoryid'));
         return true;
     }
 

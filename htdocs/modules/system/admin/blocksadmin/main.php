@@ -352,7 +352,7 @@ switch ($op) {
             exit();
         }
         if ($newid != 0) {
-            $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
+            $blockmodulelink_handler = $xoops->getHandlerBlockModuleLink();
             // Delete old link
             $criteria = new CriteriaCompo(new Criteria('block_id', $newid));
             $blockmodulelink_handler->deleteAll($criteria);
@@ -370,7 +370,7 @@ switch ($op) {
                 }
             }
         }
-        $groupperm_handler = $xoops->getHandlerGroupperm();
+        $groupperm_handler = $xoops->getHandlerGroupPermission();
         $groups = $_POST['groups'];
         $groups_with_access = $groupperm_handler->getGroupIds("block_read", $newid);
         $removed_groups = array_diff($groups_with_access, $groups);
@@ -491,14 +491,14 @@ switch ($op) {
             $block = $block_handler->get($block_id);
             if ($block_handler->deleteBlock($block)) {
                 // Delete Group link
-                $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
+                $blockmodulelink_handler = $xoops->getHandlerBlockModuleLink();
                 $blockmodulelink =
                     $blockmodulelink_handler->getObjects(new CriteriaCompo(new Criteria('block_id', $block_id)));
                 foreach ($blockmodulelink as $link) {
                     $blockmodulelink_handler->delete($link, true);
                 }
                 // Delete Group permission
-                $groupperm_handler = $xoops->getHandlerGroupperm();
+                $groupperm_handler = $xoops->getHandlerGroupPermission();
                 $criteria = new CriteriaCompo(new Criteria('gperm_name', 'block_read'));
                 $criteria->add(new Criteria('gperm_itemid', $block_id));
                 $groupperm = $groupperm_handler->getObjects($criteria);
@@ -508,7 +508,7 @@ switch ($op) {
                 }
                 // Delete template
                 if ($block->getVar('template') != '') {
-                    $tplfile_handler = $xoops->getHandlerTplfile();
+                    $tplfile_handler = $xoops->getHandlerTplFile();
                     $btemplate = $tplfile_handler->find($xoops->getConfig('template_set'), 'block', $block_id);
                     if (count($btemplate) > 0) {
                         $tplfile_handler->deleteTpl($btemplate[0]);

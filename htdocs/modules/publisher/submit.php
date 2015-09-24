@@ -35,7 +35,7 @@ if (!$categoriesArray) {
 }
 
 $groups = $xoops->getUserGroups();
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $module_id = $publisher->getModule()->getVar('mid');
 
 $itemid = Request::getInt('itemid');

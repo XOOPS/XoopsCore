@@ -368,4 +368,27 @@ class XoopsObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($x['dummyVar1']));
         $this->assertTrue(isset($x['dummyVar2']));
     }
+
+    public function test_ArrayAccess()
+    {
+        $instance = new $this->myClass();
+        $instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
+        $instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
+
+        $this->assertTrue(isset($instance['dummyVar1']));
+        $this->assertTrue(isset($instance['dummyVar2']));
+
+        $instance->setVar('dummyVar1', 42);
+        $this->assertEquals($instance['dummyVar1'], 42);
+
+        $instance['dummyVar2'] = 64;
+        $this->assertEquals($instance->getVar('dummyVar2'), 64);
+
+        $this->assertFalse(isset($instance['dummyVar3']));
+
+        unset($instance['dummyVar2']);
+        $this->assertEquals($instance['dummyVar2'], ''); // null as format 's'
+        $instance['dummyVar2'] = 64;
+        $this->assertEquals($instance->getVar('dummyVar2'), 64);
+    }
 }

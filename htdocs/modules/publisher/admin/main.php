@@ -38,7 +38,7 @@ $ordersel = isset($_GET['ordersel']) ? $_GET['ordersel'] : 'DESC';
 $ordersel = isset($_POST['ordersel']) ? $_POST['ordersel'] : $ordersel;
 
 $module_id = $publisher->getModule()->mid();
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $groups = $xoops->getUserGroups();
 
 // Code for the page

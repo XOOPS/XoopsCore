@@ -147,7 +147,7 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
     $fields = $profile_handler->loadFields();
 
     // Get ids of fields that can be edited
-    $gperm_handler = $xoops->getHandlerGroupperm();
+    $gperm_handler = $xoops->getHandlerGroupPermission();
     $editable_fields = $gperm_handler->getItemIds('profile_edit', $xoops->user->getGroups(), $xoops->module->getVar('mid'));
 
     if ($user->isNew() || $xoops->user->isAdmin()) {
@@ -221,7 +221,7 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
 
     if ($xoops->isUser() && $xoops->user->isAdmin()) {
         $xoops->loadLanguage('admin', 'profile');
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         //If user has admin rights on groups
         include_once $xoops->path('modules/system/constants.php');
         if ($gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_GROUP, $xoops->user->getGroups(), 1)) {

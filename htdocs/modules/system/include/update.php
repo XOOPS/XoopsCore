@@ -49,7 +49,7 @@ function xoops_module_update_system(XoopsModule &$module)
             $tplids[] = $tplid;
         }
         if (count($tplids) > 0) {
-            $tplfile_handler = $xoops->getHandlerTplfile();
+            $tplfile_handler = $xoops->getHandlerTplFile();
             $duplicate_files = $tplfile_handler->getTplObjects(
                 new Criteria('tpl_id', "(".implode(',', $tplids).")", "IN")
             );

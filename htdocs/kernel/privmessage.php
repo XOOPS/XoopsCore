@@ -12,13 +12,13 @@
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-class XoopsPrivmessage extends Xoops\Core\Kernel\Handlers\XoopsPrivmessage
+class XoopsPrivmessage extends Xoops\Core\Kernel\Handlers\XoopsPrivateMessage
 {
 }
 
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-class XoopsPrivmessageHandler extends Xoops\Core\Kernel\Handlers\XoopsPrivmessageHandler
+class XoopsPrivmessageHandler extends Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler
 {
 }

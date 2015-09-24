@@ -395,7 +395,7 @@ class PublisherUtils
         $result = true;
 
         $module_id = $publisher->getModule()->getVar('mid');
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         // First, if the permissions are already there, delete them
         $gperm_handler->deleteByModule($module_id, $perm_name, $categoryid);
 

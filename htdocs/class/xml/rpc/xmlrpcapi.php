@@ -74,7 +74,7 @@ class XoopsXmlRpcApi
             $this->user = null;
             return false;
         }
-        $moduleperm_handler = $xoops->getHandlerGroupperm();
+        $moduleperm_handler = $xoops->getHandlerGroupPermission();
         if (!$moduleperm_handler->checkRight('module_read', $this->module->getVar('mid'), $this->user->getGroups())) {
             $this->user = null;
             return false;

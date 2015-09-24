@@ -35,7 +35,7 @@ $id = Request::getInt('msg_id', 0);
 $start = Request::getInt('start', 0);
 $total_messages = Request::getInt('total_messages', 0);
 
-$pm_handler = $xoops->getHandlerPrivmessage();
+$pm_handler = $xoops->getHandlerPrivateMessage();
 
 $xoops->header('module:system/system_readpmsg.tpl');
 

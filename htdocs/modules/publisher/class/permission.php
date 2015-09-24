@@ -155,7 +155,7 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         $xoops = Xoops::getInstance();
         $result = true;
         $module_id = $this->publisher->getModule()->getVar('mid');
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         // First, if the permissions are already there, delete them
         $gperm_handler->deleteByModule($module_id, $perm_name, $itemid);
         // Save the new permissions
@@ -181,7 +181,7 @@ class PublisherPermissionHandler extends XoopsObjectHandler
     {
         $xoops = Xoops::getInstance();
         $result = true;
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         $gperm_handler->deleteByModule($this->publisher->getModule()->getVar('mid'), $gperm_name, $itemid);
         return $result;
     }

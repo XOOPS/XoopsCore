@@ -19,6 +19,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -28,7 +29,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @copyright copyright (c) 2000 XOOPS.org
  * @package kernel
  **/
-class XoopsTplset extends XoopsObject
+class XoopsTplSet extends XoopsObject
 {
 
     /**
@@ -36,11 +37,11 @@ class XoopsTplset extends XoopsObject
      **/
     public function __construct()
     {
-        $this->initVar('tplset_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('tplset_name', XOBJ_DTYPE_OTHER, null, false);
-        $this->initVar('tplset_desc', XOBJ_DTYPE_TXTBOX, null, false, 255);
-        $this->initVar('tplset_credits', XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('tplset_created', XOBJ_DTYPE_INT, 0, false);
+        $this->initVar('tplset_id', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('tplset_name', Dtype::TYPE_OTHER, null, false);
+        $this->initVar('tplset_desc', Dtype::TYPE_TEXT_BOX, null, false, 255);
+        $this->initVar('tplset_credits', Dtype::TYPE_TEXT_AREA, null, false);
+        $this->initVar('tplset_created', Dtype::TYPE_INTEGER, 0, false);
     }
 
     /**

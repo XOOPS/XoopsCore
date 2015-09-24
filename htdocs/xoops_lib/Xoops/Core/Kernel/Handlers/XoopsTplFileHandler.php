@@ -24,7 +24,7 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsTplfile;
+use Xoops\Core\Kernel\Handlers\XoopsTplFile;
 
 /**
  * XOOPS template file handler class.
@@ -34,7 +34,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplfile;
  *
  * @author  Kazumi Ono <onokazu@xoops.org>
  */
-class XoopsTplfileHandler extends XoopsPersistableObjectHandler
+class XoopsTplFileHandler extends XoopsPersistableObjectHandler
 {
 
     /**
@@ -44,16 +44,16 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'tplfile', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfile', 'tpl_id', 'tpl_refid');
+        parent::__construct($db, 'tplfile', '\Xoops\Core\Kernel\Handlers\XoopsTplFile', 'tpl_id', 'tpl_refid');
     }
 
     /**
-     * retrieve a specific {@link XoopsTplfile}
+     * retrieve a specific {@link XoopsTplFile}
      *
      * @param int  $id        tpl_id of the block to retrieve
      * @param bool $getsource true = also return source
      *
-     * @return XoopsTplfile|bool
+     * @return XoopsTplFile|bool
      */
     public function getById($id, $getsource = false)
     {
@@ -81,7 +81,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
             }
             $allrows = $result->fetchAll();
             if (count($allrows) == 1) {
-                $tplfile = new XoopsTplfile();
+                $tplfile = new XoopsTplFile();
                 $tplfile->assignVars(reset($allrows));
             }
         }
@@ -91,11 +91,11 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * loadSource
      *
-     * @param XoopsTplfile &$tplfile
+     * @param XoopsTplFile $tplfile
      *
      * @return bool
      */
-    public function loadSource(XoopsTplfile &$tplfile)
+    public function loadSource(XoopsTplFile $tplfile)
     {
         if (!$tplfile->getVar('tpl_source')) {
             $qb = $this->db2->createXoopsQueryBuilder();
@@ -114,13 +114,13 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * write a new Tplfile into the database
+     * write a new TplFile into the database
      *
-     * @param XoopsTplfile|XoopsObject $tplfile
+     * @param XoopsTplFile $tplfile
      *
      * @return bool
      */
-    public function insertTpl(XoopsTplfile &$tplfile)
+    public function insertTpl(XoopsTplFile $tplfile)
     {
         if (!$tplfile->isDirty()) {
             return true;
@@ -194,11 +194,11 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * forceUpdate
      *
-     * @param XoopsTplfile $tplfile
+     * @param XoopsTplFile $tplfile
      *
      * @return bool
      */
-    public function forceUpdate(XoopsTplfile &$tplfile)
+    public function forceUpdate(XoopsTplFile $tplfile)
     {
         if (!$tplfile->isDirty()) {
             return true;
@@ -246,11 +246,11 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
     /**
      * delete a block from the database
      *
-     * @param XoopsTplfile $tplfile
+     * @param XoopsTplFile $tplfile
      *
      * @return bool
      */
-    public function deleteTpl(XoopsTplfile &$tplfile)
+    public function deleteTpl(XoopsTplFile $tplfile)
     {
         $tpl_id = $tplfile->getVar('tpl_id');
         if (!$this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id))) {
@@ -293,7 +293,7 @@ class XoopsTplfileHandler extends XoopsPersistableObjectHandler
             return $ret;
         }
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
-            $tplfile = new XoopsTplfile();
+            $tplfile = new XoopsTplFile();
             $tplfile->assignVars($myrow);
             if (!$id_as_key) {
                 $ret[] = $tplfile;

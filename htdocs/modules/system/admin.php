@@ -42,7 +42,7 @@ if ($system->checkRight()) {
             unset($file);
 
             // Get System permission handler
-            $sysperm_handler = $xoops->getHandlerGroupperm();
+            $sysperm_handler = $xoops->getHandlerGroupPermission();
 
             $category = !empty($modversion['category']) ? (int)($modversion['category']) : 0;
             unset($modversion);
@@ -112,7 +112,7 @@ if (false != $error) {
     $groups = $xoopsUser->getGroups();
     $all_ok = false;
     if (!in_array(FixedGroups::ADMIN, $groups)) {
-        $sysperm_handler = $xoops->getHandlerGroupperm();
+        $sysperm_handler = $xoops->getHandlerGroupPermission();
         $ok_syscats = $sysperm_handler->getItemIds('system_admin', $groups);
     } else {
         $all_ok = true;

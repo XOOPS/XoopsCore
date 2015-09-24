@@ -79,7 +79,7 @@ function xoops_module_install_system(XoopsModule $module)
     }
 
     // Make system block visible
-    $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
+    $blockmodulelink_handler = $xoops->getHandlerBlockModuleLink();
     $block_handler = $xoops->getHandlerBlock();
     $blocks = $block_handler->getByModule(1);
     foreach ($blocks as $block) {
@@ -110,7 +110,7 @@ function xoops_module_install_system(XoopsModule $module)
         }
     }
     // default theme
-    $tplset_handler = $xoops->getHandlerTplset();
+    $tplset_handler = $xoops->getHandlerTplSet();
     $obj = $tplset_handler->create();
     $obj->setVar("tplset_name", 'default');
     $obj->setVar("tplset_desc", 'XOOPS Default Template Set');

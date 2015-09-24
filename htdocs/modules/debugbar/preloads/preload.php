@@ -41,7 +41,7 @@ class DebugbarPreload extends PreloadItem
         if (is_null($configs)) {
             $xoops = Xoops::getInstance();
             $user_groups = $xoops->getUserGroups();
-            $moduleperm_handler = $xoops->getHandlerGroupperm();
+            $moduleperm_handler = $xoops->getHandlerGroupPermission();
             $helper = $xoops->getModuleHelper('debugbar');
             $mid = $helper->getModule()->getVar('mid');
             if ($moduleperm_handler->checkRight('use_debugbar', 0, $user_groups, $mid)) {

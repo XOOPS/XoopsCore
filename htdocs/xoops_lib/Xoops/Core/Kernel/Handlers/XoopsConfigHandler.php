@@ -66,8 +66,8 @@ class XoopsConfigHandler extends XoopsObjectHandler
      */
     public function __construct()
     {
-        $this->_cHandler = \Xoops::getInstance()->getHandlerConfigitem();
-        $this->_oHandler = \Xoops::getInstance()->getHandlerConfigoption();
+        $this->_cHandler = \Xoops::getInstance()->getHandlerConfigItem();
+        $this->_oHandler = \Xoops::getInstance()->getHandlerConfigOption();
     }
 
     /**

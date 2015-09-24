@@ -19,6 +19,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**#@+
@@ -54,16 +55,16 @@ class XoopsConfigItem extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('conf_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('conf_modid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('conf_catid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('conf_name', XOBJ_DTYPE_OTHER);
-        $this->initVar('conf_title', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('conf_value', XOBJ_DTYPE_TXTAREA);
-        $this->initVar('conf_desc', XOBJ_DTYPE_OTHER);
-        $this->initVar('conf_formtype', XOBJ_DTYPE_OTHER);
-        $this->initVar('conf_valuetype', XOBJ_DTYPE_OTHER);
-        $this->initVar('conf_order', XOBJ_DTYPE_INT);
+        $this->initVar('conf_id', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('conf_modid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('conf_catid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('conf_name', Dtype::TYPE_OTHER);
+        $this->initVar('conf_title', Dtype::TYPE_TEXT_BOX);
+        $this->initVar('conf_value', Dtype::TYPE_TEXT_AREA);
+        $this->initVar('conf_desc', Dtype::TYPE_OTHER);
+        $this->initVar('conf_formtype', Dtype::TYPE_OTHER);
+        $this->initVar('conf_valuetype', Dtype::TYPE_OTHER);
+        $this->initVar('conf_order', Dtype::TYPE_INTEGER);
     }
 
     /**
