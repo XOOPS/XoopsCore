@@ -65,7 +65,7 @@ function xoops_module_install_system(XoopsModule $module)
     TableLoad::loadTableFromArray('groups', $rows);
 
     // data for table 'group_permission'
-    $groupperm_handler = $xoops->getHandlerGroupPerm();
+    $groupperm_handler = $xoops->getHandlerGroupPermission();
     $allGroups = array(FixedGroups::USERS, FixedGroups::ANONYMOUS);
     foreach ($allGroups as $gid) {
         $obj = $groupperm_handler->create();
