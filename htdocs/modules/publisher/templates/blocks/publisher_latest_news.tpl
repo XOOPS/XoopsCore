@@ -11,7 +11,7 @@
 
 <{if $block.template == 'extended'}>
 
-<{php}>global $xoTheme;$xoTheme->addStylesheet(PUBLISHER_URL . '/css/publisher.css');<{/php}>
+<{addBaseStylesheet assets='modules/publisher/css/publisher.css' }>
 
 <{if $block.latestnews_scroll }>
 <marquee behavior='scroll' align='center' direction='<{$block.scrolldir}>' height='<{$block.scrollheight}>' scrollamount='3' scrolldelay='<{$block.scrollspeed}>' onmouseover='this.stop()' onmouseout='this.start()'>
@@ -65,7 +65,7 @@
 
 <{if $block.template == 'slider1'}>
 
-<{php}>global $xoTheme;$xoTheme->addScript('media/jquery/jquery.js');$xoTheme->addStylesheet(PUBLISHER_URL . '/css/publisher.css');<{/php}>
+<{addBaseScript assets='@jquery'}>
 
 <script type="text/javascript">
     jQuery(document).ready(function()
@@ -145,7 +145,7 @@
     }
 </script>
 
-<{section name=i}>
+<{section name=i loop=1}>
 
 <ul class="pub_slideshow1">
     <{foreach item=item from=$block.columns[i]}>
@@ -158,8 +158,8 @@
 <{/if}>
 
 <{if $block.template == 'slider2'}>
-
-<{php}>global $xoTheme;$xoTheme->addScript('media/jquery/jquery.js');$xoTheme->addStylesheet(PUBLISHER_URL . '/css/publisher.css');$xoTheme->addScript(PUBLISHER_URL . '/js/jquery.easing.js');$xoTheme->addScript(PUBLISHER_URL . '/js/script.easing.js');<{/php}>
+    <{addBaseScript assets='@jquery'}>
+    <{addBaseStylesheet assets='modules/publisher/css/publisher.css' }>
 
 <script type="text/javascript">
     jQuery(document).ready(function()
@@ -172,7 +172,7 @@
 
 </script>
 
-<{section name=i}>
+<{section name=i loop=1}>
 <div id="lofslidecontent45" class="lof-slidecontent">
 
     <div class="lof-main-outer">

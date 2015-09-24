@@ -1,4 +1,4 @@
-<{section name=i loop=$comments}>
+<{section name=i loop=$comments|default:[]}>
 <br/>
 <table cellspacing="1" class="outer">
     <tr>
