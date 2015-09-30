@@ -93,7 +93,22 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Core\Handler\Factory::newSpec
+     */
+    public function testNewSpec_static()
+    {
+        $instance = Factory::newSpec();
+        $instance2 = Factory::newSpec();
+        $this->assertInstanceOf('\Xoops\Core\Handler\FactorySpec', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Handler\FactorySpec', $instance2);
+
+        $this->assertNotSame($instance, $instance2);
+        $this->assertSame($instance->getFactory(), $instance2->getFactory());
+    }
+
+    /**
      * @covers Xoops\Core\Handler\Factory::build
+     * @covers Xoops\Core\Handler\Factory::getSchemeObject
      */
     public function testBuild()
     {
@@ -105,6 +120,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Xoops\Core\Exception\InvalidHandlerSpecException
      * @covers Xoops\Core\Handler\Factory::build
+     * @covers Xoops\Core\Handler\Factory::getSchemeObject
      */
     public function testBuild_exception()
     {

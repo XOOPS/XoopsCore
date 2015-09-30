@@ -957,8 +957,6 @@ class Xoops
      */
     protected function getHandler($name, $optional = false)
     {
-        //$name = strtolower(trim($name));
-        $class = '';
         if (!isset($this->kernelHandlers[$name])) {
             if (!isset($this->handlerFactory)) {
                 $this->handlerFactory = HandlerFactory::getInstance();

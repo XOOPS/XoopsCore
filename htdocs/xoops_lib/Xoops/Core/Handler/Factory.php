@@ -151,9 +151,10 @@ class Factory
     /**
      * @return FactorySpec
      */
-    public function newSpec()
+    public static function newSpec()
     {
-        $spec = FactorySpec::getInstance($this);
+        $instance = Factory::getInstance();
+        $spec = FactorySpec::getInstance($instance);
         return $spec;
     }
 
