@@ -9,7 +9,7 @@ require_once (dirname(__FILE__).'/../../../../init_new.php');
 
 class Service_ManagerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = '\\Xoops\\Core\\Service\\Manager';
+    protected $myClass = '\Xoops\Core\Service\Manager';
     protected $object = null;
     
     function setUp()

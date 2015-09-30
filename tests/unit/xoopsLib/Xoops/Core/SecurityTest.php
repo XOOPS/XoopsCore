@@ -45,7 +45,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance = $this->object;
-        $this->assertInstanceOf('\\Xoops\\Core\\Security', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Security', $instance);
     }
 
     public function test_check()

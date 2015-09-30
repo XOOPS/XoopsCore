@@ -140,7 +140,7 @@ abstract class Xoops_Locale_Abstract
      */
     public static function getFormatYesterday()
     {
-        return "\Y\\e\s\\t\\e\\r\d\a\y G:i";
+        return '\Y\e\s\t\e\r\d\a\y G:i';
     }
 
     /**

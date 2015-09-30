@@ -8,13 +8,13 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
 */
 class Xoops_Module_Helper_DummyTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = '\\Xoops\\Module\\Helper\\Dummy';
+    protected $myClass = '\Xoops\Module\Helper\Dummy';
 
     public function test___construct()
 	{
 		$instance = new $this->myClass();
 		$this->assertInstanceOf($this->myClass, $instance);
-		$this->assertInstanceOf('\\Xoops\\Module\\Helper\\Dummy', $instance);
+		$this->assertInstanceOf('\Xoops\Module\Helper\Dummy', $instance);
     }
 
     public function test_init()
@@ -30,7 +30,7 @@ class Xoops_Module_Helper_DummyTest extends \PHPUnit_Framework_TestCase
 		$instance = new $this->myClass();
 		
 		$x = $instance->getInstance();
-		$this->assertInstanceOf('\\Xoops\\Module\\Helper\\Dummy', $x);
+		$this->assertInstanceOf('\Xoops\Module\Helper\Dummy', $x);
     }
 
     public function test_setDirname()

@@ -59,7 +59,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'modules', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsModule', 'mid', 'dirname');
+        parent::__construct($db, 'modules', '\Xoops\Core\Kernel\Handlers\XoopsModule', 'mid', 'dirname');
     }
 
     /**

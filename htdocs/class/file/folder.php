@@ -107,13 +107,14 @@ class XoopsFolderHandler
         if ($mode) {
             $this->mode = intval($mode, 8);
         }
-        if (!XoopsLoad::fileExists($path) && $create == true) {
+        if (! XoopsLoad::fileExists($path) && $create == true) {
             $this->create($path, $this->mode);
         }
-        if (!$this->isAbsolute($path)) {
-            $path = $this->realpath($path);
-            if (false===$path)
-                throw new Exception($path . ' not found');
+        if (! $this->isAbsolute($path)) {
+            $path1 = $this->realpath($path);
+            if (false===$path1)
+                throw new InvalidArgumentException($path . ' not found');
+            $path = $path1;
         }
         $this->cd($path);
     }

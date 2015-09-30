@@ -38,7 +38,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $instance = $this->object;
 
         $this->assertInstanceOf('ArrayObject', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\AttributeInterface', $instance);
+        $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $instance);
     }
 
     public function test_get()

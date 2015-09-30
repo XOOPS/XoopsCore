@@ -38,12 +38,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Core\Service\Response::__constructor
+     * @covers Xoops\Core\Service\Response::__construct
      */
-    public function test__constructor()
+    public function test__construct()
     {
         $instance = $this->object;
-        $this->assertInstanceOf('\\Xoops\\Core\\Service\\Response', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Service\Response', $instance);
     }
 
     /**

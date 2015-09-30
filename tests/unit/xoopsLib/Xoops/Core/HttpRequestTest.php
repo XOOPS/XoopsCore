@@ -18,7 +18,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      * @var HttpRequest
      */
     protected $object;
-    protected $myClass = '\\Xoops\\Core\\HttpRequest';
+    protected $myClass = '\Xoops\Core\HttpRequest';
     protected $save_SERVER = null;
 
     /**

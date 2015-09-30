@@ -38,10 +38,10 @@ class CacheManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetCache()
     {
         $pool1 = $this->object->getCache('default');
-        $this->assertInstanceOf('\\Xoops\\Core\\Cache\\Access', $pool1);
+        $this->assertInstanceOf('\Xoops\Core\Cache\Access', $pool1);
 
         $pool2 = $this->object->getCache('nosuchpooldefinition');
-        $this->assertInstanceOf('\\Xoops\\Core\\Cache\\Access', $pool2);
+        $this->assertInstanceOf('\Xoops\Core\Cache\Access', $pool2);
 
         $this->assertSame($pool1, $pool2);
     }

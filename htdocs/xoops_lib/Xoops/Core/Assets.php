@@ -96,7 +96,7 @@ class Assets
      * @var string string to identify Assetic filters using instanceof
      */
 
-    private $filterInterface = '\\Assetic\\Filter\\FilterInterface';
+    private $filterInterface = '\Assetic\Filter\FilterInterface';
     /**
      * __construct
      */

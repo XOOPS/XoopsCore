@@ -42,6 +42,14 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$instance = new $this->myClass();
 		$this->assertInstanceOf($this->myClass, $instance);
     }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function test___construct100()
+	{       
+        $instance = new $this->myClass('dir_not_exists',false);
+    }
 
     public function test___publicProperties()
 	{
@@ -441,9 +449,6 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(file_exists($dir));
 
 		$result = $instance->realpath($dir.'/../cache');
-        $this->assertSame($base, basename(dirname($result)));
-
-		$result = $instance->realpath('../cache');
         $this->assertSame($base, basename(dirname($result)));
     }
 

@@ -14,7 +14,7 @@ class RandomTest extends \PHPUnit_Framework_TestCase
      * @var Random
      */
     protected $object;
-    protected $myClass = '\\Xoops\\Core\\Random';
+    protected $myClass = '\Xoops\Core\Random';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

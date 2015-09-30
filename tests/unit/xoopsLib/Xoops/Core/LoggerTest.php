@@ -61,7 +61,7 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 	public function test_getInstance()
 	{
 		$instance = Logger::getInstance();
-		$this->assertInstanceOf('\\Xoops\\Core\\Logger', $instance);
+		$this->assertInstanceOf('\Xoops\Core\Logger', $instance);
 		
 		$instance1 = Logger::getInstance();
 		$this->assertSame($instance1, $instance);
@@ -345,6 +345,13 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
 	
 	public function test___set()
 	{
+        if (! class_exists('', false)) {
+            $path = \XoopsBaseConfig::get('root-path');
+            XoopsLoad::addMap(array(
+                'debugbarlogger' => $path . '/modules/debugbar/class/debugbarlogger.php',
+            ));
+        }
+        
         $instance = $this->object;
         
         ob_start();

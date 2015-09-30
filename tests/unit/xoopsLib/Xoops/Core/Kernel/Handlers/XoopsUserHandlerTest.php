@@ -22,7 +22,7 @@ class UserHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*users$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUser',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsUser',$instance->className);
 		$this->assertSame('uid',$instance->keyName);
 		$this->assertSame('uname',$instance->identifierName);
     }
@@ -30,8 +30,8 @@ class UserHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUserHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsUserHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
 }

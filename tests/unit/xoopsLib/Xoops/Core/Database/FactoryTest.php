@@ -43,6 +43,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testGetConnection()
     {
         $result = Factory::getConnection();
-        $this->assertInstanceOf('\\Xoops\\Core\\Database\\Connection', $result);
+        $this->assertInstanceOf('\Xoops\Core\Database\Connection', $result);
     }
 }

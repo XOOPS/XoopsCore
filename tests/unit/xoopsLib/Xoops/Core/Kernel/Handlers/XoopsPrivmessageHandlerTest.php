@@ -23,7 +23,7 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*priv_msgs$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\XoopsPrivmessage',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsPrivmessage',$instance->className);
 		$this->assertSame('msg_id',$instance->keyName);
 		$this->assertSame('subject',$instance->identifierName);
     }
@@ -31,8 +31,8 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsPrivmessageHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsPrivmessageHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_setRead()

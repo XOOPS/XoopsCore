@@ -10,7 +10,7 @@ use Xoops\Core\Events;
 */
 class EventsTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myclass = '\\Xoops\\Core\\Events';
+    protected $myclass = '\Xoops\Core\Events';
     public $dummy_result = null;
     
     /**
@@ -58,9 +58,9 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($result));
 	}
     
-    public function dummy_callback($arg1, $arg2)
+    public function dummy_callback($arg)
     {
-        $this->dummy_result = array($arg1, $arg2);
+        $this->dummy_result = $arg;
     }
     
 	public function test_triggerEvent()

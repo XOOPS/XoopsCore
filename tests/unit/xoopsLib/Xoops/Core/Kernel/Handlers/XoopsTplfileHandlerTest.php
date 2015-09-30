@@ -14,7 +14,7 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplfileHandler';
     protected $conn = null;
-    protected $xoopsTplfile = '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfile';
+    protected $xoopsTplfile = '\Xoops\Core\Kernel\Handlers\XoopsTplfile';
 
     public function setUp()
     {
@@ -34,8 +34,8 @@ class TplfileHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplfileHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplfileHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_getById()

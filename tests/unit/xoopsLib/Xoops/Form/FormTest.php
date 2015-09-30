@@ -27,7 +27,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = $this->getMockForAbstractClass('\\Xoops\\Form\\Form', array('title', 'name', 'action'));
+        $this->object = $this->getMockForAbstractClass('\Xoops\Form\Form', array('title', 'name', 'action'));
 
     }
 
@@ -124,14 +124,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $instance->addElement($button, true);
         $value = $instance->getElements();
         $this->assertTrue(is_array($value));
-        $this->assertInstanceOf('\\Xoops\\Form\\Button', $value[0]);
+        $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
         
         $value = $instance->getElementNames();
         $this->assertTrue(is_array($value));
         $this->assertSame('button_name', $value[0]);
         
         $value = $instance->getElementByName('button_name');
-        $this->assertInstanceOf('\\Xoops\\Form\\Button', $value);
+        $this->assertInstanceOf('\Xoops\Form\Button', $value);
         
         $value = $instance->getElementByName('button_doesnt_exist');
         $this->assertSame(null, $value);
@@ -182,7 +182,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $instance->addElement($button, true);
         $value = $instance->getElements();
         $this->assertTrue(is_array($value));
-        $this->assertInstanceOf('\\Xoops\\Form\\Button', $value[0]);
+        $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
         
         $value = 'value';
         $instance->setElementValue($name, $value);
@@ -204,7 +204,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $instance->addElement($button, true);
         $value = $instance->getElements();
         $this->assertTrue(is_array($value));
-        $this->assertInstanceOf('\\Xoops\\Form\\Button', $value[0]);
+        $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
         
         $arrAttr = array($name=>'value1', 'key2'=>'value2');
         $instance->setElementValues($arrAttr);
@@ -272,7 +272,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $instance->setRequired($button);
         $value = $instance->getRequired();
         $this->assertTrue(is_array($value));
-        $this->assertInstanceOf('\\Xoops\\Form\\Button', $value[0]);
+        $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
     }
 
     /**

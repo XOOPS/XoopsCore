@@ -120,11 +120,11 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         
         $user = new XoopsUser();
         $result = $instance->getAvatarEditUrl($user);
-        $this->assertInstanceOf('\\Xoops\\Core\\Service\\Response',$result);
+        $this->assertInstanceOf('\Xoops\Core\Service\Response',$result);
         $this->assertTrue($result->isSuccess());
 
         $result = $instance->getAvatarEditUrl($provider);
-        $this->assertInstanceOf('\\Xoops\\Core\\Service\\Response',$result);
+        $this->assertInstanceOf('\Xoops\Core\Service\Response',$result);
         $this->assertFalse($result->isSuccess());
     }
 

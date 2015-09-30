@@ -29,7 +29,7 @@ class Xoops_Auth_ProvisioningTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance = $this->object;
-        $this->assertInstanceOf('\\Xoops\\Auth\\Provisioning', $instance);
+        $this->assertInstanceOf('\Xoops\Auth\Provisioning', $instance);
     }
     
     public function test___publicProperties()
@@ -63,7 +63,7 @@ class Xoops_Auth_ProvisioningTest extends \PHPUnit_Framework_TestCase
         $userName = $userObject->getVar('uname');
 
         $value = $instance->getXoopsUser($userName);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUser', $value);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsUser', $value);
     }
 
     public function test_sync()
@@ -78,7 +78,7 @@ class Xoops_Auth_ProvisioningTest extends \PHPUnit_Framework_TestCase
         $userName = $userObject->getVar('uname');
 
         $value = $instance->sync(array(), $userName);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsUser', $value);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsUser', $value);
     }
 
     public function test_setVarsMapping()

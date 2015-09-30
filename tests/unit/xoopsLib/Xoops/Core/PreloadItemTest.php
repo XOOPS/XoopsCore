@@ -13,7 +13,7 @@ class PreloadItemTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
 	{
 		$instance = new PreloadItem();
-		$this->assertInstanceOf('\\Xoops\\Core\\PreloadItem', $instance);
+		$this->assertInstanceOf('\Xoops\Core\PreloadItem', $instance);
     }
 	
 }

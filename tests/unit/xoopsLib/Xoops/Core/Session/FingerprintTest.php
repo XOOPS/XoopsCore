@@ -34,8 +34,8 @@ class FingerprintTest extends \PHPUnit_Framework_TestCase
 
     public function testContracts()
     {
-        $this->assertInstanceOf('\\Xoops\\Core\\Session\\Fingerprint', $this->object);
-        $this->assertInstanceOf('\\Xoops\\Core\\Session\\FingerprintInterface', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Session\Fingerprint', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Session\FingerprintInterface', $this->object);
     }
 
     /**
