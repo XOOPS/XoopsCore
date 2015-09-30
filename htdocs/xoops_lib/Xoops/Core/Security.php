@@ -189,11 +189,12 @@ class Security
             && $_SERVER['REMOTE_ADDR'] != ''
         ) {
             foreach ($xoops->getConfig('bad_ips') as $bi) {
-                if (!empty($bi) && preg_match('/' . $bi . '/', $_SERVER['REMOTE_ADDR'])) {
-                    exit();
+                if (!empty($bi) && false !== strpos($_SERVER['REMOTE_ADDR'],$bi)) {
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     /**

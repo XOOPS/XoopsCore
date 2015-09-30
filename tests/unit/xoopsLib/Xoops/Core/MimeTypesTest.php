@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
+use \Xoops\Core\MimeTypes;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -19,7 +21,7 @@ class MimeTypesTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new \Xoops\Core\MimeTypes;
+        // $this->object = new \Xoops\Core\MimeTypes;
     }
 
     /**
@@ -35,11 +37,11 @@ class MimeTypesTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindExtensions()
     {
-        $this->assertTrue(in_array('txt', $this->object->findExtensions('text/plain')), 'match .txt extension');
-        $matches = $this->object->findExtensions('image/jpeg');
+        $this->assertTrue(in_array('txt', MimeTypes::findExtensions('text/plain')), 'match .txt extension');
+        $matches = MimeTypes::findExtensions('image/jpeg');
         $this->assertTrue(in_array('jpg', $matches), 'match .jpg extension');
         $this->assertTrue(in_array('jpeg', $matches), 'match .jpeg extension');
-		$x = $this->object->findExtensions('failme-no-such-type/no-such-subtype');
+		$x = MimeTypes::findExtensions('failme-no-such-type/no-such-subtype');
         $this->assertTrue(empty($x), 'match garbage mimetype');
     }
 
@@ -48,9 +50,9 @@ class MimeTypesTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindType()
     {
-        $this->assertEquals('text/plain', $this->object->findType('txt'), 'get mimetype for .txt extension');
-        $this->assertEquals('image/jpeg', $this->object->findType('jpg'), 'get mimetype for .jpg extension');
-        $this->assertEquals('image/jpeg', $this->object->findType('jpeg'), 'get mimetype for .jpeg extension');
-        $this->assertNull($this->object->findType('failme-no-such-extension'), 'get mimetype for garbage extension');
+        $this->assertEquals('text/plain', MimeTypes::findType('txt'), 'get mimetype for .txt extension');
+        $this->assertEquals('image/jpeg', MimeTypes::findType('jpg'), 'get mimetype for .jpg extension');
+        $this->assertEquals('image/jpeg', MimeTypes::findType('jpeg'), 'get mimetype for .jpeg extension');
+        $this->assertNull(MimeTypes::findType('failme-no-such-extension'), 'get mimetype for garbage extension');
     }
 }

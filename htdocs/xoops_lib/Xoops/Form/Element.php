@@ -162,10 +162,12 @@ abstract class Element extends Attributes
         // generate id from name if not already set
         if (!$this->hasAttribute('id')) {
             $id = $this->getAttribute('name');
-            if (substr($id, -2) == '[]') {
-                $id = substr($id, 0, strlen($id)-2);
+            if (is_string($id)) {
+                if (substr($id, -2) == '[]') {
+                    $id = substr($id, 0, strlen($id)-2);
+                }
+                $this->setAttribute('id', $id);
             }
-            $this->setAttribute('id', $id);
         }
         return parent::renderAttributeString();
     }
@@ -365,11 +367,11 @@ abstract class Element extends Attributes
         if (empty($this->datalist)) {
             return '';
         }
-        $ret = NWLINE . '<datalist id="list_' . $this->getName() . '">' . NWLINE;
+        $ret = "\n" . '<datalist id="list_' . $this->getName() . '">' . "\n";
         foreach ($this->datalist as $datalist) {
-            $ret .= '<option value="' . htmlspecialchars($datalist, ENT_QUOTES) . '">' . NWLINE;
+            $ret .= '<option value="' . htmlspecialchars($datalist, ENT_QUOTES) . '">' . "\n";
         }
-        $ret .= '</datalist>' . NWLINE;
+        $ret .= '</datalist>' . "\n";
         return $ret;
     }
 

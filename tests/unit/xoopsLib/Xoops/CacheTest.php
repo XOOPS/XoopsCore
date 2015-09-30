@@ -19,4 +19,5 @@ class Xoops_CacheTest extends \PHPUnit_Framework_TestCase
         $class = new \Xoops_Cache();
         $this->assertInstanceOf('\Xoops\Core\Cache\Legacy', $class);
     }
+
 }

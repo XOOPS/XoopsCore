@@ -96,7 +96,7 @@ class Assets
      * @var string string to identify Assetic filters using instanceof
      */
 
-    private $filterInterface = '\Assetic\Filter\FilterInterface';
+    private $filterInterface = '\\Assetic\\Filter\\FilterInterface';
     /**
      * __construct
      */
@@ -332,6 +332,16 @@ class Assets
         $this->debug = (boolean) $debug;
     }
 
+    /**
+     * getDebug enable debug mode, will skip filters prefixed with '?'
+     *
+     * @return bool
+     */
+    public function getDebug()
+    {
+        return $this->debug;
+    }
+    
     /**
      * Add an asset reference to the asset manager
      *

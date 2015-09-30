@@ -167,7 +167,7 @@ class Events
      * Trigger a specific event
      *
      * @param string $eventName Name of the event to trigger
-     * @param mixed  $args      Method arguments
+     * @param array  $args      array of Method arguments
      *
      * @return void
      */
@@ -178,7 +178,7 @@ class Events
             if (isset($this->eventListeners[$eventName])) {
                 foreach ($this->eventListeners[$eventName] as $event) {
                     if (is_callable($event)) {
-                        call_user_func($event, $args);
+                        call_user_func_array($event, $args);
                     }
                 }
             }
@@ -211,6 +211,19 @@ class Events
         $eventName = $this->toInternalEventName($eventName);
         $this->eventListeners[$eventName][]=$callback;
     }
+    
+    /**
+     * removeListener - remove a listener.
+     *
+     * @param string   $eventName the event name
+     *
+     * @return void
+     */
+    public function removeListener($eventName)
+    {
+        $eventName = $this->toInternalEventName($eventName);
+        unset($this->eventListeners[$eventName]);
+    }
 
     /**
      * getEvents - for debugging only, return list of event listeners
@@ -220,6 +233,16 @@ class Events
     public function getEvents()
     {
         return $this->eventListeners;
+    }
+    
+    /**
+     * getPreloads - for debugging only, return list of preloads
+     *
+     * @return array of preloads
+     */
+    public function getPreloads()
+    {
+        return $this->preloadList;
     }
 
     /**

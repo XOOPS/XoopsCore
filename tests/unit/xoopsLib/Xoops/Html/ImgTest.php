@@ -1,7 +1,7 @@
 <?php
-namespace Xoops\Html;
-
 require_once(dirname(__FILE__).'/../../../init_new.php');
+
+use Xoops\Html\Img;
 
 /**
  * PHPUnit special settings :
