@@ -23,7 +23,7 @@ class OnlineHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*online$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsOnline',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsOnline',$instance->className);
 		$this->assertSame('online_uid',$instance->keyName);
 		$this->assertSame('online_uname',$instance->identifierName);
     }
@@ -31,8 +31,8 @@ class OnlineHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsOnlineHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsOnlineHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
 	public function test_write()

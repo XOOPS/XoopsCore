@@ -14,7 +14,7 @@ class Xoops_Module_Helper_DummyTest extends \PHPUnit_Framework_TestCase
 	{
 		$instance = new $this->myClass();
 		$this->assertInstanceOf($this->myClass, $instance);
-		$this->assertInstanceOf('Xoops\Module\Helper\Dummy', $instance);
+		$this->assertInstanceOf('\Xoops\Module\Helper\Dummy', $instance);
     }
 
     public function test_init()
@@ -30,7 +30,7 @@ class Xoops_Module_Helper_DummyTest extends \PHPUnit_Framework_TestCase
 		$instance = new $this->myClass();
 		
 		$x = $instance->getInstance();
-		$this->assertInstanceOf('Xoops\Module\Helper\Dummy', $x);
+		$this->assertInstanceOf('\Xoops\Module\Helper\Dummy', $x);
     }
 
     public function test_setDirname()

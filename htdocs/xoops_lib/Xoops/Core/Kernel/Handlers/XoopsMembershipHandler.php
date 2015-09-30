@@ -41,7 +41,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'groups_users_link', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsMembership', 'linkid', 'groupid');
+        parent::__construct($db, 'groups_users_link', '\Xoops\Core\Kernel\Handlers\XoopsMembership', 'linkid', 'groupid');
     }
 
     /**

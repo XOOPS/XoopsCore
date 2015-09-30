@@ -39,7 +39,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'online', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsOnline', 'online_uid', 'online_uname');
+        parent::__construct($db, 'online', '\Xoops\Core\Kernel\Handlers\XoopsOnline', 'online_uid', 'online_uname');
     }
 
     /**

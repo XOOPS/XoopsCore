@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 */
 class Xoops_Module_PluginTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'Xoops\Module\Plugin';
+    protected $myClass = '\Xoops\Module\Plugin';
 	
 	public function test_getPlugin()
 	{
@@ -17,7 +17,7 @@ class Xoops_Module_PluginTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(false, $x);
 		
 		$x = $instance::getPlugin('page');
-		$this->assertInstanceOf('Xoops\Module\Plugin\PluginAbstract', $x);
+		$this->assertInstanceOf('\Xoops\Module\Plugin\PluginAbstract', $x);
 	}
 	
 	public function test_getPlugins()

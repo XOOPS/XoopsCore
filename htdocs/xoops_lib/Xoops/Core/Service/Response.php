@@ -39,7 +39,7 @@ class Response
     protected $errorMessage = null;
 
     /**
-     * __constructor
+     * __construct
      *
      * @param mixed   $value        - value returned by provider
      * @param boolean $success      - true if service request was successful
@@ -47,7 +47,7 @@ class Response
      *
      * @return void
      */
-    public function __constructor($value = null, $success = true, $errorMessage = null)
+    public function __construct($value = null, $success = true, $errorMessage = null)
     {
         $this->value = $value;
         $this->success = $success;

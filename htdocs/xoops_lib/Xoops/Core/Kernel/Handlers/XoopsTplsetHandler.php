@@ -41,7 +41,7 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'tplset', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplset', 'tplset_id', 'tplset_name');
+        parent::__construct($db, 'tplset', '\Xoops\Core\Kernel\Handlers\XoopsTplset', 'tplset_id', 'tplset_name');
     }
 
     /**

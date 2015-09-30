@@ -14,7 +14,7 @@ class RanksHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsRanksHandler';
     protected $object = null;
-    protected $xoopsRanks = '\\Xoops\\Core\\Kernel\\Handlers\\XoopsRanks';
+    protected $xoopsRanks = '\Xoops\Core\Kernel\Handlers\XoopsRanks';
 
     public function setUp()
 	{
@@ -35,8 +35,8 @@ class RanksHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance = $this->object;
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsRanksHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsRanksHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_setHandler()

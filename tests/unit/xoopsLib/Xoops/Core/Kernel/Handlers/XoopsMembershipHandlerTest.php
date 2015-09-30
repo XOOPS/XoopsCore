@@ -22,7 +22,7 @@ class MembershipHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*groups_users_link$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsMembership',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsMembership',$instance->className);
 		$this->assertSame('linkid',$instance->keyName);
 		$this->assertSame('groupid',$instance->identifierName);
     }
@@ -30,8 +30,8 @@ class MembershipHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsMembershipHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsMembershipHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_getGroupsByUser()

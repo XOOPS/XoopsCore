@@ -12,7 +12,7 @@ use Xoops\Core\Service\Manager;
 
 class NullProviderTest extends \PHPUnit_Framework_TestCase
 {
-	protected $myClass = 'Xoops\Core\Service\NullProvider';
+	protected $myClass = '\Xoops\Core\Service\NullProvider';
 	
 	function test___construct()
 	{
@@ -69,7 +69,7 @@ class NullProviderTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf($this->myClass, $instance);
 		
 		$x = $instance->dummy();
-		$this->assertTrue(is_a($x, 'Xoops\Core\Service\Response'));
+		$this->assertInstanceOf('\Xoops\Core\Service\Response', $x);
 	}
 	
 	function test___callStatic()
@@ -77,6 +77,6 @@ class NullProviderTest extends \PHPUnit_Framework_TestCase
 		$class = $this->myClass;
 		
 		$x = $class::dummy();
-		$this->assertTrue(is_a($x, 'Xoops\Core\Service\Response'));
+		$this->assertInstanceOf('\Xoops\Core\Service\Response', $x);
 	}
 }

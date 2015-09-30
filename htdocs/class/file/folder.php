@@ -107,11 +107,14 @@ class XoopsFolderHandler
         if ($mode) {
             $this->mode = intval($mode, 8);
         }
-        if (!XoopsLoad::fileExists($path) && $create == true) {
+        if (! XoopsLoad::fileExists($path) && $create == true) {
             $this->create($path, $this->mode);
         }
-        if (!$this->isAbsolute($path)) {
-            $path = realpath($path);
+        if (! $this->isAbsolute($path)) {
+            $path1 = $this->realpath($path);
+            if (false===$path1)
+                throw new InvalidArgumentException($path . ' not found');
+            $path = $path1;
         }
         $this->cd($path);
     }
@@ -272,7 +275,7 @@ class XoopsFolderHandler
      */
     public static function isWindowsPath($path)
     {
-        if (preg_match('/^[A-Z]:/i', $path)) {
+        if (preg_match('/^[A-Z]:/i', $path) || false !== strpos($path,'\\')) {
             return true;
         }
         return false;
@@ -289,16 +292,17 @@ class XoopsFolderHandler
      */
     public static function isAbsolute($path)
     {
-        $match = preg_match('/^(\/|[A-Z]:)/', $path);
+        $path = str_replace('\\','/',$path);
+        $match = preg_match('/^(\/|[A-Z]:\/|\/\/)/', $path);
         return ($match == 1);
     }
 
     /**
-     * Returns a correct set of slashes for given $path. (\\ for Windows paths and / for other paths.)
+     * Returns a correct set of slashes for given $path. (\ for Windows paths and / for other paths.)
      *
      * @param string $path Path to check
      *
-     * @return string Set of slashes ("\\" or "/")
+     * @return string Set of slashes (\ or /)
      * @access public
      * @static
      */
@@ -754,36 +758,7 @@ class XoopsFolderHandler
      */
     public function realpath($path)
     {
-        $path = trim($path);
-        if (!$this->isAbsolute($path)) {
-            $path = $this->addPathElement($this->path, $path);
-        }
-        if (strpos($path, '..') === false) {
-            return $path;
-        }
-        $parts = explode('/', str_replace('\\', '/', $path));
-        $newparts = array();
-        $newpath = $path{0}
-        == '/' ? '/' : '';
-        while (($part = array_shift($parts)) !== null) {
-            if ($part == '.' || $part == '') {
-                continue;
-            }
-            if ($part == '..') {
-                if (count($newparts) > 0) {
-                    array_pop($newparts);
-                    continue;
-                } else {
-                    return false;
-                }
-            }
-            $newparts[] = $part;
-        }
-        $newpath .= implode('/', $newparts);
-        if (strlen($path > 1) && $path{strlen($path) - 1} == '/') {
-            $newpath .= '/';
-        }
-        return $newpath;
+        return realpath($path);
     }
 
     /**

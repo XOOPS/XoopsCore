@@ -333,6 +333,16 @@ class Assets
     }
 
     /**
+     * getDebug enable debug mode, will skip filters prefixed with '?'
+     *
+     * @return bool
+     */
+    public function getDebug()
+    {
+        return $this->debug;
+    }
+    
+    /**
      * Add an asset reference to the asset manager
      *
      * @param string       $name    the name of the reference to be added

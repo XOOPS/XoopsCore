@@ -23,7 +23,7 @@ class TplsetHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance = new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*tplset$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplset',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsTplset',$instance->className);
 		$this->assertSame('tplset_id',$instance->keyName);
 		$this->assertSame('tplset_name',$instance->identifierName);
     }
@@ -31,8 +31,8 @@ class TplsetHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplsetHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplsetHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_getByname()

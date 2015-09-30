@@ -52,7 +52,7 @@ class XoopsLogger
      */
     private function deprecatedWarning()
     {
-        Xoops::getInstance()->deprecated('XoopsLogger is deprecated since 2.6.0, see Xoops\\Core\\Logger');
+        Xoops::getInstance()->deprecated('XoopsLogger is deprecated since 2.6.0, see Xoops\Core\Logger');
     }
 
     /**

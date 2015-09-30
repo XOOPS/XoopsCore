@@ -140,7 +140,7 @@ abstract class Xoops_Locale_Abstract
      */
     public static function getFormatYesterday()
     {
-        return "\Y\\e\s\\t\\e\\r\d\a\y G:i";
+        return '\Y\e\s\t\e\r\d\a\y G:i';
     }
 
     /**
@@ -286,7 +286,7 @@ abstract class Xoops_Locale_Abstract
      *
      * @return string
      */
-    public static function formatTimestamp($time, $format = 'l', $timeoffset = null)
+    public static function formatTimestamp($time, $format = 'l', $timeoffset = null, $endtime = null)
     {
         $xoops = Xoops::getInstance();
         $format_copy = $format;
@@ -304,8 +304,9 @@ abstract class Xoops_Locale_Abstract
             return $date;
         }
 
-        if (($format == 'elapse' || $format == 'e') && $time < time()) {
-            $elapse = time() - $time;
+        if (empty($endtime)) $endtime = time();
+        if (($format == 'elapse' || $format == 'e') && $time < $endtime) {
+            $elapse = $endtime - $time;
             if ($days = floor($elapse / (24 * 3600))) {
                 $num = $days > 1 ? sprintf(XoopsLocale::LF_AGO_DAYS, $days) : XoopsLocale::LF_AGO_ONE_DAY;
             } elseif ($hours = floor(($elapse % (24 * 3600)) / 3600)) {
@@ -386,7 +387,13 @@ abstract class Xoops_Locale_Abstract
      */
     public static function number_format($number)
     {
-        return number_format($number, 2, '.', ',');
+        if (function_exists('number_format')) {
+            $result = number_format($number, 2, '.', ',');
+        } else {
+            $result = sprintf("%.2f", $number);
+        }
+        
+        return $result;
     }
 
     /**

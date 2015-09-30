@@ -22,7 +22,7 @@ class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*configoption$/',$instance->table);
-		$this->assertSame('\\Xoops\Core\\Kernel\\Handlers\\XoopsConfigOption',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsConfigOption',$instance->className);
 		$this->assertSame('confop_id',$instance->keyName);
 		$this->assertSame('confop_name',$instance->identifierName);
     }
@@ -30,7 +30,7 @@ class ConfigoptionHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsConfigOptionHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 }

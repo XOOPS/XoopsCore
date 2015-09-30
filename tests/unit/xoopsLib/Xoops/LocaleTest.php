@@ -57,6 +57,18 @@ class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
 
     public function test_translateTheme()
     {
+        $path = \XoopsBaseConfig::get('root-path');
+        if (! class_exists('Comments', false)) {
+            \XoopsLoad::addMap(array(
+                'comments'          => $path . '/modules/comments/class/helper.php',
+            ));
+        }
+        if (! class_exists('MenusDecorator', false)) {
+            \XoopsLoad::addMap(array(
+                'menusdecorator'    => $path . '/modules/menus/class/decorator.php',
+            ));
+        }
+        
         $class = $this->myClass;
 
         $key = 'key';

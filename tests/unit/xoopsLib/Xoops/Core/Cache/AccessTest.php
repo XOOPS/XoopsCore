@@ -1,7 +1,7 @@
 <?php
-namespace Xoops\Core\Cache;
-
 require_once __DIR__.'/../../../../init_new.php';
+
+use Xoops\Core\Cache\Access;
 
 /**
  * PHPUnit special settings :

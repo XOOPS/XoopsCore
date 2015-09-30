@@ -22,7 +22,7 @@ class GroupHandlerTest extends \PHPUnit_Framework_TestCase
 	{
         $instance=new $this->myclass($this->conn);
 		$this->assertRegExp('/^.*groups$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroup',$instance->className);
+		$this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsGroup',$instance->className);
 		$this->assertSame('groupid',$instance->keyName);
 		$this->assertSame('name',$instance->identifierName);
     }
@@ -30,8 +30,8 @@ class GroupHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroupHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroupHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
 }
