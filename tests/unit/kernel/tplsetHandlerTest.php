@@ -20,6 +20,6 @@ class legacy_tplsetHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance = new \XoopsTplsetHandler($this->conn);
-        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplsetHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplSetHandler', $instance);
     }
 }

@@ -161,7 +161,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
             return $ret;
         }
 
-        $pm_handler = $xoops->getHandlerPrivmessage();
+        $pm_handler = $xoops->getHandlerPrivateMessage();
 
         $criteria = new CriteriaCompo();
         if ($value == 'pm_new') {

@@ -37,7 +37,7 @@ if ($uid <= 0) {
     }
 }
 
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $groups = $xoops->getUserGroups();
 
 if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
@@ -86,7 +86,7 @@ if ($xoops->isUser() && $uid == $xoops->user->getVar('uid')) {
     $groups_thisUser = $thisUser->getGroups();
     $groups_thisUser_nonbasic = array_diff($groups_thisUser, $groups_basic);
     $groups_xoopsUser = $groups;
-    $gperm_handler = $xoops->getHandlerGroupperm();
+    $gperm_handler = $xoops->getHandlerGroupPermission();
     $groups_accessible = $gperm_handler->getItemIds('profile_access', $groups_xoopsUser, $xoops->module->getVar('mid'));
 
     $rejected = false;

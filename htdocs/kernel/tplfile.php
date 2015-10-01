@@ -12,13 +12,13 @@
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-class XoopsTplfile extends Xoops\Core\Kernel\Handlers\XoopsTplfile
+class XoopsTplfile extends Xoops\Core\Kernel\Handlers\XoopsTplFile
 {
 }
 
 /**
  * This class is for compatibility with pre 2.6.0 code
  */
-class XoopsTplfileHandler extends Xoops\Core\Kernel\Handlers\XoopsTplfileHandler
+class XoopsTplfileHandler extends Xoops\Core\Kernel\Handlers\XoopsTplFileHandler
 {
 }

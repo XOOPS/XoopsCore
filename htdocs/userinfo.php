@@ -35,7 +35,7 @@ $uid = (int)($_GET['uid']);
 if ($uid <= 0) {
     $xoops->redirect('index.php', 3, XoopsLocale::E_NO_USER_SELECTED);
 }
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $groups = $xoops->getUserGroups();
 
 $isAdmin = $gperm_handler->checkRight('system_admin', XOOPS_SYSTEM_USER, $groups);
@@ -185,7 +185,7 @@ $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
 $criteria->add(new Criteria('isactive', 1));
 $criteria->add(new Criteria('weight', 0, '>'));
 $modules = $module_handler->getObjectsArray($criteria, true);
-$moduleperm_handler = $xoops->getHandlerGroupperm();
+$moduleperm_handler = $xoops->getHandlerGroupPermission();
 $groups = $xoops->getUserGroups();
 $read_allowed = $moduleperm_handler->getItemIds('module_read', $groups);
 

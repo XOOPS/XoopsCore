@@ -234,7 +234,7 @@ switch ($op) {
         }
 
         if ($field_handler->insertFields($obj)) {
-            $groupperm_handler = $xoops->getHandlerGroupperm();
+            $groupperm_handler = $xoops->getHandlerGroupPermission();
 
             $perm_arr = array();
             if ($obj->getVar('field_show')) {

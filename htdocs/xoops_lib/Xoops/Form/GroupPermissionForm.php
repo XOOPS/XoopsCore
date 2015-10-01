@@ -135,7 +135,7 @@ class GroupPermissionForm extends Form
             $this->itemTree[$item_id]['allchild'] = array();
             $this->loadAllChildItemIds($item_id, $this->itemTree[$item_id]['allchild']);
         }
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         $member_handler = $xoops->getHandlerMember();
         $glist = $member_handler->getGroupList();
         foreach (array_keys($glist) as $i) {

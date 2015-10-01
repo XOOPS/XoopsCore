@@ -18,6 +18,6 @@ class legacy_blockmodulelinkTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance=new \XoopsBlockmodulelink();
-        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsBlockmodulelink', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink', $instance);
     }
 }

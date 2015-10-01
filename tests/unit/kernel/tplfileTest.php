@@ -18,6 +18,6 @@ class legacy_tplfileTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance=new \XoopsTplfile();
-        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplfile', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsTplFile', $instance);
     }
 }

@@ -39,7 +39,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $groups = $xoops->getUserGroups();
 
 // check WRITE right by category before continue

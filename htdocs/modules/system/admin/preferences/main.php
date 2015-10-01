@@ -129,7 +129,7 @@ switch ($op) {
                     ) {
                         $member_handler = $xoops->getHandlerMember();
                         $groups = $member_handler->getGroupList();
-                        $moduleperm_handler = $xoops->getHandlerGroupperm();
+                        $moduleperm_handler = $xoops->getHandlerGroupPermission();
                         $module_handler = $xoops->getHandlerModule();
                         $module = $xoops->getModuleByDirname($new_value);
                         foreach ($groups as $groupid => $groupname) {

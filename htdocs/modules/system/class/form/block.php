@@ -63,15 +63,15 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             $title = '';
             $modules = array();
             // Search modules
-            $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
+            $blockmodulelink_handler = $xoops->getHandlerBlockModuleLink();
             $criteria = new CriteriaCompo(new Criteria('block_id', $this->obj->getVar('bid')));
             $blockmodulelink = $blockmodulelink_handler->getObjects($criteria);
-            /* @var $link XoopsBlockmodulelink */
+            /* @var $link XoopsBlockModuleLink */
             foreach ($blockmodulelink as $link) {
                 $modules[] = $link->getVar('module_id');
             }
             // Search perms
-            $groupperm_handler = $xoops->getHandlerGroupperm();
+            $groupperm_handler = $xoops->getHandlerGroupPermission();
             $groups = $groupperm_handler->getGroupIds('block_read', $this->obj->getVar('bid'));
             switch ($mode) {
                 case 'edit':
@@ -146,7 +146,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             }
         } else {
             if ($this->obj->getVar('template') != '') {
-                $tplfile_handler = $xoops->getHandlerTplfile();
+                $tplfile_handler = $xoops->getHandlerTplFile();
                 $btemplate = $tplfile_handler->
                     find($xoops->getConfig('template_set'), 'block', $this->obj->getVar('bid'));
                 if (count($btemplate) > 0) {

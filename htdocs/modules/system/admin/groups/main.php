@@ -178,7 +178,7 @@ switch ($op) {
         } else {
             $xoops->db()->beginTransaction();
             $groupid = $group->getVar('groupid');
-            $gperm_handler = $xoops->getHandlerGroupperm();
+            $gperm_handler = $xoops->getHandlerGroupPermission();
             if (count($system_catids) > 0) {
                 array_push($admin_mids, 1);
                 foreach ($system_catids as $s_cid) {
@@ -252,7 +252,7 @@ switch ($op) {
             } else {
                 $xoops->db()->beginTransaction();
                 $groupid = $group->getVar('groupid');
-                $gperm_handler = $xoops->getHandlerGroupperm();
+                $gperm_handler = $xoops->getHandlerGroupPermission();
                 $criteria = new CriteriaCompo(new Criteria('gperm_groupid', $groupid));
                 $criteria->add(new Criteria('gperm_modid', 1));
                 $criteria2 = new CriteriaCompo(new Criteria('gperm_name', 'system_admin'));
@@ -329,7 +329,7 @@ switch ($op) {
                     $member_handler = $xoops->getHandlerMember();
                     $group = $member_handler->getGroup($groups_id);
                     $member_handler->deleteGroup($group);
-                    $gperm_handler = $xoops->getHandlerGroupperm();
+                    $gperm_handler = $xoops->getHandlerGroupPermission();
                     $gperm_handler->deleteByGroup($groups_id);
                     $xoops->redirect('admin.php?fct=groups', 1, XoopsLocale::S_DATABASE_UPDATED);
                 } else {

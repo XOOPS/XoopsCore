@@ -19,6 +19,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -35,10 +36,10 @@ class XoopsGroup extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('groupid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('name', XOBJ_DTYPE_TXTBOX, null, true, 100);
-        $this->initVar('description', XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('group_type', XOBJ_DTYPE_OTHER, null, false);
+        $this->initVar('groupid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('name', Dtype::TYPE_TEXT_BOX, null, true, 100);
+        $this->initVar('description', Dtype::TYPE_TEXT_AREA, null, false);
+        $this->initVar('group_type', Dtype::TYPE_OTHER, null, false);
     }
 
     /**

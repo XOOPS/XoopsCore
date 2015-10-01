@@ -1427,7 +1427,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
     {
         $xoops = Xoops::getInstance();
         $ret = array();
-        $gperm_handler = $xoops->getHandlerGroupperm();
+        $gperm_handler = $xoops->getHandlerGroupPermission();
         $groups = $xoops->getUserGroups();
         $searchin = empty($searchin) ? array(
             "title",

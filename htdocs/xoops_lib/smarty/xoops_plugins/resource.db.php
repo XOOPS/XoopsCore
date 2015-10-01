@@ -33,7 +33,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
     {
         $tpl = $this->dbTplInfo($name);
         if (is_object($tpl)) {
-            /* @var $tpl XoopsTplfile */
+            /* @var $tpl XoopsTplFile */
             $source = $tpl->getVar('tpl_source', 'n');
             $mtime = $tpl->getVar('tpl_lastmodified', 'n');
         } else {
@@ -58,7 +58,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
      *
      * @param string $tpl_name template name
      *
-     * @return XoopsTplfile|string tpl object from database or absolute file name path
+     * @return XoopsTplFile|string tpl object from database or absolute file name path
      */
     private function dbTplInfo($tpl_name)
     {
@@ -71,7 +71,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         }
         $tplset = $xoopsConfig['template_set'];
         $theme = isset($xoopsConfig['theme_set']) ? $xoopsConfig['theme_set'] : 'default';
-        $tplfile_handler = $xoops->getHandlerTplfile();
+        $tplfile_handler = $xoops->getHandlerTplFile();
         // If we're not using the "default" template set, then get the templates from the DB
         if ($tplset != "default") {
             $tplobj = $tplfile_handler->find($tplset, null, null, null, $tpl_name, true);
@@ -85,7 +85,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         if (!count($tplobj)) {
             return $cache[$tpl_name] = $tpl_name;
         }
-        /* @var $tplobj XoopsTplfile */
+        /* @var $tplobj XoopsTplFile */
         $tplobj = $tplobj[0];
         $module = $tplobj->getVar('tpl_module', 'n');
         $type = $tplobj->getVar('tpl_type', 'n');

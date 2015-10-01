@@ -608,7 +608,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
                 $profile_module = $xoops->getModuleByDirname('profile');
                 if (is_object($profile_module)) {
                     // Remove group permissions
-                    $groupperm_handler = $xoops->getHandlerGroupperm();
+                    $groupperm_handler = $xoops->getHandlerGroupPermission();
                     $criteria = new CriteriaCompo(new Criteria('gperm_modid', $profile_module->getVar('mid')));
                     $criteria->add(new Criteria('gperm_itemid', $obj->getVar('field_id')));
                     return $groupperm_handler->deleteAll($criteria);

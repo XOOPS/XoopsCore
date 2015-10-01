@@ -1,0 +1,51 @@
+<?php
+require_once(dirname(__FILE__).'/../../../../../init_new.php');
+
+use Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler;
+use Xoops\Core\Kernel\Handlers\XoopsPrivateMessage;
+
+/**
+* PHPUnit special settings :
+* @backupGlobals disabled
+* @backupStaticAttributes disabled
+*/
+class XoopsPrivateMessageHandlerTest extends \PHPUnit_Framework_TestCase
+{
+    protected $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler';
+    protected $conn = null;
+
+    public function setUp()
+    {
+        $this->conn = Xoops::getInstance()->db();
+    }
+
+    public function test___construct()
+    {
+        $instance=new $this->myclass($this->conn);
+        $this->assertRegExp('/^.*priv_msgs$/', $instance->table);
+        $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', $instance->className);
+        $this->assertSame('msg_id', $instance->keyName);
+        $this->assertSame('subject', $instance->identifierName);
+    }
+
+    public function testContracts()
+    {
+        $instance=new $this->myclass($this->conn);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
+    }
+
+    public function test_setRead()
+    {
+        $instance=new $this->myclass($this->conn);
+        $msg=new XoopsPrivateMessage();
+        $msg->setDirty(true);
+        $msg->setNew(true);
+        $msg->setVar('subject', 'PRIVMESSAGE_DUMMY_FOR_TESTS', true);
+        $value=$instance->insert($msg);
+        $this->assertTrue(intval($value) > 0);
+
+        $value=$instance->setRead($msg);
+        $this->assertSame(true, $value);
+    }
+}

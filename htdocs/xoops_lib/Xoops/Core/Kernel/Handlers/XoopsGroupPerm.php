@@ -19,6 +19,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -38,11 +39,11 @@ class XoopsGroupPerm extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('gperm_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('gperm_groupid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('gperm_itemid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('gperm_modid', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('gperm_name', XOBJ_DTYPE_OTHER, null, false);
+        $this->initVar('gperm_id', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('gperm_groupid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('gperm_itemid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('gperm_modid', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('gperm_name', Dtype::TYPE_OTHER, null, false);
     }
 
     /**

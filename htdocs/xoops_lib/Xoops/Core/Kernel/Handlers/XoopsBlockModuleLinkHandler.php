@@ -11,7 +11,8 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
-use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  * XOOPS Kernel Class
@@ -25,14 +26,13 @@ use Xoops\Core\Kernel\XoopsObject;
  * @version         $Id$
  */
 
-class XoopsBlockmodulelink extends XoopsObject
+class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * Constructor
+     * @param null|Connection $db
      */
-    public function __construct()
+    public function __construct(Connection $db = null)
     {
-        $this->initVar('block_id', XOBJ_DTYPE_INT);
-        $this->initVar('module_id', XOBJ_DTYPE_INT);
+        parent::__construct($db, 'block_module_link', '\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink', 'block_id', 'module_id');
     }
 }

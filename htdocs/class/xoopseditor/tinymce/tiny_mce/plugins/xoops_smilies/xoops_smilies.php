@@ -72,7 +72,7 @@ if ($op == 'more') {
 
 // check user/group
 $groups = $xoops->getUserGroups();
-$gperm_handler = $xoops->getHandlerGroupperm();
+$gperm_handler = $xoops->getHandlerGroupPermission();
 $admin = $gperm_handler->checkRight('system_admin', $xoops->getHandlerModule()->getByDirName('smilies')->getVar('mid'), $groups);
 
 if ($admin) {

@@ -67,7 +67,7 @@ switch ($op) {
         $form = new Xoops\Form\ThemeForm(SystemLocale::TEMPLATE_OVERLOADED, "form", 'admin.php?fct=tplsets', "post", true);
 
         $ele = new Xoops\Form\Select(SystemLocale::CHOOSE_TEMPLATE, 'tplset', $xoops->getConfig('tplset'));
-        $tplset_handler = $xoops->getHandlerTplset();
+        $tplset_handler = $xoops->getHandlerTplSet();
         $tplsetlist = $tplset_handler->getNameList();
         asort($tplsetlist);
         foreach ($tplsetlist as $key => $name) {
@@ -126,8 +126,8 @@ switch ($op) {
 
                 //on crée uniquement les templates qui n'existent pas
                 $module_handler = $xoops->getHandlerModule();
-                $tplset_handler = $xoops->getHandlerTplset();
-                $tpltpl_handler = $xoops->getHandlerTplfile();
+                $tplset_handler = $xoops->getHandlerTplSet();
+                $tpltpl_handler = $xoops->getHandlerTplFile();
 
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('tplset_name', $tplset));
@@ -332,7 +332,7 @@ switch ($op) {
 
             $form = new Xoops\Form\ThemeForm(XoopsLocale::SELECT_TEMPLATES, "form", 'admin.php?fct=tplsets', "post", true);
 
-            $tpltpl_handler = $xoops->getHandlerTplfile();
+            $tpltpl_handler = $xoops->getHandlerTplFile();
             $templates_arr = $tpltpl_handler->find($tplset, '', null, $_REQUEST['select_modules']);
 
             $modules = new Xoops\Form\Select(XoopsLocale::SELECT_TEMPLATES, 'select_templates_modules', null, 10, true);

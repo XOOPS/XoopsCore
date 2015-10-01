@@ -18,6 +18,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -43,7 +44,7 @@ class XoopsModule extends XoopsObject
     * @var array
     */
     private $_msg = array();
-	
+
 	protected $xoops_url;
 	protected $xoops_root_path;
 
@@ -52,21 +53,21 @@ class XoopsModule extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('mid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('name', XOBJ_DTYPE_TXTBOX, null, true, 150);
-        $this->initVar('version', XOBJ_DTYPE_INT, 100, false);
-        $this->initVar('last_update', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('weight', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('isactive', XOBJ_DTYPE_INT, 1, false);
-        $this->initVar('dirname', XOBJ_DTYPE_OTHER, null, true);
-        $this->initVar('hasmain', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('hasadmin', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('hassearch', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('hasconfig', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('hascomments', XOBJ_DTYPE_INT, 0, false);
+        $this->initVar('mid', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('name', Dtype::TYPE_TEXT_BOX, null, true, 150);
+        $this->initVar('version', Dtype::TYPE_INTEGER, 100, false);
+        $this->initVar('last_update', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('weight', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('isactive', Dtype::TYPE_INTEGER, 1, false);
+        $this->initVar('dirname', Dtype::TYPE_OTHER, null, true);
+        $this->initVar('hasmain', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('hasadmin', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('hassearch', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('hasconfig', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('hascomments', Dtype::TYPE_INTEGER, 0, false);
         // RMV-NOTIFY
-        $this->initVar('hasnotification', XOBJ_DTYPE_INT, 0, false);
-		
+        $this->initVar('hasnotification', Dtype::TYPE_INTEGER, 0, false);
+
 		$this->xoops_url = \XoopsBaseConfig::get('url');
 		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }

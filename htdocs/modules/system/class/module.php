@@ -86,7 +86,7 @@ class SystemModule
         // Get main instance
         $xoops = Xoops::getInstance();
         $module_handler = $xoops->getHandlerModule();
-        $moduleperm_handler = $xoops->getHandlerGroupperm();
+        $moduleperm_handler = $xoops->getHandlerGroupPermission();
 
         $criteria = new CriteriaCompo();
         $criteria->setSort('weight');
@@ -368,7 +368,7 @@ class SystemModule
                 $block_handler = $xoops->getHandlerBlock();
                 $blocks = $block_handler->getByModule($module->getVar('mid'), false);
                 $this->trace[] = SystemLocale::MANAGING_PERMISSIONS;
-                $gperm_handler = $xoops->getHandlerGroupperm();
+                $gperm_handler = $xoops->getHandlerGroupPermission();
                 foreach ($groups as $mygroup) {
                     if ($gperm_handler->checkRight('module_admin', 0, $mygroup)) {
                         $mperm = $gperm_handler->create();
@@ -553,7 +553,7 @@ class SystemModule
                 }
 
                 // delete permissions if any
-                $gperm_handler = $xoops->getHandlerGroupperm();
+                $gperm_handler = $xoops->getHandlerGroupPermission();
                 if (false === $gperm_handler->deleteByModule($module->getVar('mid'))) {
                     $this->trace[] = '<span class="red">' . SystemLocale::E_GROUP_PERMISSIONS_NOT_DELETED . '</span>';
                 } else {
@@ -731,7 +731,7 @@ class SystemModule
         $templates = $module->getInfo('templates');
         if (is_array($templates) && count($templates) > 0) {
             $this->trace[] = SystemLocale::MANAGING_TEMPLATES;
-            $tplfile_handler = $xoops->getHandlerTplfile();
+            $tplfile_handler = $xoops->getHandlerTplFile();
             foreach ($templates as $tpl) {
                 $tpl['file'] = trim($tpl['file']);
                 if (!in_array($tpl['file'], $this->template_delng)) {
@@ -812,12 +812,12 @@ class SystemModule
     public function deleteTemplates(XoopsModule $module)
     {
         $xoops = Xoops::getInstance();
-        $tplfile_handler = $xoops->getHandlerTplfile();
+        $tplfile_handler = $xoops->getHandlerTplFile();
         $templates = $tplfile_handler->find('default', 'module', $module->getVar('mid'));
         if (is_array($templates) && count($templates) > 0) {
             $this->trace[] = SystemLocale::MANAGING_TEMPLATES;
             // delete template file entry in db
-            /* @var $template XoopsTplfile */
+            /* @var $template XoopsTplFile */
             foreach ($templates as $template) {
                 if (!$tplfile_handler->deleteTpl($template)) {
                     $this->template_delng[] = $template->getVar('tpl_file');
@@ -839,8 +839,8 @@ class SystemModule
         $blocks = $module->getInfo('blocks');
         $this->trace[] = SystemLocale::MANAGING_BLOCKS;
         $block_handler = $xoops->getHandlerBlock();
-        $blockmodulelink_handler = $xoops->getHandlerBlockmodulelink();
-        $tplfile_handler = $xoops->getHandlerTplfile();
+        $blockmodulelink_handler = $xoops->getHandlerBlockModuleLink();
+        $tplfile_handler = $xoops->getHandlerTplFile();
         $showfuncs = array();
         $funcfiles = array();
         if (is_array($blocks) && count($blocks) > 0) {
@@ -910,7 +910,7 @@ class SystemModule
                                 $tplfile_new->setVar('tpl_file', $block_obj[0]->getVar('template'), true);
                                 $tplfile_new->setVar('tpl_type', 'block');
                             } else {
-                                /* @var $tplfile_new XoopsTplfile */
+                                /* @var $tplfile_new XoopsTplFile */
                                 $tplfile_new = $tplfile[0];
                                 $tplfile_new->setVars($tplfile_new->getValues());
                             }
@@ -986,7 +986,7 @@ class SystemModule
                     if ($block->getVar('template') != '') {
                         $tplfiles = $tplfile_handler->find(null, 'block', $block->getVar('bid'));
                         if (is_array($tplfiles)) {
-                            /* @var $tplfile XoopsTplfile */
+                            /* @var $tplfile XoopsTplFile */
                             foreach ($tplfiles as $tplfile) {
                                 if (!$tplfile_handler->deleteTpl($tplfile)) {
                                     $this->trace[]['sub'] = '<span class="red">'
@@ -1019,7 +1019,7 @@ class SystemModule
         $block_handler = $xoops->getHandlerBlock();
         $blocks = $block_handler->getByModule($module->getVar('mid'));
         if (is_array($blocks) && count($blocks) > 0) {
-            $tplfile_handler = $xoops->getHandlerTplfile();
+            $tplfile_handler = $xoops->getHandlerTplFile();
             $this->trace[] = SystemLocale::MANAGING_BLOCKS;
             /* @var $block XoopsBlock */
             foreach ($blocks as $block) {
@@ -1042,7 +1042,7 @@ class SystemModule
                 }
                 if ($block->getVar('template') != '') {
                     $templates = $tplfile_handler->find(null, 'block', $block->getVar('bid'));
-                    /* @var $template XoopsTplfile */
+                    /* @var $template XoopsTplFile */
                     foreach ($templates as $template) {
                         if (!$tplfile_handler->delete($template)) {
                             $this->trace[]['sub'] = '<span class="red">' . sprintf(

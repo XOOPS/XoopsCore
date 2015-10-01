@@ -47,7 +47,7 @@ if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {
         echo "<h4>" . XoopsLocale::E_NO_MODULE . "</h4>";
         $xoops->footer();
     }
-    $moduleperm_handler = $xoops->getHandlerGroupperm();
+    $moduleperm_handler = $xoops->getHandlerGroupPermission();
     if ($xoops->isUser()) {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
             $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);

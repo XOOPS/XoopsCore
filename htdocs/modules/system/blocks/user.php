@@ -89,7 +89,7 @@ function b_system_user_show()
     // Inbox
     $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
     $criteria->add(new Criteria('to_userid', $xoops->user->getVar('uid')));
-    $pm_handler = $xoops->getHandlerPrivmessage();
+    $pm_handler = $xoops->getHandlerPrivateMessage();
     $xoops->preload()->triggerEvent('system.blocks.system_blocks.usershow', array(&$pm_handler));
 
     $name = XoopsLocale::INBOX;

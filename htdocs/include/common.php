@@ -226,7 +226,7 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         $xoops->redirect($xoops_url, 3, XoopsLocale::E_NO_MODULE);
         exit();
     }
-    $moduleperm_handler = $xoops->getHandlerGroupperm();
+    $moduleperm_handler = $xoops->getHandlerGroupPermission();
     if ($xoops->isUser()) {
         if (!$moduleperm_handler->checkRight('module_read', $xoops->module->getVar('mid'), $xoops->user->getGroups())) {
             $xoops->redirect($xoops_url, 1, XoopsLocale::E_NO_ACCESS_PERMISSION, false);

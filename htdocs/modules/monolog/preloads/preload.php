@@ -45,7 +45,7 @@ class MonologPreload extends PreloadItem
         /*
         if (!array_key_exists('phpfire_enable', self::$configs)) {
             $user_groups = $xoops->getUserGroups();
-            $moduleperm_handler = $xoops->getHandlerGroupperm();
+            $moduleperm_handler = $xoops->getHandlerGroupPermission();
             $helper = $xoops->getModuleHelper('monolog');
             $mid = $helper->getModule()->getVar('mid');
             self::$configs['phpfire_enable'] = false;

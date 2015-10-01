@@ -174,7 +174,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                     break;
                 case 'tplset':
                     $ele = new Xoops\Form\Select($title, $obj[$i]->getVar('conf_name'), $obj[$i]->getConfValueForOutput());
-                    $tplset_handler = $xoops->getHandlerTplset();
+                    $tplset_handler = $xoops->getHandlerTplSet();
                     $tplsetlist = $tplset_handler->getNameList();
                     asort($tplsetlist);
                     foreach ($tplsetlist as $key => $name) {

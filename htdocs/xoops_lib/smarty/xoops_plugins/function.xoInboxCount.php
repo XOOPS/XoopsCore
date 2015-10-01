@@ -11,7 +11,7 @@ function smarty_function_xoInboxCount($params, &$smarty)
     if (isset($_SESSION['xoops_inbox_count']) && @$_SESSION['xoops_inbox_count_expire'] > $time) {
         $count = (int)($_SESSION['xoops_inbox_count']);
     } else {
-        $pm_handler = $xoops->getHandlerPrivmessage();
+        $pm_handler = $xoops->getHandlerPrivateMessage();
 
         $xoopsPreload = XoopsPreload::getInstance();
         $xoopsPreload->triggerEvent('core.class.smarty.xoops_plugins.xoinboxcount', array($pm_handler));

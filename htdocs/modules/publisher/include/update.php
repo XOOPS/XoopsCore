@@ -20,6 +20,6 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 function xoops_module_update_publisher(XoopsModule $module, $version)
 {
-    $gperm_handler = Xoops::getInstance()->getHandlerGroupperm();
+    $gperm_handler = Xoops::getInstance()->getHandlerGroupPermission();
     return $gperm_handler->deleteByModule($module->getVar('mid'), "item_read");
 }

@@ -22,7 +22,7 @@ namespace Xoops\Core\Kernel\Handlers;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsTplset;
+use Xoops\Core\Kernel\Handlers\XoopsTplSet;
 
 /**
  * XOOPS tplset handler class.
@@ -31,7 +31,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplset;
  *
  * @author  Kazumi Ono <onokazu@xoops.org>
  */
-class XoopsTplsetHandler extends XoopsPersistableObjectHandler
+class XoopsTplSetHandler extends XoopsPersistableObjectHandler
 {
 
     /**
@@ -41,7 +41,7 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'tplset', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsTplset', 'tplset_id', 'tplset_name');
+        parent::__construct($db, 'tplset', '\Xoops\Core\Kernel\Handlers\XoopsTplSet', 'tplset_id', 'tplset_name');
     }
 
     /**
@@ -49,7 +49,7 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
      *
      * @param string $tplset_name of the block to retrieve
      *
-     * @return XoopsTplset|false reference to the tplsets
+     * @return XoopsTplSet|false reference to the tplsets
      */
     public function getByName($tplset_name)
     {
@@ -69,7 +69,7 @@ class XoopsTplsetHandler extends XoopsPersistableObjectHandler
             }
             $allrows = $result->fetchAll();
             if (count($allrows) == 1) {
-                $tplset = new XoopsTplset();
+                $tplset = new XoopsTplSet();
                 $tplset->assignVars(reset($allrows));
             }
         }

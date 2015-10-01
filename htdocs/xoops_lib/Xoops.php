@@ -11,6 +11,7 @@
 
 use Xoops\Core\Request;
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Handler\Factory as HandlerFactory;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 
@@ -91,6 +92,11 @@ class Xoops
      * @var string
      */
     public $tpl_name = '';
+
+    /**
+     * @var HandlerFactory
+     */
+    private $handlerFactory;
 
     /**
      * @var array
@@ -753,11 +759,11 @@ class Xoops
      *
      * @param mixed $optional
      *
-     * @return XoopsBlockmodulelinkHandler
+     * @return XoopsBlockModuleLinkHandler
      */
-    public function getHandlerBlockmodulelink($optional = false)
+    public function getHandlerBlockModuleLink($optional = false)
     {
-        return $this->getHandler('Blockmodulelink', $optional);
+        return $this->getHandler('BlockModuleLink', $optional);
     }
 
     /**
@@ -779,7 +785,7 @@ class Xoops
      *
      * @return XoopsConfigitemHandler
      */
-    public function getHandlerConfigitem($optional = false)
+    public function getHandlerConfigItem($optional = false)
     {
         return $this->getHandler('ConfigItem', $optional);
     }
@@ -791,7 +797,7 @@ class Xoops
      *
      * @return XoopsConfigoptionHandler
      */
-    public function getHandlerConfigoption($optional = false)
+    public function getHandlerConfigOption($optional = false)
     {
         return $this->getHandler('ConfigOption', $optional);
     }
@@ -815,7 +821,7 @@ class Xoops
      *
      * @return XoopsGrouppermHandler
      */
-    public function getHandlerGroupperm($optional = false)
+    public function getHandlerGroupPermission($optional = false)
     {
         return $this->getHandler('GroupPerm', $optional);
     }
@@ -873,9 +879,9 @@ class Xoops
      *
      * @param mixed $optional
      *
-     * @return XoopsPrivmessageHandler
+     * @return XoopsPrivateMessageHandler
      */
-    public function getHandlerPrivmessage($optional = false)
+    public function getHandlerPrivateMessage($optional = false)
     {
         return $this->getHandler('Privmessage', $optional);
     }
@@ -910,11 +916,11 @@ class Xoops
      *
      * @param mixed $optional
      *
-     * @return XoopsTplfileHandler
+     * @return XoopsTplFileHandler
      */
-    public function getHandlerTplfile($optional = false)
+    public function getHandlerTplFile($optional = false)
     {
-        return $this->getHandler('Tplfile', $optional);
+        return $this->getHandler('tplfile', $optional);
     }
 
     /**
@@ -922,11 +928,11 @@ class Xoops
      *
      * @param mixed $optional
      *
-     * @return XoopsTplsetHandler
+     * @return XoopsTplSetHandler
      */
-    public function getHandlerTplset($optional = false)
+    public function getHandlerTplSet($optional = false)
     {
-        return $this->getHandler('Tplset', $optional);
+        return $this->getHandler('tplset', $optional);
     }
 
     /**
@@ -938,7 +944,7 @@ class Xoops
      */
     public function getHandlerUser($optional = false)
     {
-        return $this->getHandler('User', $optional);
+        return $this->getHandler('user', $optional);
     }
 
     /**
@@ -951,23 +957,21 @@ class Xoops
      */
     protected function getHandler($name, $optional = false)
     {
-        //$name = strtolower(trim($name));
-        $class = '';
         if (!isset($this->kernelHandlers[$name])) {
-            $class = '\\Xoops\\Core\\Kernel\\Handlers\\Xoops' . ucfirst($name) . 'Handler';
-            if (class_exists($class)) {
-                $this->kernelHandlers[$name] = new $class($this->db());
+            if (!isset($this->handlerFactory)) {
+                $this->handlerFactory = HandlerFactory::getInstance();
             }
+            $handler = $this->handlerFactory->newSpec()->scheme('kernel')->name($name)->optional($optional)->build();
+            if($handler === null) {
+                $this->logger()->log(
+                    \Psr\Log\LogLevel::WARNING,
+                    sprintf('A handler for %s is not available', $name)
+                );
+            }
+            $this->kernelHandlers[$name] = $handler;
         }
-        if (!isset($this->kernelHandlers[$name])) {
-            $this->logger()->log(
-                $optional ? \Psr\Log\LogLevel::WARNING : \Psr\Log\LogLevel::ERROR,
-                'Class <strong>' . $class . '</strong> does not exist<br />Handler Name: ' . $name
-            );
-        } else {
-            return $this->kernelHandlers[$name];
-        }
-        return false;
+
+        return $this->kernelHandlers[$name];
     }
 
     /**
@@ -994,21 +998,19 @@ class Xoops
         }
         $name = (!isset($name)) ? $module_dir : trim($name);
         if (!isset($this->moduleHandlers[$module_dir][$name])) {
-            if (XoopsLoad::fileExists($hnd_file = \XoopsBaseConfig::get('root-path') . "/modules/{$module_dir}/class/{$name}.php")) {
-                include_once $hnd_file;
+            if (!isset($this->handlerFactory)) {
+                $this->handlerFactory = HandlerFactory::getInstance();
             }
-            $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Handler';
-            if (class_exists($class)) {
-                $this->moduleHandlers[$module_dir][$name] = new $class($this->db());
+            $handler = $this->handlerFactory->create($name, $module_dir, $optional);
+            if($handler === null) {
+                $this->logger()->log(
+                    \Psr\Log\LogLevel::WARNING,
+                    sprintf('No handler for %s exists in module %s', $name, $module_dir)
+                );
             }
+            $this->moduleHandlers[$module_dir][$name] = $handler;
         }
-        if (!isset($this->moduleHandlers[$module_dir][$name])) {
-            trigger_error('Handler does not exist<br />Module: ' . $module_dir . '<br />Name: ' . $name, $optional ? E_USER_WARNING : E_USER_ERROR);
-        }
-        if (isset($this->moduleHandlers[$module_dir][$name])) {
-            return $this->moduleHandlers[$module_dir][$name];
-        }
-        return false;
+        return $this->moduleHandlers[$module_dir][$name];
     }
 
     /**
@@ -1963,7 +1965,7 @@ class Xoops
      */
     public function templateTouch($tpl_id)
     {
-        $tplfile = $this->getHandlerTplfile()->get($tpl_id);
+        $tplfile = $this->getHandlerTplFile()->get($tpl_id);
 
         if (is_object($tplfile)) {
             $file = $tplfile->getVar('tpl_file', 'n');

@@ -58,7 +58,7 @@ $error = false;
 if (!is_object($imgcat)) {
     $error = _CO_PUBLISHER_IMAGE_CAT_NONE;
 } else {
-    $imgcatperm_handler = $xoops->getHandlerGroupperm();
+    $imgcatperm_handler = $xoops->getHandlerGroupPermission();
     if ($xoops->isUser()) {
         if (!$imgcatperm_handler->checkRight('imgcat_write', $imgcat_id, $xoops->user->getGroups())) {
             $error = _CO_PUBLISHER_IMAGE_CAT_NONE;

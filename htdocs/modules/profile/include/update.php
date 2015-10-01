@@ -48,7 +48,7 @@ function xoops_module_update_profile(&$module, $oldversion = null)
 
         include_once __DIR__ . "/install.php";
         xoops_module_install_profile($module);
-        $goupperm_handler = $xoops->getHandlerGroupperm();
+        $goupperm_handler = $xoops->getHandlerGroupPermission();
 
         /* @var $field_handler ProfileFieldHandler */
         $field_handler = $xoops->getModuleHandler('field', $module->getVar('dirname', 'n'));

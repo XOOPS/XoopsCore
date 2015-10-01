@@ -9,41 +9,41 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         kernel
- * @since           2.0.0
- * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @version         $Id$
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package   kernel
+ * @since     2.0.0
+ * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  */
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
  * Private Messages
  *
  * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000 XOOPS.org
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  *
  * @package kernel
  **/
-class XoopsPrivmessage extends XoopsObject
+class XoopsPrivateMessage extends XoopsObject
 {
     /**
      * constructor
      **/
     public function __construct()
     {
-        $this->initVar('msg_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('msg_image', XOBJ_DTYPE_OTHER, null, false, 100);
-        $this->initVar('subject', XOBJ_DTYPE_TXTBOX, null, true, 255);
-        $this->initVar('from_userid', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('to_userid', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('msg_time', XOBJ_DTYPE_OTHER, time(), false);
-        $this->initVar('msg_text', XOBJ_DTYPE_TXTAREA, null, true);
-        $this->initVar('read_msg', XOBJ_DTYPE_INT, 0, false);
+        $this->initVar('msg_id', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('msg_image', Dtype::TYPE_OTHER, null, false, 100);
+        $this->initVar('subject', Dtype::TYPE_TEXT_BOX, null, true, 255);
+        $this->initVar('from_userid', Dtype::TYPE_INTEGER, null, true);
+        $this->initVar('to_userid', Dtype::TYPE_INTEGER, null, true);
+        $this->initVar('msg_time', Dtype::TYPE_OTHER, time(), false);
+        $this->initVar('msg_text', Dtype::TYPE_TEXT_AREA, null, true);
+        $this->initVar('read_msg', Dtype::TYPE_INTEGER, 0, false);
     }
 
     /**
@@ -126,5 +126,4 @@ class XoopsPrivmessage extends XoopsObject
     {
         return $this->getVar('read_msg', $format);
     }
-
 }

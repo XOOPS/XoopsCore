@@ -28,7 +28,7 @@ $xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');
 include_once $xoops->path('include/cp_functions.php');
 
-$moduleperm_handler = $xoops->getHandlerGroupperm();
+$moduleperm_handler = $xoops->getHandlerGroupPermission();
 if ($xoops->isUser()) {
     $url_arr = explode('/', strstr($_SERVER['REQUEST_URI'], '/modules/'));
     if (!$xoops->isActiveModule($url_arr[2])) {

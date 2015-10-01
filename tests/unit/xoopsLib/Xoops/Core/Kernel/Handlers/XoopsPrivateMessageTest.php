@@ -1,26 +1,26 @@
 <?php
 require_once(dirname(__FILE__).'/../../../../../init_new.php');
 
-use Xoops\Core\Kernel\Handlers\XoopsPrivmessage;
+use Xoops\Core\Kernel\Handlers\XoopsPrivateMessage;
 
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class PrivmessageTest extends \PHPUnit_Framework_TestCase
+class XoopsPrivateMessageTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivmessage';
+    public $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivateMessage';
 
     public function setUp()
-	{
+    {
     }
 
     public function test___construct()
-	{
+    {
         $instance=new $this->myclass();
-        $this->assertInstanceOf($this->myclass,$instance);
-		$value=$instance->getVars();
+        $this->assertInstanceOf($this->myclass, $instance);
+        $value=$instance->getVars();
         $this->assertTrue(isset($value['msg_id']));
         $this->assertTrue(isset($value['msg_image']));
         $this->assertTrue(isset($value['subject']));
@@ -32,66 +32,65 @@ class PrivmessageTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_id()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->id();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_msg_id()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->msg_id();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_msg_image()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->msg_image();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_subject()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->subject();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_from_userid()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->from_userid();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_to_userid()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->to_userid();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_msg_time()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->msg_time();
         $this->assertTrue(is_numeric($value));
     }
 
     public function test_msg_text()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->msg_text();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_read_msg()
-	{
+    {
         $instance=new $this->myclass();
         $value=$instance->read_msg();
-        $this->assertSame(0,$value);
+        $this->assertSame(0, $value);
     }
-
 }

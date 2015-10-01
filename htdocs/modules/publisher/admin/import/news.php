@@ -104,7 +104,7 @@ if ($op == 'go') {
     $moduleObj = $module_handler->getByDirname('news');
     $news_module_id = $moduleObj->getVar('mid');
 
-    $gperm_handler = $xoops->getHandlerGroupperm();
+    $gperm_handler = $xoops->getHandlerGroupPermission();
 
     $cnt_imported_cat = 0;
     $cnt_imported_articles = 0;

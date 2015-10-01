@@ -68,7 +68,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $tpl->assign('error_message', $error_message);
     } else {
         if ($xoops->security()->check()) {
-            $pm_handler = $xoops->getHandlerPrivmessage();
+            $pm_handler = $xoops->getHandlerPrivateMessage();
             $pm = $pm_handler->create();
             $pm->setVar("msg_time", time());
             if (isset($_POST['msg_image'])) {
@@ -103,7 +103,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
     $pm_uname = '';
     if ($reply == 1 || $send == 1 || $send2 == 1 || $sendmod == 1) {
         if ($reply == 1) {
-            $pm_handler = $xoops->getHandlerPrivmessage();
+            $pm_handler = $xoops->getHandlerPrivateMessage();
             $pm = $pm_handler->get($msg_id);
             if ($pm->getVar("to_userid") == $xoops->user->getVar('uid')) {
                 $pm_uname = XoopsUser::getUnameFromId($pm->getVar("from_userid"));

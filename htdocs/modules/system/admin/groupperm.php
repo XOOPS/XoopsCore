@@ -40,7 +40,7 @@ $msg = array();
 $member_handler = $xoops->getHandlerMember();
 $group_list = $member_handler->getGroupList();
 if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
-    $gperm_handler = $xoops->getHandlerGroupperm();
+    $gperm_handler = $xoops->getHandlerGroupPermission();
     foreach ($_POST['perms'] as $perm_name => $perm_data) {
         if (!$xoops->security()->check(true, false, $perm_name)) {
             continue;

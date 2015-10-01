@@ -35,7 +35,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  *
  * @version        $Revision$ - $Date$
  */
-class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
+class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
@@ -44,16 +44,16 @@ class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'priv_msgs', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsPrivmessage', 'msg_id', 'subject');
+        parent::__construct($db, 'priv_msgs', '\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', 'msg_id', 'subject');
     }
 
     /**
      * Mark a message as read
      *
-     * @param XoopsPrivmessage $pm {@link XoopsPrivmessage} object
+     * @param XoopsPrivateMessage $pm XoopsPrivateMessage object
      * @return bool
      **/
-    public function setRead(XoopsPrivmessage &$pm)
+    public function setRead(XoopsPrivateMessage $pm)
     {
         $qb = $this->db2->createXoopsQueryBuilder()
             ->update($this->table, 'pm')
