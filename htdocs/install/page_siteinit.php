@@ -13,7 +13,7 @@
  * Installer site configuration page
  *
  * @copyright   XOOPS Project (http://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     installer
  * @since       2.3.0
  * @author      Haruki Setoyama  <haruki@planewave.org>
@@ -21,7 +21,6 @@
  * @author      Skalpa Keo <skalpa@xoops.org>
  * @author      Taiwen Jiang <phppp@users.sourceforge.net>
  * @author      DuGris (aka L. JEN) <dugris@frxoops.org>
- * @version     $Id$
  */
 
 require_once __DIR__ . '/include/common.inc.php';

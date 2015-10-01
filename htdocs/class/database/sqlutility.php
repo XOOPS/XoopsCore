@@ -19,7 +19,7 @@
  * @package   SqlUtility
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright 2013 XOOPS Project (http://xoops.org)
- * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 2.6.0
  * @link      http://xoops.org
  * @since     2.6.0

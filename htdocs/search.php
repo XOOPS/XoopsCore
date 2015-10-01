@@ -15,7 +15,7 @@ use Xoops\Core\Request;
  * XOOPS global search
  *
  * @copyright       XOOPS Project (http://xoops.org)
- * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.6.0
  * @author          Kazumi Ono (AKA onokazu)
