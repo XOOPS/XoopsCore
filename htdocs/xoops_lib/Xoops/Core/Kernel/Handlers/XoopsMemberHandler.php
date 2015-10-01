@@ -489,8 +489,8 @@ class XoopsMemberHandler
         $eb = $qb->expr();
 
         $qb ->select('DISTINCT ' . ($asobject ? 'u.*' : 'u.uid'))
-            ->fromPrefix('users', 'u')
-            ->leftJoinPrefix('u', 'groups_users_link', 'm', 'm.uid = u.uid');
+            ->fromPrefix('system_user', 'u')
+            ->leftJoinPrefix('u', 'system_usergroup', 'm', 'm.uid = u.uid');
 
         $where = false;
         if (!empty($groups)) {
@@ -540,8 +540,8 @@ class XoopsMemberHandler
         $eb = $qb->expr();
 
         $qb ->select('COUNT(DISTINCT u.uid)')
-            ->fromPrefix('users', 'u')
-            ->leftJoinPrefix('u', 'groups_users_link', 'm', 'm.uid = u.uid');
+            ->fromPrefix('system_user', 'u')
+            ->leftJoinPrefix('u', 'system_usergroup', 'm', 'm.uid = u.uid');
 
         $where = false;
         if (!empty($groups)) {

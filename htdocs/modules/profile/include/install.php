@@ -78,9 +78,9 @@ function profile_install_initializeProfiles()
     global $xoopsDB;
     $module_id = $xoops->registry()->get('profile_id');
 
-    $xoopsDB->queryF("INSERT INTO " . $xoopsDB->prefix("profile_profile") . " (profile_id) " . " SELECT uid " . " FROM " . $xoopsDB->prefix("users"));
+    $xoopsDB->queryF("INSERT INTO " . $xoopsDB->prefix("profile_profile") . " (profile_id) " . " SELECT uid " . " FROM " . $xoopsDB->prefix("system_user"));
 
-    $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . " (" . FixedGroups::ADMIN . ", " . FixedGroups::ADMIN . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::ADMIN . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::USERS . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::ANONYMOUS . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access') " . " ";
+    $sql = "INSERT INTO " . $xoopsDB->prefix("system_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . " (" . FixedGroups::ADMIN . ", " . FixedGroups::ADMIN . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::ADMIN . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::USERS . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access'), " . " (" . FixedGroups::ANONYMOUS . ", " . FixedGroups::USERS . ", {$module_id}, 'profile_access') " . " ";
     $xoopsDB->queryF($sql);
 
 }
@@ -171,7 +171,7 @@ function profile_install_setPermissions($field_id, $module_id, $canedit, $visibl
     global $xoopsDB;
     $gperm_itemid = $field_id;
     $gperm_modid = $module_id;
-    $sql = "INSERT INTO " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . ($canedit
+    $sql = "INSERT INTO " . $xoopsDB->prefix("system_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) " . " VALUES " . ($canedit
             ? " (" . FixedGroups::ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), " : "") . ($canedit == 1
             ? " (" . FixedGroups::USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_edit'), "
             : "") . " (" . FixedGroups::ADMIN . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search'), " . " (" . FixedGroups::USERS . ", {$gperm_itemid}, {$gperm_modid}, 'profile_search') " . " ";

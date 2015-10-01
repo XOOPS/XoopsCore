@@ -1,5 +1,5 @@
 tables:
-    ranks:
+    userrank_rank:
         options: {  }
         columns:
             rank_id:

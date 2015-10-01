@@ -39,6 +39,6 @@ class XoopsConfigOptionHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'configoption', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsConfigOption', 'confop_id', 'confop_name');
+        parent::__construct($db, 'system_configoption', '\Xoops\Core\Kernel\Handlers\XoopsConfigOption', 'confop_id', 'confop_name');
     }
 }

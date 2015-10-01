@@ -67,7 +67,7 @@ class PublisherPermissionHandler extends XoopsObjectHandler
         //Instead of calling groupperm handler and get objects, we will save some memory and do it our way
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb ->select('gperm_groupid')
-            ->fromPrefix('group_permission', '');
+            ->fromPrefix('system_permission', '');
         $criteria->renderQb($qb);
         $result = $qb->execute();
 
@@ -106,7 +106,7 @@ class PublisherPermissionHandler extends XoopsObjectHandler
 
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb ->select('gperm_itemid')
-            ->fromPrefix('group_permission', '');
+            ->fromPrefix('system_permission', '');
         $criteria->renderQb($qb);
         $result = $qb->execute();
 

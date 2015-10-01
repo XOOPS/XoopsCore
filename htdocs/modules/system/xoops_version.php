@@ -61,24 +61,21 @@ $modversion['schema']           = 'sql/schema.yml';
 
 // Tables created by sql file or schema (without prefix!)
 $modversion['tables'] = array(
-    'block_module_link',
-    'config',
-    'configoption',
-    'groups',
-    'group_permission',
-    'groups_users_link',
-    'imgset',
-    'imgset_tplset_link',
-    'imgsetimg',
-    'modules',
-    'newblocks',
-    'online',
-    'priv_msgs',
+    'system_blockmodule',
+    'system_config',
+    'system_configoption',
+    'system_group',
+    'system_permission',
+    'system_usergroup',
+    'system_module',
+    'system_block',
+    'system_online',
+    'system_privatemessage',
     'system_session',
-    'tplset',
-    'tplfile',
-    'tplsource',
-    'users',
+    'system_tplset',
+    'system_tplfile',
+    'system_tplsource',
+    'system_user',
 );
 
 // Admin Templates

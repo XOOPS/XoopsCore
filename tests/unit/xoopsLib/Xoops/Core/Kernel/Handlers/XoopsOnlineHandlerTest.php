@@ -11,55 +11,55 @@ use Xoops\Core\Kernel\Handlers\XoopsOnlineHandler;
 class OnlineHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsOnlineHandler';
-	protected $myId = null;
-	protected $conn = null;
+    protected $myId = null;
+    protected $conn = null;
 
     public function setUp()
-	{
-		$this->conn = Xoops::getInstance()->db();
+    {
+        $this->conn = Xoops::getInstance()->db();
     }
 
     public function test___construct()
-	{
+    {
         $instance=new $this->myclass($this->conn);
-		$this->assertRegExp('/^.*online$/',$instance->table);
-		$this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsOnline',$instance->className);
-		$this->assertSame('online_uid',$instance->keyName);
-		$this->assertSame('online_uname',$instance->identifierName);
+        $this->assertRegExp('/^.*system_online$/', $instance->table);
+        $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsOnline', $instance->className);
+        $this->assertSame('online_uid', $instance->keyName);
+        $this->assertSame('online_uname', $instance->identifierName);
     }
 
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsOnlineHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsOnlineHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
-	public function test_write()
-	{
+    public function test_write()
+    {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass,$instance);
+        $this->assertInstanceOf($this->myclass, $instance);
 
-		$this->myId = (int)(microtime(true)%10000000);
-		$value = $instance->write($this->myId, 'name', time(), 'module', 'localhost');
-		$this->assertSame(true, $value);
-	}
+        $this->myId = (int)(microtime(true)%10000000);
+        $value = $instance->write($this->myId, 'name', time(), 'module', 'localhost');
+        $this->assertSame(true, $value);
+    }
 
-	public function test_destroy()
-	{
+    public function test_destroy()
+    {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass,$instance);
+        $this->assertInstanceOf($this->myclass, $instance);
 
-		$value = $instance->destroy($this->myId);
-		$this->assertSame(true, $value);
-	}
+        $value = $instance->destroy($this->myId);
+        $this->assertSame(true, $value);
+    }
 
-	public function test_gc()
-	{
+    public function test_gc()
+    {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf($this->myclass,$instance);
+        $this->assertInstanceOf($this->myclass, $instance);
 
-		$value = $instance->gc(time()+10);
-		$this->assertSame(true, $value);
-	}
+        $value = $instance->gc(time()+10);
+        $this->assertSame(true, $value);
+    }
 }

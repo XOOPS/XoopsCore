@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    $res = $dbm->query("SELECT COUNT(*) FROM " . $dbm->db->prefix("users"));
+    $res = $dbm->query("SELECT COUNT(*) FROM " . $dbm->db->prefix('system_user'));
     list ($isadmin) = $dbm->db->fetchRow($res);
 }
 

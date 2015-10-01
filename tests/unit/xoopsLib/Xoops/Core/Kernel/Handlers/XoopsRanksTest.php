@@ -10,17 +10,17 @@ use Xoops\Core\Kernel\Handlers\XoopsRanks;
 */
 class RanksTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='Xoops\Core\Kernel\Handlers\XoopsRanks';
+    public $myclass='Xoops\Core\Kernel\Handlers\XoopsRanks';
 
     public function setUp()
-	{
+    {
     }
 
     public function test___construct()
-	{
+    {
         $instance=new $this->myclass();
-        $this->assertInstanceOf($this->myclass,$instance);
-		$value=$instance->getVars();
+        $this->assertInstanceOf($this->myclass, $instance);
+        $value=$instance->getVars();
         $this->assertTrue(isset($value['rank_id']));
         $this->assertTrue(isset($value['rank_title']));
         $this->assertTrue(isset($value['rank_min']));

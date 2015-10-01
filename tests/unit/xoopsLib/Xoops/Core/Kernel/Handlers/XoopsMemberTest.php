@@ -10,14 +10,13 @@ use Xoops\Core\Kernel\Handlers\XoopsMember;
 */
 class MemberTest extends \PHPUnit_Framework_TestCase
 {
-    var $myclass='Xoops\Core\Kernel\Handlers\XoopsMember';
+    public $myclass='Xoops\Core\Kernel\Handlers\XoopsMember';
 
     public function setUp()
-	{
+    {
     }
 
     public function test___construct()
-	{
+    {
     }
-
 }

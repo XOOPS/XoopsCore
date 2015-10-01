@@ -1665,7 +1665,7 @@ class Xoops
         $sql = $db->createXoopsQueryBuilder()
             ->select('r.rank_title AS title')
             ->addSelect('r.rank_image AS image')
-            ->fromPrefix('ranks', 'r');
+            ->fromPrefix('userrank_rank', 'r');
         $eb = $sql->expr();
         if ($rank_id != 0) {
             $sql->where($eb->eq('r.rank_id', ':rank'))

@@ -41,7 +41,7 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'tplset', '\Xoops\Core\Kernel\Handlers\XoopsTplSet', 'tplset_id', 'tplset_name');
+        parent::__construct($db, 'system_tplset', '\Xoops\Core\Kernel\Handlers\XoopsTplSet', 'tplset_id', 'tplset_name');
     }
 
     /**
@@ -60,7 +60,7 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
         $tplset_name = trim($tplset_name);
         if ($tplset_name != '') {
             $qb->select('*')
-                ->fromPrefix('tplset', null)
+                ->fromPrefix('system_tplset', null)
                 ->where($eb->eq('tplset_name', ':tplsetname'))
                 ->setParameter(':tplsetname', $tplset_name, \PDO::PARAM_STR);
             $result = $qb->execute();

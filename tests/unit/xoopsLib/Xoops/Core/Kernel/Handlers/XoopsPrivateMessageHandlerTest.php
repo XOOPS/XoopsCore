@@ -22,7 +22,7 @@ class XoopsPrivateMessageHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertRegExp('/^.*priv_msgs$/', $instance->table);
+        $this->assertRegExp('/^.*system_privatemessage$/', $instance->table);
         $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', $instance->className);
         $this->assertSame('msg_id', $instance->keyName);
         $this->assertSame('subject', $instance->identifierName);

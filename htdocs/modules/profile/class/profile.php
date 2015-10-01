@@ -290,7 +290,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
         }
 
         $sql_select = "SELECT " . (empty($searchvars) ? "u.*, p.*" : implode(", ", $sv));
-        $sql_from = " FROM " . $this->db2->prefix("users") . " AS u LEFT JOIN " . $this->table . " AS p ON u.uid=p.profile_id" . (empty($groups) ? "" : " LEFT JOIN " . $this->db2->prefix("groups_users_link") . " AS g ON u.uid=g.uid");
+        $sql_from = " FROM " . $this->db2->prefix("users") . " AS u LEFT JOIN " . $this->table . " AS p ON u.uid=p.profile_id" . (empty($groups) ? "" : " LEFT JOIN " . $this->db2->prefix("system_usergroup") . " AS g ON u.uid=g.uid");
         $sql_clause = " WHERE 1=1";
         $sql_order = "";
 

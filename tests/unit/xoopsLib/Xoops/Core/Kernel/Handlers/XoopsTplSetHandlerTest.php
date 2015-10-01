@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplSet;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class TplsetHandlerTest extends \PHPUnit_Framework_TestCase
+class TplSetHandlerTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplSetHandler';
     protected $conn = null;
@@ -22,7 +22,7 @@ class TplsetHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance = new $this->myclass($this->conn);
-        $this->assertRegExp('/^.*tplset$/', $instance->table);
+        $this->assertRegExp('/^.*system_tplset$/', $instance->table);
         $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsTplSet', $instance->className);
         $this->assertSame('tplset_id', $instance->keyName);
         $this->assertSame('tplset_name', $instance->identifierName);

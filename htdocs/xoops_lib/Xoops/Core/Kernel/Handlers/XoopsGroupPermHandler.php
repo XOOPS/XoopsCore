@@ -45,7 +45,7 @@ class XoopsGroupPermHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'group_permission', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroupPerm', 'gperm_id', 'gperm_name');
+        parent::__construct($db, 'system_permission', '\Xoops\Core\Kernel\Handlers\XoopsGroupPerm', 'gperm_id', 'gperm_name');
     }
 
     /**

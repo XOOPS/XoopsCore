@@ -683,7 +683,7 @@ class xoopslists
         $eb = $sql->expr();
         $sql->select('rank_id')
             ->addSelect('rank_title')
-            ->fromPrefix('ranks', 'r')
+            ->fromPrefix('userrank_rank', 'r')
             ->where($eb->eq('rank_special', ':rankspecial'))
             ->orderBy('rank_title')
             ->setParameter(':rankspecial', 1);

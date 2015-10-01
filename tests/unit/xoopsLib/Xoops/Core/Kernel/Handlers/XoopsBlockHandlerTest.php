@@ -25,8 +25,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test___construct()
     {
-        $this->assertRegExp('/^.*newblocks$/', $this->object->table);
-		$this->assertSame('\\Xoops\Core\\Kernel\\Handlers\\XoopsBlock', $this->object->className);
+        $this->assertRegExp('/^.*system_block$/', $this->object->table);
+        $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsBlock', $this->object->className);
         $this->assertSame('bid', $this->object->keyName);
         $this->assertSame(null, $this->object->table_link);
         $this->assertSame('name', $this->object->identifierName);
@@ -37,8 +37,8 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testContracts()
     {
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsBlockHandler', $this->object);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsBlockHandler', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $this->object);
     }
 
     public function test_insertBlock()

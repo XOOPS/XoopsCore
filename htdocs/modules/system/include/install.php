@@ -62,7 +62,7 @@ function xoops_module_install_system(XoopsModule $module)
             'group_type' => 'Removed',
         ),
     );
-    TableLoad::loadTableFromArray('groups', $rows);
+    TableLoad::loadTableFromArray('system_group', $rows);
 
     // data for table 'group_permission'
     $groupperm_handler = $xoops->getHandlerGroupPermission();
@@ -124,7 +124,7 @@ function xoops_module_install_system(XoopsModule $module)
     // data for table 'groups_users_link'
     $types = array(\PDO::PARAM_INT, \PDO::PARAM_INT);
     $data = array('groupid' => FixedGroups::ADMIN, 'uid' => 1);
-    $xoops->db()->insertPrefix('groups_users_link', $data, $types);
+    $xoops->db()->insertPrefix('system_usergroup', $data, $types);
     $data = array('groupid' => FixedGroups::USERS, 'uid' => 1);
-    $xoops->db()->insertPrefix('groups_users_link', $data, $types);
+    $xoops->db()->insertPrefix('system_usergroup', $data, $types);
 }

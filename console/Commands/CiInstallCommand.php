@@ -73,7 +73,7 @@ EOT
         $adminpass = password_hash($adminname, PASSWORD_DEFAULT); // user: admin pass: admin
         $regdate = time();
         $result = $xoops->db()->insertPrefix(
-            'users',
+            'system_user',
             array(
             //  'uid'             => 1,             // mediumint(8) unsigned NOT NULL auto_increment,
                 'uname'           => $adminname,    // varchar(25) NOT NULL default '',

@@ -75,11 +75,11 @@ $modversion['adminmenu']  = 'admin/menu.php';
 
 // Mysql file
 $modversion['schema']           = 'sql/schema.yml';
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+//$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
 $modversion['tables'] = array(
-    'ranks',
+    'userrank_rank',
 );
 
 /*

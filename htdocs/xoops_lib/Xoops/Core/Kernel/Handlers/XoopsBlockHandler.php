@@ -25,7 +25,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'newblocks', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsBlock', 'bid', 'name');
+        parent::__construct($db, 'system_block', '\Xoops\Core\Kernel\Handlers\XoopsBlock', 'bid', 'name');
     }
 
     /**
@@ -52,13 +52,13 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         }
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->deletePrefix('group_permission', null)
+        $qb ->deletePrefix('system_permission', null)
             ->where($eb->eq('gperm_name', $eb->literal('block_read')))
             ->andWhere($eb->eq('gperm_itemid', $qb->createNamedParameter($obj->getVar('bid'), \PDO::PARAM_INT)))
             ->andWhere($eb->eq('gperm_modid', $qb->createNamedParameter(1, \PDO::PARAM_INT)))
             ->execute();
 
-        $qb ->deletePrefix('block_module_link', null)
+        $qb ->deletePrefix('system_blockmodule', null)
             ->where($eb->eq('block_id', $qb->createNamedParameter($obj->getVar('bid'), \PDO::PARAM_INT)))
             ->execute();
 
@@ -79,8 +79,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $eb = $qb->expr();
         $qb ->select('DISTINCT(b.bid)')
             ->addSelect('b.*')
-            ->fromPrefix('newblocks', 'b')
-            ->leftJoinPrefix('b', 'block_module_link', 'l', $eb->eq('b.bid', 'l.block_id'));
+            ->fromPrefix('system_block', 'b')
+            ->leftJoinPrefix('b', 'system_blockmodule', 'l', $eb->eq('b.bid', 'l.block_id'));
 
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $criteria->renderQb($qb);
@@ -148,8 +148,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         } else {
             $qb ->select('b.bid');
         }
-        $qb ->fromPrefix('newblocks', 'b')
-            ->leftJoinPrefix('b', 'group_permission', 'l', $eb->eq('b.bid', 'l.gperm_itemid'))
+        $qb ->fromPrefix('system_block', 'b')
+            ->leftJoinPrefix('b', 'system_permission', 'l', $eb->eq('b.bid', 'l.gperm_itemid'))
             ->where($eb->eq('gperm_name', $eb->literal('block_read')))
             ->andWhere($eb->eq('gperm_modid', 1));
 
@@ -208,7 +208,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
-        $qb ->fromPrefix('newblocks', null)
+        $qb ->fromPrefix('system_block', null)
             ->where($eb->eq('isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
         if (isset($side)) {
             // get both sides in sidebox? (some themes need this)
@@ -264,7 +264,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
 
-        $qb ->fromPrefix('newblocks', null)
+        $qb ->fromPrefix('system_block', null)
             ->where($eb->eq('mid', $qb->createNamedParameter($moduleid, \PDO::PARAM_INT)));
         if ($asobject == true) {
             $qb->select('*');
@@ -311,7 +311,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $blockids=null;
         if (isset($groupid)) {
             $qb ->select('DISTINCT gperm_itemid')
-                ->fromPrefix('group_permission', null)
+                ->fromPrefix('system_permission', null)
                 ->where($eb->eq('gperm_name', $eb->literal('block_read')))
                 ->andWhere('gperm_modid=1');
 
@@ -329,13 +329,13 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $qb->resetQueryParts();
 
         $qb ->select('b.*')
-            ->fromPrefix('newblocks', 'b')
+            ->fromPrefix('system_block', 'b')
             ->where($eb->eq('b.isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
         if (isset($visible)) {
             $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
         }
         if (isset($module_id)) {
-            $qb ->fromPrefix('block_module_link', 'm')
+            $qb ->fromPrefix('system_blockmodule', 'm')
                 ->andWhere($eb->eq('m.block_id', 'b.bid'));
             if (!empty($module_id)) {
                 $in=array();
@@ -388,15 +388,15 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $eb = $qb->expr();
 
         $qb ->select('DISTINCT(bid)')
-            ->fromPrefix('newblocks', null);
+            ->fromPrefix('system_block', null);
         $result = $qb->execute();
         $bids = $result->fetchAll(\PDO::FETCH_COLUMN, 0);
 
         $qb->resetQueryParts();
 
         $qb ->select('DISTINCT(p.gperm_itemid)')
-            ->fromPrefix('group_permission', 'p')
-            ->fromPrefix('groups', 'g')
+            ->fromPrefix('system_permission', 'p')
+            ->fromPrefix('system_group', 'g')
             ->where($eb->eq('g.groupid', 'p.gperm_groupid'))
             ->andWhere($eb->eq('p.gperm_name', $eb->literal('block_read')));
         $result = $qb->execute();
@@ -408,20 +408,20 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             $qb->resetQueryParts();
 
             $qb ->select('b.*')
-                ->fromPrefix('newblocks', 'b')
+                ->fromPrefix('system_block', 'b')
                 ->where($eb->eq('b.isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
             if (isset($visible)) {
                 $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
             }
 
-            $sql = 'SELECT b.* FROM ' . $this->db2->prefix('newblocks') . ' b, '
-            . $this->db2->prefix('block_module_link') . ' m';
+            $sql = 'SELECT b.* FROM ' . $this->db2->prefix('system_block') . ' b, '
+            . $this->db2->prefix('system_blockmodule') . ' m';
             $sql .= ' WHERE b.isactive=' . (int)($isactive);
             if (isset($visible)) {
                 $sql .= ' AND b.visible=' . (int)($visible);
             }
             if (isset($module_id)) {
-                $qb ->fromPrefix('block_module_link', 'm')
+                $qb ->fromPrefix('system_blockmodule', 'm')
                     ->andWhere($eb->eq('m.block_id', 'b.bid'));
                 if (!empty($module_id)) {
                     $in=array();
@@ -476,7 +476,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $eb = $qb->expr();
 
         $qb ->select('COUNT(*)')
-            ->fromPrefix('newblocks', null)
+            ->fromPrefix('system_block', null)
             ->where($eb->eq('mid', $qb->createNamedParameter($moduleId, \PDO::PARAM_INT)))
             ->andWhere($eb->eq('func_num', $qb->createNamedParameter($funcNum, \PDO::PARAM_INT)));
 
@@ -547,8 +547,8 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             $eb = $qb->expr();
 
             $qb ->select('DISTINCT(gperm_itemid)')
-                ->fromPrefix('group_permission', 'p')
-                ->fromPrefix('groups', 'g')
+                ->fromPrefix('system_permission', 'p')
+                ->fromPrefix('system_group', 'g')
                 ->where($eb->eq('p.gperm_name', $eb->literal('block_read')))
                 ->andWhere('gperm_modid=1');
 

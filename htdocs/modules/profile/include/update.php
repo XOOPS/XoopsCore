@@ -72,7 +72,7 @@ function xoops_module_update_profile(&$module, $oldversion = null)
             $field_handler->insert($object, true);
 
             $gperm_itemid = $object->getVar('field_id');
-            $sql = "UPDATE " . $xoopsDB->prefix("group_permission") . " SET gperm_itemid = " . $gperm_itemid . "   WHERE gperm_itemid = " . $myrow['fieldid'] . "       AND gperm_modid = " . $module->getVar('mid') . "       AND gperm_name IN ('profile_edit', 'profile_search')";
+            $sql = "UPDATE " . $xoopsDB->prefix("system_permission") . " SET gperm_itemid = " . $gperm_itemid . "   WHERE gperm_itemid = " . $myrow['fieldid'] . "       AND gperm_modid = " . $module->getVar('mid') . "       AND gperm_name IN ('profile_edit', 'profile_search')";
             $xoopsDB->queryF($sql);
 
             $groups_visible = $goupperm_handler->getGroupIds("profile_visible", $myrow['fieldid'], $module->getVar('mid'));
@@ -102,12 +102,12 @@ function xoops_module_update_profile(&$module, $oldversion = null)
         $xoopsDB->queryF($sql);
 
         // Remove not used items
-        $sql = "DELETE FROM " . $xoopsDB->prefix("group_permission") . "   WHERE `gperm_modid` = " . $module->getVar('mid') . " AND `gperm_name` IN ('profile_show', 'profile_visible')";
+        $sql = "DELETE FROM " . $xoopsDB->prefix("system_permission") . "   WHERE `gperm_modid` = " . $module->getVar('mid') . " AND `gperm_name` IN ('profile_show', 'profile_visible')";
         $xoopsDB->queryF($sql);
     }
 
     $profile_handler = $xoops->getModuleHandler("profile", $module->getVar('dirname', 'n'));
-    $profile_handler->cleanOrphan($xoopsDB->prefix("users"), "uid", "profile_id");
+    $profile_handler->cleanOrphan($xoopsDB->prefix("system_user"), "uid", "profile_id");
     $field_handler = $xoops->getModuleHandler('field', $module->getVar('dirname', 'n'));
     $user_fields = $field_handler->getUserVars();
     $criteria = new Criteria("field_name", "('" . implode("', '", $user_fields) . "')", "IN");

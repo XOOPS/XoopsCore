@@ -42,7 +42,7 @@ $xoops->setConfig('locale', $language);
 $xoops->loadLocale();
 
 $dbm = $xoops->db();
-$count = $dbm->fetchColumn('SELECT COUNT(*) FROM ' . $dbm->prefix("users"));
+$count = $dbm->fetchColumn('SELECT COUNT(*) FROM ' . $dbm->prefix('system_user'));
 $process = $count ? false : true;
 $update = false;
 
@@ -57,7 +57,7 @@ $temp = password_hash($adminpass, PASSWORD_DEFAULT);
 $regdate = time();
 if ($process) {
     $dbm->insertPrefix(
-        'users',
+        'system_user',
         array(
             //'uid'             => 1,             // mediumint(8) unsigned NOT NULL auto_increment,
             'name'            => '',            // varchar(60) NOT NULL default '',
@@ -95,7 +95,7 @@ if ($process) {
     $content = '<div class="x2-note successMsg">' . DATA_INSERTED . '</div>';
 } elseif ($update) {
     $dbm->updatePrefix(
-        'user',
+        'system_user',
         array(
             'uname' => $adminname,
             'email' => $adminmail,

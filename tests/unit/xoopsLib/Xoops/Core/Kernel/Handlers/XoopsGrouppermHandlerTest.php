@@ -26,8 +26,8 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertRegExp('/^.*group_permission$/', $instance->table);
-        $this->assertSame('\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroupPerm', $instance->className);
+        $this->assertRegExp('/^.*system_permission$/', $instance->table);
+        $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsGroupPerm', $instance->className);
         $this->assertSame('gperm_id', $instance->keyName);
         $this->assertSame('gperm_name', $instance->identifierName);
     }
@@ -35,8 +35,8 @@ class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
     public function testContracts()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroupPermHandler', $instance);
-        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsPersistableObjectHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsPersistableObjectHandler', $instance);
     }
 
     public function test_addRight()

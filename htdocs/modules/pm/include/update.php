@@ -24,13 +24,14 @@
  * @param XoopsModule $module
  * @param string|null $oldversion
  * @return bool|void
+ * @todo this should be removed, it is now handled by schema
  */
 function xoops_module_update_pm(&$module, $oldversion = null)
 {
     $xoops = Xoops::getInstance();
     if ($oldversion <= 100) {
         // Check pm table version
-        $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("priv_msgs");
+        $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("system_privatemessage");
         if (!$result = $xoopsDB->queryF($sql)) {
             return false;
         }

@@ -44,7 +44,7 @@ class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'priv_msgs', '\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', 'msg_id', 'subject');
+        parent::__construct($db, 'system_privatemessage', '\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', 'msg_id', 'subject');
     }
 
     /**
