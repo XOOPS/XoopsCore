@@ -482,14 +482,6 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler', $value);
     }
 
-    public function test_getHandlerRanks()
-    {
-        $instance = Xoops::getInstance();
-
-        $value = $instance->getHandlerRanks();
-        $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsRanksHandler', $value);
-    }
-
     public function test_session()
     {
         $instance = Xoops::getInstance();
@@ -926,17 +918,6 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
 
         $value = $instance->getMailer();
         $this->assertTrue($value instanceof XoopsMailerLocale || $value instanceof XoopsMailer);
-    }
-
-    public function test_getRank()
-    {
-        $instance = Xoops::getInstance();
-
-        $value = $instance->getRank();
-        $this->assertTrue(is_array($value));
-
-        $value = $instance->getRank(1);
-        $this->assertTrue(is_array($value));
     }
 
     public function test_getOption()

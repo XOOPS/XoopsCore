@@ -47,6 +47,8 @@ use Xoops\Core\Service\Response;
  * @method Response outputPdfInline(string $name);
  * @method Response outputPdfDownload(string $name);
  * @method Response fetchPdf();
+ * @method Response getUserRank(mixed $userinfo);
+ * @method Response getAssignableUserRankList();
  */
 class Provider
 {

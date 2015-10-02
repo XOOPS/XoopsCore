@@ -9,24 +9,22 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Dtype;
+use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+
 /**
- * XOOPS Kernel Class
+ * UserrankRank and handler
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2015 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         kernel
+ * @package         userrank
  * @since           2.6.0
  * @author          Gregory Mage (AKA Mage)
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
-
-namespace Xoops\Core\Kernel\Handlers;
-
-use Xoops\Core\Kernel\Dtype;
-use Xoops\Core\Kernel\XoopsObject;
-
-class XoopsRanks extends XoopsObject
+class UserrankRank extends XoopsObject
 {
     /**
      * Constructor
@@ -123,5 +121,17 @@ class XoopsRanks extends XoopsObject
     public function rank_image($format = '')
     {
         return $this->getVar('rank_image', $format);
+    }
+}
+
+class UserrankRankHandler extends XoopsPersistableObjectHandler
+{
+
+    /**
+     * @param Connection $db
+     */
+    public function __construct(Connection $db)
+    {
+        parent::__construct($db, 'userrank_rank', 'UserrankRank', 'rank_id', 'rank_title');
     }
 }

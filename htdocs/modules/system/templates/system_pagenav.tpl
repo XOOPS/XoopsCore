@@ -1,25 +1,25 @@
-<{if $pagination_nav}>
+<{if $pagination_nav|default:false}>
 <div class="pagination<{$size}><{$align}>">
     <ul>
         <{if $prev_text|default:false}>
         <li><a href="<{$prev_url}>"><{$prev_text}></a></li>
         <{/if}>
-        <{if $first == 1}>
+        <{if $first|default:false == 1}>
             <li>
                 <a href="<{$first_url}>"><{$first_text}></a>
             </li>
         <{/if}>
-        <{foreach item=nav from=$xo_nav}>
+        <{foreach item=nav from=$xo_nav|default:[]}>
             <li <{if $nav.active == 0}>class="disabled"<{/if}>>
                 <a href="<{$nav.url}>"><{$nav.text}></a>
             </li>
         <{/foreach}>
-        <{if $last == 1}>
+        <{if $last|default:false == 1}>
             <li>
                 <a href="<{$last_url}>"><{$last_text}></a>
             </li>
         <{/if}>
-        <{if $next_text}>
+        <{if $next_text|default:false}>
         <li><a href="<{$next_url}>"><{$next_text}></a></li>
         <{/if}>
     </ul>

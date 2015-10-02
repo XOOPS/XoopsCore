@@ -200,9 +200,9 @@ class ProfileField extends XoopsObject
                 break;
 
             case "rank":
-                if ($xoops->isActiveModule('userrank')) {
+                $ranks = $xoops->service('userrank')->getAssignableUserRankList()->getValue();
+                if ($ranklist !== null) {
                     $element = new Xoops\Form\Select($caption, $name, $value);
-                    $ranks = XoopsLists::getUserRankList();
                     $element->addOption(0, "--------------");
                     $element->addOptionArray($ranks);
                 } else {
