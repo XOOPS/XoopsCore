@@ -30,15 +30,12 @@ class UserrankPreload extends PreloadItem
      *
      * @param Provider $provider - provider object for requested service
      *
-     * @return void - our implementation is registered with the passed Provider
+     * @return void - our implementation is registered with the passed Provider object
      */
     public static function eventCoreServiceLocateUserrank(Provider $provider)
     {
-        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
-            $path = dirname(__DIR__) . '/class/UserRankProvider.php';
-            require $path;
-            $object = new UserRankProvider();
-            $provider->register($object);
-        }
+        require dirname(__DIR__) . '/class/UserRankProvider.php';
+        $object = new UserRankProvider();
+        $provider->register($object);
     }
 }

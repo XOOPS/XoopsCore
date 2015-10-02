@@ -390,7 +390,7 @@ class CommentsCommentRenderer
             if (is_object($user)) {
                 $poster['uname'] = XoopsUserUtility::getUnameFromId($poster['id'], false, true);
                 $poster_rank = $user->rank();
-                $poster['rank_image'] = ($poster_rank['image'] != '') ? $poster_rank['image'] : 'blank.gif';
+                $poster['rank_image'] = $poster_rank['image'];
                 $poster['rank_title'] = $poster_rank['title'];
                 $response = $xoops->service("Avatar")->getAvatarUrl($user);
                 $avatar = $response->getValue();

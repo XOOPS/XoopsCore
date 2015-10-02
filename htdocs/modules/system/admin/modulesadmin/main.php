@@ -149,6 +149,7 @@ switch ($op) {
                 $block_handler->insertBlock($block);
             }
             //Set active modules in cache folder
+            $xoops->cache()->delete('system');
             $xoops->setActiveModules();
             echo $module->getVar('isactive');
         }
