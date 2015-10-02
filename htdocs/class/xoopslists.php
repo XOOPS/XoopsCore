@@ -664,35 +664,4 @@ class xoopslists
 
         return $html_list;
     }
-
-    /**
-     * XoopsLists::getUserRankList()
-     *
-     * @todo create handler for ranks
-     * @static
-     * @return array
-     */
-    public static function getUserRankList()
-    {
-        $db = Xoops::getInstance()->db();
-        $myts = MyTextSanitizer::getInstance();
-
-        $ret = array();
-
-        $sql = $db->createXoopsQueryBuilder();
-        $eb = $sql->expr();
-        $sql->select('rank_id')
-            ->addSelect('rank_title')
-            ->fromPrefix('ranks', 'r')
-            ->where($eb->eq('rank_special', ':rankspecial'))
-            ->orderBy('rank_title')
-            ->setParameter(':rankspecial', 1);
-
-        $result = $sql->execute();
-        while ($myrow = $result->fetch(PDO::FETCH_ASSOC)) {
-            $ret[$myrow['rank_id']] = $myts->htmlspecialchars($myrow['rank_title']);
-        }
-
-        return $ret;
-    }
 }

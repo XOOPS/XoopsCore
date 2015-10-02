@@ -51,6 +51,7 @@ $app->addCommands(array(
     new \XoopsConsole\Commands\UninstallModuleCommand(),
     new \XoopsConsole\Commands\UpdateModuleCommand(),
     new \XoopsConsole\Commands\SetConfigCommand(),
+    new \XoopsConsole\Commands\RenameSystemTablesCommand(),
 ));
 
 $app->run();

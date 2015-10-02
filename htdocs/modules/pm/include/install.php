@@ -23,6 +23,7 @@
 /**
  * @param XoopsModule $module
  * @return bool|void
+ * @todo this should be removed, it is now handled by schema
  */
 function xoops_module_install_pm($module)
 {
@@ -30,7 +31,7 @@ function xoops_module_install_pm($module)
     $xoops->db();
     global $xoopsDB;
     // Check pm table version
-    $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("priv_msgs");
+    $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("system_privatemessage");
     if (!$result = $xoopsDB->queryF($sql)) {
         return false;
     }

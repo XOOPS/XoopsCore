@@ -28,7 +28,7 @@ $xoops->header();
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('index.php');
 
-$userrank_handler = $xoops->getHandlerRanks();
+$userrank_handler = $xoops->getModuleHandler('rank', 'userrank');
 
 $admin_page->addInfoBox(_USERRANK_MI_USERRANK);
 

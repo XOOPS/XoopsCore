@@ -11,10 +11,6 @@
 
 namespace Xoops\Core\Service;
 
-use Xoops\Core\Service\Manager;
-use Xoops\Core\Service\Provider;
-use Xoops\Core\Service\Response;
-
 /**
  * Null Service Provider object
  *
@@ -30,7 +26,7 @@ use Xoops\Core\Service\Response;
  * @category  Xoops\Core\Service\NullProvider
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2014 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @copyright 2013-2015 The XOOPS Project https://github.com/XOOPS/XoopsCore
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -114,8 +110,8 @@ class NullProvider extends Provider
     /**
      * All non-static methods go here and will return null response
      *
-     * @param type $name      not used
-     * @param type $arguments not used
+     * @param string $name      not used
+     * @param mixed  $arguments not used
      *
      * @return Response Response
      */
@@ -127,8 +123,8 @@ class NullProvider extends Provider
     /**
      * All static methods go here and will return null response
      *
-     * @param type $name      not used
-     * @param type $arguments not used
+     * @param string $name      not used
+     * @param mixed  $arguments not used
      *
      * @return Response Response
      */

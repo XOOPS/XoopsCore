@@ -58,7 +58,11 @@ function b_system_topposters_edit($options)
     $block_form->addElement(new Xoops\Form\Text(SystemLocale::NUMBER_OF_USERS_TO_DISPLAY, 'options[0]', 1, 3, $options[0]), true);
     $block_form->addElement(new Xoops\Form\RadioYesNo(SystemLocale::DISPLAY_USERS_AVATARS, 'options[1]', $options[1]));
 
-    $ranks = XoopsLists::getUserRankList();
+    $xoops = \Xoops::getInstance();
+    $ranks = $xoops->service('userrank')->getAssignableUserRankList()->getValue();
+    if ($ranks === null) {
+        $ranks = [];
+    }
     $ranks_select = new Xoops\Form\Select(SystemLocale::C_DO_NOT_DISPLAY_USERS_WHOSE_RANK_IS, 'options[2]', explode(',', $options[2]), 5, true);
     $ranks_select->addOptionArray($ranks);
     $block_form->addElement($ranks_select);

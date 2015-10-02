@@ -11,9 +11,6 @@
 
 namespace Xoops\Core\Service;
 
-use Xoops\Core\Service\Manager;
-use Xoops\Core\Service\Response;
-
 /**
  * Service Provider object
  *
@@ -47,6 +44,8 @@ use Xoops\Core\Service\Response;
  * @method Response outputPdfInline(string $name);
  * @method Response outputPdfDownload(string $name);
  * @method Response fetchPdf();
+ * @method Response getUserRank(mixed $userinfo);
+ * @method Response getAssignableUserRankList();
  */
 class Provider
 {
@@ -54,6 +53,7 @@ class Provider
 
     protected $service = null;
 
+    /** @var AbstractContract[] $providers */
     protected $providers = array();
 
     /**
@@ -124,7 +124,7 @@ class Provider
     public function sortProviders()
     {
         $sortable = $this->providers;
-        $s = usort($sortable, function ($a, $b) {
+        usort($sortable, function (AbstractContract $a, AbstractContract $b) {
             if ($a->getPriority() != $b->getPriority()) {
                 return ($a->getPriority() > $b->getPriority()) ? 1 : -1;
             } else {
@@ -151,8 +151,8 @@ class Provider
     /**
      * All contract specified methods go here
      *
-     * @param type $name      method to call
-     * @param type $arguments any arguments
+     * @param string $name      method to call
+     * @param mixed  $arguments any arguments
      *
      * @return Response Response
      */
@@ -182,8 +182,8 @@ class Provider
     /**
      * All static methods go here and will return null
      *
-     * @param type $name      not used
-     * @param type $arguments not used
+     * @param string $name      not used
+     * @param mixed  $arguments not used
      *
      * @return null
      */

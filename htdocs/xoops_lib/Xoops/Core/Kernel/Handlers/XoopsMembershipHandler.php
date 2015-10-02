@@ -41,7 +41,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'groups_users_link', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsMembership', 'linkid', 'groupid');
+        parent::__construct($db, 'system_usergroup', '\Xoops\Core\Kernel\Handlers\XoopsMembership', 'linkid', 'groupid');
     }
 
     /**
@@ -57,7 +57,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->select('groupid')
-            ->fromPrefix('groups_users_link', 'g')
+            ->fromPrefix('system_usergroup', 'g')
             ->where($eb->eq('g.uid', ':uid'))
             ->setParameter(':uid', $uid, \PDO::PARAM_INT);
         $result = $qb->execute();
@@ -83,7 +83,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->select('uid')
-            ->fromPrefix('groups_users_link', 'g')
+            ->fromPrefix('system_usergroup', 'g')
             ->where($eb->eq('g.groupid', ':gid'))
             ->setParameter(':gid', $groupid, \PDO::PARAM_INT);
         if ($limit!=0 || $start!=0) {

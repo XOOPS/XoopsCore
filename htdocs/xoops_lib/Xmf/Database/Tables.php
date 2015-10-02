@@ -11,7 +11,10 @@
 
 namespace Xmf\Database;
 
+use Doctrine\DBAL\Driver\Statement;
 use Xmf\Language;
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Database\Factory;
 
 /**
  * Xmf\Database\Tables
@@ -41,7 +44,7 @@ class Tables
     const POSITION_FIRST = 1;
 
     /**
-     * @var XoopsDatabase
+     * @var Connection
      */
     private $db;
 
@@ -51,7 +54,7 @@ class Tables
     private $tables;
 
     /**
-     * @var Work queue
+     * @var array Work queue
      */
     private $queue;
 
@@ -71,11 +74,9 @@ class Tables
      */
     public function __construct()
     {
-        global $xoopsDB; // lock this to legacy support
-        //\Xmf\Debug::dump($xoopsDB,true);
         Language::load('database', 'xmf');
 
-        $this->db =& $xoopsDB;
+        $this->db = Factory::getConnection();
         $this->queueReset();
     }
 
@@ -158,7 +159,6 @@ class Tables
                 }
                 $this->queue[]="ALTER TABLE `{$tableDef['name']}`"
                     . " ADD COLUMN {$column} {$columnDef['attributes']} {$pos} ";
-
             }
         } else { // no table established
             $this->lastError = _DB_XMF_TABLE_IS_NOT_DEFINED;
@@ -196,7 +196,7 @@ class Tables
 
     /**
      * Load table schema from database, or starts new empty schema if
-     * table doesn't exist
+     * table does not exist
      *
      * @param string $table table
      *
@@ -214,10 +214,9 @@ class Tables
             return true;
         } else {
             if ($tableDef===true) {
-                $tableDef=array();
                 $tableDef = array(
                       'name' => $this->db->prefix($table)
-                    , 'options' => 'ENGINE=MyISAM');
+                    , 'options' => 'ENGINE=InnoDB');
                 $tableDef['create'] = true;
                 $this->tables[$table] = $tableDef;
 
@@ -346,7 +345,6 @@ class Tables
         } else {
             return false;
         }
-
     }
 
     /**
@@ -441,17 +439,17 @@ class Tables
             // Is this on a table we are adding?
             if (isset($tableDef['create']) && $tableDef['create']) {
                 // strip everything but the PRIMARY from definition
-                foreach ($tableDef['keys'] as $keyname => $key) {
-                    if ($keyname!='PRIMARY') {
-                        unset($tableDef['keys'][$keyname]);
+                foreach ($tableDef['keys'] as $keyName => $key) {
+                    if ($keyName!='PRIMARY') {
+                        unset($tableDef['keys'][$keyName]);
                     }
                 }
             } else {
                 // build drops to strip everything but the PRIMARY
-                foreach ($tableDef['keys'] as $keyname => $key) {
-                    if ($keyname!='PRIMARY') {
+                foreach ($tableDef['keys'] as $keyName => $key) {
+                    if ($keyName!='PRIMARY') {
                         $this->queue[] = "ALTER TABLE `{$tableDef['name']}`"
-                            . " DROP INDEX {$keyname}";
+                            . " DROP INDEX {$keyName}";
                     }
                 }
             }
@@ -588,8 +586,8 @@ class Tables
             }
             $result = $this->execSql($ddl, $force);
             if (!$result) {
-                $this->lastError = $this->db->error();
-                $this->lastErrNo = $this->db->errno();
+                $this->lastError = $this->db->errorInfo();
+                $this->lastErrNo = $this->db->errorCode();
 
                 return false;
             }
@@ -639,16 +637,16 @@ class Tables
     {
         if (isset($this->tables[$table])) {
             $tableDef = &$this->tables[$table];
-            $colsql = '';
-            $valsql = '';
+            $colSql = '';
+            $valSql = '';
             foreach ($tableDef['columns'] as $col) {
-                $comma=empty($colsql)?'':', ';
+                $comma=empty($colSql)?'':', ';
                 if (isset($columns[$col['name']])) {
-                    $colsql .= $comma.$col['name'];
-                    $valsql .= $comma.$this->db->quote($columns[$col['name']]);
+                    $colSql .= $comma.$col['name'];
+                    $valSql .= $comma.$this->db->quote($columns[$col['name']]);
                 }
             }
-            $sql = "INSERT INTO `{$tableDef['name']}` ({$colsql}) VALUES({$valsql})";
+            $sql = "INSERT INTO `{$tableDef['name']}` ({$colSql}) VALUES({$valSql})";
             $this->queue[]=$sql;
 
             return true;
@@ -679,15 +677,15 @@ class Tables
             } elseif (is_object($criteria)) {
                 $where = $criteria->renderWhere();
             }
-            $colsql = '';
+            $colSql = '';
             foreach ($tableDef['columns'] as $col) {
-                $comma=empty($colsql)?'':', ';
+                $comma=empty($colSql)?'':', ';
                 if (isset($columns[$col['name']])) {
-                    $colsql .= $comma . $col['name'] . ' = '
+                    $colSql .= $comma . $col['name'] . ' = '
                         . $this->db->quote($columns[$col['name']]);
                 }
             }
-            $sql = "UPDATE `{$tableDef['name']}` SET {$colsql} {$where}";
+            $sql = "UPDATE `{$tableDef['name']}` SET {$colSql} {$where}";
             $this->queue[]=$sql;
 
             return true;
@@ -735,23 +733,23 @@ class Tables
     {
         if (isset($this->tables[$table])) {
             $tableDef = &$this->tables[$table];
-            $tablename=($prefixed?$tableDef['name']:$table);
-            $sql = "CREATE TABLE `{$tablename}` (\n";
+            $tableName=($prefixed?$tableDef['name']:$table);
+            $sql = "CREATE TABLE `{$tableName}` (\n";
             foreach ($tableDef['columns'] as $col) {
                 $sql .= "    {$col['name']}  {$col['attributes']},\n";
             }
-            $keysql='';
-            foreach ($tableDef['keys'] as $keyname => $key) {
-                $comma = empty($keysql)?'  ':', ';
-                if ($keyname=='PRIMARY') {
-                    $keysql .= "  {$comma}PRIMARY KEY ({$key['columns']})\n";
+            $keySql='';
+            foreach ($tableDef['keys'] as $keyName => $key) {
+                $comma = empty($keySql)?'  ':', ';
+                if ($keyName=='PRIMARY') {
+                    $keySql .= "  {$comma}PRIMARY KEY ({$key['columns']})\n";
                 } else {
                     $unique=$key['unique']?'UNIQUE ':'';
-                    $keysql .= "  {$comma}{$unique}KEY {$keyname} "
+                    $keySql .= "  {$comma}{$unique}KEY {$keyName} "
                         . " ({$key['columns']})\n";
                 }
             }
-            $sql .= $keysql;
+            $sql .= $keySql;
             $sql .= ") {$tableDef['options']};\n";
 
             return $sql;
@@ -761,48 +759,41 @@ class Tables
 
             return null;
         }
-
     }
 
     /**
      * execute an SQL statement
      *
      * @param string $sql   SQL statement to execute
-     * @param bool   $force true to use queryF
+     * @param bool   $force true to use force updates even in safe requests
      *
-     * @return mixed result resouce if no error,
-     *               true if no error but no result
-     *               false if error encountered.
-     *               Any error message is in $this->lastError;
+     * @return mixed result Statement or false if error
      */
-    private function & execSql($sql, $force = false)
+    private function execSql($sql, $force = false)
     {
         if ($force) {
-            $result = $this->db->queryF($sql);
-        } else {
-            $result = $this->db->query($sql);
+            $this->db->setForce(true);
         }
+        $result = $this->db->query($sql);
 
         if (!$result) {
-            $this->lastError = $this->db->error();
-            $this->lastErrNo = $this->db->errno();
+            $this->lastError = $this->db->errorInfo();
+            $this->lastErrNo = $this->db->errorCode();
         }
 
         return $result;
-
     }
 
     /**
      * fetch the next row of a result set
      *
-     * @param resource &$result as returned by query
+     * @param Statement $result as returned by query
      *
-     * @return bool true if no errors and table is loaded, false if
-     *               error presented. Error message in $this->lastError;
+     * @return mixed false on error
      */
-    private function fetch(&$result)
+    private function fetch(Statement $result)
     {
-        return $this->db->fetchArray($result);
+        return $result->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -815,7 +806,6 @@ class Tables
      */
     private function getTable($table)
     {
-
         $tableDef = array();
 
         $sql  = 'SELECT TABLE_NAME, ENGINE, CHARACTER_SET_NAME ';
@@ -847,7 +837,7 @@ class Tables
 
         while ($column=$this->fetch($result)) {
             $attributes = ' ' . $column['COLUMN_TYPE'] . ' '
-                . (($column['IS_NULLABLE'] == 'NO') ? ' NOT NULL ' : '' )
+                . (($column['IS_NULLABLE'] == 'NO') ? ' NOT NULL ' : '')
                 . (($column['COLUMN_DEFAULT'] === null) ? '' :
                         " DEFAULT '". $column['COLUMN_DEFAULT'] . "' ")
                 . $column['EXTRA'];
@@ -870,36 +860,35 @@ class Tables
 
         $result = $this->execSql($sql);
 
-        $lastkey = '';
-        $keycols='';
-        $keyunique = false;
+        $lastKey = '';
+        $keyCols='';
+        $keyUnique = false;
         while ($key=$this->fetch($result)) {
-            if ($lastkey != $key['INDEX_NAME']) {
-                if (!empty($lastkey)) {
-                    $tableDef['keys'][$lastkey]['columns'] = $keycols;
-                    $tableDef['keys'][$lastkey]['unique'] = $keyunique;
+            if ($lastKey != $key['INDEX_NAME']) {
+                if (!empty($lastKey)) {
+                    $tableDef['keys'][$lastKey]['columns'] = $keyCols;
+                    $tableDef['keys'][$lastKey]['unique'] = $keyUnique;
                 }
-                $lastkey = $key['INDEX_NAME'];
-                $keycols = $key['COLUMN_NAME'];
+                $lastKey = $key['INDEX_NAME'];
+                $keyCols = $key['COLUMN_NAME'];
                 if (!empty($key['SUB_PART'])) {
-                    $keycols .= ' (' . $key['SUB_PART'] . ')';
+                    $keyCols .= ' (' . $key['SUB_PART'] . ')';
                 }
-                $keyunique = !$key['NON_UNIQUE'];
+                $keyUnique = !$key['NON_UNIQUE'];
             } else {
-                $keycols .= ', ' . $key['COLUMN_NAME'];
+                $keyCols .= ', ' . $key['COLUMN_NAME'];
                 if (!empty($key['SUB_PART'])) {
-                    $keycols .= ' ('.$key['SUB_PART'].')';
+                    $keyCols .= ' ('.$key['SUB_PART'].')';
                 }
             }
             //$tableDef['keys'][$key['INDEX_NAME']][$key['SEQ_IN_INDEX']] = $key;
         };
-        if (!empty($lastkey)) {
-            $tableDef['keys'][$lastkey]['columns'] = $keycols;
-            $tableDef['keys'][$lastkey]['unique'] = $keyunique;
+        if (!empty($lastKey)) {
+            $tableDef['keys'][$lastKey]['columns'] = $keyCols;
+            $tableDef['keys'][$lastKey]['unique'] = $keyUnique;
         }
 
         return $tableDef;
-
     }
 
     /**

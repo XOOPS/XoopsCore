@@ -66,7 +66,6 @@ class KernelTest extends \PHPUnit_Framework_TestCase
             ['module'         , '\Xoops\Core\Kernel\Handlers\XoopsModuleHandler'],
             ['online'         , '\Xoops\Core\Kernel\Handlers\XoopsOnlineHandler'],
             ['privmessage'    , '\Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler'],
-            ['ranks'          , '\Xoops\Core\Kernel\Handlers\XoopsRanksHandler'],
             ['tplfile'        , '\Xoops\Core\Kernel\Handlers\XoopsTplFileHandler'],
             ['tplset'         , '\Xoops\Core\Kernel\Handlers\XoopsTplSetHandler'],
             ['user'           , '\Xoops\Core\Kernel\Handlers\XoopsUserHandler'],

@@ -170,7 +170,7 @@ if ($xoops->isActiveModule('userrank')) {
     if (isset($userrank['image']) && $userrank['image']) {
         $xoops->tpl()->assign(
             'user_rankimage',
-            '<img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $userrank['image'] . '" alt="" />'
+            '<img src="' . $userrank['image'] . '" alt="' . $userrank['title']. '" />'
         );
     }
     $xoops->tpl()->assign('user_ranktitle', $userrank['title']);

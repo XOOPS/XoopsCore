@@ -43,7 +43,7 @@ $modversion['release_date']        = '2011/12/20';
 $modversion['module_website_url']  = 'http://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA';
-$modversion['min_php']             = '5.3.7';
+$modversion['min_php']             = '5.4';
 $modversion['min_xoops']           = '2.6.0';
 $modversion['onInstall']           = 'include/install.php';
 
@@ -75,11 +75,11 @@ $modversion['adminmenu']  = 'admin/menu.php';
 
 // Mysql file
 $modversion['schema']           = 'sql/schema.yml';
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+//$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
 $modversion['tables'] = array(
-    'ranks',
+    'userrank_rank',
 );
 
 /*

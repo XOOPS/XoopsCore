@@ -10,7 +10,6 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Xoops\Core\Kernel\Handlers\XoopsRanksHandler;
 
 /**
  * Find XOOPS users
@@ -49,7 +48,6 @@ $name_form = 'memberslist';
 $name_userid = 'uid' . (!empty($_REQUEST['multiple']) ? '[]' : '');
 $name_username = 'uname' . (!empty($_REQUEST['multiple']) ? '[]' : '');
 
-$rank_handler = new XoopsRanksHandler($xoops->db());
 $user_handler = new XoopsUserHandler($xoops->db());
 
 $items_match = array(
@@ -132,7 +130,7 @@ if (empty($_POST["user_submit"])) {
         $group_select = new Xoops\Form\Select(XoopsLocale::GROUP, 'groups', @$_POST['groups'], 3, true);
         $group_select->addOptionArray($groups);
 
-        $ranks = $rank_handler->getList();
+        $ranks = $xoops->service('userrank')->getAssignableUserRankList()->getValue();
         $ranks[0] = XoopsLocale::ALL;
         $rank_select = new Xoops\Form\Select(XoopsLocale::RANK, 'rank', (int)(@$_POST['rank']));
         $rank_select->addOptionArray($ranks);
@@ -288,19 +286,9 @@ if (empty($_POST["user_submit"])) {
             $criteria->add(new Criteria("level", $level));
         }
         if (!empty($_POST['rank'])) {
-            $rank_obj = $rank_handler->get($_POST['rank']);
-            if ($rank_obj->getVar("rank_special")) {
-                $criteria->add(new Criteria("rank", (int)($_POST['rank'])));
-            } else {
-                if ($rank_obj->getVar("rank_min")) {
-                    $criteria->add(new Criteria('posts', $rank_obj->getVar("rank_min"), '>='));
-                }
-                if ($rank_obj->getVar("rank_max")) {
-                    $criteria->add(new Criteria('posts', $rank_obj->getVar("rank_max"), '<='));
-                }
-            }
+            $criteria->add(new Criteria("rank", (int)($_POST['rank'])));
         }
-        // @todo this used to accept a second criteris, an array of groups. (@$_POST["groups"])
+        // @todo this used to accept a second criteria, an array of groups. (@$_POST["groups"])
         // perhaps use XoopsMemberHandler getUsersByGroupLink()?
         $total = $user_handler->getCount($criteria);
         $validsort = array(
@@ -319,7 +307,7 @@ if (empty($_POST["user_submit"])) {
         $criteria->setOrder($order);
         $criteria->setLimit($limit);
         $criteria->setStart($start);
-        // @todo this used to accept a second criteris, an array of groups. (@$_POST["groups"])
+        // @todo this used to accept a second criteria, an array of groups. (@$_POST["groups"])
         // perhaps use XoopsMemberHandler getUsersByGroupLink()?
         $foundusers = $user_handler->getAll($criteria);
     }

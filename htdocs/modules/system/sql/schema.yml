@@ -1,5 +1,305 @@
 tables:
-    block_module_link:
+    system_block:
+        options: {  }
+        columns:
+            bid:
+                name: bid
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            mid:
+                name: mid
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            func_num:
+                name: func_num
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            options:
+                name: options
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            name:
+                name: name
+                type: string
+                default: ''
+                notnull: true
+                length: 150
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            title:
+                name: title
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            content:
+                name: content
+                type: text
+                default: null
+                notnull: false
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            side:
+                name: side
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            weight:
+                name: weight
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            visible:
+                name: visible
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            block_type:
+                name: block_type
+                type: string
+                default: ''
+                notnull: true
+                length: 1
+                precision: 10
+                scale: 0
+                fixed: true
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            c_type:
+                name: c_type
+                type: string
+                default: ''
+                notnull: true
+                length: 1
+                precision: 10
+                scale: 0
+                fixed: true
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            isactive:
+                name: isactive
+                type: boolean
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            dirname:
+                name: dirname
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            func_file:
+                name: func_file
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            show_func:
+                name: show_func
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            edit_func:
+                name: edit_func
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            template:
+                name: template
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+            bcachetime:
+                name: bcachetime
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            last_modified:
+                name: last_modified
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [bid]
+                unique: true
+                primary: true
+            newblocks_mid:
+                name: newblocks_mid
+                columns: [mid]
+                unique: false
+                primary: false
+            newblocks_visible:
+                name: newblocks_visible
+                columns: [visible]
+                unique: false
+                primary: false
+            newblocks_isactive_visible_mid:
+                name: newblocks_isactive_visible_mid
+                columns: [isactive, visible, mid]
+                unique: false
+                primary: false
+            newblocks_mid_funcnum:
+                name: newblocks_mid_funcnum
+                columns: [mid, func_num]
+                unique: false
+                primary: false
+    system_blockmodule:
         options: {  }
         columns:
             module_id:
@@ -14,7 +314,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             block_id:
                 name: block_id
                 type: integer
@@ -27,14 +327,14 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
                 columns: [module_id, block_id]
                 unique: true
                 primary: true
-    config:
+    system_config:
         options: {  }
         columns:
             conf_id:
@@ -49,7 +349,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             conf_modid:
                 name: conf_modid
                 type: smallint
@@ -62,7 +362,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             conf_catid:
                 name: conf_catid
                 type: smallint
@@ -75,7 +375,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             conf_name:
                 name: conf_name
                 type: string
@@ -88,7 +388,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_title:
                 name: conf_title
                 type: string
@@ -101,7 +402,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_value:
                 name: conf_value
                 type: text
@@ -114,7 +416,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_desc:
                 name: conf_desc
                 type: string
@@ -127,7 +430,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_formtype:
                 name: conf_formtype
                 type: string
@@ -140,7 +444,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_valuetype:
                 name: conf_valuetype
                 type: string
@@ -153,7 +458,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_order:
                 name: conf_order
                 type: smallint
@@ -166,7 +472,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -183,7 +489,7 @@ tables:
                 columns: [conf_order]
                 unique: false
                 primary: false
-    configoption:
+    system_configoption:
         options: {  }
         columns:
             confop_id:
@@ -198,7 +504,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             confop_name:
                 name: confop_name
                 type: string
@@ -211,7 +517,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             confop_value:
                 name: confop_value
                 type: string
@@ -224,7 +531,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             conf_id:
                 name: conf_id
                 type: smallint
@@ -237,7 +545,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -249,96 +557,7 @@ tables:
                 columns: [conf_id]
                 unique: false
                 primary: false
-    group_permission:
-        options: {  }
-        columns:
-            gperm_id:
-                name: gperm_id
-                type: integer
-                default: null
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: ''
-            gperm_groupid:
-                name: gperm_groupid
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            gperm_itemid:
-                name: gperm_itemid
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            gperm_modid:
-                name: gperm_modid
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            gperm_name:
-                name: gperm_name
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [gperm_id]
-                unique: true
-                primary: true
-            gperm_groupid:
-                name: gperm_groupid
-                columns: [gperm_groupid]
-                unique: false
-                primary: false
-            gperm_itemid:
-                name: gperm_itemid
-                columns: [gperm_itemid]
-                unique: false
-                primary: false
-            gperm_modid:
-                name: gperm_modid
-                columns: [gperm_modid, gperm_name]
-                unique: false
-                primary: false
-    groups:
+    system_group:
         options: {  }
         columns:
             groupid:
@@ -353,7 +572,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             name:
                 name: name
                 type: string
@@ -366,7 +585,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             description:
                 name: description
                 type: text
@@ -379,7 +599,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             group_type:
                 name: group_type
                 type: string
@@ -392,7 +613,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -404,214 +626,7 @@ tables:
                 columns: [group_type]
                 unique: false
                 primary: false
-    groups_users_link:
-        options: {  }
-        columns:
-            linkid:
-                name: linkid
-                type: integer
-                default: null
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: ''
-            groupid:
-                name: groupid
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            uid:
-                name: uid
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [linkid]
-                unique: true
-                primary: true
-            groups_user_id_uid:
-                name: groups_user_id_uid
-                columns: [groupid, uid]
-                unique: false
-                primary: false
-    imgset:
-        options: {  }
-        columns:
-            imgset_id:
-                name: imgset_id
-                type: integer
-                default: null
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: ''
-            imgset_name:
-                name: imgset_name
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            imgset_refid:
-                name: imgset_refid
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [imgset_id]
-                unique: true
-                primary: true
-            imgset_refid:
-                name: imgset_refid
-                columns: [imgset_refid]
-                unique: false
-                primary: false
-    imgset_tplset_link:
-        options: {  }
-        columns:
-            imgset_id:
-                name: imgset_id
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            tplset_name:
-                name: tplset_name
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            imgset_tplset_name:
-                name: imgset_tplset_name
-                columns: [tplset_name]
-                unique: false
-                primary: false
-    imgsetimg:
-        options: {  }
-        columns:
-            imgsetimg_id:
-                name: imgsetimg_id
-                type: integer
-                default: null
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: ''
-            imgsetimg_file:
-                name: imgsetimg_file
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            imgsetimg_body:
-                name: imgsetimg_body
-                type: blob
-                default: null
-                notnull: false
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            imgsetimg_imgset:
-                name: imgsetimg_imgset
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [imgsetimg_id]
-                unique: true
-                primary: true
-            imgsetimg_imgset:
-                name: imgsetimg_imgset
-                columns: [imgsetimg_imgset]
-                unique: false
-                primary: false
-    modules:
+    system_module:
         options: {  }
         columns:
             mid:
@@ -626,7 +641,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             name:
                 name: name
                 type: string
@@ -639,7 +654,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             version:
                 name: version
                 type: smallint
@@ -652,7 +668,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             last_update:
                 name: last_update
                 type: integer
@@ -665,7 +681,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             weight:
                 name: weight
                 type: smallint
@@ -678,7 +694,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             isactive:
                 name: isactive
                 type: boolean
@@ -691,7 +707,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             dirname:
                 name: dirname
                 type: string
@@ -704,7 +720,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             hasmain:
                 name: hasmain
                 type: boolean
@@ -717,7 +734,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             hasadmin:
                 name: hasadmin
                 type: boolean
@@ -730,7 +747,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             hassearch:
                 name: hassearch
                 type: boolean
@@ -743,7 +760,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             hasconfig:
                 name: hasconfig
                 type: boolean
@@ -756,7 +773,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             hascomments:
                 name: hascomments
                 type: boolean
@@ -769,7 +786,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             hasnotification:
                 name: hasnotification
                 type: boolean
@@ -782,7 +799,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -834,296 +851,7 @@ tables:
                 columns: [hascomments]
                 unique: false
                 primary: false
-    newblocks:
-        options: {  }
-        columns:
-            bid:
-                name: bid
-                type: integer
-                default: null
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: ''
-            mid:
-                name: mid
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            func_num:
-                name: func_num
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            options:
-                name: options
-                type: string
-                default: ''
-                notnull: true
-                length: 255
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            name:
-                name: name
-                type: string
-                default: ''
-                notnull: true
-                length: 150
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            title:
-                name: title
-                type: string
-                default: ''
-                notnull: true
-                length: 255
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            content:
-                name: content
-                type: text
-                default: null
-                notnull: false
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            side:
-                name: side
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            weight:
-                name: weight
-                type: smallint
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            visible:
-                name: visible
-                type: boolean
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            block_type:
-                name: block_type
-                type: string
-                default: ''
-                notnull: true
-                length: 1
-                precision: 10
-                scale: 0
-                fixed: true
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            c_type:
-                name: c_type
-                type: string
-                default: ''
-                notnull: true
-                length: 1
-                precision: 10
-                scale: 0
-                fixed: true
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            isactive:
-                name: isactive
-                type: boolean
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            dirname:
-                name: dirname
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            func_file:
-                name: func_file
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            show_func:
-                name: show_func
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            edit_func:
-                name: edit_func
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            template:
-                name: template
-                type: string
-                default: ''
-                notnull: true
-                length: 50
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            bcachetime:
-                name: bcachetime
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-            last_modified:
-                name: last_modified
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: ''
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [bid]
-                unique: true
-                primary: true
-            newblocks_mid:
-                name: newblocks_mid
-                columns: [mid]
-                unique: false
-                primary: false
-            newblocks_visible:
-                name: newblocks_visible
-                columns: [visible]
-                unique: false
-                primary: false
-            newblocks_isactive_visible_mid:
-                name: newblocks_isactive_visible_mid
-                columns: [isactive, visible, mid]
-                unique: false
-                primary: false
-            newblocks_mid_funcnum:
-                name: newblocks_mid_funcnum
-                columns: [mid, func_num]
-                unique: false
-                primary: false
-    online:
+    system_online:
         options: {  }
         columns:
             online_uid:
@@ -1138,7 +866,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             online_uname:
                 name: online_uname
                 type: string
@@ -1151,7 +879,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             online_updated:
                 name: online_updated
                 type: integer
@@ -1164,7 +893,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             online_module:
                 name: online_module
                 type: smallint
@@ -1177,7 +906,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             online_ip:
                 name: online_ip
                 type: string
@@ -1190,7 +919,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
         indexes:
             online_module:
                 name: online_module
@@ -1207,7 +937,97 @@ tables:
                 columns: [online_uid]
                 unique: false
                 primary: false
-    priv_msgs:
+    system_permission:
+        options: {  }
+        columns:
+            gperm_id:
+                name: gperm_id
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            gperm_groupid:
+                name: gperm_groupid
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            gperm_itemid:
+                name: gperm_itemid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            gperm_modid:
+                name: gperm_modid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            gperm_name:
+                name: gperm_name
+                type: string
+                default: ''
+                notnull: true
+                length: 50
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8_unicode_ci
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [gperm_id]
+                unique: true
+                primary: true
+            gperm_groupid:
+                name: gperm_groupid
+                columns: [gperm_groupid]
+                unique: false
+                primary: false
+            gperm_itemid:
+                name: gperm_itemid
+                columns: [gperm_itemid]
+                unique: false
+                primary: false
+            gperm_modid:
+                name: gperm_modid
+                columns: [gperm_modid, gperm_name]
+                unique: false
+                primary: false
+    system_privatemessage:
         options: {  }
         columns:
             msg_id:
@@ -1222,7 +1042,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             msg_image:
                 name: msg_image
                 type: string
@@ -1235,7 +1055,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             subject:
                 name: subject
                 type: string
@@ -1248,7 +1069,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             from_userid:
                 name: from_userid
                 type: integer
@@ -1261,7 +1083,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             to_userid:
                 name: to_userid
                 type: integer
@@ -1274,7 +1096,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             msg_time:
                 name: msg_time
                 type: integer
@@ -1287,7 +1109,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             msg_text:
                 name: msg_text
                 type: text
@@ -1300,7 +1122,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             read_msg:
                 name: read_msg
                 type: boolean
@@ -1313,7 +1136,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             from_delete:
                 name: from_delete
                 type: boolean
@@ -1326,7 +1149,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             from_save:
                 name: from_save
                 type: boolean
@@ -1339,7 +1162,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             to_delete:
                 name: to_delete
                 type: boolean
@@ -1352,7 +1175,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             to_save:
                 name: to_save
                 type: boolean
@@ -1365,7 +1188,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -1407,7 +1230,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             expires_at:
                 name: expires_at
                 type: integer
@@ -1420,7 +1244,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             session_data:
                 name: session_data
                 type: text
@@ -1433,7 +1257,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -1445,7 +1270,7 @@ tables:
                 columns: [expires_at]
                 unique: false
                 primary: false
-    tplfile:
+    system_tplfile:
         options: {  }
         columns:
             tpl_id:
@@ -1460,7 +1285,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             tpl_refid:
                 name: tpl_refid
                 type: smallint
@@ -1473,7 +1298,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             tpl_module:
                 name: tpl_module
                 type: string
@@ -1486,7 +1311,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tpl_tplset:
                 name: tpl_tplset
                 type: string
@@ -1499,7 +1325,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tpl_file:
                 name: tpl_file
                 type: string
@@ -1512,7 +1339,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tpl_desc:
                 name: tpl_desc
                 type: string
@@ -1525,7 +1353,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tpl_lastmodified:
                 name: tpl_lastmodified
                 type: integer
@@ -1538,7 +1367,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             tpl_lastimported:
                 name: tpl_lastimported
                 type: integer
@@ -1551,7 +1380,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             tpl_type:
                 name: tpl_type
                 type: string
@@ -1564,7 +1393,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -1581,7 +1411,7 @@ tables:
                 columns: [tpl_tplset, tpl_file]
                 unique: false
                 primary: false
-    tplset:
+    system_tplset:
         options: {  }
         columns:
             tplset_id:
@@ -1596,7 +1426,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             tplset_name:
                 name: tplset_name
                 type: string
@@ -1609,7 +1439,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tplset_desc:
                 name: tplset_desc
                 type: string
@@ -1622,7 +1453,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tplset_credits:
                 name: tplset_credits
                 type: text
@@ -1635,7 +1467,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             tplset_created:
                 name: tplset_created
                 type: integer
@@ -1648,14 +1481,14 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
                 columns: [tplset_id]
                 unique: true
                 primary: true
-    tplsource:
+    system_tplsource:
         options: {  }
         columns:
             tpl_id:
@@ -1670,7 +1503,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             tpl_source:
                 name: tpl_source
                 type: text
@@ -1683,14 +1516,15 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
         indexes:
             tplsource_tpl_id:
                 name: tplsource_tpl_id
                 columns: [tpl_id]
                 unique: false
                 primary: false
-    users:
+    system_user:
         options: {  }
         columns:
             uid:
@@ -1705,7 +1539,7 @@ tables:
                 unsigned: true
                 autoincrement: true
                 columnDefinition: null
-                comment: ''
+                comment: null
             name:
                 name: name
                 type: string
@@ -1718,7 +1552,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             uname:
                 name: uname
                 type: string
@@ -1731,7 +1566,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             email:
                 name: email
                 type: string
@@ -1744,7 +1580,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             url:
                 name: url
                 type: string
@@ -1757,7 +1594,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_avatar:
                 name: user_avatar
                 type: string
@@ -1770,7 +1608,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_regdate:
                 name: user_regdate
                 type: integer
@@ -1783,7 +1622,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             user_icq:
                 name: user_icq
                 type: string
@@ -1796,7 +1635,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_from:
                 name: user_from
                 type: string
@@ -1809,7 +1649,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_sig:
                 name: user_sig
                 type: text
@@ -1822,7 +1663,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_viewemail:
                 name: user_viewemail
                 type: boolean
@@ -1835,7 +1677,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             actkey:
                 name: actkey
                 type: string
@@ -1848,7 +1690,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_aim:
                 name: user_aim
                 type: string
@@ -1861,7 +1704,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_yim:
                 name: user_yim
                 type: string
@@ -1874,7 +1718,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_msnm:
                 name: user_msnm
                 type: string
@@ -1887,7 +1732,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             pass:
                 name: pass
                 type: string
@@ -1900,7 +1746,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             posts:
                 name: posts
                 type: integer
@@ -1913,7 +1760,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             attachsig:
                 name: attachsig
                 type: boolean
@@ -1926,7 +1773,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             rank:
                 name: rank
                 type: smallint
@@ -1939,7 +1786,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             level:
                 name: level
                 type: smallint
@@ -1952,7 +1799,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             theme:
                 name: theme
                 type: string
@@ -1965,7 +1812,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             timezone_offset:
                 name: timezone_offset
                 type: float
@@ -1978,7 +1826,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             last_login:
                 name: last_login
                 type: integer
@@ -1991,7 +1839,7 @@ tables:
                 unsigned: true
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             umode:
                 name: umode
                 type: string
@@ -2004,7 +1852,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             uorder:
                 name: uorder
                 type: smallint
@@ -2017,7 +1866,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             notify_method:
                 name: notify_method
                 type: smallint
@@ -2030,7 +1879,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             notify_mode:
                 name: notify_mode
                 type: smallint
@@ -2043,7 +1892,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
             user_occ:
                 name: user_occ
                 type: string
@@ -2056,7 +1905,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             bio:
                 name: bio
                 type: text
@@ -2069,7 +1919,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_intrest:
                 name: user_intrest
                 type: string
@@ -2082,7 +1933,8 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
+                collation: utf8_unicode_ci
             user_mailok:
                 name: user_mailok
                 type: boolean
@@ -2095,7 +1947,7 @@ tables:
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
-                comment: ''
+                comment: null
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -2125,5 +1977,58 @@ tables:
             users_level:
                 name: users_level
                 columns: [level]
+                unique: false
+                primary: false
+    system_usergroup:
+        options: {  }
+        columns:
+            linkid:
+                name: linkid
+                type: integer
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: null
+            groupid:
+                name: groupid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+            uid:
+                name: uid
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [linkid]
+                unique: true
+                primary: true
+            groups_user_id_uid:
+                name: groups_user_id_uid
+                columns: [groupid, uid]
                 unique: false
                 primary: false
