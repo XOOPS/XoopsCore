@@ -12,10 +12,9 @@
  * xoModuleIcons32 Smarty compiler plug-in
  *
  * @copyright      XOOPS Project (http://xoops.org)
- * @license        http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @license        GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author         Andricq Nicolas (AKA MusS)
  * @since          2.5.2
- * @version        $Id$
  */
 
 function smarty_compiler_xoModuleIcons32($argStr, &$smarty)

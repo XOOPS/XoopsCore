@@ -13,7 +13,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 /**
  * @copyright   XOOPS Project (http://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package     installer
  * @author      Andricq Nicolas (AKA MusS)
  * @version     $Id$

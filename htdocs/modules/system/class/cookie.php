@@ -11,11 +11,8 @@
  *
  * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @copyright   XOOPS Project (http://xoops.org)
- * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      Andricq Nicolas (AKA MusS)
  * @package     system
- * @version     $Id$
  */
 
 class Cookie

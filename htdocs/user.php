@@ -14,11 +14,11 @@ use Xoops\Core\FixedGroups;
 /**
  * XOOPS User
  *
- * See the enclosed file license.txt for licensing information.
- * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
+ * See the enclosed file license.txt for licensing information. If you did not
+ * receive this file, get it at GNU http://www.gnu.org/licenses/gpl-2.0.html
  *
  * @copyright       XOOPS Project (http://xoops.org)
- * @license         http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         core
  * @since           2.0.0
  * @author          Kazumi Ono <webmaster@myweb.ne.jp>

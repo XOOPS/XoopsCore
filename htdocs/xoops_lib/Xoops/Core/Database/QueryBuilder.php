@@ -22,8 +22,8 @@ use Xoops\Core\Database\Connection;
  * @package   QueryBuilder
  * @author    readheadedrod <redheadedrod@hotmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2014 XOOPS Project (http://xoops.org)
- * @license   http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 2.6.0
  * @link      http://xoops.org
  * @since     2.6.0

@@ -2,8 +2,8 @@
 /**
  * xoAppUrl Smarty compiler plug-in
  *
- * See the enclosed file LICENSE for licensing information.
- * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
+ * See the enclosed file LICENSE for licensing information. If you did not
+ * receive this file, get it at http://www.gnu.org/licenses/gpl-2.0.html
  *
  * @copyright   XOOPS Project (http://xoops.org)
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -11,7 +11,6 @@
  * @package     xos_opal
  * @subpackage  xos_opal_Smarty
  * @since       2.0.14
- * @version     $Id$
  */
 
 /**
