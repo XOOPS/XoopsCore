@@ -16,6 +16,8 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Handler\Factory;
+
 /**
  * @deprecated
  * @param string $name
@@ -26,8 +28,8 @@ function xoops_getHandler($name, $optional = false)
 {
     $xoops = Xoops::getInstance();
     $xoops->deprecated('xoops_getHandler(\'' . $name . '\') is deprecated. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
-    $method = 'getHandler' . ucfirst(strtolower(trim($name)));
-    return $xoops->$method($optional);
+    $handler = Factory::newSpec()->scheme('kernel')->name($name)->optional((bool) $optional)->build();
+    return $handler;
 }
 
 /**
@@ -594,12 +596,12 @@ if (!defined('ENT_SUBSTITUTE')) {
  * the ENT_SUBSTITUTE flag if it is available. This gives the optimal features
  * for 5.3 and in >5.4
  *
- * @param string $string              string to be encoded
- * @param integer  $dummy_flags         ignored - for call compatibility only
- * @param mixed  $dummy_encoding      ignored - for call compatibility only
- * @param mixed  $dummy_double_encode ignored - for call compatibility only
+ * @param string  $string              string to be encoded
+ * @param integer $dummy_flags         ignored - for call compatibility only
+ * @param mixed   $dummy_encoding      ignored - for call compatibility only
+ * @param mixed   $dummy_double_encode ignored - for call compatibility only
  *
- * @return string with any charachters with special significance in HTML converted to entities
+ * @return string with any characters with special significance in HTML converted to entities
  */
 function xhtmlspecialchars($string, $dummy_flags = 0, $dummy_encoding = '', $dummy_double_encode = true)
 {

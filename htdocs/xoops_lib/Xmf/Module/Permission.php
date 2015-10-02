@@ -14,6 +14,8 @@ namespace Xmf\Module;
 use Xmf\Loader;
 use Xmf\Module\Helper;
 use Xmf\Module\Helper\AbstractHelper;
+use Xoops\Core\Handler\Factory;
+use Xoops\Form\SelectGroup;
 
 /**
  * Methods to help manage permissions within a module
@@ -22,7 +24,7 @@ use Xmf\Module\Helper\AbstractHelper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -41,19 +43,9 @@ class Permission extends AbstractHelper
     private $dirname;
 
     /**
-     * @var XoopsDatabase
+     * @var \Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler
      */
-    private $db;
-
-    /**
-     * @var XoopsGrouppermHandler
-     */
-    private $perm;
-
-    /**
-     * @var Xoops instance if available
-     */
-    private $xoops = null;
+    private $permissionHandler;
 
     /**
      * Initialize parent::__constuct calls this after verifying module object.
@@ -67,11 +59,7 @@ class Permission extends AbstractHelper
         }
         $this->mid = $this->module->getVar('mid');
         $this->dirname = $this->module->getVar('dirname');
-        $this->db = \XoopsDatabaseFactory::getConnection();
-        $this->perm = new \XoopsGroupPermHandler($this->db);
-        if (class_exists('Xoops', false)) {
-            $this->xoops = \Xoops::getInstance();
-        }
+        $this->permissionHandler = Factory::newSpec()->scheme('kernel')->name('groupperm')->build();
     }
 
     /**
@@ -84,9 +72,9 @@ class Permission extends AbstractHelper
      **/
     public function checkPermission($gperm_name, $gperm_itemid)
     {
-        $gperm_groupid = $this->xoops->getUserGroups();
+        $gperm_groupid = \Xoops::getInstance()->getUserGroups();
 
-        return $this->perm->checkRight(
+        return $this->permissionHandler->checkRight(
             $gperm_name,
             $gperm_itemid,
             $gperm_groupid,
@@ -112,8 +100,8 @@ class Permission extends AbstractHelper
         $time = 3,
         $message = ''
     ) {
-        $gperm_groupid = $this->xoops->getUserGroups();
-        $permission = $this->perm->checkRight(
+        $gperm_groupid = \Xoops::getInstance()->getUserGroups();
+        $permission = $this->permissionHandler->checkRight(
             $gperm_name,
             $gperm_itemid,
             $gperm_groupid,
@@ -135,7 +123,7 @@ class Permission extends AbstractHelper
      **/
     public function getGroupsForItem($gperm_name, $gperm_itemid)
     {
-        return $this->perm->getGroupIds($gperm_name, $gperm_itemid, $this->mid);
+        return $this->permissionHandler->getGroupIds($gperm_name, $gperm_itemid, $this->mid);
     }
 
     /**
@@ -157,7 +145,7 @@ class Permission extends AbstractHelper
         // Save the new permissions
         if (count($groups) > 0) {
             foreach ($groups as $group_id) {
-                $this->perm->addRight(
+                $this->permissionHandler->addRight(
                     $gperm_name,
                     $gperm_itemid,
                     $group_id,
@@ -179,7 +167,7 @@ class Permission extends AbstractHelper
      */
     public function deletePermissionForItem($gperm_name, $gperm_itemid)
     {
-        return $this->perm->deleteByModule($this->mid, $gperm_name, $gperm_itemid);
+        return $this->permissionHandler->deleteByModule($this->mid, $gperm_name, $gperm_itemid);
     }
 
     /**
@@ -191,11 +179,11 @@ class Permission extends AbstractHelper
      * @param int    $gperm_itemid id of the object to check
      * @param string $caption      caption for form field
      * @param string $name         name/id of form field
-     * @param bool   $include_anon true to include annonymous group
+     * @param bool   $include_anon true to include anonymous group
      * @param int    $size         size of list
      * @param bool   $multiple     true to allow multiple selections
      *
-     * @return \Xoops\Form\SelectGroup
+     * @return SelectGroup
      */
     public function getGroupSelectFormForItem(
         $gperm_name,
@@ -210,7 +198,7 @@ class Permission extends AbstractHelper
             $name = $this->defaultFieldName($gperm_name, $gperm_itemid);
         }
         $value = $this->getGroupsForItem($gperm_name, $gperm_itemid);
-        $element = new \Xoops\Form\SelectGroup(
+        $element = new SelectGroup(
             $caption,
             $name,
             $include_anon,
