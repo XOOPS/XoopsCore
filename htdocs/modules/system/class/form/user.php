@@ -75,7 +75,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
             $sig_value = $obj->getVar("user_sig", "E");
             $sig_cbox_value = ($obj->getVar("attachsig") == 1) ? 1 : 0;
             $bio_value = $obj->getVar("bio", "E");
-            $rank_value = $obj->rank(false);
+            $rank_value = $obj->getVar('rank');
             $mailok_value = $obj->getVar('user_mailok', 'E');
             $form_title = sprintf(SystemLocale::F_UPDATE_USER, $obj->getVar("uname"));
             $form_isedit = true;
@@ -112,9 +112,9 @@ class SystemUserForm extends Xoops\Form\ThemeForm
         $this->addElement($sig_tray);
         $this->addElement(new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, "bio", $bio_value, 5, 5));
 
-        if ($xoops->isActiveModule('userrank')) {
+        $ranklist = $xoops->service('userrank')->getAssignableUserRankList()->getValue();
+        if ($ranklist !== null) {
             $rank_select = new Xoops\Form\Select(XoopsLocale::RANK, "rank", $rank_value);
-            $ranklist = XoopsLists::getUserRankList();
             $rank_select->addOption(0, "--------------");
             if (count($ranklist) > 0) {
                 $rank_select->addOptionArray($ranklist);

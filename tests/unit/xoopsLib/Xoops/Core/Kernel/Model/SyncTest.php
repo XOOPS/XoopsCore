@@ -37,7 +37,7 @@ class SyncTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $handler->table_link=$this->conn->prefix('groups');
+        $handler->table_link=$this->conn->prefix('system_group');
         $handler->field_link='groupid';
         $handler->field_object='groupid';
 

@@ -39,7 +39,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'online', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsOnline', 'online_uid', 'online_uname');
+        parent::__construct($db, 'system_online', '\Xoops\Core\Kernel\Handlers\XoopsOnline', 'online_uid', 'online_uname');
     }
 
     /**
@@ -61,7 +61,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
             $criteria['online_ip'] = $ip;
         }
         $rows = $this->db2->updatePrefix(
-            'online',
+            'system_online',
             array(
                'online_uname'   => $uname,
                'online_updated' => $time,
@@ -74,7 +74,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
         }
         if ($rows == 0) {
             $rows = $this->db2->insertPrefix(
-                'online',
+                'system_online',
                 array(
                     'online_uid'     => $uid,
                     'online_uname'   => $uname,

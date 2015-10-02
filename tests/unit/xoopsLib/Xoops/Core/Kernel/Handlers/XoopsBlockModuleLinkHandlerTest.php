@@ -21,7 +21,7 @@ class BlockModuleLinkHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance=new $this->myclass($this->conn);
-        $this->assertRegExp('/^.*block_module_link$/', $instance->table);
+        $this->assertRegExp('/^.*system_blockmodule$/', $instance->table);
         $this->assertSame('\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink', $instance->className);
         $this->assertSame('block_id', $instance->keyName);
         $this->assertSame('module_id', $instance->identifierName);

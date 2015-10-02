@@ -40,6 +40,6 @@ class XoopsGroupHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'groups', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsGroup', 'groupid', 'name');
+        parent::__construct($db, 'system_group', '\Xoops\Core\Kernel\Handlers\XoopsGroup', 'groupid', 'name');
     }
 }

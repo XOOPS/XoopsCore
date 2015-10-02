@@ -86,11 +86,11 @@ EOT;
     $tablerows = Yaml::load($filedata);
 
     $dbm = $xoops->db();
-    $count = $dbm->fetchColumn('SELECT COUNT(*) FROM ' . $dbm->prefix("ranks"));
+    $count = $dbm->fetchColumn('SELECT COUNT(*) FROM ' . $dbm->prefix('userrank_rank'));
     if ($count<1) {
         $dbm->beginTransaction();
         foreach ($tablerows as $row) {
-            $dbm->insertPrefix('ranks', $row);
+            $dbm->insertPrefix('userrank_rank', $row);
         }
         $dbm->commit();
     }

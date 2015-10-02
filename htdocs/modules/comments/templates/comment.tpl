@@ -14,7 +14,7 @@
             <td class="odd">
                 <div class="comUserRank">
                     <div class="comUserRankText"><{$comment.poster.rank_title}></div>
-                    <img class="comUserRankImg" src="<{$xoops_upload_url}>/<{$comment.poster.rank_image}>" alt=""/>
+                    <img class="comUserRankImg" src="<{$comment.poster.rank_image}>" alt=""/>
                 </div>
                 <img class="comUserImg" src="<{$xoops_upload_url}>/<{$comment.poster.avatar}>" alt=""/>
                 <div class="comUserStat"><span class="comUserStatCaption"><{$comments_lang_joined}>:</span>

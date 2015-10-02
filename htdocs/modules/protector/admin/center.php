@@ -142,7 +142,7 @@ $form->render();
 // query for listing
 $rs = $db->query("SELECT count(lid) FROM $log_table");
 list($numrows) = $db->fetchRow($rs);
-$prs = $db->query("SELECT l.lid, l.uid, l.ip, l.agent, l.type, l.description, UNIX_TIMESTAMP(l.timestamp), u.uname FROM $log_table l LEFT JOIN " . $db->prefix("users") . " u ON l.uid=u.uid ORDER BY timestamp DESC LIMIT $pos,$num");
+$prs = $db->query("SELECT l.lid, l.uid, l.ip, l.agent, l.type, l.description, UNIX_TIMESTAMP(l.timestamp), u.uname FROM $log_table l LEFT JOIN " . $db->prefix("system_user") . " u ON l.uid=u.uid ORDER BY timestamp DESC LIMIT $pos,$num");
 // Number selection
 $num_options = '';
 $num_array = array(20, 100, 500, 2000);

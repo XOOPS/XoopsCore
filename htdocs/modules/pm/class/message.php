@@ -62,7 +62,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, "priv_msgs", 'PmMessage', 'msg_id', 'subject');
+        parent::__construct($db, 'system_privatemessage', 'PmMessage', 'msg_id', 'subject');
     }
 
     /**

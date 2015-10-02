@@ -56,7 +56,7 @@ switch ($op) {
 
         $qb = $xoops->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $sql = $qb->updatePrefix('users')
+        $sql = $qb->updatePrefix('system_user')
             ->set('posts', ':posts')
             ->where('uid = :uid')
             ->setParameter(':posts', $total_posts)

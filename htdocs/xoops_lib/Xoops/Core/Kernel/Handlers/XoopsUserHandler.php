@@ -41,7 +41,7 @@ class XoopsUserHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'users', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsUser', 'uid', 'uname');
+        parent::__construct($db, 'system_user', '\Xoops\Core\Kernel\Handlers\XoopsUser', 'uid', 'uname');
     }
 
 }

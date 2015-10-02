@@ -24,8 +24,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
     
     public function test___construct()
-	{
-		$value=$this->object->getVars();
+    {
+        $value=$this->object->getVars();
         $this->assertTrue(isset($value['uid']));
         $this->assertTrue(isset($value['name']));
         $this->assertTrue(isset($value['uname']));
@@ -60,13 +60,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
     
     public function test_isGuest()
-	{
+    {
         $value=$this->object->isGuest();
-        $this->assertSame(false,$value);
+        $this->assertSame(false, $value);
     }
 
     public function test_getUnameFromId()
-	{
+    {
         $value1=XoopsUser::getUnameFromId(0);
         $this->assertSame(\Xoops::getInstance()->getConfig('anonymous'), $value1);
         $value=XoopsUser::getUnameFromId(1);
@@ -75,217 +75,218 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     public function test_incrementPost()
-	{
+    {
         $value=$this->object->incrementPost();
-        $this->assertSame('',$value);
+        $this->assertSame('', $value);
     }
 
     public function test_getGroups()
-	{
+    {
         $group=$this->object->getGroups();
         $value=$this->object->setGroups($group);
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
-	
+    
     public function test_setGroups()
-	{
+    {
     }
 
     public function test_groups()
-	{
+    {
         $group1=$this->object->getGroups();
         $group2=$this->object->groups();
-        $this->assertSame($group1,$group2);
+        $this->assertSame($group1, $group2);
     }
 
     public function test_isAdmin()
-	{
+    {
         $value=$this->object->isAdmin();
-        $this->assertSame(false,$value);
+        $this->assertSame(false, $value);
     }
 
     public function test_rank()
-	{
+    {
         $value=$this->object->rank();
         $this->assertTrue($value===null || is_array($value));
     }
 
     public function test_isActive()
-	{
+    {
         $value=$this->object->isActive();
-        $this->assertSame(false,$value);
+        $this->assertSame(false, $value);
     }
 
     public function test_isOnline()
-	{
+    {
         $value=$this->object->isOnline();
-        $this->assertSame(false,$value);
+        $this->assertSame(false, $value);
     }
 
     public function test_uid()
-	{
+    {
         $value=$this->object->uid();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_id()
-	{
+    {
         $value=$this->object->id();
-        $this->assertSame($this->object->uid(),$value);
+        $this->assertSame($this->object->uid(), $value);
     }
 
     public function test_name()
-	{
+    {
         $value=$this->object->name();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_email()
-	{
+    {
         $value=$this->object->email();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_url()
-	{
+    {
         $value=$this->object->url();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_avatar()
-	{
+    {
         $value=$this->object->user_avatar();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_regdate()
-	{
+    {
         $value=$this->object->user_regdate();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_icq()
-	{
+    {
         $value=$this->object->user_icq();
-        $this->assertSame('',$value);
+        $this->assertSame('', $value);
     }
 
     public function test_user_from()
-	{
+    {
         $value=$this->object->user_from();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_sig()
-	{
+    {
         $value=$this->object->user_sig();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_viewemail()
-	{
+    {
         $value=$this->object->user_viewemail();
-        $this->assertSame(0,$value);
+        $this->assertSame(0, $value);
     }
 
     public function test_actkey()
-	{
+    {
         $value=$this->object->actkey();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_aim()
-	{
+    {
         $value=$this->object->user_aim();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_yim()
-	{
+    {
         $value=$this->object->user_yim();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_user_msnm()
-	{
+    {
         $value=$this->object->user_msnm();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_pass()
-	{
+    {
         $value=$this->object->pass();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_posts()
-	{
+    {
         $value=$this->object->posts();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_attachsig()
-	{
+    {
         $value=$this->object->attachsig();
-        $this->assertSame(0,$value);
+        $this->assertSame(0, $value);
     }
 
     public function test_level()
-	{
+    {
         $value=$this->object->level();
-        $this->assertSame(0,$value);
+        $this->assertSame(0, $value);
     }
 
     public function test_theme()
-	{
+    {
         $value=$this->object->theme();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_timezone()
-	{
+    {
         $value=$this->object->timezone();
-        $this->assertSame('0.0',$value);
+        $this->assertSame('0.0', $value);
     }
 
     public function test_umode()
-	{
+    {
         $value=$this->object->umode();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_uorder()
-	{
+    {
         $value=$this->object->uorder();
-        $this->assertSame(1,$value);
+        $this->assertSame(1, $value);
     }
 
     public function test_notify_method()
-	{
+    {
         $value=$this->object->notify_method();
-        $this->assertSame(1,$value);
+        $this->assertSame(1, $value);
     }
 
     public function test_notify_mode()
-	{
+    {
         $value=$this->object->notify_mode();
-        $this->assertSame(0,$value);
+        $this->assertSame(0, $value);
     }
 
     public function test_user_occ()
-	{
+    {
         $value=$this->object->user_occ();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
     public function test_bio()
-	{
+    {
         $value=$this->object->bio();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 
-    public function test_user_intrest() {
+    public function test_user_intrest()
+    {
         $value=$this->object->user_intrest();
-        $this->assertSame(null,$value);
+        $this->assertSame(null, $value);
     }
 }

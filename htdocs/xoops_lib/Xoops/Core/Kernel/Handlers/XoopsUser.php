@@ -232,8 +232,8 @@ class XoopsUser extends XoopsObject
     public function rank()
     {
         $xoops = \Xoops::getInstance();
-        if (!isset($this->_rank) && $xoops->isActiveModule('userrank')) {
-            $this->_rank = $xoops->getRank($this->getVar('rank'), $this->getVar('posts'));
+        if (!isset($this->_rank)) {
+            $this->_rank = $xoops->service('userrank')->getUserRank($this)->getValue();
         }
         return $this->_rank;
     }

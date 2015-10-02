@@ -59,7 +59,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'modules', '\\Xoops\\Core\\Kernel\\Handlers\\XoopsModule', 'mid', 'dirname');
+        parent::__construct($db, 'system_module', '\Xoops\Core\Kernel\Handlers\XoopsModule', 'mid', 'dirname');
     }
 
     /**
@@ -158,7 +158,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         // delete admin and read permissions assigned for this module
         $qb = $this->db2->createXoopsQueryBuilder();
         $eb = $qb->expr();
-        $qb ->deletePrefix('group_permission')
+        $qb ->deletePrefix('system_permission')
             ->where(
                 $eb->orX(
                     $eb->eq('gperm_name', $eb->literal('module_admin')),
@@ -171,7 +171,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
 
         $qb->resetQueryParts(); // reset
         $qb ->select('block_id')
-            ->fromPrefix('block_module_link', null)
+            ->fromPrefix('system_blockmodule', null)
             ->where($eb->eq('module_id', ':mid'))
             ->setParameter(':mid', $mid, \PDO::PARAM_INT);
         $result = $qb->execute();
@@ -183,7 +183,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         foreach ($block_id_arr as $i) {
             $qb->resetQueryParts(); // reset
             $qb ->select('COUNT(*)')
-                ->fromPrefix('block_module_link', null)
+                ->fromPrefix('system_blockmodule', null)
                 ->where($eb->ne('module_id', ':mid'))
                 ->setParameter(':mid', $mid, \PDO::PARAM_INT)
                 ->andWhere($eb->eq('block_id', ':bid'))
@@ -194,7 +194,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             if ($count > 0) {
                 // this block has other entries, so delete the entry for this module
                 $qb->resetQueryParts(); // reset
-                $qb ->deletePrefix('block_module_link')
+                $qb ->deletePrefix('system_blockmodule')
                     ->where($eb->eq('module_id', ':mid'))
                     ->setParameter(':mid', $mid, \PDO::PARAM_INT)
                     ->andWhere($eb->eq('block_id', ':bid'))
@@ -203,7 +203,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             } else {
                 // this block doesnt have other entries, so disable the block and let it show on top page only. otherwise, this block will not display anymore on block admin page!
                 $qb->resetQueryParts(); // reset
-                $qb ->updatePrefix('newblocks')
+                $qb ->updatePrefix('system_block')
                     ->set('visible', ':notvisible')
                     ->where($eb->eq('bid', ':bid'))
                     ->setParameter(':bid', $i, \PDO::PARAM_INT)
@@ -211,7 +211,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                     ->execute();
 
                 $qb->resetQueryParts(); // reset
-                $qb ->updatePrefix('block_module_link')
+                $qb ->updatePrefix('system_blockmodule')
                     ->set('module_id', ':nomid')
                     ->where($eb->eq('module_id', ':mid'))
                     ->setParameter(':mid', $mid, \PDO::PARAM_INT)
@@ -245,7 +245,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     {
         $ret = array();
         $qb = $this->db2->createXoopsQueryBuilder();
-        $qb->select('*')->fromPrefix('modules', null);
+        $qb->select('*')->fromPrefix('system_module', null);
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $criteria->setSort('weight');
             $criteria->renderQb($qb);

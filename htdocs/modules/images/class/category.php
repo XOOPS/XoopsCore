@@ -63,7 +63,7 @@ class ImagesCategoryHandler extends XoopsPersistableObjectHandler
      */
     public function getPermittedObjects($criteria = null, $start = 0, $limit = 0, $id_as_key = false, $asobject = true)
     {
-        $this->table_link = $this->db2->prefix('group_permission');
+        $this->table_link = $this->db2->prefix('system_permission');
 
         if (isset($criteria)) {
             $criteria = new CriteriaCompo($criteria);

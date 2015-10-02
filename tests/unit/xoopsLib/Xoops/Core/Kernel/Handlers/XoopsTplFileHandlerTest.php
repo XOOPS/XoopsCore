@@ -25,7 +25,7 @@ class XoopsTplFileHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance = new $this->myclass($this->conn);
-        $this->assertRegExp('/^.*tplfile$/', $instance->table);
+        $this->assertRegExp('/^.*system_tplfile$/', $instance->table);
         $this->assertSame($this->xoopsTplfile, $instance->className);
         $this->assertSame('tpl_id', $instance->keyName);
         $this->assertSame('tpl_refid', $instance->identifierName);

@@ -44,7 +44,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'tplfile', '\Xoops\Core\Kernel\Handlers\XoopsTplFile', 'tpl_id', 'tpl_refid');
+        parent::__construct($db, 'system_tplfile', '\Xoops\Core\Kernel\Handlers\XoopsTplFile', 'tpl_id', 'tpl_refid');
     }
 
     /**
@@ -64,14 +64,14 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         if ($id > 0) {
             if (!$getsource) {
                 $qb->select('*')
-                    ->fromPrefix('tplfile', 'f')
+                    ->fromPrefix('system_tplfile', 'f')
                     ->where($eb->eq('f.tpl_id', ':tplid'))
                     ->setParameter(':tplid', $id, \PDO::PARAM_INT);
             } else {
                 $qb->select('f.*')
                     ->addSelect('s.tpl_source')
-                    ->fromPrefix('tplfile', 'f')
-                    ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'))
+                    ->fromPrefix('system_tplfile', 'f')
+                    ->leftJoinPrefix('f', 'system_tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'))
                     ->where($eb->eq('f.tpl_id', ':tplid'))
                     ->setParameter(':tplid', $id, \PDO::PARAM_INT);
             }
@@ -101,7 +101,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
             $qb = $this->db2->createXoopsQueryBuilder();
             $eb = $qb->expr();
             $qb->select('tpl_source')
-                ->fromPrefix('tplsource', null)
+                ->fromPrefix('system_tplsource', null)
                 ->where($eb->eq('tpl_id', ':tplid'))
                 ->setParameter(':tplid', $tplfile->getVar('tpl_id'), \PDO::PARAM_INT);
             if (!$result = $qb->execute()) {
@@ -144,7 +144,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db2->insertPrefix('tplfile', $values)) {
+            if (!$this->db2->insertPrefix('system_tplfile', $values)) {
                 return false;
             }
             if (empty($tpl_id)) {
@@ -155,8 +155,8 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                     'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if (!$this->db2->insertPrefix('tplsource', $values)) {
-                    $this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id));
+                if (!$this->db2->insertPrefix('system_tplsource', $values)) {
+                    $this->db2->deletePrefix('system_tplfile', array('tpl_id' => $tpl_id));
                     return false;
                 }
             }
@@ -173,7 +173,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id' => $tpl_id))) {
+            if (!$this->db2->updatePrefix('system_tplfile', $values, array('tpl_id' => $tpl_id))) {
                 return false;
             }
 
@@ -182,7 +182,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                     // 'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id' => $tpl_id))) {
+                if ($this->db2->updatePrefix('system_tplsource', $values, array('tpl_id' => $tpl_id))) {
                     return false;
                 }
             }
@@ -222,7 +222,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                 'tpl_lastimported' => $tpl_lastimported,
                 'tpl_type' => $tpl_type,
             );
-            if (!$this->db2->updatePrefix('tplfile', $values, array('tpl_id' => $tpl_id))) {
+            if (!$this->db2->updatePrefix('system_tplfile', $values, array('tpl_id' => $tpl_id))) {
                 return false;
             }
 
@@ -232,7 +232,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                     // 'tpl_id' => $tpl_id,
                     'tpl_source' => $tpl_source,
                 );
-                if ($this->db2->updatePrefix('tplsource', $values, array('tpl_id' => $tpl_id))) {
+                if ($this->db2->updatePrefix('system_tplsource', $values, array('tpl_id' => $tpl_id))) {
                     return false;
                 }
             }
@@ -253,10 +253,10 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     public function deleteTpl(XoopsTplFile $tplfile)
     {
         $tpl_id = $tplfile->getVar('tpl_id');
-        if (!$this->db2->deletePrefix('tplfile', array('tpl_id' => $tpl_id))) {
+        if (!$this->db2->deletePrefix('system_tplfile', array('tpl_id' => $tpl_id))) {
             return false;
         }
-        $this->db2->deletePrefix('tplsource', array('tpl_id' => $tpl_id));
+        $this->db2->deletePrefix('system_tplsource', array('tpl_id' => $tpl_id));
         return true;
     }
 
@@ -278,12 +278,12 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
 
         if (!$getsource) {
             $qb->select('*')
-                ->fromPrefix('tplfile', 'f');
+                ->fromPrefix('system_tplfile', 'f');
         } else {
             $qb->select('f.*')
                 ->addSelect('s.tpl_source')
-                ->fromPrefix('tplfile', 'f')
-                ->leftJoinPrefix('f', 'tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'));
+                ->fromPrefix('system_tplfile', 'f')
+                ->leftJoinPrefix('f', 'system_tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'));
         }
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $criteria->renderQb($qb);
@@ -319,7 +319,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
 
         $qb->select('tpl_module')
             ->addSelect('COUNT(tpl_id) AS count')
-            ->fromPrefix('tplfile', null)
+            ->fromPrefix('system_tplfile', null)
             ->where($eb->eq('tpl_tplset', ':tpset'))
             ->groupBy('tpl_module')
             ->setParameter(':tpset', $tplset, \PDO::PARAM_STR);

@@ -37,8 +37,8 @@ function xoops_module_update_system(XoopsModule &$module)
         $qb = $xoops->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $sql = $qb->select('t1.tpl_id')
-            ->fromPrefix('tplfile', 't1')
-            ->fromPrefix('tplfile', 't2')
+            ->fromPrefix('system_tplfile', 't1')
+            ->fromPrefix('system_tplfile', 't2')
             ->where($eb->eq('t1.tpl_module', 't2.tpl_module '))
             ->andWhere($eb->eq('t1.tpl_tplset', 't2.tpl_tplset'))
             ->andWhere($eb->eq('t1.tpl_file', 't2.tpl_file'))

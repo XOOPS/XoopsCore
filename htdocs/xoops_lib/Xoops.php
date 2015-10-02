@@ -569,7 +569,7 @@ class Xoops
             $names = array('tpl_name', 'type', 'module', 'file');
             $ret = array();
             for ($i=0; $i<4; ++$i) {
-                 $ret[$names[$i]] = $parts[$i];
+                $ret[$names[$i]] = $parts[$i];
             }
         } else {
             // this should be eleminated
@@ -887,18 +887,6 @@ class Xoops
     }
 
     /**
-     * Get handler of Ranks
-     *
-     * @param mixed $optional
-     *
-     * @return XoopsRanksHandler
-     */
-    public function getHandlerRanks($optional = false)
-    {
-        return $this->getHandler('Ranks', $optional);
-    }
-
-    /**
      * Get the session manager
      *
      * @return Xoops\Core\Session\Manager
@@ -962,7 +950,7 @@ class Xoops
                 $this->handlerFactory = HandlerFactory::getInstance();
             }
             $handler = $this->handlerFactory->newSpec()->scheme('kernel')->name($name)->optional($optional)->build();
-            if($handler === null) {
+            if ($handler === null) {
                 $this->logger()->log(
                     \Psr\Log\LogLevel::WARNING,
                     sprintf('A handler for %s is not available', $name)
@@ -1002,7 +990,7 @@ class Xoops
                 $this->handlerFactory = HandlerFactory::getInstance();
             }
             $handler = $this->handlerFactory->create($name, $module_dir, $optional);
-            if($handler === null) {
+            if ($handler === null) {
                 $this->logger()->log(
                     \Psr\Log\LogLevel::WARNING,
                     sprintf('No handler for %s exists in module %s', $name, $module_dir)
@@ -1646,43 +1634,6 @@ class Xoops
             $mailer = new XoopsMailer();
         }
         return $mailer;
-    }
-
-    /**
-     * getRank - retrieve user rank
-     *
-     * @param integer $rank_id specified rank for user
-     * @param int     $posts   number of posts for user
-     *
-     * @return array
-     */
-    public function getRank($rank_id = 0, $posts = 0)
-    {
-        $myts = MyTextSanitizer::getInstance();
-        $rank_id = (int)($rank_id);
-        $posts = (int)($posts);
-        $db = $this->db();
-        $sql = $db->createXoopsQueryBuilder()
-            ->select('r.rank_title AS title')
-            ->addSelect('r.rank_image AS image')
-            ->fromPrefix('ranks', 'r');
-        $eb = $sql->expr();
-        if ($rank_id != 0) {
-            $sql->where($eb->eq('r.rank_id', ':rank'))
-                ->setParameter(':rank', $rank_id, \PDO::PARAM_INT);
-        } else {
-            $sql->where($eb->lte('r.rank_min', ':posts'))
-                ->andWhere($eb->gte('r.rank_max', ':posts'))
-                ->andWhere($eb->eq('r.rank_special', 0))
-                ->setParameter(':posts', $posts, \PDO::PARAM_INT);
-        }
-
-        $rank = $db->fetchAssoc($sql->getSql(), $sql->getParameters());
-
-        $rank['title'] = $myts->htmlSpecialChars($rank['title']);
-        $rank['id'] = $rank_id;
-        return $rank;
-
     }
 
     /**

@@ -181,7 +181,7 @@ if ($mid > 0) {
         $listed_mods[$i]['description'] = $module->getInfo('description');
 
         if ($module->getVar('dirname', 'e') == 'system') {
-            $admin_dir = XOOPS_ROOT_PATH . '/modules/system/admin';
+            $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
             $dirlist = XoopsLists::getDirListAsArray($admin_dir);
 
             foreach ($dirlist as $directory) {

@@ -46,7 +46,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $handler->table_link=$this->conn->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -65,7 +65,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $handler->table_link=$this->conn->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -84,7 +84,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $handler->table_link=$this->conn->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -103,7 +103,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $handler->table_link=$this->conn->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;
@@ -124,7 +124,7 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $result = $instance->setHandler($handler);
         $this->assertTrue($result);
 
-        $handler->table_link=$this->conn->prefix('groups_users_link');
+        $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
         $handler->keyName_link=$handler->field_link;

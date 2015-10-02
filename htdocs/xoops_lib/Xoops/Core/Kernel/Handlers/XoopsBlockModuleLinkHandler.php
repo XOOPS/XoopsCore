@@ -33,6 +33,6 @@ class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'block_module_link', '\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink', 'block_id', 'module_id');
+        parent::__construct($db, 'system_blockmodule', '\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink', 'block_id', 'module_id');
     }
 }

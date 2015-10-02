@@ -47,7 +47,10 @@ function xoops_getModuleHandler($name = null, $module_dir = null, $optional = fa
 /**
  * @deprecated
  * @param string $name Name of class to be loaded
- * @param string $type domain of the class, potential values: core - locaded in /class/; framework - located in /Frameworks/; other - module class, located in /modules/[$type]/class/
+ * @param string $type domain of the class, potential values:
+ *                       core - located in /class/;
+ *                       framework - located in /Frameworks/;
+ *                       other - module class, located in /modules/[$type]/class/
  * @return boolean
  */
 function xoops_load($name, $type = 'core')
@@ -320,7 +323,7 @@ function xoops_getrank($rank_id = 0, $posts = 0)
 {
     $xoops = Xoops::getInstance();
     $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
-    return $xoops->getRank($rank_id, $posts);
+    return $xoops->service('userrank')->getUserRank(['rank' => $rank_id, 'posts' => $posts, 'uid' => 0])->getValue();
 }
 
 /**

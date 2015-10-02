@@ -64,7 +64,7 @@ function synchronize($uid, $type)
             }
 
             $query = $db->createXoopsQueryBuilder()
-                ->updatePrefix('users')
+                ->updatePrefix('system_user')
                 ->set('posts', ':posts')
                 ->where('uid = :uid')
                 ->setParameter(':posts', $total_posts)
@@ -79,7 +79,7 @@ function synchronize($uid, $type)
         case 'all users':
             $sql = $db->createXoopsQueryBuilder()
                 ->select('uid')
-                ->fromPrefix('users', 'u');
+                ->fromPrefix('system_user', 'u');
 
             $result = $sql->execute();
             if (!$result) {

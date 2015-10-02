@@ -25,7 +25,7 @@ use Xoops\Core\Kernel\XoopsObject;
 class UserrankRanksForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param XoopsRank|XoopsObject $obj
+     * @param UserrankRank|XoopsObject $obj
      */
     public function __construct(XoopsObject $obj)
     {
