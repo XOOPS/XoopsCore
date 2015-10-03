@@ -27,9 +27,9 @@ use Psr\Log\LoggerInterface;
  * delivered page should implement the quiet() method, to disable output.
  *
  * Loggers are managed this way so that any routine may easily add a
- * log entry without needing to know any details of the implemention.
+ * log entry without needing to know any details of the implementation.
  *
- * Not all events are published through this mechanism, only specifc requests
+ * Not all events are published through this mechanism, only specific requests
  * to log() or related methods. Individual loggers may connect to preload
  * events or other sources and gain access to detailed debugging style
  * information.
@@ -46,7 +46,7 @@ use Psr\Log\LoggerInterface;
 class Logger implements LoggerInterface
 {
     /**
-     * @var array chain of PSR-3 compatible loggers to call
+     * @var LoggerInterface[] chain of PSR-3 compatible loggers to call
      */
     private $loggers = array();
 
@@ -63,7 +63,7 @@ class Logger implements LoggerInterface
     /**
      * Get the Xoops\Core\Logger instance
      *
-     * @return Xoops\Core\Logger object
+     * @return Logger object
      */
     public static function getInstance()
     {
@@ -169,16 +169,23 @@ class Logger implements LoggerInterface
      *
      * This will
      *
-     * @param Exception $e uncaught exception
+     * @param \Exception $e uncaught exception
      *
-     * @return never
+     * @return void
      */
-    public function handleException($e)
+    public function handleException(\Exception $e)
     {
-        $msg = $e->__toString();
+        $msg = $e->getMessage();
         $this->reportFatalError($msg);
     }
 
+    /**
+     * Announce fatal error, attempt to log
+     *
+     * @param string $msg error message to report
+     *
+     * @return void
+     */
     private function reportFatalError($msg)
     {
         $msg=$this->sanitizePath($msg);
@@ -208,6 +215,13 @@ class Logger implements LoggerInterface
                 str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
                 \XoopsBaseConfig::get('root-path'),
                 str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
+                \XoopsBaseConfig::get('root-path'),
+                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
+                \XoopsBaseConfig::get('root-path'),
+                \XoopsBaseConfig::get('db-prefix') . '_',
+                \XoopsBaseConfig::get('db-user'),
+                \XoopsBaseConfig::get('db-pass'),
+                \XoopsBaseConfig::get('db-name'),
             ),
             array(
                 '/',
@@ -217,6 +231,10 @@ class Logger implements LoggerInterface
                 'LIB',
                 'ROOT',
                 'ROOT',
+                '',
+                '****',
+                '****',
+                '',
             ),
             $path
         );
