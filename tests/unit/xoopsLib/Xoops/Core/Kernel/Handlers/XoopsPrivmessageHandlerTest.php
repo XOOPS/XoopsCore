@@ -37,16 +37,28 @@ class PrivmessageHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function test_setRead()
 	{
+        if (! class_exists('DebugbarLogger', false)) {
+            $path = \XoopsBaseConfig::get('root-path');
+            XoopsLoad::addMap(array(
+                'debugbarlogger' => $path . '/modules/debugbar/class/debugbarlogger.php',
+            ));
+        }
+        
         $instance=new $this->myclass($this->conn);
 		$msg=new XoopsPrivmessage();
         $msg->setDirty(true);
         $msg->setNew(true);
         $msg->setVar('subject', 'PRIVMESSAGE_DUMMY_FOR_TESTS', true);
-        $value=$instance->insert($msg);
-        $this->assertTrue(intval($value) > 0);
+        $id=$instance->insert($msg);
+        $this->assertTrue(intval($id) > 0);
 
         $value=$instance->setRead($msg);
-        $this->assertSame(true,$value);
+        $this->assertFalse($value);
+        
+        $qb = $instance->db2->createXoopsQueryBuilder()
+                ->delete('priv_msgs', 'pm')
+                ->where('pm.msg_id = :pm_id')
+                ->setParameter(':pm_id', $id);
     }
 
 }

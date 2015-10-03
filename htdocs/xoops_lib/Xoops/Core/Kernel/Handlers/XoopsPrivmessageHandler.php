@@ -53,15 +53,23 @@ class XoopsPrivmessageHandler extends XoopsPersistableObjectHandler
      * @param XoopsPrivmessage $pm {@link XoopsPrivmessage} object
      * @return bool
      **/
-    public function setRead(XoopsPrivmessage &$pm)
-    {
+    public function setRead(XoopsPrivmessage $pm)
+    {  
         $qb = $this->db2->createXoopsQueryBuilder()
             ->update($this->table, 'pm')
-            ->set('pm.read_msg', ':readmsg')
-            ->where('pm.msg_id = :msgid')
+            ->set('pm.read_msg2', ':readmsg')
+            ->where('pm.msg_id2 = :msgid')
             ->setParameter(':readmsg', 1, \PDO::PARAM_INT)
             ->setParameter(':msgid', (int)$pm->getVar('msg_id'), \PDO::PARAM_INT);
-        $result = $qb->execute();
+            
+        try {
+            $result = $qb->execute();
+            var_dump($result,(int)$pm->getVar('msg_id'));
+        }
+        catch (\Exception $e) {
+            var_dump($e);
+            exit;
+        }
 
         if (!$result) {
             return false;

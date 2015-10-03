@@ -119,6 +119,11 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
                 'menusdecorator'    => $path . '/modules/menus/class/decorator.php',
             ));
         }
+        if (! class_exists('MenusBuilder', false)) {
+            \XoopsLoad::addMap(array(
+                'menusbuilder'    => $path . '/modules/menus/class/builder.php',
+            ));
+        }
         
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
