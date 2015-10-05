@@ -61,7 +61,7 @@ function xoops_module_update_profile(&$module, $oldversion = null)
         while ($myrow = $xoopsDB->fetchArray($result)) {
             $fields[] = $myrow['field_name'];
             $object = $field_handler->create();
-            $object->setVars($myrow, true);
+            $object->setVars($myrow);
             $object->setVar('cat_id', 1);
             if (!empty($myrow['field_register'])) {
                 $object->setVar('step_id', 2);

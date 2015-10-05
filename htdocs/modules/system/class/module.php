@@ -744,11 +744,11 @@ class SystemModule
                     } else {
                         $tplfile->setVar('tpl_type', $type);
                     }
-                    $tplfile->setVar('tpl_source', $tpldata, true);
+                    $tplfile->setVar('tpl_source', $tpldata);
                     $tplfile->setVar('tpl_module', $module->getVar('dirname'));
                     $tplfile->setVar('tpl_tplset', 'default');
-                    $tplfile->setVar('tpl_file', $tpl['file'], true);
-                    $tplfile->setVar('tpl_desc', $tpl['description'], true);
+                    $tplfile->setVar('tpl_file', $tpl['file']);
+                    $tplfile->setVar('tpl_desc', $tpl['description']);
                     if (!$tplfile_handler->insertTpl($tplfile)) {
                         $this->trace[]['sub'] = '<span class="red">' . sprintf(
                             SystemLocale::EF_TEMPLATE_NOT_ADDED_TO_DATABASE,
@@ -904,15 +904,15 @@ class SystemModule
                                 $tplfile_new->setVar('tpl_module', $module->getVar('dirname'));
                                 $tplfile_new->setVar('tpl_refid', $block_obj[0]->getVar('bid'));
                                 $tplfile_new->setVar('tpl_tplset', 'default');
-                                $tplfile_new->setVar('tpl_file', $block_obj[0]->getVar('template'), true);
+                                $tplfile_new->setVar('tpl_file', $block_obj[0]->getVar('template'));
                                 $tplfile_new->setVar('tpl_type', 'block');
                             } else {
                                 /* @var $tplfile_new XoopsTplFile */
                                 $tplfile_new = $tplfile[0];
                                 $tplfile_new->setVars($tplfile_new->getValues());
                             }
-                            $tplfile_new->setVar('tpl_source', $template, true);
-                            $tplfile_new->setVar('tpl_desc', $block['description'], true);
+                            $tplfile_new->setVar('tpl_source', $template);
+                            $tplfile_new->setVar('tpl_desc', $block['description']);
                             $tplfile_new->setVar('tpl_lastmodified', time());
                             $tplfile_new->setVar('tpl_lastimported', 0);
                             if (!$tplfile_handler->insertTpl($tplfile_new)) {
@@ -1129,8 +1129,8 @@ class SystemModule
                     $confobj->setVar('conf_modid', $module->getVar('mid'));
                     $confobj->setVar('conf_catid', 0);
                     $confobj->setVar('conf_name', $config['name']);
-                    $confobj->setVar('conf_title', $config['title'], true);
-                    $confobj->setVar('conf_desc', $config['description'], true);
+                    $confobj->setVar('conf_title', $config['title']);
+                    $confobj->setVar('conf_desc', $config['description']);
                     $confobj->setVar('conf_formtype', $config['formtype']);
                     $confobj->setVar('conf_valuetype', $config['valuetype']);
                     if (isset($this->config_old[$config['name']]['value'])
@@ -1139,18 +1139,18 @@ class SystemModule
                     ) {
                         // preserver the old value if any
                         // form type and value type must be the same
-                        $confobj->setVar('conf_value', $this->config_old[$config['name']]['value'], true);
+                        $confobj->setVar('conf_value', $this->config_old[$config['name']]['value']);
                     } else {
-                        $confobj->setConfValueForInput($config['default'], true);
-                        //$confobj->setVar('conf_value', $config['default'], true);
+                        $confobj->setConfValueForInput($config['default']);
+                        //$confobj->setVar('conf_value', $config['default']);
                     }
                     $confobj->setVar('conf_order', $order);
                     $confop_msgs = '';
                     if (isset($config['options']) && is_array($config['options'])) {
                         foreach ($config['options'] as $key => $value) {
                             $confop = $config_handler->createConfigOption();
-                            $confop->setVar('confop_name', $key, true);
-                            $confop->setVar('confop_value', $value, true);
+                            $confop->setVar('confop_name', $key);
+                            $confop->setVar('confop_value', $value);
                             $confobj->setConfOptions($confop);
                             $confop_msgs .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;';
                             $confop_msgs .= SystemLocale::S_CONFIG_OPTION_ADDED;

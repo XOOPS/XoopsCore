@@ -183,22 +183,21 @@ class UserconfigsItem extends XoopsObject
      * Set a config value
      *
      * @param    mixed   &$value Value
-     * @param    bool    $force_slash
      */
-    public function setConfValueForInput(&$value, $force_slash = false)
+    public function setConfValueForInput(&$value)
     {
         switch ($this->getVar('conf_valuetype')) {
         case 'array':
             if (!is_array($value)) {
                 $value = explode('|', trim($value));
             }
-            $this->setVar('conf_value', serialize($value), $force_slash);
+            $this->setVar('conf_value', serialize($value));
             break;
         case 'text':
-            $this->setVar('conf_value', trim($value), $force_slash);
+            $this->setVar('conf_value', trim($value));
             break;
         default:
-            $this->setVar('conf_value', $value, $force_slash);
+            $this->setVar('conf_value', $value);
             break;
         }
     }

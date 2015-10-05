@@ -90,9 +90,9 @@ class XoopsModule extends XoopsObject
         if (!isset($this->modinfo)) {
             $this->loadInfo($dirname, $verbose);
         }
-        $this->setVar('name', $this->modinfo['name'], true);
-        $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)), true);
-        $this->setVar('dirname', $this->modinfo['dirname'], true);
+        $this->setVar('name', $this->modinfo['name']);
+        $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)));
+        $this->setVar('dirname', $this->modinfo['dirname']);
         $hasmain = (isset($this->modinfo['hasMain']) && $this->modinfo['hasMain'] == 1) ? 1 : 0;
         $hasadmin = (isset($this->modinfo['hasAdmin']) && $this->modinfo['hasAdmin'] == 1) ? 1 : 0;
         $hassearch = (isset($this->modinfo['hasSearch']) && $this->modinfo['hasSearch'] == 1) ? 1 : 0;

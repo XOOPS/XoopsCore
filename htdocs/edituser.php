@@ -84,10 +84,10 @@ if ($op == 'saveuser') {
         $edituser = $member_handler->getUser($uid);
         $edituser->setVar('name', Request::getString('name', ''));
         if ($xoops->getConfig('allow_chgmail') == 1) {
-            $edituser->setVar('email', $email, true);
+            $edituser->setVar('email', $email);
         }
         if ($password != '') {
-            $edituser->setVar('pass', password_hash($password, PASSWORD_DEFAULT), true);
+            $edituser->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
         }
         $edituser->setVar('url', $xoops->formatURL(Request::getUrl('url', '')));
         $edituser->setVar('user_icq', Request::getString('user_icq', ''));
