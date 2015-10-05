@@ -26,9 +26,12 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * A handler for "Who is Online?" information
  *
- * @package   kernel
- * @author    Kazumi Ono    <onokazu@xoops.org>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @category  Xoops\Core\Kernel\Handlers\XoopsOnlineHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsOnlineHandler extends XoopsPersistableObjectHandler
 {
@@ -39,7 +42,13 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'system_online', '\Xoops\Core\Kernel\Handlers\XoopsOnline', 'online_uid', 'online_uname');
+        parent::__construct(
+            $db,
+            'system_online',
+            '\Xoops\Core\Kernel\Handlers\XoopsOnline',
+            'online_uid',
+            'online_uname'
+        );
     }
 
     /**
@@ -49,7 +58,7 @@ class XoopsOnlineHandler extends XoopsPersistableObjectHandler
      * @param string $uname  Username
      * @param string $time   time
      * @param string $module Current module
-     * @param string $ip     User's IP adress
+     * @param string $ip     User's IP address
      *
      * @return bool TRUE on success
      */

@@ -161,7 +161,7 @@ class CriteriaCompo extends CriteriaElement
         }
 
         if (!empty($expr)) {
-            $expr = '(' . $expr . ')'; // group all condtions in this compo
+            $expr = '(' . $expr . ')'; // group all conditions in this compo
 
             switch (strtolower($whereMode)) {
                 case 'and':
@@ -218,7 +218,7 @@ class CriteriaCompo extends CriteriaElement
         }
 
         if (!empty($expr)) {
-            $expr = '(' . $expr . ')'; // group all condtions in this compo
+            $expr = '(' . $expr . ')'; // group all conditions in this compo
         }
         return $expr;
     }

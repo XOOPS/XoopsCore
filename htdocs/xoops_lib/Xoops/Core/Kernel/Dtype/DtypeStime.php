@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @category  Xoops\Core\Kernel\Dtype\DtypeStime
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -28,13 +28,14 @@ use Xoops\Core\Kernel\XoopsObject;
 class DtypeStime extends DtypeAbstract
 {
     /**
-     * @param XoopsObject $obj
-     * @param string      $key
-     * @param bool        $quote
+     * cleanVar prepare variable for persistence
+     *
+     * @param XoopsObject $obj object containing variable
+     * @param string      $key name of variable
      *
      * @return int
      */
-    public function cleanVar(XoopsObject $obj, $key, $quote = true)
+    public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
         $value = !is_string($value) ? (int)($value) : strtotime($value);

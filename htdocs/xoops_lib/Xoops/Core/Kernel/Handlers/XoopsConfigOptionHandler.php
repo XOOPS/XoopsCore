@@ -27,8 +27,12 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS configuration option class objects.
  *
- * @copyright 2000-2014 XOOPS Project (http://xoops.org)
+ * @category  Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler
+ * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsConfigOptionHandler extends XoopsPersistableObjectHandler
 {
@@ -39,6 +43,12 @@ class XoopsConfigOptionHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'system_configoption', '\Xoops\Core\Kernel\Handlers\XoopsConfigOption', 'confop_id', 'confop_name');
+        parent::__construct(
+            $db,
+            'system_configoption',
+            '\Xoops\Core\Kernel\Handlers\XoopsConfigOption',
+            'confop_id',
+            'confop_name'
+        );
     }
 }

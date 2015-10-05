@@ -23,7 +23,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Simon Roberts <simon@xoops.org>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
@@ -34,15 +34,12 @@ class Write extends XoopsModelAbstract
      * Clean values of all variables of the object for storage.
      * also add slashes and quote string wherever needed
      *
-     * CleanVars only contains changed and cleaned variables
-     * Reference is used for PHP4 compliance
-     *
-     * @param XoopsObject &$object {@link XoopsObject} reference to object
+     * @param XoopsObject $object object to act on
      *
      * @return bool true if successful
      * @access public
      */
-    public function cleanVars(XoopsObject &$object)
+    public function cleanVars(XoopsObject $object)
     {
         $vars = $object->getVars();
         $object->cleanVars = array();
@@ -50,23 +47,22 @@ class Write extends XoopsModelAbstract
             if (!$v["changed"]) {
                 continue;
             }
-            $object->cleanVars[$k] = Dtype::cleanVar($object, $k, false);
+            $object->cleanVars[$k] = Dtype::cleanVar($object, $k);
         }
         $object->unsetDirty();
         $errors = $object->getErrors();
         return empty($errors) ? true : false;
-        //return $object->cleanVars();
     }
 
     /**
      * insert an object into the database
      *
-     * @param XoopsObject &$object {@link XoopsObject} reference to object
-     * @param bool        $force   flag to force the query execution despite security settings
+     * @param XoopsObject $object object to persist
+     * @param bool        $force  flag to force the query execution despite security settings
      *
-     * @return mixed object ID
+     * @return int|false id of insert, or false on error
      */
-    public function insert(XoopsObject &$object, $force = true)
+    public function insert(XoopsObject $object, $force = true)
     {
         if (!(class_exists($this->handler->className) && $object instanceof $this->handler->className)) {
             trigger_error(
@@ -89,7 +85,6 @@ class Write extends XoopsModelAbstract
             );
             return false;
         }
-        //$queryFunc = empty($force) ? "query" : "queryF";
 
         if ($object->isNew()) {
             if (empty($object->cleanVars)) {
@@ -98,6 +93,9 @@ class Write extends XoopsModelAbstract
                     E_USER_NOTICE
                 );
                 return false;
+            }
+            if ($force) {
+                $this->handler->db2->setForce($force);
             }
             if (!$this->handler->db2->insert($this->handler->table, $object->cleanVars)) {
                 return false;
@@ -124,12 +122,12 @@ class Write extends XoopsModelAbstract
     /**
      * delete an object from the database
      *
-     * @param XoopsObject &$object {@link XoopsObject} reference to the object to delete
-     * @param bool        $force   force to delete
+     * @param XoopsObject $object object to delete
+     * @param bool        $force  force to delete
      *
      * @return bool FALSE if failed.
      */
-    public function delete(XoopsObject &$object, $force = false)
+    public function delete(XoopsObject $object, $force = false)
     {
         if (!(class_exists($this->handler->className) && $object instanceof $this->handler->className)) {
             trigger_error(
@@ -169,6 +167,9 @@ class Write extends XoopsModelAbstract
                 )
             );
         }
+        if ($force) {
+            $this->handler->db2->setForce($force);
+        }
         $result = $qb->execute();
         return empty($result) ? false : true;
     }
@@ -176,9 +177,9 @@ class Write extends XoopsModelAbstract
     /**
      * delete all objects matching the conditions
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} with conditions to meet
+     * @param CriteriaElement|null $criteria criteria to match
      * @param bool                 $force    force to delete
-     * @param bool                 $asObject delete in object way: instantiate all objects and delte one by one
+     * @param bool                 $asObject delete as objects: instantiate all objects and delete one by one
      *
      * @return bool
      */
@@ -199,20 +200,23 @@ class Write extends XoopsModelAbstract
         if (isset($criteria)) {
             $qb = $criteria->renderQb($qb);
         }
+        if ($force) {
+            $this->handler->db2->setForce($force);
+        }
         return $qb->execute();
     }
 
     /**
      * Change a field for objects with a certain criteria
      *
-     * @param string               $fieldname  Name of the field
-     * @param mixed                $fieldvalue Value to write
-     * @param CriteriaElement|null $criteria   {@link CriteriaElement}
+     * @param string               $fieldName  Name of the field
+     * @param mixed                $fieldValue Value to write
+     * @param CriteriaElement|null $criteria   criteria to match
      * @param bool                 $force      force to query
      *
      * @return bool
      */
-    public function updateAll($fieldname, $fieldvalue, CriteriaElement $criteria = null, $force = false)
+    public function updateAll($fieldName, $fieldValue, CriteriaElement $criteria = null, $force = false)
     {
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
@@ -221,8 +225,10 @@ class Write extends XoopsModelAbstract
         if (isset($criteria)) {
             $qb = $criteria->renderQb($qb);
         }
-        $qb->set($fieldname, $qb->createNamedParameter($fieldvalue));
-
+        $qb->set($fieldName, $qb->createNamedParameter($fieldValue));
+        if ($force) {
+            $this->handler->db2->setForce($force);
+        }
         return $qb->execute();
     }
 }

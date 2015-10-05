@@ -42,7 +42,7 @@ define('XOBJ_DTYPE_ENUM',    Dtype::TYPE_ENUM);
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono (AKA onokazu) <http://www.myweb.ne.jp/, http://jp.xoops.org/>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -162,11 +162,11 @@ abstract class XoopsObject implements \ArrayAccess
      * initialize variables for the object
      *
      * @param string $key       key
-     * @param int    $data_type set to one of XOBJ_DTYPE_XXX constants (set to XOBJ_DTYPE_OTHER
+     * @param int    $data_type set to one of Dtype::TYPE_XXX constants (set to Dtype::TYPE_OTHER
      *                           if no data type checking nor text sanitizing is required)
      * @param mixed  $value     value
      * @param bool   $required  require html form input?
-     * @param mixed  $maxlength for XOBJ_DTYPE_TXTBOX type only
+     * @param mixed  $maxlength for Dtype::TYPE_TEXT_BOX type only
      * @param string $options   does this data have any select options?
      *
      * @return void
@@ -316,7 +316,7 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @return array associative array of key->value pairs
      */
-    public function getValues($keys = null, $format = 's', $maxDepth = 1)
+    public function getValues($keys = null, $format = Dtype::FORMAT_SHOW, $maxDepth = 1)
     {
         if (!isset($keys)) {
             $keys = array_keys($this->vars);
@@ -373,7 +373,7 @@ abstract class XoopsObject implements \ArrayAccess
         foreach ($this->vars as $k => $v) {
             if (!$v['changed']) {
             } else {
-                $this->cleanVars[$k] = Dtype::cleanVar($this, $k, $quote);
+                $this->cleanVars[$k] = Dtype::cleanVar($this, $k);
             }
         }
         if (count($this->errors) > 0) {

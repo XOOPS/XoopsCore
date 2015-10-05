@@ -29,7 +29,12 @@ use Xoops\Core\Kernel\Handlers\XoopsTplSet;
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS tplset class objects.
  *
- * @author  Kazumi Ono <onokazu@xoops.org>
+ * @category  Xoops\Core\Kernel\Handlers\XoopsTplSetHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsTplSetHandler extends XoopsPersistableObjectHandler
 {
@@ -41,7 +46,13 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'system_tplset', '\Xoops\Core\Kernel\Handlers\XoopsTplSet', 'tplset_id', 'tplset_name');
+        parent::__construct(
+            $db,
+            'system_tplset',
+            '\Xoops\Core\Kernel\Handlers\XoopsTplSet',
+            'tplset_id',
+            'tplset_name'
+        );
     }
 
     /**

@@ -24,8 +24,13 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * A Module
  *
- * @package kernel
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @category  Xoops\Core\Kernel\XoopsModule
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsModule extends XoopsObject
 {
@@ -35,7 +40,6 @@ class XoopsModule extends XoopsObject
     public $modinfo;
 
     /**
-     *
      * @var array
      */
     public $adminmenu;
@@ -43,10 +47,10 @@ class XoopsModule extends XoopsObject
     *
     * @var array
     */
-    private $_msg = array();
+    private $internalMessages = array();
 
-	protected $xoops_url;
-	protected $xoops_root_path;
+    protected $xoops_url;
+    protected $xoops_root_path;
 
     /**
      * Constructor
@@ -68,15 +72,17 @@ class XoopsModule extends XoopsObject
         // RMV-NOTIFY
         $this->initVar('hasnotification', Dtype::TYPE_INTEGER, 0, false);
 
-		$this->xoops_url = \XoopsBaseConfig::get('url');
-		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $this->xoops_url = \XoopsBaseConfig::get('url');
+        $this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }
 
     /**
      * Load module info
      *
-     * @param string $dirname Directory Name
-     * @param boolean $verbose
+     * @param string  $dirname module directory
+     * @param boolean $verbose true for more information
+     *
+     * @return void
      */
     public function loadInfoAsVar($dirname, $verbose = true)
     {
@@ -90,7 +96,8 @@ class XoopsModule extends XoopsObject
         $hasmain = (isset($this->modinfo['hasMain']) && $this->modinfo['hasMain'] == 1) ? 1 : 0;
         $hasadmin = (isset($this->modinfo['hasAdmin']) && $this->modinfo['hasAdmin'] == 1) ? 1 : 0;
         $hassearch = (isset($this->modinfo['hasSearch']) && $this->modinfo['hasSearch'] == 1) ? 1 : 0;
-        $hasconfig = ((isset($this->modinfo['config']) && is_array($this->modinfo['config'])) || ! empty($this->modinfo['hasComments'])) ? 1 : 0;
+        $hasconfig = ((isset($this->modinfo['config']) && is_array($this->modinfo['config']))
+            || !empty($this->modinfo['hasComments'])) ? 1 : 0;
         $hascomments = (isset($this->modinfo['hasComments']) && $this->modinfo['hasComments'] == 1) ? 1 : 0;
         // RMV-NOTIFY
         $hasnotification = (isset($this->modinfo['hasNotification']) && $this->modinfo['hasNotification'] == 1) ? 1 : 0;
@@ -107,29 +114,30 @@ class XoopsModule extends XoopsObject
      * add a message
      *
      * @param string $str message to add
-     * @access public
+     *
+     * @return void
      */
     public function setMessage($str)
     {
-        $this->_msg[] = trim($str);
+        $this->internalMessages[] = trim($str);
     }
 
     /**
      * return the messages for this object as an array
      *
      * @return array an array of messages
-     * @access public
      */
     public function getMessages()
     {
-        return $this->_msg;
+        return $this->internalMessages;
     }
 
     /**
      * Set module info
      *
-     * @param   string  $name
-     * @param   mixed   $value
+     * @param string $name  name
+     * @param mixed  $value value
+     *
      * @return  bool
      **/
     public function setInfo($name, $value)
@@ -145,9 +153,9 @@ class XoopsModule extends XoopsObject
     /**
      * Get module info
      *
-     * @param string $name
-     * @return array |string    Array of module information.
-     * If {@link $name} is set, returns a single module information item as string.
+     * @param string $name If $name is set, returns a single module information item as string.
+     *
+     * @return string[]|string Array of module information, or just the single name requested
      */
     public function getInfo($name = null)
     {
@@ -167,12 +175,13 @@ class XoopsModule extends XoopsObject
     /**
      * Get a link to the modules main page
      *
-     * @return string FALSE on fail
+     * @return string|false FALSE on fail
      */
     public function mainLink()
     {
         if ($this->getVar('hasmain') == 1) {
-            $ret = '<a href="' . $this->xoops_url . '/modules/' . $this->getVar('dirname') . '/">' . $this->getVar('name') . '</a>';
+            $ret = '<a href="' . $this->xoops_url . '/modules/' . $this->getVar('dirname') . '/">'
+                . $this->getVar('name') . '</a>';
             return $ret;
         }
         return false;
@@ -198,10 +207,12 @@ class XoopsModule extends XoopsObject
 
     /**
      * Load the admin menu for the module
+     *
+     * @return void
      */
     public function loadAdminMenu()
     {
-		$file = $this->xoops_root_path . '/modules/' . $this->getInfo('dirname') . '/' . $this->getInfo('adminmenu');
+        $file = $this->xoops_root_path . '/modules/' . $this->getInfo('dirname') . '/' . $this->getInfo('adminmenu');
         if ($this->getInfo('adminmenu') && $this->getInfo('adminmenu') != '' && \XoopsLoad::fileExists($file)) {
             $adminmenu = array();
             include $file;
@@ -264,14 +275,15 @@ class XoopsModule extends XoopsObject
     /**
      * Search contents within a module
      *
-     * @deprecated Use search module instead
+     * @param string  $term   search terms
+     * @param string  $andor  logic strategy for combining search terms 'AND' or 'OR'
+     * @param integer $limit  maximum number of result to return
+     * @param integer $offset offset into results for pagination
+     * @param integer $userid id of user to search
      *
-     * @param string $term
-     * @param string $andor 'AND' or 'OR'
-     * @param integer $limit
-     * @param integer $offset
-     * @param integer $userid
      * @return boolean Search result.
+     *
+     * @deprecated Use search module instead
      */
     public function search($term = '', $andor = 'AND', $limit = 0, $offset = 0, $userid = 0)
     {
@@ -279,7 +291,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for mid
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function id($format = 'n')
@@ -288,7 +303,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * another getter for mid
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function mid($format = '')
@@ -297,7 +315,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for module name
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function name($format = '')
@@ -306,7 +327,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for module version
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function version($format = '')
@@ -315,7 +339,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for module last update
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function last_update($format = '')
@@ -324,7 +351,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for weight
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function weight($format = '')
@@ -333,7 +363,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for isactive
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function isactive($format = '')
@@ -342,7 +375,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for dirname
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function dirname($format = '')
@@ -351,7 +387,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for hasmain
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function hasmain($format = '')
@@ -360,7 +399,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for hasadmin
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function hasadmin($format = '')
@@ -369,7 +411,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for hassearch
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function hassearch($format = '')
@@ -378,7 +423,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for hasconfig
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function hasconfig($format = '')
@@ -387,7 +435,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for hascomments
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function hascomments($format = '')
@@ -396,7 +447,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter for hasnotifications
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function hasnotification($format = '')
@@ -405,7 +459,10 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * @param $dirname
+     * get module by dirname
+     *
+     * @param string $dirname directory name
+     *
      * @return XoopsModule
      */
     public function getByDirName($dirname)

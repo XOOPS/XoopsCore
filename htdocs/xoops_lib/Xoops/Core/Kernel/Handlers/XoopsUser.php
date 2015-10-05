@@ -25,30 +25,29 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * Class for users
  *
- * @package   Kernel
+ * @category  Xoops\Core\Kernel\Handlers\XoopsUser
+ * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000-2003 XOOPS.org
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsUser extends XoopsObject
 {
     /**
-     * Array of groups that user belongs to
-     * @var array
-     * @access private
+     * @var array groups that user belongs to
      */
-    private $_groups = array();
+    private $groups = array();
 
     /**
      * @var string user's rank
-     * @access private
      */
-    private $_rank = null;
+    private $rank = null;
 
     /**
      * @var bool is the user online?
-     * @access private
      */
-    private $_isOnline = null;
+    private $isOnline = null;
 
     /**
      * constructor
@@ -82,6 +81,7 @@ class XoopsUser extends XoopsObject
         $this->initVar('theme', Dtype::TYPE_OTHER, null, false);
         $this->initVar('timezone_offset', Dtype::TYPE_OTHER, '0.0', false);
         $this->initVar('last_login', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('last_pass_change', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('umode', Dtype::TYPE_OTHER, null, false);
         $this->initVar('uorder', Dtype::TYPE_INTEGER, 1, false);
         // RMV-NOTIFY
@@ -171,7 +171,7 @@ class XoopsUser extends XoopsObject
     public function setGroups($groupsArr)
     {
         if (is_array($groupsArr)) {
-            $this->_groups = $groupsArr;
+            $this->groups = $groupsArr;
         }
     }
 
@@ -182,10 +182,10 @@ class XoopsUser extends XoopsObject
      */
     public function getGroups()
     {
-        if (empty($this->_groups)) {
-            $this->_groups = \Xoops::getInstance()->getHandlerMember()->getGroupsByUser($this->getVar('uid'));
+        if (empty($this->groups)) {
+            $this->groups = \Xoops::getInstance()->getHandlerMember()->getGroupsByUser($this->getVar('uid'));
         }
-        return $this->_groups;
+        return $this->groups;
     }
 
     /**
@@ -232,10 +232,10 @@ class XoopsUser extends XoopsObject
     public function rank()
     {
         $xoops = \Xoops::getInstance();
-        if (!isset($this->_rank)) {
-            $this->_rank = $xoops->service('userrank')->getUserRank($this)->getValue();
+        if (!isset($this->rank)) {
+            $this->rank = $xoops->service('userrank')->getUserRank($this)->getValue();
         }
-        return $this->_rank;
+        return $this->rank;
     }
 
     /**
@@ -258,15 +258,18 @@ class XoopsUser extends XoopsObject
      */
     public function isOnline()
     {
-        if (!isset($this->_isOnline)) {
+        if (!isset($this->isOnline)) {
             $online_handler = \Xoops::getInstance()->getHandlerOnline();
-            $this->_isOnline = ($online_handler->getCount(new Criteria('online_uid', $this->getVar('uid'))) > 0) ? true : false;
+            $this->isOnline =
+                ($online_handler->getCount(new Criteria('online_uid', $this->getVar('uid'))) > 0) ? true : false;
         }
-        return $this->_isOnline;
+        return $this->isOnline;
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -276,17 +279,21 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('uid', $format);
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -296,7 +303,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -306,7 +315,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -316,7 +327,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -326,7 +339,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -336,7 +351,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -346,7 +363,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -356,7 +375,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -366,7 +387,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -376,7 +399,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -386,7 +411,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -396,7 +423,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -406,7 +435,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -416,7 +447,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -426,7 +459,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -436,7 +471,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -446,7 +483,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -456,7 +495,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -466,7 +507,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -476,7 +519,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -486,7 +531,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -496,7 +543,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -506,7 +555,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -516,7 +567,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -526,7 +579,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -536,7 +591,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */
@@ -546,7 +603,9 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * @param string $format XoopsObject::getVar() format code
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
      *
      * @return mixed
      */

@@ -21,7 +21,7 @@ use Xoops\Core\Database\Connection;
  * @category  Xoops\Core\Kernel\XoopsObjectHandler
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2000-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -29,17 +29,14 @@ use Xoops\Core\Database\Connection;
 abstract class XoopsObjectHandler
 {
     /**
-     * holds referenced to {@link Connection} class object
-     *
      * @var Connection
-     * @see Connection
      */
     public $db2;
 
     /**
      * called from child classes only
      *
-     * @param Connection $db reference to the {@link \Xoops\Core\Database\Connection} object
+     * @param Connection $db database connection
      */
     protected function __construct(Connection $db = null)
     {
@@ -52,7 +49,7 @@ abstract class XoopsObjectHandler
     /**
      * creates a new object
      *
-     * @return XoopsObject {@link XoopsObject}
+     * @return XoopsObject
      */
     public function create()
     {

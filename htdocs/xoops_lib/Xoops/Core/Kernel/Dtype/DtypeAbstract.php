@@ -11,6 +11,7 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -27,17 +28,19 @@ use Xoops\Core\Kernel\XoopsObject;
 abstract class DtypeAbstract
 {
     /**
-     * @var Xoops\Core\Database\Connection
+     * @var \Xoops\Core\Database\Connection
      */
     protected $db;
 
     /**
-     * @var MytextSanitizer
+     * @var \MyTextSanitizer
      */
     protected $ts;
 
     /**
      * Sets database and sanitizer for easy access
+     *
+     * @return void
      */
     public function init()
     {
@@ -46,35 +49,35 @@ abstract class DtypeAbstract
     }
 
     /**
-     * @param XoopsObject $obj
-     * @param string      $key
-     * @param bool        $quote
+     * cleanVar prepare variable for persistence
+     *
+     * @param XoopsObject $obj object containing variable
+     * @param string      $key name of variable
      *
      * @return mixed
      */
-    public function cleanVar(XoopsObject $obj, $key, $quote = true)
+    public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
-        if ($quote) {
-            $value = str_replace('\\"', '"', $this->db->quote($value));
-        }
         return $value;
     }
 
     /**
-     * @param XoopsObject       $obj
-     * @param string            $key
-     * @param string            $format
+     * getVar get variable prepared according to format
+     *
+     * @param XoopsObject $obj    object containing variable
+     * @param string      $key    name of variable
+     * @param string      $format Dtype::FORMAT_* constant indicating desired formatting
      *
      * @return mixed
-     */
+    */
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
         if ($obj->vars[$key]['options'] != '' && $value != '') {
             switch (strtolower($format)) {
                 case 's':
-                case 'show':
+                case Dtype::FORMAT_SHOW:
                     $selected = explode('|', $value);
                     $options = explode('|', $obj->vars[$key]['options']);
                     $i = 1;
@@ -87,7 +90,7 @@ abstract class DtypeAbstract
                     }
                     return implode(', ', $ret);
                 case 'e':
-                case 'edit':
+                case Dtype::FORMAT_EDIT:
                     return explode('|', $value);
                 default:
             }

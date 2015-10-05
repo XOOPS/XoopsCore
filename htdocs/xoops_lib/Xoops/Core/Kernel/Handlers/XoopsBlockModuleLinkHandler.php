@@ -17,22 +17,29 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * XOOPS Kernel Class
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         kernel
- * @since           2.6.0
- * @author          Gregory Mage (AKA Mage)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @category  Xoops\Core\Kernel\Handlers\XoopsBlockModuleLinkHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Gregory Mage (AKA Mage)
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
-
-class XoopsBlockmodulelinkHandler extends XoopsPersistableObjectHandler
+class XoopsBlockModuleLinkHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * @param null|Connection $db
+     * __construct
+     *
+     * @param null|Connection $db database
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'system_blockmodule', '\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink', 'block_id', 'module_id');
+        parent::__construct(
+            $db,
+            'system_blockmodule',
+            '\Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink',
+            'block_id',
+            'module_id'
+        );
     }
 }

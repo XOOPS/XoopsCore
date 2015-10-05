@@ -11,7 +11,6 @@
 
 namespace Xmf\Module;
 
-use Xmf\Loader;
 use Xmf\Module\Helper;
 use Xmf\Module\Helper\AbstractHelper;
 use Xoops\Core\Handler\Factory;
@@ -54,9 +53,6 @@ class Permission extends AbstractHelper
      */
     public function init()
     {
-        if (!class_exists('XoopsGroupPermHandler', true)) {
-            Loader::loadFile(\XoopsBaseConfig::get('root-path') . '/kernel/groupperm.php');
-        }
         $this->mid = $this->module->getVar('mid');
         $this->dirname = $this->module->getVar('dirname');
         $this->permissionHandler = Factory::newSpec()->scheme('kernel')->name('groupperm')->build();

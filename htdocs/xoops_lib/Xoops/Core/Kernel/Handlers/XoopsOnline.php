@@ -25,9 +25,12 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * Online object
  *
+ * @category  Xoops\Core\Kernel\Handlers\XoopsOnline
+ * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright copyright (c) 2000 XOOPS.org
- * @package   kernel
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsOnline extends XoopsObject
 {
@@ -44,25 +47,34 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->online_uid($format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function online_uid($format = 'n')
+    public function online_uid($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('online_uid', $format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function online_uname($format = '')
@@ -71,7 +83,10 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function online_updated($format = '')
@@ -80,7 +95,10 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function online_module($format = '')
@@ -89,7 +107,10 @@ class XoopsOnline extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function online_ip($format = '')

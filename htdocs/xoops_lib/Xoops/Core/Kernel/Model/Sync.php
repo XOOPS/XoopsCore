@@ -18,7 +18,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  *
  * Usage of methods provided by XoopsModelSync:
  *
- * Step #1: set linked table and adjoint fields through XoopsPersistableObjectHandler:
+ * Step #1: set linked table and joint fields through XoopsPersistableObjectHandler:
  *      $handler->table_link = $handler->db2->prefix("the_linked_table");
  *          full name of the linked table that is used for the query
  *      $handler->field_link = "the_linked_field";

@@ -27,9 +27,13 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS user class objects.
  *
- * @author  Kazumi Ono <onokazu@xoops.org>
- * @author  Taiwen Jiang <phppp@users.sourceforge.net>
- * @package kernel
+ * @category  Xoops\Core\Kernel\Handlers\XoopsUserHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsUserHandler extends XoopsPersistableObjectHandler
 {
@@ -43,5 +47,4 @@ class XoopsUserHandler extends XoopsPersistableObjectHandler
     {
         parent::__construct($db, 'system_user', '\Xoops\Core\Kernel\Handlers\XoopsUser', 'uid', 'uname');
     }
-
 }

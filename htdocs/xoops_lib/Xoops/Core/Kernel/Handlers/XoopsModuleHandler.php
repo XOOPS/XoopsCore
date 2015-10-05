@@ -22,7 +22,6 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 /**
  * XOOPS module handler class.
@@ -30,9 +29,13 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS module class objects.
  *
- * @package kernel
- * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright (c) 2000-2003 XOOPS Project (http://xoops.org)
+ * @category  Xoops\Core\Kernel\XoopsModuleHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsModuleHandler extends XoopsPersistableObjectHandler
 {
@@ -42,7 +45,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * @var array
      * @access private
      */
-    private $_cachedModule_mid = array();
+    private $cachedModulesByMid = array();
 
     /**
      * holds an array of cached module references, indexed by module dirname
@@ -50,7 +53,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * @var array
      * @access private
      */
-    private $_cachedModule_dirname = array();
+    private $cachedModulesByDirname = array();
 
     /**
      * Constructor
@@ -66,21 +69,22 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * Load a module from the database
      *
      * @param int $id ID of the module
+     *
      * @return XoopsModule|bool on fail
      */
-    function getById($id = null)
+    public function getById($id = null)
     {
         $id = (int)($id);
         if ($id > 0) {
-            if (!empty($this->_cachedModule_mid[$id])) {
-                return $this->_cachedModule_mid[$id];
+            if (!empty($this->cachedModulesByMid[$id])) {
+                return $this->cachedModulesByMid[$id];
             } else {
                 $module = parent::get($id);
                 if (!is_object($module)) {
                     return false;
                 }
-                $this->_cachedModule_mid[$id] = $module;
-                $this->_cachedModule_dirname[$module->getVar('dirname')] = $module;
+                $this->cachedModulesByMid[$id] = $module;
+                $this->cachedModulesByDirname[$module->getVar('dirname')] = $module;
                 return $module;
             }
         }
@@ -98,8 +102,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     {
         $dirname = basename(trim($dirname));
 
-        if (!empty($this->_cachedModule_dirname[$dirname])) {
-            return $this->_cachedModule_dirname[$dirname];
+        if (!empty($this->cachedModulesByDirname[$dirname])) {
+            return $this->cachedModulesByDirname[$dirname];
         } else {
             $criteria = new Criteria('dirname', $dirname);
             $modules = $this->getObjectsArray($criteria);
@@ -109,8 +113,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 return false;
             }
             /* @var $module XoopsModule */
-            $this->_cachedModule_dirname[$dirname] = $module;
-            $this->_cachedModule_mid[$module->getVar('mid')] = $module;
+            $this->cachedModulesByDirname[$dirname] = $module;
+            $this->cachedModulesByMid[$module->getVar('mid')] = $module;
             return $module;
         }
     }
@@ -118,11 +122,11 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * Write a module to the database
      *
-     * @param XoopsModule $module reference to a {@link XoopsModule}
+     * @param XoopsModule $module module to insert
      *
      * @return bool
      */
-    public function insertModule(XoopsModule &$module)
+    public function insertModule(XoopsModule $module)
     {
         if (!parent::insert($module)) {
             return false;
@@ -131,11 +135,11 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         $dirname = $module->getVar('dirname');
         $mid = $module->getVar('mid');
 
-        if (!empty($this->_cachedModule_dirname[$dirname])) {
-            unset($this->_cachedModule_dirname[$dirname]);
+        if (!empty($this->cachedModulesByDirname[$dirname])) {
+            unset($this->cachedModulesByDirname[$dirname]);
         }
-        if (!empty($this->_cachedModule_mid[$mid])) {
-            unset($this->_cachedModule_mid[$mid]);
+        if (!empty($this->cachedModulesByMid[$mid])) {
+            unset($this->cachedModulesByMid[$mid]);
         }
         return true;
     }
@@ -143,10 +147,11 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * Delete a module from the database
      *
-     * @param XoopsModule &$module
+     * @param XoopsModule $module module to delete
+     *
      * @return bool
      */
-    public function deleteModule(XoopsModule &$module)
+    public function deleteModule(XoopsModule $module)
     {
         if (!parent::delete($module)) {
             return false;
@@ -201,7 +206,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                     ->setParameter(':bid', $i, \PDO::PARAM_INT)
                     ->execute();
             } else {
-                // this block doesnt have other entries, so disable the block and let it show on top page only. otherwise, this block will not display anymore on block admin page!
+                // this block does not have other entries, so disable the block and let it show
+                // on top page only. otherwise, this block will not display anymore on block admin page!
                 $qb->resetQueryParts(); // reset
                 $qb ->updatePrefix('system_block')
                     ->set('visible', ':notvisible')
@@ -220,11 +226,11 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             }
         }
 
-        if (!empty($this->_cachedModule_dirname[$dirname])) {
-            unset($this->_cachedModule_dirname[$dirname]);
+        if (!empty($this->cachedModulesByDirname[$dirname])) {
+            unset($this->cachedModulesByDirname[$dirname]);
         }
-        if (!empty($this->_cachedModule_mid[$mid])) {
-            unset($this->_cachedModule_mid[$mid]);
+        if (!empty($this->cachedModulesByMid[$mid])) {
+            unset($this->cachedModulesByMid[$mid]);
         }
         $cache = \Xoops::getInstance()->cache();
         $cache->delete("system/module/id/{$mid}");
@@ -257,11 +263,11 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             if (!$result = $qb->execute()) {
                 return $ret;
             }
-        } catch (\PDOException $e) {
-            return $ret;
         } catch (\Doctrine\DBAL\Driver\PDOException $e) {
             return $ret;
         } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
+            return $ret;
+        } catch (\PDOException $e) {
             return $ret;
         }
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {

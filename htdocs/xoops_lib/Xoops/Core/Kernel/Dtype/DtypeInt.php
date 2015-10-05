@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @category  Xoops\Core\Kernel\Dtype\DtypeInt
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -28,41 +28,44 @@ use Xoops\Core\Kernel\XoopsObject;
 class DtypeInt extends DtypeAbstract
 {
     /**
-     * @param XoopsObject $obj
-     * @param string      $key
-     * @param string      $format
+     * getVar get variable prepared according to format
      *
-     * @return string
+     * @param XoopsObject $obj    object containing variable
+     * @param string      $key    name of variable
+     * @param string      $format Dtype::FORMAT_* constant indicating desired formatting
+     *
+     * @return mixed
      */
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
         switch (strtolower($format)) {
             case 's':
-            case 'show':
+            case Dtype::FORMAT_SHOW:
             case 'e':
-            case 'edit':
+            case Dtype::FORMAT_EDIT:
                 return $this->ts->htmlSpecialChars($value);
             case 'p':
-            case 'preview':
+            case Dtype::FORMAT_PREVIEW:
             case 'f':
-            case 'formpreview':
+            case Dtype::FORMAT_FORM_PREVIEW:
                 return $this->ts->htmlSpecialChars($this->ts->stripSlashesGPC($value));
             case 'n':
-            case 'none':
+            case Dtype::FORMAT_NONE:
             default:
                 return $value;
         }
     }
 
     /**
-     * @param XoopsObject $obj
-     * @param string      $key
-     * @param bool        $quote
+     * cleanVar prepare variable for persistence
+     *
+     * @param XoopsObject $obj object containing variable
+     * @param string      $key name of variable
      *
      * @return int
      */
-    public function cleanVar(XoopsObject $obj, $key, $quote = true)
+    public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
         $value = (int)($value);
