@@ -25,7 +25,7 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * A group permission
  *
- * These permissions are managed through a {@link XoopsGroupPermHandler} object
+ * These permissions are managed through a XoopsGroupPermHandler object
  *
  * @category  Xoops\Core\Kernel\Handlers\XoopsGroupPerm
  * @package   Xoops\Core\Kernel

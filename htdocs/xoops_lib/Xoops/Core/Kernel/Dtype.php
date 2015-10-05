@@ -12,6 +12,7 @@
 namespace Xoops\Core\Kernel;
 
 use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+use Xoops\Core\Kernel\Dtype\DtypeOther;
 
 /**
  * Dtype

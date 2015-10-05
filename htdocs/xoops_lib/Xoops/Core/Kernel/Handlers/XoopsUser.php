@@ -189,7 +189,7 @@ class XoopsUser extends XoopsObject
     }
 
     /**
-     * alias for {@link getGroups()}
+     * alias for getGroups()
      *
      * @see getGroups()
      * @return array array of groups

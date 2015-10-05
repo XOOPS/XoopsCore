@@ -43,7 +43,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {
@@ -51,7 +51,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * retrieve a specific {@link XoopsTplFile}
+     * retrieve a specific XoopsTplFile
      *
      * @param int  $id        tpl_id of the block to retrieve
      * @param bool $getsource true = also return source
@@ -125,6 +125,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
      */
     public function insertTpl(XoopsTplFile $tplfile)
     {
+        $tpl_id = 0;
         if (!$tplfile->isDirty()) {
             return true;
         }
@@ -141,7 +142,12 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         $tpl_lastmodified = $vars['tpl_lastmodified'];
         $tpl_lastimported = $vars['tpl_lastimported'];
         $tpl_type         = $vars['tpl_type'];
-        $tpl_id           = $vars['tpl_id'];
+        if (isset($vars['tpl_id'])) {
+            $tpl_id = $vars['tpl_id'];
+        }
+        if (isset($vars['tpl_source'])) {
+            $tpl_source = $vars['tpl_source'];
+        }
 
         if ($tplfile->isNew()) {
             $tpl_id = 0;
@@ -229,6 +235,9 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         $tpl_lastimported = $vars['tpl_lastimported'];
         $tpl_type         = $vars['tpl_type'];
         //$tpl_id           = $vars['tpl_id'];
+        if (isset($vars['tpl_source'])) {
+            $tpl_source = $vars['tpl_source'];
+        }
 
         if (!$tplfile->isNew()) {
             $tpl_id = 0;

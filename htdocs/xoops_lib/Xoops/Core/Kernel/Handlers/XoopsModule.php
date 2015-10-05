@@ -273,24 +273,6 @@ class XoopsModule extends XoopsObject
     }
 
     /**
-     * Search contents within a module
-     *
-     * @param string  $term   search terms
-     * @param string  $andor  logic strategy for combining search terms 'AND' or 'OR'
-     * @param integer $limit  maximum number of result to return
-     * @param integer $offset offset into results for pagination
-     * @param integer $userid id of user to search
-     *
-     * @return boolean Search result.
-     *
-     * @deprecated Use search module instead
-     */
-    public function search($term = '', $andor = 'AND', $limit = 0, $offset = 0, $userid = 0)
-    {
-        return false;
-    }
-
-    /**
      * getter for mid
      *
      * @param string $format Dtype::FORMAT_xxxx constant

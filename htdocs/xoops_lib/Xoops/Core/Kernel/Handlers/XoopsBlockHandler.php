@@ -14,7 +14,6 @@ namespace Xoops\Core\Kernel\Handlers;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsBlock;
 
 /**
  * XoopsBlockHandler
@@ -33,7 +32,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link \Xoops\Core\Database\Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {

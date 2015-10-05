@@ -22,7 +22,6 @@ namespace Xoops\Core\Kernel\Handlers;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsTplSet;
 
 /**
  * XOOPS tplset handler class.
@@ -42,7 +41,7 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {

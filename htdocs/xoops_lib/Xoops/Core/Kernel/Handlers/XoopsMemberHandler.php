@@ -23,8 +23,6 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
-use Xoops\Core\Kernel\Handlers\XoopsUser;
-use Xoops\Core\Kernel\Handlers\XoopsGroup;
 
 /**
  * XOOPS member handler class.
@@ -341,7 +339,7 @@ class XoopsMemberHandler
         if (!$user || count($user) != 1) {
             return false;
         }
-        $rehash = false;
+
         $hash = $user[0]->pass();
         $type = substr($user[0]->pass(), 0, 1);
         // see if we have a crypt like signature, old md5 hash is just hex digits
@@ -368,7 +366,7 @@ class XoopsMemberHandler
     /**
      * count users matching certain conditions
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} object
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int
      */
@@ -409,7 +407,7 @@ class XoopsMemberHandler
      *
      * @param string          $fieldName  name of the field to update
      * @param string          $fieldValue updated value for the field
-     * @param CriteriaElement $criteria   {@link CriteriaElement} object or null
+     * @param CriteriaElement $criteria   criteria to match
      *
      * @return bool TRUE if success or unchanged, FALSE on failure
      */
@@ -424,7 +422,7 @@ class XoopsMemberHandler
     /**
      * activate a user
      *
-     * @param XoopsUser $user the {@link XoopsUser} object
+     * @param XoopsUser $user the user object
      *
      * @return bool successful?
      */
@@ -442,11 +440,11 @@ class XoopsMemberHandler
      * Temporary solution
      *
      * @param array           $groups    IDs of groups
-     * @param CriteriaElement $criteria  {@link CriteriaElement} object or null
+     * @param CriteriaElement $criteria  criteria to match
      * @param bool            $asobject  return the users as objects?
      * @param bool            $id_as_key use the UID as key for the array if $asobject is TRUE
      *
-     * @return array Array of {@link XoopsUser} objects (if $asobject is TRUE)
+     * @return array Array of XoopsUser objects (if $asobject is TRUE)
      * or of associative arrays matching the record structure in the database.
      */
     public function getUsersByGroupLink(

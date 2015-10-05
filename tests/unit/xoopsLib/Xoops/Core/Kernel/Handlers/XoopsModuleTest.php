@@ -136,13 +136,6 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(true, $value);
     }
 
-    public function test_search()
-    {
-        $instance=new $this->myclass();
-        $value=$instance->search();
-        $this->assertSame(false, $value);
-    }
-
     public function test_id()
     {
         $instance=new $this->myclass();

@@ -40,7 +40,7 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {

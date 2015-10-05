@@ -58,7 +58,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {
@@ -171,8 +171,8 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 )
             )
             ->andWhere($eb->eq('gperm_itemid', ':itemid'))
-            ->setParameter(':itemid', $mid, \PDO::PARAM_INT);
-        $result = $qb->execute();
+            ->setParameter(':itemid', $mid, \PDO::PARAM_INT)
+            ->execute();
 
         $qb->resetQueryParts(); // reset
         $qb ->select('block_id')
@@ -242,7 +242,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
     /**
      * Load some modules
      *
-     * @param CriteriaElement|null $criteria  {@link CriteriaElement}
+     * @param CriteriaElement|null $criteria  criteria to match
      * @param boolean              $id_as_key Use the ID as key into the array
      *
      * @return array

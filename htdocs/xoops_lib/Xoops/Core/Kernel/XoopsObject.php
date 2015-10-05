@@ -362,11 +362,9 @@ abstract class XoopsObject implements \ArrayAccess
      * clean values of all variables of the object for storage.
      * also add slashes where ever needed
      *
-     * @param bool $quote add quotes for db storage
-     *
      * @return bool true if successful
      */
-    public function cleanVars($quote = true)
+    public function cleanVars()
     {
         $existing_errors = $this->getErrors();
         $this->errors = array();

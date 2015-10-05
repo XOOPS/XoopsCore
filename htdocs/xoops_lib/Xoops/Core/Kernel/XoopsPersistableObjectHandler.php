@@ -124,11 +124,10 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @param string|object $handler handler
      * @param array|null    $args    arguments
-     * @param string|null   $path    path
      *
      * @return object|null
      */
-    public function setHandler($handler = null, $args = null, $path = null)
+    public function setHandler($handler = null, $args = null)
     {
         $this->handler = null;
         if (is_object($handler)) {
