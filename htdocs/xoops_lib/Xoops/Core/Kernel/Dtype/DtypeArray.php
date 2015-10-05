@@ -66,9 +66,6 @@ class DtypeArray extends DtypeAbstract
     {
         $value = $obj->vars[$key]['value'];
         $value = (array)$value;
-        if (!$obj->vars[$key]['not_gpc']) {
-            $value = array_map(array(&$this->ts, "stripSlashesGPC"), $value);
-        }
         // TODO: Not encoding safe, should try base64_encode -- phppp
         $value = serialize($value);
         return $value;

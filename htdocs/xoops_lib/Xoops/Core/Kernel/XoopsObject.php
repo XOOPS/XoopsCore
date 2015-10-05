@@ -219,15 +219,13 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @param string $key     name of the variable to assign
      * @param mixed  $value   value to assign
-     * @param bool   $not_gpc not gpc
      *
      * @return void
      */
-    public function setVar($key, $value, $not_gpc = false)
+    public function setVar($key, $value)
     {
         if (!empty($key) && isset($value) && isset($this->vars[$key])) {
             $this->vars[$key]['value'] = $value;
-            $this->vars[$key]['not_gpc'] = $not_gpc;
             $this->vars[$key]['changed'] = true;
             $this->setDirty();
         }
@@ -237,15 +235,14 @@ abstract class XoopsObject implements \ArrayAccess
      * assign values to multiple variables in a batch
      *
      * @param array $var_arr associative array of values to assign
-     * @param bool  $not_gpc not gpc
      *
      * @return void
      */
-    public function setVars($var_arr, $not_gpc = false)
+    public function setVars($var_arr)
     {
         if (is_array($var_arr)) {
             foreach ($var_arr as $key => $value) {
-                $this->setVar($key, $value, $not_gpc);
+                $this->setVar($key, $value);
             }
         }
     }
@@ -281,17 +278,16 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @param mixed  $var_arr associative array of values to assign
      * @param string $pref    prefix (only keys starting with the prefix will be set)
-     * @param bool   $not_gpc not gpc
      *
      * @return void
      */
-    public function setFormVars($var_arr = null, $pref = 'xo_', $not_gpc = false)
+    public function setFormVars($var_arr = null, $pref = 'xo_')
     {
         $len = strlen($pref);
         if (is_array($var_arr)) {
             foreach ($var_arr as $key => $value) {
                 if ($pref == substr($key, 0, $len)) {
-                    $this->setVar(substr($key, $len), $value, $not_gpc);
+                    $this->setVar(substr($key, $len), $value);
                 }
             }
         }

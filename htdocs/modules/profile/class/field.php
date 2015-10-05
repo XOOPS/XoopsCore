@@ -62,17 +62,19 @@ class ProfileField extends XoopsObject
      *
      * @param string $key
      * @param mixed $value
-     * @param bool $not_gpc
+     *
      * @return void
+     *
+     * @todo evaluate removing this. New considerations: full UTF-8 system, new Dtype::TYPE_JSON
      */
-    public function setVar($key, $value, $not_gpc = false)
+    public function setVar($key, $value)
     {
         if ($key == 'field_options' && is_array($value)) {
             foreach (array_keys($value) as $idx) {
                 $value[$idx] = base64_encode($value[$idx]);
             }
         }
-        parent::setVar($key, $value, $not_gpc);
+        parent::setVar($key, $value);
     }
 
     /**
