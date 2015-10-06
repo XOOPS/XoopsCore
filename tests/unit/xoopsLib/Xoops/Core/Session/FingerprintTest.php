@@ -1,7 +1,7 @@
 <?php
-namespace Xoops\Core\Session;
-
 require_once __DIR__.'/../../../../init_new.php';
+
+use Xoops\Core\Session\Fingerprint;
 
 /**
  * PHPUnit special settings :
@@ -34,8 +34,8 @@ class FingerprintTest extends \PHPUnit_Framework_TestCase
 
     public function testContracts()
     {
-        $this->assertInstanceOf('Xoops\Core\Session\Fingerprint', $this->object);
-        $this->assertInstanceOf('Xoops\Core\Session\FingerprintInterface', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Session\Fingerprint', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Session\FingerprintInterface', $this->object);
     }
 
     /**

@@ -52,7 +52,7 @@ class Factory
                 $xoops_auth_method = 'xoops';
             }
 
-            $class = '\\Xoops\\Auth\\' . ucfirst($xoops_auth_method);
+            $class = '\Xoops\Auth\\' . ucfirst($xoops_auth_method);
             if (!class_exists($class)) {
                 trigger_error(\XoopsLocale::EF_CLASS_NOT_FOUND, E_USER_ERROR);
                 return false;

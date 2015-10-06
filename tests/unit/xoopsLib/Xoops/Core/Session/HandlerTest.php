@@ -1,7 +1,7 @@
 <?php
-namespace Xoops\Core\Session;
-
 require_once __DIR__.'/../../../../init_new.php';
+
+use Xoops\Core\Session\Handler;
 
 /**
  * PHPUnit special settings :

@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
+use Xoops\Core\ComposerUtility;
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -19,7 +21,7 @@ class ComposerUtilityTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new \Xoops\Core\ComposerUtility;
+        $this->object = new ComposerUtility;
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
-namespace Xoops\Core;
-
 require_once(dirname(__FILE__).'/../../../init_new.php');
+
+use Xoops\Core\Yaml;
 
 /**
  * PHPUnit special settings :
