@@ -233,7 +233,6 @@ class XoopsConfigItem extends XoopsObject
      * Set a config value
      *
      * @param mixed $value       Value by reference
-     * @param bool  $force_slash force slash
      *
      * @return void
      */

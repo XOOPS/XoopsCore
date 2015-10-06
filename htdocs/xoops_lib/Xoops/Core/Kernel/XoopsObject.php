@@ -356,7 +356,6 @@ abstract class XoopsObject implements \ArrayAccess
 
     /**
      * clean values of all variables of the object for storage.
-     * also add slashes where ever needed
      *
      * @return bool true if successful
      */

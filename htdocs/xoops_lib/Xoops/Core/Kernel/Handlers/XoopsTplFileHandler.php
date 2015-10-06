@@ -129,7 +129,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         if (!$tplfile->isDirty()) {
             return true;
         }
-        if (!$tplfile->cleanVars(false)) {
+        if (!$tplfile->cleanVars()) {
             return false;
         }
 
@@ -221,7 +221,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         if (!$tplfile->isDirty()) {
             return true;
         }
-        if (!$tplfile->cleanVars(false)) {
+        if (!$tplfile->cleanVars()) {
             return false;
         }
 

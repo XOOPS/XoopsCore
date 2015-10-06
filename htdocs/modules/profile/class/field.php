@@ -471,7 +471,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
     {
         $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
         $obj->setVar('field_name', str_replace(' ', '_', $obj->getVar('field_name')));
-        $obj->cleanVars(false); //Don't quote
+        $obj->cleanVars(); //Don't quote
         switch ($obj->getVar('field_type')) {
             case "datetime":
             case "date":
