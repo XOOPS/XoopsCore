@@ -920,17 +920,17 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             $confobj->setVar('conf_modid', $module->getVar('mid'));
             $confobj->setVar('conf_catid', 0);
             $confobj->setVar('conf_name', $config['name']);
-            $confobj->setVar('conf_title', $config['title'], true);
-            $confobj->setVar('conf_desc', $config['description'], true);
+            $confobj->setVar('conf_title', $config['title']);
+            $confobj->setVar('conf_desc', $config['description']);
             $confobj->setVar('conf_formtype', $config['formtype']);
             $confobj->setVar('conf_valuetype', $config['valuetype']);
-            $confobj->setConfValueForInput($config['default'], true);
+            $confobj->setConfValueForInput($config['default']);
             $confobj->setVar('conf_order', $order);
             if (isset($config['options']) && is_array($config['options'])) {
                 foreach ($config['options'] as $key => $value) {
                     $confop = $config_handler->createConfigOption();
-                    $confop->setVar('confop_name', $key, true);
-                    $confop->setVar('confop_value', $value, true);
+                    $confop->setVar('confop_name', $key);
+                    $confop->setVar('confop_value', $value);
                     $confobj->setConfOptions($confop);
                     unset($confop);
                 }

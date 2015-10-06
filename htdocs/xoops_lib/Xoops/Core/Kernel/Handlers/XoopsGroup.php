@@ -25,9 +25,12 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * a group of users
  *
- * @copyright copyright (c) 2000-2003 XOOPS.org
- * @author Kazumi Ono <onokazu@xoops.org>
- * @package kernel
+ * @category  Xoops\Core\Kernel\Handlers\XoopsGroup
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsGroup extends XoopsObject
 {
@@ -43,16 +46,22 @@ class XoopsGroup extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('groupid', $format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function groupid($format = '')
@@ -61,7 +70,10 @@ class XoopsGroup extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function name($format = '')
@@ -70,7 +82,10 @@ class XoopsGroup extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function description($format = '')
@@ -79,12 +94,14 @@ class XoopsGroup extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function group_type($format = '')
     {
         return $this->getVar('group_type', $format);
     }
-
 }

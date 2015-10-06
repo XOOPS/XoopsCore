@@ -22,7 +22,7 @@ namespace Xoops\Core\Kernel\Handlers;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
-/**#@+
+/**
  * deprecated
  * Config type
  */
@@ -33,11 +33,16 @@ define('XOOPS_CONF_CENSOR', 4);
 define('XOOPS_CONF_SEARCH', 5);
 define('XOOPS_CONF_MAILER', 6);
 define('XOOPS_CONF_AUTH', 7);
-/**#@-*/
 
 /**
- * @author        Kazumi Ono    <onokazu@xoops.org>
- * @copyright    copyright (c) 2000-2003 XOOPS.org
+ * Configuration Item
+ *
+ * @category  Xoops\Core\Kernel\Handlers\XoopsConfigItem
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono    <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsConfigItem extends XoopsObject
 {
@@ -46,9 +51,8 @@ class XoopsConfigItem extends XoopsObject
      * Config options
      *
      * @var    array
-     * @access    private
      */
-    private $_confOptions = array();
+    private $configurationOptions = array();
 
     /**
      * Constructor
@@ -68,16 +72,22 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('conf_id', $format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_id($format = '')
@@ -86,7 +96,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_modid($format = '')
@@ -95,7 +108,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_catid($format = '')
@@ -104,7 +120,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_name($format = '')
@@ -113,7 +132,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_title($format = '')
@@ -122,7 +144,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_value($format = '')
@@ -131,7 +156,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_desc($format = '')
@@ -140,7 +168,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_formtype($format = '')
@@ -149,7 +180,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_valuetype($format = '')
@@ -158,7 +192,10 @@ class XoopsConfigItem extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_order($format = '')
@@ -174,52 +211,55 @@ class XoopsConfigItem extends XoopsObject
     public function getConfValueForOutput()
     {
         switch ($this->getVar('conf_valuetype')) {
-        case 'int':
-            return (int)($this->getVar('conf_value', 'n'));
-            break;
-        case 'array':
-            $value = @unserialize($this->getVar('conf_value', 'n'));
-            return $value ? $value : array();
-        case 'float':
-            $value = $this->getVar('conf_value', 'n');
-            return (float)$value;
-            break;
-        case 'textarea':
-            return $this->getVar('conf_value');
-        default:
-            return $this->getVar('conf_value', 'n');
-            break;
+            case 'int':
+                return (int)($this->getVar('conf_value', 'n'));
+                break;
+            case 'array':
+                $value = @unserialize($this->getVar('conf_value', 'n'));
+                return $value ? $value : array();
+            case 'float':
+                $value = $this->getVar('conf_value', 'n');
+                return (float)$value;
+                break;
+            case 'textarea':
+                return $this->getVar('conf_value');
+            default:
+                return $this->getVar('conf_value', 'n');
+                break;
         }
     }
 
     /**
      * Set a config value
      *
-     * @param    mixed   &$value Value
-     * @param    bool    $force_slash
+     * @param mixed $value       Value by reference
+     *
+     * @return void
      */
-    public function setConfValueForInput(&$value, $force_slash = false)
+    public function setConfValueForInput(&$value)
     {
         switch ($this->getVar('conf_valuetype')) {
-        case 'array':
-            if (!is_array($value)) {
-                $value = explode('|', trim($value));
-            }
-            $this->setVar('conf_value', serialize($value), $force_slash);
-            break;
-        case 'text':
-            $this->setVar('conf_value', trim($value), $force_slash);
-            break;
-        default:
-            $this->setVar('conf_value', $value, $force_slash);
-            break;
+            case 'array':
+                if (!is_array($value)) {
+                    $value = explode('|', trim($value));
+                }
+                $this->setVar('conf_value', serialize($value));
+                break;
+            case 'text':
+                $this->setVar('conf_value', trim($value));
+                break;
+            default:
+                $this->setVar('conf_value', $value);
+                break;
         }
     }
 
     /**
-     * Assign one or more {@link XoopsConfigOption}s
+     * Assign one or more configuration options
      *
-     * @param    mixed   $option either a {@link XoopsConfigOption} object or an array of them
+     * @param XoopsConfigOption|XoopsConfigOption[] $option configuration option(s)
+     *
+     * @return void
      */
     public function setConfOptions($option)
     {
@@ -230,19 +270,19 @@ class XoopsConfigItem extends XoopsObject
             }
         } else {
             if (is_object($option)) {
-                $this->_confOptions[] = $option;
+                $this->configurationOptions[] = $option;
             }
         }
     }
 
     /**
-     * Get the {@link XoopsConfigOption}s of this Config
+     * Get the configuration options for this item
      *
-     * @return    array   array of {@link XoopsConfigOption}
+     * @return XoopsConfigOption[]
      */
     public function getConfOptions()
     {
-        return $this->_confOptions;
+        return $this->configurationOptions;
     }
 
     /**
@@ -252,6 +292,6 @@ class XoopsConfigItem extends XoopsObject
      **/
     public function clearConfOptions()
     {
-        $this->_confOptions = array();
+        $this->configurationOptions = array();
     }
 }

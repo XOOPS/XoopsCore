@@ -24,11 +24,13 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * Private Messages
  *
- * @author Kazumi Ono <onokazu@xoops.org>
+ * @category  Xoops\Core\Kernel\Handlers\XoopsPrivateMessage
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- *
- * @package kernel
- **/
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ */
 class XoopsPrivateMessage extends XoopsObject
 {
     /**
@@ -47,16 +49,22 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('msg_id', $format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function msg_id($format = '')
@@ -65,7 +73,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function msg_image($format = '')
@@ -74,7 +85,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function subject($format = '')
@@ -83,7 +97,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function from_userid($format = '')
@@ -92,7 +109,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function to_userid($format = '')
@@ -101,7 +121,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function msg_time($format = '')
@@ -110,7 +133,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function msg_text($format = '')
@@ -119,7 +145,10 @@ class XoopsPrivateMessage extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function read_msg($format = '')

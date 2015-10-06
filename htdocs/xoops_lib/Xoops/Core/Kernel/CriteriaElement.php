@@ -139,11 +139,11 @@ abstract class CriteriaElement
      */
     public function setOrder($order)
     {
-		if (is_string($order)) {
-			$order = strtoupper($order);
-			if (in_array($order, array('ASC','DESC'))) {
-				$this->order = $order;
-			}
+        if (is_string($order)) {
+            $order = strtoupper($order);
+            if (in_array($order, array('ASC', 'DESC'))) {
+                $this->order = $order;
+            }
         }
     }
 

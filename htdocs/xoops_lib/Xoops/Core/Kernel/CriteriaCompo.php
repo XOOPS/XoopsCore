@@ -11,11 +11,10 @@
 
 namespace Xoops\Core\Kernel;
 
-use Xoops\Core\Kernel\CriteriaElement;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
- * Collection of multiple {@link CriteriaElement}s
+ * Collection of multiple CriteriaElement objects
  *
  * @category  Xoops\Core\Kernel\CriteriaCompo
  * @package   Xoops\Core\Kernel
@@ -32,7 +31,7 @@ class CriteriaCompo extends CriteriaElement
     /**
      * The elements of the collection
      *
-     * @var array Array of {@link CriteriaElement} objects
+     * @var CriteriaElement[] array of objects
      */
     protected $criteriaElements = array();
 
@@ -161,7 +160,7 @@ class CriteriaCompo extends CriteriaElement
         }
 
         if (!empty($expr)) {
-            $expr = '(' . $expr . ')'; // group all condtions in this compo
+            $expr = '(' . $expr . ')'; // group all conditions in this compo
 
             switch (strtolower($whereMode)) {
                 case 'and':
@@ -218,7 +217,7 @@ class CriteriaCompo extends CriteriaElement
         }
 
         if (!empty($expr)) {
-            $expr = '(' . $expr . ')'; // group all condtions in this compo
+            $expr = '(' . $expr . ')'; // group all conditions in this compo
         }
         return $expr;
     }

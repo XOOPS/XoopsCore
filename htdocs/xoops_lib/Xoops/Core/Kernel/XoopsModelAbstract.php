@@ -11,8 +11,6 @@
 
 namespace Xoops\Core\Kernel;
 
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-
 /**
  * abstract class object handler
  *
@@ -29,15 +27,14 @@ abstract class XoopsModelAbstract
     /**
      * holds referenced to handler object
      *
-     * @var XoopsPersistableObjectHandler $handler reference to {@link XoopsPersistableObjectHandler}
-     * @access protected
+     * @var XoopsPersistableObjectHandler $handler
      */
     protected $handler;
 
     /**
      * XoopsModelAbstract::setHandler()
      *
-     * @param XoopsPersistableObjectHandler $handler reference to {@link XoopsPersistableObjectHandler}
+     * @param XoopsPersistableObjectHandler $handler handler to use
      *
      * @return boolean
      */

@@ -93,7 +93,7 @@ if ($error == false) {
                 $fp = @fopen($uploader->getSavedDestination(), 'rb');
                 $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                 @fclose($fp);
-                $image->setVar('image_body', $fbinary, true);
+                $image->setVar('image_body', $fbinary);
                 @unlink($uploader->getSavedDestination());
             }
             if (!$image_handler->insert($image)) {

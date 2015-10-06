@@ -28,29 +28,36 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS private message class objects.
  *
- * @package        kernel
- *
- * @author        Kazumi Ono    <onokazu@xoops.org>
- * @copyright    copyright (c) 2000-2003 XOOPS Project (http://xoops.org)
- *
- * @version        $Revision$ - $Date$
+ * @category  Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'system_privatemessage', '\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage', 'msg_id', 'subject');
+        parent::__construct(
+            $db,
+            'system_privatemessage',
+            '\Xoops\Core\Kernel\Handlers\XoopsPrivateMessage',
+            'msg_id',
+            'subject'
+        );
     }
 
     /**
      * Mark a message as read
      *
      * @param XoopsPrivateMessage $pm XoopsPrivateMessage object
+     *
      * @return bool
      **/
     public function setRead(XoopsPrivateMessage $pm)

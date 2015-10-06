@@ -20,14 +20,14 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @category  Xoops\Core\Kernel\Model\Joint
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
  *
  * Usage of methods provided by XoopsModelJoint:
  *
- * Step #1: set linked table and adjoint fields through XoopsPersistableObjectHandler:
+ * Step #1: set linked table and joint fields through XoopsPersistableObjectHandler:
  *      $handler->table_link = $handler->db2->prefix("the_linked_table");
  *          full name of the linked table that is used for the query
  *      $handler->field_link = "the_linked_field";
@@ -42,7 +42,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
 class Joint extends XoopsModelAbstract
 {
     /**
-     * Validate information for the linkship
+     * Validate information for the linkage
      *
      * @return bool
      */
@@ -61,13 +61,15 @@ class Joint extends XoopsModelAbstract
     /**
      * get a list of objects matching a condition joint with another related object
      *
-     * @param CriteriaElement|null $criteria     {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria     criteria to match
      * @param array                $fields       variables to fetch
      * @param bool                 $asObject     flag indicating as object, otherwise as array
-     * @param string               $field_link   field of linked object for JOIN; deprecated, for backward compat
-     * @param string               $field_object field of current object for JOIN; deprecated, for backward compat
+     * @param string               $field_link   field of linked object for JOIN;
+     *                                            deprecated, for backward compatibility only
+     * @param string               $field_object field of current object for JOIN;
+     *                                            deprecated, for backward compatibility only
      *
-     * @return false|array of objects {@link XoopsObject}
+     * @return false|array array as requested by $asObject
      */
     public function getByLink(
         CriteriaElement $criteria = null,
@@ -137,7 +139,7 @@ class Joint extends XoopsModelAbstract
     /**
      * Count of objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return false|int count of objects
      */
@@ -164,13 +166,12 @@ class Joint extends XoopsModelAbstract
 
         $result = $qb->execute();
         return $result->fetchColumn(0);
-
     }
 
     /**
      * array of count of objects matching a condition of, groupby linked object keyname
      *
-     * @param CriteriaElement $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement $criteria criteria to match
      *
      * @return false|int count of objects
      */
@@ -179,7 +180,7 @@ class Joint extends XoopsModelAbstract
         if (!$this->validateLinks()) {
             return false;
         }
-		
+
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
         $qb ->select("l.{$this->handler->keyName_link}")
@@ -201,7 +202,7 @@ class Joint extends XoopsModelAbstract
         $result = $qb->execute();
 
         $ret = array();
-        while (list ($id, $count) = $result->fetch(\PDO::FETCH_NUM)) {
+        while (list($id, $count) = $result->fetch(\PDO::FETCH_NUM)) {
             $ret[$id] = $count;
         }
         return $ret;
@@ -211,22 +212,22 @@ class Joint extends XoopsModelAbstract
      * update objects matching a condition against linked objects
      *
      * @param array                $data     array of key => value
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return false|int count of objects
      *
      * @todo UPDATE ... LEFT JOIN is not portable
-	 * Note Alain91 : multi tables update is not allowed in Doctrine
+     * Note Alain91 : multi tables update is not allowed in Doctrine
      */
     public function updateByLink(array $data, CriteriaElement $criteria = null)
     {
         if (!$this->validateLinks()) {
             return false;
         }
-		if (empty($data) OR empty($criteria)) { // avoid update all records
-			return false;
-		}
-		
+        if (empty($data) or empty($criteria)) { // avoid update all records
+            return false;
+        }
+
         $set = array();
         foreach ($data as $key => $val) {
             $set[] = "o.{$key}=" . $this->handler->db2->quote($val);
@@ -244,22 +245,22 @@ class Joint extends XoopsModelAbstract
     /**
      * Delete objects matching a condition against linked objects
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return false|int count of objects
      *
      * @todo DELETE ... LEFT JOIN is not portable
-	 * Note Alain91 : multi tables delete is not allowed in Doctrine
+     * Note Alain91 : multi tables delete is not allowed in Doctrine
      */
     public function deleteByLink(CriteriaElement $criteria = null)
     {
         if (!$this->validateLinks()) {
             return false;
         }
-		if (empty($criteria)) { //avoid delete all records
-			return false;
-		}
-		
+        if (empty($criteria)) { //avoid delete all records
+            return false;
+        }
+
         $sql = "DELETE FROM {$this->handler->table} AS o "
             . "LEFT JOIN {$this->handler->table_link} AS l "
             . "ON o.{$this->handler->field_object} = l.{$this->handler->field_link}";

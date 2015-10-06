@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
-use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @category  Xoops\Core\Kernel\Dtype\DtypeArray
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -28,18 +28,20 @@ use Xoops\Core\Kernel\XoopsObject;
 class DtypeArray extends DtypeAbstract
 {
     /**
-     * @param XoopsObject $obj
-     * @param string      $key
-     * @param string      $format
+     * getVar get variable prepared according to format
      *
-     * @return array|mixed
+     * @param XoopsObject $obj    object containing variable
+     * @param string      $key    name of variable
+     * @param string      $format Dtype::FORMAT_* constant indicating desired formatting
+     *
+     * @return mixed
      */
     public function getVar(XoopsObject $obj, $key, $format)
     {
         $value = $obj->vars[$key]['value'];
         switch (strtolower($format)) {
             case 'n':
-            case 'none':
+            case Dtype::FORMAT_NONE:
                 return $value;
             default:
                 if (!is_array($value)) {
@@ -53,24 +55,17 @@ class DtypeArray extends DtypeAbstract
     }
 
     /**
-     * @param XoopsObject $obj
-     * @param string      $key
-     * @param bool        $quote
+     * cleanVar prepare variable for persistence
+     *
+     * @param XoopsObject $obj object containing variable
+     * @param string      $key name of variable
      *
      * @return string
      */
-    public function cleanVar(XoopsObject $obj, $key, $quote = true)
+    public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
         $value = (array)$value;
-        if (!$obj->vars[$key]['not_gpc']) {
-            $value = array_map(array(&$this->ts, "stripSlashesGPC"), $value);
-        }
-        foreach (array_keys($value) as $key) {
-            if ($quote) {
-                $value[$key] = str_replace('\\"', '"', addslashes($value[$key]));
-            }
-        }
         // TODO: Not encoding safe, should try base64_encode -- phppp
         $value = serialize($value);
         return $value;

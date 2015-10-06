@@ -11,9 +11,6 @@
 
 namespace Xoops\Core\Kernel;
 
-use Xoops\Core\Kernel\XoopsModelAbstract;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-
 /**
  * Object factory class.
  *
@@ -51,7 +48,7 @@ class XoopsModelFactory
     /**
      * Load object handler
      *
-     * @param XoopsPersistableObjectHandler $oHandler reference to {@link XoopsPersistableObjectHandler}
+     * @param XoopsPersistableObjectHandler $oHandler handler to load
      * @param string                        $name     name
      * @param mixed                         $args     args
      *

@@ -20,7 +20,7 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @category  Xoops\Core\Kernel\Model\Stats
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
@@ -30,16 +30,14 @@ class Stats extends XoopsModelAbstract
     /**
      * count objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int count of objects
      */
     public function getCount(CriteriaElement $criteria = null)
     {
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
-        $eb = $qb->expr();
 
-        $field = '';
         $groupby = false;
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $temp = $criteria->getGroupby();
@@ -83,17 +81,15 @@ class Stats extends XoopsModelAbstract
     /**
      * get counts matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return array of counts
      */
     public function getCounts(CriteriaElement $criteria = null)
     {
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
-        $eb = $qb->expr();
 
         $ret = array();
-        $sql_where = '';
         $limit = null;
         $start = null;
         $groupby_key = $this->handler->keyName;

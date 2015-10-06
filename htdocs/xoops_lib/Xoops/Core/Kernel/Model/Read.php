@@ -30,18 +30,16 @@ class Read extends XoopsModelAbstract
     /**
      * get all objects matching a condition
      *
-     * @param CriteriaElement|null $criteria  {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria  criteria to match
      * @param array                $fields    variables to fetch
      * @param bool                 $asObject  flag indicating as object, otherwise as array
      * @param bool                 $id_as_key use the ID as key for the array
      *
-     * @return array of objects/array {@link XoopsObject}
+     * @return array of objects/array as specified in $asObject
      */
     public function getAll(CriteriaElement $criteria = null, $fields = null, $asObject = true, $id_as_key = true)
     {
-        //$qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $qb = $this->handler->db2->createXoopsQueryBuilder();
-        $eb = $qb->expr();
 
         if (is_array($fields) && count($fields) > 0) {
             if (!in_array($this->handler->keyName, $fields)) {
@@ -100,7 +98,7 @@ class Read extends XoopsModelAbstract
      *
      * For performance consideration, getAll() is recommended
      *
-     * @param CriteriaElement|null $criteria  {@link CriteriaElement} conditions to be met
+     * @param CriteriaElement|null $criteria  criteria to match
      * @param bool                 $id_as_key use the ID as key for the array
      * @param bool                 $as_object return an array of objects?
      *
@@ -115,7 +113,7 @@ class Read extends XoopsModelAbstract
     /**
      * Retrieve a list of objects data
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} conditions to be met
+     * @param CriteriaElement|null $criteria criteria to match
      * @param int                  $limit    Max number of objects to fetch
      * @param int                  $start    Which record to start at
      *
@@ -125,7 +123,6 @@ class Read extends XoopsModelAbstract
     {
         //$qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $qb = $this->handler->db2->createXoopsQueryBuilder();
-        $eb = $qb->expr();
 
         $ret = array();
 
@@ -134,6 +131,10 @@ class Read extends XoopsModelAbstract
             $qb->addSelect($this->handler->identifierName);
         }
         $qb->from($this->handler->table, null);
+        if ($limit!=0 || $start!=0) {
+            $qb->setFirstResult($start)
+                ->setMaxResults($limit);
+        }
         $qb->orderBy($this->handler->keyName); // any criteria order will override
         if (!empty($criteria)) {
             $qb = $criteria->renderQb($qb);
@@ -155,22 +156,18 @@ class Read extends XoopsModelAbstract
     /**
      * get IDs of objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return array of object IDs
      */
     public function getIds(CriteriaElement $criteria = null)
     {
-        //$qb = Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $qb = $this->handler->db2->createXoopsQueryBuilder();
-        $eb = $qb->expr();
 
         $ret = array();
 
         $qb->select($this->handler->keyName);
         $qb->from($this->handler->table, null);
-        $sql = "SELECT `{$this->handler->keyName}` FROM `{$this->handler->table}`";
-        $limit = $start = null;
         if (!empty($criteria)) {
             $qb = $criteria->renderQb($qb);
         }
@@ -188,9 +185,9 @@ class Read extends XoopsModelAbstract
     /**
      * getRandomObject - return a randomly selected object
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} with conditions to meet
+     * @param CriteriaElement|null $criteria criteria to match
      *
-     * @return XoopsObject|null {@link XoopsObject}
+     * @return \Xoops\Core\Kernel\XoopsObject|null object or null if no matching object found
      */
     public function getRandomObject(CriteriaElement $criteria = null)
     {

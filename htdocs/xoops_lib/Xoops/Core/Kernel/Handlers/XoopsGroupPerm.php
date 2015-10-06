@@ -25,12 +25,14 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * A group permission
  *
- * These permissions are managed through a {@link XoopsGroupPermHandler} object
+ * These permissions are managed through a XoopsGroupPermHandler object
  *
- * @package     kernel
- *
- * @author      Kazumi Ono  <onokazu@xoops.org>
- * @copyright   copyright (c) 2000-2003 XOOPS.org
+ * @category  Xoops\Core\Kernel\Handlers\XoopsGroupPerm
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsGroupPerm extends XoopsObject
 {
@@ -47,16 +49,22 @@ class XoopsGroupPerm extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('gperm_id', $format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function gperm_id($format = '')
@@ -65,7 +73,10 @@ class XoopsGroupPerm extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function gperm_groupid($format = '')
@@ -74,7 +85,10 @@ class XoopsGroupPerm extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function gperm_itemid($format = '')
@@ -83,7 +97,10 @@ class XoopsGroupPerm extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function gperm_modid($format = '')
@@ -92,12 +109,14 @@ class XoopsGroupPerm extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function gperm_name($format = '')
     {
         return $this->getVar('gperm_name', $format);
     }
-
 }

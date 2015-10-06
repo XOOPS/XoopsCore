@@ -12,6 +12,7 @@
 namespace Xoops\Core\Kernel;
 
 use Xoops\Core\Kernel\Dtype\DtypeAbstract;
+use Xoops\Core\Kernel\Dtype\DtypeOther;
 
 /**
  * Dtype
@@ -41,7 +42,7 @@ class Dtype
      * Once the legacy defines in XoopsObject are removed, we can shift these definitions
      * to reflect the (self documenting) name, instead of a number, and most objects will
      * never notice. Some modules may use the numbers, such a profile custom fields. Those
-     * will need to be identified and updateded.
+     * will need to be identified and updated.
      */
     const TYPE_TEXT_BOX    = 1;
     const TYPE_TEXT_AREA   = 2;
@@ -57,19 +58,19 @@ class Dtype
     const TYPE_FLOAT       = 13;
     const TYPE_DECIMAL     = 14;
     const TYPE_ENUM        = 15;
+    const TYPE_JSON        = 16;
 
     /**
      * cleanVar
      *
-     * @param XoopsObject $obj   object
-     * @param mixed       $key   key
-     * @param bool        $quote quote result
+     * @param XoopsObject $obj object
+     * @param mixed       $key key
      *
      * @return mixed
      */
-    public static function cleanVar(XoopsObject $obj, $key, $quote = true)
+    public static function cleanVar(XoopsObject $obj, $key)
     {
-        return Dtype::loadDtype(Dtype::getDtypeName($obj, $key))->cleanVar($obj, $key, $quote);
+        return Dtype::loadDtype(Dtype::getDtypeName($obj, $key))->cleanVar($obj, $key);
     }
 
     /**
@@ -106,7 +107,7 @@ class Dtype
             if (!$dtype instanceof DtypeAbstract) {
                 trigger_error("Dtype '{$name}' not found", E_USER_WARNING);
                 $name = 'other';
-                $dtype = new Xoops\Core\Kernel\Dtype\DtypeOther();
+                $dtype = new DtypeOther();
             }
             $dtype->init();
             $dtypes[$name] = $dtype;
@@ -142,7 +143,8 @@ class Dtype
     {
         return array(
             1 => 'textbox', 2 => 'textarea', 3 => 'int', 4 => 'url', 5 => 'email', 6 => 'array', 7 => 'other',
-            8 => 'source', 9 => 'stime', 10 => 'mtime', 11 => 'ltime', 13 => 'float', 14 => 'decimal', 15 => 'enum'
+            8 => 'source', 9 => 'stime', 10 => 'mtime', 11 => 'ltime', 13 => 'float', 14 => 'decimal', 15 => 'enum',
+            16 => 'json'
         );
     }
 }

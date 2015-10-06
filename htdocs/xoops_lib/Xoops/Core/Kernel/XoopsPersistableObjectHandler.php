@@ -11,10 +11,6 @@
 namespace Xoops\Core\Kernel;
 
 use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\CriteriaElement;
-use Xoops\Core\Kernel\XoopsModelFactory;
-use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsObjectHandler;
 
 /**
  * XOOPS Kernel Persistable Object Handler class.
@@ -100,12 +96,12 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Constructor
      *
-     * @param null|Connection $db             {@link \Xoops\Core\Database\Connection} object
+     * @param null|Connection $db             database connection}
      * @param string          $table          Name of database table
      * @param string          $className      Name of Class, this handler is managing
      * @param string          $keyName        Name of the property holding the key
      * @param string          $identifierName Name of the property holding an identifier
-     *                                        name (title, name ...), used on getList()
+     *                                         name (title, name ...), used on getList()
      */
     protected function __construct(
         Connection $db = null,
@@ -128,11 +124,10 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @param string|object $handler handler
      * @param array|null    $args    arguments
-     * @param string|null   $path    path
      *
      * @return object|null
      */
-    public function setHandler($handler = null, $args = null, $path = null)
+    public function setHandler($handler = null, $args = null)
     {
         $this->handler = null;
         if (is_object($handler)) {
@@ -152,7 +147,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      * @param string $name handler name
      * @param mixed  $args args
      *
-     * @return XoopsModelAbstract of handler {@link XoopsModelAbstract}
+     * @return XoopsModelAbstract handler
      */
     public function loadHandler($name, $args = null)
     {
@@ -205,8 +200,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * *#@+
-     * Methods of native handler {@link XoopsPersistableObjectHandler}
+     * Methods of native handler
      */
 
     /**
@@ -214,7 +208,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @param bool $isNew Flag the new objects as new
      *
-     * @return XoopsObject {@link XoopsObject}
+     * @return XoopsObject
      */
     public function create($isNew = true)
     {
@@ -231,12 +225,12 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * Load a {@link XoopsObject} object from the database
+     * Load an object from the database
      *
      * @param mixed $id     ID
      * @param array $fields fields to fetch
      *
-     * @return XoopsObject|null {@link XoopsObject}
+     * @return XoopsObject|null
      */
     public function get($id = null, $fields = null)
     {
@@ -280,25 +274,20 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     }
 
     /**
-     * *#@-
-     */
-
-    /**
-     * *#@+
-     * Methods of write handler {@link XoopsObjectWrite}
+     * Methods of write handler
      */
 
     /**
      * insert an object into the database
      *
-     * @param XoopsObject $object {@link XoopsObject} reference to object
+     * @param XoopsObject $object object to insert
      * @param bool        $force  flag to force the query execution despite security settings
      *
      * @return mixed
      */
     public function insert(XoopsObject $object, $force = true)
     {
-        /* @var $handler XoopsModelWrite */
+        /* @var $handler Model\Write */
         $handler = $this->loadHandler('write');
         return $handler->insert($object, $force);
     }
@@ -306,14 +295,14 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * delete an object from the database
      *
-     * @param XoopsObject $object {@link XoopsObject} reference to the object to delete
+     * @param XoopsObject $object object to delete
      * @param bool        $force  force delete
      *
      * @return bool FALSE if failed.
      */
     public function delete(XoopsObject $object, $force = false)
     {
-        /* @var $handler XoopsModelWrite */
+        /* @var $handler Model\Write */
         $handler = $this->loadHandler('write');
         return $handler->delete($object, $force);
     }
@@ -321,7 +310,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * delete all objects matching the conditions
      *
-     * @param CriteriaElement $criteria {@link CriteriaElement} with conditions to meet
+     * @param CriteriaElement $criteria criteria to match
      * @param boolean         $force    force to delete
      * @param boolean         $asObject delete in object way: instantiate all objects
      *                                       and delete one by one
@@ -334,7 +323,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
             return false;
         }
 
-        /* @var $handler XoopsModelWrite */
+        /* @var $handler Model\Write */
         $handler = $this->loadHandler('write');
         return $handler->deleteAll($criteria, $force, $asObject);
     }
@@ -344,7 +333,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      *
      * @param string          $fieldname  Name of the field
      * @param mixed           $fieldvalue Value to write
-     * @param CriteriaElement $criteria   {@link CriteriaElement}
+     * @param CriteriaElement $criteria   criteria to match
      * @param boolean         $force      force to query
      *
      * @return bool
@@ -355,19 +344,19 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
             return false;
         }
 
-        /* @var $handler XoopsModelWrite */
+        /* @var $handler Model\Write */
         $handler = $this->loadHandler('write');
         return $handler->updateAll($fieldname, $fieldvalue, $criteria, $force);
     }
 
     /**
-     * Methods of read handler {@link XoopsObjectRead}
+     * Methods of read handler
      */
 
     /**
      * Retrieve objects from the database
      *
-     * @param CriteriaElement|null $criteria  {@link CriteriaElement} conditions to be met
+     * @param CriteriaElement|null $criteria  criteria to match
      * @param bool                 $id_as_key use the ID as key for the array
      * @param bool                 $as_object return an array of objects
      *
@@ -375,7 +364,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function getObjects(CriteriaElement $criteria = null, $id_as_key = false, $as_object = true)
     {
-        /* @var $handler XoopsModelRead */
+        /* @var $handler Model\Read */
         $handler = $this->loadHandler('read');
         $ret = $handler->getObjects($criteria, $id_as_key, $as_object);
         return $ret;
@@ -384,16 +373,16 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * get all objects matching a condition
      *
-     * @param CriteriaElement|null $criteria  {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria  criteria to match
      * @param array                $fields    variables to fetch
      * @param bool                 $asObject  flag indicating as object, otherwise as array
      * @param bool                 $id_as_key use the ID as key for the array
      *
-     * @return array of objects/array {@link XoopsObject}
+     * @return array of objects/array as requested by $asObject
      */
     public function getAll(CriteriaElement $criteria = null, $fields = null, $asObject = true, $id_as_key = true)
     {
-        /* @var $handler XoopsModelRead */
+        /* @var $handler Model\Read */
         $handler = $this->loadHandler('read');
         $ret = $handler->getAll($criteria, $fields, $asObject, $id_as_key);
         return $ret;
@@ -402,7 +391,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Retrieve a list of objects data
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} conditions to be met
+     * @param CriteriaElement|null $criteria criteria to match
      * @param int                  $limit    Max number of objects to fetch
      * @param int                  $start    Which record to start at
      *
@@ -410,7 +399,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function getList(CriteriaElement $criteria = null, $limit = 0, $start = 0)
     {
-        /* @var $handler XoopsModelRead */
+        /* @var $handler Model\Read */
         $handler = $this->loadHandler('read');
         $ret = $handler->getList($criteria, $limit, $start);
         return $ret;
@@ -419,32 +408,32 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * get IDs of objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return array of object IDs
      */
     public function getIds(CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelRead */
+        /* @var $handler Model\Read */
         $handler = $this->loadHandler('read');
         $ret = $handler->getIds($criteria);
         return $ret;
     }
 
     /**
-     * Methods of stats handler {@link XoopsObjectStats}
+     * Methods of stats handler
      */
 
     /**
      * count objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int count of objects
      */
     public function getCount(CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelStats */
+        /* @var $handler Model\Stats */
         $handler = $this->loadHandler('stats');
         return $handler->getCount($criteria);
     }
@@ -452,31 +441,31 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Get counts of objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return array of counts
      */
     public function getCounts(CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelStats*/
+        /* @var $handler Model\Stats*/
         $handler = $this->loadHandler('stats');
         return $handler->getCounts($criteria);
     }
 
     /**
-     * Methods of joint handler {@link XoopsObjectJoint}
+     * Methods of joint handler
      */
 
     /**
      * get a list of objects matching a condition joint with another related object
      *
-     * @param CriteriaElement|null $criteria     {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria     criteria to match
      * @param array                $fields       variables to fetch
      * @param bool                 $asObject     flag indicating as object, otherwise as array
      * @param string               $field_link   field of linked object for JOIN
      * @param string               $field_object field of current object for JOIN
      *
-     * @return array of objects {@link XoopsObject}
+     * @return array as specified by $asObject
      */
     public function getByLink(
         CriteriaElement $criteria = null,
@@ -485,7 +474,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
         $field_link = null,
         $field_object = null
     ) {
-        /* @var $handler XoopsModelJoint */
+        /* @var $handler Model\Joint */
         $handler = $this->loadHandler('joint');
         $ret = $handler->getByLink($criteria, $fields, $asObject, $field_link, $field_object);
         return $ret;
@@ -494,13 +483,13 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Count of objects matching a condition
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int count of objects
      */
     public function getCountByLink(CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelJoint */
+        /* @var $handler Model\Joint */
         $handler = $this->loadHandler('joint');
         $ret = $handler->getCountByLink($criteria);
         return $ret;
@@ -509,13 +498,13 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * array of count of objects matching a condition of, groupby linked object keyname
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int count of objects
      */
     public function getCountsByLink(CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelJoint */
+        /* @var $handler Model\Joint */
         $handler = $this->loadHandler('joint');
         $ret = $handler->getCountsByLink($criteria);
         return $ret;
@@ -525,13 +514,13 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      * update objects matching a condition against linked objects
      *
      * @param array                $data     array of key => value
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int count of objects
      */
     public function updateByLink($data, CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelJoint */
+        /* @var $handler Model\Joint */
         $handler = $this->loadHandler('joint');
         $ret = $handler->updateByLink($data, $criteria);
         return $ret;
@@ -540,20 +529,20 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Delete objects matching a condition against linked objects
      *
-     * @param CriteriaElement|null $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement|null $criteria criteria to match
      *
      * @return int count of objects
      */
     public function deleteByLink(CriteriaElement $criteria = null)
     {
-        /* @var $handler XoopsModelJoint */
+        /* @var $handler Model\Joint */
         $handler = $this->loadHandler('joint');
         $ret = $handler->deleteByLink($criteria);
         return $ret;
     }
 
     /**
-     * Methods of sync handler {@link XoopsObjectSync}
+     * Methods of sync handler
      */
 
     /**
@@ -567,7 +556,7 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public function cleanOrphan($table_link = '', $field_link = '', $field_object = '')
     {
-        /* @var $handler XoopsModelSync */
+        /* @var $handler Model\Sync */
         $handler = $this->loadHandler('sync');
         $ret = $handler->cleanOrphan($table_link, $field_link, $field_object);
         return $ret;

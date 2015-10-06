@@ -25,9 +25,12 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * membership of a user in a group
  *
+ * @category  Xoops\Core\Kernel\Handlers\XoopsMembership
+ * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package   kernel
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsMembership extends XoopsObject
 {
@@ -42,18 +45,22 @@ class XoopsMembership extends XoopsObject
     }
 
     /**
-    * getter for id generic key
-     * @param string $format
+     * getter for id generic key
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->linkid($format);
     }
 
     /**
-    * getter for linkid field
-     * @param string $format
+     * getter for linkid field
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function linkid($format = '')
@@ -62,13 +69,14 @@ class XoopsMembership extends XoopsObject
     }
 
     /**
-    * getter for uid field
-     * @param string $format
+     * getter for uid field
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function uid($format = '')
     {
         return $this->getVar('uid', $format);
     }
-
 }

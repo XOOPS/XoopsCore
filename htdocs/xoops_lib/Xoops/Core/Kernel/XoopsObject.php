@@ -42,7 +42,7 @@ define('XOBJ_DTYPE_ENUM',    Dtype::TYPE_ENUM);
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono (AKA onokazu) <http://www.myweb.ne.jp/, http://jp.xoops.org/>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -162,11 +162,11 @@ abstract class XoopsObject implements \ArrayAccess
      * initialize variables for the object
      *
      * @param string $key       key
-     * @param int    $data_type set to one of XOBJ_DTYPE_XXX constants (set to XOBJ_DTYPE_OTHER
+     * @param int    $data_type set to one of Dtype::TYPE_XXX constants (set to Dtype::TYPE_OTHER
      *                           if no data type checking nor text sanitizing is required)
      * @param mixed  $value     value
      * @param bool   $required  require html form input?
-     * @param mixed  $maxlength for XOBJ_DTYPE_TXTBOX type only
+     * @param mixed  $maxlength for Dtype::TYPE_TEXT_BOX type only
      * @param string $options   does this data have any select options?
      *
      * @return void
@@ -219,15 +219,13 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @param string $key     name of the variable to assign
      * @param mixed  $value   value to assign
-     * @param bool   $not_gpc not gpc
      *
      * @return void
      */
-    public function setVar($key, $value, $not_gpc = false)
+    public function setVar($key, $value)
     {
         if (!empty($key) && isset($value) && isset($this->vars[$key])) {
             $this->vars[$key]['value'] = $value;
-            $this->vars[$key]['not_gpc'] = $not_gpc;
             $this->vars[$key]['changed'] = true;
             $this->setDirty();
         }
@@ -237,15 +235,14 @@ abstract class XoopsObject implements \ArrayAccess
      * assign values to multiple variables in a batch
      *
      * @param array $var_arr associative array of values to assign
-     * @param bool  $not_gpc not gpc
      *
      * @return void
      */
-    public function setVars($var_arr, $not_gpc = false)
+    public function setVars($var_arr)
     {
         if (is_array($var_arr)) {
             foreach ($var_arr as $key => $value) {
-                $this->setVar($key, $value, $not_gpc);
+                $this->setVar($key, $value);
             }
         }
     }
@@ -281,17 +278,16 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @param mixed  $var_arr associative array of values to assign
      * @param string $pref    prefix (only keys starting with the prefix will be set)
-     * @param bool   $not_gpc not gpc
      *
      * @return void
      */
-    public function setFormVars($var_arr = null, $pref = 'xo_', $not_gpc = false)
+    public function setFormVars($var_arr = null, $pref = 'xo_')
     {
         $len = strlen($pref);
         if (is_array($var_arr)) {
             foreach ($var_arr as $key => $value) {
                 if ($pref == substr($key, 0, $len)) {
-                    $this->setVar(substr($key, $len), $value, $not_gpc);
+                    $this->setVar(substr($key, $len), $value);
                 }
             }
         }
@@ -316,7 +312,7 @@ abstract class XoopsObject implements \ArrayAccess
      *
      * @return array associative array of key->value pairs
      */
-    public function getValues($keys = null, $format = 's', $maxDepth = 1)
+    public function getValues($keys = null, $format = Dtype::FORMAT_SHOW, $maxDepth = 1)
     {
         if (!isset($keys)) {
             $keys = array_keys($this->vars);
@@ -360,20 +356,17 @@ abstract class XoopsObject implements \ArrayAccess
 
     /**
      * clean values of all variables of the object for storage.
-     * also add slashes where ever needed
-     *
-     * @param bool $quote add quotes for db storage
      *
      * @return bool true if successful
      */
-    public function cleanVars($quote = true)
+    public function cleanVars()
     {
         $existing_errors = $this->getErrors();
         $this->errors = array();
         foreach ($this->vars as $k => $v) {
             if (!$v['changed']) {
             } else {
-                $this->cleanVars[$k] = Dtype::cleanVar($this, $k, $quote);
+                $this->cleanVars[$k] = Dtype::cleanVar($this, $k);
             }
         }
         if (count($this->errors) > 0) {

@@ -25,17 +25,19 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * A Config-Option
  *
- * @author    Kazumi Ono    <onokazu@xoops.org>
- * @copyright    copyright (c) 2000-2003 XOOPS.org
- *
- * @package     kernel
+ * @category  Xoops\Core\Kernel\Handlers\XoopsConfigOption
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsConfigOption extends XoopsObject
 {
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->initVar('confop_id', Dtype::TYPE_INTEGER, null);
         $this->initVar('confop_name', Dtype::TYPE_TEXT_BOX, null, true, 255);
@@ -44,16 +46,22 @@ class XoopsConfigOption extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
-    public function id($format = 'n')
+    public function id($format = Dtype::FORMAT_NONE)
     {
         return $this->getVar('confop_id', $format);
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function confop_id($format = '')
@@ -62,7 +70,10 @@ class XoopsConfigOption extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function confop_name($format = '')
@@ -71,7 +82,10 @@ class XoopsConfigOption extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function confop_value($format = '')
@@ -80,12 +94,14 @@ class XoopsConfigOption extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function conf_id($format = '')
     {
         return $this->getVar('conf_id', $format);
     }
-
 }

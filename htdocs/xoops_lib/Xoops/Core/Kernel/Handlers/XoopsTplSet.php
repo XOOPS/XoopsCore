@@ -25,13 +25,15 @@ use Xoops\Core\Kernel\XoopsObject;
 /**
  * A Template Set File
  *
- * @author Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000 XOOPS.org
- * @package kernel
- **/
+ * @category  Xoops\Core\Kernel\Handlers\XoopsTplSet
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ */
 class XoopsTplSet extends XoopsObject
 {
-
     /**
      * constructor
      **/
@@ -45,7 +47,10 @@ class XoopsTplSet extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function id($format = 'n')
@@ -54,7 +59,10 @@ class XoopsTplSet extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function tplset_id($format = '')
@@ -63,7 +71,10 @@ class XoopsTplSet extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function tplset_name($format = '')
@@ -72,7 +83,10 @@ class XoopsTplSet extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function tplset_desc($format = '')
@@ -81,7 +95,10 @@ class XoopsTplSet extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function tplset_credits($format = '')
@@ -90,7 +107,10 @@ class XoopsTplSet extends XoopsObject
     }
 
     /**
-     * @param string $format
+     * getter
+     *
+     * @param string $format Dtype::FORMAT_xxxx constant
+     *
      * @return mixed
      */
     public function tplset_created($format = '')

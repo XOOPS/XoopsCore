@@ -24,15 +24,18 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
-use Xoops\Core\Kernel\Handlers\XoopsTplFile;
 
 /**
  * XOOPS template file handler class.
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS template file class objects.
  *
- *
- * @author  Kazumi Ono <onokazu@xoops.org>
+ * @category  Xoops\Core\Kernel\XoopsTplFileHandler
+ * @package   Xoops\Core\Kernel
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsTplFileHandler extends XoopsPersistableObjectHandler
 {
@@ -40,7 +43,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {
@@ -48,7 +51,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * retrieve a specific {@link XoopsTplFile}
+     * retrieve a specific XoopsTplFile
      *
      * @param int  $id        tpl_id of the block to retrieve
      * @param bool $getsource true = also return source
@@ -91,7 +94,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * loadSource
      *
-     * @param XoopsTplFile $tplfile
+     * @param XoopsTplFile $tplfile object
      *
      * @return bool
      */
@@ -116,21 +119,36 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * write a new TplFile into the database
      *
-     * @param XoopsTplFile $tplfile
+     * @param XoopsTplFile $tplfile object
      *
      * @return bool
      */
     public function insertTpl(XoopsTplFile $tplfile)
     {
+        $tpl_id = 0;
         if (!$tplfile->isDirty()) {
             return true;
         }
-        if (!$tplfile->cleanVars(false)) {
+        if (!$tplfile->cleanVars()) {
             return false;
         }
-        foreach ($tplfile->cleanVars as $k => $v) {
-            ${$k} = $v;
+
+        $vars = $tplfile->cleanVars;
+        $tpl_module       = $vars['tpl_module'];
+        $tpl_refid        = $vars['tpl_refid'];
+        $tpl_tplset       = $vars['tpl_tplset'];
+        $tpl_file         = $vars['tpl_file'];
+        $tpl_desc         = $vars['tpl_desc'];
+        $tpl_lastmodified = $vars['tpl_lastmodified'];
+        $tpl_lastimported = $vars['tpl_lastimported'];
+        $tpl_type         = $vars['tpl_type'];
+        if (isset($vars['tpl_id'])) {
+            $tpl_id = $vars['tpl_id'];
         }
+        if (isset($vars['tpl_source'])) {
+            $tpl_source = $vars['tpl_source'];
+        }
+
         if ($tplfile->isNew()) {
             $tpl_id = 0;
             $values = array(
@@ -194,7 +212,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * forceUpdate
      *
-     * @param XoopsTplFile $tplfile
+     * @param XoopsTplFile $tplfile object
      *
      * @return bool
      */
@@ -203,12 +221,24 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         if (!$tplfile->isDirty()) {
             return true;
         }
-        if (!$tplfile->cleanVars(false)) {
+        if (!$tplfile->cleanVars()) {
             return false;
         }
-        foreach ($tplfile->cleanVars as $k => $v) {
-            ${$k} = $v;
+
+        $vars = $tplfile->cleanVars;
+        $tpl_module       = $vars['tpl_module'];
+        $tpl_refid        = $vars['tpl_refid'];
+        $tpl_tplset       = $vars['tpl_tplset'];
+        $tpl_file         = $vars['tpl_file'];
+        $tpl_desc         = $vars['tpl_desc'];
+        $tpl_lastmodified = $vars['tpl_lastmodified'];
+        $tpl_lastimported = $vars['tpl_lastimported'];
+        $tpl_type         = $vars['tpl_type'];
+        //$tpl_id           = $vars['tpl_id'];
+        if (isset($vars['tpl_source'])) {
+            $tpl_source = $vars['tpl_source'];
         }
+
         if (!$tplfile->isNew()) {
             $tpl_id = 0;
             $values = array(
@@ -246,7 +276,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * delete a block from the database
      *
-     * @param XoopsTplFile $tplfile
+     * @param XoopsTplFile $tplfile object
      *
      * @return bool
      */
@@ -263,9 +293,9 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * getTplObjects
      *
-     * @param CriteriaElement|null $criteria
-     * @param bool                 $getsource
-     * @param bool                 $id_as_key
+     * @param CriteriaElement|null $criteria  criteria to match
+     * @param bool                 $getsource include the source
+     * @param bool                 $id_as_key use the object id as array key
      *
      * @return array
      */
@@ -308,7 +338,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
     /**
      * getModuleTplCount
      *
-     * @param string $tplset
+     * @param string $tplset tpl set name
      *
      * @return array
      */

@@ -10,11 +10,10 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2011-2015 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Richard Griffith <richard@geekwright.com>
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: index.php 8065 2011-11-06 02:02:32Z beckmi $
  */
 
 use Xmf\Debug;
@@ -28,7 +27,6 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
-
 
 // work with session data in our module context
 echo '<h2>Session demo</h2><h4>Toggle a session variable</h4>';
@@ -46,35 +44,46 @@ if ($sessionHelper) {
 }
 
 echo '<h2>Permission demo</h2>';
-$permHelper = new Permission();
-if ($permHelper) {
+$permissionHelper = new Permission();
+if ($permissionHelper) {
     // this is the name and item we are going to work with
-    $gperm_name='fred';
-    $gperm_itemid=1;
+    $permissionName='fred';
+    $permissionItemId=1;
 
     // if this is a post operation get the input and save it
     if ('POST'==Request::getMethod()) {
         echo $xoops->alert('success', 'Permission updated');
         // save the data
-        $name=$permHelper->defaultFieldName($gperm_name, $gperm_itemid);
+        $name=$permissionHelper->defaultFieldName($permissionName, $permissionItemId);
         $groups=Request::getVar($name, array(), $hash = 'POST');
-        $permHelper->savePermissionForItem($gperm_name, $gperm_itemid, $groups);
+        $permissionHelper->savePermissionForItem($permissionName, $permissionItemId, $groups);
     }
 
     // build a form for our permission
-    $form = new Xoops\Form\ThemeForm("Permission Form (for the premission named '$gperm_name')", 'form', '', 'POST');
-    $grpElement = $permHelper->
-        getGroupSelectFormForItem($gperm_name, $gperm_itemid, "Groups with '$gperm_name' permission", null, true);
-    $form->addElement($grpElement);
+    $form = new Xoops\Form\ThemeForm(
+        "Permission Form (for the permission named '$permissionName')",
+        'form',
+        '',
+        'POST'
+    );
+    $groupElement = $permissionHelper->getGroupSelectFormForItem(
+        $permissionName,
+        $permissionItemId,
+        "Groups with '$permissionName' permission",
+        null,
+        true
+    );
+    $form->addElement($groupElement);
     $form->addElement(new Xoops\Form\Button('', 'submit', 'Save', 'submit'));
 
     echo $form->render();
 
     // check it the current user has the permission
-    if ($permHelper->checkPermission($gperm_name, $gperm_itemid)) {
-        echo "<p>You have the <strong>'$gperm_name'</strong> permission for the 'codex' module.</p>";
+    if ($permissionHelper->checkPermission($permissionName, $permissionItemId)) {
+        echo "<p>You have the <strong>'$permissionName'</strong> permission for the 'codex' module.</p>";
     } else {
-        echo "<p>You <em>DO NOT</em> have the <strong>'$gperm_name'</strong> permission for the 'codex' module.</p>";
+        echo "<p>You <em>DO NOT</em> have the <strong>'$permissionName'</strong> " .
+            "permission for the 'codex' module.</p>";
     }
 }
 
@@ -86,7 +95,7 @@ $title="xmf - the XOOPS Module Framework";
 $article =<<<EOT
 xmf - XOOPS Module Framework
 
-XMF is Copyright © 2011-2014 The XOOPS Project
+XMF is Copyright © 2011-2015 The XOOPS Project
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

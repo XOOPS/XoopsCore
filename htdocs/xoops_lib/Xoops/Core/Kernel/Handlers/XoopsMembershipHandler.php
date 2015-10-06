@@ -28,20 +28,29 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * This class is responsible for providing data access mechanisms to the data source
  * of XOOPS group membership class objects.
  *
+ * @category  Xoops\Core\Kernel\Handlers\XoopsMembershipHandler
+ * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright copyright (c) 2000-2003 XOOPS.org
- * @package   kernel
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class XoopsMembershipHandler extends XoopsPersistableObjectHandler
 {
     /**
      * Constructor
      *
-     * @param Connection|null $db {@link Connection}
+     * @param Connection|null $db database
      */
     public function __construct(Connection $db = null)
     {
-        parent::__construct($db, 'system_usergroup', '\Xoops\Core\Kernel\Handlers\XoopsMembership', 'linkid', 'groupid');
+        parent::__construct(
+            $db,
+            'system_usergroup',
+            '\Xoops\Core\Kernel\Handlers\XoopsMembership',
+            'linkid',
+            'groupid'
+        );
     }
 
     /**

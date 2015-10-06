@@ -11,16 +11,19 @@
 
 namespace Xoops\Core\Database;
 
+use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\Driver;
+use Doctrine\DBAL\Cache\QueryCacheProfile;
+use Doctrine\Common\EventManager;
+
 /**
  * Connection wrapper for Doctrine DBAL Connection
- *
- * PHP version 5.3
  *
  * @category  Xoops\Core\Database\Connection
  * @package   Connection
  * @author    readheadedrod <redheadedrod@hotmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 2.6
  * @link      http://xoops.org
@@ -106,9 +109,9 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function __construct(
         array $params,
-        \Doctrine\DBAL\Driver $driver,
-        \Doctrine\DBAL\Configuration $config = null,
-        \Doctrine\Common\EventManager $eventManager = null
+        Driver $driver,
+        Configuration $config = null,
+        EventManager $eventManager = null
     ) {
         if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] != 'GET') || (php_sapi_name() == 'cli')) {
             self::setSafe(true);
@@ -138,8 +141,6 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public static function prefix($tablename = '')
     {
-        static $prefix;
-        
         $prefix = \XoopsBaseConfig::get('db-prefix');
         if ($tablename != '') {
             return $prefix . '_' . $tablename;
@@ -205,9 +206,9 @@ class Connection extends \Doctrine\DBAL\Connection
     }
 
     /**
-     * Executes an, optionally parameterized, SQL query.
+     * Executes an, optionally parametrized, SQL query.
      *
-     * If the query is parameterized, a prepared statement is used.
+     * If the query is parametrized, a prepared statement is used.
      * If an SQLLogger is configured, the execution is logged.
      *
      * @param string            $query  The SQL query to execute.
@@ -223,7 +224,7 @@ class Connection extends \Doctrine\DBAL\Connection
         $query,
         array $params = array(),
         $types = array(),
-        \Doctrine\DBAL\Cache\QueryCacheProfile $qcp = null
+        QueryCacheProfile $qcp = null
     ) {
         return parent::executeQuery($query, $params, $types, $qcp);
     }
@@ -249,7 +250,6 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function executeUpdate($query, array $params = array(), array $types = array())
     {
-        $result = 0;
         $xoopsPreload = \Xoops::getInstance()->events();
         if (self::getSafe() || self::getForce()) {
             if (!self::$transactionActive) {
@@ -315,7 +315,7 @@ class Connection extends \Doctrine\DBAL\Connection
      * perform a safe query if allowed
      * can receive variable number of arguments
      *
-     * @return returns the value received or null if nothing received.
+     * @return mixed returns the value received or null if nothing received.
      *
      * @todo add error report for using non select while not safe.
      * @todo need to check if doctrine allows more than one query to be sent.
@@ -392,7 +392,7 @@ class Connection extends \Doctrine\DBAL\Connection
     /**
      * Create a new instance of a SQL query builder.
      *
-     * @return \Xoops\Core\Database\QueryBuilder
+     * @return QueryBuilder
      */
     public function createXoopsQueryBuilder()
     {
