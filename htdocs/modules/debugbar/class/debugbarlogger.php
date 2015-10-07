@@ -438,9 +438,9 @@ class DebugbarLogger implements LoggerInterface
     }
 
     /**
-     * dump everything we have
+     * dump everything we have  // was __destruct()
      */
-    public function __destruct()
+    public function renderDebugBar()
     {
         if ($this->activated) {
             // include any queued time data from Xmf\Debug

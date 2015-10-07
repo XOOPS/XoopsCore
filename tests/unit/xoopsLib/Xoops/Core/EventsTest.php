@@ -24,8 +24,8 @@ class EventsTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-		$class = $this->myclass;
-		$this->object = $class::getInstance();
+        $class = $this->myclass;
+        $this->object = $class::getInstance();
     }
 
     /**
@@ -36,35 +36,31 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-	public function test_getInstance()
-	{
-		$class = $this->myclass;
-		$instance = $class::getInstance();
-		$this->assertInstanceOf($class, $instance);
+    public function test_getInstance()
+    {
+        $class = $this->myclass;
+        $instance = $class::getInstance();
+        $this->assertInstanceOf($class, $instance);
 
-		$instance1 = $class::getInstance();
-		$this->assertSame($instance1, $instance);
-	}
+        $instance1 = $class::getInstance();
+        $this->assertSame($instance1, $instance);
+    }
 
-	public function test_initializeListeners()
-	{
+    public function test_initializeListeners()
+    {
         $instance = $this->object;
-
-        $instance->initializeListeners();
 
         $result = $instance->getEvents();
         $this->assertTrue(is_array($result));
-        $result = $instance->getPreloads();
-        $this->assertTrue(is_array($result));
-	}
+    }
 
     public function dummy_callback($arg)
     {
         $this->dummy_result = $arg;
     }
 
-	public function test_triggerEvent()
-	{
+    public function test_triggerEvent()
+    {
         $instance = $this->object;
 
         $callback = array($this,'dummy_callback');
@@ -73,28 +69,21 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
         $instance->triggerEvent('dummy.listener', array(1,2));
         $this->assertSame(array(1,2), $this->dummy_result);
-	}
+    }
 
-	public function test_getEvents()
-	{
+    public function test_getEvents()
+    {
         // see test_initializeListeners
-	}
+    }
 
-	public function test_getPreloads()
-	{
-        // see test_initializeListeners
-	}
-
-	public function test_hasListeners()
-	{
+    public function test_hasListeners()
+    {
         $instance = $this->object;
-
-        $instance->initializeListeners();
 
         $result = $instance->hasListeners('listener_doesnt_exist');
         $this->assertFalse($result);
 
         $result = $instance->hasListeners('core.header.checkcache');
         $this->assertTrue($result);
-	}
+    }
 }
