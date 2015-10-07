@@ -20,7 +20,7 @@ use Xoops\Html\Attributes;
  * @category  Xoops\Form\Element
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0
@@ -365,11 +365,11 @@ abstract class Element extends Attributes
         if (empty($this->datalist)) {
             return '';
         }
-        $ret = NWLINE . '<datalist id="list_' . $this->getName() . '">' . NWLINE;
+        $ret = "\n" . '<datalist id="list_' . $this->getName() . '">' . "\n";
         foreach ($this->datalist as $datalist) {
-            $ret .= '<option value="' . htmlspecialchars($datalist, ENT_QUOTES) . '">' . NWLINE;
+            $ret .= '<option value="' . htmlspecialchars($datalist, ENT_QUOTES) . '">' . "\n";
         }
-        $ret .= '</datalist>' . NWLINE;
+        $ret .= '</datalist>' . "\n";
         return $ret;
     }
 

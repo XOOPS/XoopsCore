@@ -108,27 +108,27 @@ class Logger implements LoggerInterface
 
             switch ($errno) {
                 case E_USER_NOTICE:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error:') . $msg;
                     $this->log(LogLevel::NOTICE, $msg);
                     break;
                 case E_NOTICE:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_NOTICE : '*Notice') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_NOTICE : '*Notice:') . $msg;
                     $this->log(LogLevel::NOTICE, $msg);
                     break;
                 case E_WARNING:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_WARNING : '*Warning') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_WARNING : '*Warning:') . $msg;
                     $this->log(LogLevel::WARNING, $msg);
                     break;
                 case E_STRICT:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_STRICT : '*Strict') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_STRICT : '*Strict:') . $msg;
                     $this->log(LogLevel::WARNING, $msg);
                     break;
                 case E_USER_ERROR:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error:') . $msg;
                     @$this->log(LogLevel::CRITICAL, $msg);
                     break;
                 default:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_UNKNOWN : '*Unknown') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_UNKNOWN : '*Unknown:') . $msg;
                     $this->log(LogLevel::ERROR, $msg);
                     break;
             }

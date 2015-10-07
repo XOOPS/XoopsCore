@@ -1,14 +1,14 @@
 <?php
-namespace Xoops\Core\Session;
-
 require_once __DIR__.'/../../../../init_new.php';
+
+use Xoops\Core\Session\Manager;
 
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class Session_ManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Manager

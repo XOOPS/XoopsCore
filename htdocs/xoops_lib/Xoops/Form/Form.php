@@ -82,11 +82,6 @@ abstract class Form implements ContainerInterface
     private $required = array();
 
     /**
-     * @var string
-     */
-    private $summary = '';
-
-    /**
      * constructor
      *
      * @param string  $title    title of the form
@@ -375,20 +370,6 @@ abstract class Form implements ContainerInterface
     {
         if (!empty($extra)) {
             $this->extra[] = $extra;
-        }
-    }
-
-    /**
-     * setSummary - set the summary tag for the <form> tag
-     *
-     * @param string $summary summary
-     *
-     * @return void
-     */
-    public function setSummary($summary)
-    {
-        if (!empty($summary)) {
-            $this->summary = strip_tags($summary);
         }
     }
 

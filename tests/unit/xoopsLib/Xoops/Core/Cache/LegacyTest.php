@@ -1,6 +1,4 @@
 <?php
-namespace Xoops\Core\Cache;
-
 require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Cache\Legacy;
@@ -94,7 +92,7 @@ class LegacyTest extends \PHPUnit_Framework_TestCase
     public function test__call()
     {
         $instance = new Legacy;
-        $this->assertInstanceOf('Xoops\Core\Cache\Legacy', $instance);
+        $this->assertInstanceOf('\Xoops\Core\Cache\Legacy', $instance);
 
         $ret = $instance->noSuchMethod();
         $this->assertFalse($ret);

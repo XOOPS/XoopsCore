@@ -78,6 +78,9 @@ class Events
     public function initializeListeners()
     {
         $this->eventsEnabled = false;
+        // clear state in case this is invoked more than once
+        $this->preloadList = array();
+        $this->eventListeners = array();
         $this->setPreloads();
         $this->setEvents();
         $this->eventsEnabled = true;
@@ -220,6 +223,16 @@ class Events
     public function getEvents()
     {
         return $this->eventListeners;
+    }
+
+    /**
+     * getPreloads - for debugging only, return list of preloads
+     *
+     * @return array of preloads
+     */
+    public function getPreloads()
+    {
+        return $this->preloadList;
     }
 
     /**

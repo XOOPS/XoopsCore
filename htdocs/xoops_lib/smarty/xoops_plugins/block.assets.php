@@ -54,7 +54,7 @@ function smarty_block_assets($params, $content, $template, &$repeat)
 
         $debug = isset($params['debug'])? (boolean)$params['debug'] : false;
         if ($debug) {
-            $xoops->assets()->setDebug($debug);
+            $xoops->assets()->setDebug();
         }
 
         $url = $xoops->assets()->getUrlToAssets($output, $assets, $filters);

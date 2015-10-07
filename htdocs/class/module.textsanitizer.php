@@ -384,7 +384,7 @@ class MyTextSanitizer
      *                                                           On FALSE, uses links to images.
      * @return string
      */
-    public function xoopsCodeDecode(&$text, $allowimage = 1)
+    public function xoopsCodeDecode($text, $allowimage = 1)
     {
 		$xoops_url = \XoopsBaseConfig::get('url');
         $patterns = array();
@@ -428,7 +428,7 @@ class MyTextSanitizer
         $this->config['allowimage'] = $allowimage;
         $this->executeExtensions();
 
-        $text = preg_replace($this->patterns, $this->replacements, $this->text);
+        $text = preg_replace($this->patterns, $this->replacements, $text);
 //-------------------------------------------------------------------------------
         $count = sizeof($this->callbackPatterns);
 

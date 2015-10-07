@@ -58,7 +58,7 @@ class Factory
             $parameters = \XoopsBaseConfig::get('db-parameters');
             if (!empty($parameters) && is_array($parameters)) {
                 $connectionParams = $parameters;
-                $connectionParams['wrapperClass'] = '\\Xoops\\Core\\Database\\Connection';
+                $connectionParams['wrapperClass'] = '\Xoops\Core\Database\Connection';
             } else {
                 $driver = 'pdo_' . \XoopsBaseConfig::get('db-type');
                 $connectionParams = array(
@@ -68,7 +68,7 @@ class Factory
                     'host' => \XoopsBaseConfig::get('db-host'),
                     'charset' => \XoopsBaseConfig::get('db-charset'),
                     'driver' => $driver,
-                    'wrapperClass' => '\\Xoops\\Core\\Database\\Connection',
+                    'wrapperClass' => '\Xoops\Core\Database\Connection',
                 );
                 // Support for other doctrine databases
 				$xoops_db_port = \XoopsBaseConfig::get('db-port');

@@ -1,7 +1,7 @@
 <?php
-namespace Xoops\Html;
-
 require_once(dirname(__FILE__).'/../../../init_new.php');
+
+use Xoops\Html\Attributes;
 
 /**
  * PHPUnit special settings :
@@ -34,50 +34,63 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Html\Attributes::setAttribute
-     * @todo   Implement testSetAttribute().
      */
     public function testSetAttribute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $instance = $this->object;
+        
+        $key = 'key';
+        $value = 'value';
+        $instance->setAttribute($key,$value);
+        $result = $instance->getAttribute($key);
+        $this->assertSame($value, $result);
     }
 
     /**
      * @covers Xoops\Html\Attributes::unsetAttribute
-     * @todo   Implement testUnsetAttribute().
      */
     public function testUnsetAttribute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $instance = $this->object;
+        
+        $key = 'key';
+        $value = 'value';
+        $instance->setAttribute($key,$value);
+        $result = $instance->getAttribute($key);
+        $this->assertSame($value, $result);
+        
+        $instance->unsetAttribute($key);
+        
+        $result = $instance->getAttribute($key);
+        $this->assertFalse($result);
     }
 
     /**
      * @covers Xoops\Html\Attributes::setAttributes
-     * @todo   Implement testSetAttributes().
      */
     public function testSetAttributes()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $instance = $this->object;
+        
+        $arrAttr = array('key1' =>'value1', 'key2' => 'value2', 'key3' => 'value3');
+        $instance->setAttributes($arrAttr);
+        
+        $result = $instance->getAttribute('key1');
+        $this->assertSame('value1', $result);
+
+        $result = $instance->getAttribute('key2');
+        $this->assertSame('value2', $result);
+        
+        $result = $instance->getAttribute('key3');
+        $this->assertSame('value3', $result);
     }
 
     /**
      * @covers Xoops\Html\Attributes::getAttribute
-     * @todo   Implement testGetAttribute().
      */
     public function testGetAttribute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // see testSetAttribute
     }
 
     /**
@@ -86,33 +99,65 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasAttribute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $instance = $this->object;
+        
+        $key = 'key';
+        $value = 'value';
+        $instance->setAttribute($key,$value);
+        $result = $instance->getAttribute($key);
+        $this->assertSame($value, $result);
+        
+        $result = $instance->hasAttribute($key);
+        $this->assertTrue($result);
+        
+        $result = $instance->hasAttribute('key_not_found');
+        $this->assertFalse($result);
     }
 
     /**
      * @covers Xoops\Html\Attributes::addAttribute
-     * @todo   Implement testAddAttribute().
      */
     public function testAddAttribute()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $instance = $this->object;
+        
+        $strAttr = 'value1 value2 value3';
+        $instance->addAttribute('key',$strAttr);
+        
+        $result = $instance->getAttribute('key');
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(in_array('value1', $result));
+        $this->assertTrue(in_array('value2', $result));
+        $this->assertTrue(in_array('value3', $result));
     }
 
     /**
      * @covers Xoops\Html\Attributes::renderAttributeString
-     * @todo   Implement testRenderAttributeString().
      */
     public function testRenderAttributeString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $instance = $this->object;
+        
+        $arrAttr = array('key1' =>'value1', 'key2' => 'value2', 'key3' => 'value3');
+        $instance->setAttributes($arrAttr);
+        
+        $result = $instance->renderAttributeString();
+        $expected = 'key1="value1" key2="value2" key3="value3" ';
+        $this->assertSame($expected, $result);
+    }
+    
+    /**
+     * @covers Xoops\Html\Attributes::renderAttributeString
+     */
+    public function testRenderAttributeString100()
+    {
+        $instance = $this->object;
+        
+        $strAttr = 'value1 value2 value3';
+        $instance->addAttribute('key',$strAttr);
+        
+        $result = $instance->renderAttributeString();
+        $expected = 'key="value1 value2 value3" ';
+        $this->assertSame($expected, $result);
     }
 }

@@ -42,6 +42,14 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$instance = new $this->myClass();
 		$this->assertInstanceOf($this->myClass, $instance);
     }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function test___construct100()
+	{       
+        $instance = new $this->myClass('dir_not_exists',false);
+    }
 
     public function test___publicProperties()
 	{
@@ -64,6 +72,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame($dir,$pwd);
 
 		$dir = \XoopsBaseConfig::get('var-path') . '/caches/xoops_cache';
+        $dir = str_replace('/',DIRECTORY_SEPARATOR, str_replace('\\','/',$dir));
 		$instance = new $this->myClass('', false, false);
 		$pwd = $instance->pwd();
 		$this->assertSame($dir,$pwd);
@@ -80,11 +89,16 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$cd = $instance->cd($dir);
 		$this->assertSame($dir,$cd);
 
-		$dir = dirname(__FILE__).'NOT_EXISTING_FOLDER_TEST';
-		$instance = new $this->myClass($dir, false, false);
-		$this->assertFalse(file_exists($dir));
-		$cd = $instance->cd($dir);
-		$this->assertFalse($cd);
+		$dir = dirname(__FILE__);
+        $instance = new $this->myClass($dir, false, false);
+        $this->assertTrue(file_exists($dir));
+        try {
+            $cd = $instance->cd($dir);
+            $this->assertFalse($cd);
+        }
+        catch (Exception $ex) {
+            $this->assertTrue(true);
+        }
     }
 
     /**
@@ -134,8 +148,7 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$value = $instance->find('.*Test.php', true);
         $this->assertTrue(is_array($value));
 
-		$instance = new $this->myClass('NOT_FOUND_DIR', false, false);
-		$value = $instance->find('.*Test.php');
+		$value = $instance->find('.*TestDoesntExists.php');
         $this->assertSame(array(), $value);
     }
 
@@ -436,9 +449,6 @@ class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(file_exists($dir));
 
 		$result = $instance->realpath($dir.'/../cache');
-        $this->assertSame($base, basename(dirname($result)));
-
-		$result = $instance->realpath('../cache');
         $this->assertSame($base, basename(dirname($result)));
     }
 

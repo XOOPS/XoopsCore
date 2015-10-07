@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
+use Xoops\Core\Security;
+
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
@@ -8,18 +10,47 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  */
 class SecurityTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'Xoops\Core\Security';
+    /**
+     * @var Class
+     */
+    protected $object;
+
+    protected $SERVER_save;
+    protected $SESSION_save;
+    protected $moduleConfig_save;
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->object = new Security();
+        $this->SERVER_save = $_SERVER;
+        $this->SESSION_save = $_SESSION;
+        $this->moduleConfig_save = \Xoops::getInstance()->moduleConfig;
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+        $_SERVER = $this->SERVER_save;
+        $_SESSION = $this->SESSION_save;
+        \Xoops::getInstance()->moduleConfig = $this->moduleConfig_save;
+    }
 
     public function test___construct()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
+        $this->assertInstanceOf('\Xoops\Core\Security', $instance);
     }
 
     public function test_check()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         if(isset($_SESSION)) unset($_SESSION['XOOPS_TOKEN_SESSION']);
         $token = $instance->createToken();
@@ -52,8 +83,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_createToken()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         $value = $instance->createToken();
         $x = $_SESSION['XOOPS_TOKEN_SESSION'];
@@ -77,8 +107,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_validateToken()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         unset($_SESSION['XOOPS_TOKEN_SESSION']);
         $token = $instance->createToken();
@@ -111,8 +140,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_clearTokens()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         unset($_SESSION['XOOPS_TOKEN_SESSION']);
         $token = $instance->createToken();
@@ -129,8 +157,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_garbageCollection()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         unset($_SESSION['XOOPS_TOKEN_SESSION']);
         $token1 = $instance->createToken(1);
@@ -149,13 +176,10 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_checkReferer()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         $value = $instance->checkReferer(0);
         $this->assertTrue($value);
-
-        $refSave = $_SERVER['HTTP_REFERER'];
 
         $_SERVER['HTTP_REFERER'] = \XoopsBaseConfig::get('url');;
         $value = $instance->checkReferer();
@@ -168,32 +192,46 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
         $_SERVER['HTTP_REFERER'] = XOOPS_URL;
         $value = $instance->checkReferer();
         $this->assertTrue($value);
-
-        $_SERVER['HTTP_REFERER'] = $refSave;
-
     }
 
     public function test_checkBadips()
     {
-        $this->markTestIncomplete();
+        $instance = $this->object;
+
+        unset($_SERVER['REMOTE_ADDR']);
+        $result = $instance->checkBadips();
+        $this->assertNull($result);
+
+        $xoops = \Xoops::getInstance();
+        $xoops->setConfig('enable_badips',1);
+        $xoops->setConfig('bad_ips', array('bad_ip1', 'bad_ip2'));
+
+        $_SERVER['REMOTE_ADDR'] = 'bad_ip3';
+        $result = $instance->checkBadips();
+        $this->assertNull($result);
     }
 
     public function test_getTokenHTML()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         $value = $instance->getTokenHTML();
         $this->assertTrue(strpos($value, '<input type="hidden"') === 0);
+        $this->assertTrue(strpos($value, 'name="XOOPS_TOKEN_REQUEST"') !== false);
         $this->assertTrue(strpos($value, 'name="XOOPS_TOKEN_REQUEST"') !== 0);
+        $this->assertTrue(strpos($value, 'id="XOOPS_TOKEN_REQUEST"') !== false);
         $this->assertTrue(strpos($value, 'id="XOOPS_TOKEN_REQUEST"') !== 0);
+        $this->assertTrue(strpos($value, 'value="') !== false);
         $this->assertTrue(strpos($value, 'value="') !== 0);
 
         $token = "MY_TOKEN";
         $value = $instance->getTokenHTML($token);
         $this->assertTrue(strpos($value, '<input type="hidden"') === 0);
+        $this->assertTrue(strpos($value, 'name="'.$token.'_REQUEST"') !== false);
         $this->assertTrue(strpos($value, 'name="'.$token.'_REQUEST"') !== 0);
+        $this->assertTrue(strpos($value, 'id="'.$token.'_REQUEST"') !== false);
         $this->assertTrue(strpos($value, 'id="'.$token.'_REQUEST"') !== 0);
+        $this->assertTrue(strpos($value, 'value="') !== false);
         $this->assertTrue(strpos($value, 'value="') !== 0);
     }
 
@@ -204,8 +242,7 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
 
     public function test_getErrors()
     {
-        $instance = new $this->myClass();
-        $this->assertInstanceOf($this->myClass, $instance);
+        $instance = $this->object;
 
         $str1 = "string1";
         $instance->setErrors($str1);

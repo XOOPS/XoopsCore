@@ -94,7 +94,10 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
         $message = $class::truncate($text);
         $this->assertEquals(substr($text,0,4), $message);
     }
-
+    
+    /**
+    * callback for test
+    */
     public function decode_check_level($sanitizer, $text)
     {
         $level = ob_get_level();
@@ -105,6 +108,23 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
     
     public function test_xoopsCodeDecode()
 	{
+        $path = \XoopsBaseConfig::get('root-path');
+        if (! class_exists('Comments', false)) {
+            \XoopsLoad::addMap(array(
+                'comments'          => $path . '/modules/comments/class/helper.php',
+            ));
+        }
+        if (! class_exists('MenusDecorator', false)) {
+            \XoopsLoad::addMap(array(
+                'menusdecorator'    => $path . '/modules/menus/class/decorator.php',
+            ));
+        }
+        if (! class_exists('MenusBuilder', false)) {
+            \XoopsLoad::addMap(array(
+                'menusbuilder'    => $path . '/modules/menus/class/builder.php',
+            ));
+        }
+        
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
 		$host = 'monhost.fr';

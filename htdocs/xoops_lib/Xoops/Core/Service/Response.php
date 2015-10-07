@@ -39,15 +39,13 @@ class Response
     protected $errorMessage = null;
 
     /**
-     * __constructor
+     * __construct
      *
      * @param mixed   $value        - value returned by provider
      * @param boolean $success      - true if service request was successful
      * @param mixed   $errorMessage - string or array of strings of any errors to be reported
-     *
-     * @return void
      */
-    public function __constructor($value = null, $success = true, $errorMessage = null)
+    public function __construct($value = null, $success = true, $errorMessage = null)
     {
         $this->value = $value;
         $this->success = $success;

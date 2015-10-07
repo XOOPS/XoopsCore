@@ -1,6 +1,8 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
+use Xoops\Core\Registry;
+
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
@@ -9,49 +11,52 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'Xoops\Core\Registry';
+    /**
+     * @var Registry
+     */
+    protected $object;
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->object = new Registry();
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+    }
 
     public function testContracts()
     {
-        $class = $this->myClass;
-        $instance = new $class();
+        $instance = $this->object;
 
         $this->assertInstanceOf('ArrayObject', $instance);
-        $this->assertInstanceOf('Xoops\Core\AttributeInterface', $instance);
+        $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $instance);
     }
 
     public function test_get()
     {
-        $class = $this->myClass;
-        $instance = new $class();
-
-        $value = $instance->get('testdummy', false);
-        $this->assertFalse($value);
+        // see test_remove
     }
 
     public function test_set()
     {
-        $class = $this->myClass;
-        $instance = new $class();
-
-        $testkey = 'testkey';
-        $testvalue = 'testvalue';
-        $instance->set($testkey, $testvalue);
-        $value = $instance->get($testkey);
-        $this->assertSame($testvalue, $value);
+        // see test_remove
     }
 
     public function test_has()
     {
-        $class = $this->myClass;
-        $instance = new $class();
+        $instance = $this->object;
 
         $testkey = 'testkey';
         $testvalue = 'testvalue';
-
-        $this->assertInstanceOf($class, $instance);
-        $value = $instance->has($testkey);
-        $this->assertFalse($value);
 
         $value = $instance->has($testkey);
         $this->assertFalse($value);
@@ -59,5 +64,36 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $instance->set($testkey, $testvalue);
         $value = $instance->has($testkey);
         $this->assertTrue($value);
+    }
+    
+    public function test_remove()
+    {
+        $instance = $this->object;
+
+        $testkey = 'testkey';
+        $testvalue = 'testvalue';
+        $instance->set($testkey, $testvalue);
+        $value = $instance->get($testkey);
+        $this->assertSame($testvalue, $value);
+        
+        $result = $instance->remove('name_doesnt_exist');
+        $this->assertSame(null, $result);
+
+        $result = $instance->remove($testkey);
+        $this->assertSame($testvalue, $result);
+    }
+    
+    public function test_clear()
+    {
+        $instance = $this->object;
+
+        $testkey = 'testkey';
+        $testvalue = 'testvalue';
+        $instance->set($testkey, $testvalue);
+
+        $result = $instance->clear();
+
+        $value = $instance->get($testkey);
+        $this->assertSame(null, $value);
     }
 }
