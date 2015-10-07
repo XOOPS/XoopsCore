@@ -285,21 +285,22 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $expected = ucfirst(gmdate($datestring, $usertimestamp));
         $this->assertSame($expected,$value);
 
-        sleep(3);
-        $value = $instance::formatTimestamp($time,'e');
+        $time = time();
+        $elapse = strtotime('-3 seconds', $time);
+        $value = $instance::formatTimestamp($elapse,'e');
         $this->assertTrue(strpos($value,'3') !== false);
         $this->assertTrue(strpos($value,'seconds') !== false);
 
-        $value = $instance::formatTimestamp($time,'elapse');
+        $value = $instance::formatTimestamp($elapse,'elapse');
         $this->assertTrue(strpos($value,'3') !== false);
         $this->assertTrue(strpos($value,'seconds') !== false);
 
-        $elapse = strtotime('-2 days',$time);
+        $elapse = strtotime('-2 days', time());
         $value = $instance::formatTimestamp($elapse,'elapse',null);
         $this->assertTrue(strpos($value,'2') !== false);
         $this->assertTrue(strpos($value,'days') !== false);
 
-        $elapse = strtotime('-3 hours',$time);
+        $elapse = strtotime('-3 hours', $time);
         $value = $instance::formatTimestamp($elapse,'elapse',null);
         $this->assertTrue(strpos($value,'3') !== false);
         $this->assertTrue(strpos($value,'hours') !== false);
