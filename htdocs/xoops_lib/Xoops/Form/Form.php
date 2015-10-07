@@ -82,11 +82,6 @@ abstract class Form implements ContainerInterface
     private $required = array();
 
     /**
-     * @var string
-     */
-    private $summary = '';
-
-    /**
      * constructor
      *
      * @param string  $title    title of the form
