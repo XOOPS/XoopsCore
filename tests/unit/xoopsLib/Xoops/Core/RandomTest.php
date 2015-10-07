@@ -2,7 +2,7 @@
 require_once dirname(__FILE__).'/../../../init_new.php';
 
 use Xoops\Core\Random;
- 
+
 /**
 * PHPUnit special settings :
 * @backupGlobals disabled
@@ -34,23 +34,23 @@ class RandomTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Core\Rabdom::generateOneTimeToken
+     * @covers Xoops\Core\Random::generateOneTimeToken
      */
     public function testGenerateOneTimeToken()
     {
         $result = Random::generateOneTimeToken();
-        
+
         $this->assertTrue(is_string($result));
         $this->assertSame(128, strlen($result));
     }
-    
+
     /**
      * @covers Xoops\Core\Random::generateKey
      */
     public function testGenerateKey()
     {
         $result = Random::generateKey();
-        
+
         $this->assertTrue(is_string($result));
         $this->assertSame(128, strlen($result));
     }

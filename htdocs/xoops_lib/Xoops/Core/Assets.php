@@ -104,7 +104,7 @@ class Assets
     {
         $this->assetManager = new AssetManager();
         if (isset($_REQUEST['ASSET_DEBUG'])) {
-            $this->setDebug(true);
+            $this->setDebug();
         }
         $this->readAssetsPrefs();
         // register any asset references
@@ -323,25 +323,14 @@ class Assets
     /**
      * setDebug enable debug mode, will skip filters prefixed with '?'
      *
-     * @param boolean $debug true to enable debug mode
-     *
-     * @return void
+     * @return true
      */
-    public function setDebug($debug)
+    public function setDebug()
     {
-        $this->debug = (boolean) $debug;
+        $this->debug = true;
+        return true;
     }
 
-    /**
-     * getDebug enable debug mode, will skip filters prefixed with '?'
-     *
-     * @return bool
-     */
-    public function getDebug()
-    {
-        return $this->debug;
-    }
-    
     /**
      * Add an asset reference to the asset manager
      *

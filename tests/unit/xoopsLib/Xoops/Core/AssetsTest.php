@@ -31,47 +31,37 @@ class AssetsTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
-	
-	public function test_getUrlToAssets()
-	{
+
+    public function test_getUrlToAssets()
+    {
         $this->markTestIncomplete();
-	}
-	
-	public function test_setDebug()
-	{
+    }
+
+    public function test_setDebug()
+    {
         $instance = $this->object;
-        
-        $instance->setDebug(false);
-        $result = $instance->getDebug();
-        $this->assertFalse($result);
-        
-        $instance->setDebug(true);
-        $result = $instance->getDebug();
+
+        $result = $instance->setDebug();
         $this->assertTrue($result);
-	}
-    
-	public function test_getDebug()
-	{
-        // see test_setDebug
-	}
-	
-	public function test_registerAssetReference()
-	{
+    }
+
+    public function test_registerAssetReference()
+    {
         $this->markTestIncomplete();
-	}
-	
-	public function test_copyFileAssets()
-	{
+    }
+
+    public function test_copyFileAssets()
+    {
         $instance = $this->object;
-        
+
         $xoops = \Xoops::getInstance();
         $from = $xoops->path('assets') . '/js/';
         $glob = '*.js';
         $output = 'dummy_dir';
-        
+
         $result = $instance->copyFileAssets($from, $glob, $output);
         $this->assertTrue(is_numeric($result));
-        
+
         $dir = $xoops->path('assets') . '/' . $output . '/';
         array_map('unlink', glob($dir . $glob));
         rmdir($dir);

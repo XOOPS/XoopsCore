@@ -11,8 +11,6 @@
 
 namespace Xoops\Core;
 
-use Xoops\Core\AttributeInterface;
-
 /**
  * Registry - a non-persisted key value store
  *

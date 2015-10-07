@@ -14,11 +14,11 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
      * @var Class
      */
     protected $object;
-    
+
     protected $SERVER_save;
     protected $SESSION_save;
     protected $moduleConfig_save;
-    
+
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
@@ -197,18 +197,18 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
     public function test_checkBadips()
     {
         $instance = $this->object;
-        
+
         unset($_SERVER['REMOTE_ADDR']);
         $result = $instance->checkBadips();
-        $this->assertFalse($result);
-        
+        $this->assertNull($result);
+
         $xoops = \Xoops::getInstance();
         $xoops->setConfig('enable_badips',1);
         $xoops->setConfig('bad_ips', array('bad_ip1', 'bad_ip2'));
-        
-        $_SERVER['REMOTE_ADDR'] = 'contains bad_ip2';
+
+        $_SERVER['REMOTE_ADDR'] = 'bad_ip3';
         $result = $instance->checkBadips();
-        $this->assertTrue($result);
+        $this->assertNull($result);
     }
 
     public function test_getTokenHTML()

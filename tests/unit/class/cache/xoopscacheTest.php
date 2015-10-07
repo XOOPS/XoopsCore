@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 class XoopsCacheTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsCache';
-	
+
     public function test__construct()
 	{
         if (!class_exists('XoopsCache', false)) {
@@ -19,5 +19,5 @@ class XoopsCacheTest extends \PHPUnit_Framework_TestCase
 		$instance = new $this->myclass(null);
 		$this->assertInstanceOf('\\Xoops\\Core\\Cache\\Legacy', $instance);
     }
-	
+
 }

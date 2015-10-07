@@ -78,6 +78,9 @@ class Events
     public function initializeListeners()
     {
         $this->eventsEnabled = false;
+        // clear state in case this is invoked more than once
+        $this->preloadList = array();
+        $this->eventListeners = array();
         $this->setPreloads();
         $this->setEvents();
         $this->eventsEnabled = true;
@@ -211,19 +214,6 @@ class Events
         $eventName = $this->toInternalEventName($eventName);
         $this->eventListeners[$eventName][]=$callback;
     }
-    
-    /**
-     * removeListener - remove a listener.
-     *
-     * @param string   $eventName the event name
-     *
-     * @return void
-     */
-    public function removeListener($eventName)
-    {
-        $eventName = $this->toInternalEventName($eventName);
-        unset($this->eventListeners[$eventName]);
-    }
 
     /**
      * getEvents - for debugging only, return list of event listeners
@@ -234,7 +224,7 @@ class Events
     {
         return $this->eventListeners;
     }
-    
+
     /**
      * getPreloads - for debugging only, return list of preloads
      *

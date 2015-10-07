@@ -59,7 +59,7 @@ class Logger implements LoggerInterface
      * @var boolean just to prevent fatal legacy errors. Does nothing. Stop it!
      */
     //public $activated = false;
-    
+
     /**
      * Get the Xoops\Core\Logger instance
      *
@@ -108,7 +108,7 @@ class Logger implements LoggerInterface
 
             switch ($errno) {
                 case E_USER_NOTICE:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_NOTICE : '*Notice:') . $msg;
+                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error:') . $msg;
                     $this->log(LogLevel::NOTICE, $msg);
                     break;
                 case E_NOTICE:
@@ -206,9 +206,9 @@ class Logger implements LoggerInterface
      */
     public function sanitizePath($path)
     {
-        $path = str_replace('\\','/',$path);
         $path = str_replace(
             array(
+                '\\',
                 \XoopsBaseConfig::get('var-path'),
                 str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
                 \XoopsBaseConfig::get('lib-path'),
@@ -224,6 +224,7 @@ class Logger implements LoggerInterface
                 \XoopsBaseConfig::get('db-name'),
             ),
             array(
+                '/',
                 'VAR',
                 'VAR',
                 'LIB',

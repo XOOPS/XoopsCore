@@ -388,31 +388,6 @@ abstract class Form implements ContainerInterface
         $extra = empty($this->extra) ? '' : ' ' . implode(' ', $this->extra);
         return $extra;
     }
-    
-    /**
-     * setSummary - set the summary tag for the <form> tag
-     *
-     * @param string $summary summary
-     *
-     * @return void
-     */
-    public function setSummary($summary)
-    {
-        if (!empty($summary)) {
-            $this->summary = strip_tags($summary);
-        }
-    }
-    
-    /**
-     * getSummary - get the summary tag for the <form> tag
-     *
-     * @return string
-     */
-    public function getSummary()
-    {
-        $summary = (empty($this->summary)) ? '' : (string)$this->summary;
-        return $summary;
-    }
 
     /**
      * setRequired - mark an element as required entry
