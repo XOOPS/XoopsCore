@@ -19,22 +19,25 @@ namespace Xoops\Core;
  * should move to Xoops\Core\Request::getXyz() methods.
  *
  * These are methods which reveal some aspects of the HTTP request environment.
- * This will eventually be reworked to depend on a full HTTP messasge library
+ * This will eventually be reworked to depend on a full HTTP message library
  * (anticipating an official PSR-7 implementation.)
  *
  * For now, this is a reduced version of a Cake derivative.
  *
  */
 
-
-
 /**
- * @author          trabis <lusopoemas@gmail.com>
- * @author          Kazumi Ono <onokazu@gmail.com>
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * HttpRequest
+ *
+ * @category  Xoops\Core\HttpRequest
+ * @package   Xoops\Core
+ * @author    trabis <lusopoemas@gmail.com>
+ * @author    Kazumi Ono <onokazu@gmail.com>
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
-
 class HttpRequest
 {
     /**
@@ -166,6 +169,8 @@ class HttpRequest
     }
 
     /**
+     * get singleton instance, establish the request data on first access
+     *
      * @return HttpRequest
      */
     public static function getInstance()
@@ -179,6 +184,8 @@ class HttpRequest
     }
 
     /**
+     * get a http header for the current request
+     *
      * @param null|string $name header name
      *
      * @return null|string
@@ -206,6 +213,8 @@ class HttpRequest
     }
 
     /**
+     * get the scheme of current request
+     *
      * @return string
      */
     public function getScheme()
@@ -214,6 +223,8 @@ class HttpRequest
     }
 
     /**
+     * get the host from the current request
+     *
      * @return string
      */
     public function getHost()
@@ -222,6 +233,8 @@ class HttpRequest
     }
 
     /**
+     * get the URI of the current request
+     *
      * @return null|string
      */
     public static function getUri()
@@ -238,6 +251,8 @@ class HttpRequest
     }
 
     /**
+     * get the referer of the current request
+     *
      * @return string
      */
     public function getReferer()
@@ -246,6 +261,8 @@ class HttpRequest
     }
 
     /**
+     * get the current script name associated with the request
+     *
      * @return string
      */
     public function getScriptName()
@@ -285,6 +302,7 @@ class HttpRequest
      * to get a real routable address.
      *
      * @param boolean $considerProxy true to enable proxy tests
+     *
      * @return string
      */
     public function getClientIp($considerProxy = false)
@@ -343,8 +361,8 @@ class HttpRequest
      * environment information.
      * Note : code modifications for XOOPS
      *
-     * @param  string $name    Environment variable name.
-     * @param  mixed  $default default value
+     * @param string $name    Environment variable name.
+     * @param mixed  $default default value
      *
      * @return string|boolean Environment variable setting.
      * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#env
@@ -367,9 +385,9 @@ class HttpRequest
         }
 
         if ($name === 'REMOTE_ADDR' && !isset($_SERVER[$name])) {
-            $addr = $this->getEnv('HTTP_PC_REMOTE_ADDR');
-            if ($addr !== null) {
-                return $addr;
+            $address = $this->getEnv('HTTP_PC_REMOTE_ADDR');
+            if ($address !== null) {
+                return $address;
             }
         }
 
@@ -418,6 +436,8 @@ class HttpRequest
     }
 
     /**
+     * get files associated with the current request
+     *
      * @param string $name name of file
      *
      * @return array
@@ -529,7 +549,7 @@ class HttpRequest
      * ### Callback detectors
      * Callback detectors allow you to provide a 'callback' type to handle the check.  The callback will
      * receive the request object as its only parameter.
-     * e.g `addDetector('custom', array('callback' => array('SomeClass', 'somemethod')));`
+     * e.g `addDetector('custom', array('callback' => array('SomeClass', 'someMethod')));`
      * ### Request parameter detectors
      * Allows for custom detectors on the request parameters.
      * e.g `addDetector('post', array('param' => 'requested', 'value' => 1)`
@@ -543,7 +563,7 @@ class HttpRequest
     {
         $name = strtolower($name);
         if (isset($this->detectors[$name]) && isset($options['options'])) {
-            $options = Xoops_Utils::arrayRecursiveMerge($this->detectors[$name], $options);
+            $options = \Xoops_Utils::arrayRecursiveMerge($this->detectors[$name], $options);
         }
         $this->detectors[$name] = $options;
     }
@@ -563,7 +583,7 @@ class HttpRequest
         if (isset($accepts[$mediaType])) {
             return true;
         }
-        list($type, $subtype) = explode('/', $mediaType);
+        list($type) = explode('/', $mediaType);
         if (isset($accepts[$type.'/*'])) {
             return true;
         }
@@ -575,7 +595,7 @@ class HttpRequest
      * getAcceptMediaTypes returns the http-accept header as an
      * array of media types arranged by specified preference
      *
-     * @return array associtive array of preference (numeric weight >0 <=1.0 )
+     * @return array associative array of preference (numeric weight >0 <=1.0 )
      *               keyed by media types, and sorted by preference
      */
     public function getAcceptMediaTypes()
@@ -604,12 +624,12 @@ class HttpRequest
      * getAcceptedLanguages returns the http-accept-language header as an
      * array of language codes arranged by specified preference
      *
-     * @return array associtive array of preference (numeric weight >0 <=1.0 )
+     * @return array associative array of preference (numeric weight >0 <=1.0 )
      *               keyed by language code, and sorted by preference
      */
     public function getAcceptedLanguages()
     {
-        $langs = array();
+        $languages = array();
         $accept = $this->getHeader('ACCEPT_LANGUAGE');
 
         if (!empty($accept)) {
@@ -619,13 +639,13 @@ class HttpRequest
                 if (!isset($l[1])) {
                     $l[1] = 1.0;
                 }
-                $langs[trim($l[0])] = (float) $l[1];
+                $languages[trim($l[0])] = (float) $l[1];
             }
 
             // sort list based on value
-            arsort($langs, SORT_NUMERIC);
+            arsort($languages, SORT_NUMERIC);
         }
 
-        return($langs);
+        return($languages);
     }
 }

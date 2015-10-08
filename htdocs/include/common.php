@@ -71,7 +71,7 @@ $xoopsLogger = $xoops->logger();
 /**
  * initialize events
  */
-$xoops->events()->initializeListeners();
+$xoops->events();
 
 $psr4loader = new \Xoops\Core\Psr4ClassLoader();
 $psr4loader->register();

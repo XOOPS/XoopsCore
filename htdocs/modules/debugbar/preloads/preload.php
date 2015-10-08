@@ -341,13 +341,13 @@ class DebugbarPreload extends PreloadItem
     }
 
     /**
-     * eventCoreIncludeFunctionsRedirectheader
+     * eventCoreRedirectStart
      *
      * @param mixed $args arguments supplied to triggerEvent
      *
      * @return void
      */
-    public static function eventCoreIncludeFunctionsRedirectheaderStart($args)
+    public static function eventCoreRedirectStart($args)
     {
         DebugbarLogger::getInstance()->stackData();
     }
@@ -418,5 +418,17 @@ class DebugbarPreload extends PreloadItem
     public static function eventDebugTimerStop($args)
     {
         DebugbarLogger::getInstance()->stopTime($args);
+    }
+
+    /**
+     * eventCoreSessionShutdown
+     *
+     * @param mixed $args arguments supplied to triggerEvent
+     *
+     * @return void
+     */
+    public static function eventCoreSessionShutdown($args)
+    {
+        DebugbarLogger::getInstance()->renderDebugBar();
     }
 }

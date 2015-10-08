@@ -11,6 +11,8 @@
 
 namespace Xoops\Core\Session;
 
+use Xoops\Core\Database\Connection;
+
 /**
  * Handler for database session storage
  *
@@ -92,9 +94,9 @@ class Handler implements \SessionHandlerInterface
         }
 
         // if system is not configured for garbage collect, force it anyway
-        if ((ini_get('session.gc_probability') == 0) && (rand(1, 100) <= 5)) {
-            $this->gc(0);
-        }
+        //if ((ini_get('session.gc_probability') == 0) && (rand(1, 100) <= 5)) {
+        //    $this->gc(0);
+        //}
 
         return $session_data;
     }
@@ -112,6 +114,9 @@ class Handler implements \SessionHandlerInterface
         $expires =  (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
             ? (int)($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
+        $oldIsolation = $this->db->getTransactionIsolation();
+        $this->db->setTransactionIsolation(Connection::TRANSACTION_REPEATABLE_READ);
+        $this->db->beginTransaction();
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->updatePrefix($this->sessionTable)
@@ -137,6 +142,8 @@ class Handler implements \SessionHandlerInterface
             $this->db->setForce(true);
             $result = $qb->execute();
         }
+        $this->db->commit();
+        $this->db->setTransactionIsolation($oldIsolation);
 
         return (boolean) ($result>0);
     }
@@ -156,7 +163,8 @@ class Handler implements \SessionHandlerInterface
             ->where($eb->eq('session_id', ':sessid'))
             ->setParameter(':sessid', $session_id, \PDO::PARAM_STR);
         $this->db->setForce(true);
-        return $qb->execute();
+        $result = $qb->execute();
+        return (boolean) ($result>0);
     }
 
     /**
@@ -175,6 +183,7 @@ class Handler implements \SessionHandlerInterface
             ->where($eb->lt('expires_at', ':expires'))
             ->setParameter(':expires', $mintime, \PDO::PARAM_INT);
         $this->db->setForce(true);
-        return $qb->execute();
+        $result = $qb->execute();
+        return (boolean) ($result>0);
     }
 }

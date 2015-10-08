@@ -96,7 +96,8 @@ class Manager implements AttributeInterface
         $sessionHandler = new Handler;
         session_set_save_handler($sessionHandler);
 
-        session_register_shutdown();
+        //session_register_shutdown();
+        register_shutdown_function(array($this, 'sessionShutdown'));
 
         session_start();
 
@@ -212,6 +213,15 @@ class Manager implements AttributeInterface
     public function user()
     {
         return $this->sessionUser;
+    }
+
+    /**
+     * shutdown function
+     */
+    public function sessionShutdown()
+    {
+        \Xoops::getInstance()->events()->triggerEvent('core.session.shutdown');
+        session_write_close();
     }
 
     // access session variables as attribute object
