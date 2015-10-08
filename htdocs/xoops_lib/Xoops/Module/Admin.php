@@ -405,20 +405,12 @@ class Admin
         $xoops = \Xoops::getInstance();
         $this->module->loadAdminMenu();
         foreach (array_keys($this->module->adminmenu) as $i) {
-            if (\XoopsLoad::fileExists(
-                $xoops->path(
-                    "/media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']
-                )
-            )) {
-                $this->module->adminmenu[$i]['icon'] = $xoops->url(
-                    "/media/xoops/images/icons/32/"
-                    . $this->module->adminmenu[$i]['icon']
-                );
+            if (\XoopsLoad::fileExists($xoops->path("media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
+                $this->module->adminmenu[$i]['icon'] = $xoops->url("media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']);
+            } elseif (\XoopsLoad::fileExists($xoops->path("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
+                $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']);
             } else {
-                $this->module->adminmenu[$i]['icon'] = $xoops->url(
-                    "/modules/" . $xoops->module->dirname()
-                    . "/icons/32/" . $this->module->adminmenu[$i]['icon']
-                );
+                $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/" . $this->module->adminmenu[$i]['icon']);
             }
             $xoops->tpl()->append('xo_admin_index_menu', $this->module->adminmenu[$i]);
         }
@@ -565,18 +557,12 @@ class Admin
         $this->module->loadAdminMenu();
         foreach (array_keys($this->module->adminmenu) as $i) {
             if ($this->module->adminmenu[$i]['link'] == "admin/" . $menu) {
-                if (\XoopsLoad::fileExists(
-                    $xoops->path("/media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon'])
-                )) {
-                    $this->module->adminmenu[$i]['icon'] = $xoops->url(
-                        "/media/xoops/images/icons/32/"
-                        . $this->module->adminmenu[$i]['icon']
-                    );
+                if (\XoopsLoad::fileExists($xoops->path("media/xoops/images/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
+                    $this->module->adminmenu[$i]['icon'] = $xoops->url("media/xoops/images/icons/32/". $this->module->adminmenu[$i]['icon']);
+                } elseif (\XoopsLoad::fileExists($xoops->path("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']))) {
+                    $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/assets/icons/32/" . $this->module->adminmenu[$i]['icon']);
                 } else {
-                    $this->module->adminmenu[$i]['icon'] = $xoops->url(
-                        "/modules/" . $xoops->module->dirname() . "/icons/32/"
-                        . $this->module->adminmenu[$i]['icon']
-                    );
+                    $this->module->adminmenu[$i]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/". $this->module->adminmenu[$i]['icon']);
                 }
                 $xoops->tpl()->assign('xo_sys_navigation', $this->module->adminmenu[$i]);
                 $ret[] = $xoops->tpl()->fetch($this->getTplPath('nav'));

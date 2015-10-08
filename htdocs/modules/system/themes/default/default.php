@@ -90,10 +90,13 @@ class XoopsGuiDefault
                 $mod_options[$item]['link'] = empty($mod_options[$item]['absolute'])
                     ? \XoopsBaseConfig::get('url') . "/modules/{$moddir}/" . $mod_options[$item]['link']
                     : $mod_options[$item]['link'];
-                if ( XoopsLoad::fileExists($xoops->path("/media/xoops/images/icons/32/" . $mod_options[$item]['icon']) ) ) {
-                    $mod_options[$item]['icon'] = $xoops->url("/media/xoops/images/icons/32/" . $mod_options[$item]['icon']);
+                if ( XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/32/' . $mod_options[$item]['icon']) ) ) {
+                    $mod_options[$item]['icon'] = $xoops->url('media/xoops/images/icons/32/' . $mod_options[$item]['icon']);
+
+                } elseif ( XoopsLoad::fileExists($xoops->path('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $mod_options[$item]['icon'])) ) {
+                    $mod_options[$item]['icon'] = $xoops->url('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $mod_options[$item]['icon']);
                 } else {
-                    $mod_options[$item]['icon'] = $xoops->url("/modules/" . $xoops->module->dirname() . "/icons/32/" . $mod_options[$item]['icon']);
+                    $mod_options[$item]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/" . $mod_options[$item]['icon']);
                 }
             }
         }
