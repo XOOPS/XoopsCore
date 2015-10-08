@@ -14,7 +14,7 @@
     },
     "require-dev": {
         "raveren/kint": "*",
-        "phpunit/phpunit": "~4.1",
+        "phpunit/phpunit": ">=4.8",
         "phpunit/phpunit-skeleton-generator": "*"
     },
     "extra": {
