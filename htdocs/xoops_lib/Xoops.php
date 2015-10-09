@@ -1046,7 +1046,7 @@ class Xoops
             }
         }
         if (XoopsLoad::fileExists(
-            $hnd_file = \XoopsBaseConfig::get('root-path') . "/modules/{$module_dir}/class/form/{$name}.php"
+            $hnd_file = \XoopsBaseConfig::get('root-path') . '/modules/'.$module_dir.'/class/form/'.$name.'.php'
         )) {
             include_once $hnd_file;
             $class = ucfirst(strtolower($module_dir)) . ucfirst($name) . 'Form';
