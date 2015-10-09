@@ -15,17 +15,16 @@ use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
- * DtypeTextarea
+ * DtypeTextArea
  *
- * @category  Xoops\Core\Kernel\Dtype\DtypeTextarea
+ * @category  Xoops\Core\Kernel\Dtype\DtypeTextArea
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
  */
-class DtypeTextarea extends DtypeAbstract
+class DtypeTextArea extends DtypeAbstract
 {
     /**
      * getVar get variable prepared according to format

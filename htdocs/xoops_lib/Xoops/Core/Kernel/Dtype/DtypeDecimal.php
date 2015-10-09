@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsObject;
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
  */
 class DtypeDecimal extends DtypeAbstract
 {

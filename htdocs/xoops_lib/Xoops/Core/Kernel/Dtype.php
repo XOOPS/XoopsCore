@@ -58,7 +58,8 @@ class Dtype
     const TYPE_FLOAT       = 13;
     const TYPE_DECIMAL     = 14;
     const TYPE_ENUM        = 15;
-    const TYPE_JSON        = 16;
+    const TYPE_JSON        = 30;
+    const TYPE_DATETIME    = 31;
 
     /**
      * cleanVar
@@ -99,10 +100,9 @@ class Dtype
     {
         static $dtypes;
 
-        $name = ucfirst(strtolower($name));
         $dtype = null;
         if (!isset($dtypes[$name])) {
-            $className = 'Xoops\Core\Kernel\Dtype\Dtype' . ucfirst($name);
+            $className = 'Xoops\Core\Kernel\Dtype\\' . $name;
             @$dtype = new $className();
             if (!$dtype instanceof DtypeAbstract) {
                 trigger_error("Dtype '{$name}' not found", E_USER_WARNING);
@@ -126,25 +126,29 @@ class Dtype
      */
     private static function getDtypeName(XoopsObject $obj, $key)
     {
-        $name = $obj->vars[$key]['data_type'];
-        $lNames = Dtype::getLegacyNames();
-        if (isset($lNames[$name])) {
-            return $lNames[$name];
-        }
-        return $name;
-    }
-
-    /**
-     * Support for legacy objects
-     *
-     * @return string[]
-     */
-    private static function getLegacyNames()
-    {
-        return array(
-            1 => 'textbox', 2 => 'textarea', 3 => 'int', 4 => 'url', 5 => 'email', 6 => 'array', 7 => 'other',
-            8 => 'source', 9 => 'stime', 10 => 'mtime', 11 => 'ltime', 13 => 'float', 14 => 'decimal', 15 => 'enum',
-            16 => 'json'
+        static $legacyNames = array(
+            1 => 'DtypeTextBox',
+            2 => 'DtypeTextArea',
+            3 => 'DtypeInt',
+            4 => 'DtypeUrl',
+            5 => 'DtypeEmail',
+            6 => 'DtypeArray',
+            7 => 'DtypeOther',
+            8 => 'DtypeSource',
+            9 => 'DtypeSimpleTime',
+            10 => 'DtypeSimpleTime',
+            11 => 'DtypeSimpleTime',
+            13 => 'DtypeFloat',
+            14 => 'DtypeDecimal',
+            15 => 'DtypeEnum',
+            30 => 'DtypeJson',
+            31 => 'DtypeDateTime',
         );
+
+        $nameIndex = $obj->vars[$key]['data_type'];
+        if (isset($legacyNames[$nameIndex])) {
+            return $legacyNames[$nameIndex];
+        }
+        return 'DtypeOther';
     }
 }

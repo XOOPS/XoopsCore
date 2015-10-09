@@ -15,17 +15,20 @@ use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
- * DtypeMtime
+ * DtypeSimpleTime
  *
- * @category  Xoops\Core\Kernel\Dtype\DtypeMtime
+ * Handles the old types XOBJ_DTYPE_STIME, XOBJ_DTYPE_MTIME and XOBJ_DTYPE_LTIME
+ * Expects as input and integer unix timestamp, or string that can be converted to a unix timestamp
+ * using strtotime()
+ *
+ * @category  Xoops\Core\Kernel\Dtype\DtypeSimpleTime
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
  */
-class DtypeMtime extends DtypeAbstract
+class DtypeSimpleTime extends DtypeAbstract
 {
     /**
      * cleanVar prepare variable for persistence
