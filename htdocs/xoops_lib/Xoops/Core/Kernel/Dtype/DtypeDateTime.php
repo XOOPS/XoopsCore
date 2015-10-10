@@ -11,20 +11,23 @@
 
 namespace Xoops\Core\Kernel\Dtype;
 
+use \DateTime;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
- * DtypeInt
+ * DtypeDateTime
  *
- * @category  Xoops\Core\Kernel\Dtype\DtypeInt
+ * Data is stored as integer unix timestamp, returned as \DateTime object
+ *
+ * @category  Xoops\Core\Kernel\Dtype\DtypeOldTime
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class DtypeInt extends DtypeAbstract
+class DtypeDateTime extends DtypeAbstract
 {
     /**
      * getVar get variable prepared according to format
@@ -33,27 +36,22 @@ class DtypeInt extends DtypeAbstract
      * @param string      $key    name of variable
      * @param string      $format Dtype::FORMAT_* constant indicating desired formatting
      *
-     * @return mixed
+     * @return int|DateTime
      */
     public function getVar(XoopsObject $obj, $key, $format)
     {
-        $value = $obj->vars[$key]['value'];
+        $storedValue = $obj->vars[$key]['value'];
         switch (strtolower($format)) {
-            case 's':
-            case Dtype::FORMAT_SHOW:
-            case 'e':
-            case Dtype::FORMAT_EDIT:
-                return $this->ts->htmlSpecialChars($value);
-            case 'p':
-            case Dtype::FORMAT_PREVIEW:
-            case 'f':
-            case Dtype::FORMAT_FORM_PREVIEW:
-                return $this->ts->htmlSpecialChars($value);
-            case 'n':
             case Dtype::FORMAT_NONE:
+            case 'n':
+                $value = $storedValue;
+                break;
             default:
-                return $value;
+                $value = new DateTime();
+                $value->setTimestamp($storedValue);
+                break;
         }
+        return $value;
     }
 
     /**
@@ -67,7 +65,13 @@ class DtypeInt extends DtypeAbstract
     public function cleanVar(XoopsObject $obj, $key)
     {
         $value = $obj->vars[$key]['value'];
-        $value = (int)($value);
-        return $value;
+        if ($value instanceof DateTime) {
+            $cleanValue = $value->getTimestamp();
+        } elseif (is_string($value)) {
+            $cleanValue = strtotime($value);
+        } else {
+            $cleanValue = (int) $value;
+        }
+        return $cleanValue;
     }
 }

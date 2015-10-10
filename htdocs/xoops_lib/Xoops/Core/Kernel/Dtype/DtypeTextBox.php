@@ -15,9 +15,9 @@ use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
- * DtypeTextbox
+ * DtypeTextBox
  *
- * @category  Xoops\Core\Kernel\Dtype\DtypeTextbox
+ * @category  Xoops\Core\Kernel\Dtype\DtypeTextBox
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
@@ -25,7 +25,7 @@ use Xoops\Core\Kernel\XoopsObject;
  * @link      http://xoops.org
  * @since     2.6.0
  */
-class DtypeTextbox extends DtypeAbstract
+class DtypeTextBox extends DtypeAbstract
 {
     /**
      * getVar get variable prepared according to format
@@ -49,7 +49,7 @@ class DtypeTextbox extends DtypeAbstract
             case Dtype::FORMAT_PREVIEW:
             case 'f':
             case Dtype::FORMAT_FORM_PREVIEW:
-                return $this->ts->htmlSpecialChars($this->ts->stripSlashesGPC($value));
+                return $this->ts->htmlSpecialChars($value);
             case 'n':
             case Dtype::FORMAT_NONE:
             default:

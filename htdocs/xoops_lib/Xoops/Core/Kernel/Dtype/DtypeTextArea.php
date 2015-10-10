@@ -15,17 +15,16 @@ use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
 /**
- * DtypeTextarea
+ * DtypeTextArea
  *
- * @category  Xoops\Core\Kernel\Dtype\DtypeTextarea
+ * @category  Xoops\Core\Kernel\Dtype\DtypeTextArea
  * @package   Xoops\Core\Kernel
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
  */
-class DtypeTextarea extends DtypeAbstract
+class DtypeTextArea extends DtypeAbstract
 {
     /**
      * getVar get variable prepared according to format
@@ -62,7 +61,7 @@ class DtypeTextarea extends DtypeAbstract
                 return $this->ts->previewTarea($value, $html, $smiley, $xcode, $image, $br);
             case 'f':
             case Dtype::FORMAT_FORM_PREVIEW:
-                return htmlspecialchars($this->ts->stripSlashesGPC($value), ENT_QUOTES);
+                return htmlspecialchars($value, ENT_QUOTES);
             case 'n':
             case Dtype::FORMAT_NONE:
             default:

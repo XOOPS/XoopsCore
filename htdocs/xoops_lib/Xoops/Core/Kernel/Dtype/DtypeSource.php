@@ -23,7 +23,6 @@ use Xoops\Core\Kernel\XoopsObject;
  * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
  */
 class DtypeSource extends DtypeAbstract
 {
@@ -48,10 +47,10 @@ class DtypeSource extends DtypeAbstract
                 return htmlspecialchars($value, ENT_QUOTES);
             case 'p':
             case Dtype::FORMAT_PREVIEW:
-                return $this->ts->stripSlashesGPC($value);
+                return $value;
             case 'f':
             case Dtype::FORMAT_FORM_PREVIEW:
-                return htmlspecialchars($this->ts->stripSlashesGPC($value), ENT_QUOTES);
+                return htmlspecialchars($value, ENT_QUOTES);
             case 'n':
             case Dtype::FORMAT_NONE:
             default:
