@@ -20,13 +20,12 @@ class XoopsXmlRpcBase64Test extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceof('XoopsXmlRpcTag', $x);
 	}
 
-    public function test___construct100()
-    {
-		$this->markTestIncomplete();
-    }
-
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$value = 'value';
+		$instance = new $this->myclass($value);
+        
+        $result = $instance->render();
+        $this->assertSame('<value><base64>'.base64_encode($value).'</base64></value>', $result);
     }
 }

@@ -105,21 +105,21 @@ class xoopslistsTest extends \PHPUnit_Framework_TestCase
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $d_avatar = $xoops_root_path . '/images/avatar/';
         $is_dir = is_dir($d_avatar);
-        if ($is_dir) {
-            $value = $class::getAvatarsList();
-            $this->assertTrue(is_array($value));
-            $this->assertTrue(count($value)>0);
-            $sdir = 'toto';
-            $is_sdir = is_dir($d_avatar.$sdir);
-            $value = $class::getAvatarsList($sdir);
-            if ($is_sdir) {
-                $this->assertTrue(is_array($value));
-            } else {
-                $this->assertSame(false, $value);
-            }
-        } else {
-            $this->markTestSkipped('Directory not found : '.$d_avatar);
+        if (! $is_dir) {
+            mkdir($d_avatar);
         }
+        $value = $class::getAvatarsList();
+        $this->assertTrue(is_array($value));
+        $sdir = 'test_getAvatarsList';
+        $is_sdir = is_dir($d_avatar.$sdir);
+        if (! $is_sdir) {
+            mkdir($d_avatar.$sdir);
+        }
+        $value = $class::getAvatarsList($sdir);
+        $this->assertTrue(is_array($value));
+        
+        @rmdir($d_avatar.$sdir);
+        @rmdir($d_avatar);
     }
 
     public function test_getAllAvatarsList()
@@ -138,21 +138,22 @@ class xoopslistsTest extends \PHPUnit_Framework_TestCase
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $d_subject = $xoops_root_path . '/images/subject/';
         $is_dir = is_dir($d_subject);
-        if ($is_dir) {
-            $value = $class::getSubjectsList();
-            $this->assertTrue(is_array($value));
-            $this->assertTrue(count($value)>0);
-            $sdir = 'toto';
-            $is_sdir = is_dir($d_subject.$sdir);
-            $value = $class::getSubjectsList($sdir);
-            if ($is_sdir) {
-                $this->assertTrue(is_array($value));
-            } else {
-                $this->markTestSkipped('Directory not found : '.$d_subject.$sdir);
-            }
-        } else {
-            $this->markTestSkipped('Directory not found : '.$d_subject);
+        if (! $is_dir) {
+            mkdir($d_subject);
         }
+        $value = $class::getSubjectsList();
+        $this->assertTrue(is_array($value));
+        $this->assertTrue(count($value)>0);
+        $sdir = 'test_getSubjectsList';
+        $is_sdir = is_dir($d_subject.$sdir);
+        if (! $is_dir) {
+            mkdir($d_subject.$sdir);
+        }
+        $value = $class::getSubjectsList($sdir);
+        $this->assertTrue(is_array($value));
+        
+        @rmdir($d_subject.$sdir);
+        @rmdir($d_subject);
     }
 
     public function test_getLangList()

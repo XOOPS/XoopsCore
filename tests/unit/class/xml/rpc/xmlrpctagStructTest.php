@@ -19,11 +19,23 @@ class XoopsXmlRpcStructTest extends \PHPUnit_Framework_TestCase
 
     public function test_add()
     {
-		$this->markTestIncomplete();
+        // see test_render
     }
 
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+        
+        $value = $instance->render();
+        $this->assertSame('<value><struct></struct></value>', $value);
+        
+        $instance->add('instance', clone($instance));
+        $value = $instance->render();
+        $expected = '<value><struct>'
+            . '<member><name>instance</name>'
+            . '<value><struct></struct></value>'
+            . '</member></struct></value>';
+        $this->assertSame($expected, $value);
+
     }
 }

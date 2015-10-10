@@ -18,13 +18,12 @@ class XoopsXmlRpcIntTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceof('XoopsXmlRpcTag', $x);
 	}
 
-    public function test___construct100()
-    {
-		$this->markTestIncomplete();
-    }
-
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$value = 71;
+		$instance = new $this->myclass($value);
+        
+        $result = $instance->render();
+        $this->assertSame('<value><int>' . $value . '</int></value>', $result);
     }
 }

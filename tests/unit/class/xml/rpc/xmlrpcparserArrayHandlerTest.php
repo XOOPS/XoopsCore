@@ -32,15 +32,27 @@ class RpcArrayHandlerTest extends \PHPUnit_Framework_TestCase
 
     function test_handleBeginElement()
     {
-        $instance = $this->object;
-        
-		$this->markTestIncomplete();
+        // see test_handleEndElement
     }
 
     function test_handleEndElement()
     {
         $instance = $this->object;
         
-		$this->markTestIncomplete();
+        $input = 'input';
+        $parser = new XoopsXmlRpcParser($input);
+        $workingLevelBefore = $parser->getWorkingLevel();
+        $data = 'not time';
+		$instance->handleBeginElement($parser,$data);
+        $workingLevel = $parser->getWorkingLevel();
+        $tempArray = $parser->getTempArray();
+        $this->assertSame(array(), $tempArray);
+        $this->assertNotSame($workingLevelBefore, $workingLevel);
+        
+		$instance->handleEndElement($parser,$data);
+        $workingLevel = $parser->getWorkingLevel();
+        $tempArray = $parser->getTempArray();
+        $this->assertSame(null, $tempArray);
+        $this->assertSame($workingLevelBefore, $workingLevel);
     }
 }
