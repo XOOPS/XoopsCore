@@ -15,18 +15,25 @@ class XoopsXmlRpcArrayTest extends \PHPUnit_Framework_TestCase
     
     public function test___construct()
 	{
-		$x = new $this->myclass();
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XoopsXmlRpcTag', $x);
+		$instance = new $this->myclass();
+		$this->assertInstanceof($this->myclass, $instance);
+		$this->assertInstanceof('XoopsXmlRpcTag', $instance);
 	}
 
     public function test_add()
     {
-		$this->markTestIncomplete();
+        // see test_render
     }
 
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$instance = new $this->myclass();
+        
+        $value = $instance->render();
+        $this->assertSame('<value><array><data></data></array></value>', $value);
+        
+        $instance->add(clone($instance));
+        $value = $instance->render();
+        $this->assertSame('<value><array><data><value><array><data></data></array></value></data></array></value>', $value);
     }
 }

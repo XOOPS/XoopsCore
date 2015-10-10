@@ -18,13 +18,17 @@ class XoopsXmlRpcBooleanTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceof('XoopsXmlRpcTag', $x);
 	}
 
-    public function test___construct100()
-    {
-		$this->markTestIncomplete();
-    }
-
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$value = 1;
+		$instance = new $this->myclass($value);
+        
+        $value = $instance->render();
+        $this->assertSame('<value><boolean>1</boolean></value>', $value);
+        
+		$instance = new $this->myclass();
+        
+        $value = $instance->render();
+        $this->assertSame('<value><boolean>0</boolean></value>', $value);
     }
 }

@@ -52,6 +52,12 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 
     public function test_getSmileys()
 	{
+        if (! class_exists('Smilies', false)) {
+            $path = \XoopsBaseConfig::get('root-path');
+            XoopsLoad::addMap(array(
+                'smilies' => $path . '/modules/smilies/class/helper.php',
+            ));
+        }
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
         $smileys = $sanitizer->getSmileys();

@@ -22,11 +22,6 @@ class XoopsApiTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceof('XoopsXmlRpcApi', $x);
 	}
 
-    function test___construct100()
-    {
-		$this->markTestIncomplete();
-    }
-
     function test_newPost()
     {
 		$this->markTestIncomplete();

@@ -28,10 +28,20 @@ class XoopsXmlRpcTagTest extends \PHPUnit_Framework_TestCase
     {
 		$instance = new $this->myclass();
         $text = '& < > ';
-        $x = $instance->encode($text);
-        $result = '&amp; &lt; &gt; ';
-		$this->assertSame($result, $x);
-        $this->markTestIncomplete();
+        $result = $instance->encode($text);
+        $expected = '&amp; &lt; &gt; ';
+		$this->assertSame($expected, $result);
+        
+        $text = '#||amp||#';
+        $result = $instance->encode($text);
+        $expected = '&amp;';
+		$this->assertSame($expected, $result);
+        
+        $this->markTestIncomplete('Unexpected result in the next test');
+        $text = '&amp;';
+        $result = $instance->encode($text);
+        $expected = '#||amp||#';
+		$this->assertSame($expected, $result);
     }
 
     public function test_setFault()

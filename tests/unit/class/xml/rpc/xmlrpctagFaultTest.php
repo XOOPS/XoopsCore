@@ -14,18 +14,25 @@ class XoopsXmlRpcFaultTest extends \PHPUnit_Framework_TestCase
 	{
 		$code = 109;
 		$str = 'string';
-		$x = new $this->myclass($code, $str);
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XoopsXmlRpcTag', $x);
+		$instance = new $this->myclass($code, $str);
+		$this->assertInstanceof($this->myclass, $instance);
+		$this->assertInstanceof('XoopsXmlRpcTag', $instance);
 	}
-
-    public function test___construct100()
-    {
-		$this->markTestIncomplete();
-    }
 
     public function test_render()
     {
-		$this->markTestIncomplete();
+		$code = 999;
+		$str = 'string';
+		$instance = new $this->myclass($code, $str);
+        
+        $result = $instance->render();
+        $expected =  '<fault><value><struct><member><name>faultCode</name><value>'
+            . $code
+            . '</value></member><member><name>faultString</name><value>'
+            . 'Method response error' . "\n"
+            . $instance->encode($str)
+            . '</value></member></struct></value></fault>';
+
+        $this->assertSame($expected, $result);
     }
 }
