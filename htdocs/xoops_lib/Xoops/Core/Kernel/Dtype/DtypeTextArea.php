@@ -61,7 +61,7 @@ class DtypeTextArea extends DtypeAbstract
                 return $this->ts->previewTarea($value, $html, $smiley, $xcode, $image, $br);
             case 'f':
             case Dtype::FORMAT_FORM_PREVIEW:
-                return htmlspecialchars($this->ts->stripSlashesGPC($value), ENT_QUOTES);
+                return htmlspecialchars($value, ENT_QUOTES);
             case 'n':
             case Dtype::FORMAT_NONE:
             default:

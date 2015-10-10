@@ -109,7 +109,6 @@ class Dtype
                 $name = 'other';
                 $dtype = new DtypeOther();
             }
-            $dtype->init();
             $dtypes[$name] = $dtype;
         }
 

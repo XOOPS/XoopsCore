@@ -49,7 +49,7 @@ class DtypeTextBox extends DtypeAbstract
             case Dtype::FORMAT_PREVIEW:
             case 'f':
             case Dtype::FORMAT_FORM_PREVIEW:
-                return $this->ts->htmlSpecialChars($this->ts->stripSlashesGPC($value));
+                return $this->ts->htmlSpecialChars($value);
             case 'n':
             case Dtype::FORMAT_NONE:
             default:

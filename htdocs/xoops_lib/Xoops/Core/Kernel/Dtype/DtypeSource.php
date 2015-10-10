@@ -47,10 +47,10 @@ class DtypeSource extends DtypeAbstract
                 return htmlspecialchars($value, ENT_QUOTES);
             case 'p':
             case Dtype::FORMAT_PREVIEW:
-                return $this->ts->stripSlashesGPC($value);
+                return $value;
             case 'f':
             case Dtype::FORMAT_FORM_PREVIEW:
-                return htmlspecialchars($this->ts->stripSlashesGPC($value), ENT_QUOTES);
+                return htmlspecialchars($value, ENT_QUOTES);
             case 'n':
             case Dtype::FORMAT_NONE:
             default:

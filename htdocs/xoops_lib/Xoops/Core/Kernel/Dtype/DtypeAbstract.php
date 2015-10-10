@@ -38,12 +38,10 @@ abstract class DtypeAbstract
 
     /**
      * Sets database and sanitizer for easy access
-     *
-     * @return void
      */
-    public function init()
+    public function __construct()
     {
-        $this->db = \Xoops::getInstance()->db();
+        //$this->db = \Xoops::getInstance()->db();
         $this->ts = \MyTextSanitizer::getInstance();
     }
 

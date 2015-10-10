@@ -17,12 +17,18 @@ class DtypeAbstractTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var \ReflectionClass
+     */
+    protected $reflectedObject;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        //$this->object = new DtypeAbstract;
+        $this->object = $this->getMockForAbstractClass('\Xoops\Core\Kernel\Dtype\DtypeAbstract');
+        $this->reflectedObject = new \ReflectionClass('\Xoops\Core\Kernel\Dtype\DtypeAbstract');
     }
 
     /**
@@ -33,16 +39,12 @@ class DtypeAbstractTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Kernel\Dtype\DtypeAbstract::init
-     * @todo   Implement testInit().
-     */
-    public function testInit()
+    public function testContracts()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->reflectedObject->isAbstract());
+        $this->assertTrue($this->reflectedObject->hasMethod('cleanVar'));
+        $this->assertTrue($this->reflectedObject->hasMethod('getVar'));
+        $this->assertInstanceOf('\MyTextSanitizer', \PHPUnit_Framework_Assert::readAttribute($this->object, 'ts'));
     }
 
     /**
