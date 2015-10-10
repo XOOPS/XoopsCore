@@ -88,6 +88,7 @@ if ($op == 'saveuser') {
         }
         if ($password != '') {
             $edituser->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
+            $edituser->setVar('last_pass_change', time());
         }
         $edituser->setVar('url', $xoops->formatURL(Request::getUrl('url', '')));
         $edituser->setVar('user_icq', Request::getString('user_icq', ''));

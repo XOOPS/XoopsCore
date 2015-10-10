@@ -179,6 +179,7 @@ class Provisioning
         $newuser = $member_handler->createUser();
         $newuser->setVar('uname', $uname);
         $newuser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
+        $xoopsUser->setVar('last_pass_change', time());
         $newuser->setVar('rank', 0);
         $newuser->setVar('level', 1);
         $newuser->setVar('timezone_offset', $xoops->getConfig('default_TZ'));
@@ -218,6 +219,7 @@ class Provisioning
         $ret = false;
         $member_handler = $xoops->getHandlerMember();
         $xoopsUser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
+        $xoopsUser->setVar('last_pass_change', time());
         $this->setVarsMapping($xoopsUser, $data);
 
         if ($member_handler->insertUser($xoopsUser)) {

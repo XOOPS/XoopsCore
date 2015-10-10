@@ -131,9 +131,10 @@ switch ($op) {
         }
         $password = $vpass = null;
         if (!empty($_POST['password'])) {
-            $password = $myts->stripSlashesGPC(trim($_POST['password']));
-            $vpass = @$myts->stripSlashesGPC(trim($_POST['vpass']));
+            $password = trim($_POST['password']);
+            $vpass = trim($_POST['vpass']);
             $user->setVar('pass', password_hash($password, PASSWORD_DEFAULT));
+            $user->setVar('last_pass_change', time());
         } elseif ($user->isNew()) {
             $password = $vpass = '';
         }

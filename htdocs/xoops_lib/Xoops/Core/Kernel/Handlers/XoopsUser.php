@@ -79,7 +79,7 @@ class XoopsUser extends XoopsObject
         $this->initVar('rank', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('level', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('theme', Dtype::TYPE_OTHER, null, false);
-        $this->initVar('timezone_offset', Dtype::TYPE_OTHER, '0.0', false);
+        $this->initVar('timezone_offset', Dtype::TYPE_OTHER, 'UTC', 32);
         $this->initVar('last_login', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('last_pass_change', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('umode', Dtype::TYPE_OTHER, null, false);

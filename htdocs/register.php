@@ -152,6 +152,7 @@ switch ($op) {
             $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
             $newuser->setVar('actkey', $actkey);
             $newuser->setVar('pass', password_hash($pass, PASSWORD_DEFAULT));
+            $newuser->setVar('last_pass_change', time());
             $newuser->setVar('timezone_offset', $timezone_offset);
             $newuser->setVar('user_regdate', time());
             $newuser->setVar('uorder', $xoops->getConfig('com_order'));
