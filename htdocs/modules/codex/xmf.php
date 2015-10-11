@@ -55,7 +55,7 @@ if ($permissionHelper) {
         echo $xoops->alert('success', 'Permission updated');
         // save the data
         $name=$permissionHelper->defaultFieldName($permissionName, $permissionItemId);
-        $groups=Request::getVar($name, array(), $hash = 'POST');
+        $groups=Request::getVar($name, array(), 'POST');
         $permissionHelper->savePermissionForItem($permissionName, $permissionItemId, $groups);
     }
 
