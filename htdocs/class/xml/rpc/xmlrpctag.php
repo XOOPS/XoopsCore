@@ -35,8 +35,7 @@ abstract class XoopsXmlRpcDocument
         $this->_tags[] = $tagobj;
     }
 
-    abstract function render();
-
+    abstract public function render();
 }
 
 class XoopsXmlRpcResponse extends XoopsXmlRpcDocument
@@ -94,14 +93,15 @@ abstract class XoopsXmlRpcTag
     protected $_fault = false;
 
     /**
-     * @param string $text
+     * encode - make string HTML safe
+     *
+     * @param string $text string to encode
+     *
      * @return string
      */
-    public function encode(&$text)
+    public function encode($text)
     {
-        $text = preg_replace(array("/\&([a-z\d\#]+)\;/i", "/\&/", "/\#\|\|([a-z\d\#]+)\|\|\#/i"),
-            array("#||\\1||#", "&amp;", "&\\1;"), str_replace(array("<", ">"), array("&lt;", "&gt;"), $text));
-        return $text;
+        return htmlspecialchars($text, ENT_XML1, 'UTF-8');
     }
 
     /**
@@ -125,7 +125,7 @@ abstract class XoopsXmlRpcTag
      * @abstract
      * @return void
      */
-    abstract function render();
+    abstract public function render();
 }
 
 class XoopsXmlRpcFault extends XoopsXmlRpcTag
@@ -406,5 +406,3 @@ class XoopsXmlRpcStruct extends XoopsXmlRpcTag
         return $ret;
     }
 }
-
-?>
