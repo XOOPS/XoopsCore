@@ -511,7 +511,7 @@ class MyTextSanitizer
     }
 
     /**
-     * if magic_quotes_gpc is on, stirip back slashes
+     * if magic_quotes_gpc is on, strip back slashes
      *
      * @param string $text
      * @return string
