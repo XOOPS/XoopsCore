@@ -36,7 +36,7 @@ if ($permHelper) {
     // if this is a post operation get our variables
     if ('POST'==Request::getMethod()) {
         $name=$permHelper->defaultFieldName($gperm_name, $gperm_itemid);
-        $groups=Request::getVar($name, array(), $hash = 'POST');
+        $groups=Request::getVar($name, array(), 'POST');
         $permHelper->savePermissionForItem($gperm_name, $gperm_itemid, $groups);
         echo $xoops->alert('success', _MA_LOGGER_FORM_PROCESSED, _MA_LOGGER_PERMISSION_FORM);
     }
