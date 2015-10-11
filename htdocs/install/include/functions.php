@@ -76,9 +76,9 @@ function install_finalize($installer_modified)
 function xoFormField($name, $value, $label, $help = '')
 {
     $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlspecialchars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $name = $myts->htmlspecialchars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $value = $myts->htmlspecialchars($value, ENT_QUOTES);
+    $label = $myts->htmlSpecialChars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $name = $myts->htmlSpecialChars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $value = $myts->htmlSpecialChars($value, ENT_QUOTES);
     echo "<label class='xolabel' for='$name'>$label</label>\n";
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
@@ -103,9 +103,9 @@ function xoFormField($name, $value, $label, $help = '')
 function xoPassField($name, $value, $label, $help = '')
 {
     $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlspecialchars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $name = $myts->htmlspecialchars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $value = $myts->htmlspecialchars($value, ENT_QUOTES);
+    $label = $myts->htmlSpecialChars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $name = $myts->htmlSpecialChars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $value = $myts->htmlSpecialChars($value, ENT_QUOTES);
     echo "<label class='xolabel' for='{$name}'>{$label}</label>\n";
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
@@ -131,9 +131,9 @@ function xoPassField($name, $value, $label, $help = '')
 function xoBoolField($name, $value, $label, $help = '')
 {
     $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlspecialchars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $name = $myts->htmlspecialchars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $value = $myts->htmlspecialchars($value, ENT_QUOTES);
+    $label = $myts->htmlSpecialChars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $name = $myts->htmlSpecialChars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $value = $myts->htmlSpecialChars($value, ENT_QUOTES);
     echo "<label class='xolabel' for='$name'>$label</label>\n";
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
@@ -371,9 +371,9 @@ function xoFormFieldCollation($name, $value, $label, $help, $link, $charset)
     }
 
     $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlspecialchars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $name = $myts->htmlspecialchars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $value = $myts->htmlspecialchars($value, ENT_QUOTES);
+    $label = $myts->htmlSpecialChars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $name = $myts->htmlSpecialChars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $value = $myts->htmlSpecialChars($value, ENT_QUOTES);
 
     $field = "<label class='xolabel' for='{$name}'>{$label}</label>\n";
     if ($help) {
@@ -444,9 +444,9 @@ function xoFormFieldCharset($name, $value, $label, $help, $link)
     $charsets = array_merge($charsets, $chars);
 
     $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlspecialchars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $name = $myts->htmlspecialchars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
-    $value = $myts->htmlspecialchars($value, ENT_QUOTES);
+    $label = $myts->htmlSpecialChars($label, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $name = $myts->htmlSpecialChars($name, ENT_QUOTES, _INSTALL_CHARSET, false);
+    $value = $myts->htmlSpecialChars($value, ENT_QUOTES);
 
     $field = "<label class='xolabel' for='{$name}'>{$label}</label>\n";
     if ($help) {
