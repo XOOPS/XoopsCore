@@ -12,15 +12,19 @@
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         smilies
- * @author
- * @version         $Id$
+ * SmiliesSmiley object
+ *
+ * @category  Modules\Smilies
+ * @package   Modules
+ * @author    Unknown <nobody@localhost.local>
+ * @copyright 2013-2015 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class SmiliesSmiley extends XoopsObject
 {
@@ -29,14 +33,24 @@ class SmiliesSmiley extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('smiley_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('smiley_code', XOBJ_DTYPE_TXTBOX, null, true, 100);
-        $this->initVar('smiley_url', XOBJ_DTYPE_OTHER, null, false, 30);
-        $this->initVar('smiley_emotion', XOBJ_DTYPE_TXTBOX, null, true, 100);
-        $this->initVar('smiley_display', XOBJ_DTYPE_INT, 1, false);
+        $this->initVar('smiley_id', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('smiley_code', Dtype::TYPE_TEXT_BOX, null, true, 100);
+        $this->initVar('smiley_url', Dtype::TYPE_OTHER, null, false, 30);
+        $this->initVar('smiley_emotion', Dtype::TYPE_TEXT_BOX, null, true, 100);
+        $this->initVar('smiley_display', Dtype::TYPE_INTEGER, 1, false);
     }
 }
 
+/**
+ * SmiliesSmileyHandler
+ *
+ * @category  Modules\Smilies
+ * @package   Modules
+ * @author    Unknown <nobody@localhost.local>
+ * @copyright 2013-2015 The XOOPS Project https://github.com/XOOPS/XoopsCore
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ */
 class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -49,19 +63,43 @@ class SmiliesSmileyHandler extends XoopsPersistableObjectHandler
         parent::__construct($db, 'smilies', 'SmiliesSmiley', 'smiley_id', 'smiley_emotion');
     }
 
-    public function getSmilies($start=0, $limit=0, $asobject=true)
+    /**
+     * get array of smilies
+     *
+     * @param int  $start          offset of first row to return
+     * @param int  $limit          max number of row to return
+     * @param bool $fetchAsObjects fetch as objects
+     *
+     * @return array
+     */
+    public function getSmilies($start = 0, $limit = 0, $fetchAsObjects = true)
     {
         $criteria = new CriteriaCompo();
         $criteria->setSort('smiley_id');
         $criteria->setOrder('ASC');
         $criteria->setStart($start);
         $criteria->setLimit($limit);
-        return parent::getAll($criteria, false, $asobject);
+        return $this->getAll($criteria, false, $fetchAsObjects);
     }
 
-    public function getActiveSmilies($asobject=true)
+    /**
+     * get array of active smilies
+     *
+     * @param bool $fetchAsObjects fetch as objects
+     *
+     * @return array
+     */
+    public function getActiveSmilies($fetchAsObjects = true)
     {
         $criteria = new CriteriaCompo(new Criteria('smiley_display', 1));
-        return parent::getAll($criteria, false, $asobject);
+        $criteria->setSort('smiley_id');
+        $criteria->setOrder('ASC');
+        $results = $this->getAll($criteria, false, $fetchAsObjects);
+        $uploadPath = \XoopsBaseConfig::get('uploads-url') . '/';
+        foreach ($results as $i => $smile) {
+            $results[$i]['smiley_url'] = $uploadPath . $smile['smiley_url'];
+        }
+
+        return $results;
     }
 }

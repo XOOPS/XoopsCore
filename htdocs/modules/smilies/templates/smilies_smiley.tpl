@@ -29,7 +29,7 @@ function doSmilie(addSmilie) {
                     <td><{$smile.smiley_code}></td>
                     <td><{$smile.smiley_emotion}></td>
                     <td>
-                        <img onmouseover="style.cursor='pointer'" onclick="javascript:doSmilie('<{$smile.smiley_code}>');" src='<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$smile.smiley_url}>' alt='<{$smile.smiley_emotion}>' />
+                        <span onmouseover="style.cursor='pointer'" onclick="javascript:doSmilie('<{$smile.smiley_code}>');"><img src='<{$smile.smiley_url}>' alt='<{$smile.smiley_emotion}>' /></span>
                     </td>
                 </tr>
             <{/foreach}>

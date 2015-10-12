@@ -67,7 +67,7 @@ class MyTextSanitizerExtension
      * @param string $path
      * @return string
      */
-    static function loadConfig($path = null)
+    public static function loadConfig($path = null)
     {
         $ts = MyTextSanitizer::getInstance();
         $path = str_replace(DIRECTORY_SEPARATOR, '/', $path);
@@ -78,7 +78,6 @@ class MyTextSanitizerExtension
                 if (is_dir($ts->path_plugin . '/' . $path)) {
                     $path = $ts->path_plugin . '/' . $path;
                 }
-
             }
         }
         $config_default = array();
@@ -99,7 +98,7 @@ class MyTextSanitizerExtension
      * @param array $config_custom
      * @return array
      */
-    static function mergeConfig($config_default, $config_custom)
+    public static function mergeConfig($config_default, $config_custom)
     {
         if (is_array($config_custom)) {
             foreach ($config_custom as $key => $val) {
@@ -203,7 +202,7 @@ class MyTextSanitizer
 
     public function __construct()
     {
-		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $this->path_basic = $xoops_root_path . '/class/textsanitizer';
         $this->path_plugin = $xoops_root_path . '/Frameworks/textsanitizer';
         $this->config = $this->loadConfig();
@@ -251,7 +250,7 @@ class MyTextSanitizer
      * @staticvar MyTextSanitizer
      * @return MyTextSanitizer
      */
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -262,19 +261,6 @@ class MyTextSanitizer
     }
 
     /**
-     * Get the smileys
-     *
-     * @param bool $isAll TRUE for all smileys, FALSE for smileys with display = 1
-     * @return array return array
-     */
-    public function getSmileys($isAll = true)
-    {
-        $smileys = array();
-        XoopsPreload::getInstance()->triggerEvent('core.class.module.textsanitizer.getSmileys', array($isAll, &$smileys, &$this));
-        return $smileys;
-    }
-
-    /**
      * Replace emoticons in the message with smiley images
      *
      * @param string $message
@@ -282,31 +268,29 @@ class MyTextSanitizer
      */
     public function smiley($message)
     {
-        XoopsPreload::getInstance()->triggerEvent('core.class.module.textsanitizer.smiley', array(&$message));
-        return $message;
+        $response = \Xoops::getInstance()->service('emoji')->renderEmoji($message);
+        return $response->isSuccess() ? $response->getValue() : $message;
     }
 
+    public function makeClickableCallback01($match)
+    {
+        return $match[1]."<a href=\"$match[2]://$match[3]\" title=\"$match[2]://$match[3]\" rel=\"external\">$match[2]://".$this->truncate($match[3]).'</a>';
+    }
 
+    public function makeClickableCallback02($match)
+    {
+        return $match[1] ."<a href=\"http://www.$match[2]$match[6]\" title=\"www.$match[2]$match[6]\" rel=\"external\">" .$this->truncate('www.'.$match[2].$match[6]) .'</a>';
+    }
 
-     function makeClickableCallback01($match)
-       {
-           return $match[1]."<a href=\"$match[2]://$match[3]\" title=\"$match[2]://$match[3]\" rel=\"external\">$match[2]://".$this->truncate( $match[3] ).'</a>';
-       }
+    public function makeClickableCallback03($match)
+    {
+        return $match[1]."<a href=\"ftp://ftp.$match[2].$match[3]\" title=\"ftp.$match[2].$match[3]\" rel=\"external\">" . $this->truncate('ftp.'.$match[2].$match[3]) .'</a>';
+    }
 
-     function makeClickableCallback02($match)
-           {
-               return $match[1] ."<a href=\"http://www.$match[2]$match[6]\" title=\"www.$match[2]$match[6]\" rel=\"external\">" .$this->truncate('www.'.$match[2].$match[6]) .'</a>';
-           }
-
-     function makeClickableCallback03($match)
-           {
-               return $match[1]."<a href=\"ftp://ftp.$match[2].$match[3]\" title=\"ftp.$match[2].$match[3]\" rel=\"external\">" . $this->truncate('ftp.'.$match[2].$match[3]) .'</a>';
-           }
-
-     function makeClickableCallback04($match)
-           {
-               return $match[1]. "<a href=\"mailto:$match[2]@$match[3]\" title=\"$match[2]@$match[3]\">" .$this->truncate($match[2]."@".$match[3]) .'</a>';
-           }
+    public function makeClickableCallback04($match)
+    {
+        return $match[1]. "<a href=\"mailto:$match[2]@$match[3]\" title=\"$match[2]@$match[3]\">" .$this->truncate($match[2]."@".$match[3]) .'</a>';
+    }
 
 
     /**
@@ -315,7 +299,8 @@ class MyTextSanitizer
      * @param string $text
      * @return string
      */
-    public function makeClickable(&$text) {
+    public function makeClickable(&$text)
+    {
         $valid_chars = "a-z0-9\/\-_+=.~!%@?#&;:$\|";
         $end_chars   = "a-z0-9\/\-_+=~!%@?#&;:$\|";
 
@@ -340,18 +325,18 @@ class MyTextSanitizer
 //----------------------------------------------------------------------------------
 
 
-       $pattern     = "/(^|[^]_a-z0-9-=\"'\/])([a-z]+?):\/\/([{$valid_chars}]+[{$end_chars}])/i";
+        $pattern     = "/(^|[^]_a-z0-9-=\"'\/])([a-z]+?):\/\/([{$valid_chars}]+[{$end_chars}])/i";
         $text = preg_replace_callback($pattern, 'self::makeClickableCallback01', $text);
 
         $pattern     = "/(^|[^]_a-z0-9-=\"'\/:\.])www\.((([a-zA-Z0-9\-]*\.){1,}){1}([a-zA-Z]{2,6}){1})((\/([a-zA-Z0-9\-\._\?\,\'\/\\+&%\$#\=~])*)*)/i";
         $text = preg_replace_callback($pattern, 'self::makeClickableCallback02', $text);
 
 
-         $pattern     = "/(^|[^]_a-z0-9-=\"'\/])ftp\.([a-z0-9\-]+)\.([{$valid_chars}]+[{$end_chars}])/i";
+        $pattern     = "/(^|[^]_a-z0-9-=\"'\/])ftp\.([a-z0-9\-]+)\.([{$valid_chars}]+[{$end_chars}])/i";
         $text = preg_replace_callback($pattern, 'self::makeClickableCallback03', $text);
 
-         $pattern     = "/(^|[^]_a-z0-9-=\"'\/:\.])([-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+)@((?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?)/i";
-         $text = preg_replace_callback($pattern, 'self::makeClickableCallback04', $text);
+        $pattern     = "/(^|[^]_a-z0-9-=\"'\/:\.])([-_a-z0-9\'+*$^&%=~!?{}]++(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*+)@((?:(?![-.])[-a-z0-9.]+(?<![-.])\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d++)?)/i";
+        $text = preg_replace_callback($pattern, 'self::makeClickableCallback04', $text);
 
         return $text;
     }
@@ -362,17 +347,18 @@ class MyTextSanitizer
      * @param mixed $text
      * @return string
      */
-    static function truncate($text)
+    public static function truncate($text)
     {
         $instance = MyTextSanitizer::getInstance();
         if (empty($text) || empty($instance->config['truncate_length']) || strlen($text) < $instance->config['truncate_length']) {
             return $text;
         }
         $len = (((strlen($text) - $instance->config['truncate_length']) - 5) / 2);
-        if ($len < 5)
+        if ($len < 5) {
             $ret = substr($text, 0, $len) . ' ... ' . substr($text, -$len);
-        else
-            $ret = substr($text,0,$instance->config['truncate_length']);
+        } else {
+            $ret = substr($text, 0, $instance->config['truncate_length']);
+        }
         return $ret;
     }
 
@@ -386,7 +372,7 @@ class MyTextSanitizer
      */
     public function xoopsCodeDecode($text, $allowimage = 1)
     {
-		$xoops_url = \XoopsBaseConfig::get('url');
+        $xoops_url = \XoopsBaseConfig::get('url');
         $patterns = array();
         $replacements = array();
         $patterns[] = "/\[siteurl=(['\"]?)([^\"'<>]*)\\1](.*)\[\/siteurl\]/sU";
@@ -433,7 +419,7 @@ class MyTextSanitizer
         $count = sizeof($this->callbackPatterns);
 
         for ($i = 0; $i < $count; ++$i) {
-            $text = preg_replace_callback($this->callbackPatterns[$i], $this->callbacks[$i] , $text);
+            $text = preg_replace_callback($this->callbackPatterns[$i], $this->callbacks[$i], $text);
         }
 //------------------------------------------------------------------------------
         $text = $this->quoteConv($text);
@@ -540,8 +526,8 @@ class MyTextSanitizer
         } else {
             $text = htmlspecialchars($text, $quote_style);
         }
-        return preg_replace(array('/&amp;/i' , '/&nbsp;/i'), array('&' , '&amp;nbsp;'), $text);
-     }
+        return preg_replace(array('/&amp;/i', '/&nbsp;/i'), array('&', '&amp;nbsp;'), $text);
+    }
 
     /**
      * Reverses {@link htmlSpecialChars()}
@@ -551,7 +537,7 @@ class MyTextSanitizer
      */
     public function undoHtmlSpecialChars($text)
     {
-        return preg_replace(array('/&gt;/i' , '/&lt;/i' , '/&quot;/i' , '/&#039;/i' , '/&amp;nbsp;/i'), array('>' , '<' , '"' , '\'' , "&nbsp;"), $text);
+        return preg_replace(array('/&gt;/i', '/&lt;/i', '/&quot;/i', '/&#039;/i', '/&amp;nbsp;/i'), array('>', '<', '"', '\'', "&nbsp;"), $text);
     }
 
     /**
@@ -640,7 +626,7 @@ class MyTextSanitizer
     public function codePreConv($text, $xcode = 1)
     {
         if ($xcode != 0) {
-//            $patterns     = "/\[code([^\]]*?)\](.*)\[\/code\]/esU";
+            //            $patterns     = "/\[code([^\]]*?)\](.*)\[\/code\]/esU";
 //            $replacements = "'[code\\1]'.base64_encode('\\2').'[/code]'";
             $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
             $text = preg_replace_callback($patterns,
@@ -654,10 +640,10 @@ class MyTextSanitizer
     }
 
 
-function codeConvCallback($match)
-       {
-           return '<div class=\"xoopsCode\">'. $this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode($match[2])), $match[1]).'</div>';
-       }
+    public function codeConvCallback($match)
+    {
+        return '<div class=\"xoopsCode\">'. $this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode($match[2])), $match[1]).'</div>';
+    }
 
 
     /**
@@ -672,9 +658,9 @@ function codeConvCallback($match)
         if (empty($xcode)) {
             return $text;
         }
-           $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
+        $patterns = "/\[code([^\]]*?)\](.*)\[\/code\]/sU";
 //        $replacements = "'<div class=\"xoopsCode\">'.\$this->executeExtension('syntaxhighlight', str_replace('\\\"', '\"', base64_decode('$2')), '$1').'</div>'";
-           $text = preg_replace_callback($patterns, array($this,'codeConvCallback'), $text);
+           $text = preg_replace_callback($patterns, array($this, 'codeConvCallback'), $text);
 
         return $text;
     }
@@ -706,13 +692,13 @@ function codeConvCallback($match)
     {
         if (XoopsLoad::fileExists($file = $this->path_basic . '/' . $name . '/' . $name . '.php')) {
             include_once $file;
-        } else if (XoopsLoad::fileExists($file = $this->path_plugin . '/' . $name . '/' . $name . '.php')) {
+        } elseif (XoopsLoad::fileExists($file = $this->path_plugin . '/' . $name . '/' . $name . '.php')) {
             include_once $file;
         } else {
             return false;
         }
         $class = 'Myts' . ucfirst($name);
-        if (!class_exists($class,false)) {
+        if (!class_exists($class, false)) {
             trigger_error("Extension '{$name}' does not exist", E_USER_WARNING);
             return false;
         }
@@ -730,9 +716,11 @@ function codeConvCallback($match)
     public function executeExtension($name)
     {
         $extension = $this->loadExtension($name);
-        if (!$extension) return false;
+        if (!$extension) {
+            return false;
+        }
         $args = array_slice(func_get_args(), 1);
-        return call_user_func_array(array($extension , 'load'), array_merge(array(&$this), $args));
+        return call_user_func_array(array($extension, 'load'), array_merge(array(&$this), $args));
     }
 
     /**
