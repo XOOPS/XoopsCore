@@ -20,7 +20,7 @@
     <div class="panel_wrapper">
         <div id="smilies_browser_panel" class="panel current" style="overflow:auto;">
             <{foreach from=$smileys item=smile}>
-                <img onmouseover="style.cursor='pointer'" onclick="Xoops_smiliesDialog.insert(this);" src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$smile.smiley_url}>" alt="<{$smile.smiley_emotion}>" class="xoops_smilies" />
+                <img onmouseover="style.cursor='pointer'" onclick="Xoops_smiliesDialog.insert(this);" src="<{$xoops_upload_url}>/<{$smile.smiley_url}>" alt="<{$smile.smiley_emotion}>" class="xoops_smilies" />
             <{/foreach}>
             <div>
                 <a class="xoops_smilies" href="xoops_smilies.php?op=more" title="<{translate key='MORE'}>"><{translate key='MORE'}></a>

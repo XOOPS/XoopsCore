@@ -9,7 +9,7 @@ function myimage_onclick(counter)
 }
 function showAvatar()
 {
-    window.opener.xoopsGetElementById("avatar").src = '<{$smarty.const.XOOPS_UPLOAD_URL}>/' + window.opener.xoopsGetElementById("user_avatar").options[window.opener.xoopsGetElementById("user_avatar").selectedIndex].value;
+    window.opener.xoopsGetElementById("avatar").src = '<{$xoops_upload_url}>/' + window.opener.xoopsGetElementById("user_avatar").options[window.opener.xoopsGetElementById("user_avatar").selectedIndex].value;
 }
 //-->
 </script>

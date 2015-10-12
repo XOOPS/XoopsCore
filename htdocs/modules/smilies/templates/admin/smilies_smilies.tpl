@@ -27,7 +27,7 @@
             <tr class="<{cycle values='even,odd'}> alignmiddle">
                 <td class="txtcenter width10"><{$smiley.smiley_code}></td>
                 <td class="txtcenter width10">
-                    <img src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$smiley.smiley_url}>" alt="<{$smile.emotion}>" />
+                    <img src="<{$xoops_upload_url}>/<{$smiley.smiley_url}>" alt="<{$smile.emotion}>" />
                 </td>
                 <td class="txtleft"><{$smiley.smiley_emotion}></td>
                 <td class="xo-actions txtcenter width5">
