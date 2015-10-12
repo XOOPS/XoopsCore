@@ -24,26 +24,26 @@ class MovableTypeApiTest extends \PHPUnit_Framework_TestCase
 
     function test_MovableTypeApi()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_getCategoryList()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_getPostCategories()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_setPostCategories()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_supportedMethods()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 }

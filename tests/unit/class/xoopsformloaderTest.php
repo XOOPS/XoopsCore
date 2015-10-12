@@ -15,7 +15,7 @@ class FormloaderTest extends \PHPUnit_Framework_TestCase
     
     public function test_100()
 	{
-		$this->markTestSkipped('');
+		// nothing to test
     }
 }
 ?>
