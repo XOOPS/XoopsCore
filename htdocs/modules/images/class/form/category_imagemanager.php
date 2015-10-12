@@ -51,9 +51,9 @@ class ImagesCategory_imagemanagerForm extends Xoops\Form\ThemeForm
         $write = $helper->getHandlerCategories()->getListByPermission($groups, 'imgcat_write');
         if ($imgcat_id > 0 && array_key_exists($imgcat_id, $write)) {
             $this->addElement(new Xoops\Form\Hidden('op', 'upload'));
-            $button = new Xoops\Form\Button('', 'submit', _IMAGES_ADD, 'submit');
-            $button->setClass('btn btn-success floatright');
-            $this->addElement($button);
+            $buttonSubmit = new Xoops\Form\Button('', 'submit', _IMAGES_ADD, 'submit');
+            $buttonSubmit->setClass('btn btn-success floatright');
+            $this->addElement($buttonSubmit);
         }
     }
 }

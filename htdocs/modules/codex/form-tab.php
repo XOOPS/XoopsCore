@@ -27,7 +27,7 @@ $form = new Xoops\Form\SimpleForm('', 'form_id', 'form-tab.php');
 //tabtray is the tabs holder,
 //if you are using many tabtrays, or even nested tabtrays, you should use diferent ids
 //we are going to use the theme we have selected in system preferences
-$tabtray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+$tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
 
 //Now we create our tabs
 //Tabs should also have unique ids
@@ -142,23 +142,23 @@ $tab3->addElement($testtray);
 
 
 //Now we can assign the tabs to our tab tray
-$tabtray->addElement($tab1);
-$tabtray->addElement($tab2);
-$tabtray->addElement($tab3);
+$tabTray->addElement($tab1);
+$tabTray->addElement($tab2);
+$tabTray->addElement($tab3);
 //Now we can assign our Tabtray to the form
-$form->addElement($tabtray);
+$form->addElement($tabTray);
 
 //We want to keep our buttons out of the Tabtray so wee add them directly to the form
-$button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
-$form->addElement($button);
+$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$form->addElement($buttonSubmit);
 
-$button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
-$button_2->setClass('btn btn-danger');
-$form->addElement($button_2);
+$buttonReset = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
+$buttonReset->setClass('btn btn-danger');
+$form->addElement($buttonReset);
 
-$button_tray = new Xoops\Form\ButtonTray('button_tray', 'submit', XoopsLocale::A_SUBMIT, '', true);
-$button_tray->setClass('btn btn-inverse');
-$form->addElement($button_tray);
+$buttonTray = new Xoops\Form\ButtonTray('button_tray', 'submit', XoopsLocale::A_SUBMIT, '', true);
+$buttonTray->setClass('btn btn-inverse');
+$form->addElement($buttonTray);
 
 //We are good, display the form!
 $form->display();

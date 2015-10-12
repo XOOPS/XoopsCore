@@ -111,19 +111,19 @@ switch ($op) {
             $sform->addElement($importfile_tray);
 
             // Buttons
-            $button_tray = new Xoops\Form\ElementTray('', '');
+            $buttonTray = new Xoops\Form\ElementTray('', '');
             $hidden = new Xoops\Form\Hidden('op', 'importExecute');
-            $button_tray->addElement($hidden);
+            $buttonTray->addElement($hidden);
 
-            $butt_import = new Xoops\Form\Button('', '', _AM_PUBLISHER_IMPORT, 'submit');
-            $butt_import->setExtra('onclick="this.form.elements.op.value=\'importExecute\'"');
-            $button_tray->addElement($butt_import);
+            $buttonImport = new Xoops\Form\Button('', '', _AM_PUBLISHER_IMPORT, 'submit');
+            $buttonImport->setExtra('onclick="this.form.elements.op.value=\'importExecute\'"');
+            $buttonTray->addElement($buttonImport);
 
-            $butt_cancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
-            $butt_cancel->setExtra('onclick="history.go(-1)"');
-            $button_tray->addElement($butt_cancel);
+            $buttonCancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
+            $buttonCancel->setExtra('onclick="history.go(-1)"');
+            $buttonTray->addElement($buttonCancel);
 
-            $sform->addElement($button_tray);
+            $sform->addElement($buttonTray);
             /*$sform->addElement(new Xoops\Form\Hidden('xfs_version', $xfs_version));
              $sform->addElement(new Xoops\Form\Hidden('wfs_version', $wfs_version));*/
             $sform->addElement(new Xoops\Form\Hidden('news_version', $news_version));

@@ -201,28 +201,28 @@ class PublisherCategoryForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Hidden('nb_sub_yet', $this->_subCatsCount));
 
         // Action buttons tray
-        $button_tray = new Xoops\Form\ElementTray('', '');
+        $buttonTray = new Xoops\Form\ElementTray('', '');
 
         // No ID for category -- then it's new category, button says 'Create'
         if (!$obj->getVar('categoryid')) {
-            $button_tray->addElement(new Xoops\Form\Button('', 'addcategory', _AM_PUBLISHER_CREATE, 'submit'));
+            $buttonTray->addElement(new Xoops\Form\Button('', 'addcategory', _AM_PUBLISHER_CREATE, 'submit'));
 
-            $butt_clear = new Xoops\Form\Button('', '', _AM_PUBLISHER_CLEAR, 'reset');
-            $button_tray->addElement($butt_clear);
+            $buttonClear = new Xoops\Form\Button('', '', _AM_PUBLISHER_CLEAR, 'reset');
+            $buttonTray->addElement($buttonClear);
 
-            $butt_cancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
-            $butt_cancel->setExtra('onclick="history.go(-1)"');
-            $button_tray->addElement($butt_cancel);
+            $buttonCancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
+            $buttonCancel->setExtra('onclick="history.go(-1)"');
+            $buttonTray->addElement($buttonCancel);
 
-            $this->addElement($button_tray);
+            $this->addElement($buttonTray);
         } else {
-            $button_tray->addElement(new Xoops\Form\Button('', 'addcategory', _AM_PUBLISHER_MODIFY, 'submit'));
+            $buttonTray->addElement(new Xoops\Form\Button('', 'addcategory', _AM_PUBLISHER_MODIFY, 'submit'));
 
-            $butt_cancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
-            $butt_cancel->setExtra('onclick="history.go(-1)"');
-            $button_tray->addElement($butt_cancel);
+            $buttonCancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
+            $buttonCancel->setExtra('onclick="history.go(-1)"');
+            $buttonTray->addElement($buttonCancel);
 
-            $this->addElement($button_tray);
+            $this->addElement($buttonTray);
         }
     }
 }

@@ -31,9 +31,9 @@ function b_search_show()
     $form->addElement(new Xoops\Form\Hidden('action', 'results'));
     $form->addElement(new Xoops\Form\Token('id'));
 
-    $button = new Xoops\Form\Button('', 'submit', _MD_SEARCH, 'submit');
-    $button->setClass('btn btn-primary');
-    $form->addElement($button);
+    $buttonSubmit = new Xoops\Form\Button('', 'submit', _MD_SEARCH, 'submit');
+    $buttonSubmit->setClass('btn btn-primary');
+    $form->addElement($buttonSubmit);
 
     $block['form'] = $form->render();
     return $block;

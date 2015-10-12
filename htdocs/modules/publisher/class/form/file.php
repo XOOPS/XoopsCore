@@ -83,9 +83,9 @@ class PublisherFileForm extends Xoops\Form\ThemeForm
         $files_butt_clear = new Xoops\Form\Button('', '', _MD_PUBLISHER_CLEAR, 'reset');
         $files_button_tray->addElement($files_butt_clear);
 
-        $butt_cancel = new Xoops\Form\Button('', '', _MD_PUBLISHER_CANCEL, 'button');
-        $butt_cancel->setExtra('onclick="history.go(-1)"');
-        $files_button_tray->addElement($butt_cancel);
+        $buttonCancel = new Xoops\Form\Button('', '', _MD_PUBLISHER_CANCEL, 'button');
+        $buttonCancel->setExtra('onclick="history.go(-1)"');
+        $files_button_tray->addElement($buttonCancel);
 
         $this->addElement($files_button_tray);
     }

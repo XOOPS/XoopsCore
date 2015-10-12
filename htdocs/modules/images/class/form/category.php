@@ -42,7 +42,7 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
 
         parent::__construct($title, 'imagecat_form', $xoops->getEnv('PHP_SELF'), 'post', true);
 
-        $tabtray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+        $tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
 
         $tab1 = new Xoops\Form\Tab(_MI_IMAGES_CATEGORIES, 'tabid-1');
         $tab1->addElement(new Xoops\Form\Text(_AM_IMAGES_CAT_NAME, 'imgcat_name', 50, 255, $obj->getVar('imgcat_name')), true);
@@ -65,31 +65,31 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
         $tab2->addElement(new Xoops\Form\SelectGroup(_AM_IMAGES_CAT_READ_GRP, 'readgroup', true, $read, 5, true));
         $tab2->addElement(new Xoops\Form\SelectGroup(_AM_IMAGES_CAT_WRITE_GRP, 'writegroup', true, $write, 5, true));
 
-        $tabtray->addElement($tab1);
-        $tabtray->addElement($tab2);
-        $this->addElement($tabtray);
+        $tabTray->addElement($tab1);
+        $tabTray->addElement($tab2);
+        $this->addElement($tabTray);
 
         $this->addElement(new Xoops\Form\Hidden('imgcat_id', $obj->getVar('imgcat_id')));
 
         /**
          * Buttons
          */
-        $button_tray = new Xoops\Form\ElementTray('', '');
-        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $buttonTray = new Xoops\Form\ElementTray('', '');
+        $buttonTray->addElement(new Xoops\Form\Hidden('op', 'save'));
 
-        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
-        $button->setClass('btn btn-success');
-        $button_tray->addElement($button);
+        $buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+        $buttonSubmit->setClass('btn btn-success');
+        $buttonTray->addElement($buttonSubmit);
 
-        $button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
-        $button_2->setClass('btn btn-warning');
-        $button_tray->addElement($button_2);
+        $buttonReset = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
+        $buttonReset->setClass('btn btn-warning');
+        $buttonTray->addElement($buttonReset);
 
-        $button_3 = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-        $button_3->setExtra("onclick='javascript:history.go(-1);'");
-        $button_3->setClass('btn btn-danger');
-        $button_tray->addElement($button_3);
+        $buttonCancel = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $buttonCancel->setExtra("onclick='javascript:history.go(-1);'");
+        $buttonCancel->setClass('btn btn-danger');
+        $buttonTray->addElement($buttonCancel);
 
-        $this->addElement($button_tray);
+        $this->addElement($buttonTray);
     }
 }

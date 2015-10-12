@@ -44,14 +44,14 @@ class XcaptchaRecaptchaForm extends Xoops\Form\ThemeForm
 
         $this->addElement(new Xoops\Form\Hidden('type', 'recaptcha'));
 
-        $button_tray = new Xoops\Form\ElementTray('', '');
-        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
-        $button_tray->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
-        $button_tray->addElement(new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset'));
-        $cancel_send = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-        $cancel_send->setExtra("onclick='javascript:history.go(-1);'");
-        $button_tray->addElement($cancel_send);
+        $buttonTray = new Xoops\Form\ElementTray('', '');
+        $buttonTray->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $buttonTray->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
+        $buttonTray->addElement(new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset'));
+        $buttonCancelSend = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $buttonCancelSend->setExtra("onclick='javascript:history.go(-1);'");
+        $buttonTray->addElement($buttonCancelSend);
 
-        $this->addElement($button_tray);
+        $this->addElement($buttonTray);
     }
 }

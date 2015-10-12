@@ -59,7 +59,7 @@ class XlanguageLanguage extends XoopsObject
         return $ret;
     }
 
-    public function CleanVarsForDB()
+    public function cleanVarsForDB()
     {
         $system = System::getInstance();
         foreach (parent::getValues() as $k => $v) {
@@ -151,7 +151,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      */
     public function writeConfig($data)
     {
-        if ($this->CreatePath($this->configPath)) {
+        if ($this->createPath($this->configPath)) {
             $path_file = $this->configPath . $this->configFile . $this->configFileExt;
             XoopsLoad::load('XoopsFile');
             $file = XoopsFile::getHandler('file', $path_file);
@@ -165,7 +165,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    private function CreatePath($pathname, $pathout = null)
+    private function createPath($pathname, $pathout = null)
     {
         $xoops = Xoops::getInstance();
         $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
@@ -181,7 +181,7 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
                     if (!mkdir($dest, 0755)) {
                         return false;
                     } else {
-                        $this->WriteIndex($xoops->path('uploads'), 'index.html', $dest);
+                        $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
                     }
                 }
             }
@@ -196,10 +196,10 @@ class XlanguageXlanguageHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    private function WriteIndex($folder_in, $source_file, $folder_out)
+    private function writeIndex($folder_in, $source_file, $folder_out)
     {
         if (!is_dir($folder_out)) {
-            if (!$this->CreatePath($folder_out)) {
+            if (!$this->createPath($folder_out)) {
                 return false;
             }
         }

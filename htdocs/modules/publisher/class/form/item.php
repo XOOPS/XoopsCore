@@ -70,7 +70,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
         parent::__construct('title', 'form', $xoops->getEnv('PHP_SELF'));
         $this->setExtra('enctype="multipart/form-data"');
 
-        $tabtray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+        $tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
 
         $mainTab = new Xoops\Form\Tab(_CO_PUBLISHER_TAB_MAIN, 'maintab');
         // Category
@@ -247,7 +247,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
             $mainTab->addElement($notify_radio);
         }
 
-        $tabtray->addElement($mainTab);
+        $tabTray->addElement($mainTab);
 
         if ($xoops->isActiveModule('images') && $this->_hasTab(_CO_PUBLISHER_TAB_IMAGES)) {
             $imagesTab = new Xoops\Form\Tab(_CO_PUBLISHER_TAB_IMAGES, 'imagestab');
@@ -403,7 +403,7 @@ $(document).ready(function(){
                 $image_preview = new Xoops\Form\Label(_CO_PUBLISHER_IMAGE_PREVIEW, "<img width='500' src='" . \XoopsBaseConfig::get('url') . "/uploads/" . $imageforpath . "' name='image_display' id='image_display' alt='' />");
                 $imagesTab->addElement($image_preview);
             }
-            $tabtray->addElement($imagesTab);
+            $tabTray->addElement($imagesTab);
         }
 
         if ($this->_hasTab(_CO_PUBLISHER_TAB_FILES)) {
@@ -474,7 +474,7 @@ $(document).ready(function(){
                     }
                 }
             }
-            $tabtray->addElement($filesTab);
+            $tabTray->addElement($filesTab);
         }
         if ($this->_hasTab(_CO_PUBLISHER_TAB_OTHERS)) {
             $othersTab = new Xoops\Form\Tab(_CO_PUBLISHER_TAB_OTHERS, 'otherstab');
@@ -503,29 +503,29 @@ $(document).ready(function(){
             if ($this->_isGranted(_PUBLISHER_WEIGHT)) {
                 $othersTab ->addElement(new Xoops\Form\Text(_CO_PUBLISHER_WEIGHT, 'weight', 5, 5, $obj->getVar('weight')));
             }
-            $tabtray->addElement($othersTab);
+            $tabTray->addElement($othersTab);
         }
-        $this->addElement($tabtray);
+        $this->addElement($tabTray);
 
         //COMMON TO ALL TABS
 
-        $button_tray = new Xoops\Form\ElementTray('', '');
+        $buttonTray = new Xoops\Form\ElementTray('', '');
 
         if (!$obj->isNew()) {
-            $button_tray->addElement(new Xoops\Form\Button('', 'additem', XoopsLocale::A_SUBMIT, 'submit')); //orclone
+            $buttonTray->addElement(new Xoops\Form\Button('', 'additem', XoopsLocale::A_SUBMIT, 'submit')); //orclone
 
         } else {
-            $button_tray->addElement(new Xoops\Form\Button('', 'additem', _CO_PUBLISHER_CREATE, 'submit'));
-            $button_tray->addElement(new Xoops\Form\Button('', '', _CO_PUBLISHER_CLEAR, 'reset'));
+            $buttonTray->addElement(new Xoops\Form\Button('', 'additem', _CO_PUBLISHER_CREATE, 'submit'));
+            $buttonTray->addElement(new Xoops\Form\Button('', '', _CO_PUBLISHER_CLEAR, 'reset'));
         }
 
-        $button_tray->addElement(new Xoops\Form\Button('', 'preview', _CO_PUBLISHER_PREVIEW, 'submit'));
+        $buttonTray->addElement(new Xoops\Form\Button('', 'preview', _CO_PUBLISHER_PREVIEW, 'submit'));
 
-        $butt_cancel = new Xoops\Form\Button('', '', _CO_PUBLISHER_CANCEL, 'button');
-        $butt_cancel->setExtra('onclick="history.go(-1)"');
-        $button_tray->addElement($butt_cancel);
+        $buttonCancel = new Xoops\Form\Button('', '', _CO_PUBLISHER_CANCEL, 'button');
+        $buttonCancel->setExtra('onclick="history.go(-1)"');
+        $buttonTray->addElement($buttonCancel);
 
-        $this->addElement($button_tray);
+        $this->addElement($buttonTray);
 
         $hidden = new Xoops\Form\Hidden('itemid', $obj->getVar('itemid'));
         $this->addElement($hidden);

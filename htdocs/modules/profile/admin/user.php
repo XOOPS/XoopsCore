@@ -43,10 +43,10 @@ switch ($op) {
         $form = new Xoops\Form\ThemeForm(_PROFILE_AM_EDITUSER, 'form', 'user.php');
         $form->addElement(new Xoops\Form\SelectUser(_PROFILE_AM_SELECTUSER, 'id'));
         $form->addElement(new Xoops\Form\Hidden('op', 'editordelete'));
-        $button_tray = new Xoops\Form\ElementTray('');
-        $button_tray->addElement(new Xoops\Form\Button('', 'edit', XoopsLocale::A_EDIT, 'submit'));
-        $button_tray->addElement(new Xoops\Form\Button('', 'delete', XoopsLocale::A_DELETE, 'submit'));
-        $form->addElement($button_tray);
+        $buttonTray = new Xoops\Form\ElementTray('');
+        $buttonTray->addElement(new Xoops\Form\Button('', 'edit', XoopsLocale::A_EDIT, 'submit'));
+        $buttonTray->addElement(new Xoops\Form\Button('', 'delete', XoopsLocale::A_DELETE, 'submit'));
+        $form->addElement($buttonTray);
         $form->display();
         /* fallthrough */
 

@@ -63,34 +63,34 @@ class XlanguageLanguageForm extends Xoops\Form\ThemeForm
         /**
          * Buttons
          */
-        $button_tray = new Xoops\Form\ElementTray('', '');
-        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $buttonTray = new Xoops\Form\ElementTray('', '');
+        $buttonTray->addElement(new Xoops\Form\Hidden('op', 'save'));
 
-        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
-        $button->setClass('btn btn-success');
-        $button_tray->addElement($button);
+        $buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+        $buttonSubmit->setClass('btn btn-success');
+        $buttonTray->addElement($buttonSubmit);
 
-        $button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
-        $button_2->setClass('btn btn-warning');
-        $button_tray->addElement($button_2);
+        $buttonReset = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
+        $buttonReset->setClass('btn btn-warning');
+        $buttonTray->addElement($buttonReset);
 
         switch (basename($xoops->getEnv('PHP_SELF'), '.php')) {
             case 'xoops_xlanguage':
-                $button_3 = new Xoops\Form\Button('', 'button', XoopsLocale::A_CLOSE, 'button');
-                $button_3->setExtra('onclick="tinyMCEPopup.close();"');
-                $button_3->setClass('btn btn-danger');
-                $button_tray->addElement($button_3);
+                $buttonCancel = new Xoops\Form\Button('', 'button', XoopsLocale::A_CLOSE, 'button');
+                $buttonCancel->setExtra('onclick="tinyMCEPopup.close();"');
+                $buttonCancel->setClass('btn btn-danger');
+                $buttonTray->addElement($buttonCancel);
                 break;
 
             case 'index':
             default:
-                $button_3 = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-                $button_3->setExtra("onclick='javascript:history.go(-1);'");
-                $button_3->setClass('btn btn-danger');
-                $button_tray->addElement($button_3);
+                $buttonCancel = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+                $buttonCancel->setExtra("onclick='javascript:history.go(-1);'");
+                $buttonCancel->setClass('btn btn-danger');
+                $buttonTray->addElement($buttonCancel);
                 break;
         }
 
-        $this->addElement($button_tray);
+        $this->addElement($buttonTray);
     }
 }
