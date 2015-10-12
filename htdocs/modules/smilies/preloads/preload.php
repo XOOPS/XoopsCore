@@ -34,12 +34,8 @@ class SmiliesPreload extends PreloadItem
      */
     public static function eventCoreServiceLocateEmoji(Provider $provider)
     {
-        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
-            $path = dirname(__DIR__) . '/class/SmiliesProvider.php';
-            require $path;
-            $object = new SmiliesProvider();
-            $provider->register($object);
-        }
+        require dirname(__DIR__) . '/class/SmiliesProvider.php';
+        $provider->register(new SmiliesProvider());
     }
 
     /**
