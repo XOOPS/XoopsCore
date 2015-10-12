@@ -111,127 +111,127 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
             'xx-large' => 'xx-Large'
         );
 
-		$x = $instance::getFontSizes();
-		$this->assertSame($fs, $x);
-	}
+        $x = $instance::getFontSizes();
+        $this->assertSame($fs, $x);
+    }
 
-	public function test_getAdminRssUrls()
-	{
-		$instance = $this->myClass;
+    public function test_getAdminRssUrls()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getAdminRssUrls();
-		$this->assertSame(array('http://www.xoops.org/backend.php'), $x);
-	}
+        $x = $instance::getAdminRssUrls();
+        $this->assertSame(array('http://www.xoops.org/backend.php'), $x);
+    }
 
-	public function test_getFormatToday()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatToday()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatToday();
-		$this->assertSame('\T\o\d\a\y G:i', $x);
-	}
+        $x = $instance::getFormatToday();
+        $this->assertSame('\T\o\d\a\y G:i', $x);
+    }
 
-	public function test_getFormatYesterday()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatYesterday()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatYesterday();
-		$this->assertSame('\Y\e\s\t\e\r\d\a\y G:i', $x);
-	}
+        $x = $instance::getFormatYesterday();
+        $this->assertSame('\Y\e\s\t\e\r\d\a\y G:i', $x);
+    }
 
-	public function test_getFormatMonthDay()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatMonthDay()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatMonthDay();
-		$this->assertSame("n/j G:i", $x);
-	}
+        $x = $instance::getFormatMonthDay();
+        $this->assertSame("n/j G:i", $x);
+    }
 
-	public function test_getFormatYearMonthDay()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatYearMonthDay()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatYearMonthDay();
-		$this->assertSame("Y/n/j G:i", $x);
-	}
+        $x = $instance::getFormatYearMonthDay();
+        $this->assertSame("Y/n/j G:i", $x);
+    }
 
-	public function test_getFormatLongDate()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatLongDate()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatLongDate();
-		$this->assertSame("Y/n/j G:i:s", $x);
-	}
+        $x = $instance::getFormatLongDate();
+        $this->assertSame("Y/n/j G:i:s", $x);
+    }
 
 
-	public function test_getFormatMediumDate()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatMediumDate()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatMediumDate();
-		$this->assertSame("Y/n/j G:i", $x);
-	}
+        $x = $instance::getFormatMediumDate();
+        $this->assertSame("Y/n/j G:i", $x);
+    }
 
-	public function test_getFormatShortDate()
-	{
-		$instance = $this->myClass;
+    public function test_getFormatShortDate()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::getFormatShortDate();
-		$this->assertSame("Y/n/j", $x);
-	}
+        $x = $instance::getFormatShortDate();
+        $this->assertSame("Y/n/j", $x);
+    }
 
-	public function test_substr()
-	{
-		$instance = $this->myClass;
+    public function test_substr()
+    {
+        $instance = $this->myClass;
 
-		$str = "stringstringstringstringstring";
-		$x = $instance::substr($str,15,10);
-		if (!$instance::isMultiByte())
-			$this->assertSame("ingstri...", $x);
-		else
-			$this->assertSame("ingstri...", $x);
-		$str = "stringstring";
-		$x = $instance::substr($str,6,10);
-		if (!$instance::isMultiByte())
-			$this->assertSame("string", $x);
-		else
-			$this->assertSame("string", $x);
-	}
+        $str = "stringstringstringstringstring";
+        $x = $instance::substr($str,15,10);
+        if (!$instance::isMultiByte())
+            $this->assertSame("ingstri...", $x);
+        else
+            $this->assertSame("ingstri...", $x);
+        $str = "stringstring";
+        $x = $instance::substr($str,6,10);
+        if (!$instance::isMultiByte())
+            $this->assertSame("string", $x);
+        else
+            $this->assertSame("string", $x);
+    }
 
-	public function test_utf8_encode()
-	{
-		$instance = $this->myClass;
+    public function test_utf8_encode()
+    {
+        $instance = $this->myClass;
 
-		$str = "stringstring";
-		$x = $instance::utf8_encode($str);
-		if (!$instance::isMultiByte())
-			$this->assertSame(utf8_encode($str), $x);
-		else
+        $str = "stringstring";
+        $x = $instance::utf8_encode($str);
+        if (!$instance::isMultiByte())
+            $this->assertSame(utf8_encode($str), $x);
+        else
             $this->assertSame($str, $x);
-	}
+    }
 
 
-	public function test_convert_encoding()
-	{
-		$instance = $this->myClass;
+    public function test_convert_encoding()
+    {
+        $instance = $this->myClass;
 
-		$x = $instance::convert_encoding("");
-		$this->assertSame("", $x);
-		$this->markTestIncomplete();
-	}
+        $x = $instance::convert_encoding("");
+        $this->assertSame("", $x);
+        $this->markTestIncomplete();
+    }
 
-	public function test_trim()
-	{
-		$instance = $this->myClass;
+    public function test_trim()
+    {
+        $instance = $this->myClass;
 
-		$str = "  string ";
-		$x = $instance::trim($str);
-		$this->assertSame(trim($str), $x);
-	}
+        $str = "  string ";
+        $x = $instance::trim($str);
+        $this->assertSame(trim($str), $x);
+    }
 
-	public function test_formatTimestamp()
-	{
-		$instance = $this->myClass;
+    public function test_formatTimestamp()
+    {
+        $instance = $this->myClass;
 
         $time = time();
 
@@ -285,12 +285,12 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $expected = ucfirst(gmdate($datestring, $usertimestamp));
         $this->assertSame($expected,$value);
 
-        $time = time();
-        $elapse = strtotime('-3 seconds', $time);
+        $elapse = strtotime('-3 seconds', time());
         $value = $instance::formatTimestamp($elapse,'e');
         $this->assertTrue(strpos($value,'3') !== false);
         $this->assertTrue(strpos($value,'seconds') !== false);
 
+        $elapse = strtotime('-3 seconds', time());
         $value = $instance::formatTimestamp($elapse,'elapse');
         $this->assertTrue(strpos($value,'3') !== false);
         $this->assertTrue(strpos($value,'seconds') !== false);
@@ -300,40 +300,40 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(strpos($value,'2') !== false);
         $this->assertTrue(strpos($value,'days') !== false);
 
-        $elapse = strtotime('-3 hours', $time);
+        $elapse = strtotime('-3 hours', time());
         $value = $instance::formatTimestamp($elapse,'elapse',null);
         $this->assertTrue(strpos($value,'3') !== false);
         $this->assertTrue(strpos($value,'hours') !== false);
 
-        $elapse = strtotime('-4 minutes',$time);
+        $elapse = strtotime('-4 minutes', time());
         $value = $instance::formatTimestamp($elapse,'elapse',null);
         $this->assertTrue(strpos($value,'4') !== false);
         $this->assertTrue(strpos($value,'minutes') !== false);
-	}
+    }
 
-	public function test_number_format()
-	{
-		$instance = $this->myClass;
+    public function test_number_format()
+    {
+        $instance = $this->myClass;
 
-		$num = 1234567.89;
-		$x = $instance::number_format($num);
-		if (function_exists('number_format'))
-			$this->assertSame(number_format($num ,2, '.', ','), $x);
-		else
-			$this->assertSame(sprintf('%.2f', $num), $x);
-	}
+        $num = 1234567.89;
+        $x = $instance::number_format($num);
+        if (function_exists('number_format'))
+            $this->assertSame(number_format($num ,2, '.', ','), $x);
+        else
+            $this->assertSame(sprintf('%.2f', $num), $x);
+    }
 
-	public function test_money_format()
-	{
-		$instance = $this->myClass;
+    public function test_money_format()
+    {
+        $instance = $this->myClass;
 
-		$num = 1234567.89;
-		$fmt = '%i';
-		$x = $instance::money_format('%i',$num);
-		if (function_exists('money_format'))
-			$this->assertSame(money_format($fmt, $num), $x);
-		else
-			$this->assertSame(sprintf('%01.2f', $num), $x);
-	}
+        $num = 1234567.89;
+        $fmt = '%i';
+        $x = $instance::money_format('%i',$num);
+        if (function_exists('money_format'))
+            $this->assertSame(money_format($fmt, $num), $x);
+        else
+            $this->assertSame(sprintf('%01.2f', $num), $x);
+    }
 
 }
