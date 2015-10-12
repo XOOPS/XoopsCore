@@ -32,7 +32,7 @@ $xoops->simpleHeader(false);
 if ($target && preg_match('/^[0-9a-z_]*$/i', $target)) {
     $tpl = new XoopsTpl();
     $tpl->assign('target', $target);
-    $tpl->assign('smileys', Smilies::getInstance()->getHandlerSmilies()->getActiveSmilies(false));
+    $tpl->assign('smileys', $xoops->getModuleHandler('smiley', 'smilies')->getActiveSmilies(false));
     $tpl->assign('closebutton', 1);
     $tpl->display('module:smilies/smilies_smiley.tpl');
 }

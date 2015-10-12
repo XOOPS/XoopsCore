@@ -48,7 +48,7 @@ $name_form = 'memberslist';
 $name_userid = 'uid' . (!empty($_REQUEST['multiple']) ? '[]' : '');
 $name_username = 'uname' . (!empty($_REQUEST['multiple']) ? '[]' : '');
 
-$user_handler = new XoopsUserHandler($xoops->db());
+$user_handler = $xoops->getHandlerUser();
 
 $items_match = array(
     'uname'     => XoopsLocale::USER_NAME,

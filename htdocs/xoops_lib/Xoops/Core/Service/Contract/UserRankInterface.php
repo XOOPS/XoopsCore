@@ -49,7 +49,7 @@ interface UserRankInterface
     /**
      * getAssignableUserRankList - return a list of ranks that can be assigned
      *
-     * @param Response  $response \Xoops\Core\Service\Response object
+     * @param Response $response \Xoops\Core\Service\Response object
      *
      * @return void - response->value set to array of (int) id => (string) rank title
      *                 entries of assignable ranks
