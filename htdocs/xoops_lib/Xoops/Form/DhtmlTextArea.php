@@ -235,19 +235,10 @@ class DhtmlTextArea extends TextArea
         $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/code.gif' alt='" . \XoopsLocale::SOURCE_CODE . "' title='" . \XoopsLocale::SOURCE_CODE . "' onclick='xoopsCodeCode(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_CODE, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
         $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/quote.gif' alt='" . \XoopsLocale::QUOTE . "' title='" . \XoopsLocale::QUOTE . "' onclick='xoopsCodeQuote(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_QUOTE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
 
-        $xoops = \Xoops::getInstance();
-        $response = $xoops->service('emoji')->renderEmojiSelector($this->getName());
+        $response = \Xoops::getInstance()->service('emoji')->renderEmojiSelector($this->getName());
         if ($response->isSuccess()) {
-            $emojiResources = $response->getValue();
-            $code .= $emojiResources ['html'];
-
-            if (!empty($emojiResources['script'])) {
-                $xoops->theme()->addScript($emojiResources['script']);
-            }
-
-            if (!empty($emojiResources['css'])) {
-                $xoops->theme()->addStylesheet($emojiResources['css']);
-            }
+            $emojiSelector = $response->getValue();
+            $code .= $emojiSelector;
         }
 
         return $code;

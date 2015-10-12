@@ -161,6 +161,7 @@ switch ($op) {
         break;
 
     case 'smilies_update_display':
+        $xoops->logger()->quiet();
         $smiley_id = Request::getInt('smiley_id', 0);
         if ($smiley_id > 0) {
             $obj = $helper->getHandlerSmilies()->get($smiley_id);

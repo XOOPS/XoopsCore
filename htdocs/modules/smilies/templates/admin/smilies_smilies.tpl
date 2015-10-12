@@ -11,7 +11,7 @@
 <{$info_msg|default:''}>
 <{$error_msg|default:''}>
 
-<{if $smilies_count > 0}>
+<{if $smilies_count|default:0 > 0}>
     <table id="xo-smilies-sorter" class="outer tablesorter">
         <thead>
         <tr>
@@ -27,7 +27,7 @@
             <tr class="<{cycle values='even,odd'}> alignmiddle">
                 <td class="txtcenter width10"><{$smiley.smiley_code}></td>
                 <td class="txtcenter width10">
-                    <img src="<{$xoops_upload_url}>/<{$smiley.smiley_url}>" alt="<{$smile.emotion}>" />
+                    <img src="<{$xoops_upload_url}>/<{$smiley.smiley_url}>" alt="<{$smiley.smiley_emotion}>" />
                 </td>
                 <td class="txtleft"><{$smiley.smiley_emotion}></td>
                 <td class="xo-actions txtcenter width5">
@@ -49,11 +49,11 @@
 
     <!-- Display smilies navigation -->
     <div class="clear spacer"></div>
-    <{if $nav_menu}>
+    <{if $nav_menu|default:false}>
         <div class="xo-smilies-pagenav floatright"><{$nav_menu}></div>
         <div class="clear spacer"></div>
     <{/if}>
 <{/if}>
 
 <!-- Display smilies form (add,edit) -->
-<{$form}>
+<{$form|default:''}>

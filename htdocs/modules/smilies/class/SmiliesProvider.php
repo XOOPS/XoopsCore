@@ -84,20 +84,18 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
     /**
      * renderEmojiSelector - provide emoji selector support for editing
      *
+     * This should return an HTML string that, when displayed, will provide a link to an emoji selector.
+     * Additionally, this should perform any additional tasks required to make the link function, such
+     * as adding script or stylesheet assets to the active theme.
+     *
      * @param Response $response   \Xoops\Core\Service\Response object
      * @param string   $identifier element identifier to receive emoji from selector
      *
-     * @return void - $response->value set to array of emoji information
-     *                    'html'   => (string) HTML code to launch the emoji selector, i.e. button
-     *                    'script' => (string) script asset to add to the page
-     *                    'css'    => (string) css asset to add to the page
+     * @return void - $response->value (string) HTML code to launch the emoji selector, i.e. button
      */
     public function renderEmojiSelector(Response $response, $identifier)
     {
-        $selector['script'] = '';
-        $selector['css']    = '';
-
-        $selector['html'] =  '<img src="' . \XoopsBaseConfig::get('url') . '/images/smiley.gif" alt="'
+        $selector =  '<img src="' . \XoopsBaseConfig::get('url') . '/images/smiley.gif" alt="'
             . \XoopsLocale::SMILIES . '" title="' . \XoopsLocale::SMILIES . '" onclick=\'openWithSelfMain("'
             . \XoopsBaseConfig::get('url') . '/modules/smilies/popup.php?target=' . $identifier
             . '","smilies",300,650);\' onmouseover=\'style.cursor="hand"\'/>&nbsp;';
