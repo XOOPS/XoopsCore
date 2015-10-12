@@ -48,18 +48,18 @@ class XlanguageTinymceForm extends Xoops\Form\SimpleForm
         /**
          * Buttons
          */
-        $button_tray = new Xoops\Form\ElementTray('', '');
+        $buttonTray = new Xoops\Form\ElementTray('', '');
 
-        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'insert');
-        $button->setExtra('onclick="Xoops_xlanguageDialog.insertMLC();return false;"');
-        $button->setClass('btn btn-success');
-        $button_tray->addElement($button);
+        $buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'insert');
+        $buttonSubmit->setExtra('onclick="Xoops_xlanguageDialog.insertMLC();return false;"');
+        $buttonSubmit->setClass('btn btn-success');
+        $buttonTray->addElement($buttonSubmit);
 
-        $button_2 = new Xoops\Form\Button('', 'button', XoopsLocale::A_CLOSE, 'button');
-        $button_2->setExtra('onclick="tinyMCEPopup.close();"');
-        $button_2->setClass('btn btn-danger');
-        $button_tray->addElement($button_2);
+        $buttonClose = new Xoops\Form\Button('', 'button', XoopsLocale::A_CLOSE, 'button');
+        $buttonClose->setExtra('onclick="tinyMCEPopup.close();"');
+        $buttonClose->setClass('btn btn-danger');
+        $buttonTray->addElement($buttonClose);
 
-        $this->addElement($button_tray);
+        $this->addElement($buttonTray);
     }
 }

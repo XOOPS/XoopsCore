@@ -124,7 +124,7 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
 
         $result = $sql->execute();
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
-            $ret[$myrow['rank_id']] = $myts->htmlspecialchars($myrow['rank_title']);
+            $ret[$myrow['rank_id']] = $myts->htmlSpecialChars($myrow['rank_title']);
         }
         $response->setValue($ret);
     }

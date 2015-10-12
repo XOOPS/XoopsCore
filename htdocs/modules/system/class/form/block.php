@@ -208,13 +208,13 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Hidden('bid', $this->obj->getVar('bid')));
         $this->addElement(new Xoops\Form\Hidden('op', $op));
         $this->addElement(new Xoops\Form\Hidden('fct', 'blocksadmin'));
-        $button_tray = new Xoops\Form\ElementTray('', '&nbsp;');
+        $buttonTray = new Xoops\Form\ElementTray('', '&nbsp;');
         if ($this->obj->isNew() || $this->obj->isCustom()) {
             $preview = new Xoops\Form\Button('', 'previewblock', XoopsLocale::A_PREVIEW, 'preview');
             $preview->setExtra("onclick=\"blocks_preview();\"");
-            $button_tray->addElement($preview);
+            $buttonTray->addElement($preview);
         }
-        $button_tray->addElement(new Xoops\Form\Button('', 'submitblock', XoopsLocale::A_SUBMIT, 'submit'));
-        $this->addElement($button_tray);
+        $buttonTray->addElement(new Xoops\Form\Button('', 'submitblock', XoopsLocale::A_SUBMIT, 'submit'));
+        $this->addElement($buttonTray);
     }
 }

@@ -57,7 +57,7 @@ function b_system_info_show($options)
                 if ($xoops->isUser()) {
                     $block['groups'][$i]['users'][] = array(
                         'id'      => $userinfo['uid'],
-                        'name'    => $myts->htmlspecialchars($userinfo['uname']),
+                        'name'    => $myts->htmlSpecialChars($userinfo['uname']),
                         'pm_link' => \XoopsBaseConfig::get('url') . "/pmlite.php?send2=1&amp;to_userid=" . $userinfo['uid'],
                         'avatar'  => $avatar
                     );
@@ -65,14 +65,14 @@ function b_system_info_show($options)
                     if ($userinfo['user_viewemail']) {
                         $block['groups'][$i]['users'][] = array(
                             'id'       => $userinfo['uid'],
-                            'name'     => $myts->htmlspecialchars($userinfo['uname']),
+                            'name'     => $myts->htmlSpecialChars($userinfo['uname']),
                             'msg_link' => $userinfo['email'],
                             'avatar'   => $avatar
                         );
                     } else {
                         $block['groups'][$i]['users'][] = array(
                             'id'   => $userinfo['uid'],
-                            'name' => $myts->htmlspecialchars($userinfo['uname'])
+                            'name' => $myts->htmlSpecialChars($userinfo['uname'])
                         );
                     }
                 }

@@ -80,7 +80,7 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
             $this->addElement(new Xoops\Form\DhtmlTextArea(_MD_COMMENTS_MESSAGE, 'com_text', $obj->getVar('text', 'e'), 10, 50), true);
         }
         $option_tray = new Xoops\Form\ElementTray(XoopsLocale::OPTIONS, '<br />');
-        $button_tray = new Xoops\Form\ElementTray('', '&nbsp;');
+        $buttonTray = new Xoops\Form\ElementTray('', '&nbsp;');
 
         if ($xoops->isUser()) {
             if ($xoops->getModuleConfig('com_anonpost', $dirname)) {
@@ -99,7 +99,7 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
                         COMMENTS_HIDDEN  => _MD_COMMENTS_HIDDEN
                     ));
                     $this->addElement($status_select);
-                    $button_tray->addElement(new Xoops\Form\Button('', 'com_dodelete', XoopsLocale::A_DELETE, 'submit'));
+                    $buttonTray->addElement(new Xoops\Form\Button('', 'com_dodelete', XoopsLocale::A_DELETE, 'submit'));
                 }
                 if (isset($editor) && in_array($editor, array('textarea', 'dhtmltextarea'))) {
                     $html_checkbox = new Xoops\Form\Checkbox('', 'com_dohtml', $obj->getVar('dohtml', 'e'));
@@ -158,9 +158,9 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
                 }
             }
         }
-        $button_tray->addElement(new Xoops\Form\Button('', 'com_dopreview', XoopsLocale::A_PREVIEW, 'submit'));
-        $button_tray->addElement(new Xoops\Form\Button('', 'com_dopost', _MD_COMMENTS_POSTCOMMENT, 'submit'));
-        $this->addElement($button_tray);
+        $buttonTray->addElement(new Xoops\Form\Button('', 'com_dopreview', XoopsLocale::A_PREVIEW, 'submit'));
+        $buttonTray->addElement(new Xoops\Form\Button('', 'com_dopost', _MD_COMMENTS_POSTCOMMENT, 'submit'));
+        $this->addElement($buttonTray);
         return $this;
     }
 }

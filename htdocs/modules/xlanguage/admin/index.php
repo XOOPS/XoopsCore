@@ -31,7 +31,7 @@ switch ($op) {
         } else {
             $lang = $helper->getHandlerLanguage()->create();
         }
-        $lang->CleanVarsForDB();
+        $lang->cleanVarsForDB();
 
         if ($helper->getHandlerLanguage()->insert($lang)) {
             $helper->getHandlerLanguage()->createConfig();
@@ -67,7 +67,7 @@ switch ($op) {
         $xlanguage_id = $system->cleanVars($_REQUEST, 'xlanguage_id', 0, 'int');
         if (isset($xlanguage_id) && $xlanguage_id > 0) {
             if ($lang = $helper->getHandlerLanguage()->get($xlanguage_id)) {
-                $delete = $system->CleanVars($_POST, 'ok', 0, 'int');
+                $delete = $system->cleanVars($_POST, 'ok', 0, 'int');
                 if ($delete == 1) {
                     if (!$xoops->security()->check()) {
                         $xoops->redirect('index.php', 2, implode(',', $xoops->security()->getErrors()));

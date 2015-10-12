@@ -76,7 +76,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                 }
             }
 
-            $tabtray = new Xoops\Form\TabTray('', 'pref_tabtay', $xoops->getModuleConfig('jquery_theme', 'system'));
+            $tabTray = new Xoops\Form\TabTray('', 'pref_tabtay', $xoops->getModuleConfig('jquery_theme', 'system'));
             $tabs = array();
             foreach ($configCats as $name => $info) {
                 $tabs[$name] = new Xoops\Form\Tab($info['name'], 'pref_tab_' . $name);
@@ -281,10 +281,10 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
             }
             foreach (array_keys($tabs) as $name) {
                 if ($tabs[$name]->getElements()) {
-                    $tabtray->addElement($tabs[$name]);
+                    $tabTray->addElement($tabs[$name]);
                 }
             }
-            $this->addElement($tabtray);
+            $this->addElement($tabTray);
             $this->addElement(new Xoops\Form\Hidden('op', 'save'));
             $this->addElement(new Xoops\Form\Hidden('mid', $mod->getVar('mid')));
             $this->addElement(new Xoops\Form\Button('', 'button', XoopsLocale::A_SUBMIT, 'submit'));

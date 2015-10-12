@@ -125,16 +125,16 @@ $testtray ->addElement($select_tray, true);
 $testtray ->addElement($select_tray);
 $form->addElement($testtray);
 
-$button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
-$form->addElement($button);
+$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$form->addElement($buttonSubmit);
 
-$button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
-$button_2->setClass('btn btn-danger');
-$form->addElement($button_2);
+$buttonReset = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
+$buttonReset->setClass('btn btn-danger');
+$form->addElement($buttonReset);
 
-$button_tray = new Xoops\Form\ButtonTray('button_tray', 'submit', XoopsLocale::A_SUBMIT, '', true);
-$button_tray->setClass('btn btn-inverse');
-$form->addElement($button_tray);
+$buttonTray = new Xoops\Form\ButtonTray('button_tray', 'submit', XoopsLocale::A_SUBMIT, '', true);
+$buttonTray->setClass('btn btn-inverse');
+$form->addElement($buttonTray);
 
 $form->display();
 

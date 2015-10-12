@@ -68,8 +68,8 @@ $file = new Xoops\Form\File('File', 'file_identifier');
 $file->setDescription('Description File');
 $form->addElement($file, true);
 
-$button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
-$form->addElement($button);
+$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$form->addElement($buttonSubmit);
 $form->display();
 
 Xoops_Utils::dumpFile(__FILE__);

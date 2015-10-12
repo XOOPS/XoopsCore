@@ -168,9 +168,9 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $buttons = new Xoops\Form\ElementTray('');
         $buttons ->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
         $buttons ->addElement(new Xoops\Form\Button('', 'reset', _PM_CLEAR, 'reset'));
-        $cancel_send = new Xoops\Form\Button('', 'cancel', _PM_CANCELSEND, 'button');
-        $cancel_send->setExtra("onclick='javascript:window.close();'");
-        $buttons ->addElement($cancel_send);
+        $buttonCancelSend = new Xoops\Form\Button('', 'cancel', _PM_CANCELSEND, 'button');
+        $buttonCancelSend->setExtra("onclick='javascript:window.close();'");
+        $buttons ->addElement($buttonCancelSend);
         $form->addElement($buttons);
         $tpl->assign('form', $form->render());
         $tpl->display("module:pm/pm_pmlite.tpl");
