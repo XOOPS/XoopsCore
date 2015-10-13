@@ -24,31 +24,31 @@ class MetaWeblogApiTest extends \PHPUnit_Framework_TestCase
 
     function test_MetaWeblogApi()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_newPost()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_editPost()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_getPost()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_getRecentPosts()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 
     function test_getCategories()
     {
-		$this->markTestIncomplete();
+		$this->markTestSkipped();
     }
 }
