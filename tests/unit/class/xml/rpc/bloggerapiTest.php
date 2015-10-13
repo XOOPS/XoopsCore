@@ -118,21 +118,117 @@ class BloggerApiTest extends \PHPUnit_Framework_TestCase
 
     function test_getUsersBlogs()
     {
-		$this->markTestIncomplete();
+		$params = array(null, 'admin', 'dummy');
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+        
+        $result = $instance->getUsersBlogs();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?>'
+            . '<methodResponse><fault><value><struct>'
+            . '<member><name>faultCode</name><value>104</value></member>'
+            . "<member><name>faultString</name><value>User authentication failed\n</value></member>"
+            . '</struct></value></fault></methodResponse>';
+        $this->assertSame($expected, $msg);
+        
+        
+		$params = array(null, 'admin', 'adminadmin');
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+        
+        $result = $instance->getUsersBlogs();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?><methodResponse><params><param><value><array><data><value><struct>'
+            . '<member><name>url</name><value><string>http://localhost/projects/www/XoopsCore/htdocs/modules//</string></value></member>'
+            . '<member><name>blogid</name><value><string></string></value></member>'
+            . '<member><name>blogName</name><value><string>XOOPS Blog</string></value></member>'
+            . '</struct></value></data></array></value></param></params></methodResponse>';
+        $this->assertSame($expected, $msg);
+        
     }
 
     function test_getUserInfo()
     {
-		$this->markTestIncomplete();
+		$params = array(null, 'admin', 'dummy');
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+        
+        $result = $instance->getUserInfo();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?>'
+            . '<methodResponse><fault><value><struct>'
+            . '<member><name>faultCode</name><value>104</value></member>'
+            . "<member><name>faultString</name><value>User authentication failed\n</value></member>"
+            . '</struct></value></fault></methodResponse>';
+        $this->assertSame($expected, $msg);
+        
+		$params = array(null, 'admin', 'adminadmin');
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+        
+        $result = $instance->getUserInfo();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?><methodResponse><params><param>'
+            . '<value><struct><member><name>nickname</name>'
+            . '<value><string>admin</string></value></member>'
+            . '<member><name>userid</name><value><string>1</string></value></member>'
+            . '<member><name>url</name><value><string>http://127.0.0.1/XoopsCore/htdocs</string></value></member>'
+            . '<member><name>email</name><value><string>admin@admin.fr</string></value></member>'
+            . '<member><name>lastname</name><value><string></string></value></member>'
+            . '<member><name>firstname</name><value><string></string></value></member>'
+            . '</struct></value></param></params></methodResponse>';
+        $this->assertSame($expected, $msg);
     }
 
     function test_getTemplate()
     {
-		$this->markTestIncomplete();
+		$params = array(null, null, 'admin', 'adminadmin', null, null);
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+		
+        $result = $instance->getTemplate();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?>'
+            . '<methodResponse><fault><value><struct>'
+            . '<member><name>faultCode</name><value>107</value></member>'
+            . "<member><name>faultString</name><value>Method not supported\n</value></member>"
+            . '</struct></value></fault></methodResponse>';
+        $this->assertSame($expected, $msg);
     }
 
     function test_setTemplate()
     {
-		$this->markTestIncomplete();
+		$params = array(null, null, 'admin', 'adminadmin', null, null);
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+		
+        $result = $instance->setTemplate();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?>'
+            . '<methodResponse><fault><value><struct>'
+            . '<member><name>faultCode</name><value>107</value></member>'
+            . "<member><name>faultString</name><value>Method not supported\n</value></member>"
+            . '</struct></value></fault></methodResponse>';
+        $this->assertSame($expected, $msg);
+        
+		$params = array(null, null, 'admin', 'dummy', null, null);
+		$response = new XoopsXmlRpcResponse();
+		$module = new XoopsModule();
+		$instance = new $this->myClass($params, $response, $module);
+		
+        $result = $instance->setTemplate();
+        $msg = $response->render();
+        $expected = '<?xml version="1.0"?>'
+            . '<methodResponse><fault><value><struct>'
+            . '<member><name>faultCode</name><value>104</value></member>'
+            . "<member><name>faultString</name><value>User authentication failed\n</value></member>"
+            . '</struct></value></fault></methodResponse>';
+        $this->assertSame($expected, $msg);
     }
 }

@@ -327,16 +327,38 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
-        //$sanitizer->previewTarea();
-		$this->markTestSkipped('');
+        
+        $text = '<h1>title</h1>&amp;   &nbsp;';
+        $result = $sanitizer->previewTarea($text);
+        $expected = $sanitizer->htmlSpecialChars($text);
+        $this->assertSame($expected, $result);
+        
+        $text = 'smiley :-)';
+        $result = $sanitizer->previewTarea($text, 1, 1);
+        $expected = $sanitizer->smiley($text);
+        $this->assertSame($expected, $result);
+        
+        $string = 'string';
+        $text = '[b]'.$string.'[/b]';
+        $message = $sanitizer->previewTarea($text, 0, 0, 1, 0, 0);
+        $this->assertEquals('<strong>'.$string.'</strong>',$message);
+        
+        $text = "line\015\012line\015line\012line";
+        $message = $sanitizer->previewTarea($text, 0, 0, 0, 0, 1);
+        $expected = 'line<br />line<br />line<br />line';
+        $this->assertEquals($expected,$message);
     }
 
     public function test_censorString()
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
-        //$sanitizer->censorString();
-		$this->markTestSkipped('');
+        
+        $text = 'censor string';
+        $result = $sanitizer->censorString($text);
+        $expected = $sanitizer->executeExtension('censor', $text);
+        $this->assertSame($expected, $text);
+
     }
 
     public function test_codePreConv()
@@ -380,8 +402,11 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
-        //$sanitizer->executeExtension();
-		$this->markTestSkipped('');
+        $value = $sanitizer->executeExtension('toto');
+        $this->assertFalse($value);
+        
+        $value = $sanitizer->executeExtension('image');
+        $this->assertTrue($value);
     }
 
     public function test_textFilter()
