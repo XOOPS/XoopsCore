@@ -141,10 +141,8 @@ class Xoops
         $this->paths['var'] = array($var, null);
         $this->paths['lib'] = array($lib, $url . '/browse.php');
         $this->paths['XOOPS'] = array($lib, $url . '/browse.php');
-
         $this->paths['assets'] = array(\XoopsBaseConfig::get('asset-path'), \XoopsBaseConfig::get('asset-url'));
         $this->paths['images'] = array($root . '/images', $url . '/images');
-        $this->paths['install'] = array($root . '/install', $url . '/install');
         $this->paths['language'] = array($root . '/language', $url . '/language');
         $this->paths['locale'] = array($root . '/locale', $url . '/locale');
         $this->paths['media'] = array(\XoopsBaseConfig::get('media-path'), \XoopsBaseConfig::get('media-url'));
@@ -152,14 +150,6 @@ class Xoops
         $this->paths['themes'] = array(\XoopsBaseConfig::get('themes-path'), \XoopsBaseConfig::get('themes-url'));
         $this->paths['uploads'] = array(\XoopsBaseConfig::get('uploads-path'), \XoopsBaseConfig::get('uploads-url'));
 
-        $this->paths['XOOPS'] = array($lib, $url . '/browse.php');
-        $this->paths['www'] = array($root, \XoopsBaseConfig::get('url'));
-        $this->paths['var'] = array(\XoopsBaseConfig::get('var-path'), null);
-        $this->paths['lib'] = array($lib, $url . '/browse.php');
-        $this->paths['modules'] = array($root . '/modules', $url  . '/modules');
-        $this->paths['themes'] = array($root . '/themes', $url . '/themes');
-        $this->paths['media'] = array($root . '/media', $url . '/media');
-        $this->paths['assets'] = array($root . '/assets', $url . '/assets');
         $this->pathTranslation();
     }
 
