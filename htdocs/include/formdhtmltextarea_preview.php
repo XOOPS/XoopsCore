@@ -17,30 +17,30 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-
+use Xoops\Core\Request;
 include_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 $myts = MyTextSanitizer::getInstance();
 
-$content = $myts->stripSlashesGPC($_POST['text']);
+$content = Request::getString('text', '');
 
 if (!$xoops->security()->validateToken(@$_POST['token'], false)) {
     $content = 'Direct access is not allowed!!!';
 }
 $html = empty($_POST['html']) ? 0 : 1;
 $content = $myts->displayTarea($content, $html, 1, 1, 1, 1);
-if (preg_match_all('/%u([[:alnum:]]{4})/', $content, $matches)) {
-    foreach ($matches[1] as $uniord) {
-        $utf = '&#x' . $uniord . ';';
-        $content = str_replace('%u' . $uniord, $utf, $content);
-    }
-    $content = urldecode($content);
-}
+//if (preg_match_all('/%u([[:alnum:]]{4})/', $content, $matches)) {
+//    foreach ($matches[1] as $uniord) {
+//        $utf = '&#x' . $uniord . ';';
+//        $content = str_replace('%u' . $uniord, $utf, $content);
+//    }
+//    $content = urldecode($content);
+//}
 
 if (! headers_sent()) {
-    header('Content-Type:text/html; charset=ISO-8859-1');
+    header('Content-Type:text/html; charset=UTF-8');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     header('Cache-Control: private, no-cache');
     header('Pragma: no-cache');

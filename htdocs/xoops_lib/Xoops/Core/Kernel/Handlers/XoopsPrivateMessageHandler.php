@@ -63,9 +63,9 @@ class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
     public function setRead(XoopsPrivateMessage $pm)
     {
         $qb = $this->db2->createXoopsQueryBuilder()
-            ->update($this->table, 'pm')
-            ->set('pm.read_msg', ':readmsg')
-            ->where('pm.msg_id = :msgid')
+            ->update($this->table)
+            ->set('read_msg', ':readmsg')
+            ->where('msg_id = :msgid')
             ->setParameter(':readmsg', 1, \PDO::PARAM_INT)
             ->setParameter(':msgid', (int)$pm->getVar('msg_id'), \PDO::PARAM_INT);
         $result = $qb->execute();

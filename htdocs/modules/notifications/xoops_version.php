@@ -56,8 +56,8 @@ $modversion['onUninstall'] = 'include/install.php';
 $modversion['hasAdmin'] = 0;
 
 // Manage extension
-$modversion['extension']          = 1;
-$modversion['extension_module'][] = 'system';
+//$modversion['extension']          = 1;
+//$modversion['extension_module'][] = 'system';
 
 // table definitions
 $modversion['schema']           = 'sql/schema.yml';
@@ -71,7 +71,7 @@ $modversion['tables'] = array(
 /*
  Blocks
 */
-$modversion['blocks']   = array();
+$modversion['blocks'] = array();
 $modversion['blocks'][] = array(
     'file'        => 'notifications_blocks.php',
     'name'        => _MI_NOTIFICATIONS_BNAME1,

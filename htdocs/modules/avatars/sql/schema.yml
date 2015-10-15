@@ -1,6 +1,8 @@
 tables:
     avatars_avatar:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             avatar_id:
                 name: avatar_id
@@ -118,7 +120,9 @@ tables:
                 unique: false
                 primary: false
     avatars_user_link:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             avatar_id:
                 name: avatar_id

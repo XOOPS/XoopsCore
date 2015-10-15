@@ -85,8 +85,21 @@ if ($op == 'showschema') {
         $export = new ExportVisitor;
         $newSchema->visit($export);
 
+        $schemaArray = $export->getSchemaArray();
+
+        // enforce utf8mb4 for MySQL
+        foreach ($schemaArray['tables'] as $tableName => $table) {
+            $schemaArray['tables'][$tableName]['options']['charset'] = 'utf8mb4';
+            $schemaArray['tables'][$tableName]['options']['collate'] = 'utf8mb4_unicode_ci';
+            foreach ($table['columns'] as $column => $data) {
+                if (array_key_exists('collation', $data)) {
+                    $schemaArray['tables'][$tableName]['columns'][$column]['collation'] = 'utf8mb4_unicode_ci';
+                }
+            }
+        }
+
         echo '<h2>' . _MI_SCHEMATOOL_EXPORT_SCHEMA . '</h2>';
-        $yamldump = Yaml::dump($export->getSchemaArray(), 5);
+        $yamldump = Yaml::dump($schemaArray, 5);
         //echo '<div contenteditable><pre>' . $yamldump . '</pre></div>';
         $schemadump = <<<EOT1
 <section>

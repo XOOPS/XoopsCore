@@ -52,6 +52,7 @@ $app->addCommands(array(
     new \XoopsConsole\Commands\UpdateModuleCommand(),
     new \XoopsConsole\Commands\SetConfigCommand(),
     new \XoopsConsole\Commands\RenameSystemTablesCommand(),
+    new \XoopsConsole\Commands\Utf8mb4ModuleCommand(),
 ));
 
 $app->run();

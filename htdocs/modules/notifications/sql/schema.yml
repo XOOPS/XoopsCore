@@ -1,6 +1,8 @@
 tables:
     notifications:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             id:
                 name: id

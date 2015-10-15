@@ -61,9 +61,12 @@ $modversion['extension_module'][] = 'system';
 /*
  Mysql and tables
  */
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$modversion['tables'][0] = "protector_log";
-$modversion['tables'][1] = "protector_access";
+$modversion['schema']           = 'sql/schema.yml';
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
+$modversion['tables'] = array(
+    'protector_log',
+    'protector_access',
+);
 
 /*
  Admin things
@@ -73,9 +76,11 @@ $modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
 
 // Admin Templates
-$modversion['templates'][] = array( 'file' => 'protector_advisory.html', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'protector_prefix.html', 'description' => '', 'type' => 'admin' );
-$modversion['templates'][] = array( 'file' => 'protector_center.html', 'description' => '', 'type' => 'admin' );
+$modversion['templates'] = array(
+    array( 'file' => 'protector_advisory.html', 'description' => '', 'type' => 'admin' ),
+    array( 'file' => 'protector_prefix.html', 'description' => '', 'type' => 'admin' ),
+    array( 'file' => 'protector_center.html', 'description' => '', 'type' => 'admin' ),
+);
 
 /*
  Blocks

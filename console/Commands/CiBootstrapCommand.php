@@ -87,7 +87,7 @@ EOT;
             'smarty-compile' => $baseDir . '/xoops_data/caches/smarty_compile',
             'smarty-xoops-plugins' => $baseDir . '/xoops_lib/smarty/xoops_plugins',
             'db-type' => 'pdo_mysql',
-            'db-charset' => 'utf8',
+            'db-charset' => 'utf8mb4',
             'db-prefix' => 'x300',
             'db-host' => 'localhost',
             'db-user' => 'travis',
@@ -96,11 +96,12 @@ EOT;
             'db-pconnect' => 0,
             'db-parameters' => array(
                 'driver'   => 'pdo_mysql',
-                'charset'  => 'utf8',
+                'charset'  => 'utf8mb4',
                 'dbname'   => 'xoops_test',
                 'host'     => 'localhost',
                 'user'     => 'travis',
                 'password' => '',
+                'collate'  => 'utf8mb4_unicode_ci',
             ),
         );
         Yaml::saveWrapped($configs, $configFile);

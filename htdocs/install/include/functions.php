@@ -483,6 +483,12 @@ function getDbConnectionParams()
         'charset' => 'utf8',
     );
 
+    // force mysql to use utf8mb4
+    if (false !== strstr($settings['DB_DRIVER'],'mysql')) {
+        $connectionParams['charset'] = 'utf8mb4';
+        $connectionParams['collate'] = 'utf8mb4_unicode_ci';
+    }
+
     foreach ($driver_params as $param) {
         if (!empty($settings[$wizard->configs['db_param_names'][$param]])) {
             $connectionParams[$param] = $settings[$wizard->configs['db_param_names'][$param]];

@@ -164,6 +164,7 @@ $configs['writable'] = array(
 // Modules to be installed by default
 $configs['modules'] = array(
     'banners',
+    'notifications',
     'page',
     'search',
     'userconfigs',
@@ -178,11 +179,10 @@ $configs['ext'] = array(
     'mailusers',
     'maintenance',
     'menus',
-    'notifications',
     'protector',
     'smilies',
     'thumbs',
-    'xmf',
+//    'xmf',
 );
 
 // xoops_lib, xoops_data directories

@@ -1,6 +1,8 @@
 tables:
     image:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             image_id:
                 name: image_id
@@ -123,7 +125,9 @@ tables:
                 unique: false
                 primary: false
     imagebody:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             image_id:
                 name: image_id
@@ -158,7 +162,9 @@ tables:
                 unique: false
                 primary: false
     imagecategory:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             imgcat_id:
                 name: imgcat_id

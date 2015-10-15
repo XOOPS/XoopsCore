@@ -69,6 +69,13 @@ if (!$connection && !empty($settings['DB_NAME'])) {
                     $sql = $platform->getCreateDatabaseSQL($connection->quoteIdentifier($settings['DB_NAME']));
                     $result = $connection->exec($sql);
                     if ($result) {
+                        if ('mysql' === $platform->getName()) {
+                            $sql = sprintf(
+                                'ALTER DATABASE %s CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;',
+                                $connection->quoteIdentifier($settings['DB_NAME'])
+                            );
+                            $connection->exec($sql);
+                        }
                         // try to reconnect with the database specified
                         $connection = null;
                         $connection = getDbConnection($error);

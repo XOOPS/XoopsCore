@@ -1,6 +1,8 @@
 tables:
     system_block:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             bid:
                 name: bid
@@ -54,7 +56,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             name:
                 name: name
                 type: string
@@ -68,7 +70,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             title:
                 name: title
                 type: string
@@ -82,7 +84,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             content:
                 name: content
                 type: text
@@ -96,7 +98,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             side:
                 name: side
                 type: smallint
@@ -149,7 +151,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             c_type:
                 name: c_type
                 type: string
@@ -163,7 +165,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             isactive:
                 name: isactive
                 type: boolean
@@ -190,7 +192,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             func_file:
                 name: func_file
                 type: string
@@ -204,7 +206,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             show_func:
                 name: show_func
                 type: string
@@ -218,7 +220,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             edit_func:
                 name: edit_func
                 type: string
@@ -232,7 +234,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             template:
                 name: template
                 type: string
@@ -246,7 +248,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             bcachetime:
                 name: bcachetime
                 type: integer
@@ -300,7 +302,9 @@ tables:
                 unique: false
                 primary: false
     system_blockmodule:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             module_id:
                 name: module_id
@@ -335,7 +339,9 @@ tables:
                 unique: true
                 primary: true
     system_config:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             conf_id:
                 name: conf_id
@@ -389,7 +395,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_title:
                 name: conf_title
                 type: string
@@ -403,7 +409,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_value:
                 name: conf_value
                 type: text
@@ -417,7 +423,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_desc:
                 name: conf_desc
                 type: string
@@ -431,7 +437,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_formtype:
                 name: conf_formtype
                 type: string
@@ -445,7 +451,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_valuetype:
                 name: conf_valuetype
                 type: string
@@ -459,7 +465,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_order:
                 name: conf_order
                 type: smallint
@@ -490,7 +496,9 @@ tables:
                 unique: false
                 primary: false
     system_configoption:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             confop_id:
                 name: confop_id
@@ -518,7 +526,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             confop_value:
                 name: confop_value
                 type: string
@@ -532,7 +540,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             conf_id:
                 name: conf_id
                 type: smallint
@@ -558,7 +566,9 @@ tables:
                 unique: false
                 primary: false
     system_group:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             groupid:
                 name: groupid
@@ -586,7 +596,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             description:
                 name: description
                 type: text
@@ -600,7 +610,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             group_type:
                 name: group_type
                 type: string
@@ -614,7 +624,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -627,7 +637,9 @@ tables:
                 unique: false
                 primary: false
     system_module:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             mid:
                 name: mid
@@ -655,7 +667,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             version:
                 name: version
                 type: smallint
@@ -721,7 +733,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             hasmain:
                 name: hasmain
                 type: boolean
@@ -852,7 +864,9 @@ tables:
                 unique: false
                 primary: false
     system_online:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             online_uid:
                 name: online_uid
@@ -880,7 +894,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             online_updated:
                 name: online_updated
                 type: integer
@@ -912,7 +926,7 @@ tables:
                 type: string
                 default: ''
                 notnull: true
-                length: 15
+                length: 45
                 precision: 10
                 scale: 0
                 fixed: false
@@ -920,7 +934,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
         indexes:
             online_module:
                 name: online_module
@@ -938,7 +952,9 @@ tables:
                 unique: false
                 primary: false
     system_permission:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             gperm_id:
                 name: gperm_id
@@ -1005,7 +1021,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -1028,7 +1044,9 @@ tables:
                 unique: false
                 primary: false
     system_privatemessage:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             msg_id:
                 name: msg_id
@@ -1056,7 +1074,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             subject:
                 name: subject
                 type: string
@@ -1070,7 +1088,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             from_userid:
                 name: from_userid
                 type: integer
@@ -1123,7 +1141,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             read_msg:
                 name: read_msg
                 type: boolean
@@ -1216,7 +1234,9 @@ tables:
                 unique: false
                 primary: false
     system_session:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             session_id:
                 name: session_id
@@ -1231,7 +1251,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             expires_at:
                 name: expires_at
                 type: integer
@@ -1258,7 +1278,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -1271,7 +1291,9 @@ tables:
                 unique: false
                 primary: false
     system_tplfile:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             tpl_id:
                 name: tpl_id
@@ -1312,7 +1334,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tpl_tplset:
                 name: tpl_tplset
                 type: string
@@ -1326,7 +1348,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tpl_file:
                 name: tpl_file
                 type: string
@@ -1340,7 +1362,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tpl_desc:
                 name: tpl_desc
                 type: string
@@ -1354,7 +1376,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tpl_lastmodified:
                 name: tpl_lastmodified
                 type: integer
@@ -1394,7 +1416,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
@@ -1412,7 +1434,9 @@ tables:
                 unique: false
                 primary: false
     system_tplset:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             tplset_id:
                 name: tplset_id
@@ -1440,7 +1464,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tplset_desc:
                 name: tplset_desc
                 type: string
@@ -1454,7 +1478,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tplset_credits:
                 name: tplset_credits
                 type: text
@@ -1468,7 +1492,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             tplset_created:
                 name: tplset_created
                 type: integer
@@ -1489,7 +1513,9 @@ tables:
                 unique: true
                 primary: true
     system_tplsource:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             tpl_id:
                 name: tpl_id
@@ -1517,7 +1543,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
         indexes:
             tplsource_tpl_id:
                 name: tplsource_tpl_id
@@ -1525,7 +1551,9 @@ tables:
                 unique: false
                 primary: false
     system_user:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             uid:
                 name: uid
@@ -1553,7 +1581,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             uname:
                 name: uname
                 type: string
@@ -1567,7 +1595,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             email:
                 name: email
                 type: string
@@ -1581,7 +1609,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             url:
                 name: url
                 type: string
@@ -1595,7 +1623,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_avatar:
                 name: user_avatar
                 type: string
@@ -1609,7 +1637,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_regdate:
                 name: user_regdate
                 type: integer
@@ -1636,7 +1664,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_from:
                 name: user_from
                 type: string
@@ -1650,7 +1678,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_sig:
                 name: user_sig
                 type: text
@@ -1664,7 +1692,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_viewemail:
                 name: user_viewemail
                 type: boolean
@@ -1691,7 +1719,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_aim:
                 name: user_aim
                 type: string
@@ -1705,7 +1733,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_yim:
                 name: user_yim
                 type: string
@@ -1719,7 +1747,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_msnm:
                 name: user_msnm
                 type: string
@@ -1733,7 +1761,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             pass:
                 name: pass
                 type: string
@@ -1747,7 +1775,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             posts:
                 name: posts
                 type: integer
@@ -1813,7 +1841,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             timezone_offset:
                 name: timezone_offset
                 type: float
@@ -1840,6 +1868,19 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
+            last_pass_change:
+                name: last_pass_change
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
             umode:
                 name: umode
                 type: string
@@ -1853,7 +1894,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             uorder:
                 name: uorder
                 type: smallint
@@ -1906,7 +1947,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             bio:
                 name: bio
                 type: text
@@ -1920,7 +1961,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_intrest:
                 name: user_intrest
                 type: string
@@ -1934,7 +1975,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_unicode_ci
+                collation: utf8mb4_unicode_ci
             user_mailok:
                 name: user_mailok
                 type: boolean
@@ -1980,7 +2021,9 @@ tables:
                 unique: false
                 primary: false
     system_usergroup:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             linkid:
                 name: linkid
