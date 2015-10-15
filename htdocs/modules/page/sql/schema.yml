@@ -1,6 +1,8 @@
 tables:
     page_content:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             content_id:
                 name: content_id
@@ -28,7 +30,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             content_shorttext:
                 name: content_shorttext
                 type: text
@@ -42,7 +44,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             content_text:
                 name: content_text
                 type: text
@@ -56,7 +58,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             content_create:
                 name: content_create
                 type: integer
@@ -161,7 +163,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             content_mdescription:
                 name: content_mdescription
                 type: text
@@ -175,7 +177,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             content_maindisplay:
                 name: content_maindisplay
                 type: boolean
@@ -408,7 +410,9 @@ tables:
                 unique: false
                 primary: false
     page_rating:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             rating_id:
                 name: rating_id
@@ -475,7 +479,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             rating_date:
                 name: rating_date
                 type: integer
@@ -506,7 +510,9 @@ tables:
                 unique: false
                 primary: false
     page_related:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             related_id:
                 name: related_id
@@ -534,7 +540,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8_general_ci
+                collation: utf8mb4_unicode_ci
             related_domenu:
                 name: related_domenu
                 type: boolean
@@ -573,7 +579,9 @@ tables:
                 unique: false
                 primary: false
     page_related_link:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             link_id:
                 name: link_id

@@ -473,7 +473,7 @@ function form_checkserver(area_id)
 function form_instantPreview(xoopsUrl, area_id, imgurl, doHtml, token)
 {
     var imgUrl = xoopsUrl + '/images/form';
-    var data = escape(xoopsGetElementById(area_id).value);
+    var data = encodeURIComponent(xoopsGetElementById(area_id).value);
 
     var url_request = xoopsUrl + "/include/formdhtmltextarea_preview.php";//?text=" + data;
     var args =  "text=" + data;

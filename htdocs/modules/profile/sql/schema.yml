@@ -1,6 +1,8 @@
 tables:
     profile_category:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             cat_id:
                 name: cat_id
@@ -61,7 +63,9 @@ tables:
                 unique: true
                 primary: true
     profile_field:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             field_id:
                 name: field_id
@@ -301,7 +305,9 @@ tables:
                 unique: false
                 primary: false
     profile_profile:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             profile_id:
                 name: profile_id
@@ -323,7 +329,9 @@ tables:
                 unique: true
                 primary: true
     profile_regstep:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             step_id:
                 name: step_id
@@ -402,7 +410,9 @@ tables:
                 unique: false
                 primary: false
     profile_visibility:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             field_id:
                 name: field_id

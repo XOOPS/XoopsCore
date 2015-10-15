@@ -1,11 +1,92 @@
 tables:
-    menus_menu:
+    protector_access:
         options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
         columns:
-            id:
-                name: id
+            ip:
+                name: ip
+                type: string
+                default: 0.0.0.0
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8mb4_unicode_ci
+            request_uri:
+                name: request_uri
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8mb4_unicode_ci
+            malicious_actions:
+                name: malicious_actions
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8mb4_unicode_ci
+            expire:
+                name: expire
+                type: integer
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+        indexes:
+            ip:
+                name: ip
+                columns: [ip]
+                unique: false
+                primary: false
+            request_uri:
+                name: request_uri
+                columns: [request_uri]
+                unique: false
+                primary: false
+            malicious_actions:
+                name: malicious_actions
+                columns: [malicious_actions]
+                unique: false
+                primary: false
+            expire:
+                name: expire
+                columns: [expire]
+                unique: false
+                primary: false
+    protector_log:
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        columns:
+            lid:
+                name: lid
                 type: integer
                 default: null
                 notnull: true
@@ -17,8 +98,8 @@ tables:
                 autoincrement: true
                 columnDefinition: null
                 comment: null
-            pid:
-                name: pid
+            uid:
+                name: uid
                 type: integer
                 default: '0'
                 notnull: true
@@ -30,65 +111,11 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-            mid:
-                name: mid
-                type: integer
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-            title:
-                name: title
+            ip:
+                name: ip
                 type: string
-                default: ''
+                default: 0.0.0.0
                 notnull: true
-                length: 150
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-                collation: utf8mb4_unicode_ci
-            alt_title:
-                name: alt_title
-                type: string
-                default: ''
-                notnull: true
-                length: 150
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-                collation: utf8mb4_unicode_ci
-            visible:
-                name: visible
-                type: boolean
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-            link:
-                name: link
-                type: string
-                default: null
-                notnull: false
                 length: 255
                 precision: 10
                 scale: 0
@@ -98,25 +125,12 @@ tables:
                 columnDefinition: null
                 comment: null
                 collation: utf8mb4_unicode_ci
-            weight:
-                name: weight
-                type: boolean
-                default: '0'
-                notnull: true
-                length: null
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: true
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-            target:
-                name: target
+            type:
+                name: type
                 type: string
-                default: null
-                notnull: false
-                length: 10
+                default: ''
+                notnull: true
+                length: 255
                 precision: 10
                 scale: 0
                 fixed: false
@@ -125,8 +139,22 @@ tables:
                 columnDefinition: null
                 comment: null
                 collation: utf8mb4_unicode_ci
-            groups:
-                name: groups
+            agent:
+                name: agent
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8mb4_unicode_ci
+            description:
+                name: description
                 type: text
                 default: null
                 notnull: false
@@ -139,8 +167,8 @@ tables:
                 columnDefinition: null
                 comment: null
                 collation: utf8mb4_unicode_ci
-            hooks:
-                name: hooks
+            extra:
+                name: extra
                 type: text
                 default: null
                 notnull: false
@@ -153,75 +181,42 @@ tables:
                 columnDefinition: null
                 comment: null
                 collation: utf8mb4_unicode_ci
-            image:
-                name: image
-                type: string
+            timestamp:
+                name: timestamp
+                type: datetime
                 default: null
                 notnull: false
-                length: 255
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-                collation: utf8mb4_unicode_ci
-            css:
-                name: css
-                type: string
-                default: null
-                notnull: false
-                length: 255
-                precision: 10
-                scale: 0
-                fixed: false
-                unsigned: false
-                autoincrement: false
-                columnDefinition: null
-                comment: null
-                collation: utf8mb4_unicode_ci
-        indexes:
-            PRIMARY:
-                name: PRIMARY
-                columns: [id]
-                unique: true
-                primary: true
-    menus_menus:
-        options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
-        columns:
-            id:
-                name: id
-                type: integer
-                default: null
-                notnull: true
                 length: null
                 precision: 10
                 scale: 0
                 fixed: false
-                unsigned: true
-                autoincrement: true
-                columnDefinition: null
-                comment: null
-            title:
-                name: title
-                type: string
-                default: ''
-                notnull: true
-                length: 150
-                precision: 10
-                scale: 0
-                fixed: false
                 unsigned: false
                 autoincrement: false
                 columnDefinition: null
                 comment: null
-                collation: utf8mb4_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
-                columns: [id]
+                columns: [lid]
                 unique: true
                 primary: true
+            uid:
+                name: uid
+                columns: [uid]
+                unique: false
+                primary: false
+            ip:
+                name: ip
+                columns: [ip]
+                unique: false
+                primary: false
+            type:
+                name: type
+                columns: [type]
+                unique: false
+                primary: false
+            timestamp:
+                name: timestamp
+                columns: [timestamp]
+                unique: false
+                primary: false

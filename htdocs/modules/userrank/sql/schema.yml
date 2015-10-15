@@ -1,6 +1,8 @@
 tables:
     userrank_rank:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             rank_id:
                 name: rank_id

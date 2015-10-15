@@ -1,6 +1,8 @@
 tables:
     banners_banner:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             banner_bid:
                 name: banner_bid
@@ -175,7 +177,9 @@ tables:
                 unique: false
                 primary: false
     banners_bannerclient:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             bannerclient_cid:
                 name: bannerclient_cid

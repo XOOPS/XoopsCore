@@ -1,6 +1,8 @@
 tables:
     xlanguage:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             xlanguage_id:
                 name: xlanguage_id

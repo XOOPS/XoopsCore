@@ -64,7 +64,7 @@ if (!$status) {
     $_SESSION['error'] = $system_module->error;
     //$sql = $xoops->db()->getConfiguration()->getSQLLogger()->queries;
 }
-
+$system_module->install('xmf');
 $pageHasForm = true;
 $pageHasHelp = false;
 

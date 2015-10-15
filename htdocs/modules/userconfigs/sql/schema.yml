@@ -1,6 +1,8 @@
 tables:
     userconfigs_item:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             conf_id:
                 name: conf_id
@@ -149,7 +151,9 @@ tables:
                 unique: false
                 primary: false
     userconfigs_option:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             confop_id:
                 name: confop_id

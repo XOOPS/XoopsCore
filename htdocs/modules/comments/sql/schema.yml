@@ -1,6 +1,8 @@
 tables:
     comments:
-        options: {  }
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         columns:
             id:
                 name: id
@@ -124,7 +126,7 @@ tables:
                 type: string
                 default: ''
                 notnull: true
-                length: 15
+                length: 45
                 precision: 10
                 scale: 0
                 fixed: false
