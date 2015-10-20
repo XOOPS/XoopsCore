@@ -11,7 +11,7 @@
 
 namespace Xoops\Core;
 
-use Xoops\Core\FilterInput;
+use Xoops\Core\Locale\Time;
 
 /**
  * Request Class
@@ -113,18 +113,12 @@ class Request
                 break;
             default:
                 $input = &$_REQUEST;
-                $hash = 'REQUEST';
                 break;
         }
 
         if (isset($input[$name]) && $input[$name] !== null) {
             // Get the variable from the input hash and clean it
             $var = self::cleanVar($input[$name], $mask, $type);
-
-            // Handle magic quotes compatability
-            if (get_magic_quotes_gpc() && ($var != $default) && ($hash != 'FILES')) {
-                $var = self::stripSlashesRecursive($var);
-            }
         } else {
             if ($default !== null) {
                 // Clean the default value
@@ -251,7 +245,7 @@ class Request
      * Fetches and returns an array
      *
      * @param string $name    Variable name
-     * @param string $default Default value if the variable does not exist
+     * @param mixed  $default Default value if the variable does not exist
      * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
      *
      * @return array
@@ -331,6 +325,30 @@ class Request
     {
         $ret = (string) self::getVar($name, $default, $hash, 'ip');
         return empty($ret) ? $default : $ret;
+    }
+
+    /**
+     * Return a DateTime object from a Xoops\Form\DateSelect of Xoops\Form\DateTime field
+     *
+     * @param string $name    Variable name
+     * @param mixed  $default Default value if the variable does not exist
+     * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
+     *
+     * @return \DateTime object
+     */
+    public static function getDateTime($name, $default = null, $hash = 'default')
+    {
+        $values = self::getVar($name, [], $hash, 'array');
+        $count = count($values);
+        if ($count === 1) {
+            $date = reset($values);
+            $ret = Time::inputToDateTime($date);
+        } elseif (isset($values['date']) && isset($values['time'])) {
+            $ret = Time::inputToDateTime($values);
+        } else {
+            $ret = Time::cleanTime($default);
+        }
+        return $ret;
     }
 
     /**
@@ -448,11 +466,6 @@ class Request
                 break;
         }
 
-        // Handle magic quotes compatability
-        if (get_magic_quotes_gpc() && ($hash != 'FILES')) {
-            $input = self::stripSlashesRecursive($input);
-        }
-
         $result = self::cleanVars($input, $mask);
 
         return $result;
@@ -547,21 +560,5 @@ class Request
         }
 
         return $var;
-    }
-
-
-    /**
-     * Strips slashes recursively on an array
-     *
-     * @param array $value Array of (nested arrays of) strings
-     *
-     * @return array The input array with stripshlashes applied to it
-     */
-    private static function stripSlashesRecursive($value)
-    {
-        $value = is_array($value) ? array_map(array('Xoops\Core\Request', 'stripSlashesRecursive'), $value)
-            : stripslashes($value);
-
-        return $value;
     }
 }

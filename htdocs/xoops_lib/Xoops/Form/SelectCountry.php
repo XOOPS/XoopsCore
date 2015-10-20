@@ -36,6 +36,6 @@ class SelectCountry extends Select
     public function __construct($caption, $name, $value = null, $size = 1)
     {
         parent::__construct($caption, $name, $value, $size);
-        $this->addOptionArray(\XoopsLists::getCountryList());
+        \Xoops\Core\Lists\Country::setOptionsArray($this);
     }
 }

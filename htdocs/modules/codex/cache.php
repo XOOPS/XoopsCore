@@ -92,7 +92,7 @@ echo $key . ' ' . $xoops->cache('alternate')->cacheRead($key, 'getSomeContent') 
 
 echo '<br /><a href="?">Refresh</a> - <a href="?delete=1">Delete caches</a>';
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();
 
 function getSomeContent()

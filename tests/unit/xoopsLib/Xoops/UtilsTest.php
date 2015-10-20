@@ -8,7 +8,7 @@ require_once dirname(__FILE__).'/../../init_new.php';
  */
 class Xoops_UtilsTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'Xoops_Utils';
+    protected $myClass = '\Xoops\Utils';
     protected $save_SERVER = null;
     protected $save_ENV = null;
 

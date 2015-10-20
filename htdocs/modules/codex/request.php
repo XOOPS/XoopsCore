@@ -25,7 +25,7 @@ $xoops = Xoops::getInstance();
 $request = \Xoops\Core\HttpRequest::getInstance();
 $xoops->header();
 
-Xoops_Utils::dumpVar(Request::get());
+\Xoops\Utils::dumpVar(Request::get());
 $result['id'] = Request::getInt('id', 13);
 $result['string'] = Request::getString('string', 'defaultValueHere');
 $result['bool'] = Request::getBool('bool', false);
@@ -41,7 +41,7 @@ $result['ismobile'] = $request->is('mobile');
 $result['isrobot'] = $request->is('robot');
 $result['files'] = Request::getArray('file_identifier', array(), 'files');
 
-Xoops_Utils::dumpVar($result);
+\Xoops\Utils::dumpVar($result);
 
 echo '<a href="?id=12&string=I love you&bool=everythingsistrue&order=DESC">Good uri</a>';
 echo ' - <a href="?id=test&order=DESCENDING">Bad uri</a>';
@@ -72,5 +72,5 @@ $buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'subm
 $form->addElement($buttonSubmit);
 $form->display();
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

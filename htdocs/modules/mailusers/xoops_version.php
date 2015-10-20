@@ -67,13 +67,11 @@ $modversion['adminmenu']  = 'admin/menu.php';
 $modversion['jquery'] = 1;
 
 // Preferences
-
-$i                                       = 0;
-$editors                                 = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
-$modversion['config'][$i]['name']        = 'mailusers_editor';
-$modversion['config'][$i]['title']       = '_AM_MAILUSERS_EDITOR';
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'select';
-$modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = 'dhtmltextarea';
-$modversion['config'][$i]['options']     = $editors;
+$modversion['config'][] = array(
+    'name'        => 'mailusers_editor',
+    'title'       => '_AM_MAILUSERS_EDITOR',
+    'description' => '',
+    'formtype'    => 'select_editor',
+    'valuetype'   => 'text',
+    'default'     => 'dhtmltextarea',
+);

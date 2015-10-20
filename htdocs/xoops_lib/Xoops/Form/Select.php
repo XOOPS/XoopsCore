@@ -23,15 +23,8 @@ namespace Xoops\Form;
  * @link      http://xoops.org
  * @since     2.0.0
  */
-class Select extends Element
+class Select extends OptionElement
 {
-    /**
-     * Options
-     *
-     * @var array
-     */
-    private $options = array();
-
     /**
      * Allow multiple selections?
      *
@@ -102,39 +95,6 @@ class Select extends Element
         return (int) $this->getAttribute('size');
     }
 
-    /**
-     * Add an option
-     *
-     * @param string $value value attribute
-     * @param string $name  name attribute
-     *
-     * @return void
-     */
-    public function addOption($value, $name = '')
-    {
-        if ($name != '') {
-            $this->options[$value] = $name;
-        } else {
-            $this->options[$value] = $value;
-        }
-    }
-
-    /**
-     * Add multiple options
-     *
-     * @param array $options Associative array of value->name pairs
-     *
-     * @return void
-     */
-    public function addOptionArray($options)
-    {
-        if (is_array($options)) {
-            foreach ($options as $k => $v) {
-                $this->addOption($k, $v);
-            }
-        }
-    }
-
      /**
      * Add multiple optgroup
      *
@@ -146,32 +106,6 @@ class Select extends Element
     public function addOptgroup($name, $optgroup)
     {
         $this->optgroup[$name] = $optgroup;
-    }
-
-    /**
-     * Get an array with all the options
-     *
-     * Note: both name and value should be sanitized. However for backward
-     * compatibility, only value is sanitized for now.
-     *
-     * @param boolean $encode encode special characters, potential values:
-     *                        0 - skip
-     *                        1 - only for value
-     *                        2 - for both value and name
-     *
-     * @return array Associative array of value->name pairs
-     */
-    public function getOptions($encode = false)
-    {
-        if (!$encode) {
-            return $this->options;
-        }
-        $value = array();
-        foreach ($this->options as $val => $name) {
-            $value[$encode ? htmlspecialchars($val, ENT_QUOTES) : $val] = ($encode > 1)
-                ? htmlspecialchars($name, ENT_QUOTES) : $name;
-        }
-        return $value;
     }
 
     /**

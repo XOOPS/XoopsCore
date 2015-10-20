@@ -20,5 +20,5 @@ function smarty_function_translateTheme($params, &$smarty)
 {
     $key = isset($params['key']) ? $params['key'] : '';
     $dirname = isset($params['dirname']) ? $params['dirname'] : '';
-    return Xoops_Locale::translateTheme($key, $dirname);
+    return \Xoops\Locale::translateTheme($key, $dirname);
 }

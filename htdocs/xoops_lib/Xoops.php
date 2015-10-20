@@ -1106,9 +1106,9 @@ class Xoops
      *
      * @return  boolean
      */
-    public static function loadLocale($domain = 'xoops', $locale = null)
+    public static function loadLocale($domain = null, $locale = null)
     {
-        return Xoops_Locale::loadLocale($domain, $locale);
+        return \Xoops\Locale::loadLocale($domain, $locale);
     }
 
     /**
@@ -1121,7 +1121,7 @@ class Xoops
      */
     public function translate($key, $dirname = 'xoops')
     {
-        return Xoops_Locale::translate($key, $dirname);
+        return \Xoops\Locale::translate($key, $dirname);
     }
 
     /**
@@ -1599,7 +1599,6 @@ class Xoops
         header("location: {$url}");
         $xoops = \Xoops::getInstance();
         $xoops->events()->triggerEvent('core.redirect.start', array($url));
-        session_write_close();
         exit;
     }
 
@@ -1665,7 +1664,7 @@ class Xoops
         if (is_object($mailer)) {
             return $mailer;
         }
-        Xoops_Locale::loadMailerLocale();
+        \Xoops\Locale::loadMailerLocale();
         if (class_exists('XoopsMailerLocale')) {
             $mailer = new XoopsMailerLocale();
         } else {

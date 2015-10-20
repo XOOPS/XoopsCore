@@ -24,7 +24,7 @@ use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
  * @category  SystemModule
  * @package   SystemModule
  * @author    Andricq Nicolas (AKA MusS)
- * @copyright 2000-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -1157,7 +1157,7 @@ class SystemModule
                             $confop_msgs .= '&nbsp;';
                             $confop_msgs .= XoopsLocale::C_NAME;
                             $confop_msgs .= ' <strong>'
-                                . Xoops_Locale::translate($key, $module->getVar('dirname'))
+                                . \Xoops\Locale::translate($key, $module->getVar('dirname'))
                                 . '</strong> ';
                             $confop_msgs .= XoopsLocale::C_VALUE . ' <strong>' . $value . '</strong> ';
                             unset($confop);

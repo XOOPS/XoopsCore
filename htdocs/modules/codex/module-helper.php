@@ -54,17 +54,17 @@ if ($helper = Xoops\Module\Helper::getHelper('search')) {
 
 //Some examples
 if ($helper = Xoops\Module\Helper::getHelper('codex')) {
-    Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
-    Xoops_Utils::dumpVar($helper->url('index.php'));
+    \Xoops\Utils::dumpVar($helper->getModule()->getVar('name'));
+    \Xoops\Utils::dumpVar($helper->url('index.php'));
 }
 
 if ($helper = Xoops\Module\Helper::getHelper('search')) {
-    Xoops_Utils::dumpVar($helper->getConfigs());
+    \Xoops\Utils::dumpVar($helper->getConfigs());
 }
 
 if ($helper = Xoops\Module\Helper::getHelper('nosuchmodule')) {
-    Xoops_Utils::dumpVar($helper->getModule()->getVar('name'));
+    \Xoops\Utils::dumpVar($helper->getModule()->getVar('name'));
 }
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

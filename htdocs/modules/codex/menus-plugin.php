@@ -29,5 +29,5 @@ The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simp
 See how Codex module hooks into the menus module just by using this codex/class/plugin/menus.php
 ";
 
-Xoops_Utils::dumpFile(__DIR__ . '/class/plugin/menus.php');
+\Xoops\Utils::dumpFile(__DIR__ . '/class/plugin/menus.php');
 $xoops->footer();

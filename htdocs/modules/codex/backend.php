@@ -32,5 +32,5 @@ The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simp
 </ul>
 ";
 
-Xoops_Utils::dumpFile(__DIR__ . '/class/plugin/system.php');
+\Xoops\Utils::dumpFile(__DIR__ . '/class/plugin/system.php');
 $xoops->footer();

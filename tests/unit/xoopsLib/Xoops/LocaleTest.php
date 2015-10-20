@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 */
 class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'Xoops_Locale';
+    protected $myClass = '\Xoops\Locale';
 
     public function test_loadLanguage()
     {
@@ -68,7 +68,7 @@ class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
                 'menusdecorator'    => $path . '/modules/menus/class/decorator.php',
             ));
         }
-        
+
         $class = $this->myClass;
 
         $key = 'key';

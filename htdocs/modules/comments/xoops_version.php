@@ -112,16 +112,13 @@ $modversion['config'][] = array(
     'default'     => 0,
 );
 
-$editors = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
-
 $modversion['config'][] = array(
     'name'        => 'com_editor',
     'title'       => '_MI_COMMENTS_EDITOR',
     'description' => '_MI_COMMENTS_EDITORDSC',
-    'formtype'    => 'select',
+    'formtype'    => 'select_editor',
     'valuetype'   => 'text',
     'default'     => 'dhtmltextarea',
-    'options'     => $editors,
 );
 
 $modversion['config'][] = array(

@@ -50,7 +50,7 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
     public function waiting()
     {
         $xoops = Xoops::getInstance();
-        $ret['count'] = count(XoopsLists::getFileListAsArray($xoops->path('modules/codex/')))-2;
+        $ret['count'] = count(\Xoops\Core\Lists\File::getList($xoops->path('modules/codex/')))-2;
         $ret['name'] = $xoops->getHandlerModule()->getByDirname('codex')->getVar('name');
         $ret['link'] = $xoops->url('modules/codex/');
         return array();
@@ -75,7 +75,7 @@ class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sy
         $i=0;
         $ret=array();
 
-        $files = XoopsLists::getFileListAsArray($xoops->path('modules/codex/'));
+        $files = \Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'));
         foreach ($files as $file) {
             if (!in_array($file, array('xoops_version.php', 'index.php'))) {
                 $ret[$i]['title']   = ucfirst(str_replace('.php', '', $file));

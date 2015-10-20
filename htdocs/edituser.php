@@ -99,7 +99,7 @@ if ($op == 'saveuser') {
         $edituser->setVar('user_yim', Request::getString('user_yim', ''));
         $edituser->setVar('user_msnm', Request::getString('user_msnm', ''));
         $edituser->setVar('attachsig', Request::getBool('attachsig', 0));
-        $edituser->setVar('timezone_offset', Request::getFloat('timezone_offset', 0));
+        $edituser->setVar('timezone_offset', Request::getString('timezone_offset', 'UTC'));
         $edituser->setVar('uorder', Request::getInt('uorder', 0));
         $edituser->setVar('umode', Request::getString('umode', 'flat'));
         $edituser->setVar('notify_method', Request::getInt('notify_method', 1));

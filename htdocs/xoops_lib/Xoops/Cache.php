@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+namespace Xoops;
+
 /**
  * Legacy cache stub
  *
@@ -20,7 +22,7 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-class Xoops_Cache extends \Xoops\Core\Cache\Legacy
+class Cache extends \Xoops\Core\Cache\Legacy
 {
 
 }

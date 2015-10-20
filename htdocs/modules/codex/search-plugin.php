@@ -31,5 +31,5 @@ The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simp
 See how Codex module hooks into the search module just by using this codex/class/plugin/search.php
 ";
 
-Xoops_Utils::dumpFile(__DIR__ . '/class/plugin/search.php');
+\Xoops\Utils::dumpFile(__DIR__ . '/class/plugin/search.php');
 $xoops->footer();

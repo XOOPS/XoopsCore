@@ -104,9 +104,9 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
         }
         $count = count($obj);
         for ($i = 0; $i < $count; ++$i) {
-            $title = Xoops_Locale::translate($obj[$i]->getVar('conf_title'), $mod->getVar('dirname'));
+            $title = \Xoops\Locale::translate($obj[$i]->getVar('conf_title'), $mod->getVar('dirname'));
             $desc = ($obj[$i]->getVar('conf_desc') != '') ?
-                Xoops_Locale::translate($obj[$i]->getVar('conf_desc'), $mod->getVar('dirname')) : '';
+                \Xoops\Locale::translate($obj[$i]->getVar('conf_desc'), $mod->getVar('dirname')) : '';
             switch ($obj[$i]->getVar('conf_formtype')) {
 
                 case 'textarea':
@@ -142,10 +142,19 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                     $options = $config_handler->getConfigOptions(new Criteria('conf_id', $obj[$i]->getVar('conf_id')));
                     $opcount = count($options);
                     for ($j = 0; $j < $opcount; ++$j) {
-                        $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), $mod->getVar('dirname'));
-                        $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), $mod->getVar('dirname'));
+                        $optval = \Xoops\Locale::translate($options[$j]->getVar('confop_value'), $mod->getVar('dirname'));
+                        $optkey = \Xoops\Locale::translate($options[$j]->getVar('confop_name'), $mod->getVar('dirname'));
                         $ele->addOption($optval, $optkey);
                     }
+                    break;
+
+                case 'select_editor':
+                    $ele = new Xoops\Form\Select(
+                        $title,
+                        $obj[$i]->getVar('conf_name'),
+                        $obj[$i]->getConfValueForOutput()
+                    );
+                    \Xoops\Core\Lists\Editor::setOptionsArray($ele);
                     break;
 
                 case 'select_multi':
@@ -153,8 +162,8 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                     $options = $config_handler->getConfigOptions(new Criteria('conf_id', $obj[$i]->getVar('conf_id')));
                     $opcount = count($options);
                     for ($j = 0; $j < $opcount; ++$j) {
-                        $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), $mod->getVar('dirname'));
-                        $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), $mod->getVar('dirname'));
+                        $optval = \Xoops\Locale::translate($options[$j]->getVar('confop_value'), $mod->getVar('dirname'));
+                        $optkey = \Xoops\Locale::translate($options[$j]->getVar('confop_name'), $mod->getVar('dirname'));
                         $ele->addOption($optval, $optkey);
                     }
                     break;

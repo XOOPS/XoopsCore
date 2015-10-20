@@ -28,17 +28,15 @@ class DateSelect extends Text
     /**
      * __construct
      *
-     * @param string  $caption caption
-     * @param string  $name    name
-     * @param integer $size    field size
-     * @param integer $value   date as unix timestamp
+     * @param string            $caption caption
+     * @param string            $name    name
+     * @param integer           $size    field size
+     * @param integer|\DateTime $value   unix timestamp or DateTime object
      */
-    public function __construct($caption, $name, $size = 2, $value = 0)
+    public function __construct($caption, $name, $size = 12, $value = 0)
     {
-        if ($value !== '') {
-            $value = ($value === 0) ? time() : (int)($value);
-        }
-        parent::__construct($caption, $name, $size, 2, $value);
+        $value = \Xoops\Core\Locale\Time::cleanTime($value);
+        parent::__construct($caption, $name, $size, $size , $value);
     }
 
     /**
@@ -51,18 +49,13 @@ class DateSelect extends Text
         static $included = false;
         $xoops = \Xoops::getInstance();
 
-        $ele_value = (string) $this->getValue(false);
-        $display_value = $ele_value;
-        if (0 < (int)($ele_value)) {
-            $display_value = date(\XoopsLocale::getFormatShortDate(), $ele_value);
-        }
-
+        $display_value = \Xoops\Core\Locale\Time::formatDate($this->getValue(false));
         if ($this->getSize() > $this->getMaxcols()) {
             $maxcols = $this->getMaxcols();
         } else {
             $maxcols = $this->getSize();
         }
-        $this->addAttribute('class', 'span' . $maxcols);
+        $this->addAttribute('class', 'span2');
         $dlist = $this->isDatalist();
         if (!empty($dlist)) {
             $this->addAttribute('list', 'list_' . $this->getName());
@@ -72,16 +65,13 @@ class DateSelect extends Text
 
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         $xoops->theme()->addBaseScriptAssets('@jqueryui');
-
-        // TODO - select and apply script by locale, example:
-        // $i18nScript = 'media/jquery/ui/i18n/datepicker-es.js';
-        // $xoops->theme()->addBaseScriptAssets($i18nScript);
+        \Xoops\Core\Locale\Time::localizeDatePicker();
 
         $xoops->theme()->addScript(
             '',
             '',
             ' $(function() { $( "#' . $this->getAttribute('id') . '" ).datepicker({' .
-            'showOn: "button", buttonImageOnly: false, ' .
+            'showOn: "button", buttonImageOnly: false, changeYear: true, constrainInput: false, ' .
             'buttonImage: "' . $xoops->url('media/xoops/images/icons/calendar.png') .'", ' .
             'buttonImageOnly: false, buttonText: "' . \XoopsLocale::A_SELECT . '" }); }); '
         );

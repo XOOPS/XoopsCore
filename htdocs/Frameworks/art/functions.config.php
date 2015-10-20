@@ -36,9 +36,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
             }
         } else {
 
-            if (!$moduleConfig = Xoops_Cache::read("{$dirname}_config")) {
+            if (!$moduleConfig = \Xoops\Cache::read("{$dirname}_config")) {
                 $moduleConfig = mod_fetchConfig($dirname);
-                Xoops_Cache::write("{$dirname}_config", $moduleConfig);
+                \Xoops\Cache::write("{$dirname}_config", $moduleConfig);
             }
         }
         if ($customConfig = @include \XoopsBaseConfig::get('root-path') . "/modules/{$dirname}/include/plugin.php") {
@@ -104,7 +104,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CONFIG")):
         }
 
 
-        return Xoops_Cache::delete("{$dirname}_config");
+        return \Xoops\Cache::delete("{$dirname}_config");
     }
 
     function mod_clearConfg($dirname = "")

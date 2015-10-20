@@ -57,12 +57,9 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Label(_MD_COMMENTS_COMRULES, $rule_text));
 
         $this->addElement(new Xoops\Form\Text(_MD_COMMENTS_TITLE, 'com_title', 50, 255, $obj->getVar('title', 'e')), true);
-        $icons_radio = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'com_icon', $obj->getVar('icon', 'e'));
-        $subject_icons = XoopsLists::getSubjectsList();
-        foreach ($subject_icons as $iconfile) {
-            $icons_radio->addOption($iconfile, '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $iconfile . '" alt="" />');
-        }
-        $this->addElement($icons_radio);
+        $iconsRadio = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'com_icon', $obj->getVar('icon', 'e'));
+        \Xoops\Core\Lists\SubjectIcon::setOptionsArray($iconsRadio);
+        $this->addElement($iconsRadio);
         // editor
         $editor = $helper->getConfig('com_editor');
         if (class_exists('Xoops\Form\Editor')) {

@@ -145,5 +145,5 @@ Metagen::assignDescription($description);
 
 // dump our source
 echo '<br /><h2>Source code</h2>';
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

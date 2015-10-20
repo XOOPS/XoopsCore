@@ -107,7 +107,7 @@ class Events
             $i = 0;
             foreach ($modules_list as $module) {
                 if (is_dir($dir = \XoopsBaseConfig::get('root-path') . "/modules/{$module}/preloads/")) {
-                    $file_list = \XoopsLists::getFileListAsArray($dir);
+                    $file_list = Lists\File::getList($dir);
                     foreach ($file_list as $file) {
                         if (preg_match('/(\.php)$/i', $file)) {
                             $file = substr($file, 0, -4);

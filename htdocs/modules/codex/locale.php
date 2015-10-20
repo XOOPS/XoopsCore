@@ -9,11 +9,14 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+use Xoops\Core\Locale\Time;
+
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
+ * @author    Richard Griffith <richard@geekwright.com>
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -21,34 +24,35 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$locales = Xoops_Locale::getUserLocales();
-Xoops_Utils::dumpVar($locales);
+$default = Time::cleanTime();
+$dateOnly = Request::getDateTime('date', $default);
+$dateAndTime = Request::getDateTime('date_time', $default);
 
-//translations are lazy loaded, they won't be included if a constant not called
-Xoops_Locale::loadLocale();
-Xoops_Locale::loadLocale('system');
-//or
-$xoops->loadLocale();
-$xoops->loadLocale('system');
+// Date demo form
+$form = new Xoops\Form\ThemeForm('Date and Time', 'form_localedates', '', 'post');
 
-echo XoopsLocale::A_DELETE; echo '</br>';
-echo XoopsLocale::A_POST; echo '</br>';
-echo SystemLocale::RECOMMEND_US; echo '</br>';
+$date = new Xoops\Form\DateSelect('Date', 'date', 12, $dateOnly);
+$date->setDescription(\XoopsLocale::formatTimestamp($dateOnly, 'custom'));
+$form->addElement($date, true);
 
-//Translate using wrapper, no auto completion but offers support
-echo Xoops_Locale::translate('A_EDIT'); echo '</br>'; //get from XoopsLocale by default
-echo Xoops_Locale::translate('ADMINISTRATION_MENU'); echo '</br>'; //Not in XoopsLocale, the key is echoed
-echo Xoops_Locale::translate('ADMINISTRATION_MENU', 'system'); echo '</br>';//Displays translation
-echo Xoops_Locale::translate('_CHARSET'); echo '</br>';//Translations not present on classes are loaded from defines()
-//or
-echo $xoops->translate('ACTIVE'); echo '</br>';
+$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 12, $dateAndTime, 'Date...');
+$date_time->setDescription(Time::describeRelativeInterval($dateAndTime));
+$form->addElement($date_time, true);
 
-//Example of template
-$tpl = new XoopsTpl();
-$tpl->display(__DIR__ . '/templates/language.tpl');
+$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$form->addElement($buttonSubmit);
 
-Xoops_Utils::dumpFile(__FILE__);
+$form->display();
 
-echo "Template file:"; echo '</br>';
-Xoops_Utils::dumpFile(__DIR__ . '/templates/language.tpl');
+
+// Locale selection form
+$localePicker = new Xoops\Form\ThemeForm('Change Locale', 'form_locale', '', 'get');
+$localeSelect = new Xoops\Form\SelectLocale('Locale', 'lang', Request::getString('lang', 'en_US'));
+$localePicker->addElement($localeSelect);
+$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$localePicker->addElement($buttonSubmit);
+$localePicker->display();
+
+\Xoops\Utils::dumpFile(__FILE__);
+
 $xoops->footer();

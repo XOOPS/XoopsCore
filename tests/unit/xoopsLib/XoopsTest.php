@@ -21,7 +21,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($instance, $instance2);
 
         // First initialization in first test
-        if (!class_exists('Xoops_Locale', false)) {
+        if (!class_exists('\Xoops\Locale', false)) {
             $value = $instance->loadLocale();
             $this->assertSame(true, $value);
         }

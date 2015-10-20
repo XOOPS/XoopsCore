@@ -30,6 +30,6 @@ if (!$xoops->service('qrcode')->isAvailable()) {
     echo 'Please install a qrcode provider to view this demonstration.';
 }
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 
 $xoops->footer();

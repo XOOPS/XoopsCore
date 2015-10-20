@@ -130,23 +130,9 @@ class XoopsUserUtility
                 }
             }
         }
-        $uname = XoopsLocale::trim($uname);
-        $restriction = '';
-        switch ($xoops->getConfig('uname_test_level')) {
-            case 0:
-                // strict
-                $restriction = '/[^a-zA-Z0-9\_\-]/';
-                break;
-            case 1:
-                // medium
-                $restriction = '/[^a-zA-Z0-9\_\-\<\>\,\.\$\%\#\@\!\\\'\']/';
-                break;
-            case 2:
-                // loose
-                $restriction = '/[\000-\040]/';
-                break;
-        }
-        if (empty($uname) || preg_match($restriction, $uname)) {
+        // $uname = XoopsLocale::trim($uname);
+        // no controls, puctuation, symbols, spaces or invisible separators
+        if (!preg_match('/^[^\p{C}\p{P}\p{S}\p{Z}]+$/u', $uname)) {
             $stop .= XoopsLocale::E_INVALID_USERNAME . '<br />';
         }
         // Check uname settings if current operator is not an administrator
@@ -173,9 +159,8 @@ class XoopsUserUtility
         $uid = is_object($user) ? $user->getVar('uid') : 0;
 
         $user_handler = $xoops->getHandlerUser();
-        $myts = MyTextSanitizer::getInstance();
 
-        $criteria = new CriteriaCompo(new Criteria('uname', $myts->addSlashes($uname)));
+        $criteria = new CriteriaCompo(new Criteria('uname', $uname));
         if ($uid > 0) {
             $criteria->add(new Criteria('uid', $uid, '<>'));
         }
@@ -184,7 +169,7 @@ class XoopsUserUtility
             $stop .= XoopsLocale::E_USERNAME_TAKEN . '<br />';
         }
 
-        $criteria = new CriteriaCompo(new Criteria('email', $myts->addSlashes($email)));
+        $criteria = new CriteriaCompo(new Criteria('email', $email));
         if ($uid > 0) {
             $criteria->add(new Criteria('uid', $uid, '<>'));
         }

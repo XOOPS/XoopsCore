@@ -156,10 +156,7 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
         $form->addElement(new Xoops\Form\Text(_PM_SUBJECTC, 'subject', 4, 100, $subject), true);
 
         $icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
-        $subject_icons = XoopsLists::getSubjectsList();
-        foreach (array_keys($subject_icons) as $i) {
-            $icons->addOption($i, "<img src='" . $xoops->url("images/subject/") . $i . "' alt='" . $i . "' />");
-        }
+        \Xoops\Core\Lists\SubjectIcon::setOptionsArray($icons);
         $form->addElement($icons, false);
         $form->addElement(new Xoops\Form\DhtmlTextArea(_PM_MESSAGEC, 'message', $message, 8, 37), true);
         $form->addElement(new Xoops\Form\RadioYesNo(_PM_SAVEINOUTBOX, 'savecopy', 0));

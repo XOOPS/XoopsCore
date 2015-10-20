@@ -20,9 +20,10 @@ class CodexSearchPlugin extends Xoops\Module\Plugin\PluginAbstract implements Se
 {
     public function search($queries, $andor, $limit, $start, $uid)
     {
+        $xoops = Xoops::getInstance();
         $queries = implode(' ', (array) $queries);
 
-        $files = XoopsLists::getFileListAsArray(dirname(dirname(__DIR__)));
+        $files = \Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'));
         $res = array();
         $i = 0;
         foreach ($files as $file) {

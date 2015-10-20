@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 */
 class Xoops_CacheTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'Xoops_Cache';
+    protected $myClass = '\Xoops\Cache';
 
     public function setUp()
     {
@@ -16,7 +16,7 @@ class Xoops_CacheTest extends \PHPUnit_Framework_TestCase
 
     public function test_config()
     {
-        $class = new \Xoops_Cache();
+        $class = new \Xoops\Cache();
         $this->assertInstanceOf('\Xoops\Core\Cache\Legacy', $class);
     }
 
