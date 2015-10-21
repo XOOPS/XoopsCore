@@ -30,8 +30,8 @@ $reg_form->addElement($email_tray);
 $reg_form->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, 'pass', 10, 32, $myts->htmlSpecialChars($pass)), true);
 $reg_form->addElement(new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass', 10, 32, $myts->htmlSpecialChars($vpass)), true);
 $reg_form->addElement(new Xoops\Form\Text(XoopsLocale::WEBSITE, 'url', 25, 255, $myts->htmlSpecialChars($url)));
-$tzselected = ($timezone_offset != '') ? $timezone_offset : $xoopsConfig['default_TZ'];
-$reg_form->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, 'timezone_offset', $tzselected));
+$tzselected = ($timezone != '') ? $timezone : $xoopsConfig['default_TZ'];
+$reg_form->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, 'timezone', $tzselected));
 //$reg_form->addElement($avatar_tray);
 $reg_form->addElement(new Xoops\Form\RadioYesNo(XoopsLocale::Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS, 'user_mailok', $user_mailok));
 if ($xoopsConfigUser['reg_dispdsclmr'] != 0 && $xoopsConfigUser['reg_disclaimer'] != '') {

@@ -129,70 +129,6 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array('http://www.xoops.org/backend.php'), $x);
     }
 
-    public function test_getFormatToday()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatToday();
-        $this->assertSame('\T\o\d\a\y G:i', $x);
-    }
-
-    public function test_getFormatYesterday()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatYesterday();
-        $this->assertSame('\Y\e\s\t\e\r\d\a\y G:i', $x);
-    }
-
-    public function test_getFormatMonthDay()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatMonthDay();
-        $this->assertSame("n/j G:i", $x);
-    }
-
-    public function test_getFormatYearMonthDay()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatYearMonthDay();
-        $this->assertSame("Y/n/j G:i", $x);
-    }
-
-    public function test_getFormatLongDate()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatLongDate();
-        $this->assertSame("Y/n/j G:i:s", $x);
-    }
-
-
-    public function test_getFormatMediumDate()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatMediumDate();
-        $this->assertSame("Y/n/j G:i", $x);
-    }
-
-    public function test_getFormatShortDate()
-    {
-        $this->markTestSkipped('removed');
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatShortDate();
-        $this->assertSame("Y/n/j", $x);
-    }
-
     public function test_substr()
     {
         $instance = $this->myClass;
@@ -223,9 +159,8 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $instance = $this->myClass;
 
-        $x = $instance::convert_encoding("");
-        $this->assertSame("", $x);
-        $this->markTestIncomplete();
+        $x = $instance::convert_encoding("blah");
+        $this->assertSame("blah", $x);
     }
 
     public function test_trim()
@@ -239,86 +174,192 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function test_formatTimestamp()
     {
-        $this->markTestSkipped('major refactoring');
-
         $instance = $this->myClass;
 
-        $time = time();
+        \Xoops\Locale::setTimeZone(new \DateTimeZone('America/New_York'));
+        \Xoops\Locale::setCurrent('en_US');
 
-        $xoops = \Xoops::getInstance();
-        if ($timeoffset === null) {
-            $timeoffset = ($xoops->getConfig('default_TZ') == '') ? '0.0' : $xoops->getConfig('default_TZ');
-        }
-        $usertimestamp = $xoops->getUserTimestamp($time, $timeoffset);
+        $dateTime = \Xoops\Core\Locale\Time::cleanTime();
+        $dateTime->setDate(2015, 12, 14);
+        $dateTime->setTime(0, 0, 0);
 
-        $value = $instance::formatTimestamp($time);
-        $datestring = $instance::getFormatLongDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
+        $time = $dateTime->getTimestamp();
+
+        $expected = 'Monday, December 14, 2015 at 12:00:00 AM Eastern Standard Time';
+        $value = $instance::formatTimestamp($time, 'full');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 'f');
         $this->assertSame($expected, $value);
 
+        $expected = 'December 14, 2015 at 12:00:00 AM EST';
+        $value = $instance::formatTimestamp($time, 'long');
+        $this->assertSame($expected, $value);
         $value = $instance::formatTimestamp($time, 'l');
-        $datestring = $instance::getFormatLongDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
         $this->assertSame($expected, $value);
-
         $value = $instance::formatTimestamp($time, '');
-        $datestring = $instance::getFormatLongDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
         $this->assertSame($expected, $value);
 
-        $TIME_ZONE = '';
-        if ($xoops->getConfig('server_TZ')) {
-            $server_TZ = abs((int)($xoops->getConfig('server_TZ') * 3600.0));
-            $prefix = ($xoops->getConfig('server_TZ') < 0) ? ' -' : ' +';
-            $TIME_ZONE = $prefix . date('Hi', $server_TZ);
-        }
+        $expected = 'Dec 14, 2015, 12:00:00 AM';
+        $value = $instance::formatTimestamp($time, 'medium');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 'm');
+        $this->assertSame($expected, $value);
 
-        $expected = gmdate('D, d M Y H:i:s', (int)($time)) . $TIME_ZONE;
+        $expected = '12/14/2015, 12:00 AM';
+        $value = $instance::formatTimestamp($time, 'short');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 's');
+        $this->assertSame($expected, $value);
+
+        $expected = 'Mon, 14 Dec 2015 05:00:00 +0000';
         $value = $instance::formatTimestamp($time, 'rss');
         $this->assertSame($expected, $value);
 
-        $value = $instance::formatTimestamp($time, 'r');
-        $this->assertSame($expected, $value);
-
-        $value = $instance::formatTimestamp($time, 's');
-        $datestring = $instance::getFormatShortDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected, $value);
-
-        $value = $instance::formatTimestamp($time, 'm');
-        $datestring = $instance::getFormatMediumDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected, $value);
-
+        $expected = '2015-12-14 05:00:00'; // converted to UTC
         $value = $instance::formatTimestamp($time, 'mysql');
-        $datestring = 'Y-m-d H:i:s';
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
         $this->assertSame($expected, $value);
 
-        $elapse = strtotime('-3 seconds', time());
-        $value = $instance::formatTimestamp($elapse, 'e');
-        $this->assertTrue(strpos($value, '3') !== false);
-        $this->assertTrue(strpos($value, 'seconds') !== false);
+        $expected = 'now';
+        $dateTime = new \DateTime;
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
 
-        $elapse = strtotime('-3 seconds', time());
-        $value = $instance::formatTimestamp($elapse, 'elapse');
-        $this->assertTrue(strpos($value, '3') !== false);
-        $this->assertTrue(strpos($value, 'seconds') !== false);
+        $expected = '3 seconds ago';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('PT3S');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
 
-        $elapse = strtotime('-2 days', time());
-        $value = $instance::formatTimestamp($elapse, 'elapse', null);
-        $this->assertTrue(strpos($value, '2') !== false);
-        $this->assertTrue(strpos($value, 'days') !== false);
+        $expected = 'in 3 seconds';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('PT3S');
+        $dateTime->add($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
 
-        $elapse = strtotime('-3 hours', time());
-        $value = $instance::formatTimestamp($elapse, 'elapse', null);
-        $this->assertTrue(strpos($value, '3') !== false);
-        $this->assertTrue(strpos($value, 'hours') !== false);
+        $expected = 'yesterday';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P1D');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
 
-        $elapse = strtotime('-4 minutes', time());
-        $value = $instance::formatTimestamp($elapse, 'elapse', null);
-        $this->assertTrue(strpos($value, '4') !== false);
-        $this->assertTrue(strpos($value, 'minutes') !== false);
+        $expected = 'tomorrow';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P1D');
+        $dateTime->add($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = '12 days ago';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P12DT4H');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = '2 years ago';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P2Y3M');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+    }
+
+    public function test_formatTimestampFR()
+    {
+        $instance = $this->myClass;
+
+        \Xoops\Locale::setTimeZone(new \DateTimeZone('Europe/PAris'));
+        \Xoops\Locale::setCurrent('fr_FR');
+
+        $dateTime = \Xoops\Core\Locale\Time::cleanTime();
+        $dateTime->setDate(2015, 12, 14);
+        $dateTime->setTime(0, 0, 0);
+
+        $time = $dateTime->getTimestamp();
+
+        $expected = 'lundi 14 décembre 2015 00:00:00 heure normale d’Europe centrale';
+        $value = $instance::formatTimestamp($time, 'full');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 'f');
+        $this->assertSame($expected, $value);
+
+        $expected = '14 décembre 2015 00:00:00 UTC+1';
+        $value = $instance::formatTimestamp($time, 'long');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 'l');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, '');
+        $this->assertSame($expected, $value);
+
+        $expected = '14 déc. 2015 00:00:00';
+        $value = $instance::formatTimestamp($time, 'medium');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 'm');
+        $this->assertSame($expected, $value);
+
+        $expected = '14/12/2015 00:00';
+        $value = $instance::formatTimestamp($time, 'short');
+        $this->assertSame($expected, $value);
+        $value = $instance::formatTimestamp($time, 's');
+        $this->assertSame($expected, $value);
+
+        $expected = 'Sun, 13 Dec 2015 23:00:00 +0000';
+        $value = $instance::formatTimestamp($time, 'rss');
+        $this->assertSame($expected, $value);
+
+        $expected = '2015-12-13 23:00:00'; // converted to UTC
+        $value = $instance::formatTimestamp($time, 'mysql');
+        $this->assertSame($expected, $value);
+
+        $expected = 'maintenant';
+        $dateTime = new \DateTime;
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = 'il y a 3 secondes';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('PT3S');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = 'dans 3 secondes';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('PT3S');
+        $dateTime->add($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = 'hier';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P1D');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = 'demain';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P1D');
+        $dateTime->add($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = 'il y a 12 jours';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P12DT4H');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
+
+        $expected = 'il y a 2 ans';
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval('P2Y3M');
+        $dateTime->sub($interval);
+        $value = $instance::formatTimestamp($dateTime, 'e');
+        $this->assertSame($expected, $value);
     }
 
     public function test_number_format()

@@ -56,4 +56,18 @@ class SelectTimeZoneTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(false !== strpos($value, 'value="Europe/Paris"'));
         $this->assertTrue(false !== strpos($value, '</option>'));
     }
+
+    public function testValue()
+    {
+        $testValue = 'Europe/Paris';
+        $element = new SelectTimeZone('Caption', 'name', $testValue);
+        $actual = $element->getValue(false);
+        $this->assertSame((array) $testValue, $actual);
+
+        $testValue = 'Europe/Paris';
+        $element = new SelectTimeZone('Caption', 'name', new \DateTimeZone($testValue));
+        $actual = $element->getValue(false);
+        $this->assertSame((array) $testValue, $actual);
+    }
+
 }

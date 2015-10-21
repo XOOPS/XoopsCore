@@ -99,7 +99,7 @@ if ($op == 'saveuser') {
         $edituser->setVar('user_yim', Request::getString('user_yim', ''));
         $edituser->setVar('user_msnm', Request::getString('user_msnm', ''));
         $edituser->setVar('attachsig', Request::getBool('attachsig', 0));
-        $edituser->setVar('timezone_offset', Request::getString('timezone_offset', 'UTC'));
+        $edituser->setVar('timezone', Request::getString('timezone', 'UTC'));
         $edituser->setVar('uorder', Request::getInt('uorder', 0));
         $edituser->setVar('umode', Request::getString('umode', 'flat'));
         $edituser->setVar('notify_method', Request::getInt('notify_method', 1));
@@ -145,8 +145,8 @@ if ($op == 'editprofile') {
 
     $timezone_select = new Xoops\Form\SelectTimeZone(
         XoopsLocale::TIME_ZONE,
-        'timezone_offset',
-        $xoops->user->getVar('timezone_offset')
+        'timezone',
+        $xoops->user->getVar('timezone')
     );
     $icq_text = new Xoops\Form\Text(XoopsLocale::ICQ, 'user_icq', 15, 15, $xoops->user->getVar('user_icq', 'E'));
     $aim_text = new Xoops\Form\Text(XoopsLocale::AIM, 'user_aim', 18, 18, $xoops->user->getVar('user_aim', 'E'));

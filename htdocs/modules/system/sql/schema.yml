@@ -1842,8 +1842,8 @@ tables:
                 columnDefinition: null
                 comment: null
                 collation: utf8mb4_unicode_ci
-            timezone_offset:
-                name: timezone_offset
+            timezone:
+                name: timezone
                 type: string
                 default: 'UTC'
                 notnull: true

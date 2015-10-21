@@ -725,7 +725,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_int($value));
 
         $instance->user = new XoopsUser();
-        $instance->user->setVar('timezone_offset', 10);
+        $instance->user->setVar('timezone', 10);
         $value = $instance->getUserTimestamp(time());
         $this->assertTrue(is_int($value));
     }

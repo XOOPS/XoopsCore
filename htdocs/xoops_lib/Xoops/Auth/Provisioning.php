@@ -182,7 +182,7 @@ class Provisioning
         $newuser->setVar('last_pass_change', time());
         $newuser->setVar('rank', 0);
         $newuser->setVar('level', 1);
-        $newuser->setVar('timezone_offset', $xoops->getConfig('default_TZ'));
+        $newuser->setVar('timezone', $xoops->getConfig('default_TZ'));
         $newuser->setVar('theme', $xoops->getConfig('theme_set'));
         //$newuser->setVar('umode', $xoops->getConfig('com_mode'));
         //$newuser->setVar('uorder', $xoops->getConfig('com_order'));

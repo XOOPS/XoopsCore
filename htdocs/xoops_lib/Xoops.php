@@ -1381,24 +1381,16 @@ class Xoops
     }
 
     /**
-     * Get User Timestamp
+     * Get User Timestamp (kind of pointless, since timestamps are UTC?)
      *
-     * @param mixed  $time       unix timestamp
-     * @param string $timeoffset timezone
+     * @param \DateTime|int $time DateTime object or unix timestamp
      *
-     * @return int
+     * @return int unix timestamp
      */
-    public function getUserTimestamp($time, $timeoffset = '')
+    public function getUserTimestamp($time)
     {
-        if ($timeoffset == '') {
-            if ($this->isUser()) {
-                $timeoffset = $this->user->getVar('timezone_offset');
-            } else {
-                $timeoffset = $this->getConfig('default_TZ');
-            }
-        }
-        $usertimestamp = (int)($time) + ((float)($timeoffset) - $this->getConfig('server_TZ')) * 3600;
-        return (int)$usertimestamp;
+        $dt = \Xoops\Core\Locale\Time::cleanTime($time);
+        return $dt->getTimestamp();
     }
 
     /**

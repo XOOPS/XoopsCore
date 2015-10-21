@@ -75,8 +75,10 @@ class Locale
             static::$currentTimeZone = static::getDefaultTimeZone();
             if ($xoops->isUser()) {
                 $tz = $xoops->user->timezone();
-                if (!is_numeric($tz)) {
-                    static::$currentTimeZone = new \DateTimeZone($tz);
+                if (is_a($tz, '\DateTimeZone')) {
+                    static::$currentTimeZone = $tz;
+                } elseif (is_string($tz)) {
+                    static::$currentTimeZone = static::newDateTimeZone($tz);
                 }
             }
         }
@@ -96,6 +98,24 @@ class Locale
     }
 
     /**
+     * Instantiate a new DateTimeZone object for a timezone name, with fallback to UTC on error
+     *
+     * @param string $timeZoneName name of timezone
+     *
+     * @return \DateTimeZone
+     */
+    protected static function newDateTimeZone($timeZoneName)
+    {
+        try {
+            $timeZone = new \DateTimeZone($timeZoneName);
+        } catch (\Exception $e) {
+            $timeZone = new \DateTimeZone('UTC');
+        }
+
+        return $timeZone;
+    }
+
+    /**
      * Get the default timezone as set in default_TZ config
      *
      * @return \DateTimeZone
@@ -107,7 +127,7 @@ class Locale
             if (is_numeric($tz)) {
                 $tz = 'UTC';
             }
-            static::$defaultTimeZone = new \DateTimeZone($tz);
+            static::$defaultTimeZone = static::newDateTimeZone($tz);
         }
         return static::$defaultTimeZone;
     }
@@ -124,7 +144,7 @@ class Locale
             if (is_numeric($tz)) {
                 $tz = 'UTC';
             }
-            static::$systemTimeZone = new \DateTimeZone($tz);
+            static::$systemTimeZone = static::newDateTimeZone($tz);
         }
         return static::$systemTimeZone;
     }

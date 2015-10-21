@@ -60,7 +60,8 @@ class Dtype
     const TYPE_ENUM        = 15;
     const TYPE_JSON        = 30;
     const TYPE_DATETIME    = 31;
-    const TYPE_MONEY       = 32;
+    const TYPE_TIMEZONE    = 32;
+    const TYPE_MONEY       = 33;
 
     /**
      * cleanVar
@@ -143,7 +144,8 @@ class Dtype
             15 => 'DtypeEnum',
             30 => 'DtypeJson',
             31 => 'DtypeDateTime',
-            32 => 'DtypeMoney',
+            32 => 'DtypeTimeZone',
+            33 => 'DtypeMoney',
         );
 
         $nameIndex = $obj->vars[$key]['data_type'];

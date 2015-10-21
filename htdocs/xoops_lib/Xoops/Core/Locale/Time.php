@@ -194,6 +194,27 @@ class Time
     }
 
     /**
+     * Format a date/time.
+     *
+     * @param \DateTime $value The \DateTime instance for which you want the localized textual representation
+     * @param string    $width The format name; it can be 'full', 'long', 'medium', 'short' or a combination
+     *                          for date+time like 'full|short' or a combination for format+date+time like
+     *                          'full|full|short'
+     *                          You can also append an asterisk ('*') to the date part of $width. If so,
+     *                          special day names may be used (like 'Today', 'Yesterday', 'Tomorrow') instead
+     *                          of the date part.
+     * @param string $locale   The locale to use. If empty we'll use the default locale
+     *
+     * @return string Returns an empty string if $value is empty, the localized textual representation otherwise
+     *
+     * @throws \Punic\Exception Throws an exception in case of problems
+     */
+    public static function formatDateTime(\DateTime $value, $width, $locale = '')
+    {
+        return Calendar::formatDatetime($value, $width, $locale);
+    }
+
+    /**
      * Perform any localization required for date picker used in Form\DateSelect
      *
      * @return void

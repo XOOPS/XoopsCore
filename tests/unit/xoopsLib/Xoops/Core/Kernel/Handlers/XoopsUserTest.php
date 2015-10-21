@@ -47,8 +47,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($value['rank']));
         $this->assertTrue(isset($value['level']));
         $this->assertTrue(isset($value['theme']));
-        $this->assertTrue(isset($value['timezone_offset']));
+        $this->assertTrue(isset($value['timezone']));
         $this->assertTrue(isset($value['last_login']));
+        $this->assertTrue(isset($value['last_pass_change']));
         $this->assertTrue(isset($value['umode']));
         $this->assertTrue(isset($value['uorder']));
         $this->assertTrue(isset($value['notify_method']));
@@ -245,7 +246,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function test_timezone()
     {
         $value=$this->object->timezone();
-        $this->assertSame('UTC', $value);
+        $this->assertInstanceOf('\DateTimeZone', $value);
+        $this->assertSame('UTC', $value->getName());
     }
 
     public function test_umode()

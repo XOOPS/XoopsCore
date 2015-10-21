@@ -94,7 +94,8 @@ abstract class AbstractLocale
      */
     public static function getLegacyLanguage()
     {
-        return reset(\Xoops\Core\Locale\LegacyCodes::getLegacyName(\Xoops\Locale::getCurrent()));
+        $legacyLanguages = \Xoops\Core\Locale\LegacyCodes::getLegacyName(\Xoops\Locale::getCurrent());
+        return reset($legacyLanguages);
     }
 
     /**
@@ -235,15 +236,19 @@ abstract class AbstractLocale
         switch (strtolower($format)) {
             case 'short':
             case 's':
-                return Time::formatDate($workingTime, 'short');
+                return Time::formatDateTime($workingTime, 'short');
 
             case 'medium':
             case 'm':
-                return Time::formatDate($workingTime, 'medium');
+                return Time::formatDateTime($workingTime, 'medium');
 
             case 'long':
             case 'l':
-                return Time::formatDate($workingTime, 'long');
+                return Time::formatDateTime($workingTime, 'long');
+
+            case 'full':
+            case 'f':
+                return Time::formatDateTime($workingTime, 'full');
 
             case 'c':
             case 'custom':
@@ -268,7 +273,7 @@ abstract class AbstractLocale
                 if ($format != '') {
                     return $workingTime->format($format);
                 }
-                return Time::formatDate($workingTime, 'long');
+                return Time::formatDateTime($workingTime, 'long');
                 break;
         }
     }
