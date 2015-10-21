@@ -34,11 +34,9 @@ class TimeZone extends ListAbstract
     public static function getList()
     {
         $timeZones = array();
-        $territories = \Punic\Territory::getContinentsAndCountries();
+        $territories = Territory::getContinentsAndCountries();
         $maxLen = 0;
         $utcDtz = new \DateTimeZone('UTC');
-        $utcDt = new \DateTime('now', $utcDtz);
-        $countries = Territory::getCountries();
         foreach ($territories as $byContinent) {
             $continent = $byContinent['name'];
             foreach ($byContinent['children'] as $cCode => $cName) {

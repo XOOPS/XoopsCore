@@ -14,7 +14,6 @@ namespace Xoops\Core\Locale;
 use Xoops\Core\Locale\Punic\Calendar;
 use Punic\Data;
 use Punic\Plural;
-use Punic\Exception\BadArgumentType;
 use Xoops\Locale;
 
 /**
@@ -39,7 +38,7 @@ class Time
     public static function cleanTime($time = null)
     {
         if (is_a($time, '\DateTime')) {
-            return $time;
+            return $time->setTimezone(Locale::getTimeZone());
         }
         if ($time === null || $time === 0 || $time === '') {
             return new \DateTime('now', Locale::getTimeZone());
@@ -53,7 +52,8 @@ class Time
      * for rounding.
      *
      * @param \DateTime      $dateEnd   The terminal date
-     * @param \DateTime|null $dateStart The anchor date, defaults to now. (if it has a timezone different than $dateEnd, we'll use the one of $dateEnd)
+     * @param \DateTime|null $dateStart The anchor date, defaults to now. (if it has a timezone different than
+     *                        $dateEnd, we'll use the one of $dateEnd)
      * @param string         $width     The format name; it can be '', 'short' or 'narrow'
      * @param string         $locale    The locale to use. If empty we'll use the default locale set in \Punic\Data
      *
@@ -68,9 +68,10 @@ class Time
         }
         if (empty($dateStart) && ($dateStart !== 0) && ($dateStart !== '0')) {
             $dateStart = new \DateTime('now');
-        }
-        if (!is_a($dateStart, '\DateTime')) {
+        } elseif (!is_a($dateStart, '\DateTime')) {
             throw new \InvalidArgumentException('Not a DateTime object');
+        } else {
+            $dateStart = clone $dateStart;
         }
         $dateStart->setTimezone($dateEnd->getTimezone());
 
@@ -151,10 +152,8 @@ class Time
      * @param string                  $locale     The locale to use. If empty we'll use the default
      *
      * @return string Returns an empty string if $value is empty, the localized textual representation otherwise
-     *
-     * @throws \Punic\Exception Throws an exception in case of problems
      */
-    static public function formatDate($value, $width = 'short', $toTimezone = '', $locale = '')
+    public static function formatDate($value, $width = 'short', $toTimezone = '', $locale = '')
     {
         try {
             $formatted = Calendar::formatDateEx($value, $width, $toTimezone, $locale);
@@ -183,7 +182,7 @@ class Time
      *
      * @throws \Punic\Exception Throws an exception in case of problems
      */
-    static public function formatTime($value, $width = 'short', $toTimezone = '', $locale = '')
+    public static function formatTime($value, $width = 'short', $toTimezone = '', $locale = '')
     {
         try {
             $formatted = Calendar::formatTimeEx($value, $width, $toTimezone, $locale);
@@ -222,7 +221,14 @@ class Time
         }
     }
 
-    private static function utf8StringToChars($input)
+    /**
+     * turn a utf8 string into an array of characters
+     *
+     * @param string $input string to convert
+     *
+     * @return array
+     */
+    protected static function utf8StringToChars($input)
     {
         $chars = array();
         $strLen = mb_strlen($input, 'UTF-8');
@@ -232,6 +238,17 @@ class Time
         return $chars;
     }
 
+    /**
+     * parse a date input according to a locale and apply it to a DateTime object
+     *
+     * @param \DateTime $datetime datetime to apply date to
+     * @param string    $input    localized date string
+     * @param string    $locale   optional locale to use, leave blank to use current
+     *
+     * @return void
+     *
+     * @throws \Punic\Exception\ValueNotInList
+     */
     protected static function parseInputDate(\DateTime $datetime, $input, $locale = '')
     {
         $year = 0;
@@ -324,6 +341,18 @@ class Time
         // public DateTime DateTime::setTime ( int $hour , int $minute [, int $second = 0 ] )
     }
 
+    /**
+     * parse a time input according to a locale and apply it to a DateTime object
+     *
+     * @param \DateTime $datetime datetime to apply time to
+     * @param string    $input    localized time string
+     * @param string    $locale   optional locale to use, leave blank to use current
+     *
+     * @return void
+     *
+     * @throws \Punic\Exception\BadArgumentType
+     * @throws \Punic\Exception\ValueNotInList
+     */
     protected static function parseInputTime(\DateTime $datetime, $input, $locale = '')
     {
         $timeFormat = Calendar::getTimeFormat('short', $locale);
@@ -414,15 +443,21 @@ class Time
             }
         }
         $datetime->setTime($hour, $minute, $second);
-        // public DateTime DateTime::setTime ( int $hour , int $minute [, int $second = 0 ] )
     }
 
+    /**
+     * Convert a XOOPS DateSelect or DateTime form input into a DateTime object
+     *
+     * @param string|string[] $input  date string, or array of date and time strings
+     * @param string          $locale optional locale to use, leave blank to use current
+     *
+     * @return \DateTime
+     */
     public static function inputToDateTime($input, $locale = '')
     {
         $dateTime = static::cleanTime();
         $dateTime->setTime(0, 0, 0);
 
-        $time = $input;
         if (is_array($input)) {
             static::parseInputDate($dateTime, $input['date'], $locale);
             static::parseInputTime($dateTime, $input['time'], $locale);

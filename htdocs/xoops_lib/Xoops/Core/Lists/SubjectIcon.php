@@ -11,6 +11,8 @@
 
 namespace Xoops\Core\Lists;
 
+use Xoops\Form\OptionElement;
+
 /**
  * ImageFiles - provide list of image file names from a directory
  *
@@ -33,7 +35,7 @@ class SubjectIcon extends ListAbstract
     public static function getList($subDirectory = '')
     {
         $xoops = \Xoops::getInstance();
-        $subdirectory = trim($subDirectory, '/');
+        $subDirectory = trim($subDirectory, '/');
         $path = 'images/subject/' . $subDirectory;
         $subjects = ImageFile::getList($xoops->path($path), $subDirectory . '/');
 
@@ -51,9 +53,12 @@ class SubjectIcon extends ListAbstract
     public static function setOptionsArray(OptionElement $element, $subDirectory = '')
     {
         $xoops = \Xoops::getInstance();
-        $subjects = static::getList($path);
+        $subjects = static::getList($subDirectory);
         foreach (array_keys($subjects) as $name) {
-            $element->addOption($name, '<img src="' . $xoops->url('images/subject/') . $name . '" alt="' . $name . '" />');
+            $element->addOption(
+                $name,
+                '<img src="' . $xoops->url('images/subject/') . $name . '" alt="' . $name . '" />'
+            );
         }
     }
 }

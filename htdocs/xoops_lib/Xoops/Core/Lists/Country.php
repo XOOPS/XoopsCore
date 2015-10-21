@@ -38,6 +38,13 @@ class Country extends ListAbstract
         return $countryList;
     }
 
+    /**
+     * add list to a Xoops\Form\OptionElement
+     *
+     * @param OptionElement $element
+     *
+     * @return void
+     */
     public static function setOptionsArray(OptionElement $element)
     {
         $element->addOptionArray([""   => "-"]);

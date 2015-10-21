@@ -33,19 +33,19 @@ class ImageFile extends ListAbstract
      */
     public static function getList($path = null, $prefix = '')
     {
-        $filelist = array();
+        $fileList = array();
         if (is_dir($path) && $handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 if (preg_match('/\.(gif|jpg|jpeg|png|swf)$/i', $file)) {
                     $file = $prefix . $file;
-                    $filelist[$file] = $file;
+                    $fileList[$file] = $file;
                 }
             }
             closedir($handle);
-            \XoopsLocale::asort($filelist);
-            reset($filelist);
+            \XoopsLocale::asort($fileList);
+            reset($fileList);
         }
 
-        return $filelist;
+        return $fileList;
     }
 }

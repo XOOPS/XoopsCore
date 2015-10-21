@@ -93,7 +93,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
      * @param int    $item_id
      * @param string $dirname Module dirname
      *
-     * @return array!bool
+     * @return array|bool
      */
     public function getItem($category, $item_id, $dirname = null)
     {
@@ -115,7 +115,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
      * @param string $event
      * @param string $dirname Module dirname
      *
-     * @return array!bool
+     * @return array|bool
      */
     public function getTags($category, $item_id, $event, $dirname = null)
     {
@@ -171,7 +171,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
      *
      * @param string $dirname Dirname of the module (default current module)
      *
-     * @return mixed            Associative array of category info
+     * @return mixed Associative array of category info
      */
     public function getCommentsCategory($dirname = null)
     {

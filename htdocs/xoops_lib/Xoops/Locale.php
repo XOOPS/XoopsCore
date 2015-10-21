@@ -48,12 +48,26 @@ class Locale
         return static::$currentLocale;
     }
 
+    /**
+     * Set the current locale
+     *
+     * @param string $locale local code
+     *
+     * @return void
+     *
+     * @throws InvalidLocale
+     */
     public static function setCurrent($locale)
     {
         Data::setDefaultLocale($locale);
         static::$currentLocale = static::normalizeLocale($locale);
     }
 
+    /**
+     * Get the current timezone
+     *
+     * @return \DateTimeZone current timezone
+     */
     public static function getTimeZone()
     {
         if (null === static::$currentTimeZone) {
@@ -69,15 +83,27 @@ class Locale
         return static::$currentTimeZone;
     }
 
-    static public function setTimeZone(\DateTimeZone $timeZone)
+    /**
+     * Set the current timezone
+     *
+     * @param \DateTimeZone $timeZone
+     *
+     * @return void
+     */
+    public static function setTimeZone(\DateTimeZone $timeZone)
     {
         static::$currentTimeZone = $timeZone;
     }
 
-    static public function getDefaultTimeZone()
+    /**
+     * Get the default timezone as set in default_TZ config
+     *
+     * @return \DateTimeZone
+     */
+    public static function getDefaultTimeZone()
     {
         if (null === static::$defaultTimeZone) {
-            $tz = \Xoops::getInstance()->getConfig('server_TZ');
+            $tz = \Xoops::getInstance()->getConfig('default_TZ');
             if (is_numeric($tz)) {
                 $tz = 'UTC';
             }
@@ -86,7 +112,12 @@ class Locale
         return static::$defaultTimeZone;
     }
 
-    static public function getSystemTimeZone()
+    /**
+     * Get the server timezone as set in server_TZ config
+     *
+     * @return \DateTimeZone
+     */
+    public static function getSystemTimeZone()
     {
         if (null === static::$systemTimeZone) {
             $tz = \Xoops::getInstance()->getConfig('server_TZ');

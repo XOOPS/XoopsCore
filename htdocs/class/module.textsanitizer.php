@@ -518,7 +518,7 @@ class MyTextSanitizer
      * Character set is locked to 'UTF-8', double_encode to true
      *
      * @param string $text string being converted
-     * @param int $quote_style, ENT_QUOTES | ENT_SUBSTITUTE will forced
+     * @param int $quote_style ENT_QUOTES | ENT_SUBSTITUTE will forced
      *
      * @return string
      */

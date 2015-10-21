@@ -50,11 +50,6 @@ class DateSelect extends Text
         $xoops = \Xoops::getInstance();
 
         $display_value = \Xoops\Core\Locale\Time::formatDate($this->getValue(false));
-        if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = $this->getMaxcols();
-        } else {
-            $maxcols = $this->getSize();
-        }
         $this->addAttribute('class', 'span2');
         $dlist = $this->isDatalist();
         if (!empty($dlist)) {

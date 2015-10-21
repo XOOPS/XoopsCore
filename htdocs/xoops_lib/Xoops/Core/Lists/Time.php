@@ -47,7 +47,7 @@ class Time extends ListAbstract
 
         $interval = ((int) $interval !== 0) ? 60 * $interval : 60*15;
 
-        for ($t = $start ; $t < $end ; $t += $interval) {
+        for ($t = $start; $t < $end; $t += $interval) {
             //$formatted = Calendar::formatTimeEx($t, 'short', $tz);
             $formatted = \Xoops\Core\Locale\Time::formatTime($t, 'short', $tz);
             $timeList[$formatted] = $formatted;

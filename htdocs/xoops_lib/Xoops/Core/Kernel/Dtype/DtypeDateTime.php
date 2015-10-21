@@ -14,6 +14,7 @@ namespace Xoops\Core\Kernel\Dtype;
 use \DateTime;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Locale\Time;
 
 /**
  * DtypeDateTime
@@ -47,8 +48,7 @@ class DtypeDateTime extends DtypeAbstract
                 $value = $storedValue;
                 break;
             default:
-                $value = new DateTime();
-                $value->setTimestamp($storedValue);
+                $value = Time::cleanTime($storedValue);
                 break;
         }
         return $value;

@@ -75,17 +75,17 @@ abstract class AbstractLocale
      */
     public static function getLocale()
     {
-        return 'en_US';
+        return \Xoops\Locale::getCurrent();
     }
 
     /**
-     * getLangCode - return language code for the current locale
+     * getLangCode - return language code for the current locale (locale with '-' separator)
      *
      * @return string
      */
     public static function getLangCode()
     {
-        return 'en-US';
+        return \Xoops\Locale::normalizeLocale(\Xoops\Locale::getCurrent(), '-', false);
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class AbstractLocale
      */
     public static function getLegacyLanguage()
     {
-        return 'english';
+        return reset(\Xoops\Core\Locale\LegacyCodes::getLegacyName(\Xoops\Locale::getCurrent()));
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class AbstractLocale
      */
     public static function getTimezone()
     {
-        return 'Europe/London';
+        return \Xoops\Locale::getTimeZone()->getName();
     }
 
     /**
@@ -170,7 +170,7 @@ abstract class AbstractLocale
     public static function substr($str, $start, $length, $ellipsis = '…')
     {
         $str2 = mb_strcut($str, $start, $length - strlen($ellipsis));
-        return $str2 . (mb_strlen($str) != mb_strlen($str2) ? $ellipsis : '');
+        return $str2 . (mb_strlen($str)-$start != mb_strlen($str2) ? $ellipsis : '');
     }
 
     /**

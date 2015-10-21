@@ -22,7 +22,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @category  Xoops\Auth
  * @package   Provisioning
  * @author    Pierre-Eric MENUET <pemphp@free.fr>
- * @copyright 2000-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0
@@ -30,7 +30,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 class Provisioning
 {
     /**
-     * @var instace of AuthAbstract
+     * @var AuthAbstract instance
      */
     protected $auth_instance;
 
@@ -179,7 +179,7 @@ class Provisioning
         $newuser = $member_handler->createUser();
         $newuser->setVar('uname', $uname);
         $newuser->setVar('pass', password_hash(stripslashes($pwd), PASSWORD_DEFAULT));
-        $xoopsUser->setVar('last_pass_change', time());
+        $newuser->setVar('last_pass_change', time());
         $newuser->setVar('rank', 0);
         $newuser->setVar('level', 1);
         $newuser->setVar('timezone_offset', $xoops->getConfig('default_TZ'));
