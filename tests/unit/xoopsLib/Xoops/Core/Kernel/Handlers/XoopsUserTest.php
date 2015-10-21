@@ -22,7 +22,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsUser', $this->object);
         $this->assertInstanceOf('\Xoops\Core\Kernel\XoopsObject', $this->object);
     }
-    
+
     public function test___construct()
     {
         $value=$this->object->getVars();
@@ -58,7 +58,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($value['user_intrest']));
         $this->assertTrue(isset($value['user_mailok']));
     }
-    
+
     public function test_isGuest()
     {
         $value=$this->object->isGuest();
@@ -86,7 +86,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $value=$this->object->setGroups($group);
         $this->assertSame(null, $value);
     }
-    
+
     public function test_setGroups()
     {
     }
@@ -245,7 +245,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function test_timezone()
     {
         $value=$this->object->timezone();
-        $this->assertSame('0.0', $value);
+        $this->assertSame('UTC', $value);
     }
 
     public function test_umode()

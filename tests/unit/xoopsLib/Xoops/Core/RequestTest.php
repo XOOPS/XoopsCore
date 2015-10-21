@@ -303,6 +303,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     {
         $varname = 'datetimetest';
 
+        \Xoops\Locale::setTimeZone(new \DateTimeZone('UTC'));
         \Xoops\Locale::setCurrent('en_US');
         $exampleDate = '12/14/2015';
         $exampleTime = '12:10 AM';

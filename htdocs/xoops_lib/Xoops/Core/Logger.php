@@ -199,46 +199,45 @@ class Logger implements LoggerInterface
     /**
      * clean a path to remove sensitive details
      *
-     * @param string $path path to sanitize
+     * @param string $message text to sanitize
      *
-     * @return string sanitized path
+     * @return string sanitized message
      */
-    public function sanitizePath($path)
+    public function sanitizePath($message)
     {
-        $path = str_replace(
-            array(
-                '\\',
-                \XoopsBaseConfig::get('var-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
-                \XoopsBaseConfig::get('lib-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
-                \XoopsBaseConfig::get('root-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
-                \XoopsBaseConfig::get('root-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
-                \XoopsBaseConfig::get('root-path'),
-                \XoopsBaseConfig::get('db-prefix') . '_',
-                \XoopsBaseConfig::get('db-user'),
-                \XoopsBaseConfig::get('db-pass'),
-                \XoopsBaseConfig::get('db-name'),
-            ),
-            array(
-                '/',
-                'VAR',
-                'VAR',
-                'LIB',
-                'LIB',
-                'ROOT',
-                'ROOT',
-                '',
-                '****',
-                '****',
-                '',
-            ),
-            $path
+        $stringsToClean = array(
+            '\\',
+            \XoopsBaseConfig::get('var-path'),
+            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
+            \XoopsBaseConfig::get('lib-path'),
+            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
+            \XoopsBaseConfig::get('root-path'),
+            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
+            \XoopsBaseConfig::get('db-name') . '.',
+            \XoopsBaseConfig::get('db-name'),
+            \XoopsBaseConfig::get('db-prefix') . '_',
+            \XoopsBaseConfig::get('db-user'),
+            \XoopsBaseConfig::get('db-pass'),
         );
 
-        return $path;
+        $replacementStings = array(
+            '/',
+            'VAR',
+            'VAR',
+            'LIB',
+            'LIB',
+            'ROOT',
+            'ROOT',
+            '',
+            '',
+            '',
+            '***',
+            '***',
+        );
+
+        $message = str_replace($stringsToClean, $replacementStings, $message);
+
+        return $message;
     }
 
     /**

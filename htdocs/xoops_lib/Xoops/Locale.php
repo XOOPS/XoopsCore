@@ -25,7 +25,8 @@ use Xoops\Core\Request;
  */
 class Locale
 {
-    protected static $defaultLocale = 'en_US';
+    const FALLBACK_LOCALE = 'en_US';
+
     protected static $currentLocale = null;
     protected static $currentTimeZone = null;
     protected static $defaultTimeZone = null;
@@ -49,6 +50,7 @@ class Locale
 
     public static function setCurrent($locale)
     {
+        Data::setDefaultLocale($locale);
         static::$currentLocale = static::normalizeLocale($locale);
     }
 
@@ -65,6 +67,11 @@ class Locale
             }
         }
         return static::$currentTimeZone;
+    }
+
+    static public function setTimeZone(\DateTimeZone $timeZone)
+    {
+        static::$currentTimeZone = $timeZone;
     }
 
     static public function getDefaultTimeZone()
@@ -138,7 +145,15 @@ class Locale
         }
         $locales = self::getUserLocales();
         $locale = reset($locales);
-        Data::setDefaultLocale($locale);
+        try {
+            Data::setDefaultLocale($locale);
+        } catch (InvalidLocale $e) {
+            $locale = static::FALLBACK_LOCALE;
+            array_shift($locales);
+            array_unshift($locales, $locale);
+            Data::setDefaultLocale($locale);
+        }
+
         foreach ($locales as $locale) {
             $fullPath = $xoops->path("{$path}/locale/{$locale}/locale.php");
             $fullPath2 = $xoops->path("{$path}/locale/{$locale}/{$locale}.php");
@@ -233,7 +248,7 @@ class Locale
      *
      * @return string
      */
-    private static function getClassFromDirname($dirname)
+    protected static function getClassFromDirname($dirname)
     {
         return ucfirst($dirname) . 'Locale';
     }
@@ -293,10 +308,13 @@ class Locale
                 $userLocales[] = self::normalizeLocale($bloc);
             }
 
-            $userLocales[] = \Xoops::getInstance()->getConfig('locale');
+            $configLocale = \Xoops::getInstance()->getConfig('locale');
+            if (!empty($configLocale)) {
+                $userLocales[] = $configLocale;
+            }
 
             // Lowest priority: fallback
-            $userLocales[] = static::$defaultLocale;
+            $userLocales[] = static::FALLBACK_LOCALE;
 
             static::$userLocales = array_unique($userLocales);
         }

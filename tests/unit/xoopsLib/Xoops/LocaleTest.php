@@ -78,6 +78,7 @@ class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
 
     public function test_getClassFromDirname()
     {
+        $this->markTestSkipped('now protected');
         $class = $this->myClass;
 
         $dirname = 'xoops';
@@ -87,6 +88,7 @@ class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
 
     public function test_getThemeClassFromDirname()
     {
+        $this->markTestSkipped('now protected');
         $class = $this->myClass;
 
         $dirname = 'xoops';

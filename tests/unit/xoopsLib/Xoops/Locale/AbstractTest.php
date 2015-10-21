@@ -194,7 +194,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $x = $instance::substr($str,15,10);
         $this->assertSame("ingstri…", $x);
         $str = "stringstring";
-        $x = $instance::substr($str,6,10); var_dump($x);
+        $x = $instance::substr($str,6,10);
         $this->assertSame("string…", $x); // @todo what???
     }
 

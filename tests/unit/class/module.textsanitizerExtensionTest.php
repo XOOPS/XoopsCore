@@ -6,31 +6,36 @@ require_once(dirname(__FILE__).'/../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
+class MyTextSanitizerExtensionClass extends MyTextSanitizerExtension
+{
+}
+
 class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    protected $myClass = 'MyTextSanitizerExtension';
+    protected $myAbstract = 'MyTextSanitizerExtension';
+    protected $myClass = 'MyTextSanitizerExtensionClass';
     protected $ts = null;
-    
+
     public function setUp()
 	{
         $this->ts = MyTextSanitizer::getInstance();
     }
-    
+
     public function test___construct()
 	{
         $extension = new $this->myClass($this->ts);
-        $this->assertInstanceOf($this->myClass, $extension);
+        $this->assertInstanceOf($this->myAbstract, $extension);
         $this->assertEquals($this->ts, $extension->ts);
         $this->assertEquals(\XoopsBaseConfig::get('url') . '/images/form', $extension->image_path);
     }
-    
+
     public function test_loadConfig()
 	{
 		$class = $this->myClass;
         $config = $class::loadConfig();
         $this->assertTrue(is_array($config));
     }
-    
+
     public function test_mergeConfig()
 	{
 		$class = $this->myClass;
@@ -42,7 +47,7 @@ class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($array1['x'], $config['x']);
         $this->assertEquals($array2['y'], $config['y']);
     }
-    
+
     public function test_mergeConfig100()
 	{
 		$class = $this->myClass;
@@ -62,7 +67,7 @@ class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
         $result = $extension->encode($value);
         $this->assertEquals(array(), $result);
     }
-    
+
     public function test_decode()
 	{
         $extension = new $this->myClass($this->ts);
@@ -72,5 +77,5 @@ class Module_MyTextSanitizerExtensionTest extends \PHPUnit_Framework_TestCase
         $result = $extension->decode($url,$width,$height);
         $this->assertEquals('', $result);
     }
-    
+
 }
