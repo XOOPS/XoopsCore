@@ -80,7 +80,7 @@
                     </a>
                 </td>
                 <td class='alignmiddle txtcenter width20'>
-                    <{$message.msg_time}>
+                    <{$message.msg_time|datetime:'elapse'}>
                 </td>
             </tr>
         <{/foreach}>

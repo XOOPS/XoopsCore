@@ -250,8 +250,8 @@ abstract class AbstractLocale
             case 'f':
                 return Time::formatDateTime($workingTime, 'full');
 
-            case 'c':
             case 'custom':
+            case 'c':
                 $specialName = Calendar::getDateRelativeName($workingTime, true);
                 if ($specialName != '') {
                     return $specialName;
@@ -260,6 +260,30 @@ abstract class AbstractLocale
             case 'elapse':
             case 'e':
                 return Time::describeRelativeInterval($workingTime);
+
+            case 'short-date':
+                return Time::formatDate($workingTime, 'short');
+
+            case 'short-time':
+                return Time::formatTime($workingTime, 'short');
+
+            case 'medium-date':
+                return Time::formatDate($workingTime, 'medium');
+
+            case 'medium-time':
+                return Time::formatTime($workingTime, 'medium');
+
+            case 'long-date':
+                return Time::formatDate($workingTime, 'long');
+
+            case 'long-time':
+                return Time::formatTime($workingTime, 'long');
+
+            case 'full-date':
+                return Time::formatDate($workingTime, 'full');
+
+            case 'full-time':
+                return Time::formatTime($workingTime, 'full');
 
             case 'rss':
                 $workingTime->setTimezone(new \DateTimeZone('UTC'));

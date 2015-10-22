@@ -152,7 +152,7 @@
                 <tbody>
                     <tr>
                         <td><{$lang_membersince}></td>
-                        <td><{$user_joindate}></td>
+                        <td><{$user_joindate|datetime:'custom'}></td>
                     </tr>
                     <{if $user_ranktitle|default:false}>
                         <tr>
@@ -166,7 +166,7 @@
                     </tr>
                     <tr>
                         <td><{$lang_lastlogin}></td>
-                        <td><{$user_lastlogin}></td>
+                        <td><{$user_lastlogin|datetime:'full'}></td>
                     </tr>
                 </tbody>
             </table>

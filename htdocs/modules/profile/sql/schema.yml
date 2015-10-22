@@ -124,7 +124,7 @@ tables:
                 type: string
                 default: ''
                 notnull: true
-                length: 255
+                length: 128
                 precision: 10
                 scale: 0
                 fixed: false

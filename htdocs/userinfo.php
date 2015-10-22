@@ -128,8 +128,7 @@ $var = $thisUser->getVar('bio', 'N');
 $xoops->tpl()->assign('user_extrainfo', $myts->displayTarea($var, 0, 1, 1));
 $xoops->tpl()->assign('lang_statistics', XoopsLocale::STATISTICS);
 $xoops->tpl()->assign('lang_membersince', XoopsLocale::MEMBER_SINCE);
-$var = $thisUser->getVar('user_regdate');
-$xoops->tpl()->assign('user_joindate', XoopsLocale::formatTimestamp($var, 's'));
+$xoops->tpl()->assign('user_joindate', $thisUser->getVar('user_regdate'));
 $xoops->tpl()->assign('lang_rank', XoopsLocale::RANK);
 $xoops->tpl()->assign('lang_posts', XoopsLocale::POSTS);
 $xoops->tpl()->assign('lang_basicInfo', XoopsLocale::BASIC_INFORMATION);
@@ -177,7 +176,7 @@ if ($xoops->isActiveModule('userrank')) {
 }
 $date = $thisUser->getVar("last_login");
 if (!empty($date)) {
-    $xoops->tpl()->assign('user_lastlogin', XoopsLocale::formatTimestamp($date, "m"));
+    $xoops->tpl()->assign('user_lastlogin', $date);
 }
 
 $module_handler = $xoops->getHandlerModule();

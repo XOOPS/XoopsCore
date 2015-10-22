@@ -37,7 +37,7 @@
                     <{if $message.msg_image != ""}>
                         <img src='<{$xoops_url}>/images/subject/<{$message.msg_image}>' alt='' />
                     <{/if}>
-                    <{translate key='C_SENT'}><{$message.msg_time}><br />
+                    <{translate key='C_SENT'}><{$message.msg_time|datetime}><br />
                     <hr />
                     <strong><{$message.subject}></strong><br />
                     <br />

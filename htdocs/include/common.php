@@ -169,9 +169,6 @@ $xoops->loadLocale();
 //For legacy
 $xoops->setConfig('language', XoopsLocale::getLegacyLanguage());
 
-date_default_timezone_set(XoopsLocale::getTimezone());
-setlocale(LC_ALL, XoopsLocale::getLocale());
-
 /**
  * User Sessions
  */
@@ -195,6 +192,9 @@ if ($xoops->session()->has('xoopsUserId')) {
         $xoops->userIsAdmin = $xoops->user->isAdmin();
     }
 }
+
+date_default_timezone_set(XoopsLocale::getTimezone());
+setlocale(LC_ALL, XoopsLocale::getLocale());
 
 $xoops->events()->triggerEvent('core.include.common.auth.success');
 

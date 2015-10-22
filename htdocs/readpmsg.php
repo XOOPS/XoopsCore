@@ -72,7 +72,7 @@ switch ($op) {
             }
             $xoops->tpl()->assign('msg_id', $pm_arr[0]->getVar("msg_id"));
             $xoops->tpl()->assign('subject', $pm_arr[0]->getVar("subject"));
-            $xoops->tpl()->assign('msg_time', XoopsLocale::formatTimestamp($pm_arr[0]->getVar("msg_time")));
+            $xoops->tpl()->assign('msg_time', $pm_arr[0]->getVar("msg_time"));
             $xoops->tpl()->assign('msg_image', $pm_arr[0]->getVar("msg_image", "E"));
             $xoops->tpl()->assign('msg_text', $pm_arr[0]->getVar("msg_text"));
             $xoops->tpl()->assign('previous', $start - 1);
