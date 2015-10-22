@@ -195,7 +195,7 @@ class Locale
         } else {
             $path = (is_array($domain)) ? array_shift($domain) : "modules/{$domain}";
         }
-        if (null !=== $forcedLocale){
+        if (null !== $forcedLocale) {
             try {
                 Data::setDefaultLocale($locale);
             } catch (InvalidLocale $e) {
