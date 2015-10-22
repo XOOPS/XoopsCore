@@ -147,11 +147,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 
         $str = "stringstring";
         $x = $instance::utf8_encode($str);
-        if (!$instance::isMultiByte()) {
-            $this->assertSame(utf8_encode($str), $x);
-        } else {
-            $this->assertSame($str, $x);
-        }
+        $this->assertSame($str, $x);
     }
 
 

@@ -180,11 +180,12 @@ class Locale
     }
 
     /**
-     * @param string $domain module dirname to load, if null will load global locale
+     * @param string $domain       module dirname to load, if null will load global locale
+     * @param string $forcedLocale Locale to be loaded, current language content will be loaded if not specified
      *
      * @return  boolean
      */
-    public static function loadLocale($domain = null)
+    public static function loadLocale($domain = null, $forcedLocale = null)
     {
         $xoops = \Xoops::getInstance();
         // expanded domain to multiple categories, e.g. module:system, framework:filter, etc.
@@ -194,17 +195,26 @@ class Locale
         } else {
             $path = (is_array($domain)) ? array_shift($domain) : "modules/{$domain}";
         }
-        $locales = self::getUserLocales();
-        $locale = reset($locales);
-        try {
-            Data::setDefaultLocale($locale);
-        } catch (InvalidLocale $e) {
-            $locale = static::FALLBACK_LOCALE;
-            array_shift($locales);
-            array_unshift($locales, $locale);
-            Data::setDefaultLocale($locale);
+        if (null !=== $forcedLocale){
+            try {
+                Data::setDefaultLocale($locale);
+            } catch (InvalidLocale $e) {
+                return false;
+            }
+            $locales = [$forcedLocale];
+            $locale = $forcedLocale;
+        } else {
+            $locales = self::getUserLocales();
+            $locale = reset($locales);
+            try {
+                Data::setDefaultLocale($locale);
+            } catch (InvalidLocale $e) {
+                $locale = static::FALLBACK_LOCALE;
+                array_shift($locales);
+                array_unshift($locales, $locale);
+                Data::setDefaultLocale($locale);
+            }
         }
-
         foreach ($locales as $locale) {
             $fullPath = $xoops->path("{$path}/locale/{$locale}/locale.php");
             $fullPath2 = $xoops->path("{$path}/locale/{$locale}/{$locale}.php");
