@@ -65,7 +65,7 @@
                 </a>
             </td>
             <td class='width20' style="text-align: center;">
-                <{$message.msg_time}>
+                <{$message.msg_time|datetime:'elapse'}>
             </td>
         </tr>
         <{/foreach}>

@@ -29,6 +29,6 @@ echo $xoops->alert('info', 'Your information message' , 'Title information');
 echo $xoops->alert('warning', 'Your warning message' , 'Title warning');
 echo $xoops->alert('error', array('error 1', 'error 2', '...') , 'Title error');
 echo $xoops->alert('success', 'Your success message' , 'Title success');
-Xoops_Utils::dumpFile(__FILE__ );
+\Xoops\Utils::dumpFile(__FILE__ );
 $xoops->footer();
 

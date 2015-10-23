@@ -199,7 +199,7 @@ switch ($op) {
                 $edituser->setVar("user_msnm", $_REQUEST['user_msnm']);
                 $attachsig = (isset($_REQUEST['attachsig']) && $_REQUEST['attachsig'] == 1) ? 1 : 0;
                 $edituser->setVar("attachsig", $attachsig);
-                $edituser->setVar("timezone_offset", $_REQUEST['timezone_offset']);
+                $edituser->setVar("timezone", $_REQUEST['timezone']);
                 //$edituser->setVar("uorder", $_REQUEST['uorder']);
                 //$edituser->setVar("umode", $_REQUEST['umode']);
                 // RMV-NOTIFY
@@ -285,7 +285,7 @@ switch ($op) {
                         }
                         $newuser->setVar("pass", password_hash($_REQUEST['password'], PASSWORD_DEFAULT));
                     }
-                    $newuser->setVar("timezone_offset", $_REQUEST['timezone_offset']);
+                    $newuser->setVar("timezone", $_REQUEST['timezone']);
                     //$newuser->setVar("uorder", $_REQUEST['uorder']);
                     //$newuser->setVar("umode", $_REQUEST['umode']);
                     // RMV-NOTIFY

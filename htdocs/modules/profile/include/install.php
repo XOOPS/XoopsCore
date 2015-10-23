@@ -45,7 +45,7 @@ function xoops_module_install_profile($module)
 
     profile_install_addField('name', XoopsLocale::REAL_NAME, '', 1, 'textbox', 1, 1, 1, array(), 2, 255);
     profile_install_addField('user_from', XoopsLocale::LOCATION, '', 1, 'textbox', 1, 2, 1, array(), 2, 255);
-    profile_install_addField('timezone_offset', XoopsLocale::TIME_ZONE, '', 1, 'timezone', 1, 3, 1, array(), 2, 0);
+    profile_install_addField('timezone', XoopsLocale::TIME_ZONE, '', 1, 'timezone', 1, 3, 1, array(), 2, 0);
     profile_install_addField('user_occ', XoopsLocale::OCCUPATION, '', 1, 'textbox', 1, 4, 1, array(), 2, 255);
     profile_install_addField('user_intrest', XoopsLocale::INTEREST, '', 1, 'textbox', 1, 5, 1, array(), 2, 255);
     profile_install_addField('bio', XoopsLocale::EXTRA_INFO, '', 1, 'textarea', 2, 6, 1, array(), 2, 0);

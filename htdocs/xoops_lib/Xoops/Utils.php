@@ -9,35 +9,35 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-/**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
+namespace Xoops;
 
-class Xoops_Utils
+/**
+ * Utils
+ *
+ * @category  Xoops\Utils
+ * @package   Xoops
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ */
+class Utils
 {
     /**
      * Output a dump of a variable
      *
-     * @param mixed $var variable which will be dumped
-     * @param bool  $echo
-     * @param bool  $exit
+     * @param mixed $var  variable to dump
+     * @param bool  $echo true to echo dump, false to return dump as string
      *
      * @return string
      */
-    static function dumpVar($var, $echo = true, $exit = false)
+    public static function dumpVar($var, $echo = true)
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $msg = $myts->displayTarea(var_export($var, true));
         $msg = "<div style='padding: 5px; font-weight: bold'>{$msg}</div>";
-        if (!$echo) {
-            return $msg;
-        }
-        echo $msg;
-        if ($exit) {
-            die();
+        if ($echo) {
+            echo $msg;
         }
         return $msg;
     }
@@ -45,42 +45,39 @@ class Xoops_Utils
     /**
      * Output a dump of a file
      *
-     * @param mixed $file file which will be dumped
-     * @param bool  $echo
-     * @param bool  $exit
+     * @param mixed $file file to dump
+     * @param bool  $echo true to echo dump, false to return dump as string
      *
      * @return string
      */
-    static function dumpFile($file, $echo = true, $exit = false)
+    public static function dumpFile($file, $echo = true)
     {
         $msg = highlight_file($file, true);
         $msg = "<div style='padding: 5px; font-weight: bold'>{$msg}</div>";
-        if (!$echo) {
-            return $msg;
-        }
-        echo $msg;
-        if ($exit) {
-            die();
+        if ($echo) {
+            echo $msg;
         }
         return $msg;
     }
 
     /**
-     * Support for recursive array diff
-     * Needed for php 5.4.3 warning issues
+     * Support for recursive array_diff
      *
-     * @param array $aArray1
-     * @param array $aArray2
+     * Compares first array against the second and returns the difference - that is
+     * the values in the first, but not in the second array
+     *
+     * @param array $aArray1 first array
+     * @param mixed $aArray2 second array
      *
      * @return array
      */
-    static function arrayRecursiveDiff(array $aArray1, array $aArray2)
+    public static function arrayRecursiveDiff(array $aArray1, array $aArray2)
     {
         $aReturn = array();
 
         foreach ($aArray1 as $mKey => $mValue) {
             if (array_key_exists($mKey, $aArray2)) {
-                if (is_array($mValue) AND is_array($aArray2[$mKey])) {
+                if (is_array($mValue) and is_array($aArray2[$mKey])) {
                     $aRecursiveDiff = self::arrayRecursiveDiff($mValue, $aArray2[$mKey]);
                     if (count($aRecursiveDiff)) {
                         $aReturn[$mKey] = $aRecursiveDiff;
@@ -100,9 +97,11 @@ class Xoops_Utils
     /**
      * This function can be thought of as a hybrid between PHP's `array_merge` and `array_merge_recursive`.
      * The difference between this method and the built-in ones, is that if an array key contains another array, then
-     * Xoops_Utils::arrayRecursiveMerge() will behave in a recursive fashion (unlike `array_merge`).  But it will not act recursively for
-     * keys that contain scalar values (unlike `array_merge_recursive`).
-     * Note: This function will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
+     * Utils::arrayRecursiveMerge() will behave in a recursive fashion (unlike `array_merge`).  But it
+     * will not act recursively for keys that contain scalar values (unlike `array_merge_recursive`).
+     *
+     * Note: This function will work with an unlimited amount of arguments and typecasts non-array parameters
+     * into arrays.
      *
      * @param array $data  Array to be merged
      * @param mixed $merge Array to merge with. The argument and all trailing arguments will be array cast when merged
@@ -110,7 +109,7 @@ class Xoops_Utils
      * @return array Merged array
      * @link http://book.cakephp.org/2.0/en/core-utility-libraries/hash.html#Hash::merge
      */
-    static function arrayRecursiveMerge(array $data, $merge)
+    public static function arrayRecursiveMerge(array $data, $merge)
     {
         $args = func_get_args();
         $return = current($args);
@@ -120,7 +119,9 @@ class Xoops_Utils
                 if (!empty($return[$key]) && is_array($return[$key]) && is_array($val)) {
                     $return[$key] = self::arrayRecursiveMerge($return[$key], $val);
                 } elseif (is_int($key)) {
-                    if (!in_array($val, $return)) $return[] = $val; // merge only once $val
+                    if (!in_array($val, $return)) {
+                        $return[] = $val;
+                    } // merge only once $val
                 } else {
                     $return[$key] = $val;
                 }

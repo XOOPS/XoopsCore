@@ -79,7 +79,7 @@ class XoopsCaptchaImageHandler
      * @var string
      */
     protected $xoops_root_path;
-	
+
     /**
      * Constructor
      */
@@ -87,7 +87,7 @@ class XoopsCaptchaImageHandler
     {
         $this->captcha_handler = XoopsCaptcha::getInstance();
         $this->config = $this->captcha_handler->loadConfig("image");
-		$this->xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $this->xoops_root_path = \XoopsBaseConfig::get('root-path');
     }
 
     /**
@@ -161,18 +161,18 @@ class XoopsCaptchaImageHandler
      */
     public function getList($name, $extension = "")
     {
-        if ($items = Xoops_Cache::read("captcha_captcha_{$name}")) {
+        if ($items = \Xoops\Cache::read("captcha_captcha_{$name}")) {
             return $items;
         }
         ;
         $file_path = $this->xoops_root_path . "/class/captcha/image/{$name}";
-        $files = XoopsLists::getFileListAsArray($file_path);
+        $files = \Xoops\Core\Lists\File::getList($file_path);
         foreach ($files as $item) {
             if (empty($extension) || preg_match("/(\.{$extension})$/i", $item)) {
                 $items[] = $item;
             }
         }
-        Xoops_Cache::write("captcha_captcha_{$name}", $items);
+        \Xoops\Cache::write("captcha_captcha_{$name}", $items);
         return $items;
     }
 
@@ -197,28 +197,28 @@ class XoopsCaptchaImageHandler
         $background = imagecolorallocate($this->oImage, 255, 255, 255);
         imagefilledrectangle($this->oImage, 0, 0, $this->width, $this->height, $background);
         switch ($this->config["background_type"]) {
-        case 0:
-            $this->drawBars();
-            break;
-        case 1:
-            $this->drawCircles();
-            break;
-        case 2:
-            $this->drawLines();
-            break;
-        case 3:
-            $this->drawRectangles();
-            break;
-        case 4:
-            $this->drawEllipses();
-            break;
-        case 5:
-            $this->drawPolygons();
-            break;
-        case 100:
-            $this->createFromFile();
-            break;
-        default:
+            case 0:
+                $this->drawBars();
+                break;
+            case 1:
+                $this->drawCircles();
+                break;
+            case 2:
+                $this->drawLines();
+                break;
+            case 3:
+                $this->drawRectangles();
+                break;
+            case 4:
+                $this->drawEllipses();
+                break;
+            case 5:
+                $this->drawPolygons();
+                break;
+            case 100:
+                $this->createFromFile();
+                break;
+            default:
         }
         $this->drawBorder();
         $this->drawCode();
@@ -246,7 +246,9 @@ class XoopsCaptchaImageHandler
      */
     public function setImageSize()
     {
-		if (empty($this->font)) $this->loadFont();
+        if (empty($this->font)) {
+            $this->loadFont();
+        }
         $MaxCharWidth = 0;
         $MaxCharHeight = 0;
         $oImage = imagecreatetruecolor(100, 100);

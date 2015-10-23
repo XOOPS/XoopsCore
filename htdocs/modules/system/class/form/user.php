@@ -64,7 +64,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
             $email_value = $obj->getVar("email", "E");
             $email_cbox_value = $obj->getVar("user_viewemail") ? 1 : 0;
             $url_value = $obj->getVar("url", "E");
-            $timezone_value = $obj->getVar("timezone_offset");
+            $timezone_value = $obj->getVar("timezone", 'E');
             $icq_value = $obj->getVar("user_icq", "E");
             $aim_value = $obj->getVar("user_aim", "E");
             $yim_value = $obj->getVar("user_yim", "E");
@@ -95,7 +95,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
         $email_tray->addElement($email_cbox);
         $this->addElement($email_tray, true);
         $this->addElement(new Xoops\Form\Text(XoopsLocale::WEB_URL, "url", 5, 100, $url_value));
-        $this->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, "timezone_offset", $timezone_value));
+        $this->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, "timezone", $timezone_value));
         $this->addElement(new Xoops\Form\Text(XoopsLocale::ICQ, "user_icq", 3, 15, $icq_value));
         $this->addElement(new Xoops\Form\Text(XoopsLocale::AIM, "user_aim", 3, 18, $aim_value));
         $this->addElement(new Xoops\Form\Text(XoopsLocale::YIM, "user_yim", 3, 25, $yim_value));

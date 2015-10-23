@@ -297,6 +297,31 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Core\Request::getDateTime
+     */
+    public function testGetDateTime()
+    {
+        $varname = 'datetimetest';
+
+        \Xoops\Locale::setTimeZone(new \DateTimeZone('UTC'));
+        \Xoops\Locale::setCurrent('en_US');
+        $exampleDate = '12/14/2015';
+        $exampleTime = '12:10 AM';
+        $_REQUEST[$varname] = $exampleDate;
+        $actual = Request::getDateTime($varname);
+
+        $this->assertInstanceOf('\DateTime', $actual);
+        $this->assertEquals($exampleDate, $actual->format('m/d/Y'));
+
+        $_REQUEST[$varname] = ['date' => $exampleDate, 'time' => $exampleTime];
+        $actual = Request::getDateTime($varname);
+
+        $this->assertInstanceOf('\DateTime', $actual);
+        $this->assertEquals($exampleDate, $actual->format('m/d/Y'));
+        $this->assertEquals($exampleTime, $actual->format('h:i A'));
+    }
+
+    /**
      * @covers Xoops\Core\Request::setVar
      */
     public function testSetVar()

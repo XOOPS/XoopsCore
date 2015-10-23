@@ -41,9 +41,9 @@ if (!in_array(FixedGroups::ADMIN, $groups)) {
     $all_ok = true;
 }
 // include system category definitions
-include_once $xoops->path('/modules/system/constants.php');
+include_once $xoops->path('modules/system/constants.php');
 
-$admin_dir = $xoops->path('/modules/system/admin');
+$admin_dir = $xoops->path('modules/system/admin');
 $dirlist = XoopsLists::getDirListAsArray($admin_dir);
 $index = 0;
 foreach ($dirlist as $file) {

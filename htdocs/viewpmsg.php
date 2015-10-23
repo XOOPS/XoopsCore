@@ -82,7 +82,7 @@ if (!$xoops->isUser()) {
         $messages['posteruid'] = $pm_arr[$i]->getVar('from_userid');
         $messages['postername'] = XoopsUser::getUnameFromId($pm_arr[$i]->getVar('from_userid'));
         $messages['subject'] = $pm_arr[$i]->getVar("subject");
-        $messages['msg_time'] = XoopsLocale::formatTimestamp($pm_arr[$i]->getVar('msg_time'));
+        $messages['msg_time'] = $pm_arr[$i]->getVar('msg_time');
         $messages['msg_no'] = $msg_no;
         $xoops->tpl()->append('messages', $messages);
         ++$msg_no;

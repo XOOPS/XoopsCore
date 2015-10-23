@@ -28,17 +28,7 @@ interface CountryflagInterface
     const MODE = \Xoops\Core\Service\Manager::MODE_EXCLUSIVE;
 
     /**
-     * getImgUrl - get URL to flag based on county code
-     *
-     * @param Response $response    \Xoops\Core\Service\Response object
-     * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag
-     *
-     * @return void  - response->value set to URL string
-     */
-    public function getImgUrl(Response $response, $countryCode);
-
-    /**
-     * getImgTag - get a full HTML img tag to display a flag based on county code
+     * getImgTag - get a full HTML tag or string to display a flag based on county code
      *
      * @param Response $response    \Xoops\Core\Service\Response object
      * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag

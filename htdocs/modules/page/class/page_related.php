@@ -40,7 +40,7 @@ class PagePage_related extends XoopsObject
     public function getValues($keys = null, $format = null, $maxDepth = null)
     {
         $ret = parent::getValues($keys, $format, $maxDepth);
-        $ret['navigation'] = Xoops_Locale::translate('L_RELATED_NAVIGATION_OPTION' . $this->getVar('related_navigation'), 'page');
+        $ret['navigation'] = \Xoops\Locale::translate('L_RELATED_NAVIGATION_OPTION' . $this->getVar('related_navigation'), 'page');
         $ret['related_links'] = Page::getInstance()->getLinkHandler()->getLinks($this->getVar('related_id'));
         return $ret;
     }

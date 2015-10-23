@@ -23,7 +23,7 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 
 if (Request::getBool('pdf', false)) {
-    $content = Xoops_Utils::dumpVar($xoops->getConfigs(), false);
+    $content = \Xoops\Utils::dumpVar($xoops->getConfigs(), false);
 
     $tpl = new XoopsTpl();
     $tpl->assign('dummy_content', $content);
@@ -35,12 +35,12 @@ if (Request::getBool('pdf', false)) {
     } else {
         $xoops->header();
         echo 'Please install an HtmlToPdf provider!';
-        Xoops_Utils::dumpFile(__FILE__);
+        \Xoops\Utils::dumpFile(__FILE__);
         $xoops->footer();
     }
 } else {
     $xoops->header();
     echo '<a href="?pdf=1">Make Pdf</a>';
-    Xoops_Utils::dumpFile(__FILE__);
+    \Xoops\Utils::dumpFile(__FILE__);
     $xoops->footer();
 }

@@ -23,15 +23,8 @@ namespace Xoops\Form;
  * @link      http://xoops.org
  * @since     2.0.0
  */
-class Radio extends Element
+class Radio extends OptionElement
 {
-    /**
-     * Array of Options
-     *
-     * @var array
-     */
-    private $options = array();
-
     /**
      * Pre-selected value
      *
@@ -75,62 +68,6 @@ class Radio extends Element
     public function getValue($encode = false)
     {
         return ($encode && $this->value !== null) ? htmlspecialchars($this->value, ENT_QUOTES) : $this->value;
-    }
-
-    /**
-     * Add an option
-     *
-     * @param string $value         value attribute for option - This gets submitted as form-data.
-     * @param string $buttonCaption option button caption - If empty, we use the "value" instead.
-     *
-     * @return void
-     */
-    public function addOption($value, $buttonCaption = '')
-    {
-        if ($buttonCaption != '') {
-            $this->options[$value] = $buttonCaption;
-        } else {
-            $this->options[$value] = $value;
-        }
-    }
-
-    /**
-     * Adds multiple options
-     *
-     * @param array $options Associative array of value->name pairs.
-     *
-     * @return void
-     */
-    public function addOptionArray($options)
-    {
-        if (is_array($options)) {
-            foreach ($options as $k => $v) {
-                $this->addOption($k, $v);
-            }
-        }
-    }
-
-    /**
-     * Get an array with all the options
-     *
-     * @param integer $encode encode special characters, potential values:
-     *                          0 - skip
-     *                          1 - only for value;
-     *                          2 - for both value and name
-     *
-     * @return array Associative array of value->name pairs
-     */
-    public function getOptions($encode = 0)
-    {
-        if (!$encode) {
-            return (array) $this->options;
-        }
-        $value = array();
-        foreach ($this->options as $option => $buttonCaption) {
-            $value[$encode ? htmlspecialchars($option, ENT_QUOTES) : $option] = ($encode > 1)
-                ? htmlspecialchars($buttonCaption, ENT_QUOTES) : $buttonCaption;
-        }
-        return $value;
     }
 
     /**

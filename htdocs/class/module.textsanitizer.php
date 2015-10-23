@@ -28,7 +28,7 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @copyright       XOOPS Project (http://xoops.org)
  */
-class MyTextSanitizerExtension
+abstract class MyTextSanitizerExtension
 {
     /**
      * @var MyTextSanitizerExtension
@@ -53,18 +53,19 @@ class MyTextSanitizerExtension
     /**
      * Constructor
      *
-     * @param MyTextSanitizer $ts
+     * @param MyTextSanitizer $ts text sanitizer instance being extended
      */
-    public function __construct(MyTextSanitizer &$ts)
+    public function __construct(MyTextSanitizer $ts)
     {
         $this->ts = $ts;
-        $this->image_path = \XoopsBaseConfig::get('url') . '/images/form';
+        $this->image_path = \Xoops::getInstance()->url('images/form');
     }
 
     /**
      * loadConfig
      *
      * @param string $path
+     *
      * @return string
      */
     public static function loadConfig($path = null)
@@ -96,6 +97,7 @@ class MyTextSanitizerExtension
      *
      * @param array $config_default
      * @param array $config_custom
+     *
      * @return array
      */
     public static function mergeConfig($config_default, $config_custom)
@@ -166,7 +168,7 @@ class MyTextSanitizer
     public $censorConf;
 
     /**
-     * @var holding reference to text
+     * @var string reference to text
      */
     public $text = "";
 
@@ -513,20 +515,17 @@ class MyTextSanitizer
     /**
      * Convert special characters to HTML entities
      *
+     * Character set is locked to 'UTF-8', double_encode to true
+     *
      * @param string $text string being converted
-     * @param int $quote_style
-     * @param string $charset character set used in conversion
-     * @param bool $double_encode
+     * @param int $quote_style ENT_QUOTES | ENT_SUBSTITUTE will forced
+     *
      * @return string
      */
-    public function htmlSpecialChars($text, $quote_style = ENT_QUOTES, $charset = null, $double_encode = true)
+    public function htmlSpecialChars($text, $quote_style = ENT_QUOTES)
     {
-        if (version_compare(phpversion(), '5.2.3', '>=')) {
-            $text = htmlspecialchars($text, $quote_style, $charset ? $charset : (class_exists('xoopslocale', false) ? XoopsLocale::getCharset() : 'UTF-8'), $double_encode);
-        } else {
-            $text = htmlspecialchars($text, $quote_style);
-        }
-        return preg_replace(array('/&amp;/i', '/&nbsp;/i'), array('&', '&amp;nbsp;'), $text);
+        $text = htmlspecialchars($text, $quote_style | ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        return $text;
     }
 
     /**
@@ -537,7 +536,8 @@ class MyTextSanitizer
      */
     public function undoHtmlSpecialChars($text)
     {
-        return preg_replace(array('/&gt;/i', '/&lt;/i', '/&quot;/i', '/&#039;/i', '/&amp;nbsp;/i'), array('>', '<', '"', '\'', "&nbsp;"), $text);
+        return htmlspecialchars_decode($text, ENT_QUOTES);
+        //return preg_replace(array('/&gt;/i', '/&lt;/i', '/&quot;/i', '/&#039;/i', '/&amp;nbsp;/i'), array('>', '<', '"', '\'', "&nbsp;"), $text);
     }
 
     /**

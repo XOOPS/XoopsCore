@@ -563,7 +563,7 @@ class HttpRequest
     {
         $name = strtolower($name);
         if (isset($this->detectors[$name]) && isset($options['options'])) {
-            $options = \Xoops_Utils::arrayRecursiveMerge($this->detectors[$name], $options);
+            $options = \Xoops\Utils::arrayRecursiveMerge($this->detectors[$name], $options);
         }
         $this->detectors[$name] = $options;
     }

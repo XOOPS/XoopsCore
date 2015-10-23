@@ -137,7 +137,7 @@ class Feed extends AbstractTemplate
         $this->_description = $xoopsConfig['slogan'];
         $this->_language = \XoopsLocale::getLangCode();
         $this->_charset = \XoopsLocale::getCharset();
-        $this->_pubdate = date(\XoopsLocale::getFormatShortDate(), time());
+        $this->_pubdate = \XoopsLocale::formatTimestamp(time(), 'short');
         $this->_lastbuild = \XoopsLocale::formatTimestamp(time(), 'D, d M Y H:i:s');
         $this->_webmaster = $xoopsConfig['adminmail'];
         $this->_editor = $xoopsConfig['adminmail'];

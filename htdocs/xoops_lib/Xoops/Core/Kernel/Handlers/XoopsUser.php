@@ -79,9 +79,9 @@ class XoopsUser extends XoopsObject
         $this->initVar('rank', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('level', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('theme', Dtype::TYPE_OTHER, null, false);
-        $this->initVar('timezone_offset', Dtype::TYPE_OTHER, '0.0', false);
+        $this->initVar('timezone', Dtype::TYPE_TIMEZONE, 'UTC', 32);
         $this->initVar('last_login', Dtype::TYPE_INTEGER, 0, false);
-        $this->initVar('last_pass_change', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('last_pass_change', Dtype::TYPE_DATETIME, 0, false);
         $this->initVar('umode', Dtype::TYPE_OTHER, null, false);
         $this->initVar('uorder', Dtype::TYPE_INTEGER, 1, false);
         // RMV-NOTIFY
@@ -527,7 +527,7 @@ class XoopsUser extends XoopsObject
      */
     public function timezone($format = '')
     {
-        return $this->getVar('timezone_offset', $format);
+        return $this->getVar('timezone', $format);
     }
 
     /**

@@ -62,9 +62,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
         $name = ($name) ? $name : (string)(time());
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
         $cache_path = ($cache_path) ? $cache_path : \XoopsBaseConfig::get('caches-path');
-		
+
         $key = "{$dirname}_{$name}";
-        return Xoops_Cache::write($key, $data);
+        return \Xoops\Cache::write($key, $data);
     }
 
     /**
@@ -108,9 +108,9 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_CACHE")):
         }
         $dirname = ($dirname) ? $dirname : $xoops->moduleDirname;
         $cache_path = ($cache_path) ? $cache_path : $xoops->globalData->getVar('cache-path');
-		
+
         $key = "{$dirname}_{$name}";
-        return Xoops_Cache::read($key);
+        return \Xoops\Cache::read($key);
     }
 
     /**

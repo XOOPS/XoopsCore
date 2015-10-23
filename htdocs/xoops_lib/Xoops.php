@@ -1106,9 +1106,9 @@ class Xoops
      *
      * @return  boolean
      */
-    public static function loadLocale($domain = 'xoops', $locale = null)
+    public static function loadLocale($domain = null, $locale = null)
     {
-        return Xoops_Locale::loadLocale($domain, $locale);
+        return \Xoops\Locale::loadLocale($domain, $locale);
     }
 
     /**
@@ -1121,7 +1121,7 @@ class Xoops
      */
     public function translate($key, $dirname = 'xoops')
     {
-        return Xoops_Locale::translate($key, $dirname);
+        return \Xoops\Locale::translate($key, $dirname);
     }
 
     /**
@@ -1381,24 +1381,16 @@ class Xoops
     }
 
     /**
-     * Get User Timestamp
+     * Get User Timestamp (kind of pointless, since timestamps are UTC?)
      *
-     * @param mixed  $time       unix timestamp
-     * @param string $timeoffset timezone
+     * @param \DateTime|int $time DateTime object or unix timestamp
      *
-     * @return int
+     * @return int unix timestamp
      */
-    public function getUserTimestamp($time, $timeoffset = '')
+    public function getUserTimestamp($time)
     {
-        if ($timeoffset == '') {
-            if ($this->isUser()) {
-                $timeoffset = $this->user->getVar('timezone_offset');
-            } else {
-                $timeoffset = $this->getConfig('default_TZ');
-            }
-        }
-        $usertimestamp = (int)($time) + ((float)($timeoffset) - $this->getConfig('server_TZ')) * 3600;
-        return (int)$usertimestamp;
+        $dt = \Xoops\Core\Locale\Time::cleanTime($time);
+        return $dt->getTimestamp();
     }
 
     /**
@@ -1599,7 +1591,6 @@ class Xoops
         header("location: {$url}");
         $xoops = \Xoops::getInstance();
         $xoops->events()->triggerEvent('core.redirect.start', array($url));
-        session_write_close();
         exit;
     }
 
@@ -1665,7 +1656,7 @@ class Xoops
         if (is_object($mailer)) {
             return $mailer;
         }
-        Xoops_Locale::loadMailerLocale();
+        \Xoops\Locale::loadMailerLocale();
         if (class_exists('XoopsMailerLocale')) {
             $mailer = new XoopsMailerLocale();
         } else {

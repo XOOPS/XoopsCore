@@ -32,5 +32,5 @@ if ($xoops->isUser() && $helper = $xoops->getModuleHelper('userconfigs')) {
     echo 'Please login and install userconfigs module';
 }
 
-Xoops_Utils::dumpFile(__FILE__ );
+\Xoops\Utils::dumpFile(__FILE__ );
 $xoops->footer();

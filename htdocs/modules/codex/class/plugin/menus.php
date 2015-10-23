@@ -34,8 +34,9 @@ class CodexMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements Men
      */
     public function subMenus()
     {
+        $xoops = Xoops::getInstance();
         $ret = array();
-        $files = XoopsLists::getFileListAsArray(dirname(dirname(__DIR__)));
+        $files = \Xoops\Core\Lists\File::getList($xoops->path('modules/codex/'));
         $i = 0;
         foreach ($files as $file) {
             if (!in_array($file, array('xoops_version.php', 'index.php'))) {

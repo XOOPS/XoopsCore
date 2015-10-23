@@ -37,7 +37,7 @@ if (empty($xoopsConfigUser['allow_register'])) {
     $xoops->redirect('index.php', 6, XoopsLocale::E_WE_ARE_CLOSED_FOR_REGISTRATION);
 }
 
-// from $_POST we use keys: op, uname, email, url, pass, vpass, timezone_offset,
+// from $_POST we use keys: op, uname, email, url, pass, vpass, timezone,
 //                          user_viewemail, user_mailok, agree_disc
 $clean_input = XoopsFilterInput::gather(
     'post',
@@ -48,7 +48,7 @@ $clean_input = XoopsFilterInput::gather(
         array('url','weburl', '', true),
         array('pass','string', '', true),
         array('vpass','string', '', true),
-        array('timezone_offset','float', $xoopsConfig['default_TZ'], false),
+        array('timezone','string', $xoopsConfig['default_TZ'], false),
         array('user_viewemail','boolean', false, false),
         array('user_mailok','boolean', false, false),
         array('agree_disc','boolean', false, false),
@@ -73,7 +73,7 @@ $email=$clean_input['email'];
 $url=$clean_input['url'];
 $pass=$clean_input['pass'];
 $vpass=$clean_input['vpass'];
-$timezone_offset=$clean_input['timezone_offset'];
+$timezone=$clean_input['timezone'];
 $user_viewemail=$clean_input['user_viewemail'];
 $user_mailok=$clean_input['user_mailok'];
 $agree_disc=$clean_input['agree_disc'];
@@ -105,15 +105,14 @@ switch ($op) {
                 $url = $xoops->formatURL($url);
                 echo XoopsLocale::WEBSITE . ': ' . $myts->htmlSpecialChars($url) . '<br />';
             }
-            $f_timezone = ($timezone_offset < 0) ? 'GMT ' . $timezone_offset : 'GMT +' . $timezone_offset;
-            echo XoopsLocale::TIME_ZONE . ": $f_timezone<br />";
+            echo XoopsLocale::TIME_ZONE . ": $timezone<br />";
             echo "<form action='register.php' method='post'>";
             $cpatcha = new Xoops\Form\Captcha();
             echo "<br />" . $cpatcha->getCaption() . ": " . $cpatcha->render();
             echo "<input type='hidden' name='uname' value='" . $myts->htmlSpecialChars($uname) . "' />
                   <input type='hidden' name='email' value='" . $myts->htmlSpecialChars($email) . "' />
                   <input type='hidden' name='user_viewemail' value='" . $user_viewemail . "' />
-                  <input type='hidden' name='timezone_offset' value='" . (float)$timezone_offset . "' />
+                  <input type='hidden' name='timezone' value='" . $timezone . "' />
                   <input type='hidden' name='url' value='" . $myts->htmlSpecialChars($url) . "' />
                   <input type='hidden' name='pass' value='" . $myts->htmlSpecialChars($pass) . "' />
                   <input type='hidden' name='vpass' value='" . $myts->htmlSpecialChars($vpass) . "' />
@@ -152,7 +151,8 @@ switch ($op) {
             $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
             $newuser->setVar('actkey', $actkey);
             $newuser->setVar('pass', password_hash($pass, PASSWORD_DEFAULT));
-            $newuser->setVar('timezone_offset', $timezone_offset);
+            $newuser->setVar('last_pass_change', time());
+            $newuser->setVar('timezone', $timezone);
             $newuser->setVar('user_regdate', time());
             $newuser->setVar('uorder', $xoops->getConfig('com_order'));
             $newuser->setVar('umode', $xoops->getConfig('com_mode'));

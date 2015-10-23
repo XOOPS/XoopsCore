@@ -198,13 +198,13 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
             if ($this->theme && $bcachetime) {
                 $metas = array();
                 foreach ($this->theme->metas as $type => $value) {
-                    $dif = Xoops_Utils::arrayRecursiveDiff($this->theme->metas[$type], $old[$type]);
+                    $dif = \Xoops\Utils::arrayRecursiveDiff($this->theme->metas[$type], $old[$type]);
                     if (count($dif)) {
                         $metas[$type] = $dif;
                     }
                 }
                 if (count($metas)) {
-                    Xoops_Cache::write($cacheid, $metas);
+                    \Xoops\Cache::write($cacheid, $metas);
                 }
             }
         } else {
@@ -213,7 +213,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
 
         //add block cached metas
         if ($this->theme && $bcachetime) {
-            if ($metas = Xoops_Cache::read($cacheid)) {
+            if ($metas = \Xoops\Cache::read($cacheid)) {
                 foreach ($metas as $type => $value) {
                     $this->theme->metas[$type] = array_merge($this->theme->metas[$type], $metas[$type]);
                 }

@@ -94,7 +94,7 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
         $checkbox = new Xoops\Form\Checkbox(XoopsLocale::OPTIONS, 'content_option', $content_option, false);
         $checkbox->setDescription(PageLocale::CONTENT_OPTIONS_DSC);
         foreach ($obj->options as $option) {
-            $checkbox->addOption($option, Xoops_Locale::translate('L_CONTENT_DO' . strtoupper($option), 'page'));
+            $checkbox->addOption($option, \Xoops\Locale::translate('L_CONTENT_DO' . strtoupper($option), 'page'));
         }
         $tab3->addElement($checkbox);
         //maindisplay

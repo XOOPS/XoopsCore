@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xlanguage module
  * You may not change or alter any portion of this comment or credits
@@ -18,21 +19,30 @@
 class XlanguageLanguageForm extends Xoops\Form\ThemeForm
 {
     /**
-     * @param null $obj
+     * @param XlanguageLanguage|null $obj
      */
-    public function __construct($obj = null)
+    public function __construct(XlanguageLanguage $obj = null)
     {
         $xoops = Xoops::getInstance();
 
         parent::__construct('', 'xlanguage_form', $xoops->getEnv('PHP_SELF'), 'post', true, 'horizontal');
 
         // language name
-        $xlanguage_select = new Xoops\Form\Select(_AM_XLANGUAGE_NAME, 'xlanguage_name', $obj->getVar('xlanguage_name'));
-        $xlanguage_select->addOptionArray(XoopsLists::getLocaleList());
-        $this->addElement($xlanguage_select, true);
+        $xlanguageSelect = new Xoops\Form\SelectLocale(
+            _AM_XLANGUAGE_NAME,
+            'xlanguage_name',
+            $obj->getVar('xlanguage_name')
+        );
+        $this->addElement($xlanguageSelect, true);
 
         // language description
-        $this->addElement(new Xoops\Form\Text(_AM_XLANGUAGE_DESCRIPTION, 'xlanguage_description', 5, 30, $obj->getVar('xlanguage_description')), true);
+        $this->addElement(new Xoops\Form\Text(
+            _AM_XLANGUAGE_DESCRIPTION,
+            'xlanguage_description',
+            5,
+            30,
+            $obj->getVar('xlanguage_description')
+        ), true);
 
         // language charset
         $autoload = XoopsLoad::loadConfig('xlanguage');
@@ -48,9 +58,9 @@ class XlanguageLanguageForm extends Xoops\Form\ThemeForm
 
         // language image
         $image_option_tray = new Xoops\Form\ElementTray(_AM_XLANGUAGE_IMAGE, '');
-        $image_array = XoopsLists::getImgListAsArray(\XoopsBaseConfig::get('root-path') . '/media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/');
+        $flagPath = 'media/xoops/images/flags/' . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . '/';
         $image_select = new Xoops\Form\Select('', 'xlanguage_image', $obj->getVar('xlanguage_image'));
-        $image_select->addOptionArray($image_array);
+        \Xoops\Core\Lists\ImageFile::setOptionsArray($image_select, $xoops->path($flagPath));
         $image_select->setExtra("onchange='showImgSelected(\"image\", \"xlanguage_image\", \"/media/xoops/images/flags/" . \Xoops\Module\Helper::getHelper('xlanguage')->getConfig('theme') . "/\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
         $image_tray = new Xoops\Form\ElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);

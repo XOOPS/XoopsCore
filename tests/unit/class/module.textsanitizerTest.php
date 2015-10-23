@@ -294,11 +294,11 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
         $sanitizer = $class::getInstance();
         $text = "\"'<>&";
         $message = $sanitizer->htmlSpecialChars($text);
-        $this->assertSame('&quot;&#039;&lt;&gt;&',$message);
+        $this->assertSame('&quot;&#039;&lt;&gt;&amp;',$message);
 
         $text = 'toto&titi';
         $message = $sanitizer->htmlSpecialChars($text);
-        $this->assertSame('toto&titi',$message);
+        $this->assertSame('toto&amp;titi',$message);
 
         $text = 'toto&nbsp;titi';
         $message = $sanitizer->htmlSpecialChars($text);
@@ -327,22 +327,22 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
-        
+
         $text = '<h1>title</h1>&amp;   &nbsp;';
         $result = $sanitizer->previewTarea($text);
         $expected = $sanitizer->htmlSpecialChars($text);
         $this->assertSame($expected, $result);
-        
+
         $text = 'smiley :-)';
         $result = $sanitizer->previewTarea($text, 1, 1);
         $expected = $sanitizer->smiley($text);
         $this->assertSame($expected, $result);
-        
+
         $string = 'string';
         $text = '[b]'.$string.'[/b]';
         $message = $sanitizer->previewTarea($text, 0, 0, 1, 0, 0);
         $this->assertEquals('<strong>'.$string.'</strong>',$message);
-        
+
         $text = "line\015\012line\015line\012line";
         $message = $sanitizer->previewTarea($text, 0, 0, 0, 0, 1);
         $expected = 'line<br />line<br />line<br />line';
@@ -353,7 +353,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
 	{
 		$class = $this->myClass;
         $sanitizer = $class::getInstance();
-        
+
         $text = 'censor string';
         $result = $sanitizer->censorString($text);
         $expected = $sanitizer->executeExtension('censor', $text);
@@ -404,7 +404,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
         $sanitizer = $class::getInstance();
         $value = $sanitizer->executeExtension('toto');
         $this->assertFalse($value);
-        
+
         $value = $sanitizer->executeExtension('image');
         $this->assertTrue($value);
     }

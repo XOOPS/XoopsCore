@@ -45,7 +45,7 @@
         </tr>
         <tr>
             <td>
-                <{translate key='C_SENT'}>&nbsp;<{$msg_time}>
+                <{translate key='C_SENT'}>&nbsp;<{$msg_time|datetime}>
             </td>
         </tr>
         <tr>

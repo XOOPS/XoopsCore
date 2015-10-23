@@ -138,5 +138,5 @@ $form->addElement($buttonTray);
 
 $form->display();
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

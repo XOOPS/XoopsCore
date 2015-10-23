@@ -1842,12 +1842,12 @@ tables:
                 columnDefinition: null
                 comment: null
                 collation: utf8mb4_unicode_ci
-            timezone_offset:
-                name: timezone_offset
-                type: float
-                default: '0'
+            timezone:
+                name: timezone
+                type: string
+                default: 'UTC'
                 notnull: true
-                length: null
+                length: 32
                 precision: 10
                 scale: 0
                 fixed: false
@@ -1855,6 +1855,7 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
+                collation: utf8mb4_unicode_ci
             last_login:
                 name: last_login
                 type: integer

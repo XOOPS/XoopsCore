@@ -77,73 +77,78 @@ $modversion['tables'][3] = 'page_related_link';
 $modversion['tables'][4] = 'page_rating';
 
 // blocks
-$i                                       = 0;
-$modversion['blocks'][$i]['file']        = 'page_blocks.php';
-$modversion['blocks'][$i]['name']        = PageLocale::BLOCKS_CONTENTS;
-$modversion['blocks'][$i]['description'] = PageLocale::BLOCKS_CONTENTS_DSC;
-$modversion['blocks'][$i]['show_func']   = 'page_blocks_show';
-$modversion['blocks'][$i]['edit_func']   = 'page_blocks_edit';
-$modversion['blocks'][$i]['options']     = 'content|create|DESC|5|0';
-$modversion['blocks'][$i]['template']    = 'page_blocks.tpl';
-++$i;
-$modversion['blocks'][$i]['file']        = 'page_blocks.php';
-$modversion['blocks'][$i]['name']        = PageLocale::BLOCKS_ID;
-$modversion['blocks'][$i]['description'] = PageLocale::BLOCKS_ID_DSC;
-$modversion['blocks'][$i]['show_func']   = 'page_blocks_show';
-$modversion['blocks'][$i]['edit_func']   = 'page_blocks_edit';
-$modversion['blocks'][$i]['options']     = 'id|0';
-$modversion['blocks'][$i]['template']    = 'page_blocks_id.tpl';
+$modversion['blocks'][] = array(
+    'file'        => 'page_blocks.php',
+    'name'        => PageLocale::BLOCKS_CONTENTS,
+    'description' => PageLocale::BLOCKS_CONTENTS_DSC,
+    'show_func'   => 'page_blocks_show',
+    'edit_func'   => 'page_blocks_edit',
+    'options'     => 'content|create|DESC|5|0',
+    'template'    => 'page_blocks.tpl',
+);
+$modversion['blocks'][] = array(
+    'file'        => 'page_blocks.php',
+    'name'        => PageLocale::BLOCKS_ID,
+    'description' => PageLocale::BLOCKS_ID_DSC,
+    'show_func'   => 'page_blocks_show',
+    'edit_func'   => 'page_blocks_edit',
+    'options'     => 'id|0',
+    'template'    => 'page_blocks_id.tpl',
+);
 
 // Preferences
-$i                                       = 0;
-$editors                                 = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
-$modversion['config'][$i]['name']        = 'page_editor';
-$modversion['config'][$i]['title']       = PageLocale::CONF_EDITOR;
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'select';
-$modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = 'dhtmltextarea';
-$modversion['config'][$i]['options']     = $editors;
-++$i;
-$modversion['config'][$i]['name']        = 'page_adminpager';
-$modversion['config'][$i]['title']       = PageLocale::CONF_ADMINPAGER;
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 20;
-++$i;
-$modversion['config'][$i]['name']        = 'page_userpager';
-$modversion['config'][$i]['title']       = PageLocale::CONF_USERPAGER;
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'textbox';
-$modversion['config'][$i]['valuetype']   = 'int';
-$modversion['config'][$i]['default']     = 20;
-++$i;
-$modversion['config'][$i]['name']        = 'page_dateformat';
-$modversion['config'][$i]['title']       = PageLocale::CONF_DATEFORMAT;
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'select';
-$modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['options']     = array(
-    date('d/m/y') => 'd/m/y',
-    date('d-m-y') => 'd-m-y',
-    date('d.m.y') => 'd.m.y',
-    date('d/m/Y') => 'd/m/Y',
-    date('d-m-Y') => 'd-m-Y',
-    date('d.m.Y') => 'd.m.Y',
-    date('m/d/y') => 'm/d/y',
-    date('m-d-y') => 'm-d-y',
-    date('m.d.y') => 'm.d.y',
-    date('m/d/Y') => 'm/d/Y',
-    date('m-d-Y') => 'm-d-Y',
-    date('m.d.Y') => 'm.d.Y'
+$modversion['config'][] = array(
+    'name'        => 'page_editor',
+    'title'       => PageLocale::CONF_EDITOR,
+    'description' => '',
+    'formtype'    => 'select_editor',
+    'valuetype'   => 'text',
+    'default'     => 'dhtmltextarea',
 );
-$modversion['config'][$i]['default']     = 'm/d/y';
-++$i;
-$modversion['config'][$i]['name']        = 'page_timeformat';
-$modversion['config'][$i]['title']       = PageLocale::CONF_TIMEFORMAT;
-$modversion['config'][$i]['description'] = '';
-$modversion['config'][$i]['formtype']    = 'select';
-$modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['options']     = array(date('H:i') => 'H:i', date('H:i:s') => 'H:i:s', date('H:i A') => 'H:i A', date('H:i:s A ') => 'H:i:s A');
-$modversion['config'][$i]['default']     = 'H:i:s';
+$modversion['config'][] = array(
+    'name'        => 'page_adminpager',
+    'title'       => PageLocale::CONF_ADMINPAGER,
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 20,
+);
+$modversion['config'][] = array(
+    'name'        => 'page_userpager',
+    'title'       => PageLocale::CONF_USERPAGER,
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 20,
+);
+$modversion['config'][] = array(
+    'name'        => 'page_dateformat',
+    'title'       => PageLocale::CONF_DATEFORMAT,
+    'description' => '',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'options'     => array(
+        date('d/m/y') => 'd/m/y',
+        date('d-m-y') => 'd-m-y',
+        date('d.m.y') => 'd.m.y',
+        date('d/m/Y') => 'd/m/Y',
+        date('d-m-Y') => 'd-m-Y',
+        date('d.m.Y') => 'd.m.Y',
+        date('m/d/y') => 'm/d/y',
+        date('m-d-y') => 'm-d-y',
+        date('m.d.y') => 'm.d.y',
+        date('m/d/Y') => 'm/d/Y',
+        date('m-d-Y') => 'm-d-Y',
+        date('m.d.Y') => 'm.d.Y'
+    ),
+    'default'     => 'm/d/y',
+);
+$modversion['config'][] = array(
+    'name'        => 'page_timeformat',
+    'title'       => PageLocale::CONF_TIMEFORMAT,
+    'description' => '',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'options'     => array(date('H:i') => 'H:i', date('H:i:s') => 'H:i:s', date('H:i A') => 'H:i A', date('H:i:s A ') => 'H:i:s A'),
+    'default'     => 'H:i:s',
+);

@@ -163,5 +163,5 @@ $form->addElement($buttonTray);
 //We are good, display the form!
 $form->display();
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

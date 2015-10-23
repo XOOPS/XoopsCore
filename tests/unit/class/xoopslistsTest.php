@@ -23,7 +23,7 @@ class xoopslistsTest extends \PHPUnit_Framework_TestCase
         $class = $this->myClass;
         $value = $class::getTimeZoneList();
         foreach ($value as $k => $v) {
-            $this->assertTrue(is_numeric($k));
+            $this->assertTrue(is_string($k));
             $this->assertTrue(is_string($v));
         }
     }
@@ -99,39 +99,6 @@ class xoopslistsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, strncmp(array_shift($value), $prefix, strlen($prefix)));
     }
 
-    public function test_getAvatarsList()
-    {
-        $class = $this->myClass;
-        $xoops_root_path = \XoopsBaseConfig::get('root-path');
-        $d_avatar = $xoops_root_path . '/images/avatar/';
-        $is_dir = is_dir($d_avatar);
-        if (! $is_dir) {
-            mkdir($d_avatar);
-        }
-        $value = $class::getAvatarsList();
-        $this->assertTrue(is_array($value));
-        $sdir = 'test_getAvatarsList';
-        $is_sdir = is_dir($d_avatar.$sdir);
-        if (! $is_sdir) {
-            mkdir($d_avatar.$sdir);
-        }
-        $value = $class::getAvatarsList($sdir);
-        $this->assertTrue(is_array($value));
-        
-        @rmdir($d_avatar.$sdir);
-        @rmdir($d_avatar);
-    }
-
-    public function test_getAllAvatarsList()
-    {
-        $class = $this->myClass;
-        $value = $class::getAllAvatarsList();
-        if ($value !== false) {
-            $this->assertTrue(is_array($value));
-            $this->assertTrue(count($value)>0);
-        }
-    }
-
     public function test_getSubjectsList()
     {
         $class = $this->myClass;
@@ -151,7 +118,7 @@ class xoopslistsTest extends \PHPUnit_Framework_TestCase
         }
         $value = $class::getSubjectsList($sdir);
         $this->assertTrue(is_array($value));
-        
+
         @rmdir($d_subject.$sdir);
         @rmdir($d_subject);
     }
@@ -184,17 +151,6 @@ class xoopslistsTest extends \PHPUnit_Framework_TestCase
                 $this->assertRegExp('/^[A-Z][A-Z]$/', $k);
                 $this->assertTrue(is_string($v));
             }
-        }
-    }
-
-    public function test_getHtmlList()
-    {
-        $class = $this->myClass;
-        $value = $class::getHtmlList();
-        $this->assertTrue(is_array($value));
-        foreach ($value as $k => $v) {
-            $this->assertRegExp('/^[a-z0-9]+$/', $k);
-            $this->assertRegExp('/^(\&lt;)?[a-z0-9]+(\&gt;)?$/', $v);
         }
     }
 }

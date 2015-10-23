@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
-class Xoops_Locale_AbstractTestInstance extends Xoops_Locale_Abstract
+class Xoops_Locale_AbstractTestInstance extends Xoops\Locale\AbstractLocale
 {
 }
 
@@ -14,12 +14,17 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'Xoops_Locale_AbstractTestInstance';
 
+    public function setUp()
+    {
+        \Xoops\Locale::setCurrent('en_US');
+        \Xoops\Locale::setTimeZone(new \DateTimeZone('America/New_York'));
+    }
+
     public function test_isMultiByte()
     {
         $instance = $this->myClass;
 
-        $x = $instance::isMultiByte();
-        $this->assertSame(false, $x);
+        $this->assertTrue($instance::isMultiByte());
     }
 
     public function test_isRtl()
@@ -36,8 +41,9 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 
         $x = $instance::setLocale();
         $y = $instance::getLocale();
-        if ($x !== false)
+        if ($x !== false) {
             $this->assertSame($y, $x);
+        }
     }
 
     public function test_getCharset()
@@ -77,7 +83,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $instance = $this->myClass;
 
         $x = $instance::getTimezone();
-        $this->assertSame('Europe/London', $x);
+        $this->assertSame('America/New_York', $x);
     }
 
     public function test_getFonts()
@@ -123,79 +129,16 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array('http://www.xoops.org/backend.php'), $x);
     }
 
-    public function test_getFormatToday()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatToday();
-        $this->assertSame('\T\o\d\a\y G:i', $x);
-    }
-
-    public function test_getFormatYesterday()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatYesterday();
-        $this->assertSame('\Y\e\s\t\e\r\d\a\y G:i', $x);
-    }
-
-    public function test_getFormatMonthDay()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatMonthDay();
-        $this->assertSame("n/j G:i", $x);
-    }
-
-    public function test_getFormatYearMonthDay()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatYearMonthDay();
-        $this->assertSame("Y/n/j G:i", $x);
-    }
-
-    public function test_getFormatLongDate()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatLongDate();
-        $this->assertSame("Y/n/j G:i:s", $x);
-    }
-
-
-    public function test_getFormatMediumDate()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatMediumDate();
-        $this->assertSame("Y/n/j G:i", $x);
-    }
-
-    public function test_getFormatShortDate()
-    {
-        $instance = $this->myClass;
-
-        $x = $instance::getFormatShortDate();
-        $this->assertSame("Y/n/j", $x);
-    }
-
     public function test_substr()
     {
         $instance = $this->myClass;
 
         $str = "stringstringstringstringstring";
-        $x = $instance::substr($str,15,10);
-        if (!$instance::isMultiByte())
-            $this->assertSame("ingstri...", $x);
-        else
-            $this->assertSame("ingstri...", $x);
+        $x = $instance::substr($str, 15, 10);
+        $this->assertSame("ingstri…", $x);
         $str = "stringstring";
-        $x = $instance::substr($str,6,10);
-        if (!$instance::isMultiByte())
-            $this->assertSame("string", $x);
-        else
-            $this->assertSame("string", $x);
+        $x = $instance::substr($str, 6, 10);
+        $this->assertSame("string", $x);
     }
 
     public function test_utf8_encode()
@@ -204,10 +147,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 
         $str = "stringstring";
         $x = $instance::utf8_encode($str);
-        if (!$instance::isMultiByte())
-            $this->assertSame(utf8_encode($str), $x);
-        else
-            $this->assertSame($str, $x);
+        $this->assertSame($str, $x);
     }
 
 
@@ -215,9 +155,8 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $instance = $this->myClass;
 
-        $x = $instance::convert_encoding("");
-        $this->assertSame("", $x);
-        $this->markTestIncomplete();
+        $x = $instance::convert_encoding("blah");
+        $this->assertSame("blah", $x);
     }
 
     public function test_trim()
@@ -229,86 +168,100 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(trim($str), $x);
     }
 
-    public function test_formatTimestamp()
+    /**
+     * @dataProvider formatTimestampProvider
+     */
+    public function test_formatTimestamp($locale, $timezone, $format, $shortform, $expected)
     {
         $instance = $this->myClass;
 
-        $time = time();
+        \Xoops\Locale::setTimeZone(new \DateTimeZone($timezone));
+        \Xoops\Locale::setCurrent($locale);
 
-        $xoops = \Xoops::getInstance();
-        if ($timeoffset === null) {
-            $timeoffset = ($xoops->getConfig('default_TZ') == '') ? '0.0' : $xoops->getConfig('default_TZ');
+        $dateTime = \Xoops\Core\Locale\Time::cleanTime();
+        $dateTime->setDate(2015, 12, 14);
+        $dateTime->setTime(0, 0, 0);
+
+        $time = $dateTime->getTimestamp();
+
+        $value = $instance::formatTimestamp($time, $format);
+        $this->assertSame($expected, $value);
+        if (!empty($shortform)) {
+            $value = $instance::formatTimestamp($time, $shortform);
+            $this->assertSame($expected, $value);
         }
-        $usertimestamp = $xoops->getUserTimestamp($time, $timeoffset);
+    }
 
-        $value = $instance::formatTimestamp($time);
-        $datestring = $instance::getFormatLongDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected,$value);
+    public function formatTimestampProvider()
+    {
+        return array(
+            ['en_US', 'America/New_York', 'full',         'f', 'Monday, December 14, 2015 at 12:00:00 AM Eastern Standard Time'],
+            ['en_US', 'America/New_York', 'full-date',    '',  'Monday, December 14, 2015'],
+            ['en_US', 'America/New_York', 'full-time',    '',  '12:00:00 AM Eastern Standard Time'],
+            ['en_US', 'America/New_York', 'long',         'l', 'December 14, 2015 at 12:00:00 AM EST'],
+            ['en_US', 'America/New_York', 'medium',       'm', 'Dec 14, 2015, 12:00:00 AM'],
+            ['en_US', 'America/New_York', 'short',        's', '12/14/2015, 12:00 AM'],
+            ['en_US', 'America/New_York', 'short-date',   '',  '12/14/2015'],
+            ['en_US', 'America/New_York', 'short-time',   '',  '12:00 AM'],
+            ['en_US', 'America/New_York', 'rss',          '',  'Mon, 14 Dec 2015 05:00:00 +0000'],
+            ['en_US', 'America/New_York', 'mysql',        '',  '2015-12-14 05:00:00'],
 
-        $value = $instance::formatTimestamp($time,'l');
-        $datestring = $instance::getFormatLongDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected,$value);
+            ['fr_FR', 'Europe/Paris',     'full',         'f', 'lundi 14 décembre 2015 00:00:00 heure normale d’Europe centrale'],
+            ['fr_FR', 'Europe/Paris',     'long',         'l', '14 décembre 2015 00:00:00 UTC+1'],
+            ['fr_FR', 'Europe/Paris',     'medium',       'm', '14 déc. 2015 00:00:00'],
+            ['fr_FR', 'Europe/Paris',     'medium-date',  '',  '14 déc. 2015'],
+            ['fr_FR', 'Europe/Paris',     'medium-time',  '',  '00:00:00'],
+            ['fr_FR', 'Europe/Paris',     'short',        's', '14/12/2015 00:00'],
+            ['fr_FR', 'Europe/Paris',     'short-date',   '',  '14/12/2015'],
+            ['fr_FR', 'Europe/Paris',     'short-time',   '',  '00:00'],
+            ['fr_FR', 'Europe/Paris',     'rss',          '',  'Sun, 13 Dec 2015 23:00:00 +0000'],
+            ['fr_FR', 'Europe/Paris',     'mysql',        '',  '2015-12-13 23:00:00'],
+        );
+    }
 
-        $value = $instance::formatTimestamp($time,'');
-        $datestring = $instance::getFormatLongDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected,$value);
+    /**
+     * @dataProvider formatTimestampElapsedProvider
+     */
+    public function test_formatTimestampElapsed($locale, $timezone, $format, $op, $interval, $expected)
+    {
+        $instance = $this->myClass;
 
-        $TIME_ZONE = '';
-        if ($xoops->getConfig('server_TZ')) {
-            $server_TZ = abs((int)($xoops->getConfig('server_TZ') * 3600.0));
-            $prefix = ($xoops->getConfig('server_TZ') < 0) ? ' -' : ' +';
-            $TIME_ZONE = $prefix . date('Hi', $server_TZ);
+        \Xoops\Locale::setTimeZone(new \DateTimeZone($timezone));
+        \Xoops\Locale::setCurrent($locale);
+
+        $dateTime = new \DateTime;
+        $interval = new \DateInterval($interval);
+        if ($op === 'add') {
+            $dateTime->add($interval);
+        } elseif ($op === 'sub') {
+            $dateTime->sub($interval);
         }
 
-        $expected = gmdate('D, d M Y H:i:s', (int)($time)) . $TIME_ZONE;
-        $value = $instance::formatTimestamp($time,'rss');
-        $this->assertSame($expected,$value);
+        $value = $instance::formatTimestamp($dateTime, $format);
+        $this->assertSame($expected, $value);
+    }
 
-        $value = $instance::formatTimestamp($time,'r');
-        $this->assertSame($expected,$value);
+    public function formatTimestampElapsedProvider()
+    {
+        return array(
+            ['en_US', 'America/New_York', 'elapse', '',    'PT0S',    'now'],
+            ['en_US', 'America/New_York', 'custom', '',    'PT0S',    'Today'],
+            ['en_US', 'America/New_York', 'elapse', 'add', 'PT3S',    'in 3 seconds'],
+            ['en_US', 'America/New_York', 'elapse', 'sub', 'PT3S',    '3 seconds ago'],
+            ['en_US', 'America/New_York', 'elapse', 'add', 'P1D',     'tomorrow'],
+            ['en_US', 'America/New_York', 'elapse', 'sub', 'P1D',     'yesterday'],
+            ['en_US', 'America/New_York', 'elapse', 'sub', 'P12DT4H', '12 days ago'],
+            ['en_US', 'America/New_York', 'elapse', 'sub', 'P2Y3M',   '2 years ago'],
 
-        $value = $instance::formatTimestamp($time,'s');
-        $datestring = $instance::getFormatShortDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected,$value);
-
-        $value = $instance::formatTimestamp($time,'m');
-        $datestring = $instance::getFormatMediumDate();
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected,$value);
-
-        $value = $instance::formatTimestamp($time,'mysql');
-        $datestring = 'Y-m-d H:i:s';
-        $expected = ucfirst(gmdate($datestring, $usertimestamp));
-        $this->assertSame($expected,$value);
-
-        $elapse = strtotime('-3 seconds', time());
-        $value = $instance::formatTimestamp($elapse,'e');
-        $this->assertTrue(strpos($value,'3') !== false);
-        $this->assertTrue(strpos($value,'seconds') !== false);
-
-        $elapse = strtotime('-3 seconds', time());
-        $value = $instance::formatTimestamp($elapse,'elapse');
-        $this->assertTrue(strpos($value,'3') !== false);
-        $this->assertTrue(strpos($value,'seconds') !== false);
-
-        $elapse = strtotime('-2 days', time());
-        $value = $instance::formatTimestamp($elapse,'elapse',null);
-        $this->assertTrue(strpos($value,'2') !== false);
-        $this->assertTrue(strpos($value,'days') !== false);
-
-        $elapse = strtotime('-3 hours', time());
-        $value = $instance::formatTimestamp($elapse,'elapse',null);
-        $this->assertTrue(strpos($value,'3') !== false);
-        $this->assertTrue(strpos($value,'hours') !== false);
-
-        $elapse = strtotime('-4 minutes', time());
-        $value = $instance::formatTimestamp($elapse,'elapse',null);
-        $this->assertTrue(strpos($value,'4') !== false);
-        $this->assertTrue(strpos($value,'minutes') !== false);
+            ['fr_FR', 'Europe/Paris',     'elapse', '',    'PT0S',    'maintenant'],
+            ['fr_FR', 'Europe/Paris',     'custom', '',    'PT0S',    'Aujourd’hui'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'add', 'PT3S',    'dans 3 secondes'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'PT3S',    'il y a 3 secondes'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'add', 'P1D',     'demain'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P1D',     'hier'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P12DT4H', 'il y a 12 jours'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P2Y3M',   'il y a 2 ans'],
+        );
     }
 
     public function test_number_format()
@@ -317,10 +270,11 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 
         $num = 1234567.89;
         $x = $instance::number_format($num);
-        if (function_exists('number_format'))
-            $this->assertSame(number_format($num ,2, '.', ','), $x);
-        else
+        if (function_exists('number_format')) {
+            $this->assertSame(number_format($num, 2, '.', ','), $x);
+        } else {
             $this->assertSame(sprintf('%.2f', $num), $x);
+        }
     }
 
     public function test_money_format()
@@ -329,11 +283,11 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
 
         $num = 1234567.89;
         $fmt = '%i';
-        $x = $instance::money_format('%i',$num);
-        if (function_exists('money_format'))
+        $x = $instance::money_format('%i', $num);
+        if (function_exists('money_format')) {
             $this->assertSame(money_format($fmt, $num), $x);
-        else
+        } else {
             $this->assertSame(sprintf('%01.2f', $num), $x);
+        }
     }
-
 }

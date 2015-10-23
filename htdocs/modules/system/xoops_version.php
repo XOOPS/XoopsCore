@@ -253,8 +253,8 @@ $modversion['config'][] = array(
     'description' => '',
     'category'    => 'general',
     'formtype'    => 'timezone',
-    'valuetype'   => 'float',
-    'default'     => 0,
+    'valuetype'   => 'other',
+    'default'     => 'UTC',
 );
 
 $modversion['config'][] = array(
@@ -263,8 +263,8 @@ $modversion['config'][] = array(
     'description' => '',
     'category'    => 'general',
     'formtype'    => 'timezone',
-    'valuetype'   => 'float',
-    'default'     => 0,
+    'valuetype'   => 'other',
+    'default'     => 'UTC',
 );
 
 $modversion['config'][] = array(
@@ -578,21 +578,6 @@ $modversion['config'][] = array(
     'formtype'    => 'group',
     'valuetype'   => 'int',
     'default'     => 1,
-);
-
-$modversion['config'][] = array(
-    'name'        => 'uname_test_level',
-    'title'       => 'CONF_USERNAME_LEVEL',
-    'description' => '',
-    'category'    => 'user',
-    'formtype'    => 'select',
-    'valuetype'   => 'int',
-    'options'     => array(
-        'CONF_LEVEL_STRICT' => 0,
-        'CONF_LEVEL_MEDIUM' => 1,
-        'CONF_LEVEL_LIGHT'  => 2
-    ),
-    'default'     => 0,
 );
 
 $modversion['config'][] = array(
@@ -1199,25 +1184,22 @@ $modversion['config'][] = array(
     'default'     => 20,
 );
 
-$editors                = XoopsLists::getDirListAsArray(\XoopsBaseConfig::get('root-path') . '/class/xoopseditor');
 $modversion['config'][] = array(
     'name'        => 'blocks_editor',
     'title'       => 'CONF_BLOCKS_EDITOR',
     'description' => '',
-    'formtype'    => 'select',
+    'formtype'    => 'select_editor',
     'valuetype'   => 'text',
     'default'     => 'dhtmltextarea',
-    'options'     => $editors,
 );
 
 $modversion['config'][] = array(
     'name'        => 'general_editor',
     'title'       => 'CONF_GENERAL_EDITOR',
     'description' => '',
-    'formtype'    => 'select',
+    'formtype'    => 'select_editor',
     'valuetype'   => 'text',
     'default'     => 'dhtmltextarea',
-    'options'     => $editors,
 );
 
 $modversion['config'][] = array(

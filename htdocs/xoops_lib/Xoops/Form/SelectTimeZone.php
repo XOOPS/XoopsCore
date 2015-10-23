@@ -30,12 +30,16 @@ class SelectTimeZone extends Select
      * @param string  $caption caption
      * @param string  $name    name
      * @param mixed   $value   Pre-selected value (or array of them).
-     *                         Legal values are "-12" to "12" with some ".5"s strewn in ;-)
+     *                          Must be \DateTimeZone supported timezone names, or a DateTimeZone object
+     *
      * @param integer $size    Number of rows. "1" makes a drop-down-box.
      */
     public function __construct($caption, $name, $value = null, $size = 1)
     {
+        if (is_a($value, '\DateTimeZone')) {
+            $value = $value->getName();
+        }
         parent::__construct($caption, $name, $value, $size);
-        $this->addOptionArray(\XoopsLists::getTimeZoneList());
+        \Xoops\Core\Lists\TimeZone::setOptionsArray($this);
     }
 }

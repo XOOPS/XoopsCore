@@ -35,12 +35,12 @@ echo <<<EOT
     <div class="shape" id="shape3"></div>
 EOT;
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 
 echo '<h3>Simple SCSS example - assets/scss/test.scss</h3>';
-Xoops_Utils::dumpFile($xoops->path('modules/codex/assets/scss/test.scss'));
+\Xoops\Utils::dumpFile($xoops->path('modules/codex/assets/scss/test.scss'));
 
 echo '<h3>Simple Less example - assets/less/test.less</h3>';
-Xoops_Utils::dumpFile($xoops->path('modules/codex/assets/less/test.less'));
+\Xoops\Utils::dumpFile($xoops->path('modules/codex/assets/less/test.less'));
 
 $xoops->footer();

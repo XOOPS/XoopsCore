@@ -19,20 +19,13 @@ namespace Xoops\Form;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Skalpa Keo <skalpa@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
  */
-class Checkbox extends Element
+class Checkbox extends OptionElement
 {
-    /**
-     * Available options
-     *
-     * @var array
-     */
-    private $options = array();
-
     /**
      * pre-selected values in array
      *
@@ -64,62 +57,6 @@ class Checkbox extends Element
             $this->setValue($value);
         }
         $this->inline = $inline;
-    }
-
-    /**
-     * Add an option
-     *
-     * @param string $value value
-     * @param string $name  name
-     *
-     * @return void
-     */
-    public function addOption($value, $name = '')
-    {
-        if ($name != '') {
-            $this->options[$value] = $name;
-        } else {
-            $this->options[$value] = $value;
-        }
-    }
-
-    /**
-     * Add multiple Options at once
-     *
-     * @param array $options Associative array of value->name pairs
-     *
-     * @return void
-     */
-    public function addOptionArray($options)
-    {
-        if (is_array($options)) {
-            foreach ($options as $k => $v) {
-                $this->addOption($k, $v);
-            }
-        }
-    }
-
-    /**
-     * Get an array with all the options
-     *
-     * @param integer $encode encode special characters, potential values:
-     *                        0 - skip
-     *                        1 - only for value
-     *                        2 - for both value and name
-     *
-     * @return array Associative array of value->name pairs
-     */
-    public function getOptions($encode = 0)
-    {
-        if (!$encode) {
-            return $this->options;
-        }
-        $value = array();
-        foreach ($this->options as $val => $name) {
-            $value[$encode ? htmlspecialchars($val, ENT_QUOTES) : $val] = ($encode > 1)
-                ? htmlspecialchars($name, ENT_QUOTES) : $name;
-        }
-        return $value;
     }
 
     /**

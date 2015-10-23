@@ -30,9 +30,8 @@ use Psr\Log\LoggerInterface;
  * log entry without needing to know any details of the implementation.
  *
  * Not all events are published through this mechanism, only specific requests
- * to log() or related methods. Individual loggers may connect to preload
- * events or other sources and gain access to detailed debugging style
- * information.
+ * to log() or related methods. Individual loggers may listen for events (i.e.
+ * preloads) or other sources and gain access to detailed debugging information.
  *
  * @category  Xoops\Core\Logger
  * @package   Logger
@@ -85,28 +84,28 @@ class Logger implements LoggerInterface
      *
      * This will
      *
-     * @param integer $errno   error number
-     * @param string  $errstr  error message
-     * @param string  $errfile file
-     * @param integer $errline line number
+     * @param integer $errorNumber error number
+     * @param string  $errorString error message
+     * @param string  $errorFile   file
+     * @param integer $errorLine   line number
      *
      * @return void
      */
-    public function handleError($errno, $errstr, $errfile, $errline)
+    public function handleError($errorNumber, $errorString, $errorFile, $errorLine)
     {
-        if ($this->logging_active && ($errno & error_reporting())) {
+        if ($this->logging_active && ($errorNumber & error_reporting())) {
 
             // if an error occurs before a locale is established,
             // we still need messages, so check and deal with it
 
             $msg = ': ' . sprintf(
                 (class_exists('\XoopsLocale', false) ? \XoopsLocale::EF_LOGGER_FILELINE : "%s in file %s line %s"),
-                $this->sanitizePath($errstr),
-                $this->sanitizePath($errfile),
-                $errline
+                $this->sanitizePath($errorString),
+                $this->sanitizePath($errorFile),
+                $errorLine
             );
 
-            switch ($errno) {
+            switch ($errorNumber) {
                 case E_USER_NOTICE:
                     $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error:') . $msg;
                     $this->log(LogLevel::NOTICE, $msg);
@@ -134,13 +133,13 @@ class Logger implements LoggerInterface
             }
         }
 
-        if ($errno == E_USER_ERROR) {
+        if ($errorNumber == E_USER_ERROR) {
             $trace = true;
-            if (substr($errstr, 0, '8') == 'notrace:') {
+            if (substr($errorString, 0, '8') == 'notrace:') {
                 $trace = false;
-                $errstr = substr($errstr, 8);
+                $errorString = substr($errorString, 8);
             }
-            $this->reportFatalError($errstr);
+            $this->reportFatalError($errorString);
             if ($trace) {
                 $trace = debug_backtrace();
                 array_shift($trace);
@@ -169,11 +168,11 @@ class Logger implements LoggerInterface
      *
      * This will
      *
-     * @param \Exception $e uncaught exception
+     * @param \Exception|\Throwable $e uncaught Exception or Error
      *
      * @return void
      */
-    public function handleException(\Exception $e)
+    public function handleException($e)
     {
         $msg = $e->getMessage();
         $this->reportFatalError($msg);
@@ -200,46 +199,45 @@ class Logger implements LoggerInterface
     /**
      * clean a path to remove sensitive details
      *
-     * @param string $path path to sanitize
+     * @param string $message text to sanitize
      *
-     * @return string sanitized path
+     * @return string sanitized message
      */
-    public function sanitizePath($path)
+    public function sanitizePath($message)
     {
-        $path = str_replace(
-            array(
-                '\\',
-                \XoopsBaseConfig::get('var-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
-                \XoopsBaseConfig::get('lib-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
-                \XoopsBaseConfig::get('root-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
-                \XoopsBaseConfig::get('root-path'),
-                str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
-                \XoopsBaseConfig::get('root-path'),
-                \XoopsBaseConfig::get('db-prefix') . '_',
-                \XoopsBaseConfig::get('db-user'),
-                \XoopsBaseConfig::get('db-pass'),
-                \XoopsBaseConfig::get('db-name'),
-            ),
-            array(
-                '/',
-                'VAR',
-                'VAR',
-                'LIB',
-                'LIB',
-                'ROOT',
-                'ROOT',
-                '',
-                '****',
-                '****',
-                '',
-            ),
-            $path
+        $stringsToClean = array(
+            '\\',
+            \XoopsBaseConfig::get('var-path'),
+            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
+            \XoopsBaseConfig::get('lib-path'),
+            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
+            \XoopsBaseConfig::get('root-path'),
+            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
+            \XoopsBaseConfig::get('db-name') . '.',
+            \XoopsBaseConfig::get('db-name'),
+            \XoopsBaseConfig::get('db-prefix') . '_',
+            \XoopsBaseConfig::get('db-user'),
+            \XoopsBaseConfig::get('db-pass'),
         );
 
-        return $path;
+        $replacementStings = array(
+            '/',
+            'VAR',
+            'VAR',
+            'LIB',
+            'LIB',
+            'ROOT',
+            'ROOT',
+            '',
+            '',
+            '',
+            '***',
+            '***',
+        );
+
+        $message = str_replace($stringsToClean, $replacementStings, $message);
+
+        return $message;
     }
 
     /**

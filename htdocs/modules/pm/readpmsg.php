@@ -174,7 +174,7 @@ if (is_object($pm) && !empty($pm)) {
     }
 
     $message = $pm->getValues();
-    $message['msg_time'] = XoopsLocale::formatTimestamp($pm->getVar("msg_time"));
+    //$message['msg_time'] = XoopsLocale::formatTimestamp($pm->getVar("msg_time"));
 }
 $xoops->tpl()->assign('message', $message);
 $xoops->tpl()->assign('op', $_REQUEST['op']);

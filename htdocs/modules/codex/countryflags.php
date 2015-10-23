@@ -9,6 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Request;
+use \Punic\Territory;
+
 /**
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2014 XOOPS Project (http://xoops.org)
@@ -21,32 +24,38 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 
+$country = Request::getString('country', 'US');
+
+$form = new Xoops\Form\ThemeForm('Show Flag for a Country', 'form_flag', '', 'post', false, 'horizontal');
+
+$ccode = new Xoops\Form\SelectCountry('Country', 'country', $country);
+$form->addElement($ccode, false);
+$button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$form->addElement($button);
+$form->display();
+
 // demonstrate the CountryFlags service
 
-$img = $xoops->service('countryflag')->getImgTag('US')->getValue();
+$img = $xoops->service('countryflag')->getImgTag($country)->getValue();
 echo $img;
 
-$img = $xoops->service('countryflag')->getImgTag('US', null, 'medium')->getValue();
+// we can specify a size
+$img = $xoops->service('countryflag')->getImgTag($country, null, 'medium')->getValue();
 echo $img;
 
-$img = $xoops->service('countryflag')->getImgTag('US', null, 'small')->getValue();
-echo $img . '<br /><br />';
+$img = $xoops->service('countryflag')->getImgTag($country, null, 'small')->getValue();
+echo $img;
 
-// instead of a full image tag, we can get just the URL
-$url = $xoops->service('countryflag')->getImgUrl('FR')->getValue();
-echo '<img src="' . $url . '" />' . '<br /><br />';
+echo '<br /><br />';
 
 // we can add any HTML attributes to the img tag
-$img = $xoops->service('countryflag')->getImgTag('SS', array('title' => 'South Sudan was formed in 2011'))->getValue();
-echo $img . '<br /><br />';
-
-$img = $xoops->service('countryflag')->getImgTag('XX', array('title' => 'No county XX'))->getValue();
+$img = $xoops->service('countryflag')->getImgTag($country, array('title' => Territory::getName($country)))->getValue();
 echo $img . '<br /><br />';
 
 if (!$xoops->service('countryflag')->isAvailable()) {
     echo 'Please install a countryflag provider to view this demonstration.';
 }
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 
 $xoops->footer();

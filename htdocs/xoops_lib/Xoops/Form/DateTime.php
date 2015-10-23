@@ -27,38 +27,33 @@ class DateTime extends ElementTray
     /**
      * __construct
      *
-     * @param string  $caption  caption
-     * @param string  $name     name
-     * @param integer $size     size
-     * @param integer $value    value unix timestamp
-     * @param boolean $showtime true to show time, false for date only
+     * @param string            $caption  caption
+     * @param string            $name     name
+     * @param integer           $size     size
+     * @param integer|\DateTime $value    unix timestamp or DateTime object
+     * @param boolean           $showtime true to show time, false for date only
      */
-    public function __construct($caption, $name, $size = 2, $value = 0, $showtime = true)
+    public function __construct($caption, $name, $size = 12, $value = 0, $showtime = true)
     {
         parent::__construct($caption, '');
-        $value = (int)($value);
-        $value = ($value > 0) ? $value : time();
-        $datetime = getdate($value);
+        $value = \Xoops\Core\Locale\Time::cleanTime($value);
         $date = new DateSelect('', $name . '[date]', $size, $value);
         $date->setAttribute('id', $name.'-date');
         $this->addElement($date);
 
         if ($showtime) {
-            $timearray = array();
-            for ($i = 0; $i < 24; ++$i) {
-                for ($j = 0; $j < 60; $j = $j + 10) {
-                    $key = ($i * 3600) + ($j * 60);
-                    $timearray[$key] = ($j != 0) ? $i . ':' . $j : $i . ':0' . $j;
-                }
-            }
-            ksort($timearray);
-
-            $timeselect =
-                new Select('', $name . '[time]', $datetime['hours'] * 3600 + 600 * ceil($datetime['minutes'] / 10));
-            $timeselect->setAttribute('id', $name.'-time');
-            $timeselect->addOptionArray($timearray);
-            $timeselect->setClass('span2');
-            $this->addElement($timeselect);
+            $minuteInterval = 15;
+            $hours    = (int) ltrim($value->format('H'), '0');
+            $minutes  = (int) ltrim($value->format('i'), '0');
+            $timeSelect = new Select(
+                '',
+                $name . '[time]',
+                \Xoops\Core\Locale\Time::formatTime($hours * 3600 + 60*$minuteInterval * ceil($minutes / $minuteInterval), 'short', new \DateTimeZone('UTC'))
+            );
+            \Xoops\Core\Lists\Time::setOptionsArray($timeSelect, $minuteInterval);
+            $timeSelect->setAttribute('id', $name.'-time');
+            $timeSelect->setClass('span2');
+            $this->addElement($timeSelect);
         } else {
             $this->addElement(new Hidden($name . '[time]', 0));
         }

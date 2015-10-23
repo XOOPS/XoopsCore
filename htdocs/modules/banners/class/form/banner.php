@@ -27,6 +27,7 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
     public function __construct(BannersBanner &$obj)
     {
         $xoops = Xoops::getInstance();
+        $xoops_upload_url = $xoops->url('uploads/');
         $helper = Banners::getInstance();
 
         if ($obj->isNew()) {
@@ -38,7 +39,7 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
             } else {
                 $namefile =
                     substr_replace($obj->getVar('banner_imageurl'), '', 0, strlen($xoops_upload_url . '/banners/'));
-                $pathfile =  $xoops_root_path . '/uploads/banners/' . $namefile;
+                $pathfile =  $xoops->path('uploads/banners/') . $namefile;
                 if (is_file($pathfile)) {
                     $blank_img = str_replace($xoops_upload_url . '/banners/', '', $obj->getVar('banner_imageurl', 'e'));
                 } else {
@@ -66,13 +67,10 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
         $imgtray_img->addElement(
             new Xoops\Form\Text(_AM_BANNERS_BANNERS_IMGURL, 'imageurl', 8, 255, $obj->getVar('banner_imageurl'))
         );
-        $imgpath_img = sprintf(_AM_BANNERS_BANNERS_IMAGE_PATH, $xoops_upload_path . '/banners/');
+        $imgpath_img = sprintf(_AM_BANNERS_BANNERS_IMAGE_PATH, $xoops->path('uploads/banners/'));
         $imageselect_img = new Xoops\Form\Select($imgpath_img, 'banners_imageurl', $blank_img);
-        $image_array_img = XoopsLists::getImgListAsArray($xoops_upload_path . '/banners');
-        $imageselect_img->addOption("$blank_img", $blank_img);
-        foreach ($image_array_img as $image_img) {
-            $imageselect_img->addOption("$image_img", $image_img);
-        }
+        $imageselect_img->addOption($blank_img, $blank_img);
+        \Xoops\Core\Lists\ImageFile::setOptionsArray($imageselect_img, $xoops->path('uploads/banners'));
         $imageselect_img->setExtra(
             'onchange="showImgSelected(\'xo-banners-img\', \'banners_imageurl\', \'banners\', \'\', \''
             . $xoops_upload_url . '\' )"'

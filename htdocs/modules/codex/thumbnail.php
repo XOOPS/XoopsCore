@@ -35,6 +35,6 @@ if (!$xoops->service('thumbnail')->isAvailable()) {
     echo 'Please install a thumbnail provider to view this demonstration.';
 }
 
-Xoops_Utils::dumpFile(__FILE__);
+\Xoops\Utils::dumpFile(__FILE__);
 
 $xoops->footer();

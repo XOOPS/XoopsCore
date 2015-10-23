@@ -30,4 +30,4 @@ require_once(XOOPS_TU_ROOT_PATH . '/mainfile.php');
 \XoopsBaseConfig::bootstrapTransition();
 
 require_once(XOOPS_TU_ROOT_PATH . '/xoops_lib/Xoops/Locale.php');
-\Xoops_Locale::loadLocale();
+\Xoops\Locale::loadLocale();

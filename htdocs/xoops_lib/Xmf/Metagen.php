@@ -115,8 +115,7 @@ class Metagen
         $minLength = 4,
         $forceKeys = null
     ) {
-        $keywords = array();
-        $keycnt = array();
+        $keyCount = array();
         if (!is_array($forceKeys)) {
             $forceKeys = array();
         }
@@ -138,20 +137,20 @@ class Metagen
                     if (self::checkStopWords($secondRoundKeyword)
                         && strlen($secondRoundKeyword) >= $minLength
                     ) {
-                        $keycnt[$secondRoundKeyword] =
-                            empty($keycnt[$secondRoundKeyword]) ? 1 : $keycnt[$secondRoundKeyword] + 1;
+                        $keyCount[$secondRoundKeyword] =
+                            empty($keyCount[$secondRoundKeyword]) ? 1 : $keyCount[$secondRoundKeyword] + 1;
                     }
                 }
             }
         }
 
         while (!empty($forceKeys)) {
-            $tempkey = strtolower(array_pop($forceKeys));
-            $keycnt[$tempkey] = 999999;
+            $tempKey = strtolower(array_pop($forceKeys));
+            $keyCount[$tempKey] = 999999;
         }
 
-        arsort($keycnt, SORT_NUMERIC);
-        $key = array_keys($keycnt);
+        arsort($keyCount, SORT_NUMERIC);
+        $key = array_keys($keyCount);
         $keywords = array_slice($key, 0, $count);
 
         return $keywords;
@@ -209,10 +208,10 @@ class Metagen
         }
         $ret = implode(' ', $newWords);
         $len = mb_strlen($ret);
-        $lastperiod = mb_strrpos($ret, '.');
-        $ret .= ($lastperiod === false) ? self::ELLIPSIS : '';
-        if ($len>100 && ($len-$lastperiod)<30) {
-            $ret = mb_substr($ret, 0, $lastperiod+1);
+        $lastPeriod = mb_strrpos($ret, '.');
+        $ret .= ($lastPeriod === false) ? self::ELLIPSIS : '';
+        if ($len>100 && ($len-$lastPeriod)<30) {
+            $ret = mb_substr($ret, 0, $lastPeriod+1);
         }
 
         return $ret;
@@ -286,16 +285,16 @@ class Metagen
 
     /**
      * getSearchSummary splits a string into string no larger than a
-     * specified length, and centered around the first occurance
-     * of any of an array of needles, or starting at the begining
+     * specified length, and centered around the first occurrence
+     * of any of an array of needles, or starting at the beginning
      * of the string if no needles are specified or found.
      *
-     * The string will be broken on spaces and an ellipsis (...) will be
+     * The string will be broken on spaces and an ellipsis (…) will be
      * added to the string when broken.
      *
      * @param string $haystack the string to summarize
      * @param mixed  $needles  search term, array of search terms, or null
-     * @param int    $length   maxium length for the summary
+     * @param int    $length   maximum length for the summary
      *
      * @return string a substring of haystack
      */
@@ -312,7 +311,7 @@ class Metagen
 
         $pre = ($start > 0); // need an ellipsis in front?
         if ($pre) {
-            // we are not at the begining so find first blank
+            // we are not at the beginning so find first blank
             $temp = mb_strpos($haystack, ' ', $start, $encoding);
             $start = ($temp === false) ? $start : $temp;
             $haystack = mb_substr($haystack, $start, null, $encoding);
@@ -336,6 +335,7 @@ class Metagen
      * such as newlines, html markup, or leading trailing or repeating spaces.
      *
      * @param string $rawText a text string to be cleaned
+     *
      * @return string
      */
     protected static function asPlainText($rawText)
@@ -352,10 +352,9 @@ class Metagen
     }
 
     /**
-     * getNeedlePositions - Esentially this is a strpos() for an array of needles.
+     * getNeedlePositions - Essentially this is a strpos() for an array of needles.
      * Given a haystack and an array of needles, return an array of all initial
      * positions, if any, of those needles in that haystack.
-     *
      *
      * @param string $haystack the string to summarize
      * @param mixed  $needles  search term, array of search terms, or null

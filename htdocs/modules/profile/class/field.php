@@ -630,7 +630,7 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
         return array(
             'uid', 'uname', 'name', 'email', 'url', 'user_avatar', 'user_regdate', 'user_icq', 'user_from', 'user_sig',
             'user_viewemail', 'actkey', 'user_aim', 'user_yim', 'user_msnm', 'pass', 'posts', 'attachsig', 'rank',
-            'level', 'theme', 'timezone_offset', 'last_login', 'umode', 'uorder', 'notify_method', 'notify_mode',
+            'level', 'theme', 'timezone', 'last_login', 'umode', 'uorder', 'notify_method', 'notify_mode',
             'user_occ', 'bio', 'user_intrest', 'user_mailok'
         );
     }

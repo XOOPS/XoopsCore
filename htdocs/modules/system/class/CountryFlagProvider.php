@@ -62,6 +62,7 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
      */
     private function getFlagUrl($countryCode, $size)
     {
+        $countryCode = $this->getCountryCodeOverride($countryCode);
         $size = strtolower(substr($size, 0, 1));
         $sizeDir = '64';
         switch ($size) {
@@ -87,21 +88,49 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
     }
 
     /**
-     * getImgUrl - get URL to flag based on county code
+     * Some CLDR (Unicode Common Locale Data Repository) territory codes are not officially
+     * assigned codes, exceptional reservations*, or are a disjoined territory of a county.
+     * These will need to be mappped to a (hopefully) suitable flag.
      *
-     * @param Response $response    \Xoops\Core\Service\Response object
-     * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag
-     * @param string   $size        'small', 'medium' or 'large'
-     *
-     * @return void  - response->value set to URL string
+     * @var string[]
      */
-    public function getImgUrl(Response $response, $countryCode, $size = 'large')
+    private $overrideMap = array (
+        'AC' => 'SH',       // *Ascension Island part of Saint Helena, Ascension and Tristan da Cunha
+        'BQ' => 'NL',       // Caribbean Netherlands
+        'BV' => 'NO',       // Bouvet Island, dependency of Norway
+        'CP' => 'FR',       // *Clipperton Island,  overseas possession of France
+        'DG' => 'GB',       // *Diego Garcia, British Indian Ocean Territory disputed sovereignty
+        'EA' => 'ES',       // *Ceuta & Melilla, Spanish cities on the north coast of Africa
+        'GF' => 'FR',       // French Guiana, overseas region of France
+        'GP' => 'FR',       // Guadeloupe, overseas region of France
+        'HM' => 'AU',       // Heard & McDonald Islands, Australian external territory
+        'IO' => 'GB',       // British Indian Ocean Territory
+        'PM' => 'FR',       // St. Pierre & Miquelon, territorial overseas collectivity of France
+        'RE' => 'FR',       // Réunion, overseas region of France
+        'SJ' => 'NO',       // Svalbard & Jan Mayen, integrated parts of Norway not allocated to counties
+        'SX' => 'NL',       // Sint Maarten,  constituent country of the Kingdom of the Netherlands
+        'TA' => 'SH',       // *Tristan da Cunha part of Saint Helena, Ascension and Tristan da Cunha
+        'UM' => 'US',       // U.S. Outlying Islands
+        'XK' => '_kosovo',  // (User-assigned range) temporary assigned code
+    );
+
+    /**
+     * getCountryOverride
+     *
+     * @param string $countryCode ISO 3166-1 alpha-2 code
+     *
+     * @return string possibly overridden country code
+     */
+    private function getCountryCodeOverride($countryCode)
     {
-        $response->setValue($this->getFlagUrl($countryCode, $size));
+        $countryCode = (isset($this->overrideMap[$countryCode]))
+            ? $this->overrideMap[$countryCode]
+            : $countryCode;
+        return $countryCode;
     }
 
     /**
-     * getImgTag - get a full HTML img tag to display a flag based on county code
+     * getImgTag - get a full HTML tag or string to display a flag based on county code
      *
      * @param Response $response    \Xoops\Core\Service\Response object
      * @param string   $countryCode ISO 3166-1 alpha-2 code to select flag

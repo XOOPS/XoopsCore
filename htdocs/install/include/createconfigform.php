@@ -47,7 +47,7 @@ function createConfigform($config)
             $ret[$conf_catid] = new Xoops\Form\ThemeForm('', 'configs', 'index.php', 'post');
         }
 
-        $title = Xoops_Locale::translate($config[$i]->getVar('conf_title'), 'system');
+        $title = \Xoops\Locale::translate($config[$i]->getVar('conf_title'), 'system');
 
         switch ($config[$i]->getVar('conf_formtype')) {
 
@@ -66,8 +66,8 @@ function createConfigform($config)
                 $options =& $config_handler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
                 for ($j = 0; $j < $opcount; ++$j) {
-                    $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), 'system');
-                    $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), 'system');
+                    $optval = \Xoops\Locale::translate($options[$j]->getVar('confop_value'), 'system');
+                    $optkey = \Xoops\Locale::translate($options[$j]->getVar('confop_name'), 'system');
                     $ele->addOption($optval, $optkey);
                 }
                 break;
@@ -77,8 +77,8 @@ function createConfigform($config)
                 $options =& $config_handler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
                 for ($j = 0; $j < $opcount; ++$j) {
-                    $optval = Xoops_Locale::translate($options[$j]->getVar('confop_value'), 'system');
-                    $optkey = Xoops_Locale::translate($options[$j]->getVar('confop_name'), 'system');
+                    $optval = \Xoops\Locale::translate($options[$j]->getVar('confop_value'), 'system');
+                    $optkey = \Xoops\Locale::translate($options[$j]->getVar('confop_name'), 'system');
                     $ele->addOption($optval, $optkey);
                 }
                 break;
@@ -219,7 +219,7 @@ function createConfigform($config)
         }
 
         if ($config[$i]->getVar('conf_desc') != '') {
-            $ele->setDescription(Xoops_Locale::translate($config[$i]->getVar('conf_desc'), 'system'));
+            $ele->setDescription(\Xoops\Locale::translate($config[$i]->getVar('conf_desc'), 'system'));
         }
         $ret[$conf_catid]->addElement($ele);
 
@@ -239,7 +239,7 @@ function createConfigform($config)
  */
 function createThemeform(XoopsConfigItem $config)
 {
-    $title = $config->getVar('conf_desc') == '' ? Xoops_Locale::translate($config->getVar('conf_title'), 'system') : Xoops_Locale::translate($config->getVar('conf_title'), 'system') . '<br /><br /><span>' . Xoops_Locale::translate($config->getVar('conf_desc'), 'system') . '</span>';
+    $title = $config->getVar('conf_desc') == '' ? \Xoops\Locale::translate($config->getVar('conf_title'), 'system') : \Xoops\Locale::translate($config->getVar('conf_title'), 'system') . '<br /><br /><span>' . \Xoops\Locale::translate($config->getVar('conf_desc'), 'system') . '</span>';
     $form_theme_set = new Xoops\Form\Select('', $config->getVar('conf_name'), $config->getConfValueForOutput(), 1, false);
     $dirlist = XoopsLists::getThemesList();
     if (!empty($dirlist)) {

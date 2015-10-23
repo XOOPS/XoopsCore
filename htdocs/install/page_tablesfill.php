@@ -79,8 +79,9 @@ if ($process) {
             'rank'            => 7,             // smallint(5) unsigned NOT NULL default '0',
             'level'           => 5,             // tinyint(3) unsigned NOT NULL default '1',
             'theme'           => 'default',     // varchar(100) NOT NULL default '',
-            'timezone_offset' => 0.0,           // float(3,1) NOT NULL default '0.0',
+            'timezone'        => 'UTC',         // varchar(32) NOT NULL default 'UTC',
             'last_login'      => $regdate,      // int(10) unsigned NOT NULL default '0',
+            'last_pass_change'=> $regdate,      // int(10) unsigned NOT NULL default '0',
             'umode'           => 'flat',        // varchar(10) NOT NULL default '',
             'uorder'          => 0,             // tinyint(1) unsigned NOT NULL default '0',
             'notify_method'   => 1,             // tinyint(1) NOT NULL default '1',
@@ -101,6 +102,7 @@ if ($process) {
             'user_regdate' => $regdate,
             'pass' => $temp,
             'last_login' => $regdate,
+            'last_pass_change'=> $regdate,
         ),
         array(
             'id' => 1,
