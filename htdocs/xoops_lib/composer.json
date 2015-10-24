@@ -4,9 +4,9 @@
     "type": "project",
     "description": "The XOOPS Library distribution",
     "autoload": {
-        "psr-0": {
-            "Xoops\\": "",
-            "Xmf\\": ""
+        "psr-4": {
+            "Xoops\\": "Xoops/",
+            "Xmf\\": "Xmf/"
         }
     },
     "require": {
