@@ -56,14 +56,13 @@ class DefaultConfiguration extends ConfigurationAbstract
      */
     public function buildDefaultConfiguration()
     {
-        $results = [];
-        $this->registerExtension(\Xoops\Core\Text\Sanitizer::getDefaultConfig());
+        $this->registerComponent(\Xoops\Core\Text\Sanitizer::getDefaultConfig());
         $extensions = File::getList(__DIR__ . '/Extensions');
         foreach ($extensions as $extensionFile) {
             if (substr($extensionFile, -4) === '.php') {
                 $class =  __NAMESPACE__ . '\Extensions\\' . substr($extensionFile, 0, -4);
                 if (is_a($class, 'Xoops\Core\Text\Sanitizer\SanitizerConfigurable', true)) {
-                    $this->registerExtension($class::getDefaultConfig());
+                    $this->registerComponent($class::getDefaultConfig());
                 }
             }
         }
@@ -72,7 +71,7 @@ class DefaultConfiguration extends ConfigurationAbstract
          * Register any 3rd party extensions
          *
          * Listeners will be passed a Configuration object as the single argument, and should
-         * call $arg->registerExtension() to register extensions
+         * call $arg->registerComponent() to register extensions
          *
          * All extensions must implement SanitizerConfigurable, extending either ExtensionAbstract
          * or FilterAbstract, and MUST autoload
@@ -86,9 +85,14 @@ class DefaultConfiguration extends ConfigurationAbstract
         return (array) $this;
     }
 
-    public function registerExtension($configArray)
+    /**
+     * Add a component (i.e extension or filter) to the configuration with default values
+     *
+     * @param array $configArray extension configuration
+     */
+    public function registerComponent($configArray)
     {
-        if(is_array($configArray)) {
+        if (is_array($configArray)) {
             foreach ($configArray as $key => $config) {
                 if (isset($config['configured_class']) &&
                     is_a($config['configured_class'], 'Xoops\Core\Text\Sanitizer\SanitizerConfigurable', true)

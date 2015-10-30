@@ -32,7 +32,7 @@ class Configuration extends ConfigurationAbstract
     private $sanitizerPrefsFilename = 'var/configs/system_sanitizer_prefs.yml';
 
     /**
-     * Get the santizer configuration.
+     * Get the sanitizer configuration.
      */
     public function __construct()
     {
@@ -73,7 +73,7 @@ class Configuration extends ConfigurationAbstract
                 $changed = true;
             }
         }
-        if($changed) {
+        if ($changed) {
             $this->saveSanitizerPrefrences($sanitizerPrefs);
         }
         return $sanitizerPrefs;

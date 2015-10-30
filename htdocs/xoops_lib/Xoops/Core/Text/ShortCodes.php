@@ -203,7 +203,7 @@ class ShortCodes
      *
      * @return array Combined and filtered attribute list.
      */
-    function shortcodeAttributes($defaults, $attributes)
+    public function shortcodeAttributes($defaults, $attributes)
     {
         $attributes = (array)$attributes;
         $out = array();

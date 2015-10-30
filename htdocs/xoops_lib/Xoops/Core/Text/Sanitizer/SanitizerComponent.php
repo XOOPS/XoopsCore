@@ -12,6 +12,7 @@
 namespace Xoops\Core\Text\Sanitizer;
 
 use Xoops\Core\Text\Sanitizer;
+use Xoops\Core\Text\ShortCodes;
 
 /**
  * XOOPS Text/Sanitizer/SanitizerComponent - extension, filter

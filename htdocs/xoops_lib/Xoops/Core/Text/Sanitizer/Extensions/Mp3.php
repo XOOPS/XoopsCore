@@ -85,7 +85,6 @@ EOF;
             'mp3',
             function ($attributes, $content, $tagName) {
                 $url = trim($content);
-                $template = $this->config['template'];
                 $newContent = sprintf($this->config['template'], $url);
 
                 return $newContent;

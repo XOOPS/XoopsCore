@@ -85,7 +85,7 @@ class XoopsCode extends ExtensionAbstract
         $shortcodes->addShortcode(
             'font',
             function ($attributes, $content, $tagName) use ($shortcodes) {
-                $font = ltrim($attributes[0],'=');
+                $font = ltrim($attributes[0], '=');
                 $newcontent = '<span style="font-family: ' .$font. '">' . $shortcodes->process($content) . '</span>';
                 return $newcontent;
             }

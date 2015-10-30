@@ -139,7 +139,6 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
             /* @var $plugin CommentsPluginInterface */
             $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments');
             if (is_array($extraParams = $plugin->extraParams())) {
-                $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                 foreach ($extraParams as $extra_param) {
                     // This routine is included from forms accessed via both GET and POST
                     if (isset($_POST[$extra_param])) {
