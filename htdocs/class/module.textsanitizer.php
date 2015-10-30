@@ -24,17 +24,36 @@
 class MyTextSanitizer extends Xoops\Core\Text\Sanitizer
 {
     /**
+     * @var Sanitizer The reference to *Singleton* instance of this class
+     */
+    private static $instance;
+
+    /**
+     * Returns the *Singleton* instance of this class.
+     *
+     * @return Sanitizer The *Singleton* instance.
+     */
+    public static function getInstance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static();
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Add slashes to the text if magic_quotes_gpc is turned off.
      *
      * @param string $text text to not process
      *
      * @return string
      *
-     * @throws Exception
+     * @throws LogicException
      */
     public function addSlashes($text)
     {
-        throw new Exception('GPC is dead. Please stop.');
+        throw new LogicException('GPC is dead. Please stop.');
         return $text;
     }
 
@@ -45,11 +64,11 @@ class MyTextSanitizer extends Xoops\Core\Text\Sanitizer
      *
      * @return string
      *
-     * @throws Exception
+     * @throws LogicException
      */
     public function stripSlashesGPC($text)
     {
-        throw new Exception('GPC is dead. Please stop.');
+        throw new LogicException('GPC is dead. Please stop.');
         return $text;
     }
 

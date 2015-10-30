@@ -24,7 +24,7 @@ use Xoops\Core\AttributeInterface;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class ConfigurationAbstract extends \ArrayObject implements AttributeInterface
+abstract class ConfigurationAbstract extends \ArrayObject implements AttributeInterface
 {
     /**
      * Retrieve an attribute value.

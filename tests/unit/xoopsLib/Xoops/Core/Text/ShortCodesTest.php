@@ -118,13 +118,14 @@ class ShortCodesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\ShortCodes::shortcodeAttributes
-     * @todo   Implement testShortcodeAttributes().
      */
     public function testShortcodeAttributes()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $defaults = ['a' => 'alpha', 'b' => 'bravo', 'c' => 'charley'];
+        $input = ['a' => 'alpha', 'b' => 'beta', 'e' => 'echo'];
+
+        $actual = $this->object->shortcodeAttributes($defaults, $input);
+        $expected = ['a' => 'alpha', 'b' => 'beta', 'c' => 'charley'];
+        $this->assertSame($expected, $actual);
     }
 }

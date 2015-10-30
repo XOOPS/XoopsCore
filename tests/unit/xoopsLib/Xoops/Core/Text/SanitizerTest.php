@@ -34,26 +34,32 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::getInstance
-     * @todo   Implement testGetInstance().
      */
     public function testGetInstance()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $actual = Sanitizer::getInstance();
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer', $actual);
+        $this->assertSame($this->object, $actual);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::getShortCodesInstance
-     * @todo   Implement testGetShortCodesInstance().
      */
     public function testGetShortCodesInstance()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $actual = $this->object->getShortCodesInstance();
+        $this->assertInstanceOf('\Xoops\Core\Text\ShortCodes', $actual);
+        $this->assertSame($this->object->getShortCodesInstance(), $actual);
+    }
+
+    /**
+     * @covers Xoops\Core\Text\Sanitizer::getShortCodes
+     */
+    public function testGetShortCodes()
+    {
+        $actual = $this->object->getShortCodesInstance();
+        $this->assertInstanceOf('\Xoops\Core\Text\ShortCodes', $actual);
+        $this->assertSame($this->object->getShortCodes(), $actual);
     }
 
     /**
@@ -69,27 +75,46 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Core\Text\Sanitizer::smiley
+     */
+    public function tesSmiley($text)
+    {
+        $message = $this->object->smiley('happy :-) happy');
+        $this->assertTrue(preg_match('/^happy .*<img.* happy$/', $message));
+    }
+
+    /**
      * @covers Xoops\Core\Text\Sanitizer::nl2Br
-     * @todo   Implement testNl2Br().
      */
     public function testNl2Br()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = "\n";
+        $message = $this->object->nl2br($text);
+        $this->assertEquals('<br />',$message);
+        $text = "\r\n";
+        $message = $this->object->nl2br($text);
+        $this->assertEquals('<br />',$message);
+        $text = "\r";
+        $message = $this->object->nl2br($text);
+        $this->assertEquals('<br />',$message);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::htmlSpecialChars
-     * @todo   Implement testHtmlSpecialChars().
      */
     public function testHtmlSpecialChars()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = "\"'<>&";
+        $message = $this->object->htmlSpecialChars($text);
+        $this->assertSame('&quot;&#039;&lt;&gt;&amp;',$message);
+
+        $text = 'toto&titi';
+        $message = $this->object->htmlSpecialChars($text);
+        $this->assertSame('toto&amp;titi',$message);
+
+        $text = 'toto&nbsp;titi';
+        $message = $this->object->htmlSpecialChars($text);
+        $this->assertSame('toto&amp;nbsp;titi',$message);
     }
 
     /**
@@ -106,14 +131,12 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::undoHtmlSpecialChars
-     * @todo   Implement testUndoHtmlSpecialChars().
      */
     public function testUndoHtmlSpecialChars()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = '&gt;&lt;&quot;&#039;&amp;nbsp;';
+        $message = $this->object->undohtmlSpecialChars($text);
+        $this->assertSame('><"\'&nbsp;',$message);
     }
 
     /**
@@ -154,26 +177,32 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::censorString
-     * @todo   Implement testCensorString().
      */
     public function testCensorString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $xoops = \Xoops::getInstance();
+        $xoops->setConfig('censor_enable', true);
+        $xoops->setConfig('censor_words', ['naughty', 'bits']);
+        $xoops->setConfig('censor_replace', '%#$@!');
+
+        $text = 'Xoops is cool!';
+        $expected = $text;
+        $text = $this->object->censorString($text);
+        $this->assertSame($expected, $text);
+
+        $text = 'naughty it!';
+        $expected = '%#$@! it!';
+        $text = $this->object->censorString($text);
+        $this->assertSame($expected, $text);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::listExtensions
-     * @todo   Implement testListExtensions().
      */
     public function testListExtensions()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $actual =  $this->object->listExtensions();
+        $this->assertTrue(is_array($actual));
     }
 
     /**
@@ -190,14 +219,14 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::getConfig
-     * @todo   Implement testGetConfig().
      */
     public function testGetConfig()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $actual =  $this->object->getConfig();
+        $this->assertTrue(is_array($actual));
+
+        $actual =  $this->object->getConfig('xoopscode');
+        $this->assertTrue(is_array($actual));
     }
 
     /**
@@ -214,26 +243,22 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::textFilter
-     * @todo   Implement testTextFilter().
      */
     public function testTextFilter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'toto titi tutu tata';
+        $value = $this->object->textFilter($text);
+        $this->assertSame($text, $value);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::filterXss
-     * @todo   Implement testFilterXss().
      */
     public function testFilterXss()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = "\x00";
+        $message = $this->object->filterxss($text);
+        $this->assertEquals('',$message);
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 namespace Xoops\Core\Text\Sanitizer;
 
+use Xoops\Core\Text\Sanitizer;
+
 require_once __DIR__.'/../../../../../init_new.php';
 
 /**
@@ -21,7 +23,8 @@ class NullExtensionTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new NullExtension;
+        $ts = Sanitizer::getInstance();
+        $this->object = new NullExtension($ts);
     }
 
     /**

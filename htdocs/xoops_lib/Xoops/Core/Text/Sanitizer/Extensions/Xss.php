@@ -30,7 +30,7 @@ class Xss extends FilterAbstract
      * @var array default configuration values
      */
     protected static $defaultConfiguration = [
-        'enabled' => false,
+        'enabled' => true,
         'htmlawed_config' => ['safe' => 1],
         'htmlawed_spec' => [],
     ];
@@ -48,8 +48,6 @@ class Xss extends FilterAbstract
             return $text;
         }
 
-        $text = htmLawed::hl($text, $this->config('htmlawed_config'), $this->config('htmlawed_spec'));
-
         /*
         $patterns = array();
         $replacements = array();
@@ -63,6 +61,7 @@ class Xss extends FilterAbstract
         $replacements[] = "xss;";
         $text = preg_replace($patterns, $replacements, $text);
         */
+        $text = \htmLawed::hl($text, $this->config['htmlawed_config'], $this->config['htmlawed_spec']);
 
         return $text;
     }

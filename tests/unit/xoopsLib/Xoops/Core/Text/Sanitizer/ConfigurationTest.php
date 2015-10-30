@@ -31,4 +31,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
     }
+
+    public function testContracts()
+    {
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $this->object);
+        $this->assertInstanceOf('\ArrayObject', $this->object);
+    }
 }

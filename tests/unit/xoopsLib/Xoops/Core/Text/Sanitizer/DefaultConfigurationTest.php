@@ -32,6 +32,13 @@ class DefaultConfigurationTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testContracts()
+    {
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $this->object);
+        $this->assertInstanceOf('\ArrayObject', $this->object);
+    }
+
     /**
      * @covers Xoops\Core\Text\Sanitizer\DefaultConfiguration::buildDefaultConfiguration
      * @todo   Implement testBuildDefaultConfiguration().

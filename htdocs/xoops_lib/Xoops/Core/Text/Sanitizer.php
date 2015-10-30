@@ -61,7 +61,7 @@ class Sanitizer extends SanitizerConfigurable
     /**
      * @var Sanitizer The reference to *Singleton* instance of this class
      */
-    protected static $instance;
+    private static $instance;
 
     /**
      * Returns the *Singleton* instance of this class.
@@ -88,7 +88,9 @@ class Sanitizer extends SanitizerConfigurable
     }
 
     /**
-     * get our ShortCodes instance
+     * get our ShortCodes instance. This is intended for internal use, as it is just the bare instance.
+     *
+     * @see getShortCodes
      *
      * @return ShortCodes
      *
@@ -100,6 +102,19 @@ class Sanitizer extends SanitizerConfigurable
     }
 
     /**
+     * get our ShortCodes instance, but make sure extensions are loaded so caller can extend and override
+     *
+     * @return ShortCodes
+     *
+     * @throws \ErrorException
+     */
+    public function getShortCodes()
+    {
+        $this->registerExtensions();
+        return $this->shortcodes;
+    }
+
+    /**
      * Add a preg_replace_callback pattern and callback
      *
      * @param string   $pattern  a pattern as used in preg_replace_callback
@@ -107,9 +122,9 @@ class Sanitizer extends SanitizerConfigurable
      *
      * @return void
      */
-    public function addPatternCallback($pattern, $replacement)
+    public function addPatternCallback($pattern, $callback)
     {
-        $this->patterns[] = ['pattern' => $pattern, 'callback' => $replacement];
+        $this->patterns[] = ['pattern' => $pattern, 'callback' => $callback];
     }
 
     /**
@@ -119,10 +134,23 @@ class Sanitizer extends SanitizerConfigurable
      *
      * @return string
      */
-    protected function smiley($text)
+    public function smiley($text)
     {
         $response = \Xoops::getInstance()->service('emoji')->renderEmoji($text);
         return $response->isSuccess() ? $response->getValue() : $text;
+    }
+
+
+    /**
+     * Turn bare URLs and email addresses into links
+     *
+     * @param string $text text to filter
+     *
+     * @return string
+     */
+    public function makeClickable($text)
+    {
+        return $this->executeFilter('clickable', $text);
     }
 
     /**
@@ -238,8 +266,10 @@ class Sanitizer extends SanitizerConfigurable
 
         if (!(bool) $html) {
             // html not allowed, so escape any special chars
-//            $text = $this->htmlSpecialChars($text);
+            // don't mess with quotes or shortcodes will fail
+            $text = htmlspecialchars($text, ENT_NOQUOTES);
         }
+
         if ($xcode) {
             $text = $this->prefilterCodeBlocks($text);
             $text = $this->xoopsCodeDecode($text, (bool) $image);
@@ -410,6 +440,7 @@ class Sanitizer extends SanitizerConfigurable
     protected function registerExtensions()
     {
         if (!$this->extensionsLoaded) {
+            $this->extensionsLoaded = true;
             $extensions = $this->listExtensions();
 
             // we need xoopscode to be called first
@@ -434,8 +465,6 @@ class Sanitizer extends SanitizerConfigurable
              * This feature is very powerful, so play nice.
              */
             \Xoops::getInstance()->events()->triggerEvent('core.sanitizer.shortcodes.add', $this->shortcodes);
-
-            $this->extensionsLoaded = true;
         }
     }
 
@@ -563,12 +592,11 @@ class Sanitizer extends SanitizerConfigurable
             }
         } else {
             foreach ($enumSet as $enum) {
-                if (0 === strcasecmp ($test, $enum)) {
+                if (0 === strcasecmp($text, $enum)) {
                     return $enum;
                 }
             }
         }
         return $default;
     }
-
 }

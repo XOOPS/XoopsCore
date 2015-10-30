@@ -31,7 +31,7 @@ class Censor extends FilterAbstract
      * @var array default configuration values
      */
     protected static $defaultConfiguration = [
-        'enabled' => false,
+        'enabled' => true,
         'censor_terminate' => false, //set to true if you want to trigger an error page
         'censor_admin' => true,      //set to false if you don't want to censor admin entries
         'censor_words' => ['shit', 'piss', 'fuck', 'cunt', 'cocksucker', 'motherfucker', 'tits'],
@@ -57,17 +57,20 @@ class Censor extends FilterAbstract
         $censorReplace = $xoops->getConfig('censor_replace');
         $censorReplace = empty($censorReplace) ? $this->config['censor_replace'] : $censorReplace;
 
-        if (!($enabled)
+        if ($enabled === false
             || empty($censorWords)
-            || ((!(bool) $this->config['censor_admin']) && $xoops->userIsAdmin)
+            || ((false === $this->config['censor_admin']) && $xoops->userIsAdmin)
         ) {
             return $text;
         }
 
+        $patterns = [];
+        $replacements = [];
+
         foreach ($censorWords as $bad) {
             $bad = trim($bad);
             if (!empty($bad)) {
-                if (false === strpos($text, $bad)) {
+                if (false === stripos($text, $bad)) {
                     continue;
                 }
                 if ((bool) $this->config['censor_terminate']) {
@@ -76,9 +79,10 @@ class Censor extends FilterAbstract
                 }
                 $patterns[] = "/(^|[^0-9a-z_]){$bad}([^0-9a-z_]|$)/siU";
                 $replacements[] = "\\1{$censorReplace}\\2";
-                $text = preg_replace($patterns, $replacements, $text);
             }
         }
+
+        $text = preg_replace($patterns, $replacements, $text);
 
         return $text;
     }

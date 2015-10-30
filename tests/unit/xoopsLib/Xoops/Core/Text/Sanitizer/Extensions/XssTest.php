@@ -1,6 +1,8 @@
 <?php
 namespace Xoops\Core\Text\Sanitizer\Extensions;
 
+use Xoops\Core\Text\Sanitizer;
+
 require_once __DIR__.'/../../../../../../init_new.php';
 
 /**
@@ -21,8 +23,8 @@ class XssTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->markTestIncomplete('WIP');
-        $this->object = new Xss;
+        $ts = Sanitizer::getInstance();
+        $this->object = new Xss($ts);
     }
 
     /**
@@ -31,6 +33,13 @@ class XssTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    public function testContracts()
+    {
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\FilterAbstract', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerComponent', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
     /**

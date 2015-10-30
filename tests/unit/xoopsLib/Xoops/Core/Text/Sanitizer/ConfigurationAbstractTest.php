@@ -16,12 +16,18 @@ class ConfigurationAbstractTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var \ReflectionClass
+     */
+    protected $reflectedObject;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $this->object = new ConfigurationAbstract;
+        $this->object = $this->getMockForAbstractClass('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract');
+        $this->reflectedObject = new \ReflectionClass('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract');
     }
 
     /**
@@ -30,6 +36,20 @@ class ConfigurationAbstractTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    public function testContracts()
+    {
+        $this->assertTrue($this->reflectedObject->isAbstract());
+        $this->assertTrue($this->reflectedObject->hasMethod('get'));
+        $this->assertTrue($this->reflectedObject->hasMethod('set'));
+        $this->assertTrue($this->reflectedObject->hasMethod('has'));
+        $this->assertTrue($this->reflectedObject->hasMethod('remove'));
+        $this->assertTrue($this->reflectedObject->hasMethod('clear'));
+        $this->assertTrue($this->reflectedObject->hasMethod('setAll'));
+        $this->assertTrue($this->reflectedObject->hasMethod('setMerge'));
+        $this->assertTrue($this->reflectedObject->hasMethod('setArrayItem'));
+        $this->assertTrue($this->reflectedObject->hasMethod('getAllLike'));
     }
 
     /**
