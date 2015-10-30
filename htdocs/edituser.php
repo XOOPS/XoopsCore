@@ -35,7 +35,7 @@ if (!$xoops->isUser()) {
 // initialize $op variable
 $op = Request::getCmd('op', 'editprofile');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 if ($op == 'saveuser') {
     if (!$xoops->security()->check()) {
         $xoops->redirect(
@@ -54,19 +54,16 @@ if ($op == 'saveuser') {
     $email='';
     if ($xoops->getConfig('allow_chgmail') == 1) {
         $email = Request::getString('email', '');
-        $email = $myts->stripSlashesGPC(trim($email));
         if ($email == '' || ! $xoops->checkEmail($email)) {
             $errors[] = XoopsLocale::E_INVALID_EMAIL;
         }
     }
     $password = Request::getString('password', '');
-    $password = $myts->stripSlashesGPC(trim($password));
     if ($password != '') {
         if (mb_strlen($password) < $xoops->getConfig('minpass')) {
             $errors[] = sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $xoops->getConfig('minpass'));
         }
         $vpass = Request::getString('vpass', '');
-        $vpass = $myts->stripSlashesGPC(trim($vpass));
         if ($password != $vpass) {
             $errors[] = XoopsLocale::E_PASSWORDS_MUST_MATCH;
         }

@@ -171,12 +171,8 @@ class FilterInput
         // need an instance for methods, since this is supposed to be static
         // we must instantiate the class - this will take defaults
         if (!is_object($filter)) {
-            if (isset($this) && is_a($this, __CLASS__)) {
-                $filter =& $this;
-            } else {
-                $classname = __CLASS__ ;
-                $filter = $classname::getInstance();
-            }
+            $classname = get_called_class() ;
+            $filter = $classname::getInstance();
         }
 
         // Handle the type constraint

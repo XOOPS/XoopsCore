@@ -25,7 +25,7 @@ use Xoops\Core\Kernel\Criteria;
 
 include __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $limit_default = 20;
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : "search";
@@ -177,7 +177,7 @@ switch ($op) {
 
         $criteria = new CriteriaCompo(new Criteria('level', 0, '>'));
         if (isset($_REQUEST['uname']) && $_REQUEST['uname'] != '') {
-            $string = $myts->addSlashes(trim($_REQUEST['uname']));
+            $string = trim($_REQUEST['uname']);
             switch ($_REQUEST['uname_match']) {
                 case XOOPS_MATCH_START:
                     $string .= "%";
@@ -197,7 +197,7 @@ switch ($op) {
             $searchvars[] = "uname";
         }
         if (isset($_REQUEST['email']) && $_REQUEST['email'] != '') {
-            $string = $myts->addSlashes(trim($_REQUEST['email']));
+            $string = trim($_REQUEST['email']);
             switch ($_REQUEST['email_match']) {
                 case XOOPS_MATCH_START:
                     $string .= "%";
@@ -316,7 +316,7 @@ switch ($op) {
                     case XOBJ_DTYPE_TXTBOX:
                     case XOBJ_DTYPE_TXTAREA:
                         if (isset($_REQUEST[$fieldname]) && $_REQUEST[$fieldname] != "") {
-                            $value = $myts->addSlashes(trim($_REQUEST[$fieldname]));
+                            $value = trim($_REQUEST[$fieldname]);
                             switch ($_REQUEST[$fieldname . '_match']) {
                                 case XOOPS_MATCH_START:
                                     $value .= "%";

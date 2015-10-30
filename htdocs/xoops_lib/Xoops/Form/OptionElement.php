@@ -83,7 +83,7 @@ abstract class OptionElement extends Element
         if (!$encode) {
             return $this->options;
         }
-        $myts = \MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $value = array();
         foreach ($this->options as $val => $name) {
             $value[$encode ? $myts->htmlSpecialChars($val) : $val] = ($encode > 1)

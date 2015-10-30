@@ -26,7 +26,7 @@ include_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 
 $publisher = Publisher::getInstance();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 // @todo no such config is set, should it be? Or should only the system search plugin be used?
 //Checking general permissions
@@ -88,9 +88,9 @@ if (!(empty($_POST["submit"]) && empty($term))) {
         foreach ($temp_queries as $q) {
             $q = trim($q);
             if (strlen($q) >= $xoopsConfigSearch["keyword_min"]) {
-                $queries[] = $myts->addSlashes($q);
+                $queries[] = $q;
             } else {
-                $ignored_queries[] = $myts->addSlashes($q);
+                $ignored_queries[] = $q;
             }
         }
         if (count($queries) == 0) {
@@ -110,7 +110,7 @@ if (!(empty($_POST["submit"]) && empty($term))) {
             );
             exit();
         }
-        $queries = array($myts->addSlashes($query));
+        $queries = array($query);
     }
 
     $uname_required = false;
@@ -118,7 +118,7 @@ if (!(empty($_POST["submit"]) && empty($term))) {
     $next_search["uname"] = $search_username;
     if (!empty($search_username)) {
         $uname_required = true;
-        $search_username = $myts->addSlashes($search_username);
+        $search_username = $search_username;
         if (!$result = $xoopsDB->query(
             "SELECT uid FROM " . $xoopsDB->prefix("users") .
             " WHERE uname LIKE " . $xoopsDB->quoteString("%$search_username%")

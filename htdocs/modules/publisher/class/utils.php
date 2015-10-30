@@ -1025,7 +1025,7 @@ class PublisherUtils
         /**
          * if XOOPS ML is present, let's sanitize the title with the current language
          */
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         if (method_exists($myts, 'formatForML')) {
             $title = $myts->formatForML($title);
         }

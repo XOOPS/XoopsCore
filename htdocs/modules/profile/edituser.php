@@ -29,7 +29,7 @@ if (!$xoops->isUser()) {
     $xoops->redirect(\XoopsBaseConfig::get('url'), 3, XoopsLocale::E_NO_ACTION_PERMISSION);
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'editprofile';
 $xoops->getConfigs();
 

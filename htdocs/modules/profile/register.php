@@ -37,7 +37,7 @@ if (!empty($_GET['op']) && in_array($_GET['op'], array('actv', 'activate'))) {
     exit();
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 $xoops->getConfigs();
 if (!$xoops->getConfig('allow_register')) {
     $xoops->redirect('index.php', 6, XoopsLocale::E_WE_ARE_CLOSED_FOR_REGISTRATION);
@@ -166,11 +166,11 @@ if (isset($_POST['step']) && isset($_SESSION['profile_required'])) {
 
 // Check user data at first step
 if ($current_step == 1) {
-    $uname = isset($_POST['uname']) ? $myts->stripSlashesGPC(trim($_POST['uname'])) : '';
-    $email = isset($_POST['email']) ? $myts->stripSlashesGPC(trim($_POST['email'])) : '';
-    $url = isset($_POST['url']) ? $myts->stripSlashesGPC(trim($_POST['url'])) : '';
-    $pass = isset($_POST['pass']) ? $myts->stripSlashesGPC(trim($_POST['pass'])) : '';
-    $vpass = isset($_POST['vpass']) ? $myts->stripSlashesGPC(trim($_POST['vpass'])) : '';
+    $uname = isset($_POST['uname']) ? trim($_POST['uname']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $url = isset($_POST['url']) ? trim($_POST['url']) : '';
+    $pass = isset($_POST['pass']) ? trim($_POST['pass']) : '';
+    $vpass = isset($_POST['vpass']) ? trim($_POST['vpass']) : '';
     $agree_disc = (isset($_POST['agree_disc']) && (int)($_POST['agree_disc'])) ? 1 : 0;
 
     if ($xoops->getConfig('reg_dispdsclmr') != 0 && $xoops->getConfig('reg_disclaimer') != '') {
@@ -198,10 +198,10 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
 
     //Did created an user already? If not then let us set some extra info
     if ($isNew) {
-        $uname = isset($_POST['uname']) ? $myts->stripSlashesGPC(trim($_POST['uname'])) : '';
-        $email = isset($_POST['email']) ? $myts->stripSlashesGPC(trim($_POST['email'])) : '';
-        $url = isset($_POST['url']) ? $myts->stripSlashesGPC(trim($_POST['url'])) : '';
-        $pass = isset($_POST['pass']) ? $myts->stripSlashesGPC(trim($_POST['pass'])) : '';
+        $uname = isset($_POST['uname']) ? trim($_POST['uname']) : '';
+        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+        $url = isset($_POST['url']) ? trim($_POST['url']) : '';
+        $pass = isset($_POST['pass']) ? trim($_POST['pass']) : '';
         $newuser->setVar('uname', $uname);
         $newuser->setVar('email', $email);
         $newuser->setVar('pass', $pass ? password_hash($pass, PASSWORD_DEFAULT) : '');

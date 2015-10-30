@@ -82,7 +82,7 @@ if ($andor != "OR" && $andor != "exact" && $andor != "AND") {
 
 $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
 $queries_pattern = array();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 if ($action != 'showallbyuser') {
     if ($andor != "exact") {
         //$temp_queries = preg_split('/[\s,]+/', $query);
@@ -90,10 +90,10 @@ if ($action != 'showallbyuser') {
         foreach ($temp_queries as $q) {
             $q = trim($q);
             if (mb_strlen($q) >= $search->getConfig('keyword_min')) {
-                $queries[] = $myts->addSlashes($q);
+                $queries[] = $q;
                 $queries_pattern[] = '~(' . $q . ')~sUi';
             } else {
-                $ignored_queries[] = $myts->addSlashes($q);
+                $ignored_queries[] = $q;
             }
         }
         if (count($queries) == 0) {
@@ -104,8 +104,8 @@ if ($action != 'showallbyuser') {
         if (mb_strlen($query) < $search->getConfig('keyword_min')) {
             $xoops->redirect('index.php', 2, sprintf(_MD_SEARCH_KEYTOOSHORT, $search->getConfig('keyword_min')));
         }
-        $queries = array($myts->addSlashes($query));
-        $queries_pattern[] = '~(' . $myts->addSlashes($query) . ')~sUi';
+        $queries = array($query);
+        $queries_pattern[] = '~(' . $query . ')~sUi';
     }
 }
 

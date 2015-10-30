@@ -144,7 +144,7 @@ class Read extends XoopsModelAbstract
             return $ret;
         }
 
-        $myts = \MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             // identifiers should be textboxes, so sanitize them like that
             $ret[$myrow[$this->handler->keyName]] = empty($this->handler->identifierName) ? 1

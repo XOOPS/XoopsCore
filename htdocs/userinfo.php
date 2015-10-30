@@ -73,7 +73,7 @@ if ($xoops->isUser()) {
     $xoops->header('module:system/system_userinfo.tpl');
     $xoops->tpl()->assign('user_ownpage', false);
 }
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 if ($xoops->isUser() && $isAdmin) {
     $xoops->tpl()->assign('lang_editprofile', XoopsLocale::EDIT_PROFILE);
     $xoops->tpl()->assign('lang_deleteaccount', XoopsLocale::DELETE_ACCOUNT);

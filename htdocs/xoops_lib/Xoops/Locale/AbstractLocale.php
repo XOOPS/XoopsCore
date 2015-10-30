@@ -135,7 +135,7 @@ abstract class AbstractLocale
      *        font-size: 150%;
      *    }
      * Then classes can be relative to that base em
-     * CJK fonts need to be shown in a larger size due to complex glyphs
+     * CJK fonts may need to be shown in a larger size due to complex glyphs
      *
      * @return array
      */

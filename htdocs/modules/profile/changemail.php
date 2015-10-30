@@ -39,9 +39,8 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     $form->assign($xoops->tpl());
 } else {
-    $myts = MyTextSanitizer::getInstance();
-    $pass = @$myts->stripSlashesGPC(trim($_POST['passwd']));
-    $email = @$myts->stripSlashesGPC(trim($_POST['newmail']));
+    $pass = trim($_POST['passwd']);
+    $email = trim($_POST['newmail']);
     $errors = array();
     if (!password_verify($pass, $xoops->user->getVar('pass', 'n'))) {
         $errors[] = _PROFILE_MA_WRONGPASSWORD;

@@ -25,7 +25,7 @@ include_once dirname(__DIR__) . '/include/common.php';
 function publisher_items_recent_show($options)
 {
     $publisher = Publisher::getInstance();
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
     $block = array();
 

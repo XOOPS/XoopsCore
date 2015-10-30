@@ -182,7 +182,7 @@ switch ($op) {
         $admin_page->addTips(_AM_COMMENTS_NAV_TIPS);
         $admin_page->renderTips();
         // Display comments
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $comments_Handler = $helper->getHandlerComment();
         $comments_module = '';
         $comments_status = '';

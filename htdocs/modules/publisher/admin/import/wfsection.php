@@ -21,7 +21,7 @@
  */
 
 include_once dirname(__DIR__) . '/admin_header.php';
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $importFromModuleName = "WF-Section " . @$_POST['wfs_version'];
 

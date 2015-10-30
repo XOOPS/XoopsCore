@@ -24,7 +24,7 @@ include_once dirname(__DIR__) . '/include/common.php';
 
 function publisher_date_to_date_show($options)
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $publisher = Publisher::getInstance();
 
     $block = array();

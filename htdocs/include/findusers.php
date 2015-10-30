@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * Find XOOPS users
  *
  * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
@@ -27,6 +27,8 @@ $xoops = Xoops::getInstance();
 
 $xoops->simpleHeader(false);
 //$xoops->header();
+
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $denied = true;
 if (!empty($_REQUEST['token'])) {
@@ -191,13 +193,12 @@ if (empty($_POST["user_submit"])) {
         if ($mode == $_mode) {
             continue;
         }
-        $modes_switch[] = "<a href='findusers.php?target=" . htmlspecialchars(@$_REQUEST["target"], ENT_QUOTES) . "&amp;multiple=" . htmlspecialchars(@$_REQUEST["multiple"], ENT_QUOTES) . "&amp;token=" . htmlspecialchars($token, ENT_QUOTES) . "&amp;mode={$_mode}'>{$title}</a>";
+        $modes_switch[] = "<a href='findusers.php?target=" . $myts->htmlSpecialChars(@$_REQUEST["target"]) . "&amp;multiple=" . $myts->htmlSpecialChars(@$_REQUEST["multiple"]) . "&amp;token=" . $myts->htmlSpecialChars($token, ENT_QUOTES) . "&amp;mode={$_mode}'>{$title}</a>";
     }
     echo "<h4>" . implode(" | ", $modes_switch) . "</h4>";
     echo "(" . sprintf(XoopsLocale::F_ACTIVE_USERS, "<span style='color:#ff0000;'>$acttotal</span>") . " " . sprintf(XoopsLocale::F_INACTIVE_USERS, "<span style='color:#ff0000;'>$inacttotal</span>") . ")";
     $form->display();
 } else {
-    $myts = MyTextSanitizer::getInstance();
     $limit = empty($_POST['limit']) ? 50 : (int)($_POST['limit']);
     $start = (int)(@$_POST['start']);
     if (!isset($_POST["query"])) {
@@ -205,7 +206,7 @@ if (empty($_POST["user_submit"])) {
         foreach (array_keys($items_match) as $var) {
             if (!empty($_POST[$var])) {
                 $match = (!empty($_POST["{$var}_match"])) ? (int)($_POST["{$var}_match"]) : XOOPS_MATCH_START;
-                $value = str_replace("_", "\\\_", $myts->addSlashes(trim($_POST[$var])));
+                $value = str_replace("_", "\\\_", trim($_POST[$var]));
                 switch ($match) {
                     case XOOPS_MATCH_START:
                         $criteria->add(new Criteria($var, $value . '%', 'LIKE'));
@@ -227,13 +228,13 @@ if (empty($_POST["user_submit"])) {
             $criteria->add(new Criteria('url', $url . '%', 'LIKE'));
         }
         if (!empty($_POST['user_from'])) {
-            $criteria->add(new Criteria('user_from', '%' . $myts->addSlashes(trim($_POST['user_from'])) . '%', 'LIKE'));
+            $criteria->add(new Criteria('user_from', '%' . trim($_POST['user_from']) . '%', 'LIKE'));
         }
         if (!empty($_POST['user_intrest'])) {
-            $criteria->add(new Criteria('user_intrest', '%' . $myts->addSlashes(trim($_POST['user_intrest'])) . '%', 'LIKE'));
+            $criteria->add(new Criteria('user_intrest', '%' . trim($_POST['user_intrest']) . '%', 'LIKE'));
         }
         if (!empty($_POST['user_occ'])) {
-            $criteria->add(new Criteria('user_occ', '%' . $myts->addSlashes(trim($_POST['user_occ'])) . '%', 'LIKE'));
+            $criteria->add(new Criteria('user_occ', '%' . trim($_POST['user_occ']) . '%', 'LIKE'));
         }
         foreach (array(
                      "last_login",
@@ -346,7 +347,7 @@ if (empty($_POST["user_submit"])) {
     ';
 
     echo "</html><body>";
-    echo "<a href='findusers.php?target=" . htmlspecialchars(@$_POST["target"], ENT_QUOTES) . "&amp;multiple=" . (int)(@$_POST["multiple"]) . "&amp;token=" . htmlspecialchars($token, ENT_QUOTES) . "'>" . XoopsLocale::FIND_USERS . "</a>&nbsp;<span style='font-weight:bold;'>&raquo;&raquo;</span>&nbsp;" . XoopsLocale::SEARCH_RESULTS . "<br /><br />";
+    echo "<a href='findusers.php?target=" . $myts->htmlSpecialChars(@$_POST["target"]) . "&amp;multiple=" . (int)(@$_POST["multiple"]) . "&amp;token=" . $myts->htmlSpecialChars($token) . "'>" . XoopsLocale::FIND_USERS . "</a>&nbsp;<span style='font-weight:bold;'>&raquo;&raquo;</span>&nbsp;" . XoopsLocale::SEARCH_RESULTS . "<br /><br />";
     if (empty($start) && empty($foundusers)) {
         echo "<h4>" . XoopsLocale::E_USERS_NOT_FOUND, "</h4>";
         $hiddenform = "<form name='findnext' action='findusers.php' method='post'>";
@@ -355,7 +356,7 @@ if (empty($_POST["user_submit"])) {
                 // regenerate token value
                 $hiddenform .= $xoops->security()->getTokenHTML() . "\n";
             } else {
-                $hiddenform .= "<input type='hidden' name='" . htmlSpecialChars($k, ENT_QUOTES) . "' value='" . htmlSpecialChars($myts->stripSlashesGPC($v), ENT_QUOTES) . "' />\n";
+                $hiddenform .= "<input type='hidden' name='" . $myts->htmlSpecialChars($k) . "' value='" . $myts->htmlSpecialChars($v) . "' />\n";
             }
         }
         if (!isset($_POST['limit'])) {
@@ -364,7 +365,7 @@ if (empty($_POST["user_submit"])) {
         if (!isset($_POST['start'])) {
             $hiddenform .= "<input type='hidden' name='start' value='{$start}' />\n";
         }
-        $hiddenform .= "<input type='hidden' name='token' value='" . htmlspecialchars($token, ENT_QUOTES) . "' />\n";
+        $hiddenform .= "<input type='hidden' name='token' value='" . $myts->htmlSpecialChars($token) . "' />\n";
         $hiddenform .= "</form>";
 
         echo "<div>" . $hiddenform;
@@ -427,7 +428,7 @@ if (empty($_POST["user_submit"])) {
                 } else {
                     echo "<input type='button' value='" . XoopsLocale::ADD_SELECTED_USERS . "' onclick='addusers();' />";
                 }
-                echo "<input type='hidden' name='token' value='" . htmlspecialchars($token, ENT_QUOTES) . "' />\n";
+                echo "<input type='hidden' name='token' value='" . $myts->htmlSpecialChars($token) . "' />\n";
                 echo "</td></tr></table></form>\n";
             }
 
@@ -437,7 +438,7 @@ if (empty($_POST["user_submit"])) {
                     // regenerate token value
                     $hiddenform .= $xoops->security()->getTokenHTML() . "\n";
                 } else {
-                    $hiddenform .= "<input type='hidden' name='" . htmlSpecialChars($k, ENT_QUOTES) . "' value='" . htmlSpecialChars($myts->stripSlashesGPC($v), ENT_QUOTES) . "' />\n";
+                    $hiddenform .= "<input type='hidden' name='" . $myts->htmlSpecialChars($k) . "' value='" . $myts->htmlSpecialChars($v) . "' />\n";
                 }
             }
             if (!isset($_POST['limit'])) {
@@ -446,7 +447,7 @@ if (empty($_POST["user_submit"])) {
             if (!isset($_POST['start'])) {
                 $hiddenform .= "<input type='hidden' name='start' value='" . $start . "' />\n";
             }
-            $hiddenform .= "<input type='hidden' name='token' value='" . htmlspecialchars($token, ENT_QUOTES) . "' />\n";
+            $hiddenform .= "<input type='hidden' name='token' value='" . $myts->htmlSpecialChars($token) . "' />\n";
             if (!isset($total) || ($totalpages = ceil($total / $limit)) > 1) {
                 $prev = $start - $limit;
                 if ($start - $limit >= 0) {

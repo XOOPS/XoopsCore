@@ -109,7 +109,7 @@ switch ($op) {
 
     case 'list':
     default:
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $admin_page->addItemButton(_AM_MENUS_ADD_MENUS, 'admin_menus.php?op=add', 'add');
         $admin_page->renderButton();
 
@@ -121,7 +121,7 @@ switch ($op) {
 
         $criteria = new CriteriaCompo();
         if ($query != '') {
-            $crit = new CriteriaCompo(new Criteria('title', $myts->addSlashes($query) . '%', 'LIKE'));
+            $crit = new CriteriaCompo(new Criteria('title', $query . '%', 'LIKE'));
             $criteria->add($crit);
         }
 

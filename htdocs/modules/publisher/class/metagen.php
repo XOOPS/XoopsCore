@@ -29,7 +29,7 @@ class PublisherMetagen
     public $publisher = null;
 
     /**
-     * @var MyTextSanitizer
+     * @var \Xoops\Core\Text\Sanitizer
      */
     public $_myts;
 
@@ -73,7 +73,7 @@ class PublisherMetagen
     public function __construct($title, $keywords = '', $description = '', $categoryPath = false)
     {
         $this->publisher = Publisher::getInstance();
-        $this->_myts = MyTextSanitizer::getInstance();
+        $this->_myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $this->setCategoryPath($categoryPath);
         $this->setTitle($title);
         $this->setDescription($description);

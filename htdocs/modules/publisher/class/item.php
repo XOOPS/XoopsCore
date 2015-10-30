@@ -201,7 +201,7 @@ class PublisherItem extends XoopsObject
                 $content = substr($content, $body_start_pos + strlen('<body>'), $body_end_pos - strlen('<body>') - $body_start_pos);
             }
             // Check if ML Hack is installed, and if yes, parse the $content in formatForML
-            $myts = MyTextSanitizer::getInstance();
+            $myts = \Xoops\Core\Text\Sanitizer::getInstance();
             if (method_exists($myts, 'formatForML')) {
                 $content = $myts->formatForML($content);
             }
@@ -658,7 +658,7 @@ class PublisherItem extends XoopsObject
         // Highlighting searched words
         $highlight = true;
         if ($highlight && isset($_GET['keywords'])) {
-            $myts = MyTextSanitizer::getInstance();
+            $myts = \Xoops\Core\Text\Sanitizer::getInstance();
             $keywords = $myts->htmlSpecialChars(trim(urldecode($_GET['keywords'])));
             $fields = array('title', 'maintext', 'summary');
             foreach ($fields as $field) {

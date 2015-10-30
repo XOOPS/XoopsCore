@@ -75,7 +75,7 @@ function install_finalize($installer_modified)
  */
 function xoFormField($name, $value, $label, $help = '')
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $label = $myts->htmlSpecialChars($label);
     $name = $myts->htmlSpecialChars($name);
     $value = $myts->htmlSpecialChars($value);
@@ -102,7 +102,7 @@ function xoFormField($name, $value, $label, $help = '')
  */
 function xoPassField($name, $value, $label, $help = '')
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $label = $myts->htmlSpecialChars($label);
     $name = $myts->htmlSpecialChars($name);
     $value = $myts->htmlSpecialChars($value);
@@ -130,7 +130,7 @@ function xoPassField($name, $value, $label, $help = '')
  */
 function xoBoolField($name, $value, $label, $help = '')
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $label = $myts->htmlSpecialChars($label);
     $name = $myts->htmlSpecialChars($name);
     $value = $myts->htmlSpecialChars($value);

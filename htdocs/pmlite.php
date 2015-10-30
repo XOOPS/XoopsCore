@@ -56,7 +56,7 @@ if (!$xoops->isUser()) {
 }
 $xoops->simpleHeader();
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 if (isset($_POST['op']) && $_POST['op'] == "submit") {
     $member_handler = $xoops->getHandlerMember();
     $count = $member_handler->getUserCount(new Criteria('uid', (int)($_POST['to_userid'])));
@@ -131,8 +131,8 @@ if (isset($_POST['op']) && $_POST['op'] == "submit") {
             if ($sendmod == 1) {
                 $form->addElement(new Xoops\Form\Label(XoopsLocale::C_TO, XoopsUser::getUnameFromId($_POST["to_userid"])));
                 $form->addElement(new Xoops\Form\Hidden('to_userid', $_POST["to_userid"]));
-                $subject = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['subject']));
-                $message = $myts->htmlSpecialChars($myts->stripSlashesGPC($_POST['message']));
+                $subject = $myts->htmlSpecialChars($_POST['subject']);
+                $message = $myts->htmlSpecialChars($_POST['message']);
             } else {
                 if ($send2 == 1) {
                     $form->addElement(new Xoops\Form\Label(XoopsLocale::C_TO, XoopsUser::getUnameFromId($to_userid, false)));

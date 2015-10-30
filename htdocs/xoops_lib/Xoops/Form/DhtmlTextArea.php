@@ -214,26 +214,44 @@ class DhtmlTextArea extends TextArea
     public function codeIcon()
     {
         $textarea_id = $this->getName();
-        $code = "<a name='moresmiley'></a>";
-        $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/url.gif' alt='" . \XoopsLocale::URL . "' title='" . \XoopsLocale::URL . "' onclick='xoopsCodeUrl(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_LINK_URL, ENT_QUOTES) . "\", \"" . htmlspecialchars(\XoopsLocale::ENTER_WEBSITE_TITLE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
-        $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/email.gif' alt='" . \XoopsLocale::EMAIL . "' title='" . \XoopsLocale::EMAIL . "' onclick='xoopsCodeEmail(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_EMAIL, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
-        $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/imgsrc.gif' alt='" . \XoopsLocale::IMAGES . "' title='" . \XoopsLocale::IMAGES . "' onclick='xoopsCodeImg(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_IMAGE_URL, ENT_QUOTES) . "\", \"" . htmlspecialchars(\XoopsLocale::ENTER_IMAGE_POSITION, ENT_QUOTES) . "\", \"" . htmlspecialchars(\XoopsLocale::IMAGE_POSITION_DESCRIPTION, ENT_QUOTES) . "\", \"" . htmlspecialchars(\XoopsLocale::E_ENTER_IMAGE_POSITION, ENT_QUOTES) . "\", \"" . htmlspecialchars(\XoopsLocale::WIDTH, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $xoops = \Xoops::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
-        $myts = \MyTextSanitizer::getInstance();
-        $extensions = array_filter($myts->config['extensions']);
-        foreach (array_keys($extensions) as $key) {
-            $extension = $myts->loadExtension($key);
-            @list ($encode, $js) = $extension->encode($textarea_id);
-            if (empty($encode)) {
-                continue;
+        $code = '';
+        $code .= '<img src="' . $xoops->url('images/form/url.gif') . '" alt="' . \XoopsLocale::URL
+            . '" title="' . \XoopsLocale::URL . '" onclick="xoopsCodeUrl(\'' . $textarea_id . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_LINK_URL) . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_WEBSITE_TITLE)
+            . '\')" onmouseover="style.cursor=\'hand\'" />&nbsp;';
+        $code .= '<img src="' . $xoops->url('images/form/email.gif') . '" alt="' . \XoopsLocale::EMAIL
+            . '" title="' . \XoopsLocale::EMAIL . '" onclick="xoopsCodeEmail(\'' . $textarea_id . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_EMAIL)
+            . '\');"  onmouseover="style.cursor=\'hand\'" />&nbsp;';
+        $code .= '<img src="' . $xoops->url('images/form/imgsrc.gif') . '" alt="' . \XoopsLocale::IMAGES
+            . '" title="' . \XoopsLocale::IMAGES . '" onclick="xoopsCodeImg(\'' . $textarea_id . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_IMAGE_URL) . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_IMAGE_POSITION) . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::IMAGE_POSITION_DESCRIPTION) . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::E_ENTER_IMAGE_POSITION) . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::WIDTH) . '\');" onmouseover="style.cursor=\'hand\'" />&nbsp;';
+
+        $extensions = array_filter($myts->listExtensions());
+        foreach ($extensions as $extension) {
+            list ($button, $js) = $myts->getDhtmlEditorSupport($extension, $textarea_id);
+            if (!empty($button)) {
+                $code .= $button;
             }
-            $code .= $encode;
             if (!empty($js)) {
                 $this->js .= $js;
             }
         }
-        $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/code.gif' alt='" . \XoopsLocale::SOURCE_CODE . "' title='" . \XoopsLocale::SOURCE_CODE . "' onclick='xoopsCodeCode(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_CODE, ENT_QUOTES) . "\");'  onmouseover='style.cursor=\"hand\"'/>&nbsp;";
-        $code .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/quote.gif' alt='" . \XoopsLocale::QUOTE . "' title='" . \XoopsLocale::QUOTE . "' onclick='xoopsCodeQuote(\"{$textarea_id}\", \"" . htmlspecialchars(\XoopsLocale::ENTER_QUOTE, ENT_QUOTES) . "\");' onmouseover='style.cursor=\"hand\"'/>&nbsp;";
+        $code .= '<img src="' . $xoops->url('images/form/code.gif') .'" alt="' . \XoopsLocale::SOURCE_CODE . '" title="'
+            . \XoopsLocale::SOURCE_CODE . '" onclick="xoopsCodeCode(\'' . $textarea_id . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_CODE) . '\');" onmouseover="style.cursor=\'hand\'" />&nbsp;';
+
+        $code .= '<img src="' . $xoops->url('images/form/quote.gif') .'" alt="' . \XoopsLocale::QUOTE . '" title="'
+            . \XoopsLocale::QUOTE . '" onclick="xoopsCodeQuote(\'' . $textarea_id . '\', \''
+            . $myts->escapeForJavascript(\XoopsLocale::ENTER_QUOTE) . '\');" onmouseover="style.cursor=\'hand\'" />&nbsp;';
 
         $response = \Xoops::getInstance()->service('emoji')->renderEmojiSelector($this->getName());
         if ($response->isSuccess()) {

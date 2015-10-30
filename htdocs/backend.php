@@ -26,7 +26,7 @@ require __DIR__ . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
-$myts = \MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $xoops_url = \XoopsBaseConfig::get('url');
 

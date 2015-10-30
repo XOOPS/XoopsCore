@@ -31,7 +31,7 @@ if (!$xoops->service('htmltopdf')->isAvailable()) {
 }
 
 $publisher = Publisher::getInstance();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $itemid = Request::getInt('itemid');
 $item_page_id = Request::getInt('page', -1);

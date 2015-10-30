@@ -197,7 +197,7 @@ if ($xoops->isActiveModule('search') && $xoops->getModuleConfig('profile_search'
     $modules = $module_handler->getObjectsArray($criteria, true);
     $mids = array_keys($modules);
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $allowed_mids = $gperm_handler->getItemIds('module_read', $groups);
     if (count($mids) > 0 && count($allowed_mids) > 0) {
         foreach ($mids as $mid) {

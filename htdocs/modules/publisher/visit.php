@@ -52,6 +52,6 @@ if (!preg_match("/^ed2k*:\/\//i", $fileObj->getFileUrl())) {
     header("Location: " . $fileObj->getFileUrl());
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=" . $myts->htmlSpecialChars($fileObj->getFileUrl()) . "\"></meta></head><body></body></html>";
 exit();

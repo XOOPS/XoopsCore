@@ -23,7 +23,7 @@ function b_system_info_show($options)
 {
     $xoops = Xoops::getInstance();
     $xoops->db();
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $block = array();
     if (!empty($options[3])) {
         $block['showgroups'] = true;

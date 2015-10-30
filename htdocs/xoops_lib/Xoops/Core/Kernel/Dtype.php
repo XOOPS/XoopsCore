@@ -105,7 +105,7 @@ class Dtype
         $dtype = null;
         if (!isset($dtypes[$name])) {
             $className = 'Xoops\Core\Kernel\Dtype\\' . $name;
-            @$dtype = new $className();
+            $dtype = new $className();
             if (!$dtype instanceof DtypeAbstract) {
                 trigger_error("Dtype '{$name}' not found", E_USER_WARNING);
                 $name = 'other';

@@ -134,7 +134,7 @@ class XoopsUser extends XoopsObject
             $member_handler = $xoops->getHandlerMember();
             $user = $member_handler->getUser($userid);
             if (is_object($user)) {
-                $ts = \MyTextSanitizer::getInstance();
+                $ts = \Xoops\Core\Text\Sanitizer::getInstance();
                 if ($usereal) {
                     $name = $user->getVar('name');
                     if ($name != '') {
