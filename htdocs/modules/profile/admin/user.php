@@ -123,7 +123,7 @@ switch ($op) {
             $user->setVar('user_regdate', time());
             $user->setVar('level', 1);
         }
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $user->setVar('uname', $_POST['uname']);
         $user->setVar('email', trim($_POST['email']));
         if (isset($_POST['level']) && $user->getVar('level') != (int)($_POST['level'])) {

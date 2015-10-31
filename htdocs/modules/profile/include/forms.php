@@ -95,7 +95,7 @@ function profile_getRegisterForm(XoopsUser $user, $profile, $step = null)
         }
     }
     //end of Dynamic User fields
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     if ($step_no == 1 && $xoops->getConfig('reg_dispdsclmr') != 0 && $xoops->getConfig('reg_disclaimer') != '') {
         $disc_tray = new Xoops\Form\ElementTray(XoopsLocale::DISCLAIMER, '<br />');
         $disc_text = new Xoops\Form\Label("", "<div class=\"pad5\">" . $myts->displayTarea($xoops->getConfig('reg_disclaimer'), 1) . "</div>");

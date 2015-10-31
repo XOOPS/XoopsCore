@@ -30,10 +30,10 @@ if ($email == '') {
     $xoops->redirect("user.php", 2, XoopsLocale::E_NO_USER_FOUND, false);
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 $member_handler = $xoops->getHandlerMember();
 /* @var $user XoopsUser */
-list($user) = $member_handler->getUsers(new Criteria('email', $myts->addSlashes($email)));
+list($user) = $member_handler->getUsers(new Criteria('email', $email));
 
 if (empty($user)) {
     $msg = XoopsLocale::E_NO_USER_FOUND;

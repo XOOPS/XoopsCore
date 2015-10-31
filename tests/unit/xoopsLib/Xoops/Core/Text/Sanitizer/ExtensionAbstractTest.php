@@ -1,0 +1,57 @@
+<?php
+namespace Xoops\Core\Text\Sanitizer;
+
+use Xoops\Core\Text\Sanitizer;
+
+require_once __DIR__.'/../../../../../init_new.php';
+
+/**
+ * PHPUnit special settings :
+ * @backupGlobals disabled
+ * @backupStaticAttributes disabled
+ */
+class ExtensionAbstractTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @var ExtensionAbstract
+     */
+    protected $object;
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $ts = Sanitizer::getInstance();
+        $this->object = $this->getMockForAbstractClass('\Xoops\Core\Text\Sanitizer\ExtensionAbstract', [$ts]);
+        $this->reflectedObject = new \ReflectionClass('\Xoops\Core\Text\Sanitizer\ExtensionAbstract');
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+    }
+
+    public function testContracts()
+    {
+        $this->assertTrue($this->reflectedObject->isAbstract());
+        $this->assertTrue($this->reflectedObject->hasMethod('getDhtmlEditorSupport'));
+        $this->assertTrue($this->reflectedObject->hasMethod('registerExtensionProcessing'));
+    }
+
+    /**
+     * @covers Xoops\Core\Text\Sanitizer\ExtensionAbstract::getDhtmlEditorSupport
+     * @todo   Implement testGetDhtmlEditorSupport().
+     */
+    public function testGetDhtmlEditorSupport()
+    {
+        // Remove the following lines when you implement this test.
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+}

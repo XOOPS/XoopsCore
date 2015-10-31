@@ -80,11 +80,11 @@ if ($action == "showpopups") {
                 $tpl->assign('closebutton', 0);
                 $tpl->assign('form', $form->render());
             } elseif ($op == "sendsite") {
-                $myts = MyTextsanitizer::getInstance();
+                $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                 if ($xoops->isUser()) {
                     $ymail = $xoops->user->getVar("email");
                 } else {
-                    $ymail = isset($_POST['ymail']) ? $myts->stripSlashesGPC(trim($_POST['ymail'])) : '';
+                    $ymail = isset($_POST['ymail']) ? trim($_POST['ymail']) : '';
                 }
                 if (!isset($_POST['yname']) || trim($_POST['yname']) == "" || $ymail == ''
 				|| !isset($_POST['fname']) || trim($_POST['fname']) == "" || !isset($_POST['fmail'])
@@ -92,9 +92,9 @@ if ($action == "showpopups") {
                     $xoops->redirect($xoops_url . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, XoopsLocale::E_YOU_NEED_TO_ENTER_REQUIRED_INFO);
                     exit();
                 }
-                $yname = $myts->stripSlashesGPC(trim($_POST['yname']));
-                $fname = $myts->stripSlashesGPC(trim($_POST['fname']));
-                $fmail = $myts->stripSlashesGPC(trim($_POST['fmail']));
+                $yname = trim($_POST['yname']);
+                $fname = trim($_POST['fname']);
+                $fmail = trim($_POST['fmail']);
                 if (!$xoops->checkEmail($fmail) || !$xoops->checkEmail($ymail) || preg_match("/[\\0-\\31]/", $yname)) {
                     $errormessage = XoopsLocale::EMAIL_PROVIDED_IS_INVALID . "<br />" . XoopsLocale::E_CHECK_EMAIL_AND_TRY_AGAIN . "";
                     $xoops->redirect($xoops_url . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, $errormessage);

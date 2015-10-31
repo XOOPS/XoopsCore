@@ -22,6 +22,11 @@
  * @version     $Id$
  */
 
+function installHtmlSpecialCharacters($value)
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
 /**
  * @param string $hash
  * @return bool
@@ -75,10 +80,9 @@ function install_finalize($installer_modified)
  */
 function xoFormField($name, $value, $label, $help = '')
 {
-    $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlSpecialChars($label);
-    $name = $myts->htmlSpecialChars($name);
-    $value = $myts->htmlSpecialChars($value);
+    $label = installHtmlSpecialCharacters($label);
+    $name = installHtmlSpecialCharacters($name);
+    $value = installHtmlSpecialCharacters($value);
     echo "<label class='xolabel' for='$name'>$label</label>\n";
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
@@ -102,10 +106,9 @@ function xoFormField($name, $value, $label, $help = '')
  */
 function xoPassField($name, $value, $label, $help = '')
 {
-    $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlSpecialChars($label);
-    $name = $myts->htmlSpecialChars($name);
-    $value = $myts->htmlSpecialChars($value);
+    $label = installHtmlSpecialCharacters($label);
+    $name = installHtmlSpecialCharacters($name);
+    $value = installHtmlSpecialCharacters($value);
     echo "<label class='xolabel' for='{$name}'>{$label}</label>\n";
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
@@ -130,10 +133,9 @@ function xoPassField($name, $value, $label, $help = '')
  */
 function xoBoolField($name, $value, $label, $help = '')
 {
-    $myts = MyTextSanitizer::getInstance();
-    $label = $myts->htmlSpecialChars($label);
-    $name = $myts->htmlSpecialChars($name);
-    $value = $myts->htmlSpecialChars($value);
+    $label = installHtmlSpecialCharacters($label);
+    $name = installHtmlSpecialCharacters($name);
+    $value = installHtmlSpecialCharacters($value);
     echo "<label class='xolabel' for='$name'>$label</label>\n";
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";

@@ -43,7 +43,7 @@ if (in_array($op, array('install', 'update', 'uninstall'))) {
         $op = 'list';
     }
 }
-$myts = MyTextsanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 switch ($op) {
 

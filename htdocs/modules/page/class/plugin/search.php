@@ -73,12 +73,12 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
             $qb->andWhere($eb->eq('content_author', ':uid'));
         }
 
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $items = array();
         $result = $qb->execute();
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $content = $myrow["content_shorttext"] . "<br /><br />" . $myrow["content_text"];
-            $content = $myts->xoopsCodeDecode($content);
+            $content = $myts->displayTarea($content);
             $items[] = array(
                 'title' => $myrow['content_title'],
                 'content' => Metagen::getSearchSummary($content, $queryArray),

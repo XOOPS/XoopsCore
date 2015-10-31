@@ -368,7 +368,7 @@ class XoopsBlock extends XoopsObject
                         return str_replace('{X_SITEURL}', $this->xoops_url . '/', $content);
                     } else {
                         if ($c_type == 'S') {
-                            $myts = \MyTextSanitizer::getInstance();
+                            $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                             $content = str_replace(
                                 '{X_SITEURL}',
                                 $this->xoops_url . '/',
@@ -376,7 +376,7 @@ class XoopsBlock extends XoopsObject
                             );
                             return $myts->displayTarea($content, 1, 1);
                         } else {
-                            $myts = \MyTextSanitizer::getInstance();
+                            $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                             $content = str_replace(
                                 '{X_SITEURL}',
                                 \XoopsBaseConfig::get('url') . '/',

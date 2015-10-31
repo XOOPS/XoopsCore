@@ -33,7 +33,7 @@ class Utils
      */
     public static function dumpVar($var, $echo = true)
     {
-        $myts = \MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $msg = $myts->displayTarea(var_export($var, true));
         $msg = "<div style='padding: 5px; font-weight: bold'>{$msg}</div>";
         if ($echo) {

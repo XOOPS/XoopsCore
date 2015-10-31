@@ -40,8 +40,8 @@ echo '
 
 if ($op == 'dologin') {
     $member_handler = xoops_gethandler('member');
-    $myts = MyTextsanitizer::getInstance();
-    $user = $member_handler->loginUser(addslashes($myts->stripSlashesGPC($username)), addslashes($myts->stripSlashesGPC($password)));
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
+    $user = $member_handler->loginUser($username, $password);
     if (is_object($user)) {
         if (0 == $user->getVar('level')) {
             redirect_header(XOOPS_URL . '/index.php', 5, XoopsLocale::E_SELECTED_USER_DEACTIVATED_OR_NOT_ACTIVE);

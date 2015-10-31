@@ -56,7 +56,7 @@ if ($dateformat == '') {
     $dateformat = 'm';
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars(_MD_PUBLISHER_ARCHIVES) . $pgtitle . ' - ' . $myts->htmlSpecialChars($xoopsModule->getVar('name')));
 
 $useroffset = '';

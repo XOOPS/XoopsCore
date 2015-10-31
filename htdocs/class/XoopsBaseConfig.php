@@ -119,7 +119,7 @@ class XoopsBaseConfig
         if (isset(self::$configs[$name])) {
             return self::$configs[$name];
         }
-        trigger_error('variable : '.$name.' not found!', E_USER_ERROR);
+        //trigger_error('variable : '.$name.' not found!', E_USER_ERROR);
         return null;
     }
 

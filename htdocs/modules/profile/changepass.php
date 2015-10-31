@@ -99,10 +99,10 @@ if (!isset($_POST['submit'])) {
 
 } else {
     $xoops->getConfigs();
-    $myts = MyTextSanitizer::getInstance();
-    $oldpass = @$myts->stripSlashesGPC(trim($_POST['oldpass']));
-    $password = @$myts->stripSlashesGPC(trim($_POST['newpass']));
-    $vpass = @$myts->stripSlashesGPC(trim($_POST['vpass']));
+    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
+    $oldpass = trim($_POST['oldpass']);
+    $password = trim($_POST['newpass']);
+    $vpass = trim($_POST['vpass']);
     $errors = array();
     if (!password_verify($oldpass, $xoops->user->getVar('pass', 'n'))) {
         $errors[] = _PROFILE_MA_WRONGPASSWORD;

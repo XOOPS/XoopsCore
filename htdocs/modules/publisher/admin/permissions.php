@@ -22,7 +22,7 @@
 include_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 PublisherUtils::cpHeader();
 //publisher_adminMenu(3, _AM_PUBLISHER_PERMISSIONS);

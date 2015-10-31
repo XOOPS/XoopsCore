@@ -13,6 +13,7 @@ namespace Xoops\Core\Kernel\Dtype;
 
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
+use \Xoops\Core\Text\Sanitizer;
 
 /**
  * DtypeAbstract
@@ -32,7 +33,7 @@ abstract class DtypeAbstract
     protected $db;
 
     /**
-     * @var \MyTextSanitizer
+     * @var Sanitizer
      */
     protected $ts;
 
@@ -42,7 +43,7 @@ abstract class DtypeAbstract
     public function __construct()
     {
         //$this->db = \Xoops::getInstance()->db();
-        $this->ts = \MyTextSanitizer::getInstance();
+        $this->ts = Sanitizer::getInstance();
     }
 
     /**

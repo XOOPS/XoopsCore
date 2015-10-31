@@ -256,7 +256,7 @@ switch ($op) {
 
             //OpenTable();
             if ($added_count > 0) {
-                $myts = MyTextSanitizer::getInstance();
+                $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                 $xoopsMailer = $xoops->getMailer();
                 for ($i = 0; $i < $added_count; ++$i) {
                     $xoopsMailer->setToUsers($added[$i]);

@@ -94,7 +94,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
         $xoops->preload()->triggerEvent('onSystemPreferencesForm', array($mod));
 
         if (!empty($_REQUEST["redirect"])) {
-            $myts = MyTextSanitizer::getInstance();
+            $myts = \Xoops\Core\Text\Sanitizer::getInstance();
             $this->addElement(new Xoops\Form\Hidden('redirect', $myts->htmlSpecialChars($_REQUEST["redirect"])));
         } elseif ($mod->getInfo('adminindex')) {
             $this->addElement(new Xoops\Form\Hidden(
@@ -110,7 +110,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
             switch ($obj[$i]->getVar('conf_formtype')) {
 
                 case 'textarea':
-                    $myts = MyTextSanitizer::getInstance();
+                    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                     if ($obj[$i]->getVar('conf_valuetype') == 'array') {
                         // this is exceptional.. only when value type is arrayneed a smarter way for this
                         $ele = ($obj[$i]->getVar('conf_value') != '')
@@ -288,23 +288,23 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                     break;
 
                 case 'password':
-                    $myts = MyTextSanitizer::getInstance();
+                    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                     $ele = new Xoops\Form\Password($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                     break;
 
                 case 'color':
-                    $myts = MyTextSanitizer::getInstance();
+                    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                     $ele = new Xoops\Form\ColorPicker($title, $obj[$i]->getVar('conf_name'), $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                     break;
 
                 case 'hidden':
-                    $myts = MyTextSanitizer::getInstance();
+                    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                     $ele = new Xoops\Form\Hidden($obj[$i]->getVar('conf_name'), $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                     break;
 
                 case 'textbox':
                 default:
-                    $myts = MyTextSanitizer::getInstance();
+                    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                     $ele = new Xoops\Form\Text($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                     break;
             }

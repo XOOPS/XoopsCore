@@ -281,7 +281,7 @@ switch ($op) {
         $block->setVars($_POST);
         $content = isset($_POST['content_block']) ? $_POST['content_block'] : '';
         $block->setVar('content', $content);
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         echo '<div id="xo-preview-dialog" title="' . $block->getVar('title', 's')
             . '">' . $block->getContent('s', $block->getVar('c_type')) . '</div>';
         break;

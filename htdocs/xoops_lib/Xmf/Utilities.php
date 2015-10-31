@@ -36,7 +36,7 @@ class Utilities
      */
     public static function purifyText($text, $keyword = false)
     {
-        $myts = \MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $text = str_replace('&nbsp;', ' ', $text);
         $text = str_replace('<br />', ' ', $text);
         $text = str_replace('<br/>', ' ', $text);

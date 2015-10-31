@@ -49,7 +49,7 @@ if (!$itemObj->accessGranted()) {
 $categoryObj = $itemObj->category();
 
 $xoopsTpl = new XoopsTpl();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $item['title'] = $itemObj->title();
 $item['body'] = $itemObj->body();

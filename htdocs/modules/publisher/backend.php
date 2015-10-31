@@ -40,7 +40,7 @@ $tpl = new XoopsTpl();
 $tpl->caching = 2;
 $tpl->cache_lifetime= 0;
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 if (!$tpl->isCached('module:publisher/publisher_rss.tpl')) {
     $channel_category = $publisher->getModule()->getVar('name');
     $tpl->assign('channel_charset', XoopsLocale::getCharset());

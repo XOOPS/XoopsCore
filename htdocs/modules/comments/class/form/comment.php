@@ -139,14 +139,13 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
             /* @var $plugin CommentsPluginInterface */
             $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments');
             if (is_array($extraParams = $plugin->extraParams())) {
-                $myts = MyTextSanitizer::getInstance();
                 foreach ($extraParams as $extra_param) {
                     // This routine is included from forms accessed via both GET and POST
                     if (isset($_POST[$extra_param])) {
-                        $hidden_value = $myts->stripSlashesGPC($_POST[$extra_param]);
+                        $hidden_value = $_POST[$extra_param];
                     } else {
                         if (isset($_GET[$extra_param])) {
-                            $hidden_value = $myts->stripSlashesGPC($_GET[$extra_param]);
+                            $hidden_value = $_GET[$extra_param];
                         } else {
                             $hidden_value = '';
                         }

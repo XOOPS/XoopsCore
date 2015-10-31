@@ -38,7 +38,7 @@ if (!$publisher->getConfig('perm_author_items')) {
     $xoops->redirect('index.php', 2, _CO_PUBLISHER_ERROR);
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $xoops->header('publisher_author_items.tpl');
 $xoopsTpl = $xoops->tpl();

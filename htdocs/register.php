@@ -29,7 +29,7 @@ $xoops_url = \XoopsBaseConfig::get('url');
 $xoops->events()->triggerEvent('core.register.start');
 $xoops->loadLanguage('user');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $xoopsConfigUser = $xoops->getConfigs();
 
@@ -269,7 +269,7 @@ switch ($op) {
                 if (false != $member_handler->activateUser($thisuser)) {
                     $xoopsConfigUser = $xoops->getConfigs();
                     if ($xoopsConfigUser['activation_type'] == 2) {
-                        $myts = MyTextSanitizer::getInstance();
+                        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                         $xoopsMailer = $xoops->getMailer();
                         $xoopsMailer->useMail();
                         $xoopsMailer->setTemplate('activated.tpl');

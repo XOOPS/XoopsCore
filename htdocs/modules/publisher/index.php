@@ -26,7 +26,7 @@ include_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 $publisher = Publisher::getInstance();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 // At which record shall we start for the Categories
 $catstart = Request::getInt('catstart');

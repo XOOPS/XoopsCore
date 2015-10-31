@@ -12,7 +12,7 @@
  * Xoops Javascript class
  *
  * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         media
  * @since           2.6.0
  * @author          Andricq Nicolas (AKA MusS)

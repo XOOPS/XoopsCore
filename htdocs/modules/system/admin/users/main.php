@@ -49,7 +49,7 @@ $member_handler = $xoops->getHandlerMember();
 // Call Header
 $xoops->header('admin:system/system_users.tpl');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 // Define Stylesheet
 $xoops->theme()->addStylesheet('modules/system/css/admin.css');
 // Define scripts
@@ -175,13 +175,13 @@ switch ($op) {
             }
 
             $edituser = $member_handler->getUser($uid);
-            if ($edituser->getVar('uname', 'n') != $_REQUEST['username'] && $member_handler->getUserCount(new Criteria('uname', $myts->addSlashes($_REQUEST['username']))) > 0) {
+            if ($edituser->getVar('uname', 'n') != $_REQUEST['username'] && $member_handler->getUserCount(new Criteria('uname', $_REQUEST['username'])) > 0) {
                 $xoops->header();
-                echo $xoops->alert('error', sprintf(XoopsLocale::EF_USER_NAME_ALREADY_EXISTS, htmlspecialchars($_REQUEST['username'])));
+                echo $xoops->alert('error', sprintf(XoopsLocale::EF_USER_NAME_ALREADY_EXISTS, $myts->htmlSpecialChars($_REQUEST['username'])));
                 $xoops->footer();
-            } elseif ($edituser->getVar('email', 'n') != $_REQUEST['email'] && $member_handler->getUserCount(new Criteria('email', $myts->addSlashes($_REQUEST['email']))) > 0) {
+            } elseif ($edituser->getVar('email', 'n') != $_REQUEST['email'] && $member_handler->getUserCount(new Criteria('email', $_REQUEST['email'])) > 0) {
                 $xoops->header();
-                echo $xoops->alert('error', sprintf(XoopsLocale::EF_EMAIL_ALREADY_EXISTS, htmlspecialchars($_REQUEST['email'])));
+                echo $xoops->alert('error', sprintf(XoopsLocale::EF_EMAIL_ALREADY_EXISTS, $myts->htmlSpecialChars($_REQUEST['email'])));
                 $xoops->footer();
             } else {
                 $edituser->setVar("name", $_REQUEST['name']);
@@ -254,8 +254,8 @@ switch ($op) {
             } else {
                 $member_handler = $xoops->getHandlerMember();
                 // make sure the username doesnt exist yet
-                if ($member_handler->getUserCount(new Criteria('uname', $myts->addSlashes($_REQUEST['username']))) > 0) {
-                    $adduser_errormsg = 'User name ' . htmlspecialchars($_REQUEST['username']) . ' already exists';
+                if ($member_handler->getUserCount(new Criteria('uname', $_REQUEST['username'])) > 0) {
+                    $adduser_errormsg = 'User name ' . $myts->htmlSpecialChars($_REQUEST['username']) . ' already exists';
                 } else {
                     $newuser = $member_handler->createUser();
                     if (isset($user_viewemail)) {
@@ -496,7 +496,7 @@ switch ($op) {
             if (!empty($value)) {
                 $match = Request::getInt('user_uname_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'uname', $value, $match);
-                $requete_pagenav .= '&amp;user_uname=' . htmlspecialchars($value) . '&amp;user_uname_match=' . $match;
+                $requete_pagenav .= '&amp;user_uname=' . $myts->htmlSpecialChars($value) . '&amp;user_uname_match=' . $match;
                 $requete_search .= 'uname : ' . $value . ' and user_uname_match=' . $match . '<br />';
             }
 
@@ -504,7 +504,7 @@ switch ($op) {
             if (!empty($value)) {
                 $match = Request::getInt('user_name_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'name', $value, $match);
-                $requete_pagenav .= '&amp;user_name=' . htmlspecialchars($value) . '&amp;user_name_match=' . $match;
+                $requete_pagenav .= '&amp;user_name=' . $myts->htmlSpecialChars($value) . '&amp;user_name_match=' . $match;
                 $requete_search .= 'name : ' . $value . ' and user_name_match=' . $match . '<br />';
             }
 
@@ -512,7 +512,7 @@ switch ($op) {
             if (!empty($value)) {
                 $match = Request::getInt('user_email_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'email', $value, $match);
-                $requete_pagenav .= '&amp;user_email=' . htmlspecialchars($value) . '&amp;user_email_match=' . $match;
+                $requete_pagenav .= '&amp;user_email=' . $myts->htmlSpecialChars($value) . '&amp;user_email_match=' . $match;
                 $requete_search .= 'email : ' . $value . ' and user_email_match=' . $match . '<br />';
             }
 
@@ -535,7 +535,7 @@ switch ($op) {
             if (!empty($value)) {
                 $match = Request::getInt('user_aim_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_aim', $value, $match);
-                $requete_pagenav .= '&amp;user_aim=' . htmlspecialchars($value) . '&amp;user_aim_match=' . $match;
+                $requete_pagenav .= '&amp;user_aim=' . $myts->htmlSpecialChars($value) . '&amp;user_aim_match=' . $match;
                 $requete_search .= 'aim : ' . $value . ' and user_aim_match=' . $match . '<br />';
             }
 
@@ -543,7 +543,7 @@ switch ($op) {
             if (!empty($value)) {
                 $match = Request::getInt('user_yim_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_yim', $value, $match);
-                $requete_pagenav .= '&amp;user_yim=' . htmlspecialchars($value) . '&amp;user_yim_match=' . $match;
+                $requete_pagenav .= '&amp;user_yim=' . $myts->htmlSpecialChars($value) . '&amp;user_yim_match=' . $match;
                 $requete_search .= 'yim : ' . $value . ' and user_yim_match=' . $match . '<br />';
             }
 
@@ -551,28 +551,28 @@ switch ($op) {
             if (!empty($value)) {
                 $match = Request::getInt('user_msnm_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_msnm', $value, $match);
-                $requete_pagenav .= '&amp;user_msnm=' . htmlspecialchars($value) . '&amp;user_msnm_match=' . $match;
+                $requete_pagenav .= '&amp;user_msnm=' . $myts->htmlSpecialChars($value) . '&amp;user_msnm_match=' . $match;
                 $requete_search .= 'msnm : ' . $value . ' and user_msnm_match=' . $match . '<br />';
             }
 
             $value = Request::getString('user_from', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_from', '%' . $value . '%', 'LIKE'));
-                $requete_pagenav .= '&amp;user_from=' . htmlspecialchars($value);
+                $requete_pagenav .= '&amp;user_from=' . $myts->htmlSpecialChars($value);
                 $requete_search .= 'from : ' . $value . '<br />';
             }
 
             $value = Request::getString('user_intrest', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_intrest', '%' . $value . '%', 'LIKE'));
-                $requete_pagenav .= '&amp;user_intrest=' . htmlspecialchars($value);
+                $requete_pagenav .= '&amp;user_intrest=' . $myts->htmlSpecialChars($value);
                 $requete_search .= 'interet : ' . $value . '<br />';
             }
 
             $value = Request::getString('user_occ', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_occ', '%' . $value . '%', 'LIKE'));
-                $requete_pagenav .= '&amp;user_occ=' . htmlspecialchars($value);
+                $requete_pagenav .= '&amp;user_occ=' . $myts->htmlSpecialChars($value);
                 $requete_search .= 'location : ' . $value . '<br />';
             }
 
@@ -665,7 +665,7 @@ switch ($op) {
             $user_limit = $xoops->getModuleConfig('users_pager', 'system');
             if (isset($_REQUEST['user_limit'])) {
                 $user_limit = $_REQUEST['user_limit'];
-                $requete_pagenav .= '&amp;user_limit=' . htmlspecialchars($_REQUEST['user_limit']);
+                $requete_pagenav .= '&amp;user_limit=' . $myts->htmlSpecialChars($_REQUEST['user_limit']);
                 $requete_search .= 'limit : ' . $user_limit . '<br />';
             } else {
                 $requete_pagenav .= '&amp;user_limit=' . $xoops->getModuleConfig('users_pager', 'system');
@@ -684,7 +684,7 @@ switch ($op) {
                 } else {
                     $groups = array();
                 }
-                $requete_pagenav .= '&amp;selgroups=' . htmlspecialchars($_REQUEST['selgroups']);
+                $requete_pagenav .= '&amp;selgroups=' . $myts->htmlSpecialChars($_REQUEST['selgroups']);
             } else {
                 $groups = array();
             }

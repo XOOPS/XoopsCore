@@ -22,7 +22,7 @@ include_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
-$myts = MyTextSanitizer::getInstance();
+$myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
 $content = Request::getString('text', '');
 

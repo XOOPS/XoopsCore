@@ -265,7 +265,7 @@ class XoopsUserUtility
         }
         $userids = array_map('intval', array_filter($uids));
 
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $users = array();
         if (count($userids) > 0) {
             $criteria = new CriteriaCompo(new Criteria('level', 0, '>'));
@@ -305,7 +305,7 @@ class XoopsUserUtility
     public static function getUnameFromId($userid, $usereal = false, $linked = false)
     {
         $xoops = Xoops::getInstance();
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $userid = (int)($userid);
         $username = '';
         if ($userid > 0) {

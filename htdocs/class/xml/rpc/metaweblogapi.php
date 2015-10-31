@@ -11,7 +11,7 @@
 
 /**
  * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         class
  * @subpackage      xml
  * @since           1.0.0

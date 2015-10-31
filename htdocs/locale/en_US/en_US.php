@@ -471,7 +471,7 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const IMAGE = "Image";
     const IMAGES = "Images";
     const IMAGE_FILE = "Image file";
-    const IMAGE_POSITION_DESCRIPTION = "'R' or 'r' for right, 'L' or 'l' for left, or leave it blank.";
+    const IMAGE_POSITION_DESCRIPTION = " 'R' or 'r' for right, 'L' or 'l' for left, or leave it blank.";
     const IMAGE_URL = "Image url";
     const INACTIVE = "Inactive";
     const INBOX = "Inbox";
@@ -837,6 +837,7 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const MESSAGE_ICON = "Message icon";
     const METHOD = "Method";
     const MMS = "MMS";
+    const MMS_URL = "MMS URL";
     const MODULE = "Module";
     const MODULES = "Modules";
     const MODULE_INFORMATION = "Module information";

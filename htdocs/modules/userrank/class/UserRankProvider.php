@@ -72,7 +72,7 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
             return;
         }
 
-        $myts = \MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $db = \Xoops::getInstance()->db();
         $qb = $db->createXoopsQueryBuilder();
         $eb = $qb->expr();
@@ -109,7 +109,7 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
     public function getAssignableUserRankList(Response $response)
     {
         $db = \Xoops::getInstance()->db();
-        $myts = \MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
         $ret = array();
 
