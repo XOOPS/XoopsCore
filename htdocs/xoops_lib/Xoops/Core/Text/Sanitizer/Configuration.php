@@ -36,7 +36,7 @@ class Configuration extends ConfigurationAbstract
      */
     public function __construct()
     {
-        $sanitizerConfiguration = $this->readSanitizerPrefrences();
+        $sanitizerConfiguration = $this->readSanitizerPreferences();
         parent::__construct($sanitizerConfiguration);
     }
 
@@ -50,7 +50,7 @@ class Configuration extends ConfigurationAbstract
      *
      * @return array of sanitizer preferences
      */
-    protected function readSanitizerPrefrences()
+    protected function readSanitizerPreferences()
     {
         $xoops = \Xoops::getInstance();
 

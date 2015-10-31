@@ -25,7 +25,7 @@ $xoops->header();
 if ($xoops->isUser() && $helper = $xoops->getModuleHelper('userconfigs')) {
     $config_handler = $helper->getHandlerConfig();
     $configs = $config_handler->getConfigsByUser($xoops->user->getVar('uid'), $xoops->module->getVar('mid'));
-    Xoops_Utils::dumpVar($configs);
+    \Xoops\Utils::dumpVar($configs);
     $url = $xoops->url('modules/userconfigs');
     echo '<a href="' . $url . '">Change your settings</a>';
 } else {

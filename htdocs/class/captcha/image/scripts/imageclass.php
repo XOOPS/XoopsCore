@@ -114,7 +114,7 @@ class XoopsCaptchaImageHandler
 
         if ($this->mode == "bmp") {
             $this->config["num_chars"] = 4;
-            $this->code = rand(pow(10, $this->config["num_chars"] - 1), (int)(str_pad("9", $this->config["num_chars"], "9")));
+            $this->code = mt_rand(pow(10, $this->config["num_chars"] - 1), (int)(str_pad("9", $this->config["num_chars"], "9")));
         } else {
             $raw_code = md5(uniqid(mt_rand(), 1));
             if (!empty($this->config["skip_characters"])) {
@@ -356,7 +356,7 @@ class XoopsCaptchaImageHandler
      */
     public function drawBorder()
     {
-        $rgb = rand(50, 150);
+        $rgb = mt_rand(50, 150);
         $border_color = imagecolorallocate($this->oImage, $rgb, $rgb, $rgb);
         imagerectangle($this->oImage, 0, 0, $this->width - 1, $this->height - 1, $border_color);
     }

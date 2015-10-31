@@ -49,8 +49,8 @@ class XoopsCaptchaText extends XoopsCaptchaMethod
      */
     public function loadText()
     {
-        $val_a = rand(0, 9);
-        $val_b = rand(0, 9);
+        $val_a = mt_rand(0, 9);
+        $val_b = mt_rand(0, 9);
         if ($val_a > $val_b) {
             $expression = "{$val_a} - {$val_b} = ?";
             $this->code = $val_a - $val_b;
