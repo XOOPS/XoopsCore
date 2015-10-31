@@ -91,7 +91,7 @@ class Image extends ExtensionAbstract
                     if (!self::$jsLoaded) {
                         self::$jsLoaded = true;
                         $xoops->theme()->addScript(
-                            '/class/textsanitizer/image/image.js',
+                            'media/xoops/image.js',
                             ['type' => 'text/javascript']
                         );
                     }
