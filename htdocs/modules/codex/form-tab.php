@@ -156,7 +156,7 @@ $buttonReset = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset')
 $buttonReset->setClass('btn btn-danger');
 $form->addElement($buttonReset);
 
-$buttonTray = new Xoops\Form\ButtonTray('button_tray', 'submit', XoopsLocale::A_SUBMIT, '', true);
+$buttonTray = new Xoops\Form\ButtonTray('button_tray', 'Submit', XoopsLocale::A_SUBMIT, '', true);
 $buttonTray->setClass('btn btn-inverse');
 $form->addElement($buttonTray);
 

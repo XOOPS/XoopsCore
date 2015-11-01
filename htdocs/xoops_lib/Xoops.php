@@ -1441,7 +1441,7 @@ class Xoops
             'en', 'be', 'se'
         );
         for ($count = 1; $count <= 4; ++$count) {
-            if (1 == rand() % 10) {
+            if (1 == mt_rand() % 10) {
                 $makepass .= sprintf('%0.0f', (rand() % 50) + 1);
             } else {
                 $makepass .= sprintf('%s', $syllables[rand() % 62]);
