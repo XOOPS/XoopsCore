@@ -188,7 +188,7 @@ class DhtmlTextArea extends TextArea
 
         if (empty($this->skipPreview)) {
             if (!$xoops->theme()) {
-                $this->js .= implode("", file($xoops->path('media/xoops/image.js'));
+                $this->js .= implode("", file($xoops->path('media/xoops/image.js')));
             } else {
                 $xoops->theme()->addScript('media/xoops/image.js', array('type' => 'text/javascript'));
             }
