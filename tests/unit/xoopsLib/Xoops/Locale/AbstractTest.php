@@ -249,7 +249,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
             ['en_US', 'America/New_York', 'elapse', 'add', 'PT3S',    'in 3 seconds'],
             ['en_US', 'America/New_York', 'elapse', 'sub', 'PT3S',    '3 seconds ago'],
             ['en_US', 'America/New_York', 'elapse', 'add', 'P1DT1H',  'tomorrow'],
-            ['en_US', 'America/New_York', 'elapse', 'sub', 'P1D',     'yesterday'],
+            ['en_US', 'America/New_York', 'elapse', 'sub', 'P1DT1H',  'yesterday'],
             ['en_US', 'America/New_York', 'elapse', 'sub', 'P12DT4H', '12 days ago'],
             ['en_US', 'America/New_York', 'elapse', 'sub', 'P2Y3M',   '2 years ago'],
 
@@ -258,7 +258,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
             ['fr_FR', 'Europe/Paris',     'elapse', 'add', 'PT3S',    'dans 3 secondes'],
             ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'PT3S',    'il y a 3 secondes'],
             ['fr_FR', 'Europe/Paris',     'elapse', 'add', 'P1DT1H',  'demain'],
-            ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P1D',     'hier'],
+            ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P1DT1H',  'hier'],
             ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P12DT4H', 'il y a 12 jours'],
             ['fr_FR', 'Europe/Paris',     'elapse', 'sub', 'P2Y3M',   'il y a 2 ans'],
         );
