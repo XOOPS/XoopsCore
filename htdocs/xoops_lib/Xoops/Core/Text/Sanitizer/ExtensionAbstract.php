@@ -48,7 +48,7 @@ abstract class ExtensionAbstract extends SanitizerComponent
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
-        return array();
+        return array('', '');
     }
 
     /**

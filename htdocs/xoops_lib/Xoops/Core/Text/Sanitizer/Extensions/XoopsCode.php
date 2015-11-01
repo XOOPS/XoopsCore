@@ -32,19 +32,6 @@ class XoopsCode extends ExtensionAbstract
     protected static $defaultConfiguration = ['enabled' => true];
 
     /**
-     * This is provided in Xoops\Form\DhtmlTextArea
-     * Provide button and javascript code used by the DhtmlTextArea
-     *
-     * @param string $textAreaId dom element id
-     *
-     * @return string[] editor button as HTML, supporting javascript
-     */
-    public function getDhtmlEditorSupport($textAreaId)
-    {
-        return [];
-    }
-
-    /**
      * Register extension with the supplied sanitizer instance
      *
      * @return void
