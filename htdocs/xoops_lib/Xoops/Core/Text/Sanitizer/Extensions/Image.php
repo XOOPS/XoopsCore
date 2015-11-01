@@ -60,7 +60,6 @@ class Image extends ExtensionAbstract
                     'width'  => $this->config['max_width'],
                 ];
                 $cleanAttributes = $this->shortcodes->shortcodeAttributes($defaults, $attributes);
-                \Xmf\Debug::dump($cleanAttributes);
                 if (0 !== $cleanAttributes['id']) {
                     $cleanAttributes['url'] = $xoops->url('/image.php?id=' . $cleanAttributes['id']);
                 }
