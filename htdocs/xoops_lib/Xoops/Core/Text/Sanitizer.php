@@ -431,7 +431,7 @@ class Sanitizer extends SanitizerConfigurable
     }
 
     /**
-     * registerExtension()
+     * registerExtensions()
      *
      * This sets up the shortcode processing that will be applied to text to be displayed
      *
@@ -609,7 +609,7 @@ class Sanitizer extends SanitizerConfigurable
      */
     public function enableComponentForTesting($name)
     {
-        if ($this->config->has($name) && !$this->config[$name]['enabled']) {
+        if ($this->config->has($name)) {
             $this->config[$name]['enabled'] = true;
             if($this->extensionsLoaded) {
                 $this->extensionsLoaded = false;

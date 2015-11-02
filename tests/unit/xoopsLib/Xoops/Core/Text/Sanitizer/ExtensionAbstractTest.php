@@ -18,6 +18,11 @@ class ExtensionAbstractTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var \ReflectionClass
+     */
+    protected $reflectedObject;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -41,17 +46,17 @@ class ExtensionAbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->reflectedObject->isAbstract());
         $this->assertTrue($this->reflectedObject->hasMethod('getDhtmlEditorSupport'));
         $this->assertTrue($this->reflectedObject->hasMethod('registerExtensionProcessing'));
+        $this->assertTrue($this->reflectedObject->hasMethod('getEditorButtonHtml'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ExtensionAbstract::getDhtmlEditorSupport
-     * @todo   Implement testGetDhtmlEditorSupport().
      */
     public function testGetDhtmlEditorSupport()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $support = $this->object->getDhtmlEditorSupport('testeditorarea');
+        $this->assertTrue(2 == count($support));
+        $this->assertEquals('', $support[0]);
+        $this->assertEquals('', $support[1]);
     }
 }

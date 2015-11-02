@@ -38,4 +38,15 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $this->object);
         $this->assertInstanceOf('\ArrayObject', $this->object);
     }
+
+    /**
+     * @covers Xoops\Core\Text\Sanitizer\Configuration::__construct
+     * @covers Xoops\Core\Text\Sanitizer\Configuration::readSanitizerPreferences
+     * @covers Xoops\Core\Text\Sanitizer\Configuration::saveSanitizerPrefrences
+     */
+    public function test__construct(){
+        $config = new Configuration();
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract', $config);
+        $this->assertTrue($config->has('sanitizer'));
+    }
 }
