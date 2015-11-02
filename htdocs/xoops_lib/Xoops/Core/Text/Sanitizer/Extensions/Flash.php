@@ -33,6 +33,8 @@ class Flash extends ExtensionAbstract
         'enabled' => true,
         'detect_dimension' => '1',
         'template' => '<object type="application/x-shockwave-flash" data="%1$s" width="%2$d" height="%3$d"></object>',
+        'fallback_width'  => "320",
+        'fallback_height' => "240",
     ];
 
     /**
@@ -71,9 +73,9 @@ class Flash extends ExtensionAbstract
                     var text2 = enableDimensionDetect ? "" : prompt(enterFlashWidthPhrase, "");
                     var text3 = enableDimensionDetect ? "" : prompt(enterFlashHeightPhrase, "");
                     if (text2.length == 0 && text2.length == 0) {
-                        var result = "[flash]" + text + "[/flash]";
+                        var result = '[flash url="'+text+'" /]';
                     } else {
-                        var result = "[flash="+text2+","+text3+"]" + text + "[/flash]";
+                        var result = '[flash url="'+text+'" width='+text2+' height='+text3+' /]';
                     }
                     xoopsInsertText(domobj, result);
                 }
@@ -93,23 +95,34 @@ EOF;
     public function registerExtensionProcessing()
     {
         $function = function ($attributes, $content, $tagName) {
-            $args = ltrim($attributes[0], '=');
-            list($width, $height) = explode(',', $args);
-
+            if (array_key_exists(0, $attributes) && '=' == substr($attributes[0], 0, 1)) {
+                $args = ltrim($attributes[0], '=');
+                list($width, $height) = explode(',', $args);
+                $url = $content;
+            } else {
+                $defaults = [
+                    'url'    => trim($content),
+                    'width'  => null,
+                    'height' => null,
+                ];
+                $cleanAttributes = $this->shortcodes->shortcodeAttributes($defaults, $attributes);
+                $url = $cleanAttributes['url'];
+                $width = $cleanAttributes['width'];
+                $height = $cleanAttributes['height'];
+            }
             if ((empty($width) || empty($height)) && (bool)$this->config['detect_dimension']) {
                 $dimension = @getimagesize($content);
-                if ($dimension === false) {
-                    return "<a href='{$content}' rel='external'>{$content}</a>";
+                if ($dimension !== false) {
+                    list($width, $height) = $dimension;
                 }
-                list($width, $height) = $dimension;
             }
             if (empty($width) || empty($height)) {
-                $width = 100;
-                $height = 100;
+                $width = $this->config['fallback_width'];
+                $height = $this->config['fallback_height'];
             }
 
             $template = $this->config['template'];
-            $newcontent = sprintf($template, $content, $width, $height);
+            $newcontent = sprintf($template, $url, $width, $height);
             return $newcontent;
         };
 

@@ -65,7 +65,7 @@ class SoundCloud extends ExtensionAbstract
 
                 var domobj = xoopsGetElementById(id);
                 if (text.length > 0) {
-                    xoopsInsertText(domobj, "[soundcloud url=\x22"+text+"\x22 /]");
+                    xoopsInsertText(domobj, '[soundcloud url="'+text+'" /]');
                 }
                 domobj.focus();
             }

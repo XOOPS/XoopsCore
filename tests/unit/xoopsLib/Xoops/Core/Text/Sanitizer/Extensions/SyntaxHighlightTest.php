@@ -18,13 +18,18 @@ class SyntaxHighlightTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new SyntaxHighlight($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new SyntaxHighlight($this->sanitizer);
     }
 
     /**
@@ -48,10 +53,11 @@ class SyntaxHighlightTest extends \PHPUnit_Framework_TestCase
      */
     public function testApplyFilter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('syntaxhighlight');
+
+        $text = "some text";
+        $actual = $this->sanitizer->executeFilter('syntaxhighlight', $text);
+        $this->assertTrue(is_string($actual));
     }
 
     /**

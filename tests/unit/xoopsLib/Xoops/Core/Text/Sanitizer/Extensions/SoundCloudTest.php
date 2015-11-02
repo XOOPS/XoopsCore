@@ -18,13 +18,18 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new SoundCloud($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new SoundCloud($this->sanitizer);
     }
 
     /**
@@ -44,25 +49,26 @@ class SoundCloudTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\SoundCloud::getDhtmlEditorSupport
-     * @todo   Implement testGetDhtmlEditorSupport().
      */
     public function testGetDhtmlEditorSupport()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $support = $this->object->getDhtmlEditorSupport('testeditorarea');
+        $this->assertTrue(2 == count($support));
+        $this->assertTrue(is_string($support[0]));
+        $this->assertTrue(is_string($support[1]));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\SoundCloud::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('soundcloud');
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('soundcloud'));
+        $expected = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/80365438&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>';
+
+        $in = '[soundcloud url="https://api.soundcloud.com/tracks/80365438" params="color=ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false" width="100%" height="166" iframe="true" /]';
+        $actual = $this->sanitizer->filterForDisplay($in);
+        $this->assertEquals($expected, $actual);
     }
 }

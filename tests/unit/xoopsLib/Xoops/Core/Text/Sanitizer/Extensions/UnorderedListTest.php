@@ -18,13 +18,18 @@ class UnorderedListTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new UnorderedList($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new UnorderedList($this->sanitizer);
     }
 
     /**
@@ -44,13 +49,16 @@ class UnorderedListTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\UnorderedList::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('unorderedlist');
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('ul'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('li'));
+
+        $in = '[ul][li]item[/li][/ul]';
+        $expected = '<ul><li>item</li></ul>';
+        $actual = $this->sanitizer->filterForDisplay($in);
+        $this->assertEquals($expected, $actual);
     }
 }

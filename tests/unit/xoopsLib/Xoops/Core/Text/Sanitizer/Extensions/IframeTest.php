@@ -18,13 +18,18 @@ class IframeTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new Iframe($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new Iframe($this->sanitizer);
     }
 
     /**
@@ -44,13 +49,16 @@ class IframeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Iframe::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('iframe');
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('iframe'));
+        $expected = '<iframe src="url"';
+
+        $in = '[iframe=300,200]url[/iframe]';
+        $actual = trim($this->sanitizer->filterForDisplay($in));
+        $this->assertTrue(is_string($actual));
+        $this->assertEquals($expected, substr($actual, 0, strlen($expected)));
     }
 }

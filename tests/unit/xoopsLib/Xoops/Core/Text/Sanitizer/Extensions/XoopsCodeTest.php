@@ -18,13 +18,18 @@ class XoopsCodeTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new XoopsCode($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new XoopsCode($this->sanitizer);
     }
 
     /**
@@ -43,26 +48,23 @@ class XoopsCodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\XoopsCode::getDhtmlEditorSupport
-     * @todo   Implement testGetDhtmlEditorSupport().
-     */
-    public function testGetDhtmlEditorSupport()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\XoopsCode::registerExtensionProcessing
      * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('xoopscode');
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('siteurl'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('color'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('size'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('font'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('email'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('b'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('i'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('u'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('d'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('center'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('left'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('right'));
     }
 }

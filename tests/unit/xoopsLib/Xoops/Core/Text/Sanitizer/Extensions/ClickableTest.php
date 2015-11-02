@@ -18,13 +18,18 @@ class ClickableTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new Clickable($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new Clickable($this->sanitizer);
     }
 
     /**
@@ -44,13 +49,19 @@ class ClickableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Clickable::applyFilter
-     * @todo   Implement testApplyFilter().
      */
     public function testApplyFilter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('clickable');
+
+        $in = 'http://xoops.org';
+        $expected = '<a href="http://xoops.org" title="http://xoops.org"rel="external">http://xoops.org</a>';
+        $actual = $this->sanitizer->executeFilter('clickable', $in);
+        $this->assertEquals($expected, $actual);
+
+        $in = 'fred@example.com';
+        $expected = '<a href="mailto:fred@example.com" title="fred@example.com">fred@example.com</a>';
+        $actual = $this->sanitizer->executeFilter('clickable', $in);
+        $this->assertEquals($expected, $actual);
     }
 }

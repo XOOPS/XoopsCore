@@ -18,13 +18,18 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new Image($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new Image($this->sanitizer);
     }
 
     /**
@@ -44,13 +49,19 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Image::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('image');
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('img'));
+
+        $this->markTestSkipped('invokes Xoops::theme() provoking multiple failure on a real system');
+
+        $in = '[img]url[/img]';
+        $expected = trim($this->sanitizer->filterForDisplay($in));
+        $this->assertTrue(is_string($expected));
+        $in = '[img url="url" /]';
+        $actual = trim($this->sanitizer->filterForDisplay($in));
+        $this->assertEquals($expected, $actual);
     }
 }
