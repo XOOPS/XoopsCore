@@ -599,4 +599,22 @@ class Sanitizer extends SanitizerConfigurable
         }
         return $default;
     }
+
+    /**
+     * Force a component to be enabled.
+     *
+     * Note: This is intended to support testing, and is not recommended for any regular use
+     *
+     * @param string $name component to enable
+     */
+    public function enableComponentForTesting($name)
+    {
+        if ($this->config->has($name) && !$this->config[$name]['enabled']) {
+            $this->config[$name]['enabled'] = true;
+            if($this->extensionsLoaded) {
+                $this->extensionsLoaded = false;
+            }
+            $this->registerExtensions();
+        }
+    }
 }

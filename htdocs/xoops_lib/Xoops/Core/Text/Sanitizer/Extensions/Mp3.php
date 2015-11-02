@@ -63,8 +63,7 @@ class Mp3 extends ExtensionAbstract
                 }
                 var domobj = xoopsGetElementById(id);
                 if ( text.length > 0 ) {
-                    var result = "[mp3]" + text + "[/mp3]";
-                    xoopsInsertText(domobj, result);
+                    xoopsInsertText(domobj, '[mp3 url="'+text+'" /]');
                 }
                 domobj.focus();
             }
@@ -84,8 +83,11 @@ EOF;
         $this->shortcodes->addShortcode(
             'mp3',
             function ($attributes, $content, $tagName) {
-                $url = trim($content);
-                $newContent = sprintf($this->config['template'], $url);
+                $defaults = [
+                    'url'    => trim($content),
+                ];
+                $cleanAttributes = $this->shortcodes->shortcodeAttributes($defaults, $attributes);
+                $newContent = sprintf($this->config['template'], $cleanAttributes['url']);
 
                 return $newContent;
             }

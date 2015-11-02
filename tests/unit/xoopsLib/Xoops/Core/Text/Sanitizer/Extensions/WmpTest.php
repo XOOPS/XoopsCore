@@ -18,13 +18,18 @@ class WmpTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new Wmp($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new Wmp($this->sanitizer);
     }
 
     /**
@@ -44,25 +49,27 @@ class WmpTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Wmp::getDhtmlEditorSupport
-     * @todo   Implement testGetDhtmlEditorSupport().
      */
     public function testGetDhtmlEditorSupport()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $support = $this->object->getDhtmlEditorSupport('testeditorarea');
+        $this->assertTrue(2 == count($support));
+        $this->assertTrue(is_string($support[0]));
+        $this->assertTrue(is_string($support[1]));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Wmp::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('wmp');
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('wmp'));
+        $expected = '<object ';
+
+        $in = '[wmp=300,200]wmp://url[/wmp]';
+        $actual = trim($this->sanitizer->filterForDisplay($in));
+        $this->assertTrue(is_string($actual));
+        $this->assertEquals($expected, substr($actual, 0, strlen($expected)));
     }
 }

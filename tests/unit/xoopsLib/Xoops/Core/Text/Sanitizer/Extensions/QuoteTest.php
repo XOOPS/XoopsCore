@@ -18,13 +18,18 @@ class QuoteTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new Quote($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new Quote($this->sanitizer);
     }
 
     /**
@@ -44,13 +49,15 @@ class QuoteTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Quote::applyFilter
-     * @todo   Implement testApplyFilter().
      */
     public function testApplyFilter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->sanitizer->enableComponentForTesting('quote');
+
+        $in = '[quote]stuff[/quote]';
+        $expected = 'Quote:<div class="xoopsQuote"><blockquote>stuff</blockquote></div>';
+        $actual = $this->sanitizer->executeFilter('quote', $in);
+        $this->assertEquals($expected, $actual);
+        //var_dump($actual);
     }
 }

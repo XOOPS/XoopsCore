@@ -18,13 +18,18 @@ class WikiTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance($ts);
-        $this->object = new Wiki($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new Wiki($this->sanitizer);
     }
 
     /**
@@ -44,14 +49,13 @@ class WikiTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\Wiki::getDhtmlEditorSupport
-     * @todo   Implement testGetDhtmlEditorSupport().
      */
     public function testGetDhtmlEditorSupport()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $support = $this->object->getDhtmlEditorSupport('testeditorarea');
+        $this->assertTrue(2 == count($support));
+        $this->assertTrue(is_string($support[0]));
+        $this->assertTrue(is_string($support[1]));
     }
 
     /**
