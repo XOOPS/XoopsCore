@@ -18,13 +18,18 @@ class NullFilterTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new NullFilter($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new NullFilter($this->sanitizer);
     }
 
     /**
@@ -37,13 +42,12 @@ class NullFilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\NullFilter::applyFilter
-     * @todo   Implement testApplyFilter().
      */
     public function testApplyFilter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'Why does my cat sleep so much?';
+        $expected = $text;
+        $actual = $this->sanitizer->executeFilter('nosuchfilter', $text);
+        $this->assertEquals($expected, $actual);
     }
 }

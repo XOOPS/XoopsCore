@@ -43,6 +43,8 @@ class ConfigurationAbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->reflectedObject->isAbstract());
         $this->assertTrue($this->reflectedObject->hasMethod('get'));
         $this->assertTrue($this->reflectedObject->hasMethod('set'));
+        $this->assertTrue($this->reflectedObject->hasMethod('getAll'));
+        $this->assertTrue($this->reflectedObject->hasMethod('getNames'));
         $this->assertTrue($this->reflectedObject->hasMethod('has'));
         $this->assertTrue($this->reflectedObject->hasMethod('remove'));
         $this->assertTrue($this->reflectedObject->hasMethod('clear'));
@@ -54,109 +56,213 @@ class ConfigurationAbstractTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::get
-     * @todo   Implement testGet().
      */
     public function testGet()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertNull($this->object->get('--NoNameLikeThisAtAll--'));
+        $this->assertSame('OK', $this->object->get('testvalue', 'OK'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::set
-     * @todo   Implement testSet().
      */
     public function testSet()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('testvalue', 'OK');
+        $this->assertSame('OK', $this->object->get('testvalue', 'NotOK'));
+    }
+
+    /**
+     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::getAll
+     */
+    public function testGetAll()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $all = $this->object->getAll();
+        $this->assertArrayHasKey('test1', $all);
+        $this->assertArrayHasKey('test2', $all);
+        $this->assertEquals('OK1', $all['test1']);
+        $this->assertEquals('OK2', $all['test2']);
+    }
+
+    /**
+     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::getNames
+     */
+    public function testGetNames()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $all = $this->object->getNames();
+        $this->assertEquals(array('test1', 'test2'), $all);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::has
-     * @todo   Implement testHas().
      */
     public function testHas()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->assertFalse($this->object->has('test3'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::remove
-     * @todo   Implement testRemove().
      */
     public function testRemove()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->object->remove('test1');
+        $this->assertFalse($this->object->has('test1'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::clear
-     * @todo   Implement testClear().
      */
     public function testClear()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->object->clear();
+        $this->assertFalse($this->object->has('test1'));
+        $this->assertFalse($this->object->has('test2'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::setAll
-     * @todo   Implement testSetAll().
      */
     public function testSetAll()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+
+        $replacements = array(
+            'test3' => 'OK3',
+            'test4' => 'OK4',
         );
+        $oldValues = $this->object->setAll($replacements);
+        $this->assertArrayHasKey('test1', $oldValues);
+        $this->assertArrayHasKey('test2', $oldValues);
+        $this->assertArrayNotHasKey('test3', $oldValues);
+        $this->assertArrayNotHasKey('test4', $oldValues);
+        $this->assertTrue($this->object->has('test3'));
+        $this->assertTrue($this->object->has('test4'));
+        $this->assertFalse($this->object->has('test1'));
+        $this->assertFalse($this->object->has('test2'));
+        $this->assertSame('OK3', $this->object->get('test3'));
+        $this->assertSame('OK4', $this->object->get('test4'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::setMerge
-     * @todo   Implement testSetMerge().
      */
     public function testSetMerge()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+
+        $replacements = array(
+            'test2' => 'OK2new',
+            'test3' => 'OK3',
         );
+        $this->object->setMerge($replacements);
+
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->assertTrue($this->object->has('test3'));
+
+        $this->assertSame('OK1', $this->object->get('test1'));
+        $this->assertSame('OK2new', $this->object->get('test2'));
+        $this->assertSame('OK3', $this->object->get('test3'));
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::setArrayItem
-     * @todo   Implement testSetArrayItem().
      */
     public function testSetArrayItem()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->setArrayItem('test', 'a', 'OK1');
+        $this->object->setArrayItem('test', 'b', 'OK2');
+
+        $expected = array(
+            'a' => 'OK1',
+            'b' => 'OK2',
         );
+        $this->assertEquals($expected, $this->object->get('test'));
+
+        $this->object->set('test', 'NOTOK1');
+        $this->object->setArrayItem('test', null, 'OK1');
+        $this->object->setArrayItem('test', null, 'OK2');
+
+        $expected = array(
+            0 => 'OK1',
+            1 => 'OK2',
+        );
+        $actual = $this->object->get('test');
+        $this->assertEquals($expected, $actual);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::getAllLike
-     * @todo   Implement testGetAllLike().
      */
     public function testGetAllLike()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->set('oddball', 'odd');
+        $this->object->set('test1', 'OK1');
+        $this->object->set('text1', 'NOTOK1');
+        $this->object->set('text2', 'NOTOK2');
+        $this->object->set('test2', 'OK2');
+
+        $subset = $this->object->getAllLike('test');
+        $this->assertCount(2, $subset);
+        $this->assertArrayHasKey('test1', $subset);
+        $this->assertArrayHasKey('test2', $subset);
+        $this->assertEquals('OK1', $subset['test1']);
+        $this->assertEquals('OK2', $subset['test2']);
+
+        $subset = $this->object->getAllLike('oddball');
+        $this->assertCount(1, $subset);
+        $this->assertArrayHasKey('oddball', $subset);
+        $this->assertEquals('odd', $subset['oddball']);
+
+        $subset = $this->object->getAllLike('garbage');
+        $this->assertCount(0, $subset);
+
+        $subset = $this->object->getAllLike();
+        $this->assertArrayHasKey('oddball', $subset);
+        $this->assertArrayHasKey('test1', $subset);
+        $this->assertArrayHasKey('test2', $subset);
+        $this->assertArrayHasKey('text1', $subset);
+        $this->assertArrayHasKey('text2', $subset);
+        $this->assertCount(5, $subset);
+    }
+
+    public function testArrayAccess()
+    {
+        $this->object['test1'] = 'OK1';
+        $this->object->set('test2', 'OK2');
+
+        $this->assertSame('OK1', $this->object->get('test1'));
+        $this->assertSame('OK2', $this->object['test2']);
+        $this->assertEquals(2, count($this->object));
+        $i = 0;
+        foreach ($this->object as $v) {
+            ++$i;
+        }
+        $this->assertEquals($i, count($this->object));
+        $this->assertSame('OK2', $v);
     }
 }

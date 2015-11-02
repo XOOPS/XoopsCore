@@ -64,23 +64,49 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::addPatternCallback
-     * @todo   Implement testAddPatternCallback().
+     * @covers Xoops\Core\Text\Sanitizer::filterForDisplay
      */
     public function testAddPatternCallback()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->object->addPatternCallback(
+            '~(\d{4})-(\d{2})-(\d{2})~',
+            function ($matches) {
+                return $matches[2].'/'.$matches[3].'/'.$matches[1];
+            }
         );
+        $text = '2015-12-14';
+        $expected = '12/14/2015';
+        $actual = $this->object->filterForDisplay($text);
+        // Remove the following lines when you implement this test.
+        $this->assertEquals($expected, $actual);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::smiley
      */
-    public function tesSmiley($text)
+    public function testSmiley($text)
     {
-        $message = $this->object->smiley('happy :-) happy');
-        $this->assertTrue(preg_match('/^happy .*<img.* happy$/', $message));
+        if (\Xoops::getInstance()->isActiveModule('smilies')) {
+            $message = $this->object->smiley('happy :-) happy');
+            $this->assertRegExp('/^happy .*<img.* happy$/', $message);
+        } else {
+            $this->markTestSkipped('Smilies module not installed');
+        }
+    }
+
+    /**
+     * @covers Xoops\Core\Text\Sanitizer::makeClickable
+     * @covers Xoops\Core\Text\Sanitizer::loadFilter
+     * @covers Xoops\Core\Text\Sanitizer::loadComponent
+     */
+    public function testMakeClickable()
+    {
+        $this->object->enableComponentForTesting('clickable');
+
+        $in = 'http://xoops.org';
+        $expected = '<a href="http://xoops.org" title="http://xoops.org"rel="external">http://xoops.org</a>';
+        $actual = $this->object->makeClickable($in);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -119,14 +145,13 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::escapeForJavascript
-     * @todo   Implement testEscapeForJavascript().
      */
     public function testEscapeForJavascript()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'enter an "T" for testing';
+        $expected = 'enter an \x22T\x22 for testing';
+        $actual = $this->object->escapeForJavascript($text);
+        $this->assertEquals($actual, $expected);
     }
 
     /**
@@ -141,14 +166,24 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::filterForDisplay
+     * @covers Xoops\Core\Text\Sanitizer::prefilterCodeBlocks
+     * @covers Xoops\Core\Text\Sanitizer::xoopsCodeDecode
+     * @covers Xoops\Core\Text\Sanitizer::postfilterCodeBlocks
+     * @covers Xoops\Core\Text\Sanitizer::registerExtensions
+     * @covers Xoops\Core\Text\Sanitizer::registerExtension
      * @todo   Implement testFilterForDisplay().
+     *
+     * This needs to be extended to do more than just touch the code :)
      */
     public function testFilterForDisplay()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'testing';
+        $actual = $this->object->filterForDisplay($text);
+        $this->assertSame($text, $actual);
+
+        $text = '[code]testing[/code]';
+        $actual = $this->object->filterForDisplay($text);
+        $this->assertFalse(empty($actual));
     }
 
     /**
@@ -157,22 +192,19 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testDisplayTarea()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'testing';
+        $actual = $this->object->displayTarea($text);
+        $this->assertSame($text, $actual);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::previewTarea
-     * @todo   Implement testPreviewTarea().
      */
     public function testPreviewTarea()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'testing';
+        $actual = $this->object->previewTarea($text);
+        $this->assertSame($text, $actual);
     }
 
     /**
@@ -207,14 +239,24 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::getDhtmlEditorSupport
-     * @todo   Implement testGetDhtmlEditorSupport().
+     * @covers Xoops\Core\Text\Sanitizer::enableComponentForTesting
+     * @covers Xoops\Core\Text\Sanitizer::registerExtensions
+     * @covers Xoops\Core\Text\Sanitizer::registerExtension
+     * @covers Xoops\Core\Text\Sanitizer::loadExtension
+     * @covers Xoops\Core\Text\Sanitizer::loadComponent
      */
     public function testGetDhtmlEditorSupport()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->enableComponentForTesting('soundcloud');
+        $support = $this->object->getDhtmlEditorSupport('soundcloud', 'testeditorarea');
+        $this->assertTrue(2 == count($support));
+        $this->assertTrue(is_string($support[0]));
+        $this->assertTrue(is_string($support[1]));
+
+        $support = $this->object->getDhtmlEditorSupport('thisisnotarealextension', 'testeditorarea');
+        $this->assertTrue(2 == count($support));
+        $this->assertEquals('', $support[0]);
+        $this->assertEquals('', $support[1]);
     }
 
     /**
@@ -231,18 +273,23 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::executeFilter
+     * @covers Xoops\Core\Text\Sanitizer::loadFilter
      * @todo   Implement testExecuteFilter().
      */
     public function testExecuteFilter()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'testing';
+        $expected = $text;
+        $actual = $this->object->executeFilter('nosuchfilter', $text);
+        $this->object->executeFilter('nosuchfilter', $text);
+        $this->assertEquals($expected, $text);
+        $this->assertSame($expected, $actual);
     }
 
     /**
      * @covers Xoops\Core\Text\Sanitizer::textFilter
+     * @covers Xoops\Core\Text\Sanitizer::executeFilter
+     * @covers Xoops\Core\Text\Sanitizer::loadFilter
      */
     public function testTextFilter()
     {
@@ -267,9 +314,16 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCleanEnum()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $text = 'alpha';
+        $actual = $this->object->cleanEnum($text, ['alpha', 'baker', 'charlie'], '');
+        $this->assertSame($text, $actual);
+
+        $text = 'fred';
+        $actual = $this->object->cleanEnum($text, ['alpha', 'baker', 'charlie'], '');
+        $this->assertSame('', $actual);
+
+        $text = 'b';
+        $actual = $this->object->cleanEnum($text, ['alpha', 'baker', 'charlie'], '', true);
+        $this->assertSame('baker', $actual);
     }
 }

@@ -18,6 +18,11 @@ class SanitizerComponentTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var \ReflectionClass
+     */
+    protected $reflectedObject;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
@@ -44,6 +49,4 @@ class SanitizerComponentTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->reflectedObject->hasProperty('shortcodes'));
         $this->assertTrue($this->reflectedObject->hasProperty('config'));
     }
-
-
 }

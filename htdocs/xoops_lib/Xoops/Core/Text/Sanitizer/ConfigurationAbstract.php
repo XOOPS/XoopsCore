@@ -57,6 +57,26 @@ abstract class ConfigurationAbstract extends \ArrayObject implements AttributeIn
     }
 
     /**
+     * Get a copy of all attributes
+     *
+     * @return array An array of attributes
+     */
+    public function getAll()
+    {
+        return $this->getArrayCopy();
+    }
+
+    /**
+     * Get a list of all attribute names
+     *
+     * @return array An array of attribute names/keys
+     */
+    public function getNames()
+    {
+        return array_keys((array) $this);
+    }
+
+    /**
      * Determine if an attribute exists.
      *
      * @param string $name An attribute name.

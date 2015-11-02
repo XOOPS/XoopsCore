@@ -49,6 +49,7 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Core\Text\Sanitizer\Extensions\YouTube::getDhtmlEditorSupport
+     * @covers Xoops\Core\Text\Sanitizer\ExtensionAbstract::getEditorButtonHtml
      */
     public function testGetDhtmlEditorSupport()
     {

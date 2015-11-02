@@ -18,13 +18,18 @@ class NullExtensionTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var Sanitizer
+     */
+    protected $sanitizer;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        $ts = Sanitizer::getInstance();
-        $this->object = new NullExtension($ts);
+        $this->sanitizer = Sanitizer::getInstance();
+        $this->object = new NullExtension($this->sanitizer);
     }
 
     /**
@@ -36,14 +41,15 @@ class NullExtensionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Core\Text\Sanitizer\NullExtension::getDhtmlEditorSupport
      * @covers Xoops\Core\Text\Sanitizer\NullExtension::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
      */
     public function testRegisterExtensionProcessing()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $actual = $this->sanitizer->getDhtmlEditorSupport('nosuchextension');
+        $this->assertEquals(['', ''], $actual);
+        $expected = $this->object->registerExtensionProcessing('muck');
+        $actual = call_user_func_array(array($this->object, 'registerExtensionProcessing'), $args);
+        $this->assertSame($expected, $actual);
     }
 }

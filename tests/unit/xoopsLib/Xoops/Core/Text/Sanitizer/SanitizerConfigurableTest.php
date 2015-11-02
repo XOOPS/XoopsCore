@@ -16,12 +16,18 @@ class SanitizerConfigurableTest extends \PHPUnit_Framework_TestCase
     protected $object;
 
     /**
+     * @var \ReflectionClass
+     */
+    protected $reflectedObject;
+
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
-        //$this->object = new SanitizerConfigurable;
+        $this->object = $this->getMockForAbstractClass('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable');
+        $this->reflectedObject = new \ReflectionClass('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable');
     }
 
     /**
@@ -32,15 +38,19 @@ class SanitizerConfigurableTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testContracts()
+    {
+        $this->assertTrue($this->reflectedObject->isAbstract());
+        $this->assertTrue($this->reflectedObject->hasMethod('getDefaultConfig'));
+        $this->assertTrue($this->reflectedObject->hasProperty('defaultConfiguration'));
+    }
+
     /**
      * @covers Xoops\Core\Text\Sanitizer\SanitizerConfigurable::getDefaultConfig
-     * @todo   Implement testGetDefaultConfig().
      */
     public function testGetDefaultConfig()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $defaults = $this->object->getDefaultConfig();
+        $this->assertTrue(is_array($defaults));
     }
 }
