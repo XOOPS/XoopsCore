@@ -54,7 +54,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
     {
         $helper = Page::getInstance();
         $uid = $helper->getUserId();
-        $ip  = $helper->xoops()->getenv('REMOTE_ADDR');
+        $ip  = $helper->xoops()->getEnv('REMOTE_ADDR');
 
 
         $criteria = new CriteriaCompo();
@@ -76,7 +76,7 @@ class PagePage_ratingHandler extends XoopsPersistableObjectHandler
     {
         $helper = Page::getInstance();
         $uid = $helper->getUserId();
-        $ip  = $helper->xoops()->getenv('REMOTE_ADDR');
+        $ip  = $helper->xoops()->getEnv('REMOTE_ADDR');
 
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('rating_content_id', $content_id));
