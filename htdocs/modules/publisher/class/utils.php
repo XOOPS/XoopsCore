@@ -182,7 +182,7 @@ class PublisherUtils
         $dir = dir($source);
         while (false !== $entry = $dir->read()) {
             // Skip pointers
-            if ($entry == '.' || $entry == '..') {
+            if ($entry === '.' || $entry === '..') {
                 continue;
             }
 
@@ -211,7 +211,7 @@ class PublisherUtils
     public static function getPathStatus($item, $getStatus = false)
     {
         $publisher = Publisher::getInstance();
-        if ($item == 'root') {
+        if ($item === 'root') {
             $path = '';
         } else {
             $path = $item;
@@ -295,7 +295,7 @@ class PublisherUtils
     {
         $xoops = Xoops::getInstance();
         if ($item) {
-            if ($item == 'root') {
+            if ($item === 'root') {
                 $item = '';
             } else {
                 $item = $item . '/';
@@ -453,7 +453,7 @@ class PublisherUtils
         $cookie_name = str_replace('.', '_', $cookie_name);
         $cookie = self::getCookieVar($cookie_name, '');
 
-        if ($cookie == 'none') {
+        if ($cookie === 'none') {
             echo '
         <script type="text/javascript"><!--
         toggle("' . $name . '"); toggleIcon("' . $icon . '");
@@ -999,11 +999,11 @@ class PublisherUtils
      */
     public static function convertCharset($item)
     {
-        if (XoopsLocale::getCharset() == 'UTF-8') {
+        if (XoopsLocale::getCharset() === 'UTF-8') {
             return $item;
         }
 
-        if (XoopsLocale::getCharset() != 'windows-1256') {
+        if (XoopsLocale::getCharset() !== 'windows-1256') {
             return utf8_encode($item);
         }
 
@@ -1079,16 +1079,16 @@ class PublisherUtils
     public static function seoGenUrl($op, $id, $short_url = "")
     {
         $publisher = Publisher::getInstance();
-        if ($publisher->getConfig('seo_url_rewrite') != 'none') {
+        if ($publisher->getConfig('seo_url_rewrite') !== 'none') {
             if (!empty($short_url)) {
                 $short_url = $short_url . '.html';
             }
 
-            if ($publisher->getConfig('seo_url_rewrite') == 'htaccess') {
+            if ($publisher->getConfig('seo_url_rewrite') === 'htaccess') {
                 // generate SEO url using htaccess
                 return \XoopsBaseConfig::get('url') . '/' . $publisher->getConfig('seo_module_name') . ".${op}.${id}/${short_url}";
             } else {
-                if ($publisher->getConfig('seo_url_rewrite') == 'path-info') {
+                if ($publisher->getConfig('seo_url_rewrite') === 'path-info') {
                     // generate SEO url using path-info
                     return $publisher->url("index.php/${op}.${id}/${short_url}");
                 } else {

@@ -79,7 +79,7 @@ foreach ($driver_params as $param) {
                 break;
         }
         $value = $default;
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $value = empty($_POST[$name]) ? $default : $_POST[$name];
         }
         $settings[$name]=$value;
@@ -90,7 +90,7 @@ $_SESSION['settings'] = $settings;
 
 // if a POST, try to connect to the database using the parameters
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $instance = getDbConnection($error);
     if ($instance && empty($error)) {
         $_SESSION['settings'] = $settings;
@@ -111,21 +111,21 @@ ob_start();
 <?php
 foreach ($driver_params as $param) {
     $name = $wizard->configs['db_param_names'][$param];
-    if ($wizard->configs['db_param_types'][$param]=='string') {
+    if ($wizard->configs['db_param_types'][$param]==='string') {
         echo xoFormField(
             $name,
             $settings[$name],
             constant($name . '_LABEL'),
             constant($name . '_HELP')
         );
-    } elseif ($wizard->configs['db_param_types'][$param]=='boolean') {
+    } elseif ($wizard->configs['db_param_types'][$param]==='boolean') {
         echo xoBoolField(
             $name,
             $settings[$name],
             constant($name . '_LABEL'),
             constant($name . '_HELP')
         );
-    } elseif ($wizard->configs['db_param_types'][$param]=='password') {
+    } elseif ($wizard->configs['db_param_types'][$param]==='password') {
         echo xoPassField(
             $name,
             $settings[$name],

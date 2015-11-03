@@ -82,7 +82,7 @@ if (!(empty($_POST["submit"]) && empty($term))) {
     $next_search["term"] = $term;
     $query = trim($term);
 
-    if ($andor != "EXACT") {
+    if ($andor !== "EXACT") {
         $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
         $temp_queries = preg_split("/[\s,]+/", $query);
         foreach ($temp_queries as $q) {
@@ -199,17 +199,17 @@ if (!(empty($_POST["submit"]) && empty($term))) {
 /* type */
 $type_select = "<select name=\"andor\">";
 $type_select .= "<option value=\"OR\"";
-if ("OR" == $andor) {
+if ("OR" === $andor) {
     $type_select .= " selected=\"selected\"";
 }
 $type_select .= ">" . XoopsLocale::ANY_OR . "</option>";
 $type_select .= "<option value=\"AND\"";
-if ("AND" == $andor) {
+if ("AND" === $andor) {
     $type_select .= " selected=\"selected\"";
 }
 $type_select .= ">" . XoopsLocale::ALL . "</option>";
 $type_select .= "<option value=\"EXACT\"";
-if ("EXACT" == $andor) {
+if ("EXACT" === $andor) {
     $type_select .= " selected=\"selected\"";
 }
 $type_select .= ">" . XoopsLocale::EXACT_MATCH . "</option>";
@@ -269,22 +269,22 @@ $searchin_select .= " />" . XoopsLocale::ALL . "&nbsp;&nbsp;";
 /* sortby */
 $sortby_select = "<select name=\"sortby\">";
 $sortby_select .= "<option value=\"itemid\"";
-if ("itemid" == $sortby || empty($sortby)) {
+if ("itemid" === $sortby || empty($sortby)) {
     $sortby_select .= " selected=\"selected\"";
 }
 $sortby_select .= ">" . XoopsLocale::NONE . "</option>";
 $sortby_select .= "<option value=\"datesub\"";
-if ("datesub" == $sortby) {
+if ("datesub" === $sortby) {
     $sortby_select .= " selected=\"selected\"";
 }
 $sortby_select .= ">" . _CO_PUBLISHER_DATESUB . "</option>";
 $sortby_select .= "<option value=\"title\"";
-if ("title" == $sortby) {
+if ("title" === $sortby) {
     $sortby_select .= " selected=\"selected\"";
 }
 $sortby_select .= ">" . _CO_PUBLISHER_TITLE . "</option>";
 $sortby_select .= "<option value=\"categoryid\"";
-if ("categoryid" == $sortby) {
+if ("categoryid" === $sortby) {
     $sortby_select .= " selected=\"selected\"";
 }
 $sortby_select .= ">" . _CO_PUBLISHER_CATEGORY . "</option>";

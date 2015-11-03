@@ -45,13 +45,13 @@ class GravatarsProvider extends AbstractContract implements AvatarInterface
             $s = (empty($v)) ? $s : $v;
             $v = $helper->getConfig('default_imageset');
             $d = (empty($v)) ? $d : $v;
-            $d = ($d=='default') ? '' : $d; // preferences does not like empty string
+            $d = ($d==='default') ? '' : $d; // preferences does not like empty string
             $v = $helper->getConfig('max_rating');
             $r = (empty($v)) ? $r : $v;
         }
 
         $scheme = \Xoops\Core\HttpRequest::getInstance()->getScheme();
-        if ($scheme == 'https') {
+        if ($scheme === 'https') {
             $url = 'https://secure.gravatar.com/avatar/';
         } else {
             $url = 'http://www.gravatar.com/avatar/';

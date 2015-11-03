@@ -35,7 +35,7 @@ $folder_path = \XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump';
 $files = glob(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/*.*');
 $count = 0;
 foreach ($files as $filename_path) {
-    if (basename(strtolower($filename_path)) != 'index.html') {
+    if (basename(strtolower($filename_path)) !== 'index.html') {
         ++$count;
     }
 }

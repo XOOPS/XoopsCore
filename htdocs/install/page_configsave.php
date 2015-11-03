@@ -57,7 +57,7 @@ if (!@copy($settings['ROOT_PATH'] . '/mainfile.dist.php', $settings['ROOT_PATH']
         fclose($file);
 
         foreach ($rewrite as $key => $val) {
-            if ($key == 'authorized') {
+            if ($key === 'authorized') {
                 continue;
             }
             if (is_int($val) && preg_match("/(define\()([\"'])(XOOPS_{$key})\\2,\s*([0-9]+)\s*\)/", $content)) {
@@ -95,7 +95,7 @@ if (!@copy($rewrite['VAR_PATH'] . '/data/secure.dist.php', $rewrite['VAR_PATH'] 
         fclose($file);
 
         foreach ($rewrite as $key => $val) {
-            if ($key == 'authorized') {
+            if ($key === 'authorized') {
                 continue;
             }
             if (is_int($val) && preg_match("/(define\()([\"'])(XOOPS_{$key})\\2,\s*([0-9]+)\s*\)/", $content)) {
@@ -149,7 +149,7 @@ if (empty($error)) {
 
     <?php
     foreach ($settings as $k => $v) {
-    if ($k == 'authorized') {
+    if ($k === 'authorized') {
         continue;
     }
     echo "<li><strong>XOOPS_{$k}</strong> " . IS_VALOR . " {$v}</li>";

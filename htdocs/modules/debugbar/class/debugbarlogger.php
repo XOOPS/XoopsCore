@@ -455,7 +455,7 @@ class DebugbarLogger implements LoggerInterface
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
             if (false === $this->quietmode) {
                 if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-                    && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+                    && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
                     // default for ajax, do not initialize a new toolbar, just add dataset
                     $log = $this->renderer->render(false);
                 } else {

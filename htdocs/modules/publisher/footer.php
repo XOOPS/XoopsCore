@@ -42,8 +42,8 @@ $xoopsTpl->assign('displayType', $publisher->getConfig('idxcat_items_display_typ
 // display_category_summary enabled by Freeform Solutions March 21 2006
 $xoopsTpl->assign('display_category_summary', $publisher->getConfig('cat_display_summary'));
 
-$xoopsTpl->assign('displayList', $publisher->getConfig('idxcat_items_display_type') == 'list');
-$xoopsTpl->assign('displayFull', $publisher->getConfig('idxcat_items_display_type') == 'full');
+$xoopsTpl->assign('displayList', $publisher->getConfig('idxcat_items_display_type') === 'list');
+$xoopsTpl->assign('displayFull', $publisher->getConfig('idxcat_items_display_type') === 'full');
 $xoopsTpl->assign('modulename', $publisher->getModule()->dirname());
 $xoopsTpl->assign('displaylastitem', $publisher->getConfig('idxcat_display_last_item'));
 $xoopsTpl->assign('displaysubcatdsc', $publisher->getConfig('idxcat_display_subcat_dsc'));

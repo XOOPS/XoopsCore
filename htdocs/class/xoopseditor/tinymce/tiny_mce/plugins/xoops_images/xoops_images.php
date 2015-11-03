@@ -49,7 +49,7 @@ switch ($op) {
             $category = $helper->getHandlerCategories()->get($imgcat_id);
 
             foreach (array_keys($images) as $i) {
-                if ($category->getVar('imgcat_storetype') == 'db') {
+                if ($category->getVar('imgcat_storetype') === 'db') {
                     $src = $helper->url("image.php?id=" . $images[$i]->getVar('image_id'));
                 } else {
 					$xoops_uploads_url = \XoopsBaseConfig::get('uploads-url');
@@ -116,7 +116,7 @@ switch ($op) {
                 $obj->setVar('image_mimetype', 'image/gif');
             } else {
                 $obj->setVar('image_mimetype', $uploader->getMediaType());
-                if ($category->getVar('imgcat_storetype') == 'db') {
+                if ($category->getVar('imgcat_storetype') === 'db') {
                     $fp = @fopen($uploader->getSavedDestination(), 'rb');
                     $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                     @fclose($fp);
@@ -128,7 +128,7 @@ switch ($op) {
         }
 
         if ($image_id = $helper->getHandlerImages()->insert($obj)) {
-            if ($category->getVar('imgcat_storetype') == 'db') {
+            if ($category->getVar('imgcat_storetype') === 'db') {
                 $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                 if (!is_object($imagebody)) {
                     $imagebody = $helper->getHandlerImagesBody()->create();

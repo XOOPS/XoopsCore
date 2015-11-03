@@ -66,7 +66,7 @@ switch ($op) {
         $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
         $xoops->tpl()->assign('info_msg', $xoops->alert('info', $info_msg, XoopsLocale::INFORMATION_FOR_UPLOADS));
         $oldavatar = $xoops->user->getVar('user_avatar');
-        if (!empty($oldavatar) && $oldavatar != 'blank.gif') {
+        if (!empty($oldavatar) && $oldavatar !== 'blank.gif') {
             $warning_msg = '<p>' . AvatarsLocale::ALERT_WARNING_OLD .'</p>';
 			$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
             $warning_msg .= "<img src='" . $xoops_upload_url . '/' . $oldavatar ."' alt='&nbsp;' />";
@@ -162,7 +162,7 @@ switch ($op) {
                     unlink($oldavatar_path);
                 }
             }
-            if ($user_avatar != 'blank.gif') {
+            if ($user_avatar !== 'blank.gif') {
                 $avatars = $avatar_Handler->getObjects(new Criteria('avatar_file', $user_avatar));
                 if (is_object($avatars[0])) {
                     $avatar_Handler->addUser($avatars[0]->getVar('avatar_id'), $xoops->user->getVar('uid'));

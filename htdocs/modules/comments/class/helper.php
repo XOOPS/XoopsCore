@@ -197,12 +197,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
             $op = Request::getBool('com_dopreview') ? 'preview' : $op;
             $op = Request::getBool('com_dodelete') ? 'delete' : $op;
 
-            if ($op == 'preview' || $op == 'post') {
+            if ($op === 'preview' || $op === 'post') {
                 if (!$xoops->security()->check()) {
                     $op = '';
                 }
             }
-            if ($op == 'post' && !$xoops->isUser()) {
+            if ($op === 'post' && !$xoops->isUser()) {
                 $xoopsCaptcha = XoopsCaptcha::getInstance();
                 if (!$xoopsCaptcha->verify()) {
                     $captcha_message = $xoopsCaptcha->getMessage();
@@ -556,12 +556,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $rootid = Request::getInt('com_rootid', 0);
 
                     $comment_handler = $this->getHandlerComment();
-                    if ($mode == 'flat') {
+                    if ($mode === 'flat') {
                         $comments = $comment_handler->getByItemId($xoops->module->getVar('mid'), $itemid, $dborder);
                         $renderer = CommentsCommentRenderer::getInstance($xoops->tpl());
                         $renderer->setComments($comments);
                         $renderer->renderFlatView($admin_view);
-                    } elseif ($mode == 'thread') {
+                    } elseif ($mode === 'thread') {
                         // RMV-FIX... added extraParam stuff here
                         $comment_url = $plugin->pageName() . '?';
                         if (is_array($extraParams = $plugin->extraParams())) {

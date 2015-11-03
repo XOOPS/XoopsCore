@@ -70,11 +70,11 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
     {
         $decorations = array('link', 'title', 'alt_title');
         foreach ($decorations as $decoration) {
-            if ($decoration == 'alt_title' && empty($menu['alt_title'])) {
+            if ($decoration === 'alt_title' && empty($menu['alt_title'])) {
                 $menu['alt_title'] = $menu['title'];
             }
             $menu[$decoration] = self::_doDecoration($menu[$decoration]);
-            if ($decoration == 'link') {
+            if ($decoration === 'link') {
                 if (!preg_match('/mailto:/i', $menu['link']) && !preg_match('#://#i', $menu['link'])) {
                     $menu['link'] = \XoopsBaseConfig::get('url') . '/' . $menu['link']; //Do not do this in other decorators
                 }
@@ -115,21 +115,21 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         list($validator, $value) = array_map('strtolower', explode('|', $reg[1]));
 
         //just to prevent any bad admin to get easy passwords
-        if ($value == 'pass') {
+        if ($value === 'pass') {
             return $string;
         }
 
-        if ($validator == 'user') {
+        if ($validator === 'user') {
             $value = isset($this->user[$value]) ? $this->user[$value] : self::getExtraValue('user', $value);
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator == 'uri') {
+        if ($validator === 'uri') {
             $value = isset($_GET[$value]) ? $_GET[$value] : 0;
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator == 'owner') {
+        if ($validator === 'owner') {
             $value = isset($this->owner[$value]) ? $this->owner[$value] : self::getExtraValue('owner', $value);
             $string = str_replace($expression, $value, $string);
         }
@@ -164,17 +164,17 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $pm_handler = $xoops->getHandlerPrivateMessage();
 
         $criteria = new CriteriaCompo();
-        if ($value == 'pm_new') {
+        if ($value === 'pm_new') {
             $criteria->add(new Criteria('read_msg', 0));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value == 'pm_readed') {
+        if ($value === 'pm_readed') {
             $criteria->add(new Criteria('read_msg', 1));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value == 'pm_total') {
+        if ($value === 'pm_total') {
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 

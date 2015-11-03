@@ -34,7 +34,7 @@ if ($permHelper) {
     $gperm_itemid=0;
 
     // if this is a post operation get our variables
-    if ('POST'==Request::getMethod()) {
+    if ('POST'===Request::getMethod()) {
         $name=$permHelper->defaultFieldName($gperm_name, $gperm_itemid);
         $groups=Request::getVar($name, array(), 'POST');
         $permHelper->savePermissionForItem($gperm_name, $gperm_itemid, $groups);

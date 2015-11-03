@@ -433,7 +433,7 @@ class Xoops
      */
     public function buildUrl($url, $params = array())
     {
-        if ($url == '.') {
+        if ($url === '.') {
             $url = $_SERVER['REQUEST_URI'];
         }
         $split = explode('?', $url);
@@ -485,7 +485,7 @@ class Xoops
         /**
          * Disable gzip compression if PHP is run under CLI mode and needs refactored to work correctly
          */
-        if (empty($_SERVER['SERVER_NAME']) || substr(PHP_SAPI, 0, 3) == 'cli') {
+        if (empty($_SERVER['SERVER_NAME']) || substr(PHP_SAPI, 0, 3) === 'cli') {
             $this->setConfig('gzip_compression', 0);
         }
 
@@ -581,7 +581,7 @@ class Xoops
                 $tpl_name = str_replace($ret['type'] . ':', '', $tpl_name);
             }
 
-            if ($ret['type'] == 'db') {
+            if ($ret['type'] === 'db') {
                 //For legacy compatibility
                 $ret['type'] = $this->isAdminSide ? 'admin' : 'module';
             }
@@ -674,7 +674,7 @@ class Xoops
                     isset($cache_times[$this->module->getVar('mid')]) ? $cache_times[$this->module->getVar('mid')] : 0;
                 // Tricky solution for setting cache time for homepage
             } else {
-                if ($this->tpl_name == 'module:system/system_homepage.tpl') {
+                if ($this->tpl_name === 'module:system/system_homepage.tpl') {
                     // $this->theme->contentCacheLifetime = 604800;
                 }
             }
@@ -1082,7 +1082,7 @@ class Xoops
 
         $language = empty($language) ? XoopsLocale::getLegacyLanguage() : $language;
         // expanded domain to multiple categories, e.g. module:Fsystem, framework:filter, etc.
-        if ((empty($domain) || 'global' == $domain)) {
+        if ((empty($domain) || 'global' === $domain)) {
             $path = '';
         } else {
             $path = (is_array($domain)) ? array_shift($domain) . '/' : "modules/{$domain}/";
@@ -1294,28 +1294,28 @@ class Xoops
             case 'info':
             default:
                 $tpl->assign('alert_type', 'alert-info');
-                if ($title == '/') {
+                if ($title === '/') {
                     $title = XoopsLocale::INFORMATION;
                 }
                 break;
 
             case 'error':
                 $tpl->assign('alert_type', 'alert-error');
-                if ($title == '/') {
+                if ($title === '/') {
                     $title = XoopsLocale::ERROR;
                 }
                 break;
 
             case 'success':
                 $tpl->assign('alert_type', 'alert-success');
-                if ($title == '/') {
+                if ($title === '/') {
                     $title = XoopsLocale::SUCCESS;
                 }
                 break;
 
             case 'warning':
                 $tpl->assign('alert_type', '');
-                if ($title == '/') {
+                if ($title === '/') {
                     $title = XoopsLocale::WARNING;
                 }
                 break;
@@ -1837,7 +1837,7 @@ class Xoops
             //for legacy
             $this->moduleConfig =& $this->moduleConfigs[$this->module->getVar('dirname')];
         }
-        if ($dirname == 'system') {
+        if ($dirname === 'system') {
             $this->config =& $this->moduleConfigs['system'];
         }
         return $this->moduleConfigs[$dirname];
@@ -1916,12 +1916,12 @@ class Xoops
         // check for exceptions, localhost and ip address (v4 & v6)
         if (!empty($host)) {
             // localhost exception
-            if ($host=='localhost') {
+            if ($host==='localhost') {
                 return $returnObject ? $pdp->host : $host;
             }
             // Check for IPV6 URL (see http://www.ietf.org/rfc/rfc2732.txt)
             // strip brackets before validating
-            if (substr($host, 0, 1)=='[' && substr($host, -1)==']') {
+            if (substr($host, 0, 1)==='[' && substr($host, -1)===']') {
                 $host = substr($host, 1, (strlen($host)-2));
             }
             // ip address exception

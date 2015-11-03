@@ -48,7 +48,7 @@ class XoopsMySQLDatabaseProxy extends XoopsMySQLDatabase
     {
         $this->deprecated();
         $sql = ltrim($sql);
-        if (!$this->allowWebChanges && strtolower(substr($sql, 0, 6)) != 'select') {
+        if (!$this->allowWebChanges && strtolower(substr($sql, 0, 6)) !== 'select') {
             //trigger_error('Database updates are not allowed during processing of a GET request', E_USER_WARNING);
             return false;
         }

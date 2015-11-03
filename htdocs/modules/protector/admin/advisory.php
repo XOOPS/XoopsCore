@@ -94,7 +94,7 @@ $security_arr[$i]['text'] = _AM_ADV_USETRANSSID;
 ++$i;
 
 // XOOPS_DB_PREFIX
-$safe = strtolower(\XoopsBaseConfig::get('db-prefix')) != 'xoops';
+$safe = strtolower(\XoopsBaseConfig::get('db-prefix')) !== 'xoops';
 $security_arr[$i]['id'] = $i + 1;
 $security_arr[$i]['type'] = 'XOOPS_DB_PREFIX';
 if ($safe) {
@@ -129,7 +129,7 @@ $security_arr[$i]['text'] = _AM_ADV_MAINUNPATCHED;
 // databasefactory.php
 $security_arr[$i]['id'] = $i + 1;
 $security_arr[$i]['type'] = 'databasefactory.php';
-if (substr(@XOOPS_VERSION, 6, 3) < 2.4 && strtolower(get_class($db)) != 'protectormysqldatabase') {
+if (substr(@XOOPS_VERSION, 6, 3) < 2.4 && strtolower(get_class($db)) !== 'protectormysqldatabase') {
     $security_arr[$i]['status'] = '0';
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>" . _AM_ADV_DBFACTORYUNPATCHED . "</span>";
 } else {

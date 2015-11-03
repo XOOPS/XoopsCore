@@ -44,17 +44,17 @@ $mids = Request::getArray('mids', array());
 
 $queries = array();
 
-if ($action == "results") {
+if ($action === "results") {
     if ($query == "") {
         $xoops->redirect("index.php", 1, _MD_SEARCH_PLZENTER);
     }
 } else {
-    if ($action == "showall") {
+    if ($action === "showall") {
         if ($query == "" || empty($mid)) {
             $xoops->redirect("index.php", 1, _MD_SEARCH_PLZENTER);
         }
     } else {
-        if ($action == "showallbyuser") {
+        if ($action === "showallbyuser") {
             if (empty($mid) || empty($uid)) {
                 $xoops->redirect("index.php", 1, _MD_SEARCH_PLZENTER);
             }
@@ -66,7 +66,7 @@ $gperm_handler = $xoops->getHandlerGroupPermission();
 $available_modules = $gperm_handler->getItemIds('module_read', $xoops->getUserGroups());
 $available_plugins = \Xoops\Module\Plugin::getPlugins('search');
 
-if ($action == 'search') {
+if ($action === 'search') {
     $xoops->header();
 
     /* @var $formHandler SearchSearchForm */
@@ -76,15 +76,15 @@ if ($action == 'search') {
 
     $xoops->footer();
 }
-if ($andor != "OR" && $andor != "exact" && $andor != "AND") {
+if ($andor !== "OR" && $andor !== "exact" && $andor !== "AND") {
     $andor = "AND";
 }
 
 $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
 $queries_pattern = array();
 $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-if ($action != 'showallbyuser') {
-    if ($andor != "exact") {
+if ($action !== 'showallbyuser') {
+    if ($andor !== "exact") {
         //$temp_queries = preg_split('/[\s,]+/', $query);
         $temp_queries = str_getcsv($query, ' ', '"');
         foreach ($temp_queries as $q) {
@@ -240,7 +240,7 @@ switch ($action) {
 
             $search_url = $search->url('index.php?query=' . urlencode(stripslashes(implode(' ', $queries))));
             $search_url .= "&mid={$mid}&action={$action}&andor={$andor}";
-            if ($action == 'showallbyuser') {
+            if ($action === 'showallbyuser') {
                 $search_url .= "&uid={$uid}";
             }
             if ($start > 0) {

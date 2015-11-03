@@ -43,7 +43,7 @@ $gperm_handler = $xoops->getHandlerGroupPermission();
 $groups = $xoops->getUserGroups();
 
 // check WRITE right by category before continue
-if (isset($imgcat_id) && ($op == 'addfile' || $op == 'editcat' || $op == 'updatecat' || $op == 'delcatok' || $op == 'delcat')) {
+if (isset($imgcat_id) && ($op === 'addfile' || $op === 'editcat' || $op === 'updatecat' || $op === 'delcatok' || $op === 'delcat')) {
     $imgcat_write = $gperm_handler->checkRight('imgcat_write', $imgcat_id, $groups, $xoops->module->mid());
     if (!$imgcat_write) {
         $xoops->redirect($redirect, 1);
@@ -51,12 +51,12 @@ if (isset($imgcat_id) && ($op == 'addfile' || $op == 'editcat' || $op == 'update
 }
 
 // Only website administator can delete categories or images
-if (!in_array(FixedGroups::ADMIN, $groups) && ($op == 'delfile' || $op == 'delfileok' || $op == 'delcatok' || $op == 'delcat')) {
+if (!in_array(FixedGroups::ADMIN, $groups) && ($op === 'delfile' || $op === 'delfileok' || $op === 'delcatok' || $op === 'delcat')) {
     $xoops->redirect($redirect, 1);
 }
 
 // check READ right by category before continue
-if (isset($imgcat_id) && $op == 'list') {
+if (isset($imgcat_id) && $op === 'list') {
     $imgcat_read = $gperm_handler->checkRight('imgcat_read', $imgcat_id, $groups, $xoops->module->mid());
     $imgcat_write = $gperm_handler->checkRight('imgcat_write', $imgcat_id, $groups, $xoops->module->mid());
     if (!$imgcat_read && !$imgcat_write) {

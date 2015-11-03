@@ -77,10 +77,10 @@ $xoopsTpl->assign('noTitle', $noTitle);
 $xoopsTpl->assign('smartPopup', $smartPopup);
 $xoopsTpl->assign('current_language', $xoops->getConfig('language'));
 
-if ($publisher->getConfig('print_footer') == 'item footer' || $publisher->getConfig('print_footer') == 'both') {
+if ($publisher->getConfig('print_footer') === 'item footer' || $publisher->getConfig('print_footer') === 'both') {
     $xoopsTpl->assign('itemfooter', $myts->displayTarea($publisher->getConfig('item_footer'), 1));
 }
-if ($publisher->getConfig('print_footer') == 'index footer' || $publisher->getConfig('print_footer') == 'both') {
+if ($publisher->getConfig('print_footer') === 'index footer' || $publisher->getConfig('print_footer') === 'both') {
     $xoopsTpl->assign('indexfooter', $myts->displayTarea($publisher->getConfig('index_footer'), 1));
 }
 

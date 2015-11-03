@@ -85,7 +85,7 @@ function separateStringsInSQL( $sql )
                 $i = $new_i ;
                 if( $i === false ) {
                     break 2 ;
-                } else if( /* $string_start == '`' || */ $sql[$i-1] != '\\' ) {
+                } else if( /* $string_start == '`' || */ $sql[$i-1] !== '\\' ) {
                     $string_start = '' ;
                     $in_string = false ;
                     $strings[] = $current_string ;
@@ -93,7 +93,7 @@ function separateStringsInSQL( $sql )
                 } else {
                     $j = 2 ;
                     $escaped_backslash = false ;
-                    while( $i - $j > 0 && $sql[$i-$j] == '\\' ) {
+                    while( $i - $j > 0 && $sql[$i-$j] === '\\' ) {
                         $escaped_backslash = ! $escaped_backslash ;
                         ++$j;
                     }
@@ -107,7 +107,7 @@ function separateStringsInSQL( $sql )
                     }
                 }
             }
-        } else if( $char == '"' || $char == "'" ) { // dare to ignore ``
+        } else if( $char === '"' || $char === "'" ) { // dare to ignore ``
             $in_string = true ;
             $string_start = $char ;
             $current_string = $char ;

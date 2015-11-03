@@ -29,7 +29,7 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 
 $op = Request::getCmd('op', '');
-if ($op == 'save') {
+if ($op === 'save') {
     if (!$xoops->security()->check()) {
         $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));
     }
@@ -64,7 +64,7 @@ if ($op == 'save') {
 }
 
 $xoopsTpl = new XoopsTpl();
-if ($op == 'more') {
+if ($op === 'more') {
     $xoopsTpl->assign('smileys', Xoops\Module\Helper::getHelper('smilies')->getHandlerSmilies()->getSmilies(0, 0, false));
 } else {
     $xoopsTpl->assign('smileys', Xoops\Module\Helper::getHelper('smilies')->getHandlerSmilies()->getActiveSmilies(false));

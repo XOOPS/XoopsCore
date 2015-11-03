@@ -257,7 +257,7 @@ class PublisherCategory extends XoopsObject
             $category['last_itemid'] = $this->getVar('last_itemid', 'n');
             $category['last_title_link'] = $this->getVar('last_title_link', 'n');
         }
-        if ($this->image() != 'blank.png') {
+        if ($this->image() !== 'blank.png') {
             $category['image_path'] = PublisherUtils::getImageDir('category', false) . $this->image();
         } else {
             $category['image_path'] = '';
@@ -281,7 +281,7 @@ class PublisherCategory extends XoopsObject
             $category['last_itemid'] = $this->getVar('last_itemid', 'n');
             $category['last_title_link'] = $this->getVar('last_title_link', 'n');
         }
-        if ($this->image() != 'blank.png') {
+        if ($this->image() !== 'blank.png') {
             $category['image_path'] = PublisherUtils::getImageDir('category', false) . $this->image();
         } else {
             $category['image_path'] = '';

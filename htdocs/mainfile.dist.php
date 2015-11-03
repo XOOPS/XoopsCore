@@ -36,7 +36,7 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
     // URL Association for SSL and Protocol Compatibility
     $http = 'http://';
     if (!empty($_SERVER['HTTPS'])) {
-        $http = ($_SERVER['HTTPS']=='on') ? 'https://' : 'http://';
+        $http = ($_SERVER['HTTPS']==='on') ? 'https://' : 'http://';
     }
     define('XOOPS_PROT', $http);
 
@@ -58,7 +58,7 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
         } else {
             $xoopsScriptPath = isset($_SERVER["PATH_TRANSLATED"]) ? $_SERVER["PATH_TRANSLATED"] :  $_SERVER["SCRIPT_FILENAME"];
         }
-        if (DIRECTORY_SEPARATOR != "/") {
+        if (DIRECTORY_SEPARATOR !== "/") {
             // IIS6 may double the \ chars
             $xoopsScriptPath = str_replace(strpos($xoopsScriptPath, "\\\\", 2) ? "\\\\" : DIRECTORY_SEPARATOR, "/", $xoopsScriptPath);
         }

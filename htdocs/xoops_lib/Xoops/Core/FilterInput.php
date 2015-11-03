@@ -237,7 +237,7 @@ class FilterInput
                 // allow only relative, http or https
                 $urlparts=parse_url($result);
                 if (!empty($urlparts['scheme'])
-                    && !($urlparts['scheme']=='http' || $urlparts['scheme']=='https')
+                    && !($urlparts['scheme']==='http' || $urlparts['scheme']==='https')
                 ) {
                     $result='';
                 }
@@ -334,7 +334,7 @@ class FilterInput
             $tagLeft = $currentTag;
             $attrSet = array();
             $currentSpace = strpos($tagLeft, ' ');
-            if (substr($currentTag, 0, 1) == "/") {
+            if (substr($currentTag, 0, 1) === "/") {
                 // is end tag
                 $isCloseTag = true;
                 list($tagName) = explode(' ', $currentTag);
@@ -444,7 +444,7 @@ class FilterInput
             if ((!preg_match('/[a-z]*$/i', $attrSubSet[0]))
                 || (($this->xssAuto)
                 && ((in_array(strtolower($attrSubSet[0]), $this->attrBlacklist))
-                || (substr($attrSubSet[0], 0, 2) == 'on')))
+                || (substr($attrSubSet[0], 0, 2) === 'on')))
             ) {
                 continue;
             }
@@ -458,8 +458,8 @@ class FilterInput
                 $attrSubSet[1] = str_replace('"', '', $attrSubSet[1]);
                 // [requested feature] convert single quotes from either side to doubles
                 // (Single quotes shouldn't be used to pad attr value)
-                if ((substr($attrSubSet[1], 0, 1) == "'")
-                    && (substr($attrSubSet[1], (strlen($attrSubSet[1]) - 1), 1) == "'")
+                if ((substr($attrSubSet[1], 0, 1) === "'")
+                    && (substr($attrSubSet[1], (strlen($attrSubSet[1]) - 1), 1) === "'")
                 ) {
                     $attrSubSet[1] = substr($attrSubSet[1], 1, (strlen($attrSubSet[1]) - 2));
                 }
@@ -468,7 +468,7 @@ class FilterInput
             }
             // auto strip attr's with "javascript:
             if (((strpos(strtolower($attrSubSet[1]), 'expression') !== false)
-                    && (strtolower($attrSubSet[0]) == 'style')) ||
+                    && (strtolower($attrSubSet[0]) === 'style')) ||
                 (strpos(strtolower($attrSubSet[1]), 'javascript:') !== false) ||
                 (strpos(strtolower($attrSubSet[1]), 'behaviour:') !== false) ||
                 (strpos(strtolower($attrSubSet[1]), 'vbscript:') !== false) ||

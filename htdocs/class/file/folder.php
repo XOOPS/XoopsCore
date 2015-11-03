@@ -163,7 +163,7 @@ class XoopsFolderHandler
         $dir = opendir($this->path);
         if ($dir !== false) {
             while (false !== ($n = readdir($dir))) {
-                if ($n == '.' || $n == '..') {
+                if ($n === '.' || $n === '..') {
                     continue;
                 }
                 $item = false;
@@ -171,7 +171,7 @@ class XoopsFolderHandler
                     if (!in_array($n, $exceptions)) {
                         $item = $n;
                     }
-                } elseif ($exceptions === false || ($exceptions === true && $n{0} != '.')) {
+                } elseif ($exceptions === false || ($exceptions === true && $n{0} !== '.')) {
                     $item = $n;
                 }
                 if ($item !== false) {
@@ -375,7 +375,7 @@ class XoopsFolderHandler
     {
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $dir = substr($this->slashTerm($xoops_root_path), 0, -1);
-        $newdir = $dir . ($path{0}=='/'?'':'/') . $path;
+        $newdir = $dir . ($path{0}==='/'?'':'/') . $path;
         return $this->inPath($newdir);
     }
 
@@ -498,11 +498,11 @@ class XoopsFolderHandler
         if (is_dir($path)) {
             $dirHandle = opendir($path);
             while (false !== ($item = readdir($dirHandle))) {
-                if ($item == '.' || $item == '..') {
+                if ($item === '.' || $item === '..') {
                     continue;
                 }
                 $found = false;
-                if (($hidden === true) || ($hidden === false && $item{0} != '.')) {
+                if (($hidden === true) || ($hidden === false && $item{0} !== '.')) {
                     $found = $path . '/' . $item;
                 }
                 if ($found !== false) {

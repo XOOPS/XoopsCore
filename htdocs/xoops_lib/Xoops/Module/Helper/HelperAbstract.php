@@ -64,7 +64,7 @@ abstract class HelperAbstract
     {
         static $instance = false;
         $id = $className = get_called_class();
-        if ($className == 'Xoops\Module\Helper\Dummy') {
+        if ($className === 'Xoops\Module\Helper\Dummy') {
             $id = @\Xoops::getInstance()->registry()->get('module_helper_id');
         }
         if (!isset($instance[$id])) {

@@ -234,7 +234,7 @@ class XoopsMailer
             $path = \XoopsBaseConfig::get('root-path') . "/locale/";
         } elseif (false === strpos($path, '/')) {
             $path = \XoopsBaseConfig::get('root-path') . "/modules/" . $path . "/locale/";
-        } elseif (substr($path, -1, 1) != "/") {
+        } elseif (substr($path, -1, 1) !== "/") {
             $path .= "/";
         }
         if (XoopsLoad::fileExists($path . $xoops->getConfig('locale') . "/templates/" . $this->template)) {

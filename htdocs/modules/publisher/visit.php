@@ -32,7 +32,7 @@ $fileid = Request::getInt('fileid');
 /* @var $fileObj PublisherFile */
 $fileObj = $publisher->getFileHandler()->get($fileid);
 
-if ($fileObj->getVar('status' != _PUBLISHER_STATUS_FILE_ACTIVE)) {
+if ($fileObj->getVar('status' !== _PUBLISHER_STATUS_FILE_ACTIVE)) {
     $xoops->redirect("javascript:history.go(-1)", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 

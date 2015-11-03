@@ -172,7 +172,7 @@ class ShortCodes
     private function processTag(array $tag)
     {
         // allow [[foo]] syntax for escaping a tag
-        if ($tag[1] == '[' && $tag[6] == ']') {
+        if ($tag[1] === '[' && $tag[6] === ']') {
             return substr($tag[0], 1, -1);
         }
 
@@ -266,7 +266,7 @@ class ShortCodes
      */
     private function stripShortcodeTag($tag)
     {
-        if ($tag[1] == '[' && $tag[6] == ']') {
+        if ($tag[1] === '[' && $tag[6] === ']') {
             return substr($tag[0], 1, -1);
         }
 

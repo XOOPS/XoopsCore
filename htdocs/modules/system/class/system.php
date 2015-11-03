@@ -184,7 +184,7 @@ class System
                         $files = glob($cachePath . 'smarty_cache/*.*');
                         $total_smarty_cache = 0;
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) != 'index.html') {
+                            if (basename(strtolower($filename)) !== 'index.html') {
                                 unlink($filename);
                                 ++$total_smarty_cache;
                             }
@@ -195,7 +195,7 @@ class System
                         $files = glob($cachePath . 'smarty_compile/*.*');
                         $total_smarty_compile = 0;
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) != 'index.html') {
+                            if (basename(strtolower($filename)) !== 'index.html') {
                                 unlink($filename);
                                 ++$total_smarty_compile;
                             }

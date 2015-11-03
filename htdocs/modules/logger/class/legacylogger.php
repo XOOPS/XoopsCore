@@ -382,7 +382,7 @@ class LegacyLogger implements LoggerInterface
         $xoops = Xoops::getInstance();
         /* @var $this LoggerLegacy */
         $ret = '';
-        if ($mode == 'popup') {
+        if ($mode === 'popup') {
             $dump = $this->dump('');
             $content = '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -462,31 +462,31 @@ class LegacyLogger implements LoggerInterface
             $ret .= "</div>\n";
         }
         
-        if (empty($mode) || $mode == 'errors') {
+        if (empty($mode) || $mode === 'errors') {
             $class = 'even';
             $ret .= '<table id="xo-logger-errors" class="outer"><thead><tr><th>' . _MD_LOGGER_ERRORS . '</th></tr></thead><tbody>';
             foreach ($this->errors as $error) {
                 $ret .= "\n<tr><td class='$class'>";
                 $ret .= $error;
                 $ret .= "<br />\n</td></tr>";
-                $class = ($class == 'odd') ? 'even' : 'odd';
+                $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= "\n</tbody></table>\n";
         }
 
-        if (empty($mode) || $mode == 'deprecated') {
+        if (empty($mode) || $mode === 'deprecated') {
             $class = 'even';
             $ret .= '<table id="xo-logger-deprecated" class="outer"><thead><tr><th>' . _MD_LOGGER_DEPRECATED . '</th></tr></thead><tbody>';
             foreach ($this->deprecated as $message) {
                 $ret .= "\n<tr><td class='$class'>";
                 $ret .= $message;
                 $ret .= "<br />\n</td></tr>";
-                $class = ($class == 'odd') ? 'even' : 'odd';
+                $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= "\n</tbody></table>\n";
         }
 
-        if (empty($mode) || $mode == 'queries') {
+        if (empty($mode) || $mode === 'queries') {
             $class = 'even';
             $ret .= '<table id="xo-logger-queries" class="outer"><thead><tr><th>' . _MD_LOGGER_QUERIES . '</th></tr></thead><tbody>';
             $pattern = '/\b' . preg_quote(\XoopsBaseConfig::get('db-prefix')) . '\_/i';
@@ -501,11 +501,11 @@ class LegacyLogger implements LoggerInterface
                     $ret .= '<tr class="' . $class . '"><td>' . $query_time . htmlentities($sql) . '</td></tr>';
                 }
         
-                $class = ($class == 'odd') ? 'even' : 'odd';
+                $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= '</tbody><tfoot><tr class="foot"><td>' . _MD_LOGGER_TOTAL . ': <span style="color:#ff0000;">' . count($this->queries) . '</span></td></tr></tfoot></table>';
         }
-        if (empty($mode) || $mode == 'blocks') {
+        if (empty($mode) || $mode === 'blocks') {
             $class = 'even';
             $ret .= '<table id="xo-logger-blocks" class="outer"><thead><tr><th>' . _MD_LOGGER_BLOCKS . '</th></tr></thead><tbody>';
             foreach ($this->blocks as $b) {
@@ -514,29 +514,29 @@ class LegacyLogger implements LoggerInterface
                 } else {
                     $ret .= '<tr><td class="' . $class . '"><strong>' . $b['name'] . ':</strong> ' . _MD_LOGGER_NOT_CACHED . '</td></tr>';
                 }
-                $class = ($class == 'odd') ? 'even' : 'odd';
+                $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= '</tbody><tfoot><tr class="foot"><td>' . _MD_LOGGER_TOTAL . ': <span style="color:#ff0000;">' . count($this->blocks) . '</span></td></tr></tfoot></table>';
         }
-        if (empty($mode) || $mode == 'extra') {
+        if (empty($mode) || $mode === 'extra') {
             $class = 'even';
             $ret .= '<table id="xo-logger-extra" class="outer"><thead><tr><th>' . _MD_LOGGER_EXTRA . '</th></tr></thead><tbody>';
             foreach ($this->extra as $ex) {
                 $ret .= '<tr><td class="' . $class . '"><strong>';
                 $ret .= htmlspecialchars($ex['name']) . ':</strong> ' . htmlspecialchars($ex['msg']);
                 $ret .= '</td></tr>';
-                $class = ($class == 'odd') ? 'even' : 'odd';
+                $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= '</tbody></table>';
         }
-        if (empty($mode) || $mode == 'timers') {
+        if (empty($mode) || $mode === 'timers') {
             $class = 'even';
             $ret .= '<table id="xo-logger-timers" class="outer"><thead><tr><th>' . _MD_LOGGER_TIMERS . '</th></tr></thead><tbody>';
             foreach ($this->logstart as $k => $v) {
                 $ret .= '<tr><td class="' . $class . '"><strong>';
                 $ret .= sprintf(_MD_LOGGER_TIMETOLOAD, htmlspecialchars($k) . '</strong>', '<span style="color:#ff0000;">' . sprintf("%.03f", $this->dumpTime($k)) . '</span>');
                 $ret .= '</td></tr>';
-                $class = ($class == 'odd') ? 'even' : 'odd';
+                $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= '</tbody></table>';
         }

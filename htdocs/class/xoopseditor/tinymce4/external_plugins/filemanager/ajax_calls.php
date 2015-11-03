@@ -1,7 +1,7 @@
 <?php
 
 include('config/config.php');
-if($_SESSION['RF']["verify"] != "RESPONSIVEfilemanager") die('Access Denied!');
+if($_SESSION['RF']["verify"] !== "RESPONSIVEfilemanager") die('Access Denied!');
 include('include/utils.php');
 
 if (isset($_SESSION['RF']['language_file']) && file_exists($_SESSION['RF']['language_file'])){
@@ -84,7 +84,7 @@ if(isset($_GET['action']))
 						{ 
 						    $OnlyFileName = $zip->getNameIndex($i);
 						    $FullFileName = $zip->statIndex($i);    
-						    if (substr($FullFileName['name'], -1, 1) =="/")
+						    if (substr($FullFileName['name'], -1, 1) ==="/")
 						    {
 								create_folder($base_folder.$FullFileName['name']);
 						    }
@@ -95,7 +95,7 @@ if(isset($_GET['action']))
 						    $OnlyFileName = $zip->getNameIndex($i);
 						    $FullFileName = $zip->statIndex($i);    
 					    
-						    if (!(substr($FullFileName['name'], -1, 1) =="/"))
+						    if (!(substr($FullFileName['name'], -1, 1) ==="/"))
 						    {
 								$fileinfo = pathinfo($OnlyFileName);
 								if(in_array(strtolower($fileinfo['extension']),$ext))
@@ -238,7 +238,7 @@ if(isset($_GET['action']))
 			}
 			break;
 		case 'copy_cut':
-			if ($_POST['sub_action'] != 'copy' && $_POST['sub_action'] != 'cut') {
+			if ($_POST['sub_action'] !== 'copy' && $_POST['sub_action'] !== 'cut') {
 				die('wrong sub-action');
 			}
 
@@ -254,27 +254,27 @@ if(isset($_GET['action']))
 			{
 				// can't copy/cut dirs
 				if ($copy_cut_dirs === FALSE){
-					die(sprintf(lang_Copy_Cut_Not_Allowed, ($_POST['sub_action'] == 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), lang_Folders));
+					die(sprintf(lang_Copy_Cut_Not_Allowed, ($_POST['sub_action'] === 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), lang_Folders));
 				}
 
 				// size over limit
 				if ($copy_cut_max_size !== FALSE && is_int($copy_cut_max_size)){
 					if (($copy_cut_max_size * 1024 * 1024) < foldersize($path)){
-						die(sprintf(lang_Copy_Cut_Size_Limit, ($_POST['sub_action'] == 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), $copy_cut_max_size));
+						die(sprintf(lang_Copy_Cut_Size_Limit, ($_POST['sub_action'] === 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), $copy_cut_max_size));
 					}
 				}
 
 				// file count over limit
 				if ($copy_cut_max_count !== FALSE && is_int($copy_cut_max_count)){
 					if ($copy_cut_max_count < filescount($path)){
-						die(sprintf(lang_Copy_Cut_Count_Limit, ($_POST['sub_action'] == 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), $copy_cut_max_count));
+						die(sprintf(lang_Copy_Cut_Count_Limit, ($_POST['sub_action'] === 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), $copy_cut_max_count));
 					}
 				}
 			}
 			else {
 				// can't copy/cut files
 				if ($copy_cut_files === FALSE){
-					die(sprintf(lang_Copy_Cut_Not_Allowed, ($_POST['sub_action'] == 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), lang_Files));
+					die(sprintf(lang_Copy_Cut_Not_Allowed, ($_POST['sub_action'] === 'copy' ? lcfirst(lang_Copy) : lcfirst(lang_Cut)), lang_Files));
 				}
 			}
 

@@ -33,7 +33,7 @@ $xoops = Xoops::getInstance();
 $wizard = $_SESSION['wizard'];
 $pageHasForm = true;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $xoops->loadLocale('system');
     include_once XOOPS_ROOT_PATH . "/modules/system/class/module.php";
     include_once XOOPS_ROOT_PATH . "/modules/system/class/system.php";

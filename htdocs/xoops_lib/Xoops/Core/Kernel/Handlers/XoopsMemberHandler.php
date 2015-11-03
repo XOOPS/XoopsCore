@@ -343,7 +343,7 @@ class XoopsMemberHandler
         $hash = $user[0]->pass();
         $type = substr($user[0]->pass(), 0, 1);
         // see if we have a crypt like signature, old md5 hash is just hex digits
-        if ($type=='$') {
+        if ($type==='$') {
             if (!password_verify($pwd, $hash)) {
                 return false;
             }

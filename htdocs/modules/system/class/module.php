@@ -93,7 +93,7 @@ class SystemModule
         /* @var $module XoopsModule */
         foreach ($modules as $module) {
             if (!$module->getInfo('extension')) {
-                if ($module->getInfo('dirname') == 'system') {
+                if ($module->getInfo('dirname') === 'system') {
                     $module->setInfo('can_delete', false);
                     $module->setInfo('can_disable', false);
                 } else {
@@ -269,7 +269,7 @@ class SystemModule
                                 break;
                             }
                             // check if the table name is reserved
-                            if (!in_array($prefixed_query[4], $this->reservedTables) || $mod == 'system') {
+                            if (!in_array($prefixed_query[4], $this->reservedTables) || $mod === 'system') {
                                 // not reserved, so try to create one
                                 try {
                                     $result = $xoops->db()->query($prefixed_query[0]);
@@ -473,7 +473,7 @@ class SystemModule
         $module = $module_handler->getByDirname($mod);
         $xoops->templateClearModuleCache($module->getVar('mid'));
 
-        if ($module->getVar('dirname') == 'system') {
+        if ($module->getVar('dirname') === 'system') {
             $this->error[] = sprintf(
                 XoopsLocale::EF_NOT_UNINSTALLED,
                 '<strong>' . $module->getVar('name') . '</strong>'
@@ -760,7 +760,7 @@ class SystemModule
                             SystemLocale::SF_TEMPLATE_ADDED,
                             '<strong>' . $tpl['file'] . '</strong>'
                         );
-                        if ($module->getVar('dirname') == 'system') {
+                        if ($module->getVar('dirname') === 'system') {
                             if (!$xoops->templateTouch($newid)) {
                                 $this->trace[]['sub'] = '<span class="red">' . sprintf(
                                     SystemLocale::EF_TEMPLATE_NOT_RECOMPILED,
@@ -773,7 +773,7 @@ class SystemModule
                                 );
                             }
                         } else {
-                            if ($xoops->config['template_set'] == 'default') {
+                            if ($xoops->config['template_set'] === 'default') {
                                 if (!$xoops->templateTouch($newid)) {
                                     $this->trace[]['sub'] = '<span class="red">' . sprintf(
                                         SystemLocale::EF_TEMPLATE_NOT_RECOMPILED,
@@ -862,7 +862,7 @@ class SystemModule
                         $block_obj[0]->setVar('side', 0);
                         $block_obj[0]->setVar('weight', 0);
                         $block_obj[0]->setVar('visible', 0);
-                        $block_obj[0]->setVar('block_type', ($module->getVar('dirname') == 'system') ? 'S' : 'M');
+                        $block_obj[0]->setVar('block_type', ($module->getVar('dirname') === 'system') ? 'S' : 'M');
                         $block_obj[0]->setVar('isactive', 1);
                         $block_obj[0]->setVar('content', '');
                         $block_obj[0]->setVar('c_type', 'H');
@@ -925,7 +925,7 @@ class SystemModule
                                     SystemLocale::SF_TEMPLATE_UPDATED,
                                     '<strong>' . $block['template'] . '</strong>'
                                 );
-                                if ($module->getVar('dirname') == 'system') {
+                                if ($module->getVar('dirname') === 'system') {
                                     if (!$xoops->templateTouch($tplfile_new->getVar('tpl_id'))) {
                                         $this->trace[]['sub'] = '<span class="red">' . sprintf(
                                             SystemLocale::EF_TEMPLATE_NOT_RECOMPILED,
@@ -938,7 +938,7 @@ class SystemModule
                                         );
                                     }
                                 } else {
-                                    if ($xoops->config['template_set'] == 'default') {
+                                    if ($xoops->config['template_set'] === 'default') {
                                         if (!$xoops->templateTouch($tplfile_new->getVar('tpl_id'))) {
                                             $this->trace[]['sub'] = '<span class="red">' . sprintf(
                                                 SystemLocale::EF_TEMPLATE_NOT_RECOMPILED,

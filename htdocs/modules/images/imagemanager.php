@@ -58,7 +58,7 @@ switch ($op) {
             $category = $helper->getHandlerCategories()->get($imgcat_id);
 
             foreach (array_keys($images) as $i) {
-                if ($category->getVar('imgcat_storetype') == 'db') {
+                if ($category->getVar('imgcat_storetype') === 'db') {
                     $lcode = '[img align=left id=' . $images[$i]->getVar('image_id') . ']' . $images[$i]->getVar('image_nicename') . '[/img]';
                     $code = '[img align=center id=' . $images[$i]->getVar('image_id') . ']' . $images[$i]->getVar('image_nicename') . '[/img]';
                     $rcode = '[img align=right id=' . $images[$i]->getVar('image_id') . ']' . $images[$i]->getVar('image_nicename') . '[/img]';
@@ -132,7 +132,7 @@ switch ($op) {
                 $obj->setVar('image_mimetype', 'image/gif');
             } else {
                 $obj->setVar('image_mimetype', $uploader->getMediaType());
-                if ($category->getVar('imgcat_storetype') == 'db') {
+                if ($category->getVar('imgcat_storetype') === 'db') {
                     $fp = @fopen($uploader->getSavedDestination(), 'rb');
                     $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                     @fclose($fp);
@@ -144,7 +144,7 @@ switch ($op) {
         }
 
         if ($image_id = $helper->getHandlerImages()->insert($obj)) {
-            if ($category->getVar('imgcat_storetype') == 'db') {
+            if ($category->getVar('imgcat_storetype') === 'db') {
                 $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                 if (!is_object($imagebody)) {
                     $imagebody = $helper->getHandlerImagesBody()->create();

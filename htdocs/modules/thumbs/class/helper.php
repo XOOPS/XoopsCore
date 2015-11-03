@@ -51,7 +51,7 @@ class Thumbs extends HelperAbstract
         }
         $sizeDir = sprintf('/%01dx%01d/', $width, $height);
         $pathParts = pathinfo($imgPath);
-        if ($pathParts['dirname'] == '.') {
+        if ($pathParts['dirname'] === '.') {
             $pathParts['dirname'] = '';
         }
         $thumbPath = 'assets/thumbs/' . $pathParts['dirname'].$sizeDir.$pathParts['basename'];

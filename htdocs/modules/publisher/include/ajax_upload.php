@@ -89,7 +89,7 @@ if ($error == false) {
             $image->setVar('image_display', 1);
             $image->setVar('image_weight', 0);
             $image->setVar('imgcat_id', $imgcat_id);
-            if ($imgcat->getVar('imgcat_storetype') == 'db') {
+            if ($imgcat->getVar('imgcat_storetype') === 'db') {
                 $fp = @fopen($uploader->getSavedDestination(), 'rb');
                 $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                 @fclose($fp);

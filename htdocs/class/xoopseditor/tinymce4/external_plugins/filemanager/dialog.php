@@ -28,7 +28,7 @@ if($subdir==""){
 	$subdir= trim($_COOKIE['last_position']);
 }
 
-if($subdir=="/"){
+if($subdir==="/"){
     $subdir="";
 }
 
@@ -42,7 +42,7 @@ if(!empty($_SESSION['RF']["subfolder"]) && strpos($_SESSION['RF']["subfolder"],'
    && strpos($_SESSION['RF']["subfolder"],'./')===FALSE && strpos($_SESSION['RF']["subfolder"],"/")!==0
     && strpos($_SESSION['RF']["subfolder"],'.')===FALSE) $rfm_subfolder= $_SESSION['RF']['subfolder'];
    
-if($rfm_subfolder!="" && $rfm_subfolder[strlen($rfm_subfolder)-1]!="/") $rfm_subfolder.="/";
+if($rfm_subfolder!="" && $rfm_subfolder[strlen($rfm_subfolder)-1]!=="/") $rfm_subfolder.="/";
    
 if(!file_exists($current_path . $rfm_subfolder.$subdir)){
     $subdir='';
@@ -68,7 +68,7 @@ $max_cycles=50;
 $i=0;
 while($cycle && $i<$max_cycles){
     $i++;
-    if($parent=="./") $parent="";    
+    if($parent==="./") $parent="";
     if(file_exists($current_path.$parent."config.php")){
 	require_once($current_path.$parent."config.php");
 	$cycle=false;
@@ -104,7 +104,7 @@ else $descending=$_SESSION['RF']['descending'];
 
 
 $lang=$default_language;
-if(isset($_GET['lang']) && $_GET['lang'] != 'undefined' && $_GET['lang']!='') {
+if(isset($_GET['lang']) && $_GET['lang'] !== 'undefined' && $_GET['lang']!='') {
     $lang=fix_get_params($_GET['lang']);
     $lang=trim($lang);
 }
@@ -399,8 +399,8 @@ $sorted=array();
 $current_folder=array();
 $prev_folder=array();
 foreach($files as $k=>$file){
-    if($file==".") $current_folder=array('file'=>$file);
-    elseif($file=="..") $prev_folder=array('file'=>$file);
+    if($file===".") $current_folder=array('file'=>$file);
+    elseif($file==="..") $prev_folder=array('file'=>$file);
     elseif(is_dir($current_path.$rfm_subfolder.$subdir.$file)){
 	$date=filemtime($current_path.$rfm_subfolder.$subdir. $file);
 	$size=foldersize($current_path.$rfm_subfolder.$subdir. $file);
@@ -546,10 +546,10 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 		</a>
 		<ul class="dropdown-menu pull-left sorting">
 		    <li><center><strong><?php echo lang_Sorting ?></strong></center></li>
-		<li><a class="sorter sort-name <?php if($sort_by=="name"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="name"><?php echo lang_Filename; ?></a></li>
-		<li><a class="sorter sort-date <?php if($sort_by=="date"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="date"><?php echo lang_Date; ?></a></li>
-		<li><a class="sorter sort-size <?php if($sort_by=="size"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="size"><?php echo lang_Size; ?></a></li>
-		<li><a class="sorter sort-extension <?php if($sort_by=="extension"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="extension"><?php echo lang_Type; ?></a></li>
+		<li><a class="sorter sort-name <?php if($sort_by==="name"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="name"><?php echo lang_Filename; ?></a></li>
+		<li><a class="sorter sort-date <?php if($sort_by==="date"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="date"><?php echo lang_Date; ?></a></li>
+		<li><a class="sorter sort-size <?php if($sort_by==="size"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="size"><?php echo lang_Size; ?></a></li>
+		<li><a class="sorter sort-extension <?php if($sort_by==="extension"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="extension"><?php echo lang_Type; ?></a></li>
 		</ul>
 	      </div>
 	</li>
@@ -569,11 +569,11 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 	    <?php if($show_sorting_bar){ ?>
 	    <!-- sorter -->
 	    <div class="sorter-container <?php echo "list-view".$view; ?>">
-		<div class="file-name"><a class="sorter sort-name <?php if($sort_by=="name"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="name"><?php echo lang_Filename; ?></a></div>
-		<div class="file-date"><a class="sorter sort-date <?php if($sort_by=="date"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="date"><?php echo lang_Date; ?></a></div>
-		<div class="file-size"><a class="sorter sort-size <?php if($sort_by=="size"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="size"><?php echo lang_Size; ?></a></div>
+		<div class="file-name"><a class="sorter sort-name <?php if($sort_by==="name"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="name"><?php echo lang_Filename; ?></a></div>
+		<div class="file-date"><a class="sorter sort-date <?php if($sort_by==="date"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="date"><?php echo lang_Date; ?></a></div>
+		<div class="file-size"><a class="sorter sort-size <?php if($sort_by==="size"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="size"><?php echo lang_Size; ?></a></div>
 		<div class='img-dimension'><?php echo lang_Dimension; ?></div>
-		<div class='file-extension'><a class="sorter sort-extension <?php if($sort_by=="extension"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="extension"><?php echo lang_Type; ?></a></div>
+		<div class='file-extension'><a class="sorter sort-extension <?php if($sort_by==="extension"){ echo ($descending)?"descending":"ascending"; } ?>" href="javascript:void('')" data-sort="extension"><?php echo lang_Type; ?></a></div>
 		<div class='file-operations'><?php echo lang_Operations; ?></div>
 	    </div>
 	    <?php } ?>
@@ -586,10 +586,10 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 		$jplayer_ext=array("mp4","flv","webmv","webma","webm","m4a","m4v","ogv","oga","mp3","midi","mid","ogg","wav");
 		foreach ($files as $file_array) {
 		    $file=$file_array['file'];
-			if($file == '.' || (isset($file_array['extension']) && $file_array['extension']!=lang_Type_dir) || ($file == '..' && $subdir == '') || in_array($file, $hidden_folders) || ($filter!='' && $file!=".." && strpos($file,$filter)===false))
+			if($file === '.' || (isset($file_array['extension']) && $file_array['extension']!=lang_Type_dir) || ($file === '..' && $subdir == '') || in_array($file, $hidden_folders) || ($filter!='' && $file!==".." && strpos($file,$filter)===false))
 			    continue;
 			$new_name=fix_filename($file,$transliteration);
-			if($file!='..' && $file!=$new_name){
+			if($file!=='..' && $file!=$new_name){
 			    //rename
 			    rename_folder($current_path.$subdir.$new_name,$new_name,$transliteration);
 			    $file=$new_name;
@@ -597,38 +597,38 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 			//add in thumbs folder if not exist 
 			if (!file_exists($thumbs_path.$subdir.$file)) create_folder(false,$thumbs_path.$subdir.$file);
 			$class_ext = 3;			
-			if($file=='..' && trim($subdir) != '' ){
+			if($file==='..' && trim($subdir) != '' ){
 			    $src = explode("/",$subdir);
 			    unset($src[count($src)-2]);
 			    $src=implode("/",$src);
-			    if($src=='') $src="/";
+			    if($src==='') $src="/";
 			}
-			elseif ($file!='..') {
+			elseif ($file!=='..') {
 			    $src = $subdir . $file."/";
 			}
 			
 			?>
-			    <li data-name="<?php echo $file ?>" <?php if($file=='..') echo 'class="back"'; else echo 'class="dir"'; ?>><?php 
+			    <li data-name="<?php echo $file ?>" <?php if($file==='..') echo 'class="back"'; else echo 'class="dir"'; ?>><?php
 			    $file_prevent_rename = false;
 			    $file_prevent_delete = false;
 			    if (isset($filePermissions[$file])) {
 				$file_prevent_rename = isset($filePermissions[$file]['prevent_rename']) && $filePermissions[$file]['prevent_rename'];
 				$file_prevent_delete = isset($filePermissions[$file]['prevent_delete']) && $filePermissions[$file]['prevent_delete'];
 			    }
-			    ?>	<figure data-name="<?php echo $file ?>" class="<?php if($file=="..") echo "back-"; ?>directory" data-type="<?php if($file!=".."){ echo "dir"; } ?>">
+			    ?>	<figure data-name="<?php echo $file ?>" class="<?php if($file==="..") echo "back-"; ?>directory" data-type="<?php if($file!==".."){ echo "dir"; } ?>">
 				    <a class="folder-link" href="dialog.php?<?php echo $get_params.rawurlencode($src)."&".uniqid() ?>">
 				    <div class="img-precontainer">
 					<div class="img-container directory"><span></span>
-					<img class="directory-img"  src="img/<?php echo $icon_theme; ?>/folder<?php if($file==".."){ echo "_back"; }?>.jpg" alt="folder" />
+					<img class="directory-img"  src="img/<?php echo $icon_theme; ?>/folder<?php if($file===".."){ echo "_back"; }?>.jpg" alt="folder" />
 					</div>
 				    </div>
 				    <div class="img-precontainer-mini directory">
 					<div class="img-container-mini">
 					    <span></span>
-					    <img class="directory-img"  src="img/<?php echo $icon_theme; ?>/folder<?php if($file==".."){ echo "_back"; }?>.png" alt="folder" />
+					    <img class="directory-img"  src="img/<?php echo $icon_theme; ?>/folder<?php if($file===".."){ echo "_back"; }?>.png" alt="folder" />
 					</div>
 				    </div>
-			<?php if($file==".."){ ?>
+			<?php if($file===".."){ ?>
 				    <div class="box no-effect">
 					<h4><?php echo lang_Back ?></h4>
 				    </div>
@@ -663,7 +663,7 @@ $files=array_merge(array($prev_folder),array($current_folder),$sorted);
 		    foreach ($files as $nu=>$file_array) {		
 			$file=$file_array['file'];
 		    
-			    if($file == '.' || $file == '..' || is_dir($current_path.$rfm_subfolder.$subdir.$file) || in_array($file, $hidden_files) || !in_array(fix_strtolower($file_array['extension']), $ext) || ($filter!='' && strpos($file,$filter)===false))
+			    if($file === '.' || $file === '..' || is_dir($current_path.$rfm_subfolder.$subdir.$file) || in_array($file, $hidden_files) || !in_array(fix_strtolower($file_array['extension']), $ext) || ($filter!='' && strpos($file,$filter)===false))
 				    continue;
 			    
 			    $file_path=$current_path.$rfm_subfolder.$subdir.$file;

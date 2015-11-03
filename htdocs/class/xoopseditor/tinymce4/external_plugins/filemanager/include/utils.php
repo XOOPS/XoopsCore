@@ -1,12 +1,12 @@
 <?php
 
-if($_SESSION['RF']["verify"] != "RESPONSIVEfilemanager") die('forbiden');
+if($_SESSION['RF']["verify"] !== "RESPONSIVEfilemanager") die('forbiden');
 
 function deleteDir($dir) {
     if (!file_exists($dir)) return true;
     if (!is_dir($dir)) return unlink($dir);
     foreach (scandir($dir) as $item) {
-        if ($item == '.' || $item == '..') continue;
+        if ($item === '.' || $item === '..') continue;
         if (!deleteDir($dir.DIRECTORY_SEPARATOR.$item)) return false;
     }
     return rmdir($dir);
@@ -79,7 +79,7 @@ function foldersize($path) {
     $cleanPath = rtrim($path, '/'). '/';
 
     foreach($files as $t) {
-        if ($t != "." && $t != "..") {
+        if ($t !== "." && $t !== "..") {
             $currentFile = $cleanPath . $t;
             if (is_dir($currentFile)) {
                 $size = foldersize($currentFile);
@@ -101,7 +101,7 @@ function filescount($path) {
     $cleanPath = rtrim($path, '/'). '/';
 
     foreach($files as $t) {
-        if ($t != "." && $t != "..") {
+        if ($t !== "." && $t !== "..") {
             $currentFile = $cleanPath . $t;
             if (is_dir($currentFile)) {
                 $size = filescount($currentFile);
@@ -220,7 +220,7 @@ function fix_path($path,$transliteration){
 function base_url(){
   return sprintf(
     "%s://%s",
-    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http',
     $_SERVER['HTTP_HOST']
   );
 }
@@ -231,7 +231,7 @@ function config_loading($current_path,$fld){
 	return true;
     }
     echo "!!!!".$parent=fix_dirname($fld);
-    if($parent!="." && !empty($parent)){
+    if($parent!=="." && !empty($parent)){
 	config_loading($current_path,$parent);
     }
 
@@ -326,7 +326,7 @@ function get_file_by_url($url) {
 function is_really_writable($dir){
     $dir = rtrim($dir, '/');
     // linux, safe off
-    if (DIRECTORY_SEPARATOR == '/' && @ini_get("safe_mode") == FALSE){
+    if (DIRECTORY_SEPARATOR === '/' && @ini_get("safe_mode") == FALSE){
         return is_writable($dir);
     }
 
@@ -377,7 +377,7 @@ function rcopy($source, $destination, $is_rec = FALSE) {
 
         $files = scandir($source);
         foreach ($files as $file){
-            if ($file != "." && $file != "..") {
+            if ($file !== "." && $file !== "..") {
                 rcopy($source.DIRECTORY_SEPARATOR.$file, rtrim($destination, '/').DIRECTORY_SEPARATOR.$file, TRUE);
             }
         }
@@ -413,7 +413,7 @@ function rrename($source, $destination, $is_rec = FALSE) {
 
         $files = scandir($source);
         foreach ($files as $file){
-            if ($file != "." && $file != "..") {
+            if ($file !== "." && $file !== "..") {
                 rrename($source.DIRECTORY_SEPARATOR.$file, rtrim($destination, '/').DIRECTORY_SEPARATOR.$file, TRUE);
             }
         }
@@ -440,7 +440,7 @@ function rrename_after_cleaner($source) {
     $files = scandir($source);
 
     foreach ($files as $file) {
-        if ($file != "." && $file != "..") {
+        if ($file !== "." && $file !== "..") {
             if (is_dir($source.DIRECTORY_SEPARATOR.$file)){
                 rrename_after_cleaner($source.DIRECTORY_SEPARATOR.$file);
             }

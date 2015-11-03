@@ -108,7 +108,7 @@ class Time
             $key = 'second';
             $relKey = 'relative-type-0';
             $relPattern = null;
-        } elseif ($key == 'day' && $value >1 && $value <7) {
+        } elseif ($key === 'day' && $value >1 && $value <7) {
             $dow = $dateEnd->format('N') - 1;
             $days = array('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun');
             $key = $days[$dow];
@@ -223,10 +223,10 @@ class Time
     {
         $delimiter = '-';
         $locale = Locale::normalizeLocale(Locale::getCurrent(), $delimiter, false);
-        if ('zh_Hant' == Locale::getCurrent()) {
+        if ('zh_Hant' === Locale::getCurrent()) {
             $locale = 'zh-TW';
         }
-        if ($locale == 'zh') {
+        if ($locale === 'zh') {
             $locale = 'zh-CN';
         }
         list($language) = explode($delimiter, $locale);

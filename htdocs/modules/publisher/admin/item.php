@@ -495,7 +495,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
     $pWrap_select = new Xoops\Form\Select(PublisherUtils::getUploadDir(true, 'content'), "address");
     $folder = dir($dir);
     while ($file = $folder->read()) {
-        if ($file != "." && $file != "..") {
+        if ($file !== "." && $file !== "..") {
             $pWrap_select->addOption($file, $file);
         }
     }

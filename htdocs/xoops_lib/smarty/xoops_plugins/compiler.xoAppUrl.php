@@ -32,7 +32,7 @@ function smarty_compiler_xoAppUrl($params, Smarty $smarty)
     $arg = reset($params);
     $url = trim($arg, " '\"\t\n\r\0\x0B");
 
-    if (substr($url, 0, 1) == '/') {
+    if (substr($url, 0, 1) === '/') {
         $url = 'www' . $url;
     }
     return "<?php echo '" . addslashes(htmlspecialchars($xoops->url($url))) . "'; ?>";

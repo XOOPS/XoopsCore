@@ -84,7 +84,7 @@ function menus_block_show($options)
         $js = array_merge($js, $skin_info['js']);
     }
 
-    if ($helper->getConfig('assign_method') == 'xoopstpl') {
+    if ($helper->getConfig('assign_method') === 'xoopstpl') {
         $tpl_vars = '';
         foreach ($css as $file) {
             $tpl_vars .= "\n" . '<link rel="stylesheet" type="text/css" media="all" href="' . $file . '" />';
@@ -121,7 +121,7 @@ function menus_block_show($options)
 
     $block['content'] = $blockTpl->fetch($skin_info['template']);
 
-    if ($options[3] == 'template') {
+    if ($options[3] === 'template') {
         $xoops->tpl()->assign('xoops_menu_' . $options[4], $block['content']);
         $block = array();
     }
@@ -132,7 +132,7 @@ function menus_block_show($options)
 function menus_block_edit($options)
 {
     //Unique ID
-    if (!$options[4] || (isset($_GET['op']) && $_GET['op'] == 'clone')) {
+    if (!$options[4] || (isset($_GET['op']) && $_GET['op'] === 'clone')) {
         $options[4] = uniqid();
     }
 

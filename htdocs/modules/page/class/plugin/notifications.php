@@ -33,7 +33,7 @@ class PageNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
         $item = array();
         $item_id = (int) $item_id;
 
-        if ($category == 'global') {
+        if ($category === 'global') {
             $item['name'] = '';
             $item['url'] = '';
             return $item;

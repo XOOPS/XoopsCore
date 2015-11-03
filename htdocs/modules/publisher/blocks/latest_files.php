@@ -45,11 +45,11 @@ function publisher_latest_files_show($options)
     foreach ($filesObj as $fileObj) {
         $aFile = array();
         $aFile['link'] = $directDownload ? $fileObj->getFileLink() : $fileObj->getItemLink();
-        if ($sort == "datesub") {
+        if ($sort === "datesub") {
             $aFile['new'] = $fileObj->datesub();
-        } elseif ($sort == "counter") {
+        } elseif ($sort === "counter") {
             $aFile['new'] = $fileObj->getVar('counter');
-        } elseif ($sort == "weight") {
+        } elseif ($sort === "weight") {
             $aFile['new'] = $fileObj->getVar('weight');
         }
         $block['files'][] = $aFile;

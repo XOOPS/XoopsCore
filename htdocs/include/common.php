@@ -96,7 +96,7 @@ if (!defined('XOOPS_XMLRPC')) {
     define('XOOPS_DB_CHKREF', 0);
 }
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST' || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
     define ('XOOPS_DB_PROXY', 1);
 }
 
@@ -242,7 +242,7 @@ if (XoopsLoad::fileExists('./xoops_version.php')) {
         }
     }
 
-    if ($xoops->module->getVar('dirname', 'n') != 'system') {
+    if ($xoops->module->getVar('dirname', 'n') !== 'system') {
         $xoops->loadLanguage('main', $xoops->module->getVar('dirname', 'n'));
         $xoops->loadLocale($xoops->module->getVar('dirname', 'n'));
     }

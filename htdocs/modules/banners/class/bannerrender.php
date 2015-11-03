@@ -49,7 +49,7 @@ class BannerRender
             // Display banner
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('banner_status', 0, '!='));
-            $sort = ('sqlite' == \XoopsBaseConfig::get('db-type')) ? 'RANDOM()' : 'RAND()';
+            $sort = ('sqlite' === \XoopsBaseConfig::get('db-type')) ? 'RANDOM()' : 'RAND()';
             $criteria->setSort($sort);
             if (!empty($client)) {
                 if (!in_array(0, $client)) {
@@ -86,7 +86,7 @@ class BannerRender
                             $bannerobject .= '<a href="' . \XoopsBaseConfig::get('url') . '/modules/banners/index.php?op=click&amp;bid=' . $bid . '" rel="external" title="' . $clickurl . '"><img src="' . $imageurl . '" alt="' . $clickurl . '" /></a>';
                         }
                     }
-                    if ($align == 'V') {
+                    if ($align === 'V') {
                         $bannerobject .= '<br /><br />';
                     } else {
                         $bannerobject .= '&nbsp;';

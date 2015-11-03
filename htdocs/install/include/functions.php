@@ -87,7 +87,7 @@ function xoFormField($name, $value, $label, $help = '')
     if ($help) {
         echo '<div class="xoform-help">' . $help . "</div>\n";
     }
-    if ($name == "adminname") {
+    if ($name === "adminname") {
         echo "<input type='text' name='$name' id='$name' value='$value' maxlength='25' />";
     } else {
         echo "<input type='text' name='$name' id='$name' value='$value' />";
@@ -114,7 +114,7 @@ function xoPassField($name, $value, $label, $help = '')
         echo '<div class="xoform-help">' . $help . "</div>\n";
     }
 
-    if ($name == "adminpass") {
+    if ($name === "adminpass") {
         echo "<input type='password' name='{$name}' id='{$name}' value='{$value}' onkeyup='passwordStrength(this.value)' />";
     } else {
         echo "<input type='password' name='{$name}' id='{$name}' value='{$value}' />";
@@ -156,7 +156,7 @@ function getDirList($dirname)
     $dirlist = array();
     if ($handle = opendir($dirname)) {
         while ($file = readdir($handle)) {
-            if ($file{0} != '.' && is_dir($dirname . $file)) {
+            if ($file{0} !== '.' && is_dir($dirname . $file)) {
                 $dirlist[] = $file;
             }
         }
@@ -194,7 +194,7 @@ function xoDiag($status = -1, $str = '')
 function xoDiagBoolSetting($name, $wanted = false, $severe = false)
 {
     $setting = strtolower(ini_get($name));
-    $setting = (empty($setting) || $setting == 'off' || $setting == 'false') ? false : true;
+    $setting = (empty($setting) || $setting === 'off' || $setting === 'false') ? false : true;
     if ($setting == $wanted) {
         return xoDiag(1, $setting ? 'ON' : 'OFF');
     } else {

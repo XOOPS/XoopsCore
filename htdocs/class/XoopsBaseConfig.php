@@ -226,13 +226,13 @@ class XoopsBaseConfig
         $path = self::defineDefault('XOOPS_ROOT_PATH', basename(__DIR__));
         $url = (defined('XOOPS_URL')) ?
             XOOPS_URL :
-            ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? 'https://' : 'http://')
+            ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === "on") ? 'https://' : 'http://')
             . $_SERVER['SERVER_NAME']
             . (($_SERVER['SERVER_PORT'] != '80') ? ':' . $_SERVER['SERVER_PORT'] : '');
 
         $parts = parse_url($url . '/');
         $host = isset($parts['host']) ? $parts['host'] : $_SERVER['SERVER_NAME'];
-        $host = ($host=='localhost') ? '' : $host;
+        $host = ($host==='localhost') ? '' : $host;
         $urlpath = isset($parts['path']) ? $parts['path'] : '/';
 
         $libpath = self::defineDefault('XOOPS_PATH');

@@ -41,7 +41,7 @@ class ProfileCorePreload extends XoopsPreloadItem
         } else if (isset($_GET['op'])) {
             $op = trim($_GET['op']);
         }
-        if ($op != 'login' && (empty($_GET['from']) || 'profile' != $_GET['from'])) {
+        if ($op !== 'login' && (empty($_GET['from']) || 'profile' !== $_GET['from'])) {
             \Xoops::simpleRedirect("./modules/profile/user.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
         }
     }

@@ -84,14 +84,14 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
         if (is_object($userinfo)) {
             if ($userinfo instanceof XoopsUser) {
                 if ($userinfo->getVar('user_avatar')
-                    && 'blank.gif' != $userinfo->getVar('user_avatar')
+                    && 'blank.gif' !== $userinfo->getVar('user_avatar')
                 ) {
                     $response->setValue($this->xoops_upload_url . "/" . $userinfo->getVar('user_avatar'));
                 }
                 $noInfo = false;
             }
         } elseif (is_array($userinfo)) {
-            if (!empty($userinfo['user_avatar']) && $userinfo['user_avatar'] != 'blank.gif') {
+            if (!empty($userinfo['user_avatar']) && $userinfo['user_avatar'] !== 'blank.gif') {
                 $response->setValue($this->xoops_upload_url . "/" . $userinfo['user_avatar']);
                 $noInfo = false;
             }
@@ -99,7 +99,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
             $user = $this->getUserById((int) $userinfo);
             if (is_object($user) && ($user instanceof XoopsUser)) {
                 if ($user->getVar('user_avatar')
-                    && 'blank.gif' != $user->getVar('user_avatar')
+                    && 'blank.gif' !== $user->getVar('user_avatar')
                 ) {
                     $response->setValue($this->xoops_upload_url . "/" . $user->getVar('user_avatar'));
                 }

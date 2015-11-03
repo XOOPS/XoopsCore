@@ -94,7 +94,7 @@ EOH;
         $this->shortcodes->addShortcode(
             'youtube',
             function ($attributes, $content, $tagName) {
-                if (array_key_exists(0, $attributes) && '=' == substr($attributes[0], 0, 1)) {
+                if (array_key_exists(0, $attributes) && '=' === substr($attributes[0], 0, 1)) {
                     $args = ltrim($attributes[0], '=');
                     list($width, $height) = explode(',', $args);
                     $url = $content;

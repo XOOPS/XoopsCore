@@ -72,7 +72,7 @@ $siteconfig = $_SESSION['siteconfig'];
 
 $error = $_SESSION['error'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $siteconfig['adminname'] = $_POST['adminname'];
     $siteconfig['adminmail'] = $_POST['adminmail'];
     $siteconfig['adminpass'] = $_POST['adminpass'];

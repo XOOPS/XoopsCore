@@ -178,7 +178,7 @@ switch ($op) {
             if ($avatar_Handler->delete($obj)) {
                 // Delete file
                 $file = $obj->getVar('avatar_file');
-                if ($file != 'avatars/blank.gif') {
+                if ($file !== 'avatars/blank.gif') {
 					$fullname = $xoops_upload_path . '/' . $file;
                     if (is_file($fullname)) {
                         chmod($fullname, 0777);

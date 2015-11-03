@@ -42,7 +42,7 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
      */
     public function search($queryArray, $andor, $limit, $offset, $userid)
     {
-        $andor = strtolower($andor)=='and' ? 'and' : 'or';
+        $andor = strtolower($andor)==='and' ? 'and' : 'or';
 
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
         $eb = $qb->expr();
@@ -63,7 +63,7 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
                     $eb->like('content_shorttext', $qterm)
                 );
             }
-            if ($andor == 'and') {
+            if ($andor === 'and') {
                 $qb->andWhere(call_user_func_array(array($eb, "andX"), $queryParts));
             } else {
                 $qb->andWhere(call_user_func_array(array($eb, "orX"), $queryParts));

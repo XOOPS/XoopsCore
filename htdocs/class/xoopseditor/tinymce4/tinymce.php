@@ -108,7 +108,7 @@ class TinyMCE
         $this->setting["plugins"] = implode(",", $this->loadPlugins());
         $configured[] = "plugins";
 
-        if ($this->setting["theme"] != "simple") {
+        if ($this->setting["theme"] !== "simple") {
             if (empty($this->config["buttons"])) {
                 $this->config["buttons"][] = array(
                     "before"    => "",

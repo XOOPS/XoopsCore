@@ -78,10 +78,10 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                 return false;
             }
         }
-        if (($style == 'block') && ($status == NOTIFICATIONS_ENABLEBLOCK || $status == NOTIFICATIONS_ENABLEBOTH)) {
+        if (($style === 'block') && ($status == NOTIFICATIONS_ENABLEBLOCK || $status == NOTIFICATIONS_ENABLEBOTH)) {
             return true;
         }
-        if (($style == 'inline') && ($status == NOTIFICATIONS_ENABLEINLINE || $status == NOTIFICATIONS_ENABLEBOTH)) {
+        if (($style === 'inline') && ($status == NOTIFICATIONS_ENABLEINLINE || $status == NOTIFICATIONS_ENABLEBOTH)) {
             return true;
         }
 
@@ -186,7 +186,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                 continue;
             }
             foreach ($all_events as $event) {
-                if ($event['name'] == 'comment') {
+                if ($event['name'] === 'comment') {
                     return $category;
                 }
             }
@@ -236,13 +236,13 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                     if (!$enabled_only || $this->eventEnabled($category, $event, $dirname)) {
                         $event_array[] = $event;
                     }
-                    if ($event['name'] == 'comment') {
+                    if ($event['name'] === 'comment') {
                         $override_comment = true;
                     }
-                    if ($event['name'] == 'comment_submit') {
+                    if ($event['name'] === 'comment_submit') {
                         $override_commentsubmit = true;
                     }
-                    if ($event['name'] == 'bookmark') {
+                    if ($event['name'] === 'bookmark') {
                         $override_bookmark = true;
                     }
                 }
@@ -415,7 +415,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
             // Check the script name
             $subscribe_from = $category['subscribe_from'];
             if (!is_array($subscribe_from)) {
-                if ($subscribe_from == '*') {
+                if ($subscribe_from === '*') {
                     $subscribe_from = array(
                         $script_name
                     );

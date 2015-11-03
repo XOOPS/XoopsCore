@@ -133,7 +133,7 @@ class XoopsDatabaseManager
             $prefixed_query = SqlUtility::prefixQuery($piece, $this->db->prefix());
             if ($prefixed_query != false) {
                 $table = $this->db->prefix($prefixed_query[4]);
-                if ($prefixed_query[1] == 'CREATE TABLE') {
+                if ($prefixed_query[1] === 'CREATE TABLE') {
                     if ($this->db->$queryFunc($prefixed_query[0]) != false) {
                         if (!isset($this->s_tables['create'][$table])) {
                             $this->s_tables['create'][$table] = 1;
@@ -144,7 +144,7 @@ class XoopsDatabaseManager
                         }
                     }
                 } else {
-                    if ($prefixed_query[1] == 'INSERT INTO') {
+                    if ($prefixed_query[1] === 'INSERT INTO') {
                         if ($this->db->$queryFunc($prefixed_query[0]) != false) {
                             if (!isset($this->s_tables['insert'][$table])) {
                                 $this->s_tables['insert'][$table] = 1;
@@ -159,7 +159,7 @@ class XoopsDatabaseManager
                             }
                         }
                     } else {
-                        if ($prefixed_query[1] == 'ALTER TABLE') {
+                        if ($prefixed_query[1] === 'ALTER TABLE') {
                             if ($this->db->$queryFunc($prefixed_query[0]) != false) {
                                 if (!isset($this->s_tables['alter'][$table])) {
                                     $this->s_tables['alter'][$table] = 1;
@@ -170,7 +170,7 @@ class XoopsDatabaseManager
                                 }
                             }
                         } else {
-                            if ($prefixed_query[1] == 'DROP TABLE') {
+                            if ($prefixed_query[1] === 'DROP TABLE') {
                                 if ($this->db->$queryFunc('DROP TABLE ' . $table) != false) {
                                     if (!isset($this->s_tables['drop'][$table])) {
                                         $this->s_tables['drop'][$table] = 1;
@@ -202,7 +202,7 @@ class XoopsDatabaseManager
             if (!@empty($this->s_tables[$cmd])) {
                 foreach ($this->s_tables[$cmd] as $key => $val) {
                     $content .= '<li class="success">';
-                    $content .= ($cmd != 'insert')
+                    $content .= ($cmd !== 'insert')
                         ? sprintf($this->successStrings[$cmd], $key)
                         : sprintf($this->successStrings[$cmd], $val, $key);
                     $content .= "</li>\n";
@@ -213,7 +213,7 @@ class XoopsDatabaseManager
             if (!@empty($this->f_tables[$cmd])) {
                 foreach ($this->f_tables[$cmd] as $key => $val) {
                     $content .= '<li class="failure">';
-                    $content .= ($cmd != 'insert')
+                    $content .= ($cmd !== 'insert')
                         ? sprintf($this->failureStrings[$cmd], $key)
                         : sprintf($this->failureStrings[$cmd], $val, $key);
                     $content .= "</li>\n";

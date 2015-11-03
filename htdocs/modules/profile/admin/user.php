@@ -31,7 +31,7 @@ $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('user.php');
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
-if ($op == "editordelete") {
+if ($op === "editordelete") {
     $op = isset($_REQUEST['delete']) ? "delete" : "edit";
 }
 

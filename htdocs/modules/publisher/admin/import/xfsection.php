@@ -29,11 +29,11 @@ $scriptname = "xfsection.php";
 
 $op = 'start';
 
-if (isset($_POST['op']) && ($_POST['op'] == 'go')) {
+if (isset($_POST['op']) && ($_POST['op'] === 'go')) {
     $op = $_POST['op'];
 }
 
-if ($op == 'start') {
+if ($op === 'start') {
 
     PublisherUtils::cpHeader();
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
@@ -93,7 +93,7 @@ if ($op == 'start') {
     $xoops->footer();
 }
 
-if ($op == 'go') {
+if ($op === 'go') {
     PublisherUtils::cpHeader();
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
     PublisherUtils::openCollapsableBar('xfsectionimportgo', 'xfsectionimportgoicon', sprintf(_AM_PUBLISHER_IMPORT_FROM, $importFromModuleName), _AM_PUBLISHER_IMPORT_RESULT);
@@ -126,7 +126,7 @@ if ($op == 'go') {
         $categoryObj->setVar('description', $arrCat['description']);
 
         // Category image
-        if (($arrCat['imgurl'] != 'blank.gif') && ($arrCat['imgurl'])) {
+        if (($arrCat['imgurl'] !== 'blank.gif') && ($arrCat['imgurl'])) {
             if (copy(\XoopsBaseConfig::get('root-path') . "/modules/xfsection/images/category/" . $arrCat['imgurl'], PUBLISHER_UPLOADS_PATH . "/images/category/" . $arrCat['imgurl'])) {
                 $categoryObj->setVar('image', $arrCat['imgurl']);
             }

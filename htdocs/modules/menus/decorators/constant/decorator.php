@@ -57,7 +57,7 @@ class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDeco
         $expression = $reg[0];
         list($validator, $value) = array_map('strtoupper', explode('|', $reg[1]));
 
-        if ($validator == 'CONSTANT') {
+        if ($validator === 'CONSTANT') {
             if (defined($value)) {
                 $string = str_replace($expression, constant($value), $string);
             }

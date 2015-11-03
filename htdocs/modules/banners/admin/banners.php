@@ -257,7 +257,7 @@ switch ($op) {
                 $obj->setVar("banner_imageurl", $xoops_upload_url . '/banners/' . $uploader_banners_img->getSavedFileName());
             }
         } else {
-            if ($_POST["banners_imageurl"] == 'blank.gif') {
+            if ($_POST["banners_imageurl"] === 'blank.gif') {
                 $obj->setVar("banner_imageurl", Request::getString('imageurl', ''));
             } else {
                 $obj->setVar("banner_imageurl", $xoops_upload_url . '/banners/' . Request::getString('banners_imageurl', ''));
@@ -304,7 +304,7 @@ switch ($op) {
                 if ($obj->getVar("banner_htmlbanner")) {
                     $img .= html_entity_decode($obj->getVar("banner_htmlcode"));
                 } else {
-                    if (strtolower(substr($imageurl, strrpos($imageurl, "."))) == ".swf") {
+                    if (strtolower(substr($imageurl, strrpos($imageurl, "."))) === ".swf") {
                         $img .= "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/ swflash.cab#version=6,0,40,0\" width=\"468\" height=\"60\">";
                         $img .= "<param name=movie value=\"$imageurl\">";
                         $img .= "<embed src=\"$imageurl\" pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"  type=\"application/x-shockwave-flash\" width=\"468\" height=\"60\">";

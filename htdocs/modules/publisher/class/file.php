@@ -285,7 +285,7 @@ class PublisherFileHandler extends XoopsPersistableObjectHandler
      */
     public function deleteItemFiles(&$itemObj)
     {
-        if (strtolower(get_class($itemObj)) != 'publisheritem') {
+        if (strtolower(get_class($itemObj)) !== 'publisheritem') {
             return false;
         }
         $files = $this->getAllFiles($itemObj->getVar('itemid'));

@@ -33,7 +33,7 @@ $xoops = Xoops::getInstance();
 $wizard = $_SESSION['wizard'];
 $config_handler = $xoops->getHandlerConfig();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (array_key_exists('conf_ids', $_REQUEST)) {
         foreach ($_REQUEST['conf_ids'] as $key => $conf_id) {
             $config =& $config_handler->getConfig($conf_id);

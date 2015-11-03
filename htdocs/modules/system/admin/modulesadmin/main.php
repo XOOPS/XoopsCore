@@ -74,7 +74,7 @@ switch ($op) {
         $install = $system_module->getInstalledModules();
 
         $view = $system->cleanVars($_COOKIE, 'xoopsModsView', 'large', 'string');
-        if ($view == 'large') {
+        if ($view === 'large') {
             $xoops->tpl()->assign('view_large', '');
             $xoops->tpl()->assign('view_line', 'hide');
         } else {

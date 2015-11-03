@@ -55,14 +55,14 @@ function b_xlanguage_select_show($options)
     $block['delimitor'] = $options[1];
     $block['number'] = $options[2];
 
-    if ($options[0]=='jquery') {
+    if ($options[0]==='jquery') {
         $xoops = \Xoops::getInstance();
         $xoops->theme()->addBaseScriptAssets('@jqueryui');
     }
 
     $block['selected'] = $xlanguage['lang'];
 
-    if ($options[0] == 'images' || $options[0] == 'text') {
+    if ($options[0] === 'images' || $options[0] === 'text') {
         $query_string = htmlspecialchars(implode('&', $QUERY_STRING_new));
         $query_string .= empty($query_string) ? '' : '&amp;';
     } else {

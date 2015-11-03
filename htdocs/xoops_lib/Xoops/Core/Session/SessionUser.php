@@ -167,6 +167,6 @@ class SessionUser
     public function checkConfirmed()
     {
         return $this->session->has('xoopsUserId') &&
-                ('ok' == $this->session->get('SESSION_AUTHSTATUS', 'failed'));
+                ('ok' === $this->session->get('SESSION_AUTHSTATUS', 'failed'));
     }
 }

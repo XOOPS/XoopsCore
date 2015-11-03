@@ -38,7 +38,7 @@ $GLOBALS['xoopsDB'] = \XoopsDatabaseFactory::getDatabaseConnection(true);
 /* @var $wizard XoopsInstallWizard */
 $wizard = $_SESSION['wizard'];
 $xoops->loadLocale('system');
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $config_handler = $xoops->getHandlerConfig();
     if (array_key_exists('conf_ids', $_REQUEST)) {
         foreach ($_REQUEST['conf_ids'] as $key => $conf_id) {

@@ -147,13 +147,13 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
                         $values[] = 'NULL';
                         // a number
                         // timestamp is numeric on some MySQL 4.1
-                    } elseif ($fields_meta->numeric && $fields_meta->type != 'timestamp') {
+                    } elseif ($fields_meta->numeric && $fields_meta->type !== 'timestamp') {
                         $values[] = $row[$j];
                         // a binary field
                         // Note: with mysqli, under MySQL 4.1.3, we get the flag
                         // "binary" for those field types (I don't know why)
                     } else {
-                        if (stristr($field_flags[$j], 'BINARY') && $fields_meta->type != 'datetime' && $fields_meta->type != 'date' && $fields_meta->type != 'time' && $fields_meta->type != 'timestamp'
+                        if (stristr($field_flags[$j], 'BINARY') && $fields_meta->type !== 'datetime' && $fields_meta->type !== 'date' && $fields_meta->type !== 'time' && $fields_meta->type !== 'timestamp'
                         ) {
                             // empty blobs need to be different, but '0' is also empty :-(
                             if (empty($row[$j]) && $row[$j] != '0') {
