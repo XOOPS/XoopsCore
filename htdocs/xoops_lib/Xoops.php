@@ -931,7 +931,7 @@ class Xoops
      *
      * @return \Xoops\Core\Kernel\Handlers\XoopsTplSetHandler
      */
-    public function getHandlerTplset($optional = false)
+    public function getHandlerTplSet($optional = false)
     {
         return $this->getHandler('Tplset', $optional);
     }

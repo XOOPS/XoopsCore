@@ -68,7 +68,7 @@ if (is_object($pm) && !empty($_POST['action'])) {
                     break;
                 }
                 if (!empty($_REQUEST['delete_message'])) {
-                    $res = $pm_handler->setFromdelete($pm);
+                    $res = $pm_handler->setFromDelete($pm);
                 } elseif (!empty($_REQUEST['move_message'])) {
                     $res = $pm_handler->setFromsave($pm);
                 }

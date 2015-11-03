@@ -81,7 +81,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
      */
     public function retrieveBlocks()
     {
-        $xoops = Xoops::getinstance();
+        $xoops = Xoops::getInstance();
 
         if ($xoops->isModule()) {
             $mid = $xoops->module->getVar('mid');

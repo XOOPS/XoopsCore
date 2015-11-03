@@ -49,7 +49,7 @@ $groups = $xoops->getUserGroups();
 $gperm_handler = $xoops->getHandlerGroupPermission();
 $admin = false;
 if ($gperm_handler) {
-    $xlanguage = $xoops->getHandlerModule()->getByDirName('xlanguage');
+    $xlanguage = $xoops->getHandlerModule()->getByDirname('xlanguage');
     if ($xlanguage) {
         $admin = $gperm_handler->checkRight('system_admin', $xlanguage->getVar('mid'), $groups);
     }

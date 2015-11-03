@@ -277,7 +277,7 @@ class tar
      * @return bool always TRUE
      * @access private
      */
-    private function __generateTAR()
+    private function __generateTar()
     {
         // Clear any data currently in $this->tar_file
         unset($this->tar_file);
