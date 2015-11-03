@@ -91,5 +91,3 @@ define("_PM_ACTION_ERROR", "Operation failed");
 //XOOPS 2.5.2
 define("_PM_READ","Already Read");
 define("_PM_SUBJECT_ICONS","Subject Icons: ");
-
-?>

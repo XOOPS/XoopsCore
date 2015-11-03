@@ -32,5 +32,3 @@ define ('_AM_XMF_ABOUT_MODULEINFO', 'Informazioni Modulo');
 define ('_AM_XMF_ABOUT_MODULESTATUS', 'Stato:');
 define ('_AM_XMF_ABOUT_UPDATEDATE', 'Data di aggiornamento:');
 define ('_AM_XMF_ABOUT_WEBSITE', "Sito Web:");
-
-?>

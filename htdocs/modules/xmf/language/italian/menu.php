@@ -11,4 +11,3 @@ define ('_MENU_XMF_BLOCKS', 'Blocchi');
 define ('_MENU_XMF_IMPORT', 'Importa');
 define ('_MENU_XMF_CLONE', 'Clona');
 define ('_MENU_XMF_HELP', 'Guida');
-?>
