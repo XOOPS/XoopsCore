@@ -75,7 +75,7 @@ img {
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#69BFE3', endColorstr='#1669AB');
     background-color:#BAD8FB;
     color:#ffffff;
-    font-family: "Trebuchet MS", arial;
+    font-family: "Trebuchet MS", arial, sans-serif;
     text-decoration:none;
 }
 .button{
