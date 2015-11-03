@@ -58,12 +58,12 @@ foreach ($sel as $key => $value) {
 }
 
 $type = $system->cleanVars($method, 'type', '', 'string');
-if ($type == 'preview') {
+if ($type === 'preview') {
     $op = 'preview';
 }
 
 if (isset($_GET['op'])) {
-    if ($_GET['op'] == "edit" || $_GET['op'] == "delete" || $_GET['op'] == "delete_ok" || $_GET['op'] == "clone") {
+    if ($_GET['op'] === "edit" || $_GET['op'] === "delete" || $_GET['op'] === "delete_ok" || $_GET['op'] === "clone") {
         $op = $_GET['op'];
         $bid = isset($_GET['bid']) ? (int)($_GET['bid']) : 0;
     }
@@ -448,10 +448,10 @@ switch ($op) {
         $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
-            if ($block->getVar('block_type') == 'S') {
+            if ($block->getVar('block_type') === 'S') {
                 $xoops->redirect('admin.php?fct=blocksadmin', 4, SystemLocale::E_SYSTEM_BLOCKS_CANNOT_BE_DELETED);
                 exit();
-            } elseif ($block->getVar('block_type') == 'M') {
+            } elseif ($block->getVar('block_type') === 'M') {
                 // Fix for duplicated blocks created in 2.0.9 module update
                 // A module block can be deleted if there is more than 1 that
                 // has the same func_num/show_func which is mostly likely

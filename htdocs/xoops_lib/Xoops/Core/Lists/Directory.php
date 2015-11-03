@@ -39,7 +39,7 @@ class Directory extends ListAbstract
         $path = rtrim($path, '/') . '/';
         if (is_dir($path) && $handle = opendir($path)) {
             while ($file = readdir($handle)) {
-                if (substr($file, 0, 1) == '.' || in_array(strtolower($file), $ignored)) {
+                if (substr($file, 0, 1) === '.' || in_array(strtolower($file), $ignored)) {
                     continue;
                 }
                 if (is_dir($path . $file)) {

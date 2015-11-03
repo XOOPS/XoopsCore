@@ -29,7 +29,7 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('tinymce');
 
 $op = Request::getCmd('op', '');
-if ($op == 'save') {
+if ($op === 'save') {
     if (!$xoops->security()->check()) {
         $xoops->redirect('xoops_xlanguage.php', 2, implode(',', $xoops->security()->getErrors()));
     }

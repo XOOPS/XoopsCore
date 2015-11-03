@@ -264,7 +264,7 @@ $seo_url_rewrite_options = array(
     _MI_PUBLISHER_URL_REWRITE_PATHINFO => 'path-info',
 );
 // Is performing module install/update?
-$isModuleAction = (!empty($_POST["fct"]) && "modulesadmin" == $_POST["fct"]) ? true : false;
+$isModuleAction = (!empty($_POST["fct"]) && "modulesadmin" === $_POST["fct"]) ? true : false;
 if ($isModuleAction && (in_array(php_sapi_name(), array("apache", "apache2handler", "cgi-fcgi")))) {
     $seo_url_rewrite_options[_MI_PUBLISHER_URL_REWRITE_HTACCESS] = 'htaccess';
 }

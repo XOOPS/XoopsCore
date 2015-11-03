@@ -36,7 +36,7 @@ if (array_key_exists('DB_PARAMETERS', $settings)) {
     unset($settings['DB_PARAMETERS']);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $params = array('DB_DRIVER', 'DB_PREFIX');
     foreach ($params as $name) {
         $settings[$name] = $_POST[$name];
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($settings['DB_DRIVER'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($settings['DB_DRIVER'])) {
     $_SESSION['settings'] = $settings;
     $wizard->redirectToPage('+1');
     exit();

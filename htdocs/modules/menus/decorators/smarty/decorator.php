@@ -54,7 +54,7 @@ class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecora
         $expression = $reg[0];
         list($validator, $value) = array_map('strtolower', explode('|', $reg[1]));
 
-        if ($validator == 'smarty') {
+        if ($validator === 'smarty') {
             if (isset($xoops->tpl()->_tpl_vars[$value])) {
                $string = str_replace($expression, $xoops->tpl()->_tpl_vars[$value], $string);
             }

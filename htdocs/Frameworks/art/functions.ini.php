@@ -217,7 +217,7 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
      */
     function mod_getDirname($current_path = null)
     {
-        if (DIRECTORY_SEPARATOR != '/') {
+        if (DIRECTORY_SEPARATOR !== '/') {
             $current_path = str_replace(strpos($current_path, '\\\\', 2) ? '\\\\'
                     : DIRECTORY_SEPARATOR, '/', $current_path);
         }
@@ -238,10 +238,10 @@ if (!defined("FRAMEWORKS_ART_FUNCTIONS_INI")):
     {
         $xoops = Xoops::getInstance();
         $ret = @( // action module "system"
-            $xoops->isModule() && "system" == $xoops->module->getVar("dirname", "n") && // current dirname
+            $xoops->isModule() && "system" === $xoops->module->getVar("dirname", "n") && // current dirname
             ($dirname == $_POST["dirname"] || $dirname == $_POST["module"]) && // current op
-            ("update_ok" == $_POST["op"] || "install_ok" == $_POST["op"] || "uninstall_ok" == $_POST["op"]) && // current action
-            "modulesadmin" == $_POST["fct"]);
+            ("update_ok" === $_POST["op"] || "install_ok" === $_POST["op"] || "uninstall_ok" === $_POST["op"]) && // current action
+            "modulesadmin" === $_POST["fct"]);
         return $ret;
     }
 

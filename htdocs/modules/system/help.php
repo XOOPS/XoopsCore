@@ -46,7 +46,7 @@ if ($mid > 0) {
     $system_breadcrumb->addLink(system_adminVersion($page, 'name'));
     $system_breadcrumb->render();
 
-    if ($module->getVar('dirname', 'e') == 'system') {
+    if ($module->getVar('dirname', 'e') === 'system') {
 
         $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
         $dirlist = XoopsLists::getDirListAsArray($admin_dir);
@@ -132,7 +132,7 @@ if ($mid > 0) {
                 $xoops->tpl()->assign('load_error', 1);
             }
         }
-        if ($module->getVar('dirname', 'e') != 'system') {
+        if ($module->getVar('dirname', 'e') !== 'system') {
             $xoops->tpl()->assign('help_module', true);
         }
         $xoops->tpl()->assign('helpcontent', $helpcontent);
@@ -180,7 +180,7 @@ if ($mid > 0) {
         $listed_mods[$i]['license'] = $module->getInfo('license');
         $listed_mods[$i]['description'] = $module->getInfo('description');
 
-        if ($module->getVar('dirname', 'e') == 'system') {
+        if ($module->getVar('dirname', 'e') === 'system') {
             $admin_dir = \XoopsBaseConfig::get('root-path') . '/modules/system/admin';
             $dirlist = XoopsLists::getDirListAsArray($admin_dir);
 

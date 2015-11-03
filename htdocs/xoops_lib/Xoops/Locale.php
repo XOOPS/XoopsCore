@@ -165,7 +165,7 @@ class Locale
         }
         $language = empty($language) ? \XoopsLocale::getLegacyLanguage() : $language;
         // expanded domain to multiple categories, e.g. module:system, framework:filter, etc.
-        if ((empty($domain) || 'global' == $domain)) {
+        if ((empty($domain) || 'global' === $domain)) {
             $path = '';
         } else {
             $path = (is_array($domain)) ? array_shift($domain) : "modules/{$domain}";

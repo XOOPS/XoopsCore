@@ -671,7 +671,7 @@ class Snoopy
         }
         if (!empty($content_type)) {
             $headers .= "Content-type: $content_type";
-            if ($content_type == "multipart/form-data")
+            if ($content_type === "multipart/form-data")
                 $headers .= "; boundary=" . $this->_mime_boundary;
             $headers .= "\r\n";
         }
@@ -706,7 +706,7 @@ class Snoopy
                 return false;
             }
 
-            if ($currentHeader == "\r\n")
+            if ($currentHeader === "\r\n")
                 break;
 
             // if a header begins with Location: or URI:, set the redirect
@@ -829,7 +829,7 @@ class Snoopy
             $host = $this->proxy_host;
             $port = $this->proxy_port;
 
-            if ($this->scheme == 'https') {
+            if ($this->scheme === 'https') {
                 trigger_error("HTTPS connections over proxy are currently not supported", E_USER_ERROR);
                 exit;
             }
@@ -842,7 +842,7 @@ class Snoopy
 
         $context_opts = array();
 
-        if ($this->scheme == 'https') {
+        if ($this->scheme === 'https') {
             // if cafile or capath is specified, enable certificate
             // verification (including name checks)
             if (isset($this->cafile) || isset($this->capath)) {
@@ -864,7 +864,7 @@ class Snoopy
         $context = stream_context_create($context_opts);
 
         if (version_compare(PHP_VERSION, '5.0.0', '>')) {
-            if($this->scheme == 'http')
+            if($this->scheme === 'http')
                 $host = "tcp://" . $host;
             $fp = stream_socket_client(
                 "$host:$port",

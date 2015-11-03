@@ -30,14 +30,14 @@ include_once XOOPS_INSTALL_PATH . '/class/pathcontroller.php';
 
 $ctrl = new XoopsPathController($wizard->configs['xoopsPathDefault'], $wizard->configs['dataPath']);
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && @$_GET['var'] && @$_GET['action'] == 'checkpath') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && @$_GET['var'] && @$_GET['action'] === 'checkpath') {
     $path = $_GET['var'];
     $ctrl->xoopsPath[$path] = htmlspecialchars( trim($_GET['path']) );
     echo genPathCheckHtml( $path, $ctrl->checkPath($path) );
     exit();
 }
 $ctrl->execute();
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     return;
 }
 ob_start();

@@ -56,12 +56,12 @@ if (!$clean_input) {
 }
 $op = $clean_input['op'];
 
-if ($op == 'login') {
+if ($op === 'login') {
     include_once $xoops->path('include/checklogin.php');
     exit();
 }
 
-if ($op == 'main') {
+if ($op === 'main') {
     if (!$xoops->isUser()) {
         $xoops->header('module:system/system_userform.tpl');
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::A_LOGIN);
@@ -109,7 +109,7 @@ if ($op == 'main') {
     exit();
 }
 
-if ($op == 'logout') {
+if ($op === 'logout') {
     $message = '';
     $xoops->session()->user()->recordUserLogout();
     // clear entry from online users table
@@ -120,7 +120,7 @@ if ($op == 'logout') {
     $xoops->redirect($xoops_url . '/', 1, $message);
 }
 
-if ($op == 'delete') {
+if ($op === 'delete') {
     $xoopsConfigUser = $xoops->getConfigs();
     if (!$xoops->isUser() || $xoopsConfigUser['self_delete'] != 1) {
         $xoops->redirect('index.php', 5, XoopsLocale::E_NO_ACTION_PERMISSION);

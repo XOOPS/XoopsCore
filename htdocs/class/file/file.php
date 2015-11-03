@@ -224,7 +224,7 @@ class XoopsFileHandler
     public function prepare($data)
     {
         $lineBreak = "\n";
-        if (substr(PHP_OS, 0, 3) == 'WIN') {
+        if (substr(PHP_OS, 0, 3) === 'WIN') {
             $lineBreak = "\r\n";
         }
         return strtr($data, array("\r\n" => $lineBreak, "\n" => $lineBreak, "\r" => $lineBreak));

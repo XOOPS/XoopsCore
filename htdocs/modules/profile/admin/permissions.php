@@ -78,7 +78,7 @@ $opform->display();
 $module_id = $xoops->module->getVar('mid');
 $form = new Xoops\Form\GroupPermissionForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php', $anonymous);
 
-if ($op == "access") {
+if ($op === "access") {
     $member_handler = $xoops->getHandlerMember();
     $glist = $member_handler->getGroupList();
     foreach (array_keys($glist) as $i) {
@@ -92,7 +92,7 @@ if ($op == "access") {
     $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
     $fields = $profile_handler->loadFields();
 
-    if ($op != "search") {
+    if ($op !== "search") {
         foreach (array_keys($fields) as $i) {
             if ($restriction == "" || $fields[$i]->getVar($restriction)) {
                 $form->addItem(

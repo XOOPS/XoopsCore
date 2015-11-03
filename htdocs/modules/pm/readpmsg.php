@@ -56,7 +56,7 @@ if (is_object($pm) && !empty($_POST['action'])) {
     if (!empty($_REQUEST['email_message'])) {
         $res = $pm_handler->sendEmail($pm, $xoops->user);
     } elseif (!empty($_REQUEST['move_message'])
-               && $_REQUEST['op'] != 'save'
+               && $_REQUEST['op'] !== 'save'
                && !$xoops->user->isAdmin()
                && $pm_handler->getSavecount() >= $xoops->getModuleConfig('max_save')
     ) {
@@ -68,7 +68,7 @@ if (is_object($pm) && !empty($_POST['action'])) {
                     break;
                 }
                 if (!empty($_REQUEST['delete_message'])) {
-                    $res = $pm_handler->setFromdelete($pm);
+                    $res = $pm_handler->setFromDelete($pm);
                 } elseif (!empty($_REQUEST['move_message'])) {
                     $res = $pm_handler->setFromsave($pm);
                 }
@@ -114,11 +114,11 @@ $total_messages = !empty($_GET['total_messages']) ? (int)($_GET['total_messages'
 $xoops->header('module:pm/pm_readpmsg.tpl');
 
 if (!is_object($pm)) {
-    if ($_REQUEST['op'] == "out") {
+    if ($_REQUEST['op'] === "out") {
         $criteria = new CriteriaCompo(new Criteria('from_delete', 0));
         $criteria->add(new Criteria('from_userid', $xoops->user->getVar('uid')));
         $criteria->add(new Criteria('from_save', 0));
-    } elseif ($_REQUEST['op'] == "save") {
+    } elseif ($_REQUEST['op'] === "save") {
         $crit_to = new CriteriaCompo(new Criteria('to_delete', 0));
         $crit_to->add(new Criteria('to_save', 1));
         $crit_to->add(new Criteria('to_userid', $xoops->user->getVar('uid')));
@@ -148,7 +148,7 @@ if (is_object($pm) && !empty($pm)) {
         $pmform->addElement($reply_button);
     }
     $pmform->addElement(new Xoops\Form\Button('', 'delete_message', XoopsLocale::A_DELETE, 'submit'));
-    $pmform->addElement(new Xoops\Form\Button('', 'move_message', ($_REQUEST['op'] == 'save') ? _PM_UNSAVE : _PM_TOSAVE, 'submit'));
+    $pmform->addElement(new Xoops\Form\Button('', 'move_message', ($_REQUEST['op'] === 'save') ? _PM_UNSAVE : _PM_TOSAVE, 'submit'));
     $pmform->addElement(new Xoops\Form\Button('', 'email_message', _PM_EMAIL, 'submit'));
     $pmform->addElement(new Xoops\Form\Hidden('msg_id', $pm->getVar("msg_id")));
     $pmform->addElement(new Xoops\Form\Hidden('op', $_REQUEST['op']));

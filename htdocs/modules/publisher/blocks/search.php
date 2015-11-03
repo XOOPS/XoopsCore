@@ -51,13 +51,13 @@ function publisher_search_show($options)
     /* type */
     $type_select = "<select name=\"andor\">";
     $type_select .= "<option value=\"OR\"";
-    if ("OR" == $andor) $type_select .= " selected=\"selected\"";
+    if ("OR" === $andor) $type_select .= " selected=\"selected\"";
     $type_select .= ">" . XoopsLocale::ANY_OR . "</option>";
     $type_select .= "<option value=\"AND\"";
-    if ("AND" == $andor) $type_select .= " selected=\"selected\"";
+    if ("AND" === $andor) $type_select .= " selected=\"selected\"";
     $type_select .= ">" . XoopsLocale::ALL . "</option>";
     $type_select .= "<option value=\"EXACT\"";
-    if ("exact" == $andor) $type_select .= " selected=\"selected\"";
+    if ("exact" === $andor) $type_select .= " selected=\"selected\"";
     $type_select .= ">" . XoopsLocale::EXACT_MATCH . "</option>";
     $type_select .= "</select>";
 
@@ -98,16 +98,16 @@ function publisher_search_show($options)
     /* sortby */
     $sortby_select = "<select name=\"sortby\">";
     $sortby_select .= "<option value=\"itemid\"";
-    if ("itemid" == $sortby || empty($sortby)) $sortby_select .= " selected=\"selected\"";
+    if ("itemid" === $sortby || empty($sortby)) $sortby_select .= " selected=\"selected\"";
     $sortby_select .= ">" . XoopsLocale::NONE . "</option>";
     $sortby_select .= "<option value=\"datesub\"";
-    if ("datesub" == $sortby) $sortby_select .= " selected=\"selected\"";
+    if ("datesub" === $sortby) $sortby_select .= " selected=\"selected\"";
     $sortby_select .= ">" . _CO_PUBLISHER_DATESUB . "</option>";
     $sortby_select .= "<option value=\"title\"";
-    if ("title" == $sortby) $sortby_select .= " selected=\"selected\"";
+    if ("title" === $sortby) $sortby_select .= " selected=\"selected\"";
     $sortby_select .= ">" . _CO_PUBLISHER_TITLE . "</option>";
     $sortby_select .= "<option value=\"categoryid\"";
-    if ("categoryid" == $sortby) $sortby_select .= " selected=\"selected\"";
+    if ("categoryid" === $sortby) $sortby_select .= " selected=\"selected\"";
     $sortby_select .= ">" . _CO_PUBLISHER_CATEGORY . "</option>";
     $sortby_select .= "</select>";
 

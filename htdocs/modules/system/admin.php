@@ -59,7 +59,7 @@ if ($system->checkRight()) {
                 } else {
                     $error = true;
                 }
-            } elseif ($fct == 'version') {
+            } elseif ($fct === 'version') {
                 if (XoopsLoad::fileExists($file = $xoops->path('modules/' . $xoopsModule->getVar('dirname', 'n') . '/admin/version/main.php'))) {
                     include_once $file;
                     unset($file);
@@ -79,7 +79,7 @@ if ($system->checkRight()) {
 
 if (false != $error) {
     $op = $system->cleanVars($_REQUEST, 'op', '', 'string');
-    if ($op == 'system_activate') {
+    if ($op === 'system_activate') {
         \Xoops::getInstance()->logger()->quiet();
         $part = $system->cleanVars($_REQUEST, 'type', '', 'string');
         $config_handler = $xoops->getHandlerConfig();

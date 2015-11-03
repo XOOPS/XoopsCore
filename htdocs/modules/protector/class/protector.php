@@ -597,7 +597,7 @@ class Protector
         }
 
         foreach ($_GET as $key => $val) {
-            if (substr($key, -2) == 'id' && !is_array($_GET[$key])) {
+            if (substr($key, -2) === 'id' && !is_array($_GET[$key])) {
                 $newval = preg_replace('/[^0-9a-zA-Z_-]/', '', $val);
                 $_GET[$key] = $HTTP_GET_VARS[$key] = $newval;
                 if ($_REQUEST[$key] == $_GET[$key]) {
@@ -606,7 +606,7 @@ class Protector
             }
         }
         foreach ($_POST as $key => $val) {
-            if (substr($key, -2) == 'id' && !is_array($_POST[$key])) {
+            if (substr($key, -2) === 'id' && !is_array($_POST[$key])) {
                 $newval = preg_replace('/[^0-9a-zA-Z_-]/', '', $val);
                 $_POST[$key] = $HTTP_POST_VARS[$key] = $newval;
                 if ($_REQUEST[$key] == $_POST[$key]) {
@@ -615,7 +615,7 @@ class Protector
             }
         }
         foreach ($_COOKIE as $key => $val) {
-            if (substr($key, -2) == 'id' && !is_array($_COOKIE[$key])) {
+            if (substr($key, -2) === 'id' && !is_array($_COOKIE[$key])) {
                 $newval = preg_replace('/[^0-9a-zA-Z_-]/', '', $val);
                 $_COOKIE[$key] = $HTTP_COOKIE_VARS[$key] = $newval;
                 if ($_REQUEST[$key] == $_COOKIE[$key]) {
@@ -641,12 +641,12 @@ class Protector
             if (is_array($_GET[$key])) {
                 continue;
             }
-            if (substr(trim($val), 0, 3) == '../' || strstr($val, '../../')) {
+            if (substr(trim($val), 0, 3) === '../' || strstr($val, '../../')) {
                 $this->last_error_type = 'DirTraversal';
                 $this->message .= "Directory Traversal '$val' found.\n";
                 $this->output_log($this->last_error_type, 0, false, 64);
                 $sanitized_val = str_replace(chr(0), '', $val);
-                if (substr($sanitized_val, -2) != ' .') {
+                if (substr($sanitized_val, -2) !== ' .') {
                     $sanitized_val .= ' .';
                 }
                 $_GET[$key] = $HTTP_GET_VARS[$key] = $sanitized_val;
@@ -756,10 +756,10 @@ class Protector
             }
             if (!empty($_file['name']) && is_string($_file['name'])) {
                 $ext = strtolower(substr(strrchr($_file['name'], '.'), 1));
-                if ($ext == 'jpeg') {
+                if ($ext === 'jpeg') {
                     $ext = 'jpg';
                 } else {
-                    if ($ext == 'tiff') {
+                    if ($ext === 'tiff') {
                         $ext = 'tif';
                     }
                 }
@@ -871,7 +871,7 @@ class Protector
             return false;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return false;
         }
 
@@ -1089,7 +1089,7 @@ class Protector
 
         $victim_uname = empty($_COOKIE['autologin_uname']) ? $_POST['uname'] : $_COOKIE['autologin_uname'];
         // some UA send 'deleted' as a value of the deleted cookie.
-        if ($victim_uname == 'deleted') {
+        if ($victim_uname === 'deleted') {
             return;
         }
         $mal4sql = addslashes("BRUTE FORCE: $victim_uname");
@@ -1176,7 +1176,7 @@ class Protector
 
             // zx 2005/1/5 disable xmlrpc.php in root
             if ( /* ! stristr( $_SERVER['SCRIPT_NAME'] , 'modules' ) && */
-                substr(@$_SERVER['SCRIPT_NAME'], -10) == 'xmlrpc.php'
+                substr(@$_SERVER['SCRIPT_NAME'], -10) === 'xmlrpc.php'
             ) {
                 $this->output_log('xmlrpc', 0, true, 1);
                 exit;
@@ -1197,26 +1197,26 @@ class Protector
             // root controllers
             if (!stristr(@$_SERVER['SCRIPT_NAME'], 'modules')) {
                 // zx 2004/12/13 misc.php debug (file check)
-                if (substr(@$_SERVER['SCRIPT_NAME'], -8) == 'misc.php' && ($_GET['type'] == 'debug' || $_POST['type'] == 'debug') && !preg_match('/^dummy_[0-9]+\.html$/', $_GET['file'])) {
+                if (substr(@$_SERVER['SCRIPT_NAME'], -8) === 'misc.php' && ($_GET['type'] === 'debug' || $_POST['type'] === 'debug') && !preg_match('/^dummy_[0-9]+\.html$/', $_GET['file'])) {
                     $this->output_log('misc debug');
                     exit;
                 }
 
                 // zx 2004/12/13 misc.php smilies
-                if (substr(@$_SERVER['SCRIPT_NAME'], -8) == 'misc.php' && ($_GET['type'] == 'smilies' || $_POST['type'] == 'smilies') && !preg_match('/^[0-9a-z_]*$/i', $_GET['target'])) {
+                if (substr(@$_SERVER['SCRIPT_NAME'], -8) === 'misc.php' && ($_GET['type'] === 'smilies' || $_POST['type'] === 'smilies') && !preg_match('/^[0-9a-z_]*$/i', $_GET['target'])) {
                     $this->output_log('misc smilies');
                     exit;
                 }
 
                 // zx 2005/1/5 edituser.php avatarchoose
-                if (substr(@$_SERVER['SCRIPT_NAME'], -12) == 'edituser.php' && $_POST['op'] == 'avatarchoose' && strstr($_POST['user_avatar'], '..')) {
+                if (substr(@$_SERVER['SCRIPT_NAME'], -12) === 'edituser.php' && $_POST['op'] === 'avatarchoose' && strstr($_POST['user_avatar'], '..')) {
                     $this->output_log('edituser avatarchoose');
                     exit;
                 }
             }
 
             // zx 2005/1/4 findusers
-            if (substr(@$_SERVER['SCRIPT_NAME'], -24) == 'modules/system/admin.php' && ($_GET['fct'] == 'findusers' || $_POST['fct'] == 'findusers')) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -24) === 'modules/system/admin.php' && ($_GET['fct'] === 'findusers' || $_POST['fct'] === 'findusers')) {
                 foreach ($_POST as $key => $val) {
                     if (strstr($key, "'") || strstr($val, "'")) {
                         $this->output_log('findusers');
@@ -1227,11 +1227,11 @@ class Protector
 
             // preview CSRF zx 2004/12/14
             // news submit.php
-            if (substr(@$_SERVER['SCRIPT_NAME'], -23) == 'modules/news/submit.php' && isset($_POST['preview']) && strpos(@$_SERVER['HTTP_REFERER'], \XoopsBaseConfig::get('url') . '/modules/news/submit.php') !== 0) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -23) === 'modules/news/submit.php' && isset($_POST['preview']) && strpos(@$_SERVER['HTTP_REFERER'], \XoopsBaseConfig::get('url') . '/modules/news/submit.php') !== 0) {
                 $HTTP_POST_VARS['nohtml'] = $_POST['nohtml'] = 1;
             }
             // news admin/index.php
-            if (substr(@$_SERVER['SCRIPT_NAME'], -28) == 'modules/news/admin/index.php' && ($_POST['op'] == 'preview' || $_GET['op'] == 'preview') && strpos(@$_SERVER['HTTP_REFERER'], \XoopsBaseConfig::get('url') . '/modules/news/admin/index.php') !== 0) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -28) === 'modules/news/admin/index.php' && ($_POST['op'] === 'preview' || $_GET['op'] === 'preview') && strpos(@$_SERVER['HTTP_REFERER'], \XoopsBaseConfig::get('url') . '/modules/news/admin/index.php') !== 0) {
                 $HTTP_POST_VARS['nohtml'] = $_POST['nohtml'] = 1;
             }
             // comment comment_post.php
@@ -1239,12 +1239,12 @@ class Protector
                 $HTTP_POST_VARS['dohtml'] = $_POST['dohtml'] = 0;
             }
             // disable preview of system's blocksadmin
-            if (substr(@$_SERVER['SCRIPT_NAME'], -24) == 'modules/system/admin.php' && ($_GET['fct'] == 'blocksadmin' || $_POST['fct'] == 'blocksadmin') && isset($_POST['previewblock']) /* && strpos( $_SERVER['HTTP_REFERER'] , \XoopsBaseConfig::get('url').'/modules/system/admin.php' ) !== 0 */) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -24) === 'modules/system/admin.php' && ($_GET['fct'] === 'blocksadmin' || $_POST['fct'] === 'blocksadmin') && isset($_POST['previewblock']) /* && strpos( $_SERVER['HTTP_REFERER'] , \XoopsBaseConfig::get('url').'/modules/system/admin.php' ) !== 0 */) {
                 die("Danger! don't use this preview. Use 'altsys module' instead.(by Protector)");
             }
             // tpl preview
-            if (substr(@$_SERVER['SCRIPT_NAME'], -24) == 'modules/system/admin.php' && ($_GET['fct'] == 'tplsets' || $_POST['fct'] == 'tplsets')) {
-                if ($_POST['op'] == 'previewpopup' || $_GET['op'] == 'previewpopup' || isset($_POST['previewtpl'])) {
+            if (substr(@$_SERVER['SCRIPT_NAME'], -24) === 'modules/system/admin.php' && ($_GET['fct'] === 'tplsets' || $_POST['fct'] === 'tplsets')) {
+                if ($_POST['op'] === 'previewpopup' || $_GET['op'] === 'previewpopup' || isset($_POST['previewtpl'])) {
                     die("Danger! don't use this preview.(by Protector)");
                 }
             }

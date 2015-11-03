@@ -85,7 +85,7 @@ class XoopsThemeBlocksPlugin extends XoopsThemePlugin
 
         if ($xoops->isModule()) {
             $mid = $xoops->module->getVar('mid');
-            $isStart = (substr($_SERVER['PHP_SELF'], -9) == 'index.php' && $xoops->getConfig('startpage') == $xoops->module->getVar('dirname') && empty($_SERVER['QUERY_STRING']));
+            $isStart = (substr($_SERVER['PHP_SELF'], -9) === 'index.php' && $xoops->getConfig('startpage') == $xoops->module->getVar('dirname') && empty($_SERVER['QUERY_STRING']));
         } else {
             $mid = 0;
             $isStart = $xoops->getOption('show_cblock');

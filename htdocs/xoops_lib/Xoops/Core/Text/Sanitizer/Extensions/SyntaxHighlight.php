@@ -51,7 +51,7 @@ class SyntaxHighlight extends FilterAbstract
         }
         $source = $this->ts->undoHtmlSpecialChars($source);
         $source = stripslashes($source);
-        if ($config['highlighter'] == 'geshi') {
+        if ($config['highlighter'] === 'geshi') {
             $language = str_replace('=', '', $language);
             $language = ($language) ? $language : $config['language'];
             $language = strtolower($language);
@@ -74,7 +74,7 @@ class SyntaxHighlight extends FilterAbstract
     {
         $text = trim($text);
         $addedOpenTag = false;
-        if (!strpos($text, "<?php") and (substr($text, 0, 5) != "<?php")) {
+        if (!strpos($text, "<?php") and (substr($text, 0, 5) !== "<?php")) {
             $text = "<?php " . $text;
             $addedOpenTag = true;
         }

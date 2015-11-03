@@ -29,11 +29,11 @@ $scriptname = "smartsection.php";
 
 $op = 'start';
 
-if (isset($_POST['op']) && ($_POST['op'] == 'go')) {
+if (isset($_POST['op']) && ($_POST['op'] === 'go')) {
     $op = $_POST['op'];
 }
 
-if ($op == 'start') {
+if ($op === 'start') {
 
     PublisherUtils::cpHeader();
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
@@ -95,7 +95,7 @@ if ($op == 'start') {
     $xoops->footer();
 }
 
-if ($op == 'go') {
+if ($op === 'go') {
     PublisherUtils::cpHeader();
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
     PublisherUtils::openCollapsableBar('newsimportgo', 'newsimportgoicon', sprintf(_AM_PUBLISHER_IMPORT_FROM, $importFromModuleName), _AM_PUBLISHER_IMPORT_RESULT);
@@ -131,7 +131,7 @@ if ($op == 'go') {
         $categoryObj->setVar('categoryid', 0);
 
         // Copy category image
-        if (($arrCat['image'] != 'blank.gif') && ($arrCat['image'] != '')) {
+        if (($arrCat['image'] !== 'blank.gif') && ($arrCat['image'] != '')) {
             copy(\XoopsBaseConfig::get('root-path') . "/uploads/smartsection/images/category/" . $arrCat['image'], \XoopsBaseConfig::get('root-path') . "/uploads/publisher/images/category/" . $arrCat['image']);
         }
 

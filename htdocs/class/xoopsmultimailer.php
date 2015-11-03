@@ -120,7 +120,7 @@ class XoopsMultiMailer extends PHPMailer
             $this->From = $xoops->getConfig('adminmail');
         }
         $this->Sender = $this->From;
-        if ('smtpauth' == $xoops->getConfig('mailmethod')) {
+        if ('smtpauth' === $xoops->getConfig('mailmethod')) {
             $this->Mailer = 'smtp';
             $this->SMTPAuth = true;
             $this->Username = $xoops->getConfig('smtpuser');

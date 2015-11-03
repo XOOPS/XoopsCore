@@ -321,7 +321,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
     {
         $criteria = new CriteriaCompo();
         if (isset($avatar_type)) {
-            $avatar_type = ($avatar_type == 'C') ? 'C' : 'S';
+            $avatar_type = ($avatar_type === 'C') ? 'C' : 'S';
             $criteria->add(new Criteria('avatar_type', $avatar_type));
         }
         if (isset($avatar_display)) {

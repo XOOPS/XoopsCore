@@ -52,7 +52,7 @@ function createConfigform($config)
         switch ($config[$i]->getVar('conf_formtype')) {
 
             case 'textarea':
-                if ($config[$i]->getVar('conf_valuetype') == 'array') {
+                if ($config[$i]->getVar('conf_valuetype') === 'array') {
                     // this is exceptional.. only when value type is array need a smarter way for this
                     $ele = ($config[$i]->getVar('conf_value') != '')
                         ? new Xoops\Form\TextArea($title, $config[$i]->getVar('conf_name'), installHtmlSpecialCharacters(implode('|', $config[$i]->getConfValueForOutput())), 5, 50)
@@ -90,7 +90,7 @@ function createConfigform($config)
 
             case 'theme':
             case 'theme_multi':
-                $ele = ($config[$i]->getVar('conf_formtype') != 'theme_multi')
+                $ele = ($config[$i]->getVar('conf_formtype') !== 'theme_multi')
                     ? new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput())
                     : new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
                 $dirlist = XoopsLists::getThemesList();

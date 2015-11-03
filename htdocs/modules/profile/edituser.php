@@ -33,7 +33,7 @@ $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'editprofile';
 $xoops->getConfigs();
 
-if ($op == 'save') {
+if ($op === 'save') {
     if (!$xoops->security()->check()) {
         $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
         exit();
@@ -89,7 +89,7 @@ if ($op == 'save') {
     }
 }
 
-if ($op == 'editprofile') {
+if ($op === 'editprofile') {
     $xoops->header('module:profile/profile_editprofile.tpl');
     include_once __DIR__ . '/include/forms.php';
     $form = profile_getUserForm($xoops->user);

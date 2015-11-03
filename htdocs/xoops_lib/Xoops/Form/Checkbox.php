@@ -90,7 +90,7 @@ class Checkbox extends OptionElement
 
         $ele_name = $this->getName();
         $ele_id = $ele_name;
-        if (count($ele_options) > 1 && substr($ele_name, -2, 2) != '[]') {
+        if (count($ele_options) > 1 && substr($ele_name, -2, 2) !== '[]') {
             $ele_name = $ele_name . '[]';
             $this->setName($ele_name);
             // If required is set, all checkboxes will be required by the browser,

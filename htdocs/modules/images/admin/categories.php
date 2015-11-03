@@ -114,7 +114,7 @@ switch ($op) {
                     $images = $helper->getHandlerImages()->getByCategory($obj->getVar('imgcat_id'));
                     foreach ($images as $image) {
                         if ($helper->getHandlerImages()->delete($image)) {
-                            if ($obj->getVar('imgcat_storetype') == 'db') {
+                            if ($obj->getVar('imgcat_storetype') === 'db') {
                                 $helper->getHandlerImagesBody()->delete($helper->getHandlerImagesBody()->get($image->getVar('image_id')));
                             } else {
                                 unlink(\XoopsBaseConfig::get('uploads-path') . '/' . $image->getVar('image_name'));

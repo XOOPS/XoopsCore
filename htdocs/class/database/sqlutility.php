@@ -56,14 +56,14 @@ class SqlUtility
                         $ret[] = $sql;
                         return true;
                     } else {
-                        if ($string_start == '`' || $sql[$i - 1] != '\\') {
+                        if ($string_start === '`' || $sql[$i - 1] !== '\\') {
                             $string_start = '';
                             $in_string = false;
                             break;
                         } else {
                             $j = 2;
                             $escaped_backslash = false;
-                            while ($i - $j > 0 && $sql[$i - $j] == '\\') {
+                            while ($i - $j > 0 && $sql[$i - $j] === '\\') {
                                 $escaped_backslash = !$escaped_backslash;
                                 ++$j;
                             }
@@ -78,7 +78,7 @@ class SqlUtility
                     }
                 }
             } else {
-                if ($char == ';') {
+                if ($char === ';') {
                     $ret[] = substr($sql, 0, $i);
                     $sql = ltrim(substr($sql, min($i + 1, $sql_len)));
                     $sql_len = strlen($sql);
@@ -88,12 +88,12 @@ class SqlUtility
                         return true;
                     }
                 } else {
-                    if (($char == '"') || ($char == '\'') || ($char == '`')) {
+                    if (($char === '"') || ($char === '\'') || ($char === '`')) {
                         $in_string = true;
                         $string_start = $char;
                     } else {
-                        if ($char == '#' || ($char == ' ' && $i > 1 && $sql[$i - 2] . $sql[$i - 1] == '--')) {
-                            $start_of_comment = (($sql[$i] == '#') ? $i : $i - 2);
+                        if ($char === '#' || ($char === ' ' && $i > 1 && $sql[$i - 2] . $sql[$i - 1] == '--')) {
+                            $start_of_comment = (($sql[$i] === '#') ? $i : $i - 2);
                             $end_of_comment = (strpos(' ' . $sql, "\012", $i + 2)) ? strpos(' ' . $sql, "\012", $i + 2)
                                 : strpos(' ' . $sql, "\015", $i + 2);
                             if (!$end_of_comment) {

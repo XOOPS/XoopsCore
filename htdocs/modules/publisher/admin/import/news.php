@@ -29,11 +29,11 @@ $scriptname = "news.php";
 
 $op = 'start';
 
-if (isset($_POST['op']) && ($_POST['op'] == 'go')) {
+if (isset($_POST['op']) && ($_POST['op'] === 'go')) {
     $op = $_POST['op'];
 }
 
-if ($op == 'start') {
+if ($op === 'start') {
 
     PublisherUtils::cpHeader();
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
@@ -95,7 +95,7 @@ if ($op == 'start') {
     $xoops->footer();
 }
 
-if ($op == 'go') {
+if ($op === 'go') {
     PublisherUtils::cpHeader();
     //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
     PublisherUtils::openCollapsableBar('newsimportgo', 'newsimportgoicon', sprintf(_AM_PUBLISHER_IMPORT_FROM, $importFromModuleName), _AM_PUBLISHER_IMPORT_RESULT);
@@ -133,7 +133,7 @@ if ($op == 'go') {
         $categoryObj->setVar('description', $arrCat['topic_description']);
 
         // Category image
-        if (($arrCat['topic_imgurl'] != 'blank.gif') && ($arrCat['topic_imgurl'] != '')) {
+        if (($arrCat['topic_imgurl'] !== 'blank.gif') && ($arrCat['topic_imgurl'] != '')) {
             if (copy(\XoopsBaseConfig::get('root-path') . "/modules/news/images/topics/" . $arrCat['topic_imgurl'], \XoopsBaseConfig::get('root-path') . "/uploads/publisher/images/category/" . $arrCat['topic_imgurl'])) {
                 $categoryObj->setVar('image', $arrCat['topic_imgurl']);
             }

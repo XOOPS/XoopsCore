@@ -69,7 +69,7 @@ class ProfileField extends XoopsObject
      */
     public function setVar($key, $value)
     {
-        if ($key == 'field_options' && is_array($value)) {
+        if ($key === 'field_options' && is_array($value)) {
             foreach (array_keys($value) as $idx) {
                 $value[$idx] = base64_encode($value[$idx]);
             }
@@ -85,7 +85,7 @@ class ProfileField extends XoopsObject
     public function getVar($key, $format = 's')
     {
         $value = parent::getVar($key, $format);
-        if ($key == 'field_options' && !empty($value)) {
+        if ($key === 'field_options' && !empty($value)) {
             foreach (array_keys($value) as $idx) {
                 $value[$idx] = base64_decode($value[$idx]);
             }
@@ -218,7 +218,7 @@ class ProfileField extends XoopsObject
                 $handle = opendir(\XoopsBaseConfig::get('themes-path') . '/');
                 $dirlist = array();
                 while (false !== ($file = readdir($handle))) {
-                    if (is_dir(\XoopsBaseConfig::get('themes-path') . '/' . $file) && !preg_match("/^[.]{1,2}$/", $file) && strtolower($file) != 'cvs') {
+                    if (is_dir(\XoopsBaseConfig::get('themes-path') . '/' . $file) && !preg_match("/^[.]{1,2}$/", $file) && strtolower($file) !== 'cvs') {
                         if (XoopsLoad::fileExists(\XoopsBaseConfig::get('themes-path') . "/" . $file . "/theme.html") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
                             $dirlist[$file] = $file;
                         }
@@ -256,7 +256,7 @@ class ProfileField extends XoopsObject
         switch ($this->getVar('field_type')) {
             default:
             case "textbox":
-                if ($this->getVar('field_name') == 'url' && $value != '') {
+                if ($this->getVar('field_name') === 'url' && $value != '') {
                     return '<a href="' . $xoops->formatURL($value) . '" rel="external">' . $value . '</a>';
                 } else {
                     return $value;

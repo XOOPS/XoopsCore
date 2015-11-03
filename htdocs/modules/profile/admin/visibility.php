@@ -52,7 +52,7 @@ if (isset($_REQUEST['submit'])) {
     $visibility_handler->insert($visibility, true);
     $xoops->redirect("visibility.php", 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_PROF_VISIBLE));
 }
-if ($op == "del") {
+if ($op === "del") {
     $criteria = new CriteriaCompo(new Criteria('field_id', (int)($_REQUEST['field_id'])));
     $criteria->add(new Criteria('user_group', (int)($_REQUEST['ug'])));
     $criteria->add(new Criteria('profile_group', (int)($_REQUEST['pg'])));

@@ -39,7 +39,7 @@ $clean_input = XoopsFilterInput::gather(
 
 $op = $clean_input['op'];
 $mod_dirname = $clean_input['mod_dirname'];
-if ($op != 'showschema' || empty($mod_dirname)) {
+if ($op !== 'showschema' || empty($mod_dirname)) {
     $op = 'selectmodule';
 }
 
@@ -47,7 +47,7 @@ if ($op != 'showschema' || empty($mod_dirname)) {
 $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('schematool.php');
 
-if ($op == 'showschema') {
+if ($op === 'showschema') {
     $helper = $xoops->getModuleHelper($mod_dirname);
     $mod_to_use = $helper->getModule();
     $mod_to_use->loadInfo($mod_dirname, false);

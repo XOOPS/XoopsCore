@@ -203,7 +203,7 @@ class Assets
             $assets = array($assets); // just a single path name
         }
 
-        if ($filters=='default') {
+        if ($filters==='default') {
             if (isset($this->default_filters[$type])) {
                 $filters = $this->default_filters[$type];
             } else {

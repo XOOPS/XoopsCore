@@ -113,7 +113,7 @@ class Connection extends \Doctrine\DBAL\Connection
         Configuration $config = null,
         EventManager $eventManager = null
     ) {
-        if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] != 'GET') || (php_sapi_name() == 'cli')) {
+        if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] !== 'GET') || (php_sapi_name() === 'cli')) {
             self::setSafe(true);
         } else {
             self::setSafe(false);
@@ -328,7 +328,7 @@ class Connection extends \Doctrine\DBAL\Connection
         $xoopsPreload = \Xoops::getInstance()->events();
         if (!self::getSafe() && !self::getForce()) {
             $sql = ltrim(func_get_arg(0));
-            if (!self::getSafe() && strtolower(substr($sql, 0, 6))!= 'select') {
+            if (!self::getSafe() && strtolower(substr($sql, 0, 6))!== 'select') {
                 // $xoopsPreload->triggerEvent('core.database.query.failure', (array('Not safe:')));
                 return null;
             }

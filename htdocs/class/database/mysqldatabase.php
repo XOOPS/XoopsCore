@@ -88,7 +88,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
     {
         $this->connect = (is_object($this->conn));
         $this->selectdb = $selectdb;
-        $this->allowWebChanges = ($_SERVER['REQUEST_METHOD'] != 'GET');
+        $this->allowWebChanges = ($_SERVER['REQUEST_METHOD'] !== 'GET');
         return $this->connect;
     }
 
@@ -452,19 +452,19 @@ class XoopsMySQLDatabase extends XoopsDatabase
             $t = $temp['native_type'];
 
             $temp = (string)(
-                ((($t == 'STRING') || ($t == 'VAR_STRING') ) ? 'string' : '' ) .
+                ((($t === 'STRING') || ($t === 'VAR_STRING') ) ? 'string' : '' ) .
                 ( (in_array($t, array('TINY', 'SHORT', 'LONG', 'LONGLONG', 'INT24'))) ? 'int' : '' ) .
                 ( (in_array($t, array('FLOAT', 'DOUBLE', 'DECIMAL', 'NEWDECIMAL'))) ? 'real' : '' ) .
-                ( ($t == 'TIMESTAMP') ? 'timestamp' : '' ) .
-                ( ($t == 'YEAR') ? 'year' : '') .
-                ( (($t == 'DATE') || ($t == 'NEWDATE') ) ? 'date' : '' ) .
-                ( ($t == 'TIME') ? 'time' : '' ) .
-                ( ($t == 'SET') ? 'set' : '' ) .
-                ( ($t == 'ENUM') ? 'enum' : '' ) .
-                ( ($t == 'GEOMETRY') ? 'geometry' : '' ) .
-                ( ($t == 'DATETIME') ? 'datetime' : '' ) .
+                ( ($t === 'TIMESTAMP') ? 'timestamp' : '' ) .
+                ( ($t === 'YEAR') ? 'year' : '') .
+                ( (($t === 'DATE') || ($t === 'NEWDATE') ) ? 'date' : '' ) .
+                ( ($t === 'TIME') ? 'time' : '' ) .
+                ( ($t === 'SET') ? 'set' : '' ) .
+                ( ($t === 'ENUM') ? 'enum' : '' ) .
+                ( ($t === 'GEOMETRY') ? 'geometry' : '' ) .
+                ( ($t === 'DATETIME') ? 'datetime' : '' ) .
                 ( (in_array($t, array('TINY_BLOB', 'BLOB', 'MEDIUM_BLOB', 'LONG_BLOB' ))) ? 'blob' : '' ) .
-                ( ($t == 'NULL') ? 'null' : '' )
+                ( ($t === 'NULL') ? 'null' : '' )
             );
             return $temp;
         } catch (PDOException $e) {

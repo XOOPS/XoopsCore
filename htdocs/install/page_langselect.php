@@ -32,7 +32,7 @@ $wizard = $_SESSION['wizard'];
 $_SESSION['settings'] = array();
 
 setcookie('xo_install_lang', 'en_US', null, null, null);
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['lang'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_REQUEST['lang'])) {
     $lang = $_REQUEST['lang'];
     setcookie('xo_install_lang', $lang, null, null, null);
 

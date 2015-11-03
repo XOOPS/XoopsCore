@@ -632,7 +632,7 @@ switch ($op) {
 
             $value = Request::getWord('user_mailok', '');
             if (!empty($value) && ($value !== 'both')) {
-                $ok = ($value == 'mailok') ? 1 : 0;
+                $ok = ($value === 'mailok') ? 1 : 0;
                 $criteria->add(new Criteria('user_mailok', $ok));
                 $requete_pagenav .= '&amp;user_mailok=' . $value;
                 $requete_search .= 'accept email : ' . $value . '<br />';
@@ -640,9 +640,9 @@ switch ($op) {
 
             $user_type = Request::getWord('user_type', '');
             if (!empty($user_type) && ($user_type !== 'both')) {
-                if ($user_type == 'inactv') {
+                if ($user_type === 'inactv') {
                     $criteria->add(new Criteria('level', 0, '='));
-                } elseif ($user_type == "actv") {
+                } elseif ($user_type === "actv") {
                     $criteria->add(new Criteria('level', 0, '>'));
                 }
                 $requete_search .= 'actif ou inactif : ' . $user_type . '<br />';
@@ -731,8 +731,8 @@ switch ($op) {
             $form .= '</select>&nbsp;
                 <select name="user_type">
                     <option value="" ' . ($user_type == '' ? ' selected="selected"' : '') . '>' . XoopsLocale::ALL_USERS . '</option>
-                    <option value="actv" ' . ($user_type == 'actv' ? ' selected="selected"' : '') . '>' . SystemLocale::ONLY_ACTIVE_USERS . '</option>
-                    <option value="inactv" ' . ($user_type == 'inactv' ? ' selected="selected"' : '') . '>' . SystemLocale::ONLY_INACTIVE_USERS . '</option>
+                    <option value="actv" ' . ($user_type === 'actv' ? ' selected="selected"' : '') . '>' . SystemLocale::ONLY_ACTIVE_USERS . '</option>
+                    <option value="inactv" ' . ($user_type === 'inactv' ? ' selected="selected"' : '') . '>' . SystemLocale::ONLY_INACTIVE_USERS . '</option>
                 </select>&nbsp;
                 <select name="user_limit">
                     <option value="20" ' . ($user_limit == 20 ? ' selected="selected"' : '') . '>20</option>

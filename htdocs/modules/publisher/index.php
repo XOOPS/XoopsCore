@@ -76,7 +76,7 @@ $lastitemsize = (int)($publisher->getConfig('idxcat_last_item_size'));
 
 $idxcat_show_subcats = $publisher->getConfig('idxcat_show_subcats');
 // Hide sub categories in main page only - hacked by Mowaffak
-if ($idxcat_show_subcats == 'nomain') {
+if ($idxcat_show_subcats === 'nomain') {
     $idxcat_show_subcats = 'no';
 }
 
@@ -86,7 +86,7 @@ foreach ($categoriesObj as $cat_id => $category) {
 
     $total = 0;
     // Do we display sub categories ?
-    if ($idxcat_show_subcats != 'no') {
+    if ($idxcat_show_subcats !== 'no') {
         // if this category has subcats
         if (isset($subcats[$cat_id])) {
             /* @var $subcat PublisherCategory */
@@ -94,7 +94,7 @@ foreach ($categoriesObj as $cat_id => $category) {
                 // Get the items count of this very category
                 $subcat_total_items = isset($totalItems[$key]) ? $totalItems[$key] : 0;
                 // Do we display empty sub-cats ?
-                if (($subcat_total_items > 0) || ($publisher->getConfig('idxcat_show_subcats') == 'all')) {
+                if (($subcat_total_items > 0) || ($publisher->getConfig('idxcat_show_subcats') === 'all')) {
                     $subcat_id = $subcat->getVar('categoryid');
                     // if we retrieved the last item object for this category
                     if (isset($last_itemObj[$subcat_id])) {

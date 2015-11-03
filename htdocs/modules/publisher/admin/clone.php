@@ -25,7 +25,7 @@ PublisherUtils::cpHeader();
 //publisher_adminMenu(-1, _AM_PUBLISHER_CLONE);
 PublisherUtils::openCollapsableBar('clone', 'cloneicon', _AM_PUBLISHER_CLONE, _AM_PUBLISHER_CLONE_DSC);
 
-if (@$_POST['op'] == 'submit') {
+if (@$_POST['op'] === 'submit') {
 
     if (!$xoops->security()->check()) {
         $xoops->redirect('clone.php', 3, implode('<br />', $xoops->security()->getErrors()));
@@ -106,7 +106,7 @@ function publisher_cloneFileFolder($path)
         // check all files in dir, and process it
         if ($handle = opendir($path)) {
             while ($file = readdir($handle)) {
-                if ($file != '.' && $file != '..' && $file != '.svn') {
+                if ($file !== '.' && $file !== '..' && $file !== '.svn') {
                     publisher_cloneFileFolder("{$path}/{$file}");
                 }
             }

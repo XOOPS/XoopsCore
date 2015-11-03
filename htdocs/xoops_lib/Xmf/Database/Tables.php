@@ -440,14 +440,14 @@ class Tables
             if (isset($tableDef['create']) && $tableDef['create']) {
                 // strip everything but the PRIMARY from definition
                 foreach ($tableDef['keys'] as $keyName => $key) {
-                    if ($keyName!='PRIMARY') {
+                    if ($keyName!=='PRIMARY') {
                         unset($tableDef['keys'][$keyName]);
                     }
                 }
             } else {
                 // build drops to strip everything but the PRIMARY
                 foreach ($tableDef['keys'] as $keyName => $key) {
-                    if ($keyName!='PRIMARY') {
+                    if ($keyName!=='PRIMARY') {
                         $this->queue[] = "ALTER TABLE `{$tableDef['name']}`"
                             . " DROP INDEX {$keyName}";
                     }
@@ -741,7 +741,7 @@ class Tables
             $keySql='';
             foreach ($tableDef['keys'] as $keyName => $key) {
                 $comma = empty($keySql)?'  ':', ';
-                if ($keyName=='PRIMARY') {
+                if ($keyName==='PRIMARY') {
                     $keySql .= "  {$comma}PRIMARY KEY ({$key['columns']})\n";
                 } else {
                     $unique=$key['unique']?'UNIQUE ':'';
@@ -837,7 +837,7 @@ class Tables
 
         while ($column=$this->fetch($result)) {
             $attributes = ' ' . $column['COLUMN_TYPE'] . ' '
-                . (($column['IS_NULLABLE'] == 'NO') ? ' NOT NULL ' : '')
+                . (($column['IS_NULLABLE'] === 'NO') ? ' NOT NULL ' : '')
                 . (($column['COLUMN_DEFAULT'] === null) ? '' :
                         " DEFAULT '". $column['COLUMN_DEFAULT'] . "' ")
                 . $column['EXTRA'];

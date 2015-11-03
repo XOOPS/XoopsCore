@@ -458,7 +458,7 @@ class XoopsTheme
      */
     public function checkCache()
     {
-        if ($_SERVER['REQUEST_METHOD'] != 'POST' && $this->contentCacheLifetime) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $this->contentCacheLifetime) {
             $template = $this->contentTemplate ? $this->contentTemplate : 'module:system/system_dummy.tpl';
             $this->template->caching = 2;
             $this->template->cache_lifetime = $this->contentCacheLifetime;
@@ -992,7 +992,7 @@ class XoopsTheme
     {
         $str = '';
         foreach ($coll as $name => $val) {
-            if ($name != '_') {
+            if ($name !== '_') {
                 $str .= ' ' . $name . '="' . htmlspecialchars($val, ENT_QUOTES) . '"';
             }
         }
@@ -1008,7 +1008,7 @@ class XoopsTheme
      */
     public function resourcePath($path)
     {
-        if (substr($path, 0, 1) == '/') {
+        if (substr($path, 0, 1) === '/') {
             $path = substr($path, 1);
         }
         $xoops_root_path = \XoopsBaseConfig::get('root-path');

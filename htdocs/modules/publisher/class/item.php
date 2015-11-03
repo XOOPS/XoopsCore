@@ -765,7 +765,7 @@ class PublisherItem extends XoopsObject
     public function highlight($content, $keywords)
     {
         $color = $this->publisher->getConfig('format_highlight_color');
-        if (substr($color, 0, 1) != '#') {
+        if (substr($color, 0, 1) !== '#') {
             $color = '#' . $color;
         }
         $pre = '<span style="font-weight: bolder; background-color: ' . $color . ';">';
@@ -795,7 +795,7 @@ class PublisherItem extends XoopsObject
             return $str;
         }
         // no action, if not Japanese
-        if ($xoopsConfig['language'] != 'japanese') {
+        if ($xoopsConfig['language'] !== 'japanese') {
             return $str;
         }
         // presume OS Browser
@@ -809,7 +809,7 @@ class PublisherItem extends XoopsObject
             $browser = 'msie';
         }
         // if msie
-        if (($os == 'win') && ($browser == 'msie')) {
+        if (($os === 'win') && ($browser === 'msie')) {
             // if multibyte
             if (function_exists('mb_convert_encoding')) {
                 $str = mb_convert_encoding($str, 'SJIS', 'EUC-JP');
@@ -1083,9 +1083,9 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
 
         /* @var $theObject PublisherItem */
         foreach ($theObjects as $theObject) {
-            if ($id_key == 'none') {
+            if ($id_key === 'none') {
                 $ret[] = $theObject;
-            } elseif ($id_key == 'itemid') {
+            } elseif ($id_key === 'itemid') {
                 $ret[$theObject->getVar('itemid')] = $theObject;
             } else {
                 $ret[$theObject->getVar($id_key)][$theObject->getVar('itemid')] = $theObject;
@@ -1396,7 +1396,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
                 $notNullFields = (array) $notNullFields;
             }
             foreach ($notNullFields as $v) {
-                if ($whereMode == 'AND') {
+                if ($whereMode === 'AND') {
                     $qb ->andWhere($eb->isNotNull($v, ''))
                         ->andWhere($eb->neq($v, "''"));
                 } else {
@@ -1508,7 +1508,7 @@ class PublisherItemHandler extends XoopsPersistableObjectHandler
         }
         $criteria->setSort($sortby);
         $order = 'ASC';
-        if ($sortby == "datesub") {
+        if ($sortby === "datesub") {
             $order = 'DESC';
         }
         $criteria->setOrder($order);

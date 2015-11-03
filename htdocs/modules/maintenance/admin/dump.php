@@ -44,7 +44,7 @@ switch ($op) {
         $count = 0;
         foreach ($files as $filename_path) {
             $filename = basename(strtolower($filename_path));
-            if ($filename != 'index.html') {
+            if ($filename !== 'index.html') {
                 $file_arr[$count]['name'] = $filename;
                 $stat = stat($filename_path);
                 $file_arr[$count]['size'] = number_format($stat['size']/1024);
@@ -55,7 +55,7 @@ switch ($op) {
         if (isset($file_arr)) {
             $xoops->tpl()->assign('file_arr', array_reverse($file_arr));
         }
-        if ($count == 0 && $op == 'list') {
+        if ($count == 0 && $op === 'list') {
             $form = $xoops->getModuleForm(null, 'maintenance');
             $form->getDump();
             $form->display();
@@ -151,7 +151,7 @@ switch ($op) {
         $files = glob(\XoopsBaseConfig::get('root-path') . '/modules/maintenance/dump/*.*');
         $count = 0;
         foreach ($files as $filename_path) {
-            if (basename(strtolower($filename_path)) != 'index.html') {
+            if (basename(strtolower($filename_path)) !== 'index.html') {
                 unlink($filename_path);
             }
         }

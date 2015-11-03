@@ -48,7 +48,7 @@ switch ($op) {
         $display_criteria = 1;
         $form = new Xoops\Form\ThemeForm(_AM_MAILUSERS_LIST, "mailusers", "send_mails.php", 'post', true);
         //----------------------------------------
-        if (!empty($memberslist_id) && (Request::getMethod()=='POST')) {
+        if (!empty($memberslist_id) && (Request::getMethod()==='POST')) {
             $user_count = count($memberslist_id);
             $display_names = "";
             for ($i = 0; $i < $user_count; ++$i) {

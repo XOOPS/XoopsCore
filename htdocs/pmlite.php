@@ -33,7 +33,7 @@ $sendmod = !empty($_POST['sendmod']) ? 1 : 0; // send from other modules with po
 $to_userid = isset($_GET['to_userid']) ? (int)($_GET['to_userid']) : 0;
 $msg_id = isset($_GET['msg_id']) ? (int)($_GET['msg_id']) : 0;
 
-if (empty($_GET['refresh']) && isset($_POST['op']) && $_POST['op'] != "submit") {
+if (empty($_GET['refresh']) && isset($_POST['op']) && $_POST['op'] !== "submit") {
     $jump = "pmlite.php?refresh=" . time();
     if ($send == 1) {
         $jump .= "&amp;send={$send}";
@@ -57,7 +57,7 @@ if (!$xoops->isUser()) {
 $xoops->simpleHeader();
 
 $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-if (isset($_POST['op']) && $_POST['op'] == "submit") {
+if (isset($_POST['op']) && $_POST['op'] === "submit") {
     $member_handler = $xoops->getHandlerMember();
     $count = $member_handler->getUserCount(new Criteria('uid', (int)($_POST['to_userid'])));
     $tpl = new XoopsTpl();

@@ -73,7 +73,7 @@ class Smarty_Resource_Db extends Smarty_Resource_Custom
         $theme = isset($xoopsConfig['theme_set']) ? $xoopsConfig['theme_set'] : 'default';
         $tplfile_handler = $xoops->getHandlerTplFile();
         // If we're not using the "default" template set, then get the templates from the DB
-        if ($tplset != "default") {
+        if ($tplset !== "default") {
             $tplobj = $tplfile_handler->find($tplset, null, null, null, $tpl_name, true);
             if (count($tplobj)) {
                 return $cache[$tpl_name] = $tplobj[0];

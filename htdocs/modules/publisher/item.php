@@ -84,7 +84,7 @@ switch ($publisher->getConfig('format_order_by')) {
         break;
 }
 
-if ($publisher->getConfig('item_other_items_type') == "previous_next") {
+if ($publisher->getConfig('item_other_items_type') === "previous_next") {
     // Retrieving the next and previous object
     $previous_item_link = '';
     $previous_item_url = '';
@@ -110,7 +110,7 @@ if ($publisher->getConfig('item_other_items_type') == "previous_next") {
 }
 
 //CAREFUL!! with many items this will exhaust memory
-if ($publisher->getConfig('item_other_items_type') == "all") {
+if ($publisher->getConfig('item_other_items_type') === "all") {
     $itemsObj = $publisher->getItemHandler()->getAllPublished(0, 0, $categoryObj->getVar('categoryid'), $sort, $order, '', true, true);
     $items = array();
     /* @var $theitemObj PublisherItem */
@@ -160,7 +160,7 @@ foreach ($filesObj as $fileObj) {
         $file['mod'] = true;
     }
 
-    if ($fileObj->getVar('mimetype') == 'application/x-shockwave-flash') {
+    if ($fileObj->getVar('mimetype') === 'application/x-shockwave-flash') {
         $file['content'] = $fileObj->displayFlash();
         if (strpos($item['maintext'], '[flash-' . $fileObj->getVar('fileid') . ']')) {
             $item['maintext'] = str_replace('[flash-' . $fileObj->getVar('fileid') . ']', $file['content'], $item['maintext']);

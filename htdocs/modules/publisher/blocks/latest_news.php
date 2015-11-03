@@ -99,10 +99,10 @@ function publisher_latest_news_show($options)
             $ls_height = 'height="' . $imgheight . '" ';
         }
 
-        if ($options[15] == 'LEFT') {
+        if ($options[15] === 'LEFT') {
             $imgposition = "float: left";
             $ls_margin = '-right';
-        } elseif ($options[15] == 'CENTER') {
+        } elseif ($options[15] === 'CENTER') {
             $imgposition = "text-align:center";
             $ls_margin = '';
         } else {
@@ -284,19 +284,19 @@ function publisher_latest_news_edit($options)
 
     $form .= "<select name='options[9]'>";
     $form .= "<option value='datesub'";
-    if ($options[9] == "datesub") {
+    if ($options[9] === "datesub") {
         $form .= " selected='selected'";
     }
     $form .= ">" . _MB_PUBLISHER_DATE . "</option>";
 
     $form .= "<option value='counter'";
-    if ($options[9] == "counter") {
+    if ($options[9] === "counter") {
         $form .= " selected='selected'";
     }
     $form .= ">" . _MB_PUBLISHER_HITS . "</option>";
 
     $form .= "<option value='weight'";
-    if ($options[9] == "weight") {
+    if ($options[9] === "weight") {
         $form .= " selected='selected'";
     }
     $form .= ">" . _MB_PUBLISHER_WEIGHT . "</option>";
@@ -317,19 +317,19 @@ function publisher_latest_news_edit($options)
     $form .= $tabletag1 . _MB_PUBLISHER_IMGPOSITION . $tabletag2;
     $form .= "<select name='options[]'>";
     $form .= "<option value='LEFT'";
-    if ($options[15] == 'LEFT') {
+    if ($options[15] === 'LEFT') {
         $form .= " selected='selected'";
     }
     $form .= '>' . XoopsLocale::LEFT . "</option>\n";
 
     $form .= "<option value='CENTER'";
-    if ($options[15] == 'CENTER') {
+    if ($options[15] === 'CENTER') {
         $form .= " selected='selected'";
     }
     $form .= '>' . XoopsLocale::CENTER . "</option>\n";
 
     $form .= "<option value='RIGHT'";
-    if ($options[15] == 'RIGHT') {
+    if ($options[15] === 'RIGHT') {
         $form .= " selected='selected'";
     }
     $form .= '>' . XoopsLocale::RIGHT . '</option>';

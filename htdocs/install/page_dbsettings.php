@@ -31,7 +31,7 @@ $wizard = $_SESSION['wizard'];
 
 $settings = $_SESSION['settings'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $params = array('DB_NAME');
     foreach ($params as $name) {
         $settings[$name] = isset($_POST[$name]) ? $_POST[$name] : "";

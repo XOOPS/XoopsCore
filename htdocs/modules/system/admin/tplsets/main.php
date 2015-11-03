@@ -187,7 +187,7 @@ switch ($op) {
                                                         $verif_write = true;
                                                     }
                                                     fclose($open);
-                                                    $class = ($class == "even") ? "odd" : "even";
+                                                    $class = ($class === "even") ? "odd" : "even";
                                                 }
                                             }
                                         }
@@ -214,7 +214,7 @@ switch ($op) {
                                                         $verif_write = true;
                                                     }
                                                     fclose($open);
-                                                    $class = ($class == "even") ? "odd" : "even";
+                                                    $class = ($class === "even") ? "odd" : "even";
                                                 }
                                             }
                                         }
@@ -278,7 +278,7 @@ switch ($op) {
                                                         }
                                                         fclose($open);
                                                     }
-                                                    $class = ($class == "even") ? "odd" : "even";
+                                                    $class = ($class === "even") ? "odd" : "even";
                                                 }
                                             }
                                         }
@@ -307,7 +307,7 @@ switch ($op) {
                                                         }
                                                         fclose($open);
                                                     }
-                                                    $class = ($class == "even") ? "odd" : "even";
+                                                    $class = ($class === "even") ? "odd" : "even";
                                                 }
                                             }
                                         }

@@ -51,7 +51,7 @@ if ($permissionHelper) {
     $permissionItemId=1;
 
     // if this is a post operation get the input and save it
-    if ('POST'==Request::getMethod()) {
+    if ('POST'===Request::getMethod()) {
         echo $xoops->alert('success', 'Permission updated');
         // save the data
         $name=$permissionHelper->defaultFieldName($permissionName, $permissionItemId);

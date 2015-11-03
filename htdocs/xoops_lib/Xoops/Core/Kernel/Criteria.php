@@ -89,7 +89,7 @@ class Criteria extends CriteriaElement
                 return '';
             }
             if (!in_array(strtoupper($this->operator), array('IN', 'NOT IN'))) {
-                if ((substr($value, 0, 1) != '`') && (substr($value, -1) != '`')) {
+                if ((substr($value, 0, 1) !== '`') && (substr($value, -1) !== '`')) {
                     $value = "'{$value}'";
                 } else {
                     if (!preg_match('/^[a-zA-Z0-9_\.\-`]*$/', $value)) {
@@ -112,18 +112,18 @@ class Criteria extends CriteriaElement
     public function renderLdap()
     {
         $clause = '';
-        if ($this->operator == '>') {
+        if ($this->operator === '>') {
             $this->operator = '>=';
         }
-        if ($this->operator == '<') {
+        if ($this->operator === '<') {
             $this->operator = '<=';
         }
 
-        if ($this->operator == '!=' || $this->operator == '<>') {
+        if ($this->operator === '!=' || $this->operator === '<>') {
             $operator = '=';
             $clause = "(!(" . $this->column . $operator . $this->value . "))";
         } else {
-            if ($this->operator == 'IN') {
+            if ($this->operator === 'IN') {
                 $newvalue = str_replace(array('(', ')'), '', $this->value);
                 $tab = explode(',', $newvalue);
                 foreach ($tab as $uid) {
@@ -231,7 +231,7 @@ class Criteria extends CriteriaElement
                     $expr = $eb->isNotNull($column);
                     break;
                 case 'in':
-                    if (!empty($value) && $value!='()') {
+                    if (!empty($value) && $value!=='()') {
                         $expr = $column . ' IN ' . $value;
                     } else {
                         // odd case of a null set - this won't match anything
@@ -239,7 +239,7 @@ class Criteria extends CriteriaElement
                     }
                     break;
                 case 'not in':
-                    if (!empty($value) && $value!='()') {
+                    if (!empty($value) && $value!=='()') {
                         $expr = $column . ' NOT IN ' . $value;
                     }
                     break;

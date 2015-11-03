@@ -41,10 +41,10 @@ switch ($op) {
 
     case "prune":
         $criteria = new CriteriaCompo();
-        if ($_REQUEST['after']['date'] && $_REQUEST['after']['date'] != "YYYY/MM/DD") {
+        if ($_REQUEST['after']['date'] && $_REQUEST['after']['date'] !== "YYYY/MM/DD") {
             $criteria->add(new Criteria('msg_time', strtotime($_REQUEST['after']['date']) + (int)($_REQUEST['after']['time']), ">"));
         }
-        if ($_REQUEST['before']['date'] && $_REQUEST['before']['date'] != "YYYY/MM/DD") {
+        if ($_REQUEST['before']['date'] && $_REQUEST['before']['date'] !== "YYYY/MM/DD") {
             $criteria->add(new Criteria('msg_time', strtotime($_REQUEST['before']['date']) + (int)($_REQUEST['before']['time']), "<"));
         }
         if (isset($_REQUEST['onlyread']) && $_REQUEST['onlyread'] == 1) {

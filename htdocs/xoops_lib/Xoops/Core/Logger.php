@@ -135,7 +135,7 @@ class Logger implements LoggerInterface
 
         if ($errorNumber == E_USER_ERROR) {
             $trace = true;
-            if (substr($errorString, 0, '8') == 'notrace:') {
+            if (substr($errorString, 0, '8') === 'notrace:') {
                 $trace = false;
                 $errorString = substr($errorString, 8);
             }
@@ -143,7 +143,7 @@ class Logger implements LoggerInterface
             if ($trace) {
                 $trace = debug_backtrace();
                 array_shift($trace);
-                if ('cli' == php_sapi_name()) {
+                if ('cli' === php_sapi_name()) {
                     foreach ($trace as $step) {
                         if (isset($step['file'])) {
                             fprintf(STDERR, "%s (%d)\n", $this->sanitizePath($step['file']), $step['line']);
@@ -188,7 +188,7 @@ class Logger implements LoggerInterface
     private function reportFatalError($msg)
     {
         $msg=$this->sanitizePath($msg);
-        if ('cli' == php_sapi_name()) {
+        if ('cli' === php_sapi_name()) {
             fprintf(STDERR, "\nError : %s\n", $msg);
         } else {
             printf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
@@ -435,7 +435,7 @@ class Logger implements LoggerInterface
     {
         $this->deprecatedMessage();
         // legacy compatibility: turn off logger display for $xoopsLogger->activated = false; usage
-        if ($var=='activated' && !$val) {
+        if ($var==='activated' && !$val) {
             $this->quiet();
         }
 

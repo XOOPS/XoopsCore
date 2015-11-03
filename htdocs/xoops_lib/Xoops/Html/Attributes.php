@@ -139,9 +139,9 @@ class Attributes
     {
         $rendered = '';
         foreach ($this->attributes as $name => $value) {
-            if ($name == 'name'
+            if ($name === 'name'
                 && $this->hasAttribute('multiple')
-                && substr($value, -2) != '[]'
+                && substr($value, -2) !== '[]'
             ) {
                 $value .= '[]';
             }

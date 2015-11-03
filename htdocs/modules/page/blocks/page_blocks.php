@@ -28,7 +28,7 @@ function page_blocks_show($options)
     $xoops->theme()->addStylesheet($page->url('css/rating.css'));
 
     $block = '';
-    if ($options[0] == 'id') {
+    if ($options[0] === 'id') {
         $view_content = $page->getContentHandler()->get($options[1]);
 
         // content
@@ -48,8 +48,8 @@ function page_blocks_show($options)
         $block['text'] = $options[4];
         $block['mode'] = $options[0];
 
-        if ($options[0] == 'random') {
-            $sort = ('sqlite' == \XoopsBaseConfig::get('db-type')) ? 'RANDOM()' : 'RAND()';
+        if ($options[0] === 'random') {
+            $sort = ('sqlite' === \XoopsBaseConfig::get('db-type')) ? 'RANDOM()' : 'RAND()';
             $content = $page->getContentHandler()->getPagePublished(0, $options[3], $sort);
         } else {
             $content = $page->getContentHandler()->getPagePublished(0, $options[3], 'content_' . $options[1], $options[2]);
@@ -64,7 +64,7 @@ function page_blocks_show($options)
 function page_blocks_edit($options)
 {
     $block_form = new Xoops\Form\BlockForm();
-    if ($options[0] != 'id') {
+    if ($options[0] !== 'id') {
         $mode_form = new Xoops\Form\Select(PageLocale::CONF_BLOCK_MODE, 'options[0]', $options[0], 1, false);
         $mode_form->addOption('content', PageLocale::CONF_BLOCK_L_CONTENT);
         $mode_form->addOption('list', PageLocale::CONF_BLOCK_L_LIST);

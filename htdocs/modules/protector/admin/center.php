@@ -50,7 +50,7 @@ if (!empty($_POST['action'])) {
         $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 3, $xoopsGTicket->getErrors());
     }
 
-    if ($_POST['action'] == 'update_ips') {
+    if ($_POST['action'] === 'update_ips') {
         $error_msg = '';
 
         $lines = empty($_POST['bad_ips']) ? array() : explode("\n", trim($_POST['bad_ips']));
@@ -80,7 +80,7 @@ if (!empty($_POST['action'])) {
         $redirect_msg = $error_msg ? $error_msg : _AM_MSG_IPFILESUPDATED;
         $xoops->redirect("center.php", 2, $redirect_msg);
     } else {
-        if ($_POST['action'] == 'delete' && isset($_POST['ids']) && is_array($_POST['ids'])) {
+        if ($_POST['action'] === 'delete' && isset($_POST['ids']) && is_array($_POST['ids'])) {
             // remove selected records
             foreach ($_POST['ids'] as $lid) {
                 $lid = (int)($lid);
@@ -88,12 +88,12 @@ if (!empty($_POST['action'])) {
             }
             $xoops->redirect("center.php", 2, _AM_MSG_REMOVED);
         } else {
-            if ($_POST['action'] == 'deleteall') {
+            if ($_POST['action'] === 'deleteall') {
                 // remove all records
                 $db->query("DELETE FROM $log_table");
                 $xoops->redirect("center.php", 2, _AM_MSG_REMOVED);
             } else {
-                if ($_POST['action'] == 'compactlog') {
+                if ($_POST['action'] === 'compactlog') {
                     // compactize records (removing duplicated records (ip,type)
                     $result = $db->query("SELECT `lid`,`ip`,`type` FROM $log_table ORDER BY lid DESC");
                     $buf = array();
@@ -161,7 +161,7 @@ $xoops->tpl()->assign('nav_html', $nav_html);
 // body of log listing
 $oddeven = 'odd';
 while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = $db->fetchRow($prs)) {
-    $oddeven = ($oddeven == 'odd' ? 'even' : 'odd');
+    $oddeven = ($oddeven === 'odd' ? 'even' : 'odd');
 
     $ip = htmlspecialchars($ip, ENT_QUOTES);
     $type = htmlspecialchars($type, ENT_QUOTES);

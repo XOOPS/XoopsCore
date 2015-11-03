@@ -40,7 +40,7 @@ class XoopsFormTinymce4 extends XoopsEditor
     public function __construct($configs)
     {
         $current_path = __FILE__;
-        if (DIRECTORY_SEPARATOR != "/") {
+        if (DIRECTORY_SEPARATOR !== "/") {
             $current_path = str_replace(strpos($current_path, "\\\\", 2) ? "\\\\" : DIRECTORY_SEPARATOR, "/", $current_path);
         }
 
@@ -96,7 +96,7 @@ class XoopsFormTinymce4 extends XoopsEditor
             $this->language = strtolower(constant("_XOOPS_EDITOR_TINYMCE4_LANGUAGE"));
         } else {
             $this->language = str_replace('_', '-', strtolower(_LANGCODE));
-            if (strtolower(_CHARSET) == "utf-8") {
+            if (strtolower(_CHARSET) === "utf-8") {
                 $this->language .= "_utf8";
             }
         }

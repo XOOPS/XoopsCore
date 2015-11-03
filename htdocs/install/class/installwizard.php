@@ -190,7 +190,7 @@ class XoopsInstallWizard
      */
     public function baseLocation()
     {
-        $proto = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
+        $proto = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
         $base = substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/'));
         return $proto . '://' . $host . $base;
@@ -287,7 +287,7 @@ class XoopsInstallWizard
                     case 1:
                         $files = glob($cacheFolder. '/caches/smarty_cache/*.*');
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) != 'index.html') {
+                            if (basename(strtolower($filename)) !== 'index.html') {
                                 unlink($filename);
                             }
                         }
@@ -296,7 +296,7 @@ class XoopsInstallWizard
                     case 2:
                         $files = glob($cacheFolder . '/caches/smarty_compile/*.*');
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) != 'index.html') {
+                            if (basename(strtolower($filename)) !== 'index.html') {
                                 unlink($filename);
                             }
                         }
@@ -305,7 +305,7 @@ class XoopsInstallWizard
                     case 3:
                         $files = glob($cacheFolder . '/caches/xoops_cache/*.*');
                         foreach ($files as $filename) {
-                            if (basename(strtolower($filename)) != 'index.html') {
+                            if (basename(strtolower($filename)) !== 'index.html') {
                                 unlink($filename);
                             }
                         }

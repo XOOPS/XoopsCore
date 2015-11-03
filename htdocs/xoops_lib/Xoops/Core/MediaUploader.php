@@ -253,7 +253,7 @@ class MediaUploader
             $this->setErrors(\XoopsLocale::E_FILE_NAME_MISSING);
             return false;
         }
-        if ($this->mediaTmpName == 'none' || !is_uploaded_file($this->mediaTmpName)) {
+        if ($this->mediaTmpName === 'none' || !is_uploaded_file($this->mediaTmpName)) {
             $this->setErrors(\XoopsLocale::NO_FILE_UPLOADED);
             return false;
         }
@@ -528,9 +528,9 @@ class MediaUploader
             return true;
         }
 
-        if (('image' == substr($this->mediaType, 0, strpos($this->mediaType, '/')))
+        if (('image' === substr($this->mediaType, 0, strpos($this->mediaType, '/')))
             || (!empty($this->mediaRealType)
-            && 'image' == substr($this->mediaRealType, 0, strpos($this->mediaRealType, '/')))
+            && 'image' === substr($this->mediaRealType, 0, strpos($this->mediaRealType, '/')))
         ) {
             if (!@getimagesize($this->mediaTmpName)) {
                 $this->setErrors(\XoopsLocale::E_INVALID_IMAGE_FILE);

@@ -183,7 +183,7 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
     $answers = explode("\n", $response [1]);
     $recaptcha_response = new ReCaptchaResponse();
 
-    if (trim($answers [0]) == 'true') {
+    if (trim($answers [0]) === 'true') {
         $recaptcha_response->is_valid = true;
     } else {
         $recaptcha_response->is_valid = false;

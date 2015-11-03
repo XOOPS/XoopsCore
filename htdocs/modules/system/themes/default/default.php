@@ -63,7 +63,7 @@ class XoopsGuiDefault
 
         $adminmenu = null;
         include __DIR__ . '/menu.php';
-        if (!$xoops->isModule() || 'system' == $xoops->module->getVar('dirname', 'n')) {
+        if (!$xoops->isModule() || 'system' === $xoops->module->getVar('dirname', 'n')) {
             $modpath = \XoopsBaseConfig::get('url') . '/admin.php';
             $modname = DefaultThemeLocale::SYSTEM_OPTIONS;
             $modid = 1;
@@ -131,7 +131,7 @@ class XoopsGuiDefault
         $menu[] = array('title' => 'separator');
 
         // Module adminmenu
-        if ($xoops->isModule() && $xoops->module->getVar('dirname') != 'system') {
+        if ($xoops->isModule() && $xoops->module->getVar('dirname') !== 'system') {
 
             if ($xoops->module->getInfo('system_menu')) {
                 //$xoops->theme()->addStylesheet('modules/system/css/menu.css');

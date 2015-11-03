@@ -33,7 +33,7 @@ $xoops = Xoops::getInstance();
 if (!isset($path)) {
     if (!empty($_SERVER['QUERY_STRING'])) {
         $path = $_SERVER['QUERY_STRING'];
-        $path = (substr($path, 0, 1) == '/') ? substr($path, 1) : $path;
+        $path = (substr($path, 0, 1) === '/') ? substr($path, 1) : $path;
     } else {
         header("HTTP/1.0 404 Not Found");
         exit();
@@ -47,7 +47,7 @@ if (!isset($xoops->paths[$path_type])) {
 }
 
 //We are not allowing output of xoops_data
-if ($path_type == 'var') {
+if ($path_type === 'var') {
     header("HTTP/1.0 404 Not Found");
     exit();
 }

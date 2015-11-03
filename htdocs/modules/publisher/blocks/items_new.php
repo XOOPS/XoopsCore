@@ -63,7 +63,7 @@ function publisher_items_new_show($options)
             $item['id'] = $itemsObj[$i]->getVar('itemid');
             $item['poster'] = $itemsObj[$i]->posterName(); // for make poster name linked, use linkedPosterName() instead of posterName()
 
-            if ($image == 'article') {
+            if ($image === 'article') {
                 $item['image'] = \XoopsBaseConfig::get('url') . '/uploads/blank.gif';
                 $item['image_name'] = '';
                 $images = $itemsObj[$i]->getImages();
@@ -74,10 +74,10 @@ function publisher_items_new_show($options)
 
                     $item['image_name'] = $images['main']->getVar('image_nicename');
                 }
-            } elseif ($image == 'category') {
+            } elseif ($image === 'category') {
                 $item['image'] = $itemsObj[$i]->getCategoryImagePath();
                 $item['image_name'] = $itemsObj[$i]->getCategoryName();
-            } elseif ($image == 'avatar') {
+            } elseif ($image === 'avatar') {
                 $auid = $itemsObj[$i]->getVar('uid');
                 if ($auid == '0') {
                     $item['image'] = \XoopsBaseConfig::get('url') . '/uploads/blank.gif';
@@ -95,11 +95,11 @@ function publisher_items_new_show($options)
 
             $item['title'] = $itemsObj[$i]->title();
 
-            if ($sort == "datesub") {
+            if ($sort === "datesub") {
                 $item['new'] = $itemsObj[$i]->datesub();
-            } elseif ($sort == "counter") {
+            } elseif ($sort === "counter") {
                 $item['new'] = $itemsObj[$i]->getVar('counter');
-            } elseif ($sort == "weight") {
+            } elseif ($sort === "weight") {
                 $item['new'] = $itemsObj[$i]->weight();
             }
 

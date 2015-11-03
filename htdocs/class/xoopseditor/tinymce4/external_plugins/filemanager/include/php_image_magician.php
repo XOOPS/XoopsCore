@@ -310,7 +310,7 @@ class imageLib
 
     // *** We can pass in an array of options to change the crop position
     $cropPos = 'm';
-    if (is_array($option) && fix_strtolower($option[0]) == 'crop') {
+    if (is_array($option) && fix_strtolower($option[0]) === 'crop') {
       $cropPos = $option[1];         # get the crop option
     } else if (strpos($option, '-') !== false) {
       // *** Or pass in a hyphen seperated option
@@ -337,7 +337,7 @@ class imageLib
 
 
     // *** If '4', then crop too
-    if ($option == 4 || $option == 'crop') {
+    if ($option == 4 || $option === 'crop') {
 
       if (($optimalWidth >= $newWidth && $optimalHeight >= $newHeight)) {
         $this->crop($optimalWidth, $optimalHeight, $newWidth, $newHeight, $cropPos);
@@ -866,7 +866,7 @@ class imageLib
     #
   {
     if (is_array($option)) {
-      if (fix_strtolower($option[0]) == 'crop' && count($option) == 2) {
+      if (fix_strtolower($option[0]) === 'crop' && count($option) == 2) {
         return 'crop';
       } else {
         throw new Exception('Crop resize option array is badly formatted.');
@@ -1365,7 +1365,7 @@ class imageLib
     // *** Check if the user wants transparency
     $isTransparent = false;
     if (!is_array($bgColor)) {
-      if (fix_strtolower($bgColor) == 'transparent') {
+      if (fix_strtolower($bgColor) === 'transparent') {
         $isTransparent = true;
       }
     }
@@ -1477,7 +1477,7 @@ class imageLib
 
 
     // *** Convert color
-    if (fix_strtolower($bgColor) != 'transparent') {
+    if (fix_strtolower($bgColor) !== 'transparent') {
       $rgbArray = $this->formatColor($bgColor);
       $r0 = $rgbArray['r'];
       $g0 = $rgbArray['g'];
@@ -1568,7 +1568,7 @@ class imageLib
         $t = $a/128.0;
 
         // *** Create color
-        if(fix_strtolower($bgColor) == 'transparent') {
+        if(fix_strtolower($bgColor) === 'transparent') {
           $myColour = imagecolorallocatealpha($rgb,$r,$g,$b,$a);
         } else {
           $myColour = imagecolorallocate($rgb,$r*(1.0-$t)+$r0*$t,$g*(1.0-$t)+$g0*$t,$b*(1.0-$t)+$b0*$t);
@@ -1735,7 +1735,7 @@ class imageLib
     // *** Check all is good - check the EXIF library exists and the file exists, too.
     if (!$this->testEXIFInstalled()) { if ($debug) { throw new Exception('The EXIF Library is not installed.'); }else{ return array(); }};
     if (!file_exists($this->fileName)) { if ($debug) { throw new Exception('Image not found.'); }else{ return array(); }};
-    if ($this->fileExtension != '.jpg') { if ($debug) { throw new Exception('Metadata not supported for this image type.'); }else{ return array(); }};
+    if ($this->fileExtension !== '.jpg') { if ($debug) { throw new Exception('Metadata not supported for this image type.'); }else{ return array(); }};
     $exifData = exif_read_data($this->fileName, 'IFD0');
 
     // *** Format the apperture value
@@ -2205,7 +2205,7 @@ class imageLib
     $y = $posArray['height'];
 
     // *** Set watermark opacity
-    if (fix_strtolower(strrchr($watermarkImage, '.')) == '.png') {
+    if (fix_strtolower(strrchr($watermarkImage, '.')) === '.png') {
 
       $opacity = $this->invertTransparency($opacity, 100);
       $this->filterOpacity($stamp, $opacity);
@@ -2821,7 +2821,7 @@ class imageLib
       } else {
         $rgbArray = $value;
       }
-    } else if (fix_strtolower($value) == 'transparent') {
+    } else if (fix_strtolower($value) === 'transparent') {
 
       $rgbArray = array(
         'r' => 255,

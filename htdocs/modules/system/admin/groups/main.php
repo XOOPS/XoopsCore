@@ -363,7 +363,7 @@ switch ($op) {
         $error = true;
         if (isset($_REQUEST['edit_group'])) {
             if (isset($_REQUEST['edit_group'])
-                && $_REQUEST['edit_group'] == 'add_group'
+                && $_REQUEST['edit_group'] === 'add_group'
                 && isset($_REQUEST['selgroups'])
             ) {
                 foreach ($_REQUEST['memberslist_id'] as $uid) {
@@ -372,7 +372,7 @@ switch ($op) {
                 }
             } else {
                 if (isset($_REQUEST['edit_group'])
-                    && $_REQUEST['edit_group'] == 'delete_group'
+                    && $_REQUEST['edit_group'] === 'delete_group'
                     && isset($_REQUEST['selgroups'])
                 ) {
                     $member_handler->removeUsersFromGroup($_REQUEST['selgroups'], $_REQUEST['memberslist_id']);

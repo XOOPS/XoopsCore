@@ -100,7 +100,7 @@ switch ($op) {
         $group = $system->cleanVars($_REQUEST, 'group', 0, 'int');
         $status = $system->cleanVars($_REQUEST, 'status', '', 'string');
         if ($content_id > 0 && $group > 0 && $status != '') {
-            if ($status == 'no') {
+            if ($status === 'no') {
                 // deleting permissions
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('gperm_groupid', $group));

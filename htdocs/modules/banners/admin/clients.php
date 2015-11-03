@@ -145,7 +145,7 @@ switch ($op) {
             $obj = $client_Handler->create();
         }
         $obj->setVar("bannerclient_name", Request::getString('name', ''));
-        if ($_POST["user"] == 'Y') {
+        if ($_POST["user"] === 'Y') {
             $obj->setVar("bannerclient_uid", Request::getInt('uid', 0));
         } else {
             $obj->setVar("bannerclient_uid", 0);

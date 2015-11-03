@@ -47,7 +47,7 @@ function publisher_items_spot_show($options)
                 $cat = $publisher->getCategoryHandler()->get($opt_categoryid);
                 $category['name'] = $cat->getVar('name');
                 $category['categoryurl'] = $cat->getCategoryUrl();
-                if ($cat->image() != 'blank.png') {
+                if ($cat->image() !== 'blank.png') {
                     $category['image_path'] = PublisherUtils::getImageDir('category', false) . $cat->image();
                 } else {
                     $category['image_path'] = '';

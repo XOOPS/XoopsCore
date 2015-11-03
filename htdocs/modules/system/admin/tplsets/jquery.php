@@ -50,7 +50,7 @@ switch ($op) {
                 // All dirs
                 foreach ($files as $file) {
 
-                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file != '.' && $file != '..' && is_dir($root . $_REQUEST['dir'] . $file)) {
+                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file !== '.' && $file !== '..' && is_dir($root . $_REQUEST['dir'] . $file)) {
                         //retirer .svn
                         $file_no_valid = array('.svn', 'icons', 'img', 'images', 'language', 'locale');
 
@@ -61,7 +61,7 @@ switch ($op) {
                 }
                 // All files
                 foreach ($files as $file) {
-                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file != '.' && $file != '..' && !is_dir($root . $_REQUEST['dir'] . $file) && $file != 'index.html') {
+                    if (XoopsLoad::fileExists($root . $_REQUEST['dir'] . $file) && $file !== '.' && $file !== '..' && !is_dir($root . $_REQUEST['dir'] . $file) && $file !== 'index.html') {
                         $ext = preg_replace('/^.*\./', '', $file);
 
                         $extensions = array('.tpl', '.html', '.htm', '.css');

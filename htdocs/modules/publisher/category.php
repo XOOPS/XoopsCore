@@ -117,7 +117,7 @@ $total_items = 0;
 
 $subcategories = array();
 
-if ($publisher->getConfig('idxcat_show_subcats') != 'no') {
+if ($publisher->getConfig('idxcat_show_subcats') !== 'no') {
     // if this category has subcats
     if (isset($subcatsObj)) {
         /* @var $subcat PublisherCategory */
@@ -126,7 +126,7 @@ if ($publisher->getConfig('idxcat_show_subcats') != 'no') {
             $subcat_total_items = isset($totalItems[$key]) ? $totalItems[$key] : 0;
 
             // Do we display empty sub-cats ?
-            if (($subcat_total_items > 0) || ($publisher->getConfig('idxcat_show_subcats') == 'all')) {
+            if (($subcat_total_items > 0) || ($publisher->getConfig('idxcat_show_subcats') === 'all')) {
                 $subcat_id = $subcat->getVar('categoryid');
                 // if we retreived the last item object for this category
                 if (isset($last_itemObj[$subcat_id])) {

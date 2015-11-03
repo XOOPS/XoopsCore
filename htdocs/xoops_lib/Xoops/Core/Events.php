@@ -153,7 +153,7 @@ class Events
             $path = $xoops->path('modules/' . $preload['module'] . '/preloads/' . $preload['file']. '.php');
             include_once $path;
             $class_name = ucfirst($preload['module'])
-                . ($preload['file'] == 'preload' ? '' : ucfirst($preload['file']) )
+                . ($preload['file'] === 'preload' ? '' : ucfirst($preload['file']) )
                 . 'Preload';
             if (!class_exists($class_name)) {
                 continue;

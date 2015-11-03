@@ -226,7 +226,7 @@ if (!class_exists('XoopsGTicket')) {
             $table = '<table>';
             $form = '<form action="?' . htmlspecialchars(@$_SERVER['QUERY_STRING'], ENT_QUOTES) . '" method="post" >';
             foreach ($_POST as $key => $val) {
-                if ($key == 'XOOPS_G_TICKET') {
+                if ($key === 'XOOPS_G_TICKET') {
                     continue;
                 }
                 if (get_magic_quotes_gpc()) {

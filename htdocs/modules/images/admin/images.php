@@ -73,7 +73,7 @@ switch ($op) {
                 } else {
                     $error = false;
                     $obj->setVar('image_mimetype', $uploader->getMediaType());
-                    if ($category->getVar('imgcat_storetype') == 'db' && $isnew) {
+                    if ($category->getVar('imgcat_storetype') === 'db' && $isnew) {
                         $fp = @fopen($uploader->getSavedDestination(), 'rb');
                         $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                         @fclose($fp);
@@ -88,7 +88,7 @@ switch ($op) {
             $xoops->tpl()->assign('error_message', $error_message);
         } else {
             if ($image_id = $helper->getHandlerImages()->insert($obj)) {
-                if ($category->getVar('imgcat_storetype') == 'db'  && $isnew) {
+                if ($category->getVar('imgcat_storetype') === 'db'  && $isnew) {
                     $imagebody = $helper->getHandlerImagesBody()->get($image_id);
                     if (!is_object($imagebody)) {
                         $imagebody = $helper->getHandlerImagesBody()->create();
@@ -136,7 +136,7 @@ switch ($op) {
                 $category = $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'));
 
                 if ($helper->getHandlerImages()->delete($obj)) {
-                    if ($category->getVar('imgcat_storetype') == 'db') {
+                    if ($category->getVar('imgcat_storetype') === 'db') {
                         $helper->getHandlerImagesBody()->delete($helper->getHandlerImagesBody()->get($image_id));
                     } else {
                         unlink(\XoopsBaseConfig::get('uploads-path') . '/' . $obj->getVar('image_name'));
@@ -145,7 +145,7 @@ switch ($op) {
                 }
             } else {
                 $category = $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'));
-                if ($category->getVar('imgcat_storetype') == 'db') {
+                if ($category->getVar('imgcat_storetype') === 'db') {
                     $img = \XoopsBaseConfig::get('url') . '/image.php?id=' . $image_id;
                 } else {
                     $img = \XoopsBaseConfig::get('uploads-url') . '/' . $obj->getVar('image_name');
@@ -184,7 +184,7 @@ switch ($op) {
         // Get category store type
         $category = $helper->getHandlerCategories()->get($imgcat_id);
         if (is_object($category)) {
-            if ($category->getVar('imgcat_storetype') == 'db') {
+            if ($category->getVar('imgcat_storetype') === 'db') {
                 $xoops->tpl()->assign('db_store', 1);
             }
         }

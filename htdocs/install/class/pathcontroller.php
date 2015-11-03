@@ -93,7 +93,7 @@ class XoopsPathController
             }
         } else {
             $path = str_replace("\\", "/", realpath('../'));
-            if (substr($path, -1) == '/') {
+            if (substr($path, -1) === '/') {
                 $path = substr($path, 0, -1);
             }
             if (file_exists("$path/mainfile.dist.php")) {
@@ -132,7 +132,7 @@ class XoopsPathController
 
         $this->readRequest();
         $valid = $this->validate();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($this->path_lookup as $req => $sess) {
                 $_SESSION['settings'][$sess] = $this->xoopsPath[$req];
             }
@@ -150,12 +150,12 @@ class XoopsPathController
      */
     public function readRequest()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $request = $_POST;
             foreach ($this->path_lookup as $req => $sess) {
                 if (isset($request[$req])) {
                     $request[$req] = str_replace("\\", "/", trim($request[$req]));
-                    if (substr($request[$req], -1) == '/') {
+                    if (substr($request[$req], -1) === '/') {
                         $request[$req] = substr($request[$req], 0, -1);
                     }
                     $this->xoopsPath[$req] = $request[$req];
@@ -163,7 +163,7 @@ class XoopsPathController
             }
             if (isset($request['URL'])) {
                 $request['URL'] = trim($request['URL']);
-                if (substr($request['URL'], -1) == '/') {
+                if (substr($request['URL'], -1) === '/') {
                     $request['URL'] = substr($request['URL'], 0, -1);
                 }
                 $this->xoopsUrl = $request['URL'];
@@ -198,7 +198,7 @@ class XoopsPathController
     public function checkPath($PATH = '')
     {
         $ret = 1;
-        if ($PATH == 'root' || empty($PATH)) {
+        if ($PATH === 'root' || empty($PATH)) {
             $path = 'root';
             if (is_dir($this->xoopsPath[$path]) && is_readable($this->xoopsPath[$path])) {
                 @include_once "{$this->xoopsPath[$path]}/include/version.php";
@@ -208,14 +208,14 @@ class XoopsPathController
             }
             $ret *= $this->validPath[$path];
         }
-        if ($PATH == 'lib' || empty($PATH)) {
+        if ($PATH === 'lib' || empty($PATH)) {
             $path = 'lib';
             if (is_dir($this->xoopsPath[$path]) && is_readable($this->xoopsPath[$path])) {
                 $this->validPath[$path] = 1;
             }
             $ret *= $this->validPath[$path];
         }
-        if ($PATH == 'data' || empty($PATH)) {
+        if ($PATH === 'data' || empty($PATH)) {
             $path = 'data';
             if (is_dir($this->xoopsPath[$path]) && is_readable($this->xoopsPath[$path])) {
                 $this->validPath[$path] = 1;

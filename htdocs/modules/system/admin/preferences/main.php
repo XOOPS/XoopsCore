@@ -107,7 +107,7 @@ switch ($op) {
                 if (!is_null($new_value) && (is_array($new_value) || $new_value != $config->getVar('conf_value'))) {
                     // if language has been changed
                     if (!$lang_updated && $config->getVar('conf_catid') == XOOPS_CONF
-                        && $config->getVar('conf_name') == 'locale'
+                        && $config->getVar('conf_name') === 'locale'
                     ) {
                         $xoops->setConfig('locale', ${$config->getVar('conf_name')});
                         $lang_updated = true;
@@ -115,7 +115,7 @@ switch ($op) {
 
                     // if default theme has been changed
                     if (!$theme_updated && $config->getVar('conf_catid') == XOOPS_CONF
-                        && $config->getVar('conf_name') == 'theme_set'
+                        && $config->getVar('conf_name') === 'theme_set'
                     ) {
                         $member_handler = $xoops->getHandlerMember();
                         $member_handler->updateUsersByField('theme', ${$config->getVar('conf_name')});
@@ -125,7 +125,7 @@ switch ($op) {
                     // add read permission for the start module to all groups
                     if (!$startmod_updated && $new_value != '--'
                         && $config->getVar('conf_catid') == XOOPS_CONF
-                        && $config->getVar('conf_name') == 'startpage'
+                        && $config->getVar('conf_name') === 'startpage'
                     ) {
                         $member_handler = $xoops->getHandlerMember();
                         $groups = $member_handler->getGroupList();

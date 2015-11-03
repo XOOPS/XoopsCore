@@ -47,7 +47,7 @@ if ($itemid != 0) {
         $xoops->redirect("index.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
     }
     if (!PublisherUtils::IsUserAdmin() || !PublisherUtils::IsUserModerator($itemObj)) {
-        if (isset($_GET['op']) && $_GET['op']  == 'del' && !$publisher->getConfig('perm_delete')) {
+        if (isset($_GET['op']) && $_GET['op']  === 'del' && !$publisher->getConfig('perm_delete')) {
             $xoops->redirect("index.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
         } elseif (!$publisher->getConfig('perm_edit')) {
             $xoops->redirect("index.php", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -65,7 +65,7 @@ if ($itemid != 0) {
     $categoryObj = $publisher->getCategoryHandler()->create();
 }
 
-if (isset($_GET['op']) && $_GET['op'] == 'clone') {
+if (isset($_GET['op']) && $_GET['op'] === 'clone') {
     $formtitle = _MD_PUBLISHER_SUB_CLONE;
     $itemObj->setNew();
     $itemObj->setVar('itemid', 0);
@@ -82,7 +82,7 @@ if (isset($_POST['additem'])) {
     $op = 'add';
 }
 
-if (isset($_REQUEST['op']) && $_REQUEST['op'] == 'del') {
+if (isset($_REQUEST['op']) && $_REQUEST['op'] === 'del') {
     $op = 'del';
 }
 
@@ -217,7 +217,7 @@ switch ($op) {
         $itemObj->setVarsFromRequest();
 
         $xoopsTpl->assign('module_home', PublisherUtils::moduleHome());
-        if (isset($_GET['op']) && $_GET['op'] == 'clone') {
+        if (isset($_GET['op']) && $_GET['op'] === 'clone') {
             $xoopsTpl->assign('categoryPath', _CO_PUBLISHER_CLONE);
             $xoopsTpl->assign('lang_intro_title', _CO_PUBLISHER_CLONE);
         } elseif ($itemid) {

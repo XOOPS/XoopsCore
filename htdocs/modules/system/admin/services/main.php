@@ -33,7 +33,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 }
 
 // any ajax requests land here
-if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
     $xoops->logger()->quiet();
     // ajax post requests should have a valid token, but we don't clear it since the
     // token is set on page load and we may need to make multiple requests from it.
@@ -41,7 +41,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     // we need to decide how to handle that. Right now, some js will redirect us from
     // provider sort to service select just before the token should expire.
     if (isset($_POST['token']) && $security->validateToken($_POST['token'], false)) {
-        if (isset($_POST['op']) && $_POST['op']=='order') {
+        if (isset($_POST['op']) && $_POST['op']==='order') {
             if (isset($_POST['service'])) {
                 $service=$_POST['service'];
                 if (isset($_POST[$service]) && is_array($_POST[$service])) {

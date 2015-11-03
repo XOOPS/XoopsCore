@@ -37,13 +37,13 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
         $item = array();
         $item_id = (int) $item_id;
 
-        if ($category == 'global') {
+        if ($category === 'global') {
             $item['name'] = '';
             $item['url'] = '';
             return $item;
         }
 
-        if ($category == 'category') {
+        if ($category === 'category') {
             // Assume we have a valid category id
             $sql = 'SELECT name, short_url FROM ' . $xoopsDB->prefix('publisher_categories') . ' WHERE categoryid  = ' . $item_id;
             $result = $xoopsDB->query($sql); // TODO: error check
@@ -53,7 +53,7 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
             return $item;
         }
 
-        if ($category == 'item') {
+        if ($category === 'item') {
             // Assume we have a valid story id
             $sql = 'SELECT title, short_url FROM ' . $xoopsDB->prefix('publisher_items') . ' WHERE itemid = ' . $item_id;
             $result = $xoopsDB->query($sql); // TODO: error check

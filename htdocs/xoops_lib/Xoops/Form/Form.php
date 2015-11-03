@@ -187,7 +187,7 @@ abstract class Form implements ContainerInterface
      */
     public function getMethod()
     {
-        return (strtolower($this->method) == 'get') ? 'get' : 'post';
+        return (strtolower($this->method) === 'get') ? 'get' : 'post';
     }
 
     /**

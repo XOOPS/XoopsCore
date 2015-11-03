@@ -36,7 +36,7 @@ if (!$xoops->isUser()) {
 $op = Request::getCmd('op', 'editprofile');
 
 $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-if ($op == 'saveuser') {
+if ($op === 'saveuser') {
     if (!$xoops->security()->check()) {
         $xoops->redirect(
             'index.php',
@@ -116,7 +116,7 @@ if ($op == 'saveuser') {
     }
 }
 
-if ($op == 'editprofile') {
+if ($op === 'editprofile') {
     $xoops->header('module:system/system_edituser.tpl');
     $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
     $xoops->tpl()->assign('editprofile', true);

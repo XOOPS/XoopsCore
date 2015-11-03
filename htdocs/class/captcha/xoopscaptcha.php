@@ -105,7 +105,7 @@ class XoopsCaptcha
      * @return array
      */
     function loadConfig( $name = 'config') {
-        if ( $name == 'config' ) {
+        if ( $name === 'config' ) {
             $filename = 'captcha.config';
         } else {
             $filename = 'captcha.config.' . $name;
@@ -129,7 +129,7 @@ class XoopsCaptcha
     {
         $basic_config = array();
         $plugin_config = array();
-        $filename = ($filename == 'config') ? 'config.php' : 'config.' . $filename . '.php';
+        $filename = ($filename === 'config') ? 'config.php' : 'config.' . $filename . '.php';
         if (XoopsLoad::fileExists($file = $this->path_basic . '/' . $filename)) {
             $basic_config = include $file;
         }

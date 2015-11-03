@@ -36,7 +36,7 @@ if (isset($_POST['op'])) {
     }
 }
 
-if ($op == 'main') {
+if ($op === 'main') {
     if (!$xoops->isUser()) {
         $xoops->header('module:profile/profile_userform.tpl');
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
@@ -73,12 +73,12 @@ if ($op == 'main') {
     exit();
 }
 
-if ($op == 'login') {
+if ($op === 'login') {
     include_once $xoops->path('include/checklogin.php');
     exit();
 }
 
-if ($op == 'logout') {
+if ($op === 'logout') {
     $message = '';
     // Regenerate a new session id and destroy old session
     $xoops->session()->user()->recordUserLogout();
@@ -90,13 +90,13 @@ if ($op == 'logout') {
     $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 1, $message);
 }
 
-if ($op == 'actv') {
+if ($op === 'actv') {
     $id = (int)($_GET['id']);
     $actkey = trim($_GET['actkey']);
     $xoops->redirect("activate.php?op=actv&amp;id={$id}&amp;actkey={$actkey}", 1, '');
 }
 
-if ($op == 'delete') {
+if ($op === 'delete') {
     $xoops->getConfigs();
     if (!$xoops->isUser() || $xoops->getConfig('self_delete') != 1) {
         $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 5, XoopsLocale::E_NO_ACTION_PERMISSION);

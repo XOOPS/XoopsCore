@@ -25,7 +25,7 @@ switch ($op) {
         if (!$xoops->security()->check()) {
             $xoops->redirect('index.php', 5, implode(',', $xoops->security()->getErrors()));
         }
-        if ($type == 'config') {
+        if ($type === 'config') {
             $config = $xcaptcha_handler->VerifyData();
             $xcaptcha_handler->writeConfig('captcha.config', $config);
             $xoops->redirect('index.php?type=config', 5, _AM_XCAPTCHA_SAVED);
@@ -46,7 +46,7 @@ switch ($op) {
         $xoops->theme()->addStylesheet('modules/xcaptcha/css/moduladmin.css');
 
         $admin_page = new \Xoops\Module\Admin();
-        if ($type == 'config') {
+        if ($type === 'config') {
             $admin_page->displayNavigation('index.php?type=config');
             $admin_page->addInfoBox(_AM_XCAPTCHA_FORM);
             $form = $xoops->getModuleForm($xcaptcha_handler, 'captcha', 'xcaptcha');

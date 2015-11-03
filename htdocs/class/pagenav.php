@@ -67,7 +67,7 @@ class XoopsPageNav
         $this->perpage = (int)($items_perpage);
         $this->current = (int)($current_start);
         $this->extra = $extra_arg;
-        if ($extra_arg != '' && (substr($extra_arg, - 5) != '&amp;' || substr($extra_arg, - 1) != '&')) {
+        if ($extra_arg != '' && (substr($extra_arg, - 5) !== '&amp;' || substr($extra_arg, - 1) !== '&')) {
             $this->extra = '&amp;' . $extra_arg;
         }
         $this->url = $_SERVER['PHP_SELF'] . '?' . trim($start_name) . '=';

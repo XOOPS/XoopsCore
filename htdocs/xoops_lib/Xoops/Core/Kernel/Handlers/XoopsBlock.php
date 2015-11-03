@@ -357,17 +357,17 @@ class XoopsBlock extends XoopsObject
                 // P : custom PHP block
                 // S : use text sanitizer (smilies enabled)
                 // T : use text sanitizer (smilies disabled)
-                if ($c_type == 'H') {
+                if ($c_type === 'H') {
                     return str_replace('{X_SITEURL}', $this->xoops_url . '/', $this->getVar('content', 'n'));
                 } else {
-                    if ($c_type == 'P') {
+                    if ($c_type === 'P') {
                         ob_start();
                         echo eval($this->getVar('content', 'n'));
                         $content = ob_get_contents();
                         ob_end_clean();
                         return str_replace('{X_SITEURL}', $this->xoops_url . '/', $content);
                     } else {
-                        if ($c_type == 'S') {
+                        if ($c_type === 'S') {
                             $myts = \Xoops\Core\Text\Sanitizer::getInstance();
                             $content = str_replace(
                                 '{X_SITEURL}',

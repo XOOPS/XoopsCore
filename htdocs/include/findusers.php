@@ -260,19 +260,19 @@ if (empty($_POST["user_submit"])) {
             $criteria->add(new Criteria('posts', (int)($_POST['posts_less']), '>='));
         }
         if (!empty($_POST['user_mailok'])) {
-            if ($_POST['user_mailok'] == "mailng") {
+            if ($_POST['user_mailok'] === "mailng") {
                 $criteria->add(new Criteria('user_mailok', 0));
             } else {
-                if ($_POST['user_mailok'] == "mailok") {
+                if ($_POST['user_mailok'] === "mailok") {
                     $criteria->add(new Criteria('user_mailok', 1));
                 }
             }
         }
         if (!empty($_POST['user_avatar'])) {
-            if ($_POST['user_avatar'] == "y") {
+            if ($_POST['user_avatar'] === "y") {
                 $criteria->add(new Criteria('user_avatar', "('', 'blank.gif')", 'NOT IN'));
             } else {
-                if ($_POST['user_avatar'] == "n") {
+                if ($_POST['user_avatar'] === "n") {
                     $criteria->add(new Criteria('user_avatar', "('', 'blank.gif')", 'IN'));
                 }
             }
@@ -301,7 +301,7 @@ if (empty($_POST["user_submit"])) {
         );
         $sort = (!in_array($_POST['user_sort'], $validsort)) ? "uname" : $_POST['user_sort'];
         $order = "ASC";
-        if (isset($_POST['user_order']) && $_POST['user_order'] == "DESC") {
+        if (isset($_POST['user_order']) && $_POST['user_order'] === "DESC") {
             $order = "DESC";
         }
         $criteria->setSort($sort);
@@ -352,7 +352,7 @@ if (empty($_POST["user_submit"])) {
         echo "<h4>" . XoopsLocale::E_USERS_NOT_FOUND, "</h4>";
         $hiddenform = "<form name='findnext' action='findusers.php' method='post'>";
         foreach ($_POST as $k => $v) {
-            if ($k == 'XOOPS_TOKEN_REQUEST') {
+            if ($k === 'XOOPS_TOKEN_REQUEST') {
                 // regenerate token value
                 $hiddenform .= $xoops->security()->getTokenHTML() . "\n";
             } else {
@@ -434,7 +434,7 @@ if (empty($_POST["user_submit"])) {
 
             $hiddenform = "<form name='findnext' action='findusers.php' method='post'>";
             foreach ($_POST as $k => $v) {
-                if ($k == 'XOOPS_TOKEN_REQUEST') {
+                if ($k === 'XOOPS_TOKEN_REQUEST') {
                     // regenerate token value
                     $hiddenform .= $xoops->security()->getTokenHTML() . "\n";
                 } else {
