@@ -997,5 +997,3 @@ class Snoopy
         return $this->results;
     }
 }
-
-?>

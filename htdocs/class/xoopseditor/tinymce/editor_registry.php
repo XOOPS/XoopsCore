@@ -19,4 +19,3 @@ return $config = array(
         "order"     =>  5,
         "nohtml"    =>  0
     );
-?>

@@ -316,4 +316,3 @@ class TinyMCE
         return $ret ;
     }
 }
-?>

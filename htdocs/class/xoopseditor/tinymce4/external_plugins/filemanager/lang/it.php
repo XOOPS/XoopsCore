@@ -74,4 +74,3 @@ define('lang_Zip_No_Extract', 'Non si può estrarre il pacchetto perchè sembra 
 define('lang_Zip_Invalid', 'Questa estensione non è supportata. Le estensioni valide sono: zip, gz, tar.');
 define('lang_Dir_No_Write', 'La cartella selezionata non è scrivibile.');
 define('lang_Function_Disabled', 'La funzione %s è stata disabilitata.'); // %s = cut or copy
-?>

@@ -263,4 +263,3 @@ class MetaWeblogApi extends XoopsXmlRpcApi
         }
     }
 }
-?>
