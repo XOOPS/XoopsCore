@@ -318,7 +318,7 @@ class RpcMethodNameHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setMethodName($data);
@@ -341,7 +341,7 @@ class RpcIntHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setTempValue((int)($data));
@@ -364,7 +364,7 @@ class RpcDoubleHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $data = (float)$data;
@@ -388,7 +388,7 @@ class RpcBooleanHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $data = (boolean)$data;
@@ -412,7 +412,7 @@ class RpcStringHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setTempValue((string)($data));
@@ -435,7 +435,7 @@ class RpcDateTimeHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $matches = array();
@@ -463,7 +463,7 @@ class RpcBase64Handler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setTempValue(base64_decode($data));
@@ -486,7 +486,7 @@ class RpcNameHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         switch ($parser->getParentTag()) {
@@ -516,7 +516,7 @@ class RpcValueHandler extends XmlTagHandler
      * @param $data
      * @return void
      */
-    public function handleCharacterData(SaxParser &$parser, &$data)
+    public function handleCharacterData(SaxParser $parser, &$data)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         switch ($parser->getParentTag()) {
@@ -537,7 +537,7 @@ class RpcValueHandler extends XmlTagHandler
      * @param $attributes
      * @return void
      */
-    public function handleBeginElement(SaxParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser $parser, &$attributes)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         //$parser->resetTempValue();
@@ -547,7 +547,7 @@ class RpcValueHandler extends XmlTagHandler
      * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(SaxParser &$parser)
+    public function handleEndElement(SaxParser $parser)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         switch ($parser->getCurrentTag()) {
@@ -582,7 +582,7 @@ class RpcMemberHandler extends XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(SaxParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser $parser, &$attributes)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setWorkingLevel();
@@ -593,7 +593,7 @@ class RpcMemberHandler extends XmlTagHandler
      * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(SaxParser &$parser)
+    public function handleEndElement(SaxParser $parser)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $member = $parser->getTempMember();
@@ -618,7 +618,7 @@ class RpcArrayHandler extends XmlTagHandler
     * @param array $attributes
     * @return void
     */
-    public function handleBeginElement(SaxParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser $parser, &$attributes)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setWorkingLevel();
@@ -629,7 +629,7 @@ class RpcArrayHandler extends XmlTagHandler
      * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(SaxParser &$parser)
+    public function handleEndElement(SaxParser $parser)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setTempValue($parser->getTempArray());
@@ -653,7 +653,7 @@ class RpcStructHandler extends XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    public function handleBeginElement(SaxParser &$parser, &$attributes)
+    public function handleBeginElement(SaxParser $parser, &$attributes)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setWorkingLevel();
@@ -664,7 +664,7 @@ class RpcStructHandler extends XmlTagHandler
      * @param SaxParser $parser
      * @return void
      */
-    public function handleEndElement(SaxParser &$parser)
+    public function handleEndElement(SaxParser $parser)
     {
         if (!is_a($parser,'XoopsXmlRpcParser')) return;
         $parser->setTempValue($parser->getTempStruct());

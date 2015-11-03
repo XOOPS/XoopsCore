@@ -49,14 +49,14 @@ class XoopsXmlRpcApi
     protected $isadmin = false;
 
 
-    function XoopsXmlRpcApi(array &$params, XoopsXmlRpcResponse &$response, XoopsModule &$module)
+    function XoopsXmlRpcApi(array &$params, XoopsXmlRpcResponse $response, XoopsModule $module)
     {
         $this->params = $params;
         $this->response = $response;
         $this->module = $module;
     }
 
-    function _setUser(XoopsUser &$user, $isadmin = false)
+    function _setUser(XoopsUser $user, $isadmin = false)
     {
         if (is_object($user)) {
             $this->user = $user;

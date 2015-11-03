@@ -47,7 +47,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      *
      * @return int|false id of insert, or false on error
      */
-    public function insertBlock(XoopsBlock &$obj, $force = false)
+    public function insertBlock(XoopsBlock $obj, $force = false)
     {
         $obj->setVar('last_modified', time());
         return parent::insert($obj, $force);
@@ -60,7 +60,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    public function deleteBlock(XoopsBlock &$obj)
+    public function deleteBlock(XoopsBlock $obj)
     {
         if (!parent::delete($obj)) {
             return false;

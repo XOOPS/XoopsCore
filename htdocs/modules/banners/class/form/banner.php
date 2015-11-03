@@ -24,7 +24,7 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
     /**
      * @param BannersBanner|XoopsObject $obj
      */
-    public function __construct(BannersBanner &$obj)
+    public function __construct(BannersBanner $obj)
     {
         $xoops = Xoops::getInstance();
         $xoops_upload_url = $xoops->url('uploads/');

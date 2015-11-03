@@ -25,7 +25,7 @@ class MenusMenus_menuForm extends Xoops\Form\ThemeForm
     /**
      * @param MenusMenu $obj
      */
-    public function __construct(MenusMenu &$obj)
+    public function __construct(MenusMenu $obj)
     {
         global $menu_id;
         $xoops = Xoops::getInstance();

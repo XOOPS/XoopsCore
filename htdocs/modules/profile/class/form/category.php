@@ -21,7 +21,7 @@ class ProfileCategoryForm extends Xoops\Form\ThemeForm
     /**
      * @param ProfileCategory|XoopsObject $obj
      */
-    public function __construct(ProfileCategory &$obj)
+    public function __construct(ProfileCategory $obj)
     {
         $title = $obj->isNew() ? sprintf(_PROFILE_AM_ADD, _PROFILE_AM_CATEGORY) : sprintf(_PROFILE_AM_EDIT, _PROFILE_AM_CATEGORY);
 
