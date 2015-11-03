@@ -74,4 +74,3 @@ define('lang_Zip_No_Extract', 'Kunne ikke pakke ut. Filen er muligens ødelagt.'
 define('lang_Zip_Invalid', 'Dette filetternavnet er ikke støttet. Valide filer: zip, gz, tar.');
 define('lang_Dir_No_Write', 'Mappen du valgte er ikke skrivbar.');
 define('lang_Function_Disabled', 'Funksjonen %s er blitt deaktivert av serveren.'); // %s = cut or copy
-?>

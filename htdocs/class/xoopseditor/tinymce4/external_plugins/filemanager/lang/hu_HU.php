@@ -74,4 +74,3 @@ define('lang_Zip_No_Extract', 'Kicsomagolás sikertelen. Lehet, hogy korrupt a f
 define('lang_Zip_Invalid', 'Ez a kiterjesztés nem támogatott. Támogatott: zip, gz, tar.');
 define('lang_Dir_No_Write', 'A kiválasztott mappa nem írható.');
 define('lang_Function_Disabled', 'A %s funkciót letiltotta a szerver.'); // %s = cut or copy
-?>

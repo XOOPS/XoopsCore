@@ -46,5 +46,3 @@ only for confirming your registration details and password (and for sending
 new passwords should you forget your current one).
 
 By clicking Register below you agree to be bound by these conditions.");
-
-?>

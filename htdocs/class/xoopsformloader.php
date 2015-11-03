@@ -18,5 +18,3 @@
  * @since           2.0.0
  * @version         $Id$
  */
-
-?>

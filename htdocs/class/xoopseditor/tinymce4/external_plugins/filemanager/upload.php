@@ -128,5 +128,3 @@ if(isset($_POST['submit'])){
     ));
     header("location: dialog.php?" . $query);
 }
-
-?>      
