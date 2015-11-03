@@ -26,11 +26,11 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 /**
  * xoops_module_update_system
  *
- * @param XoopsModule &$module
+ * @param XoopsModule $module
  *
  * @return bool
  */
-function xoops_module_update_system(XoopsModule &$module)
+function xoops_module_update_system(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
     if ($module->getVar('version') == 100) {

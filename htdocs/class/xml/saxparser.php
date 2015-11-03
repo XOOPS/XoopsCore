@@ -189,7 +189,7 @@ class SaxParser
      * @param XmlTagHandler $tagHandler
      * @return void
      */
-    function addTagHandler(XmlTagHandler &$tagHandler)
+    function addTagHandler(XmlTagHandler $tagHandler)
     {
         $name = $tagHandler->getName();
         if (is_array($name)) {

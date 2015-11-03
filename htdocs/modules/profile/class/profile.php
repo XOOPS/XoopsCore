@@ -161,7 +161,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    public function insertField(ProfileField &$field, $force = false)
+    public function insertField(ProfileField $field, $force = false)
     {
         return $this->_fHandler->insert($field, $force);
     }
@@ -174,7 +174,7 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
      *
      * @return bool
      */
-    public function deleteField(ProfileField &$field, $force = false)
+    public function deleteField(ProfileField $field, $force = false)
     {
         return $this->_fHandler->delete($field, $force);
     }

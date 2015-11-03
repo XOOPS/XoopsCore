@@ -25,7 +25,7 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
     /**
      * @param PagePage_content|XoopsObject $obj
      */
-    public function __construct(PagePage_content &$obj)
+    public function __construct(PagePage_content $obj)
     {
         $helper = Page::getInstance();
         $xoops = $helper->xoops();

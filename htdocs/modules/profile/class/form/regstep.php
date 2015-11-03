@@ -21,7 +21,7 @@ class ProfileRegstepForm extends Xoops\Form\ThemeForm
     /**
      * @param ProfileRegstep|XoopsObject $obj
      */
-    public function __construct(ProfileRegstep &$obj)
+    public function __construct(ProfileRegstep $obj)
     {
         parent::__construct(_PROFILE_AM_STEP, 'stepform', 'step.php', 'post', true);
         if (!$obj->isNew()) {

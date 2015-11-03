@@ -25,14 +25,14 @@ class XmlTagHandler
      * @param array $attributes
      * @return void
      */
-    function handleBeginElement(SaxParser &$parser, &$attributes) {}
+    function handleBeginElement(SaxParser $parser, &$attributes) {}
 
     /**
      * @abstract
      * @param SaxParser $parser
      * @return void
      */
-    function handleEndElement(SaxParser &$parser) {}
+    function handleEndElement(SaxParser $parser) {}
 
     /**
      * @abstract
@@ -40,5 +40,5 @@ class XmlTagHandler
      * @param $data
      * @return void
      */
-    function handleCharacterData(SaxParser &$parser, &$data) {}
+    function handleCharacterData(SaxParser $parser, &$data) {}
 }
