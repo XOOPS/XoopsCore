@@ -114,7 +114,6 @@ $configs['db_param_names'] = array(
     'service' => 'DB_SERVICE',
     'pooled' => 'DB_POOLED',
     'protocol'=>'DB_PROTOCOL',
-    'protocol'=>'DB_PROTOCOL',
     'dbname'=>'DB_NAME',
 );
 
