@@ -182,8 +182,8 @@ class Criteria extends CriteriaElement
                 ->setMaxResults($this->limit);
         }
 
-        if (!empty($this->groupby)) {
-            $qb->groupBy($this->groupby);
+        if (!empty($this->groupBy)) {
+            $qb->groupBy($this->groupBy);
         }
 
         if (!empty($this->sort)) {

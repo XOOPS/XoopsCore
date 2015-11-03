@@ -38,15 +38,15 @@ class Stats extends XoopsModelAbstract
     {
         $qb = \Xoops::getInstance()->db()->createXoopsQueryBuilder();
 
-        $groupby = false;
+        $groupBy = false;
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
-            $temp = $criteria->getGroupby();
+            $temp = $criteria->getGroupBy();
             if (!empty($temp)) {
                 $qb->select($temp);
-                $groupby = true;
+                $groupBy = true;
             }
         }
-        if (!$groupby) {
+        if (!$groupBy) {
             $qb->select('COUNT(*)');
         } else {
             $qb->addSelect('COUNT(*)');
@@ -66,7 +66,7 @@ class Stats extends XoopsModelAbstract
             return 0;
         }
 
-        if ($groupby == false) {
+        if ($groupBy == false) {
             list ($count) = $result->fetch(\PDO::FETCH_NUM);
             return $count;
         } else {
@@ -94,8 +94,8 @@ class Stats extends XoopsModelAbstract
         $start = null;
         $groupby_key = $this->handler->keyName;
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
-            if ($groupby = $criteria->getGroupby()) {
-                $groupby_key = $groupby;
+            if ($groupBy = $criteria->getGroupBy()) {
+                $groupby_key = $groupBy;
             }
         }
         $qb->select($groupby_key)

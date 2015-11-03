@@ -59,7 +59,7 @@ abstract class CriteriaElement
     /**
      * @var string
      */
-    protected $groupby = '';
+    protected $groupBy = '';
 
 
     /**
@@ -208,9 +208,9 @@ abstract class CriteriaElement
      *
      * @return void
      */
-    public function setGroupby($group)
+    public function setGroupBy($group)
     {
-        $this->groupby = $group;
+        $this->groupBy = $group;
     }
 
     /**
@@ -218,8 +218,8 @@ abstract class CriteriaElement
      *
      * @return string group by
      */
-    public function getGroupby()
+    public function getGroupBy()
     {
-        return isset($this->groupby) ? $this->groupby : "";
+        return isset($this->groupBy) ? $this->groupBy : "";
     }
 }

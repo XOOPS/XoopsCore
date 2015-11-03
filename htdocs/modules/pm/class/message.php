@@ -84,7 +84,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
      * @param int $val
      * @return bool
      */
-    public function setFromdelete(PmMessage $pm, $val = 1)
+    public function setFromDelete(PmMessage $pm, $val = 1)
     {
         if ($pm->getVar('to_delete') == 0) {
             return $this->updateAll('from_delete', (int)($val), new Criteria('msg_id', $pm->getVar('msg_id')));

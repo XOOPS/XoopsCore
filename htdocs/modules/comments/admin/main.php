@@ -276,7 +276,7 @@ switch ($op) {
                 $comments['comments_icon'] = $comments_icon;
                 $comments['comments_title'] = '<a href="main.php?op=comments_jump&amp;item_id=' . $comments_arr[$i]->getVar("id") . '">' . $comments_arr[$i]->getVar("title")  . '</a>';
                 $comments['comments_ip'] = $comments_arr[$i]->getVar('ip');
-                $comments['comments_date'] = XoopsLocale::formatTimeStamp($comments_arr[$i]->getVar('created'));
+                $comments['comments_date'] = XoopsLocale::formatTimestamp($comments_arr[$i]->getVar('created'));
                 $comments['comments_text'] = $myts->undoHtmlSpecialChars($comments_arr[$i]->getVar('text'));
                 $comments['comments_status'] = @$status_array2[$comments_arr[$i]->getVar('status')];
                 $comments['comments_date_created'] = XoopsLocale::formatTimestamp($comments_arr[$i]->getVar('created'), 'm');

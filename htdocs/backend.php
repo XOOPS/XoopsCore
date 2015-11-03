@@ -39,9 +39,9 @@ $tpl = new XoopsTpl();
 $tpl->caching = 2;
 $tpl->cache_lifetime = 3600;
 if (!$tpl->isCached('module:' . $dirname . '/system_rss.tpl')) {
-    $tpl->assign('channel_title', $myts->htmlspecialchars($xoops->getConfig('sitename')));
+    $tpl->assign('channel_title', $myts->htmlSpecialChars($xoops->getConfig('sitename')));
     $tpl->assign('channel_link', $xoops_url . '/');
-    $tpl->assign('channel_desc', $myts->htmlspecialchars($xoops->getConfig('slogan')));
+    $tpl->assign('channel_desc', $myts->htmlSpecialChars($xoops->getConfig('slogan')));
     $tpl->assign('channel_lastbuild', XoopsLocale::formatTimestamp(time(), 'rss'));
     $tpl->assign('channel_webmaster', $xoops->checkEmail($xoops->getConfig('adminmail'), true));
     $tpl->assign('channel_editor', $xoops->checkEmail($xoops->getConfig('adminmail'), true));
@@ -66,8 +66,8 @@ if (!$tpl->isCached('module:' . $dirname . '/system_rss.tpl')) {
             foreach ($res as $item) {
                 $date[] = array('date' => $item['date']);
                 $items[] = array('date' => XoopsLocale::formatTimestamp($item['date'], 'rss'),
-                                 'title' => $myts->htmlspecialchars($item['title']),
-                                 'content' => $myts->htmlspecialchars($item['content']),
+                                 'title' => $myts->htmlSpecialChars($item['title']),
+                                 'content' => $myts->htmlSpecialChars($item['content']),
                                  'link' => $item['link'],
                                  'guid' => $item['link'],
                                  );
@@ -82,8 +82,8 @@ if (!$tpl->isCached('module:' . $dirname . '/system_rss.tpl')) {
                 foreach ($res as $item) {
                     $date[] = array('date' => $item['date']);
                     $items[] = array('date' => XoopsLocale::formatTimestamp($item['date'], 'rss'),
-                                     'title' => $myts->htmlspecialchars($item['title']),
-                                     'content' => $myts->htmlspecialchars($item['content']),
+                                     'title' => $myts->htmlSpecialChars($item['title']),
+                                     'content' => $myts->htmlSpecialChars($item['content']),
                                      'link' => $item['link'],
                                      'guid' => $item['link'],
                                      );
