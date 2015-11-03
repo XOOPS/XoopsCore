@@ -64,7 +64,7 @@ return array(
     'tcl' => 'application/x-tcl' ,
     'xhtml' => 'application/xhtml+xml' ,
     'xht' => 'application/xhtml+xml' ,
-    'xhtml' => 'application/xml' ,
+//    'xhtml' => 'application/xml' ,
     'ent' => 'application/xml-external-parsed-entity' ,
     'dtd' => 'application/xml-dtd' ,
     'mod' => 'application/xml-dtd' ,
