@@ -39,7 +39,7 @@ class Factory
     {
         $xoops = \Xoops::getInstance();
         static $auth_instance;
-        if (!isset($auth_instance) OR (bool)$_force) {
+        if (!isset($auth_instance) || (bool)$_force) {
             /* @var $config_handler XoopsConfigHandler */
             $authConfig = $xoops->getConfigs();
             if (empty($authConfig['auth_method'])) { // If there is a config error, we use xoops
