@@ -74,7 +74,7 @@ class SyntaxHighlight extends FilterAbstract
     {
         $text = trim($text);
         $addedOpenTag = false;
-        if (!strpos($text, "<?php") and (substr($text, 0, 5) !== "<?php")) {
+        if (!strpos($text, "<?php") && (substr($text, 0, 5) !== "<?php")) {
             $text = "<?php " . $text;
             $addedOpenTag = true;
         }

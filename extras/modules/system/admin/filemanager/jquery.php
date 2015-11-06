@@ -400,7 +400,7 @@ switch ($op) {
             }
 
             while ($name = readdir($dir)) {
-                if ($name === '.' or $name === '..') {
+                if ($name === '.' || $name === '..') {
                     continue;
                 }
                 $full_name = $dossier . '/' . $name;

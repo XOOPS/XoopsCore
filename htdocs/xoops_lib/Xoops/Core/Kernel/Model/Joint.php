@@ -224,7 +224,7 @@ class Joint extends XoopsModelAbstract
         if (!$this->validateLinks()) {
             return false;
         }
-        if (empty($data) or empty($criteria)) { // avoid update all records
+        if (empty($data) || empty($criteria)) { // avoid update all records
             return false;
         }
 

@@ -149,9 +149,9 @@ class Provisioning
         $tab_mapping = explode('|', $this->ldap_field_mapping);
         foreach ($tab_mapping as $mapping) {
             $fields = explode('=', trim($mapping));
-            if (isset($fields[0]) and ($field0 = trim($fields[0]))) {
+            if (isset($fields[0]) && ($field0 = trim($fields[0]))) {
                 $str = '';
-                if (isset($fields[1]) and ($field1 = trim($fields[1]))) {
+                if (isset($fields[1]) && ($field1 = trim($fields[1]))) {
                     if (!empty($data[$field1][0])) {
                         $str = $data[$field1][0];
                     }

@@ -77,7 +77,7 @@ class Utils
 
         foreach ($aArray1 as $mKey => $mValue) {
             if (array_key_exists($mKey, $aArray2)) {
-                if (is_array($mValue) and is_array($aArray2[$mKey])) {
+                if (is_array($mValue) && is_array($aArray2[$mKey])) {
                     $aRecursiveDiff = self::arrayRecursiveDiff($mValue, $aArray2[$mKey]);
                     if (count($aRecursiveDiff)) {
                         $aReturn[$mKey] = $aRecursiveDiff;
