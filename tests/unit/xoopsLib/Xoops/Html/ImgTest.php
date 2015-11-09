@@ -39,7 +39,7 @@ class ImgTest extends \PHPUnit_Framework_TestCase
     {
         $object = new Img(array('src' => 'image.png'));
         $this->assertInstanceOf('\Xoops\Html\Attributes', $object);
-        $this->assertEquals('image.png', $object->getAttribute('src'));
+        $this->assertEquals('image.png', $object->get('src'));
     }
 
     /**
