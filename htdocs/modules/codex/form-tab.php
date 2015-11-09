@@ -110,8 +110,8 @@ $select->setClass('span2');
 $tab3->addElement($select, true);
 
 $select_optgroup = new Xoops\Form\Select('Select Optgroup', 'select_optgroup', '', 1, false);
-$select_optgroup->addOptgroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
-$select_optgroup->addOptgroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
+$select_optgroup->addOptionGroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
+$select_optgroup->addOptionGroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
 $select_optgroup->setDescription('Description Select Optgroup');
 $select_optgroup->setClass('span3');
 $tab3->addElement($select_optgroup, true);

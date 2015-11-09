@@ -43,7 +43,7 @@ if ($xoopsConfigUser['reg_dispdsclmr'] != 0 && $xoopsConfigUser['reg_disclaimer'
     $agree_chk->addOption(1, XoopsLocale::I_AGREE_TO_THE_ABOVE);
     $eltname = $agree_chk->getName();
     $eltmsg = str_replace('"', '\"', stripslashes(sprintf(XoopsLocale::F_ENTER, XoopsLocale::I_AGREE_TO_THE_ABOVE)));
-    $agree_chk->customValidationCode[] = "if ( myform.{$eltname}.checked == false ) { window.alert(\"{$eltmsg}\"); myform.{$eltname}.focus(); return false; }";
+    $agree_chk->addCustomValidationCode("if ( myform.{$eltname}.checked == false ) { window.alert(\"{$eltmsg}\"); myform.{$eltname}.focus(); return false; }");
     $disc_tray->addElement($agree_chk, true);
     $reg_form->addElement($disc_tray);
 }

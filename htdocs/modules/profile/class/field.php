@@ -148,7 +148,7 @@ class ProfileField extends XoopsObject
 
                     $eltmsg = empty($caption) ? sprintf(XoopsLocale::F_ENTER, $name) : sprintf(XoopsLocale::F_ENTER, $caption);
                     $eltmsg = str_replace('"', '\"', stripslashes($eltmsg));
-                    $element->customValidationCode[] = "\nvar hasSelected = false; var selectBox = myform.{$name};" . "for (i = 0; i < selectBox.options.length; i++  ) { if ( selectBox.options[i].selected == true && selectBox.options[i].value != '' ) { hasSelected = true; break; } }" . "if ( !hasSelected ) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
+                    $element->addCustomValidationCode("\nvar hasSelected = false; var selectBox = myform.{$name};" . "for (i = 0; i < selectBox.options.length; i++  ) { if ( selectBox.options[i].selected == true && selectBox.options[i].value != '' ) { hasSelected = true; break; } }" . "if ( !hasSelected ) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }");
                 }
                 $element->addOptionArray($options);
                 break;
