@@ -216,23 +216,19 @@ class SecurityTest extends \PHPUnit_Framework_TestCase
         $instance = $this->object;
 
         $value = $instance->getTokenHTML();
-        $this->assertTrue(strpos($value, '<input type="hidden"') === 0);
-        $this->assertTrue(strpos($value, 'name="XOOPS_TOKEN_REQUEST"') !== false);
-        $this->assertTrue(strpos($value, 'name="XOOPS_TOKEN_REQUEST"') !== 0);
-        $this->assertTrue(strpos($value, 'id="XOOPS_TOKEN_REQUEST"') !== false);
-        $this->assertTrue(strpos($value, 'id="XOOPS_TOKEN_REQUEST"') !== 0);
-        $this->assertTrue(strpos($value, 'value="') !== false);
-        $this->assertTrue(strpos($value, 'value="') !== 0);
+        $this->assertTrue(strpos($value, '<input') === 0);
+        $this->assertNotFalse(strpos($value, 'type="hidden"'));
+        $this->assertNotFalse(strpos($value, 'name="XOOPS_TOKEN_REQUEST"'));
+        $this->assertNotFalse(strpos($value, 'id="XOOPS_TOKEN_REQUEST"'));
+        $this->assertNotFalse(strpos($value, 'value="'));
 
         $token = "MY_TOKEN";
         $value = $instance->getTokenHTML($token);
-        $this->assertTrue(strpos($value, '<input type="hidden"') === 0);
-        $this->assertTrue(strpos($value, 'name="'.$token.'_REQUEST"') !== false);
-        $this->assertTrue(strpos($value, 'name="'.$token.'_REQUEST"') !== 0);
-        $this->assertTrue(strpos($value, 'id="'.$token.'_REQUEST"') !== false);
-        $this->assertTrue(strpos($value, 'id="'.$token.'_REQUEST"') !== 0);
-        $this->assertTrue(strpos($value, 'value="') !== false);
-        $this->assertTrue(strpos($value, 'value="') !== 0);
+        $this->assertTrue(strpos($value, '<input') === 0);
+        $this->assertNotFalse(strpos($value, 'type="hidden"'));
+        $this->assertNotFalse(strpos($value, 'name="'.$token.'_REQUEST"'));
+        $this->assertNotFalse(strpos($value, 'id="'.$token.'_REQUEST"'));
+        $this->assertNotFalse(strpos($value, 'value="'));
     }
 
     public function test_setErrors()
