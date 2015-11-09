@@ -53,9 +53,7 @@ class GroupFormCheckbox extends Element
             parent::__construct([]);
             $this->setCaption($caption);
             $this->setName($name);
-            if (isset($values)) {
-                $this->setValue($values);
-            }
+            $this->setWithDefaults('value', (array) $values, []);
             $this->set(':groupid', $groupId);
         }
         $this->groupId = $this->get(':groupid', 0);
@@ -145,7 +143,7 @@ class GroupFormCheckbox extends Element
                 . "'); if(this.checked != true) {ele.checked = false;}";
         }
         $tree .= '" value="1"';
-        if (in_array($option['id'], $this->value)) {
+        if (in_array($option['id'], $this->get('value', []))) {
             $tree .= ' checked="checked"';
         }
         $tree .= " />" . $option['name'] . "<input type=\"hidden\" name=\"" . $elementName . "[parents]["

@@ -430,7 +430,7 @@ $(document).ready(function(){
 
                 $file_box = new Xoops\Form\File(_CO_PUBLISHER_ITEM_UPLOAD_FILE, "item_upload_file");
                 $file_box->setDescription(_CO_PUBLISHER_ITEM_UPLOAD_FILE_DSC);
-                $file_box->set('size' 50);
+                $file_box->set('size', 50);
                 $filesTab->addElement($file_box);
                 unset($file_box);
 
