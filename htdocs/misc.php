@@ -72,7 +72,7 @@ if ($action === "showpopups") {
 
                 $button_2 = new Xoops\Form\Button('', 'close', XoopsLocale::A_CLOSE, 'close');
                 $button_2->setClass('btn btn-warning');
-                $button_2->setExtra("onclick='javascript:window.close();'");
+                $button_2->set('onclick', 'javascript:window.close();');
                 $button_tray->addElement($button_2);
 
                 $form->addElement($button_tray);

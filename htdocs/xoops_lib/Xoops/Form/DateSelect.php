@@ -23,27 +23,25 @@ namespace Xoops\Form;
  */
 class DateSelect extends Text
 {
-
     /**
      * __construct
      *
      * @param string|array      $caption caption or array of all attributes
      * @param string            $name    name
-     * @param integer           $size    field size
      * @param integer|\DateTime $value   unix timestamp or DateTime object
      */
-    public function __construct($caption, $name = null, $size = 12, $value = null)
+    public function __construct($caption, $name = null, $value = null)
     {
         if (is_array($caption)) {
             parent::__construct($caption);
-            $this->setIfNotSet('size', 12);
+            $this->setIfNotSet('size', 15);
             $this->setIfNotSet('value', 0);
             $this->set('value', \Xoops\Core\Locale\Time::cleanTime($this->get('value', null)));
         } else {
             parent::__construct([]);
             $this->setCaption($caption);
             $this->setName($name);
-            $this->set('size', $size);
+            $this->set('size', 15);
             $this->setValue(\Xoops\Core\Locale\Time::cleanTime($value));
         }
     }

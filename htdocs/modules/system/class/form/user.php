@@ -125,11 +125,11 @@ class SystemUserForm extends Xoops\Form\ThemeForm
         }
         // adding a new user requires password fields
         if (!$form_isedit) {
-            $this->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, "password", 3, 32), true);
-            $this->addElement(new Xoops\Form\Password(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32), true);
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, "password"), true);
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::RETYPE_PASSWORD, "pass2"), true);
         } else {
-            $this->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, "password", 3, 32));
-            $this->addElement(new Xoops\Form\Password(XoopsLocale::RETYPE_PASSWORD, "pass2", 3, 32));
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, "password"));
+            $this->addElement(new Xoops\Form\Password(XoopsLocale::RETYPE_PASSWORD, "pass2"));
         }
         $this->addElement(
             new Xoops\Form\RadioYesNo(XoopsLocale::ONLY_USERS_THAT_ACCEPT_EMAIL, 'user_mailok', $mailok_value)

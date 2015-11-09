@@ -70,7 +70,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
         parent::__construct('title', 'form', $xoops->getEnv('PHP_SELF'));
         $this->setExtra('enctype="multipart/form-data"');
 
-        $tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+        $tabTray = new Xoops\Form\TabTray('', 'uniqueid');
 
         $mainTab = new Xoops\Form\Tab(_CO_PUBLISHER_TAB_MAIN, 'maintab');
         // Category
@@ -430,7 +430,7 @@ $(document).ready(function(){
 
                 $file_box = new Xoops\Form\File(_CO_PUBLISHER_ITEM_UPLOAD_FILE, "item_upload_file");
                 $file_box->setDescription(_CO_PUBLISHER_ITEM_UPLOAD_FILE_DSC);
-                $file_box->setExtra("size ='50'");
+                $file_box->set('size' 50);
                 $filesTab->addElement($file_box);
                 unset($file_box);
 

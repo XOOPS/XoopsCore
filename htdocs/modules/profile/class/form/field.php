@@ -164,15 +164,15 @@ class ProfileFieldForm extends Xoops\Form\ThemeForm
                     break;
 
                 case "date":
-                    $this->addElement(new Xoops\Form\DateSelect(_PROFILE_AM_DEFAULT, 'field_default', 2, $obj->getVar('field_default', 'e')));
+                    $this->addElement(new Xoops\Form\DateSelect(_PROFILE_AM_DEFAULT, 'field_default', $obj->getVar('field_default', 'e')));
                     break;
 
                 case "longdate":
-                    $this->addElement(new Xoops\Form\DateSelect(_PROFILE_AM_DEFAULT, 'field_default', 2, strtotime($obj->getVar('field_default', 'e'))));
+                    $this->addElement(new Xoops\Form\DateSelect(_PROFILE_AM_DEFAULT, 'field_default', strtotime($obj->getVar('field_default', 'e'))));
                     break;
 
                 case "datetime":
-                    $this->addElement(new Xoops\Form\DateTime(_PROFILE_AM_DEFAULT, 'field_default', 2, $obj->getVar('field_default', 'e')));
+                    $this->addElement(new Xoops\Form\DateTime(_PROFILE_AM_DEFAULT, 'field_default', $obj->getVar('field_default', 'e')));
                     break;
 
                 case "yesno":

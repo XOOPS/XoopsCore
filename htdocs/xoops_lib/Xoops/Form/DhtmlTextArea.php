@@ -172,7 +172,6 @@ class DhtmlTextArea extends \XoopsEditor
         $xoops = \Xoops::getInstance();
 
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
         $ret = "";
         // actions
         $ret .= $this->codeIcon() . "<br />\n";

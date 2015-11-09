@@ -82,9 +82,9 @@ class SelectEditor extends ElementTray
         $editor_handler = \XoopsEditorHandler::getInstance();
         $editor_handler->allowed_editors = $this->allowed_editors;
         $option_select = new Select("", $this->name, $this->value);
-        $extra = 'onchange="if(this.options[this.selectedIndex].value.length > 0 ){window.document.forms.'
+        $onchangeCode = '"if(this.options[this.selectedIndex].value.length > 0 ){window.document.forms.'
             . $this->form->getName() . '.submit();}"';
-        $option_select->setExtra($extra);
+        $option_select->set('onchange', $onchangeCode);
         $option_select->addOptionArray($editor_handler->getList($this->nohtml));
         $this->addElement($option_select);
         return parent::render();

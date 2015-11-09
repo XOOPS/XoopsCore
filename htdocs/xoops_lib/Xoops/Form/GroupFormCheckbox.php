@@ -24,13 +24,6 @@ namespace Xoops\Form;
 class GroupFormCheckbox extends Element
 {
     /**
-     * Pre-selected value(s)
-     *
-     * @var array
-     */
-     protected $value = array();
-
-    /**
      * Group ID
      *
      * @var int
@@ -47,19 +40,25 @@ class GroupFormCheckbox extends Element
     /**
      * __construct
      *
-     * @param string  $caption caption
-     * @param string  $name    element name
-     * @param integer $groupId group id
-     * @param mixed   $values  values
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $name    element name
+     * @param integer      $groupId group id
+     * @param mixed        $values  values
      */
-    public function __construct($caption, $name, $groupId, $values = null)
+    public function __construct($caption, $name = null, $groupId = null, $values = null)
     {
-        $this->setCaption($caption);
-        $this->setName($name);
-        if (isset($values)) {
-            $this->setValue($values);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setCaption($caption);
+            $this->setName($name);
+            if (isset($values)) {
+                $this->setValue($values);
+            }
+            $this->set(':groupid', $groupId);
         }
-        $this->groupId = $groupId;
+        $this->groupId = $this->get(':groupid', 0);
     }
 
     /**
@@ -103,9 +102,11 @@ class GroupFormCheckbox extends Element
                 $option_ids[] = "'" . $ele_name . '[groups][' . $this->groupId . '][' . $id . ']' . "'";
             }
         }
-        $checkallbtn_id = $ele_name . '[checkallbtn][' . $this->groupId . ']';
+        $checkAllButtonId = $ele_name . '[checkallbtn][' . $this->groupId . ']';
         $option_ids_str = implode(', ', $option_ids);
-        $ret .= \XoopsLocale::ALL . " <input id=\"" . $checkallbtn_id . "\" type=\"checkbox\" value=\"\" onclick=\"var optionids = new Array(" . $option_ids_str . "); xoopsCheckAllElements(optionids, '" . $checkallbtn_id . "');\" />";
+        $ret .= \XoopsLocale::ALL . " <input id=\"" . $checkAllButtonId . "\" type=\"checkbox\" value=\"\" "
+            . "onclick=\"var optionids = new Array(" . $option_ids_str . "); "
+            . "xoopsCheckAllElements(optionids, '" . $checkAllButtonId . "');\" />";
         $ret .= '</td></tr></table>';
         return $ret;
     }
@@ -122,28 +123,35 @@ class GroupFormCheckbox extends Element
      */
     private function renderOptionTree(&$tree, $option, $prefix, $parentIds = array())
     {
-        $ele_name = $this->getName();
-        $tree .= $prefix . "<input type=\"checkbox\" name=\"" . $ele_name . "[groups][" . $this->groupId . "][" . $option['id'] . "]\" id=\"" . $ele_name . "[groups][" . $this->groupId . "][" . $option['id'] . "]\" onclick=\"";
+        $elementName = $this->getName();
+        $tree .= $prefix . "<input type=\"checkbox\" name=\"" . $elementName . "[groups]["
+            . $this->groupId . "][" . $option['id'] . "]\" id=\"" . $elementName
+            . "[groups][" . $this->groupId . "][" . $option['id'] . "]\" onclick=\"";
         // If there are parent elements, add javascript that will
-        // make them selecteded when this element is checked to make
+        // make them selected when this element is checked to make
         // sure permissions to parent items are added as well.
         foreach ($parentIds as $pid) {
-            $parent_ele = $ele_name . '[groups][' . $this->groupId . '][' . $pid . ']';
-            $tree .= "var ele = xoopsGetElementById('" . $parent_ele . "'); if(ele.checked != true) {ele.checked = this.checked;}";
+            $parent_ele = $elementName . '[groups][' . $this->groupId . '][' . $pid . ']';
+            $tree .= "var ele = xoopsGetElementById('" . $parent_ele
+                . "'); if(ele.checked != true) {ele.checked = this.checked;}";
         }
         // If there are child elements, add javascript that will
         // make them unchecked when this element is unchecked to make
         // sure permissions to child items are not added when there
         // is no permission to this item.
         foreach ($option['allchild'] as $cid) {
-            $child_ele = $ele_name . '[groups][' . $this->groupId . '][' . $cid . ']';
-            $tree .= "var ele = xoopsGetElementById('" . $child_ele . "'); if(this.checked != true) {ele.checked = false;}";
+            $child_ele = $elementName . '[groups][' . $this->groupId . '][' . $cid . ']';
+            $tree .= "var ele = xoopsGetElementById('" . $child_ele
+                . "'); if(this.checked != true) {ele.checked = false;}";
         }
         $tree .= '" value="1"';
         if (in_array($option['id'], $this->value)) {
             $tree .= ' checked="checked"';
         }
-        $tree .= " />" . $option['name'] . "<input type=\"hidden\" name=\"" . $ele_name . "[parents][" . $option['id'] . "]\" value=\"" . implode(':', $parentIds) . "\" /><input type=\"hidden\" name=\"" . $ele_name . "[itemname][" . $option['id'] . "]\" value=\"" . htmlspecialchars($option['name']) . "\" /><br />\n";
+        $tree .= " />" . $option['name'] . "<input type=\"hidden\" name=\"" . $elementName . "[parents]["
+            . $option['id'] . "]\" value=\"" . implode(':', $parentIds) . "\" /><input type=\"hidden\" name=\""
+            . $elementName . "[itemname][" . $option['id'] . "]\" value=\""
+            . htmlspecialchars($option['name']) . "\" /><br />\n";
         if (isset($option['children'])) {
             foreach ($option['children'] as $child) {
                 array_push($parentIds, $option['id']);

@@ -30,8 +30,7 @@ class SelectTimeZone extends Select
      * @param string       $name    name
      * @param mixed        $value   Pre-selected value (or array of them).
      *                               Must be \DateTimeZone supported timezone names, or a DateTimeZone object
-     *
-     * @param integer $size    Number of rows. "1" makes a drop-down-box.
+     * @param integer      $size    Number of rows. "1" makes a drop-down-box.
      */
     public function __construct($caption, $name, $value = null, $size = 1)
     {

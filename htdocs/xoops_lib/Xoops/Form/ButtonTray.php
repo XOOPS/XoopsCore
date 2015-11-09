@@ -24,15 +24,16 @@ namespace Xoops\Form;
 class ButtonTray extends Element
 {
     /**
-     * Create a tray of standard form buttons - delete (optional,) cancel, reset, submit
+     * Create a tray of buttons - delete (optional,) cancel, reset, and a primary button, i.e. submit
      *
      * @param string|array $name       name or array of all attributes
      *                                  Control attributes:
      *                                      :showdelete true to show delete button
      * @param string       $value      value
-     * @param string       $type       Type of button. This could be either "button", "submit", or "reset"
-     * @param string       $onclick    onClick JS code
-     * @param boolean      $showDelete show delete confirmation
+     * @param string       $type       Type for primary button. This could be either "button", "submit", or "reset"
+     * @param string       $onclick    setExtra() javascript code for primary button. If using the array
+     *                                  of attributes invocation, set event handler(s) using attributes
+     * @param boolean      $showDelete show delete button, includes javascript confirmation dialog
      */
     public function __construct($name, $value = '', $type = '', $onclick = '', $showDelete = false)
     {
@@ -44,10 +45,8 @@ class ButtonTray extends Element
             $this->set('value', $value);
             $this->setWithDefaults('type', $type, 'submit', ['button', 'submit', 'reset']);
             $this->setWithDefaults(':showdelete', $showDelete, false, [true, false]);
-            if ($onclick) {
+            if (!empty($onclick)) {
                 $this->setExtra($onclick);
-            } else {
-                $this->setExtra('');
             }
         }
     }
@@ -73,18 +72,16 @@ class ButtonTray extends Element
         $this->add('class', 'btn');
         $class = 'class="' . $this->getClass() . '"';
 
-        $this->suppressRender(['value']);
         $attributes = $this->renderAttributeString();
 
         if ((bool) $this->get(':showdelete', false)) {
             $ret .= '<input type="submit"' . $class . ' name="delete" id="delete" value="'
-                . \XoopsLocale::A_DELETE . '" onclick="this.form.elements.op.value=\'delete\'"> ';
+                . \XoopsLocale::A_DELETE . '" onclick="this.form.elements.op.value=\'delete\'">';
         }
-        $ret .= '<input type="button" ' . $class . ' value="' . \XoopsLocale::A_CANCEL
-            . '" onClick="history.go(-1);return true;" /> <input type="reset"' . $class
-            . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" /> '
-            . '<input ' . $attributes . ' value="' . $this->getValue() . '" '
-            . $this->getExtra() . ' />';
+        $ret .= ' <input type="button" ' . $class . ' value="' . \XoopsLocale::A_CANCEL
+            . '" onclick="history.go(-1);return true;" />'
+            . ' <input type="reset"' . $class . ' name="reset"  id="reset" value="' . \XoopsLocale::A_RESET . '" />'
+            . ' <input ' . $attributes . $this->getExtra() . ' />';
         return $ret;
     }
 }

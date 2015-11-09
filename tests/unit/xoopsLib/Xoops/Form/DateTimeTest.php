@@ -40,11 +40,23 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Form\DateTime::__construct
      * @covers Xoops\Form\DateTime::render
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+    }
+
+    /**
+     * @covers Xoops\Form\DateTime::__construct
+     * @covers Xoops\Form\DateTime::render
+     */
+    public function test__construct()
+    {
+        $oldWay = new DateTime('mycaption', 'myname');
+        $newWay = new DateTime(['caption' => 'mycaption', 'name' => 'myname',]);
+        $this->assertEquals($oldWay->render(), $newWay->render());
     }
 }

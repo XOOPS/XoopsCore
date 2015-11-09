@@ -120,9 +120,12 @@ class ThumbsProvider extends AbstractContract implements ThumbnailInterface
         $attributes = array()
     ) {
         $url = $this->getThumbnailUrl($imgPath, $width, $height);
+        if (!is_array($attributes)) {
+            $attributes = array();
+        }
 
         $imgTag = new Img(array('src' => $url));
-        $imgTag->setAttributes($attributes);
+        $imgTag->setMerge($attributes);
         $response->setValue($imgTag->render());
     }
 }

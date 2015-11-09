@@ -144,7 +144,11 @@ $pmform = new Xoops\Form\ThemeForm('', 'pmform', 'readpmsg.php', 'post', true);
 if (is_object($pm) && !empty($pm)) {
     if ($pm->getVar('from_userid') != $xoops->user->getVar('uid')) {
         $reply_button = new Xoops\Form\Button('', 'send', XoopsLocale::A_REPLY);
-        $reply_button->setExtra("onclick='javascript:openWithSelfMain(\"" . \XoopsBaseConfig::get('url') . "/modules/pm/pmlite.php?reply=1&amp;msg_id={$msg_id}\", \"pmlite\", 565,500);'");
+        $reply_button->set('onclick',
+            'javascript:openWithSelfMain("'
+            . $xoops->url("modules/pm/pmlite.php?reply=1&amp;msg_id={$msg_id}")
+            . '", "pmlite", 740,640);'
+        );
         $pmform->addElement($reply_button);
     }
     $pmform->addElement(new Xoops\Form\Button('', 'delete_message', XoopsLocale::A_DELETE, 'submit'));

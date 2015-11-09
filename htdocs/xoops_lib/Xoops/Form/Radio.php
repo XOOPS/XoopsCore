@@ -25,13 +25,6 @@ namespace Xoops\Form;
 class Radio extends OptionElement
 {
     /**
-     * inline attribute for this element
-     *
-     * @var boolean
-     */
-    private $inline;
-
-    /**
      * __construct
      *
      * @param mixed   $caption Caption or array of all attributes
@@ -46,6 +39,7 @@ class Radio extends OptionElement
         if (is_array($caption)) {
             parent::__construct($caption);
         } else {
+            parent::__construct([]);
             $this->setWithDefaults('caption', $caption, '');
             $this->setWithDefaults('name', $name, 'name_error');
             $this->set('value', $value);

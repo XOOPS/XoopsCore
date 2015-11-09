@@ -26,13 +26,18 @@ class Tab extends ElementTray
     /**
      * __construct
      *
-     * @param string $caption tab caption
-     * @param string $name    unique identifier for this tab
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $name    unique identifier for this tab
      */
-    public function __construct($caption, $name)
+    public function __construct($caption, $name = null)
     {
-        $this->setName($name);
-        $this->setCaption($caption);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setName($name);
+            $this->setCaption($caption);
+        }
     }
 
     /**

@@ -10,8 +10,20 @@
 */
 
 /**
- * Backward compatibilty stub - use real class, as shown below for all new development.
+ * Backward compatibility stub - use real class, as shown below for all new development.
  */
 class XoopsFormTextDateSelect extends Xoops\Form\DateSelect
 {
+    /**
+     * Note change in arguments, removed size
+     *
+     * @param string $caption
+     * @param string $name
+     * @param int    $size
+     * @param int    $value
+     */
+    function __construct($caption, $name, $size = 15, $value = 0)
+    {
+        parent::__construct($caption, $name, $value);
+    }
 }

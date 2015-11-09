@@ -84,15 +84,14 @@ switch ($op) {
         //Affichage du formulaire de purge
         $form_purge = new Xoops\Form\ThemeForm(_AM_COMMENTS_FORM_PURGE, 'form', $helper->url('admin/main.php'), 'post', true);
 
-        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_AFTER, 'comments_after', '15'));
-        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before', '15'));
+        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_AFTER, 'comments_after'));
+        $form_purge->addElement(new Xoops\Form\DateSelect(_AM_COMMENTS_FORM_PURGE_DATE_BEFORE, 'comments_before'));
 
         //user
         $form_purge->addElement(new Xoops\Form\SelectUser(_AM_COMMENTS_FORM_PURGE_USER, "comments_userid", false, @$_REQUEST['comments_userid'], 5, true));
 
         //groups
         $groupe_select = new Xoops\Form\SelectGroup(_AM_COMMENTS_FORM_PURGE_GROUPS, "comments_groupe", false, '', 5, true);
-        $groupe_select->setExtra("style=\"width:170px;\" ");
         $form_purge->addElement($groupe_select);
 
         //Status

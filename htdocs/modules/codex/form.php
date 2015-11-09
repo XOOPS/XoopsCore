@@ -29,7 +29,7 @@ $code->setPattern('^.{3,}$', 'You need at least 3 characters');
 $code->setDatalist(array('list 1','list 2','list 3'));
 $form->addElement($code, true);
 
-$password = new Xoops\Form\Password('Password', 'password', 25, 64, '', false, 'Your Password');
+$password = new Xoops\Form\Password('Password', 'password', null, null, '', 'off', 'Enter Password');
 $password->setDescription('Description password');
 $password->setPattern('^.{8,}$', 'You need at least 8 characters');
 $form->addElement($password, true);
@@ -98,12 +98,18 @@ $select_optgroup->addOptionGroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 =>
 $select_optgroup->setDescription('Description Select Optgroup');
 $form->addElement($select_optgroup, true);
 
-$date = new Xoops\Form\DateSelect('Date', 'date', 2, 0);
+$date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $form->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 2, '', 'Date...');
-$date_time->setDescription('Description Date time');
+// extended definition style
+$date_time = new Xoops\Form\DateTime([
+    'caption' => 'Date time',
+    'name' => 'date_time',
+    'description' => 'Description Date time',
+    ':minuteinterval' => 30,
+]);
+
 $form->addElement($date_time, true);
 
 $form->addElement(new Xoops\Form\Captcha('Captcha', 'captcha', false), true);

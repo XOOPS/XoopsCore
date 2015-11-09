@@ -27,8 +27,8 @@ class Hidden extends Element
     /**
      * Constructor
      *
-     * @param string|array  $name  name attribute or array of all attributes
-     * @param string $value value attribute
+     * @param string|array $name  name attribute or array of all attributes
+     * @param string       $value value attribute
      */
     public function __construct($name, $value = '')
     {

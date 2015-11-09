@@ -31,7 +31,7 @@ class SelectMatchOption extends Select
      * @param mixed        $value   Pre-selected value (or array of them).
      * @param integer      $size    Number of rows. "1" makes a drop-down-list
      */
-    public function __construct($caption, $name = name, $value = null, $size = 1)
+    public function __construct($caption, $name = null, $value = null, $size = 1)
     {
         parent::__construct($caption, $name, $value, $size, false);
         $this->addOption(XOOPS_MATCH_START, \XoopsLocale::STARTS_WITH);

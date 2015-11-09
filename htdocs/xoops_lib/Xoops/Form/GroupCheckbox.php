@@ -26,11 +26,11 @@ class GroupCheckbox extends Checkbox
     /**
      * Constructor
      *
-     * @param string|array $caption  Caption or array of all attributes
-     * @param string       $name     element name
-     * @param mixed        $value    Pre-selected value (or array of them).
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $name    element name
+     * @param mixed        $value   Pre-selected value (or array of them).
      */
-    public function __construct($caption, $name = name, $value = null)
+    public function __construct($caption, $name = null, $value = null)
     {
         if (is_array($caption)) {
             parent::__construct($caption);

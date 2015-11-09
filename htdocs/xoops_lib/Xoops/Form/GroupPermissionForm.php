@@ -14,9 +14,9 @@ namespace Xoops\Form;
 use Xoops\Core\FixedGroups;
 
 /**
- * GroupPermmissionForm - a form for setting module specific group permissions
+ * GroupPermissionForm - a form for setting module specific group permissions
  *
- * @category  Xoops\Form\GroupPermmissionForm
+ * @category  Xoops\Form\GroupPermissionForm
  * @package   Xoops\Form
  * @author    Xoops Development Team
  * @copyright 2001-2015 XOOPS Project (http://xoops.org)

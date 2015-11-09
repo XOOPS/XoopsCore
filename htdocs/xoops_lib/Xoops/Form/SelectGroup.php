@@ -29,7 +29,6 @@ class SelectGroup extends Select
     /**
      * Constructor
      *
-     *
      * @param string|array $caption      Caption or array of all attributes
      *                                    Control attributes:
      *                                        :include_anon true to include anonymous groups

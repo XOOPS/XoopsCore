@@ -185,20 +185,19 @@ class ProfileField extends XoopsObject
                 break;
 
             case "date":
-                $element = new Xoops\Form\DateSelect($caption, $name, 15, $value);
+                $element = new Xoops\Form\DateSelect($caption, $name, $value);
                 break;
 
             case "longdate":
-                $element = new Xoops\Form\DateSelect($caption, $name, 15, str_replace("-", "/", $value));
+                $element = new Xoops\Form\DateSelect($caption, $name, str_replace("-", "/", $value));
                 break;
 
             case "datetime":
-                $element = new Xoops\Form\DateTime($caption, $name, 15, $value);
+                $element = new Xoops\Form\DateTime($caption, $name, $value);
                 break;
 
             case "timezone":
                 $element = new Xoops\Form\SelectTimeZone($caption, $name, $value);
-                $element->setExtra("style='width: 280px;'");
                 break;
 
             case "rank":

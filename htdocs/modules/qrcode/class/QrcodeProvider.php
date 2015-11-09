@@ -94,9 +94,12 @@ class QrcodeProvider extends AbstractContract implements QrcodeInterface
     public function getImgTag(Response $response, $qrText, $attributes = array())
     {
         $url = $this->getQRUrl($qrText);
+        if (!is_array($attributes)) {
+            $attributes = array();
+        }
 
         $imgTag = new Img(array('src' => $url,));
-        $imgTag->setAttributes($attributes);
+        $imgTag->setMerge($attributes);
         $response->setValue($imgTag->render());
     }
 }

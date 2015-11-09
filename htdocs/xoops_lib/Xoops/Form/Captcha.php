@@ -46,24 +46,36 @@ class Captcha extends Element
     /**
      * __construct
      *
-     * @param string  $caption    Caption of the form element, default value is defined in captcha/language/
-     * @param string  $name       Name for the input box
-     * @param boolean $skipmember Skip CAPTCHA check for members
-     * @param array   $configs    key/value pairs
+     * @param string|array $caption    Caption (default defined in captcha/language/) or array of all attributes
+     * @param string       $name       Name for the input box
+     * @param boolean      $skipmember Skip CAPTCHA check for members
+     * @param array        $configs    key/value pairs
      */
     public function __construct($caption = '', $name = 'xoopscaptcha', $skipmember = true, $configs = array())
     {
         $this->captchaHandler = \XoopsCaptcha::getInstance();
-        $configs['name'] = $name;
-        $configs['skipmember'] = $skipmember;
+
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setIfNotEmpty('caption', $caption);
+            $this->setIfNotEmpty('name', $name);
+            $this->setIfNotSet(':skipmember', $skipmember);
+            $this->setIfNotEmpty(':configs', $configs);
+        }
+
+        $this->setIfNotSet('caption', $this->captchaHandler->getCaption());
+        $this->setIfNotSet('name', 'xoopscaptcha');
+
+        $configs = $this->get(':configs', []);
+        $configs['name'] = $this->get('name');
+        $configs['skipmember'] = $this->get(':skipmember', true);
         $configs = $this->captchaHandler->loadConfig();
+
         $this->captchaHandler->setConfigs($configs);
         if (! $this->captchaHandler->isActive()) {
             $this->setHidden();
-        } else {
-            $caption = ! empty($caption) ? $caption : $this->captchaHandler->getCaption();
-            $this->setCaption($caption);
-            $this->setName($name);
         }
     }
 

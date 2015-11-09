@@ -34,8 +34,8 @@ class Raw extends Element
      */
     public function __construct($value)
     {
-        if (is_array($caption)) {
-            parent::__construct($caption);
+        if (is_array($value)) {
+            parent::__construct($value);
         } else {
             parent::__construct([]);
             $this->set('value', $value);

@@ -178,8 +178,8 @@ if ($op === 'editprofile') {
     $sig_cbox->addOption(1, XoopsLocale::ALWAYS_ATTACH_MY_SIGNATURE);
     $sig_tray->addElement($sig_cbox);
     $bio_tarea = new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
-    $pwd_text = new Xoops\Form\Password('', 'password', 10, 32);
-    $pwd_text2 = new Xoops\Form\Password('', 'vpass', 10, 32);
+    $pwd_text = new Xoops\Form\Password('', 'password');
+    $pwd_text2 = new Xoops\Form\Password('', 'vpass');
     $pwd_tray = new Xoops\Form\ElementTray(
         XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT
     );

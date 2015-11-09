@@ -85,14 +85,12 @@ if (!isset($_POST['submit'])) {
     $xoops->theme()->addScript(null, array('type' => 'application/x-javascript'), $zxcvbn);
     //show change password form
     $form = new Xoops\Form\ThemeForm(_PROFILE_MA_CHANGEPASSWORD, 'form', $_SERVER['REQUEST_URI'], 'post', true);
-    $form->addElement(new Xoops\Form\Password(_PROFILE_MA_OLDPASSWORD, 'oldpass', 4, 50), true);
-    //$form->addElement(new Xoops\Form\Password(_PROFILE_MA_NEWPASSWORD, 'newpass', 4, 50), true);
-    $password = new Xoops\Form\Password(_PROFILE_MA_NEWPASSWORD, 'newpass', 4, 50, '', false, 'New Password');
-    //$password->setDescription('Description password');
+    $form->addElement(new Xoops\Form\Password(_PROFILE_MA_OLDPASSWORD, 'oldpass'), true);
+    $password = new Xoops\Form\Password(_PROFILE_MA_NEWPASSWORD, 'newpass', null, null, '', 'off', 'New Password');
     $password->setPattern('^.{8,}$', 'You need at least 8 characters');
     $form->addElement($password, true);
     $form->addElement(new Xoops\Form\Label(XoopsLocale::PASSWORD_STRENGTH, '', 'crack_time'));
-    $form->addElement(new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass', 4, 50), true);
+    $form->addElement(new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass'), true);
     $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     $form->assign($xoops->tpl());
     $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_CHANGEPASSWORD));

@@ -10,7 +10,7 @@
 */
 
 /**
- * Backward compatibilty stub - use real class, as shown below for all new development.
+ * Backward compatibility stub - use real class, as shown below for all new development.
  */
 class XoopsFormSelectTimezone extends Xoops\Form\SelectTimeZone
 {

@@ -24,26 +24,20 @@ namespace Xoops\Form;
 class TabTray extends ElementTray
 {
     /**
-     * Theme to use for jquery UI
-     *
-     * @var string
-     */
-    private $uiTheme = '';
-
-    /**
      * __construct
      *
-     * @param string $caption   tray caption
-     * @param string $name      Unique identifier for this tray
-     * @param string $uiTheme   Theme to use for jquery UI (remove? now set by theme)
-     * @param string $delimiter delimiter
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $name    Unique identifier for this tray
      */
-    public function __construct($caption, $name, $uiTheme = 'base', $delimiter = "&nbsp;")
+    public function __construct($caption, $name = null)
     {
-        $this->setName($name);
-        $this->setCaption($caption);
-        $this->delimiter = $delimiter;
-        $this->uiTheme = $uiTheme;
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setName($name);
+            $this->setCaption($caption);
+        }
     }
 
     /**

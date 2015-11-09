@@ -58,11 +58,11 @@ function profile_getRegisterForm(XoopsUser $user, $profile, $step = null)
         $weights[0][] = 0;
 
         $elements[0][] =
-            array('element' => new Xoops\Form\Password(XoopsLocale::PASSWORD, 'pass', 32, 32, ''), 'required' => true);
+            array('element' => new Xoops\Form\Password(XoopsLocale::PASSWORD, 'pass'), 'required' => true);
         $weights[0][] = 0;
 
         $elements[0][] =
-            array('element' => new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass', 32, 32, ''), 'required' => true);
+            array('element' => new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass'), 'required' => true);
         $weights[0][] = 0;
     }
 
@@ -168,8 +168,8 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
 
     if ($xoops->user->isAdmin() && $user->getVar('uid') != $xoops->user->getVar('uid')) {
         //If the user is an admin and is editing someone else
-        $pwd_text = new Xoops\Form\Password('', 'password', 32, 32);
-        $pwd_text2 = new Xoops\Form\Password('', 'vpass', 32, 32);
+        $pwd_text = new Xoops\Form\Password('', 'password');
+        $pwd_text2 = new Xoops\Form\Password('', 'vpass');
         $pwd_tray = new Xoops\Form\ElementTray(XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT);
         $pwd_tray->addElement($pwd_text);
         $pwd_tray->addElement($pwd_text2);

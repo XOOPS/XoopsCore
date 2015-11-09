@@ -28,33 +28,32 @@ class DateTime extends ElementTray
      *
      * @param string|array      $caption Caption or array of all attributes
      * @param string            $name    name
-     * @param integer           $size    size
      * @param integer|\DateTime $value   unix timestamp or DateTime object
      */
-    public function __construct($caption, $name = null, $size = 12, $value = 0)
+    public function __construct($caption, $name = null, $value = 0)
     {
         // stash everything in the tray and sort out later
         if (is_array($caption)) {
             parent::__construct($caption);
+            $this->set(':joiner', '');
         } else {
             parent::__construct($caption, '', $name);
-            $this->setWithDefaults('size', $size, 12);
             $this->set('value', $value);
         }
 
-        $workingTime = \Xoops\Core\Locale\Time::cleanTime($this->get('value'));
+        $workingTime = \Xoops\Core\Locale\Time::cleanTime($this->get('value', 0));
 
         $dateDefinition = [
             'caption' => '',
             'name' => $this->get('name') . '[date]',
             'id' => $this->get('name') . '-date',
-            'size' => $this->get('size'),
+            'size' => 15,
             'value' => $workingTime,
             ':form' => $this,
         ];
         new DateSelect($dateDefinition);
 
-        $minuteInterval = 15;
+        $minuteInterval = $this->get(':minuteinterval', 15);
         $hours    = (int) ltrim($workingTime->format('H'), '0');
         $minutes  = (int) ltrim($workingTime->format('i'), '0');
 
