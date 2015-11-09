@@ -17,11 +17,10 @@ namespace Xoops\Form;
  * @category  Xoops\Form\GroupFormCheckbox
  * @package   Xoops\Form
  * @author    Xoops Development Team
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class GroupFormCheckbox extends Element
 {
     /**
@@ -114,10 +113,12 @@ class GroupFormCheckbox extends Element
     /**
      * Renders checkbox options for an item tree
      *
-     * @param string $tree      tree
+     * @param string $tree      rendered tree by reference
      * @param array  $option    option
      * @param string $prefix    prefix
      * @param array  $parentIds parent ids
+     *
+     * @return void append
      */
     private function renderOptionTree(&$tree, $option, $prefix, $parentIds = array())
     {

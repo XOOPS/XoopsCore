@@ -16,11 +16,10 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Mail
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Mail extends Text
 {
@@ -37,7 +36,7 @@ class Mail extends Text
     public function __construct($caption, $name, $size, $maxlength, $value = '', $placeholder = '')
     {
         parent::__construct($caption, $name, $size, $maxlength, $value, $placeholder);
-        $this->setAttribute('type', 'email');
+        $this->set('type', 'email');
         $this->setPattern('[^@]+@[^@]+\.[a-zA-Z]{2,6}', \XoopsLocale::ENTER_VALID_EMAIL);
     }
 }

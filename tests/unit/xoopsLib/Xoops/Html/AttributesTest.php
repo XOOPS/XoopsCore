@@ -32,132 +32,387 @@ class AttributesTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testContracts()
+    {
+        $this->assertInstanceOf('\Xoops\Html\Attributes', $this->object);
+        $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $this->object);
+        $this->assertInstanceOf('\ArrayObject', $this->object);
+    }
+
     /**
-     * @covers Xoops\Html\Attributes::setAttribute
+     * @covers Xoops\Html\Attributes::__construct
+     */
+    public function test__construct()
+    {
+        $expected = ['a'=>'1', 'key'=>'value', 'required' => null ];
+        $instance = new Attributes($expected);
+        $actual = $instance->getAll();
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::set
+     * @covers Xoops\Html\Attributes::get
      */
     public function testSetAttribute()
     {
         $instance = $this->object;
-        
+
         $key = 'key';
         $value = 'value';
-        $instance->setAttribute($key,$value);
-        $result = $instance->getAttribute($key);
+        $instance->set($key,$value);
+        $result = $instance->get($key);
         $this->assertSame($value, $result);
     }
 
     /**
-     * @covers Xoops\Html\Attributes::unsetAttribute
+     * @covers Xoops\Html\Attributes::remove
      */
     public function testUnsetAttribute()
     {
         $instance = $this->object;
-        
+
         $key = 'key';
         $value = 'value';
-        $instance->setAttribute($key,$value);
-        $result = $instance->getAttribute($key);
+        $instance->set($key,$value);
+        $result = $instance->get($key);
         $this->assertSame($value, $result);
-        
-        $instance->unsetAttribute($key);
-        
-        $result = $instance->getAttribute($key);
+
+        $instance->remove($key);
+
+        $result = $instance->get($key);
         $this->assertFalse($result);
     }
 
     /**
-     * @covers Xoops\Html\Attributes::setAttributes
-     */
-    public function testSetAttributes()
-    {
-        $instance = $this->object;
-        
-        $arrAttr = array('key1' =>'value1', 'key2' => 'value2', 'key3' => 'value3');
-        $instance->setAttributes($arrAttr);
-        
-        $result = $instance->getAttribute('key1');
-        $this->assertSame('value1', $result);
-
-        $result = $instance->getAttribute('key2');
-        $this->assertSame('value2', $result);
-        
-        $result = $instance->getAttribute('key3');
-        $this->assertSame('value3', $result);
-    }
-
-    /**
-     * @covers Xoops\Html\Attributes::getAttribute
-     */
-    public function testGetAttribute()
-    {
-        // see testSetAttribute
-    }
-
-    /**
-     * @covers Xoops\Html\Attributes::hasAttribute
-     * @todo   Implement testHasAttribute().
+     * @covers Xoops\Html\Attributes::has
      */
     public function testHasAttribute()
     {
         $instance = $this->object;
-        
+
         $key = 'key';
         $value = 'value';
-        $instance->setAttribute($key,$value);
-        $result = $instance->getAttribute($key);
+        $instance->set($key,$value);
+        $result = $instance->get($key);
         $this->assertSame($value, $result);
-        
-        $result = $instance->hasAttribute($key);
+
+        $result = $instance->has($key);
         $this->assertTrue($result);
-        
-        $result = $instance->hasAttribute('key_not_found');
+
+        $result = $instance->has('key_not_found');
         $this->assertFalse($result);
     }
 
     /**
-     * @covers Xoops\Html\Attributes::addAttribute
+     * @covers Xoops\Html\Attributes::add
      */
-    public function testAddAttribute()
+    public function testAdd()
     {
         $instance = $this->object;
-        
+
         $strAttr = 'value1 value2 value3';
-        $instance->addAttribute('key',$strAttr);
-        
-        $result = $instance->getAttribute('key');
+        $instance->add('key', $strAttr);
+
+        $result = $instance->get('key');
         $this->assertTrue(is_array($result));
         $this->assertTrue(in_array('value1', $result));
         $this->assertTrue(in_array('value2', $result));
         $this->assertTrue(in_array('value3', $result));
+
+        $instance->add('key', 'value4');
+
+        $result = $instance->get('key');
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(in_array('value1', $result));
+        $this->assertTrue(in_array('value2', $result));
+        $this->assertTrue(in_array('value3', $result));
+        $this->assertTrue(in_array('value4', $result));
+
+        $instance->set('key2', 'value4');
+
+        $result = $instance->get('key2');
+        $this->assertFalse(is_array($result));
+        $this->assertEquals('value4', $result);
+
+        $arrayAttr = ['value1', 'value2', 'value3'];
+        $instance->add('key2', $arrayAttr);
+        $result = $instance->get('key2');
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(in_array('value1', $result));
+        $this->assertTrue(in_array('value2', $result));
+        $this->assertTrue(in_array('value3', $result));
+        $this->assertTrue(in_array('value4', $result));
     }
 
     /**
      * @covers Xoops\Html\Attributes::renderAttributeString
+     * @covers Xoops\Html\Attributes::doRender
      */
     public function testRenderAttributeString()
     {
         $instance = $this->object;
-        
+
         $arrAttr = array('key1' =>'value1', 'key2' => 'value2', 'key3' => 'value3');
-        $instance->setAttributes($arrAttr);
-        
+        $instance->setAll($arrAttr);
+
         $result = $instance->renderAttributeString();
         $expected = 'key1="value1" key2="value2" key3="value3" ';
         $this->assertSame($expected, $result);
     }
-    
+
     /**
      * @covers Xoops\Html\Attributes::renderAttributeString
+     * @covers Xoops\Html\Attributes::doRender
      */
     public function testRenderAttributeString100()
     {
         $instance = $this->object;
-        
+
         $strAttr = 'value1 value2 value3';
-        $instance->addAttribute('key',$strAttr);
-        
+        $instance->add('key', $strAttr);
+
         $result = $instance->renderAttributeString();
         $expected = 'key="value1 value2 value3" ';
         $this->assertSame($expected, $result);
+
+        $instance->set(':control', 'shouldnotrender');
+        $result = $instance->renderAttributeString();
+        $expected = 'key="value1 value2 value3" ';
+        $this->assertSame($expected, $result);
+
+        $instance->set('required');
+        $result = $instance->renderAttributeString();
+        $expected = 'key="value1 value2 value3" required ';
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::renderAttributeString
+     * @covers Xoops\Html\Attributes::doRender
+     */
+    public function testRenderAttributeString200()
+    {
+        $instance = $this->object;
+
+        $instance->set('name', 'fred');
+        $instance->set('multiple');
+
+        $result = $instance->renderAttributeString();
+        $expected = 'name="fred[]" multiple ';
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::get
+     */
+    public function testGet()
+    {
+        $this->assertFalse($this->object->get('--NoNameLikeThisAtAll--'));
+        $this->assertTrue($this->object->get('--NoNameLikeThisAtAll--', true));
+        $this->assertSame('OK', $this->object->get('testvalue', 'OK'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::set
+     */
+    public function testSet()
+    {
+        $this->object->set('testvalue', 'OK');
+        $this->assertSame('OK', $this->object->get('testvalue', 'NotOK'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::getAll
+     */
+    public function testGetAll()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $all = $this->object->getAll();
+        $this->assertArrayHasKey('test1', $all);
+        $this->assertArrayHasKey('test2', $all);
+        $this->assertEquals('OK1', $all['test1']);
+        $this->assertEquals('OK2', $all['test2']);
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::getNames
+     */
+    public function testGetNames()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $all = $this->object->getNames();
+        $this->assertEquals(array('test1', 'test2'), $all);
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::has
+     */
+    public function testHas()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->assertFalse($this->object->has('test3'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::remove
+     */
+    public function testRemove()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->object->remove('test1');
+        $this->assertFalse($this->object->has('test1'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::clear
+     */
+    public function testClear()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->object->clear();
+        $this->assertFalse($this->object->has('test1'));
+        $this->assertFalse($this->object->has('test2'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::setAll
+     */
+    public function testSetAll()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+
+        $replacements = array(
+            'test3' => 'OK3',
+            'test4' => 'OK4',
+        );
+        $oldValues = $this->object->setAll($replacements);
+        $this->assertArrayHasKey('test1', $oldValues);
+        $this->assertArrayHasKey('test2', $oldValues);
+        $this->assertArrayNotHasKey('test3', $oldValues);
+        $this->assertArrayNotHasKey('test4', $oldValues);
+        $this->assertTrue($this->object->has('test3'));
+        $this->assertTrue($this->object->has('test4'));
+        $this->assertFalse($this->object->has('test1'));
+        $this->assertFalse($this->object->has('test2'));
+        $this->assertSame('OK3', $this->object->get('test3'));
+        $this->assertSame('OK4', $this->object->get('test4'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::setMerge
+     */
+    public function testSetMerge()
+    {
+        $this->object->set('test1', 'OK1');
+        $this->object->set('test2', 'OK2');
+
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+
+        $replacements = array(
+            'test2' => 'OK2new',
+            'test3' => 'OK3',
+        );
+        $this->object->setMerge($replacements);
+
+        $this->assertTrue($this->object->has('test1'));
+        $this->assertTrue($this->object->has('test2'));
+        $this->assertTrue($this->object->has('test3'));
+
+        $this->assertSame('OK1', $this->object->get('test1'));
+        $this->assertSame('OK2new', $this->object->get('test2'));
+        $this->assertSame('OK3', $this->object->get('test3'));
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::setArrayItem
+     */
+    public function testSetArrayItem()
+    {
+        $this->object->setArrayItem('test', 'a', 'OK1');
+        $this->object->setArrayItem('test', 'b', 'OK2');
+
+        $expected = array(
+            'a' => 'OK1',
+            'b' => 'OK2',
+        );
+        $this->assertEquals($expected, $this->object->get('test'));
+
+        $this->object->set('test', 'NOTOK1');
+        $this->object->setArrayItem('test', null, 'OK1');
+        $this->object->setArrayItem('test', null, 'OK2');
+
+        $expected = array(
+            0 => 'OK1',
+            1 => 'OK2',
+        );
+        $actual = $this->object->get('test');
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers Xoops\Html\Attributes::getAllLike
+     */
+    public function testGetAllLike()
+    {
+        $this->object->set('oddball', 'odd');
+        $this->object->set('test1', 'OK1');
+        $this->object->set('text1', 'NOTOK1');
+        $this->object->set('text2', 'NOTOK2');
+        $this->object->set('test2', 'OK2');
+
+        $subset = $this->object->getAllLike('test');
+        $this->assertCount(2, $subset);
+        $this->assertArrayHasKey('test1', $subset);
+        $this->assertArrayHasKey('test2', $subset);
+        $this->assertEquals('OK1', $subset['test1']);
+        $this->assertEquals('OK2', $subset['test2']);
+
+        $subset = $this->object->getAllLike('oddball');
+        $this->assertCount(1, $subset);
+        $this->assertArrayHasKey('oddball', $subset);
+        $this->assertEquals('odd', $subset['oddball']);
+
+        $subset = $this->object->getAllLike('garbage');
+        $this->assertCount(0, $subset);
+
+        $subset = $this->object->getAllLike();
+        $this->assertArrayHasKey('oddball', $subset);
+        $this->assertArrayHasKey('test1', $subset);
+        $this->assertArrayHasKey('test2', $subset);
+        $this->assertArrayHasKey('text1', $subset);
+        $this->assertArrayHasKey('text2', $subset);
+        $this->assertCount(5, $subset);
+    }
+
+    public function testArrayAccess()
+    {
+        $this->object['test1'] = 'OK1';
+        $this->object->set('test2', 'OK2');
+
+        $this->assertSame('OK1', $this->object->get('test1'));
+        $this->assertSame('OK2', $this->object['test2']);
+        $this->assertEquals(2, count($this->object));
+        $i = 0;
+        foreach ($this->object as $v) {
+            ++$i;
+        }
+        $this->assertEquals($i, count($this->object));
+        $this->assertSame('OK2', $v);
     }
 }

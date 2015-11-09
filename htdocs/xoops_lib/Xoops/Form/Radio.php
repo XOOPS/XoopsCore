@@ -16,22 +16,14 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Radio
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Radio extends OptionElement
 {
-    /**
-     * Pre-selected value
-     *
-     * @var string
-     */
-    protected $value = null;
-
     /**
      * inline attribute for this element
      *
@@ -42,46 +34,26 @@ class Radio extends OptionElement
     /**
      * __construct
      *
-     * @param string  $caption Caption
+     * @param mixed   $caption Caption or array of all attributes
+     *                          Control attributes:
+     *                              :inline true to render with inline style
      * @param string  $name    name attribute
      * @param string  $value   Pre-selected value
      * @param boolean $inline  true to display inline
      */
-    public function __construct($caption, $name, $value = null, $inline = true)
+    public function __construct($caption, $name = null, $value = null, $inline = true)
     {
-        $this->setAttribute('type', 'radio');
-        $this->setAttribute('name', $name);
-        $this->setCaption($caption);
-        if (isset($value)) {
-            $this->setValue($value);
-        }
-        $this->inline = $inline;
-    }
-
-    /**
-     * Get the "value" attribute
-     *
-     * @param boolean $encode True to encode special characters
-     *
-     * @return string
-     */
-    public function getValue($encode = false)
-    {
-        return ($encode && $this->value !== null) ? htmlspecialchars($this->value, ENT_QUOTES) : $this->value;
-    }
-
-    /**
-     * sets the class for inline orientation
-     *
-     * @return string
-     */
-    public function getInline()
-    {
-        if ($this->inline == true) {
-            return ' inline';
+        if (is_array($caption)) {
+            parent::__construct($caption);
         } else {
-            return '';
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
+            if ($inline) {
+                $this->set(':inline');
+            }
         }
+        $this->set('type', 'radio');
     }
 
     /**
@@ -98,17 +70,17 @@ class Radio extends OptionElement
         $ret = "";
         static $id_ele = 0;
         foreach ($ele_options as $value => $buttonCaption) {
-            $this->unsetAttribute('checked');
+            $this->remove('checked');
             if (isset($ele_value) && $value == $ele_value) {
-                $this->setAttribute('checked');
+                $this->set('checked');
             }
-            $this->setAttribute('value', $value);
+            $this->set('value', $value);
             ++$id_ele;
-            $this->setAttribute('id', $ele_name . $id_ele);
-            $ret .= '<label class="radio' . $this->getInline() . '">' . NWLINE;
-            $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . NWLINE;
-            $ret .= $buttonCaption . NWLINE;
-            $ret .= "</label>" . NWLINE;
+            $this->set('id', $ele_name . $id_ele);
+            $ret .= '<label class="radio' . ($this->has(':inline') ? ' inline' : '') . '">' . "\n";
+            $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . "\n";
+            $ret .= $buttonCaption . "\n";
+            $ret .= "</label>" . "\n";
         }
         return $ret;
     }

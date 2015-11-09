@@ -19,32 +19,34 @@ use Xoops\Core\FixedGroups;
  *
  * @category  Xoops\Form\SelectGroup
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class SelectGroup extends Select
 {
     /**
      * Constructor
      *
-     * @param string  $caption      caption
-     * @param string  $name         element name
-     * @param boolean $include_anon Include group "anonymous"?
-     * @param mixed   $value        Pre-selected value (or array of them).
-     * @param integer $size         Number or rows. "1" makes a drop-down-list.
-     * @param boolean $multiple     Allow multiple selections?
+     *
+     * @param string|array $caption      Caption or array of all attributes
+     *                                    Control attributes:
+     *                                        :include_anon true to include anonymous groups
+     * @param string       $name         element name
+     * @param boolean      $include_anon Include group "anonymous"?
+     * @param mixed        $value        Pre-selected value (or array of them).
+     * @param integer      $size         Number or rows. "1" makes a drop-down-list.
+     * @param boolean      $multiple     Allow multiple selections?
      */
-    public function __construct($caption, $name, $include_anon = false, $value = null, $size = 1, $multiple = false)
+    public function __construct($caption, $name = null, $include_anon = false, $value = null, $size = 1, $multiple = false)
     {
         parent::__construct($caption, $name, $value, $size, $multiple);
         $member_handler = \Xoops::getInstance()->getHandlerMember();
-        if (!$include_anon) {
-            $this->addOptionArray($member_handler->getGroupList(new Criteria('groupid', FixedGroups::ANONYMOUS, '!=')));
-        } else {
+        if ($include_anon || $this->get(':include_anon', false)) {
             $this->addOptionArray($member_handler->getGroupList());
+        } else {
+            $this->addOptionArray($member_handler->getGroupList(new Criteria('groupid', FixedGroups::ANONYMOUS, '!=')));
         }
     }
 }

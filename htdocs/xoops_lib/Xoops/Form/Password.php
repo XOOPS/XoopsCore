@@ -16,12 +16,11 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Password
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Password extends Element
 {
@@ -76,14 +75,14 @@ class Password extends Element
         $placeholder = ''
     ) {
         $this->setCaption($caption);
-        $this->setAttribute('type', 'password');
-        $this->setAttribute('name', $name);
-        $this->setAttribute('size', (int)($size));
-        $this->setAttribute('maxlength', (int)($maxlength));
+        $this->set('type', 'password');
+        $this->set('name', $name);
+        $this->set('size', (int)($size));
+        $this->set('maxlength', (int)($maxlength));
         $this->setValue($value);
-        $this->setAttribute('autocomplete', $autoComplete ? 'yes' : 'no');
+        $this->set('autocomplete', $autoComplete ? 'on' : 'off');
         if (!empty($placeholder)) {
-            $this->setAttribute('placeholder', $placeholder);
+            $this->set('placeholder', $placeholder);
         }
     }
 
@@ -94,7 +93,7 @@ class Password extends Element
      */
     public function getSize()
     {
-        return (int) $this->getAttribute('size');
+        return (int) $this->get('size');
     }
 
     /**
@@ -104,7 +103,7 @@ class Password extends Element
      */
     public function getMaxlength()
     {
-        return (int) $this->getAttribute('maxlength');
+        return (int) $this->get('maxlength');
     }
 
     /**
@@ -114,7 +113,7 @@ class Password extends Element
      */
     public function getPlaceholder()
     {
-        return (string) $this->setAttribute('placeholder');
+        return (string) $this->get('placeholder');
     }
 
     /**
@@ -124,12 +123,7 @@ class Password extends Element
      */
     public function render()
     {
-        if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = $this->getMaxcols();
-        } else {
-            $maxcols = $this->getSize();
-        }
-        $this->addAttribute('class', 'span' . $maxcols);
+        $this->themeDecorateElement();
 
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . 'value="'

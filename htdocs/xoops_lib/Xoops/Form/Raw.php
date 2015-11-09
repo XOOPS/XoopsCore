@@ -20,22 +20,26 @@ namespace Xoops\Form;
  * @category  Xoops\Form\Raw
  * @package   Xoops\Form
  * @author    trabis <trabisdementia@gmail.com>
- * @copyright 2012-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
-*/
+ */
 class Raw extends Element
 {
 
     /**
      * __construct
      *
-     * @param string $value value
+     * @param string|array $value raw value to insert into form, or array of attributes
      */
-    public function __construct($value = '')
+    public function __construct($value)
     {
-        $this->setValue($value);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->set('value', $value);
+        }
     }
 
     /**
@@ -45,6 +49,6 @@ class Raw extends Element
      */
     public function render()
     {
-        return $this->getValue();
+        return $this->get('value', '');
     }
 }

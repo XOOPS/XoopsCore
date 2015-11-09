@@ -17,59 +17,36 @@ namespace Xoops\Form;
  * @category  Xoops\Form\Text
  * @package   Xoops\Form
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Text extends Element
 {
     /**
-     * Size
-     *
-     * @var int
-     * @access private
-     */
-    //private $size;
-
-    /**
-     * Maximum length of the text
-     *
-     * @var int
-     * @access private
-     */
-
-    //private $maxlength;
-
-     /**
-     * placeholder for this element
-     *
-     * @var string
-     * @access private
-     */
-    //private $placeholder;
-
-    /**
      * __construct
      *
-     * @param string  $caption     Caption
-     * @param string  $name        name attribute
-     * @param integer $size        Size
-     * @param integer $maxlength   Maximum length of text
-     * @param string  $value       Initial text
-     * @param string  $placeholder placeholder for this element.
+     * @param string|array $caption     Caption or array of all attributes
+     * @param string       $name        name attribute
+     * @param integer      $size        Size
+     * @param integer      $maxlength   Maximum length of text
+     * @param string       $value       Initial text
+     * @param string       $placeholder placeholder for this element.
      */
-    public function __construct($caption, $name, $size, $maxlength, $value = '', $placeholder = '')
+    public function __construct($caption, $name = '', $size = 10, $maxlength = 64, $value = '', $placeholder = '')
     {
-        $this->setAttribute('type', 'text');
-        $this->setCaption($caption);
-        $this->setAttribute('name', $name);
-        $this->setAttribute('size', (int)($size));
-        $this->setAttribute('maxlength', (int)($maxlength));
-        $this->setValue($value);
-        if (!empty($placeholder)) {
-            $this->setAttribute('placeholder', $placeholder);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->setWithDefaults('size', $size, 10);
+            $this->setWithDefaults('maxlength', $maxlength, 64);
+            $this->set('value', $value);
+            $this->setIfNotEmpty('placeholder', $placeholder);
         }
+        $this->setIfNotSet('type', 'text');
     }
 
     /**
@@ -79,7 +56,7 @@ class Text extends Element
      */
     public function getSize()
     {
-        return (int) $this->getAttribute('size');
+        return (int) $this->get('size');
     }
 
     /**
@@ -89,7 +66,7 @@ class Text extends Element
      */
     public function getMaxlength()
     {
-        return (int) $this->getAttribute('maxlength');
+        return (int) $this->get('maxlength');
     }
 
     /**
@@ -99,7 +76,7 @@ class Text extends Element
      */
     public function getPlaceholder()
     {
-        return (string) $this->getAttribute('placeholder');
+        return (string) $this->get('placeholder');
     }
 
     /**
@@ -109,15 +86,10 @@ class Text extends Element
      */
     public function render()
     {
-        if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = $this->getMaxcols();
-        } else {
-            $maxcols = $this->getSize();
-        }
-        $this->addAttribute('class', 'span' . $maxcols);
-        $dlist = $this->isDatalist();
-        if (!empty($dlist)) {
-            $this->addAttribute('list', 'list_' . $this->getName());
+        $this->themeDecorateElement();
+        $dataList = $this->isDatalist();
+        if (!empty($dataList)) {
+            $this->add('list', 'list_' . $this->getName());
         }
 
         $attributes = $this->renderAttributeString();

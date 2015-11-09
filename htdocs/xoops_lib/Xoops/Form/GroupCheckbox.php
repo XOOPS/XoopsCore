@@ -17,29 +17,31 @@ namespace Xoops\Form;
  * @category  Xoops\Form\GroupCheckbox
  * @package   Xoops\Form
  * @author    John Neill <catzwolf@xoops.org>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.3.0
  */
 class GroupCheckbox extends Checkbox
 {
     /**
      * Constructor
      *
-     * @param string  $caption  caption
-     * @param string  $name     element name
-     * @param mixed   $value    Pre-selected value (or array of them).
-     * @param integer $size     Number or rows. "1" makes a drop-down-list.
-     * @param boolean $multiple Allow multiple selections?
+     * @param string|array $caption  Caption or array of all attributes
+     * @param string       $name     element name
+     * @param mixed        $value    Pre-selected value (or array of them).
      */
-    public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
+    public function __construct($caption, $name = name, $value = null)
     {
-        parent::__construct($caption, $name, $value, true);
-        //$this->columns = 3;
-        $userGroups = \Xoops::getInstance()->getHandlerMember()->getGroupList();
-        foreach ($userGroups as $group_id => $group_name) {
-            $this->addOption($group_id, $group_name);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
         }
+        $this->set(':inline');
+        $userGroups = \Xoops::getInstance()->getHandlerMember()->getGroupList();
+        $this->addOptionArray($userGroups);
     }
 }

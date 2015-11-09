@@ -16,61 +16,59 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\ElementTray
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class ElementTray extends Element implements ContainerInterface
 {
     /**
      * array of form element objects
      *
-     * @var array
+     * @var Element[]
      */
     protected $elements = array();
 
     /**
-     * required elements
-     *
-     * @var array
-     */
-    protected $required = array();
-
-    /**
-     * HTML to separate the elements
-     *
-     * @var string
-     */
-    protected $delimiter;
-
-    /**
      * __construct
      *
-     * @param string $caption   caption
-     * @param string $delimiter delimiter
-     * @param string $name      name
+     * @param string|array $caption caption or array of all attributes
+     *                               Control attributes:
+     *                                   :joiner joiner for elements in tray
+     * @param string       $joiner  joiner for elements in tray
+     * @param string       $name    name
      */
-    public function __construct($caption, $delimiter = "&nbsp;", $name = "")
+    public function __construct($caption, $joiner = '&nbsp;', $name = '')
     {
-        $this->setName($name);
-        $this->setCaption($caption);
-        $this->delimiter = $delimiter;
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet(':joiner', '&nbsp;');
+        } else {
+            parent::__construct();
+            $this->setName($name);
+            $this->setCaption($caption);
+            $this->set(':joiner', $joiner);
+        }
     }
 
     /**
-     * Find out if there are required elements.
+     * Are there are required elements?
      *
      * @return bool
      */
     public function isRequired()
     {
-        return !empty($this->required);
+        foreach ($this->elements as $el) {
+            if ($el->isRequired()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
-     * Add an element to the group
+     * Add an element to the tray
      *
      * @param Element $formElement Element to add
      * @param boolean $required    true = entry required
@@ -80,21 +78,12 @@ class ElementTray extends Element implements ContainerInterface
     public function addElement(Element $formElement, $required = false)
     {
         $this->elements[] = $formElement;
-        if ($formElement instanceof ContainerInterface) {
-            /* @var $formElement ContainerInterface */
-            $required_elements = $formElement->getRequired();
-            $count = count($required_elements);
-            for ($i = 0; $i < $count; ++$i) {
-                $this->required[] = $required_elements[$i];
-            }
-        } else {
-            if ($required) {
-                $formElement->setRequired();
-                $this->required[] = $formElement;
-            }
+        if ($required) {
+            $formElement->setRequired();
         }
     }
 
+    // ContainerInterface
     /**
      * get an array of "required" form elements
      *
@@ -102,19 +91,25 @@ class ElementTray extends Element implements ContainerInterface
      */
     public function getRequired()
     {
-        return $this->required;
+        $required = [];
+        foreach ($this->elements as $el) {
+            if ($el->isRequired()) {
+                $required[] = $el;
+            }
+        }
+        return $required;
     }
 
     /**
      * Get an array of the elements in this group
      *
-     * @param bool $recursively get elements recursively?
+     * @param bool $recurse get elements recursively?
      *
      * @return array Array of Element objects.
      */
-    public function getElements($recursively = false)
+    public function getElements($recurse = false)
     {
-        if (!$recursively) {
+        if (!$recurse) {
             return $this->elements;
         } else {
             $ret = array();
@@ -143,9 +138,10 @@ class ElementTray extends Element implements ContainerInterface
      *
      * @return string The delimiter
      */
-    public function getDelimiter($encode = false)
+    protected function getJoiner($encode = false)
     {
-        return $encode ? htmlspecialchars(str_replace('&nbsp;', ' ', $this->delimiter)) : $this->delimiter;
+        $joiner = $this->get(':joiner');
+        return $encode ? htmlspecialchars(str_replace('&nbsp;', ' ', $joiner)) : $joiner;
     }
 
     /**
@@ -160,12 +156,12 @@ class ElementTray extends Element implements ContainerInterface
         foreach ($this->getElements() as $ele) {
             /* @var Element $ele */
             if ($count > 0) {
-                $ret .= $this->getDelimiter();
+                $ret .= $this->getJoiner();
             }
             if ($ele->getCaption() != '') {
                 $ret .= $ele->getCaption() . "&nbsp;";
             }
-            $ret .= $ele->render() . NWLINE;
+            $ret .= $ele->render() . "\n";
             if (!$ele->isHidden()) {
                 ++$count;
             }

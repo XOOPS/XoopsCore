@@ -17,11 +17,10 @@ namespace Xoops\Form;
  * @category  Xoops\Form\TabTray
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class TabTray extends ElementTray
 {
     /**
@@ -60,15 +59,15 @@ class TabTray extends ElementTray
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         $xoops->theme()->addScript('', '', '$(function() { $("#tabs_' . $this->getName() . '").tabs(); });');
 
-        $ret = '<div id="tabs_' . $this->getName() . '">' . NWLINE;
-        $ret .= '<ul>' . NWLINE;
+        $ret = '<div id="tabs_' . $this->getName() . '">' . "\n";
+        $ret .= '<ul>' . "\n";
         foreach ($this->getElements() as $ele) {
             if ($ele instanceof Tab) {
                 $ret .= '<li><a href="#tab_' . $ele->getName() . '"><span>'
-                    . $ele->getCaption() . '</span></a></li>' . NWLINE;
+                    . $ele->getCaption() . '</span></a></li>' . "\n";
             }
         }
-        $ret .= '</ul>' . NWLINE;
+        $ret .= '</ul>' . "\n";
 
         $hidden = '';
         $extras = array();
@@ -78,11 +77,11 @@ class TabTray extends ElementTray
             if (!$ele->isHidden()) {
                 if (!$ele instanceof Raw) {
                     if ($ele instanceof Tab) {
-                        $ret .= '<div id="tab_' . $ele->getName() . '">' . NWLINE;
-                        $ret .= '<table class="outer" cellspacing="1">' . NWLINE;
+                        $ret .= '<div id="tab_' . $ele->getName() . '">' . "\n";
+                        $ret .= '<table class="outer" cellspacing="1">' . "\n";
                         $ret .= $ele->render();
-                        $ret .= '</table>' . NWLINE;
-                        $ret .= '</div>' . NWLINE;
+                        $ret .= '</table>' . "\n";
+                        $ret .= '</div>' . "\n";
                     } else {
                         $extras[] = $ele;
                     }
@@ -94,16 +93,16 @@ class TabTray extends ElementTray
             }
         }
         if (!empty($extras)) {
-            $tray = new ElementTray('', $this->getDelimiter());
+            $tray = new ElementTray('', $this->getJoiner());
             foreach ($extras as $extra) {
                 $tray->addElement($extra);
             }
             $ret .= $tray->render();
-            $ret .= NWLINE;
+            $ret .= "\n";
         }
 
-        $ret .= $hidden . NWLINE;
-        $ret .= '</div>' . NWLINE;
+        $ret .= $hidden . "\n";
+        $ret .= '</div>' . "\n";
         return $ret;
     }
 }

@@ -17,43 +17,38 @@ namespace Xoops\Form;
  * @category  Xoops\Form\ButtonTray
  * @package   Xoops\Form
  * @author    John Neill <catzwolf@xoops.org>
- * @copyright 2012-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.4.0
-*/
+ */
 class ButtonTray extends Element
 {
-
     /**
-     * @var string
-     */
-    //private $type;
-
-    /**
-     * @var boolean
-     */
-    private $showDelete;
-
-    /**
-     * __construct
+     * Create a tray of standard form buttons - delete (optional,) cancel, reset, submit
      *
-     * @param string  $name       name
-     * @param string  $value      value
-     * @param string  $type       Type of button. This could be either "button", "submit", or "reset"
-     * @param string  $onclick    onClick JS code
-     * @param boolean $showDelete show delete confirmation
+     * @param string|array $name       name or array of all attributes
+     *                                  Control attributes:
+     *                                      :showdelete true to show delete button
+     * @param string       $value      value
+     * @param string       $type       Type of button. This could be either "button", "submit", or "reset"
+     * @param string       $onclick    onClick JS code
+     * @param boolean      $showDelete show delete confirmation
      */
     public function __construct($name, $value = '', $type = '', $onclick = '', $showDelete = false)
     {
-        $this->setAttribute('name', $name);
-        $this->setValue($value);
-        $this->setAttribute('type', (!empty($type)) ? $type : 'submit');
-        $this->showDelete = $showDelete;
-        if ($onclick) {
-            $this->setExtra($onclick);
+        if (is_array($name)) {
+            parent::__construct($name);
         } else {
-            $this->setExtra('');
+            parent::__construct([]);
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
+            $this->setWithDefaults('type', $type, 'submit', ['button', 'submit', 'reset']);
+            $this->setWithDefaults(':showdelete', $showDelete, false, [true, false]);
+            if ($onclick) {
+                $this->setExtra($onclick);
+            } else {
+                $this->setExtra('');
+            }
         }
     }
 
@@ -64,7 +59,7 @@ class ButtonTray extends Element
      */
     public function getType()
     {
-        return (string) $this->getAttribute('type');
+        return (string) $this->get('type', '');
     }
 
     /**
@@ -75,12 +70,13 @@ class ButtonTray extends Element
     public function render()
     {
         $ret = '';
-        $this->addAttribute('class', 'btn');
-
+        $this->add('class', 'btn');
         $class = 'class="' . $this->getClass() . '"';
+
+        $this->suppressRender(['value']);
         $attributes = $this->renderAttributeString();
 
-        if ($this->showDelete) {
+        if ((bool) $this->get(':showdelete', false)) {
             $ret .= '<input type="submit"' . $class . ' name="delete" id="delete" value="'
                 . \XoopsLocale::A_DELETE . '" onclick="this.form.elements.op.value=\'delete\'"> ';
         }

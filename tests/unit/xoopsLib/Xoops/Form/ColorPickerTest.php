@@ -27,7 +27,8 @@ class ColorPickerTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new ColorPicker('Caption', 'name');
-        $this->markTestSkipped('side effects');
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        //$this->markTestSkipped('side effects');
     }
 
     /**
@@ -56,5 +57,17 @@ class ColorPickerTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->object->renderValidationJS();
         $this->assertTrue(is_string($value));
+    }
+
+    /**
+     * @covers Xoops\Form\ColorPicker::__construct
+     * @covers Xoops\Form\ColorPicker::render
+     */
+    public function test__construct()
+    {
+        $oldWay = new ColorPicker('mycaption', 'myname');
+        $newWay = new ColorPicker(['caption' => 'mycaption', 'type' => 'text', 'name' => 'myname',]);
+        $this->assertEquals(substr($oldWay->render(),0,58), substr($newWay->render(),0,58));
+        $this->assertEquals(substr($oldWay->render(),-40), substr($newWay->render(),-40));
     }
 }

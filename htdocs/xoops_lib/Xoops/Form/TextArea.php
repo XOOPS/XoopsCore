@@ -16,55 +16,38 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\TextArea
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class TextArea extends Element
 {
     /**
-     * number of columns
-     *
-     * @var int
-     */
-    //protected $cols;
-
-    /**
-     * number of rows
-     *
-     * @var int
-     */
-    //protected $rows;
-
-     /**
-     * placeholder for this element
-     *
-     * @var string
-     */
-    //private $placeholder;
-
-
-    /**
      * Constructor
      *
-     * @param string  $caption     caption
-     * @param string  $name        name
-     * @param string  $value       initial content
-     * @param integer $rows        number of rows
-     * @param integer $cols        number of columns
-     * @param string  $placeholder placeholder for this element.
+     * @param string|array $caption     Caption or array of all attributes
+     * @param string       $name        name
+     * @param string       $value       initial content
+     * @param integer      $rows        number of rows
+     * @param integer      $cols        number of columns
+     * @param string       $placeholder placeholder for this element.
      */
-    public function __construct($caption, $name, $value = "", $rows = 5, $cols = 5, $placeholder = '')
+    public function __construct($caption, $name = null, $value = "", $rows = 5, $cols = 50, $placeholder = '')
     {
-        $this->setCaption($caption);
-        $this->setAttribute('name', $name);
-        $this->setAttribute('rows', (int)($rows));
-        $this->setAttribute('cols', (int)($cols));
-        $this->setValue($value);
-        $this->setAttribute('placeholder', $placeholder);
-
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet('rows', 5);
+            $this->setIfNotSet('cols', 50);
+        } else {
+            parent::__construct([]);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->setWithDefaults('rows', $rows, 5);
+            $this->setWithDefaults('cols', $cols, 50);
+            $this->setWithDefaults('value', $value, '');
+            $this->setIfNotEmpty('placeholder', $placeholder);
+        }
     }
 
     /**
@@ -74,7 +57,7 @@ class TextArea extends Element
      */
     public function getRows()
     {
-        return (int) $this->getAttribute('rows');
+        return (int) $this->get('rows');
     }
 
     /**
@@ -84,7 +67,7 @@ class TextArea extends Element
      */
     public function getCols()
     {
-        return (int) $this->getAttribute('cols');
+        return (int) $this->get('cols');
     }
 
     /**
@@ -94,7 +77,7 @@ class TextArea extends Element
      */
     public function getPlaceholder()
     {
-        return (string) $this->getAttribute('placeholder');
+        return (string) $this->get('placeholder');
     }
 
     /**
@@ -104,12 +87,9 @@ class TextArea extends Element
      */
     public function render()
     {
-        if ($this->getCols() > $this->getMaxcols()) {
-            $maxcols = $this->getMaxcols();
-        } else {
-            $maxcols = $this->getCols();
-        }
-        $this->addAttribute('class', 'span' . $maxcols);
+        $this->suppressRender(['value']);
+
+        $this->themeDecorateElement();
 
         $attributes = $this->renderAttributeString();
         return '<textarea ' . $attributes . ' ' . $this->getExtra() .' >'

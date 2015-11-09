@@ -16,40 +16,33 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Button
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class Button extends Element
 {
 
     /**
      * Constructor
      *
-     * @param string $caption button caption
-     * @param string $name    button name
-     * @param string $value   button value
-     * @param string $type    type of the button. Possible values: "button", "submit", or "reset"
+     * @param string|array $caption button caption or array of all attributes
+     * @param string       $name    button name
+     * @param string       $value   button value
+     * @param string       $type    type of the button. Possible values: "button", "submit", or "reset"
      */
-    public function __construct($caption, $name, $value = "", $type = "button")
+    public function __construct($caption, $name = null, $value = "", $type = "button")
     {
-        $this->setCaption($caption);
-        $this->setAttribute('type', $type);
-        $this->setAttribute('name', $name);
-        $this->setValue($value);
-    }
-
-    /**
-     * Get the type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return (string) $this->getAttribute('type');
-        //return in_array(strtolower($this->type), array("button", "submit", "reset")) ? $this->type : "button";
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('type', $type, 'button', ['button', 'submit', 'reset']);
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
+        }
     }
 
     /**
@@ -59,7 +52,7 @@ class Button extends Element
      */
     public function render()
     {
-        $this->addAttribute('class', 'btn');
+        $this->themeDecorateElement();
 
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . 'value="' . $this->getValue()

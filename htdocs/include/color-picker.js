@@ -13,8 +13,8 @@ function TCPopup(path, field, palette) {
 	this.field = field;
 	this.initPalette = !palette || palette > 3 ? 3 : palette;
 	var w = 194, h = 240,
-	move = screen ? 
-		',left=' + ((screen.width - w) >> 1) + ',top=' + ((screen.height - h) >> 1) : '', 
+	move = screen ?
+		',left=' + ((screen.width - w) >> 1) + ',top=' + ((screen.height - h) >> 1) : '',
 	o_colWindow = window.open(this.path+'color-picker.html', null, "help=no,status=no,scrollbars=no,resizable=no" + move + ",width=" + w + ",height=" + h + ",dependent=yes", true);
 	o_colWindow.opener = window;
 	o_colWindow.focus();
@@ -22,7 +22,7 @@ function TCPopup(path, field, palette) {
 }
 
 function TCBuildCell (R, G, B, w, h) {
-	return '<td bgcolor="#' + this.dec2hex((R << 16) + (G << 8) + B) + '"><a href="javascript:P.S(\'' + this.dec2hex((R << 16) + (G << 8) + B) + '\')" onmouseover="P.P(\'' + this.dec2hex((R << 16) + (G << 8) + B) + '\')"><img src="pixel.gif" width="' + w + '" height="' + h + '" border="0"></a></td>';
+	return '<td bgcolor="#' + this.dec2hex((R << 16) + (G << 8) + B) + '"><a href="javascript:P.S(\'' + this.dec2hex((R << 16) + (G << 8) + B) + '\')" onmouseover="P.P(\'' + this.dec2hex((R << 16) + (G << 8) + B) + '\')"><img src="color-picker-pixel.gif" width="' + w + '" height="' + h + '" border="0"></a></td>';
 }
 
 function TCSelect(c) {
@@ -33,11 +33,11 @@ function TCSelect(c) {
 
 function TCPaint(c, b_noPref) {
 	c = (b_noPref ? '' : '#') + c.toUpperCase();
-	if (this.o_samp) 
+	if (this.o_samp)
 		this.o_samp.innerHTML = '<font face=Tahoma size=2>' + c +' <font color=white>' + c + '</font></font>'
 	if(this.doc.layers)
 		this.sample.bgColor = c;
-	else { 
+	else {
 		if (this.sample.backgroundColor != null) this.sample.backgroundColor = c;
 		else if (this.sample.background != null) this.sample.background = c;
 	}
@@ -64,7 +64,7 @@ function TCGenerateWind() {
 				s += this.bldCell(i * 51, k * 51 + (j % 2) * 51 * 3, Math.floor(j / 2) * 51, 8, 10);
 		s += "</tr>";
 	}
-	return s	
+	return s
 }
 function TCGenerateMac() {
 	var s = '';
@@ -127,10 +127,10 @@ function TColorPicker(field) {
 	this.build1 = TCGenerateWind;
 	this.build2 = TCGenerateGray;
 	this.build3 = TCGenerateMac;
-	this.show = document.layers ? 
+	this.show = document.layers ?
 		function (div) { this.divs[div].visibility = 'show' } :
 		function (div) { this.divs[div].visibility = 'visible' };
-	this.hide = document.layers ? 
+	this.hide = document.layers ?
 		function (div) { this.divs[div].visibility = 'hide' } :
 		function (div) { this.divs[div].visibility = 'hidden' };
 	// event handlers
@@ -147,25 +147,25 @@ function TColorPicker(field) {
 function TCDraw(o_win, o_doc) {
 	this.win = o_win;
 	this.doc = o_doc;
-	var 
-	s_tag_openT  = o_doc.layers ? 
-		'layer visibility=hidden top=30 left=5 width=182' : 
+	var
+	s_tag_openT  = o_doc.layers ?
+		'layer visibility=hidden top=30 left=5 width=182' :
 		'div style=visibility:hidden;position:absolute;left:6px;top:30px;width:182px;height:0',
 	s_tag_openS  = o_doc.layers ? 'layer top=32 left=6' : 'div',
 	s_tag_close  = o_doc.layers ? 'layer' : 'div'
-		
+
 	this.doc.write('<' + s_tag_openS + ' id=sam name=sam><table cellpadding=0 cellspacing=0 border=1 width=181 align=center class=bd><tr><td align=center height=18><div id="samp"><font face=Tahoma size=2>sample <font color=white>sample</font></font></div></td></tr></table></' + s_tag_close + '>');
-	this.sample = o_doc.layers ? o_doc.layers['sam'] : 
+	this.sample = o_doc.layers ? o_doc.layers['sam'] :
 		o_doc.getElementById ? o_doc.getElementById('sam').style : o_doc.all['sam'].style
 
 	for (var k = 0; k < 4; k ++) {
 		this.doc.write('<' + s_tag_openT + ' id="p' + k + '" name="p' + k + '"><table cellpadding=0 cellspacing=0 border=1 align=center>' + this['build' + k]() + '</table></' + s_tag_close + '>');
-		this.divs[k] = o_doc.layers 
-			? o_doc.layers['p' + k] : o_doc.all 
+		this.divs[k] = o_doc.layers
+			? o_doc.layers['p' + k] : o_doc.all
 				? o_doc.all['p' + k].style : o_doc.getElementById('p' + k).style
 	}
-	if (!o_doc.layers && o_doc.body.innerHTML) 
-		this.o_samp = o_doc.all 
+	if (!o_doc.layers && o_doc.body.innerHTML)
+		this.o_samp = o_doc.all
 			? o_doc.all.samp : o_doc.getElementById('samp');
 	this.C(this.initPalette);
 	if (this.field.value) this.P(this.field.value, true)

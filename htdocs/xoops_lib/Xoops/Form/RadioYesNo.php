@@ -18,27 +18,36 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\RadioYesNo
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class RadioYesNo extends Radio
 {
     /**
      * Constructor
      *
-     * @param string      $caption caption
-     * @param string      $name    element name
-     * @param string|null $value   Pre-selected value, can be "0" (No) or "1" (Yes)
-     * @param string      $yes     String for "Yes"
-     * @param string      $no      String for "No"
+     * @param string|array $caption Caption or array of all attributes
+     *                               Control attributes:
+     *                                   :yes label for '1' response
+     *                                   :no  label for '0' response
+     * @param string       $name    element name
+     * @param string|null  $value   Pre-selected value, can be "0" (No) or "1" (Yes)
+     * @param string       $yes     String for "Yes"
+     * @param string       $no      String for "No"
      */
-    public function __construct($caption, $name, $value = null, $yes = \XoopsLocale::YES, $no = \XoopsLocale::NO)
+    public function __construct($caption, $name = null, $value = null, $yes = \XoopsLocale::YES, $no = \XoopsLocale::NO)
     {
         parent::__construct($caption, $name, $value, true);
-        $this->addOption(1, $yes);
-        $this->addOption(0, $no);
+        if (is_array($caption)) {
+            $this->set(':inline');
+            $this->setIfNotSet(':yes', \XoopsLocale::YES);
+            $this->setIfNotSet(':no', \XoopsLocale::NO);
+        } else {
+            $this->setWithDefaults(':yes', $yes, \XoopsLocale::YES);
+            $this->setWithDefaults(':no', $no, \XoopsLocale::NO);
+        }
+        $this->addOptionArray([1 => $this->get(':yes'), 0 => $this->get(':no')]);
     }
 }

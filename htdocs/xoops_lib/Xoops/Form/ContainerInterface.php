@@ -17,13 +17,22 @@ namespace Xoops\Form;
  * @category  Xoops\Form\ContainerInterface
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.6.0
-*/
+ */
 interface ContainerInterface
 {
+    /**
+     * Add an element to the group
+     *
+     * @param Element $formElement Element to add
+     * @param boolean $required    true = entry required
+     *
+     * @return void
+     */
+    public function addElement(Element $formElement, $required = false);
+
     /**
      * getRequired - get an array of required form elements
      *

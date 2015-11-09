@@ -19,22 +19,18 @@ namespace Xoops\Form;
  * @category  Xoops\Form\SimpleForm
  * @package   Xoops\Form
  * @author    Xoops Team
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class TableForm extends Form
 {
     /**
      * Insert an empty row in the table to serve as a separator.
      *
-     * @param string $extra not in use.
-     * @param string $class not in use
-     *
      * @return void
      */
-    public function insertBreak($extra = '', $class = '')
+    public function insertBreak()
     {
         $value = '<tr valign="top" align="left"><td></td></tr>';
         $ele = new Raw($value);
@@ -48,9 +44,9 @@ class TableForm extends Form
      */
     public function render()
     {
-        $ret = $this->getTitle() . NWLINE . '<form name="' . $this->getName() . '" id="'
+        $ret = $this->getTitle() . "\n" . '<form name="' . $this->getName() . '" id="'
             . $this->getName() . '" action="' . $this->getAction() . '" method="' . $this->getMethod()
-            . '"' . $this->getExtra() . '>' . NWLINE . '<table border="0" width="100%">' . NWLINE;
+            . '"' . $this->getExtra() . '>' . "\n" . '<table border="0" width="100%">' . "\n";
         $hidden = "";
         foreach ($this->getElements() as $ele) {
             /* @var $ele Element */
@@ -65,10 +61,10 @@ class TableForm extends Form
                     $ret .= $ele->render();
                 }
             } else {
-                $hidden .= $ele->render() . NWLINE;
+                $hidden .= $ele->render() . "\n";
             }
         }
-        $ret .= '</table>' . NWLINE . ' ' . $hidden . '</form>' . NWLINE;
+        $ret .= '</table>' . "\n" . ' ' . $hidden . '</form>' . "\n";
         return $ret;
     }
 }

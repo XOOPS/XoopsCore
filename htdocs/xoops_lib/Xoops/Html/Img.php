@@ -31,9 +31,7 @@ class Img extends Attributes
      */
     public function __construct($attributes = array())
     {
-        if (!empty($attributes)) {
-            $this->setAttributes($attributes);
-        }
+        parent::__construct($attributes);
     }
 
     /**

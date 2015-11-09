@@ -9,10 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-
 namespace Xoops\Form;
 
-use Xoops\Html\Attributes;
+use Xoops\Core\Text\Sanitizer;
 
 /**
  * OptionElement - Abstract base class for form elements with options (i.e. Select)
@@ -28,14 +27,6 @@ use Xoops\Html\Attributes;
 abstract class OptionElement extends Element
 {
     /**
-     * Available options
-     *
-     * @var array
-     */
-    protected $options = array();
-
-
-    /**
      * Add an option
      *
      * @param string $value value attribute
@@ -43,12 +34,12 @@ abstract class OptionElement extends Element
      *
      * @return void
      */
-    public function addOption($value, $name = '')
+    public function addOption($value, $name = null)
     {
-        if ($name != '') {
-            $this->options[$value] = $name;
+        if ($name === null || $name === '') {
+            $this->setArrayItem('option', $value, $value);
         } else {
-            $this->options[$value] = $value;
+            $this->setArrayItem('option', $value, $name);
         }
     }
 
@@ -80,13 +71,14 @@ abstract class OptionElement extends Element
      */
     public function getOptions($encode = 0)
     {
+        $options = $this->get('option', []);
         if (!$encode) {
-            return $this->options;
+            return $options;
         }
-        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
+        $myts = Sanitizer::getInstance();
         $value = array();
-        foreach ($this->options as $val => $name) {
-            $value[$encode ? $myts->htmlSpecialChars($val) : $val] = ($encode > 1)
+        foreach ($options as $val => $name) {
+            $value[(bool) $encode ? $myts->htmlSpecialChars($val) : $val] = ($encode > 1)
                 ? $myts->htmlSpecialChars($name) : $name;
         }
         return $value;

@@ -32,11 +32,10 @@ namespace Xoops\Form;
  * @category  Xoops\Form\Captcha
  * @package   Xoops\Form
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2008-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2008-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.3.0
-*/
+ */
 class Captcha extends Element
 {
     /**
@@ -71,8 +70,8 @@ class Captcha extends Element
     /**
      * setConfig
      *
-     * @param type $name name
-     * @param type $val  value
+     * @param string $name name
+     * @param mixed  $val  value
      *
      * @return boolean
      */

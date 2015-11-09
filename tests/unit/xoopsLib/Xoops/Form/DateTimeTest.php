@@ -27,7 +27,8 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new DateTime('Caption', 'name');
-        $this->markTestSkipped('side effects');
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        //$this->markTestSkipped('side effects');
     }
 
     /**

@@ -62,12 +62,27 @@ class SelectTimeZoneTest extends \PHPUnit_Framework_TestCase
         $testValue = 'Europe/Paris';
         $element = new SelectTimeZone('Caption', 'name', $testValue);
         $actual = $element->getValue(false);
-        $this->assertSame((array) $testValue, $actual);
+        $this->assertSame($testValue, $actual);
 
         $testValue = 'Europe/Paris';
         $element = new SelectTimeZone('Caption', 'name', new \DateTimeZone($testValue));
         $actual = $element->getValue(false);
-        $this->assertSame((array) $testValue, $actual);
+        $this->assertSame($testValue, $actual);
     }
 
+    /**
+     * @covers Xoops\Form\SelectTimeZone::__construct
+     * @covers Xoops\Form\SelectTimeZone::render
+     */
+    public function test__construct()
+    {
+        $value = new \DateTimeZone('Europe/Paris');
+        $oldWay = new SelectTimeZone('mycaption', 'myname', $value);
+        $newWay = new SelectTimeZone([
+            'caption' => 'mycaption',
+            'name' => 'myname',
+            'value' => $value,
+        ]);
+        $this->assertEquals($oldWay->render(), $newWay->render());
+    }
 }

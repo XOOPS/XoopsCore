@@ -17,11 +17,10 @@ namespace Xoops\Form;
  * @category  Xoops\Form\Tab
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class Tab extends ElementTray
 {
     /**
@@ -46,26 +45,26 @@ class Tab extends ElementTray
         $ret = '';
         /* @var $ele Element */
         foreach ($this->getElements() as $ele) {
-            $ret .= NWLINE;
-            $ret .= '<tr>' . NWLINE;
-            $ret .= '<td class="head" width="30%">' . NWLINE;
+            $ret .= "\n";
+            $ret .= '<tr>' . "\n";
+            $ret .= '<td class="head" width="30%">' . "\n";
             $required = $ele->isRequired() ? '-required' : '';
-            $ret .= '<div class="xoops-form-element-caption' . $required . '">' . NWLINE;
-            $ret .= '<span class="caption-text">' . $ele->getCaption() . '</span>' . NWLINE;
-            $ret .= '<span class="caption-marker">*</span>' . NWLINE;
-            $ret .= '</div>' . NWLINE;
+            $ret .= '<div class="xoops-form-element-caption' . $required . '">' . "\n";
+            $ret .= '<span class="caption-text">' . $ele->getCaption() . '</span>' . "\n";
+            $ret .= '<span class="caption-marker">*</span>' . "\n";
+            $ret .= '</div>' . "\n";
             $description = $ele->getDescription();
             if ($description) {
-                $ret .= '<div style="font-weight: normal">' . NWLINE;
-                $ret .= $description . NWLINE;
-                $ret .= '</div>' . NWLINE;
+                $ret .= '<div style="font-weight: normal">' . "\n";
+                $ret .= $description . "\n";
+                $ret .= '</div>' . "\n";
             }
-            $ret .= '</td>' . NWLINE;
-            $ret .= '<td class="even">' . NWLINE;
-            $ret .= $ele->render() . NWLINE;
+            $ret .= '</td>' . "\n";
+            $ret .= '<td class="even">' . "\n";
+            $ret .= $ele->render() . "\n";
             $ret .= '<span class="dsc_pattern_horizontal">'. $ele->getPatternDescription() . '</span>';
-            $ret .= '</td>' . NWLINE;
-            $ret .= '</tr>' . NWLINE;
+            $ret .= '</td>' . "\n";
+            $ret .= '</tr>' . "\n";
         }
         return $ret;
     }

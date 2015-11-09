@@ -19,11 +19,10 @@ use Xoops\Core\FixedGroups;
  * @category  Xoops\Form\GroupPermmissionForm
  * @package   Xoops\Form
  * @author    Xoops Development Team
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class GroupPermissionForm extends Form
 {
     /**
@@ -105,8 +104,8 @@ class GroupPermissionForm extends Form
     /**
      * Loads all child ids for an item to be used in javascript
      *
-     * @param int   $itemId    item id
-     * @param array &$childIds child ids
+     * @param int   $itemId   item id
+     * @param array $childIds child ids by reference
      *
      * @return void
      */
