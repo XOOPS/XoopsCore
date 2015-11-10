@@ -11,6 +11,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Form\ContainerInterface;
 use Xoops\Form\Tab;
 use Xoops\Form\TabTray;
 
@@ -120,12 +121,12 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
     /**
      * Build the main tab
      *
-     * @param PublisherItem $obj     data source
-     * @param Tab           $mainTab tab to build
+     * @param PublisherItem      $obj     data source
+     * @param ContainerInterface $mainTab add elements to this tab/form
      *
      * @return void
      */
-    private function buildMainTab($obj, Tab $mainTab)
+    private function buildMainTab(PublisherItem $obj, ContainerInterface $mainTab)
     {
         $xoops = Xoops::getInstance();
         $publisher = Publisher::getInstance();
@@ -169,83 +170,8 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
             $mainTab->addElement($text_tags);
         }
 
-        // SELECT EDITOR
-        $allowed_editors = PublisherUtils::getEditors($publisher->getPermissionHandler()->getGrantedItems('editors'));
-
-        $nohtml = false;
-        if (count($allowed_editors) == 1) {
-            $editor = $allowed_editors[0];
-        } else {
-            if (count($allowed_editors) > 0) {
-                $editor = @$_POST['editor'];
-                if (!empty($editor)) {
-                    PublisherUtils::setCookieVar('publisher_editor', $editor);
-                } else {
-                    $editor = PublisherUtils::getCookieVar('publisher_editor');
-                    if (empty($editor) && $xoops->isUser()) {
-                        $editor = $xoops->user->getVar('publisher_editor'); // Need set through user profile
-                    }
-                }
-                $editor = (empty($editor) || !in_array($editor, $allowed_editors))
-                    ? $publisher->getConfig('submit_editor') : $editor;
-
-                $form_editor = new Xoops\Form\SelectEditor($this, 'editor', $editor, $nohtml, $allowed_editors);
-                $mainTab->addElement($form_editor);
-            } else {
-                $editor = $publisher->getConfig('submit_editor');
-            }
-        }
-
-        $editor_configs = array();
-        $editor_configs["rows"] = !$publisher->getConfig('submit_editor_rows')
-            ? 35 : $publisher->getConfig('submit_editor_rows');
-        $editor_configs["cols"] = !$publisher->getConfig('submit_editor_cols')
-            ? 60 : $publisher->getConfig('submit_editor_cols');
-        $editor_configs["width"] = !$publisher->getConfig('submit_editor_width')
-            ? "100%" : $publisher->getConfig('submit_editor_width');
-        $editor_configs["height"] = !$publisher->getConfig('submit_editor_height')
-            ? "400px" : $publisher->getConfig('submit_editor_height');
-
-        // SUMMARY
-        if ($this->isGranted(_PUBLISHER_SUMMARY)) {
-            // Description
-            $editor_configs["name"] = "summary";
-            $editor_configs["value"] = $obj->getVar('summary', 'e');
-            $summary_text =
-                new Xoops\Form\Editor(_CO_PUBLISHER_SUMMARY, $editor, $editor_configs, $nohtml, $onfailure = null);
-            $summary_text->setDescription(_CO_PUBLISHER_SUMMARY_DSC);
-            $mainTab->addElement($summary_text);
-        }
-
-        // BODY
-        $editor_configs["name"] = "body";
-        $editor_configs["value"] = $obj->getVar('body', 'e');
-        $body_text = new Xoops\Form\Editor(_CO_PUBLISHER_BODY, $editor, $editor_configs, $nohtml, $onfailure = null);
-        $body_text->setDescription(_CO_PUBLISHER_BODY_DSC);
-        $mainTab->addElement($body_text);
-
-        // VARIOUS OPTIONS
-        if ($this->isGranted(_PUBLISHER_DOHTML)) {
-            $html_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOHTML, 'dohtml', $obj->getVar('dohtml'));
-            $mainTab->addElement($html_radio);
-        }
-        if ($this->isGranted(_PUBLISHER_DOSMILEY)) {
-            $smiley_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOSMILEY, 'dosmiley', $obj->getVar('dosmiley'));
-            $mainTab->addElement($smiley_radio);
-        }
-        if ($this->isGranted(_PUBLISHER_DOXCODE)) {
-            $xcode_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOXCODE, 'doxcode', $obj->getVar('doxcode'));
-            $mainTab->addElement($xcode_radio);
-        }
-        if ($this->isGranted(_PUBLISHER_DOIMAGE)) {
-            $image_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOIMAGE, 'doimage', $obj->getVar('doimage'));
-            $mainTab->addElement($image_radio);
-        }
-        if ($this->isGranted(_PUBLISHER_DOLINEBREAK)) {
-            $linebreak_radio =
-                new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOLINEBREAK, 'dolinebreak', $obj->getVar('dobr'));
-            $mainTab->addElement($linebreak_radio);
-        }
+        $this->buildEditors($obj, $mainTab);
+        $this->buildTSOptions($obj, $mainTab);
 
         // Available pages to wrap
         if ($this->isGranted(_PUBLISHER_AVAILABLE_PAGE_WRAP)) {
@@ -321,14 +247,119 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
     }
 
     /**
-     * Build the files tab
+     * Build the summary and body editors
      *
-     * @param PublisherItem $obj      data source
-     * @param Tab           $filesTab tab to build
+     * @param PublisherItem      $obj     data source
+     * @param ContainerInterface $mainTab add elements to this tab/form
      *
      * @return void
      */
-    private function buildFilesTab($obj, Tab $filesTab)
+    private function buildEditors(PublisherItem $obj, ContainerInterface $mainTab)
+    {
+        $xoops = Xoops::getInstance();
+        $publisher = Publisher::getInstance();
+
+        // SELECT EDITOR
+        $allowed_editors = PublisherUtils::getEditors($publisher->getPermissionHandler()->getGrantedItems('editors'));
+
+        $nohtml = false;
+        if (count($allowed_editors) == 1) {
+            $editor = $allowed_editors[0];
+        } else {
+            if (count($allowed_editors) > 0) {
+                $editor = @$_POST['editor'];
+                if (!empty($editor)) {
+                    PublisherUtils::setCookieVar('publisher_editor', $editor);
+                } else {
+                    $editor = PublisherUtils::getCookieVar('publisher_editor');
+                    if (empty($editor) && $xoops->isUser()) {
+                        $editor = $xoops->user->getVar('publisher_editor'); // Need set through user profile
+                    }
+                }
+                $editor = (empty($editor) || !in_array($editor, $allowed_editors))
+                    ? $publisher->getConfig('submit_editor') : $editor;
+
+                $form_editor = new Xoops\Form\SelectEditor($this, 'editor', $editor, $nohtml, $allowed_editors);
+                $mainTab->addElement($form_editor);
+            } else {
+                $editor = $publisher->getConfig('submit_editor');
+            }
+        }
+
+        $editor_configs = array();
+        $editor_configs["rows"] = !$publisher->getConfig('submit_editor_rows')
+            ? 35 : $publisher->getConfig('submit_editor_rows');
+        $editor_configs["cols"] = !$publisher->getConfig('submit_editor_cols')
+            ? 60 : $publisher->getConfig('submit_editor_cols');
+        $editor_configs["width"] = !$publisher->getConfig('submit_editor_width')
+            ? "100%" : $publisher->getConfig('submit_editor_width');
+        $editor_configs["height"] = !$publisher->getConfig('submit_editor_height')
+            ? "400px" : $publisher->getConfig('submit_editor_height');
+
+        // SUMMARY
+        if ($this->isGranted(_PUBLISHER_SUMMARY)) {
+            // Description
+            $editor_configs["name"] = "summary";
+            $editor_configs["value"] = $obj->getVar('summary', 'e');
+            $summary_text =
+                new Xoops\Form\Editor(_CO_PUBLISHER_SUMMARY, $editor, $editor_configs, $nohtml, $onfailure = null);
+            $summary_text->setDescription(_CO_PUBLISHER_SUMMARY_DSC);
+            $mainTab->addElement($summary_text);
+        }
+
+        // BODY
+        $editor_configs["name"] = "body";
+        $editor_configs["value"] = $obj->getVar('body', 'e');
+        $body_text = new Xoops\Form\Editor(_CO_PUBLISHER_BODY, $editor, $editor_configs, $nohtml, $onfailure = null);
+        $body_text->setDescription(_CO_PUBLISHER_BODY_DSC);
+        $mainTab->addElement($body_text);
+
+    }
+
+    /**
+     * Build the option selectors for Text\Sanitizer display processing
+     *
+     * @param PublisherItem      $obj     data source
+     * @param ContainerInterface $mainTab add elements to this tab/form
+     *
+     * @return void
+     */
+    private function buildTSOptions(PublisherItem $obj, ContainerInterface $mainTab)
+    {
+        // VARIOUS OPTIONS
+        if ($this->isGranted(_PUBLISHER_DOHTML)) {
+            $html_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOHTML, 'dohtml', $obj->getVar('dohtml'));
+            $mainTab->addElement($html_radio);
+        }
+        if ($this->isGranted(_PUBLISHER_DOSMILEY)) {
+            $smiley_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOSMILEY, 'dosmiley', $obj->getVar('dosmiley'));
+            $mainTab->addElement($smiley_radio);
+        }
+        if ($this->isGranted(_PUBLISHER_DOXCODE)) {
+            $xcode_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOXCODE, 'doxcode', $obj->getVar('doxcode'));
+            $mainTab->addElement($xcode_radio);
+        }
+        if ($this->isGranted(_PUBLISHER_DOIMAGE)) {
+            $image_radio = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOIMAGE, 'doimage', $obj->getVar('doimage'));
+            $mainTab->addElement($image_radio);
+        }
+        if ($this->isGranted(_PUBLISHER_DOLINEBREAK)) {
+            $linebreak_radio =
+                new Xoops\Form\RadioYesNo(_CO_PUBLISHER_DOLINEBREAK, 'dolinebreak', $obj->getVar('dobr'));
+            $mainTab->addElement($linebreak_radio);
+        }
+    }
+
+
+    /**
+     * Build the files tab
+     *
+     * @param PublisherItem      $obj      data source
+     * @param ContainerInterface $filesTab add elements to this tab/form
+     *
+     * @return void
+     */
+    private function buildFilesTab(PublisherItem $obj, ContainerInterface $filesTab)
     {
         $publisher = Publisher::getInstance();
 
@@ -414,12 +445,12 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
     /**
      * Build the images tab
      *
-     * @param PublisherItem $obj       data source
-     * @param Tab           $imagesTab tab to build
+     * @param PublisherItem      $obj       data source
+     * @param ContainerInterface $imagesTab add elements to this tab/form
      *
      * @return void
      */
-    private function buildImagesTab($obj, Tab $imagesTab)
+    private function buildImagesTab(PublisherItem $obj, ContainerInterface $imagesTab)
     {
         $xoops = Xoops::getInstance();
         $group = $xoops->getUserGroups();
@@ -611,12 +642,12 @@ $(document).ready(function(){
     /**
      * Build the others tab
      *
-     * @param PublisherItem $obj       data source
-     * @param Tab           $othersTab tab to build
+     * @param PublisherItem      $obj       data source
+     * @param ContainerInterface $othersTab add elements to this tab/form
      *
      * @return void
      */
-    private function buildOthersTab($obj, Tab $othersTab)
+    private function buildOthersTab(PublisherItem $obj, ContainerInterface $othersTab)
     {
         // Meta Keywords
         if ($this->isGranted(_PUBLISHER_ITEM_META_KEYWORDS)) {
