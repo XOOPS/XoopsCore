@@ -55,6 +55,7 @@ class XoopsCodeTest extends \PHPUnit_Framework_TestCase
     {
         $this->sanitizer->enableComponentForTesting('xoopscode');
         $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('siteurl'));
+        $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('url'));
         $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('color'));
         $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('size'));
         $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('font'));

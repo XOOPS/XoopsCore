@@ -35,7 +35,7 @@ class Sanitizer extends SanitizerConfigurable
     protected static $defaultConfiguration = [
         'enabled' => true,
         'prefilters' => [],
-        'postfilters' => ['clickable'],
+        'postfilters' => ['embed', 'clickable'],
     ];
 
     /**
@@ -166,7 +166,7 @@ class Sanitizer extends SanitizerConfigurable
      */
     public function nl2Br($text)
     {
-        return preg_replace("/(\r\n)|(\n\r)|(\n)|(\r)/", '<br />', $text);
+        return preg_replace("/(\r\n)|(\n\r)|(\n)|(\r)/", "\n<br />\n", $text);
     }
 
     /**
