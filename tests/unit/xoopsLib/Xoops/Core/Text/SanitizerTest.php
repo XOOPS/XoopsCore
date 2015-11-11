@@ -116,13 +116,13 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
     {
         $text = "\n";
         $message = $this->object->nl2br($text);
-        $this->assertEquals('<br />',$message);
+        $this->assertEquals("\n<br />\n",$message);
         $text = "\r\n";
         $message = $this->object->nl2br($text);
-        $this->assertEquals('<br />',$message);
+        $this->assertEquals("\n<br />\n",$message);
         $text = "\r";
         $message = $this->object->nl2br($text);
-        $this->assertEquals('<br />',$message);
+        $this->assertEquals("\n<br />\n",$message);
     }
 
     /**
