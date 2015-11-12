@@ -166,7 +166,7 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
         $buttons ->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
         $buttons ->addElement(new Xoops\Form\Button('', 'reset', _PM_CLEAR, 'reset'));
         $buttonCancelSend = new Xoops\Form\Button('', 'cancel', _PM_CANCELSEND, 'button');
-        $buttonCancelSend->setExtra("onclick='javascript:window.close();'");
+        $buttonCancelSend->set('onclick', 'javascript:window.close();');
         $buttons ->addElement($buttonCancelSend);
         $form->addElement($buttons);
         $tpl->assign('form', $form->render());

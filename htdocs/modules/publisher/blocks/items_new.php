@@ -52,7 +52,7 @@ function publisher_items_new_show($options)
     }
     $xoops = \Xoops::getInstance();
     $thumbService = $xoops->service('thumbnail');
-    $itemsObj = $publisher->getItemHandler()->getItems($limit, $start, array(_PUBLISHER_STATUS_PUBLISHED), -1, $sort, $order, '', true, $criteria, true);
+    $itemsObj = $publisher->getItemHandler()->getItems($limit, $start, array(_PUBLISHER_STATUS_PUBLISHED), -1, $sort, $order, '', true, $criteria);
 
     $totalitems = count($itemsObj);
     if ($itemsObj) {

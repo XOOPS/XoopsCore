@@ -49,7 +49,7 @@ class PublisherFileForm extends Xoops\Form\ThemeForm
 
         // FILE TO UPLOAD
         $file_box = new Xoops\Form\File(_CO_PUBLISHER_FILE_TO_UPLOAD, "item_upload_file");
-        $file_box->setExtra("size ='50'");
+        $file_box->set('size', 50);
         $this->addElement($file_box);
 
         $status_select = new Xoops\Form\RadioYesNo(_CO_PUBLISHER_FILE_STATUS, 'file_status', _PUBLISHER_STATUS_FILE_ACTIVE);

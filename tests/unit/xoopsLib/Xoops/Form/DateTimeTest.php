@@ -27,7 +27,8 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new DateTime('Caption', 'name');
-        $this->markTestSkipped('side effects');
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        //$this->markTestSkipped('side effects');
     }
 
     /**
@@ -39,11 +40,23 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Form\DateTime::__construct
      * @covers Xoops\Form\DateTime::render
      */
     public function testRender()
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+    }
+
+    /**
+     * @covers Xoops\Form\DateTime::__construct
+     * @covers Xoops\Form\DateTime::render
+     */
+    public function test__construct()
+    {
+        $oldWay = new DateTime('mycaption', 'myname');
+        $newWay = new DateTime(['caption' => 'mycaption', 'name' => 'myname',]);
+        $this->assertEquals($oldWay->render(), $newWay->render());
     }
 }

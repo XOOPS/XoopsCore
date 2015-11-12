@@ -16,75 +16,52 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Password
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Password extends Element
 {
     /**
-     * Size of the field.
-     *
-     * @var int
-     */
-    //private $size;
-
-    /**
-     * Maximum length of the text
-     *
-     * @var int
-     */
-    //private $maxlength;
-
-    /**
-     * Cache password with browser. Disabled by default for security consideration
-     * Added in 2.3.1
-     *
-     * @var boolean
-     */
-    //public $autoComplete = false;
-
-     /**
-     * placeholder for this element
-     *
-     * @var string
-     * @access private
-     */
-    //private $placeholder;
-
-    /**
      * __construct
      *
-     * @param string  $caption      Caption
-     * @param string  $name         name attribute
-     * @param integer $size         Size of the field
-     * @param integer $maxlength    Maximum length of the text
-     * @param string  $value        Initial value of the field - *Warning:* readable in cleartext in the page!
-     * @param boolean $autoComplete To enable autoComplete or browser cache
-     * @param string  $placeholder  placeholder for this element.
+     * @param string|array $caption      Caption or array of all attributes
+     * @param string       $name         name attribute
+     * @param integer      $size         Size of the field
+     * @param integer      $maxlength    Maximum length of the text
+     * @param string       $value        Initial value of the field - *Warning:* readable in cleartext in the page!
+     * @param string       $autoComplete Turn autoComplete in browser 'on' or 'off'
+     * @param string       $placeholder  placeholder for this element.
      */
     public function __construct(
         $caption,
-        $name,
-        $size,
-        $maxlength,
+        $name = null,
+        $size = 32,
+        $maxlength = 64,
         $value = '',
-        $autoComplete = false,
+        $autoComplete = 'off',
         $placeholder = ''
     ) {
-        $this->setCaption($caption);
-        $this->setAttribute('type', 'password');
-        $this->setAttribute('name', $name);
-        $this->setAttribute('size', (int)($size));
-        $this->setAttribute('maxlength', (int)($maxlength));
-        $this->setValue($value);
-        $this->setAttribute('autocomplete', $autoComplete ? 'yes' : 'no');
-        if (!empty($placeholder)) {
-            $this->setAttribute('placeholder', $placeholder);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet('size', 32);
+            $this->setIfNotSet('maxlength', 64);
+            $this->setIfNotSet('autocomplete', 'off');
+        } else {
+            parent::__construct([]);
+            $this->setCaption($caption);
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('size', (int)($size));
+            $this->set('maxlength', (int)($maxlength));
+            $this->setValue($value);
+            $this->setWithDefaults('autocomplete', $autoComplete, 'off', ['on', 'off']);
+            if (!empty($placeholder)) {
+                $this->set('placeholder', $placeholder);
+            }
         }
+        $this->set('type', 'password');
     }
 
     /**
@@ -94,7 +71,7 @@ class Password extends Element
      */
     public function getSize()
     {
-        return (int) $this->getAttribute('size');
+        return (int) $this->get('size', 32);
     }
 
     /**
@@ -104,17 +81,7 @@ class Password extends Element
      */
     public function getMaxlength()
     {
-        return (int) $this->getAttribute('maxlength');
-    }
-
-    /**
-     * Get placeholder for this element
-     *
-     * @return string
-     */
-    public function getPlaceholder()
-    {
-        return (string) $this->setAttribute('placeholder');
+        return (int) $this->get('maxlength', 64);
     }
 
     /**
@@ -124,12 +91,7 @@ class Password extends Element
      */
     public function render()
     {
-        if ($this->getSize() > $this->getMaxcols()) {
-            $maxcols = $this->getMaxcols();
-        } else {
-            $maxcols = $this->getSize();
-        }
-        $this->addAttribute('class', 'span' . $maxcols);
+        $this->themeDecorateElement();
 
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . 'value="'

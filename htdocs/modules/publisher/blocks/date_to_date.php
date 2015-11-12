@@ -73,9 +73,9 @@ function publisher_date_to_date_edit($options)
 {
     $form = new Xoops\Form\BlockForm();
     // these were Xoops Form Calendar???
-    $fromEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_FROM, 'options[0]', 2, strtotime($options[0]));
+    $fromEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_FROM, 'options[0]', strtotime($options[0]));
     //$fromEle->setNocolspan();
-    $untilEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_UNTIL, 'options[1]', 2, strtotime($options[1]));
+    $untilEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_UNTIL, 'options[1]', strtotime($options[1]));
     //$untilEle->setNocolspan();
     $form->addElement($fromEle);
     $form->addElement($untilEle);

@@ -16,11 +16,10 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Label
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Label extends Element
 {
@@ -28,15 +27,20 @@ class Label extends Element
     /**
      * Constructor
      *
-     * @param string $caption Caption
-     * @param string $value   Text
-     * @param string $name    id of rendered element
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $value   Text
+     * @param string       $id      id of rendered element
      */
-    public function __construct($caption = '', $value = '', $name = '')
+    public function __construct($caption = '', $value = '', $id = '')
     {
-        $this->setCaption($caption);
-        $this->setName($name);
-        $this->setValue($value);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct([]);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('value', $value, '');
+            $this->setIfNotEmpty('id', $id);
+        }
     }
 
     /**
@@ -46,9 +50,9 @@ class Label extends Element
      */
     public function render()
     {
-        $idName = $this->getName();
-        $id = empty($idName) ? '' : ' id="' . $idName . '"';
-        $ret = '<span' . $id . '>' . $this->getValue() . '</span>';
+        $this->suppressRender(['value']);
+        $attributes = $this->renderAttributeString();
+        $ret = '<span' . $attributes . '>' . $this->getValue() . '</span>';
         return $ret;
     }
 }

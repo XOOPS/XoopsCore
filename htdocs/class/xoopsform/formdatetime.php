@@ -10,8 +10,21 @@
 */
 
 /**
- * Backward compatibilty stub - use real class, as shown below for all new development.
+ * Backward compatibility stub - use real class, as shown below for all new development.
  */
 class XoopsFormDateTime extends Xoops\Form\DateTime
 {
+    /**
+     * Note change in arguments, removed size and showtime
+     *
+     * @param mixed   $caption
+     * @param mixed   $name
+     * @param integer $size
+     * @param integer $value
+     * @param mixed   $showtime
+     */
+    function __construct($caption, $name, $size = 12, $value = 0, $showtime = true)
+    {
+        parent::__construct($caption, $name, $value);
+    }
 }

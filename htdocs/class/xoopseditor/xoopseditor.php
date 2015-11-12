@@ -61,8 +61,8 @@ class XoopsEditor extends Xoops\Form\TextArea
     {
         $this->rows = 5;
         $this->cols = 50;
-        $this->setAttribute('rows', 5);
-        $this->setAttribute('cols', 50);
+        $this->set('rows', 5);
+        $this->set('cols', 50);
 
         $args = func_get_args();
         $configs = array();
@@ -180,7 +180,8 @@ class XoopsEditorHandler
      * @param bool $noHtml
      * @param string $OnFailure a pre-validated editor that will be used if the required editor is failed to create
      * @param bool $noHtml dohtml disabled
-     * @return null|XoopsEditor
+     *
+     * @return \XoopsEditor
      */
     public function get($name = '', $options = null, $noHtml = false, $OnFailure = '')
     {

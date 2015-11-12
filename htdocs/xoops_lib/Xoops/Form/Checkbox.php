@@ -16,13 +16,12 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Checkbox
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Skalpa Keo <skalpa@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Checkbox extends OptionElement
 {
@@ -33,44 +32,29 @@ class Checkbox extends OptionElement
      */
     protected $value = array();
 
-     /**
-     * position for this element
-     *
-     * @var boolean
-     */
-    private $inline;
-
     /**
      * Constructor
      *
-     * @param string  $caption captiom
-     * @param string  $name    element name
-     * @param mixed   $value   Either one value as a string or an array of them.
-     * @param boolean $inline  true for inline arrangement
+     * @param string|array $caption Caption or array of all attributes
+     *                               Control attributes:
+     *                                   :inline true to render with inline style
+     * @param string       $name    element name
+     * @param mixed        $value   value(s) to be set on display, either one value or an array of them.
+     * @param boolean      $inline  true for inline arrangement
      */
-    public function __construct($caption, $name, $value = null, $inline = true)
+    public function __construct($caption, $name = null, $value = null, $inline = true)
     {
-        $this->setAttribute('type', 'checkbox');
-        $this->setAttribute('name', $name);
-        $this->setCaption($caption);
-        if (isset($value)) {
-            $this->setValue($value);
-        }
-        $this->inline = $inline;
-    }
-
-    /**
-     * Get the position of this group
-     *
-     * @return string
-     */
-    public function getInline()
-    {
-        if ($this->inline == true) {
-            return ' inline';
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet(':inline', true);
         } else {
-            return '';
+            parent::__construct([]);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
+            $this->set(':inline', $inline);
         }
+        $this->set('type', 'checkbox');
     }
 
     /**
@@ -80,43 +64,43 @@ class Checkbox extends OptionElement
      */
     public function render()
     {
-        $required = $this->hasAttribute('required');
-        $ele_options = $this->getOptions();
-        $ele_value = $this->getValue();
-        if (!is_array($ele_value)) {
-            $ele_value = (array) $ele_value;
+        $required = $this->has('required');
+        $elementOptions = $this->getOptions();
+        $elementValue = $this->getValue();
+        if (!is_array($elementValue)) {
+            $elementValue = (array) $elementValue;
         }
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
 
-        $ele_name = $this->getName();
-        $ele_id = $ele_name;
-        if (count($ele_options) > 1 && substr($ele_name, -2, 2) !== '[]') {
-            $ele_name = $ele_name . '[]';
-            $this->setName($ele_name);
+        $elementName = $this->getName();
+        $elementId = $elementName;
+        if (count($elementOptions) > 1 && substr($elementName, -2, 2) !== '[]') {
+            $elementName = $elementName . '[]';
+            $this->setName($elementName);
             // If required is set, all checkboxes will be required by the browser,
             // which is not usually useful. We stash the value of required above
             // and unset now. We restore it before return so JS validation will still
             // be triggered. This is only a problem if there is more than one checkbox.
-            $this->unsetAttribute('required');
+            $this->remove('required');
         }
 
         $ret = "";
-        $id_ele = 0;
-        foreach ($ele_options as $value => $name) {
-            $this->unsetAttribute('checked');
-            if (!empty($ele_value) && in_array($value, $ele_value)) {
-                $this->setAttribute('checked');
+        $idCount = 0;
+        foreach ($elementOptions as $value => $name) {
+            $this->remove('checked');
+            if (!empty($elementValue) && in_array($value, $elementValue)) {
+                $this->set('checked');
             }
-            $this->setAttribute('value', $value);
-            ++$id_ele;
-            $this->setAttribute('id', $ele_id . $id_ele);
-            $ret .= '<label class="checkbox' . $this->getInline() . '">' . NWLINE;
-            $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . NWLINE;
-            $ret .= $name . NWLINE;
-            $ret .= "</label>" . NWLINE;
+            $this->set('value', $value);
+            ++$idCount;
+            $this->set('id', $elementId . $idCount);
+            $ret .= '<label class="checkbox' . ((bool) $this->get(':inline', false) ? ' inline' : '') . '">' . "\n";
+            $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . "\n";
+            $ret .= $name . "\n";
+            $ret .= "</label>" . "\n";
         }
         if ($required) {
-            $this->setAttribute('required');
+            $this->set('required');
         }
         return $ret;
     }
@@ -130,7 +114,7 @@ class Checkbox extends OptionElement
     {
         // render custom validation code if any
         if (!empty($this->customValidationCode)) {
-            return implode(NWLINE, $this->customValidationCode);
+            return implode("\n", $this->customValidationCode);
             // generate validation code if required
         } elseif ($this->isRequired()) {
             $eltname = $this->getName();
@@ -139,7 +123,13 @@ class Checkbox extends OptionElement
                 ? sprintf(\XoopsLocale::F_ENTER, $eltname)
                 : sprintf(\XoopsLocale::F_ENTER, $eltcaption);
             $eltmsg = str_replace('"', '\"', stripslashes($eltmsg));
-            return NWLINE . "var hasChecked = false; var checkBox = myform.elements['{$eltname}']; if (checkBox.length) {for (var i = 0; i < checkBox.length; i++) {if (checkBox[i].checked == true) {hasChecked = true; break;}}}else{if (checkBox.checked == true) {hasChecked = true;}}if (!hasChecked) {window.alert(\"{$eltmsg}\");if (checkBox.length) {checkBox[0].focus();}else{checkBox.focus();}return false;}";
+            return "\n"
+            . "var hasChecked = false; var checkBox = myform.elements['{$eltname}'];"
+            . " if (checkBox.length) {for (var i = 0; i < checkBox.length; i++)"
+            . " {if (checkBox[i].checked == true) {hasChecked = true; break;}}}"
+            . "else{if (checkBox.checked == true) {hasChecked = true;}}"
+            . "if (!hasChecked) {window.alert(\"{$eltmsg}\");if (checkBox.length)"
+            . " {checkBox[0].focus();}else{checkBox.focus();}return false;}";
         }
         return '';
     }

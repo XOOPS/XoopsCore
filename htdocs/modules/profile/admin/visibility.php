@@ -88,7 +88,6 @@ $xoops->tpl()->assign('groups', $groups);
 $add_form = new Xoops\Form\SimpleForm('', 'addform', 'visibility.php');
 
 $sel_field = new Xoops\Form\Select(_PROFILE_AM_FIELDVISIBLE, 'field_id');
-$sel_field->setExtra("style='width: 200px;'");
 $sel_field->addOptionArray($fields);
 $add_form->addElement($sel_field);
 

@@ -131,7 +131,7 @@ if ($op === 'editprofile') {
     } else {
         $email_text = new Xoops\Form\Label('', $xoops->user->getVar('email'));
     }
-    $email_tray->addElement($email_text);
+    $email_tray->addElement($email_text, ($xoops->getConfig('allow_chgmail') == 1));
     $email_cbox_value = $xoops->user->user_viewemail() ? 1 : 0;
     $email_cbox = new Xoops\Form\Checkbox('', 'user_viewemail', $email_cbox_value);
     $email_cbox->addOption(1, XoopsLocale::ALLOW_OTHER_USERS_TO_VIEW_EMAIL);
@@ -178,8 +178,8 @@ if ($op === 'editprofile') {
     $sig_cbox->addOption(1, XoopsLocale::ALWAYS_ATTACH_MY_SIGNATURE);
     $sig_tray->addElement($sig_cbox);
     $bio_tarea = new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
-    $pwd_text = new Xoops\Form\Password('', 'password', 10, 32);
-    $pwd_text2 = new Xoops\Form\Password('', 'vpass', 10, 32);
+    $pwd_text = new Xoops\Form\Password('', 'password');
+    $pwd_text2 = new Xoops\Form\Password('', 'vpass');
     $pwd_tray = new Xoops\Form\ElementTray(
         XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT
     );
@@ -210,9 +210,6 @@ if ($op === 'editprofile') {
     $form->addElement($op_hidden);
     //$form->addElement($token_hidden);
     $form->addElement($submit_button);
-    if ($xoops->getConfig('allow_chgmail') == 1) {
-        $form->setRequired($email_text);
-    }
     $form->display();
     $xoops->footer();
 }

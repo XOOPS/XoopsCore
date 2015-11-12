@@ -17,10 +17,9 @@ namespace Xoops\Form;
  * @category  Xoops\Form\SelectEditor
  * @package   Xoops\Form
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.3.0
  */
 class SelectEditor extends ElementTray
 {
@@ -83,9 +82,9 @@ class SelectEditor extends ElementTray
         $editor_handler = \XoopsEditorHandler::getInstance();
         $editor_handler->allowed_editors = $this->allowed_editors;
         $option_select = new Select("", $this->name, $this->value);
-        $extra = 'onchange="if(this.options[this.selectedIndex].value.length > 0 ){window.document.forms.'
+        $onchangeCode = '"if(this.options[this.selectedIndex].value.length > 0 ){window.document.forms.'
             . $this->form->getName() . '.submit();}"';
-        $option_select->setExtra($extra);
+        $option_select->set('onchange', $onchangeCode);
         $option_select->addOptionArray($editor_handler->getList($this->nohtml));
         $this->addElement($option_select);
         return parent::render();

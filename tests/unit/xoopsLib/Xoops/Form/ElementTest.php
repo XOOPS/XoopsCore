@@ -1,4 +1,6 @@
 <?php
+namespace Xoops\Form;
+
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
 use Xoops\Form\Element;
@@ -38,38 +40,6 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setAttribute
-     */
-    public function testSetAttribute()
-    {
-        // see Xoops\Html\AttributesTest
-    }
-
-    /**
-     * @covers Xoops\Form\Element::getAttribute
-     */
-    public function testGetAttribute()
-    {
-        // see Xoops\Html\AttributesTest
-    }
-
-    /**
-     * @covers Xoops\Form\Element::hasAttribute
-     */
-    public function testHasAttribute()
-    {
-        // see Xoops\Html\AttributesTest
-    }
-
-    /**
-     * @covers Xoops\Form\Element::addAttribute
-     */
-    public function testAddAttribute()
-    {
-        // see Xoops\Html\AttributesTest
-    }
-
-    /**
      * @covers Xoops\Form\Element::renderAttributeString
      */
     public function testRenderAttributeString()
@@ -77,23 +47,28 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $instance = $this->object;
 
         $arrAttr = array('title' => 'title_value', 'name' => 'name_value[]');
-        $instance->setAttributes($arrAttr);
+        $instance->setAll($arrAttr);
 
         $value = $instance->renderAttributeString();
         $expected = 'title="title_value" name="name_value[]" id="name_value" ';
-        $this->assertSame($expected,$value);
+        $this->assertSame($expected, $value);
     }
 
     public function testRenderAttributeString100()
     {
-        $instance = $this->object;
+        $arrAttr = array('caption' => 'caption_value');
+        $this->object->setAll($arrAttr);
 
-        $arrAttr = array('title' => 'title_value');
-        $instance->setAttributes($arrAttr);
+        $value = $this->object->renderAttributeString();
+        $expected = 'title="caption_value" id="0" ';
+        $this->assertSame($expected, $value);
 
-        $value = $instance->renderAttributeString();
-        $expected = 'title="title_value" id="0" ';
-        $this->assertSame($expected,$value);
+        $this->object->clear();
+        $arrAttr = array('caption' => 'caption_value', ':pattern_description' => 'pattern description');
+        $this->object->setAll($arrAttr);
+        $value = $this->object->renderAttributeString();
+        $expected = 'title="caption_value - pattern description" id="0" ';
+        $this->assertSame($expected, $value);
     }
 
     public function testRenderAttributeString120()
@@ -101,15 +76,16 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $instance = $this->object;
 
         $arrAttr = array('title' => 'title_value', 'id'=>100);
-        $instance->setAttributes($arrAttr);
+        $instance->setAll($arrAttr);
 
         $value = $instance->renderAttributeString();
         $expected = 'title="title_value" id="100" ';
-        $this->assertSame($expected,$value);
+        $this->assertSame($expected, $value);
     }
 
     /**
      * @covers Xoops\Form\Element::getValue
+     * @covers Xoops\Form\Element::setValue
      */
     public function testGetValue()
     {
@@ -121,29 +97,12 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $names = array('name1', 'name2');
         $this->object->setValue($names);
         $value = $this->object->getValue();
-        $tmp = $names;
-        array_unshift($tmp, $name);
-        $this->assertSame($tmp, $value);
-    }
-
-    /**
-     * @covers Xoops\Form\Element::setValue
-     */
-    public function testSetValue()
-    {
-        // see testGetValue
-    }
-
-    /**
-     * @covers Xoops\Form\Element::setName
-     */
-    public function testSetName()
-    {
-        // see testGetName
+        $this->assertSame($names, $value);
     }
 
     /**
      * @covers Xoops\Form\Element::getName
+     * @covers Xoops\Form\Element::setName
      */
     public function testGetName()
     {
@@ -154,15 +113,8 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setAccessKey
-     */
-    public function testSetAccessKey()
-    {
-        // see testGetAccessKey
-    }
-
-    /**
      * @covers Xoops\Form\Element::getAccessKey
+     * @covers Xoops\Form\Element::setAccessKey
      */
     public function testGetAccessKey()
     {
@@ -194,18 +146,13 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setClass
-     */
-    public function testSetClass()
-    {
-        // set testGetClass
-    }
-
-    /**
      * @covers Xoops\Form\Element::getClass
+     * @covers Xoops\Form\Element::setClass
      */
     public function testGetClass()
     {
+        $this->assertFalse($this->object->getClass());
+
         $name = 'name';
         $this->object->setClass($name);
         $value = $this->object->getClass();
@@ -213,15 +160,8 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setPattern
-     */
-    public function testSetPattern()
-    {
-        // see testGetPattern
-    }
-
-    /**
      * @covers Xoops\Form\Element::getPattern
+     * @covers Xoops\Form\Element::setPattern
      */
     public function testGetPattern()
     {
@@ -242,33 +182,25 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $instance->setPattern($name);
 
         $result = $instance->getPatternDescription();
-        $this->assertSame('',$result);
+        $this->assertSame('', $result);
 
         $name = 'name';
         $pattern = 'pattern';
         $instance->setPattern($name, $pattern);
 
         $result = $instance->getPatternDescription();
-        $this->assertSame($pattern,$result);
+        $this->assertSame($pattern, $result);
     }
 
     /**
+     * @covers Xoops\Form\Element::renderDatalist
      * @covers Xoops\Form\Element::setDatalist
      */
-    public function testSetDatalist()
-    {
-        // see testGetDatalist
-    }
-
-    /**
-     * @covers Xoops\Form\Element::getDatalist
-     * @todo   Implement testGetDatalist().
-     */
-    public function testGetDatalist()
+    public function testRenderDatalist()
     {
         $instance = $this->object;
 
-        $result = $instance->getDatalist();
+        $result = $instance->renderDatalist();
         $this->assertSame('', $result);
 
         $name = 'name';
@@ -277,7 +209,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $data = 'data';
         $instance->setDatalist($data);
 
-        $result = $instance->getDatalist();
+        $result = $instance->renderDatalist();
         $expected = "\n" . '<datalist id="list_' . $name . '">' . "\n";
         $expected .= '<option value="' . htmlspecialchars($data, ENT_QUOTES) . '">' . "\n";
         $expected .= '</datalist>' . "\n";
@@ -285,11 +217,11 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testGetDatalist100()
+    public function testRenderDatalist100()
     {
         $instance = $this->object;
 
-        $result = $instance->getDatalist();
+        $result = $instance->renderDatalist();
         $this->assertSame('', $result);
 
         $name = 'name';
@@ -298,7 +230,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $data = array('key1'=>'value1','key2'=>'value2',);
         $instance->setDatalist($data);
 
-        $result = $instance->getDatalist();
+        $result = $instance->renderDatalist();
         $expected = "\n" . '<datalist id="list_' . $name . '">' . "\n";
         foreach ($data as $item) {
             $expected .= '<option value="' . htmlspecialchars($item, ENT_QUOTES) . '">' . "\n";
@@ -326,15 +258,8 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setCaption
-     */
-    public function testSetCaption()
-    {
-        // see testGetCaption
-    }
-
-    /**
      * @covers Xoops\Form\Element::getCaption
+     * @covers Xoops\Form\Element::setCaption
      */
     public function testGetCaption()
     {
@@ -345,15 +270,8 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setTitle
-     */
-    public function testSetTitle()
-    {
-        // see testGetTitle
-    }
-
-    /**
      * @covers Xoops\Form\Element::getTitle
+     * @covers Xoops\Form\Element::setTitle
      */
     public function testGetTitle()
     {
@@ -361,18 +279,21 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->object->setTitle($name);
         $value = $this->object->getTitle();
         $this->assertSame($name, $value);
-    }
 
-    /**
-     * @covers Xoops\Form\Element::setDescription
-     */
-    public function testSetDescription()
-    {
-        // see testGetDescription
+        $name = 'another name';
+        $this->object->remove('title');
+        $this->object->set('caption', $name);
+        $value = $this->object->getTitle();
+        $this->assertSame($name, $value);
+        $desc = 'description';
+        $this->object->set(':pattern_description', $desc);
+        $value = $this->object->getTitle();
+        $this->assertSame($name . ' - ' . $desc, $value);
     }
 
     /**
      * @covers Xoops\Form\Element::getDescription
+     * @covers Xoops\Form\Element::setDescription
      */
     public function testGetDescription()
     {
@@ -383,15 +304,8 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setHidden
-     */
-    public function testSetHidden()
-    {
-        // see testIsHidden
-    }
-
-    /**
      * @covers Xoops\Form\Element::isHidden
+     * @covers Xoops\Form\Element::setHidden
      */
     public function testIsHidden()
     {
@@ -403,15 +317,8 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setRequired
-     */
-    public function testSetRequired()
-    {
-        // see testIsRequired
-    }
-
-    /**
      * @covers Xoops\Form\Element::isRequired
+     * @covers Xoops\Form\Element::setRequired
      */
     public function testIsRequired()
     {
@@ -423,39 +330,226 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Element::setExtra
-     */
-    public function testSetExtra()
-    {
-        // see testGetExtra
-    }
-
-    /**
      * @covers Xoops\Form\Element::getExtra
+     * @covers Xoops\Form\Element::setExtra
      */
     public function testGetExtra()
     {
         $name = 'name';
-        $this->object->setExtra($name);
+        $this->object->setExtra('one');
         $value = $this->object->getExtra();
-        $this->assertSame($name, $value);
+        $this->assertSame('one', $value);
+
+        $this->object->setExtra('two');
+        $value = $this->object->getExtra();
+        $this->assertSame('one two', $value);
+
+        $this->object->setExtra('three', true);
+        $value = $this->object->getExtra(true);
+        $this->assertSame('three', $value);
     }
 
     /**
      * @covers Xoops\Form\Element::renderValidationJS
+     * @covers Xoops\Form\Element::addCustomValidationCode
      */
     public function testRenderValidationJS()
     {
         $value = $this->object->renderValidationJS();
         $this->assertFalse($value);
+
+        $this->object->setRequired();
+        $this->object->setName('rendertest');
+        $value = $this->object->renderValidationJS();
+        $this->assertNotFalse($value);
+
+        $this->object->remove('required');
+
+        $this->object->addCustomValidationCode('');
+        $value = $this->object->renderValidationJS();
+        $this->assertEquals($value, '');
+
+        $this->object->addCustomValidationCode('');
+        $value = $this->object->renderValidationJS();
+        $this->assertEquals($value, "\n");
+
+        $this->object->addCustomValidationCode('', true);
+        $value = $this->object->renderValidationJS();
+        $this->assertEquals($value, '');
     }
 
     /**
-     * @covers Xoops\Form\Element::getMaxcols
+     * @covers Xoops\Form\Element::hasClassLike
      */
-    public function testGetMaxcols()
+    public function test_hasClassLike()
     {
-        $value = $this->object->getMaxcols();
-        $this->assertTrue(is_int($value));
+        $name = 'class';
+        $stem = 'stem';
+        $this->assertFalse($this->object->hasClassLike($stem));
+        $this->object->set($name, 'notstem');
+        $this->assertFalse($this->object->hasClassLike($stem));
+        $this->object->add($name, $stem);
+        $this->assertNotFalse($this->object->hasClassLike($stem));
+        $this->object->set($name, 'stuff');
+        $this->object->add($name, 'stem3 fred');
+        $this->assertNotFalse($this->object->hasClassLike($stem));
+    }
+
+    /**
+     * @covers Xoops\Form\Element::themeDecorateElement
+     */
+    public function test_themeDecorateElement()
+    {
+        $class = 'class';
+        $this->object->set($class, 'span3');
+        $this->object->themeDecorateElement();
+        $this->assertNotFalse($this->object->hasClassLike('span3'));
+
+        $this->object->remove($class);
+        $this->object->themeDecorateElement();
+        $this->assertNotFalse($this->object->hasClassLike('span2'));
+
+        $this->object->remove($class);
+        $this->object->set('size', 25);
+        $this->object->themeDecorateElement();
+        $this->assertNotFalse($this->object->hasClassLike('span3'));
+
+        $this->object->remove($class);
+        $this->object->set('size', 50);
+        $this->object->themeDecorateElement();
+        $this->assertNotFalse($this->object->hasClassLike('span4'));
+    }
+
+    /**
+     * @covers Xoops\Form\Element::setWithDefaults
+     */
+    public function test_setWithDefaults()
+    {
+        $name = 'color';
+        $enum = ['red', 'blue', 'green'];
+        $default = 'black';
+        $this->object->setWithDefaults($name, '', $default, $enum);
+        $this->assertEquals($default, $this->object->get($name));
+        $this->object->setWithDefaults($name, 'purple', $default, $enum);
+        $this->assertEquals($default, $this->object->get($name));
+        $this->object->setWithDefaults($name, 'blue', $default, $enum);
+        $this->assertEquals('blue', $this->object->get($name));
+    }
+
+    /**
+     * @covers Xoops\Form\Element::setIfNotEmpty
+     */
+    public function test_setIfNotEmpty()
+    {
+        $name = 'name';
+        $value = 'test';
+        $this->assertFalse($this->object->has($name));
+        $this->object->setIfNotEmpty($name, '');
+        $this->assertFalse($this->object->has($name));
+
+        $this->object->setIfNotEmpty($name, $value);
+        $actual = $this->object->get($name);
+        $this->assertSame($value, $actual);
+
+        $this->object->setIfNotEmpty($name, 'this_will_not_be_set');
+        $actual = $this->object->get($name);
+        $this->assertSame($value, $actual);
+    }
+
+    /**
+     * @covers Xoops\Form\Element::setIfNotSet
+     */
+    public function test_setIfNotSet()
+    {
+        $name = 'name';
+        $value = 'test';
+        $this->assertFalse($this->object->has($name));
+        $this->object->setIfNotSet($name, $value);
+        $actual = $this->object->get($name);
+        $this->assertSame($value, $actual);
+
+        $this->object->setIfNotSet($name, 'this_will_not_be_set');
+        $actual = $this->object->get($name);
+        $this->assertSame($value, $actual);
+    }
+
+    public function test_arrayAccess()
+    {
+        $key = 'value';
+        $value = 'testvalue';
+        $instance = new Raw($value);
+        //$this->assertFalse(isset($instance[$key]));
+        $instance->setValue($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+
+        $key = 'name';
+        $value = 'testname';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setName($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+
+        $key = 'accesskey';
+        $value = 'testkey';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setAccessKey($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+
+        $key = 'class';
+        $value = 'testclass';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setClass($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals([$value], $instance[$key]);
+
+        $key = 'pattern';
+        $value = 'testpattern';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setPattern($value, 'testdesc');
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+        $this->assertEquals('testdesc', $instance[':pattern_description']);
+
+        $key = 'datalist';
+        $value = 'testdatalist';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setDatalist($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals([$value], $instance[$key]);
+
+        $key = 'caption';
+        $value = 'testcaption';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setCaption($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+
+        $key = 'title';
+        $value = 'testtitle';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setTitle($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+
+        $key = 'description';
+        $value = 'testdescription';
+        $this->assertFalse(isset($instance[$key]));
+        $instance->setDescription($value);
+        $this->assertTrue(isset($instance[$key]));
+        $this->assertEquals($value, $instance[$key]);
+
+        $key = 'hidden';
+        $this->assertFalse(array_key_exists($key, $instance));
+        $instance->setHidden();
+        $this->assertTrue(array_key_exists($key, $instance));
+        $this->assertNull($instance[$key]);
+
+        $key = 'required';
+        $this->assertFalse(array_key_exists($key, $instance));
+        $instance->setRequired(true);
+        $this->assertTrue(array_key_exists($key, $instance));
+        $this->assertNull($instance[$key]);
     }
 }

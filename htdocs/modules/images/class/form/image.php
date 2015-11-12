@@ -38,7 +38,7 @@ class ImagesImageForm extends Xoops\Form\ThemeForm
         parent::__construct('', 'image', $xoops->getEnv('PHP_SELF'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
-        $tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+        $tabTray = new Xoops\Form\TabTray('', 'uniqueid');
         $tab1 = new Xoops\Form\Tab($title, 'tabid-1');
 
         $tab1->addElement(new Xoops\Form\Text(_AM_IMAGES_NAME, 'image_nicename', 50, 255, $obj->getVar('image_nicename')), true);

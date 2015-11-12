@@ -25,9 +25,8 @@ $xoops->header();
 $form = new Xoops\Form\SimpleForm('', 'form_id', 'form-tab.php');
 
 //tabtray is the tabs holder,
-//if you are using many tabtrays, or even nested tabtrays, you should use diferent ids
-//we are going to use the theme we have selected in system preferences
-$tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+//if you are using many tabtrays, or even nested tabtrays, you should use different ids
+$tabTray = new Xoops\Form\TabTray('', 'uniqueid');
 
 //Now we create our tabs
 //Tabs should also have unique ids
@@ -45,7 +44,7 @@ $code->setPattern('^.{3,}$', 'You need at least 3 characters');
 $code->setDatalist(array('list 1','list 2','list 3'));
 $tab1->addElement($code, true);
 
-$password = new Xoops\Form\Password('Password', 'password', 3, 25, '', false, 'Your Password');
+$password = new Xoops\Form\Password('Password', 'password', null, null, '', 'off', 'Enter Password');
 $password->setDescription('Description password');
 $password->setPattern('^.{8,}$', 'You need at least 8 characters');
 $tab1->addElement($password, true);
@@ -110,17 +109,17 @@ $select->setClass('span2');
 $tab3->addElement($select, true);
 
 $select_optgroup = new Xoops\Form\Select('Select Optgroup', 'select_optgroup', '', 1, false);
-$select_optgroup->addOptgroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
-$select_optgroup->addOptgroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
+$select_optgroup->addOptionGroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
+$select_optgroup->addOptionGroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
 $select_optgroup->setDescription('Description Select Optgroup');
 $select_optgroup->setClass('span3');
 $tab3->addElement($select_optgroup, true);
 
-$date = new Xoops\Form\DateSelect('Date', 'date', 2, 0);
+$date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $tab3->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 2, '', 'Date...');
+$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 0);
 $date_time->setDescription('Description Date time');
 $tab3->addElement($date_time, true);
 

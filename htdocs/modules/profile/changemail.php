@@ -34,7 +34,7 @@ $xoops->header('module:profile/profile_email.tpl');
 if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     //show change password form
     $form = new Xoops\Form\ThemeForm(_PROFILE_MA_CHANGEMAIL, 'emailform', $_SERVER['REQUEST_URI'], 'post', true);
-    $form->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, 'passwd', 4, 50), true);
+    $form->addElement(new Xoops\Form\Password(XoopsLocale::PASSWORD, 'passwd'), true);
     $form->addElement(new Xoops\Form\Text(_PROFILE_MA_NEWMAIL, 'newmail', 15, 50), true);
     $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     $form->assign($xoops->tpl());

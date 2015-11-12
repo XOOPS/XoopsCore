@@ -27,7 +27,8 @@ class DateSelectTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new DateSelect('Caption', 'name');
-        $this->markTestSkipped('side effects');
+        \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
+        //$this->markTestSkipped('side effects');
     }
 
     /**
@@ -45,5 +46,16 @@ class DateSelectTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
+    }
+
+    /**
+     * @covers Xoops\Form\DateSelect::__construct
+     * @covers Xoops\Form\DateSelect::render
+     */
+    public function test__construct()
+    {
+        $oldWay = new DateSelect('mycaption', 'myname');
+        $newWay = new DateSelect(['caption' => 'mycaption', 'type' => 'text', 'name' => 'myname',]);
+        $this->assertEquals($oldWay->render(), $newWay->render());
     }
 }

@@ -27,7 +27,7 @@ class ThemeFormTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new ThemeForm('Caption', 'name', 'action');
-        $this->markTestSkipped('side effects');
+        $this->markTestSkipped('Needs XoopsTpl::assign() in Xoops::tpl()');
     }
 
     /**

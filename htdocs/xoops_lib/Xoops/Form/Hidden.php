@@ -16,28 +16,32 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Hidden
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class Hidden extends Element
 {
 
     /**
      * Constructor
      *
-     * @param string $name  name attribute
-     * @param string $value value attribute
+     * @param string|array $name  name attribute or array of all attributes
+     * @param string       $value value attribute
      */
-    public function __construct($name, $value)
+    public function __construct($name, $value = '')
     {
-        $this->setAttribute('type', 'hidden');
-        $this->setAttribute('name', $name);
+        if (is_array($name)) {
+            parent::__construct($name);
+        } else {
+            parent::__construct([]);
+            $this->set('caption', '');
+            $this->set('name', $name);
+            $this->set('value', $value);
+        }
         $this->setHidden();
-        $this->setValue($value);
-        $this->setCaption('');
+        $this->set('type', 'hidden');
     }
 
     /**
@@ -49,6 +53,6 @@ class Hidden extends Element
     {
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . 'value="'
-            . $this->getValue() . '" ' . $this->getExtra() .' >' . NWLINE;
+            . $this->getValue() . '" ' . $this->getExtra() .' >' . "\n";
     }
 }

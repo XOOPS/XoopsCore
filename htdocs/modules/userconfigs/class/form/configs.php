@@ -76,7 +76,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                 }
             }
 
-            $tabTray = new Xoops\Form\TabTray('', 'pref_tabtay', $xoops->getModuleConfig('jquery_theme', 'system'));
+            $tabTray = new Xoops\Form\TabTray('', 'pref_tabtay');
             $tabs = array();
             foreach ($configCats as $name => $info) {
                 $tabs[$name] = new Xoops\Form\Tab($info['name'], 'pref_tab_' . $name);
@@ -243,7 +243,7 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
 
                     case 'password':
                         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-                        $ele = new Xoops\Form\Password($title, $obj[$i]->getVar('conf_name'), 5, 255, $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
+                        $ele = new Xoops\Form\Password($title, $obj[$i]->getVar('conf_name'), 32, 255, $myts->htmlSpecialChars($obj[$i]->getConfValueForOutput()));
                         break;
 
                     case 'color':

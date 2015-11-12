@@ -146,9 +146,12 @@ class CountryFlagProvider extends AbstractContract implements CountryflagInterfa
         $size = 'large'
     ) {
         $url = $this->getFlagUrl($countryCode, $size);
+        if (!is_array($attributes)) {
+            $attributes = array();
+        }
 
         $imgTag = new Img(array('src' => $url, 'alt' => $countryCode));
-        $imgTag->setAttributes($attributes);
+        $imgTag->setMerge($attributes);
         $response->setValue($imgTag->render());
     }
 }

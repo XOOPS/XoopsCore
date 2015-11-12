@@ -16,20 +16,20 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\DhtmlTextArea
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Vinod <smartvinu@gmail.com>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
-class DhtmlTextArea extends TextArea
+class DhtmlTextArea extends \XoopsEditor
 {
     /**
      * Extended HTML editor
      *
-     * <p>If an extended HTML editor is set, the renderer will be replaced by the specified editor, usually a visual or WYSIWYG editor.</p>
+     * <p>If an extended HTML editor is set, the renderer will be replaced by the specified editor,
+     * usually a visual or WYSIWYG editor.</p>
      *
      * <ul>Developer and user guide:
      *      <li>
@@ -52,7 +52,10 @@ class DhtmlTextArea extends TextArea
      *      </li>
      * </ul>
      */
-    public $htmlEditor = array();
+    /**
+     * @var \XoopsEditor
+     */
+    public $htmlEditor;
 
     /**
      * Hidden text
@@ -167,14 +170,8 @@ class DhtmlTextArea extends TextArea
         static $js_loaded;
 
         $xoops = \Xoops::getInstance();
-        if ($this->getCols() > $this->getMaxcols()) {
-            $maxcols = 5;
-        } else {
-            $maxcols = $this->getCols();
-        }
-        $class = ($this->getClass() != '' ? " class='span" . $maxcols . " " . $this->getClass() . "'" : " class='span" . $maxcols . "'");
+
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $required = ($this->isRequired() ? ' required' : '');
         $ret = "";
         // actions
         $ret .= $this->codeIcon() . "<br />\n";
@@ -184,7 +181,12 @@ class DhtmlTextArea extends TextArea
         $ret .= "<input type='button' class='btn' onclick=\"XoopsCheckLength('" . $this->getName() . "', '" . @$this->configs['maxlength'] . "', '" . \XoopsLocale::F_CURRENT_TEXT_LENGTH . "', '" . \XoopsLocale::MAXIMUM_LENGTH . "');\" value=' ? ' title='" . \XoopsLocale::CHECK_TEXT_LENGTH . "' />";
         $ret .= "<br />\n";
         // the textarea box
-        $ret .= "<textarea" . $class . " id='" . $this->getName() . "' name='" . $this->getName() . "' title='" . $this->getTitle() . "' onselect=\"xoopsSavePosition('" . $this->getName() . "');\" onclick=\"xoopsSavePosition('" . $this->getName() . "');\" onkeyup=\"xoopsSavePosition('" . $this->getName() . "');\" rows='" . $this->getRows() . "'" . $extra . $required . ">" . $this->getValue() . "</textarea><br />\n";
+
+        $this->suppressRender(['value']);
+        $this->themeDecorateElement();
+        $attributes = $this->renderAttributeString();
+
+        $ret .= '<textarea ' . $attributes . $extra . '>' . $this->getValue() . "</textarea><br />\n";
 
         if (empty($this->skipPreview)) {
             if (!$xoops->theme()) {

@@ -16,23 +16,32 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Token
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Token extends Hidden
 {
     /**
      * Constructor
      *
-     * @param string  $name    name
-     * @param integer $timeout timeout in seconds for generated token
+     * @param string|array $name    name attribute or array of all attributes
+     * @param integer      $timeout timeout in seconds for generated token
      */
     public function __construct($name = 'XOOPS_TOKEN', $timeout = 0)
     {
-        $xoops = \Xoops::getInstance();
-        parent::__construct($name . '_REQUEST', $xoops->security()->createToken($timeout, $name));
+        if (is_array($name)) {
+            parent::__construct($name);
+        } else {
+            parent::__construct([]);
+            $this->set('name', $name);
+            $this->set(':timeout', $timeout);
+        }
+        $name = $this->get('name', 'XOOPS_TOKEN');
+        if (substr($name, -8) !== '_REQUEST') {
+            $this->set('name', $name.'_REQUEST');
+        }
+        $this->set('value', \Xoops::getInstance()->security()->createToken($this->get(':timeout', 0), $name));
     }
 }

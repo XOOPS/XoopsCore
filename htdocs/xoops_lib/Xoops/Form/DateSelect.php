@@ -16,27 +16,34 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\DateSelect
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 class DateSelect extends Text
 {
-
     /**
      * __construct
      *
-     * @param string            $caption caption
+     * @param string|array      $caption caption or array of all attributes
      * @param string            $name    name
-     * @param integer           $size    field size
      * @param integer|\DateTime $value   unix timestamp or DateTime object
      */
-    public function __construct($caption, $name, $size = 12, $value = 0)
+    public function __construct($caption, $name = null, $value = null)
     {
-        $value = \Xoops\Core\Locale\Time::cleanTime($value);
-        parent::__construct($caption, $name, $size, $size , $value);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet('size', 15);
+            $this->setIfNotSet('value', 0);
+            $this->set('value', \Xoops\Core\Locale\Time::cleanTime($this->get('value', null)));
+        } else {
+            parent::__construct([]);
+            $this->setCaption($caption);
+            $this->setName($name);
+            $this->set('size', 15);
+            $this->setValue(\Xoops\Core\Locale\Time::cleanTime($value));
+        }
     }
 
     /**
@@ -46,16 +53,17 @@ class DateSelect extends Text
      */
     public function render()
     {
-        static $included = false;
         $xoops = \Xoops::getInstance();
 
         $display_value = \Xoops\Core\Locale\Time::formatDate($this->getValue(false));
-        $this->addAttribute('class', 'span2');
-        $dlist = $this->isDatalist();
-        if (!empty($dlist)) {
-            $this->addAttribute('list', 'list_' . $this->getName());
+
+        $dataList = $this->isDatalist();
+        if (!empty($dataList)) {
+            $this->add('list', 'list_' . $this->getName());
         }
 
+        $this->themeDecorateElement();
+        $this->suppressRender(['value']);
         $attributes = $this->renderAttributeString();
 
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
@@ -65,7 +73,7 @@ class DateSelect extends Text
         $xoops->theme()->addScript(
             '',
             '',
-            ' $(function() { $( "#' . $this->getAttribute('id') . '" ).datepicker({' .
+            ' $(function() { $( "#' . $this->get('id') . '" ).datepicker({' .
             'showOn: "button", buttonImageOnly: false, changeYear: true, constrainInput: false, ' .
             'buttonImage: "' . $xoops->url('media/xoops/images/icons/calendar.png') .'", ' .
             'buttonImageOnly: false, buttonText: "' . \XoopsLocale::A_SELECT . '" }); }); '

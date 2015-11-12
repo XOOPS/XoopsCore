@@ -139,14 +139,12 @@ switch ($op) {
 
         $form->addElement($fname_text);
         $form->addElement($femail_text);
-        $form->addElement($subject_text);
-        $form->addElement($body_text);
+        $form->addElement($subject_text, true);
+        $form->addElement($body_text, true);
         $form->addElement($to_checkbox);
         $form->addElement($op_hidden);
         $form->addElement($start_hidden);
         $form->addElement($submit_button);
-        $form->setRequired($subject_text);
-        $form->setRequired($body_text);
         $xoops->tpl()->assign('form', $form->render());
         break;
 

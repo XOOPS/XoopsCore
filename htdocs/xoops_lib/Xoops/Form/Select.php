@@ -16,29 +16,14 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Select
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class Select extends OptionElement
 {
-    /**
-     * Allow multiple selections?
-     *
-     * @var bool
-     */
-    //private $multiple = false;
-
-    /**
-     * Number of rows. "1" makes a dropdown list.
-     *
-     * @var int
-     */
-    //private $size;
-
     /**
      * Pre-selected values
      *
@@ -46,32 +31,28 @@ class Select extends OptionElement
      */
     protected $value = array();
 
-     /**
-     * Optgroup
-     *
-     * @var array
-     */
-    private $optgroup = array();
-
     /**
      * Constructor
      *
-     * @param string  $caption  Caption
-     * @param string  $name     name" attribute
-     * @param mixed   $value    Pre-selected value (or array of them).
-     * @param integer $size     Number or rows. "1" makes a drop-down-list
-     * @param boolean $multiple Allow multiple selections?
+     * @param string|array $caption  Caption or array of all attributes
+     * @param string       $name     name" attribute
+     * @param mixed        $value    Pre-selected value (or array of them).
+     * @param integer      $size     Number or rows. "1" makes a drop-down-list
+     * @param boolean      $multiple Allow multiple selections?
      */
-    public function __construct($caption, $name, $value = null, $size = 1, $multiple = false)
+    public function __construct($caption, $name = null, $value = null, $size = 1, $multiple = false)
     {
-        $this->setCaption($caption);
-        $this->setAttribute('name', $name);
-        $this->setAttribute('size', (int)($size));
-        if ($multiple) {
-            $this->setAttribute('multiple');
-        }
-        if (isset($value)) {
-            $this->setValue($value);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet('size', 1);
+        } else {
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
+            $this->setWithDefaults('size', $size, 1);
+            if ($multiple) {
+                $this->set('multiple');
+            }
         }
     }
 
@@ -82,7 +63,7 @@ class Select extends OptionElement
      */
     public function isMultiple()
     {
-        return $this->hasAttribute('multiple');
+        return $this->has('multiple');
     }
 
     /**
@@ -92,7 +73,7 @@ class Select extends OptionElement
      */
     public function getSize()
     {
-        return (int) $this->getAttribute('size');
+        return (int) $this->get('size');
     }
 
      /**
@@ -103,19 +84,29 @@ class Select extends OptionElement
      *
      * @return void
      */
-    public function addOptgroup($name, $optgroup)
+    public function addOptionGroup($name, $optgroup)
     {
-        $this->optgroup[$name] = $optgroup;
+        $this->setArrayItem('option', $name, $optgroup);
     }
 
     /**
-     * Get an array with all the optgroup
+     * render a single option
      *
-     * @return array
+     * @param string   $optionValue   option element value
+     * @param string   $optionDisplay displayed text
+     * @param string[] $selected      selected option values
+     *
+     * @return string
      */
-    public function getOptgroup()
+    protected function renderOption($optionValue, $optionDisplay, $selected)
     {
-        return $this->optgroup;
+        $rendered = '<option value="' . htmlspecialchars($optionValue, ENT_QUOTES) . '"';
+        if (in_array($optionValue, $selected)) {
+            $rendered .= ' selected="selected"';
+        }
+        $rendered .= '>' . $optionDisplay . '</option>' . "\n";
+
+        return $rendered;
     }
 
     /**
@@ -125,40 +116,30 @@ class Select extends OptionElement
      */
     public function render()
     {
-        $ele_value = $this->getValue();
-        if (!is_array($ele_value)) {
-            $ele_value = (array) $ele_value;
-        }
+        $selected = (array) $this->getValue();
+
         $ele_options = $this->getOptions();
-        $ele_optgroup = $this->getOptgroup();
 
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
+        $this->themeDecorateElement();
         $attributes = $this->renderAttributeString();
-        $ret = '<select ' . $attributes . $extra .' >' . NWLINE;
+        $rendered = '<select ' . $attributes . $extra .' >' . "\n";
 
         if (empty($ele_optgroup)) {
-            foreach ($ele_options as $value => $name) {
-                $ret .= '<option value="' . htmlspecialchars($value, ENT_QUOTES) . '"';
-                if (count($ele_value) > 0 && in_array($value, $ele_value)) {
-                    $ret .= ' selected="selected"';
-                }
-                $ret .= '>' . $name . '</option>' . NWLINE;
-            }
-        } else {
-            foreach ($ele_optgroup as $name_optgroup => $value_optgroup) {
-                $ret .= '<optgroup label="' . $name_optgroup . '">' . NWLINE;
-                foreach ($value_optgroup as $value => $name) {
-                    $ret .= '<option value="' . htmlspecialchars($value, ENT_QUOTES) . '"';
-                    if (count($ele_value) > 0 && in_array($value, $ele_value)) {
-                        $ret .= ' selected="selected"';
+            foreach ($ele_options as $value => $display) {
+                if (is_array($display)) {
+                    $rendered .= '<optgroup label="' . $value . '">' . "\n";
+                    foreach ($display as $optvalue => $optdisplay) {
+                        $rendered .= $this->renderOption($optvalue, $optdisplay, $selected);
                     }
-                    $ret .= '>' . $name . '</option>' . NWLINE;
+                } else {
+                    $rendered .= $this->renderOption($value, $display, $selected);
                 }
-                $ret .= '</optgroup>' . NWLINE;
             }
         }
-        $ret .= '</select>' . NWLINE;
-        return $ret;
+        $rendered .= '</select>' . "\n";
+
+        return $rendered;
     }
 
     /**

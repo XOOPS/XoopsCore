@@ -1,4 +1,6 @@
 <?php
+namespace Xoops\Form;
+
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
 use Xoops\Form\OptionElement;
@@ -41,29 +43,40 @@ class OptionElementTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue(is_subclass_of('Xoops\Form\OptionElement', 'Xoops\Html\Attributes'));
         $this->assertTrue(is_subclass_of('Xoops\Form\OptionElement', 'Xoops\Form\Element'));
+        $this->assertTrue(method_exists($this->object, 'addOption'));
+        $this->assertTrue(method_exists($this->object, 'addOptionArray'));
+        $this->assertTrue(method_exists($this->object, 'getOptions'));
     }
 
     /**
      * @covers Xoops\Form\OptionElement::addOption
+     * @covers Xoops\Form\OptionElement::getOptions
      */
     public function testAddOption()
     {
-        $this->assertTrue(method_exists($this->object, 'addOption'));
+        $this->object->addOption('key1', 'value1');
+        $this->object->addOption('key2');
+        $options = $this->object->getOptions();
+        $this->assertArrayHasKey('key1', $options);
+        $this->assertArrayHasKey('key2', $options);
     }
 
     /**
      * @covers Xoops\Form\OptionElement::addOptionArray
+     * @covers Xoops\Form\OptionElement::getOptions
      */
     public function testAddOptionArray()
     {
-        $this->assertTrue(method_exists($this->object, 'addOptionArray'));
-    }
+        $this->object->addOptionArray([
+            'key1' => 'value1',
+            'key2' => 'value2'
+        ]);
+        $options = $this->object->getOptions();
+        $this->assertArrayHasKey('key1', $options);
+        $this->assertArrayHasKey('key2', $options);
 
-    /**
-     * @covers Xoops\Form\OptionElement::getOptions
-     */
-    public function testGetOptions()
-    {
-        $this->assertTrue(method_exists($this->object, 'getOptions'));
+        $options = $this->object->getOptions(2);
+        $this->assertArrayHasKey('key1', $options);
+        $this->assertArrayHasKey('key2', $options);
     }
 }

@@ -16,25 +16,29 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\File
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class File extends Element
 {
     /**
      * Constructor
      *
-     * @param string $caption Caption
-     * @param string $name    name attribute
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $name    name attribute
      */
-    public function __construct($caption, $name)
+    public function __construct($caption, $name = null)
     {
-        $this->setCaption($caption);
-        $this->setAttribute('type', 'file');
-        $this->setAttribute('name', $name);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+        } else {
+            parent::__construct();
+            $this->setCaption($caption);
+            $this->set('name', $name);
+        }
+        $this->set('type', 'file');
     }
 
     /**

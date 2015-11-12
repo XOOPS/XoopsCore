@@ -47,22 +47,22 @@ function profile_getRegisterForm(XoopsUser $user, $profile, $step = null)
         //$uname_size = $GLOBALS['xoopsConfigUser']['maxuname'] < 35 ? $GLOBALS['xoopsConfigUser']['maxuname'] : 35;
 
         $elements[0][] = array(
-            'element' => new Xoops\Form\Text(XoopsLocale::USERNAME, 'uname', 5, $xoops->getConfig('maxuname'), $user->getVar('uname', 'e')),
+            'element' => new Xoops\Form\Text(XoopsLocale::USERNAME, 'uname', 40, $xoops->getConfig('maxuname'), $user->getVar('uname', 'e')),
             'required' => true
         );
         $weights[0][] = 0;
 
         $elements[0][] = array(
-            'element' => new Xoops\Form\Text(XoopsLocale::EMAIL, 'email', 5, 255, $user->getVar('email', 'e')), 'required' => true
+            'element' => new Xoops\Form\Text(XoopsLocale::EMAIL, 'email', 40, 160, $user->getVar('email', 'e')), 'required' => true
         );
         $weights[0][] = 0;
 
         $elements[0][] =
-            array('element' => new Xoops\Form\Password(XoopsLocale::PASSWORD, 'pass', 5, 32, ''), 'required' => true);
+            array('element' => new Xoops\Form\Password(XoopsLocale::PASSWORD, 'pass'), 'required' => true);
         $weights[0][] = 0;
 
         $elements[0][] =
-            array('element' => new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass', 5, 32, ''), 'required' => true);
+            array('element' => new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass'), 'required' => true);
         $weights[0][] = 0;
     }
 
@@ -152,10 +152,10 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
 
     if ($user->isNew() || $xoops->user->isAdmin()) {
         $elements[0][] = array(
-            'element' => new Xoops\Form\Text(XoopsLocale::USERNAME, 'uname', 3, $xoops->user->isAdmin() ? 60
+            'element' => new Xoops\Form\Text(XoopsLocale::USERNAME, 'uname', 40, $xoops->user->isAdmin() ? 60
                     : $xoops->getConfig('maxuname'), $user->getVar('uname', 'e')), 'required' => 1
         );
-        $email_text = new Xoops\Form\Text('', 'email', 4, 60, $user->getVar('email'));
+        $email_text = new Xoops\Form\Text('', 'email', 40, 160, $user->getVar('email'));
     } else {
         $elements[0][] = array('element' => new Xoops\Form\Label(XoopsLocale::USERNAME, $user->getVar('uname')), 'required' => 0);
         $email_text = new Xoops\Form\Label('', $user->getVar('email'));
@@ -168,8 +168,8 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
 
     if ($xoops->user->isAdmin() && $user->getVar('uid') != $xoops->user->getVar('uid')) {
         //If the user is an admin and is editing someone else
-        $pwd_text = new Xoops\Form\Password('', 'password', 3, 32);
-        $pwd_text2 = new Xoops\Form\Password('', 'vpass', 3, 32);
+        $pwd_text = new Xoops\Form\Password('', 'password');
+        $pwd_text2 = new Xoops\Form\Password('', 'vpass');
         $pwd_tray = new Xoops\Form\ElementTray(XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT);
         $pwd_tray->addElement($pwd_text);
         $pwd_tray->addElement($pwd_text2);

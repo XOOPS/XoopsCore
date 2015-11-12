@@ -31,11 +31,11 @@ $dateAndTime = Request::getDateTime('date_time', $default);
 // Date demo form
 $form = new Xoops\Form\ThemeForm('Date and Time', 'form_localedates', '', 'post');
 
-$date = new Xoops\Form\DateSelect('Date', 'date', 12, $dateOnly);
+$date = new Xoops\Form\DateSelect('Date', 'date', $dateOnly);
 $date->setDescription(\XoopsLocale::formatTimestamp($dateOnly, 'custom'));
 $form->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 12, $dateAndTime, 'Date...');
+$date_time = new Xoops\Form\DateTime('Date time', 'date_time', $dateAndTime);
 $date_time->setDescription(Time::describeRelativeInterval($dateAndTime));
 $form->addElement($date_time, true);
 

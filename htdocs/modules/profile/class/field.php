@@ -148,7 +148,7 @@ class ProfileField extends XoopsObject
 
                     $eltmsg = empty($caption) ? sprintf(XoopsLocale::F_ENTER, $name) : sprintf(XoopsLocale::F_ENTER, $caption);
                     $eltmsg = str_replace('"', '\"', stripslashes($eltmsg));
-                    $element->customValidationCode[] = "\nvar hasSelected = false; var selectBox = myform.{$name};" . "for (i = 0; i < selectBox.options.length; i++  ) { if ( selectBox.options[i].selected == true && selectBox.options[i].value != '' ) { hasSelected = true; break; } }" . "if ( !hasSelected ) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }";
+                    $element->addCustomValidationCode("\nvar hasSelected = false; var selectBox = myform.{$name};" . "for (i = 0; i < selectBox.options.length; i++  ) { if ( selectBox.options[i].selected == true && selectBox.options[i].value != '' ) { hasSelected = true; break; } }" . "if ( !hasSelected ) { window.alert(\"{$eltmsg}\"); selectBox.focus(); return false; }");
                 }
                 $element->addOptionArray($options);
                 break;
@@ -185,20 +185,19 @@ class ProfileField extends XoopsObject
                 break;
 
             case "date":
-                $element = new Xoops\Form\DateSelect($caption, $name, 15, $value);
+                $element = new Xoops\Form\DateSelect($caption, $name, $value);
                 break;
 
             case "longdate":
-                $element = new Xoops\Form\DateSelect($caption, $name, 15, str_replace("-", "/", $value));
+                $element = new Xoops\Form\DateSelect($caption, $name, str_replace("-", "/", $value));
                 break;
 
             case "datetime":
-                $element = new Xoops\Form\DateTime($caption, $name, 15, $value);
+                $element = new Xoops\Form\DateTime($caption, $name, $value);
                 break;
 
             case "timezone":
                 $element = new Xoops\Form\SelectTimeZone($caption, $name, $value);
-                $element->setExtra("style='width: 280px;'");
                 break;
 
             case "rank":

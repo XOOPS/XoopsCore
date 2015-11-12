@@ -1,4 +1,6 @@
 <?php
+namespace Xoops\Form;
+
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
 use Xoops\Form\Form;
@@ -40,6 +42,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Form\Form::__construct
      * @covers Xoops\Form\Form::getDisplay
      */
     public function testGetDisplay()
@@ -79,13 +82,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::setAction
-     */
-    public function testSetAction()
-    {
-        // see testGetAction
-    }
-
-    /**
      * @covers Xoops\Form\Form::getAction
      */
     public function testGetAction()
@@ -107,14 +103,9 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::addElement
-     */
-    public function testAddElement()
-    {
-        // see testGetElements
-    }
-
-    /**
      * @covers Xoops\Form\Form::getElements
+     * @covers Xoops\Form\Form::getElementNames
+     * @covers Xoops\Form\Form::getElementByName
      */
     public function testGetElements()
     {
@@ -138,40 +129,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Form::getElementNames
-     */
-    public function testGetElementNames()
-    {
-        // see testGetElements
-    }
-
-    /**
-     * @covers Xoops\Form\Form::getElementByName
-     */
-    public function testGetElementByName()
-    {
-        // see testGetElements
-    }
-
-    /**
-     * @covers Xoops\Form\Form::setElementValue
-     */
-    public function testSetElementValue()
-    {
-        // set testGetElementValue
-    }
-
-    /**
-     * @covers Xoops\Form\Form::setElementValues
-     */
-    public function testSetElementValues()
-    {
-        // set testGetElementValues
-    }
-
-    /**
      * @covers Xoops\Form\Form::getElementValue
-     * @todo   Implement testGetElementValue().
+     * @covers Xoops\Form\Form::setElementValue
      */
     public function testGetElementValue()
     {
@@ -194,6 +153,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::getElementValues
+     * @covers Xoops\Form\Form::setElementValues
      */
     public function testGetElementValues()
     {
@@ -215,13 +175,6 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xoops\Form\Form::setExtra
-     */
-    public function testSetExtra()
-    {
-        // see testGetExtra
-    }
-
-    /**
      * @covers Xoops\Form\Form::getExtra
      */
     public function testGetExtra()
@@ -233,25 +186,30 @@ class FormTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\Form::setRequired
+     * @covers Xoops\Form\Form::getRequired
      */
-    public function testSetRequired()
+    public function testGetRequired()
     {
-        // see testGetRequired
+        $button = new Button(['caption' => 'button_caption', 'name' => 'button_name', 'required' => true]);
+        $this->object->addElement($button);
+        $value = $this->object->getRequired();
+        $this->assertTrue(is_array($value));
+        $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
+        $this->assertSame($button, $value[0]);
     }
 
     /**
      * @covers Xoops\Form\Form::getRequired
      */
-    public function testGetRequired()
+    public function testGetRequired2()
     {
-        $instance = $this->object;
-
-        $button = new Button('button_caption', 'button_name');
-        $instance->setRequired($button);
-        $value = $instance->getRequired();
+        $button = new Button(['caption' => 'button_caption', 'name' => 'button_name']);
+        $this->object->addElement($button, true);
+        $value = $this->object->getRequired();
         $this->assertTrue(is_array($value));
         $this->assertInstanceOf('\Xoops\Form\Button', $value[0]);
+        $this->assertSame($button, $value[0]);
+        $this->assertTrue($button->has('required'));
     }
 
     /**
@@ -283,8 +241,8 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testAssign()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->markTestSkipped(
+            'Needs \XoopsTpl::assign()'
         );
     }
 }

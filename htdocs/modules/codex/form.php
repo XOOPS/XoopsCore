@@ -13,7 +13,6 @@
  * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -24,18 +23,18 @@ $xoops->header();
 // Form Horizontal
 $form = new Xoops\Form\ThemeForm('Form Horizontal', 'form_horizontal', 'form.php', 'post', true, 'horizontal');
 
-$code = new Xoops\Form\Text('Code', 'code', 2, 25, '', 'Code...');
+$code = new Xoops\Form\Text('Code', 'code', 10, 25, '', 'Code...');
 $code->setDescription('Description code');
 $code->setPattern('^.{3,}$', 'You need at least 3 characters');
 $code->setDatalist(array('list 1','list 2','list 3'));
 $form->addElement($code, true);
 
-$password = new Xoops\Form\Password('Password', 'password', 3, 25, '', false, 'Your Password');
+$password = new Xoops\Form\Password('Password', 'password', null, null, '', 'off', 'Enter Password');
 $password->setDescription('Description password');
 $password->setPattern('^.{8,}$', 'You need at least 8 characters');
 $form->addElement($password, true);
 
-$description = new Xoops\Form\TextArea('Description', 'description', '', 5, 6, 'Your description');
+$description = new Xoops\Form\TextArea('Description', 'description', '', 5, 64, 'Your description');
 $description->setDescription('Put the description');
 $form->addElement($description, true);
 
@@ -91,28 +90,26 @@ $select->addOption(1, 'Select 1');
 $select->addOption(2, 'Select 2');
 $select->addOption(3, 'Select 3');
 $select->setDescription('Description Select');
-$select->setClass('span2');
 $form->addElement($select, true);
 
 $select_optgroup = new Xoops\Form\Select('Select Optgroup', 'select_optgroup', '', 1, false);
-$select_optgroup->addOptgroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
-$select_optgroup->addOptgroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
+$select_optgroup->addOptionGroup('Swiss', array(1 => 'Geneva', 2 => 'Bern', 3 => 'Zurich'));
+$select_optgroup->addOptionGroup('France', array(4 => 'Paris', 5 => 'Lyon', 6 => 'Grenoble', 7 => 'Marseille'));
 $select_optgroup->setDescription('Description Select Optgroup');
-$select_optgroup->setClass('span3');
 $form->addElement($select_optgroup, true);
 
-$date = new Xoops\Form\DateSelect('Date', 'date', 2, 0);
+$date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $form->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 2, '', 'Date...');
+$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 0);
 $date_time->setDescription('Description Date time');
 $form->addElement($date_time, true);
 
 $form->addElement(new Xoops\Form\Captcha('Captcha', 'captcha', false), true);
 
 $testtray = new Xoops\Form\ElementTray('Test tray');
-$select_tray = new Xoops\Form\Select('Select_tray', 'select_tray', '', 4, true);
+$select_tray = new Xoops\Form\Select('Select tray', 'select_tray', '', 4, true);
 $select_tray->addOption(1, 'Select_tray 1');
 $select_tray->addOption(2, 'Select_tray 2');
 $select_tray->addOption(3, 'Select_tray 3');
@@ -120,7 +117,6 @@ $select_tray->addOption(4, 'Select_tray 4');
 $select_tray->addOption(5, 'Select_tray 5');
 $select_tray->addOption(6, 'Select_tray 6');
 $select_tray->setDescription('Description Select_tray');
-$select_tray->setClass('span2');
 $testtray ->addElement($select_tray, true);
 $testtray ->addElement($select_tray);
 $form->addElement($testtray);

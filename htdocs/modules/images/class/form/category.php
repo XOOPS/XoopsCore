@@ -42,7 +42,7 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
 
         parent::__construct($title, 'imagecat_form', $xoops->getEnv('PHP_SELF'), 'post', true);
 
-        $tabTray = new Xoops\Form\TabTray('', 'uniqueid', $xoops->getModuleConfig('jquery_theme', 'system'));
+        $tabTray = new Xoops\Form\TabTray('', 'uniqueid');
 
         $tab1 = new Xoops\Form\Tab(_MI_IMAGES_CATEGORIES, 'tabid-1');
         $tab1->addElement(new Xoops\Form\Text(_AM_IMAGES_CAT_NAME, 'imgcat_name', 50, 255, $obj->getVar('imgcat_name')), true);
@@ -86,7 +86,7 @@ class ImagesCategoryForm extends Xoops\Form\ThemeForm
         $buttonTray->addElement($buttonReset);
 
         $buttonCancel = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-        $buttonCancel->setExtra("onclick='javascript:history.go(-1);'");
+        $buttonCancel->set('onclick', 'javascript:history.go(-1);');
         $buttonCancel->setClass('btn btn-danger');
         $buttonTray->addElement($buttonCancel);
 

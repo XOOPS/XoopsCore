@@ -109,8 +109,8 @@ switch ($op) {
 
                 case "date":
                 case "datetime":
-                    $searchform->addElement(new Xoops\Form\DateSelect(sprintf(_PROFILE_MA_LATERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_larger", 15, ''));
-                    $searchform->addElement(new Xoops\Form\DateSelect(sprintf(_PROFILE_MA_EARLIERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_smaller", 15, ''));
+                    $searchform->addElement(new Xoops\Form\DateSelect(sprintf(_PROFILE_MA_LATERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_larger"));
+                    $searchform->addElement(new Xoops\Form\DateSelect(sprintf(_PROFILE_MA_EARLIERTHAN, $fields[$i]->getVar('field_title')), $fields[$i]->getVar('field_name') . "_smaller"));
                     break;
 
                 case "timezone":

@@ -49,7 +49,8 @@ echo $img;
 echo '<br /><br />';
 
 // we can add any HTML attributes to the img tag
-$img = $xoops->service('countryflag')->getImgTag($country, array('title' => Territory::getName($country)))->getValue();
+$attributes = ['class' => 'img-polaroid', 'title' => Territory::getName($country)];
+$img = $xoops->service('countryflag')->getImgTag($country, $attributes)->getValue();
 echo $img . '<br /><br />';
 
 if (!$xoops->service('countryflag')->isAvailable()) {

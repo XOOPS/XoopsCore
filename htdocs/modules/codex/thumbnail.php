@@ -23,9 +23,12 @@ $xoops->header();
 
 $image = 'modules/codex/images/sample.jpeg';
 
-// fit in a 300 pixel box
-$img = $xoops->service('thumbnail')->getImgTag($image, 300, 300, array('alt' => 'cow elk image'))->getValue();
+// fit in a 300 pixel box and add some custom attributes
+$attributes = ['class' => 'img-rounded', 'alt' => 'cow elk image', 'title' => 'Cow Elk'];
+$img = $xoops->service('thumbnail')->getImgTag($image, 300, 300, $attributes)->getValue();
 echo $img;
+
+echo '<br><br>';
 
 // use default max pixel sizes
 $img = $xoops->service('thumbnail')->getImgTag($image)->getValue();

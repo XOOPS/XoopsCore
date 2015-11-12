@@ -16,13 +16,12 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\Form
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
+ * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
-*/
+ */
 abstract class Form implements ContainerInterface
 {
     /**
@@ -30,56 +29,56 @@ abstract class Form implements ContainerInterface
      *
      * @var string
      */
-    private $action;
+    protected $action;
 
     /**
      * "method" attribute for the form.
      *
      * @var string
      */
-    private $method;
+    protected $method;
 
     /**
      * "name" attribute of the form
      *
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * title for the form
      *
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * display class for the form, i.e. horizontal, vertical, inline
      *
      * @var string
      */
-    private $display = '';
+    protected $display = '';
 
     /**
      * array of Element objects
      *
-     * @var array
+     * @var Element[]
      */
-    private $elements = array();
+    protected $elements = array();
 
     /**
      * extra information for the <form> tag
      *
-     * @var array
+     * @var string[]
      */
-    private $extra = array();
+    protected $extra = array();
 
     /**
      * required elements
      *
-     * @var array
+     * @var string[]
      */
-    private $required = array();
+    protected $required = array();
 
     /**
      * constructor
@@ -90,8 +89,6 @@ abstract class Form implements ContainerInterface
      * @param string  $method   method attribute for the <form> tag
      * @param boolean $addtoken whether to add a security token to the form
      * @param string  $display  class for the form, i.e. horizontal, vertical, inline
-     *
-     * @return void
      */
     public function __construct($title, $name, $action, $method = 'post', $addtoken = false, $display = '')
     {
@@ -200,20 +197,9 @@ abstract class Form implements ContainerInterface
      */
     public function addElement(Element $formElement, $required = false)
     {
-        /* @var Element $formElement */
         $this->elements[] = $formElement;
-        if ($formElement instanceof ContainerInterface) {
-            /* @var $formElement ContainerInterface */
-            $required_elements = $formElement->getRequired();
-            $count = count($required_elements);
-            for ($i = 0; $i < $count; ++$i) {
-                $this->required[] = $required_elements[$i];
-            }
-        } else {
-            if ($required && !$formElement instanceof Raw) {
-                $formElement->setRequired();
-                $this->required[] = $formElement;
-            }
+        if ($required) {
+            $formElement->setRequired();
         }
     }
 
@@ -222,7 +208,7 @@ abstract class Form implements ContainerInterface
      *
      * @param boolean $recurse true to get elements recursively
      *
-     * @return array of Xoops\Form\Element
+     * @return Element[]
      */
     public function getElements($recurse = false)
     {
@@ -232,7 +218,7 @@ abstract class Form implements ContainerInterface
             $ret = array();
             foreach ($this->elements as $ele) {
                 if ($ele instanceof ContainerInterface) {
-                    /* @var $ele ContainerInterface */
+                    /* @var ContainerInterface $ele */
                     $elements = $ele->getElements(true);
                     foreach ($elements as $ele2) {
                         $ret[] = $ele2;
@@ -390,10 +376,12 @@ abstract class Form implements ContainerInterface
      * @param Element $formElement Xoops\Form\Element to set as required entry
      *
      * @return void
+     *
+     * @deprecated set required attribute on element directly or when calling addElement
      */
     public function setRequired(Element $formElement)
     {
-        $this->required[] = $formElement;
+        $formElement->setRequired();
     }
 
     /**
@@ -403,11 +391,17 @@ abstract class Form implements ContainerInterface
      */
     public function getRequired()
     {
-        return $this->required;
+        $required = [];
+        foreach ($this->elements as $el) {
+            if ($el->isRequired()) {
+                $required[] = $el;
+            }
+        }
+        return $required;
     }
 
     /**
-     * render - returns renderered form
+     * render - returns rendered form
      *
      * This method is abstract. It must be overwritten in the child classes.
      *

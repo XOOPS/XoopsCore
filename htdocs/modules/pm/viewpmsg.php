@@ -244,7 +244,10 @@ if (count($pm_arr) > 0) {
 }
 
 $send_button = new Xoops\Form\Button('', 'send', XoopsLocale::A_SEND);
-$send_button->setExtra("onclick='javascript:openWithSelfMain(\"" . \XoopsBaseConfig::get('url') . "/modules/pm/pmlite.php?send=1\", \"pmlite\", 750,720);'");
+$send_button->set(
+    'onclick',
+    'javascript:openWithSelfMain("' . $xoops->url('modules/pm/pmlite.php?send=1') . '" , "pmlite", 740,640);'
+);
 $delete_button = new Xoops\Form\Button('', 'delete_messages', XoopsLocale::A_DELETE, 'submit');
 $move_button = new Xoops\Form\Button('', 'move_messages', ($_REQUEST['op'] === 'save') ? _PM_UNSAVE
             : _PM_TOSAVE, 'submit');

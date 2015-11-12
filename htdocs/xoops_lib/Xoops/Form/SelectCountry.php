@@ -16,26 +16,34 @@ namespace Xoops\Form;
  *
  * @category  Xoops\Form\SelectCountry
  * @package   Xoops\Form
- * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
- * @copyright 2001-2014 XOOPS Project (http://xoops.org)
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
- * @since     2.0.0
  */
 class SelectCountry extends Select
 {
     /**
      * Constructor
      *
-     * @param string $caption Caption
-     * @param string $name "name" attribute
-     * @param mixed $value Pre-selected value (or array of them).
-     *                     Legal are all 2-letter country codes (in capitals).
-     * @param int $size Number or rows. "1" makes a drop-down-list
+     * @param string|array $caption Caption or array of all attributes
+     * @param string       $name    "name" attribute
+     * @param mixed        $value   Pre-selected value (or array of them).
+     *                               Legal are all 2-letter country codes (in capitals).
+     * @param int          $size    Number or rows. "1" makes a drop-down-list
      */
-    public function __construct($caption, $name, $value = null, $size = 1)
+    public function __construct($caption, $name = null, $value = null, $size = 1)
     {
-        parent::__construct($caption, $name, $value, $size);
+        if (is_array($caption)) {
+            parent::__construct($caption);
+            $this->setIfNotSet('size', 1);
+        } else {
+            parent::__construct($caption, $name, $value, $size);
+            $this->setWithDefaults('caption', $caption, '');
+            $this->setWithDefaults('name', $name, 'name_error');
+            $this->set('value', $value);
+            $this->setWithDefaults('size', $size, 1);
+        }
         \Xoops\Core\Lists\Country::setOptionsArray($this);
     }
 }
