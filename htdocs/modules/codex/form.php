@@ -102,14 +102,8 @@ $date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $form->addElement($date, true);
 
-// extended definition style
-$date_time = new Xoops\Form\DateTime([
-    'caption' => 'Date time',
-    'name' => 'date_time',
-    'description' => 'Description Date time',
-    ':minuteinterval' => 30,
-]);
-
+$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 0);
+$date_time->setDescription('Description Date time');
 $form->addElement($date_time, true);
 
 $form->addElement(new Xoops\Form\Captcha('Captcha', 'captcha', false), true);

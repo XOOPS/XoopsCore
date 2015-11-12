@@ -34,9 +34,12 @@ class ColorPicker extends Text
      */
     public function __construct($caption, $name = null, $value = '#FFFFFF')
     {
-        parent::__construct($caption, $name, 10, 16, $value);
         if (is_array($caption)) {
             parent::__construct($caption);
+            $value = $this->get('value','');
+            if (empty($value)) {
+                $this->set('value', '#FFFFFF');
+            }
             $this->setIfNotSet('size', 10);
             $this->setIfNotSet('maxlength', 16);
         } else {

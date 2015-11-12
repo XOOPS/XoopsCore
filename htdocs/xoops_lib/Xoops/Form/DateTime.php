@@ -49,7 +49,7 @@ class DateTime extends ElementTray
             'id' => $this->get('name') . '-date',
             'size' => 15,
             'value' => $workingTime,
-            ':form' => $this,
+            ElementFactory::FORM_KEY => $this,
         ];
         new DateSelect($dateDefinition);
 
@@ -67,7 +67,7 @@ class DateTime extends ElementTray
                 'short',
                 new \DateTimeZone('UTC')
             ),
-            ':form' => $this,
+            ElementFactory::FORM_KEY => $this,
             'option' => \Xoops\Core\Lists\Time::getList($minuteInterval),
         ];
         new Select($timeDefinition);

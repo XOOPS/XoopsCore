@@ -55,13 +55,14 @@ abstract class Element extends Attributes
      *
      * @param array $attributes array of attribute name => value pairs
      *                           Control attributes:
-     *                               :form optional form or tray to hold this element
+     *                               ElementFactory::FORM_KEY optional form or tray to hold this element
      */
     public function __construct($attributes = array())
     {
         parent::__construct($attributes);
-        if ($this->has(':form') && $this->get(':form') instanceof ContainerInterface) {
-            $this->get(':form')->addElement($this);
+        if ($this->has(ElementFactory::FORM_KEY)
+            && $this->get(ElementFactory::FORM_KEY) instanceof ContainerInterface) {
+            $this->get(ElementFactory::FORM_KEY)->addElement($this);
         }
     }
 

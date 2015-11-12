@@ -67,7 +67,9 @@ class ColorPickerTest extends \PHPUnit_Framework_TestCase
     {
         $oldWay = new ColorPicker('mycaption', 'myname');
         $newWay = new ColorPicker(['caption' => 'mycaption', 'type' => 'text', 'name' => 'myname',]);
-        $this->assertEquals(substr($oldWay->render(),0,58), substr($newWay->render(),0,58));
+
+        $this->assertEquals(substr($oldWay->render(),0,18), substr($newWay->render(),0,18));
         $this->assertEquals(substr($oldWay->render(),-40), substr($newWay->render(),-40));
+        $this->assertEquals(strlen($oldWay->render()), strlen($newWay->render()));
     }
 }

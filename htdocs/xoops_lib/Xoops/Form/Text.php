@@ -33,7 +33,7 @@ class Text extends Element
      * @param string       $value       Initial text
      * @param string       $placeholder placeholder for this element.
      */
-    public function __construct($caption, $name = '', $size = 10, $maxlength = 64, $value = '', $placeholder = '')
+    public function __construct($caption, $name = null, $size = 10, $maxlength = 64, $value = '', $placeholder = '')
     {
         if (is_array($caption)) {
             parent::__construct($caption);
@@ -47,6 +47,7 @@ class Text extends Element
             $this->setIfNotEmpty('placeholder', $placeholder);
         }
         $this->setIfNotSet('type', 'text');
+        $this->setIfNotSet('value', '');
     }
 
     /**
@@ -93,7 +94,6 @@ class Text extends Element
         }
 
         $attributes = $this->renderAttributeString();
-        return '<input ' . $attributes . 'value="'
-            . $this->getValue() . '" ' . $this->getExtra() .' >';
+        return '<input ' . $attributes . ' ' . $this->getExtra() .' >';
     }
 }
