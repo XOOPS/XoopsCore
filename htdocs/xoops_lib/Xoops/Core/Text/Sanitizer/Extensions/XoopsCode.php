@@ -51,6 +51,16 @@ class XoopsCode extends ExtensionAbstract
         );
 
         $shortcodes->addShortcode(
+            'url',
+            function ($attributes, $content, $tagName) use ($shortcodes) {
+                $url = ltrim($attributes[0], '=');
+                $url = \Xoops::getInstance()->url($url);
+                $newcontent = '<a href="' .$url. '">' . $shortcodes->process($content) . '</a>';
+                return $newcontent;
+            }
+        );
+
+        $shortcodes->addShortcode(
             'color',
             function ($attributes, $content, $tagName) use ($shortcodes) {
                 $color = ltrim($attributes[0], '=');
