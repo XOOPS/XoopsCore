@@ -15,6 +15,7 @@ use Xoops\Core\FixedGroups;
 use Xoops\Core\Handler\Factory as HandlerFactory;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\Theme\XoopsTheme;
 use Psr\Log\LogLevel;
 
 /**
@@ -327,12 +328,12 @@ class Xoops
             }
             if (!$this->isAdminSide) {
                 $xoopsThemeFactory = null;
-                $xoopsThemeFactory = new XoopsThemeFactory();
+                $xoopsThemeFactory = new \Xoops\Core\Theme\Factory();
                 $xoopsThemeFactory->allowedThemes = $this->getConfig('theme_set_allowed');
                 $xoopsThemeFactory->defaultTheme = $this->getConfig('theme_set');
                 $this->setTheme($xoopsThemeFactory->createInstance(array('contentTemplate' => $this->tpl_name)));
             } else {
-                $adminThemeFactory = new XoopsAdminThemeFactory();
+                $adminThemeFactory = new \Xoops\Core\Theme\AdminFactory();
                 $this->setTheme($adminThemeFactory->createInstance(array(
                     'folderName'      => 'default', 'themesPath' => 'modules/system/themes',
                     'contentTemplate' => $this->tpl_name
@@ -646,24 +647,6 @@ class Xoops
                     . $this->getConfig('startpage') . "/' />",
                     $smarty,
                     $repeat
-                );
-            }
-
-            if (@is_object($this->theme()->plugins['XoopsThemeBlocksPlugin'])) {
-                $aggreg = $this->theme()->plugins['XoopsThemeBlocksPlugin'];
-                // Backward compatibility code for pre 2.0.14 themes
-                $this->tpl()->assignByRef('xoops_lblocks', $aggreg->blocks['canvas_left']);
-                $this->tpl()->assignByRef('xoops_rblocks', $aggreg->blocks['canvas_right']);
-                $this->tpl()->assignByRef('xoops_ccblocks', $aggreg->blocks['page_topcenter']);
-                $this->tpl()->assignByRef('xoops_clblocks', $aggreg->blocks['page_topleft']);
-                $this->tpl()->assignByRef('xoops_crblocks', $aggreg->blocks['page_topright']);
-                $this->tpl()->assign('xoops_showlblock', !empty($aggreg->blocks['canvas_left']));
-                $this->tpl()->assign('xoops_showrblock', !empty($aggreg->blocks['canvas_right']));
-                $this->tpl()->assign(
-                    'xoops_showcblock',
-                    !empty($aggreg->blocks['page_topcenter'])
-                    || !empty($aggreg->blocks['page_topleft'])
-                    || !empty($aggreg->blocks['page_topright'])
                 );
             }
 
@@ -1543,7 +1526,7 @@ class Xoops
         }
 
         $xoopsThemeFactory = null;
-        $xoopsThemeFactory = new XoopsThemeFactory();
+        $xoopsThemeFactory = new \Xoops\Core\Theme\Factory();
         $xoopsThemeFactory->allowedThemes = $this->getConfig('theme_set_allowed');
         $xoopsThemeFactory->defaultTheme = $theme;
         $this->setTheme($xoopsThemeFactory->createInstance(array(

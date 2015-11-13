@@ -9,11 +9,17 @@ require_once(dirname(__FILE__).'/../init_new.php');
 class ThemeFactoryAdminTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsAdminThemeFactory';
-	
+
     public function setUp()
 	{
     }
-    
+
+    public function testContracts()
+    {
+        $instance = new $this->myclass();
+        $this->assertInstanceOf('\Xoops\Core\Theme\AdminFactory', $instance);
+    }
+
     public function test___construct()
 	{
 		$themefactory = new $this->myclass();
@@ -23,7 +29,7 @@ class ThemeFactoryAdminTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('default', $themefactory->defaultTheme);
         $this->assertSame(true, $themefactory->allowUserSelection);
     }
-    
+
     public function createInstance_check_level($themefactory, $params=null)
     {
         $level = ob_get_level();
@@ -31,21 +37,21 @@ class ThemeFactoryAdminTest extends \PHPUnit_Framework_TestCase
         while (ob_get_level() > $level) @ob_end_flush();
         return $value;
     }
-	
+
     public function test_createInstance()
 	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
 		$value = $this->createInstance_check_level($themefactory);
-        $this->assertInstanceOf('XoopsTheme', $value);
+        $this->assertInstanceOf('\Xoops\Core\Theme\XoopsTheme', $value);
     }
-	
+
     public function test_createInstance100()
 	{
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
 		$value = $this->createInstance_check_level($themefactory, array('titi'=>'toto'));
-        $this->assertInstanceOf('XoopsTheme', $value);
+        $this->assertInstanceOf('\Xoops\Core\Theme\XoopsTheme', $value);
         $this->assertSame('toto', $value->titi);
 		$this->assertTrue(!empty($value->path));
 		$this->assertTrue(!empty($value->folderName));

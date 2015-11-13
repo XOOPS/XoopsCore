@@ -21,7 +21,7 @@ namespace Xoops\Core\Theme;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class NullTheme extends \XoopsTheme
+class NullTheme extends XoopsTheme
 {
     /**
      * Initializes this theme

@@ -9,11 +9,17 @@ require_once(dirname(__FILE__).'/../init_new.php');
 class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsThemeFactory';
-	
+
     public function setUp()
 	{
     }
-    
+
+    public function testContracts()
+    {
+        $instance = new $this->myclass();
+        $this->assertInstanceOf('\Xoops\Core\Theme\Factory', $instance);
+    }
+
     public function test___construct()
 	{
 		$themefactory = new $this->myclass();
@@ -31,7 +37,7 @@ class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
         while (ob_get_level() > $level) @ob_end_flush();
         return $value;
     }
-    
+
     public function test_createInstance()
 	{
 		$themefactory = new $this->myclass();
@@ -39,7 +45,7 @@ class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
 		$value = $this->createInstance_check_level($themefactory);
         $this->assertInstanceOf('XoopsTheme', $value);
     }
-	
+
     public function test_createInstance100()
 	{
 		$themefactory = new $this->myclass();
@@ -50,7 +56,7 @@ class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(!empty($value->path));
 		$this->assertTrue(!empty($value->folderName));
     }
-	
+
     public function test_isThemeAllowed()
 	{
 		$themefactory = new $this->myclass();
