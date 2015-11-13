@@ -94,7 +94,7 @@ function smarty_function_xoblock($params, &$smarty)
     }
 
     $tpl = new XoopsTpl();
-    $block_renderer = new XoopsThemeBlocksPlugin();
+    $block_renderer = new \Xoops\Core\Theme\Plugins\Blocks();
     $block_renderer->theme = $xoops->theme();
     $block = $block_renderer->buildBlock($blockObj, $tpl);
     if (!$display_none) {

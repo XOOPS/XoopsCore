@@ -40,7 +40,7 @@ if ($xoops->isUser()) {
 
 if (!$allowed) {
     $xoopsThemeFactory = null;
-    $xoopsThemeFactory = new XoopsThemeFactory();
+    $xoopsThemeFactory = new \Xoops\Core\Theme\Factory();
     $xoopsThemeFactory->allowedThemes = $xoops->getConfig('theme_set_allowed');
     $xoopsThemeFactory->defaultTheme = $xoops->getConfig('theme_set');
     $xoops->setTheme($xoopsThemeFactory->createInstance(array('plugins' => array())));

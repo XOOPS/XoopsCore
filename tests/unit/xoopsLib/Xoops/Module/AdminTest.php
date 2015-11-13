@@ -33,7 +33,7 @@ class ModuleadminTest extends \PHPUnit_Framework_TestCase
 	{
         $level = ob_get_level();
         $xoops = Xoops::getInstance();
-        $theme_factory=new XoopsThemeFactory();
+        $theme_factory=new \Xoops\Core\Theme\Factory();
         $theme=$theme_factory->createInstance();
         $xoops->setTheme($theme);
         $template=new XoopsTpl();
