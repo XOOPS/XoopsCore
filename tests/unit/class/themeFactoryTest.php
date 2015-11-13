@@ -43,7 +43,7 @@ class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
 		$value = $this->createInstance_check_level($themefactory);
-        $this->assertInstanceOf('XoopsTheme', $value);
+        $this->assertInstanceOf('\Xoops\Core\Theme\Factory', $value);
     }
 
     public function test_createInstance100()
@@ -51,7 +51,7 @@ class ThemeFactoryTest extends \PHPUnit_Framework_TestCase
 		$themefactory = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $themefactory);
 		$value = $this->createInstance_check_level($themefactory, array('titi'=>'toto'));
-        $this->assertInstanceOf('XoopsTheme', $value);
+        $this->assertInstanceOf('\Xoops\Core\Theme\Factory', $value);
         $this->assertSame('toto', $value->titi);
 		$this->assertTrue(!empty($value->path));
 		$this->assertTrue(!empty($value->folderName));
