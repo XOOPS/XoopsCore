@@ -457,6 +457,7 @@ class XoopsTheme
 
         // Do not cache the main (theme.html) template output
         $this->template->caching = 0;
+        $this->template->loadFilter('output', 'shortcodes');
         $this->template->display($this->path . '/' . $this->canvasTemplate);
         $this->renderCount++;
         $xoops->events()->triggerEvent('core.theme.render.end', array($this));

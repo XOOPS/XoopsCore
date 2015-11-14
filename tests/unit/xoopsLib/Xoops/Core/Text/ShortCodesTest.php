@@ -290,7 +290,8 @@ class ShortCodesTest extends \PHPUnit_Framework_TestCase
         $shortcodes = new Shortcodes;
         $shortcodes->addShortcode('test', array($this, 'dummyFunction_test'));
         $content = 'Hello my name is [[test name="Sam"]]!';
-        $expectation = 'Hello my name is [test name="Sam"]!';
+        //$expectation = 'Hello my name is [test name="Sam"]!';
+        $expectation = 'Hello my name is &#91;test name="Sam"&#93!';
 
         $this->assertEquals($expectation, $shortcodes->process($content));
     }

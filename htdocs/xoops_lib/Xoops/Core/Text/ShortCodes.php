@@ -173,7 +173,8 @@ class ShortCodes
     {
         // allow [[foo]] syntax for escaping a tag
         if ($tag[1] === '[' && $tag[6] === ']') {
-            return substr($tag[0], 1, -1);
+            //return substr($tag[0], 1, -1);
+            return '&#91;' . substr($tag[0], 2, -2) . '&#93';
         }
 
         $tagName = $tag[2];
