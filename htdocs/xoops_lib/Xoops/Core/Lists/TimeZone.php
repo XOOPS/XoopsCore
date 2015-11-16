@@ -33,28 +33,39 @@ class TimeZone extends ListAbstract
      */
     public static function getList()
     {
-        $timeZones = array();
-        $territories = Territory::getContinentsAndCountries();
-        $maxLen = 0;
-        $utcDtz = new \DateTimeZone('UTC');
-        foreach ($territories as $byContinent) {
-            $continent = $byContinent['name'];
-            foreach ($byContinent['children'] as $cCode => $cName) {
-                $allZones = $utcDtz->listIdentifiers(\DateTimeZone::PER_COUNTRY, $cCode);
-                foreach ($allZones as $zone) {
-                    $maxLen = max(strlen($zone), $maxLen);
-                    $name = Calendar::getTimezoneExemplarCity($zone);
-                    if (!isset($timeZones[$zone]) && !empty($name)) {
-                        $timeZones[$zone] = $continent . '/' . $name;
+        $xoops = \Xoops::getInstance();
+        $locale = \Xoops\Locale::getCurrent();
+        $key = ['system', 'lists', 'timezone', $locale];
+        //$xoops->cache()->delete($key);
+        $timeZones = $xoops->cache()->cacheRead(
+            $key,
+            function () {
+                $timeZones = array();
+                $territories = Territory::getContinentsAndCountries();
+                $maxLen = 0;
+                $utcDtz = new \DateTimeZone('UTC');
+                foreach ($territories as $byContinent) {
+                    $continent = $byContinent['name'];
+                    foreach ($byContinent['children'] as $cCode => $cName) {
+                        $allZones = $utcDtz->listIdentifiers(\DateTimeZone::PER_COUNTRY, $cCode);
+                        foreach ($allZones as $zone) {
+                            $maxLen = max(strlen($zone), $maxLen);
+                            $name = Calendar::getTimezoneExemplarCity($zone);
+                            if (!isset($timeZones[$zone]) && !empty($name)) {
+                                $timeZones[$zone] = $continent . '/' . $name;
+                            }
+                        }
                     }
                 }
+                \XoopsLocale::asort($timeZones);
+                $default = array(
+                    'UTC' => Calendar::getTimezoneNameNoLocationSpecific(new \DateTimeZone('GMT')),
+                );
+                $timeZones = array_merge($default, $timeZones);
+                return $timeZones;
             }
-        }
-        \XoopsLocale::asort($timeZones);
-        $default = array(
-            'UTC' => Calendar::getTimezoneNameNoLocationSpecific(new \DateTimeZone('GMT')),
         );
-        $timeZones = array_merge($default, $timeZones);
+
         return $timeZones;
     }
 }
