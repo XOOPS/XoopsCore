@@ -5,28 +5,42 @@
 function smarty_outputfilter_shortcodes($output, Smarty_Internal_Template $template)
 {
     $shortcodes = \Xoops\Core\Text\Sanitizer::getInstance()->getShortCodes();
+    $shortcodes->addShortcode(
+        'nosc42',
+        function ($attributes, $content, $tagName) {
+            return $content;
+        }
+    );
 
     // break out the body content
-    $bodyPattern = '/(([\S\s]*)((?><body[\S\s]*>)))([\S\s]*)((?><\/body>)([\S\s]*)$)/U';
+    $bodyPattern = '/<body[^>]*>(.*?)<\/body>/is';
 
-    // breaks out sections of string which are not part of form elements
-    $scPattern = '/(([\S\s]*)((?><textarea[\S\s]*\/textarea>)+|(?><input[\S\s]*>)+|(?><select[\S\s]*\/select>)+|(?><script[\S\s]*\/script>+)|(?><style[\S\s]*\/style>)+))/U';
+    // breaks out form elements
+    $scPattern = '/((<textarea[\S\s]*\/textarea>)|(<input[\S\s]*>)|(<select[\S\s]*\/select>)|(<script[\S\s]*\/script>)|(<style[\S\s]*\/style>))/U';
 
     $text = preg_replace_callback(
         $bodyPattern,
         function ($matches) use ($scPattern, $shortcodes) {
-            $body = preg_replace_callback(
+            $element = preg_replace_callback(
                 $scPattern,
-                function ($innerMatches) use ($shortcodes) {
-                    $text = $shortcodes->process($innerMatches[2]) . $innerMatches[3];
-                    return $text;
+                function ($innerMatches) {
+                    return '[nosc42]' . $innerMatches[0] . '[/nosc42]';
                 },
-                $matches[4] . '<input>'
+                $matches[1]
             );
-            return $matches[1] . substr($body, 0, -7) . $matches[5];
+            if ($element===null) {
+                trigger_error('preg_last_error=' . preg_last_error(), E_USER_WARNING);
+                return $matches[1];
+            }
+            return $element;
         },
         $output
     );
 
+    if ($text===null) {
+        trigger_error('preg_last_error=' . preg_last_error(), E_USER_WARNING);
+        return $output;
+    }
+    $text = $shortcodes->process($text);
     return $text;
 }
