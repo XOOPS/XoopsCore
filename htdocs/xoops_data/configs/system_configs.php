@@ -28,6 +28,9 @@ return array(
         // iframe clickjack protection - value used to set X-Frame-Options header
         //'xFrameOptions' => 'sameorigin',
 
+        // set to true to disable shortcode processing in theme
+        //'disable_theme_shortcodes' => true,
+
         /** XOOPS admin security warnings
          *
          * <ul>Display admin security warnings:
@@ -35,5 +38,5 @@ return array(
          *  <li> 1 - Enabled</li>
          * </ul>
          */
-        "admin_warnings_enable" => 1,
+        'admin_warnings_enable' => 1,
     );

@@ -155,6 +155,17 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xoops\Core\Text\Sanitizer::escapeShortCodes
+     */
+    public function testEscapeShortCodes()
+    {
+        $text = '[Random] [brackets]][';
+        $expected = '&#91;Random&#93; &#91;brackets&#93;&#93;&#91;';
+        $actual = $this->object->escapeShortCodes($text);
+        $this->assertEquals($actual, $expected);
+    }
+
+    /**
      * @covers Xoops\Core\Text\Sanitizer::undoHtmlSpecialChars
      */
     public function testUndoHtmlSpecialChars()

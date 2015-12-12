@@ -1,5 +1,6 @@
 <fieldset>
     <{if $search|default:false}>
+    <{noshortcodes}>
         <legend><{$smarty.const._MD_SEARCH_SEARCHRESULTS}></legend>
         <div>
             <{$smarty.const._MD_SEARCH_KEYWORDS}>&nbsp;:&nbsp;
@@ -23,6 +24,7 @@
                 </span>
             </div>
         <{/if}>
+    <{/noshortcodes}>
     <{/if}>
 
     <{if count($modules) > 0}>
