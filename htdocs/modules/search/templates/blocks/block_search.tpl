@@ -1,1 +1,1 @@
-<{$block.form}>
+{$block.form}

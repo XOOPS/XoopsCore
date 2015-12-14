@@ -16,7 +16,7 @@
  * Parameters: none
  *
  * Example:
- * <{noshortcodes}>[skip]<{/noshortcodes}>
+ * {noshortcodes}[skip]{/noshortcodes}
  *
  * Example output:
  * &#91;skip&#93;
