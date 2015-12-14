@@ -202,6 +202,19 @@ class Sanitizer extends SanitizerConfigurable
     }
 
     /**
+     * Escape any brackets ([]) to make them invisible to ShortCodes
+     *
+     * @param string $text string to escape
+     *
+     * @return string
+     */
+    public function escapeShortCodes($text)
+    {
+        $text = str_replace(['[', ']'], ['&#91;', '&#93;'], $text);
+        return $text;
+    }
+
+    /**
      * Reverses htmlSpecialChars()
      *
      * @param string $text htmlSpecialChars encoded text
