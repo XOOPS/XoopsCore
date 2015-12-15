@@ -34,7 +34,7 @@ function xoops_module_install_notifications(&$module)
         //$xoopsDB->queryF($sql);
     }
     */
-    
+
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
     $plugins = \Xoops\Module\Plugin::getPlugins('notifications');

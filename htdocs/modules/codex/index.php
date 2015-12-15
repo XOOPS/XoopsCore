@@ -24,7 +24,7 @@ $files = \Xoops\Core\Lists\File::getList(__DIR__);
 foreach ($files as $file) {
     if (!in_array($file, array('xoops_version.php', 'index.php'))) {
         $fileName = ucfirst(str_replace('.php', '', $file));
-        echo "<a href={$file}>{$fileName}</a><br/>";
+        echo "<a href=\"{$file}\">{$fileName}</a><br/>";
     }
 }
 

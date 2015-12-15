@@ -40,10 +40,10 @@
  *           assign =   variable to be initialized for the templates
  *
  *          I.e: Get all informations
- *              <{xoMemberInfo assign=member_info}>
+ *              {xoMemberInfo assign=member_info}
  *
  *          I.e: Get uname, avatar and email
- *              <{xoMemberInfo assign=member_info infos="uname|email|avatar"}>
+ *              {xoMemberInfo assign=member_info infos="uname|email|avatar"}
  * -------------------------------------------------------------
  */
 

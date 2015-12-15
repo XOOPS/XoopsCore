@@ -23,9 +23,9 @@
 /**
  * Smarty plugin to format a DateTime value
  *
- * Examples: <{$datevariable|datetime}>           - Oct 19, 2015, 9:43:12 PM ('medium' is default)
- *           <{$datevariable|datetime:'elapse'}>  - 2 days ago
- *           <{$datevariable|datetime:'Y'}>       - 2015
+ * Examples: {$datevariable|datetime}           - Oct 19, 2015, 9:43:12 PM ('medium' is default)
+ *           {$datevariable|datetime:'elapse'}  - 2 days ago
+ *           {$datevariable|datetime:'Y'}       - 2015
  *
  * It is recommended to quote the format parameter
  *
