@@ -53,7 +53,7 @@ $modversion['onInstall']   = 'include/install.php';
 $modversion['onUninstall'] = 'include/install.php';
 
 // Admin things
-$modversion['hasAdmin'] = 0;
+$modversion['hasAdmin'] = 1;
 
 // Manage extension
 //$modversion['extension']          = 1;

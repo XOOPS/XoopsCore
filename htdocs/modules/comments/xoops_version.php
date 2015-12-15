@@ -58,11 +58,11 @@ $modversion['onInstall']   = 'include/install.php';
 $modversion['onUninstall'] = 'include/install.php';
 
 //Menus
-$modversion['hasMain'] = 0;
+$modversion['hasMain'] = 1;
 
 // Manage extension
-$modversion['extension']          = 1;
-$modversion['extension_module'][] = 'system';
+//$modversion['extension']          = 1;
+//$modversion['extension_module'][] = 'system';
 
 // Table definitions
 $modversion['schema']           = 'sql/schema.yml';

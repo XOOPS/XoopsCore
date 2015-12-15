@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\XoopsTpl;
+
 /**
  *  Usage : just place <{xoblock id=1}> inside any template or theme, replace '1' with the id of the block you want to show
  *

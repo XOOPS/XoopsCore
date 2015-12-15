@@ -12,7 +12,7 @@
 namespace Xoops\Core\Theme;
 
 use Xoops\Core\FixedGroups;
-use \XoopsTpl;
+use Xoops\Core\XoopsTpl;
 
 /**
  * XoopsTheme component class file

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\XoopsTpl;
+
 /**
  * avatars extension
  *
@@ -17,7 +19,6 @@
  * @package         avatar
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';

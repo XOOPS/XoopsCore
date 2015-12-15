@@ -11,6 +11,8 @@
  * @version         $Id$
  */
 
+use Xoops\Core\XoopsTpl;
+
 require_once dirname(__FILE__).'/../../../../../../mainfile.php';
 
 $xoops = Xoops::getInstance();

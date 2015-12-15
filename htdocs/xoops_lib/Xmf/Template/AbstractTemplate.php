@@ -10,6 +10,7 @@
  */
 
 namespace Xmf\Template;
+use Xoops\Core\XoopsTpl;
 
 /**
  * AbstractTemplate
@@ -41,7 +42,7 @@ abstract class AbstractTemplate
      */
     public function __construct()
     {
-        $this->tpl = new \XoopsTpl();
+        $this->tpl = new XoopsTpl();
         $this->template = "module:system/system_dummy.tpl";
         $this->init();
     }
@@ -54,14 +55,14 @@ abstract class AbstractTemplate
     abstract protected function init();
 
     /**
-     * Classes must implement this method for assigning content to $_tpl
+     * Classes must implement this method for assigning content to $tpl
      *
      * @return void
      */
     abstract protected function render();
 
     /**
-     * Used in init methods to set the template used by $_tpl
+     * Used in init methods to set the template used by $tpl
      *
      * @param string $template Path to the template file
      *

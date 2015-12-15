@@ -14,7 +14,7 @@ namespace Xoops\Core\Theme\Plugins;
 use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\Theme\PluginAbstract;
 use Xoops\Core\Theme\XoopsTheme;
-use \XoopsTpl;
+use Xoops\Core\XoopsTpl;
 
 /**
  * XoopsThemeBlocksPlugin component class file

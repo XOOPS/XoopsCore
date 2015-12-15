@@ -12,6 +12,7 @@
  */
 
 use Xoops\Core\Request;
+use Xoops\Core\XoopsTpl;
 
 $helper = Xoops\Module\Helper::getHelper('smilies');
 if (!$helper) {

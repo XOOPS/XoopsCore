@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Xoops\Core\XoopsTpl;
 
 class UpdateModuleCommand extends Command
 {
@@ -17,7 +18,7 @@ class UpdateModuleCommand extends Command
             ->setDefinition(array(
                 new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
             ))->setHelp(<<<EOT
-The <info>update-module</info> command updates a currenly installed module.
+The <info>update-module</info> command updates a currently installed module.
 
 This can be especially useful if the module configuration has changed, and
 it is interfering with normal online operation.
@@ -34,7 +35,7 @@ EOT
             $output->writeln(sprintf('<error>%s is not an installed module!</error>', $module));
             return;
         }
-        $xoops->setTpl(new \XoopsTpl());
+        $xoops->setTpl(new XoopsTpl());
         \XoopsLoad::load('module', 'system');
         $sysmod = new \SystemModule();
         $result = $sysmod->update($module);

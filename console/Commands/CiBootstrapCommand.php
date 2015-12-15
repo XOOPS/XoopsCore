@@ -22,7 +22,7 @@ class CiBootstrapCommand extends Command
             ->setDefinition(array())
             ->setHelp(<<<EOT
 The <info>ci-bootstrap</info> command writes a basic mainfile for use in automation
-of the travis-ci continuious integration environment.
+of the travis-ci continuous integration environment.
 EOT
              );
     }

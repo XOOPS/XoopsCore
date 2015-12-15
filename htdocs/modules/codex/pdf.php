@@ -10,6 +10,7 @@
  */
 
 use Xoops\Core\Request;
+use Xoops\Core\XoopsTpl;
 
 /**
  * @copyright       XOOPS Project (http://xoops.org)

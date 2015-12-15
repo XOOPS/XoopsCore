@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Request;
+use Xoops\Core\XoopsTpl;
 
 /**
  * User configs

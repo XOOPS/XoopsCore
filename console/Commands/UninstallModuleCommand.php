@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Xoops\Core\XoopsTpl;
 
 class UninstallModuleCommand extends Command
 {
@@ -17,7 +18,7 @@ class UninstallModuleCommand extends Command
             ->setDefinition(array(
                 new InputArgument('module', InputArgument::REQUIRED, 'Module directory name'),
             ))->setHelp(<<<EOT
-The <info>uninstall-module</info> command uninstalls a currenly installed module.
+The <info>uninstall-module</info> command uninstalls a currently installed module.
 EOT
             );
     }
@@ -31,7 +32,7 @@ EOT
             $output->writeln(sprintf('<error>%s is not an installed module!</error>', $module));
             return;
         }
-        $xoops->setTpl(new \XoopsTpl());
+        $xoops->setTpl(new XoopsTpl());
         \XoopsLoad::load('module', 'system');
         $sysmod = new \SystemModule();
         $result = $sysmod->uninstall($module);

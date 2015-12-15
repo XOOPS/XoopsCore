@@ -1,4 +1,7 @@
 <?php
+
+use Xoops\Core\XoopsTpl;
+
 require_once(dirname(__FILE__).'/../init_new.php');
 
 /**
@@ -9,7 +12,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 class PagenavTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsPageNav';
-    
+
     public function setUp()
 	{
 		$xoops=Xoops::getinstance();
@@ -17,7 +20,7 @@ class PagenavTest extends \PHPUnit_Framework_TestCase
 		if (empty($tpl))
 			$xoops->setTpl(new XoopsTpl);
     }
-	
+
     public function test___construct()
 	{
         $total_items = 10;
@@ -27,8 +30,8 @@ class PagenavTest extends \PHPUnit_Framework_TestCase
         $extra_args = 'extra_args';
         $instance = new $this->myclass($total_items, $items_perpage, $current_start, $start_name, $extra_args);
         $this->assertInstanceOf($this->myclass, $instance);
-    }  
-	
+    }
+
     public function test_renderNav()
 	{
         $total_items = 10;
@@ -39,7 +42,7 @@ class PagenavTest extends \PHPUnit_Framework_TestCase
         $ret = $instance->renderNav();
         $this->assertTrue(is_string($ret));
     }
-    
+
     public function test_renderNav100()
 	{
         $total_items = 10;
@@ -48,7 +51,7 @@ class PagenavTest extends \PHPUnit_Framework_TestCase
         $start_name = 'start_name';
         $instance = new $this->myclass($total_items, $items_perpage, $current_start, $start_name);
         $ret = $instance->renderNav();
-        $this->assertTrue(is_string($ret));       
+        $this->assertTrue(is_string($ret));
     }
-    
+
 }

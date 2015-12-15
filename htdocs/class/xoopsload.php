@@ -15,7 +15,7 @@
  * @category  XoopsLoad
  * @package   Xoops\Core
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.3.0
@@ -383,7 +383,7 @@ class XoopsLoad
             'xoopsthemeform' => $xoops_root_path . '/class/xoopsform/themeform.php',
             'xoopsthemeplugin' => $xoops_root_path . '/class/theme.php',
             'xoopsthemesetparser' => $xoops_root_path . '/class/xml/themesetparser.php',
-            'xoopstpl' => $xoops_root_path . '/class/template.php',
+            //'xoopstpl' => $xoops_root_path . '/class/template.php',
             //'xoopstplfile' => $xoops_root_path . '/kernel/tplfile.php',
             //'xoopstplfilehandler' => $xoops_root_path . '/kernel/tplfile.php',
             //'xoopstplset' => $xoops_root_path . '/kernel/tplset.php',

@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Xoops\Core\Yaml;
+use Xoops\Core\XoopsTpl;
 
 class CiInstallCommand extends Command
 {
@@ -22,7 +22,7 @@ class CiInstallCommand extends Command
             ->setDefinition(array())
             ->setHelp(<<<EOT
 The <info>ci-install</info> command installs a default XOOPS system for use in the
-travis-ci continuious integration environment. This command expects on an
+travis-ci continuous integration environment. This command expects on an
 appropriate mainfile.php to have been previously created, possibly using the
 <info>ci-bootstrap</info> command (only available if mainfile.php does not exist.)
 EOT
@@ -43,10 +43,10 @@ EOT
         $module = 'system';
         $output->writeln(sprintf('Installing %s', $module));
         if (false !== $xoops->getModuleByDirname($module)) {
-            $output->writeln(sprintf('<error>%s module is alreay installed!</error>', $module));
+            $output->writeln(sprintf('<error>%s module is already installed!</error>', $module));
             return;
         }
-        $xoops->setTpl(new \XoopsTpl());
+        $xoops->setTpl(new XoopsTpl());
         \XoopsLoad::load('module', 'system');
         $sysmod = new \SystemModule();
         $result = $sysmod->install($module);

@@ -21,6 +21,8 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $xoops = \Xoops::getInstance();
+        \XoopsLoad::loadFile($xoops->path('class/template.php'));
         $this->object = new XoopsTpl();
     }
 

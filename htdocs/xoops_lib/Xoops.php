@@ -16,6 +16,7 @@ use Xoops\Core\Handler\Factory as HandlerFactory;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Theme\XoopsTheme;
+use Xoops\Core\XoopsTpl;
 use Psr\Log\LogLevel;
 
 /**
@@ -1272,7 +1273,7 @@ class Xoops
      */
     public function alert($type, $msg, $title = '/')
     {
-        $tpl = new \XoopsTpl();
+        $tpl = new XoopsTpl();
         switch ($type) {
             case 'info':
             default:
@@ -1338,7 +1339,7 @@ class Xoops
      */
     public function confirm($hiddens, $action, $msg, $submit = '', $addtoken = true)
     {
-        $tpl = new \XoopsTpl();
+        $tpl = new XoopsTpl();
         $submit = ($submit != '') ? trim($submit) : XoopsLocale::A_SUBMIT;
         $tpl->assign('msg', $msg);
         $tpl->assign('action', $action);

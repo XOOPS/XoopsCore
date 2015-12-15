@@ -242,7 +242,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestSkipped(
-            'Needs \XoopsTpl::assign()'
+            'Needs XoopsTpl::assign()'
         );
     }
 }
