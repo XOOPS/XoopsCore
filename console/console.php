@@ -31,7 +31,16 @@ $mainfile = $configs->get('mainfile');
 if (file_exists($mainfile)) {
     $xoopsOption["nocommon"] = true;
     include_once $mainfile;
-    \Xoops::getInstance()->loadLocale();
+    $xoops = \Xoops::getInstance();
+    $xoops->loadLocale();
+    $xoops->setTheme(new \Xoops\Core\Theme\NullTheme);
+    $xoopsLogger = $xoops->logger();
+    $xoops->events();
+    $psr4loader = new \Xoops\Core\Psr4ClassLoader();
+    $psr4loader->register();
+    // listeners respond with $arg->addNamespace($namespace, $directory);
+    $xoops->events()->triggerEvent('core.include.common.psr4loader', $psr4loader);
+    $xoops->events()->triggerEvent('core.include.common.classmaps');
 } else {
     // apparently there is no mainfile, so fall back on the autoloader
     require_once $configs->get('autoloader');

@@ -11,6 +11,8 @@
 
 namespace Xoops\Form;
 
+use Xoops\Core\XoopsTpl;
+
 /**
  * Form - Abstract Form
  *
@@ -471,7 +473,7 @@ abstract class Form implements ContainerInterface
      *
      * @return void
      */
-    public function assign(\XoopsTpl $tpl)
+    public function assign(XoopsTpl $tpl)
     {
         $i = -1;
         $elements = array();

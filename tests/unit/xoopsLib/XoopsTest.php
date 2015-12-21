@@ -3,6 +3,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
+use Xoops\Core\XoopsTpl;
 
 /**
 * PHPUnit special settings :
@@ -434,7 +435,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Xoops\Core\Kernel\Handlers\XoopsGroupHandler', $value);
     }
 
-    public function test_getHandlerGroupperm()
+    public function test_getHandlerGroupPermission()
     {
         $instance = Xoops::getInstance();
 

@@ -210,6 +210,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
     {
         $xoops = Xoops::getInstance();
         $helper = Notifications::getInstance();
+        $commentHelper = $xoops->getModuleHelper('comments');
 
         if (!isset($dirname)) {
             $dirname = $xoops->isModule() ? $xoops->module->getVar('dirname') : '';
@@ -252,7 +253,7 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
             // Insert comment info if applicable
 
             /* @var $commentsPlugin CommentsPluginInterface */
-            if ($xoops->isActiveModule('comments') && $commentsPlugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments')) {
+            if (false!==$commentHelper && $commentsPlugin = \Xoops\Module\Plugin::getPlugin($dirname, 'comments')) {
                 //todo replace this
                 if (!empty($category['item_name']) && $category['item_name'] == $commentsPlugin->itemName()) {
                     if (!is_dir($dir = \XoopsBaseConfig::get('root-path') . '/locale/' . $xoops->getConfig('locale') . '/templates/')) {

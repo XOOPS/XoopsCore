@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\XoopsTpl;
+
 /**
  * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -29,27 +31,27 @@ class CommentsCommentRenderer
     /**
      * @var XoopsTpl
      */
-    private $_tpl;
+    private $tpl;
 
     /**
      * @var array
      */
-    private $_comments = array();
+    private $comments = array();
 
     /**
      * @var bool
      */
-    private $_useIcons = true;
+    private $useIcons = true;
 
     /**
      * @var bool
      */
-    private $_doIconCheck = false;
+    private $doIconCheck = false;
 
     /**
      * @var array
      */
-    private $_statusText;
+    private $statusText;
 
     /**
      * Constructor
@@ -60,26 +62,29 @@ class CommentsCommentRenderer
      */
     public function __construct(XoopsTpl $tpl, $use_icons = true, $do_iconcheck = false)
     {
-        $this->_tpl = $tpl;
-        $this->_useIcons = $use_icons;
-        $this->_doIconCheck = $do_iconcheck;
-        $this->_statusText = array(
-            COMMENTS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #00ff00;">' . _MD_COMMENTS_PENDING . '</span>',
-            COMMENTS_ACTIVE  => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">' . _MD_COMMENTS_ACTIVE . '</span>',
-            COMMENTS_HIDDEN  => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">' . _MD_COMMENTS_HIDDEN . '</span>'
+        $this->tpl = $tpl;
+        $this->useIcons = $use_icons;
+        $this->doIconCheck = $do_iconcheck;
+        $this->statusText = array(
+            COMMENTS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #00ff00;">'
+                . _MD_COMMENTS_PENDING . '</span>',
+            COMMENTS_ACTIVE  => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">'
+                . _MD_COMMENTS_ACTIVE . '</span>',
+            COMMENTS_HIDDEN  => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">'
+                . _MD_COMMENTS_HIDDEN . '</span>'
         );
     }
 
     /**
      * Access the only instance of this class
      *
-     * @param XoopsTpl $tpl reference to a {@link XoopsTpl} object
-     * @param boolean  $use_icons
-     * @param boolean  $do_iconcheck
+     * @param XoopsTpl $tpl          reference to a {@link XoopsTpl} object
+     * @param boolean  $use_icons    use image icons
+     * @param boolean  $do_iconcheck do icon check
      *
      * @return CommentsCommentRenderer
      */
-    static public function getInstance(XoopsTpl $tpl, $use_icons = true, $do_iconcheck = false)
+    public static function getInstance(XoopsTpl $tpl, $use_icons = true, $do_iconcheck = false)
     {
         static $instance;
         if (!isset($instance)) {
@@ -92,33 +97,38 @@ class CommentsCommentRenderer
     /**
      * Accessor
      *
-     * @param array $comments_arr  array of {@link XoopsComment} objects
+     * @param array $comments_arr array of CommentsComment objects
+     *
+     * @return void
      */
     public function setComments(&$comments_arr)
     {
-        if (isset($this->_comments)) {
-            unset($this->_comments);
+        if (isset($this->comments)) {
+            unset($this->comments);
         }
-        $this->_comments =& $comments_arr;
+        $this->comments =& $comments_arr;
     }
 
     /**
      * Render the comments in flat view
      *
      * @param boolean $admin_view
+     *
+     * @return void
      */
     public function renderFlatView($admin_view = false)
     {
-        foreach ($this->_comments as $i => $comment) {
-            /* @var $comment XoopsComment */
-            if (false != $this->_useIcons) {
-                $title = $this->_getTitleIcon($comment->getVar('icon')) . '&nbsp;' . $comment->getVar('title');
-            } else {
-                $title = $comment->getVar('title');
-            }
-            $poster = $this->_getPosterArray($comment->getVar('uid'));
+        foreach ($this->comments as $i => $comment) {
+            /* @var $comment CommentsComment */
+            $image = (false != $this->useIcons) ? $this->getTitleIcon($comment->getVar('icon')) : '';
+            $title = $comment->getVar('title');
+
+            $poster = $this->getPosterArray($comment->getVar('uid'));
             if (false != $admin_view) {
-                $text = $comment->getVar('text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _MD_COMMENTS_STATUS . ': ' . $this->_statusText[$comment->getVar('status')] . '<br />IP: <span style="font-weight: bold;">' . $comment->getVar('ip') . '</span></div>';
+                $text = $comment->getVar('text')
+                    . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">'
+                    . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$comment->getVar('status')]
+                    . '<br />IP: <span style="font-weight: bold;">' . $comment->getVar('ip') . '</span></div>';
             } else {
                 // hide comments that are not active
                 if (COMMENTS_ACTIVE != $comment->getVar('status')) {
@@ -127,9 +137,10 @@ class CommentsCommentRenderer
                     $text = $comment->getVar('text');
                 }
             }
-            $this->_comments[$i] = $comment;
-            $this->_tpl->append('comments', array(
+            $this->comments[$i] = $comment;
+            $this->tpl->append('comments', array(
                 'id'            => $comment->getVar('id'),
+                'image'         => $image,
                 'title'         => $title,
                 'text'          => $text,
                 'date_posted'   => XoopsLocale::formatTimestamp($comment->getVar('created'), 'm'),
@@ -146,28 +157,31 @@ class CommentsCommentRenderer
      * @param integer $comment_id Should be "0" when called by client
      * @param boolean $admin_view
      * @param boolean $show_nav
+     *
+     * @return void
      */
     public function renderThreadView($comment_id = 0, $admin_view = false, $show_nav = true)
     {
         // construct comment tree
-        $xot = new XoopsObjectTree($this->_comments, 'id', 'pid', 'rootid');
+        $xot = new XoopsObjectTree($this->comments, 'id', 'pid', 'rootid');
         $tree = $xot->getTree();
 
-        if (false != $this->_useIcons) {
-            $title = $this->_getTitleIcon($tree[$comment_id]['obj']->getVar('icon')) . '&nbsp;' . $tree[$comment_id]['obj']->getVar('title');
-        } else {
-            $title = $tree[$comment_id]['obj']->getVar('title');
-        }
+        $image = (false != $this->useIcons) ? $this->getTitleIcon($tree[$comment_id]['obj']->getVar('icon')) : '';
+        $title = $tree[$comment_id]['obj']->getVar('title');
         if (false != $show_nav && $tree[$comment_id]['obj']->getVar('pid') != 0) {
-            $this->_tpl->assign('lang_top', _MD_COMMENTS_TOP);
-            $this->_tpl->assign('lang_parent', _MD_COMMENTS_PARENT);
-            $this->_tpl->assign('show_threadnav', true);
+            $this->tpl->assign('lang_top', _MD_COMMENTS_TOP);
+            $this->tpl->assign('lang_parent', _MD_COMMENTS_PARENT);
+            $this->tpl->assign('show_threadnav', true);
         } else {
-            $this->_tpl->assign('show_threadnav', false);
+            $this->tpl->assign('show_threadnav', false);
         }
         if (false != $admin_view) {
             // admins can see all
-            $text = $tree[$comment_id]['obj']->getVar('text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _MD_COMMENTS_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip') . '</span></div>';
+            $text = $tree[$comment_id]['obj']->getVar('text')
+                . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">'
+                . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$tree[$comment_id]['obj']->getVar('status')]
+                . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip')
+                . '</span></div>';
         } else {
             // hide comments that are not active
             if (COMMENTS_ACTIVE != $tree[$comment_id]['obj']->getVar('status')) {
@@ -183,18 +197,19 @@ class CommentsCommentRenderer
             }
         }
         $replies = array();
-        $this->_renderThreadReplies($tree, $comment_id, $replies, '&nbsp;&nbsp;', $admin_view);
+        $this->renderThreadReplies($tree, $comment_id, $replies, '&nbsp;&nbsp;', $admin_view);
         $show_replies = (count($replies) > 0) ? true : false;
-        $this->_tpl->append('comments', array(
+        $this->tpl->append('comments', array(
             'pid'           => $tree[$comment_id]['obj']->getVar('pid'),
             'id'            => $tree[$comment_id]['obj']->getVar('id'),
             'itemid'        => $tree[$comment_id]['obj']->getVar('itemid'),
             'rootid'        => $tree[$comment_id]['obj']->getVar('rootid'),
+            'image'         => $image,
             'title'         => $title,
             'text'          => $text,
             'date_posted'   => XoopsLocale::formatTimestamp($tree[$comment_id]['obj']->getVar('created'), 'm'),
             'date_modified' => XoopsLocale::formatTimestamp($tree[$comment_id]['obj']->getVar('modified'), 'm'),
-            'poster'        => $this->_getPosterArray($tree[$comment_id]['obj']->getVar('uid')),
+            'poster'        => $this->getPosterArray($tree[$comment_id]['obj']->getVar('uid')),
             'replies'       => $replies,
             'show_replies'  => $show_replies
         ));
@@ -211,25 +226,31 @@ class CommentsCommentRenderer
      * @param integer $depth
      * @param string  $current_prefix
      *
-     * @access private
+     * @return void
      */
-    private function _renderThreadReplies(&$thread, $key, &$replies, $prefix, $admin_view, $depth = 0, $current_prefix = '')
-    {
+    private function renderThreadReplies(
+        &$thread,
+        $key,
+        &$replies,
+        $prefix,
+        $admin_view,
+        $depth = 0,
+        $current_prefix = ''
+    ) {
         if ($depth > 0) {
-            if (false != $this->_useIcons) {
-                $title = $this->_getTitleIcon($thread[$key]['obj']->getVar('icon')) . '&nbsp;' . $thread[$key]['obj']->getVar('title');
-            } else {
-                $title = $thread[$key]['obj']->getVar('title');
-            }
-            $title = (false != $admin_view) ? $title . ' ' . $this->_statusText[$thread[$key]['obj']->getVar('status')] : $title;
+            $image = (false != $this->useIcons) ? $this->getTitleIcon($thread[$key]['obj']->getVar('icon')) : '';
+            $title = $thread[$key]['obj']->getVar('title');
+            $title = (false != $admin_view)
+                ? $title . ' ' . $this->statusText[$thread[$key]['obj']->getVar('status')] : $title;
             $replies[] = array(
                 'id'          => $key,
                 'prefix'      => $current_prefix,
                 'date_posted' => XoopsLocale::formatTimestamp($thread[$key]['obj']->getVar('created'), 'm'),
                 'title'       => $title,
+                'image'       => $image,
                 'root_id'     => $thread[$key]['obj']->getVar('rootid'),
-                'status'      => $this->_statusText[$thread[$key]['obj']->getVar('status')],
-                'poster'      => $this->_getPosterName($thread[$key]['obj']->getVar('uid'))
+                'status'      => $this->statusText[$thread[$key]['obj']->getVar('status')],
+                'poster'      => $this->getPosterName($thread[$key]['obj']->getVar('uid'))
             );
             $current_prefix .= $prefix;
         }
@@ -240,11 +261,11 @@ class CommentsCommentRenderer
                     // skip this comment if it is not active and continue on processing its child comments instead
                     if (isset($thread[$childkey]['child']) && !empty($thread[$childkey]['child'])) {
                         foreach ($thread[$childkey]['child'] as $childchildkey) {
-                            $this->_renderThreadReplies($thread, $childchildkey, $replies, $prefix, $admin_view, $depth);
+                            $this->renderThreadReplies($thread, $childchildkey, $replies, $prefix, $admin_view, $depth);
                         }
                     }
                 } else {
-                    $this->_renderThreadReplies($thread, $childkey, $replies, $prefix, $admin_view, $depth, $current_prefix);
+                    $this->renderThreadReplies($thread, $childkey, $replies, $prefix, $admin_view, $depth, $current_prefix);
                 }
             }
         }
@@ -256,18 +277,21 @@ class CommentsCommentRenderer
      *
      * @param integer $comment_id Always "0" when called by client.
      * @param boolean $admin_view
+     *
+     * @return void
      */
     public function renderNestView($comment_id = 0, $admin_view = false)
     {
-        $xot = new XoopsObjectTree($this->_comments, 'id', 'pid', 'rootid');
+        $xot = new XoopsObjectTree($this->comments, 'id', 'pid', 'rootid');
         $tree = $xot->getTree();
-        if (false != $this->_useIcons) {
-            $title = $this->_getTitleIcon($tree[$comment_id]['obj']->getVar('icon')) . '&nbsp;' . $tree[$comment_id]['obj']->getVar('title');
-        } else {
-            $title = $tree[$comment_id]['obj']->getVar('title');
-        }
+        $image = (false != $this->useIcons) ? $this->getTitleIcon($tree[$comment_id]['obj']->getVar('icon')) : '';
+        $title = $tree[$comment_id]['obj']->getVar('title');
         if (false != $admin_view) {
-            $text = $tree[$comment_id]['obj']->getVar('text') . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">' . _MD_COMMENTS_STATUS . ': ' . $this->_statusText[$tree[$comment_id]['obj']->getVar('status')] . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip') . '</span></div>';
+            $text = $tree[$comment_id]['obj']->getVar('text')
+                . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">'
+                . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$tree[$comment_id]['obj']->getVar('status')]
+                . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip')
+                . '</span></div>';
         } else {
             // skip this comment if it is not active and continue on processing its child comments instead
             if (COMMENTS_ACTIVE != $tree[$comment_id]['obj']->getVar('status')) {
@@ -283,17 +307,18 @@ class CommentsCommentRenderer
             }
         }
         $replies = array();
-        $this->_renderNestReplies($tree, $comment_id, $replies, 25, $admin_view);
-        $this->_tpl->append('comments', array(
+        $this->renderNestReplies($tree, $comment_id, $replies, 25, $admin_view);
+        $this->tpl->append('comments', array(
             'pid'           => $tree[$comment_id]['obj']->getVar('pid'),
             'id'            => $tree[$comment_id]['obj']->getVar('id'),
             'itemid'        => $tree[$comment_id]['obj']->getVar('itemid'),
             'rootid'        => $tree[$comment_id]['obj']->getVar('rootid'),
+            'image'       => $image,
             'title'         => $title,
             'text'          => $text,
             'date_posted'   => XoopsLocale::formatTimestamp($tree[$comment_id]['obj']->getVar('created'), 'm'),
             'date_modified' => XoopsLocale::formatTimestamp($tree[$comment_id]['obj']->getVar('modified'), 'm'),
-            'poster'        => $this->_getPosterArray($tree[$comment_id]['obj']->getVar('uid')),
+            'poster'        => $this->getPosterArray($tree[$comment_id]['obj']->getVar('uid')),
             'replies'       => $replies
         ));
     }
@@ -302,23 +327,25 @@ class CommentsCommentRenderer
      * Render replies in nested view
      *
      * @param array   $thread
-     * @param int     $key
+     * @param integer $key
      * @param array   $replies
-     * @param string  $prefix
+     * @param integer $prefix     width of td element prefixed to comment display (indent)
      * @param bool    $admin_view
      * @param integer $depth
      *
-     * @access private
+     * @return void
      */
-    private function _renderNestReplies(&$thread, $key, &$replies, $prefix, $admin_view, $depth = 0)
+    private function renderNestReplies(&$thread, $key, &$replies, $prefix, $admin_view, $depth = 0)
     {
         if ($depth > 0) {
-            if (false != $this->_useIcons) {
-                $title = $this->_getTitleIcon($thread[$key]['obj']->getVar('icon')) . '&nbsp;' . $thread[$key]['obj']->getVar('title');
-            } else {
-                $title = $thread[$key]['obj']->getVar('title');
-            }
-            $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('text') . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">' . _MD_COMMENTS_STATUS . ': ' . $this->_statusText[$thread[$key]['obj']->getVar('status')] . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('ip') . '</span></div>' : $thread[$key]['obj']->getVar('text');
+            $image = (false != $this->useIcons) ? $this->getTitleIcon($thread[$key]['obj']->getVar('icon')) : '';
+            $title = $thread[$key]['obj']->getVar('title');
+            $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('text')
+                . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">'
+                . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$thread[$key]['obj']->getVar('status')]
+                . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('ip')
+                . '</span></div>'
+                : $thread[$key]['obj']->getVar('text');
             $replies[] = array(
                 'id'            => $key,
                 'prefix'        => $prefix,
@@ -326,10 +353,11 @@ class CommentsCommentRenderer
                 'itemid'        => $thread[$key]['obj']->getVar('itemid'),
                 'rootid'        => $thread[$key]['obj']->getVar('rootid'),
                 'title'         => $title,
+                'image'         => $image,
                 'text'          => $text,
                 'date_posted'   => XoopsLocale::formatTimestamp($thread[$key]['obj']->getVar('created'), 'm'),
                 'date_modified' => XoopsLocale::formatTimestamp($thread[$key]['obj']->getVar('modified'), 'm'),
-                'poster'        => $this->_getPosterArray($thread[$key]['obj']->getVar('uid'))
+                'poster'        => $this->getPosterArray($thread[$key]['obj']->getVar('uid'))
             );
 
             $prefix = $prefix + 25;
@@ -341,11 +369,11 @@ class CommentsCommentRenderer
                     // skip this comment if it is not active and continue on processing its child comments instead
                     if (isset($thread[$childkey]['child']) && !empty($thread[$childkey]['child'])) {
                         foreach ($thread[$childkey]['child'] as $childchildkey) {
-                            $this->_renderNestReplies($thread, $childchildkey, $replies, $prefix, $admin_view, $depth);
+                            $this->renderNestReplies($thread, $childchildkey, $replies, $prefix, $admin_view, $depth);
                         }
                     }
                 } else {
-                    $this->_renderNestReplies($thread, $childkey, $replies, $prefix, $admin_view, $depth);
+                    $this->renderNestReplies($thread, $childkey, $replies, $prefix, $admin_view, $depth);
                 }
             }
         }
@@ -354,12 +382,12 @@ class CommentsCommentRenderer
     /**
      * Get the name of the poster
      *
-     * @param int $poster_id
+     * @param int $poster_id uid of poster
      *
      * @return array
      * @access private
      */
-    private function _getPosterName($poster_id)
+    private function getPosterName($poster_id)
     {
         $poster['id'] = (int)($poster_id);
         if ($poster['id'] > 0) {
@@ -380,11 +408,11 @@ class CommentsCommentRenderer
      * @return array
      * @access private
      */
-    private function _getPosterArray($poster_id)
+    private function getPosterArray($poster_id)
     {
+        $xoops = Xoops::getInstance();
         $poster['id'] = (int)($poster_id);
         if ($poster['id'] > 0) {
-            $xoops = Xoops::getInstance();
             $member_handler = $xoops->getHandlerMember();
             $user = $member_handler->getUser($poster['id']);
             if (is_object($user)) {
@@ -394,7 +422,7 @@ class CommentsCommentRenderer
                 $poster['rank_title'] = $poster_rank['title'];
                 $response = $xoops->service("Avatar")->getAvatarUrl($user);
                 $avatar = $response->getValue();
-                $avatar = empty($avatar) ? '' : $avatar;
+                $avatar = empty($avatar) ? $xoops->url('uploads/blank.gif') : $avatar;
                 $poster['avatar'] = $avatar;
                 $poster['regdate'] = XoopsLocale::formatTimestamp($user->getVar('user_regdate'), 's');
                 $poster['from'] = $user->getVar('user_from');
@@ -408,7 +436,7 @@ class CommentsCommentRenderer
 
         $poster['uname'] = XoopsUserUtility::getUnameFromId($poster['id'], false, true);
         $poster['rank_title'] = '';
-        $poster['avatar'] = 'blank.gif';
+        $poster['avatar'] = $xoops->url('uploads/blank.gif');
         $poster['regdate'] = '';
         $poster['from'] = '';
         $poster['postnum'] = 0;
@@ -424,20 +452,23 @@ class CommentsCommentRenderer
      * @return string HTML IMG tag
      * @access private
      */
-    private function _getTitleIcon($icon_image)
+    private function getTitleIcon($icon_image)
     {
         $icon_image = htmlspecialchars(trim($icon_image));
         if ($icon_image != '') {
-            if (false != $this->_doIconCheck) {
+            if (false != $this->doIconCheck) {
                 if (!XoopsLoad::fileExists(Xoops::getInstance()->path('images/subject/' . $icon_image))) {
-                    return '<img src="' . \XoopsBaseConfig::get('url') . '/images/icons/no_posticon.gif" alt="" />';
+                    return '<img src="' . \XoopsBaseConfig::get('url')
+                        . '/images/icons/no_posticon.gif" alt="" />&nbsp;';
                 } else {
-                    return '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $icon_image . '" alt="" />';
+                    return '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $icon_image
+                        . '" alt="" />&nbsp;';
                 }
             } else {
-                return '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $icon_image . '" alt="" />';
+                return '<img src="' . \XoopsBaseConfig::get('url') . '/images/subject/' . $icon_image
+                    . '" alt="" />&nbsp;';
             }
         }
-        return '<img src="' . XOOPS_URL . '/images/icons/no_posticon.gif" alt="" />';
+        return '<img src="' . XOOPS_URL . '/images/icons/no_posticon.gif" alt="" />&nbsp;';
     }
 }

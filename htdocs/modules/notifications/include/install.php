@@ -19,6 +19,7 @@ function xoops_module_install_notifications(&$module)
 {
     $xoops = Xoops::getInstance();
     global $xoopsDB;
+    /*
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopsnotifications");
     $result = $xoopsDB->queryF($sql);
     if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 7) {
@@ -32,6 +33,7 @@ function xoops_module_install_notifications(&$module)
         //$sql = "DROP TABLE " . $xoopsDB->prefix("xoopsnotifications");
         //$xoopsDB->queryF($sql);
     }
+    */
 
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();

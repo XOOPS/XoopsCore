@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright 2013-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
@@ -18,6 +18,7 @@
 function xoops_module_install_comments(&$module)
 {
     $xoops = Xoops::getInstance();
+    /*
     global $xoopsDB;
     $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopscomments");
     $result = $xoopsDB->queryF($sql);
@@ -32,7 +33,7 @@ function xoops_module_install_comments(&$module)
         //$sql = "DROP TABLE " . $xoopsDB->prefix("xoopscomments");
         //$xoopsDB->queryF($sql);
     }
-
+    */
     XoopsLoad::loadFile($xoops->path('modules/comments/class/helper.php'));
     $helper = Comments::getInstance();
     $plugins = \Xoops\Module\Plugin::getPlugins('comments');

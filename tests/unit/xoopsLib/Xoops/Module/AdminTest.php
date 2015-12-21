@@ -1,4 +1,7 @@
 <?php
+
+use Xoops\Core\XoopsTpl;
+
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
 /**

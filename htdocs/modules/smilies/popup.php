@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Request;
+use Xoops\Core\XoopsTpl;
 
 /**
  * smilies module
@@ -19,7 +20,6 @@ use Xoops\Core\Request;
  * @package         smilies
  * @since           2.6.0
  * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';

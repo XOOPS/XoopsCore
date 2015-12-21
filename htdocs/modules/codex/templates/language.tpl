@@ -1,3 +1,3 @@
-<{translate key="ACTIONS"}>
+{translate key="ACTIONS"}
 </br>
-<{translate key="ADMINISTRATION_MENU" dirname="system"}>
+{translate key="ADMINISTRATION_MENU" dirname="system"}

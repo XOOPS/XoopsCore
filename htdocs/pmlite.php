@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\XoopsTpl;
 
 /**
  * XOOPS message processing

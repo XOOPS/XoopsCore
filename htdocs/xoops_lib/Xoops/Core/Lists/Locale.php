@@ -33,7 +33,7 @@ class Locale extends ListAbstract
      *
      * @return array
      */
-    public static function getList($showInCodeLanguage = false)
+    public static function getList($showInCodeLanguage = true)
     {
         $locales = Data::getAvailableLocales();
         $languages = array();

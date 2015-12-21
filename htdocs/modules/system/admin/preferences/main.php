@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\XoopsTpl;
 
 /**
  * Modules admin Manager

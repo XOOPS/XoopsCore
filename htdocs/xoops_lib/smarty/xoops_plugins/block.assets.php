@@ -25,14 +25,14 @@
  *  asset_url  - smarty variable to assign asset path
  *
  * Example:
- * <{assets
+ * {assets
  *     assets="modules/demo/assets/css/reset.css,modules/demo/assets/css/common.css"
  *     output="css"
  *     debug=false
  *     filters="cssimport,cssembed,?cssmin"
- *     asset_url=asset_url}>
- *     <link rel="stylesheet" href="<{$asset_url}>">
- * <{/assets}>
+ *     asset_url=asset_url}
+ *     <link rel="stylesheet" href="{$asset_url}">
+ * {/assets}
  * ------------------------------------------------------------
  */
 

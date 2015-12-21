@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\XoopsTpl;
 
 /**
  * Private message module
@@ -20,7 +21,6 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 if (!defined('XOOPS_MAINFILE_INCLUDED')) {

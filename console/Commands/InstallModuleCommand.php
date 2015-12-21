@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Xoops\Core\XoopsTpl;
 
 class InstallModuleCommand extends Command
 {
@@ -43,10 +44,10 @@ EOT
         }
         $output->writeln(sprintf('Installing %s', $module));
         if (false !== $xoops->getModuleByDirname($module)) {
-            $output->writeln(sprintf('<error>%s module is alreay installed!</error>', $module));
+            $output->writeln(sprintf('<error>%s module is already installed!</error>', $module));
             return;
         }
-        $xoops->setTpl(new \XoopsTpl());
+        $xoops->setTpl(new XoopsTpl());
         \XoopsLoad::load('module', 'system');
         $sysmod = new \SystemModule();
         $result = $sysmod->install($module);

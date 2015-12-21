@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Doctrine\DBAL\Types\Type;
 
-
 class Utf8mb4ModuleCommand extends Command
 {
     protected function configure()
@@ -79,15 +78,16 @@ EOT
                 }
             }
         }
-        foreach($sql as $alterSql) {
+        foreach ($sql as $alterSql) {
             $output->writeln(sprintf('<info>Executing:</info> %s', $alterSql));
             if (!$dryRun) {
                 $xoops->db()->setForce(true);
                 $result = $xoops->db()->query($alterSql);
                 if ($result === false) {
-                    $output->writeln(sprintf('<error>Execution failed: %d - %s</error>',
+                    $output->writeln(sprintf(
+                        '<error>Execution failed: %d - %s</error>',
                         $xoops->db()->errorCode(),
-                        implode(' - ',$xoops->db()->errorInfo())
+                        implode(' - ', $xoops->db()->errorInfo())
                     ));
                     \Kint::dump($xoops->db()->errorInfo());
                 }
