@@ -7,21 +7,20 @@
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- */
+*/
 
 /**
  * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package         Comments
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-define('_MI_NOTIFICATIONS_NAME', 'Notifications');
-define('_MI_NOTIFICATIONS_DSC', 'Provides notifications ability for modules');
+include __DIR__ . '/header.php';
 
-define('_MI_NOTIFICATIONS_BNAME1', 'Notifications');
-define('_MI_NOTIFICATIONS_BNAME1_DSC', 'Shows notification form block');
-
-//Admin Menu
-define("_MI_NOTIFICATIONS_INDEX", "Home");
-define("_MI_NOTIFICATIONS_ABOUT", "About");
-
+$xoops = Xoops::getInstance();
+$xoops->header();
+$modAdmin = new \Xoops\Module\Admin();
+$modAdmin->displayNavigation('index.php');
+$modAdmin->displayAbout(true);
+$xoops->footer();

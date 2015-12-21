@@ -41,11 +41,12 @@ $modversion['min_php']             = '5.3.7';
 $modversion['min_xoops']           = '2.6.0';
 
 // paypal
-$modversion['paypal']                  = array();
-$modversion['paypal']['business']      = 'xoopsfoundation@gmail.com';
-$modversion['paypal']['item_name']     = '';
-$modversion['paypal']['amount']        = 0;
-$modversion['paypal']['currency_code'] = 'USD';
+$modversion['paypal'] = array(
+    'business'      => 'xoopsfoundation@gmail.com',
+    'item_name'     => '',
+    'amount'        => 0,
+    'currency_code' => 'USD',
+);
 
 // Admin things
 $modversion['hasAdmin']    = 1;
