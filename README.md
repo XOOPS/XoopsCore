@@ -1,3 +1,4 @@
+![alt XOOPS CMS](http://xoops.org/images/logoXoops4GithubRepository.png)
 # XoopsCore
 
 [![Build Status](https://img.shields.io/travis/XOOPS/XoopsCore/master.svg?style=flat)](https://travis-ci.org/XOOPS/XoopsCore)
