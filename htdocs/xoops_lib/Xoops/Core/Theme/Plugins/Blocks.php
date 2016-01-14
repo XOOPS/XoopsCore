@@ -124,7 +124,7 @@ class Blocks extends PluginAbstract
         }
         $block_handler = $xoops->getHandlerBlock();
         $block_arr = $block_handler->getAllByGroupModule($groups, $mid, $isStart, XOOPS_BLOCK_VISIBLE);
-        $xoops->preload()->triggerEvent(
+        $xoops->events()->triggerEvent(
             'core.class.theme_blocks.retrieveBlocks',
             array(&$this, &$template, &$block_arr)
         );
@@ -189,7 +189,7 @@ class Blocks extends PluginAbstract
 
         $cacheid = $this->generateCacheId('blk_' . $xobject->getVar('bid'));
 
-        $xoops->preload()->triggerEvent(
+        $xoops->events()->triggerEvent(
             'core.themeblocks.buildblock.start',
             array($xobject, $template->isCached($tplName, $cacheid))
         );

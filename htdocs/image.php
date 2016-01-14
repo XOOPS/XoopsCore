@@ -21,7 +21,7 @@
 
 include __DIR__ . '/mainfile.php';
 
-XoopsPreload::getInstance()->triggerEvent('core.image');
+\Xoops::getInstance()->events()->triggerEvent('core.image');
 
 header('Content-type: image/gif');
 readfile(\XoopsBaseConfig::get('uploads-path') . '/blank.gif');

@@ -110,7 +110,7 @@ class Security
             }
             $this->garbageCollection($name);
         }
-        \Xoops::getInstance()->preload()->triggerEvent('core.security.validatetoken.end', array($log));
+        \Xoops::getInstance()->events()->triggerEvent('core.security.validatetoken.end', array($log));
         return $ret;
     }
 

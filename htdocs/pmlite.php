@@ -25,7 +25,7 @@ use Xoops\Core\XoopsTpl;
 include __DIR__ . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');
-$xoops->preload()->triggerEvent('core.pmlite.start');
+$xoops->events()->triggerEvent('core.pmlite.start');
 
 $reply = !empty($_GET['reply']) ? 1 : 0;
 $send = !empty($_GET['send']) ? 1 : 0;

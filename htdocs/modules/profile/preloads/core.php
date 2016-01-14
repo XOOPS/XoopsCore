@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\PreloadItem;
+
 /**
  * Extended User Profile
  *
@@ -27,7 +29,7 @@
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  */
-class ProfileCorePreload extends XoopsPreloadItem
+class ProfileCorePreload extends PreloadItem
 {
     /**
      * @param array $args

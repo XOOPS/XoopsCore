@@ -58,15 +58,12 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($db, $db1);
     }
 
-    public function test_preload()
+    public function test_events()
     {
         $instance = Xoops::getInstance();
 
-        $value = $instance->preload();
+        $value = $instance->events();
         $this->assertInstanceOf('\\Xoops\\Core\\Events', $value);
-
-        $value1 = $instance->preload();
-        $this->assertSame($value, $value1);
 
         $value1 = $instance->events();
         $this->assertSame($value, $value1);

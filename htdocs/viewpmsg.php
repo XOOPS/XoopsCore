@@ -24,7 +24,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.viewpmsg.start');
+$xoops->events()->triggerEvent('core.viewpmsg.start');
 
 if (!$xoops->isUser()) {
     $errormessage = XoopsLocale::E_YOU_ARE_NOT_REGISTERED . "<br />"

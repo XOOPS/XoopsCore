@@ -58,7 +58,7 @@ $qrCode->setForegroundColor(normalizeColor($configs['qrcode_fgcolor']));
 try {
     $qrData = $qrCode->get('png');
 } catch (\Exception $e) {
-    $xoopsPreload->triggerEvent('core.exception', $e);
+    $xoops->events()->triggerEvent('core.exception', $e);
     $qrData = '';
 }
 

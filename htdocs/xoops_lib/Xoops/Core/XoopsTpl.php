@@ -37,7 +37,7 @@ class XoopsTpl extends \Smarty
     {
         parent::__construct(); // SMARTY_PLUGINS_DIR is initialized into parent
         $xoops = \Xoops::getInstance();
-        $xoops->preload()->triggerEvent('core.template.construct.start', array($this));
+        $xoops->events()->triggerEvent('core.template.construct.start', array($this));
 
         $this->registerFilter(
             'pre',

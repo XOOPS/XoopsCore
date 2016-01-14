@@ -54,8 +54,7 @@ class XoopsDatabaseFactory extends Factory
             } else {
                 $class = 'XoopsMysqlDatabaseProxy';
             }
-            $xoopsPreload = XoopsPreload::getInstance();
-            $xoopsPreload->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
+            \Xoops::getInstance()->events()->triggerEvent('core.class.database.databasefactory.connection', array(&$class));
             $legacy = new $class();
             $legacy->setPrefix(\XoopsBaseConfig::get('db-prefix'));
             $legacy->conn = \Xoops\Core\Database\Factory::getConnection();

@@ -173,7 +173,7 @@ class Provider
                 array_unshift($arguments, $response);
                 call_user_func_array($method, $arguments);
             } catch (\Exception $e) {
-                \XoopsPreload::getInstance()->triggerEvent('core.exception', $e);
+                \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
                 $response->setSuccess(false)->addErrorMessage($e->getMessage());
             }
         } else {
