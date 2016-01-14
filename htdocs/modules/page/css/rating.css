@@ -1,8 +1,8 @@
-#page #rating {
+#rating {
     float:                  right;
     font-size:              2em;
 }
-#page #button-stars {
+#rating #button-stars {
     background:             none;
     border:                 none;
     color:                  #000;
@@ -12,9 +12,10 @@
     line-height:            2em;
     float:                  left;
 }
-#page #button-stars:after {    border-right:            10px solid #ccc;
+#rating #button-stars:after {
+    border-right:            10px solid #ccc;
 }
-#page .stars {
+#rating .stars {
     background-image:       url('../icons/16/star_d.png');
     background-repeat:      no-repeat;
     background-size:        12px 12px;
@@ -26,18 +27,18 @@
     float:                  left;
 }
 
-#page .stars:hover {
+#rating .stars:hover {
     background-image:       url('../icons/16/star_o.png');
 }
-#page #stats {
+#rating #stats {
     float:                  left;
     margin-right:           10px;
 }
-#page .average {
+#rating .average {
     font-weight:            bold;
     margin-left:            10px;
 }
-#page .vote {
+#rating .vote {
     font-weight:            bold;
     color:                  #F00;
 }

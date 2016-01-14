@@ -56,6 +56,7 @@ $modversion['adminmenu']   = 'admin/menu.php';
 // Scripts to run upon installation or update
 $modversion['onInstall']   = 'include/install.php';
 $modversion['onUninstall'] = 'include/install.php';
+$modversion['onUpdate']    = 'include/install.php';
 
 //Menus
 $modversion['hasMain'] = 1;

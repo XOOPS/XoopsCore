@@ -27,7 +27,7 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
     public function __construct(CommentsComment $obj)
     {
         $xoops = Xoops::getInstance();
-        $helper = Comments::getInstance();
+        $helper = $xoops->getModuleHelper('comments');
         $module = $xoops->getModuleById($obj->getVar('modid'));
         if (!is_object($module)) {
             $xoops->redirect(\XoopsBaseConfig::get('url'), 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -43,13 +43,13 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         parent::__construct(_MD_COMMENTS_POSTCOMMENT, "commentform", $url, "post", true);
 
         switch ($xoops->getModuleConfig('com_rule', $dirname)) {
-            case COMMENTS_APPROVEALL:
+            case Comments::APPROVE_ALL:
                 $rule_text = _MD_COMMENTS_COMAPPROVEALL;
                 break;
-            case COMMENTS_APPROVEUSER:
+            case Comments::APPROVE_USER:
                 $rule_text = _MD_COMMENTS_COMAPPROVEUSER;
                 break;
-            case COMMENTS_APPROVEADMIN:
+            case Comments::APPROVE_ADMIN:
             default:
                 $rule_text = _MD_COMMENTS_COMAPPROVEADMIN;
                 break;
@@ -91,9 +91,9 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
                 if ($obj->getVar('id', 'e')) {
                     $status_select = new Xoops\Form\Select(_MD_COMMENTS_STATUS, 'com_status', $obj->getVar('status', 'e'));
                     $status_select->addOptionArray(array(
-                        COMMENTS_PENDING => _MD_COMMENTS_PENDING,
-                        COMMENTS_ACTIVE  => _MD_COMMENTS_ACTIVE,
-                        COMMENTS_HIDDEN  => _MD_COMMENTS_HIDDEN
+                        Comments::STATUS_PENDING => _MD_COMMENTS_PENDING,
+                        Comments::STATUS_ACTIVE  => _MD_COMMENTS_ACTIVE,
+                        Comments::STATUS_HIDDEN  => _MD_COMMENTS_HIDDEN
                     ));
                     $this->addElement($status_select);
                     $buttonTray->addElement(new Xoops\Form\Button('', 'com_dodelete', XoopsLocale::A_DELETE, 'submit'));

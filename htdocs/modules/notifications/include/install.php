@@ -9,35 +9,22 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+use Xoops\Module\Plugin;
+
 /**
  * @copyright 2013-2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or greater (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    trabis <lusopoemas@gmail.com>
  */
 
-function xoops_module_install_notifications(&$module)
+function xoops_module_install_notifications(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
-    global $xoopsDB;
-    /*
-    $sql = "SHOW COLUMNS FROM " . $xoopsDB->prefix("xoopsnotifications");
-    $result = $xoopsDB->queryF($sql);
-    if ($result && ($rows = $xoopsDB->getRowsNum($result)) == 7) {
-        $sql = "SELECT * FROM " . $xoopsDB->prefix("xoopsnotifications");
-        $result = $xoopsDB->query($sql);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
-            $sql = "INSERT INTO `" . $xoopsDB->prefix("notifications") . "` (`id`, `modid`, `itemid`, `category`, `event`, `uid`, `mode`) VALUES (" . $myrow['not_id'] . ", " . $myrow['not_modid'] . ", " . $myrow['not_itemid'] . ", " . $myrow['not_category'] . ", " . $myrow['not_event'] . ", " . $myrow['not_uid'] . ", " . $myrow['not_mode'] . ")";
-            $xoopsDB->queryF($sql);
-        }
-        //Don't drop old table for now
-        //$sql = "DROP TABLE " . $xoopsDB->prefix("xoopsnotifications");
-        //$xoopsDB->queryF($sql);
-    }
-    */
 
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
-    $plugins = \Xoops\Module\Plugin::getPlugins('notifications');
+    $plugins = Plugin::getPlugins('notifications');
 
     foreach (array_keys($plugins) as $dirname) {
         $helper->insertModuleRelations($xoops->getModuleByDirname($dirname));
@@ -46,15 +33,20 @@ function xoops_module_install_notifications(&$module)
     return true;
 }
 
-function xoops_module_pre_uninstall_notifications(&$module)
+function xoops_module_pre_uninstall_notifications(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
     XoopsLoad::loadFile($xoops->path('modules/notifications/class/helper.php'));
     $helper = Notifications::getInstance();
-    $plugins = \Xoops\Module\Plugin::getPlugins('notifications');
+    $plugins = Plugin::getPlugins('notifications');
     foreach (array_keys($plugins) as $dirname) {
         $helper->deleteModuleRelations($xoops->getModuleByDirname($dirname));
     }
 
     return true;
+}
+
+function xoops_module_update_notifications(XoopsModule $module, $prev_version)
+{
+    return xoops_module_install_notifications($module);
 }

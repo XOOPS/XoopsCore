@@ -34,6 +34,7 @@ $wizard = $_SESSION['wizard'];
 $pageHasForm = true;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $xoops->events();
     $xoops->loadLocale('system');
     include_once XOOPS_ROOT_PATH . "/modules/system/class/module.php";
     include_once XOOPS_ROOT_PATH . "/modules/system/class/system.php";
@@ -63,7 +64,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Reset module lists in cache folder
     $xoops->cache()->delete('system/modules');
-    $xoops->setActiveModules();
+    $dirnames = $xoops->setActiveModules();
+
+    /*
+     * With multiple module installs in one pass, preload events are not refreshed in between.
+     * One side effect is that plugins that modify configurations (specifically comments and notifications)
+     * do not get a chance to process the install events as is needed. Here, we will loop through all
+     * the modules supplying a plugin interface and update them, reprocessing and fixing everything.
+     */
+    \Xoops\Module\Plugin::resetPluginsCache();
+    $xoops->setTpl(new Xoops\Core\XoopsTpl()); // update() uses this???
+    foreach ($dirnames as $dirname) {
+        if ($dirname !== 'system') {
+            if (\XoopsLoad::fileExists($xoops->path("modules/{$dirname}/class/plugin/interface.php"))) {
+                $xoops->clearModuleConfigsCache();
+                $system_module->update($dirname);
+            }
+        }
+    }
+
 } else {
     if (!$xoops->getConfig('locale')) {
         $xoops->setConfig('locale', $_COOKIE['xo_install_lang']);
@@ -94,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $form = new Xoops\Form\ThemeForm('', 'modules', 'index.php', 'post');
         $moduleYN = new Xoops\Form\RadioYesNo('', 'modules[' . $module->getInfo('dirname') . ']', $value, XoopsLocale::YES, XoopsLocale::NO);
-        $moduleYN->setExtra("onclick='selectModule(\"" . $module->getInfo('dirname') . "\", this)'");
+        $moduleYN->set('onclick', 'selectModule("' . $module->getInfo('dirname') . '", this);');
         $form->addElement($moduleYN);
 
         $content .= "<tr id='" . $module->getInfo('dirname') . "'" . $style . ">\n";

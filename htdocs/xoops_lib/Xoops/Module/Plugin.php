@@ -11,21 +11,27 @@
 
 namespace Xoops\Module;
 
+use Xoops\Module\Plugin\PluginAbstract;
+
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 class Plugin
 {
     /**
+     * @var array
+     */
+    protected static $plugins = array();
+
+    /**
      * @param string $dirname    module dirname
      * @param string $pluginName plugin name i.e. system, menus, etc.
      * @param bool   $force      get plugin even if module is inactive
      *
-     * @return bool|Xoops\Module\Plugin\PluginAbstract false if plugin does not exist
+     * @return bool|PluginAbstract plugin, or false if plugin does not exist
      */
     public static function getPlugin($dirname, $pluginName = 'system', $force = false)
     {
@@ -48,14 +54,13 @@ class Plugin
      */
     public static function getPlugins($pluginName = 'system', $inactiveModules = false)
     {
-        static $plugins = array();
-        if (!isset($plugins[$pluginName])) {
-            $plugins[$pluginName] = array();
+        if (!isset(static::$plugins[$pluginName])) {
+            static::$plugins[$pluginName] = array();
             $xoops = \Xoops::getInstance();
 
             //Load interface for this plugin
             if (!\XoopsLoad::loadFile($xoops->path("modules/{$pluginName}/class/plugin/interface.php"))) {
-                return $plugins[$pluginName];
+                return static::$plugins[$pluginName];
             }
 
             $dirnames = $xoops->getActiveModules();
@@ -67,12 +72,21 @@ class Plugin
                     $className = '\\' . ucfirst($dirname) . ucfirst($pluginName) . 'Plugin';
                     $interface = '\\' . ucfirst($pluginName) . 'PluginInterface';
                     $class = new $className($dirname);
-                    if ($class instanceof \Xoops\Module\Plugin\PluginAbstract && $class instanceof $interface) {
-                        $plugins[$pluginName][$dirname] = $class;
+                    if ($class instanceof PluginAbstract && $class instanceof $interface) {
+                        static::$plugins[$pluginName][$dirname] = $class;
                     }
                 }
             }
         }
-        return $plugins[$pluginName];
+        return static::$plugins[$pluginName];
+    }
+
+    /**
+     * Clear cache of plugins
+     * return void
+     */
+    public static function resetPluginsCache()
+    {
+        static::$plugins = array();
     }
 }

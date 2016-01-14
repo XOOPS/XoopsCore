@@ -1,13 +1,13 @@
 <div style="text-align: center; padding: 0px; margin:0px;">
     <form class="form-inline" method="get" action="{$page_name}">
         <select class="span2" name="com_mode">
-            <option value="flat" {if $comment_mode == "flat"}selected="selected"{/if}{translate key="FLAT"}</option>
-            <option value="thread" {if $comment_mode == "thread"}selected="selected"{/if}{translate key="THREADED"}</option>
-            <option value="nest" {if $comment_mode == "nest"}selected="selected"{/if}{translate key="NESTED"}</option>
+            <option value="flat" {if $comment_mode == "flat"}selected="selected"{/if} >{translate key="FLAT"}</option>
+            <option value="thread" {if $comment_mode == "thread"}selected="selected"{/if} >{translate key="THREADED"}</option>
+            <option value="nest" {if $comment_mode == "nest"}selected="selected"{/if} >{translate key="NESTED"}</option>
         </select>
         <select class="span2" name="com_order">
-            <option value="{$COMMENTS_OLD1ST}" {if $order == $COMMENTS_OLD1ST}selected="selected"{/if}{translate key="OLDEST_FIRST"}</option>
-            <option value="{$COMMENTS_NEW1ST}" {if $order == $COMMENTS_NEW1ST}selected="selected"{/if}{translate key="NEWEST_FIRST"}</option>
+            <option value="{$COMMENTS_OLD1ST}" {if $order == $COMMENTS_OLD1ST}selected="selected"{/if} >{translate key="OLDEST_FIRST"}</option>
+            <option value="{$COMMENTS_NEW1ST}" {if $order == $COMMENTS_NEW1ST}selected="selected"{/if} >{translate key="NEWEST_FIRST"}</option>
         </select>
         <input type="hidden" name="{$item_name}" value="{$itemid}" />
         {if $extra_param|default:false}

@@ -15,6 +15,7 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Yaml;
+use Xoops\Module\Plugin\ConfigCollector;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
 
@@ -446,7 +447,7 @@ class SystemModule
 
                 $xoops->db()->commit();
 
-                XoopsPreload::getInstance()->triggerEvent('onModuleInstall', array(&$module, &$this));
+                $xoops->events()->triggerEvent('system.module.install', $module);
                 return $module;
             }
         } else {
@@ -576,7 +577,7 @@ class SystemModule
                     XoopsLocale::SF_UNINSTALLED,
                     '<strong>' . $module->getVar('name') . '</strong>'
                 );
-                XoopsPreload::getInstance()->triggerEvent('onModuleUninstall', array(&$module, &$this));
+                $xoops->events()->triggerEvent('system.module.uninstall', $module);
                 return $module;
             }
         }
@@ -1116,7 +1117,8 @@ class SystemModule
             $configs = array();
         }
 
-        XoopsPreload::getInstance()->triggerEvent('onModuleUpdateConfigs', array($module, &$configs));
+        $collector = new ConfigCollector($module, $configs);
+        $xoops->events()->triggerEvent('system.module.update.configs', $collector);
 
         if (is_array($configs) && count($configs) > 0) {
             $this->trace[] = SystemLocale::MANAGING_PREFERENCES;

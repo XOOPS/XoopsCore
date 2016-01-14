@@ -153,9 +153,9 @@ $configs['writable'] = array(
     'assets/',
     'uploads/',
 //  'uploads/avatars/',
-    'uploads/images/',
-    'uploads/ranks/',
-    'uploads/smilies/',
+//  'uploads/images/',
+//  'uploads/ranks/',
+//  'uploads/smilies/',
 //  'uploads/banners/',
 //  'mainfile.php'
 );
@@ -163,6 +163,7 @@ $configs['writable'] = array(
 // Modules to be installed by default
 $configs['modules'] = array(
     'banners',
+    'comments',
     'notifications',
     'page',
     'search',
@@ -172,15 +173,15 @@ $configs['modules'] = array(
 // Extensions to be installed by default
 $configs['ext'] = array(
     'avatars',
-    'comments',
     'debugbar',
     'images',
     'mailusers',
     'maintenance',
     'menus',
-    'protector',
+//  'protector', // temporarily removed due to php7/mysql issues
     'smilies',
     'thumbs',
+    'userrank',
 //    'xmf',
 );
 

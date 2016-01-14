@@ -27,23 +27,21 @@ $xoops->logger()->quiet();
 
 $ret['error'] = 1;
 
-if ( $xoops->security()->check() ) {
+if ($xoops->security()->check()) {
     $time = time();
-    if ( !isset($_SESSION['page_rating' . $content_id]) || $_SESSION['page_rating' . $content_id] < $time ) {
-        $content_id = Request::getInt('content_id', 0);
-        $option = Request::getInt('option', 0);
-
+    $content_id = Request::getInt('content_id', 0);
+    $option = Request::getInt('option', 0);
+    if (!isset($_SESSION['page_rating' . $content_id]) || $_SESSION['page_rating' . $content_id] < $time) {
         $_SESSION['page_rating' . $content_id] = $time + $interval;
 
         // Test if the page exist
         $contentObj = $content_Handler->get($content_id);
-        if (count($contentObj) == 0
+        if (($contentObj === null)
 //            || $contentObj->getVar('content_author') == $uid
-            || $contentObj->getVar('content_status') == 0 ||  $contentObj->getVar('content_dorating') == 0){
+            || $contentObj->getVar('content_status') == 0 ||  $contentObj->getVar('content_dorating') == 0) {
             echo json_encode($ret);
             exit();
         }
-
 
         // Permission to view
         $perm_view = $gperm_Handler->checkRight('page_view_item', $content_id, $groups, $module_id, false);
@@ -57,11 +55,11 @@ if ( $xoops->security()->check() ) {
         }
 
         // Check if uid has voted
-        if ($rating_Handler->hasVoted($content_id)) {
+/*        if ($rating_Handler->hasVoted($content_id)) {
             echo json_encode($ret);
             exit();
         }
-
+*/
         // Set vote
         $ratingObj = $rating_Handler->create();
         $ratingObj->setVar('rating_content_id', $content_id);
