@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Request;
+
 /**
  * Template sets Manager
  *
@@ -16,13 +18,12 @@
  * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Maxime Cointin (AKA Kraven30)
  * @package     system
- * @version     $Id$
  */
 
 include dirname(dirname(__DIR__)) . '/header.php';
 
 $xoops = Xoops::getInstance();
-$xoops->disableErrorReporting();
+$xoops->logger()->quiet();
 
 if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->module->mid())) {
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
@@ -31,12 +32,7 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
 include_once $xoops->path('modules/system/functions.php');
 $xoops->loadLocale('system');
 
-if (isset($_REQUEST["op"])) {
-    $op = $_REQUEST["op"];
-} else {
-    @$op = "default";
-}
-
+$op = Request::getCmd('op', 'default');
 switch ($op) {
     // Display tree folder
     case "tpls_display_folder":
@@ -80,8 +76,10 @@ switch ($op) {
         break;
     // Edit File
     case 'tpls_edit_file':
-        $path_file = realpath(\XoopsBaseConfig::get('root-path') . '/themes' . trim($_REQUEST['path_file']));
-        $path_file = str_replace('\\', '/', $path_file);
+        $clean_file = Request::getString('file', '');
+        $clean_path_file = Request::getString('path_file', '');
+        $path_file = realpath(XOOPS_ROOT_PATH.'/themes'.trim($clean_path_file));
+        $path_file = str_replace('\\','/',$path_file);
 
         //Button restore
         if (XoopsLoad::fileExists($path_file . '.back')) {
@@ -121,7 +119,9 @@ switch ($op) {
                       <td><textarea id="code_mirror" name="templates" rows=24 cols=110>' . $content . '</textarea></td>
                   </tr>
               </table>';
-        echo '<input type="hidden" name="path_file" value="' . $path_file . '"><input type="hidden" name="file" value="' . trim($_REQUEST['file']) . '"><input type="hidden" name="ext" value="' . $ext . '"></form>';
+        $xoopsToken = new \Xoops\Form\Token();
+        echo $xoopsToken->render();
+        echo '<input type="hidden" name="path_file" value="'.$clean_path_file.'"><input type="hidden" name="file" value="'.trim($clean_file).'"><input type="hidden" name="ext" value="'.$ext.'"></form>';
         break;
 
     // Restore backup file

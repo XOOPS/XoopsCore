@@ -43,12 +43,24 @@ class Fingerprint implements FingerprintInterface
         $clientFingerprint = array();
         $httpRequest = HttpRequest::getInstance();
         $clientFingerprint['clientIp'] = $httpRequest->getClientIp();
-        $clientFingerprint['userAgent'] = $httpRequest->getHeader('USER_AGENT');
-        $clientFingerprint['acceptLanguage'] = $httpRequest->getHeader('ACCEPT_LANGUAGE');
+        $clientFingerprint['userAgent'] = $this->makeInert($httpRequest->getHeader('USER_AGENT'));
+        $clientFingerprint['acceptLanguage'] = $this->makeInert($httpRequest->getHeader('ACCEPT_LANGUAGE'));
 
         return $clientFingerprint;
     }
 
+    /**
+     * Neutralize some sequences that might be used to slip nefarious bits into our fingerprint.
+     * This does not impair the similarity check, but does interfere with serialized object injection.
+     *
+     * @param string $value fingerprint string to be escaped
+     *
+     * @return string
+     */
+    protected function makeInert($value)
+    {
+        return str_replace(['\\', '{', '}', ':'], '-', $value);
+    }
 
     /**
      * This method manages the session fingerprint
