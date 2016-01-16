@@ -10,6 +10,10 @@
 */
 
 use Xoops\Core\PreloadItem;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
+use Xoops\Module\Plugin;
+use Xoops\Module\Plugin\ConfigCollector;
+
 
 /**
  * Comments core preloads
@@ -39,49 +43,52 @@ class CommentsPreload extends PreloadItem
 
     public static function eventCoreFooterStart($args)
     {
-        $helper = Comments::getInstance();
+        $helper = \Xoops::getModuleHelper('comments');
         $helper->renderView();
     }
 
-    public static function eventOnModuleUpdateConfigs($args)
+    public static function eventSystemModuleUpdateConfigs(ConfigCollector $collector)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        $configs =& $args[1];
-        $helper = Comments::getInstance(); //init helper to load defines na language
-
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
-            $commentsConfigs = $helper->getPluginableConfigs();
-            foreach ($commentsConfigs as $commentsConfig) {
-                array_push($configs, $commentsConfig);
-            }
+        $helper = \Xoops::getModuleHelper('comments');
+        if ($plugin = Plugin::getPlugin(
+            $collector->module()->getVar('dirname'),
+            'comments',
+            true
+        )) {
+            $pluginConfigs = $helper->getPluginableConfigs();
+            $collector->add($pluginConfigs);
         }
     }
 
-    public static function eventOnModuleInstall($args)
+    public static function eventSystemModuleInstall(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
-            Comments::getInstance()->insertModuleRelations($module);
+        $helper = \Xoops::getModuleHelper('comments');
+        if ($plugin = Plugin::getPlugin($module->getVar('dirname'), 'comments', true)) {
+            $helper::getInstance()->insertModuleRelations($module);
         }
     }
 
-    public static function eventOnModuleUninstall($args)
+    /**
+     * remove any comeents for module being uninstalled
+     *
+     * @param XoopsModule $module module object
+     *
+     * @return void
+     */
+    public static function eventSystemModuleUninstall(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
-            Comments::getInstance()->deleteModuleRelations($module);
+        $helper = \Xoops::getModuleHelper('comments');
+        if ($plugin = Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+            $helper->deleteModuleRelations($module);
         }
     }
 
-    public static function eventOnSystemPreferencesForm($args)
+    public static function eventSystemPreferencesForm(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
-            Comments::getInstance()->loadLanguage('main');
+        $helper = \Xoops::getModuleHelper('comments');
+
+        if ($plugin = Plugin::getPlugin($module->getVar('dirname'), 'comments')) {
+            $helper->loadLanguage('main');
         }
     }
 }

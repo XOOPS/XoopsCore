@@ -91,7 +91,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
             }
         }
 
-        $xoops->preload()->triggerEvent('onSystemPreferencesForm', array($mod));
+        $xoops->events()->triggerEvent('system.preferences.form', $mod);
 
         if (!empty($_REQUEST["redirect"])) {
             $myts = \Xoops\Core\Text\Sanitizer::getInstance();

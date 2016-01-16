@@ -26,11 +26,11 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
      */
     public function userPosts($uid)
     {
-        $comments = Comments::getInstance(); //need this here to init constants
+        $comments = \Xoops::getModuleHelper('comments'); //need this here to init constants
         $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('status', COMMENTS_ACTIVE));
+        $criteria->add(new Criteria('status', Comments::STATUS_ACTIVE));
         $criteria->add(new Criteria('uid', $uid));
-        return Comments::getInstance()->getHandlerComment()->getCount($criteria);
+        return $comments->getHandlerComment()->getCount($criteria);
     }
 
     /**
@@ -38,8 +38,8 @@ class CommentsSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements
      */
     public function waiting()
     {
-        $comments = Comments::getInstance(); //need this here to init constants
-        $criteria = new CriteriaCompo(new Criteria('status', COMMENTS_PENDING));
+        $comments = \Xoops::getModuleHelper('comments'); //need this here to init constants
+        $criteria = new CriteriaCompo(new Criteria('status', Comments::STATUS_PENDING));
         $ret = array();
         if ($count = $comments->getHandlerComment()->getCount($criteria)) {
             $ret['count'] = $count;

@@ -380,7 +380,7 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const E_VERIFY_USER_DATA_OR_SET_AUTOMATIC_PROVISIONING = "Please verify your user data or set on the automatic provisioning";
     const E_WE_ARE_CLOSED_FOR_REGISTRATION = "Sorry, we are currently closed for new user registrations!";
     const E_YOU_ARE_NOT_REGISTERED = "Sorry, you are not a registered user!";
-    const E_YOU_DO_NOT_HAVE_ANY_PRIVATE_MESSAGE = "You don't have any private messages!";
+    const E_YOU_DO_NOT_HAVE_ANY_PRIVATE_MESSAGE = "You do not have any private messages!";
     const E_YOU_HAVE_TO_AGREE_TO_DISCLAIMER = "Sorry, you have to agree to our disclaimer to get registered!";
     const E_YOU_MUST_COMPLETE_ALL_REQUIRED_FIELDS = "You must complete all required fields";
     const E_YOU_NEED_A_POSITIVE_INTEGER = "You need a positive integer!";

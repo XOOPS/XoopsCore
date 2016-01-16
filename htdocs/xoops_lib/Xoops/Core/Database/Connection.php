@@ -125,7 +125,7 @@ class Connection extends \Doctrine\DBAL\Connection
         } catch (\Exception $e) {
             // We are dead in the water. This exception may contain very sensitive
             // information and cannot be allowed to be displayed as is.
-            //$xoopsPreload->triggerEvent('core.exception', $e);
+            //\Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             trigger_error("Cannot get database connection", E_USER_ERROR);
         }
 
@@ -250,28 +250,28 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function executeUpdate($query, array $params = array(), array $types = array())
     {
-        $xoopsPreload = \Xoops::getInstance()->events();
+        $events = \Xoops::getInstance()->events();
         if (self::getSafe() || self::getForce()) {
             if (!self::$transactionActive) {
                 self::setForce(false);
             };
-            $xoopsPreload->triggerEvent('core.database.query.start');
+            $events->triggerEvent('core.database.query.start');
             try {
                 $result = parent::executeUpdate($query, $params, $types);
             } catch (\Exception $e) {
-                $xoopsPreload->triggerEvent('core.exception', $e);
+                $events->triggerEvent('core.exception', $e);
                 $result = 0;
             }
-            $xoopsPreload->triggerEvent('core.database.query.end');
+            $events->triggerEvent('core.database.query.end');
         } else {
-            //$xoopsPreload->triggerEvent('core.database.query.failure', (array('Not safe:')));
+            //$events->triggerEvent('core.database.query.failure', (array('Not safe:')));
             return (int) 0;
         }
         if ($result != 0) {
-            //$xoopsPreload->triggerEvent('core.database.query.success', (array($query)));
+            //$events->triggerEvent('core.database.query.success', (array($query)));
             return (int) $result;
         } else {
-            //$xoopsPreload->triggerEvent('core.database.query.failure', (array($query)));
+            //$events->triggerEvent('core.database.query.failure', (array($query)));
             return (int) 0;
         }
     }
@@ -325,28 +325,28 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function query()
     {
-        $xoopsPreload = \Xoops::getInstance()->events();
+        $events = \Xoops::getInstance()->events();
         if (!self::getSafe() && !self::getForce()) {
             $sql = ltrim(func_get_arg(0));
             if (!self::getSafe() && strtolower(substr($sql, 0, 6))!== 'select') {
-                // $xoopsPreload->triggerEvent('core.database.query.failure', (array('Not safe:')));
+                // $events->triggerEvent('core.database.query.failure', (array('Not safe:')));
                 return null;
             }
         }
         self::setForce(false); // resets $force back to false
-        $xoopsPreload->triggerEvent('core.database.query.start');
+        $events->triggerEvent('core.database.query.start');
         try {
             $result = call_user_func_array(array('parent', 'query'), func_get_args());
         } catch (\Exception $e) {
-            $xoopsPreload->triggerEvent('core.exception', $e);
+            $events->triggerEvent('core.exception', $e);
             $result=null;
         }
-        $xoopsPreload->triggerEvent('core.database.query.end');
+        $events->triggerEvent('core.database.query.end');
         if ($result) {
-            //$xoopsPreload->triggerEvent('core.database.query.success', (array('')));
+            //$events->triggerEvent('core.database.query.success', (array('')));
             return $result;
         } else {
-            //$xoopsPreload->triggerEvent('core.database.query.failure', (array('')));
+            //$events->triggerEvent('core.database.query.failure', (array('')));
             return null;
         }
     }

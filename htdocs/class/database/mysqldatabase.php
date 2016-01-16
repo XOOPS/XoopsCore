@@ -344,21 +344,21 @@ class XoopsMySQLDatabase extends XoopsDatabase
             }
             $sql = $sql . ' LIMIT ' . (int) $start . ', ' . (int) $limit;
         }
-        $xoopsPreload = XoopsPreload::getInstance();
-        $xoopsPreload->triggerEvent('core.database.query.start');
+        $events = \Xoops::getInstance()->events();
+        $events->triggerEvent('core.database.query.start');
         try {
             $result = $this->conn->query($sql);
         } catch (Exception $e) {
             $result=false;
         }
         $this->lastResult = $result;
-        $xoopsPreload->triggerEvent('core.database.query.end');
+        $events->triggerEvent('core.database.query.end');
 
         if ($result) {
-            $xoopsPreload->triggerEvent('core.database.query.success', (array($sql)));
+            $events->triggerEvent('core.database.query.success', (array($sql)));
             return $result;
         } else {
-            $xoopsPreload->triggerEvent('core.database.query.failure', (array($sql, $this)));
+            $events->triggerEvent('core.database.query.failure', (array($sql, $this)));
             return false;
         }
     }

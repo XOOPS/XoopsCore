@@ -23,7 +23,7 @@ use Xoops\Core\Request;
 
 include __DIR__ . '/mainfile.php';
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.lostpass.start');
+$xoops->events()->triggerEvent('core.lostpass.start');
 
 $xoops_url = \XoopsBaseConfig::get('url');
 

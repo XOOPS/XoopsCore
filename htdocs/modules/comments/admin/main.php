@@ -24,7 +24,7 @@ include __DIR__ . '/header.php';
 // Get main instance
 $xoops = Xoops::getInstance();
 $system = System::getInstance();
-$helper = Comments::getInstance();
+$helper = $xoops->getModuleHelper('comments');
 
 // Get Action type
 $op = $system->cleanVars($_REQUEST, 'op', 'default', 'string');
@@ -36,11 +36,11 @@ $admin_page->renderNavigation('main.php');
 
 $limit_array = array(20, 50, 100);
 $status_array =
-    array(COMMENTS_PENDING => _MD_COMMENTS_PENDING, COMMENTS_ACTIVE => _MD_COMMENTS_ACTIVE, COMMENTS_HIDDEN => _MD_COMMENTS_HIDDEN);
+    array(Comments::STATUS_PENDING => _MD_COMMENTS_PENDING, Comments::STATUS_ACTIVE => _MD_COMMENTS_ACTIVE, Comments::STATUS_HIDDEN => _MD_COMMENTS_HIDDEN);
 $status_array2 = array(
-    COMMENTS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #008000;">' . _MD_COMMENTS_PENDING . '</span>',
-    COMMENTS_ACTIVE => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">' . _MD_COMMENTS_ACTIVE . '</span>',
-    COMMENTS_HIDDEN => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">' . _MD_COMMENTS_HIDDEN . '</span>'
+    Comments::STATUS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #008000;">' . _MD_COMMENTS_PENDING . '</span>',
+    Comments::STATUS_ACTIVE => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">' . _MD_COMMENTS_ACTIVE . '</span>',
+    Comments::STATUS_HIDDEN => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">' . _MD_COMMENTS_HIDDEN . '</span>'
 );
 $start = 0;
 $status_array[0] = _AM_COMMENTS_FORM_ALL_STATUS;

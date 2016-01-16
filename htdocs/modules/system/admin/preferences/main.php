@@ -154,7 +154,7 @@ switch ($op) {
         // Cache management should be performed on a separate page
         $options = array(1, 2, 3); //1 goes for smarty cache, 3 goes for xoops_cache
         register_shutdown_function(array(&$system, 'cleanCache'), $options);
-        $xoops->preload()->triggerEvent('system.preferences.save');
+        $xoops->events()->triggerEvent('system.preferences.save');
         if (isset($redirect) && $redirect != '') {
             $xoops->redirect($redirect, 2, XoopsLocale::S_DATABASE_UPDATED);
         } else {

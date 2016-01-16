@@ -26,7 +26,7 @@ include __DIR__ . '/mainfile.php';
 
 $xoops_url = \XoopsBaseConfig::get('url');
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.userinfo.start');
+$xoops->events()->triggerEvent('core.userinfo.start');
 
 $xoops->loadLanguage('user');
 include_once $xoops->path('modules/system/constants.php');

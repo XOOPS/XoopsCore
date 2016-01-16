@@ -20,12 +20,13 @@
  * @version         $Id$
  */
 
+$xoops = \Xoops::getInstance();
 define("PUBLISHER_DIRNAME", basename(dirname(__DIR__)));
-define("PUBLISHER_URL", \XoopsBaseConfig::get('url') . '/modules/' . PUBLISHER_DIRNAME);
+define("PUBLISHER_URL", $xoops->url('modules/' . PUBLISHER_DIRNAME));
 define("PUBLISHER_ADMIN_URL", PUBLISHER_URL . '/admin');
-define("PUBLISHER_UPLOADS_URL", \XoopsBaseConfig::get('url') . '/uploads/' . PUBLISHER_DIRNAME);
-define("PUBLISHER_ROOT_PATH", \XoopsBaseConfig::get('root-path') . '/modules/' . PUBLISHER_DIRNAME);
-define("PUBLISHER_UPLOADS_PATH", \XoopsBaseConfig::get('root-path') . '/uploads/' . PUBLISHER_DIRNAME);
+define("PUBLISHER_UPLOADS_URL", $xoops->url('uploads/' . PUBLISHER_DIRNAME));
+define("PUBLISHER_ROOT_PATH", $xoops->path('modules/' . PUBLISHER_DIRNAME));
+define("PUBLISHER_UPLOADS_PATH", $xoops->path('uploads/' . PUBLISHER_DIRNAME));
 
 $path = dirname(__DIR__);
 XoopsLoad::addMap(array(

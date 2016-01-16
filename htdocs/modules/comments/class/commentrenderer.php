@@ -66,11 +66,11 @@ class CommentsCommentRenderer
         $this->useIcons = $use_icons;
         $this->doIconCheck = $do_iconcheck;
         $this->statusText = array(
-            COMMENTS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #00ff00;">'
+            Comments::STATUS_PENDING => '<span style="text-decoration: none; font-weight: bold; color: #00ff00;">'
                 . _MD_COMMENTS_PENDING . '</span>',
-            COMMENTS_ACTIVE  => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">'
+            Comments::STATUS_ACTIVE  => '<span style="text-decoration: none; font-weight: bold; color: #ff0000;">'
                 . _MD_COMMENTS_ACTIVE . '</span>',
-            COMMENTS_HIDDEN  => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">'
+            Comments::STATUS_HIDDEN  => '<span style="text-decoration: none; font-weight: bold; color: #0000ff;">'
                 . _MD_COMMENTS_HIDDEN . '</span>'
         );
     }
@@ -131,7 +131,7 @@ class CommentsCommentRenderer
                     . '<br />IP: <span style="font-weight: bold;">' . $comment->getVar('ip') . '</span></div>';
             } else {
                 // hide comments that are not active
-                if (COMMENTS_ACTIVE != $comment->getVar('status')) {
+                if (Comments::STATUS_ACTIVE != $comment->getVar('status')) {
                     continue;
                 } else {
                     $text = $comment->getVar('text');
@@ -184,7 +184,7 @@ class CommentsCommentRenderer
                 . '</span></div>';
         } else {
             // hide comments that are not active
-            if (COMMENTS_ACTIVE != $tree[$comment_id]['obj']->getVar('status')) {
+            if (Comments::STATUS_ACTIVE != $tree[$comment_id]['obj']->getVar('status')) {
                 // if there are any child comments, display them as root comments
                 if (isset($tree[$comment_id]['child']) && !empty($tree[$comment_id]['child'])) {
                     foreach ($tree[$comment_id]['child'] as $child_id) {
@@ -257,7 +257,7 @@ class CommentsCommentRenderer
         if (isset($thread[$key]['child']) && !empty($thread[$key]['child'])) {
             ++$depth;
             foreach ($thread[$key]['child'] as $childkey) {
-                if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != COMMENTS_ACTIVE) {
+                if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != Comments::STATUS_ACTIVE) {
                     // skip this comment if it is not active and continue on processing its child comments instead
                     if (isset($thread[$childkey]['child']) && !empty($thread[$childkey]['child'])) {
                         foreach ($thread[$childkey]['child'] as $childchildkey) {
@@ -294,7 +294,7 @@ class CommentsCommentRenderer
                 . '</span></div>';
         } else {
             // skip this comment if it is not active and continue on processing its child comments instead
-            if (COMMENTS_ACTIVE != $tree[$comment_id]['obj']->getVar('status')) {
+            if (Comments::STATUS_ACTIVE != $tree[$comment_id]['obj']->getVar('status')) {
                 // if there are any child comments, display them as root comments
                 if (isset($tree[$comment_id]['child']) && !empty($tree[$comment_id]['child'])) {
                     foreach ($tree[$comment_id]['child'] as $child_id) {
@@ -365,7 +365,7 @@ class CommentsCommentRenderer
         if (isset($thread[$key]['child']) && !empty($thread[$key]['child'])) {
             ++$depth;
             foreach ($thread[$key]['child'] as $childkey) {
-                if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != COMMENTS_ACTIVE) {
+                if (!$admin_view && $thread[$childkey]['obj']->getVar('status') != Comments::STATUS_ACTIVE) {
                     // skip this comment if it is not active and continue on processing its child comments instead
                     if (isset($thread[$childkey]['child']) && !empty($thread[$childkey]['child'])) {
                         foreach ($thread[$childkey]['child'] as $childchildkey) {

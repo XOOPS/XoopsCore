@@ -220,16 +220,6 @@ class Xoops
     }
 
     /**
-     * Deprecated - use events() instead
-     *
-     * @return XoopsPreload
-     */
-    public function preload()
-    {
-        return $this->events();
-    }
-
-    /**
      * get the asset utility
      *
      * @return Xoops\Core\Assets instance
@@ -1121,7 +1111,7 @@ class Xoops
 
         try {
             if (!$this->activeModules = $this->cache()->read('system/modules/active')) {
-                $this->activeModules = $this->setActiveModules();
+                $this->setActiveModules();
             }
         } catch (\Exception $e) {
             $this->activeModules = array();
@@ -1143,6 +1133,7 @@ class Xoops
             $modules_active[$module['mid']] = $module['dirname'];
         }
         $this->cache()->write('system/modules/active', $modules_active);
+        $this->activeModules = $modules_active;
         return $modules_active;
     }
 
@@ -1759,6 +1750,16 @@ class Xoops
         if (empty($this->moduleConfigs[$dirname])) {
             unset($this->moduleConfigs[$dirname]);
         }
+    }
+
+    /**
+     * Unset all module configs
+     *
+     * @return void
+     */
+    public function clearModuleConfigsCache()
+    {
+        $this->moduleConfigs = array();
     }
 
     /**

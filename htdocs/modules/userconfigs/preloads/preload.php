@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\PreloadItem;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 /**
  * Userconfigs
@@ -41,14 +42,12 @@ class UserconfigsPreload extends PreloadItem
     /**
      * remove any userconfigs for module being uninstalled
      *
-     * @param array $args index 0 is module object
+     * @param XoopsModule $module module object
      *
      * @return void
      */
-    public static function eventOnModuleUninstall($args)
+    public static function eventSystemModuleUninstall(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
         if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'userconfigs')) {
             Userconfigs::getInstance()->getHandlerConfig()->deleteConfigsByModule($module->getVar('mid'));
         }

@@ -20,6 +20,6 @@
  */
 
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.include.footer');
+$xoops->events()->triggerEvent('core.include.footer');
 $xoops->deprecated("include 'footer.php' is deprecated since 2.6.0, use Xoops::getInstance()->footer(); instead");
 $xoops->footer();

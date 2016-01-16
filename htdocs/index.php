@@ -34,7 +34,7 @@ if (file_exists($mainfile)) {
 
 
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.index.start');
+$xoops->events()->triggerEvent('core.index.start');
 
 //check if start page is defined
 if ($xoops->isActiveModule($xoops->getConfig('startpage'))) {

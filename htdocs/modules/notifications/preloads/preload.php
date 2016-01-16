@@ -10,13 +10,17 @@
 */
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\PreloadItem;
+use Xoops\Module\Plugin;
+use Xoops\Module\Plugin\ConfigCollector;
+
 
 /**
  * Notifications core preloads
  *
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright XOOPS Project (http://xoops.org)
+ * @copyright 2012-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 class NotificationsPreload extends PreloadItem
@@ -113,44 +117,43 @@ class NotificationsPreload extends PreloadItem
         $xoops->tpl()->assign('notifications', $notifications);
     }
 
-    public static function eventOnModuleUpdateConfigs($args)
+    public static function eventSystemModuleUpdateConfigs(ConfigCollector $collector)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        $configs =& $args[1];
-        $helper = Notifications::getInstance(); //init helper to load defines na language
-
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
-            $notConfigs = $helper->getPluginableConfigs($module);
-            foreach ($notConfigs as $notConfig) {
-                array_push($configs, $notConfig);
-            }
+        $helper = \Xoops::getModuleHelper('notifications');
+        if ($plugin = Plugin::getPlugin(
+            $collector->module()->getVar('dirname'),
+            'notifications',
+            true
+        )) {
+            $pluginConfigs = $helper->getPluginableConfigs($collector->module());
+            $collector->add($pluginConfigs);
         }
     }
 
-    public static function eventOnModuleInstallConfigs($args)
+    public static function eventSystemModuleInstallConfigs(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
+        if ($plugin = Plugin::getPlugin($module->getVar('dirname'), 'notifications', true)) {
             Notifications::getInstance()->insertModuleRelations($module);
         }
     }
 
-    public static function eventOnModuleUnistall($args)
+    /**
+     * remove any notifications for module being uninstalled
+     *
+     * @param XoopsModule $module module object
+     *
+     * @return void
+     */
+    public static function eventSystemModuleUninstall(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
+        if ($plugin = Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
             Notifications::getInstance()->deleteModuleRelations($module);
         }
     }
 
-    public static function eventOnSystemPreferencesForm($args)
+    public static function eventSystemPreferencesForm(XoopsModule $module)
     {
-        /* @var $module XoopsModule */
-        $module = $args[0];
-        if ($plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
+        if ($plugin = Plugin::getPlugin($module->getVar('dirname'), 'notifications')) {
             Notifications::getInstance()->loadLanguage('main');
         }
     }

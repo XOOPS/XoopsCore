@@ -269,17 +269,17 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
                         $insert_comment = false;
                         $insert_submit = false;
                         switch ($com_config['com_rule']) {
-                            case COMMENTS_APPROVENONE:
+                            case Comments::APPROVE_NONE:
                                 // comments disabled, no comment events
                                 break;
-                            case COMMENTS_APPROVEALL:
+                            case Comments::APPROVE_ALL:
                                 // all comments are automatically approved, no 'submit'
                                 if (!$override_comment) {
                                     $insert_comment = true;
                                 }
                                 break;
-                            case COMMENTS_APPROVEUSER:
-                            case COMMENTS_APPROVEADMIN:
+                            case Comments::APPROVE_USER:
+                            case Comments::APPROVE_ADMIN:
                                 // comments first submitted, require later approval
                                 if (!$override_comment) {
                                     $insert_comment = true;
@@ -486,29 +486,36 @@ class Notifications extends Xoops\Module\Helper\HelperAbstract
         $config_handler = $xoops->getHandlerConfig();
         $configs = $this->getPluginableConfigs($module);
 
-        $order = count($xoops->getModuleConfigs($module->getVar('dirname')));
+        //$existingConfigs = $xoops->getModuleConfigs($module->getVar('dirname'));
+        $existingConfigs = $config_handler->getConfigsByModule($module->getVar('mid'));
+        $order = $config_handler->getConfigCount(
+            new \Xoops\Core\Kernel\Criteria('conf_modid', $module->getVar('mid'))
+        );
+        //$order = count($existingConfigs);
         foreach ($configs as $config) {
-            $confobj = $config_handler->createConfig();
-            $confobj->setVar('conf_modid', $module->getVar('mid'));
-            $confobj->setVar('conf_catid', 0);
-            $confobj->setVar('conf_name', $config['name']);
-            $confobj->setVar('conf_title', $config['title']);
-            $confobj->setVar('conf_desc', $config['description']);
-            $confobj->setVar('conf_formtype', $config['formtype']);
-            $confobj->setVar('conf_valuetype', $config['valuetype']);
-            $confobj->setConfValueForInput($config['default']);
-            $confobj->setVar('conf_order', $order);
-            if (isset($config['options']) && is_array($config['options'])) {
-                foreach ($config['options'] as $key => $value) {
-                    $confop = $config_handler->createConfigOption();
-                    $confop->setVar('confop_name', $key);
-                    $confop->setVar('confop_value', $value);
-                    $confobj->setConfOptions($confop);
-                    unset($confop);
+            if (!isset($existingConfigs[$config['name']])) {
+                $confobj = $config_handler->createConfig();
+                $confobj->setVar('conf_modid', $module->getVar('mid'));
+                $confobj->setVar('conf_catid', 0);
+                $confobj->setVar('conf_name', $config['name']);
+                $confobj->setVar('conf_title', $config['title']);
+                $confobj->setVar('conf_desc', $config['description']);
+                $confobj->setVar('conf_formtype', $config['formtype']);
+                $confobj->setVar('conf_valuetype', $config['valuetype']);
+                $confobj->setConfValueForInput($config['default']);
+                $confobj->setVar('conf_order', $order);
+                if (isset($config['options']) && is_array($config['options'])) {
+                    foreach ($config['options'] as $key => $value) {
+                        $confop = $config_handler->createConfigOption();
+                        $confop->setVar('confop_name', $key);
+                        $confop->setVar('confop_value', $value);
+                        $confobj->setConfOptions($confop);
+                        unset($confop);
+                    }
                 }
+                ++$order;
+                $config_handler->insertConfig($confobj);
             }
-            ++$order;
-            $config_handler->insertConfig($confobj);
         }
     }
 

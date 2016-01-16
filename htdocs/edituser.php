@@ -23,7 +23,7 @@ use Xoops\Core\Request;
 include __DIR__ . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.edituser.start');
+$xoops->events()->triggerEvent('core.edituser.start');
 $xoops->loadLanguage('user');
 
 // If not a user, redirect

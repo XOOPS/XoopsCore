@@ -494,13 +494,15 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
 
     $pWrap_select = new Xoops\Form\Select(PublisherUtils::getUploadDir(true, 'content'), "address");
     $folder = dir($dir);
-    while ($file = $folder->read()) {
-        if ($file !== "." && $file !== "..") {
-            $pWrap_select->addOption($file, $file);
+    if (is_object($folder)) {
+        while ($file = $folder->read()) {
+            if ($file !== "." && $file !== "..") {
+                $pWrap_select->addOption($file, $file);
+            }
         }
+        $folder->close();
+        $form->addElement($pWrap_select);
     }
-    $folder->close();
-    $form->addElement($pWrap_select);
 
     $delfile = "delfile";
     $form->addElement(new Xoops\Form\Hidden('op', $delfile));

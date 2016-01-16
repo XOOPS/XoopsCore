@@ -24,7 +24,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 include __DIR__ . '/mainfile.php';
 $xoops = Xoops::getInstance();
-$xoops->preload()->triggerEvent('core.readpmsg.start');
+$xoops->events()->triggerEvent('core.readpmsg.start');
 
 if (!$xoops->isUser()) {
     $xoops->redirect("user.php", 2, XoopsLocale::E_YOU_ARE_NOT_REGISTERED);

@@ -256,7 +256,7 @@ abstract class HelperAbstract
     protected function _addLog($log)
     {
         if ($this->_debug) {
-            $this->xoops()->preload()->triggerEvent('core.module.addlog', array(
+            $this->xoops()->events()->triggerEvent('core.module.addlog', array(
                 $this->getModule()->getVar('name'),
                 $log
             ));
