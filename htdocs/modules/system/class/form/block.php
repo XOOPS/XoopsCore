@@ -56,7 +56,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             $title = SystemLocale::ADD_BLOCK;
             $modules = array(-1);
             $groups = array(FixedGroups::USERS, FixedGroups::ANONYMOUS, FixedGroups::ADMIN);
-            $this->obj->setVar('block_type', 'C');
+            $this->obj->setVar('block_type', XoopsBlock::BLOCK_TYPE_CUSTOM);
             $this->obj->setVar('visible', 1);
             $op = 'save';
         } else {
@@ -81,9 +81,9 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
                     $title = SystemLocale::CLONE_BLOCK;
                     $this->obj->setVar('bid', 0);
                     if ($this->obj->isCustom()) {
-                        $this->obj->setVar('block_type', 'C');
+                        $this->obj->setVar('block_type', XoopsBlock::BLOCK_TYPE_CUSTOM);
                     } else {
-                        $this->obj->setVar('block_type', 'D');
+                        $this->obj->setVar('block_type', XoopsBlock::BLOCK_TYPE_CLONED);
                     }
                     break;
             }
@@ -135,14 +135,14 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             if (in_array($editor_configs["editor"], array('dhtmltextarea', 'textarea'))) {
                 $ctype_select = new Xoops\Form\Select(SystemLocale::CONTENT_TYPE, 'c_type', $this->obj->getVar('c_type'));
                 $ctype_select->addOptionArray(array(
-                    'H' => XoopsLocale::HTML,
-                    'P' => SystemLocale::PHP_SCRIPT,
-                    'S' => SystemLocale::AUTO_FORMAT_SMILIES_ENABLED,
-                    'T' => SystemLocale::AUTO_FORMAT_SMILIES_DISABLED
+                    XoopsBlock::CUSTOM_HTML   => XoopsLocale::HTML,
+                    XoopsBlock::CUSTOM_PHP    => SystemLocale::PHP_SCRIPT,
+                    XoopsBlock::CUSTOM_SMILIE => SystemLocale::AUTO_FORMAT_SMILIES_ENABLED,
+                    XoopsBlock::CUSTOM_TEXT   => SystemLocale::AUTO_FORMAT_SMILIES_DISABLED
                 ));
                 $this->addElement($ctype_select);
             } else {
-                $this->addElement(new Xoops\Form\Hidden('c_type', 'H'));
+                $this->addElement(new Xoops\Form\Hidden('c_type', XoopsBlock::CUSTOM_HTML));
             }
         } else {
             if ($this->obj->getVar('template') != '') {
@@ -172,7 +172,7 @@ class SystemBlockForm extends Xoops\Form\ThemeForm
             } else {
                 $this->addElement(new Xoops\Form\Hidden('options', $this->obj->getVar('options')));
             }
-            $this->addElement(new Xoops\Form\Hidden('c_type', 'H'));
+            $this->addElement(new Xoops\Form\Hidden('c_type', XoopsBlock::CUSTOM_HTML));
         }
         $cache_select = new Xoops\Form\Select(
             SystemLocale::CACHE_LIFETIME,

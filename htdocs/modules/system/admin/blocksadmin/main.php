@@ -448,10 +448,10 @@ switch ($op) {
         $block_id = $system->cleanVars($_REQUEST, 'bid', 0, 'int');
         if ($block_id > 0) {
             $block = $block_handler->get($block_id);
-            if ($block->getVar('block_type') === 'S') {
+            if ($block->getVar('block_type') === XoopsBlock::BLOCK_TYPE_SYSTEM) {
                 $xoops->redirect('admin.php?fct=blocksadmin', 4, SystemLocale::E_SYSTEM_BLOCKS_CANNOT_BE_DELETED);
                 exit();
-            } elseif ($block->getVar('block_type') === 'M') {
+            } elseif ($block->getVar('block_type') === XoopsBlock::BLOCK_TYPE_MODULE) {
                 // Fix for duplicated blocks created in 2.0.9 module update
                 // A module block can be deleted if there is more than 1 that
                 // has the same func_num/show_func which is mostly likely
