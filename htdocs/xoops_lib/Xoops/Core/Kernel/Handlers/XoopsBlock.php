@@ -76,8 +76,8 @@ class XoopsBlock extends XoopsObject
             if (is_array($id)) {
                 $this->assignVars($id);
             } else {
-                $blkhandler = $xoops->getHandlerBlock();
-                $obj = $blkhandler->get($id);
+                $blockHandler = $xoops->getHandlerBlock();
+                $obj = $blockHandler->get($id);
                 foreach (array_keys($obj->getVars()) as $i) {
                     $this->assignVar($i, $obj->getVar($i, 'n'));
                 }
@@ -413,13 +413,12 @@ class XoopsBlock extends XoopsObject
             if (!$edit_func) {
                 return false;
             }
-            if (\XoopsLoad::fileExists(
-                $this->xoops_root_path . '/modules/' . $this->getVar('dirname') . '/blocks/'
-                . $this->getVar('func_file')
-            )) {
+            $funcFile = $xoops->path(
+                'modules/' . $this->getVar('dirname') . '/blocks/' . $this->getVar('func_file')
+            );
+            if (\XoopsLoad::fileExists($funcFile)) {
                 $xoops->loadLanguage('blocks', $this->getVar('dirname'));
-                include_once $this->xoops_root_path . '/modules/' . $this->getVar('dirname') . '/blocks/'
-                    . $this->getVar('func_file');
+                include_once $funcFile;
                 if (function_exists($edit_func)) {
                     // execute the function
                     $options = explode('|', $this->getVar('options'));
