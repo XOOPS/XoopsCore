@@ -59,6 +59,9 @@ class EmbedTest extends \PHPUnit_Framework_TestCase
         $in = 'http://xoops.org';
         $value = $this->sanitizer->executeFilter('embed', $in);
         $this->assertTrue(is_string($value));
+        if (false === strpos($value, '<div class="media">')) {
+            echo 'embed return: ' , $value; // this has failed, but what is it doing?
+        }
         $this->assertNotFalse(strpos($value, '<div class="media">'));
         $this->assertNotFalse(strpos($value, 'href="http://xoops.org/"'));
 
