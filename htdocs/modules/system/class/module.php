@@ -13,6 +13,7 @@ use Xoops\Core\Database\Schema\ImportSchema;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Yaml;
 use Xoops\Module\Plugin\ConfigCollector;
@@ -355,7 +356,7 @@ class SystemModule
                 $this->installBlocks($module);
 
                 // Install Configs
-                $this->installConfigs($module, 'add');
+                $this->installConfigs($module);
 
                 if ($module->getInfo('hasMain')) {
                     $groups = array(FixedGroups::ADMIN, FixedGroups::USERS, FixedGroups::ANONYMOUS);
@@ -598,7 +599,7 @@ class SystemModule
         $xoops->templateClearModuleCache($module->getVar('mid'));
         // Save current version for use in the update function
         $prev_version = $module->getVar('version');
-        // we dont want to change the module name set by admin
+        // we don't want to change the module name set by admin
         $temp_name = $module->getVar('name');
         $module->loadInfoAsVar($module->getVar('dirname'));
         $module->setVar('name', $temp_name);
@@ -656,7 +657,7 @@ class SystemModule
             $this->deleteConfigs($module);
 
             // Install Configs
-            $this->installConfigs($module, 'update');
+            $this->installConfigs($module);
 
             // execute module specific update script if any
             $update_script = $module->getInfo('onUpdate');
@@ -863,10 +864,15 @@ class SystemModule
                         $block_obj[0]->setVar('side', 0);
                         $block_obj[0]->setVar('weight', 0);
                         $block_obj[0]->setVar('visible', 0);
-                        $block_obj[0]->setVar('block_type', ($module->getVar('dirname') === 'system') ? 'S' : 'M');
+                        $block_obj[0]->setVar(
+                            'block_type',
+                            ($module->getVar('dirname') === 'system')
+                                ? XoopsBlock::BLOCK_TYPE_SYSTEM
+                                : XoopsBlock::BLOCK_TYPE_MODULE
+                        );
                         $block_obj[0]->setVar('isactive', 1);
                         $block_obj[0]->setVar('content', '');
-                        $block_obj[0]->setVar('c_type', 'H');
+                        $block_obj[0]->setVar('c_type', XoopsBlock::CUSTOM_HTML);
                         $block_obj[0]->setVar('dirname', $module->getVar('dirname'));
                         $block_obj[0]->setVar('options', isset($block['options']) ? $block['options'] : '');
                     }

@@ -258,11 +258,7 @@ class XoopsBlockTest extends \PHPUnit_Framework_TestCase
         $value = $instance->isCustom();
         $this->assertFalse($value);
 
-        $instance->setVar('block_type', 'C');
-        $value = $instance->isCustom();
-        $this->assertTrue($value);
-
-        $instance->setVar('block_type', 'E');
+        $instance->setVar('block_type', XoopsBlock::BLOCK_TYPE_CUSTOM);
         $value = $instance->isCustom();
         $this->assertTrue($value);
     }
@@ -280,7 +276,7 @@ class XoopsBlockTest extends \PHPUnit_Framework_TestCase
         $value = $instance->buildBlock();
         $this->assertSame(false, $value);
 
-        $instance->setVar('block_type', 'C');
+        $instance->setVar('block_type', XoopsBlock::BLOCK_TYPE_CUSTOM);
         $value = $instance->isCustom();
         $this->assertTrue($value);
 
