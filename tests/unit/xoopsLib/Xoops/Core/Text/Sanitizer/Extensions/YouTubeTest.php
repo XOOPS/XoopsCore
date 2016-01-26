@@ -67,14 +67,18 @@ class YouTubeTest extends \PHPUnit_Framework_TestCase
     {
         $this->sanitizer->enableComponentForTesting('youtube');
         $this->assertTrue($this->sanitizer->getShortCodes()->hasShortcode('youtube'));
-        $expected = '<iframe width="180" height="100" src="https://www.youtube.com/embed/12345678901" frameborder="0" allowfullscreen></iframe>';
+
+        $expected1 = '<div class="embed-responsive embed-responsive-16by9">';
+        $expected2 = '<iframe class="embed-responsive-item" width="180" height="100" src="https://www.youtube.com/embed/12345678901" frameborder="0" allowfullscreen></iframe>';
 
         $in = '[youtube=180,100]12345678901[/youtube]';
         $actual = $this->sanitizer->filterForDisplay($in);
-        $this->assertEquals($expected, $actual);
+        $this->assertStringStartsWith($expected1, $actual);
+        $this->assertContains($expected2, $actual);
 
         $in = '[youtube url="12345678901" width="180" height=100 /]';
         $actual = $this->sanitizer->filterForDisplay($in);
-        $this->assertEquals($expected, $actual);
+        $this->assertStringStartsWith($expected1, $actual);
+        $this->assertContains($expected2, $actual);
     }
 }
