@@ -112,25 +112,25 @@ switch ($op) {
                     switch ($tab1[$j]) {
                         case 1:
                             //Optimize
-                            $result = $db->queryF('OPTIMIZE TABLE ' . $db->prefix . $tables[$i]);
+                            $result = $db->queryF('OPTIMIZE TABLE ' . $db->prefix($tables[$i]));
                             $result ? $result_arr['optimize'] = true : $result_arr['optimize'] = false;
                             break;
 
                         case 2:
                             //Tables
-                            $result = $db->queryF('CHECK TABLE ' . $db->prefix . $tables[$i]);
+                            $result = $db->queryF('CHECK TABLE ' . $db->prefix($tables[$i]));
                             $result ? $result_arr['check'] = true : $result_arr['check'] = false;
                             break;
 
                         case 3:
                             //Repair
-                            $result = $db->queryF('REPAIR TABLE ' . $db->prefix . $tables[$i]);
+                            $result = $db->queryF('REPAIR TABLE ' . $db->prefix($tables[$i]));
                             $result ? $result_arr['repair'] = true : $result_arr['repair'] = false;
                             break;
 
                         case 4:
                             //Analyze
-                            $result = $db->queryF('ANALYZE TABLE ' . $db->prefix . $tables[$i]);
+                            $result = $db->queryF('ANALYZE TABLE ' . $db->prefix($tables[$i]));
                             $result ? $result_arr['analyse'] = true : $result_arr['analyse'] = false;
                             break;
                     }

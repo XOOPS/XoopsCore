@@ -319,7 +319,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
     {
         $this->deprecated();
 
-        $string = $this->quote($input);
+        $string = $this->quote($string);
         return substr($string, 1, -1);
     }
 
