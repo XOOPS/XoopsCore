@@ -44,9 +44,28 @@ class FilterInput
 
     protected $xssAuto;           // default = 1
     protected $tagBlacklist = array(
-        'applet', 'body', 'bgsound', 'base', 'basefont', 'embed', 'frame',
-        'frameset', 'head', 'html', 'id', 'iframe', 'ilayer', 'layer',
-        'link', 'meta', 'name', 'object', 'script', 'style', 'title', 'xml'
+        'applet',
+        'body',
+        'bgsound',
+        'base',
+        'basefont',
+        'embed',
+        'frame',
+        'frameset',
+        'head',
+        'html',
+        'id',
+        'iframe',
+        'ilayer',
+        'layer',
+        'link',
+        'meta',
+        'name',
+        'object',
+        'script',
+        'style',
+        'title',
+        'xml'
     );
     // also will strip ALL event handlers
     protected $attrBlacklist = array('action', 'background', 'codebase', 'dynsrc', 'lowsrc');
@@ -54,8 +73,8 @@ class FilterInput
     /**
       * Constructor
       *
-      * @param Array $tagsArray  - list of user-defined tags
-      * @param Array $attrArray  - list of user-defined attributes
+      * @param array $tagsArray  - list of user-defined tags
+      * @param array $attrArray  - list of user-defined attributes
       * @param int   $tagsMethod - 0 = allow just user-defined, 1 = allow all but user-defined
       * @param int   $attrMethod - 0 = allow just user-defined, 1 = allow all but user-defined
       * @param int   $xssAuto    - 0 = only auto clean essentials, 1 = allow clean blacklisted tags/attr
@@ -68,20 +87,20 @@ class FilterInput
         $xssAuto = 1
     ) {
         // make sure user defined arrays are in lowercase
-        $countTagsArray = count($tagsArray);
-        for ($i = 0; $i < $countTagsArray; ++$i) {
+        $tagsArrayCount = count($tagsArray);
+        for ($i = 0; $i < $tagsArrayCount; ++$i) {
             $tagsArray[$i] = strtolower($tagsArray[$i]);
         }
-        $countAttrArray = count($attrArray);
-        for ($i = 0; $i < $countAttrArray; ++$i) {
+        $attrArrayCount = count($attrArray);
+        for ($i = 0; $i < $attrArrayCount; ++$i) {
             $attrArray[$i] = strtolower($attrArray[$i]);
         }
         // assign to member vars
-        $this->tagsArray = (array) $tagsArray;
-        $this->attrArray = (array) $attrArray;
+        $this->tagsArray  = (array)$tagsArray;
+        $this->attrArray  = (array)$attrArray;
         $this->tagsMethod = $tagsMethod;
         $this->attrMethod = $attrMethod;
-        $this->xssAuto = $xssAuto;
+        $this->xssAuto    = $xssAuto;
     }
 
     /**
@@ -97,7 +116,7 @@ class FilterInput
      * @param int   $xssAuto    Only auto clean essentials = 0,
      *                          Allow clean blacklisted tags/attr = 1
      *
-     * @return XoopsFilterInput object.
+     * @return FilterInput object.
      * @since   1.5
      * @static
      */
@@ -112,12 +131,12 @@ class FilterInput
 
         $sig = md5(serialize(array($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto)));
 
-        if (!isset ($instances)) {
+        if (!isset($instances)) {
             $instances = array();
         }
 
-        if (empty ($instances[$sig])) {
-            $classname = __CLASS__ ;
+        if (empty($instances[$sig])) {
+            $classname       = __CLASS__;
             $instances[$sig] = new $classname ($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto);
         }
 
@@ -125,13 +144,13 @@ class FilterInput
     }
 
     /**
-      * Method to be called by another php script. Processes for XSS and
-      * any specified bad code.
-      *
-      * @param Mixed $source - input string/array-of-string to be 'cleaned'
-      *
-      * @return String $source - 'cleaned' version of input parameter
-      */
+     * Method to be called by another php script. Processes for XSS and
+     * any specified bad code.
+     *
+     * @param mixed $source - input string/array-of-string to be 'cleaned'
+     *
+     * @return string $source - 'cleaned' version of input parameter
+     */
     public function process($source)
     {
         if (is_array($source)) {
@@ -180,14 +199,14 @@ class FilterInput
             case 'INT':
             case 'INTEGER':
                 // Only use the first integer value
-                preg_match('/-?[0-9]+/', (string) $source, $matches);
-                $result = @ (int) $matches[0];
+                preg_match('/-?\d+/', (string) $source, $matches);
+                $result = @ (int)$matches[0];
                 break;
 
             case 'FLOAT':
             case 'DOUBLE':
                 // Only use the first floating point value
-                preg_match('/-?[0-9]+(\.[0-9]+)?/', (string) $source, $matches);
+                preg_match('/-?\d+(\.\d+)?/', (string) $source, $matches);
                 $result = @ (float) $matches[0];
                 break;
 
@@ -272,15 +291,15 @@ class FilterInput
     }
 
     /**
-      * Internal method to iteratively remove all unwanted tags and attributes
-      *
-      * @param String $source - input string to be 'cleaned'
-      *
-      * @return String $source - 'cleaned' version of input parameter
-      */
+     * Internal method to iteratively remove all unwanted tags and attributes
+     *
+     * @param String $source - input string to be 'cleaned'
+     *
+     * @return String $source - 'cleaned' version of input parameter
+     */
     protected function remove($source)
     {
-        $loopCounter=0;
+        $loopCounter = 0;
         // provides nested-tag protection
         while ($source != $this->filterTags($source)) {
             $source = $this->filterTags($source);
@@ -291,12 +310,12 @@ class FilterInput
     }
 
     /**
-      * Internal method to strip a string of certain tags
-      *
-      * @param String $source - input string to be 'cleaned'
-      *
-      * @return String $source - 'cleaned' version of input parameter
-      */
+     * Internal method to strip a string of certain tags
+     *
+     * @param String $source - input string to be 'cleaned'
+     *
+     * @return String $source - 'cleaned' version of input parameter
+     */
     protected function filterTags($source)
     {
         // filter pass setup
@@ -318,8 +337,8 @@ class FilterInput
             // next start of tag (for nested tag assessment)
             $tagOpen_nested = strpos($fromTagOpen, '<');
             if (($tagOpen_nested !== false) && ($tagOpen_nested < $tagOpen_end)) {
-                $preTag .= substr($postTag, 0, ($tagOpen_nested+1));
-                $postTag = substr($postTag, ($tagOpen_nested+1));
+                $preTag .= substr($postTag, 0, ($tagOpen_nested + 1));
+                $postTag = substr($postTag, ($tagOpen_nested + 1));
                 $tagOpen_start = strpos($postTag, '<');
                 continue;
             }
@@ -357,7 +376,7 @@ class FilterInput
             }
             // this while is needed to support attribute values with spaces in!
             while ($currentSpace !== false) {
-                $fromSpace = substr($tagLeft, ($currentSpace+1));
+                $fromSpace = substr($tagLeft, ($currentSpace + 1));
                 $nextSpace = strpos($fromSpace, ' ');
                 $openQuotes = strpos($fromSpace, '"');
                 $closeQuotes = strpos(substr($fromSpace, ($openQuotes+1)), '"') + $openQuotes + 1;
@@ -365,14 +384,13 @@ class FilterInput
                 if (strpos($fromSpace, '=') !== false) {
                     // opening and closing quotes exists
                     if (($openQuotes !== false)
-                        && (strpos(substr($fromSpace, ($openQuotes+1)), '"') !== false)
+                        && (strpos(substr($fromSpace, ($openQuotes + 1)), '"') !== false)
                     ) {
-                        $attr = substr($fromSpace, 0, ($closeQuotes+1));
+                        $attr = substr($fromSpace, 0, ($closeQuotes + 1));
                     } else {
                         $attr = substr($fromSpace, 0, $nextSpace);
                     }
                     // one or neither exist
-
                 } else {
                     // no more equals exist
                     $attr = substr($fromSpace, 0, $nextSpace);
@@ -395,8 +413,8 @@ class FilterInput
                 if (!$isCloseTag) {
                     $attrSet = $this->filterAttr($attrSet);
                     $preTag .= '<' . $tagName;
-                    $countAttrSet = count($attrSet);
-                    for ($i = 0; $i < $countAttrSet; ++$i) {
+                    $attrSetCount = count($attrSet);
+                    for ($i = 0; $i < $attrSetCount; ++$i) {
                         $preTag .= ' ' . $attrSet[$i];
                     }
                     // reformat single tags to XHTML
@@ -421,18 +439,18 @@ class FilterInput
     }
 
     /**
-      * Internal method to strip a tag of certain attributes
-      *
-      * @param array $attrSet attributes
-      *
-      * @return Array $newSet stripped attributes
-      */
+     * Internal method to strip a tag of certain attributes
+     *
+     * @param array $attrSet attributes
+     *
+     * @return array $newSet stripped attributes
+     */
     protected function filterAttr($attrSet)
     {
         $newSet = array();
         // process attributes
-        $countAttrSet = count($attrSet);
-        for ($i = 0; $i < $countAttrSet; ++$i) {
+        $attrSetCount = count($attrSet);
+        for ($i = 0; $i < $attrSetCount; ++$i) {
             // skip blank spaces in tag
             if (!$attrSet[$i]) {
                 continue;
@@ -499,12 +517,12 @@ class FilterInput
     }
 
     /**
-      * Try to convert to plaintext
-      *
-      * @param String $source string to decode
-      *
-      * @return String $source decoded
-      */
+     * Try to convert to plaintext
+     *
+     * @param String $source string to decode
+     *
+     * @return String $source decoded
+     */
     protected function decode($source)
     {
         // url decode

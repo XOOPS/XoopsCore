@@ -49,7 +49,7 @@ class Tables
     private $db;
 
     /**
-     * @var Tables
+     * @var array Tables
      */
     private $tables;
 
@@ -276,7 +276,7 @@ class Tables
     /**
      * Get indexes for a table
      *
-     * @param string $table      table containing the column
+     * @param string $table table containing the column
      *
      * @return array|bool array of indexes, or false if error encountered
      */

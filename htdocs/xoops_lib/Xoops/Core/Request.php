@@ -33,7 +33,6 @@ use Xoops\Core\Locale\Time;
  */
 class Request
 {
-
     /**
      * Available masks for cleaning variables
      */
@@ -80,7 +79,7 @@ class Request
      *                        information see Xoops\Core\FilterInput::clean().
      * @param int    $mask    Filter mask for the variable
      *
-     * @return mixed  Requested variable
+     * @return mixed Requested variable
      */
     public static function getVar($name, $default = null, $hash = 'default', $type = 'none', $mask = 0)
     {
@@ -142,7 +141,7 @@ class Request
      * @param int    $default Default value if the variable does not exist
      * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
      *
-     * @return int    Requested variable
+     * @return int Requested variable
      */
     public static function getInt($name, $default = 0, $hash = 'default')
     {
@@ -160,7 +159,7 @@ class Request
      * @param float  $default Default value if the variable does not exist
      * @param string $hash    Where the var should come from (POST, GET, FILES, COOKIE, METHOD)
      *
-     * @return float  Requested variable
+     * @return float Requested variable
      */
     public static function getFloat($name, $default = 0.0, $hash = 'default')
     {
@@ -359,7 +358,7 @@ class Request
      * @param string  $hash      Hash
      * @param boolean $overwrite Boolean
      *
-     * @return string  Previous value
+     * @return string Previous value
      */
     public static function setVar($name, $value = null, $hash = 'method', $overwrite = true)
     {
@@ -432,7 +431,7 @@ class Request
      * @param string $hash to get (POST, GET, FILES, METHOD)
      * @param int    $mask Filter mask for the variable
      *
-     * @return mixed  Request hash
+     * @return mixed Request hash
      */
     public static function get($hash = 'default', $mask = 0)
     {
@@ -492,12 +491,12 @@ class Request
      *
      * @param mixed  $var  The input variable.
      * @param int    $mask Filter bit mask.
-     *  - 1=no trim: If this flag is cleared and the input is a string,
-     *    the string will have leading and trailing whitespace trimmed.
-     *  - 2=allow_raw: If set, no more filtering is performed, higher bits are ignored.
-     *  - 4=allow_html: HTML is allowed, but passed through a safe HTML filter first.
-     *    If set, no more filtering is performed.
-     *  - If no bits other than the 1 bit is set, a strict filter is applied.
+     *                      - 1=no trim: If this flag is cleared and the input is a string,
+     *                        the string will have leading and trailing whitespace trimmed.
+     *                      - 2=allow_raw: If set, no more filtering is performed, higher bits are ignored.
+     *                      - 4=allow_html: HTML is allowed, but passed through a safe HTML filter first.
+     *                        If set, no more filtering is performed.
+     *                      - If no bits other than the 1 bit is set, a strict filter is applied.
      * @param string $type The variable type. See {@link FilterInput::clean()}.
      *
      * @return string
@@ -524,13 +523,13 @@ class Request
         } else {
             if ($mask & 4) {
                 // If the allow html flag is set, apply a safe html filter to the variable
-                if (is_null($safeHtmlFilter)) {
+                if (null === $safeHtmlFilter) {
                     $safeHtmlFilter = FilterInput::getInstance(null, null, 1, 1);
                 }
                 $var = $safeHtmlFilter->clean($var, $type);
             } else {
                 // Since no allow flags were set, we will apply the most strict filter to the variable
-                if (is_null($noHtmlFilter)) {
+                if (null === $noHtmlFilter) {
                     $noHtmlFilter = FilterInput::getInstance();
                 }
                 $var = $noHtmlFilter->clean($var, $type);
