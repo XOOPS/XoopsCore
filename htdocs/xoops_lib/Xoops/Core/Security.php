@@ -11,11 +11,16 @@
 
 namespace Xoops\Core;
 
+use Xmf\Random;
+
 /**
  * XOOPS security handler
  *
  * @category  Xoops\Core
  * @package   Security
+ * @author    Kazumi Ono <onokazu@xoops.org>
+ * @author    Jan Pedersen <mithrandir@xoops.org>
+ * @author    John Neill <catzwolf@xoops.org>
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2014-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -30,9 +35,9 @@ class Security
     /**
      * Check if there is a valid token in $_REQUEST[$name . '_REQUEST']
      *
-     * @param bool   $clearIfValid whether to clear the token after validation
-     * @param bool   $token        token to validate
-     * @param string $name         name of session variable
+     * @param bool         $clearIfValid whether to clear the token after validation
+     * @param string|false $token        token to validate
+     * @param string       $name         name of session variable
      *
      * @return bool
      */
@@ -68,9 +73,9 @@ class Security
     /**
      * Check if a token is valid. If no token is specified, $_REQUEST[$name . '_REQUEST'] is checked
      *
-     * @param string|bool $token        token to validate
-     * @param bool        $clearIfValid whether to clear the token value if valid
-     * @param string      $name         session name to validate
+     * @param string|false $token        token to validate
+     * @param bool         $clearIfValid whether to clear the token value if valid
+     * @param string       $name         session name to validate
      *
      * @return bool
      */

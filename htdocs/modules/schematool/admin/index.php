@@ -19,7 +19,6 @@ require __DIR__ . '/admin_header.php';
 
 $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
-//Admin::checkModuleVersion('xmf', 100);
 $indexAdmin->displayIndex();
 
 $xoops->footer();

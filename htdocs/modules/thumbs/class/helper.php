@@ -30,7 +30,7 @@ class Thumbs extends HelperAbstract
      */
     public function init()
     {
-        $this->_dirname = 'thumbs';
+        $this->dirname = 'thumbs';
     }
 
     /**

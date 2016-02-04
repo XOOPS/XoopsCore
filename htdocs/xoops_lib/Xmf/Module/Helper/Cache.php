@@ -9,9 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xmf\Module;
-
-use Xmf\Module\Helper\AbstractHelper;
+namespace Xmf\Module\Helper;
 
 /**
  * Manage cache interaction in a module. Cache key will be prefixed
@@ -32,7 +30,7 @@ use Xmf\Module\Helper\AbstractHelper;
 class Cache extends AbstractHelper
 {
     /**
-     * @var string[]
+     * @var string
      */
     protected $prefix;
 
@@ -57,18 +55,11 @@ class Cache extends AbstractHelper
      *
      * @param string $name name to prefix
      *
-     * @return string[] module prefixed name
+     * @return string module prefixed name
      */
-    private function prefix($name)
+    protected function prefix($name)
     {
-        $prefixedName = $this->prefix;
-        if (!empty($name)) {
-            $name = (array) $name;
-            foreach ($name as $n) {
-                $prefixedName[] = $n;
-            }
-        }
-        return $prefixedName;
+        return $this->prefix . $name;
     }
 
     /**
@@ -90,13 +81,15 @@ class Cache extends AbstractHelper
     /**
      * Read value for a key from the cache
      *
-     * @param string $key Identifier for the data
+     * @param string $key     Identifier for the data
+     * @param mixed  $default default value to return if config $key is not set
      *
      * @return mixed value if key was set, false not set or expired
      */
-    public function read($key)
+    public function read($key, $default = false)
     {
-        return $this->cache->read($this->prefix($key));
+        $value = $this->cache->read($this->prefix($key));
+        return (false !== $value) ? $value : $default;
     }
 
     /**
@@ -104,11 +97,11 @@ class Cache extends AbstractHelper
      *
      * @param string $key Identifier for the data
      *
-     * @return boolean True if deleted, else false
+     * @return void
      */
     public function delete($key)
     {
-        return $this->cache->delete($this->prefix($key));
+        $this->cache->delete($this->prefix($key));
     }
 
     /**

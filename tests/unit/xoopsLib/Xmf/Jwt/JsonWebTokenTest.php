@@ -1,18 +1,28 @@
 <?php
-namespace Xmf;
+namespace Xmf\Jwt;
 
-require_once(dirname(__FILE__).'/../../init_new.php');
+use Xmf\Key\ArrayStorage;
+use Xmf\Key\Basic;
+use Xmf\Key\KeyAbstract;
+use Xmf\Key\StorageInterface;
+
+require_once(dirname(__FILE__).'/../../../init_new.php');
 
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-
 class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var StorageInterface  */
+    protected $storage;
+
+    /** @var KeyAbstract  */
+    protected $key;
+
     /**
-     * @var Request
+     * @var JsonWebToken
      */
     protected $object;
 
@@ -22,7 +32,10 @@ class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new JsonWebToken('short-test-key');
+        $this->storage = new ArrayStorage();
+        $this->key = new Basic($this->storage, 'testkey');
+        $this->key->create();
+        $this->object = new JsonWebToken($this->key);
     }
 
     /**
@@ -34,27 +47,18 @@ class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\JsonWebToken::__construct
+     * @covers Xmf\Jwt\JsonWebToken::__construct
      */
     public function test__construct()
     {
-        $this->assertInstanceOf('\Xmf\JsonWebToken', $this->object);
+        $this->assertInstanceOf('\Xmf\Jwt\JsonWebToken', $this->object);
 
         $this->setExpectedException('\DomainException');
-        $actual = new JsonWebToken('test-key', 'badalgo');
+        $actual = new JsonWebToken($this->key, 'badalgo');
     }
 
     /**
-     * @covers Xmf\JsonWebToken::setKey
-     */
-    public function testSetKey()
-    {
-        $actual = $this->object->setKey('This key has not been implemented yet.');
-        $this->assertSame($this->object, $actual);
-    }
-
-    /**
-     * @covers Xmf\JsonWebToken::setAlgorithm
+     * @covers Xmf\Jwt\JsonWebToken::setAlgorithm
      */
     public function testSetAlgorithm()
     {
@@ -66,15 +70,18 @@ class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\JsonWebToken::create
-     * @covers Xmf\JsonWebToken::decode
+     * @covers Xmf\Jwt\JsonWebToken::create
+     * @covers Xmf\Jwt\JsonWebToken::decode
      */
     public function testCreateDecode()
     {
-        $token = $this->object->create(['test' => 'create'], $expirationOffset = 6);
+        $token = $this->object->create(['test' => 'create'], 6);
         $this->assertTrue(is_string($token));
 
-        $decoder = new JsonWebToken('short-test-key');
+        $this->assertFalse($this->object->decode($token, ['not-that-test' => 'create']));
+        $this->assertFalse($this->object->decode($token, ['test' => 'notcreate']));
+
+        $decoder = new JsonWebToken($this->key);
         $this->assertNotSame($this->object, $decoder);
 
         $actual = $decoder->decode($token, ['test' => 'create']);

@@ -106,7 +106,7 @@ class DebugbarLogger implements LoggerInterface
      */
     public function enable()
     {
-        error_reporting(E_ALL | E_STRICT);
+        error_reporting(-1);
 
         $this->activated = true;
 

@@ -205,35 +205,22 @@ class Logger implements LoggerInterface
      */
     public function sanitizePath($message)
     {
-        $stringsToClean = array(
-            '\\',
-            \XoopsBaseConfig::get('var-path'),
-            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))),
-            \XoopsBaseConfig::get('lib-path'),
-            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))),
-            \XoopsBaseConfig::get('root-path'),
-            str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))),
-            \XoopsBaseConfig::get('db-name') . '.',
-            \XoopsBaseConfig::get('db-name'),
-            \XoopsBaseConfig::get('db-prefix') . '_',
-            \XoopsBaseConfig::get('db-user'),
-            \XoopsBaseConfig::get('db-pass'),
-        );
-
-        $replacementStings = array(
-            '/',
-            'VAR',
-            'VAR',
-            'LIB',
-            'LIB',
-            'ROOT',
-            'ROOT',
-            '',
-            '',
-            '',
-            '***',
-            '***',
-        );
+        $cleaners = [
+            ['\\', '/',],
+            [\XoopsBaseConfig::get('var-path'), 'VAR',],
+            [str_replace('\\', '/', realpath(\XoopsBaseConfig::get('var-path'))), 'VAR',],
+            [\XoopsBaseConfig::get('lib-path'), 'LIB',],
+            [str_replace('\\', '/', realpath(\XoopsBaseConfig::get('lib-path'))), 'LIB',],
+            [\XoopsBaseConfig::get('root-path'), 'ROOT',],
+            [str_replace('\\', '/', realpath(\XoopsBaseConfig::get('root-path'))), 'ROOT',],
+            [\XoopsBaseConfig::get('db-name') . '.', '',],
+            [\XoopsBaseConfig::get('db-name'), '',],
+            [\XoopsBaseConfig::get('db-prefix') . '_', '',],
+            [\XoopsBaseConfig::get('db-user'), '***',],
+            [\XoopsBaseConfig::get('db-pass'), '***',],
+        ];
+        $stringsToClean = array_column($cleaners, 0);
+        $replacementStings = array_column($cleaners, 1);
 
         $message = str_replace($stringsToClean, $replacementStings, $message);
 

@@ -11,6 +11,8 @@
 
 namespace Xmf;
 
+use RandomLib\Factory;
+
 /**
  * XOOPS Random generator
  *
@@ -22,6 +24,43 @@ namespace Xmf;
  * @version   Release: 1.0
  * @link      http://xoops.org
  */
-class Random extends \Xoops\Core\Random
+class Random
 {
+    /**
+     * Create a one time token
+     *
+     * Generates a low strength random number of size $bytes and hash with the
+     * algorithm specified in $hash.
+     *
+     * @param string  $hash  hash function to use
+     * @param integer $bytes the number of random bit to generate
+     *
+     * @return string hashed token
+     */
+    public static function generateOneTimeToken($hash = 'sha512', $bytes = 64)
+    {
+        $factory = new Factory;
+        $generator = $factory->getLowStrengthGenerator();
+        $token = hash($hash, $generator->generate($bytes));
+        return $token;
+    }
+
+    /**
+     * Create a medium strength key
+     *
+     * Generates a medium strength random number of size $bytes and hash with the
+     * algorithm specified in $hash.
+     *
+     * @param string  $hash  hash function to use
+     * @param integer $bytes the number of random bytes to generate
+     *
+     * @return string hashed token
+     */
+    public static function generateKey($hash = 'sha512', $bytes = 128)
+    {
+        $factory = new Factory;
+        $generator = $factory->getMediumStrengthGenerator();
+        $token = hash($hash, $generator->generate($bytes));
+        return $token;
+    }
 }

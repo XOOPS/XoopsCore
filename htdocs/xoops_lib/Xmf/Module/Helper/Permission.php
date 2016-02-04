@@ -9,10 +9,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xmf\Module;
+namespace Xmf\Module\Helper;
 
 use Xmf\Module\Helper;
-use Xmf\Module\Helper\AbstractHelper;
 use Xoops\Core\Handler\Factory;
 use Xoops\Form\SelectGroup;
 
@@ -34,20 +33,20 @@ class Permission extends AbstractHelper
     /**
      * @var int
      */
-    private $mid;
+    protected $mid;
 
     /**
      * @var string
      */
-    private $dirname;
+    protected $dirname;
 
     /**
      * @var \Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler
      */
-    private $permissionHandler;
+    protected $permissionHandler;
 
     /**
-     * Initialize parent::__constuct calls this after verifying module object.
+     * Initialize parent::__construct calls this after verifying module object.
      *
      * @return void
      */
@@ -68,6 +67,7 @@ class Permission extends AbstractHelper
      **/
     public function checkPermission($gperm_name, $gperm_itemid)
     {
+        $gperm_itemid = (int) $gperm_itemid;
         $gperm_groupid = \Xoops::getInstance()->getUserGroups();
 
         return $this->permissionHandler->checkRight(
@@ -96,6 +96,7 @@ class Permission extends AbstractHelper
         $time = 3,
         $message = ''
     ) {
+        $gperm_itemid = (int) $gperm_itemid;
         $gperm_groupid = \Xoops::getInstance()->getUserGroups();
         $permission = $this->permissionHandler->checkRight(
             $gperm_name,
@@ -119,6 +120,7 @@ class Permission extends AbstractHelper
      **/
     public function getGroupsForItem($gperm_name, $gperm_itemid)
     {
+        $gperm_itemid = (int) $gperm_itemid;
         return $this->permissionHandler->getGroupIds($gperm_name, $gperm_itemid, $this->mid);
     }
 
@@ -133,6 +135,11 @@ class Permission extends AbstractHelper
      **/
     public function savePermissionForItem($gperm_name, $gperm_itemid, $groups)
     {
+        $gperm_itemid = (int) $gperm_itemid;
+        foreach ($groups as $index => $group) {
+            $groups[$index] = (int) $group;
+        }
+
         $result = true;
 
         // First, delete any existing permissions for this name and id
@@ -154,16 +161,24 @@ class Permission extends AbstractHelper
     }
 
     /**
-     * Delete all permissions for a specific name and item
+     * Delete all permissions for an item and a specific name or array of names
      *
-     * @param string $gperm_name   name of the permission to test
-     * @param int    $gperm_itemid id of the object to check
+     * @param string|string[] $gperm_name   name(s) of the permission to delete
+     * @param int             $gperm_itemid id of the object to check
      *
      * @return bool   true if no errors
      */
     public function deletePermissionForItem($gperm_name, $gperm_itemid)
     {
-        return $this->permissionHandler->deleteByModule($this->mid, $gperm_name, $gperm_itemid);
+        $gperm_itemid = (int) $gperm_itemid;
+        if (!is_array($gperm_name)) {
+            $gperm_name = (array) $gperm_name;
+        }
+        $return = true;
+        foreach ($gperm_name as $pname) {
+            $return = $return && $this->permissionHandler->deleteByModule($this->mid, $pname, $gperm_itemid);
+        }
+        return $return;
     }
 
     /**
@@ -193,6 +208,7 @@ class Permission extends AbstractHelper
         if (empty($name)) {
             $name = $this->defaultFieldName($gperm_name, $gperm_itemid);
         }
+        $gperm_itemid = (int) $gperm_itemid;
         $value = $this->getGroupsForItem($gperm_name, $gperm_itemid);
         $element = new SelectGroup(
             $caption,
@@ -218,6 +234,7 @@ class Permission extends AbstractHelper
      */
     public function defaultFieldName($gperm_name, $gperm_itemid)
     {
+        $gperm_itemid = (int) $gperm_itemid;
         $name = $this->module->getVar('dirname') . '_' .
             $gperm_name . '_' . $gperm_itemid;
 

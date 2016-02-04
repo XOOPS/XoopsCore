@@ -39,25 +39,25 @@ class RandomTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Core\Random::generateOneTimeToken
+     * @covers Xmf\Random::generateOneTimeToken
      */
     public function testGenerateOneTimeToken()
     {
         $result = Random::generateOneTimeToken();
 
         $this->assertTrue(is_string($result));
-        $this->assertSame(128, strlen($result));
+        $this->assertRegExp('/^[0-9a-f]{128}$/', $result);
     }
 
     /**
-     * @covers Xoops\Core\Random::generateKey
+     * @covers Xmf\Random::generateKey
      */
     public function testGenerateKey()
     {
         $result = Random::generateKey();
 
         $this->assertTrue(is_string($result));
-        $this->assertSame(128, strlen($result));
+        $this->assertRegExp('/^[0-9a-f]{128}$/', $result);
     }
 
 }

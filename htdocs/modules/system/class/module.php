@@ -15,8 +15,8 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
-use Xoops\Core\Yaml;
 use Xoops\Module\Plugin\ConfigCollector;
+use Xmf\Yaml;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
 

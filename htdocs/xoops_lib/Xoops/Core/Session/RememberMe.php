@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Session;
 
-use Xoops\Core\Random;
+use Xmf\Random;
 use Xoops\Core\Request;
 use Xoops\Core\HttpRequest;
 

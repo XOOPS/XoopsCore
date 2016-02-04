@@ -51,18 +51,6 @@ class AdminTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Admin::is26
-     * @todo   Implement testIs26().
-     */
-    public function testIs26()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Module\Admin::menuIconPath
      * @todo   Implement testMenuIconPath().
      */

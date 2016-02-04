@@ -20,25 +20,18 @@ require __DIR__ . '/admin_header.php';
 /* --------------------------------------------------------------- */
 
 use Xmf\Debug;
+use Xmf\Request;
+use Xmf\Yaml;
 use Xoops\Core\Database\Schema\ExportVisitor;
 use Xoops\Core\Database\Schema\ImportSchema;
 use Xoops\Core\Database\Schema\RemovePrefixes;
-use Xoops\Core\Yaml;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Synchronizer\SingleDatabaseSynchronizer;
 
 // from $_POST we use keys: op, mod_dirname
-$clean_input = XoopsFilterInput::gather(
-    'post',
-    array(
-        array('op','string', 'selectmodule', true),
-        array('mod_dirname','string', '', true),
-    )
-);
-
-$op = $clean_input['op'];
-$mod_dirname = $clean_input['mod_dirname'];
+$op = Request::getCmd('op', 'selectmodule', 'POST');
+$mod_dirname = Request::getString('mod_dirname', '', 'POST');
 if ($op !== 'showschema' || empty($mod_dirname)) {
     $op = 'selectmodule';
 }

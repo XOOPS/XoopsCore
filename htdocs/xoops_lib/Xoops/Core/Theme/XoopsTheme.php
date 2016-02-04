@@ -65,7 +65,7 @@ class XoopsTheme
      *
      * @var string
      */
-    public $canvasTemplate = 'theme.html';
+    public $canvasTemplate = 'theme.tpl';
 
     /**
      * Theme folder path
@@ -455,7 +455,7 @@ class XoopsTheme
 
         $this->template->assignByRef('xoops_contents', $this->content);
 
-        // Do not cache the main (theme.html) template output
+        // Do not cache the main (theme.tpl) template output
         $this->template->caching = 0;
         if (false === (bool)($xoops->getConfig('disable_theme_shortcodes'))) {
             $this->template->loadFilter('output', 'shortcodes');

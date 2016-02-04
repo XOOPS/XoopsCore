@@ -17,6 +17,7 @@
  * @todo            Will be refactored
  */
 
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 
 $xoops = Xoops::getInstance();
@@ -24,22 +25,14 @@ $xoops = Xoops::getInstance();
 $xoops_url = \XoopsBaseConfig::get('url');
 
 // from $_POST we use keys: uname, pass, rememberme, xoops_redirect
-$clean_input = XoopsFilterInput::gather(
-    'post',
-    array(
-        array('uname','string', '', true),
-        array('pass','string', '', true),
-        array('rememberme', 'boolean', 0, false),
-        array('xoops_redirect', 'weburl', '', true),
-    )
-);
-
-$uname = $clean_input['uname'];
-$pass = $clean_input['pass'];
+$uname = Request::getString('uname', '', 'POST');
+$pass = Request::getString('pass', '', 'POST');
 if ($uname == '' || $pass == '') {
     $xoops->redirect($xoops_url . '/user.php', 1, XoopsLocale::E_INCORRECT_LOGIN);
     exit();
 }
+$rememberme = Request::getBool('rememberme', false, 'POST');
+$xoops_redirect = Request::getUrl('xoops_redirect', '', 'POST');
 
 $member_handler = $xoops->getHandlerMember();
 
@@ -73,7 +66,7 @@ if (false != $user) {
     if (!$member_handler->insertUser($user)) {
     }
 
-    $xoops->session()->user()->recordUserLogin($user->getVar('uid'), $clean_input["rememberme"]);
+    $xoops->session()->user()->recordUserLogin($user->getVar('uid'), $rememberme);
     $user_theme = $user->getVar('theme');
     if (in_array($user_theme, $xoops->getConfig('theme_set_allowed'))) {
         $_SESSION['xoopsUserTheme'] = $user_theme;
@@ -81,8 +74,8 @@ if (false != $user) {
 
     $xoops->events()->triggerEvent('core.include.checklogin.success');
 
-    if (!empty($clean_input['xoops_redirect']) && !strpos($clean_input['xoops_redirect'], 'register')) {
-        $xoops_redirect = rawurldecode($clean_input['xoops_redirect']);
+    if (!empty($xoops_redirect) && !strpos($xoops_redirect, 'register')) {
+        $xoops_redirect = rawurldecode($xoops_redirect);
         $parsed = parse_url($xoops_url);
         $url = isset($parsed['scheme']) ? $parsed['scheme'] . '://' : 'http://';
         if (isset($parsed['host'])) {
@@ -106,11 +99,11 @@ if (false != $user) {
     $xoops->redirect($url, 1, sprintf(XoopsLocale::SF_THANK_YOU_FOR_LOGGING_IN, $user->getVar('uname')), false);
 } else {
     $xoops->events()->triggerEvent('core.include.checklogin.failed');
-    if (empty($clean_input['xoops_redirect'])) {
+    if (empty($xoops_redirect)) {
         $xoops->redirect($xoops_url . '/user.php', 5, $xoopsAuth->getHtmlErrors());
     } else {
         $xoops->redirect(
-            $xoops_url . '/user.php?xoops_redirect=' . urlencode($clean_input['xoops_redirect']),
+            $xoops_url . '/user.php?xoops_redirect=' . urlencode($xoops_redirect),
             5,
             $xoopsAuth->getHtmlErrors(),
             false

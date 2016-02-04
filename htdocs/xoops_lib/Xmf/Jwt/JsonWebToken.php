@@ -9,16 +9,15 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xmf;
+namespace Xmf\Jwt;
 
 use Firebase\JWT\JWT;
+use Xmf\Key\KeyAbstract;
 
 /**
- * Xmf\JsonWebToken
+ * Basic JSON Web Token support
  *
- * Basic JWT support
- *
- * @category  Xmf\JsonWebToken
+ * @category  Xmf\Jwt\JsonWebToken
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2016 XOOPS Project (http://xoops.org)
@@ -29,7 +28,7 @@ use Firebase\JWT\JWT;
 class JsonWebToken
 {
     /**
-     * @var string
+     * @var KeyAbstract
      */
     protected $key;
 
@@ -46,30 +45,13 @@ class JsonWebToken
     /**
      * JsonWebToken constructor.
      *
-     * @param string $key       key for signing/validating
-     * @param string $algorithm algorithm to use for signing/validating
+     * @param KeyAbstract $key       key for signing/validating
+     * @param string      $algorithm algorithm to use for signing/validating
      */
-    public function __construct($key = null, $algorithm = 'HS256')
-    {
-        if (null === $key) {
-            $keyFile = \XoopsBaseConfig::get('xoops-path') . '/data/syskey.php';
-            $key = include_once $keyFile;
-        }
-        $this->setKey($key);
-        $this->setAlgorithm($algorithm);
-    }
-
-    /**
-     * Set the key
-     *
-     * @param string $key key for signing/validating
-     *
-     * @return JsonWebToken
-     */
-    public function setKey($key)
+    public function __construct(KeyAbstract $key, $algorithm = 'HS256')
     {
         $this->key = $key;
-        return $this;
+        $this->setAlgorithm($algorithm);
     }
 
     /**
@@ -92,8 +74,8 @@ class JsonWebToken
      * Decode a JWT string, validating signature and well defined registered claims,
      * and optionally validate against a list of supplied claims
      *
-     * @param string $jwtString    string containing the JWT to decode
-     * @param array  $assertClaims associative array, claim => value, of claims to assert
+     * @param string             $jwtString    string containing the JWT to decode
+     * @param array|\Traversable $assertClaims associative array, claim => value, of claims to assert
      *
      * @return object|false
      */
@@ -101,7 +83,7 @@ class JsonWebToken
     {
         $allowedAlgorithms = array($this->algorithm);
         try {
-            $values = JWT::decode($jwtString, $this->key, $allowedAlgorithms);
+            $values = JWT::decode($jwtString, $this->key->getVerifying(), $allowedAlgorithms);
         } catch (\Exception $e) {
             trigger_error($e->getMessage(), E_USER_NOTICE);
             return false;
@@ -117,9 +99,11 @@ class JsonWebToken
     }
 
     /**
-     * @param array $payload          associative array og claims, claim => value
-     * @param int   $expirationOffset seconds from now that token will expire. If not specified,
-     *                                 an "exp" claim will not be added or updated
+     * Create a signed token string for a payload
+     *
+     * @param array|\ArrayObject $payload          traversable set of claims, claim => value
+     * @param int                $expirationOffset seconds from now that token will expire. If not specified,
+     *                                              an "exp" claim will not be added or updated
      *
      * @return string encoded and signed jwt string
      *
@@ -132,7 +116,7 @@ class JsonWebToken
         if ((int) $expirationOffset > 0) {
             $payload['exp'] = time() + (int) $expirationOffset;
         }
-        $value = JWT::encode($payload, $this->key, $this->algorithm);
+        $value = JWT::encode($payload, $this->key->getSigning(), $this->algorithm);
         return $value;
     }
 }

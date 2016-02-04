@@ -14,7 +14,7 @@ namespace Xmf;
 /**
  * Loader
  *
- * @category  Xmf\Module\Loader
+ * @category  Xmf\Loader
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
@@ -35,7 +35,7 @@ class Loader
      */
     public static function loadFile($file, $once = true)
     {
-        self::securityCheck($file);
+        static::securityCheck($file);
         if (file_exists($file)) {
             if ($once) {
                 include_once $file;
@@ -63,7 +63,7 @@ class Loader
         }
 
         $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-        if (!self::loadFile(dirname(__DIR__) . DIRECTORY_SEPARATOR . $file)) {
+        if (!static::loadFile(dirname(__DIR__) . DIRECTORY_SEPARATOR . $file)) {
             return false;
         }
 
@@ -87,6 +87,8 @@ class Loader
      * @param string $filename name of file to check
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
      */
     protected static function securityCheck($filename)
     {
@@ -94,7 +96,7 @@ class Loader
          * Security check
          */
         if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $filename)) {
-            exit('Security check: Illegal character in filename');
+            throw new \InvalidArgumentException('Security check: Illegal character in filename');
         }
     }
 }

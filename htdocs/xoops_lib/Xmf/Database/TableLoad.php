@@ -11,7 +11,7 @@
 
 namespace Xmf\Database;
 
-use Xoops\Core\Yaml;
+use Xmf\Yaml;
 use Xoops\Core\Kernel\CriteriaElement;
 
 /**
@@ -65,8 +65,8 @@ class TableLoad
         $count = 0;
 
         $data = Yaml::loadWrapped($yamlFile); // work with phpmyadmin YAML dumps
-        if ($data) {
-            $count = self::loadTableFromArray($table, $data);
+        if (false !== $data) {
+            $count = static::loadTableFromArray($table, $data);
         }
 
         return $count;
@@ -89,24 +89,74 @@ class TableLoad
     }
 
     /**
-     * rowCount - get count of rows in a table
+     * countRows - get count of rows in a table
      *
      * @param string          $table    name of table to count
      * @param CriteriaElement $criteria optional criteria
      *
      * @return int number of rows
      */
-    public static function rowCount($table, CriteriaElement $criteria = null)
+    public static function countRows($table, CriteriaElement $criteria = null)
     {
         $db = \Xoops::getInstance()->db();
         $qb = $db->createXoopsQueryBuilder();
-        $qb ->select('COUNT(*)')
+        $qb->select('COUNT(*)')
             ->fromPrefix($table, '');
         if (isset($criteria)) {
             $qb = $criteria->renderQb($qb, '');
         }
         $result = $qb->execute();
         $count = $result->fetchColumn();
-        return $count;
+        return (int)$count;
+    }
+
+    /**
+     * extractRows - get rows, all or a subset, from a table as an array
+     *
+     * @param string          $table       name of table to read
+     * @param CriteriaElement $criteria    optional criteria
+     * @param string[]        $skipColumns do not include these columns in the extract
+     *
+     * @return array of table rows
+     */
+    public static function extractRows($table, CriteriaElement $criteria = null, $skipColumns = array())
+    {
+        $db = \Xoops::getInstance()->db();
+        $qb = $db->createXoopsQueryBuilder();
+        $qb->select('*')->fromPrefix($table, '');
+        if (isset($criteria)) {
+            $qb = $criteria->renderQb($qb, '');
+        }
+        $result = $qb->execute();
+        $rows = $result->fetchAll();
+
+        if (!empty($skipColumns)) {
+            foreach ($rows as $index => $row) {
+                foreach ($skipColumns as $column) {
+                    unset($rows[$index][$column]);
+                }
+            }
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Save table data to a YAML file
+     *
+     * @param string          $table name of table to load without prefix
+     * @param string          $yamlFile name of file containing data dump in YAML format
+     * @param CriteriaElement $criteria optional criteria
+     * @param string[]        $skipColumns do not include columns in this list
+     *
+     * @return bool true on success, false on error
+     */
+    public static function saveTableToYamlFile($table, $yamlFile, $criteria = null, $skipColumns = array())
+    {
+        $rows = static::extractRows($table, $criteria, $skipColumns);
+
+        $count = Yaml::save($rows, $yamlFile);
+
+        return (false !== $count);
     }
 }

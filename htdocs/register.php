@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 
@@ -37,51 +38,27 @@ if (empty($xoopsConfigUser['allow_register'])) {
     $xoops->redirect('index.php', 6, XoopsLocale::E_WE_ARE_CLOSED_FOR_REGISTRATION);
 }
 
-// from $_POST we use keys: op, uname, email, url, pass, vpass, timezone,
-//                          user_viewemail, user_mailok, agree_disc
-$clean_input = XoopsFilterInput::gather(
-    'post',
-    array(
-        array('op','string', 'register', true),
-        array('uname','string', '', true),
-        array('email','string', '', true),
-        array('url','weburl', '', true),
-        array('pass','string', '', true),
-        array('vpass','string', '', true),
-        array('timezone','string', $xoopsConfig['default_TZ'], false),
-        array('user_viewemail','boolean', false, false),
-        array('user_mailok','boolean', false, false),
-        array('agree_disc','boolean', false, false),
-    )
-);
-
-// from $_GET we use keys: op, id, actkey
-$clean_get_input = XoopsFilterInput::gather(
-    'get',
-    array(
-        array('op','string', 'register', true),
-        array('id','int'),
-        array('actkey','string', '', true),
-    ),
-    'actkey'
-);
-
-// move clean array to individual variables
-$op=$clean_input['op'];
-$uname=$clean_input['uname'];
-$email=$clean_input['email'];
-$url=$clean_input['url'];
-$pass=$clean_input['pass'];
-$vpass=$clean_input['vpass'];
-$timezone=$clean_input['timezone'];
-$user_viewemail=$clean_input['user_viewemail'];
-$user_mailok=$clean_input['user_mailok'];
-$agree_disc=$clean_input['agree_disc'];
-// if this is an activation, use get
-if ($clean_get_input!==false) {
-    $op = $clean_get_input['op'];
-    $id = $clean_get_input['id'];
-    $actkey = $clean_get_input['actkey'];
+if ('POST' === Request::getMethod()) {
+    // from $_POST we use keys: op, uname, email, url, pass, vpass, timezone,
+    //                          user_viewemail, user_mailok, agree_disc
+    $op = Request::getCmd('op', 'register', 'POST');
+    $uname = Request::getString('uname', '', 'POST');
+    $email = Request::getEmail('email', '', 'POST');
+    $url = Request::getUrl('url', '', 'POST');
+    $pass = Request::getString('pass', '', 'POST');
+    $vpass = Request::getString('vpass', '', 'POST');
+    $timezone = Request::getString('timezone', 'UTC', 'POST');
+    $user_viewemail = Request::getBool('user_viewemail', false, 'POST');
+    $user_mailok = Request::getBool('user_mailok', false, 'POST');
+    $agree_disc = Request::getBool('agree_disc', false, 'POST');
+} else {
+    // from $_GET we use keys: op, id, actkey
+    $op = 'register';
+    $actkey = Request::getString('actkey', '', 'GET');
+    if (!empty($actkey)) {
+        $op = Request::getCmd('op', 'register', 'GET');
+        $id = Request::getInt('id', 0, 'GET');
+    }
 }
 
 switch ($op) {
@@ -107,8 +84,8 @@ switch ($op) {
             }
             echo XoopsLocale::TIME_ZONE . ": $timezone<br />";
             echo "<form action='register.php' method='post'>";
-            $cpatcha = new Xoops\Form\Captcha();
-            echo "<br />" . $cpatcha->getCaption() . ": " . $cpatcha->render();
+            $captcha = new Xoops\Form\Captcha();
+            echo "<br />" . $captcha->getCaption() . ": " . $captcha->render();
             echo "<input type='hidden' name='uname' value='" . $myts->htmlSpecialChars($uname) . "' />
                   <input type='hidden' name='email' value='" . $myts->htmlSpecialChars($email) . "' />
                   <input type='hidden' name='user_viewemail' value='" . $user_viewemail . "' />
@@ -249,8 +226,6 @@ switch ($op) {
 
     case 'actv':
     case 'activate':
-        $id = $id;
-        $actkey = $actkey;
         if (empty($id)) {
             $xoops->redirect('index.php', 1, '');
             exit();

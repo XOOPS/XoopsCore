@@ -235,12 +235,91 @@ class Admin
         return true;
     }
 
+    // simplified config aliases
+
+    /**
+     * Add error to config box
+     *
+     * @param string $value the error message
+     *
+     * @return bool
+     */
+    public function addConfigError($value = '')
+    {
+        return $this->addConfigBoxLine($value, 'error');
+    }
+
+    /**
+     * Add accept (OK) message to config box
+     *
+     * @param string $value the OK message
+     *
+     * @return bool
+     */
+    public function addConfigAccept($value = '')
+    {
+        return $this->addConfigBoxLine($value, 'accept');
+    }
+
+    /**
+     * Add warning to config box
+     *
+     * @param string $value the warning message
+     *
+     * @return bool
+     */
+    public function addConfigWarning($value = '')
+    {
+        return $this->addConfigBoxLine($value, 'warning');
+    }
+
+    /**
+     * Check for installed module and version and to configuration box
+     *
+     * @param string  $moddir     module directory name
+     * @param integer $minversion minimum acceptable module version (100 = V1.00)
+     *
+     * @return bool true if requested version of the module is available
+     */
+    public function addConfigModuleVersion($moddir, $minversion)
+    {
+        $return=false;
+        $helper= \Xoops::getInstance()->getModuleHelper($moddir);
+        if (is_object($helper) && is_object($helper->getModule())) {
+            $mod_modversion=$helper->getModule()->getVar('version');
+            $mod_version_f = $mod_modversion/100;
+            $min_version_f = $minversion/100;
+            $value = sprintf(
+                \XoopsLocale::EF_MODULE_VERSION,
+                strtoupper($moddir),
+                $min_version_f,
+                $mod_version_f
+            );
+            if ($mod_modversion>=$minversion) {
+                $this->addConfigAccept($value);
+                $return=true;
+            } else {
+                $this->addConfigError($value);
+            }
+        } else {
+            $value = sprintf(
+                \XoopsLocale::EF_MODULE_NOTFOUND,
+                strtoupper($moddir),
+                $minversion/100
+            );
+            $this->addConfigError($value);
+        }
+
+        return $return;
+    }
+
     /**
      * Add Info box
+     * Template in htdocs/modules/system/templates/admin/admin_infobox.tpl
      *
      * @param string $title title
-     * @param string $type  type
-     * @param string $extra extra
+     * @param string $type  type  will be used as icon name in title in template
+     * @param string $extra extra added to the div element that surrounds the box
      *
      * @return bool
      */
