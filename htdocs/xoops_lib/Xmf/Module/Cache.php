@@ -23,7 +23,7 @@ use Xmf\Module\Helper\AbstractHelper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -84,7 +84,7 @@ class Cache extends AbstractHelper
      */
     public function write($key, $value, $ttl = null)
     {
-        return $this->cache->write($this->prefix($key), $value);
+        return $this->cache->write($this->prefix($key), $value, $ttl);
     }
 
     /**
@@ -104,11 +104,11 @@ class Cache extends AbstractHelper
      *
      * @param string $key Identifier for the data
      *
-     * @return void
+     * @return boolean True if deleted, else false
      */
     public function delete($key)
     {
-        $this->cache->delete($this->prefix($key));
+        return $this->cache->delete($this->prefix($key));
     }
 
     /**

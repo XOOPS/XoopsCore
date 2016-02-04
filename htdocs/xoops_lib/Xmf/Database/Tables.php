@@ -30,7 +30,7 @@ use Xoops\Core\Database\Factory;
  * @category  Xmf\Database\Tables
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -249,6 +249,46 @@ class Tables
         return false;
     }
 
+    /**
+     * Get column attributes
+     *
+     * @param string $table  table containing the column
+     * @param string $column column to alter
+     *
+     * @return string|bool attribute string, or false if error encountered
+     */
+    public function getColumnAttributes($table, $column)
+    {
+        // Find table def.
+        if (isset($this->tables[$table])) {
+            $tableDef = $this->tables[$table];
+            // loop thru and find the column
+            foreach ($tableDef['columns'] as $col) {
+                if (strcasecmp($col['name'], $column) === 0) {
+                    return $col['attributes'];
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get indexes for a table
+     *
+     * @param string $table      table containing the column
+     *
+     * @return array|bool array of indexes, or false if error encountered
+     */
+    public function getTableIndexes($table)
+    {
+        // Find table def.
+        if (isset($this->tables[$table]) && isset($this->tables[$table]['keys'])) {
+            return $this->tables[$table]['keys'];
+        }
+
+        return false;
+    }
 
     /**
      * Add alter column operation to the work queue
@@ -933,7 +973,7 @@ class Tables
     /**
      * dumpTables - development function to dump raw tables array
      *
-     * @return Tables tables
+     * @return array tables
      */
     public function dumpTables()
     {

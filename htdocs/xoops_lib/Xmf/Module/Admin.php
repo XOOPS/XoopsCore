@@ -21,7 +21,7 @@ namespace Xmf\Module;
  * @category  Xmf\Module\Admin
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -197,7 +197,7 @@ class Admin
      */
     public function renderButton($position = null, $delimiter = "&nbsp;")
     {
-        if ($postion==null) {
+        if (null === $position) {
             $position = 'right';
         }
 
@@ -358,6 +358,31 @@ class Admin
     }
 
     /**
+     * Add warning to config box
+     *
+     * @param string $value the warning message
+     *
+     * @return bool
+     */
+    public static function addConfigWarning($value = '')
+    {
+        if (self::is26()) {
+            $type='warning';
+        } else {
+            $path=XOOPS_URL.'/Frameworks/moduleclasses/icons/16/';
+            $line = "";
+            $line .= "<span style='color : orange; font-weight : bold;'>";
+            $line .= "<img src='" . $path . "warning.png' >";
+            $line .= $value;
+            $line .= "</span>";
+            $value=$line;
+            $type = 'default';
+        }
+
+        return self::$ModuleAdmin->addConfigBoxLine($value, $type);
+    }
+
+    /**
      * Get an appropriate URL for system provided icons.
      *
      * Things which were in Frameworks in 2.5 are in media in 2.6,
@@ -371,7 +396,7 @@ class Admin
      *                     16, 32 or /. A '/' slash will simply set the
      *                     path to the icon directory and append $image.
      *
-     * @return string true if we are in a 2.6 environment
+     * @return string path to icons
      */
     public static function iconUrl($name = '', $size = '32')
     {

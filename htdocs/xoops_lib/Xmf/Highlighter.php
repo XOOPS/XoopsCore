@@ -17,7 +17,7 @@ namespace Xmf;
  * @category  Xmf\Module\Highlighter
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -59,7 +59,7 @@ class Highlighter
      * @param string $pre      insert before needle
      * @param string $post     insert after needle
      *
-     * @return string
+     * @return mixed return from preg_replace_callback()
      */
     private static function splitOnTag($needle, $haystack, $pre, $post)
     {

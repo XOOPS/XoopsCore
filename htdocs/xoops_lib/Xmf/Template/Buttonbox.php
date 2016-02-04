@@ -18,7 +18,7 @@ namespace Xmf\Template;
  * @package   Xmf
  * @author    Grégory Mage (Aka Mage)
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -29,26 +29,26 @@ class Buttonbox extends AbstractTemplate
     /**
      * @var array
      */
-    private $_items = array();
+    private $items = array();
 
     /**
      * @var string
      */
-    private $_delimiter = "&nbsp;";
+    private $delimiter = "&nbsp;";
 
     /**
      * @var string
      */
-    private $_position = "right";
+    private $position = "right";
 
     /**
      * @var string
      */
-    private $_path = '';
+    private $path = '';
 
     /**
      * init
-     * 
+     *
      * @return void
      */
     protected function init()
@@ -57,50 +57,53 @@ class Buttonbox extends AbstractTemplate
 
     /**
      * set position - alignment position
-     * 
+     *
      * @param string $position left, right, center
-     * 
-     * @return void
+     *
+     * @return Buttonbox
      */
     public function setPosition($position)
     {
-        $this->_position = $position;
+        $this->position = $position;
+        return $this;
     }
 
     /**
-     * set path - path to image files. Do not set if icons are 
-     * specified with absoulte URLs
-     * 
-     * @param string $position left, right, center
-     * 
-     * @return void
+     * set path - path to image files. Do not set if icons are
+     * specified with absolute URLs
+     *
+     * @param string $path URL path to image files
+     *
+     * @return Buttonbox
      */
     public function setImagePath($path)
     {
-        $this->_path = $path;
+        $this->path = $path;
+        return $this;
     }
 
     /**
      * setDelimiter
-     * 
+     *
      * @param string $delimiter delimiter put between buttons
-     * 
-     * @return void
+     *
+     * @return Buttonbox
      */
     public function setDelimiter($delimiter)
     {
-        $this->_delimiter = $delimiter;
+        $this->delimiter = $delimiter;
+        return $this;
     }
 
     /**
      * addItem to button box
-     * 
+     *
      * @param string $title title string for button
      * @param string $link  link for button
      * @param string $icon  icon for button
      * @param string $extra extra
-     * 
-     * @return void
+     *
+     * @return Buttonbox
      */
     public function addItem($title, $link, $icon, $extra = '')
     {
@@ -108,37 +111,38 @@ class Buttonbox extends AbstractTemplate
         $item['link'] = $link;
         $item['icon'] = $icon;
         $item['extra'] = $extra;
-        $this->_items[] = $item;
+        $this->items[] = $item;
+        return $this;
     }
 
     /**
      * render the buttonbox
-     * 
+     *
      * @return void
      */
     protected function render()
     {
-        $ret = '';
-        $path = $this->_path;
-        switch ($this->_position) {
-        default:
-        case "right":
-            $ret = "<div class=\"floatright\">\n";
-            break;
+        $path = $this->path;
+        switch ($this->position) {
+            default:
+            case "right":
+                $ret = "<div class=\"floatright\">\n";
+                break;
 
-        case "left":
-            $ret = "<div class=\"floatleft\">\n";
-            break;
+            case "left":
+                $ret = "<div class=\"floatleft\">\n";
+                break;
 
-        case "center":
-            $ret = "<div class=\"aligncenter\">\n";
+            case "center":
+                $ret = "<div class=\"aligncenter\">\n";
         }
         $ret .= "<div class=\"xo-buttons\">\n";
-        foreach ($this->_items as $item) {
+        foreach ($this->items as $item) {
             $ret .= "<a class='ui-corner-all tooltip' href='" . $item['link'] . "' title='" . $item['title'] . "'>";
-            $ret .= "<img src='" . $path . $item['icon'] . "' title='" . $item['title'] . "' />" . $item['title'] . ' ' . $item['extra'];
+            $ret .= "<img src='" . $path . $item['icon'] . "' title='" . $item['title'] . "' />";
+            $ret .= $item['title'] . ' ' . $item['extra'];
             $ret .= "</a>\n";
-            $ret .= $this->_delimiter;
+            $ret .= $this->delimiter;
         }
         $ret .= "</div>\n</div>\n";
         $this->tpl->assign('dummy_content', $ret);

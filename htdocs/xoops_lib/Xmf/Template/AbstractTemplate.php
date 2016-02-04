@@ -10,6 +10,7 @@
  */
 
 namespace Xmf\Template;
+
 use Xoops\Core\XoopsTpl;
 
 /**
@@ -19,7 +20,7 @@ use Xoops\Core\XoopsTpl;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    The SmartFactory <www.smartfactory.ca>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org

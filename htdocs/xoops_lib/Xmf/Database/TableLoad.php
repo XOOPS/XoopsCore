@@ -12,6 +12,7 @@
 namespace Xmf\Database;
 
 use Xoops\Core\Yaml;
+use Xoops\Core\Kernel\CriteriaElement;
 
 /**
  * Xmf\Database\TableLoad
@@ -21,7 +22,7 @@ use Xoops\Core\Yaml;
  * @category  Xmf\Database\TableLoad
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 XOOPS Project (http://xoops.org)
+ * @copyright 2013-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -63,7 +64,7 @@ class TableLoad
     {
         $count = 0;
 
-        $data = Yaml::read($yamlFile);
+        $data = Yaml::loadWrapped($yamlFile); // work with phpmyadmin YAML dumps
         if ($data) {
             $count = self::loadTableFromArray($table, $data);
         }
@@ -95,13 +96,13 @@ class TableLoad
      *
      * @return int number of rows
      */
-    public static function rowCount($table, $criteria = null)
+    public static function rowCount($table, CriteriaElement $criteria = null)
     {
         $db = \Xoops::getInstance()->db();
         $qb = $db->createXoopsQueryBuilder();
         $qb ->select('COUNT(*)')
             ->fromPrefix($table, '');
-        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
+        if (isset($criteria)) {
             $qb = $criteria->renderQb($qb, '');
         }
         $result = $qb->execute();

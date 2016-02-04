@@ -22,7 +22,7 @@ namespace Xmf\Module\Helper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -70,7 +70,7 @@ class GenericHelper
      *
      * @param string $dirname module directory name
      *
-     * @return Xmf\Module\GenericHelper
+     * @return GenericHelper
      */
     public static function getInstance($dirname = 'notsetyet')
     {
