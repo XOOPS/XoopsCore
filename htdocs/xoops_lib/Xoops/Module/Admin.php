@@ -121,6 +121,7 @@ class Admin
      *
      * @param string $value line value - a string or array of values
      * @param string $type  type of line default, folder, chmod, extension, module
+     *                       Or, type value for itemConfigBoxLine -- accept, warning, error
      *
      * @return bool
      */

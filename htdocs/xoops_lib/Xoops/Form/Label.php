@@ -41,6 +41,7 @@ class Label extends Element
             $this->setWithDefaults('value', $value, '');
             $this->setIfNotEmpty('id', $id);
         }
+        $this->set('name', $id);
     }
 
     /**
@@ -50,7 +51,7 @@ class Label extends Element
      */
     public function render()
     {
-        $this->suppressRender(['value']);
+        $this->suppressRender(['name', 'value']);
         $attributes = $this->renderAttributeString();
         $ret = '<span' . $attributes . '>' . $this->getValue() . '</span>';
         return $ret;

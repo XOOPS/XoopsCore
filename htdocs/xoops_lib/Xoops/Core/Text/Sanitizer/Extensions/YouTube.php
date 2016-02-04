@@ -31,7 +31,9 @@ class YouTube extends ExtensionAbstract
      */
     protected static $defaultConfiguration = [
         'enabled' => true,
-        'template' => '<iframe width="%2$d" height="%3$d" src="https://www.youtube.com/embed/%1$s" frameborder="0" allowfullscreen></iframe>',
+        'template' => '<div class="embed-responsive %4$s">
+            <iframe class="embed-responsive-item" width="%2$d" height="%3$d" src="https://www.youtube.com/embed/%1$s" frameborder="0" allowfullscreen></iframe>
+            </div>',
         'width'  => "640",
         'height' => "385",
     ];
@@ -106,8 +108,8 @@ EOH;
                     ];
                     $cleanAttributes = $this->shortcodes->shortcodeAttributes($defaults, $attributes);
                     $url = $cleanAttributes['url'];
-                    $width = $cleanAttributes['width'];
-                    $height = $cleanAttributes['height'];
+                    $width = (int) $cleanAttributes['width'];
+                    $height = (int) $cleanAttributes['height'];
                 }
 
                 // from: http://stackoverflow.com/questions/2936467/parse-youtube-video-id-using-preg-match/6382259#6382259
@@ -121,8 +123,26 @@ EOH;
                 } else {
                     return ''; // giveup
                 }
+
+                switch ($width) {
+                    case 4:
+                        $height = 3;
+                        break;
+                    case 16:
+                        $height = 9;
+                        break;
+                }
+
+                $aspectRatio = $width/$height; // 16x9 = 1.777777778, 4x3 = 1.333333333
+                $responsiveAspect = ($aspectRatio < 1.4) ? 'embed-responsive-4by3' : 'embed-responsive-16by9';
+                if ($width < 17 && $height < 10) {
+                    $scale = (int) 640 / $width;
+                    $width = $width * $scale;
+                    $height = $height * $scale;
+                }
+
                 $template = $this->config['template'];
-                $newContent = sprintf($template, $videoId, $width, $height);
+                $newContent = sprintf($template, $videoId, $width, $height, $responsiveAspect);
                 return $newContent;
             }
         );
