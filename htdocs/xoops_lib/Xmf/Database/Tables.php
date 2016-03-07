@@ -303,6 +303,8 @@ class Tables
      * @param string $column     column to alter
      * @param string $attributes new column_definition
      * @param string $newName    new name for column, blank to keep same
+     * @param mixed  $position   FIRST, string of column name to add new
+     *                           column after, or null for no change
      *
      * @return bool true if no errors, false if errors encountered
      */
@@ -371,6 +373,34 @@ class Tables
         } else {
             return false;
         }
+    }
+
+    /**
+     * Add new index definition for index to work queue
+     *
+     * @param string $name   name of index to add
+     * @param string $table  table indexed
+     * @param string $column column or comma separated list of columns
+     *                       to use as the key
+     * @param bool   $unique true if index is to be unique
+     *
+     * @return bool true if no errors, false if errors encountered
+     */
+    public function createIndex($name, $table, $column, $unique = false)
+    {
+        if (isset($this->tables[$table])) {
+            //ALTER TABLE `table` ADD INDEX `product_id` (`product_id`)
+            $add = ($unique?'ADD UNIQUE INDEX':'ADD INDEX');
+            $this->queue[]
+                = "ALTER TABLE `{$table}` {$add} {$name} ({$column})";
+        } else { // no table established
+            $this->lastError = _DB_XMF_TABLE_IS_NOT_DEFINED;
+            $this->lastErrNo = -1;
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -523,6 +553,7 @@ class Tables
      */
     public function setTableOptions($table, $options)
     {
+        // ENGINE=MEMORY DEFAULT CHARSET=utf8;
         if (isset($this->tables[$table])) {
             $tableDef = &$this->tables[$table];
             // Is this on a table we are adding?
@@ -538,6 +569,8 @@ class Tables
         } else {
             return $this->tableNotEstablished();
         }
+
+        return true;
     }
 
 
@@ -851,6 +884,7 @@ class Tables
                     $keyCols .= ' (' . $key['SUB_PART'] . ')';
                 }
             }
+            //$tableDef['keys'][$key['INDEX_NAME']][$key['SEQ_IN_INDEX']] = $key;
         };
         if (!empty($lastKey)) {
             $tableDef['keys'][$lastKey]['columns'] = $keyCols;
