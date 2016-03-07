@@ -127,7 +127,9 @@ class FilterInput
     ) {
         static $instances;
 
-        $sig = md5(serialize(array($tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto)));
+        $className = get_called_class(); // so an extender gets an instance of itself
+
+        $sig = md5(serialize(array($className, $tagsArray, $attrArray, $tagsMethod, $attrMethod, $xssAuto)));
 
         if (!isset($instances)) {
             $instances = array();
@@ -216,7 +218,7 @@ class FilterInput
                 break;
 
             case 'ALPHANUM':
-            case 'ALNUM': // for BC only
+            case 'ALNUM':
                 $result = (string) preg_replace('/[^A-Z0-9]/i', '', $source);
                 break;
 
@@ -320,9 +322,9 @@ class FilterInput
         $postTag = $source;
         // find initial tag's position
         $tagOpen_start = strpos($source, '<');
-        // interate through string until no tags left
+        // iterate through string until no tags left
         while ($tagOpen_start !== false) {
-            // process tag interatively
+            // process tag iteratively
             $preTag .= substr($postTag, 0, $tagOpen_start);
             $postTag = substr($postTag, $tagOpen_start);
             $fromTagOpen = substr($postTag, 1);
