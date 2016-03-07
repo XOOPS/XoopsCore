@@ -88,7 +88,7 @@ EOT;
     $table = 'userrank_rank';
     $tableData = Yaml::load($filedata);
 
-    $count = rowCount($table);
+    $count = TableLoad::countRows($table);
     if ($count<1) {
         TableLoad::loadTableFromArray($table, $tableData);
     }

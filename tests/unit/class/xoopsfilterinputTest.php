@@ -9,12 +9,12 @@ require_once(dirname(__FILE__).'/../init_new.php');
 class XoopsFilterInputTest extends \PHPUnit_Framework_TestCase
 {
     protected $myclass = 'XoopsFilterInput';
-    
+
     public function test___construct()
 	{
-		$x = new $this->myclass();
+		$x = XoopsFilterInput::getInstance();
         $this->assertInstanceOf($this->myclass, $x);
-        $this->assertInstanceOf('\\Xoops\\Core\\FilterInput', $x);
+        $this->assertInstanceOf('\\Xmf\\FilterInput', $x);
     }
-        
+
 }

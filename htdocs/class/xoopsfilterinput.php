@@ -13,7 +13,7 @@
  * XoopsFilterInput is a class for filtering input from any data source
  *
  * Forked from the php input filter library by Daniel Morris
- * 
+ *
  * Original Contributors: Gianpaolo Racca, Ghislain Picard,
  *                        Marco Wandschneider, Chris Tobin and Andrew Eddie.
  *
@@ -26,12 +26,12 @@
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2005 Daniel Morris
  * @copyright 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     2.5.7
  */
-class XoopsFilterInput extends Xoops\Core\FilterInput
+class XoopsFilterInput extends Xmf\FilterInput
 {
 }
