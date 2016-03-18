@@ -486,4 +486,19 @@ class XoopsMySQLDatabase extends XoopsDatabase
 
         return $result->columnCount();
     }
+
+    /**
+     * getServerVersion get version of the mysql server
+     *
+     * @return string
+     */
+    public function getServerVersion()
+    {
+        $conn = \Xoops::getInstance()->db()->getWrappedConnection();
+        $version = '(not available)';
+        if ($conn instanceof \PDO) {
+            $version = $conn->getAttribute(\PDO::ATTR_SERVER_VERSION);
+        }
+        return $version;
+    }
 }

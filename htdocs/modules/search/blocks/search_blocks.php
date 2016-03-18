@@ -27,7 +27,7 @@ function b_search_show()
     $form = new Xoops\Form\SimpleForm('', 'search', $search->url('index.php'), 'get', false, 'inline');
 
     // create form elements
-    $form->addElement(new Xoops\Form\Text('', 'query', 2, 100, '', _MD_SEARCH_KEYWORDS), true);
+    $form->addElement(new Xoops\Form\Text('', 'query', 20, 100, '', _MD_SEARCH_KEYWORDS), true);
     $form->addElement(new Xoops\Form\Hidden('action', 'results'));
     $form->addElement(new Xoops\Form\Token('id'));
 

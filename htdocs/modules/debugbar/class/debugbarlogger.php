@@ -453,6 +453,18 @@ class DebugbarLogger implements LoggerInterface
             $this->addToTheme();
             $this->addExtra(_MD_DEBUGBAR_PHP_VERSION, PHP_VERSION);
             $this->addExtra(_MD_DEBUGBAR_INCLUDED_FILES, (string) count(get_included_files()));
+            $conn = \Xoops::getInstance()->db()->getWrappedConnection();
+            if ($conn instanceof \PDO) {
+                $this->addExtra(
+                    $conn->getAttribute(\PDO::ATTR_DRIVER_NAME) . ' version',
+                    $conn->getAttribute(\PDO::ATTR_SERVER_VERSION)
+                );
+                $this->addExtra(
+                    $conn->getAttribute(\PDO::ATTR_DRIVER_NAME) . ' stats',
+                    $conn->getAttribute(\PDO::ATTR_SERVER_INFO)
+                );
+            }
+
             if (false === $this->quietmode) {
                 if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
                     && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

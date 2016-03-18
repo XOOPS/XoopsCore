@@ -19,6 +19,43 @@
 use Xoops\Core\Handler\Factory;
 
 /**
+ * Standard deprecation warning with trace - consider private
+ *
+ * @param string $function function that was called
+ * @param string $file     file name where called
+ * @param int    $line     line number where called
+ *
+ * @return Xoops
+ */
+function xoops_functions_php_deprecated($function, $file, $line)
+{
+    $xoops = \Xoops::getInstance();
+    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $xoops->deprecated(
+        "{$function} is deprecated. Called from {$trace[1]['file']} line {$trace[1]['line']}."
+        . " See how to replace it in file {$file} line {$line}");
+    return $xoops;
+}
+
+/**
+ * Replace function "deprecation" warning with trace - consider private
+ *
+ * @param string $function function that was called
+ * @param string $module   replacing module/service
+ *
+ * @return Xoops
+ */
+function xoops_functions_php_replaced_by_mod($function, $module)
+{
+    $xoops = \Xoops::getInstance();
+    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $xoops->deprecated(
+        "{$function} is deprecated. Called from {$trace[1]['file']} line {$trace[1]['line']}."
+        . " Convert to use {$module}.");
+    return $xoops;
+}
+
+/**
  * @deprecated
  * @param string $name
  * @param mixed $optional
@@ -26,8 +63,8 @@ use Xoops\Core\Handler\Factory;
  */
 function xoops_getHandler($name, $optional = false)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated('xoops_getHandler(\'' . $name . '\') is deprecated. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
+    // Also can use: dedicated alias, i.e. $handler = $xoops->getHandlerConfig($optional);
     $handler = Factory::newSpec()->scheme('kernel')->name($name)->optional((bool) $optional)->build();
     return $handler;
 }
@@ -41,8 +78,7 @@ function xoops_getHandler($name, $optional = false)
  */
 function xoops_getModuleHandler($name = null, $module_dir = null, $optional = false)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getModuleHandler($name, $module_dir, $optional);
 }
 
@@ -57,8 +93,8 @@ function xoops_getModuleHandler($name = null, $module_dir = null, $optional = fa
  */
 function xoops_load($name, $type = 'core')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
+    // Note: most classes will autoload (i.e. $nav = new XoopsPageNav();) with no need for xoops_load()
     return XoopsLoad::load($name, $type);
 }
 
@@ -73,8 +109,7 @@ function xoops_load($name, $type = 'core')
  */
 function xoops_loadLanguage($name, $domain = '', $language = null)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->loadLanguage($name, $domain, $language);
 }
 
@@ -84,8 +119,7 @@ function xoops_loadLanguage($name, $domain = '', $language = null)
  */
 function xoops_getActiveModules()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getActiveModules();
 }
 
@@ -95,8 +129,7 @@ function xoops_getActiveModules()
  */
 function xoops_setActiveModules()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->setActiveModules();
 }
 
@@ -107,8 +140,7 @@ function xoops_setActiveModules()
  */
 function xoops_isActiveModule($dirname)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->isActiveModule($dirname);
 }
 
@@ -119,8 +151,7 @@ function xoops_isActiveModule($dirname)
  */
 function xoops_header($closehead = true)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     $xoops->simpleHeader($closehead);
 }
 
@@ -130,8 +161,7 @@ function xoops_header($closehead = true)
  */
 function xoops_footer()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     $xoops->simpleFooter();
 }
 
@@ -143,8 +173,7 @@ function xoops_footer()
  */
 function xoops_error($msg, $title = '')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     echo $xoops->alert('error', $msg, $title);
 }
 
@@ -156,8 +185,7 @@ function xoops_error($msg, $title = '')
  */
 function xoops_result($msg, $title = '')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     echo $xoops->alert('info', $msg, $title);
 }
 
@@ -172,8 +200,7 @@ function xoops_result($msg, $title = '')
  */
 function xoops_confirm($hiddens, $action, $msg, $submit = '', $addtoken = true)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     echo $xoops->confirm($hiddens, $action, $msg, $submit, $addtoken);
 }
 
@@ -185,8 +212,7 @@ function xoops_confirm($hiddens, $action, $msg, $submit = '', $addtoken = true)
  */
 function xoops_getUserTimestamp($time, $timeoffset = '')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getUserTimestamp($time, $timeoffset);
 }
 
@@ -199,8 +225,7 @@ function xoops_getUserTimestamp($time, $timeoffset = '')
  */
 function formatTimestamp($time, $format = 'l', $timeoffset = '')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return XoopsLocale::formatTimestamp($time, $format, $timeoffset);
 }
 
@@ -212,8 +237,7 @@ function formatTimestamp($time, $format = 'l', $timeoffset = '')
  */
 function userTimeToServerTime($timestamp, $userTZ = null)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->userTimeToServerTime($timestamp, $userTZ);
 }
 
@@ -223,8 +247,7 @@ function userTimeToServerTime($timestamp, $userTZ = null)
  */
 function xoops_makepass()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->makePass();
 }
 
@@ -236,8 +259,7 @@ function xoops_makepass()
  */
 function checkEmail($email, $antispam = false)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->checkEmail($email, $antispam);
 }
 
@@ -248,8 +270,7 @@ function checkEmail($email, $antispam = false)
  */
 function formatURL($url)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->formatURL($url);
 }
 
@@ -259,8 +280,7 @@ function formatURL($url)
  */
 function xoops_getbanner()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getBanner();
 }
 
@@ -275,8 +295,7 @@ function xoops_getbanner()
  */
 function redirect_header($url, $time = 3, $message = '', $addredirect = true, $allowExternalLink = false)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     $xoops->redirect($url, $time, $message, $addredirect, $allowExternalLink);
 }
 
@@ -287,8 +306,7 @@ function redirect_header($url, $time = 3, $message = '', $addredirect = true, $a
  */
 function xoops_getenv($key)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getEnv($key);
 }
 
@@ -299,8 +317,7 @@ function xoops_getenv($key)
  */
 function xoops_getcss($theme = '')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getCss($theme);
 }
 
@@ -310,8 +327,7 @@ function xoops_getcss($theme = '')
  */
 function xoops_getMailer()
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getMailer();
 }
 
@@ -323,8 +339,7 @@ function xoops_getMailer()
  */
 function xoops_getrank($rank_id = 0, $posts = 0)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->service('userrank')->getUserRank(['rank' => $rank_id, 'posts' => $posts, 'uid' => 0])->getValue();
 }
 
@@ -338,8 +353,7 @@ function xoops_getrank($rank_id = 0, $posts = 0)
  */
 function xoops_substr($str, $start, $length, $trimmarker = '...')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return XoopsLocale::substr($str, $start, $length, $trimmarker);
 }
 
@@ -350,8 +364,7 @@ function xoops_substr($str, $start, $length, $trimmarker = '...')
  */
 function xoops_notification_deletebymodule($module_id)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. Use Notifications module instead.');
+    xoops_functions_php_replaced_by_mod(__FUNCTION__, 'Notifications module');
 }
 
 /**
@@ -361,8 +374,7 @@ function xoops_notification_deletebymodule($module_id)
  */
 function xoops_notification_deletebyuser($user_id)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. Use Notifications module instead.');
+    xoops_functions_php_replaced_by_mod(__FUNCTION__, 'Notifications module');
 }
 
 /**
@@ -374,8 +386,7 @@ function xoops_notification_deletebyuser($user_id)
  */
 function xoops_notification_deletebyitem($module_id, $category, $item_id)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. Use Notifications module instead.');
+    xoops_functions_php_replaced_by_mod(__FUNCTION__, 'Notifications module');
 }
 
 /**
@@ -386,8 +397,7 @@ function xoops_notification_deletebyitem($module_id, $category, $item_id)
  */
 function xoops_comment_count($module_id, $item_id = null)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. Use comments module instead.');
+    xoops_functions_php_replaced_by_mod(__FUNCTION__, 'Comments module');
 }
 
 /**
@@ -398,8 +408,7 @@ function xoops_comment_count($module_id, $item_id = null)
  */
 function xoops_comment_delete($module_id, $item_id)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. Use comments module instead.');
+    xoops_functions_php_replaced_by_mod(__FUNCTION__, 'Comments module');
 }
 
 /**
@@ -411,8 +420,7 @@ function xoops_comment_delete($module_id, $item_id)
  */
 function xoops_groupperm_deletebymoditem($module_id, $perm_name, $item_id = null)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getHandlerGroupPermission()->deleteByModule($module_id, $perm_name, $item_id);
 }
 
@@ -423,8 +431,7 @@ function xoops_groupperm_deletebymoditem($module_id, $perm_name, $item_id = null
  */
 function xoops_utf8_encode(&$text)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     XoopsLocale::utf8_encode($text);
 }
 
@@ -435,8 +442,7 @@ function xoops_utf8_encode(&$text)
  */
 function xoops_convert_encoding(&$text)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     XoopsLocale::utf8_encode($text);
 }
 
@@ -447,8 +453,7 @@ function xoops_convert_encoding(&$text)
  */
 function xoops_trim($text)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return XoopsLocale::trim($text);
 }
 
@@ -459,8 +464,7 @@ function xoops_trim($text)
  */
 function xoops_getOption($option)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getOption($option);
 }
 
@@ -472,8 +476,7 @@ function xoops_getOption($option)
  */
 function xoops_getConfigOption($option, $type = 'XOOPS_CONF')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getConfig($option);
 }
 
@@ -485,8 +488,7 @@ function xoops_getConfigOption($option, $type = 'XOOPS_CONF')
  */
 function xoops_setConfigOption($option, $new = null)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     $xoops->setConfig($option, $new);
 }
 
@@ -498,8 +500,7 @@ function xoops_setConfigOption($option, $new = null)
  */
 function xoops_getModuleOption($option, $dirname = '')
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getModuleConfig($option, $dirname);
 }
 
@@ -511,8 +512,7 @@ function xoops_getModuleOption($option, $dirname = '')
  */
 function xoops_getBaseDomain($url, $debug = 0)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getBaseDomain($url);
 }
 
@@ -523,8 +523,7 @@ function xoops_getBaseDomain($url, $debug = 0)
  */
 function xoops_getUrlDomain($url)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->getBaseDomain($url, true);
 }
 
@@ -537,8 +536,7 @@ function xoops_getUrlDomain($url)
  */
 function xoops_template_touch($tpl_id, $clear_old = true)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     return $xoops->templateTouch($tpl_id);
 }
 
@@ -550,60 +548,6 @@ function xoops_template_touch($tpl_id, $clear_old = true)
  */
 function xoops_template_clear_module_cache($mid)
 {
-    $xoops = Xoops::getInstance();
-    $xoops->deprecated(__FUNCTION__ . ' is deprecated since XOOPS 2.6.0. See how to replace it in file ' . __FILE__ . ' line ' . __LINE__);
+    $xoops = xoops_functions_php_deprecated(__FUNCTION__, __FILE__, (__LINE__ + 1));
     $xoops->templateClearModuleCache($mid);
-}
-
-
-// general php version compatibility functions
-
-if (!function_exists('http_response_code')) {
-    /**
-     * http_response_code - conditionally defined for PHP <5.4
-     *
-     * Taken from stackoverflow answer by "dualed,"  see:
-     * http://stackoverflow.com/questions/3258634/php-how-to-send-http-response-code
-     *
-     * @param int $newcode HTTP response code
-     *
-     * @return int old status code
-     */
-    function http_response_code($newcode = null)
-    {
-        static $code = 200;
-        if ($newcode !== null) {
-            header('X-PHP-Response-Code: '.$newcode, true, $newcode);
-            if (!headers_sent()) {
-                $code = $newcode;
-            }
-        }
-        return $code;
-    }
-}
-
-// ENT_SUBSTITUTE flag for htmlspecialchars() added in PHP 5.4
-if (!defined('ENT_SUBSTITUTE')) {
-    define('ENT_SUBSTITUTE', 0);
-}
-
-/**
- * xhtmlspecialchars - a customized version of PHP htmlspecialchars to set the
- * flags and encoding parameters to the most approriate values for general use
- * in a UTF-8 environment.
- *
- * This function forces UTF-8 encoding, the ENT_QUOTES flag, and will also use
- * the ENT_SUBSTITUTE flag if it is available. This gives the optimal features
- * for 5.3 and in >5.4
- *
- * @param string  $string              string to be encoded
- * @param integer $dummy_flags         ignored - for call compatibility only
- * @param mixed   $dummy_encoding      ignored - for call compatibility only
- * @param mixed   $dummy_double_encode ignored - for call compatibility only
- *
- * @return string with any characters with special significance in HTML converted to entities
- */
-function xhtmlspecialchars($string, $dummy_flags = 0, $dummy_encoding = '', $dummy_double_encode = true)
-{
-    return htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }

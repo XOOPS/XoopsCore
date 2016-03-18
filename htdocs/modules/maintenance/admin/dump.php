@@ -92,11 +92,11 @@ switch ($op) {
             for ($i = 0; $i < count($dump_tables); ++$i) {
                 //structure
                 $result_tables[$i]['name'] = $db->prefix . '_' . $dump_tables[$i];
-                $result_structure = $dump->dump_table_structure($db->prefix . '_' . $dump_tables[$i], $drop);
+                $result_structure = $dump->dumpTableStructure($db->prefix . '_' . $dump_tables[$i], $drop);
                 $sql_text .= $result_structure['sql_text'];
                 $result_tables[$i]['structure'] = $result_structure['structure'];
                 //data
-                $result_data = $dump->dump_table_datas($db->prefix . '_' . $dump_tables[$i]);
+                $result_data = $dump->dumpTableData($db->prefix . '_' . $dump_tables[$i]);
                 $sql_text .= $result_data['sql_text'];
                 $result_tables[$i]['records'] = $result_data['records'];
             }
@@ -114,12 +114,12 @@ switch ($op) {
                     foreach ($modtables as $table) {
                         //structure
                         $result_tables[$count]['name'] = $db->prefix . '_' . $table;
-                        $result_structure = $dump->dump_table_structure($db->prefix . '_' . $table, $drop);
+                        $result_structure = $dump->dumpTableStructure($db->prefix . '_' . $table, $drop);
                         $sql_text .= $result_structure['sql_text'];
                         $result_tables[$count]['structure'] = $result_structure['structure'];
 
                         //data
-                        $result_data = $dump->dump_table_datas($db->prefix . '_' . $table);
+                        $result_data = $dump->dumpTableData($db->prefix . '_' . $table);
                         $sql_text .= $result_data['sql_text'];
                         $result_tables[$count]['records'] = $result_data['records'];
                         ++$count;

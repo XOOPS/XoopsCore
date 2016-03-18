@@ -17,18 +17,12 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         profile
- * @since           2.3.0
+ * @package         Profile
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
- */
-
-/**
- * @package kernel
- * @copyright copyright &copy; 2000 XOOPS.org
+ * @copyright       2000-2016 XOOPS Project (www.xoops.org)
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @since           2.3.0
  */
 class ProfileField extends XoopsObject
 {
@@ -218,7 +212,7 @@ class ProfileField extends XoopsObject
                 $dirlist = array();
                 while (false !== ($file = readdir($handle))) {
                     if (is_dir(\XoopsBaseConfig::get('themes-path') . '/' . $file) && !preg_match("/^[.]{1,2}$/", $file) && strtolower($file) !== 'cvs') {
-                        if (XoopsLoad::fileExists(\XoopsBaseConfig::get('themes-path') . "/" . $file . "/theme.html") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
+                        if (XoopsLoad::fileExists(\XoopsBaseConfig::get('themes-path') . "/" . $file . "/theme.tpl") && in_array($file, $xoops->getConfig('theme_set_allowed'))) {
                             $dirlist[$file] = $file;
                         }
                     }
@@ -572,6 +566,9 @@ class ProfileFieldHandler extends XoopsPersistableObjectHandler
             }
 
             $sql = "ALTER TABLE `" . $profile_handler->table . "` " . $changetype . " `" . $obj->cleanVars['field_name'] . "` " . $type . $maxlengthstring . ' NULL';
+            if ($force) {
+                $this->db2->setForce(true);
+            }
             if (!$this->db2->query($sql)) {
                 return false;
             }

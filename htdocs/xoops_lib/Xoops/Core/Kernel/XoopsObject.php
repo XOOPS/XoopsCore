@@ -85,13 +85,6 @@ abstract class XoopsObject implements \ArrayAccess
     private $errors = array();
 
     /**
-     * additional filters registered dynamically by a child class object
-     *
-     * @var array
-     */
-    private $filters = array();
-
-    /**
      * @var string
      */
     public $plugin_path;
@@ -379,78 +372,6 @@ abstract class XoopsObject implements \ArrayAccess
     }
 
     /**
-     * dynamically register additional filter for the object
-     *
-     * @param string $filtername name of the filter
-     *
-     * @return void
-     */
-    public function registerFilter($filtername)
-    {
-        $this->filters[] = $filtername;
-    }
-
-    /**
-     * load all additional filters that have been registered to the object
-     *
-     * @return void
-     */
-    private function internalLoadFilters()
-    {
-        static $loaded;
-        if (isset($loaded)) {
-            return;
-        }
-        $loaded = 1;
-
-        $path = empty($this->plugin_path) ? __DIR__ . '/filters' : $this->plugin_path;
-        if (\XoopsLoad::fileExists($file = $path . '/filter.php')) {
-            include_once $file;
-            if (is_array($this->filters)) {
-                foreach ($this->filters as $f) {
-                    if (\XoopsLoad::fileExists($file = $path . '/' . strtolower($f) . 'php')) {
-                        include_once $file;
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * load all local filters for the object
-     *
-     * Filter distribution:
-     * In each module folder there is a folder "filter" containing filter files with,
-     * filename: [name_of_target_class][.][function/action_name][.php];
-     * function name: [dirname][_][name_of_target_class][_][function/action_name];
-     * parameter: the target object
-     *
-     * @param string $method function or action name
-     *
-     * @return void
-     */
-    public function loadFilters($method)
-    {
-        $this->internalLoadFilters();
-
-        $class = get_class($this);
-        $modules_active = \Xoops::getInstance()->getActiveModules();
-        if (is_array($modules_active)) {
-            foreach ($modules_active as $dirname) {
-                $file = \XoopsBaseConfig::get('root-path') . '/modules/'
-                    . $dirname . '/filter/' . $class . '.' . $method . '.php';
-                if (\XoopsLoad::fileExists($file)) {
-                    include_once $file;
-                    $function = $dirname . '_' . $class . '_' . $method;
-                    if (function_exists($function)) {
-                        call_user_func_array($function, array(&$this));
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * create a clone(copy) of the current object
      *
      * @return object clone
@@ -513,17 +434,6 @@ abstract class XoopsObject implements \ArrayAccess
             $ret .= 'None<br />';
         }
         return $ret;
-    }
-
-    /**
-     * toArray
-     *
-     * @deprecated
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->getValues();
     }
 
     /**
