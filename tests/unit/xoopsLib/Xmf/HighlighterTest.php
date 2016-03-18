@@ -40,13 +40,17 @@ class HighlighterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Highlighter::apply
+     * @covers Xmf\Highlighter::splitOnTag
      */
     public function testApply()
     {
         $output = Highlighter::apply('test', 'This test is OK.');
         $this->assertEquals($output, 'This <strong>test</strong> is OK.');
 
-        $output = Highlighter::apply(array('test','ok'), 'This test is OK.','<i>','</i>');
+        $output = Highlighter::apply(array('test','ok'), 'This test is OK.', '<i>', '</i>');
         $this->assertEquals($output, 'This <i>test</i> is <i>OK</i>.');
+
+        $output = Highlighter::apply(array('test','ok'), 'This test <test>is</test> OK.', '<i>', '</i>');
+        $this->assertEquals($output, 'This <i>test</i> <test>is</test> <i>OK</i>.');
     }
 }
