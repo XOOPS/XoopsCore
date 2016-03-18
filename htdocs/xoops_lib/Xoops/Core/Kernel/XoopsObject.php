@@ -437,6 +437,17 @@ abstract class XoopsObject implements \ArrayAccess
     }
 
     /**
+     * toArray
+     *
+     * @deprecated
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->getValues();
+    }
+
+    /**
      * ArrayAccess methods
      */
 

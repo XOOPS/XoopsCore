@@ -344,7 +344,7 @@ class XoopsObjectTest extends \PHPUnit_Framework_TestCase
         $instance = new $this->myClass();
         $instance->initVar('dummyVar1', XOBJ_DTYPE_INT, 0);
         $instance->initVar('dummyVar2', XOBJ_DTYPE_INT, 0);
-        $x = $instance->getArrayCopy(); // was toArray();
+        $x = $instance->toArray();
         $this->assertTrue(isset($x['dummyVar1']));
         $this->assertTrue(isset($x['dummyVar2']));
     }
