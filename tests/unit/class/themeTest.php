@@ -29,7 +29,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('', $theme->path);
         $this->assertSame('', $theme->url);
         $this->assertSame(true, $theme->bufferOutput);
-        $this->assertSame('theme.html', $theme->canvasTemplate);
+        $this->assertSame('theme.tpl', $theme->canvasTemplate);
         $this->assertSame('themes', $theme->themesPath);
         $this->assertSame('', $theme->contentTemplate);
         $this->assertSame(0, $theme->contentCacheLifetime);

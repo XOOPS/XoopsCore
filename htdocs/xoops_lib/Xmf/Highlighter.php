@@ -14,10 +14,10 @@ namespace Xmf;
 /**
  * Highlighter
  *
- * @category  Xmf\Module\Highlighter
+ * @category  Xmf\Highlighter
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -26,26 +26,31 @@ namespace Xmf;
 class Highlighter
 {
     /**
+     * mbstring encoding
+     */
+    const ENCODING = 'UTF-8';
+
+    /**
      * Apply highlight to words in body text
      *
-     * Surround occurances of words in body with pre in front and post
-     * behing. Considers only occurances of words outside of HTML tags.
+     * Surround occurrences of words in body with pre in front and post
+     * behind. Considers only occurrences of words outside of HTML tags.
      *
-     * @param mixed  $words words to highlight
-     * @param string $body  body of html text to highlight
-     * @param string $pre   string to begin a highlight
-     * @param string $post  string to end a highlight
+     * @param string|string[] $words words to highlight
+     * @param string          $body  body of html text to highlight
+     * @param string          $pre   string to begin a highlight
+     * @param string          $post  string to end a highlight
      *
      * @return string highlighted body
      */
     public static function apply($words, $body, $pre = '<strong>', $post = '</strong>')
     {
         if (!is_array($words)) {
-            $words=str_replace('  ', ' ', $words);
-            $words=explode(' ', $words);
+            $words = str_replace('  ', ' ', $words);
+            $words = explode(' ', $words);
         }
         foreach ($words as $word) {
-            $body=Highlighter::splitOnTag($word, $body, $pre, $post);
+            $body = static::splitOnTag($word, $body, $pre, $post);
         }
 
         return $body;
@@ -59,27 +64,38 @@ class Highlighter
      * @param string $pre      insert before needle
      * @param string $post     insert after needle
      *
-     * @return string
+     * @return mixed return from preg_replace_callback()
      */
-    private static function splitOnTag($needle, $haystack, $pre, $post)
+    protected static function splitOnTag($needle, $haystack, $pre, $post)
     {
+        $encoding = static::ENCODING;
         return preg_replace_callback(
             '#((?:(?!<[/a-z]).)*)([^>]*>|$)#si',
-            function ($capture) use ($needle, $pre, $post) {
-                $haystack=$capture[1];
-                $p1=mb_stripos($haystack, $needle);
-                $l1=mb_strlen($needle);
-                $ret='';
-                while ($p1!==false) {
-                    $ret .= mb_substr($haystack, 0, $p1) . $pre
-                        . mb_substr($haystack, $p1, $l1) . $post;
-                    $haystack=mb_substr($haystack, $p1+$l1);
-                    $p1=mb_stripos($haystack, $needle);
+            function ($capture) use ($needle, $pre, $post, $encoding) {
+                $haystack = $capture[1];
+                if (function_exists('mb_substr')) {
+                    $p1 = mb_stripos($haystack, $needle, 0, $encoding);
+                    $l1 = mb_strlen($needle, $encoding);
+                    $ret = '';
+                    while ($p1 !== false) {
+                        $ret .= mb_substr($haystack, 0, $p1, $encoding) . $pre
+                            . mb_substr($haystack, $p1, $l1, $encoding) . $post;
+                        $haystack = mb_substr($haystack, $p1 + $l1, null, $encoding);
+                        $p1 = mb_stripos($haystack, $needle, 0, $encoding);
+                    }
+                } else {
+                    $p1 = stripos($haystack, $needle);
+                    $l1 = strlen($needle);
+                    $ret = '';
+                    while ($p1 !== false) {
+                        $ret .= substr($haystack, 0, $p1) . $pre . substr($haystack, $p1, $l1) . $post;
+                        $haystack = substr($haystack, $p1 + $l1);
+                        $p1 = stripos($haystack, $needle);
+                    }
                 }
-                $ret.=$haystack.$capture[2];
+                $ret .= $haystack . $capture[2];
 
                 return $ret;
-
             },
             $haystack
         );

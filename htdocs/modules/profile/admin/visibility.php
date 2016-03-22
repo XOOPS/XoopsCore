@@ -10,6 +10,9 @@
 */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+
 
 /**
  * Extended User Profile
@@ -71,10 +74,11 @@ $opform->addElement($op_select);
 $opform->display();
 
 $criteria = new CriteriaCompo();
-$criteria->setGroupby("field_id, user_group, profile_group");
-$criteria->setSort('field_id');
+//$criteria->setGroupBy('field_id, user_group, profile_group');
+$criteria->setSort('field_id, user_group, profile_group');
 $criteria->setOrder('DESC');
-$visibilities = $visibility_handler->getAll($criteria, false, false, true);
+
+$visibilities = $visibility_handler->getAllByFieldId($criteria);
 
 $member_handler = $xoops->getHandlerMember();
 $groups = $member_handler->getGroupList();

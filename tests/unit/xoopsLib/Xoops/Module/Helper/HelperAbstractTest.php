@@ -5,7 +5,7 @@ class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\Helpe
 {
     public function getDirname()
     {
-        return $this->_dirname;
+        return $this->dirname;
     }
 
     public function setDirname($dir)
@@ -15,7 +15,7 @@ class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\Helpe
 
     public function getDebug()
     {
-        return $this->_debug;
+        return $this->debug;
     }
 
     public function setDebug($debug)
@@ -25,7 +25,7 @@ class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\Helpe
 
     public function clearModule()
     {
-        $this->_module = null;
+        $this->module = null;
     }
 }
 

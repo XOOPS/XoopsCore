@@ -18,7 +18,7 @@ namespace Xmf\Template;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    The SmartFactory <www.smartfactory.ca>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -80,11 +80,12 @@ class PrintContent extends AbstractTemplate
      *
      * @param string $content page content
      *
-     * @return void
+     * @return PrintContent
      */
     public function setContent($content)
     {
         $this->content = $content;
+        return $this;
     }
 
     /**
@@ -102,11 +103,12 @@ class PrintContent extends AbstractTemplate
      *
      * @param string $description page description
      *
-     * @return void
+     * @return PrintContent
      */
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
     }
 
     /**
@@ -124,11 +126,12 @@ class PrintContent extends AbstractTemplate
      *
      * @param boolean $pagetitle use page title
      *
-     * @return void
+     * @return PrintContent
      */
     public function setPagetitle($pagetitle)
     {
         $this->pagetitle = $pagetitle;
+        return $this;
     }
 
     /**
@@ -146,11 +149,12 @@ class PrintContent extends AbstractTemplate
      *
      * @param string $title page title
      *
-     * @return void
+     * @return PrintContent
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -168,11 +172,12 @@ class PrintContent extends AbstractTemplate
      *
      * @param int $width page width in pixels
      *
-     * @return void
+     * @return PrintContent
      */
     public function setWidth($width)
     {
         $this->width = $width;
+        return $this;
     }
 
     /**

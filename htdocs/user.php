@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 
 /**
@@ -32,29 +33,18 @@ $xoops->events()->triggerEvent('core.user.start');
 
 $xoops->loadLanguage('user');
 
-// from $_POST we use keys: op, ok
-$clean_input = XoopsFilterInput::gather(
-    'post',
-    array(
-        array('op','string'),
-        array('ok', 'boolean', 0, false),
-    ),
-    'op' // require op parameter to return results
-);
-if (!$clean_input) {
+if ('POST' === Request::getMethod()) {
+    // from $_POST we use keys: op, ok
+    $op = Request::getCmd('op', 'register', 'POST');
+    $ok = Request::getBool('ok', false, 'POST');
+} else {
     // no valid $_POST, use $_GET and set defaults
     // from $_GET we use keys: op, xoops_redirect, id, actkey
-    $clean_input = XoopsFilterInput::gather(
-        'get',
-        array(
-            array('op','string','main',true),
-            array('xoops_redirect', 'weburl', '', true),
-            array('id', 'int', 0, false),
-            array('actkey', 'string', '', true),
-        )
-    );
+    $op = Request::getCmd('op', 'register', 'GET');
+    $xoops_redirect = Request::getUrl('xoops_redirect', '', 'GET');
+    $id = Request::getInt('id', 0, 'GET');
+    $actKey = Request::getString('actkey', '', 'GET');
 }
-$op = $clean_input['op'];
 
 if ($op === 'login') {
     include_once $xoops->path('include/checklogin.php');
@@ -77,8 +67,8 @@ if ($op === 'main') {
         );
         $xoops->tpl()->assign('lang_login', XoopsLocale::A_LOGIN);
         $xoops->tpl()->assign('lang_username', XoopsLocale::C_USERNAME);
-        if (isset($clean_input['xoops_redirect'])) {
-            $xoops->tpl()->assign('redirect_page', htmlspecialchars($clean_input['xoops_redirect'], ENT_QUOTES));
+        if (!empty($xoops_redirect)) {
+            $xoops->tpl()->assign('redirect_page', htmlspecialchars($xoops_redirect, ENT_QUOTES));
         }
         if ($xoops->getConfig('usercookie')) {
             $xoops->tpl()->assign('lang_rememberme', XoopsLocale::REMEMBER_ME);
@@ -91,8 +81,8 @@ if ($op === 'main') {
         $xoops->tpl()->assign('mailpasswd_token', $xoops->security()->createToken());
         $xoops->footer();
     }
-    if (!empty($clean_input['xoops_redirect'])) {
-        $redirect = $clean_input['xoops_redirect'];
+    if (!empty($xoops_redirect)) {
+        $redirect = $xoops_redirect;
         $isExternal = false;
         if ($pos = strpos($redirect, '://')) {
             $xoopsLocation = substr($xoops_url, strpos($xoops_url, '://') + 3);
@@ -130,8 +120,7 @@ if ($op === 'delete') {
             // users in the webmasters group may not be deleted
             $xoops->redirect('user.php', 5, XoopsLocale::E_USER_IN_WEBMASTER_GROUP_CANNOT_BE_REMOVED);
         }
-        $ok = !isset($clean_input['ok']) ? 0 : $clean_input['ok'];
-        if ($ok != 1) {
+        if (!(bool) $ok) {
             $xoops->header();
             echo $xoops->confirm(
                 array('op' => 'delete', 'ok' => 1),

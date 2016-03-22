@@ -20,6 +20,7 @@ use Assetic\AssetWriter;
 use Assetic\Asset\AssetCollection;
 use Assetic\Asset\FileAsset;
 use Assetic\Asset\GlobAsset;
+use Xmf\Yaml;
 
 /**
  * Provides a standardized asset strategy

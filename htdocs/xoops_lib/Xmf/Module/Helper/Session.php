@@ -9,9 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xmf\Module;
-
-use Xmf\Module\Helper\AbstractHelper;
+namespace Xmf\Module\Helper;
 
 /**
  * Manage session variables for a module. Session variable will be
@@ -23,7 +21,7 @@ use Xmf\Module\Helper\AbstractHelper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -34,7 +32,7 @@ class Session extends AbstractHelper
     /**
      * @var string
      */
-    private $prefix;
+    protected $prefix;
 
     /**
      * Initialize parent::__constuct calls this after verifying module object.
@@ -53,7 +51,7 @@ class Session extends AbstractHelper
      *
      * @return string module prefixed name
      */
-    private function prefix($name)
+    protected function prefix($name)
     {
         $prefixedName = $this->prefix . $name;
 
@@ -77,17 +75,18 @@ class Session extends AbstractHelper
     /**
      * Fetch a named session variable respecting our module prefix
      *
-     * @param string $name name of variable
+     * @param string $name    name of variable
+     * @param mixed  $default default value to return if config $name is not set
      *
      * @return mixed  $value value of session variable or false if not set
      */
-    public function get($name)
+    public function get($name, $default = false)
     {
         $prefixedName = $this->prefix($name);
         if (isset($_SESSION[$prefixedName])) {
             return unserialize($_SESSION[$prefixedName]);
         } else {
-            return false;
+            return $default;
         }
     }
 

@@ -9,9 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xmf\Module;
-
-use Xmf\Module\Helper\AbstractHelper;
+namespace Xmf\Module\Helper;
 
 /**
  * Manage cache interaction in a module. Cache key will be prefixed
@@ -23,7 +21,7 @@ use Xmf\Module\Helper\AbstractHelper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -32,7 +30,7 @@ use Xmf\Module\Helper\AbstractHelper;
 class Cache extends AbstractHelper
 {
     /**
-     * @var string[]
+     * @var string
      */
     protected $prefix;
 
@@ -57,18 +55,11 @@ class Cache extends AbstractHelper
      *
      * @param string $name name to prefix
      *
-     * @return string[] module prefixed name
+     * @return string module prefixed name
      */
-    private function prefix($name)
+    protected function prefix($name)
     {
-        $prefixedName = $this->prefix;
-        if (!empty($name)) {
-            $name = (array) $name;
-            foreach ($name as $n) {
-                $prefixedName[] = $n;
-            }
-        }
-        return $prefixedName;
+        return $this->prefix . $name;
     }
 
     /**
@@ -84,19 +75,21 @@ class Cache extends AbstractHelper
      */
     public function write($key, $value, $ttl = null)
     {
-        return $this->cache->write($this->prefix($key), $value);
+        return $this->cache->write($this->prefix($key), $value, $ttl);
     }
 
     /**
      * Read value for a key from the cache
      *
-     * @param string $key Identifier for the data
+     * @param string $key     Identifier for the data
+     * @param mixed  $default default value to return if config $key is not set
      *
      * @return mixed value if key was set, false not set or expired
      */
-    public function read($key)
+    public function read($key, $default = false)
     {
-        return $this->cache->read($this->prefix($key));
+        $value = $this->cache->read($this->prefix($key));
+        return (false !== $value) ? $value : $default;
     }
 
     /**

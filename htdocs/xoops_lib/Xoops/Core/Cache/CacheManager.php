@@ -13,9 +13,9 @@ namespace Xoops\Core\Cache;
 
 use Stash\Pool;
 use Stash\Interfaces\DriverInterface;
+use Xmf\Yaml;
 use Xoops\Core\Cache\DriverList;
 use Xoops\Core\Cache\Access;
-use Xoops\Core\Yaml;
 
 /**
  * Provides a standardized cache access

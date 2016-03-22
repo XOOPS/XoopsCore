@@ -14,11 +14,11 @@ namespace Xmf;
 /**
  * Metagen facilitates generating and assigning page meta tags
  *
- * @category  Xmf\Module\Metagen
+ * @category  Xmf\Metagen
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2011-2014 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -28,7 +28,12 @@ class Metagen
 {
 
     /**
-     * Unicode horizontal ellipsis U+2026
+     * mbstring encoding
+     */
+    const ENCODING = 'UTF-8';
+
+    /**
+     * horizontal ellipsis
      * This will be used to replace omitted text.
      */
     const ELLIPSIS = "…"; // unicode horizontal ellipsis U+2026
@@ -42,39 +47,23 @@ class Metagen
      */
     public static function assignTitle($title)
     {
-        global $xoopsTpl, $xoTheme;
-
         $title = trim($title);
-        $title = self::asPlainText($title);
-        if (!empty($title)) {
-            if (is_object($xoTheme)) {
-                $xoTheme->addMeta('meta', 'title', $title);
-            }
-            $xoopsTpl->assign('xoops_pagetitle', $title);
-        }
+        $title = static::asPlainText($title);
+        static::assignTemplateVar('xoops_pagetitle', $title);
     }
 
     /**
      * assignKeywords set the meta keywords tag
      *
-     * @param array $keywords keywords for page
+     * @param string[] $keywords keywords list
      *
      * @return void
      */
     public static function assignKeywords($keywords)
     {
-        global $xoopsTpl, $xoTheme;
-
         if (!empty($keywords) && is_array($keywords)) {
             $keyword_tag = implode(', ', $keywords);
-
-            if (!empty($keyword_tag)) {
-                if (is_object($xoTheme)) {
-                    $xoTheme->addMeta('meta', 'keywords', $keyword_tag);
-                } else {
-                    $xoopsTpl->assign('xoops_meta_keywords', $keyword_tag);
-                }
-            }
+            static::assignThemeMeta('keywords', $keyword_tag);
         }
     }
 
@@ -87,15 +76,41 @@ class Metagen
      */
     public static function assignDescription($description)
     {
-        global $xoopsTpl, $xoTheme;
-
         $description = trim($description);
         if (!empty($description)) {
-            if (is_object($xoTheme)) {
-                $xoTheme->addMeta('meta', 'description', $description);
-            } else {
-                $xoopsTpl->assign('xoops_meta_description', $description);
-            }
+            static::assignThemeMeta('description', $description);
+        }
+    }
+
+    /**
+     * assign meta variables in template engine
+     *
+     * @param string $name  meta name (keywords, description)
+     * @param string $value meta value
+     */
+    protected static function assignThemeMeta($name, $value)
+    {
+        if (class_exists('Xoops', false)) {
+            \Xoops::getInstance()->theme()->addMeta('meta', $name, $value);
+        } else {
+            global $xoTheme;
+            $xoTheme->addMeta('meta', $name, $value);
+        }
+    }
+
+    /**
+     * assign meta variables in template engine
+     *
+     * @param string $name  variable name (i.e. xoops_pagtitle)
+     * @param string $value meta value
+     */
+    protected static function assignTemplateVar($name, $value)
+    {
+        if (class_exists('Xoops', false)) {
+            \Xoops::getInstance()->tpl()->assign($name, $value);
+        } else {
+            global $xoopsTpl;
+            $xoopsTpl->assign($name, $value);
         }
     }
 
@@ -120,8 +135,12 @@ class Metagen
             $forceKeys = array();
         }
 
-        $text = self::asPlainText($body);
-        $text = mb_strtolower($text);
+        $text = static::asPlainText($body);
+        if (function_exists('mb_strtolower')) {
+            $text = mb_strtolower($text, static::ENCODING);
+        } else {
+            $text = strtolower($text);
+        }
 
         $originalKeywords = preg_split(
             '/[^a-zA-Z\'"-]+/',
@@ -131,10 +150,10 @@ class Metagen
         );
 
         foreach ($originalKeywords as $originalKeyword) {
-            if (self::checkStopWords($originalKeyword)) {
+            if (static::checkStopWords($originalKeyword)) {
                 $secondRoundKeywords = explode("'", $originalKeyword);
                 foreach ($secondRoundKeywords as $secondRoundKeyword) {
-                    if (self::checkStopWords($secondRoundKeyword)
+                    if (static::checkStopWords($secondRoundKeyword)
                         && strlen($secondRoundKeyword) >= $minLength
                     ) {
                         $keyCount[$secondRoundKeyword] =
@@ -164,23 +183,27 @@ class Metagen
      *
      * @return bool True if word is significant, false if it is a stop word
      */
-    protected static function checkStopWords($key)
+    public static function checkStopWords($key)
     {
         static $stopwords = null;
 
         if (!$stopwords) {
             if (!defined('_XMF_STOPWORDS')) {
-                \Xmf\Language::load('stopwords', 'xmf');
+                Language::load('stopwords', 'xmf');
             }
             if (defined('_XMF_STOPWORDS')) {
                 $sw = explode(' ', _XMF_STOPWORDS);
                 $stopwords = array_fill_keys($sw, true);
             } else {
-                $stopwords = array('_'=> true);
+                $stopwords = array('_' => true);
             }
         }
-        if ($stopwords) {
-            return !isset($stopwords[mb_strtolower($key)]);
+        if (!empty($stopwords)) {
+            if (function_exists('mb_strtolower')) {
+                return !isset($stopwords[mb_strtolower($key, static::ENCODING)]);
+            } else {
+                return !isset($stopwords[strtolower($key)]);
+            }
         }
         return true;
     }
@@ -195,7 +218,7 @@ class Metagen
      */
     public static function generateDescription($body, $wordCount = 100)
     {
-        $text = self::asPlainText($body);
+        $text = static::asPlainText($body);
 
         $words = explode(" ", $text);
 
@@ -207,11 +230,20 @@ class Metagen
             ++$i;
         }
         $ret = implode(' ', $newWords);
-        $len = mb_strlen($ret);
-        $lastPeriod = mb_strrpos($ret, '.');
-        $ret .= ($lastPeriod === false) ? self::ELLIPSIS : '';
-        if ($len>100 && ($len-$lastPeriod)<30) {
-            $ret = mb_substr($ret, 0, $lastPeriod+1);
+        if (function_exists('mb_strlen')) {
+            $len = mb_strlen($ret, static::ENCODING);
+            $lastPeriod = mb_strrpos($ret, '.', 0, static::ENCODING);
+            $ret .= ($lastPeriod === false) ? static::ELLIPSIS : '';
+            if ($len > 100 && ($len - $lastPeriod) < 30) {
+                $ret = mb_substr($ret, 0, $lastPeriod + 1, static::ENCODING);
+            }
+        } else {
+            $len = strlen($ret);
+            $lastPeriod = strrpos($ret, '.');
+            $ret .= ($lastPeriod === false) ? static::ELLIPSIS : '';
+            if ($len > 100 && ($len - $lastPeriod) < 30) {
+                $ret = substr($ret, 0, $lastPeriod + 1);
+            }
         }
 
         return $ret;
@@ -237,12 +269,12 @@ class Metagen
         $wordCount = 100,
         $forceKeys = null
     ) {
-        $title_keywords = self::generateKeywords($title, $count, 3, $forceKeys);
-        $keywords = self::generateKeywords($body, $count, $minLength, $title_keywords);
-        $description = self::generateDescription($body, $wordCount);
-        self::assignTitle($title);
-        self::assignKeywords($keywords);
-        self::assignDescription($description);
+        $title_keywords = static::generateKeywords($title, $count, 3, $forceKeys);
+        $keywords = static::generateKeywords($body, $count, $minLength, $title_keywords);
+        $description = static::generateDescription($body, $wordCount);
+        static::assignTitle($title);
+        static::assignKeywords($keywords);
+        static::assignDescription($description);
     }
 
     /**
@@ -275,8 +307,8 @@ class Metagen
         $title = \Normalizer::normalize($title, \Normalizer::FORM_C);
 
         $tableau = explode("-", $title);
-        $tableau = array_filter($tableau, 'self::nonEmptyString');
-        $tableau = array_filter($tableau, 'self::checkStopWords');
+        $tableau = array_filter($tableau, 'static::nonEmptyString');
+        $tableau = array_filter($tableau, 'static::checkStopWords');
         $title = implode("-", $tableau);
 
         $title = (empty($title)) ? '' : $title . $extension;
@@ -294,39 +326,54 @@ class Metagen
      *
      * @param string $haystack the string to summarize
      * @param mixed  $needles  search term, array of search terms, or null
-     * @param int    $length   maximum length for the summary
+     * @param int    $length   maximum character length for the summary
      *
      * @return string a substring of haystack
      */
     public static function getSearchSummary($haystack, $needles = null, $length = 120)
     {
-        $encoding = 'UTF-8';
-
-        $haystack = self::asPlainText($haystack);
-        $pos = self::getNeedlePositions($haystack, $needles);
+        $haystack = static::asPlainText($haystack);
+        $pos = static::getNeedlePositions($haystack, $needles);
 
         $start = empty($pos) ? 0 : min($pos);
 
-        $start = max($start - (int)($length/2), 0);
+        $start = max($start - (int) ($length / 2), 0);
 
         $pre = ($start > 0); // need an ellipsis in front?
-        if ($pre) {
-            // we are not at the beginning so find first blank
-            $temp = mb_strpos($haystack, ' ', $start, $encoding);
-            $start = ($temp === false) ? $start : $temp;
-            $haystack = mb_substr($haystack, $start, null, $encoding);
-        }
+        if (function_exists('mb_strlen')) {
+            if ($pre) {
+                // we are not at the beginning so find first blank
+                $temp = mb_strpos($haystack, ' ', $start, static::ENCODING);
+                $start = ($temp === false) ? $start : $temp;
+                $haystack = mb_substr($haystack, $start, null, static::ENCODING);
+            }
 
-        $post = !(mb_strlen($haystack, $encoding) < $length);  // need an ellipsis in back?
-        if ($post) {
-            $haystack = mb_substr($haystack, 0, $length, $encoding);
-            $end = mb_strrpos($haystack, ' ', 0, $encoding);
-            if ($end) {
-                $haystack = mb_substr($haystack, 0, $end, $encoding);
+            $post = !(mb_strlen($haystack, static::ENCODING) < $length); // need an ellipsis in back?
+            if ($post) {
+                $haystack = mb_substr($haystack, 0, $length, static::ENCODING);
+                $end = mb_strrpos($haystack, ' ', 0, static::ENCODING);
+                if ($end) {
+                    $haystack = mb_substr($haystack, 0, $end, static::ENCODING);
+                }
+            }
+        } else {
+            if ($pre) {
+                // we are not at the beginning so find first blank
+                $temp = strpos($haystack, ' ', $start);
+                $start = ($temp === false) ? $start : $temp;
+                $haystack = substr($haystack, $start);
+            }
+
+            $post = !(strlen($haystack) < $length); // need an ellipsis in back?
+            if ($post) {
+                $haystack = substr($haystack, 0, $length);
+                $end = strrpos($haystack, ' ', 0);
+                if ($end) {
+                    $haystack = substr($haystack, 0, $end);
+                }
             }
         }
-
-        $haystack = ($pre ? self::ELLIPSIS : '') . trim($haystack) . ($post ? self::ELLIPSIS : '');
+        $haystack = ($pre ? static::ELLIPSIS : '') . trim($haystack) . ($post ? static::ELLIPSIS : '');
         return $haystack;
     }
 
@@ -341,9 +388,8 @@ class Metagen
     protected static function asPlainText($rawText)
     {
         $text = $rawText;
-        $utilities = new Utilities();
-        $text = $utilities->html2text($text);
-        $text = $utilities->purifyText($text);
+        $text = static::html2text($text);
+        $text = static::purifyText($text);
 
         $text = str_replace(array("\n", "\r"), ' ', $text);
         $text = preg_replace('/[ ]* [ ]*/', ' ', $text);
@@ -361,16 +407,117 @@ class Metagen
      *
      * @return integer[] array of initial positions of substring of haystack
      */
-    private static function getNeedlePositions($haystack, $needles)
+    protected static function getNeedlePositions($haystack, $needles)
     {
-        $pos=array();
+        $pos = array();
         $needles = empty($needles) ? array() : (array) $needles;
         foreach ($needles as $needle) {
-            $i = mb_stripos($haystack, $needle, 0, 'UTF-8');
-            if ($i!==false) {
+            if (function_exists('mb_stripos')) {
+                $i = mb_stripos($haystack, $needle, 0, static::ENCODING);
+            } else {
+                $i = stripos($haystack, $needle, 0);
+            }
+            if ($i !== false) {
                 $pos[] = $i; // only store matches
             }
         }
         return $pos;
+    }
+
+    /**
+     * purifyText
+     *
+     * @param string  $text    text to clean
+     * @param boolean $keyword replace some punctuation with white space
+     *
+     * @return string cleaned text
+     */
+    protected static function purifyText($text, $keyword = false)
+    {
+        $myts = \MyTextSanitizer::getInstance();
+        $text = str_replace('&nbsp;', ' ', $text);
+        $text = str_replace('<br />', ' ', $text);
+        $text = str_replace('<br/>', ' ', $text);
+        $text = str_replace('<br', ' ', $text);
+        $text = strip_tags($text);
+        $text = html_entity_decode($text);
+        $text = $myts->undoHtmlSpecialChars($text);
+        $text = str_replace(')', ' ', $text);
+        $text = str_replace('(', ' ', $text);
+        $text = str_replace(':', ' ', $text);
+        $text = str_replace('&euro', ' euro ', $text);
+        $text = str_replace('&hellip', '...', $text);
+        $text = str_replace('&rsquo', ' ', $text);
+        $text = str_replace('!', ' ', $text);
+        $text = str_replace('?', ' ', $text);
+        $text = str_replace('"', ' ', $text);
+        $text = str_replace('-', ' ', $text);
+        $text = str_replace('\n', ' ', $text);
+        $text = str_replace('&#8213;', ' ', $text);
+
+        if ($keyword) {
+            $text = str_replace('.', ' ', $text);
+            $text = str_replace(',', ' ', $text);
+            $text = str_replace('\'', ' ', $text);
+        }
+        $text = str_replace(';', ' ', $text);
+
+        return $text;
+    }
+
+    /**
+     * html2text
+     * This will remove HTML tags, javascript sections and white space. It will also
+     * convert some common HTML entities to their text equivalent. Credits to newbb2
+     *
+     * @param string $document HTML to be converted
+     *
+     * @return string Text version of $document parameter
+     */
+    protected static function html2text($document)
+    {
+        $search = array(
+            "'<script[^>]*?>.*?</script>'si", // Strip out javascript
+            "'<img.*?/>'si",                  // Strip out img tags
+            "'<[\/\!]*?[^<>]*?>'si",          // Strip out HTML tags
+            "'([\r\n])[\s]+'",                // Strip out white space
+            "'&(quot|#34);'i",                // Replace HTML entities
+            "'&(amp|#38);'i",
+            "'&(lt|#60);'i",
+            "'&(gt|#62);'i",
+            "'&(nbsp|#160);'i",
+            "'&(iexcl|#161);'i",
+            "'&(cent|#162);'i",
+            "'&(pound|#163);'i",
+            "'&(copy|#169);'i"
+        );
+
+        $replace = array(
+            "",
+            "",
+            "",
+            "\\1",
+            "\"",
+            "&",
+            "<",
+            ">",
+            " ",
+            chr(161),
+            chr(162),
+            chr(163),
+            chr(169)
+        );
+
+        $text = preg_replace($search, $replace, $document);
+
+        preg_replace_callback(
+            '/&#(\d+);/',
+            function ($matches) {
+                return chr($matches[1]);
+            },
+            $document
+        );
+
+        return $text;
     }
 }

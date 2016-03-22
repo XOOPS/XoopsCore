@@ -1,40 +1,40 @@
 <style type="text/css">
-    <{foreach from=$block.modules|default:[] item=module}>
-        <{if $module.image|default:false}>
-        .<{$module.dirname}>-icon, .nav .active a .<{$module.dirname}>-icon {
-            background-image: url('<{$module.image}>');
+    {foreach from=$block.modules|default:[] item=module}
+        {if $module.image|default:false}
+        .{$module.dirname}-icon, .nav .active a .{$module.dirname}-icon {
+            background-image: url('{$module.image}');
             background-position: 0 0;
             width: 16px;
             height: 16px;
             line-height: 16px;
         }
-        <{/if}>
-    <{/foreach}>
+        {/if}
+    {/foreach}
 </style>
-<ul class="nav nav-list">
-    <li class="<{if !$block.nothome|default:false}>active<{/if}>">
-        <a href="<{xoAppUrl}>" title="<{$block.lang_home}>">
-            <i class="icon-home <{if !$block.nothome|default:false}>icon-white<{/if}>"></i>
-            <{$block.lang_home}>
+<ul class="nav nav-pills nav-stacked">
+    <li class="{if !$block.nothome|default:false}active{/if}">
+        <a href="{xoAppUrl}" title="{$block.lang_home}">
+            <span class="glyphicon glyphicon-home {if !$block.nothome|default:false}icon-white{/if}"></span>
+            {$block.lang_home}
         </a>
     </li>
     <!-- start module menu loop -->
-    <{foreach item=module from=$block.modules|default:[]}>
-    <li class="<{if $module.highlight|default:false}>active<{/if}>">
-        <a class="" href="<{$xoops_url}>/modules/<{$module.dirname}>/" title="<{$module.name}>">
-            <i class="icon-tags <{$module.dirname}>-icon<{if $module.highlight|default:false}> icon-white<{/if}>"></i>
-            <{$module.name}>
+    {foreach item=module from=$block.modules|default:[]}
+    <li class="{if $module.highlight|default:false}active{/if}">
+        <a class="" href="{$xoops_url}/modules/{$module.dirname}/" title="{$module.name}">
+            <span class="glyphicon {$module.dirname}-icon{if $module.highlight|default:false} icon-white{/if}"></span>
+            {$module.name}
         </a>
-        <{if $module.sublinks|default:false}>
-        <ul class="nav nav-list">
-        <{foreach item=sublink from=$module.sublinks}>
-            <li>
-                <a class="" href="<{$sublink.url}>" title="<{$sublink.name}>"><{$sublink.name}></a>
+        {if $module.sublinks|default:false}
+        <ul class="nav list-group">
+        {foreach item=sublink from=$module.sublinks}
+            <li class="">
+                <a class="list-group-item" href="{$sublink.url}" title="{$sublink.name}">&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-right"></span>  {$sublink.name}</a>
             </li>
-        <{/foreach}>
+        {/foreach}
         </ul>
-        <{/if}>
+        {/if}
     </li>
-    <{/foreach}>
+    {/foreach}
     <!-- end module menu loop -->
 </ul>

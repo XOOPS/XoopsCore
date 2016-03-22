@@ -28,45 +28,45 @@ $system = System::getInstance();
 $xoops = Xoops::getInstance();
 
 // Get Action type
-$op = $system->cleanVars($_REQUEST, 'op', 'edit', 'string');
+$op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'edit';
 // Call header
 $xoops->header();
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->displayNavigation('permissions.php');
 
-$perm_desc = "";
+$perm_desc = '';
 switch ($op) {
-    case "visibility":
-        header("Location: visibility.php");
+    case 'visibility':
+        header('Location: visibility.php');
         break;
 
-    case "edit":
+    case 'edit':
     default:
         $title_of_form = _PROFILE_AM_PROF_EDITABLE;
-        $perm_name = "profile_edit";
-        $restriction = "field_edit";
-        $anonymous = false;
+        $perm_name     = 'profile_edit';
+        $restriction   = 'field_edit';
+        $anonymous     = false;
         break;
 
-    case "search":
+    case 'search':
         $title_of_form = _PROFILE_AM_PROF_SEARCH;
-        $perm_name = "profile_search";
-        $restriction = "";
-        $anonymous = true;
+        $perm_name     = 'profile_search';
+        $restriction   = '';
+        $anonymous     = true;
         break;
 
-    case "access":
+    case 'access':
         $title_of_form = _PROFILE_AM_PROF_ACCESS;
-        $perm_name = "profile_access";
-        $perm_desc = _PROFILE_AM_PROF_ACCESS_DESC;
-        $restriction = "";
-        $anonymous = true;
+        $perm_name     = 'profile_access';
+        $perm_desc     = _PROFILE_AM_PROF_ACCESS_DESC;
+        $restriction   = '';
+        $anonymous     = true;
         break;
 }
 
-$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', "get");
-$op_select = new Xoops\Form\Select("", 'op', $op);
+$opform = new Xoops\Form\SimpleForm('', 'opform', 'permissions.php', 'get');
+$op_select = new Xoops\Form\Select('', 'op', $op);
 $op_select->setExtra('onchange="document.forms.opform.submit()"');
 $op_select->addOption('visibility', _PROFILE_AM_PROF_VISIBLE);
 $op_select->addOption('edit', _PROFILE_AM_PROF_EDITABLE);
@@ -76,9 +76,9 @@ $opform->addElement($op_select);
 $opform->display();
 
 $module_id = $xoops->module->getVar('mid');
-$form = new Xoops\Form\GroupPermissionForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php', $anonymous);
+$form = new Xoops\Form\GroupPermissionForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/permissions.php?op=' . $op, $anonymous);
 
-if ($op === "access") {
+if ($op === 'access') {
     $member_handler = $xoops->getHandlerMember();
     $glist = $member_handler->getGroupList();
     foreach (array_keys($glist) as $i) {
@@ -86,15 +86,14 @@ if ($op === "access") {
             $form->addItem($i, $glist[$i]);
         }
     }
-
 } else {
     /* @var $profile_handler ProfileProfileHandler */
     $profile_handler = \Xoops::getModuleHelper('profile')->getHandler('profile');
     $fields = $profile_handler->loadFields();
 
-    if ($op !== "search") {
+    if ($op !== 'search') {
         foreach (array_keys($fields) as $i) {
-            if ($restriction == "" || $fields[$i]->getVar($restriction)) {
+            if ($restriction == '' || $fields[$i]->getVar($restriction)) {
                 $form->addItem(
                     $fields[$i]->getVar('field_id'),
                     XoopsLocale::substr($fields[$i]->getVar('field_title'), 0, 25)
@@ -102,14 +101,15 @@ if ($op === "access") {
             }
         }
     } else {
-        $searchable_types = array('textbox',
-        'select',
-        'radio',
-        'yesno',
-        'date',
-        'datetime',
-        'timezone',
-        'language');
+        $searchable_types = array(
+            'textbox',
+            'select',
+            'radio',
+            'yesno',
+            'date',
+            'datetime',
+            'timezone',
+            'language');
         foreach (array_keys($fields) as $i) {
             if (in_array($fields[$i]->getVar('field_type'), $searchable_types)) {
                 $form->addItem(

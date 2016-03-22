@@ -9,7 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Yaml;
+use Xmf\Yaml;
 
 /**
  * XoopsBaseConfig holds the base XOOPS configs needed to locate key paths and

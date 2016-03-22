@@ -148,7 +148,6 @@ EOT;
 
     /**
      * @covers Xmf\Metagen::generateDescription
-     * @todo   Implement testGenerateDescription().
      */
     public function testGenerateDescription()
     {

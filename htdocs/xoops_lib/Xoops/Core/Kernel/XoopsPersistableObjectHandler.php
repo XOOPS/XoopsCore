@@ -96,9 +96,9 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
     /**
      * Constructor
      *
-     * @param null|Connection $db             database connection}
+     * @param null|Connection $db             database connection
      * @param string          $table          Name of database table
-     * @param string          $className      Name of Class, this handler is managing
+     * @param string          $className      Name of the XoopsObject class this handler manages
      * @param string          $keyName        Name of the property holding the key
      * @param string          $identifierName Name of the property holding an identifier
      *                                         name (title, name ...), used on getList()

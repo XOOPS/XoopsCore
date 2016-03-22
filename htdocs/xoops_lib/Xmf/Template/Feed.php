@@ -18,7 +18,7 @@ namespace Xmf\Template;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    The SmartFactory <www.smartfactory.ca>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -29,97 +29,97 @@ class Feed extends AbstractTemplate
     /**
      * @var string
      */
-    private $_title = '';
+    private $title = '';
 
     /**
      * @var string
      */
-    private $_url = '';
+    private $url = '';
 
     /**
      * @var string
      */
-    private $_description = '';
+    private $description = '';
 
     /**
      * @var string
      */
-    private $_language = '';
+    private $language = '';
 
     /**
      * @var string
      */
-    private $_charset = '';
+    private $charset = '';
 
     /**
      * @var string
      */
-    private $_category = '';
+    private $category = '';
 
     /**
      * @var string
      */
-    private $_pubdate = '';
+    private $pubdate = '';
 
     /**
      * @var string
      */
-    private $_webmaster = '';
+    private $webmaster = '';
 
     /**
      * @var string
      */
-    private $_generator = '';
+    private $generator = '';
 
     /**
      * @var string
      */
-    private $_copyright = '';
+    private $copyright = '';
 
     /**
      * @var string
      */
-    private $_lastbuild = '';
+    private $lastbuild = '';
 
     /**
      * @var string
      */
-    private $_editor = '';
+    private $editor = '';
 
     /**
      * @var int
      */
-    private $_ttl = 60;
+    private $ttl = 60;
 
     /**
      * @var string
      */
-    private $_image_title = '';
+    private $image_title = '';
 
     /**
      * @var string
      */
-    private $_image_url = '';
+    private $image_url = '';
 
     /**
      * @var string
      */
-    private $_image_link = '';
+    private $image_link = '';
 
     /**
      * @var int
      */
-    private $_image_width = 200;
+    private $image_width = 200;
 
     /**
      * @var int
      */
-    private $_image_height = 50;
+    private $image_height = 50;
 
     /**
      * @var array
      */
-    private $_items = array();
+    private $items = array();
 
     /**
      * init - called by parent::_construct
@@ -132,20 +132,20 @@ class Feed extends AbstractTemplate
         //$this->disableLogger();
 
         global $xoopsConfig;
-        $this->_title = $xoopsConfig['sitename'];
-        $this->_url = \XoopsBaseConfig::get('url');
-        $this->_description = $xoopsConfig['slogan'];
-        $this->_language = \XoopsLocale::getLangCode();
-        $this->_charset = \XoopsLocale::getCharset();
-        $this->_pubdate = \XoopsLocale::formatTimestamp(time(), 'short');
-        $this->_lastbuild = \XoopsLocale::formatTimestamp(time(), 'D, d M Y H:i:s');
-        $this->_webmaster = $xoopsConfig['adminmail'];
-        $this->_editor = $xoopsConfig['adminmail'];
-        $this->_generator = \Xoops::VERSION;
-        $this->_copyright = 'Copyright ' . \XoopsLocale::formatTimestamp(time(), 'Y') . ' ' . $xoopsConfig['sitename'];
-        $this->_image_title = $this->_title;
-        $this->_image_url = \XoopsBaseConfig::get('url') . '/images/logo.gif';
-        $this->_image_link = $this->_url;
+        $this->title = $xoopsConfig['sitename'];
+        $this->url = \XoopsBaseConfig::get('url');
+        $this->description = $xoopsConfig['slogan'];
+        $this->language = \XoopsLocale::getLangCode();
+        $this->charset = \XoopsLocale::getCharset();
+        $this->pubdate = \XoopsLocale::formatTimestamp(time(), 'short');
+        $this->lastbuild = \XoopsLocale::formatTimestamp(time(), 'D, d M Y H:i:s');
+        $this->webmaster = $xoopsConfig['adminmail'];
+        $this->editor = $xoopsConfig['adminmail'];
+        $this->generator = \Xoops::VERSION;
+        $this->copyright = 'Copyright ' . \XoopsLocale::formatTimestamp(time(), 'Y') . ' ' . $xoopsConfig['sitename'];
+        $this->image_title = $this->title;
+        $this->image_url = \XoopsBaseConfig::get('url') . '/images/logo.gif';
+        $this->image_link = $this->url;
     }
 
     /**
@@ -155,25 +155,25 @@ class Feed extends AbstractTemplate
      */
     protected function render()
     {
-        $this->tpl->assign('channel_charset', $this->_charset);
-        $this->tpl->assign('channel_title', $this->_title);
-        $this->tpl->assign('channel_link', $this->_url);
-        $this->tpl->assign('channel_desc', $this->_description);
-        $this->tpl->assign('channel_webmaster', $this->_webmaster);
-        $this->tpl->assign('channel_editor', $this->_editor);
-        $this->tpl->assign('channel_category', $this->_category);
-        $this->tpl->assign('channel_generator', $this->_generator);
-        $this->tpl->assign('channel_language', $this->_language);
-        $this->tpl->assign('channel_lastbuild', $this->_lastbuild);
-        $this->tpl->assign('channel_copyright', $this->_copyright);
-        $this->tpl->assign('channel_ttl', $this->_ttl);
-        $this->tpl->assign('channel_image_url', $this->_image_url);
-        $this->tpl->assign('channel_image_title', $this->_image_title);
-        $this->tpl->assign('channel_image_url', $this->_image_url);
-        $this->tpl->assign('channel_image_link', $this->_image_link);
-        $this->tpl->assign('channel_image_width', $this->_image_width);
-        $this->tpl->assign('channel_image_height', $this->_image_height);
-        $this->tpl->assign('channel_items', $this->_items);
+        $this->tpl->assign('channel_charset', $this->charset);
+        $this->tpl->assign('channel_title', $this->title);
+        $this->tpl->assign('channel_link', $this->url);
+        $this->tpl->assign('channel_desc', $this->description);
+        $this->tpl->assign('channel_webmaster', $this->webmaster);
+        $this->tpl->assign('channel_editor', $this->editor);
+        $this->tpl->assign('channel_category', $this->category);
+        $this->tpl->assign('channel_generator', $this->generator);
+        $this->tpl->assign('channel_language', $this->language);
+        $this->tpl->assign('channel_lastbuild', $this->lastbuild);
+        $this->tpl->assign('channel_copyright', $this->copyright);
+        $this->tpl->assign('channel_ttl', $this->ttl);
+        $this->tpl->assign('channel_image_url', $this->image_url);
+        $this->tpl->assign('channel_image_title', $this->image_title);
+        $this->tpl->assign('channel_image_url', $this->image_url);
+        $this->tpl->assign('channel_image_link', $this->image_link);
+        $this->tpl->assign('channel_image_width', $this->image_width);
+        $this->tpl->assign('channel_image_height', $this->image_height);
+        $this->tpl->assign('channel_items', $this->items);
     }
 
     /**
@@ -181,11 +181,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $category feed category
      *
-     * @return void
+     * @return Feed
      */
     public function setCategory($category)
     {
-        $this->_category = $category;
+        $this->category = $category;
+        return $this;
     }
 
     /**
@@ -195,7 +196,7 @@ class Feed extends AbstractTemplate
      */
     public function getCategory()
     {
-        return $this->_category;
+        return $this->category;
     }
 
     /**
@@ -203,11 +204,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $charset feed character set
      *
-     * @return void
+     * @return Feed
      */
     public function setCharset($charset)
     {
-        $this->_charset = $charset;
+        $this->charset = $charset;
+        return $this;
     }
 
     /**
@@ -217,7 +219,7 @@ class Feed extends AbstractTemplate
      */
     public function getCharset()
     {
-        return $this->_charset;
+        return $this->charset;
     }
 
     /**
@@ -225,11 +227,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $copyright feed copyright
      *
-     * @return void
+     * @return Feed
      */
     public function setCopyright($copyright)
     {
-        $this->_copyright = $copyright;
+        $this->copyright = $copyright;
+        return $this;
     }
 
     /**
@@ -239,7 +242,7 @@ class Feed extends AbstractTemplate
      */
     public function getCopyright()
     {
-        return $this->_copyright;
+        return $this->copyright;
     }
 
     /**
@@ -247,11 +250,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $description feed description
      *
-     * @return void
+     * @return Feed
      */
     public function setDescription($description)
     {
-        $this->_description = $description;
+        $this->description = $description;
+        return $this;
     }
 
     /**
@@ -261,7 +265,7 @@ class Feed extends AbstractTemplate
      */
     public function getDescription()
     {
-        return $this->_description;
+        return $this->description;
     }
 
     /**
@@ -269,11 +273,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $editor editor of feed
      *
-     * @return void
+     * @return Feed
      */
     public function setEditor($editor)
     {
-        $this->_editor = $editor;
+        $this->editor = $editor;
+        return $this;
     }
 
     /**
@@ -283,7 +288,7 @@ class Feed extends AbstractTemplate
      */
     public function getEditor()
     {
-        return $this->_editor;
+        return $this->editor;
     }
 
     /**
@@ -291,11 +296,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $generator feed generator
      *
-     * @return void
+     * @return Feed
      */
     public function setGenerator($generator)
     {
-        $this->_generator = $generator;
+        $this->generator = $generator;
+        return $this;
     }
 
     /**
@@ -305,7 +311,7 @@ class Feed extends AbstractTemplate
      */
     public function getGenerator()
     {
-        return $this->_generator;
+        return $this->generator;
     }
 
     /**
@@ -313,11 +319,12 @@ class Feed extends AbstractTemplate
      *
      * @param int $image_height height of feed image
      *
-     * @return void
+     * @return Feed
      */
     public function setImageHeight($image_height)
     {
-        $this->_image_height = $image_height;
+        $this->image_height = $image_height;
+        return $this;
     }
 
     /**
@@ -327,7 +334,7 @@ class Feed extends AbstractTemplate
      */
     public function getImageHeight()
     {
-        return $this->_image_height;
+        return $this->image_height;
     }
 
     /**
@@ -335,11 +342,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $image_link feed image link
      *
-     * @return void
+     * @return Feed
      */
     public function setImageLink($image_link)
     {
-        $this->_image_link = $image_link;
+        $this->image_link = $image_link;
+        return $this;
     }
 
     /**
@@ -349,7 +357,7 @@ class Feed extends AbstractTemplate
      */
     public function getImageLink()
     {
-        return $this->_image_link;
+        return $this->image_link;
     }
 
     /**
@@ -357,11 +365,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $image_title feed image title
      *
-     * @return void
+     * @return Feed
      */
     public function setImageTitle($image_title)
     {
-        $this->_image_title = $image_title;
+        $this->image_title = $image_title;
+        return $this;
     }
 
     /**
@@ -371,7 +380,7 @@ class Feed extends AbstractTemplate
      */
     public function getImageTitle()
     {
-        return $this->_image_title;
+        return $this->image_title;
     }
 
     /**
@@ -379,11 +388,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $image_url url of feed image
      *
-     * @return void
+     * @return Feed
      */
     public function setImageUrl($image_url)
     {
-        $this->_image_url = $image_url;
+        $this->image_url = $image_url;
+        return $this;
     }
 
     /**
@@ -393,7 +403,7 @@ class Feed extends AbstractTemplate
      */
     public function getImageUrl()
     {
-        return $this->_image_url;
+        return $this->image_url;
     }
 
     /**
@@ -401,11 +411,12 @@ class Feed extends AbstractTemplate
      *
      * @param int $image_width width of feed image
      *
-     * @return void
+     * @return Feed
      */
     public function setImageWidth($image_width)
     {
-        $this->_image_width = $image_width;
+        $this->image_width = $image_width;
+        return $this;
     }
 
     /**
@@ -415,7 +426,7 @@ class Feed extends AbstractTemplate
      */
     public function getImageWidth()
     {
-        return $this->_image_width;
+        return $this->image_width;
     }
 
     /**
@@ -423,11 +434,12 @@ class Feed extends AbstractTemplate
      *
      * @param array $items feed items
      *
-     * @return void
+     * @return Feed
      */
     public function setItems($items)
     {
-        $this->_items = $items;
+        $this->items = $items;
+        return $this;
     }
 
     /**
@@ -437,7 +449,7 @@ class Feed extends AbstractTemplate
      */
     public function getItems()
     {
-        return $this->_items;
+        return $this->items;
     }
 
     /**
@@ -445,11 +457,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $language feed language
      *
-     * @return void
+     * @return Feed
      */
     public function setLanguage($language)
     {
-        $this->_language = $language;
+        $this->language = $language;
+        return $this;
     }
 
     /**
@@ -459,7 +472,7 @@ class Feed extends AbstractTemplate
      */
     public function getLanguage()
     {
-        return $this->_language;
+        return $this->language;
     }
 
     /**
@@ -467,11 +480,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $lastbuild last build time
      *
-     * @return void
+     * @return Feed
      */
     public function setLastbuild($lastbuild)
     {
-        $this->_lastbuild = $lastbuild;
+        $this->lastbuild = $lastbuild;
+        return $this;
     }
 
     /**
@@ -481,7 +495,7 @@ class Feed extends AbstractTemplate
      */
     public function getLastbuild()
     {
-        return $this->_lastbuild;
+        return $this->lastbuild;
     }
 
     /**
@@ -489,11 +503,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $pubdate publish date
      *
-     * @return void
+     * @return Feed
      */
     public function setPubdate($pubdate)
     {
-        $this->_pubdate = $pubdate;
+        $this->pubdate = $pubdate;
+        return $this;
     }
 
     /**
@@ -503,7 +518,7 @@ class Feed extends AbstractTemplate
      */
     public function getPubdate()
     {
-        return $this->_pubdate;
+        return $this->pubdate;
     }
 
     /**
@@ -511,11 +526,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $title feed title
      *
-     * @return void
+     * @return Feed
      */
     public function setTitle($title)
     {
-        $this->_title = $title;
+        $this->title = $title;
+        return $this;
     }
 
     /**
@@ -525,7 +541,7 @@ class Feed extends AbstractTemplate
      */
     public function getTitle()
     {
-        return $this->_title;
+        return $this->title;
     }
 
     /**
@@ -533,11 +549,12 @@ class Feed extends AbstractTemplate
      *
      * @param int $ttl feed time to live
      *
-     * @return void
+     * @return Feed
      */
     public function setTtl($ttl)
     {
-        $this->_ttl = $ttl;
+        $this->ttl = $ttl;
+        return $this;
     }
 
     /**
@@ -547,7 +564,7 @@ class Feed extends AbstractTemplate
      */
     public function getTtl()
     {
-        return $this->_ttl;
+        return $this->ttl;
     }
 
     /**
@@ -555,11 +572,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $url feed site url
      *
-     * @return void
+     * @return Feed
      */
     public function setUrl($url)
     {
-        $this->_url = $url;
+        $this->url = $url;
+        return $this;
     }
 
     /**
@@ -569,7 +587,7 @@ class Feed extends AbstractTemplate
      */
     public function getUrl()
     {
-        return $this->_url;
+        return $this->url;
     }
 
     /**
@@ -577,11 +595,12 @@ class Feed extends AbstractTemplate
      *
      * @param string $webmaster feed site webmaster
      *
-     * @return void
+     * @return Feed
      */
     public function setWebmaster($webmaster)
     {
-        $this->_webmaster = $webmaster;
+        $this->webmaster = $webmaster;
+        return $this;
     }
 
     /**
@@ -591,6 +610,6 @@ class Feed extends AbstractTemplate
      */
     public function getWebmaster()
     {
-        return $this->_webmaster;
+        return $this->webmaster;
     }
 }

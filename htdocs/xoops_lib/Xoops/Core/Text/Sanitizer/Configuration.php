@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Text\Sanitizer;
 
-use Xoops\Core\Yaml;
+use Xmf\Yaml;
 
 /**
  * Provide a standard mechanism for a runtime registry for key/value pairs, useful

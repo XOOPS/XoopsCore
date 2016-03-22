@@ -71,6 +71,6 @@ EOT
         }
 
         //var_dump($migrate->dumpQueue());
-        $migrate->queueExecute(true);
+        $migrate->executeQueue(true);
     }
 }

@@ -14,53 +14,65 @@ namespace Xoops\Module\Helper;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
-
 abstract class HelperAbstract
 {
     /**
      * @var string dirname of the module
      */
-    protected $_dirname = '';
+    protected $dirname = '';
 
     /**
      * @var null|XoopsModule
      */
-    protected $_module = null;
+    protected $module = null;
 
     /**
      * @var bool
      */
-    protected $_debug = false;
+    protected $debug = false;
 
+    /**
+     * initialize - nothing to do here
+     *
+     * @return void
+     */
     public function init()
     {
     }
 
     /**
      * @param string $dirname dirname of the module
+     *
+     * @return void
      */
     protected function setDirname($dirname)
     {
-        $this->_dirname = strtolower($dirname);
+        $this->dirname = strtolower($dirname);
     }
 
     /**
-     * @param bool $debug
+     * Set debug option on or off
+     *
+     * @param bool $debug true to enable debugging log, false to disable
+     *
+     * @return void
      */
-    protected function setDebug($debug)
+    public function setDebug($debug)
     {
-        $this->_debug = (bool)$debug;
+        $this->debug = (bool)$debug;
     }
 
     /**
-     * @return Xoops\Module\Helper\HelperAbstract
+     * get helper instance
+     *
+     * @return HelperAbstract
      */
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance = false;
         $id = $className = get_called_class();
@@ -68,7 +80,7 @@ abstract class HelperAbstract
             $id = @\Xoops::getInstance()->registry()->get('module_helper_id');
         }
         if (!isset($instance[$id])) {
-            /* @var $class Xoops\Module\Helper\HelperAbstract */
+            /* @var $class HelperAbstract */
             $class = new $className();
             $class->init();
             $instance[$id] = $class;
@@ -81,28 +93,47 @@ abstract class HelperAbstract
      */
     public function getModule()
     {
-        if ($this->_module == null) {
-            $this->_initModule();
+        if ($this->module == null) {
+            $this->initModule();
         }
-        return $this->_module;
+        return $this->module;
     }
 
+    /**
+     * return the Xoops instance
+     *
+     * @return \Xoops
+     */
     public function xoops()
     {
         return \Xoops::getInstance();
     }
 
     /**
-     * @param string $name
+     * get a module config item
      *
-     * @return string
+     * @param string $name    name of config item, or blank for all items
+     * @param mixed  $default default value to return if config $name is not set
+     *
+     * @return mixed string config item, array of config items,
+     *                or null if config not found
      */
-    public function getConfig($name)
+    public function getConfig($name = null, $default = null)
     {
+        $configs = $this->xoops()->getModuleConfigs($this->dirname);
+        if (empty($name)) {
+            $this->addLog("Getting all config");
+            return $configs;
+        }
         $name = strtolower($name);
-        $result = $this->xoops()->getModuleConfig($name, $this->_dirname);
-        $this->_addLog("Getting config '{$name}' : " . $result);
-        return $result;
+        if (!isset($configs[$name])) {
+            $this->addLog("ERROR :: Config '{$name}' does not exist");
+            return $default;
+        }
+
+        $this->addLog("Getting config '{$name}' : " . $configs[$name]);
+
+        return $configs[$name];
     }
 
     /**
@@ -112,27 +143,39 @@ abstract class HelperAbstract
      */
     public function getConfigs()
     {
-        $result = $this->xoops()->getModuleConfigs($this->_dirname);
-        $this->_addLog("Getting configs for {$this->_dirname} module");
+        $result = $this->xoops()->getModuleConfigs($this->dirname);
+        $this->addLog("Getting configs for {$this->dirname} module");
         return $result;
     }
 
     /**
-     * @param string $name
+     * Get handler for object managed by this module
      *
-     * @return XoopsObjectHandler
+     * @param string $name object name
+     *
+     * @return \Xoops\Core\Kernel\XoopsObjectHandler
      */
     public function getHandler($name)
     {
         $name = strtolower($name);
-        $this->_addLog("Getting handler '{$name}'");
-        return $this->xoops()->getModuleHandler($name, $this->_dirname);
+        $this->addLog("Getting handler '{$name}'");
+        return $this->xoops()->getModuleHandler($name, $this->dirname);
     }
 
+    /**
+     * Turn off caching for this module
+     *
+     * @return void
+     */
     public function disableCache()
     {
-        $this->xoops()->appendConfig('module_cache', array($this->getModule()->getVar('mid') => 0), true, $this->_dirname);
-        $this->_addLog("Disabling module cache");
+        $this->xoops()->appendConfig(
+            'module_cache',
+            array($this->getModule()->getVar('mid') => 0),
+            true,
+            $this->dirname
+        );
+        $this->addLog("Disabling module cache");
     }
 
     /**
@@ -142,7 +185,7 @@ abstract class HelperAbstract
      */
     public function isCurrentModule()
     {
-        if ($this->xoops()->moduleDirname == $this->_dirname) {
+        if ($this->xoops()->moduleDirname == $this->dirname) {
             return true;
         }
         return false;
@@ -164,101 +207,107 @@ abstract class HelperAbstract
     /**
      * Return absolute URL for a module relative URL
      *
-     * @param string $url
+     * @param string $url URL to resolve
      *
      * @return string
      */
     public function url($url = '')
     {
-        return $this->xoops()->url('modules/' . $this->_dirname . '/' . $url);
+        return $this->xoops()->url('modules/' . $this->dirname . '/' . $url);
     }
 
     /**
      * Return absolute filesystem path for a module relative path
      *
-     * @param string $path
+     * @param string $path path to resolve
      *
      * @return string
      */
     public function path($path = '')
     {
-        return $this->xoops()->path('modules/' . $this->_dirname . '/' . $path);
+        return $this->xoops()->path('modules/' . $this->dirname . '/' . $path);
     }
 
     /**
      * Redirect the user to a page within this module
      *
-     * TODO remove addredirect and allowExternalLink paramaters since
-     * they are pointless in this context.
-     *
-     * @param        $url
-     * @param int    $time
-     * @param string $message
-     * @param bool   $addredirect
-     * @param bool   $allowExternalLink
+     * @param string $url     url to redirect to
+     * @param int    $time    time to delay
+     * @param string $message message to show
      *
      * @return void
      */
-    public function redirect($url, $time = 3, $message = '', $addredirect = true, $allowExternalLink = false)
+    public function redirect($url, $time = 3, $message = '')
     {
-        $this->xoops()->redirect($this->url($url), $time, $message, $addredirect, $allowExternalLink);
+        $this->xoops()->redirect($this->url($url), $time, $message, false, false);
     }
 
     /**
-     * @param string $language
+     * @param string $language language file name
      *
      * @return string
      */
     public function loadLanguage($language)
     {
-        $this->xoops()->loadLanguage($language, $this->_dirname);
-        $this->_addLog("Loading language '{$language}'");
-    }
-
-    public function loadLocale()
-    {
-        $this->xoops()->loadLocale($this->_dirname);
-        $this->_addLog("Loading locale");
+        $this->xoops()->loadLanguage($language, $this->dirname);
+        $this->addLog("Loading language '{$language}'");
     }
 
     /**
-     * @param null|XoopsObject $obj
-     * @param string           $name
+     * Load locale for our dirname
+     *
+     * @return void
+     */
+    public function loadLocale()
+    {
+        $this->xoops()->loadLocale($this->dirname);
+        $this->addLog("Loading locale");
+    }
+
+    /**
+     * @param \Xoops\Core\Kernel\XoopsObject $obj  object used to populate form
+     * @param string                         $name form name
      *
      * @return \Xoops\Form\Form|boolean
      */
     public function getForm($obj, $name)
     {
         $name = strtolower($name);
-        $this->_addLog("Loading form '{$name}'");
-        return $this->xoops()->getModuleForm($obj, $name, $this->_dirname);
+        $this->addLog("Loading form '{$name}'");
+        return $this->xoops()->getModuleForm($obj, $name, $this->dirname);
     }
 
     /**
-     * Initialize module
+     * Get a XoopsModule object for this module
+     *
+     * @return void
      */
-    private function _initModule()
+    private function initModule()
     {
         if ($this->isCurrentModule()) {
-            $this->_module = $this->xoops()->module;
+            $this->module = $this->xoops()->module;
         } else {
-            $this->_module = $this->xoops()->getModuleByDirname($this->_dirname);
+            $this->module = $this->xoops()->getModuleByDirname($this->dirname);
         }
-        if (!$this->_module instanceof XoopsModule) {
-            $this->_module = $this->xoops()->getHandlerModule()->create();
+        if (!$this->module instanceof XoopsModule) {
+            $this->module = $this->xoops()->getHandlerModule()->create();
         }
-        $this->_addLog('Loading module');
+        $this->addLog('Loading module');
     }
 
     /**
-     * @param string $log
+     * Add a message to the module helper's log
+     *
+     * @param string $message message to log
+     *
+     * @return void
      */
-    protected function _addLog($log)
+    public function addLog($message)
     {
-        if ($this->_debug) {
+        if ($this->debug) {
             $this->xoops()->events()->triggerEvent('core.module.addlog', array(
                 $this->getModule()->getVar('name'),
-                $log
+                $message
             ));
         }
     }

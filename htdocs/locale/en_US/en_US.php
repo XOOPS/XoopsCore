@@ -256,6 +256,8 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const EF_INVALID_SQL = "SQL '%s' is invalid!";
     const EF_KEYWORDS_MUST_BE_GREATER_THAN = "Keywords must be at least <strong>%s</strong> characters long!";
     const EF_LOGGER_FILELINE = "%s in file %s line %s";
+    const EF_MODULE_NOTFOUND = 'Please install or reactivate %1$s module. Minimum version required: %2$s';
+    const EF_MODULE_VERSION = 'Minimum %1$s module version required: %2$s (your version is %3$s)';
     const EF_NOTIFICATION_EMAIL_NOT_SENT_TO = "Notification email was not sent to '%s'!";
     const EF_NOT_CREATED = "'%s' was not created!";
     const EF_NOT_DELETED = "'%s' was not deleted!";

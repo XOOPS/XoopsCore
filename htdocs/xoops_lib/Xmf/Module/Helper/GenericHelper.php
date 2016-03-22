@@ -11,10 +11,12 @@
 
 namespace Xmf\Module\Helper;
 
+use Xmf\Language;
+
 /**
  * GenericHelper implements a Xoops 2.6 Xoops\Module\Helper\HelperAbstract.
  * We use it pre 2.6 systems so we can encapsulate many of the changes
- * needed to make modules more compatable with 2.6 in these methods.
+ * needed to make modules more compatible with 2.6 in these methods.
  * The most common deprecated warnings can be avoided by using module
  * helper methods.
  *
@@ -22,13 +24,13 @@ namespace Xmf\Module\Helper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     1.0
  */
-class GenericHelper
+abstract class GenericHelper
 {
     /**
      * @var string module directory name
@@ -36,14 +38,14 @@ class GenericHelper
     protected $dirname;
 
     /**
-     * @var XoopsModule
+     * @var \XoopsModule
      */
     protected $object;
 
     /**
      * @var array of XoopsObjectHandler|XoopsPersistableObjectHandler
      */
-    private $_handlers;
+    protected $handlers;
 
     /**
      * @var array config items
@@ -56,32 +58,13 @@ class GenericHelper
     protected $debug;
 
     /**
-     * class constuctor
+     * class constructor
      *
      * @param string $dirname a module directory name
      */
-    private function __construct($dirname)
+    protected function __construct($dirname)
     {
         $this->dirname = $dirname;
-    }
-
-    /**
-     * Return instance of module Xmf\Module\GenericHelper for dirname
-     *
-     * @param string $dirname module directory name
-     *
-     * @return Xmf\Module\GenericHelper
-     */
-    public static function getInstance($dirname = 'notsetyet')
-    {
-        static $instance = array();
-        if (!isset($instance[$dirname])) {
-            $class = __CLASS__;
-            $instance[$dirname] = new $class($dirname);
-        }
-
-        return $instance[$dirname];
-
     }
 
     /**
@@ -92,7 +75,7 @@ class GenericHelper
     public function getModule()
     {
         if ($this->object == null) {
-            $this->_initObject();
+            $this->initObject();
         }
         if (!is_object($this->object)) {
             $this->addLog("ERROR :: Module '{$this->dirname}' does not exist");
@@ -104,17 +87,18 @@ class GenericHelper
     /**
      * get a module config item
      *
-     * @param string $name name of config item, or blank for all items
+     * @param string $name    name of config item, or blank for all items
+     * @param mixed  $default default value to return if config $name is not set
      *
      * @return mixed string config item, array of config items,
      *                or null if config not found
      */
-    public function getConfig($name)
+    public function getConfig($name = null, $default = null)
     {
         if ($this->configs == null) {
-            $this->_initConfig();
+            $this->initConfig();
         }
-        if (!$name) {
+        if (empty($name)) {
             $this->addLog("Getting all config");
 
             return $this->configs;
@@ -122,9 +106,7 @@ class GenericHelper
 
         if (!isset($this->configs[$name])) {
             $this->addLog("ERROR :: Config '{$name}' does not exist");
-            $ret = null;
-
-            return $ret;
+            return $default;
         }
 
         $this->addLog("Getting config '{$name}' : " . $this->configs[$name]);
@@ -143,15 +125,15 @@ class GenericHelper
     {
         $ret = false;
         $name = strtolower($name);
-        if (!isset($this->_handlers[$name])) {
-            $this->_initHandler($name);
+        if (!isset($this->handlers[$name])) {
+            $this->initHandler($name);
         }
 
-        if (!isset($this->_handlers[$name])) {
+        if (!isset($this->handlers[$name])) {
             $this->addLog("ERROR :: Handler '{$name}' does not exist");
         } else {
             $this->addLog("Getting handler '{$name}'");
-            $ret = $this->_handlers[$name];
+            $ret = $this->handlers[$name];
         }
 
         return $ret;
@@ -162,7 +144,7 @@ class GenericHelper
      *
      * @return void
      */
-    private function _initObject()
+    protected function initObject()
     {
         global $xoopsModule;
         if (isset($xoopsModule) && is_object($xoopsModule)
@@ -182,7 +164,7 @@ class GenericHelper
      *
      * @return void
      */
-    private function _initConfig()
+    protected function initConfig()
     {
         $this->addLog('INIT CONFIG');
         global $xoopsModule;
@@ -190,13 +172,11 @@ class GenericHelper
             && $xoopsModule->getVar('dirname') == $this->dirname
         ) {
             global $xoopsModuleConfig;
-            $this->configs =& $xoopsModuleConfig;
+            $this->configs = $xoopsModuleConfig;
         } else {
             /* @var $config_handler XoopsConfigHandler */
             $config_handler = xoops_getHandler('config');
-            $this->configs = $config_handler->getConfigsByCat(
-                0, $this->getModule()->getVar('mid')
-            );
+            $this->configs = $config_handler->getConfigsByCat(0, $this->getModule()->getVar('mid'));
         }
     }
 
@@ -207,21 +187,20 @@ class GenericHelper
      *
      * @return void
      */
-    private function _initHandler($name)
+    protected function initHandler($name)
     {
         $this->addLog('INIT ' . $name . ' HANDLER');
 
-        if (!isset($this->_handlers[$name])) {
-            $hnd_file = \XoopsBaseConfig::get('root-path') .
-                "/modules/{$this->dirname}/class/{$name}.php";
+        if (!isset($this->handlers[$name])) {
+            $hnd_file = XOOPS_ROOT_PATH . "/modules/{$this->dirname}/class/{$name}.php";
             if (file_exists($hnd_file)) {
                 include_once $hnd_file;
             }
             $class = ucfirst(strtolower($this->dirname))
                 . ucfirst(strtolower($name)) . 'Handler';
             if (class_exists($class)) {
-                $db = \XoopsDatabaseFactory::getConnection();
-                $this->_handlers[$name] = new $class($db);
+                $db = \XoopsDatabaseFactory::getDatabaseConnection();
+                $this->handlers[$name] = new $class($db);
                 $this->addLog("Loading class '{$class}'");
             } else {
                 $this->addLog("ERROR :: Class '{$class}' could not be loaded");
@@ -238,7 +217,7 @@ class GenericHelper
      */
     public function loadLanguage($name)
     {
-        if ($ret = \Xmf\Language::load($name, $this->dirname)) {
+        if ($ret = Language::load($name, $this->dirname)) {
             $this->addLog("Loading language '{$name}'");
         } else {
             $this->addLog("ERROR :: Language '{$name}' could not be loaded");
@@ -269,15 +248,17 @@ class GenericHelper
     public function addLog($log)
     {
         if ($this->debug) {
-            if (!is_scalar($log)) {
-                $log = serialize($log);
+            if (is_object($GLOBALS['xoopsLogger'])) {
+                if (!is_scalar($log)) {
+                    $log = serialize($log);
+                }
+                $GLOBALS['xoopsLogger']->addExtra(
+                    is_object($this->object) ? $this->object->name() : $this->dirname,
+                    $log
+                );
             }
-            $name = is_object($this->object) ? $this->object->name() : $this->dirname;
-            \Xoops::getInstance()->logger()->debug($log, array('channel'=>'Extra', 'name'=>$name));
         }
     }
-
-    // these added to mimic 2.6 Xoops\Module\Helper\HelperAbstract
 
     /**
      * Is this the currently active module?
@@ -312,7 +293,7 @@ class GenericHelper
      */
     public function url($url = '')
     {
-        return \XoopsBaseConfig::get('url') . '/modules/' . $this->dirname . '/' . $url;
+        return XOOPS_URL . '/modules/' . $this->dirname . '/' . $url;
     }
 
     /**
@@ -324,7 +305,7 @@ class GenericHelper
      */
     public function path($path = '')
     {
-        return \XoopsBaseConfig::get('root-path') . '/modules/' . $this->dirname . '/' . $path;
+        return XOOPS_ROOT_PATH . '/modules/' . $this->dirname . '/' . $path;
     }
 
     /**
@@ -339,7 +320,5 @@ class GenericHelper
     public function redirect($url, $time = 3, $message = '')
     {
         redirect_header($this->url($url), $time, $message);
-        exit;
     }
-
 }

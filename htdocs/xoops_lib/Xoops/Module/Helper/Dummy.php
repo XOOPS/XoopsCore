@@ -10,13 +10,13 @@
  */
 
 namespace Xoops\Module\Helper;
-/**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
- */
 
+/**
+ * @author    trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
+ */
 class Dummy extends HelperAbstract
 {
     /**
@@ -29,7 +29,7 @@ class Dummy extends HelperAbstract
     }
 
     /**
-     * @return void|Xoops\Module\Helper\Dummy
+     * @return void|Dummy
      */
     public static function getInstance()
     {
@@ -38,35 +38,10 @@ class Dummy extends HelperAbstract
 
     /**
      * @param string $dirname dirname of the module
+     * @return void
      */
     public function setDirname($dirname)
     {
         parent::setDirname($dirname);
-    }
-
-    /**
-     * Set debug option on or off
-     *
-     * Made public to match Xmf module helper. Since this class is used
-     * when a module doesn't have its own helper (yet) this is useful.
-     *
-     * @param bool $debug
-     */
-    public function setDebug($debug)
-    {
-        parent::setDebug($debug);
-    }
-
-    /**
-     * Add a message to the module log
-     *
-     * Made public to match Xmf module helper. Since this class is used
-     * when a module doesn't have its own helper (yet) this is useful.
-     *
-     * @param string $log
-     */
-    public function addLog($log)
-    {
-        $this->_addLog($log);
     }
 }

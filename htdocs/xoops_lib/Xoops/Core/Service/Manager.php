@@ -11,7 +11,7 @@
 
 namespace Xoops\Core\Service;
 
-use Xoops\Core\Yaml;
+use Xmf\Yaml;
 
 /**
  * Xoops services manager, locate, register, choose and dispatch

@@ -14,17 +14,17 @@ namespace Xmf;
 /**
  * Debugging tools for developers
  *
- * @category  Xmf\Module\Debug
+ * @category  Xmf\Debug
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     1.0
  */
-class Debug
+class Debug extends \Kint
 {
     /**
      * associative array of timers
@@ -51,56 +51,76 @@ class Debug
 
     private static $timerLabels = array();
 
+    /**
+     * Force dump via debug.log event, if possible
+     * @var bool
+     */
+    private static $eventDumper = false;
 
     /**
-     * Dump a variable
+     * Dump one or more variables
      *
-     * @param mixed $var    variable which will be dumped
-     * @param bool  $inline force inline display if true, otherwise will attempt to
-     *                      use debug.log event
+     * @param mixed $data variable(s) to dump
      *
      * @return void
      */
-    public static function dump($var, $inline = false)
+    public static function dump($data = NULL)
     {
+        $args = func_get_args();
+
         $events = \Xoops::getInstance()->events();
         $eventName = 'debug.log';
-        if (!$inline && $events->hasListeners($eventName)) {
-            $events->triggerEvent($eventName, $var);
-            //\Kint::dump(func_get_arg(0));
+
+        if (static::$eventDumper && $events->hasListeners($eventName)) {
+            foreach ($args as $var) {
+                $events->triggerEvent($eventName, $var);
+            }
         } else {
-            $config = array(
-                'skin' => array('selected' => 'modern'),
-                'css'  => array('url' => \XoopsBaseConfig::get('url') . '/modules/xmf/css/krumo/'),
-                'display' => array(
-                    'show_version' => false,
-                    'show_call_info' => false,
-                    'sort_arrays' => false,
-                    ),
-                );
-            \krumo::setConfig($config);
-            $msg = \krumo::dump($var);
-            echo $msg;
+            parent::$theme = 'aante-light'; // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
+            call_user_func_array('parent::dump', $args);
+            //forward_static_call_array(array('parent', 'dump'), $args);
         }
+    }
+
+    /**
+     * Dump one or more variables to the log
+     *
+     * @param mixed $data variable(s) to dump
+     *
+     * @return void
+     */
+    public static function log($data = NULL)
+    {
+        $args = func_get_args();
+
+        $events = \Xoops::getInstance()->events();
+        $eventName = 'debug.log';
+
+        foreach ($args as $var) {
+            $events->triggerEvent($eventName, $var);
+        }
+    }
+
+    /**
+     * dump using debug.log event if possible (i.e. in debugbar, instead of in page)
+     *
+     * @param bool $value true to use event
+     *
+     * @return void
+     */
+    public static function useEventDumper($value = true)
+    {
+        static::$eventDumper = (bool) $value;
     }
 
     /**
      * Display debug backtrace
      *
-     * @param boolean $inline force inline display if true, otherwise will attempt to
-     *                        use debug.log event
-     *
-     * @return mixed|string
+     * @return void
      */
-    public static function backtrace($inline = false)
+    public static function backtrace()
     {
-        $events = \Xoops::getInstance()->events();
-        $eventName = 'debug.log';
-        if (!$inline && $events->hasListeners($eventName)) {
-            $events->triggerEvent($eventName, debug_backtrace());
-        } else {
-            return self::dump(debug_backtrace(), $inline);
-        }
+        static::dump(debug_backtrace());
     }
 
     /**
@@ -120,7 +140,7 @@ class Debug
         if ($events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $var);
         } else {
-            self::$times[$name] = microtime(true);
+            static::$times[$name] = microtime(true);
         }
     }
 
@@ -138,7 +158,7 @@ class Debug
         if ($events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $name);
         } else {
-            echo $name . ' - ' . (int)(microtime(true) - self::$times[$name]) . " \n";
+            echo $name . ' - ' . (int)(microtime(true) - static::$times[$name]) . " \n";
         }
     }
 
@@ -156,8 +176,8 @@ class Debug
      */
     public static function startQueuedTimer($name, $label = null)
     {
-        self::$times[$name] = microtime(true);
-        self::$timerLabels[$name] = empty($label) ? $name : $label;
+        static::$times[$name] = microtime(true);
+        static::$timerLabels[$name] = empty($label) ? $name : $label;
     }
 
     /**
@@ -169,13 +189,13 @@ class Debug
      */
     public static function stopQueuedTimer($name)
     {
-        if (isset(self::$timerLabels[$name]) && isset(self::$times[$name])) {
+        if (isset(static::$timerLabels[$name]) && isset(static::$times[$name])) {
             $queueItem = array(
-                'label' => self::$timerLabels[$name],
-                'start' => self::$times[$name],
-                'elapsed' => microtime(true) - self::$times[$name],
+                'label' => static::$timerLabels[$name],
+                'start' => static::$times[$name],
+                'elapsed' => microtime(true) - static::$times[$name],
                 );
-            self::$timerQueue[] = $queueItem;
+            static::$timerQueue[] = $queueItem;
         }
     }
 
@@ -191,10 +211,10 @@ class Debug
      */
     public static function dumpQueuedTimers($returnOnly = false)
     {
-        $queue = self::$timerQueue;
-        self::$timerQueue = array();
+        $queue = static::$timerQueue;
+        static::$timerQueue = array();
         if (!$returnOnly) {
-            self::dump($queue);
+            static::dump($queue);
         }
 
         return $queue;
@@ -205,10 +225,10 @@ class Debug
      *
      * Requires xdebug extension
      *
-     * @param type $tracefile      file name for trace file
-     * @param type $collect_params argument for ini_set('xdebug.collect_params',?)
+     * @param string $tracefile      file name for trace file
+     * @param string $collect_params argument for ini_set('xdebug.collect_params',?)
      *                             Controls display of parameters in trace output
-     * @param type $collect_return argument for ini_set('xdebug.collect_return',?)
+     * @param string $collect_return argument for ini_set('xdebug.collect_return',?)
      *                             Controls display of function return value in trace
      *
      * @return void

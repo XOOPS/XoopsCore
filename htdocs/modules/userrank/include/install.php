@@ -9,7 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Yaml;
+use Xmf\Database\TableLoad;
+use Xmf\Yaml;
 
 /**
  * @copyright       XOOPS Project (http://xoops.org)
@@ -21,16 +22,17 @@ function xoops_module_install_userrank($module)
 {
     $xoops = Xoops::getInstance();
     $xoops->header();
-$lang_rank_titles = array(
-    'dummy',
-    _MI_RANK_TITLE_1,
-    _MI_RANK_TITLE_2,
-    _MI_RANK_TITLE_3,
-    _MI_RANK_TITLE_4,
-    _MI_RANK_TITLE_5,
-    _MI_RANK_TITLE_6,
-    _MI_RANK_TITLE_7,
-);
+    $lang_rank_titles = array(
+        'dummy',
+        _MI_RANK_TITLE_1,
+        _MI_RANK_TITLE_2,
+        _MI_RANK_TITLE_3,
+        _MI_RANK_TITLE_4,
+        _MI_RANK_TITLE_5,
+        _MI_RANK_TITLE_6,
+        _MI_RANK_TITLE_7,
+    );
+
     $filedata = <<<EOT
 -
   rank_id: 1
@@ -83,16 +85,12 @@ $lang_rank_titles = array(
   rank_image: "ranks/rank3dbf8ee8681cd.gif"
 EOT;
 
-    $tablerows = Yaml::load($filedata);
+    $table = 'userrank_rank';
+    $tableData = Yaml::load($filedata);
 
-    $dbm = $xoops->db();
-    $count = $dbm->fetchColumn('SELECT COUNT(*) FROM ' . $dbm->prefix('userrank_rank'));
+    $count = TableLoad::countRows($table);
     if ($count<1) {
-        $dbm->beginTransaction();
-        foreach ($tablerows as $row) {
-            $dbm->insertPrefix('userrank_rank', $row);
-        }
-        $dbm->commit();
+        TableLoad::loadTableFromArray($table, $tableData);
     }
     return true;
 }

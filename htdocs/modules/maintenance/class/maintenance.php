@@ -12,66 +12,66 @@
 /**
  * maintenance extensions
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         maintenance
- * @since           2.6.0
- * @author          Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
- * @version         $Id$
- */
-
-/**
- * System Maintenance
- *
- * @copyright   copyright (c) 2000 XOOPS.org
- * @package     system
+ * @package   Maintenance
+ * @author    Mage Grégory (AKA Mage), Cointin Maxime (AKA Kraven30)
+ * @copyright 2000-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class Maintenance
 {
-    var $db;
-    var $prefix;
+    /**
+     * @var XoopsMySQLDatabase
+     */
+    public $db;
+
+    /**
+     * @var string
+     */
+    public $prefix;
 
     /**
      * Constructor
      */
-    function Maintenance()
+    public function __construct()
     {
-        global $xoopsDB;
-        $db = $xoopsDB;
-        $this->db = $db;
+        $db           = \XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = $db;
         $this->prefix = $this->db->prefix . '_';
     }
 
     /**
      * Display Tables
      *
-     * @param array
-     * @return
+     * @param bool $array true to return as array, false to return as comma delimited string
+     *
+     * @return array|string list of tables
      */
-    function displayTables($array = true)
+    public function displayTables($array = true)
     {
         $tables = array();
         $result = $this->db->queryF('SHOW TABLES');
         while ($myrow = $this->db->fetchArray($result)) {
             $value = array_values($myrow);
-            $value = substr($value[0], 5);
+            $value = substr($value[0], strlen($this->prefix));
             $tables[$value] = $value;
         }
-        if ($array = true) {
+        if ($array) {
             return $tables;
         } else {
-            return join(',', $tables);
+            return implode(',', $tables);
         }
     }
 
     /**
      * Dump table structure
      *
-     * @param string table
-     * @param int drop
+     * @param string $table table name
+     * @param int    $drop  1 to include drop table if exists
+     *
      * @return array 'ret[sql_text] = dump, ret[structure] = display structure
      */
-    function dump_table_structure($table, $drop)
+    public function dumpTableStructure($table, $drop)
     {
         $sql_text = '';
         $verif = false;
@@ -95,10 +95,11 @@ class Maintenance
     /**
      * Dump table data
      *
-     * @param string table
+     * @param string $table table name
+     *
      * @return array 'ret[sql_text] = dump, ret[records] = display records
      */
-    function dump_table_datas($table)
+    public function dumpTableData($table)
     {
         $sql_text = '';
         $count = 0;
@@ -111,8 +112,7 @@ class Maintenance
                 $field_type = array();
                 $i = 0;
                 while ($i < $num_fields) {
-                    $meta = mysql_fetch_field($result, $i);
-                    array_push($field_type, $meta->type);
+                    $field_type[] = $this->db->getFieldType($result, $i);
                     ++$i;
                 }
 
@@ -130,7 +130,7 @@ class Maintenance
                                     $sql_text .= $row[$i];
                                     break;
                                 default:
-                                    $sql_text .= "'" . mysql_real_escape_string($row[$i]) . "'";
+                                    $sql_text .= "'" . $this->db->escape($row[$i]) . "'";
                             }
                         }
                         if ($i < $num_fields - 1) {
@@ -158,10 +158,11 @@ class Maintenance
     /**
      * Dump Write
      *
-     * @param string
+     * @param string $sql_text SQL to write
+     *
      * @return array 'ret[file_name] = file name, ret[write] = write
      */
-    function dump_write($sql_text)
+    public function dump_write($sql_text)
     {
         $file_name = "dump_" . date("Y.m.d") . "_" . date("H.i.s") . ".sql";
         $path_file = "../dump/" . $file_name;

@@ -12,6 +12,7 @@
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Xoops\Core\Kernel\CriteriaElement;
 
 /**
  * Extended User Profile
@@ -77,5 +78,52 @@ class ProfileVisibilityHandler extends XoopsPersistableObjectHandler
         }
 
         return $field_ids;
+    }
+
+    /**
+     * get all rows matching a condition
+     *
+     * @param  CriteriaElement $criteria  {@link CriteriaElement} to match
+     *
+     * @return array of row arrays, indexed by field_id
+     */
+    public function getAllByFieldId(CriteriaElement $criteria = null)
+    {
+        $rawRows = $this->getAll($criteria, null, false, false);
+
+        usort($rawRows, array($this, 'visibilitySort'));
+
+        $rows = array();
+        foreach ($rawRows as $rawRow) {
+            $rows[$rawRow['field_id']][] = $rawRow;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * compare two arrays, each a row from profile_visibility
+     * The comparison is on three columns, 'field_id', 'user_group', 'profile_group' considered in that
+     * order for comparison
+     *
+     * @param array $a associative array with 3 numeric entries 'field_id', 'user_group', 'profile_group'
+     * @param array $b associative array with 3 numeric entries 'field_id', 'user_group', 'profile_group'
+     *
+     * @return int integer less that zero if $a is less than $b
+     *              integer zero if $a and $b are equal
+     *              integer greater than zero if $a is greater than $b
+     */
+    protected function visibilitySort($a, $b)
+    {
+        $fieldDiff = $a['field_id'] - $b['field_id'];
+        $userDiff  = $a['user_group'] - $b['user_group'];
+        $profDiff  = $a['profile_group'] - $b['profile_group'];
+        if (0 != $fieldDiff) {
+            return $fieldDiff;
+        } elseif (0 !== $userDiff) {
+            return $userDiff;
+        } else {
+            return $profDiff;
+        }
     }
 }

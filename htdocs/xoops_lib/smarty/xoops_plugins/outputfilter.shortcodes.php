@@ -8,39 +8,44 @@ function smarty_outputfilter_shortcodes($output, Smarty_Internal_Template $templ
     $shortcodes->addShortcode(
         'nosc42',
         function ($attributes, $content, $tagName) {
-            return $content;
+            return base64_decode($content);
         }
     );
 
-    // break out the body content
-    $bodyPattern = '/<body[^>]*>(.*?)<\/body>/is';
-
     // breaks out form elements
-    $scPattern = '/((<textarea[\S\s]*\/textarea>)|(<input[\S\s]*>)|(<select[\S\s]*\/select>)|(<script[\S\s]*\/script>)|(<style[\S\s]*\/style>))/U';
+    $scPattern = '/(<textarea[\S\s]*\/textarea>|<input[\S\s]*>|<select[\S\s]*\/select>|<script[\S\s]*\/script>|<style[\S\s]*\/style>)/U';
 
     $text = preg_replace_callback(
-        $bodyPattern,
-        function ($matches) use ($scPattern, $shortcodes) {
-            $element = preg_replace_callback(
-                $scPattern,
-                function ($innerMatches) {
-                    return '[nosc42]' . $innerMatches[0] . '[/nosc42]';
-                },
-                $matches[1]
-            );
-            if ($element===null) {
-                trigger_error('preg_last_error=' . preg_last_error(), E_USER_WARNING);
-                return $matches[1];
-            }
-            return $element;
+        $scPattern,
+        function ($innerMatches) {
+            return '[nosc42]' . base64_encode($innerMatches[1]) . '[/nosc42]';
         },
         $output
     );
-
     if ($text===null) {
         trigger_error('preg_last_error=' . preg_last_error(), E_USER_WARNING);
         return $output;
     }
+
     $text = $shortcodes->process($text);
+
     return $text;
+
+    /*
+    $noscPattern = '/({nosc42filter}([\S\s]*){\/nosc42filter})/U';
+
+    $text = preg_replace_callback(
+        $noscPattern,
+        function ($innerMatches) {
+            return base64_decode($innerMatches[2]);
+        },
+        $text
+    );
+    if ($text===null) {
+        trigger_error('preg_last_error=' . preg_last_error(), E_USER_WARNING);
+        return $output;
+    }
+
+    return $text;
+*/
 }

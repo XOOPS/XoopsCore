@@ -23,35 +23,41 @@ use Xmf\Module\Helper\GenericHelper;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2013 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
  * @since     1.0
  */
-class Helper
+class Helper extends GenericHelper
 {
     /**
-     * Get an instance to a module helper for a module directory
+     * Get an instance of a module helper for the module identified by $dirname
      *
-     * @param string $dirname module direcory
+     * @param string $dirname module directory
      *
-     * @return bool|Xoops\Module\Helper\HelperAbstract
+     * @return \Xmf\Module\Helper|\Xoops\Module\Helper|false a Helper object of false on error
      */
     public static function getHelper($dirname = 'system')
     {
-        // if this is a 2.6 system turn everything over to the core
-        if (class_exists('Xoops', false)) {
-            return \Xoops\Module\Helper::getHelper($dirname);
-        }
+        static $instance = array();
 
-        // otherwise get a GenericHelper instance for dirname
         $dirname = strtolower($dirname);
-        if (xoops_isActiveModule($dirname)) {
-            return GenericHelper::getInstance($dirname);
+
+        if (!isset($instance[$dirname])) {
+            $instance[$dirname] = false;
+
+            // if this is a 2.6 system turn everything over to the core
+            if (class_exists('Xoops', false)) {
+                $instance[$dirname] = \Xoops\Module\Helper::getHelper($dirname);
+            } else {
+                // otherwise get a GenericHelper instance for dirname
+                if (xoops_isActiveModule($dirname)) {
+                    $instance[$dirname] = new static($dirname);
+                }
+            }
         }
 
-        // not an active installed module
-        return false;
+        return $instance[$dirname];
     }
 }

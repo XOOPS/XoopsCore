@@ -39,7 +39,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getMethod
-     * @todo   Implement testGetMethod().
      */
     public function testGetMethod()
     {
@@ -49,7 +48,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getVar
-     * @todo   Implement testGetVar().
      */
     public function testGetVar()
     {
@@ -63,7 +61,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getInt
-     * @todo   Implement testGetInt().
      */
     public function testGetInt()
     {
@@ -88,7 +85,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getFloat
-     * @todo   Implement testGetFloat().
      */
     public function testGetFloat()
     {
@@ -109,7 +105,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getBool
-     * @todo   Implement testGetBool().
      */
     public function testGetBool()
     {
@@ -135,7 +130,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getWord
-     * @todo   Implement testGetWord().
      */
     public function testGetWord()
     {
@@ -155,7 +149,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getCmd
-     * @todo   Implement testGetCmd().
      */
     public function testGetCmd()
     {
@@ -173,7 +166,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getString
-     * @todo   Implement testGetString().
      */
     public function testGetString()
     {
@@ -185,7 +177,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getArray
-     * @todo   Implement testGetArray().
      */
     public function testGetArray()
     {
@@ -208,7 +199,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::getText
-     * @todo   Implement testGetText().
      */
     public function testGetText()
     {
@@ -220,7 +210,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::setVar
-     * @todo   Implement testSetVar().
      */
     public function testSetVar()
     {
@@ -231,7 +220,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::get
-     * @todo   Implement testGet().
      */
     public function testGet()
     {
@@ -251,7 +239,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Request::set
-     * @todo   Implement testSet().
      */
     public function testSet()
     {
