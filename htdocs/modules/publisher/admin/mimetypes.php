@@ -9,7 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xmf\Module\Session;
+use Xmf\Module\Helper\Session;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
