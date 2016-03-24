@@ -71,7 +71,7 @@ class Embed extends FilterAbstract
         $xoops = \Xoops::getInstance();
         $md5 = md5($url);
         $crc = hash("crc32b", $url);
-        $key = ['embed', substr($crc, -2), $md5];
+        $key = implode('/', ['embed', substr($crc, -2), $md5]);
         //$xoops->cache()->delete($key);
         $decorated = $xoops->cache()->cacheRead(
             $key,

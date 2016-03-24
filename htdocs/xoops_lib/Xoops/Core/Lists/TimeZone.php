@@ -35,7 +35,7 @@ class TimeZone extends ListAbstract
     {
         $xoops = \Xoops::getInstance();
         $locale = \Xoops\Locale::getCurrent();
-        $key = ['system', 'lists', 'timezone', $locale];
+        $key = implode('/', ['system', 'lists', 'timezone', $locale]);
         //$xoops->cache()->delete($key);
         $timeZones = $xoops->cache()->cacheRead(
             $key,

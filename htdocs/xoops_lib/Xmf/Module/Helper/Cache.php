@@ -46,7 +46,7 @@ class Cache extends AbstractHelper
      */
     public function init()
     {
-        $this->prefix = array('module', $this->module->getVar('dirname'));
+        $this->prefix = 'module/' . $this->module->getVar('dirname');
         $this->cache = \Xoops::getInstance()->cache();
     }
 
@@ -59,7 +59,7 @@ class Cache extends AbstractHelper
      */
     protected function prefix($name)
     {
-        return $this->prefix . $name;
+        return $this->prefix . '/'. $name;
     }
 
     /**
@@ -133,6 +133,6 @@ class Cache extends AbstractHelper
      */
     public function clear()
     {
-        return $this->delete(array());
+        return $this->cache->delete($this->prefix);
     }
 }
