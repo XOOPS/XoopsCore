@@ -36,7 +36,7 @@ class Helper extends GenericHelper
      *
      * @param string $dirname module directory
      *
-     * @return \Xmf\Module\Helper|\Xoops\Module\Helper|false a Helper object of false on error
+     * @return \Xmf\Module\Helper|\Xoops\Module\Helper\HelperAbstract|false a Helper object or false on error
      */
     public static function getHelper($dirname = 'system')
     {

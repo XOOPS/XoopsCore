@@ -20,8 +20,8 @@ use Xmf\Debug;
 use Xmf\Highlighter;
 use Xmf\Metagen;
 use Xmf\Request;
-use Xmf\Module\Permission;
-use Xmf\Module\Session;
+use Xmf\Module\Helper\Permission;
+use Xmf\Module\Helper\Session;
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 

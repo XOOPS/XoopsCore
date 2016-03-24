@@ -37,7 +37,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Cache::init
+     * @covers Xmf\Module\Helper\Cache::init
      * @todo   Implement testInit().
      */
     public function testInit()
@@ -49,7 +49,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Cache::write
+     * @covers Xmf\Module\Helper\Cache::write
      * @todo   Implement testWrite().
      */
     public function testWrite()
@@ -61,7 +61,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Cache::read
+     * @covers Xmf\Module\Helper\Cache::read
      * @todo   Implement testRead().
      */
     public function testRead()
@@ -73,7 +73,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Cache::delete
+     * @covers Xmf\Module\Helper\Cache::delete
      * @todo   Implement testDelete().
      */
     public function testDelete()
@@ -85,7 +85,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Cache::cacheRead
+     * @covers Xmf\Module\Helper\Cache::cacheRead
      * @todo   Implement testCacheRead().
      */
     public function testCacheRead()
@@ -97,7 +97,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Cache::clear
+     * @covers Xmf\Module\Helper\Cache::clear
      * @todo   Implement testClear().
      */
     public function testClear()
