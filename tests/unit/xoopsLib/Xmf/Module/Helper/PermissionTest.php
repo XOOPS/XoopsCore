@@ -38,7 +38,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::init
+     * @covers Xmf\Module\Helper\Permission::init
      * @todo   Implement testInit().
      */
     public function testInit()
@@ -50,7 +50,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::checkPermission
+     * @covers Xmf\Module\Helper\Permission::checkPermission
      * @todo   Implement testCheckPermission().
      */
     public function testCheckPermission()
@@ -62,7 +62,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::checkPermissionRedirect
+     * @covers Xmf\Module\Helper\Permission::checkPermissionRedirect
      * @todo   Implement testCheckPermissionRedirect().
      */
     public function testCheckPermissionRedirect()
@@ -74,7 +74,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::getUserGroups
+     * @covers Xmf\Module\Helper\Permission::getUserGroups
      * @todo   Implement testGetUserGroups().
      */
     public function testGetUserGroups()
@@ -86,7 +86,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::getGroupsForItem
+     * @covers Xmf\Module\Helper\Permission::getGroupsForItem
      * @todo   Implement testGetGroupsForItem().
      */
     public function testGetGroupsForItem()
@@ -98,7 +98,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::savePermissionForItem
+     * @covers Xmf\Module\Helper\Permission::savePermissionForItem
      * @todo   Implement testSavePermissionForItem().
      */
     public function testSavePermissionForItem()
@@ -110,7 +110,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::deletePermissionForItem
+     * @covers Xmf\Module\Helper\Permission::deletePermissionForItem
      * @todo   Implement testDeletePermissionForItem().
      */
     public function testDeletePermissionForItem()
@@ -122,7 +122,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::getGroupSelectFormForItem
+     * @covers Xmf\Module\Helper\Permission::getGroupSelectFormForItem
      * @todo   Implement testGetGroupSelectFormForItem().
      */
     public function testGetGroupSelectFormForItem()
@@ -134,7 +134,7 @@ class PermissionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Permission::defaultFieldName
+     * @covers Xmf\Module\Helper\Permission::defaultFieldName
      * @todo   Implement testDefaultFieldName().
      */
     public function testDefaultFieldName()

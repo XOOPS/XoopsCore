@@ -38,7 +38,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Session::init
+     * @covers Xmf\Module\Helper\Session::init
      * @todo   Implement testInit().
      */
     public function testInit()
@@ -50,7 +50,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Session::set
+     * @covers Xmf\Module\Helper\Session::set
      * @todo   Implement testSet().
      */
     public function testSet()
@@ -62,7 +62,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Session::get
+     * @covers Xmf\Module\Helper\Session::get
      * @todo   Implement testGet().
      */
     public function testGet()
@@ -74,7 +74,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Session::del
+     * @covers Xmf\Module\Helper\Session::del
      * @todo   Implement testDel().
      */
     public function testDel()
@@ -86,7 +86,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Module\Session::destroy
+     * @covers Xmf\Module\Helper\Session::destroy
      * @todo   Implement testDestroy().
      */
     public function testDestroy()

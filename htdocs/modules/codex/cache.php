@@ -78,7 +78,7 @@ echo $key . ' ' . $cache->cacheRead($key, 'getSomeContent') . '<br />';
 echo '<h3>Simplify even more with Xmf</h3>';
 // Xmf provide cache simplified cache functions that automatically follow the
 // naming standard for module specific cache keys.
-$xmfCache = new \Xmf\Module\Cache();
+$xmfCache = new \Xmf\Module\Helper\Cache();
 $key = 'xmfdemo';
 echo $key . ' ' . $xmfCache->cacheRead($key, 'getSomeContent') . '<br />';
 
