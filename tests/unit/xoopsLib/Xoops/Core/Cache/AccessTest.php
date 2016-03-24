@@ -53,7 +53,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
         $ret = $this->object->read($key);
         $this->assertFalse($ret);
 
-        $key = array('another', 'name');
+        $key = 'another/name';
         $value = 'Fish';
         $ret = $this->object->write($key, $value);
         $this->assertTrue($ret);
@@ -99,7 +99,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
      */
     public function testGarbageCollect()
     {
-        $key = array('another', 'name');
+        $key = 'another/name';
         $value = 'Fish';
         $ret = $this->object->write($key, $value, 2);
         $this->assertTrue($ret);

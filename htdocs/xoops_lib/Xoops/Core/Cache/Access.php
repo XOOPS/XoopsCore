@@ -47,18 +47,18 @@ class Access
     /**
      * Write data for key into cache.
      *
-     * @param string|string[]   $key   Identifier for the cache item
+     * @param string            $key   Identifier for the cache item
      * @param mixed             $value Data to be cached - anything except a resource
      * @param int|DateTime|null $ttl   time to live, integer for ttl in seconds,
-     *                                 DateTime object to expire at a specific time,
-     *                                 or null for
+     *                                  DateTime object to expire at a specific time,
+     *                                  or null for
      *
      * @return boolean True if the data was successfully cached, false on failure
      */
     public function write($key, $value, $ttl = null)
     {
         $item = $this->pool->getItem($key);
-        return $item->set($value, $ttl);
+        return $this->pool->save($item->set($value)->setTTL($ttl));
     }
 
     /**
@@ -71,7 +71,8 @@ class Access
     public function read($key)
     {
         $item = $this->pool->getItem($key);
-        $value = $item->get(Invalidation::NONE);
+        $item->setInvalidationMethod(Invalidation::NONE);
+        $value = $item->get();
         return ($item->isMiss()) ? false : $value;
     }
 
@@ -119,7 +120,8 @@ class Access
 
         // Get the data from cache using the Stash\Invalidation::PRECOMPUTE technique
         // for dealing with stampedes
-        $cachedContent = $item->get(Invalidation::PRECOMPUTE);
+        $item->setInvalidationMethod(Invalidation::PRECOMPUTE);
+        $cachedContent = $item->get();
 
         // Check to see if the cache missed, which could mean that it either didn't exist or was stale.
         if ($item->isMiss()) {
@@ -130,7 +132,7 @@ class Access
             $cachedContent = call_user_func_array($regenFunction, $varArgs);
 
             // save result
-            $item->set($cachedContent, $ttl);
+            $this->pool->save($item->set($cachedContent)->setTTL($ttl));
         }
 
         return $cachedContent;
@@ -153,7 +155,7 @@ class Access
      */
     public function clear()
     {
-        return $this->pool->flush();
+        return $this->pool->clear();
     }
 
     /**
