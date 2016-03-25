@@ -195,9 +195,9 @@ class XoopsXmlRpcApi
     /**
      * @param $params
      *
-     * @return $this|XoopsApi
+     * @return XoopsApi
      */
-    public function &_getXoopsApi(&$params)
+    public function _getXoopsApi(&$params)
     {
         if (strtolower(get_class($this)) !== 'xoopsapi') {
             $xoops_root_path = \XoopsBaseConfig::get('root-path');
