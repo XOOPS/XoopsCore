@@ -108,7 +108,7 @@ class SystemMenuHandler
         $return_str = "<a href=\"/\">$basename</a>";
         $str = substr(dirname(Xoops::getInstance()->getEnv('PHP_SELF')), 1);
 
-        $arr = split('/', $str);
+        $arr = explode('/', $str);
         $num = count($arr);
 
         if ($num > 1) {

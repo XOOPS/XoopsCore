@@ -21,7 +21,6 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @author          Kazumi Ono (AKA onokazu)
  * @version         $Id $
  */
-
 class XoopsXmlRpcApi
 {
 
@@ -48,15 +47,23 @@ class XoopsXmlRpcApi
 
     protected $isadmin = false;
 
-
-    function XoopsXmlRpcApi(array &$params, XoopsXmlRpcResponse $response, XoopsModule $module)
+    /**
+     * @param $params
+     * @param $response
+     * @param $module
+     */
+    public function __construct(&$params, &$response, &$module)
     {
         $this->params = $params;
         $this->response = $response;
         $this->module = $module;
     }
 
-    function _setUser(XoopsUser $user, $isadmin = false)
+    /**
+     * @param      $user
+     * @param bool $isadmin
+     */
+    public function _setUser(&$user, $isadmin = false)
     {
         if (is_object($user)) {
             $this->user = $user;
@@ -64,7 +71,13 @@ class XoopsXmlRpcApi
         }
     }
 
-    function _checkUser($username, $password)
+    /**
+     * @param $username
+     * @param $password
+     *
+     * @return bool
+     */
+    public function _checkUser($username, $password)
     {
         $xoops = Xoops::getInstance();
 
@@ -82,7 +95,10 @@ class XoopsXmlRpcApi
         return true;
     }
 
-    function _checkAdmin()
+    /**
+     * @return bool
+     */
+    public function _checkAdmin()
     {
         if ($this->isadmin) {
             return true;
@@ -97,13 +113,20 @@ class XoopsXmlRpcApi
         return true;
     }
 
-    function _getPostFields($post_id = null, $blog_id = null)
+    /**
+     * @param null $post_id
+     * @param null $blog_id
+     *
+     * @return array
+     */
+    public function &_getPostFields($post_id = null, $blog_id = null)
     {
         $ret = array();
         $ret['title'] = array('required' => true, 'form_type' => 'textbox', 'value_type' => 'text');
         $ret['hometext'] = array('required' => false, 'form_type' => 'textarea', 'data_type' => 'textarea');
         $ret['moretext'] = array('required' => false, 'form_type' => 'textarea', 'data_type' => 'textarea');
         $ret['categories'] = array('required' => false, 'form_type' => 'select_multi', 'data_type' => 'array');
+
         /*
         if (!isset($blog_id)) {
             if (!isset($post_id)) {
@@ -117,6 +140,7 @@ class XoopsXmlRpcApi
         $this->section = $sectman->get($blog_id);
         $ret = $this->section->getVar('sect_fields');
         */
+
         return $ret;
     }
 
@@ -124,22 +148,35 @@ class XoopsXmlRpcApi
      * @param string $xoopstag
      * @param string $blogtag
      */
-    function _setXoopsTagMap($xoopstag, $blogtag)
+    public function _setXoopsTagMap($xoopstag, $blogtag)
     {
         if (trim($blogtag) != '') {
             $this->xoopsTagMap[$xoopstag] = $blogtag;
         }
     }
 
-    function _getXoopsTagMap($xoopstag)
+    /**
+     * @param $xoopstag
+     *
+     * @return mixed
+     */
+    public function _getXoopsTagMap($xoopstag)
     {
         if (isset($this->xoopsTagMap[$xoopstag])) {
             return $this->xoopsTagMap[$xoopstag];
         }
+
         return $xoopstag;
     }
 
-    function _getTagCdata(&$text, $tag, $remove = true)
+    /**
+     * @param      $text
+     * @param      $tag
+     * @param bool $remove
+     *
+     * @return string
+     */
+    public function _getTagCdata(&$text, $tag, $remove = true)
     {
         $ret = '';
         $match = array();
@@ -149,15 +186,21 @@ class XoopsXmlRpcApi
             }
             $ret = $match[1];
         }
+
         return $ret;
     }
 
     // kind of dirty method to load XOOPS API and create a new object thereof
     // returns itself if the calling object is XOOPS API
-    function _getXoopsApi(&$params)
+    /**
+     * @param $params
+     *
+     * @return $this|XoopsApi
+     */
+    public function &_getXoopsApi(&$params)
     {
         if (strtolower(get_class($this)) !== 'xoopsapi') {
-			$xoops_root_path = \XoopsBaseConfig::get('root-path');
+            $xoops_root_path = \XoopsBaseConfig::get('root-path');
             require_once($xoops_root_path . '/class/xml/rpc/xoopsapi.php');
             return new XoopsApi($params, $this->response, $this->module);
         } else {
