@@ -1,8 +1,0 @@
-Frameworks::art changelogs
-
-Version 1.0.0 July 26th
-==========================================================
-1 Cleaned for XOOPS 2.3.0 (phppp)
-2 Added xoops_version file (phppp)
-3 Added changelog file (phppp)
-4 Fixed bug #2027143: $uid was not passed to function mod_getUnameFromId() (phppp/tm255e)
