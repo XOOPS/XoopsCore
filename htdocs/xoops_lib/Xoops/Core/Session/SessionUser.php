@@ -12,7 +12,7 @@
 namespace Xoops\Core\Session;
 
 use Xoops\Core\HttpRequest;
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 /**

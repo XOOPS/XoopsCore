@@ -10,7 +10,7 @@
 */
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * Mailusers Plugin

@@ -9,7 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * XOOPS admin file
@@ -91,13 +91,12 @@ if (!empty($xoopsorgnews)) {
     // Multiple feeds
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $rssurl = array();
-    $rssurl[] = 'http://sourceforge.net/export/rss2_projnews.php?group_id=41586&rss_fulltext=1';
+    //$rssurl[] = 'http://sourceforge.net/export/rss2_projnews.php?group_id=41586&rss_fulltext=1';
     $rssurl[] = 'http://www.xoops.org/backend.php';
     $rssurl = array_unique(array_merge($rssurl, XoopsLocale::getAdminRssUrls()));
     $rssfile = 'admin/rss/adminnews-' . $xoops->getConfig('locale');
-
+    $xoops->cache()->delete($rssfile);
     $items = $xoops->cache()->cacheRead($rssfile, 'buildRssFeedCache', 24*60*60, $rssurl);
-
     if ($items != '') {
         $ret = '<table class="outer width100">';
         foreach (array_keys($items) as $i) {
@@ -125,11 +124,14 @@ function buildRssFeedCache($rssurl)
 {
     $snoopy = new Snoopy();
     $cnt = 0;
+    $items = [];
     foreach ($rssurl as $url) {
         if ($snoopy->fetch($url)) {
             $rssdata = $snoopy->results;
             $rss2parser = new XoopsXmlRss2Parser($rssdata);
-            if (false != $rss2parser->parse()) {
+
+            $parseResult = $rss2parser->parse();
+            if (false != $parseResult) {
                 $_items = $rss2parser->getItems();
                 $count = count($_items);
                 for ($i = 0; $i < $count; $i++) {

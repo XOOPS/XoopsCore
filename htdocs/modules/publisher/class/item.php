@@ -14,7 +14,7 @@ use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/

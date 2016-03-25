@@ -12,7 +12,7 @@
 use Xoops\Core\Lists\Month;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/

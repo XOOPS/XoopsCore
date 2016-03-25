@@ -10,7 +10,7 @@
 */
 
 use Xoops\Core\HttpRequest;
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Handler\Factory as HandlerFactory;
 use Xoops\Core\Kernel\Handlers\XoopsModule;

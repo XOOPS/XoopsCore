@@ -11,7 +11,7 @@
  * @version         $Id$
  */
 
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\XoopsTpl;
 
 $helper = Xoops\Module\Helper::getHelper('images');

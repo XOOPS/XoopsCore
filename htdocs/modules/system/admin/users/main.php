@@ -30,7 +30,7 @@
 
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\FixedGroups;
 
 $xoops = Xoops::getInstance();

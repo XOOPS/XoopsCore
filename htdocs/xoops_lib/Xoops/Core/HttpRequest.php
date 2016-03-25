@@ -16,7 +16,7 @@ namespace Xoops\Core;
  *
  * This provides some of the functionality that was in the Xoops_Request classes.
  * The majority of use for the class was the 'asXyz()' methods, and all such uses
- * should move to Xoops\Core\Request::getXyz() methods.
+ * should move to Xmf\Request::getXyz() methods.
  *
  * These are methods which reveal some aspects of the HTTP request environment.
  * This will eventually be reworked to depend on a full HTTP message library

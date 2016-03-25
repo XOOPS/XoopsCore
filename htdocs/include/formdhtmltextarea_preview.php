@@ -17,7 +17,7 @@
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @version         $Id$
  */
-use Xoops\Core\Request;
+use Xmf\Request;
 include_once dirname(__DIR__) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();

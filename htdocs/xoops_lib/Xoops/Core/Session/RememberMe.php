@@ -12,7 +12,7 @@
 namespace Xoops\Core\Session;
 
 use Xmf\Random;
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\HttpRequest;
 
 /**

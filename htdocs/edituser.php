@@ -18,7 +18,7 @@
  * @since           2.0.0
  */
 
-use Xoops\Core\Request;
+use Xmf\Request;
 
 include __DIR__ . '/mainfile.php';
 
