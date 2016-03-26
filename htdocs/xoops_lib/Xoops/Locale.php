@@ -14,7 +14,7 @@ namespace Xoops;
 use Punic\Data;
 use Punic\Exception\InvalidLocale;
 use Xoops\Core\HttpRequest;
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\Theme\XoopsTheme;
 
 /**

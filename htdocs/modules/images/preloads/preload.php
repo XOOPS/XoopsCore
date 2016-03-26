@@ -10,7 +10,7 @@
 */
 
 use Xoops\Core\PreloadItem;
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * Images core preloads

@@ -14,7 +14,7 @@ class FileStorageTest extends \PHPUnit_Framework_TestCase
     /**
      * @var string
      */
-    protected $testKey = 'x-unit-test-key';
+    protected $testKey = 'x-unit-test-key-file';
 
     /**
      * Sets up the fixture, for example, opens a network connection.

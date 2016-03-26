@@ -13,7 +13,6 @@
         "xoops/base-requires": "0.2.*"
     },
     "require-dev": {
-        "raveren/kint": "*",
         "phpunit/phpunit": ">=4.8",
         "phpunit/phpunit-skeleton-generator": "*"
     },

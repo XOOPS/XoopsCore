@@ -47,6 +47,7 @@ class XoopsThemeSetParser extends SaxParser
     public function __construct(&$input)
     {
         parent::__construct($input);
+        //$this->addTagHandler(new ThemeSetThemeNameHandler());
         $this->addTagHandler(new ThemeSetDateCreatedHandler());
         $this->addTagHandler(new ThemeSetAuthorHandler());
         $this->addTagHandler(new ThemeSetDescriptionHandler());
@@ -160,6 +161,9 @@ class XoopsThemeSetParser extends SaxParser
     }
 }
 
+/**
+ * Class ThemeSetDateCreatedHandler
+ */
 class ThemeSetDateCreatedHandler extends XmlTagHandler
 {
 
@@ -189,6 +193,9 @@ class ThemeSetDateCreatedHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetAuthorHandler
+ */
 class ThemeSetAuthorHandler extends XmlTagHandler
 {
     /**
@@ -222,6 +229,9 @@ class ThemeSetAuthorHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetDescriptionHandler
+ */
 class ThemeSetDescriptionHandler extends XmlTagHandler
 {
     /**
@@ -253,6 +263,9 @@ class ThemeSetDescriptionHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetGeneratorHandler
+ */
 class ThemeSetGeneratorHandler extends XmlTagHandler
 {
     /**
@@ -281,6 +294,9 @@ class ThemeSetGeneratorHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetNameHandler
+ */
 class ThemeSetNameHandler extends XmlTagHandler
 {
 
@@ -310,6 +326,9 @@ class ThemeSetNameHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetEmailHandler
+ */
 class ThemeSetEmailHandler extends XmlTagHandler
 {
     /**
@@ -338,6 +357,9 @@ class ThemeSetEmailHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetLinkHandler
+ */
 class ThemeSetLinkHandler extends XmlTagHandler
 {
     /**
@@ -366,6 +388,9 @@ class ThemeSetLinkHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetTemplateHandler
+ */
 class ThemeSetTemplateHandler extends XmlTagHandler
 {
     /**
@@ -402,6 +427,9 @@ class ThemeSetTemplateHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetImageHandler
+ */
 class ThemeSetImageHandler extends XmlTagHandler
 {
     /**
@@ -438,6 +466,9 @@ class ThemeSetImageHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetModuleHandler
+ */
 class ThemeSetModuleHandler extends XmlTagHandler
 {
     /**
@@ -467,6 +498,9 @@ class ThemeSetModuleHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetFileTypeHandler
+ */
 class ThemeSetFileTypeHandler extends XmlTagHandler
 {
     /**
@@ -495,6 +529,9 @@ class ThemeSetFileTypeHandler extends XmlTagHandler
     }
 }
 
+/**
+ * Class ThemeSetTagHandler
+ */
 class ThemeSetTagHandler extends XmlTagHandler
 {
     /**
