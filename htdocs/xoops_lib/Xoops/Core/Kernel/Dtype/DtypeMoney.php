@@ -22,7 +22,7 @@ use Money\Currency;
  * @category  Xoops\Core\Kernel\Dtype\DtypeMoney
  * @package   Xoops\Core\Kernel
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015 XOOPS Project (http://xoops.org)
+ * @copyright 2015-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -31,7 +31,7 @@ class DtypeMoney extends DtypeAbstract
     /**
      * getVar get variable prepared according to format
      *
-     * Recommended database column is varchar(32) or larger
+     * Recommended database column is varchar(48) or larger
      *
      * @param XoopsObject $obj    object containing variable
      * @param string      $key    name of variable
@@ -79,8 +79,8 @@ class DtypeMoney extends DtypeAbstract
     {
         return json_encode(
             [
-                'a'   => $value->getAmount(),
-                'c' => $value->getCurrency()->getName()
+                'amount'   => $value->getAmount(),
+                'currency' => $value->getCurrency()->getName()
             ]
         );
     }
@@ -94,10 +94,10 @@ class DtypeMoney extends DtypeAbstract
      */
     private function unserializeJson($value)
     {
-        $decoded = json_decode($value, true);
-        if (false === $decoded || !(isset($decoded['a']) && isset($decoded['c']))) {
+        $decoded = json_decode($value, true, 2, JSON_BIGINT_AS_STRING);
+        if (false === $decoded || !(isset($decoded['amount']) && isset($decoded['currency']))) {
             return null;
         }
-        return new Money((int) $decoded['a'], new Currency($decoded['c']));
+        return new Money((int) $decoded['amount'], new Currency($decoded['currency']));
     }
 }
