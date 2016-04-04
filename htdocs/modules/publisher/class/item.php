@@ -453,9 +453,9 @@ class PublisherItem extends XoopsObject
     public function sendNotifications($notifications = array())
     {
         $xoops = Xoops::getInstance();
-        if ($xoops->isActiveModule('notifications')) {
+        if (true) {
 
-            $notification_handler = Notifications::getInstance()->getHandlerNotification();
+            $notification_service = $xoops->service('Notifications');
             $tags = array();
             $tags['MODULE_NAME'] = $this->publisher->getModule()->getVar('name');
             $tags['ITEM_NAME'] = $this->title();
@@ -467,17 +467,17 @@ class PublisherItem extends XoopsObject
                 switch ($notification) {
                     case _PUBLISHER_NOT_ITEM_PUBLISHED :
                         $tags['ITEM_URL'] = PUBLISHER_URL . '/item.php?itemid=' . $this->getVar('itemid');
-                        $notification_handler->triggerEvent('global', 0, 'published', $tags, array(), $this->publisher->getModule()->getVar('mid'));
-                        $notification_handler->triggerEvent('category', $this->getVar('categoryid'), 'published', $tags, array(), $this->publisher->getModule()->getVar('mid'));
-                        $notification_handler->triggerEvent('item', $this->getVar('itemid'), 'approved', $tags, array(), $this->publisher->getModule()->getVar('mid'));
+                        $notification_service->triggerEvent('global', 0, 'published', $tags, array(), $this->publisher->getModule()->getVar('mid'));
+                        $notification_service->triggerEvent('category', $this->getVar('categoryid'), 'published', $tags, array(), $this->publisher->getModule()->getVar('mid'));
+                        $notification_service->triggerEvent('item', $this->getVar('itemid'), 'approved', $tags, array(), $this->publisher->getModule()->getVar('mid'));
                         break;
                     case _PUBLISHER_NOT_ITEM_SUBMITTED :
                         $tags['WAITINGFILES_URL'] = PUBLISHER_URL . '/admin/item.php?itemid=' . $this->getVar('itemid');
-                        $notification_handler->triggerEvent('global', 0, 'submitted', $tags, array(), $this->publisher->getModule()->getVar('mid'));
-                        $notification_handler->triggerEvent('category', $this->getVar('categoryid'), 'submitted', $tags, array(), $this->publisher->getModule()->getVar('mid'));
+                        $notification_service->triggerEvent('global', 0, 'submitted', $tags, array(), $this->publisher->getModule()->getVar('mid'));
+                        $notification_service->triggerEvent('category', $this->getVar('categoryid'), 'submitted', $tags, array(), $this->publisher->getModule()->getVar('mid'));
                         break;
                     case _PUBLISHER_NOT_ITEM_REJECTED :
-                        $notification_handler->triggerEvent('item', $this->getVar('itemid'), 'rejected', $tags, array(), $this->publisher->getModule()->getVar('mid'));
+                        $notification_service->triggerEvent('item', $this->getVar('itemid'), 'rejected', $tags, array(), $this->publisher->getModule()->getVar('mid'));
                         break;
                     case -1 :
                     default:

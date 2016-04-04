@@ -173,4 +173,21 @@ class NotificationsPreload extends PreloadItem
             Notifications::getInstance()->getHandlerNotification()->doLoginMaintenance($xoops->user->getVar('uid'));
         }
     }
+	
+    /**
+     * listen for core.service.locate.notifications event
+     *
+     * @param Provider $provider - provider object for requested service
+     *
+     * @return void
+     */
+    public static function eventCoreServiceLocateNotifications(Provider $provider)
+    {
+        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
+            $path = dirname(__DIR__) . '/class/NotificationsProvider.php';
+            require $path;
+            $object = new NotificationsProvider();
+            $provider->register($object);
+        }
+    }
 }

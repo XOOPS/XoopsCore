@@ -190,9 +190,9 @@ switch ($op) {
                 $xoops->redirect($itemObj->getItemUrl(), 2, $redirect_msg);
             } else {
                 // Subscribe the user to On Published notification, if requested
-                if ($itemObj->getVar('notifypub') && $xoops->isActiveModule('notifications')) {
-                    $notification_handler = Notifications::getInstance()->getHandlerNotification();
-                    $notification_handler->subscribe('item', $itemObj->getVar('itemid'), 'approved', NOTIFICATIONS_MODE_SENDONCETHENDELETE);
+                if ($itemObj->getVar('notifypub')) {
+                    $notification_service = $xoops->service('Notifications');
+                    $notification_service->subscribe('item', $itemObj->getVar('itemid'), 'approved', NOTIFICATIONS_MODE_SENDONCETHENDELETE);
                 }
                 // Send notifications
                 $itemObj->sendNotifications(array(_PUBLISHER_NOT_ITEM_SUBMITTED));
