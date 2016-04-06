@@ -153,7 +153,7 @@ class XoopsLoad
             */
             return false;
         }
-        include $file;
+        include_once $file;
         $class = 'Xoops' . ucfirst($name);
         if (class_exists($class, false)) {
             return $class;
@@ -176,7 +176,7 @@ class XoopsLoad
             return false;
         }
         if (self::fileExists($file = \XoopsBaseConfig::get('root-path') . '/modules/' . $dirname . '/class/' . $name . '.php')) {
-            include $file;
+            include_once $file;
             if (class_exists(ucfirst($dirname) . ucfirst($name))) {
                 return true;
             }

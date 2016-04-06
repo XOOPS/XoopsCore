@@ -166,16 +166,29 @@ class Logger implements LoggerInterface
     /**
      * Exception handling callback.
      *
-     * This will
-     *
      * @param \Exception|\Throwable $e uncaught Exception or Error
      *
      * @return void
      */
     public function handleException($e)
     {
-        $msg = $e->getMessage();
-        $this->reportFatalError($msg);
+        if ($this->isThrowable($e)) {
+            $msg = $e->getMessage();
+            $this->reportFatalError($msg);
+        }
+    }
+
+    /**
+     * Determine if an object implements Throwable (or is an Exception that would under PHP 7.)
+     *
+     * @param mixed $e Expected to be an object related to Exception or Throwable
+     *
+     * @return bool true if related to Throwable or Exception, otherwise false
+     */
+    protected function isThrowable($e)
+    {
+        $type = interface_exists('\Throwable', false) ? '\Throwable' : '\Exception';
+        return $e instanceof $type;
     }
 
     /**
