@@ -1,3 +1,3 @@
 {translate key="ACTIONS"}
-</br>
+<br/>
 {translate key="ADMINISTRATION_MENU" dirname="system"}
