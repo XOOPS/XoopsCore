@@ -32,6 +32,20 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
 {
 
     /**
+     * @var Connection DBAL Connection
+     */
+    private $connection = null;
+
+    /**
+     * __construct
+     */
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+        parent::__construct($connection);
+    }
+
+    /**
      * Turns the query being built into a bulk delete query that ranges over
      * a certain table.
      *
@@ -50,7 +64,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function deletePrefix($delete = null, $alias = null)
     {
-        $delete = Connection::prefix($delete);
+        $delete = $this->connection->prefix($delete);
         return $this->delete($delete, $alias);
     }
 
@@ -73,7 +87,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function updatePrefix($update = null, $alias = null)
     {
-        $update = Connection::prefix($update);
+        $update = $this->connection->prefix($update);
         return $this->update($update, $alias);
     }
 
@@ -99,7 +113,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function insertPrefix($insert = null)
     {
-        $insert = Connection::prefix($insert);
+        $insert = $this->connection->prefix($insert);
         return $this->insert($insert);
     }
 
@@ -120,7 +134,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function fromPrefix($from, $alias = null)
     {
-        $from = Connection::prefix($from);
+        $from = $this->connection->prefix($from);
         return $this->from($from, $alias);
     }
 
@@ -143,7 +157,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function joinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = Connection::prefix($join);
+        $join = $this->connection->prefix($join);
         return $this->join($fromAlias, $join, $alias, $condition);
     }
 
@@ -167,7 +181,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function innerJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = Connection::prefix($join);
+        $join = $this->connection->prefix($join);
         return $this->innerJoin($fromAlias, $join, $alias, $condition);
     }
 
@@ -190,7 +204,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function leftJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = Connection::prefix($join);
+        $join = $this->connection->prefix($join);
         return $this->leftJoin($fromAlias, $join, $alias, $condition);
     }
 
@@ -213,7 +227,7 @@ class QueryBuilder extends \Doctrine\DBAL\Query\QueryBuilder
      */
     public function rightJoinPrefix($fromAlias, $join, $alias, $condition = null)
     {
-        $join = Connection::prefix($join);
+        $join = $this->connection->prefix($join);
         return $this->rightJoin($fromAlias, $join, $alias, $condition);
     }
 }

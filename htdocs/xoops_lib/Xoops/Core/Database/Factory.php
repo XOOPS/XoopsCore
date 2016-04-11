@@ -88,6 +88,9 @@ class Factory
                 $connectionParams,
                 $config
             );
+            if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] !== 'GET') || (php_sapi_name() === 'cli')) {
+                $instance->setSafe(true);
+            }
         }
         return $instance;
     }
