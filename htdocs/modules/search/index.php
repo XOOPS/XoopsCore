@@ -26,15 +26,15 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 
-$search = Search::getInstance();
+$xoops = Xoops::getInstance();
+$search = $xoops->getModuleHelper('search');
 if (!$search->getConfig('enable_search')) {
     header('Location: ' . XOOPS_URL . '/index.php');
     exit();
 }
 
-$xoops = Xoops::getInstance();
 
-$action = Request::getCmd('action', 'search');
+$action = Request::getCmd('action', 'results');
 $query = Request::getString('query', '');
 $andor = Request::getWord('andor', 'AND');
 $mid = Request::getInt('mid', 0);
@@ -45,8 +45,8 @@ $mids = Request::getArray('mids', array());
 $queries = array();
 
 if ($action === "results") {
-    if ($query == "") {
-        $xoops->redirect("index.php", 1, _MD_SEARCH_PLZENTER);
+    if ($query === "") {
+        $action = "search";
     }
 } else {
     if ($action === "showall") {

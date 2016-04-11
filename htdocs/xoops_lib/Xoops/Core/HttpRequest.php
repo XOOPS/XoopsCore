@@ -45,6 +45,10 @@ class HttpRequest
      */
     protected $params;
 
+    /**
+     * @var HttpRequest The reference to *Singleton* instance of this class
+     */
+    private static $instance;
 
     /**
      * The built in detectors used with `is()` can be modified with `addDetector()`.
@@ -175,12 +179,10 @@ class HttpRequest
      */
     public static function getInstance()
     {
-        static $instance;
-        if (!isset($instance)) {
-            $thisClass = get_called_class();
-            $instance = new $thisClass();
+        if (null === static::$instance) {
+            static::$instance = new static();
         }
-        return $instance;
+        return static::$instance;
     }
 
     /**

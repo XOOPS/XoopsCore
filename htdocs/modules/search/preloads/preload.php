@@ -21,18 +21,18 @@ use Xoops\Core\PreloadItem;
 class SearchPreload extends PreloadItem
 {
     /**
-     * listen for core.include.common.classmaps
-     * add any module specific class map entries
+     * listen for core.header.start
      *
      * @param mixed $args not used
      *
      * @return void
      */
-    public static function eventCoreIncludeCommonClassmaps($args)
+    public static function eventCoreHeaderEnd($args)
     {
-        $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
-            'search' => $path . '/class/search.php',
-        ));
+        $xoops = Xoops::getInstance();
+        $search = $xoops->getModuleHelper('search');
+        if ($search->getConfig('enable_search')) {
+            $xoops->tpl()->assign('search_url', $search->url('index.php'));
+        }
     }
 }

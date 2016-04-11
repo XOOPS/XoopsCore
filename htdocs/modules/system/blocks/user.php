@@ -81,7 +81,7 @@ function b_system_user_show()
         array_unshift($block['modules'], array(
             'name' => SystemLocale::ADMINISTRATION_MENU,
             'link' => $xoops->url('admin.php'),
-            'rel'  => 'external',
+            //'rel'  => 'external',
             'icon' => 'icon-wrench',
         ));
     }

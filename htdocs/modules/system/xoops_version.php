@@ -354,7 +354,7 @@ $modversion['config'][] = array(
     'category'    => 'general',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 'xoops_user' . dechex(time()),
+    'default'     => 'xoops_user_' . dechex(time()),
 );
 
 $modversion['config'][] = array(
@@ -364,7 +364,7 @@ $modversion['config'][] = array(
     'category'    => 'general',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 'xoops_session' . dechex(time()),
+    'default'     => 'xoops_session_' . dechex(time()),
 );
 
 $modversion['config'][] = array(
