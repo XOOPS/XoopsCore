@@ -1275,7 +1275,7 @@ class Xoops
                 break;
 
             case 'error':
-                $tpl->assign('alert_type', 'alert-error');
+                $tpl->assign('alert_type', 'alert-error alert-danger');
                 if ($title === '/') {
                     $title = XoopsLocale::ERROR;
                 }
@@ -1289,7 +1289,7 @@ class Xoops
                 break;
 
             case 'warning':
-                $tpl->assign('alert_type', '');
+                $tpl->assign('alert_type', 'alert-warning');
                 if ($title === '/') {
                     $title = XoopsLocale::WARNING;
                 }

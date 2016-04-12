@@ -8,7 +8,7 @@ namespace Xoops\Core\Locale\Punic;
 class Calendar extends \Punic\Calendar
 {
     /**
-     * Change to disable interpreteting 'yy' as forcing 2 digit year
+     * Change to disable interpreting 'yy' as forcing 2 digit year
      *
      * Instead of interpreting 2015 as '15' it will be '2015', while year 1 would be reported as '01'
      *
