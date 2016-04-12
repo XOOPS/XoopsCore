@@ -35,18 +35,18 @@ class Connection extends \Doctrine\DBAL\Connection
      * @var bool $safe true means it is safe to write to database
      * removed allowedWebChanges as unnecessary. Using this instead.
      */
-    protected static $safe;
+    protected $safe;
 
 
     /**
      * @var bool $force true means force writing to database even if safe is not true.
      */
-    protected static $force;
+    protected $force;
 
     /**
      * @var bool $transactionActive true means a transaction is in process.
      */
-    protected static $transactionActive;
+    protected $transactionActive;
 
 
     /**
@@ -56,11 +56,9 @@ class Connection extends \Doctrine\DBAL\Connection
      *
      * @return void
      */
-    public static function setSafe($safe = true)
+    public function setSafe($safe = true)
     {
-        if (is_bool($safe)) {
-            self::$safe = $safe;
-        }
+        $this->safe = (bool)$safe;
     }
 
     /**
@@ -68,9 +66,9 @@ class Connection extends \Doctrine\DBAL\Connection
      *
      * @return boolean
      */
-    public static function getSafe()
+    public function getSafe()
     {
-        return self::$safe;
+        return $this->safe;
     }
 
     /**
@@ -80,11 +78,9 @@ class Connection extends \Doctrine\DBAL\Connection
      *
      * @return void
      */
-    public static function setForce($force = false)
+    public function setForce($force = false)
     {
-        if (is_bool($force)) {
-            self::$force = $force;
-        }
+        $this->force = (bool) $force;
     }
 
     /**
@@ -92,9 +88,9 @@ class Connection extends \Doctrine\DBAL\Connection
      *
      * @return boolean
      */
-    public static function getForce()
+    public function getForce()
     {
-        return self::$force;
+        return $this->force;
     }
 
     /**
@@ -113,13 +109,10 @@ class Connection extends \Doctrine\DBAL\Connection
         Configuration $config = null,
         EventManager $eventManager = null
     ) {
-        if (!defined('XOOPS_DB_PROXY') || ($_SERVER['REQUEST_METHOD'] !== 'GET') || (php_sapi_name() === 'cli')) {
-            self::setSafe(true);
-        } else {
-            self::setSafe(false);
-        }
-        self::setForce(false);
-        self::$transactionActive = false;
+        $this->safe = false;
+        $this->force = false;
+        $this->transactionActive = false;
+
         try {
             parent::__construct($params, $driver, $config, $eventManager);
         } catch (\Exception $e) {
@@ -128,7 +121,6 @@ class Connection extends \Doctrine\DBAL\Connection
             //\Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             trigger_error("Cannot get database connection", E_USER_ERROR);
         }
-
     }
 
     /**
@@ -139,7 +131,7 @@ class Connection extends \Doctrine\DBAL\Connection
      *
      * @return string prefixed tablename, or prefix if tablename is empty
      */
-    public static function prefix($tablename = '')
+    public function prefix($tablename = '')
     {
         $prefix = \XoopsBaseConfig::get('db-prefix');
         if ($tablename != '') {
@@ -251,9 +243,9 @@ class Connection extends \Doctrine\DBAL\Connection
     public function executeUpdate($query, array $params = array(), array $types = array())
     {
         $events = \Xoops::getInstance()->events();
-        if (self::getSafe() || self::getForce()) {
-            if (!self::$transactionActive) {
-                self::setForce(false);
+        if ($this->safe || $this->force) {
+            if (!$this->transactionActive) {
+                $this->force = false;
             };
             $events->triggerEvent('core.database.query.start');
             try {
@@ -283,7 +275,7 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function beginTransaction()
     {
-        self::$transactionActive = true;
+        $this->transactionActive = true;
         parent::beginTransaction();
     }
 
@@ -294,8 +286,8 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function commit()
     {
-        self::$transactionActive = false;
-        self::setForce(false);
+        $this->transactionActive = false;
+        $this->force = false;
         parent::commit();
     }
 
@@ -306,8 +298,8 @@ class Connection extends \Doctrine\DBAL\Connection
      */
     public function rollBack()
     {
-        self::$transactionActive = false;
-        self::setForce(false);
+        $this->transactionActive = false;
+        $this->force = false;
         parent::rollBack();
     }
 
@@ -326,14 +318,14 @@ class Connection extends \Doctrine\DBAL\Connection
     public function query()
     {
         $events = \Xoops::getInstance()->events();
-        if (!self::getSafe() && !self::getForce()) {
+        if (!$this->safe && !$this->force) {
             $sql = ltrim(func_get_arg(0));
-            if (!self::getSafe() && strtolower(substr($sql, 0, 6))!== 'select') {
+            if (!$this->safe && strtolower(substr($sql, 0, 6)) !== 'select') {
                 // $events->triggerEvent('core.database.query.failure', (array('Not safe:')));
                 return null;
             }
         }
-        self::setForce(false); // resets $force back to false
+        $this->force = false; // resets $force back to false
         $events->triggerEvent('core.database.query.start');
         try {
             $result = call_user_func_array(array('parent', 'query'), func_get_args());
@@ -374,20 +366,6 @@ class Connection extends \Doctrine\DBAL\Connection
         }
         return false;
     }
-
-    /**
-     * Duplicates original xoops quote.
-     * Name changed to not confuse normal usage of quote.
-     *
-     * @param string $input test to convert
-     *
-     * @return mixed converted text
-     */
-    public function quoteSlash($input)
-    {
-        return $this->quote($input);
-    }
-
 
     /**
      * Create a new instance of a SQL query builder.
