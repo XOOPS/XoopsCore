@@ -88,11 +88,10 @@ if (empty($getuser)) {
         $xoopsMailer->setSubject(sprintf(XoopsLocale::F_NEW_PASSWORD_REQUEST_AT, $xoops->getConfig('sitename')));
         $xoops->header();
         if (!$xoopsMailer->send()) {
-            echo $xoopsMailer->getErrors();
+            echo $xoops->alert('error', $xoopsMailer->getErrors(false));
+        } else {
+            echo $xoops->alert('success', sprintf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $userObject->getVar("uname")));
         }
-        echo "<h4>";
-        printf(XoopsLocale::F_CONFIRMATION_EMAIL_SENT, $userObject->getVar("uname"));
-        echo "</h4>";
         $xoops->footer();
     }
 }

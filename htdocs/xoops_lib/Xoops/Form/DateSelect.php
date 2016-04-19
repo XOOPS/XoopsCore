@@ -80,7 +80,6 @@ class DateSelect extends Text
 
         $this->set('class', 'form-control');
         $ret = '<div class="input-group">';
-        $attributes = $this->renderAttributeString();
         $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $this->getExtra() .' >';
         $ret .= '<span class="input-group-btn">';
         $ret .= '<button class="btn btn-default" type="button" ';

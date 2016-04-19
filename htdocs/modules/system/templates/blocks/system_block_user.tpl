@@ -14,7 +14,7 @@
 <ul class="nav nav-list">
     {foreach from=$block.modules item=module}
         <li{if $module.link == $block.active_url} class="active"{/if} >
-            <a {if $module.class|default:false}class="{$module.class}"{/if} href="{$module.link}" title="{$module.name}" {if $module.rel|default:false}rel="{$module.rel}"{/if} >
+            <a {if $module.class|default:false}class="{$module.class}"{/if} href="{$module.link}" title="{$module.title}" {if $module.rel|default:false}rel="{$module.rel}"{/if} >
                 <i class="{$module.icon} {$module.dirname|default:''}-icon"></i>
                 {$module.name}
             </a>
@@ -23,7 +23,7 @@
                 <ul class="nav nav-list">
                     {foreach item=sublink from=$module.sublinks}
                         <li>
-                            <a class="" href="{$sublink.url}" title="{$sublink.name}">{$sublink.name}</a>
+                            <a class="" href="{$sublink.url}" title="{$sublink.title}">{$sublink.name}</a>
                         </li>
                     {/foreach}
                 </ul>

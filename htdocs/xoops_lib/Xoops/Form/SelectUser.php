@@ -97,23 +97,16 @@ class SelectUser extends ElementTray
             }
             </script>";
         $token = $xoops->security()->createToken();
-        $action_tray = new ElementTray("", " | ");
-        $action_tray->addElement(
-            new Label(
-                '',
-                '<a href="#" onclick="var sel = xoopsGetElementById(\'' . $name
+        $action_tray = new Label(
+            '',
+            '<a href="#" onclick="var sel = xoopsGetElementById(\'' . $name
                 . '\');for (var i = sel.options.length-1; i >= 0; i--) {if (!sel.options[i].selected) '
                 .'{sel.options[i] = null;}}; return false;">' . \XoopsLocale::REMOVE_UNSELECTED_USERS . "</a>"
-            )
-        );
-        $action_tray->addElement(
-            new Label(
-                '',
-                '<a href="#" onclick="openWithSelfMain(\'' . \XoopsBaseConfig::get('url') . '/include/findusers.php?target='
+                . ' | '
+                . '<a href="#" onclick="openWithSelfMain(\'' . \XoopsBaseConfig::get('url') . '/include/findusers.php?target='
                 . $name . '&amp;multiple=' . $multiple . '&amp;token=' . $token
                 . '\', \'userselect\', 800, 600, null); return false;" >'
                 . \XoopsLocale::SEARCH_USERS . "</a>" . $js_addusers
-            )
         );
         parent::__construct($caption, '', $name);
         $this->addElement($select_element);

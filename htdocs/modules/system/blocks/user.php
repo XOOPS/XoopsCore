@@ -44,6 +44,7 @@ function b_system_user_show()
             $block['modules'][$i]['image'] = $menu['image'];
             $block['modules'][$i]['icon'] = 'glyphicon glyphicon-none';
             $block['modules'][$i]['dirname'] = $dirname;
+            $block['modules'][$i]['title'] = $menu['name'];
 
             //todo, remove this hardcoded call
             if ($xoops->isModule() && $xoops->module->getVar('dirname') == $dirname && $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'menus')) {
@@ -52,6 +53,7 @@ function b_system_user_show()
                     foreach ($sublinks as $sublink) {
                         $block['modules'][$i]['sublinks'][] = array(
                             'name' => $sublink['name'],
+                            'title' => $sublink['name'],
                             'url'  => \XoopsBaseConfig::get('url') . '/modules/' . $dirname . '/' . $sublink['url']
                         );
                     }
@@ -67,6 +69,7 @@ function b_system_user_show()
         'name' => XoopsLocale::VIEW_ACCOUNT,
         'link' => $xoops->url('userinfo.php?uid=' . $xoops->user->getVar('uid')),
         'icon' => 'glyphicon glyphicon-user',
+        'title' => XoopsLocale::VIEW_ACCOUNT,
     ));
 
     // Edit Account
@@ -83,6 +86,7 @@ function b_system_user_show()
             'link' => $xoops->url('admin.php'),
             //'rel'  => 'external',
             'icon' => 'glyphicon glyphicon-wrench',
+            'title' => SystemLocale::ADMINISTRATION_MENU,
         ));
     }
 
@@ -95,8 +99,8 @@ function b_system_user_show()
     $name = XoopsLocale::INBOX;
     $class = '';
     if ($pm_count = $pm_handler->getCount($criteria)) {
-        $name = XoopsLocale::INBOX . ' <strong>' . $pm_count . '</strong>';
-        $class = 'highlight';
+        $name = XoopsLocale::INBOX . ' <span class="badge alert-danger">' . $pm_count . '</span>';
+        //$class = 'text-info';
     }
 
     array_push($block['modules'], array(
@@ -104,6 +108,7 @@ function b_system_user_show()
         'link'  => $xoops->url('viewpmsg.php'),
         'icon'  => 'glyphicon glyphicon-envelope',
         'class' => $class,
+        'title' => XoopsLocale::INBOX,
     ));
 
     // Logout

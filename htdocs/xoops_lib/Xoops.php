@@ -1612,6 +1612,13 @@ class Xoops
                 return $xoops_theme_url . '/' . $theme . '/css/style.css';
             }
         }
+        if (is_dir($xoops_theme_path . '/' . $theme . '/assets/css')) {
+            if (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/assets/css/' . $str_css)) {
+                return $xoops_theme_url . '/' . $theme . '/assets/css/' . $str_css;
+            } elseif (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/assets/css/style.css')) {
+                return $xoops_theme_url . '/' . $theme . '/assets/css/style.css';
+            }
+        }
         return '';
     }
 

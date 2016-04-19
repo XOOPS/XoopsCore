@@ -49,7 +49,7 @@ class TabTray extends ElementTray
     {
         $xoops = \Xoops::getInstance();
 
-        $ret = '<div class="container" id="tabs_' . $this->getName() . '">' . "\n";
+        $ret = '<div id="tabs_' . $this->getName() . '">' . "\n";
         $ret .= '<ul class="nav nav-tabs">' . "\n";
         $active = ' active';
         foreach ($this->getElements() as $ele) {

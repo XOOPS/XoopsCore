@@ -44,7 +44,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->object->render();
         $this->assertTrue(is_string($value));
-        $this->assertTrue(false !== strpos($value, '<span'));
+        $this->assertTrue(false !== strpos($value, '<div'));
         $this->assertTrue(false !== strpos($value, 'id="name"'));
     }
 
