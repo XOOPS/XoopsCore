@@ -91,6 +91,5 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
         $oldWay = new TextArea('mycaption', 'myname', 'myvalue');
         $newWay = new TextArea(['caption' => 'mycaption', 'name' => 'myname', 'value' => 'myvalue',]);
         $this->assertEquals($oldWay->render(), $newWay->render());
-        $this->assertNotFalse($oldWay->hasClassLike('span5'));
     }
 }
