@@ -170,13 +170,13 @@ if ($op === 'editprofile') {
         150,
         $xoops->user->getVar('user_intrest', 'E')
     );
-    $sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, '<br />');
-    $sig_tarea = new Xoops\Form\DhtmlTextArea('', 'user_sig', $xoops->user->getVar('user_sig', 'E'));
-    $sig_tray->addElement($sig_tarea);
+    //$sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, '<br />');
+    $sig_tarea = new Xoops\Form\DhtmlTextArea(XoopsLocale::SIGNATURE, 'user_sig', $xoops->user->getVar('user_sig', 'E'));
+    //$sig_tray->addElement($sig_tarea);
     $sig_cbox_value = $xoops->user->getVar('attachsig') ? 1 : 0;
     $sig_cbox = new Xoops\Form\Checkbox('', 'attachsig', $sig_cbox_value);
     $sig_cbox->addOption(1, XoopsLocale::ALWAYS_ATTACH_MY_SIGNATURE);
-    $sig_tray->addElement($sig_cbox);
+    //$sig_tray->addElement($sig_cbox);
     $bio_tarea = new Xoops\Form\TextArea(XoopsLocale::EXTRA_INFO, 'bio', $xoops->user->getVar('bio', 'E'));
     $pwd_text = new Xoops\Form\Password('', 'password');
     $pwd_text2 = new Xoops\Form\Password('', 'vpass');
@@ -202,7 +202,9 @@ if ($op === 'editprofile') {
     $form->addElement($location_text);
     $form->addElement($occupation_text);
     $form->addElement($interest_text);
-    $form->addElement($sig_tray);
+    //$form->addElement($sig_tray);
+    $form->addElement($sig_tarea);
+    $form->addElement($sig_cbox);
     $form->addElement($bio_tarea);
     $form->addElement($pwd_tray);
     $form->addElement($mailok_radio);

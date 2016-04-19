@@ -18,7 +18,7 @@ namespace Xoops\Form;
  * @package   Xoops\Form
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -62,6 +62,10 @@ class Radio extends OptionElement
         $ele_name = $this->getName();
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $ret = "";
+        $inline = $this->has(':inline');
+        if ($inline) {
+            $ret .= '<div class="input-group">';
+        }
         static $id_ele = 0;
         foreach ($ele_options as $value => $buttonCaption) {
             $this->remove('checked');
@@ -71,10 +75,19 @@ class Radio extends OptionElement
             $this->set('value', $value);
             ++$id_ele;
             $this->set('id', $ele_name . $id_ele);
-            $ret .= '<label class="radio' . ($this->has(':inline') ? ' inline' : '') . '">' . "\n";
-            $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . "\n";
-            $ret .= $buttonCaption . "\n";
-            $ret .= "</label>" . "\n";
+            if ($inline) {
+                $ret .= '<label class="radio-inline">';
+                $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . $buttonCaption . "\n";
+                $ret .= "</label>\n";
+            } else {
+                $ret .= "<div class=\"radio\">\n<label>";
+                $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . "\n";
+                $ret .= $buttonCaption . "\n";
+                $ret .= "</label>\n</div>\n";
+            }
+        }
+        if ($inline) {
+            $ret .= '</div>';
         }
         return $ret;
     }

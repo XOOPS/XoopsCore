@@ -196,7 +196,7 @@ $factory->create([
     'caption' => '',
     'name' => 'button_tray',
     'type' => 'submit',
-    'class' => 'btn btn-inverse',
+    'class' => 'btn btn-warning',
     'value' => XoopsLocale::A_SUBMIT,
     ':showdelete' => true,
 ]);

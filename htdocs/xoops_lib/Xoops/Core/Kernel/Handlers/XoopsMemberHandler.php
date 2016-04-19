@@ -20,6 +20,7 @@
 namespace Xoops\Core\Kernel\Handlers;
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
@@ -208,7 +209,9 @@ class XoopsMemberHandler
      */
     public function getGroupList(CriteriaElement $criteria = null)
     {
-        $groups = $this->groupHandler->getObjects($criteria, true);
+        $realCriteria = new CriteriaCompo($criteria);
+        $realCriteria->add(new Criteria('groupid', FixedGroups::REMOVED, '!='));
+        $groups = $this->groupHandler->getObjects($realCriteria, true);
         $ret = array();
         foreach (array_keys($groups) as $i) {
             $ret[$i] = $groups[$i]->getVar('name');

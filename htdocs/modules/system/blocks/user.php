@@ -42,7 +42,7 @@ function b_system_user_show()
             $block['modules'][$i]['name'] = $menu['name'];
             $block['modules'][$i]['link'] = $xoops->url('modules/' . $dirname . '/' . $menu['link']);
             $block['modules'][$i]['image'] = $menu['image'];
-            $block['modules'][$i]['icon'] = 'icon-tags';
+            $block['modules'][$i]['icon'] = 'glyphicon glyphicon-none';
             $block['modules'][$i]['dirname'] = $dirname;
 
             //todo, remove this hardcoded call
@@ -66,14 +66,14 @@ function b_system_user_show()
     array_unshift($block['modules'], array(
         'name' => XoopsLocale::VIEW_ACCOUNT,
         'link' => $xoops->url('userinfo.php?uid=' . $xoops->user->getVar('uid')),
-        'icon' => 'icon-user',
+        'icon' => 'glyphicon glyphicon-user',
     ));
 
     // Edit Account
     array_unshift($block['modules'], array(
         'name' => XoopsLocale::EDIT_ACCOUNT,
         'link' => $xoops->url('edituser.php'),
-        'icon' => 'icon-user',
+        'icon' => 'glyphicon glyphicon-pencil',
     ));
 
     // Administration Menu
@@ -82,7 +82,7 @@ function b_system_user_show()
             'name' => SystemLocale::ADMINISTRATION_MENU,
             'link' => $xoops->url('admin.php'),
             //'rel'  => 'external',
-            'icon' => 'icon-wrench',
+            'icon' => 'glyphicon glyphicon-wrench',
         ));
     }
 
@@ -102,7 +102,7 @@ function b_system_user_show()
     array_push($block['modules'], array(
         'name'  => $name,
         'link'  => $xoops->url('viewpmsg.php'),
-        'icon'  => 'icon-envelope',
+        'icon'  => 'glyphicon glyphicon-envelope',
         'class' => $class,
     ));
 
@@ -110,7 +110,7 @@ function b_system_user_show()
     array_push($block['modules'], array(
         'name' => XoopsLocale::A_LOGOUT,
         'link' => $xoops->url('user.php?op=logout'),
-        'icon' => 'icon-off',
+        'icon' => 'glyphicon glyphicon-log-out',
     ));
 
     $block['active_url'] = \Xoops\Core\HttpRequest::getInstance()->getUrl();

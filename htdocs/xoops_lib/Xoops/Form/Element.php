@@ -20,7 +20,7 @@ use Xoops\Html\Attributes;
  * @category  Xoops\Form\Element
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -544,38 +544,44 @@ abstract class Element extends Attributes
      */
     public function themeDecorateElement()
     {
+        $class = 'form-control';
         if ($this instanceof Button) {
-            $class = 'btn';
-        } elseif (false !== $this->hasClassLike('span')) {
+            if (false !== $this->hasClassLike('btn')) {
+                return;
+            }
+            $class = 'btn btn-default';
+        } elseif (false !== $this->hasClassLike('form-') && false !== $this->hasClassLike('col-')) {
             return;
         } elseif ($this instanceof TextArea) {
-            $class = 'span5';
+            $class = 'form-control';
+        } /**
         } elseif ($this instanceof OptionElement) {
-            $class = 'span2';
+            $class = 'col-md-3';
             $options = $this->get('option', []);
             foreach ($options as $value) {
                 if (is_array($value)) { // optgroup
                     foreach ($value as $subvalue) {
                         if (strlen($subvalue) > 20) {
-                            $class = 'span3';
+                            $class = 'col-md-4';
                             break 2;
                         }
                     }
                 } elseif (strlen($value) > 20) {
-                    $class = 'span3';
+                    $class = 'col-md-4';
                     break;
                 }
             }
         } else {
             $size = $this->get('size', 0);
             if ($size < 20) {
-                $class = 'span2';
-            } elseif ($size < 30) {
-                $class = 'span3';
+//                $class = 'col-md-2';
+//            } elseif ($size < 30) {
+                $class = 'col-md-3';
             } else {
-                $class = 'span4';
+                $class = 'form-control';
             }
         }
+     */
         $this->add('class', $class);
     }
 

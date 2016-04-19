@@ -88,8 +88,9 @@ function module_switchModsView (c)
 
 function module_Detail(id){
     var position = $("#mid-"+id).position();
-    $("#detail-"+id).css({'position':'absolute','box-shadow':'2px 2px 1px #888','top':position.top+'px','left':position.left+'px'});
-    $("#detail-"+id).slideDown(600);
+    $('#detail-'+id).css({'position':'absolute','box-shadow':'2px 2px 1px #888','top':position.top+'px','left':position.left+'px'});
+    $('#detail-'+id).removeClass('hide');
+    $('#detail-'+id).slideDown(600);
 }
 
 function module_Disable(id, enable, disable){
@@ -125,6 +126,7 @@ function module_Install(module){
     $('.modal-backdrop').show();
     $('#install-dir').val(module)
     $('#install .modal-data').html($('#data-'+module+' .module_card').html());
+    $('#install').removeClass('hide');
     $('#install').show('slow');
 }
 
@@ -132,6 +134,7 @@ function module_Update(id){
     $('.modal-backdrop').show();
     $('#update-id').val(id)
     $('#update .modal-data').html($('#data-'+id+' .module_card').html());
+    $('#update').removeClass('hide');
     $('#update').show('slow');
 }
 
@@ -139,5 +142,6 @@ function module_Uninstall(id){
     $('.modal-backdrop').show();
     $('#uninstall-id').val(id)
     $('#uninstall .modal-data').html($('#data-'+id+' .module_card').html());
+    $('#uninstall').removeClass('hide');
     $('#uninstall').show('slow');
 }

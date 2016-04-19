@@ -17,7 +17,7 @@ namespace Xoops\Form;
  * @category  Xoops\Form\Tab
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -50,26 +50,20 @@ class Tab extends ElementTray
         $ret = '';
         /* @var $ele Element */
         foreach ($this->getElements() as $ele) {
-            $ret .= "\n";
-            $ret .= '<tr>' . "\n";
-            $ret .= '<td class="head" width="30%">' . "\n";
-            $required = $ele->isRequired() ? '-required' : '';
-            $ret .= '<div class="xoops-form-element-caption' . $required . '">' . "\n";
-            $ret .= '<span class="caption-text">' . $ele->getCaption() . '</span>' . "\n";
-            $ret .= '<span class="caption-marker">*</span>' . "\n";
-            $ret .= '</div>' . "\n";
-            $description = $ele->getDescription();
-            if ($description) {
-                $ret .= '<div style="font-weight: normal">' . "\n";
-                $ret .= $description . "\n";
-                $ret .= '</div>' . "\n";
+            if ($ele->has('datalist')) {
+                $ret .= $ele->renderDatalist();
             }
-            $ret .= '</td>' . "\n";
-            $ret .= '<td class="even">' . "\n";
-            $ret .= $ele->render() . "\n";
-            $ret .= '<span class="dsc_pattern_horizontal">'. $ele->getPatternDescription() . '</span>';
-            $ret .= '</td>' . "\n";
-            $ret .= '</tr>' . "\n";
+            if (!$ele->isHidden()) {
+                $ret .= '<div class="form-group">';
+                $ret .= '<label>' . $ele->getCaption();
+                $ret .= ($ele->isRequired() ? '<span class="caption-required">*</span>' : '') . '</label>';
+                $ret .= $ele->render();
+                $ret .= '<small class="text-muted">' . $ele->getDescription() . '</small>';
+                $ret .= '<p class="dsc_pattern_vertical">' . $ele->getPatternDescription() . '</p>';
+                $ret .= '</div>' . "\n";
+            } else {
+                $ret .= $ele->render(). "\n";
+            }
         }
         return $ret;
     }

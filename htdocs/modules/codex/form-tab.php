@@ -155,7 +155,7 @@ $buttonReset->setClass('btn btn-danger');
 $form->addElement($buttonReset);
 
 $buttonTray = new Xoops\Form\ButtonTray('button_tray', XoopsLocale::A_SUBMIT, 'submit', '', true);
-$buttonTray->setClass('btn btn-inverse');
+$buttonTray->setClass('btn btn-warning');
 $form->addElement($buttonTray);
 
 //We are good, display the form!

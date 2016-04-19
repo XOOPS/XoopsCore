@@ -147,9 +147,9 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
         }
         $form->addElement(new Xoops\Form\Text(XoopsLocale::SUBJECT, 'subject', 4, 100, $subject), true);
 
-        $icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
-        \Xoops\Core\Lists\SubjectIcon::setOptionsArray($icons);
-        $form->addElement($icons, false);
+        //$icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
+        //\Xoops\Core\Lists\SubjectIcon::setOptionsArray($icons);
+        //$form->addElement($icons, false);
         $form->addElement(new Xoops\Form\DhtmlTextArea(XoopsLocale::MESSAGE, 'message', $message, 8, 37), true);
         $form->addElement(new Xoops\Form\Hidden('op', 'submit'));
 

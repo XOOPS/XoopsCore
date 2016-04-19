@@ -22,7 +22,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @category  Xoops\Form\SelectUser
  * @package   Xoops\Form
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -115,7 +115,7 @@ class SelectUser extends ElementTray
                 . \XoopsLocale::SEARCH_USERS . "</a>" . $js_addusers
             )
         );
-        parent::__construct($caption, '<br /><br />', $name);
+        parent::__construct($caption, '', $name);
         $this->addElement($select_element);
         $this->addElement($action_tray);
     }

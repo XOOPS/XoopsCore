@@ -85,7 +85,13 @@ class Embed extends FilterAbstract
                 if (is_object($info)) {
                     $return = $info->code;
                     if (empty($return)) {
-                        $return = $this->mediaBox($info->url, $info->image, $info->title, $info->description);
+                        return $this->mediaBox($info->url, $info->image, $info->title, $info->description);
+                    }
+                    $height = $info->getHeight();
+                    $width = $info->getWidth();
+                    if ($this->enableResponsive($return) && !empty($height) && !empty($width)) {
+                        $ratio = (1.5 > ($width/$height)) ? '4by3' : '16by9';
+                        $return = '<div class="embed-responsive embed-responsive-' . $ratio . '">' . $return . '</div>';
                     }
                 }
                 if (empty($return)) {
@@ -120,4 +126,25 @@ EOT;
         return $box;
     }
 
+    /**
+     * Check for know issues if wrapped in embed-responsive div
+     *
+     * @param string $code embed code to stest
+     *
+     * @return bool true if responsive should be enabled, false otherwise
+     */
+    protected function enableResponsive($code)
+    {
+        // sites in this list are known to have problems
+        $excludeList = [
+            'circuitlab.com',
+        ];
+
+        foreach ($excludeList as $test) {
+            if (false !== stripos($code, $test)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
