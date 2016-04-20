@@ -20,7 +20,7 @@
  */
 
 // Main
-$theme_version['name']          = 'Default';
+$theme_version['name']          = 'DefaultBS2';
 $theme_version['description']   = 'Default Xoops template';
 $theme_version['version']       = 0.1;
 $theme_version['author']        = 'Andricq Nicolas';

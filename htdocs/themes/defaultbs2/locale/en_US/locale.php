@@ -16,6 +16,6 @@
  * @version         $Id$
  */
 
-class DefaultThemeLocale extends DefaultThemeLocaleEn_US
+class Defaultbs2ThemeLocale extends DefaultThemeLocaleEn_US
 {
 }
