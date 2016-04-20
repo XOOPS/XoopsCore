@@ -33,7 +33,7 @@ $email = Request::getEmail('email', null, 'GET');
 $email = Request::getEmail('email', $email, 'POST');
 
 if (empty($email)) {
-    $xoops->redirect("user.php", 2, XoopsLocale::NO_);
+    $xoops->simpleRedirect('user.php');
     exit();
 }
 
