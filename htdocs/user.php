@@ -35,12 +35,12 @@ $xoops->loadLanguage('user');
 
 if ('POST' === Request::getMethod()) {
     // from $_POST we use keys: op, ok
-    $op = Request::getCmd('op', 'register', 'POST');
+    $op = Request::getCmd('op', 'main', 'POST');
     $ok = Request::getBool('ok', false, 'POST');
 } else {
     // no valid $_POST, use $_GET and set defaults
     // from $_GET we use keys: op, xoops_redirect, id, actkey
-    $op = Request::getCmd('op', 'register', 'GET');
+    $op = Request::getCmd('op', 'main', 'GET');
     $xoops_redirect = Request::getUrl('xoops_redirect', '', 'GET');
     $id = Request::getInt('id', 0, 'GET');
     $actKey = Request::getString('actkey', '', 'GET');

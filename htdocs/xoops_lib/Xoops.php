@@ -1213,19 +1213,18 @@ class Xoops
         $xoops_url = \XoopsBaseConfig::get('url');
         echo '<html lang="' . XoopsLocale::getLangCode() . '">
               <head>
-              <meta http-equiv="content-type" content="text/html; charset=' . XoopsLocale::getCharset() . '" />
+              <meta charset="utf-8">
+              <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
               <meta name="robots" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_robots']) . '" />
               <meta name="keywords" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_keywords']) . '" />
               <meta name="description" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_description']) . '" />
               <meta name="rating" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_rating']) . '" />
               <meta name="author" content="' . htmlspecialchars($xoopsConfigMetaFooter['meta_author']) . '" />
               <meta name="generator" content="XOOPS" />
-              <title>' . htmlspecialchars($this->getConfig('sitename')) . '</title>
-              <script type="text/javascript" src="' . $xoops_url . '/include/xoops.js"></script>
-              <script type="text/javascript" src="' . $xoops_url . '/media/jquery/jquery.js"></script>
-              <script type="text/javascript" src="' . $xoops_url . '/media/bootstrap/js/bootstrap.min.js"></script>';
-        $themecss = $this->getCss($this->getConfig('theme_set'));
-        echo '<link rel="stylesheet" type="text/css" media="all" href="' . $xoops_url . '/xoops.css" />';
+              <title>' . htmlspecialchars($this->getConfig('sitename')) . '</title>'
+            . $this->theme->renderBaseAssets();
+
         $locale = $this->getConfig('locale');
         if (XoopsLoad::fileExists($this->path('locale/' . $locale . '/style.css'))) {
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . $xoops_url
@@ -1275,7 +1274,7 @@ class Xoops
                 break;
 
             case 'error':
-                $tpl->assign('alert_type', 'alert-error alert-danger');
+                $tpl->assign('alert_type', 'alert-danger');
                 if ($title === '/') {
                     $title = XoopsLocale::ERROR;
                 }
@@ -1302,19 +1301,15 @@ class Xoops
         if (!is_scalar($msg) && !is_array($msg)) {
             $msg = ''; // don't know what to do with this, so make it blank
         }
-        if (is_array($msg)) {
-            // if this is not a simple array of strings, this might not work
-            $alert_msg = @implode("<br />", $msg);
-        } else {
-            $alert_msg = $msg;
-        }
-        if ($alert_msg == '') {
+        $alert_msg = (is_array($msg)) ? @implode("<br />", $msg) : $msg;
+
+        if (empty($alert_msg)) {
             return '';
-        } else {
-            $tpl->assign('alert_msg', $alert_msg);
-            $ret = $tpl->fetch('module:system/system_alert.tpl');
-            return $ret;
         }
+        $tpl->assign('alert_msg', $alert_msg);
+        $ret = $tpl->fetch('module:system/system_alert.tpl');
+        return $ret;
+
     }
 
     /**
@@ -1615,6 +1610,13 @@ class Xoops
                 return $xoops_theme_url . '/' . $theme . '/css/' . $str_css;
             } elseif (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/css/style.css')) {
                 return $xoops_theme_url . '/' . $theme . '/css/style.css';
+            }
+        }
+        if (is_dir($xoops_theme_path . '/' . $theme . '/assets/css')) {
+            if (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/assets/css/' . $str_css)) {
+                return $xoops_theme_url . '/' . $theme . '/assets/css/' . $str_css;
+            } elseif (XoopsLoad::fileExists($xoops_theme_path . '/' . $theme . '/assets/css/style.css')) {
+                return $xoops_theme_url . '/' . $theme . '/assets/css/style.css';
             }
         }
         return '';

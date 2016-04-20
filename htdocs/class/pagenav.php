@@ -153,8 +153,16 @@ class XoopsPageNav
                 }
             }
         }
-        if ($size != '') {
-            $size = ' pagination-' . $size;
+        switch (strtolower($size)) {
+            case 'large':
+                $size = ' pagination-lg';
+                break;
+            case 'small':
+            case 'mini':
+                $size = ' pagination-sm';
+                break;
+            default:
+                $size = '';
         }
         $xoops->tpl()->assign('size', $size);
         $xoops->tpl()->assign('align', ' pagination-' . $align);

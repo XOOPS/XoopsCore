@@ -94,7 +94,7 @@ class RadioTest extends \PHPUnit_Framework_TestCase
     public function test__construct()
     {
         $oldWay = new Radio('mycaption', 'myname', 'myvalue');
-        $newWay = new Radio(['caption' => 'mycaption', 'type' => 'button', 'name' => 'myname',]);
+        $newWay = new Radio(['caption' => 'mycaption', 'type' => 'button', 'name' => 'myname', ':inline' => null]);
         $this->assertEquals($oldWay->render(), $newWay->render());
     }
 }

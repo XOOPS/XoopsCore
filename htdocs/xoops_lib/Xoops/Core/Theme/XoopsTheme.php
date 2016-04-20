@@ -783,6 +783,27 @@ class XoopsTheme
      */
     public function renderMetas($return = false)
     {
+        $str = $this->renderBaseAssets();
+
+        foreach (array_keys($this->metas) as $type) {
+            $str .= $this->renderMetasByType($type);
+        }
+        $str .= implode("\n", $this->htmlHeadStrings);
+
+        if ($return) {
+            return $str;
+        }
+        echo $str;
+        return true;
+    }
+
+    /**
+     * render base assets
+     *
+     * @return string
+     */
+    public function renderBaseAssets()
+    {
         $str = '';
 
         if (!empty($this->baseAssets['js'])) {
@@ -798,17 +819,7 @@ class XoopsTheme
                 $str .= '<link rel="stylesheet" href="' . $url . '" type="text/css" />'."\n";
             }
         }
-
-        foreach (array_keys($this->metas) as $type) {
-            $str .= $this->renderMetasByType($type);
-        }
-        $str .= implode("\n", $this->htmlHeadStrings);
-
-        if ($return) {
-            return $str;
-        }
-        echo $str;
-        return true;
+        return $str;
     }
 
     /**

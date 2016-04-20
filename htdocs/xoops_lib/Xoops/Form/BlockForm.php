@@ -19,7 +19,7 @@ namespace Xoops\Form;
  * @category  Xoops\Form\BlockForm
  * @package   Xoops\Form
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2012-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -43,12 +43,19 @@ class BlockForm extends Form
         $ret = '<div>';
         /* @var $ele Element */
         foreach ($this->getElements() as $ele) {
+            if ($ele->has('datalist')) {
+                $ret .= $ele->renderDatalist();
+            }
             if (!$ele->isHidden()) {
-                $ret .= '<div class="row"><div class="span2"><strong>' . $ele->getCaption().'</strong></div>';
-                $ret .= '<div class="span4">' . $ele->render() . '<br />';
-                $ret .= '<em>' . $ele->getDescription() . '</em><br /></div></div>';
-            } else {
+                $ret .= '<div class="form-group">';
+                $ret .= '<label>' . $ele->getCaption();
+                $ret .= ($ele->isRequired() ? '<span class="caption-required">*</span>' : '') . '</label>';
                 $ret .= $ele->render();
+                $ret .= '<small class="text-muted">' . $ele->getDescription() . '</small>';
+                $ret .= '<p class="dsc_pattern_vertical">' . $ele->getPatternDescription() . '</p>';
+                $ret .= '</div>' . "\n";
+            } else {
+                $ret .= $ele->render(). "\n";
             }
         }
         $ret .= '</div>';

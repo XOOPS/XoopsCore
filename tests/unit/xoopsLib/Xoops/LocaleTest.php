@@ -104,4 +104,30 @@ class Xoops_LocaleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($locales));
         $this->assertTrue(in_array('en_US', $locales));
     }
+
+    public function test_normalizeLocale()
+    {
+        $class = $this->myClass;
+
+        $locale = 'en-latn-us';
+        $actual = $class::normalizeLocale($locale, '_', false);
+        $this->assertEquals('en_US', $actual);
+        $actual = $class::normalizeLocale($locale, '-', false);
+        $this->assertEquals('en-US', $actual);
+        $actual = \Xoops\Locale::normalizeLocale($locale, '_');
+        $this->assertEquals('en_Latn_US', $actual);
+    }
+
+    public function test_normalizeDomain()
+    {
+        $class = $this->myClass;
+
+        $domain = 'Xoops';
+        $actual = $class::normalizeDomain($domain);
+        $this->assertEquals('xoops', $actual);
+
+        $domain = 'xoops';
+        $actual = $class::normalizeDomain($domain);
+        $this->assertEquals('xoops', $actual);
+    }
 }

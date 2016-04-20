@@ -21,7 +21,7 @@ $xoops = Xoops::getInstance();
 $xoops->header();
 
 // Form Horizontal
-$form = new Xoops\Form\ThemeForm('Form Horizontal', 'form_horizontal', 'form.php', 'post', true, 'horizontal');
+$form = new Xoops\Form\ThemeForm('Form Example', 'form_example', 'form.php', 'post', true, 'horizontal');
 
 $code = new Xoops\Form\Text('Code', 'code', 10, 25, '', 'Code...');
 $code->setDescription('Description code');
@@ -129,7 +129,7 @@ $buttonReset->setClass('btn btn-danger');
 $form->addElement($buttonReset);
 
 $buttonTray = new Xoops\Form\ButtonTray('button_tray', XoopsLocale::A_SUBMIT, 'submit', '', true);
-$buttonTray->setClass('btn btn-inverse');
+$buttonTray->setClass('btn btn-warning');
 $form->addElement($buttonTray);
 
 $form->display();

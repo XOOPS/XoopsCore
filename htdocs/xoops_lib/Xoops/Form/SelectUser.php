@@ -22,7 +22,7 @@ use Xoops\Core\Kernel\CriteriaCompo;
  * @category  Xoops\Form\SelectUser
  * @package   Xoops\Form
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -97,25 +97,18 @@ class SelectUser extends ElementTray
             }
             </script>";
         $token = $xoops->security()->createToken();
-        $action_tray = new ElementTray("", " | ");
-        $action_tray->addElement(
-            new Label(
-                '',
-                '<a href="#" onclick="var sel = xoopsGetElementById(\'' . $name
+        $action_tray = new Label(
+            '',
+            '<a href="#" onclick="var sel = xoopsGetElementById(\'' . $name
                 . '\');for (var i = sel.options.length-1; i >= 0; i--) {if (!sel.options[i].selected) '
                 .'{sel.options[i] = null;}}; return false;">' . \XoopsLocale::REMOVE_UNSELECTED_USERS . "</a>"
-            )
-        );
-        $action_tray->addElement(
-            new Label(
-                '',
-                '<a href="#" onclick="openWithSelfMain(\'' . \XoopsBaseConfig::get('url') . '/include/findusers.php?target='
+                . ' | '
+                . '<a href="#" onclick="openWithSelfMain(\'' . \XoopsBaseConfig::get('url') . '/include/findusers.php?target='
                 . $name . '&amp;multiple=' . $multiple . '&amp;token=' . $token
                 . '\', \'userselect\', 800, 600, null); return false;" >'
                 . \XoopsLocale::SEARCH_USERS . "</a>" . $js_addusers
-            )
         );
-        parent::__construct($caption, '<br /><br />', $name);
+        parent::__construct($caption, '', $name);
         $this->addElement($select_element);
         $this->addElement($action_tray);
     }

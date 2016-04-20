@@ -5,7 +5,7 @@
         {else}
             <li class="active">{$breadcrumb_item.caption}
         {/if}
-        {if !$smarty.foreach.loop.last}<span class="divider">&raquo;</span>{/if}
+        <!-- { if !$smarty.foreach.loop.last}<span class="divider">&raquo;</span> { /if } -->
         {/foreach}
         </li>
 </ul>

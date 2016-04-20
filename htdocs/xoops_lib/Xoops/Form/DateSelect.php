@@ -17,7 +17,7 @@ namespace Xoops\Form;
  * @category  Xoops\Form\DateSelect
  * @package   Xoops\Form
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -74,12 +74,21 @@ class DateSelect extends Text
             '',
             '',
             ' $(function() { $( "#' . $this->get('id') . '" ).datepicker({' .
-            'showOn: "button", buttonImageOnly: false, changeYear: true, constrainInput: false, ' .
-            'buttonImage: "' . $xoops->url('media/xoops/images/icons/calendar.png') .'", ' .
-            'buttonImageOnly: false, buttonText: "' . \XoopsLocale::A_SELECT . '" }); }); '
+            'showOn: "focus", changeYear: true, constrainInput: false ' .
+            ' }); }); '
         );
 
-        return '<input ' . $attributes . 'value="' . $display_value . '" '
-            . $this->getExtra() .' >';
+        $this->set('class', 'form-control');
+        $ret = '<div class="input-group">';
+        $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $this->getExtra() .' >';
+        $ret .= '<span class="input-group-btn">';
+        $ret .= '<button class="btn btn-default" type="button" ';
+        $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
+        $ret .= 'onclick="$( \'#' . $this->get('id') . '\' ).datepicker( \'show\' );"> ';
+        $ret .= '<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button>';
+        $ret .= '</span></div>';
+
+        return $ret;
+            //'<input ' . $attributes . 'value="' . $display_value . '" ' . $this->getExtra() .' >';
     }
 }
