@@ -9,11 +9,12 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 class XoopsFormSelectEditorTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'XoopsFormSelectEditor';
-    
+
     public function test___construct()
 	{
-		$instance = new $this->myClass();
+        $form = new \Xoops\Form\SimpleForm('title', 'name', 'action');
+		$instance = new $this->myClass($form);
         $this->assertInstanceOf('Xoops\\Form\\SelectEditor', $instance);
     }
-        
+
 }
