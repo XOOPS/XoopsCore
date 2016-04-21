@@ -27,6 +27,12 @@ class GrouppermTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($value['gperm_modid']));
         $this->assertTrue(isset($value['gperm_name']));
     }
+    
+    public function testContracts()
+    {
+        $instance=new $this->myclass();
+        $this->assertInstanceOf('\\Xoops\\Core\\Kernel\\XoopsObject', $instance);
+    }
 
     public function test_id()
     {

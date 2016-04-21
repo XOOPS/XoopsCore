@@ -130,9 +130,9 @@ class XoopsMemberHandler
      */
     public function deleteGroup(XoopsGroup $group)
     {
-        $this->groupHandler->delete($group);
+        $ret = $this->groupHandler->delete($group);
         $this->membershipHandler->deleteAll(new Criteria('groupid', $group->getVar('groupid')));
-        return true;
+        return $ret;
     }
 
     /**
@@ -144,9 +144,9 @@ class XoopsMemberHandler
      */
     public function deleteUser(XoopsUser $user)
     {
-        $this->userHandler->delete($user);
+        $ret = $this->userHandler->delete($user);
         $this->membershipHandler->deleteAll(new Criteria('uid', $user->getVar('uid')));
-        return true;
+        return $ret;
     }
 
     /**
