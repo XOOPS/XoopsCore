@@ -1,6 +1,6 @@
 <?php
 $_SERVER["HTTP_HOST"]="localhost";
-require_once(dirname(__FILE__).'/init_mini.php');
+require_once(dirname(__FILE__).'/init_new.php');
 
 function verify($file, $path)
 {
