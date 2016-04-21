@@ -14,7 +14,7 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
      * @var XoopsTpl
      */
     protected $object;
-    
+
     protected $xoops;
 
     /**
@@ -45,9 +45,10 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
     {
         return str_replace('\\','/',$path);
     }
-    
+
     public function test__construct()
     {
+        $xoops = \Xoops::getInstance();
         $this->assertSame('{', $this->object->left_delimiter);
         $this->assertSame('}', $this->object->right_delimiter);
         $this->assertTrue(in_array(
