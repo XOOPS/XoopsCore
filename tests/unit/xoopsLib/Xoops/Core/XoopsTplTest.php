@@ -14,6 +14,8 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
      * @var XoopsTpl
      */
     protected $object;
+    
+    protected $xoops;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -22,6 +24,7 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new XoopsTpl();
+        $this->xoops = \Xoops::getInstance();
     }
 
     /**
@@ -45,7 +48,6 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
     
     public function test__construct()
     {
-        $xoops = \Xoops::getInstance();
         $this->assertSame('{', $this->object->left_delimiter);
         $this->assertSame('}', $this->object->right_delimiter);
         $this->assertTrue(in_array(

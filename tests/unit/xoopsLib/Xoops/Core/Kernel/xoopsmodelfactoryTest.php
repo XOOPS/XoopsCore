@@ -35,12 +35,12 @@ class xoopsmodelfactoryTest extends \PHPUnit_Framework_TestCase
         $instance = $class::getInstance();
         $this->assertInstanceOf($class, $instance);
 
-        $x = $instance->loadHandler($handler, 'read', $vars);
-        $this->assertTrue(is_a($x, 'Xoops\Core\Kernel\Model\Read'));
-        $this->assertTrue(is_a($x, 'Xoops\Core\Kernel\XoopsModelAbstract'));
-        $this->assertTrue(!empty($x->one));
-        $this->assertTrue($x->one == 1);
-        $this->assertTrue(!empty($x->two));
-        $this->assertTrue($x->two == 2);
+        $hdl = $instance->loadHandler($handler, 'read', $vars);
+        $this->assertTrue(is_a($hdl, 'Xoops\Core\Kernel\Model\Read'));
+        $this->assertTrue(is_a($hdl, 'Xoops\Core\Kernel\XoopsModelAbstract'));
+        $this->assertTrue(!empty($hdl->one));
+        $this->assertTrue($hdl->one == 1);
+        $this->assertTrue(!empty($hdl->two));
+        $this->assertTrue($hdl->two == 2);
     }
 }
