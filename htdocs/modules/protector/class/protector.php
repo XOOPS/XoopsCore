@@ -172,12 +172,18 @@ class Protector
             return false;
         }
 
-        $result = @mysql_query("SELECT conf_name,conf_value FROM " . \XoopsBaseConfig::get('db-prefix') . "_config WHERE conf_title like '" . "_MI_PROTECTOR%'", $this->_conn);
-        if (!$result || mysql_num_rows($result) < 5) {
+        $xoops = Xoops::getInstance();
+        $xoops->db();
+        global $xoopsDB;
+        $db = $xoopsDB;
+
+
+        $result = @$db->query("SELECT conf_name,conf_value FROM " . \XoopsBaseConfig::get('db-prefix') . "_config WHERE conf_title like '" . "_MI_PROTECTOR%'", $this->_conn);
+        if (!$result || $db->getRowsNum($result) < 5) {
             return false;
         }
         $db_conf = array();
-        while (list($key, $val) = mysql_fetch_row($result)) {
+        while (list($key, $val) = $db->fetchRow($result)) {
             $db_conf[$key] = $val;
         }
         $db_conf_serialized = serialize($db_conf);
@@ -252,11 +258,11 @@ class Protector
         }
 
         if (empty($this->_conn)) {
-            $this->_conn = @mysql_connect(\XoopsBaseConfig::get('db-host'), \XoopsBaseConfig::get('db-user'), \XoopsBaseConfig::get('db-pass'));
+            $this->_conn = @mysqli_connect(\XoopsBaseConfig::get('db-host'), \XoopsBaseConfig::get('db-user'), \XoopsBaseConfig::get('db-pass'));
             if (!$this->_conn) {
                 die('db connection failed.');
             }
-            if (!mysql_select_db(\XoopsBaseConfig::get('db-name'), $this->_conn)) {
+            if (!mysqli_select_db(\XoopsBaseConfig::get('db-name'), $this->_conn)) {
                 die('db selection failed.');
             }
         }
@@ -265,15 +271,15 @@ class Protector
         $agent = @$_SERVER['HTTP_USER_AGENT'];
 
         if ($unique_check) {
-            $result = mysql_query('SELECT ip,type FROM ' . \XoopsBaseConfig::get('db-prefix') . '_' . $this->mydirname . '_log ORDER BY timestamp DESC LIMIT 1', $this->_conn);
-            list($last_ip, $last_type) = mysql_fetch_row($result);
+            $result = $db->query('SELECT ip,type FROM ' . \XoopsBaseConfig::get('db-prefix') . '_' . $this->mydirname . '_log ORDER BY timestamp DESC LIMIT 1', $this->_conn);
+            list($last_ip, $last_type) = $db->fetchRow($result);
             if ($last_ip == $ip && $last_type == $type) {
                 $this->_logged = true;
                 return true;
             }
         }
 
-        mysql_query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . (int)($uid) . "',timestamp=NOW()", $this->_conn);
+        $db->query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . (int)($uid) . "',timestamp=NOW()", $this->_conn);
         $this->_logged = true;
         return true;
     }

@@ -128,20 +128,20 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
                 continue;
             }
             $drs = $db->queryF("SHOW CREATE TABLE `$table`");
-            $export_string .= "\nDROP TABLE IF EXISTS `$table`;\n" . mysql_result($drs, 0, 1) . ";\n\n";
-            $result = mysql_query("SELECT * FROM `$table`");
-            $fields_cnt = mysql_num_fields($result);
+            $export_string .= "\nDROP TABLE IF EXISTS `$table`;\n" . mysqli_result($drs, 0, 1) . ";\n\n";
+            $result = $db->query("SELECT * FROM `$table`");
+            $fields_cnt = $db->getFieldsNum($result);
             $field_flags = array();
             for ($j = 0; $j < $fields_cnt; ++$j) {
-                $field_flags[$j] = mysql_field_flags($result, $j);
+                $field_flags[$j] = mysqli_fetch_field_direct($result, $j);
             }
             $search = array("\x00", "\x0a", "\x0d", "\x1a");
             $replace = array('\0', '\n', '\r', '\Z');
             $current_row = 0;
-            while ($row = mysql_fetch_row($result)) {
+            while ($row = $db->fetchRow($result)) {
                 ++$current_row;
                 for ($j = 0; $j < $fields_cnt; ++$j) {
-                    $fields_meta = mysql_fetch_field($result, $j);
+                    $fields_meta = mysqli_fetch_field($result, $j);
                     // NULL
                     if (!isset($row[$j]) || is_null($row[$j])) {
                         $values[] = 'NULL';
@@ -171,7 +171,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
                 $export_string .= "INSERT INTO `$table` VALUES (" . implode(', ', $values) . ");\n";
                 unset($values);
             } // end while
-            mysql_free_result($result);
+            $db->freeRecordSet($result);
         }
 
         header('Content-Type: Application/octet-stream');
