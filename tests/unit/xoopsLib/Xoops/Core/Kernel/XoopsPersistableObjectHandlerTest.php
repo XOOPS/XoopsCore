@@ -35,7 +35,7 @@ class XoopsPersistableObjectHandlerTest extends \PHPUnit_Framework_TestCase
     public function test___publicProperties()
     {
         $items = array('table', 'keyName', 'className', 'table_link', 'identifierName', 'field_link',
-            'field_object', 'keyName_link');
+            'field_object');
         foreach ($items as $item) {
             $prop = new ReflectionProperty($this->myClass, $item);
             $this->assertTrue($prop->isPublic());
@@ -174,7 +174,6 @@ class XoopsPersistableObjectHandlerTest extends \PHPUnit_Framework_TestCase
     public function test_getCountByLink()
     {
         $instance = new $this->myClass($this->conn, 'system_group', 'Xoops\Core\Kernel\Handlers\XoopsGroup', 'groupid', 'name');
-        $instance->keyName_link = 'gperm_name';
         $instance->field_object = 'groupid';
         $instance->table_link = $this->conn->prefix('system_permission');
         $instance->field_link = 'gperm_groupid';
@@ -185,7 +184,6 @@ class XoopsPersistableObjectHandlerTest extends \PHPUnit_Framework_TestCase
     public function test_getCountsByLink()
     {
         $instance = new $this->myClass($this->conn, 'system_group', 'Xoops\Core\Kernel\Handlers\XoopsGroup', 'groupid', 'name');
-        $instance->keyName_link = 'gperm_name';
         $instance->field_object = 'groupid';
         $instance->table_link = $this->conn->prefix('system_permission');
         $instance->field_link = 'gperm_groupid';

@@ -49,7 +49,6 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
-        $handler->keyName_link=$handler->field_link;
 
         $result = $instance->getByLink(null, null, true, null, null);
         $this->assertTrue(is_array($result));
@@ -68,7 +67,6 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
-        $handler->keyName_link=$handler->field_link;
 
         $result = $instance->getCountByLink();
         $this->assertTrue(is_string($result));
@@ -87,7 +85,6 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
-        $handler->keyName_link=$handler->field_link;
 
         $result = $instance->getCountsByLink();
         $this->assertTrue(is_array($result));
@@ -106,7 +103,6 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
-        $handler->keyName_link=$handler->field_link;
 
         $criteria=new Xoops\Core\Kernel\Criteria('l.uid', 0);
         $arrData=array('name'=>'name');
@@ -127,7 +123,6 @@ class JointTest extends \PHPUnit_Framework_TestCase
         $handler->table_link=$this->conn->prefix('system_usergroup');
         $handler->field_link='groupid';
         $handler->field_object=$handler->field_link;
-        $handler->keyName_link=$handler->field_link;
 
         $criteria=new Xoops\Core\Kernel\Criteria('l.uid', 0);
 

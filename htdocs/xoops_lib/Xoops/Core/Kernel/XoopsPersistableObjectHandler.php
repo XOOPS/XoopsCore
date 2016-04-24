@@ -78,20 +78,15 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
      */
     public $identifierName;
 
-     /**
+    /**
      * @var string
      */
     public $field_link;
 
-     /**
-     * @var string
-     */
-    public $field_object;
-
     /**
      * @var string
      */
-    public $keyName_link;
+    public $field_object;
 
     /**
      * Constructor

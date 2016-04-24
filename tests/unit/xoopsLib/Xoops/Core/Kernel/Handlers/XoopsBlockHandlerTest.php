@@ -32,7 +32,6 @@ class BlockHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('name', $this->object->identifierName);
         $this->assertSame(null, $this->object->field_link);
         $this->assertSame(null, $this->object->field_object);
-        $this->assertSame(null, $this->object->keyName_link);
     }
 
     public function testContracts()
