@@ -280,7 +280,7 @@ class Sanitizer extends SanitizerConfigurable
         if (!(bool) $html) {
             // html not allowed, so escape any special chars
             // don't mess with quotes or shortcodes will fail
-            $text = htmlspecialchars($text, ENT_NOQUOTES);
+            $text = htmlspecialchars($text, ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
         }
 
         if ($xcode) {
