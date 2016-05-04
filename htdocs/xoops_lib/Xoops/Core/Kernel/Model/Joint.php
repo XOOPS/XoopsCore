@@ -183,7 +183,7 @@ class Joint extends XoopsModelAbstract
 
         $qb = $this->handler->db2->createXoopsQueryBuilder();
 
-        $qb ->select("l.{$this->handler->keyName_link}")
+        $qb ->select("l.{$this->handler->field_link}")
             ->addSelect('COUNT(*)')
             ->from($this->handler->table, 'o')
             ->leftJoin(
@@ -197,7 +197,7 @@ class Joint extends XoopsModelAbstract
             $criteria->renderQb($qb);
         }
 
-        $qb ->groupBy("l.{$this->handler->keyName_link}");
+        $qb ->groupBy("l.{$this->handler->field_link}");
 
         $result = $qb->execute();
 
