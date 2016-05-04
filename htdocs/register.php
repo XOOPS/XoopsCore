@@ -125,7 +125,7 @@ switch ($op) {
                 $newuser->setVar('url', $xoops->formatURL($url));
             }
             $newuser->setVar('user_avatar', 'blank.gif');
-            $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
+            $actkey = substr(\Xmf\Random::generateKey(), 16, 8);
             $newuser->setVar('actkey', $actkey);
             $newuser->setVar('pass', password_hash($pass, PASSWORD_DEFAULT));
             $newuser->setVar('last_pass_change', time());

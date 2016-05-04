@@ -77,6 +77,7 @@ function b_system_user_show()
         'name' => XoopsLocale::EDIT_ACCOUNT,
         'link' => $xoops->url('edituser.php'),
         'icon' => 'glyphicon glyphicon-pencil',
+        'title' => XoopsLocale::EDIT_ACCOUNT,
     ));
 
     // Administration Menu
@@ -116,6 +117,7 @@ function b_system_user_show()
         'name' => XoopsLocale::A_LOGOUT,
         'link' => $xoops->url('user.php?op=logout'),
         'icon' => 'glyphicon glyphicon-log-out',
+        'title' => XoopsLocale::A_LOGOUT,
     ));
 
     $block['active_url'] = \Xoops\Core\HttpRequest::getInstance()->getUrl();

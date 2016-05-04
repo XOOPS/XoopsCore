@@ -10,7 +10,7 @@
         <div class="form-group">
             <label class="control-label" for="xo-login-pass">{$block.lang_password}</label>
             <div class="input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-question-sign"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                 <input class="form-control" type="password" name="pass" id="xo-login-pass">
             </div>
         </div>

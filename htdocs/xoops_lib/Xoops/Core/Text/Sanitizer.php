@@ -181,7 +181,7 @@ class Sanitizer extends SanitizerConfigurable
      */
     public function htmlSpecialChars($text, $quote_style = ENT_QUOTES)
     {
-        $text = htmlspecialchars($text, $quote_style | ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $text = htmlspecialchars($text, $quote_style | ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
         return $text;
     }
 

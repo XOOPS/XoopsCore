@@ -22,7 +22,7 @@ use Xoops\Core\XoopsTpl;
  * @author          Mage Grégory (AKA Mage)
  */
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
 $xoops->logger()->quiet();
