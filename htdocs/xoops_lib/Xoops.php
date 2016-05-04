@@ -1230,11 +1230,9 @@ class Xoops
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . $xoops_url
                 . '/locale/' . $locale . '/style.css" />';
         }
+        $themecss = $this->getCss($this->getConfig('theme_set'));
         if ($themecss) {
             echo '<link rel="stylesheet" type="text/css" media="all" href="' . $themecss . '" />';
-            echo '<link rel="stylesheet" type="text/css" media="screen" href="' .
-                $this->url('themes/' . $this->getConfig('theme_set') . '/media/bootstrap/css/xoops.bootstrap.css')
-                .'" />';
         }
         if ($closehead) {
             echo '</head><body>';
