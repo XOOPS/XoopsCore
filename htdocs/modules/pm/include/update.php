@@ -17,7 +17,6 @@
  * @package         pm
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 /**
@@ -28,6 +27,7 @@
  */
 function xoops_module_update_pm(&$module, $oldversion = null)
 {
+    /*
     $xoops = Xoops::getInstance();
     if ($oldversion <= 100) {
         // Check pm table version
@@ -44,5 +44,6 @@ function xoops_module_update_pm(&$module, $oldversion = null)
             return false;
         }
     }
+    */
     return true;
 }

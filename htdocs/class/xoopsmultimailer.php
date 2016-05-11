@@ -29,11 +29,10 @@
  * @author    Author: Jochen Bünnagel <job@buennagel.com>
  * @copyright 2013 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   $Id$
  * @link      http://xoops.org
  * @since     2.6.0
  */
-class XoopsMultiMailer extends PHPMailer
+class XoopsMultiMailer extends PHPMailer // for 6.0 \PHPMailer\PHPMailer\PHPMailer
 {
     /**
      * 'from' address
@@ -114,6 +113,7 @@ class XoopsMultiMailer extends PHPMailer
      */
     public function __construct()
     {
+        parent::__construct();
         $xoops = Xoops::getInstance();
         $this->From = $xoops->getConfig('from');
         if ($this->From == '') {

@@ -10,6 +10,10 @@
 */
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xmf\Request;
+use Xoops\Html\Menu\ItemList;
+use Xoops\Html\Menu\Link;
+use Xoops\Html\Menu\Render\BreadCrumb;
 
 /**
  * Private message module
@@ -20,7 +24,6 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 include_once dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -30,9 +33,11 @@ $xoops = Xoops::getInstance();
 if (!$xoops->isUser()) {
     $xoops->redirect(\XoopsBaseConfig::get('url'), 3, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
-$valid_op_requests = array('out', 'save', 'in');
-$_REQUEST['op'] = !empty($_REQUEST['op']) && in_array($_REQUEST['op'], $valid_op_requests) ? $_REQUEST['op'] : 'in' ;
-$msg_id = empty($_REQUEST['msg_id']) ? 0 : (int)($_REQUEST['msg_id']);
+$validOpRequests = array('out', 'save', 'in');
+$op = Request::getCmd('op', 'in');
+$op = in_array($op, $validOpRequests) ? $op : 'in';
+$msg_id = Request::getInt('msg_id', 0);
+
 /* @var $pm_handler PmMessageHandler */
 $pm_handler = $xoops->getModuleHandler('message');
 if ($msg_id > 0) {
@@ -56,13 +61,13 @@ if (is_object($pm) && !empty($_POST['action'])) {
     if (!empty($_REQUEST['email_message'])) {
         $res = $pm_handler->sendEmail($pm, $xoops->user);
     } elseif (!empty($_REQUEST['move_message'])
-               && $_REQUEST['op'] !== 'save'
+               && $op !== 'save'
                && !$xoops->user->isAdmin()
                && $pm_handler->getSavecount() >= $xoops->getModuleConfig('max_save')
     ) {
         $res_message = sprintf(_PM_SAVED_PART, $xoops->getModuleConfig('max_save'), 0);
     } else {
-        switch ($_REQUEST['op']) {
+        switch ($op) {
             case 'out':
                 if ($pm->getVar('from_userid') != $xoops->user->getVar('uid')) {
                     break;
@@ -114,11 +119,11 @@ $total_messages = !empty($_GET['total_messages']) ? (int)($_GET['total_messages'
 $xoops->header('module:pm/pm_readpmsg.tpl');
 
 if (!is_object($pm)) {
-    if ($_REQUEST['op'] === "out") {
+    if ($op === "out") {
         $criteria = new CriteriaCompo(new Criteria('from_delete', 0));
         $criteria->add(new Criteria('from_userid', $xoops->user->getVar('uid')));
         $criteria->add(new Criteria('from_save', 0));
-    } elseif ($_REQUEST['op'] === "save") {
+    } elseif ($op === "save") {
         $crit_to = new CriteriaCompo(new Criteria('to_delete', 0));
         $crit_to->add(new Criteria('to_save', 1));
         $crit_to->add(new Criteria('to_userid', $xoops->user->getVar('uid')));
@@ -152,10 +157,10 @@ if (is_object($pm) && !empty($pm)) {
         $pmform->addElement($reply_button);
     }
     $pmform->addElement(new Xoops\Form\Button('', 'delete_message', XoopsLocale::A_DELETE, 'submit'));
-    $pmform->addElement(new Xoops\Form\Button('', 'move_message', ($_REQUEST['op'] === 'save') ? _PM_UNSAVE : _PM_TOSAVE, 'submit'));
+    $pmform->addElement(new Xoops\Form\Button('', 'move_message', ($op === 'save') ? _PM_UNSAVE : _PM_TOSAVE, 'submit'));
     $pmform->addElement(new Xoops\Form\Button('', 'email_message', _PM_EMAIL, 'submit'));
     $pmform->addElement(new Xoops\Form\Hidden('msg_id', $pm->getVar("msg_id")));
-    $pmform->addElement(new Xoops\Form\Hidden('op', $_REQUEST['op']));
+    $pmform->addElement(new Xoops\Form\Hidden('op', $op));
     $pmform->addElement(new Xoops\Form\Hidden('action', 1));
     $pmform->assign($xoops->tpl());
 
@@ -180,10 +185,24 @@ if (is_object($pm) && !empty($pm)) {
     $message = $pm->getValues();
     //$message['msg_time'] = XoopsLocale::formatTimestamp($pm->getVar("msg_time"));
 }
+
+
 $xoops->tpl()->assign('message', $message);
-$xoops->tpl()->assign('op', $_REQUEST['op']);
+$xoops->tpl()->assign('op', $op);
 $xoops->tpl()->assign('previous', $start - 1);
 $xoops->tpl()->assign('next', $start + 1);
 $xoops->tpl()->assign('total_messages', $total_messages);
+
+$menu = new ItemList();
+if ($op === 'out') {
+    $menu->addItem(new Link(['caption' => _PM_OUTBOX, 'link' => 'viewpmsg.php?op=out', 'icon' => 'glyphicon glyphicon-share']));
+} elseif ($op === 'save') {
+    $menu->addItem(new Link(['caption' => _PM_SAVEBOX, 'link' => 'viewpmsg.php?op=save', 'icon' => 'glyphicon glyphicon-save']));
+} else {
+    $menu->addItem(new Link(['caption' => XoopsLocale::INBOX, 'link' => 'viewpmsg.php?op=in', 'icon' => 'glyphicon glyphicon-inbox']));
+}
+$menu->addItem(new Link(['caption' => $message['subject']]));
+$breadCrumb = new BreadCrumb();
+$xoops->tpl()->assign('breadcrumbs', $breadCrumb->render($menu));
 
 $xoops->footer();

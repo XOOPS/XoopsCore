@@ -17,7 +17,6 @@
  * @package         pm
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 /**
@@ -27,6 +26,7 @@
  */
 function xoops_module_install_pm($module)
 {
+    /*
     $xoops = Xoops::getInstance();
     $xoops->db();
     global $xoopsDB;
@@ -43,4 +43,6 @@ function xoops_module_install_pm($module)
     } else {
         return false;
     }
+    */
+    return true;
 }

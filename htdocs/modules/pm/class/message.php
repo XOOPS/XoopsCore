@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
@@ -17,20 +18,13 @@ use Xoops\Core\Database\Connection;
 /**
  * Private message module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         pm
- * @since           2.3.0
- * @author          Jan Pedersen
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
- */
-
-/**
- * @package         pm
- *
- * @author          Kazumi Ono    <onokazu@xoops.org>
- * @author          Taiwen Jiang <phppp@users.sourceforge.net>
+ * @package   pm
+ * @author    Jan Pedersen
+ * @author    Taiwen Jiang <phppp@users.sourceforge.net>
+ * @author    Kazumi Ono    <onokazu@xoops.org>
+ * @copyright 2000-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      http://xoops.org
  */
 class PmMessage extends XoopsObject
 {
@@ -39,22 +33,24 @@ class PmMessage extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('msg_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('msg_image', XOBJ_DTYPE_OTHER, 'icon1.gif', false, 100);
-        $this->initVar('subject', XOBJ_DTYPE_TXTBOX, null, true, 255);
-        $this->initVar('from_userid', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('to_userid', XOBJ_DTYPE_INT, null, true);
-        $this->initVar('msg_time', XOBJ_DTYPE_INT, time(), false);
-        $this->initVar('msg_text', XOBJ_DTYPE_TXTAREA, null, true);
-        $this->initVar('read_msg', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('from_delete', XOBJ_DTYPE_INT, 1, false);
-        $this->initVar('to_delete', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('from_save', XOBJ_DTYPE_INT, 0, false);
-        $this->initVar('to_save', XOBJ_DTYPE_INT, 0, false);
+        $this->initVar('msg_id', Dtype::TYPE_INTEGER, null, false);
+        $this->initVar('msg_image', Dtype::TYPE_OTHER, 'icon1.gif', false, 100);
+        $this->initVar('subject', Dtype::TYPE_TEXT_BOX, null, true, 255);
+        $this->initVar('from_userid', Dtype::TYPE_INTEGER, null, true);
+        $this->initVar('to_userid', Dtype::TYPE_INTEGER, null, true);
+        $this->initVar('msg_time', Dtype::TYPE_INTEGER, time(), false);
+        $this->initVar('msg_text', Dtype::TYPE_TEXT_AREA, null, true);
+        $this->initVar('read_msg', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('from_delete', Dtype::TYPE_INTEGER, 1, false);
+        $this->initVar('to_delete', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('from_save', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('to_save', Dtype::TYPE_INTEGER, 0, false);
     }
-
 }
 
+/**
+ * Class PmMessageHandler persistence of PmMessages
+ */
 class PmMessageHandler extends XoopsPersistableObjectHandler
 {
     /**
@@ -68,8 +64,8 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     /**
      * Mark a message as read
      *
-     * @param XoopsObject|PmMessage $pm
-     * @param int $val
+     * @param PmMessage $pm
+     * @param int       $val
      * @return bool
      */
     public function setRead(PmMessage $pm, $val = 1)
@@ -80,8 +76,8 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     /**
      * Mark a message as from_delete = 1 or removes it if the recipient has also deleted it
      *
-     * @param XoopsObject|PmMessage $pm
-     * @param int $val
+     * @param PmMessage $pm
+     * @param int       $val
      * @return bool
      */
     public function setFromDelete(PmMessage $pm, $val = 1)
@@ -96,8 +92,8 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     /**
      * Mark a message as to_delete = 1 or removes it if the sender has also deleted it or sent by anonymous
      *
-     * @param XoopsObject|PmMessage $pm
-     * @param int $val
+     * @param PmMessage $pm
+     * @param int       $val
      * @return bool
      */
     public function setTodelete(PmMessage $pm, $val = 1)
@@ -112,8 +108,8 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     /**
      * Mark a message as from_save = 1
      *
-     * @param XoopsObject|PmMessage $pm
-     * @param int $val
+     * @param PmMessage $pm
+     * @param int       $val
      * @return bool
      */
     public function setFromsave(PmMessage $pm, $val = 1)
@@ -124,8 +120,8 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     /**
      * Mark a message as to_save = 1
      *
-     * @param XoopsObject|PmMessage $pm
-     * @param int $val
+     * @param PmMessage $pm
+     * @param int       $val
      * @return bool
      */
     public function setTosave(PmMessage $pm, $val = 1)
@@ -145,21 +141,21 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
         if (!is_object($user)) {
             $user = $xoops->user;
         }
-        $crit_to = new CriteriaCompo(new Criteria('to_delete', 0));
-        $crit_to->add(new Criteria('to_save', 1));
-        $crit_to->add(new Criteria('to_userid', $user->getVar('uid')));
-        $crit_from = new CriteriaCompo(new Criteria('from_delete', 0));
-        $crit_from->add(new Criteria('from_save', 1));
-        $crit_from->add(new Criteria('from_userid', $user->getVar('uid')));
-        $criteria = new CriteriaCompo($crit_to);
-        $criteria->add($crit_from, "OR");
+        $criteriaTo = new CriteriaCompo(new Criteria('to_delete', 0));
+        $criteriaTo->add(new Criteria('to_save', 1));
+        $criteriaTo->add(new Criteria('to_userid', $user->getVar('uid')));
+        $criteriaFrom = new CriteriaCompo(new Criteria('from_delete', 0));
+        $criteriaFrom->add(new Criteria('from_save', 1));
+        $criteriaFrom->add(new Criteria('from_userid', $user->getVar('uid')));
+        $criteria = new CriteriaCompo($criteriaTo);
+        $criteria->add($criteriaFrom, "OR");
         return $this->getCount($criteria);
     }
 
     /**
      * Send a message to user's email
      *
-     * @param XoopsObject|PmMessage $pm
+     * @param PmMessage      $pm
      * @param null|XoopsUser $user
      * @return bool
      */
@@ -175,9 +171,11 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
         $msg .= "\n";
         $from = new XoopsUser($pm->getVar("from_userid"));
         $to = new XoopsUser($pm->getVar("to_userid"));
-        $msg .= sprintf(_PM_EMAIL_FROM, $from->getVar("uname") . " (" . \XoopsBaseConfig::get('url') . "/userinfo.php?uid=" . $pm->getVar("from_userid") . ")");
+        $msg .= sprintf(_PM_EMAIL_FROM, $from->getVar("uname") . " (" . \XoopsBaseConfig::get('url')
+            . "/userinfo.php?uid=" . $pm->getVar("from_userid") . ")");
         $msg .= "\n";
-        $msg .= sprintf(_PM_EMAIL_TO, $to->getVar("uname") . " (" . \XoopsBaseConfig::get('url') . "/userinfo.php?uid=" . $pm->getVar("to_userid") . ")");
+        $msg .= sprintf(_PM_EMAIL_TO, $to->getVar("uname") . " (" . \XoopsBaseConfig::get('url')
+            . "/userinfo.php?uid=" . $pm->getVar("to_userid") . ")");
         $msg .= "\n";
         $msg .= _PM_EMAIL_MESSAGE . ":\n";
         $msg .= "\n" . $pm->getVar("subject") . "\n";
@@ -206,8 +204,12 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
     {
         $form = new Xoops\Form\ThemeForm(_PM_AM_PRUNE, 'form', 'prune.php', 'post', true);
 
-        $form->addElement(new Xoops\Form\DateTime(_PM_AM_PRUNEAFTER, 'after'));
-        $form->addElement(new Xoops\Form\DateTime(_PM_AM_PRUNEBEFORE, 'before'));
+        $after = new Xoops\Form\DateSelect(_PM_AM_PRUNEAFTER, 'after');
+        $after->set('value', '');
+        $form->addElement($after);
+        $before = new Xoops\Form\DateSelect(_PM_AM_PRUNEBEFORE, 'before');
+        $before->set('value', '');
+        $form->addElement($before);
         $form->addElement(new Xoops\Form\RadioYesNo(_PM_AM_ONLYREADMESSAGES, 'onlyread', 1));
         $form->addElement(new Xoops\Form\RadioYesNo(_PM_AM_INCLUDESAVE, 'includesave', 0));
         $form->addElement(new Xoops\Form\RadioYesNo(_PM_AM_NOTIFYUSERS, 'notifyusers', 0));

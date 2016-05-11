@@ -18,7 +18,6 @@
  * @since           2.5.0
  * @author          Mage
  * @author          Mamba
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';

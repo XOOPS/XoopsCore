@@ -1,5 +1,5 @@
 {if $pagination_nav|default:false}
-<div class="{$align}">
+<nav>
     <ul class="pagination{$size}">
         {if $prev_text|default:false}
         <li><a href="{$prev_url}">{$prev_text}</a></li>
@@ -23,7 +23,7 @@
         <li><a href="{$next_url}">{$next_text}</a></li>
         {/if}
     </ul>
-</div>
+</nav>
 {/if}
 {if $pagination_select|default:false}
 <div class="pagination{$align}">
