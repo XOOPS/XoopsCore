@@ -175,7 +175,7 @@ class DebugbarLogger implements LoggerInterface
 
                 // Supress unwanted assets - exclude anything containing these strings
                 $excludes = array(
-                    '/vendor/font-awesome/', // font-awsome needs special process
+                    //'/vendor/font-awesome/', // font-awesome needs special process
                     //'/vendor/highlightjs/',  // highlightjs has some negative side effects
                     '/vendor/jquery/',       // jquery is already available
                 );
@@ -203,7 +203,7 @@ class DebugbarLogger implements LoggerInterface
                         return true;
                     }
                 );
-                $cssAssets[] = 'modules/debugbar/assets/css/font-awesome.css';
+                //$cssAssets[] = 'modules/debugbar/assets/css/font-awesome.css';
 
                 $xoops = Xoops::getInstance();
                 $xoops->theme()->addStylesheetAssets($cssAssets, 'cssembed,?cssmin');
