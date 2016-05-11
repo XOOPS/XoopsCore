@@ -13,7 +13,7 @@
         <{/if}>
         <{if !$user_ownpage && $xoops_isuser == true}>
         <form name="usernav" action="user.php" method="post">
-            <input class="btn" type="button" value="<{$smarty.const._PROFILE_MA_SENDPM}>" onclick="javascript:openWithSelfMain('<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$user_uid}>', 'pmlite', 450, 380);" />
+            <input class="btn btn-default" type="button" value="<{$smarty.const._PROFILE_MA_SENDPM}>" onclick="javascript:openWithSelfMain('<{$xoops_url}>/pmlite.php?send2=1&amp;to_userid=<{$user_uid}>', 'pmlite', 450, 380);" />
         </form>
         <{/if}>
     </div>
@@ -23,24 +23,24 @@
 <{if $user_ownpage == true}>
 <div class="floatleft pad5">
     <form name="usernav" action="user.php" method="post">
-        <input class="btn" type="button" value="<{$lang_editprofile}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/edituser.php'" />
-        <input class="btn" type="button" value="<{$lang_changepassword}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/changepass.php'" />
+        <input class="btn btn-default" type="button" value="<{$lang_editprofile}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/edituser.php'" />
+        <input class="btn btn-default" type="button" value="<{$lang_changepassword}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/changepass.php'" />
         <{if $user_changeemail}>
-            <input class="btn" type="button" value="<{$smarty.const._PROFILE_MA_CHANGEMAIL}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/changemail.php'" />
+            <input class="btn btn-default" type="button" value="<{$smarty.const._PROFILE_MA_CHANGEMAIL}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/changemail.php'" />
         <{/if}>
 
         <{if $user_candelete == true}>
             <form method="post" action="<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php">
                 <input type="hidden" name="op" value="delete">
                 <input type="hidden" name="uid" value="<{$user_uid}>">
-                <input type="button" value="<{$lang_deleteaccount}>" onclick="submit();" />
+                <input class="btn btn-danger" type="button" value="<{$lang_deleteaccount}>" onclick="submit();" />
             </form>
         <{/if}>
         <{foreach item=button from=$btn}>
-        <input class="btn" type="button" value="<{$button.title}>" onclick="location='<{$button.link}>'" />
+        <input class="btn btn-default" type="button" value="<{$button.title}>" onclick="location='<{$button.link}>'" />
         <{/foreach}>
-        <input class="btn" type="button" value="<{$lang_inbox}>" onclick="location='<{$xoops_url}>/viewpmsg.php'" />
-        <input class="btn" type="button" value="<{$lang_logout}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=logout'" />
+        <input class="btn btn-default" type="button" value="<{$lang_inbox}>" onclick="location='<{$xoops_url}>/viewpmsg.php'" />
+        <input class="btn btn-default" type="button" value="<{$lang_logout}>" onclick="location='<{$xoops_url}>/modules/<{$xoops_dirname}>/user.php?op=logout'" />
     </form>
 </div>
 <{elseif $xoops_isadmin != false}>

@@ -9,24 +9,24 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Html\Menu\Render\BreadCrumb;
+
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 $xoops = Xoops::getInstance();
-$profileBreadcrumbs = $xoops->getConfig('profile_breadcrumbs');
+$profileBreadcrumbs = $xoops->registry()->get('profile_breadcrumbs');
 
 if (count($profileBreadcrumbs) > 1) {
-    $xmfbreadcrumb = new \Xmf\Template\Breadcrumb();
-    $xmfbreadcrumb->setItems($profileBreadcrumbs);
-    $xoops->tpl()->assign('profile_breadcrumbs', $xmfbreadcrumb->fetch());
+    $breadCrumb = new BreadCrumb();
+    $xoops->tpl()->assign('profile_breadcrumbs', $breadCrumb->render($profileBreadcrumbs));
 }
 $xoops->theme()->addStylesheet($xoops->url('modules/profile/assets/css/style.css'));
 $xoops->footer();

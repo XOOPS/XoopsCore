@@ -9,16 +9,17 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Html\Menu\Link;
+
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
@@ -98,6 +99,8 @@ if ($op === 'editprofile') {
         $xoops->tpl()->assign('stop', $xoops->alert('error', $stop));
     }
 
-    $xoops->appendConfig('profile_breadcrumbs', array('caption' => XoopsLocale::EDIT_PROFILE));
+    $xoops->registry()->get('profile_breadcrumbs')->addItem(
+        new Link(['caption' => XoopsLocale::EDIT_PROFILE])
+    );
 }
 include __DIR__ . '/footer.php';

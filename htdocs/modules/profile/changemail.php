@@ -9,15 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Html\Menu\Link;
+
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
@@ -81,6 +82,6 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     $xoops->redirect(\XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoops->user->getVar('uid'), 2, $msg);
 }
 
-$xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_CHANGEMAIL));
+$xoops->registry()->get('profile_breadcrumbs')->addItem(new Link(['caption' => _PROFILE_MA_CHANGEMAIL]));
 
 include __DIR__ . '/footer.php';

@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\CriteriaElement;
@@ -17,13 +18,12 @@ use Xoops\Core\Kernel\CriteriaElement;
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 class ProfileProfile extends XoopsObject
 {
@@ -37,7 +37,7 @@ class ProfileProfile extends XoopsObject
      */
     public function __construct($fields)
     {
-        $this->initVar('profile_id', XOBJ_DTYPE_INT, null, true);
+        $this->initVar('profile_id', Dtype::TYPE_INTEGER, null, true);
         $this->init($fields);
     }
 
@@ -289,36 +289,30 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
             $sv[] = "p." . implode(", p.", $searchvars_profile);
         }
 
-        $sql_select = "SELECT " . (empty($searchvars) ? "u.*, p.*" : implode(", ", $sv));
-        $sql_from = " FROM " . $this->db2->prefix("users") . " AS u LEFT JOIN " . $this->table . " AS p ON u.uid=p.profile_id" . (empty($groups) ? "" : " LEFT JOIN " . $this->db2->prefix("system_usergroup") . " AS g ON u.uid=g.uid");
-        $sql_clause = " WHERE 1=1";
-        $sql_order = "";
+        $qb = $xoops->db()->createXoopsQueryBuilder();
 
-        $limit = $start = 0;
-        if (isset($criteria) && is_subclass_of($criteria, 'Xoops\Core\Kernel\CriteriaElement')) {
-            $sql_clause .= " AND " . $criteria->render();
-            if ($criteria->getSort() != '') {
-                $sql_order = ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
-            }
-            $limit = $criteria->getLimit();
-            $start = $criteria->getStart();
-        }
+        $qb->select((empty($searchvars) ? "u.*, p.*" : implode(", ", $sv)))
+            ->fromPrefix('system_user', 'u')
+            ->leftJoin('u', $this->table, 'p', 'u.uid=p.profile_id');
 
         if (!empty($groups)) {
-            $sql_clause .= " AND g.groupid IN (" . implode(", ", $groups) . ")";
+            $qb->leftJoinPrefix('u', 'system_usergroup', 'g', 'u.uid=g.uid');
         }
 
-        $sql_users = $sql_select . $sql_from . $sql_clause . $sql_order;
-        $result = $this->db2->query($sql_users, $limit, $start);
+        $criteria->renderQb($qb);
 
-        if (!$result) {
-            return array(array(), array(), 0);
+        if (!empty($groups)) {
+            $qb->andWhere('g.groupid IN (:grps)')->setParameter('grps', $groups);
         }
+
+        $result = $qb->execute();
+
         $user_handler = $xoops->getHandlerUser();
         $uservars = $this->getUserVars();
+
         $users = array();
         $profiles = array();
-        while ($myrow = $this->db2->fetchArray($result)) {
+        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $profile = $this->create(false);
             $user = $user_handler->create(false);
 
@@ -333,12 +327,9 @@ class ProfileProfileHandler extends XoopsPersistableObjectHandler
             $users[$myrow['uid']] = $user;
         }
 
-        $count = count($users);
-        if ((!empty($limit) && $count >= $limit) || !empty($start)) {
-            $sql_count = "SELECT COUNT(*)" . $sql_from . $sql_clause;
-            $result = $this->db2->query($sql_count);
-            list($count) = $this->db2->fetchRow($result);
-        }
+        $qb->select('COUNT(*)')->setMaxResults(null)->setFirstResult(null);
+        $result = $qb->execute();
+        $count = $result->fetchColumn();
 
         return array($users, $profiles, (int)($count));
     }

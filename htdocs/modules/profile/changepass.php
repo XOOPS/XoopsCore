@@ -9,16 +9,17 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Html\Menu\Link;
+
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
@@ -93,7 +94,9 @@ if (!isset($_POST['submit'])) {
     $form->addElement(new Xoops\Form\Password(XoopsLocale::VERIFY_PASSWORD, 'vpass'), true);
     $form->addElement(new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit'));
     $form->assign($xoops->tpl());
-    $xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_CHANGEPASSWORD));
+    $xoops->registry()->get('profile_breadcrumbs')->addItem(
+        new Link(['caption' => _PROFILE_MA_CHANGEPASSWORD])
+    );
 
 } else {
     $xoops->getConfigs();

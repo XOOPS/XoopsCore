@@ -10,17 +10,17 @@
 */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Html\Menu\Link;
 
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
@@ -242,5 +242,5 @@ $xoops->tpl()->assign('uname', $thisUser->getVar('uname'));
 $xoops->tpl()->assign('email', $email);
 $xoops->tpl()->assign('avatar', $avatar);
 $xoops->tpl()->assign('recent_activity', _PROFILE_MA_RECENTACTIVITY);
-$xoops->appendConfig('profile_breadcrumbs', array('caption' => _PROFILE_MA_USERINFO));
+$xoops->registry()->get('profile_breadcrumbs')->addItem(new Link(['caption' => _PROFILE_MA_USERINFO]));
 include __DIR__ . '/footer.php';

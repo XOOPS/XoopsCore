@@ -1,24 +1,24 @@
-<{$profile_breadcrumbs}>
-<div>( <{$total_users}> )</div>
-<{if $users}>
+{$profile_breadcrumbs}
+<div>( {$total_users} )</div>
+{if $users|default:false}
     <table>
         <tr>
-            <{foreach item=caption from=$captions}>
-                <th><{$caption}></th>
-            <{/foreach}>
+            {foreach item=caption from=$captions}
+                <th>{$caption}</th>
+            {/foreach}
         </tr>
-        <{foreach item=user from=$users}>
-            <tr class="<{cycle values='odd, even'}>">
-                <{foreach item=fieldvalue from=$user.output}>
-                    <td><{$fieldvalue}></td>
-                <{/foreach}>
+        {foreach item=user from=$users}
+            <tr class="{cycle values='odd, even'}">
+                {foreach item=fieldvalue from=$user.output}
+                    <td>{$fieldvalue}</td>
+                {/foreach}
             </tr>
-        <{/foreach}>
+        {/foreach}
     </table>
 
-    <{$nav}>
-<{else}>
+    {$nav|default:''}
+{else}
     <div class="errorMsg">
-        <{$smarty.const._PROFILE_MA_NOUSERSFOUND}>
+        {$smarty.const._PROFILE_MA_NOUSERSFOUND}
     </div>
-<{/if}>
+{/if}
