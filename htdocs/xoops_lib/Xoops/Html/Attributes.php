@@ -160,16 +160,17 @@ class Attributes extends \ArrayObject implements AttributeInterface
      * @param string $name  Name of the attribute option
      * @param mixed  $value Value of the attribute option
      *
-     * @return void
+     * @return $this
      */
-    public function set($name, $value=null)
+    public function set($name, $value = null)
     {
         // convert boolean to strings, so getAttribute can return boolean
         // false for attributes that are not defined
-        $value = ($value===false) ? '0' : $value;
-        $value = ($value===true) ? '1' : $value;
+        $value = (false === $value) ? '0' : $value;
+        $value = (true === $value) ? '1' : $value;
 
         $this->offsetSet($name, $value);
+        return $this;
     }
 
     /**

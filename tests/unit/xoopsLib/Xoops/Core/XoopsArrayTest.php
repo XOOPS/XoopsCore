@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../../../init_new.php');
 
-use Xoops\Core\Registry;
+use Xoops\Core\XoopsArray;
 
 /**
  * PHPUnit special settings :
@@ -9,7 +9,7 @@ use Xoops\Core\Registry;
  * @backupStaticAttributes disabled
  */
 
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class XoopsArrayTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Registry
@@ -22,7 +22,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Registry();
+        $this->object = new XoopsArray();
     }
 
     /**
@@ -57,6 +57,12 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
         $value = $instance->remove($testkey);
         $this->assertNull($value);
+    }
+
+    public function test_set()
+    {
+        $actual = $this->object->set('test', 'value');
+        $this->assertSame($this->object, $actual);
     }
 
     public function test_has()

@@ -9,21 +9,30 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xoops\Core;
+namespace Xoops\Html\Menu;
 
 /**
- * Registry - a non-persisted key value store
+ * Link - a menu link
  *
- * At present only a XoopsArray
- *
- * @category  Xoops\Core\Registry
- * @package   Registry
- * @author    trabis <lusopoemas@gmail.com>
+ * @category  Xoops\Html\Menu
+ * @package   Link
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class Registry extends XoopsArray
+class Divider extends Item
 {
+    /**
+     * __construct
+     *
+     * @param array $attributes array of attribute name => value pairs
+     *
+     * Expected attributes: none
+     */
+    public function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+        $this->set('type', Item::TYPE_DIVIDER);
+    }
 }

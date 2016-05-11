@@ -1,4 +1,5 @@
 <?php
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -9,21 +10,23 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace Xoops\Core;
+namespace Xoops\Html\Menu;
+
+use Xoops\Core\XoopsArray;
 
 /**
- * Registry - a non-persisted key value store
+ * Item - a menu item
  *
- * At present only a XoopsArray
- *
- * @category  Xoops\Core\Registry
- * @package   Registry
- * @author    trabis <lusopoemas@gmail.com>
+ * @category  Xoops\Html\Menu
+ * @package   Item
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class Registry extends XoopsArray
+abstract class Item extends XoopsArray
 {
+    const TYPE_LINK = 'link';
+    const TYPE_LIST = 'list';
+    const TYPE_DIVIDER = 'divider';
 }
