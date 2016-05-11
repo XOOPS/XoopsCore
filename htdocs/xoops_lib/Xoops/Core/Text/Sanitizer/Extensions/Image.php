@@ -95,7 +95,7 @@ class Image extends ExtensionAbstract
                         );
                     }
                     $alt = $this->ts->htmlSpecialChars(\XoopsLocale::CLICK_TO_SEE_ORIGINAL_IMAGE_IN_NEW_WINDOW);
-                    $template = '<a href="javascript:loadImage(\'%1$s\');"><img src="%1$s" alt="%2$s"%3$s style="max-width: %4$s;" />';
+                    $template = '<a href="javascript:loadImage(\'%1$s\');"><img src="%1$s" title="%2$s" alt="%2$s"%3$s style="max-width: %4$s;" /></a>';
                 } else {
                     $alt = $this->ts->htmlSpecialChars(\XoopsLocale::ORIGINAL_IMAGE);
                     $template = '<img src="%1$s" alt="%2$s"%3$s />';

@@ -318,7 +318,6 @@ class Xoops
                 $this->tpl_name = $tpl_info['tpl_name'];
             }
             if (!$this->isAdminSide) {
-                $xoopsThemeFactory = null;
                 $xoopsThemeFactory = new \Xoops\Core\Theme\Factory();
                 $xoopsThemeFactory->allowedThemes = $this->getConfig('theme_set_allowed');
                 $xoopsThemeFactory->defaultTheme = $this->getConfig('theme_set');
