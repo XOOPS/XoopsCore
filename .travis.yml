@@ -22,7 +22,6 @@ before_script:
   - mysql -e 'create database xoops_test;'
   - php console/console.php ci-bootstrap
   - php console/console.php ci-install
-  - php console/console.php install-module xmf
   - php console/console.php install-module avatars
   - php console/console.php install-module userrank
   - php console/console.php install-module page
