@@ -30,7 +30,7 @@ class Flash extends ExtensionAbstract
      * @var array default configuration values
      */
     protected static $defaultConfiguration = [
-        'enabled' => true,
+        'enabled' => false,
         'detect_dimension' => '1',
         'template' => '<object type="application/x-shockwave-flash" data="%1$s" width="%2$d" height="%3$d"></object>',
         'fallback_width'  => "320",

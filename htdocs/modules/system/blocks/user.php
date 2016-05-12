@@ -54,7 +54,7 @@ function b_system_user_show()
                         $block['modules'][$i]['sublinks'][] = array(
                             'name' => $sublink['name'],
                             'title' => $sublink['name'],
-                            'url'  => \XoopsBaseConfig::get('url') . '/modules/' . $dirname . '/' . $sublink['url']
+                            'url'  => $xoops->url('modules/' . $dirname . '/' . $sublink['url'])
                         );
                     }
                 }
@@ -100,7 +100,7 @@ function b_system_user_show()
     $name = XoopsLocale::INBOX;
     $class = '';
     if ($pm_count = $pm_handler->getCount($criteria)) {
-        $name = XoopsLocale::INBOX . ' <span class="badge alert-danger">' . $pm_count . '</span>';
+        $name = XoopsLocale::INBOX . ' <span class="badge">' . $pm_count . '</span>';
         //$class = 'text-info';
     }
 

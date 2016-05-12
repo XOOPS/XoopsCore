@@ -74,7 +74,7 @@ class Tables
      */
     public function __construct()
     {
-        Language::load('database', 'xmf');
+        Language::load('xmf');
 
         $this->db = Factory::getConnection();
         $this->databaseName = \XoopsBaseConfig::get('db-name');

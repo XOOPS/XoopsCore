@@ -48,12 +48,13 @@ abstract class AbstractHelper
     public function __construct($dirname = null)
     {
         $this->module = null;
-
+        if (class_exists('Xoops', false)) {
+            $xoops = \Xoops::getInstance();
+        }
         if (empty($dirname)) {
             // nothing specified, use current module
             // check if we are running in 2.6
-            if (class_exists('Xoops', false)) {
-                $xoops = \Xoops::getInstance();
+            if (isset($xoops)) {
                 if ($xoops->isModule()) {
                     $this->module = $xoops->module;
                 }
@@ -62,7 +63,11 @@ abstract class AbstractHelper
             }
         } else {
             // assume dirname specified, try to get a module object
-            $moduleHandler = xoops_getHandler('module');
+            if (isset($xoops)) {
+                $moduleHandler = $xoops->getHandlerModule();
+            } else {
+                $moduleHandler = xoops_getHandler('module');
+            }
             $this->module = $moduleHandler->getByDirname($dirname);
         }
         if (is_object($this->module)) {

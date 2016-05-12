@@ -340,11 +340,11 @@ class Request
         $count = count($values);
         if ($count === 1) {
             $date = reset($values);
-            $ret = Time::inputToDateTime($date);
+            $ret = (empty($date)) ? $default : Time::inputToDateTime($date);
         } elseif (isset($values['date']) && isset($values['time'])) {
-            $ret = Time::inputToDateTime($values);
+            $ret = (empty($values['date'])) ? $default : Time::inputToDateTime($values);
         } else {
-            $ret = Time::cleanTime($default);
+            $ret = $default;
         }
         return $ret;
     }

@@ -30,13 +30,13 @@ function xoops_module_install_debugbar(XoopsModule $module)
 {
     $xoops = Xoops::getInstance();
     // copy font-awesome font files to assets directory
-    $dir = dirname(__DIR__).'/assets/fonts';
-    $pattern = 'fontawesome-webfont.*';
+    $dir = \XoopsBaseConfig::get('lib-path') . '/vendor/maximebf/debugbar/src/DebugBar/Resources/vendor/font-awesome/fonts/';
+    $pattern = '*';
     return $xoops->assets()->copyFileAssets($dir, $pattern, 'fonts');
 }
 
 /**
- * xoops_module_install_debugbar
+ * xoops_module_update_debugbar
  *
  * @param XoopsModule $module  instance of our module
  * @param integer     $version previously installed module version

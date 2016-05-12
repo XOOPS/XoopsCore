@@ -246,11 +246,12 @@ class Manager implements AttributeInterface
      * @param string $name  Name of the attribute option
      * @param mixed  $value Value of the attribute option
      *
-     * @return void
+     * @return $this
      */
     public function set($name, $value)
     {
         $_SESSION[$name] = $value;
+        return $this;
     }
 
     /**
