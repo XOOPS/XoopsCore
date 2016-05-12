@@ -22,10 +22,11 @@ use Xmf\Request;
  * @version         $Id$
  */
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 $xoops = Xoops::getInstance();
-$helper = Avatars::getInstance();
+$helper = $xoops->getModuleHelper('avatars');
+$helper->loadLocale();
 
 // Get Action type
 $op = Request::getCmd('op', 'list');
@@ -60,7 +61,6 @@ if ($helper->getConfig('avatars_allowupload') == 1
 }
 
 switch ($op) {
-
     case 'list':
     default:
         $xoops->tpl()->assign('uid', $xoops->user->getVar("uid"));
@@ -68,14 +68,14 @@ switch ($op) {
         $oldavatar = $xoops->user->getVar('user_avatar');
         if (!empty($oldavatar) && $oldavatar !== 'blank.gif') {
             $warning_msg = '<p>' . AvatarsLocale::ALERT_WARNING_OLD .'</p>';
-			$xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
+            $xoops_upload_url = \XoopsBaseConfig::get('uploads-url');
             $warning_msg .= "<img src='" . $xoops_upload_url . '/' . $oldavatar ."' alt='&nbsp;' />";
             $xoops->tpl()->assign('warning_msg', $xoops->alert('warning', $warning_msg, XoopsLocale::WARNING));
         }
 
         // Create form
         $obj = $avatar_Handler->create();
-        $form = $xoops->getModuleForm($obj, 'avatar_user');
+        $form = $xoops->getModuleForm($obj, 'avatar_user', 'avatars');
         // Assign form
         $xoops->tpl()->assign('form', $form->render());
         break;
@@ -117,7 +117,7 @@ switch ($op) {
                         $avatars = $avatar_Handler->getObjects($criteria);
                         if (! empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
                             $avatar_Handler->delete($avatars[0]);
-							$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+                            $xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
                             $oldavatar_path = realpath($xoops_upload_path . '/' . $oldavatar);
                             if (0 === strpos($oldavatar_path, realpath($xoops_upload_path))
                                 && is_file($oldavatar_path)
@@ -156,7 +156,7 @@ switch ($op) {
             $avatars = $avatar_Handler->getObjects($criteria);
             if (!empty($avatars) && count($avatars) == 1 && is_object($avatars[0])) {
                 $avatar_Handler->delete($avatars[0]);
-				$xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
+                $xoops_upload_path = \XoopsBaseConfig::get('uploads-path');
                 $oldavatar_path = realpath($xoops_upload_path . '/' . $oldavatar);
                 if (0 === strpos($oldavatar_path, realpath($xoops_upload_path)) && is_file($oldavatar_path)) {
                     unlink($oldavatar_path);
