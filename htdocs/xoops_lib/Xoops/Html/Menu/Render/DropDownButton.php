@@ -11,7 +11,6 @@
 
 namespace Xoops\Html\Menu\Render;
 
-use Xoops\Html\Menu\Header;
 use Xoops\Html\Menu\Item;
 use Xoops\Html\Menu\ItemList;
 
@@ -65,11 +64,12 @@ EOT;
      *
      * @return string
      */
-    protected function renderItem(Item $item) {
+    protected function renderItem(Item $item)
+    {
         $renderedItems = '';
         $type = $item->get('type', 'error');
         switch ($type) {
-            case Item::TYPE_LINK;
+            case Item::TYPE_LINK:
                 $anchorStart = '';
                 $anchorEnd = '';
                 $liClass = ' class="active"';
@@ -79,10 +79,11 @@ EOT;
                     $liClass = '';
                 }
                 $caption = $item->get('caption', '');
-                $icon = $item->has('icon') ? '<span class="' . $item->get('icon') . '" aria-hidden="true"></span> ' : '';
+                $icon = $item->has('icon') ?
+                    '<span class="' . $item->get('icon') . '" aria-hidden="true"></span> ' : '';
                 $renderedItems .= "<li{$liClass}>{$anchorStart}{$icon}{$caption}{$anchorEnd}</li>";
                 break;
-            case Item::TYPE_LIST;
+            case Item::TYPE_LIST:
                 foreach ($item['items'] as $listItem) {
                     $renderedItems .= $this->renderItem($listItem);
                 }
@@ -90,24 +91,9 @@ EOT;
             case Item::TYPE_DIVIDER:
                 $renderedItems .= '<li role="separator" class="divider"></li>';
                 break;
-            default;
+            default:
                 break;
         }
         return $renderedItems;
     }
 }
-/*
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Action</a></li>
-    <li><a href="#">Another action</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-</div>
-*/

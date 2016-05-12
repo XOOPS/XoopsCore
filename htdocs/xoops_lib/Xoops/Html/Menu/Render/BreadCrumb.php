@@ -50,11 +50,12 @@ class BreadCrumb extends RenderAbstract
      *
      * @return string
      */
-    protected function renderItem(Item $item) {
+    protected function renderItem(Item $item)
+    {
         $renderedItems = '';
         $type = $item->get('type', 'error');
         switch ($type) {
-            case Item::TYPE_LINK;
+            case Item::TYPE_LINK:
                 $anchorStart = '';
                 $anchorEnd = '';
                 $liClass = ' class="active"';
@@ -64,15 +65,16 @@ class BreadCrumb extends RenderAbstract
                     $liClass = '';
                 }
                 $caption = $item->get('caption', '');
-                $icon = $item->has('icon') ? '<span class="' . $item->get('icon') . '" aria-hidden="true"></span> ' : '';
+                $icon = $item->has('icon') ?
+                    '<span class="' . $item->get('icon') . '" aria-hidden="true"></span> ' : '';
                 $renderedItems .= "<li{$liClass}>{$anchorStart}{$icon}{$caption}{$anchorEnd}</li>";
                 break;
-            case Item::TYPE_LIST;
+            case Item::TYPE_LIST:
                 foreach ($item['items'] as $listItem) {
                     $renderedItems .= $this->renderItem($listItem);
                 }
                 break;
-            default;
+            default:
                 break;
         }
         return $renderedItems;
