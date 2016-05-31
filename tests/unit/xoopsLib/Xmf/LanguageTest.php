@@ -61,10 +61,12 @@ class LanguageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Xmf\Language::load
+     *
+     * @expectedException \InvalidArgumentException
      */
     public function testLoadException()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        //$this->expectException(\InvalidArgumentException::class);
         $str = "Test\0Test";
         $x = Language::load($str);
     }
