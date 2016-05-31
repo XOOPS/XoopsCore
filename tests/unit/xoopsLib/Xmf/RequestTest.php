@@ -209,6 +209,17 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Request::hasVar
+     */
+    public function testHasVar()
+    {
+        $varname = 'RequestTest[HasVar]';
+        $this->assertFalse(Request::hasVar($varname, 'GET'));
+        Request::setVar($varname, 'OK', 'get');
+        $this->assertTrue(Request::hasVar($varname, 'GET'));
+    }
+
+    /**
      * @covers Xmf\Request::setVar
      */
     public function testSetVar()
