@@ -50,7 +50,7 @@ $(function() {
 <{include file="admin:system/admin_tips.tpl"}>
 
 <div class="row">
-    <div class="span3">
+    <div class="col-md-3">
     <h4>Services</h4>
     <ul class="nav nav-pills nav-stacked">
     <{foreach item=service from=$service_list}>
@@ -63,7 +63,7 @@ $(function() {
     </ul>
     </div>
 
-<div class="span8">
+<div class="col-md-8">
 <{$message|default:''}>
 <{if isset($provider_list) }>
 <script>
@@ -71,7 +71,7 @@ setTimeout(function () {
    window.location.href = "admin.php?fct=services";
 }, 900000); //will redirect after 900 secs
 </script>
-    <div class="span4 well">
+    <div class="col-md-4 well">
     <h4>Providers</h4>
     <p><em>Drag and Drop</em> to change priority.</p>
     <div id="accordion">
