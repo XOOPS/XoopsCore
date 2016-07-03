@@ -58,7 +58,7 @@
                         <div class="input-prepend">
                     <span class="add-on">
                         <i class="icon-user"></i>
-                    </span><input class="span2" type="text" name="uname" id="xo-login-uname" value="" placeholder="<{$lang_username}>">
+                    </span><input class="col-md-2" type="text" name="uname" id="xo-login-uname" value="" placeholder="<{$lang_username}>">
                         </div>
                     </div>
                 </div>
