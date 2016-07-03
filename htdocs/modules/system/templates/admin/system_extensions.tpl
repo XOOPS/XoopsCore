@@ -13,7 +13,7 @@
     <tbody>
     {foreach item=extension from=$extension_list}
     <tr>
-        <td class="span1">
+        <td class="col-md-1">
             {if $extension->getInfo('install')}
             <a href="{$xoops_url}/modules/{$extension->getInfo('dirname')}/{$extension->getInfo('adminindex')}">
                 <img class="xo-tooltip" src="{$extension->getInfo('logo_large')}"
@@ -24,7 +24,7 @@
                  title="{$extension->getInfo('name')}"/>
             {/if}
         </td>
-        <td class="span3">
+        <td class="col-md-3">
             {if $extension->getInfo('install')}
             <a href="{$xoops_url}/modules/{$extension->getInfo('dirname')}/{$extension->getInfo('adminindex')}">
                 <strong>{$extension->getInfo('name')}</strong>
@@ -33,10 +33,10 @@
             {$extension->getInfo('name')}
             {/if}
         </td>
-        <td class="span2">
+        <td class="col-md-2">
             {$extension->getInfo('version')}
         </td>
-        <td class="span4">
+        <td class="col-md-4">
             <ul class="xo-extension-detail">
                 <li><span class="bold">{translate key='C_AUTHOR'}</span>&nbsp;{$extension->getInfo('author')}{if $extension->getInfo('nickname')} - ({$extension->getInfo('nickname')}){/if}
                 </li>
@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </td>
-        <td class="span2">
+        <td class="col-md-2">
             <a class="xo-tooltip" href="javascript:"
                onclick="{ $('li.detail-{$extension->getInfo(dirname)}').removeClass('hide'); $('li.detail-{$extension->getInfo(dirname)}').toggle('slow'); }"
                title="{translate key='DETAILS'}"><span class="ico-magnifier"></span></a>
