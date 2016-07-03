@@ -22,9 +22,9 @@
 </div>
 <div class="footer">
     <p class="pull-right"><a href="#">Back to top</a></p>
-    <p class="txtcenter">
+    <div class="text-center">
         Powered by <a href="https://github.com/XOOPS" rel="external" title="Xoops Project"><{$xoops_version}></a> &copy; 2001-<{$smarty.now|date_format:"%Y"}>
-    </p>
+    </div>
     <!--{xo-logger-output}-->
 </div>
 <script type="text/javascript">
