@@ -15,4 +15,4 @@
             <{/foreach}>
         </tbody>
     </table>
-</div> 
+</div>
