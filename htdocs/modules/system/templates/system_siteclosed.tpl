@@ -43,14 +43,14 @@
 </div>
 <div class="container" style="margin-top: 50px;">
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <div class="alert alert-info pagination-centered" style="padding: 30px;">
                 <{$lang_siteclosemsg}>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="span6 offset3">
+        <div class="col-md-6 col-md-offset-3">
             <form class="well form-horizontal" action="<{xoAppUrl 'user.php'}>" method="post">
                 <div class="control-group">
                     <label class="control-label" for="xo-login-uname"><{$lang_username}></label>
