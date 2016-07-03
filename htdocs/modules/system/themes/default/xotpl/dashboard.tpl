@@ -8,8 +8,8 @@
         </div>
         <{if $error_msg}>
         <div class="row">
-            <div class="span2"></div>
-        <div class="span11 alert alert-error">
+            <div class="col-md-2"></div>
+        <div class="col-md-11 alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         <{foreach item=msg from=$error_msg}>
             <div class="alert-message error">
@@ -79,7 +79,7 @@
                             <{foreach item=mod_list from=$module_menu}>
                             <{if $mod_list->getInfo(dirname) != 'system'}>
                             <tr>
-                                <td class="span1"><img src="<{$mod_list->getInfo('logo_small')}>" alt=""/></td>
+                                <td class="col-md-1"><img src="<{$mod_list->getInfo('logo_small')}>" alt=""/></td>
                                 <td><a href="<{$mod_list->getInfo('link_admin')}>"><{$mod_list->getVar(name)}></a></td>
                             </tr>
                             <{/if}>
@@ -116,7 +116,7 @@
                             <{foreach item=plug_list from=$extension_menu}>
                             <{if $plug_list->getInfo(install)}>
                             <tr>
-                                <td class="span1"><img src="<{$plug_list->getInfo('logo_small')}>" alt=""/></td>
+                                <td class="col-md-1"><img src="<{$plug_list->getInfo('logo_small')}>" alt=""/></td>
                                 <td><a href="<{$plug_list->getInfo('link_admin')}>"><{$plug_list->getInfo(name)}></a>
                                 </td>
                             </tr>
