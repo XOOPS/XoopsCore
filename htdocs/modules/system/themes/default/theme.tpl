@@ -12,9 +12,11 @@
     </div>
 </div>
 <div class="subnav subnav-fixed">
-    <{include file="$theme_tpl/icons.tpl"}>
+    <div class="container-fluid">
+        <{include file="$theme_tpl/icons.tpl"}>
+    </div>
 </div>
-<div class="clear"></div>
+
 <div class="container-fluid">
     <{include file="$theme_tpl/dashboard.tpl"}>
 </div>
