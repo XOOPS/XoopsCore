@@ -8,14 +8,14 @@
         </div>
         <{if $error_msg}>
         <div class="row">
-            <div class="col-md-2"></div>
-        <div class="col-md-11 alert alert-error">
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-10 col-md-offset-1 alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <{foreach item=msg from=$error_msg}>
-            <div class="alert-message error">
-                <p><{$msg}></p>
-            </div>
-        <{/foreach}>
+            <{foreach item=msg from=$error_msg}>
+                <div class="alert-message error">
+                    <p><{$msg}></p>
+                </div>
+            <{/foreach}>
         </div>
         </div>
         <{/if}>
