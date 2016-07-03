@@ -6,11 +6,11 @@
 <table id="xo-group-sorter" class="outer tablesorter">
     <thead>
         <tr>
-            <th class="txtcenter span1"><{translate key='ID'}></th>
-            <th class="txtcenter span3"><{translate key='GROUP_NAME' dirname='system'}></th>
+            <th class="txtcenter col-md-1"><{translate key='ID'}></th>
+            <th class="txtcenter col-md-3"><{translate key='GROUP_NAME' dirname='system'}></th>
             <th class="txtleft"><{translate key='GROUP_DESCRIPTION' dirname='system'}></th>
-            <th class="txtcenter span3"><{translate key='NUMBER_OF_USERS_BY_GROUP' dirname='system'}></th>
-            <th class="txtcenter span2"><{translate key='ACTION'}></th>
+            <th class="txtcenter col-md-3"><{translate key='NUMBER_OF_USERS_BY_GROUP' dirname='system'}></th>
+            <th class="txtcenter col-md-2"><{translate key='ACTION'}></th>
         </tr>
     </thead>
     <tbody>
