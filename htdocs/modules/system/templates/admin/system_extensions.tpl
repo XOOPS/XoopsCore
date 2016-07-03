@@ -13,7 +13,7 @@
     <tbody>
     {foreach item=extension from=$extension_list}
     <tr>
-        <td class="span1">
+        <td class="col-md-1">
             {if $extension->getInfo('install')}
             <a href="{$xoops_url}/modules/{$extension->getInfo('dirname')}/{$extension->getInfo('adminindex')}">
                 <img class="xo-tooltip" src="{$extension->getInfo('logo_large')}"
