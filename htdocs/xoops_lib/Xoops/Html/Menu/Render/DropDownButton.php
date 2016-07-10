@@ -46,7 +46,7 @@ class DropDownButton extends RenderAbstract
 <button class="{$class}" type="button"{$id} data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 {$icon}{$caption} <span class="caret"></span>
 </button>
-  <ul class="dropdown-menu"{$labeledId}">
+  <ul class="dropdown-menu"{$labeledId}>
 EOT;
 
         foreach ($menu['items'] as $item) {

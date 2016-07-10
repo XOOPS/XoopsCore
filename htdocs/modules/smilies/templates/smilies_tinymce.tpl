@@ -10,31 +10,31 @@
 <body>
     <div class="tabs">
         <ul>
-            <li id="tab_smilies_browser" class="current"><span><a href="javascript:mcTabs.displayTab('tab_smilies_browser','smilies_browser_panel');" onmousedown="return false;"><{$smarty.const._SMILIES_TINYMCE_BROWSER}></a></span></li>
-            <{if $form_add}>
-                <li id="tab_smilies_add" class="current"><span><a href="javascript:mcTabs.displayTab('tab_smilies_add','smilies_add_panel');" onmousedown="return false;"><{$smarty.const._SMILIES_TINYMCE_ADD}></a></span></li>
-            <{/if}>
+            <li id="tab_smilies_browser" class="current"><span><a href="javascript:mcTabs.displayTab('tab_smilies_browser','smilies_browser_panel');" onmousedown="return false;">{$smarty.const._SMILIES_TINYMCE_BROWSER}</a></span></li>
+            {if $form_add}
+                <li id="tab_smilies_add" class="current"><span><a href="javascript:mcTabs.displayTab('tab_smilies_add','smilies_add_panel');" onmousedown="return false;">{$smarty.const._SMILIES_TINYMCE_ADD}</a></span></li>
+            {/if}
         </ul>
     </div>
 
     <div class="panel_wrapper">
         <div id="smilies_browser_panel" class="panel current" style="overflow:auto;">
-            <{foreach from=$smileys item=smile}>
-                <img onmouseover="style.cursor='pointer'" onclick="Xoops_smiliesDialog.insert(this);" src="<{$xoops_upload_url}>/<{$smile.smiley_url}>" alt="<{$smile.smiley_emotion}>" class="xoops_smilies" />
-            <{/foreach}>
+            {foreach from=$smileys item=smile}
+                <img onmouseover="style.cursor='pointer'" onclick="Xoops_smiliesDialog.insert(this);" src="{$xoops_upload_url}/{$smile.smiley_url}" alt="{$smile.smiley_emotion}" class="xoops_smilies" />
+            {/foreach}
             <div>
-                <a class="xoops_smilies" href="xoops_smilies.php?op=more" title="<{translate key='MORE'}>"><{translate key='MORE'}></a>
+                <a class="xoops_smilies" href="xoops_smilies.php?op=more" title="{translate key='MORE'}">{translate key='MORE'}</a>
             </div>
             <div class="mceActionPanel">
-                <input type="button" id="button" name="button" class="btn btn-warning" value="<{translate key='CLOSE'}>" onclick="tinyMCEPopup.close();" />
+                <input type="button" id="button" name="button" class="btn btn-warning" value="{translate key='CLOSE'}" onclick="tinyMCEPopup.close();" />
             </div>
         </div>
 
-        <{if $form_add}>
+        {if $form_add}
             <div id="smilies_add_panel" class="panel" style="overflow:none;">
-                <{$form_add}>
+                {$form_add}
             </div>
-        <{/if}>
+        {/if}
     </div>
 </body>
 </html>
