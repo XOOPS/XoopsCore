@@ -42,7 +42,7 @@ define("_TIMEZONE_SET", "Europe/London");
  * @author      Taiwen Jiang <phppp@users.sourceforge.net>
  * @copyright   copyright (c) 2000-2009 XOOPS.org
  */
-class XoopsLocal extends XoopsLocalAbstract
+class XoopsLocal extends Xoops\Locale\AbstractLocale
 {
     /**
      * Number Formats
@@ -50,7 +50,7 @@ class XoopsLocal extends XoopsLocalAbstract
      * @param unknown_type $number
      * @return string
      */
-    static function number_format($number)
+    public static function number_format($number)
     {
         return number_format($number, 2, '.', ',');
     }
@@ -62,7 +62,7 @@ class XoopsLocal extends XoopsLocalAbstract
      * @param string $number
      * @return string format
      */
-    static function money_format($format, $number)
+    public static function money_format($format, $number)
     {
         setlocale(LC_MONETARY, 'en_US');
         return money_format($format, $number);

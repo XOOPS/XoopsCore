@@ -96,7 +96,7 @@ if (!defined('XOOPS_XMLRPC')) {
     define('XOOPS_DB_CHKREF', 0);
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
+if ('POST' !== \Xmf\Request::getMethod() || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
     define ('XOOPS_DB_PROXY', 1);
 }
 

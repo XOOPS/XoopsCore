@@ -613,7 +613,7 @@ class SystemModule
             $update_script = $module->getInfo('onUpdate');
             if (false != $update_script && trim($update_script) != '') {
                 XoopsLoad::loadFile($xoops->path('modules/' . $mod . '/' . trim($update_script)));
-                $func = 'xoops_module_preupdate_' . $mod;
+                $func = 'xoops_module_pre_update_' . $mod;
                 if (function_exists($func)) {
                     $result = $func($module, $prev_version);
                     if (!$result) {

@@ -350,7 +350,6 @@ class Admin
         foreach (array_keys($this->itemInfoBox) as $i) {
             if ($this->itemInfoBox[$i]['type'] == $type) {
                 $this->itemInfoBox[$i]['line'][] = $ret;
-                unset($ret);
             }
         }
         return true;

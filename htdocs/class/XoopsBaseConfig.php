@@ -211,6 +211,9 @@ class XoopsBaseConfig
         // Serialized connection parameter
         // This is built by the installer and includes all connection parameters
         define('XOOPS_DB_PARAMETERS', serialize(self::get('db-parameters')));
+
+        define('XOOPS_UPLOAD_PATH', self::get('uploads-path'));
+        define('XOOPS_UPLOAD_URL', self::get('uploads-url'));
     }
 
     /**
