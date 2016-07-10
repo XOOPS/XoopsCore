@@ -44,5 +44,4 @@ class DtypeOtherTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Xoops\Core\Kernel\Dtype\DtypeAbstract', $this->object);
         $this->assertInstanceOf('\Xoops\Core\Kernel\Dtype\DtypeOther', $this->object);
     }
-
 }
