@@ -137,7 +137,7 @@ class Migrate
     public function synchronizeSchema($force = true)
     {
         $this->tableHandler = new Tables(); // start fresh
-        $this->buildSynchronizeDDL();
+        $this->getSynchronizeDDL();
         return $this->tableHandler->executeQueue($force);
     }
 
@@ -146,7 +146,7 @@ class Migrate
      *
      * @return string[] array of DDL/SQL statements to transform current to target schema
      */
-    public function buildSynchronizeDDL()
+    public function getSynchronizeDDL()
     {
         $this->getTargetDefinitions();
         $this->preSyncActions();
@@ -296,5 +296,25 @@ class Migrate
             return true;
         }
         return false;
+    }
+
+    /**
+     * Return message from last error encountered
+     *
+     * @return string last error message
+     */
+    public function getLastError()
+    {
+        return $this->tableHandler->getLastError();
+    }
+
+    /**
+     * Return code from last error encountered
+     *
+     * @return int last error number
+     */
+    public function getLastErrNo()
+    {
+        return $this->tableHandler->getLastErrNo();
     }
 }
