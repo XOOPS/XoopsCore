@@ -85,13 +85,31 @@ class MigrateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Database\Migrate::buildSynchronizeDDL
+     * @covers Xmf\Database\Migrate::getSynchronizeDDL
      */
-    public function testBuildSynchronizeDDL()
+    public function testGetSynchronizeDDL()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
+    }
+
+    /**
+     * @covers Xmf\Database\Migrate::getLastError
+     */
+    public function testGetLastError()
+    {
+        $actual = $this->object->getLastError();
+        $this->assertNull($actual);
+    }
+
+    /**
+     * @covers Xmf\Database\Migrate::getLastErrNo
+     */
+    public function testGetLastErrNo()
+    {
+        $actual = $this->object->getLastErrNo();
+        $this->assertNull($actual);
     }
 }
