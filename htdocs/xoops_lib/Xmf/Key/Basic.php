@@ -23,7 +23,6 @@ use Xmf\Random;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
  */
 class Basic extends KeyAbstract

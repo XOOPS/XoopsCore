@@ -352,18 +352,6 @@ class TablesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xmf\Database\Tables::resetQueue
-     * @todo   Implement testResetQueue().
-     */
-    public function testResetQueue()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Xmf\Database\Tables::executeQueue
      * @todo   Implement testExecuteQueue().
      */
@@ -472,14 +460,28 @@ class TablesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Database\Tables::resetQueue
      * @covers Xmf\Database\Tables::dumpQueue
-     * @todo   Implement testDumpQueue().
+     * @covers Xmf\Database\Tables::addToQueue
      */
-    public function testDumpQueue()
+    public function testAddToQueue()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->resetQueue();
+        $queue = $this->object->dumpQueue();
+        $this->assertTrue(is_array($queue));
+        $this->assertTrue(empty($queue));
+
+        $expected = 'SELECT * FROM TEST.DUMMY';
+        $this->object->addToQueue($expected);
+
+        $queue = $this->object->dumpQueue();
+        $this->assertTrue(is_array($queue));
+        $this->assertTrue(1 === count($queue));
+        $this->assertEquals($expected, reset($queue));
+
+        $this->object->resetQueue();
+        $queue = $this->object->dumpQueue();
+        $this->assertTrue(is_array($queue));
+        $this->assertTrue(empty($queue));
     }
 }
