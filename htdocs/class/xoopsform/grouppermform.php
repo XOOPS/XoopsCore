@@ -15,3 +15,7 @@
 class XoopsGroupPermForm extends Xoops\Form\GroupPermissionForm
 {
 }
+
+class XoopsGroupFormCheckBox extends Xoops\Form\GroupFormCheckbox
+{
+}

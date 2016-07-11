@@ -25,6 +25,8 @@ namespace Xoops\Core;
  */
 class XoopsTpl extends \Smarty
 {
+    use SmartyBCTrait;
+    
     /**
      * @var \Xoops\Core\Theme\XoopsTheme
      */

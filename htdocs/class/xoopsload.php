@@ -294,7 +294,7 @@ class XoopsLoad
             //'xoopsimagesetimghandler' => $xoops_root_path . '/kernel/imagesetimg.php',
             'xoopslists' => $xoops_root_path . '/class/xoopslists.php',
             //'xoopslocal' => $xoops_root_path . '/include/xoopslocal.php',
-            //'xoopslocalabstract' => $xoops_root_path . '/class/xoopslocal.php',
+            'xoopslocalabstract' => $xoops_root_path . '/class/xoopslocal.php',
             'xoopslogger' => $xoops_root_path . '/class/logger/xoopslogger.php',
             'xoopseditor' => $xoops_root_path . '/class/xoopseditor/xoopseditor.php',
             'xoopseditorhandler' => $xoops_root_path . '/class/xoopseditor/xoopseditor.php',

@@ -90,6 +90,17 @@ abstract class XoopsObject implements \ArrayAccess
     public $plugin_path;
 
     /**
+     * constructor
+     *
+     * normally, this is called from child classes only
+     *
+     * @access public
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * used for new/clone objects
      *
      * @return void
