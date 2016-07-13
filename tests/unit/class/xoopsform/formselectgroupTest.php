@@ -11,8 +11,8 @@ class XoopsFormSelectGroupTest extends \PHPUnit_Framework_TestCase
     protected $myClass = 'XoopsFormSelectGroup';
     
     public function test___construct()
-	{
-		$instance = new $this->myClass();
+    {
+        $instance = new $this->myClass('');
         $this->assertInstanceOf('Xoops\\Form\\SelectGroup', $instance);
     }
         

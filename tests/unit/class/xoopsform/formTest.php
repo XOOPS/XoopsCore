@@ -13,11 +13,11 @@ class XoopsFormInstance extends XoopsForm
 class XoopsFormTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'XoopsFormInstance';
-    
+
     public function test___construct()
 	{
-		$instance = new $this->myClass();
+		$instance = new $this->myClass('', '', '');
         $this->assertInstanceOf('Xoops\\Form\\Form', $instance);
     }
-        
+
 }
