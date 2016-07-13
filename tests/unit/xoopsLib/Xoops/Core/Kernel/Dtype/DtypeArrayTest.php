@@ -87,11 +87,11 @@ class DtypeArrayTest extends \PHPUnit_Framework_TestCase
 
         $value = $this->xObject->getVar($key, Dtype::FORMAT_SHOW);
         $this->assertTrue(is_array($value));
-        var_dump($value);
+        //var_dump($value);
 
         $value = $this->xObject->getVar($key, Dtype::FORMAT_NONE);
         $this->assertTrue(is_string($value));
-        var_dump($value);
+        //var_dump($value);
         $this->assertEquals("a:5:{s:", substr($value, 0, 7));
     }
 }
