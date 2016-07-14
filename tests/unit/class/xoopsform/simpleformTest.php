@@ -9,11 +9,11 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 class XoopsSimpleFormTest extends \PHPUnit_Framework_TestCase
 {
     protected $myClass = 'XoopsSimpleForm';
-    
+
     public function test___construct()
-	{
-		$instance = new $this->myClass();
+    {
+        $instance = new $this->myClass('', '', '');
         $this->assertInstanceOf('Xoops\\Form\\SimpleForm', $instance);
     }
-        
+
 }

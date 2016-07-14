@@ -46,7 +46,7 @@ class NullExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterExtensionProcessing()
     {
-        $actual = $this->sanitizer->getDhtmlEditorSupport('nosuchextension');
+        $actual = $this->sanitizer->getDhtmlEditorSupport('nosuchextension', '');
         $this->assertEquals(['', ''], $actual);
         $expected = $this->object->registerExtensionProcessing('muck');
         $actual = call_user_func_array(array($this->object, 'registerExtensionProcessing'), $args);
