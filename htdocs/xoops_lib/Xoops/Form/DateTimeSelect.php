@@ -17,7 +17,7 @@ namespace Xoops\Form;
  * @category  Xoops\Form\DateTimeSelect
  * @package   Xoops\Form
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -30,13 +30,13 @@ class DateTimeSelect extends ElementTray
     /**
      * __construct
      *
-     * @param string|array      $caption Caption or array of all attributes
-     * @param string            $name    name
-     * @param integer|\DateTime $value   unix timestamp or DateTimeSelect object
-     * @param mixed   $showtime control display of date and time elements
-     *                           SHOW_BOTH, true  - show both date and time selectors
-     *                           SHOW_DATE, false - only show date selector
-     *                           SHOW_TIME        - only show time selector
+     * @param string|array      $caption  Caption or array of all attributes
+     * @param string            $name     name
+     * @param integer|\DateTime $value    unix timestamp or DateTime object
+     * @param mixed             $showtime control display of date and time elements
+     *                                     SHOW_BOTH, true  - show both date and time selectors
+     *                                     SHOW_DATE, false - only show date selector
+     *                                     SHOW_TIME        - only show time selector
      */
     public function __construct($caption, $name = null, $value = 0, $showtime = true)
     {
