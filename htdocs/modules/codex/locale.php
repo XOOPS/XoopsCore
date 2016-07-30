@@ -12,7 +12,7 @@
 use Xmf\Request;
 use Xoops\Core\Locale\Time;
 use Xoops\Form\Button;
-use Xoops\Form\DateTime;
+use Xoops\Form\DateTimeSelect;
 use Xoops\Form\SelectLocale;
 use Xoops\Form\ThemeForm;
 
@@ -36,15 +36,15 @@ $timeOnly = Request::getDateTime('time', $default);
 // Date demo form
 $form = new ThemeForm('Date and Time', 'form_localedates', '', 'post');
 
-$date = new DateTime('Date', 'date', $dateOnly, DateTime::SHOW_DATE);
+$date = new DateTimeSelect('Date', 'date', $dateOnly, DateTimeSelect::SHOW_DATE);
 $date->setDescription(\XoopsLocale::formatTimestamp($dateOnly, 'custom'));
 $form->addElement($date, true);
 
-$time = new DateTime('Time', 'time', $timeOnly, DateTime::SHOW_TIME);
+$time = new DateTimeSelect('Time', 'time', $timeOnly, DateTimeSelect::SHOW_TIME);
 $time->setDescription(Time::describeRelativeInterval($timeOnly));
 $form->addElement($time, true);
 
-$date_time = new DateTime('Date time', 'date_time', $dateAndTime);
+$date_time = new DateTimeSelect('Date time', 'date_time', $dateAndTime);
 $date_time->setDescription(Time::describeRelativeInterval($dateAndTime));
 $form->addElement($date_time, true);
 

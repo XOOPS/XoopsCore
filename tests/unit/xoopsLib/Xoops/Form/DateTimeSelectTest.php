@@ -13,10 +13,10 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class DateTimeTest extends \PHPUnit_Framework_TestCase
+class DateTimeSelectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var DateTime
+     * @var DateTimeSelect
      */
     protected $object;
 
@@ -26,7 +26,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new DateTime('Caption', 'name');
+        $this->object = new DateTimeSelect('Caption', 'name');
         \Xoops::getInstance()->setTheme(new \Xoops\Core\Theme\NullTheme);
         //$this->markTestSkipped('side effects');
     }
@@ -40,8 +40,8 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\DateTime::__construct
-     * @covers Xoops\Form\DateTime::render
+     * @covers Xoops\Form\DateTimeSelect::__construct
+     * @covers Xoops\Form\DateTimeSelect::render
      */
     public function testRender()
     {
@@ -50,20 +50,20 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Xoops\Form\DateTime::__construct
-     * @covers Xoops\Form\DateTime::render
+     * @covers Xoops\Form\DateTimeSelect::__construct
+     * @covers Xoops\Form\DateTimeSelect::render
      */
     public function test__construct()
     {
-        $oldWay = new DateTime('mycaption', 'myname');
-        $newWay = new DateTime(['caption' => 'mycaption', 'name' => 'myname',]);
+        $oldWay = new DateTimeSelect('mycaption', 'myname');
+        $newWay = new DateTimeSelect(['caption' => 'mycaption', 'name' => 'myname',]);
         $this->assertEquals($oldWay->render(), $newWay->render());
     }
 
     public function test_const()
     {
-        $this->assertNotNull(DateTime::SHOW_BOTH);
-        $this->assertNotNull(DateTime::SHOW_DATE);
-        $this->assertNotNull(DateTime::SHOW_TIME);
+        $this->assertNotNull(DateTimeSelect::SHOW_BOTH);
+        $this->assertNotNull(DateTimeSelect::SHOW_DATE);
+        $this->assertNotNull(DateTimeSelect::SHOW_TIME);
     }
 }

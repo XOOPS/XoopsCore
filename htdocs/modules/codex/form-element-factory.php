@@ -121,7 +121,7 @@ $factory->create([
 ]);
 
 $factory->create([
-    ElementFactory::CLASS_KEY => 'DateTime',
+    ElementFactory::CLASS_KEY => 'DateTimeSelect',
     'caption' => 'Date time',
     'name' => 'date_time',
     'description' => 'Description Date time',

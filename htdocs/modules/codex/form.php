@@ -102,7 +102,7 @@ $date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $form->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 0);
+$date_time = new Xoops\Form\DateTimeSelect('Date time', 'date_time', 0);
 $date_time->setDescription('Description Date time');
 $form->addElement($date_time, true);
 

@@ -12,16 +12,16 @@
 namespace Xoops\Form;
 
 /**
- * DateTime - date and time form element
+ * DateTimeSelect - date and time form element
  *
- * @category  Xoops\Form\DateTime
+ * @category  Xoops\Form\DateTimeSelect
  * @package   Xoops\Form
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @copyright 2001-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class DateTime extends ElementTray
+class DateTimeSelect extends ElementTray
 {
     const SHOW_BOTH = 1;
     const SHOW_DATE = 0;
@@ -32,7 +32,7 @@ class DateTime extends ElementTray
      *
      * @param string|array      $caption Caption or array of all attributes
      * @param string            $name    name
-     * @param integer|\DateTime $value   unix timestamp or DateTime object
+     * @param integer|\DateTime $value   unix timestamp or DateTimeSelect object
      * @param mixed   $showtime control display of date and time elements
      *                           SHOW_BOTH, true  - show both date and time selectors
      *                           SHOW_DATE, false - only show date selector

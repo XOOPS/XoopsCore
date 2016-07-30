@@ -12,10 +12,10 @@
 /**
  * Backward compatibility stub - use real class, as shown below for all new development.
  */
-class XoopsFormDateTime extends Xoops\Form\DateTime
+class XoopsFormDateTime extends Xoops\Form\DateTimeSelect
 {
     /**
-     * Note change in arguments, removed size and showtime
+     * Note change in arguments, removed size
      *
      * @param string  $caption  form field caption
      * @param string  $name     form variable name
@@ -26,7 +26,7 @@ class XoopsFormDateTime extends Xoops\Form\DateTime
      *                           SHOW_DATE, false - only show date selector
      *                           SHOW_TIME        - only show time selector
      */
-    function __construct($caption, $name, $size = 12, $value = 0, $showtime = true)
+    public function __construct($caption, $name, $size = 12, $value = 0, $showtime = true)
     {
         parent::__construct($caption, $name, $value, $showtime);
     }

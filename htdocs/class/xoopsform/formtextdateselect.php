@@ -22,7 +22,7 @@ class XoopsFormTextDateSelect extends Xoops\Form\DateSelect
      * @param int    $size
      * @param int    $value
      */
-    function __construct($caption, $name, $size = 15, $value = 0)
+    public function __construct($caption, $name, $size = 15, $value = 0)
     {
         parent::__construct($caption, $name, $value);
     }
