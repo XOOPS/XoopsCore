@@ -23,14 +23,22 @@ namespace Xoops\Form;
  */
 class DateTime extends ElementTray
 {
+    const SHOW_BOTH = 1;
+    const SHOW_DATE = 0;
+    const SHOW_TIME = 2;
+
     /**
      * __construct
      *
      * @param string|array      $caption Caption or array of all attributes
      * @param string            $name    name
      * @param integer|\DateTime $value   unix timestamp or DateTime object
+     * @param mixed   $showtime control display of date and time elements
+     *                           SHOW_BOTH, true  - show both date and time selectors
+     *                           SHOW_DATE, false - only show date selector
+     *                           SHOW_TIME        - only show time selector
      */
-    public function __construct($caption, $name = null, $value = 0)
+    public function __construct($caption, $name = null, $value = 0, $showtime = true)
     {
         // stash everything in the tray and sort out later
         if (is_array($caption)) {
@@ -39,9 +47,21 @@ class DateTime extends ElementTray
         } else {
             parent::__construct($caption, '', $name);
             $this->set('value', $value);
+            $this->set(':showtime', (int) $showtime);
         }
 
         $workingTime = \Xoops\Core\Locale\Time::cleanTime($this->get('value', 0));
+
+        $displayDate = true;
+        $displayTime = true;
+        switch ((int) $this->get(':showtime', static::SHOW_BOTH)) {
+            case static::SHOW_DATE:
+                $displayTime = false;
+                break;
+            case static::SHOW_TIME:
+                $displayDate = false;
+                break;
+        }
 
         $dateDefinition = [
             'caption' => '',
@@ -51,7 +71,13 @@ class DateTime extends ElementTray
             'value' => $workingTime,
             ElementFactory::FORM_KEY => $this,
         ];
-        new DateSelect($dateDefinition);
+        if ($displayDate) {
+            new DateSelect($dateDefinition);
+        } else {
+            unset($dateDefinition['size']);
+            $dateDefinition['value'] = \Xoops\Core\Locale\Time::formatDate($workingTime);
+            new Hidden($dateDefinition);
+        }
 
         $minuteInterval = $this->get(':minuteinterval', 15);
         $hours    = (int) ltrim($workingTime->format('H'), '0');
@@ -67,9 +93,15 @@ class DateTime extends ElementTray
                 'short',
                 new \DateTimeZone('UTC')
             ),
-            ElementFactory::FORM_KEY => $this,
-            'option' => \Xoops\Core\Lists\Time::getList($minuteInterval),
+            ElementFactory::FORM_KEY => $this
         ];
-        new Select($timeDefinition);
+
+        if ($displayTime) {
+            $timeDefinition['option'] = \Xoops\Core\Lists\Time::getList($minuteInterval);
+            new Select($timeDefinition);
+        } else {
+            unset($timeDefinition['option'], $timeDefinition['size']);
+            new Hidden($timeDefinition);
+        }
     }
 }

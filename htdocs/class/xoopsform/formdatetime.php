@@ -17,14 +17,17 @@ class XoopsFormDateTime extends Xoops\Form\DateTime
     /**
      * Note change in arguments, removed size and showtime
      *
-     * @param mixed   $caption
-     * @param mixed   $name
-     * @param integer $size
-     * @param integer $value
-     * @param mixed   $showtime
+     * @param string  $caption  form field caption
+     * @param string  $name     form variable name
+     * @param integer $size     size of date select
+     * @param integer $value    unix timestamp, defaults to now
+     * @param mixed   $showtime control display of date and time elements
+     *                           SHOW_BOTH, true  - show both date and time selectors
+     *                           SHOW_DATE, false - only show date selector
+     *                           SHOW_TIME        - only show time selector
      */
     function __construct($caption, $name, $size = 12, $value = 0, $showtime = true)
     {
-        parent::__construct($caption, $name, $value);
+        parent::__construct($caption, $name, $value, $showtime);
     }
 }

@@ -59,4 +59,11 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $newWay = new DateTime(['caption' => 'mycaption', 'name' => 'myname',]);
         $this->assertEquals($oldWay->render(), $newWay->render());
     }
+
+    public function test_const()
+    {
+        $this->assertNotNull(DateTime::SHOW_BOTH);
+        $this->assertNotNull(DateTime::SHOW_DATE);
+        $this->assertNotNull(DateTime::SHOW_TIME);
+    }
 }
