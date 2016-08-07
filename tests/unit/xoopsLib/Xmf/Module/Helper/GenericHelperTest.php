@@ -16,12 +16,20 @@ class GenericHelperTestHelper extends GenericHelper
     }
 }
 
+if (!function_exists('xoops_getHandler')) {
+    function xoops_getHandler($name, $optional = false)
+    {
+        $handler = \Xoops\Core\Handler\Factory::newSpec()->scheme('kernel')->name($name)->optional((bool)$optional)->build();
+        return $handler;
+    }
+}
+
 /**
  * PHPUnit special settings :
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
- 
+
 class GenericHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -136,10 +144,12 @@ class GenericHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsUserAdmin()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        include_once XOOPS_ROOT_PATH . '/kernel/user.php';
+        $GLOBALS['xoopsUser'] = '';
+        $this->assertFalse($this->object->isUserAdmin());
+
+        $GLOBALS['xoopsUser'] = new \XoopsUser();
+        $this->assertFalse($this->object->isUserAdmin());
     }
 
     /**
