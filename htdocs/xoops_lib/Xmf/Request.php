@@ -324,7 +324,7 @@ class Request
     }
 
     /**
-     * Return a DateTime object from a Xoops\Form\DateSelect of Xoops\Form\DateTime field
+     * Return a DateTime object from a Xoops\Form\DateSelect or Xoops\Form\DateTimeSelect field
      *
      * @param string $name    Variable name
      * @param mixed  $default Default value if the variable does not exist

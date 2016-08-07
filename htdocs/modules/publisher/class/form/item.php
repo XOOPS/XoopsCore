@@ -233,7 +233,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
         // Datesub
         if ($this->isGranted(_PUBLISHER_DATESUB)) {
             $datesub = ($obj->getVar('datesub') == 0) ? time() : $obj->getVar('datesub');
-            $datesub_datetime = new Xoops\Form\DateTime(_CO_PUBLISHER_DATESUB, 'datesub', $datesub);
+            $datesub_datetime = new Xoops\Form\DateTimeSelect(_CO_PUBLISHER_DATESUB, 'datesub', $datesub);
             $datesub_datetime->setDescription(_CO_PUBLISHER_DATESUB_DSC);
             $mainTab->addElement($datesub_datetime);
         }

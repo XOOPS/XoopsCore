@@ -13,7 +13,13 @@ class XoopsFormDateTimeTest extends \PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $instance = new $this->myClass('', '');
-        $this->assertInstanceOf('Xoops\\Form\\DateTime', $instance);
+        $this->assertInstanceOf('Xoops\\Form\\DateTimeSelect', $instance);
     }
 
+    public function test_const()
+    {
+        $this->assertNotNull(\XoopsFormDateTime::SHOW_BOTH);
+        $this->assertNotNull(\XoopsFormDateTime::SHOW_DATE);
+        $this->assertNotNull(\XoopsFormDateTime::SHOW_TIME);
+    }
 }

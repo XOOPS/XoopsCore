@@ -46,7 +46,7 @@ class PagePage_contentForm extends Xoops\Form\ThemeForm
             $tab1->addElement(new Xoops\Form\SelectUser(XoopsLocale::AUTHOR, 'content_author', true, $content_author, 1, false), true);
 //        }
         //date
-        $tab1->addElement(new Xoops\Form\DateTime(XoopsLocale::DATE, 'content_create', $obj->getVar('content_create')));
+        $tab1->addElement(new Xoops\Form\DateTimeSelect(XoopsLocale::DATE, 'content_create', $obj->getVar('content_create')));
         //title
         $tab1->addElement(new Xoops\Form\Text(XoopsLocale::TITLE, 'content_title', 12, 255, $obj->getVar('content_title'), ''), true);
         // editor

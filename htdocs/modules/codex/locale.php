@@ -11,6 +11,10 @@
 
 use Xmf\Request;
 use Xoops\Core\Locale\Time;
+use Xoops\Form\Button;
+use Xoops\Form\DateTimeSelect;
+use Xoops\Form\SelectLocale;
+use Xoops\Form\ThemeForm;
 
 /**
  * @copyright 2012-2016 XOOPS Project (http://xoops.org)
@@ -27,29 +31,34 @@ $xoops->header();
 $default = Time::cleanTime();
 $dateOnly = Request::getDateTime('date', $default);
 $dateAndTime = Request::getDateTime('date_time', $default);
+$timeOnly = Request::getDateTime('time', $default);
 
 // Date demo form
-$form = new Xoops\Form\ThemeForm('Date and Time', 'form_localedates', '', 'post');
+$form = new ThemeForm('Date and Time', 'form_localedates', '', 'post');
 
-$date = new Xoops\Form\DateSelect('Date', 'date', $dateOnly);
+$date = new DateTimeSelect('Date', 'date', $dateOnly, DateTimeSelect::SHOW_DATE);
 $date->setDescription(\XoopsLocale::formatTimestamp($dateOnly, 'custom'));
 $form->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', $dateAndTime);
+$time = new DateTimeSelect('Time', 'time', $timeOnly, DateTimeSelect::SHOW_TIME);
+$time->setDescription(Time::describeRelativeInterval($timeOnly));
+$form->addElement($time, true);
+
+$date_time = new DateTimeSelect('Date time', 'date_time', $dateAndTime);
 $date_time->setDescription(Time::describeRelativeInterval($dateAndTime));
 $form->addElement($date_time, true);
 
-$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$buttonSubmit = new Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
 $form->addElement($buttonSubmit);
 
 $form->display();
 
 
 // Locale selection form
-$localePicker = new Xoops\Form\ThemeForm('Change Locale', 'form_locale', '', 'get');
-$localeSelect = new Xoops\Form\SelectLocale('Locale', 'lang', Request::getString('lang', 'en_US'));
+$localePicker = new ThemeForm('Change Locale', 'form_locale', '', 'get');
+$localeSelect = new SelectLocale('Locale', 'lang', Request::getString('lang', 'en_US'));
 $localePicker->addElement($localeSelect);
-$buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+$buttonSubmit = new Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
 $localePicker->addElement($buttonSubmit);
 $localePicker->display();
 
