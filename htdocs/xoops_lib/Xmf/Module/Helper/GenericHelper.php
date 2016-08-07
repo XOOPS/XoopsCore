@@ -279,7 +279,8 @@ abstract class GenericHelper
      */
     public function isUserAdmin()
     {
-        return $GLOBALS['xoopsUser']->isAdmin($this->getModule()->getVar('mid'));
+        return (isset($GLOBALS['xoopsUser']) && $GLOBALS['xoopsUser'] instanceof \XoopsUser)
+            ? $GLOBALS['xoopsUser']->isAdmin($this->getModule()->getVar('mid')) : false;
     }
 
     /**
