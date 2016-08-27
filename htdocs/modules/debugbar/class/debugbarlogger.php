@@ -99,7 +99,7 @@ class DebugbarLogger implements LoggerInterface
     /**
      * Enable logger output rendering
      * When output rendering is enabled, the logger will insert its output within the page content.
-     * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
+     * If the string <!--<xo-logger-output>--> is found in the page content, the logger output will
      * replace it, otherwise it will be inserted after all the page output.
      *
      * @return void
@@ -398,7 +398,7 @@ class DebugbarLogger implements LoggerInterface
     /**
      * Enable logger output rendering
      * When output rendering is enabled, the logger will insert its output within the page content.
-     * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
+     * If the string <!--<xo-logger-output>--> is found in the page content, the logger output will
      * replace it, otherwise it will be inserted after all the page output.
      *
      * @return void
@@ -428,7 +428,7 @@ class DebugbarLogger implements LoggerInterface
         $log = $this->renderer->render();
         $this->renderingEnabled = $this->activated = false;
 
-        $pattern = '<!--{xo-logger-output}-->';
+        $pattern = '<!--<xo-logger-output>-->';
         $pos = strpos($output, $pattern);
         if ($pos !== false) {
             return substr($output, 0, $pos) . $log . substr($output, $pos + strlen($pattern));

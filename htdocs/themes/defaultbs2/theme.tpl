@@ -143,7 +143,7 @@
                     <div class="pagination-centered">
                         <{$xoops_footer}>
                     </div>
-                    <!--{xo-logger-output}-->
+                    <!--<xo-logger-output>-->
                 </div>
             </div>
         </div>
