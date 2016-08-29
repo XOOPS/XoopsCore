@@ -9,12 +9,12 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Request;
+use Xmf\Request;
 use \Punic\Territory;
 
 /**
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 XOOPS Project (http://xoops.org)
+ * @copyright 2014-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -49,7 +49,7 @@ echo $img;
 echo '<br /><br />';
 
 // we can add any HTML attributes to the img tag
-$attributes = ['class' => 'img-polaroid', 'title' => Territory::getName($country)];
+$attributes = ['class' => 'img-thumbnail', 'title' => Territory::getName($country)];
 $img = $xoops->service('countryflag')->getImgTag($country, $attributes)->getValue();
 echo $img . '<br /><br />';
 

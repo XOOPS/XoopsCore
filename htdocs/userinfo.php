@@ -85,7 +85,7 @@ if ($xoops->isUser() && $isAdmin) {
 $response = $xoops->service("Avatar")->getAvatarEditUrl($thisUser);
 $link=$response->getValue();
 if (!empty($link)) {
-    $btn[] = array( 'link' => $link, 'title' => XoopsLocale::AVATAR, 'icon' => 'icon-user');
+    $btn[] = array( 'link' => $link, 'title' => XoopsLocale::AVATAR, 'icon' => 'glyphicon glyphicon-user');
     $xoops->tpl()->assign('btn', $btn);
 }
 
@@ -156,10 +156,9 @@ if ($thisUser->getVar('user_viewemail') == 1) {
 if ($xoops->isUser()) {
     $xoops->tpl()->assign(
         'user_pmlink',
-        "<a href=\"javascript:openWithSelfMain('" . $xoops_url . "/pmlite.php?send2=1&amp;to_userid="
-        . $thisUser->getVar('uid') . "', 'pmlite', 450, 380);\"><img src=\"" . $xoops_url
-        . "/images/icons/pm.gif\" alt=\""
-        . sprintf(XoopsLocale::F_SEND_PRIVATE_MESSAGE_TO, $thisUser->getVar('uname')) . "\" /></a>"
+        "<a class=\"btn btn-default\" href=\"javascript:openWithSelfMain('" . $xoops_url . "/pmlite.php?send2=1&amp;to_userid="
+        . $thisUser->getVar('uid') . "', 'pmlite', 450, 380);\"><span class=\"glyphicon glyphicon-send\" "
+        . 'title="' . sprintf(XoopsLocale::F_SEND_PRIVATE_MESSAGE_TO, $thisUser->getVar('uname')) . '"></span></a>'
     );
 } else {
     $xoops->tpl()->assign('user_pmlink', '');

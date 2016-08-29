@@ -30,6 +30,7 @@
     font-weight: bold;
     text-shadow: 0 0 2px #000;
     font-family: tahoma, verdana, arial, sans-serif;
+    margin-top: -6px;
 }
 .xo-window-data {
     float: left;

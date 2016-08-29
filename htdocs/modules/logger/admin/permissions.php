@@ -17,9 +17,9 @@
  * @author       XOOPS Development Team
  */
 
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xmf\Module\Helper;
-use Xmf\Module\Permission;
+use Xmf\Module\Helper\Permission;
 
 include_once __DIR__ . '/admin_header.php';
 

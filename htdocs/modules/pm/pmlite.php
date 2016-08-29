@@ -15,7 +15,7 @@ use Xoops\Core\XoopsTpl;
 /**
  * Private message module
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
@@ -155,9 +155,9 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
         }
         $form->addElement(new Xoops\Form\Text(_PM_SUBJECTC, 'subject', 4, 100, $subject), true);
 
-        $icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
-        \Xoops\Core\Lists\SubjectIcon::setOptionsArray($icons);
-        $form->addElement($icons, false);
+        //$icons = new Xoops\Form\Radio(XoopsLocale::MESSAGE_ICON, 'msg_image', '', true);
+        //\Xoops\Core\Lists\SubjectIcon::setOptionsArray($icons);
+        //$form->addElement($icons, false);
         $form->addElement(new Xoops\Form\DhtmlTextArea(_PM_MESSAGEC, 'message', $message, 8, 37), true);
         $form->addElement(new Xoops\Form\RadioYesNo(_PM_SAVEINOUTBOX, 'savecopy', 0));
         $form->addElement(new Xoops\Form\Hidden('op', 'submit'));

@@ -18,7 +18,7 @@ namespace Xoops\Form;
  * @package   Xoops\Form
  * @author    Zoullou <webmaster@zoullou.org>
  * @author    John Neill <catzwolf@xoops.org>
- * @copyright 2003-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2003-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -70,9 +70,19 @@ class ColorPicker extends Text
         if (!empty($temp)) {
             $this->set('style', 'background-color:' . $temp . ';');
         }
-        return parent::render() . "<button class='btn' type='button' onclick=\"return TCP.popup('"
-            . $xoops->url('/include/') . "',document.getElementById('" . $this->getName() . "'));\"> ... </button>";
+        $this->set('class', 'form-control');
+        $ret = '<div class="input-group">';
+        $attributes = $this->renderAttributeString();
+        $ret .= '<input ' . $attributes . ' ' . $this->getExtra() .' >';
+        $ret .= '<span class="input-group-btn">';
+        $ret .= '<button class="btn btn-default" type="button" ';
+        $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
+        $ret .= 'onclick="return TCP.popup(\'';
+        $ret .= $xoops->url('/include/') . '\',document.getElementById(\'' . $this->getName() . '\'));">';
+        $ret .= '<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>';
+        $ret .= '</span></div>';
 
+        return $ret;
     }
 
     /**

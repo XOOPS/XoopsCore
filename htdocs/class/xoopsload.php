@@ -153,7 +153,7 @@ class XoopsLoad
             */
             return false;
         }
-        include $file;
+        include_once $file;
         $class = 'Xoops' . ucfirst($name);
         if (class_exists($class, false)) {
             return $class;
@@ -176,7 +176,7 @@ class XoopsLoad
             return false;
         }
         if (self::fileExists($file = \XoopsBaseConfig::get('root-path') . '/modules/' . $dirname . '/class/' . $name . '.php')) {
-            include $file;
+            include_once $file;
             if (class_exists(ucfirst($dirname) . ucfirst($name))) {
                 return true;
             }
@@ -294,7 +294,7 @@ class XoopsLoad
             //'xoopsimagesetimghandler' => $xoops_root_path . '/kernel/imagesetimg.php',
             'xoopslists' => $xoops_root_path . '/class/xoopslists.php',
             //'xoopslocal' => $xoops_root_path . '/include/xoopslocal.php',
-            //'xoopslocalabstract' => $xoops_root_path . '/class/xoopslocal.php',
+            'xoopslocalabstract' => $xoops_root_path . '/class/xoopslocal.php',
             'xoopslogger' => $xoops_root_path . '/class/logger/xoopslogger.php',
             'xoopseditor' => $xoops_root_path . '/class/xoopseditor/xoopseditor.php',
             'xoopseditorhandler' => $xoops_root_path . '/class/xoopseditor/xoopseditor.php',

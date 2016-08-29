@@ -123,7 +123,7 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
     {
         $noInfo = true;
         if ($userinfo instanceof XoopsUser) {
-            $link = $this->xoops_url . '/modules/avatars/editavatar.php';
+            $link = $this->xoops_url . '/modules/avatars/include/editavatar.php';
             $response->setValue($link);
             $noInfo = false;
         }

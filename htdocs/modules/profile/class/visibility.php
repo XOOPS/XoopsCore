@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\CriteriaElement;
@@ -17,13 +18,12 @@ use Xoops\Core\Kernel\CriteriaElement;
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 class ProfileVisibility extends XoopsObject
@@ -33,9 +33,9 @@ class ProfileVisibility extends XoopsObject
      */
     public function __construct()
     {
-        $this->initVar('field_id', XOBJ_DTYPE_INT);
-        $this->initVar('user_group', XOBJ_DTYPE_INT);
-        $this->initVar('profile_group', XOBJ_DTYPE_INT);
+        $this->initVar('field_id', Dtype::TYPE_INTEGER);
+        $this->initVar('user_group', Dtype::TYPE_INTEGER);
+        $this->initVar('profile_group', Dtype::TYPE_INTEGER);
     }
 }
 

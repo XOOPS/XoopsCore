@@ -10,10 +10,9 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -119,7 +118,7 @@ $date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $tab3->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 0);
+$date_time = new Xoops\Form\DateTimeSelect('Date time', 'date_time', 0);
 $date_time->setDescription('Description Date time');
 $tab3->addElement($date_time, true);
 
@@ -156,7 +155,7 @@ $buttonReset->setClass('btn btn-danger');
 $form->addElement($buttonReset);
 
 $buttonTray = new Xoops\Form\ButtonTray('button_tray', XoopsLocale::A_SUBMIT, 'submit', '', true);
-$buttonTray->setClass('btn btn-inverse');
+$buttonTray->setClass('btn btn-warning');
 $form->addElement($buttonTray);
 
 //We are good, display the form!

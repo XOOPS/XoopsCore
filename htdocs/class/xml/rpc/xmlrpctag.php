@@ -38,6 +38,9 @@ abstract class XoopsXmlRpcDocument
     abstract public function render();
 }
 
+/**
+ * Class XoopsXmlRpcResponse
+ */
 class XoopsXmlRpcResponse extends XoopsXmlRpcDocument
 {
     /**
@@ -58,6 +61,9 @@ class XoopsXmlRpcResponse extends XoopsXmlRpcDocument
     }
 }
 
+/**
+ * Class XoopsXmlRpcRequest
+ */
 class XoopsXmlRpcRequest extends XoopsXmlRpcDocument
 {
 
@@ -74,6 +80,9 @@ class XoopsXmlRpcRequest extends XoopsXmlRpcDocument
         $this->methodName = trim($methodName);
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $payload = '';
@@ -85,6 +94,9 @@ class XoopsXmlRpcRequest extends XoopsXmlRpcDocument
     }
 }
 
+/**
+ * Class XoopsXmlRpcTag
+ */
 abstract class XoopsXmlRpcTag
 {
     /**
@@ -128,6 +140,9 @@ abstract class XoopsXmlRpcTag
     abstract public function render();
 }
 
+/**
+ * Class XoopsXmlRpcFault
+ */
 class XoopsXmlRpcFault extends XoopsXmlRpcTag
 {
     /**
@@ -195,10 +210,14 @@ class XoopsXmlRpcFault extends XoopsXmlRpcTag
                 break;
         }
         $string .= "\n" . $this->_extra;
+
         return '<fault><value><struct><member><name>faultCode</name><value>' . $this->_code . '</value></member><member><name>faultString</name><value>' . $this->encode($string) . '</value></member></struct></value></fault>';
     }
 }
 
+/**
+ * Class XoopsXmlRpcInt
+ */
 class XoopsXmlRpcInt extends XoopsXmlRpcTag
 {
     /**
@@ -223,6 +242,9 @@ class XoopsXmlRpcInt extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcDouble
+ */
 class XoopsXmlRpcDouble extends XoopsXmlRpcTag
 {
     /**
@@ -247,6 +269,9 @@ class XoopsXmlRpcDouble extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcBoolean
+ */
 class XoopsXmlRpcBoolean extends XoopsXmlRpcTag
 {
     /**
@@ -271,6 +296,9 @@ class XoopsXmlRpcBoolean extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcString
+ */
 class XoopsXmlRpcString extends XoopsXmlRpcTag
 {
     /**
@@ -295,6 +323,9 @@ class XoopsXmlRpcString extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcDatetime
+ */
 class XoopsXmlRpcDatetime extends XoopsXmlRpcTag
 {
     /**
@@ -323,6 +354,9 @@ class XoopsXmlRpcDatetime extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcBase64
+ */
 class XoopsXmlRpcBase64 extends XoopsXmlRpcTag
 {
     /**
@@ -347,6 +381,9 @@ class XoopsXmlRpcBase64 extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcArray
+ */
 class XoopsXmlRpcArray extends XoopsXmlRpcTag
 {
     /**
@@ -378,6 +415,9 @@ class XoopsXmlRpcArray extends XoopsXmlRpcTag
     }
 }
 
+/**
+ * Class XoopsXmlRpcStruct
+ */
 class XoopsXmlRpcStruct extends XoopsXmlRpcTag
 {
     /**
@@ -395,6 +435,9 @@ class XoopsXmlRpcStruct extends XoopsXmlRpcTag
         $this->_tags[] = array('name' => $name, 'value' => $tagobj);
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $ret = '<value><struct>';

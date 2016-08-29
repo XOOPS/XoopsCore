@@ -20,5 +20,6 @@ function smarty_function_translate($params, &$smarty)
 {
     $key = isset($params['key']) ? $params['key'] : '';
     $dirname = isset($params['dirname']) ? $params['dirname'] : 'xoops';
-    return \Xoops\Core\Text\Sanitizer::getInstance()->escapeForJavascript(\Xoops\Locale::translate($key, $dirname));
+    return \Xoops\Locale::translate($key, $dirname);
+    //return \Xoops\Core\Text\Sanitizer::getInstance()->escapeForJavascript(\Xoops\Locale::translate($key, $dirname));
 }

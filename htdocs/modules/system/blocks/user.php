@@ -42,8 +42,9 @@ function b_system_user_show()
             $block['modules'][$i]['name'] = $menu['name'];
             $block['modules'][$i]['link'] = $xoops->url('modules/' . $dirname . '/' . $menu['link']);
             $block['modules'][$i]['image'] = $menu['image'];
-            $block['modules'][$i]['icon'] = 'icon-tags';
+            $block['modules'][$i]['icon'] = 'glyphicon glyphicon-none';
             $block['modules'][$i]['dirname'] = $dirname;
+            $block['modules'][$i]['title'] = $menu['name'];
 
             //todo, remove this hardcoded call
             if ($xoops->isModule() && $xoops->module->getVar('dirname') == $dirname && $plugin = \Xoops\Module\Plugin::getPlugin($dirname, 'menus')) {
@@ -52,7 +53,8 @@ function b_system_user_show()
                     foreach ($sublinks as $sublink) {
                         $block['modules'][$i]['sublinks'][] = array(
                             'name' => $sublink['name'],
-                            'url'  => \XoopsBaseConfig::get('url') . '/modules/' . $dirname . '/' . $sublink['url']
+                            'title' => $sublink['name'],
+                            'url'  => $xoops->url('modules/' . $dirname . '/' . $sublink['url'])
                         );
                     }
                 }
@@ -66,14 +68,16 @@ function b_system_user_show()
     array_unshift($block['modules'], array(
         'name' => XoopsLocale::VIEW_ACCOUNT,
         'link' => $xoops->url('userinfo.php?uid=' . $xoops->user->getVar('uid')),
-        'icon' => 'icon-user',
+        'icon' => 'glyphicon glyphicon-user',
+        'title' => XoopsLocale::VIEW_ACCOUNT,
     ));
 
     // Edit Account
     array_unshift($block['modules'], array(
         'name' => XoopsLocale::EDIT_ACCOUNT,
         'link' => $xoops->url('edituser.php'),
-        'icon' => 'icon-user',
+        'icon' => 'glyphicon glyphicon-pencil',
+        'title' => XoopsLocale::EDIT_ACCOUNT,
     ));
 
     // Administration Menu
@@ -81,8 +85,9 @@ function b_system_user_show()
         array_unshift($block['modules'], array(
             'name' => SystemLocale::ADMINISTRATION_MENU,
             'link' => $xoops->url('admin.php'),
-            'rel'  => 'external',
-            'icon' => 'icon-wrench',
+            //'rel'  => 'external',
+            'icon' => 'glyphicon glyphicon-wrench',
+            'title' => SystemLocale::ADMINISTRATION_MENU,
         ));
     }
 
@@ -95,22 +100,24 @@ function b_system_user_show()
     $name = XoopsLocale::INBOX;
     $class = '';
     if ($pm_count = $pm_handler->getCount($criteria)) {
-        $name = XoopsLocale::INBOX . ' <strong>' . $pm_count . '</strong>';
-        $class = 'highlight';
+        $name = XoopsLocale::INBOX . ' <span class="badge">' . $pm_count . '</span>';
+        //$class = 'text-info';
     }
 
     array_push($block['modules'], array(
         'name'  => $name,
         'link'  => $xoops->url('viewpmsg.php'),
-        'icon'  => 'icon-envelope',
+        'icon'  => 'glyphicon glyphicon-envelope',
         'class' => $class,
+        'title' => XoopsLocale::INBOX,
     ));
 
     // Logout
     array_push($block['modules'], array(
         'name' => XoopsLocale::A_LOGOUT,
         'link' => $xoops->url('user.php?op=logout'),
-        'icon' => 'icon-off',
+        'icon' => 'glyphicon glyphicon-log-out',
+        'title' => XoopsLocale::A_LOGOUT,
     ));
 
     $block['active_url'] = \Xoops\Core\HttpRequest::getInstance()->getUrl();

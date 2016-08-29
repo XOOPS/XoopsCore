@@ -72,20 +72,19 @@ class DtypeMoneyTest extends \PHPUnit_Framework_TestCase
     {
         $testValue = new Money(10000, new Currency('USD'));
         $key = 'money_test';
-
         $this->xObject[$key] = $testValue;
         $this->xObject[$key] = $this->object->cleanVar($this->xObject, $key);
 
         $value = $this->xObject->getVar($key, Dtype::FORMAT_NONE);
         $this->assertInstanceOf('\Money\Money', $value);
         $this->assertEquals($testValue->getAmount(), $value->getAmount());
-        $this->assertEquals($testValue->getCurrency(), $value->getCurrency());
+        $this->assertTrue($testValue->getCurrency()->equals($value->getCurrency()));
         $this->assertNotSame($value, $testValue);
 
         $value2 = $this->xObject->getVar($key, Dtype::FORMAT_SHOW);
         $this->assertInstanceOf('\Money\Money', $value2);
         $this->assertEquals($testValue->getAmount(), $value2->getAmount());
-        $this->assertEquals($testValue->getCurrency(), $value2->getCurrency());
+        $this->assertTrue($testValue->getCurrency()->equals($value2->getCurrency()));
         $this->assertNotSame($value, $value2);
     }
 
@@ -97,9 +96,9 @@ class DtypeMoneyTest extends \PHPUnit_Framework_TestCase
         $this->xObject->cleanVars();
         $value = $this->xObject->cleanVars[$key];
         $this->assertTrue(is_string($value));
-        $decode = json_decode($value, true);
+        $decode = json_decode($value, true, 2, JSON_BIGINT_AS_STRING);
         $this->assertTrue(is_array($decode));
-        $this->assertSame($decode['a'], 30000);
-        $this->assertSame($decode['c'], 'EUR');
+        $this->assertSame((string) $decode['amount'], '30000');
+        $this->assertSame($decode['currency'], 'EUR');
     }
 }

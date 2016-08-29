@@ -19,9 +19,7 @@ namespace Xmf;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Highlighter
 {
@@ -43,7 +41,7 @@ class Highlighter
      *
      * @return string highlighted body
      */
-    public static function apply($words, $body, $pre = '<strong>', $post = '</strong>')
+    public static function apply($words, $body, $pre = '<mark>', $post = '</mark>')
     {
         if (!is_array($words)) {
             $words = str_replace('  ', ' ', $words);

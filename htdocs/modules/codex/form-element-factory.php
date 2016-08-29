@@ -13,9 +13,9 @@ use Xoops\Form\ElementFactory;
 use Xoops\Form\ThemeForm;
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -38,7 +38,7 @@ $factory->create([
     'description' => 'Description code',
     'pattern' => '^.{3,}$',
     ':pattern_description' => 'You need at least 3 characters',
-    'datalist' => ['Alfa', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot'],
+    'datalist' => ['Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot'],
     'required' => null,
 ]);
 
@@ -121,7 +121,7 @@ $factory->create([
 ]);
 
 $factory->create([
-    ElementFactory::CLASS_KEY => 'DateTime',
+    ElementFactory::CLASS_KEY => 'DateTimeSelect',
     'caption' => 'Date time',
     'name' => 'date_time',
     'description' => 'Description Date time',
@@ -196,7 +196,7 @@ $factory->create([
     'caption' => '',
     'name' => 'button_tray',
     'type' => 'submit',
-    'class' => 'btn btn-inverse',
+    'class' => 'btn btn-warning',
     'value' => XoopsLocale::A_SUBMIT,
     ':showdelete' => true,
 ]);
@@ -214,7 +214,7 @@ class AwesomeButton extends Xoops\Form\Button
         $this->set('type', 'button');
         $this->setIfNotSet('name', 'awesome');
         $this->setIfNotSet('value', 'Awesome!');
-        $this->add('class', 'btn btn-large btn-success');
+        $this->add('class', 'btn btn-large btn-lg btn-success');
     }
 }
 

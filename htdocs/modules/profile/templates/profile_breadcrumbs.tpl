@@ -1,1 +1,1 @@
-<{$profile_breadcrumbs}>
+{$profile_breadcrumbs}

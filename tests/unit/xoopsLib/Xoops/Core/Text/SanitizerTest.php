@@ -84,7 +84,7 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Xoops\Core\Text\Sanitizer::smiley
      */
-    public function testSmiley($text)
+    public function testSmiley()
     {
         if (\Xoops::getInstance()->isActiveModule('smilies')) {
             $message = $this->object->smiley('happy :-) happy');
@@ -140,7 +140,7 @@ class SanitizerTest extends \PHPUnit_Framework_TestCase
 
         $text = 'toto&nbsp;titi';
         $message = $this->object->htmlSpecialChars($text);
-        $this->assertSame('toto&amp;nbsp;titi',$message);
+        $this->assertSame('toto&nbsp;titi',$message);
     }
 
     /**

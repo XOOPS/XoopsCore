@@ -28,8 +28,8 @@ function b_search_show()
 
     // create form elements
     $form->addElement(new Xoops\Form\Text('', 'query', 20, 100, '', _MD_SEARCH_KEYWORDS), true);
-    $form->addElement(new Xoops\Form\Hidden('action', 'results'));
-    $form->addElement(new Xoops\Form\Token('id'));
+    //$form->addElement(new Xoops\Form\Hidden('action', 'results'));
+    //$form->addElement(new Xoops\Form\Token('id'));
 
     $buttonSubmit = new Xoops\Form\Button('', 'submit', _MD_SEARCH, 'submit');
     $buttonSubmit->setClass('btn btn-primary');

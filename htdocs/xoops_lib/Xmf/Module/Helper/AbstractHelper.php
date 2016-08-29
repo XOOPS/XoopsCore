@@ -21,9 +21,7 @@ namespace Xmf\Module\Helper;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 abstract class AbstractHelper
 {
@@ -48,12 +46,13 @@ abstract class AbstractHelper
     public function __construct($dirname = null)
     {
         $this->module = null;
-
+        if (class_exists('Xoops', false)) {
+            $xoops = \Xoops::getInstance();
+        }
         if (empty($dirname)) {
             // nothing specified, use current module
             // check if we are running in 2.6
-            if (class_exists('Xoops', false)) {
-                $xoops = \Xoops::getInstance();
+            if (isset($xoops)) {
                 if ($xoops->isModule()) {
                     $this->module = $xoops->module;
                 }
@@ -62,7 +61,11 @@ abstract class AbstractHelper
             }
         } else {
             // assume dirname specified, try to get a module object
-            $moduleHandler = xoops_getHandler('module');
+            if (isset($xoops)) {
+                $moduleHandler = $xoops->getHandlerModule();
+            } else {
+                $moduleHandler = xoops_getHandler('module');
+            }
             $this->module = $moduleHandler->getByDirname($dirname);
         }
         if (is_object($this->module)) {

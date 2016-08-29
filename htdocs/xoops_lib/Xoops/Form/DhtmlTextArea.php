@@ -19,7 +19,7 @@ namespace Xoops\Form;
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Vinod <smartvinu@gmail.com>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -178,15 +178,19 @@ class DhtmlTextArea extends \XoopsEditor
         // fonts
         $ret .= $this->fontArray();
         // length checker
-        $ret .= "<input type='button' class='btn' onclick=\"XoopsCheckLength('" . $this->getName() . "', '" . @$this->configs['maxlength'] . "', '" . \XoopsLocale::F_CURRENT_TEXT_LENGTH . "', '" . \XoopsLocale::MAXIMUM_LENGTH . "');\" value=' ? ' title='" . \XoopsLocale::CHECK_TEXT_LENGTH . "' />";
-        $ret .= "<br />\n";
+        $ret .= '<button type="button" class="btn btn-xs btn-default" onclick="XoopsCheckLength(\''
+            . $this->getName() . '\', \'' . @$this->configs['maxlength'] . '\', \''
+            . \XoopsLocale::F_CURRENT_TEXT_LENGTH . '\', \'' . \XoopsLocale::MAXIMUM_LENGTH . '\');"'
+            . ' title="' . \XoopsLocale::CHECK_TEXT_LENGTH . '">'
+            . '<span class="glyphicon glyphicon-check"></span></button>';
+        $ret .= "\n";
         // the textarea box
 
         $this->suppressRender(['value']);
         $this->themeDecorateElement();
         $attributes = $this->renderAttributeString();
 
-        $ret .= '<textarea ' . $attributes . $extra . '>' . $this->getValue() . "</textarea><br />\n";
+        $ret .= '<textarea ' . $attributes . $extra . '>' . $this->getValue() . "</textarea>\n";
 
         if (empty($this->skipPreview)) {
             if (!$xoops->theme()) {
@@ -194,7 +198,7 @@ class DhtmlTextArea extends \XoopsEditor
             } else {
                 $xoops->theme()->addScript('media/xoops/image.js', array('type' => 'text/javascript'));
             }
-            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int)($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
+            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn btn-sm btn-default' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int)($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
             $ret .= "<br />" . "<div id='" . $this->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $this->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
         }
         // Load javascript

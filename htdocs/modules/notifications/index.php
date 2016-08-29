@@ -25,7 +25,7 @@ $xoops = Xoops::getInstance();
 $helper = Notifications::getInstance();
 
 if (!$xoops->isUser()) {
-    $xoops->redirect('index.php', 3, _MD_NOTIFICATIONS_NOACCESS);
+    $xoops->redirect($xoops->url('www/index.php'), 3, _MD_NOTIFICATIONS_NOACCESS);
 }
 
 $uid = $xoops->user->getVar('uid');

@@ -27,9 +27,7 @@ use Xoops\Core\Locale\Time;
  * @author    Joomla!
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Request
 {
@@ -326,7 +324,7 @@ class Request
     }
 
     /**
-     * Return a DateTime object from a Xoops\Form\DateSelect of Xoops\Form\DateTime field
+     * Return a DateTime object from a Xoops\Form\DateSelect or Xoops\Form\DateTimeSelect field
      *
      * @param string $name    Variable name
      * @param mixed  $default Default value if the variable does not exist
@@ -340,11 +338,11 @@ class Request
         $count = count($values);
         if ($count === 1) {
             $date = reset($values);
-            $ret = Time::inputToDateTime($date);
+            $ret = (empty($date)) ? $default : Time::inputToDateTime($date);
         } elseif (isset($values['date']) && isset($values['time'])) {
-            $ret = Time::inputToDateTime($values);
+            $ret = (empty($values['date'])) ? $default : Time::inputToDateTime($values);
         } else {
-            $ret = Time::cleanTime($default);
+            $ret = $default;
         }
         return $ret;
     }
@@ -384,6 +382,29 @@ class Request
             return static::cleanVar($headers[$name]);
         }
         return $default;
+    }
+
+    /**
+     * See if a variable exists in one of the request hashes
+     *
+     * @param string $name variable to look for
+     * @param string $hash hash to check
+     *
+     * @return boolean True if hash has an element 'name', otherwise false
+     */
+    public static function hasVar($name, $hash = 'method')
+    {
+        $hash = strtoupper($hash);
+        if ($hash === 'METHOD') {
+            $hash = strtoupper($_SERVER['REQUEST_METHOD']);
+        }
+
+        // Get the requested hash and determine existing value
+        $original = static::get($hash, static::MASK_ALLOW_RAW);
+        if (isset($original[$name])) {
+            return true;
+        }
+        return false;
     }
 
     /**

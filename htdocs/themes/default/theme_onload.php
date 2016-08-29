@@ -5,12 +5,16 @@
 $xoops = Xoops::getInstance();
 // replace the jquery ui theme config option with theme based asset definition
 $xoops->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/themes/smoothness/jquery-ui.css');
-$xoops->theme()->setNamedAsset('bootstrap', 'media/bootstrap/js/bootstrap.min.js');
-$xoops->theme()->addBaseScriptAssets(array('@jquery', '@bootstrap'));
+
+$xoops->theme()->addBaseScriptAssets(array(
+    'themes/default/assets/js/jquery.min.js',
+    'themes/default/assets/js/bootstrap.min.js',
+    'themes/default/assets/js/ie10-viewport-bug-workaround.js',
+));
 
 $xoops->theme()->addBaseStylesheetAssets(array(
     'xoops.css',
-    'media/bootstrap/css/bootstrap.css',
-    'themes/default/media/bootstrap/css/xoops.bootstrap.css',
-    'themes/default/css/style.css',
+    'themes/default/assets/css/bootstrap.css',
+    'themes/default/assets/css/xoops.bootstrap.css',
+    'themes/default/assets/css/style.css',
 ));

@@ -39,16 +39,24 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('ArrayObject', $instance);
         $this->assertInstanceOf('\Xoops\Core\AttributeInterface', $instance);
+        $this->assertInstanceOf('\Xoops\Core\XoopsArray', $instance);
     }
 
     public function test_get()
     {
-        // see test_remove
-    }
+        $instance = $this->object;
 
-    public function test_set()
-    {
-        // see test_remove
+        $testkey = 'testkey';
+        $testvalue = 'testvalue';
+        $this->object->remove($testkey);
+        $value = $this->object->get($testkey);
+        $this->assertNull($value);
+
+        $value = $this->object->get($testkey, $testvalue);
+        $this->assertSame($testvalue, $value);
+
+        $value = $instance->remove($testkey);
+        $this->assertNull($value);
     }
 
     public function test_has()
@@ -65,7 +73,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $value = $instance->has($testkey);
         $this->assertTrue($value);
     }
-    
+
     public function test_remove()
     {
         $instance = $this->object;
@@ -75,14 +83,14 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
         $instance->set($testkey, $testvalue);
         $value = $instance->get($testkey);
         $this->assertSame($testvalue, $value);
-        
+
         $result = $instance->remove('name_doesnt_exist');
         $this->assertSame(null, $result);
 
         $result = $instance->remove($testkey);
         $this->assertSame($testvalue, $result);
     }
-    
+
     public function test_clear()
     {
         $instance = $this->object;

@@ -32,7 +32,7 @@ class SelectLanguage extends Select
      *                               Legal is any name of a XOOPS_ROOT_PATH."/language/" subdirectory.
      * @param integer      $size    Number of rows. "1" makes a drop-down-list.
      */
-    public function __construct($caption, $name, $value = null, $size = 1)
+    public function __construct($caption, $name = '', $value = null, $size = 1)
     {
         parent::__construct($caption, $name, $value, $size);
         $this->addOptionArray(\XoopsLists::getLangList());

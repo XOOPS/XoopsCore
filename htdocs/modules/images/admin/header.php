@@ -10,7 +10,7 @@
 */
 
 use Xoops\Core\FixedGroups;
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * images module

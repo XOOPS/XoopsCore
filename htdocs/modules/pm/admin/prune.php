@@ -9,16 +9,19 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Xmf\Request;
+
 /**
  * Private message
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 include __DIR__ . '/header.php';
 
@@ -29,23 +32,25 @@ $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('prune.php');
 
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : "form";
-/* @var $pm_handler PmMessageHandler */
-$pm_handler = $xoops->getModuleHandler('message');
+/* @var $pmHandler PmMessageHandler */
+$pmHandler = $xoops->getModuleHandler('message');
 
 switch ($op) {
     default:
     case "form":
-        $form = $pm_handler->getPruneForm();
+        $form = $pmHandler->getPruneForm();
         $form->display();
         break;
 
     case "prune":
         $criteria = new CriteriaCompo();
-        if ($_REQUEST['after']['date'] && $_REQUEST['after']['date'] !== "YYYY/MM/DD") {
-            $criteria->add(new Criteria('msg_time', strtotime($_REQUEST['after']['date']) + (int)($_REQUEST['after']['time']), ">"));
+        $afterDateTime = Request::getDateTime('after', null);
+        if (null !== $afterDateTime) {
+            $criteria->add(new Criteria('msg_time', $afterDateTime->getTimestamp(), ">"));
         }
-        if ($_REQUEST['before']['date'] && $_REQUEST['before']['date'] !== "YYYY/MM/DD") {
-            $criteria->add(new Criteria('msg_time', strtotime($_REQUEST['before']['date']) + (int)($_REQUEST['before']['time']), "<"));
+        $beforeDateTime = Request::getDateTime('before', null);
+        if (null !== $beforeDateTime) {
+            $criteria->add(new Criteria('msg_time', $beforeDateTime->getTimestamp(), "<"));
         }
         if (isset($_REQUEST['onlyread']) && $_REQUEST['onlyread'] == 1) {
             $criteria->add(new Criteria('read_msg', 1));
@@ -56,26 +61,27 @@ switch ($op) {
             $criteria->add($savecriteria);
         }
         if (isset($_REQUEST['notifyusers']) && $_REQUEST['notifyusers'] == 1) {
-            $notifycriteria = $criteria;
+            $notifycriteria = clone $criteria;
             $notifycriteria->add(new Criteria('to_delete', 0));
             $notifycriteria->setGroupBy('to_userid');
             // Get array of uid => number of deleted messages
-            $uids = $pm_handler->getCount($notifycriteria);
+            $uids = $pmHandler->getCount($notifycriteria);
         }
-        $deletedrows = $pm_handler->deleteAll($criteria);
+        \Xmf\Debug::log($criteria, $uids);
+        $deletedrows = 0; // $pmHandler->deleteAll($criteria);
         if ($deletedrows === false) {
             $xoops->redirect('prune.php', 2, _PM_AM_ERRORWHILEPRUNING);
         }
         if (isset($_REQUEST['notifyusers']) && $_REQUEST['notifyusers'] == 1) {
             $errors = false;
             foreach ($uids as $uid => $messagecount) {
-                $pm = $pm_handler->create();
+                $pm = $pmHandler->create();
                 $pm->setVar("subject", $xoops->getModuleConfig('prunesubject'));
                 $pm->setVar("msg_text", str_replace('{PM_COUNT}', $messagecount, $xoops->getModuleConfig('prunemessage')));
                 $pm->setVar("to_userid", $uid);
                 $pm->setVar("from_userid", $xoops->user->getVar("uid"));
                 $pm->setVar("msg_time", time());
-                if (!$pm_handler->insert($pm)) {
+                if (!$pmHandler->insert($pm)) {
                     $errors = true;
                     $errormsg[] = $pm->getHtmlErrors();
                 }

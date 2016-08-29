@@ -81,7 +81,7 @@ class ComposerUtility
         try {
             $process->run(
                 function ($type, $buffer) use (&$errors, &$output) {
-                    if ('err' === $type) {
+                    if (Process::ERR === $type) {
                         $errors[] = $buffer;
                     } else {
                         $this->output[] = $buffer;
@@ -89,10 +89,11 @@ class ComposerUtility
                 }
             );
         } catch (\Exception $e) {
-            $errors[] = $e->getMessage();
+            $this->errors[] = $e->getMessage();
         }
 
         if ($process->isSuccessful()) {
+            array_unshift($this->output, $process->getErrorOutput());
             return true;
         } else {
             $this->errors[] = 'Failed: ' . $command;

@@ -11,8 +11,6 @@
 
 namespace Xoops\Core;
 
-use Xoops\Core\Locale\Time;
-
 /**
  * Request Class
  *

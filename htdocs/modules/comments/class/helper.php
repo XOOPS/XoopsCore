@@ -11,7 +11,7 @@
 
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
-use Xoops\Core\Request;
+use Xmf\Request;
 
 /**
  * @category  Helper

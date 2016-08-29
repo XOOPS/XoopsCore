@@ -50,7 +50,8 @@ class BlockFormTest extends \PHPUnit_Framework_TestCase
         $this->object->addElement($button);
 
         $x = $this->object->render();
-        $this->assertTrue(false !== strpos($x, '<div class="span2"><strong>' . $caption .'</strong></div>'));
+        $this->assertTrue(false !== strpos($x, '<div class="form-group">'));
+        $this->assertTrue(false !== strpos($x, '<label>' . $caption .'</label>'));
         $this->assertTrue(false !== strpos($x, '<input type="button"'));
         $this->assertTrue(false !== strpos($x, 'name="' . $name .'"'));
         $this->assertTrue(false !== strpos($x, 'id="' . $name .'"'));

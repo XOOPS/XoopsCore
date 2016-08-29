@@ -1,5 +1,4 @@
 <?php
-// $Id$
 // _LANGCODE: en
 // _CHARSET : UTF-8
 // Translator: XOOPS Translation Team
@@ -12,6 +11,7 @@ define("_PM_PRIVATEMESSAGE","Private Messages");
 define("_PM_INBOX","Inbox");
 define("_PM_FROM","From");
 define("_PM_YOUDONTHAVE","You don't have any private messages");
+define("_PM_FOLDER_EMPTY","This folder is empty.");
 define("_PM_FROMC","From: ");
 define("_PM_SENTC","Sent: "); // The date of message sent
 //define("_PM_PROFILE","Profile");

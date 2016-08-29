@@ -10,9 +10,9 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -21,7 +21,7 @@ $xoops = Xoops::getInstance();
 $xoops->header();
 
 // Form Horizontal
-$form = new Xoops\Form\ThemeForm('Form Horizontal', 'form_horizontal', 'form.php', 'post', true, 'horizontal');
+$form = new Xoops\Form\ThemeForm('Form Example', 'form_example', 'form.php', 'post', true, 'horizontal');
 
 $code = new Xoops\Form\Text('Code', 'code', 10, 25, '', 'Code...');
 $code->setDescription('Description code');
@@ -102,7 +102,7 @@ $date = new Xoops\Form\DateSelect('Date', 'date', 0);
 $date->setDescription('Description Date');
 $form->addElement($date, true);
 
-$date_time = new Xoops\Form\DateTime('Date time', 'date_time', 0);
+$date_time = new Xoops\Form\DateTimeSelect('Date time', 'date_time', 0);
 $date_time->setDescription('Description Date time');
 $form->addElement($date_time, true);
 
@@ -129,7 +129,7 @@ $buttonReset->setClass('btn btn-danger');
 $form->addElement($buttonReset);
 
 $buttonTray = new Xoops\Form\ButtonTray('button_tray', XoopsLocale::A_SUBMIT, 'submit', '', true);
-$buttonTray->setClass('btn btn-inverse');
+$buttonTray->setClass('btn btn-warning');
 $form->addElement($buttonTray);
 
 $form->display();

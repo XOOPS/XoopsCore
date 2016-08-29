@@ -14,7 +14,7 @@ namespace Xoops;
 use Punic\Data;
 use Punic\Exception\InvalidLocale;
 use Xoops\Core\HttpRequest;
-use Xoops\Core\Request;
+use Xmf\Request;
 use Xoops\Core\Theme\XoopsTheme;
 
 /**
@@ -232,7 +232,7 @@ class Locale
 
     /**
      * load locale for theme
-     * 
+     *
      * @param XoopsTheme $theme
      *
      * @return bool
@@ -410,5 +410,17 @@ class Locale
         }
 
         return $key;
+    }
+
+    /**
+     * Return a normalized form of a resource domain. A resource domain is always lowercase.
+     *
+     * @param string $domain resource domain (usually a module dirname)
+     *
+     * @return string normalized resource domain
+     */
+    public static function normalizeDomain($domain)
+    {
+        return strtolower($domain);
     }
 }

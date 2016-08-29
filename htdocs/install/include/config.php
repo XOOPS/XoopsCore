@@ -182,7 +182,6 @@ $configs['ext'] = array(
     'smilies',
     'thumbs',
     'userrank',
-//    'xmf',
 );
 
 // xoops_lib, xoops_data directories

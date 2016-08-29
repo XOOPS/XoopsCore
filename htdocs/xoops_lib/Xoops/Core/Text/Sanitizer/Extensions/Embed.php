@@ -19,8 +19,8 @@ use Xoops\Core\Text\Sanitizer\FilterAbstract;
  *
  * @category  Sanitizer
  * @package   Xoops\Core\Text
- * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @copyright 2015-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -71,7 +71,7 @@ class Embed extends FilterAbstract
         $xoops = \Xoops::getInstance();
         $md5 = md5($url);
         $crc = hash("crc32b", $url);
-        $key = ['embed', substr($crc, -2), $md5];
+        $key = implode('/', ['embed', substr($crc, -2), $md5]);
         //$xoops->cache()->delete($key);
         $decorated = $xoops->cache()->cacheRead(
             $key,
@@ -85,7 +85,13 @@ class Embed extends FilterAbstract
                 if (is_object($info)) {
                     $return = $info->code;
                     if (empty($return)) {
-                        $return = $this->mediaBox($info->url, $info->image, $info->title, $info->description);
+                        return $this->mediaBox($info->url, $info->image, $info->title, $info->description);
+                    }
+                    $height = $info->getHeight();
+                    $width = $info->getWidth();
+                    if ($this->enableResponsive($return) && !empty($height) && !empty($width)) {
+                        $ratio = (1.5 > ($width/$height)) ? '4by3' : '16by9';
+                        $return = '<div class="embed-responsive embed-responsive-' . $ratio . '">' . $return . '</div>';
                     }
                 }
                 if (empty($return)) {
@@ -120,4 +126,25 @@ EOT;
         return $box;
     }
 
+    /**
+     * Check for know issues if wrapped in embed-responsive div
+     *
+     * @param string $code embed code to stest
+     *
+     * @return bool true if responsive should be enabled, false otherwise
+     */
+    protected function enableResponsive($code)
+    {
+        // sites in this list are known to have problems
+        $excludeList = [
+            'circuitlab.com',
+        ];
+
+        foreach ($excludeList as $test) {
+            if (false !== stripos($code, $test)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

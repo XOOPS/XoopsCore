@@ -10,12 +10,11 @@
         }
     },
     "require": {
-        "xoops/base-requires": "0.1.*"
+        "xoops/base-requires": "0.2.*"
     },
     "require-dev": {
-        "raveren/kint": "*",
         "phpunit/phpunit": ">=4.8",
-        "phpunit/phpunit-skeleton-generator": "*"
+        "codeception/codeception": "^2.1"
     },
     "extra": {
         "xoops_modules_path": "../modules/"

@@ -12,12 +12,9 @@
 /**
  * Codex module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         Codex
- * @since           2.6.0
- * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
+ * @author    Laurent JEN (Aka DuGris)
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 
 class CodexSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface

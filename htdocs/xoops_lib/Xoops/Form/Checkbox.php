@@ -19,7 +19,7 @@ namespace Xoops\Form;
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Skalpa Keo <skalpa@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -85,6 +85,10 @@ class Checkbox extends OptionElement
         }
 
         $ret = "";
+        $inline = (bool) $this->get(':inline', false);
+        if ($inline) {
+            $ret .= '<div class="input-group">';
+        }
         $idCount = 0;
         foreach ($elementOptions as $value => $name) {
             $this->remove('checked');
@@ -94,13 +98,22 @@ class Checkbox extends OptionElement
             $this->set('value', $value);
             ++$idCount;
             $this->set('id', $elementId . $idCount);
-            $ret .= '<label class="checkbox' . ((bool) $this->get(':inline', false) ? ' inline' : '') . '">' . "\n";
-            $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . "\n";
-            $ret .= $name . "\n";
-            $ret .= "</label>" . "\n";
+            if ($inline) {
+                $ret .= '<label class="checkbox-inline">';
+                $ret .= '<input ' . $this->renderAttributeString() . $extra . ">" . $name . "\n";
+                $ret .= "</label>\n";
+            } else {
+                $ret .= "<div class=\"checkbox\">\n<label>";
+                $ret .= '<input ' . $this->renderAttributeString() . $extra . '>' . $name . "\n";
+                $ret .= "</label>\n</div>\n";
+            }
+
         }
         if ($required) {
             $this->set('required');
+        }
+        if ($inline) {
+            $ret .= '</div>';
         }
         return $ret;
     }

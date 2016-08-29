@@ -10,18 +10,18 @@
 */
 
 use Xoops\Core\FixedGroups;
+use Xoops\Html\Menu\Link;
 
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
  * @author          Jan Pedersen
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
 
 include __DIR__ . '/header.php';
@@ -71,13 +71,14 @@ $xoops->header('module:profile/profile_register.tpl');
 $xoops->tpl()->assign('steps', $steps);
 $xoops->tpl()->assign('lang_register_steps', _PROFILE_MA_REGISTER_STEPS);
 
-$xoops->appendConfig('profile_breadcrumbs', array(
-    'caption' => _PROFILE_MA_REGISTER,
-    'link' => $xoops->url('modules/profile/register.php'),
-));
+$xoops->registry()->get('profile_breadcrumbs')->addItem(
+    new Link(['caption' => _PROFILE_MA_REGISTER, 'link' => $xoops->url('modules/profile/register.php'),])
+);
 
 if (isset($steps[$current_step])) {
-    $xoops->appendConfig('profile_breadcrumbs', array('caption' => $steps[$current_step]['step_name']));
+    $xoops->registry()->get('profile_breadcrumbs')->addItem(
+        new Link(['caption' => $steps[$current_step]['step_name']])
+    );
 }
 
 $member_handler = $xoops->getHandlerMember();
@@ -206,7 +207,7 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
         $newuser->setVar('email', $email);
         $newuser->setVar('pass', $pass ? password_hash($pass, PASSWORD_DEFAULT) : '');
         $newuser->setVar('last_pass_change', time());
-        $actkey = substr(md5(uniqid(mt_rand(), 1)), 0, 8);
+        $actkey = substr(\Xmf\Random::generateKey(), 16, 8);
         $newuser->setVar('actkey', $actkey);
         $newuser->setVar('user_regdate', time());
         $newuser->setVar('uorder', $xoops->getConfig('com_order'));

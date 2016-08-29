@@ -10,18 +10,18 @@
  */
 
 /**
- * @copyright       2011-2015 XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          Richard Griffith <richard@geekwright.com>
- * @author          trabis <lusopoemas@gmail.com>
+ * @copyright 2011-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    Richard Griffith <richard@geekwright.com>
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 use Xmf\Debug;
 use Xmf\Highlighter;
 use Xmf\Metagen;
 use Xmf\Request;
-use Xmf\Module\Permission;
-use Xmf\Module\Session;
+use Xmf\Module\Helper\Permission;
+use Xmf\Module\Helper\Session;
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 

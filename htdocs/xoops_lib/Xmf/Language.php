@@ -19,9 +19,7 @@ namespace Xmf;
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Language
 {
@@ -78,7 +76,7 @@ class Language
      */
     protected static function loadFile($filename)
     {
-        if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $filename)) {
+        if (preg_match('/[[:cntrl:]]/i', $filename)) {
             throw new \InvalidArgumentException('Security check: Illegal character in filename');
         }
         if (file_exists($filename)) {

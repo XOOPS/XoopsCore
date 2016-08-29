@@ -16,7 +16,7 @@ namespace Xoops\Core;
  *
  * This provides some of the functionality that was in the Xoops_Request classes.
  * The majority of use for the class was the 'asXyz()' methods, and all such uses
- * should move to Xoops\Core\Request::getXyz() methods.
+ * should move to Xmf\Request::getXyz() methods.
  *
  * These are methods which reveal some aspects of the HTTP request environment.
  * This will eventually be reworked to depend on a full HTTP message library
@@ -45,6 +45,10 @@ class HttpRequest
      */
     protected $params;
 
+    /**
+     * @var HttpRequest The reference to *Singleton* instance of this class
+     */
+    private static $instance;
 
     /**
      * The built in detectors used with `is()` can be modified with `addDetector()`.
@@ -175,12 +179,10 @@ class HttpRequest
      */
     public static function getInstance()
     {
-        static $instance;
-        if (!isset($instance)) {
-            $thisClass = get_called_class();
-            $instance = new $thisClass();
+        if (null === static::$instance) {
+            static::$instance = new static();
         }
-        return $instance;
+        return static::$instance;
     }
 
     /**

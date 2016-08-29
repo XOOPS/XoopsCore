@@ -3,14 +3,14 @@
         <tbody>
             <{foreach item=user from=$block.users}>
             <tr>
-                <td class="txt-centered span1"><{$user.rank}></td>
-                <td class="txt-centered span1">
+                <td class="txt-centered col-md-1"><{$user.rank}></td>
+                <td class="txt-centered col-md-1">
                     <{if $user.avatar != ""}>
                     <img class="thumbnail" src="<{$user.avatar}>" alt="<{$user.name}>" />
                     <{/if}>
                     <a href="<{$xoops_url}>/userinfo.php?uid=<{$user.id}>" title="<{$user.name}>"><{$user.name}></a>
                 </td>
-                <td class="txt-centered span1"><{$user.posts}></td>
+                <td class="txt-centered col-md-1"><{$user.posts}></td>
             </tr>
             <{/foreach}>
         </tbody>

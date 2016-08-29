@@ -10,10 +10,9 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          Laurent JEN (aka DuGris)
- * @version         $Id$
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    Laurent JEN (aka DuGris)
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';

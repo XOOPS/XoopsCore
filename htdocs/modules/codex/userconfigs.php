@@ -10,10 +10,9 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2012-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
@@ -32,5 +31,5 @@ if ($xoops->isUser() && $helper = $xoops->getModuleHelper('userconfigs')) {
     echo 'Please login and install userconfigs module';
 }
 
-\Xoops\Utils::dumpFile(__FILE__ );
+\Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

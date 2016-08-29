@@ -69,21 +69,15 @@
             </td>
         </tr>
         {/foreach}
-        {if $total_messages > 0}
         <tr>
             <td colspan='6'>
-                <input type='button' class='btn' onclick='javascript:openWithSelfMain("pmlite.php?send=1", "pmlite",750,720);' value='{translate key="A_SEND"}' />
-                <input type='submit' class='btn' name='delete_messages' value='{translate key="A_DELETE"}' />
+                <input type='button' class='btn btn-default' onclick='javascript:openWithSelfMain("pmlite.php?send=1", "pmlite",750,720);' value='{translate key="A_SEND"}' />
+                {if $total_messages > 0}
+                <input type='submit' class='btn btn-danger' name='delete_messages' value='{translate key="A_DELETE"}' />
                 {$token}
+                {/if}
             </td>
         </tr>
-        {else}
-        <tr>
-            <td colspan='6'>
-                <input type='button' class='btn' onclick='javascript:openWithSelfMain("pmlite.php?send=1", "pmlite",750,720);' value='{translate key="A_SEND"}' />
-            </td>
-        </tr>
-        {/if}
     </table>
 </form>
 {/if}

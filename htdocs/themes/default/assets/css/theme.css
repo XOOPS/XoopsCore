@@ -1,0 +1,25 @@
+body {
+/*  padding-top: 70px; */
+  padding-bottom: 30px;
+}
+
+.navbar-brand {
+  padding: 5px 15px;
+}
+
+.navbar-brand>img {
+  display: inline;
+}
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}

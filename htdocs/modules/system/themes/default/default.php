@@ -35,13 +35,24 @@ class XoopsGuiDefault
         $xoops = Xoops::getInstance();
         $xoops->loadLocale('system');
 
+        $xoops->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/themes/smoothness/jquery-ui.css');
+        $xoops->theme()->setNamedAsset('bootstrap', 'media/bootstrap/js/bootstrap.min.js');
+        $xoops->theme()->addBaseScriptAssets(array('@jquery', '@bootstrap'));
+
+        $xoops->theme()->addBaseStylesheetAssets(array(
+            'xoops.css',
+            'media/bootstrap/css/bootstrap.css',
+            //'themes/default/media/bootstrap/css/xoops.bootstrap.css',
+            //'themes/default/css/style.css',
+        ));
+
         $xoops->theme()->addBaseStylesheetAssets('@jqueryuicss');
         $xoops->theme()->addStylesheet('media/xoops/css/moduladmin.css');
         $xoops->theme()->addStylesheet(\XoopsBaseConfig::get('adminthemes-url') . '/default/css/style.css');
 
-        $xoops->theme()->addBaseScriptAssets('@jquery');
+        // $xoops->theme()->addBaseScriptAssets('@jquery');
         // bootstrap has to come before jquery.ui or dialog close buttons are blank
-        $xoops->theme()->addBaseScriptAssets('@bootstrap');
+        //$xoops->theme()->addBaseScriptAssets('@bootstrap');
         $xoops->theme()->addBaseScriptAssets('@jqueryui');
         $xoops->theme()->addBaseScriptAssets('@jgrowl');
         // ddsmoothmenu

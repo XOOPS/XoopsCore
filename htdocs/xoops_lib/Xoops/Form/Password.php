@@ -18,7 +18,7 @@ namespace Xoops\Form;
  * @package   Xoops\Form
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2001-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -53,8 +53,8 @@ class Password extends Element
             parent::__construct([]);
             $this->setCaption($caption);
             $this->setWithDefaults('name', $name, 'name_error');
-            $this->set('size', (int)($size));
-            $this->set('maxlength', (int)($maxlength));
+            $this->set('size', empty($size) ? 32 : (int) $size);
+            $this->set('maxlength', empty($maxlength) ? 64 : (int) $maxlength);
             $this->setValue($value);
             $this->setWithDefaults('autocomplete', $autoComplete, 'off', ['on', 'off']);
             if (!empty($placeholder)) {

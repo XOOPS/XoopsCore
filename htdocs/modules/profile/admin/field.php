@@ -9,16 +9,17 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\Kernel\Dtype;
+
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 include __DIR__ . '/header.php';
 // Get main instance
@@ -61,10 +62,14 @@ switch ($op) {
         $xoops->tpl()->assign('categories', $categories);
         unset($categories);
         $valuetypes = array(
-            XOBJ_DTYPE_ARRAY => _PROFILE_AM_ARRAY, XOBJ_DTYPE_EMAIL => _PROFILE_AM_EMAIL,
-            XOBJ_DTYPE_INT => _PROFILE_AM_INT, XOBJ_DTYPE_TXTAREA => _PROFILE_AM_TXTAREA,
-            XOBJ_DTYPE_TXTBOX => _PROFILE_AM_TXTBOX, XOBJ_DTYPE_URL => _PROFILE_AM_URL,
-            XOBJ_DTYPE_OTHER => _PROFILE_AM_OTHER, XOBJ_DTYPE_MTIME => _PROFILE_AM_DATE
+            Dtype::TYPE_ARRAY => _PROFILE_AM_ARRAY,
+            Dtype::TYPE_EMAIL => _PROFILE_AM_EMAIL,
+            Dtype::TYPE_INTEGER => _PROFILE_AM_INT,
+            Dtype::TYPE_TEXT_AREA => _PROFILE_AM_TXTAREA,
+            Dtype::TYPE_TEXT_BOX => _PROFILE_AM_TXTBOX,
+            Dtype::TYPE_URL => _PROFILE_AM_URL,
+            Dtype::TYPE_OTHER => _PROFILE_AM_OTHER,
+            Dtype::TYPE_MEDIUM_TIME => _PROFILE_AM_DATE
         );
 
         $fieldtypes = array(

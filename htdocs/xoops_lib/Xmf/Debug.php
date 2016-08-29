@@ -20,9 +20,7 @@ namespace Xmf;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Debug extends \Kint
 {
@@ -71,7 +69,7 @@ class Debug extends \Kint
         $events = \Xoops::getInstance()->events();
         $eventName = 'debug.log';
 
-        if (static::$eventDumper && $events->hasListeners($eventName)) {
+        if (self::$eventDumper && $events->hasListeners($eventName)) {
             foreach ($args as $var) {
                 $events->triggerEvent($eventName, $var);
             }
@@ -110,7 +108,7 @@ class Debug extends \Kint
      */
     public static function useEventDumper($value = true)
     {
-        static::$eventDumper = (bool) $value;
+        self::$eventDumper = (bool) $value;
     }
 
     /**
@@ -140,7 +138,7 @@ class Debug extends \Kint
         if ($events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $var);
         } else {
-            static::$times[$name] = microtime(true);
+            self::$times[$name] = microtime(true);
         }
     }
 
@@ -158,7 +156,7 @@ class Debug extends \Kint
         if ($events->hasListeners($eventName)) {
             $events->triggerEvent($eventName, $name);
         } else {
-            echo $name . ' - ' . (int)(microtime(true) - static::$times[$name]) . " \n";
+            echo $name . ' - ' . (int)(microtime(true) - self::$times[$name]) . " \n";
         }
     }
 
@@ -176,8 +174,8 @@ class Debug extends \Kint
      */
     public static function startQueuedTimer($name, $label = null)
     {
-        static::$times[$name] = microtime(true);
-        static::$timerLabels[$name] = empty($label) ? $name : $label;
+        self::$times[$name] = microtime(true);
+        self::$timerLabels[$name] = empty($label) ? $name : $label;
     }
 
     /**
@@ -189,13 +187,13 @@ class Debug extends \Kint
      */
     public static function stopQueuedTimer($name)
     {
-        if (isset(static::$timerLabels[$name]) && isset(static::$times[$name])) {
+        if (isset(self::$timerLabels[$name]) && isset(self::$times[$name])) {
             $queueItem = array(
-                'label' => static::$timerLabels[$name],
-                'start' => static::$times[$name],
-                'elapsed' => microtime(true) - static::$times[$name],
+                'label' => self::$timerLabels[$name],
+                'start' => self::$times[$name],
+                'elapsed' => microtime(true) - self::$times[$name],
                 );
-            static::$timerQueue[] = $queueItem;
+            self::$timerQueue[] = $queueItem;
         }
     }
 
@@ -211,8 +209,8 @@ class Debug extends \Kint
      */
     public static function dumpQueuedTimers($returnOnly = false)
     {
-        $queue = static::$timerQueue;
-        static::$timerQueue = array();
+        $queue = self::$timerQueue;
+        self::$timerQueue = array();
         if (!$returnOnly) {
             static::dump($queue);
         }

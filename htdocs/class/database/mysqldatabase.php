@@ -38,14 +38,14 @@ class XoopsMySQLDatabase extends XoopsDatabase
     /**
      * Database connection
      *
-     * @var resource
+     * @var Xoops\Core\Database\Connection;
      */
     public $conn;
 
     /**
-     * Database connection
+     * Database connection is established
      *
-     * @var resource
+     * @var boolean
      */
     private $connect = false;
 
@@ -373,13 +373,12 @@ class XoopsMySQLDatabase extends XoopsDatabase
      * @param int    $limit number of records to return
      * @param int    $start offset of first record to return
      *
-     * @return this returns nothing
+     * @return void
      * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
      */
     public function query($sql, $limit = 0, $start = 0)
     {
         $this->deprecated();
-
     }
 
     /**

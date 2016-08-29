@@ -39,8 +39,7 @@ class Factory
      *
      * Doctrine connection function
      *
-     * NOTE: Persistance connection is not included. XOOPS_DB_PCONNECT is ignored.
-     *       allowWebChanges also needs to be addressed
+     * NOTE: persistent connections are not included. XOOPS_DB_PCONNECT is ignored.
      *
      * @param array $options driverOptions for Doctrine
      *
@@ -88,6 +87,9 @@ class Factory
                 $connectionParams,
                 $config
             );
+            if (!defined('XOOPS_DB_PROXY') || ('GET' !== \Xmf\Request::getMethod()) || (php_sapi_name() === 'cli')) {
+                $instance->setSafe(true);
+            }
         }
         return $instance;
     }

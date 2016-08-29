@@ -20,9 +20,7 @@ namespace Xmf;
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Metagen
 {
@@ -189,7 +187,7 @@ class Metagen
 
         if (!$stopwords) {
             if (!defined('_XMF_STOPWORDS')) {
-                Language::load('stopwords', 'xmf');
+                Language::load('stopwords');
             }
             if (defined('_XMF_STOPWORDS')) {
                 $sw = explode(' ', _XMF_STOPWORDS);

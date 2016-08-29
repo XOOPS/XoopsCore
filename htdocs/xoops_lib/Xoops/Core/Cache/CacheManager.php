@@ -206,8 +206,7 @@ class CacheManager
 
         if ($driverClass!==false && $driverClass::isAvailable()) {
             $options = is_array($options) ? $options : array();
-            $driver = new $driverClass();
-            $driver->setOptions($options);
+            $driver = new $driverClass($options);
         }
         return ($driver instanceof DriverInterface) ? $driver : false;
     }

@@ -32,7 +32,7 @@ class SelectTimeZone extends Select
      *                               Must be \DateTimeZone supported timezone names, or a DateTimeZone object
      * @param integer      $size    Number of rows. "1" makes a drop-down-box.
      */
-    public function __construct($caption, $name, $value = null, $size = 1)
+    public function __construct($caption, $name = '', $value = null, $size = 1)
     {
         if (is_array($caption)) {
             parent::__construct($caption);

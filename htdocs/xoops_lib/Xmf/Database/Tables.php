@@ -32,9 +32,7 @@ use Xoops\Core\Database\Factory;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Tables
 {
@@ -74,7 +72,7 @@ class Tables
      */
     public function __construct()
     {
-        Language::load('database', 'xmf');
+        Language::load('xmf');
 
         $this->db = Factory::getConnection();
         $this->databaseName = \XoopsBaseConfig::get('db-name');
@@ -123,6 +121,7 @@ class Tables
                 }
                 $this->queue[] = "ALTER TABLE `{$tableDef['name']}`"
                     . " ADD COLUMN `{$column}` {$columnDef['attributes']}";
+                array_push($tableDef['columns'], $columnDef);
             }
         } else {
             return $this->tableNotEstablished();
@@ -303,8 +302,6 @@ class Tables
      * @param string $column     column to alter
      * @param string $attributes new column_definition
      * @param string $newName    new name for column, blank to keep same
-     * @param mixed  $position   FIRST, string of column name to add new
-     *                           column after, or null for no change
      *
      * @return bool true if no errors, false if errors encountered
      */
@@ -331,6 +328,14 @@ class Tables
             } else {
                 $this->queue[] = "ALTER TABLE `{$tableDef['name']}` " .
                     "CHANGE COLUMN `{$column}` `{$newName}` {$attributes} ";
+                // loop thru and find the column
+                foreach ($tableDef['columns'] as &$col) {
+                    if (strcasecmp($col['name'], $column) == 0) {
+                        $col['name'] = $newName;
+                        $col['attributes'] = $attributes;
+                        break;
+                    }
+                }
             }
         } else {
             return $this->tableNotEstablished();
@@ -373,34 +378,6 @@ class Tables
         } else {
             return false;
         }
-    }
-
-    /**
-     * Add new index definition for index to work queue
-     *
-     * @param string $name   name of index to add
-     * @param string $table  table indexed
-     * @param string $column column or comma separated list of columns
-     *                       to use as the key
-     * @param bool   $unique true if index is to be unique
-     *
-     * @return bool true if no errors, false if errors encountered
-     */
-    public function createIndex($name, $table, $column, $unique = false)
-    {
-        if (isset($this->tables[$table])) {
-            //ALTER TABLE `table` ADD INDEX `product_id` (`product_id`)
-            $add = ($unique?'ADD UNIQUE INDEX':'ADD INDEX');
-            $this->queue[]
-                = "ALTER TABLE `{$table}` {$add} {$name} ({$column})";
-        } else { // no table established
-            $this->lastError = _DB_XMF_TABLE_IS_NOT_DEFINED;
-            $this->lastErrNo = -1;
-
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -547,7 +524,7 @@ class Tables
      * to work queue
      *
      * @param string $table   table
-     * @param array  $options table_options
+     * @param string $options table_options
      *
      * @return bool true if no errors, false if errors encountered
      */
@@ -565,12 +542,9 @@ class Tables
                 $tableDef['options'] = $options;
                 return true;
             }
-            $tableDef = $this->tables[$table];
         } else {
             return $this->tableNotEstablished();
         }
-
-        return true;
     }
 
 
@@ -640,14 +614,16 @@ class Tables
         return true;
     }
 
-    /** Create an INSERT SQL statement and add it to the work queue.
+    /**
+     * Create an INSERT SQL statement and add it to the work queue.
      *
-     * @param string $table   table
-     * @param array  $columns array of 'column'=>'value' entries
+     * @param string  $table      table
+     * @param array   $columns    array of 'column'=>'value' entries
+     * @param boolean $quoteValue true to quote values, false if caller handles quoting
      *
      * @return boolean true if no errors, false if errors encountered
      */
-    public function insert($table, $columns)
+    public function insert($table, $columns, $quoteValue = true)
     {
         if (isset($this->tables[$table])) {
             $tableDef = $this->tables[$table];
@@ -656,8 +632,9 @@ class Tables
             foreach ($tableDef['columns'] as $col) {
                 $comma = empty($colSql) ? '' : ', ';
                 if (isset($columns[$col['name']])) {
-                    $colSql .= $comma . $col['name'];
-                    $valSql .= $comma . $this->db->quote($columns[$col['name']]);
+                    $colSql .= "{$comma}`{$col['name']}`";
+                    $valSql .= $comma
+                        . ($quoteValue ? $this->db->quote($columns[$col['name']]) : $columns[$col['name']]);
                 }
             }
             $sql = "INSERT INTO `{$tableDef['name']}` ({$colSql}) VALUES({$valSql})";
@@ -672,13 +649,14 @@ class Tables
     /**
      * Create an UPDATE SQL statement and add it to the work queue
      *
-     * @param string                 $table    table
-     * @param array                  $columns  array of 'column'=>'value' entries
-     * @param string|CriteriaElement $criteria string where clause or object criteria
+     * @param string                 $table      table
+     * @param array                  $columns    array of 'column'=>'value' entries
+     * @param string|CriteriaElement $criteria   string where clause or object criteria
+     * @param boolean                $quoteValue true to quote values, false if caller handles quoting
      *
      * @return boolean true if no errors, false if errors encountered
      */
-    public function update($table, $columns, $criteria)
+    public function update($table, $columns, $criteria, $quoteValue = true)
     {
         if (isset($this->tables[$table])) {
             $tableDef = $this->tables[$table];
@@ -692,8 +670,8 @@ class Tables
             foreach ($tableDef['columns'] as $col) {
                 $comma = empty($colSql) ? '' : ', ';
                 if (isset($columns[$col['name']])) {
-                    $colSql .= $comma . $col['name'] . ' = '
-                        . $this->db->quote($columns[$col['name']]);
+                    $colSql .= "{$comma}`{$col['name']}` = "
+                        . ($quoteValue ? $this->db->quote($columns[$col['name']]) : $columns[$col['name']]);
                 }
             }
             $sql = "UPDATE `{$tableDef['name']}` SET {$colSql} {$where}";
@@ -757,7 +735,7 @@ class Tables
                 }
             }
             $sql .= $keySql;
-            $sql .= "\n) {$tableDef['options']};\n";
+            $sql .= "\n) {$tableDef['options']}";
 
             return $sql;
         } else {
@@ -884,7 +862,6 @@ class Tables
                     $keyCols .= ' (' . $key['SUB_PART'] . ')';
                 }
             }
-            //$tableDef['keys'][$key['INDEX_NAME']][$key['SEQ_IN_INDEX']] = $key;
         };
         if (!empty($lastKey)) {
             $tableDef['keys'][$lastKey]['columns'] = $keyCols;
@@ -934,7 +911,7 @@ class Tables
     }
 
     /**
-     * dumpTables - development function to dump raw tables array
+     * dumpTables - utility function to dump raw tables array
      *
      * @return array tables
      */
@@ -944,7 +921,7 @@ class Tables
     }
 
     /**
-     * dumpQueue - development function to dump the work queue
+     * dumpQueue - utility function to dump the work queue
      *
      * @return array work queue
      */
@@ -953,6 +930,18 @@ class Tables
         $this->expandQueue();
 
         return $this->queue;
+    }
+
+    /**
+     * addToQueue - utility function to add a statement to the work queue
+     *
+     * @param string $sql an SQL/DDL statement to add
+     *
+     * @return void
+     */
+    public function addToQueue($sql)
+    {
+        $this->queue[] = $sql;
     }
 
     /**

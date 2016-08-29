@@ -55,7 +55,7 @@ class EmbedTest extends \PHPUnit_Framework_TestCase
     public function testApplyFilter()
     {
         $this->sanitizer->enableComponentForTesting('embed');
-
+        \Xoops::getInstance()->cache()->delete('embed');
         $in = 'http://xoops.org';
         $value = $this->sanitizer->executeFilter('embed', $in);
         $this->assertTrue(is_string($value));

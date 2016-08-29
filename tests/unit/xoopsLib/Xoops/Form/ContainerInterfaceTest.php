@@ -26,7 +26,11 @@ class ContainerInterfaceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = $this->getMock('\Xoops\Form\ContainerInterface');
+        if (method_exists($this, 'createMock')) {
+            $this->object = $this->createMock('\Xoops\Form\ContainerInterface');
+        } else { // need phpunit 4.8 for PHP 5.5
+            $this->object = $this->getMock('\Xoops\Form\ContainerInterface');
+        }
     }
 
     /**

@@ -20,6 +20,7 @@
 namespace Xoops\Core\Kernel\Handlers;
 
 use Xoops\Core\Database\Connection;
+use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
@@ -129,9 +130,9 @@ class XoopsMemberHandler
      */
     public function deleteGroup(XoopsGroup $group)
     {
-        $this->groupHandler->delete($group);
+        $ret = $this->groupHandler->delete($group);
         $this->membershipHandler->deleteAll(new Criteria('groupid', $group->getVar('groupid')));
-        return true;
+        return $ret;
     }
 
     /**
@@ -143,9 +144,9 @@ class XoopsMemberHandler
      */
     public function deleteUser(XoopsUser $user)
     {
-        $this->userHandler->delete($user);
+        $ret = $this->userHandler->delete($user);
         $this->membershipHandler->deleteAll(new Criteria('uid', $user->getVar('uid')));
-        return true;
+        return $ret;
     }
 
     /**
@@ -208,7 +209,9 @@ class XoopsMemberHandler
      */
     public function getGroupList(CriteriaElement $criteria = null)
     {
-        $groups = $this->groupHandler->getObjects($criteria, true);
+        $realCriteria = new CriteriaCompo($criteria);
+        $realCriteria->add(new Criteria('groupid', FixedGroups::REMOVED, '!='));
+        $groups = $this->groupHandler->getObjects($realCriteria, true);
         $ret = array();
         foreach (array_keys($groups) as $i) {
             $ret[$i] = $groups[$i]->getVar('name');

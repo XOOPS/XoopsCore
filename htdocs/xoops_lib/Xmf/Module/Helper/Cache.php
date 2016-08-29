@@ -23,9 +23,7 @@ namespace Xmf\Module\Helper;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Cache extends AbstractHelper
 {
@@ -46,7 +44,7 @@ class Cache extends AbstractHelper
      */
     public function init()
     {
-        $this->prefix = array('module', $this->module->getVar('dirname'));
+        $this->prefix = 'module/' . $this->module->getVar('dirname');
         $this->cache = \Xoops::getInstance()->cache();
     }
 
@@ -59,7 +57,7 @@ class Cache extends AbstractHelper
      */
     protected function prefix($name)
     {
-        return $this->prefix . $name;
+        return $this->prefix . '/'. $name;
     }
 
     /**
@@ -133,6 +131,6 @@ class Cache extends AbstractHelper
      */
     public function clear()
     {
-        return $this->delete(array());
+        return $this->cache->delete($this->prefix);
     }
 }

@@ -25,9 +25,7 @@ use Xmf\Module\Helper\GenericHelper;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2011-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
- * @since     1.0
  */
 class Helper extends GenericHelper
 {
@@ -36,7 +34,7 @@ class Helper extends GenericHelper
      *
      * @param string $dirname module directory
      *
-     * @return \Xmf\Module\Helper|\Xoops\Module\Helper|false a Helper object of false on error
+     * @return \Xmf\Module\Helper|\Xoops\Module\Helper\HelperAbstract|false a Helper object or false on error
      */
     public static function getHelper($dirname = 'system')
     {

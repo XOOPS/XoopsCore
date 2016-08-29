@@ -61,8 +61,8 @@ class SelectLocaleTest extends \PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $oldWay = new SelectLanguage('mycaption', 'myname', 'fr_FR');
-        $newWay = new SelectLanguage([
+        $oldWay = new SelectLocale('mycaption', 'myname', 'fr_FR');
+        $newWay = new SelectLocale([
             'caption' => 'mycaption',
             'name' => 'myname',
             'value' => 'fr_FR',

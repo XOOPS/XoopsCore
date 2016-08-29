@@ -9,27 +9,27 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Html\Menu\ItemList;
+use Xoops\Html\Menu\Link;
+
 /**
  * Extended User Profile
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       2000-2016 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         profile
  * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
- * @version         $Id$
  */
 
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 
-$xoops->setConfig('profile_breadcrumbs', array(
-                                              array(
-                                                  "caption" => $xoops->module->getVar('name'),
-                                                  "link" => $xoops->url('modules/profile/')
-                                              )
-                                         ));
+$xoops->registry()->set('profile_breadcrumbs', new ItemList());
+$xoops->registry()->get('profile_breadcrumbs')->addItem(
+    new Link(["caption" => $xoops->module->getVar('name'), "link" => $xoops->url('modules/profile/')])
+);
 
 //disable cache
 $xoops->disableModuleCache();

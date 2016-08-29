@@ -153,14 +153,23 @@ class XoopsPageNav
                 }
             }
         }
-        if ($size != '') {
-            $size = ' pagination-' . $size;
+        switch (strtolower($size)) {
+            case 'large':
+                $size = ' pagination-lg';
+                break;
+            case 'small':
+            case 'mini':
+                $size = ' pagination-sm';
+                break;
+            default:
+                $size = '';
         }
         $xoops->tpl()->assign('size', $size);
+        
         $xoops->tpl()->assign('align', ' pagination-' . $align);
         $xoops->tpl()->assign('pagination_nav', true);
         $ret = $xoops->tpl()->fetch('module:system/system_pagenav.tpl');
-        $xoops->tpl()->clearAssign('xo_nav');
+        $xoops->tpl()->assign('xo_nav');
         return $ret;
     }
 
@@ -200,7 +209,7 @@ class XoopsPageNav
         $xoops->tpl()->assign('showbutton', $showbutton);
         $xoops->tpl()->assign('align', ' pagination-' . $align);
         $ret = $xoops->tpl()->fetch('module:system/system_pagenav.tpl');
-        $xoops->tpl()->clearAssign('xo_select');
+        $xoops->tpl()->assign('xo_select');
         return $ret;
     }
 

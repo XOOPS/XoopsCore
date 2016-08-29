@@ -31,10 +31,8 @@ use Symfony\Component\Yaml\Yaml as VendorYaml;
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2013-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
  * @link      http://xoops.org
  * @see       http://www.yaml.org/
- * @since     1.0
  */
 class Yaml
 {

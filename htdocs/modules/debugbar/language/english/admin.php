@@ -10,10 +10,9 @@
  */
 
 /**
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
+ * @copyright 2013-2016 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    Richard Griffith <richard@geekwright.com>
  */
 
 define('_MA_DEBUGBAR_PERMISSION_FORM','DebugBar Usage Permissions');
