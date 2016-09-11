@@ -157,6 +157,5 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         $buttonTray->addElement(new Xoops\Form\Button('', 'com_dopreview', XoopsLocale::A_PREVIEW, 'submit'));
         $buttonTray->addElement(new Xoops\Form\Button('', 'com_dopost', _MD_COMMENTS_POSTCOMMENT, 'submit'));
         $this->addElement($buttonTray);
-        return $this;
     }
 }

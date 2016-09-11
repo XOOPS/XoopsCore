@@ -141,7 +141,7 @@ class Metagen
         }
 
         $originalKeywords = preg_split(
-            '/[^a-zA-Z\'"-]+/',
+            '/[^\w\']+/u',
             $text,
             -1,
             PREG_SPLIT_NO_EMPTY

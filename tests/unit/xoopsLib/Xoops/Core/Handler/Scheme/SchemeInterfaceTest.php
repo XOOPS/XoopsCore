@@ -27,8 +27,15 @@ class SchemeInterfaceTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        if (version_compare(phpversion(), '7.1.0beta3', '=')) {
+            //var_dump(phpversion());
+            $this->markTestSkipped('segfault on mock access?');
+        }
+
         if (method_exists($this, 'createMock')) {
             $this->object = $this->createMock('\Xoops\Core\Handler\Scheme\SchemeInterface');
+            $this->object->method('build')
+                ->willReturn(null);
         } else { // need phpunit 4.8 for PHP 5.5
             $this->object = $this->getMock('\Xoops\Core\Handler\Scheme\SchemeInterface');
         }

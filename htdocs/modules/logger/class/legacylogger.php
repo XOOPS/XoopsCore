@@ -112,9 +112,9 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * Save a copy of our config array
-     * 
+     *
      * @param array $configs array of module/user config options
-     * 
+     *
      * @return void
      */
     public function setConfigs($configs)
@@ -124,7 +124,7 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * disable logging
-     * 
+     *
      * @return void
      */
     public function disable()
@@ -136,9 +136,9 @@ class LegacyLogger implements LoggerInterface
     /**
      * Enable logger output rendering
      * When output rendering is enabled, the logger will insert its output within the page content.
-     * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
+     * If the string <!--<xo-logger-output>--> is found in the page content, the logger output will
      * replace it, otherwise it will be inserted after all the page output.
-     * 
+     *
      * @return void
      */
     public function enable()
@@ -156,7 +156,7 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * report enabled status
-     * 
+     *
      * @return bool
      */
     public function isEnable()
@@ -166,7 +166,7 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * disable output for the benefit of ajax scripts
-     * 
+     *
      * @return void
      */
     public function quiet()
@@ -176,7 +176,7 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * Add our resources to the theme as soon as it is available, otherwise return
-     * 
+     *
      * @return void
      */
     private function addToTheme()
@@ -200,7 +200,7 @@ class LegacyLogger implements LoggerInterface
      * Start a timer
      *
      * @param string $name name of the timer
-     * 
+     *
      * @return void
      */
     public function startTime($name = 'XOOPS')
@@ -214,7 +214,7 @@ class LegacyLogger implements LoggerInterface
      * Stop a timer
      *
      * @param string $name name of the timer
-     * 
+     *
      * @return void
      */
     public function stopTime($name = 'XOOPS')
@@ -249,7 +249,7 @@ class LegacyLogger implements LoggerInterface
      * @param string $name      name of the block
      * @param bool   $cached    was the block cached?
      * @param int    $cachetime cachetime of the block
-     * 
+     *
      * @return void
      */
     public function addBlock($name, $cached = false, $cachetime = 0)
@@ -264,7 +264,7 @@ class LegacyLogger implements LoggerInterface
      *
      * @param string $name name for the entry
      * @param string $msg  text message for the entry
-     * 
+     *
      * @return void
      */
     public function addExtra($name, $msg)
@@ -278,7 +278,7 @@ class LegacyLogger implements LoggerInterface
      * Log messages for deprecated functions
      *
      * @param string $msg name for the entry
-     * 
+     *
      * @return void
      */
     public function addDeprecated($msg)
@@ -292,7 +292,7 @@ class LegacyLogger implements LoggerInterface
      * Log exceptions
      *
      * @param Exception $e name for the entry
-     * 
+     *
      * @return void
      */
     public function addException($e)
@@ -308,9 +308,9 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * sanitizePath
-     * 
-     * @param string $path path name to sanitize 
-     * 
+     *
+     * @param string $path path name to sanitize
+     *
      * @return string path with top levels removed
      */
     public function sanitizePath($path)
@@ -330,9 +330,9 @@ class LegacyLogger implements LoggerInterface
     /**
      * Enable logger output rendering
      * When output rendering is enabled, the logger will insert its output within the page content.
-     * If the string <!--{xo-logger-output}--> is found in the page content, the logger output will
+     * If the string <!--<xo-logger-output>--> is found in the page content, the logger output will
      * replace it, otherwise it will be inserted after all the page output.
-     * 
+     *
      * @return void
      */
     public function enableRendering()
@@ -345,9 +345,9 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * Output buffering callback inserting logger dump in page output
-     * 
+     *
      * @param string $output output buffer to add logger rendering to
-     * 
+     *
      * @return string output
      */
     public function render($output)
@@ -359,7 +359,7 @@ class LegacyLogger implements LoggerInterface
         $log = $this->dump($this->usePopup ? 'popup' : '');
         $this->renderingEnabled = $this->activated = false;
 
-        $pattern = '<!--{xo-logger-output}-->';
+        $pattern = '<!--<xo-logger-output>-->';
         $pos = strpos($output, $pattern);
         if ($pos !== false) {
             return substr($output, 0, $pos) . $log . substr($output, $pos + strlen($pattern));
@@ -370,9 +370,9 @@ class LegacyLogger implements LoggerInterface
 
     /**
      * Dump output
-     * 
+     *
      * @param string $mode unused
-     * 
+     *
      * @return string output
      */
     public function dump($mode = '')
@@ -425,14 +425,14 @@ class LegacyLogger implements LoggerInterface
         foreach ($included_files as $filename) {
             $this->addExtra('files',$filename);
         }
-        
+
         if (function_exists('memory_get_peak_usage')) {
             $this->addExtra('Peak memory',memory_get_peak_usage());
         }
         */
 
         $memory = 0;
-        
+
         if (function_exists('memory_get_usage')) {
             $memory = memory_get_usage() . ' bytes';
         } else {
@@ -461,7 +461,7 @@ class LegacyLogger implements LoggerInterface
             $ret .= "<a href='javascript:xoSetLoggerView(\"timers\")'>" . _MD_LOGGER_TIMERS . "($count)</a>\n";
             $ret .= "</div>\n";
         }
-        
+
         if (empty($mode) || $mode === 'errors') {
             $class = 'even';
             $ret .= '<table id="xo-logger-errors" class="outer"><thead><tr><th>' . _MD_LOGGER_ERRORS . '</th></tr></thead><tbody>';
@@ -490,17 +490,17 @@ class LegacyLogger implements LoggerInterface
             $class = 'even';
             $ret .= '<table id="xo-logger-queries" class="outer"><thead><tr><th>' . _MD_LOGGER_QUERIES . '</th></tr></thead><tbody>';
             $pattern = '/\b' . preg_quote(\XoopsBaseConfig::get('db-prefix')) . '\_/i';
-        
+
             foreach ($this->queries as $q) {
                 $sql = preg_replace($pattern, '', $q['sql']);
                 $query_time = isset($q['query_time']) ? sprintf('%0.6f - ', $q['query_time']) : '';
-        
+
                 if (isset($q['error'])) {
                     $ret .= '<tr class="' . $class . '"><td><span style="color:#ff0000;">' . $query_time . htmlentities($sql) . '<br /><strong>Error number:</strong> ' . $q['errno'] . '<br /><strong>Error message:</strong> ' . $q['error'] . '</span></td></tr>';
                 } else {
                     $ret .= '<tr class="' . $class . '"><td>' . $query_time . htmlentities($sql) . '</td></tr>';
                 }
-        
+
                 $class = ($class === 'odd') ? 'even' : 'odd';
             }
             $ret .= '</tbody><tfoot><tr class="foot"><td>' . _MD_LOGGER_TOTAL . ': <span style="color:#ff0000;">' . count($this->queries) . '</span></td></tr></tfoot></table>';
@@ -540,7 +540,7 @@ class LegacyLogger implements LoggerInterface
             }
             $ret .= '</tbody></table>';
         }
-        
+
         if (empty($mode)) {
             $ret .= <<<EOT
 </div>
@@ -622,7 +622,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function emergency($message, array $context = array())
@@ -640,7 +640,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function alert($message, array $context = array())
@@ -657,7 +657,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function critical($message, array $context = array())
@@ -673,7 +673,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function error($message, array $context = array())
@@ -691,7 +691,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function warning($message, array $context = array())
@@ -706,7 +706,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function notice($message, array $context = array())
@@ -723,7 +723,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function info($message, array $context = array())
@@ -738,7 +738,7 @@ EOT;
      *
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function debug($message, array $context = array())
@@ -754,7 +754,7 @@ EOT;
      * @param mixed  $level   logging level
      * @param string $message message
      * @param array  $context array of additional context
-     * 
+     *
      * @return null
      */
     public function log($level, $message, array $context = array())

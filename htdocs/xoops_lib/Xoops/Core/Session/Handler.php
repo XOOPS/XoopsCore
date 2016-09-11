@@ -164,7 +164,8 @@ class Handler implements \SessionHandlerInterface
             ->setParameter(':sessid', $session_id, \PDO::PARAM_STR);
         $this->db->setForce(true);
         $result = $qb->execute();
-        return (boolean) ($result>0);
+        //return (boolean) ($result>0);
+        return true;
     }
 
     /**

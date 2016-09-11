@@ -25,10 +25,11 @@
     <div class="text-center">
         Powered by <a href="https://github.com/XOOPS" rel="external" title="Xoops Project"><{$xoops_version}></a> &copy; 2001-<{$smarty.now|date_format:"%Y"}>
     </div>
-    <!--{xo-logger-output}-->
+    <!--<xo-logger-output>-->
 </div>
 <script type="text/javascript">
     ddsmoothmenu.init( { mainmenuid:"xo-menu-modules", orientation:'h', classname:'ddsmoothmenu', contentsource:"markup" } )
 </script>
 </body>
 </html>
+

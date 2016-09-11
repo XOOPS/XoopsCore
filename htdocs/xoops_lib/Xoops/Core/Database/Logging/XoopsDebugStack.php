@@ -28,16 +28,33 @@ use Doctrine\DBAL\Logging\DebugStack;
 class XoopsDebugStack extends DebugStack
 {
     /**
+     * Logs a SQL statement somewhere.
+     *
+     * @param string $sql The SQL to be executed.
+     * @param array $params The SQL parameters.
+     * @param array $types The SQL parameter types.
+     * @return void
+     */
+    public function startQuery($sql, array $params = null, array $types = null)
+    {
+        \Xoops::getInstance()->events()->triggerEvent(
+            'core.database.query.begin',
+            [$sql, $params, $types]
+        );
+        parent::startQuery($sql, $params, $types);
+    }
+
+    /**
      * stopQuery
-     * 
+     *
      * Perform usual Doctrine DebugStack stopQuery() and trigger event for loggers
-     * 
+     *
      * Event argument is array:
      *   - 'sql'         => string SQL statement
      *   - 'params'      => array of bound parameters
      *   - 'types'       => array of parameter types
      *   - 'executionMS' => float of execution time in microseconds
-     * 
+     *
      * @return void
      */
     public function stopQuery()
