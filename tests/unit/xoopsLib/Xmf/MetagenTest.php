@@ -135,18 +135,6 @@ EOT;
     }
 
     /**
-     * @covers Xmf\Metagen::checkStopWords
-     */
-    public function testCheckStopWords()
-    {
-        $method = new \ReflectionMethod('Xmf\Metagen', 'checkStopWords');
-        $method->setAccessible(true);
-        $this->assertTrue($method->invokeArgs($this->object, array('XOOPS')));
-        $this->assertFalse($method->invokeArgs($this->object, array('is')));
-        $this->assertFalse($method->invokeArgs($this->object, array('IS')));
-    }
-
-    /**
      * @covers Xmf\Metagen::generateDescription
      */
     public function testGenerateDescription()
