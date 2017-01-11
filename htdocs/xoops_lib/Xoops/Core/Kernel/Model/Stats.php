@@ -100,7 +100,8 @@ class Stats extends XoopsModelAbstract
         }
         $qb->select($groupby_key)
             ->addSelect('COUNT(*)')
-            ->from($this->handler->table, null);
+            ->from($this->handler->table, null)
+            ->groupBy($groupby_key);
 
         if (isset($criteria) && ($criteria instanceof CriteriaElement)) {
             $qb = $criteria->renderQb($qb);

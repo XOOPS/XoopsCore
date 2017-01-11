@@ -41,7 +41,7 @@ class OnlineHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($this->myclass, $instance);
 
         $this->myId = (int)(microtime(true)%10000000);
-        $value = $instance->write($this->myId, 'name', time(), 'module', 'localhost');
+        $value = $instance->write($this->myId, 'name', time(), 0, '127.0.0.1');
         $this->assertSame(true, $value);
     }
 
