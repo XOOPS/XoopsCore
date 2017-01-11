@@ -77,12 +77,7 @@ class DtypeMoney extends DtypeAbstract
      */
     private function serializeAsJson(Money $value)
     {
-        return json_encode(
-            [
-                'amount'   => $value->getAmount(),
-                'currency' => $value->getCurrency()->getName()
-            ]
-        );
+        return json_encode($value);
     }
 
     /**
