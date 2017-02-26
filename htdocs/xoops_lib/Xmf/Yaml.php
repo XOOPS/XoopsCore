@@ -157,9 +157,22 @@ class Yaml
     public static function loadWrapped($yamlString)
     {
         try {
-            $match = array();
-            $matched = preg_match('/(---.*\.\.\.)/s', $yamlString, $match);
-            $unwrapped = $matched ? $match[1] : $yamlString;
+            $lines = preg_split('/\R/', $yamlString);
+            $count = count($lines);
+            for ($index = $count; --$index > 0;) {
+                if ('...' === $lines[$index]) {
+                    array_splice($lines, $index);
+                    break;
+                }
+            }
+            $count = count($lines);
+            for ($index = 0; ++$index < $count;) {
+                if ('---' === $lines[$index]) {
+                    array_splice($lines, 0, $index);
+                    break;
+                }
+            }
+            $unwrapped = implode("\n", $lines);
             $ret = VendorYaml::parse($unwrapped);
         } catch (\Exception $e) {
             static::logError($e);
