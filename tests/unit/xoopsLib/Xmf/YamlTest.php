@@ -81,6 +81,40 @@ class YamlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Yaml::dumpWrapped
+     * @covers Xmf\Yaml::loadWrapped
+     */
+    public function testDumpAndLoadWrappedStress()
+    {
+        $inputArray = array('start' => '---', 'end' => '...', 'misc' => 'stuff');
+
+        $string = Yaml::dumpWrapped($inputArray);
+        $this->assertTrue(!empty($string));
+        $this->assertTrue(is_string($string));
+
+        $outputArray = Yaml::loadWrapped((string) $string);
+        $this->assertTrue(is_array($outputArray));
+        $this->assertSame($inputArray, $outputArray);
+    }
+
+    /**
+     * @covers Xmf\Yaml::dumpWrapped
+     * @covers Xmf\Yaml::loadWrapped
+     */
+    public function testDumpAndLoadWrappedStress2()
+    {
+        $inputArray = array('start' => '---', 'end' => '...', 'misc' => 'stuff');
+
+        $string = Yaml::dump($inputArray);
+        $this->assertTrue(!empty($string));
+        $this->assertTrue(is_string($string));
+
+        $outputArray = Yaml::loadWrapped((string) $string);
+        $this->assertTrue(is_array($outputArray));
+        $this->assertSame($inputArray, $outputArray);
+    }
+
+    /**
      * @covers Xmf\Yaml::saveWrapped
      * @covers Xmf\Yaml::readWrapped
      */
