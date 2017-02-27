@@ -204,7 +204,7 @@ class Logger implements LoggerInterface
         if ('cli' === php_sapi_name()) {
             fprintf(STDERR, "\nError : %s\n", $msg);
         } else {
-            printf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, $msg);
+            printf(_XOOPS_FATAL_MESSAGE, XOOPS_URL, utf8_encode($msg));
         }
         @$this->log(LogLevel::CRITICAL, $msg);
     }
