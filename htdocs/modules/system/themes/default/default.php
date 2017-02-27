@@ -110,6 +110,7 @@ class XoopsGuiDefault
                     $mod_options[$item]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/" . $mod_options[$item]['icon']);
                 }
             }
+            $xoops->tpl()->assign('modhasconfig', $xoops->module->getVar('hasconfig'));
         }
         $xoops->tpl()->assign('mod_options', $mod_options);
         $xoops->tpl()->assign('modpath', $modpath);
