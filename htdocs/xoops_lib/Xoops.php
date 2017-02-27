@@ -266,7 +266,7 @@ class Xoops
     /**
      * get security instance
      *
-     * @return XoopsSecurity
+     * @return \Xoops\Core\Security
      */
     public function security()
     {
@@ -733,7 +733,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsBlockHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsBlockHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerBlock($optional = false)
     {
@@ -745,7 +745,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsBlockModuleLinkHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsBlockModuleLinkHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerBlockModuleLink($optional = false)
     {
@@ -757,7 +757,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsConfigHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsConfigHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerConfig($optional = false)
     {
@@ -769,7 +769,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerConfigItem($optional = false)
     {
@@ -781,7 +781,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerConfigOption($optional = false)
     {
@@ -793,7 +793,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsGroupHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsGroupHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerGroup($optional = false)
     {
@@ -805,7 +805,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerGroupPermission($optional = false)
     {
@@ -817,7 +817,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsMemberHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsMemberHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerMember($optional = false)
     {
@@ -829,7 +829,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsMembershipHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsMembershipHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerMembership($optional = false)
     {
@@ -841,7 +841,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsModuleHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsModuleHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerModule($optional = false)
     {
@@ -853,7 +853,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsOnlineHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsOnlineHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerOnline($optional = false)
     {
@@ -865,7 +865,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerPrivateMessage($optional = false)
     {
@@ -890,7 +890,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsTplFileHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsTplFileHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerTplFile($optional = false)
     {
@@ -902,7 +902,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsTplSetHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsTplSetHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerTplSet($optional = false)
     {
@@ -914,7 +914,7 @@ class Xoops
      *
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return \Xoops\Core\Kernel\Handlers\XoopsUserHandler
+     * @return \Xoops\Core\Kernel\Handlers\XoopsUserHandler|\Xoops\Core\Kernel\XoopsPersistableObjectHandler
      */
     public function getHandlerUser($optional = false)
     {
@@ -927,7 +927,7 @@ class Xoops
      * @param string  $name     name of handler
      * @param boolean $optional true if failure to load handler should be considered a warning, not an error
      *
-     * @return XoopsObjectHandler|XoopsPersistableObjectHandler|null
+     * @return \Xoops\Core\Kernel\XoopsPersistableObjectHandler|XoopsObjectHandler|XoopsPersistableObjectHandler|null
      */
     protected function getHandler($name, $optional = false)
     {
@@ -955,7 +955,7 @@ class Xoops
      * @param string|null $module_dir dirname of module
      * @param boolean     $optional   true if failure to load handler should be considered a warning, not an error
      *
-     * @return XoopsObjectHandler|XoopsPersistableObjectHandler|bool
+     * @return |\Xoops\Core\Kernel\XoopsPersistableObjectHandler|XoopsObjectHandler|XoopsPersistableObjectHandler|bool
      */
     public function getModuleHandler($name = null, $module_dir = null, $optional = false)
     {
