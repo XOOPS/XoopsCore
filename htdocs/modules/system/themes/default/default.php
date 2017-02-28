@@ -110,6 +110,7 @@ class XoopsGuiDefault
                     $mod_options[$item]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/" . $mod_options[$item]['icon']);
                 }
             }
+            $xoops->tpl()->assign('modhasconfig', $xoops->module->getVar('hasconfig'));
         }
         $xoops->tpl()->assign('mod_options', $mod_options);
         $xoops->tpl()->assign('modpath', $modpath);
@@ -152,7 +153,9 @@ class XoopsGuiDefault
                 /* @var $menu_handler SystemMenuHandler */
                 $menu_handler = $xoops->getModuleHandler('menu', 'system');
                 // Define top navigation
-                $menu_handler->addMenuTop(\XoopsBaseConfig::get('url') . "/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoops->module->getVar('mid', 'e'), XoopsLocale::PREFERENCES);
+                if ($xoops->module->getVar('hasconfig')) {
+                    $menu_handler->addMenuTop(\XoopsBaseConfig::get('url') . "/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoops->module->getVar('mid', 'e'), XoopsLocale::PREFERENCES);
+                }
                 if ($xoops->module->getInfo('extension')) {
                     $menu_handler->addMenuTop(\XoopsBaseConfig::get('url') . "/modules/system/admin.php?fct=extensions&amp;op=update&amp;module=" . $xoops->module->getVar('dirname', 'e'), XoopsLocale::A_UPDATE);
                 } else {
