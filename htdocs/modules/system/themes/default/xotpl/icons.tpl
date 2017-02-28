@@ -30,7 +30,7 @@
     <{/if}>
     <{/foreach}>
     <{/if}>
-    <{if $moddir != 'system' && $mod_options}>
+    <{if $moddir != 'system' && $mod_options && $modhasconfig}>
     <li>
         <a class="xo-tooltip"
            href="<{$xoops_url}>/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=<{$modid}>"
