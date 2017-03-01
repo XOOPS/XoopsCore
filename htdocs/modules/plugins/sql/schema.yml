@@ -1,0 +1,92 @@
+tables:
+    plugins_plugin:
+        options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+        columns:
+            plugin_id:
+                name: plugin_id
+                type: smallint
+                default: null
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: true
+                autoincrement: true
+                columnDefinition: null
+                comment: ''
+            plugin_caller:
+                name: plugin_caller
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            plugin_listener:
+                name: plugin_listener
+                type: string
+                default: ''
+                notnull: true
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            plugin_status:
+                name: plugin_status
+                type: boolean
+                default: '1'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+            plugin_order:
+                name: plugin_order
+                type: smallint
+                default: '0'
+                notnull: true
+                length: null
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: ''
+        indexes:
+            PRIMARY:
+                name: PRIMARY
+                columns: [plugin_id]
+                unique: true
+                primary: true
+            idxcaller:
+                name: idxcaller
+                columns: [plugin_caller]
+                unique: false
+                primary: false
+            idxlistener:
+                name: idxlistener
+                columns: [plugin_listener]
+                unique: false
+                primary: false
+            idxstatus:
+                name: idxstatus
+                columns: [plugin_status]
+                unique: false
+                primary: false
