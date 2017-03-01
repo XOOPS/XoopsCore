@@ -47,8 +47,8 @@ class PluginsPreload extends PreloadItem
      */
     public static function eventCoreModulePluginGetPlugins($args)
     {
-        //Don't run during uninstall
-        if (\Xoops::getInstance()->isActiveModule('plugins')) {
+        //Don't run during uninstall, getActiveModule('plugins') won't work.
+        if (\Xoops::getInstance()->getModuleByDirname('plugins')) {
             $args[0] = Plugins::getInstance()->getHandlerPlugin()->getActiveListenersByCaller($args[1]);
         }
     }
