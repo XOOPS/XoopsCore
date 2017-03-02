@@ -119,6 +119,17 @@ if ($mid > 0) {
                 \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
                 . '/language/' . $xoopsConfig['language'] . '/help/' . $page . '.html'
             );
+        } elseif ($helpfile =
+            XoopsLoad::fileExists(
+                \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
+                . '/locale/en_US/help/' . $page . '.html'
+            )
+        ) {
+            $helpcontent =
+                $xoops->tpl()->fetch(
+                    \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
+                    . '/locale/en_US/help/' . $page . '.html'
+                );
         } else {
             if (XoopsLoad::fileExists(
                 \XoopsBaseConfig::get('root-path') . '/modules/' . $module->getVar('dirname', 'e')
