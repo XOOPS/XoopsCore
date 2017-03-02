@@ -64,6 +64,9 @@ class Plugin
             }
 
             $dirnames = $xoops->getActiveModules();
+
+            \Xoops::getInstance()->events()->triggerEvent('core.module.plugin.get.plugins', array(&$dirnames, $pluginName));
+
             if (is_array($inactiveModules)) {
                 $dirnames = array_merge($dirnames, $inactiveModules);
             }
