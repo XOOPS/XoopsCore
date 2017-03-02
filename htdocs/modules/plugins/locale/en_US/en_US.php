@@ -19,7 +19,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-class PluginsLocaleEn_US extends XoopsLocaleEn_US
+class PluginsLocaleEn_US
 {
     // Module
     const MODULE_NAME = "Plugins";
