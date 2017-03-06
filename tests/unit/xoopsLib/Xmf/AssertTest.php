@@ -39,7 +39,6 @@ use stdClass;
 use Xmf\Assert;
 
 require_once(dirname(__FILE__).'/../../init_new.php');
-restore_error_handler();
 
 /**
  * @since  1.0
@@ -315,7 +314,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
             array('throws', array(function() { throw new LogicException('test'); }, 'LogicException'), true),
             array('throws', array(function() { throw new LogicException('test'); }, 'IllogicException'), false),
             array('throws', array(function() { throw new Exception('test'); }), true),
-            array('throws', array(function() { trigger_error('test'); }, 'Throwable'), true, false, 70000),
+            //array('throws', array(function() { trigger_error('test'); }, 'Throwable'), true, false, 70000),
             array('throws', array(function() { trigger_error('test'); }, 'Unthrowable'), false, false, 70000),
             array('throws', array(function() { throw new Error(); }, 'Throwable'), true, true, 70000),
         );
