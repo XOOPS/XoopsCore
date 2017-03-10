@@ -81,7 +81,7 @@ class XoopsTpl extends \Smarty
     {
         $countLeft = 0;
         $countRight = -1;
-        $temp = str_replace('<{', '{', $tpl_source, $count);
+        $temp = str_replace('<{', '{', $tpl_source, $countLeft);
         if ($countLeft>0) {
             $temp = str_replace('}>', '}', $temp, $countRight);
         }

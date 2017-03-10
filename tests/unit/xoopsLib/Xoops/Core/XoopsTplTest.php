@@ -73,6 +73,9 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
 
     public function test_convertLegacyDelimiters()
     {
+        if (!method_exists($this, 'createMock')) {
+            $this->markTestSkipped('Old PHPUnit');
+        }
         $stub = $this->createMock(\Smarty_Internal_Template::class);
         $tpl = '<option value="{$id}"{if $menu_id == $id} selected=\'selected\'{/if}>{$title}</option>';
         $actual = $this->object->convertLegacyDelimiters($tpl, $stub);
