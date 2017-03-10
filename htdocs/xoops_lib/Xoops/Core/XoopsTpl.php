@@ -26,7 +26,7 @@ namespace Xoops\Core;
 class XoopsTpl extends \Smarty
 {
     use SmartyBCTrait;
-    
+
     /**
      * @var \Xoops\Core\Theme\XoopsTheme
      */
@@ -79,7 +79,13 @@ class XoopsTpl extends \Smarty
      */
     public function convertLegacyDelimiters($tpl_source, \Smarty_Internal_Template $template)
     {
-        return str_replace(['<{', '}>'], ['{', '}'], $tpl_source);
+        $countLeft = 0;
+        $countRight = -1;
+        $temp = str_replace('<{', '{', $tpl_source, $count);
+        if ($countLeft>0) {
+            $temp = str_replace('}>', '}', $temp, $countRight);
+        }
+        return ($countLeft === $countRight) ? $temp : $tpl_source;
     }
 
     /**
