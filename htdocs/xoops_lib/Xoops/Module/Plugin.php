@@ -11,8 +11,6 @@
 
 namespace Xoops\Module;
 
-use Xoops\Module\Plugin\PluginAbstract;
-
 /**
  * @copyright 2013-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -31,7 +29,7 @@ class Plugin
      * @param string $pluginName plugin name i.e. system, menus, etc.
      * @param bool   $force      get plugin even if module is inactive
      *
-     * @return bool|PluginAbstract plugin, or false if plugin does not exist
+     * @return bool|object plugin, or false if plugin does not exist
      */
     public static function getPlugin($dirname, $pluginName = 'system', $force = false)
     {
@@ -75,7 +73,7 @@ class Plugin
                     $className = '\\' . ucfirst($dirname) . ucfirst($pluginName) . 'Plugin';
                     $interface = '\\' . ucfirst($pluginName) . 'PluginInterface';
                     $class = new $className($dirname);
-                    if ($class instanceof PluginAbstract && $class instanceof $interface) {
+                    if ($class instanceof $interface) {
                         static::$plugins[$pluginName][$dirname] = $class;
                     }
                 }
