@@ -114,9 +114,10 @@ class Handler implements \SessionHandlerInterface
         $expires =  (isset($_SESSION['SESSION_MANAGER_EXPIRES']))
             ? (int)($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
-        $oldIsolation = $this->db->getTransactionIsolation();
-        $this->db->setTransactionIsolation(Connection::TRANSACTION_REPEATABLE_READ);
-        $this->db->beginTransaction();
+        //$oldIsolation = $this->db->getTransactionIsolation();
+        //$this->db->setTransactionIsolation(Connection::TRANSACTION_REPEATABLE_READ);
+        //$this->db->beginTransaction();
+        //$readResult = $this->read($session_id);
         $qb = $this->db->createXoopsQueryBuilder();
         $eb = $qb->expr();
         $qb ->updatePrefix($this->sessionTable)
@@ -142,8 +143,8 @@ class Handler implements \SessionHandlerInterface
             $this->db->setForce(true);
             $result = $qb->execute();
         }
-        $this->db->commit();
-        $this->db->setTransactionIsolation($oldIsolation);
+        //$this->db->commit();
+        //$this->db->setTransactionIsolation($oldIsolation);
 
         return (boolean) ($result>0);
     }
