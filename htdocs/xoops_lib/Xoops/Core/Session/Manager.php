@@ -158,12 +158,12 @@ class Manager implements AttributeInterface
         $this->set('SESSION_MANAGER_EXPIRES', time() + 10);
 
         // Grab current session ID and close it
-        $sessionId = session_id();
-        session_write_close();
+        //$sessionId = session_id();
+        //session_write_close();
 
         // reopen the old session
-        session_id($sessionId);
-        session_start();
+        //session_id($sessionId);
+        //session_start();
 
         // Create new session without destroying the old one
         session_regenerate_id(false);
