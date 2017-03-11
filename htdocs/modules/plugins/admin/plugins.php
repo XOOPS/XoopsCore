@@ -13,13 +13,13 @@ use Xmf\Request;
 use PluginsLocale as t;
 
 /**
- * banners module
+ * plugins module
  *
  * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         banners
+ * @package         plugins
  * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
+ * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
 include __DIR__ . '/header.php';
