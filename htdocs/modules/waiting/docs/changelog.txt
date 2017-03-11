@@ -1,0 +1,7 @@
+Version 0.1.0 (11/03/2017)
+-------------------
+First Release Features:
+ - Admin area for displaying waiting items
+ - Block for displaying waiting items
+ - Support for several waiting items per plugin
+ - Support for glyphicons
