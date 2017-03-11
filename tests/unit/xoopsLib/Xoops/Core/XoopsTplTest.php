@@ -70,4 +70,20 @@ class XoopsTplTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(\Xoops::VERSION, $this->object->getTemplateVars('xoops_version'));
         $this->assertSame(\XoopsBaseConfig::get('uploads-url'), $this->object->getTemplateVars('xoops_upload_url'));
     }
+
+    public function test_convertLegacyDelimiters()
+    {
+        if (!method_exists($this, 'createMock')) {
+            $this->markTestSkipped('Old PHPUnit');
+        }
+        $stub = $this->createMock(\Smarty_Internal_Template::class);
+        $tpl = '<option value="{$id}"{if $menu_id == $id} selected=\'selected\'{/if}>{$title}</option>';
+        $actual = $this->object->convertLegacyDelimiters($tpl, $stub);
+        $this->assertSame($tpl, $actual);
+
+        $tpl = '<option value="<{$id}>"<{if $menu_id == $id}> selected=\'selected\'<{/if}>><{$title}></option>';
+        $expected = '<option value="{$id}"{if $menu_id == $id} selected=\'selected\'{/if}>{$title}</option>';
+        $actual = $this->object->convertLegacyDelimiters($tpl, $stub);
+        $this->assertSame($expected, $actual);
+    }
 }
