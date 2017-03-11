@@ -27,11 +27,28 @@ function b_waiting_waiting_show()
     $block['waiting'] = array();
     $plugins = Plugin::getPlugins('waiting');
     /* @var $plugin WaitingPluginInterface */
-    foreach ($plugins as $plugin) {
+    foreach ($plugins as $dirName => $plugin) {
+
+        //No permissions, no links
+        $helper = \Xoops::getModuleHelper($dirName);
+        if (!$helper->isUserAdmin()) {
+            continue;
+        }
+
         if (is_array($results = $plugin->waiting())) {
             foreach ($results as $res) {
                 if (is_array($res) && isset($res['count']) && isset($res['name']) && isset($res['link'])) {
-                    $res['icon'] = isset($res['icon']) ? $res['icon'] : 'glyphicon-time';
+                    $ret['image'] = false;
+                    //Image support
+                    if (XoopsLoad::fileExists($helper->path('icons/logo_small.png'))) {
+                        $res['image'] = $helper->url('icons/logo_small.png');
+                        $res['icon'] = "$dirName-icon" ;
+                    } else {
+                        //Icon support
+                        $res['icon'] = isset($res['icon']) ? $res['icon'] : 'glyphicon-time';
+                    }
+
+                    $res['dirName'] = $dirName;
                     $block['waiting'][] = $res;
                 }
             }

@@ -24,7 +24,7 @@ use Xoops\Module\Plugin;
 include __DIR__ . '/header.php';
 
 // Get main instance
-$xoops = Xoops::getInstance();
+$xoops = \Xoops::getInstance();
 
 
 // Call header
@@ -34,6 +34,13 @@ $xoops->header('admin:waiting/waiting_admin_plugins.tpl');
 $contents = array();
 $plugins = Plugin::getPlugins('waiting');
 foreach ($plugins as $dirName => $plugin) {
+
+    //No permissions, no links
+    $helper = \Xoops::getModuleHelper($dirName);
+    if (!$helper->isUserAdmin()) {
+        continue;
+    }
+
     /* @var $plugin WaitingPluginInterface */
     if (is_array($results = $plugin->waiting())) {
         foreach ($results as $res) {
