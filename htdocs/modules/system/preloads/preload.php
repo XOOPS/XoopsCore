@@ -8,7 +8,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       2010-2014 XOOPS Project (http://xoops.org)
+ * @copyright       2010-2017 XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          Cointin Maxime (AKA Kraven30)
  * @author          Andricq Nicolas (AKA MusS)
@@ -51,6 +51,7 @@ class SystemPreload extends PreloadItem
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
             $xoops->theme()->addBaseStylesheetAssets('xoops.css');
+            $xoops->theme()->addBaseStylesheetAssets('@fontawesome');
             $xoops->theme()->addBaseScriptAssets('@jquery');
             $xoops->theme()->addBaseScriptAssets('@jgrowl');
             $xoops->theme()->addScript('', array('type' => 'text/javascript'), '
@@ -68,6 +69,7 @@ class SystemPreload extends PreloadItem
         if (!empty($_SESSION['redirect_message'])) {
             $xoops = Xoops::getInstance();
             $xoops->theme()->addBaseStylesheetAssets('xoops.css');
+            $xoops->theme()->addBaseStylesheetAssets('@fontawesome');
             $xoops->theme()->addBaseScriptAssets('@jquery');
             $xoops->theme()->addBaseScriptAssets('@jgrowl');
             $xoops->theme()->addScript('', array('type' => 'text/javascript'), '

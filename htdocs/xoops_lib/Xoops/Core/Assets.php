@@ -28,7 +28,7 @@ use Xmf\Yaml;
  * @category  Assets
  * @package   Assets
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2014-2017 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @version   Release: 1.0
  * @link      http://xoops.org
@@ -36,30 +36,25 @@ use Xmf\Yaml;
  */
 class Assets
 {
-    /**
-     * @var boolean
-     */
+    /** @var array  */
+    protected $assetPrefs;
+
+    /** @var boolean */
     private $debug = false;
 
-    /**
-     * @var array of default filter strings - may be overridden by prefs
-     */
+    /** @var array of default filter strings - may be overridden by prefs */
     private $default_filters = array(
             'css' => 'cssimport,cssembed,?cssmin',
             'js'  => '?jsqueeze',
     );
 
-    /**
-     * @var array of output locations in assets directory
-     */
+    /** @var array of output locations in assets directory */
     private $default_output = array(
             'css' => 'css/*.css',
             'js'  => 'js/*.js',
     );
 
-    /**
-     * @var array of asset reference definitions - may be overridden by prefs
-     */
+    /** @var array of asset reference definitions - may be overridden by prefs */
     private $default_asset_refs = array(
         array(
             'name' => 'jquery',
@@ -76,28 +71,37 @@ class Assets
             'assets' => array('media/jquery/plugins/jquery.jgrowl.js'),
             'filters' => null,
         ),
+        array(
+            'name' => 'fontawesome',
+            'assets' => array('media/font-awesome/css/font-awesome.min.css'),
+            'filters' => null,
+        ),
     );
 
     /**
-     * @var AssetManager
+     * @var array of file assets to copy to assets
      */
+    private $default_file_assets = array(
+        array(
+            'type' => 'fonts',
+            'path' => 'media/font-awesome/fonts',
+            'pattern' => '*',
+        ),
+    );
+
+
+    /** @var AssetManager */
     private $assetManager = null;
 
-    /**
-     * @var string config file with assets prefs
-     */
+    /** @var string config file with assets prefs */
     private $assetsPrefsFilename = 'var/configs/system_assets_prefs.yml';
 
-    /**
-     * @var string config cache key
-     */
+    /** @var string config cache key */
     private $assetsPrefsCacheKey = 'system/assets/prefs';
 
-    /**
-     * @var string string to identify Assetic filters using instanceof
-     */
-
+    /** @var string string to identify Assetic filters using instanceof */
     private $filterInterface = '\Assetic\Filter\FilterInterface';
+
     /**
      * __construct
      */
@@ -107,7 +111,7 @@ class Assets
         if (isset($_REQUEST['ASSET_DEBUG'])) {
             $this->setDebug();
         }
-        $this->readAssetsPrefs();
+        $this->assetPrefs = $this->readAssetsPrefs();
         // register any asset references
         foreach ($this->default_asset_refs as $ref) {
             $this->registerAssetReference($ref['name'], $ref['assets'], $ref['filters']);
@@ -123,8 +127,6 @@ class Assets
     {
         $xoops = \Xoops::getInstance();
 
-        $assetsPrefs = array();
-
         try {
             $assetsPrefs = $xoops->cache()->read($this->assetsPrefsCacheKey);
             $file = $xoops->path($this->assetsPrefsFilename);
@@ -139,15 +141,18 @@ class Assets
                     } else {
                         $assetsPrefs['mtime']=$mtime;
                         $xoops->cache()->write($this->assetsPrefsCacheKey, $assetsPrefs);
+                        $this->copyBaseFileAssets();
                     }
                 } else {
                     // use defaults to create file
                     $assetsPrefs = array(
                         'default_filters' => $this->default_filters,
                         'default_asset_refs' => $this->default_asset_refs,
+                        'default_file_assets' => $this->default_file_assets,
                         'mtime' => time(),
                     );
                     $this->saveAssetsPrefs($assetsPrefs);
+                    $this->copyBaseFileAssets();
                 }
             }
             if (!empty($assetsPrefs['default_filters']) && is_array($assetsPrefs['default_filters'])) {
@@ -155,6 +160,9 @@ class Assets
             }
             if (!empty($assetsPrefs['default_asset_refs']) && is_array($assetsPrefs['default_asset_refs'])) {
                 $this->default_asset_refs = $assetsPrefs['default_asset_refs'];
+            }
+            if (!empty($assetsPrefs['default_file_assets']) && is_array($assetsPrefs['default_file_assets'])) {
+                $this->default_file_assets = $assetsPrefs['default_file_assets'];
             }
         } catch (\Exception $e) {
             $xoops->events()->triggerEvent('core.exception', $e);
@@ -420,51 +428,60 @@ class Assets
         }
     }
 
+    public function copyBaseFileAssets()
+    {
+        foreach ($this->default_file_assets as $fileSpec) {
+            $this->copyFileAssets($fileSpec['path'], trim($fileSpec['pattern']), $fileSpec['type']);
+        }
+    }
+
     /**
      * copyFileAssets - copy files to the appropriate asset directory.
      *
      * Copying is normally only needed for fonts or images when they are referenced by a
      * relative url in stylesheet, or are located outside of the web root.
      *
-     * @param string $from_path path to files to copy
-     * @param string $pattern   glob pattern to match files to be copied
-     * @param string $output    output type (css, fonts, images, js)
+     * @param string $fromPath path to files to copy
+     * @param string $pattern  glob pattern to match files to be copied
+     * @param string $output   output type (css, fonts, images, js)
      *
      * @return mixed boolean false if target directory is not writable, otherwise
      *               integer count of files copied
      */
-    public function copyFileAssets($from_path, $pattern, $output)
+    public function copyFileAssets($fromPath, $pattern, $output)
     {
         $xoops = \Xoops::getInstance();
 
-        $to_path = $xoops->path('assets') . '/' . $output . '/';
-        $from = glob($from_path . '/' . $pattern);
-        $xoops->events()->triggerEvent('debug.log', $from);
+        $fromPath = $xoops->path($fromPath) . '/';
+        $toPath = $xoops->path('assets') . '/' . $output . '/';
+        $from = glob($fromPath . '/' . $pattern);
 
-        if (!is_dir($to_path)) {
+        if (!is_dir($toPath)) {
             $oldUmask = umask(0);
-            mkdir($to_path, 0775, true);
+            mkdir($toPath, 0775, true);
             umask($oldUmask);
         }
 
-        if (!is_writable($to_path)) {
-            $xoops->logger()->warning('Asset directory is not writable. ' . $output);
-            return false;
-        } else {
+        if (is_writable($toPath)) {
             $count = 0;
             $oldUmask = umask(0002);
             foreach ($from as $filepath) {
+                $xoops->events()->triggerEvent('debug.timer.start', $filepath);
                 $filename = basename($filepath);
-                $status=copy($filepath, $to_path.$filename);
-                if (false) {
+                $status=copy($filepath, $toPath.$filename);
+                if (false===$status) {
                     $xoops->logger()->warning('Failed to copy asset '.$filename);
                 } else {
-                    $xoops->logger()->debug('Copied asset '.$filename);
+                    //$xoops->logger()->debug('Copied asset '.$filename);
                     ++$count;
                 }
+                $xoops->events()->triggerEvent('debug.timer.stop', $filepath);
             }
             umask($oldUmask);
             return $count;
+        } else {
+            $xoops->logger()->warning('Asset directory is not writable. ' . $output);
+            return false;
         }
     }
 }
