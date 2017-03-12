@@ -21,7 +21,7 @@ use Xoops\Core\XoopsTpl;
  * @package   Theme
  * @author    Skalpa Keo <skalpa@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2008-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2008-2017 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -267,7 +267,7 @@ class XoopsTheme
         }
         $this->addBaseScriptAssets('include/xoops.js');
         $this->addBaseScriptAssets('@jquery');
-        //$this->addBaseScriptAssets('media/bootstrap/js/bootstrap.min.js');
+        $this->addBaseStylesheetAssets('@fontawesome');
         if (!empty($jsAssets)) {
             $this->addBaseScriptAssets($jsAssets);
         }
