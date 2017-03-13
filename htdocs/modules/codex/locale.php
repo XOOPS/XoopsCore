@@ -62,6 +62,46 @@ $buttonSubmit = new Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
 $localePicker->addElement($buttonSubmit);
 $localePicker->display();
 
+// Using placeholders
+use CodexLocale as t;
+$xoops = \Xoops::getInstance();
+echo '<br>'; echo t::MY_DOG_NAME_AND_AGE;
+echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Pluto', 'years' => 0]);
+echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Barbie', 'years' => 1]);
+echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Donald', 'years' => 2]);
+
+echo '<br>'; echo '<br>';
+echo t::YOU_LIKED_THIS; echo '<br>';
+echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 0]); echo '<br>';
+echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 1]); echo '<br>';
+echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 2]); echo '<br>';
+echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 3]);
+
+echo '<br>'; echo '<br>';
+echo t::VISITOR_NUMBER; echo '<br>';
+echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 1]); echo '<br>';
+echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 2]); echo '<br>';
+echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 3]); echo '<br>';
+echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 342]);
+
+echo '<br>'; echo '<br>';
+echo t::COUNT; echo '<br>';
+for ($i = 0; $i < 11; $i++) {
+    echo $xoops->translate('COUNT', 'codex', ['n' => $i]);echo '<br>';
+}
+
+echo '<br>'; echo '<br>';
+echo t::GENDER; echo '<br>';
+echo $xoops->translate('GENDER', 'codex', ['name' => 'Snoopy', 'gender' => 'dog']); echo '<br>';
+echo $xoops->translate('GENDER', 'codex', ['name' => 'Mario', 'gender' => 'man']); echo '<br>';
+echo $xoops->translate('GENDER', 'codex', ['name' => 'Susan', 'gender' => 'woman']); echo '<br>';
+echo $xoops->translate('GENDER', 'codex', ['name' => 'Bob', 'gender' => 'sponge']); echo '<br>';
+
+echo "<br>Usage on template<br>";
+\Xoops\Utils::dumpFile(__DIR__ .'/templates/language.tpl');
+$tpl = new \Xoops\Core\XoopsTpl();
+$tpl->display("module:codex/language.tpl");
+
 \Xoops\Utils::dumpFile(__FILE__);
 
 $xoops->footer();

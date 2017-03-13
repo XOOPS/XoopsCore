@@ -1,3 +1,1 @@
-{translate key="ACTIONS"}
-<br/>
-{translate key="ADMINISTRATION_MENU" dirname="system"}
+{translate key="GENDER" dirname="codex" name='Smarty' gender='template engine'}
