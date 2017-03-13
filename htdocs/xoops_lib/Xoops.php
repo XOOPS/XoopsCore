@@ -1090,11 +1090,12 @@ class Xoops
      * @param string $key     constant name
      * @param string $dirname dirname of module (domain)
      *
+     * @param array $params   array of params used by this key
      * @return string
      */
-    public function translate($key, $dirname = 'xoops')
+    public function translate($key, $dirname = 'xoops', $params = [])
     {
-        return \Xoops\Locale::translate($key, $dirname);
+        return \Xoops\Locale::translate($key, $dirname, $params);
     }
 
     /**

@@ -18,8 +18,16 @@
 
 function smarty_function_translate($params, &$smarty)
 {
-    $key = isset($params['key']) ? $params['key'] : '';
-    $dirname = isset($params['dirname']) ? $params['dirname'] : 'xoops';
-    return \Xoops\Locale::translate($key, $dirname);
+    $key = '';
+    $dirname = 'xoops';
+    if (isset($params['key'])) {
+        $key = $params['key'];
+        unset($params['key']);
+    };
+    if (isset($params['dirname'])) {
+        $dirname = $params['dirname'];
+        unset($params['dirname']);
+    };
+    return \Xoops\Locale::translate($key, $dirname, $params);
     //return \Xoops\Core\Text\Sanitizer::getInstance()->escapeForJavascript(\Xoops\Locale::translate($key, $dirname));
 }
