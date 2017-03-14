@@ -94,7 +94,6 @@ class Password extends Element
         $this->themeDecorateElement();
 
         $attributes = $this->renderAttributeString();
-        return '<input ' . $attributes . 'value="'
-            . $this->getValue() . '" ' . $this->getExtra() .' >';
+        return '<input ' . $attributes . $this->getExtra() .' >';
     }
 }
