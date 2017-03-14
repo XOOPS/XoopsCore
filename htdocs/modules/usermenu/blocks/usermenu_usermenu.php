@@ -31,7 +31,7 @@ function b_usermenu_usermenu_show()
     $block = array();
     $block['usermenu'] = array();
     $plugins = Plugin::getPlugins('usermenu');
-    /* @var $plugin WaitingPluginInterface */
+    /* @var $plugin UsermenuPluginInterface */
     foreach ($plugins as $dirName => $plugin) {
 
         $helper = \Xoops::getModuleHelper($dirName);
