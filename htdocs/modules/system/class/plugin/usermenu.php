@@ -24,19 +24,21 @@ class SystemUsermenuPlugin implements UsermenuPluginInterface
     {
         $xoops = \Xoops::getInstance();
         $ret = array();
-        // View Account
-        $ret[] = [
-            'name' => XoopsLocale::VIEW_ACCOUNT,
-            'link' => $xoops->url('userinfo.php?uid=' . $xoops->user->getVar('uid')),
-            'icon' => 'glyphicon-user',
-        ];
+        if (!$xoops->isActiveModule('profile')) {
+            // View Account
+            $ret[] = [
+                'name' => XoopsLocale::VIEW_ACCOUNT,
+                'link' => $xoops->url('userinfo.php?uid=' . $xoops->user->getVar('uid')),
+                'icon' => 'glyphicon-user',
+            ];
 
-        // Edit Account
-        $ret[] = [
-            'name' => XoopsLocale::EDIT_ACCOUNT,
-            'link' => $xoops->url('edituser.php'),
-            'icon' => 'glyphicon-pencil',
-        ];
+            // Edit Account
+            $ret[] = [
+                'name' => XoopsLocale::EDIT_ACCOUNT,
+                'link' => $xoops->url('edituser.php'),
+                'icon' => 'glyphicon-pencil',
+            ];
+        }
 
         // Administration Menu
         if ($xoops->isAdmin()) {
