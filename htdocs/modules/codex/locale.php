@@ -77,18 +77,6 @@ echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 1]); echo '<br
 echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 2]); echo '<br>';
 echo $xoops->translate('YOU_LIKED_THIS', 'codex', ['likeCount' => 3]);
 
-echo '<br>'; echo '<br>';
-echo t::VISITOR_NUMBER; echo '<br>';
-echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 1]); echo '<br>';
-echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 2]); echo '<br>';
-echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 3]); echo '<br>';
-echo $xoops->translate('VISITOR_NUMBER', 'codex', ['n' => 342]);
-
-echo '<br>'; echo '<br>';
-echo t::COUNT; echo '<br>';
-for ($i = 0; $i < 11; $i++) {
-    echo $xoops->translate('COUNT', 'codex', ['n' => $i]);echo '<br>';
-}
 
 echo '<br>'; echo '<br>';
 echo t::GENDER; echo '<br>';

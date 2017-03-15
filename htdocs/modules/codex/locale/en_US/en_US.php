@@ -44,7 +44,6 @@ class CodexLocaleEn_US
         one{and one other person liked this}
         other{and # others liked this}
     }";
-    const VISITOR_NUMBER = "You are the {n,spellout,%spellout-ordinal} visitor";
     const GENDER = "{name} is a {gender} and {gender,select,woman{she} man{he} other{it}} loves XOOPS!";
-    const COUNT = "{n,number} is spelled as {n,spellout}";
+
 }

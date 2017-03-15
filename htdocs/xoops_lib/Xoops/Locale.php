@@ -321,7 +321,7 @@ class Locale
      * @copyright Copyright (c) 2008 Yii Software LLC
      *
      * @param string $message the message to be formatted.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param array  $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`).
      * @return string the formatted message.
      */
@@ -364,7 +364,6 @@ class Locale
         }
         return $messageFormatter;
     }
-
 
     /**
      * @param string $dirname
