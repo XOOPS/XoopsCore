@@ -449,9 +449,9 @@ class Locale
      *   Ssss is the script code, if specified
      *   CC   is the country code, if specified
      *
-     * @param string $locale locale code
-     * @param string $separator string to use to join locale parts
-     * @param bool $withScript include script if specified, always remove if false
+     * @param string $locale     locale code
+     * @param string $separator  string to use to join locale parts
+     * @param bool   $withScript include script if specified, always remove if false
      *
      * @return string normalized locale, or empty string on error
      */
