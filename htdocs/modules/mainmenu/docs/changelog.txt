@@ -1,0 +1,7 @@
+Version 0.1.0 (14/03/2017)
+-------------------
+First Release Features:
+ - Block for displaying main menu items
+ - Support for glyphicons
+ - Support for subMenus
+ - Support for multiple items per Module

@@ -52,7 +52,6 @@ class Hidden extends Element
     public function render()
     {
         $attributes = $this->renderAttributeString();
-        return '<input ' . $attributes . 'value="'
-            . $this->getValue() . '" ' . $this->getExtra() .' >' . "\n";
+        return '<input ' . $attributes . $this->getExtra() .' >' . "\n";
     }
 }

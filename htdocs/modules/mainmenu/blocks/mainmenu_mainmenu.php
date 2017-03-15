@@ -12,31 +12,35 @@
 use Xoops\Module\Plugin;
 
 /**
- * usermenu module
+ * mainmenu module
  *
  * @copyright       XOOPS Project (http://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         usermenu
+ * @package         mainmenu
  * @since           2.6.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-function b_usermenu_usermenu_show()
+function b_mainmenu_mainmenu_show()
 {
-    // Check permissions
-    if (!\Xoops::getInstance()->isUser()) {
-        return false;
-    }
-
     $block = array();
-    $block['usermenu'] = array();
-    $plugins = Plugin::getPlugins('usermenu');
-    /* @var $plugin UsermenuPluginInterface */
+    $block['mainmenu'] = array();
+
+    //Check read permissions
+    $readAllowed = [];
+    $xoops = Xoops::getInstance();
+    $modulePermHandler = $xoops->getHandlerGroupPermission();
+    $groups = $xoops->getUserGroups();
+    $readAllowedIds = $modulePermHandler->getItemIds('module_read', $groups);
+    foreach ($readAllowedIds as $id) {
+        $readAllowed[] = $xoops->getModuleById($id)->getVar('dirname');
+    }
+    $plugins = Plugin::getPlugins('mainmenu');
+
+    /* @var $plugin MainmenuPluginInterface */
     foreach ($plugins as $dirName => $plugin) {
-
-        $helper = \Xoops::getModuleHelper($dirName);
-
-        if (is_array($results = $plugin->usermenu())) {
+        if (in_array($dirName, $readAllowed) && is_array($results = $plugin->mainmenu())) {
+            $helper = \Xoops::getModuleHelper($dirName);
             foreach ($results as $res) {
                 if (is_array($res) && isset($res['name']) && isset($res['link'])) {
                     $res['image'] = false;
@@ -60,15 +64,15 @@ function b_usermenu_usermenu_show()
                     }
 
                     //Handle active
-                    $activeUrl = \Xoops\Core\HttpRequest::getInstance()->getUrl();
-                    $res['isActive'] = strpos($activeUrl, $res['link']) === 0;
+                    $res['isActive'] = $helper->isCurrentModule();
 
                     $res['dirName'] = $dirName;
-                    $block['usermenu'][] = $res;
+                    $block['mainmenu'][] = $res;
                 }
             }
         }
     }
-    $block['count'] = count($block['usermenu']);
+
+    $block['count'] = count($block['mainmenu']);
     return $block['count'] ? $block : false;
 }
