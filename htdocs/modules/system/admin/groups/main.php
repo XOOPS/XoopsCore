@@ -83,7 +83,7 @@ switch ($op) {
             $groups['name'] = $group->getVar("name");
             $groups['description'] = $group->getVar("description");
             $member_handler = $xoops->getHandlerMember();
-            if ($groups_id != 3) {
+            if ($groups_id != FixedGroups::ANONYMOUS) {
                 $group_id_arr[0] = $groups_id;
                 $nb_users_by_groups = $member_handler->getUserCountByGroupLink($group_id_arr);
                 $groups['nb_users_by_groups'] = sprintf(SystemLocale::F_USERS, $nb_users_by_groups);
