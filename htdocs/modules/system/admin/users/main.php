@@ -369,7 +369,7 @@ switch ($op) {
             $group_select->addOption("", "--------------");
             /* @var $group XoopsGroup */
             foreach ($group_arr as $group) {
-                if ($group->getVar("groupid") != 3) {
+                if ($group->getVar("groupid") != FixedGroups::ANONYMOUS) {
                     $group_select->addOption("" . $group->getVar("groupid") . "", "" . $group->getVar("name") . "");
                 }
             }
@@ -723,7 +723,7 @@ switch ($op) {
             $group_arr = $group_handler->getObjects();
             /* @var $group XoopsGroup */
             foreach ($group_arr as $group) {
-                if ($group->getVar("groupid") != 3) {
+                if ($group->getVar("groupid") != FixedGroups::ANONYMOUS) {
                     $form .= '<option value="' . $group->getVar("groupid") . '"  ' . ($selgroups == $group->getVar("groupid") ? ' selected="selected"' : '') . '>' . $group->getVar("name") . '</option>';
                 }
             }
@@ -751,7 +751,7 @@ switch ($op) {
             $group_arr = $group_handler->getObjects();
             /* @var $group XoopsGroup */
             foreach ($group_arr as $group) {
-                if ($group->getVar("groupid") != 3) {
+                if ($group->getVar("groupid") != FixedGroups::ANONYMOUS) {
                     $form_select_groups .= '<option value="' . $group->getVar("groupid") . '"  ' . ($selgroups == $group->getVar("groupid") ? ' selected="selected"' : '') . '>' . $group->getVar("name") . '</option>';
                 }
             }
@@ -763,7 +763,7 @@ switch ($op) {
             //echo $requete_search;
             if ($users_count > 0) {
                 //echo $requete_search;
-                $ListOfAdmins = $member_handler->getUsersByGroup(1);
+                $ListOfAdmins = $member_handler->getUsersByGroup(FixedGroups::ADMIN);
                 /* @var $user XoopsUser */
                 foreach ($users_arr as $user) {
                     $users['uid'] = $user->getVar("uid");
