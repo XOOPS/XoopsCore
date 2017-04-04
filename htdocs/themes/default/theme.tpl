@@ -23,7 +23,11 @@
     <link rel="icon" type="image/png" href="{xoImgUrl 'assets/img/favicon.png'}" />
 
     <!-- Xoops and theme style sheets -->
-    <link rel="stylesheet" type="text/css" media="screen" href="{xoAppUrl 'media/xoops/css/icons.css'}" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'xoops.css'}>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/xoops/css/icons.css'}>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/bootstrap/css/bootstrap.min.css'}>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl 'media/bootstrap/css/xoops.bootstrap.css'}>" />
+
 
     <!-- customized header contents -->
     {$xoops_module_header}
