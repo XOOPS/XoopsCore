@@ -226,13 +226,12 @@ class PublisherCategory extends XoopsObject
     public function sendNotifications()
     {
         $xoops = Xoops::getInstance();
-        if ($xoops->isActiveModule('notifications')) {
+        if (true) {
             $tags = array();
             $tags['MODULE_NAME'] = $this->publisher->getModule()->getVar('name');
             $tags['CATEGORY_NAME'] = $this->getVar('name');
             $tags['CATEGORY_URL'] = $this->getCategoryUrl();
-            $notification_handler = Notifications::getInstance()->getHandlerNotification();
-            $notification_handler->triggerEvent('global', 0, 'category_created', $tags);
+            $xoops->service('Notifications')->triggerEvent('global', 0, 'category_created', $tags);
         }
     }
 

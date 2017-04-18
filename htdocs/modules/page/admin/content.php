@@ -145,14 +145,13 @@ switch ($op) {
                 $gperm_Handler->updatePerms($perm_id, $groups_view_item);
 
                 //notifications
-                if ($content_id == 0 && $xoops->isActiveModule('notifications')) {
-                    $notification_handler = Notifications::getInstance()->getHandlerNotification();
+                if ($content_id == 0) {
                     $tags = array();
                     $tags['MODULE_NAME'] = 'page';
                     $tags['ITEM_NAME'] = Request::getString('content_title', '');
                     $tags['ITEM_URL'] = \XoopsBaseConfig::get('url') . '/modules/page/viewpage.php?id=' . $newcontent_id;
-                    $notification_handler->triggerEvent('global', 0, 'newcontent', $tags);
-                    $notification_handler->triggerEvent('item', $newcontent_id, 'newcontent', $tags);
+                    $xoops->service('Notifications')->triggerEvent('global', 0, 'newcontent', $tags);
+                    $xoops->service('Notifications')->triggerEvent('item', $newcontent_id, 'newcontent', $tags);
                 }
                 $xoops->redirect('content.php', 2, XoopsLocale::S_DATABASE_UPDATED);
             }

@@ -131,7 +131,7 @@ class PagePage_content extends XoopsObject
                 array_push($ret, 'ncoms');
             }
         }
-        if ($xoops->isActiveModule('notifications')) {
+        if (true) {
             if ($this->getVar('content_donotifications') == 1) {
                 array_push($ret, 'notifications');
             }

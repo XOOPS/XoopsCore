@@ -448,15 +448,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                             }
                         }
 
-                        // RMV-NOTIFY
                         // trigger notification event if necessary
-                        if ($notify_event && $xoops->isActiveModule('notifications')) {
-                            $notifications = Notifications::getInstance();
-                            $not_modid = $comment->getVar('modid');
-                            $not_catinfo = $notifications->getCommentsCategory($module->getVar('dirname'));
-                            $not_category = $not_catinfo['name'];
-                            $not_itemid = $comment->getVar('itemid');
-                            $not_event = $notify_event;
+                        if ($notify_event) {
+                            $ntf_modid = $comment->getVar('modid');
+                            $ntf_category = '';
+                            $ntf_itemid = $comment->getVar('itemid');
+                            $ntf_event = $notify_event;
                             // Build an ABSOLUTE URL to view the comment.  Make sure we
                             // point to a viewable page (i.e. not the system administration
                             // module).
@@ -466,10 +463,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                                 . '&amp;com_rootid=' . $comment->getVar('rootid')
                                 . '&amp;com_mode=' . $mode . '&amp;com_order=' . $order
                                 . '#comment' . $comment->getVar('id');
-
-                            if ($xoops->isActiveModule('notifications')) {
-                                Notifications::getInstance()->getHandlerNotification()->triggerEvent($not_category, $not_itemid, $not_event, $comment_tags, false, $not_modid);
-                            }
+                            $xoops->service('Notifications')->triggerEvent($ntf_category, $ntf_itemid, $ntf_event, $comment_tags, false, $ntf_modid);
                         }
                         if (!isset($comment_post_results)) {
                             // if the comment is active, redirect to posted comment

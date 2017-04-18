@@ -112,7 +112,7 @@ switch ($op) {
             } else {
                 $xoops->getHandlerOnline()->destroy($uid);
                 if ($xoops->isActiveModule('notifications')) {
-                    Notifications::getInstance()->getHandlerNotification()->unsubscribeByUser($uid);
+                    $xoops->service('Notifications')->unsubscribeByUser($uid);
                 }
                 $xoops->redirect("admin.php?fct=users", 1, XoopsLocale::S_DATABASE_UPDATED);
             }
@@ -144,10 +144,7 @@ switch ($op) {
                     $error .= '<br />';
                 } else {
                     $xoops->getHandlerOnline()->destroy($del);
-                    // RMV-NOTIFY
-                    if ($xoops->isActiveModule('notifications')) {
-                        Notifications::getInstance()->getHandlerNotification()->unsubscribeByUser($del);
-                    }
+                    $xoops->service('Notifications')->unsubscribeByUser($del);
                 }
             }
             if ($error != '') {

@@ -114,9 +114,8 @@ if ($op === 'delete') {
             $del_uid = $xoops->user->getVar("uid");
             if (false != $xoops->getHandlerMember()->deleteUser($xoops->user)) {
                 $xoops->getHandlerOnline()->destroy($del_uid);
-                //todo, use preload here?
-                if ($xoops->isActiveModule('notifications')) {
-                    Notifications::getInstance()->getHandlerNotification()->unsubscribeByUser($del_uid);
+                if (true) {
+                    $xoops->service('Notifications')->unsubscribeByUser($del_uid);
                 }
                 $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 5, XoopsLocale::S_YOUR_ACCOUNT_DELETED);
             }

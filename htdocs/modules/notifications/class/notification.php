@@ -25,7 +25,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @author    Michael van Dam <mvandam@caltech.edu>
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
+ * @copyright XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.0.0
@@ -380,7 +380,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
      * @param int    $omit_user_id ID of the user to omit from notifications. (default to
      *                              current user).  set to 0 for all users to receive notification.
      *
-     * @return void
+     * @return bool false if at least one event failed
      *
      * @todo(?) - pass in an event LIST.  This will help to avoid
      *      problem of sending people multiple emails for similar events.
@@ -401,9 +401,11 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (!is_array($events)) {
             $events = array($events);
         }
+        $status = true;
         foreach ($events as $event) {
-            $this->triggerEvent($category, $item_id, $event, $extra_tags, $user_list, $module_id, $omit_user_id);
+            $status = $status AND $this->triggerEvent($category, $item_id, $event, $extra_tags, $user_list, $module_id, $omit_user_id);
         }
+        return $status;
     }
 
     /**
