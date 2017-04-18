@@ -87,6 +87,39 @@ class FilterInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\FilterInput::cleanVar
+     */
+    public function testCleanVarDefault()
+    {
+        $filter = FilterInput::getInstance();
+        $safeTest = '<p>This is a <em>simple</em> test.</p>';
+        $this->assertEquals('This is a simple test.', $filter->cleanVar($safeTest));
+    }
+
+    /**
+     * @covers Xmf\FilterInput::cleanVar
+     */
+    public function testCleanVarFilter()
+    {
+        $filter = FilterInput::getInstance(array(), array(), 1, 1);
+
+        $safeTest = '<p>This is a <em>simple</em> test.</p>';
+        $this->assertEquals($safeTest, $filter->cleanVar($safeTest));
+    }
+
+    /**
+     * @covers Xmf\FilterInput::cleanVar
+     */
+    public function testCleanVarFilterXss()
+    {
+        $filter = FilterInput::getInstance(array(), array(), 1, 1);
+
+        $xssTest = '<p>This is a <em>xss</em> <script>alert();</script> test.</p>';
+        $xssTestExpect = '<p>This is a <em>xss</em> alert(); test.</p>';
+        $this->assertEquals($xssTestExpect, $filter->cleanVar($xssTest));
+    }
+
+    /**
      * @covers Xmf\FilterInput::gather
      */
     public function testGather()

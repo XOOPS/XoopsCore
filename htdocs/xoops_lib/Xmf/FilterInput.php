@@ -169,8 +169,8 @@ class FilterInput
     }
 
     /**
-     * Method to be called by another php script. Processes for XSS and
-     * specified bad code.
+     * Static method to be called by another php script.
+     * Clean the supplied input using the default filter
      *
      * @param mixed  $source Input string/array-of-string to be 'cleaned'
      * @param string $type   Return/cleaning type for the variable, one of
@@ -190,6 +190,24 @@ class FilterInput
             $filter = static::getInstance();
         }
 
+        return $filter->cleanVar($source, $type);
+    }
+
+    /**
+     * Method to be called by another php script. Processes for XSS and
+     * specified bad code according to rules supplied when this instance
+     * was instantiated.
+     *
+     * @param mixed  $source Input string/array-of-string to be 'cleaned'
+     * @param string $type   Return/cleaning type for the variable, one of
+     *                       (INTEGER, FLOAT, BOOLEAN, WORD, ALPHANUM, CMD, BASE64,
+     *                        STRING, ARRAY, PATH, USERNAME, WEBURL, EMAIL, IP)
+     *
+     * @return mixed 'Cleaned' version of input parameter
+     * @static
+     */
+    public function cleanVar($source, $type = 'string')
+    {
         // Handle the type constraint
         switch (strtoupper($type)) {
             case 'INT':
@@ -230,11 +248,11 @@ class FilterInput
                 break;
 
             case 'STRING':
-                $result = (string) $filter->process($source);
+                $result = (string) $this->process($source);
                 break;
 
             case 'ARRAY':
-                $result = (array) $filter->process($source);
+                $result = (array) $this->process($source);
                 break;
 
             case 'PATH':
@@ -249,7 +267,7 @@ class FilterInput
                 break;
 
             case 'WEBURL':
-                $result = (string) $filter->process($source);
+                $result = (string) $this->process($source);
                 // allow only relative, http or https
                 $urlparts = parse_url($result);
                 if (!empty($urlparts['scheme'])
@@ -280,7 +298,7 @@ class FilterInput
                 break;
 
             default:
-                $result = $filter->process($source);
+                $result = $this->process($source);
                 break;
         }
 

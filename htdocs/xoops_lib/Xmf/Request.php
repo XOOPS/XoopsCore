@@ -583,7 +583,7 @@ class Request
                 if (null === $safeHtmlFilter) {
                     $safeHtmlFilter = FilterInput::getInstance(array(), array(), 1, 1);
                 }
-                $var = $safeHtmlFilter->clean($var, $type);
+                $var = $safeHtmlFilter->cleanVar($var, $type);
             } else {
                 // Since no allow flags were set, we will apply the most strict filter to the variable
                 if (null === $noHtmlFilter) {
