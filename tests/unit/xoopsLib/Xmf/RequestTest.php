@@ -176,6 +176,45 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Xmf\Request::getString
+     */
+    public function testGetString2()
+    {
+        $varname = 'RequestTest';
+
+        $safeTest = '<p>This is a <em>simple</em> test.</p>';
+        $_POST[$varname] = $safeTest;
+
+        $this->assertEquals('This is a simple test.', Request::getString($varname, '', 'POST'));
+    }
+
+    /**
+     * @covers Xmf\Request::getString
+     */
+    public function testGetStringAllowHtml()
+    {
+        $varname = 'RequestTest';
+
+        $safeTest = '<p>This is a <em>simple</em> test.</p>';
+        $_POST[$varname] = $safeTest;
+
+        $this->assertEquals($safeTest, Request::getString($varname, '', 'POST', Request::MASK_ALLOW_HTML));
+    }
+
+    /**
+     * @covers Xmf\Request::getString
+     */
+    public function testGetStringAllowHtmlXss()
+    {
+        $varname = 'RequestTest';
+
+        $xssTest = '<p>This is a <em>xss</em> <script>alert();</script> test.</p>';
+        $_POST[$varname] = $xssTest;
+        $xssTestExpect = '<p>This is a <em>xss</em> alert(); test.</p>';
+        $this->assertEquals($xssTestExpect, Request::getString($varname, '', 'POST', Request::MASK_ALLOW_HTML));
+    }
+
+    /**
      * @covers Xmf\Request::getArray
      */
     public function testGetArray()
