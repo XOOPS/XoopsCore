@@ -177,6 +177,10 @@ EOT;
         $expected = $expected . '.html';
         $actual = Metagen::generateSeoTitle($title, '.html');
         $this->assertEquals($expected, $actual, $actual);
+        $title = 'catégorie. 2 xmarticle';
+        $expected = 'catégorie-2-xmarticle';
+        $actual = Metagen::generateSeoTitle($title);
+        $this->assertEquals($expected, $actual, $actual);
     }
 
     /**
