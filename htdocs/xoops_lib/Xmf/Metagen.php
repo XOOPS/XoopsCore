@@ -268,7 +268,7 @@ class Metagen
      */
     public static function generateSeoTitle($title = '', $extension = '')
     {
-        $title = preg_replace("/[^\p{N}\p{L}]/", "-", $title);
+        $title = preg_replace("/[^\p{N}\p{L}]/u", "-", $title);
         $title = \Normalizer::normalize($title, \Normalizer::FORM_C);
 
         $tableau = explode("-", $title);
