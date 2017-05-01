@@ -6,10 +6,12 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - nightly
   - hhvm
 
 matrix:
     allow_failures:
+        - php: nightly
         - php: hhvm
 
 before_install:
@@ -30,5 +32,5 @@ script:
   - htdocs/xoops_lib/vendor/bin/phpunit
 
 after_script:
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "nightly" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "nightly" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
