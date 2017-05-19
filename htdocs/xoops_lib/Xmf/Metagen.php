@@ -310,7 +310,7 @@ class Metagen
                 // we are not at the beginning so find first blank
                 $temp = mb_strpos($haystack, ' ', $start, static::ENCODING);
                 $start = ($temp === false) ? $start : $temp;
-                $haystack = mb_substr($haystack, $start, null, static::ENCODING);
+                $haystack = mb_substr($haystack, $start, mb_strlen($haystack), static::ENCODING);
             }
 
             $post = !(mb_strlen($haystack, static::ENCODING) < $length); // need an ellipsis in back?

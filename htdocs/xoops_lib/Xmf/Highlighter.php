@@ -44,7 +44,7 @@ class Highlighter
     public static function apply($words, $body, $pre = '<mark>', $post = '</mark>')
     {
         if (!is_array($words)) {
-            $words = str_replace('  ', ' ', $words);
+            $words = preg_replace('/[\s]+/', ' ', $words);
             $words = explode(' ', $words);
         }
         foreach ($words as $word) {
@@ -78,7 +78,7 @@ class Highlighter
                     while ($p1 !== false) {
                         $ret .= mb_substr($haystack, 0, $p1, $encoding) . $pre
                             . mb_substr($haystack, $p1, $l1, $encoding) . $post;
-                        $haystack = mb_substr($haystack, $p1 + $l1, null, $encoding);
+                        $haystack = mb_substr($haystack, $p1 + $l1, mb_strlen($haystack), $encoding);
                         $p1 = mb_stripos($haystack, $needle, 0, $encoding);
                     }
                 } else {
