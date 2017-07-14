@@ -172,7 +172,7 @@ class Protector
             return false;
         }
 
-        $result = @mysql_query("SELECT conf_name,conf_value FROM " . \XoopsBaseConfig::get('db-prefix') . "_config WHERE conf_title like '" . "_MI_PROTECTOR%'", $this->_conn);
+        $result = @mysqli_query("SELECT conf_name,conf_value FROM " . \XoopsBaseConfig::get('db-prefix') . "_config WHERE conf_title like '" . "_MI_PROTECTOR%'", $this->_conn);
         if (!$result || mysql_num_rows($result) < 5) {
             return false;
         }
@@ -265,7 +265,7 @@ class Protector
         $agent = @$_SERVER['HTTP_USER_AGENT'];
 
         if ($unique_check) {
-            $result = mysql_query('SELECT ip,type FROM ' . \XoopsBaseConfig::get('db-prefix') . '_' . $this->mydirname . '_log ORDER BY timestamp DESC LIMIT 1', $this->_conn);
+            $result = mysqli_query('SELECT ip,type FROM ' . \XoopsBaseConfig::get('db-prefix') . '_' . $this->mydirname . '_log ORDER BY timestamp DESC LIMIT 1', $this->_conn);
             list($last_ip, $last_type) = mysql_fetch_row($result);
             if ($last_ip == $ip && $last_type == $type) {
                 $this->_logged = true;
@@ -273,7 +273,7 @@ class Protector
             }
         }
 
-        mysql_query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . (int)($uid) . "',timestamp=NOW()", $this->_conn);
+        mysqli_query("INSERT INTO " . XOOPS_DB_PREFIX . "_" . $this->mydirname . "_log SET ip='" . addslashes($ip) . "',agent='" . addslashes($agent) . "',type='" . addslashes($type) . "',description='" . addslashes($this->message) . "',uid='" . (int)($uid) . "',timestamp=NOW()", $this->_conn);
         $this->_logged = true;
         return true;
     }

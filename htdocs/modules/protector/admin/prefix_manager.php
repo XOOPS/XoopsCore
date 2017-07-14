@@ -129,7 +129,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
             }
             $drs = $db->queryF("SHOW CREATE TABLE `$table`");
             $export_string .= "\nDROP TABLE IF EXISTS `$table`;\n" . mysql_result($drs, 0, 1) . ";\n\n";
-            $result = mysql_query("SELECT * FROM `$table`");
+            $result = mysqli_query("SELECT * FROM `$table`");
             $fields_cnt = mysql_num_fields($result);
             $field_flags = array();
             for ($j = 0; $j < $fields_cnt; ++$j) {
