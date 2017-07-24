@@ -206,9 +206,9 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
             ['en_US', 'America/New_York', 'rss',          '',  'Mon, 14 Dec 2015 05:00:00 +0000'],
             ['en_US', 'America/New_York', 'mysql',        '',  '2015-12-14 05:00:00'],
 
-            ['fr_FR', 'Europe/Paris',     'full',         'f', 'lundi 14 décembre 2015 00:00:00 heure normale d’Europe centrale'],
-            ['fr_FR', 'Europe/Paris',     'long',         'l', '14 décembre 2015 00:00:00 UTC+1'],
-            ['fr_FR', 'Europe/Paris',     'medium',       'm', '14 déc. 2015 00:00:00'],
+            ['fr_FR', 'Europe/Paris',     'full',         'f', 'lundi 14 décembre 2015 à 00:00:00 heure normale d’Europe centrale'],
+            ['fr_FR', 'Europe/Paris',     'long',         'l', '14 décembre 2015 à 00:00:00 UTC+1'],
+            ['fr_FR', 'Europe/Paris',     'medium',       'm', '14 déc. 2015 à 00:00:00'],
             ['fr_FR', 'Europe/Paris',     'medium-date',  '',  '14 déc. 2015'],
             ['fr_FR', 'Europe/Paris',     'medium-time',  '',  '00:00:00'],
             ['fr_FR', 'Europe/Paris',     'short',        's', '14/12/2015 00:00'],
