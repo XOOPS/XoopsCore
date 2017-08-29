@@ -172,7 +172,7 @@ switch ($op) {
                 array('ok' => 1, 'related_id' => $related_id, 'op' => 'delete'),
                 'related.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
-                . '<br /><span class="red">' . $obj->getvar('related_name') . '<span>'
+                . '<br /><span class="red">' . $obj->getVar('related_name') . '<span>'
             );
         }
         break;

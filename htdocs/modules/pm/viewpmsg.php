@@ -68,7 +68,7 @@ if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST
                     $pm_handler->setTodelete($pm);
                 } else {
                     if ($pm->getVar('from_userid') == $xoops->user->getVar('uid')) {
-                        $pm_handler->setFromdelete($pm);
+                        $pm_handler->setFromDelete($pm);
                     }
                 }
                 unset($pm);
@@ -175,7 +175,7 @@ if (isset($_REQUEST['empty_messages'])) {
                             $pm_handler->setFromsave($pms[$i], 0);
                         } else {
                             if ($_POST['op'] === 'out') {
-                                $pm_handler->setFromdelete($pms[$i]);
+                                $pm_handler->setFromDelete($pms[$i]);
                             }
                         }
                     }
