@@ -55,7 +55,7 @@ class SystemBreadcrumb
      * @staticvar SystemBreadcrumb
      * @return SystemBreadcrumb
      */
-    static public function getInstance($fct = '')
+    public static function getInstance($fct = '')
     {
         static $instance;
         if (!isset($instance)) {
