@@ -41,7 +41,7 @@ class Plugins extends Xoops\Module\Helper\HelperAbstract
     }
 
     /**
-     * @return PluginsPluginHandler
+     * @return PluginsPluginHandler|\Xoops\Core\Kernel\XoopsObjectHandler
      */
     public function getHandlerPlugin()
     {
