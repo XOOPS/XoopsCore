@@ -11,8 +11,6 @@
 
 namespace Xmf;
 
-use RandomLib\Factory;
-
 /**
  * XOOPS Random generator
  *
@@ -38,9 +36,7 @@ class Random
      */
     public static function generateOneTimeToken($hash = 'sha512', $bytes = 64)
     {
-        $factory = new Factory;
-        $generator = $factory->getLowStrengthGenerator();
-        $token = hash($hash, $generator->generate($bytes));
+        $token = hash($hash, random_bytes($bytes));
         return $token;
     }
 
@@ -57,9 +53,7 @@ class Random
      */
     public static function generateKey($hash = 'sha512', $bytes = 128)
     {
-        $factory = new Factory;
-        $generator = $factory->getMediumStrengthGenerator();
-        $token = hash($hash, $generator->generate($bytes));
+        $token = hash($hash, random_bytes($bytes));
         return $token;
     }
 }
