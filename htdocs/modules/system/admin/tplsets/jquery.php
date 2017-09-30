@@ -29,6 +29,10 @@ if (!$xoops->isUser() || !$xoops->isModule() || !$xoops->user->isAdmin($xoops->m
     exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
+if (isset($_REQUEST['dir']) && strpos($_REQUEST['dir'],'..') !== false || isset($_REQUEST['path_file']) && strpos($_REQUEST['path_file'],'..') !== false) {
+    exit(XoopsLocale::E_NO_ACCESS_PERMISSION);
+}
+
 include_once $xoops->path('modules/system/functions.php');
 $xoops->loadLocale('system');
 
