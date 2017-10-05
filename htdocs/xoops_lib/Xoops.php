@@ -1877,48 +1877,40 @@ class Xoops
      * @param string  $url              URL
      * @param boolean $includeSubdomain true to include include subdomains,
      *                                  default is false registerable domain only
-     * @param boolean $returnObject     true to return Pdp\Uri\Url\Host object
-     *                                  false returns domain as string
      *
-     * @return Pdp\Uri\Url\Host|string|null domain, or null if domain is invalid
+     * @return string|null domain, or null if domain is invalid
      */
-    public function getBaseDomain($url, $includeSubdomain = false, $returnObject = false)
+    public function getBaseDomain($url, $includeSubdomain = false)
     {
-        $pslManager = new \Pdp\PublicSuffixListManager();
-        $parser = new \Pdp\Parser($pslManager->getList());
-
         $url=mb_strtolower($url, 'UTF-8');
 
-        try {
-            // use php-domain-parser to give us just the domain
-            $pdp = $parser->parseUrl($url);
-            $host = $pdp->host->host;
-        } catch (\Exception $e) {
-            $this->events()->triggerEvent('core.exception', $e);
-            return null;
-        }
-        // check for exceptions, localhost and ip address (v4 & v6)
-        if (!empty($host)) {
-            // localhost exception
-            if ($host==='localhost') {
-                return $returnObject ? $pdp->host : $host;
-            }
-            // Check for IPV6 URL (see http://www.ietf.org/rfc/rfc2732.txt)
-            // strip brackets before validating
-            if (substr($host, 0, 1)==='[' && substr($host, -1)===']') {
-                $host = substr($host, 1, (strlen($host)-2));
-            }
-            // ip address exception
-            if (filter_var($host, FILTER_VALIDATE_IP)) {
-                return $returnObject ? new \Pdp\Uri\Url\Host(null, null, null, $host) : $host;
+        $host = parse_url($url, PHP_URL_HOST);
+        if (empty($host)) {
+            $host = parse_url($url, PHP_URL_PATH); // bare host name
+            if (empty($host)) {
+                return null;
             }
         }
 
-        $host = $pdp->host->registerableDomain;
-        if (!empty($host) && $includeSubdomain) {
-            $host = $pdp->host->host;
+        // check for exceptions, localhost and ip address (v4 & v6)
+        if ($host==='localhost') {
+            return $host;
         }
-        return $returnObject ? $pdp->host : $host;
+        // Check for IPV6 URL (see http://www.ietf.org/rfc/rfc2732.txt)
+        // strip brackets before validating
+        if (substr($host, 0, 1)==='[' && substr($host, -1)===']') {
+            $host = substr($host, 1, (strlen($host)-2));
+        }
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            return $host;
+        }
+
+        $regdom = new \Geekwright\RegDom\RegisteredDomain();
+        $regHost = $regdom->getRegisteredDomain($host);
+        if (null === $regHost) {
+            return null;
+        }
+        return $includeSubdomain ? $host : $regHost;
     }
 
     /**

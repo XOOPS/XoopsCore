@@ -74,9 +74,10 @@ class Debug extends \Kint
                 $events->triggerEvent($eventName, $var);
             }
         } else {
-            parent::$theme = 'aante-light'; // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
-            call_user_func_array('parent::dump', $args);
-            //forward_static_call_array(array('parent', 'dump'), $args);
+            parent::$display_called_from = false;
+            \Kint_Renderer_Rich::$theme = 'aante-light.css'; // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
+            //call_user_func_array('parent::dump', $args);
+            forward_static_call_array(array('parent', 'dump'), $args);
         }
     }
 
