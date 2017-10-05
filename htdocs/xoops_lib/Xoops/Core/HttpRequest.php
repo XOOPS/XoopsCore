@@ -294,9 +294,15 @@ class HttpRequest
     public function getSubdomains()
     {
         $host = $this->getHost();
-        $pdp = \Xoops::getInstance()->getBaseDomain($host, true, true);
-        $subdomain = $pdp->subdomain;
-        return is_null($subdomain) ? '' : $subdomain;
+        $regDom  = \Xoops::getInstance()->getBaseDomain($host);
+        $fullDom = \Xoops::getInstance()->getBaseDomain($host, true);
+        if (empty($regDom) || empty($fullDom)) {
+            return '';
+        }
+        $regPattern = '/' . $regDom . '$/';
+        $subdomain = preg_replace($regPattern, '', $fullDom);
+        $subdomain = preg_replace('/\.$/', '', $subdomain);
+        return empty($subdomain) ? '' : $subdomain;
     }
 
     /**
