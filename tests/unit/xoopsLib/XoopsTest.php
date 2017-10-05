@@ -1060,6 +1060,7 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
             array('url' => 'https://www.scottwills.co.uk/', 'base' => 'scottwills.co.uk', 'full' => 'www.scottwills.co.uk',),
             array('url' => 'http://co.uk/', 'base' => null, 'full' => null,),
             array('url' => 'http://xoops.consulting', 'base' => 'xoops.consulting', 'full' => 'xoops.consulting',),
+            array('url' => 'https://okinawa.jp', 'base' => null, 'full' => null,),
             array('url' => 'okinawa.jp', 'base' => null, 'full' => null,),
             array('url' => 'http://இலங்கை.museum', 'base' => 'இலங்கை.museum', 'full' => 'இலங்கை.museum',),
             array('url' => 'http://россия.net', 'base' => 'россия.net', 'full' => 'россия.net',),
@@ -1075,6 +1076,9 @@ class XoopsTest extends \PHPUnit_Framework_TestCase
             array('url' => 'http://[::192.9.5.5]/ipng', 'base' => '::192.9.5.5', 'full' => '::192.9.5.5',),
             array('url' => 'http://[::FFFF:129.144.52.38]:80/index.html', 'base' => '::ffff:129.144.52.38', 'full' => '::ffff:129.144.52.38',),
             array('url' => 'http://[2010:836B:4179::836B:4179]', 'base' => '2010:836b:4179::836b:4179', 'full' => '2010:836b:4179::836b:4179',),
+        // bare domain
+            array('url' => 'www.example.com', 'base' => 'example.com', 'full' => 'www.example.com',),
+
         );
         foreach ($urls as $url) {
             $this->assertSame($url['base'], $xoops->getBaseDomain($url['url']), $url['url']);
