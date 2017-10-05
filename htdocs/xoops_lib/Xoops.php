@@ -1886,7 +1886,10 @@ class Xoops
 
         $host = parse_url($url, PHP_URL_HOST);
         if (empty($host)) {
-            return null;
+            $host = parse_url($url, PHP_URL_PATH); // bare host name
+            if (empty($host)) {
+                return null;
+            }
         }
 
         // check for exceptions, localhost and ip address (v4 & v6)

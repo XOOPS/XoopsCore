@@ -282,7 +282,7 @@ class HttpRequest
     public function getDomain()
     {
         $host = $this->getHost();
-        $domain =  \Xoops::getInstance()->getBaseDomain($host, false);
+        $domain =  \Xoops::getInstance()->getBaseDomain($host);
         return is_null($domain) ? $host : $domain;
     }
 
