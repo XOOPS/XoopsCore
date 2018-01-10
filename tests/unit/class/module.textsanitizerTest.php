@@ -331,7 +331,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $sanitizer = $class::getInstance();
         $text = 'toto titi tutu tata';
-        PHPUnit_Framework_Error_Warning::$enabled = FALSE;
+        PHPUnit\Framework\Error\Warning::$enabled = FALSE;
         $value = $sanitizer->textFilter($text);
         $this->assertSame($text, $value);
     }

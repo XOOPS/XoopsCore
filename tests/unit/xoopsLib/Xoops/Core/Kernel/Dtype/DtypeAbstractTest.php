@@ -50,7 +50,7 @@ class DtypeAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->reflectedObject->isAbstract());
         $this->assertTrue($this->reflectedObject->hasMethod('cleanVar'));
         $this->assertTrue($this->reflectedObject->hasMethod('getVar'));
-        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer', \PHPUnit_Framework_Assert::readAttribute($this->object, 'ts'));
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer', \PHPUnit\Framework\Assert::readAttribute($this->object, 'ts'));
     }
 
     /**
