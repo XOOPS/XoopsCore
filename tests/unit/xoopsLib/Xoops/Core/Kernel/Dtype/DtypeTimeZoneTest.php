@@ -26,7 +26,7 @@ class DtypeTimeZoneObject extends XoopsObject
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeTimeZoneTest extends \PHPUnit_Framework_TestCase
+class DtypeTimeZoneTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeTimeZone

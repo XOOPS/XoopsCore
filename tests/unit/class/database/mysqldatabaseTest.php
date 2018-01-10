@@ -10,7 +10,7 @@ use Doctrine\Common\EventManager;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsMySQLDatabaseTest extends \PHPUnit_Framework_TestCase
+class XoopsMySQLDatabaseTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsMySQLDatabase';
 	

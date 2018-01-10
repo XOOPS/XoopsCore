@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\XoopsObject;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeEnumerationTest extends \PHPUnit_Framework_TestCase
+class DtypeEnumerationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeDecimal

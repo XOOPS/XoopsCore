@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class TableFormTest extends \PHPUnit_Framework_TestCase
+class TableFormTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var TableForm

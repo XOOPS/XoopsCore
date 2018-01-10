@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Module_Helper_DummyTest extends \PHPUnit_Framework_TestCase
+class Xoops_Module_Helper_DummyTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = '\Xoops\Module\Helper\Dummy';
 

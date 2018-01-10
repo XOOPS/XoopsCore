@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsMembershipHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class SyncTest extends \PHPUnit_Framework_TestCase
+class SyncTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

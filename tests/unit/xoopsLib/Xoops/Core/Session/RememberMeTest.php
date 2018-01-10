@@ -8,7 +8,7 @@ use Xoops\Core\Session\RememberMe;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class RememberMeTest extends \PHPUnit_Framework_TestCase
+class RememberMeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var RememberMe

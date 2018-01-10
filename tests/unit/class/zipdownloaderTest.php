@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsZipDownloaderTest extends \PHPUnit_Framework_TestCase
+class XoopsZipDownloaderTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsZipDownloader';
     

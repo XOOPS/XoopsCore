@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupStaticAttributes disabled
 */
 
-class UuidTest extends \PHPUnit_Framework_TestCase
+class UuidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Random

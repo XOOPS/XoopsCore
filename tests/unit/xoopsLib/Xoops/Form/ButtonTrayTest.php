@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class ButtonTrayTest extends \PHPUnit_Framework_TestCase
+class ButtonTrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ButtonTray

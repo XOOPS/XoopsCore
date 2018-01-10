@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class TableLoadTest extends \PHPUnit_Framework_TestCase
+class TableLoadTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var TableLoad

@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\XoopsObject;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeFloatTest extends \PHPUnit_Framework_TestCase
+class DtypeFloatTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeFloat

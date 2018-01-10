@@ -10,7 +10,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsCaptchaTest extends \PHPUnit_Framework_TestCase
+class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsCaptcha';
 

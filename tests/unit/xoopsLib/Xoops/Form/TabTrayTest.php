@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class TabTrayTest extends \PHPUnit_Framework_TestCase
+class TabTrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var TabTray

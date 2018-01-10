@@ -8,7 +8,7 @@ use Xoops\Core\Security;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class SecurityTest extends \PHPUnit_Framework_TestCase
+class SecurityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Class

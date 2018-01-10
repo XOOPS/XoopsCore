@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class ElementFactoryTest extends \PHPUnit_Framework_TestCase
+class ElementFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ElementFactory

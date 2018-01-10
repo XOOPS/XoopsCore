@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Criteria;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsTplFileHandlerTest extends \PHPUnit_Framework_TestCase
+class XoopsTplFileHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplFileHandler';
     protected $conn = null;

@@ -6,11 +6,11 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ThemeSetLinkHandlerTest extends \PHPUnit_Framework_TestCase
+class ThemeSetLinkHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetLinkHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -26,15 +26,15 @@ class ThemeSetLinkHandlerTest extends \PHPUnit_Framework_TestCase
     public function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('link', $name);
 	}
-	
+
     public function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('author','author');
@@ -42,7 +42,7 @@ class ThemeSetLinkHandlerTest extends \PHPUnit_Framework_TestCase
 		$x = $instance->handleCharacterData($parser,$data);
 		$this->assertSame(null, $x);
 		$this->assertSame($data, $parser->getTempArr('link'));
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('dummy','dummy');

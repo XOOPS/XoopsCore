@@ -22,7 +22,7 @@ class Legacy_XoopsPersistableObjectHandlerTestInstance extends \XoopsPersistable
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Legacy_XoopsPersistableObjectHandlerTest extends \PHPUnit_Framework_TestCase
+class Legacy_XoopsPersistableObjectHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Legacy_XoopsPersistableObjectHandlerTestInstance';
 

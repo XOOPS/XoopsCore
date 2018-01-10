@@ -8,7 +8,7 @@ use Xoops\Core\Session\Fingerprint;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class FingerprintTest extends \PHPUnit_Framework_TestCase
+class FingerprintTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Fingerprint

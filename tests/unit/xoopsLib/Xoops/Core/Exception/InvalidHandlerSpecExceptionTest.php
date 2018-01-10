@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../../../init_new.php';
 * @backupStaticAttributes disabled
 */
 
-class InvalidHandlerSpecExceptionTest extends \PHPUnit_Framework_TestCase
+class InvalidHandlerSpecExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var InvalidHandlerSpecException
@@ -41,7 +41,7 @@ class InvalidHandlerSpecExceptionTest extends \PHPUnit_Framework_TestCase
 
     public function testException()
     {
-        $this->setExpectedException('Xoops\Core\Exception\InvalidHandlerSpecException');
+        $this->expectException('\Xoops\Core\Exception\InvalidHandlerSpecException');
         throw $this->object;
     }
 }

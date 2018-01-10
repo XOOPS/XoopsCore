@@ -13,7 +13,7 @@ use Xoops\Core\Service\Response;
  * @backupStaticAttributes disabled
  */
 
-class ResponseTest extends \PHPUnit_Framework_TestCase
+class ResponseTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Response

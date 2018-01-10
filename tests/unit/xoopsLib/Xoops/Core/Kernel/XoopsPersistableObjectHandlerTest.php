@@ -22,7 +22,7 @@ class XoopsPersistableObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsP
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class XoopsPersistableObjectHandlerTest extends \PHPUnit_Framework_TestCase
+class XoopsPersistableObjectHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsPersistableObjectHandlerTestInstance';
     protected $conn = null;

@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupStaticAttributes disabled
 */
 
-class HighlighterTest extends \PHPUnit_Framework_TestCase
+class HighlighterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Highlighter

@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class PagenavTest extends \PHPUnit_Framework_TestCase
+class PagenavTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsPageNav';
 

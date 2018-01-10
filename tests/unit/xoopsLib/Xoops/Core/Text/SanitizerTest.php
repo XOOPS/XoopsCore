@@ -8,7 +8,7 @@ require_once __DIR__.'/../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class SanitizerTest extends \PHPUnit_Framework_TestCase
+class SanitizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Sanitizer

@@ -8,7 +8,7 @@ use Xoops\Core\Session\Manager;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class Session_ManagerTest extends \PHPUnit_Framework_TestCase
+class Session_ManagerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Manager

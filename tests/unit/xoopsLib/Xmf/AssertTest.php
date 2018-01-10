@@ -33,7 +33,7 @@ use ArrayIterator;
 use Exception;
 use Error;
 use LogicException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
 use Xmf\Assert;
@@ -45,7 +45,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class AssertTest extends PHPUnit_Framework_TestCase
+class AssertTest extends \PHPUnit\Framework\TestCase
 {
     private static $resource;
 
@@ -267,7 +267,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
             // no tests for readable()/writable() for now
             array('classExists', array(__CLASS__), true),
             array('classExists', array(__NAMESPACE__.'\Foobar'), false),
-            array('subclassOf', array(__CLASS__, 'PHPUnit_Framework_TestCase'), true),
+            array('subclassOf', array(__CLASS__, 'PHPUnit\Framework\TestCase'), true),
             array('subclassOf', array(__CLASS__, 'stdClass'), false),
             array('implementsInterface', array('ArrayIterator', 'Traversable'), true),
             array('implementsInterface', array(__CLASS__, 'Traversable'), false),
@@ -348,7 +348,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
         }
 
         if (!$success) {
-            $this->setExpectedException('\InvalidArgumentException');
+            $this->expectException('\InvalidArgumentException');
         }
 
         call_user_func_array(array('Xmf\Assert', $method), $args);
@@ -371,7 +371,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
         }
 
         if (!$success && null !== reset($args)) {
-            $this->setExpectedException('\InvalidArgumentException');
+            $this->expectException('\InvalidArgumentException');
         }
 
         call_user_func_array(array('Xmf\Assert', 'nullOr'.ucfirst($method)), $args);
@@ -402,7 +402,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
         }
 
         if (!$success) {
-            $this->setExpectedException('\InvalidArgumentException');
+            $this->expectException('\InvalidArgumentException');
         }
 
         $arg = array_shift($args);
@@ -428,7 +428,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
         }
 
         if (!$success) {
-            $this->setExpectedException('\InvalidArgumentException');
+            $this->expectException('\InvalidArgumentException');
         }
 
         $arg = array_shift($args);
@@ -464,7 +464,7 @@ class AssertTest extends PHPUnit_Framework_TestCase
      */
     public function testConvertValuesToStrings($method, $args, $exceptionMessage)
     {
-        $this->setExpectedException('\InvalidArgumentException', $exceptionMessage);
+        $this->expectException('\InvalidArgumentException', $exceptionMessage);
 
         call_user_func_array(array('Xmf\Assert', $method), $args);
     }

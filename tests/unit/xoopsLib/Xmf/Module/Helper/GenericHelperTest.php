@@ -30,7 +30,7 @@ if (!function_exists('xoops_getHandler')) {
  * @backupStaticAttributes disabled
  */
 
-class GenericHelperTest extends \PHPUnit_Framework_TestCase
+class GenericHelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var GenericHelper

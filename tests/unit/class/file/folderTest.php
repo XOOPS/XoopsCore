@@ -11,7 +11,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class XoopsFolderHandlerTest extends \PHPUnit_Framework_TestCase
+class XoopsFolderHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFolderHandler';
 

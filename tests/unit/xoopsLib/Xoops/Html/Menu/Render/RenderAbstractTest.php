@@ -8,7 +8,7 @@ require_once(__DIR__.'/../../../../../init_new.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class RenderAbstractTest extends \PHPUnit_Framework_TestCase
+class RenderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var RenderAbstract

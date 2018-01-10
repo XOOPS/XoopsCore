@@ -9,7 +9,7 @@ use Xoops\Core\FixedGroups;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class GrouppermHandlerTest extends \PHPUnit_Framework_TestCase
+class GrouppermHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler';
     protected $conn = null;

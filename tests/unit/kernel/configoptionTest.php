@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/configoption.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_configoptionTest extends \PHPUnit_Framework_TestCase
+class legacy_configoptionTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()

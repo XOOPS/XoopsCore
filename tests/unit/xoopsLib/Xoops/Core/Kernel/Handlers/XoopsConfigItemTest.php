@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsConfigItem;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigItemTest extends \PHPUnit_Framework_TestCase
+class ConfigItemTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigItem';
 

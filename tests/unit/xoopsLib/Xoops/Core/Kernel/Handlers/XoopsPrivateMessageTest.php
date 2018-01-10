@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsPrivateMessage;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsPrivateMessageTest extends \PHPUnit_Framework_TestCase
+class XoopsPrivateMessageTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivateMessage';
 

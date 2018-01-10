@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class GroupPermissionFormTest extends \PHPUnit_Framework_TestCase
+class GroupPermissionFormTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var GroupPermissionForm

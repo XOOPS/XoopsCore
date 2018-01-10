@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ThemeSetEmailHandlerTest extends \PHPUnit_Framework_TestCase
+class ThemeSetEmailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetEmailHandler';
     protected $object = null;

@@ -18,7 +18,7 @@ class XoopsModelAbstractTestInstance extends XoopsModelAbstract
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsModelAbstractTest extends \PHPUnit_Framework_TestCase
+class XoopsModelAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsModelAbstractTestInstance';
 

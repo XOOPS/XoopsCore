@@ -9,7 +9,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigTextTest extends \PHPUnit_Framework_TestCase
+class ConfigTextTest extends \PHPUnit\Framework\TestCase
 {
     public function test_100()
 	{

@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/module.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_moduleHandlerTest extends \PHPUnit_Framework_TestCase
+class legacy_moduleHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

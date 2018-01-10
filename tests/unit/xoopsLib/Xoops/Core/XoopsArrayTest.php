@@ -9,7 +9,7 @@ use Xoops\Core\XoopsArray;
  * @backupStaticAttributes disabled
  */
 
-class XoopsArrayTest extends \PHPUnit_Framework_TestCase
+class XoopsArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Registry

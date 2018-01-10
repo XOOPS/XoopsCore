@@ -26,7 +26,7 @@ class DtypeDateTimeObject extends XoopsObject
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeDateTimeTest extends \PHPUnit_Framework_TestCase
+class DtypeDateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeDateTime

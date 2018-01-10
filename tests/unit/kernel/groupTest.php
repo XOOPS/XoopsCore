@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/group.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_groupTest extends \PHPUnit_Framework_TestCase
+class legacy_groupTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()

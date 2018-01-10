@@ -26,7 +26,7 @@ class DtypeJsonObject extends XoopsObject
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeJsonTest extends \PHPUnit_Framework_TestCase
+class DtypeJsonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeJson

@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsOnlineHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class OnlineHandlerTest extends \PHPUnit_Framework_TestCase
+class OnlineHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsOnlineHandler';
     protected $myId = null;

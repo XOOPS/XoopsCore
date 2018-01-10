@@ -12,7 +12,7 @@ class Legacy_ObjecthandlerTestInstance extends \XoopsObjectHandler
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Legacy_ObjecthandlerTest extends \PHPUnit_Framework_TestCase
+class Legacy_ObjecthandlerTest extends \PHPUnit\Framework\TestCase
 {
     public $myClass='Legacy_ObjecthandlerTestInstance';
 

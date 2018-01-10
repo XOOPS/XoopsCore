@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsGroupPerm;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class GrouppermTest extends \PHPUnit_Framework_TestCase
+class GrouppermTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsGroupPerm';
 

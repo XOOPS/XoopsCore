@@ -28,7 +28,7 @@ class DtypeSimpleTimeObject extends XoopsObject
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeSimpleTimeTest extends \PHPUnit_Framework_TestCase
+class DtypeSimpleTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeSimpleTime

@@ -13,7 +13,7 @@ use Xoops\Core\FixedGroups;
  * @backupStaticAttributes disabled
  */
 
-class FixedGroupsTest extends \PHPUnit_Framework_TestCase
+class FixedGroupsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FixedGroups

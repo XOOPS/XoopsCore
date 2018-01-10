@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsMailerTest extends \PHPUnit_Framework_TestCase
+class XoopsMailerTest extends \PHPUnit\Framework\TestCase
 {
 	protected $myclass = 'XoopsMailer';
     protected $object = null;

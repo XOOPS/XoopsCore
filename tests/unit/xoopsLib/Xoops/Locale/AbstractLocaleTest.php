@@ -10,7 +10,7 @@ class Xoops_Locale_AbstractTestInstance extends Xoops\Locale\AbstractLocale
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
+class Xoops_Locale_AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops_Locale_AbstractTestInstance';
 
@@ -40,10 +40,11 @@ class Xoops_Locale_AbstractTest extends \PHPUnit_Framework_TestCase
         $instance = $this->myClass;
 
         $x = $instance::setLocale();
-        $y = $instance::getLocale();
-        if ($x !== false) {
-            $this->assertSame($y, $x);
+        if (false === $x) {
+            $this->markTestSkipped('setlocale() returned false');;
         }
+        $y = $instance::getLocale();
+        $this->assertSame($y, $x);
     }
 
     public function test_getCharset()

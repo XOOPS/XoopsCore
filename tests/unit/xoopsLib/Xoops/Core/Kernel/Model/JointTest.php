@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsGroupHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class JointTest extends \PHPUnit_Framework_TestCase
+class JointTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

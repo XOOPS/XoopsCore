@@ -14,7 +14,7 @@ require_once __DIR__ . '/../../../../../init_new.php';
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class SchemeInterfaceTest extends \PHPUnit_Framework_TestCase
+class SchemeInterfaceTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Kernel

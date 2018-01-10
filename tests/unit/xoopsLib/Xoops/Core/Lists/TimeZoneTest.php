@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class TimeZoneTest extends \PHPUnit_Framework_TestCase
+class TimeZoneTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string

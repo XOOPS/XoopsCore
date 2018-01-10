@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Criteria;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
+class ConfigHandlerTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigHandler';
     public $configItemClass='\Xoops\Core\Kernel\Handlers\XoopsConfigItem';

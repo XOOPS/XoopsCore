@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsMySQLDatabaseProxyTest extends \PHPUnit_Framework_TestCase
+class XoopsMySQLDatabaseProxyTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsMySQLDatabaseProxy';
     

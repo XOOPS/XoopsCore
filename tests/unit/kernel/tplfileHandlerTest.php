@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/tplfile.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_tplfileHandlerTest extends \PHPUnit_Framework_TestCase
+class legacy_tplfileHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

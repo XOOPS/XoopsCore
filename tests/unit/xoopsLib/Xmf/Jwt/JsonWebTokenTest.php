@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
+class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
 {
     /** @var StorageInterface  */
     protected $storage;
@@ -53,7 +53,7 @@ class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Xmf\Jwt\JsonWebToken', $this->object);
 
-        $this->setExpectedException('\DomainException');
+        $this->expectException('\DomainException');
         $actual = new JsonWebToken($this->key, 'badalgo');
     }
 
@@ -65,7 +65,7 @@ class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
         $actual = $this->object->setAlgorithm('HS512');
         $this->assertSame($this->object, $actual);
 
-        $this->setExpectedException('\DomainException');
+        $this->expectException('\DomainException');
         $actual = $this->object->setAlgorithm('xxxxx');
     }
 
@@ -92,7 +92,7 @@ class JsonWebTokenTest extends \PHPUnit_Framework_TestCase
         $token = $this->object->create(['test' => 'create', 'exp' => (time() - 30)]);
         $this->assertTrue(is_string($token));
 
-        //$this->setExpectedException('PHPUnit_Framework_Error_Notice');
+        //$this->expectException('PHPUnit_Framework_Error_Notice');
         $actual = $decoder->decode($token);
         $this->assertFalse($actual);
     }

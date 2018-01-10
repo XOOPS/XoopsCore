@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsConfigItem;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class TreeTest extends \PHPUnit_Framework_TestCase
+class TreeTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()

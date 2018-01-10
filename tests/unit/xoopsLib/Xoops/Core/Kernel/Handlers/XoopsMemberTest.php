@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsMember;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MemberTest extends \PHPUnit_Framework_TestCase
+class MemberTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsMember';
 

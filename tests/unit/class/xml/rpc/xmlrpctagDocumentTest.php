@@ -15,7 +15,7 @@ class XoopsXmlRpcDocumentTestInstance extends XoopsXmlRpcDocument
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsXmlRpcDocumentTest extends \PHPUnit_Framework_TestCase
+class XoopsXmlRpcDocumentTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsXmlRpcDocumentTestInstance';
     protected $object = null;

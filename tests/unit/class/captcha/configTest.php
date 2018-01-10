@@ -9,12 +9,12 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends \PHPUnit\Framework\TestCase
 {
     public function test_100()
 	{
 		global $config;
-		
+
         $xoops_root_path = \XoopsBaseConfig::get('root-path');
 		require $xoops_root_path.'/class/captcha/config.php';
 		$this->assertTrue(is_array($config));

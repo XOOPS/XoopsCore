@@ -8,7 +8,7 @@ use Xoops\Core\Events;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class EventsTest extends \PHPUnit_Framework_TestCase
+class EventsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = '\Xoops\Core\Events';
     public $dummy_result = null;

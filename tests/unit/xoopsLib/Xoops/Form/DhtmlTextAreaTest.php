@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class DhtmlTextAreaTest extends \PHPUnit_Framework_TestCase
+class DhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DhtmlTextArea

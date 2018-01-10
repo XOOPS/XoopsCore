@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class xoopslistsTest extends \PHPUnit_Framework_TestCase
+class xoopslistsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsLists';
     protected $conn = null;

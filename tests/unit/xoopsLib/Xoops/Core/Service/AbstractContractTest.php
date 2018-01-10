@@ -18,7 +18,7 @@ class AbstractContractTestInstance extends AbstractContract
 * @backupStaticAttributes disabled
 */
 
-class AbstractContractTest extends \PHPUnit_Framework_TestCase
+class AbstractContractTest extends \PHPUnit\Framework\TestCase
 {
 	protected $myClass = 'AbstractContractTestInstance';
 	

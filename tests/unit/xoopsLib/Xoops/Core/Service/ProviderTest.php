@@ -16,7 +16,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @backupStaticAttributes disabled
  */
 
-class ProviderTest extends \PHPUnit_Framework_TestCase
+class ProviderTest extends \PHPUnit\Framework\TestCase
 {
     protected $service = 'Avatar';
 

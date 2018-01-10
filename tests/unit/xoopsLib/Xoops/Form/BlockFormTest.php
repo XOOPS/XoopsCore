@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class BlockFormTest extends \PHPUnit_Framework_TestCase
+class BlockFormTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var BlockForm

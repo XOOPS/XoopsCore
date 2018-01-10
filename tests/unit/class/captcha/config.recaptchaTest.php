@@ -9,7 +9,7 @@ $config = null;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigRecaptchaTest extends \PHPUnit_Framework_TestCase
+class ConfigRecaptchaTest extends \PHPUnit\Framework\TestCase
 {
     public function test_100()
 	{

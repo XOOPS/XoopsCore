@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends \PHPUnit\Framework\TestCase
 {
     protected $object;
 

@@ -10,7 +10,7 @@ class Xoops_Locale_Mailer_AbstractTestInstance extends Xoops_Locale_Mailer_Abstr
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Locale_Mailer_AbstractTest extends \PHPUnit_Framework_TestCase
+class Xoops_Locale_Mailer_AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Xoops_Locale_Mailer_AbstractTestInstance';
     

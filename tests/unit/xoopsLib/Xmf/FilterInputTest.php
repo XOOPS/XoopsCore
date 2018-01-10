@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupStaticAttributes disabled
 */
 
-class FilterInputTest extends \PHPUnit_Framework_TestCase
+class FilterInputTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FilterInput

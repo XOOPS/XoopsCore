@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class ModuleTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsModule';
 

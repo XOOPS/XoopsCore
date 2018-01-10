@@ -15,7 +15,7 @@ use Xoops\Form\OptionElement;
  * @backupStaticAttributes disabled
  */
 
-class OptionElementTest extends \PHPUnit_Framework_TestCase
+class OptionElementTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Element

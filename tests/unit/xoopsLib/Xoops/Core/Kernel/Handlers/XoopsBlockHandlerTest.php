@@ -10,7 +10,7 @@ use Xoops\Core\Kernel\Criteria;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class BlockHandlerTest extends \PHPUnit_Framework_TestCase
+class BlockHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass='Xoops\Core\Kernel\Handlers\XoopsBlockHandler';
     protected $conn = null;

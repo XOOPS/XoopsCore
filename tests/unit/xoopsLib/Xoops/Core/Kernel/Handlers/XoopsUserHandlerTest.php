@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsUserHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class UserHandlerTest extends \PHPUnit_Framework_TestCase
+class UserHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsUserHandler';
     protected $conn = null;

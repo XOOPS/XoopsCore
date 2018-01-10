@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplSet;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsTplSetTest extends \PHPUnit_Framework_TestCase
+class XoopsTplSetTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsTplSet';
 

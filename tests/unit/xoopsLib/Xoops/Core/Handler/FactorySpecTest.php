@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../../../init_new.php';
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class FactorySpecTest extends \PHPUnit_Framework_TestCase
+class FactorySpecTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FactorySpec

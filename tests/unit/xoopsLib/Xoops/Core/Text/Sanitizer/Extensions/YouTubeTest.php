@@ -10,7 +10,7 @@ require_once __DIR__.'/../../../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class YouTubeTest extends \PHPUnit_Framework_TestCase
+class YouTubeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var YouTube

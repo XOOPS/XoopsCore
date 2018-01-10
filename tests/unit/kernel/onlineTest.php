@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/online.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_onlineTest extends \PHPUnit_Framework_TestCase
+class legacy_onlineTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()

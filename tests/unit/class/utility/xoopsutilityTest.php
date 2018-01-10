@@ -14,7 +14,7 @@ function myFunction($a)
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsUtilityTest extends \PHPUnit_Framework_TestCase
+class XoopsUtilityTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsUtility';
 

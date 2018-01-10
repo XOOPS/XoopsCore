@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsEditorHandlerTest extends \PHPUnit_Framework_TestCase
+class XoopsEditorHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsEditorHandler';
 

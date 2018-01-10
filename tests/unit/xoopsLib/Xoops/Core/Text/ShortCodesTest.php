@@ -13,7 +13,7 @@ require_once __DIR__.'/../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ShortCodesTest extends \PHPUnit_Framework_TestCase
+class ShortCodesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ShortCodes

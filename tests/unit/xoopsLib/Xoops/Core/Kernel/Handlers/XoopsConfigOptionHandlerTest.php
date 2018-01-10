@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ConfigOptionHandlerTest extends \PHPUnit_Framework_TestCase
+class ConfigOptionHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsConfigOptionHandler';
     protected $conn = null;

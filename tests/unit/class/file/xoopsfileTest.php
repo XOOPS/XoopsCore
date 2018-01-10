@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/class/file/xoopsfile.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsFileTest extends \PHPUnit_Framework_TestCase
+class XoopsFileTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFile';
 
@@ -17,15 +17,15 @@ class XoopsFileTest extends \PHPUnit_Framework_TestCase
 		$class = $this->myClass;
 		$instance = $class::getHandler();
 		$this->assertInstanceOf('XoopsFileHandler', $instance);
-		
+
 		unset($instance);
 		$instance = $class::getHandler('folder');
 		$this->assertInstanceOf('XoopsFolderHandler', $instance);
-		
+
 		unset($instance);
 		$instance = $class::getHandler('NotValid');
 		$this->assertFalse($instance);
-		
+
 		unset($instance);
 		$file = dirname(__FILE__). DIRECTORY_SEPARATOR .'dummy.txt';
 		$instance = $class::getHandler('file',$file);
@@ -33,7 +33,7 @@ class XoopsFileTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse(file_exists($file));
 		$this->assertSame(basename($file),$instance->name);
 		$this->assertSame(dirname($file),$instance->folder->path);
-		
+
 		unset($instance);
 		$file = dirname(__FILE__). DIRECTORY_SEPARATOR .'dummy.txt';
 		$instance = $class::getHandler('file',$file,true);
@@ -42,7 +42,7 @@ class XoopsFileTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(basename($file),$instance->name);
 		$this->assertSame(dirname($file),$instance->folder->path);
 		$this->assertTrue(@unlink($file));
-		
+
 		unset($instance);
 		$file = dirname(__FILE__). DIRECTORY_SEPARATOR .'dummy.txt';
 		$mode = '0731';

@@ -9,7 +9,7 @@ require_once($xoops_root_path.'/class/xml/rpc/xmlrpcparser.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsXmlRpcArrayTest extends \PHPUnit_Framework_TestCase
+class XoopsXmlRpcArrayTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsXmlRpcArray';
     

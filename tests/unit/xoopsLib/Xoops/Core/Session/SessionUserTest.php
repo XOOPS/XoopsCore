@@ -9,7 +9,7 @@ use Xoops\Core\Session\SessionUser;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class SessionUserTest extends \PHPUnit_Framework_TestCase
+class SessionUserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var SessionUser

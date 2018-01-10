@@ -8,7 +8,7 @@ require_once(__DIR__.'/../../../../../init_new.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class DropDownButtonTest extends \PHPUnit_Framework_TestCase
+class DropDownButtonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DropDownButton
