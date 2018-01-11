@@ -352,6 +352,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase
         }
 
         call_user_func_array(array('Xmf\Assert', $method), $args);
+        self::assertTrue(true, 'Return type ensures this assertion is never reached on failure');
     }
 
     /**
@@ -375,6 +376,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase
         }
 
         call_user_func_array(array('Xmf\Assert', 'nullOr'.ucfirst($method)), $args);
+        self::assertTrue(true, 'Return type ensures this assertion is never reached on failure');
     }
 
     /**
@@ -383,6 +385,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase
     public function testNullOrAcceptsNull($method)
     {
         call_user_func(array('Xmf\Assert', 'nullOr'.ucfirst($method)), null);
+        self::assertTrue(true, 'Return type ensures this assertion is never reached on failure');
     }
 
     /**
@@ -409,6 +412,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase
         array_unshift($args, array($arg));
 
         call_user_func_array(array('Xmf\Assert', 'all'.ucfirst($method)), $args);
+        self::assertTrue(true, 'Return type ensures this assertion is never reached on failure');
     }
 
     /**
@@ -435,6 +439,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase
         array_unshift($args, new ArrayIterator(array($arg)));
 
         call_user_func_array(array('Xmf\Assert', 'all'.ucfirst($method)), $args);
+        self::assertTrue(true, 'Return type ensures this assertion is never reached on failure');
     }
 
     public function getStringConversions()
