@@ -34,15 +34,14 @@ class CacheManager
      *
      * @var Access[]
      */
-    protected $pools = array();
+    protected $pools = [];
 
     /**
      * Pool definitions
      *
      * @var array
      */
-    protected $poolDefs = array(
-        );
+    protected $poolDefs = [];
 
     /**
      * Xoops instance
@@ -75,32 +74,38 @@ class CacheManager
      */
     private static function getDefaults()
     {
-        $defaults = array(
-            'default' => array(
-                'driver' => 'FileSystem',
-                'options' => array(
-                    'path' => \XoopsBaseConfig::get('var-path') . '/stash/',
-                    ),
-                    'dirSplit' => 1,
-                ),
-            'temp' => array(
+
+        $defaults = [
+            'default' => [
+                'driver' => 'Sqlite',
+                'options' => ['path' => \XoopsBaseConfig::get('var-path') . '/stash/'],
+                ],
+            'temp' => [
                 'driver' => 'Ephemeral',
-                'options' => array(),
-                ),
-            );
+                'options' => [],
+                ],
+            ];
         return $defaults;
     }
 
     /**
      * Create a default configuration file, used in installation
      *
+     * SQLite is the recommended driver, and will be used by default if available.
+     *
+     * We will fall back to FileSystem if SQLite is not available.
+     *
+     * Note: some versions of the Stash FileSystem driver appear susceptible to
+     * race conditions which may cause random failures.
+     *
+     * Note for Windows users:
+     *
      * When using Windows NTFS, PHP has a maximum path length of 260 bytes. Each key level in a
      * Stash hierarchical key corresponds to a directory, and is normalized as an md5 hash. Also,
-     * Stash uses 2 levels for its own integrity ad locking mechanisms. The full key length used
-     * in XoopCore can reach 202 charachters.
+     * Stash uses 2 levels for its own integrity and locking mechanisms. The full key length used
+     * in XoopCore can reach 202 characters.
      *
-     * If the combined path length would excede 260, we will try and switch to SQLite driver if
-     * it is available when running on a Windows system.
+     * Installing the pdo_sqlite3 extension is highly recommended to avoid problems.
      *
      * @return void
      */
@@ -111,17 +116,14 @@ class CacheManager
             return;
         }
         $defaults = self::getDefaults();
-        if (false !== stripos(PHP_OS, 'WIN')) {
-            $pathLen = strlen($defaults['default']['options']['path']);
-            if (260 <= ($pathLen+202)) {
-                // try alternative driver as filesystem has max path length issues on Windows
-                if (array_key_exists("SQLite", \Stash\DriverList::getAvailableDrivers())) {
-                    $defaults['default']['driver'] = 'SQLite';
-                    unset($defaults['default']['options']['dirSplit']);
-                    @mkdir($defaults['default']['options']['path']);
-                } else {
-                    trigger_error("Manual cache configuration required.");
-                }
+        if (!array_key_exists("SQLite", \Stash\DriverList::getAvailableDrivers())) {
+            $defaults['default']['driver'] = 'FileSystem';
+            $defaults['default']['options'] = [
+                'dirSplit' => 1,
+                'path' => \XoopsBaseConfig::get('var-path') . '/stash/'
+            ];
+            if (false !== stripos(PHP_OS, 'WIN')) {
+                trigger_error("SQLite is strongly recommended on windows due to 260 character file path restrictions.");
             }
         }
         Yaml::saveWrapped($defaults, $configFile);
