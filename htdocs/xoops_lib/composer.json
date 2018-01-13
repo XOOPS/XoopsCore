@@ -13,7 +13,8 @@
         "xoops/base-requires": "0.3.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "~6.4.0",
+        "codeception/codeception": "^2.3"
     },
     "extra": {
         "xoops_modules_path": "../modules/"
