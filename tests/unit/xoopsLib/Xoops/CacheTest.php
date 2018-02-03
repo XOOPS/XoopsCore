@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_CacheTest extends \PHPUnit_Framework_TestCase
+class Xoops_CacheTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = '\Xoops\Cache';
 

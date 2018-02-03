@@ -8,7 +8,7 @@ use Xoops\Core\Cache\DriverList;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class DriverListTest extends \PHPUnit_Framework_TestCase
+class DriverListTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DriverList

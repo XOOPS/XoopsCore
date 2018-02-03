@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsXmlRpcStringTest extends \PHPUnit_Framework_TestCase
+class XoopsXmlRpcStringTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsXmlRpcString';
     

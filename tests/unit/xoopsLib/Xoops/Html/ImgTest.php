@@ -8,7 +8,7 @@ use Xoops\Html\Img;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class ImgTest extends \PHPUnit_Framework_TestCase
+class ImgTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Img

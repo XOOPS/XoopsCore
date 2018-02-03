@@ -10,7 +10,7 @@ use Xoops\Core\XoopsTpl;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsTest extends \PHPUnit_Framework_TestCase
+class XoopsTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_getInstance100()

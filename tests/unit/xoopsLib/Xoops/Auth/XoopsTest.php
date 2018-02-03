@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Xoops_Auth_XoopsTest extends \PHPUnit_Framework_TestCase
+class Xoops_Auth_XoopsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops\Auth\Xoops';
 
@@ -24,7 +24,7 @@ class Xoops_Auth_XoopsTest extends \PHPUnit_Framework_TestCase
 		$conn = \Xoops\Core\Database\Factory::getConnection();
 
 		$instance = new $this->myClass($conn);
-		
+
 		$uname = 'admin';
 		$pwd = 'pwd';
 		$value = $instance->authenticate($uname, $pwd);

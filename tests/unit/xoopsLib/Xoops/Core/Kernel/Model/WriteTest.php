@@ -13,7 +13,7 @@ use Xoops\Core\Kernel\Handlers\XoopsGroupHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class WriteTest extends \PHPUnit_Framework_TestCase
+class WriteTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

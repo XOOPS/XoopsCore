@@ -10,7 +10,7 @@ namespace Xmf\Key;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class FileStorageTest extends \PHPUnit_Framework_TestCase
+class FileStorageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var FileStorage

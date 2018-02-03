@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/user.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_userTest extends \PHPUnit_Framework_TestCase
+class legacy_userTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()

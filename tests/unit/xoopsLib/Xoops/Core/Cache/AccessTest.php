@@ -8,7 +8,7 @@ use Xoops\Core\Cache\Access;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class AccessTest extends \PHPUnit_Framework_TestCase
+class AccessTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Access

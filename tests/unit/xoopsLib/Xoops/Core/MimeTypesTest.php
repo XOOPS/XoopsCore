@@ -8,7 +8,7 @@ use \Xoops\Core\MimeTypes;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MimeTypesTest extends \PHPUnit_Framework_TestCase
+class MimeTypesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var MimeTypes

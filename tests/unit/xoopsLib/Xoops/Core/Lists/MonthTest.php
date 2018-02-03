@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class MonthTest extends \PHPUnit_Framework_TestCase
+class MonthTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string

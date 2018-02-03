@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Scripts_ImageClassTest extends \PHPUnit_Framework_TestCase
+class Scripts_ImageClassTest extends \PHPUnit\Framework\TestCase
 {
     public function test___construct()
 	{

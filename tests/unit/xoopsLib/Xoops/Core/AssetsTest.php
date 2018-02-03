@@ -8,7 +8,7 @@ use Xoops\Core\Assets;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class AssetsTest extends \PHPUnit_Framework_TestCase
+class AssetsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Response

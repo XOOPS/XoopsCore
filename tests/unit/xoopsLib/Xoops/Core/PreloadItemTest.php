@@ -8,7 +8,7 @@ use Xoops\Core\PreloadItem;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class PreloadItemTest extends \PHPUnit_Framework_TestCase
+class PreloadItemTest extends \PHPUnit\Framework\TestCase
 {
     public function test___construct()
 	{

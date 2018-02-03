@@ -8,7 +8,7 @@ require_once __DIR__.'/../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class PluginAbstractTest extends \PHPUnit_Framework_TestCase
+class PluginAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var PluginAbstract

@@ -8,7 +8,7 @@ use Xoops\Core\Cache\CacheManager;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class CacheManagerTest extends \PHPUnit_Framework_TestCase
+class CacheManagerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var CacheManager

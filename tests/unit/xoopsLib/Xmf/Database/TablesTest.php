@@ -22,7 +22,7 @@ $xoops->events()->triggerEvent('core.include.common.classmaps');
  * @backupStaticAttributes disabled
  */
 
-class TablesTest extends \PHPUnit_Framework_TestCase
+class TablesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Tables

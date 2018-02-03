@@ -10,7 +10,7 @@ namespace Xmf\Key;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class KeyAbstractTest extends \PHPUnit_Framework_TestCase
+class KeyAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var StorageInterface

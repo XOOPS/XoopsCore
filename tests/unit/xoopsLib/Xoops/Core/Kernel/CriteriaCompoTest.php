@@ -22,7 +22,7 @@ class Kernel_CriteriaCompoTestInstance extends Xoops\Core\Kernel\CriteriaCompo
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Kernel_CriteriaCompoTest extends \PHPUnit_Framework_TestCase
+class Kernel_CriteriaCompoTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Kernel_CriteriaCompoTestInstance';
     

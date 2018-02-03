@@ -8,7 +8,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class YamlTest extends \PHPUnit_Framework_TestCase
+class YamlTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Sets up the fixture, for example, opens a network connection.

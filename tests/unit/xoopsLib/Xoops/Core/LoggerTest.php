@@ -30,7 +30,7 @@ class MY_Logger
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class LoggerTest extends \PHPUnit_Framework_TestCase
+class LoggerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Class

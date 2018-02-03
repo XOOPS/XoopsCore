@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class HiddenTest extends \PHPUnit_Framework_TestCase
+class HiddenTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Hidden

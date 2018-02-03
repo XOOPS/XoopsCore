@@ -6,11 +6,11 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ThemeSetTagHandlerTest extends \PHPUnit_Framework_TestCase
+class ThemeSetTagHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetTagHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
 		$input = 'input';
@@ -22,11 +22,11 @@ class ThemeSetTagHandlerTest extends \PHPUnit_Framework_TestCase
         $instance = $this->object;
 		$this->assertInstanceOf('XmlTagHandler', $instance);
     }
-	
+
 	function test_getName()
     {
         $instance = $this->object;
-		
+
 		$name = $instance->getName();
 		$this->assertSame('tag', $name);
     }
@@ -34,7 +34,7 @@ class ThemeSetTagHandlerTest extends \PHPUnit_Framework_TestCase
 	function test_handleCharacterData()
     {
         $instance = $this->object;
-        
+
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('image','image');

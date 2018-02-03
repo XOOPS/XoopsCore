@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModuleHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ModuleHandlerTest extends \PHPUnit_Framework_TestCase
+class ModuleHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsModuleHandler';
     protected $conn = null;

@@ -10,7 +10,7 @@ require_once __DIR__.'/../../../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class CensorTest extends \PHPUnit_Framework_TestCase
+class CensorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Censor

@@ -26,7 +26,7 @@ class DtypeArrayObject extends XoopsObject
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeArrayTest extends \PHPUnit_Framework_TestCase
+class DtypeArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeArray

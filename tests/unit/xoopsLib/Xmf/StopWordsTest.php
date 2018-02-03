@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupStaticAttributes disabled
 */
 
-class StopWordsTest extends \PHPUnit_Framework_TestCase
+class StopWordsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var StopWords

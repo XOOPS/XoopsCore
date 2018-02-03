@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/configitem.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_configitemHandlerTest extends \PHPUnit_Framework_TestCase
+class legacy_configitemHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='XoopsConfigItemHandler';
     protected $conn = null;

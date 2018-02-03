@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeTest extends \PHPUnit_Framework_TestCase
+class DtypeTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Xoops\Core\Kernel\Dtype';
 

@@ -8,7 +8,7 @@ require_once (dirname(__FILE__).'/../../../../init_new.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class TimeTest extends \PHPUnit_Framework_TestCase
+class TimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Time

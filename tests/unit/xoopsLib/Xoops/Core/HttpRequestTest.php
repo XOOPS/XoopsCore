@@ -12,7 +12,7 @@ use Xoops\Core\HttpRequest;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class HttpRequestTest extends \PHPUnit_Framework_TestCase
+class HttpRequestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var HttpRequest

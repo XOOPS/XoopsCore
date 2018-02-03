@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\XoopsObject;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeAbstractTest extends \PHPUnit_Framework_TestCase
+class DtypeAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeAbstract
@@ -50,7 +50,7 @@ class DtypeAbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->reflectedObject->isAbstract());
         $this->assertTrue($this->reflectedObject->hasMethod('cleanVar'));
         $this->assertTrue($this->reflectedObject->hasMethod('getVar'));
-        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer', \PHPUnit_Framework_Assert::readAttribute($this->object, 'ts'));
+        $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer', \PHPUnit\Framework\Assert::readAttribute($this->object, 'ts'));
     }
 
     /**

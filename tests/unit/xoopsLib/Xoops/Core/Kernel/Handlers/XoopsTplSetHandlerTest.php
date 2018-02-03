@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsTplSet;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class TplSetHandlerTest extends \PHPUnit_Framework_TestCase
+class TplSetHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsTplSetHandler';
     protected $conn = null;

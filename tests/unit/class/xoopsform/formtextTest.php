@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsFormTextTest extends \PHPUnit_Framework_TestCase
+class XoopsFormTextTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFormText';
 

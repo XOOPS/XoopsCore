@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
+class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'MyTextSanitizer';
 
@@ -331,7 +331,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit_Framework_TestCase
         $class = $this->myClass;
         $sanitizer = $class::getInstance();
         $text = 'toto titi tutu tata';
-        PHPUnit_Framework_Error_Warning::$enabled = FALSE;
+        PHPUnit\Framework\Error\Warning::$enabled = FALSE;
         $value = $sanitizer->textFilter($text);
         $this->assertSame($text, $value);
     }

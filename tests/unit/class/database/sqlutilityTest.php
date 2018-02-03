@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class SqlUtilityTest extends \PHPUnit_Framework_TestCase
+class SqlUtilityTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'SqlUtility';
     

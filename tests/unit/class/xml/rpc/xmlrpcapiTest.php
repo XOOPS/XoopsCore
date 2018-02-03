@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsXmlRpcApiTest extends \PHPUnit_Framework_TestCase
+class XoopsXmlRpcApiTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsXmlRpcApi';
     protected $object = null;

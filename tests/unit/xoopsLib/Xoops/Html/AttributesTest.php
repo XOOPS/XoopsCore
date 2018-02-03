@@ -8,7 +8,7 @@ use Xoops\Html\Attributes;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class AttributesTest extends \PHPUnit_Framework_TestCase
+class AttributesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Attributes

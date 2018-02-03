@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class BlockModuleLinkTest extends \PHPUnit_Framework_TestCase
+class BlockModuleLinkTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops\Core\Kernel\Handlers\XoopsBlockModuleLink';
 

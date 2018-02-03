@@ -10,7 +10,7 @@ require_once __DIR__.'/../../../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class SoundCloudTest extends \PHPUnit_Framework_TestCase
+class SoundCloudTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var SoundCloud

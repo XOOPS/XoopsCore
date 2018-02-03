@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class SelectLocaleTest extends \PHPUnit_Framework_TestCase
+class SelectLocaleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var SelectLocale

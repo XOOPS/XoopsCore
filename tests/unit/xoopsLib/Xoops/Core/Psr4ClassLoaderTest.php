@@ -11,7 +11,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
  
-class Psr4ClassLoaderTest extends \PHPUnit_Framework_TestCase
+class Psr4ClassLoaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Psr4ClassLoader

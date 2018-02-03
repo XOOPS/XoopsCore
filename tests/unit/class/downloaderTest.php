@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DownloaderAbstractTest extends \PHPUnit_Framework_TestCase
+class DownloaderAbstractTest extends \PHPUnit\Framework\TestCase
 { 
     public function test___construct()
 	{

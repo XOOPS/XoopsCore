@@ -8,7 +8,7 @@ use Xoops\Core\Cache\Legacy;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class LegacyTest extends \PHPUnit_Framework_TestCase
+class LegacyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Legacy

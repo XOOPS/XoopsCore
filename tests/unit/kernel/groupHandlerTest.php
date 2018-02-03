@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/group.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_groupHandlerTest extends \PHPUnit_Framework_TestCase
+class legacy_groupHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

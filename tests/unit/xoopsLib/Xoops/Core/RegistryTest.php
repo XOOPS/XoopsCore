@@ -9,7 +9,7 @@ use Xoops\Core\Registry;
  * @backupStaticAttributes disabled
  */
 
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class RegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Registry

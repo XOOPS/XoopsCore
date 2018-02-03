@@ -17,7 +17,7 @@ class CriteriaElementTestInstance extends CriteriaElement
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class CriteriaElementTest extends \PHPUnit_Framework_TestCase
+class CriteriaElementTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'CriteriaElementTestInstance';
     

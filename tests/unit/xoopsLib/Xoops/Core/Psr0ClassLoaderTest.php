@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class Psr0ClassLoaderTest extends \PHPUnit_Framework_TestCase
+class Psr0ClassLoaderTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Xoops\Core\Psr0ClassLoader';
 	

@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsFormSelectMatchOptionTest extends \PHPUnit_Framework_TestCase
+class XoopsFormSelectMatchOptionTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFormSelectMatchOption';
 

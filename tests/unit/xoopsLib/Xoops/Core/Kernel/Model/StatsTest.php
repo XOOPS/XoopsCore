@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsGroupHandler;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class StatsTest extends \PHPUnit_Framework_TestCase
+class StatsTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;
 

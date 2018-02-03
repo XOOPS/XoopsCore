@@ -12,7 +12,7 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class CacheTest extends \PHPUnit_Framework_TestCase
+class CacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Cache

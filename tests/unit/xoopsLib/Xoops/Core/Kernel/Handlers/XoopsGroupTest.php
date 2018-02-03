@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsGroup;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class GroupTest extends \PHPUnit_Framework_TestCase
+class GroupTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsGroup';
 

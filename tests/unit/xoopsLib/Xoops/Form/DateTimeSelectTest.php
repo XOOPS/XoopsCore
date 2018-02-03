@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class DateTimeSelectTest extends \PHPUnit_Framework_TestCase
+class DateTimeSelectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DateTimeSelect

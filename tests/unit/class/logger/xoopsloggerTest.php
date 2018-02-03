@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/class/logger/xoopslogger.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */ 
-class XoopsLoggerTest extends \PHPUnit_Framework_TestCase
+class XoopsLoggerTest extends \PHPUnit\Framework\TestCase
 {
 	// "XoopsLogger is deprecated since 2.6.0, use the module 'logger' instead"
 	

@@ -10,7 +10,7 @@ class XoopsFormInstance extends XoopsForm
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsFormTest extends \PHPUnit_Framework_TestCase
+class XoopsFormTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFormInstance';
 

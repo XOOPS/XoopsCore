@@ -8,7 +8,7 @@ use Xoops\Core\ComposerUtility;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class ComposerUtilityTest extends \PHPUnit_Framework_TestCase
+class ComposerUtilityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ComposerUtility

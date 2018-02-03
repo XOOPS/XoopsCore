@@ -8,7 +8,7 @@ require_once __DIR__.'/../../../../init_new.php';
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class NullThemeTest extends \PHPUnit_Framework_TestCase
+class NullThemeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var NullTheme

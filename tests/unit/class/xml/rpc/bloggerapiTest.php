@@ -54,7 +54,7 @@ class MockBloggerApi extends \BloggerApi
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class BloggerApiTest extends \PHPUnit_Framework_TestCase
+class BloggerApiTest extends \PHPUnit\Framework\TestCase
 {
 	protected $myClass = 'MockBloggerApi';
 

@@ -9,7 +9,7 @@ use Xoops\Core\Kernel\Handlers\XoopsPrivateMessage;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsPrivateMessageHandlerTest extends \PHPUnit_Framework_TestCase
+class XoopsPrivateMessageHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler';
     protected $conn = null;

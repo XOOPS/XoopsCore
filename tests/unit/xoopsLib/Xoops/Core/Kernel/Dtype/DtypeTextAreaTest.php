@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\XoopsObject;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeTextAreaTest extends \PHPUnit_Framework_TestCase
+class DtypeTextAreaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeTextArea

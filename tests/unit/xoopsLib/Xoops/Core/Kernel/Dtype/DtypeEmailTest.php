@@ -15,7 +15,7 @@ use Xoops\Core\Kernel\XoopsObject;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeEmailTest extends \PHPUnit_Framework_TestCase
+class DtypeEmailTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeEmail

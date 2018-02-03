@@ -28,7 +28,7 @@ class DtypeMoneyObject extends XoopsObject
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class DtypeMoneyTest extends \PHPUnit_Framework_TestCase
+class DtypeMoneyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DtypeMoney

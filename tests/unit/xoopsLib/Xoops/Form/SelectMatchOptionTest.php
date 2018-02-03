@@ -15,7 +15,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/include/defines.php');
  * @backupStaticAttributes disabled
  */
 
-class SelectMatchOptionTest extends \PHPUnit_Framework_TestCase
+class SelectMatchOptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var SelectMatchOption

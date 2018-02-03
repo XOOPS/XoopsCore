@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../../init_new.php');
  * @backupStaticAttributes disabled
  */
 
-class AbstractHelperTest extends \PHPUnit_Framework_TestCase
+class AbstractHelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var AbstractHelper

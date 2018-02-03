@@ -8,7 +8,7 @@ require_once(XOOPS_TU_ROOT_PATH . '/kernel/tplset.php');
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class legacy_tplsetTest extends \PHPUnit_Framework_TestCase
+class legacy_tplsetTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()

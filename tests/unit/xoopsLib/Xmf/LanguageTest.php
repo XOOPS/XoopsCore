@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../init_new.php');
 * @backupStaticAttributes disabled
 */
 
-class LanguageTest extends \PHPUnit_Framework_TestCase
+class LanguageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Language

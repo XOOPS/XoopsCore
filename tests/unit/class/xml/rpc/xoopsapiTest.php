@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsApiTest extends \PHPUnit_Framework_TestCase
+class XoopsApiTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsApi';
 

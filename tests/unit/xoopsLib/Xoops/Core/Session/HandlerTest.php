@@ -8,7 +8,7 @@ use Xoops\Core\Session\Handler;
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
-class HandlerTest extends \PHPUnit_Framework_TestCase
+class HandlerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Handler

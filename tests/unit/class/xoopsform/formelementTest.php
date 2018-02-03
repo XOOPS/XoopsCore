@@ -10,7 +10,7 @@ class XoopsFormElementInstance extends XoopsFormElement
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsFormElementTest extends \PHPUnit_Framework_TestCase
+class XoopsFormElementTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFormElementInstance';
     

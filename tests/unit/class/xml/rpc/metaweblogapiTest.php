@@ -8,7 +8,7 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class MetaWeblogApiTest extends \PHPUnit_Framework_TestCase
+class MetaWeblogApiTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'MetaWeblogApi';
 

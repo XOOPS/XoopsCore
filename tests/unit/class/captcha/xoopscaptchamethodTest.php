@@ -10,7 +10,7 @@ class XoopsCaptchaMethodTestInstance extends XoopsCaptchaMethod
 * @backupGlobals disabled
 * @backupStaticAttributes disabled
 */
-class XoopsCaptchaMethodTest extends \PHPUnit_Framework_TestCase
+class XoopsCaptchaMethodTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsCaptchaMethodTestInstance';
     
