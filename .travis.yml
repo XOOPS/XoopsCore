@@ -13,6 +13,7 @@ matrix:
 
 before_install:
   - composer self-update
+  - cp composer.json.dist composer.json
 
 install:
   - composer install
