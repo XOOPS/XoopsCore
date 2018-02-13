@@ -2,7 +2,8 @@
 build:
     nodes:
         environment:
-            php: 7.1
+            php:
+              version: 7.1
         dependencies:
             before:
                 - cp composer.json.dist composer.json
