@@ -6,6 +6,7 @@ build:
     dependencies:
         before:
             - cp composer.json.dist composer.json
+            - composer install
     project_setup:
         override: true
     tests:
