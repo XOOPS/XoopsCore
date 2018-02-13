@@ -1,14 +1,9 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsConfigItemHandler;
 use Xoops\Core\Kernel\Handlers\XoopsGroupHandler;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class JointTest extends \PHPUnit\Framework\TestCase
 {
     protected $conn = null;

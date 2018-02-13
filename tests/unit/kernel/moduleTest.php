@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
 require_once(XOOPS_TU_ROOT_PATH . '/kernel/module.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class legacy_moduleTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()

@@ -3,11 +3,6 @@ require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Session\RememberMe;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class RememberMeTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,10 +27,6 @@ class RememberMeTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Session\RememberMe::recall
-     * @todo   Implement testRecall().
-     */
     public function testRecall()
     {
         // Remove the following lines when you implement this test.
@@ -44,10 +35,6 @@ class RememberMeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\RememberMe::forget
-     * @todo   Implement testForget().
-     */
     public function testForget()
     {
         // Remove the following lines when you implement this test.
@@ -56,10 +43,6 @@ class RememberMeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\RememberMe::invalidateAllForUser
-     * @todo   Implement testInvalidateAllForUser().
-     */
     public function testInvalidateAllForUser()
     {
         // Remove the following lines when you implement this test.
@@ -68,10 +51,6 @@ class RememberMeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\RememberMe::createUserCookie
-     * @todo   Implement testCreateUserCookie().
-     */
     public function testCreateUserCookie()
     {
         // Remove the following lines when you implement this test.

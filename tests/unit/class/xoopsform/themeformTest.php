@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_new.php');
+require_once(__DIR__.'/../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsThemeFormTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsThemeForm';
@@ -15,5 +10,4 @@ class XoopsThemeFormTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myClass('', '', '');
         $this->assertInstanceOf('Xoops\\Form\\ThemeForm', $instance);
     }
-
 }

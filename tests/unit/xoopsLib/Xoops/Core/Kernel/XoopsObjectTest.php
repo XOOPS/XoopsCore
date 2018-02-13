@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsGroup;
 
@@ -7,11 +7,6 @@ class XoopsObjectTestInstance extends Xoops\Core\Kernel\XoopsObject
 {
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsObjectTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsObjectTestInstance';
@@ -62,16 +57,6 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($instance->isNew());
     }
 
-    public function test_unsetNew()
-    {
-        // see setNew
-    }
-
-    public function test_isNew()
-    {
-        // see setNew
-    }
-
     public function test_setDirty()
     {
         $instance = new $this->myClass();
@@ -82,16 +67,6 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($instance->isDirty());
         $instance->setDirty();
         $this->assertTrue($instance->isDirty());
-    }
-
-    public function test_unsetDirty()
-    {
-        // see setDirty
-    }
-
-    public function test_isDirty()
-    {
-        // see setDirty
     }
 
     public function test_initVar()
@@ -322,11 +297,6 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($msg, $x[0]);
         $this->assertSame($msg, $x[1]);
         $this->assertSame($msg, $x[2]);
-    }
-
-    public function test_getErrors()
-    {
-        // see setErrors
     }
 
     public function test_getHtmlErrors()

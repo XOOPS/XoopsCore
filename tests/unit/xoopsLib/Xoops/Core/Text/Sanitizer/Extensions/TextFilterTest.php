@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class TextFilterTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,10 +42,6 @@ class TextFilterTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\TextFilter::applyFilter
-     * @todo   Implement testApplyFilter().
-     */
     public function testApplyFilter()
     {
         $this->sanitizer->enableComponentForTesting('textfilter');

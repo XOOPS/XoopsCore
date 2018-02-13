@@ -3,11 +3,6 @@ require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Cache\DriverList;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class DriverListTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,9 +27,6 @@ class DriverListTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Cache\DriverList::getDriverClass
-     */
     public function testGetDriverClass()
     {
         $name1 = 'FileSystem';

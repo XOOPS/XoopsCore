@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class UserTest extends \PHPUnit\Framework\TestCase
 {
     protected $object;
@@ -86,10 +81,6 @@ class UserTest extends \PHPUnit\Framework\TestCase
         $group=$this->object->getGroups();
         $value=$this->object->setGroups($group);
         $this->assertSame(null, $value);
-    }
-
-    public function test_setGroups()
-    {
     }
 
     public function test_groups()

@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Doctrine\DBAL\Types\Type;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops\Core\Database\Schema\RemovePrefixes';
@@ -31,6 +26,7 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
     {
         $instance = new $this->myClass();
         $instance->setTableFilter(array());
+        $this->assertTrue(true);
     }
 
     public function test_acceptSchema()

@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class NullFilterTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -40,9 +35,6 @@ class NullFilterTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\NullFilter::applyFilter
-     */
     public function testApplyFilter()
     {
         $text = 'Why does my cat sleep so much?';

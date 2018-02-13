@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
 class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\HelperAbstract
 {
@@ -29,11 +29,6 @@ class Xoops_Module_Helper_AbstractTestInstance extends Xoops\Module\Helper\Helpe
     }
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class Xoops_Module_Helper_AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops_Module_Helper_AbstractTestInstance';

@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\Security;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class SecurityTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -150,11 +145,6 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(empty($_SESSION['XOOPS_TOKEN_SESSION']));
     }
 
-    public function test_filterToken()
-    {
-        // within test_garbageCollection
-    }
-
     public function test_garbageCollection()
     {
         $instance = $this->object;
@@ -229,11 +219,6 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $this->assertNotFalse(strpos($value, 'name="'.$token.'_REQUEST"'));
         $this->assertNotFalse(strpos($value, 'id="'.$token.'_REQUEST"'));
         $this->assertNotFalse(strpos($value, 'value="'));
-    }
-
-    public function test_setErrors()
-    {
-        // see test_getErrors
     }
 
     public function test_getErrors()

@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsTplSet;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsTplSetTest extends \PHPUnit\Framework\TestCase
 {
     public $myclass='Xoops\Core\Kernel\Handlers\XoopsTplSet';

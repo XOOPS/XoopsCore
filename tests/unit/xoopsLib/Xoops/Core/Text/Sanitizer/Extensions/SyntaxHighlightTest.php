@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class SyntaxHighlightTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,10 +42,6 @@ class SyntaxHighlightTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\SyntaxHighlight::applyFilter
-     * @todo   Implement testApplyFilter().
-     */
     public function testApplyFilter()
     {
         $this->sanitizer->enableComponentForTesting('syntaxhighlight');
@@ -60,10 +51,6 @@ class SyntaxHighlightTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($actual));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\SyntaxHighlight::php
-     * @todo   Implement testPhp().
-     */
     public function testPhp()
     {
         // Remove the following lines when you implement this test.
@@ -72,10 +59,6 @@ class SyntaxHighlightTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\SyntaxHighlight::geshi
-     * @todo   Implement testGeshi().
-     */
     public function testGeshi()
     {
         // Remove the following lines when you implement this test.

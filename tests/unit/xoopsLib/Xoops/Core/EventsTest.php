@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\Events;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class EventsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = '\Xoops\Core\Events';
@@ -69,11 +64,6 @@ class EventsTest extends \PHPUnit\Framework\TestCase
 
         $instance->triggerEvent('dummy.listener', array(1,2));
         $this->assertSame(array(1,2), $this->dummy_result);
-    }
-
-    public function test_getEvents()
-    {
-        // see test_initializeListeners
     }
 
     public function test_hasListeners()

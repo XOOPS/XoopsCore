@@ -1,14 +1,9 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\Kernel\Handlers\XoopsModuleHandler;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ModuleHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsModuleHandler';
@@ -62,11 +57,6 @@ class ModuleHandlerTest extends \PHPUnit\Framework\TestCase
 
         $value=$instance->deleteModule($module);
         $this->assertTrue($value);
-    }
-
-    public function test_deleteModule()
-    {
-        // see test_insertModule
     }
 
     public function test_getObjectsArray()

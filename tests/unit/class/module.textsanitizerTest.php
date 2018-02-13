@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'MyTextSanitizer';
@@ -50,7 +45,9 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
     {
         $level = ob_get_level();
         $message = $sanitizer->xoopsCodeDecode($text);
-        while (ob_get_level() > $level) @ob_end_flush();
+        while (ob_get_level() > $level) {
+            @ob_end_flush();
+        }
         return $message;
     }
 
@@ -129,26 +126,26 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $color = 'color';
         $text = '[color="'.$color.'"]'.$string.'[/color]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<span style="color: #'.$color.';">'.$string.'</span>',$message);
+        $this->assertEquals('<span style="color: #'.$color.';">'.$string.'</span>', $message);
         $text = '[color=\''.$color.'\']'.$string.'[/color]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<span style="color: #'.$color.';">'.$string.'</span>',$message);
+        $this->assertEquals('<span style="color: #'.$color.';">'.$string.'</span>', $message);
 
         $size = 'size-size';
         $text = '[size="'.$size.'"]'.$string.'[/size]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<span style="font-size: '.$size.';">'.$string.'</span>',$message);
+        $this->assertEquals('<span style="font-size: '.$size.';">'.$string.'</span>', $message);
         $text = '[size=\''.$size.'\']'.$string.'[/size]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<span style="font-size: '.$size.';">'.$string.'</span>',$message);
+        $this->assertEquals('<span style="font-size: '.$size.';">'.$string.'</span>', $message);
 
         $font = 'font-font';
         $text = '[font="'.$font.'"]'.$string.'[/font]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<span style="font-family: '.$font.';">'.$string.'</span>',$message);
+        $this->assertEquals('<span style="font-family: '.$font.';">'.$string.'</span>', $message);
         $text = '[font=\''.$font.'\']'.$string.'[/font]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<span style="font-family: '.$font.';">'.$string.'</span>',$message);
+        $this->assertEquals('<span style="font-family: '.$font.';">'.$string.'</span>', $message);
     }
 
     public function test_xoopsCodeDecode200()
@@ -160,25 +157,25 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
 
         $text = '[b]'.$string.'[/b]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<strong>'.$string.'</strong>',$message);
+        $this->assertEquals('<strong>'.$string.'</strong>', $message);
         $text = '[i]'.$string.'[/i]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<em>'.$string.'</em>',$message);
+        $this->assertEquals('<em>'.$string.'</em>', $message);
         $text = '[u]'.$string.'[/u]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<u>'.$string.'</u>',$message);
+        $this->assertEquals('<u>'.$string.'</u>', $message);
         $text = '[d]'.$string.'[/d]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<del>'.$string.'</del>',$message);
+        $this->assertEquals('<del>'.$string.'</del>', $message);
         $text = '[center]'.$string.'[/center]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<div style="text-align: center;">'.$string.'</div>',$message);
+        $this->assertEquals('<div style="text-align: center;">'.$string.'</div>', $message);
         $text = '[left]'.$string.'[/left]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<div style="text-align: left;">'.$string.'</div>',$message);
+        $this->assertEquals('<div style="text-align: left;">'.$string.'</div>', $message);
         $text = '[right]'.$string.'[/right]';
         $message = $sanitizer->xoopsCodeDecode($text);
-        $this->assertEquals('<div style="text-align: right;">'.$string.'</div>',$message);
+        $this->assertEquals('<div style="text-align: right;">'.$string.'</div>', $message);
     }
 
     public function test_quoteConv()
@@ -189,13 +186,12 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $string = 'string';
         $text = '[quote]'.$string.'[/quote]';
         $message = $sanitizer->quoteConv($text);
-        $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>',$message);
+        $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>', $message);
 
         $string = 'string';
         $text = '[quote]toto'.'[quote]'.$string.'[/quote]'.'titi[/quote]';
         $message = $sanitizer->quoteConv($text);
-        $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>totoQuote:<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>titi</blockquote></div>',$message);
-
+        $this->assertEquals(XoopsLocale::C_QUOTE . '<div class="xoopsQuote"><blockquote>totoQuote:<div class="xoopsQuote"><blockquote>'.$string.'</blockquote></div>titi</blockquote></div>', $message);
     }
 
     public function test_filterxss()
@@ -204,7 +200,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $sanitizer = $class::getInstance();
         $text = "\x00";
         $message = $sanitizer->filterxss($text);
-        $this->assertEquals('',$message);
+        $this->assertEquals('', $message);
     }
 
     public function test_nl2br()
@@ -213,13 +209,13 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $sanitizer = $class::getInstance();
         $text = "\n";
         $message = $sanitizer->nl2br($text);
-        $this->assertEquals("\n<br />\n",$message);
+        $this->assertEquals("\n<br />\n", $message);
         $text = "\r\n";
         $message = $sanitizer->nl2br($text);
-        $this->assertEquals("\n<br />\n",$message);
+        $this->assertEquals("\n<br />\n", $message);
         $text = "\r";
         $message = $sanitizer->nl2br($text);
-        $this->assertEquals("\n<br />\n",$message);
+        $this->assertEquals("\n<br />\n", $message);
     }
 
     /**
@@ -250,15 +246,15 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $sanitizer = $class::getInstance();
         $text = "\"'<>&";
         $message = $sanitizer->htmlSpecialChars($text);
-        $this->assertSame('&quot;&#039;&lt;&gt;&amp;',$message);
+        $this->assertSame('&quot;&#039;&lt;&gt;&amp;', $message);
 
         $text = 'toto&titi';
         $message = $sanitizer->htmlSpecialChars($text);
-        $this->assertSame('toto&amp;titi',$message);
+        $this->assertSame('toto&amp;titi', $message);
 
         $text = 'toto&nbsp;titi';
         $message = $sanitizer->htmlSpecialChars($text);
-        $this->assertSame('toto&nbsp;titi',$message);
+        $this->assertSame('toto&nbsp;titi', $message);
     }
 
     public function test_undohtmlSpecialChars()
@@ -267,7 +263,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $sanitizer = $class::getInstance();
         $text = '&gt;&lt;&quot;&#039;&amp;nbsp;';
         $message = $sanitizer->undohtmlSpecialChars($text);
-        $this->assertSame('><"\'&nbsp;',$message);
+        $this->assertSame('><"\'&nbsp;', $message);
     }
 
     public function test_displayTarea()
@@ -275,7 +271,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $sanitizer = $class::getInstance();
         $text = 'éeidoà';
-        $message = $sanitizer->displayTarea($text,1);
+        $message = $sanitizer->displayTarea($text, 1);
         $this->assertSame($text, $message);
     }
 
@@ -297,12 +293,12 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $string = 'string';
         $text = '[b]'.$string.'[/b]';
         $message = $sanitizer->previewTarea($text, 0, 0, 1, 0, 0);
-        $this->assertEquals('<strong>'.$string.'</strong>',$message);
+        $this->assertEquals('<strong>'.$string.'</strong>', $message);
 
         $text = "line\015\012line\015line\012line";
         $message = $sanitizer->previewTarea($text, 0, 0, 0, 0, 1);
         $expected = "line\n<br />\nline\n<br />\nline\n<br />\nline";
-        $this->assertEquals($expected,$message);
+        $this->assertEquals($expected, $message);
     }
 
     public function test_censorString()
@@ -331,7 +327,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $class = $this->myClass;
         $sanitizer = $class::getInstance();
         $text = 'toto titi tutu tata';
-        PHPUnit\Framework\Error\Warning::$enabled = FALSE;
+        PHPUnit\Framework\Error\Warning::$enabled = false;
         $value = $sanitizer->textFilter($text);
         $this->assertSame($text, $value);
     }

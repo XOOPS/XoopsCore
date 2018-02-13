@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class RpcBooleanHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcBooleanHandler';
@@ -13,31 +8,31 @@ class RpcBooleanHandlerTest extends \PHPUnit\Framework\TestCase
     
     public function setUp()
     {
-		$this->object = new $this->myclass();
+        $this->object = new $this->myclass();
     }
     
     public function test___construct()
-	{
-        $instance = $this->object;
-		$this->assertInstanceof('XmlTagHandler', $instance);
-	}
-
-    function test_getName()
     {
         $instance = $this->object;
-		
-		$name = $instance->getName();
-		$this->assertSame('boolean', $name);
+        $this->assertInstanceof('XmlTagHandler', $instance);
     }
 
-    function test_handleCharacterData()
+    public function test_getName()
     {
         $instance = $this->object;
-		
+        
+        $name = $instance->getName();
+        $this->assertSame('boolean', $name);
+    }
+
+    public function test_handleCharacterData()
+    {
+        $instance = $this->object;
+        
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $data = true;
-		$instance->handleCharacterData($parser,$data);
-		$this->assertSame($data, $parser->getTempValue());
+        $instance->handleCharacterData($parser, $data);
+        $this->assertSame($data, $parser->getTempValue());
     }
 }

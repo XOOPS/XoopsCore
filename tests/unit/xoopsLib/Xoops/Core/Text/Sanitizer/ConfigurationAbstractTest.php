@@ -3,11 +3,6 @@ namespace Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -54,27 +49,18 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->reflectedObject->hasMethod('getAllLike'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::get
-     */
     public function testGet()
     {
         $this->assertNull($this->object->get('--NoNameLikeThisAtAll--'));
         $this->assertSame('OK', $this->object->get('testvalue', 'OK'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::set
-     */
     public function testSet()
     {
         $this->object->set('testvalue', 'OK');
         $this->assertSame('OK', $this->object->get('testvalue', 'NotOK'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::getAll
-     */
     public function testGetAll()
     {
         $this->object->set('test1', 'OK1');
@@ -86,9 +72,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('OK2', $all['test2']);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::getNames
-     */
     public function testGetNames()
     {
         $this->object->set('test1', 'OK1');
@@ -97,9 +80,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(array('test1', 'test2'), $all);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::has
-     */
     public function testHas()
     {
         $this->object->set('test1', 'OK1');
@@ -109,9 +89,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->has('test3'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::remove
-     */
     public function testRemove()
     {
         $this->object->set('test1', 'OK1');
@@ -122,9 +99,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->has('test1'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::clear
-     */
     public function testClear()
     {
         $this->object->set('test1', 'OK1');
@@ -136,9 +110,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->has('test2'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::setAll
-     */
     public function testSetAll()
     {
         $this->object->set('test1', 'OK1');
@@ -163,9 +134,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('OK4', $this->object->get('test4'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::setMerge
-     */
     public function testSetMerge()
     {
         $this->object->set('test1', 'OK1');
@@ -189,9 +157,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('OK3', $this->object->get('test3'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::setArrayItem
-     */
     public function testSetArrayItem()
     {
         $this->object->setArrayItem('test', 'a', 'OK1');
@@ -215,9 +180,6 @@ class ConfigurationAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ConfigurationAbstract::getAllLike
-     */
     public function testGetAllLike()
     {
         $this->object->set('oddball', 'odd');

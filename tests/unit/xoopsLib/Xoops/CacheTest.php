@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_new.php');
+require_once(__DIR__.'/../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class Xoops_CacheTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = '\Xoops\Cache';

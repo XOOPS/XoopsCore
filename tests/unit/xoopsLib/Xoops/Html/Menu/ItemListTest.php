@@ -3,11 +3,6 @@ namespace Xoops\Html\Menu;
 
 require_once(__DIR__.'/../../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ItemListTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -38,11 +33,7 @@ class ItemListTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Html\Menu\Item', $this->object);
         $this->assertInstanceOf('\Xoops\Core\XoopsArray', $this->object);
     }
-    
-    /**
-     * @covers Xoops\Html\Menu\ItemList::addItem
-     * @todo   Implement testAddItem().
-     */
+
     public function testAddItem()
     {
         // Remove the following lines when you implement this test.

@@ -3,11 +3,6 @@ namespace Xoops\Html\Menu\Render;
 
 require_once(__DIR__.'/../../../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class RenderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**

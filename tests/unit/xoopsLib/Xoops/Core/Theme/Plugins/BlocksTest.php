@@ -3,11 +3,6 @@ namespace Xoops\Core\Theme\Plugins;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class BlocksTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -37,10 +32,6 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Theme\PluginAbstract', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Plugins\Blocks::xoInit
-     * @todo   Implement testXoInit().
-     */
     public function testXoInit()
     {
         // Remove the following lines when you implement this test.
@@ -49,10 +40,6 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Plugins\Blocks::preRender
-     * @todo   Implement testPreRender().
-     */
     public function testPreRender()
     {
         // Remove the following lines when you implement this test.
@@ -61,10 +48,6 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Plugins\Blocks::postRender
-     * @todo   Implement testPostRender().
-     */
     public function testPostRender()
     {
         // Remove the following lines when you implement this test.
@@ -73,10 +56,6 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Plugins\Blocks::retrieveBlocks
-     * @todo   Implement testRetrieveBlocks().
-     */
     public function testRetrieveBlocks()
     {
         // Remove the following lines when you implement this test.
@@ -85,10 +64,6 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Plugins\Blocks::generateCacheId
-     * @todo   Implement testGenerateCacheId().
-     */
     public function testGenerateCacheId()
     {
         // Remove the following lines when you implement this test.
@@ -97,10 +72,6 @@ class BlocksTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Plugins\Blocks::buildBlock
-     * @todo   Implement testBuildBlock().
-     */
     public function testBuildBlock()
     {
         // Remove the following lines when you implement this test.

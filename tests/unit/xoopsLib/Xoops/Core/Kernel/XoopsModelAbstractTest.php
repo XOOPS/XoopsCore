@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\XoopsModelAbstract;
@@ -13,11 +13,6 @@ class XoopsModelAbstractTestInstance extends XoopsModelAbstract
     }
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsModelAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsModelAbstractTestInstance';

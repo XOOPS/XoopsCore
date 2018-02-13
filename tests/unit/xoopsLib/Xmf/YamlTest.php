@@ -1,13 +1,8 @@
 <?php
-namespace Xmf;
+namespace Xmf\Test;
 
-require_once(dirname(__FILE__).'/../../init_new.php');
+use Xmf\Yaml;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class YamlTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -26,10 +21,6 @@ class YamlTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xmf\Yaml::dump
-     * @covers Xmf\Yaml::load
-     */
     public function testDumpAndLoad()
     {
         $inputArray = array('one' => 1, 'two' => array(1,2), 'three' => '');
@@ -43,10 +34,6 @@ class YamlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($inputArray, $outputArray);
     }
 
-    /**
-     * @covers Xmf\Yaml::save
-     * @covers Xmf\Yaml::read
-     */
     public function testSaveAndRead()
     {
         $tmpfname = tempnam(sys_get_temp_dir(), 'TEST');
@@ -63,10 +50,6 @@ class YamlTest extends \PHPUnit\Framework\TestCase
         unlink($tmpfname);
     }
 
-    /**
-     * @covers Xmf\Yaml::dumpWrapped
-     * @covers Xmf\Yaml::loadWrapped
-     */
     public function testDumpAndLoadWrapped()
     {
         $inputArray = array('one' => 1, 'two' => array(1,2), 'three' => '');
@@ -80,10 +63,6 @@ class YamlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($inputArray, $outputArray);
     }
 
-    /**
-     * @covers Xmf\Yaml::dumpWrapped
-     * @covers Xmf\Yaml::loadWrapped
-     */
     public function testDumpAndLoadWrappedStress()
     {
         $inputArray = array('start' => '---', 'end' => '...', 'misc' => 'stuff');
@@ -97,10 +76,6 @@ class YamlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($inputArray, $outputArray);
     }
 
-    /**
-     * @covers Xmf\Yaml::dumpWrapped
-     * @covers Xmf\Yaml::loadWrapped
-     */
     public function testDumpAndLoadWrappedStress2()
     {
         $inputArray = array('start' => '---', 'end' => '...', 'misc' => 'stuff');
@@ -114,10 +89,6 @@ class YamlTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($inputArray, $outputArray);
     }
 
-    /**
-     * @covers Xmf\Yaml::saveWrapped
-     * @covers Xmf\Yaml::readWrapped
-     */
     public function testSaveAndReadWrapped()
     {
         $tmpfname = tempnam(sys_get_temp_dir(), 'TEST');

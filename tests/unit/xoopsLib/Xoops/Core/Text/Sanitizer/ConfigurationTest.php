@@ -3,11 +3,6 @@ namespace Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ConfigurationTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -39,11 +34,6 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\ArrayObject', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Configuration::__construct
-     * @covers Xoops\Core\Text\Sanitizer\Configuration::readSanitizerPreferences
-     * @covers Xoops\Core\Text\Sanitizer\Configuration::saveSanitizerPrefrences
-     */
     public function test__construct(){
         $config = new Configuration();
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\ConfigurationAbstract', $config);

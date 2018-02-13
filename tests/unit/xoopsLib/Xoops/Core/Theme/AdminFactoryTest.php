@@ -3,11 +3,6 @@ namespace Xoops\Core\Theme;
 
 require_once __DIR__.'/../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class AdminFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,10 +27,6 @@ class AdminFactoryTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Theme\AdminFactory::createInstance
-     * @todo   Implement testCreateInstance().
-     */
     public function testCreateInstance()
     {
         // Remove the following lines when you implement this test.

@@ -1,13 +1,7 @@
 <?php
-namespace Xmf;
+namespace Xmf\Test;
 
-require_once(dirname(__FILE__).'/../../init_new.php');
-
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
+use Xmf\Uuid;
 
 class UuidTest extends \PHPUnit\Framework\TestCase
 {
@@ -33,9 +27,6 @@ class UuidTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers \Xmf\Uuid::generate
-     */
     public function testGenerate()
     {
         // match spec for version 4 UUID as per rfc4122

@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Doctrine\DBAL\Types\Type;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ImportSchemaTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops\Core\Database\Schema\ImportSchema';
@@ -62,15 +57,5 @@ class ImportSchemaTest extends \PHPUnit\Framework\TestCase
         $value = $import->importSchemaArray($schema);
 
         $this->assertInstanceOf('Doctrine\DBAL\Schema\Schema', $value);
-    }
-
-    public function test_importTables()
-    {
-        // see test_importSchemaArray
-    }
-
-    public function test_importSequences()
-    {
-        // see test_importSequences
     }
 }

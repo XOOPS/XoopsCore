@@ -6,13 +6,8 @@ use Xmf\Key\Basic;
 use Xmf\Key\KeyAbstract;
 use Xmf\Key\StorageInterface;
 
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
 {
     /** @var StorageInterface  */
@@ -46,9 +41,6 @@ class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xmf\Jwt\JsonWebToken::__construct
-     */
     public function test__construct()
     {
         $this->assertInstanceOf('\Xmf\Jwt\JsonWebToken', $this->object);
@@ -57,9 +49,6 @@ class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
         $actual = new JsonWebToken($this->key, 'badalgo');
     }
 
-    /**
-     * @covers Xmf\Jwt\JsonWebToken::setAlgorithm
-     */
     public function testSetAlgorithm()
     {
         $actual = $this->object->setAlgorithm('HS512');
@@ -69,10 +58,6 @@ class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
         $actual = $this->object->setAlgorithm('xxxxx');
     }
 
-    /**
-     * @covers Xmf\Jwt\JsonWebToken::create
-     * @covers Xmf\Jwt\JsonWebToken::decode
-     */
     public function testCreateDecode()
     {
         $token = $this->object->create(['test' => 'create'], 6);

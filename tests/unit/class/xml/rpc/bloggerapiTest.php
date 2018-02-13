@@ -1,21 +1,21 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 
 class MockBloggerApi extends \BloggerApi
 {
-    function getModule()
+    public function getModule()
     {
         return $this->module;
     }
-    
-    function getUser()
+
+    public function getUser()
     {
         return $this->user;
     }
-    
-    function _checkUser($username, $password)
+
+    public function _checkUser($username, $password)
     {
         $xoops = Xoops::getInstance();
 
@@ -49,126 +49,126 @@ class MockBloggerApi extends \BloggerApi
     }
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class BloggerApiTest extends \PHPUnit\Framework\TestCase
 {
-	protected $myClass = 'MockBloggerApi';
+    protected $myClass = 'MockBloggerApi';
 
     public function test___construct()
-	{
-		$params = array(null, null, 'admin', 'goodpassword');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		$this->assertInstanceof('XoopsXmlRpcApi', $instance);
-	}
-
-    function test_newPost()
     {
-		$title = '<title>Title</title>';
-		$hometext = '<hometext>Hometext</hometext>';
-		$moretext = '<moretext>Moretext</moretext>';
-		$categories = '<categories>10</categories>';
-		$text = $title . $hometext . $moretext . $categories;
-
-		$params = array('', '', 'admin', 'goodpassword', $text);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		$instance->newPost();
-		$msg = $response->render();
-		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();
-		$this->markTestIncomplete();
+        $params = array(null, null, 'admin', 'goodpassword');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+        $this->assertInstanceof('XoopsXmlRpcApi', $instance);
     }
 
-    function test_editPost()
+    public function test_newPost()
     {
-		$title = '<title>Title</title>';
-		$hometext = '<hometext>Hometext</hometext>';
-		$moretext = '<moretext>Moretext</moretext>';
-		$categories = '<categories>10</categories>';
-		$text = $title . $hometext . $moretext . $categories;
+        $title = '<title>Title</title>';
+        $hometext = '<hometext>Hometext</hometext>';
+        $moretext = '<moretext>Moretext</moretext>';
+        $categories = '<categories>10</categories>';
+        $text = $title . $hometext . $moretext . $categories;
 
-		$params = array('', '', 'admin', 'goodpassword', $text);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		$instance->editPost();
-		$msg = $response->render();
-		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();
-		$this->markTestIncomplete();
+        $params = array('', '', 'admin', 'goodpassword', $text);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+        $instance->newPost();
+        $msg = $response->render();
+        if (false !== strpos($msg, '<name>faultString</name><value>Module not found')) {
+            $this->markTestSkipped();
+        }
+        $this->markTestIncomplete();
     }
 
-    function test_deletePost()
+    public function test_editPost()
     {
-		$title = '<title>Title</title>';
-		$hometext = '<hometext>Hometext</hometext>';
-		$moretext = '<moretext>Moretext</moretext>';
-		$categories = '<categories>10</categories>';
-		$text = $title . $hometext . $moretext . $categories;
+        $title = '<title>Title</title>';
+        $hometext = '<hometext>Hometext</hometext>';
+        $moretext = '<moretext>Moretext</moretext>';
+        $categories = '<categories>10</categories>';
+        $text = $title . $hometext . $moretext . $categories;
 
-		$params = array('', '', 'admin', 'goodpassword', $text);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		$instance->deletePost();
-		$msg = $response->render();
-		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();
-		$this->markTestIncomplete();
+        $params = array('', '', 'admin', 'goodpassword', $text);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+        $instance->editPost();
+        $msg = $response->render();
+        if (false !== strpos($msg, '<name>faultString</name><value>Module not found')) {
+            $this->markTestSkipped();
+        }
+        $this->markTestIncomplete();
     }
 
-    function test_getPost()
+    public function test_deletePost()
     {
-		$title = '<title>Title</title>';
-		$hometext = '<hometext>Hometext</hometext>';
-		$moretext = '<moretext>Moretext</moretext>';
-		$categories = '<categories>10</categories>';
-		$text = $title . $hometext . $moretext . $categories;
+        $title = '<title>Title</title>';
+        $hometext = '<hometext>Hometext</hometext>';
+        $moretext = '<moretext>Moretext</moretext>';
+        $categories = '<categories>10</categories>';
+        $text = $title . $hometext . $moretext . $categories;
 
-		$params = array('', '', 'admin', 'goodpassword', $text);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		$instance->getPost();
-		$msg = $response->render();
-		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();
-		$this->markTestIncomplete();
+        $params = array('', '', 'admin', 'goodpassword', $text);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+        $instance->deletePost();
+        $msg = $response->render();
+        if (false !== strpos($msg, '<name>faultString</name><value>Module not found')) {
+            $this->markTestSkipped();
+        }
+        $this->markTestIncomplete();
     }
 
-    function test_getRecentPosts()
+    public function test_getPost()
     {
-		$title = '<title>Title</title>';
-		$hometext = '<hometext>Hometext</hometext>';
-		$moretext = '<moretext>Moretext</moretext>';
-		$categories = '<categories>10</categories>';
-		$text = $title . $hometext . $moretext . $categories;
+        $title = '<title>Title</title>';
+        $hometext = '<hometext>Hometext</hometext>';
+        $moretext = '<moretext>Moretext</moretext>';
+        $categories = '<categories>10</categories>';
+        $text = $title . $hometext . $moretext . $categories;
 
-		$params = array('', '', 'admin', 'goodpassword', $text);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		$instance->getRecentPosts();
-		$msg = $response->render();
-		if (false !== strpos($msg, '<name>faultString</name><value>Module not found'))
-			$this->markTestSkipped();
-		$this->markTestIncomplete();
+        $params = array('', '', 'admin', 'goodpassword', $text);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+        $instance->getPost();
+        $msg = $response->render();
+        if (false !== strpos($msg, '<name>faultString</name><value>Module not found')) {
+            $this->markTestSkipped();
+        }
+        $this->markTestIncomplete();
     }
 
-    function test_getUsersBlogs()
+    public function test_getRecentPosts()
     {
-		$params = array(null, 'admin', 'WRONG_password');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-        
+        $title = '<title>Title</title>';
+        $hometext = '<hometext>Hometext</hometext>';
+        $moretext = '<moretext>Moretext</moretext>';
+        $categories = '<categories>10</categories>';
+        $text = $title . $hometext . $moretext . $categories;
+
+        $params = array('', '', 'admin', 'goodpassword', $text);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+        $instance->getRecentPosts();
+        $msg = $response->render();
+        if (false !== strpos($msg, '<name>faultString</name><value>Module not found')) {
+            $this->markTestSkipped();
+        }
+        $this->markTestIncomplete();
+    }
+
+    public function test_getUsersBlogs()
+    {
+        $params = array(null, 'admin', 'WRONG_password');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->getUsersBlogs();
         $msg = $response->render();
         $expected = '<?xml version="1.0"?>'
@@ -177,13 +177,13 @@ class BloggerApiTest extends \PHPUnit\Framework\TestCase
             . "<member><name>faultString</name><value>User authentication failed\n</value></member>"
             . '</struct></value></fault></methodResponse>';
         $this->assertSame($expected, $msg);
-        
-        
-		$params = array(null, 'admin', 'goodpassword');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-        
+
+
+        $params = array(null, 'admin', 'goodpassword');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->getUsersBlogs();
         $msg = $response->render();
         $url = \XoopsBaseConfig::get('url').'/modules/'.$instance->getModule()->getVar('dirname').'/';
@@ -194,16 +194,15 @@ class BloggerApiTest extends \PHPUnit\Framework\TestCase
             . '<member><name>blogName</name><value><string>XOOPS Blog</string></value></member>'
             . '</struct></value></data></array></value></param></params></methodResponse>';
         $this->assertSame($expected, $msg);
-        
     }
 
-    function test_getUserInfo()
+    public function test_getUserInfo()
     {
-		$params = array(null, 'admin', 'WRONG_password');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-        
+        $params = array(null, 'admin', 'WRONG_password');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->getUserInfo();
         $msg = $response->render();
         $expected = '<?xml version="1.0"?>'
@@ -212,12 +211,12 @@ class BloggerApiTest extends \PHPUnit\Framework\TestCase
             . "<member><name>faultString</name><value>User authentication failed\n</value></member>"
             . '</struct></value></fault></methodResponse>';
         $this->assertSame($expected, $msg);
-        
-		$params = array(null, 'admin', 'goodpassword');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-        
+
+        $params = array(null, 'admin', 'goodpassword');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->getUserInfo();
         $msg = $response->render();
         $uname = $instance->getUser()->getVar('uname');
@@ -236,13 +235,13 @@ class BloggerApiTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $msg);
     }
 
-    function test_getTemplate()
+    public function test_getTemplate()
     {
-		$params = array(null, null, 'admin', 'goodpassword', null, null);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		
+        $params = array(null, null, 'admin', 'goodpassword', null, null);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->getTemplate();
         $msg = $response->render();
         $expected = '<?xml version="1.0"?>'
@@ -253,13 +252,13 @@ class BloggerApiTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $msg);
     }
 
-    function test_setTemplate()
+    public function test_setTemplate()
     {
-		$params = array(null, null, 'admin', 'goodpassword', null, null);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		
+        $params = array(null, null, 'admin', 'goodpassword', null, null);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->setTemplate();
         $msg = $response->render();
         $expected = '<?xml version="1.0"?>'
@@ -268,12 +267,12 @@ class BloggerApiTest extends \PHPUnit\Framework\TestCase
             . "<member><name>faultString</name><value>Method not supported\n</value></member>"
             . '</struct></value></fault></methodResponse>';
         $this->assertSame($expected, $msg);
-        
-		$params = array(null, null, 'admin', 'WRONG_password', null, null);
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$instance = new $this->myClass($params, $response, $module);
-		
+
+        $params = array(null, null, 'admin', 'WRONG_password', null, null);
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $instance = new $this->myClass($params, $response, $module);
+
         $result = $instance->setTemplate();
         $msg = $response->render();
         $expected = '<?xml version="1.0"?>'

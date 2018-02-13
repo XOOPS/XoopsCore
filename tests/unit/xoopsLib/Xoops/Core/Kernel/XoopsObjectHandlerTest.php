@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
 use Xoops\Core\Database\Connection;
 
@@ -14,17 +14,13 @@ class XoopsObjectHandlerTestInstance extends Xoops\Core\Kernel\XoopsObjectHandle
 class XoopsObjectHandlerTest_XoopsObjectInstance extends Xoops\Core\Kernel\XoopsObject
 {
 }
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
+
 class XoopsObjectHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsObjectHandlerTestInstance';
     protected $classObject = 'XoopsObjectHandlerTest_XoopsObjectInstance';
     protected $conn = null;
-    
+
     public function setUp()
     {
         $this->conn = Xoops\Core\Database\Factory::getConnection();

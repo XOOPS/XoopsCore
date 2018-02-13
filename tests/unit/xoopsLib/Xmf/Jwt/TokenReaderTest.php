@@ -4,13 +4,8 @@ namespace Xmf\Jwt;
 use Xmf\Key\Basic;
 use Xmf\Key\FileStorage;
 
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class TokenReaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,9 +42,6 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
         $this->storage->delete($this->testKey);
     }
 
-    /**
-     * @covers Xmf\Jwt\TokenReader::fromString
-     */
     public function testFromString()
     {
         $claims = array('rat' => 'cute');
@@ -67,10 +59,6 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($actual);
     }
 
-    /**
-     * @covers Xmf\Jwt\TokenReader::fromCookie
-     * @todo   Implement testFromCookie().
-     */
     public function testFromCookie()
     {
         // Remove the following lines when you implement this test.
@@ -79,10 +67,6 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xmf\Jwt\TokenReader::fromRequest
-     * @todo   Implement testFromRequest().
-     */
     public function testFromRequest()
     {
         // Remove the following lines when you implement this test.
@@ -91,10 +75,6 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xmf\Jwt\TokenReader::fromHeader
-     * @todo   Implement testFromHeader().
-     */
     public function testFromHeader()
     {
         // Remove the following lines when you implement this test.

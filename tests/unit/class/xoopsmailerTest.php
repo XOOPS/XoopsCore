@@ -1,17 +1,12 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsGroup;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsMailerTest extends \PHPUnit\Framework\TestCase
 {
-	protected $myclass = 'XoopsMailer';
+    protected $myclass = 'XoopsMailer';
     protected $object = null;
 
     public function setUp()
@@ -27,9 +22,9 @@ class XoopsMailerTest extends \PHPUnit\Framework\TestCase
     }
 
     public function test___construct()
-	{
+    {
         $instance = $this->object;
-		$this->assertInstanceOf('XoopsMailer', $instance);
+        $this->assertInstanceOf('XoopsMailer', $instance);
 
         $prop = $this->getPropertyValue('multimailer');
         $this->assertTrue(is_object($prop));
@@ -210,7 +205,7 @@ class XoopsMailerTest extends \PHPUnit\Framework\TestCase
 
         $x = $instance->getErrors(true);
         $this->assertTrue(is_string($x));
-        $this->assertTrue(preg_match('#<h4>.*</h4>.*<br />#',$x) > 0);
+        $this->assertTrue(preg_match('#<h4>.*</h4>.*<br />#', $x) > 0);
 
         $prop = new ReflectionProperty(get_class($this->object), 'errors');
         $prop->setAccessible(true);
@@ -237,7 +232,7 @@ class XoopsMailerTest extends \PHPUnit\Framework\TestCase
 
         $x = $instance->getSuccess(true);
         $this->assertTrue(is_string($x));
-        $this->assertTrue(preg_match('#.*<br />#',$x) > 0);
+        $this->assertTrue(preg_match('#.*<br />#', $x) > 0);
 
         $prop = new ReflectionProperty(get_class($this->object), 'success');
         $prop->setAccessible(true);
@@ -303,7 +298,7 @@ class XoopsMailerTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
 
         $group = new XoopsGroup();
-        $group->assignVar('groupid',1);
+        $group->assignVar('groupid', 1);
         $groups = array($group);
         $instance->setToGroups($groups);
         $x = $this->getPropertyValue('toUsers');

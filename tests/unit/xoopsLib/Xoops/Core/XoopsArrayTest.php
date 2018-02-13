@@ -1,13 +1,7 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\XoopsArray;
-
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 
 class XoopsArrayTest extends \PHPUnit\Framework\TestCase
 {

@@ -3,11 +3,6 @@ require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Cache\Legacy;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class LegacyTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,10 +27,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Legacy::gc
-     * @todo   Implement testGc().
-     */
     public function testGc()
     {
         $this->markTestSkipped(); // something in gc() outputs "<script>history.go(-1);</script>"????
@@ -43,11 +34,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($ret);
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Legacy::read
-     * @covers Xoops\Core\Cache\Legacy::write
-     * @covers Xoops\Core\Cache\Legacy::delete
-     */
     public function testReadWriteDelete()
     {
         $key = 'offhandname';
@@ -65,10 +51,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @covers Xoops\Core\Cache\Legacy::clear
-     * @todo   Implement testClear().
-     */
     public function testClear()
     {
         $key = 'anothename';
@@ -85,10 +67,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($ret);
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Legacy::__call
-     * @todo   Implement test__call().
-     */
     public function test__call()
     {
         $instance = new Legacy;
@@ -98,10 +76,6 @@ class LegacyTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($ret);
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Legacy::__callStatic
-     * @todo   Implement test__callStatic().
-     */
     public function test__callStatic()
     {
         $ret = Legacy::noSuchMethod();

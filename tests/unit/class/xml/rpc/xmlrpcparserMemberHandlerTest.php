@@ -1,55 +1,45 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class RpcMemberHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcMemberHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
-		$this->object = new $this->myclass();
+        $this->object = new $this->myclass();
     }
-    
+
     public function test___construct()
-	{
-        $instance = $this->object;
-		$this->assertInstanceof('XmlTagHandler', $instance);
-	}
-
-    function test_getName()
     {
         $instance = $this->object;
-		
-		$name = $instance->getName();
-		$this->assertSame('member', $name);
+        $this->assertInstanceof('XmlTagHandler', $instance);
     }
 
-    function test_handleBeginElement()
-    {
-        // see test_handleEndElement
-    }
-
-    function test_handleEndElement()
+    public function test_getName()
     {
         $instance = $this->object;
-        
+
+        $name = $instance->getName();
+        $this->assertSame('member', $name);
+    }
+
+    public function test_handleEndElement()
+    {
+        $instance = $this->object;
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $workingLevelBefore = $parser->getWorkingLevel();
         $data = 'not time';
-		$instance->handleBeginElement($parser,$data);
+        $instance->handleBeginElement($parser, $data);
         $workingLevel = $parser->getWorkingLevel();
         $tempMember = $parser->getTempMember();
         $this->assertSame(array(), $tempMember);
         $this->assertNotSame($workingLevelBefore, $workingLevel);
-        
-		$instance->handleEndElement($parser,$data);
+
+        $instance->handleEndElement($parser, $data);
         $workingLevel = $parser->getWorkingLevel();
         $tempMember = $parser->getTempMember();
         $this->assertSame(null, $tempMember);

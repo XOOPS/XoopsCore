@@ -15,7 +15,7 @@ before_install:
   - composer self-update
 
 install:
-  - composer --working-dir=htdocs/xoops_lib/ install
+  - composer install
 
 before_script:
   - mysql -e 'create database xoops_test;'

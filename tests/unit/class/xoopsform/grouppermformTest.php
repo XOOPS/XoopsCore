@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_new.php');
+require_once(__DIR__.'/../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsGroupPermFormTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsGroupPermForm';
@@ -15,5 +10,4 @@ class XoopsGroupPermFormTest extends \PHPUnit\Framework\TestCase
         $instance = new $this->myClass('', 1, '', '');
         $this->assertInstanceOf('Xoops\\Form\\GroupPermissionForm', $instance);
     }
-
 }

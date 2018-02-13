@@ -1,16 +1,11 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
 
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Configuration;
 use Doctrine\Common\EventManager;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = '\Xoops\Core\Database\Connection';
@@ -51,10 +46,6 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($x);
     }
 
-    public function test_getSafe()
-    {
-    }
-
     public function test_setForce()
     {
         $this->object->setForce(true);
@@ -64,10 +55,6 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
         $this->object->setForce(false);
         $x = $this->object->getForce();
         $this->assertFalse($x);
-    }
-
-    public function test_getForce()
-    {
     }
 
     public function test_prefix()
@@ -83,21 +70,25 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function test_insertPrefix()
     {
+        $this->markTestIncomplete('No test yet');
         //  insertPrefix($tableName, array $data, array $types = array())
     }
 
     public function test_updatePrefix()
     {
+        $this->markTestIncomplete('No test yet');
         //  updatePrefix($tableName, array $data, array $identifier, array $types = array())
     }
 
     public function test_deletePrefix()
     {
+        $this->markTestIncomplete('No test yet');
         //  deletePrefix($tableName, array $identifier)
     }
 
     public function test_executeQuery()
     {
+        $this->markTestIncomplete('No test yet');
         /*
         executeQuery(
         $query,
@@ -109,41 +100,49 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
     public function test_executeUpdate()
     {
+        $this->markTestIncomplete('No test yet');
         //  executeUpdate($query, array $params = array(), array $types = array())
     }
 
     public function test_beginTransaction()
     {
+        $this->markTestIncomplete('No test yet');
         //  beginTransaction()
     }
 
     public function test_commit()
     {
+        $this->markTestIncomplete('No test yet');
         //  commit()
     }
 
     public function test_rollBack()
     {
+        $this->markTestIncomplete('No test yet');
         //  rollBack()
     }
 
     public function test_query()
     {
+        $this->markTestIncomplete('No test yet');
         //  query()
     }
 
     public function test_queryFromFile()
     {
+        $this->markTestIncomplete('No test yet');
         //  queryFromFile($file)
     }
 
     public function test_quoteSlash()
     {
+        $this->markTestIncomplete('No test yet');
         //  quoteSlash($input)
     }
 
     public function test_createXoopsQueryBuilder()
     {
+        $this->markTestIncomplete('No test yet');
         //  createXoopsQueryBuilder()
     }
 }

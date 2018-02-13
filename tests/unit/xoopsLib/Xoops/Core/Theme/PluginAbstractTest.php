@@ -3,11 +3,6 @@ namespace Xoops\Core\Theme;
 
 require_once __DIR__.'/../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class PluginAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**

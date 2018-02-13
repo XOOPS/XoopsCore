@@ -3,11 +3,6 @@ require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Cache\CacheManager;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class CacheManagerTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,9 +27,6 @@ class CacheManagerTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Cache\CacheManager::getCache
-     */
     public function testGetCache()
     {
         $pool1 = $this->object->getCache('default');

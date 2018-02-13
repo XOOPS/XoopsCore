@@ -1,20 +1,14 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopssecurityTest extends \PHPUnit\Framework\TestCase
 {
-	protected $myclass = 'XoopsSecurity';
+    protected $myclass = 'XoopsSecurity';
 
     public function test___construct()
-	{
+    {
         $instance = new $this->myclass();
-		$this->assertInstanceOf($this->myclass, $instance);
-		$this->assertInstanceOf('\\Xoops\\Core\\Security', $instance);
+        $this->assertInstanceOf($this->myclass, $instance);
+        $this->assertInstanceOf('\\Xoops\\Core\\Security', $instance);
     }
-
 }
