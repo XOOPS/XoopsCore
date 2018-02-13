@@ -1,3 +1,2 @@
-{translate key="ACTIONS"}
-<br/>
-{translate key="ADMINISTRATION_MENU" dirname="system"}
+{assign values ['name' => 'Smarty', 'gender' => 'template engine']}
+{translate key="GENDER" dirname="codex" values=$values}

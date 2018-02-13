@@ -22,7 +22,7 @@ class Helper
     /**
      * @param string $dirname
      *
-     * @return bool|Xoops\Module\Helper\HelperAbstract
+     * @return bool|\Xoops\Module\Helper\HelperAbstract
      */
     public static function getHelper($dirname = 'system')
     {

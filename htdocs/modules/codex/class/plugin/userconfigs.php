@@ -9,12 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use CodexLocale as t;
+
 /**
  * @author    trabis <lusopoemas@gmail.com>
  * @copyright 2012-2016 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-
 class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implements UserconfigsPluginInterface
 {
     /**
@@ -27,10 +28,10 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
      */
     public function categories()
     {
-        $categories['cat_1']['name'] = _MI_CODEX_UCONF_CAT1;
-        $categories['cat_1']['title'] = _MI_CODEX_UCONF_CAT1_DSC;
-        $categories['cat_2']['name'] = _MI_CODEX_UCONF_CAT2;
-        $categories['cat_2']['title'] = _MI_CODEX_UCONF_CAT2_DSC;
+        $categories['cat_1']['name'] = t::UCONF_CAT1;
+        $categories['cat_1']['title'] = t::UCONF_CAT1_DESC;
+        $categories['cat_2']['name'] = t::UCONF_CAT2;
+        $categories['cat_2']['title'] = t::UCONF_CAT2_DESC;
         return $categories;
     }
 
@@ -48,8 +49,8 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
     {
         $i = 0;
         $config[$i]['name'] = 'config_1';
-        $config[$i]['title'] = '_MI_CODEX_UCONF_ITEM1';
-        $config[$i]['description'] = '_MI_CODEX_UCONF_ITEM1_DSC';
+        $config[$i]['title'] = 'UCONF_ITEM1';
+        $config[$i]['description'] = 'UCONF_ITEM1_DESC';
         $config[$i]['formtype'] = 'select';
         $config[$i]['valuetype'] = 'int';
         $config[$i]['default'] = 1;
@@ -57,8 +58,8 @@ class CodexUserconfigsPlugin extends Xoops\Module\Plugin\PluginAbstract implemen
         $config[$i]['category'] = 'cat_1';
         ++$i;
         $config[$i]['name'] = 'config_2';
-        $config[$i]['title'] = '_MI_CODEX_UCONF_ITEM2';
-        $config[$i]['description'] = '_MI_CODEX_UCONF_ITEM2_DSC';
+        $config[$i]['title'] = 'UCONF_ITEM2';
+        $config[$i]['description'] = 'UCONF_ITEM2_DESC';
         $config[$i]['formtype'] = 'text';
         $config[$i]['valuetype'] = 'text';
         $config[$i]['default'] = 'Type Something here';

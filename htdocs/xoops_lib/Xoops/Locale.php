@@ -16,6 +16,7 @@ use Punic\Exception\InvalidLocale;
 use Xoops\Core\HttpRequest;
 use Xmf\Request;
 use Xoops\Core\Theme\XoopsTheme;
+use Xoops\Locale\MessageFormatter;
 
 /**
  * Locale
@@ -151,8 +152,8 @@ class Locale
     }
 
     /**
-     * @param string $name     Name of language file to be loaded, without extension
-     * @param mixed  $domain   string: Module dirname; global language file will be loaded if
+     * @param string $name Name of language file to be loaded, without extension
+     * @param mixed $domain string: Module dirname; global language file will be loaded if
      *                                 $domain is set to 'global' or not specified
      *                         array:  example; array('Frameworks/moduleclasses/moduleadmin')
      * @param string $language Language to be loaded, current language content will be loaded if not specified
@@ -181,7 +182,7 @@ class Locale
     }
 
     /**
-     * @param string $domain       module dirname to load, if null will load global locale
+     * @param string $domain module dirname to load, if null will load global locale
      * @param string $forcedLocale Locale to be loaded, current language content will be loaded if not specified
      *
      * @return  boolean
@@ -275,12 +276,37 @@ class Locale
     /**
      * @param string $key
      * @param string $dirname
-     *
+     * @param array  $params
      * @return string
      */
-    public static function translate($key, $dirname = 'xoops')
+    public static function translate($key, $dirname = 'xoops', $params = [])
     {
         $class = self::getClassFromDirname($dirname);
+        $message = self::getMessage($class, $key);
+        return self::format($message, $params, self::getCurrent());
+    }
+
+    /**
+     * @param string $key
+     * @param string $dirname
+     * @param array  $params
+     * @return string
+     */
+    public static function translateTheme($key, $dirname = '', $params = [])
+    {
+        $class = self::getThemeClassFromDirname($dirname);
+        $message = self::getMessage($class, $key);
+        return self::format($message, $params, self::getCurrent());
+    }
+
+    /**
+     * Returns the raw translation
+     *
+     * @param string $class
+     * @param string $key
+     * @return string
+     */
+    private static function getMessage($class, $key) {
         if (defined("$class::$key")) {
             return constant("$class::$key");
         } elseif (defined($key)) {
@@ -290,21 +316,53 @@ class Locale
     }
 
     /**
-     * @param string $key
-     * @param string $dirname
+     * Formats a message using [[MessageFormatter]].
      *
-     * @return string
+     * @copyright Copyright (c) 2008 Yii Software LLC
+     *
+     * @param string $message the message to be formatted.
+     * @param array  $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param string $language the language code (e.g. `en-US`, `en`).
+     * @return string the formatted message.
      */
-    public static function translateTheme($key, $dirname = '')
+    private static function format($message, $params, $language)
     {
-        $class = self::getThemeClassFromDirname($dirname);
-
-        if (defined("$class::$key")) {
-            return constant("$class::$key");
-        } elseif (defined($key)) {
-            return constant($key);
+        $params = (array)$params;
+        if ($params === []) {
+            return $message;
         }
-        return $key;
+
+        if (preg_match('~{\s*[\d\w]+\s*,~u', $message)) {
+            $formatter = self::getMessageFormatter();
+            $result = $formatter->format($message, $params, $language);
+            if ($result === false) {
+                $errorMessage = $formatter->getErrorMessage();
+                \Xoops::getInstance()->logger()->warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", [__METHOD__]);
+                return $message;
+            } else {
+                return $result;
+            }
+        }
+
+        $p = [];
+        foreach ($params as $name => $value) {
+            $p['{' . $name . '}'] = $value;
+        }
+
+        return strtr($message, $p);
+    }
+
+    /**
+     * Returns the message formatter instance.
+     * @return MessageFormatter the message formatter to be used to format message via ICU message format.
+     */
+    private static function getMessageFormatter()
+    {
+        static $messageFormatter = null;
+        if ($messageFormatter === null) {
+            $messageFormatter = new MessageFormatter();
+        }
+        return $messageFormatter;
     }
 
     /**
@@ -402,7 +460,7 @@ class Locale
         try {
             $keys = Data::explodeLocale($locale);
             $key = strtolower($keys['language']);
-            $key .= (empty($keys['script']) || false===$withScript) ?
+            $key .= (empty($keys['script']) || false === $withScript) ?
                 '' : $separator . ucfirst(strtolower($keys['script']));
             $key .= empty($keys['territory']) ? '' : $separator . strtoupper($keys['territory']);
         } catch (InvalidLocale $e) {

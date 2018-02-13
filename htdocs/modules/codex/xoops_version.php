@@ -15,9 +15,11 @@
  * @author    trabis <lusopoemas@gmail.com>
  */
 
+use CodexLocale as t;
+
 $modversion                = array();
-$modversion['name']        = _MI_CODEX_NAME;
-$modversion['description'] = _MI_CODEX_DSC;
+$modversion['name']        = t::MODULE_NAME;
+$modversion['description'] = t::MODULE_DESC;
 $modversion['version']     = 0.1;
 $modversion['author']      = 'Trabis';
 $modversion['nickname']    = 'trabis';
