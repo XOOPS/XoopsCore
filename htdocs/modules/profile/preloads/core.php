@@ -34,7 +34,7 @@ class ProfileCorePreload extends PreloadItem
      * @param array $args
      * @return void
      */
-    static public function eventCoreUserStart($args)
+    public static function eventCoreUserStart($args)
     {
         $op = 'main';
         if (isset($_POST['op'])) {
@@ -52,7 +52,7 @@ class ProfileCorePreload extends PreloadItem
      * @param array $args
      * @return void
      */
-    static public function eventCoreEdituserStart($args)
+    public static function eventCoreEdituserStart($args)
     {
         \Xoops::simpleRedirect("./modules/profile/edituser.php" . (empty($_SERVER['QUERY_STRING']) ? "" : "?" . $_SERVER['QUERY_STRING']));
     }

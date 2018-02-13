@@ -252,7 +252,7 @@ class PublisherMetagen
      * @var string $string Chaine de caractère
      * @return boolean
      */
-    static public function emptyString($var)
+    public static function emptyString($var)
     {
         return (strlen($var) > 0);
     }

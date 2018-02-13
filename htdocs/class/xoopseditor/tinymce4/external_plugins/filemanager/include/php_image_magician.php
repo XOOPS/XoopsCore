@@ -2410,7 +2410,7 @@ class imageLib
                 $img = @imagecreatefrompng($file);
                 break;
             case '.bmp':
-                $img = @$this->imagecreatefrombmp($file);
+                $img = @$this->ImageCreateFromBMP($file);
                 break;
             case '.psd':
                 $img = @$this->imagecreatefrompsd($file);
