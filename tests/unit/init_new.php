@@ -2,8 +2,8 @@
 
 if (defined('XOOPS_TU_ROOT_PATH')) return;
 
-if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-    die("XOOP check: PHP version require 5.3.0 or more");
+if (version_compare(PHP_VERSION, '7.1.0', '<')) {
+    die("XOOP check: PHP version require 7.1.0 or more");
 }
 
 // needed for phpunit => initializing $_SERVER values
@@ -12,7 +12,7 @@ if (empty($_SERVER["HTTP_HOST"])) {
 }
 
 if (defined('IS_PHPUNIT')) {
-    require_once dirname(__FILE__) . '/common_phpunit.php';
+    require_once __DIR__ . '/common_phpunit.php';
 } else {
     // Avoid check proxy to define constant XOOPS_DB_PROXY
     // because it implies a readonly database connection
@@ -29,5 +29,4 @@ require_once(XOOPS_TU_ROOT_PATH . '/mainfile.php');
 
 \XoopsBaseConfig::bootstrapTransition();
 
-require_once(XOOPS_TU_ROOT_PATH . '/xoops_lib/Xoops/Locale.php');
 \Xoops\Locale::loadLocale();

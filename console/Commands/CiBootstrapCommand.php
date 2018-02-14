@@ -64,22 +64,23 @@ EOT;
     protected function createConfigFile($configFile, $baseDir)
     {
         $url = 'http://localhost';
+        $webRoot = $baseDir . '/htdocs';
         $configs = array(
-            'root-path' => $baseDir,
+            'root-path' => $webRoot,
             'lib-path' => $baseDir . '/xoops_lib',
             'var-path' => $baseDir . '/xoops_data',
             'trust-path' => $baseDir . '/xoops_lib',
             'url' => $url,
             'prot' => 'http://',
-            'asset-path' => $baseDir . '/assets',
+            'asset-path' => $webRoot . '/assets',
             'asset-url' => $url . '/assets',
-            'themes-path' => $baseDir .'/themes',
+            'themes-path' => $webRoot .'/themes',
             'themes-url' => $url . '/themes',
-            'adminthemes-path' => $baseDir . '/modules/system/themes',
-            'adminthemes-url' => $url . '/modules/system/themes',
-            'media-path' => $baseDir . '/media',
+            'adminthemes-path' => $webRoot . '/modules/system/themes',
+            'adminthemes-url' => $webRoot . '/modules/system/themes',
+            'media-path' => $webRoot . '/media',
             'media-url' => $url . '/media',
-            'uploads-path' => $baseDir . '/uploads',
+            'uploads-path' => $webRoot . '/uploads',
             'uploads-url' => $url . '/uploads',
             'cookie-domain' => '',
             'cookie-path' => '/',
@@ -121,9 +122,8 @@ EOT;
 
         $configFile = $XContainer->get('configfile');
         $mainfile = $XContainer->get('mainfile');
-        $baseDir = dirname($mainfile);
+        $baseDir = dirname($mainfile, 2);
         if (!file_exists($configFile)) {
-            $baseDir = dirname($mainfile);
             if (false === $this->createConfigFile($configFile, $baseDir)) {
                 $output->writeln(sprintf('<error>Could not write file %s!</error>', $configFile));
                 return;
@@ -144,7 +144,7 @@ EOT;
         }
 
         if (!class_exists('\XoopsBaseConfig', false)) {
-            include $baseDir . '/class/XoopsBaseConfig.php';
+            include $baseDir . '/htdocs/class/XoopsBaseConfig.php';
             \XoopsBaseConfig::getInstance($configFile);
         }
         \Xoops\Core\Cache\CacheManager::createDefaultConfig();
