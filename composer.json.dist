@@ -5,8 +5,8 @@
     "description": "The XOOPS Library distribution",
     "autoload": {
         "psr-4": {
-            "Xoops\\": "./htdocs/xoops_lib/Xoops/",
-            "Xmf\\": "./htdocs/xoops_lib/Xmf/"
+            "Xoops\\": "./xoops_lib/Xoops/",
+            "Xmf\\": "./xoops_lib/Xmf/"
         }
     },
     "require": {
@@ -16,7 +16,7 @@
         "phpunit/phpunit": "~7.0"
     },
     "config": {
-        "vendor-dir": "./htdocs/xoops_lib/vendor"
+        "vendor-dir": "./xoops_lib/vendor"
     },
     "extra": {
         "xoops_modules_path": "./htdocs/modules"
