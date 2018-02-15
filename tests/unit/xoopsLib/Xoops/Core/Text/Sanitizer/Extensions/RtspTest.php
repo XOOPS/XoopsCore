@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class RtspTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,9 +42,6 @@ class RtspTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\Rtsp::getDhtmlEditorSupport
-     */
     public function testGetDhtmlEditorSupport()
     {
         $support = $this->object->getDhtmlEditorSupport('testeditorarea');
@@ -58,9 +50,6 @@ class RtspTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($support[1]));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\Rtsp::registerExtensionProcessing
-     */
     public function testRegisterExtensionProcessing()
     {
         $this->sanitizer->enableComponentForTesting('rtsp');

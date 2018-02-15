@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Html\Attributes;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class AttributesTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -39,9 +34,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\ArrayObject', $this->object);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::__construct
-     */
     public function test__construct()
     {
         $expected = ['a'=>'1', 'key'=>'value', 'required' => null ];
@@ -50,10 +42,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::set
-     * @covers Xoops\Html\Attributes::get
-     */
     public function testSetAttribute()
     {
         $instance = $this->object;
@@ -65,9 +53,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($value, $result);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::remove
-     */
     public function testUnsetAttribute()
     {
         $instance = $this->object;
@@ -84,9 +69,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::has
-     */
     public function testHasAttribute()
     {
         $instance = $this->object;
@@ -104,9 +86,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::add
-     */
     public function testAdd()
     {
         $instance = $this->object;
@@ -145,10 +124,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(in_array('value4', $result));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::renderAttributeString
-     * @covers Xoops\Html\Attributes::doRender
-     */
     public function testRenderAttributeString()
     {
         $instance = $this->object;
@@ -161,10 +136,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $result);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::renderAttributeString
-     * @covers Xoops\Html\Attributes::doRender
-     */
     public function testRenderAttributeString100()
     {
         $instance = $this->object;
@@ -187,10 +158,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $result);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::renderAttributeString
-     * @covers Xoops\Html\Attributes::doRender
-     */
     public function testRenderAttributeString200()
     {
         $instance = $this->object;
@@ -203,9 +170,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $result);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::get
-     */
     public function testGet()
     {
         $this->assertFalse($this->object->get('--NoNameLikeThisAtAll--'));
@@ -213,18 +177,12 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('OK', $this->object->get('testvalue', 'OK'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::set
-     */
     public function testSet()
     {
         $this->object->set('testvalue', 'OK');
         $this->assertSame('OK', $this->object->get('testvalue', 'NotOK'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::getAll
-     */
     public function testGetAll()
     {
         $this->object->set('test1', 'OK1');
@@ -236,9 +194,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('OK2', $all['test2']);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::getNames
-     */
     public function testGetNames()
     {
         $this->object->set('test1', 'OK1');
@@ -247,9 +202,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(array('test1', 'test2'), $all);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::has
-     */
     public function testHas()
     {
         $this->object->set('test1', 'OK1');
@@ -259,9 +211,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->has('test3'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::remove
-     */
     public function testRemove()
     {
         $this->object->set('test1', 'OK1');
@@ -272,9 +221,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->has('test1'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::clear
-     */
     public function testClear()
     {
         $this->object->set('test1', 'OK1');
@@ -286,9 +232,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->has('test2'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::setAll
-     */
     public function testSetAll()
     {
         $this->object->set('test1', 'OK1');
@@ -313,9 +256,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('OK4', $this->object->get('test4'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::setMerge
-     */
     public function testSetMerge()
     {
         $this->object->set('test1', 'OK1');
@@ -339,9 +279,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('OK3', $this->object->get('test3'));
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::setArrayItem
-     */
     public function testSetArrayItem()
     {
         $this->object->setArrayItem('test', 'a', 'OK1');
@@ -365,9 +302,6 @@ class AttributesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Html\Attributes::getAllLike
-     */
     public function testGetAllLike()
     {
         $this->object->set('oddball', 'odd');

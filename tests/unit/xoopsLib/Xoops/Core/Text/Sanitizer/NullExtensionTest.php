@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class NullExtensionTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -40,10 +35,6 @@ class NullExtensionTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\NullExtension::getDhtmlEditorSupport
-     * @covers Xoops\Core\Text\Sanitizer\NullExtension::registerExtensionProcessing
-     */
     public function testRegisterExtensionProcessing()
     {
         $actual = $this->sanitizer->getDhtmlEditorSupport('nosuchextension', '');

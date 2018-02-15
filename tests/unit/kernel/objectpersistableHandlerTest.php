@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
 require_once(XOOPS_TU_ROOT_PATH . '/kernel/object.php');
 
@@ -17,11 +17,6 @@ class Legacy_XoopsPersistableObjectHandlerTestInstance extends \XoopsPersistable
     }
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class Legacy_XoopsPersistableObjectHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Legacy_XoopsPersistableObjectHandlerTestInstance';

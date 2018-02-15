@@ -3,11 +3,6 @@ require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Cache\Access;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class AccessTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -33,11 +28,6 @@ class AccessTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @covers Xoops\Core\Cache\Access::write
-     * @covers Xoops\Core\Cache\Access::read
-     * @covers Xoops\Core\Cache\Access::delete
-     */
     public function testReadWriteDelete()
     {
         $key = 'offhand/name';
@@ -67,11 +57,6 @@ class AccessTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($ret);
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Access::cacheRead
-     * @covers Xoops\Core\Cache\Access::read
-     * @covers Xoops\Core\Cache\Access::delete
-     */
     public function testCacheRead()
     {
         $regenFunction = function ($args) {
@@ -92,11 +77,6 @@ class AccessTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($ret, $value);
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Access::garbageCollect
-     * @covers Xoops\Core\Cache\Access::write
-     * @covers Xoops\Core\Cache\Access::read
-     */
     public function testGarbageCollect()
     {
         $key = 'another/name';
@@ -117,11 +97,6 @@ class AccessTest extends \PHPUnit\Framework\TestCase
 
     }
 
-    /**
-     * @covers Xoops\Core\Cache\Access::clear
-     * @covers Xoops\Core\Cache\Access::write
-     * @covers Xoops\Core\Cache\Access::read
-     */
     public function testClear()
     {
         $key = 'offhand/name';

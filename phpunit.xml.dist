@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="htdocs/xoops_lib/vendor/autoload.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="legacyclass">
+            <directory>./tests/unit/class</directory>
+        </testsuite>
+        <testsuite name="kernel">
+            <directory>./tests/unit/kernel</directory>
+        </testsuite>
+        <testsuite name="xmflib">
+            <directory>./tests/unit/xoopsLib/Xmf</directory>
+        </testsuite>
+        <testsuite name="xoopslib">
+            <directory>./tests/unit/xoopsLib/Xoops</directory>
+            <file>./tests/unit/xoopsLib/XoopsTest.php</file>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./htdocs/xoops_lib/Xmf</directory>
+            <directory suffix=".php">./htdocs/xoops_lib/Xoops</directory>
+            <file>./htdocs/xoops_lib/Xoops.php</file>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-clover" target="coverage.clover" />
+    </logging>
+</phpunit>

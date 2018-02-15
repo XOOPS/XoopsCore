@@ -2,27 +2,23 @@
 
 use Xoops\Core\XoopsTpl;
 
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class PagenavTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsPageNav';
 
     public function setUp()
-	{
-		$xoops=Xoops::getinstance();
-		$tpl=$xoops->tpl();
-		if (empty($tpl))
-			$xoops->setTpl(new XoopsTpl);
+    {
+        $xoops=Xoops::getinstance();
+        $tpl=$xoops->tpl();
+        if (empty($tpl)) {
+            $xoops->setTpl(new XoopsTpl);
+        }
     }
 
     public function test___construct()
-	{
+    {
         $total_items = 10;
         $items_perpage = 3;
         $current_start = 1;
@@ -33,7 +29,7 @@ class PagenavTest extends \PHPUnit\Framework\TestCase
     }
 
     public function test_renderNav()
-	{
+    {
         $total_items = 10;
         $items_perpage = 3;
         $current_start = 1;
@@ -44,7 +40,7 @@ class PagenavTest extends \PHPUnit\Framework\TestCase
     }
 
     public function test_renderNav100()
-	{
+    {
         $total_items = 10;
         $items_perpage = 3;
         $current_start = 1;
@@ -53,5 +49,4 @@ class PagenavTest extends \PHPUnit\Framework\TestCase
         $ret = $instance->renderNav();
         $this->assertTrue(is_string($ret));
     }
-
 }

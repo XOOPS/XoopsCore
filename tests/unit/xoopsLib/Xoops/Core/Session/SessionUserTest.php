@@ -4,11 +4,6 @@ require_once __DIR__.'/../../../../init_new.php';
 use Xoops\Core\Session\Manager;
 use Xoops\Core\Session\SessionUser;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class SessionUserTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -34,10 +29,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::establish
-     * @todo   Implement testEstablish().
-     */
     public function testEstablish()
     {
         // Remove the following lines when you implement this test.
@@ -46,10 +37,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::recordUserLogin
-     * @todo   Implement testRecordUserLogin().
-     */
     public function testRecordUserLogin()
     {
         // Remove the following lines when you implement this test.
@@ -58,10 +45,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::recordUserLogout
-     * @todo   Implement testRecordUserLogout().
-     */
     public function testRecordUserLogout()
     {
         // Remove the following lines when you implement this test.
@@ -70,10 +53,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::addUserToSession
-     * @todo   Implement testAddUserToSession().
-     */
     public function testAddUserToSession()
     {
         // Remove the following lines when you implement this test.
@@ -82,10 +61,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::setNeedsConfirmed
-     * @todo   Implement testSetNeedsConfirmed().
-     */
     public function testSetNeedsConfirmed()
     {
         // Remove the following lines when you implement this test.
@@ -94,10 +69,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::setConfirmed
-     * @todo   Implement testSetConfirmed().
-     */
     public function testSetConfirmed()
     {
         // Remove the following lines when you implement this test.
@@ -106,10 +77,6 @@ class SessionUserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Session\SessionUser::checkConfirmed
-     * @todo   Implement testCheckConfirmed().
-     */
     public function testCheckConfirmed()
     {
         // Remove the following lines when you implement this test.

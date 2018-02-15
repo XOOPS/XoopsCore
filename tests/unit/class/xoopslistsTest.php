@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class xoopslistsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsLists';
@@ -26,10 +21,6 @@ class xoopslistsTest extends \PHPUnit\Framework\TestCase
             $this->assertTrue(is_string($k));
             $this->assertTrue(is_string($v));
         }
-    }
-
-    public function test_getDirListAsArray()
-    {
     }
 
     public function test_getThemesList()

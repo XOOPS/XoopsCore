@@ -1,15 +1,10 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 class Xoops_Locale_AbstractTestInstance extends Xoops\Locale\AbstractLocale
 {
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class Xoops_Locale_AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops_Locale_AbstractTestInstance';

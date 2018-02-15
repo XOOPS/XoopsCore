@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class Scripts_ImageTest extends \PHPUnit\Framework\TestCase
 {
     public function test_100()
@@ -13,7 +8,7 @@ class Scripts_ImageTest extends \PHPUnit\Framework\TestCase
         global $image_handler;
 
         // if (headers_sent()) {
-            // $this->markTestSkipped();
+        // $this->markTestSkipped();
         // }
 
         $save = $image_handler;

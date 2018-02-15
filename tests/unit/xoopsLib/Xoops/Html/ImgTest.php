@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Html\Img;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ImgTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,9 +27,6 @@ class ImgTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Html\Img::__construct
-     */
     public function test__construct()
     {
         $object = new Img(array('src' => 'image.png'));
@@ -42,10 +34,6 @@ class ImgTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('image.png', $object->get('src'));
     }
 
-    /**
-     * @covers Xoops\Html\Img::render
-     * @todo   Implement testRender().
-     */
     public function testRender()
     {
         $output = $this->object->render();

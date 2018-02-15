@@ -3,13 +3,8 @@ namespace Xmf\Jwt;
 
 use Xmf\Key\FileStorage;
 
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class KeyFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -46,9 +41,6 @@ class KeyFactoryTest extends \PHPUnit\Framework\TestCase
         $this->storage->delete($this->testKey);
     }
 
-    /**
-     * @covers Xmf\Jwt\KeyFactory::build
-     */
     public function testBuild()
     {
         $instance = KeyFactory::build($this->testKey);

@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\ComposerUtility;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ComposerUtilityTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,10 +27,6 @@ class ComposerUtilityTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\ComposerUtility::composerExecute
-     * @todo   Implement testComposerExecute().
-     */
     public function testComposerExecute()
     {
         // Remove the following lines when you implement this test.
@@ -44,10 +35,6 @@ class ComposerUtilityTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\ComposerUtility::getLastOutput
-     * @todo   Implement testGetLastOutput().
-     */
     public function testGetLastOutput()
     {
         // Remove the following lines when you implement this test.
@@ -56,10 +43,6 @@ class ComposerUtilityTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\ComposerUtility::getLastError
-     * @todo   Implement testGetLastError().
-     */
     public function testGetLastError()
     {
         // Remove the following lines when you implement this test.
@@ -68,10 +51,6 @@ class ComposerUtilityTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\ComposerUtility::setComposerExe
-     * @todo   Implement testSetComposerExe().
-     */
     public function testSetComposerExe()
     {
         // Remove the following lines when you implement this test.

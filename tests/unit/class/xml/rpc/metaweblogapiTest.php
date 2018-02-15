@@ -1,54 +1,49 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class MetaWeblogApiTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'MetaWeblogApi';
 
     public function test___construct()
-	{
-		$params = array('p1'=>'one');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$x = new $this->myclass($params, $response, $module);
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XoopsXmlRpcApi', $x);
-	}
-
-    function test_MetaWeblogApi()
     {
-		$this->markTestSkipped();
+        $params = array('p1'=>'one');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $x = new $this->myclass($params, $response, $module);
+        $this->assertInstanceof($this->myclass, $x);
+        $this->assertInstanceof('XoopsXmlRpcApi', $x);
     }
 
-    function test_newPost()
+    public function test_MetaWeblogApi()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_editPost()
+    public function test_newPost()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_getPost()
+    public function test_editPost()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_getRecentPosts()
+    public function test_getPost()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_getCategories()
+    public function test_getRecentPosts()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
+    }
+
+    public function test_getCategories()
+    {
+        $this->markTestSkipped();
     }
 }

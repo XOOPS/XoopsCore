@@ -1,13 +1,8 @@
 <?php
-namespace Xoops\Core\Locale;
+namespace Xoops\Test\Core\Locale;
 
-require_once (dirname(__FILE__).'/../../../../init_new.php');
+use Xoops\Core\Locale\LegacyCodes;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class LegacyCodesTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,27 +27,46 @@ class LegacyCodesTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Locale\LegacyCodes::getLegacyName
-     * @todo   Implement testGetLegacyName().
-     */
-    public function testGetLegacyName()
+    public function testGetLegacyNameSingle()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $languageArray = LegacyCodes::getLegacyName('fr_FR');
+        $this->assertTrue(is_array($languageArray));
+        $this->assertEquals(1, count($languageArray));
+        $this->assertTrue(in_array('french', $languageArray, true));
     }
 
-    /**
-     * @covers Xoops\Core\Locale\LegacyCodes::getLocaleCode
-     * @todo   Implement testGetLocaleCode().
-     */
+    public function testGetLegacyNameNone()
+    {
+        $languageArray = LegacyCodes::getLegacyName('xx_XX');
+        $this->assertTrue(is_array($languageArray));
+        $this->assertEquals(0, count($languageArray));
+    }
+
+    public function testGetLegacyNameMultiple()
+    {
+        $languageArray = LegacyCodes::getLegacyName('pt_BR');
+        $this->assertTrue(is_array($languageArray));
+        $this->assertEquals(2, count($languageArray));
+        $this->assertTrue(in_array('portuguesebr', $languageArray, true));
+        $this->assertTrue(in_array('brazilian', $languageArray, true));
+    }
+
+    public function testGetLegacyNameByShort()
+    {
+        $languageArray = LegacyCodes::getLegacyName('zh_Hans');
+        $this->assertTrue(in_array('schinese', $languageArray, true));
+    }
+
+    public function testGetLegacyNameByFull()
+    {
+        $languageArray = LegacyCodes::getLegacyName('zh-Hans-CN');
+        $this->assertTrue(in_array('schinese', $languageArray, true));
+    }
+
     public function testGetLocaleCode()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals('en-Latn-US', LegacyCodes::getLocaleCode('english'));
+        $this->assertEquals('zh-Hant-TW', LegacyCodes::getLocaleCode('chinese_zh'));
+        $this->assertNull(LegacyCodes::getLocaleCode('piglatin'));
     }
 }

@@ -3,12 +3,6 @@ namespace Xoops\Core\Exception;
 
 require_once __DIR__ . '/../../../../init_new.php';
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
-
 class NoHandlerExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**

@@ -1,15 +1,10 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\Kernel\Handlers\XoopsBlockHandler;
 use Xoops\Core\Kernel\Criteria;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class BlockHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass='Xoops\Core\Kernel\Handlers\XoopsBlockHandler';
@@ -53,10 +48,6 @@ class BlockHandlerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(true, $value);
         $value = $this->object->get($bid);
         $this->assertSame(null, $value);
-    }
-
-    public function test_deleteBlock()
-    {
     }
 
     public function test_getDistinctObjects()

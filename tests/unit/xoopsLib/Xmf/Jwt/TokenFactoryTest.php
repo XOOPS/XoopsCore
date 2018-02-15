@@ -4,13 +4,8 @@ namespace Xmf\Jwt;
 use Xmf\Key\Basic;
 use Xmf\Key\FileStorage;
 
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class TokenFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,9 +42,6 @@ class TokenFactoryTest extends \PHPUnit\Framework\TestCase
         $this->storage->delete($this->testKey);
     }
 
-    /**
-     * @covers Xmf\Jwt\TokenFactory::build
-     */
     public function testBuild()
     {
         $claims = array('rat' => 'cute');

@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../init_new.php');
+require_once(__DIR__.'/../../../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class QueryBuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = '\Xoops\Core\Database\QueryBuilder';
@@ -27,37 +22,36 @@ class QueryBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function test_deletePrefix()
     {
-        // deletePrefix
+        $this->markTestIncomplete('No test yet');
     }
 
     public function test_updatePrefix()
     {
-        // updatePrefix
+        $this->markTestIncomplete('No test yet');
     }
 
     public function test_fromPrefix()
     {
-        // fromPrefix
+        $this->markTestIncomplete('No test yet');
     }
 
     public function test_joinPrefix()
     {
-        //  joinPrefix
+        $this->markTestIncomplete('No test yet');
     }
 
     public function test_innerJoinPrefix()
     {
-        //  innerJoinPrefix
+        $this->markTestIncomplete('No test yet');
     }
 
     public function test_leftJoinPrefix()
     {
-        //  leftJoinPrefix
+        $this->markTestIncomplete('No test yet');
     }
 
     public function test_rightJoinPrefix()
     {
-        // rightJoinPrefix
+        $this->markTestIncomplete('No test yet');
     }
-
 }

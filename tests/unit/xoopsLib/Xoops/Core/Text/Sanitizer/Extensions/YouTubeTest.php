@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class YouTubeTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,10 +42,6 @@ class YouTubeTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\YouTube::getDhtmlEditorSupport
-     * @covers Xoops\Core\Text\Sanitizer\ExtensionAbstract::getEditorButtonHtml
-     */
     public function testGetDhtmlEditorSupport()
     {
         $support = $this->object->getDhtmlEditorSupport('testeditorarea');
@@ -59,10 +50,6 @@ class YouTubeTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($support[1]));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\YouTube::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
-     */
     public function testRegisterExtensionProcessing()
     {
         $this->sanitizer->enableComponentForTesting('youtube');

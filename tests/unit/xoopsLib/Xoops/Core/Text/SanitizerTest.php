@@ -3,11 +3,6 @@ namespace Xoops\Core\Text;
 
 require_once __DIR__.'/../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class SanitizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,9 +27,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::getInstance
-     */
     public function testGetInstance()
     {
         $actual = Sanitizer::getInstance();
@@ -42,9 +34,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($this->object, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::getShortCodesInstance
-     */
     public function testGetShortCodesInstance()
     {
         $actual = $this->object->getShortCodesInstance();
@@ -52,9 +41,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($this->object->getShortCodesInstance(), $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::getShortCodes
-     */
     public function testGetShortCodes()
     {
         $actual = $this->object->getShortCodesInstance();
@@ -62,10 +48,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($this->object->getShortCodes(), $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::addPatternCallback
-     * @covers Xoops\Core\Text\Sanitizer::filterForDisplay
-     */
     public function testAddPatternCallback()
     {
         $this->object->addPatternCallback(
@@ -81,9 +63,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::smiley
-     */
     public function testSmiley()
     {
         if (\Xoops::getInstance()->isActiveModule('smilies')) {
@@ -94,11 +73,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::makeClickable
-     * @covers Xoops\Core\Text\Sanitizer::loadFilter
-     * @covers Xoops\Core\Text\Sanitizer::loadComponent
-     */
     public function testMakeClickable()
     {
         $this->object->enableComponentForTesting('clickable');
@@ -109,9 +83,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::nl2Br
-     */
     public function testNl2Br()
     {
         $text = "\n";
@@ -125,9 +96,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals("\n<br />\n",$message);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::htmlSpecialChars
-     */
     public function testHtmlSpecialChars()
     {
         $text = "\"'<>&";
@@ -143,9 +111,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('toto&nbsp;titi',$message);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::escapeForJavascript
-     */
     public function testEscapeForJavascript()
     {
         $text = 'enter an "T" for testing';
@@ -154,9 +119,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($actual, $expected);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::escapeShortCodes
-     */
     public function testEscapeShortCodes()
     {
         $text = '[Random] [brackets]][';
@@ -165,9 +127,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($actual, $expected);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::undoHtmlSpecialChars
-     */
     public function testUndoHtmlSpecialChars()
     {
         $text = '&gt;&lt;&quot;&#039;&amp;nbsp;';
@@ -176,12 +135,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Xoops\Core\Text\Sanitizer::filterForDisplay
-     * @covers Xoops\Core\Text\Sanitizer::prefilterCodeBlocks
-     * @covers Xoops\Core\Text\Sanitizer::xoopsCodeDecode
-     * @covers Xoops\Core\Text\Sanitizer::postfilterCodeBlocks
-     * @covers Xoops\Core\Text\Sanitizer::registerExtensions
-     * @covers Xoops\Core\Text\Sanitizer::registerExtension
      * @todo   Implement testFilterForDisplay().
      *
      * This needs to be extended to do more than just touch the code :)
@@ -197,10 +150,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(empty($actual));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::displayTarea
-     * @todo   Implement testDisplayTarea().
-     */
     public function testDisplayTarea()
     {
         $text = 'testing';
@@ -208,9 +157,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($text, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::previewTarea
-     */
     public function testPreviewTarea()
     {
         $text = 'testing';
@@ -218,9 +164,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($text, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::censorString
-     */
     public function testCensorString()
     {
         $xoops = \Xoops::getInstance();
@@ -239,23 +182,12 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $text);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::listExtensions
-     */
     public function testListExtensions()
     {
         $actual =  $this->object->listExtensions();
         $this->assertTrue(is_array($actual));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::getDhtmlEditorSupport
-     * @covers Xoops\Core\Text\Sanitizer::enableComponentForTesting
-     * @covers Xoops\Core\Text\Sanitizer::registerExtensions
-     * @covers Xoops\Core\Text\Sanitizer::registerExtension
-     * @covers Xoops\Core\Text\Sanitizer::loadExtension
-     * @covers Xoops\Core\Text\Sanitizer::loadComponent
-     */
     public function testGetDhtmlEditorSupport()
     {
         $this->object->enableComponentForTesting('soundcloud');
@@ -270,9 +202,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('', $support[1]);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::getConfig
-     */
     public function testGetConfig()
     {
         $actual =  $this->object->getConfig();
@@ -282,11 +211,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_array($actual));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::executeFilter
-     * @covers Xoops\Core\Text\Sanitizer::loadFilter
-     * @todo   Implement testExecuteFilter().
-     */
     public function testExecuteFilter()
     {
         $text = 'testing';
@@ -297,11 +221,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::textFilter
-     * @covers Xoops\Core\Text\Sanitizer::executeFilter
-     * @covers Xoops\Core\Text\Sanitizer::loadFilter
-     */
     public function testTextFilter()
     {
         $text = 'toto titi tutu tata';
@@ -309,9 +228,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($text, $value);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::filterXss
-     */
     public function testFilterXss()
     {
         $text = "\x00";
@@ -319,10 +235,6 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('',$message);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer::cleanEnum
-     * @todo   Implement testCleanEnum().
-     */
     public function testCleanEnum()
     {
         $text = 'alpha';

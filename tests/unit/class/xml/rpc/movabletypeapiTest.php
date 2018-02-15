@@ -1,49 +1,44 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class MovableTypeApiTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'MovableTypeApi';
 
     public function test___construct()
-	{
-		$params = array('p1'=>'one');
-		$response = new XoopsXmlRpcResponse();
-		$module = new XoopsModule();
-		$x = new $this->myclass($params, $response, $module);
-		$this->assertInstanceof($this->myclass, $x);
-		$this->assertInstanceof('XoopsXmlRpcApi', $x);
-	}
-
-    function test_MovableTypeApi()
     {
-		$this->markTestSkipped();
+        $params = array('p1'=>'one');
+        $response = new XoopsXmlRpcResponse();
+        $module = new XoopsModule();
+        $x = new $this->myclass($params, $response, $module);
+        $this->assertInstanceof($this->myclass, $x);
+        $this->assertInstanceof('XoopsXmlRpcApi', $x);
     }
 
-    function test_getCategoryList()
+    public function test_MovableTypeApi()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_getPostCategories()
+    public function test_getCategoryList()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_setPostCategories()
+    public function test_getPostCategories()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
     }
 
-    function test_supportedMethods()
+    public function test_setPostCategories()
     {
-		$this->markTestSkipped();
+        $this->markTestSkipped();
+    }
+
+    public function test_supportedMethods()
+    {
+        $this->markTestSkipped();
     }
 }

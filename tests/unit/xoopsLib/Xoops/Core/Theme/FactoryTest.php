@@ -3,11 +3,6 @@ namespace Xoops\Core\Theme;
 
 require_once __DIR__.'/../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class FactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,10 +27,6 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Factory::createInstance
-     * @todo   Implement testCreateInstance().
-     */
     public function testCreateInstance()
     {
         // Remove the following lines when you implement this test.
@@ -44,10 +35,6 @@ class FactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Theme\Factory::isThemeAllowed
-     * @todo   Implement testIsThemeAllowed().
-     */
     public function testIsThemeAllowed()
     {
         // Remove the following lines when you implement this test.

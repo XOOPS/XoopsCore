@@ -1,49 +1,44 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class RpcDateTimeHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'RpcDateTimeHandler';
     protected $object = null;
-    
+
     public function setUp()
     {
-		$this->object = new $this->myclass();
+        $this->object = new $this->myclass();
     }
-    
-    public function test___construct()
-	{
-        $instance = $this->object;
-		$this->assertInstanceof('XmlTagHandler', $instance);
-	}
 
-    function test_getName()
+    public function test___construct()
     {
         $instance = $this->object;
-		
-		$name = $instance->getName();
-		$this->assertSame('dateTime.iso8601', $name);
+        $this->assertInstanceof('XmlTagHandler', $instance);
     }
 
-    function test_handleCharacterData()
+    public function test_getName()
+    {
+        $instance = $this->object;
+
+        $name = $instance->getName();
+        $this->assertSame('dateTime.iso8601', $name);
+    }
+
+    public function test_handleCharacterData()
     {
         $instance = $this->object;
 
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $data = 'not time';
-		$instance->handleCharacterData($parser,$data);
-		$this->assertTrue(is_int($parser->getTempValue()));
-        
+        $instance->handleCharacterData($parser, $data);
+        $this->assertTrue(is_int($parser->getTempValue()));
+
         $input = 'input';
         $parser = new XoopsXmlRpcParser($input);
         $data = '1900 01 30T01:30:01';
-		$instance->handleCharacterData($parser,$data);
-		$this->assertTrue(is_int($parser->getTempValue()));
+        $instance->handleCharacterData($parser, $data);
+        $this->assertTrue(is_int($parser->getTempValue()));
     }
 }

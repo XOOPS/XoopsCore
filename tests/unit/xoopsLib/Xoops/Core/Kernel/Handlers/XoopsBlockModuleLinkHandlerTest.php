@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsBlockModuleLinkHandler;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class BlockModuleLinkHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass='Xoops\Core\Kernel\Handlers\XoopsBlockModuleLinkHandler';

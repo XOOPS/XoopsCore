@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class CensorTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,9 +42,6 @@ class CensorTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\Censor::applyFilter
-     */
     public function testApplyFilter()
     {
         $this->sanitizer->enableComponentForTesting('censor');

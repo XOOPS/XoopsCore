@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ExtensionAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -49,9 +44,6 @@ class ExtensionAbstractTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->reflectedObject->hasMethod('getEditorButtonHtml'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\ExtensionAbstract::getDhtmlEditorSupport
-     */
     public function testGetDhtmlEditorSupport()
     {
         $support = $this->object->getDhtmlEditorSupport('testeditorarea');

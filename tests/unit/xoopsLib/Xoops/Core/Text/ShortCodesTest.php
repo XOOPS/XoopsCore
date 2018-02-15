@@ -8,11 +8,6 @@ namespace Xoops\Core\Text;
 
 require_once __DIR__.'/../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class ShortCodesTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -37,18 +32,12 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @expectedException \ErrorException
-     */
     public function testAddShortcode_exception()
     {
+        $this->expectException('\ErrorException');
         $this->object->addShortcode('error', 'thisIsNotCallable');
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::removeShortcode
-     */
     public function testRemoveShortcode()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
@@ -58,9 +47,6 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->hasShortcode('test'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::getShortcodes
-     */
     public function testGetShortcodes()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
@@ -68,9 +54,6 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('test', $this->object->getShortcodes());
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::hasShortcode
-     */
     public function testHasShortcode()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
@@ -79,9 +62,6 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->hasShortcode('foobar'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::contentHasShortcode
-     */
     public function testContentHasShortcode()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
@@ -97,11 +77,6 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($this->object->contentHasShortcode($content2, 'foobar'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::stripAllShortcodes
-     * @covers Xoops\Core\Text\ShortCodes::stripShortcodeTag
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
     public function testStripAllShortcodes()
     {
         $content = 'Hello [enclosed]my name is sam[/enclosed] [[test]]';
@@ -120,9 +95,6 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeAttributes
-     */
     public function testShortcodeAttributes()
     {
         $defaults = ['a' => 'alpha', 'b' => 'bravo', 'c' => 'charley'];
@@ -138,14 +110,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
      */
     private $qbf = 'The quick brown fox jumps over the lazy dog';
 
-    /**
-     * Tests basic key value pair in attributes
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     */
-    public function testProcess_1()
+    public function testKeyValuePairAttributes()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
 
@@ -155,15 +120,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * Tests multiple shortcodes
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_2()
+    public function testMultipleShortcodes()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
         $this->object->addShortcode('qbf', array($this, 'dummyFunction_qbf'));
@@ -174,15 +131,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * Tests enclosed shortcodes
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_3()
+    public function testEnclosedShortcodes()
     {
         $this->object->addShortcode('enclosed', array($this, 'dummyFunction_enclosed'));
 
@@ -192,29 +141,14 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * Tests behaviour of no shortcodes defined
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_4()
+    public function testNoShortcodesDefined()
     {
         $content = 'Hello [enclosed]my name is sam[/enclosed]';
 
         $this->assertEquals($content, $this->object->process($content));
     }
 
-    /**
-     * Tests behaviour of self closed tags
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_5()
+    public function testSelfClosedTags()
     {
         $this->object->addShortcode('enclosed', array($this, 'dummyFunction_enclosed'));
 
@@ -224,15 +158,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * Tests basic key value pair in attributes
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_6()
+    public function testKeyValuePairAttributes2()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
 
@@ -242,15 +168,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * Tests basic key value pair in attributes
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_7()
+    public function testKeyValuePairAttributes3()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
 
@@ -260,15 +178,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * Tests basic key value pair in attributes
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
-    public function testProcess_8()
+    public function testKeyValuePairAttributes4()
     {
         $this->object->addShortcode('test', array($this, 'dummyFunction_test'));
 
@@ -278,13 +188,6 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectation, $this->object->process($content));
     }
 
-    /**
-     * @covers Xoops\Core\Text\ShortCodes::addShortcode
-     * @covers Xoops\Core\Text\ShortCodes::process
-     * @covers Xoops\Core\Text\ShortCodes::processTag
-     * @covers Xoops\Core\Text\ShortCodes::parseAttributes
-     * @covers Xoops\Core\Text\ShortCodes::shortcodeRegex
-     */
     public function testEscaping()
     {
         $shortcodes = new Shortcodes;

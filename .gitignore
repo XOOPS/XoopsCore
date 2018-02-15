@@ -2,6 +2,7 @@
 *~
 \#*
 *.bak
+.idea/
 htdocs/mainfile.php
 htdocs/xoops_data/caches/smarty_cache/*.php
 htdocs/xoops_data/caches/smarty_compile/*.php
@@ -19,6 +20,7 @@ htdocs/uploads/banners/
 htdocs/uploads/images/
 htdocs/uploads/filemanager/
 htdocs/assets/*/
-/UnitTestXoops/*.lnk
-.idea/
-htdocs/.idea/
+coverage.clover
+composer.json
+composer.lock
+xoopsCIconfigs.php

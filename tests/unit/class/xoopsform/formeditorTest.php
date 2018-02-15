@@ -1,19 +1,13 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_new.php');
+require_once(__DIR__.'/../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsFormEditorTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'XoopsFormEditor';
-    
+
     public function test___construct()
     {
         $instance = new $this->myClass('', '');
         $this->assertInstanceOf('Xoops\\Form\\Editor', $instance);
     }
-        
 }

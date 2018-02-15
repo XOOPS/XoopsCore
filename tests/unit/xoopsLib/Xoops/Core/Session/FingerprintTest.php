@@ -3,11 +3,6 @@ require_once __DIR__.'/../../../../init_new.php';
 
 use Xoops\Core\Session\Fingerprint;
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class FingerprintTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -38,10 +33,6 @@ class FingerprintTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Session\FingerprintInterface', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Session\Fingerprint::checkSessionPrint
-     * @todo   Implement testCheckSessionPrint().
-     */
     public function testCheckSessionPrint()
     {
         // Remove the following lines when you implement this test.

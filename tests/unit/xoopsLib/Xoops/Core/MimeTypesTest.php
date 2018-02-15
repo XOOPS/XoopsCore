@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use \Xoops\Core\MimeTypes;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class MimeTypesTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -32,9 +27,6 @@ class MimeTypesTest extends \PHPUnit\Framework\TestCase
     {
     }
 
-    /**
-     * @covers Xoops\Core\MimeTypes::findExtensions
-     */
     public function testFindExtensions()
     {
         $this->assertTrue(in_array('txt', MimeTypes::findExtensions('text/plain')), 'match .txt extension');
@@ -45,9 +37,6 @@ class MimeTypesTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(empty($x), 'match garbage mimetype');
     }
 
-    /**
-     * @covers Xoops\Core\MimeTypes::findType
-     */
     public function testFindType()
     {
         $this->assertEquals('text/plain', MimeTypes::findType('txt'), 'get mimetype for .txt extension');

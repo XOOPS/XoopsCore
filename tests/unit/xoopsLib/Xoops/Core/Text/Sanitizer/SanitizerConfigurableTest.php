@@ -3,11 +3,6 @@ namespace Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class SanitizerConfigurableTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -45,9 +40,6 @@ class SanitizerConfigurableTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($this->reflectedObject->hasProperty('defaultConfiguration'));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\SanitizerConfigurable::getDefaultConfig
-     */
     public function testGetDefaultConfig()
     {
         $defaults = $this->object->getDefaultConfig();

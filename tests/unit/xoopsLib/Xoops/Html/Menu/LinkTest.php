@@ -3,11 +3,6 @@ namespace Xoops\Html\Menu;
 
 require_once(__DIR__.'/../../../../init_new.php');
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class LinkTest extends \PHPUnit\Framework\TestCase
 {
     /**

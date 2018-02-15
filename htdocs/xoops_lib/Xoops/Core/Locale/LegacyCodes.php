@@ -86,6 +86,7 @@ class LegacyCodes
                 list($locale, $shortLocale, $fullLocale, $languages) = $codeDef;
                 self::$namesByCode[$locale] = $languages;
                 self::$namesByCode[$shortLocale] = $languages;
+                self::$namesByCode[$fullLocale] = $languages;
             }
         }
 

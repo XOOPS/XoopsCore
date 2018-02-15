@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Core\Logger;
 use Psr\Log\LogLevel;
@@ -25,11 +25,6 @@ class MY_Logger
     }
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class LoggerTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -146,15 +141,6 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(false !== strpos($result,'errline'));
 	}
 
-	public function test_handleError180()
-	{
-        $instance = $this->object;
-
-        $errno = E_USER_ERROR;
-
-        // do not test E_USER_ERROR because of exit
-	}
-
 	public function test_handleError200()
 	{
         $instance = $this->object;
@@ -210,11 +196,6 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $path = realpath(\XoopsBaseConfig::get('root-path'));
         $result = $instance->sanitizePath($path);
         $this->assertSame('ROOT', $result);
-	}
-
-	public function test_addLogger()
-	{
-        // see test_emergency
 	}
 
 	public function test_emergency()
@@ -329,11 +310,6 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $result);
 	}
 
-	public function test_log()
-	{
-        //see test_emergency
-	}
-
 	public function test_quiet()
 	{
         $instance = $this->object;
@@ -364,7 +340,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $expected = $this->logger->quiet(false);
         $this->assertSame($expected, $result);
 	}
-
+/*
 	public function test___get()
 	{
         $instance = $this->object;
@@ -378,5 +354,5 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
         $instance->dummy_method();
 	}
-
+*/
 }

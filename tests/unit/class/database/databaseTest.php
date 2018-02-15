@@ -1,37 +1,76 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_new.php');
+require_once(__DIR__.'/../../init_new.php');
 
 class XoopsDatabaseTestInstance extends XoopsDatabase
 {
-    function connect($selectdb = true) {}
-    function genId($sequence) {}
-    function fetchRow($result) {}
-    function fetchArray($result) {}
-    function fetchBoth($result) {}
-    function fetchObject($result) {}
-    function getInsertId() {}
-    function getRowsNum($result) {}
-    function getAffectedRows() {}
-    function close() {}
-    function freeRecordSet($result) {}
-    function error() {}
-    function errno() {}
-    function quoteString($str) {}
-    function quote($string) {}
-    function escape($string) {}
-    function queryF($sql, $limit = 0, $start = 0) {}
-    function query($sql, $limit = 0, $start = 0) {}
-    function queryFromFile($file) {}
-    function getFieldName($result, $offset) {}
-    function getFieldType($result, $offset) {}
-    function getFieldsNum($result) {}
+    public function connect($selectdb = true)
+    {
+    }
+    public function genId($sequence)
+    {
+    }
+    public function fetchRow($result)
+    {
+    }
+    public function fetchArray($result)
+    {
+    }
+    public function fetchBoth($result)
+    {
+    }
+    public function fetchObject($result)
+    {
+    }
+    public function getInsertId()
+    {
+    }
+    public function getRowsNum($result)
+    {
+    }
+    public function getAffectedRows()
+    {
+    }
+    public function close()
+    {
+    }
+    public function freeRecordSet($result)
+    {
+    }
+    public function error()
+    {
+    }
+    public function errno()
+    {
+    }
+    public function quoteString($str)
+    {
+    }
+    public function quote($string)
+    {
+    }
+    public function escape($string)
+    {
+    }
+    public function queryF($sql, $limit = 0, $start = 0)
+    {
+    }
+    public function query($sql, $limit = 0, $start = 0)
+    {
+    }
+    public function queryFromFile($file)
+    {
+    }
+    public function getFieldName($result, $offset)
+    {
+    }
+    public function getFieldType($result, $offset)
+    {
+    }
+    public function getFieldsNum($result)
+    {
+    }
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsDatabaseTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsDatabaseTestInstance';
@@ -45,8 +84,8 @@ class XoopsDatabaseTest extends \PHPUnit\Framework\TestCase
     public function test___publicProperties()
     {
         $items = array('conn', 'prefix', 'allowWebChanges');
-        foreach($items as $item) {
-            $prop = new ReflectionProperty($this->myclass,$item);
+        foreach ($items as $item) {
+            $prop = new ReflectionProperty($this->myclass, $item);
             $this->assertTrue($prop->isPublic());
         }
     }
@@ -67,11 +106,10 @@ class XoopsDatabaseTest extends \PHPUnit\Framework\TestCase
         $prefix = 'prefix';
         $value = $instance->setPrefix($prefix);
         $x = $instance->prefix();
-        $this->assertSame($prefix,$x);
+        $this->assertSame($prefix, $x);
         $table = 'table';
         $x = $instance->prefix($table);
         $tmp = $prefix.'_'.$table;
-        $this->assertSame($tmp,$x);
+        $this->assertSame($tmp, $x);
     }
-
 }

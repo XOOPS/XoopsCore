@@ -5,11 +5,6 @@ use Xoops\Core\Text\Sanitizer;
 
 require_once __DIR__.'/../../../../../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class WikiTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -47,9 +42,6 @@ class WikiTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\Xoops\Core\Text\Sanitizer\SanitizerConfigurable', $this->object);
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\Wiki::getDhtmlEditorSupport
-     */
     public function testGetDhtmlEditorSupport()
     {
         $support = $this->object->getDhtmlEditorSupport('testeditorarea');
@@ -58,10 +50,6 @@ class WikiTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($support[1]));
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\Wiki::registerExtensionProcessing
-     * @todo   Implement testRegisterExtensionProcessing().
-     */
     public function testRegisterExtensionProcessing()
     {
         // Remove the following lines when you implement this test.
@@ -70,10 +58,6 @@ class WikiTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers Xoops\Core\Text\Sanitizer\Extensions\Wiki::decode
-     * @todo   Implement testDecode().
-     */
     public function testDecode()
     {
         // Remove the following lines when you implement this test.

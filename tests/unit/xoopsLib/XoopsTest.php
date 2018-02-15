@@ -1,15 +1,10 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
 use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xoops\Core\XoopsTpl;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class XoopsTest extends \PHPUnit\Framework\TestCase
 {
 
@@ -330,10 +325,10 @@ class XoopsTest extends \PHPUnit\Framework\TestCase
         $this->markTestSkipped('Risky?');
         $instance = Xoops::getInstance();
 
-        // $value = $instance->header();
+        $value = $instance->header();
         $this->assertSame(true, $value);
 
-        // $value = $instance->header();
+        $value = $instance->header();
         $this->assertSame(false, $value);
     }
 
@@ -515,8 +510,10 @@ class XoopsTest extends \PHPUnit\Framework\TestCase
     /**
      * @ expectedException PHPUnit_Framework_Error
      */
+    /*
     public function test_getHandler()
     {
+        $this->assertTrue(false);
         $this->markTestSkipped('now protected');
         $instance = Xoops::getInstance();
 
@@ -525,6 +522,7 @@ class XoopsTest extends \PHPUnit\Framework\TestCase
         $value = $instance->getHandler('dummy', true);
         $this->assertSame(false, $value);
     }
+    */
 
     public function test_getModuleHandler()
     {

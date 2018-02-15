@@ -8,35 +8,49 @@
 [![Latest Version](https://img.shields.io/github/release/XOOPS/XoopsCore.svg?style=flat)](https://github.com/XOOPS/XoopsCore/releases)
 
 > **Note:** This repository contains the core code of the XOOPS Core 2.6.x.
-It's under development currently. If you want to build a web site using XOOPS, visit the main [XOOPS Web Site](http://xoops.org) for more information.
+It's under development currently. If you want to build a web site using XOOPS, visit the main [XOOPS Web Site](https://xoops.org) for more information.
 
 ## Developer Installation
 
-To participate in XOOPS development, fork this repository on GitHub.
+Here is an outline of what you need to participate in XOOPS development:
 
-Pull your fork to your development environment.
+You will need a development environment with at least PHP 7.1 and MySQL 5.6.
 
-To install this version you will need Composer. You can get it
-here: http://getcomposer.org/
+You will need to interact with [GitHub.com](https://guides.github.com/)
 
-From the `htdocs/xoops_lib` folder run:
+You will need to have Composer installed. You can get it here: http://getcomposer.org/
 
-     composer install
+Fork the [XoopsCore](https://github.com/XOOPS/XoopsCore) repository to your account on GitHub.
 
-if you are installing for the first time. Otherwise run:
+Clone your fork to your development environment.
 
-     composer update
+Composer is used to manage the libraries that XOOPS depends on. Composer uses
+the `composer.json` file for instructions about what is needed. To get started
+with a fresh fork, run this commands from the main directory (usually XoopsCore)
+of your cloned fork. (For *nix systems, use 'cp' instead of 'copy'.)
 
-This should download some required libraries that XOOPS depends on.
+```
+copy composer.json.dist composer.json
+composer install
+```
 
-Now you can proceed with a standard XOOPS install.
+When you update your fork with the latest changes you should run this command:
+
+```
+composer update
+```
+
+Configure your web server to point to the `htdocs` directory as the webroot
+(i.e. add a virtual host in Apache.)
+
+Open the webroot in your browser to complete the XOOPS install.
+
+When your changes are complete and tested, send us a Pull Request on GitHub
+and we will take a look.
 
 You can see the full Installation in under 4:40 min in this video:
 
 [![XOOPS CMS](http://img.youtube.com/vi/xM8xzbGcdgA/0.jpg)](http://www.youtube.com/watch?v=xM8xzbGcdgA)
-
-When your changes are complete and tested, send us a Pull Request
-on GitHub and we will take a look.
 
 ## Contributing
 

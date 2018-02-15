@@ -1,13 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
 use Doctrine\DBAL\Types\Type;
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ExportVisitorTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'Xoops\Core\Database\Schema\ExportVisitor';

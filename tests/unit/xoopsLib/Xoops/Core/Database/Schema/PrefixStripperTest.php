@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../../../../init_new.php');
+require_once(__DIR__.'/../../../../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class PrefixStripperTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = 'Xoops\Core\Database\Schema\PrefixStripper';
@@ -23,6 +18,7 @@ class PrefixStripperTest extends \PHPUnit\Framework\TestCase
 
         $tables = array();
         $instance->setTableFilter($tables);
+        $this->assertTrue(true);
     }
 
     public function test_addTable()

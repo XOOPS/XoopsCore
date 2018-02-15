@@ -27,18 +27,15 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Xmf;
+namespace Xmf\Test;
 
 use ArrayIterator;
 use Exception;
 use Error;
 use LogicException;
-use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
 use Xmf\Assert;
-
-require_once(dirname(__FILE__).'/../../init_new.php');
 
 /**
  * @since  1.0

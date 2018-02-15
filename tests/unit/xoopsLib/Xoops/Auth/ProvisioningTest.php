@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../../../init_new.php');
+require_once(__DIR__.'/../../../init_new.php');
 
 use Xoops\Auth\AuthAbstract;
 use Xoops\Auth\Provisioning;
@@ -10,20 +10,15 @@ class Xoops_Auth_ProvisioningTest_AuthAbstractInstance extends AuthAbstract
     function authenticate($uname, $pwd = null) {}
 }
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class Xoops_Auth_ProvisioningTest extends \PHPUnit\Framework\TestCase
 {
     protected $object = null;
-    
+
     public function setUp()
     {
         $conn = Factory::getConnection();
         $auth = new Xoops_Auth_ProvisioningTest_AuthAbstractInstance($conn);
-        $this->object = new Provisioning($auth);  
+        $this->object = new Provisioning($auth);
     }
 
     public function test___construct()
@@ -31,7 +26,7 @@ class Xoops_Auth_ProvisioningTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
         $this->assertInstanceOf('\Xoops\Auth\Provisioning', $instance);
     }
-    
+
     public function test___publicProperties()
     {
         $items = array('ldap_provisioning', 'ldap_provisioning_upd','ldap_field_mapping',

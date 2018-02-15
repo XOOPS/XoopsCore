@@ -1,17 +1,12 @@
 <?php
-require_once(dirname(__FILE__).'/../init_new.php');
+require_once(__DIR__.'/../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ThemeTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'XoopsTheme';
 
     public function setUp()
-	{
+    {
     }
 
     public function testContracts()
@@ -21,8 +16,8 @@ class ThemeTest extends \PHPUnit\Framework\TestCase
     }
 
     public function test___construct()
-	{
-		$theme = new $this->myclass();
+    {
+        $theme = new $this->myclass();
         $this->assertInstanceOf($this->myclass, $theme);
         $this->assertSame(true, $theme->renderBanner);
         $this->assertSame('', $theme->folderName);

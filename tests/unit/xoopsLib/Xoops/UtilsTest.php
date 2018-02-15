@@ -1,11 +1,6 @@
 <?php
-require_once dirname(__FILE__).'/../../init_new.php';
+require_once __DIR__.'/../../init_new.php';
 
-/**
- * PHPUnit special settings :
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class Xoops_UtilsTest extends \PHPUnit\Framework\TestCase
 {
     protected $myClass = '\Xoops\Utils';
@@ -14,19 +9,18 @@ class Xoops_UtilsTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
+        $this->save_SERVER = $_SERVER;
+        $this->save_ENV = $_ENV;
         $this->markTestSkipped('side effects');
         if (!function_exists('ini_get') || ini_get('safe_mode') === '1') {
             $this->markTestSkipped('safe mode is on');
         }
-
-        $this->save_SERVER = $_SERVER;
-        $this->save_ENV = $_ENV;
     }
 
     public function tearDown()
     {
         $_SERVER = $this->save_SERVER;
-        $_ENV = $this->save_SERVER;
+        $_ENV = $this->save_ENV;
     }
 
     public function test_dumpVar()

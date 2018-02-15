@@ -1,11 +1,6 @@
 <?php
-require_once(dirname(__FILE__).'/../../init_new.php');
+require_once(__DIR__.'/../../init_new.php');
 
-/**
-* PHPUnit special settings :
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 class ThemeSetTagHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected $myclass = 'ThemeSetTagHandler';
@@ -13,25 +8,25 @@ class ThemeSetTagHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-		$input = 'input';
-		$this->object = new $this->myclass($input);
+        $input = 'input';
+        $this->object = new $this->myclass($input);
     }
 
     public function test___construct()
     {
         $instance = $this->object;
-		$this->assertInstanceOf('XmlTagHandler', $instance);
+        $this->assertInstanceOf('XmlTagHandler', $instance);
     }
 
-	function test_getName()
+    public function test_getName()
     {
         $instance = $this->object;
 
-		$name = $instance->getName();
-		$this->assertSame('tag', $name);
+        $name = $instance->getName();
+        $this->assertSame('tag', $name);
     }
 
-	function test_handleCharacterData()
+    public function test_handleCharacterData()
     {
         $instance = $this->object;
 
@@ -39,15 +34,15 @@ class ThemeSetTagHandlerTest extends \PHPUnit\Framework\TestCase
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('image','image');
         $data = 'something';
-		$x = $instance->handleCharacterData($parser,$data);
-		$this->assertSame(null, $x);
-		$this->assertSame($data, $parser->getTempArr('tag'));
+        $x = $instance->handleCharacterData($parser, $data);
+        $this->assertSame(null, $x);
+        $this->assertSame($data, $parser->getTempArr('tag'));
 
         $input = 'input';
         $parser = new XoopsThemeSetParser($input);
         $parser->tags = array('dummy','dummy');
         $data = 'something';
-		$instance->handleCharacterData($parser,$data);
-		$this->assertSame(false, $parser->getTempArr('tag'));
+        $instance->handleCharacterData($parser, $data);
+        $this->assertSame(false, $parser->getTempArr('tag'));
     }
 }
