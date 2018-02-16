@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 /**
  * Xoops MultiMailer Base Class
  *
@@ -32,7 +34,7 @@
  * @link      http://xoops.org
  * @since     2.6.0
  */
-class XoopsMultiMailer extends PHPMailer // for 6.0 \PHPMailer\PHPMailer\PHPMailer
+class XoopsMultiMailer extends PHPMailer
 {
     /**
      * 'from' address
