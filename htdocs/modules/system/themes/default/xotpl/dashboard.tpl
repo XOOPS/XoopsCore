@@ -120,7 +120,7 @@
                                 <td><a href="<{$plug_list->getInfo('link_admin')}>"><{$plug_list->getInfo(name)}></a>
                                 </td>
                             </tr>
-                            <{assign var=have-plugins value=true}>
+                            <{assign var=have_plugins value=true}>
                             <{/if}>
                             <{/foreach}>
                         </table>
