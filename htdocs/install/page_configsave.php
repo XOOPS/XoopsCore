@@ -119,6 +119,7 @@ if (!@copy($rewrite['VAR_PATH'] . '/data/secure.dist.php', $rewrite['VAR_PATH'] 
 }
 
 // update composer.json with our paths
+/*
 $composer_path = $settings['PATH'] . '/composer.json';
 $composer = json_decode(file_get_contents($composer_path));
 $xoops_modules_path = $settings['ROOT_PATH'] . '/modules/';
@@ -130,7 +131,7 @@ if (isset($composer->extra) && is_object($composer->extra)) {
 
 $jsonEncodeOpts = JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
 file_put_contents($composer_path, json_encode($composer, $jsonEncodeOpts));
-
+*/
 $settings['authorized'] = false;
 if (empty($error)) {
     $_SESSION['UserLogin'] = true;
