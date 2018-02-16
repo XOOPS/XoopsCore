@@ -9,7 +9,7 @@ xoops_data/caches/smarty_compile/*.php
 xoops_data/caches/xoops_cache/*.php
 xoops_data/caches/xoops_cache/*/
 xoops_data/configs/*
-xoops_data/stash/*/
+xoops_data/stash/*
 xoops_data/composer/
 xoops_data/data/secure.php
 xoops_data/logs/
