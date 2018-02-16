@@ -12,16 +12,17 @@ class Calendar extends \Punic\Calendar
      *
      * Instead of interpreting 2015 as '15' it will be '2015', while year 1 would be reported as '01'
      *
-     * @param \DateTime $value
-     * @param           $count
-     * @param           $locale
+     * @param \DateTime|\DateTimeInterface $value
+     * @param int $count
+     * @param string $locale
+     *
      * @return string
      */
-    protected static function decodeYear(\DateTime $value, $count, $locale)
+    protected static function decodeYear($value, $count, $locale)
     {
         switch ($count) {
             case 1:
-                return strval(intval($value->format('Y')));
+                return (string) ((int) $value->format('Y'));
             case 2:
                 //return $value->format('y');
             default:

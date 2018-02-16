@@ -20,7 +20,7 @@ use Punic\Territory;
  * @category  Xoops\Core\Lists\TimeZone
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015 XOOPS Project (http://xoops.org)/
+ * @copyright 2015-2018 XOOPS Project (https://xoops.org)/
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
@@ -45,14 +45,14 @@ class TimeZone extends ListAbstract
                 $maxLen = 0;
                 $utcDtz = new \DateTimeZone('UTC');
                 foreach ($territories as $byContinent) {
-                    $continent = $byContinent['name'];
+                    //$continent = $byContinent['name'];
                     foreach ($byContinent['children'] as $cCode => $cName) {
                         $allZones = $utcDtz->listIdentifiers(\DateTimeZone::PER_COUNTRY, $cCode);
                         foreach ($allZones as $zone) {
                             $maxLen = max(strlen($zone), $maxLen);
                             $name = Calendar::getTimezoneExemplarCity($zone);
                             if (!isset($timeZones[$zone]) && !empty($name)) {
-                                $timeZones[$zone] = $continent . '/' . $name;
+                                $timeZones[$zone] = $cName['name'] . '/' . $name;
                             }
                         }
                     }
