@@ -22,7 +22,7 @@ $xoops->header();
 
 // get a full img tag to show a QR code of a URL
 echo $xoops->service('qrcode')
-    ->getImgTag('http://www.xoops.org/', array('alt' => 'QR code', 'title'=>'Xoops.org'))
+    ->getImgTag('https://www.xoops.org/', array('alt' => 'QR code', 'title'=>'Xoops.org'))
     ->getValue();
 
 if (!$xoops->service('qrcode')->isAvailable()) {
