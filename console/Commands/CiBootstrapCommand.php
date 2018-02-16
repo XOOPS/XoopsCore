@@ -77,7 +77,7 @@ EOT;
             'themes-path' => $webRoot .'/themes',
             'themes-url' => $url . '/themes',
             'adminthemes-path' => $webRoot . '/modules/system/themes',
-            'adminthemes-url' => $webRoot . '/modules/system/themes',
+            'adminthemes-url' => $url . '/modules/system/themes',
             'media-path' => $webRoot . '/media',
             'media-url' => $url . '/media',
             'uploads-path' => $webRoot . '/uploads',
