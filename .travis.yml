@@ -16,7 +16,8 @@ before_install:
   - cp composer.json.dist composer.json
 
 install:
-  - composer install
+  - composer require xoops/base-requires:dev-master
+  - composer update
 
 before_script:
   - mysql -e 'create database xoops_test;'
