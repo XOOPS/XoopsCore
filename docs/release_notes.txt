@@ -11,21 +11,21 @@ The main goal of the 2.6 series is to update the XOOPS Core and all classes to P
 
 Some of the main changes in Alpha 1:
 
-· Central class "xoops" to simplify the development of XOOPS modules, giving developers direct access to XOOPS API 
-· Removal of unused folders in XOOPS.(cache and template_c).
-· Only one theme for the administration and user interface. 
-· Automatic loading of all XOOPS classes
-· Removal of global variables, these variables can be used from XOOPS class (e.g. "$xoopsModule" becomes "$xoops->module").
-· Cental folder for all multimedia public frameworks (jQuery, CSS, JS, images, ...).
-· Module Class Admin to give the same admin interface for all modules, this class already exists in such frameworks, but now it is included in the core and uses HTML templates.
-· moving of some libraries, such as Smarty, to the xoops_lib folder.
-· Refactoring the system module.
-· Adding a new feature: System Extensions. Some parts of the system module are now separate "system extensions" (eg. Banners, Avatars, Smilies). 
-· Some modules in the Admin will also become Extensions (eg. Protector). All these Extensions are runing as modules, but they cannot be renamed, and they will be shown in a separate menu module
-· Integration of CSS Framework: Bootstrap from Twitter. 
-· Removal of all queries for the block templates and modules. Now, XOOPS reads directly the templates for each part. 
-· Reduction of queries in all pages.
-· New theme in the Admin interface.
+Â· Central class "xoops" to simplify the development of XOOPS modules, giving developers direct access to XOOPS API 
+Â· Removal of unused folders in XOOPS.(cache and template_c).
+Â· Only one theme for the administration and user interface. 
+Â· Automatic loading of all XOOPS classes
+Â· Removal of global variables, these variables can be used from XOOPS class (e.g. "$xoopsModule" becomes "$xoops->module").
+Â· Cental folder for all multimedia public frameworks (jQuery, CSS, JS, images, ...).
+Â· Module Class Admin to give the same admin interface for all modules, this class already exists in such frameworks, but now it is included in the core and uses HTML templates.
+Â· moving of some libraries, such as Smarty, to the xoops_lib folder.
+Â· Refactoring the system module.
+Â· Adding a new feature: System Extensions. Some parts of the system module are now separate "system extensions" (eg. Banners, Avatars, Smilies). 
+Â· Some modules in the Admin will also become Extensions (eg. Protector). All these Extensions are runing as modules, but they cannot be renamed, and they will be shown in a separate menu module
+Â· Integration of CSS Framework: Bootstrap from Twitter. 
+Â· Removal of all queries for the block templates and modules. Now, XOOPS reads directly the templates for each part. 
+Â· Reduction of queries in all pages.
+Â· New theme in the Admin interface.
 
 There will be more changes in Alpha 2 and Alpha 3, but for now we would appreciate your help in testing existing features. 
 
