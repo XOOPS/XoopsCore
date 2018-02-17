@@ -77,7 +77,7 @@ switch ($op) {
                     } else {
                         $perms .= "<img class=\"cursorpointer\" id=\"display" . $content_id . "_" . $j . "\" onclick=\"Xoops.changeStatus( 'permissions.php', { op: 'update_view', content_id: " . $content_id . ", group: " . $j . ", status: 'yes' }, 'display" . $content_id . "_" . $j ."', 'permissions.php' )\" src=\"" . $xoops->url('modules/system/images/icons/default/cancel.png') . "\" alt=\"" . XoopsLocale::A_ENABLE . "\" title=\"" . XoopsLocale::A_ENABLE . "\" />";
                     }
-                    $perms .= $group_list[$j] . '<br />';
+                    $perms .= $group_list[$j] . '<br>';
                 }
                 $content['id'] = $content_id;
                 $content['title'] = $content_arr[$i]->getVar('content_title');

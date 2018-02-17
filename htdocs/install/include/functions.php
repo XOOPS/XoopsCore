@@ -142,7 +142,7 @@ function xoBoolField($name, $value, $label, $help = '')
     }
     $checked = $value ? 'checked' : '';
     echo "<input type=\"checkbox\" name=\"{$name}\" value=\"1\" {$checked} />"
-        . ENABLE . "<br />";
+        . ENABLE . "<br>";
 }
 
 /*

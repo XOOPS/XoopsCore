@@ -182,7 +182,9 @@ class ThemeSetDateCreatedHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('date', $data);
@@ -213,7 +215,9 @@ class ThemeSetAuthorHandler extends XmlTagHandler
      */
     public function handleBeginElement(SaxParser $parser, &$attributes)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         $parser->resetTempArr();
     }
 
@@ -223,7 +227,9 @@ class ThemeSetAuthorHandler extends XmlTagHandler
      */
     public function handleEndElement(SaxParser $parser)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         //todo where does this method come from??
         $parser->setCreditsData($parser->getTempArr());
     }
@@ -249,7 +255,9 @@ class ThemeSetDescriptionHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('description', $data);
@@ -283,7 +291,9 @@ class ThemeSetGeneratorHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('generator', $data);
@@ -299,7 +309,6 @@ class ThemeSetGeneratorHandler extends XmlTagHandler
  */
 class ThemeSetNameHandler extends XmlTagHandler
 {
-
     public function getName()
     {
         return 'name';
@@ -312,7 +321,9 @@ class ThemeSetNameHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'themeset':
                 $parser->setThemeSetData('name', $data);
@@ -346,7 +357,9 @@ class ThemeSetEmailHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('email', $data);
@@ -377,7 +390,9 @@ class ThemeSetLinkHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'author':
                 $parser->setTempArr('link', $data);
@@ -408,7 +423,9 @@ class ThemeSetTemplateHandler extends XmlTagHandler
      */
     public function handleBeginElement(SaxParser $parser, &$attributes)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         $parser->resetTempArr();
         if (isset($attributes['name'])) {
             $parser->setTempArr('name', $attributes['name']);
@@ -421,7 +438,9 @@ class ThemeSetTemplateHandler extends XmlTagHandler
      */
     public function handleEndElement(SaxParser $parser)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         $value = $parser->getTempArr();
         $parser->setTemplatesData($value);
     }
@@ -447,7 +466,9 @@ class ThemeSetImageHandler extends XmlTagHandler
      */
     public function handleBeginElement(SaxParser $parser, &$attributes)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         $parser->resetTempArr();
         if (isset($attributes['name'])) {
             $parser->setTempArr('name', $attributes['name']);
@@ -460,7 +481,9 @@ class ThemeSetImageHandler extends XmlTagHandler
      */
     public function handleEndElement(SaxParser $parser)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         $value = $parser->getTempArr();
         $parser->setImagesData($value);
     }
@@ -486,7 +509,9 @@ class ThemeSetModuleHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'template':
             case 'image':
@@ -518,7 +543,9 @@ class ThemeSetFileTypeHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'template':
                 $parser->setTempArr('type', $data);
@@ -549,7 +576,9 @@ class ThemeSetTagHandler extends XmlTagHandler
      */
     public function handleCharacterData(SaxParser $parser, &$data)
     {
-        if (!is_a($parser,'XoopsThemeSetParser')) return;
+        if (!is_a($parser, 'XoopsThemeSetParser')) {
+            return;
+        }
         switch ($parser->getParentTag()) {
             case 'image':
                 $parser->setTempArr('tag', $data);

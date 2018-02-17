@@ -83,7 +83,7 @@ switch ($op) {
     case "save":
         // Check security
         if (!$xoops->security()->check()) {
-            $xoops->redirect('/index.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('/index.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $uid = Request::getInt('uid', 0);
         if (empty($uid) || $xoops->user->getVar('uid') != $uid) {

@@ -257,7 +257,7 @@ class SystemPreferencesForm extends Xoops\Form\SimpleForm
                         '2592000' => XoopsLocale::ONE_MONTH
                     );
                     if (count($modules) > 0) {
-                        $ele = new Xoops\Form\ElementTray($title, '<br />');
+                        $ele = new Xoops\Form\ElementTray($title, '<br>');
                         foreach (array_keys($modules) as $mid) {
                             $c_val = isset($currrent_val[$mid]) ? (int)($currrent_val[$mid]) : null;
                             $selform = new Xoops\Form\Select($modules[$mid]->getVar('name'), $obj[$i]->getVar('conf_name') . "[$mid]", $c_val);

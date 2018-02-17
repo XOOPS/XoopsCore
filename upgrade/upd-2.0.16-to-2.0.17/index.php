@@ -2,18 +2,18 @@
 
 class upgrade_2017 extends xoopsUpgrade
 {
-    function isApplied()
+    public function isApplied()
     {
         return ( /*$this->check_file_patch() &&*/
         $this->check_auth_db());
     }
 
-    function apply()
+    public function apply()
     {
         return $this->apply_auth_db();
     }
 
-    function check_file_patch()
+    public function check_file_patch()
     {
         /* $path = XOOPS_ROOT_PATH . '/class/auth';
         $lines = file( "$path/auth_provisionning.php");
@@ -26,7 +26,7 @@ class upgrade_2017 extends xoopsUpgrade
         return true;
     }
 
-    function check_auth_db()
+    public function check_auth_db()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -34,7 +34,7 @@ class upgrade_2017 extends xoopsUpgrade
         return (bool)($value);
     }
 
-    function query($sql)
+    public function query($sql)
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -43,7 +43,7 @@ class upgrade_2017 extends xoopsUpgrade
         }
     }
 
-    function apply_auth_db()
+    public function apply_auth_db()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();

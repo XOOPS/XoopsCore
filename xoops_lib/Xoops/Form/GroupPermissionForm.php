@@ -155,7 +155,7 @@ class GroupPermissionForm extends Form
 
         $ret = '<h4>' . $this->getTitle() . '</h4>';
         if ($this->permDesc) {
-            $ret .= $this->permDesc . '<br /><br />';
+            $ret .= $this->permDesc . '<br><br>';
         }
         $ret .= '<form title="' . str_replace('"', '', $this->getTitle()) . '" name="'
             . $this->getName() . '" id="' . $this->getName() . '" action="' . $this->getAction()
@@ -169,7 +169,7 @@ class GroupPermissionForm extends Form
             } elseif (!$elements[$i]->isHidden()) {
                 $ret .= '<tr valign="top" align="left"><td class="head">' . $elements[$i]->getCaption();
                 if ($elements[$i]->getDescription() != "") {
-                    $ret .= "<br /><br /><span style='font-weight: normal;'>"
+                    $ret .= "<br><br><span style='font-weight: normal;'>"
                         . $elements[$i]->getDescription() . "</span>";
                 }
                 $ret .= '</td>' . '<td class="even">' . $elements[$i]->render() . '</td></tr>' . '';

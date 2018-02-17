@@ -65,7 +65,7 @@
                 </div>
             <{/if}>
             <{$content_shorttext}>
-            <br />
+            <br>
             <{$content_text}>
         </div>
 
@@ -95,12 +95,12 @@
             <tr>
                <td style="border-top:1px;text-align: center;width: 100%;">
                     <{translate key="PRINT_COMES" dirname="page"}>:&nbsp;<{$xoops_sitename}>
-                    <br />
+                    <br>
                     <a href="<{$xoops_url}>" title="<{$xoops_sitename}>"><{$xoops_url}></a>
-                    <br />
-                    <br />
+                    <br>
+                    <br>
                     <{translate key="PRINT_URL" dirname="page"}>:&nbsp;
-                    <br />
+                    <br>
                     <a href="<{$xoops_url}>/modules/page/viewpage.php?id=<{$content_id}>" title="<{$xoops_sitename}>"><{$xoops_url}>/modules/page/viewpage.php?id=<{$content_id}></a>
                </td>
             </tr>

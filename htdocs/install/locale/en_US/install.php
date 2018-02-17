@@ -138,8 +138,8 @@ define("XOOPS_PATH_FOUND", "Path found.");
 
 define("SAVED_MAINFILE", "Saved settings in mainfile.php");
 define("SAVED_MAINFILE_MSG", "The installer has saved the specified settings to <em>mainfile.php</em> and <em>secure.php</em>. Press <em>next</em> to go to the next step.");
-define("DATA_ALREADY_INSERTED", "XOOPS data found in database.<br />Press <em>next</em> to go to the next step.");
-define("DATA_INSERTED", "Initial data have been inserted into database.<br />Press <em>next</em> to go to the next step.");
+define("DATA_ALREADY_INSERTED", "XOOPS data found in database.<br>Press <em>next</em> to go to the next step.");
+define("DATA_INSERTED", "Initial data have been inserted into database.<br>Press <em>next</em> to go to the next step.");
 
 
 // Error messages
@@ -148,7 +148,7 @@ define("ERR_NO_XOOPS_FOUND", "No instalable XOOPS found.");
 define("ERR_INVALID_EMAIL", "Invalid Email"); // L73
 define("ERR_REQUIRED", "Information is required."); // L41
 define("ERR_PASSWORD_MATCH", "The two passwords do not match");
-define("ERR_NEED_WRITE_ACCESS", "The server must be given write access to the following files and folders<br />(i.e. <em>chmod 777 directory_name</em> on a UNIX/LINUX server)<br />If they are not available or not created correctly, please create manually and set proper permissions.");
+define("ERR_NEED_WRITE_ACCESS", "The server must be given write access to the following files and folders<br>(i.e. <em>chmod 777 directory_name</em> on a UNIX/LINUX server)<br>If they are not available or not created correctly, please create manually and set proper permissions.");
 define("ERR_NO_DATABASE", "Could not create database. Contact the server administrator for details."); // L31
 define("ERR_NO_DBCONNECTION", "Could not connect to the database server."); // L106
 define("ERR_WRITING_CONSTANT", "Failed writing constant %s."); // L122
@@ -184,7 +184,7 @@ define("IMAGE_FUNCTIONS", "Image functions");
 define("IMAGE_METAS", "Image meta data (exif)");
 define("CURL_HTTP", "Client URL Library (cURL)");
 
-define("ADMIN_EXIST", "The administrator account already exists.<br />Press <strong>next</strong> to go to the next step.");
+define("ADMIN_EXIST", "The administrator account already exists.<br>Press <strong>next</strong> to go to the next step.");
 
 define("CONFIG_SITE", "Site configuration");
 define("CONFIG_SITE_TITLE", "Site configuration");
@@ -195,13 +195,13 @@ define("EXTENSIONS_TITLE", "Extensions installation");
 define("THEME", "Select theme");
 define("THEME_TITLE", "Choose the default theme");
 
-define("INSTALLED_MODULES", "The following modules have been installed.<br />Press <strong>next</strong> to go to the next step.");
-define("NO_MODULES_FOUND", "No modules found.<br />Press <strong>next</strong> to go to the next step.");
-define("NO_INSTALLED_MODULES", "No module installed.<br />Press <strong>next</strong> to go to the next step.");
+define("INSTALLED_MODULES", "The following modules have been installed.<br>Press <strong>next</strong> to go to the next step.");
+define("NO_MODULES_FOUND", "No modules found.<br>Press <strong>next</strong> to go to the next step.");
+define("NO_INSTALLED_MODULES", "No module installed.<br>Press <strong>next</strong> to go to the next step.");
 
-define("INSTALLED_EXTENSION", "The following extensions have been installed.<br />Press <strong>next</strong> to go to the next step.");
-define("NO_EXTENSION_FOUND", "No extensions found.<br />Press <strong>next</strong> to go to the next step.");
-define("NO_INSTALLED_EXTENSION", "No extension installed.<br />Press <strong>next</strong> to go to the next step.");
+define("INSTALLED_EXTENSION", "The following extensions have been installed.<br>Press <strong>next</strong> to go to the next step.");
+define("NO_EXTENSION_FOUND", "No extensions found.<br>Press <strong>next</strong> to go to the next step.");
+define("NO_INSTALLED_EXTENSION", "No extension installed.<br>Press <strong>next</strong> to go to the next step.");
 
 
 define("THEME_NO_SCREENSHOT", "No screenshot found");

@@ -128,7 +128,7 @@ class CommentsCommentRenderer
                 $text = $comment->getVar('text')
                     . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">'
                     . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$comment->getVar('status')]
-                    . '<br />IP: <span style="font-weight: bold;">' . $comment->getVar('ip') . '</span></div>';
+                    . '<br>IP: <span style="font-weight: bold;">' . $comment->getVar('ip') . '</span></div>';
             } else {
                 // hide comments that are not active
                 if (Comments::STATUS_ACTIVE != $comment->getVar('status')) {
@@ -180,7 +180,7 @@ class CommentsCommentRenderer
             $text = $tree[$comment_id]['obj']->getVar('text')
                 . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">'
                 . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$tree[$comment_id]['obj']->getVar('status')]
-                . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip')
+                . '<br>IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip')
                 . '</span></div>';
         } else {
             // hide comments that are not active
@@ -290,7 +290,7 @@ class CommentsCommentRenderer
             $text = $tree[$comment_id]['obj']->getVar('text')
                 . '<div style="text-align:right; margin-top: 2px; margin-bottom: 0px; margin-right: 2px;">'
                 . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$tree[$comment_id]['obj']->getVar('status')]
-                . '<br />IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip')
+                . '<br>IP: <span style="font-weight: bold;">' . $tree[$comment_id]['obj']->getVar('ip')
                 . '</span></div>';
         } else {
             // skip this comment if it is not active and continue on processing its child comments instead
@@ -343,7 +343,7 @@ class CommentsCommentRenderer
             $text = (false != $admin_view) ? $thread[$key]['obj']->getVar('text')
                 . '<div style="text-align:right; margin-top: 2px; margin-right: 2px;">'
                 . _MD_COMMENTS_STATUS . ': ' . $this->statusText[$thread[$key]['obj']->getVar('status')]
-                . '<br />IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('ip')
+                . '<br>IP: <span style="font-weight: bold;">' . $thread[$key]['obj']->getVar('ip')
                 . '</span></div>'
                 : $thread[$key]['obj']->getVar('text');
             $replies[] = array(

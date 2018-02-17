@@ -6,7 +6,7 @@
 
     <p class="even">No special measures necessary, follow the standard installation process –
     extract the module folder into the ../modules directory. Install the
-    module through Admin -> System Module -> Modules.<br /> <br />
+    module through Admin -> System Module -> Modules.<br> <br>
     Detailed instructions on installing modules are available in the
     <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a> </p>
 

@@ -49,16 +49,16 @@ class UserrankRanksForm extends Xoops\Form\ThemeForm
         $max->setPattern('^\d+$', _AM_USERRANK_ERROR_POST);
         $this->addElement($max);
 
-        $imgtray_img = new Xoops\Form\ElementTray(_AM_USERRANK_IMAGE, '<br />');
+        $imgtray_img = new Xoops\Form\ElementTray(_AM_USERRANK_IMAGE, '<br>');
         $imgpath_img = sprintf(_AM_USERRANK_IMAGE_PATH, $xoops->path('uploads/ranks/'));
         $imageselect_img = new Xoops\Form\Select($imgpath_img, 'rank_image', $blank_img);
         $imageselect_img->addOption($blank_img, $blank_img);
         \Xoops\Core\Lists\ImageFile::setOptionsArray($imageselect_img, $xoops->path('uploads/ranks'));
         $imageselect_img->setExtra("onchange='showImgSelected(\"xo-ranks-img\", \"rank_image\", \"ranks\", \"\", \"" . \XoopsBaseConfig::get('uploads-url') . "\")'");
         $imgtray_img->addElement($imageselect_img, false);
-        $imgtray_img->addElement(new Xoops\Form\Label('', "<br /><img src='" . \XoopsBaseConfig::get('uploads-url') . "/ranks/" . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
+        $imgtray_img->addElement(new Xoops\Form\Label('', "<br><img src='" . \XoopsBaseConfig::get('uploads-url') . "/ranks/" . $blank_img . "' name='image_img' id='xo-ranks-img' alt='' />"));
 
-        $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
+        $fileseltray_img = new Xoops\Form\ElementTray('<br>', '<br><br>');
         $fileseltray_img->addElement(new Xoops\Form\File(_AM_USERRANK_UPLOAD, 'rank_image'), false);
         $fileseltray_img->addElement(new Xoops\Form\Label(''), false);
         $imgtray_img->addElement($fileseltray_img);
@@ -70,7 +70,7 @@ class UserrankRanksForm extends Xoops\Form\ThemeForm
             $rank_special = 0;
         }
 
-        $special_tray = new Xoops\Form\ElementTray(_AM_USERRANK_SPECIAL, '<br />');
+        $special_tray = new Xoops\Form\ElementTray(_AM_USERRANK_SPECIAL, '<br>');
         $special_tray->setDescription(_AM_USERRANK_SPECIAL_CAN);
         $special_tray->addElement(new Xoops\Form\RadioYesNo('', 'rank_special', $rank_special));
         $this->addElement($special_tray);

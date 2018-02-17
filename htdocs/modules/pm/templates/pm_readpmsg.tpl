@@ -8,15 +8,15 @@
             <div class="col-md-4">
                 {if $op==out}{translate key='C_TO'}{else}{translate key="C_FROM"}{/if}
                 {if $poster|default:false}
-                    <a href='{$xoops_url}/userinfo.php?uid={$poster->getVar("uid")}'>{$poster->getVar("uname")}</a><br />
+                    <a href='{$xoops_url}/userinfo.php?uid={$poster->getVar("uid")}'>{$poster->getVar("uname")}</a><br>
                     {if ( $poster_avatar != "" ) }
-                        <img src='{$poster_avatar}' alt='' /><br />
+                        <img src='{$poster_avatar}' alt='' /><br>
                     {/if}
                     {if ( $poster->getVar("user_from") != "" ) }
-                        {translate key='C_FROM'}{$poster->getVar("user_from")}<br /><br />
+                        {translate key='C_FROM'}{$poster->getVar("user_from")}<br><br>
                     {/if}
                     {if ( $poster->isOnline() ) }
-                        <span class='bold red'>{translate key='ONLINE'}</span><br /><br />
+                        <span class='bold red'>{translate key='ONLINE'}</span><br><br>
                     {/if}
                 {else}
                     {$anonymous}
@@ -32,7 +32,7 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <br />
+                <br>
                 {foreach item=element from=$pmform.elements}
                     {$element.body}
                 {/foreach}
@@ -68,5 +68,5 @@
         </div>
     </form>
 {else}
-    <br /><br />{translate key='E_YOU_DO_NOT_HAVE_ANY_PRIVATE_MESSAGE'}
+    <br><br>{translate key='E_YOU_DO_NOT_HAVE_ANY_PRIVATE_MESSAGE'}
 {/if}

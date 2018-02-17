@@ -28,7 +28,7 @@
                     <{foreach item=links from=$item_r.related_links}>
                         <a href="content.php?op=edit&amp;content_id=<{$links.content_id}>" title="<{translate key="A_EDIT"}>">
                             <{$links.content_title}>
-                        </a><br />
+                        </a><br>
                     <{/foreach}>
                 </td>
                 <td class="txtcenter width15"><{$item_r.navigation}></td>

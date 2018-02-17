@@ -129,8 +129,8 @@ trait SmartyBCTrait
     public function register_object($object, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
     {
         $this->deprecated(__METHOD__, __FILE__, (__LINE__ + 1));
-        settype($allowed, 'array');
-        settype($smarty_args, 'boolean');
+        $allowed     = (array)$allowed;
+        $smarty_args = (bool)$smarty_args;
         $this->registerObject($object, $object_impl, $allowed, $smarty_args, $block_methods);
     }
 

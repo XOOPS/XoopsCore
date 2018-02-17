@@ -32,7 +32,7 @@ $admin_page->renderNavigation('categories.php');
 switch ($op) {
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('categories.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('categories.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         $imgcat_id = Request::getInt('imgcat_id', 0);
@@ -81,7 +81,7 @@ switch ($op) {
             }
             $xoops->redirect('categories.php', 2, _AM_IMAGES_CAT_SAVE);
         }
-        $xoops->redirect('categories.php', 2, _AM_IMAGES_CAT_NOTSAVE . '<br />' . implode('<br />', $obj->getHtmlErrors()));
+        $xoops->redirect('categories.php', 2, _AM_IMAGES_CAT_NOTSAVE . '<br>' . implode('<br>', $obj->getHtmlErrors()));
         break;
 
     case 'add':

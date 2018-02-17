@@ -190,7 +190,7 @@ class ShortCodesTest extends \PHPUnit\Framework\TestCase
 
     public function testEscaping()
     {
-        $shortcodes = new Shortcodes;
+        $shortcodes = new ShortCodes;
         $shortcodes->addShortcode('test', array($this, 'dummyFunction_test'));
         $content = 'Hello my name is [[test name="Sam"]]!';
         //$expectation = 'Hello my name is [test name="Sam"]!';

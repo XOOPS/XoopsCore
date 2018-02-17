@@ -216,7 +216,7 @@ class AvatarsAvatarHandler extends XoopsPersistableObjectHandler
         if ($criteria === null) {
             $criteria = new Criteria('');
         }
-        $criteria->setGroupby('a.avatar_id');
+        $criteria->setGroupBy('a.avatar_id');
         $criteria->setSort('avatar_weight, avatar_id');
         $qb = $this->db2->createXoopsQueryBuilder();
         $qb ->select('a.*', 'COUNT(u.user_id) AS count')

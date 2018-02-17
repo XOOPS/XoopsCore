@@ -22,7 +22,7 @@ define("_AM_PUBLISHER_AVAILABLE", "<span style='font-weight: bold; color: green;
 define("_AM_PUBLISHER_BACK2IDX", "Annulé. Retour à l'index");
 //define("_AM_PUBLISHER_BLOCKS", "Administration des blocs");
 define("_AM_PUBLISHER_BODY", "Corps du texte");
-define("_AM_PUBLISHER_BODY_DSC", "Coeur de l'article<br /><br /><strong>Options d'entrées</strong><span style='font-size: xx-small; font-weight: normal; display: block;'><p>1-Texte Normal & images avec formatage</p>2- Inclusion de page HTML comme suit:<p>[pagewrap=filename.html]</p><p>Ou</p>[pagewrap=filename_1.html]<br />[pagebreak] <em>pour paginer</em><br />[pagewrap=filename_2.html]<br />etc ... <p>Ou</p><p>[pagewrap=filename_1.html]<br />[pagewrap=filename_2.html]<br /><em>ceci combine les pages</em><p>Pour inclure de telles pages, chargez vos fichier html dans le répertoire votresite.com/uploads/publisher/content, ou utilisez la fonctionnalité \"Tirer le contenu d'un fichier\" au bas de cette page.</p><p>Notez que sous le champs \"corps du texte\", vous trouverez la liste des pages disponibles pour l'insertion. Ajoutez une page au corps du texte en cliquant dans la liste.</p></span>");
+define("_AM_PUBLISHER_BODY_DSC", "Coeur de l'article<br><br><strong>Options d'entrées</strong><span style='font-size: xx-small; font-weight: normal; display: block;'><p>1-Texte Normal & images avec formatage</p>2- Inclusion de page HTML comme suit:<p>[pagewrap=filename.html]</p><p>Ou</p>[pagewrap=filename_1.html]<br>[pagebreak] <em>pour paginer</em><br>[pagewrap=filename_2.html]<br>etc ... <p>Ou</p><p>[pagewrap=filename_1.html]<br>[pagewrap=filename_2.html]<br><em>ceci combine les pages</em><p>Pour inclure de telles pages, chargez vos fichier html dans le répertoire votresite.com/uploads/publisher/content, ou utilisez la fonctionnalité \"Tirer le contenu d'un fichier\" au bas de cette page.</p><p>Notez que sous le champs \"corps du texte\", vous trouverez la liste des pages disponibles pour l'insertion. Ajoutez une page au corps du texte en cliquant dans la liste.</p></span>");
 define("_AM_PUBLISHER_BODY_REQ", "Corps du texte*");
 define("_AM_PUBLISHER_BUTTON_CANCEL", "Annuler");
 define("_AM_PUBLISHER_BUTTON_DELETE", "Supprimer");
@@ -76,7 +76,7 @@ define("_AM_PUBLISHER_DB_MSG_CREATE_TABLE", "Table %s créée");
 define("_AM_PUBLISHER_DB_MSG_CREATE_TABLE_ERR", "Erreur(s) lors de la création de la table %s");
 define("_AM_PUBLISHER_DB_MSG_NEWFIELD", "Champs %s ajouté avec succès");
 define("_AM_PUBLISHER_DB_MSG_NEWFIELD_ERR", "Erreur à l'ajout du champs %s");
-define("_AM_PUBLISHER_DB_NEEDUPDATE", "Votre base de données n'est pas à jour. Procédez à la mise-à-jour des tables S.V.P!<br /><div style='font-weight: bold; line-height: 20px; padding-top: 10px; padding-bottom: 10px; font-size: 16px;'>Note : La SmartFactory vous recommande fortement de procéder à une sauvegarde des tables de publisher avant d'exécuter le script de mise-à-jour.</div>");
+define("_AM_PUBLISHER_DB_NEEDUPDATE", "Votre base de données n'est pas à jour. Procédez à la mise-à-jour des tables S.V.P!<br><div style='font-weight: bold; line-height: 20px; padding-top: 10px; padding-bottom: 10px; font-size: 16px;'>Note : La SmartFactory vous recommande fortement de procéder à une sauvegarde des tables de publisher avant d'exécuter le script de mise-à-jour.</div>");
 define("_AM_PUBLISHER_DB_NEEDUPDATE_WARNING", "AVERTISSEMENT : La SmartFactory vous recommande fortement de procéder à une sauvegarde des tables de publisher avant d'exécuter le script de mise-à-jour.");
 define("_AM_PUBLISHER_DB_NOUPDATE", "Votre base de données est à jour.");
 define("_AM_PUBLISHER_DB_UPDATE_DB", "Mise-à-jour de la base de données");
@@ -153,7 +153,7 @@ define("_AM_PUBLISHER_IMPORT_CATEGORY_SUCCESS", "Catégorie <em>%s</em> importé
 //define("_AM_PUBLISHER_IMPORT_FILE_NOT_FOUND", "Les fichiers à importer n'ont pas été trouvés à <strong>%s</strong>");
 define("_AM_PUBLISHER_IMPORT_FROM", "Importer de %s");
 define("_AM_PUBLISHER_IMPORT_GOTOMODULE", "Aller à la page index de publisher");
-define("_AM_PUBLISHER_IMPORT_INFO", "Vous pouvez importer des articles dans publisher. Choisissez à partir de quel module vous désirez importer les articles et cliquez sur 'Importer' .<br /><strong>n'effectuez cette opération qu'une seule fois, sinon les articles seront dupliqués</strong>");
+define("_AM_PUBLISHER_IMPORT_INFO", "Vous pouvez importer des articles dans publisher. Choisissez à partir de quel module vous désirez importer les articles et cliquez sur 'Importer' .<br><strong>n'effectuez cette opération qu'une seule fois, sinon les articles seront dupliqués</strong>");
 define("_AM_PUBLISHER_IMPORT_MODULE_FOUND", "Le module %s a été trouvé. Il y a %s articles et %s catégories qui peuvent être importés.");
 define("_AM_PUBLISHER_IMPORT_MODULE_FOUND_NO_ITEMS", "Le module %s a été trouvé mais ne comporte aucun article à importer.");
 define("_AM_PUBLISHER_IMPORT_NOCATSELECTED", "Aucune catégorie sélectionnée pour l'importation.");
@@ -179,7 +179,7 @@ define("_AM_PUBLISHER_ITEM_DELETE_ERROR", "Une erreur est survenue lors de la su
 define("_AM_PUBLISHER_ITEM_DUPLICATING", "Dupliquer un article");
 define("_AM_PUBLISHER_ITEM_DUPLICATING_DSC", "éditer le formulaire suivant afin de créer un nouvel article basé sur l'article original.");
 define("_AM_PUBLISHER_ITEM_EDIT", "Modifier cet article");
-define("_AM_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Votre article a été envoyé et sera publié après approbation par un modérateur. <br /> Merci pour votre contribution!");
+define("_AM_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Votre article a été envoyé et sera publié après approbation par un modérateur. <br> Merci pour votre contribution!");
 define("_AM_PUBLISHER_ITEM_REJECTED", "Désolé, Cet article a été défini comme rejeté.");
 define("_AM_PUBLISHER_ITEMCAT", "Catégorie");
 define("_AM_PUBLISHER_ITEMCATEGORYNAME", "Catégorie");
@@ -243,8 +243,8 @@ define("_AM_PUBLISHER_PAGEWRAPDSC", "Cette fonctionnalité vous permet de prendr
 define("_AM_PUBLISHER_PARENT_CATEGORY_EXP", "Catégorie parente<span style='font-size: xx-small; font-weight: normal; display: block;'>Choisissez la catégorie à laquelle appartiendra la présente catégorie.</span>");
 define("_AM_PUBLISHER_PERMERROR", "ERREUR: Impossible d'accéder au répertoire. Changez les permissions du répertoire uploads/publisher/content en 755 (ou 777 selon votre environnement)");
 define("_AM_PUBLISHER_PERMISSIONS", "Permission");
-//define("_AM_PUBLISHER_PERMISSIONS_APPLY_ON_ITEMS", "Appliquer les permission de lecture des articles<span style='font-size: xx-small; font-weight: normal; display: block;'>Appliquer les permissions sur tous<br />les articles de cette catégorie, écrasant<br />les permissions courantes pour tous ces articles.<br /><strong>Veuillez noter que ceci est une action et non une propriété.</span>");
-define("_AM_PUBLISHER_PERMISSIONS_CAT_READ", "Permissions de lecture<span style='font-size: xx-small; font-weight: normal; display: block;'>Groupes qui auront la permission de voir<br />cette catégorie ainsi que ses sous-catégories.</span>");
+//define("_AM_PUBLISHER_PERMISSIONS_APPLY_ON_ITEMS", "Appliquer les permission de lecture des articles<span style='font-size: xx-small; font-weight: normal; display: block;'>Appliquer les permissions sur tous<br>les articles de cette catégorie, écrasant<br>les permissions courantes pour tous ces articles.<br><strong>Veuillez noter que ceci est une action et non une propriété.</span>");
+define("_AM_PUBLISHER_PERMISSIONS_CAT_READ", "Permissions de lecture<span style='font-size: xx-small; font-weight: normal; display: block;'>Groupes qui auront la permission de voir<br>cette catégorie ainsi que ses sous-catégories.</span>");
 define("_AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT", "Permissions de soumettre des articles");
 define("_AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT_DSC", "Pour chaque groupe, veuillez sélectionner les catégories dans lesquelles ce groupe pourra soumettre des articles. La préférence '[PERMISSIONS] Propositions des utilisateurs' doit être activée.");
 define("_AM_PUBLISHER_PERMISSIONSVIEWMAN", "Permissions de voir les catégories");
@@ -259,7 +259,7 @@ define("_AM_PUBLISHER_REJECTED_EDIT", "Modifier cet article rejeté");
 define("_AM_PUBLISHER_REJECTED_ITEM", "Articles rejetés");
 define("_AM_PUBLISHER_REJECTED_ITEM_EXP", "<strong>Articles rejetés</strong>: articles qui ont été soumis par des utilisateurs, mais qui ont été rejetés par un modérateur. Ces articles ne sont pas visibles du côté utilisateur.");
 define("_AM_PUBLISHER_RUSUREDELF", "Etes-vous sûr de vouloir supprimer ce fichier ?");
-define("_AM_PUBLISHER_SCATEGORYNAME", "Créer des sous-catégories<br /><br /><span style='font-size: xx-small; font-weight: normal; display: block;'>Remplissez les champs à droite avec le nom des sous-catégories à créer.<br />Laissez blanc pour ne pas créer de sous-catégorie. Pour en créer plus, entrez le nombre supplémentaire à créer et faites 'Ajouter'</span>");
+define("_AM_PUBLISHER_SCATEGORYNAME", "Créer des sous-catégories<br><br><span style='font-size: xx-small; font-weight: normal; display: block;'>Remplissez les champs à droite avec le nom des sous-catégories à créer.<br>Laissez blanc pour ne pas créer de sous-catégorie. Pour en créer plus, entrez le nombre supplémentaire à créer et faites 'Ajouter'</span>");
 define("_AM_PUBLISHER_SEARCH", "Recherche");
 define("_AM_PUBLISHER_SEARCH_PW", "Extensions HTML, HTM ou XHTML seulement");
 define("_AM_PUBLISHER_SELECT_SORT", "Trier par");
@@ -302,7 +302,7 @@ define("_AM_PUBLISHER_VIEW_CATS", "Choisir les catégories que chaque groupe pou
 //define("_AM_PUBLISHER_YES", "Oui");
 define("_AM_PUBLISHER_TOOLS", "Outils");
 define("_AM_PUBLISHER_CONFIGURE_READ_PERMISSIONS", "Configurer les permissions de lecture");
-define("_AM_PUBLISHER_CONFIGURE_READ_PERMISSIONS_EXP", "Cet outil vous permettra de configurer les permissions de lecture de TOUTES Les catégories et de TOUS les articles de façon uniforme. Toutes les permissions seront tout d'abord supprimées pour être remplacées par les options que vous aurez choisies.<br /><br /><strong>Veuillez utiliser cet outil avec soin!</strong>");
+define("_AM_PUBLISHER_CONFIGURE_READ_PERMISSIONS_EXP", "Cet outil vous permettra de configurer les permissions de lecture de TOUTES Les catégories et de TOUS les articles de façon uniforme. Toutes les permissions seront tout d'abord supprimées pour être remplacées par les options que vous aurez choisies.<br><br><strong>Veuillez utiliser cet outil avec soin!</strong>");
 define("_AM_PUBLISHER_FULLACCESS", "Permissions de lecture des catégories et des articles");
 define("_AM_PUBLISHER_PERMISSIONS_UPDATED", "Permissions mises à jour.");
 define("_AM_PUBLISHER_ITEM_TAG", "Tags");
@@ -320,16 +320,16 @@ define("_AM_PUBLISHER_CLONE", "Clone");
 define("_AM_PUBLISHER_CLONE_DSC", "le clonage d'un module n'a jamais été aussi facile! Il suffit de taper le nom que vous voulez et cliquer sur Soumettre!");
 define("_AM_PUBLISHER_CLONE_TITLE", "Clone %s");
 define("_AM_PUBLISHER_CLONE_NAME", "Choisissez un nom pour le nouveau module");
-define("_AM_PUBLISHER_CLONE_NAME_DSC", "Ne pas utiliser des caractères spéciaux! <br /> Ne choisissez pas le nom d'un module existant, d'une table ou d'une base de données");
+define("_AM_PUBLISHER_CLONE_NAME_DSC", "Ne pas utiliser des caractères spéciaux! <br> Ne choisissez pas le nom d'un module existant, d'une table ou d'une base de données");
 define("_AM_PUBLISHER_CLONE_INVALIDNAME", "ERREUR: nom de module invalide, s'il vous plaît essayez en un autre!");
 define("_AM_PUBLISHER_CLONE_EXISTS", "ERREUR: Nom du module déjà pris, s'il vous plaît essayez en un autre!");
-define("_AM_PUBLISHER_CLONE_CONGRAT", "Bravo! le module %s a été créé avec succès! <br /> Vous pouvez apporter des modifications dans les fichiers de langue et changer l'image du module.");
+define("_AM_PUBLISHER_CLONE_CONGRAT", "Bravo! le module %s a été créé avec succès! <br> Vous pouvez apporter des modifications dans les fichiers de langue et changer l'image du module.");
 define("_AM_PUBLISHER_CLONE_IMAGEFAIL", "attention, nous n'avons pas réussi à créer le logo du nouveau module. s'il vous plaît envisagez de modifier images/module_logo.png manuellement!");
 define("_AM_PUBLISHER_CLONE_FAIL", "Désolé, nous n'avons pas réussi à créer le nouveau clone. Peut-être que vous avez besoin de mettre temporairement les permissions d'écriture du répertoire du 'module' à (chmod 777) et essayez à nouveau.");
 define("_AM_PUBLISHER_COMMENTS", "Commentaires");
 
 define("_AM_PUBLISHER_CATEGORY_MODERATOR", "Modérateur");
-define("_AM_PUBLISHER_CATEGORY_MODERATOR_DSC", "Un modérateur peut accéder et soumettre dans cette catégorie, même s'il ne dispose pas de groupe de permission. <br /> Pour modérer une sous-catégorie, l'utilisateur doit avoir les permissions de soumettre dans la catégorie parente. <br /> Configurez sur 'anonyme' si vous n'avez pas besoin d'un modérateur.");
+define("_AM_PUBLISHER_CATEGORY_MODERATOR_DSC", "Un modérateur peut accéder et soumettre dans cette catégorie, même s'il ne dispose pas de groupe de permission. <br> Pour modérer une sous-catégorie, l'utilisateur doit avoir les permissions de soumettre dans la catégorie parente. <br> Configurez sur 'anonyme' si vous n'avez pas besoin d'un modérateur.");
 
 /**
  * @translation     AFUX (Association Francophone des Utilisateurs de Xoops) <http://www.afux.org/>

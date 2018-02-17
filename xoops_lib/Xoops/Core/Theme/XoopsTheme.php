@@ -355,7 +355,7 @@ class XoopsTheme
     public function checkCache()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $this->contentCacheLifetime) {
-            $template = $this->contentTemplate ? $this->contentTemplate : 'module:system/system_dummy.tpl';
+            $template = $this->contentTemplate ?: 'module:system/system_dummy.tpl';
             $this->template->caching = 2;
             $this->template->cache_lifetime = $this->contentCacheLifetime;
             $uri = str_replace(\XoopsBaseConfig::get('url'), '', $_SERVER['REQUEST_URI']);

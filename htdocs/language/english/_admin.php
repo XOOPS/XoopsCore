@@ -15,10 +15,10 @@
 //define('_AD_REGISTERED','Registered'); //Registered Date
 // define('_AD_PRESSGEN','This is your first time to enter the administration section. Press the button below to proceed.' );
 //define('_AD_LOGINADMIN','Loging you in..');
-//define('_AD_WARNINGINSTALL','WARNING: Directory %s exists on your server. <br />Please remove this directory for security reasons.');
-//define('_AD_WARNINGWRITEABLE','WARNING: File %s is writeable by the server. <br />Please change the permission of this file for security reasons.<br /> in Unix (444), in Win32 (read-only)');
-//define('_AD_WARNINGNOTWRITEABLE','WARNING: Folder %s is not writeable by the server. <br />Please change the permission of this folder.<br /> in Unix (777), in Win32 (writable)');
-//define('_AD_WARNINGXOOPSLIBINSIDE','WARNING: Folder %s is inside DocumentRoot! <br />For security considerations it is highly suggested to move it out of DocumentRoot.');
+//define('_AD_WARNINGINSTALL','WARNING: Directory %s exists on your server. <br>Please remove this directory for security reasons.');
+//define('_AD_WARNINGWRITEABLE','WARNING: File %s is writeable by the server. <br>Please change the permission of this file for security reasons.<br> in Unix (444), in Win32 (read-only)');
+//define('_AD_WARNINGNOTWRITEABLE','WARNING: Folder %s is not writeable by the server. <br>Please change the permission of this folder.<br> in Unix (777), in Win32 (writable)');
+//define('_AD_WARNINGXOOPSLIBINSIDE','WARNING: Folder %s is inside DocumentRoot! <br>For security considerations it is highly suggested to move it out of DocumentRoot.');
 
 //since 2-6
 // Info

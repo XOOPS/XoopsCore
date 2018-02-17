@@ -25,7 +25,7 @@ class MenusDecorator
      *
      * @return bool
      */
-    static function getDecorators($dirname)
+    public static function getDecorators($dirname)
     {
         $available = self::getAvailableDecorators();
         if (!in_array($dirname, array_keys($available))) {
@@ -37,7 +37,7 @@ class MenusDecorator
     /**
      * @return array
      */
-    static function getAvailableDecorators()
+    public static function getAvailableDecorators()
     {
         static $decorators = false;
         if (!is_array($decorators)) {
@@ -71,6 +71,7 @@ class MenusDecoratorAbstract
 
     /**
      * @param string $name
+     * @return bool
      */
     public function loadLanguage($name)
     {
@@ -85,30 +86,36 @@ class MenusDecoratorAbstract
     }
 }
 
-interface MenusDecoratorInterface {
+interface MenusDecoratorInterface
+{
 
     /**
      * @return void
      */
-    function start();
+    public function start();
 
     /**
+     * @param $menus
      * @return void
      */
-    function end(&$menus);
+    public function end(&$menus);
 
     /**
+     * @param $menu
      * @return void
      */
-    function decorateMenu(&$menu);
+    public function decorateMenu(&$menu);
 
     /**
+     * @param $menu
+     * @param $hasAccess
      * @return void
      */
-    function hasAccess($menu, &$hasAccess);
+    public function hasAccess($menu, &$hasAccess);
 
     /**
+     * @param $accessFilter
      * @return void
      */
-    function accessFilter(&$accessFilter);
+    public function accessFilter(&$accessFilter);
 }

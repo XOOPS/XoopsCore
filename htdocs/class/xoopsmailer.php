@@ -511,7 +511,7 @@ class XoopsMailer
             if (!empty($this->errors)) {
                 $ret = "<h4>" . XoopsLocale::ERRORS . "</h4>";
                 foreach ($this->errors as $error) {
-                    $ret .= $error . "<br />";
+                    $ret .= $error . "<br>";
                 }
             }
             return $ret;
@@ -519,7 +519,7 @@ class XoopsMailer
     }
 
     // public
-    function getSuccess($ashtml = true)
+    public function getSuccess($ashtml = true)
     {
         if (!$ashtml) {
             return $this->success;
@@ -527,7 +527,7 @@ class XoopsMailer
             $ret = "";
             if (!empty($this->success)) {
                 foreach ($this->success as $suc) {
-                    $ret .= $suc . "<br />";
+                    $ret .= $suc . "<br>";
                 }
             }
             return $ret;
@@ -609,7 +609,6 @@ class XoopsMailer
             $this->setToUsers(Xoops::getInstance()
                     ->getHandlerMember()
                     ->getUsersByGroup($groups->getVar('groupid'), true));
-
         } elseif (is_array($groups)) {
             foreach ($groups as $g) {
                 $this->setToGroups($g);

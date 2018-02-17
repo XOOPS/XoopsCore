@@ -49,7 +49,7 @@ switch ($op) {
             $xoops->redirect("category.php", 1, sprintf(_AM_PUBLISHER_COLISDELETED, $name));
         } else {
             $xoops->header();
-            echo $xoops->confirm(array('op' => 'del', 'categoryid' => $categoryObj->getVar('categoryid'), 'confirm' => 1, 'name' => $categoryObj->getVar('name')), 'category.php', _AM_PUBLISHER_DELETECOL . " '" . $categoryObj->getVar('name') . "'. <br /> <br />" . _AM_PUBLISHER_DELETE_CAT_CONFIRM, _AM_PUBLISHER_DELETE);
+            echo $xoops->confirm(array('op' => 'del', 'categoryid' => $categoryObj->getVar('categoryid'), 'confirm' => 1, 'name' => $categoryObj->getVar('name')), 'category.php', _AM_PUBLISHER_DELETECOL . " '" . $categoryObj->getVar('name') . "'. <br> <br>" . _AM_PUBLISHER_DELETE_CAT_CONFIRM, _AM_PUBLISHER_DELETE);
             $xoops->footer();
         }
         break;
@@ -204,7 +204,7 @@ switch ($op) {
         PublisherUtils::cpHeader();
         //publisher_adminMenu(1, _AM_PUBLISHER_CATEGORIES);
 
-        echo "<br />\n";
+        echo "<br>\n";
         echo "<form><div style=\"margin-bottom: 12px;\">";
         echo "<input type='button' name='button' onclick=\"location='category.php?op=mod'\" value='" . _AM_PUBLISHER_CATEGORY_CREATE . "'>&nbsp;&nbsp;";
         //echo "<input type='button' name='button' onclick=\"location='item.php?op=mod'\" value='" . _AM_PUBLISHER_CREATEITEM . "'>&nbsp;&nbsp;";
@@ -235,7 +235,7 @@ switch ($op) {
         echo "</table>\n";
         $pagenav = new XoopsPageNav($totalCategories, $publisher->getConfig('idxcat_perpage'), $startcategory, 'startcategory');
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';
-        echo "<br />";
+        echo "<br>";
         PublisherUtils::closeCollapsableBar('createdcategories', 'createdcategoriesicon');
         echo "<br>";
         //editcat(false);
@@ -300,7 +300,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
         if ($showmenu) {
             //publisher_adminMenu(1, _AM_PUBLISHER_CATEGORIES . " > " . _AM_PUBLISHER_EDITING);
         }
-        echo "<br />\n";
+        echo "<br>\n";
         PublisherUtils::openCollapsableBar('edittable', 'edittableicon', _AM_PUBLISHER_EDITCOL, _AM_PUBLISHER_CATEGORY_EDIT_INFO);
     } else {
         if ($showmenu) {
@@ -356,7 +356,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
             echo "</tr>";
         }
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
         PublisherUtils::closeCollapsableBar('subcatstable', 'subcatsicon');
 
         PublisherUtils::openCollapsableBar('bottomtable', 'bottomtableicon', _AM_PUBLISHER_CAT_ITEMS, _AM_PUBLISHER_CAT_ITEMS_DSC);
@@ -394,7 +394,7 @@ function publisher_editCat($showmenu = false, $categoryid = 0, $nb_subcats = 4, 
             echo "</tr>";
         }
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
         $parentid = Request::getInt('parentid');
         $pagenav_extra_args = "op=mod&categoryid=$sel_cat&parentid=$parentid";
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $startitem, 'startitem', $pagenav_extra_args);

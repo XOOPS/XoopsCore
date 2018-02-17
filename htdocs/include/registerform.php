@@ -16,7 +16,7 @@
  * @version         $Id$
  */
 
-$email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
+$email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br>');
 $email_text = new Xoops\Form\Text('', 'email', 25, 60, $myts->htmlSpecialChars($email));
 $email_option = new Xoops\Form\Checkbox('', 'user_viewemail', $user_viewemail);
 $email_option->addOption(1, XoopsLocale::ALLOW_OTHER_USERS_TO_VIEW_EMAIL);
@@ -35,7 +35,7 @@ $reg_form->addElement(new Xoops\Form\SelectTimeZone(XoopsLocale::TIME_ZONE, 'tim
 //$reg_form->addElement($avatar_tray);
 $reg_form->addElement(new Xoops\Form\RadioYesNo(XoopsLocale::Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS, 'user_mailok', $user_mailok));
 if ($xoopsConfigUser['reg_dispdsclmr'] != 0 && $xoopsConfigUser['reg_disclaimer'] != '') {
-    $disc_tray = new Xoops\Form\ElementTray(XoopsLocale::DISCLAIMER, '<br />');
+    $disc_tray = new Xoops\Form\ElementTray(XoopsLocale::DISCLAIMER, '<br>');
     $disc_text = new Xoops\Form\TextArea('', 'disclaimer', $xoopsConfigUser['reg_disclaimer'], 15, 80);
     $disc_text->set('readonly', 'readonly');
     $disc_tray->addElement($disc_text);

@@ -69,8 +69,8 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
     $tpl = new XoopsTpl();
     if ($count != 1) {
         $error_message = _PM_USERNOEXIST;
-        $error_message .= "<br />" . _PM_PLZTRYAGAIN;
-        $error_message .= "<br />[ <a href='javascript:history.go(-1)'>" . _PM_GOBACK . "</a> ]";
+        $error_message .= "<br>" . _PM_PLZTRYAGAIN;
+        $error_message .= "<br>[ <a href='javascript:history.go(-1)'>" . _PM_GOBACK . "</a> ]";
         $tpl->assign('error_message', $error_message);
     } else {
         if ($xoops->security()->check()) {
@@ -90,19 +90,19 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
             }
             if (!$pm_handler->insert($pm)) {
                 $error_message = $pm->getHtmlErrors();
-                $error_message .= "<br /><a href='javascript:history.go(-1)'>" . _PM_GOBACK . "</a>";
+                $error_message .= "<br><a href='javascript:history.go(-1)'>" . _PM_GOBACK . "</a>";
                 $tpl->assign('error_message', $error_message);
             } else {
                 // @todo: Send notification email if user has selected this in the profile
                 $info_message = _PM_MESSAGEPOSTED;
-                $info_message .= "<br />";
-                $info_message .= "<br /><a href=\"javascript:window.opener.location='" . \XoopsBaseConfig::get('url') . "/viewpmsg.php';window.close();\">" . _PM_CLICKHERE . "</a>";
-                $info_message .= "<br /><br /><a href=\"javascript:window.close();\">" . _PM_ORCLOSEWINDOW . "</a>";
+                $info_message .= "<br>";
+                $info_message .= "<br><a href=\"javascript:window.opener.location='" . \XoopsBaseConfig::get('url') . "/viewpmsg.php';window.close();\">" . _PM_CLICKHERE . "</a>";
+                $info_message .= "<br><br><a href=\"javascript:window.close();\">" . _PM_ORCLOSEWINDOW . "</a>";
                 $tpl->assign('info_message', $info_message);
             }
         } else {
-            $error_message = implode('<br />', $xoops->security()->getErrors());
-            $error_message .= "<br /><a href=\"javascript:window.close();\">" . _PM_ORCLOSEWINDOW . "</a>";
+            $error_message = implode('<br>', $xoops->security()->getErrors());
+            $error_message .= "<br><a href=\"javascript:window.close();\">" . _PM_ORCLOSEWINDOW . "</a>";
             $tpl->assign('error_message', $error_message);
         }
     }

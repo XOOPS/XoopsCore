@@ -20,8 +20,7 @@
         <th align="center"><{$lang_date}></th>
     </tr>
     <{foreach item=story from=$stories}>
-    <tr class="<{cycle values=" even
-    ,odd"}>">
+    <tr class="<{cycle values=" even,odd"}>">
     <td><{$story.title}></td>
     <td align="center">
         <a href="<{$story.print_link}>" rel="nofollow"><img src="<{$xoops_url}>/modules/publisher/images/links/print.gif" border="0" alt="<{$lang_printer}>"/></a>

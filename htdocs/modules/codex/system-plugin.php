@@ -20,9 +20,9 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 echo "
-The 'System' module provides a 'Plugin' interface that modules should implement<br />
-The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
-<br />
+The 'System' module provides a 'Plugin' interface that modules should implement<br>
+The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br>
+<br>
 See how Codex module hooks into the system module just by using this codex/class/plugin/system.php
 ";
 

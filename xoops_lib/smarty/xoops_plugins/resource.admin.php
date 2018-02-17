@@ -63,7 +63,7 @@ class Smarty_Resource_Admin extends Smarty_Resource_Custom
         $dirname = $tpl_info['module'];
         $file = $tpl_info['file'];
 
-        $theme_set = $xoops->getConfig('theme_set') ? $xoops->getConfig('theme_set') : 'default';
+        $theme_set = $xoops->getConfig('theme_set') ?: 'default';
         if (!file_exists($file_path = $xoops->path("themes/{$theme_set}/modules/{$dirname}/admin/{$file}"))) {
             $file_path = $xoops->path("modules/{$dirname}/templates/admin/{$file}");
         }

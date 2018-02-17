@@ -67,7 +67,7 @@ class PageSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements Sys
         foreach ($contents as $k => $content) {
             $ret[$k]['title']   = $content->getVar('content_title');
             $ret[$k]['link']    = $page->url('viewpage.php') . '?id=' . $content->getVar('content_id');
-            $ret[$k]['content'] = $content->getVar('content_shorttext') . '<br />' . $content->getVar('content_text');
+            $ret[$k]['content'] = $content->getVar('content_shorttext') . '<br>' . $content->getVar('content_text');
             $ret[$k]['date']    = $content->getVar('content_create');
         }
         return $ret;

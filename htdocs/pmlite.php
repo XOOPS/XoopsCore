@@ -64,8 +64,8 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
     $tpl = new XoopsTpl();
     if ($count != 1) {
         $error_message = XoopsLocale::E_SELECTED_USER_DOES_NOT_EXIST;
-        $error_message .= "<br />" . XoopsLocale::E_GO_BACK_AND_TRY_AGAIN;
-        $error_message .= "<br />[ <a href='javascript:history.go(-1)'>" . XoopsLocale::GO_BACK . "</a> ]";
+        $error_message .= "<br>" . XoopsLocale::E_GO_BACK_AND_TRY_AGAIN;
+        $error_message .= "<br>[ <a href='javascript:history.go(-1)'>" . XoopsLocale::GO_BACK . "</a> ]";
         $tpl->assign('error_message', $error_message);
     } else {
         if ($xoops->security()->check()) {
@@ -81,19 +81,19 @@ if (isset($_POST['op']) && $_POST['op'] === "submit") {
             $pm->setVar("from_userid", $xoops->user->getVar("uid"));
             if (!$pm_handler->insert($pm)) {
                 $error_message = $pm->getHtmlErrors();
-                $error_message .= "<br /><a href='javascript:history.go(-1)'>" . XoopsLocale::GO_BACK . "</a>";
+                $error_message .= "<br><a href='javascript:history.go(-1)'>" . XoopsLocale::GO_BACK . "</a>";
                 $tpl->assign('error_message', $error_message);
             } else {
                 // @todo: Send notification email if user has selected this in the profile
                 $info_message = XoopsLocale::S_MESSAGED_HAS_BEEN_POSTED;
-                $info_message .= "<br />";
-                $info_message .= "<br /><a href=\"javascript:window.opener.location='" . $xoops_url . "/viewpmsg.php';window.close();\">" . XoopsLocale::CLICK_HERE_TO_VIEW_YOU_PRIVATE_MESSAGES . "</a>";
-                $info_message .= "<br /><br /><a href=\"javascript:window.close();\">" . XoopsLocale::OR_CLICK_HERE_TO_CLOSE_WINDOW . "</a>";
+                $info_message .= "<br>";
+                $info_message .= "<br><a href=\"javascript:window.opener.location='" . $xoops_url . "/viewpmsg.php';window.close();\">" . XoopsLocale::CLICK_HERE_TO_VIEW_YOU_PRIVATE_MESSAGES . "</a>";
+                $info_message .= "<br><br><a href=\"javascript:window.close();\">" . XoopsLocale::OR_CLICK_HERE_TO_CLOSE_WINDOW . "</a>";
                 $tpl->assign('info_message', $info_message);
             }
         } else {
-            $error_message = implode('<br />', $xoops->security()->getErrors());
-            $error_message .= "<br /><a href=\"javascript:window.close();\">" . XoopsLocale::OR_CLICK_HERE_TO_CLOSE_WINDOW . "</a>";
+            $error_message = implode('<br>', $xoops->security()->getErrors());
+            $error_message .= "<br><a href=\"javascript:window.close();\">" . XoopsLocale::OR_CLICK_HERE_TO_CLOSE_WINDOW . "</a>";
             $tpl->assign('error_message', $error_message);
         }
     }

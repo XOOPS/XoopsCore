@@ -58,10 +58,10 @@ class PluginsPreload extends PreloadItem
      *
      * @param $args
      */
-    public static function eventSystemModuleInstall($args) {
+    public static function eventSystemModuleInstall($args)
+    {
         \Xoops::getInstance()->setActiveModules();
         //Adds new plugins if available and remove them if modules were deactivated
         PluginsManager::updatePlugins();
     }
-
 }

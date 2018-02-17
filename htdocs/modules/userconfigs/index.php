@@ -87,7 +87,7 @@ switch ($op) {
         break;
     case 'save':
         if (!$xoops->security()->check()) {
-            $helper->redirect("index.php", 3, implode('<br />', $xoops->security()->getErrors()));
+            $helper->redirect("index.php", 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         $conf_ids = array();

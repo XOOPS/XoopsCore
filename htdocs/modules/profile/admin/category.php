@@ -112,7 +112,7 @@ switch ($op) {
                 echo $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),
                     'category.php',
-                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('cat_title')) . '<br />'
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('cat_title')) . '<br>'
                 );
             }
         } else {

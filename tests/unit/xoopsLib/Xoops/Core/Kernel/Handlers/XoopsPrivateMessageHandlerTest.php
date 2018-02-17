@@ -38,7 +38,7 @@ class XoopsPrivateMessageHandlerTest extends \PHPUnit\Framework\TestCase
         $msg->setNew(true);
         $msg->setVar('subject', 'PRIVMESSAGE_DUMMY_FOR_TESTS', true);
         $value=$instance->insert($msg);
-        $this->assertTrue(intval($value) > 0);
+        $this->assertTrue((int)$value > 0);
 
         $value=$instance->setRead($msg);
         $this->assertSame(true, $value);

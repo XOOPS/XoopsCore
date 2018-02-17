@@ -16,7 +16,7 @@
             <{/if}>
         </ul>
     </div>
-    <br />
+    <br>
 
     <div class="panel_wrapper">
         <div id="xlanguage_browser_panel" class="panel current" style="overflow:none;">

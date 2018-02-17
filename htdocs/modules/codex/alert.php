@@ -20,9 +20,9 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 echo "
-<strong>alert</strong><br /><br />
-since 2.6.0 you can use the alert function to display alerts<br />
-You have four types of alerts:<br /><br /><br />";
+<strong>alert</strong><br><br>
+since 2.6.0 you can use the alert function to display alerts<br>
+You have four types of alerts:<br><br><br>";
 
 echo $xoops->alert('info', 'Your information message', 'Title information');
 echo $xoops->alert('warning', 'Your warning message', 'Title warning');

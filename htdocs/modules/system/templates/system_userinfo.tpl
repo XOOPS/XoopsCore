@@ -131,7 +131,7 @@
                     {if $user_ranktitle|default:false}
                         <tr>
                             <td>{$lang_rank}</td>
-                            <td>{$user_rankimage}<br />{$user_ranktitle}</td>
+                            <td>{$user_rankimage}<br>{$user_ranktitle}</td>
                         </tr>
                     {/if}
                     <tr>

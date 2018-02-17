@@ -25,14 +25,14 @@
 
 class TinyMCE
 {
-    var $rootpath;
-    var $config = array();
-    var $setting = array();
-    var $element = '';
+    public $rootpath;
+    public $config = array();
+    public $setting = array();
+    public $element = '';
 
     // PHP 5 Constructor
-    function __construct($config)
-     {
+    public function __construct($config)
+    {
         $this->setConfig($config);
         $this->rootpath = $this->config["rootpath"] . "/tiny_mce";
         $this->xoopsPlugins = $this->get_xoopsPlugins();
@@ -40,12 +40,12 @@ class TinyMCE
     }
 
     // PHP 4 Contructor
-    function TinyMCE($config)
+    public function TinyMCE($config)
     {
         $this->__construct($config) ;
     }
 
-    function &instance( $config )
+    public function &instance($config)
     {
         static $instance;
         if (!isset($instance)) {
@@ -56,23 +56,23 @@ class TinyMCE
         return $instance;
     }
 
-    function setConfig( $config )
+    public function setConfig($config)
     {
         foreach ($config as $key => $val) {
             $this->config[$key] = $val;
         }
     }
 
-    function init()
+    public function init()
     {
         $xoops = Xoops::getInstance();
         // list of configured options
         $configured = array();
 
-		$xoops_root_path = \XoopsBaseConfig::get('root-path');
-		
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
+        
         // Load default settings
-        if ( ! ($this->setting = @include( $xoops->path( "var/configs/tinymce.php" ) ) ) ) {
+        if (! ($this->setting = @include($xoops->path("var/configs/tinymce.php")))) {
             $this->setting = include __DIR__ . "/settings.php";
         }
 
@@ -82,10 +82,10 @@ class TinyMCE
             $configured[] = "language";
         }
 
-        $this->setting["content_css"] = implode( ",", $this->loadCss()) . ',' . $xoops->url('xoops.css');
+        $this->setting["content_css"] = implode(",", $this->loadCss()) . ',' . $xoops->url('xoops.css');
         $configured[] = "content_css";
 
-        if ( !empty($this->config["theme"]) && is_dir($xoops_root_path . $this->rootpath . "/themes/" . $this->config["theme"]) ) {
+        if (!empty($this->config["theme"]) && is_dir($xoops_root_path . $this->rootpath . "/themes/" . $this->config["theme"])) {
             $this->setting["theme"] = $this->config["theme"];
             $configured[] = "theme";
         }
@@ -99,7 +99,7 @@ class TinyMCE
         $this->setting["plugins"] = implode(",", $this->loadPlugins());
         $configured[] = "plugins";
 
-        if ( $this->setting["theme"] !== "simple" ) {
+        if ($this->setting["theme"] !== "simple") {
             if (empty($this->config["buttons"])) {
                 $this->config["buttons"][] = array(
                     "before"    => "",
@@ -168,13 +168,13 @@ class TinyMCE
                 $configured[] = "fonts";
             }
 
-            for ($i=1 ; $i <= 4 ; $i++ ) {
+            for ($i=1 ; $i <= 4 ; $i++) {
                 $buttons = array();
-                if ( isset($this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"]) ) {
-                    $checklist = explode(",", $this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"] );
-                    foreach ( $checklist as $plugin ) {
-                        if ( strpos( strtolower($plugin), "xoops") !== false ) {
-                            if ( in_array( $plugin, $this->xoopsPlugins ) ) {
+                if (isset($this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"])) {
+                    $checklist = explode(",", $this->setting["theme_" . $this->setting["theme"] . "_buttons{$i}"]);
+                    foreach ($checklist as $plugin) {
+                        if (strpos(strtolower($plugin), "xoops") !== false) {
+                            if (in_array($plugin, $this->xoopsPlugins)) {
                                 $buttons[] = $plugin;
                             }
                         } else {
@@ -204,11 +204,11 @@ class TinyMCE
     }
 
     // load all plugins execpt the plugins in setting["exclude_plugins"]
-    function loadPlugins()
+    public function loadPlugins()
     {
-		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $plugins = array();
-        $plugins_list = XoopsLists::getDirListAsArray( $xoops_root_path . $this->rootpath . "/plugins" );
+        $plugins_list = XoopsLists::getDirListAsArray($xoops_root_path . $this->rootpath . "/plugins");
         if (empty($this->setting["plugins"])) {
             $plugins = $plugins_list;
         } else {
@@ -224,13 +224,14 @@ class TinyMCE
     }
 
     // return all xoops plugins
-    function get_xoopsPlugins() {
-		$xoops_root_path = \XoopsBaseConfig::get('root-path');
+    public function get_xoopsPlugins()
+    {
+        $xoops_root_path = \XoopsBaseConfig::get('root-path');
         $xoopsPlugins = array();
-        $allplugins = XoopsLists::getDirListAsArray( $xoops_root_path . $this->rootpath . "/plugins" );
-        foreach ( $allplugins as $plugin ) {
-            if ( strpos( strtolower($plugin), "xoops") !== false && file_exists($xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php") ) {
-                if ( $right = @include $xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php" ) {
+        $allplugins = XoopsLists::getDirListAsArray($xoops_root_path . $this->rootpath . "/plugins");
+        foreach ($allplugins as $plugin) {
+            if (strpos(strtolower($plugin), "xoops") !== false && file_exists($xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php")) {
+                if ($right = @include $xoops_root_path . $this->config["rootpath"] . "/include/$plugin.php") {
                     $xoopsPlugins[$plugin] = $plugin;
                 }
             }
@@ -238,38 +239,38 @@ class TinyMCE
         return $xoopsPlugins;
     }
 
-    function loadCss($css_file = 'style.css')
+    public function loadCss($css_file = 'style.css')
     {
         static $css_url, $css_path;
 
         if (!isset($css_url)) {
             $xoops = Xoops::getInstance();
-            $css_url = dirname( $xoops->getCss($xoops->getConfig('theme_set')) );
+            $css_url = dirname($xoops->getCss($xoops->getConfig('theme_set')));
             $css_path = str_replace(\XoopsBaseConfig::get('themes-url'), \XoopsBaseConfig::get('themes-path'), $css_url);
         }
 
         $css = array();
         $css[] = $css_url . '/' . $css_file;
-        $css_content = file_get_contents( $css_path . '/' . $css_file );
+        $css_content = file_get_contents($css_path . '/' . $css_file);
 
         // get all import css files
-        if ( preg_match_all("~\@import url\((.*\.css)\);~sUi", $css_content, $matches, PREG_PATTERN_ORDER) ) {
-            foreach( $matches[1] as $key => $css_import ) {
-                $css = array_merge( $css, $this->loadCss( $css_import) );
+        if (preg_match_all("~\@import url\((.*\.css)\);~sUi", $css_content, $matches, PREG_PATTERN_ORDER)) {
+            foreach ($matches[1] as $key => $css_import) {
+                $css = array_merge($css, $this->loadCss($css_import));
             }
         }
         return $css;
     }
 
-    function render()
+    public function render()
     {
         static $isTinyMceJsLoaded = false;
-		
-		$xoops_url = \XoopsBaseConfig::get('url');
+        
+        $xoops_url = \XoopsBaseConfig::get('url');
 
         $this->init();
 
-        if ( !empty($this->setting["callback"]) ) {
+        if (!empty($this->setting["callback"])) {
             $callback = $this->setting["callback"];
             unset($this->setting["callback"]);
         } else {
@@ -288,7 +289,7 @@ class TinyMCE
         $ret .= "<script language='javascript' type='text/javascript'>\n";
         $ret .= "   $().ready(function() {\n";
         $ret .= "$('textarea." . $this->element . "').tinymce({\n";
-            // Location of TinyMCE script
+        // Location of TinyMCE script
         $ret .= "script_url : '" . $xoops_url . $this->rootpath . "/tiny_mce.js',\n";
 
         // set options - start

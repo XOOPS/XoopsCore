@@ -39,7 +39,7 @@ class MaintenanceMaintenanceForm extends Xoops\Form\ThemeForm
         parent::__construct('', "form_maintenance", "center.php", 'post', true);
 
         $cache = new Xoops\Form\Select(_AM_MAINTENANCE_CENTER_CACHE, "cache", '', 3, true);
-        $cache->setDescription(\XoopsBaseConfig::get('var-path') . "/cache/smarty_cache/<br />" . \XoopsBaseConfig::get('var-path') . "/cache/smarty_compile/<br />" . \XoopsBaseConfig::get('var-path') . "/cache/xoops_cache/");
+        $cache->setDescription(\XoopsBaseConfig::get('var-path') . "/cache/smarty_cache/<br>" . \XoopsBaseConfig::get('var-path') . "/cache/smarty_compile/<br>" . \XoopsBaseConfig::get('var-path') . "/cache/xoops_cache/");
         $cache_arr = array(1 => _AM_MAINTENANCE_CENTER_SMARTY_CACHE, 2 => _AM_MAINTENANCE_CENTER_SMARTY_COMPILE, 3 => _AM_MAINTENANCE_CENTER_XOOPS_CACHE);
         $cache->addOptionArray($cache_arr);
         $this->addElement($cache);

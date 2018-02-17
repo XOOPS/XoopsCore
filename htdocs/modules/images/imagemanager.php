@@ -100,7 +100,7 @@ switch ($op) {
 
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('imagemanager.php?imgcat_id=' . $imgcat_id, 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('imagemanager.php?imgcat_id=' . $imgcat_id, 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
@@ -156,7 +156,7 @@ switch ($op) {
                     @unlink($uploader->getSavedDestination());
                 }
             }
-            $xoops->redirect('imagemanager.php?target=' . $target . '&imgcat_id=' . $imgcat_id, 2, implode('<br />', $msg));
+            $xoops->redirect('imagemanager.php?target=' . $target . '&imgcat_id=' . $imgcat_id, 2, implode('<br>', $msg));
         }
         echo $xoops->alert('error', $obj->getHtmlErrors());
         break;

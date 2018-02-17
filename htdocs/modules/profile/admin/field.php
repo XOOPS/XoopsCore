@@ -157,7 +157,7 @@ switch ($op) {
                     //no errors
                     $xoops->redirect('field.php', 2, sprintf(_PROFILE_AM_SAVEDSUCCESS, _PROFILE_AM_FIELDS));
                 } else {
-                    $xoops->redirect('field.php', 3, implode('<br />', $errors));
+                    $xoops->redirect('field.php', 3, implode('<br>', $errors));
                 }
             }
         }
@@ -323,7 +323,7 @@ switch ($op) {
                 echo $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),
                     'field.php',
-                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('field_title')) . '<br />'
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('field_title')) . '<br>'
                 );
             }
         } else {

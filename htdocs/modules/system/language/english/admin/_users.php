@@ -147,9 +147,9 @@ define("_AM_SYSTEM_USERS_NAV_TIPS","
 //define("_AM_SYSTEM_USERS_NOT_CONNECT","Never connected");
 //define("_AM_SYSTEM_USERS_FORM_SURE_DEL","Delete user : %s");
 //define("_AM_SYSTEM_USERS_FORM_SURE_DEL2","Delete");
-//define("_AM_SYSTEM_USERS_NO_SUPP", "User cannot be deleted: %s <br />");
-//define("_AM_SYSTEM_USERS_NO_ADMINSUPP", "Admin user cannot be deleted: %s <br />");
-//define("_AM_SYSTEM_USERS_ERROR", "Error:<br /><br /> %s");
+//define("_AM_SYSTEM_USERS_NO_SUPP", "User cannot be deleted: %s <br>");
+//define("_AM_SYSTEM_USERS_NO_ADMINSUPP", "Admin user cannot be deleted: %s <br>");
+//define("_AM_SYSTEM_USERS_ERROR", "Error:<br><br> %s");
 //define("_AM_SYSTEM_USERS_ALLGROUP", "All groups");
 //define("_AM_SYSTEM_USERS_ALLUSER", "All users");
 //define("_AM_SYSTEM_USERS_ACTIVEUSER", "Only active users");

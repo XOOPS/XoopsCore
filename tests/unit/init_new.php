@@ -20,7 +20,7 @@ if (defined('IS_PHPUNIT')) {
     define('XOOPS_XMLRPC', 0);
 }
 
-define('XOOPS_TU_ROOT_PATH', realpath(dirname(__FILE__).'/../../htdocs'));
+define('XOOPS_TU_ROOT_PATH', realpath(__DIR__ . '/../../htdocs'));
 
 //temporary patch, we still need mainfile until we have a config file
 $xoopsOption["nocommon"]= true; // don't include common.php file

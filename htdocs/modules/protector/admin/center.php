@@ -77,7 +77,7 @@ if (!empty($_POST['action'])) {
             $error_msg .= _AM_MSG_GROUP1IPSCANTOPEN;
         }
 
-        $redirect_msg = $error_msg ? $error_msg : _AM_MSG_IPFILESUPDATED;
+        $redirect_msg = $error_msg ?: _AM_MSG_IPFILESUPDATED;
         $xoops->redirect("center.php", 2, $redirect_msg);
     } else {
         if ($_POST['action'] === 'delete' && isset($_POST['ids']) && is_array($_POST['ids'])) {

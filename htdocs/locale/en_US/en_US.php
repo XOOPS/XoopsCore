@@ -409,7 +409,7 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const F_DELETED = "%s deleted";
     const F_DISABLE = "Disable %s";
     const F_ENTER = "Please enter %s";
-    const F_ERROR = "Error:<br /><br /> %s";
+    const F_ERROR = "Error:<br><br> %s";
     const F_FILES = "%s files";
     const F_FILE_EXISTS_IN = "File exists in: %s";
     const F_HAS_JUST_REGISTERED = "%s has just registered!";
@@ -441,7 +441,7 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const F_SEND_EMAIL_TO = "Send email to %s";
     const F_SEND_PRIVATE_MESSAGE_TO = "Send private message to %s";
     const F_SHOWING_RESULTS = "(Showing %d - %d)";
-    //const F_TIME_FORMAT_DESCRIPTION = "Valid formats: 's' - %s; 'm' - %s; 'l' - %s;<br />'c' or 'custom' - format determined according to interval to present; 'e' - Elapsed; 'mysql' - Y-m-d H:i:s;<br />specified object - Refer to <a href='http://php.net/manual/en/function.date.php' rel='external'>PHP manual</a>.";
+    //const F_TIME_FORMAT_DESCRIPTION = "Valid formats: 's' - %s; 'm' - %s; 'l' - %s;<br>'c' or 'custom' - format determined according to interval to present; 'e' - Elapsed; 'mysql' - Y-m-d H:i:s;<br>specified object - Refer to <a href='http://php.net/manual/en/function.date.php' rel='external'>PHP manual</a>.";
     const F_TOOK_SECONDS_TO_LOAD = "%s took %s seconds to load.";
     const F_USERS_BROWSING = "<strong>%s</strong> user(s) are browsing <strong>%s</strong>";
     const F_USERS_FOUND = "%s user(s) found";
@@ -935,7 +935,7 @@ class XoopsLocaleEn_US extends Xoops\Locale\AbstractLocale
     const Q_DELETE_RELATED_ITEMS = "Delete all related items?";
     const Q_LOST_YOUR_PASSWORD = "Lost your Password?";
     const Q_NOT_REGISTERED = "Not registered?";
-    const Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS = "Receive occasional email notices <br />from administrators and moderators?";
+    const Q_RECEIVE_OCCASIONAL_EMAIL_NOTICES_FROM_ADMINISTRATORS = "Receive occasional email notices <br>from administrators and moderators?";
     const Q_USE_HTML = "Use HTML?";
     const RANDOM = "Random";
     const RANDOM_ITEMS = "Random items";

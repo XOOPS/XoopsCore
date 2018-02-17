@@ -136,7 +136,7 @@ define("_AM_PUBLISHER_IMAGE_ITEM", "Article image");
 //define("_AM_PUBLISHER_IMAGE_ITEM_DSC", "Image representing the article");
 define("_AM_PUBLISHER_IMAGE_UPLOAD", "Image upload");
 define("_AM_PUBLISHER_IMAGE_UPLOAD_DSC", "Select an image on your computer. This image will be uploaded to the site and set as the category image.");
-//define("_AM_PUBLISHER_IMAGE_UPLOAD_ITEM_DSC", "Select an image on your computer. <br />This image will be uploaded to the site <br />and set as the article image.");
+//define("_AM_PUBLISHER_IMAGE_UPLOAD_ITEM_DSC", "Select an image on your computer. <br>This image will be uploaded to the site <br>and set as the article image.");
 define("_AM_PUBLISHER_IMPORT", "Import");
 define("_AM_PUBLISHER_IMPORTED_COMMENT", "Comment '%s' imported.");
 define("_AM_PUBLISHER_IMPORTED_COMMENT_ERROR", "Error while importing comment '%s'");
@@ -179,7 +179,7 @@ define("_AM_PUBLISHER_ITEM_DELETE_ERROR", "An error occured while deleting this 
 define("_AM_PUBLISHER_ITEM_DUPLICATING", "Duplicating an article");
 define("_AM_PUBLISHER_ITEM_DUPLICATING_DSC", "Edit the present form in order to create a new article based on the original article.");
 define("_AM_PUBLISHER_ITEM_EDIT", "Edit this article");
-define("_AM_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Your article has been sent and will be published upon approval by a moderator.<br />Thank you for your contribution !");
+define("_AM_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Your article has been sent and will be published upon approval by a moderator.<br>Thank you for your contribution !");
 define("_AM_PUBLISHER_ITEM_REJECTED", "This article as been set as rejected.");
 define("_AM_PUBLISHER_ITEMCAT", "Category");
 define("_AM_PUBLISHER_ITEMCATEGORYNAME", "Category");
@@ -244,8 +244,8 @@ define("_AM_PUBLISHER_PAGEWRAPDSC", "A page wrap is the ability to link an artic
 define("_AM_PUBLISHER_PARENT_CATEGORY_EXP", "Parent category<span style='font-size: xx-small; font-weight: normal; display: block;'>Select a parent to make this a sub-category.</span>");
 define("_AM_PUBLISHER_PERMERROR", "ERROR: cannot access file directory. Please chmod the uploads/publisher/content directory with value 755 (or 777 depending on your environement)");
 define("_AM_PUBLISHER_PERMISSIONS", "Permissions");
-//define("_AM_PUBLISHER_PERMISSIONS_APPLY_ON_ITEMS", "Apply read permissions on articles<span style='font-size: xx-small; font-weight: normal; display: block;'>Apply the above Read Permissions on all<br />articles within that category, overriding their<br />current permissions.<br /><strong>Please note that this is a one time action only, and not a property</strong></span>");
-define("_AM_PUBLISHER_PERMISSIONS_CAT_READ", "Read permissions<span style='font-size: xx-small; font-weight: normal; display: block;'>Groups that will have permissions to see<br />this Category, as well as any articles<br />inside that category.</span>");
+//define("_AM_PUBLISHER_PERMISSIONS_APPLY_ON_ITEMS", "Apply read permissions on articles<span style='font-size: xx-small; font-weight: normal; display: block;'>Apply the above Read Permissions on all<br>articles within that category, overriding their<br>current permissions.<br><strong>Please note that this is a one time action only, and not a property</strong></span>");
+define("_AM_PUBLISHER_PERMISSIONS_CAT_READ", "Read permissions<span style='font-size: xx-small; font-weight: normal; display: block;'>Groups that will have permissions to see<br>this Category, as well as any articles<br>inside that category.</span>");
 define("_AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT", "Articles submission permissions");
 define("_AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT_DSC", "Groups that will be allowed to submit articles within this category. Preference '[PERMISSIONS] User submissions' must be enabled.");
 define("_AM_PUBLISHER_PERMISSIONSVIEWMAN", "Permissions to view categories");
@@ -303,7 +303,7 @@ define("_AM_PUBLISHER_VIEW_CATS", "Select categories that each group can view");
 //define("_AM_PUBLISHER_YES", "Yes");
 //define("_AM_PUBLISHER_TOOLS", "Tools");
 //define("_AM_PUBLISHER_CONFIGURE_READ_PERMISSIONS", "Configure read permissions");
-//define("_AM_PUBLISHER_CONFIGURE_READ_PERMISSIONS_EXP", "This tool allows you to quickly configure read permissions for ALL categories and ALL articles at once. ALl permissions will first be deleted and then replaced by the options your will have selected.<br /><br /><strong>Please use this tool with care !</strong>");
+//define("_AM_PUBLISHER_CONFIGURE_READ_PERMISSIONS_EXP", "This tool allows you to quickly configure read permissions for ALL categories and ALL articles at once. ALl permissions will first be deleted and then replaced by the options your will have selected.<br><br><strong>Please use this tool with care !</strong>");
 //define("_AM_PUBLISHER_FULLACCESS", "Categories and articles read permissions");
 //define("_AM_PUBLISHER_PERMISSIONS_UPDATED", "Permissions updated.");
 define("_AM_PUBLISHER_ITEM_TAG", "Tags");
@@ -321,16 +321,16 @@ define("_AM_PUBLISHER_CLONE", "Clone");
 define("_AM_PUBLISHER_CLONE_DSC", "Cloning a module has never been this easy! Just type in the name you want for it and hit submit button!");
 define("_AM_PUBLISHER_CLONE_TITLE", "Clone %s");
 define("_AM_PUBLISHER_CLONE_NAME", "Choose a name for the new module");
-define("_AM_PUBLISHER_CLONE_NAME_DSC", "Do not use special characters! <br />Do not choose an existing module dirname or database table name!");
+define("_AM_PUBLISHER_CLONE_NAME_DSC", "Do not use special characters! <br>Do not choose an existing module dirname or database table name!");
 define("_AM_PUBLISHER_CLONE_INVALIDNAME", "ERROR: Invalid module name, please try another one!");
 define("_AM_PUBLISHER_CLONE_EXISTS", "ERROR: Module name already taken, please try another one!");
-define("_AM_PUBLISHER_CLONE_CONGRAT", "Congratulations! %s was sucessfuly created!<br />You may want to make changes in language files.");
+define("_AM_PUBLISHER_CLONE_CONGRAT", "Congratulations! %s was sucessfuly created!<br>You may want to make changes in language files.");
 define("_AM_PUBLISHER_CLONE_IMAGEFAIL", "Atention, we failed creating the new module logo. Please consider modifying images/module_logo.png manually!");
 define("_AM_PUBLISHER_CLONE_FAIL", "Sorry, we failed in creating the new clone. Maybe you need to temporarly set write permissions(CHMOD 777) to 'modules' folder and try again.");
 define("_AM_PUBLISHER_COMMENTS", "Comments");
 
 define("_AM_PUBLISHER_CATEGORY_MODERATOR", "Moderator");
-define("_AM_PUBLISHER_CATEGORY_MODERATOR_DSC", "A moderator can access and submit in this category even if he does not have groups permissions.<br />To moderate a sub category the user must have permissions to submit in the parent category.<br />Set to 'anonymous' if you do not need a moderator.");
+define("_AM_PUBLISHER_CATEGORY_MODERATOR_DSC", "A moderator can access and submit in this category even if he does not have groups permissions.<br>To moderate a sub category the user must have permissions to submit in the parent category.<br>Set to 'anonymous' if you do not need a moderator.");
 
 //03/05/2012
 define("_AM_PUBLISHER_PERMISSIONS_CAT_MODERATOR", "Moderation permissions");

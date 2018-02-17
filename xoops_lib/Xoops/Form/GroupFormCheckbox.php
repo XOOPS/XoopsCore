@@ -149,7 +149,7 @@ class GroupFormCheckbox extends Element
         $tree .= " />" . $option['name'] . "<input type=\"hidden\" name=\"" . $elementName . "[parents]["
             . $option['id'] . "]\" value=\"" . implode(':', $parentIds) . "\" /><input type=\"hidden\" name=\""
             . $elementName . "[itemname][" . $option['id'] . "]\" value=\""
-            . htmlspecialchars($option['name']) . "\" /><br />\n";
+            . htmlspecialchars($option['name']) . "\" /><br>\n";
         if (isset($option['children'])) {
             foreach ($option['children'] as $child) {
                 array_push($parentIds, $option['id']);

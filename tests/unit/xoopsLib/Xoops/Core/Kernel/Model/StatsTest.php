@@ -33,7 +33,7 @@ class StatsTest extends \PHPUnit\Framework\TestCase
 
         $values=$instance->getCount();
         $this->assertTrue(is_string($values));
-        $this->assertTrue(intval($values) >= 0);
+        $this->assertTrue((int)$values >= 0);
     }
 
     public function test_getCounts()
@@ -50,7 +50,7 @@ class StatsTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(count($values) >= 0);
         if (!empty($values[1])) {
             $this->assertTrue(is_string($values[1]));
-            $this->assertTrue(intval($values[1]) >= 0);
+            $this->assertTrue((int)$values[1] >= 0);
         }
     }
 }

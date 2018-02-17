@@ -42,7 +42,7 @@
             <td class="even" align="left">
                 <strong><{$item.titlelink}></strong>
                 <{if $show_subtitle && $item.subtitle}>
-                    <br /><em><{$item.subtitle}></em>
+                    <br><em><{$item.subtitle}></em>
                 <{/if}>
             </td>
             <{if $display_date_col == 1}>

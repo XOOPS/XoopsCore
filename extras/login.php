@@ -39,7 +39,7 @@ echo '
 ';
 
 if ($op == 'dologin') {
-    $member_handler = xoops_gethandler('member');
+    $member_handler = xoops_getHandler('member');
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $user = $member_handler->loginUser($username, $password);
     if (is_object($user)) {
@@ -73,7 +73,7 @@ if ($op == 'dologin') {
             echo '<div style="text-align:center;"><input value="' . XoopsLocale::A_CLOSE . '" type="button" onclick="document.window.opener.location.reload();document.window.close();" /></div>';
         }
     } else {
-        xoops_error(XoopsLocale::E_INCORRECT_LOGIN . '<br /><a href="login.php">' . XoopsLocale::GO_BACK . '</a>');
+        xoops_error(XoopsLocale::E_INCORRECT_LOGIN . '<br><a href="login.php">' . XoopsLocale::GO_BACK . '</a>');
     }
 }
 
@@ -104,4 +104,3 @@ echo '
   </body>
 </html>
 ';
-?>

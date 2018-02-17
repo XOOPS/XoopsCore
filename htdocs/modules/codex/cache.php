@@ -66,20 +66,20 @@ if (!$readData = $cache->read($key)) {
     $cache->write($key, $content);
     $readData = $content;
 }
-echo $readData . '<br />';
+echo $readData . '<br>';
 
 echo '<h4>Streamlined with cacheRead()</h4>';
 // We can let the cache handle lots of the details. We just provide a function
 // that builds the content to be cached. The function can be any callback/closure.
 $key = 'module/codex/secondkey';
-echo $key . ' ' . $cache->cacheRead($key, 'getSomeContent') . '<br />';
+echo $key . ' ' . $cache->cacheRead($key, 'getSomeContent') . '<br>';
 
 echo '<h3>Simplify even more with Xmf</h3>';
 // Xmf provide cache simplified cache functions that automatically follow the
 // naming standard for module specific cache keys.
 $xmfCache = new \Xmf\Module\Helper\Cache();
 $key = 'xmfdemo';
-echo $key . ' ' . $xmfCache->cacheRead($key, 'getSomeContent') . '<br />';
+echo $key . ' ' . $xmfCache->cacheRead($key, 'getSomeContent') . '<br>';
 
 echo '<h3>Alternate Caches</h3>';
 // Xoops cache() method can take a name parameter, to choose a cache configuration.
@@ -87,9 +87,9 @@ echo '<h3>Alternate Caches</h3>';
 // The default cache definition is named 'default' and it will be used if no
 // name is specified to cache() or if no cache is defined for the specified name.
 $key = 'module/codex/alternate';
-echo $key . ' ' . $xoops->cache('alternate')->cacheRead($key, 'getSomeContent') . '<br />';
+echo $key . ' ' . $xoops->cache('alternate')->cacheRead($key, 'getSomeContent') . '<br>';
 
-echo '<br /><a href="?">Refresh</a> - <a href="?delete=1">Delete caches</a>';
+echo '<br><a href="?">Refresh</a> - <a href="?delete=1">Delete caches</a>';
 
 \Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

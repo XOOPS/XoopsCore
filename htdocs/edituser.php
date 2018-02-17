@@ -41,7 +41,7 @@ if ($op === 'saveuser') {
         $xoops->redirect(
             'index.php',
             3,
-            XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors())
+            XoopsLocale::E_NO_ACTION_PERMISSION . "<br>" . implode('<br>', $xoops->security()->getErrors())
         );
         exit();
     }
@@ -72,9 +72,9 @@ if ($op === 'saveuser') {
         $xoops->header();
         echo '<div>';
         foreach ($errors as $er) {
-            echo '<span class="red bold">' . $er . '</span><br />';
+            echo '<span class="red bold">' . $er . '</span><br>';
         }
-        echo '</div><br />';
+        echo '</div><br>';
         $op = 'editprofile';
     } else {
         $member_handler = $xoops->getHandlerMember();
@@ -125,7 +125,7 @@ if ($op === 'editprofile') {
     $form->addElement($uname_label);
     $name_text = new Xoops\Form\Text(XoopsLocale::REAL_NAME, 'name', 30, 60, $xoops->user->getVar('name', 'E'));
     $form->addElement($name_text);
-    $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
+    $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br>');
     if ($xoops->getConfig('allow_chgmail') == 1) {
         $email_text = new Xoops\Form\Text('', 'email', 30, 60, $xoops->user->getVar('email'));
     } else {
@@ -170,7 +170,7 @@ if ($op === 'editprofile') {
         150,
         $xoops->user->getVar('user_intrest', 'E')
     );
-    //$sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, '<br />');
+    //$sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, '<br>');
     $sig_tarea = new Xoops\Form\DhtmlTextArea(XoopsLocale::SIGNATURE, 'user_sig', $xoops->user->getVar('user_sig', 'E'));
     //$sig_tray->addElement($sig_tarea);
     $sig_cbox_value = $xoops->user->getVar('attachsig') ? 1 : 0;
@@ -181,7 +181,7 @@ if ($op === 'editprofile') {
     $pwd_text = new Xoops\Form\Password('', 'password');
     $pwd_text2 = new Xoops\Form\Password('', 'vpass');
     $pwd_tray = new Xoops\Form\ElementTray(
-        XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT
+        XoopsLocale::PASSWORD . '<br>' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT
     );
     $pwd_tray->addElement($pwd_text);
     $pwd_tray->addElement($pwd_text2);

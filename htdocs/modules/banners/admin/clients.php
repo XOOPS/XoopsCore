@@ -197,7 +197,7 @@ switch ($op) {
                 echo $xoops->confirm(
                     array("ok" => 1, "cid" => $cid, "op" => "delete"),
                     'clients.php',
-                    sprintf(_AM_BANNERS_CLIENTS_SUREDEL, $obj->getVar("bannerclient_name")) . '<br />'
+                    sprintf(_AM_BANNERS_CLIENTS_SUREDEL, $obj->getVar("bannerclient_name")) . '<br>'
                 );
             }
         } else {

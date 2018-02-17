@@ -51,7 +51,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
     }
 
     if ($errors) {
-        $msg = implode('<br />', $errors);
+        $msg = implode('<br>', $errors);
     } else {
         //update password
         $xoops->user->setVar('email', trim($_POST['newmail']));
@@ -76,7 +76,7 @@ if (!isset($_POST['submit']) || !isset($_POST['passwd'])) {
             $xoopsMailer->send();
 
         } else {
-            $msg = implode('<br />', $xoops->user->getErrors());
+            $msg = implode('<br>', $xoops->user->getErrors());
         }
     }
     $xoops->redirect(\XoopsBaseConfig::get('url') . '/modules/' . $xoops->module->getVar('dirname', 'n') . '/userinfo.php?uid=' . $xoops->user->getVar('uid'), 2, $msg);

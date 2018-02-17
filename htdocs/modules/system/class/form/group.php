@@ -136,7 +136,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
         }
         ksort($blocks_module);
 
-        $r_block_tray = new Xoops\Form\ElementTray(SystemLocale::BLOCK_ACCESS_RIGHTS, "<br /><br />");
+        $r_block_tray = new Xoops\Form\ElementTray(SystemLocale::BLOCK_ACCESS_RIGHTS, "<br><br>");
         $s_checkbox_all = new Xoops\Form\Checkbox('', "blocksbox", 1);
         $s_checkbox_all->addOption('allbox', XoopsLocale::ALL);
         $s_checkbox_all->setExtra(" onclick='xoopsCheckGroup(\"groupform\", \"blocksbox\" , \"read_bids[]\");' ");
@@ -151,7 +151,7 @@ class SystemGroupForm extends Xoops\Form\ThemeForm
                     . "title='ID: {$key}' rel='external'>{$value}</a>";
             }
             $r_block_checkbox = new Xoops\Form\Checkbox(
-                '<strong>' . $module_list[$mid] . '</strong><br />',
+                '<strong>' . $module_list[$mid] . '</strong><br>',
                 "read_bids[]",
                 $r_block_value
             );

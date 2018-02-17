@@ -49,7 +49,7 @@ switch ($op) {
     case 'maintenance_save':
         // Check security
         if (!$xoops->security()->check()) {
-            $xoops->redirect('center.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('center.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $admin_page->addItemButton(_AM_MAINTENANCE_CENTER_RETURN, 'center.php', 'application-view-detail');
         $admin_page->renderButton();

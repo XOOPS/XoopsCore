@@ -150,10 +150,10 @@ class Logger implements LoggerInterface
                         }
                     }
                 } else {
-                    echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br />";
+                    echo "<div style='color:#f0f0f0;background-color:#f0f0f0'>" . _XOOPS_FATAL_BACKTRACE . ":<br>";
                     foreach ($trace as $step) {
                         if (isset($step['file'])) {
-                            printf("%s (%d)\n<br />", $this->sanitizePath($step['file']), $step['line']);
+                            printf("%s (%d)\n<br>", $this->sanitizePath($step['file']), $step['line']);
                         }
                     }
                     echo '</div>';

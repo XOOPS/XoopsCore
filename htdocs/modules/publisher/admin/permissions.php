@@ -52,7 +52,7 @@ if ($catCount) {
 PublisherUtils::closeCollapsableBar('permissionstable_view', 'permissionsicon_view');
 
 // Submit Categories permissions
-echo "<br />\n";
+echo "<br>\n";
 PublisherUtils::openCollapsableBar('permissionstable_submit', 'permissionsicon_submit', _AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT, _AM_PUBLISHER_PERMISSIONS_CAT_SUBMIT_DSC);
 if ($catCount) {
     $form_submit = new Xoops\Form\GroupPermissionForm("", $publisher->getModule()->mid(), "item_submit", "", 'admin/permissions.php');
@@ -66,7 +66,7 @@ if ($catCount) {
 PublisherUtils::closeCollapsableBar('permissionstable_submit', 'permissionsicon_submit');
 
 // Moderators Categories permissions
-echo "<br />\n";
+echo "<br>\n";
 PublisherUtils::openCollapsableBar('permissionstable_moderation', 'permissionsicon_moderation', _AM_PUBLISHER_PERMISSIONS_CAT_MODERATOR, _AM_PUBLISHER_PERMISSIONS_CAT_MODERATOR_DSC);
 if ($catCount) {
     $form_submit = new Xoops\Form\GroupPermissionForm("", $publisher->getModule()->mid(), "category_moderation", "", 'admin/permissions.php');
@@ -80,7 +80,7 @@ if ($catCount) {
 PublisherUtils::closeCollapsableBar('permissionstable_moderation', 'permissionsicon_moderation');
 
 // Form permissions
-echo "<br />\n";
+echo "<br>\n";
 PublisherUtils::openCollapsableBar('permissionstable_form', 'permissionsicon_form', _AM_PUBLISHER_PERMISSIONS_FORM, _AM_PUBLISHER_PERMISSIONS_FORM_DSC);
 $form_options = array(
     _PUBLISHER_SUMMARY => _AM_PUBLISHER_SUMMARY,
@@ -117,7 +117,7 @@ echo $form_submit->render();
 PublisherUtils::closeCollapsableBar('permissionstable_form', 'permissionsicon_form');
 
 // Editors permissions
-echo "<br />\n";
+echo "<br>\n";
 PublisherUtils::openCollapsableBar('permissionstable_editors', 'permissions_editors', _AM_PUBLISHER_PERMISSIONS_EDITORS, _AM_PUBLISHER_PERMISSIONS_EDITORS_DSC);
 $editors = PublisherUtils::getEditors();
 $form_submit = new Xoops\Form\GroupPermissionForm("", $publisher->getModule()->mid(), "editors", "", 'admin/permissions.php');
@@ -128,7 +128,7 @@ echo $form_submit->render();
 PublisherUtils::closeCollapsableBar('permissionstable_editors', 'permissionsicon_editors');
 
 // Global permissions
-echo "<br />\n";
+echo "<br>\n";
 PublisherUtils::openCollapsableBar('permissionstable_global', 'permissionsicon_global', _AM_PUBLISHER_PERMISSIONS_GLOBAL, _AM_PUBLISHER_PERMISSIONS_GLOBAL_DSC);
 $form_options = array(
     _PUBLISHER_SEARCH => _AM_PUBLISHER_SEARCH,

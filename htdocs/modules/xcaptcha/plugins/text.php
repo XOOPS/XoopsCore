@@ -22,14 +22,14 @@ class XcaptchaText extends Xcaptcha
 
     public $plugin;
 
-    function __construct()
+    public function __construct()
     {
         $this->xcaptcha_handler = Xcaptcha::getInstance();
         $this->config = $this->xcaptcha_handler->loadConfig('text');
         $this->plugin = 'text';
     }
 
-    function VerifyData()
+    public function VerifyData()
     {
         $system = System::getInstance();
         $config = array();

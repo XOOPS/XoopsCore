@@ -61,7 +61,7 @@ define('_NOT_BOOKMARK_NOTIFYCAP', 'Bookmark this item (no notification).');
 define('_NOT_BOOKMARK_NOTIFYDSC', 'Keep track of this item without receiving any event notifications.');
 // For user profile
 // FIXME: These should be reworded a little...
-define('_NOT_NOTIFYMETHOD', 'Notification Method<br /> When you monitor e.g. a forum, how would you like to receive notifications of updates?');
+define('_NOT_NOTIFYMETHOD', 'Notification Method<br> When you monitor e.g. a forum, how would you like to receive notifications of updates?');
 define('_NOT_METHOD_EMAIL', 'Email (use address in my profile)');
 define('_NOT_METHOD_PM', 'Private Message');
 define('_NOT_METHOD_DISABLE', 'Temporarily Disable');

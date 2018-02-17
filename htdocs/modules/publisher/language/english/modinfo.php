@@ -40,9 +40,9 @@ define("_MI_PUBLISHER_CLONEDSC", "Select 'Yes' to allow users with appropriate p
 define("_MI_PUBLISHER_COLLHEAD", "Display the collapsable bar?");
 define("_MI_PUBLISHER_COLLHEADDSC", "If you set this option to 'Yes', the categories summary will be displayed in a collapsable bar as well as the articles. If you set this option to 'No', the collapsable bar will not be displayed.");
 define("_MI_PUBLISHER_COMMENTS", "Control comments at the article level?");
-define("_MI_PUBLISHER_COMMENTSDSC", "if you set this option to 'Yes', you'll see comments only on those items that have their comment checkbox marked. <br /><br />Select 'No' to have comments managed at the global level (look below under the tag 'Comment rules'.");
+define("_MI_PUBLISHER_COMMENTSDSC", "if you set this option to 'Yes', you'll see comments only on those items that have their comment checkbox marked. <br><br>Select 'No' to have comments managed at the global level (look below under the tag 'Comment rules'.");
 define("_MI_PUBLISHER_DATEFORMAT", "Date format:");
-define("_MI_PUBLISHER_DATEFORMATDSC", "Select a display style. Example: \"d-M-Y H:i\" translates to \"30-Mar-2004 22:35\"<br /><a href='http://jp.php.net/date'>Refer to the PHP manual for more display options.</a>");
+define("_MI_PUBLISHER_DATEFORMATDSC", "Select a display style. Example: \"d-M-Y H:i\" translates to \"30-Mar-2004 22:35\"<br><a href='http://jp.php.net/date'>Refer to the PHP manual for more display options.</a>");
 define("_MI_PUBLISHER_DEMO_SITE", "SmartFactory Demo Site");
 //define("_MI_PUBLISHER_DEVELOPER_CONTRIBUTOR", "Contributor(s)");
 //define("_MI_PUBLISHER_DEVELOPER_CREDITS", "Credits");

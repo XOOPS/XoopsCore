@@ -1160,7 +1160,7 @@ class SystemModule
                             $confop->setVar('confop_name', $key);
                             $confop->setVar('confop_value', $value);
                             $confobj->setConfOptions($confop);
-                            $confop_msgs .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;';
+                            $confop_msgs .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;';
                             $confop_msgs .= SystemLocale::S_CONFIG_OPTION_ADDED;
                             $confop_msgs .= '&nbsp;';
                             $confop_msgs .= XoopsLocale::C_NAME;

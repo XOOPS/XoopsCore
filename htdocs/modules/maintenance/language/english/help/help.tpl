@@ -1,7 +1,7 @@
 <h4>Description</h4>
 <p>
     Maintenance provides several basic functions to help you in maintaining your XOOPS installation and keep it healthy:
-    <br />
+    <br>
 </p>
 <ul>
   <li>You can clean cache folder. </li>

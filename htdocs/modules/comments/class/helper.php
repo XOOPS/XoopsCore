@@ -506,7 +506,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
                     $xoops->redirect(
                         \XoopsBaseConfig::get('url') . '/',
                         1,
-                        implode('<br />', $xoops->security()->getErrors())
+                        implode('<br>', $xoops->security()->getErrors())
                     );
                     break;
             }
@@ -574,12 +574,12 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
     public function renderHeader($title, $text, $uid, $timestamp)
     {
         $ret = '<table cellpadding="4" cellspacing="1" width="98%" class="outer">
-      <tr><td class="head">' . $title . '</td></tr><tr><td><br />';
+      <tr><td class="head">' . $title . '</td></tr><tr><td><br>';
         if ($uid) {
             $ret .= _MD_COMMENTS_POSTER . ': <strong>' . XoopsUser::getUnameFromId($uid) . '</strong>&nbsp;&nbsp;';
         }
         $ret .= _MD_COMMENTS_POSTED . ': <strong>' . XoopsLocale::formatTimestamp($timestamp)
-            . '</strong><br /><br />' . $text . '<br /></td></tr>';
+            . '</strong><br><br>' . $text . '<br></td></tr>';
         $ret .= '</table>';
         return $ret;
     }
@@ -986,7 +986,7 @@ class Comments extends Xoops\Module\Helper\HelperAbstract
 
                     $xoops->header();
                     echo $xoops->alert('info', $msgs);
-                    echo '<br /><a href="' . $redirect_page . '=' . $itemid . '&amp;com_order=' . $order
+                    echo '<br><a href="' . $redirect_page . '=' . $itemid . '&amp;com_order=' . $order
                         . '&amp;com_mode=' . $mode . '">' . XoopsLocale::GO_BACK . '</a>';
                     $xoops->footer();
                     break;

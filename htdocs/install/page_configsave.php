@@ -68,7 +68,7 @@ if (!@copy($settings['ROOT_PATH'] . '/mainfile.dist.php', $settings['ROOT_PATH']
                     $content = preg_replace("/(define\()([\"'])(XOOPS_{$key})\\2,\s*([\"'])(.*?)\\4\s*\)/", "define('XOOPS_{$key}', '{$val}')", $content);
                 } else {
                     //$this->error = true;
-                    //$this->report .= _NGIMG.sprintf( ERR_WRITING_CONSTANT, "<strong>$val</strong>")."<br />\n";
+                    //$this->report .= _NGIMG.sprintf( ERR_WRITING_CONSTANT, "<strong>$val</strong>")."<br>\n";
                 }
             }
         }
@@ -137,8 +137,7 @@ if (empty($error)) {
     $_SESSION['UserLogin'] = true;
     $settings['authorized'] = true;
     $wizard->cleanCache($rewrite['VAR_PATH']);
-    ob_start();
-    ?>
+    ob_start(); ?>
 
 <div class="caption"><?php echo SAVED_MAINFILE; ?></div>
 <div class='x2-note confirmMsg'><?php echo SAVED_MAINFILE_MSG; ?></div>
@@ -146,12 +145,11 @@ if (empty($error)) {
 
     <?php
     foreach ($settings as $k => $v) {
-    if ($k === 'authorized') {
-        continue;
-    }
-    echo "<li><strong>XOOPS_{$k}</strong> " . IS_VALOR . " {$v}</li>";
-}
-    ?>
+        if ($k === 'authorized') {
+            continue;
+        }
+        echo "<li><strong>XOOPS_{$k}</strong> " . IS_VALOR . " {$v}</li>";
+    } ?>
 </ul>
     <?php
         $content = ob_get_contents();

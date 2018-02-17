@@ -39,7 +39,7 @@
                     <div class="publisher_list" align="left">
                         <li><{$item.titlelink}></li>
                         <{if $show_subtitle && $item.subtitle}>
-                        <br /><em><{$item.subtitle}></em>
+                        <br><em><{$item.subtitle}></em>
                         <{/if}>
                     </div>
                 </td>

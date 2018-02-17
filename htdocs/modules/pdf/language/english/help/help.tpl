@@ -8,6 +8,6 @@
 </p>
 <h4>Preferences</h4>
 <p>
-    Pdf's preferences allow you to establish the default page parameters, orientation, size, fonts and more. Pdf uses the TCPDF package. For an in depth discussion of some of the options available in preferences, see this page:<br />
+    Pdf's preferences allow you to establish the default page parameters, orientation, size, fonts and more. Pdf uses the TCPDF package. For an in depth discussion of some of the options available in preferences, see this page:<br>
     <a href="http://www.tcpdf.org/">http://www.tcpdf.org/</a>
 </p>

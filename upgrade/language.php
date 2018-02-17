@@ -96,7 +96,6 @@ $available_languages = array(
     'zh-cn' => array('zh[-_]cn|chinese simplified', 'schinese'),
     );
 
-
 /**
  * Analyzes some PHP environment variables to find the most probable language
  * that should be used
@@ -106,6 +105,7 @@ $available_languages = array(
  * @global array    the list of available translations
  * @global string   the retained translation keyword
  * @access private
+ * @return int|string
  */
 function xoops_analyzeLanguage($str = '', $envType = '')
 {
@@ -115,7 +115,7 @@ function xoops_analyzeLanguage($str = '', $envType = '')
         // $envType =  1 for the 'HTTP_ACCEPT_LANGUAGE' environment variable,
         //             2 for the 'HTTP_USER_AGENT' one
         $expr = $value[0];
-        if (strpos($expr, '[-_]') === FALSE) {
+        if (strpos($expr, '[-_]') === false) {
             $expr = str_replace('|', '([-_][[:alpha:]]{2,3})?|', $expr);
         }
         if (($envType == 1 && eregi('^(' . $expr . ')(;q=[0-9]\\.[0-9])?$', $str))
@@ -149,7 +149,7 @@ function xoops_detectLanguage()
         reset($accepted);
         for ($i = 0; $i < $acceptedCnt; $i++) {
             $lang = xoops_analyzeLanguage($accepted[$i], 1);
-            if(strncasecmp($lang,'en',2)){
+            if (strncasecmp($lang, 'en', 2)) {
                 break;
             }
         }
@@ -164,5 +164,3 @@ function xoops_detectLanguage()
     }
     return $xoops_lang;
 }
-
-?>

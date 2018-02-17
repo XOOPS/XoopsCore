@@ -252,7 +252,7 @@ class PublisherMetagen
      * @var string $string Chaine de caractère
      * @return boolean
      */
-    static public function emptyString($var)
+    public static function emptyString($var)
     {
         return (strlen($var) > 0);
     }
@@ -267,7 +267,7 @@ class PublisherMetagen
      *
      * @return string short url for article
      */
-    static  function generateSeoTitle($title = '', $withExt = true)
+    public static function generateSeoTitle($title = '', $withExt = true)
     {
         // Transformation de la chaine en minuscule
         // Codage de la chaine afin d'éviter les erreurs 500 en cas de caractères imprévus
@@ -303,7 +303,7 @@ class PublisherMetagen
     public function purifyText($text, $keyword = false)
     {
         $text = str_replace('&nbsp;', ' ', $text);
-        $text = str_replace('<br />', ' ', $text);
+        $text = str_replace('<br>', ' ', $text);
         $text = strip_tags($text);
         $text = html_entity_decode($text);
         $text = $this->_myts->undoHtmlSpecialChars($text);

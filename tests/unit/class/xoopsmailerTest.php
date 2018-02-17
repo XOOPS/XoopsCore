@@ -205,7 +205,7 @@ class XoopsMailerTest extends \PHPUnit\Framework\TestCase
 
         $x = $instance->getErrors(true);
         $this->assertTrue(is_string($x));
-        $this->assertTrue(preg_match('#<h4>.*</h4>.*<br />#', $x) > 0);
+        $this->assertTrue(preg_match('#<h4>.*</h4>.*<br>#', $x) > 0);
 
         $prop = new ReflectionProperty(get_class($this->object), 'errors');
         $prop->setAccessible(true);
@@ -232,7 +232,7 @@ class XoopsMailerTest extends \PHPUnit\Framework\TestCase
 
         $x = $instance->getSuccess(true);
         $this->assertTrue(is_string($x));
-        $this->assertTrue(preg_match('#.*<br />#', $x) > 0);
+        $this->assertTrue(preg_match('#.*<br>#', $x) > 0);
 
         $prop = new ReflectionProperty(get_class($this->object), 'success');
         $prop->setAccessible(true);

@@ -22,24 +22,24 @@
  * @version     $Id$
  */
 
-include_once dirname(__FILE__) . "/pathcontroller.php";
+include_once __DIR__ . "/pathcontroller.php";
 
 class upgrade_230 extends xoopsUpgrade
 {
-    var $usedFiles = array('mainfile.php');
+    public $usedFiles = array('mainfile.php');
 
-    var $tasks = array('config', 'cache', 'path', 'db', 'bmlink');
+    public $tasks = array('config', 'cache', 'path', 'db', 'bmlink');
 
-    function upgrade_230()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(__DIR__));
     }
 
     /**
      * Check if cpanel config already exists
 
      */
-    function check_config()
+    public function check_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -55,7 +55,7 @@ class upgrade_230 extends xoopsUpgrade
      * Check if cache_model table already exists
 
      */
-    function check_cache()
+    public function check_cache()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -81,7 +81,7 @@ class upgrade_230 extends xoopsUpgrade
      * Check if primary key for `block_module_link` is already set
 
      */
-    function check_bmlink()
+    public function check_bmlink()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -100,7 +100,7 @@ class upgrade_230 extends xoopsUpgrade
         return false;
     }
 
-    function apply_bmlink()
+    public function apply_bmlink()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -129,7 +129,7 @@ class upgrade_230 extends xoopsUpgrade
         return true;
     }
 
-    function apply_config()
+    public function apply_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -165,18 +165,18 @@ class upgrade_230 extends xoopsUpgrade
         return $result;
     }
 
-    function apply_cache()
+    public function apply_cache()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
         $allowWebChanges = $db->allowWebChanges;
         $db->allowWebChanges = true;
-        $result = $db->queryFromFile(dirname(__FILE__) . "/mysql.structure.sql");
+        $result = $db->queryFromFile(__DIR__ . "/mysql.structure.sql");
         $db->allowWebChanges = $allowWebChanges;
         return $result;
     }
 
-    function check_path()
+    public function check_path()
     {
         if (!(defined("XOOPS_PATH") && defined("XOOPS_VAR_PATH") && defined("XOOPS_TRUST_PATH"))) {
             return false;
@@ -191,12 +191,12 @@ class upgrade_230 extends xoopsUpgrade
         return true;
     }
 
-    function apply_path()
+    public function apply_path()
     {
         return $this->update_configs('path');
     }
 
-    function check_db()
+    public function check_db()
     {
         $lines = file(XOOPS_ROOT_PATH . '/mainfile.php');
         foreach ($lines as $line) {
@@ -207,12 +207,12 @@ class upgrade_230 extends xoopsUpgrade
         return false;
     }
 
-    function apply_db()
+    public function apply_db()
     {
         return $this->update_configs('db');
     }
 
-    function update_configs($task)
+    public function update_configs($task)
     {
         if (!$vars = $this->set_configs($task)) {
             return false;
@@ -227,7 +227,7 @@ class upgrade_230 extends xoopsUpgrade
         return $this->write_mainfile($vars);
     }
 
-    function convert_db($charset, $collation)
+    public function convert_db($charset, $collation)
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -248,7 +248,7 @@ class upgrade_230 extends xoopsUpgrade
     }
 
     // Some code not ready to use
-    function convert_table($tables, $charset, $collation)
+    public function convert_table($tables, $charset, $collation)
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -324,21 +324,21 @@ class upgrade_230 extends xoopsUpgrade
         return $final_querys;
     }
 
-    function write_mainfile($vars)
+    public function write_mainfile($vars)
     {
         if (empty($vars)) {
             return false;
         }
 
-        $file = dirname(__FILE__) . '/mainfile.dist.php';
+        $file = __DIR__ . '/mainfile.dist.php';
 
         $lines = file($file);
         foreach (array_keys($lines) as $ln) {
             if (preg_match("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([0-9]+)\s*\)/", $lines[$ln], $matches)) {
-                $val = isset($vars[$matches[3]]) ? strval(constant($matches[3])) : (defined($matches[3]) ? strval(constant($matches[3])) : "0");
+                $val = isset($vars[$matches[3]]) ? (string)constant($matches[3]) : (defined($matches[3]) ? (string)constant($matches[3]) : "0");
                 $lines[$ln] = preg_replace("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([0-9]+)\s*\)/", "define( '" . $matches[3] . "', " . $val . " )", $lines[$ln]);
             } elseif (preg_match("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([\"'])([^\"']*?)\\4\s*\)/", $lines[$ln], $matches)) {
-                $val = isset($vars[$matches[3]]) ? strval($vars[$matches[3]]) : (defined($matches[3]) ? strval(constant($matches[3])) : "");
+                $val = isset($vars[$matches[3]]) ? (string)$vars[$matches[3]] : (defined($matches[3]) ? (string)constant($matches[3]) : "");
                 $lines[$ln] = preg_replace("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([\"'])(.*?)\\4\s*\)/", "define( '" . $matches[3] . "', '" . $val . "' )", $lines[$ln]);
             }
         }
@@ -358,10 +358,10 @@ class upgrade_230 extends xoopsUpgrade
         }
     }
 
-    function set_configs($task)
+    public function set_configs($task)
     {
         $ret = array();
-        $configs = include dirname(__FILE__) . "/settings_{$task}.php";
+        $configs = include __DIR__ . "/settings_{$task}.php";
         if (!$configs || !is_array($configs)) {
             return $ret;
         }

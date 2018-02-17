@@ -53,7 +53,7 @@ class SimpleForm extends Form
             /* @var $ele Element */
             if (!$ele->isHidden()) {
                 if (!$ele instanceof Raw) {
-                    $ret .= "<strong>" . $ele->getCaption() . "</strong><br />" . $ele->render() . "<br />\n";
+                    $ret .= "<strong>" . $ele->getCaption() . "</strong><br>" . $ele->render() . "<br>\n";
                 } else {
                     $ret .= $ele->render();
                 }

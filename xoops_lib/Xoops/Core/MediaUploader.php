@@ -44,7 +44,7 @@ namespace Xoops\Core;
  *           echo $uploader->getErrors();
  *        } else {
  *           echo '<h4>File uploaded successfully!</h4>'
- *           echo 'Saved as: ' . $uploader->getSavedFileName() . '<br />';
+ *           echo 'Saved as: ' . $uploader->getSavedFileName() . '<br>';
  *           echo 'Full path: ' . $uploader->getSavedDestination();
  *        }
  * } else {
@@ -589,7 +589,7 @@ class MediaUploader
                 $ret = '<h4>'
                 . sprintf(\XoopsLocale::EF_ERRORS_RETURNED_WHILE_UPLOADING_FILE, $this->mediaName) . '</h4>';
                 foreach ($this->errors as $error) {
-                    $ret .= $error . '<br />';
+                    $ret .= $error . '<br>';
                 }
             }
             return $ret;

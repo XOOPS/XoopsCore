@@ -4,12 +4,12 @@
            <tr>
                <td style="border-top:1px;text-align: center;width: 100%;">
                     <{translate key="PRINT_COMES" dirname="page"}> <{$xoops_sitename}>
-                    <br />
+                    <br>
                     <a href="<{$xoops_url}>" title="<{$xoops_sitename}>"><{$xoops_url}></a>
-                    <br />
-                    <br />
+                    <br>
+                    <br>
                     <{translate key="PRINT_URL" dirname="page"}>
-                    <br />
+                    <br>
                     <a href="<{$xoops_url}>/modules/page/viewpage.php?id=<{$content_id}>" title="<{$xoops_sitename}>"><{$xoops_url}>/modules/page/viewpage.php?id=<{$content_id}></a>
                </td>
            </tr>
@@ -19,10 +19,10 @@
         <tr >
             <td colspan="2" style="text-align: center;">
                 <img src="<{xoImgUrl 'images/logo.png'}>" alt="<{$xoops_sitename}>" />
-                <br />
-                <br />
-                <br />
-                <br />
+                <br>
+                <br>
+                <br>
+                <br>
             </td>
         </tr>
         <{if $content_dotitle || $content_dorating}>
@@ -50,10 +50,10 @@
                     </ul>
                 <{/if}>
                 <{$content_shorttext}>
-                <br />
+                <br>
                 <{$content_text}>
-                <br />
-                <br />
+                <br>
+                <br>
             </td>
         </tr>
         <{if $content_doauthor || $content_dodate || $content_dohits || $content_doncoms}>

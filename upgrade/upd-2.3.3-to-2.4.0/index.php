@@ -25,13 +25,13 @@
 
 class upgrade_240 extends xoopsUpgrade
 {
-    var $tasks = array('keys');
+    public $tasks = array('keys');
 
     /**
      * Check if keys already exist
 
      */
-    function check_keys()
+    public function check_keys()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -63,7 +63,7 @@ class upgrade_240 extends xoopsUpgrade
      * Apply keys that are missing
 
      */
-    function apply_keys()
+    public function apply_keys()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -94,9 +94,9 @@ class upgrade_240 extends xoopsUpgrade
         return true;
     }
 
-    function upgrade_240()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(__DIR__));
     }
 }
 

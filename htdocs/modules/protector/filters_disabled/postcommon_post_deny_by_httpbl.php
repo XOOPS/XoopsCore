@@ -24,7 +24,7 @@ define('PROTECTOR_HTTPBL_KEY', '............');
 
 class protector_postcommon_post_deny_by_httpbl extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
 

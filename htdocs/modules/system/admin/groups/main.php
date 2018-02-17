@@ -157,7 +157,7 @@ switch ($op) {
     //Save a new group
     case 'groups_save_add':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=groups', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=groups', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $system_catids = $system->cleanVars($_POST, 'system_catids', array(), 'array');
         $admin_mids = $system->cleanVars($_POST, 'admin_mids', array(), 'array');
@@ -223,7 +223,7 @@ switch ($op) {
     //Save a edit group
     case 'groups_save_update':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=groups', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=groups', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $system_catids = $system->cleanVars($_POST, 'system_catids', array(), 'array');
         $admin_mids = $system->cleanVars($_POST, 'admin_mids', array(), 'array');
@@ -350,7 +350,7 @@ switch ($op) {
                         "op" => "groups_delete"
                     ),
                     'admin.php?fct=groups',
-                    SystemLocale::Q_ARE_YOU_SURE_DELETE_THIS_GROUP . '<br />' . $obj->getVar("name") . '<br />'
+                    SystemLocale::Q_ARE_YOU_SURE_DELETE_THIS_GROUP . '<br>' . $obj->getVar("name") . '<br>'
                 );
             }
         } else {

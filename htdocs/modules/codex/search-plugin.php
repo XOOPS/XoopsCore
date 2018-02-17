@@ -20,13 +20,13 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 echo "
-Since 2.6.0, the search functionality was removed from core.<br />
-Now you need to install the 'Search' Module to get search functionality<br />
-<br />
-The method for implementing search does no longer uses xoops_version.php<br />
-The 'Search' module provides a 'Plugin' interface that modules should implement<br />
-The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
-<br />
+Since 2.6.0, the search functionality was removed from core.<br>
+Now you need to install the 'Search' Module to get search functionality<br>
+<br>
+The method for implementing search does no longer uses xoops_version.php<br>
+The 'Search' module provides a 'Plugin' interface that modules should implement<br>
+The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br>
+<br>
 See how Codex module hooks into the search module just by using this codex/class/plugin/search.php
 ";
 

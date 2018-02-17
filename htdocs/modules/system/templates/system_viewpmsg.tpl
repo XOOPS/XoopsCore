@@ -1,10 +1,10 @@
 <h4 class="txtcenter">{translate key='PRIVATE_MESSAGES'}</h4>
-<br />
+<br>
 <ul class="breadcrumb">
     <li><a href="userinfo.php?uid={$xoops_userid}">{translate key='PROFILE'}</a></li>
     <li class="active">{translate key="INBOX"}</li>
 </ul>
-<br />
+<br>
 {if $display|default:false}
 <form name='prvmsg' method='post' action='viewpmsg.php'>
     <table class="table table-striped table-bordered table-condensed">

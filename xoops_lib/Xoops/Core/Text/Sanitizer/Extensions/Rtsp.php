@@ -107,7 +107,7 @@ EOH;
         <param NAME="SRC" VALUE="%1$s">
         <embed autostart="0" src="%1$s" type="audio/x-pn-realaudio-plugin" HEIGHT="%3$s" WIDTH="%2$s" controls="ImageWindow" console="cons"> </embed>
     </object>
-    <br />
+    <br>
     <object CLASSID=clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA HEIGHT=32 ID=Player WIDTH="%2$s" VIEWASTEXT>
         <param NAME="_ExtentX" VALUE="18256">
         <param NAME="_ExtentY" VALUE="794">

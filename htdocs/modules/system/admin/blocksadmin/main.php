@@ -271,7 +271,7 @@ switch ($op) {
 
     case 'preview':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=blocksadmin', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=blocksadmin', 3, implode('<br>', $xoops->security()->getErrors()));
             exit();
         }
         // Initialize blocks handler
@@ -288,7 +288,7 @@ switch ($op) {
 
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=blocksadmin', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=blocksadmin', 3, implode('<br>', $xoops->security()->getErrors()));
             exit();
         }
         // Initialize blocks handler
@@ -480,7 +480,7 @@ switch ($op) {
 
     case 'delete_ok':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=blocksadmin', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=blocksadmin', 3, implode('<br>', $xoops->security()->getErrors()));
             exit();
         }
         // Initialize blocks handler

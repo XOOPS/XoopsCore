@@ -1,7 +1,7 @@
 <{include file="admin:system/admin_navigation.tpl"}>
 <{include file="admin:system/admin_tips.tpl"}>
 <{include file="admin:system/admin_buttons.tpl"}>
-<br />
+<br>
 <{$info_msg|default:''}>
 <{$error_msg|default:''}>
 <{if $client_count|default:false}>

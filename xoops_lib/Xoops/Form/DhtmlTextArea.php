@@ -174,7 +174,7 @@ class DhtmlTextArea extends \XoopsEditor
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
         $ret = "";
         // actions
-        $ret .= $this->codeIcon() . "<br />\n";
+        $ret .= $this->codeIcon() . "<br>\n";
         // fonts
         $ret .= $this->fontArray();
         // length checker
@@ -199,7 +199,7 @@ class DhtmlTextArea extends \XoopsEditor
                 $xoops->theme()->addScript('media/xoops/image.js', array('type' => 'text/javascript'));
             }
             $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn btn-sm btn-default' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int)($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
-            $ret .= "<br />" . "<div id='" . $this->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $this->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
+            $ret .= "<br>" . "<div id='" . $this->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $this->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
         }
         // Load javascript
         if (empty($js_loaded)) {
@@ -318,7 +318,7 @@ class DhtmlTextArea extends \XoopsEditor
         $alignStr = "<img src='" . \XoopsBaseConfig::get('url') . "/images/alignleft.gif' alt='" . \XoopsLocale::LEFT . "' title='" . \XoopsLocale::LEFT . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeLeft(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
         $alignStr .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/aligncenter.gif' alt='" . \XoopsLocale::CENTER . "' title='" . \XoopsLocale::CENTER . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeCenter(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
         $alignStr .= "<img src='" . \XoopsBaseConfig::get('url') . "/images/alignright.gif' alt='" . \XoopsLocale::RIGHT . "' title='" . \XoopsLocale::RIGHT . "' onmouseover='style.cursor=\"hand\"' onclick='xoopsMakeRight(\"{$hiddentext}\", \"{$textarea_id}\");' />&nbsp;";
-        $fontStr = $fontStr . "<br />\n{$styleStr}&nbsp;{$alignStr}&nbsp;\n";
+        $fontStr = $fontStr . "<br>\n{$styleStr}&nbsp;{$alignStr}&nbsp;\n";
         return $fontStr;
     }
 

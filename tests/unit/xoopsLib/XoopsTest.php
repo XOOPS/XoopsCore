@@ -114,7 +114,7 @@ class XoopsTest extends \PHPUnit\Framework\TestCase
         $value = $instance->setTpl($tpl);
         $this->assertSame($tpl, $value);
 
-        $value1 = $instance->Tpl();
+        $value1 = $instance->tpl();
         $this->assertSame($value, $value1);
     }
 

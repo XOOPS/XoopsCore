@@ -1,11 +1,11 @@
 <h4 class="txtcenter">{translate key='PRIVATE_MESSAGES'}</h4>
-<br />
+<br>
 <ul class="breadcrumb">
     <li><a href="userinfo.php?uid={$xoops_userid}">{translate key='PROFILE'}</a></span></li>
     <li><a href='viewpmsg.php'>{translate key="INBOX"}</a></li>
     <li class="active">{$subject}</li>
 </ul>
-<br />
+<br>
 
 {$error_msg|default:false}
 {if $read|default:false}
@@ -14,15 +14,15 @@
         <div class="col-md-4">
             {translate key="FROM"}
             {if $poster|default:false}
-                <a href='{$xoops_url}/userinfo.php?uid={$poster->getVar("uid")}'>{$poster->getVar("uname")}</a><br />
+                <a href='{$xoops_url}/userinfo.php?uid={$poster->getVar("uid")}'>{$poster->getVar("uname")}</a><br>
                 {if ( $poster_avatar != "" ) }
-                    <img src="{$poster_avatar}" alt='' /><br />
+                    <img src="{$poster_avatar}" alt='' /><br>
                 {/if}
                 {if ( $poster->getVar("user_from") != "" ) }
-                    {translate key='C_FROM'}{$poster->getVar("user_from")}<br /><br />
+                    {translate key='C_FROM'}{$poster->getVar("user_from")}<br><br>
                 {/if}
                 {if ( $poster->isOnline() ) }
-                    <span class='bold red'>{translate key='ONLINE'}</span><br /><br />
+                    <span class='bold red'>{translate key='ONLINE'}</span><br><br>
                 {/if}
             {else}
                 {$anonymous}

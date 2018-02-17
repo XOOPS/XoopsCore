@@ -7,5 +7,5 @@
     </a>
     <{/foreach}>
 </div>
-<br />&nbsp;<br />
+<br>&nbsp;<br>
 <{/if}>

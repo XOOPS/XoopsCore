@@ -486,7 +486,7 @@ abstract class Form implements ContainerInterface
             /* @var Element $ele */
             $ele_name = $ele->getName();
             $ele_description = $ele->getDescription();
-            $n = $ele_name ? $ele_name : $i;
+            $n = $ele_name ?: $i;
             $elements[$n]['name'] = $ele_name;
             $elements[$n]['caption'] = $ele->getCaption();
             $elements[$n]['body'] = $ele->render();

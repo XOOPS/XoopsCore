@@ -75,7 +75,7 @@ $myts = MyTextSanitizer::getInstance();
     <div><?php echo genPathCheckHtml('data', $ctrl->validPath['data'] ); ?></div>
     <?php if ( $ctrl->validPath['data'] && !empty( $ctrl->permErrors['data'] ) ) { ?>
     <div id="dataperms" class="x2-note">
-    <?php echo CHECKING_PERMISSIONS . '<br /><p>' . ERR_NEED_WRITE_ACCESS . '</p>'; ?>
+    <?php echo CHECKING_PERMISSIONS . '<br><p>' . ERR_NEED_WRITE_ACCESS . '</p>'; ?>
     <ul class="diags">
     <?php foreach ( $ctrl->permErrors['data'] as $path => $result ) {
         if ( $result ) {
@@ -92,7 +92,7 @@ $myts = MyTextSanitizer::getInstance();
 
     <label for="lib"><?php echo XOOPS_LIB_PATH_LABEL; ?></label>
     <div class="xoform-help"><?php echo $myts->htmlspecialchars(XOOPS_LIB_PATH_HELP, ENT_QUOTES, _UPGRADE_CHARSET, false ); ?></div>
-    <span class="bold"><?php echo $ctrl->xoopsPath['lib']; ?></span><br />
+    <span class="bold"><?php echo $ctrl->xoopsPath['lib']; ?></span><br>
     <span><?php echo genPathCheckHtml( 'lib', $ctrl->validPath['lib'] ); ?></span>
 
 </fieldset>

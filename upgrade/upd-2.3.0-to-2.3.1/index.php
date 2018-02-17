@@ -24,18 +24,18 @@
 
 class upgrade_231 extends xoopsUpgrade
 {
-    var $tasks = array('field');
+    public $tasks = array('field');
 
-    function upgrade_231()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(__DIR__));
     }
 
     /**
      * Check if field type already fixed for mysql strict mode
 
      */
-    function check_field()
+    public function check_field()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -63,13 +63,13 @@ class upgrade_231 extends xoopsUpgrade
         return true;
     }
 
-    function apply_field()
+    public function apply_field()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
         $allowWebChanges = $db->allowWebChanges;
         $db->allowWebChanges = true;
-        $result = $db->queryFromFile(dirname(__FILE__) . "/mysql.structure.sql");
+        $result = $db->queryFromFile(__DIR__ . "/mysql.structure.sql");
         $db->allowWebChanges = $allowWebChanges;
         return $result;
     }

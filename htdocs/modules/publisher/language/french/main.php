@@ -37,7 +37,7 @@ define("_MD_PUBLISHER_INDEX_ITEMS", "Derniers articles publiés");
 
 define("_MD_PUBLISHER_ITEM", "article");
 define("_MD_PUBLISHER_ITEM_RECEIVED_AND_PUBLISHED", "Votre article a été envoyé et publié automatiquement. Je vous remercie pour votre contribution!");
-define("_MD_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Votre article a été envoyé et sera publié après approbation par un modérateur. <br /> Merci pour votre contribution!");
+define("_MD_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Votre article a été envoyé et sera publié après approbation par un modérateur. <br> Merci pour votre contribution!");
 define("_MD_PUBLISHER_ITEMMODIFIED", "l'article a été modifié avec succès!");
 define("_MD_PUBLISHER_ITEMS", "Articles");
 define("_MD_PUBLISHER_ITEMS_INFO", "Voici les articles dans cette catégorie.");
@@ -49,7 +49,7 @@ define("_MD_PUBLISHER_LAST_SMARTITEM", "Dernier article publié");
 define("_MD_PUBLISHER_NEED_CATEGORY_ITEM", "Pour créer un article, vous devez avoir l'autorisation d'au moins une catégorie.");
 define("_MD_PUBLISHER_NEXT_ITEM", "Article suivant");
 define("_MD_PUBLISHER_NO", "Non");
-define("_MD_PUBLISHER_NO_CAT_EXISTS", "Désolé, il n'y a pas de catégorie // définie comme telle. <br /> s'il vous plaît contactez l'administrateur du site pour lui en faire part.");
+define("_MD_PUBLISHER_NO_CAT_EXISTS", "Désolé, il n'y a pas de catégorie // définie comme telle. <br> s'il vous plaît contactez l'administrateur du site pour lui en faire part.");
 define("_MD_PUBLISHER_NO_CAT_PERMISSIONS", "Désolé, vous ne disposez pas des autorisations pour accéder à cette zone.");
 define("_MD_PUBLISHER_NO_TOP_PERMISSIONS", "Désolé, il n'y a pas d'article à afficher.");
 define("_MD_PUBLISHER_NOCATEGORYSELECTED", "Vous n'avez pas sélectionné une catégorie valide!");

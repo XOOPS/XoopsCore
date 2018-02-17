@@ -47,7 +47,7 @@ $pm_handler = $xoops->getModuleHandler('message');
 
 if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST['msg_ids']))) {
     if (!$xoops->security()->check()) {
-        $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
+        $xoops->tpl()->assign('errormsg', implode('<br>', $xoops->security()->getErrors()));
     } else {
         if (empty($_REQUEST['ok'])) {
             echo $xoops->confirm(array(
@@ -68,7 +68,7 @@ if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST
                     $pm_handler->setTodelete($pm);
                 } else {
                     if ($pm->getVar('from_userid') == $xoops->user->getVar('uid')) {
-                        $pm_handler->setFromdelete($pm);
+                        $pm_handler->setFromDelete($pm);
                     }
                 }
                 unset($pm);
@@ -79,7 +79,7 @@ if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST
 }
 if (isset($_POST['move_messages']) && isset($_POST['msg_id'])) {
     if (!$xoops->security()->check()) {
-        $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
+        $xoops->tpl()->assign('errormsg', implode('<br>', $xoops->security()->getErrors()));
     } else {
         $size = count($_POST['msg_id']);
         $msg = $_POST['msg_id'];
@@ -125,7 +125,7 @@ if (isset($_POST['move_messages']) && isset($_POST['msg_id'])) {
 }
 if (isset($_REQUEST['empty_messages'])) {
     if (!$xoops->security()->check()) {
-        $xoops->tpl()->assign('errormsg', implode('<br />', $xoops->security()->getErrors()));
+        $xoops->tpl()->assign('errormsg', implode('<br>', $xoops->security()->getErrors()));
     } else {
         if (empty($_REQUEST['ok'])) {
             echo $xoops->confirm(array(
@@ -175,7 +175,7 @@ if (isset($_REQUEST['empty_messages'])) {
                             $pm_handler->setFromsave($pms[$i], 0);
                         } else {
                             if ($_POST['op'] === 'out') {
-                                $pm_handler->setFromdelete($pms[$i]);
+                                $pm_handler->setFromDelete($pms[$i]);
                             }
                         }
                     }

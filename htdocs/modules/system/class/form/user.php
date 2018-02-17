@@ -87,7 +87,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
 
         $this->addElement(new Xoops\Form\Text(XoopsLocale::USER_NAME, "username", 4, 25, $uname_value), true);
         $this->addElement(new Xoops\Form\Text(XoopsLocale::NAME, "name", 5, 60, $name_value));
-        $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, "<br />");
+        $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, "<br>");
         $email_text = new Xoops\Form\Text("", "email", 5, 60, $email_value);
         $email_tray->addElement($email_text, true);
         $email_cbox = new Xoops\Form\Checkbox("", "user_viewemail", $email_cbox_value);
@@ -103,7 +103,7 @@ class SystemUserForm extends Xoops\Form\ThemeForm
         $this->addElement(new Xoops\Form\Text(XoopsLocale::LOCATION, "user_from", 5, 100, $location_value));
         $this->addElement(new Xoops\Form\Text(XoopsLocale::OCCUPATION, "user_occ", 5, 100, $occ_value));
         $this->addElement(new Xoops\Form\Text(XoopsLocale::INTEREST, "user_intrest", 5, 150, $interest_value));
-        $sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, "<br />");
+        $sig_tray = new Xoops\Form\ElementTray(XoopsLocale::SIGNATURE, "<br>");
         $sig_tarea = new Xoops\Form\TextArea("", "user_sig", $sig_value, 5, 5);
         $sig_tray->addElement($sig_tarea);
         $sig_cbox = new Xoops\Form\Checkbox("", "attachsig", $sig_cbox_value);

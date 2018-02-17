@@ -49,6 +49,7 @@ switch ($op) {
         $form->display();
         /* fallthrough */
 
+        // no break
     case "new":
         $xoops->loadLanguage("main", $xoops->module->getVar('dirname', 'n'));
         include_once dirname(__DIR__) . '/include/forms.php';
@@ -76,8 +77,8 @@ switch ($op) {
             $xoops->redirect(
                 'user.php',
                 3,
-                XoopsLocale::E_NO_ACTION_PERMISSION . "<br />"
-                . implode('<br />', $xoops->security()->getErrors())
+                XoopsLocale::E_NO_ACTION_PERMISSION . "<br>"
+                . implode('<br>', $xoops->security()->getErrors())
             );
             exit;
         }
@@ -231,7 +232,6 @@ switch ($op) {
             } else {
                 echo $profile->getHtmlErrors();
             }
-
         } else {
             echo $xoops->confirm(
                 array('ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'),

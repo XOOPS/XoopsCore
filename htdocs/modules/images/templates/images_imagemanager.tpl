@@ -52,6 +52,6 @@ function appendCode(addCode) {
 
 
     <div class="txtcenter">
-        <br />
+        <br>
         <input class="btn btn-primary" value="<{$smarty.const._IMAGES_CLOSE}>" type="button" onclick="javascript:window.close();" />
     </div>

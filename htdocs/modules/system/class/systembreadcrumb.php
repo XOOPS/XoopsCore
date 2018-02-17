@@ -31,9 +31,9 @@ class SystemBreadcrumb
      */
     private $_bread = array();
 
-    var $_help;
+    public $_help;
 
-    var $_tips;
+    public $_tips;
 
     /**
      * Actual System BreadCrumb Object
@@ -55,7 +55,7 @@ class SystemBreadcrumb
      * @staticvar SystemBreadcrumb
      * @return SystemBreadcrumb
      */
-    static public function getInstance($fct = '')
+    public static function getInstance($fct = '')
     {
         static $instance;
         if (!isset($instance)) {
@@ -74,7 +74,7 @@ class SystemBreadcrumb
      * Add link to breadcrumb
 
      */
-    function addLink($title = '', $link = '', $home = false)
+    public function addLink($title = '', $link = '', $home = false)
     {
         $this->_bread[] = array(
             'link' => $link, 'title' => $title, 'home' => $home
@@ -85,7 +85,7 @@ class SystemBreadcrumb
      * Add Help link
 
      */
-    function addHelp($link = '')
+    public function addHelp($link = '')
     {
         $this->_help = $link;
     }
@@ -94,7 +94,7 @@ class SystemBreadcrumb
      * Add Tips
 
      */
-    function addTips($value)
+    public function addTips($value)
     {
         $this->_tips = $value;
     }
@@ -103,7 +103,7 @@ class SystemBreadcrumb
      * Render System BreadCrumb
 
      */
-    function render()
+    public function render()
     {
         $xoops = Xoops::getInstance();
         if ($xoops->tpl()) {

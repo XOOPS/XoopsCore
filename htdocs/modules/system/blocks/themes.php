@@ -33,12 +33,12 @@ function b_system_themes_show($options)
     }
     $block = array();
     if ($options[0] == 1) {
-        $block['theme_select'] = "<img vspace=\"2\" id=\"xoops_theme_img\" src=\"" . \XoopsBaseConfig::get('themes-url') . "/" . $xoops->getConfig('theme_set') . "/screenshot.png\" alt=\"screenshot\" width=\"" . (int)($options[1]) . "\" /><br /><select class=\"span2\" id=\"xoops_theme_select\" name=\"xoops_theme_select\" onchange=\"showImgSelected('xoops_theme_img', 'xoops_theme_select', 'themes', '/screenshot.png', '" . \XoopsBaseConfig::get('url') . "');\">" . $theme_options . "</select><br /><input type=\"submit\" value=\"" . XoopsLocale::A_GO . "\" />";
+        $block['theme_select'] = "<img vspace=\"2\" id=\"xoops_theme_img\" src=\"" . \XoopsBaseConfig::get('themes-url') . "/" . $xoops->getConfig('theme_set') . "/screenshot.png\" alt=\"screenshot\" width=\"" . (int)($options[1]) . "\" /><br><select class=\"span2\" id=\"xoops_theme_select\" name=\"xoops_theme_select\" onchange=\"showImgSelected('xoops_theme_img', 'xoops_theme_select', 'themes', '/screenshot.png', '" . \XoopsBaseConfig::get('url') . "');\">" . $theme_options . "</select><br><input type=\"submit\" value=\"" . XoopsLocale::A_GO . "\" />";
     } else {
         $block['theme_select'] = '<select class="span2" name="xoops_theme_select" onchange="submit();" size="3">' . $theme_options . '</select>';
     }
 
-    $block['theme_select'] .= '<br />(' . sprintf(SystemLocale::F_THEMES, '<strong>' . count($theme_set_allowed) . '</strong>') . ')<br />';
+    $block['theme_select'] .= '<br>(' . sprintf(SystemLocale::F_THEMES, '<strong>' . count($theme_set_allowed) . '</strong>') . ')<br>';
     return $block;
 }
 

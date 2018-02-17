@@ -237,7 +237,7 @@ switch ($op) {
         $error_msg = '';
         $obj->setVar("banner_cid", Request::getInt('cid', 0));
         if (preg_match('/^[0-9]*[0-9]+$|^[0-9]+[0-9]*$/', $_POST["imptotal"]) == false) {
-            $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br />';
+            $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br>';
             $obj->setVar("banner_imptotal", 0);
         } else {
             $obj->setVar("banner_imptotal", Request::getInt('imptotal', 0));

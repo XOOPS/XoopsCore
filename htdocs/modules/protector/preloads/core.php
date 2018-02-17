@@ -36,7 +36,7 @@ class ProtectorCorePreload extends PreloadItem
      *
      * @param $args
      */
-    static function eventCoreIncludeCommonStart($args)
+    public static function eventCoreIncludeCommonStart($args)
     {
         $xoops = Xoops::getInstance();
         include $xoops->path('modules/protector/include/precheck.inc.php');
@@ -47,7 +47,7 @@ class ProtectorCorePreload extends PreloadItem
      *
      * @param $args
      */
-    static function eventCoreIncludeCommonEnd($args)
+    public static function eventCoreIncludeCommonEnd($args)
     {
         $xoops = Xoops::getInstance();
         include $xoops->path('modules/protector/include/postcheck.inc.php');
@@ -58,7 +58,7 @@ class ProtectorCorePreload extends PreloadItem
      *
      * @param $args
      */
-    static function eventCoreClassDatabaseDatabasefactoryConnection($args)
+    public static function eventCoreClassDatabaseDatabasefactoryConnection($args)
     {
         // Protector class
         require_once dirname(__DIR__) . '/class/protector.php';

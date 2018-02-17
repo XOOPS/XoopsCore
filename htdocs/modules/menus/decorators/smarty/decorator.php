@@ -20,23 +20,23 @@
 
 class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
-    function hasAccess($menu, &$hasAccess)
+    public function hasAccess($menu, &$hasAccess)
     {
     }
 
-    function accessFilter(&$accessFilter)
+    public function accessFilter(&$accessFilter)
     {
     }
 
-    function start()
+    public function start()
     {
     }
 
-    function end(&$menus)
+    public function end(&$menus)
     {
     }
 
-    function decorateMenu(&$menu)
+    public function decorateMenu(&$menu)
     {
         $decorations = array('link', 'image', 'title', 'alt_title');
         foreach ($decorations as $decoration) {
@@ -44,7 +44,7 @@ class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecora
         }
     }
 
-    function _doDecoration($string)
+    public function _doDecoration($string)
     {
         $xoops = Xoops::getInstance();
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
@@ -56,11 +56,10 @@ class MenusSmartyDecorator extends MenusDecoratorAbstract implements MenusDecora
 
         if ($validator === 'smarty') {
             if (isset($xoops->tpl()->_tpl_vars[$value])) {
-               $string = str_replace($expression, $xoops->tpl()->_tpl_vars[$value], $string);
+                $string = str_replace($expression, $xoops->tpl()->_tpl_vars[$value], $string);
             }
         }
 
         return $string;
     }
-
 }

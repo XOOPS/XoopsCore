@@ -1,12 +1,12 @@
 <?php
 $_SERVER["HTTP_HOST"]="localhost";
-require_once(dirname(__FILE__).'/init_new.php');
+require_once(__DIR__ . '/init_new.php');
 
 function verify($file, $path)
 {
 	$tmp = basename($file,'.php');
 	$path1 = str_replace('xoops_lib','xoopsLib',$path);
-	$pattern = dirname(__FILE__). DIRECTORY_SEPARATOR .$path1. DIRECTORY_SEPARATOR .$tmp.'*Test*.php';
+	$pattern = __DIR__ . DIRECTORY_SEPARATOR . $path1 . DIRECTORY_SEPARATOR . $tmp . '*Test*.php';
 	$founds = glob($pattern);
 	$ok = !empty($founds);
 	$tmp = $ok ? 'Test OK :' : 'Test not found : ';

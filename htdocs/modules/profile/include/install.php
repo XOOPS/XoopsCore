@@ -87,15 +87,16 @@ function profile_install_initializeProfiles()
 
 // canedit: 0 - no; 1 - admin; 2 - admin & owner
 /**
- * @param string $name
- * @param string $description
+ * @param string  $name
+ * @param string  $description
  * @param integer $category
- * @param string $type
+ * @param string  $type
  * @param integer $valuetype
  * @param integer $weight
  * @param integer $canedit
  * @param integer $step_id
  * @param integer $length
+ * @return bool
  */
 function profile_install_addField($name, $title, $description, $category, $type, $valuetype, $weight, $canedit, $options, $step_id, $length, $visible = true)
 {

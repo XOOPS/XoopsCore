@@ -344,7 +344,15 @@ class XoopsCaptchaImageHandler
             $posY = 2 + ($this->height / 2) + ($CharHeight / 4);
 
             imagefttext(
-                $this->oImage, $FontSize, $Angle, $posX, $posY, $text_color, $this->font, $this->code[$i], array()
+                $this->oImage,
+                $FontSize,
+                $Angle,
+                $posX,
+                $posY,
+                $text_color,
+                $this->font,
+                $this->code[$i],
+                array()
             );
         }
     }

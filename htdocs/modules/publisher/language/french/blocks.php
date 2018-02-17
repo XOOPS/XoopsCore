@@ -45,7 +45,7 @@ define("_MB_PUBLISHER_WHO_WHEN", "Affiché par %s le %s");
 
 //define("_MB_PUBLISHER_FILES", "fichiers");
 define("_MB_PUBLISHER_DIRECTDOWNLOAD", "Lien direct pour télécharger le fichier au lieu d'un lien vers l'article ?");
-define("_MB_PUBLISHER_FROM", "Afficher les articles <br />à partir du ");
+define("_MB_PUBLISHER_FROM", "Afficher les articles <br>à partir du ");
 define("_MB_PUBLISHER_UNTIL", "jusqu'au ");
 //define("_MB_PUBLISHER_DATE_FORMAT", "Le format de la date doit être mm/dd/yyy");
 define("_MB_PUBLISHER_ARTICLES_FROM_TO", "Articles publiées entre %s et %s");
@@ -97,10 +97,10 @@ define("_MB_PUBLISHER_SCROLL_UP", "Haut");
 define("_MB_PUBLISHER_SCROLL_DOWN", "Bas");
 define("_MB_PUBLISHER_SELECTEDSTORIES", "Régler les identifiants des articles (par exemple: 3,8,23,46) note: régler à 0 pour tout montrer ");
 define("_MB_PUBLISHER_IMGDISPLAY", "Voir l'image de l'article");
-define("_MB_PUBLISHER_GENERALCONFIG", "<strong> Options générales </ strong>");
-define("_MB_PUBLISHER_PHOTOSCONFIG", "Images <strong> Options </ strong>");
-define("_MB_PUBLISHER_LINKSCONFIG", "Options <strong> Liens </ strong>");
-define("_MB_PUBLISHER_TOPICSCONFIG", "Options <strong> thème </ strong>");
+define("_MB_PUBLISHER_GENERALCONFIG", "<strong> Options générales </strong>");
+define("_MB_PUBLISHER_PHOTOSCONFIG", "Images <strong> Options </strong>");
+define("_MB_PUBLISHER_LINKSCONFIG", "Options <strong> Liens </strong>");
+define("_MB_PUBLISHER_TOPICSCONFIG", "Options <strong> thème </strong>");
 define("_MB_PUBLISHER_TEMPLATESCONFIG", "<strong>Options de Template </strong>");
 
 define("_MB_PUBLISHER_SUBMITNEWS", "Soumettre un article");
