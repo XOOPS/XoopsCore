@@ -32,7 +32,7 @@ function altsys_include_mymenu()
     foreach ($mymenu_find_paths as $mymenu_find_path) {
         if (file_exists($mymenu_find_path)) {
             include $mymenu_find_path;
-            include_once dirname(__FILE__) . '/adminmenu_functions.php';
+            include_once __DIR__ . '/adminmenu_functions.php';
             altsys_adminmenu_insert_mymenu($xoopsModule);
             altsys_adminmenu_hack_ft();
             break;

@@ -22,7 +22,7 @@
  * @version     $Id$
  */
 
-include_once dirname(__FILE__) . "/pathcontroller.php";
+include_once __DIR__ . "/pathcontroller.php";
 
 class upgrade_230 extends xoopsUpgrade
 {
@@ -32,7 +32,7 @@ class upgrade_230 extends xoopsUpgrade
 
     public function __construct()
     {
-        xoopsUpgrade::__construct(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(__DIR__));
     }
 
     /**
@@ -171,7 +171,7 @@ class upgrade_230 extends xoopsUpgrade
         $db = $xoops->db();
         $allowWebChanges = $db->allowWebChanges;
         $db->allowWebChanges = true;
-        $result = $db->queryFromFile(dirname(__FILE__) . "/mysql.structure.sql");
+        $result = $db->queryFromFile(__DIR__ . "/mysql.structure.sql");
         $db->allowWebChanges = $allowWebChanges;
         return $result;
     }
@@ -330,7 +330,7 @@ class upgrade_230 extends xoopsUpgrade
             return false;
         }
 
-        $file = dirname(__FILE__) . '/mainfile.dist.php';
+        $file = __DIR__ . '/mainfile.dist.php';
 
         $lines = file($file);
         foreach (array_keys($lines) as $ln) {
@@ -361,7 +361,7 @@ class upgrade_230 extends xoopsUpgrade
     public function set_configs($task)
     {
         $ret = array();
-        $configs = include dirname(__FILE__) . "/settings_{$task}.php";
+        $configs = include __DIR__ . "/settings_{$task}.php";
         if (!$configs || !is_array($configs)) {
             return $ret;
         }

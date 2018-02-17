@@ -21,7 +21,7 @@
  */
 
 // Require mainfile
-require dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/mainfile.php' ;
+require dirname(dirname(dirname(dirname(__DIR__)))) . '/mainfile.php' ;
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();

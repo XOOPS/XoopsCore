@@ -110,7 +110,7 @@ class upgrade_240a extends xoopsUpgrade
 
     public function __construct()
     {
-        xoopsUpgrade::__construct(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(__DIR__));
     }
 }
 
