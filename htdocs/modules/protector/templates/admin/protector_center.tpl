@@ -15,7 +15,17 @@
         <thead>
         <tr>
             <th class="txtcenter width2">
-                <input type='checkbox' name='dummy' onclick="with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'){elements[i].checked=this.checked;}}}" />
+                <input type='checkbox' name='dummy' onclick="with(document.MainForm)
+                <{literal}>
+                {for(i=0;
+                i<length;
+                i++)
+                {if(elements[i].type=='checkbox')
+                {elements[i].checked=this.checked;}
+                }
+                }
+                <{/literal}>
+                "/>
             </th>
             <th class="txtcenter width10"><{$smarty.const._AM_TH_DATETIME}></th>
             <th class="txtcenter width10"><{$smarty.const._AM_TH_USER}></th>
@@ -48,7 +58,7 @@
         <tr class="odd">
             <td colspan="6" class="txtleft">
                 <{$smarty.const._AM_LABEL_REMOVE}>
-                <input class="btn" type='button' value='<{$smarty.const._AM_BUTTON_REMOVE}>' onclick='if(confirm("<{$smarty.const._AM_JS_REMOVECONFIRM}>")){document.MainForm.action.value="delete"; submit();}' />
+                <input class="btn" type='button' value='<{$smarty.const._AM_BUTTON_REMOVE}>' onclick='if(confirm("<{$smarty.const._AM_JS_REMOVECONFIRM}>")) <{literal}>{document.MainForm.action.value="delete"; submit();} <{/literal}>' />
             </td>
         </tr>
         </tbody>
@@ -59,8 +69,8 @@
     <br />
     <br />
     <div class="floatright">
-        <{$smarty.const._AM_LABEL_COMPACTLOG}>&nbsp;<input class="btn" type='button' value='<{$smarty.const._AM_BUTTON_COMPACTLOG}>' onclick='if(confirm("<{$smarty.const._AM_JS_COMPACTLOGCONFIRM}>")){document.MainForm.action.value="compactlog"; submit();}' />
+        <{$smarty.const._AM_LABEL_COMPACTLOG}>&nbsp;<input class="btn" type='button' value='<{$smarty.const._AM_BUTTON_COMPACTLOG}>' onclick='if(confirm("<{$smarty.const._AM_JS_COMPACTLOGCONFIRM}>")) <{literal}>{document.MainForm.action.value="compactlog"; submit();} <{/literal}>' />
         &nbsp;
-        <{$smarty.const._AM_LABEL_REMOVEALL}>&nbsp;<input class="btn" type='button' value='<{$smarty.const._AM_BUTTON_REMOVEALL}>' onclick='if(confirm("<{$smarty.const._AM_JS_REMOVEALLCONFIRM}>")){document.MainForm.action.value="deleteall"; submit();}' />
+        <{$smarty.const._AM_LABEL_REMOVEALL}>&nbsp;<input class="btn" type='button' value='<{$smarty.const._AM_BUTTON_REMOVEALL}>' onclick='if(confirm("<{$smarty.const._AM_JS_REMOVEALLCONFIRM}>")) <{literal}>{document.MainForm.action.value="deleteall"; submit();} <{/literal}>' />
     </div>
 </form>
