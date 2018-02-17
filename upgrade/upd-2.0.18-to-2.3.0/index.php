@@ -26,11 +26,11 @@ include_once dirname(__FILE__) . "/pathcontroller.php";
 
 class upgrade_230 extends xoopsUpgrade
 {
-    var $usedFiles = array('mainfile.php');
+    public $usedFiles = array('mainfile.php');
 
-    var $tasks = array('config', 'cache', 'path', 'db', 'bmlink');
+    public $tasks = array('config', 'cache', 'path', 'db', 'bmlink');
 
-    function upgrade_230()
+    public function upgrade_230()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }
@@ -39,7 +39,7 @@ class upgrade_230 extends xoopsUpgrade
      * Check if cpanel config already exists
 
      */
-    function check_config()
+    public function check_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -55,7 +55,7 @@ class upgrade_230 extends xoopsUpgrade
      * Check if cache_model table already exists
 
      */
-    function check_cache()
+    public function check_cache()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -81,7 +81,7 @@ class upgrade_230 extends xoopsUpgrade
      * Check if primary key for `block_module_link` is already set
 
      */
-    function check_bmlink()
+    public function check_bmlink()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -100,7 +100,7 @@ class upgrade_230 extends xoopsUpgrade
         return false;
     }
 
-    function apply_bmlink()
+    public function apply_bmlink()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -129,7 +129,7 @@ class upgrade_230 extends xoopsUpgrade
         return true;
     }
 
-    function apply_config()
+    public function apply_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -165,7 +165,7 @@ class upgrade_230 extends xoopsUpgrade
         return $result;
     }
 
-    function apply_cache()
+    public function apply_cache()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -176,7 +176,7 @@ class upgrade_230 extends xoopsUpgrade
         return $result;
     }
 
-    function check_path()
+    public function check_path()
     {
         if (!(defined("XOOPS_PATH") && defined("XOOPS_VAR_PATH") && defined("XOOPS_TRUST_PATH"))) {
             return false;
@@ -191,12 +191,12 @@ class upgrade_230 extends xoopsUpgrade
         return true;
     }
 
-    function apply_path()
+    public function apply_path()
     {
         return $this->update_configs('path');
     }
 
-    function check_db()
+    public function check_db()
     {
         $lines = file(XOOPS_ROOT_PATH . '/mainfile.php');
         foreach ($lines as $line) {
@@ -207,12 +207,12 @@ class upgrade_230 extends xoopsUpgrade
         return false;
     }
 
-    function apply_db()
+    public function apply_db()
     {
         return $this->update_configs('db');
     }
 
-    function update_configs($task)
+    public function update_configs($task)
     {
         if (!$vars = $this->set_configs($task)) {
             return false;
@@ -227,7 +227,7 @@ class upgrade_230 extends xoopsUpgrade
         return $this->write_mainfile($vars);
     }
 
-    function convert_db($charset, $collation)
+    public function convert_db($charset, $collation)
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -248,7 +248,7 @@ class upgrade_230 extends xoopsUpgrade
     }
 
     // Some code not ready to use
-    function convert_table($tables, $charset, $collation)
+    public function convert_table($tables, $charset, $collation)
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -324,7 +324,7 @@ class upgrade_230 extends xoopsUpgrade
         return $final_querys;
     }
 
-    function write_mainfile($vars)
+    public function write_mainfile($vars)
     {
         if (empty($vars)) {
             return false;
@@ -358,7 +358,7 @@ class upgrade_230 extends xoopsUpgrade
         }
     }
 
-    function set_configs($task)
+    public function set_configs($task)
     {
         $ret = array();
         $configs = include dirname(__FILE__) . "/settings_{$task}.php";

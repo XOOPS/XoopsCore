@@ -48,8 +48,7 @@ if (isset($_REQUEST['op'])) {
     $op = $_REQUEST['op'];
 }
 
-switch ($op)
-{
+switch ($op) {
     case "add":
         add();
         break;
@@ -574,7 +573,6 @@ function search()
     PublisherUtils::openCollapsableBar('mimemsearchtable', 'mimesearchicon', _AM_PUBLISHER_MIME_SEARCH);
 
     if (!isset($_REQUEST['mime_search'])) {
-
         echo "<form action='mimetypes.php?op=search' method='post'>";
         echo "<table width='100%' cellspacing='1' class='outer'>";
         echo "<tr><th colspan='2'>" . _AM_PUBLISHER_TEXT_SEARCH_MIME . "</th></tr>";

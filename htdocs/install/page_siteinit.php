@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $res = $dbm->query("SELECT COUNT(*) FROM " . $dbm->db->prefix('system_user'));
-    list ($isadmin) = $dbm->db->fetchRow($res);
+    list($isadmin) = $dbm->db->fetchRow($res);
 }
 
 ob_start();
@@ -157,22 +157,20 @@ if ($isadmin) {
             echo '<li class="failure">' . $errmsg . '</li>';
         }
         echo '</ul>';
-    }
-    ?>
+    } ?>
 
     <div id="password">
         <div id="passwordinput">
     <?php
         echo xoPassField('adminpass', '', ADMIN_PASS_LABEL);
-        echo xoPassField('adminpass2', '', ADMIN_CONFIRMPASS_LABEL);
-        if (!empty($error["pass"])) {
-            echo '<ul class="diags1">';
-            foreach ($error["pass"] as $errmsg) {
-                echo '<li class="failure">' . $errmsg . '</li>';
-            }
-            echo '</ul>';
+    echo xoPassField('adminpass2', '', ADMIN_CONFIRMPASS_LABEL);
+    if (!empty($error["pass"])) {
+        echo '<ul class="diags1">';
+        foreach ($error["pass"] as $errmsg) {
+            echo '<li class="failure">' . $errmsg . '</li>';
         }
-        ?>
+        echo '</ul>';
+    } ?>
         </div>
 
         <div id="passwordmetter" class="xoform-help">
@@ -200,7 +198,6 @@ if ($isadmin) {
     showHideHelp(this);
 </script>
     <?php
-
 }
 $content = ob_get_contents();
 ob_end_clean();

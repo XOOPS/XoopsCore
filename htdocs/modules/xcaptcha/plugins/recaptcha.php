@@ -22,14 +22,14 @@ class XcaptchaRecaptcha extends Xcaptcha
 
     public $plugin;
 
-    function __construct()
+    public function __construct()
     {
         $this->xcaptcha_handler = Xcaptcha::getInstance();
         $this->config           = $this->xcaptcha_handler->loadConfig('recaptcha');
         $this->plugin           = 'recaptcha';
     }
 
-    function VerifyData()
+    public function VerifyData()
     {
         $xoops        = Xoops::getInstance();
         $default_lang = array_search(ucfirst($xoops->getConfig('language')), $this->getLanguages());
@@ -48,7 +48,7 @@ class XcaptchaRecaptcha extends Xcaptcha
         return $config;
     }
 
-    function getThemes()
+    public function getThemes()
     {
         return array(
             'red'        => 'RED (default theme)',
@@ -57,7 +57,7 @@ class XcaptchaRecaptcha extends Xcaptcha
             'clean'      => 'CLEAN',);
     }
 
-    function getLanguages()
+    public function getLanguages()
     {
         return array(
             'en' => 'English',

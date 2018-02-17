@@ -164,7 +164,7 @@ class XoopsEditorHandler
      * @static
      * @staticvar XoopsEditorHandler
      */
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -258,7 +258,7 @@ class XoopsEditorHandler
      * @param array $options
      * @return void
      */
-    function setConfig(XoopsEditor $editor, $options)
+    public function setConfig(XoopsEditor $editor, $options)
     {
         $editor->setConfig($options);
     }

@@ -2,17 +2,17 @@
 
 class upgrade_2018 extends xoopsUpgrade
 {
-    function isApplied()
+    public function isApplied()
     {
         return $this->check_config_type();
     }
 
-    function apply()
+    public function apply()
     {
         return $this->apply_alter_tables();
     }
 
-    function check_config_type()
+    public function check_config_type()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -26,7 +26,7 @@ class upgrade_2018 extends xoopsUpgrade
         return false;
     }
 
-    function query($sql)
+    public function query($sql)
     {
         //echo $sql . "<br />";
         $xoops = Xoops::getInstance();
@@ -36,7 +36,7 @@ class upgrade_2018 extends xoopsUpgrade
         }
     }
 
-    function apply_alter_tables()
+    public function apply_alter_tables()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();

@@ -26,19 +26,19 @@
 
 class xoopsUpgrade
 {
-    var $usedFiles = array( );
-    var $tasks = array( );
-    var $languageFolder = null;
-    var $logs = array();
+    public $usedFiles = array( );
+    public $tasks = array( );
+    public $languageFolder = null;
+    public $logs = array();
 
-    function xoopsUpgrade($dirname = null)
+    public function xoopsUpgrade($dirname = null)
     {
         if ($dirname) {
             $this->loadLanguage($dirname);
         }
     }
 
-    function isApplied()
+    public function isApplied()
     {
         $step = get_class($this);
         if (!isset($_SESSION['xoops_upgrade'][$step]) || !is_array($_SESSION['xoops_upgrade'][$step])) {
@@ -54,33 +54,33 @@ class xoopsUpgrade
         return empty($_SESSION['xoops_upgrade'][$step]) ? true : false;
     }
 
-    function apply()
+    public function apply()
     {
         $step = get_class($this);
         $tasks = $_SESSION['xoops_upgrade'][$step];
         foreach ($tasks as $task) {
             $res = $this->{"apply_{$task}"}();
-            if (!$res) return false;
+            if (!$res) {
+                return false;
+            }
             array_shift($_SESSION['xoops_upgrade'][$step]);
         }
         return true;
     }
 
-    function loadLanguage($dirname)
+    public function loadLanguage($dirname)
     {
         global $upgrade_language;
 
         if (file_exists("./{$dirname}/language/{$upgrade_language}.php")) {
             include_once "./{$dirname}/language/{$upgrade_language}.php";
-        } else if (file_exists("./{$dirname}/language/english.php")) {
+        } elseif (file_exists("./{$dirname}/language/english.php")) {
             include_once "./{$dirname}/language/english.php";
         }
     }
 
-    function message()
+    public function message()
     {
         return empty($this->logs) ? "" : implode("<br />", $this->logs);
     }
 }
-
-?>

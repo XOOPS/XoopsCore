@@ -24,9 +24,9 @@
 
 class upgrade_231 extends xoopsUpgrade
 {
-    var $tasks = array('field');
+    public $tasks = array('field');
 
-    function upgrade_231()
+    public function upgrade_231()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }
@@ -35,7 +35,7 @@ class upgrade_231 extends xoopsUpgrade
      * Check if field type already fixed for mysql strict mode
 
      */
-    function check_field()
+    public function check_field()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -63,7 +63,7 @@ class upgrade_231 extends xoopsUpgrade
         return true;
     }
 
-    function apply_field()
+    public function apply_field()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();

@@ -29,8 +29,7 @@
 
 class XoopsGuiDefault
 {
-
-    function header()
+    public function header()
     {
         $xoops = Xoops::getInstance();
         $xoops->loadLocale('system');
@@ -89,7 +88,6 @@ class XoopsGuiDefault
                     : \XoopsBaseConfig::get('adminthemes-url') . '/default/' . $mod_options[$item]['icon'];
                 unset($mod_options[$item]['icon_small']);
             }
-
         } else {
             $moddir = $xoops->module->getVar('dirname', 'n');
             $modpath = \XoopsBaseConfig::get('url') . '/modules/' . $moddir;
@@ -101,10 +99,9 @@ class XoopsGuiDefault
                 $mod_options[$item]['link'] = empty($mod_options[$item]['absolute'])
                     ? \XoopsBaseConfig::get('url') . "/modules/{$moddir}/" . $mod_options[$item]['link']
                     : $mod_options[$item]['link'];
-                if ( XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/32/' . $mod_options[$item]['icon']) ) ) {
+                if (XoopsLoad::fileExists($xoops->path('media/xoops/images/icons/32/' . $mod_options[$item]['icon']))) {
                     $mod_options[$item]['icon'] = $xoops->url('media/xoops/images/icons/32/' . $mod_options[$item]['icon']);
-
-                } elseif ( XoopsLoad::fileExists($xoops->path('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $mod_options[$item]['icon'])) ) {
+                } elseif (XoopsLoad::fileExists($xoops->path('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $mod_options[$item]['icon']))) {
                     $mod_options[$item]['icon'] = $xoops->url('modules/' . $xoops->module->dirname() . '/assets/icons/32/' . $mod_options[$item]['icon']);
                 } else {
                     $mod_options[$item]['icon'] = $xoops->url("modules/" . $xoops->module->dirname() . "/icons/32/" . $mod_options[$item]['icon']);
@@ -128,7 +125,7 @@ class XoopsGuiDefault
         $xoops->tpl()->assign('extension_menu', $extension_list);
         unset($extension_list);
 
-        $extension_mod = $system_extension->getExtension( $moddir );
+        $extension_mod = $system_extension->getExtension($moddir);
         $xoops->tpl()->assign('extension_mod', $extension_mod);
 
         // add preferences menu
@@ -144,7 +141,6 @@ class XoopsGuiDefault
 
         // Module adminmenu
         if ($xoops->isModule() && $xoops->module->getVar('dirname') !== 'system') {
-
             if ($xoops->module->getInfo('system_menu')) {
                 //$xoops->theme()->addStylesheet('modules/system/css/menu.css');
 
@@ -174,7 +170,7 @@ class XoopsGuiDefault
                     if (stripos($_SERVER['REQUEST_URI'], $menu['link']) !== false) {
                         $current = $i;
                     }
-                    $menu_handler->addMenuTabs( $xoops->url('modules/' . $xoops->module->getVar('dirname') . '/' . $menu['link']), $menu['title']);
+                    $menu_handler->addMenuTabs($xoops->url('modules/' . $xoops->module->getVar('dirname') . '/' . $menu['link']), $menu['title']);
                     ++$i;
                 }
                 if ($xoops->module->getInfo('help')) {
@@ -188,6 +184,5 @@ class XoopsGuiDefault
                 $xoops->tpl()->assign('xo_system_menu', $menu_handler->render($current, false));
             }
         }
-
     }
 }

@@ -62,7 +62,7 @@ class Debug extends \Kint
      *
      * @return void
      */
-    public static function dump($data = NULL)
+    public static function dump($data = null)
     {
         $args = func_get_args();
 
@@ -88,7 +88,7 @@ class Debug extends \Kint
      *
      * @return void
      */
-    public static function log($data = NULL)
+    public static function log($data = null)
     {
         $args = func_get_args();
 

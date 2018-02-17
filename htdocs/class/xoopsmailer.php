@@ -519,7 +519,7 @@ class XoopsMailer
     }
 
     // public
-    function getSuccess($ashtml = true)
+    public function getSuccess($ashtml = true)
     {
         if (!$ashtml) {
             return $this->success;
@@ -609,7 +609,6 @@ class XoopsMailer
             $this->setToUsers(Xoops::getInstance()
                     ->getHandlerMember()
                     ->getUsersByGroup($groups->getVar('groupid'), true));
-
         } elseif (is_array($groups)) {
             foreach ($groups as $g) {
                 $this->setToGroups($g);

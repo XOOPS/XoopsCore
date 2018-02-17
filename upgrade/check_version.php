@@ -24,9 +24,9 @@
  * @version     $Id$
  */
 
-defined( 'XOOPS_ROOT_PATH' ) or die();
+defined('XOOPS_ROOT_PATH') or die();
 
-$dirs = getDirList( "." );
+$dirs = getDirList(".");
 
 $results = array();
 $files = array();
@@ -35,14 +35,14 @@ $needUpgrade = false;
 $_SESSION['xoops_upgrade'] = array();
 
 foreach ($dirs as $dir) {
-    if (strpos( $dir, "-to-")) {
+    if (strpos($dir, "-to-")) {
         $upgrader = include_once "{$dir}/index.php";
         if (is_object($upgrader)) {
-            if (!( $results[$dir] = $upgrader->isApplied())) {
+            if (!($results[$dir] = $upgrader->isApplied())) {
                 $_SESSION['xoops_upgrade']['steps'][] = $dir;
                 $needUpgrade = true;
-                if (!empty( $upgrader->usedFiles)) {
-                    $files = array_merge( $files, $upgrader->usedFiles );
+                if (!empty($upgrader->usedFiles)) {
+                    $files = array_merge($files, $upgrader->usedFiles);
                 }
             }
         }
@@ -60,12 +60,14 @@ if ($needUpgrade && !empty($files)) {
 <h2><?php echo _CHECKING_APPLIED; ?></h2>
 
 <table id="check_results">
-<?php foreach ($results as $upd => $res) { ?>
+<?php foreach ($results as $upd => $res) {
+    ?>
     <tr>
         <td><?php echo $upd; ?></td>
         <td class="result-<?php echo $res?'y':'x'; ?>"><?php echo $res?'y':'x'; ?></td>
     </tr>
-<?php } ?>
+<?php
+} ?>
 </table>
 <?php
     if (!$needUpgrade) {
@@ -75,7 +77,9 @@ if ($needUpgrade && !empty($files)) {
     } else {
         if (!empty($files)) {
             echo '<div class="x2-note"><p>' . _NEED_UPGRADE . "<br />" . _SET_FILES_WRITABLE . "</p><ul>";
-            foreach ($files as $file) echo "<li>{$file}</li>\n";
+            foreach ($files as $file) {
+                echo "<li>{$file}</li>\n";
+            }
             echo "</ul></div>";
             echo '<a id="link-next" href="index.php">' . _RELOAD . '</a>';
         } else {

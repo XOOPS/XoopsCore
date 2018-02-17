@@ -99,12 +99,12 @@ function altsys_get_core_type()
 function altsys_get_link2modpreferences($mid, $coretype)
 {
     switch ($coretype) {
-        case ALTSYS_CORE_TYPE_X20 :
-        case ALTSYS_CORE_TYPE_X20S :
-        case ALTSYS_CORE_TYPE_ORE :
-        case ALTSYS_CORE_TYPE_X22 :
+        case ALTSYS_CORE_TYPE_X20:
+        case ALTSYS_CORE_TYPE_X20S:
+        case ALTSYS_CORE_TYPE_ORE:
+        case ALTSYS_CORE_TYPE_X22:
             return XOOPS_URL . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $mid;
-        case ALTSYS_CORE_TYPE_XC21L :
+        case ALTSYS_CORE_TYPE_XC21L:
             return XOOPS_URL . '/modules/legacy/admin/index.php?action=PreferenceEdit&confmod_id=' . $mid;
     }
 }
@@ -136,6 +136,3 @@ function altsys_clear_templates_c()
     }
     closedir($dh);
 }
-
-
-?>

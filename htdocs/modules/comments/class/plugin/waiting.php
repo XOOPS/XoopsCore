@@ -40,5 +40,4 @@ class CommentsWaitingPlugin implements WaitingPluginInterface
         }
         return $ret;
     }
-
 }
