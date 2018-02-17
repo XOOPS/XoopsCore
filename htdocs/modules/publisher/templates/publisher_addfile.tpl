@@ -14,8 +14,7 @@
             <div style="font-weight: normal"><{$element.description}></div>
             <{/if}>
         </td>
-        <td class="<{cycle values=" even
-        ,odd"}>"><{$element.body}></td>
+        <td class="<{cycle values=" even,odd"}>"><{$element.body}></td>
     </tr>
     <{else}> <{$element.body}> <{/if}> <{/foreach}><!-- end of form elements loop -->
 </table></form>
