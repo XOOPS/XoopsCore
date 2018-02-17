@@ -46,6 +46,7 @@ class protector_postcommon_register_insert_js_check extends ProtectorFilterAbstr
 
     /**
      * @param integer $time
+     * @return string
      */
     public function getMd5($time = null)
     {

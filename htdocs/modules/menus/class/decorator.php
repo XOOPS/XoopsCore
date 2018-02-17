@@ -71,6 +71,7 @@ class MenusDecoratorAbstract
 
     /**
      * @param string $name
+     * @return bool
      */
     public function loadLanguage($name)
     {
@@ -94,21 +95,26 @@ interface MenusDecoratorInterface
     public function start();
 
     /**
+     * @param $menus
      * @return void
      */
     public function end(&$menus);
 
     /**
+     * @param $menu
      * @return void
      */
     public function decorateMenu(&$menu);
 
     /**
+     * @param $menu
+     * @param $hasAccess
      * @return void
      */
     public function hasAccess($menu, &$hasAccess);
 
     /**
+     * @param $accessFilter
      * @return void
      */
     public function accessFilter(&$accessFilter);

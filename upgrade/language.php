@@ -96,7 +96,6 @@ $available_languages = array(
     'zh-cn' => array('zh[-_]cn|chinese simplified', 'schinese'),
     );
 
-
 /**
  * Analyzes some PHP environment variables to find the most probable language
  * that should be used
@@ -106,6 +105,7 @@ $available_languages = array(
  * @global array    the list of available translations
  * @global string   the retained translation keyword
  * @access private
+ * @return int|string
  */
 function xoops_analyzeLanguage($str = '', $envType = '')
 {

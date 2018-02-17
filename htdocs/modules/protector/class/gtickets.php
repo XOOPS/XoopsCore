@@ -250,6 +250,7 @@ if (!class_exists('XoopsGTicket')) {
 
         /**
          * @param string $key_name
+         * @return array
          */
         public function extract_post_recursive($key_name, $tmp_array)
         {

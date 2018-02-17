@@ -280,6 +280,7 @@ class Protector
 
     /**
      * @param integer $expire
+     * @return bool
      */
     public function write_file_bwlimit($expire)
     {
@@ -1255,6 +1256,7 @@ class Protector
 
     /**
      * @param string $type
+     * @return int|mixed
      */
     public function call_filter($type, $dying_message = '')
     {

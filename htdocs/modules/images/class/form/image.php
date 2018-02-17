@@ -98,6 +98,7 @@ class ImagesImageForm extends Xoops\Form\ThemeForm
 
     /**
      * @param string[] $msg
+     * @return string
      */
     public function message($msg, $title = '', $class = 'errorMsg')
     {
