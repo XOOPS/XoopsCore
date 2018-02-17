@@ -10,6 +10,8 @@
  */
 
 use Xmf\Request;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\QrCode;
 
 /**
  * @author    Richard Griffith <richard@geekwright.com>
@@ -28,27 +30,31 @@ $text = Request::getString('text', 'error');
 
 $configs = $xoops->getModuleConfigs('qrcode');
 
-$qrCode = new Endroid\QrCode\QrCode($text);
+$qrCode = new QrCode($text);
 
 $ecChar = $configs['qrcode_ecl'];
 switch (strtoupper($ecChar)) {
     case 'H':
-        $ec = Endroid\QrCode\QrCode::LEVEL_HIGH;
+        $ec = ErrorCorrectionLevel::HIGH;
         break;
     case 'Q':
-        $ec = Endroid\QrCode\QrCode::LEVEL_QUARTILE;
+        $ec = ErrorCorrectionLevel::QUARTILE;
         break;
     case 'M':
-        $ec = Endroid\QrCode\QrCode::LEVEL_MEDIUM;
+        $ec = ErrorCorrectionLevel::MEDIUM;
         break;
     case 'L':
     default:
-        $ec = Endroid\QrCode\QrCode::LEVEL_LOW;
+        $ec = ErrorCorrectionLevel::LOW;
         break;
 }
-$qrCode->setErrorCorrection($ec);
-$qrCode->setModuleSize((int)($configs['qrcode_mps'])-1);
-$qrCode->setPadding($configs['qrcode_margin']*$qrCode->getModuleSize());
+$qrCode->setWriterByName('png');
+$qrCode->setMargin($configs['qrcode_margin']);
+$qrCode->setEncoding('UTF-8');
+
+$qrCode->setErrorCorrectionLevel($ec);
+$qrCode->setSize((int)($configs['qrcode_mps']));
+//$qrCode->setPadding($configs['qrcode_margin']*$qrCode->getModuleSize());
 $qrCode->setBackgroundColor(normalizeColor($configs['qrcode_bgcolor']));
 $qrCode->setForegroundColor(normalizeColor($configs['qrcode_fgcolor']));
 
@@ -56,7 +62,7 @@ $qrCode->setForegroundColor(normalizeColor($configs['qrcode_fgcolor']));
 //$qrCode->setSize(300);
 
 try {
-    $qrData = $qrCode->get('png');
+    $qrData = $qrCode->writeString();
 } catch (\Exception $e) {
     $xoops->events()->triggerEvent('core.exception', $e);
     $qrData = '';
@@ -86,6 +92,7 @@ function normalizeColor($color)
         'r' => hexdec(substr($color, 0, 2)),
         'g' => hexdec(substr($color, 2, 2)),
         'b' => hexdec(substr($color, 4, 2)),
+        'a' => 0
     );
     return $rgb;
 }

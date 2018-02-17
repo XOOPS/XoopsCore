@@ -83,6 +83,7 @@ class XoopsModule extends XoopsObject
      * @param boolean $verbose true for more information
      *
      * @return void
+     * @todo module 'version' should be semver based -- 1.0.0 should be OK, not an error
      */
     public function loadInfoAsVar($dirname, $verbose = true)
     {
@@ -91,6 +92,11 @@ class XoopsModule extends XoopsObject
             $this->loadInfo($dirname, $verbose);
         }
         $this->setVar('name', $this->modinfo['name']);
+        // see @todo
+        $versionPieces = explode('.', $this->modinfo['version']);
+        if (count($versionPieces) > 2) {
+            $this->modinfo['version'] = $versionPieces[0].'.'.$versionPieces[1];
+        }
         $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)));
         $this->setVar('dirname', $this->modinfo['dirname']);
         $hasmain = (isset($this->modinfo['hasMain']) && $this->modinfo['hasMain'] == 1) ? 1 : 0;

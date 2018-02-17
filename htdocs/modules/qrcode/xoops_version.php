@@ -31,11 +31,11 @@ $modversion['image']       = 'images/logo.png';
 $modversion['dirname']     = 'qrcode';
 
 //about
-$modversion['release_date']        = '2012/11/25';
-$modversion['module_website_url']  = 'http://www.xoops.org/';
+$modversion['release_date']        = '2018/02/16';
+$modversion['module_website_url']  = 'https://www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA 1';
-$modversion['min_php']             = '5.3.7';
+$modversion['min_php']             = '7.1.0';
 $modversion['min_xoops']           = '2.6.0';
 
 // paypal
@@ -88,7 +88,7 @@ $modversion['config'][] = array(
     'description' => '_MI_QRCODE_MPSDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 4,
+    'default'     => 200,
 );
 
 $modversion['config'][] = array(
@@ -97,7 +97,7 @@ $modversion['config'][] = array(
     'description' => '_MI_QRCODE_MARGINDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 4,
+    'default'     => 12,
 );
 
 $modversion['config'][] = array(
