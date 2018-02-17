@@ -399,7 +399,7 @@ if (empty($_POST["user_submit"])) {
                         $class = 'odd';
                     }
                     ++$ucount;
-                    $fuser_name = $foundusers[$j]->getVar("name") ? $foundusers[$j]->getVar("name") : "&nbsp;";
+                    $fuser_name = $foundusers[$j]->getVar("name") ?: "&nbsp;";
                     echo "<tr class='$class'>
                     <td align='center'>";
                     if (!empty($_POST["multiple"])) {

@@ -94,8 +94,7 @@ class SqlUtility
                     } else {
                         if ($char === '#' || ($char === ' ' && $i > 1 && $sql[$i - 2] . $sql[$i - 1] == '--')) {
                             $start_of_comment = (($sql[$i] === '#') ? $i : $i - 2);
-                            $end_of_comment = (strpos(' ' . $sql, "\012", $i + 2)) ? strpos(' ' . $sql, "\012", $i + 2)
-                                : strpos(' ' . $sql, "\015", $i + 2);
+                            $end_of_comment = (strpos(' ' . $sql, "\012", $i + 2)) ?: strpos(' ' . $sql, "\015", $i + 2);
                             if (!$end_of_comment) {
                                 return true;
                             } else {

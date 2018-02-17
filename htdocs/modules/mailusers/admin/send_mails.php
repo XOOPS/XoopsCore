@@ -114,8 +114,8 @@ switch ($op) {
             //$criteria_tray->addElement($regd_max);
             $form->addElement($criteria_tray);
         }
-        $fname_text = new Xoops\Form\Text(_AM_MAILUSERS_MAILFNAME, "mail_fromname", 30, 255, $xoops->getConfig('fromname') ? $xoops->getConfig('fromname') :htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES));
-        $fromemail = $xoops->getConfig('from') ? $xoops->getConfig('from') : $xoops->user->getVar("email", "E");
+        $fname_text = new Xoops\Form\Text(_AM_MAILUSERS_MAILFNAME, "mail_fromname", 30, 255, $xoops->getConfig('fromname') ?:htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES));
+        $fromemail = $xoops->getConfig('from') ?: $xoops->user->getVar("email", "E");
         $femail_text = new Xoops\Form\Text(_AM_MAILUSERS_MAILFMAIL, "mail_fromemail", 30, 255, $fromemail);
         $subject_caption = _AM_MAILUSERS_MAILSUBJECT . "<br><br><span style='font-size:x-small;font-weight:bold;'>" . _AM_MAILUSERS_MAILTAGS . "</span><br><span style='font-size:x-small;font-weight:normal;'>" . _AM_MAILUSERS_MAILTAGS2 . "</span>";
         $subject_text = new Xoops\Form\Text($subject_caption, "mail_subject", 50, 255);

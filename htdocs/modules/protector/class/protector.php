@@ -336,7 +336,7 @@ class Protector
         }
 
         $bad_ips = $this->get_bad_ips(true);
-        $bad_ips[$ip] = $jailed_time ? $jailed_time : 0x7fffffff;
+        $bad_ips[$ip] = $jailed_time ?: 0x7fffffff;
 
         return $this->write_file_badips($bad_ips);
     }

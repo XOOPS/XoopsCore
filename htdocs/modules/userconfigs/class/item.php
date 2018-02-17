@@ -166,7 +166,7 @@ class UserconfigsItem extends XoopsObject
             break;
         case 'array':
             $value = @unserialize($this->getVar('conf_value', 'n'));
-            return $value ? $value : array();
+            return $value ?: array();
         case 'float':
             $value = $this->getVar('conf_value', 'n');
             return (float)$value;

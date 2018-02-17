@@ -53,7 +53,7 @@ class SyntaxHighlight extends FilterAbstract
         $source = stripslashes($source);
         if ($config['highlighter'] === 'geshi') {
             $language = str_replace('=', '', $language);
-            $language = ($language) ? $language : $config['language'];
+            $language = ($language) ?: $config['language'];
             $language = strtolower($language);
             if ($source2 = SyntaxHighlight::geshi($source, $language)) {
                 return $source2;

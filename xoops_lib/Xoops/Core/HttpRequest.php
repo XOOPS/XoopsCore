@@ -259,7 +259,7 @@ class HttpRequest
      */
     public function getReferer()
     {
-        return $this->getEnv('HTTP_REFERER') ? $this->getEnv('HTTP_REFERER') : '';
+        return $this->getEnv('HTTP_REFERER') ?: '';
     }
 
     /**
@@ -270,8 +270,7 @@ class HttpRequest
     public function getScriptName()
     {
         return $this->getEnv('SCRIPT_NAME')
-            ? $this->getEnv('SCRIPT_NAME')
-            : ($this->getEnv('ORIG_SCRIPT_NAME') ? $this->getEnv('ORIG_SCRIPT_NAME') : '');
+            ?: ($this->getEnv('ORIG_SCRIPT_NAME') ?: '');
     }
 
     /**

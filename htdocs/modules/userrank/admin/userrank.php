@@ -73,7 +73,7 @@ switch ($op) {
                 $userrank['rank_min'] = $userrank_arr[$i]->getVar("rank_min");
                 $userrank['rank_max'] = $userrank_arr[$i]->getVar("rank_max");
                 $userrank['rank_special'] = $userrank_arr[$i]->getVar("rank_special");
-                $rank_img = ($userrank_arr[$i]->getVar("rank_image")) ? $userrank_arr[$i]->getVar("rank_image") : 'blank.gif';
+                $rank_img = ($userrank_arr[$i]->getVar("rank_image")) ?: 'blank.gif';
                 $userrank['rank_image'] = '<img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $rank_img . '" alt="" />';
                 $xoops->tpl()->appendByRef('userrank', $userrank);
                 unset($userrank);
@@ -170,7 +170,7 @@ switch ($op) {
                 echo $xoops->alert('error', $obj->getHtmlErrors());
             }
         } else {
-            $rank_img = ($obj->getVar("rank_image")) ? $obj->getVar("rank_image") : 'blank.gif';
+            $rank_img = ($obj->getVar("rank_image")) ?: 'blank.gif';
             echo $xoops->confirm(array(
                 "ok" => 1, "rank_id" => $_REQUEST["rank_id"], "op" => "userrank_delete"
             ), $_SERVER["REQUEST_URI"], sprintf(_AM_USERRANK_SUREDEL) . '<br \><img src="' . \XoopsBaseConfig::get('uploads-url') . '/' . $rank_img . '" alt="" /><br \>');

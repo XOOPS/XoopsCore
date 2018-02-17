@@ -64,7 +64,7 @@ class Smarty_Resource_Module extends Smarty_Resource_Custom
             return $cache[$tpl_name];
         }
 
-        $theme_set = $xoops->getConfig('theme_set') ? $xoops->getConfig('theme_set') : 'default';
+        $theme_set = $xoops->getConfig('theme_set') ?: 'default';
         if (!file_exists($file_path = $xoops->path("themes/{$theme_set}/modules/{$dirname}/{$file}"))) {
             $file_path = $xoops->path("modules/{$dirname}/templates/{$file}");
         }
