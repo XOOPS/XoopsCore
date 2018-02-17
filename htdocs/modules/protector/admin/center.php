@@ -113,7 +113,7 @@ if (!empty($_POST['action'])) {
     }
 }
 // beggining of Output
-$xoops->header('admin:protector/protector_center.html');
+$xoops->header('admin:protector/protector_center.tpl');
 
 $admin_page = new \Xoops\Module\Admin();
 $admin_page->renderNavigation('center.php');
