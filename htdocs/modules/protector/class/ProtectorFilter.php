@@ -26,7 +26,7 @@ class ProtectorFilterAbstract
 
     public $errors = array();
 
-    public function ProtectorFilterAbstract()
+    public function __construct()
     {
         $xoops = Xoops::getInstance();
         $language = $xoops->getConfig('language');
@@ -62,7 +62,7 @@ class ProtectorFilterHandler
 
     public $filters_base = '';
 
-    public function ProtectorFilterHandler()
+    public function __construct()
     {
         $this->protector = Protector::getInstance();
         $this->filters_base = dirname(__DIR__) . '/filters_enabled';

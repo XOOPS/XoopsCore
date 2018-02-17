@@ -20,9 +20,9 @@ class upgrade_220 extends xoopsUpgrade
 {
     public $tasks = array('config', 'profile', 'block' /*, 'pm', 'module'*/);
 
-    public function upgrade_220()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(dirname(__FILE__)));
     }
 
     /**

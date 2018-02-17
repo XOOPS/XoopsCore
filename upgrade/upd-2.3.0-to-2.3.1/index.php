@@ -26,9 +26,9 @@ class upgrade_231 extends xoopsUpgrade
 {
     public $tasks = array('field');
 
-    public function upgrade_231()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(dirname(__FILE__)));
     }
 
     /**

@@ -44,7 +44,7 @@ class PathStuffController
             'data'  => null,
             );
 
-    public function PathStuffController()
+    public function __construct()
     {
         if (isset($_SESSION['settings']['VAR_PATH'])) {
             foreach ($this->path_lookup as $req => $sess) {

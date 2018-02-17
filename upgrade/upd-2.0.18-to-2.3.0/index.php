@@ -30,9 +30,9 @@ class upgrade_230 extends xoopsUpgrade
 
     public $tasks = array('config', 'cache', 'path', 'db', 'bmlink');
 
-    public function upgrade_230()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(dirname(__FILE__)));
     }
 
     /**

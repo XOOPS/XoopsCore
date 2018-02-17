@@ -94,9 +94,9 @@ class upgrade_240 extends xoopsUpgrade
         return true;
     }
 
-    public function upgrade_240()
+    public function __construct()
     {
-        $this->xoopsUpgrade(basename(dirname(__FILE__)));
+        xoopsUpgrade::__construct(basename(dirname(__FILE__)));
     }
 }
 

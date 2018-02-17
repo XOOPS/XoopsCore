@@ -33,7 +33,7 @@ class db_manager
     public $f_tables = array();
     public $db;
 
-    public function db_manager()
+    public function __construct()
     {
         $this->db = XoopsDatabaseFactory::getDatabase();
         $this->db->setPrefix(XOOPS_DB_PREFIX);

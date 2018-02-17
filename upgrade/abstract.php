@@ -31,7 +31,7 @@ class xoopsUpgrade
     public $languageFolder = null;
     public $logs = array();
 
-    public function xoopsUpgrade($dirname = null)
+    public function __construct($dirname = null)
     {
         if ($dirname) {
             $this->loadLanguage($dirname);
