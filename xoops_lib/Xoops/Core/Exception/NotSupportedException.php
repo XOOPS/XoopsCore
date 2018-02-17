@@ -12,7 +12,7 @@ namespace Xoops\Core\Exception;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-class NotSupportedException extends \Exception
+class NotSupportedException extends \UnexpectedValueException
 {
     /**
      * @return string the user-friendly name of this exception
