@@ -21,7 +21,7 @@
 
 class protector_postcommon_post_deny_by_rbl extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
         // RBL servers (don't enable too many servers)

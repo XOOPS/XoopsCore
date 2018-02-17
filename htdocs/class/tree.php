@@ -322,7 +322,8 @@ class XoopsObjectTree
         trigger_error(
             'Undefined property: XoopsObjectTree::$' . $name .
             " in {$trace[0]['file']} line {$trace[0]['line']}, ",
-            E_USER_NOTICE);
+            E_USER_NOTICE
+        );
         return null;
     }
 }

@@ -249,7 +249,7 @@ class XoopsApi extends XoopsXmlRpcApi
                     $struct = new XoopsXmlRpcStruct();
                     $content = '';
                     foreach ($ret as $key => $value) {
-                        switch($key) {
+                        switch ($key) {
                             case 'uid':
                                 $struct->add('userid', new XoopsXmlRpcString($value));
                                 break;
@@ -264,7 +264,7 @@ class XoopsApi extends XoopsXmlRpcApi
                             case 'title':
                                 $struct->add('title', new XoopsXmlRpcString($value));
                                 break;
-                            default :
+                            default:
                                 $content .= '<' . $key . '>' . trim($value) . '</' . $key . '>';
                                 break;
                         }
@@ -319,8 +319,8 @@ class XoopsApi extends XoopsXmlRpcApi
                     for ($i = 0; $i < $count; ++$i) {
                         $struct = new XoopsXmlRpcStruct();
                         $content = '';
-                        foreach($ret[$i] as $key => $value) {
-                            switch($key) {
+                        foreach ($ret[$i] as $key => $value) {
+                            switch ($key) {
                                 case 'uid':
                                     $struct->add('userid', new XoopsXmlRpcString($value));
                                     break;
@@ -335,7 +335,7 @@ class XoopsApi extends XoopsXmlRpcApi
                                 case 'title':
                                     $struct->add('title', new XoopsXmlRpcString($value));
                                     break;
-                                default :
+                                default:
                                     $content .= '<' . $key . '>' . trim($value) . '</' . $key . '>';
                                     break;
                             }
@@ -351,7 +351,7 @@ class XoopsApi extends XoopsXmlRpcApi
         return null;
     }
 
-    function getCategories($respond=true)
+    public function getCategories($respond=true)
     {
         global $xoopsDB;
         if (!$this->_checkUser($this->params[1], $this->params[2])) {

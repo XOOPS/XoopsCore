@@ -75,12 +75,13 @@ abstract class XoopsCaptchaMethod
      */
     public function loadConfig($name = '')
     {
-        if (!is_object($this->handler))
+        if (!is_object($this->handler)) {
             $this->config = array();
-        else
+        } else {
             $this->config = empty($name)
                 ? $this->handler->config
                 : array_merge($this->handler->config, $this->handler->loadConfig($name));
+        }
     }
 
     /**
@@ -135,5 +136,4 @@ abstract class XoopsCaptchaMethod
     {
         return true;
     }
-
 }

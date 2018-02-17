@@ -22,11 +22,11 @@
 // Abstract of each filter classes
 class ProtectorFilterAbstract
 {
-    var $protector = null;
+    public $protector = null;
 
-    var $errors = array();
+    public $errors = array();
 
-    function ProtectorFilterAbstract()
+    public function ProtectorFilterAbstract()
     {
         $xoops = Xoops::getInstance();
         $language = $xoops->getConfig('language');
@@ -38,7 +38,7 @@ class ProtectorFilterAbstract
         }
     }
 
-    function isMobile()
+    public function isMobile()
     {
         if (class_exists('Wizin_User')) {
             // WizMobile (gusagi)
@@ -58,17 +58,17 @@ class ProtectorFilterAbstract
 // Filter Handler class (singleton)
 class ProtectorFilterHandler
 {
-    var $protector = null;
+    public $protector = null;
 
-    var $filters_base = '';
+    public $filters_base = '';
 
-    function ProtectorFilterHandler()
+    public function ProtectorFilterHandler()
     {
         $this->protector = Protector::getInstance();
         $this->filters_base = dirname(__DIR__) . '/filters_enabled';
     }
 
-    static function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
@@ -78,7 +78,7 @@ class ProtectorFilterHandler
     }
 
     // return: false : execute default action
-    function execute($type)
+    public function execute($type)
     {
         $ret = 0;
 

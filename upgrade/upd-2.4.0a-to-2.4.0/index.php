@@ -25,13 +25,13 @@
 
 class upgrade_240a extends xoopsUpgrade
 {
-    var $tasks = array('config', 'configoption');
+    public $tasks = array('config', 'configoption');
 
     /**
      * Check if cpanel config already exists
 
      */
-    function check_config()
+    public function check_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -43,7 +43,7 @@ class upgrade_240a extends xoopsUpgrade
         return ($count > 0) ? false : true;
     }
 
-    function check_configoption()
+    public function check_configoption()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -55,7 +55,7 @@ class upgrade_240a extends xoopsUpgrade
         return ($count == 1) ? false : true;
     }
 
-    function apply_config()
+    public function apply_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -85,7 +85,7 @@ class upgrade_240a extends xoopsUpgrade
         return true;
     }
 
-    function apply_configoption()
+    public function apply_configoption()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -108,7 +108,7 @@ class upgrade_240a extends xoopsUpgrade
         return true;
     }
 
-    function upgrade_240a()
+    public function upgrade_240a()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }

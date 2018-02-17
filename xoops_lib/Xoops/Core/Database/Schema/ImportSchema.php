@@ -21,7 +21,7 @@ use Doctrine\DBAL\Schema\Index;
 /**
  * ImportSchema processes an array of schema information and creates
  * a XOOPS_DB_PREFIX prefixed Schema object.
- * 
+ *
  * @category  Xoops\Core\Database\Schema\ImportSchema
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
@@ -33,7 +33,6 @@ use Doctrine\DBAL\Schema\Index;
  */
 class ImportSchema
 {
-
     private $xPrefix = '';
     private $xDbName = '';
     private $schemaArray = array();
@@ -49,9 +48,9 @@ class ImportSchema
 
     /**
      * Import an array into a schema
-     * 
+     *
      * @param array $schemaArray array version of a schema object
-     * 
+     *
      * @return Schema object built from input array
      */
     public function importSchemaArray(array $schemaArray)
@@ -76,7 +75,7 @@ class ImportSchema
      * Build array of Table objects to add to the schema
      *
      * @param array $tableArray array of table definitions
-     * 
+     *
      * @return array of Table objects
      */
     public function importTables(array $tableArray)
@@ -120,8 +119,9 @@ class ImportSchema
                 }
             }
 
-			if (isset($tabledef['options']))
-				$options = $tabledef['options'];
+            if (isset($tabledef['options'])) {
+                $options = $tabledef['options'];
+            }
             $tables[] = new Table(
                 $tableName,
                 $columns,
@@ -138,7 +138,7 @@ class ImportSchema
      * Build array of Sequence objects to add to the schema
      *
      * @param array $sequenceArray array of table definitions
-     * 
+     *
      * @return array of Sequence objects
      */
     public function importSequences(array $sequenceArray)

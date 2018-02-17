@@ -76,12 +76,14 @@ if (!$tpl->isCached('module:publisher/publisher_rss.tpl')) {
         $count = $sarray;
         /* @var $item PublisherItem */
         foreach ($sarray as $item) {
-            $tpl->append('items',
+            $tpl->append(
+                'items',
                          array('title' => htmlspecialchars($item->title(), ENT_QUOTES),
                                'link' => $item->getItemUrl(),
                                'guid' => $item->getItemUrl(),
                                'pubdate' => XoopsLocale::formatTimestamp($item->getVar('datesub'), 'rss'),
-                               'description' => htmlspecialchars($item->getBlockSummary(300, true), ENT_QUOTES)));
+                               'description' => htmlspecialchars($item->getBlockSummary(300, true), ENT_QUOTES))
+            );
         }
     }
 }

@@ -30,11 +30,14 @@ class XoopsUtility
      * @param mixed $data
      * @return array|mixed
      */
-    static function recursive($handler, $data)
+    public static function recursive($handler, $data)
     {
         if (is_array($data)) {
-            $return = array_map(array('XoopsUtility', 'recursive'),
-				array_fill(0, count($data), $handler), $data);
+            $return = array_map(
+                array('XoopsUtility', 'recursive'),
+                array_fill(0, count($data), $handler),
+                $data
+            );
             return $return;
         }
         // single function

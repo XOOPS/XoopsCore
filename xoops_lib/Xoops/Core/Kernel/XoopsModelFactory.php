@@ -27,7 +27,7 @@ class XoopsModelFactory
     /**
      * static private
      */
-    static private $handlers = array();
+    private static $handlers = array();
 
     /**
      * Get singleton instance

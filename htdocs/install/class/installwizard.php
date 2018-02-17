@@ -279,7 +279,8 @@ class XoopsInstallWizard
         return $ret;
     }
 
-    function cleanCache($cacheFolder) {
+    public function cleanCache($cacheFolder)
+    {
         $cache = array(1,2,3);
         if (!empty($cache)) {
             for ($i = 0; $i < count($cache); ++$i) {

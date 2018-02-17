@@ -25,17 +25,17 @@ XoopsLoad::load('XoopsEditor');
 
 class XoopsFormTinymce extends XoopsEditor
 {
-    var $language;
-    var $width = "100%";
-    var $height = "500px";
-    var $editor;
+    public $language;
+    public $width = "100%";
+    public $height = "500px";
+    public $editor;
 
     /**
      * Constructor
      *
      * @param    array   $configs  Editor Options
      */
-    function __construct($configs)
+    public function __construct($configs)
     {
         $current_path = __FILE__;
         if (DIRECTORY_SEPARATOR !== "/") {
@@ -56,7 +56,7 @@ class XoopsFormTinymce extends XoopsEditor
         $this->editor = new TinyMCE($this->configs);
     }
 
-    function XoopsFormTinymce($configs)
+    public function XoopsFormTinymce($configs)
     {
         $this->__construct($configs);
     }
@@ -68,7 +68,7 @@ class XoopsFormTinymce extends XoopsEditor
      *
      * @return    string
      */
-    function renderValidationJS()
+    public function renderValidationJS()
     {
         if ($this->isRequired() && $eltname = $this->getName()) {
             //$eltname = $this->getName();
@@ -88,7 +88,7 @@ class XoopsFormTinymce extends XoopsEditor
      *
      * @return    string
      */
-    function getLanguage()
+    public function getLanguage()
     {
         if ($this->language) {
             return $this->language;
@@ -105,7 +105,7 @@ class XoopsFormTinymce extends XoopsEditor
         return $this->language;
     }
 
-    function getFonts()
+    public function getFonts()
     {
         if (empty($this->config["fonts"]) && defined("_XOOPS_EDITOR_TINYMCE_FONTS")) {
             $this->config["fonts"] = constant("_XOOPS_EDITOR_TINYMCE_FONTS");
@@ -119,7 +119,7 @@ class XoopsFormTinymce extends XoopsEditor
      *
      * @return    string HTML
      */
-    function render()
+    public function render()
     {
         $ret = $this->editor->render();
         $ret .= parent::render();
@@ -132,7 +132,7 @@ class XoopsFormTinymce extends XoopsEditor
      *
      * @return
      */
-    function isActive()
+    public function isActive()
     {
         return is_readable(\XoopsBaseConfig::get('root-path') . $this->rootPath . "/tinymce.php");
     }

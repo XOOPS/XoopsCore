@@ -65,7 +65,8 @@ class Embed extends FilterAbstract
      *
      * @return string
      */
-    protected function decorateUrl($match) {
+    protected function decorateUrl($match)
+    {
         $url = $match[1];
         $decorated = null;
         $xoops = \Xoops::getInstance();
@@ -119,7 +120,7 @@ class Embed extends FilterAbstract
 </div>
 EOT;
 
-        if(empty($imageSrc)) {
+        if (empty($imageSrc)) {
             $imageSrc = \Xoops::getInstance()->url('media/xoops/images/icons/link-ext.svg');
         }
         $box = sprintf($htmlTemplate, $link, $imageSrc, $title, $description);

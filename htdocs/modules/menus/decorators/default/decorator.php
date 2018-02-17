@@ -29,7 +29,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
 
     protected $get_uid;
 
-    function start()
+    public function start()
     {
         $xoops = Xoops::getInstance();
         $member_handler = $xoops->getHandlerMember();
@@ -58,7 +58,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $this->get_uid = isset($_GET['uid']) ? (int)($_GET['uid']) : 0;
     }
 
-    function accessFilter(&$access_filter)
+    public function accessFilter(&$access_filter)
     {
         $access_filter['is_owner']['name'] = _PL_MENUS_MENUS_ISOWNER;
         $access_filter['is_owner']['method'] = 'isOwner';
@@ -66,7 +66,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         $access_filter['is_not_owner']['method'] = 'isNotOwner';
     }
 
-    function decorateMenu(&$menu)
+    public function decorateMenu(&$menu)
     {
         $decorations = array('link', 'title', 'alt_title');
         foreach ($decorations as $decoration) {
@@ -82,12 +82,12 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         }
     }
 
-    function end(&$menus)
+    public function end(&$menus)
     {
         // TODO: Implement end() method.
     }
 
-    function hasAccess($menu, &$hasAccess)
+    public function hasAccess($menu, &$hasAccess)
     {
         $groups = $this->user_groups;
         if ($menu['visible'] == 0 || !array_intersect($menu['groups'], $groups)) {
@@ -105,7 +105,7 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         }
     }
 
-    function _doDecoration($string)
+    public function _doDecoration($string)
     {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;
@@ -137,17 +137,17 @@ class MenusDefaultDecorator extends MenusDecoratorAbstract implements MenusDecor
         return $string;
     }
 
-    function isOwner()
+    public function isOwner()
     {
         return ($this->user_uid != 0 && ($this->user_uid == $this->get_uid)) ? true : false;
     }
 
-    function isNotOwner()
+    public function isNotOwner()
     {
         return !self::isOwner();
     }
 
-    function getExtraValue($type = 'user', $value)
+    public function getExtraValue($type = 'user', $value)
     {
         $xoops = Xoops::getInstance();
         $ret = 0;

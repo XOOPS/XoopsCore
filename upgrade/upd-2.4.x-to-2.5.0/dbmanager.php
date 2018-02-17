@@ -29,28 +29,27 @@ include_once XOOPS_ROOT_PATH . '/class/database/sqlutility.php';
  */
 class db_manager
 {
+    public $s_tables = array();
+    public $f_tables = array();
+    public $db;
 
-    var $s_tables = array();
-    var $f_tables = array();
-    var $db;
-
-    function db_manager()
+    public function db_manager()
     {
         $this->db = XoopsDatabaseFactory::getDatabase();
         $this->db->setPrefix(XOOPS_DB_PREFIX);
     }
 
-    function isConnectable()
+    public function isConnectable()
     {
         return ($this->db->connect(false) != false) ? true : false;
     }
 
-    function dbExists()
+    public function dbExists()
     {
         return ($this->db->connect() != false) ? true : false;
     }
 
-    function createDB()
+    public function createDB()
     {
         $this->db->connect(false);
 
@@ -59,7 +58,7 @@ class db_manager
         return ($result != false) ? true : false;
     }
 
-    function queryFromFile($sql_file_path)
+    public function queryFromFile($sql_file_path)
     {
         $tables = array();
 
@@ -74,7 +73,7 @@ class db_manager
             // [0] contains the prefixed query
             // [4] contains unprefixed table name
             $prefixed_query = SqlUtility::prefixQuery($piece, $this->db->prefix());
-            if ($prefixed_query != false ) {
+            if ($prefixed_query != false) {
                 $table = $this->db->prefix($prefixed_query[4]);
                 if ($prefixed_query[1] == 'CREATE TABLE') {
                     if ($this->db->query($prefixed_query[0]) != false) {
@@ -86,7 +85,7 @@ class db_manager
                             $this->f_tables['create'][$table] = 1;
                         }
                     }
-                } else if ($prefixed_query[1] == 'INSERT INTO') {
+                } elseif ($prefixed_query[1] == 'INSERT INTO') {
                     if ($this->db->query($prefixed_query[0]) != false) {
                         if (!isset($this->s_tables['insert'][$table])) {
                             $this->s_tables['insert'][$table] = 1;
@@ -97,10 +96,10 @@ class db_manager
                         if (!isset($this->f_tables['insert'][$table])) {
                             $this->f_tables['insert'][$table] = 1;
                         } else {
-                             $this->f_tables['insert'][$table]++;
+                            $this->f_tables['insert'][$table]++;
                         }
                     }
-                } else if ($prefixed_query[1] == 'ALTER TABLE') {
+                } elseif ($prefixed_query[1] == 'ALTER TABLE') {
                     if ($this->db->query($prefixed_query[0]) != false) {
                         if (!isset($this->s_tables['alter'][$table])) {
                             $this->s_tables['alter'][$table] = 1;
@@ -110,7 +109,7 @@ class db_manager
                             $this->f_tables['alter'][$table] = 1;
                         }
                     }
-                } else if ($prefixed_query[1] == 'DROP TABLE') {
+                } elseif ($prefixed_query[1] == 'DROP TABLE') {
                     if ($this->db->query('DROP TABLE '.$table) != false) {
                         if (!isset($this->s_tables['drop'][$table])) {
                             $this->s_tables['drop'][$table] = 1;
@@ -126,13 +125,13 @@ class db_manager
         return true;
     }
 
-    var $successStrings = array(
+    public $successStrings = array(
         'create'    => 'create',
         'insert'    => 'insert',
         'alter'     => 'alter',
         'drop'      => 'drop',
         );
-    var $failureStrings = array(
+    public $failureStrings = array(
         'create'    => 'fail',
         'insert'    => 'fail',
         'alter'     => 'error',
@@ -140,7 +139,7 @@ class db_manager
         );
 
 
-    function report()
+    public function report()
     {
         $commands = array( 'create', 'insert', 'alter', 'drop' );
         $content = '<ul class="log">';
@@ -154,7 +153,7 @@ class db_manager
             }
         }
         foreach ($commands as $cmd) {
-            if (!@empty( $this->f_tables[$cmd])) {
+            if (!@empty($this->f_tables[$cmd])) {
                 foreach ($this->f_tables[$cmd] as $key => $val) {
                     $content .= '<li class="failure">';
                     $content .= ($cmd != 'insert') ? sprintf($this->failureStrings[$cmd], $key) : sprintf($this->failureStrings[$cmd], $val, $key);
@@ -166,25 +165,25 @@ class db_manager
         return $content;
     }
 
-    function query($sql)
+    public function query($sql)
     {
         $this->db->connect();
         return $this->db->query($sql);
     }
 
-    function prefix($table)
+    public function prefix($table)
     {
         $this->db->connect();
         return $this->db->prefix($table);
     }
 
-    function fetchArray($ret)
+    public function fetchArray($ret)
     {
         $this->db->connect();
         return $this->db->fetchArray($ret);
     }
 
-    function insert($table, $query)
+    public function insert($table, $query)
     {
         $this->db->connect();
         $table = $this->db->prefix($table);
@@ -206,12 +205,12 @@ class db_manager
         }
     }
 
-    function isError()
+    public function isError()
     {
         return (isset($this->f_tables)) ? true : false;
     }
 
-    function deleteTables($tables)
+    public function deleteTables($tables)
     {
         $deleted = array();
         $this->db->connect();
@@ -223,7 +222,7 @@ class db_manager
         return $deleted;
     }
 
-    function tableExists($table)
+    public function tableExists($table)
     {
         $table = trim($table);
         $ret = false;
@@ -235,5 +234,3 @@ class db_manager
         return $ret;
     }
 }
-
-?>

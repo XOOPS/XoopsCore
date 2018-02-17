@@ -111,7 +111,9 @@ class MenusBuilder
         foreach ($this->parents[$pid] as $item) {
             $idx += 1;
             ++$counter;
-            if ($counter == $count) { $down = 0; } // turn off down link for last entry
+            if ($counter == $count) {
+                $down = 0;
+            } // turn off down link for last entry
 
             if ($up) {
                 $this->output[$idx]['up_weight'] = $prevWeight;
@@ -199,5 +201,4 @@ class MenusBuilder
 
         return $this->output;
     }
-
 }

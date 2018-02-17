@@ -24,7 +24,7 @@
 
 class protector_postcommon_post_need_multibyte extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         $xoops = Xoops::getInstance();
 

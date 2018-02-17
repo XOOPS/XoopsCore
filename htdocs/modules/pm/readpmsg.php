@@ -149,7 +149,8 @@ $pmform = new Xoops\Form\ThemeForm('', 'pmform', 'readpmsg.php', 'post', true);
 if (is_object($pm) && !empty($pm)) {
     if ($pm->getVar('from_userid') != $xoops->user->getVar('uid')) {
         $reply_button = new Xoops\Form\Button('', 'send', XoopsLocale::A_REPLY);
-        $reply_button->set('onclick',
+        $reply_button->set(
+            'onclick',
             'javascript:openWithSelfMain("'
             . $xoops->url("modules/pm/pmlite.php?reply=1&amp;msg_id={$msg_id}")
             . '", "pmlite", 740,640);'

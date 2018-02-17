@@ -2,15 +2,15 @@
 
 class upgrade_2014 extends xoopsUpgrade
 {
-    var $usedFiles = array('mainfile.php');
+    public $usedFiles = array('mainfile.php');
 
-    function isApplied()
+    public function isApplied()
     {
         return ( /*$this->check_0523patch() &&*/
         $this->check_auth_db());
     }
 
-    function apply()
+    public function apply()
     {
         return $this->apply_auth_db();
         /*
@@ -21,7 +21,7 @@ class upgrade_2014 extends xoopsUpgrade
         */
     }
 
-    function check_0523patch()
+    public function check_0523patch()
     {
         $lines = file('../mainfile.php');
         foreach ($lines as $line) {
@@ -33,7 +33,7 @@ class upgrade_2014 extends xoopsUpgrade
         return false;
     }
 
-    function apply_0523patch()
+    public function apply_0523patch()
     {
         $patchCode = "
     foreach ( array('GLOBALS', '_SESSION', 'HTTP_SESSION_VARS', '_GET', 'HTTP_GET_VARS', '_POST', 'HTTP_POST_VARS', '_COOKIE', 'HTTP_COOKIE_VARS', '_REQUEST', '_SERVER', 'HTTP_SERVER_VARS', '_ENV', 'HTTP_ENV_VARS', '_FILES', 'HTTP_POST_FILES', 'xoopsDB', 'xoopsUser', 'xoopsUserId', 'xoopsUserGroups', 'xoopsUserIsAdmin', 'xoopsConfig', 'xoopsOption', 'xoopsModule', 'xoopsModuleConfig', 'xoopsRequestUri') as \$bad_global ) {
@@ -98,7 +98,7 @@ class upgrade_2014 extends xoopsUpgrade
         return true;
     }
 
-    function check_auth_db()
+    public function check_auth_db()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -106,7 +106,7 @@ class upgrade_2014 extends xoopsUpgrade
         return (bool)$value;
     }
 
-    function query($sql)
+    public function query($sql)
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -115,7 +115,7 @@ class upgrade_2014 extends xoopsUpgrade
         }
     }
 
-    function apply_auth_db()
+    public function apply_auth_db()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();

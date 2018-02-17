@@ -306,7 +306,8 @@ class Locale
      * @param string $key
      * @return string
      */
-    private static function getMessage($class, $key) {
+    private static function getMessage($class, $key)
+    {
         if (defined("$class::$key")) {
             return constant("$class::$key");
         } elseif (defined($key)) {

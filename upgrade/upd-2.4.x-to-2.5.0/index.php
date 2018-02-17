@@ -20,13 +20,13 @@ require_once 'dbmanager.php';
 
 class upgrade_250 extends xoopsUpgrade
 {
-    var $tasks = array('config', 'templates');
+    public $tasks = array('config', 'templates');
 
     /**
      * Check if cpanel config already exists
 
      */
-    function check_config()
+    public function check_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -38,7 +38,7 @@ class upgrade_250 extends xoopsUpgrade
         return ($count == 0) ? false : true;
     }
 
-    function check_templates()
+    public function check_templates()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -50,7 +50,7 @@ class upgrade_250 extends xoopsUpgrade
         return ($count == 0) ? false : true;
     }
 
-    function apply_config()
+    public function apply_config()
     {
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
@@ -133,9 +133,8 @@ class upgrade_250 extends xoopsUpgrade
         return true;
     }
 
-    function apply_templates()
+    public function apply_templates()
     {
-
         include_once '../modules/system/xoops_version.php';
 
         $dbm = new db_manager();
@@ -152,7 +151,7 @@ class upgrade_250 extends xoopsUpgrade
         return true;
     }
 
-    function upgrade_250()
+    public function upgrade_250()
     {
         $this->xoopsUpgrade(basename(dirname(__FILE__)));
     }

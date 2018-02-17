@@ -19,7 +19,8 @@
  * @author          Mage Gregory (AKA Mage)
  * @version         $Id$
  */
-function banners_blocks_show($options) {
+function banners_blocks_show($options)
+{
     $block = array();
     $xoops = Xoops::getInstance();
     require_once dirname(__DIR__) . '/class/bannerrender.php';
@@ -44,7 +45,8 @@ function banners_blocks_show($options) {
     return $block;
 }
 
-function banners_blocks_edit($options) {
+function banners_blocks_edit($options)
+{
     $form = '';
     switch ($options[0]) {
 
@@ -52,7 +54,7 @@ function banners_blocks_edit($options) {
             $form .= _MB_BANNERS_DISP . "&nbsp;\n";
             $form .= "<input type=\"hidden\" name=\"options[0]\" value=\"" . $options[0] . "\" />\n";
             $form .= "<input name=\"options[1]\" size=\"5\" maxlength=\"255\" value=\"" . $options[1] . "\" type=\"text\" />&nbsp;" . _MB_BANNERS . "<br />\n";
-            switch ($options[2]){
+            switch ($options[2]) {
                 case 'H':
                     $checked_H = 'checked="checked"';
                     $checked_V = '';
@@ -70,7 +72,7 @@ function banners_blocks_edit($options) {
             array_shift($options);
             $form .= _MB_BANNERS_CLIENTSTODISPLAY . "<br /><select name=\"options[]\" multiple=\"multiple\" size=\"5\">\n";
             $xoops = Xoops::getInstance();
-            $client_Handler = $xoops->getModuleHandler('bannerclient','banners');
+            $client_Handler = $xoops->getModuleHandler('bannerclient', 'banners');
             $criteria = new CriteriaCompo();
             $criteria->setSort('bannerclient_name');
             $criteria->setOrder('ASC');
@@ -86,7 +88,7 @@ function banners_blocks_edit($options) {
             $form .= _MB_BANNERS_IDDISPLAY . "&nbsp;\n";
             $form .= "<input type=\"hidden\" name=\"options[0]\" value=\"" . $options[0] . "\" />\n";
             $form .= "<input name=\"options[1]\" size=\"20\" maxlength=\"255\" value=\"" . $options[1] . "\" type=\"text\" />&nbsp;" . _MB_BANNERS_SEP . "<br />\n";
-            switch ($options[2]){
+            switch ($options[2]) {
                 case 'H':
                     $checked_H = 'checked="checked"';
                     $checked_V = '';

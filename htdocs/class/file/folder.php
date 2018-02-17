@@ -112,8 +112,9 @@ class XoopsFolderHandler
         }
         if (! $this->isAbsolute($path)) {
             $path1 = $this->realpath($path);
-            if (false===$path1)
+            if (false===$path1) {
                 throw new InvalidArgumentException($path . ' not found');
+            }
             $path = $path1;
         }
         $this->cd($path);
@@ -275,7 +276,7 @@ class XoopsFolderHandler
      */
     public static function isWindowsPath($path)
     {
-        if (preg_match('/^[A-Z]:/i', $path) || false !== strpos($path,'\\')) {
+        if (preg_match('/^[A-Z]:/i', $path) || false !== strpos($path, '\\')) {
             return true;
         }
         return false;
@@ -292,7 +293,7 @@ class XoopsFolderHandler
      */
     public static function isAbsolute($path)
     {
-        $path = str_replace('\\','/',$path);
+        $path = str_replace('\\', '/', $path);
         $match = preg_match('/^(\/|[A-Z]:\/|\/\/)/', $path);
         return ($match == 1);
     }

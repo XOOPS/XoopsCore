@@ -220,7 +220,7 @@ class CommentsCommentHandler extends XoopsPersistableObjectHandler
      * @param int $item_id
      * @return bool
      */
-    function deleteByItemId($module_id, $item_id)
+    public function deleteByItemId($module_id, $item_id)
     {
         $module_id = (int)($module_id);
         $item_id = (int)($item_id);

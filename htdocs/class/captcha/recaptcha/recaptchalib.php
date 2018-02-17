@@ -70,7 +70,6 @@ function _recaptcha_qsencode($data)
  */
 function _recaptcha_http_post($host, $path, $data, $port = 80)
 {
-
     $req = _recaptcha_qsencode($data);
 
     $http_request = "POST $path HTTP/1.0\r\n";
@@ -83,7 +82,7 @@ function _recaptcha_http_post($host, $path, $data, $port = 80)
 
     $response = '';
     if (false == ($fs = @fsockopen($host, $port, $errno, $errstr, 10))) {
-        die ('Could not open socket');
+        die('Could not open socket');
     }
 
     fwrite($fs, $http_request);
@@ -111,7 +110,7 @@ function _recaptcha_http_post($host, $path, $data, $port = 80)
 function recaptcha_get_html($pubkey, $error = null, $use_ssl = false)
 {
     if ($pubkey == null || $pubkey == '') {
-        die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+        die("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
     }
 
     if ($use_ssl) {
@@ -139,8 +138,8 @@ function recaptcha_get_html($pubkey, $error = null, $use_ssl = false)
  */
 class ReCaptchaResponse
 {
-    var $is_valid;
-    var $error;
+    public $is_valid;
+    public $error;
 }
 
 /**
@@ -156,11 +155,11 @@ class ReCaptchaResponse
 function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $extra_params = array())
 {
     if ($privkey == null || $privkey == '') {
-        die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
+        die("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
     }
 
     if ($remoteip == null || $remoteip == '') {
-        die ("For security reasons, you must pass the remote ip to reCAPTCHA");
+        die("For security reasons, you must pass the remote ip to reCAPTCHA");
     }
 
     //discard spam submissions
@@ -171,14 +170,16 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
         return $recaptcha_response;
     }
 
-    $response = _recaptcha_http_post(RECAPTCHA_VERIFY_SERVER,
-		"/recaptcha/api/verify",
-		array(
-			   'privatekey' => $privkey,
-			   'remoteip' => $remoteip,
-			   'challenge' => $challenge,
-			   'response' => $response
-		   ) + $extra_params);
+    $response = _recaptcha_http_post(
+        RECAPTCHA_VERIFY_SERVER,
+        "/recaptcha/api/verify",
+        array(
+               'privatekey' => $privkey,
+               'remoteip' => $remoteip,
+               'challenge' => $challenge,
+               'response' => $response
+           ) + $extra_params
+    );
 
     $answers = explode("\n", $response [1]);
     $recaptcha_response = new ReCaptchaResponse();
@@ -190,7 +191,6 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
         $recaptcha_response->error = $answers [1];
     }
     return $recaptcha_response;
-
 }
 
 /**
@@ -204,7 +204,8 @@ function recaptcha_check_answer($privkey, $remoteip, $challenge, $response, $ext
 function recaptcha_get_signup_url($domain = null, $appname = null)
 {
     return "https://www.google.com/recaptcha/admin/create?" . _recaptcha_qsencode(
-        array('domains' => $domain, 'app' => $appname));
+        array('domains' => $domain, 'app' => $appname)
+    );
 }
 
 /**
@@ -228,7 +229,7 @@ function _recaptcha_aes_pad($val)
 function _recaptcha_aes_encrypt($val, $ky)
 {
     if (!function_exists("mcrypt_encrypt")) {
-        die ("To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.");
+        die("To use reCAPTCHA Mailhide, you need to have the mcrypt php module installed.");
     }
     $mode = MCRYPT_MODE_CBC;
     $enc = MCRYPT_RIJNDAEL_128;
@@ -256,7 +257,7 @@ function _recaptcha_mailhide_urlbase64($x)
 function recaptcha_mailhide_url($pubkey, $privkey, $email)
 {
     if ($pubkey == '' || $pubkey == null || $privkey == "" || $privkey == null) {
-        die ("To use reCAPTCHA Mailhide, you have to sign up for a public and private key, " . "you can do so at <a href='http://www.google.com/recaptcha/mailhide/apikey'>http://www.google.com/recaptcha/mailhide/apikey</a>");
+        die("To use reCAPTCHA Mailhide, you have to sign up for a public and private key, " . "you can do so at <a href='http://www.google.com/recaptcha/mailhide/apikey'>http://www.google.com/recaptcha/mailhide/apikey</a>");
     }
 
     $ky = pack('H*', $privkey);

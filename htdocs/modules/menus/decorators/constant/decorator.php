@@ -20,27 +20,27 @@
 
 class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDecoratorInterface
 {
-    function hasAccess($menu, &$hasAccess)
+    public function hasAccess($menu, &$hasAccess)
     {
     }
 
-    function accessFilter(&$accessFilter)
+    public function accessFilter(&$accessFilter)
     {
     }
 
-    function formLinkDescription($registry)
+    public function formLinkDescription($registry)
     {
     }
 
-    function start()
+    public function start()
     {
     }
 
-    function end(&$menus)
+    public function end(&$menus)
     {
     }
 
-    function decorateMenu(&$menu)
+    public function decorateMenu(&$menu)
     {
         $decorations = array('link', 'image', 'title', 'alt_title');
         foreach ($decorations as $decoration) {
@@ -48,7 +48,7 @@ class MenusConstantDecorator extends MenusDecoratorAbstract implements MenusDeco
         }
     }
 
-    function _doDecoration($string)
+    public function _doDecoration($string)
     {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;

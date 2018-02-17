@@ -31,7 +31,9 @@ function publisher_items_menu_show($options)
     // Getting all top cats
     $block_categoriesObj = $publisher->getCategoryHandler()->getCategories(0, 0, 0);
 
-    if (count($block_categoriesObj) == 0) return $block;
+    if (count($block_categoriesObj) == 0) {
+        return $block;
+    }
 
     // Are we in Publisher ?
     $block['inModule'] = $publisher->isCurrentModule();

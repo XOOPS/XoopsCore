@@ -21,7 +21,7 @@
 
 class protector_precommon_badip_errorlog extends ProtectorFilterAbstract
 {
-    function execute()
+    public function execute()
     {
         echo _MD_PROTECTOR_YOUAREBADIP;
         $protector = Protector::getInstance();
