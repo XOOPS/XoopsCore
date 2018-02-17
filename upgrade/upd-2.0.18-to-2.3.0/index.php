@@ -335,10 +335,10 @@ class upgrade_230 extends xoopsUpgrade
         $lines = file($file);
         foreach (array_keys($lines) as $ln) {
             if (preg_match("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([0-9]+)\s*\)/", $lines[$ln], $matches)) {
-                $val = isset($vars[$matches[3]]) ? strval(constant($matches[3])) : (defined($matches[3]) ? strval(constant($matches[3])) : "0");
+                $val = isset($vars[$matches[3]]) ? (string)constant($matches[3]) : (defined($matches[3]) ? (string)constant($matches[3]) : "0");
                 $lines[$ln] = preg_replace("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([0-9]+)\s*\)/", "define( '" . $matches[3] . "', " . $val . " )", $lines[$ln]);
             } elseif (preg_match("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([\"'])([^\"']*?)\\4\s*\)/", $lines[$ln], $matches)) {
-                $val = isset($vars[$matches[3]]) ? strval($vars[$matches[3]]) : (defined($matches[3]) ? strval(constant($matches[3])) : "");
+                $val = isset($vars[$matches[3]]) ? (string)$vars[$matches[3]] : (defined($matches[3]) ? (string)constant($matches[3]) : "");
                 $lines[$ln] = preg_replace("/(define\()([\"'])(XOOPS_[^\"']+)\\2,\s*([\"'])(.*?)\\4\s*\)/", "define( '" . $matches[3] . "', '" . $val . "' )", $lines[$ln]);
             }
         }

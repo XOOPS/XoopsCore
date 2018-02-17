@@ -56,7 +56,7 @@ class ConfigHandlerTest extends \PHPUnit\Framework\TestCase
         $item->setNew();
         $item->setVar('conf_title', 'CONFTITLE_DUMMY_FOR_TESTS');
         $value=$instance->insertConfig($item);
-        $this->assertTrue(intval($value) > 0);
+        $this->assertTrue((int)$value > 0);
     }
 
     public function test_deleteConfig()
@@ -67,7 +67,7 @@ class ConfigHandlerTest extends \PHPUnit\Framework\TestCase
         $item->setNew();
         $item->setVar('conf_title', 'CONFTITLE_DUMMY_FOR_TESTS');
         $value=$instance->insertConfig($item);
-        $this->assertTrue(intval($value) > 0);
+        $this->assertTrue((int)$value > 0);
 
         $ret=$instance->deleteConfig($item);
         $this->assertSame(true, $ret);

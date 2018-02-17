@@ -132,7 +132,7 @@ class XoopsXmlRpcParser extends SaxParser
     public function setTempValue($value)
     {
         if (is_array($value)) {
-            settype($this->_tempValue, 'array');
+            $this->_tempValue = (array)$this->_tempValue;
             foreach ($value as $k => $v) {
                 $this->_tempValue[$k] = $v;
             }

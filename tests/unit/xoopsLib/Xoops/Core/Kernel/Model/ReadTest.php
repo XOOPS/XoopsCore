@@ -85,7 +85,7 @@ class ReadTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(count($values) >= 0);
         if (!empty($values[1])) {
             $this->assertTrue(is_string($values[1]));
-            $this->assertTrue(intval($values[1]) >= 0);
+            $this->assertTrue((int)$values[1] >= 0);
         }
     }
 

@@ -65,7 +65,7 @@ class JointTest extends \PHPUnit\Framework\TestCase
 
         $result = $instance->getCountByLink();
         $this->assertTrue(is_string($result));
-        $this->assertTrue(intval($result)>=0);
+        $this->assertTrue((int)$result >= 0);
     }
 
     public function test_getCountsByLink()
