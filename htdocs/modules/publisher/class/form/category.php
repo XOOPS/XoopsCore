@@ -110,7 +110,7 @@ class PublisherCategoryForm extends Xoops\Form\ThemeForm
         $image_select->setExtra("onchange='showImgSelected(\"image3\", \"image\", \"" . 'uploads/' . PUBLISHER_DIRNAME . '/images/category/' . "\", \"\", \"" . \XoopsBaseConfig::get('url') . "\")'");
         $image_tray = new Xoops\Form\ElementTray(_AM_PUBLISHER_IMAGE, '&nbsp;');
         $image_tray->addElement($image_select);
-        $image_tray->addElement(new Xoops\Form\Label('', "<br /><br /><img src='" . PublisherUtils::getImageDir('category', false) . $obj->image() . "' name='image3' id='image3' alt='' />"));
+        $image_tray->addElement(new Xoops\Form\Label('', "<br><br><img src='" . PublisherUtils::getImageDir('category', false) . $obj->image() . "' name='image3' id='image3' alt='' />"));
         $image_tray->setDescription(_AM_PUBLISHER_IMAGE_DSC);
         $this->addElement($image_tray);
 
@@ -170,7 +170,7 @@ class PublisherCategoryForm extends Xoops\Form\ThemeForm
         $moderator->setDescription(_AM_PUBLISHER_CATEGORY_MODERATOR_DSC);
         $this->addElement($moderator);
 
-        $cat_tray = new Xoops\Form\ElementTray(_AM_PUBLISHER_SCATEGORYNAME, '<br /><br />');
+        $cat_tray = new Xoops\Form\ElementTray(_AM_PUBLISHER_SCATEGORYNAME, '<br><br>');
         for ($i = 0; $i < $this->_subCatsCount; ++$i) {
             if ($i < (isset($_POST['scname']) ? sizeof($_POST['scname']) : 0)) {
                 $subname = isset($_POST['scname']) ? $_POST['scname'][$i] : '';

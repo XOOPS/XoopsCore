@@ -36,7 +36,7 @@ $xoops->getConfigs();
 
 if ($op === 'save') {
     if (!$xoops->security()->check()) {
-        $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br />" . implode('<br />', $xoops->security()->getErrors()));
+        $xoops->redirect(\XoopsBaseConfig::get('url') . "/modules/" . $xoops->module->getVar('dirname', 'n') . "/", 3, XoopsLocale::E_NO_ACTION_PERMISSION . "<br>" . implode('<br>', $xoops->security()->getErrors()));
         exit();
     }
     $uid = $xoops->user->getVar('uid');

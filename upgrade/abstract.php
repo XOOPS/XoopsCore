@@ -81,6 +81,6 @@ class xoopsUpgrade
 
     public function message()
     {
-        return empty($this->logs) ? "" : implode("<br />", $this->logs);
+        return empty($this->logs) ? "" : implode("<br>", $this->logs);
     }
 }

@@ -337,7 +337,7 @@ class PublisherUtils
     {
         $ret = '';
         foreach ($errors as $value) {
-            $ret .= '<br /> - ' . $value;
+            $ret .= '<br> - ' . $value;
         }
 
         return $ret;
@@ -661,7 +661,7 @@ class PublisherUtils
                     echo '<li><a href="#' . $key . '" onclick="var e = xoopsGetElementById(\'' . $key . '\'); e.focus();">' . htmlspecialchars($error) . '</a></li>';
                 }
             }
-            echo "</ul></div><br />";
+            echo "</ul></div><br>";
         }
     }
 
@@ -751,7 +751,7 @@ class PublisherUtils
         /* @var $fileObj PublisherFile */
         if ($publisher->getConfig('perm_upload') && is_uploaded_file($_FILES['item_upload_file']['tmp_name'])) {
             if (!$ret = $fileObj->checkUpload('item_upload_file', $allowed_mimetypes, $errors)) {
-                $errorstxt = implode('<br />', $errors);
+                $errorstxt = implode('<br>', $errors);
 
                 $message = sprintf(_CO_PUBLISHER_MESSAGE_FILE_ERROR, $errorstxt);
                 if ($withRedirect) {
@@ -916,7 +916,7 @@ class PublisherUtils
             $static_rater[] .= '<div id="unit_ul' . $itemid . '" class="publisher_unit-rating" style="width:' . $rating_unitwidth * $units . 'px;">';
             $static_rater[] .= '<div class="publisher_current-rating" style="width:' . $rating_width . 'px;">' . _MD_PUBLISHER_VOTE_RATING . ' ' . $rating2 . '/' . $units . '</div>';
             $static_rater[] .= '</div>';
-            $static_rater[] .= '<div class="publisher_static">' . _MD_PUBLISHER_VOTE_RATING . ': <strong> ' . $rating1 . '</strong>/' . $units . ' (' . $count . ' ' . $tense . ') <br /><em>' . _MD_PUBLISHER_VOTE_DISABLE . '</em></div>';
+            $static_rater[] .= '<div class="publisher_static">' . _MD_PUBLISHER_VOTE_RATING . ': <strong> ' . $rating1 . '</strong>/' . $units . ' (' . $count . ' ' . $tense . ') <br><em>' . _MD_PUBLISHER_VOTE_DISABLE . '</em></div>';
             $static_rater[] .= '</div>';
             $static_rater[] .= '</div>' . "\n\n";
 

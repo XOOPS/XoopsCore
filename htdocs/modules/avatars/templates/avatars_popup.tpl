@@ -42,7 +42,7 @@ function showAvatar()
         </div>
     </div>
     {if $closebutton}
-        <br />
+        <br>
         <div class="txtcenter">
             <input class="btn btn-primary" value="{translate key='A_CLOSE'}" type="button" onclick="javascript:window.close();" />
         </div>

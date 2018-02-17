@@ -209,13 +209,13 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
         $sanitizer = $class::getInstance();
         $text = "\n";
         $message = $sanitizer->nl2br($text);
-        $this->assertEquals("\n<br />\n", $message);
+        $this->assertEquals("\n<br>\n", $message);
         $text = "\r\n";
         $message = $sanitizer->nl2br($text);
-        $this->assertEquals("\n<br />\n", $message);
+        $this->assertEquals("\n<br>\n", $message);
         $text = "\r";
         $message = $sanitizer->nl2br($text);
-        $this->assertEquals("\n<br />\n", $message);
+        $this->assertEquals("\n<br>\n", $message);
     }
 
     /**
@@ -297,7 +297,7 @@ class ModuleMyTextSanitizerTest extends \PHPUnit\Framework\TestCase
 
         $text = "line\015\012line\015line\012line";
         $message = $sanitizer->previewTarea($text, 0, 0, 0, 0, 1);
-        $expected = "line\n<br />\nline\n<br />\nline\n<br />\nline";
+        $expected = "line\n<br>\nline\n<br>\nline\n<br>\nline";
         $this->assertEquals($expected, $message);
     }
 

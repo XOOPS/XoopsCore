@@ -160,7 +160,7 @@ $stop = '';
 if (isset($_POST['step']) && isset($_SESSION['profile_required'])) {
     foreach ($_SESSION['profile_required'] as $name => $title) {
         if (!isset($_POST[$name]) || empty($_POST[$name])) {
-            $stop .= sprintf(XoopsLocale::F_ENTER, $title) . '<br />';
+            $stop .= sprintf(XoopsLocale::F_ENTER, $title) . '<br>';
         }
     }
 }
@@ -176,7 +176,7 @@ if ($current_step == 1) {
 
     if ($xoops->getConfig('reg_dispdsclmr') != 0 && $xoops->getConfig('reg_disclaimer') != '') {
         if (empty($agree_disc)) {
-            $stop .= XoopsLocale::E_YOU_HAVE_TO_AGREE_TO_DISCLAIMER . '<br />';
+            $stop .= XoopsLocale::E_YOU_HAVE_TO_AGREE_TO_DISCLAIMER . '<br>';
         }
     }
 
@@ -223,8 +223,8 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
 
     // Insert/update user and check if we have succeded
     if (!$member_handler->insertUser($newuser)) {
-        $stop .= XoopsLocale::E_USER_NOT_REGISTERED . "<br />";
-        $stop .= implode('<br />', $newuser->getErrors());
+        $stop .= XoopsLocale::E_USER_NOT_REGISTERED . "<br>";
+        $stop .= implode('<br>', $newuser->getErrors());
     } else {
         // User inserted! Now insert custom profile fields
         $profile->setVar('profile_id', $newuser->getVar('uid'));
@@ -246,7 +246,7 @@ if ($current_step > 0 && empty($stop) && (!empty($steps[$current_step - 1]['step
 
             $message = "";
             if (!$member_handler->addUserToGroup(FixedGroups::USERS, $newuser->getVar('uid'))) {
-                $message = _PROFILE_MA_REGISTER_NOTGROUP . "<br />";
+                $message = _PROFILE_MA_REGISTER_NOTGROUP . "<br>";
             } else {
                 if ($xoops->getConfig('activation_type') == 1) {
                     XoopsUserUtility::sendWelcome($newuser);

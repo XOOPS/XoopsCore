@@ -97,7 +97,7 @@ if ($action === "showpopups") {
                 $fname = trim($_POST['fname']);
                 $fmail = trim($_POST['fmail']);
                 if (!$xoops->checkEmail($fmail) || !$xoops->checkEmail($ymail) || preg_match("/[\\0-\\31]/", $yname)) {
-                    $errormessage = XoopsLocale::EMAIL_PROVIDED_IS_INVALID . "<br />" . XoopsLocale::E_CHECK_EMAIL_AND_TRY_AGAIN . "";
+                    $errormessage = XoopsLocale::EMAIL_PROVIDED_IS_INVALID . "<br>" . XoopsLocale::E_CHECK_EMAIL_AND_TRY_AGAIN . "";
                     $xoops->redirect($xoops_url . "/misc.php?action=showpopups&amp;type=friend&amp;op=sendform", 2, $errormessage);
                 }
                 $xoopsMailer = $xoops->getMailer();

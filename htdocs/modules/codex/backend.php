@@ -20,10 +20,10 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 echo "
-<strong>backend for your module</strong><br /><br />
-Since 2.6.0, the backend functionality use a 'Plugin' interface.<br />
-The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
-<br />
+<strong>backend for your module</strong><br><br>
+Since 2.6.0, the backend functionality use a 'Plugin' interface.<br>
+The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br>
+<br>
 <ul>
     <li>Copy the file <strong><i>root_path/backend.php</i></strong> in to your module folder</li>
     <li>Copy the file <strong><i>root_path/modules/system/templates/system_rss.tpl</i></strong> to in your module templates folder</li>

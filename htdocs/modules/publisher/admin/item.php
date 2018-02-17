@@ -161,7 +161,7 @@ switch ($op) {
             $xoops->header();
             echo $xoops->confirm(array(
                 'op' => 'del', 'itemid' => $itemObj->getVar('itemid'), 'confirm' => 1, 'name' => $itemObj->title()
-            ), 'item.php', _AM_PUBLISHER_DELETETHISITEM . " <br />'" . $itemObj->title() . "'. <br /> <br />", _AM_PUBLISHER_DELETE);
+            ), 'item.php', _AM_PUBLISHER_DELETETHISITEM . " <br>'" . $itemObj->title() . "'. <br> <br>", _AM_PUBLISHER_DELETE);
             $xoops->footer();
         }
         exit();
@@ -172,7 +172,7 @@ switch ($op) {
         PublisherUtils::cpHeader();
         //publisher_adminMenu(2, _AM_PUBLISHER_ITEMS);
 
-        echo "<br />\n";
+        echo "<br>\n";
         echo "<form><div style=\"margin-bottom: 12px;\">";
         echo "<input type='button' name='button' onclick=\"location='item.php?op=mod'\" value='" . _AM_PUBLISHER_CREATEITEM . "'>&nbsp;&nbsp;";
         echo "</div></form>";
@@ -223,7 +223,7 @@ switch ($op) {
             echo "</tr>";
         }
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
 
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $submittedstartitem, 'submittedstartitem');
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';
@@ -272,7 +272,7 @@ switch ($op) {
             echo "</tr>";
         }
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
 
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $publishedstartitem, 'publishedstartitem');
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';
@@ -320,7 +320,7 @@ switch ($op) {
             echo "</tr>";
         }
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
 
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $offlinestartitem, 'offlinestartitem');
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';
@@ -369,7 +369,7 @@ switch ($op) {
             echo "</tr>";
         }
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
 
         $pagenav = new XoopsPageNav($totalitems, $publisher->getConfig('idxcat_perpage'), $rejectedstartitem, 'rejectedstartitem');
         echo '<div style="text-align:right;">' . $pagenav->renderNav() . '</div>';
@@ -441,7 +441,7 @@ function publisher_editItem($showmenu = false, $itemid = 0, $clone = false)
                 break;
         }
 
-        echo "<br />\n";
+        echo "<br>\n";
         PublisherUtils::openCollapsableBar('edititemtable', 'edititemicon', $page_title, $page_info);
 
         if (!$clone) {

@@ -72,7 +72,7 @@ define('_MD_NOTIFICATIONS_BOOKMARK_NOTIFYCAP', 'Bookmark this item (no notificat
 define('_MD_NOTIFICATIONS_BOOKMARK_NOTIFYDSC', 'Keep track of this item without receiving any event notifications.');
 // For user profile
 // FIXME: These should be reworded a little...
-//define('_MD_NOTIFICATIONS_NOTIFYMETHOD', 'Notification Method<br /> When you monitor e.g. a forum, how would you like to receive notifications of updates?');
+//define('_MD_NOTIFICATIONS_NOTIFYMETHOD', 'Notification Method<br> When you monitor e.g. a forum, how would you like to receive notifications of updates?');
 //define('_MD_NOTIFICATIONS_METHOD_EMAIL', 'Email (use address in my profile)');
 //define('_MD_NOTIFICATIONS_METHOD_PM', 'Private Message');
 //define('_MD_NOTIFICATIONS_METHOD_DISABLE', 'Temporarily Disable');

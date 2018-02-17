@@ -174,7 +174,7 @@ switch ($op) {
 
     case 'delete':
         if (!$xoops->security()->check()) {
-            $helper->redirect('index.php', 2, implode('<br />', $xoops->security()->getErrors()));
+            $helper->redirect('index.php', 2, implode('<br>', $xoops->security()->getErrors()));
         }
         if (empty($_POST['del_not'])) {
             $helper->redirect('index.php', 2, _MD_NOTIFICATIONS_NOTHINGTODELETE);

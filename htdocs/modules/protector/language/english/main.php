@@ -1,6 +1,6 @@
 <?php
 
-define('_MD_PROTECTOR_YOUAREBADIP','You are registered as BAD_IP by Protector.<br />') ;
+define('_MD_PROTECTOR_YOUAREBADIP','You are registered as BAD_IP by Protector.<br>') ;
 define('_MD_PROTECTOR_FMT_JAILINFO','This restriction will be expired on %s') ;
 define('_MD_PROTECTOR_FMT_JAILTIME','Y-m-j H:i:s') ;
 define('_MD_PROTECTOR_BANDWIDTHLIMITED','This site is very crowed now. try later.') ;

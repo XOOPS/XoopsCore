@@ -54,7 +54,7 @@ if (is_object($pm) && !$xoops->user->isAdmin() && ($pm->getVar('from_userid') !=
 
 if (is_object($pm) && !empty($_POST['action'])) {
     if (!$xoops->security()->check()) {
-        echo implode('<br />', $xoops->security()->getErrors());
+        echo implode('<br>', $xoops->security()->getErrors());
         exit();
     }
     $res = false;

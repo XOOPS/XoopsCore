@@ -34,7 +34,7 @@
         </div>
     <{/if}>
     <{$block.content_shorttext}>
-    <br />
+    <br>
     <{$block.content_text}>
     <{if $block.related.related_navigation}>
         <div class="clear"></div>

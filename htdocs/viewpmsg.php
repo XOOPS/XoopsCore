@@ -27,14 +27,14 @@ $xoops = Xoops::getInstance();
 $xoops->events()->triggerEvent('core.viewpmsg.start');
 
 if (!$xoops->isUser()) {
-    $errormessage = XoopsLocale::E_YOU_ARE_NOT_REGISTERED . "<br />"
+    $errormessage = XoopsLocale::E_YOU_ARE_NOT_REGISTERED . "<br>"
         . XoopsLocale::E_REGISTER_FIRST_TO_SEND_PRIVATE_MESSAGES . "";
     $xoops->redirect("user.php", 2, $errormessage);
 } else {
     $pm_handler = $xoops->getHandlerPrivateMessage();
     if (isset($_POST['delete_messages']) && (isset($_POST['msg_id']) || isset($_POST['msg_ids']))) {
         if (!$xoops->security()->check()) {
-            echo implode('<br />', $xoops->security()->getErrors());
+            echo implode('<br>', $xoops->security()->getErrors());
             exit();
         } else {
             if (empty($_REQUEST['ok'])) {

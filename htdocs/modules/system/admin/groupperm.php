@@ -91,4 +91,4 @@ if ($module->getVar('hasadmin')) {
 }
 $backlink = ($backlink) ? $backlink : \XoopsBaseConfig::get('url') . '/admin.php';
 
-$xoops->redirect($backlink, 2, implode("<br />", $msg));
+$xoops->redirect($backlink, 2, implode("<br>", $msg));

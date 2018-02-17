@@ -130,7 +130,7 @@ switch ($op) {
 
         if (preg_match('/^\d+$/', Request::getInt('content_weight', 0)) == false) {
             $error = true;
-            $error_message .= PageLocale::E_WEIGHT . '<br />';
+            $error_message .= PageLocale::E_WEIGHT . '<br>';
             $obj->setVar('content_weight', 0);
         } else {
             $obj->setVar('content_weight', Request::getInt('content_weight', 0));
@@ -200,7 +200,7 @@ switch ($op) {
                 array('ok' => 1, 'content_id' => $content_id, 'op' => 'delete'),
                 'content.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
-                . '<br /><span class="red">' . $obj->getvar('content_title') . '<span>'
+                . '<br><span class="red">' . $obj->getvar('content_title') . '<span>'
             );
         }
         break;

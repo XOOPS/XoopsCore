@@ -43,21 +43,21 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined($constpref.'_LOADED')) {
     define($constpref.'_HIJACK_TOPBIT', 'حماية الايبي اثناء الجلسه-اي التواجد بالموقع');
     define($constpref.'_HIJACK_TOPBITDSC', 'الحماية للايبي من سرقة الكوكيز  . اذ كان لك ايبي ثابت اختار 32 اذ كان غير ثابت اختار 24 كافتراضي');
     define($constpref.'_HIJACK_DENYGP', 'المجموعات الغير مسموح بنقلها الي نظام حماية الجلسة');
-    define($constpref.'_HIJACK_DENYGPDSC', 'مانع حقن وسرقة الكوكيز في الجلسة:<br />اختار المجموعة الغير مسموح لها بالانتقال تحت نظام الحماية اثناء الجلسة . من المقترح اختيار مجموعة الادارة');
+    define($constpref.'_HIJACK_DENYGPDSC', 'مانع حقن وسرقة الكوكيز في الجلسة:<br>اختار المجموعة الغير مسموح لها بالانتقال تحت نظام الحماية اثناء الجلسة . من المقترح اختيار مجموعة الادارة');
     define($constpref.'_SAN_NULLBYTE', 'null-bytes التعقيم لاوامر من نوع');
     define($constpref.'_SAN_NULLBYTEDSC', '"\\0" من المقترح تفعيل هذا الخيار لان هذا الكود غالبا ما يستخدم في عمليات التخريب');
     define($constpref.'_DIE_NULLBYTE', '"\\0" الخروج في حالة وجود  عملية من نوع نيل باتس');
     define($constpref.'_DIE_NULLBYTEDSC', '"\\0" من المقترح تفعيل هذا الخيار لان هذا الكود غالبا ما يستخدم في عمليات التخريب');
     define($constpref.'_DIE_BADEXT', 'الخروج في حالة رفع ملف سيء');
-    define($constpref.'_DIE_BADEXTDSC', 'اذ حاول احد رفع ملف بصيغة بي اتش بي  او صيغة اخري غير مسموح بها<br />اذ كنت في الغالب ترفع ملفات بصيغة بي اتش بي فقم اذ بتعطيل هذا الخيار ');
+    define($constpref.'_DIE_BADEXTDSC', 'اذ حاول احد رفع ملف بصيغة بي اتش بي  او صيغة اخري غير مسموح بها<br>اذ كنت في الغالب ترفع ملفات بصيغة بي اتش بي فقم اذ بتعطيل هذا الخيار ');
     define($constpref.'_CONTAMI_ACTION', 'محاولة تلويث والعبث بمتغيرات المجلة');
-    define($constpref.'_CONTAMI_ACTIONDS', 'اختار العمل في حالة اكتشاف محاولة لتلويث  والعبث بمتغيرات المجلة العامة<br />المقترح هو  اختيار صفحة بيضاء');
+    define($constpref.'_CONTAMI_ACTIONDS', 'اختار العمل في حالة اكتشاف محاولة لتلويث  والعبث بمتغيرات المجلة العامة<br>المقترح هو  اختيار صفحة بيضاء');
     define($constpref.'_ISOCOM_ACTION', 'العمل حال اكتشاف تعليق ملغوم');
-    define($constpref.'_ISOCOM_ACTIONDSC', 'مانع الحق في القاعده:<br />"/*" العمل حال اكتشافة هذا الرمز في تعليق ما<br />التعقيم يعني اضافة رمز السلاش للكود لتعطيلة - العمل المقترح  هو اختيار تعقيم الامر');
+    define($constpref.'_ISOCOM_ACTIONDSC', 'مانع الحق في القاعده:<br>"/*" العمل حال اكتشافة هذا الرمز في تعليق ما<br>التعقيم يعني اضافة رمز السلاش للكود لتعطيلة - العمل المقترح  هو اختيار تعقيم الامر');
     define($constpref.'_UNION_ACTION', 'العمل حال اكتشاف اي من اوامر الاتحاد');
-    define($constpref.'_UNION_ACTIONDSC', 'مانع الحقن للقاعدة:<br />اختار العمل حال اكتشاف اي عملية خارجية من عمليات الاتحاد والعمل المقترح هو تعقيم الامر<br />""union" سيتم تغير الرمز بوضع داش  بمنتصف الكلمة');
+    define($constpref.'_UNION_ACTIONDSC', 'مانع الحقن للقاعدة:<br>اختار العمل حال اكتشاف اي عملية خارجية من عمليات الاتحاد والعمل المقترح هو تعقيم الامر<br>""union" سيتم تغير الرمز بوضع داش  بمنتصف الكلمة');
     define($constpref.'_ID_INTVAL', 'ID اوامر الطلب والجلب من القاعدة');
-    define($constpref.'_ID_INTVALDSC', '"*id" كل الاوامر التي تنتهي بهذا الرمز<br />تفعيل الخيار يحمي من بعض عمليات الحق<br />هذا الاختيار يسبب احيانا بتعطل برامج اخري لذلك كم بتعطيلة  الا اذ كنت تعرف ما تفعل');
+    define($constpref.'_ID_INTVALDSC', '"*id" كل الاوامر التي تنتهي بهذا الرمز<br>تفعيل الخيار يحمي من بعض عمليات الحق<br>هذا الاختيار يسبب احيانا بتعطل برامج اخري لذلك كم بتعطيلة  الا اذ كنت تعرف ما تفعل');
     define($constpref.'_FILE_DOTDOT', 'Directory Traversalsالمنع من عمليات التنقل ');
     define($constpref.'_FILE_DOTDOTDSC', 'منع كل العمليات التي تبدو  على انها تقوم باستعراض الموقع والملفات والتي تبحث عن ثغرات بالموقع');
 
@@ -82,7 +82,7 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined($constpref.'_LOADED')) {
     define($constpref.'_DOS_CRACTION', 'العمل حال اكتشاف عمليات انشاء ضغط عالي على الموقع');
 
     define($constpref.'_DOS_CRSAFE', 'محركات البحث المسموح لها ');
-    define($constpref.'_DOS_CRSAFEDSC', 'كل محركات البحث المضافة بالحقل لن تعتبر محركات بحث سيئة او تحدث ضغط على الموقع<br />مثل<br />eg) /(msnbot|Googlebot|Yahoo! Slurp)/i');
+    define($constpref.'_DOS_CRSAFEDSC', 'كل محركات البحث المضافة بالحقل لن تعتبر محركات بحث سيئة او تحدث ضغط على الموقع<br>مثل<br>eg) /(msnbot|Googlebot|Yahoo! Slurp)/i');
 
     define($constpref.'_OPT_NONE', 'لاشيء فقط سجل العملية');
     define($constpref.'_OPT_SAN', 'تعقيم الامر');
@@ -98,7 +98,7 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined($constpref.'_LOADED')) {
     define($constpref.'_DOSOPT_HTA', '.htaccess المنع بملف');
 
     define($constpref.'_BIP_EXCEPT', 'المجموعة  التي لا يتم طردها ابدا');
-    define($constpref.'_BIP_EXCEPTDSC', 'حدد ايبي معين   لحمايته من الطرد من الموقع<br />(من المقترح فقط ايبي المدير');
+    define($constpref.'_BIP_EXCEPTDSC', 'حدد ايبي معين   لحمايته من الطرد من الموقع<br>(من المقترح فقط ايبي المدير');
 
     define($constpref.'_DISABLES', 'XOOPS تعطيل  خصائص خطيرة في مجلة');
 

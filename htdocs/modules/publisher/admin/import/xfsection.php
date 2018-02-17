@@ -66,7 +66,7 @@ if ($op === 'start') {
                 $cat_title = $myts->displayTarea($cat_title);
                 $cat_cbox_options[$cid] = "$cat_title ($art_count)";
             }
-            $cat_label = new Xoops\Form\Label(_AM_PUBLISHER_IMPORT_CATEGORIES, implode("<br />", $cat_cbox_options));
+            $cat_label = new Xoops\Form\Label(_AM_PUBLISHER_IMPORT_CATEGORIES, implode("<br>", $cat_cbox_options));
             $cat_label->setDescription(_AM_PUBLISHER_IMPORT_CATEGORIES_DSC);
             $form->addElement($cat_label);
 
@@ -209,14 +209,14 @@ if ($op === 'go') {
                             $fileObj->setVar('filename', $arrFile['filerealname']);
 
                             if ($fileObj->store($allowed_mimetypes, true, false)) {
-                                echo "&nbsp;&nbsp;&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_ARTICLE_FILE, $arrFile['filerealname']) . "<br />";
+                                echo "&nbsp;&nbsp;&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_ARTICLE_FILE, $arrFile['filerealname']) . "<br>";
                             }
                         }
                     }
                 }
 
                 $newArticleArray[$arrArticle['articleid']] = $itemObj->getVar('itemid');
-                echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_ARTICLE, $itemObj->title()) . "<br />";
+                echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_ARTICLE, $itemObj->title()) . "<br>";
                 ++$cnt_imported_articles;
             }
         }
@@ -239,7 +239,7 @@ if ($op === 'go') {
     }
 
     // Looping through the comments to link them to the new articles and module
-    echo _AM_PUBLISHER_IMPORT_COMMENTS . "<br />";
+    echo _AM_PUBLISHER_IMPORT_COMMENTS . "<br>";
 
     $module_handler = xoops_getHandler('module');
     $moduleObj = $module_handler->getByDirname('xfsection');
@@ -256,9 +256,9 @@ if ($op === 'go') {
         $comment->setVar('com_modid', $publisher_module_id);
         $comment->setNew();
         if (!$comment_handler->insert($comment)) {
-            echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_COMMENT_ERROR, $comment->getVar('com_title')) . "<br />";
+            echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_COMMENT_ERROR, $comment->getVar('com_title')) . "<br>";
         } else {
-            echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_COMMENT, $comment->getVar('com_title')) . "<br />";
+            echo "&nbsp;&nbsp;" . sprintf(_AM_PUBLISHER_IMPORTED_COMMENT, $comment->getVar('com_title')) . "<br>";
         }
 
     }

@@ -511,7 +511,7 @@ class XoopsMailer
             if (!empty($this->errors)) {
                 $ret = "<h4>" . XoopsLocale::ERRORS . "</h4>";
                 foreach ($this->errors as $error) {
-                    $ret .= $error . "<br />";
+                    $ret .= $error . "<br>";
                 }
             }
             return $ret;
@@ -527,7 +527,7 @@ class XoopsMailer
             $ret = "";
             if (!empty($this->success)) {
                 foreach ($this->success as $suc) {
-                    $ret .= $suc . "<br />";
+                    $ret .= $suc . "<br>";
                 }
             }
             return $ret;

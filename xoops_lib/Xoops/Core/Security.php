@@ -241,7 +241,7 @@ class Security
         } else {
             $ret = '';
             if (is_array($this->errors)) {
-                $ret = implode('<br />', $this->errors) . '<br />';
+                $ret = implode('<br>', $this->errors) . '<br>';
             }
             return $ret;
         }

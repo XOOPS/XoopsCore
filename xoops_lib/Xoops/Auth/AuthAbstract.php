@@ -90,14 +90,14 @@ abstract class AuthAbstract
     public function getHtmlErrors()
     {
         $xoops = \Xoops::getInstance();
-        $ret = '<br />';
+        $ret = '<br>';
         if ($xoops->getConfig('debug_mode') == 1 || $xoops->getConfig('debug_mode') == 2) {
             if (!empty($this->errors)) {
                 foreach ($this->errors as $errstr) {
                     $ret .= $errstr . '<br/>';
                 }
             } else {
-                $ret .= \XoopsLocale::NONE . '<br />';
+                $ret .= \XoopsLocale::NONE . '<br>';
             }
             $ret .= sprintf(\XoopsLocale::F_USING_AUTHENTICATION_METHOD, $this->auth_method);
         } else {

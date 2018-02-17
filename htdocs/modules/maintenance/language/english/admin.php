@@ -45,9 +45,9 @@ define("_AM_MAINTENANCE_CENTER_RETURN","Return to maintenance center");
 define("_AM_MAINTENANCE_CENTER_TABLES","Tables maintenance");
 define("_AM_MAINTENANCE_CENTER_TABLES1","Tables");
 define("_AM_MAINTENANCE_CENTER_TABLES_DESC",
-"ANALYZE TABLE analyzes and stores the key distribution for a table. During the analysis, the table is locked with a read lock.<br />
-CHECK TABLE checks a table or tables for errors.<br />
-OPTIMIZE TABLE reclaims the unused space and to defragment the data file.<br />
+"ANALYZE TABLE analyzes and stores the key distribution for a table. During the analysis, the table is locked with a read lock.<br>
+CHECK TABLE checks a table or tables for errors.<br>
+OPTIMIZE TABLE reclaims the unused space and to defragment the data file.<br>
 REPAIR TABLE repairs a possibly corrupted table.");
 define("_AM_MAINTENANCE_CENTER_REPAIR","Repair");
 define("_AM_MAINTENANCE_CENTER_SESSION","Empty the sessions table");

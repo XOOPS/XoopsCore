@@ -112,7 +112,7 @@ switch ($op) {
     case "save":
         // Check security
         if (!$xoops->security()->check()) {
-            $xoops->redirect('avatar_custom.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('avatar_custom.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $uploader_avatars_img =
             new XoopsMediaUploader($xoops_upload_path . '/avatars', $mimetypes, $upload_size, $width, $height);
@@ -126,7 +126,7 @@ switch ($op) {
         $error_msg = '';
         $obj->setVars($_POST);
         if (preg_match('/^\d+$/', $_POST["avatar_weight"]) == false) {
-            $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br />';
+            $error_msg .= XoopsLocale::E_YOU_NEED_A_POSITIVE_INTEGER . '<br>';
             $obj->setVar("avatar_weight", 0);
         } else {
             $obj->setVar("avatar_weight", Request::getInt('avatar_weight', 0));

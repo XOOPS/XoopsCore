@@ -27,7 +27,7 @@ $errors = array();
 if (publisher_pagewrap_upload($errors)) {
     $xoops->redirect($_POST['backto'], 2, _AM_PUBLISHER_FILEUPLOAD_SUCCESS);
 } else {
-    $errorstxt = implode('<br />', $errors);
+    $errorstxt = implode('<br>', $errors);
     $message = sprintf(_CO_PUBLISHER_MESSAGE_FILE_ERROR, $errorstxt);
     $xoops->redirect($_POST['backto'], 5, $message);
 }

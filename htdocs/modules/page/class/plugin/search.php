@@ -77,7 +77,7 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
         $items = array();
         $result = $qb->execute();
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
-            $content = $myrow["content_shorttext"] . "<br /><br />" . $myrow["content_text"];
+            $content = $myrow["content_shorttext"] . "<br><br>" . $myrow["content_text"];
             $content = $myts->displayTarea($content);
             $items[] = array(
                 'title' => $myrow['content_title'],

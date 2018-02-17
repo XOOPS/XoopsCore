@@ -63,7 +63,7 @@ swojego IP w trakcie sesji');
     define('_MI_PROTECTOR_SAN_NULLBYTEDSC', 'Znak kończący "\\0" jest często używany we wrogich atakach. Pusty bajt zmieni się w spację, jeśli ta opcja jest włączona (co jest domyślne, i stanowczo poleca się pozostawić ją włączoną).');
     define('_MI_PROTECTOR_DIE_NULLBYTE', 'Wyjdź jeśli stwierdzone zostaną
 puste bajty');
-    define('_MI_PROTECTOR_DIE_NULLBYTEDSC', 'Znak zakończenia "\\0" jest zwykle używany podczas ataku na serwisy.<br />(należy suatwić tą opcję włączoną)');
+    define('_MI_PROTECTOR_DIE_NULLBYTEDSC', 'Znak zakończenia "\\0" jest zwykle używany podczas ataku na serwisy.<br>(należy suatwić tą opcję włączoną)');
     define('_MI_PROTECTOR_DIE_BADEXT', 'Wyjdź jeśli wgrywane są podejrzane
 pliki (tak/nie)');
     define('_MI_PROTECTOR_DIE_BADEXTDSC', 'Jeśli ktoś próbuje wgrać pliki z niebezpiecznymi rozszerzeniami, jak .php ,Protector zamknie XOOPSa. Jeśli często dołączasz pliki php do B-Wiki albo PukiWikiMod, być może będziesz musiał wyłączyć tę funkcję.');
@@ -76,7 +76,7 @@ izolowanego otwarcia komentarza.');
     define('_MI_PROTECTOR_UNION_ACTION', 'Działanie w przypadku wykrycia próby dodania instrukcji UNION lub podobnej.');
     define('_MI_PROTECTOR_UNION_ACTIONDSC', 'Ochrona przed skażeniem SQL. Określ działanie wobec znalezienia składni UNION w SQL. Możliwości:');
     define('_MI_PROTECTOR_ID_INTVAL', 'Wymuszanie liczby całkowitej dla zapytań zawierających zmienne typu id');
-    define('_MI_PROTECTOR_ID_INTVALDSC', 'Ta opcja miała chronić przed problemem w starszej wersji modułu weblog. Teraz ten błąd został naprawiony.<br />Wszystkie żądania z nazwami takimi jak "*id" będą traktowane jak liczby całkowite. Ta opcja chroni przed niektórymi rodzajami ataków XSS i SQL. Poleca się ją włączyć, choć może się zdarzyć, że będzie powodować problemy z niektórymi modułami. Domyślnie ustawiona na off.');
+    define('_MI_PROTECTOR_ID_INTVALDSC', 'Ta opcja miała chronić przed problemem w starszej wersji modułu weblog. Teraz ten błąd został naprawiony.<br>Wszystkie żądania z nazwami takimi jak "*id" będą traktowane jak liczby całkowite. Ta opcja chroni przed niektórymi rodzajami ataków XSS i SQL. Poleca się ją włączyć, choć może się zdarzyć, że będzie powodować problemy z niektórymi modułami. Domyślnie ustawiona na off.');
     define('_MI_PROTECTOR_FILE_DOTDOT', 'Ochrona przed włamywaniem się do folderów');
     define('_MI_PROTECTOR_FILE_DOTDOTDSC', 'Ta funkcja eliminuje ".." z wszystkich zapytań, które wyglądają na próby włamywania się do folderów. Możliwe opcje to włączenie (tak) lub wyłączenie (nie). Domyślnie ustawiona na on (włączone).');
 

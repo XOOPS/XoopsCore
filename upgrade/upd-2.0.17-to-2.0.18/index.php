@@ -28,7 +28,7 @@ class upgrade_2018 extends xoopsUpgrade
 
     public function query($sql)
     {
-        //echo $sql . "<br />";
+        //echo $sql . "<br>";
         $xoops = Xoops::getInstance();
         $db = $xoops->db();
         if (!($ret = $db->queryF($sql))) {

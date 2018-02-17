@@ -19,7 +19,7 @@ define("DB_COLLATION_NOCHANGE", "Do not change");
 define("XOOPS_PATH_FOUND", "Path found.");
 define("ERR_COULD_NOT_ACCESS", "Could not access the specified folder. Please verify that it exists and is readable by the server.");
 define("CHECKING_PERMISSIONS", "Checking file and directory permissions...");
-define("ERR_NEED_WRITE_ACCESS", "The server must be given write access to the following files and folder<br />(i.e. <em>chmod 777 directory_name</em> on a UNIX/LINUX server)");
+define("ERR_NEED_WRITE_ACCESS", "The server must be given write access to the following files and folder<br>(i.e. <em>chmod 777 directory_name</em> on a UNIX/LINUX server)");
 define("IS_NOT_WRITABLE", "%s is NOT writable.");
 define("IS_WRITABLE", "%s is writable.");
 define("ERR_COULD_NOT_WRITE_MAINFILE", "Error writing content to mainfile.php, write the content into mainfile.php manually.");

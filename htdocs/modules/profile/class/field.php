@@ -341,7 +341,7 @@ class ProfileField extends XoopsObject
                 $userrank = $user->rank();
                 $user_rankimage = "";
                 if (isset($userrank['image']) && $userrank['image'] != "") {
-                    $user_rankimage = '<img src="' . $userrank['image'] . '" alt="' . $userrank['title'] . '" /><br />';
+                    $user_rankimage = '<img src="' . $userrank['image'] . '" alt="' . $userrank['title'] . '" /><br>';
                 }
                 return $user_rankimage . $userrank['title'];
                 break;

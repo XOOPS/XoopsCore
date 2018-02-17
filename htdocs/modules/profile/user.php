@@ -85,7 +85,7 @@ if ($op === 'logout') {
     if ($xoops->isUser()) {
         $xoops->getHandlerOnline()->destroy($xoops->user->getVar('uid'));
     }
-    $message = XoopsLocale::S_YOU_ARE_NOW_LOGGED_OUT . '<br />' . XoopsLocale::S_THANK_YOU_FOR_VISITING_OUR_SITE;
+    $message = XoopsLocale::S_YOU_ARE_NOW_LOGGED_OUT . '<br>' . XoopsLocale::S_THANK_YOU_FOR_VISITING_OUR_SITE;
     $xoops->redirect(\XoopsBaseConfig::get('url') . '/', 1, $message);
 }
 

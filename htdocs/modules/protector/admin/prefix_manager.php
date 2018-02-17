@@ -67,7 +67,7 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
         $crs = $db->queryF('SHOW CREATE TABLE ' . $old_table);
         if (!$db->getRowsNum($crs)) {
-            $error .= sprintf(_AM_PROTECTOR_PREFIX_ERROR_SCT, $old_table) . '<br />';
+            $error .= sprintf(_AM_PROTECTOR_PREFIX_ERROR_SCT, $old_table) . '<br>';
             continue;
         }
         $row_create = $db->fetchArray($crs);
@@ -75,13 +75,13 @@ if (!empty($_POST['copy']) && !empty($_POST['old_prefix'])) {
 
         $crs = $db->queryF($create_sql);
         if (!$crs) {
-            $error .= sprintf(_AM_PROTECTOR_PREFIX_ERROR_CT, $new_table) . '<br />';
+            $error .= sprintf(_AM_PROTECTOR_PREFIX_ERROR_CT, $new_table) . '<br>';
             continue;
         }
 
         $irs = $db->queryF("INSERT INTO `$new_table` SELECT * FROM `$old_table`");
         if (!$irs) {
-            $error .= sprintf(_AM_PROTECTOR_PREFIX_ERROR_II, $new_table) . '<br />';
+            $error .= sprintf(_AM_PROTECTOR_PREFIX_ERROR_II, $new_table) . '<br>';
             continue;
         }
     }

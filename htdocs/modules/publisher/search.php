@@ -189,7 +189,7 @@ if (!(empty($_POST["submit"]) && empty($term))) {
     $search_info = XoopsLocale::KEYWORDS . ": " . $myts->htmlSpecialChars($term);
     if ($uname_required) {
         if ($search_info) {
-            $search_info .= "<br />";
+            $search_info .= "<br>";
         }
         $search_info .= _CO_PUBLISHER_UID . ": " . $myts->htmlSpecialChars($search_username);
     }

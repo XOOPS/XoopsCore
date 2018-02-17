@@ -98,7 +98,7 @@ switch ($op) {
             $inactive_cbox->addOption(1, _AM_MAILUSERS_INACTIVE . '<span class="bold green">*</span>');
             $inactive_cbox->setExtra("onclick='javascript:disableElement(\"mail_lastlog_min\");disableElement(\"mail_lastlog_max\");disableElement(\"mail_idle_more\");disableElement(\"mail_idle_less\");disableElement(\"mail_to_group[]\");'");
 
-            $criteria_tray = new Xoops\Form\ElementTray(_AM_MAILUSERS_SENDTOUSERS, "<br /><br />");
+            $criteria_tray = new Xoops\Form\ElementTray(_AM_MAILUSERS_SENDTOUSERS, "<br><br>");
             $criteria_tray->setDescription('<span class="bold green">*</span>' . _AM_MAILUSERS_OPTIONAL);
             $criteria_tray->addElement($group_select);
             //$criteria_tray->addElement($lastlog);
@@ -117,9 +117,9 @@ switch ($op) {
         $fname_text = new Xoops\Form\Text(_AM_MAILUSERS_MAILFNAME, "mail_fromname", 30, 255, $xoops->getConfig('fromname') ? $xoops->getConfig('fromname') :htmlspecialchars($xoops->getConfig('sitename'), ENT_QUOTES));
         $fromemail = $xoops->getConfig('from') ? $xoops->getConfig('from') : $xoops->user->getVar("email", "E");
         $femail_text = new Xoops\Form\Text(_AM_MAILUSERS_MAILFMAIL, "mail_fromemail", 30, 255, $fromemail);
-        $subject_caption = _AM_MAILUSERS_MAILSUBJECT . "<br /><br /><span style='font-size:x-small;font-weight:bold;'>" . _AM_MAILUSERS_MAILTAGS . "</span><br /><span style='font-size:x-small;font-weight:normal;'>" . _AM_MAILUSERS_MAILTAGS2 . "</span>";
+        $subject_caption = _AM_MAILUSERS_MAILSUBJECT . "<br><br><span style='font-size:x-small;font-weight:bold;'>" . _AM_MAILUSERS_MAILTAGS . "</span><br><span style='font-size:x-small;font-weight:normal;'>" . _AM_MAILUSERS_MAILTAGS2 . "</span>";
         $subject_text = new Xoops\Form\Text($subject_caption, "mail_subject", 50, 255);
-        $body_caption = _AM_MAILUSERS_MAILBODY . "<br /><br /><span style='font-size:x-small;font-weight:bold;'>" . _AM_MAILUSERS_MAILTAGS . "</span><br /><span style='font-size:x-small;font-weight:normal;'>" . _AM_MAILUSERS_MAILTAGS1 . "<br />" . _AM_MAILUSERS_MAILTAGS2 . "<br />" . _AM_MAILUSERS_MAILTAGS3 . "<br />" . _AM_MAILUSERS_MAILTAGS4 . "</span>";
+        $body_caption = _AM_MAILUSERS_MAILBODY . "<br><br><span style='font-size:x-small;font-weight:bold;'>" . _AM_MAILUSERS_MAILTAGS . "</span><br><span style='font-size:x-small;font-weight:normal;'>" . _AM_MAILUSERS_MAILTAGS1 . "<br>" . _AM_MAILUSERS_MAILTAGS2 . "<br>" . _AM_MAILUSERS_MAILTAGS3 . "<br>" . _AM_MAILUSERS_MAILTAGS4 . "</span>";
         $editor_configs = array();
         $editor_configs["name"] = "mail_body";
         $editor_configs["value"] = '';

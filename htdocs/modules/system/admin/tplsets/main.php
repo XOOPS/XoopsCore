@@ -101,7 +101,7 @@ switch ($op) {
     //overload template
     case 'tpls_overload':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=tplsets', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=tplsets', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         // Assign Breadcrumb menu
         $system_breadcrumb->addHelp(system_adminVersion('tplsets', 'help') . '#override');
@@ -361,7 +361,7 @@ switch ($op) {
     // save
     case 'tpls_save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin.php?fct=tplsets', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin.php?fct=tplsets', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $clean_path_file = Request::getString('path_file', '');
         if (!empty($clean_path_file)) {

@@ -71,14 +71,14 @@ class XoopsCaptchaImage extends XoopsCaptchaMethod
                 }
                 </script>";
         $image = $this->loadImage();
-        $image .= "<br /><a href=\"javascript: xoops_captcha_refresh('" . ($this->config['name']) . "')\">" . XoopsLocale::CLICK_TO_REFRESH_IMAGE_IF_NOT_CLEAR . "</a>";
+        $image .= "<br><a href=\"javascript: xoops_captcha_refresh('" . ($this->config['name']) . "')\">" . XoopsLocale::CLICK_TO_REFRESH_IMAGE_IF_NOT_CLEAR . "</a>";
         $input = '<input type="text" name="' . $this->config['name'] . '" id="' . $this->config['name'] . '" size="' . $this->config['num_chars'] . '" maxlength="' . $this->config['num_chars'] . '" value="" required>';
         $rule = XoopsLocale::INPUT_LETTERS_IN_THE_IMAGE;
-        $rule .= '<br />' . (empty($this->config['casesensitive']) ? XoopsLocale::CODE_IS_CASE_INSENSITIVE : XoopsLocale::CODE_IS_CASE_SENSITIVE);
+        $rule .= '<br>' . (empty($this->config['casesensitive']) ? XoopsLocale::CODE_IS_CASE_INSENSITIVE : XoopsLocale::CODE_IS_CASE_SENSITIVE);
         if (!empty($this->config['maxattempts'])) {
-            $rule .= '<br />' . sprintf(XoopsLocale::F_MAXIMUM_ATTEMPTS, $this->config['maxattempts']);
+            $rule .= '<br>' . sprintf(XoopsLocale::F_MAXIMUM_ATTEMPTS, $this->config['maxattempts']);
         }
-        return $js . $image . '<br /><br />' . $input . '<br />' . $rule;
+        return $js . $image . '<br><br>' . $input . '<br>' . $rule;
     }
 
     /**

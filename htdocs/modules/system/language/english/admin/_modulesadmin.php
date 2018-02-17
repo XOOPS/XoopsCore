@@ -88,7 +88,7 @@
 //define("_AM_SYSTEM_MODULES_SUBMIT","Submit");
 //define("_AM_SYSTEM_MODULES_CANCEL","Cancel");
 //define("_AM_SYSTEM_MODULES_DBUPDATE",_AM_SYSTEM_DBUPDATED);
-//define("_AM_SYSTEM_MODULES_LISTUPBLKS","The following blocks will be updated.<br />Select the blocks of which contents (template and options) may be overwritten.<br />");
+//define("_AM_SYSTEM_MODULES_LISTUPBLKS","The following blocks will be updated.<br>Select the blocks of which contents (template and options) may be overwritten.<br>");
 //define("_AM_SYSTEM_MODULES_NEWBLKS","New Blocks");
 //define("_AM_SYSTEM_MODULES_DEPREBLKS","Deprecated Blocks");
 

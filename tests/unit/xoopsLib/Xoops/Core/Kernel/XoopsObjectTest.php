@@ -306,7 +306,7 @@ class XoopsObjectTest extends \PHPUnit\Framework\TestCase
         $instance->setErrors($msg);
         $instance->setErrors($msg);
         $x = $instance->getHtmlErrors();
-        $this->assertSame('<h4>Errors</h4>'.$msg.'<br />'.$msg.'<br />', $x);
+        $this->assertSame('<h4>Errors</h4>'.$msg.'<br>'.$msg.'<br>', $x);
     }
 
     public function test_toArray()

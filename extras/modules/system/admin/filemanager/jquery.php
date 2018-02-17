@@ -140,7 +140,7 @@ switch ($op) {
                 foreach ($files as $file) {
                     if (!preg_match('#.back#', $file)) {
                         if (file_exists($path_file . $file) && $file != '.' && $file != '..' && !is_dir($path_file . $file)) {
-                            //echo $path_file . $file.'<br />';
+                            //echo $path_file . $file.'<br>';
                             $unzip = '';
                             $edit = false;
                             $file1 = XoopsFile::getHandler('file', $path_file . $file);
@@ -227,10 +227,10 @@ switch ($op) {
                                                     <td align="right">' . $unzip . $edit . '&nbsp;<img class="cursorpointer" src="' . system_AdminIcons('delete.png') . '" onclick=\'filemanager_confirm_delete_file("' . $path_file . $file . '", "' . $path_file . '");\' width="16" alt="delete" /></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" align="center" height="60px"><br />' . $img . '</td>
+                                                    <td colspan="2" align="center" height="60px"><br>' . $img . '</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" align="center">' . $file . '<br /><br /></td>
+                                                    <td colspan="2" align="center">' . $file . '<br><br></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -337,7 +337,7 @@ switch ($op) {
 
     //Confirm delete file
     case 'filemanager_confirm_delete_file':
-        echo '<div class="confirmMsg">' . sprintf(_AM_SYSTEM_FILEMANAGER_SUREDEL, $_REQUEST['file']) . '<br /><br /><div class="buttons"><a href="#" class="ui-corner-all" onclick="filemanager_delete_file(\'' . $_REQUEST['path_file'] . '\', \'' . $_REQUEST['path'] . '\');">' . _AM_SYSTEM_FILEMANAGER_DELETE . '</a>&nbsp;&nbsp;<a href="#" class="ui-corner-all" onclick="$(\'#confirm_delete\').hide();filemanager_load_tree(); filemanager_display_file(\'\', 0)">' . _AM_SYSTEM_FILEMANAGER_CANCEL . '</a></div></div>';
+        echo '<div class="confirmMsg">' . sprintf(_AM_SYSTEM_FILEMANAGER_SUREDEL, $_REQUEST['file']) . '<br><br><div class="buttons"><a href="#" class="ui-corner-all" onclick="filemanager_delete_file(\'' . $_REQUEST['path_file'] . '\', \'' . $_REQUEST['path'] . '\');">' . _AM_SYSTEM_FILEMANAGER_DELETE . '</a>&nbsp;&nbsp;<a href="#" class="ui-corner-all" onclick="$(\'#confirm_delete\').hide();filemanager_load_tree(); filemanager_display_file(\'\', 0)">' . _AM_SYSTEM_FILEMANAGER_CANCEL . '</a></div></div>';
         break;
 
     //Delete one file
@@ -386,7 +386,7 @@ switch ($op) {
     //Confirm delete directory
     case 'filemanager_confirm_delete_directory':
         $path = $system->cleanVars($_REQUEST, 'path', '', 'string');
-        echo '<div class="confirmMsg">' . sprintf(_AM_SYSTEM_FILEMANAGER_DIR_SUREDEL, $path) . '<br /><br /><div class="buttons"><a href="#" class="ui-corner-all" onclick="filemanager_delete_directory(\'' . $path . '\');">' . _AM_SYSTEM_FILEMANAGER_DELETE . '</a>&nbsp;&nbsp;<a href="#" class="ui-corner-all" onclick="$(\'#confirm_delete\').hide();filemanager_load_tree(); filemanager_display_file(\'\', 0)">' . _AM_SYSTEM_FILEMANAGER_CANCEL . '</a></div></div>';
+        echo '<div class="confirmMsg">' . sprintf(_AM_SYSTEM_FILEMANAGER_DIR_SUREDEL, $path) . '<br><br><div class="buttons"><a href="#" class="ui-corner-all" onclick="filemanager_delete_directory(\'' . $path . '\');">' . _AM_SYSTEM_FILEMANAGER_DELETE . '</a>&nbsp;&nbsp;<a href="#" class="ui-corner-all" onclick="$(\'#confirm_delete\').hide();filemanager_load_tree(); filemanager_display_file(\'\', 0)">' . _AM_SYSTEM_FILEMANAGER_CANCEL . '</a></div></div>';
         break;
 
     // Delete one directory

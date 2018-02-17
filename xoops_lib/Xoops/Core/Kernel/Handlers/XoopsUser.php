@@ -204,8 +204,8 @@ class XoopsUser extends XoopsObject
     /**
      * Is the user admin ?
      *
-     * This method will return true if this user has admin rights for the specified module.<br />
-     * - If you don't specify any module ID, the current module will be checked.<br />
+     * This method will return true if this user has admin rights for the specified module.<br>
+     * - If you don't specify any module ID, the current module will be checked.<br>
      * - If you set the module_id to -1, it will return true if the user has admin rights for at least one module
      *
      * @param int $module_id check if user is admin of this module

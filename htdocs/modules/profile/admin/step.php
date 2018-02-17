@@ -112,7 +112,7 @@ switch ($op) {
                 echo $xoops->confirm(
                     array("ok" => 1, "id" => $id, "op" => "delete"),
                     'step.php',
-                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br />'
+                    sprintf(_PROFILE_AM_RUSUREDEL, $obj->getVar('step_name')) . '<br>'
                 );
             }
         } else {

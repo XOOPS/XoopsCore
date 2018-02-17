@@ -73,7 +73,7 @@ if ($op == 'dologin') {
             echo '<div style="text-align:center;"><input value="' . XoopsLocale::A_CLOSE . '" type="button" onclick="document.window.opener.location.reload();document.window.close();" /></div>';
         }
     } else {
-        xoops_error(XoopsLocale::E_INCORRECT_LOGIN . '<br /><a href="login.php">' . XoopsLocale::GO_BACK . '</a>');
+        xoops_error(XoopsLocale::E_INCORRECT_LOGIN . '<br><a href="login.php">' . XoopsLocale::GO_BACK . '</a>');
     }
 }
 

@@ -7,7 +7,7 @@
  * Licence: GNU
  */
 
-define("_CO_PUBLISHER_MESSAGE_FILE_ERROR", "Erreur : Impossible de charger le fichier pour les raisons suivantes: <br />%s");
+define("_CO_PUBLISHER_MESSAGE_FILE_ERROR", "Erreur : Impossible de charger le fichier pour les raisons suivantes: <br>%s");
 define("_CO_PUBLISHER_MESSAGE_WRONG_MIMETYPE", "Erreur : Type de fichier non permis. Essayez à nouveau.");
 
 define("_CO_PUBLISHER_ALLOWCOMMENTS", "l'article peut-il être commenté ?");
@@ -37,7 +37,7 @@ define("_CO_PUBLISHER_UID_DSC", "Sélectionnez le nom du soumetteur");
 define("_CO_PUBLISHER_WEIGHT", "Poids");
 
 define("_CO_PUBLISHER_ITEM_UPLOAD_FILE", "lier un fichier à cet article");
-define("_CO_PUBLISHER_ITEM_UPLOAD_FILE_DSC", "Sélectionnez un fichier à partir de votre ordinateur pour le lier à cet article. Vous serez en mesure d'ajouter plus de fichiers, une fois que l'article aura été créé. Il suffit d'éditer l'article et de faire défiler jusqu'au bas de la page pour voir le bouton Ajouter un fichier. <br /> <br /> Par exemple, vous pouvez ajouter un document Word ou un document Excel. Vous pouvez même télécharger un fichier Flash et il sera incorporé directement dans votre article! ");
+define("_CO_PUBLISHER_ITEM_UPLOAD_FILE_DSC", "Sélectionnez un fichier à partir de votre ordinateur pour le lier à cet article. Vous serez en mesure d'ajouter plus de fichiers, une fois que l'article aura été créé. Il suffit d'éditer l'article et de faire défiler jusqu'au bas de la page pour voir le bouton Ajouter un fichier. <br> <br> Par exemple, vous pouvez ajouter un document Word ou un document Excel. Vous pouvez même télécharger un fichier Flash et il sera incorporé directement dans votre article! ");
 define("_CO_PUBLISHER_OPTIONS", "Options");
 define("_CO_PUBLISHER_DISPLAY_SUMMARY", "Afficher le sommaire sur la page de l'article?");
 define("_CO_PUBLISHER_DOHTML", "Activer les balises HTML");
@@ -64,7 +64,7 @@ define("_CO_PUBLISHER_CATEGORY_DSC", "Choisir une catégorie.");
 define("_CO_PUBLISHER_IMAGE_ITEM", "Image de l'article ");
 define("_CO_PUBLISHER_IMAGE_ITEM_DSC", "l'image qui représente l'article");
 define("_CO_PUBLISHER_IMAGE_UPLOAD", "Téléversement de l'image");
-define("_CO_PUBLISHER_IMAGE_UPLOAD_ITEM_DSC", "Sélectionnez une image sur votre ordinateur. <br /> Cette image sera téléversée sur le site <br /> et choisie comme image de l'article.");
+define("_CO_PUBLISHER_IMAGE_UPLOAD_ITEM_DSC", "Sélectionnez une image sur votre ordinateur. <br> Cette image sera téléversée sur le site <br> et choisie comme image de l'article.");
 define("_CO_PUBLISHER_SUBCATEGORIES_INFO", "les sous-catégories dans <em>%s </em>:");
 
 define("_CO_PUBLISHER_SUMMARY", "Bloc Sommaire");

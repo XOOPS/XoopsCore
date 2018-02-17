@@ -17,7 +17,7 @@
                     </a>
                 <{/if}>
                 <{if $isadmin}>
-                    <br /><{$user.ip}>
+                    <br><{$user.ip}>
                 <{/if}>
                 </td>
                 <td><{$user.module}></td>
@@ -27,14 +27,14 @@
     </table>
 
     <{if $nav}>
-        <br />
+        <br>
         <div class="txtright">
             <{$nav}>
         </div>
     <{/if}>
 
     <{if $closebutton}>
-        <br />
+        <br>
         <div class="txtcenter">
             <input class="btn btn-primary" value="<{translate key='A_CLOSE'}>" type="button" onclick="javascript:window.close();" />
         </div>

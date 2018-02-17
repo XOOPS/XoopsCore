@@ -10,7 +10,7 @@
             {/foreach}
             </span>
             {if $sr_showing|default:false}
-                <br />
+                <br>
                 {$sr_showing}
             {/if}
         </div>

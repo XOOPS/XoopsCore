@@ -36,33 +36,33 @@
 
 // Admin Module Names and description
 //define("_AM_SYSTEM_ADGS","Groups");
-//define("_AM_SYSTEM_ADGS_DESC","You can add some groups <br /> and manage permission for <br /> ecah group");
+//define("_AM_SYSTEM_ADGS_DESC","You can add some groups <br> and manage permission for <br> ecah group");
 //define("_AM_SYSTEM_BLOCKS","Blocks");
-//define("_AM_SYSTEM_BLOCKS_DESC","With blocks you can <br /> add many thing for <br /> your users");
+//define("_AM_SYSTEM_BLOCKS_DESC","With blocks you can <br> add many thing for <br> your users");
 //define("_AM_SYSTEM_MODULES","Modules");
-//define("_AM_SYSTEM_MODULES_DESC","Here you can install <br /> and unistall your XOOPS <br /> modules. Do you know <br /> which module?");
+//define("_AM_SYSTEM_MODULES_DESC","Here you can install <br> and unistall your XOOPS <br> modules. Do you know <br> which module?");
 //define("_AM_SYSTEM_EXTENSIONS","Extensions");
-//define("_AM_SYSTEM_EXTENSIONS_DESC","Here you can install <br /> and uninstall your XOOPS <br /> extensions.");
+//define("_AM_SYSTEM_EXTENSIONS_DESC","Here you can install <br> and uninstall your XOOPS <br> extensions.");
 //define("_AM_SYSTEM_THEME","Themes");
 //define("_AM_SYSTEM_THEME_DESC","Here you can manage themes");
 //define("_AM_SYSTEM_USER","Users");
-//define("_AM_SYSTEM_USER_DESC","With this options you <br /> can add new user or <br /> edit old user and userinfo, <br /> change groups and many <br /> other things");
+//define("_AM_SYSTEM_USER_DESC","With this options you <br> can add new user or <br> edit old user and userinfo, <br> change groups and many <br> other things");
 //define("_AM_SYSTEM_PREF","Preferences");
-//define("_AM_SYSTEM_PREF_DESC","XOOPS and all of your <br /> modules have a preferences <br /> for manage module options");
+//define("_AM_SYSTEM_PREF_DESC","XOOPS and all of your <br> modules have a preferences <br> for manage module options");
 //define("_AM_SYSTEM_MLUS","Email Users");
-//define("_AM_SYSTEM_MLUS_DESC","If you need send email <br /> or mp for your users, <br /> you can use this option");
+//define("_AM_SYSTEM_MLUS_DESC","If you need send email <br> or mp for your users, <br> you can use this option");
 //define("_AM_SYSTEM_IMAGES","Image Manager");
-//define("_AM_SYSTEM_IMAGES_DESC","You can add your image <br /> here and make some <br /> Category for yourself");
+//define("_AM_SYSTEM_IMAGES_DESC","You can add your image <br> here and make some <br> Category for yourself");
 //define("_AM_SYSTEM_AVATARS","Avatars");
-//define("_AM_SYSTEM_AVATARS_DESC","Add some avatars for your <br /> users, they can use this <br /> avatars on them profiles");
+//define("_AM_SYSTEM_AVATARS_DESC","Add some avatars for your <br> users, they can use this <br> avatars on them profiles");
 //define("_AM_SYSTEM_TPLSETS","Templates");
-//define("_AM_SYSTEM_TPLSETS_DESC","If you need add some changes <br /> in core or modules template use <br /> this options for create theme override");
+//define("_AM_SYSTEM_TPLSETS_DESC","If you need add some changes <br> in core or modules template use <br> this options for create theme override");
 //define("_AM_SYSTEM_COMMENTS","Comments");
-//define("_AM_SYSTEM_COMMENTS_DESC","Your users add some Comments <br /> on your website, for your news, <br /> photos , weblog post links and ... <br /> manage user comments from here");
+//define("_AM_SYSTEM_COMMENTS_DESC","Your users add some Comments <br> on your website, for your news, <br> photos , weblog post links and ... <br> manage user comments from here");
 //define("_AM_SYSTEM_FILEMANAGER","File Manager");
-//define("_AM_SYSTEM_FILEMANAGER_DESC","You can add some changes <br /> in any file inside your xoops");
+//define("_AM_SYSTEM_FILEMANAGER_DESC","You can add some changes <br> in any file inside your xoops");
 //define("_AM_SYSTEM_MAINTENANCE","Maintenance");
-//define("_AM_SYSTEM_MAINTENANCE_DESC","Maintenance tools for database tables, <br /> clean cache folder and session table");
+//define("_AM_SYSTEM_MAINTENANCE_DESC","Maintenance tools for database tables, <br> clean cache folder and session table");
 
 //define("_AM_SYSTEM_BANS","Banners");
 //define("_AM_SYSTEM_BANS_DESC","_AM_SYSTEM_BANS_DESC");

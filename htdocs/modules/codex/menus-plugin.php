@@ -20,11 +20,11 @@ include dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoops = Xoops::getInstance();
 $xoops->header();
 echo "
-You need to install the 'Menus' Module to get menus functionality<br />
-<br />
-The 'Menus' module provides a 'Plugin' interface that modules should implement<br />
-The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br />
-<br />
+You need to install the 'Menus' Module to get menus functionality<br>
+<br>
+The 'Menus' module provides a 'Plugin' interface that modules should implement<br>
+The new class \\Xoops\\Module\\Plugin is the class that makes using plugins simple and effective!<br>
+<br>
 See how Codex module hooks into the menus module just by using this codex/class/plugin/menus.php
 ";
 

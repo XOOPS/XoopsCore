@@ -113,10 +113,10 @@ class XoopsUserUtility
         $stop = '';
         // Invalid email address
         if (!$xoops->checkEmail($email)) {
-            $stop .= XoopsLocale::E_INVALID_EMAIL . '<br />';
+            $stop .= XoopsLocale::E_INVALID_EMAIL . '<br>';
         }
         if (strrpos($email, ' ') > 0) {
-            $stop .= XoopsLocale::E_EMAIL_SHOULD_NOT_CONTAIN_SPACES . '<br />';
+            $stop .= XoopsLocale::E_EMAIL_SHOULD_NOT_CONTAIN_SPACES . '<br>';
         }
         // Check forbidden email address if current operator is not an administrator
         if (!$xoops->userIsAdmin) {
@@ -124,7 +124,7 @@ class XoopsUserUtility
             if (!empty($bad_emails)) {
                 foreach ($bad_emails as $be) {
                     if (!empty($be) && preg_match('/' . $be . '/i', $email)) {
-                        $stop .= XoopsLocale::E_INVALID_EMAIL . '<br />';
+                        $stop .= XoopsLocale::E_INVALID_EMAIL . '<br>';
                         break;
                     }
                 }
@@ -133,23 +133,23 @@ class XoopsUserUtility
         // $uname = XoopsLocale::trim($uname);
         // no controls, puctuation, symbols, spaces or invisible separators
         if (!preg_match('/^[^\p{C}\p{P}\p{S}\p{Z}]+$/u', $uname)) {
-            $stop .= XoopsLocale::E_INVALID_USERNAME . '<br />';
+            $stop .= XoopsLocale::E_INVALID_USERNAME . '<br>';
         }
         // Check uname settings if current operator is not an administrator
         if (!$xoops->userIsAdmin) {
             $maxuname = $xoops->getConfig('maxuname');
             if (!empty($maxuname) && mb_strlen($uname) > $maxuname) {
-                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_LESS_THAN, $maxuname) . '<br />';
+                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_LESS_THAN, $maxuname) . '<br>';
             }
             $minuname = $xoops->getConfig('minuname');
             if (!empty($minuname) && mb_strlen($uname) < $minuname) {
-                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_MORE_THAN, $minuname) . '<br />';
+                $stop .= sprintf(XoopsLocale::EF_USERNAME_MUST_BE_MORE_THAN, $minuname) . '<br>';
             }
             $bad_unames = $xoops->getConfig('bad_unames');
             if (!empty($bad_unames)) {
                 foreach ($bad_unames as $bu) {
                     if (!empty($bu) && preg_match('/' . $bu . '/i', $uname)) {
-                        $stop .= XoopsLocale::E_NAME_IS_RESERVED . '<br />';
+                        $stop .= XoopsLocale::E_NAME_IS_RESERVED . '<br>';
                         break;
                     }
                 }
@@ -166,7 +166,7 @@ class XoopsUserUtility
         }
         $count = $user_handler->getCount($criteria);
         if ($count > 0) {
-            $stop .= XoopsLocale::E_USERNAME_TAKEN . '<br />';
+            $stop .= XoopsLocale::E_USERNAME_TAKEN . '<br>';
         }
 
         $criteria = new CriteriaCompo(new Criteria('email', $email));
@@ -175,7 +175,7 @@ class XoopsUserUtility
         }
         $count = $user_handler->getCount($criteria);
         if ($count > 0) {
-            $stop .= XoopsLocale::E_EMAIL_TAKEN . '<br />';
+            $stop .= XoopsLocale::E_EMAIL_TAKEN . '<br>';
         }
 
         // If password is not set, skip password validation
@@ -184,14 +184,14 @@ class XoopsUserUtility
         }
 
         if (empty($pass) || empty($vpass)) {
-            $stop .= XoopsLocale::E_MUST_PROVIDE_PASSWORD . '<br />';
+            $stop .= XoopsLocale::E_MUST_PROVIDE_PASSWORD . '<br>';
         }
         if (isset($pass) && isset($vpass) && ($pass != $vpass)) {
-            $stop .= XoopsLocale::E_PASSWORDS_MUST_MATCH . '<br />';
+            $stop .= XoopsLocale::E_PASSWORDS_MUST_MATCH . '<br>';
         } else {
             $minpass = $xoops->getConfig('minpass');
             if (($pass != '') && (!empty($minpass)) && (mb_strlen($pass) < $minpass)) {
-                $stop .= sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $minpass) . '<br />';
+                $stop .= sprintf(XoopsLocale::EF_PASSWORD_MUST_BE_GREATER_THAN, $minpass) . '<br>';
             }
         }
         return $stop;

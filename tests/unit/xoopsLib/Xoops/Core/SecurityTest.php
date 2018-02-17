@@ -233,7 +233,7 @@ class SecurityTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(count($value)==2);
         $value = $instance->getErrors(true);
         $this->assertTrue(is_string($value));
-        $this->assertSame($str1.'<br />'.$str1.'<br />', $value);
+        $this->assertSame($str1.'<br>'.$str1.'<br>', $value);
     }
 
 }

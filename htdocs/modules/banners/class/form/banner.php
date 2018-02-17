@@ -63,7 +63,7 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
         //$imptotal->setPattern('^[0-9]*[0-9]+$|^[0-9]+[0-9]*$', _AM_BANNERS_BANNERS_IMPRESSIONSP_PATTERN);
         $this->addElement($imptotal, true);
 
-        $imgtray_img = new Xoops\Form\ElementTray(_AM_BANNERS_BANNERS_IMAGE, '<br /><br />');
+        $imgtray_img = new Xoops\Form\ElementTray(_AM_BANNERS_BANNERS_IMAGE, '<br><br>');
         $imgtray_img->addElement(
             new Xoops\Form\Text(_AM_BANNERS_BANNERS_IMGURL, 'imageurl', 8, 255, $obj->getVar('banner_imageurl'))
         );
@@ -79,11 +79,11 @@ class BannersBannerForm extends Xoops\Form\ThemeForm
         $imgtray_img->addElement(
             new Xoops\Form\Label(
                 '',
-                "<br /><img src='" . $xoops_upload_url . "/banners/" . $blank_img
+                "<br><img src='" . $xoops_upload_url . "/banners/" . $blank_img
                 . "' name='image_img' id='xo-banners-img' alt='' />"
             )
         );
-        $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
+        $fileseltray_img = new Xoops\Form\ElementTray('<br>', '<br><br>');
         $fileseltray_img->addElement(new Xoops\Form\File(_AM_BANNERS_BANNERS_UPLOADS, 'banners_imageurl'), false);
         $fileseltray_img->addElement(new Xoops\Form\Label(''), false);
         $imgtray_img->addElement($fileseltray_img);

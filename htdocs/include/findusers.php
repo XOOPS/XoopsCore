@@ -347,7 +347,7 @@ if (empty($_POST["user_submit"])) {
     ';
 
     echo "</html><body>";
-    echo "<a href='findusers.php?target=" . $myts->htmlSpecialChars(@$_POST["target"]) . "&amp;multiple=" . (int)(@$_POST["multiple"]) . "&amp;token=" . $myts->htmlSpecialChars($token) . "'>" . XoopsLocale::FIND_USERS . "</a>&nbsp;<span style='font-weight:bold;'>&raquo;&raquo;</span>&nbsp;" . XoopsLocale::SEARCH_RESULTS . "<br /><br />";
+    echo "<a href='findusers.php?target=" . $myts->htmlSpecialChars(@$_POST["target"]) . "&amp;multiple=" . (int)(@$_POST["multiple"]) . "&amp;token=" . $myts->htmlSpecialChars($token) . "'>" . XoopsLocale::FIND_USERS . "</a>&nbsp;<span style='font-weight:bold;'>&raquo;&raquo;</span>&nbsp;" . XoopsLocale::SEARCH_RESULTS . "<br><br>";
     if (empty($start) && empty($foundusers)) {
         echo "<h4>" . XoopsLocale::E_USERS_NOT_FOUND, "</h4>";
         $hiddenform = "<form name='findnext' action='findusers.php' method='post'>";
@@ -374,7 +374,7 @@ if (empty($_POST["user_submit"])) {
     } else {
         if ($start < $total) {
             if (!empty($total)) {
-                echo sprintf(XoopsLocale::F_USERS_FOUND, $total) . "<br />";
+                echo sprintf(XoopsLocale::F_USERS_FOUND, $total) . "<br>";
             }
             if (!empty($foundusers)) {
                 echo "<form action='findusers.php' method='post' name='{$name_form}' id='{$name_form}'>
@@ -497,7 +497,7 @@ if (empty($_POST["user_submit"])) {
 
             echo "<div>" . $hiddenform;
             if (isset($total)) {
-                echo "<br />" . sprintf(XoopsLocale::F_USERS_FOUND, $total) . "&nbsp;";
+                echo "<br>" . sprintf(XoopsLocale::F_USERS_FOUND, $total) . "&nbsp;";
             }
             echo "<a href='#' onclick='javascript:document.findnext.start.value=0;document.findnext.user_submit.value=0;document.findnext.submit();'>" . XoopsLocale::SEARCH_AGAIN . "</a>\n";
             echo "</div>";

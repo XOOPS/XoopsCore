@@ -101,7 +101,7 @@ switch ($op) {
         $user = $member_handler->getUser($uid);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$xoops->security()->check()) {
-                $xoops->redirect("admin.php?fct=users", 3, implode('<br />', $xoops->security()->getErrors()));
+                $xoops->redirect("admin.php?fct=users", 3, implode('<br>', $xoops->security()->getErrors()));
             }
 
             $groups = $user->getGroups();
@@ -123,7 +123,7 @@ switch ($op) {
             $system_breadcrumb->render();
             echo $xoops->confirm(array(
                 'ok' => 1, 'uid' => $uid, 'op' => 'users_delete'
-            ), "admin.php?fct=users", sprintf(SystemLocale::F_DELETE_USER, $user->getVar('uname')) . '<br />');
+            ), "admin.php?fct=users", sprintf(SystemLocale::F_DELETE_USER, $user->getVar('uname')) . '<br>');
         }
         break;
 
@@ -138,10 +138,10 @@ switch ($op) {
                 $groups = $user->getGroups();
                 if (in_array(FixedGroups::ADMIN, $groups)) {
                     $error .= sprintf(SystemLocale::EF_CAN_NOT_DELETE_ADMIN_USER, $user->getVar("uname"));
-                    $error .= '<br />';
+                    $error .= '<br>';
                 } elseif (!$member_handler->deleteUser($user)) {
                     $error .= sprintf(SystemLocale::EF_COULD_NOT_DELETE_USER, $user->getVar("uname"));
-                    $error .= '<br />';
+                    $error .= '<br>';
                 } else {
                     $xoops->getHandlerOnline()->destroy($del);
                     // RMV-NOTIFY
@@ -163,7 +163,7 @@ switch ($op) {
         if (isset($_REQUEST['uid'])) {
             //Update user
             if (!$xoops->security()->check()) {
-                $xoops->redirect("admin.php?fct=users", 3, implode('<br />', $xoops->security()->getErrors()));
+                $xoops->redirect("admin.php?fct=users", 3, implode('<br>', $xoops->security()->getErrors()));
             }
             // RMV-NOTIFY
             $user_avatar = $theme = null;
@@ -247,7 +247,7 @@ switch ($op) {
         } else {
             //Add user
             if (!$xoops->security()->check()) {
-                $xoops->redirect("admin.php?fct=users", 3, implode('<br />', $xoops->security()->getErrors()));
+                $xoops->redirect("admin.php?fct=users", 3, implode('<br>', $xoops->security()->getErrors()));
             }
             if (!$_REQUEST['username'] || !$_REQUEST['email'] || !$_REQUEST['password']) {
                 $adduser_errormsg = XoopsLocale::E_YOU_MUST_COMPLETE_ALL_REQUIRED_FIELDS;
@@ -487,7 +487,7 @@ switch ($op) {
             $admin_page->addItemButton(SystemLocale::ADD_USER, 'admin.php?fct=users&amp;op=users_add', 'add');
             $admin_page->renderButton();
 
-            $requete_search = '<br /><br /><strong>' . SystemLocale::C_SEE_SEARCH_REQUEST . '</strong><br /><br />';
+            $requete_search = '<br><br><strong>' . SystemLocale::C_SEE_SEARCH_REQUEST . '</strong><br><br>';
             $requete_pagenav = '';
 
             $criteria = new CriteriaCompo();
@@ -497,7 +497,7 @@ switch ($op) {
                 $match = Request::getInt('user_uname_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'uname', $value, $match);
                 $requete_pagenav .= '&amp;user_uname=' . $myts->htmlSpecialChars($value) . '&amp;user_uname_match=' . $match;
-                $requete_search .= 'uname : ' . $value . ' and user_uname_match=' . $match . '<br />';
+                $requete_search .= 'uname : ' . $value . ' and user_uname_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_name', '');
@@ -505,7 +505,7 @@ switch ($op) {
                 $match = Request::getInt('user_name_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'name', $value, $match);
                 $requete_pagenav .= '&amp;user_name=' . $myts->htmlSpecialChars($value) . '&amp;user_name_match=' . $match;
-                $requete_search .= 'name : ' . $value . ' and user_name_match=' . $match . '<br />';
+                $requete_search .= 'name : ' . $value . ' and user_name_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_email', '');
@@ -513,14 +513,14 @@ switch ($op) {
                 $match = Request::getInt('user_email_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'email', $value, $match);
                 $requete_pagenav .= '&amp;user_email=' . $myts->htmlSpecialChars($value) . '&amp;user_email_match=' . $match;
-                $requete_search .= 'email : ' . $value . ' and user_email_match=' . $match . '<br />';
+                $requete_search .= 'email : ' . $value . ' and user_email_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_url', '');
             if (!empty($value)) {
                 //$url = $xoops->formatURL(trim($_REQUEST['user_url']));
                 $criteria->add(new Criteria('url', '%' . $value . '%', 'LIKE'));
-                $requete_search .= 'url : ' . $value . '<br />';
+                $requete_search .= 'url : ' . $value . '<br>';
             }
 
             $value = Request::getInt('user_icq', 0);
@@ -528,7 +528,7 @@ switch ($op) {
                 $match = Request::getInt('user_icq_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_icq', (string) $value, $match);
                 $requete_pagenav .= '&amp;user_icq=' . $value . '&amp;user_icq_match=' . $match;
-                $requete_search .= 'icq : ' . $value . ' and user_icq_match=' . $match . '<br />';
+                $requete_search .= 'icq : ' . $value . ' and user_icq_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_aim', '');
@@ -536,7 +536,7 @@ switch ($op) {
                 $match = Request::getInt('user_aim_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_aim', $value, $match);
                 $requete_pagenav .= '&amp;user_aim=' . $myts->htmlSpecialChars($value) . '&amp;user_aim_match=' . $match;
-                $requete_search .= 'aim : ' . $value . ' and user_aim_match=' . $match . '<br />';
+                $requete_search .= 'aim : ' . $value . ' and user_aim_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_yim', '');
@@ -544,7 +544,7 @@ switch ($op) {
                 $match = Request::getInt('user_yim_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_yim', $value, $match);
                 $requete_pagenav .= '&amp;user_yim=' . $myts->htmlSpecialChars($value) . '&amp;user_yim_match=' . $match;
-                $requete_search .= 'yim : ' . $value . ' and user_yim_match=' . $match . '<br />';
+                $requete_search .= 'yim : ' . $value . ' and user_yim_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_msnm', '');
@@ -552,28 +552,28 @@ switch ($op) {
                 $match = Request::getInt('user_msnm_match', XOOPS_MATCH_START);
                 addCriteria($criteria, 'user_msnm', $value, $match);
                 $requete_pagenav .= '&amp;user_msnm=' . $myts->htmlSpecialChars($value) . '&amp;user_msnm_match=' . $match;
-                $requete_search .= 'msnm : ' . $value . ' and user_msnm_match=' . $match . '<br />';
+                $requete_search .= 'msnm : ' . $value . ' and user_msnm_match=' . $match . '<br>';
             }
 
             $value = Request::getString('user_from', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_from', '%' . $value . '%', 'LIKE'));
                 $requete_pagenav .= '&amp;user_from=' . $myts->htmlSpecialChars($value);
-                $requete_search .= 'from : ' . $value . '<br />';
+                $requete_search .= 'from : ' . $value . '<br>';
             }
 
             $value = Request::getString('user_intrest', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_intrest', '%' . $value . '%', 'LIKE'));
                 $requete_pagenav .= '&amp;user_intrest=' . $myts->htmlSpecialChars($value);
-                $requete_search .= 'interet : ' . $value . '<br />';
+                $requete_search .= 'interet : ' . $value . '<br>';
             }
 
             $value = Request::getString('user_occ', '');
             if (!empty($value)) {
                 $criteria->add(new Criteria('user_occ', '%' . $value . '%', 'LIKE'));
                 $requete_pagenav .= '&amp;user_occ=' . $myts->htmlSpecialChars($value);
-                $requete_search .= 'location : ' . $value . '<br />';
+                $requete_search .= 'location : ' . $value . '<br>';
             }
 
             $value = Request::getInt('user_lastlog_more', 0);
@@ -582,7 +582,7 @@ switch ($op) {
                 if ($time > 0) {
                     $criteria->add(new Criteria('last_login', $time, '<'));
                     $requete_pagenav .= '&amp;user_lastlog_more=' . $value;
-                    $requete_search .= 'derniere connexion apres : ' . $value . '<br />';
+                    $requete_search .= 'derniere connexion apres : ' . $value . '<br>';
                 }
             }
 
@@ -592,7 +592,7 @@ switch ($op) {
                 if ($time > 0) {
                     $criteria->add(new Criteria('last_login', $time, '>'));
                     $requete_pagenav .= '&amp;user_lastlog_less=' . $value;
-                    $requete_search .= 'derniere connexion avant : ' . $value . '<br />';
+                    $requete_search .= 'derniere connexion avant : ' . $value . '<br>';
                 }
             }
 
@@ -602,7 +602,7 @@ switch ($op) {
                 if ($time > 0) {
                     $criteria->add(new Criteria('user_regdate', $time, '<'));
                     $requete_pagenav .= '&amp;user_reg_more=' . $value;
-                    $requete_search .= 'enregistre apres : ' . $value . '<br />';
+                    $requete_search .= 'enregistre apres : ' . $value . '<br>';
                 }
             }
 
@@ -612,7 +612,7 @@ switch ($op) {
                 if ($time > 0) {
                     $criteria->add(new Criteria('user_regdate', $time, '>'));
                     $requete_pagenav .= '&amp;user_reg_less=' . $value;
-                    $requete_search .= 'enregistre avant : ' . $value . '<br />';
+                    $requete_search .= 'enregistre avant : ' . $value . '<br>';
                 }
             }
 
@@ -620,14 +620,14 @@ switch ($op) {
             if (!empty($value)) {
                 $criteria->add(new Criteria('posts', $value, '>'));
                 $requete_pagenav .= '&amp;user_posts_more=' . $value;
-                $requete_search .= 'posts plus de : ' . $value . '<br />';
+                $requete_search .= 'posts plus de : ' . $value . '<br>';
             }
 
             $value = Request::getInt('user_posts_less', 0);
             if (!empty($value)) {
                 $criteria->add(new Criteria('posts', $value, '<'));
                 $requete_pagenav .= '&amp;user_posts_less=' . $value;
-                $requete_search .= 'post moins de : ' . $value . '<br />';
+                $requete_search .= 'post moins de : ' . $value . '<br>';
             }
 
             $value = Request::getWord('user_mailok', '');
@@ -635,7 +635,7 @@ switch ($op) {
                 $ok = ($value === 'mailok') ? 1 : 0;
                 $criteria->add(new Criteria('user_mailok', $ok));
                 $requete_pagenav .= '&amp;user_mailok=' . $value;
-                $requete_search .= 'accept email : ' . $value . '<br />';
+                $requete_search .= 'accept email : ' . $value . '<br>';
             }
 
             $user_type = Request::getWord('user_type', '');
@@ -645,7 +645,7 @@ switch ($op) {
                 } elseif ($user_type === "actv") {
                     $criteria->add(new Criteria('level', 0, '>'));
                 }
-                $requete_search .= 'actif ou inactif : ' . $user_type . '<br />';
+                $requete_search .= 'actif ou inactif : ' . $user_type . '<br>';
                 $requete_pagenav .= '&amp;user_type=' . $user_type;
             }
 
@@ -654,22 +654,22 @@ switch ($op) {
             $sort = Request::getWord('user_sort', 'user_regdate');
             $sort = (!in_array($sort, $validsort)) ? "user_regdate" : $sort;
             $requete_pagenav .= '&amp;user_sort=' . $sort;
-            $requete_search .= 'order by : ' . $sort . '<br />';
+            $requete_search .= 'order by : ' . $sort . '<br>';
             $criteria->setSort($sort);
 
             $order = Request::getWord('user_order', 'DESC');
             $requete_pagenav .= '&amp;user_order=' . $order;
-            $requete_search .= 'tris : ' . $order . '<br />';
+            $requete_search .= 'tris : ' . $order . '<br>';
             $criteria->setOrder($order);
 
             $user_limit = $xoops->getModuleConfig('users_pager', 'system');
             if (isset($_REQUEST['user_limit'])) {
                 $user_limit = $_REQUEST['user_limit'];
                 $requete_pagenav .= '&amp;user_limit=' . $myts->htmlSpecialChars($_REQUEST['user_limit']);
-                $requete_search .= 'limit : ' . $user_limit . '<br />';
+                $requete_search .= 'limit : ' . $user_limit . '<br>';
             } else {
                 $requete_pagenav .= '&amp;user_limit=' . $xoops->getModuleConfig('users_pager', 'system');
-                $requete_search .= 'limit : ' . $user_limit . '<br />';
+                $requete_search .= 'limit : ' . $user_limit . '<br>';
             }
 
             $start = (!empty($_REQUEST['start'])) ? (int)($_REQUEST['start']) : 0;
@@ -693,7 +693,7 @@ switch ($op) {
             $users_count = $member_handler->getUserCountByGroupLink($groups, $criteria);
             $users_arr = array();
             if ($start < $users_count) {
-                echo sprintf(XoopsLocale::F_USERS_FOUND, $users_count) . "<br />";
+                echo sprintf(XoopsLocale::F_USERS_FOUND, $users_count) . "<br>";
                 $criteria->setSort($sort);
                 $criteria->setOrder($order);
                 $criteria->setLimit($user_limit);

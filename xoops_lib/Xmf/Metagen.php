@@ -400,7 +400,7 @@ class Metagen
     protected static function purifyText($text, $keyword = false)
     {
         $text = str_replace('&nbsp;', ' ', $text);
-        $text = str_replace('<br />', ' ', $text);
+        $text = str_replace('<br>', ' ', $text);
         $text = str_replace('<br/>', ' ', $text);
         $text = str_replace('<br', ' ', $text);
         $text = strip_tags($text);

@@ -34,11 +34,11 @@ $sessionHelper = new Session();
 if ($sessionHelper) {
     $var = $sessionHelper->get('fred');
     if ($var) {
-        echo sprintf('Clearing session variable value of "%s"', $var) . '<br />';
+        echo sprintf('Clearing session variable value of "%s"', $var) . '<br>';
         $sessionHelper->destroy();
     } else {
         $var = date('Y-m-d H:i:s');
-        echo sprintf('Session variable not set. Setting as: %s', $var) . '<br />';
+        echo sprintf('Session variable not set. Setting as: %s', $var) . '<br>';
         $sessionHelper->set('fred', $var);
     }
 }
@@ -144,6 +144,6 @@ Metagen::assignKeywords($keywords);
 Metagen::assignDescription($description);
 
 // dump our source
-echo '<br /><h2>Source code</h2>';
+echo '<br><h2>Source code</h2>';
 \Xoops\Utils::dumpFile(__FILE__);
 $xoops->footer();

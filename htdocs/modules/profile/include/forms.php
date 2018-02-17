@@ -96,7 +96,7 @@ function profile_getRegisterForm(XoopsUser $user, $profile, $step = null)
     //end of Dynamic User fields
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     if ($step_no == 1 && $xoops->getConfig('reg_dispdsclmr') != 0 && $xoops->getConfig('reg_disclaimer') != '') {
-        $disc_tray = new Xoops\Form\ElementTray(XoopsLocale::DISCLAIMER, '<br />');
+        $disc_tray = new Xoops\Form\ElementTray(XoopsLocale::DISCLAIMER, '<br>');
         $disc_text = new Xoops\Form\Label("", "<div class=\"pad5\">" . $myts->displayTarea($xoops->getConfig('reg_disclaimer'), 1) . "</div>");
         $disc_tray->addElement($disc_text);
         $agree_chk = new Xoops\Form\Checkbox('', 'agree_disc');
@@ -159,7 +159,7 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
         $elements[0][] = array('element' => new Xoops\Form\Label(XoopsLocale::USERNAME, $user->getVar('uname')), 'required' => 0);
         $email_text = new Xoops\Form\Label('', $user->getVar('email'));
     }
-    $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br />');
+    $email_tray = new Xoops\Form\ElementTray(XoopsLocale::EMAIL, '<br>');
     $email_tray->addElement($email_text, ($user->isNew() || $xoops->user->isAdmin()) ? 1 : 0);
     $weights[0][] = 0;
     $elements[0][] = array('element' => $email_tray, 'required' => 0);
@@ -169,7 +169,7 @@ function profile_getUserForm(XoopsUser $user, ProfileProfile $profile = null, $a
         //If the user is an admin and is editing someone else
         $pwd_text = new Xoops\Form\Password('', 'password');
         $pwd_text2 = new Xoops\Form\Password('', 'vpass');
-        $pwd_tray = new Xoops\Form\ElementTray(XoopsLocale::PASSWORD . '<br />' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT);
+        $pwd_tray = new Xoops\Form\ElementTray(XoopsLocale::PASSWORD . '<br>' . XoopsLocale::TYPE_NEW_PASSWORD_TWICE_TO_CHANGE_IT);
         $pwd_tray->addElement($pwd_text);
         $pwd_tray->addElement($pwd_text2);
         $elements[0][] = array('element' => $pwd_tray, 'required' => 0); //cannot set an element tray required

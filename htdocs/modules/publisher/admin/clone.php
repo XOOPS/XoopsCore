@@ -28,7 +28,7 @@ PublisherUtils::openCollapsableBar('clone', 'cloneicon', _AM_PUBLISHER_CLONE, _A
 if (@$_POST['op'] === 'submit') {
 
     if (!$xoops->security()->check()) {
-        $xoops->redirect('clone.php', 3, implode('<br />', $xoops->security()->getErrors()));
+        $xoops->redirect('clone.php', 3, implode('<br>', $xoops->security()->getErrors()));
     }
 
     $clone = $_POST['clone'];
@@ -57,7 +57,7 @@ if (@$_POST['op'] === 'submit') {
 
     $msg = "";
     if (is_dir(\XoopsBaseConfig::get('root-path') . '/modules/' . strtolower($clone))) {
-        $msg .= sprintf(_AM_PUBLISHER_CLONE_CONGRAT, "<a href='" . \XoopsBaseConfig::get('url') . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(strtolower($clone)) . "</a>") . "<br />\n";
+        $msg .= sprintf(_AM_PUBLISHER_CLONE_CONGRAT, "<a href='" . \XoopsBaseConfig::get('url') . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(strtolower($clone)) . "</a>") . "<br>\n";
         if (!$logocreated) {
             $msg .= _AM_PUBLISHER_CLONE_IMAGEFAIL;
         }

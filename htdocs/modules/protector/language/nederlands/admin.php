@@ -24,9 +24,9 @@ define("_AM_TH_AGENT","AGENT");
 define("_AM_TH_TYPE","Type");
 define("_AM_TH_DESCRIPTION","Omschrijving");
 
-define("_AM_TH_BADIPS" , 'Slechte IPs<br /><br /><span style="font-weight:normal;">Schrijf elke IP op een aparte regel<br />blanco betekent dat alle IPs zijn toegestaan</span>' ) ;
+define("_AM_TH_BADIPS" , 'Slechte IPs<br><br><span style="font-weight:normal;">Schrijf elke IP op een aparte regel<br>blanco betekent dat alle IPs zijn toegestaan</span>' ) ;
 
-define("_AM_TH_GROUP1IPS" , 'IPs toegestaan voor Groep=1<br /><br /><span style="font-weight:normal;">Schrijf elke IP op een aparte regel.<br />192.168. betekent 192.168.*<br />blanco betekent dat alle IPs zijn toegestaan</span>' ) ;
+define("_AM_TH_GROUP1IPS" , 'IPs toegestaan voor Groep=1<br><br><span style="font-weight:normal;">Schrijf elke IP op een aparte regel.<br>192.168. betekent 192.168.*<br>blanco betekent dat alle IPs zijn toegestaan</span>' ) ;
 
 define("_AM_LABEL_COMPACTLOG" , "Log comprimeren" ) ;
 define("_AM_BUTTON_COMPACTLOG" , "Comprimeren!" ) ;
@@ -48,18 +48,18 @@ define("_AM_MSG_REMOVED" , "Records zijn verwijderd" ) ;
 define("_AM_H3_PREFIXMAN" , "Prefix Manager" ) ;
 define("_AM_MSG_DBUPDATED" , "Database succesvol bijgewerkt!" ) ;
 define("_AM_CONFIRM_DELETE" , "Alle data wordt gewist. OK?" ) ;
-define("_AM_TXT_HOWTOCHANGEDB" , "Als u de prefix wilt veranderen,<br />pas dan ook %s/mainfile.php aan.<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
+define("_AM_TXT_HOWTOCHANGEDB" , "Als u de prefix wilt veranderen,<br>pas dan ook %s/mainfile.php aan.<br><br>define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
 
 
 // advisory.php
 define("_AM_ADV_NOTSECURE","Onveilig");
 
-define("_AM_ADV_REGISTERGLOBALS","Deze instelling biedt opening aan een veelheid van injectie aanvallen.<br />Wanneer het mogelijk is om een .htacces bestand aan kan maken of wijzigen is dat aan te bevelen...");
-define("_AM_ADV_ALLOWURLFOPEN","Deze instelling biedt aanvallers de mogelijkheid om allerlei scripts op andere servers uit te voeren.<br />Alleen de webserver beheerder kan deze optie wijzigen.<br />Als u de beheerder bent, pas dan php.ini of httpd.conf aan.<br /><b>Voorbeeld van een httpd.conf:<br /> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br />Anders kunt u het het beste bij uw beheerder melden.");
-define("_AM_ADV_USETRANSSID","Uw sessie ID zal getoond worden in anchor tags etc.<br />Om ongewenste overname van sessies te voorkomen, voegt u een regel toe in XOOPS_ROOT_PATH.<br /><b>php_flag session.use_trans_sid off</b>");
-define("_AM_ADV_DBPREFIX","Deze instelling werkt SQL Injecties in de hand.<br />Vergeet niet 'Forceer opschonen *' aan te zetten in de instellingen van deze module.");
+define("_AM_ADV_REGISTERGLOBALS","Deze instelling biedt opening aan een veelheid van injectie aanvallen.<br>Wanneer het mogelijk is om een .htacces bestand aan kan maken of wijzigen is dat aan te bevelen...");
+define("_AM_ADV_ALLOWURLFOPEN","Deze instelling biedt aanvallers de mogelijkheid om allerlei scripts op andere servers uit te voeren.<br>Alleen de webserver beheerder kan deze optie wijzigen.<br>Als u de beheerder bent, pas dan php.ini of httpd.conf aan.<br><b>Voorbeeld van een httpd.conf:<br> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br>Anders kunt u het het beste bij uw beheerder melden.");
+define("_AM_ADV_USETRANSSID","Uw sessie ID zal getoond worden in anchor tags etc.<br>Om ongewenste overname van sessies te voorkomen, voegt u een regel toe in XOOPS_ROOT_PATH.<br><b>php_flag session.use_trans_sid off</b>");
+define("_AM_ADV_DBPREFIX","Deze instelling werkt SQL Injecties in de hand.<br>Vergeet niet 'Forceer opschonen *' aan te zetten in de instellingen van deze module.");
 define("_AM_ADV_LINK_TO_PREFIXMAN","Ga naar de prefix manager");
-define("_AM_ADV_MAINUNPATCHED","Xoops Protector kan uw site slechts beperkt beschermen tenzij het aangeroepen wordt vanuit mainfile.php.<br />Het wordt aangeraden om mainfile.php aan te passen zoals in README beschreven.");
+define("_AM_ADV_MAINUNPATCHED","Xoops Protector kan uw site slechts beperkt beschermen tenzij het aangeroepen wordt vanuit mainfile.php.<br>Het wordt aangeraden om mainfile.php aan te passen zoals in README beschreven.");
 
 define("_AM_ADV_SUBTITLECHECK","Controleer of Protector goed werkt");
 define("_AM_ADV_CHECKCONTAMI","Vervuilingen");

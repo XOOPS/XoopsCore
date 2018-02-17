@@ -132,7 +132,7 @@ if (false != $error) {
                     if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                         $menu['file'] = $directory;
                         $menu['title'] = trim($modversion['name']);
-                        $menu['desc'] = str_replace('<br />', ' ', $modversion['description']);
+                        $menu['desc'] = str_replace('<br>', ' ', $modversion['description']);
                         $menu['icon'] = $modversion['image'];
                         $menu['status'] = true;
                     }
@@ -141,7 +141,7 @@ if (false != $error) {
                     if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                         $menu['file'] = $directory;
                         $menu['title'] = trim($modversion['name']);
-                        $menu['desc'] = str_replace('<br />', ' ', $modversion['description']);
+                        $menu['desc'] = str_replace('<br>', ' ', $modversion['description']);
                         $menu['icon'] = $modversion['image'];
                         $menu['status'] = false;
                     }

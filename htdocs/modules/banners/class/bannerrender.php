@@ -87,7 +87,7 @@ class BannerRender
                         }
                     }
                     if ($align === 'V') {
-                        $bannerobject .= '<br /><br />';
+                        $bannerobject .= '<br><br>';
                     } else {
                         $bannerobject .= '&nbsp;';
                     }

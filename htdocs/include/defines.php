@@ -101,7 +101,7 @@ body {font-size: 12px; background-color: #f0f0f0; text-align: center;}
     <div id='xo-siteblocked'>
         <h1>A problem has occurred on our server!</h1>
         <h2>Page is currently unavailable</h2>
-        <p class='xo-siteblocked-message'>We are working on a fix<br /><a href='/'>Please come back soon ...</a></p>
+        <p class='xo-siteblocked-message'>We are working on a fix<br><a href='/'>Please come back soon ...</a></p>
         <p class='xo-siteblocked-desc'>Error : %s</p>
     </div>
 </body>

@@ -31,7 +31,7 @@ class SimpleFormTest extends \PHPUnit\Framework\TestCase
     {
         $this->object->insertBreak();
         $value = $this->object->render();
-        $this->assertTrue(false !== strpos($value, '<br />'));
+        $this->assertTrue(false !== strpos($value, '<br>'));
 
         $this->object->insertBreak('extra','class');
         $value = $this->object->render();

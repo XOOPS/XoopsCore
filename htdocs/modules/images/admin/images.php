@@ -33,7 +33,7 @@ $mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'ima
 switch ($op) {
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         $msg[] = _AM_IMAGES_IMG_SAVE;
@@ -99,7 +99,7 @@ switch ($op) {
                         @unlink($uploader->getSavedDestination());
                     }
                 }
-                $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 2, implode('<br />', $msg));
+                $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 2, implode('<br>', $msg));
             }
             echo $xoops->alert('error', $obj->getHtmlErrors());
         }
@@ -131,7 +131,7 @@ switch ($op) {
 
             if ($ok == 1) {
                 if (!$xoops->security()->check()) {
-                    $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 3, implode('<br />', $xoops->security()->getErrors()));
+                    $xoops->redirect('images.php?imgcat_id=' . $imgcat_id, 3, implode('<br>', $xoops->security()->getErrors()));
                 }
                 $category = $helper->getHandlerCategories()->get($obj->getVar('imgcat_id'));
 
@@ -154,7 +154,7 @@ switch ($op) {
                     array('op' => 'del', 'ok' => 1, 'image_id' => $image_id, 'imgcat_id' => $obj->getVar('imgcat_id')),
                     \XoopsBaseConfig::get('url') . '/modules/images/admin/images.php',
                     sprintf(_AM_IMAGES_IMG_DELETE, $obj->getVar('image_nicename'))
-                    . '<br /><br /><img src="' . $img . '" /><br />'
+                    . '<br><br><img src="' . $img . '" /><br>'
                 );
             }
         }

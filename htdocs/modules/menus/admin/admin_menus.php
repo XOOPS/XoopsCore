@@ -60,7 +60,7 @@ switch ($op) {
 
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin_menus.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin_menus.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         $msg[] = _AM_MENUS_SAVE;
@@ -75,7 +75,7 @@ switch ($op) {
         $obj->setVar('title', Request::getString('title', ''));
 
         if ($helper->getHandlerMenus()->insert($obj)) {
-            $xoops->redirect('admin_menus.php', 2, implode('<br />', $msg));
+            $xoops->redirect('admin_menus.php', 2, implode('<br>', $msg));
         }
         echo $xoops->alert('error', $obj->getHtmlErrors());
         $form = $helper->getForm($obj, 'menus_menus');
@@ -102,7 +102,7 @@ switch ($op) {
             echo $xoops->confirm(
                 array('ok' => 1, 'id' => $id, 'op' => 'del'),
                 $helper->url('admin/admin_menus.php'),
-                _AM_MENUS_MSG_SUREDEL . '<br /><strong>' . $obj->getVar('title') . '</strong>'
+                _AM_MENUS_MSG_SUREDEL . '<br><strong>' . $obj->getVar('title') . '</strong>'
             );
         }
         break;

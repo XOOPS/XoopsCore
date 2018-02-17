@@ -1299,7 +1299,7 @@ class Xoops
         if (!is_scalar($msg) && !is_array($msg)) {
             $msg = ''; // don't know what to do with this, so make it blank
         }
-        $alert_msg = (is_array($msg)) ? @implode("<br />", $msg) : $msg;
+        $alert_msg = (is_array($msg)) ? @implode("<br>", $msg) : $msg;
 
         if (empty($alert_msg)) {
             return '';
@@ -1335,7 +1335,7 @@ class Xoops
                     $str_hiddens .= '<input type="radio" name="' . $name . '" value="'
                         . htmlspecialchars($newvalue) . '" > ' . $caption . NWLINE;
                 }
-                $str_hiddens .= '<br />' . NWLINE;
+                $str_hiddens .= '<br>' . NWLINE;
             } else {
                 $str_hiddens .= '<input type="hidden" name="' . $name . '" value="'
                     . htmlspecialchars($value) . '" />' . NWLINE;

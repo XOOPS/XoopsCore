@@ -76,7 +76,7 @@ class CommentsCommentForm extends Xoops\Form\ThemeForm
         } else {
             $this->addElement(new Xoops\Form\DhtmlTextArea(_MD_COMMENTS_MESSAGE, 'com_text', $obj->getVar('text', 'e'), 10, 50), true);
         }
-        $option_tray = new Xoops\Form\ElementTray(XoopsLocale::OPTIONS, '<br />');
+        $option_tray = new Xoops\Form\ElementTray(XoopsLocale::OPTIONS, '<br>');
         $buttonTray = new Xoops\Form\ElementTray('', '&nbsp;');
 
         if ($xoops->isUser()) {

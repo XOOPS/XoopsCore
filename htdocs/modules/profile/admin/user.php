@@ -77,8 +77,8 @@ switch ($op) {
             $xoops->redirect(
                 'user.php',
                 3,
-                XoopsLocale::E_NO_ACTION_PERMISSION . "<br />"
-                . implode('<br />', $xoops->security()->getErrors())
+                XoopsLocale::E_NO_ACTION_PERMISSION . "<br>"
+                . implode('<br>', $xoops->security()->getErrors())
             );
             exit;
         }

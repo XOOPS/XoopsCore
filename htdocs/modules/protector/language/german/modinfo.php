@@ -49,7 +49,7 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
 
     // Configs
     define('_MI_PROTECTOR_GLOBAL_DISBL', 'Vorübergehend deaktiviert');
-    define('_MI_PROTECTOR_GLOBAL_DISBLDSC', 'Alle Sicherheitsfunktionen sind vorübergehend deaktiviert!<br />Vergessen Sie nicht diese wieder einzuschalten, wenn Sie eine Störung beseitigt haben!');
+    define('_MI_PROTECTOR_GLOBAL_DISBLDSC', 'Alle Sicherheitsfunktionen sind vorübergehend deaktiviert!<br>Vergessen Sie nicht diese wieder einzuschalten, wenn Sie eine Störung beseitigt haben!');
 
     define('_MI_PROTECTOR_RELIABLE_IPS', 'Reliable IPs');
     define('_MI_PROTECTOR_RELIABLE_IPSDSC', 'Sie können IP Adressen mit einem | trennen. ^ setzt den Kopfürdes String, $ setzt das Ende des Strings.');
@@ -63,23 +63,23 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_LOGLEVEL255', 'voll');
 
     define('_MI_PROTECTOR_HIJACK_TOPBIT', 'Geschützte IP bits für dieses Session');
-    define('_MI_PROTECTOR_HIJACK_TOPBITDSC', 'Anti Session Hi-Jacking:<br />Default 32(bit). (Alle Bits sind geschützt)<br />Wenn Sie keine statische IP Adresse haben, setzen Sie den IP Bereich mit Nummer der einzelnen Bits.<br />(eg) Wenn sich Ihre IP im Bereich von 192.168.0.0 bis 192.168.0.255 befindet, setzen Sie 24(bit) hier');
+    define('_MI_PROTECTOR_HIJACK_TOPBITDSC', 'Anti Session Hi-Jacking:<br>Default 32(bit). (Alle Bits sind geschützt)<br>Wenn Sie keine statische IP Adresse haben, setzen Sie den IP Bereich mit Nummer der einzelnen Bits.<br>(eg) Wenn sich Ihre IP im Bereich von 192.168.0.0 bis 192.168.0.255 befindet, setzen Sie 24(bit) hier');
     define('_MI_PROTECTOR_HIJACK_DENYGP', 'Gruppen denen das Ändern der IP innerhalb einer Session untersagt wird.');
-    define('_MI_PROTECTOR_HIJACK_DENYGPDSC', 'Anti Session Hi-Jacking:<br />Wählen sie Gruppen aus, denen es untersagt ist, ihre IP während einer Session zu ändern..<br />(Mindestens Administrator-Gruppe wird empfohlen.)');
+    define('_MI_PROTECTOR_HIJACK_DENYGPDSC', 'Anti Session Hi-Jacking:<br>Wählen sie Gruppen aus, denen es untersagt ist, ihre IP während einer Session zu ändern..<br>(Mindestens Administrator-Gruppe wird empfohlen.)');
     define('_MI_PROTECTOR_SAN_NULLBYTE', 'Sanitizing (Säuberung) null-bytes');
-    define('_MI_PROTECTOR_SAN_NULLBYTEDSC', 'Das Abschluss-Zeichen "\\0" wird oft in Attacken verwendet.<br />Dieses Null-Byte wird in ein Leerzeichen konvertiert.<br />(Einschalten wird dringendst empfohlen!)');
+    define('_MI_PROTECTOR_SAN_NULLBYTEDSC', 'Das Abschluss-Zeichen "\\0" wird oft in Attacken verwendet.<br>Dieses Null-Byte wird in ein Leerzeichen konvertiert.<br>(Einschalten wird dringendst empfohlen!)');
     define('_MI_PROTECTOR_DIE_NULLBYTE', 'Beenden, wenn Null-Bytes gefunden werden');
-    define('_MI_PROTECTOR_DIE_NULLBYTEDSC', 'Das Abschluss-Zeichen "\\0" wird oft in Attacken verwendet.<br />(Dringendst empfohlen)');
+    define('_MI_PROTECTOR_DIE_NULLBYTEDSC', 'Das Abschluss-Zeichen "\\0" wird oft in Attacken verwendet.<br>(Dringendst empfohlen)');
     define('_MI_PROTECTOR_DIE_BADEXT', 'Beenden, wenn unzulässgige Dateien hochgeladen werden');
-    define('_MI_PROTECTOR_DIE_BADEXTDSC', 'Wenn jemand versucht, Dateien mit unzulässigen Endungen wie .php hochzuladen, beendet diese Modul den Zugriff für XOOPS.<br />Wenn Sie oft Dateien in B-Wiki oder PukiWikiMod einstellen, schalten Sie diese Option aus.');
+    define('_MI_PROTECTOR_DIE_BADEXTDSC', 'Wenn jemand versucht, Dateien mit unzulässigen Endungen wie .php hochzuladen, beendet diese Modul den Zugriff für XOOPS.<br>Wenn Sie oft Dateien in B-Wiki oder PukiWikiMod einstellen, schalten Sie diese Option aus.');
     define('_MI_PROTECTOR_CONTAMI_ACTION', 'Maßnahmen, wenn eine Verunreinigung gefunden wurde:');
-    define('_MI_PROTECTOR_CONTAMI_ACTIONDS', 'Wählen Sie eine Aktion aus, wenn jemand versucht, globale XOOPS-Variablen zu verunreinigen.<br />(Empfohlen wird "Weißer Bildschirm")');
+    define('_MI_PROTECTOR_CONTAMI_ACTIONDS', 'Wählen Sie eine Aktion aus, wenn jemand versucht, globale XOOPS-Variablen zu verunreinigen.<br>(Empfohlen wird "Weißer Bildschirm")');
     define('_MI_PROTECTOR_ISOCOM_ACTION', 'Maßnahmen, wenn eine isolierte Einkommentierung gefunden wurde:');
-    define('_MI_PROTECTOR_ISOCOM_ACTIONDSC', 'Anti SQL Injection:<br />Wählen Sie eine Massnahme aus, die ergriffen wird, wenn ein  isoliertes "/*" gefunden wird.<br />"Sanitizing (Säuberung)" bedeutet, ein zusätzliches  "*/" anzuhängen.<br />(Empfohlen wird "Sanitizing (Säuberung)" )');
+    define('_MI_PROTECTOR_ISOCOM_ACTIONDSC', 'Anti SQL Injection:<br>Wählen Sie eine Massnahme aus, die ergriffen wird, wenn ein  isoliertes "/*" gefunden wird.<br>"Sanitizing (Säuberung)" bedeutet, ein zusätzliches  "*/" anzuhängen.<br>(Empfohlen wird "Sanitizing (Säuberung)" )');
     define('_MI_PROTECTOR_UNION_ACTION', 'Massnahme wenn ein UNION gefunden wurde.');
-    define('_MI_PROTECTOR_UNION_ACTIONDSC', 'Anti SQL Injection:<br />Wählen sie eine Massnahme, wenn ein SQL-Befehl wie UNION gefunden wurde.<br />"Sanitizing (Säuberung)" bedeutet die Änderung von "union" nach "uni-on".<br />(Empfohlen wird Sanitizing (Säuberung))');
+    define('_MI_PROTECTOR_UNION_ACTIONDSC', 'Anti SQL Injection:<br>Wählen sie eine Massnahme, wenn ein SQL-Befehl wie UNION gefunden wurde.<br>"Sanitizing (Säuberung)" bedeutet die Änderung von "union" nach "uni-on".<br>(Empfohlen wird Sanitizing (Säuberung))');
     define('_MI_PROTECTOR_ID_INTVAL', 'Erzwinge intval für Variablen wie ID´s');
-    define('_MI_PROTECTOR_ID_INTVALDSC', 'Alle Anfragen mit Namen "*id" Werden als Integer behandelt.<br />Diese Option beschützt sie vor einigen Arten der XSS-(Cross Site Scripting-) und SQL-Injection-Attacken.<br />Obwohl empfohlen wird, diese Option einzuschalten, kann es in einigen Modulen Probleme damit geben.');
+    define('_MI_PROTECTOR_ID_INTVALDSC', 'Alle Anfragen mit Namen "*id" Werden als Integer behandelt.<br>Diese Option beschützt sie vor einigen Arten der XSS-(Cross Site Scripting-) und SQL-Injection-Attacken.<br>Obwohl empfohlen wird, diese Option einzuschalten, kann es in einigen Modulen Probleme damit geben.');
     define('_MI_PROTECTOR_FILE_DOTDOT', 'Behebe zweifelhafte Dateiangaben');
     define('_MI_PROTECTOR_FILE_DOTDOTDSC', 'Eliminiertalle ".." aus Anfragen, die nach Dateien suchen');
 
@@ -93,15 +93,15 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_DOS_EXPIREDSC', 'Dieser Wert gibt das Zeitlimit für rasch wiederholte Reloads der Seite (F5 Attacke) und fürSuchmaschinen mit hoher Last an.');
 
     define('_MI_PROTECTOR_DOS_F5COUNT', 'Anzahl als schädlich eingestufter Reloads F5');
-    define('_MI_PROTECTOR_DOS_F5COUNTDSC', 'verhindert DoS Attacken.<br />Der Wert gibt an, wieviele Reloads (F5) als Attacke eingestuft werden.');
+    define('_MI_PROTECTOR_DOS_F5COUNTDSC', 'verhindert DoS Attacken.<br>Der Wert gibt an, wieviele Reloads (F5) als Attacke eingestuft werden.');
     define('_MI_PROTECTOR_DOS_F5ACTION', 'Maßnahmen gegen F5 Attacke');
 
     define('_MI_PROTECTOR_DOS_CRCOUNT', 'Anzahl als schädlich eingestufter Suchmaschinen-Abfragen');
-    define('_MI_PROTECTOR_DOS_CRCOUNTDSC', 'Schützt vor Server-intensiven Abfragen durch Suchmaschinen.<br />Dieser Wert gibt an, wieviele Zugriffe als Server-intensiv eingestuft werden.');
+    define('_MI_PROTECTOR_DOS_CRCOUNTDSC', 'Schützt vor Server-intensiven Abfragen durch Suchmaschinen.<br>Dieser Wert gibt an, wieviele Zugriffe als Server-intensiv eingestuft werden.');
     define('_MI_PROTECTOR_DOS_CRACTION', 'Maßnahmen gegen Server-intensive Suchmaschinen');
 
     define('_MI_PROTECTOR_DOS_CRSAFE', 'Zugelassene User-Agents');
-    define('_MI_PROTECTOR_DOS_CRSAFEDSC', 'Ein regulaeer Perl-Ausdruck fürUser-Agents.<br />Wenn der Ausdruck zutrifft, wird die Suchmaschine niemals als Server-intensiv eingestuft.<br />Bsp: (msnbot|Googlebot|Yahoo! Slurp)/i');
+    define('_MI_PROTECTOR_DOS_CRSAFEDSC', 'Ein regulaeer Perl-Ausdruck fürUser-Agents.<br>Wenn der Ausdruck zutrifft, wird die Suchmaschine niemals als Server-intensiv eingestuft.<br>Bsp: (msnbot|Googlebot|Yahoo! Slurp)/i');
 
     define('_MI_PROTECTOR_OPT_NONE', 'Keine (nur logging)');
     define('_MI_PROTECTOR_OPT_SAN', 'Sanitizing (Säuberung)');
@@ -115,7 +115,7 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_DOSOPT_HTA', 'DENY by .htaccess(Experimental)');
 
     define('_MI_PROTECTOR_BIP_EXCEPT', 'Gruppen, die niemals als "schlechte IP" eingestuft werden.');
-    define('_MI_PROTECTOR_BIP_EXCEPTDSC', 'Ein User, der in dieser Gruppe ist, wird niemals eine IP-Sperre erfahren.<br />(Empfohlen wird, die Administartor-Gruppe anzugeben.)');
+    define('_MI_PROTECTOR_BIP_EXCEPTDSC', 'Ein User, der in dieser Gruppe ist, wird niemals eine IP-Sperre erfahren.<br>(Empfohlen wird, die Administartor-Gruppe anzugeben.)');
 
     define('_MI_PROTECTOR_DISABLES', 'Deaktiviert die Sicherheitsfeatures von Protector in XOOPS');
 

@@ -132,8 +132,8 @@ define("_MD_AM_BADUNAMES", "Enter names that should not be selected as username"
 //define("_MD_AM_BADUNAMESDSC", "Separate each with a <strong>|</strong>, case insensitive, regex enabled.");
 define("_MD_AM_DOBADIPS", "Enable IP bans?");
 define("_MD_AM_DOBADIPSDSC", "Users from specified IP addresses will not be able to view your site");
-define("_MD_AM_BADIPS", "Enter IP addresses that should be banned from the site.<br />Separate each with a <strong>|</strong>, case insensitive, regex enabled (so dot - '.' means 'any char' and '\.' means '.').");
-define("_MD_AM_BADIPSDSC", "^aaa\.bbb\.ccc will disallow visitors with an IP that starts with aaa.bbb.ccc<br />aaa\.bbb\.ccc$ will disallow visitors with an IP that ends with aaa.bbb.ccc<br />aaa\.bbb\.ccc will disallow visitors with an IP that contains aaa.bbb.ccc");
+define("_MD_AM_BADIPS", "Enter IP addresses that should be banned from the site.<br>Separate each with a <strong>|</strong>, case insensitive, regex enabled (so dot - '.' means 'any char' and '\.' means '.').");
+define("_MD_AM_BADIPSDSC", "^aaa\.bbb\.ccc will disallow visitors with an IP that starts with aaa.bbb.ccc<br>aaa\.bbb\.ccc$ will disallow visitors with an IP that ends with aaa.bbb.ccc<br>aaa\.bbb\.ccc will disallow visitors with an IP that contains aaa.bbb.ccc");
 //define("_MD_AM_PREFMAIN", "Preferences Main");
 define("_MD_AM_METAKEY", "Meta Keywords");
 define("_MD_AM_METAKEYDSC", "The keywords meta tag is a series of keywords that represents the content of your site. Type in keywords with each separated by a comma or a space in between. (Ex. XOOPS, PHP, mySQL, portal system)");
@@ -160,7 +160,7 @@ define("_MD_AM_FOOTERDSC", "Be sure to type links in full path starting from htt
 define("_MD_AM_DOCENSOR", "Enable censoring of unwanted words?");
 define("_MD_AM_DOCENSORDSC", "Words will be censored if this option is enabled. This option may be turned off for enhanced site speed.");
 define("_MD_AM_CENSORWRD", "Words to censor");
-define("_MD_AM_CENSORWRDDSC", "Enter words that should be censored in user posts.<br />Separate each with a <strong>|</strong>, case insensitive.");
+define("_MD_AM_CENSORWRDDSC", "Enter words that should be censored in user posts.<br>Separate each with a <strong>|</strong>, case insensitive.");
 define("_MD_AM_CENSORRPLC", "Censored words will be replaced with:");
 define("_MD_AM_CENSORRPLCDSC", "Censored words will be replaced with the characters entered in this textbox");
 define("_MD_AM_MODCONFIG", "Module Config Options");
@@ -295,8 +295,8 @@ define("_MD_AM_LDAP_LOGINNAME_ASDN_D", "The XOOPS login name is used in the LDAP
 
 define("_MD_AM_LDAP_FILTER_PERSON", "The search filter LDAP query to find user");
 define("_MD_AM_LDAP_FILTER_PERSON_DESC", "Special LDAP Filter to find user. @@loginname@@ is replace by the users's login name<br> MUST BE BLANK IF YOU DON'T KNOW WHAT YOU DO' !" .
-        "<br />Ex : (&(objectclass=person)(samaccountname=@@loginname@@)) for AD" .
-        "<br />Ex : (&(objectclass=inetOrgPerson)(uid=@@loginname@@)) for LDAP");
+        "<br>Ex : (&(objectclass=person)(samaccountname=@@loginname@@)) for AD" .
+        "<br>Ex : (&(objectclass=inetOrgPerson)(uid=@@loginname@@)) for LDAP");
 
 define("_MD_AM_LDAP_DOMAIN_NAME", "The domain name");
 define("_MD_AM_LDAP_DOMAIN_NAME_DESC", "Windows domain name. for ADS and NT Server only");
@@ -309,10 +309,10 @@ define("_MD_AM_LDAP_PROVIS_GROUP_DSC", "The new user is assign to these groups")
 
 define("_MD_AM_LDAP_FIELD_MAPPING_ATTR", "Xoops-Auth server fields mapping");
 define("_MD_AM_LDAP_FIELD_MAPPING_DESC", "Describe here the mapping between the XOOPS database field and the LDAP Authentication system field." .
-        "<br /><br />Format [Xoops Database field]=[Auth system LDAP attribute]" .
-        "<br />for example : email=mail" .
-        "<br />Separate each with a |" .
-        "<br /><br />!! For advanced users !!");
+        "<br><br>Format [Xoops Database field]=[Auth system LDAP attribute]" .
+        "<br>for example : email=mail" .
+        "<br>Separate each with a |" .
+        "<br><br>!! For advanced users !!");
 
 define("_MD_AM_LDAP_PROVIS_UPD", "Maintain XOOPS account provisionning");
 define("_MD_AM_LDAP_PROVIS_UPD_DESC", "The XOOPS User account is always synchronized with the Authentication Server");

@@ -92,7 +92,7 @@ switch ($op) {
 
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect("admin.php?fct=preferences", 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect("admin.php?fct=preferences", 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $xoopsTpl = new XoopsTpl();
         $count = count($conf_ids);

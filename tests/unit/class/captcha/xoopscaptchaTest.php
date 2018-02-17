@@ -160,7 +160,7 @@ class XoopsCaptchaTest extends \PHPUnit\Framework\TestCase
         $instance = $this->object;
         $instance->message = array('message1', 'message2');
         $x = $instance->getMessage();
-        $this->assertSame(implode('<br />', $instance->message), $x);
+        $this->assertSame(implode('<br>', $instance->message), $x);
     }
 
     public function testDestroyGarbage()

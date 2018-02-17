@@ -67,7 +67,7 @@ class upgrade_2014 extends xoopsUpgrade
             }
         }
         if ($insert == -1) {
-            printf(_FAILED_PATCH . "<br />", "mainfile.php");
+            printf(_FAILED_PATCH . "<br>", "mainfile.php");
             echo $manual;
             return false;
         } elseif ($insert != -2) {

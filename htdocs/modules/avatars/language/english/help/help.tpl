@@ -1,8 +1,8 @@
 <h4>Description</h4>
 <p>
     Avatars are small graphics or pictures that can be used in various content settings around the site. They are often used next to a user name to add a bit of "visual identification." Typical applications are the forum.
-    <br />
-    <br />
+    <br>
+    <br>
     The Avatar Manager allows the Site administrator to add, edit or delete System Avatars as well as Custom Avatars.
 </p>
 <h4>System Avatar</h4>

@@ -38,7 +38,7 @@ define("_MD_PUBLISHER_INDEX_ITEMS", "Last published articles");
 
 define("_MD_PUBLISHER_ITEM", "article");
 define("_MD_PUBLISHER_ITEM_RECEIVED_AND_PUBLISHED", "Your article has been sent and automatically published. Thank you for your contribution !");
-define("_MD_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Your article has been sent and will be published upon approval by a moderator.<br />Thank you for your contribution !");
+define("_MD_PUBLISHER_ITEM_RECEIVED_NEED_APPROVAL", "Your article has been sent and will be published upon approval by a moderator.<br>Thank you for your contribution !");
 define("_MD_PUBLISHER_ITEMMODIFIED", "The article was successfully modified!");
 define("_MD_PUBLISHER_ITEMS", "Articles");
 define("_MD_PUBLISHER_ITEMS_INFO", "Here are The articles within this category.");
@@ -50,7 +50,7 @@ define("_MD_PUBLISHER_LAST_SMARTITEM", "Last published article");
 define("_MD_PUBLISHER_NEED_CATEGORY_ITEM", "To create an article, you must have appropriate permission in at least one category.");
 define("_MD_PUBLISHER_NEXT_ITEM", "Next article");
 define("_MD_PUBLISHER_NO", "No");
-define("_MD_PUBLISHER_NO_CAT_EXISTS", "Sorry, there&#8217s no category //defined as yet.<br />Please contact the site administrator and tell him about this.");
+define("_MD_PUBLISHER_NO_CAT_EXISTS", "Sorry, there&#8217s no category //defined as yet.<br>Please contact the site administrator and tell him about this.");
 define("_MD_PUBLISHER_NO_CAT_PERMISSIONS", "Sorry, you don't have sufficient permissions to access this area.");
 define("_MD_PUBLISHER_NO_TOP_PERMISSIONS", "Sorry, there is no article to display.");
 define("_MD_PUBLISHER_NOCATEGORYSELECTED", "You did not select a valid category !");

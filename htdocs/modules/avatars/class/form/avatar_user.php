@@ -42,10 +42,10 @@ class AvatarsAvatar_userForm extends Xoops\Form\ThemeForm
         $avatar_select->setExtra("onchange='showImgSelected(\"avatar\", \"user_avatar\", \"uploads\", \"\", \"" . $xoops_url . "\")'");
         $avatar_tray = new Xoops\Form\ElementTray(XoopsLocale::FILE, '&nbsp;');
         $avatar_tray->addElement($avatar_select);
-        $avatar_tray->addElement(new Xoops\Form\Label('', "<a href=\"javascript:openWithSelfMain('" . $xoops_url . "/modules/avatars/popup.php','avatars',600,400);\">" . XoopsLocale::LIST_. "</a><br />"));
-        $avatar_tray->addElement(new Xoops\Form\Label('', "<br /><img src='" . $xoops_upload_url . "/" . $avatar_selected . "' name='avatar' id='avatar' alt='' />"));
+        $avatar_tray->addElement(new Xoops\Form\Label('', "<a href=\"javascript:openWithSelfMain('" . $xoops_url . "/modules/avatars/popup.php','avatars',600,400);\">" . XoopsLocale::LIST_. "</a><br>"));
+        $avatar_tray->addElement(new Xoops\Form\Label('', "<br><img src='" . $xoops_upload_url . "/" . $avatar_selected . "' name='avatar' id='avatar' alt='' />"));
         if ($helper->getConfig('avatars_allowupload') == 1 && $xoops->user->getVar('posts') >= $helper->getConfig('avatars_postsrequired')) {
-            $fileseltray_img = new Xoops\Form\ElementTray('<br />', '<br /><br />');
+            $fileseltray_img = new Xoops\Form\ElementTray('<br>', '<br><br>');
             $fileseltray_img->addElement(new Xoops\Form\File(XoopsLocale::A_UPLOAD, 'user_avatar'), false);
             $avatar_tray->addElement($fileseltray_img);
         }

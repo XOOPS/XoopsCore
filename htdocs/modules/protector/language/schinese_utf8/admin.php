@@ -13,9 +13,9 @@ define("_AM_TH_AGENT","浏览器");
 define("_AM_TH_TYPE","类型");
 define("_AM_TH_DESCRIPTION","描述");
 
-define("_AM_TH_BADIPS" , '恶意IP地址<br /><br /><span style="font-weight:normal;">每行一个IP地址<br />如果此项为空，则所有的IP地址都可以访问。</span>' ) ;
+define("_AM_TH_BADIPS" , '恶意IP地址<br><br><span style="font-weight:normal;">每行一个IP地址<br>如果此项为空，则所有的IP地址都可以访问。</span>' ) ;
 
-define("_AM_TH_GROUP1IPS" , '允许登录管理员群组的IP地址（Group=1）<br /><br /><span style="font-weight:normal;">每行一个IP地址。<br />192.168. means 192.168.*<br />如果此项为空，则所有的IP地址都可以访问。</span>' ) ;
+define("_AM_TH_GROUP1IPS" , '允许登录管理员群组的IP地址（Group=1）<br><br><span style="font-weight:normal;">每行一个IP地址。<br>192.168. means 192.168.*<br>如果此项为空，则所有的IP地址都可以访问。</span>' ) ;
 
 define("_AM_LABEL_COMPACTLOG" , "压缩日志  " ) ;
 define("_AM_BUTTON_COMPACTLOG" , "确定" ) ;
@@ -37,7 +37,7 @@ define("_AM_MSG_REMOVED" , "记录已被删除" ) ;
 define("_AM_H3_PREFIXMAN" , "数据表前缀管理" ) ;
 define("_AM_MSG_DBUPDATED" , "数据库更新成功" ) ;
 define("_AM_CONFIRM_DELETE" , "所有数据将被删除" ) ;
-define("_AM_TXT_HOWTOCHANGEDB" , "如果你想改变前缀,<br /> 请手动编辑 %s/mainfile.php .<br /><br />define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
+define("_AM_TXT_HOWTOCHANGEDB" , "如果你想改变前缀,<br> 请手动编辑 %s/mainfile.php .<br><br>define('XOOPS_DB_PREFIX','<b>%s</b>');" ) ;
 
 
 // advisory.php
@@ -47,10 +47,10 @@ define("_AM_ADV_TRUSTPATHPUBLIC","如果你可以看到显示 -NG- 的图片或�
 define("_AM_ADV_TRUSTPATHPUBLICLINK","检测在 TRUST_PATH 目录下的文件是否安全 (你所看到的必须是404,403或500 错误提示,否则请按照下列提示调整)");
 
 
-define("_AM_ADV_REGISTERGLOBALS","该设置存在注入式攻击的漏洞.<br />If you can put .htaccess, edit or create...");
-define("_AM_ADV_ALLOWURLFOPEN","该设置允许攻击者执行远程服务器上的任意代码.<br />只有系统管理员才能修改次选项.<br />如果你是系统管理员,请编辑 php.ini 或 httpd.conf.<br /><b>例子 httpd.conf:<br /> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br />否则, 请联系您的系统管理员.");
-define("_AM_ADV_USETRANSSID","你的session ID 会显示在锚点链接中<br />为了防止 session 拦截,在 XOOPS_ROOT_PATH 下的 .htaccess 中添加一行.<br /><b>php_flag session.use_trans_sid off</b>");
-define("_AM_ADV_DBPREFIX","该设置存在'SQL注入式'攻击漏洞.<br />不要忘记在本模块的基本参数设置中启用 '*过滤（Force sanitizing *）' 功能。");
+define("_AM_ADV_REGISTERGLOBALS","该设置存在注入式攻击的漏洞.<br>If you can put .htaccess, edit or create...");
+define("_AM_ADV_ALLOWURLFOPEN","该设置允许攻击者执行远程服务器上的任意代码.<br>只有系统管理员才能修改次选项.<br>如果你是系统管理员,请编辑 php.ini 或 httpd.conf.<br><b>例子 httpd.conf:<br> &nbsp; php_admin_flag &nbsp; allow_url_fopen &nbsp; off</b><br>否则, 请联系您的系统管理员.");
+define("_AM_ADV_USETRANSSID","你的session ID 会显示在锚点链接中<br>为了防止 session 拦截,在 XOOPS_ROOT_PATH 下的 .htaccess 中添加一行.<br><b>php_flag session.use_trans_sid off</b>");
+define("_AM_ADV_DBPREFIX","该设置存在'SQL注入式'攻击漏洞.<br>不要忘记在本模块的基本参数设置中启用 '*过滤（Force sanitizing *）' 功能。");
 define("_AM_ADV_LINK_TO_PREFIXMAN","数据库表名前缀管理");
 define("_AM_ADV_MAINUNPATCHED","请按照发布说明中相关提示，配置 mainfile.php 。");
 

@@ -180,7 +180,7 @@ foreach ($fields as $field) {
     $cat_id = $field->getVar('cat_id');
     $value = $field->getOutputValue($thisUser, $profile);
     if (is_array($value)) {
-        $value = implode('<br />', array_values($value));
+        $value = implode('<br>', array_values($value));
     }
     if ($value) {
         $categories[$cat_id]['fields'][] = array('title' => $field->getVar('field_title'), 'value' => $value);

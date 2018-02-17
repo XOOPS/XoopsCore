@@ -241,7 +241,7 @@ class PublisherItem extends XoopsObject
         if ($this->publisher->getConfig('item_disp_blocks_summary')) {
             $summary = $this->summary($maxLength, $format, $stripTags);
             if ($summary) {
-                $ret = $this->summary() . '<br /><br />' . $ret;
+                $ret = $this->summary() . '<br><br>' . $ret;
             }
         }
         if (!empty($stripTags)) {
@@ -539,7 +539,7 @@ class PublisherItem extends XoopsObject
         if (!$body) {
             $body = $this->body();
         }
-        $ret .= str_replace('[pagebreak]', '<br /><br />', $body);
+        $ret .= str_replace('[pagebreak]', '<br><br>', $body);
         return $ret;
     }
 

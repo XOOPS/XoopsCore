@@ -69,7 +69,7 @@ switch ($op) {
     case 'dump_save':
         // Check security
         if (!$xoops->security()->check()) {
-            $xoops->redirect('dump.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('dump.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
         $admin_page->addItemButton(_AM_MAINTENANCE_DUMP_LIST, 'dump.php', 'application-view-detail');
         $admin_page->addItemButton(_AM_MAINTENANCE_DUMP_FORM, 'dump.php?op=dump', 'cd');

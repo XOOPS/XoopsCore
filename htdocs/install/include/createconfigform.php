@@ -167,7 +167,7 @@ function createConfigform($config)
                     '2592000' => XoopsLocale::ONE_MONTH
                 );
                 if (count($modules) > 0) {
-                    $ele = new Xoops\Form\ElementTray($title, '<br />');
+                    $ele = new Xoops\Form\ElementTray($title, '<br>');
                     foreach (array_keys($modules) as $mid) {
                         $c_val = isset($currrent_val[$mid]) ? (int)($currrent_val[$mid]) : null;
                         $selform = new Xoops\Form\Select($modules[$mid]->getVar('name'), $config[$i]->getVar('conf_name') . "[$mid]", $c_val);
@@ -236,7 +236,7 @@ function createConfigform($config)
  */
 function createThemeform(XoopsConfigItem $config)
 {
-    $title = $config->getVar('conf_desc') == '' ? \Xoops\Locale::translate($config->getVar('conf_title'), 'system') : \Xoops\Locale::translate($config->getVar('conf_title'), 'system') . '<br /><br /><span>' . \Xoops\Locale::translate($config->getVar('conf_desc'), 'system') . '</span>';
+    $title = $config->getVar('conf_desc') == '' ? \Xoops\Locale::translate($config->getVar('conf_title'), 'system') : \Xoops\Locale::translate($config->getVar('conf_title'), 'system') . '<br><br><span>' . \Xoops\Locale::translate($config->getVar('conf_desc'), 'system') . '</span>';
     $form_theme_set = new Xoops\Form\Select('', $config->getVar('conf_name'), $config->getConfValueForOutput(), 1, false);
     $dirlist = XoopsLists::getThemesList();
     if (!empty($dirlist)) {

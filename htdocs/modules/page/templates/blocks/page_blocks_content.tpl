@@ -8,7 +8,7 @@
     <div class="page_indexcontent">
         <{$content.content_shorttext}>
         <{if $block.text}>
-            <br />
+            <br>
             <{$content.content_text}>
         <{else}>
         <div class="page_more">

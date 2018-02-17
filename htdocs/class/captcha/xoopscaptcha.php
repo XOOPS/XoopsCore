@@ -333,7 +333,7 @@ class XoopsCaptcha
      */
     public function getMessage()
     {
-        return implode('<br />', $this->message);
+        return implode('<br>', $this->message);
     }
 
     /**

@@ -100,7 +100,7 @@ class PublisherCommentsPlugin extends Xoops\Module\Plugin\PluginAbstract impleme
         $ret['text'] = '';
         $summary = $itemObj->summary();
         if ($summary != '') {
-            $ret['text'] .= $summary . '<br /><br />';
+            $ret['text'] .= $summary . '<br><br>';
         }
         $ret['text'] .= $itemObj->body();
         $ret['title'] = $itemObj->title();

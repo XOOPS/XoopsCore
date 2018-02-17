@@ -88,7 +88,7 @@ switch ($op) {
                 unset($pm);
             }
             if ($errors == true) {
-                echo implode('<br />', $errormsg);
+                echo implode('<br>', $errormsg);
                 $xoops->footer();
             }
         }

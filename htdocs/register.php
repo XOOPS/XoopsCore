@@ -67,25 +67,25 @@ switch ($op) {
         $xoops->tpl()->assign('xoops_pagetitle', XoopsLocale::USER_REGISTRATION);
         $stop = '';
         if (!$xoops->security()->check()) {
-            $stop .= implode('<br />', $xoops->security()->getErrors()) . "<br />";
+            $stop .= implode('<br>', $xoops->security()->getErrors()) . "<br>";
         }
         if ($xoopsConfigUser['reg_dispdsclmr'] != 0 && $xoopsConfigUser['reg_disclaimer'] != '') {
             if (empty($agree_disc)) {
-                $stop .= XoopsLocale::E_YOU_HAVE_TO_AGREE_TO_DISCLAIMER . '<br />';
+                $stop .= XoopsLocale::E_YOU_HAVE_TO_AGREE_TO_DISCLAIMER . '<br>';
             }
         }
         $stop .= XoopsUserUtility::validate($uname, $email, $pass, $vpass);
         if (empty($stop)) {
-            echo XoopsLocale::USERNAME . ": " . $myts->htmlSpecialChars($uname) . "<br />";
-            echo XoopsLocale::EMAIL . ": " . $myts->htmlSpecialChars($email) . "<br />";
+            echo XoopsLocale::USERNAME . ": " . $myts->htmlSpecialChars($uname) . "<br>";
+            echo XoopsLocale::EMAIL . ": " . $myts->htmlSpecialChars($email) . "<br>";
             if ($url != '') {
                 $url = $xoops->formatURL($url);
-                echo XoopsLocale::WEBSITE . ': ' . $myts->htmlSpecialChars($url) . '<br />';
+                echo XoopsLocale::WEBSITE . ': ' . $myts->htmlSpecialChars($url) . '<br>';
             }
-            echo XoopsLocale::TIME_ZONE . ": $timezone<br />";
+            echo XoopsLocale::TIME_ZONE . ": $timezone<br>";
             echo "<form action='register.php' method='post'>";
             $captcha = new Xoops\Form\Captcha();
-            echo "<br />" . $captcha->getCaption() . ": " . $captcha->render();
+            echo "<br>" . $captcha->getCaption() . ": " . $captcha->render();
             echo "<input type='hidden' name='uname' value='" . $myts->htmlSpecialChars($uname) . "' />
                   <input type='hidden' name='email' value='" . $myts->htmlSpecialChars($email) . "' />
                   <input type='hidden' name='user_viewemail' value='" . $user_viewemail . "' />
@@ -94,7 +94,7 @@ switch ($op) {
                   <input type='hidden' name='pass' value='" . $myts->htmlSpecialChars($pass) . "' />
                   <input type='hidden' name='vpass' value='" . $myts->htmlSpecialChars($vpass) . "' />
                   <input type='hidden' name='user_mailok' value='" . $user_mailok . "' />
-                  <br /><br /><input type='hidden' name='op' value='finish' />"
+                  <br><br><input type='hidden' name='op' value='finish' />"
                   . $xoops->security()->getTokenHTML()
                   . "<input type='submit' value='" . XoopsLocale::A_FINISH . "' /></form>";
         } else {
@@ -109,11 +109,11 @@ switch ($op) {
         $xoops->header();
         $stop = XoopsUserUtility::validate($uname, $email, $pass, $vpass);
         if (!$xoops->security()->check()) {
-            $stop .= implode('<br />', $xoops->security()->getErrors()) . "<br />";
+            $stop .= implode('<br>', $xoops->security()->getErrors()) . "<br>";
         }
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
-            $stop .= $xoopsCaptcha->getMessage() . "<br />";
+            $stop .= $xoopsCaptcha->getMessage() . "<br>";
         }
         if (empty($stop)) {
             $member_handler = $xoops->getHandlerMember();

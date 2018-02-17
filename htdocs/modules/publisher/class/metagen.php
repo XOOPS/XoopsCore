@@ -303,7 +303,7 @@ class PublisherMetagen
     public function purifyText($text, $keyword = false)
     {
         $text = str_replace('&nbsp;', ' ', $text);
-        $text = str_replace('<br />', ' ', $text);
+        $text = str_replace('<br>', ' ', $text);
         $text = strip_tags($text);
         $text = html_entity_decode($text);
         $text = $this->_myts->undoHtmlSpecialChars($text);

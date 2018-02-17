@@ -82,7 +82,7 @@ setTimeout(function () {
     </div>
     <{/foreach}>
     </div>
-    <div><br /><br />
+    <div><br><br>
     <button id="saveseq" type="button" class="btn btn-primary">Save</button>
     </div>
     </div>

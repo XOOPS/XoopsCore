@@ -14,7 +14,7 @@
 //define('_US_INCORRECTLOGIN', 'Incorrect Login!');
 //define('_US_LOGGINGU', 'Thank you for logging in, %s.');
 // 2001-11-17 ADD
-//define('_US_NOACTTPADM', 'The selected user has been deactivated or has not been activated yet.<br />Please contact the administrator for details.');
+//define('_US_NOACTTPADM', 'The selected user has been deactivated or has not been activated yet.<br>Please contact the administrator for details.');
 //define('_US_ACTKEYNOT', 'Activation key not correct!');
 //define('_US_ACONTACT', 'Selected account is already activated!');
 //define('_US_ACTLOGIN', 'Your account has been activated. Please login with the registered password.');
@@ -36,7 +36,7 @@
 //define('_US_USERNAME', 'Username');
 //define('_US_FINISH', 'Finish');
 //define('_US_REGISTERNG', 'Could not register new user.');
-//define('_US_MAILOK', 'Receive occasional email notices <br />from administrators and moderators?');
+//define('_US_MAILOK', 'Receive occasional email notices <br>from administrators and moderators?');
 //define('_US_DISCLAIMER', 'Disclaimer');
 //define('_US_IAGREE', 'I agree to the above');
 //define('_US_UNEEDAGREE', 'Sorry, you have to agree to our disclaimer to get registered.');

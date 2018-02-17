@@ -106,7 +106,7 @@ class ImagesImageForm extends Xoops\Form\ThemeForm
             $ret .= "<strong>" . $title . "</strong>";
         }
         if (is_array($msg) || is_object($msg)) {
-            $ret .= implode('<br />', $msg);
+            $ret .= implode('<br>', $msg);
         } else {
             $ret .= $msg;
         }

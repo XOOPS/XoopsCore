@@ -47,7 +47,7 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
 
     // Configs
     define('_MI_PROTECTOR_GLOBAL_DISBL', 'Deshabilitado temporalmente');
-    define('_MI_PROTECTOR_GLOBAL_DISBLDSC', 'Todas las protecciones fueron deshabilitadas temporaralmente.<br />No olvide apagar esta opción luego de resolver el problema.');
+    define('_MI_PROTECTOR_GLOBAL_DISBLDSC', 'Todas las protecciones fueron deshabilitadas temporaralmente.<br>No olvide apagar esta opción luego de resolver el problema.');
 
     define('_MI_PROTECTOR_RELIABLE_IPS', 'IPs confiables');
     define('_MI_PROTECTOR_RELIABLE_IPSDSC', 'Fijar IPs confiables separadas con | . ^ iguala el inicio de la serie; $ iguala el final de la serie.');
@@ -61,23 +61,23 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_LOGLEVEL255', 'Completo');
 
     define('_MI_PROTECTOR_HIJACK_TOPBIT', 'Bits de IP protegidos para la sesión');
-    define('_MI_PROTECTOR_HIJACK_TOPBITDSC', 'Contra Secuestro de Sesión:<br />Por defecto 32(bit). (Todos los bits son protegidos)<br />Cuando su IP no es estable, fije el rango de IP por número de bits.<br />Por ejemplo, si su IP Puede moverse en el rango de 192.168.0.0 - 192.168.0.255, fije 24 (bits).');
+    define('_MI_PROTECTOR_HIJACK_TOPBITDSC', 'Contra Secuestro de Sesión:<br>Por defecto 32(bit). (Todos los bits son protegidos)<br>Cuando su IP no es estable, fije el rango de IP por número de bits.<br>Por ejemplo, si su IP Puede moverse en el rango de 192.168.0.0 - 192.168.0.255, fije 24 (bits).');
     define('_MI_PROTECTOR_HIJACK_DENYGP', 'Grupos cuya IP no puede modificarse durante la sesión.');
-    define('_MI_PROTECTOR_HIJACK_DENYGPDSC', 'Contra Secuestro de Sesión:<br />Seleccione grupos cuyo IP no puede modificarse durante la sesión.<br />(Recomiendo encender Administradores.)');
+    define('_MI_PROTECTOR_HIJACK_DENYGPDSC', 'Contra Secuestro de Sesión:<br>Seleccione grupos cuyo IP no puede modificarse durante la sesión.<br>(Recomiendo encender Administradores.)');
     define('_MI_PROTECTOR_SAN_NULLBYTE', 'Limpiar bytes nulos');
-    define('_MI_PROTECTOR_SAN_NULLBYTEDSC', 'El caracter de terminación "\\0" con frecuencia es empleado en ataques maliciosos.<br />Los bytes nulos serán cambiados por un espacio.<br />(Altamente recomendado: Encender)');
+    define('_MI_PROTECTOR_SAN_NULLBYTEDSC', 'El caracter de terminación "\\0" con frecuencia es empleado en ataques maliciosos.<br>Los bytes nulos serán cambiados por un espacio.<br>(Altamente recomendado: Encender)');
     define('_MI_PROTECTOR_DIE_NULLBYTE', 'Salir si se detectan bytes nulos');
-    define('_MI_PROTECTOR_DIE_NULLBYTEDSC', 'El caracter de terminación "\\0" con frecuencia es empleado en ataques maliciosos.<br />(Altamente recomendado: Encender)');
+    define('_MI_PROTECTOR_DIE_NULLBYTEDSC', 'El caracter de terminación "\\0" con frecuencia es empleado en ataques maliciosos.<br>(Altamente recomendado: Encender)');
     define('_MI_PROTECTOR_DIE_BADEXT', 'Salir si se suben archivos malignos');
-    define('_MI_PROTECTOR_DIE_BADEXTDSC', 'Si alguien trata de subir archivos con extensiones prohibidas como .php , este módulo lo saca de su sitio XOOPS.<br />Si con frecuencia agrega archivos php en módulos como B-Wiki o PukiWikiMod, apague esta opción.');
+    define('_MI_PROTECTOR_DIE_BADEXTDSC', 'Si alguien trata de subir archivos con extensiones prohibidas como .php , este módulo lo saca de su sitio XOOPS.<br>Si con frecuencia agrega archivos php en módulos como B-Wiki o PukiWikiMod, apague esta opción.');
     define('_MI_PROTECTOR_CONTAMI_ACTION', 'Acción al detectar una contaminación.');
-    define('_MI_PROTECTOR_CONTAMI_ACTIONDS', 'Seleccione la acción frente a una contaminación de variables globales del sistema en su sitio XOOPS.<br />(Opción recomendada: pantalla en blanco)');
+    define('_MI_PROTECTOR_CONTAMI_ACTIONDS', 'Seleccione la acción frente a una contaminación de variables globales del sistema en su sitio XOOPS.<br>(Opción recomendada: pantalla en blanco)');
     define('_MI_PROTECTOR_ISOCOM_ACTION', 'Acción al detectar un comentario aislado');
-    define('_MI_PROTECTOR_ISOCOM_ACTIONDSC', 'Contra Inyección de SQL:<br />Seleccione la acción cuando se detecte una "/*" aislada.<br />"Limpieza" significa agregar otra "*/" al final.<br />(Opción recomendada: Limpieza)');
+    define('_MI_PROTECTOR_ISOCOM_ACTIONDSC', 'Contra Inyección de SQL:<br>Seleccione la acción cuando se detecte una "/*" aislada.<br>"Limpieza" significa agregar otra "*/" al final.<br>(Opción recomendada: Limpieza)');
     define('_MI_PROTECTOR_UNION_ACTION', 'Acción al detectar una UNION');
-    define('_MI_PROTECTOR_UNION_ACTIONDSC', 'Contra Inyección de SQL:<br />Seleccione la acción al detectar alguna sintaxis como UNION de SQL.<br />"Limpieza" significa cambiar "union" a "uni-on".<br />(Opción recomendada: Limpieza)');
+    define('_MI_PROTECTOR_UNION_ACTIONDSC', 'Contra Inyección de SQL:<br>Seleccione la acción al detectar alguna sintaxis como UNION de SQL.<br>"Limpieza" significa cambiar "union" a "uni-on".<br>(Opción recomendada: Limpieza)');
     define('_MI_PROTECTOR_ID_INTVAL', 'Forzar intervalo a variables como id');
-    define('_MI_PROTECTOR_ID_INTVALDSC', 'Todas las peticiones llamadas "*id" serán tratadas como número entero.<br />Esta opción le protege contra algunos ataques XSS e Inyecciones de SQL.<br />Aunque recomiendo activar esta opción, puede causar problemas con algunos módulos.');
+    define('_MI_PROTECTOR_ID_INTVALDSC', 'Todas las peticiones llamadas "*id" serán tratadas como número entero.<br>Esta opción le protege contra algunos ataques XSS e Inyecciones de SQL.<br>Aunque recomiendo activar esta opción, puede causar problemas con algunos módulos.');
     define('_MI_PROTECTOR_FILE_DOTDOT', 'Protección contra Travesías de Directorio');
     define('_MI_PROTECTOR_FILE_DOTDOTDSC', 'Elimina ".." de todas las peticiones que parezcan Travesía de Directorio.');
 
@@ -91,15 +91,15 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_DOS_EXPIREDSC', 'Este valor especifica el tiempo de vigilancia para cargas frecuentes (Ataque F5) y crawlers de subidas frecuentes.');
 
     define('_MI_PROTECTOR_DOS_F5COUNT', 'Conteo límite para Ataque F5');
-    define('_MI_PROTECTOR_DOS_F5COUNTDSC', 'Prevención de ataques DoS.<br />Este valor especifica el conteo de recargas para ser considerado como un ataque malicioso.');
+    define('_MI_PROTECTOR_DOS_F5COUNTDSC', 'Prevención de ataques DoS.<br>Este valor especifica el conteo de recargas para ser considerado como un ataque malicioso.');
     define('_MI_PROTECTOR_DOS_F5ACTION', 'Acción contra Ataque F5');
 
     define('_MI_PROTECTOR_DOS_CRCOUNT', 'Conteo límite para Crawlers');
-    define('_MI_PROTECTOR_DOS_CRCOUNTDSC', 'Prevención contra crawlers de carga frecuente.<br />Este valor especifica el conteo de accesos para ser considerados como un crawler malicioso.');
+    define('_MI_PROTECTOR_DOS_CRCOUNTDSC', 'Prevención contra crawlers de carga frecuente.<br>Este valor especifica el conteo de accesos para ser considerados como un crawler malicioso.');
     define('_MI_PROTECTOR_DOS_CRACTION', 'Acción contra Crawlers de carga frecuente');
 
     define('_MI_PROTECTOR_DOS_CRSAFE', 'Agente-Usuario bienvenido');
-    define('_MI_PROTECTOR_DOS_CRSAFEDSC', 'Un patrón de perl regex para Agente-Usuario.<br />Si concuerda, el crawler nunca es considerado como de carga frecuente.<br />Por ejemplo: /(msnbot|Googlebot|Yahoo! Slurp)/i');
+    define('_MI_PROTECTOR_DOS_CRSAFEDSC', 'Un patrón de perl regex para Agente-Usuario.<br>Si concuerda, el crawler nunca es considerado como de carga frecuente.<br>Por ejemplo: /(msnbot|Googlebot|Yahoo! Slurp)/i');
 
     define('_MI_PROTECTOR_OPT_NONE', 'Ninguna (sólo registro)');
     define('_MI_PROTECTOR_OPT_SAN', 'Limpieza');
@@ -113,7 +113,7 @@ if (defined('FOR_XOOPS_LANG_CHECKER') || ! defined('_MI_PROTECTOR_LOADED')) {
     define('_MI_PROTECTOR_DOSOPT_HTA', 'NEGAR por .htaccess (experimental)');
 
     define('_MI_PROTECTOR_BIP_EXCEPT', 'Grupos nunca registrados como IP Malicioso');
-    define('_MI_PROTECTOR_BIP_EXCEPTDSC', 'Un usuario que pertenece al grupo especificado aquí jamás será bloqueado.<br />(Recomiendo activar al Administrador.)');
+    define('_MI_PROTECTOR_BIP_EXCEPTDSC', 'Un usuario que pertenece al grupo especificado aquí jamás será bloqueado.<br>(Recomiendo activar al Administrador.)');
 
     define('_MI_PROTECTOR_DISABLES', 'Deshabilita características peligrosas de XOOPS');
 

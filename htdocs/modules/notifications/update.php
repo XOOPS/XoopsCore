@@ -43,7 +43,7 @@ if (!isset($_POST['not_submit']) || !isset($_POST['mid'])) {
 }
 
 if (!$xoops->security()->check()) {
-    $xoops->redirect($_POST['not_redirect'], 3, implode('<br />', $xoops->security()->getErrors()));
+    $xoops->redirect($_POST['not_redirect'], 3, implode('<br>', $xoops->security()->getErrors()));
 }
 
 // NOTE: in addition to the templates provided in the block and view

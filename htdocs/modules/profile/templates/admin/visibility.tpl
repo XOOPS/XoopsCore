@@ -1,4 +1,4 @@
-<br />
+<br>
 <div class="head">
     <form id="{$addform.name}" method="{$addform.method}" action="{$addform.action}">
         {foreach item=element from=$addform.elements}

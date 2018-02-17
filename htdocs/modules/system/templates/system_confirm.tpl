@@ -1,6 +1,6 @@
 <div class="alert alert-error" style="text-align: center">
     {$msg}
-    <br />
+    <br>
     <form name="confirm" id="confirm" action="{$action}" method="post">
         {$hiddens}
         {$token|default:''}

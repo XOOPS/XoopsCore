@@ -46,12 +46,12 @@ echo $img;
 $img = $xoops->service('countryflag')->getImgTag($country, null, 'small')->getValue();
 echo $img;
 
-echo '<br /><br />';
+echo '<br><br>';
 
 // we can add any HTML attributes to the img tag
 $attributes = ['class' => 'img-thumbnail', 'title' => Territory::getName($country)];
 $img = $xoops->service('countryflag')->getImgTag($country, $attributes)->getValue();
-echo $img . '<br /><br />';
+echo $img . '<br><br>';
 
 if (!$xoops->service('countryflag')->isAvailable()) {
     echo 'Please install a countryflag provider to view this demonstration.';

@@ -180,7 +180,7 @@ class PmMessageHandler extends XoopsPersistableObjectHandler
         $msg .= _PM_EMAIL_MESSAGE . ":\n";
         $msg .= "\n" . $pm->getVar("subject") . "\n";
         $msg .= "\n" . strip_tags(str_replace(array(
-                                                   "<p>", "</p>", "<br />", "<br />"
+                                                   "<p>", "</p>", "<br>", "<br>"
                                               ), "\n", $pm->getVar("msg_text"))) . "\n\n";
         $msg .= "--------------\n";
         $msg .= $xoops->getConfig('sitename') . ": " . \XoopsBaseConfig::get('url') . "\n";

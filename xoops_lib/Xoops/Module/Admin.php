@@ -723,11 +723,11 @@ class Admin
         $file = \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname")
             . "/locale/" . $language . "/changelog.txt";
         if (is_readable($file)) {
-            $changelog = utf8_encode(implode("<br />", file($file))) . "\n";
+            $changelog = utf8_encode(implode("<br>", file($file))) . "\n";
         } else {
             $file = \XoopsBaseConfig::get('root-path') . "/modules/" . $this->module->getVar("dirname") . "/docs/changelog.txt";
             if (is_readable($file)) {
-                $changelog = utf8_encode(implode("<br />", file($file))) . "\n";
+                $changelog = utf8_encode(implode("<br>", file($file))) . "\n";
             }
         }
         $author_list = substr($author_list, 0, -2);

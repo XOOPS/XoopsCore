@@ -35,7 +35,7 @@
         <{/if}>
     </ul>
 </div>
-<br />
+<br>
 <div class="pagination-centered">
-    <img src="<{$block.logourl}>" alt=""><br /><{$block.recommendlink}>
+    <img src="<{$block.logourl}>" alt=""><br><{$block.recommendlink}>
 </div>

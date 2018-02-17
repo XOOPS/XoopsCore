@@ -522,7 +522,7 @@ class PublisherItemForm extends Xoops\Form\SimpleForm
 
             $opentable = new Xoops\Form\Label('', "<table><tr><td>");
             $addcol = new Xoops\Form\Label('', "</td><td>");
-            $addbreak = new Xoops\Form\Label('', "<br />");
+            $addbreak = new Xoops\Form\Label('', "<br>");
             $closetable = new Xoops\Form\Label('', "</td></tr></table>");
 
             $xoops->theme()->addScript(PUBLISHER_URL . '/js/ajaxupload.3.9.js');

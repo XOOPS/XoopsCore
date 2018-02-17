@@ -1,5 +1,5 @@
 <h4 class="txtcenter">{translate key="AVATAR"}</h4>
-<br />
+<br>
 <ul class="breadcrumb">
     <li><a href="{xoAppUrl}userinfo.php?uid={$uid}">{translate key="PROFILE"}</a><span class="divider"></span></li>
     <li class="active">{translate key="A_EDIT"}</li>

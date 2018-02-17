@@ -74,7 +74,7 @@ function protector_postcheck()
         if (implode('', array_keys($group1_ips))) {
             $group1_allow = $protector->ip_match($group1_ips);
             if (empty($group1_allow)) {
-                die('This account is disabled for your IP by Protector.<br />Clear cookie if you want to access this site as a guest.');
+                die('This account is disabled for your IP by Protector.<br>Clear cookie if you want to access this site as a guest.');
             }
         }
     }

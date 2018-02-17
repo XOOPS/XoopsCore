@@ -9,7 +9,7 @@
     <div class="floatleft pad10 block">
         <strong>{$uname}</strong>
         {if $email}
-            {$email} <br />
+            {$email} <br>
         {/if}
         {if !$user_ownpage && $xoops_isuser == true}
         <form name="usernav" action="user.php" method="post">
@@ -91,7 +91,7 @@
       <!-- start results item loop -->
           {foreach item=result from=$module.results}
 
-          <img src="{$result.image}" alt="{$module.name}" />&nbsp;<strong><a href="{$result.link}">{$result.title}</a></strong><br /><span class="x-small">({$result.time})</span><br />
+          <img src="{$result.image}" alt="{$module.name}" />&nbsp;<strong><a href="{$result.link}">{$result.title}</a></strong><br><span class="x-small">({$result.time})</span><br>
 
           {/foreach}
           <!-- end results item loop -->

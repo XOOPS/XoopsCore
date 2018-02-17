@@ -154,7 +154,7 @@ class Sanitizer extends SanitizerConfigurable
     }
 
     /**
-     * Convert linebreaks to <br /> tags
+     * Convert linebreaks to <br> tags
      *
      * This is used instead of PHP's built-in nl2br() because it removes the line endings, replacing them
      * with br tags, while the built in just adds br tags and leaves the line endings. We don't want to leave
@@ -166,7 +166,7 @@ class Sanitizer extends SanitizerConfigurable
      */
     public function nl2Br($text)
     {
-        return preg_replace("/(\r\n)|(\n\r)|(\n)|(\r)/", "\n<br />\n", $text);
+        return preg_replace("/(\r\n)|(\n\r)|(\n)|(\r)/", "\n<br>\n", $text);
     }
 
     /**

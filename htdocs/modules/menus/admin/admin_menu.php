@@ -88,7 +88,7 @@ switch ($op) {
 
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('admin_menu.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('admin_menu.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         $msg[] = _AM_MENUS_SAVE;
@@ -119,7 +119,7 @@ switch ($op) {
 
         if ($helper->getHandlerMenu()->insert($obj)) {
             $this_handler->update_weights($obj);
-            $xoops->redirect('admin_menu.php?op=list&amp;menu_id=' . $obj->getVar('mid'), 2, implode('<br />', $msg));
+            $xoops->redirect('admin_menu.php?op=list&amp;menu_id=' . $obj->getVar('mid'), 2, implode('<br>', $msg));
         }
         echo $xoops->alert('error', $obj->getHtmlErrors());
         $form = $helper->getForm($obj, 'menus_menu');
@@ -143,7 +143,7 @@ switch ($op) {
             echo $xoops->confirm(
                 array('ok' => 1, 'id' => $id, 'op' => 'del', 'menu_id' => $menu_id),
                 $helper->url('admin/admin_menu.php'),
-                _AM_MENUS_MSG_SUREDEL . '<br /><strong>' . $obj->getVar('title') . '</strong>'
+                _AM_MENUS_MSG_SUREDEL . '<br><strong>' . $obj->getVar('title') . '</strong>'
             );
         }
         break;

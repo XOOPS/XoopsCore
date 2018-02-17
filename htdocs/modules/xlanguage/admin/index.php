@@ -78,7 +78,7 @@ switch ($op) {
                 } else {
                     $confirm = $xoops->confirm(array(
                         'ok' => 1, 'xlanguage_id' => $xlanguage_id, 'op' => 'del'
-                    ), $_SERVER['REQUEST_URI'], sprintf(_AM_XLANGUAGE_DELETE_CFM . "<br /><b><span style='color : Red'> %s </span></b><br /><br />", $lang->getVar('xlanguage_name')));
+                    ), $_SERVER['REQUEST_URI'], sprintf(_AM_XLANGUAGE_DELETE_CFM . "<br><b><span style='color : Red'> %s </span></b><br><br>", $lang->getVar('xlanguage_name')));
                     $confirm = '<div class="confirm">' . $confirm . '</div>';
                     $admin_page->addInfoBox(_MI_XLANGUAGE_DELETE);
                     $admin_page->addInfoBoxLine($confirm);

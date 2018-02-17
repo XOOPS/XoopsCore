@@ -62,7 +62,7 @@ if ($safe) {
     $security_arr[$i]['status'] = '0';
     $security_arr[$i]['info'] = "<span style='color:red;font-weight:bold;'>register_globals: on</span>";
 }
-$security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br /><br />" . \XoopsBaseConfig::get('root-path') . "/.htaccess<br /><br />" . _AM_ADV_REGISTERGLOBALS2 . "<br /><br /><b>php_flag &nbsp; register_globals &nbsp; off</b>";
+$security_arr[$i]['text'] = _AM_ADV_REGISTERGLOBALS . "<br><br>" . \XoopsBaseConfig::get('root-path') . "/.htaccess<br><br>" . _AM_ADV_REGISTERGLOBALS2 . "<br><br><b>php_flag &nbsp; register_globals &nbsp; off</b>";
 ++$i;
 
 // allow_url_fopen

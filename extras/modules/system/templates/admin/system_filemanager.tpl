@@ -1,7 +1,7 @@
 <!-- Filemanager -->
 <{includeq file="module:system|system_header.html"}>
 <{if $index}>
-<br /><div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+<br><div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <table cellpadding="0" cellspacing='1' class="outer">
         <tr>
             <th><{$smarty.const._AM_SYSTEM_FILEMANAGER_DIRECTORY}></th>
@@ -14,7 +14,7 @@
             <td class="aligntop">
                 <div class="edit_file" id="edit_file"></div>
                 <div class="upload_file" id="upload_file"></div>
-                <div id='loading' align="center" style="display:none;"><br /><br /><img src="./images/loading.gif" title="Loading" alt="Loading" /></div>
+                <div id='loading' align="center" style="display:none;"><br><br><img src="./images/loading.gif" title="Loading" alt="Loading" /></div>
                 <div class="display_file" id="display_file">
                 <div class="xo-btn-actions">
 					<div class="xo-buttons">
@@ -44,10 +44,10 @@
                                                 <td align="right"><{if $files.edit}><img class='cursorpointer' src="<{xoAdminIcons edit.png}>" onclick='filemanager_edit_file("<{$files.path_file}>", "<{$files.path}>", "<{$files.file}>", "<{$files.extension}>");' width='16' alt='edit' /><{/if}>&nbsp;<img class='cursorpointer' src="<{xoAdminIcons delete.png}>" onclick='filemanager_confirm_delete_file("<{$files.path_file}>", "<{$files.path}>", "<{$files.file}>");' width='16' alt='delete' /></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" align="center" height="60px"><br /><{$files.img}></td>
+                                                <td colspan="2" align="center" height="60px"><br><{$files.img}></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" align="center"><{$files.file}><br /><br /></td>
+                                                <td colspan="2" align="center"><{$files.file}><br><br></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -59,7 +59,7 @@
                             <{/foreach}>
                         </tr>
                     </table>
-                </div><br />
+                </div><br>
                 <div id='confirm_delete' align="center" style="display:none;"></div>
             </td>
         </tr>
