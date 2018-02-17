@@ -25,7 +25,7 @@ class BannersBannerclientForm extends Xoops\Form\ThemeForm
     /**
      * @param BannersBannerclient $obj
      */
-    public function __construct(BannersBannerClient $obj)
+    public function __construct(BannersBannerclient $obj)
     {
         $title = $obj->isNew() ? sprintf(_AM_BANNERS_CLIENTS_ADD) : sprintf(_AM_BANNERS_CLIENTS_EDIT);
 

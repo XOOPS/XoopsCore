@@ -66,7 +66,7 @@ class NotificationsNotification extends XoopsObject
     public function notifyUser($template_dir, $template, $subject, $tags)
     {
         //todo fix this for mail module
-        $xoops = xoops::getInstance();
+        $xoops = Xoops::getInstance();
         $helper = Notifications::getInstance();
 
         // Check the user's notification preference.
@@ -428,7 +428,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         $module_id = null,
         $omit_user_id = null
     ) {
-        $xoops = xoops::getInstance();
+        $xoops = Xoops::getInstance();
         $helper = Notifications::getInstance();
 
         if (!isset($module_id)) {

@@ -10,7 +10,7 @@ class PagenavTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $xoops=Xoops::getinstance();
+        $xoops=Xoops::getInstance();
         $tpl=$xoops->tpl();
         if (empty($tpl)) {
             $xoops->setTpl(new XoopsTpl);

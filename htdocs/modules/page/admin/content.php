@@ -200,7 +200,7 @@ switch ($op) {
                 array('ok' => 1, 'content_id' => $content_id, 'op' => 'delete'),
                 'content.php',
                 XoopsLocale::Q_ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_ITEM
-                . '<br><span class="red">' . $obj->getvar('content_title') . '<span>'
+                . '<br><span class="red">' . $obj->getVar('content_title') . '<span>'
             );
         }
         break;

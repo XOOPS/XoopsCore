@@ -39,7 +39,7 @@ echo '
 ';
 
 if ($op == 'dologin') {
-    $member_handler = xoops_gethandler('member');
+    $member_handler = xoops_getHandler('member');
     $myts = \Xoops\Core\Text\Sanitizer::getInstance();
     $user = $member_handler->loginUser($username, $password);
     if (is_object($user)) {

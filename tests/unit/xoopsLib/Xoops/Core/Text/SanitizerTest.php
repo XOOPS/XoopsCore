@@ -86,13 +86,13 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     public function testNl2Br()
     {
         $text = "\n";
-        $message = $this->object->nl2br($text);
+        $message = $this->object->nl2Br($text);
         $this->assertEquals("\n<br>\n",$message);
         $text = "\r\n";
-        $message = $this->object->nl2br($text);
+        $message = $this->object->nl2Br($text);
         $this->assertEquals("\n<br>\n",$message);
         $text = "\r";
-        $message = $this->object->nl2br($text);
+        $message = $this->object->nl2Br($text);
         $this->assertEquals("\n<br>\n",$message);
     }
 
@@ -130,7 +130,7 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     public function testUndoHtmlSpecialChars()
     {
         $text = '&gt;&lt;&quot;&#039;&amp;nbsp;';
-        $message = $this->object->undohtmlSpecialChars($text);
+        $message = $this->object->undoHtmlSpecialChars($text);
         $this->assertSame('><"\'&nbsp;',$message);
     }
 
@@ -231,7 +231,7 @@ class SanitizerTest extends \PHPUnit\Framework\TestCase
     public function testFilterXss()
     {
         $text = "\x00";
-        $message = $this->object->filterxss($text);
+        $message = $this->object->filterXss($text);
         $this->assertEquals('',$message);
     }
 
