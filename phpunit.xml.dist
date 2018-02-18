@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="xoops_lib/vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="xoops_lib/vendor/autoload.php"
          colors="true">
     <testsuites>
@@ -20,9 +20,10 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./htdocs/xoops_lib/Xmf</directory>
-            <directory suffix=".php">./htdocs/xoops_lib/Xoops</directory>
-            <file>./htdocs/xoops_lib/Xoops.php</file>
+            <directory suffix=".php">./htdocs/kernel</directory>
+            <directory suffix=".php">./xoops_lib/Xmf</directory>
+            <directory suffix=".php">./xoops_lib/Xoops</directory>
+            <file>./xoops_lib/Xoops.php</file>
         </whitelist>
     </filter>
 
