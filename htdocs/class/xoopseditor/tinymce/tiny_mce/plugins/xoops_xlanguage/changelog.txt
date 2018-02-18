@@ -1,7 +1,0 @@
-Tinymce plugin xoops_xlanguage Changelog
-
-============================
-2013/01/07: Version 2 for Xoops 2.6.x
-============================
-- xoops_xlanguage plugin for tinyeditor Laurent JEN - (aka DuGris)
-
