@@ -39,7 +39,7 @@ class SelectEditorTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(false !== strpos($value, '<option'));
         $this->assertTrue(false !== strpos($value, 'value="textarea"'));
         $this->assertTrue(false !== strpos($value, 'value="dhtmltextarea"'));
-        $this->assertTrue(false !== strpos($value, 'value="tinymce"'));
+//      $this->assertTrue(false !== strpos($value, 'value="tinymce"'));
         $this->assertTrue(false !== strpos($value, 'value="tinymce4"'));
         $this->assertTrue(false !== strpos($value, '</option>'));
 
