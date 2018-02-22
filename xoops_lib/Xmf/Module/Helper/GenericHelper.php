@@ -24,11 +24,11 @@ use Xmf\Language;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2018 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  */
-abstract class GenericHelper
+abstract class GenericHelper extends AbstractHelper
 {
     /**
      * @var string module directory name
@@ -51,24 +51,20 @@ abstract class GenericHelper
     protected $configs;
 
     /**
-     * @var bool true if debug is enabled
-     */
-    protected $debug;
-
-    /**
-     * class constructor
+     * Initialize parent::__construct calls this after verifying module object.
      *
-     * @param string $dirname a module directory name
+     * @return void
      */
-    protected function __construct($dirname)
+    public function init()
     {
-        $this->dirname = $dirname;
+        $this->object = $this->module;
+        $this->dirname = $this->object->getVar('dirname');
     }
 
     /**
      * get the module object
      *
-     * @return XoopsModule
+     * @return \XoopsModule
      */
     public function getModule()
     {
@@ -107,7 +103,7 @@ abstract class GenericHelper
             return $default;
         }
 
-        $this->addLog("Getting config '{$name}' : " . $this->configs[$name]);
+        $this->addLog("Getting config '{$name}' : " . $this->serializeForHelperLog($this->configs[$name]));
 
         return $this->configs[$name];
     }
@@ -150,7 +146,7 @@ abstract class GenericHelper
         ) {
             $this->object = $xoopsModule;
         } else {
-            /* @var $module_handler XoopsModuleHandler */
+            /* @var $module_handler \XoopsModuleHandler */
             $module_handler = xoops_getHandler('module');
             $this->object = $module_handler->getByDirname($this->dirname);
         }
@@ -172,7 +168,7 @@ abstract class GenericHelper
             global $xoopsModuleConfig;
             $this->configs = $xoopsModuleConfig;
         } else {
-            /* @var $config_handler XoopsConfigHandler */
+            /* @var $config_handler \XoopsConfigHandler */
             $config_handler = xoops_getHandler('config');
             $this->configs = $config_handler->getConfigsByCat(0, $this->getModule()->getVar('mid'));
         }
@@ -222,40 +218,6 @@ abstract class GenericHelper
         }
 
         return $ret;
-    }
-
-    /**
-     * Set debug option on or off
-     *
-     * @param bool $bool true to turn on debug logging, false for off
-     *
-     * @return void
-     */
-    public function setDebug($bool = true)
-    {
-        $this->debug = (bool) $bool;
-    }
-
-    /**
-     * Add a message to the module log
-     *
-     * @param string $log log message
-     *
-     * @return void
-     */
-    public function addLog($log)
-    {
-        if ($this->debug) {
-            if (is_object($GLOBALS['xoopsLogger'])) {
-                if (!is_scalar($log)) {
-                    $log = serialize($log);
-                }
-                $GLOBALS['xoopsLogger']->addExtra(
-                    is_object($this->object) ? $this->object->name() : $this->dirname,
-                    $log
-                );
-            }
-        }
     }
 
     /**
