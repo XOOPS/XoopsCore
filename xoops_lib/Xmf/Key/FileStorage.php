@@ -19,12 +19,34 @@ namespace Xmf\Key;
  * @category  Xmf\Key\FileStorage
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2016 XOOPS Project (http://xoops.org)
+ * @copyright 2016-2018 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class FileStorage implements StorageInterface
 {
+
+    /**
+     * @var string $storagePath filesystem path to storage
+     */
+    protected $storagePath;
+
+    /**
+     * @var string $systemSecret prefix unique to this system
+     */
+    protected $systemSecret;
+
+    /**
+     * FileStorage constructor.
+     *
+     * @param string|null $storagePath  filesystem path to storage (without trailing slash)
+     * @param string|null $systemSecret prefix unique to this system
+     */
+    public function __construct($storagePath = null, $systemSecret = null)
+    {
+        $this->storagePath = (null === $storagePath) ? XOOPS_VAR_PATH . '/data' : $storagePath;
+        $this->systemSecret = (null === $systemSecret) ? $this->generateSystemSecret() : $systemSecret;
+    }
 
     /**
      * Fetch key data by name
@@ -35,8 +57,7 @@ class FileStorage implements StorageInterface
      */
     protected function fileName($name)
     {
-        $syssec = $this->systemSecret();
-        return XOOPS_VAR_PATH . "/data/{$syssec}-key-{$name}.php";
+        return $this->storagePath . "/{$this->systemSecret}-key-{$name}.php";
     }
 
     /**
@@ -44,7 +65,7 @@ class FileStorage implements StorageInterface
      *
      * @return string
      */
-    protected function systemSecret()
+    protected function generateSystemSecret()
     {
         $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $prefix = $db->prefix();

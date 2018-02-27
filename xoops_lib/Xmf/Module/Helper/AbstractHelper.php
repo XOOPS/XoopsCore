@@ -26,7 +26,7 @@ namespace Xmf\Module\Helper;
 abstract class AbstractHelper
 {
     /**
-     * @var XoopsModule
+     * @var \XoopsModule
      */
     protected $module;
 

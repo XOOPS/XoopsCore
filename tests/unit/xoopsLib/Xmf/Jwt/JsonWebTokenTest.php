@@ -1,12 +1,11 @@
 <?php
-namespace Xmf\Jwt;
+namespace Xmf\Test\Jwt;
 
+use Xmf\Jwt\JsonWebToken;
 use Xmf\Key\ArrayStorage;
 use Xmf\Key\Basic;
 use Xmf\Key\KeyAbstract;
 use Xmf\Key\StorageInterface;
-
-require_once(__DIR__.'/../../../init_new.php');
 
 class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
 {
@@ -77,8 +76,7 @@ class JsonWebTokenTest extends \PHPUnit\Framework\TestCase
         $token = $this->object->create(['test' => 'create', 'exp' => (time() - 30)]);
         $this->assertTrue(is_string($token));
 
-        //$this->expectException('PHPUnit_Framework_Error_Notice');
-        $actual = $decoder->decode($token);
+        $actual = @$decoder->decode($token);
         $this->assertFalse($actual);
     }
 }

@@ -1,5 +1,9 @@
 <?php
-namespace Xmf\Key;
+namespace Xmf\Test\Key;
+
+use Xmf\Key\ArrayStorage;
+use Xmf\Key\Basic;
+use Xmf\Key\StorageInterface;
 
 class BasicTest extends \PHPUnit\Framework\TestCase
 {
