@@ -38,7 +38,7 @@ class NullTheme extends XoopsTheme
      *
      * @return bool
      */
-    public function render()
+    public function render($canvasTpl = null, $pageTpl = null, $contentTpl = null, $vars = array())
     {
         return true;
     }
@@ -48,7 +48,7 @@ class NullTheme extends XoopsTheme
      *
      * @return void
      */
-    public function addStylesheet()
+    public function addStylesheet($src = '', $attributes = array(), $content = '')
     {
     }
 
@@ -57,7 +57,7 @@ class NullTheme extends XoopsTheme
      *
      * @return void
      */
-    public function addScriptAssets()
+    public function addScriptAssets($assets, $filters = 'default', $target = null)
     {
     }
 
@@ -66,7 +66,7 @@ class NullTheme extends XoopsTheme
      *
      * @return void
      */
-    public function addStylesheetAssets()
+    public function addStylesheetAssets($assets, $filters = 'default', $target = null)
     {
     }
 
@@ -76,7 +76,7 @@ class NullTheme extends XoopsTheme
      *
      * @return void
      */
-    public function addBaseAssets()
+    public function addBaseAssets($type, $assets)
     {
     }
 
@@ -85,7 +85,7 @@ class NullTheme extends XoopsTheme
      *
      * @return void
      */
-    public function addBaseScriptAssets()
+    public function addBaseScriptAssets($assets)
     {
     }
 
@@ -94,7 +94,7 @@ class NullTheme extends XoopsTheme
      *
      * @return void
      */
-    public function addBaseStylesheetAssets()
+    public function addBaseStylesheetAssets($assets)
     {
     }
 
@@ -103,7 +103,7 @@ class NullTheme extends XoopsTheme
      *
      * @return boolean true if asset registers, false on error
      */
-    public function setNamedAsset()
+    public function setNamedAsset($name, $assets, $filters = null)
     {
     }
 }

@@ -49,31 +49,31 @@ class NullThemeTest extends \PHPUnit\Framework\TestCase
 
     public function testAddScriptAssets()
     {
-        $this->assertNull($this->object->addScriptAssets());
+        $this->assertNull($this->object->addScriptAssets(''));
     }
 
     public function testAddStylesheetAssets()
     {
-        $this->assertNull($this->object->addStylesheetAssets());
+        $this->assertNull($this->object->addStylesheetAssets(''));
     }
 
     public function testAddBaseAssets()
     {
-        $this->assertNull($this->object->addBaseAssets());
+        $this->assertNull($this->object->addBaseAssets('', ''));
     }
 
     public function testAddBaseScriptAssets()
     {
-        $this->assertNull($this->object->addBaseScriptAssets());
+        $this->assertNull($this->object->addBaseScriptAssets(''));
     }
 
     public function testAddBaseStylesheetAssets()
     {
-        $this->assertNull($this->object->addBaseStylesheetAssets());
+        $this->assertNull($this->object->addBaseStylesheetAssets(''));
     }
 
     public function testSetNamedAsset()
     {
-        $this->assertNull($this->object->setNamedAsset());
+        $this->assertNull($this->object->setNamedAsset('', ''));
     }
 }

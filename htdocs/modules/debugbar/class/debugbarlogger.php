@@ -227,8 +227,8 @@ class DebugbarLogger implements LoggerInterface
         if ($this->activated) {
             try {
                 $this->debugbar['time']->startMeasure($name, $label);
-            } catch (Exception $e) {
-                $this->addException($e);
+            } catch (Throwable $e) {
+                $this->addThrowable($e);
             }
         }
     }
@@ -247,8 +247,8 @@ class DebugbarLogger implements LoggerInterface
         if ($this->activated) {
             try {
                 $this->debugbar['time']->stopMeasure($name);
-            } catch (Exception $e) {
-                $this->addException($e);
+            } catch (Throwable $e) {
+                $this->addThrowable($e);
             }
         }
     }
@@ -337,7 +337,7 @@ class DebugbarLogger implements LoggerInterface
     public function addException($e)
     {
         if ($this->activated) {
-            $this->debugbar['exceptions']->addException($e);
+            $this->debugbar['exceptions']->addThrowable($e);
         }
     }
 
