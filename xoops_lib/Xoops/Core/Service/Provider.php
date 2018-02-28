@@ -49,6 +49,7 @@ namespace Xoops\Core\Service;
  * @method Response renderEmoji(string $buffer);
  * @method Response getEmojiList();
  * @method Response renderEmojiSelector(string $identifier);
+ * @method Response sendMessage(Message $message);
  */
 class Provider
 {
@@ -172,7 +173,7 @@ class Provider
                 //$object->$name($response, $arguments);
                 array_unshift($arguments, $response);
                 call_user_func_array($method, $arguments);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
                 $response->setSuccess(false)->addErrorMessage($e->getMessage());
             }
