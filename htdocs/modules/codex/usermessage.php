@@ -31,7 +31,6 @@ if (!$xoops->service('usermessage')->isAvailable()) {
 }
 
 if ($xoops->isUser()) {
-    Xmf\Debug::dump($xoops->user->uid());
     if ('POST' === Request::getMethod()) {
         $body = Request::getString('body', '');
         $body = empty($body) ? 'Not Specified' : $body;

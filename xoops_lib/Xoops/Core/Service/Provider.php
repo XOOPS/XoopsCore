@@ -94,11 +94,11 @@ class Provider
     /**
      * registerProvider - register a provider of a named service
      *
-     * @param string $object instantiated object that provides the service
+     * @param AbstractContract $object instantiated object that provides the service
      *
      * @return void
      */
-    public function register($object)
+    public function register(AbstractContract $object)
     {
         // verify this is the proper type of object
         $contract = '\Xoops\Core\Service\Contract\\' . $this->service . 'Interface';
