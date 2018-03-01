@@ -63,11 +63,11 @@ class Cache extends AbstractHelper
     /**
      * Write a value for a key to the cache
      *
-     * @param string            $key   Identifier for the data
-     * @param mixed             $value Data to be cached - anything except a resource
-     * @param int|DateTime|null $ttl   Time to live, integer for ttl in seconds,
-     *                                 DateTime object to expire at a specific time,
-     *                                 or null for
+     * @param string                      $key   Identifier for the data
+     * @param mixed                       $value Data to be cached - anything except a resource
+     * @param int|\DateTimeInterface|null $ttl   Time to live, integer for ttl in seconds,
+     *                                           DateTime object to expire at a specific time,
+     *                                           or null for
      *
      * @return bool True if the data was successfully cached, false on failure
      */

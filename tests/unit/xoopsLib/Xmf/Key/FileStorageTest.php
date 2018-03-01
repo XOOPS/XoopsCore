@@ -19,7 +19,8 @@ class FileStorageTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new FileStorage;
+        //$this->markTestIncomplete('FileStorage testing incomplete');
+        $this->object = new FileStorage('/tmp', 'fubar');
     }
 
     /**
@@ -28,7 +29,7 @@ class FileStorageTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown()
     {
-        $this->object->delete($this->testKey);
+        @$this->object->delete($this->testKey);
     }
 
     public function testSave()
@@ -43,7 +44,7 @@ class FileStorageTest extends \PHPUnit\Framework\TestCase
     {
         $name = $this->testKey;
         $data = 'data';
-        $this->assertFalse($this->object->fetch($name));
+        $this->assertFalse(@$this->object->fetch($name));
         $this->object->save($name, $data);
         $this->assertEquals($this->object->fetch($name), $data);
     }
@@ -63,10 +64,8 @@ class FileStorageTest extends \PHPUnit\Framework\TestCase
         $data = 'data';
         $this->object->save($name, $data);
         $this->assertTrue($this->object->exists($name));
-        $actual = $this->object->delete($name);
-        $this->assertTrue($actual);
-        $actual = $this->object->delete($name);
-        $this->assertFalse($actual);
+        $this->assertTrue($this->object->delete($name));
+        $this->assertFalse(@$this->object->delete($name));
         $this->assertFalse($this->object->exists($name));
     }
 }

@@ -11,9 +11,9 @@
 
 namespace Xmf\Jwt;
 
-use Firebase\JWT\JWT;
 use Xmf\Key\Basic;
 use Xmf\Key\FileStorage;
+use Xmf\Key\StorageInterface;
 
 /**
  * Build a key to be used for JSON Web Token processing
@@ -21,9 +21,9 @@ use Xmf\Key\FileStorage;
  * @category  Xmf\Jwt\KeyFactory
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2016 XOOPS Project (http://xoops.org)
+ * @copyright 2016-2018 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class KeyFactory
 {
@@ -31,16 +31,20 @@ class KeyFactory
      * Create a Key object for JWT use based on default choices. If the key has not been
      * established, create it.
      *
-     * @param string $keyName name of the key
+     * @param string           $keyName name of the key
+     * @param StorageInterface $storage key store to use, defaults to FileStorage
      *
      * @return Basic
+     *
+     * @throws \InvalidArgumentException on unusable key name
      */
-    public static function build($keyName)
+    public static function build($keyName, StorageInterface $storage = null)
     {
         if (empty($keyName) || !is_string($keyName)) {
             throw new \InvalidArgumentException('keyName must be a non-empty string');
         }
-        $key = new Basic(new FileStorage(), $keyName);
+        $storage = (null === $storage) ? new FileStorage() : $storage;
+        $key = new Basic($storage, $keyName);
         $key->create(); // will automatically skip if key has already been generated
         return $key;
     }
