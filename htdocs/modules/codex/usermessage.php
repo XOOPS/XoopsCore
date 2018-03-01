@@ -45,7 +45,7 @@ if ($xoops->isUser()) {
         if ($response->isSuccess()) {
             echo 'Message sent. Check your inbox.';
         } else {
-            $errors = implode (', ', (array) $response->getErrorMessage());
+            $errors = implode(', ', (array) $response->getErrorMessage());
             echo 'Your message was not sent<br>';
             echo $errors;
         }
