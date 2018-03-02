@@ -49,6 +49,7 @@ namespace Xoops\Core\Service;
  * @method Response renderEmoji(string $buffer);
  * @method Response getEmojiList();
  * @method Response renderEmojiSelector(string $identifier);
+ * @method Response sendMessage(Message $message);
  */
 class Provider
 {
@@ -93,11 +94,11 @@ class Provider
     /**
      * registerProvider - register a provider of a named service
      *
-     * @param string $object instantiated object that provides the service
+     * @param AbstractContract $object instantiated object that provides the service
      *
      * @return void
      */
-    public function register($object)
+    public function register(AbstractContract $object)
     {
         // verify this is the proper type of object
         $contract = '\Xoops\Core\Service\Contract\\' . $this->service . 'Interface';
@@ -172,7 +173,7 @@ class Provider
                 //$object->$name($response, $arguments);
                 array_unshift($arguments, $response);
                 call_user_func_array($method, $arguments);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
                 $response->setSuccess(false)->addErrorMessage($e->getMessage());
             }

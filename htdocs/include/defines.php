@@ -44,8 +44,8 @@ define('XOOPS_MATCH_CONTAIN', 3);
 // define('XOOPS_ADMINTHEME_URL', XOOPS_URL . '/modules/system/themes');
 // define('XOOPS_UPLOAD_URL', XOOPS_URL . '/uploads');
 // define('XOOPS_LIBRARY_URL', XOOPS_URL . '/libraries');
-define('XOOPS_UPLOAD_PATH', \XoopsBaseConfig::get('uploads-path'));
-define('XOOPS_UPLOAD_URL', \XoopsBaseConfig::get('uploads-url'));
+//define('XOOPS_UPLOAD_PATH', \XoopsBaseConfig::get('uploads-path'));
+//define('XOOPS_UPLOAD_URL', \XoopsBaseConfig::get('uploads-url'));
 
 // ----- BEGIN: Deprecated, move to template class -----
 // define('SMARTY_DIR', XOOPS_ROOT_PATH . '/class/smarty/');

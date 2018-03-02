@@ -1,27 +1,28 @@
 <?php
-namespace Xmf\Jwt;
+namespace Xmf\Test\Jwt;
 
-use Xmf\Key\Basic;
-use Xmf\Key\FileStorage;
-
-require_once(__DIR__.'/../../../init_new.php');
+use Xmf\Jwt\KeyFactory;
+use Xmf\Jwt\JsonWebToken;
+use Xmf\Jwt\TokenReader;
+use Xmf\Key\ArrayStorage;
+use Xmf\Key\KeyAbstract;
 
 class TokenReaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var TokenReader
-     */
-    protected $object;
-
-    /**
-     * @var FileStorage
+     * @var ArrayStorage
      */
     protected $storage;
 
     /**
+     * @var KeyAbstract
+     */
+    protected $testKey;
+
+    /**
      * @var string
      */
-    protected $testKey = 'x-unit-test-key';
+    protected $testKeyName = 'x-unit-test-key';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -29,8 +30,8 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        //$this->object = new TokenReader;
-        $this->storage = new FileStorage();
+        $this->storage = new ArrayStorage();
+        $this->testKey = KeyFactory::build($this->testKeyName, $this->storage);
     }
 
     /**
@@ -39,15 +40,13 @@ class TokenReaderTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown()
     {
-        $this->storage->delete($this->testKey);
+        $this->storage->delete($this->testKeyName);
     }
 
     public function testFromString()
     {
         $claims = array('rat' => 'cute');
-        $key = new Basic($this->storage, $this->testKey);
-        $key->create();
-        $jwt = new JsonWebToken($key);
+        $jwt = new JsonWebToken($this->testKey);
         $token = $jwt->create($claims);
 
         $actual = TokenReader::fromString($this->testKey, $token);

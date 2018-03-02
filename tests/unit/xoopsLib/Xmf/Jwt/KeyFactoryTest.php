@@ -1,9 +1,9 @@
 <?php
-namespace Xmf\Jwt;
+namespace Xmf\Test\Jwt;
 
-use Xmf\Key\FileStorage;
+use Xmf\Jwt\KeyFactory;
+use Xmf\Key\ArrayStorage;
 
-require_once(__DIR__.'/../../../init_new.php');
 
 class KeyFactoryTest extends \PHPUnit\Framework\TestCase
 {
@@ -13,7 +13,7 @@ class KeyFactoryTest extends \PHPUnit\Framework\TestCase
     protected $object;
 
     /**
-     * @var FileStorage
+     * @var ArrayStorage
      */
     protected $storage;
 
@@ -29,7 +29,7 @@ class KeyFactoryTest extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         //$this->object = new KeyFactory;
-        $this->storage = new FileStorage();
+        $this->storage = new ArrayStorage();
     }
 
     /**
@@ -43,13 +43,19 @@ class KeyFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testBuild()
     {
-        $instance = KeyFactory::build($this->testKey);
+        $instance = KeyFactory::build($this->testKey, $this->storage);
         $this->assertInstanceOf('\Xmf\Key\Basic', $instance);
         $this->assertTrue($this->storage->exists($this->testKey));
 
-        $actual = KeyFactory::build($this->testKey);
+        $actual = KeyFactory::build($this->testKey, $this->storage);
         $this->assertNotSame($instance, $actual);
 
         $this->assertEquals($instance->getSigning(), $actual->getSigning());
+    }
+
+    public function testBuildException()
+    {
+        $this->expectException('\InvalidArgumentException');
+        $instance = KeyFactory::build(array('muck'), $this->storage);
     }
 }

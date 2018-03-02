@@ -1,5 +1,9 @@
 <?php
-namespace Xmf\Key;
+namespace Xmf\Test\Key;
+
+use Xmf\Key\ArrayStorage;
+use Xmf\Key\KeyAbstract;
+use Xmf\Key\StorageInterface;
 
 class KeyAbstractTest extends \PHPUnit\Framework\TestCase
 {

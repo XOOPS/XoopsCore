@@ -10,6 +10,7 @@
 */
 
 use Xoops\Core\PreloadItem;
+use Xoops\Core\Service\Provider;
 
 /**
  * Private Messages preloads
@@ -85,5 +86,22 @@ class PmPreload extends PreloadItem
     public static function eventSystemBlocksSystem_blocksUsershow($args)
     {
         $args[0] = Xoops::getInstance()->getModuleHandler('message', 'pm');
+    }
+
+    /**
+     * listen for core.service.locate.usermessage event
+     *
+     * @param Provider $provider - provider object for requested service
+     *
+     * @return void
+     */
+    public static function eventCoreServiceLocateUserMessage(Provider $provider)
+    {
+        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
+            $path = dirname(__DIR__) . '/class/PMProvider.php';
+            require $path;
+            $object = new PMProvider();
+            $provider->register($object);
+        }
     }
 }
