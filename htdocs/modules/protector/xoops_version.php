@@ -77,9 +77,9 @@ $modversion['adminmenu'] = "admin/menu.php";
 
 // Admin Templates
 $modversion['templates'] = array(
-    array( 'file' => 'protector_advisory.html', 'description' => '', 'type' => 'admin' ),
-    array( 'file' => 'protector_prefix.html', 'description' => '', 'type' => 'admin' ),
-    array( 'file' => 'protector_center.html', 'description' => '', 'type' => 'admin' ),
+    array( 'file' => 'protector_advisory.tpl', 'description' => '', 'type' => 'admin' ),
+    array( 'file' => 'protector_prefix.tpl', 'description' => '', 'type' => 'admin' ),
+    array( 'file' => 'protector_center.tpl', 'description' => '', 'type' => 'admin' ),
 );
 
 /*

@@ -27,7 +27,7 @@ $xoops = Xoops::getInstance();
 $xoops->db();
 global $xoopsDB;
 $db = $xoopsDB;
-$xoops->header('admin:protector/protector_prefix.html');
+$xoops->header('admin:protector/protector_prefix.tpl');
 
 $error = '';
 // COPY TABLES
