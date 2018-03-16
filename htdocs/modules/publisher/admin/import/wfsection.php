@@ -62,7 +62,7 @@ if ($op === 'start') {
             $result = $xoopsDB->query($sql);
             $cat_cbox_values = array();
             $cat_cbox_options = array();
-            while (list ($cid, $pid, $cat_title, $art_count) = $xoopsDB->fetchRow($result)) {
+            while (false !== (list ($cid, $pid, $cat_title, $art_count) = $xoopsDB->fetchRow($result))) {
                 $cat_title = $myts->displayTarea($cat_title);
                 $cat_cbox_options[$cid] = "$cat_title ($art_count)";
             }
@@ -114,7 +114,7 @@ if ($op === 'go') {
     $resultCat = $xoopsDB->query($sql);
 
     $newCatArray = array();
-    while ($arrCat = $xoopsDB->fetchArray($resultCat)) {
+    while (false !== ($arrCat = $xoopsDB->fetchArray($resultCat))) {
         $categoryObj = $publisher->getCategoryHandler()->create();
 
         $newCat = array();
@@ -155,7 +155,7 @@ if ($op === 'go') {
 
         $sql = "SELECT * FROM " . $xoopsDB->prefix("wfs_article") . " WHERE categoryid=" . $arrCat['id'] . " ORDER BY weight";
         $resultArticles = $xoopsDB->query($sql);
-        while ($arrArticle = $xoopsDB->fetchArray($resultArticles)) {
+        while (false !== ($arrArticle = $xoopsDB->fetchArray($resultArticles))) {
             // insert article
             $itemObj = $publisher->getItemHandler()->create();
 
@@ -193,7 +193,7 @@ if ($op === 'go') {
                 $sql = "SELECT * FROM " . $xoopsDB->prefix("wfs_files") . " WHERE articleid=" . $arrArticle['articleid'];
                 $resultFiles = $xoopsDB->query($sql);
                 $allowed_mimetypes = '';
-                while ($arrFile = $xoopsDB->fetchArray($resultFiles)) {
+                while (false !== ($arrFile = $xoopsDB->fetchArray($resultFiles))) {
 
                     $filename = \XoopsBaseConfig::get('root-path') . "/modules/wfsection/cache/uploaded/" . $arrFile['filerealname'];
                     if (XoopsLoad::fileExists($filename)) {

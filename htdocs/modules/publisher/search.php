@@ -127,7 +127,7 @@ if (!(empty($_POST["submit"]) && empty($term))) {
             exit();
         }
         $uid = array();
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $uid[] = $row["uid"];
         }
     } else {

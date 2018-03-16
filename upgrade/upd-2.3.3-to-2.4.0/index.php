@@ -47,7 +47,7 @@ class upgrade_240 extends xoopsUpgrade
                 continue;
             }
             $existing_keys = array();
-            while ($row = $xoops->db()->fetchArray($result)) {
+            while (false !== ($row = $xoops->db()->fetchArray($result))) {
                 $existing_keys[] = $row['Key_name'];
             }
             foreach ($keys as $key) {
@@ -79,7 +79,7 @@ class upgrade_240 extends xoopsUpgrade
                 continue;
             }
             $existing_keys = array();
-            while ($row = $xoops->db()->fetchArray($result)) {
+            while (false !== ($row = $xoops->db()->fetchArray($result))) {
                 $existing_keys[] = $row['Key_name'];
             }
             foreach ($keys as $key) {

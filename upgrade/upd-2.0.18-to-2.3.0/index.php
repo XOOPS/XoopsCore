@@ -91,7 +91,7 @@ class upgrade_230 extends xoopsUpgrade
         if (!$result = $db->queryF($sql)) {
             return false;
         }
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             if ($row['Key_name'] == 'PRIMARY') {
                 return true;
             }
@@ -110,7 +110,7 @@ class upgrade_230 extends xoopsUpgrade
         }
         $keys_drop = array();
         $primary_add = true;
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             if ($row['Key_name'] == 'PRIMARY') {
                 $primary_add = false;
             }
@@ -239,7 +239,7 @@ class upgrade_230 extends xoopsUpgrade
             return false;
         }
         $tables = array();
-        while (list($table) = $db->fetchRow($result)) {
+        while (false !== (list($table) = $db->fetchRow($result))) {
             $tables[] = $table;
             //$db->queryF( "ALTER TABLE `{$table}` DEFAULT CHARACTER SET " . $db->quote($charset) . " COLLATE " . $db->quote($collation) );
             //$db->queryF( "ALTER TABLE `{$table}` CONVERT TO CHARACTER SET " . $db->quote($charset) . " COLLATE " . $db->quote($collation) );
@@ -266,7 +266,7 @@ class upgrade_230 extends xoopsUpgrade
             foreach ((array)$tables as $table) {
                 // Analyze tables for string types columns and generate his binary and string correctness sql sentences.
                 $resource = $db->queryF("DESCRIBE $table");
-                while ($result = $db->fetchArray($resource)) {
+                while (false !== ($result = $db->fetchArray($resource))) {
                     if (preg_match('/(char)|(text)|(enum)|(set)/', $result['Type'])) {
                         // String Type SQL Sentence.
                         $string_querys[] = "ALTER TABLE `$table` MODIFY `" . $result['Field'] . '` ' . $result['Type'] . " CHARACTER SET $charset COLLATE $collation " . (((!empty($result['Default'])) || ($result['Default'] === '0') || ($result['Default'] === 0)) ? "DEFAULT '" . $result['Default'] . "' " : '') . ('YES' == $result['Null'] ? '' : 'NOT ') . 'NULL';
@@ -285,7 +285,7 @@ class upgrade_230 extends xoopsUpgrade
                 // Analyze table indexs for any FULLTEXT-Type of index in the table.
                 $fulltext_indexes = array();
                 $resource = $db->queryF("SHOW INDEX FROM `$table`");
-                while ($result = $db->fetchArray($resource)) {
+                while (false !== ($result = $db->fetchArray($resource))) {
                     if (preg_match('/FULLTEXT/', $result['Index_type'])) {
                         $fulltext_indexes[$result['Key_name']][$result['Column_name']] = 1;
                     }

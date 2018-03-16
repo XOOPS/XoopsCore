@@ -51,7 +51,7 @@ class Maintenance
     {
         $tables = array();
         $result = $this->db->queryF('SHOW TABLES');
-        while ($myrow = $this->db->fetchArray($result)) {
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
             $value = array_values($myrow);
             $value = substr($value[0], strlen($this->prefix));
             $tables[$value] = $value;

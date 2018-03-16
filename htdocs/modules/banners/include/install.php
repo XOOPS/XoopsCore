@@ -43,7 +43,7 @@ function xoops_module_install_banners(&$module)
     if (($rows = $xoopsDB->getRowsNum($result)) == 7) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("bannerclient");
         $result = $xoopsDB->query($sql);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             $extrainfo = $myrow['contact'] . ' - ' . $myrow['email'] . ' - ' . $myrow['login'] . ' - ' . $myrow['passwd'] . ' - ' . $myrow['extrainfo'];
             $sql = "UPDATE `" . $xoopsDB->prefix("bannerclient") . "` SET `extrainfo` = '" .  $extrainfo . "' WHERE `cid` = " . $myrow['cid'];
             $xoopsDB->queryF($sql);
@@ -70,7 +70,7 @@ function xoops_module_install_banners(&$module)
     if (($rows = $xoopsDB->getRowsNum($result)) == 6) {
         $sql = "SELECT * FROM " . $xoopsDB->prefix("bannerfinish");
         $result = $xoopsDB->query($sql);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             $sql = "INSERT INTO `" . $xoopsDB->prefix("banner") . "` (`cid`, `imptotal`, `impmade`, `clicks`, `imageurl`, `clickurl`, `datestart`, `dateend`, `htmlbanner`, `htmlcode`, `status`) VALUES (" . $myrow['cid'] . ", 0, " . $myrow['impressions'] . ", " . $myrow['clicks'] . ", 0, '', " . $myrow['datestart'] . ", " . $myrow['dateend'] . ", 0, '', 0)";
             $xoopsDB->queryF($sql);
         }

@@ -367,7 +367,7 @@ class XoopsDatabaseManager
         if (($rows = $this->db->getRowsNum($result)) == count($fieldsMap)) {
             $sql = "SELECT * FROM " . $this->db->prefix($oTableName);
             $result = $this->db->queryF($sql);
-            while ($myrow = $this->db->fetchArray($result)) {
+            while (false !== ($myrow = $this->db->fetchArray($result))) {
                 ksort($fieldsMap);
                 ksort($myrow);
                 $sql = "INSERT INTO `" . $this->db->prefix($nTableName)

@@ -51,7 +51,7 @@ class upgrade_231 extends xoopsUpgrade
             if (!$result = $db->queryF($sql)) {
                 return false;
             }
-            while ($row = $db->fetchArray($result)) {
+            while (false !== ($row = $db->fetchArray($result))) {
                 if ($row['Field'] != $field) {
                     continue;
                 }
