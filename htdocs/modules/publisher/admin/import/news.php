@@ -120,7 +120,6 @@ if ($op === 'go') {
 
     $oldToNew = array();
     while (false !== ($arrCat = $xoopsDB->fetchArray($resultCat))) {
-
         $newCat = array();
         $newCat['oldid'] = $arrCat['topic_id'];
         $newCat['oldpid'] = $arrCat['topic_pid'];

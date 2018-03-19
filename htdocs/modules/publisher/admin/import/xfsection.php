@@ -193,7 +193,6 @@ if ($op === 'go') {
                 $resultFiles = $xoopsDB->query($sql);
                 $allowed_mimetypes = '';
                 while (false !== ($arrFile = $xoopsDB->fetchArray($resultFiles))) {
-
                     $filename = \XoopsBaseConfig::get('root-path') . "/modules/xfsection/cache/uploaded/" . $arrFile['filerealname'];
                     if (XoopsLoad::fileExists($filename)) {
                         if (copy($filename, PUBLISHER_UPLOADS_PATH . "/" . $arrFile['filerealname'])) {

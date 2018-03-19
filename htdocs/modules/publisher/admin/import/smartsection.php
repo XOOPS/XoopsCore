@@ -120,7 +120,6 @@ if ($op === 'go') {
 
     $oldToNew = array();
     while (false !== ($arrCat = $xoopsDB->fetchArray($resultCat))) {
-
         $newCat = array();
         $newCat['oldid'] = $arrCat['categoryid'];
         $newCat['oldpid'] = $arrCat['parentid'];
@@ -182,7 +181,6 @@ if ($op === 'go') {
                 $resultFiles = $xoopsDB->query($sql);
                 $allowed_mimetypes = null;
                 while (false !== ($arrFile = $xoopsDB->fetchArray($resultFiles))) {
-
                     $filename = \XoopsBaseConfig::get('root-path') . "/uploads/smartsection/" . $arrFile['filename'];
                     if (XoopsLoad::fileExists($filename)) {
                         if (copy($filename, \XoopsBaseConfig::get('root-path') . "/uploads/publisher/" . $arrFile['filename'])) {
