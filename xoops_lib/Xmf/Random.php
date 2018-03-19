@@ -17,9 +17,9 @@ namespace Xmf;
  * @category  Xmf\Random
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2015-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2015-2018 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class Random
 {
@@ -33,6 +33,7 @@ class Random
      * @param integer $bytes the number of random bit to generate
      *
      * @return string hashed token
+     * @throws \Exception on insufficient entropy
      */
     public static function generateOneTimeToken($hash = 'sha512', $bytes = 64)
     {
@@ -50,6 +51,7 @@ class Random
      * @param integer $bytes the number of random bytes to generate
      *
      * @return string hashed token
+     * @throws \Exception on insufficient entropy
      */
     public static function generateKey($hash = 'sha512', $bytes = 128)
     {

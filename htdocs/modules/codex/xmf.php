@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright 2011-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2018 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Richard Griffith <richard@geekwright.com>
  * @author    trabis <lusopoemas@gmail.com>
@@ -95,7 +95,7 @@ $title="xmf - the XOOPS Module Framework";
 $article =<<<EOT
 xmf - XOOPS Module Framework
 
-XMF is Copyright © 2011-2015 The XOOPS Project
+XMF is Copyright © 2011-2018 The XOOPS Project
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -135,7 +135,7 @@ $title_keywords = Metagen::generateKeywords($title, 25, 3);
 //Debug::dump($title_keywords);
 // get top 25 keywords, but always keep keywords from title
 $keywords = Metagen::generateKeywords($article, 25, 4, $title_keywords);
-Debug::dump($keywords, true);
+Debug::dump($keywords);
 echo Highlighter::apply($keywords, $article);
 
 // add to the page
