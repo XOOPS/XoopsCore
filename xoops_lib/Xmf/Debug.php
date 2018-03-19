@@ -69,7 +69,8 @@ class Debug extends \Kint
             $class = get_called_class();
             parent::$aliases[] = [$class, 'dump'];
             parent::$aliases[] = [$class, 'backtrace'];
-            \Kint_Renderer_Rich::$theme = 'aante-light.css'; // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
+            // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
+            \Kint_Renderer_Rich::$theme = 'aante-light.css';
         }
     }
 
