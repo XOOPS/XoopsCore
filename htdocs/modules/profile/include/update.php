@@ -58,7 +58,7 @@ function xoops_module_update_profile(&$module, $oldversion = null)
         $sql = "SELECT * FROM `" . $xoopsDB->prefix("user_profile_field") . "` WHERE `field_name` NOT IN ('" . implode("', '", $skip_fields) . "')";
         $result = $xoopsDB->query($sql);
         $fields = array();
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             $fields[] = $myrow['field_name'];
             $object = $field_handler->create();
             $object->setVars($myrow);
