@@ -18,9 +18,9 @@ namespace Xmf;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2016 XOOPS Project (http://xoops.org)
+ * @copyright 2011-2018 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @link      https://xoops.org
  */
 class Debug extends \Kint
 {
@@ -56,13 +56,32 @@ class Debug extends \Kint
     private static $eventDumper = false;
 
     /**
+     * doOnce - do some local housekeeping on first use. Any method needing this
+     * assist just calls every time, the one time logic is all here.
+     *
+     * @return void
+     */
+    private static function doOnce()
+    {
+        static $done;
+        if (true !== $done) {
+            $done = true;
+            $class = get_called_class();
+            parent::$aliases[] = [$class, 'dump'];
+            parent::$aliases[] = [$class, 'backtrace'];
+            // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
+            \Kint_Renderer_Rich::$theme = 'aante-light.css';
+        }
+    }
+
+    /**
      * Dump one or more variables
      *
      * @param mixed $data variable(s) to dump
      *
      * @return void
      */
-    public static function dump($data = NULL)
+    public static function dump($data = null)
     {
         $args = func_get_args();
 
@@ -74,9 +93,7 @@ class Debug extends \Kint
                 $events->triggerEvent($eventName, $var);
             }
         } else {
-            parent::$display_called_from = false;
-            \Kint_Renderer_Rich::$theme = 'aante-light.css'; // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
-            //call_user_func_array('parent::dump', $args);
+            static::doOnce();
             forward_static_call_array(array('parent', 'dump'), $args);
         }
     }
@@ -88,7 +105,7 @@ class Debug extends \Kint
      *
      * @return void
      */
-    public static function log($data = NULL)
+    public static function log($data = null)
     {
         $args = func_get_args();
 
