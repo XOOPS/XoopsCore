@@ -35,10 +35,10 @@ if ($xoops->isUser()) {
         $body = Request::getString('body', '');
         $body = empty($body) ? 'Not Specified' : $body;
         $message = new Message(
-            $xoops->user->uid(),
-            1,
             'Codex User Message Example',
-            $body
+            $body,
+            1,
+            $xoops->user->uid()
         );
 
         $response = $xoops->service('usermessage')->sendMessage($message);

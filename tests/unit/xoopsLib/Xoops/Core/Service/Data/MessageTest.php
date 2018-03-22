@@ -29,81 +29,115 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
     public function testContract()
     {
-        $this->assertInstanceOf('\Xoops\Core\Service\Data\Message', $this->object);
+        $this->assertInstanceOf(Message::class, $this->object);
     }
 
     public function testNewMessageWithArguments()
     {
-        $message = new Message(1, 2, 'subject', 'body');
-        $this->assertInstanceOf('\Xoops\Core\Service\Data\Message', $message);
+        $message = new Message('subject', 'body', 2, 1);
+        $this->assertInstanceOf(Message::class, $message);
         $this->assertEquals(1, $message->getToId());
         $this->assertEquals(2, $message->getFromId());
         $this->assertEquals('subject', $message->getSubject());
         $this->assertEquals('body', $message->getBody());
+    }
+
+    public function testWithToId()
+    {
+        $actual = $this->object->withToId(1);
+        $this->assertInstanceOf(Message::class, $actual);
+        $this->assertNotSame($this->object, $actual);
+        $this->assertEquals(1, $actual->getToId());
+    }
+
+    public function testWithFromId()
+    {
+        $actual = $this->object->withFromId(2);
+        $this->assertInstanceOf(Message::class, $actual);
+        $this->assertNotSame($this->object, $actual);
+        $this->assertEquals(2, $actual->getFromId());
+    }
+
+    public function testWithSubject()
+    {
+        $actual = $this->object->withSubject('subject');
+        $this->assertInstanceOf(Message::class, $actual);
+        $this->assertNotSame($this->object, $actual);
+        $this->assertEquals('subject', $actual->getSubject());
+    }
+
+    public function testWithBody()
+    {
+        $actual = $this->object->withBody('body');
+        $this->assertInstanceOf(Message::class, $actual);
+        $this->assertNotSame($this->object, $actual);
+        $this->assertEquals('body', $actual->getBody());
     }
 
     public function testNewMessageWithFluent()
     {
-        $message = new Message(1, 2, 'subject', 'body');
-        $message->setToId(1)->setFromId(2)->setSubject('subject')->setBody('body');
-        $this->assertEquals(1, $message->getToId());
-        $this->assertEquals(2, $message->getFromId());
-        $this->assertEquals('subject', $message->getSubject());
-        $this->assertEquals('body', $message->getBody());
+        $actual = $this->object->withToId(1)->withFromId(2)->withSubject('subject')->withBody('body');
+        $this->assertNotSame($this->object, $actual);
+        $this->assertEquals(1, $actual->getToId());
+        $this->assertEquals(2, $actual->getFromId());
+        $this->assertEquals('subject', $actual->getSubject());
+        $this->assertEquals('body', $actual->getBody());
+        $this->expectException(\LogicException::class);
+        $this->object->getToId();
     }
 
     public function testNewMessageMissingArguments()
     {
-        $message = new Message(null, 2);
+        $message = new Message(null, null, 2);
         $this->assertEquals(2, $message->getFromId());
-        $this->expectException('\LogicException');
+        $this->expectException(\LogicException::class);
         $message->getToId();
     }
 
     public function testNewMessageBadArguments()
     {
-        $this->expectException('\InvalidArgumentException');
-        $message = new Message(-1);
+        $this->expectException(\InvalidArgumentException::class);
+        $message = new Message(null, null,-1);
     }
 
-    public function testSetToIdException()
+    public function testWithToIdException()
     {
         try {
-            $this->object->setToId('0');
+            $this->object->withToId('0');
         } catch (\InvalidArgumentException $e) {
             $this->assertContains('To', $e->getMessage());
         }
-        $this->assertInstanceOf('\InvalidArgumentException', $e);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $e);
     }
 
-    public function testSetFromIdException()
+    public function testWithFromIdException()
     {
         try {
-            $this->object->setFromId(-88);
+            $this->object->withFromId(-88);
         } catch (\InvalidArgumentException $e) {
             $this->assertContains('From', $e->getMessage());
         }
-        $this->assertInstanceOf('\InvalidArgumentException', $e);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $e);
     }
 
-    public function testSetSubjectException()
+    public function testWithSubjectException()
     {
         try {
-            $this->object->setSubject(' ');
+            $this->object->withSubject(' ');
         } catch (\InvalidArgumentException $e) {
             $this->assertContains('Subject', $e->getMessage());
         }
-        $this->assertInstanceOf('\InvalidArgumentException', $e);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $e);
     }
 
-    public function testSetBodyException()
+    public function testWithBodyException()
     {
         try {
-            $this->object->setBody("\n");
+            $this->object->withBody("\n");
         } catch (\InvalidArgumentException $e) {
             $this->assertContains('Body', $e->getMessage());
         }
-        $this->assertInstanceOf('\InvalidArgumentException', $e);
+        $this->assertInstanceOf(\InvalidArgumentException::class, $e);
     }
 
     public function testGetToIdException()
@@ -113,7 +147,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         } catch (\LogicException $e) {
             $this->assertContains('To', $e->getMessage());
         }
-        $this->assertInstanceOf('\LogicException', $e);
+        $this->assertInstanceOf(\LogicException::class, $e);
     }
 
     public function testGetFromIdException()
@@ -123,7 +157,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         } catch (\LogicException $e) {
             $this->assertContains('From', $e->getMessage());
         }
-        $this->assertInstanceOf('\LogicException', $e);
+        $this->assertInstanceOf(\LogicException::class, $e);
     }
 
     public function testGetSubjectException()
@@ -133,7 +167,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         } catch (\LogicException $e) {
             $this->assertContains('Subject', $e->getMessage());
         }
-        $this->assertInstanceOf('\LogicException', $e);
+        $this->assertInstanceOf(\LogicException::class, $e);
     }
 
     public function testGetBodyException()
@@ -143,6 +177,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         } catch (\LogicException $e) {
             $this->assertContains('Body', $e->getMessage());
         }
-        $this->assertInstanceOf('\LogicException', $e);
+        $this->assertInstanceOf(\LogicException::class, $e);
     }
 }
