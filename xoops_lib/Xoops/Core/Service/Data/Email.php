@@ -19,6 +19,7 @@ use Xmf\Assert;
 use Xoops\Core\Service\Data\EmailAddress;
 use Xoops\Core\Service\Data\EmailAddressList;
 use Xoops\Core\Service\Data\EmailAttachment;
+use Xoops\Core\Service\Data\EmailAttachmentSet;
 
 /**
  * The Email data object is a full email message using EmailAddress addresses.
@@ -55,20 +56,23 @@ class Email
     /** @var EmailAddress $fromAddress the email address that message is from */
     protected $fromAddress;
 
-    /** @var EmailAddressList $toAddresses array of addresses that the message is to */
+    /** @var EmailAddressList $toAddresses addresses that the message is to */
     protected $toAddresses;
 
-    /** @var EmailAddressList $ccAddresses array of addresses the message should be CC'ed to */
+    /** @var EmailAddressList $ccAddresses addresses the message should be CC'ed to */
     protected $ccAddresses;
 
-    /** @var EmailAddressList $bccAddresses array of addresses the message should be BCC'ed to */
+    /** @var EmailAddressList $bccAddresses addresses the message should be BCC'ed to */
     protected $bccAddresses;
 
-    /** @var EmailAddressList $replyToAddresses array of addresses that should receive replies to this message */
+    /** @var EmailAddressList $replyToAddresses addresses that should receive replies to this message */
     protected $replyToAddresses;
 
-    /** @var EmailAddress $readReceiptAddress the email address that message is from */
+    /** @var EmailAddress $readReceiptAddress the email address requesting a read receipt */
     protected $readReceiptAddress;
+
+    /** @var EmailAttachmentSet attachments to be part of the email */
+    protected $attachmentSet;
 
     /* assert messages */
     protected const MESSAGE_BODY    = 'Body must be specified';
@@ -121,21 +125,17 @@ class Email
             Assert::stringNotEmpty($body, static::MESSAGE_BODY);
             $this->body = $body;
         }
-        if (null!==$fromAddress) {
-            try {
+        try {
+            if (null!==$fromAddress) {
                 $fromAddress->getEmail();
-            } catch (\LogicException $e) {
-                throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                $this->fromAddress = $fromAddress;
             }
-            $this->fromAddress = $fromAddress;
-        }
-        if (null!==$toAddress) {
-            try {
+            if (null!==$toAddress) {
                 $toAddress->getEmail();
-            } catch (\LogicException $e) {
-                throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+                $this->toAddresses = new EmailAddressList([$toAddress]);
             }
-            $this->toAddresses = new EmailAddressList([$toAddress]);
+        } catch (\LogicException $e) {
+            throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -300,6 +300,28 @@ class Email
     }
 
     /**
+     * withAttachments - return a new object with a the specified set of attachments
+     *
+     * @param EmailAttachmentSet $attachmentSet
+     *
+     * @return Email
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function withAttachments(EmailAttachmentSet $attachmentSet) : Email
+    {
+        try {
+            $attachmentSet->getAttachments();
+        } catch (\LogicException $e) {
+            throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+        }
+
+        $new = clone $this;
+        $new->attachmentSet = $attachmentSet;
+        return $new;
+    }
+
+    /**
      * getBody
      *
      * @return string the message body
@@ -357,6 +379,7 @@ class Email
      * getAddresses
      *
      * @param string $property addresses property to get, one of VALID_ADDRESS_PROPERTIES
+     * @param string $message  message for any Assert exception
      *
      * @return EmailAddressList|null the specified addresses property or null if not set
      *
@@ -368,7 +391,6 @@ class Email
             Assert::oneOf($property, static::VALID_ADDRESS_PROPERTIES);
             if (null !== $this->{$property}) {
                 Assert::allIsInstanceOf($this->{$property}->getAddresses(), EmailAddress::class, $message);
-                $this->{$property}->getAddresses();
             }
         } catch (\InvalidArgumentException | \LogicException $e) {
             throw new \LogicException($e->getMessage(), $e->getCode(), $e);
@@ -447,5 +469,24 @@ class Email
             }
         }
         return $this->readReceiptAddress;
+    }
+
+    /**
+     * getAttachments
+     *
+     * @return EmailAttachmentSet|null the set of attachments or null if not set
+     *
+     * @throws \LogicException (property was not properly set before used)
+     */
+    public function getAttachments() : ?EmailAttachmentSet
+    {
+        if (null !== $this->attachmentSet) {
+            try {
+                $this->attachmentSet->getAttachments();
+            } catch (\LogicException $e) {
+                throw new \LogicException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+        return $this->attachmentSet;
     }
 }

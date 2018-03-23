@@ -5,6 +5,7 @@ use Xoops\Core\Service\Data\Email;
 use Xoops\Core\Service\Data\EmailAddress;
 use Xoops\Core\Service\Data\EmailAddressList;
 use Xoops\Core\Service\Data\EmailAttachment;
+use Xoops\Core\Service\Data\EmailAttachmentSet;
 
 class EmailTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,6 +13,8 @@ class EmailTest extends \PHPUnit\Framework\TestCase
      * @var Email
      */
     protected $object;
+
+    protected const TEST_FILE = __DIR__ . '/test.png';
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -62,7 +65,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
     public function testNewMessageBadBody()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $message = new Email(null,'');
+        $message = new Email(null, '');
     }
 
     public function testNewEmailBadSubject()
@@ -75,14 +78,14 @@ class EmailTest extends \PHPUnit\Framework\TestCase
     {
         $emptyAddress = new EmailAddress();
         $this->expectException(\InvalidArgumentException::class);
-        $message = new Email(null,null, $emptyAddress);
+        $message = new Email(null, null, $emptyAddress);
     }
 
     public function testNewEmailBadToAddress()
     {
         $emptyAddress = new EmailAddress();
         $this->expectException(\InvalidArgumentException::class);
-        $message = new Email(null,null, null, $emptyAddress);
+        $message = new Email(null, null, null, $emptyAddress);
     }
 
     public function testForcedBadFromAddress()
@@ -251,5 +254,31 @@ class EmailTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\LogicException::class);
         $this->object->getFromAddress();
+    }
+
+    public function testWithAttachments()
+    {
+        $attachments = new EmailAttachmentSet([new EmailAttachment(static::TEST_FILE)]);
+        $message = $this->object->withAttachments($attachments);
+        $this->assertSame($attachments, $message->getAttachments());
+        $this->assertNull($this->object->getAttachments());
+
+        $attachments = new EmailAttachmentSet();
+        $this->expectException(\InvalidArgumentException::class);
+        $this->object->withAttachments($attachments);
+    }
+
+    public function testWithForcedBadAttachments()
+    {
+        $message = new class() extends Email
+        {
+            public function __construct()
+            {
+                parent::__construct();
+                $this->attachmentSet = new EmailAttachmentSet();
+            }
+        };
+        $this->expectException(\LogicException::class);
+        $message->getAttachments();
     }
 }
