@@ -97,7 +97,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     public function testNewMessageBadArguments()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $message = new Message(null, null,-1);
+        $message = new Message(null, null, -1);
     }
 
     public function testWithToIdException()
