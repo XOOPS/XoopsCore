@@ -69,7 +69,11 @@ class PhpMailerMessageProvider extends AbstractContract implements UserEmailMess
             return;
         }
         // Relay to Email Service
-        $response = \Xoops::getInstance()->service('email')->sendEmail($email);
+        $emailResponse = \Xoops::getInstance()->service('email')->sendEmail($email);
+        if (!$emailResponse->isSuccess()) {
+            $response->setSuccess(false);
+            $response->addErrorMessage($emailResponse->getErrorMessage());
+        }
     }
 
     /**
@@ -85,7 +89,6 @@ class PhpMailerMessageProvider extends AbstractContract implements UserEmailMess
         $user = $userHandler->getUser($userid);
         Assert::isInstanceOf($user, XoopsUser::class);
         $name = empty($user->name()) ? $user->uname() : $user->name();
-        $email = new EmailAddress($user->email(), $name);
-        return $email;
+        return new EmailAddress($user->email(), $name);
     }
 }
