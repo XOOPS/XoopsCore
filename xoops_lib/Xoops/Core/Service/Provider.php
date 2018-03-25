@@ -49,7 +49,8 @@ namespace Xoops\Core\Service;
  * @method Response renderEmoji(string $buffer);
  * @method Response getEmojiList();
  * @method Response renderEmojiSelector(string $identifier);
- * @method Response sendMessage(Message $message);
+ * @method Response sendMessage(Data\Message $message);
+ * @method Response sendEmail(Data\Email $email);
  */
 class Provider
 {

@@ -35,10 +35,10 @@ if ($xoops->isUser()) {
         $body = Request::getString('body', '');
         $body = empty($body) ? 'Not Specified' : $body;
         $message = new Message(
-            $xoops->user->uid(),
-            1,
             'Codex User Message Example',
-            $body
+            $body,
+            1,
+            $xoops->user->uid()
         );
 
         $response = $xoops->service('usermessage')->sendMessage($message);
@@ -58,11 +58,6 @@ if ($xoops->isUser()) {
 } else {
     echo 'Please login to view this demonstration.';
 }
-// get a full img tag to show a QR code of a URL
-//$response = $xoops->service('usermessage')
-//    ->getImgTag('https://www.xoops.org/', array('alt' => 'QR code', 'title'=>'Xoops.org'))
-//    ->getValue();
-
 
 \Xoops\Utils::dumpFile(__FILE__);
 

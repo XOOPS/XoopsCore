@@ -97,11 +97,9 @@ class PmPreload extends PreloadItem
      */
     public static function eventCoreServiceLocateUserMessage(Provider $provider)
     {
-        if (is_a($provider, '\Xoops\Core\Service\Provider')) {
-            $path = dirname(__DIR__) . '/class/PMProvider.php';
-            require $path;
-            $object = new PMProvider();
-            $provider->register($object);
-        }
+        $path = dirname(__DIR__) . '/class/PMProvider.php';
+        require $path;
+        $object = new PMProvider();
+        $provider->register($object);
     }
 }
