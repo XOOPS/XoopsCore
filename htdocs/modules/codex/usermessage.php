@@ -58,11 +58,6 @@ if ($xoops->isUser()) {
 } else {
     echo 'Please login to view this demonstration.';
 }
-// get a full img tag to show a QR code of a URL
-//$response = $xoops->service('usermessage')
-//    ->getImgTag('https://www.xoops.org/', array('alt' => 'QR code', 'title'=>'Xoops.org'))
-//    ->getValue();
-
 
 \Xoops\Utils::dumpFile(__FILE__);
 

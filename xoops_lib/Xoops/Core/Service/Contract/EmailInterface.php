@@ -11,12 +11,12 @@
 
 namespace Xoops\Core\Service\Contract;
 
-use Xoops\Core\Service\Data\Message;
+use Xoops\Core\Service\Data\Email;
 use Xoops\Core\Service\Manager;
 use Xoops\Core\Service\Response;
 
 /**
- * User Message service interface
+ * Email service interface
  *
  * A User Message is a message between two users (i.e. pm)
  *
@@ -27,17 +27,17 @@ use Xoops\Core\Service\Response;
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      https://xoops.org
  */
-interface UserMessageInterface
+interface EmailInterface
 {
     const MODE = Manager::MODE_EXCLUSIVE;
 
     /**
-     * sendMessage - given user info return absolute URL to avatar image
+     * sendEmail - send an email
      *
      * @param Response $response response object
-     * @param Message  $message  message to be sent
+     * @param Email    $email    email message to be sent
      *
      * @return void - response->success set true if sent, otherwise false
      */
-    public function sendMessage(Response $response, Message $message);
+    public function sendEmail(Response $response, Email $email);
 }

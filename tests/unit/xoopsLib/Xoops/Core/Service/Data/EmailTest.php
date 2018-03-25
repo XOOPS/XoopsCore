@@ -281,4 +281,30 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\LogicException::class);
         $message->getAttachments();
     }
+
+    public function testWithHtmlBody()
+    {
+        $message = $this->object->withHtmlBody('<p>body</p>');
+        $this->assertNotSame($this->object, $message);
+        $this->assertEquals('<p>body</p>', $message->getHtmlBody());
+
+        $this->assertNull($this->object->getHtmlBody());
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->object->withBody('');
+    }
+
+    public function testForcedBadHtmlBody()
+    {
+        $message = new class() extends Email
+        {
+            public function __construct()
+            {
+                parent::__construct();
+                $this->htmlBody = '';
+            }
+        };
+        $this->expectException(\LogicException::class);
+        $message->getHtmlBody();
+    }
 }

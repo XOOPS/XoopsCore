@@ -158,6 +158,26 @@ class Email
     }
 
     /**
+     * Return a new object with a the specified HTML body
+     *
+     * The htmlBody is optional, while a body (plain text) is required, and must always be specified.
+     *
+     * @param string $body HTML message body
+     *
+     * @return Email
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function withHtmlBody(string $body) : Email
+    {
+        $body = trim($body);
+        Assert::stringNotEmpty($body, static::MESSAGE_BODY);
+        $new = clone $this;
+        $new->htmlBody = $body;
+        return $new;
+    }
+
+    /**
      * Return a new object with a the specified fromAddress
      *
      * @param EmailAddress $fromAddress the sending/from email address
@@ -336,6 +356,23 @@ class Email
             throw new \LogicException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->body;
+    }
+
+    /**
+     * getHtmlBody
+     *
+     * @return string the message body
+     *
+     * @throws \LogicException (property was not properly set before used)
+     */
+    public function getHtmlBody() : ?string
+    {
+        try {
+            Assert::nullOrStringNotEmpty($this->htmlBody, static::MESSAGE_BODY);
+        } catch (\InvalidArgumentException $e) {
+            throw new \LogicException($e->getMessage(), $e->getCode(), $e);
+        }
+        return $this->htmlBody;
     }
 
     /**
