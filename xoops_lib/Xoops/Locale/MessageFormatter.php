@@ -6,8 +6,8 @@
  *
  * Copyright © 2008-2018 by Yii Software LLC, All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided
+ * that the following conditions are met:
  *
  * - Redistributions of source code must retain the above copyright notice, this list of
  *   conditions and the following disclaimer.
@@ -34,6 +34,9 @@
 namespace Xoops\Locale;
 
 use Xoops\Core\Exception\NotSupportedException;
+
+// keep original formatting to help diff against upstream
+// phpcs:disable Generic.Files.LineLength, PSR2.Classes.PropertyDeclaration.Underscore
 
 /**
  * MessageFormatter allows formatting messages via [ICU message format](http://userguide.icu-project.org/formatparse/messages).
@@ -462,3 +465,4 @@ class MessageFormatter
         return false;
     }
 }
+// phpcs:enable

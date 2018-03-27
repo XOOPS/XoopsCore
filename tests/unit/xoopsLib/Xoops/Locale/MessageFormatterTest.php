@@ -35,6 +35,9 @@ namespace Xoops\Test\Locale;
 
 use Xoops\Locale\MessageFormatter;
 
+// keep original formatting to help diff against upstream
+// phpcs:disable Generic.Files.LineLength
+
 /**
  * @author Alexander Makarov <sam@rmcreative.ru>
  * @since 2.0
@@ -453,3 +456,4 @@ _MSG_
         $this->assertNotEmpty($formatter->getErrorMessage());
     }
 }
+// phpcs:enable
