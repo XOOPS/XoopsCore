@@ -146,12 +146,21 @@ class UserconfigsConfigsForm extends Xoops\Form\SimpleForm
                         break;
 
                     case 'cpanel':
-                        $ele = new Xoops\Form\Hidden($obj[$i]->getVar('conf_name'), $obj[$i]->getConfValueForOutput());
+//                        $ele = new Xoops\Form\Hidden($obj[$i]->getVar('conf_name'), $obj[$i]->getConfValueForOutput());
                         /*
                         $ele = new Xoops\Form\Select($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                         XoopsLoad::load("cpanel", "system");
                         $list = XoopsSystemCpanel::getGuis();
                         $ele->addOptionArray($list);  */
+
+                        $ele = new Xoops\Form\Select($title, $obj[$i]->getVar('conf_name'), $obj[$i]->getConfValueForOutput());
+
+                        $dirlist = XoopsLists::getCpanelList();
+                        if (!empty($dirlist)) {
+                            asort($dirlist);
+                            $ele->addOptionArray($dirlist);
+                        }
+
                         break;
 
                     case 'timezone':

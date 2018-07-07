@@ -182,4 +182,14 @@ class XoopsLists
     {
         return \Xoops\Core\Lists\Month::getList($width);
     }
+
+    /**
+     * gets list of Admin themes folder from Admin themes directory
+     *
+     * @return array
+     */
+    public static function getCpanelList()
+    {
+        return \Xoops\Core\Lists\Cpanel::getList();
+    }
 }
