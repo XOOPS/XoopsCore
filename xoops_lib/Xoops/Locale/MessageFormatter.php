@@ -1,5 +1,31 @@
 <?php
 /**
+ * This code is derived from code in the Yii framework which stipulates this notice.
+ *
+ * The Yii framework is free software. It is released under the terms of the following BSD License.
+ *
+ * Copyright © 2008-2018 by Yii Software LLC, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided
+ * that the following conditions are met:
+ *
+ * - Redistributions of source code must retain the above copyright notice, this list of
+ *   conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright notice, this list of
+ *   conditions and the following disclaimer in the documentation and/or other materials provided
+ *   with the distribution.
+ * - Neither the name of Yii Software LLC nor the names of its contributors may be used to endorse
+ *   or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
+ * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
@@ -9,8 +35,11 @@ namespace Xoops\Locale;
 
 use Xoops\Core\Exception\NotSupportedException;
 
+// keep original formatting to help diff against upstream
+// phpcs:disable Generic.Files.LineLength, PSR2.Classes.PropertyDeclaration.Underscore
+
 /**
- * MessageFormatter allows formatting messages via [ICU message format](http://userguide.icu-project.org/formatparse/messages)
+ * MessageFormatter allows formatting messages via [ICU message format](http://userguide.icu-project.org/formatparse/messages).
  *
  * This class enhances the message formatter class provided by the PHP intl extension.
  *
@@ -48,7 +77,7 @@ class MessageFormatter
 
 
     /**
-     * Get the error code from the last operation
+     * Get the error code from the last operation.
      * @link http://php.net/manual/en/messageformatter.geterrorcode.php
      * @return string Code of the last error.
      */
@@ -58,7 +87,7 @@ class MessageFormatter
     }
 
     /**
-     * Get the error text from the last operation
+     * Get the error text from the last operation.
      * @link http://php.net/manual/en/messageformatter.geterrormessage.php
      * @return string Description of the last error.
      */
@@ -68,7 +97,7 @@ class MessageFormatter
     }
 
     /**
-     * Formats a message via [ICU message format](http://userguide.icu-project.org/formatparse/messages)
+     * Formats a message via [ICU message format](http://userguide.icu-project.org/formatparse/messages).
      *
      * It uses the PHP intl extension's [MessageFormatter](http://www.php.net/manual/en/class.messageformatter.php)
      * and works around some issues.
@@ -124,9 +153,9 @@ class MessageFormatter
             $this->_errorCode = $formatter->getErrorCode();
             $this->_errorMessage = $formatter->getErrorMessage();
             return false;
-        } else {
-            return $result;
         }
+
+        return $result;
     }
 
     /**
@@ -185,14 +214,14 @@ class MessageFormatter
             $this->_errorMessage = $formatter->getErrorMessage();
 
             return false;
-        } else {
-            $values = [];
-            foreach ($result as $key => $value) {
-                $values[$map[$key]] = $value;
-            }
-
-            return $values;
         }
+
+        $values = [];
+        foreach ($result as $key => $value) {
+            $values[$map[$key]] = $value;
+        }
+
+        return $values;
     }
 
     /**
@@ -214,7 +243,7 @@ class MessageFormatter
                 continue;
             }
             $param = trim($token[0]);
-            if (isset($givenParams[$param])) {
+            if (array_key_exists($param, $givenParams)) {
                 // if param is given, replace it with a number
                 if (!isset($map[$param])) {
                     $map[$param] = count($map);
@@ -253,7 +282,7 @@ class MessageFormatter
     }
 
     /**
-     * Fallback implementation for MessageFormatter::formatMessage
+     * Fallback implementation for MessageFormatter::formatMessage.
      * @param string $pattern The pattern string to insert things into.
      * @param array $args The array of values to insert into the format string
      * @param string $locale The locale to use for formatting locale-dependent parts
@@ -282,7 +311,7 @@ class MessageFormatter
     }
 
     /**
-     * Tokenizes a pattern by separating normal text from replaceable patterns
+     * Tokenizes a pattern by separating normal text from replaceable patterns.
      * @param string $pattern patter to tokenize
      * @return array|bool array of tokens or false on failure
      */
@@ -316,6 +345,10 @@ class MessageFormatter
                 $tokens[] = mb_substr($pattern, $start, $open - $start, $charset);
                 $start = $open;
             }
+
+            if ($depth !== 0 && ($open === false || $close === false)) {
+                break;
+            }
         }
         if ($depth !== 0) {
             return false;
@@ -325,7 +358,7 @@ class MessageFormatter
     }
 
     /**
-     * Parses a token
+     * Parses a token.
      * @param array $token the token to parse
      * @param array $args arguments to replace
      * @param string $locale the locale
@@ -361,6 +394,7 @@ class MessageFormatter
                         // add decimals with unknown length
                         $number .= '.' . substr($arg, $pos + 1);
                     }
+
                     return $number;
                 }
                 throw new NotSupportedException("Message format 'number' is only supported for integer values. You have to install PHP intl extension to use this feature.");
@@ -431,3 +465,4 @@ class MessageFormatter
         return false;
     }
 }
+// phpcs:enable
