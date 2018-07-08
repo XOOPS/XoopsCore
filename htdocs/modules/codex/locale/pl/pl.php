@@ -17,32 +17,34 @@
  * @package         codex
  * @since           2.6.0
  * @author          trabis <lusopoemas@gmail.com>
+ * @author          mamba <mambax7@gmail.com>
  */
-class CodexLocaleEn_US
+class CodexLocalePl
 {
     // Module
     const MODULE_NAME = "Codex";
-    const MODULE_DESC = "Code examples for developers";
+    const MODULE_DESC = "Przykłady kodu dla programistów";
 
     // Configs
-    const UCONF_ITEM1 = "Item 1";
-    const UCONF_ITEM1_DESC = "Item 1 desc";
-    const UCONF_ITEM2 = "Item 2";
-    const UCONF_ITEM2_DESC = "Item 2 desc";
+    const UCONF_ITEM1 = "Pozycja 1";
+    const UCONF_ITEM1_DESC = "Pozycja 1 desc";
+    const UCONF_ITEM2 = "Pozycja 2";
+    const UCONF_ITEM2_DESC = "Pozycja 2 desc";
     const UCONF_CAT1 = "Cat 1";
     const UCONF_CAT1_DESC = "Cat 1 desc";
     const UCONF_CAT2 = "Cat 2";
     const UCONF_CAT2_DESC = "Cat 2 desc";
 
-    const MY_DOG_NAME_AND_AGE = "My dog name is {name}. It is {years,plural,=0{not born yet} =1{only one year old} other{# years old}}";
+    const MY_DOG_NAME_AND_AGE = "Mój pies nazywa się {name}. On {years,plural,=0{nie jest jeszcze urodzony} =1{ma tylko jeden rok} =2{ma # lata}  =3{ma # lata}  =4{ma # lata} other{ma # lat}}";
     const YOU_LIKED_THIS = "
-        You {likeCount,plural,
+        Ty {likeCount,plural,
         offset: 1
-        =0{did not like this}
-        =1{liked this}
-        one{and one other person liked this}
-        other{and # others liked this}
+        =0{nie podobało się to}
+        =1{podobało się to}
+        0{nikt inny to lubił} 
+        one{i jedna inna osoba to lubiła}
+        other{i # inne osoby polubiły to}
     }";
-    const GENDER = "{name} is a {gender} and {gender,select,woman{she} man{he} other{it}} loves XOOPS!";
+    const GENDER = "{name} jest {gender} i {gender,select,woman{ona} man{on} other{}} kocha XOOPS!";
 
 }

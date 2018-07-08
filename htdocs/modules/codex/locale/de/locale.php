@@ -19,6 +19,6 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-class CodexLocale extends CodexLocaleEn_US
+class CodexLocale extends CodexLocaleDe
 {
 }

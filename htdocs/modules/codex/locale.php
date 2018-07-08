@@ -68,7 +68,9 @@ $xoops = \Xoops::getInstance();
 echo '<br>'; echo t::MY_DOG_NAME_AND_AGE;
 echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Pluto', 'years' => 0]);
 echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Barbie', 'years' => 1]);
-echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Donald', 'years' => 2]);
+echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Donald', 'years' => 3]);
+echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Joe', 'years' => 5]);
+echo '<br>'; echo $xoops->translate('MY_DOG_NAME_AND_AGE', 'codex', ['name' => 'Rex', 'years' => 122]);
 
 echo '<br>'; echo '<br>';
 echo t::YOU_LIKED_THIS; echo '<br>';
@@ -83,7 +85,7 @@ echo t::GENDER; echo '<br>';
 echo $xoops->translate('GENDER', 'codex', ['name' => 'Snoopy', 'gender' => 'dog']); echo '<br>';
 echo $xoops->translate('GENDER', 'codex', ['name' => 'Mario', 'gender' => 'man']); echo '<br>';
 echo $xoops->translate('GENDER', 'codex', ['name' => 'Susan', 'gender' => 'woman']); echo '<br>';
-echo $xoops->translate('GENDER', 'codex', ['name' => 'Bob', 'gender' => 'sponge']); echo '<br>';
+echo $xoops->translate('GENDER', 'codex', ['name' => 'Bob', 'gender' => 'picture']); echo '<br>';
 
 echo "<br>Usage on template<br>";
 \Xoops\Utils::dumpFile(__DIR__ .'/templates/language.tpl');
