@@ -52,6 +52,10 @@ You can see the full Installation in under 4:40 min in this video:
 
 [![XOOPS CMS](http://img.youtube.com/vi/xM8xzbGcdgA/0.jpg)](http://www.youtube.com/watch?v=xM8xzbGcdgA)
 
+#### Awesome contributors:
+
+<a href="https://github.com/XOOPS/XoopsCore/graphs/contributors"><img src="https://opencollective.com/XoopsCore/contributors.svg?width=890" /></a>
+
 ## Contributing
 
 Thank you for considering contributing to the XOOPS Project. See [CONTRIBUTING](CONTRIBUTING.md) file.
