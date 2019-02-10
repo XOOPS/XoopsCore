@@ -14,22 +14,23 @@ php:
 
 before_install:
   - composer self-update
+  - cp composer.json.dist composer.json
 
 install:
-  - composer --working-dir=htdocs/xoops_lib/ install
-  - wget https://github.com/diff-sniffer/git/releases/download/0.2.0/git-phpcs.phar
+  - composer require xoops/base-requires:dev-master
+  - composer update
 
 before_script:
   - mysql -e 'create database xoops_test;'
   - php console/console.php ci-bootstrap
   - php console/console.php ci-install
   - php console/console.php install-module avatars
-  - php console/console.php install-module userrank
   - php console/console.php install-module page
 
 script:
-  - htdocs/xoops_lib/vendor/bin/phpunit
-  - php git-phpcs.phar $TRAVIS_COMMIT_RANGE
+  - xoops_lib/vendor/bin/phpunit
+  - wget https://github.com/diff-sniffer/git/releases/download/0.1.0/git-phpcs.phar
+  - php git-phpcs.phar origin/$TRAVIS_BRANCH...$TRAVIS_PULL_REQUEST_SHA
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" != "7.4snapshot" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
