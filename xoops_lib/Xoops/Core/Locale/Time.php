@@ -102,7 +102,7 @@ class Time
             $value = $diff->i + (($diff->s > 30) ? 1 : 0);
         } elseif ($diff->s != 0) {
             $key = 'second';
-            $value = $diff->s;
+            $value = $diff->s + round($diff->f, 0);
         }
         if ($value==0) {
             $key = 'second';
