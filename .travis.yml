@@ -29,7 +29,7 @@ before_script:
 
 script:
   - xoops_lib/vendor/bin/phpunit
-  - wget https://github.com/diff-sniffer/git/releases/download/0.1.0/git-phpcs.phar
+  - wget https://github.com/diff-sniffer/git/releases/download/0.2.0/git-phpcs.phar
   - php git-phpcs.phar origin/$TRAVIS_BRANCH...$TRAVIS_PULL_REQUEST_SHA
 
 after_script:
