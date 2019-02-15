@@ -120,7 +120,7 @@ class Time
                 $relPattern = null;
             } else {
                 $relKey = ($past) ? 'relativeTime-type-past' : 'relativeTime-type-future';
-                $rule = Plural::getRule($value, $locale);
+                $rule = Plural::getRuleOfType($value, Plural::RULETYPE_CARDINAL, $locale);
                 $relPattern = 'relativeTimePattern-count-' . $rule;
             }
         }
