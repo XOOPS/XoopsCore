@@ -172,8 +172,13 @@ class Logger implements LoggerInterface
      */
     public function handleException($e)
     {
+        $xoops = \Xoops::getInstance();
         if ($this->isThrowable($e)) {
+            if ($xoops->isAdmin()) {
+                $msg = $e->xdebug_message;
+            } else {
             $msg = $e->getMessage();
+            }
             $this->reportFatalError($msg);
         }
     }
