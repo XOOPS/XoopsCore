@@ -9,6 +9,6 @@ class XoopsMultiMailerTest extends \PHPUnit\Framework\TestCase
     {
         $x = new $this->myClass();
         $this->assertInstanceOf($this->myClass, $x);
-        $this->assertInstanceOf('\PHPMailer\PHPMailer\PHPMailer', $x);
+        $this->assertInstanceOf('\\PHPMailer\\PHPMailer\\PHPMailer', $x);
     }
 }

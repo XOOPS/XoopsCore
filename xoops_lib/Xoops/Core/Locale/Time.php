@@ -102,7 +102,7 @@ class Time
             $value = $diff->i + (($diff->s > 30) ? 1 : 0);
         } elseif ($diff->s != 0) {
             $key = 'second';
-            $value = $diff->s;
+            $value = $diff->s + round($diff->f, 0);
         }
         if ($value==0) {
             $key = 'second';
@@ -120,7 +120,7 @@ class Time
                 $relPattern = null;
             } else {
                 $relKey = ($past) ? 'relativeTime-type-past' : 'relativeTime-type-future';
-                $rule = Plural::getRule($value, $locale);
+                $rule = Plural::getRuleOfType($value, Plural::RULETYPE_CARDINAL, $locale);
                 $relPattern = 'relativeTimePattern-count-' . $rule;
             }
         }
