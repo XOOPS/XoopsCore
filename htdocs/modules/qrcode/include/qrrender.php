@@ -35,17 +35,17 @@ $qrCode = new QrCode($text);
 $ecChar = $configs['qrcode_ecl'];
 switch (strtoupper($ecChar)) {
     case 'H':
-        $ec = ErrorCorrectionLevel::HIGH;
+        $ec = new ErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
         break;
     case 'Q':
-        $ec = ErrorCorrectionLevel::QUARTILE;
+        $ec = new ErrorCorrectionLevel(ErrorCorrectionLevel::QUARTILE);
         break;
     case 'M':
-        $ec = ErrorCorrectionLevel::MEDIUM;
+        $ec = new ErrorCorrectionLevel(ErrorCorrectionLevel::MEDIUM);
         break;
     case 'L':
     default:
-        $ec = ErrorCorrectionLevel::LOW;
+    $ec = new ErrorCorrectionLevel(ErrorCorrectionLevel::LOW);
         break;
 }
 $qrCode->setWriterByName('png');
@@ -54,12 +54,9 @@ $qrCode->setEncoding('UTF-8');
 
 $qrCode->setErrorCorrectionLevel($ec);
 $qrCode->setSize((int)($configs['qrcode_mps']));
-//$qrCode->setPadding($configs['qrcode_margin']*$qrCode->getModuleSize());
+
 $qrCode->setBackgroundColor(normalizeColor($configs['qrcode_bgcolor']));
 $qrCode->setForegroundColor(normalizeColor($configs['qrcode_fgcolor']));
-
-//$qrCode->setText("Life is too short to be generating QR codes");
-//$qrCode->setSize(300);
 
 try {
     $qrData = $qrCode->writeString();

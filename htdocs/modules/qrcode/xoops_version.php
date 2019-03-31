@@ -10,7 +10,7 @@
 */
 
 /**
- * @copyright XOOPS Project (http://xoops.org)
+ * @copyright 2016-2019 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package   qrcode
  * @author    Laurent JEN - aka DuGris
@@ -32,7 +32,7 @@ $modversion['dirname']     = 'qrcode';
 
 //about
 $modversion['release_date']        = '2018/02/16';
-$modversion['module_website_url']  = 'https://www.xoops.org/';
+$modversion['module_website_url']  = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['module_status']       = 'ALPHA 1';
 $modversion['min_php']             = '7.1.0';
@@ -88,7 +88,7 @@ $modversion['config'][] = array(
     'description' => '_MI_QRCODE_MPSDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 200,
+    'default'     => 128,
 );
 
 $modversion['config'][] = array(
@@ -97,7 +97,7 @@ $modversion['config'][] = array(
     'description' => '_MI_QRCODE_MARGINDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 12,
+    'default'     => 4,
 );
 
 $modversion['config'][] = array(
