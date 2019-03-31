@@ -174,11 +174,11 @@ class Tables
      */
     public function addIndex($name, $table, $column, $unique = false)
     {
-        $columns = str_getcsv(str_replace(' ', '', $column));
+        $columns = str_getcsv($column);
         $columnList = '';
         $firstComma = '';
         foreach ($columns as $col) {
-            $columnList .= "{$firstComma}`{$col}`";
+            $columnList .= $firstComma . $this->quoteIndexColumnName($col);
             $firstComma = ', ';
         }
         if (isset($this->tables[$table])) {
@@ -194,6 +194,30 @@ class Tables
         }
 
         return true;
+    }
+
+    /**
+     * Backtick quote the column names used in index creation.
+     *
+     * Handles prefix indexed columns specified as name(length) - i.e. name(20).
+     *
+     * @param string $columnName column name to quote with optional prefix length
+     *
+     * @return string
+     */
+    protected function quoteIndexColumnName($columnName)
+    {
+        $column = str_replace(' ', '', $columnName);
+        $length = '';
+
+        $lengthPosition = strpos($column, '(');
+        if ($lengthPosition) {
+            $length = ' ' . substr($column, $lengthPosition);
+            $column = substr($column, 0, $lengthPosition);
+        }
+        $quotedName = "`{$column}`{$length}";
+
+        return $quotedName;
     }
 
     /**
@@ -530,7 +554,6 @@ class Tables
      */
     public function setTableOptions($table, $options)
     {
-        // ENGINE=MEMORY DEFAULT CHARSET=utf8;
         if (isset($this->tables[$table])) {
             $tableDef = &$this->tables[$table];
             // Is this on a table we are adding?
@@ -749,8 +772,8 @@ class Tables
      * @param string $sql   SQL statement to execute
      * @param bool   $force true to use force updates even in safe requests
      *
-     * @return mixed result Statement, or false on error
-     *               Any error message is in $this->lastError;
+     * @return Statement|false result Statement, or false on error
+     *                         Any error message is in $this->lastError;
      */
     protected function execSql($sql, $force = false)
     {

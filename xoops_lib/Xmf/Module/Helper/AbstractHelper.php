@@ -26,7 +26,12 @@ namespace Xmf\Module\Helper;
 abstract class AbstractHelper
 {
     /**
-     * @var \XoopsModule
+     * @var string module directory name
+     */
+    protected $dirname;
+
+    /**
+     * @var XoopsModule
      */
     protected $module;
 
@@ -62,12 +67,13 @@ abstract class AbstractHelper
             if (isset($xoops)) {
                 $moduleHandler = $xoops->getHandlerModule();
             } else {
-                /* @var $moduleHandler \XoopsModuleHandler */
+                /* @var \XoopsModuleHandler $moduleHandler */
                 $moduleHandler = xoops_getHandler('module');
             }
             $this->module = $moduleHandler->getByDirname($dirname);
         }
         if (is_object($this->module)) {
+            $this->dirname = $this->module->getVar('dirname');
             $this->init();
         }
     }
@@ -80,6 +86,16 @@ abstract class AbstractHelper
      * @return void
      */
     abstract public function init();
+
+    /**
+     * Return the dirname for this helper
+     *
+     * @return string|null a dirname
+     */
+    public function dirname()
+    {
+        return $this->dirname;
+    }
 
     /**
      * Set debug option on or off

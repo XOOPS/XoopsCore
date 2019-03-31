@@ -40,8 +40,6 @@ class Helper extends GenericHelper
     {
         static $instance = array();
 
-        //$dirname = strtolower($dirname);
-
         if (!isset($instance[$dirname])) {
             $instance[$dirname] = false;
 

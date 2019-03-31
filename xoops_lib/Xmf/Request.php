@@ -392,7 +392,7 @@ class Request
      *
      * @return boolean True if hash has an element 'name', otherwise false
      */
-    public static function hasVar($name, $hash = 'method')
+    public static function hasVar($name, $hash = 'default')
     {
         $hash = strtoupper($hash);
         if ($hash === 'METHOD') {

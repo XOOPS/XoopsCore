@@ -31,12 +31,8 @@ use Xmf\Language;
 abstract class GenericHelper extends AbstractHelper
 {
     /**
-     * @var string module directory name
-     */
-    protected $dirname;
-
-    /**
      * @var \XoopsModule
+     * @deprecated - use $module -- will be removed
      */
     protected $object;
 
@@ -57,8 +53,7 @@ abstract class GenericHelper extends AbstractHelper
      */
     public function init()
     {
-        $this->object = $this->module;
-        $this->dirname = $this->object->getVar('dirname');
+        $this->object = $this->module; // for BC only
     }
 
     /**
@@ -68,14 +63,14 @@ abstract class GenericHelper extends AbstractHelper
      */
     public function getModule()
     {
-        if ($this->object == null) {
+        if ($this->module === null) {
             $this->initObject();
         }
-        if (!is_object($this->object)) {
+        if (!is_object($this->module)) {
             $this->addLog("ERROR :: Module '{$this->dirname}' does not exist");
         }
 
-        return $this->object;
+        return $this->module;
     }
 
     /**
@@ -89,7 +84,7 @@ abstract class GenericHelper extends AbstractHelper
      */
     public function getConfig($name = null, $default = null)
     {
-        if ($this->configs == null) {
+        if ($this->configs === null) {
             $this->initConfig();
         }
         if (empty($name)) {
@@ -142,13 +137,13 @@ abstract class GenericHelper extends AbstractHelper
     {
         global $xoopsModule;
         if (isset($xoopsModule) && is_object($xoopsModule)
-            && $xoopsModule->getVar('dirname') == $this->dirname
+            && $xoopsModule->getVar('dirname') === $this->dirname
         ) {
-            $this->object = $xoopsModule;
+            $this->module = $xoopsModule;
         } else {
-            /* @var $module_handler \XoopsModuleHandler */
+            /* @var \XoopsModuleHandler $module_handler */
             $module_handler = xoops_getHandler('module');
-            $this->object = $module_handler->getByDirname($this->dirname);
+            $this->module = $module_handler->getByDirname($this->dirname);
         }
         $this->addLog('INIT MODULE OBJECT');
     }
@@ -163,12 +158,12 @@ abstract class GenericHelper extends AbstractHelper
         $this->addLog('INIT CONFIG');
         global $xoopsModule;
         if (isset($xoopsModule) && is_object($xoopsModule)
-            && $xoopsModule->getVar('dirname') == $this->dirname
+            && $xoopsModule->getVar('dirname') === $this->dirname
         ) {
             global $xoopsModuleConfig;
             $this->configs = $xoopsModuleConfig;
         } else {
-            /* @var $config_handler \XoopsConfigHandler */
+            /* @var \XoopsConfigHandler $config_handler */
             $config_handler = xoops_getHandler('config');
             $this->configs = $config_handler->getConfigsByCat(0, $this->getModule()->getVar('mid'));
         }
@@ -227,7 +222,7 @@ abstract class GenericHelper extends AbstractHelper
      */
     public function isCurrentModule()
     {
-        if ($GLOBALS['xoopsModule']->getVar('dirname') == $this->dirname) {
+        if ($GLOBALS['xoopsModule']->getVar('dirname') === $this->dirname) {
             return true;
         }
 
