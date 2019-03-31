@@ -11,6 +11,8 @@
 
 namespace Xmf;
 
+use Kint\Renderer\RichRenderer;
+
 /**
  * Debugging tools for developers
  *
@@ -18,7 +20,7 @@ namespace Xmf;
  * @package   Xmf
  * @author    trabis <lusopoemas@gmail.com>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2018 XOOPS Project (https://xoops.org)
+ * @copyright 2011-2019 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      https://xoops.org
  */
@@ -69,8 +71,6 @@ class Debug extends \Kint
             $class = get_called_class();
             parent::$aliases[] = [$class, 'dump'];
             parent::$aliases[] = [$class, 'backtrace'];
-            // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
-            \Kint_Renderer_Rich::$theme = 'aante-light.css';
         }
     }
 
@@ -94,6 +94,9 @@ class Debug extends \Kint
             }
         } else {
             static::doOnce();
+            RichRenderer::$folder = false;
+            // options: 'original' (default), 'solarized', 'solarized-dark' and 'aante-light'
+            RichRenderer::$theme = 'aante-light.css';
             forward_static_call_array(array('parent', 'dump'), $args);
         }
     }
