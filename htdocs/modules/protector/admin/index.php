@@ -25,10 +25,14 @@ $xoops = Xoops::getInstance();
 $xoops->header();
 $xoops->db();
 global $xoopsDB;
-$db = $xoopsDB;
+/*$db = $xoopsDB;
 $db->prefix('protector_log');
-$rs = $db->query("SELECT count(lid) FROM " . $db->prefix('protector_log'));
-list($numrows) = $db->fetchRow($rs);
+$rs = $db->query("SELECT count(lid) FROM " . $db->prefix('protector_log'));*/
+$rs = $xoops->db()->query("SELECT count(lid) FROM " . $xoops->db()->prefix('protector_log'));
+//$table = $xoops->db()->prefix('protector_log');
+//$rs = $xoops->db()->query($alterSql);
+
+//list($numrows) = $db->fetchRow($rs);
 
 $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('index.php');
