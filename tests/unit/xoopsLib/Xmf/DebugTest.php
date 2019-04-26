@@ -16,7 +16,7 @@ class DebugTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->object = new Debug;
+        //$this->object = new Debug;
     }
 
     /**
