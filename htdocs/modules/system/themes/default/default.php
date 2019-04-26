@@ -42,7 +42,7 @@ class XoopsGuiDefault
 
         $xoops->theme()->addBaseStylesheetAssets(array(
             'xoops.css',
-            'media/bootstrap/css/bootstrap.css',
+            'modules/system/themes/default/assets/css/bootstrap.css',
             //'themes/default/media/bootstrap/css/xoops.bootstrap.css',
             //'themes/default/css/style.css',
         ));
