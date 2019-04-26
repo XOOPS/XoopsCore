@@ -55,7 +55,7 @@ class EmbedTest extends \PHPUnit\Framework\TestCase
         $this->assertNotFalse(strpos($value, '<div class="media">'));
         $this->assertNotFalse(strpos($value, 'href="https://xoops.org/"'));
 
-        $in = 'https://www.youtube.com/watch?v=-vBqazs3j3A';
+        $in = 'https://www.youtube.com/watch?v=S7znI_Kpzbs';
 //        <iframe width="480" height="270" src="https://www.youtube.com/embed/-vBqazs3j3A?feature=oembed" frameborder="0" allowfullscreen></iframe>
         $value = $this->sanitizer->executeFilter('embed', $in);
         $this->assertTrue(is_string($value));
