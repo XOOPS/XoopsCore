@@ -36,7 +36,8 @@ class XoopsGuiDefault
         $xoops->loadLocale('system');
 
         $xoops->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/themes/smoothness/jquery-ui.css');
-        $xoops->theme()->setNamedAsset('bootstrap', 'media/bootstrap/js/bootstrap.min.js');
+        //$xoops->theme()->setNamedAsset('bootstrap', 'media/bootstrap/js/bootstrap.min.js');
+        $xoops->theme()->setNamedAsset('bootstrap', 'themes/default/assets/js/bootstrap.min.js');
         $xoops->theme()->addBaseScriptAssets(array('@jquery', '@bootstrap'));
 
         $xoops->theme()->addBaseStylesheetAssets(array(
