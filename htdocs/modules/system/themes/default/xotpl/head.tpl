@@ -20,8 +20,8 @@
 <!-- Xoops style sheet -->
 <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'xoops.css'}>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/xoops/css/icons.css'}>" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'media/bootstrap/css/bootstrap.min.css'}>" />
-<link rel="stylesheet" type="text/css" media="screen" href="<{xoImgUrl 'media/bootstrap/css/xoops.bootstrap.css'}>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'modules/system/themes/default/assets/css/bootstrap.min.css'}>" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{xoAppUrl 'modules/system/themes/default/assets/css/xoops.bootstrap.css'}>" />
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
