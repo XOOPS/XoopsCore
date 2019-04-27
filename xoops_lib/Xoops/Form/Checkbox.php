@@ -58,11 +58,11 @@ class Checkbox extends OptionElement
     }
 
     /**
-     * prepare HTML for output
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $required = $this->has('required');
         $elementOptions = $this->getOptions();

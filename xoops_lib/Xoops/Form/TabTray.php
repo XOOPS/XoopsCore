@@ -45,7 +45,7 @@ class TabTray extends ElementTray
      *
      * @return string
      */
-    public function render()
+    public function defaultRender()
     {
         $xoops = \Xoops::getInstance();
 

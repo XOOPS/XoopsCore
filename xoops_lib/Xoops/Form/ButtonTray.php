@@ -62,11 +62,11 @@ class ButtonTray extends Element
     }
 
     /**
-     * render
+     * defaultRender
      *
-     * @return string rendered button tray
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $ret = '';
         $this->add('class', 'btn');

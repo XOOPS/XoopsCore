@@ -54,11 +54,11 @@ class ColorPicker extends Text
     }
 
     /**
-     * render
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $xoops = \Xoops::getInstance();
         if ($xoops->theme()) {

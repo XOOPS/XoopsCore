@@ -51,11 +51,11 @@ class Radio extends OptionElement
     }
 
     /**
-     * Prepare HTML for output
+     * defaultRender
      *
-     * @return string HTML
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $ele_options = $this->getOptions();
         $ele_value = $this->getValue();

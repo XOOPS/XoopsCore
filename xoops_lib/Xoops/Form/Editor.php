@@ -83,11 +83,11 @@ class Editor extends TextArea
     }
 
     /**
-     * render
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         if ($this->editor instanceof \XoopsEditor) {
             return $this->editor->render();

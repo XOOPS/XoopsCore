@@ -65,6 +65,15 @@ abstract class Element extends Attributes
             $this->get(ElementFactory::FORM_KEY)->addElement($this);
         }
     }
+	
+	 /**
+     * defaultRender - Generates default output for the element.
+     *
+     * This method is abstract and must be overwritten by the child classes.
+     *
+     * @return    string
+     */
+    abstract public function defaultRender();
 
     /**
      * render - Generates output for the element.
@@ -73,7 +82,10 @@ abstract class Element extends Attributes
      *
      * @return    string
      */
-    abstract public function render();
+    public function render(){
+		$this->defaultRender();
+		//$xoops->theme()->renderer($this);
+	}
 
     /**
      * render attributes as a string to include in HTML output

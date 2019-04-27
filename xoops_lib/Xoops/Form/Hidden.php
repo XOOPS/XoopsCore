@@ -45,11 +45,11 @@ class Hidden extends Element
     }
 
     /**
-     * render
+     * defaultRender
      *
      * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . $this->getExtra() .' >' . "\n";

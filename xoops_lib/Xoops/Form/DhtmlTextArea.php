@@ -156,11 +156,11 @@ class DhtmlTextArea extends \XoopsEditor
     }
 
     /**
-     * Prepare HTML for output
+     * defaultRender
      *
-     * @return string HTML
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         if ($this->htmlEditor && is_object($this->htmlEditor)) {
             if (!isset($this->htmlEditor->isEnabled) || $this->htmlEditor->isEnabled) {

@@ -73,11 +73,11 @@ class SelectEditor extends ElementTray
     }
 
     /**
-     * render
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $editor_handler = \XoopsEditorHandler::getInstance();
         $editor_handler->allowed_editors = $this->allowed_editors;
