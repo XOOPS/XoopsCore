@@ -83,8 +83,9 @@ abstract class Element extends Attributes
      * @return    string
      */
     public function render(){
-		return $this->defaultRender();
-		//return $xoops->theme()->renderer($this);
+		//return $this->defaultRender();
+		$xoops = \Xoops::getInstance();
+		return $xoops->theme()->renderer($this);
 	}
 
     /**

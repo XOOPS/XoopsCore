@@ -333,7 +333,7 @@ class XoopsTheme
     {
         // return a default if not set
         if (null === $this->renderer) {
-			$element->defaultRender();
+			return $element->defaultRender();
 		} else {
 			//A faire!
 		}
