@@ -312,16 +312,16 @@ class XoopsTheme
         return true;
     }
 	
-	/**
+    /**
      * set the renderer
      *
+     * @paramRendererInterface $renderer instance of renderer
      *
-     *
-     *
+     * @return void
      */
-    public function setRenderer($renderer)
+    public function setRenderer(RendererInterface $renderer)
     {
-        $this->renderer = $renderer;
+		$this->renderer = $renderer;
     }
 	
 	/**
