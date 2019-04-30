@@ -88,9 +88,6 @@ class TextArea extends Element
     public function defaultRender()
     {
         $this->suppressRender(['value']);
-
-        $this->themeDecorateElement();
-
         $attributes = $this->renderAttributeString();
         return '<textarea ' . $attributes . ' ' . $this->getExtra() .' >'
             . $this->getValue() . '</textarea>';

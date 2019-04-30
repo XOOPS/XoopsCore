@@ -70,16 +70,15 @@ class ColorPicker extends Text
         if (!empty($temp)) {
             $this->set('style', 'background-color:' . $temp . ';');
         }
-        $this->set('class', 'form-control');
-        $ret = '<div class="input-group">';
+        $ret = '<div>';
         $attributes = $this->renderAttributeString();
         $ret .= '<input ' . $attributes . ' ' . $this->getExtra() .' >';
-        $ret .= '<span class="input-group-btn">';
-        $ret .= '<button class="btn btn-default" type="button" ';
+        $ret .= '<span>';
+        $ret .= '<button type="button" ';
         $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
         $ret .= 'onclick="return TCP.popup(\'';
         $ret .= $xoops->url('/include/') . '\',document.getElementById(\'' . $this->getName() . '\'));">';
-        $ret .= '<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span></button>';
+        $ret .= '<span>...</span></button>';
         $ret .= '</span></div>';
 
         return $ret;

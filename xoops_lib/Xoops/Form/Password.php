@@ -91,8 +91,6 @@ class Password extends Element
      */
     public function defaultRender()
     {
-        $this->themeDecorateElement();
-
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . $this->getExtra() .' >';
     }

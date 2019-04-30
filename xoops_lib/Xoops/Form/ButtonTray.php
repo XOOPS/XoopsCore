@@ -69,7 +69,6 @@ class ButtonTray extends Element
     public function defaultRender()
     {
         $ret = '';
-        $this->add('class', 'btn');
         $class = 'class="' . $this->getClass() . '"';
 
         $attributes = $this->renderAttributeString();

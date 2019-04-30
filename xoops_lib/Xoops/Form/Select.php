@@ -98,7 +98,7 @@ class Select extends OptionElement
      *
      * @return string
      */
-    protected function renderOption($optionValue, $optionDisplay, $selected)
+    public function renderOption($optionValue, $optionDisplay, $selected)
     {
         $rendered = '<option value="' . htmlspecialchars($optionValue, ENT_QUOTES) . '"';
         if (in_array($optionValue, $selected)) {
@@ -121,7 +121,6 @@ class Select extends OptionElement
         $ele_options = $this->getOptions();
 
         $extra = ($this->getExtra() != '' ? " " . $this->getExtra() : '');
-        $this->themeDecorateElement();
         $attributes = $this->renderAttributeString();
         $rendered = '<select ' . $attributes . $extra .' >' . "\n";
 

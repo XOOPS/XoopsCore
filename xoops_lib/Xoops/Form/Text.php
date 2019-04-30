@@ -87,7 +87,6 @@ class Text extends Element
      */
     public function defaultRender()
     {
-        $this->themeDecorateElement();
         $dataList = $this->isDatalist();
         if (!empty($dataList)) {
             $this->add('list', 'list_' . $this->getName());
