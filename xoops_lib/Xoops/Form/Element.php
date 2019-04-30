@@ -78,12 +78,9 @@ abstract class Element extends Attributes
     /**
      * render - Generates output for the element.
      *
-     * This method is abstract and must be overwritten by the child classes.
-     *
      * @return    string
      */
     public function render(){
-		//return $this->defaultRender();
 		$xoops = \Xoops::getInstance();
 		return $xoops->theme()->renderer($this);
 	}

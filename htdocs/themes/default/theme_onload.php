@@ -18,3 +18,5 @@ $xoops->theme()->addBaseStylesheetAssets(array(
     'themes/default/assets/css/xoops.bootstrap.css',
     'themes/default/assets/css/style.css',
 ));
+// Customizing forms rendering
+$xoops->theme()->setRenderer(new \Xoops\Form\Renderer\Bootstrap3Renderer());

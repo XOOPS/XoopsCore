@@ -176,7 +176,7 @@ class XoopsTheme
 	
 	/**
      * 
-     *
+     *$renderer instance of renderer
      * 
      */	
 	protected $renderer;
@@ -315,19 +315,19 @@ class XoopsTheme
     /**
      * set the renderer
      *
-     * @paramRendererInterface $renderer instance of renderer
+     * @$renderer instance of renderer
      *
      * @return void
      */
-    public function setRenderer(RendererInterface $renderer)
+    public function setRenderer($renderer)
     {
 		$this->renderer = $renderer;
     }
 	
 	/**
-     * 
+     * get the renderer
      *
-     *
+     * @return Renderer
      */
     public function renderer($element)
     {
@@ -335,7 +335,7 @@ class XoopsTheme
         if (null === $this->renderer) {
 			return $element->defaultRender();
 		} else {
-			//A faire!
+			return $this->renderer->render($element);
 		}
     }
 
