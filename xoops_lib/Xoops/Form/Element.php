@@ -546,56 +546,6 @@ abstract class Element extends Attributes
     }
 
     /**
-     * themeDecorateElement - add theme decoration to element
-     *
-     * @return void
-     *
-     * @todo this should ask the theme
-     */
-    public function themeDecorateElement()
-    {
-        $class = 'form-control';
-        if ($this instanceof Button) {
-            if (false !== $this->hasClassLike('btn')) {
-                return;
-            }
-            $class = 'btn btn-default';
-        } elseif (false !== $this->hasClassLike('form-') && false !== $this->hasClassLike('col-')) {
-            return;
-        } elseif ($this instanceof TextArea) {
-            $class = 'form-control';
-        } /**
-        } elseif ($this instanceof OptionElement) {
-            $class = 'col-md-3';
-            $options = $this->get('option', []);
-            foreach ($options as $value) {
-                if (is_array($value)) { // optgroup
-                    foreach ($value as $subvalue) {
-                        if (strlen($subvalue) > 20) {
-                            $class = 'col-md-4';
-                            break 2;
-                        }
-                    }
-                } elseif (strlen($value) > 20) {
-                    $class = 'col-md-4';
-                    break;
-                }
-            }
-        } else {
-            $size = $this->get('size', 0);
-            if ($size < 20) {
-//                $class = 'col-md-2';
-//            } elseif ($size < 30) {
-                $class = 'col-md-3';
-            } else {
-                $class = 'form-control';
-            }
-        }
-     */
-        $this->add('class', $class);
-    }
-
-    /**
      * Convenience method to assist with setting attributes when using BC Element syntax
      *
      * Set attribute $name to $value, replacing $value with $default if $value is empty, or if the
