@@ -3,7 +3,7 @@ require_once(__DIR__.'/../../init_new.php');
 
 class XoopsFormInstance extends XoopsForm
 {
-    public function defaultRender()
+    public function render()
     {
     }
 }
