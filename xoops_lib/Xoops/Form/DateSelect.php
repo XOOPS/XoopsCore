@@ -47,11 +47,11 @@ class DateSelect extends Text
     }
 
     /**
-     * render
+     * defaultRender
      *
      * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $xoops = \Xoops::getInstance();
 
@@ -62,7 +62,6 @@ class DateSelect extends Text
             $this->add('list', 'list_' . $this->getName());
         }
 
-        $this->themeDecorateElement();
         $this->suppressRender(['value']);
         $attributes = $this->renderAttributeString();
 
@@ -77,15 +76,13 @@ class DateSelect extends Text
             'showOn: "focus", changeYear: true, constrainInput: false ' .
             ' }); }); '
         );
-
-        $this->set('class', 'form-control');
-        $ret = '<div class="input-group">';
+        $ret = '<div>';
         $ret .= '<input ' . $attributes . ' value="' . $display_value . '" ' . $this->getExtra() .' >';
-        $ret .= '<span class="input-group-btn">';
-        $ret .= '<button class="btn btn-default" type="button" ';
+        $ret .= '<span>';
+        $ret .= '<button type="button" ';
         $ret .= 'data-toggle="tooltip" data-placement="left" title="' . \XoopsLocale::A_SELECT . '" ';
         $ret .= 'onclick="$( \'#' . $this->get('id') . '\' ).datepicker( \'show\' );"> ';
-        $ret .= '<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button>';
+        $ret .= '<span>...</span></button>';
         $ret .= '</span></div>';
 
         return $ret;

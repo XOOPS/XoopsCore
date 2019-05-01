@@ -43,11 +43,11 @@ class Raw extends Element
     }
 
     /**
-     * render
+     * defaultRender
      *
      * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         return $this->get('value', '');
     }

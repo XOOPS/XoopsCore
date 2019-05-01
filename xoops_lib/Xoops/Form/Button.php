@@ -46,14 +46,12 @@ class Button extends Element
     }
 
     /**
-     * prepare HTML for output
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
-        $this->themeDecorateElement();
-
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . $this->getExtra() .' >';
     }

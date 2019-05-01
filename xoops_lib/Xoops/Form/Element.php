@@ -65,15 +65,25 @@ abstract class Element extends Attributes
             $this->get(ElementFactory::FORM_KEY)->addElement($this);
         }
     }
-
-    /**
-     * render - Generates output for the element.
+	
+	 /**
+     * defaultRender - Generates default output for the element.
      *
      * This method is abstract and must be overwritten by the child classes.
      *
      * @return    string
      */
-    abstract public function render();
+    abstract public function defaultRender();
+
+    /**
+     * render - Generates output for the element.
+     *
+     * @return    string
+     */
+    public function render(){
+		$xoops = \Xoops::getInstance();
+		return $xoops->theme()->renderer($this);
+	}
 
     /**
      * render attributes as a string to include in HTML output
@@ -533,56 +543,6 @@ abstract class Element extends Attributes
             }
         }
         return false;
-    }
-
-    /**
-     * themeDecorateElement - add theme decoration to element
-     *
-     * @return void
-     *
-     * @todo this should ask the theme
-     */
-    public function themeDecorateElement()
-    {
-        $class = 'form-control';
-        if ($this instanceof Button) {
-            if (false !== $this->hasClassLike('btn')) {
-                return;
-            }
-            $class = 'btn btn-default';
-        } elseif (false !== $this->hasClassLike('form-') && false !== $this->hasClassLike('col-')) {
-            return;
-        } elseif ($this instanceof TextArea) {
-            $class = 'form-control';
-        } /**
-        } elseif ($this instanceof OptionElement) {
-            $class = 'col-md-3';
-            $options = $this->get('option', []);
-            foreach ($options as $value) {
-                if (is_array($value)) { // optgroup
-                    foreach ($value as $subvalue) {
-                        if (strlen($subvalue) > 20) {
-                            $class = 'col-md-4';
-                            break 2;
-                        }
-                    }
-                } elseif (strlen($value) > 20) {
-                    $class = 'col-md-4';
-                    break;
-                }
-            }
-        } else {
-            $size = $this->get('size', 0);
-            if ($size < 20) {
-//                $class = 'col-md-2';
-//            } elseif ($size < 30) {
-                $class = 'col-md-3';
-            } else {
-                $class = 'form-control';
-            }
-        }
-     */
-        $this->add('class', $class);
     }
 
     /**

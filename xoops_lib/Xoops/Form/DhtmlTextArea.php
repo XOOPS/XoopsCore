@@ -156,11 +156,11 @@ class DhtmlTextArea extends \XoopsEditor
     }
 
     /**
-     * Prepare HTML for output
+     * defaultRender
      *
-     * @return string HTML
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         if ($this->htmlEditor && is_object($this->htmlEditor)) {
             if (!isset($this->htmlEditor->isEnabled) || $this->htmlEditor->isEnabled) {
@@ -178,16 +178,15 @@ class DhtmlTextArea extends \XoopsEditor
         // fonts
         $ret .= $this->fontArray();
         // length checker
-        $ret .= '<button type="button" class="btn btn-xs btn-default" onclick="XoopsCheckLength(\''
+        $ret .= '<button type="button" onclick="XoopsCheckLength(\''
             . $this->getName() . '\', \'' . @$this->configs['maxlength'] . '\', \''
             . \XoopsLocale::F_CURRENT_TEXT_LENGTH . '\', \'' . \XoopsLocale::MAXIMUM_LENGTH . '\');"'
             . ' title="' . \XoopsLocale::CHECK_TEXT_LENGTH . '">'
-            . '<span class="glyphicon glyphicon-check"></span></button>';
+            . '<span>' . \XoopsLocale::CHECK_TEXT_LENGTH . '</span></button>';
         $ret .= "\n";
         // the textarea box
 
         $this->suppressRender(['value']);
-        $this->themeDecorateElement();
         $attributes = $this->renderAttributeString();
 
         $ret .= '<textarea ' . $attributes . $extra . '>' . $this->getValue() . "</textarea>\n";
@@ -198,7 +197,7 @@ class DhtmlTextArea extends \XoopsEditor
             } else {
                 $xoops->theme()->addScript('media/xoops/image.js', array('type' => 'text/javascript'));
             }
-            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . "class='btn btn-sm btn-default' value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int)($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
+            $button = "<input id='" . $this->getName() . "_preview_button' " . "type='button' " . " value='" . \XoopsLocale::A_PREVIEW . "' " . "onclick=\"form_instantPreview('" . XOOPS_URL . "', '" . $this->getName() . "','" . XOOPS_URL . "/images', " . (int)($this->doHtml) . ", '" . $xoops->security()->createToken() . "')\"" . " />";
             $ret .= "<br />" . "<div id='" . $this->getName() . "_hidden' style='display: block;'> " . "<fieldset>" . "<legend>" . $button . "</legend>" . "<div id='" . $this->getName() . "_hidden_data'>" . \XoopsLocale::CLICK_PREVIEW_TO_SEE_CONTENT . "</div>" . "</fieldset>" . "</div>";
         }
         // Load javascript

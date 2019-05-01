@@ -76,7 +76,7 @@ class Attributes extends \ArrayObject implements AttributeInterface
      *
      * @return void
      */
-    protected function suppressRender($names)
+    public function suppressRender($names)
     {
         $names = (array) $names;
         $this->suppressRenderAttributes = array_unique(

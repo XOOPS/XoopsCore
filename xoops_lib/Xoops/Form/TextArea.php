@@ -81,16 +81,13 @@ class TextArea extends Element
     }
 
     /**
-     * prepare HTML for output
+     * defaultRender
      *
-     * @return string HTML
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $this->suppressRender(['value']);
-
-        $this->themeDecorateElement();
-
         $attributes = $this->renderAttributeString();
         return '<textarea ' . $attributes . ' ' . $this->getExtra() .' >'
             . $this->getValue() . '</textarea>';

@@ -145,11 +145,11 @@ class ElementTray extends Element implements ContainerInterface
     }
 
     /**
-     * prepare HTML to output this group
+     * defaultRender
      *
-     * @return string HTML output
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $count = 0;
         $ret = "<div class=\"form-inline\">";

@@ -72,11 +72,11 @@ class GroupFormCheckbox extends Element
     }
 
     /**
-     * Renders checkbox options for this group
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $ele_name = $this->getName();
         $ret = '<table class="outer"><tr><td class="odd"><table><tr>';

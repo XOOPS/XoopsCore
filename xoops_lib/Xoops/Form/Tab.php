@@ -41,11 +41,11 @@ class Tab extends ElementTray
     }
 
     /**
-     * render
+     * defaultRender
      *
-     * @return string
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
         $ret = '';
         /* @var $ele Element */

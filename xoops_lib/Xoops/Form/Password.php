@@ -85,14 +85,12 @@ class Password extends Element
     }
 
     /**
-     * Prepare HTML for output
+     * defaultRender
      *
-     * @return string HTML
+     * @return string rendered form element
      */
-    public function render()
+    public function defaultRender()
     {
-        $this->themeDecorateElement();
-
         $attributes = $this->renderAttributeString();
         return '<input ' . $attributes . $this->getExtra() .' >';
     }

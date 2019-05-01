@@ -173,6 +173,13 @@ class XoopsTheme
      * @var boolean
      */
     public $headersCacheEngine = 'default';
+	
+	/**
+     * 
+     *$renderer instance of renderer
+     * 
+     */	
+	protected $renderer;
 
     /**
      * *#@-
@@ -303,6 +310,33 @@ class XoopsTheme
             }
         }
         return true;
+    }
+	
+    /**
+     * set the renderer
+     *
+     * @$renderer instance of renderer
+     *
+     * @return void
+     */
+    public function setRenderer($renderer)
+    {
+		$this->renderer = $renderer;
+    }
+	
+	/**
+     * get the renderer
+     *
+     * @return Renderer
+     */
+    public function renderer($element)
+    {
+        // return a default if not set
+        if (null === $this->renderer) {
+			return $element->defaultRender();
+		} else {
+			return $this->renderer->render($element);
+		}
     }
 
     /**
