@@ -62,7 +62,7 @@ class DhtmlTextArea extends \XoopsEditor
      *
      * @var string
      */
-    private $hiddenText;
+    public $hiddenText;
 
     /**
      * @var bool
