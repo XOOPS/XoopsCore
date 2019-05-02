@@ -20,16 +20,18 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Wmp extends ExtensionAbstract
 {
     /**
      * @var array default configuration values
      */
-    protected static $defaultConfiguration = ['enabled' => false];
+    protected static $defaultConfiguration = [
+        'enabled' => false,
+        'enable_wmp_entry' => false,  // false to disable entry button in editor, existing content will still play
+        ];
 
     /**
      * Provide button and javascript code used by the DhtmlTextArea
@@ -40,9 +42,13 @@ class Wmp extends ExtensionAbstract
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
+        if (false === $this->config['enable_wmp_entry']) {
+            return parent::getDhtmlEditorSupport($textAreaId);
+        }
+
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'wmp.gif',
+            'fa fa-fw fa-windows',
             \XoopsLocale::WMP,
             'xoopsCodeWmp',
             \XoopsLocale::WMP_URL,

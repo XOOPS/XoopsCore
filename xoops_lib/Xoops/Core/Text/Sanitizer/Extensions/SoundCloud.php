@@ -20,9 +20,8 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    iHackCode <https://github.com/ihackcode>
- * @copyright 2011-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2011-2019 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class SoundCloud extends ExtensionAbstract
 {
@@ -47,7 +46,7 @@ class SoundCloud extends ExtensionAbstract
     {
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'soundcloud.png',
+            'fa fa-fw fa-soundcloud',
             \XoopsLocale::SOUNDCLOUD,
             'xoopsCodeSoundCloud',
             \XoopsLocale::SOUNDCLOUD_URL

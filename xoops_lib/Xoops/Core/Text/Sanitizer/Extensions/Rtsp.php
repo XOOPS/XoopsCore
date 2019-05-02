@@ -20,9 +20,8 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Rtsp extends ExtensionAbstract
 {
@@ -31,6 +30,7 @@ class Rtsp extends ExtensionAbstract
      */
     protected static $defaultConfiguration = [
         'enabled' => false,
+        'enable_rtsp_entry' => false,  // false to disable entry button in editor, existing content will still play
     ];
 
     /**
@@ -42,9 +42,13 @@ class Rtsp extends ExtensionAbstract
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
+        if (false === $this->config['enable_rtsp_entry']) {
+            return parent::getDhtmlEditorSupport($textAreaId);
+        }
+
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'rtspimg.gif',
+            'fa fa-fw fa-comment-o',
             \XoopsLocale::REAL_PLAYER,
             'xoopsCodeRtsp',
             \XoopsLocale::RTSP_URL,

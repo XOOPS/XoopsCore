@@ -22,9 +22,8 @@ use Xoops\Core\Text\Sanitizer;
  * @author    Goghs Cheng (http://www.eqiao.com, http://www.devbeez.com/)
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
  * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
  */
 abstract class ExtensionAbstract extends SanitizerComponent
 {
@@ -48,35 +47,34 @@ abstract class ExtensionAbstract extends SanitizerComponent
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
-        return array('', '');
+        return ['', ''];
     }
 
     /**
      * Convenience method to create a button for the editor
      *
      * @param string $textAreaId id of element passed to onclick
-     * @param string $imageName  button image
+     * @param string $iconClass  button image
      * @param string $altText    text for alt attribute
      * @param string $onclick    javascript function should expect arguments as
-     *                            ($textAreaId, $varArgs1, $varArgs2 ...)
+     *                           ($textAreaId, $varArgs1, $varArgs2 ...)
      * @param string $varArgs    variable number of strings passed to onclick function
      *
      * @return string
      */
-    protected function getEditorButtonHtml($textAreaId, $imageName, $altText, $onclick, $varArgs)
+    protected function getEditorButtonHtml($textAreaId, $iconClass, $altText, $onclick, $varArgs)
     {
         $input = func_get_args();
         $prompts = array_slice($input, 4);
         $altText = $this->ts->escapeForJavascript($altText);
-        $url = \Xoops::getInstance()->url('images/form/' . $imageName);
 
-        $buttonCode = '<img src="' . $url .'"'
+        $buttonCode = '<button type="button" class="btn btn-default btn-sm" '
             . ' alt="' . $altText .'" title="' . $altText . '"'
             . ' onclick="' . $onclick . '(\'' . $textAreaId . '\'';
         foreach ($prompts as $prompt) {
             $buttonCode .= ', \'' . $this->ts->escapeForJavascript($prompt) . '\'';
         }
-        $buttonCode .= ');" />&nbsp;';
+        $buttonCode .= ');" /><span class="' . $iconClass . '" aria-hidden="true"></span></button>';
 
         return $buttonCode;
     }

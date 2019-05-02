@@ -55,7 +55,7 @@ class Bootstrap3Renderer implements RendererInterface
     {
 		if (false == $element->hasClassLike('btn')) {
 			$element->add('class', 'btn btn-default');
-		}		
+		}
 		$attributes = $element->renderAttributeString();
         return '<input ' . $attributes . $element->getExtra() .' >';
 	}
@@ -68,7 +68,7 @@ class Bootstrap3Renderer implements RendererInterface
      * @return string rendered form element
      */
 	protected function renderXoopsFormButtonTray(\Xoops\Form\ButtonTray $element):string
-    {		
+    {
 		$ret = '';
         $element->add('class', 'btn');
         $class = 'class="' . $element->getClass() . '"';
@@ -85,7 +85,7 @@ class Bootstrap3Renderer implements RendererInterface
             . ' <input ' . $attributes . $element->getExtra() . ' />';
         return $ret;
 	}
-	
+
 	/**
      * Render support for XoopsFormColorPicker
      *
@@ -119,7 +119,7 @@ class Bootstrap3Renderer implements RendererInterface
 
         return $ret;
 	}
-	
+
 	/**
      * Render support for XoopsFormDateSelect
      *
@@ -187,18 +187,12 @@ class Bootstrap3Renderer implements RendererInterface
         $extra = ($element->getExtra() != '' ? " " . $element->getExtra() : '');
         $ret = "";
         // actions
-        $ret .= $element->codeIcon() . "<br />\n";
+        $ret .= $element->xoopsCodeControls() . "<br />\n";
         // fonts
-        $ret .= $element->fontArray();
-        // length checker
-        $ret .= '<button type="button" class="btn btn-xs btn-default" onclick="XoopsCheckLength(\''
-            . $element->getName() . '\', \'' . @$element->configs['maxlength'] . '\', \''
-            . \XoopsLocale::F_CURRENT_TEXT_LENGTH . '\', \'' . \XoopsLocale::MAXIMUM_LENGTH . '\');"'
-            . ' title="' . \XoopsLocale::CHECK_TEXT_LENGTH . '">'
-            . '<span class="glyphicon glyphicon-check"></span></button>';
-        $ret .= "\n";
+        $ret .= $element->typographyControls();
+
         // the textarea box
-		$element->add('class', 'form-control');
+
         $element->suppressRender(['value']);
         $attributes = $element->renderAttributeString();
 
@@ -216,8 +210,8 @@ class Bootstrap3Renderer implements RendererInterface
         // Load javascript
         if (empty($js_loaded)) {
             $javascript = (($element->js)
-                ? '<script type="text/javascript">' . $element->js . '</script>'
-                : '') . '<script type="text/javascript" src="' . \XoopsBaseConfig::get('url') . '/include/formdhtmltextarea.js"></script>';
+                    ? '<script type="text/javascript">' . $element->js . '</script>'
+                    : '') . '<script type="text/javascript" src="' . \XoopsBaseConfig::get('url') . '/include/formdhtmltextarea.js"></script>';
             $ret = $javascript . $ret;
             $js_loaded = true;
         }
@@ -237,7 +231,7 @@ class Bootstrap3Renderer implements RendererInterface
 		$attributes = $element->renderAttributeString();
         return '<input ' . $attributes . $element->getExtra() .' >';
 	}
-	
+
 	/**
      * Render support for XoopsFormSelect
      *
@@ -272,7 +266,7 @@ class Bootstrap3Renderer implements RendererInterface
 
         return $ret;
 	}
-	
+
 	/**
      * Render support for XoopsFormText
      *
@@ -291,7 +285,7 @@ class Bootstrap3Renderer implements RendererInterface
         $attributes = $element->renderAttributeString();
         return '<input ' . $attributes . ' ' . $element->getExtra() .' >';
 	}
-	
+
 	/**
      * Render support for XoopsFormTextArea
      *

@@ -20,9 +20,8 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class YouTube extends ExtensionAbstract
 {
@@ -31,6 +30,7 @@ class YouTube extends ExtensionAbstract
      */
     protected static $defaultConfiguration = [
         'enabled' => true,
+        'enable_youtube_entry' => true,  // false to disable entry button in editor, existing content will still play
         'template' => '<div class="embed-responsive %4$s">
             <iframe class="embed-responsive-item" width="%2$d" height="%3$d" src="https://www.youtube.com/embed/%1$s" frameborder="0" allowfullscreen></iframe>
             </div>',
@@ -47,9 +47,13 @@ class YouTube extends ExtensionAbstract
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
+        if (false === $this->config['enable_youtube_entry']) {
+            return parent::getDhtmlEditorSupport($textAreaId);
+        }
+
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'youtube.gif',
+            'fa fa-fw fa-youtube',
             \XoopsLocale::YOUTUBE,
             'xoopsCodeYoutube',
             \XoopsLocale::YOUTUBE_URL,
