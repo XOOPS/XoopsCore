@@ -7,7 +7,7 @@ $xoops = Xoops::getInstance();
 $xoops->theme()->setNamedAsset('jqueryuicss', 'media/jquery/ui/themes/smoothness/jquery-ui.css');
 
 $xoops->theme()->addBaseScriptAssets(array(
-    'themes/default/assets/js/jquery.min.js',
+    '@jquery',
     'themes/default/assets/js/bootstrap.min.js',
     'themes/default/assets/js/ie10-viewport-bug-workaround.js',
 ));
