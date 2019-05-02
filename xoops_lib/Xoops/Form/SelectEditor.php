@@ -87,6 +87,6 @@ class SelectEditor extends ElementTray
         $option_select->set('onchange', $onchangeCode);
         $option_select->addOptionArray($editor_handler->getList($this->nohtml));
         $this->addElement($option_select);
-        return parent::render();
+        return parent::defaultRender();
     }
 }

@@ -318,19 +318,6 @@ class ElementTest extends \PHPUnit\Framework\TestCase
         $this->assertNotFalse($this->object->hasClassLike($stem));
     }
 
-    public function test_themeDecorateElement()
-    {
-        $class = 'class';
-        $this->object->set($class, 'span3');
-        $this->object->themeDecorateElement();
-        $this->assertNotFalse($this->object->hasClassLike('span3'));
-        $this->assertNotFalse($this->object->hasClassLike('form-control'));
-
-        $this->object->remove($class);
-        $this->object->themeDecorateElement();
-        $this->assertNotFalse($this->object->hasClassLike('form-control'));
-    }
-
     public function test_setWithDefaults()
     {
         $name = 'color';
