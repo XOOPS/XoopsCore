@@ -11,7 +11,7 @@
 
 namespace Xoops\Form;
 
-use Xoops\Html\Button;
+use Xoops\Html\Button as HtmlButton;
 
 /**
  * DhtmlTextArea - A textarea with xoopsish formatting and smilie buttons
@@ -214,7 +214,6 @@ class DhtmlTextArea extends \XoopsEditor
     public function xoopsCodeControls()
     {
         $textarea_id = $this->getName();
-        $xoops = \Xoops::getInstance();
         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
 
         $code = '';
@@ -222,7 +221,7 @@ class DhtmlTextArea extends \XoopsEditor
 
         $urlText = htmlspecialchars(\XoopsLocale::ENTER_LINK_URL, ENT_COMPAT);
         $titleText = htmlspecialchars(\XoopsLocale::ENTER_WEBSITE_TITLE, ENT_COMPAT);
-        $urlButton = new Button();
+        $urlButton = new HtmlButton();
         $urlButton->set('type', 'button')
             ->set('class', 'btn btn-default btn-sm')
             ->set('alt', \XoopsLocale::URL)
@@ -233,7 +232,7 @@ class DhtmlTextArea extends \XoopsEditor
         $code .= $urlButton->render();
 
         $emailText = htmlspecialchars(\XoopsLocale::ENTER_EMAIL, ENT_COMPAT);
-        $emailButton = new Button();
+        $emailButton = new HtmlButton();
         $emailButton->set('type', 'button')
             ->set('class', 'btn btn-default btn-sm')
             ->set('alt', \XoopsLocale::EMAIL)
@@ -248,7 +247,7 @@ class DhtmlTextArea extends \XoopsEditor
         $imgPosDescText  = htmlspecialchars(\XoopsLocale::IMAGE_POSITION_DESCRIPTION, ENT_COMPAT);
         $imgEPosText     = htmlspecialchars(\XoopsLocale::E_ENTER_IMAGE_POSITION, ENT_COMPAT);
         $imgWidthText    = htmlspecialchars(\XoopsLocale::WIDTH, ENT_COMPAT);
-        $imageButton = new Button();
+        $imageButton = new HtmlButton();
         $imageButton->set('type', 'button')
             ->set('class', 'btn btn-default btn-sm')
             ->set('alt', \XoopsLocale::IMAGES)
@@ -270,7 +269,7 @@ class DhtmlTextArea extends \XoopsEditor
         }
 
         $codeText = htmlspecialchars(\XoopsLocale::ENTER_CODE, ENT_COMPAT);
-        $codeButton = new Button();
+        $codeButton = new HtmlButton();
         $codeButton->set('type', 'button')
             ->set('class', 'btn btn-default btn-sm')
             ->set('alt', \XoopsLocale::SOURCE_CODE)
@@ -281,12 +280,12 @@ class DhtmlTextArea extends \XoopsEditor
         $code .= $codeButton->render();
 
         $quoteText = htmlspecialchars(\XoopsLocale::ENTER_QUOTE, ENT_COMPAT);
-        $quoteButton = new Button();
+        $quoteButton = new HtmlButton();
         $quoteButton->set('type', 'button')
             ->set('class', 'btn btn-default btn-sm')
             ->set('alt', \XoopsLocale::QUOTE)
             ->set('title', \XoopsLocale::QUOTE)
-            ->set('onclick', "xoopsCodeQuote(\"{$textarea_id}\", \"{$codeText}\")")
+            ->set('onclick', "xoopsCodeQuote(\"{$textarea_id}\", \"{$quoteText}\")")
             ->set('onmouseover', "style.cursor='hand'")
             ->set('value', '<span class="fa fa-fw fa-quote-right" aria-hidden="true"></span>');
         $code .= $quoteButton->render();
@@ -304,8 +303,6 @@ class DhtmlTextArea extends \XoopsEditor
 
     /**
      * Render typography controls for editor (font, size, color)
-     *
-     * @param XoopsFormDhtmlTextArea $element form element
      *
      * @return string rendered typography controls
      */
