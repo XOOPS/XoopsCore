@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__.'/../../../init_new.php');
 
-use Xoops\Html\Img;
+use Xoops\Html\Button;
 
 class ButtonTest extends \PHPUnit\Framework\TestCase
 {
