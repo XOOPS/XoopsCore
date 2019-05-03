@@ -91,7 +91,8 @@ class XoopsCode extends ExtensionAbstract
         $shortcodes->addShortcode(
             'email',
             function ($attributes, $content, $tagName) {
-                $newcontent = '<a href="mailto:' . trim($content) . '</a>';
+                $content = trim($content);
+                $newcontent = '<a href="mailto:' . $content . '">' . $content . '</a>';
                 return $newcontent;
             }
         );

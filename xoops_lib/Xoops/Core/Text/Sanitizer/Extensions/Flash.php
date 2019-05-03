@@ -20,9 +20,8 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Flash extends ExtensionAbstract
 {
@@ -35,6 +34,7 @@ class Flash extends ExtensionAbstract
         'template' => '<object type="application/x-shockwave-flash" data="%1$s" width="%2$d" height="%3$d"></object>',
         'fallback_width'  => "320",
         'fallback_height' => "240",
+        'enable_flash_entry' => false,  // false to disable entry button in editor, existing content will still play
     ];
 
     /**
@@ -46,9 +46,13 @@ class Flash extends ExtensionAbstract
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
+        if (false === $this->config['enable_flash_entry']) {
+            return parent::getDhtmlEditorSupport($textAreaId);
+        }
+
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'swf.gif',
+            'fa fa-fw fa-flash',
             \XoopsLocale::FLASH,
             'xoopsCodeFlash',
             \XoopsLocale::FLASH_URL,

@@ -95,10 +95,11 @@ class SmiliesProvider extends AbstractContract implements EmojiInterface
      */
     public function renderEmojiSelector(Response $response, $identifier)
     {
-        $selector =  '<img src="' . \XoopsBaseConfig::get('url') . '/images/smiley.gif" alt="'
+        $selector =  '<button type="button" class="btn btn-default btn-sm" alt="'
             . \XoopsLocale::SMILIES . '" title="' . \XoopsLocale::SMILIES . '" onclick=\'openWithSelfMain("'
             . \XoopsBaseConfig::get('url') . '/modules/smilies/include/popup.php?target=' . $identifier
-            . '","smilies",300,650);\' onmouseover=\'style.cursor="hand"\'/>&nbsp;';
+            . '","smilies",300,650);\' onmouseover=\'style.cursor="hand"\'>'
+            . '<span class="fa fa-fw fa-smile-o" aria-hidden="true"></span></button>';
 
         $response->setValue($selector);
     }

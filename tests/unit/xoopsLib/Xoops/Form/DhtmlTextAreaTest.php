@@ -35,9 +35,9 @@ class DhtmlTextAreaTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($value));
     }
 
-    public function testCodeIcon()
+    public function testXoopsCodeControls()
     {
-        $value = $this->object->codeIcon();
+        $value = $this->object->xoopsCodeControls();
         $this->assertTrue(is_string($value));
     }
 

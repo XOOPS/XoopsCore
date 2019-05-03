@@ -20,9 +20,9 @@ use Xoops\Core\AttributeInterface;
  * @category  Xoops\Html\Attributes
  * @package   Xoops\Html
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2014-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @link      https://xoops.org
  */
 class Attributes extends \ArrayObject implements AttributeInterface
 {
@@ -130,8 +130,10 @@ class Attributes extends \ArrayObject implements AttributeInterface
             } elseif ($value===null) {
                 // null indicates attribute minimization (name only,) like autofocus or readonly
                 $set = '';
+            } elseif (0 === strncmp($name, 'on', 2)) {
+                $set = '="' . str_replace('&amp;', '&', htmlspecialchars($value, ENT_COMPAT)) . '"';
             } else {
-                $set = '="' . htmlspecialchars($value, ENT_QUOTES) .'"';
+                $set = '="' . htmlspecialchars($value, ENT_QUOTES) . '"';
             }
             $rendered .= htmlspecialchars($name, ENT_QUOTES) . $set . ' ';
         }

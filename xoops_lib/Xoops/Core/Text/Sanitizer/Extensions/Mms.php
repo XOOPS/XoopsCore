@@ -20,16 +20,18 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Mms extends ExtensionAbstract
 {
     /**
      * @var array default configuration values
      */
-    protected static $defaultConfiguration = ['enabled' => false];
+    protected static $defaultConfiguration = [
+        'enabled' => false,
+        'enable_mms_entry' => false,  // false to disable entry button in editor, existing content will still play
+    ];
 
     /**
      * Provide button and javascript code used by the DhtmlTextArea
@@ -40,9 +42,13 @@ class Mms extends ExtensionAbstract
      */
     public function getDhtmlEditorSupport($textAreaId)
     {
+        if (false === $this->config['enable_mms_entry']) {
+            return parent::getDhtmlEditorSupport($textAreaId);
+        }
+
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'wmp.gif',
+            'fa fa-fw fa-server',
             \XoopsLocale::MMS,
             'xoopsCodeWmp',
             \XoopsLocale::MMS_URL,

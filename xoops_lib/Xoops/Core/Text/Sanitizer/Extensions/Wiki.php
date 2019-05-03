@@ -20,9 +20,8 @@ use Xoops\Core\Text\Sanitizer\ExtensionAbstract;
  * @category  Sanitizer
  * @package   Xoops\Core\Text
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Wiki extends ExtensionAbstract
 {
@@ -46,7 +45,7 @@ class Wiki extends ExtensionAbstract
     {
         $buttonCode = $this->getEditorButtonHtml(
             $textAreaId,
-            'wiki.gif',
+            'fa fa-fw fa-globe',
             \XoopsLocale::WIKI,
             'xoopsCodeWiki',
             \XoopsLocale::WIKI_WORD_TO_LINK
