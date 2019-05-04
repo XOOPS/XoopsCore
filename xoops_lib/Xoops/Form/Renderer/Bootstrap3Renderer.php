@@ -191,9 +191,9 @@ class Bootstrap3Renderer implements RendererInterface
         // fonts
         $ret .= $element->typographyControls();
 
-        // the textarea box
-
+        // the textarea box		
         $element->suppressRender(['value']);
+		$element->set('class', 'form-control');
         $attributes = $element->renderAttributeString();
 
         $ret .= '<textarea ' . $attributes . $extra . '>' . $element->getValue() . "</textarea>\n";
