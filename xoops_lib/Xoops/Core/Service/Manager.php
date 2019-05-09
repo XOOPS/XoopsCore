@@ -19,11 +19,8 @@ use Xmf\Yaml;
  * @category  Xoops\Core\Service\Manager
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2014 The XOOPS Project https://github.com/XOOPS/XoopsCore
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 1.0
- * @link      http://xoops.org
- * @since     2.6.0
+ * @copyright 2013-2019 The XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Manager
 {
@@ -66,7 +63,7 @@ class Manager
      *
      * @var array
      */
-    protected $services = array();
+    protected $services = [];
 
     /**
      * Provider Preferences - array keyed on service name, where each element is
@@ -77,9 +74,9 @@ class Manager
     protected $providerPrefs = null;
 
     /**
-     * @var string config file with provider prefs
+     * @var string config file with provider preferences
      */
-    private $providerPrefsFilename = 'var/configs/system_provider_prefs.yml';
+    private $providerPrefsFilename = 'var/configs/system_provider_preferences.yml';
 
     /**
      * @var string config cache key
@@ -119,21 +116,21 @@ class Manager
     {
         $xoops = \Xoops::getInstance();
 
-        $providerPrefs = array();
+        $preferences = [];
 
         try {
             $file = $xoops->path($this->providerPrefsFilename);
             if (file_exists($file)) {
-                $providerPrefs = Yaml::read($xoops->path($file));
+                $preferences = Yaml::read($file);
             }
-            if (empty($providerPrefs)) {
-                $providerPrefs = array();
+            if (empty($preferences)) {
+                $preferences = [];
             }
         } catch (\Exception $e) {
             $xoops->events()->triggerEvent('core.exception', $e);
-            $providerPrefs = array();
+            $preferences = [];
         }
-        return $providerPrefs;
+        return $preferences;
     }
 
     /**
@@ -144,11 +141,10 @@ class Manager
     protected function readProviderPrefs()
     {
         $xoops = \Xoops::getInstance();
-        $providerPrefs = $xoops->cache()->cacheRead(
+        return $xoops->cache()->cacheRead(
             $this->providerPrefsCacheKey,
-            array($this, 'readYamlProviderPrefs')
+            [$this, 'readYamlProviderPrefs']
         );
-        return $providerPrefs;
     }
 
     /**
@@ -186,11 +182,11 @@ class Manager
     public function saveChoice($service, $choices)
     {
         // read current preferences
-        $prefs = $this->readProviderPrefs();
-        // replace prefs for selected service
-        $prefs[$service] = $choices;
+        $preferences = $this->readProviderPrefs();
+        // replace preferences for selected service
+        $preferences[$service] = $choices;
         // save the changes
-        $this->saveProviderPrefs($prefs);
+        $this->saveProviderPrefs($preferences);
         // apply to current manager instance
         $this->registerChoice($service, $choices);
     }
@@ -220,7 +216,7 @@ class Manager
     }
 
     /**
-     * listChoices - list choices availabe for a named service
+     * listChoices - list choices available for a named service
      *
      * For MODE_CHOICE services, this can supply an array containing the
      * available choices. This array can be used to construct a user form
@@ -232,8 +228,7 @@ class Manager
      */
     public function listChoices($service)
     {
-        $providers = $this->locate($service)->getRegistered();
-        return $providers;
+        return $this->locate($service)->getRegistered();
     }
 
     /**
@@ -259,7 +254,7 @@ class Manager
             // get reference to the list of providers and prioritize it.
             $registered=$provider->getRegistered();
             if (count($registered)) {
-                $choices = isset($this->providerPrefs[$service]) ? $this->providerPrefs[$service] : array();
+                $choices = $this->providerPrefs[$service] ?? [];
                 foreach ($registered as $p) {
                     $name = strtolower($p->getName());
                     if (isset($choices[$name])) {
