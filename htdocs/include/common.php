@@ -87,10 +87,14 @@ $key = 'system/modules/autoload';
 $autoloadPrefixDirList = $xoops->cache()->cacheRead(
     $key,
     function () use ($xoops) {
-        $criteria = new CriteriaCompo(new Criteria('isactive', 1));
-        $criteria->add(new Criteria('namespace', '', '!='));
-        $moduleHandler = $xoops->getHandlerModule();
-        $autoloadModules = $moduleHandler->getObjectsArray($criteria);
+        try {
+            $criteria = new CriteriaCompo(new Criteria('isactive', 1));
+            $criteria->add(new Criteria('namespace', '', '!='));
+            $moduleHandler = $xoops->getHandlerModule();
+            $autoloadModules = $moduleHandler->getObjectsArray($criteria);
+        } catch (\Throwable $e) {
+            return [];
+        }
         $autoloadPrefixDirList = [];
         /** @var XoopsObject $almod */
         foreach ($autoloadModules as $almod) {
