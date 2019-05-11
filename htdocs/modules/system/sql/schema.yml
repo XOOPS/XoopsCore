@@ -725,7 +725,7 @@ tables:
                 type: string
                 default: ''
                 notnull: true
-                length: 25
+                length: 32
                 precision: 10
                 scale: 0
                 fixed: false
@@ -812,55 +812,53 @@ tables:
                 autoincrement: false
                 columnDefinition: null
                 comment: null
+            namespace:
+                name: namespace
+                type: string
+                default: null
+                notnull: false
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8mb4_unicode_ci
+            category:
+                name: category
+                type: string
+                default: null
+                notnull: false
+                length: 255
+                precision: 10
+                scale: 0
+                fixed: false
+                unsigned: false
+                autoincrement: false
+                columnDefinition: null
+                comment: null
+                collation: utf8mb4_unicode_ci
         indexes:
             PRIMARY:
                 name: PRIMARY
                 columns: [mid]
                 unique: true
                 primary: true
-            modules_hasmain:
-                name: modules_hasmain
-                columns: [hasmain]
-                unique: false
-                primary: false
-            modules_hasadmin:
-                name: modules_hasadmin
-                columns: [hasadmin]
-                unique: false
-                primary: false
-            modules_hassearch:
-                name: modules_hassearch
-                columns: [hassearch]
-                unique: false
-                primary: false
-            modules_hasnotification:
-                name: modules_hasnotification
-                columns: [hasnotification]
-                unique: false
-                primary: false
-            modules_dirname:
+            module_dirname:
                 name: modules_dirname
                 columns: [dirname]
-                unique: false
+                unique: true
                 primary: false
-            modules_name:
+            module_name:
                 name: modules_name
                 columns: [name]
                 unique: false
                 primary: false
-            modules_isactive:
-                name: modules_isactive
-                columns: [isactive]
-                unique: false
-                primary: false
-            modules_weight:
+            module_weight:
                 name: modules_weight
                 columns: [weight]
-                unique: false
-                primary: false
-            modules_hascomments:
-                name: modules_hascomments
-                columns: [hascomments]
                 unique: false
                 primary: false
     system_online:
@@ -2009,11 +2007,6 @@ tables:
             users_uiduname:
                 name: users_uiduname
                 columns: [uid, uname]
-                unique: false
-                primary: false
-            users_unamepass:
-                name: users_unamepass
-                columns: [uname, pass]
                 unique: false
                 primary: false
             users_level:

@@ -16,6 +16,9 @@
 
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
+use Patchwork\Utf8\Bootup;
 
 /**
  * Include XoopsLoad - this should have been done in mainfile.php, but there is
@@ -51,9 +54,9 @@ include_once __DIR__ . '/defines.php';
 /**
  * We now have autoloader, so start Patchwork\UTF8
  */
-\Patchwork\Utf8\Bootup::initAll(); // Enables the portablity layer and configures PHP for UTF-8
-\Patchwork\Utf8\Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
-\Patchwork\Utf8\Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
+Bootup::initAll(); // Enables the portability layer and configures PHP for UTF-8
+Bootup::filterRequestUri(); // Redirects to an UTF-8 encoded URL if it's not already the case
+Bootup::filterRequestInputs(); // Normalizes HTTP inputs to UTF-8 NFC
 
 /**
  * Create Instance of Xoops Object
@@ -75,9 +78,32 @@ $xoops->events();
 
 $psr4loader = new \Xoops\Core\Psr4ClassLoader();
 $psr4loader->register();
-// listeners respond with $arg->addNamespace($namespace, $directory);
+// listeners should respond with "$arg->addNamespace($namespace, $directory);"
 $xoops->events()->triggerEvent('core.include.common.psr4loader', $psr4loader);
 $xoops->events()->triggerEvent('core.include.common.classmaps');
+// add autoloader for any $modversion['namespace'] to dirname/src
+$key = 'system/modules/autoload';
+//$xoops->cache()->delete($key);
+$autoloadPrefixDirList = $xoops->cache()->cacheRead(
+    $key,
+    function () use ($xoops) {
+        $criteria = new CriteriaCompo(new Criteria('isactive', 1));
+        $criteria->add(new Criteria('namespace', '', '!='));
+        $moduleHandler = $xoops->getHandlerModule();
+        $autoloadModules = $moduleHandler->getObjectsArray($criteria);
+        $autoloadPrefixDirList = [];
+        /** @var XoopsObject $almod */
+        foreach ($autoloadModules as $almod) {
+            $prefix = $almod->getVar('namespace');
+            $base_dir = $xoops->path('modules/' . $almod->getVar('dirname') . '/src');
+            $autoloadPrefixDirList[] = [$prefix, $base_dir];
+        }
+        return $autoloadPrefixDirList;
+    }
+);
+foreach ($autoloadPrefixDirList as $almod) {
+    $psr4loader->addNamespace($almod[0], $almod[1]);
+}
 
 /**
  * Create Instance of xoopsSecurity Object and check super globals
@@ -97,7 +123,7 @@ if (!defined('XOOPS_XMLRPC')) {
 }
 
 if ('POST' !== \Xmf\Request::getMethod() || !$xoopsSecurity->checkReferer(XOOPS_DB_CHKREF)) {
-    define ('XOOPS_DB_PROXY', 1);
+    define('XOOPS_DB_PROXY', 1);
 }
 
 /**
@@ -107,7 +133,7 @@ if ('POST' !== \Xmf\Request::getMethod() || !$xoopsSecurity->checkReferer(XOOPS_
  */
 $xoops->db();
 //For Legacy support
-$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection(true);
+$xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
 
 $xoops->events()->triggerEvent('core.include.common.start');
 
@@ -151,7 +177,7 @@ $xoops->gzipCompression();
 /**
  * clickjack protection - Add option to HTTP header restricting using site in an iframe
  */
-$xFrameOptions =  isset($xoopsConfig['xFrameOptions']) ? $xoopsConfig['xFrameOptions'] : 'sameorigin';
+$xFrameOptions = $xoopsConfig['xFrameOptions'] ?? 'sameorigin';
 $xoops->events()->triggerEvent('core.include.common.xframeoption');
 if (!headers_sent() && !empty($xFrameOptions)) {
     header('X-Frame-Options: ' .$xFrameOptions);

@@ -15,6 +15,7 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\Handlers\XoopsBlock;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
+use Xoops\Core\Psr4ClassLoader;
 use Xoops\Module\Plugin\ConfigCollector;
 use Xmf\Yaml;
 use Doctrine\DBAL\DBALException;
@@ -211,6 +212,7 @@ class SystemModule
             $module->setVar('weight', 1);
             $module->setVar('isactive', 1);
             $module->setVar('last_update', time());
+            $this->addTemporaryAutoloader($module);
             $install_script = $module->getInfo('onInstall');
             if ($install_script && trim($install_script) != '') {
                 XoopsLoad::loadFile($xoops->path('modules/' . $mod . '/' . trim($install_script)));
@@ -466,7 +468,7 @@ class SystemModule
      *
      * @param string $mod module dirname
      *
-     * @return bool|XoopsModule false on failure, module context on success
+     * @return false|XoopsModule false on failure, module context on success
      */
     public function uninstall($mod = '')
     {
@@ -604,6 +606,7 @@ class SystemModule
         $module->loadInfoAsVar($module->getVar('dirname'));
         $module->setVar('name', $temp_name);
         $module->setVar('last_update', time());
+        $this->addTemporaryAutoloader($module);
 
         if (!$module_handler->insertModule($module)) {
             $this->error[] = sprintf(XoopsLocale::EF_NOT_UPDATED, "<strong>" . $module->getVar('name') . "</strong>");
@@ -1187,5 +1190,29 @@ class SystemModule
             }
             unset($configs);
         }
+    }
+
+    /**
+     * addTemporaryAutoloader
+     *
+     * Add an autoloader for the module being installed or updated.
+     * This makes the module's autoloaded classes available for use
+     * in onInstall/onUpdate scripts.
+     *
+     * @param XoopsModule $module module object here namespace is defined
+     *
+     * @return void
+     */
+    protected function addTemporaryAutoloader(XoopsModule $module) : void
+    {
+        $prefix = $module->getVar('namespace');
+        if (empty($prefix)) {
+            return;
+        }
+        $xoops = Xoops::getInstance();
+        $base_dir = $xoops->path('modules/' . $module->getVar('dirname') . '/src');
+        $loader = new Psr4ClassLoader;
+        $loader->register();
+        $loader->addNamespace($prefix, $base_dir);
     }
 }

@@ -18,6 +18,7 @@
 
 namespace Xoops\Core\Kernel\Handlers;
 
+use Xoops\Core\XoopsArray;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 
@@ -28,14 +29,13 @@ use Xoops\Core\Kernel\XoopsObject;
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsModule extends XoopsObject
 {
     /**
-     * @var string
+     * @var array
      */
     public $modinfo;
 
@@ -63,14 +63,15 @@ class XoopsModule extends XoopsObject
         $this->initVar('last_update', Dtype::TYPE_INTEGER, null, false);
         $this->initVar('weight', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('isactive', Dtype::TYPE_INTEGER, 1, false);
-        $this->initVar('dirname', Dtype::TYPE_OTHER, null, true);
+        $this->initVar('dirname', Dtype::TYPE_TEXT_BOX, null, true);
         $this->initVar('hasmain', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('hasadmin', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('hassearch', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('hasconfig', Dtype::TYPE_INTEGER, 0, false);
         $this->initVar('hascomments', Dtype::TYPE_INTEGER, 0, false);
-        // RMV-NOTIFY
         $this->initVar('hasnotification', Dtype::TYPE_INTEGER, 0, false);
+        $this->initVar('namespace', Dtype::TYPE_TEXT_BOX, null, true);
+        $this->initVar('category', Dtype::TYPE_TEXT_BOX, null, true);
 
         $this->xoops_url = \XoopsBaseConfig::get('url');
         $this->xoops_root_path = \XoopsBaseConfig::get('root-path');
@@ -91,7 +92,9 @@ class XoopsModule extends XoopsObject
         if (!isset($this->modinfo)) {
             $this->loadInfo($dirname, $verbose);
         }
-        $this->setVar('name', $this->modinfo['name']);
+
+        $modInfoArray = new XoopsArray($this->modinfo);
+        $this->setVar('name', $modInfoArray->get('name'));
         // see @todo
         $versionPieces = explode('.', $this->modinfo['version']);
         if (count($versionPieces) > 2) {
@@ -99,21 +102,15 @@ class XoopsModule extends XoopsObject
         }
         $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)));
         $this->setVar('dirname', $this->modinfo['dirname']);
-        $hasmain = (isset($this->modinfo['hasMain']) && $this->modinfo['hasMain'] == 1) ? 1 : 0;
-        $hasadmin = (isset($this->modinfo['hasAdmin']) && $this->modinfo['hasAdmin'] == 1) ? 1 : 0;
-        $hassearch = (isset($this->modinfo['hasSearch']) && $this->modinfo['hasSearch'] == 1) ? 1 : 0;
-        $hasconfig = ((isset($this->modinfo['config']) && is_array($this->modinfo['config']))
-            || !empty($this->modinfo['hasComments'])) ? 1 : 0;
-        $hascomments = (isset($this->modinfo['hasComments']) && $this->modinfo['hasComments'] == 1) ? 1 : 0;
-        // RMV-NOTIFY
-        $hasnotification = (isset($this->modinfo['hasNotification']) && $this->modinfo['hasNotification'] == 1) ? 1 : 0;
-        $this->setVar('hasmain', $hasmain);
-        $this->setVar('hasadmin', $hasadmin);
-        $this->setVar('hassearch', $hassearch);
-        $this->setVar('hasconfig', $hasconfig);
-        $this->setVar('hascomments', $hascomments);
-        // RMV-NOTIFY
-        $this->setVar('hasnotification', $hasnotification);
+
+        $this->setVar('hasmain', (bool) $modInfoArray->get('hasmain', false));
+        $this->setVar('hasadmin', (bool) $modInfoArray->get('hasadmin', false));
+        $this->setVar('hassearch', (bool) $modInfoArray->get('hassearch', false));
+        $this->setVar('hasconfig', ($modInfoArray->has('config') && is_array($modInfoArray->get('config'))) || (bool) $modInfoArray->get('hascomments', false));
+        $this->setVar('hascomments', (bool) $modInfoArray->get('hascomments', false));
+        $this->setVar('hasnotification', (bool) $modInfoArray->get('hasnotification', false));
+        $this->setVar('namespace', $modInfoArray->get('namespace'));
+        $this->setVar('category', $modInfoArray->get('category'));
     }
 
     /**
