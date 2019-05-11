@@ -90,7 +90,9 @@ class XoopsModule extends XoopsObject
     {
         $dirname = basename($dirname);
         if (!isset($this->modinfo)) {
-            $this->loadInfo($dirname, $verbose);
+            if (false === $this->loadInfo($dirname, $verbose)) {
+                return;
+            }
         }
 
         $modInfoArray = new XoopsArray($this->modinfo);
