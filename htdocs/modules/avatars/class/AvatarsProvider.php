@@ -87,8 +87,8 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                     && 'blank.gif' !== $userinfo->getVar('user_avatar')
                 ) {
                     $response->setValue($this->xoops_upload_url . "/" . $userinfo->getVar('user_avatar'));
+                    $noInfo = false;
                 }
-                $noInfo = false;
             }
         } elseif (is_array($userinfo)) {
             if (!empty($userinfo['user_avatar']) && $userinfo['user_avatar'] !== 'blank.gif') {
@@ -102,8 +102,8 @@ class AvatarsProvider extends AbstractContract implements AvatarInterface
                     && 'blank.gif' !== $user->getVar('user_avatar')
                 ) {
                     $response->setValue($this->xoops_upload_url . "/" . $user->getVar('user_avatar'));
+                    $noInfo = false;
                 }
-                $noInfo = false;
             }
         }
         if ($noInfo) {
