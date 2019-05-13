@@ -335,9 +335,9 @@ class Admin
     /**
      * Add line to the info box
      *
-     * @param string $text  title
-     * @param string $type  type
-     * @param string $color color
+     * @param string $text  line text
+     * @param string $type  icon
+     * @param string $color css class
      *
      * @return bool
      */
