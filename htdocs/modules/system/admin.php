@@ -15,11 +15,10 @@ use Xoops\Core\FixedGroups;
 /**
  * System admin
  *
- * @copyright   XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright   2000-2019 XOOPS Project (https://xoops.org)
+ * @license     GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
- * @version     $Id$
  */
 
 // Include header
@@ -100,7 +99,7 @@ if (false != $error) {
     // Define Stylesheet
     $xoops->theme()->addStylesheet('modules/system/css/admin.css');
     // Define scripts
-    $xoops->theme()->addBaseScriptAssets('@jquery.');
+    $xoops->theme()->addBaseScriptAssets('@jquery');
     $xoops->theme()->addBaseScriptAssets('modules/system/js/admin.js');
     // Define Breadcrumb and tips
     $admin_page = new \Xoops\Module\Admin();
