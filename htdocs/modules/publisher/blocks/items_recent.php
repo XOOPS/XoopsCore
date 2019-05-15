@@ -20,14 +20,26 @@
  * @version         $Id$
  */
 
-include_once dirname(__DIR__) . '/include/common.php';
+use Xoops\Core\Text\Sanitizer;
+use Xoops\Form\BlockForm;
+use Xoops\Form\Label;
+use Xoops\Form\Select;
+use Xoops\Form\Text;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
 
+require_once dirname(__DIR__) . '/include/common.php';
+
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_items_recent_show($options)
 {
-    $publisher = Publisher::getInstance();
-    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
+    $helper = Helper::getInstance();
+    $myts   = Sanitizer::getInstance();
 
-    $block = array();
+    $block = [];
 
     $selectedcatids = explode(',', $options[0]);
 
@@ -37,8 +49,8 @@ function publisher_items_recent_show($options)
         $allcats = false;
     }
 
-    $sort = $options[1];
-    $order = PublisherUtils::getOrderBy($sort);
+    $sort  = $options[1];
+    $order = Publisher\Utils::getOrderBy($sort);
     $limit = $options[2];
     $start = 0;
 
@@ -49,50 +61,51 @@ function publisher_items_recent_show($options)
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('categoryid', '(' . $options[0] . ')', 'IN'));
     }
-    $itemsObj = $publisher->getItemHandler()->getItems($limit, $start, array(_PUBLISHER_STATUS_PUBLISHED), -1, $sort, $order, '', true, $criteria, true);
-
-    $totalItems = count($itemsObj);
+    $itemsObj = $helper->getItemHandler()->getItems($limit, $start, [_PUBLISHER_STATUS_PUBLISHED], -1, $sort, $order, '', true, $criteria, true);
 
     if ($itemsObj) {
-        for ($i = 0; $i < $totalItems; ++$i) {
+        foreach ($itemsObj as $iValue) {
 
-            $newItems['itemid'] = $itemsObj[$i]->getVar('itemid');
-            $newItems['title'] = $itemsObj[$i]->title();
-            $newItems['categoryname'] = $itemsObj[$i]->getCategoryName();
-            $newItems['categoryid'] = $itemsObj[$i]->getVar('categoryid');
-            $newItems['date'] = $itemsObj[$i]->datesub();
-            $newItems['poster'] = $itemsObj[$i]->linkedPosterName();
-            $newItems['itemlink'] = $itemsObj[$i]->getItemLink(false, isset($options[3]) ? $options[3] : 65);
-            $newItems['categorylink'] = $itemsObj[$i]->getCategoryLink();
+            $newItems['itemid']       = $iValue->getVar('itemid');
+            $newItems['title']        = $iValue->title();
+            $newItems['categoryname'] = $iValue->getCategoryName();
+            $newItems['categoryid']   = $iValue->getVar('categoryid');
+            $newItems['date']         = $iValue->datesub();
+            $newItems['poster']       = $iValue->linkedPosterName();
+            $newItems['itemlink']     = $iValue->getItemLink(false, $options[3] ?? 65);
+            $newItems['categorylink'] = $iValue->getCategoryLink();
 
             $block['items'][] = $newItems;
         }
 
-        $block['lang_title'] = _MB_PUBLISHER_ITEMS;
-        $block['lang_category'] = _MB_PUBLISHER_CATEGORY;
-        $block['lang_poster'] = _MB_PUBLISHER_POSTEDBY;
-        $block['lang_date'] = _MB_PUBLISHER_DATE;
-        $modulename = $myts->displayTarea($publisher->getModule()->getVar('name'));
-        $block['lang_visitItem'] = _MB_PUBLISHER_VISITITEM . " " . $modulename;
+        $block['lang_title']     = _MB_PUBLISHER_ITEMS;
+        $block['lang_category']  = _MB_PUBLISHER_CATEGORY;
+        $block['lang_poster']    = _MB_PUBLISHER_POSTEDBY;
+        $block['lang_date']      = _MB_PUBLISHER_DATE;
+        $modulename              = $myts->displayTarea($helper->getModule()->getVar('name'));
+        $block['lang_visitItem'] = _MB_PUBLISHER_VISITITEM . ' ' . $modulename;
     }
 
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function publisher_items_recent_edit($options)
 {
-    $form = new Xoops\Form\BlockForm();
+    $form = new BlockForm();
 
-    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
-    $orderEle = new Xoops\Form\Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
-    $orderEle->addOptionArray(array(
-        'datesub' => _MB_PUBLISHER_DATE,
-        'counter' => _MB_PUBLISHER_HITS,
-        'weight'  => _MB_PUBLISHER_WEIGHT,
-    ));
-    $dispEle = new Xoops\Form\Text(_MB_PUBLISHER_DISP, 'options[2]', 2, 255, $options[2]);
-    $charsEle = new Xoops\Form\Text(_MB_PUBLISHER_CHARS, 'options[3]', 2, 255, $options[3]);
-
+    $catEle   = new Label(_MB_PUBLISHER_SELECTCAT, Publisher\Utils::createCategorySelect($options[0], 0, true, 'options[0]'));
+    $orderEle = new Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
+    $orderEle->addOptionArray([
+                                  'datesub' => _MB_PUBLISHER_DATE,
+                                  'counter' => _MB_PUBLISHER_HITS,
+                                  'weight'  => _MB_PUBLISHER_WEIGHT,
+                              ]);
+    $dispEle  = new Text(_MB_PUBLISHER_DISP, 'options[2]', 2, 255, $options[2]);
+    $charsEle = new Text(_MB_PUBLISHER_CHARS, 'options[3]', 2, 255, $options[3]);
 
     $form->addElement($catEle);
     $form->addElement($orderEle);

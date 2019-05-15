@@ -1,5 +1,5 @@
 <h2><{$smarty.const._MD_PUBLISHER_ITEMS_SAME_AUTHOR}> <{$author_name_with_link}></h2>
-<br/><img src='<{$user_avatarurl}>' border='0' alt=''/><br/>
+<br><img src='<{$user_avatarurl}>' border='0' alt=''><br>
 <table width='100%' border='0'>
 
     <{if $total_items == 0}>

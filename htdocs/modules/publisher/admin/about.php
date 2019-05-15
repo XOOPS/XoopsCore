@@ -19,12 +19,14 @@
  * @author       Mage, Mamba
  * @version      $Id$
  */
+use Xoops\Module\Admin;
 
-include __DIR__ . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
+
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$aboutAdmin = new \Xoops\Module\Admin();
+$aboutAdmin = new Admin();
 $aboutAdmin->displayNavigation('about.php');
 $aboutAdmin->displayAbout(false);
 

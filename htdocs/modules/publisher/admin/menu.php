@@ -19,63 +19,80 @@
  * @version         $Id$
  */
 
-include_once dirname(__DIR__) . '/include/common.php';
+use XoopsModules\Publisher\Helper;
 
-$publisher = Publisher::getInstance();
-$publisher->loadLanguage('admin');
+require_once dirname(__DIR__) . '/include/common.php';
+
+$helper = Helper::getInstance();
+$helper->loadLanguage('admin');
 
 $i = 0;
 
 // Index
-$adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU0;
-$adminmenu[$i]['link'] = "admin/index.php";
-$adminmenu[$i]["icon"] = 'home.png';
-++$i;
+$adminmenu[] = [
+    'title' => _MI_PUBLISHER_ADMENU0,
+    'link'  => 'admin/index.php',
+    'icon'  => 'home.png',
+];
 
-$adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU1;
-$adminmenu[$i]['link'] = "admin/main.php";
-$adminmenu[$i]["icon"] = 'manage.png';
-++$i;
+$adminmenu[] = [
+    'title' => _MI_PUBLISHER_ADMENU1,
+    'link'  => 'admin/main.php',
+    'icon'  => 'manage.png',
+];
 
 // Category
-$adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU2;
-$adminmenu[$i]['link'] = "admin/category.php";
-$adminmenu[$i]['icon'] = 'category.png';
-++$i;
+$adminmenu[] = [
+    'title' => _MI_PUBLISHER_ADMENU2,
+    'link'  => 'admin/category.php',
+    'icon'  => 'category.png',
+];
 
 // Items
-$adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU3;
-$adminmenu[$i]['link'] = "admin/item.php";
-$adminmenu[$i]["icon"] = 'content.png';
-++$i;
+$adminmenu[] = [
+    'title' => _MI_PUBLISHER_ADMENU3,
+    'link'  => 'admin/item.php',
+    'icon'  => 'content.png',
+];
 
 // Permissions
-$adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU4;
-$adminmenu[$i]['link'] = "admin/permissions.php";
-$adminmenu[$i]["icon"] = 'permissions.png';
-++$i;
+$adminmenu[] = [
+    'title' => _MI_PUBLISHER_ADMENU4,
+    'link'  => 'admin/permissions.php',
+    'icon'  => 'permissions.png',
+];
 
 // Mimetypes
-$adminmenu[$i]['title'] = _MI_PUBLISHER_ADMENU6;
-$adminmenu[$i]['link'] = "admin/mimetypes.php";
-$adminmenu[$i]["icon"] = 'type.png';
-++$i;
+$adminmenu[] = [
+    'title' => _MI_PUBLISHER_ADMENU6,
+    'link'  => 'admin/mimetypes.php',
+    'icon'  => 'type.png',
+];
+
 /*
-$adminmenu[$i]['title'] = _AM_PUBLISHER_COMMENTS;
-$adminmenu[$i]['link'] = '../../modules/system/admin.php?fct=comments&amp;module=' . $publisher->getModule()->getVar('mid');
+$adminmenu[] = [
+'title' => _AM_PUBLISHER_COMMENTS,
+'link' => '../../modules/system/admin.php?fct=comments&amp;module=' . $helper->getModule()->getVar('mid'),
 $adminmenu[$i]["icon"] = 'folder_txt.png';
-++$i;*/
+];
 
-$adminmenu[$i]['title'] = _AM_PUBLISHER_IMPORT;
-$adminmenu[$i]['link'] = "admin/import.php";
-$adminmenu[$i]["icon"] = 'download.png';
-++$i;
+*/
 
-$adminmenu[$i]['title'] = _AM_PUBLISHER_CLONE;
-$adminmenu[$i]['link'] = "admin/clone.php";
-$adminmenu[$i]["icon"] = 'wizard.png';
-++$i;
+$adminmenu[] = [
+    'title' => _AM_PUBLISHER_IMPORT,
+    'link'  => 'admin/import.php',
+    'icon'  => 'download.png',
+];
 
-$adminmenu[$i]['title'] = _AM_PUBLISHER_ABOUT;
-$adminmenu[$i]['link'] = "admin/about.php";
-$adminmenu[$i]["icon"] = 'about.png';
+$adminmenu[] = [
+    'title' => _AM_PUBLISHER_CLONE,
+    'link'  => 'admin/clone.php',
+    'icon'  => 'wizard.png',
+];
+
+$adminmenu[] = [
+    'title' => _AM_PUBLISHER_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => 'about.png',
+];
+

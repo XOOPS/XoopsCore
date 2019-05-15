@@ -1,4 +1,5 @@
 <?php
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -19,11 +20,15 @@
  * @version         $Id$
  */
 
-include_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
+
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $xoops = Xoops::getInstance();
-$publisher = Publisher::getInstance();
-$publisher->loadLanguage('modinfo');
+
+$helper = Helper::getInstance();
+$helper->loadLanguage('modinfo');
 
 XoopsLoad::loadFile($xoops->path(dirname(__DIR__) . '/include/common.php'));
-XoopsLoad::loadFile($xoops->path(XOOPS_ROOT_PATH . '/include/cp_header.php'));
+//XoopsLoad::loadFile($xoops->path(XOOPS_ROOT_PATH . '/include/cp_header.php'));

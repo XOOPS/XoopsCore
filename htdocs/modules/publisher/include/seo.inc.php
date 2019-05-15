@@ -18,36 +18,35 @@
  * @author          Sudhaker Raj <http://xoops.biz>
  * @version         $Id$
  */
+use XoopsModules\Publisher\Helper;
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once dirname(__DIR__) . '/include/common.php';
 
-$publisher = Publisher::getInstance();
+$helper = Helper::getInstance();
 
 $seoOp = @$_GET['seoOp'];
 $seoArg = @$_GET['seoArg'];
 
 if (empty($seoOp) && @$_SERVER['PATH_INFO']) {
-
     // SEO mode is path-info
     /*
     Sample URL for path-info
     http://localhost/modules/publisher/seo.php/item.2/can-i-turn-the-ads-off.html
     */
-    $data = explode("/", $_SERVER['PATH_INFO']);
+    $data = explode('/', $_SERVER['PATH_INFO']);
 
     $seoParts = explode('.', $data[1]);
     $seoOp = $seoParts[0];
     $seoArg = $seoParts[1];
     // for multi-argument modules, where itemid and catid both are required.
     // $seoArg = substr($data[1], strlen($seoOp) + 1);
-
 }
 
-$seoMap = array(
+$seoMap = [
     'category' => 'category.php',
     'item' => 'item.php',
-    'print' => 'print.php'
-);
+    'print' => 'print.php',
+];
 
 if (!empty($seoOp) && isset($seoMap[$seoOp])) {
     // module specific dispatching logic, other module must implement as
@@ -72,6 +71,6 @@ if (!empty($seoOp) && isset($seoMap[$seoOp])) {
             $_GET['itemid'] = $seoArg;
             $_REQUEST['itemid'] = $seoArg;
     }
-    include $publisher->path($seoMap[$seoOp]);
+    include $helper->path($seoMap[$seoOp]);
     exit;
 }

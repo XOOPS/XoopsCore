@@ -16,16 +16,16 @@
     <tr>
         <td class="even" align="left">
             <{if $category.image_path}> <{if $isAdmin == 1}>
-            <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$category.categoryid}>"><img src="<{$category.image_path}>" title="<{$smarty.const._MD_PUBLISHER_CATEGORY_EDIT}>" alt="<{$lang_editcategory|default:''}>"/></a>&nbsp; <{else}>
-            <img src="<{$category.image_path}>" alt="<{$category.name}>"/>&nbsp; <{/if}>                <!-- End with a selected image path -->                <{else}>                <!-- Start without a selected image path -->                    <{if $isAdmin == 1}>
-            <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$category.categoryid}>"><img src="<{$publisher_url}>/images/links/cat.gif" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"/></a>&nbsp; <{else}>
-            <img src="<{$publisher_url}>/images/links/cat.gif" alt="<{$category.name}>"/>&nbsp; <{/if}>                <!-- End without a selected image path -->                <{/if}>
+            <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$category.categoryid}>"><img src="<{$category.image_path}>" title="<{$smarty.const._MD_PUBLISHER_CATEGORY_EDIT}>" alt="<{$lang_editcategory|default:''}>"></a>&nbsp; <{else}>
+            <img src="<{$category.image_path}>" alt="<{$category.name}>">&nbsp; <{/if}>                <!-- End with a selected image path -->                <{else}>                <!-- Start without a selected image path -->                    <{if $isAdmin == 1}>
+            <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$category.categoryid}>"><img src="<{$publisher_url}>/images/links/cat.gif" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"></a>&nbsp; <{else}>
+            <img src="<{$publisher_url}>/images/links/cat.gif" alt="<{$category.name}>">&nbsp; <{/if}>                <!-- End without a selected image path -->                <{/if}>
 
-            <{if $selected_category|default:false == $category.categoryid}>
+            <{if $selected_category|default:false === $category.categoryid}>
             <strong><{$category.name}></strong> <{else}>
             <strong><{$category.categorylink}></strong> <{/if}>
 
-            <br/>
+            <br>
             <span class="publisher_category_dsc"><{$category.description}></span>
         </td>
         <{if $displayarticlescount}>
@@ -41,10 +41,10 @@
         <td class="odd" align="left">
             <div style="padding-left: 10px;">
                 <{if $subcat.image_path}> <{if $isAdmin == 1}>
-                <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$subcat.categoryid}>"><img src="<{$subcat.image_path}>" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"/></a>&nbsp;<{$subcat.categorylink}> <{else}>
-                <img src="<{$subcat.image_path}>" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"/>&nbsp;<{$subcat.categorylink}> <{/if}>                            <!-- End with a selected image path -->                            <{else}>                            <!-- Start without a selected image path -->                                <{if $isAdmin == 1}>
-                <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$subcat.categoryid}>"><img src="<{$publisher_url}>/images/links/subcat.gif" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"/></a>&nbsp;<{$subcat.categorylink}> <{else}>
-                <img src="<{$publisher_url}>/images/links/subcat.gif" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"/>&nbsp;<{$subcat.categorylink}> <{/if}> <{if $displaysubcatdsc == 1}>
+                <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$subcat.categoryid}>"><img src="<{$subcat.image_path}>" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"></a>&nbsp;<{$subcat.categorylink}> <{else}>
+                <img src="<{$subcat.image_path}>" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>">&nbsp;<{$subcat.categorylink}> <{/if}>                            <!-- End with a selected image path -->                            <{else}>                            <!-- Start without a selected image path -->                                <{if $isAdmin == 1}>
+                <a href="<{$publisher_url}>/admin/category.php?op=mod&categoryid=<{$subcat.categoryid}>"><img src="<{$publisher_url}>/images/links/subcat.gif" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>"></a>&nbsp;<{$subcat.categorylink}> <{else}>
+                <img src="<{$publisher_url}>/images/links/subcat.gif" title="<{$lang_editcategory|default:''}>" alt="<{$lang_editcategory|default:''}>">&nbsp;<{$subcat.categorylink}> <{/if}> <{if $displaysubcatdsc == 1}>
                 <span class="publisher_category_dsc"><{$subcat.description}></span> <{/if}> <{/if}>
             </div>
         </td>

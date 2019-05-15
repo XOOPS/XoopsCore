@@ -1,4 +1,7 @@
 <?php
+
+use Xmf\Request;
+use Xoops\Core\Text\Sanitizer;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -9,7 +12,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xmf\Request;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -21,26 +25,25 @@ use Xmf\Request;
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
-$publisher = Publisher::getInstance();
-$myts = \Xoops\Core\Text\Sanitizer::getInstance();
+$helper = Helper::getInstance();
+$myts = Sanitizer::getInstance();
 
 $itemid = Request::getInt('itemid');
 $item_page_id = Request::getInt('page', -1);
 
-if ($itemid == 0) {
-    $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
+if (0 == $itemid) {
+    $xoops->redirect('javascript:history.go(-1)', 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
 // Creating the item object for the selected item
-/* @var $itemObj PublisherItem */
-$itemObj = $publisher->getItemHandler()->get($itemid);
+/* @var Publisher\Item $itemObj */
+$itemObj = $helper->getItemHandler()->get($itemid);
 
 // if the selected item was not found, exit
 if (!$itemObj) {
-    $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
+    $xoops->redirect('javascript:history.go(-1)', 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
 $xoops->header('module:publisher/publisher_item.tpl');
@@ -51,48 +54,46 @@ $xoTheme->addBaseScriptAssets('@jquery');
 $xoTheme->addScript(PUBLISHER_URL . '/js/jquery.popeye-2.0.4.js');
 $xoTheme->addBaseScriptAssets('modules/publisher/js/publisher.js');
 
-XoopsLoad::loadFile($publisher->path('footer.php'));
+XoopsLoad::loadFile($helper->path('footer.php'));
 
 // Creating the category object that holds the selected item
-$categoryObj = $publisher->getCategoryHandler()->get($itemObj->getVar('categoryid'));
+$categoryObj = $helper->getCategoryHandler()->get($itemObj->getVar('categoryid'));
 
 // Check user permissions to access that category of the selected item
 if (!$itemObj->accessGranted()) {
-    $xoops->redirect("javascript:history.go(-1)", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect('javascript:history.go(-1)', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
 // Update the read counter of the selected item
-if (!$xoops->isUser() || (PublisherUtils::IsUserAdmin() && $publisher->getConfig('item_admin_hits') == 1) || ($xoops->isUser() && !PublisherUtils::IsUserAdmin())) {
+if (!$xoops->isUser() || (Publisher\Utils::IsUserAdmin() && 1 == $helper->getConfig('item_admin_hits')) || ($xoops->isUser() && !Publisher\Utils::IsUserAdmin())) {
     $itemObj->updateCounter();
 }
 
 // creating the Item objects that belong to the selected category
-switch ($publisher->getConfig('format_order_by')) {
+switch ($helper->getConfig('format_order_by')) {
     case 'title':
         $sort = 'title';
         $order = 'ASC';
         break;
-
     case 'date':
         $sort = 'datesub';
         $order = 'DESC';
         break;
-
     default:
         $sort = 'weight';
         $order = 'ASC';
         break;
 }
 
-if ($publisher->getConfig('item_other_items_type') === "previous_next") {
+if ('previous_next' === $helper->getConfig('item_other_items_type')) {
     // Retrieving the next and previous object
     $previous_item_link = '';
     $previous_item_url = '';
     $next_item_link = '';
     $next_item_url = '';
 
-    $previousObj = $publisher->getItemHandler()->getPreviousPublished($itemObj);
-    $nextObj = $publisher->getItemHandler()->getNextPublished($itemObj);
+    $previousObj = $helper->getItemHandler()->getPreviousPublished($itemObj);
+    $nextObj = $helper->getItemHandler()->getNextPublished($itemObj);
     if (is_object($previousObj)) {
         $previous_item_link = $previousObj->getItemLink();
         $previous_item_url = $previousObj->getItemUrl();
@@ -110,15 +111,15 @@ if ($publisher->getConfig('item_other_items_type') === "previous_next") {
 }
 
 //CAREFUL!! with many items this will exhaust memory
-if ($publisher->getConfig('item_other_items_type') === "all") {
-    $itemsObj = $publisher->getItemHandler()->getAllPublished(0, 0, $categoryObj->getVar('categoryid'), $sort, $order, '', true, true);
-    $items = array();
-    /* @var $theitemObj PublisherItem */
+if ('all' === $helper->getConfig('item_other_items_type')) {
+    $itemsObj = $helper->getItemHandler()->getAllPublished(0, 0, $categoryObj->getVar('categoryid'), $sort, $order, '', true, true);
+    $items = [];
+    /* @var Publisher\Item $theitemObj */
     foreach ($itemsObj as $theitemObj) {
         $theitem['titlelink'] = $theitemObj->getItemLink();
         $theitem['datesub'] = $theitemObj->datesub();
         $theitem['counter'] = $theitemObj->getVar('counter');
-        if ($theitemObj->getVar('itemid')== $itemObj->getVar('itemid')) {
+        if ($theitemObj->getVar('itemid') == $itemObj->getVar('itemid')) {
             $theitem['titlelink'] = $theitemObj->title();
         }
         $items[] = $theitem;
@@ -130,10 +131,10 @@ if ($publisher->getConfig('item_other_items_type') === "all") {
 
 // Populating the smarty variables with informations related to the selected item
 $item = $itemObj->toArray($item_page_id);
-$xoopsTpl->assign('show_subtitle', $publisher->getConfig('item_disp_subtitle'));
+$xoopsTpl->assign('show_subtitle', $helper->getConfig('item_disp_subtitle'));
 
 if ($itemObj->getVar('pagescount') > 0) {
-    if ($item_page_id == -1) {
+    if (-1 == $item_page_id) {
         $item_page_id = 0;
     }
     $pagenav = new XoopsPageNav($itemObj->getVar('pagescount'), 1, $item_page_id, 'page', 'itemid=' . $itemObj->getVar('itemid'));
@@ -141,28 +142,28 @@ if ($itemObj->getVar('pagescount') > 0) {
 }
 
 // Creating the files object associated with this item
-$file = array();
-$files = array();
-$embeded_files = array();
+$file = [];
+$files = [];
+$embeded_files = [];
 $filesObj = $itemObj->getFiles();
 
 // check if user has permission to modify files
 $hasFilePermissions = true;
-if (!(PublisherUtils::IsUserAdmin() || PublisherUtils::IsUserModerator($itemObj))) {
+if (!(Publisher\Utils::IsUserAdmin() || Publisher\Utils::IsUserModerator($itemObj))) {
     $hasFilePermissions = false;
 }
 
-/* @var $fileObj PublisherFile */
+/* @var Publisher\File $fileObj */
 foreach ($filesObj as $fileObj) {
-    $file = array();
+    $file = [];
     $file['mod'] = false;
-    if ($hasFilePermissions || ($xoops->isUser() && $fileObj->getVar('uid') == $xoops->user->getVar('uid') )) {
+    if ($hasFilePermissions || ($xoops->isUser() && $fileObj->getVar('uid') == $xoops->user->getVar('uid'))) {
         $file['mod'] = true;
     }
 
-    if ($fileObj->getVar('mimetype') === 'application/x-shockwave-flash') {
+    if ('application/x-shockwave-flash' === $fileObj->getVar('mimetype')) {
         $file['content'] = $fileObj->displayFlash();
-        if (strpos($item['maintext'], '[flash-' . $fileObj->getVar('fileid') . ']')) {
+        if (mb_strpos($item['maintext'], '[flash-' . $fileObj->getVar('fileid') . ']')) {
             $item['maintext'] = str_replace('[flash-' . $fileObj->getVar('fileid') . ']', $file['content'], $item['maintext']);
         } else {
             $embeded_files[] = $file;
@@ -186,30 +187,30 @@ unset($file, $embeded_files, $filesObj, $fileObj);
 // Language constants
 $xoopsTpl->assign('mail_link', 'mailto:?subject=' . sprintf(_CO_PUBLISHER_INTITEM, $xoops->getConfig('sitename')) . '&amp;body=' . sprintf(_CO_PUBLISHER_INTITEMFOUND, $xoops->getConfig('sitename')) . ': ' . $itemObj->getItemUrl());
 $xoopsTpl->assign('itemid', $itemObj->getVar('itemid'));
-$xoopsTpl->assign('sectionname', $publisher->getModule()->getVar('name'));
-$xoopsTpl->assign('modulename', $publisher->getModule()->getVar('dirname'));
-$xoopsTpl->assign('module_home', PublisherUtils::moduleHome($publisher->getConfig('format_linked_path')));
-$xoopsTpl->assign('categoryPath', $item['categoryPath'] . " > " . $item['title']);
-$xoopsTpl->assign('commentatarticlelevel', $publisher->getConfig('perm_com_art_level'));
-$xoopsTpl->assign('com_rule', $publisher->getConfig('com_rule'));
-$xoopsTpl->assign('other_items', $publisher->getConfig('item_other_items_type'));
-$xoopsTpl->assign('itemfooter', $myts->displayTarea($publisher->getConfig('item_footer'), 1));
-$xoopsTpl->assign('perm_author_items', $publisher->getConfig('perm_author_items'));
+$xoopsTpl->assign('sectionname', $helper->getModule()->getVar('name'));
+$xoopsTpl->assign('modulename', $helper->getModule()->getVar('dirname'));
+$xoopsTpl->assign('module_home', Publisher\Utils::moduleHome($helper->getConfig('format_linked_path')));
+$xoopsTpl->assign('categoryPath', $item['categoryPath'] . ' > ' . $item['title']);
+$xoopsTpl->assign('commentatarticlelevel', $helper->getConfig('perm_com_art_level'));
+$xoopsTpl->assign('com_rule', $helper->getConfig('com_rule'));
+$xoopsTpl->assign('other_items', $helper->getConfig('item_other_items_type'));
+$xoopsTpl->assign('itemfooter', $myts->displayTarea($helper->getConfig('item_footer'), 1));
+$xoopsTpl->assign('perm_author_items', $helper->getConfig('perm_author_items'));
 
 // tags support
 if ($xoops->isActiveModule('tag')) {
-    include_once \XoopsBaseConfig::get('root-path') . '/modules/tag/include/tagbar.php';
+    require_once XoopsBaseConfig::get('root-path') . '/modules/tag/include/tagbar.php';
     $xoopsTpl->assign('tagbar', tagBar($itemid, $catid = 0));
 }
 
 /**
  * Generating meta information for this page
  */
-$publisher_metagen = new PublisherMetagen($itemObj->getVar('title'), $itemObj->getVar('meta_keywords', 'n'), $itemObj->getVar('meta_description', 'n'), $itemObj->getCategoryPath());
+$publisher_metagen = new Publisher\Metagen($itemObj->getVar('title'), $itemObj->getVar('meta_keywords', 'n'), $itemObj->getVar('meta_description', 'n'), $itemObj->getCategoryPath());
 $publisher_metagen->createMetaTags();
 
 // Include the comments if the selected ITEM supports comments
-if ($xoops->isActiveModule('comments') && (($itemObj->getVar('cancomment') == 1) || !$publisher->getConfig('perm_com_art_level')) && ($publisher->getConfig('com_rule') <> 0)) {
+if ($xoops->isActiveModule('comments') && ((1 == $itemObj->getVar('cancomment')) || !$helper->getConfig('perm_com_art_level')) && (0 != $helper->getConfig('com_rule'))) {
     $xoopsTpl->assign('canComment', true);
     //Comments::getInstance()->renderView();
     // Problem with url_rewrite and posting comments :
@@ -223,9 +224,9 @@ if ($xoops->isActiveModule('comments') && (($itemObj->getVar('cancomment') == 1)
 }
 
 // Include support for AJAX rating
-if ($publisher->getConfig('perm_rating')) {
+if ($helper->getConfig('perm_rating')) {
     $xoopsTpl->assign('rating_enabled', true);
-    $item['ratingbar'] = PublisherUtils::ratingBar($itemid);
+    $item['ratingbar'] = Publisher\Utils::ratingBar($itemid);
     $xoTheme->addScript(PUBLISHER_URL . '/js/behavior.js');
     $xoTheme->addScript(PUBLISHER_URL . '/js/rating.js');
 }

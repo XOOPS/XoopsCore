@@ -17,7 +17,7 @@
         <div class="itemText">
             <{if $item.image_path}>
             <a href="<{$item.itemurl}>"><img class="publisher_item_image" src="<{$item.image_path}>" align="right"
-                                             alt="<{$item.title}>" title="<{$item.title}>"/></a>
+                                             alt="<{$item.title}>" title="<{$item.title}>"></a>
             <{/if}>
             <{$item.summary}>
         </div>

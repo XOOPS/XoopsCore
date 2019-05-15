@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -9,9 +12,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsObject;
-use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  *  Publisher class
@@ -23,32 +24,24 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
+require_once \dirname(__DIR__) . '/include/common.php';
 
-include_once dirname(__DIR__) . '/include/common.php';
-
-class PublisherRating extends XoopsObject
+/**
+ * Class Rating
+ * @package XoopsModules\Publisher
+ */
+class Rating extends XoopsObject
 {
     /**
      * constructor
      */
     public function __construct()
     {
-        $this->initVar("ratingid", XOBJ_DTYPE_INT, null, false);
-        $this->initVar("itemid", XOBJ_DTYPE_INT, null, false);
-        $this->initVar("uid", XOBJ_DTYPE_INT, null, false);
-        $this->initVar("rate", XOBJ_DTYPE_INT, null, false);
-        $this->initVar("ip", XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar("date", XOBJ_DTYPE_INT, null, false);
-    }
-}
-
-class PublisherRatingHandler extends XoopsPersistableObjectHandler
-{
-    /**
-     * @param null|Xoops\Core\Database\Connection $db
-     */
-    public function __construct(Connection $db = null)
-    {
-        parent::__construct($db, 'publisher_rating', 'PublisherRating', 'ratingid', 'itemid');
+        $this->initVar('ratingid', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('itemid', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('uid', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('rate', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('ip', \XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('date', \XOBJ_DTYPE_INT, null, false);
     }
 }

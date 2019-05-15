@@ -16,10 +16,12 @@ use Xoops\Core\Kernel\Handlers\XoopsModule;
  * @license         GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
+ * @param                                         $version
+ * @return bool
  */
-
 function xoops_module_update_publisher(XoopsModule $module, $version)
 {
-    $gperm_handler = Xoops::getInstance()->getHandlerGroupPermission();
-    return $gperm_handler->deleteByModule($module->getVar('mid'), "item_read");
+    $gpermHandler = Xoops::getInstance()->getHandlerGroupPermission();
+
+    return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
 }

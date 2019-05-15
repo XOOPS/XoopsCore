@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher\Plugin;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -15,8 +18,17 @@
  * @author          Laurent JEN (aka DuGris)
  * @version         $Id$
  */
+use Criteria;
+use CriteriaCompo;
+use SystemPluginInterface;
+use Xoops\Module\Plugin\PluginAbstract;
+use XoopsModules\Publisher\Helper;
 
-class PublisherSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implements SystemPluginInterface
+/**
+ * Class SystemPlugin
+ * @package XoopsModules\Publisher\Plugin
+ */
+class SystemPlugin extends PluginAbstract implements SystemPluginInterface
 {
     /**
      * @param int $uid
@@ -28,7 +40,8 @@ class PublisherSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implement
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('status', 2));
         $criteria->add(new Criteria('uid', (int)$uid));
-        return Publisher::getInstance()->getItemHandler()->getCount($criteria);
+
+        return Helper::getInstance()->getItemHandler()->getCount($criteria);
     }
 
     /**
@@ -36,16 +49,17 @@ class PublisherSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implement
      */
     public function waiting()
     {
-        $publisher = Publisher::getInstance();
-        $ret = array();
+        $helper = Helper::getInstance();
+        $ret = [];
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('status', 1));
-        $count = $publisher->getItemHandler()->getCount($criteria);
+        $count = $helper->getItemHandler()->getCount($criteria);
         if ($count) {
             $ret['count'] = $count;
             $ret['name'] = _MI_PUBLISHER_WAITING;
-            $ret['link'] = $publisher->url('admin/item.php');
+            $ret['link'] = $helper->url('admin/item.php');
         }
+
         return $ret;
     }
 
@@ -58,8 +72,6 @@ class PublisherSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implement
      *                   link    : Link for the backend items
      *                   content : content for the backend items
      *                   date    : Date of the backend items
-     *
-     * @return array
      */
     public function backend($limit)
     {
@@ -72,8 +84,6 @@ class PublisherSystemPlugin extends Xoops\Module\Plugin\PluginAbstract implement
      *    name  : Name for the Link
      *    link  : Link relative to module
      *    image : Url of image to display, please use 16px*16px image
-     *
-     * @return array
      */
     public function userMenus()
     {

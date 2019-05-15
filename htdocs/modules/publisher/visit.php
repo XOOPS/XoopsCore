@@ -1,4 +1,10 @@
 <?php
+
+use Xmf\Request;
+use Xoops\Core\Text\Sanitizer;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -8,8 +14,6 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
-
-use Xmf\Request;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -21,27 +25,26 @@ use Xmf\Request;
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
-
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
-$publisher = Publisher::getInstance();
+$helper = Helper::getInstance();
 $fileId = Request::getInt('fileid');
 
 // Creating the item object for the selected item
-/* @var $fileObj PublisherFile */
-$fileObj = $publisher->getFileHandler()->get($fileId);
+/* @var Publisher\File $fileObj */
+$fileObj = $helper->getFileHandler()->get($fileId);
 
-if ($fileObj->getVar('status') !== _PUBLISHER_STATUS_FILE_ACTIVE) {
-    $xoops->redirect("javascript:history.go(-1)", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+if (_PUBLISHER_STATUS_FILE_ACTIVE !== $fileObj->getVar('status')) {
+    $xoops->redirect('javascript:history.go(-1)', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-/* @var $itemObj PublisherItem */
-$itemObj = $publisher->getItemHandler()->get($fileObj->getVar('itemid'));
+/* @var Publisher\Item $itemObj */
+$itemObj = $helper->getItemHandler()->get($fileObj->getVar('itemid'));
 
 // Check user permissions to access this file
 if (!$itemObj->accessGranted()) {
-    $xoops->redirect("javascript:history.go(-1)", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect('javascript:history.go(-1)', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 // Creating the category object that holds the selected ITEM
 $categoryObj = $itemObj->category();
@@ -49,10 +52,9 @@ $categoryObj = $itemObj->category();
 $fileObj->updateCounter();
 
 if (!preg_match("/^ed2k*:\/\//i", $fileObj->getFileUrl())) {
-    header("Location: " . $fileObj->getFileUrl());
+    header('Location: ' . $fileObj->getFileUrl());
 }
 
-$myts = \Xoops\Core\Text\Sanitizer::getInstance();
-echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL="
-    . $myts->htmlSpecialChars($fileObj->getFileUrl()) . "\"></head><body></body></html>";
+$myts = Sanitizer::getInstance();
+echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $myts->htmlSpecialChars($fileObj->getFileUrl()) . '"></head><body></body></html>';
 exit();

@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Publisher;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -41,7 +41,7 @@ include_once dirname(__DIR__) . '/include/common.php';
  * @copyright The XUUPS Project http://sourceforge.net/projects/xuups/
  * @license   GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-abstract class PublisherBaseObjectHandler extends XoopsObjectHandler
+abstract class BaseObjectHandler extends XoopsObjectHandler
 {
     /**
      * Database connection
@@ -347,7 +347,7 @@ abstract class PublisherBaseObjectHandler extends XoopsObjectHandler
  * @access public
  * @package publisher
  */
-class PublisherMimetype extends XoopsObject
+class Mimetype extends XoopsObject
 {
 
     /**
@@ -371,7 +371,7 @@ class PublisherMimetype extends XoopsObject
     }
 }
 
-class PublisherMimetypeHandler extends PublisherBaseObjectHandler
+class MimetypeHandler extends PublisherBaseObjectHandler
 {
     /**
      * Name of child class

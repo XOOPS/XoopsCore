@@ -6,7 +6,7 @@
         </tr>
         <tr>
             <td class="odd">
-                <input type="text" name="term" value="<{$block.search_term}>" size="15"/>
+                <input type="text" name="term" value="<{$block.search_term}>" size="15">
             </td>
         </tr>
         <!-- <tr>
@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <td class="odd">
-                <input type="text" name="uname" value="<{$block.search_user}>" size="15"/>
+                <input type="text" name="uname" value="<{$block.search_user}>" size="15">
             </td>
         </tr>
         <!-- <tr>
@@ -47,7 +47,7 @@
         <{/if}>
         <tr>
             <td class="odd">
-                <input type="submit" name="submit" value="<{translate key='A_SEARCH'}>"/>
+                <input type="submit" name="submit" value="<{translate key='A_SEARCH'}>">
             </td>
         </tr>
     </table>

@@ -8,8 +8,7 @@
     </tr>
 
     <{foreach item=item from=$block.items}>
-    <tr class="<{cycle values=" even
-    ,odd"}>">
+    <tr class="<{cycle values="even,odd"}>">
     <td><{$item.itemlink}></td>
     <td align="left"><{$item.categorylink}></td>
     <td align="center"><{$item.poster}></td>

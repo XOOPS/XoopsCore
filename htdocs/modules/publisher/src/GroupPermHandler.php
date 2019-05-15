@@ -12,6 +12,8 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler;
+
 /**
  *  Publisher class
  *
@@ -22,37 +24,29 @@ namespace XoopsModules\Publisher;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-use Xoops\Form\Form;
-use XoopsModules\Publisher;
+require_once \dirname(__DIR__) . '/include/common.php';
 
 /**
- * Form that will output formatted as a HTML table
- *
- * No styles and no JavaScript to check for required fields.
+ * Class GroupPermHandler
+ * @package XoopsModules\Publisher
  */
-class BlockForm extends Form
+class GroupPermHandler extends XoopsGroupPermHandler
 {
-    public function __construct()
-    {
-        parent::__construct('', '', '');
-    }
-
     /**
-     * @return string
+     * Check permission
+     *
+     * @param string    $gperm_name
+     * @param int       $gperm_itemid
+     * @param array|int $gperm_groupid
+     * @param int       $gperm_modid
+     * @param bool      $trueifadmin
+     *
+     * @return bool
      */
-    public function render()
+    public function checkRight($gperm_name, $gperm_itemid, $gperm_groupid, $gperm_modid = 1, $trueifadmin = true)
     {
-        $ret = '<table border="0" width="100%">' . NWLINE;
-        /* @var \Xoops\Form\Element $ele */
-        foreach ($this->getElements() as $ele) {
-            if (!$ele->isHidden()) {
-                $ret .= '<tr><td colspan="2">';
-                $ret .= '<span style="font-weight: bold;">' . $ele->getCaption() . '</span>';
-                $ret .= '</td></tr><tr><td>' . $ele->render() . '</td></tr>';
-            }
-        }
-        $ret .= '</table>';
+        $trueifadmin = false;
 
-        return $ret;
+        return parent::checkRight($gperm_name, $gperm_itemid, $gperm_groupid, $gperm_modid, $trueifadmin);
     }
 }

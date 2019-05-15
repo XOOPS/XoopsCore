@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,8 +23,15 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
+use Xoops\Module\Helper\HelperAbstract;
+use XoopsDatabaseFactory;
+use XoopsModules\Publisher;
 
-class Publisher extends Xoops\Module\Helper\HelperAbstract
+/**
+ * Class Helper
+ * @package XoopsModules\Publisher
+ */
+class Helper extends HelperAbstract
 {
     /**
      * Init the module
@@ -36,65 +46,84 @@ class Publisher extends Xoops\Module\Helper\HelperAbstract
     }
 
     /**
-     * @return Publisher
+     * @return Helper
      */
-    static function getInstance() {
+    public static function getInstance()
+    {
         return parent::getInstance();
     }
 
     /**
-     * @return PublisherItemHandler
+     * @return \XoopsModules\Publisher\ItemHandler
      */
-    public function getItemHandler()
+    public function getItemHandler(): ItemHandler
     {
-        return $this->getHandler('item');
+        return $this->getHandler('Item');
     }
 
     /**
-     * @return PublisherCategoryHandler
+     * @return \XoopsModules\Publisher\CategoryHandler
      */
-    public function getCategoryHandler()
+    public function getCategoryHandler(): CategoryHandler
     {
-        return $this->getHandler('category');
+        return $this->getHandler('Category');
     }
 
     /**
-     * @return PublisherPermissionHandler
+     * @return \XoopsModules\Publisher\PermissionHandler
      */
-    public function getPermissionHandler()
+    public function getPermissionHandler(): PermissionHandler
     {
-        return $this->getHandler('permission');
+        return $this->getHandler('Permission');
     }
 
     /**
-     * @return PublisherFileHandler
+     * @return \XoopsModules\Publisher\FileHandler
      */
-    public function getFileHandler()
+    public function getFileHandler(): FileHandler
     {
-        return $this->getHandler('file');
+        return $this->getHandler('File');
     }
 
     /**
-     * @return PublisherMimetypeHandler
+     * @return \XoopsModules\Publisher\MimetypeHandler
      */
-    public function getMimetypeHandler()
+    public function getMimetypeHandler(): MimetypeHandler
     {
-        return $this->getHandler('mimetype');
+        return $this->getHandler('Mimetype');
     }
 
     /**
-     * @return PublisherRatingHandler
+     * @return \XoopsModules\Publisher\RatingHandler
      */
-    public function getRatingHandler()
+    public function getRatingHandler(): RatingHandler
     {
-        return $this->getHandler('rating');
+        return $this->getHandler('Rating');
     }
 
     /**
-     * @return PublisherGrouppermHandler
+     * @return \XoopsModules\Publisher\GroupPermHandler
      */
-    public function getGrouppermHandler()
+    public function getGrouppermHandler(): GroupPermHandler
     {
-        return $this->getHandler('groupperm');
+        return $this->getHandler('Groupperm');
+    }
+
+    /**
+     * Get an Object Handler
+     *
+     * @param string $name name of handler to load
+     *
+     * @return bool|\XoopsObjectHandler|\XoopsPersistableObjectHandler
+     */
+    public function getHandler($name)
+    {
+        $ret = false;
+        //        /** @var Connection $db */
+        $db = XoopsDatabaseFactory::getConnection();
+        $class = '\\XoopsModules\\' . \ucfirst(mb_strtolower(\basename(\dirname(__DIR__)))) . '\\' . $name . 'Handler';
+        $ret = new $class($db);
+
+        return $ret;
     }
 }

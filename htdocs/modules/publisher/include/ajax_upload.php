@@ -3,7 +3,7 @@
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
+//                       <https://www.xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -26,62 +26,68 @@
 //  ------------------------------------------------------------------------ //
 
 use Xoops\Core\FixedGroups;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
 
 include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-include_once __DIR__ . '/common.php';
+require_once __DIR__ . '/common.php';
 
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 if (!$xoops->isActiveModule('images')) {
-    $arr = array('error', '!!!');
+    $arr = ['error', '!!!'];
     echo json_encode($arr);
     exit();
 }
 
-$publisher = Publisher::getInstance();
-$publisher->loadLanguage('common');
+$helper = Helper::getInstance();
+$helper->loadLanguage('common');
 
 $group = $xoops->getUserGroups();
 
 $filename = basename($_FILES['publisher_upload_file']['name']);
 $image_nicename = isset($_POST['image_nicename']) ? trim($_POST['image_nicename']) : '';
-if ($image_nicename == '' || $image_nicename == _CO_PUBLISHER_IMAGE_NICENAME) {
+if ('' == $image_nicename || _CO_PUBLISHER_IMAGE_NICENAME == $image_nicename) {
     $image_nicename = $filename;
 }
 
-$imgcat_id = isset($_POST['imgcat_id']) ? (int)($_POST['imgcat_id']) : 0;
+$imgcat_id = isset($_POST['imgcat_id']) ? (int)$_POST['imgcat_id'] : 0;
 
-$imgcat_handler = Images::getInstance()->getHandlerCategories();
-$imgcat = $imgcat_handler->get($imgcat_id);
+$imgcatHandler = Images::getInstance()->getHandlerCategories();
+$imgcat = $imgcatHandler->get($imgcat_id);
 
 $error = false;
 if (!is_object($imgcat)) {
     $error = _CO_PUBLISHER_IMAGE_CAT_NONE;
 } else {
-    $imgcatperm_handler = $xoops->getHandlerGroupPermission();
+    $imgcatpermHandler = $xoops->getHandlerGroupPermission();
     if ($xoops->isUser()) {
-        if (!$imgcatperm_handler->checkRight('imgcat_write', $imgcat_id, $xoops->user->getGroups())) {
+        if (!$imgcatpermHandler->checkRight('imgcat_write', $imgcat_id, $xoops->user->getGroups())) {
             $error = _CO_PUBLISHER_IMAGE_CAT_NONE;
         }
     } else {
-        if (!$imgcatperm_handler->checkRight('imgcat_write', $imgcat_id, FixedGroups::ANONYMOUS)) {
+        if (!$imgcatpermHandler->checkRight('imgcat_write', $imgcat_id, FixedGroups::ANONYMOUS)) {
             $error = _CO_PUBLISHER_IMAGE_CAT_NOPERM;
         }
     }
 }
 
 $image = null;
-if ($error == false) {
-    $uploader = new XoopsMediaUploader(\XoopsBaseConfig::get('uploads-path') . '/images', array(
-        'image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'
-    ), $imgcat->getVar('imgcat_maxsize'), $imgcat->getVar('imgcat_maxwidth'), $imgcat->getVar('imgcat_maxheight'));
+if (false === $error) {
+    $uploader = new XoopsMediaUploader(XoopsBaseConfig::get('uploads-path') . '/images', [
+        'image/gif',
+        'image/jpeg',
+        'image/pjpeg',
+        'image/x-png',
+        'image/png',
+    ], $imgcat->getVar('imgcat_maxsize'), $imgcat->getVar('imgcat_maxwidth'), $imgcat->getVar('imgcat_maxheight'));
     $uploader->setPrefix('img');
     if ($uploader->fetchMedia('publisher_upload_file')) {
         if (!$uploader->upload()) {
-            $error = implode("<br>", $uploader->getErrors(false));
+            $error = implode('<br>', $uploader->getErrors(false));
         } else {
-            $image_handler = Images::getInstance()->getHandlerImages();
-            $image = $image_handler->create();
+            $imageHandler = Images::getInstance()->getHandlerImages();
+            $image = $imageHandler->create();
             $image->setVar('image_name', $uploader->getSavedFileName());
             $image->setVar('image_nicename', $image_nicename);
             $image->setVar('image_mimetype', $uploader->getMediaType());
@@ -89,28 +95,30 @@ if ($error == false) {
             $image->setVar('image_display', 1);
             $image->setVar('image_weight', 0);
             $image->setVar('imgcat_id', $imgcat_id);
-            if ($imgcat->getVar('imgcat_storetype') === 'db') {
+            if ('db' === $imgcat->getVar('imgcat_storetype')) {
                 $fp = @fopen($uploader->getSavedDestination(), 'rb');
                 $fbinary = @fread($fp, filesize($uploader->getSavedDestination()));
                 @fclose($fp);
                 $image->setVar('image_body', $fbinary);
                 @unlink($uploader->getSavedDestination());
             }
-            if (!$image_handler->insert($image)) {
+            if (!$imageHandler->insert($image)) {
                 $error = sprintf(_CO_PUBLISHER_FAILSAVEIMG, $image->getVar('image_nicename'));
             }
         }
     } else {
-        $error = sprintf(_CO_PUBLISHER_FAILSAVEIMG, $filename) . "<br>" . implode("<br>", $uploader->getErrors(false));
+        $error = sprintf(_CO_PUBLISHER_FAILSAVEIMG, $filename) . '<br>' . implode('<br>', $uploader->getErrors(false));
     }
 }
 
 if ($error) {
-    $arr = array('error', PublisherUtils::convertCharset($error));
+    $arr = ['error', Publisher\Utils::convertCharset($error)];
 } else {
-    $arr = array(
-        'success', $image->getVar("image_name"), PublisherUtils::convertCharset($image->getVar("image_nicename"))
-    );
+    $arr = [
+        'success',
+        $image->getVar('image_name'),
+        Publisher\Utils::convertCharset($image->getVar('image_nicename')),
+    ];
 }
 
 $echo = json_encode($arr);

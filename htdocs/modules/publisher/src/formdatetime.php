@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -8,6 +11,11 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
+use Xoops\Form\DateSelect;
+use Xoops\Form\ElementTray;
+use Xoops\Form\Select;
+
 /**
  *  Publisher class
  *
@@ -18,35 +26,38 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
+require_once \dirname(__DIR__) . '/include/common.php';
 
-include_once dirname(__DIR__) . '/include/common.php';
-
-class PublisherFormDateTime extends Xoops\Form\ElementTray
+/**
+ * Class FormDateTime
+ * @package XoopsModules\Publisher
+ */
+class FormDateTime extends ElementTray
 {
     /**
      * __construct
      *
      * @param string  $caption
      * @param string  $name
-     * @param integer $size
-     * @param integer $value
+     * @param int $size
+     * @param int $value
      */
     public function __construct($caption, $name, $size = 15, $value = 0)
     {
         parent::__construct($caption, '&nbsp;');
-        $value = (int)($value);
-        $value = ($value > 0) ? $value : time();
-        $datetime = getdate($value);
-        $this->addElement(new Xoops\Form\DateSelect('', $name . '[date]', $value));
-        $timearray = array();
+        $value = (int)$value;
+        $value = ($value > 0) ? $value : \time();
+        $datetime = \getdate($value);
+        $this->addElement(new DateSelect('', $name . '[date]', $value));
+        $timearray = [];
         for ($i = 0; $i < 24; ++$i) {
             for ($j = 0; $j < 60; $j = $j + 10) {
                 $key = ($i * 3600) + ($j * 60);
-                $timearray[$key] = ($j != 0) ? $i . ':' . $j : $i . ':0' . $j;
+                $timearray[$key] = (0 != $j) ? $i . ':' . $j : $i . ':0' . $j;
             }
         }
-        ksort($timearray);
-        $timeselect = new Xoops\Form\Select('', $name . '[time]', $datetime['hours'] * 3600 + 600 * floor($datetime['minutes'] / 10));
+        \ksort($timearray);
+        $timeselect = new Select('', $name . '[time]', $datetime['hours'] * 3600 + 600 * \floor($datetime['minutes'] / 10));
         $timeselect->addOptionArray($timearray);
         $this->addElement($timeselect);
     }

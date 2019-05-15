@@ -12,7 +12,8 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Kernel\XoopsObject;
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  *  Publisher class
@@ -24,19 +25,15 @@ use Xoops\Core\Kernel\XoopsObject;
  * @copyright 2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-
-/**
- * PublisherMimetype class
- */
-class Mimetype extends XoopsObject
+class MimetypeHandler extends XoopsPersistableObjectHandler
 {
-    public function __construct()
+    /**
+     * PublisherMimetypeHandler
+     *
+     * @param null|Connection $db database connection
+     */
+    public function __construct(Connection $db = null)
     {
-        $this->initVar('mime_id', \XOBJ_DTYPE_INT, null, false);
-        $this->initVar('mime_ext', \XOBJ_DTYPE_TXTBOX, null, true, 60);
-        $this->initVar('mime_types', \XOBJ_DTYPE_TXTAREA, null, false, 1024);
-        $this->initVar('mime_name', \XOBJ_DTYPE_TXTBOX, null, true, 255);
-        $this->initVar('mime_admin', \XOBJ_DTYPE_INT, null, false);
-        $this->initVar('mime_user', \XOBJ_DTYPE_INT, null, false);
+        parent::__construct($db, 'publisher_mimetypes', 'PublisherMimetype', 'mime_id', 'mime_ext');
     }
 }

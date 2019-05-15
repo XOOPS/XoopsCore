@@ -20,23 +20,25 @@
  * @version         $Id$
  */
 
-$xoops = \Xoops::getInstance();
-define("PUBLISHER_DIRNAME", basename(dirname(__DIR__)));
-define("PUBLISHER_URL", $xoops->url('modules/' . PUBLISHER_DIRNAME));
-define("PUBLISHER_ADMIN_URL", PUBLISHER_URL . '/admin');
-define("PUBLISHER_UPLOADS_URL", $xoops->url('uploads/' . PUBLISHER_DIRNAME));
-define("PUBLISHER_ROOT_PATH", $xoops->path('modules/' . PUBLISHER_DIRNAME));
-define("PUBLISHER_UPLOADS_PATH", $xoops->path('uploads/' . PUBLISHER_DIRNAME));
+use XoopsModules\Publisher\Helper;
+
+$xoops = Xoops::getInstance();
+define('PUBLISHER_DIRNAME', basename(dirname(__DIR__)));
+define('PUBLISHER_URL', $xoops->url('modules/' . PUBLISHER_DIRNAME));
+define('PUBLISHER_ADMIN_URL', PUBLISHER_URL . '/admin');
+define('PUBLISHER_UPLOADS_URL', $xoops->url('uploads/' . PUBLISHER_DIRNAME));
+define('PUBLISHER_ROOT_PATH', $xoops->path('modules/' . PUBLISHER_DIRNAME));
+define('PUBLISHER_UPLOADS_PATH', $xoops->path('uploads/' . PUBLISHER_DIRNAME));
 
 $path = dirname(__DIR__);
-XoopsLoad::addMap(array(
-    'publishermetagen'   => $path . '/class/metagen.php',
-    'publisher'          => $path . '/class/helper.php',
-    'publisherutils'     => $path . '/class/utils.php',
-    'publisherblockform' => $path . '/class/blockform.php',
-));
+//XoopsLoad::addMap(array(
+//    'publishermetagen'   => $path . '/class/metagen.php',
+//    'publisher'          => $path . '/class/helper.php',
+//    'publisherutils'     => $path . '/class/utils.php',
+//    'publisherblockform' => $path . '/class/blockform.php',
+//));
 
-$publisher = Publisher::getInstance();
-$publisher->loadLanguage('common');
+$helper = Helper::getInstance();
+$helper->loadLanguage('common');
 
-XoopsLoad::loadFile($publisher->path('include/constants.php'));
+XoopsLoad::loadFile($helper->path('include/constants.php'));

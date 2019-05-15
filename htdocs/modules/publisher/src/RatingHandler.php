@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -9,7 +12,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler;
+use Xoops\Core\Database\Connection;
+use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
  *  Publisher class
@@ -21,25 +25,19 @@ use Xoops\Core\Kernel\Handlers\XoopsGroupPermHandler;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
+require_once \dirname(__DIR__) . '/include/common.php';
 
-include_once dirname(__DIR__) . '/include/common.php';
-
-class PublisherGroupPermHandler extends XoopsGroupPermHandler
+/**
+ * Class RatingHandler
+ * @package XoopsModules\Publisher
+ */
+class RatingHandler extends XoopsPersistableObjectHandler
 {
     /**
-     * Check permission
-     *
-     * @param string    $gperm_name
-     * @param int       $gperm_itemid
-     * @param array|int $gperm_groupid
-     * @param int       $gperm_modid
-     * @param bool      $trueifadmin
-     *
-     * @return bool
+     * @param \Xoops\Core\Database\Connection $db
      */
-    public function checkRight($gperm_name, $gperm_itemid, $gperm_groupid, $gperm_modid = 1, $trueifadmin = true)
+    public function __construct(Connection $db = null)
     {
-        $trueifadmin = false;
-        return  parent::checkRight($gperm_name, $gperm_itemid, $gperm_groupid, $gperm_modid, $trueifadmin);
+        parent::__construct($db, 'publisher_rating', Rating::class, 'ratingid', 'itemid');
     }
 }
