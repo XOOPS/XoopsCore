@@ -39,12 +39,12 @@ class CodexLocalePl
     const YOU_LIKED_THIS = "
         Ty {likeCount,plural,
         offset: 1
-        =0{nie podobało się to}
-        =1{podobało się to}
-        0{nikt inny to lubił} 
-        one{i jedna inna osoba to lubiła}
+        =0{tego nie lubiłeś}
+        =1{to lubiłeś}
+        0{nikt inny tego nie lubił} 
+        one{i jedna inna osoba to lubiliście}
         other{i # inne osoby polubiły to}
     }";
-    const GENDER = "{name} jest {gender} i {gender,select,woman{ona} man{on} other{}} kocha XOOPS!";
+    const GENDER = "{name} jest {gender,select,woman{kobietą} man{mężczyzną} dog{ psem} picture{ obrazem} other{ kimś}} i {gender,select,woman{ona} man{on} other{on}} kocha XOOPS!";
 
 }
