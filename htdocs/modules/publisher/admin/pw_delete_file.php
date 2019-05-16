@@ -18,15 +18,16 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
+use XoopsModules\Publisher;
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
-if (isset($_POST["op"]) && ($_POST["op"] === "delfileok")) {
-    $dir = PublisherUtils::getUploadDir(true, 'content');
-    @unlink($dir . '/' . $_POST["address"]);
+if (isset($_POST['op']) && ('delfileok' === $_POST['op'])) {
+    $dir = Publisher\Utils::getUploadDir(true, 'content');
+    @unlink($dir . '/' . $_POST['address']);
     $xoops->redirect($_POST['backto'], 2, _AM_PUBLISHER_FDELETED);
 } else {
     $xoops->header();
-    echo $xoops->confirm(array('backto' => $_POST['backto'], 'address' => $_POST["address"], 'op' => 'delfileok'), 'pw_delete_file.php', _AM_PUBLISHER_RUSUREDELF, XoopsLocale::YES);
+    echo $xoops->confirm(['backto' => $_POST['backto'], 'address' => $_POST['address'], 'op' => 'delfileok'], 'pw_delete_file.php', _AM_PUBLISHER_RUSUREDELF, XoopsLocale::YES);
     $xoops->footer();
 }

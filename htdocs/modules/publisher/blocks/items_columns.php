@@ -19,8 +19,14 @@
  * @author          Bandit-x
  * @version         $Id$
  */
+use Xoops\Form\BlockForm;
+use Xoops\Form\Label;
+use Xoops\Form\Select;
+use Xoops\Form\Text;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once dirname(__DIR__) . '/include/common.php';
 
 /**
  * Function To Show Publisher Items From Categories In Their Own Columns
@@ -32,25 +38,25 @@ include_once dirname(__DIR__) . '/include/common.php';
 function publisher_items_columns_show($options)
 {
     $xoops = Xoops::getInstance();
-    $publisher = Publisher::getInstance();
+    $helper = Helper::getInstance();
 
     $xoTheme = $xoops->theme();
 
     //Column Settings
-    $opt_num_columns = isset($options[0]) ? (int)($options[0]) : '2';
-    $sel_categories = isset($options[1]) ? explode(',', $options[1]) : array();
-    $opt_cat_items = (int)($options[2]);
-    $opt_cat_truncate = isset($options[3]) ? (int)($options[3]) : '0';
+    $opt_num_columns = isset($options[0]) ? (int)$options[0] : '2';
+    $sel_categories = isset($options[1]) ? explode(',', $options[1]) : [];
+    $opt_cat_items = (int)$options[2];
+    $opt_cat_truncate = isset($options[3]) ? (int)$options[3] : '0';
 
-    $block = array();
+    $block = [];
     $block['lang_reads'] = _MB_PUBLISHER_READS;
     $block['lang_comments'] = _MB_PUBLISHER_COMMENTS;
     $block['lang_readmore'] = _MB_PUBLISHER_READMORE;
 
-    $sel_categories_obj = array();
+    $sel_categories_obj = [];
 
     //get permited categories only once
-    $categories_obj = $publisher->getCategoryHandler()->getCategories(0, 0, -1);
+    $categories_obj = $helper->getCategoryHandler()->getCategories(0, 0, -1);
 
     //if not selected 'all', let's get the selected ones
     if (!in_array(0, $sel_categories)) {
@@ -65,7 +71,7 @@ function publisher_items_columns_show($options)
 
     $ccount = count($sel_categories_obj);
 
-    if ($ccount == 0) {
+    if (0 == $ccount) {
         return false;
     }
 
@@ -74,18 +80,18 @@ function publisher_items_columns_show($options)
     }
 
     $k = 0;
-    $columns = array();
+    $columns = [];
 
-    /* @var $mainitemCatObj PublisherCategory */
+    /* @var Publisher\Category $mainitemCatObj */
     foreach ($sel_categories_obj as $categoryId => $mainitemCatObj) {
-        $categoryItemsObj = $publisher->getItemHandler()->getAllPublished($opt_cat_items, 0, $categoryId);
+        $categoryItemsObj = $helper->getItemHandler()->getAllPublished($opt_cat_items, 0, $categoryId);
         $scount = count($categoryItemsObj);
         if ($scount > 0 && is_array($categoryItemsObj)) {
             reset($categoryItemsObj);
             //First Item
-            list($itemid, $thisitem) = each($categoryItemsObj);
+            [$itemid, $thisitem] = each($categoryItemsObj);
 
-            /* @var $thisitem PublisherItem */
+            /* @var Publisher\Item $thisitem */
             $mainitem['item_title'] = $thisitem->title();
             $mainitem['item_cleantitle'] = strip_tags($thisitem->title());
             $mainitem['item_link'] = $thisitem->getVar('itemid');
@@ -94,22 +100,19 @@ function publisher_items_columns_show($options)
 
             $mainitem['item_image'] = $mainImage['image_path'];
             if (!empty($mainImage['image_path'])) {
-                $mainitem['item_image'] = \Xoops::getInstance()
-                    ->service('thumbnail')
-                    ->getImgUrl($mainImage['image_vpath'], 100, 0)
-                    ->getValue();
+                $mainitem['item_image'] = Xoops::getInstance()->service('thumbnail')->getImgUrl($mainImage['image_vpath'], 100, 0)->getValue();
             }
 
             $mainitem['item_summary'] = $thisitem->getBlockSummary($opt_cat_truncate);
 
             $mainitem['item_cat_name'] = $mainitemCatObj->getVar('name');
-            $mainitem['item_cat_description'] = $mainitemCatObj->getVar('description') != '' ? $mainitemCatObj->getVar('description') : $mainitemCatObj->getVar('name');
+            $mainitem['item_cat_description'] = '' != $mainitemCatObj->getVar('description') ? $mainitemCatObj->getVar('description') : $mainitemCatObj->getVar('name');
             $mainitem['item_cat_link'] = $mainitemCatObj->getCategoryLink();
             $mainitem['categoryurl'] = $mainitemCatObj->getCategoryUrl();
 
             //The Rest
             if ($scount > 1) {
-                while (list($itemid, $thisitem) = each($categoryItemsObj)) {
+                foreach ($categoryItemsObj as $thisitem) {
                     $subitem['title'] = $thisitem->title();
                     $subitem['cleantitle'] = strip_tags($thisitem->title());
                     $subitem['link'] = $thisitem->getItemLink();
@@ -133,37 +136,37 @@ function publisher_items_columns_show($options)
     $block['columns'] = $columns;
     $block['columnwidth'] = (int)(100 / $opt_num_columns);
 
-    $xoTheme->addStylesheet(\XoopsBaseConfig::get('url') . '/modules/' . PUBLISHER_DIRNAME . '/css/publisher.css');
+    $xoTheme->addStylesheet(XoopsBaseConfig::get('url') . '/modules/' . PUBLISHER_DIRNAME . '/css/publisher.css');
 
     return $block;
 }
 
 /***
  * Edit Function For Multi-Column Category Items Display Block
- * @param    array $options Block Options
+ * @param array $options Block Options
  *
  * @return string
  */
 function publisher_items_columns_edit($options)
 {
-    $form = new Xoops\Form\BlockForm();
-    $colEle = new Xoops\Form\Select(_MB_PUBLISHER_NUMBER_COLUMN_VIEW, 'options[0]', $options[0]);
-    $colEle->addOptionArray(array(
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-    ));
-    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[1], 0, true, 'options[1]'));
-    $cItemsEle = new Xoops\Form\Text(_MB_PUBLISHER_NUMBER_ITEMS_CAT, 'options[2]', 4, 255, $options[2]);
-    $truncateEle = new Xoops\Form\Text(_MB_PUBLISHER_TRUNCATE, 'options[3]', 4, 255, $options[3]);
+    $form = new BlockForm();
+    $colEle = new Select(_MB_PUBLISHER_NUMBER_COLUMN_VIEW, 'options[0]', $options[0]);
+    $colEle->addOptionArray([
+                                '1' => 1,
+                                '2' => 2,
+                                '3' => 3,
+                                '4' => 4,
+                                '5' => 5,
+                            ]);
+    $catEle = new Label(_MB_PUBLISHER_SELECTCAT, Publisher\Utils::createCategorySelect($options[1], 0, true, 'options[1]'));
+    $cItemsEle = new Text(_MB_PUBLISHER_NUMBER_ITEMS_CAT, 'options[2]', 4, 255, $options[2]);
+    $truncateEle = new Text(_MB_PUBLISHER_TRUNCATE, 'options[3]', 4, 255, $options[3]);
 
-    $tempEle = new Xoops\Form\Select(_MB_PUBLISHER_TEMPLATE, 'options[4]', $options[4]);
-    $tempEle->addOptionArray(array(
-        'normal'   => _MB_PUBLISHER_TEMPLATE_NORMAL,
-        'extended' => _MB_PUBLISHER_TEMPLATE_EXTENDED
-    ));
+    $tempEle = new Select(_MB_PUBLISHER_TEMPLATE, 'options[4]', $options[4]);
+    $tempEle->addOptionArray([
+                                 'normal' => _MB_PUBLISHER_TEMPLATE_NORMAL,
+                                 'extended' => _MB_PUBLISHER_TEMPLATE_EXTENDED,
+                             ]);
 
     $form->addElement($colEle);
     $form->addElement($catEle);

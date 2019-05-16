@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var MenuDom = xoopsGetElementById('image_item');
     if (MenuDom != null) {
         for (var i = 0; i < MenuDom.options.length; i++) {

@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Publisher\Helper;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -18,10 +21,9 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-include_once dirname(dirname(__DIR__)) . '/mainfile.php';
-include_once __DIR__ . '/include/common.php';
-$publisher = Publisher::getInstance();
-if ($publisher->getConfig('seo_url_rewrite') !== 'none') {
-    XoopsLoad::loadFile($publisher->path('include/seo.inc.php'));
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once __DIR__ . '/include/common.php';
+$helper = Helper::getInstance();
+if ('none' !== $helper->getConfig('seo_url_rewrite')) {
+    XoopsLoad::loadFile($helper->path('include/seo.inc.php'));
 }

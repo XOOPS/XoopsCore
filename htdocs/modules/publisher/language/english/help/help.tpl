@@ -7,7 +7,7 @@
 
     <h4>Operating instructions</h4>
 
-     <p>To set up this module you need to:<br/>
+     <p>To set up this module you need to:<br>
      i) Configure your preferences for the module (see 'Preferences')
 
      <h4>Tutorial</h4>

@@ -19,17 +19,17 @@
  * @author       Mage, Mamba
  * @version      $Id$
  */
+use Xoops\Module\Admin;
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 
 $xoops = Xoops::getInstance();
 $xoops->header();
 
-$indexAdmin = new \Xoops\Module\Admin();
-$indexAdmin->displayNavigation('index.php');
+$adminObject = new Admin();
+$adminObject->displayNavigation('index.php');
 
-$indexAdmin->addConfigBoxLine('thumbnail', 'service');
-$indexAdmin->displayIndex();
-
+$adminObject->addConfigBoxLine('thumbnail', 'service');
+$adminObject->displayIndex();
 
 $xoops->footer();

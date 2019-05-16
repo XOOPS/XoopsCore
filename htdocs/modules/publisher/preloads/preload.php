@@ -28,14 +28,17 @@ use Xoops\Core\PreloadItem;
  */
 class PublisherPreload extends PreloadItem
 {
-    static function eventCoreIncludeCommonClassmaps($args)
+    /**
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonClassmaps($args): void
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
-            'publishermetagen' => $path . '/class/metagen.php',
-            'publisher' => $path . '/class/helper.php',
-            'publisherutils' => $path . '/class/utils.php',
-            'publisherblockform' => $path . '/class/blockform.php',
-        ));
+        //        XoopsLoad::addMap(array(
+        //            'publishermetagen' => $path . '/class/metagen.php',
+        //            'publisher' => $path . '/class/helper.php',
+        //            'publisherutils' => $path . '/class/utils.php',
+        //            'publisherblockform' => $path . '/class/blockform.php',
+        //        ));
     }
 }

@@ -20,20 +20,28 @@
  * @version         $Id$
  */
 
-include_once dirname(__DIR__) . '/include/common.php';
+use XoopsModules\Publisher\Helper;
 
+require_once dirname(__DIR__) . '/include/common.php';
+
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_items_random_item_show($options)
 {
-    $block = array();
-    $publisher = Publisher::getInstance();
+    $block  = [];
+    $helper = Helper::getInstance();
     // creating the ITEM object
-    $itemsObj = $publisher->getItemHandler()->getRandomItem('', array(_PUBLISHER_STATUS_PUBLISHED));
+    $itemsObj = $helper->getItemHandler()->getRandomItem('', [_PUBLISHER_STATUS_PUBLISHED]);
 
-    if (!is_object($itemsObj)) return $block;
+    if (!is_object($itemsObj)) {
+        return $block;
+    }
 
-    $block['content'] = $itemsObj->getBlockSummary(300, true); //show complete summary  but truncate to 300 if only body available
-    $block['id'] = $itemsObj->getVar('itemid');
-    $block['url'] = $itemsObj->getItemUrl();
+    $block['content']       = $itemsObj->getBlockSummary(300, true); //show complete summary  but truncate to 300 if only body available
+    $block['id']            = $itemsObj->getVar('itemid');
+    $block['url']           = $itemsObj->getItemUrl();
     $block['lang_fullitem'] = _MB_PUBLISHER_FULLITEM;
 
     return $block;

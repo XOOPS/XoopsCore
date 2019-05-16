@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher\Plugin;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -9,32 +12,34 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use MainmenuPluginInterface;
+use Xoops;
+
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author          trabis <lusopoemas@gmail.com>
- * @author          Laurent JEN (aka DuGris)
  */
-class PublisherWaitingPlugin implements WaitingPluginInterface
+class MainmenuPlugin implements MainmenuPluginInterface
 {
-
     /**
      * @return array
      */
-    public function waiting()
+    public function mainmenu()
     {
-        $publisher = Publisher::getInstance();
-        $ret = array();
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('status', 1));
-        $count = $publisher->getItemHandler()->getCount($criteria);
-        if ($count) {
-            $ret[] = [
-                'count' => $count,
-                'name' => _MI_PUBLISHER_WAITING,
-                'link' => $publisher->url('admin/item.php')
-            ];
+        $helper = Xoops::getModuleHelper(\basename(\dirname(\dirname(__DIR__))));
+        $subMenu = [];
+        // Prevent wasting resources
+        if ($helper->isCurrentModule()) {
+            //Todo: Implement submenu;
         }
+
+        $ret[] = [
+            'name' => $helper->getModule()->getVar('name'),
+            'link' => $helper->url(),
+            'subMenu' => $subMenu,
+        ];
+
         return $ret;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher\Plugin;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,10 +23,18 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
+use NotificationsPluginInterface;
+use Xoops;
+use Xoops\Module\Plugin\PluginAbstract;
+use XoopsModules\Publisher;
 
-include_once dirname(dirname(__DIR__)) . '/include/common.php';
+require_once \dirname(\dirname(__DIR__)) . '/include/common.php';
 
-class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract implements NotificationsPluginInterface
+/**
+ * Class NotificationsPlugin
+ * @package XoopsModules\Publisher\Plugin
+ */
+class NotificationsPlugin extends PluginAbstract implements NotificationsPluginInterface
 {
     /**
      * @param string $category
@@ -34,32 +45,35 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
     public function item($category, $item_id)
     {
         $xoops = Xoops::getInstance();
-        $item = array();
-        $item_id = (int) $item_id;
+        $item = [];
+        $item_id = (int)$item_id;
 
-        if ($category === 'global') {
+        if ('global' === $category) {
             $item['name'] = '';
             $item['url'] = '';
+
             return $item;
         }
 
-        if ($category === 'category') {
+        if ('category' === $category) {
             // Assume we have a valid category id
             $sql = 'SELECT name, short_url FROM ' . $xoopsDB->prefix('publisher_categories') . ' WHERE categoryid  = ' . $item_id;
             $result = $xoopsDB->query($sql); // TODO: error check
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['name'];
-            $item['url'] = PublisherUtils::seoGenUrl('category', $item_id, $result_array['short_url']);
+            $item['url'] = Publisher\Utils::seoGenUrl('category', $item_id, $result_array['short_url']);
+
             return $item;
         }
 
-        if ($category === 'item') {
+        if ('item' === $category) {
             // Assume we have a valid story id
             $sql = 'SELECT title, short_url FROM ' . $xoopsDB->prefix('publisher_items') . ' WHERE itemid = ' . $item_id;
             $result = $xoopsDB->query($sql); // TODO: error check
             $result_array = $xoopsDB->fetchArray($result);
             $item['name'] = $result_array['title'];
-            $item['url'] = PublisherUtils::seoGenUrl('item', $item_id, $result_array['short_url']);
+            $item['url'] = Publisher\Utils::seoGenUrl('item', $item_id, $result_array['short_url']);
+
             return $item;
         }
 
@@ -71,25 +85,26 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
      */
     public function categories()
     {
-        $ret = array();
+        $ret = [];
         $ret[1]['name'] = 'global';
         $ret[1]['title'] = _MI_PUBLISHER_GLOBAL_ITEM_NOTIFY;
         $ret[1]['description'] = _MI_PUBLISHER_GLOBAL_ITEM_NOTIFY_DSC;
-        $ret[1]['subscribe_from'] = array('index.php', 'category.php', 'item.php');
+        $ret[1]['subscribe_from'] = ['index.php', 'category.php', 'item.php'];
 
         $ret[2]['name'] = 'category';
         $ret[2]['title'] = _MI_PUBLISHER_CATEGORY_ITEM_NOTIFY;
         $ret[2]['description'] = _MI_PUBLISHER_CATEGORY_ITEM_NOTIFY_DSC;
-        $ret[2]['subscribe_from'] = array('index.php', 'category.php', 'item.php');
+        $ret[2]['subscribe_from'] = ['index.php', 'category.php', 'item.php'];
         $ret[2]['item_name'] = 'categoryid';
         $ret[2]['allow_bookmark'] = 1;
 
         $ret[3]['name'] = 'item';
         $ret[3]['title'] = _MI_PUBLISHER_ITEM_NOTIFY;
         $ret[3]['description'] = _MI_PUBLISHER_ITEM_NOTIFY_DSC;
-        $ret[3]['subscribe_from'] = array('item.php');
+        $ret[3]['subscribe_from'] = ['item.php'];
         $ret[3]['item_name'] = 'itemid';
         $ret[3]['allow_bookmark'] = 1;
+
         return $ret;
     }
 
@@ -98,7 +113,7 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
      */
     public function events()
     {
-        $ret = array();
+        $ret = [];
         $ret[1]['name'] = 'category_created';
         $ret[1]['category'] = 'global';
         $ret[1]['title'] = _MI_PUBLISHER_GLOBAL_ITEM_CATEGORY_CREATED_NOTIFY;
@@ -158,6 +173,7 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
         $ret[7]['description'] = _MI_PUBLISHER_ITEM_APPROVED_NOTIFY_DSC;
         $ret[7]['mail_template'] = 'item_approved';
         $ret[7]['mail_subject'] = _MI_PUBLISHER_ITEM_APPROVED_NOTIFY_SBJ;
+
         return $ret;
     }
 
@@ -170,6 +186,6 @@ class PublisherNotificationsPlugin extends Xoops\Module\Plugin\PluginAbstract im
      */
     public function tags($category, $item_id, $event)
     {
-        return array();
+        return [];
     }
 }

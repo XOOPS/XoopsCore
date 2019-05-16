@@ -11,9 +11,9 @@
     <div>
         <{if $item.image_path}>
         <a href="<{$item.image_path}>">
-            <img src="<{$item.image_thumb}>" alt="<{$item.image_name}>"/>
+            <img src="<{$item.image_thumb}>" alt="<{$item.image_name}>">
         </a>
-        <br/>
+        <br>
         <{/if}>
     </div>
     <p><{$item.maintext}></p>

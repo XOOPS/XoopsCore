@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -10,7 +13,6 @@
  */
 
 use Xoops\Core\Database\Connection;
-use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 
 /**
@@ -23,24 +25,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @copyright 2014 XOOPS Project (http://xoops.org)
  * @license   GNU GPL V2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-
-/**
- * PublisherMimetype class
- */
-class PublisherMimetype extends XoopsObject
-{
-    public function __construct()
-    {
-        $this->initVar('mime_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('mime_ext', XOBJ_DTYPE_TXTBOX, null, true, 60);
-        $this->initVar('mime_types', XOBJ_DTYPE_TXTAREA, null, false, 1024);
-        $this->initVar('mime_name', XOBJ_DTYPE_TXTBOX, null, true, 255);
-        $this->initVar('mime_admin', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('mime_user', XOBJ_DTYPE_INT, null, false);
-    }
-}
-
-class PublisherMimetypeHandler extends XoopsPersistableObjectHandler
+class MimetypeHandler extends XoopsPersistableObjectHandler
 {
     /**
      * PublisherMimetypeHandler

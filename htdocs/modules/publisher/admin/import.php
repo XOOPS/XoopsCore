@@ -18,43 +18,43 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
+use Xoops\Form\Button;
+use Xoops\Form\ElementTray;
+use Xoops\Form\Hidden;
+use Xoops\Form\Select;
+use Xoops\Form\ThemeForm;
+use XoopsModules\Publisher;
 
-include_once __DIR__ . "/admin_header.php";
+require_once __DIR__ . '/admin_header.php';
 $xoops = Xoops::getInstance();
 
-$op = 'none';
-
-if (isset($_GET['op'])) {
-    $op = $_GET['op'];
-}
+$op = $_GET['op'] ?? 'none';
 if (isset($_POST['op'])) {
     $op = $_POST['op'];
 }
 
 switch ($op) {
+    case 'importExecute':
 
-    case "importExecute":
-
-        $importfile = (isset($_POST['importfile'])) ? $_POST['importfile'] : 'nonselected';
-        $importfile_path = \XoopsBaseConfig::get('root-path') . "/modules/" . $publisher->getModule()->dirname() . "/admin/import/" . $importfile . ".php";
-        include_once $importfile_path;
+        $importfile = $_POST['importfile'] ?? 'nonselected';
+        $importfile_path = XoopsBaseConfig::get('root-path') . '/modules/' . $helper->getModule()->dirname() . '/admin/import/' . $importfile . '.php';
+        require_once $importfile_path;
         break;
-
-    case "default":
+    case 'default':
     default:
 
         $importfile = 'none';
 
-        PublisherUtils::cpHeader();
+        Publisher\Utils::cpHeader();
         //publisher_adminMenu(-1, _AM_PUBLISHER_IMPORT);
 
-        PublisherUtils::openCollapsableBar('import', 'importicon', _AM_PUBLISHER_IMPORT_TITLE, _AM_PUBLISHER_IMPORT_INFO);
+        Publisher\Utils::openCollapsableBar('import', 'importicon', _AM_PUBLISHER_IMPORT_TITLE, _AM_PUBLISHER_IMPORT_INFO);
 
-        $module_handler = $xoops->getHandlerModule();
+        $moduleHandler = $xoops->getHandlerModule();
 
         // WF-Section
         /*$wfs_version = 0;
-        $moduleObj = $module_handler->getByDirname('wfsection');
+        $moduleObj = $moduleHandler->getByDirname('wfsection');
         if ($moduleObj) {
         $from_module_version = round($moduleObj->getVar('version') / 100, 2);
         if (($from_module_version == 1.5) || $from_module_version == 1.04 || $from_module_version == 1.01 || $from_module_version == 2.07 || $from_module_version == 2.06) {
@@ -68,8 +68,8 @@ switch ($op) {
         $moduleObj = $xoops->getModuleByDirname('news');
         if ($moduleObj) {
             $from_module_version = round($moduleObj->getVar('version') / 100, 2);
-            if (($from_module_version >= 1.1)) {
-                $importfile_select_array["news"] = "News " . $from_module_version;
+            if ($from_module_version >= 1.1) {
+                $importfile_select_array['news'] = 'News ' . $from_module_version;
                 $news_version = $from_module_version;
             }
         }
@@ -79,15 +79,15 @@ switch ($op) {
         $moduleObj = $xoops->getModuleByDirname('smartsection');
         if ($moduleObj) {
             $from_module_version = round($moduleObj->getVar('version') / 100, 2);
-            if (($from_module_version >= 1.1)) {
-                $importfile_select_array["smartsection"] = "Smartsection " . $from_module_version;
+            if ($from_module_version >= 1.1) {
+                $importfile_select_array['smartsection'] = 'Smartsection ' . $from_module_version;
                 $smartsection_version = $from_module_version;
             }
         }
 
         //  XF-Section
         /*$xfs_version = 0;
-        $moduleObj = $module_handler->getByDirname('xfsection');
+        $moduleObj = $moduleHandler->getByDirname('xfsection');
         If ($moduleObj) {
         $from_module_version = round($moduleObj->getVar('version') / 100, 2);
         if ($from_module_version > 1.00) {
@@ -96,47 +96,45 @@ switch ($op) {
         }
         } */
 
-
         if (isset($importfile_select_array) && count($importfile_select_array) > 0) {
-
-            $sform = new Xoops\Form\ThemeForm(_AM_PUBLISHER_IMPORT_SELECTION, "op", xoops_getenv('PHP_SELF'));
+            $sform = new ThemeForm(_AM_PUBLISHER_IMPORT_SELECTION, 'op', xoops_getenv('PHP_SELF'));
             $sform->setExtra('enctype="multipart/form-data"');
 
             // Partners to import
-            $importfile_select = new Xoops\Form\Select('', 'importfile', $importfile);
+            $importfile_select = new Select('', 'importfile', $importfile);
             $importfile_select->addOptionArray($importfile_select_array);
-            $importfile_tray = new Xoops\Form\ElementTray(_AM_PUBLISHER_IMPORT_SELECT_FILE, '&nbsp;');
+            $importfile_tray = new ElementTray(_AM_PUBLISHER_IMPORT_SELECT_FILE, '&nbsp;');
             $importfile_tray->addElement($importfile_select);
             $importfile_tray->setDescription(_AM_PUBLISHER_IMPORT_SELECT_FILE_DSC);
             $sform->addElement($importfile_tray);
 
             // Buttons
-            $buttonTray = new Xoops\Form\ElementTray('', '');
-            $hidden = new Xoops\Form\Hidden('op', 'importExecute');
+            $buttonTray = new ElementTray('', '');
+            $hidden = new Hidden('op', 'importExecute');
             $buttonTray->addElement($hidden);
 
-            $buttonImport = new Xoops\Form\Button('', '', _AM_PUBLISHER_IMPORT, 'submit');
+            $buttonImport = new Button('', '', _AM_PUBLISHER_IMPORT, 'submit');
             $buttonImport->setExtra('onclick="this.form.elements.op.value=\'importExecute\'"');
             $buttonTray->addElement($buttonImport);
 
-            $buttonCancel = new Xoops\Form\Button('', '', _AM_PUBLISHER_CANCEL, 'button');
+            $buttonCancel = new Button('', '', _AM_PUBLISHER_CANCEL, 'button');
             $buttonCancel->setExtra('onclick="history.go(-1)"');
             $buttonTray->addElement($buttonCancel);
 
             $sform->addElement($buttonTray);
-            /*$sform->addElement(new Xoops\Form\Hidden('xfs_version', $xfs_version));
-             $sform->addElement(new Xoops\Form\Hidden('wfs_version', $wfs_version));*/
-            $sform->addElement(new Xoops\Form\Hidden('news_version', $news_version));
-            $sform->addElement(new Xoops\Form\Hidden('smartsection_version', $smartsection_version));
+            /*$sform->addElement(new \Xoops\Form\Hidden('xfs_version', $xfs_version));
+             $sform->addElement(new \Xoops\Form\Hidden('wfs_version', $wfs_version));*/
+            $sform->addElement(new Hidden('news_version', $news_version));
+            $sform->addElement(new Hidden('smartsection_version', $smartsection_version));
             $sform->display();
             unset($hidden);
         } else {
-            echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-weight: bold; font-size: small; display: block; \">" . _AM_PUBLISHER_IMPORT_NO_MODULE . "</span>";
+            echo '<span style="color: #567; margin: 3px 0 12px 0; font-weight: bold; font-size: small; display: block; ">' . _AM_PUBLISHER_IMPORT_NO_MODULE . '</span>';
         }
 
         // End of collapsable bar
 
-        PublisherUtils::closeCollapsableBar('import', 'importicon');
+        Publisher\Utils::closeCollapsableBar('import', 'importicon');
 
         break;
 }

@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Publisher;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -19,13 +22,15 @@
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
+use Xoops\Form\Form;
+use XoopsModules\Publisher;
 
 /**
  * Form that will output formatted as a HTML table
  *
  * No styles and no JavaScript to check for required fields.
  */
-class PublisherBlockForm extends Xoops\Form\Form
+class BlockForm extends Form
 {
     public function __construct()
     {
@@ -38,7 +43,7 @@ class PublisherBlockForm extends Xoops\Form\Form
     public function render()
     {
         $ret = '<table border="0" width="100%">' . NWLINE;
-        /* @var $ele Xoops\Form\Element */
+        /* @var \Xoops\Form\Element $ele */
         foreach ($this->getElements() as $ele) {
             if (!$ele->isHidden()) {
                 $ret .= '<tr><td colspan="2">';
@@ -47,6 +52,7 @@ class PublisherBlockForm extends Xoops\Form\Form
             }
         }
         $ret .= '</table>';
+
         return $ret;
     }
 }

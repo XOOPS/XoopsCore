@@ -20,14 +20,23 @@
  * @version         $Id$
  */
 
-include_once dirname(__DIR__) . '/include/common.php';
+use Xoops\Core\Text\Sanitizer;
+use Xoops\Form\BlockForm;
+use Xoops\Form\DateSelect;
+use XoopsModules\Publisher\Helper;
 
+require_once dirname(__DIR__) . '/include/common.php';
+
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_date_to_date_show($options)
 {
-    $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-    $publisher = Publisher::getInstance();
+    $myts   = Sanitizer::getInstance();
+    $helper = Helper::getInstance();
 
-    $block = array();
+    $block = [];
 
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('datesub', strtotime($options[0]), '>'));
@@ -36,30 +45,29 @@ function publisher_date_to_date_show($options)
     $criteria->setOrder('DESC');
 
     // creating the ITEM objects that belong to the selected category
-    $itemsObj = $publisher->getItemHandler()->getItemObjects($criteria);
-    $totalItems = count($itemsObj);
+    $itemsObj = $helper->getItemHandler()->getItemObjects($criteria);
 
     if ($itemsObj) {
-        for ($i = 0; $i < $totalItems; ++$i) {
+        foreach ($itemsObj as $iValue) {
 
-            $newItems['itemid'] = $itemsObj[$i]->getVar('itemid');
-            $newItems['title'] = $itemsObj[$i]->title();
-            $newItems['categoryname'] = $itemsObj[$i]->getCategoryName();
-            $newItems['categoryid'] = $itemsObj[$i]->getVar('categoryid');
-            $newItems['date'] = $itemsObj[$i]->datesub();
-            $newItems['poster'] = $itemsObj[$i]->linkedPosterName();
-            $newItems['itemlink'] = $itemsObj[$i]->getItemLink(false, isset($options[3]) ? $options[3] : 65);
-            $newItems['categorylink'] = $itemsObj[$i]->getCategoryLink();
+            $newItems['itemid']       = $iValue->getVar('itemid');
+            $newItems['title']        = $iValue->title();
+            $newItems['categoryname'] = $iValue->getCategoryName();
+            $newItems['categoryid']   = $iValue->getVar('categoryid');
+            $newItems['date']         = $iValue->datesub();
+            $newItems['poster']       = $iValue->linkedPosterName();
+            $newItems['itemlink']     = $iValue->getItemLink(false, $options[3] ?? 65);
+            $newItems['categorylink'] = $iValue->getCategoryLink();
 
             $block['items'][] = $newItems;
         }
 
-        $block['lang_title'] = _MB_PUBLISHER_ITEMS;
-        $block['lang_category'] = _MB_PUBLISHER_CATEGORY;
-        $block['lang_poster'] = _MB_PUBLISHER_POSTEDBY;
-        $block['lang_date'] = _MB_PUBLISHER_DATE;
-        $modulename = $myts->displayTarea($publisher->getModule()->getVar('name'));
-        $block['lang_visitItem'] = _MB_PUBLISHER_VISITITEM . " " . $modulename;
+        $block['lang_title']            = _MB_PUBLISHER_ITEMS;
+        $block['lang_category']         = _MB_PUBLISHER_CATEGORY;
+        $block['lang_poster']           = _MB_PUBLISHER_POSTEDBY;
+        $block['lang_date']             = _MB_PUBLISHER_DATE;
+        $modulename                     = $myts->displayTarea($helper->getModule()->getVar('name'));
+        $block['lang_visitItem']        = _MB_PUBLISHER_VISITITEM . ' ' . $modulename;
         $block['lang_articles_from_to'] = sprintf(_MB_PUBLISHER_ARTICLES_FROM_TO, $options[0], $options[1]);
     }
 
@@ -69,13 +77,17 @@ function publisher_date_to_date_show($options)
 /*
  * @todo review this
  */
+/**
+ * @param $options
+ * @return string
+ */
 function publisher_date_to_date_edit($options)
 {
-    $form = new Xoops\Form\BlockForm();
+    $form = new BlockForm();
     // these were Xoops Form Calendar???
-    $fromEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_FROM, 'options[0]', strtotime($options[0]));
+    $fromEle = new DateSelect(_MB_PUBLISHER_FROM, 'options[0]', strtotime($options[0]));
     //$fromEle->setNocolspan();
-    $untilEle = new Xoops\Form\DateSelect(_MB_PUBLISHER_UNTIL, 'options[1]', strtotime($options[1]));
+    $untilEle = new DateSelect(_MB_PUBLISHER_UNTIL, 'options[1]', strtotime($options[1]));
     //$untilEle->setNocolspan();
     $form->addElement($fromEle);
     $form->addElement($untilEle);

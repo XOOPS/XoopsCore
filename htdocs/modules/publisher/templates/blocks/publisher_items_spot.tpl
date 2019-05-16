@@ -1,6 +1,6 @@
 <{if $block.category && $block.category.image_path != ''}>
 <div align="center">
-    <a href="<{$block.category.categoryurl}>" title="<{$block.category.name}>"><img src="<{$block.category.image_path}>" width="185" height="80" alt="<{$block.category.name}>"/></a>
+    <a href="<{$block.category.categoryurl}>" title="<{$block.category.name}>"><img src="<{$block.category.image_path}>" width="185" height="80" alt="<{$block.category.name}>"></a>
 </div><{/if}>
 
 
@@ -11,12 +11,12 @@
 <{else}>    <{foreach item=item from=$block.items name=spotlight}>        <{if $item.summary != ''}>
 <div class="itemText" style="padding-left: 5px; padding-top: 5px;">
     <div>
-        <img style="vertical-align: middle;" src="<{$block.publisher_url}>/images/links/doc.png" alt=""/>&nbsp;<{$item.titlelink}>
+        <img style="vertical-align: middle;" src="<{$block.publisher_url}>/images/links/doc.png" alt="">&nbsp;<{$item.titlelink}>
     </div>
 
     <div>
         <{if $item.image_path}>
-        <img class="publisher_item_image" src="<{$item.image_path}>" align="right" alt="<{$item.clean_title}>" title="<{$item.clean_title}>"/> <{/if}> <{$item.summary}>
+        <img class="publisher_item_image" src="<{$item.image_path}>" align="right" alt="<{$item.clean_title}>" title="<{$item.clean_title}>"> <{/if}> <{$item.summary}>
     </div>
 </div>
 <div style="clear: both"></div>                <{if $item.showline}>

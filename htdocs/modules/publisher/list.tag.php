@@ -19,5 +19,5 @@
  */
 
 // todo: Check this file
-include __DIR__ . '/header.php';
-include \XoopsBaseConfig::get('root-path') . '/modules/tag/list.tag.php';
+require __DIR__ . '/header.php';
+include XoopsBaseConfig::get('root-path') . '/modules/tag/list.tag.php';

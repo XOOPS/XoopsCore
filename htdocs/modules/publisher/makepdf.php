@@ -1,4 +1,7 @@
 <?php
+
+use Xmf\Request;
+use Xoops\Core\Text\Sanitizer;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -9,8 +12,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xmf\Request;
 use Xoops\Core\XoopsTpl;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -21,47 +25,46 @@ use Xoops\Core\XoopsTpl;
  * @author          trabis <lusopoemas@gmail.com>
  * @author          Sina Asghari (AKA stranger) <stranger@impresscms.ir>
  */
-
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 $xoops = Xoops::getInstance();
 $xoops->disableErrorReporting();
 
 if (!$xoops->service('htmltopdf')->isAvailable()) {
-    $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOPDF);
+    $xoops->redirect('javascript:history.go(-1)', 1, _MD_PUBLISHER_NOPDF);
 }
 
-$publisher = Publisher::getInstance();
-$myts = \Xoops\Core\Text\Sanitizer::getInstance();
+$helper = Helper::getInstance();
+$myts = Sanitizer::getInstance();
 
 $itemid = Request::getInt('itemid');
 $item_page_id = Request::getInt('page', -1);
 
-if ($itemid == 0) {
-    $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
+if (0 == $itemid) {
+    $xoops->redirect('javascript:history.go(-1)', 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
 // Creating the item object for the selected item
-/* @var $itemObj PublisherItem */
-$itemObj = $publisher->getItemHandler()->get($itemid);
+/* @var Publisher\Item $itemObj */
+$itemObj = $helper->getItemHandler()->get($itemid);
 
 // if the selected item was not found, exit
 if (!$itemObj) {
-    $xoops->redirect("javascript:history.go(-1)", 1, _MD_PUBLISHER_NOITEMSELECTED);
+    $xoops->redirect('javascript:history.go(-1)', 1, _MD_PUBLISHER_NOITEMSELECTED);
 }
 
 // Creating the category object that holds the selected item
-$categoryObj = $publisher->getCategoryHandler()->get($itemObj->getVar('categoryid'));
+$categoryObj = $helper->getCategoryHandler()->get($itemObj->getVar('categoryid'));
 
 // Check user permissions to access that category of the selected item
 if (!$itemObj->accessGranted()) {
-    $xoops->redirect("javascript:history.go(-1)", 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
+    $xoops->redirect('javascript:history.go(-1)', 1, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
-$publisher->loadLanguage('main');
+$helper->loadLanguage('main');
 
 $tpl = new XoopsTpl();
 $tpl->assign('item', $itemObj->toArray('all'));
-$tpl->assign('display_whowhen_link', $publisher->getConfig('item_disp_whowhen_link'));
+$tpl->assign('display_whowhen_link', $helper->getConfig('item_disp_whowhen_link'));
 
 $content = $tpl->fetch('module:publisher/pdf.tpl');
 $xoops->service('htmltopdf')->startPdf();

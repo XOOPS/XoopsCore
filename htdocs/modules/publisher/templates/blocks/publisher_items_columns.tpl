@@ -14,7 +14,7 @@
 
                 <p>
                     <{if $item.item_image != ''}>
-                    <img src="<{$item.item_image}>" alt="<{$item.item_cleantitle}>" align="left" width="100" /> <{/if}> <{$item.item_summary}>
+                    <img src="<{$item.item_image}>" alt="<{$item.item_cleantitle}>" align="left" width="100"> <{/if}> <{$item.item_summary}>
                 </p>
             </div>
 
@@ -47,7 +47,7 @@
 
                 <div class="publisher-content clearfix">
                     <{if $item.item_image != ''}>
-                    <img src="<{$item.item_image}>" alt="<{$item.item_cleantitle}>" align="right" width="100" /> <{/if}>
+                    <img src="<{$item.item_image}>" alt="<{$item.item_cleantitle}>" align="right" width="100"> <{/if}>
                     <p><{$item.item_summary}></p>
 
                     <p>
@@ -59,9 +59,9 @@
 
             <{if $item.subitem}>
             <div style="float:left; width:40%;">
-                <br/>
+                <br>
                 <strong class="publisher-more"><{$smarty.const._MB_PUBLISHER_MORE}></strong>
-                <br/>
+                <br>
                 <ul class="publisher-links">
                     <{foreach item=subitem from=$item.subitem}>
                     <li>

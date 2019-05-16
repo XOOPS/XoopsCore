@@ -10,6 +10,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Publisher;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -19,8 +20,7 @@ use Xmf\Request;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 
 $xoops = Xoops::getInstance();
 
@@ -29,14 +29,13 @@ $rating = Request::getInt('rating');
 $itemid = Request::getInt('itemid');
 
 $groups = $xoops->getUserGroups();
-$gperm_handler = $publisher->getGrouppermHandler();
+$gpermHandler = $helper->getGrouppermHandler();
 $hModConfig = $xoops->getHandlerConfig();
-$module_id = $publisher->getModule()->getVar('mid');
+$module_id = $helper->getModule()->getVar('mid');
 
 //Checking permissions
-if (!$publisher->getConfig('perm_rating')
-    || !$gperm_handler->checkRight('global', _PUBLISHER_RATE, $groups, $module_id)
-) {
+if (!$helper->getConfig('perm_rating')
+    || !$gpermHandler->checkRight('global', _PUBLISHER_RATE, $groups, $module_id)) {
     $xoops->redirect(PUBLISHER_URL . '/item.php?itemid=' . $itemid, 2, XoopsLocale::E_NO_ACCESS_PERMISSION);
 }
 
@@ -45,7 +44,7 @@ if ($rating > 5 || $rating < 1) {
 }
 
 $criteria = new Criteria('itemid', $itemid);
-$ratingObjs = $publisher->getRatingHandler()->getObjects($criteria);
+$ratingObjs = $helper->getRatingHandler()->getObjects($criteria);
 
 $uid = $xoops->isUser() ? $xoops->user->getVar('uid') : 0;
 $count = count($ratingObjs);
@@ -53,7 +52,7 @@ $current_rating = 0;
 $voted = false;
 $ip = getenv('REMOTE_ADDR');
 
-/* @var $ratingObj PublisherRating */
+/* @var Publisher\Rating $ratingObj */
 foreach ($ratingObjs as $ratingObj) {
     $current_rating += $ratingObj->getVar('rate');
     if ($ratingObj->getVar('ip') == $ip || ($uid > 0 && $uid == $ratingObj->getVar('uid'))) {
@@ -65,18 +64,18 @@ if ($voted) {
     $xoops->redirect(PUBLISHER_URL . '/item.php?itemid=' . $itemid, 2, _MD_PUBLISHER_VOTE_ALREADY);
 }
 
-$newRatingObj = $publisher->getRatingHandler()->create();
+$newRatingObj = $helper->getRatingHandler()->create();
 $newRatingObj->setVar('itemid', $itemid);
 $newRatingObj->setVar('ip', $ip);
 $newRatingObj->setVar('uid', $uid);
 $newRatingObj->setVar('rate', $rating);
 $newRatingObj->setVar('date', time());
-$publisher->getRatingHandler()->insert($newRatingObj);
+$helper->getRatingHandler()->insert($newRatingObj);
 
 $current_rating += $rating;
 ++$count;
 
-$publisher->getItemHandler()->updateAll('rating', number_format($current_rating / $count, 4), $criteria, true);
-$publisher->getItemHandler()->updateAll('votes', $count, $criteria, true);
+$helper->getItemHandler()->updateAll('rating', number_format($current_rating / $count, 4), $criteria, true);
+$helper->getItemHandler()->updateAll('votes', $count, $criteria, true);
 
 $xoops->redirect(PUBLISHER_URL . '/item.php?itemid=' . $itemid, 2, _MD_PUBLISHER_VOTE_THANKS);

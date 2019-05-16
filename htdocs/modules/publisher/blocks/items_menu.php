@@ -19,22 +19,34 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @version         $Id$
  */
+use Xoops\Form\BlockForm;
+use Xoops\Form\Label;
+use Xoops\Form\Select;
+use Xoops\Form\Text;
+use XoopsModules\Publisher;
+use XoopsModules\Publisher\Helper;
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once dirname(__DIR__) . '/include/common.php';
 
+/**
+ * @param $options
+ * @return array
+ */
 function publisher_items_menu_show($options)
 {
-    $block = array();
+    $block = [];
 
-    $publisher = Publisher::getInstance();
+    $helper = Helper::getInstance();
 
     // Getting all top cats
-    $block_categoriesObj = $publisher->getCategoryHandler()->getCategories(0, 0, 0);
+    $block_categoriesObj = $helper->getCategoryHandler()->getCategories(0, 0, 0);
 
-    if (count($block_categoriesObj) == 0) return $block;
+    if (0 == count($block_categoriesObj)) {
+        return $block;
+    }
 
     // Are we in Publisher ?
-    $block['inModule'] = $publisher->isCurrentModule();
+    $block['inModule'] = $helper->isCurrentModule();
 
     $catlink_class = 'menuMain';
 
@@ -42,16 +54,16 @@ function publisher_items_menu_show($options)
 
     if ($block['inModule']) {
         // Are we in a category and if yes, in which one ?
-        $categoryid = isset($_GET['categoryid']) ? (int)($_GET['categoryid']) : 0;
+        $categoryid = isset($_GET['categoryid']) ? (int)$_GET['categoryid'] : 0;
 
-        if ($categoryid != 0) {
+        if (0 != $categoryid) {
             // if we are in a category, then the $categoryObj is already defined in publisher/category.php
-            $categoryObj = $publisher->getCategoryHandler()->get($categoryid);
+            $categoryObj = $helper->getCategoryHandler()->get($categoryid);
             $block['currentcat'] = $categoryObj->getCategoryLink('menuTop');
             $catlink_class = 'menuSub';
         }
     }
-    /* @var $block_categoryObj PublisherCategory */
+    /* @var Publisher\Category $block_categoryObj */
     foreach ($block_categoriesObj as $catid => $block_categoryObj) {
         if ($catid != $categoryid) {
             $block['categories'][$catid]['categoryLink'] = $block_categoryObj->getCategoryLink($catlink_class);
@@ -61,18 +73,22 @@ function publisher_items_menu_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function publisher_items_menu_edit($options)
 {
-    $form = new Xoops\Form\BlockForm();
+    $form = new BlockForm();
 
-    $catEle = new Xoops\Form\Label(_MB_PUBLISHER_SELECTCAT, PublisherUtils::createCategorySelect($options[0], 0, true, 'options[0]'));
-    $orderEle = new Xoops\Form\Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
-    $orderEle->addOptionArray(array(
-        'datesub' => _MB_PUBLISHER_DATE,
-        'counter' => _MB_PUBLISHER_HITS,
-        'weight'  => _MB_PUBLISHER_WEIGHT,
-    ));
-    $dispEle = new Xoops\Form\Text(_MB_PUBLISHER_DISP, 'options[2]', 10, 255, $options[2]);
+    $catEle = new Label(_MB_PUBLISHER_SELECTCAT, Publisher\Utils::createCategorySelect($options[0], 0, true, 'options[0]'));
+    $orderEle = new Select(_MB_PUBLISHER_ORDER, 'options[1]', $options[1]);
+    $orderEle->addOptionArray([
+                                  'datesub' => _MB_PUBLISHER_DATE,
+                                  'counter' => _MB_PUBLISHER_HITS,
+                                  'weight' => _MB_PUBLISHER_WEIGHT,
+                              ]);
+    $dispEle = new Text(_MB_PUBLISHER_DISP, 'options[2]', 10, 255, $options[2]);
 
     $form->addElement($catEle);
     $form->addElement($orderEle);
