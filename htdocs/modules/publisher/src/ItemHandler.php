@@ -259,9 +259,9 @@ class ItemHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * @param Publisher\Item $obj
+     * @param Publisher\Item|false $obj
      */
-    public function getPreviousPublished($obj): bool
+    public function getPreviousPublished($obj)
     {
         $ret = false;
         $otherCriteria = new CriteriaCompo();
@@ -275,9 +275,9 @@ class ItemHandler extends XoopsPersistableObjectHandler
     }
 
     /**
-     * @param Publisher\Item $obj
+     * @param Publisher\Item|false $obj
      */
-    public function getNextPublished($obj): bool
+    public function getNextPublished($obj)
     {
         $ret = false;
         $otherCriteria = new CriteriaCompo();
