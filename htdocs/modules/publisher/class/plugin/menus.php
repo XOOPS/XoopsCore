@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Publisher\Plugin;
+//namespace XoopsModules\Publisher\Plugin;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -31,7 +31,7 @@ use XoopsModules\Publisher\Helper;
  * Class MenusPlugin
  * @package XoopsModules\Publisher\Plugin
  */
-class MenusPlugin extends PluginAbstract implements MenusPluginInterface
+class PublisherMenusPlugin extends PluginAbstract implements MenusPluginInterface
 {
     /**
      * expects an array of array containing:

@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Publisher\Plugin;
+//namespace XoopsModules\Publisher\Plugin;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -34,7 +34,7 @@ require_once \dirname(\dirname(__DIR__)) . '/include/common.php';
  * Class NotificationsPlugin
  * @package XoopsModules\Publisher\Plugin
  */
-class NotificationsPlugin extends PluginAbstract implements NotificationsPluginInterface
+class PublisherNotificationsPlugin extends PluginAbstract implements NotificationsPluginInterface
 {
     /**
      * @param string $category

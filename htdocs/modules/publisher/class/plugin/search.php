@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Publisher\Plugin;
+//namespace XoopsModules\Publisher\Plugin;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -30,7 +30,7 @@ use XoopsUserUtility;
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id$
  */
-class SearchPlugin extends PluginAbstract implements SearchPluginInterface
+class PublisherSearchPlugin extends PluginAbstract implements SearchPluginInterface
 {
     /**
      * @param string[] $queryarray

@@ -23,6 +23,7 @@ class SystemUsermenuPlugin implements UsermenuPluginInterface
     public function usermenu()
     {
         $xoops = \Xoops::getInstance();
+        $xoops->loadLocale('system');
         $ret = array();
         if (!$xoops->isActiveModule('profile')) {
             // View Account

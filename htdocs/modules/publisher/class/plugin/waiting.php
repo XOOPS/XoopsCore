@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Publisher\Plugin;
+//namespace XoopsModules\Publisher\Plugin;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -12,33 +12,36 @@ namespace XoopsModules\Publisher\Plugin;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use MainmenuPluginInterface;
-use Xoops;
+use Criteria;
+use CriteriaCompo;
+use WaitingPluginInterface;
+use XoopsModules\Publisher\Helper;
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author          trabis <lusopoemas@gmail.com>
+ * @author          Laurent JEN (aka DuGris)
  */
-class MainmenuPlugin implements MainmenuPluginInterface
+class PublisherWaitingPlugin implements WaitingPluginInterface
 {
     /**
      * @return array
      */
-    public function mainmenu()
+    public function waiting()
     {
-        $helper = Xoops::getModuleHelper(\basename(\dirname(\dirname(__DIR__))));
-        $subMenu = [];
-        // Prevent wasting resources
-        if ($helper->isCurrentModule()) {
-            //Todo: Implement submenu;
+        $helper = Helper::getInstance();
+        $ret = [];
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('status', 1));
+        $count = $helper->getItemHandler()->getCount($criteria);
+        if ($count) {
+            $ret[] = [
+                'count' => $count,
+                'name' => _MI_PUBLISHER_WAITING,
+                'link' => $helper->url('admin/item.php'),
+            ];
         }
-
-        $ret[] = [
-            'name' => $helper->getModule()->getVar('name'),
-            'link' => $helper->url(),
-            'subMenu' => $subMenu,
-        ];
 
         return $ret;
     }
