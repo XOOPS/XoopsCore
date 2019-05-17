@@ -11,7 +11,7 @@
 <!-- start comment replies -->
 {foreach item=reply from=$comments[i].replies}
     <br/>
-    <table class="bnone collapse">
+    <table class="bnone">
         <tr>
             <td width="{$reply.prefix}"></td>
             <td>
