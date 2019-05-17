@@ -127,7 +127,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      */
     public function insertModule(XoopsModule $module)
     {
-        if (!parent::insert($module)) {
+        if (false === parent::insert($module)) {
             return false;
         }
 
@@ -188,7 +188,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             $qb->resetQueryParts(); // reset
             $qb ->select('COUNT(*)')
                 ->fromPrefix('system_blockmodule', null)
-                ->where($eb->ne('module_id', ':mid'))
+                ->where($eb->neq('module_id', ':mid'))
                 ->setParameter(':mid', $mid, \PDO::PARAM_INT)
                 ->andWhere($eb->eq('block_id', ':bid'))
                 ->setParameter(':bid', $i, \PDO::PARAM_INT);
