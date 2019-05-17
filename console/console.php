@@ -35,12 +35,13 @@ if (file_exists($mainfile)) {
     $xoops->loadLocale();
     $xoops->setTheme(new \Xoops\Core\Theme\NullTheme);
     $xoopsLogger = $xoops->logger();
+    $xoopsLogger->quiet();
     $xoops->events();
     $psr4loader = new \Xoops\Core\Psr4ClassLoader();
     $psr4loader->register();
     // listeners respond with $arg->addNamespace($namespace, $directory);
-    $xoops->events()->triggerEvent('core.include.common.psr4loader', $psr4loader);
     $xoops->events()->triggerEvent('core.include.common.classmaps');
+    $xoops->events()->triggerEvent('core.include.common.psr4loader', $psr4loader);
 } else {
     // apparently there is no mainfile, so fall back on the autoloader
     require_once $configs->get('autoloader');
@@ -54,8 +55,10 @@ $app = new XCApplication('XOOPS Console', '0.1.0');
 $app->XContainer = $configs;
 
 $app->addCommands(array(
+    new \XoopsConsole\Commands\ActivateModuleCommand(),
     new \XoopsConsole\Commands\CiBootstrapCommand(),
     new \XoopsConsole\Commands\CiInstallCommand(),
+    new \XoopsConsole\Commands\DeactivateModuleCommand(),
     new \XoopsConsole\Commands\InstallModuleCommand(),
     new \XoopsConsole\Commands\UninstallModuleCommand(),
     new \XoopsConsole\Commands\UpdateModuleCommand(),

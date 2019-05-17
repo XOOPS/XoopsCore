@@ -178,15 +178,16 @@ class MonologPreload extends PreloadItem
      */
     public static function eventCoreDatabaseQueryComplete($args)
     {
-        $sql = $args['sql'];
-        $context = array(
-            'channel'=>'Queries',
-            'query_time'=>$args['executionMS'],
-            'params'=>$args['params'],
-            'types'=>$args['types'],
-        );
-
-        MonologLogger::getInstance()->log(LogLevel::INFO, $sql, $context);
+        if (class_exists('MonologLogger')) {
+            $sql = $args['sql'];
+            $context = array(
+                'channel' => 'Queries',
+                'query_time' => $args['executionMS'],
+                'params' => $args['params'],
+                'types' => $args['types'],
+            );
+            MonologLogger::getInstance()->log(LogLevel::INFO, $sql, $context);
+        }
     }
 
     /**
