@@ -40,7 +40,7 @@ EOT
         $blockHandler = $xoops->getHandlerBlock();
         $blocks = $blockHandler->getByModule($moduleObject->getVar('mid'));
         foreach ($blocks as $block) {
-            /* @var $block \Xoops\Core\Kernel\Handlers\XoopsBlockHandler */
+            /* @var $block \Xoops\Core\Kernel\Handlers\XoopsBlock */
             $block->setVar('isactive', true);
             $blockHandler->insert($block);
         }

@@ -33,9 +33,8 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsModuleHandler extends XoopsPersistableObjectHandler
 {
@@ -70,7 +69,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      *
      * @param int $id ID of the module
      *
-     * @return XoopsModule|bool on fail
+     * @return XoopsModule|false on fail
      */
     public function getById($id = null)
     {
@@ -96,7 +95,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      *
      * @param string $dirname module directory name
      *
-     * @return XoopsModule|bool FALSE on fail
+     * @return XoopsModule|false FALSE on fail
      */
     public function getByDirname($dirname)
     {
@@ -243,7 +242,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * Load some modules
      *
      * @param CriteriaElement|null $criteria  criteria to match
-     * @param boolean              $id_as_key Use the ID as key into the array
+     * @param bool                 $id_as_key Use the ID as key into the array
      *
      * @return array
      */
@@ -287,7 +286,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
      * returns an array of module names
      *
      * @param CriteriaElement|null $criteria       criteria
-     * @param boolean              $dirname_as_key true  = array key is module directory
+     * @param bool                 $dirname_as_key true  = array key is module directory
      *                                             false = array key is module id
      *
      * @return array
