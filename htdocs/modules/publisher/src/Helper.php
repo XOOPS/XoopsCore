@@ -106,7 +106,7 @@ class Helper extends HelperAbstract
      */
     public function getGrouppermHandler(): GroupPermHandler
     {
-        return $this->getHandler('Groupperm');
+        return $this->getHandler('GroupPerm');
     }
 
     /**

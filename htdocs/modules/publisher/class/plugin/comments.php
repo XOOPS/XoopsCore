@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Publisher\Plugin;
+//namespace XoopsModules\Publisher\Plugin;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -34,7 +34,7 @@ use XoopsModules\Publisher\Helper;
  * Class CommentsPlugin
  * @package XoopsModules\Publisher\Plugin
  */
-class CommentsPlugin extends PluginAbstract implements CommentsPluginInterface
+class PublisherCommentsPlugin extends PluginAbstract implements CommentsPluginInterface
 {
     /**
      * @return string

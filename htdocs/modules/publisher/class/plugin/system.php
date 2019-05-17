@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Publisher\Plugin;
+//namespace XoopsModules\Publisher\Plugin;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -28,7 +28,7 @@ use XoopsModules\Publisher\Helper;
  * Class SystemPlugin
  * @package XoopsModules\Publisher\Plugin
  */
-class SystemPlugin extends PluginAbstract implements SystemPluginInterface
+class PublisherSystemPlugin extends PluginAbstract implements SystemPluginInterface
 {
     /**
      * @param int $uid
