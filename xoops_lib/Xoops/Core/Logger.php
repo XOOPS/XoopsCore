@@ -93,7 +93,10 @@ class Logger implements LoggerInterface
      */
     public function handleError($errorNumber, $errorString, $errorFile, $errorLine)
     {
-        if ($this->logging_active && ($errorNumber & error_reporting())) {
+        if (0 === error_reporting() && ($errorNumber !== E_DEPRECATED) && ($errorNumber !== E_USER_DEPRECATED)) {
+            return;
+        }
+        if ($this->logging_active && $errorNumber) {
 
             // if an error occurs before a locale is established,
             // we still need messages, so check and deal with it
@@ -126,8 +129,12 @@ class Logger implements LoggerInterface
                     $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_ERROR : '*Error:') . $msg;
                     @$this->log(LogLevel::CRITICAL, $msg);
                     break;
+                case E_USER_DEPRECATED:
+                case E_DEPRECATED:
+                    \Xoops::getInstance()->events()->triggerEvent('core.deprecated', array($msg));
+                    break;
                 default:
-                    $msg = (class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_UNKNOWN : '*Unknown:') . $msg;
+                    $msg = $this->getReadableErrorType($errorNumber) . $msg;
                     $this->log(LogLevel::ERROR, $msg);
                     break;
             }
@@ -163,6 +170,50 @@ class Logger implements LoggerInterface
         }
     }
 
+    /**
+     * getReadableErrorType - given a numeric $errorNumber return constant name
+     *
+     * @param int $errorNumber error number as used in handleError()
+     *
+     * @return string
+     */
+    protected function getReadableErrorType(int $errorNumber)
+    {
+        switch($errorNumber)
+        {
+            case E_ERROR:
+                return 'E_ERROR';
+            case E_WARNING:
+                return 'E_WARNING';
+            case E_PARSE:
+                return 'E_PARSE';
+            case E_NOTICE:
+                return 'E_NOTICE';
+            case E_CORE_ERROR:
+                return 'E_CORE_ERROR';
+            case E_CORE_WARNING:
+                return 'E_CORE_WARNING';
+            case E_COMPILE_ERROR:
+                return 'E_COMPILE_ERROR';
+            case E_COMPILE_WARNING:
+                return 'E_COMPILE_WARNING';
+            case E_USER_ERROR:
+                return 'E_USER_ERROR';
+            case E_USER_WARNING:
+                return 'E_USER_WARNING';
+            case E_USER_NOTICE:
+                return 'E_USER_NOTICE';
+            case E_STRICT:
+                return 'E_STRICT';
+            case E_RECOVERABLE_ERROR:
+                return 'E_RECOVERABLE_ERROR';
+            case E_DEPRECATED:
+                return 'E_DEPRECATED';
+            case E_USER_DEPRECATED:
+                return 'E_USER_DEPRECATED';
+        }
+        return class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_UNKNOWN : '*Unknown:';
+    }
     /**
      * Exception handling callback.
      *
