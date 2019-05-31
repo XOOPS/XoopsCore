@@ -12,11 +12,11 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use PDO;
 use Xoops;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\XoopsObjectHandler;
+use Doctrine\DBAL\FetchMode;
 
 /**
  *  Publisher class
@@ -28,7 +28,6 @@ use Xoops\Core\Kernel\XoopsObjectHandler;
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @author          The SmartFactory <www.smartfactory.ca>
- * @version         $Id$
  */
 require_once \dirname(__DIR__) . '/include/common.php';
 
@@ -76,7 +75,7 @@ class PermissionHandler extends XoopsObjectHandler
         $criteria->renderQb($qb);
         $result = $qb->execute();
 
-        while (false !== ($myrow = $result->fetch(PDO::FETCH_ASSOC))) {
+        while (false !== ($myrow = $result->fetch(FetchMode::ASSOCIATIVE))) {
             $groups[$myrow['gperm_groupid']] = $myrow['gperm_groupid'];
         }
         $items[$gperm_name][$id] = $groups;
@@ -113,7 +112,7 @@ class PermissionHandler extends XoopsObjectHandler
         $criteria->renderQb($qb);
         $result = $qb->execute();
 
-        while (false !== ($myrow = $result->fetch(PDO::FETCH_ASSOC))) {
+        while (false !== ($myrow = $result->fetch(FetchMode::ASSOCIATIVE))) {
             $ret[$myrow['gperm_itemid']] = $myrow['gperm_itemid'];
         }
         $items[$gperm_name] = $ret;

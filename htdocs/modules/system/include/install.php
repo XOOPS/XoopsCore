@@ -12,16 +12,16 @@
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
 use Xmf\Database\TableLoad;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * System install module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
- * @package         system
- * @version         $Id$
+ * @copyright 2015-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @since     2.6.0
+ * @author    Mage Grégory (AKA Mage)
+ * @package   system
  */
 
 /**
@@ -122,7 +122,7 @@ function xoops_module_install_system(XoopsModule $module)
     // user admin
 
     // data for table 'groups_users_link'
-    $types = array(\PDO::PARAM_INT, \PDO::PARAM_INT);
+    $types = array(ParameterType::INTEGER, ParameterType::INTEGER);
     $data = array('groupid' => FixedGroups::ADMIN, 'uid' => 1);
     $xoops->db()->insertPrefix('system_usergroup', $data, $types);
     $data = array('groupid' => FixedGroups::USERS, 'uid' => 1);

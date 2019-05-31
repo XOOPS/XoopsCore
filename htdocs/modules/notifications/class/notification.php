@@ -16,6 +16,7 @@ use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Handlers\XoopsUser;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * A Notification
@@ -25,10 +26,8 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
  * @author    Michael van Dam <mvandam@caltech.edu>
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2000-2013 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
- * @since     2.0.0
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class NotificationsNotification extends XoopsObject
 {
@@ -168,7 +167,7 @@ class NotificationsNotificationHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $notification = new NotificationsNotification();
             $notification->assignVars($myrow);
             if (!$id_as_key) {

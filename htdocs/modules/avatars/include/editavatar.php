@@ -10,16 +10,16 @@
 */
 
 use Xmf\Request;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * avatars module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         avatar
- * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @package   avatar
+ * @since     2.6.0
+ * @author    Mage Grégory (AKA Mage)
  */
 
 include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
@@ -129,11 +129,11 @@ switch ($op) {
                             ->updatePrefix('system_user')
                             ->set('user_avatar', ':avatar')
                             ->where('uid = :uid')
-                            ->setParameter(':uid', $xoops->user->getVar('uid'), \PDO::PARAM_INT)
+                            ->setParameter(':uid', $xoops->user->getVar('uid'), ParameterType::INTEGER)
                             ->setParameter(
                                 ':avatar',
                                 'avatars/' . $uploader_avatars_img->getSavedFileName(),
-                                \PDO::PARAM_STR
+                                ParameterType::STRING
                             )
                             ->execute();
                         $avatar_Handler->addUser($obj->getVar('avatar_id'), $xoops->user->getVar('uid'));

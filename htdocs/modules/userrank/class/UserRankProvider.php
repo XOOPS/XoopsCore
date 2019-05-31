@@ -13,17 +13,16 @@ use Xoops\Core\Kernel\Handlers\XoopsUser;
 use Xoops\Core\Service\AbstractContract;
 use Xoops\Core\Service\Contract\UserRankInterface;
 use Xoops\Core\Service\Response;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * UserRank provider for service manager
  *
- * @category  class
  * @package   UserRankProvider
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
- * @since     2.6.0
+ * @copyright 2013-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class UserRankProvider extends AbstractContract implements UserRankInterface
 {
@@ -81,15 +80,15 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
             ->fromPrefix('userrank_rank', 'r');
         if ($rank != 0) {
             $qb->where($eb->eq('r.rank_id', ':rank'))
-                ->setParameter(':rank', $rank, \PDO::PARAM_INT);
+                ->setParameter(':rank', $rank, ParameterType::INTEGER);
         } else {
             $qb->where($eb->lte('r.rank_min', ':posts'))
                 ->andWhere($eb->gte('r.rank_max', ':posts'))
                 ->andWhere($eb->eq('r.rank_special', 0))
-                ->setParameter(':posts', $posts, \PDO::PARAM_INT);
+                ->setParameter(':posts', $posts, ParameterType::INTEGER);
         }
         $result = $qb->execute();
-        $rank = $result->fetch(\PDO::FETCH_ASSOC);
+        $rank = $result->fetch(FetchMode::ASSOCIATIVE);
 
         $rank['title'] = isset($rank['title']) ? $myts->htmlSpecialChars($rank['title']) : '';
         $rank['image'] = \XoopsBaseConfig::get('uploads-url') .
@@ -123,7 +122,7 @@ class UserRankProvider extends AbstractContract implements UserRankInterface
             ->setParameter(':rankspecial', 1);
 
         $result = $sql->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[$myrow['rank_id']] = $myts->htmlSpecialChars($myrow['rank_title']);
         }
         $response->setValue($ret);

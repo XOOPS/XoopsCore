@@ -12,7 +12,6 @@ namespace XoopsModules\Publisher;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use PDO;
 use Xoops;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Database\QueryBuilder;
@@ -22,6 +21,8 @@ use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use XoopsModules\Publisher;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * @copyright       The XUUPS Project http://sourceforge.net/projects/xuups/
@@ -30,7 +31,6 @@ use XoopsModules\Publisher;
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @author          The SmartFactory <www.smartfactory.ca>
- * @version         $Id$
  */
 require_once \dirname(__DIR__) . '/include/common.php';
 
@@ -145,7 +145,7 @@ class ItemHandler extends XoopsPersistableObjectHandler
         $this->addNotNullFieldClause($qb, $notNullFields, $whereMode);
         $theObjects = [];
         $result = $qb->execute();
-        while (false !== ($myrow = $result->fetch(PDO::FETCH_ASSOC))) {
+        while (false !== ($myrow = $result->fetch(FetchMode::ASSOCIATIVE))) {
             $item = new Publisher\Item();
             $item->assignVars($myrow);
             $theObjects[$myrow['itemid']] = $item;
@@ -191,7 +191,7 @@ class ItemHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return 0;
         }
-        [$count] = $result->fetch(PDO::FETCH_NUM);
+        [$count] = $result->fetch(FetchMode::NUMERIC);
 
         return $count;
     }
@@ -429,7 +429,7 @@ class ItemHandler extends XoopsPersistableObjectHandler
     public function updateCounter($itemid): ?bool
     {
         $qb = $this->db2->createXoopsQueryBuilder();
-        $qb->updatePrefix('publisher_items', 'i')->set('i.counter', 'i.counter+1')->where('i.itemid = :itemid')->setParameter(':itemid', $itemid, PDO::PARAM_INT);
+        $qb->updatePrefix('publisher_items', 'i')->set('i.counter', 'i.counter+1')->where('i.itemid = :itemid')->setParameter(':itemid', $itemid, ParameterType::INTEGER);
         $result = $qb->execute();
         if ($result) {
             return true;
@@ -608,7 +608,7 @@ class ItemHandler extends XoopsPersistableObjectHandler
         $qb->from($subquery, 'mo')->joinPrefix('mo', 'publisher_items', 'mi', 'mi.datesub = mo.date');
 
         $result = $qb->execute();
-        while (false !== ($row = $result->fetch(PDO::FETCH_ASSOC))) {
+        while (false !== ($row = $result->fetch(FetchMode::ASSOCIATIVE))) {
             $item = new Publisher\Item();
             $item->assignVars($row);
             $ret[$row['categoryid']] = $item;
@@ -659,7 +659,7 @@ class ItemHandler extends XoopsPersistableObjectHandler
                                                                                                                                                                                                                                                                               'ASC'
                                                                                                                                                                                                                                                                           );
         if ((int)$cat_id > 0) {
-            $qb->andWhere($qb->expr()->eq('i.categoryid', ':catid'))->setParameter(':catid', $cat_id, PDO::PARAM_INT);
+            $qb->andWhere($qb->expr()->eq('i.categoryid', ':catid'))->setParameter(':catid', $cat_id, ParameterType::INTEGER);
         }
 
         //$sql = 'SELECT c.parentid, i.categoryid, COUNT(*) AS count FROM ' . $this->db->prefix('publisher_items')
@@ -678,13 +678,13 @@ class ItemHandler extends XoopsPersistableObjectHandler
             return $ret;
         }
         if (!$inSubCat) {
-            while (false !== ($row = $result->fetch(PDO::FETCH_ASSOC))) {
+            while (false !== ($row = $result->fetch(FetchMode::ASSOCIATIVE))) {
                 $catsCount[$row['categoryid']] = $row['count'];
             }
 
             return $catsCount;
         }
-        while (false !== ($row = $result->fetch(PDO::FETCH_ASSOC))) {
+        while (false !== ($row = $result->fetch(FetchMode::ASSOCIATIVE))) {
             $catsCount[$row['parentid']][$row['categoryid']] = $row['count'];
         }
         $resultCatCounts = [];

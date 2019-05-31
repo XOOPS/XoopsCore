@@ -12,15 +12,14 @@
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\Handlers\XoopsModule;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * System update functions
  *
- * @copyright   XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author      Kazumi Ono (AKA onokazu)
- * @package     system
- * @version     $Id$
+ * @author    Kazumi Ono (AKA onokazu)
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 
 /**
@@ -45,7 +44,7 @@ function xoops_module_update_system(XoopsModule $module)
             ->andWhere($eb->eq('t1.tpl_id', 't2.tpl_id'));
         $result = $sql->execute();
         $tplids = array();
-        while (list($tplid) = $result->fetch(PDO::FETCH_NUM)) {
+        while (list($tplid) = $result->fetch(FetchMode::NUMERIC)) {
             $tplids[] = $tplid;
         }
         if (count($tplids) > 0) {

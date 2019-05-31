@@ -13,7 +13,7 @@
         "xoops/base-requires": "0.3.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7.0",
+        "phpunit/phpunit": "~7.5",
         "roave/security-advisories": "dev-master"
     },
     "config": {

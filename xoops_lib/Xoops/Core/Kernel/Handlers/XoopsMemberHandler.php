@@ -24,6 +24,7 @@ use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * XOOPS member handler class.
@@ -480,7 +481,7 @@ class XoopsMemberHandler
             return $ret;
         }
 
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             if ($asobject) {
                 $user = new XoopsUser();
                 $user->assignVars($myrow);
