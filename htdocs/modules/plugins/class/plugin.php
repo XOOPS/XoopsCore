@@ -12,12 +12,9 @@
 /**
  * plugins module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         plugins
- * @since           2.6.0
+ * @copyright       2013-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id$
  */
 
 use Xoops\Core\Database\Connection;
@@ -26,6 +23,7 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
+use Doctrine\DBAL\FetchMode;
 
 class PluginsPlugin extends XoopsObject
 {
@@ -120,7 +118,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
             ->fromPrefix('plugins_plugin', '')
             ->groupBy('plugin_listener');
         $result = $qb->execute();
-        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[$row['plugin_listener']] = $this->getModuleName($row['plugin_listener']);
         }
         return $ret;
@@ -137,7 +135,7 @@ class PluginsPluginHandler extends XoopsPersistableObjectHandler
             ->fromPrefix('plugins_plugin', '')
             ->groupBy('plugin_caller');
         $result = $qb->execute();
-        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[$row['plugin_caller']] = $this->getModuleName($row['plugin_caller']);
         }
         return $ret;

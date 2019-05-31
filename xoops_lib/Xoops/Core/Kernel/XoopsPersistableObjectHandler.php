@@ -11,6 +11,8 @@
 namespace Xoops\Core\Kernel;
 
 use Xoops\Core\Database\Connection;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS Kernel Persistable Object Handler class.
@@ -19,9 +21,8 @@ use Xoops\Core\Database\Connection;
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Jan Keller Pedersen <mithrandir@xoops.org>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @since     2.0.0
  */
 abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
@@ -254,11 +255,11 @@ abstract class XoopsPersistableObjectHandler extends XoopsObjectHandler
         }
         $qb->from($this->table, null)
             ->where($eb->eq($this->keyName, ':id'))
-            ->setParameter(':id', $id, \PDO::PARAM_INT);
+            ->setParameter(':id', $id, ParameterType::INTEGER);
         if (!$result = $qb->execute()) {
             return $object;
         }
-        $row = $result->fetch(\PDO::FETCH_ASSOC);
+        $row = $result->fetch(FetchMode::ASSOCIATIVE);
         if (!$row) {
             return $object;
         }

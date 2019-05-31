@@ -14,16 +14,15 @@ use Xoops\Core\Kernel\Dtype;
 use Xoops\Core\Kernel\XoopsObject;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
 use Xoops\Core\Kernel\CriteriaElement;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * Extended User Profile
  *
- * @copyright       2000-2016 XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         profile
- * @since           2.3.0
  * @author          Jan Pedersen
  * @author          Taiwen Jiang <phppp@users.sourceforge.net>
+ * @copyright 2000-2019 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
 
 class ProfileVisibility extends XoopsObject
@@ -73,7 +72,7 @@ class ProfileVisibilityHandler extends XoopsPersistableObjectHandler
 
         $result = $sql->execute();
         $field_ids = array();
-        while (list($field_id) = $result->fetch(PDO::FETCH_NUM)) {
+        while (list($field_id) = $result->fetch(FetchMode::NUMERIC)) {
             $field_ids[] = $field_ids;
         }
 

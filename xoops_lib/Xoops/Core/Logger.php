@@ -102,11 +102,11 @@ class Logger implements LoggerInterface
             // we still need messages, so check and deal with it
 
             $msg = ': ' . sprintf(
-                (class_exists('\XoopsLocale', false) ? \XoopsLocale::EF_LOGGER_FILELINE : "%s in file %s line %s"),
-                $this->sanitizePath($errorString),
-                $this->sanitizePath($errorFile),
-                $errorLine
-            );
+                    (class_exists('\XoopsLocale', false) ? \XoopsLocale::EF_LOGGER_FILELINE : "%s in file %s line %s"),
+                    $this->sanitizePath($errorString),
+                    $this->sanitizePath($errorFile),
+                    $errorLine
+                );
 
             switch ($errorNumber) {
                 case E_USER_NOTICE:
@@ -179,41 +179,29 @@ class Logger implements LoggerInterface
      */
     protected function getReadableErrorType(int $errorNumber)
     {
-        switch($errorNumber)
-        {
-            case E_ERROR:
-                return 'E_ERROR';
-            case E_WARNING:
-                return 'E_WARNING';
-            case E_PARSE:
-                return 'E_PARSE';
-            case E_NOTICE:
-                return 'E_NOTICE';
-            case E_CORE_ERROR:
-                return 'E_CORE_ERROR';
-            case E_CORE_WARNING:
-                return 'E_CORE_WARNING';
-            case E_COMPILE_ERROR:
-                return 'E_COMPILE_ERROR';
-            case E_COMPILE_WARNING:
-                return 'E_COMPILE_WARNING';
-            case E_USER_ERROR:
-                return 'E_USER_ERROR';
-            case E_USER_WARNING:
-                return 'E_USER_WARNING';
-            case E_USER_NOTICE:
-                return 'E_USER_NOTICE';
-            case E_STRICT:
-                return 'E_STRICT';
-            case E_RECOVERABLE_ERROR:
-                return 'E_RECOVERABLE_ERROR';
-            case E_DEPRECATED:
-                return 'E_DEPRECATED';
-            case E_USER_DEPRECATED:
-                return 'E_USER_DEPRECATED';
+        static $lookupTable = [
+            E_ERROR => 'E_ERROR',
+            E_WARNING => 'E_WARNING',
+            E_PARSE => 'E_PARSE',
+            E_NOTICE => 'E_NOTICE',
+            E_CORE_ERROR => 'E_CORE_ERROR',
+            E_CORE_WARNING => 'E_CORE_WARNING',
+            E_COMPILE_ERROR => 'E_COMPILE_ERROR',
+            E_COMPILE_WARNING => 'E_COMPILE_WARNING',
+            E_USER_ERROR => 'E_USER_ERROR',
+            E_USER_WARNING => 'E_USER_WARNING',
+            E_USER_NOTICE => 'E_USER_NOTICE',
+            E_STRICT => 'E_STRICT',
+            E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
+            E_DEPRECATED => 'E_DEPRECATED',
+            E_USER_DEPRECATED => 'E_USER_DEPRECATED',
+        ];
+
+        if (null !== $lookupTable[$errorNumber]) {
+            return $lookupTable[$errorNumber];
         }
         return class_exists('\XoopsLocale', false) ? \XoopsLocale::E_LOGGER_UNKNOWN : '*Unknown:';
-    }
+}
     /**
      * Exception handling callback.
      *

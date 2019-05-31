@@ -21,6 +21,8 @@ namespace Xoops\Core\Kernel\Handlers;
 
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS membership handler class. (Singleton)
@@ -31,9 +33,8 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @category  Xoops\Core\Kernel\Handlers\XoopsMembershipHandler
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsMembershipHandler extends XoopsPersistableObjectHandler
 {
@@ -68,9 +69,9 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
         $qb ->select('groupid')
             ->fromPrefix('system_usergroup', 'g')
             ->where($eb->eq('g.uid', ':uid'))
-            ->setParameter(':uid', $uid, \PDO::PARAM_INT);
+            ->setParameter(':uid', $uid, ParameterType::INTEGER);
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[] = $myrow['groupid'];
         }
 
@@ -94,13 +95,13 @@ class XoopsMembershipHandler extends XoopsPersistableObjectHandler
         $qb ->select('uid')
             ->fromPrefix('system_usergroup', 'g')
             ->where($eb->eq('g.groupid', ':gid'))
-            ->setParameter(':gid', $groupid, \PDO::PARAM_INT);
+            ->setParameter(':gid', $groupid, ParameterType::INTEGER);
         if ($limit!=0 || $start!=0) {
             $qb->setFirstResult($start)
                 ->setMaxResults($limit);
         }
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[] = $myrow['uid'];
         }
 

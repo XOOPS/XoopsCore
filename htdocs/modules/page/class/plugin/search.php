@@ -11,13 +11,15 @@
 
 use Xoops\Module\Plugin\PluginAbstract;
 use Xmf\Metagen;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * page module
  *
  * @author          Mage Grégory (AKA Mage)
- * @copyright       2000-2015 XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright       2000-2019 XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @since           2.6.0
  */
 class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
@@ -56,7 +58,7 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
             $queryParts = array();
             foreach ($queryArray as $i => $q) {
                 $qterm = ':qterm' . $i;
-                $qb->setParameter($qterm, '%' . $q . '%', \PDO::PARAM_STR);
+                $qb->setParameter($qterm, '%' . $q . '%', ParameterType::STRING);
                 $queryParts[] = $eb -> orX(
                     $eb->like('content_title', $qterm),
                     $eb->like('content_text', $qterm),
@@ -69,14 +71,14 @@ class PageSearchPlugin extends PluginAbstract implements SearchPluginInterface
                 $qb->andWhere(call_user_func_array(array($eb, "orX"), $queryParts));
             }
         } else {
-            $qb->setParameter(':uid', (int) $userid, \PDO::PARAM_INT);
+            $qb->setParameter(':uid', (int) $userid, ParameterType::INTEGER);
             $qb->andWhere($eb->eq('content_author', ':uid'));
         }
 
         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $items = array();
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $content = $myrow["content_shorttext"] . "<br /><br />" . $myrow["content_text"];
             $content = $myts->displayTarea($content);
             $items[] = array(

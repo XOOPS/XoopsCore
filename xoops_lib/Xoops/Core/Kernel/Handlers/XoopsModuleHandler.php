@@ -22,6 +22,8 @@ use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS module handler class.
@@ -170,17 +172,17 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 )
             )
             ->andWhere($eb->eq('gperm_itemid', ':itemid'))
-            ->setParameter(':itemid', $mid, \PDO::PARAM_INT)
+            ->setParameter(':itemid', $mid, ParameterType::INTEGER)
             ->execute();
 
         $qb->resetQueryParts(); // reset
         $qb ->select('block_id')
             ->fromPrefix('system_blockmodule', null)
             ->where($eb->eq('module_id', ':mid'))
-            ->setParameter(':mid', $mid, \PDO::PARAM_INT);
+            ->setParameter(':mid', $mid, ParameterType::INTEGER);
         $result = $qb->execute();
         $block_id_arr = array();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             array_push($block_id_arr, $myrow['block_id']);
         }
 
@@ -189,9 +191,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             $qb ->select('COUNT(*)')
                 ->fromPrefix('system_blockmodule', null)
                 ->where($eb->neq('module_id', ':mid'))
-                ->setParameter(':mid', $mid, \PDO::PARAM_INT)
+                ->setParameter(':mid', $mid, ParameterType::INTEGER)
                 ->andWhere($eb->eq('block_id', ':bid'))
-                ->setParameter(':bid', $i, \PDO::PARAM_INT);
+                ->setParameter(':bid', $i, ParameterType::INTEGER);
             $result = $qb->execute();
             $count = $result->fetchColumn(0);
 
@@ -200,9 +202,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 $qb->resetQueryParts(); // reset
                 $qb ->deletePrefix('system_blockmodule')
                     ->where($eb->eq('module_id', ':mid'))
-                    ->setParameter(':mid', $mid, \PDO::PARAM_INT)
+                    ->setParameter(':mid', $mid, ParameterType::INTEGER)
                     ->andWhere($eb->eq('block_id', ':bid'))
-                    ->setParameter(':bid', $i, \PDO::PARAM_INT)
+                    ->setParameter(':bid', $i, ParameterType::INTEGER)
                     ->execute();
             } else {
                 // this block does not have other entries, so disable the block and let it show
@@ -211,16 +213,16 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
                 $qb ->updatePrefix('system_block')
                     ->set('visible', ':notvisible')
                     ->where($eb->eq('bid', ':bid'))
-                    ->setParameter(':bid', $i, \PDO::PARAM_INT)
-                    ->setParameter(':notvisible', 0, \PDO::PARAM_INT)
+                    ->setParameter(':bid', $i, ParameterType::INTEGER)
+                    ->setParameter(':notvisible', 0, ParameterType::INTEGER)
                     ->execute();
 
                 $qb->resetQueryParts(); // reset
                 $qb ->updatePrefix('system_blockmodule')
                     ->set('module_id', ':nomid')
                     ->where($eb->eq('module_id', ':mid'))
-                    ->setParameter(':mid', $mid, \PDO::PARAM_INT)
-                    ->setParameter(':nomid', -1, \PDO::PARAM_INT)
+                    ->setParameter(':mid', $mid, ParameterType::INTEGER)
+                    ->setParameter(':nomid', -1, ParameterType::INTEGER)
                     ->execute();
             }
         }
@@ -269,7 +271,7 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
         } catch (\PDOException $e) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $module = new XoopsModule();
             $module->assignVars($myrow);
             if (!$id_as_key) {

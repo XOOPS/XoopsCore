@@ -9,11 +9,13 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\ParameterType;
+
 /**
  * smilies module - install supplement for smilies module
  *
- * @copyright XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright 2015-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package   smilies
  * @since     2.6.0
  * @author    Richard Griffith <richard@geekwright.com>
@@ -47,7 +49,7 @@ function xoops_module_install_smilies(&$module)
         array(':hammer:', 'smilies/smil3dbd4e5e7563a.gif', 'ToolTimes at work',    0),
         array(':idea:',   'smilies/smil3dbd4e7853679.gif', 'I have an idea',       0),
     );
-    $types = array(\PDO::PARAM_STR, \PDO::PARAM_STR, \PDO::PARAM_STR, \PDO::PARAM_INT);
+    $types = array(ParameterType::STRING, ParameterType::STRING, ParameterType::STRING, ParameterType::INTEGER);
     $db = \Xoops::getInstance()->db();
     foreach ($data as $sm) {
         list($smiley_code, $smiley_url, $smiley_emotion, $smiley_display) = $sm;

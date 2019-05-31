@@ -9,14 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
+
 /**
  * Blocks functions
  *
- * @copyright   XOOPS Project (http://xoops.org)
- * @license     GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright   2000-2019 XOOPS Project (https://xoops.org)
+ * @license     GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author      Kazumi Ono (AKA onokazu)
  * @package     system
- * @version     $Id$
  */
 
 function b_system_info_show($options)
@@ -41,12 +43,12 @@ function b_system_info_show($options)
             ->where($eb->eq('g.group_type', ':gtype'))
             ->orderBy('l.groupid')
             ->addOrderBy('u.uid')
-            ->setParameter(':gtype', 'Admin', \PDO::PARAM_STR);
+            ->setParameter(':gtype', 'Admin', ParameterType::STRING);
         $result = $sql->execute();
         if ($result->errorCode() < 2000) { // return 00000 is ok, 01nnn is warning
             $prev_caption = "";
             $i = 0;
-            while ($userinfo = $result->fetch(PDO::FETCH_ASSOC)) {
+            while ($userinfo = $result->fetch(FetchMode::ASSOCIATIVE)) {
                 $response = $xoops->service("Avatar")->getAvatarUrl($userinfo);
                 $avatar = $response->getValue();
                 $avatar = empty($avatar) ? \XoopsBaseConfig::get('uploads-url') . '/blank.gif' : $avatar;

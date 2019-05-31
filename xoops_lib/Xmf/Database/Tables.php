@@ -11,6 +11,7 @@
 
 namespace Xmf\Database;
 
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Driver\Statement;
 use Xmf\Language;
 use Xoops\Core\Database\Connection;
@@ -30,9 +31,8 @@ use Xoops\Core\Database\Factory;
  * @category  Xmf\Database\Tables
  * @package   Xmf
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2011-2018 XOOPS Project (https://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      https://xoops.org
+ * @copyright 2011-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Tables
 {
@@ -799,7 +799,7 @@ class Tables
      */
     protected function fetch($result)
     {
-        return $result->fetch(\PDO::FETCH_ASSOC);
+        return $result->fetch(FetchMode::ASSOCIATIVE);
     }
 
     /**

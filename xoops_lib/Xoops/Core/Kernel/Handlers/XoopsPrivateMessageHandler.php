@@ -21,6 +21,7 @@ namespace Xoops\Core\Kernel\Handlers;
 
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS private message handler class.
@@ -31,9 +32,8 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @category  Xoops\Core\Kernel\Handlers\XoopsPrivateMessageHandler
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
 {
@@ -66,8 +66,8 @@ class XoopsPrivateMessageHandler extends XoopsPersistableObjectHandler
             ->update($this->table)
             ->set('read_msg', ':readmsg')
             ->where('msg_id = :msgid')
-            ->setParameter(':readmsg', 1, \PDO::PARAM_INT)
-            ->setParameter(':msgid', (int)$pm->getVar('msg_id'), \PDO::PARAM_INT);
+            ->setParameter(':readmsg', 1, ParameterType::INTEGER)
+            ->setParameter(':msgid', (int)$pm->getVar('msg_id'), ParameterType::INTEGER);
         $result = $qb->execute();
 
         if (!$result) {

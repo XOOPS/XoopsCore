@@ -24,6 +24,8 @@ use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS template file handler class.
@@ -33,9 +35,8 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @category  Xoops\Core\Kernel\XoopsTplFileHandler
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsTplFileHandler extends XoopsPersistableObjectHandler
 {
@@ -69,14 +70,14 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
                 $qb->select('*')
                     ->fromPrefix('system_tplfile', 'f')
                     ->where($eb->eq('f.tpl_id', ':tplid'))
-                    ->setParameter(':tplid', $id, \PDO::PARAM_INT);
+                    ->setParameter(':tplid', $id, ParameterType::INTEGER);
             } else {
                 $qb->select('f.*')
                     ->addSelect('s.tpl_source')
                     ->fromPrefix('system_tplfile', 'f')
                     ->leftJoinPrefix('f', 'system_tplsource', 's', $eb->eq('s.tpl_id', 'f.tpl_id'))
                     ->where($eb->eq('f.tpl_id', ':tplid'))
-                    ->setParameter(':tplid', $id, \PDO::PARAM_INT);
+                    ->setParameter(':tplid', $id, ParameterType::INTEGER);
             }
             $result = $qb->execute();
             if (!$result) {
@@ -106,11 +107,11 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
             $qb->select('tpl_source')
                 ->fromPrefix('system_tplsource', null)
                 ->where($eb->eq('tpl_id', ':tplid'))
-                ->setParameter(':tplid', $tplfile->getVar('tpl_id'), \PDO::PARAM_INT);
+                ->setParameter(':tplid', $tplfile->getVar('tpl_id'), ParameterType::INTEGER);
             if (!$result = $qb->execute()) {
                 return false;
             }
-            $myrow = $result->fetch(\PDO::FETCH_ASSOC);
+            $myrow = $result->fetch(FetchMode::ASSOCIATIVE);
             $tplfile->assignVar('tpl_source', $myrow['tpl_source']);
         }
         return true;
@@ -322,7 +323,7 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $tplfile = new XoopsTplFile();
             $tplfile->assignVars($myrow);
             if (!$id_as_key) {
@@ -352,14 +353,14 @@ class XoopsTplFileHandler extends XoopsPersistableObjectHandler
             ->fromPrefix('system_tplfile', null)
             ->where($eb->eq('tpl_tplset', ':tpset'))
             ->groupBy('tpl_module')
-            ->setParameter(':tpset', $tplset, \PDO::PARAM_STR);
+            ->setParameter(':tpset', $tplset, ParameterType::STRING);
 
         $ret = array();
         $result = $qb->execute();
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             if ($myrow['tpl_module'] != '') {
                 $ret[$myrow['tpl_module']] = $myrow['count'];
             }

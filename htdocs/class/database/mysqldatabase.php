@@ -9,6 +9,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Doctrine\DBAL\FetchMode;
+
 /**
  * connection to a mysql database - legacy support only
  *
@@ -19,11 +21,8 @@
  * @author     Kazumi Ono <onokazu@xoops.org>
  * @author     readheadedrod <redheadedrod@hotmail.com>
  * @author     Richard Griffith <richard@geekwright.com>
- * @copyright  2013 XOOPS Project (http://xoops.org)
- * @license    GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version    Release: 2.6
- * @link       http://xoops.org
- * @since      2.6.0
+ * @copyright  2013-2019 XOOPS Project (https://xoops.org)
+ * @license    GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @deprecated since version 2.6.0 - alpha 3. Switch to doctrine connector.
  *
  */
@@ -124,7 +123,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
         if (!is_object($result)) {
             return null;
         }
-        return $result->fetch(\PDO::FETCH_NUM);
+        return $result->fetch(FetchMode::NUMERIC);
     }
 
     /**
@@ -142,7 +141,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
         if (!is_object($result)) {
             return null;
         }
-        return $result->fetch(\PDO::FETCH_ASSOC);
+        return $result->fetch(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -160,7 +159,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
         if (!is_object($result)) {
             return null;
         }
-        return $result->fetch(\PDO::FETCH_BOTH);
+        return $result->fetch(FetchMode::MIXED);
     }
 
     /**
@@ -178,7 +177,7 @@ class XoopsMySQLDatabase extends XoopsDatabase
         if (!is_object($result)) {
             return null;
         }
-        return $result->fetch(\PDO::FETCH_OBJ);
+        return $result->fetch(FetchMode::STANDARD_OBJECT);
     }
 
     /**

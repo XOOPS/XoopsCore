@@ -13,6 +13,7 @@ namespace Xoops\Core\Kernel\Model;
 
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsModelAbstract;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * Object joint handler class.
@@ -20,10 +21,8 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @category  Xoops\Core\Kernel\Model\Joint
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
- * @since     2.3.0
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  *
  * Usage of methods provided by XoopsModelJoint:
  *
@@ -119,7 +118,7 @@ class Joint extends XoopsModelAbstract
         $result = $qb->execute();
         $ret = array();
         if ($asObject) {
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                 $object = $this->handler->create(false);
                 $object->assignVars($myrow);
                 $ret[$myrow[$this->handler->keyName]] = $object;
@@ -127,7 +126,7 @@ class Joint extends XoopsModelAbstract
             }
         } else {
             $object = $this->handler->create(false);
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                 $object->assignVars($myrow);
                 $ret[$myrow[$this->handler->keyName]] = $object->getValues();
             }
@@ -202,7 +201,7 @@ class Joint extends XoopsModelAbstract
         $result = $qb->execute();
 
         $ret = array();
-        while (list($id, $count) = $result->fetch(\PDO::FETCH_NUM)) {
+        while (list($id, $count) = $result->fetch(FetchMode::NUMERIC)) {
             $ret[$id] = $count;
         }
         return $ret;

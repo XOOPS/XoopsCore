@@ -14,6 +14,8 @@ namespace Xoops\Core\Kernel\Handlers;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XoopsBlockHandler
@@ -23,9 +25,8 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Gregory Mage (AKA Mage)
  * @author    trabis <lusopoemas@gmail.com>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsBlockHandler extends XoopsPersistableObjectHandler
 {
@@ -69,12 +70,12 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $eb = $qb->expr();
         $qb ->deletePrefix('system_permission', null)
             ->where($eb->eq('gperm_name', $eb->literal('block_read')))
-            ->andWhere($eb->eq('gperm_itemid', $qb->createNamedParameter($obj->getVar('bid'), \PDO::PARAM_INT)))
-            ->andWhere($eb->eq('gperm_modid', $qb->createNamedParameter(1, \PDO::PARAM_INT)))
+            ->andWhere($eb->eq('gperm_itemid', $qb->createNamedParameter($obj->getVar('bid'), ParameterType::INTEGER)))
+            ->andWhere($eb->eq('gperm_modid', $qb->createNamedParameter(1, ParameterType::INTEGER)))
             ->execute();
 
         $qb ->deletePrefix('system_blockmodule', null)
-            ->where($eb->eq('block_id', $qb->createNamedParameter($obj->getVar('bid'), \PDO::PARAM_INT)))
+            ->where($eb->eq('block_id', $qb->createNamedParameter($obj->getVar('bid'), ParameterType::INTEGER)))
             ->execute();
 
         return true;
@@ -107,7 +108,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         if (!$result) {
             return $ret;
         }
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $block = new XoopsBlock();
             $block->assignVars($myrow);
             if (!$id_as_key) {
@@ -183,14 +184,14 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             if (count($groupid) > 1) {
                 $in=array();
                 foreach ($groupid as $gid) {
-                    $in[] = $qb->createNamedParameter($gid, \PDO::PARAM_INT);
+                    $in[] = $qb->createNamedParameter($gid, ParameterType::INTEGER);
                 }
                 $qb->andWhere($eb->in('l.gperm_groupid', $in));
             }
         } else {
-            $qb->andWhere($eb->eq('l.gperm_groupid', $qb->createNamedParameter($groupid, \PDO::PARAM_INT)));
+            $qb->andWhere($eb->eq('l.gperm_groupid', $qb->createNamedParameter($groupid, ParameterType::INTEGER)));
         }
-        $qb->andWhere($eb->eq('b.isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
+        $qb->andWhere($eb->eq('b.isactive', $qb->createNamedParameter($isactive, ParameterType::INTEGER)));
         if (isset($side)) {
             // get both sides in sidebox? (some themes need this)
             if ($side == XOOPS_SIDEBLOCK_BOTH) {
@@ -198,16 +199,16 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             } elseif ($side == XOOPS_CENTERBLOCK_ALL) {
                 $qb->andWhere($eb->in('b.side', array(3,4,5,7,8,9)));
             } else {
-                $qb->andWhere($eb->eq('b.side', $qb->createNamedParameter($side, \PDO::PARAM_INT)));
+                $qb->andWhere($eb->eq('b.side', $qb->createNamedParameter($side, ParameterType::INTEGER)));
             }
         }
         if (isset($visible)) {
-            $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
+            $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, ParameterType::INTEGER)));
         }
         $qb->orderBy($orderby);
         $result = $qb->execute();
         $added = array();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             if (!in_array($myrow['bid'], $added)) {
                 if (!$asobject) {
                     $ret[] = $myrow['bid'];
@@ -243,7 +244,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $eb = $qb->expr();
 
         $qb ->fromPrefix('system_block', null)
-            ->where($eb->eq('isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
+            ->where($eb->eq('isactive', $qb->createNamedParameter($isactive, ParameterType::INTEGER)));
         if (isset($side)) {
             // get both sides in sidebox? (some themes need this)
             if ($side == XOOPS_SIDEBLOCK_BOTH) {
@@ -251,25 +252,25 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             } elseif ($side == XOOPS_CENTERBLOCK_ALL) {
                 $qb->andWhere($eb->in('side', array(3,4,5,7,8,9)));
             } else {
-                $qb->andWhere($eb->eq('side', $qb->createNamedParameter($side, \PDO::PARAM_INT)));
+                $qb->andWhere($eb->eq('side', $qb->createNamedParameter($side, ParameterType::INTEGER)));
             }
         }
         if (isset($visible)) {
-            $qb->andWhere($eb->eq('visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
+            $qb->andWhere($eb->eq('visible', $qb->createNamedParameter($visible, ParameterType::INTEGER)));
         }
         $qb->orderBy($orderby);
         switch ($rettype) {
             case "object":
                 $qb->select('*');
                 $result = $qb->execute();
-                while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+                while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                     $ret[] = new XoopsBlock($myrow);
                 }
                 break;
             case "list":
                 $qb->select('*');
                 $result = $qb->execute();
-                while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+                while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                     $block = new XoopsBlock($myrow);
                     $title = $block->getVar("title");
                     $title = empty($title) ? $block->getVar("name") : $title;
@@ -279,7 +280,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             case "id":
                 $qb->select('bid');
                 $result = $qb->execute();
-                while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+                while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                     $ret[] = $myrow['bid'];
                 }
                 break;
@@ -302,7 +303,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $eb = $qb->expr();
 
         $qb ->fromPrefix('system_block', null)
-            ->where($eb->eq('mid', $qb->createNamedParameter($moduleid, \PDO::PARAM_INT)));
+            ->where($eb->eq('mid', $qb->createNamedParameter($moduleid, ParameterType::INTEGER)));
         if ($asobject == true) {
             $qb->select('*');
         } else {
@@ -311,7 +312,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
 
         $ret = array();
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             if ($asobject) {
                 $ret[] = new XoopsBlock($myrow);
             } else {
@@ -361,16 +362,16 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
                 }
             }
             $result = $qb->execute();
-            $blockids = $result->fetchAll(\PDO::FETCH_COLUMN);
+            $blockids = $result->fetchAll(FetchMode::COLUMN);
         }
 
         $qb->resetQueryParts();
 
         $qb ->select('b.*')
             ->fromPrefix('system_block', 'b')
-            ->where($eb->eq('b.isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
+            ->where($eb->eq('b.isactive', $qb->createNamedParameter($isactive, ParameterType::INTEGER)));
         if (isset($visible)) {
-            $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
+            $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, ParameterType::INTEGER)));
         }
         if (isset($module_id)) {
             $qb ->fromPrefix('system_blockmodule', 'm')
@@ -400,7 +401,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         }
         $qb->orderBy($orderby);
         $result = $qb->execute();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $block = new XoopsBlock($myrow);
             $ret[$myrow['bid']] = $block;
             unset($block);
@@ -434,7 +435,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
         $qb ->select('DISTINCT(bid)')
             ->fromPrefix('system_block', null);
         $result = $qb->execute();
-        $bids = $result->fetchAll(\PDO::FETCH_COLUMN);
+        $bids = $result->fetchAll(FetchMode::COLUMN);
 
         $qb->resetQueryParts();
 
@@ -444,7 +445,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             ->where($eb->eq('g.groupid', 'p.gperm_groupid'))
             ->andWhere($eb->eq('p.gperm_name', $eb->literal('block_read')));
         $result = $qb->execute();
-        $grouped = $result->fetchAll(\PDO::FETCH_COLUMN);
+        $grouped = $result->fetchAll(FetchMode::COLUMN);
 
         $non_grouped = array_diff($bids, $grouped);
 
@@ -453,9 +454,9 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
 
             $qb ->select('b.*')
                 ->fromPrefix('system_block', 'b')
-                ->where($eb->eq('b.isactive', $qb->createNamedParameter($isactive, \PDO::PARAM_INT)));
+                ->where($eb->eq('b.isactive', $qb->createNamedParameter($isactive, ParameterType::INTEGER)));
             if (isset($visible)) {
-                $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, \PDO::PARAM_INT)));
+                $qb->andWhere($eb->eq('b.visible', $qb->createNamedParameter($visible, ParameterType::INTEGER)));
             }
 
             if (isset($module_id)) {
@@ -484,7 +485,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             $qb->andWhere($eb->in('b.bid', $non_grouped));
             $qb->orderBy($orderby);
             $result = $qb->execute();
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                 $block = new XoopsBlock($myrow);
                 $ret[$myrow['bid']] = $block;
                 unset($block);
@@ -516,17 +517,17 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
 
         $qb ->select('COUNT(*)')
             ->fromPrefix('system_block', null)
-            ->where($eb->eq('mid', $qb->createNamedParameter($moduleId, \PDO::PARAM_INT)))
-            ->andWhere($eb->eq('func_num', $qb->createNamedParameter($funcNum, \PDO::PARAM_INT)));
+            ->where($eb->eq('mid', $qb->createNamedParameter($moduleId, ParameterType::INTEGER)))
+            ->andWhere($eb->eq('func_num', $qb->createNamedParameter($funcNum, ParameterType::INTEGER)));
 
         if (isset($showFunc)) {
             // showFunc is set for more strict comparison
-            $qb->andWhere($eb->eq('show_func', $qb->createNamedParameter($showFunc, \PDO::PARAM_STR)));
+            $qb->andWhere($eb->eq('show_func', $qb->createNamedParameter($showFunc, ParameterType::STRING)));
         }
         if (!$result = $qb->execute()) {
             return 0;
         }
-        list ($count) = $result->fetch(\PDO::FETCH_NUM);
+        list ($count) = $result->fetch(FetchMode::NUMERIC);
         return $count;
     }
 
@@ -603,7 +604,7 @@ class XoopsBlockHandler extends XoopsPersistableObjectHandler
             }
 
             $result = $qb->execute();
-            $blockids = $result->fetchAll(\PDO::FETCH_COLUMN);
+            $blockids = $result->fetchAll(FetchMode::COLUMN);
             return $blockids;
         }
         return $ret;

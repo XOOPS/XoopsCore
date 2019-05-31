@@ -22,6 +22,7 @@ namespace Xoops\Core\Kernel\Handlers;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * XOOPS tplset handler class.
@@ -31,9 +32,8 @@ use Xoops\Core\Kernel\XoopsPersistableObjectHandler;
  * @category  Xoops\Core\Kernel\Handlers\XoopsTplSetHandler
  * @package   Xoops\Core\Kernel
  * @author    Kazumi Ono <onokazu@xoops.org>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class XoopsTplSetHandler extends XoopsPersistableObjectHandler
 {
@@ -72,7 +72,7 @@ class XoopsTplSetHandler extends XoopsPersistableObjectHandler
             $qb->select('*')
                 ->fromPrefix('system_tplset', null)
                 ->where($eb->eq('tplset_name', ':tplsetname'))
-                ->setParameter(':tplsetname', $tplset_name, \PDO::PARAM_STR);
+                ->setParameter(':tplsetname', $tplset_name, ParameterType::STRING);
             $result = $qb->execute();
             if (!$result) {
                 return false;

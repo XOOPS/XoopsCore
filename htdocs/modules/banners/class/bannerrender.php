@@ -9,15 +9,16 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Doctrine\DBAL\ParameterType;
+
 /**
  * banners module
  *
- * @copyright       XOOPS Project (http://xoops.org)
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package         banners
- * @since           2.6.0
- * @author          Mage Grégory (AKA Mage)
- * @version         $Id$
+ * @package   Banners
+ * @author    Mage Grégory (AKA Mage)
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @since     2.6.0
  */
 class BannerRender
 {
@@ -105,17 +106,17 @@ class BannerRender
                                 ->set('banner_status', ':stat')
                                 ->set('banner_dateend', ':dateend')
                                 ->where('banner_bid = :bid')
-                                ->setParameter(':impr', $impmade, \PDO::PARAM_INT)
-                                ->setParameter(':stat', 0, \PDO::PARAM_INT)
-                                ->setParameter(':dateend', time(), \PDO::PARAM_INT)
-                                ->setParameter(':bid', $bid, \PDO::PARAM_INT);
+                                ->setParameter(':impr', $impmade, ParameterType::INTEGER)
+                                ->setParameter(':stat', 0, ParameterType::INTEGER)
+                                ->setParameter(':dateend', time(), ParameterType::INTEGER)
+                                ->setParameter(':bid', $bid, ParameterType::INTEGER);
                             $result = $query->execute();
                         } else {
                             $query = $qb->updatePrefix('banners_banner')
                                 ->set('banner_impmade', ':impr')
                                 ->where('banner_bid = :bid')
-                                ->setParameter(':impr', $impmade, \PDO::PARAM_INT)
-                                ->setParameter(':bid', $bid, \PDO::PARAM_INT);
+                                ->setParameter(':impr', $impmade, ParameterType::INTEGER)
+                                ->setParameter(':bid', $bid, ParameterType::INTEGER);
                             $result = $query->execute();
                         }
                     }

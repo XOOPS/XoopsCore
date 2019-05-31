@@ -11,7 +11,9 @@
 
 namespace Xoops\Core\Session;
 
-use Xoops\Core\Database\Connection;
+//use Doctrine\DBAL\TransactionIsolationLevel;
+use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\ParameterType;
 
 /**
  * Handler for database session storage
@@ -21,9 +23,8 @@ use Xoops\Core\Database\Connection;
  * @author    Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Handler implements \SessionHandlerInterface
 {
@@ -83,12 +84,12 @@ class Handler implements \SessionHandlerInterface
             ->fromPrefix($this->sessionTable, 's')
             ->where($eb->eq('s.session_id', ':sessid'))
             ->andWhere($eb->gt('s.expires_at', ':expires'))
-            ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
-            ->setParameter(':expires', time(), \PDO::PARAM_INT);
+            ->setParameter(':sessid', $session_id, ParameterType::STRING)
+            ->setParameter(':expires', time(), ParameterType::INTEGER);
 
         $session_data = '';
         if ($result = $qb->execute()) {
-            if ($row = $result->fetch(\PDO::FETCH_NUM)) {
+            if ($row = $result->fetch(FetchMode::NUMERIC)) {
                 list ($session_data) = $row;
             }
         }
@@ -115,7 +116,7 @@ class Handler implements \SessionHandlerInterface
             ? (int)($_SESSION['SESSION_MANAGER_EXPIRES'])
             : time() + (session_cache_expire() * 60);
         //$oldIsolation = $this->db->getTransactionIsolation();
-        //$this->db->setTransactionIsolation(Connection::TRANSACTION_REPEATABLE_READ);
+        //$this->db->setTransactionIsolation(TransactionIsolationLevel::REPEATABLE_READ);
         //$this->db->beginTransaction();
         //$readResult = $this->read($session_id);
         $qb = $this->db->createXoopsQueryBuilder();
@@ -124,9 +125,9 @@ class Handler implements \SessionHandlerInterface
             ->set('expires_at', ':expires')
             ->set('session_data', ':sessdata')
             ->where($eb->eq('session_id', ':sessid'))
-            ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
-            ->setParameter(':expires', $expires, \PDO::PARAM_INT)
-            ->setParameter(':sessdata', $session_data, \PDO::PARAM_STR);
+            ->setParameter(':sessid', $session_id, ParameterType::STRING)
+            ->setParameter(':expires', $expires, ParameterType::INTEGER)
+            ->setParameter(':sessdata', $session_data, ParameterType::STRING);
         $this->db->setForce(true);
         $result = $qb->execute();
         if ($result<=0) {
@@ -137,9 +138,9 @@ class Handler implements \SessionHandlerInterface
                     'expires_at'   => ':expires',
                     'session_data' => ':sessdata',
                     ))
-                ->setParameter(':sessid', $session_id, \PDO::PARAM_STR)
-                ->setParameter(':expires', $expires, \PDO::PARAM_INT)
-                ->setParameter(':sessdata', $session_data, \PDO::PARAM_STR);
+                ->setParameter(':sessid', $session_id, ParameterType::STRING)
+                ->setParameter(':expires', $expires, ParameterType::INTEGER)
+                ->setParameter(':sessdata', $session_data, ParameterType::STRING);
             $this->db->setForce(true);
             $result = $qb->execute();
         }
@@ -162,7 +163,7 @@ class Handler implements \SessionHandlerInterface
         $eb = $qb->expr();
         $qb ->deletePrefix($this->sessionTable)
             ->where($eb->eq('session_id', ':sessid'))
-            ->setParameter(':sessid', $session_id, \PDO::PARAM_STR);
+            ->setParameter(':sessid', $session_id, ParameterType::STRING);
         $this->db->setForce(true);
         $result = $qb->execute();
         //return (boolean) ($result>0);
@@ -183,7 +184,7 @@ class Handler implements \SessionHandlerInterface
         $eb = $qb->expr();
         $qb ->deletePrefix($this->sessionTable)
             ->where($eb->lt('expires_at', ':expires'))
-            ->setParameter(':expires', $mintime, \PDO::PARAM_INT);
+            ->setParameter(':expires', $mintime, ParameterType::INTEGER);
         $this->db->setForce(true);
         $result = $qb->execute();
         return (boolean) ($result>0);

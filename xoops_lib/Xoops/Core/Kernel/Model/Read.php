@@ -13,6 +13,7 @@ namespace Xoops\Core\Kernel\Model;
 
 use Xoops\Core\Kernel\CriteriaElement;
 use Xoops\Core\Kernel\XoopsModelAbstract;
+use Doctrine\DBAL\FetchMode;
 
 /**
  * Object render handler class.
@@ -20,10 +21,8 @@ use Xoops\Core\Kernel\XoopsModelAbstract;
  * @category  Xoops\Core\Kernel\Model\Read
  * @package   Xoops\Core\Kernel
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
- * @since     2.3.0
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Read extends XoopsModelAbstract
 {
@@ -68,7 +67,7 @@ class Read extends XoopsModelAbstract
             return $ret;
         }
         if ($asObject) {
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                 $object = $this->handler->create(false);
                 $object->assignVars($myrow);
                 if ($id_as_key) {
@@ -80,7 +79,7 @@ class Read extends XoopsModelAbstract
             }
         } else {
             $object = $this->handler->create(false);
-            while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+            while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
                 $object->assignVars($myrow);
                 if ($id_as_key) {
                     $ret[$myrow[$this->handler->keyName]] = $object->getValues();
@@ -145,7 +144,7 @@ class Read extends XoopsModelAbstract
         }
 
         $myts = \Xoops\Core\Text\Sanitizer::getInstance();
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             // identifiers should be textboxes, so sanitize them like that
             $ret[$myrow[$this->handler->keyName]] = empty($this->handler->identifierName) ? 1
                 : $myts->htmlSpecialChars($myrow[$this->handler->identifierName]);
@@ -176,7 +175,7 @@ class Read extends XoopsModelAbstract
             return $ret;
         }
 
-        while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
+        while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
             $ret[] = $myrow[$this->handler->keyName];
         }
         return $ret;
