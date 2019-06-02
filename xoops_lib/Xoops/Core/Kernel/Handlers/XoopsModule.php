@@ -105,12 +105,12 @@ class XoopsModule extends XoopsObject
         $this->setVar('version', (int)(100 * ($this->modinfo['version'] + 0.001)));
         $this->setVar('dirname', $this->modinfo['dirname']);
 
-        $this->setVar('hasmain', (bool) $modInfoArray->get('hasmain', false));
-        $this->setVar('hasadmin', (bool) $modInfoArray->get('hasadmin', false));
-        $this->setVar('hassearch', (bool) $modInfoArray->get('hassearch', false));
+        $this->setVar('hasmain', (bool) $modInfoArray->get('hasMain', false));
+        $this->setVar('hasadmin', (bool) $modInfoArray->get('hasAdmin', false));
+        $this->setVar('hassearch', (bool) $modInfoArray->get('hasSearch', false));
         $this->setVar('hasconfig', ($modInfoArray->has('config') && is_array($modInfoArray->get('config'))) || (bool) $modInfoArray->get('hascomments', false));
-        $this->setVar('hascomments', (bool) $modInfoArray->get('hascomments', false));
-        $this->setVar('hasnotification', (bool) $modInfoArray->get('hasnotification', false));
+        $this->setVar('hascomments', (bool) $modInfoArray->get('hasComments', false));
+        $this->setVar('hasnotification', (bool) $modInfoArray->get('hasNotification', false));
         $this->setVar('namespace', $modInfoArray->get('namespace'));
         $this->setVar('category', $modInfoArray->get('category'));
     }
