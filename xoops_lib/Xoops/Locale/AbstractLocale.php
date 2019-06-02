@@ -157,7 +157,7 @@ abstract class AbstractLocale
      */
     public static function getAdminRssUrls()
     {
-        return array('http://www.xoops.org/backend.php');
+        return array('https://xoops.org/modules/publisher/backend.php');
     }
 
     /**
