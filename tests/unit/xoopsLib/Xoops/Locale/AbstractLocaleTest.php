@@ -122,7 +122,7 @@ class Xoops_Locale_AbstractTest extends \PHPUnit\Framework\TestCase
         $instance = $this->myClass;
 
         $x = $instance::getAdminRssUrls();
-        $this->assertSame(array('http://www.xoops.org/backend.php'), $x);
+        $this->assertSame(array('https://xoops.org/modules/publisher/backend.php'), $x);
     }
 
     public function test_substr()
