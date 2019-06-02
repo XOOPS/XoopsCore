@@ -264,11 +264,9 @@ class XoopsModuleHandler extends XoopsPersistableObjectHandler
             if (!$result = $qb->execute()) {
                 return $ret;
             }
-        } catch (\Doctrine\DBAL\Driver\PDOException $e) {
-            return $ret;
-        } catch (\Doctrine\DBAL\Exception\TableNotFoundException $e) {
-            return $ret;
-        } catch (\PDOException $e) {
+        } catch (\Throwable $e) {
+            /** should get specific exceptions */
+            \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             return $ret;
         }
         while ($myrow = $result->fetch(FetchMode::ASSOCIATIVE)) {
