@@ -36,7 +36,6 @@ if ($op !== 'showschema' || empty($mod_dirname)) {
     $op = 'selectmodule';
 }
 
-//echo '<h2>' . _MI_SCHEMATOOL_NAME . '</h2>';
 $indexAdmin = new \Xoops\Module\Admin();
 $indexAdmin->displayNavigation('schematool.php');
 
@@ -49,7 +48,6 @@ if ($op === 'showschema') {
     if (isset($mod_ver['tables'])) {
         $table_list = $mod_ver['tables'];
     }
-    //Debug::dump($table_list);
     if (empty($table_list)) {
         echo $xoops->alert(
             'warning',
@@ -57,20 +55,19 @@ if ($op === 'showschema') {
             _MI_SCHEMATOOL_TITLE_NO_TABLES
         );
     } else {
-
         // get a schema manager
         $schemaManager = $xoops->db()->getSchemaManager();
 
         // create schema from the current database
         $schema = $schemaManager->createSchema();
 
-        // invoke our RemovePrefixes visitor with list of core tables
+        // invoke our RemovePrefixes visitor with list of module's tables
         $visitor = new RemovePrefixes;
         $visitor->setTableFilter($table_list);
         $schema->visit($visitor);
 
         // Get the schema we built with the RemovePrefixes visitor.
-        // Should be just core tables with no prefix
+        // Should be just module's tables with no prefix
         $newSchema = $visitor->getNewSchema();
 
         // Invoke an ExportVisitor that will build a clean array version
@@ -85,8 +82,12 @@ if ($op === 'showschema') {
             $schemaArray['tables'][$tableName]['options']['charset'] = 'utf8mb4';
             $schemaArray['tables'][$tableName]['options']['collate'] = 'utf8mb4_unicode_ci';
             foreach ($table['columns'] as $column => $data) {
+                if (array_key_exists('name', $data)) {
+                    unset($schemaArray['tables'][$tableName]['columns'][$column]['name']);
+                }
+                // should this go into customSchemaOptions?
                 if (array_key_exists('collation', $data)) {
-                    $schemaArray['tables'][$tableName]['columns'][$column]['collation'] = 'utf8mb4_unicode_ci';
+                    unset($schemaArray['tables'][$tableName]['columns'][$column]['collation']);
                 }
             }
         }

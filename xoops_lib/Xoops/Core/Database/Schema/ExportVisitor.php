@@ -22,7 +22,7 @@ use Doctrine\DBAL\Schema\Visitor\Visitor;
 /**
  * ExportVisitor is a Schema Visitor that builds an exportable array
  * (not object) version of a schema.
- * 
+ *
  * @category  Xoops\Core\Database\Schema\ExportVisitor
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
@@ -42,13 +42,13 @@ class ExportVisitor implements Visitor
      */
     public function __construct()
     {
-        $this->schemaArray = array();
+        $this->schemaArray = [];
     }
 
     /**
      * return the generated Schema
-     * 
-     * @return Schema the generated schema object
+     *
+     * @return array Array representation of the generated schema object
      */
     public function getSchemaArray()
     {
@@ -57,21 +57,20 @@ class ExportVisitor implements Visitor
 
     /**
      * Accept an entire schema. Do nothing in this visitor
-     * 
+     *
      * @param Schema $schema schema object
-     * 
+     *
      * @return void
      */
     public function acceptSchema(Schema $schema)
     {
-
     }
 
     /**
      * Accept a table
      *
      * @param Table $table a table object
-     * 
+     *
      * @return void
      */
     public function acceptTable(Table $table)
@@ -84,7 +83,7 @@ class ExportVisitor implements Visitor
      *
      * @param Table  $table  a table object
      * @param Column $column a column object
-     * 
+     *
      * @return void
      */
     public function acceptColumn(Table $table, Column $column)
@@ -99,7 +98,7 @@ class ExportVisitor implements Visitor
      *
      * @param Table                $localTable   a table object
      * @param ForeignKeyConstraint $fkConstraint a constraint object
-     * 
+     *
      * @return void
      */
     public function acceptForeignKey(Table $localTable, ForeignKeyConstraint $fkConstraint)
@@ -114,7 +113,6 @@ class ExportVisitor implements Visitor
                 'foreigncolumns' => $fkConstraint->getForeignColumns(),
                 'options' => $fkConstraint->getOptions()
             );
-
     }
 
     /**
@@ -122,7 +120,7 @@ class ExportVisitor implements Visitor
      *
      * @param Table $table a table object
      * @param Index $index a column object
-     * 
+     *
      * @return void
      */
     public function acceptIndex(Table $table, Index $index)
@@ -139,7 +137,7 @@ class ExportVisitor implements Visitor
      * Accept an sequence
      *
      * @param Sequence $sequence a sequence object
-     * 
+     *
      * @return void
      */
     public function acceptSequence(Sequence $sequence)
