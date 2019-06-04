@@ -19,10 +19,9 @@ namespace Xoops\Core;
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Skalpa Keo <skalpa@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2000-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
- */
+ * @copyright 2000-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+s */
 class XoopsTpl extends \Smarty
 {
     use SmartyBCTrait;
@@ -99,8 +98,8 @@ class XoopsTpl extends \Smarty
     {
         $isForced = $this->force_compile;
         $this->force_compile = true;
-        $this->clearCache($resourceName);
-        $result = true; // $this->_compile_resource($resourceName, $this->_get_compile_path($resourceName));
+        parent::clearCache($resourceName);
+        $result = true;
         $this->force_compile = $isForced;
         return $result;
     }
@@ -179,7 +178,12 @@ class XoopsTpl extends \Smarty
      */
     public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
     {
-        \Xoops::getInstance()->deprecated('XoopsTpl::clearCache() is potentially ambiguous');
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+        \Xoops::getInstance()->deprecated(
+            "XoopsTpl::clearCache() is potentially ambiguous. Called from {$trace[0]['file']} line {$trace[0]['line']}."
+            . " See \Xoops\Core\XoopsTpl::clearModuleCompileCache() "
+        );
+
         return parent::clearCache($template_name, $cache_id, $compile_id, $exp_time, $type);
     }
 }
