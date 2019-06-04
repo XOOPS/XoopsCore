@@ -21,8 +21,8 @@ use Doctrine\DBAL\Schema\Visitor\Visitor;
 
 /**
  * RemovePrefixes is a Schema Visitor that builds an new Schema object
- * without the XOOPS_DB_PREFIX. A table list can be optionally applied to
- * filter the Schema.
+ * without the configured XOOPS db-prefix on table names. A table list
+ * can be optionally applied to filter the Schema.
  *
  * This depends on PrefixStripper to do a lot of the grunt work.
  *
@@ -39,10 +39,14 @@ class RemovePrefixes implements Visitor
 
     /**
      * Constructor
+     *
+     * @param string   $prefix    Prefix to remove from table names
+     * @param string[] $tableList list of tables to include in new schema. If no
+     *                            list is specified, all tables will be included.
      */
-    public function __construct()
+    public function __construct(string $prefix, $tableList = [])
     {
-        $this->newSchema = new PrefixStripper;
+        $this->newSchema = new PrefixStripper($prefix, $tableList);
     }
 
     /**
@@ -53,20 +57,6 @@ class RemovePrefixes implements Visitor
     public function getNewSchema()
     {
         return $this->newSchema;
-    }
-
-    /**
-     * set list of tables to limit schema
-     *
-     * If no list is specified, all tables will be included
-     *
-     * @param array $tableList list of tables to allow
-     *
-     * @return void
-     */
-    public function setTableFilter(array $tableList)
-    {
-        $this->newSchema->setTableFilter($tableList);
     }
 
     /**

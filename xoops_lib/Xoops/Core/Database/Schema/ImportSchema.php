@@ -36,10 +36,12 @@ class ImportSchema
 
     /**
      * Constructor
+     *
+     * @param string $prefix Prefix to remove from table names
      */
-    public function __construct()
+    public function __construct(string $prefix)
     {
-        $this->xPrefix = strtolower(\XoopsBaseConfig::get('db-prefix') . '_');
+        $this->xPrefix = $prefix;
     }
 
     /**

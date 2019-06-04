@@ -26,11 +26,8 @@ use Doctrine\DBAL\Schema\Visitor\Visitor;
  * @category  Xoops\Core\Database\Schema\ExportVisitor
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 2.6
- * @link      http://xoops.org
- * @since     2.6.0
+ * @copyright 2013-2019 XOOPS Project (https//xoops.org)
+ * @license   GNU GPL 2 or later (https//www.gnu.org/licenses/gpl-2.0.html)
  */
 class ExportVisitor implements Visitor
 {

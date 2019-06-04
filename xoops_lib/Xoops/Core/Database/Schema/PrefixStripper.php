@@ -38,28 +38,15 @@ class PrefixStripper extends Schema
     /**
      * constructor
      *
-     * @param \Doctrine\DBAL\Schema\Table[] $tables       Table objects to include in schema
-     * @param Sequence[]                    $sequences    Sequence objects to include in schema
-     * @param SchemaConfig                  $schemaConfig SchemaConfig object to include in schema
+     * @param string       $prefix       Required table name prefix to remove
+     * @param string[]     $tableList    list of table names (without prefix) to include
+     * @param SchemaConfig $schemaConfig SchemaConfig object to include in schema
      */
-    public function __construct(array $tables = [], array $sequences = [], SchemaConfig $schemaConfig = null)
+    public function __construct(string $prefix, array $tableList = [], SchemaConfig $schemaConfig = null)
     {
-        $this->xPrefix = strtolower(\XoopsBaseConfig::get('db-prefix') . '_');
-        parent::__construct($tables, $sequences, $schemaConfig);
-    }
-
-    /**
-     * set list of tables to limit schema
-     *
-     * If no list is specified, all tables will be included
-     *
-     * @param array $tableList list of tables to include
-     *
-     * @return void
-     */
-    public function setTableFilter(array $tableList)
-    {
+        $this->xPrefix = $prefix;
         $this->tableList = $tableList;
+        parent::__construct([], [], $schemaConfig);
     }
 
     /**

@@ -62,8 +62,7 @@ if ($op === 'showschema') {
         $schema = $schemaManager->createSchema();
 
         // invoke our RemovePrefixes visitor with list of module's tables
-        $visitor = new RemovePrefixes;
-        $visitor->setTableFilter($table_list);
+        $visitor = new RemovePrefixes(\XoopsBaseConfig::get('db-prefix') . '_', $table_list);
         $schema->visit($visitor);
 
         // Get the schema we built with the RemovePrefixes visitor.
@@ -72,7 +71,7 @@ if ($op === 'showschema') {
 
         // Invoke an ExportVisitor that will build a clean array version
         // of our schema, so we can serialize it.
-        $export = new ExportVisitor;
+        $export = new ExportVisitor();
         $newSchema->visit($export);
 
         $schemaArray = $export->getSchemaArray();
@@ -85,7 +84,7 @@ if ($op === 'showschema') {
                 if (array_key_exists('name', $data)) {
                     unset($schemaArray['tables'][$tableName]['columns'][$column]['name']);
                 }
-                // should this go into customSchemaOptions?
+                // should this go through customSchemaOptions?
                 if (array_key_exists('collation', $data)) {
                     unset($schemaArray['tables'][$tableName]['columns'][$column]['collation']);
                 }
