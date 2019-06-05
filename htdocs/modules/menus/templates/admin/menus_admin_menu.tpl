@@ -5,9 +5,9 @@
 {if $select|default:false}
 <div style="margin-bottom:10px; float: right">
     <form class="form-inline" action="admin_menu.php?op=list" method="POST">
-      <select class="span3" name="menu_id" id="menu_id">
+      <select class="span3" name="menu_id" id="menu_id" onchange="this.form.submit()">
       {foreach item=title from=$menus_list key=id }
-        <option value="{$id}"{if $menu_id == $id} selected='selected'{/if}{$title}</option>
+        <option value="{$id}"{if $menu_id == $id} selected{/if}>{$title}</option>
       {/foreach}
       </select>
       <button type="submit" class="btn" name="btn" >{$smarty.const._AM_MENUS_ACTION_GOTO_MENU}</button>
@@ -51,13 +51,13 @@
                 </td>
                 <td>
                     <a href="admin_menu.php?menu_id={$menu_id}&amp;op=add&amp;pid={$menu.id}"><img src="{xoModuleIcons16 'add.png'}" title="{translate key='A_ADD'}" alt="{translate key='A_ADD'}" /></a>
-                    {if $menu.up_weight}
+                    {if $menu.up_weight|default:false}
                     <a href="admin_menu.php?menu_id={$menu_id}&amp;op=move&amp;weight={$menu.up_weight}&amp;id={$menu.id}"><img src="{xoModuleIcons16 'up.png'}" title="{$smarty.const._AM_MENUS_ACTION_UP}" alt="{$smarty.const._AM_MENUS_ACTION_UP}" /></a>
                     {else}
                     <img src="{xoModuleIcons16 'up_off.png'}" title="{$smarty.const._AM_MENUS_ACTION_UP}" alt="{$smarty.const._AM_MENUS_ACTION_UP}" />
                     {/if}
 
-                  {if $menu.down_weight}
+                  {if $menu.down_weight|default:false}
                     <a href="admin_menu.php?menu_id={$menu_id}&amp;op=move&amp;weight={$menu.down_weight}&amp;id={$menu.id}"><img src="{xoModuleIcons16 'down.png'}" title="{$smarty.const._AM_MENUS_ACTION_DOWN}" alt="{$smarty.const._AM_MENUS_ACTION_DOWN}" /></a>
                   {else}
                     <img src="{xoModuleIcons16 'down_off.png'}" title="{$smarty.const._AM_MENUS_ACTION_DOWN}" alt="{$smarty.const._AM_MENUS_ACTION_DOWN}" />

@@ -9,6 +9,8 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\ObjectTree;
+
 /**
  * page module
  *
@@ -50,9 +52,16 @@ class MenusMenus_menuForm extends Xoops\Form\ThemeForm
         $criteria->setSort('weight');
         $criteria->setOrder('ASC');
         $results = $this_handler->getAll($criteria, array('title', 'id', 'pid'));
-        $parent_tree = new XoopsObjectTree($results, 'id', 'pid');
-        $parent_select = $parent_tree->makeSelBox('pid', 'title', '-- ', $obj->getVar('pid'), true);
-        $this->addElement(new Xoops\Form\Label(_AM_MENUS_MENU_PARENT, $parent_select));
+        $parent_tree = new ObjectTree($results, 'id', 'pid');
+        $parent_select = $parent_tree->makeSelect(
+            _AM_MENUS_MENU_PARENT,
+            'pid',
+            $obj->getVar('pid'),
+            'title',
+            '--',
+            true
+        );
+        $this->addElement($parent_select);
 
         $formvis = new Xoops\Form\Select(_AM_MENUS_MENU_VISIBLE, "visible", $obj->getVar('visible'));
         $formvis->addOption("0", XoopsLocale::NO);
