@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
 
+use Xoops\Core\ObjectTree;
 use Xoops\Core\XoopsTpl;
 
 /**
@@ -163,7 +164,7 @@ class CommentsCommentRenderer
     public function renderThreadView($comment_id = 0, $admin_view = false, $show_nav = true)
     {
         // construct comment tree
-        $xot = new XoopsObjectTree($this->comments, 'id', 'pid', 'rootid');
+        $xot = new ObjectTree($this->comments, 'id', 'pid', 'rootid');
         $tree = $xot->getTree();
 
         $image = (false != $this->useIcons) ? $this->getTitleIcon($tree[$comment_id]['obj']->getVar('icon')) : '';
@@ -282,7 +283,7 @@ class CommentsCommentRenderer
      */
     public function renderNestView($comment_id = 0, $admin_view = false)
     {
-        $xot = new XoopsObjectTree($this->comments, 'id', 'pid', 'rootid');
+        $xot = new ObjectTree($this->comments, 'id', 'pid', 'rootid');
         $tree = $xot->getTree();
         $image = (false != $this->useIcons) ? $this->getTitleIcon($tree[$comment_id]['obj']->getVar('icon')) : '';
         $title = $tree[$comment_id]['obj']->getVar('title');
