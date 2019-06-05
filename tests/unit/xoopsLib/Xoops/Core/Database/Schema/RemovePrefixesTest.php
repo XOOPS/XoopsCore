@@ -2,6 +2,7 @@
 require_once(__DIR__.'/../../../../../init_new.php');
 
 use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Schema\Table;
 
 class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 {
@@ -9,14 +10,14 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 
     public function test___construct()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
         $this->assertInstanceOf($this->myClass, $instance);
         $this->assertInstanceOf('Doctrine\DBAL\Schema\Visitor\Visitor', $instance);
     }
 
     public function test_getNewSchema()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $value = $instance->getNewSchema();
         $this->assertInstanceOf('Xoops\Core\Database\Schema\PrefixStripper', $value);
@@ -24,14 +25,19 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 
     public function test_setTableFilter()
     {
-        $instance = new $this->myClass();
-        $instance->setTableFilter(array());
-        $this->assertTrue(true);
+        $instance = new $this->myClass('prefix_', ['table2']);
+        $table1 = new Table('prefix_table1');
+        $table2 = new Table('prefix_table2');
+        $instance->acceptTable($table1);
+        $instance->acceptTable($table2);
+        $schema = $instance->getNewSchema();
+        $this->assertFalse($schema->hasTable('table1'));
+        $this->assertTrue($schema->hasTable('table2'));
     }
 
     public function test_acceptSchema()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $schema = new Doctrine\DBAL\Schema\Schema();
         $value = $instance->acceptSchema($schema);
@@ -40,18 +46,17 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 
     public function test_acceptTable()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $table = new Doctrine\DBAL\Schema\Table('system_group');
         $value = $instance->acceptTable($table);
-        $this->assertSame(null, $value);
+        $this->assertNull($value);
         $value = $instance->getNewSchema();
-        // var_dump($value);
     }
 
     public function test_acceptColumn()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $table = new Doctrine\DBAL\Schema\Table('system_group');
         $type = Type::getType(Type::INTEGER);
@@ -63,7 +68,7 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 
     public function test_acceptForeignKey()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $table = new Doctrine\DBAL\Schema\Table('system_group');
 
@@ -81,7 +86,7 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 
     public function test_acceptIndex()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $table = new Doctrine\DBAL\Schema\Table('system_group');
 
@@ -98,7 +103,7 @@ class RemovePrefixesTest extends \PHPUnit\Framework\TestCase
 
     public function test_acceptSequence()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
 
         $table = new Doctrine\DBAL\Schema\Table('system_group');
 

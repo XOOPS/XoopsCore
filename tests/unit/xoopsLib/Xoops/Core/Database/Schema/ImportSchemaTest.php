@@ -9,7 +9,7 @@ class ImportSchemaTest extends \PHPUnit\Framework\TestCase
 
     public function test___construct()
     {
-        $instance = new $this->myClass();
+        $instance = new $this->myClass('prefix_');
         $this->assertInstanceOf($this->myClass, $instance);
     }
 
@@ -53,7 +53,7 @@ class ImportSchemaTest extends \PHPUnit\Framework\TestCase
 
         $schema = $instance->getSchemaArray();
 
-        $import = new $this->myClass();
+        $import = new $this->myClass('prefix_');
         $value = $import->importSchemaArray($schema);
 
         $this->assertInstanceOf('Doctrine\DBAL\Schema\Schema', $value);

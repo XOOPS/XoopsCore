@@ -242,7 +242,7 @@ class SystemModule
                             sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$schema_file}</strong>");
                         return false;
                     }
-                    $importer = new ImportSchema;
+                    $importer = new ImportSchema(\XoopsBaseConfig::get('db-prefix') . '_');
                     $importSchema = $importer->importSchemaArray(Yaml::read($schema_file_path));
                     $synchronizer = new SingleDatabaseSynchronizer($xoops->db());
                     $synchronizer->updateSchema($importSchema, true);
@@ -638,7 +638,7 @@ class SystemModule
                         sprintf(SystemLocale::EF_SQL_FILE_NOT_FOUND, "<strong>{$schema_file}</strong>");
                     return false;
                 }
-                $importer = new ImportSchema;
+                $importer = new ImportSchema(\XoopsBaseConfig::get('db-prefix') . '_');
                 $importSchema = $importer->importSchemaArray(Yaml::read($schema_file_path));
                 $synchronizer = new SingleDatabaseSynchronizer($xoops->db());
                 $synchronizer->updateSchema($importSchema, true);

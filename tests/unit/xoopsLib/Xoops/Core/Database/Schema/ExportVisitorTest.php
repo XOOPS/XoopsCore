@@ -62,9 +62,9 @@ class ExportVisitorTest extends \PHPUnit\Framework\TestCase
         $instance->acceptColumn($table, $column);
 
         $value = $instance->getSchemaArray();
-        $this->assertTrue(is_array($value));
+        $this->assertIsArray($value);
+        $this->assertIsArray($value['tables']['system_group']['columns'][$col_name]);
         $this->assertTrue(!empty($value['tables']['system_group']['columns']['groupid']));
-        $this->assertSame($col_name, $value['tables']['system_group']['columns'][$col_name]['name']);
         $this->assertSame('integer', $value['tables']['system_group']['columns'][$col_name]['type']);
     }
 

@@ -13,6 +13,7 @@ namespace Xoops\Core\Database\Schema;
 
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\SchemaConfig;
 use Doctrine\DBAL\Schema\Sequence;
 
 /**
@@ -20,46 +21,32 @@ use Doctrine\DBAL\Schema\Sequence;
  * sequences selectively while visiting another schema.
  *
  * New schema will be stripped of database and prefix and optionally
- * filered by a table list
+ * filtered by a table list
  *
  * @category  Xoops\Core\Database\Schema\PrefixStripper
  * @package   Xoops\Core
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2013 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @version   Release: 2.6
- * @link      http://xoops.org
- * @since     2.6.0
+ * @copyright 2013-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class PrefixStripper extends Schema
 {
 
-    private $xPrefix = '';
-    private $xDbName = '';
-    private $tableList = array();
+    private $xPrefix;
+    private $tableList = [];
 
     /**
      * constructor
+     *
+     * @param string       $prefix       Required table name prefix to remove
+     * @param string[]     $tableList    list of table names (without prefix) to include
+     * @param SchemaConfig $schemaConfig SchemaConfig object to include in schema
      */
-    public function __construct(array $tables=array(), array $sequences=array(), SchemaConfig $schemaConfig=null)
+    public function __construct(string $prefix, array $tableList = [], SchemaConfig $schemaConfig = null)
     {
-        $this->xPrefix = strtolower(\XoopsBaseConfig::get('db-prefix') . '_');
-        $this->xDbName = strtolower(\XoopsBaseConfig::get('db-name'));
-        parent::__construct($tables, $sequences, $schemaConfig);
-    }
-
-    /**
-     * set list of tables to limit schema
-     *
-     * If no list is specified, all tables will be included
-     *
-     * @param array $tableList list of tables to include
-     *
-     * @return void
-     */
-    public function setTableFilter(array $tableList)
-    {
+        $this->xPrefix = $prefix;
         $this->tableList = $tableList;
+        parent::__construct([], [], $schemaConfig);
     }
 
     /**
@@ -68,10 +55,11 @@ class PrefixStripper extends Schema
      * @param Table $table table object to add
      *
      * @return void
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function addTable(Table $table)
     {
-        //echo '<h2>addTable()</h2>';
         try {
             $name = $table->getName();
             $len = strlen($this->xPrefix);
@@ -90,8 +78,7 @@ class PrefixStripper extends Schema
                     $this->_addTable($newtable);
                 }
             }
-            //Debug::dump($table);
-        } catch (\Exception $e) {
+        } catch (\Doctrine\DBAL\DBALException $e) {
             \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             throw $e;
         }
@@ -103,14 +90,14 @@ class PrefixStripper extends Schema
      * @param Sequence $sequence a sequence
      *
      * @return void
+     *
+     * @throws \Doctrine\DBAL\Schema\SchemaException
      */
     public function addSequence(Sequence $sequence)
     {
-        //echo '<h2>addSequence()</h2>';
         try {
             $this->_addSequence($sequence);
-            //Debug::dump($sequence);
-        } catch (\Exception $e) {
+        } catch (\Doctrine\DBAL\Schema\SchemaException $e) {
             \Xoops::getInstance()->events()->triggerEvent('core.exception', $e);
             throw $e;
         }
