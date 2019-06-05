@@ -18,9 +18,8 @@ namespace Xoops\Form;
  * @package   Xoops\Form
  * @author    Kazumi Ono <onokazu@xoops.org>
  * @author    Taiwen Jiang <phppp@users.sourceforge.net>
- * @copyright 2001-2015 XOOPS Project (http://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @link      http://xoops.org
+ * @copyright 2001-2019 XOOPS Project (https://xoops.org)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  */
 class Select extends OptionElement
 {
@@ -102,7 +101,7 @@ class Select extends OptionElement
     {
         $rendered = '<option value="' . htmlspecialchars($optionValue, ENT_QUOTES) . '"';
         if (in_array($optionValue, $selected)) {
-            $rendered .= ' selected="selected"';
+            $rendered .= ' selected';
         }
         $rendered .= '>' . $optionDisplay . '</option>' . "\n";
 
