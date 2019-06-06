@@ -9,6 +9,7 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use Doctrine\DBAL\FetchMode;
 use Xoops\Core\Database\Connection;
 use Xoops\Core\FixedGroups;
 use Xoops\Core\Kernel\XoopsObject;
@@ -59,7 +60,7 @@ class MenusMenuHandler extends XoopsPersistableObjectHandler
     /**
      * @param MenusMenu $obj
      */
-    public function update_weights(MenusMenu $obj)
+    public function updateWeights(MenusMenu $obj)
     {
         $sql = "UPDATE " . $this->table
         . " SET weight = weight+1"
@@ -68,22 +69,25 @@ class MenusMenuHandler extends XoopsPersistableObjectHandler
         /*. " AND pid = " . $obj->getVar('pid')*/
         . " AND mid = " . $obj->getVar('mid')
         ;
-        $this->db->queryF($sql);
+        $originalForce = $this->db2->getForce();
+        $this->db2->setForce(true);
+        $this->db2->query($sql);
 
         $sql = "SELECT id FROM " . $this->table
         . " WHERE mid = " . $obj->getVar('mid')
         /*. " AND pid = " . $obj->getVar('pid')*/
         . " ORDER BY weight ASC"
         ;
-        $result = $this->db->query($sql);
+        $result = $this->db2->query($sql);
         $i = 1;  //lets start at 1 please!
-        while (false !== (list($id) = $this->db->fetchRow($result))) {
+        while (false !== (list($id) = $result->fetch(FetchMode::NUMERIC))) {
             $sql = "UPDATE " . $this->table
             . " SET weight = {$i}"
             . " WHERE id = {$id}"
             ;
-            $this->db->queryF($sql);
+            $this->db2->query($sql);
             ++$i;
         }
+        $this->db2->setForce($originalForce);
     }
 }

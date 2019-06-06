@@ -117,8 +117,8 @@ switch ($op) {
         $obj->setVars($_POST);
         $obj->setVar('weight', $weight);
 
-        if ($helper->getHandlerMenu()->insert($obj)) {
-            $this_handler->update_weights($obj);
+        if ($this_handler->insert($obj)) {
+            $this_handler->updateWeights($obj);
             $xoops->redirect('admin_menu.php?op=list&amp;menu_id=' . $obj->getVar('mid'), 2, implode('<br />', $msg));
         }
         echo $xoops->alert('error', $obj->getHtmlErrors());
@@ -153,7 +153,7 @@ switch ($op) {
         $obj = $this_handler->get($id);
         $obj->setVar('weight', $weight);
         $this_handler->insert($obj);
-        $this_handler->update_weights($obj);
+        $this_handler->updateWeights($obj);
         $xoops->redirect('admin_menu.php?op=list&amp;menu_id=' . $obj->getVar('mid'), 2, _AM_MENUS_SAVE);
         break;
 
